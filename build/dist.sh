@@ -1,7 +1,8 @@
 #!/bin/sh
 
 #
-# USAGE: ./dist.sh -v VERSION -r REVISION [-rs REVISION-SVN] [-pr REPOS-PATH]
+# USAGE: ./dist.sh -v VERSION -r REVISION -d RELEASE_DATE 
+#                  [-rs REVISION-SVN] [-pr REPOS-PATH]
 #                  [-zip] [-alpha ALPHA_NUM|-beta BETA_NUM|-rc RC_NUM]
 #
 #   Create a distribution tarball, labelling it with the given VERSION.
@@ -24,6 +25,8 @@
 #   specified, it will build a release tarball.
 #  
 #   To build a Windows zip file package pass -zip.
+
+set -x
 
 # A quick and dirty usage message
 USAGE="USAGE: ./dist.sh -v VERSION -r REVISION -d RELEASE_DATE \
@@ -110,6 +113,12 @@ if [ -z "$VERSION" ] || [ -z "$REVISION" ] || [ -z "$RDATE" ]; then
   exit 1
 fi
 
+VER="$VERSION"
+REL="$REVISION"
+LOWER='abcdefghijklmnopqrstuvwxyz'
+UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+VER_UC=`echo $VER | sed -e "y/$LOWER/$UPPER/"`
+
 RELEASE_DATE="`date -d $RDATE  "+%B %e, %G"`"
 
 if [ -z "$REPOS_PATH" ]; then
@@ -193,6 +202,7 @@ fi
 
 SED_FILES="$DISTPATH/build/phreeqc_version.h \
            $DISTPATH/packages/win32-is/phreeqc.ipr \
+           $DISTPATH/packages/win32-is/Media/SingleDisk/Default.mda \
            $DISTPATH/packages/win32-is/STRING~1/0009-English/value.shl"
 
 for vsn_file in $SED_FILES
@@ -207,7 +217,7 @@ do
    -e "s/@RELEASE_DATE@/$RELEASE_DATE/g" \
    -e "s/@VER@/$VER/g" \
    -e "s/@VER_UC@/$VER_UC/g" \
-   -e "s/@REL@/${REL}/g" \
+   -e "s/@REL@/$REL/g" \
     < "$vsn_file" > "$vsn_file.tmp"
   unix2dos "$vsn_file.tmp" 2> /dev/null
   mv -f "$vsn_file.tmp" "$vsn_file"
