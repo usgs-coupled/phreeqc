@@ -1,12 +1,15 @@
 # Locations to save compressed tar file for distribution
-EXPORT_DIR=$(TOPDIR)/src/phreeqc_export
+EXPORT=$(TOPDIR)/src/phreeqc_export
+EXPORT_DIR=$(HOME)/../..$(EXPORT)
+WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.11
+VER_DATE=February 7, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
-AMOUNTPREFIX=/z/$(shell hostname -s)
+TEXTCP=textcp DOS
 
 # list of files for distribution
 FILES=  \
@@ -121,6 +124,7 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
+# make sure program is compiles, run examples and mytest
 output_files: all examples mytest
 
 examples:
@@ -129,9 +133,14 @@ examples:
 mytest:
 	cd ../mytest; make clean; make >& make.out 
 
-all_dist:  linux # sun mytest dist
+all_dist:  clean_dist linux sun source win
 
-linux: linux_export linux_clean linux_sed_files linux_compile linux_output linux_dist linux_test
+test_dist: linux_test source_test sun_test
+
+#
+#Linux
+#
+linux: linux_export linux_clean linux_sed_files linux_compile linux_output linux_dist source_dist
 
 linux_export:
 	mkdir -p $(EXPORT_DIR)
@@ -143,10 +152,11 @@ linux_clean:
 
 linux_sed_files:
 	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VER_DATE/$(VER_DATE)/" \
 	    -e "s/VERSION_DATE/$(VERSION)/" \
 	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
 	for FILE in $(EXPORT_DIR)/Linux/doc/README.TXT; do \
-		sed -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+		sed  -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
 
 linux_compile:
 	make -C $(EXPORT_DIR)/Linux/src
@@ -169,41 +179,7 @@ linux_dist:
 	cd $(EXPORT_DIR)/Linux; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
 	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
 
-linux_test:
-	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
-	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Linux.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Linux
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./test.sh
-	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Linux/bin/phreeqc
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/src; make -k
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./clean.sh; ./test.sh
-
-sun: clean_sun
-	mkdir -p $(TOPDIR)/sun
-	cp Makefile *.c *.h $(TOPDIR)/sun
-	ssh u450rcolkr "cd $(AMOUNTPREFIX)$(TOPDIR)/sun; make -j4 EXE=$(AMOUNTPREFIX)$(TOPDIR)/bin/$(PROGRAM).sun"
-	cp ../bin/phreeqc ../bin/phreeqc.linux
-	cp ../bin/phreeqc.sun ../bin/phreeqc
-	ssh u450rcolkr "cd $(AMOUNTPREFIX)$(TOPDIR)/test.sun; ./clean.sh; ./test.sh"
-	mv ../bin/phreeqc.linux ../bin/phreeqc
-
-sun_clean:
-	rm -f $(TOPDIR)/sun/*.c $(TOPDIR)/sun/*.h $(TOPDIR)/sun/*.o $(TOPDIR)/bin/phreeqc.sun
-
-sun_dist: 
-	cd ..; rm -f $(PROGRAM).tar
-	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-	cd ..; mkdir $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
-	cd ..; cp bin/$(PROGRAM).sun $(PROGRAM)-$(VERSION)/bin/$(PROGRAM)
-	cd ..; for FILE in $(OUTPUT_FILES); do cp test.sun/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
-	cd ..; tar -czf $(PROGRAM).SunOS.tar.gz $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).SunOS.tar.gz $(DIST_DIR)/$(ROOTNAME).SunOS.tar.gz
-	cd ..; echo $(ROOTNAME).SunOS.tar.gz saved in $(DIST_DIR).
-	cd ..; rm -rf $(PROGRAM)$(VERSION)
-
-dist_source: 
+source_dist:
 	cd ..; rm -f $(PROGRAM).tar
 	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)
@@ -216,35 +192,118 @@ dist_source:
 	cd ..; echo $(ROOTNAME).source.tar.gz saved in $(DIST_DIR).
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
-clean_dist:
-	rm -f $(DIST_DIR)/README.TXT
-	rm -f $(DIST_DIR)/phreeqc-$(VERSION)-*gz
-	echo Removed README.TXT and tar.gz files for $(PROGRAM) from $(DIST_DIR).
+linux_test:
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Linux.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./test.sh
+	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Linux/bin/phreeqc
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/src; make -k
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./clean.sh; ./test.sh
 
-win: 
-	cd ..; rm -f $(PROGRAM).tar
-	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-	cd ..; mkdir $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd ../$(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
+source_test:
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).source
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.source.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).source
+	cd $(DIST_DIR)/phreeqc-$(VERSION).source/src; make -k
+	cd $(DIST_DIR)/phreeqc-$(VERSION).source/test; ./test.sh
+
+#
+#Sun
+#
+sun: sun_export sun_clean sun_sed_files sun_compile sun_output sun_dist 
+
+sun_export:
+	mkdir -p $(EXPORT_DIR)
+	rm -rf $(EXPORT_DIR)/Sun
+	svn export .. $(EXPORT_DIR)/Sun
+
+sun_clean:
+	rm -f $(EXPORT_DIR/Sun/bin/$(PROGRAM) $(EXPORT_DIR/Sun/src/*.o 
+
+sun_sed_files:
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/VERSION_DATE/$(VERSION)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Sun/src/revisions > $(EXPORT_DIR)/Sun/doc/RELEASE.TXT
+	for FILE in $(EXPORT_DIR)/Sun/doc/README.TXT; do \
+		sed -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+
+sun_compile:
+	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src"
+
+sun_output:
+	ssh u450rcolkr "cd $(EXPORT_DIR)/Sun/examples; make clean; make >& make.out"
+	ssh u450rcolkr "cd $(EXPORT_DIR)/Sun/test; ./clean.sh; ./test.sh"
+
+sun_dist: 
+	cd $(EXPORT_DIR)/Sun; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Sun; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd $(EXPORT_DIR)/Sun; tar -rf $(PROGRAM).tar bin/$(PROGRAM)
+	cd $(EXPORT_DIR)/Sun; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Sun; mkdir $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Sun; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Sun; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Sun; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd $(EXPORT_DIR)/Sun; tar -czf $(PROGRAM).Sun.tar.gz $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Sun; mv $(PROGRAM).Sun.tar.gz $(DIST_DIR)/$(ROOTNAME).Sun.tar.gz
+	cd $(EXPORT_DIR)/Sun; echo $(ROOTNAME).Sun.tar.gz saved in $(DIST_DIR).
+	cd $(EXPORT_DIR)/Sun; rm -rf $(PROGRAM)-$(VERSION)
+
+sun_test:
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Sun
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Sun.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Sun
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).Sun/test; ./test.sh"
+	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Sun/bin/phreeqc
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).Sun/src; make -k"
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).Sun/test; ./clean.sh; ./test.sh"
+
+clean_dist:
+	rm -rf $(EXPORT_DIR)
+
+#
+#Win
+#
+win: win_export win_sed_files win_dist 
+
+win_export:
+	mkdir -p $(EXPORT_DIR)
+	rm -rf $(EXPORT_DIR)/Win
+	svn export .. $(EXPORT_DIR)/Win
+
+win_sed_files:
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/doc/RELEASE.TXT
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/doc/README.TXT
+
+win_dist: 
+	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM).tar
+# Translate cr/lf
+	cd $(EXPORT_DIR)/Win; for FILE in $(FILES); do \
+		if [ $$FILE = doc/manual.pdf -o $$FILE = doc/wrir02-4172.pdf ]; then cp $$FILE t; mv t $$FILE; \
+		else $(TEXTCP) $$FILE t; mv t $$FILE; fi; done
+	cd $(EXPORT_DIR)/Win; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Win; mkdir $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Win; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Win; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
 # remove example output
-	cd ..; rm -f $(PROGRAM)-$(VERSION)/examples/*.out $(PROGRAM)-$(VERSION)/examples/*.sel
-# copy Windows files
-	cd ..; cp database/*.dat $(PROGRAM)-$(VERSION)/
-# remove database, bin directories
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)/database $(PROGRAM)-$(VERSION)/bin
+	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM)-$(VERSION)/examples/*.out $(PROGRAM)-$(VERSION)/examples/*.sel
+# remove bin directory
+	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)/bin
+# remove test directory files
+	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM)-$(VERSION)/test/*
+	cd $(EXPORT_DIR)/Win; $(TEXTCP) $(WIN_DIR)/clean.bat $(PROGRAM)-$(VERSION)/test/clean.bat
+	cd $(EXPORT_DIR)/Win; $(TEXTCP) $(WIN_DIR)/check.bat $(PROGRAM)-$(VERSION)/test/check.bat
+	cd $(EXPORT_DIR)/Win; $(TEXTCP) $(WIN_DIR)/test.bat $(PROGRAM)-$(VERSION)/test/test.bat
 # copy bat file
-	cd ..; cp win/phreeqc.bat $(PROGRAM)-$(VERSION)/
-	cd ..; rm -f $(PROGRAM)-$(VERSION)/test/*
-	cd ..; cp win/clean.bat win/check.bat win/test.bat $(PROGRAM)-$(VERSION)/test
-	cd ..; rm -f $(PROGRAM)-$(VERSION)/README.TXT
-	cd ..; cp win/README.TXT $(PROGRAM)-$(VERSION)/
-	cd ..; rm -f $(PROGRAM).Windows.tar.gz
-	cd ..; tar -czf $(PROGRAM).Windows.tar.gz $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
-	cd ..; echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Win; $(TEXTCP) $(WIN_DIR)/phreeqc.bat $(PROGRAM)-$(VERSION)/phreeqc.bat
+	cd $(EXPORT_DIR); rm -f $(PROGRAM).Windows.tar.gz
+	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); tar -czf $(PROGRAM).Windows.tar.gz .
+	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
+	echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
+#	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
@@ -252,20 +311,6 @@ debug:
 
 test_dist: linux_test sunos_test source_test
 
-
-test_sunos:
-	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).SunOS
-	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.SunOS.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).SunOS
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/test; ./test.sh"
-	ssh u450rcolkr "rm -f $(DIST_DIR)/phreeqc-$(VERSION).SunOS/bin/phreeqc"
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/src; make -k"
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/test; ./clean.sh; ./test.sh"
-
-test_source:
-	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).source
-	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.source.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).source
-	cd $(DIST_DIR)/phreeqc-$(VERSION).source/src; make -k
-	cd $(DIST_DIR)/phreeqc-$(VERSION).source/test; ./test.sh
 
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
@@ -277,5 +322,3 @@ web:
 	cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
 
-dist: clean_dist dist_linux dist_sun dist_source win
-	echo Done with distribution.

@@ -18,7 +18,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    Fact Sheet FS-031-02, 2 p.
 
 
-                  PHREEQC - Version VERSION  February 7, 2005
+                  PHREEQC - Version VERSION  VER_DATE
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the phreeqc.txt file in the doc directory
@@ -47,7 +47,7 @@ and information files) are currently available for UNIX systems:
 
   phreeqc-VERSION.REVISION-SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
   phreeqc-VERSION.REVISION-Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
-                              kernel 2.6.8.1-24mdkenterprise
+                                     kernel 2.6.8.1-24mdkenterprise
   phreeqc-VERSION.REVISION-.source.tar.gz - Source code but no executable
 
 
@@ -101,7 +101,7 @@ file.
 The following directory structure is created (the contents of each
 directory are shown to the right):
 
-   phreeqc-VERSION         files NOTICE.TXT, RELEASE.TXT, and this README.TXT
+   phreeqc-VERSION        files NOTICE.TXT, RELEASE.TXT, and this README.TXT
      `-----bin         compiled executable, template for execution script
      `-----database    database files required during execution
      `-----doc         documentation files 
