@@ -90,12 +90,8 @@ all:
 			else time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE); fi; \
 		if [ -f logfile ]; then mv logfile $$FILE.logfile; fi; \
 		mv phreeqc.log $$FILE.log; \
-		echo "====>" $$FILE.out; \
-			rcsdiff -bw $$FILE.out; \
-		if [ $$FILE = using ]; then rcsdiff -bw $$FILE.sel; fi; \
-		echo "====>" $$FILE.log; \
 		done
-
+	svn diff .
 #			rcsdiff -bw $$FILE.log; \
 
 #$(FILE).out: $(FILE)
