@@ -9,6 +9,9 @@ x(2) Update version and date in doc/README.TXT
 x(3) Update version and date in win/README.TXT
      ci
 
+(3a) Get version numbers for databases
+     ci -l *.dat in /programs/phreeqc/database
+
 (4) Update src/../RELEASE.TXT 
      update revisions, copy to RELEASE.TXT
      ci
