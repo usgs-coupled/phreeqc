@@ -21,7 +21,7 @@ EmailAddress=dlpark@usgs.gov
 Copyright=
 Summary=PHREEQC 
 Name=PHREEQC
-Version=
+Version=@VER_UC@
 ExeFile=phreeqc.bat
 Comments=A hydrogeochemical transport model
 
