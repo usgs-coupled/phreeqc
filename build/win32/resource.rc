@@ -8,7 +8,7 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "afxres.h"
-
+#include "../phreeqc_version.h"
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
@@ -28,8 +28,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,11,0,0
- PRODUCTVERSION 2,11,0,0
+ FILEVERSION PHREEQC_VER_MAJOR,PHREEQC_VER_MINOR,PHREEQC_VER_PATCH,PHREEQC_VER_REVISION
+ PRODUCTVERSION PHREEQC_VER_MAJOR,PHREEQC_VER_MINOR,PHREEQC_VER_PATCH,PHREEQC_VER_REVISION
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -44,17 +44,17 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "Released: February 7, 2005\0"
+            VALUE "Comments", "Released: " RELEASE_DATE "\0"
             VALUE "CompanyName", "U.S. Geological Survey\0"
             VALUE "FileDescription", "A hydrogeochemical transport model\0"
-            VALUE "FileVersion", "2.11.0.0\0"
+            VALUE "FileVersion", PHREEQC_VER_NUM "\0"
             VALUE "InternalName", "phreeqc\0"
-            VALUE "LegalCopyright", "\0"
+            VALUE "LegalCopyright", "public domain\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "phreeqc.exe\0"
             VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "PHREEQC-2.11\0"
-            VALUE "ProductVersion", "2.11.0.0\0"
+            VALUE "ProductName", PRODUCT_NAME "\0"
+            VALUE "ProductVersion", PHREEQC_VER_NUM "\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -81,7 +81,7 @@ END
 2 TEXTINCLUDE DISCARDABLE 
 BEGIN
     "#include ""afxres.h""\r\n"
-    "\0"
+    "#include ""../phreeqc_version.h""\0"
 END
 
 3 TEXTINCLUDE DISCARDABLE 
