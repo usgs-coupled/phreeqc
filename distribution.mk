@@ -10,6 +10,7 @@ VER_DATE=February 7, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
+SUN_DIR=$(HOME)/../../$(TOPDIR)/src/Sun
 
 # list of files for distribution
 FILES=  \
@@ -125,13 +126,15 @@ OUTPUT_FILES = \
 	ex18.out 
 
 # make sure program is compiles, run examples and mytest
-output_files: all examples mytest
+linux_output_files: all 
+	cd ../examples; make >& make.out 
+	cd ../mytest; make >& make.out 
+	cd ../test; ./clean.sh; ./test.sh
 
-examples:
-	cd ../examples; make clean; make >& make.out 
+sun_output_files: phreeqc.sun 
+	ssh u450rcolkr "cd $(SUN_DIR)/examples; make"
 
-mytest:
-	cd ../mytest; make clean; make >& make.out 
+phreeqc.sun: $(SUN_DIR)/bin/phreeqc
 
 all_dist:  clean_dist linux sun # win
 
@@ -308,6 +311,10 @@ win_dist:
 debug: 
 	mkdir -p $(DEBUG_DIR)
 	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
+
+$(SUN_DIR)/bin/phreeqc: 
+	mkdir -p $(SUN_DIR) $(SUN_DIR)/bin $(SUN_DIR)/src $(SUN_DIR)/test
+	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../debug.mk TOPDIR=$(SUN_DIR)/..; make -f $(SUN_DIR)/../Makefile EXE=$(SUN_DIR)/bin/phreeqc"	
 
 test_dist: linux_test sunos_test source_test
 
