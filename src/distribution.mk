@@ -3,8 +3,9 @@ DIST_DIR=~dlpark/temp
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.11
-REVISION=`svnversion .`
+REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
+AMOUNTPREFIX=/z/$(shell hostname -s)
 
 # list of files for distribution
 FILES=  \
@@ -124,12 +125,13 @@ all_dist: ../doc/RELEASE.TXT linux sun mytest dist
 ../doc/RELEASE.TXT: revisions
 	cp revisions ../doc/RELEASE.TXT
 
-sun: clean_sun 
+sun: clean_sun
+	mkdir -p $(TOPDIR)/sun
 	cp Makefile *.c *.h $(TOPDIR)/sun
-	ssh u450rcolkr "cd ~dlpark/programs/phreeqc/sun; make -j 4 EXE=/z/parkplace/home/dlpark/programs/phreeqc/bin/$(PROGRAM).sun"
+	ssh u450rcolkr "cd $(AMOUNTPREFIX)$(TOPDIR)/sun; make -j4 EXE=$(AMOUNTPREFIX)$(TOPDIR)/bin/$(PROGRAM).sun"
 	cp ../bin/phreeqc ../bin/phreeqc.linux
 	cp ../bin/phreeqc.sun ../bin/phreeqc
-	ssh u450rcolkr "cd ~dlpark/programs/phreeqc/test.sun; ./clean.sh; ./test.sh"
+	ssh u450rcolkr "cd $(AMOUNTPREFIX)$(TOPDIR)/test.sun; ./clean.sh; ./test.sh"
 	mv ../bin/phreeqc.linux ../bin/phreeqc
 
 clean_sun:
@@ -214,7 +216,7 @@ win:
 	cd ..; rm -f $(PROGRAM).Windows.tar.gz
 	cd ..; tar -czf $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz $(PROGRAM)-$(VERSION)
 	cd ..; echo $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz created.
-#	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
 mytest:
 	cd ../mytest; make clean; make >& make.out 
