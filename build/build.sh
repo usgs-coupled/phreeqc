@@ -199,6 +199,7 @@ install() {
   cd ${objdir}/src/phreeqc_export && \
   rm -rf *.Windows.tar.gz Win && \
   unpack ${src_orig_pkg} && \
+  cd ${objdir}/src/phreeqc_export && \
   mv phreeqc* Win && \
   cd ${objdir}/src && \
   make win_sed_files REVISION="${REL}" TEXTCP="cp" && \
@@ -254,6 +255,7 @@ mkpatch() {
   (cd ${srcdir} && \
   find . -name "autom4te.cache" | xargs rm -rf ; \
   unpack ${src_orig_pkg} && \
+  cd ${srcdir} && \
   mv ${BASEPKG} ../${BASEPKG}-orig && \
   cd ${topdir} && \
   diff -urN -x '.build' -x '.inst' -x '.sinst' \
