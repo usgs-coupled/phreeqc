@@ -222,7 +222,8 @@ sun_compile:
 	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src"
 
 sun_output:
-	ssh u450rcolkr "cd $(EXPORT_DIR)/Sun/examples; make clean; make >& make.out"
+	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/examples clean"
+	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/examples" > $(EXPORT_DIR)/Sun/examples/make.out 2>> $(EXPORT_DIR)/Sun/examples/make.out
 
 sun_dist: 
 	cd $(EXPORT_DIR)/Sun; rm -f $(PROGRAM).tar
