@@ -62,6 +62,8 @@ FILES=alkalinity \
 	colt3_mi \
 	colt4 \
 	colt5 \
+	minteq \
+	minteqv4 \
 #	denitrify
 
 

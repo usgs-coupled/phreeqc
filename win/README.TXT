@@ -17,7 +17,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    interface to the geochemical model PHREEQC: U.S. Geological Survey 
    Fact Sheet FS-031-02, 2 p.
 
-                  PHREEQC - Version 2.10  2004/11/02
+                  PHREEQC - Version 2.11  2005/02/07
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the file doc\phreeqc.txt in the PHREEQC
@@ -28,7 +28,7 @@ Hydrologic Analysis Software Support Program by sending e-mail to
 h2osoft@usgs.gov or dlpark@usgs.gov.
 
 For all versions of Microsoft Windows, this Windows console version of
-PHREEQC must be run using an MS-DOS Command Prompt window.
+PHREEQC must be run by using an MS-DOS Command Prompt window.
 
 
                             TABLE OF CONTENTS
@@ -63,7 +63,7 @@ B. DISTRIBUTION FILE
 The following distribution file (containing the software, test data sets,
 and information files) is currently available.
 
-  phrqc210.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
+  phrqc211.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
 
 
 C. DOCUMENTATION
@@ -74,11 +74,11 @@ Parkhurst, D.L., and Appelo, C.A.J., 1999, User's guide to PHREEQC
    U.S. Geological Survey Water-Resources Investigations Report 99-4259,
    312 p.
 
-   This document is available in electronic format. Portable
-   Document Format (PDF) and Postscript files are included in the 
-   doc subdirectory of the PHREEQC program distribution. An online 
-   HTML version of the User's Guide can also be found at 
-   http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/html/final.html.
+   This user's guide is available in electronic format. A Portable
+   Document Format (PDF) file is included in the doc subdirectory of
+   the PHREEQC program distribution. An online HTML version of the
+   User's Guide can also be found at
+   http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/
 
 Thorstenson, D.C., and Parkhurst, D.L., 2002, Calculation of
    individual isotope equilibrium constants for implementation in
@@ -98,20 +98,20 @@ Note that if the software is to be installed on a server system,
 the person installing the software generally must have administrator 
 rights.
 
-To install the software, double-click phrqc210.exe to execute
+To install the software, double-click phrqc211.exe to execute
 the installation program and follow the directions on the screen.
-The installation program can optionally modify the PATH environment
+The installation program optionally will modify the PATH environment
 variable so that the PHREEQC program can be executed from any directory,
 without needing to type the full pathname of the program's location.
 
 By default, the software is installed in the directory
-C:\Program Files\USGS\phreeqc2.10.  This is the recommended installation 
+C:\Program Files\USGS\phreeqc2.11.  This is the recommended installation 
 directory, but you may use other directories or disk drives.
 
 Note that program components not installed initially can be installed
 later, and that any components damaged by, for example, being
 inadvertently overwritten, can be quickly reinstalled by double-clicking
-phrqc210.exe--a maintenance version of the installation program will be
+phrqc211.exe--a maintenance version of the installation program will be
 executed.
 
 
@@ -121,7 +121,7 @@ PHREEQC directory structure
 The following directory structure will be created (the contents of each
 directory are shown to the right):
 
-   phreeqc2.10            files NOTICE.TXT, RELEASE.TXT, and this README.TXT;
+   phreeqc2.11            files NOTICE.TXT, RELEASE.TXT, and this README.TXT;
                           batch file to run PHREEQC, database files
      `-----doc            documentation files 
      `-----examples       examples from user's guide--used in verification tests
@@ -145,7 +145,7 @@ version of the software, you will need:
        (b) familiarity with the compiler and the Windows operating system.
 
 A Makefile used to compile the program under Linux is provided as an example
-in the phrqc210.exe distribution, 
+in the phrqc211.exe distribution, 
 
 
 F. RUNNING THE SOFTWARE
@@ -179,13 +179,13 @@ PHREEQC from an MS-DOS Command Prompt window.
 If the option to modify the PATH environment variable was not chosen
 during installation, then two options exist: (1) the full pathname 
 to the script that runs phreeqc can be used in place of "phreeqc" in
-the above commands (for example "c:\program files\usgs\phreeqc2.10\phreeqc". 
+the above commands (for example "c:\program files\usgs\phreeqc2.11\phreeqc". 
 Note that because of the space present in "program files", quotation
 marks must be used to enter the full pathname.), or, (2) the
-executable (installed in phreeqc2.10\src\release\phreeqc.exe) may be
+executable (installed in phreeqc2.11\src\release\phreeqc.exe) may be
 copied to the current directory; further, the default database file
 must be in the current directory and named "phreeqc.dat". The default
-database file is installed in phreeqc2.10\database\phreeqc.dat.
+database file is installed in phreeqc2.11\database\phreeqc.dat.
 
 The environment variable PHREEQC_DATABASE can be used to specify the
 default database for a DOS window session.  This environment variable
@@ -229,16 +229,16 @@ G. TESTING
 Test data sets are provided to verify that the program is correctly installed
 and running on the system.  The tests execute the examples presented in
 the user's guide, which demonstrate most of the program's capabilities.
-The tests are run in the phreeqc2.10\test directory.  The directory
-phreeqc2.10\examples contains the PHREEQC input data and expected results
+The tests are run in the phreeqc2.11\test directory.  The directory
+phreeqc2.11\examples contains the PHREEQC input data and expected results
 for each test.
 
 To test the installation, in an MS-DOS Command Prompt window change to
-the phreeqc2.10\test directory:
+the phreeqc2.11\test directory:
 
      c:
      cd "program files"
-     cd usgs\phreeqc2.10\test
+     cd usgs\phreeqc2.11\test
 
 Execute the tests by typing the command:
 

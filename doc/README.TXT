@@ -18,7 +18,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    Fact Sheet FS-031-02, 2 p.
 
 
-                  PHREEQC - Version 2.10  2004/11/02
+                  PHREEQC - Version 2.11  2005/02/07
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the phreeqc.txt file in the doc directory
@@ -45,25 +45,25 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc2.10.SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
-  phreeqc2.10.Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.3.1-4mdk
-                              kernel 2.6.8.1-12mdkenterprise
-  phreeqc2.10.source.tar.gz - Source code but no executable
+  phreeqc2.11.SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
+  phreeqc2.11.Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
+                              kernel 2.6.8.1-24mdkenterprise
+  phreeqc2.11.source.tar.gz - Source code but no executable
 
 
 B. DOCUMENTATION
 
 Parkhurst, D.L., and Appelo, C.A.J., 1999, User's guide to PHREEQC
-   (Version 2)--a computer program for speciation, batch-reaction,
+   (Version 2)--A computer program for speciation, batch-reaction,
    one-dimensional transport, and inverse geochemical calculations:
    U.S. Geological Survey Water-Resources Investigations Report 99-4259,
    312 p.
 
-   This document is available in electronic format. Portable
-   Document Format (PDF) and Postscript files are included in the 
-   doc subdirectory of the PHREEQC program distribution. An online 
-   HTML version of the User's Guide can also be found at 
-   http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/html/final.html.
+   This user's guide is available in electronic format. Portable Document
+   Format (PDF) files are included in the doc subdirectory of the
+   PHREEQC program distribution. An online HTML version of the User's
+   Guide can also be found at
+   http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/
 
 Thorstenson, D.C., and Parkhurst, D.L., 2002, Calculation of
    individual isotope equilibrium constants for implementation in
@@ -79,12 +79,12 @@ C. EXTRACTING FILES
 Compressed tar files are used to distribute the source code and versions
 of the software compiled for selected UNIX operating systems.  All of the
 PHREEQC files needed to install and test the program are contained in the
-file phreeqc2.10.OS.tar.gz (where OS is a string indicating the intended
+file phreeqc2.11.OS.tar.gz (where OS is a string indicating the intended
 operating system.)  If there is not a tar file for your operating system
 or you want to compile the software, the source version of the tar file
 contains all of the PHREEQC files needed to compile and install the program
 on a UNIX-based computer.  For all of these distributions, the directory
-phreeqc2.10 is created (or overwritten) when the files are extracted from
+phreeqc2.11 is created (or overwritten) when the files are extracted from
 the tar file; if this directory already exists, you may want to delete or
 rename it before extracting the files.
 
@@ -93,14 +93,14 @@ file.
 
   Steps in extracting files                 explanation
   ----------------------------------------  -----------------------------------
-  gunzip phreeqc2.10.____.tar.gz             Uncompress the distribution file.
+  gunzip phreeqc2.11.____.tar.gz             Uncompress the distribution file.
 
-  tar -xvpof phreeqc2.10.____.tar            Extract files from the tar file.
+  tar -xvpof phreeqc2.11.____.tar            Extract files from the tar file.
 
 The following directory structure is created (the contents of each
 directory are shown to the right):
 
-   phreeqc2.10          files NOTICE.TXT, RELEASE.TXT, and this README.TXT
+   phreeqc2.11          files NOTICE.TXT, RELEASE.TXT, and this README.TXT
      `-----bin         compiled executable, template for execution script
      `-----database    database files required during execution
      `-----doc         documentation files 
@@ -137,7 +137,7 @@ compiled under Linux with gcc.
 To generate a new executable, do the following:
 
 1.  Change directory to the source directory:
-        cd phreeqc2.10/src
+        cd phreeqc2.11/src
 
 2.  Modify the beginning of the file named Makefile to correctly specify 
     system-dependent variables:
@@ -209,9 +209,9 @@ commands below.
 
 If the "make install" command described above has not been executed,
 the executable must be copied to the current directory. The executable
-is normally phreeqc2.10/bin/phreeqc. In addition the default database
+is normally phreeqc2.11/bin/phreeqc. In addition the default database
 file will be phreeqc.dat in the current directory. Phreeqc.dat is
-installed in phreeqc2.10/database/phreeqc.dat.
+installed in phreeqc2.11/database/phreeqc.dat.
 
 The shell variable PHREEQC_DATABASE can be used to specify the default
 database. In the C shell, this variable can be set with the command:
@@ -226,7 +226,7 @@ The shell variable can be set permanently by including the appropriate
 command in a file that is read when the shell is initiated, frequently
 $HOME/.login or $HOME/.profile.  If this shell variable is not set,
 the default database is set in the script in the installation directory
-to phreeqc2.10/database/phreeqc.dat.  It is possible to specify a
+to phreeqc2.11/database/phreeqc.dat.  It is possible to specify a
 different default database by editing the script.
 
 
@@ -239,7 +239,7 @@ The PHREEQC test directory contains the script to run the tests.  The PHREEQC
 examples directory contains the input data and the expected results for
 each test.
 
-To test the installation, change to the phreeqc2.10/test directory and type
+To test the installation, change to the phreeqc2.11/test directory and type
 the command:
 
      ./test.sh [start [stop]]
@@ -266,7 +266,7 @@ To clean up after the tests, type the command:
      ./clean.sh
 
 Notes: The output data files for Linux and SunOS were created on their
-       respective systems. The output data files for phreeqc2.10.source.tar.gz
+       respective systems. The output data files for phreeqc2.11.source.tar.gz
        were created on a Linux system. You may notice slight numeric differences 
        in the results. These are generally due to different round-off algorithms
        and the different architecture of the central processing unit chip.

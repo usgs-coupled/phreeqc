@@ -1,12 +1,12 @@
-(1) Update version and date in main.c
+x(1) Update version and date in main.c
 
 
-(2) Update version and date in doc/README.TXT
+x(2) Update version and date in doc/README.TXT
 	uname -r
 	gcc -v
 	ci
 
-(3) Update version and date in win/README.TXT
+x(3) Update version and date in win/README.TXT
      ci
 
 (4) Update src/../RELEASE.TXT 
