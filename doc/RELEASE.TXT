@@ -475,6 +475,8 @@ Revisions and bug fixes
 ------------------------------------------------------------
 Version 2.11
 
+	Fixed memory leak with PAD function.
+
 	New database minteq.v4.dat has been translated from version
 	4.02 of MINTEQA2. An older version of the MINTEQA2 database is
 	retained in file minteq.dat.
