@@ -1,5 +1,6 @@
 # Locations to save compressed tar file for distribution
-DIST_DIR=~dlpark/temp
+EXPORT_DIR=$(TOPDIR)/src/phreeqc_export
+DIST_DIR=$(TOPDIR)/src
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.11
@@ -120,11 +121,51 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-all_dist: ../doc/RELEASE.TXT linux sun mytest dist
+all_dist:  export sed_files linux # sun mytest dist
 
-../doc/RELEASE.TXT: revisions
-	cp revisions ../doc/RELEASE.TXT
-	svn commit ../doc/RELEASE.TXT -m$(VERSION)
+export:
+	svn export .. $(EXPORT_DIR)
+
+sed_files:
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VERSION_DATE/$(VERSION)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/src/revisions > $(EXPORT_DIR)/doc/RELEASE.TXT
+	for FILE in $(EXPORT_DIR)/doc/README.TXT $(EXPORT_DIR)/win/README.TXT; do \
+		sed -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+
+linux: linux_clean linux_compile linux_out linux_dist linux_test
+
+linux_clean:
+	rm -f $(EXPORT_DIR)/bin/$(PROGRAM) $(EXPORT_DIR)/src/*.o 
+
+linux_compile:
+	make -C $(EXPORT_DIR)/src
+
+linux_out:
+	cd $(EXPORT_DIR)/examples; make clean; make >& make.out
+	cd $(EXPORT_DIR)/test; ./clean.sh; ./test.sh
+
+linux_dist: 
+	cd $(EXPORT_DIR); rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR); for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd $(EXPORT_DIR); tar -rf $(PROGRAM).tar bin/$(PROGRAM)
+	cd $(EXPORT_DIR); rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR); mkdir $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR); mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR); cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR); for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd $(EXPORT_DIR); tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR); mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
+	cd $(EXPORT_DIR); echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
+	cd $(EXPORT_DIR); rm -rf $(PROGRAM)-$(VERSION)
+
+linux_test:
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Linux.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./test.sh
+	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Linux/bin/phreeqc
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/src; make -k
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./clean.sh; ./test.sh
 
 sun: clean_sun
 	mkdir -p $(TOPDIR)/sun
@@ -135,35 +176,10 @@ sun: clean_sun
 	ssh u450rcolkr "cd $(AMOUNTPREFIX)$(TOPDIR)/test.sun; ./clean.sh; ./test.sh"
 	mv ../bin/phreeqc.linux ../bin/phreeqc
 
-clean_sun:
+sun_clean:
 	rm -f $(TOPDIR)/sun/*.c $(TOPDIR)/sun/*.h $(TOPDIR)/sun/*.o $(TOPDIR)/bin/phreeqc.sun
 
-linux: clean_linux 
-	make -k 
-	cd ../examples; make clean; make >& make.out
-	cd ../test; ./clean.sh; ./test.sh
-
-clean_linux:
-	rm -f $(TOPDIR)/bin/$(PROGRAM) $(TOPDIR)/src/*.o 
-
-dist: svn_update clean_dist dist_linux dist_sun dist_source win
-	echo Done with distribution.
-
-dist_linux: 
-	cd ..; rm -f $(PROGRAM).tar
-	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd ..; tar -rf $(PROGRAM).tar bin/$(PROGRAM)
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-	cd ..; mkdir $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
-	cd ..; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
-	cd ..; tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
-	cd ..; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-
-dist_sun: 
+sun_dist: 
 	cd ..; rm -f $(PROGRAM).tar
 	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)
@@ -227,15 +243,8 @@ debug:
 	mkdir -p $(DEBUG_DIR)
 	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
 
-test_dist: test_linux test_sunos test_source
+test_dist: linux_test sunos_test source_test
 
-test_linux:
-	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
-	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Linux.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Linux
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./test.sh
-	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Linux/bin/phreeqc
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/src; make -k
-	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./clean.sh; ./test.sh
 
 test_sunos:
 	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).SunOS
@@ -260,6 +269,6 @@ web:
 	cp $(TOPDIR)/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
-svn_update:
-	cd ..; svn update .
 
+dist: clean_dist dist_linux dist_sun dist_source win
+	echo Done with distribution.

@@ -17,7 +17,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    interface to the geochemical model PHREEQC: U.S. Geological Survey 
    Fact Sheet FS-031-02, 2 p.
 
-                  PHREEQC - Version 2.11  2005/02/07
+                  PHREEQC - Version VERSION  2005/02/07
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the file doc\phreeqc.txt in the PHREEQC
@@ -63,7 +63,7 @@ B. DISTRIBUTION FILE
 The following distribution file (containing the software, test data sets,
 and information files) is currently available.
 
-  phrqc211.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
+  phrqc-VERSION.REVISION.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
 
 
 C. DOCUMENTATION
@@ -105,7 +105,7 @@ variable so that the PHREEQC program can be executed from any directory,
 without needing to type the full pathname of the program's location.
 
 By default, the software is installed in the directory
-C:\Program Files\USGS\phreeqc2.11.  This is the recommended installation 
+C:\Program Files\USGS\phreeqc-VERSION.  This is the recommended installation 
 directory, but you may use other directories or disk drives.
 
 Note that program components not installed initially can be installed

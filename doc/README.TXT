@@ -18,7 +18,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    Fact Sheet FS-031-02, 2 p.
 
 
-                  PHREEQC - Version 2.11  2005/02/07
+                  PHREEQC - Version VERSION  February 7, 2005
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the phreeqc.txt file in the doc directory
@@ -45,10 +45,10 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc2.11.SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
-  phreeqc2.11.Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
+  phreeqc-VERSION.REVISION-SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
+  phreeqc-VERSION.REVISION-Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
                               kernel 2.6.8.1-24mdkenterprise
-  phreeqc2.11.source.tar.gz - Source code but no executable
+  phreeqc-VERSION.REVISION-.source.tar.gz - Source code but no executable
 
 
 B. DOCUMENTATION
@@ -76,31 +76,32 @@ Thorstenson, D.C., and Parkhurst, D.L., 2002, Calculation of
 
 C. EXTRACTING FILES
 
-Compressed tar files are used to distribute the source code and versions
-of the software compiled for selected UNIX operating systems.  All of the
-PHREEQC files needed to install and test the program are contained in the
-file phreeqc2.11.OS.tar.gz (where OS is a string indicating the intended
-operating system.)  If there is not a tar file for your operating system
-or you want to compile the software, the source version of the tar file
-contains all of the PHREEQC files needed to compile and install the program
-on a UNIX-based computer.  For all of these distributions, the directory
-phreeqc2.11 is created (or overwritten) when the files are extracted from
-the tar file; if this directory already exists, you may want to delete or
-rename it before extracting the files.
+Compressed tar files are used to distribute the source code and
+versions of the software compiled for selected UNIX operating systems.
+All of the PHREEQC files needed to install and test the program are
+contained in the file phreeqc-VERSION.REVISION-OS.tar.gz (where OS is a
+string indicating the intended operating system.)  If there is not a
+tar file for your operating system or you want to compile the
+software, the source version of the tar file contains all of the
+PHREEQC files needed to compile and install the program on a
+UNIX-based computer.  For all of these distributions, the directory
+phreeqc-VERSION is created (or overwritten) when the files are extracted
+from the tar file; if this directory already exists, you may want to
+delete or rename it before extracting the files.
 
 Follow the steps below to extract the files from a distribution tar
 file. 
 
   Steps in extracting files                 explanation
   ----------------------------------------  -----------------------------------
-  gunzip phreeqc2.11.____.tar.gz             Uncompress the distribution file.
+  gunzip phreeqc-VERSION.REVISION-OS.tar.gz         Uncompress the distribution file.
 
-  tar -xvpof phreeqc2.11.____.tar            Extract files from the tar file.
+  tar -xvpof phreeqc-VERSION.REVISION-OS.tar        Extract files from the tar file.
 
 The following directory structure is created (the contents of each
 directory are shown to the right):
 
-   phreeqc2.11          files NOTICE.TXT, RELEASE.TXT, and this README.TXT
+   phreeqc-VERSION         files NOTICE.TXT, RELEASE.TXT, and this README.TXT
      `-----bin         compiled executable, template for execution script
      `-----database    database files required during execution
      `-----doc         documentation files 
@@ -137,7 +138,7 @@ compiled under Linux with gcc.
 To generate a new executable, do the following:
 
 1.  Change directory to the source directory:
-        cd phreeqc2.11/src
+        cd phreeqc-VERSION/src
 
 2.  Modify the beginning of the file named Makefile to correctly specify 
     system-dependent variables:
@@ -209,9 +210,9 @@ commands below.
 
 If the "make install" command described above has not been executed,
 the executable must be copied to the current directory. The executable
-is normally phreeqc2.11/bin/phreeqc. In addition the default database
+is normally phreeqc-VERSION/bin/phreeqc. In addition the default database
 file will be phreeqc.dat in the current directory. Phreeqc.dat is
-installed in phreeqc2.11/database/phreeqc.dat.
+installed in phreeqc-VERSION/database/phreeqc.dat.
 
 The shell variable PHREEQC_DATABASE can be used to specify the default
 database. In the C shell, this variable can be set with the command:
@@ -226,7 +227,7 @@ The shell variable can be set permanently by including the appropriate
 command in a file that is read when the shell is initiated, frequently
 $HOME/.login or $HOME/.profile.  If this shell variable is not set,
 the default database is set in the script in the installation directory
-to phreeqc2.11/database/phreeqc.dat.  It is possible to specify a
+to phreeqc-VERSION/database/phreeqc.dat.  It is possible to specify a
 different default database by editing the script.
 
 
@@ -239,7 +240,7 @@ The PHREEQC test directory contains the script to run the tests.  The PHREEQC
 examples directory contains the input data and the expected results for
 each test.
 
-To test the installation, change to the phreeqc2.11/test directory and type
+To test the installation, change to the phreeqc-VERSION/test directory and type
 the command:
 
      ./test.sh [start [stop]]
@@ -266,7 +267,7 @@ To clean up after the tests, type the command:
      ./clean.sh
 
 Notes: The output data files for Linux and SunOS were created on their
-       respective systems. The output data files for phreeqc2.11.source.tar.gz
+       respective systems. The output data files for phreeqc-VERSION.REVISION.source.tar.gz
        were created on a Linux system. You may notice slight numeric differences 
        in the results. These are generally due to different round-off algorithms
        and the different architecture of the central processing unit chip.
