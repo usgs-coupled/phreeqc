@@ -467,13 +467,13 @@ void initialize(void)
 	dump_file_name = NULL;
 
 #ifdef PHREEQCI_GUI
-	spread_sheet.heading            = NULL;
-	spread_sheet.units              = NULL;
-	spread_sheet.count_rows         = 0;
-	spread_sheet.rows               = NULL;
-	spread_sheet.defaults.units     = NULL;
-	spread_sheet.defaults.count_iso = 0;
-	spread_sheet.defaults.iso       = NULL;
+	g_spread_sheet.heading            = NULL;
+	g_spread_sheet.units              = NULL;
+	g_spread_sheet.count_rows         = 0;
+	g_spread_sheet.rows               = NULL;
+	g_spread_sheet.defaults.units     = NULL;
+	g_spread_sheet.defaults.count_iso = 0;
+	g_spread_sheet.defaults.iso       = NULL;
 #endif
 	/* calculate_value */
 	max_calculate_value = MAX_ELTS;

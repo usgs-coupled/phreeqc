@@ -391,9 +391,9 @@ int read_solution_spread(void)
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
 #ifdef PHREEQCI_GUI
-	if (heading) spread_sheet.heading = copy_row(heading);
-	if (units) spread_sheet.units = copy_row(units);
-	copy_defaults(&spread_sheet.defaults, &defaults);
+	if (heading) g_spread_sheet.heading = copy_row(heading);
+	if (units) g_spread_sheet.units = copy_row(units);
+	copy_defaults(&g_spread_sheet.defaults, &defaults);
 #endif
 	spread_row_free(heading);
 	spread_row_free(units);
@@ -975,35 +975,35 @@ void free_spread(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	spread_row_free(spread_sheet.heading);
-	spread_row_free(spread_sheet.units);
-	for (i = 0; i < spread_sheet.count_rows; i++)
+	spread_row_free(g_spread_sheet.heading);
+	spread_row_free(g_spread_sheet.units);
+	for (i = 0; i < g_spread_sheet.count_rows; i++)
 	{
-		spread_row_free(spread_sheet.rows[i]);
+		spread_row_free(g_spread_sheet.rows[i]);
 	}
-	spread_sheet.rows = free_check_null(spread_sheet.rows);
+	g_spread_sheet.rows = free_check_null(g_spread_sheet.rows);
 
-	for (i = 0; i < spread_sheet.defaults.count_iso; i++)
+	for (i = 0; i < g_spread_sheet.defaults.count_iso; i++)
 	{
-		spread_sheet.defaults.iso[i].name = free_check_null(spread_sheet.defaults.iso[i].name);
+		g_spread_sheet.defaults.iso[i].name = free_check_null(g_spread_sheet.defaults.iso[i].name);
 	}
-	spread_sheet.defaults.iso   = free_check_null(spread_sheet.defaults.iso);
+	g_spread_sheet.defaults.iso   = free_check_null(g_spread_sheet.defaults.iso);
 
-	spread_sheet.defaults.redox = free_check_null(spread_sheet.defaults.redox);
-	spread_sheet.defaults.units = free_check_null(spread_sheet.defaults.units);
+	g_spread_sheet.defaults.redox = free_check_null(g_spread_sheet.defaults.redox);
+	g_spread_sheet.defaults.units = free_check_null(g_spread_sheet.defaults.units);
 }
 /* ---------------------------------------------------------------------- */
 void add_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
-	spread_sheet.rows = (struct spread_row **) PHRQ_realloc(spread_sheet.rows, sizeof(struct spread_row*) * (spread_sheet.count_rows + 1));
-	if (spread_sheet.rows == NULL)
+	g_spread_sheet.rows = (struct spread_row **) PHRQ_realloc(g_spread_sheet.rows, sizeof(struct spread_row*) * (g_spread_sheet.count_rows + 1));
+	if (g_spread_sheet.rows == NULL)
 	{
 		malloc_error();
 	}
 	else
 	{
-		spread_sheet.rows[spread_sheet.count_rows++] = copy_row(spread_row_ptr);
+		g_spread_sheet.rows[g_spread_sheet.count_rows++] = copy_row(spread_row_ptr);
 	}
 }
 /* ---------------------------------------------------------------------- */

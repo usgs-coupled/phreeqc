@@ -1459,7 +1459,7 @@ struct spread_sheet {
 	struct defaults defaults;
 };
 #ifdef PHREEQCI_GUI
-EXTERNAL struct spread_sheet spread_sheet;
+EXTERNAL struct spread_sheet g_spread_sheet;
 #endif
 
 /* ---------------------------------------------------------------------- */
