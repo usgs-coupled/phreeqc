@@ -1,0 +1,108 @@
+DATABASE ../database/minteq.dat
+TITLE Example 1.--Add uranium and speciate seawater.
+SOLUTION 1  SEAWATER FROM NORDSTROM ET AL. (1979)
+        units   ppm
+#        pH      8.22	
+        pH      7.22
+        pe      8.451
+        density 1.023
+#        temp    25.0
+        temp    25
+        redox   O(0)/O(-2)
+        Ca              412.3
+        Mg              1291.8
+        Na              10768.0
+        K               399.1
+        Fe              0.002
+        Mn              0.0002  pe
+        Si              4.28
+        Cl              19353.0
+        Alkalinity      141.682 as HCO3
+#        Alkalinity      200 as HCO3
+#	 C		 141.682 as HCO3
+        S(6)               2712.0
+        N(5)            0.29    as NO3
+        N(-3)           0.03    as NH4
+        O(0)            1.0     O2(g)   -0.7
+END
+SOLUTION 1  SEAWATER FROM NORDSTROM ET AL. (1979)
+        units   ppm
+#        pH      8.22	
+        pH      7.22
+        pe      8.451
+        density 1.023
+#        temp    25.0
+        temp    25
+        redox   O(0)/O(-2)
+        Ca              412.3
+        Mg              1291.8
+        Na              10768.0
+        K               399.1
+        Fe              0.002
+        Mn              0.0002  pe
+        Si              4.28
+        Cl              19353.0
+#        Alkalinity      141.682 as HCO3
+#        Alkalinity      200 as HCO3
+	 C		 141.682 as HCO3
+        S               2712.0
+        N               0.29    as NO3
+        O(0)            1.0     O2(g)   -0.7
+	Ag		1 ppb
+	Al		1 ppb
+	As		1 ppb
+	B		1 ppb
+	Ba		1 ppb
+	Be		1 ppb
+	Br		1 ppb
+	Cd		1 ppb
+	Co		1 ppb
+	Cr		1 ppb
+	Cu		1 ppb
+	F		1 ppb
+	Hg		1 ppb
+	I		1 ppb
+	Li		1 ppb
+	Mo		1 ppb
+	Ni		1 ppb
+	P		1 ppb
+	Pb		1 ppb
+	Sb		1 ppb
+	Se		1 ppb
+	Sn		1 ppb
+	Sr		1 ppb
+	Tl		1 ppb
+	U		1 ppb
+	V		1 ppb
+	Zn		1 ppb
+	Benzoate	1 ppb
+	Phenylacetate	1 ppb
+	Isophthalate	1 ppb
+	Diethylamine	1 ppb
+	Butylamine	1 ppb
+	Methylamine	1 ppb
+	Dimethylamine	1 ppb
+	Hexylamine	1 ppb
+	Ethylenediamine	1 ppb
+	Propylamine	1 ppb
+	Isopropylamine	1 ppb
+	Trimethylamine	1 ppb
+	Citrate		1 ppb
+	Nta		1 ppb
+	Edta		1 ppb
+	Propionate	1 ppb
+	Butyrate	1 ppb
+	Isobutyrate	1 ppb
+	Two_picoline	1 ppb
+	Three_picoline	1 ppb
+	Four_picoline	1 ppb
+	Formate		1 ppb
+	Isovalerate	1 ppb
+	Valerate	1 ppb
+	Acetate		1 ppb
+	Tartarate	1 ppb
+	Glycine		1 ppb
+	Salicylate	1 ppb
+	Glutamate	1 ppb
+	Phthalate	1 ppb
+END

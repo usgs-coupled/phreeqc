@@ -1,0 +1,405 @@
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	WLB ms APW04
+
+Overflow: CO2	3.076379e+01	1.488040e+00	-1
+Overflow: HCO3-	9.737123e+01	1.988431e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+-------------------------------------------------------
+Beginning of initial exchange-composition calculations.
+-------------------------------------------------------
+
+Exchange 1.	
+
+Overflow: CO2	3.364001e+01	1.526856e+00	-1
+Overflow: HCO3-	1.018213e+02	2.007839e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 4
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 10
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 8
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 2.	
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.370776e+02	2.136967e+00	-1
+Iterations in revise_guesses: 3
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	3.136967e+00	-1
+Iterations in revise_guesses: 3
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	4.136967e+00	-1
+Iterations in revise_guesses: 4
+Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 2, iteration 14
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 19
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 5.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	5.136967e+00	-1
+Iterations in revise_guesses: 4
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 46
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 6.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	6.136967e+00	-1
+Iterations in revise_guesses: 4
+Ineq had infeasible solution, kode 0, iteration 1
+Overflow: CO2	5.137576e+01	1.710758e+00	9
+Overflow: CO2	5.137576e+01	1.710758e+00	9
+Iterations in revise_guesses: 2
+Overflow: CO2	5.317677e+01	1.725722e+00	11
+Overflow: CO2	5.317677e+01	1.725722e+00	11
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 21
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 7.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	7.136967e+00	-1
+Overflow: HCO3-	5.324361e+01	1.726268e+00	-1
+Iterations in revise_guesses: 4
+Overflow: CO2	5.102275e+01	1.707764e+00	23
+Overflow: CO2	5.102275e+01	1.707764e+00	23
+Overflow: CO2	3.370118e+01	1.527645e+00	23
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 27
+Ineq had infeasible solution, kode 0, iteration 28
+Ineq had infeasible solution, kode 0, iteration 29
+Ineq had infeasible solution, kode 0, iteration 30
+Ineq had infeasible solution, kode 0, iteration 31
+Ineq had infeasible solution, kode 0, iteration 32
+
+Number of infeasible solutions: 6
+Number of basis changes: 0
+
+Number of iterations: 49
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 8.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	8.136967e+00	-1
+Overflow: HCO3-	5.324361e+02	2.726268e+00	-1
+Overflow: CO2	8.647213e+01	1.936876e+00	-1
+Iterations in revise_guesses: 4
+Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 0, iteration 9
+Overflow: CO2	4.131134e+01	1.616069e+00	20
+Overflow: CO2	4.131134e+01	1.616069e+00	20
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 26
+Ineq had infeasible solution, kode 0, iteration 27
+Ineq had infeasible solution, kode 0, iteration 29
+Ineq had infeasible solution, kode 0, iteration 31
+Ineq had infeasible solution, kode 0, iteration 33
+
+Number of infeasible solutions: 10
+Number of basis changes: 0
+
+Number of iterations: 43
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 9.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	1.000000e+03	1.506951e+01	-1
+Overflow: CaCO3	1.000000e+03	3.205283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	1.076461e+01	-1
+Overflow: HCO3-	1.000000e+03	9.658811e+00	-1
+Overflow: HF	2.285217e+02	2.358927e+00	-1
+Overflow: HF2-	1.000000e+03	3.089739e+00	-1
+Overflow: MgCO3	9.112982e+02	2.959660e+00	-1
+Overflow: MgF+	8.847592e+01	1.946825e+00	-1
+Overflow: MgHCO3+	1.000000e+03	1.072681e+01	-1
+Overflow: NaHCO3	1.000000e+03	9.261768e+00	-1
+Overflow: SrCO3	6.096378e+02	2.785072e+00	-1
+Overflow: SrHCO3+	1.000000e+03	1.084341e+01	-1
+Overflow: CO2	1.000000e+03	9.136967e+00	-1
+Overflow: CaHCO3+	1.254950e+02	2.098626e+00	-1
+Overflow: HCO3-	1.000000e+03	3.726268e+00	-1
+Overflow: MgHCO3+	9.623241e+01	1.983321e+00	-1
+Overflow: NaHCO3	2.921367e+02	2.465586e+00	-1
+Overflow: CO2	1.000000e+03	3.734211e+00	-1
+Iterations in revise_guesses: 5
+Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 15
+Ineq had infeasible solution, kode 0, iteration 16
+Ineq had infeasible solution, kode 0, iteration 19
+Overflow: CO2	3.833193e+01	1.583561e+00	26
+Overflow: CO2	3.833193e+01	1.583561e+00	26
+Iterations in revise_guesses: 2
+Overflow: CO2	5.974763e+01	1.776321e+00	27
+Overflow: CO2	5.974763e+01	1.776321e+00	27
+Iterations in revise_guesses: 1
+Overflow: CO2	5.547522e+01	1.744099e+00	28
+Overflow: CO2	5.547522e+01	1.744099e+00	28
+Iterations in revise_guesses: 1
+Overflow: CO2	3.733624e+01	1.572131e+00	30
+Overflow: CO2	3.733624e+01	1.572131e+00	30
+Iterations in revise_guesses: 1
+Overflow: CO2	6.491481e+01	1.812344e+00	31
+Overflow: CO2	6.491481e+01	1.812344e+00	31
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 8
+Number of basis changes: 0
+
+Number of iterations: 45
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 10.
+-------------------------------------
+
+-----------
+End of run.
+-----------
+

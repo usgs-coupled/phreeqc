@@ -1,0 +1,122 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	PURE WATER
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Overflow: FeCO3	1.000000e+03	4.380000e+00	-1
+Overflow: FeHCO3+	1.000000e+03	5.329015e+00	-1
+Overflow: FeSO4	1.778279e+02	2.250000e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 2.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Overflow: FeCO3	1.000000e+03	4.380000e+00	-1
+Overflow: FeHCO3+	1.000000e+03	5.329015e+00	-1
+Overflow: FeSO4	1.778279e+02	2.250000e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 1
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 23
+
+Reaction step 3.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Overflow: FeCO3	1.000000e+03	4.380000e+00	-1
+Overflow: FeHCO3+	1.000000e+03	5.329015e+00	-1
+Overflow: FeSO4	1.778279e+02	2.250000e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 1
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 24
+
+Reaction step 4.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Overflow: FeCO3	1.000000e+03	4.380000e+00	-1
+Overflow: FeHCO3+	1.000000e+03	5.329015e+00	-1
+Overflow: FeSO4	1.778279e+02	2.250000e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 1
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 24
+
+Reaction step 5.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Overflow: FeCO3	1.000000e+03	4.380000e+00	-1
+Overflow: FeHCO3+	1.000000e+03	5.329015e+00	-1
+Overflow: FeSO4	1.778279e+02	2.250000e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 1
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 25
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

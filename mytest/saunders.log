@@ -1,0 +1,1855 @@
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	Well no. 2 of Lee (1985), Coastal Plain, transport and mix withtemp17.5
+
+Overflow: (UO2)3(CO3)6-6	1.000000e+03	1.800084e+01	-1
+Overflow: UO2(CO3)2-2	1.000000e+03	4.597726e+00	-1
+Overflow: UO2(CO3)3-4	1.000000e+03	7.368515e+00	-1
+Iterations in revise_guesses: 4
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+WARNING: Element Ca is contained in Calcite (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element S is contained in Pyrite (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element U is contained in Uraninite(c) (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element in phase, Calcite, is not in model.
+WARNING: Element in phase, Uraninite(c), is not in model.
+Overflow: CH4	1.000000e+03	3.070849e+00	-1
+Overflow: CO2	4.791671e+02	2.680487e+00	-1
+Overflow: HCO3-	1.000000e+03	3.353152e+00	-1
+Iterations in revise_guesses: 3
+Ineq had infeasible solution, kode 2, iteration 8
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 6.	
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+WARNING: Element Ca is contained in Calcite (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element S is contained in Pyrite (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element U is contained in Uraninite(c) (which has 0.0 mass),	
+but is not in solution or other phases.
+WARNING: Element in phase, Calcite, is not in model.
+WARNING: Element in phase, Uraninite(c), is not in model.
+Overflow: CH4	1.000000e+03	3.070849e+00	-1
+Overflow: CO2	4.791671e+02	2.680487e+00	-1
+Overflow: HCO3-	1.000000e+03	3.353152e+00	-1
+Iterations in revise_guesses: 3
+Ineq had infeasible solution, kode 2, iteration 8
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------------------------
+Beginning of advection calculations.
+------------------------------------
+
+
+Beginning of advection time step 1, cumulative pore volumes 0.142857.
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 2, iteration 8
+Ineq had infeasible solution, kode 2, iteration 9
+Ineq had infeasible solution, kode 2, iteration 11
+Ineq had infeasible solution, kode 0, iteration 14
+
+Number of infeasible solutions: 5
+Number of basis changes: 0
+
+Number of iterations: 20
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 2, cumulative pore volumes 0.285714.
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 11
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.506066e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 5
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 3, cumulative pore volumes 0.428571.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.499812e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 3
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 4, cumulative pore volumes 0.571429.
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 1
+              CO2(g) Pure phase has not converged. 	Residual: 1.576463e-01
+                    Removing unstable phases, iteration 7.
+Removing unstable phases. Iteration 7.
+Ineq had infeasible solution, kode 0, iteration 9
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 13
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.241127e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.493502e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 5, cumulative pore volumes 0.714286.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.280707e+02
+        Uraninite(c) Pure phase has not converged. 	Residual: 5.178124e-01
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 2, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 2, iteration 13
+Ineq had infeasible solution, kode 0, iteration 16
+Ineq had infeasible solution, kode 2, iteration 17
+Ineq had infeasible solution, kode 0, iteration 18
+Ineq had infeasible solution, kode 2, iteration 20
+
+Number of infeasible solutions: 8
+Number of basis changes: 0
+
+Number of iterations: 25
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.487134e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 4
+Ineq had infeasible solution, kode 2, iteration 7
+Ineq had infeasible solution, kode 2, iteration 13
+Ineq had infeasible solution, kode 2, iteration 15
+Ineq had infeasible solution, kode 0, iteration 17
+
+Number of infeasible solutions: 5
+Number of basis changes: 0
+
+Number of iterations: 26
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 6, cumulative pore volumes 0.857143.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.288631e+02
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.480708e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 5
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 19
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 7, cumulative pore volumes 1.000000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.198993e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.512265e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 4
+Ineq had infeasible solution, kode 2, iteration 5
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 11
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 8, cumulative pore volumes 1.142857.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 2, iteration 7
+              CO2(g) Pure phase has not converged. 	Residual: 2.650741e-02
+                    Removing unstable phases, iteration 7.
+Removing unstable phases. Iteration 7.
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 10
+
+Number of infeasible solutions: 6
+Number of basis changes: 0
+
+Number of iterations: 15
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 12
+Ineq had infeasible solution, kode 2, iteration 15
+Ineq had infeasible solution, kode 2, iteration 16
+Ineq had infeasible solution, kode 2, iteration 18
+Ineq had infeasible solution, kode 0, iteration 22
+
+Number of infeasible solutions: 5
+Number of basis changes: 0
+
+Number of iterations: 31
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.512265e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 9, cumulative pore volumes 1.285714.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.274187e+02
+        Uraninite(c) Pure phase has not converged. 	Residual: 8.704209e-02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.330822e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 10
+Ineq had infeasible solution, kode 0, iteration 14
+Ineq had infeasible solution, kode 0, iteration 17
+
+Number of infeasible solutions: 7
+Number of basis changes: 0
+
+Number of iterations: 37
+
+
+Cell 7.
+
+
+Beginning of advection time step 10, cumulative pore volumes 1.428571.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.136048e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 5
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 11
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.512265e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 2, iteration 14
+Ineq had infeasible solution, kode 2, iteration 18
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 19
+
+
+Cell 7.
+
+
+Beginning of advection time step 11, cumulative pore volumes 1.571429.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 4
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+            Graphite Pure phase has not converged. 	Residual: 5.512265e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 2, iteration 9
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 12
+
+
+Cell 7.
+
+
+Beginning of advection time step 12, cumulative pore volumes 1.714286.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 13, cumulative pore volumes 1.857143.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.012563e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 14
+Ineq had infeasible solution, kode 2, iteration 15
+Ineq had infeasible solution, kode 2, iteration 16
+Ineq had infeasible solution, kode 2, iteration 17
+Ineq had infeasible solution, kode 2, iteration 19
+Ineq had infeasible solution, kode 0, iteration 20
+
+Number of infeasible solutions: 8
+Number of basis changes: 0
+
+Number of iterations: 24
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 14, cumulative pore volumes 2.000000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 9.794159e-01
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 2, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 13
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 15, cumulative pore volumes 2.142857.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 14
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 16, cumulative pore volumes 2.285714.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 17, cumulative pore volumes 2.428571.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.263645e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 5
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 18, cumulative pore volumes 2.571429.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 7.483328e-01
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 4
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 19, cumulative pore volumes 2.714286.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 20, cumulative pore volumes 2.857143.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 5
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+
+Beginning of advection time step 21, cumulative pore volumes 3.000000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+        Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 2, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+              Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 2, iteration 6
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 8
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Cell 7.
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

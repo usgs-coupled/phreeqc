@@ -1,0 +1,117 @@
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+Overflow: CO2	4.792955e+02	2.680603e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 3
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	1.139957e+02	-1
+Overflow: NH3	1.000000e+03	3.929054e+01	-1
+Overflow: NH4+	1.000000e+03	4.455436e+01	-1
+Overflow: NO2-	1.000000e+03	1.004719e+01	-1
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 1
+Overflow: N2	1.897401e+02	2.278159e+00	1
+Overflow: N2	1.897401e+02	2.278159e+00	1
+Iterations in revise_guesses: 3
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 1
+
+Number of iterations: 26
+
+Reaction step 2.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 22
+
+Reaction step 3.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 22
+
+Reaction step 4.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 23
+
+Reaction step 5.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 23
+
+Reaction step 6.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 22
+
+Reaction step 7.
+
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 20
+
+Reaction step 8.
+
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

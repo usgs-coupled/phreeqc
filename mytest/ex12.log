@@ -1,0 +1,77 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	Black Sea water
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+Initial solution 2.	Composition during halite precipitation
+
+Overflow: MgSO4	3.836016e+01	1.583880e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 4
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 9
+
+-------------------------------------------
+Beginning of inverse modeling calculations.
+-------------------------------------------
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+Overflow: MgSO4	3.836015e+01	1.583880e+00	-1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 9
+
+Overflow: MgSO4	3.836016e+01	1.583880e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

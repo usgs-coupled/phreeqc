@@ -1,0 +1,1053 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+Initial solution 2.	
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	1.875885e+02	2.273206e+00	7
+Overflow: NO3-	1.875885e+02	2.273206e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 16
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.000556e+02	2.301151e+00	7
+Overflow: NO3-	2.000556e+02	2.301151e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 16
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.134771e+02	2.329351e+00	7
+Overflow: NO3-	2.134771e+02	2.329351e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 16
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 5.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.279351e+02	2.357811e+00	7
+Overflow: NO3-	2.279351e+02	2.357811e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 15
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 6.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.435198e+02	2.386534e+00	7
+Overflow: NO3-	2.435198e+02	2.386534e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 15
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 7.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.603299e+02	2.415524e+00	7
+Overflow: NO3-	2.603299e+02	2.415524e+00	7
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 2, iteration 10
+
+Number of infeasible solutions: 5
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 8.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.784738e+02	2.444784e+00	7
+Overflow: NO3-	2.784738e+02	2.444784e+00	7
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 9.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	2.980704e+02	2.474319e+00	7
+Overflow: NO3-	2.980704e+02	2.474319e+00	7
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 10.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	3.192505e+02	2.504132e+00	7
+Overflow: NO3-	3.192505e+02	2.504132e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 11.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	3.421578e+02	2.534226e+00	7
+Overflow: NO3-	3.421578e+02	2.534226e+00	7
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 12.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	3.669505e+02	2.564607e+00	7
+Overflow: NO3-	3.669505e+02	2.564607e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 13.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	3.938027e+02	2.595279e+00	7
+Overflow: NO3-	3.938027e+02	2.595279e+00	7
+Iterations in revise_guesses: 6
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 14.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883326e+01	-1
+Overflow: NH3	1.000000e+03	4.704411e+00	-1
+Overflow: NH4+	1.000000e+03	6.086499e+00	-1
+Overflow: NO2-	1.000000e+03	3.571479e+00	-1
+Overflow: N2	1.000000e+03	5.943530e+01	-1
+Overflow: N2	1.000000e+03	5.082224e+01	-1
+Overflow: N2	1.000000e+03	4.222018e+01	-1
+Overflow: N2	1.000000e+03	3.361812e+01	-1
+Overflow: N2	1.000000e+03	2.501606e+01	-1
+Overflow: N2	1.000000e+03	1.641400e+01	-1
+Overflow: N2	1.000000e+03	7.811940e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 2, iteration 3
+Overflow: NO3-	4.229065e+02	2.626244e+00	7
+Overflow: NO3-	4.229065e+02	2.626244e+00	7
+Iterations in revise_guesses: 6
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 14
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 15.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 21
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 16.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 19
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 17.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 19
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 18.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 21
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 23
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 19.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 9
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 21
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 20.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 21
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 21.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 22.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 23.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 22
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 24.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 13
+Ineq had infeasible solution, kode 2, iteration 17
+Ineq had infeasible solution, kode 2, iteration 22
+
+Number of infeasible solutions: 6
+Number of basis changes: 1
+
+Number of iterations: 24
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 25.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 23
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 26.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 13
+
+Number of infeasible solutions: 4
+Number of basis changes: 1
+
+Number of iterations: 23
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 27.
+-------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	6.883316e+01	-1
+Overflow: NH3	1.000000e+03	4.704357e+00	-1
+Overflow: NH4+	1.000000e+03	6.086500e+00	-1
+Overflow: NO2-	1.000000e+03	3.571478e+00	-1
+Overflow: N2	1.000000e+03	5.943520e+01	-1
+Overflow: N2	1.000000e+03	5.082214e+01	-1
+Overflow: N2	1.000000e+03	4.222008e+01	-1
+Overflow: N2	1.000000e+03	3.361802e+01	-1
+Overflow: N2	1.000000e+03	2.501596e+01	-1
+Overflow: N2	1.000000e+03	1.641390e+01	-1
+Overflow: N2	1.000000e+03	7.811842e+00	-1
+Iterations in revise_guesses: 10
+Ineq had infeasible solution, kode 0, iteration 1
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+
+Number of infeasible solutions: 3
+Number of basis changes: 1
+
+Number of iterations: 23
+
+------------------
+End of simulation.
+------------------
+
+-------------------------------------
+Reading input data for simulation 28.
+-------------------------------------
+
+-----------
+End of run.
+-----------
+

@@ -1,0 +1,150 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	Pure water
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CO2	4.794226e+02	2.680719e+00	-1
+Overflow: CaCO3	1.000000e+03	3.225283e+00	-1
+Overflow: CaHCO3+	1.000000e+03	4.434813e+00	-1
+Overflow: HCO3-	1.000000e+03	3.329015e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 2.	Seawater
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+-----
+TITLE
+-----
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 13
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----
+TITLE
+-----
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 5.
+------------------------------------
+
+-----
+TITLE
+-----
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+             Calcite Pure phase has not converged. 	Residual: 2.414310e-01
+                    Removing unstable phases, iteration 0.
+Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 3
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 6
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 6.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

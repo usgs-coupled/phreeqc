@@ -1,0 +1,59 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	SEAWATER FROM NORDSTROM ET AL. (1979)
+
+Overflow: (UO2)2(OH)2+2	1.000000e+03	6.161144e+01	-1
+Overflow: (UO2)3(OH)5+	1.000000e+03	1.010381e+02	-1
+Overflow: Fe(OH)2+	8.826628e+01	1.945795e+00	-1
+Overflow: Fe(OH)3	1.000000e+03	3.079824e+00	-1
+Overflow: Fe(OH)4-	2.856241e+02	2.455795e+00	-1
+Overflow: Fe3(OH)4+5	6.642556e+02	2.822335e+00	-1
+Overflow: U(OH)4	1.000000e+03	1.642683e+01	-1
+Overflow: U(OH)5-	1.000000e+03	2.023380e+01	-1
+Overflow: UO2(CO3)2-2	1.000000e+03	3.738525e+01	-1
+Overflow: UO2(CO3)3-4	1.000000e+03	4.066749e+01	-1
+Overflow: UO2+	1.000000e+03	2.339456e+01	-1
+Overflow: UO2+2	1.000000e+03	2.564553e+01	-1
+Overflow: UO2CO3	1.000000e+03	3.252470e+01	-1
+Overflow: UO2OH+	1.000000e+03	2.771331e+01	-1
+Overflow: (UO2)2(OH)2+2	1.000000e+03	3.776877e+01	-1
+Overflow: (UO2)3(OH)5+	1.000000e+03	6.527411e+01	-1
+Overflow: U(OH)4	1.000000e+03	4.470281e+00	-1
+Overflow: U(OH)5-	1.000000e+03	8.277252e+00	-1
+Overflow: UO2(CO3)2-2	1.000000e+03	1.267018e+01	-1
+Overflow: UO2(CO3)3-4	1.000000e+03	9.555552e+00	-1
+Overflow: UO2+	1.000000e+03	1.145561e+01	-1
+Overflow: UO2+2	1.000000e+03	1.372420e+01	-1
+Overflow: UO2CO3	1.000000e+03	1.420650e+01	-1
+Overflow: UO2OH+	1.000000e+03	1.579198e+01	-1
+Overflow: (UO2)2(OH)2+2	1.000000e+03	1.385567e+01	-1
+Overflow: (UO2)3(OH)5+	1.000000e+03	2.940447e+01	-1
+Overflow: UO2+2	5.856625e+01	1.767647e+00	-1
+Overflow: UO2OH+	1.000000e+03	3.835427e+00	-1
+Iterations in revise_guesses: 7
+Switching bases to UO2+2.	Iteration 1
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 1
+
+Number of iterations: 7
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

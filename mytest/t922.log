@@ -1,0 +1,798 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 13
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-------------------------------------------------------
+Beginning of initial exchange-composition calculations.
+-------------------------------------------------------
+
+Exchange 1.	
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+------------------------------------------------------
+Beginning of initial surface-composition calculations.
+------------------------------------------------------
+
+Surface 1.	
+
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 11
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	5 mmol/l MgCl2 + 25 mmol/l O2
+
+Overflow: Fe(OH)2+	3.104845e+01	1.492040e+00	-1
+Overflow: Fe3(OH)4+5	9.229221e+02	2.965165e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 5.
+------------------------------------
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 6.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 3
+
+Number of infeasible solutions: 2
+Number of basis changes: 0
+
+Number of iterations: 8
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 7.
+------------------------------------
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 10
+Ineq had infeasible solution, kode 0, iteration 11
+Ineq had infeasible solution, kode 0, iteration 12
+Ineq had infeasible solution, kode 0, iteration 13
+Ineq had infeasible solution, kode 0, iteration 14
+Ineq had infeasible solution, kode 0, iteration 15
+Ineq had infeasible solution, kode 0, iteration 16
+Ineq had infeasible solution, kode 0, iteration 17
+Ineq had infeasible solution, kode 0, iteration 18
+Ineq had infeasible solution, kode 0, iteration 19
+Ineq had infeasible solution, kode 0, iteration 20
+Ineq had infeasible solution, kode 0, iteration 21
+Ineq had infeasible solution, kode 0, iteration 22
+Ineq had infeasible solution, kode 0, iteration 23
+Ineq had infeasible solution, kode 0, iteration 24
+Ineq had infeasible solution, kode 0, iteration 25
+Ineq had infeasible solution, kode 0, iteration 26
+Ineq had infeasible solution, kode 0, iteration 27
+Ineq had infeasible solution, kode 0, iteration 28
+Ineq had infeasible solution, kode 0, iteration 29
+Ineq had infeasible solution, kode 0, iteration 30
+Ineq had infeasible solution, kode 0, iteration 31
+Ineq had infeasible solution, kode 0, iteration 32
+Ineq had infeasible solution, kode 0, iteration 33
+Ineq had infeasible solution, kode 0, iteration 34
+Ineq had infeasible solution, kode 0, iteration 35
+Ineq had infeasible solution, kode 0, iteration 36
+Ineq had infeasible solution, kode 0, iteration 37
+Ineq had infeasible solution, kode 0, iteration 38
+Ineq had infeasible solution, kode 0, iteration 39
+Ineq had infeasible solution, kode 0, iteration 40
+Ineq had infeasible solution, kode 0, iteration 41
+Ineq had infeasible solution, kode 0, iteration 42
+Ineq had infeasible solution, kode 0, iteration 43
+Ineq had infeasible solution, kode 0, iteration 44
+Ineq had infeasible solution, kode 0, iteration 45
+Ineq had infeasible solution, kode 0, iteration 46
+Ineq had infeasible solution, kode 0, iteration 47
+Ineq had infeasible solution, kode 0, iteration 48
+Ineq had infeasible solution, kode 0, iteration 49
+Ineq had infeasible solution, kode 0, iteration 50
+Ineq had infeasible solution, kode 0, iteration 51
+Ineq had infeasible solution, kode 0, iteration 52
+Ineq had infeasible solution, kode 0, iteration 53
+Ineq had infeasible solution, kode 0, iteration 54
+Ineq had infeasible solution, kode 0, iteration 55
+Ineq had infeasible solution, kode 0, iteration 56
+Ineq had infeasible solution, kode 0, iteration 57
+Ineq had infeasible solution, kode 0, iteration 58
+Ineq had infeasible solution, kode 0, iteration 59
+Ineq had infeasible solution, kode 0, iteration 60
+Ineq had infeasible solution, kode 0, iteration 61
+Ineq had infeasible solution, kode 0, iteration 62
+Ineq had infeasible solution, kode 0, iteration 63
+Ineq had infeasible solution, kode 0, iteration 64
+Ineq had infeasible solution, kode 0, iteration 65
+Ineq had infeasible solution, kode 0, iteration 66
+Ineq had infeasible solution, kode 0, iteration 67
+Ineq had infeasible solution, kode 0, iteration 68
+Ineq had infeasible solution, kode 0, iteration 69
+Ineq had infeasible solution, kode 0, iteration 70
+Ineq had infeasible solution, kode 0, iteration 71
+Ineq had infeasible solution, kode 0, iteration 72
+Ineq had infeasible solution, kode 0, iteration 73
+Ineq had infeasible solution, kode 0, iteration 74
+Ineq had infeasible solution, kode 0, iteration 75
+Ineq had infeasible solution, kode 0, iteration 76
+Ineq had infeasible solution, kode 0, iteration 77
+Ineq had infeasible solution, kode 0, iteration 78
+Ineq had infeasible solution, kode 0, iteration 79
+Ineq had infeasible solution, kode 0, iteration 80
+Ineq had infeasible solution, kode 0, iteration 81
+Ineq had infeasible solution, kode 0, iteration 82
+Ineq had infeasible solution, kode 0, iteration 83
+Ineq had infeasible solution, kode 0, iteration 84
+Ineq had infeasible solution, kode 0, iteration 85
+Ineq had infeasible solution, kode 0, iteration 86
+Ineq had infeasible solution, kode 0, iteration 87
+Ineq had infeasible solution, kode 0, iteration 88
+Ineq had infeasible solution, kode 0, iteration 89
+Ineq had infeasible solution, kode 0, iteration 90
+Ineq had infeasible solution, kode 0, iteration 91
+Ineq had infeasible solution, kode 0, iteration 92
+Ineq had infeasible solution, kode 0, iteration 93
+Ineq had infeasible solution, kode 0, iteration 94
+Ineq had infeasible solution, kode 0, iteration 95
+Ineq had infeasible solution, kode 0, iteration 96
+Ineq had infeasible solution, kode 0, iteration 97
+Ineq had infeasible solution, kode 0, iteration 98
+Ineq had infeasible solution, kode 0, iteration 99
+
+Iteration 100	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+Scaling column for Hydrogen, max= 5.306604e-11
+
+A and B arrays:
+
+0
+   0.00e+00   0.00e+00   0.00e+00   1.00e+00   0.00e+00   0.00e+00   2.00e+00  -3.00e+00
+  -1.88e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   3.14e-01
+
+1
+   4.63e-03   1.40e-05   0.00e+00   4.19e-18   2.05e-04   1.20e-02  -1.38e-04   4.71e-03
+   0.00e+00   4.63e-03   0.00e+00   0.00e+00   0.00e+00  -2.49e-03
+
+2
+   1.40e-05   3.85e-04   0.00e+00   0.00e+00   0.00e+00   3.83e-03   2.64e-09  -4.38e-07
+   0.00e+00   3.74e-04   1.11e-05  -2.21e-05   0.00e+00   5.42e-20
+
+3
+   0.00e+00   0.00e+00   1.00e-02   8.60e-20   0.00e+00   3.04e-02   0.00e+00   0.00e+00
+  -3.10e-22   1.00e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+
+4
+   4.19e-18   0.00e+00   8.60e-20   1.83e-11   0.00e+00   6.15e-12   5.31e-11  -5.31e-11
+  -3.44e-11   1.83e-11   5.52e-16  -4.80e-16  -1.00e+00  -2.26e-26
+
+5
+   2.05e-04   0.00e+00   0.00e+00   0.00e+00   9.34e-03   5.98e-02   6.03e-07  -3.08e-03
+   0.00e+00   6.09e-03   3.25e-03  -6.51e-03   0.00e+00   0.00e+00
+
+6
+   2.25e-03   7.25e-04   5.00e-03   1.69e-12   1.19e-02  -8.52e-01   5.57e-07   2.22e-03
+  -3.19e-12  -4.41e-18   0.00e+00   0.00e+00   0.00e+00   4.41e-18
+
+7
+  -7.87e-05  -6.36e-06  -1.70e-04  -3.10e-13  -1.04e-04  -1.79e-03  -1.00e-00  -8.01e-05
+   5.85e-13  -4.46e-17  -0.00e+00  -0.00e+00  -0.00e+00   4.46e-17
+
+8
+  -4.11e-03   7.42e-04  -1.00e-02   1.72e-12   1.52e-02   8.47e-02   9.71e-08  -4.79e-03
+  -3.24e-12  -1.62e-03   1.05e-03  -1.16e-02   0.00e+00   1.30e-18
+
+9
+  -2.31e-02  -9.53e-05   0.00e+00  -5.31e-11  -7.56e-03  -6.00e-02   5.49e-04  -1.20e-02
+   1.00e-10  -2.31e-02  -1.55e-02   3.54e-03   3.00e+00   0.00e+00
+
+10
+   1.37e-02   5.30e-05   0.00e+00   5.31e-11   3.87e-03   3.59e-02  -2.74e-04   8.39e-03
+  -1.00e-10   5.55e+01   1.00e-02  -2.11e-03  -2.00e+00   0.00e+00
+
+11
+   0.00e+00   1.11e-05   0.00e+00   5.52e-16   3.25e-03   0.00e+00   3.12e-16  -5.47e-03
+   0.00e+00   0.00e+00   1.00e-02  -2.11e-03   0.00e+00  -3.47e-18
+
+12
+   0.00e+00   2.02e-04   0.00e+00   4.39e-15   5.95e-02  -4.88e-01   0.00e+00  -1.31e-02
+   0.00e+00   0.00e+00   1.93e-02  -2.38e-01   0.00e+00  -1.52e-17
+
+13
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   1.00e+00   1.00e-01
+
+
+k, l, m	1	12	1
+kode: 1	iter: 11	error: 3.135060e-01
+
+solution vector:
+     0  C             -2.42e-17
+     1  Ca             1.64e-16
+     2  Cl             2.84e-18
+     3  Fe             0.00e+00
+     4  Mg             2.50e-16
+     5  Mu            -9.36e-19
+     6  A(H2O)        -4.46e-17
+     7  pH             2.61e-16
+     8  Hydrogen       0.00e+00
+     9  Oxygen         8.59e-22
+    10  Hfo_w         -2.66e-16
+    11  Hfo_CB         9.27e-17
+    12  Goethite       6.41e-27   -SI   1.36e-01   Moles   1.00e-01 **
+
+residual vector:
+     0  Goethite       3.14e-01
+     1  C             -2.49e-03
+     2  Ca             0.00e+00
+     3  Cl             0.00e+00
+     4  Fe             0.00e+00
+     5  Mg             0.00e+00
+     6  Mu             0.00e+00
+     7  A(H2O)         0.00e+00
+     8  pH             0.00e+00
+     9  Hydrogen       0.00e+00
+    10  Oxygen         0.00e+00
+    11  Hfo_w          0.00e+00
+    12  Hfo_CB         0.00e+00
+    13  Goethite       1.00e-01
+Ineq had infeasible solution, kode 0, iteration 100
+Ineq had infeasible solution, kode 0, iteration 100
+
+Sum of deltas:     0.000000
+Factor:   1.0000e+00
+C          old la     -4.98988   new la     -4.98988   delta  -2.42e-17   delta/c  -1.05e-17
+Ca         old la     -3.67112   new la     -3.67112   delta   1.64e-16   delta/c   7.13e-17
+Cl         old la     -2.06081   new la     -2.06081   delta   2.84e-18   delta/c   1.23e-18
+Fe         old la    -17.20480   new la    -17.20480   delta   0.00e+00   delta/c   0.00e+00
+Mg         old la     -2.45291   new la     -2.45291   delta   2.50e-16   delta/c   1.08e-16
+Calculated mu: 1.974329e-02
+Mu         old mu      0.01974   new mu      0.01974   delta  -9.36e-19
+A(H2O)     old la     -0.00015   new la     -0.00015   delta  -4.46e-17   delta/c  -1.94e-17
+pH         old la     -7.81365   new la     -7.81365   delta   2.61e-16   delta/c   1.13e-16
+Hydrogen   old pe     -8.95003   new pe     -8.95003   delta   0.00e+00   delta/c   0.00e+00
+Oxygen     old MH2O   1.00e-00   new MH2O   1.00e-00   delta   8.59e-22   10**d/c   1.00e+00
+Hfo_w      old la     -0.37793   new la     -0.37793   delta  -2.66e-16   delta/c  -1.16e-16
+Hfo_CB     old f*psi   0.43526   new f*psi   0.43526   delta   4.03e-17
+Goethite   old mass   1.00e-01   new mass   1.00e-01   delta   6.41e-27
+C          old mole   2.13e-03   new mole   2.13e-03   delta   0.00e+00
+Ca         old mole   3.85e-04   new mole   3.85e-04   delta   0.00e+00
+Cl         old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
+Fe         old mole   1.83e-11   new mole   1.83e-11   delta   6.41e-27
+Mg         old mole   9.34e-03   new mole   9.34e-03   delta   0.00e+00
+pH         old mole  -5.62e-04   new mole  -5.62e-04   delta   0.00e+00
+Hydrogen   old mole  -3.85e-02   new mole  -3.85e-02   delta  -1.92e-26
+Oxygen     old mole   5.55e+01   new mole   5.55e+01   delta   1.28e-26
+Hfo_w      old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
+Charge/Potential
+	Sum of surface charge 1.928004e-02
+grams 8.8
+	Charge from potential 1.928004e-02
+	             FPsi/2RT 1.002225e+00
+	       Sinh(FPsi/2RT) 1.178638e+00
+	       Cosh(FPsi/2RT) 1.545699e+00
+	           Sqrt(mu_x) 1.405108e-01
+
+Iteration 101	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Maximum iterations exceeded, 100
+
+
+Number of infeasible solutions: 98
+Number of basis changes: 0
+
+Number of iterations: 101
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 10
+Ineq had infeasible solution, kode 0, iteration 11
+Ineq had infeasible solution, kode 0, iteration 12
+Ineq had infeasible solution, kode 0, iteration 13
+Ineq had infeasible solution, kode 0, iteration 14
+Ineq had infeasible solution, kode 0, iteration 15
+Ineq had infeasible solution, kode 0, iteration 16
+Ineq had infeasible solution, kode 0, iteration 17
+Ineq had infeasible solution, kode 0, iteration 18
+Ineq had infeasible solution, kode 0, iteration 19
+Ineq had infeasible solution, kode 0, iteration 20
+Ineq had infeasible solution, kode 0, iteration 21
+Ineq had infeasible solution, kode 0, iteration 22
+Ineq had infeasible solution, kode 0, iteration 23
+Ineq had infeasible solution, kode 0, iteration 24
+Ineq had infeasible solution, kode 0, iteration 25
+Ineq had infeasible solution, kode 0, iteration 26
+Ineq had infeasible solution, kode 0, iteration 27
+Ineq had infeasible solution, kode 0, iteration 28
+Ineq had infeasible solution, kode 0, iteration 29
+Ineq had infeasible solution, kode 0, iteration 30
+Ineq had infeasible solution, kode 0, iteration 31
+Ineq had infeasible solution, kode 0, iteration 32
+Ineq had infeasible solution, kode 0, iteration 33
+Ineq had infeasible solution, kode 0, iteration 34
+Ineq had infeasible solution, kode 0, iteration 35
+Ineq had infeasible solution, kode 0, iteration 36
+Ineq had infeasible solution, kode 0, iteration 37
+Ineq had infeasible solution, kode 0, iteration 38
+Ineq had infeasible solution, kode 0, iteration 39
+Ineq had infeasible solution, kode 0, iteration 40
+Ineq had infeasible solution, kode 0, iteration 41
+Ineq had infeasible solution, kode 0, iteration 42
+Ineq had infeasible solution, kode 0, iteration 43
+Ineq had infeasible solution, kode 0, iteration 44
+Ineq had infeasible solution, kode 0, iteration 45
+Ineq had infeasible solution, kode 0, iteration 46
+Ineq had infeasible solution, kode 0, iteration 47
+Ineq had infeasible solution, kode 0, iteration 48
+Ineq had infeasible solution, kode 0, iteration 49
+Ineq had infeasible solution, kode 0, iteration 50
+Ineq had infeasible solution, kode 0, iteration 51
+Ineq had infeasible solution, kode 0, iteration 52
+Ineq had infeasible solution, kode 0, iteration 53
+Ineq had infeasible solution, kode 0, iteration 54
+Ineq had infeasible solution, kode 0, iteration 55
+Ineq had infeasible solution, kode 0, iteration 56
+Ineq had infeasible solution, kode 0, iteration 57
+Ineq had infeasible solution, kode 0, iteration 58
+Ineq had infeasible solution, kode 0, iteration 59
+Ineq had infeasible solution, kode 0, iteration 60
+Ineq had infeasible solution, kode 0, iteration 61
+Ineq had infeasible solution, kode 0, iteration 62
+Ineq had infeasible solution, kode 0, iteration 63
+Ineq had infeasible solution, kode 0, iteration 64
+Ineq had infeasible solution, kode 0, iteration 65
+Ineq had infeasible solution, kode 0, iteration 66
+Ineq had infeasible solution, kode 0, iteration 67
+Ineq had infeasible solution, kode 0, iteration 68
+Ineq had infeasible solution, kode 0, iteration 69
+Ineq had infeasible solution, kode 0, iteration 70
+Ineq had infeasible solution, kode 0, iteration 71
+Ineq had infeasible solution, kode 0, iteration 72
+Ineq had infeasible solution, kode 0, iteration 73
+Ineq had infeasible solution, kode 0, iteration 74
+Ineq had infeasible solution, kode 0, iteration 75
+Ineq had infeasible solution, kode 0, iteration 76
+Ineq had infeasible solution, kode 0, iteration 77
+Ineq had infeasible solution, kode 0, iteration 78
+Ineq had infeasible solution, kode 0, iteration 79
+Ineq had infeasible solution, kode 0, iteration 80
+Ineq had infeasible solution, kode 0, iteration 81
+Ineq had infeasible solution, kode 0, iteration 82
+Ineq had infeasible solution, kode 0, iteration 83
+Ineq had infeasible solution, kode 0, iteration 84
+Ineq had infeasible solution, kode 0, iteration 85
+Ineq had infeasible solution, kode 0, iteration 86
+Ineq had infeasible solution, kode 0, iteration 87
+Ineq had infeasible solution, kode 0, iteration 88
+Ineq had infeasible solution, kode 0, iteration 89
+Ineq had infeasible solution, kode 0, iteration 90
+Ineq had infeasible solution, kode 0, iteration 91
+Ineq had infeasible solution, kode 0, iteration 92
+Ineq had infeasible solution, kode 0, iteration 93
+Ineq had infeasible solution, kode 0, iteration 94
+Ineq had infeasible solution, kode 0, iteration 95
+Ineq had infeasible solution, kode 0, iteration 96
+Ineq had infeasible solution, kode 0, iteration 97
+Ineq had infeasible solution, kode 0, iteration 98
+Ineq had infeasible solution, kode 0, iteration 99
+Ineq had infeasible solution, kode 0, iteration 100
+Ineq had infeasible solution, kode 0, iteration 101
+Ineq had infeasible solution, kode 0, iteration 102
+Ineq had infeasible solution, kode 0, iteration 103
+Ineq had infeasible solution, kode 0, iteration 104
+Ineq had infeasible solution, kode 0, iteration 105
+Ineq had infeasible solution, kode 0, iteration 106
+Ineq had infeasible solution, kode 0, iteration 107
+Ineq had infeasible solution, kode 0, iteration 108
+Ineq had infeasible solution, kode 0, iteration 109
+Ineq had infeasible solution, kode 0, iteration 110
+Ineq had infeasible solution, kode 0, iteration 111
+Ineq had infeasible solution, kode 0, iteration 112
+Ineq had infeasible solution, kode 0, iteration 113
+Ineq had infeasible solution, kode 0, iteration 114
+Ineq had infeasible solution, kode 0, iteration 115
+Ineq had infeasible solution, kode 0, iteration 116
+Ineq had infeasible solution, kode 0, iteration 117
+Ineq had infeasible solution, kode 0, iteration 118
+Ineq had infeasible solution, kode 0, iteration 119
+Ineq had infeasible solution, kode 0, iteration 120
+Ineq had infeasible solution, kode 0, iteration 121
+Ineq had infeasible solution, kode 0, iteration 122
+Ineq had infeasible solution, kode 0, iteration 123
+Ineq had infeasible solution, kode 0, iteration 124
+Ineq had infeasible solution, kode 0, iteration 125
+Ineq had infeasible solution, kode 0, iteration 126
+Ineq had infeasible solution, kode 0, iteration 127
+Ineq had infeasible solution, kode 0, iteration 128
+Ineq had infeasible solution, kode 0, iteration 129
+Ineq had infeasible solution, kode 0, iteration 130
+Ineq had infeasible solution, kode 0, iteration 131
+Ineq had infeasible solution, kode 0, iteration 132
+Ineq had infeasible solution, kode 0, iteration 133
+Ineq had infeasible solution, kode 0, iteration 134
+Ineq had infeasible solution, kode 0, iteration 135
+Ineq had infeasible solution, kode 0, iteration 136
+Ineq had infeasible solution, kode 0, iteration 137
+Ineq had infeasible solution, kode 0, iteration 138
+Ineq had infeasible solution, kode 0, iteration 139
+Ineq had infeasible solution, kode 0, iteration 140
+Ineq had infeasible solution, kode 0, iteration 141
+Ineq had infeasible solution, kode 0, iteration 142
+Ineq had infeasible solution, kode 0, iteration 143
+Ineq had infeasible solution, kode 0, iteration 144
+Ineq had infeasible solution, kode 0, iteration 145
+Ineq had infeasible solution, kode 0, iteration 146
+Ineq had infeasible solution, kode 0, iteration 147
+Ineq had infeasible solution, kode 0, iteration 148
+Ineq had infeasible solution, kode 0, iteration 149
+Ineq had infeasible solution, kode 0, iteration 150
+Ineq had infeasible solution, kode 0, iteration 151
+Ineq had infeasible solution, kode 0, iteration 152
+Ineq had infeasible solution, kode 0, iteration 153
+Ineq had infeasible solution, kode 0, iteration 154
+Ineq had infeasible solution, kode 0, iteration 155
+Ineq had infeasible solution, kode 0, iteration 156
+Ineq had infeasible solution, kode 0, iteration 157
+Ineq had infeasible solution, kode 0, iteration 158
+Ineq had infeasible solution, kode 0, iteration 159
+Ineq had infeasible solution, kode 0, iteration 160
+Ineq had infeasible solution, kode 0, iteration 161
+Ineq had infeasible solution, kode 0, iteration 162
+Ineq had infeasible solution, kode 0, iteration 163
+Ineq had infeasible solution, kode 0, iteration 164
+Ineq had infeasible solution, kode 0, iteration 165
+Ineq had infeasible solution, kode 0, iteration 166
+Ineq had infeasible solution, kode 0, iteration 167
+Ineq had infeasible solution, kode 0, iteration 168
+Ineq had infeasible solution, kode 0, iteration 169
+Ineq had infeasible solution, kode 0, iteration 170
+Ineq had infeasible solution, kode 0, iteration 171
+Ineq had infeasible solution, kode 0, iteration 172
+Ineq had infeasible solution, kode 0, iteration 173
+Ineq had infeasible solution, kode 0, iteration 174
+Ineq had infeasible solution, kode 0, iteration 175
+Ineq had infeasible solution, kode 0, iteration 176
+Ineq had infeasible solution, kode 0, iteration 177
+Ineq had infeasible solution, kode 0, iteration 178
+Ineq had infeasible solution, kode 0, iteration 179
+Ineq had infeasible solution, kode 0, iteration 180
+Ineq had infeasible solution, kode 0, iteration 181
+Ineq had infeasible solution, kode 0, iteration 182
+Ineq had infeasible solution, kode 0, iteration 183
+Ineq had infeasible solution, kode 0, iteration 184
+Ineq had infeasible solution, kode 0, iteration 185
+Ineq had infeasible solution, kode 0, iteration 186
+Ineq had infeasible solution, kode 0, iteration 187
+Ineq had infeasible solution, kode 0, iteration 188
+Ineq had infeasible solution, kode 0, iteration 189
+Ineq had infeasible solution, kode 0, iteration 190
+Ineq had infeasible solution, kode 0, iteration 191
+Ineq had infeasible solution, kode 0, iteration 192
+Ineq had infeasible solution, kode 0, iteration 193
+Ineq had infeasible solution, kode 0, iteration 194
+Ineq had infeasible solution, kode 0, iteration 195
+Ineq had infeasible solution, kode 0, iteration 196
+Ineq had infeasible solution, kode 0, iteration 197
+Ineq had infeasible solution, kode 0, iteration 198
+Ineq had infeasible solution, kode 0, iteration 199
+
+Iteration 200	Step_size = 10.000000
+		Pe_step_size = 5.000000
+
+Scaling column for Hydrogen, max= 7.260567e-11
+
+A and B arrays:
+
+0
+   0.00e+00   0.00e+00   0.00e+00   1.00e+00   0.00e+00   0.00e+00   2.00e+00  -3.00e+00
+  -1.38e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   6.37e-15
+
+1
+   4.63e-03   1.40e-05   0.00e+00   2.35e-18   2.05e-04   1.20e-02  -1.38e-04   4.71e-03
+   0.00e+00   4.63e-03   0.00e+00   0.00e+00   0.00e+00  -2.49e-03
+
+2
+   1.40e-05   3.85e-04   0.00e+00   0.00e+00   0.00e+00   3.83e-03   2.64e-09  -4.38e-07
+   0.00e+00   3.74e-04   1.11e-05  -2.21e-05   0.00e+00  -1.08e-19
+
+3
+   0.00e+00   0.00e+00   1.00e-02   4.83e-20   0.00e+00   3.04e-02   0.00e+00   0.00e+00
+  -3.10e-22   1.00e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+
+4
+   2.35e-18   0.00e+00   4.83e-20   2.50e-11   0.00e+00   8.41e-12   7.26e-11  -7.26e-11
+  -3.44e-11   2.50e-11   3.09e-16  -2.69e-16  -1.00e+00   7.11e-26
+
+5
+   2.05e-04   0.00e+00   0.00e+00   0.00e+00   9.34e-03   5.98e-02   6.03e-07  -3.08e-03
+   0.00e+00   6.09e-03   3.25e-03  -6.51e-03   0.00e+00   1.73e-18
+
+6
+   2.25e-03   7.25e-04   5.00e-03   2.31e-12   1.19e-02  -8.52e-01   5.57e-07   2.22e-03
+  -3.19e-12   8.27e-19   0.00e+00   0.00e+00   0.00e+00  -8.27e-19
+
+7
+  -7.87e-05  -6.36e-06  -1.70e-04  -4.25e-13  -1.04e-04  -1.79e-03  -1.00e-00  -8.01e-05
+   5.85e-13  -1.09e-17  -0.00e+00  -0.00e+00  -0.00e+00   1.09e-17
+
+8
+  -4.11e-03   7.42e-04  -1.00e-02   2.36e-12   1.52e-02   8.47e-02   9.71e-08  -4.79e-03
+  -3.24e-12  -1.62e-03   1.05e-03  -1.16e-02   0.00e+00  -2.39e-18
+
+9
+  -2.31e-02  -9.53e-05   0.00e+00  -7.26e-11  -7.56e-03  -6.00e-02   5.49e-04  -1.20e-02
+   1.00e-10  -2.31e-02  -1.55e-02   3.54e-03   3.00e+00   0.00e+00
+
+10
+   1.37e-02   5.30e-05   0.00e+00   7.26e-11   3.87e-03   3.59e-02  -2.74e-04   8.39e-03
+  -1.00e-10   5.55e+01   1.00e-02  -2.11e-03  -2.00e+00   0.00e+00
+
+11
+   0.00e+00   1.11e-05   0.00e+00   3.09e-16   3.25e-03   0.00e+00   1.75e-16  -5.47e-03
+   0.00e+00   0.00e+00   1.00e-02  -2.11e-03   0.00e+00   3.47e-18
+
+12
+   0.00e+00   2.02e-04   0.00e+00   2.46e-15   5.95e-02  -4.88e-01   0.00e+00  -1.31e-02
+   0.00e+00   0.00e+00   1.93e-02  -2.38e-01   0.00e+00   2.01e-17
+
+13
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   1.00e+00   1.00e-01
+
+
+k, l, m	1	12	1
+kode: 1	iter: 12	error: 0.000000e+00
+
+solution vector:
+     0  C              1.73e-15
+     1  Ca            -2.82e-16
+     2  Cl             1.51e-17
+     3  Fe             0.00e+00
+     4  Mg            -3.43e-16
+     5  Mu            -4.99e-18
+     6  A(H2O)        -1.08e-17
+     7  pH            -2.15e-15
+     8  Hydrogen       6.37e-17
+     9  Oxygen         5.42e-20
+    10  Hfo_w         -7.41e-16
+    11  Hfo_CB        -1.02e-16
+    12  Goethite       8.28e-26   -SI   2.77e-15   Moles   1.00e-01 **
+
+residual vector:
+     0  Goethite       0.00e+00
+     1  C             -2.49e-03
+     2  Ca             0.00e+00
+     3  Cl             0.00e+00
+     4  Fe             0.00e+00
+     5  Mg             0.00e+00
+     6  Mu             0.00e+00
+     7  A(H2O)         0.00e+00
+     8  pH             0.00e+00
+     9  Hydrogen       0.00e+00
+    10  Oxygen         0.00e+00
+    11  Hfo_w          0.00e+00
+    12  Hfo_CB         0.00e+00
+    13  Goethite       1.00e-01
+Ineq had infeasible solution, kode 0, iteration 200
+Ineq had infeasible solution, kode 0, iteration 200
+
+Sum of deltas:     0.000000
+Factor:   1.0000e+00
+C          old la     -4.98988   new la     -4.98988   delta   1.73e-15   delta/c   7.51e-16
+Ca         old la     -3.67112   new la     -3.67112   delta  -2.82e-16   delta/c  -1.22e-16
+Cl         old la     -2.06081   new la     -2.06081   delta   1.51e-17   delta/c   6.55e-18
+Fe         old la    -17.45676   new la    -17.45676   delta   0.00e+00   delta/c   0.00e+00
+Mg         old la     -2.45291   new la     -2.45291   delta  -3.43e-16   delta/c  -1.49e-16
+Calculated mu: 1.974329e-02
+Mu         old mu      0.01974   new mu      0.01974   delta  -4.99e-18
+A(H2O)     old la     -0.00015   new la     -0.00015   delta  -1.08e-17   delta/c  -4.69e-18
+pH         old la     -7.81365   new la     -7.81365   delta  -2.15e-15   delta/c  -9.35e-16
+Hydrogen   old pe     -9.33815   new pe     -9.33815   delta   6.37e-17   delta/c   2.77e-17
+Oxygen     old MH2O   1.00e-00   new MH2O   1.00e-00   delta   5.42e-20   10**d/c   1.00e+00
+Hfo_w      old la     -0.37793   new la     -0.37793   delta  -7.41e-16   delta/c  -3.22e-16
+Hfo_CB     old f*psi   0.43526   new f*psi   0.43526   delta  -4.42e-17
+Goethite   old mass   1.00e-01   new mass   1.00e-01   delta   8.28e-26
+C          old mole   2.13e-03   new mole   2.13e-03   delta   0.00e+00
+Ca         old mole   3.85e-04   new mole   3.85e-04   delta   0.00e+00
+Cl         old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
+Fe         old mole   2.50e-11   new mole   2.50e-11   delta   8.28e-26
+Mg         old mole   9.34e-03   new mole   9.34e-03   delta   0.00e+00
+pH         old mole  -5.62e-04   new mole  -5.62e-04   delta   0.00e+00
+Hydrogen   old mole  -3.85e-02   new mole  -3.85e-02   delta  -2.48e-25
+Oxygen     old mole   5.55e+01   new mole   5.55e+01   delta   1.66e-25
+Hfo_w      old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
+Charge/Potential
+	Sum of surface charge 1.928004e-02
+grams 8.8
+	Charge from potential 1.928004e-02
+	             FPsi/2RT 1.002225e+00
+	       Sinh(FPsi/2RT) 1.178638e+00
+	       Cosh(FPsi/2RT) 1.545699e+00
+	           Sqrt(mu_x) 1.405108e-01
+
+Iteration 201	Step_size = 10.000000
+		Pe_step_size = 5.000000
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Maximum iterations exceeded, 200
+
+
+Number of infeasible solutions: 196
+Number of basis changes: 0
+
+Number of iterations: 201
+
+WARNING: Trying diagonal scaling ...
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+
+Number of infeasible solutions: 3
+Number of basis changes: 0
+
+Number of iterations: 21
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 8.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

@@ -1,0 +1,618 @@
+-----
+TITLE
+-----
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	Pure water
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: CaSO4	1.995262e+02	2.300000e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 2.
+
+Overflow: CaSO4	2.013923e+02	2.304043e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 3.
+
+Overflow: CaSO4	2.032632e+02	2.308059e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 25
+
+Reaction step 4.
+
+Overflow: CaSO4	2.051389e+02	2.312048e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 5.
+
+Overflow: CaSO4	2.070193e+02	2.316011e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 20
+
+Reaction step 6.
+
+Overflow: CaSO4	2.089044e+02	2.319948e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+Reaction step 7.
+
+Overflow: CaSO4	2.107941e+02	2.323858e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+Reaction step 8.
+
+Overflow: CaSO4	2.126883e+02	2.327744e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+Reaction step 9.
+
+Overflow: CaSO4	2.145870e+02	2.331603e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 10.
+
+Overflow: CaSO4	2.164901e+02	2.335438e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+Reaction step 11.
+
+Overflow: CaSO4	2.183976e+02	2.339248e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 16
+
+Reaction step 12.
+
+Overflow: CaSO4	2.203094e+02	2.343033e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 3.809667e-01
+                    Removing unstable phases, iteration 15.
+Removing unstable phases. Iteration 15.
+Overflow: CaSO4	4.668465e+01	1.669174e+00	17
+Overflow: CaSO4	4.668465e+01	1.669174e+00	17
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 26
+
+Reaction step 13.
+
+Overflow: CaSO4	2.222254e+02	2.346794e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 19
+
+Reaction step 14.
+
+Overflow: CaSO4	2.241456e+02	2.350530e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 19
+
+Reaction step 15.
+
+Overflow: CaSO4	2.260700e+02	2.354243e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 15
+
+Reaction step 16.
+
+Overflow: CaSO4	2.279984e+02	2.357932e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 15
+
+Reaction step 17.
+
+Overflow: CaSO4	2.299309e+02	2.361597e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 19
+
+Reaction step 18.
+
+Overflow: CaSO4	2.318673e+02	2.365239e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 15
+
+Reaction step 19.
+
+Overflow: CaSO4	2.338076e+02	2.368859e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 21
+
+Reaction step 20.
+
+Overflow: CaSO4	2.357517e+02	2.372455e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 15
+
+Reaction step 21.
+
+Overflow: CaSO4	2.376996e+02	2.376029e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 15
+
+Reaction step 22.
+
+Overflow: CaSO4	2.396513e+02	2.379580e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 23.
+
+Overflow: CaSO4	2.416067e+02	2.383109e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 21
+
+Reaction step 24.
+
+Overflow: CaSO4	2.435657e+02	2.386616e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 1.922469e-01
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Ineq had infeasible solution, kode 0, iteration 16
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 25.
+
+Overflow: CaSO4	2.455282e+02	2.390101e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 1.743101e-01
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Ineq had infeasible solution, kode 0, iteration 16
+Overflow: CaSO4	4.891983e+01	1.689485e+00	16
+Overflow: CaSO4	4.891983e+01	1.689485e+00	16
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 24
+
+Reaction step 26.
+
+Overflow: CaSO4	2.474943e+02	2.393565e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 1.560545e-01
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Ineq had infeasible solution, kode 0, iteration 16
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 27.
+
+Overflow: CaSO4	2.494638e+02	2.397008e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 22
+
+Reaction step 28.
+
+Overflow: CaSO4	2.514368e+02	2.400429e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 1.186034e-01
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Overflow: CaSO4	4.916925e+01	1.691694e+00	16
+Overflow: CaSO4	4.916925e+01	1.691694e+00	16
+Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 17
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 26
+
+Reaction step 29.
+
+Overflow: CaSO4	2.534131e+02	2.403829e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 9.941640e-02
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Ineq had infeasible solution, kode 0, iteration 16
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 30.
+
+Overflow: CaSO4	2.553928e+02	2.407209e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 31.
+
+Overflow: CaSO4	2.573757e+02	2.410567e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 22
+
+Reaction step 32.
+
+Overflow: CaSO4	2.593618e+02	2.413906e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 33.
+
+Overflow: CaSO4	2.613510e+02	2.417224e+00	-1
+Iterations in revise_guesses: 2
+           Anhydrite Pure phase has not converged. 	Residual: 1.968668e-02
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 34.
+
+Overflow: CaSO4	2.633434e+02	2.420522e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 9.707400e-04
+                    Removing unstable phases, iteration 14.
+Removing unstable phases. Iteration 14.
+Ineq had infeasible solution, kode 0, iteration 16
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 18
+
+Reaction step 35.
+
+Overflow: CaSO4	2.653388e+02	2.423801e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 2.189750e-02
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+Ineq had infeasible solution, kode 0, iteration 15
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 36.
+
+Overflow: CaSO4	2.673372e+02	2.427059e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 4.310315e-02
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 37.
+
+Overflow: CaSO4	2.693386e+02	2.430299e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 6.458400e-02
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 38.
+
+Overflow: CaSO4	2.713428e+02	2.433518e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 8.633640e-02
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+Ineq had infeasible solution, kode 0, iteration 15
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 39.
+
+Overflow: CaSO4	2.733500e+02	2.436719e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 1.083567e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 40.
+
+Overflow: CaSO4	2.753599e+02	2.439901e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 1.306415e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 41.
+
+Overflow: CaSO4	2.773726e+02	2.443064e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 1.531871e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 42.
+
+Overflow: CaSO4	2.793880e+02	2.446208e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 1.759902e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 43.
+
+Overflow: CaSO4	2.814061e+02	2.449334e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 44.
+
+Overflow: CaSO4	2.834268e+02	2.452441e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 45.
+
+Overflow: CaSO4	2.854501e+02	2.455530e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 46.
+
+Overflow: CaSO4	2.874759e+02	2.458601e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 47.
+
+Overflow: CaSO4	2.895041e+02	2.461655e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 48.
+
+Overflow: CaSO4	2.915348e+02	2.464690e+00	-1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 14
+
+Reaction step 49.
+
+Overflow: CaSO4	2.935679e+02	2.467709e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 3.425400e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+Ineq had infeasible solution, kode 0, iteration 15
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 50.
+
+Overflow: CaSO4	2.956034e+02	2.470709e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 3.672839e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+Reaction step 51.
+
+Overflow: CaSO4	2.976411e+02	2.473693e+00	-1
+Iterations in revise_guesses: 2
+              Gypsum Pure phase has not converged. 	Residual: 3.922561e-01
+                    Removing unstable phases, iteration 13.
+Removing unstable phases. Iteration 13.
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 17
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

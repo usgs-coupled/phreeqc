@@ -1,0 +1,132 @@
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	Seawater
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
+
+------------------------------------------------------
+Beginning of initial surface-composition calculations.
+------------------------------------------------------
+
+Surface 1.	
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 7
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 5
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 3
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Overflow: N2	1.000000e+03	3.055950e+01	-1
+Overflow: N2	1.000000e+03	1.606175e+01	-1
+Overflow: N2	3.664344e+01	1.563996e+00	-1
+Iterations in revise_guesses: 5
+Ineq had infeasible solution, kode 0, iteration 1
+Overflow: N2	1.000000e+03	3.728021e+00	1
+Overflow: N2	1.000000e+03	3.728021e+00	1
+Iterations in revise_guesses: 3
+Switching bases to N2.	Iteration 1
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 1
+Number of basis changes: 1
+
+Number of iterations: 12
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 0
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 3
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+
