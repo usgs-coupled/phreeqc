@@ -9779,7 +9779,8 @@ Zn               1.170e-06
 
 WARNING: Maximum iterations exceeded, 100
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 7.	Solution after simulation 3.

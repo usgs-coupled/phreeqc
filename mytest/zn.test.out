@@ -38,8 +38,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -373,8 +373,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -708,8 +708,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -793,7 +793,8 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	Pure water
@@ -1046,8 +1047,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -1383,8 +1384,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -1470,7 +1471,8 @@ Reaction step 1.
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	Pure water
@@ -1723,8 +1725,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -2058,8 +2060,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -2393,8 +2395,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -2480,7 +2482,8 @@ Reaction step 1.
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	Pure water
@@ -2733,8 +2736,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -2820,23 +2823,28 @@ Reaction step 1.
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying reduced tolerance 1e-16 ...
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying increased tolerance 1e-14 ...
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling and reduced tolerance 1e-16 ...
 
 Using solution 1.	Pure water
@@ -3089,8 +3097,8 @@ Initial solution 1.	Pure water
 
 	Elements           Molality       Moles
 
-	Pure water
-    
+	Pure water     
+
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
@@ -3176,12 +3184,14 @@ Reaction step 1.
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Using solution 1.	Pure water

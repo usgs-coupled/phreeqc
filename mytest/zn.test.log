@@ -4138,6 +4138,8 @@ Number of basis changes: 37
 
 Number of iterations: 101
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -5036,6 +5038,8 @@ Number of infeasible solutions: 23
 Number of basis changes: 21
 
 Number of iterations: 83
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
@@ -7458,6 +7462,8 @@ Number of basis changes: 2
 
 Number of iterations: 28
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -7747,6 +7753,8 @@ Number of infeasible solutions: 16
 Number of basis changes: 5
 
 Number of iterations: 49
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
@@ -18570,6 +18578,8 @@ Number of basis changes: 8
 
 Number of iterations: 200
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -28828,6 +28838,8 @@ Number of basis changes: 47
 
 Number of iterations: 401
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying reduced tolerance 1e-16 ...
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -29568,6 +29580,8 @@ Number of basis changes: 2
 
 Number of iterations: 401
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying increased tolerance 1e-14 ...
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -29617,6 +29631,8 @@ Number of infeasible solutions: 9
 Number of basis changes: 2
 
 Number of iterations: 27
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying diagonal scaling and reduced tolerance 1e-16 ...
 
@@ -31092,6 +31108,8 @@ Number of basis changes: 2
 
 Number of iterations: 32
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Overflow: CO2	4.794226e+02	2.680719e+00	-1
@@ -31126,6 +31144,8 @@ Number of infeasible solutions: 8
 Number of basis changes: 0
 
 Number of iterations: 25
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying diagonal scaling ...
 

@@ -821,10 +821,12 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Using mix 2.	

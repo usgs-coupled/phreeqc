@@ -561,31 +561,40 @@ Beginning of advection calculations.
 ------------------------------------
 
 Beginning of advection time step 1, cumulative pore volumes 0.200000.
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-Numerical method failed with this set of convergence parameters.
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Beginning of advection time step 2, cumulative pore volumes 0.400000.

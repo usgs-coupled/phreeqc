@@ -342,6 +342,8 @@ Number of basis changes: 1
 
 Number of iterations: 101
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Overflow: CO2	1.000000e+03	2.897870e+01	-1
@@ -836,6 +838,8 @@ Number of basis changes: 0
 
 Number of iterations: 101
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Iterations in revise_guesses: 2
@@ -1325,6 +1329,8 @@ Number of basis changes: 0
 
 Number of iterations: 201
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Iterations in revise_guesses: 2
@@ -1774,6 +1780,8 @@ Number of infeasible solutions: 97
 Number of basis changes: 0
 
 Number of iterations: 101
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
@@ -2266,6 +2274,8 @@ Number of basis changes: 0
 
 Number of iterations: 201
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Iterations in revise_guesses: 2
@@ -2712,6 +2722,8 @@ Number of infeasible solutions: 98
 Number of basis changes: 0
 
 Number of iterations: 101
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
@@ -3201,6 +3213,8 @@ Number of basis changes: 0
 
 Number of iterations: 201
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Iterations in revise_guesses: 2
@@ -3650,6 +3664,8 @@ Number of infeasible solutions: 98
 Number of basis changes: 0
 
 Number of iterations: 101
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
@@ -4139,6 +4155,8 @@ Number of infeasible solutions: 193
 Number of basis changes: 0
 
 Number of iterations: 201
+
+WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying diagonal scaling ...
 
