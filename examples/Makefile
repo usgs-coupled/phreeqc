@@ -37,14 +37,13 @@ all:
 			else time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE); fi; \
 		if [ -f logfile ]; then mv logfile $$FILE.logfile; fi; \
 		mv phreeqc.log $$FILE.log; \
-		echo "====>" $$FILE.out; \
-			rcsdiff -ibw $$FILE.out; \
-		echo "====>" $$FILE.log; \
 		done
-	echo "Now checking .sel files"
-	for FILE in ex2.sel ex5.sel ex6A-B.sel ex6C.sel ex7.sel ex8.sel ex9.sel ex10.sel ex11adv.sel ex11trn.sel ex12.sel ex12a.sel ex13a.sel ex13b.sel ex13c.sel ex14.sel ex15.sel; do \
-		echo "====>" $$FILE; \
-			rcsdiff -ibw $$FILE; \
-		done
+	echo "Now diffing files"
+#	for FILE in ex2.sel ex5.sel ex6A-B.sel ex6C.sel ex7.sel ex8.sel ex9.sel ex10.sel ex11adv.sel ex11trn.sel ex12.sel ex12a.sel ex13a.sel ex13b.sel ex13c.sel ex14.sel ex15.sel; do \
+#		echo "====>" $$FILE; \
+#			rcsdiff -ibw $$FILE; \
+#		done
+	svn diff .
+
 clean:
 	rm *.out *.log *.sel
