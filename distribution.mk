@@ -1,6 +1,7 @@
 # Locations to save compressed tar file for distribution
 DIST_DIR=~dlpark/temp
-VERSION=2.11
+DEBUG_DIR=phreeqc_debug
+DEBUG_EXE=$(TOPDIR)/src/phreeqc
 
 # list of files for distribution
 FILES=  \
@@ -114,7 +115,8 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-all_dist: linux sun dist win mytest
+#all_dist: linux sun dist win mytest
+all_dist: dist win mytest
 
 sun: clean_sun 
 	cp Makefile *.c *.h $(TOPDIR)/sun
@@ -128,7 +130,7 @@ clean_sun:
 	rm -f $(TOPDIR)/sun/*.c $(TOPDIR)/sun/*.h $(TOPDIR)/sun/*.o $(TOPDIR)/bin/phreeqc.sun
 
 linux: clean_linux 
-	ssh srv2rcolkr 'cd ~dlpark/programs/phreeqc/src; make -f Makefile EXE=$(TOPDIR)/bin/$(PROGRAM) CCFLAGS="-O3 -Wall -ansi -pedantic"'
+	make -k 
 	cd ../examples; make clean; make >& make.out
 	cd ../test; ./clean.sh; ./test.sh
 
@@ -141,7 +143,7 @@ dist:
 	   if [ ! -f ../test.sun/$$FILE ]; then echo test.sun/$$FILE is missing.; error=1; fi; \
 	   done; if [ $$error -eq 1 ]; then echo Stopping because of missing files; exit 4; fi;
 	rm -f Makefile.internaldist; cp Makefile Makefile.internaldist
-	make -C $(TOPDIR) -f src/Makefile.internaldist internaldist 
+	make -C $(TOPDIR) -f src/Makefile.internaldist internaldist TOPDIR=$(TOPDIR)
 	rm -f Makefile.internaldist
 	echo Done with distribution.
 	echo
@@ -226,6 +228,5 @@ mytest:
 	cd ../mytest; make clean; make >& make.out 
 
 debug: 
-	mkdir -p $(PROGRAM)_debug 
-	ssh parkplace 'cd programs/phreeqc/src/phreeqc_debug; make -f ../debug.mk; make -f ../Makefile CCFLAGS="-Wall -ansi -g" EXE=../phreeqc'
-
+	mkdir -p $(DEBUG_DIR)
+	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
