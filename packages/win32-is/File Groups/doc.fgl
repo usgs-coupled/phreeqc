@@ -3,7 +3,7 @@ Type=FILELIST
 Version=1.10.000
 
 [TopDir]
-file0=C:\cygwin\home\charlton\programs\phreeqc.win.2.10\doc\phreeqc.txt
-file1=C:\cygwin\home\charlton\programs\phreeqc.win.2.10\doc\manual.pdf
-file2=C:\cygwin\home\charlton\programs\phreeqc.win.2.10\doc\wrir02-4172.pdf
+file0=C:\cygwin\home\charlton\programs\phreeqc.win.2.11\doc\phreeqc.txt
+file1=C:\cygwin\home\charlton\programs\phreeqc.win.2.11\doc\manual.pdf
+file2=C:\cygwin\home\charlton\programs\phreeqc.win.2.11\doc\wrir02-4172.pdf
 
