@@ -31,7 +31,7 @@ extern char *error_string;
 #include "sundialsmath.h"
 #include "output.h"
 #include "kinetics.h"
-static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.10 $";
+static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.11 $";
 
 /************************************************************/
 /******************** END Imports ***************************/
@@ -2912,7 +2912,7 @@ static void CVChooseEta(CVodeMem cv_mem)
 
 static int CVHandleFailure(CVodeMem cv_mem, int kflag)
 {
-
+  char error_string_long[1000];
   /* Set vector of  absolute weighted local errors */
   N_VProd(acor, ewt, tempv);
   N_VAbs(tempv, tempv);
@@ -2920,20 +2920,20 @@ static int CVHandleFailure(CVodeMem cv_mem, int kflag)
   /* Depending on kflag, print error message and return error flag */
   switch (kflag) {
     case REP_ERR_FAIL:  
-	    sprintf(error_string, MSG_ERR_FAILS, (double) tn, (double) h);
-	    warning_msg(error_string);
+	    sprintf(error_string_long, MSG_ERR_FAILS, (double) tn, (double) h);
+	    warning_msg(error_string_long);
 	    return(ERR_FAILURE);
     case REP_CONV_FAIL: 
-	    sprintf(error_string, MSG_CONV_FAILS, (double) tn, (double) h);
-	    warning_msg(error_string);
+	    sprintf(error_string_long, MSG_CONV_FAILS, (double) tn, (double) h);
+	    warning_msg(error_string_long);
 	    return(CONV_FAILURE);
     case SETUP_FAILED:  
-	    sprintf(error_string, MSG_SETUP_FAILED, (double) tn);
-	    warning_msg(error_string);
+	    sprintf(error_string_long, MSG_SETUP_FAILED, (double) tn);
+	    warning_msg(error_string_long);
 	    return(SETUP_FAILURE);
     case SOLVE_FAILED:  
-	    sprintf(error_string, MSG_SOLVE_FAILED, (double) tn);
-	    warning_msg(error_string);
+	    sprintf(error_string_long, MSG_SOLVE_FAILED, (double) tn);
+	    warning_msg(error_string_long);
 	    return(SOLVE_FAILURE);
   }
   return(-99);
