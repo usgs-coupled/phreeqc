@@ -8,8 +8,9 @@ Version 2.11:
 
 	A new database, minteq.v4.dat, has been translated from
 	version 4.02 of MINTEQA2 and is included in all
-	distributions. The database minteq.dat has been slightly
-	revised and is also included.
+	distributions. The database minteq.dat from earlier
+	version of MINTEQA2 has been slightly revised and is 
+	also included.
 
 ------------------------------------------------------------
 Version 2.10:
@@ -476,6 +477,7 @@ Version 2.11
 
 	New database minteq.v4.dat has been translated from version
 	4.02 of MINTEQA2. An older version of the MINTEQA2 database is
+	retained in file minteq.dat.
 
 	Switched version control to subversion. Simplified,
 	reorganized makefiles. 
@@ -485,16 +487,16 @@ Version 2.11
 	all messages after the nth. Default number of warning 
 	messages printed in now 100 per simulation.
 
-	Fixed memory leaks in cvode that cause phreeqci to crash.
+	Fixed memory leaks in cvode that caused phreeqci to crash.
 	Now uses PHRQ_malloc in case of other memory leaks. Also
-	potential memory error with PAD Basic function.
+	fixed potential memory error with PAD Basic function.
 
 	Saturation index phases that included water had wrong
 	value if distribution of species, exchange, or surface 
 	not written also.
 
-	Fixed error message in cvode that created segmentation
-	fault.
+	Fixed error message in cvode, if max iterations exceeded
+	the error caused a segmentation	fault.
 
 	Made printing of parameter combination message a warning
 	message so that it could be turned off.

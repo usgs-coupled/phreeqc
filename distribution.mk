@@ -2,6 +2,7 @@
 DIST_DIR=~dlpark/temp
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
+VERSION=2.11
 
 # list of files for distribution
 FILES=  \
@@ -57,6 +58,7 @@ FILES=  \
 	src/smalldense.h \
 	src/sundialsmath.h \
 	src/sundialstypes.h \
+	src/version \
 	database/llnl.dat \
 	database/minteq.dat \
 	database/phreeqc.dat \
@@ -115,8 +117,13 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-#all_dist: linux sun dist win mytest
-all_dist: dist win mytest
+all_dist: ../doc/RELEASE.TXT linux sun mytest subversion dist win 
+
+../doc/RELEASE.TXT: revisions
+	cp revisions ../doc/RELEASE.TXT
+
+subversion:
+	cd ..; svn update; svn info | awk '{if (NR > 3) {print}}' > src/version; svn status -q -u >> src/version
 
 sun: clean_sun 
 	cp Makefile *.c *.h $(TOPDIR)/sun
@@ -230,3 +237,38 @@ mytest:
 debug: 
 	mkdir -p $(DEBUG_DIR)
 	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
+
+test_dist: test_linux test_sunos test_src
+
+test_linux:
+	rm -rf $(DIST_DIR)/phreeqc$(VERSION).Linux
+	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).Linux.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).Linux
+	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/test; ./test.sh
+	rm -f $(DIST_DIR)/phreeqc$(VERSION).Linux/bin/phreeqc
+	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/src; make -k
+	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/test; ./clean.sh; ./test.sh
+
+test_sunos:
+	rm -rf $(DIST_DIR)/phreeqc$(VERSION).SunOS
+	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).SunOS.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).SunOS
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/test; ./test.sh"
+	ssh u450rcolkr "rm -f $(DIST_DIR)/phreeqc$(VERSION).SunOS/bin/phreeqc"
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/src; make -k"
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/test; ./clean.sh; ./test.sh"
+
+test_source:
+	rm -rf $(DIST_DIR)/phreeqc$(VERSION).source
+	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).source.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).source
+	cd $(DIST_DIR)/phreeqc$(VERSION).source/src; make -k
+	cd $(DIST_DIR)/phreeqc$(VERSION).source/test; ./test.sh
+
+web:
+	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).Linux.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
+	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).SunOS.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
+	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).source.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
+	cp $(TOPDIR)/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
+	cp $(TOPDIR)/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
+	cp $(TOPDIR)/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+	cp $(TOPDIR)/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+	cp $(TOPDIR)/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
+	cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
