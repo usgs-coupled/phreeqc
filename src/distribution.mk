@@ -133,7 +133,7 @@ examples:
 mytest:
 	cd ../mytest; make clean; make >& make.out 
 
-all_dist:  clean_dist linux sun source win
+all_dist:  clean_dist linux sun # win
 
 test_dist: linux_test source_test sun_test
 
@@ -301,7 +301,7 @@ win_dist:
 	cd $(EXPORT_DIR)/Win; $(TEXTCP) $(WIN_DIR)/phreeqc.bat $(PROGRAM)-$(VERSION)/phreeqc.bat
 	cd $(EXPORT_DIR); rm -f $(PROGRAM).Windows.tar.gz
 	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); tar -czf $(PROGRAM).Windows.tar.gz .
-	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
+	cd $(EXPORT_DIR)/Win/o$(PROGRAM)-$(VERSION); mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
 	echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
 #	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)
 
