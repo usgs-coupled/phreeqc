@@ -112,12 +112,10 @@ output_files: linux_output_files sun_output_files
 linux_output_files: all 
 	cd ../examples; make >& make.out 
 	cd ../mytest; make >& make.out 
-	cd ../test; make -f ../examples/Makefile >& make.out
 
 clean_linux_output_files:
 	cd ../examples; make clean
 	cd ../mytest; make clean
-#	cd ../test; make -f ../examples/Makefile clean
 
 sun_output_files: phreeqc.sun 
 	ssh u450rcolkr "cd $(SUN_DIR)/examples; make -f $(SUN_DIR)/../../examples/Makefile INPUT=$(SUN_DIR)/../../examples PHREEQCDAT=$(SUN_DIR)/../../database/phreeqc.dat WATEQ4FDAT=$(SUN_DIR)/../../database/wateq4f.dat"
