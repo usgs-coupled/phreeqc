@@ -39,14 +39,6 @@ export VER=`echo $tscriptname | sed -e "s/${PKG}\-//" -e 's/\-[^\-]*$//'`
 export REL=`echo $tscriptname | sed -e "s/${PKG}\-${VER}\-//"`
 export BASEPKG=${PKG}-${VER}
 export FULLPKG=${BASEPKG}-${REL}
-##{{
-export PKG=phreeqc
-export VER=2.11
-export REL=125
-export BASEPKG=${PKG}-${VER}
-export FULLPKG=${BASEPKG}-${REL}
-##}}
-
 
 # determine correct decompression option and tarball filename
 export src_orig_pkg_name=
@@ -208,9 +200,6 @@ install() {
   rm -rf *.Windows.tar.gz Win && \
   unpack ${src_orig_pkg} && \
   mv phreeqc* Win && \
-##  mkdir -p ${objdir}/src/phreeqc_export/Win && \
-##  cd ${objdir}/src/phreeqc_export/Win && \
-##  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -a {} . \; && \
   cd ${objdir}/src && \
   make win_sed_files REVISION="${REL}" TEXTCP="cp" && \
   cd ${objdir}/src && \
@@ -218,9 +207,9 @@ install() {
   mkdir -p ${instdir}/${PKG}-${VER} && \
   cd ${instdir}/${PKG}-${VER} && \
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
-  mv ${instdir}/${PKG}-${VER}/database/* ${instdir} && \
+  mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
   rmdir ${instdir}/${PKG}-${VER}/database && \
-  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir} && \
+  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir}/${PKG}-${VER} && \
   mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
   cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
   cd ${instdir}/${PKG}-${VER}/test && \
@@ -239,69 +228,6 @@ install() {
   ${instdir}/. && \
   /usr/bin/install -m 755 "${objdir}/setup/Media/SingleDisk/Disk Images/Disk1/setup.exe" \
     ${instdir}/${FULLPKG}.exe )
-}
-
-install_orig() {
-  (cd ${objdir} && \
-  rm -fr ${instdir}/* && \
-  make install DESTDIR=${instdir} && \
-  for f in ${prefix}/share/info/dir ${prefix}/info/dir ; do \
-    if [ -f ${instdir}${f} ] ; then \
-      rm -f ${instdir}${f} ; \
-    fi ;\
-  done &&\
-  for d in ${prefix}/share/doc/${BASEPKG} ${prefix}/share/doc/Cygwin ; do \
-    if [ ! -d ${instdir}${d} ] ; then \
-      mkdir -p ${instdir}${d} ;\
-    fi ;\
-  done &&\
-  if [ -d ${instdir}${prefix}/share/info ] ; then \
-    find ${instdir}${prefix}/share/info -name "*.info" | xargs -r gzip -q ; \
-  fi && \
-  if [ -d ${instdir}${prefix}/share/man ] ; then \
-    find ${instdir}${prefix}/share/man -name "*.1" -o -name "*.3" -o \
-      -name "*.3x" -o -name "*.3pm" -o -name "*.5" -o -name "*.6" -o \
-      -name "*.7" -o -name "*.8" | xargs gzip -q ; \
-  fi && \
-  templist="" && \
-  for fp in ${install_docs} ; do \
-    for f in ${srcdir}/$fp ; do \
-      if [ -f $f ] ; then \
-        templist="$templist $f"; \
-      fi ; \
-    done ; \
-  done && \
-  if [ ! "x$templist" = "x" ]; then \
-    /usr/bin/install -m 644 $templist \
-         ${instdir}${prefix}/share/doc/${BASEPKG} ; \
-  fi && \
-  if [ -f ${srcdir}/CYGWIN-PATCHES/${PKG}.README ]; then \
-    /usr/bin/install -m 644 ${srcdir}/CYGWIN-PATCHES/${PKG}.README \
-      ${instdir}${prefix}/share/doc/Cygwin/${BASEPKG}.README ; \
-  elif [ -f ${srcdir}/CYGWIN-PATCHES/README ] ; then \
-    /usr/bin/install -m 644 ${srcdir}/CYGWIN-PATCHES/README \
-      ${instdir}${prefix}/share/doc/Cygwin/${BASEPKG}.README ; \
-  fi && \
-  if [ -f ${srcdir}/CYGWIN-PATCHES/${PKG}.sh ] ; then \
-    if [ ! -d ${instdir}${sysconfdir}/postinstall ]; then \
-      mkdir -p ${instdir}${sysconfdir}/postinstall ; \
-    fi && \
-    /usr/bin/install -m 755 ${srcdir}/CYGWIN-PATCHES/${PKG}.sh \
-      ${instdir}${sysconfdir}/postinstall/${PKG}.sh ; \
-  elif [ -f ${srcdir}/CYGWIN-PATCHES/postinstall.sh ] ; then \
-    if [ ! -d ${instdir}${sysconfdir}/postinstall ]; then \
-      mkdir -p ${instdir}${sysconfdir}/postinstall ; \
-    fi && \
-    /usr/bin/install -m 755 ${srcdir}/CYGWIN-PATCHES/postinstall.sh \
-      ${instdir}${sysconfdir}/postinstall/${PKG}.sh ; \
-  fi && \
-  if [ -f ${srcdir}/CYGWIN-PATCHES/preremove.sh ] ; then \
-    if [ ! -d ${instdir}${sysconfdir}/preremove ]; then \
-      mkdir -p ${instdir}${sysconfdir}/preremove ; \
-    fi && \
-    /usr/bin/install -m 755 ${srcdir}/CYGWIN-PATCHES/preremove.sh \
-      ${instdir}${sysconfdir}/preremove/${PKG}.sh ; \
-  fi )
 }
 strip() {
   (cd ${instdir} && \
