@@ -7,9 +7,8 @@
 
 #if defined (USE_PHRQ_ALLOC)
 
-/*     $Date: 2004/12/16 00:34:51 $ */
 #ifdef PHREEQC_IDENT
-static char const rcsidphqalloc[] = "$RCSfile: phqalloc.h,v $  $Revision: 2.4 $";
+static char const svnidphqalloc[] = "$Id$";
 #endif
 
 #if !defined(NDEBUG)

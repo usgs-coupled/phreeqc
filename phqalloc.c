@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-static char const rcsid[] = "$RCSfile: phqalloc.c,v $  $Revision: 2.10 $";
+static char const svnid[] = "$Id$";
 
 #if defined(PHREEQCI_GUI)
 #define _CRTDBG_MAP_ALLOC
@@ -39,7 +39,7 @@ void *PHRQ_malloc( size_t size)
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 

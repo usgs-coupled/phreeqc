@@ -35,6 +35,9 @@
  * the documentation for denalloc in smalldense.h                  *
  *                                                                 *
  *******************************************************************/
+#ifdef PHREEQC_IDENT
+static char const svniddense[] = "$Id$";
+#endif
  
 #ifdef __cplusplus     /* wrapper to enable C++ usage */
 extern "C" {

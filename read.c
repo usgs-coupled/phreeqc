@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: read.c,v $  $Revision: 2.45 $";
+static char const svnid[] = "$Id$";
 
 #if defined(SWIG_SHARED_OBJ)
 #define STATIC
@@ -87,7 +86,7 @@ int read_input(void)
 	int i, j, l;
 	char *ptr;
 	char token[2*MAX_LENGTH];
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	parse_error = 0;
 	input_error = 0;

@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: advection.c,v $  $Revision: 2.9 $";
+static char const svnid[] = "$Id$";
 
 /* ---------------------------------------------------------------------- */
 int advection(void)
@@ -13,7 +12,7 @@ int advection(void)
 {
 	int i, n;
 	LDBLE kin_time;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 /*
  *   Calculate advection
  */

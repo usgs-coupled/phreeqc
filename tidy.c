@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: tidy.c,v $  $Revision: 2.31 $";
+static char const svnid[] = "$Id$";
 
 static int check_species_input(void);
 static LDBLE coef_in_master(struct master *master_ptr);
@@ -45,7 +44,7 @@ int tidy_model(void)
 {
 	int i, j;
 	int n_user, last;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	/*
 	 * Determine if any new elements, species, phases have been read
 	 */

@@ -6,9 +6,7 @@
 
 #include <assert.h>
 
-/*     $Date: 2004/12/20 22:56:22 $ */
-static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.41 $";
-
+static char const svnid[] = "$Id$";
 
 static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
 static int print_eh(void);
@@ -53,7 +51,7 @@ int array_print(LDBLE *array_l, int row_count, int column_count, int max_column_
 /* ---------------------------------------------------------------------- */
 {
         int i, j, k;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 
         for (i=0; i < row_count; i++) {

@@ -11,8 +11,7 @@
 #include "output.h"
 #include "phrqtype.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: cl1.c,v $  $Revision: 2.8 $";
+static char const svnid[] = "$Id$";
 
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
@@ -141,7 +140,7 @@ int cl1(int k, int l, int m, int n,
 /*      REAL */
 
 /* INITIALIZATION. */
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 /* Parameter adjustments */
 	q_dim = n2d;

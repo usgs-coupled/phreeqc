@@ -4,7 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "phqalloc.h"
-static char const rcsid[] = "$RCSfile: output.c,v $  $Revision: 1.3 $";
+static char const svnid[] = "$Id$";
 
 #define MAX_CALLBACKS 10
 static struct output_callback output_callbacks[MAX_CALLBACKS];
@@ -15,7 +15,7 @@ static int forward_output_to_log = 0;
 int add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	if (pfn) {
 		if (count_output_callback >= MAX_CALLBACKS - 1) {
 			sprintf(error_string, "Too many callbacks.\nSee %s\n", __FILE__);

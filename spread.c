@@ -4,10 +4,9 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
+static char const svnid[] = "$Id$";
 
 #define STATIC static
-static char const rcsid[] = "$RCSfile: spread.c,v $  $Revision: 2.18 $";
 
 #define STRING 11
 #define NUMBER 12
@@ -85,7 +84,7 @@ int read_solution_spread(void)
 		"uncertainties"        /* 13 */
 	};
 	int count_opt_list = 14;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	heading = NULL;
 	units = NULL;

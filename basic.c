@@ -2,8 +2,7 @@
 /* From input file "basic.p" */
 
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: basic.c,v $  $Revision: 2.46 $";
+static char const svnid[] = "$Id$";
 
 #define EXTERNAL extern
 #include "global.h"
@@ -410,7 +409,7 @@ int basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {				/*main*/
 	int l;
 	char *ptr;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	PASCAL_MAIN(0, NULL);
 	inbuf = (char *) PHRQ_calloc(max_line, sizeof(char));

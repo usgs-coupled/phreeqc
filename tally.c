@@ -1,11 +1,10 @@
 #define EXTERNAL extern
-#define PHREEQC_IDENT
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
-static char const rcsid[] = "$RCSfile: tally.c,v $  $Revision: 1.16 $";
+static char const svnid[] = "$Id$";
 /*
  *  storage
  */
@@ -585,7 +584,7 @@ int build_tally_table(void)
 	char token[MAX_LENGTH];
 	char *ptr;
 
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 /*
  *  make list of all elements in all entitites
  *  defines the number of rows in the table

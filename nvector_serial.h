@@ -52,6 +52,9 @@
  * ith component of the N_Vector x, where 0 <= i <= N-1.           *
  *                                                                 *
  *******************************************************************/
+#ifdef PHREEQC_IDENT
+static char const svnidnvector_serial[] = "$Id$";
+#endif
 
 #ifdef __cplusplus     /* wrapper to enable C++ usage */
 extern "C" {

@@ -17,6 +17,9 @@
  * value of the linear system size N.                              *
  *                                                                 *
  *******************************************************************/
+#ifdef PHREEQC_IDENT
+static char const svnidcvdense[] = "$Id$";
+#endif
 
 #ifdef __cplusplus     /* wrapper to enable C++ usage */
 extern "C" {

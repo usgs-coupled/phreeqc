@@ -23,8 +23,7 @@
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
 #define malloc PHRQ_malloc
-static char const rcsid[] = "$RCSfile: smalldense.c,v $  $Revision: 1.5 $";
-
+static char const svnid[] = "$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)

@@ -34,7 +34,7 @@ extern char *error_string;
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
 #define malloc PHRQ_malloc
-static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.12 $";
+static char const svnid[] = "$Id$";
 
 /************************************************************/
 /******************** END Imports ***************************/
@@ -513,7 +513,7 @@ void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
   FILE *fp;
   int i,k;
   
-  if (rcsid == NULL) fprintf(stderr," ");
+  if (svnid == NULL) fprintf(stderr," ");
   /* Check for legal input parameters */
   
   fp = (errfp == NULL) ? stdout : errfp;

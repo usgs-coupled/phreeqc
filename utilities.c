@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: utilities.c,v $  $Revision: 2.32 $";
+static char const svnid[] = "$Id$";
 
 #ifdef PHREEQ98
 extern int AutoLoadOutputFile, CreateToC;
@@ -27,7 +26,7 @@ int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
 	struct elt_list *elt_list_ptr1;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	
 	if (elt_list_ptr == NULL) return(OK);
 		

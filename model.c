@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: model.c,v $  $Revision: 2.28 $";
+static char const svnid[] = "$Id$";
 
 static LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
@@ -76,7 +75,7 @@ int model(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */

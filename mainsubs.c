@@ -6,8 +6,7 @@
 #include "phrqproto.h"
 #include "input.h"
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: mainsubs.c,v $  $Revision: 2.40 $";
+static char const svnid[] = "$Id$";
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -35,7 +34,7 @@ void initialize(void)
 	int i;
 	struct logk *logk_ptr;
 	char token[MAX_LENGTH];
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	moles_per_kilogram_string = string_duplicate("Mol/kgw");
 	pe_string = string_duplicate("pe");
