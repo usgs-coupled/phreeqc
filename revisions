@@ -464,6 +464,9 @@ End of Features not documented in WRIR 99-4259.
 Revisions and bug fixes
 ------------------------------------------------------------
 Version 2.10+
+	Switched version control to subversion. Simplified,
+	reorganized makefiles. 
+
 	Fixed bug with PRINT; -warnings n. Use of this option 
         generally eliminated all warning messages instead of
 	all messages after the nth. Default number of warning 

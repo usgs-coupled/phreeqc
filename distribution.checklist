@@ -1,5 +1,6 @@
 (1) Update version and date in main.c
 
+
 (2) Update version and date in doc/README.TXT
 	uname -r
 	gcc -v
@@ -16,8 +17,8 @@
      ci
 
 (5.5) makefile
-	optimize options
-	put executable in ../bin
+	Use optimize options
+	Put executable in ../bin
 
 (6) Diff all files
 	make  diff
