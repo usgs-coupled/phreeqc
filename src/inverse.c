@@ -17,7 +17,7 @@ static char **col_name, **row_name;
 static int count_rows, count_optimize;
 static int col_phases, col_redox, col_epsilon, col_ph, col_water, col_isotopes, col_phase_isotopes;
 static int row_mb, row_fract, row_charge, row_carbon, row_isotopes, row_epsilon, row_isotope_epsilon, row_water;
-static LDBLE *zero, *array1, *res, *delta1, *delta2, *delta3, *cu;
+static LDBLE *zero, *array1, *res, *delta1, *delta2, *delta3, *cu, *delta_save;
 static LDBLE *min_delta, *max_delta;
 static int *iu, *is;
 static int klmd, nklmd, n2d, kode, iter;
@@ -99,6 +99,7 @@ int inverse_models(void)
  	delta1 = NULL;
  	delta2 = NULL;
  	delta3 = NULL;
+	delta_save = NULL;
  	cu = NULL;
  	iu = NULL;
  	is = NULL;
@@ -277,6 +278,9 @@ int setup_inverse(struct inverse *inv_ptr)
 
 	delta3 = (LDBLE *) PHRQ_malloc( (size_t) max_column_count * sizeof(LDBLE));
 	if (delta3 == NULL) malloc_error();
+
+	delta_save = (LDBLE *) PHRQ_malloc( (size_t) max_column_count * sizeof(LDBLE));
+	if (delta_save == NULL) malloc_error();
 
 	min_delta = (LDBLE *) PHRQ_malloc( (size_t) max_column_count * sizeof(LDBLE));
 	if (min_delta == NULL) malloc_error();
@@ -980,7 +984,7 @@ int solve_inverse(struct inverse *inv_ptr)
 					}
 				} else if (check_inverse(delta1) == ERROR) {
 					sprintf(error_string, "Cl1 failed in model calculation\n");
-					error_msg(error_string, CONTINUE);
+					warning_msg(error_string);
 					if (first == TRUE) {
 						post_mortem();
 						quit = TRUE;
@@ -1087,6 +1091,7 @@ int solve_inverse(struct inverse *inv_ptr)
 	delta1 = free_check_null(delta1);
 	delta2 = free_check_null(delta2);
 	delta3 = free_check_null(delta3);
+	delta_save = free_check_null(delta_save);
 	cu = free_check_null(cu);
 	iu = free_check_null(iu);
 	is = free_check_null(is);
@@ -1142,7 +1147,7 @@ unsigned long minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 			minimal_bits = minimal_bits | ~temp_bits_l;  /* 0's and one 1 */
 		} else if (check_inverse(delta1) == ERROR) {
 			sprintf(error_string, "Cl1 failed in minimal model calculation\n");
-			error_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			save_bad(minimal_bits);
 			/* put bit back */
 			minimal_bits = minimal_bits | ~temp_bits_l;  /* 0's and one 1 */
@@ -1156,7 +1161,7 @@ unsigned long minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 	solve_with_mask (inv_ptr, minimal_bits);
 	if (check_inverse(delta1) == ERROR) {
 		sprintf(error_string, "Cl1 failed in final minimal model calculation\n");
-		error_msg(error_string, CONTINUE);
+		warning_msg(error_string);
 	}
 	return(minimal_bits);
 }
@@ -1225,7 +1230,12 @@ int solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 		output_msg(OUTPUT_MESSAGE, "k, l, m, n, max_col, max_row\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			k, l, m, n, max_column_count, max_row_count);
 	}
-
+	/*
+	 *  Save delta constraints
+	 */
+	for (i=0; i < n; i++) {
+		delta_save[i] = delta2[i];
+	}
 
 	kode = 1;
 	iter = 1000;
@@ -1941,7 +1951,7 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 				} else {
 					sprintf(error_string, "Cl1 failed in max range calculation for %s\n", col_name[i]);
 				}
-				error_msg(error_string, CONTINUE);
+				warning_msg(error_string);
 			}
 		}
 	}
@@ -2343,6 +2353,17 @@ int post_mortem(void)
 			output_msg(OUTPUT_MESSAGE, "\tERROR: inequality not satisfied for %s.\n", row_name[i]);
 		}
 	}
+/*
+ *   Check dissolution/precipitation constraints
+ */
+	for (i = 0; i < count_rows; i++) {
+		if (delta_save[i] > 0.5 && delta1[i] < -toler) {
+			output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for %s.\n", col_name[col_back[i]]);
+		} else if (delta_save[i] < -0.5 && delta1[i] > toler) {
+			output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for %s.\n", col_name[col_back[i]]);
+		}
+	}		
+
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2400,13 +2421,27 @@ int check_inverse(LDBLE *delta4)
  */
 		}
 	}
+/*
+ *   Check dissolution/precipitation constraints
+ */
+	for (i = 0; i < count_rows; i++) {
+		if (delta_save[i] > 0.5 && delta4[i] < -toler) {
+			if (debug_inverse == TRUE) {
+				output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for column %d, %s.\n", i, col_name[col_back[i]]);
+			}
+			return_code = ERROR;
+		} else if (delta_save[i] < -0.5 && delta4[i] > toler) {
+			if (debug_inverse == TRUE) {
+				output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for column %d, %s.\n", i, col_name[col_back[i]]);
+			}
+			return_code = ERROR;
+		}
+	}		
 	if (return_code == ERROR) {
 		sprintf(error_string, "Subroutine Cl1 has failed. \n"
-			"This is probably due to small values for uncertainties or"
-			" tolerance.\n"
-			"Small values of alkalinity could be a problem.\n"
-			"Try increasing tolerance or uncertainty on alkalinity.\n");
-		error_msg(error_string, CONTINUE);
+			"This may be due to small numerical values for uncertainties, "
+			" tolerances, or minor redox states.\n");
+		warning_msg(error_string);
 	}
 	return(return_code);
 }
