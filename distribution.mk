@@ -10,7 +10,7 @@ VER_DATE=February 7, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
-SUN_DIR=$(HOME)/../../$(TOPDIR)/src/Sun
+SUN_DIR=$(HOME)/../..$(TOPDIR)/src/Sun
 
 # list of files for distribution
 FILES=  \
