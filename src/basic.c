@@ -2401,7 +2401,7 @@ Local valrec factor(struct LOC_exec *LINK)
 	  require(tokcomma, LINK);
 	  i = intexpr(LINK);
 	  require(tokrp, LINK);
-	  n.UU.sval = string_duplicate(string_pad(string1, i));
+	  n.UU.sval = string_pad(string1, i);
 	  break;
 
   case toksys:
