@@ -191,10 +191,6 @@ if [ -z "$ver_patch" ]; then
   ver_patch="0"
 fi
 
-
-
-###{{
-DISTPATH=..
 SED_FILES="$DISTPATH/build/phreeqc_version.h \
            $DISTPATH/packages/win32-is/phreeqc.ipr \
            $DISTPATH/packages/win32-is/STRING~1/0009-English/value.shl"
@@ -217,23 +213,6 @@ do
   mv -f "$vsn_file.tmp" "$vsn_file"
   cp "$vsn_file" "$vsn_file.dist"
 done
-###}}}
-
-###vsn_file="$DISTPATH/build/phreeqc_version.h"
-###
-###sed \
-### -e "/#define *PHREEQC_VER_MAJOR/s/[0-9]\+/$ver_major/" \
-### -e "/#define *PHREEQC_VER_MINOR/s/[0-9]\+/$ver_minor/" \
-### -e "/#define *PHREEQC_VER_PATCH/s/[0-9]\+/$ver_patch/" \
-### -e "/#define *PHREEQC_VER_TAG/s/\".*\"/\" ($VER_TAG)\"/" \
-### -e "/#define *PHREEQC_VER_NUMTAG/s/\".*\"/\"$VER_NUMTAG\"/" \
-### -e "/#define *PHREEQC_VER_REVISION/s/[0-9]\+/$REVISION_SVN/" \
-### -e "s/@RELEASE_DATE@/\"$RELEASE_DATE\"/" \
-###  < "$vsn_file" > "$vsn_file.tmp"
-###
-###mv -f "$vsn_file.tmp" "$vsn_file"
-###
-###cp "$vsn_file" "phreeqc_version.h.dist"
 
 if [ -z "$ZIP" ]; then
   echo "Rolling $DISTNAME.tar ..."
