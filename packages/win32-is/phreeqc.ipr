@@ -19,11 +19,11 @@ CompanyName=USGS WRD
 URL=http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/index.html
 EmailAddress=dlpark@usgs.gov
 Copyright=
-Summary=
+Summary=PHREEQC 
 Name=PHREEQC
-Version=2.11
+Version=
 ExeFile=phreeqc.bat
-Comments=
+Comments=A hydrogeochemical transport model
 
 [Project:Properties:CompileLink]
 WaringLevel=3
