@@ -214,8 +214,9 @@ win:
 	cd ..; rm -f $(PROGRAM)-$(VERSION)/README.TXT
 	cd ..; cp win/README.TXT $(PROGRAM)-$(VERSION)/
 	cd ..; rm -f $(PROGRAM).Windows.tar.gz
-	cd ..; tar -czf $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz $(PROGRAM)-$(VERSION)
-	cd ..; echo $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz created.
+	cd ..; tar -czf $(PROGRAM).Windows.tar.gz $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
+	cd ..; echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
 mytest:
