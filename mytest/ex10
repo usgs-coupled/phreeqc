@@ -1,3 +1,4 @@
+DATABASE ../database/wateq4f.dat
 TITLE Example 10.--Transport with equilibrium_phases, 
    exchange, and surface reactions
 SOLUTION 1 Brine

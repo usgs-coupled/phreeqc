@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 KNOBS
 	-conv	1e-12
 #PHASES

@@ -1,6 +1,6 @@
    Input file: solution_s
   Output file: solution_s.out
-Database file: ../database/phreeqc.dat
+Database file: phreeqc.dat
 
 ------------------
 Reading data base.

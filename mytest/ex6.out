@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	knobs
 		logfile
 	TITLE Example 6A.--React to phase boundaries.

@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/wateq4f.dat
 	knobs
 		convergence_tolerance	1e-10
 		iterations 200

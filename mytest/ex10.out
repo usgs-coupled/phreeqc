@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/wateq4f.dat
 	TITLE Example 10.--Transport with equilibrium_phases, 
 	   exchange, and surface reactions
 	SOLUTION 1 Brine

@@ -1,3 +1,4 @@
+DATABASE ../database/wateq4f.dat
 knobs
 	-log
 PRINT

@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 TITLE Example 9.--Transport and ion exchange
 SOLUTION 0  CaCl2
         units   mmol/kgw

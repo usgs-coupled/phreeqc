@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	KNOBS
 	tolerance 1e-14
 	diagonal_scale true

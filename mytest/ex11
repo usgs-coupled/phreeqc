@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 knobs
 	-log
 TITLE Example 11.--Inverse modeling of Sierra springs

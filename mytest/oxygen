@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 SOLUTION 1
 	-units mmol/kgw
 	pH	7.0 	charge

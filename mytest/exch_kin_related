@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 #PHASES
 #	Pyrolusite          183
 #		MnO2:H2O + 4H+ + 2e- = Mn+2 + 3H2O 

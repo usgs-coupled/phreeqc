@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 #
 # Advective and diffusive transport of heat and solutes
 # Two different boundary conditions at column ends;

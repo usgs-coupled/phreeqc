@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 SOLUTION 51
 SOLUTION_S
 -temp	25

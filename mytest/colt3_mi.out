@@ -1,6 +1,6 @@
    Input file: colt3_mi
   Output file: colt3_mi.out
-Database file: ../database/phreeqc.dat
+Database file: phreeqc.dat
 
 ------------------
 Reading data base.

@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 #   Make oxygenated carbonate-ground-water for infilling solution
 SOLUTION 0
         temp    25.0

@@ -1,4 +1,3 @@
-WARNING: Database file from DATABASE keyword is used; command line argument ignored.
    Input file: llnl
   Output file: llnl.out
 Database file: ../database/llnl.dat

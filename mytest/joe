@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 knobs
 #	-diag
 #	-tol	1e-17

@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 SOLUTION 1 Fixed Carbon, Fixed Na, Fixed pH
 	temp 	25.
 	units 	mmol/kgw

@@ -1,3 +1,4 @@
+DATABASE ../database/iso.dat
 SOLUTION
 	pH	8 charge
 	-units mmol/kgw

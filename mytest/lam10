@@ -1,3 +1,4 @@
+DATABASE ../database/wateq4f.dat
 knobs
 	-log
 TITLE Part 1.--Input ambient solution for later equilibriation needs

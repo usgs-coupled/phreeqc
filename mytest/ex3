@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 knobs
 	-log
 TITLE Example 3, part A--Calcite equilibrium at log Pco2 = -2.0 and 25C.        

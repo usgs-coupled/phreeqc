@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 solution 1
 -units ppm
 Ca 10; F 5.5

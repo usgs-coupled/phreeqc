@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 TITLE Example 1.--Molybdophosphate speciation in catalysis.
 SOLUTION 1  Molybdophosphate speciation profile.
 		units   mmol/l

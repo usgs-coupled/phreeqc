@@ -18,6 +18,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE tony.dat
 	SOLUTION 0  CaCl2
 	        units   mmol/kgw
 	        pH      7.0     charge

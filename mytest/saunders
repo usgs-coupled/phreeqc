@@ -1,3 +1,4 @@
+DATABASE ../database/wateq4f.dat
 KNOBS
 	-log
 SOLUTION 0  Well no. 2 of Lee (1985), Coastal Plain, transport and mix withtemp17.5

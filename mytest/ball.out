@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	TITLE Test solubility of Cd in synthetic stream water.
 	SOLUTION 1  Synthetic stream water
 	        units      mmol/kgw

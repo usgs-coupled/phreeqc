@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 knobs
 	-log
 TITLE Example 8.--Sorption of zinc on hydrous 

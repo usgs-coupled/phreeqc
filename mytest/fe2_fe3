@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 SOLUTION_MASTER_SPECIES
 Ft		Ft+2	0.0	Ft		55.847
 Fd		Fd+3	0.0	Fd		55.847

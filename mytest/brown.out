@@ -1,4 +1,3 @@
-WARNING: Database file from DATABASE keyword is used; command line argument ignored.
    Input file: brown
   Output file: brown.out
 Database file: ../database/wateq4f.dat

@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SOLUTION 1
 	EQUILIBRIUM_PHASES 1
 		CO2(g)	-1.5

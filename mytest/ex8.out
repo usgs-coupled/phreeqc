@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	knobs
 		logfile
 	TITLE Example 8.--Sorption of zinc on hydrous 

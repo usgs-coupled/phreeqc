@@ -1,3 +1,4 @@
+DATABASE ../database/iso.dat
 SOLUTION 1
 	pH	8.2
 	Na	1	charge

@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 SOLUTION 1
 EQUILIBRIUM_PHASES 1
 	Dolomite	0.0	0.00001 dissolve_only

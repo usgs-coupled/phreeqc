@@ -18,6 +18,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE mahoney.dat
 	knobs
 		logfile
 	TITLE Mixing model for Cove/McCoy pit lake modeling

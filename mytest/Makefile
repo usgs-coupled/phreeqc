@@ -1,120 +1,77 @@
-FILES=alkalinity \
-	aj1 \
-	all_llnl \
-	as.ex \
-	ball \
-	brown \
-	co2 \
-	comments \
-	dissolve_only \
-	exch_related\
-	exch_kin_related\
-	fixed_volume_gas \
-	fluorite \
-	gas \
-	hard.tests\
-	jgb2col\
-	jgbcol\
-	joe\
-	krest \
-	lam7 \
-	lam10 \
-	llnl \
-	mahoney \
-	mu \
-	np.test\
-	org_gas\
-	oxygen \
-	phantom_surface \
-	phreeqc.test\
-	prob8\
-	saver\
-	saunders \
-	solid_solution \
-	solution_s \
-	spread_solution \
-	iso_example \
-	surf3\
-	surf_related\
-	surf_kin_related\
-	ss_r \
-	t922 \
-	transport\
-	transport.dl\
-	user_print \
-	using \
-	zn.test \
-	ex1 \
-	ex2 \
-	ex3 \
-	ex4 \
-	ex5 \
-	ex6 \
-	ex7 \
-	ex8 \
-	ex9 \
-	ex10 \
-	ex11 \
-	ex12 \
-	colt1 \
-	colt2 \
-	colt3 \
-	colt3_mi \
-	colt4 \
-	colt5 \
-	minteq \
-	minteqv4 \
-#	denitrify
+# %.o : %.c
+#             $(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+PROGRAM=../bin/phreeqc
 
+%.out : % ../bin/phreeqc ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat 
+	../bin/phreeqc $< 
 
-DATAFILE=../database/phreeqc.dat
-DATAFILE1=../database/wateq4f.dat
-DATAFILE2=tony.dat
-DATAFILE3=../database/iso.dat
-PHREEQC=../bin/phreeqc
-
-all:
-	for FILE in $(FILES); do \
-		echo ; \
-		echo "====>" $$FILE; \
-		echo ; \
-		rm -f $$FILE.out $$FILE.log ; \
-		if [ $$FILE = zn.test -o $$FILE = hard.tests -o $$FILE = ex10 -o $$FILE = brown \
-			-o $$FILE = lam7 -o $$FILE = lam10 -o $$FILE = saunders -o $$FILE = as.ex ]; \
-			then time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE1); \
-			elif [ $$FILE = mahoney ]; \
-			then time $(PHREEQC) $$FILE $$FILE.out mahoney.dat; \
-			elif [ $$FILE = iso_example -o $$FILE = co2 ]; \
-			then time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE3); \
-			elif [ $$FILE = colt1 -o $$FILE = colt2 -o $$FILE = colt3 -o \
-				$$FILE = colt4 -o $$FILE = colt5 ]; \
-			then time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE2); \
-			else time $(PHREEQC) $$FILE $$FILE.out $(DATAFILE); fi; \
-		if [ -f logfile ]; then mv logfile $$FILE.logfile; fi; \
-		mv phreeqc.log $$FILE.log; \
-		done
-	svn diff .
-#			rcsdiff -bw $$FILE.log; \
-
-#$(FILE).out: $(FILE)
-#		echo ; \
-#		echo "====>" $$FILE; \
-#		echo ; \
-#		if [ $$FILE = zn.test -o $$FILE = hard.tests ]; \
-#			then DATAFILE=../data/phreeqc.dat; \
-#			else DATAFILE=../phreeqc.dat; fi; \
-#		
-#		rm -f $$FILE.out $$FILE.log ; \
-#		/home/dlpark/bin/phreeqc $$FILE $$DATAFILE; \
-#		if [ -f logfile ]; then mv logfile $$FILE.logfile; fi; \
-#		mv phreeqc.log $$FILE.log; \
-#		echo "====>" $$FILE.out; \
-#			rcsdiff $$FILE.out; \
-#		echo "====>" $$FILE.log; \
-#			rcsdiff $$FILE.log; \
-
-
-
+all: alkalinity.out \
+	aj1.out \
+	all_llnl.out \
+	as.ex.out \
+	ball.out \
+	brown.out \
+	co2.out \
+	comments.out \
+	dissolve_only.out \
+	exch_related.out \
+	exch_kin_related.out \
+	fixed_volume_gas.out \
+	fluorite.out \
+	gas.out \
+	hard.tests.out \
+	jgb2col.out \
+	jgbcol.out \
+	joe.out \
+	krest.out \
+	lam7.out \
+	lam10.out \
+	llnl.out \
+	mahoney.out \
+	mu.out \
+	np.test.out \
+	org_gas.out \
+	oxygen.out \
+	phantom_surface.out \
+	phreeqc.test.out \
+	prob8.out \
+	saver.out \
+	saunders.out \
+	solid_solution.out \
+	solution_s.out \
+	spread_solution.out \
+	iso_example.out \
+	surf3.out \
+	surf_related.out \
+	surf_kin_related.out \
+	ss_r.out \
+	t922.out \
+	transport.out \
+	transport.dl.out \
+	user_print.out \
+	using.out \
+	zn.test.out \
+	ex1.out \
+	ex2.out \
+	ex3.out \
+	ex4.out \
+	ex5.out \
+	ex6.out \
+	ex7.out \
+	ex8.out \
+	ex9.out \
+	ex10.out \
+	ex11.out \
+	ex12.out \
+	colt1.out \
+	colt2.out \
+	colt3.out \
+	colt3_mi.out \
+	colt4.out \
+	colt5.out \
+	minteq.out \
+	minteqv4.out
+#	svn diff .
 
 clean:
-	rm *.out *.log *.pun *.prn *.flat *.sel
+	rm *.out *.log *.pun *.prn *.flat *.sel *.dmp
