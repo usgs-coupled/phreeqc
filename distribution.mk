@@ -11,6 +11,7 @@ REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(HOME)/../..$(TOPDIR)/src/Sun
+UNIX2DOS=unix2dos
 
 # list of files for distribution
 FILES=  \
@@ -263,9 +264,11 @@ win_sed_files:
 	sed -e "s/VERSION/$(VERSION)/" \
 	    -e "s/VER_DATE/$(VER_DATE)/" \
 	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/doc/RELEASE.TXT
+	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/RELEASE.TXT
 	sed -e "s/VERSION/$(VERSION)/" \
 	    -e "s/VER_DATE/$(VER_DATE)/" \
 	    -e "s/REVISION/$(REVISION)/" < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/doc/README.TXT
+	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/README.TXT
 
 win_dist: 
 	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM).tar
@@ -292,8 +295,11 @@ win_dist:
 	cd $(EXPORT_DIR); rm -f $(PROGRAM).Windows.tar.gz
 	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); tar -czf $(PROGRAM).Windows.tar.gz .
 	cd $(EXPORT_DIR)/Win/$(PROGRAM)-$(VERSION); mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
-	echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
-#	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)
+	@echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
+	cd $(EXPORT_DIR)/Win; rm -rf $(PROGRAM)-$(VERSION)
+
+win_echo_files:
+	@echo $(FILES)
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
