@@ -2,10 +2,10 @@
 extern "C" {
 #define EXTERNAL
 #define PHREEQC_IDENT
-#include "global.h"
-#include "output.h"
-#include "phrqproto.h"
-#include "input.h"
+#include "../../src/global.h"
+#include "../../src/output.h"
+#include "../../src/phrqproto.h"
+#include "../../src/input.h"
 #undef PHREEQC_IDENT
 }
 

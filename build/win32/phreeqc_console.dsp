@@ -100,7 +100,7 @@ LINK32=link.exe
 # ADD BASE F90 /browser /include:"Debug/"
 # ADD F90 /browser /include:"Debug/"
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "DOS" /FR /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "DOS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\..\src" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "DOS" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -122,55 +122,55 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\advection.c
+SOURCE=..\..\src\advection.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\basic.c
+SOURCE=..\..\src\basic.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\basicsubs.c
+SOURCE=..\..\src\basicsubs.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\cl1.c
+SOURCE=..\..\src\cl1.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\cvdense.c
+SOURCE=..\..\src\cvdense.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\cvode.c
+SOURCE=..\..\src\cvode.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\dense.c
+SOURCE=..\..\src\dense.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\input.c
+SOURCE=..\..\src\input.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\integrate.c
+SOURCE=..\..\src\integrate.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\inverse.c
+SOURCE=..\..\src\inverse.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\isotopes.c
+SOURCE=..\..\src\isotopes.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\kinetics.c
+SOURCE=..\..\src\kinetics.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\main.c
+SOURCE=..\..\src\main.c
 
 !IF  "$(CFG)" == "phreeqc_console - Win32 Release"
 
@@ -185,79 +185,79 @@ SOURCE=.\main.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\mainsubs.c
+SOURCE=..\..\src\mainsubs.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\model.c
+SOURCE=..\..\src\model.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\nvector.c
+SOURCE=..\..\src\nvector.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\nvector_serial.c
+SOURCE=..\..\src\nvector_serial.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\output.c
+SOURCE=..\..\src\output.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\p2clib.c
+SOURCE=..\..\src\p2clib.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\parse.c
+SOURCE=..\..\src\parse.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\phqalloc.c
+SOURCE=..\..\src\phqalloc.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\phreeqc_files.c
+SOURCE=..\..\src\phreeqc_files.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\prep.c
+SOURCE=..\..\src\prep.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\print.c
+SOURCE=..\..\src\print.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\read.c
+SOURCE=..\..\src\read.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\readtr.c
+SOURCE=..\..\src\readtr.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\smalldense.c
+SOURCE=..\..\src\smalldense.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\spread.c
+SOURCE=..\..\src\spread.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\step.c
+SOURCE=..\..\src\step.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\structures.c
+SOURCE=..\..\src\structures.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sundialsmath.c
+SOURCE=..\..\src\sundialsmath.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\tally.c
+SOURCE=..\..\src\tally.c
 # End Source File
 # Begin Source File
 
@@ -278,20 +278,84 @@ SOURCE=.\test.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=.\tidy.c
+SOURCE=..\..\src\tidy.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\transport.c
+SOURCE=..\..\src\transport.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\utilities.c
+SOURCE=..\..\src\utilities.c
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\src\cvdense.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\cvode.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\dense.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\global.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\input.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\kinetics.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\nvector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\nvector_serial.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\output.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\p2c.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\phqalloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\phrqproto.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\phrqtype.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\smalldense.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sundialsmath.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sundialstypes.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
