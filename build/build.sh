@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Generic package build script
+# PHREEQC package build script
 #
 # $Id$
 #
@@ -11,7 +11,7 @@
 # the definition of ${test_rule} below.
 
 # echo everything
-set -x
+# set -x
 
 # find out where the build script is located
 tdir=`echo "$0" | sed 's%[\\/][^\\/][^\\/]*$%%'`
@@ -107,8 +107,7 @@ IS_RULFILES=`cygpath -w "${objdir}/packages/win32-is/Script Files/Setup.rul"`
 IS_LIBRARIES="isrt.obl ifx.obl"
 IS_DEFINITIONS=""
 IS_SWITCHES="-w50 -e50 -v3 -g"
-export PHREEQCTOPDIR=`cygpath -w "${instdir}"`
-###set -x
+export PHREEQCTOPDIR="`cygpath -w "${instdir}/${PKG}-${VER}"`"
 ##}}
 
 
@@ -207,35 +206,39 @@ install() {
   (mkdir -p ${objdir}/src/phreeqc_export && \
   cd ${objdir}/src/phreeqc_export && \
   rm -rf *.Windows.tar.gz Win && \
-###  unpack ${src_orig_pkg} && \
-###  mv phreeqc* Win && \
-  mkdir -p ${objdir}/src/phreeqc_export/Win && \
-  cd ${objdir}/src/phreeqc_export/Win && \
-  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; && \
+  unpack ${src_orig_pkg} && \
+  mv phreeqc* Win && \
+##  mkdir -p ${objdir}/src/phreeqc_export/Win && \
+##  cd ${objdir}/src/phreeqc_export/Win && \
+##  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -a {} . \; && \
   cd ${objdir}/src && \
-  make win_sed_files REVISION="${REL}" TEXTCP="cp -al" && \
+  make win_sed_files REVISION="${REL}" TEXTCP="cp" && \
   cd ${objdir}/src && \
-  make win_dist REVISION="${REL}" TEXTCP="cp -al" && \
-  cd ${instdir} && \
+  make win_dist REVISION="${REL}" TEXTCP="cp" && \
+  mkdir -p ${instdir}/${PKG}-${VER} && \
+  cd ${instdir}/${PKG}-${VER} && \
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
-  mv ${instdir}/database/* ${instdir} && \
-  rmdir ${instdir}/database && \
-  mv ${instdir}/doc/*.TXT ${instdir} && \
-  mkdir -p ${instdir}/src/Release && \
-  cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/src/Release/. && \
-  cd ${instdir}/test && \
+  mv ${instdir}/${PKG}-${VER}/database/* ${instdir} && \
+  rmdir ${instdir}/${PKG}-${VER}/database && \
+  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir} && \
+  mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
+  cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
+  cd ${instdir}/${PKG}-${VER}/test && \
   cmd /c test.bat && \
   mv *.out *.sel ../examples/. && \
   cmd /c clean.bat && \
 # InstallShield compile
   "${IS_COMPILER}" "${IS_RULFILES}" -I"${IS_INCLUDEIFX}" -I"${IS_INCLUDEISRT}" \
     -I"${IS_INCLUDESCRIPT}" "${IS_LINKPATH1}" "${IS_LINKPATH2}" ${IS_LIBRARIES} \
-    ${IS_DEFINITIONS} ${IS_SWITCHES} && \  
+    ${IS_DEFINITIONS} ${IS_SWITCHES} && \
 # InstallShield build
   "${IS_BUILDER}" -p"${IS_INSTALLPROJECT}" -m"${IS_CURRENTBUILD}" && \
-  echo "objdir = ${objdir}" && \
-  echo "instdir = ${instdir}" && \
-  echo "done install" )
+  /usr/bin/install -m 644 "${objdir}/setup/Media/SingleDisk/Log Files/"* \
+  ${instdir}/. && \
+  /usr/bin/install -m 644 "${objdir}/setup/Media/SingleDisk/Report Files/"* \
+  ${instdir}/. && \
+  /usr/bin/install -m 755 "${objdir}/setup/Media/SingleDisk/Disk Images/Disk1/setup.exe" \
+    ${instdir}/${FULLPKG}.exe )
 }
 
 install_orig() {
@@ -302,7 +305,7 @@ install_orig() {
 }
 strip() {
   (cd ${instdir} && \
-##  find . -name "*.dll" -or -name "*.exe" | xargs strip 2>&1 ; \
+  echo SKIP find . -name "*.dll" -or -name "*.exe" | xargs strip 2>&1 ; \
   true )
 }
 list() {

@@ -44,7 +44,7 @@ Batch File=
 
 [Package]
 Create=Yes
-File=phreeqc-@VER@.exe
+File=setup.exe
 Welcome=No
 CommandLine=
 ExtractFolder=

@@ -1,4 +1,5 @@
 #!/bin/sh
+# $Id$
 
 #
 # USAGE: ./dist.sh -v VERSION -r REVISION -d RELEASE_DATE 
@@ -26,7 +27,8 @@
 #  
 #   To build a Windows zip file package pass -zip.
 
-set -x
+# echo everything
+# set -x
 
 # A quick and dirty usage message
 USAGE="USAGE: ./dist.sh -v VERSION -r REVISION -d RELEASE_DATE \
@@ -142,56 +144,11 @@ mkdir "$DIST_SANDBOX"
 echo "Removed and recreated $DIST_SANDBOX"
 
 echo "Exporting revision $REVISION of PHREEQC into sandbox..."
-###(cd "$DIST_SANDBOX" && \
-### 	${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS -r "$REVISION" \
-###	     "http://internalbrr/svn_GW/phreeqc/$REPOS_PATH" \
-###	     "$DISTNAME")
 (cd "$DIST_SANDBOX" && \
  	${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS -r "$REVISION" \
-	     ../.. \
+	     "http://internalbrr/svn_GW/phreeqc/$REPOS_PATH" \
 	     "$DISTNAME")
 	     
-(cd "$DIST_SANDBOX" && \
- 	echo ${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS -r "$REVISION" \
-	     ../.. \
-	     "$DISTNAME")
-	     
-	     
-###echo "Making examples clean"
-###(cd "$DISTPATH/examples" && [ -f Makefile ] && make clean)
-
-###echo "Cleaning up examples directory"
-###rm -rf "$DISTPATH/examples/hosts"
-###rm -rf "$DISTPATH/examples/Makefile"
-###rm -rf "$DISTPATH/examples/run"
-###rm -rf "$DISTPATH/examples/schema"
-###find "$DISTPATH/examples" -type d -name '0' -print | xargs rm -rf
-###find "$DISTPATH/examples" -type f -name 'clean' -print | xargs rm -rf
-
-###echo "Cleaning up srcinput directory"
-###rm -rf "$DISTPATH/srcinput/test"
-
-###echo "Renaming phreeqc.dat to phast.dat"
-###mv "$DISTPATH/database/phreeqc.dat" "$DISTPATH/database/phast.dat"
-
-###echo "Rearranging source directories"
-###mkdir -p "$DISTPATH/src"
-###mv "$DISTPATH/srcinput" "$DISTPATH/src/phastinput"
-###mv "$DISTPATH/srcphast" "$DISTPATH/src/phast"
-###mv "$DISTPATH/phasthdf" "$DISTPATH/src/phasthdf"
-
-#### Remove non-windows components
-###if [ -z "$ZIP" ]; then
-###  echo "Removing win32 directories" 
-###  find -type d -name win32 -print | xargs rm -rf
-###  
-###  echo "Removing packages directories"  
-###  rm -rf "$DISTPATH/packages"
-###
-###  echo "Removing bin directories" 
-###  rm -rf "$DISTPATH/bin"
-###fi
-
 ver_major=`echo $VERSION | cut -d '.' -f 1`
 ver_minor=`echo $VERSION | cut -d '.' -f 2`
 ver_patch=`echo $VERSION | cut -d '.' -f 3`
@@ -202,7 +159,6 @@ fi
 
 SED_FILES="$DISTPATH/build/phreeqc_version.h \
            $DISTPATH/packages/win32-is/phreeqc.ipr \
-           $DISTPATH/packages/win32-is/Media/SingleDisk/Default.mda \
            $DISTPATH/packages/win32-is/STRING~1/0009-English/value.shl"
 
 for vsn_file in $SED_FILES
