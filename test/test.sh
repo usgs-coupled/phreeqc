@@ -76,13 +76,25 @@
           infile=$DATA/$Namevar$subtest
           outfile=$Namevar$subtest.out
           $PROG $infile $outfile $DB/phreeqc.dat
+	  mv phreeqc.log $Namevar$subtest.log
        done
+    elif [ $Test -eq 12 ]; then
+       $PROG $infile $outfile $DB/phreeqc.dat
+	  mv phreeqc.log $Namevar.log
+       subtest=a
+       infile=$infile$subtest
+       outfile=$Namevar$subtest.out
+       $PROG $infile $outfile $DB/phreeqc.dat
+       mv phreeqc.log $Namevar$subtest.log
     elif [ $Test -eq 14 ]; then
        $PROG $infile $outfile $DB/wateq4f.dat
+       mv phreeqc.log $Namevar.log
     elif [ $Test -eq 15 ]; then
        $PROG $infile $outfile $DATA/ex15.dat
+       mv phreeqc.log $Namevar.log
     else
        $PROG $infile $outfile $DB/phreeqc.dat
+       mv phreeqc.log $Namevar.log
     fi
     Test=`expr $Test + 1`
   done

@@ -22,7 +22,9 @@ CC=gcc
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic # -pg
 
-.c.o :
+#.c.o : 
+#	${CC} ${CCFLAGS} -c -o $@ $<
+%.o : $(SRC)/%.c
 	${CC} ${CCFLAGS} -c -o $@ $<
 
 LOADFLAGS= -lm # -pg
