@@ -26,6 +26,9 @@
 #include "nvector.h"
 #include "sundialsmath.h"
 #include "output.h"
+#include "phqalloc.h"
+/* WARNING don't include any headers below here */
+#define malloc PHRQ_malloc
 
 static char const rcsid[] = "$RCSfile: cvdense.c,v $  $Revision: 1.5 $";
 

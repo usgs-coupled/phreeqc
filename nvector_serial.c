@@ -25,6 +25,9 @@
 #include "sundialstypes.h"
 #include "sundialsmath.h" 
 #include "output.h"
+#include "phqalloc.h"
+/* WARNING don't include any headers below here */
+#define malloc PHRQ_malloc
 static char const rcsid[] = "$RCSfile: nvector_serial.c,v $  $Revision: 1.6 $";
 
 #define ZERO RCONST(0.0)
