@@ -10,6 +10,9 @@
 # Also, if the Makefile rule to run the test suite is not "test", change
 # the definition of ${test_rule} below.
 
+# echo everything
+set -x
+
 # find out where the build script is located
 tdir=`echo "$0" | sed 's%[\\/][^\\/][^\\/]*$%%'`
 test "x$tdir" = "x$0" && tdir=.
@@ -36,6 +39,14 @@ export VER=`echo $tscriptname | sed -e "s/${PKG}\-//" -e 's/\-[^\-]*$//'`
 export REL=`echo $tscriptname | sed -e "s/${PKG}\-${VER}\-//"`
 export BASEPKG=${PKG}-${VER}
 export FULLPKG=${BASEPKG}-${REL}
+##{{
+export PKG=phreeqc
+export VER=2.11
+export REL=125
+export BASEPKG=${PKG}-${VER}
+export FULLPKG=${BASEPKG}-${REL}
+##}}
+
 
 # determine correct decompression option and tarball filename
 export src_orig_pkg_name=
@@ -73,6 +84,33 @@ export objdir=${srcdir}/.build
 export instdir=${srcdir}/.inst
 export srcinstdir=${srcdir}/.sinst
 export checkfile=${topdir}/${FULLPKG}.check
+
+##{{
+# InstallShield settings (based on exported build file
+# IS_COMPILER=`locate Compile.exe | grep InstallShield`
+# IS_BUILDER="`locate ISBuild.exe | grep InstallShield`"
+IS_COMPILER="/cygdrive/c/Program Files/Common Files/InstallShield/IScript/Compile.exe"
+IS_BUILDER="/cygdrive/c/Program Files/InstallShield/Professional - Standard Edition/Program/ISBuild.exe"
+
+IS_INSTALLPROJECT=`cygpath -w "${objdir}/packages/win32-is/phreeqc.ipr"`
+IS_CURRENTBUILD=SingleDisk
+
+IS_HOME=`echo "${IS_BUILDER}" | sed -e 's^/Program/ISBuild.exe$^^'`
+IS_HOME=`cygpath -w "${IS_HOME}"`
+
+IS_INCLUDEIFX=${IS_HOME}\\Script\\IFX\\Include
+IS_INCLUDEISRT=${IS_HOME}\\Script\\ISRT\\Include
+IS_INCLUDESCRIPT=`cygpath -w "${objdir}/packages/win32-is/Script Files"`
+IS_LINKPATH1="-LibPath${IS_HOME}\\Script\\IFX\\Lib"
+IS_LINKPATH2="-LibPath${IS_HOME}\\Script\\ISRT\\Lib"
+IS_RULFILES=`cygpath -w "${objdir}/packages/win32-is/Script Files/Setup.rul"`
+IS_LIBRARIES="isrt.obl ifx.obl"
+IS_DEFINITIONS=""
+IS_SWITCHES="-w50 -e50 -v3 -g"
+export PHREEQCTOPDIR=`cygpath -w "${instdir}"`
+###set -x
+##}}
+
 
 prefix=/usr
 sysconfdir=/etc
@@ -143,13 +181,8 @@ prep() {
 conf() {
   (cd ${objdir} && \
   CFLAGS="${MY_CFLAGS}" LDFLAGS="${MY_LDFLAGS}" \
-  ${srcdir}/configure \
-  --srcdir=${srcdir} --prefix="${prefix}" \
-  --exec-prefix='${prefix}' --sysconfdir="${sysconfdir}" \
-  --libdir='${prefix}/lib' --includedir='${prefix}/include' \
-  --mandir='${prefix}/share/man' --infodir='${prefix}/share/info' \
-  --libexecdir='${sbindir}' --localstatedir="${localstatedir}" \
-  --datadir='${prefix}/share' )
+# copy links to ${objdir} for building
+  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; )
 }
 reconf() {
   (cd ${topdir} && \
@@ -159,7 +192,8 @@ reconf() {
 }
 build() {
   (cd ${objdir} && \
-  CFLAGS="${MY_CFLAGS}" make )
+  msdev `cygpath -w ./build/win32/phreeqc_console.dsw` /MAKE "phreeqc_console - Win32 Release" && \
+  )
 }
 check() {
   (cd ${objdir} && \
@@ -170,6 +204,41 @@ clean() {
   make clean )
 }
 install() {
+  (mkdir -p ${objdir}/src/phreeqc_export && \
+  cd ${objdir}/src/phreeqc_export && \
+  rm -rf *.Windows.tar.gz Win && \
+###  unpack ${src_orig_pkg} && \
+###  mv phreeqc* Win && \
+  mkdir -p ${objdir}/src/phreeqc_export/Win && \
+  cd ${objdir}/src/phreeqc_export/Win && \
+  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; && \
+  cd ${objdir}/src && \
+  make win_sed_files REVISION="${REL}" TEXTCP="cp -al" && \
+  cd ${objdir}/src && \
+  make win_dist REVISION="${REL}" TEXTCP="cp -al" && \
+  cd ${instdir} && \
+  tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
+  mv ${instdir}/database/* ${instdir} && \
+  rmdir ${instdir}/database && \
+  mv ${instdir}/doc/*.TXT ${instdir} && \
+  mkdir -p ${instdir}/src/Release && \
+  cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/src/Release/. && \
+  cd ${instdir}/test && \
+  cmd /c test.bat && \
+  mv *.out *.sel ../examples/. && \
+  cmd /c clean.bat && \
+# InstallShield compile
+  "${IS_COMPILER}" "${IS_RULFILES}" -I"${IS_INCLUDEIFX}" -I"${IS_INCLUDEISRT}" \
+    -I"${IS_INCLUDESCRIPT}" "${IS_LINKPATH1}" "${IS_LINKPATH2}" ${IS_LIBRARIES} \
+    ${IS_DEFINITIONS} ${IS_SWITCHES} && \  
+# InstallShield build
+  "${IS_BUILDER}" -p"${IS_INSTALLPROJECT}" -m"${IS_CURRENTBUILD}" && \
+  echo "objdir = ${objdir}" && \
+  echo "instdir = ${instdir}" && \
+  echo "done install" )
+}
+
+install_orig() {
   (cd ${objdir} && \
   rm -fr ${instdir}/* && \
   make install DESTDIR=${instdir} && \
@@ -233,7 +302,7 @@ install() {
 }
 strip() {
   (cd ${instdir} && \
-  find . -name "*.dll" -or -name "*.exe" | xargs strip 2>&1 ; \
+##  find . -name "*.dll" -or -name "*.exe" | xargs strip 2>&1 ; \
   true )
 }
 list() {
@@ -299,6 +368,7 @@ sigfile() {
   fi
 }
 checksig() {
+  printenv && \
   if [ -x /usr/bin/gpg ]; then \
     if [ -e ${src_orig_pkg}.sig ]; then \
       echo "ORIGINAL PACKAGE signature follows:"; \
