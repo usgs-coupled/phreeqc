@@ -14,7 +14,13 @@
    ( ../doc/phreeqc.txt now static, only RELEASE.TXT
     has history 2/2/05)
 
-(5) set version in Makefile
+(5) Update Makefile
+	   set VERSION number
+	   add any new files to distribution	
+	       database files
+	       source files
+	       output files
+	       doc files
 
 (6) make all_dist
     from programs/phreeqc
