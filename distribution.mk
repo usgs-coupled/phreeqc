@@ -84,6 +84,7 @@ FILES=  \
 	examples/ex10 examples/ex10.out examples/ex10.sel \
 	examples/ex11 examples/ex11.out examples/ex11adv.sel examples/ex11trn.sel \
 	examples/ex12 examples/ex12.out examples/ex12.sel \
+	examples/ex12a examples/ex12a.out examples/ex12a.sel \
 	examples/ex13a examples/ex13a.out examples/ex13a.sel \
 	examples/ex13b examples/ex13b.out examples/ex13b.sel \
 	examples/ex13c examples/ex13c.out examples/ex13c.sel \
@@ -103,38 +104,29 @@ FILES=  \
 	test/clean.sh \
 	test/check.sh 
 
-OUTPUT_FILES = \
-	ex1.out \
-	ex2.out ex2.sel \
-	ex3.out \
-	ex4.out \
-	ex5.out ex5.sel \
-	ex6.out ex6A-B.sel ex6C.sel \
-	ex7.out ex7.sel \
-	ex8.out ex8.sel \
-	ex9.out ex9.sel \
-	ex10.out ex10.sel \
-	ex11.out ex11adv.sel ex11trn.sel \
-	ex12.out ex12.sel \
-	ex13a.out ex13a.sel \
-	ex13b.out ex13b.sel \
-	ex13c.out ex13c.sel \
-	ex14.out ex14.sel \
-	ex15.out ex15.sel \
-	ex16.out \
-	ex17.out \
-	ex18.out 
+remake_output_files: clean_linux_output_files clean_sun_output_files linux_output_files sun_output_files
+
+output_files: linux_output_files sun_output_files
 
 # make sure program is compiles, run examples and mytest
 linux_output_files: all 
 	cd ../examples; make >& make.out 
 	cd ../mytest; make >& make.out 
-	cd ../test; ./clean.sh; ./test.sh
+	cd ../test; make -f ../examples/Makefile >& make.out
+
+clean_linux_output_files:
+	cd ../examples; make clean
+	cd ../mytest; make clean
+#	cd ../test; make -f ../examples/Makefile clean
 
 sun_output_files: phreeqc.sun 
-	ssh u450rcolkr "cd $(SUN_DIR)/examples; make"
+	ssh u450rcolkr "cd $(SUN_DIR)/examples; make -f $(SUN_DIR)/../../examples/Makefile INPUT=$(SUN_DIR)/../../examples PHREEQCDAT=$(SUN_DIR)/../../database/phreeqc.dat WATEQ4FDAT=$(SUN_DIR)/../../database/wateq4f.dat"
 
-phreeqc.sun: $(SUN_DIR)/bin/phreeqc
+phreeqc.sun: 
+	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../Makefile SRC=$(SUN_DIR)/.. EXE=$(SUN_DIR)/bin/phreeqc"	
+
+clean_sun_output_files:
+	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
 
 all_dist:  clean_dist linux sun # win
 
@@ -166,7 +158,6 @@ linux_compile:
 
 linux_output:
 	cd $(EXPORT_DIR)/Linux/examples; make clean; make >& make.out
-	cd $(EXPORT_DIR)/Linux/test; ./clean.sh; ./test.sh
 
 linux_dist: 
 	cd $(EXPORT_DIR)/Linux; rm -f $(PROGRAM).tar
@@ -176,7 +167,6 @@ linux_dist:
 	cd $(EXPORT_DIR)/Linux; mkdir $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
-	cd $(EXPORT_DIR)/Linux; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
 	cd $(EXPORT_DIR)/Linux; tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
 	cd $(EXPORT_DIR)/Linux; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
@@ -189,7 +179,6 @@ source_dist:
 	cd ..; mkdir $(PROGRAM)-$(VERSION)
 	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
 	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
-	cd ..; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
 	cd ..; tar -czf $(PROGRAM).source.tar.gz $(PROGRAM)-$(VERSION)
 	cd ..; mv $(PROGRAM).source.tar.gz $(DIST_DIR)/$(ROOTNAME).source.tar.gz
 	cd ..; echo $(ROOTNAME).source.tar.gz saved in $(DIST_DIR).
@@ -220,7 +209,7 @@ sun_export:
 	svn export .. $(EXPORT_DIR)/Sun
 
 sun_clean:
-	rm -f $(EXPORT_DIR/Sun/bin/$(PROGRAM) $(EXPORT_DIR/Sun/src/*.o 
+	rm -f $(EXPORT_DIR)/Sun/bin/$(PROGRAM) $(EXPORT_DIR)/Sun/src/*.o 
 
 sun_sed_files:
 	sed -e "s/VERSION/$(VERSION)/" \
@@ -235,7 +224,6 @@ sun_compile:
 
 sun_output:
 	ssh u450rcolkr "cd $(EXPORT_DIR)/Sun/examples; make clean; make >& make.out"
-	ssh u450rcolkr "cd $(EXPORT_DIR)/Sun/test; ./clean.sh; ./test.sh"
 
 sun_dist: 
 	cd $(EXPORT_DIR)/Sun; rm -f $(PROGRAM).tar
@@ -245,7 +233,6 @@ sun_dist:
 	cd $(EXPORT_DIR)/Sun; mkdir $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Sun; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Sun; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
-	cd $(EXPORT_DIR)/Sun; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
 	cd $(EXPORT_DIR)/Sun; tar -czf $(PROGRAM).Sun.tar.gz $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Sun; mv $(PROGRAM).Sun.tar.gz $(DIST_DIR)/$(ROOTNAME).Sun.tar.gz
 	cd $(EXPORT_DIR)/Sun; echo $(ROOTNAME).Sun.tar.gz saved in $(DIST_DIR).
@@ -261,6 +248,8 @@ sun_test:
 
 clean_dist:
 	rm -rf $(EXPORT_DIR)
+
+clean_all: clean_dist clean_linux_output_files clean_sun_output_files clean
 
 #
 #Win
@@ -310,22 +299,14 @@ win_dist:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
-
-$(SUN_DIR)/bin/phreeqc: 
-	mkdir -p $(SUN_DIR) $(SUN_DIR)/bin $(SUN_DIR)/src $(SUN_DIR)/test
-	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../debug.mk TOPDIR=$(SUN_DIR)/..; make -f $(SUN_DIR)/../Makefile EXE=$(SUN_DIR)/bin/phreeqc"	
-
-test_dist: linux_test sunos_test source_test
-
-
+	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
-	cp $(TOPDIR)/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
-	cp $(TOPDIR)/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
-	cp $(TOPDIR)/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-	cp $(TOPDIR)/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
-	cp $(TOPDIR)/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
-	cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
+	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
+	cp $(EXPORT_DIR)/Linux/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
+	cp $(EXPORT_DIR)/Win/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+	cp $(EXPORT_DIR)/Win/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
+	cp $(EXPORT_DIR)/Linux/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
 
