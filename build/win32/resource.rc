@@ -28,8 +28,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,10,0,0
- PRODUCTVERSION 2,10,0,0
+ FILEVERSION 2,11,0,0
+ PRODUCTVERSION 2,11,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -44,17 +44,17 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "Released: November 2, 2004\0"
+            VALUE "Comments", "Released: February 7, 2005\0"
             VALUE "CompanyName", "U.S. Geological Survey\0"
             VALUE "FileDescription", "A hydrogeochemical transport model\0"
-            VALUE "FileVersion", "2.10.0.0\0"
+            VALUE "FileVersion", "2.11.0.0\0"
             VALUE "InternalName", "phreeqc\0"
             VALUE "LegalCopyright", "\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "phreeqc.exe\0"
             VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "PHREEQC-2.10\0"
-            VALUE "ProductVersion", "2.10.0.0\0"
+            VALUE "ProductName", "PHREEQC-2.11\0"
+            VALUE "ProductVersion", "2.11.0.0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
