@@ -1,7 +1,7 @@
 
-/*     $Date: 2004/12/15 22:22:23 $ */
+/*     $Date: 2004/12/16 00:37:37 $ */
 #ifdef PHREEQC_IDENT
-static char const rcsidglobal[] = "$RCSfile: global.h,v $  $Revision: 2.49 $";
+static char const rcsidglobal[] = "$RCSfile: global.h,v $  $Revision: 2.50 $";
 #endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H

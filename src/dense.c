@@ -22,7 +22,7 @@
 #include "dense.h"
 #include "smalldense.h"
 #include "output.h"
-static char const rcsid[] = "$RCSfile: dense.c,v $  $Revision: 1.3 $";
+static char const rcsid[] = "$RCSfile: dense.c,v $  $Revision: 1.4 $";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-static char const rcsid[] = "$RCSfile: phqalloc.c,v $  $Revision: 2.9 $";
+static char const rcsid[] = "$RCSfile: phqalloc.c,v $  $Revision: 2.10 $";
 
 #if defined(PHREEQCI_GUI)
 #define _CRTDBG_MAP_ALLOC

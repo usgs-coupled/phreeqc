@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: inverse.c,v $  $Revision: 2.10 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: inverse.c,v $  $Revision: 2.11 $";
 
 #define MAX_MODELS 20
 #define MIN_TOTAL_INVERSE 1e-14

@@ -25,7 +25,7 @@
 #include "sundialstypes.h"
 #include "sundialsmath.h" 
 #include "output.h"
-static char const rcsid[] = "$RCSfile: nvector_serial.c,v $  $Revision: 1.5 $";
+static char const rcsid[] = "$RCSfile: nvector_serial.c,v $  $Revision: 1.6 $";
 
 #define ZERO RCONST(0.0)
 #define HALF RCONST(0.5)

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: transport.c,v $  $Revision: 2.14 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: transport.c,v $  $Revision: 2.15 $";
 
 static int init_mix(void);
 static int init_heat_mix(int nmix);

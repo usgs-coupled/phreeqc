@@ -4,10 +4,10 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/11/02 00:35:22 $ */
+/*     $Date: 2004/12/16 00:34:51 $ */
 
 #define STATIC static
-static char const rcsid[] = "$RCSfile: spread.c,v $  $Revision: 2.17 $";
+static char const rcsid[] = "$RCSfile: spread.c,v $  $Revision: 2.18 $";
 
 #define STRING 11
 #define NUMBER 12

@@ -6,8 +6,8 @@
 #include "phrqproto.h"
 #include "input.h"
 
-/*     $Date: 2004/12/02 21:56:52 $ */
-static char const rcsid[] = "$RCSfile: mainsubs.c,v $  $Revision: 2.39 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: mainsubs.c,v $  $Revision: 2.40 $";
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/11/02 23:01:35 $ */
-static char const rcsid[] = "$RCSfile: tidy.c,v $  $Revision: 2.30 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: tidy.c,v $  $Revision: 2.31 $";
 
 static int check_species_input(void);
 static LDBLE coef_in_master(struct master *master_ptr);

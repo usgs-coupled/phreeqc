@@ -6,8 +6,8 @@
 
 #include <assert.h>
 
-/*     $Date: 2004/12/02 21:57:02 $ */
-static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.39 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.40 $";
 
 
 static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/02 21:58:39 $ */
-static char const rcsid[] = "$RCSfile: read.c,v $  $Revision: 2.44 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: read.c,v $  $Revision: 2.45 $";
 
 #if defined(SWIG_SHARED_OBJ)
 #define STATIC

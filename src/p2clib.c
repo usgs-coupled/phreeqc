@@ -7,8 +7,8 @@
  * by the licence agreement accompanying p2c itself.
  */
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: p2clib.c,v $  $Revision: 2.6 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: p2clib.c,v $  $Revision: 2.7 $";
 
 #define PHREEQC_IDENT
 #include "p2c.h"

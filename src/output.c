@@ -4,7 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "phqalloc.h"
-static char const rcsid[] = "$RCSfile: output.c,v $  $Revision: 1.2 $";
+static char const rcsid[] = "$RCSfile: output.c,v $  $Revision: 1.3 $";
 
 #define MAX_CALLBACKS 10
 static struct output_callback output_callbacks[MAX_CALLBACKS];

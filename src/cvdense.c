@@ -27,7 +27,7 @@
 #include "sundialsmath.h"
 #include "output.h"
 
-static char const rcsid[] = "$RCSfile: cvdense.c,v $  $Revision: 1.4 $";
+static char const rcsid[] = "$RCSfile: cvdense.c,v $  $Revision: 1.5 $";
 
 /* Error Messages */
 
