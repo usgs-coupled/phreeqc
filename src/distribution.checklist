@@ -1,100 +1,48 @@
-x(1) Update version and date in main.c
+(1) Update version and date in main.c
 
 
-x(2) Update version and date in doc/README.TXT
+(2) Update version and date in doc/README.TXT
 	uname -r
 	gcc -v
-	ci
 
-x(3) Update version and date in win/README.TXT
-     ci
+(3) Update version and date in win/README.TXT
 
-(3a) Get version numbers for databases
-     ci -l *.dat in /programs/phreeqc/database
 
-(4) Update src/../RELEASE.TXT 
-     update revisions, copy to RELEASE.TXT
-     ci
+(4) Update src/revisions
+    all_dist copies src/revisions doc/RELEASE.TXT
 
-(5) Update ../doc/phreeqc.txt.
-     ci
+   ( ../doc/phreeqc.txt now static, only RELEASE.TXT
+    has history 2/2/05)
 
-(5.5) makefile
-	Use optimize options
-	Put executable in ../bin
+(5) set version in Makefile
 
-(6) Diff all files
-	make  diff
+(6) make all_dist
+    from programs/phreeqc
+	 svn status -u 
+	 svn commit
 
-(7) Compile codes
-	make
-	make sun
+(7) test 
+       make test_dist 
+       or
+	    make test_linux, testsunos, test_source
 
-(8) Run examples and mytest
+(8) make all_dist 
+        check src/version to make sure the files were all current
+	makes ~/temp/phreeqcx.OS.xx.tar.gz, Linux, SunOS, source
+	makes programs/phreeqc/phreeqc.Windows.tar.gz
 
-(9) Make Linux output files in test.
-	run test.sh in test
-	results will be written into examples directory in distribution.
-	ci results
+(9) give phreeqc/phreeqc.Windows.tar.gz to Scott
 
-(10) Make Sun output files in test.sun.
-	copy phreeqc.sun to phreeqc in bin
-	run test.sh in test.sun
-	ci results
-	replace phreeqc with linux version
+(10) make web
+     copy .gz files to /var/anonymous/ftp/dlpark/geochem/unix
+     cp $(TOPDIR)/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
+     cp $(TOPDIR)/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
+     cp $(TOPDIR)/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+     cp $(TOPDIR)/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+     cp $(TOPDIR)/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
+     cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
-(11) Check dist_dir directory in Makefile (/home/dlpark/temp).
-
-(12) Use rcsfreeze (rcsfreeze C_204, for example)
-	bin
-	doc
-	database
-	examples
-	src
-	test
-	test.sun
-	win
-
-(13) lock phreeqc.rev
-
-(14) Make distribution
-	make dist
-
-(15) test unix versions in ~/temp
-	use ~/temp/untar to make separate directories
-
-(16) Make windows files ../phreeqc.Windows.tar.gz
-        make win
-
-(17) copy .gz files to /var/anonymous/ftp/dlpark/geochem/unix
-
-(18) update /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
-	with ~/programs/unix/phreeqc/README.TXT
-	cp ~/programs/unix/phreeqc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
-
-(19) update Windows batch version
-
-(20) update PhreeqcI version
-
-(20a) check for latest version of Phreeqc For Windows.
-
-(21) update /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-	with ~/programs/unix/phreeqc/win/README.TXT
-	cp ~/programs/unix/phreeqc/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-
-(22) readme.unix on web page 
-	cp ~/programs/unix/phreeqc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
-
-(23) change readme.win on web page 
-	cp ~/programs/unix/phreeqc/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
-
-(24) change phreeqc.txt on web page
-	cp ~/programs/unix/phreeqc/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
-
-(25) change RELEASE.TXT on web page
-	cp ~/programs/unix/phreeqc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
-
-(26) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/index.html
+(11) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/index.html
      phreeqci version, date, size
      phreeqc for windows version, date, size
      windows batch phreeqc version size
@@ -103,7 +51,13 @@ x(3) Update version and date in win/README.TXT
      Generic batch phreeqc version size
 
 
-(27) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqci/index.html
+(12) update PhreeqcI version
 
-(28) Update status.fm
+(13) check for latest version of Phreeqc For Windows.
+
+(14) send mail to Brian Marshal
+
+(15) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqci/index.html
+
+(16) Update status.fm
 

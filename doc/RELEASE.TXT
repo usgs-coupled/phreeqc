@@ -3,6 +3,16 @@ Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
 ------------------------------------------------------------
+Version 2.11:
+------------------------------------------------------------
+
+	A new database, minteq.v4.dat, has been translated from
+	version 4.02 of MINTEQA2 and is included in all
+	distributions. The database minteq.dat from earlier
+	version of MINTEQA2 has been slightly revised and is 
+	also included.
+
+------------------------------------------------------------
 Version 2.10:
 ------------------------------------------------------------
 
@@ -452,9 +462,45 @@ Added function EDL to Basic.
 End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
+	Added bigger string for some error messages to avoid 
+	access violation in cvode.
+
+	Changed output_msg to warning_msg for combinations
+	of convergence parameters so that message would
+	be controlled by -warnings identifier.
+
+
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+Version 2.11
+
+	New database minteq.v4.dat has been translated from version
+	4.02 of MINTEQA2. An older version of the MINTEQA2 database is
+	retained in file minteq.dat.
+
+	Switched version control to subversion. Simplified,
+	reorganized makefiles. 
+
+	Fixed bug with PRINT; -warnings n. Use of this option 
+        generally eliminated all warning messages instead of
+	all messages after the nth. Default number of warning 
+	messages printed in now 100 per simulation.
+
+	Fixed memory leaks in cvode that caused phreeqci to crash.
+	Now uses PHRQ_malloc in case of other memory leaks. Also
+	fixed potential memory error with PAD Basic function.
+
+	Saturation index phases that included water had wrong
+	value if distribution of species, exchange, or surface 
+	not written also.
+
+	Fixed error message in cvode, if max iterations exceeded
+	the error caused a segmentation	fault.
+
+	Made printing of parameter combination message a warning
+	message so that it could be turned off.
+
 Version 2.10 Date: Tue November 2, 2004
 
 	Rearranged i/o for PHREEQC and reorganized driver
