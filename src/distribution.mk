@@ -1,4 +1,3 @@
-
 # Locations to save compressed tar file for distribution
 DIST_DIR=~dlpark/temp
 VERSION=2.11
@@ -115,11 +114,11 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-all_dist: linux sun dist win
+all_dist: linux sun dist win mytest
 
 sun: clean_sun 
 	cp Makefile *.c *.h $(TOPDIR)/sun
-	ssh u450rcolkr "cd ~dlpark/programs/phreeqc/sun; make -j 4 EXE=$(TOPDIR)/bin/$(PROGRAM).sun"
+	ssh u450rcolkr "cd ~dlpark/programs/phreeqc/sun; make -j 4 EXE=/z/parkplace/home/dlpark/programs/phreeqc/bin/$(PROGRAM).sun"
 	cp ../bin/phreeqc ../bin/phreeqc.linux
 	cp ../bin/phreeqc.sun ../bin/phreeqc
 	ssh u450rcolkr "cd ~dlpark/programs/phreeqc/test.sun; ./clean.sh; ./test.sh"
@@ -222,3 +221,11 @@ win:
 	cd ..; tar -czf $(PROGRAM).Windows.tar.gz $(PROGRAM).win
 	cd ..; echo $(PROGRAM).Windows.tar.gz created.
 	cd ..; rm -rf $(PROGRAM).win
+
+mytest:
+	cd ../mytest; make clean; make >& make.out 
+
+debug: 
+	mkdir -p $(PROGRAM)_debug 
+	ssh parkplace 'cd programs/phreeqc/src/phreeqc_debug; make -f ../debug.mk; make -f ../Makefile CCFLAGS="-Wall -ansi -g" EXE=../phreeqc'
+
