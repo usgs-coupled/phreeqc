@@ -14,14 +14,14 @@ Department=
 Password=
 
 [Project:Properties:Product]
-GUID=DE153F45-7BD3-4F26-9EEB-45AA8022086A
+GUID=998E78A2-F44D-47D3-BDD4-7A13DF2944A3
 CompanyName=USGS WRD
 URL=http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/index.html
 EmailAddress=dlpark@usgs.gov
 Copyright=
 Summary=
 Name=PHREEQC
-Version=2.10
+Version=2.11
 ExeFile=phreeqc.bat
 Comments=
 

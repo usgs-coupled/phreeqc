@@ -11,11 +11,13 @@
 #define HKEY_2_8          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{4B417409-F366-487F-BB32-5C194F35C8C3}"
 #define HKEY_2_9          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{0CBA4A5F-79DE-49B6-842E-5F214672C32D}"
 #define HKEY_2_10         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{DE153F45-7BD3-4F26-9EEB-45AA8022086A}"
+////#define HKEY_2_11         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{998E78A2-F44D-47D3-BDD4-7A13DF2944A3}"
 #define HVALUE_2_6        "InstallLocation"
 #define HVALUE_2_7        "InstallLocation"
 #define HVALUE_2_8        "InstallLocation"
 #define HVALUE_2_9        "InstallLocation"
 #define HVALUE_2_10       "InstallLocation"
+////#define HVALUE_2_11       "InstallLocation"
 
 prototype AddAutoExecPath(string);
 prototype AddMEPath(string);
@@ -116,6 +118,10 @@ function AddMEPath(szPathToAdd)
     string svPath2_8;       //    
     BOOL   bFound2_9;       //
     string svPath2_9;       //    
+    BOOL   bFound2_10;      //
+    string svPath2_10;      //    
+////    BOOL   bFound2_11;      //
+////    string svPath2_11;      //    
 //}}    
 begin    
     if (!SYSINFO.WIN9X.bWinMe) then
@@ -171,17 +177,28 @@ begin
 	endif;
 
 
-////	// check for 2.10
-////	bFound2_10 = FALSE;
+	// check for 2.10
+	bFound2_10 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_10, nvType, svPath2_10, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_10) == 0) then
+				bFound2_10 = TRUE;
+			endif;
+		endif;
+	endif;
+
+////	// check for 2.11
+////	bFound2_11 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_10, nvType, svPath2_10, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_11, HVALUE_2_11, nvType, svPath2_11, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_10) == 0) then
-////				bFound2_10 = TRUE;
+////			if (LongPathToShortPath(svPath2_11) == 0) then
+////				bFound2_11 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
-//}}    
+
     
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -239,8 +256,16 @@ begin
 			        endif;	            
 		        endif;
 	        endif;
-////            if ( bFound2_10 ) then
-////	            nPos = StrFind(svCurrentPath, svPath2_10);
+            if ( bFound2_10 ) then
+	            nPos = StrFind(svCurrentPath, svPath2_10);
+	            if (nPos > 0) then
+			        if (nPos < nPosFirst) then
+			        	nPosFirst = nPos;
+			        endif;	            
+		        endif;
+	        endif;
+////            if ( bFound2_11 ) then
+////	            nPos = StrFind(svCurrentPath, svPath2_11);
 ////	            if (nPos > 0) then
 ////			        if (nPos < nPosFirst) then
 ////			        	nPosFirst = nPos;
@@ -311,8 +336,10 @@ function AddNTPath(szPathToAdd)
     string svPath2_8;       //
     BOOL   bFound2_9;       //
     string svPath2_9;       //
-////    BOOL   bFound2_10;       //
-////    string svPath2_10;       //
+    BOOL   bFound2_10;      //
+    string svPath2_10;      //
+////    BOOL   bFound2_11;       //
+////    string svPath2_11;       //
 begin
     if (!SYSINFO.WINNT.bWinNT) then
         // wrong OS
@@ -365,17 +392,27 @@ begin
 		endif;
 	endif;
 
-////	// check for 2.10
-////	bFound2_10 = FALSE;
+	// check for 2.10
+	bFound2_10 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_10, nvType, svPath2_10, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_10) == 0) then
+				bFound2_10 = TRUE;
+			endif;
+		endif;
+	endif;
+
+////	// check for 2.11
+////	bFound2_11 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_10, nvType, svPath2_10, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_11, HVALUE_2_11, nvType, svPath2_11, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_10) == 0) then
-////				bFound2_10 = TRUE;
+////			if (LongPathToShortPath(svPath2_11) == 0) then
+////				bFound2_11 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
-
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -454,8 +491,16 @@ begin
 				endif;
 				endif;
 			endif;
-////			if ( bFound2_10 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_10);
+			if ( bFound2_10 ) then
+				nPos = StrFind(svCurrentPath, svPath2_10);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+				endif;
+				endif;
+			endif;
+////			if ( bFound2_11 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_11);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;
