@@ -67,9 +67,9 @@ Rb              Rb+     0       85.4699         85.4699
 S               SO4-2   0.0     96.0616         32.064
 S(-2)           HS-     1.0     32.064
 S(6)            SO4-2   0.0     96.0616
-Sb             Sb(OH)6- 6.      172.772         172.772
-Sb(3)           Sb(OH)3 3.      172.772 
-Sb(5)          Sb(OH)6- 0       172.772 
+Sb             Sb(OH)6- 0.      Sb              121.75
+Sb(3)           Sb(OH)3 0.      Sb
+Sb(5)          Sb(OH)6- 0       Sb
 Se              SeO4-2  0.0     78.96           78.96
 Se(-2)          HSe-    0.0     78.96
 Se(4)           SeO3-2  0.0     78.96
@@ -84,43 +84,43 @@ U(3)            U+3     0.0     238.0290
 U(4)            U+4     0.0     238.0290
 U(5)            UO2+    0.0     238.0290
 U(6)            UO2+2   0.0     238.0290
-V               VO2+    0       50.94           50.94
+V               VO2+    -2.0    50.94           50.94
 V(2)            V+2     0       50.94   
-V(3)            V+3     0       50.94   
+V(3)            V+3     -3.0    50.94   
 V(4)            VO+2    0       50.94
-V(5)            VO2+    0       50.94
+V(5)            VO2+    -2.0    50.94
 Zn              Zn+2    0       65.37           65.37
 Benzoate                Benzoate-       0       121.12  121.12
-Para_acetate            Para_acetate-   0       134.14  134.14
-Isophthalate            Isophthalate-2  0       164.12  164.12
+Para_acetate            Para_acetate-   1       134.14  134.14
+Isophthalate            Isophthalate-2  1       164.12  164.12
 Diethylamine            Diethylamine    0       73      73
-Nbutylamine             Nbutylamine     0       73      73
-Methylamine             Methylamine     0       31.018  31.018
-Dimethylamine           Dimethylamine   0       45.028  45.028
+Nbutylamine             Nbutylamine     1       73      73
+Methylamine             Methylamine     1       31.018  31.018
+Dimethylamine           Dimethylamine   1       45.028  45.028
 Tributylphosphate       Tributylphosphate       0       265.97  265.97
-Hexylamine              Hexylamine      0       101     101
-Ethylenediamine         Ethylenediamine 0       60.12   60.12
-Npropylamine            Npropylamine    0       59.04   59.04
-Isopropylamine          Isopropylamine  0       59.04   59.04
-Trimethylamine          Trimethylamine  0       59.04   59.04
-Citrate                 Citrate-3       0       189.06  189.06
-Nta                     Nta-3           0       188.06  188.06
-Edta                    Edta-4          0       276     276
-Propanoate              Propanoate-     0       73.032  73.032
+Hexylamine              Hexylamine      1       101     101
+Ethylenediamine         Ethylenediamine 2       60.12   60.12
+Npropylamine            Npropylamine    1       59.04   59.04
+Isopropylamine          Isopropylamine  1       59.04   59.04
+Trimethylamine          Trimethylamine  1       59.04   59.04
+Citrate                 Citrate-3       2       189.06  189.06
+Nta                     Nta-3           1       188.06  188.06
+Edta                    Edta-4          2       276     276
+Propanoate              Propanoate-     1       73.032  73.032
 Butanoate               Butanoate-      0       87.043  87.043
-Isobutyrate             Isobutyrate-    0       87.043  87.043
-Two_methylpyridine      Two_methylpyridine      0       94      94
-Three_methylpyridine    Three_methylpyridine    0       94      94
-Four_methylpyridine     Four_methylpyridine     0       94      94
+Isobutyrate             Isobutyrate-    1       87.043  87.043
+Two_methylpyridine      Two_methylpyridine      1       94      94
+Three_methylpyridine    Three_methylpyridine    1       94      94
+Four_methylpyridine     Four_methylpyridine     1       94      94
 Formate                 Formate-        0       45.02   45.02
-Isovalerate             Isovalerate-    0       101.13  101.13
-Valerate                Valerate-       0       101.13  101.13
-Acetate                 Acetate-        0       59.05   59.05
+Isovalerate             Isovalerate-    1       101.13  101.13
+Valerate                Valerate-       1       101.13  101.13
+Acetate                 Acetate-        1       59.05   59.05
 Tartrate                Tartrate-2      0       148.09  148.09
-Glycine                 Glycine-        0       74.07   74.07
-Salicylate              Salicylate-2    0       136.12  136.12
-Glutamate               Glutamate-2     0       145.13  145.13
-Phthalate               Phthalate-2     0       164.13  164.13
+Glycine                 Glycine-        1       74.07   74.07
+Salicylate              Salicylate-2    1       136.12  136.12
+Glutamate               Glutamate-2     1       145.13  145.13
+Phthalate               Phthalate-2     1       164.13  164.13
 SOLUTION_SPECIES
 #######################################################
 #             essential definitions
@@ -4445,7 +4445,7 @@ Albite(low)
         NaAlSi3O8 + 4H+ + 4H2O = Na+ + Al+3 + 3H4SiO4
         log_k   2.592
         delta_h -17.4   kcal
-Analbite
+Albite
         NaAlSi3O8 + 4H+ + 4H2O = Na+ + Al+3 + 3H4SiO4
         log_k   3.506
         delta_h -20     kcal
@@ -4653,7 +4653,7 @@ Pb3(PO4)2
         Pb3(PO4)2 = 3Pb+2 + 2PO4-3
         log_k   -44.5
         delta_h -0      kcal
-SULFUR
+Sulfur
         S + H+ + 2e- = HS-
         log_k   -2.11
         delta_h -4.2    kcal
