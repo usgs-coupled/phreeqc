@@ -38,8 +38,8 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
                 realtype uround, void *jac_data, long int *nfePtr,
                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.38 $";
+/*     $Date: 2005/01/19 23:53:33 $ */
+static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.39 $";
 static int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
 static int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step);
 static int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fraction);
@@ -1511,9 +1511,6 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	/* CVODE definitions */
 	realtype ropt[OPT_SIZE], reltol, t, tout, tout1, sum_t;
 	long int iopt[OPT_SIZE];
-	M_Env machEnv;
-	N_Vector y, abstol;
-	void *cvode_mem;
 	int flag;
 /*
  *   Set nsaver
@@ -1608,23 +1605,23 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			}
 
 			/* allocate space for CVODE */
-			machEnv = M_EnvInit_Serial(n_reactions);
-			y = N_VNew(n_reactions, machEnv);    /* Allocate y, abstol vectors */
-			if (y == NULL) malloc_error();
-			cvode_last_good_y = N_VNew(n_reactions, machEnv);    /* Allocate y, abstol vectors */
+			kinetics_machEnv = M_EnvInit_Serial(n_reactions);
+			kinetics_y = N_VNew(n_reactions, kinetics_machEnv);    /* Allocate y, abstol vectors */
+			if (kinetics_y == NULL) malloc_error();
+			cvode_last_good_y = N_VNew(n_reactions, kinetics_machEnv);    /* Allocate y, abstol vectors */
 			if (cvode_last_good_y == NULL) malloc_error();
-			cvode_prev_good_y = N_VNew(n_reactions, machEnv);    /* Allocate y, abstol vectors */
+			cvode_prev_good_y = N_VNew(n_reactions, kinetics_machEnv);    /* Allocate y, abstol vectors */
 			if (cvode_prev_good_y == NULL) malloc_error();
-			abstol = N_VNew(n_reactions, machEnv); 
-			if (abstol == NULL) malloc_error();
+			kinetics_abstol = N_VNew(n_reactions, kinetics_machEnv); 
+			if (kinetics_abstol == NULL) malloc_error();
 
 /*
  *    Set y to 0.0
  */
 			for (j = 0; j < n_reactions; j++) {
 				kinetics_ptr->comps[j].moles = 0.0;
-				Ith(y,j+1) = 0.0;
-				Ith(abstol,j+1) = kinetics_ptr->comps[j].tol;
+				Ith(kinetics_y,j+1) = 0.0;
+				Ith(kinetics_abstol,j+1) = kinetics_ptr->comps[j].tol;
 				/*Ith(abstol,j+1) = 1e-8; */
 				/* m_temp[j] = kinetics_ptr->comps[j].m; */
 			}
@@ -1653,13 +1650,13 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, ADAMS, FUNCTIONAL, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv); 
 			*/
 			/* iopt[MAXORD] = 3; */
-			cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, BDF, NEWTON, SV, &reltol, abstol, NULL, NULL, TRUE, iopt, ropt, machEnv); 
-			if (cvode_mem == NULL) malloc_error();
+			kinetics_cvode_mem = CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV, &reltol, kinetics_abstol, NULL, NULL, TRUE, iopt, ropt, kinetics_machEnv); 
+			if (kinetics_cvode_mem == NULL) malloc_error();
 
 			/* Call CVDense to specify the CVODE dense linear solver with the
 			   user-supplied Jacobian routine Jac. */
 			
-			flag = CVDense(cvode_mem, Jac, NULL);
+			flag = CVDense(kinetics_cvode_mem, Jac, NULL);
 			if (flag != SUCCESS) { 
 				error_msg("CVDense failed.", STOP);
 			}
@@ -1667,7 +1664,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			tout = kin_time;
 			/*ropt[HMAX] = tout/10.;*/
 			/*ropt[HMIN] = 1e-17;*/
-			flag = CVode(cvode_mem, tout, y, &t, NORMAL);
+			flag = CVode(kinetics_cvode_mem, tout, kinetics_y, &t, NORMAL);
 			rate_sim_time = rate_sim_time_start + t;
 			/*
 			printf("At t = %0.4e      y =%14.6e  %14.6e  %14.6e\n",
@@ -1680,28 +1677,30 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				sum_t += cvode_last_good_time;
 				cvode_last_good_time = 0;
 				if (++iter >= 200) {
+					m_temp = free_check_null(m_temp);
+					m_original = free_check_null(m_original);
 					error_msg("Repeated restart of integration.", STOP);
 				}
 				tout1 = tout - sum_t;
 				t = 0;
-				N_VScale(1.0, cvode_last_good_y, y); 
+				N_VScale(1.0, cvode_last_good_y, kinetics_y); 
 				for (j = 0; j < OPT_SIZE; j++) {
 					iopt[j] = 0;
 					ropt[j] = 0;
 				}
-				CVodeFree(cvode_mem);        /* Free the CVODE problem memory */
-				cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, BDF, NEWTON, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv); 
-				if (cvode_mem == NULL) malloc_error();
+				CVodeFree(kinetics_cvode_mem);        /* Free the CVODE problem memory */
+				kinetics_cvode_mem = CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV, &reltol, kinetics_abstol, NULL, NULL, FALSE, iopt, ropt, kinetics_machEnv); 
+				if (kinetics_cvode_mem == NULL) malloc_error();
 
 				/* Call CVDense to specify the CVODE dense linear solver with the
 				   user-supplied Jacobian routine Jac. */
 			
-				flag = CVDense(cvode_mem, Jac, NULL);
+				flag = CVDense(kinetics_cvode_mem, Jac, NULL);
 				if (flag != SUCCESS) { 
 					error_msg("CVDense failed.", STOP);
 				}
 				/*ropt[HMAX] = tout1/10.;*/
-				flag = CVode(cvode_mem, tout1, y, &t, NORMAL);
+				flag = CVode(kinetics_cvode_mem, tout1, kinetics_y, &t, NORMAL);
 				/*
 				  sprintf(error_string, "CVode failed, flag=%d.\n", flag); 
 				  error_msg(error_string, STOP);
@@ -1713,7 +1712,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			odeint(&ystart[-1], n_reactions, 0, kin_time, kinetics_ptr->comps[0].tol, kin_time/kinetics_ptr->step_divide, 0.0, &nok, &nbad, i, nsaver );
 			*/
 			for (j = 0; j < n_reactions; j++) {
-				kinetics_ptr->comps[j].moles = Ith(y,j+1);
+				kinetics_ptr->comps[j].moles = Ith(kinetics_y,j+1);
 				kinetics_ptr->comps[j].m = m_original[j] - kinetics_ptr->comps[j].moles;
 				if (kinetics_ptr->comps[j].m < 0) {
 					kinetics_ptr->comps[j].moles = m_original[j];
@@ -1745,10 +1744,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			if (nsaver != i) {
 				solution_duplicate(save_old, i);
 			}
-			N_VFree(y);                  /* Free the y and abstol vectors */
-			N_VFree(abstol);   
-			CVodeFree(cvode_mem);        /* Free the CVODE problem memory */
-			M_EnvFree_Serial(machEnv);   /* Free the machine environment memory */
+			free_cvode();
 		}
 
 		store_get_equi_reactants(i, TRUE);
@@ -1759,8 +1755,8 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			kinetics_ptr->comps[j].moles = m_original[j] - kinetics_ptr->comps[j].m;
 /*                        if (kinetics_ptr->comps[j].moles < 1.e-15) kinetics_ptr->comps[j].moles = 0.0;
  */		}
-		free_check_null(m_temp);
-		free_check_null(m_original);
+		m_temp = free_check_null(m_temp);
+		m_original = free_check_null(m_original);
 	}
 	iterations = run_reactions_iterations;
 	if (cvode_pp_assemblage_save != NULL) {
@@ -1771,6 +1767,24 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 		s_s_assemblage_free(cvode_s_s_assemblage_save);
 		cvode_s_s_assemblage_save = free_check_null(cvode_s_s_assemblage_save);
 	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int free_cvode(void)
+/* ---------------------------------------------------------------------- */
+{
+	if (kinetics_y != NULL) N_VFree(kinetics_y);                      /* Free vector */
+	kinetics_y = NULL;
+	if (cvode_last_good_y != NULL) N_VFree(cvode_last_good_y);        /* Free vector */
+	cvode_last_good_y = NULL;
+	if (cvode_prev_good_y != NULL) N_VFree(cvode_prev_good_y);        /* Free vector */
+	cvode_prev_good_y = NULL;
+	if (kinetics_abstol != NULL) N_VFree(kinetics_abstol);            /* Free vector */
+	kinetics_abstol = NULL;
+	if (kinetics_cvode_mem != NULL) CVodeFree(kinetics_cvode_mem);    /* Free the CVODE problem memory */
+	kinetics_cvode_mem = NULL;
+	if (kinetics_machEnv != NULL) M_EnvFree_Serial(kinetics_machEnv); /* Free the machine environment memory */
+	kinetics_machEnv = NULL;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2144,7 +2158,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 		/*
 		error_msg("Mass balance error in jacobian", CONTINUE);
 		*/
-		free_check_null(initial_rates);
+		initial_rates = free_check_null(initial_rates);
 		return;
 	} 
 	run_reactions_iterations += iterations;
@@ -2197,7 +2211,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 			error_msg("Mass balance error in jacobian 2", CONTINUE);
 			*/
 			cvode_error = TRUE;
-			free_check_null(initial_rates);
+			initial_rates = free_check_null(initial_rates);
 			return;
 		}
 		run_reactions_iterations += iterations;
@@ -2214,6 +2228,6 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 	for (i = 0; i < n_reactions; i++) {
 		kinetics_ptr->comps[i].moles = 0;
 	}
-	free_check_null(initial_rates);
+	initial_rates = free_check_null(initial_rates);
 	return;
 }

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.37 $";
+/*     $Date: 2005/01/19 23:53:33 $ */
+static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.38 $";
 
 static int exchange_compare_int(const void *ptr1, const void *ptr2);
 static int gas_phase_compare_int(const void *ptr1, const void *ptr2);
@@ -324,6 +324,9 @@ int clean_up(void)
         isotope_alpha_hash_table = NULL;
 
 	free_tally_table();
+
+	/* CVODE memory */
+	free_cvode();
 
 /* hash tables */
 
