@@ -55,7 +55,8 @@ int cl1(int k, int l, int m, int n,
 	LDBLE *q,
 	int *kode, LDBLE toler,
 	int *iter, LDBLE *x, LDBLE *res, LDBLE *error,
-	LDBLE *cu, int *iu, int *s);
+	LDBLE *cu, int *iu, int *s,
+	int check);
 
 /* default.c */
 int close_input_files(void);
