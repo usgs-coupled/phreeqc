@@ -6,8 +6,8 @@
 
 #include <assert.h>
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.40 $";
+/*     $Date: 2004/12/20 22:56:22 $ */
+static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.41 $";
 
 
 static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
@@ -97,6 +97,7 @@ int print_all(void)
 /*
  *   Print results
  */
+        s_h2o->lm = s_h2o->la; 
         print_using();
         print_mix();
         print_irrev();
@@ -876,7 +877,7 @@ int print_saturation_indices(void)
 			} else {
 				iap += la_eminus * rxn_ptr->coef; 
 			}
-			/* fprintf(output,"\t%s\t%f\t%e\t%e\t%e\n", rxn_ptr->s->name, rxn_ptr->s->la, rxn_ptr->coef, rxn_ptr->s->lm, rxn_ptr->s->lg ); */
+			/* output_msg(OUTPUT_MESSAGE,"\t%s\t%f\t%e\t%e\t%e\n", rxn_ptr->s->name, rxn_ptr->s->la, rxn_ptr->coef, rxn_ptr->s->lm, rxn_ptr->s->lg ); */
                 }
                 si=-lk + iap;
                 output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f  %s\n",phases[i]->name, (double) si, (double) iap, (double) lk, phases[i]->formula);
