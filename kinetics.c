@@ -38,8 +38,8 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
                 realtype uround, void *jac_data, long int *nfePtr,
                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-/*     $Date: 2004/10/28 15:58:47 $ */
-static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.36 $";
+/*     $Date: 2004/12/14 17:42:34 $ */
+static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.37 $";
 static int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
 static int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step);
 static int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fraction);
@@ -1058,11 +1058,11 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 		} else if (converge == MASS_BALANCE) {
 			break;
 		}
-		output_msg(OUTPUT_MESSAGE,"Numerical method failed with this set of convergence parameters.\n");
+		warning_msg("Numerical method failed with this set of convergence parameters.\n");
 	}		
 	if (converge == FALSE && use.kinetics_ptr != NULL && use.kinetics_ptr->use_cvode == TRUE) {
 		sprintf(error_string, "Numerical method failed on all parameter combinations, retrying integration");
-		output_msg(OUTPUT_MESSAGE, "Numerical method failed on all parameter combinations, retrying integration\n");
+		/*output_msg(OUTPUT_MESSAGE, "Numerical method failed on all parameter combinations, retrying integration\n"); */
 		warning_msg(error_string);
 		converge = MASS_BALANCE;
 	}
