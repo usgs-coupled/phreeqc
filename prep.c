@@ -50,7 +50,7 @@ static int tidy_redox (void);
 static struct master **unknown_alloc_master(void);
 static int write_mb_eqn_x (void);
 static int write_mb_for_species_list (int n);
-static int write_mass_action_eqn_x (void);
+static int write_mass_action_eqn_x (int stop);
 
 /* ---------------------------------------------------------------------- */
 int prep(void)
@@ -962,7 +962,7 @@ int build_model(void)
 /*
  *   Write mass action equation for current model
  */
-			write_mass_action_eqn_x();
+			write_mass_action_eqn_x(STOP);
 			if (s[i]->type == SURF) {
 				add_potential_factor();
 			}
@@ -1063,7 +1063,7 @@ int build_model(void)
 /*
  *   Rewrite reaction to current master species
  */
-			write_mass_action_eqn_x();
+			write_mass_action_eqn_x(STOP);
 			trxn_reverse_k();
 			rxn_free(phases[i]->rxn_x);
 			if ( debug_prep == TRUE ) {
@@ -2054,7 +2054,7 @@ int resetup_master (void)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int write_mass_action_eqn_x (void)
+int write_mass_action_eqn_x (int stop)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2074,9 +2074,14 @@ int write_mass_action_eqn_x (void)
 		if (count > MAX_ADD_EQUATIONS) {
 			sprintf(error_string, "Could not reduce equation "
                                 "to primary and secondary species that are "
-                                "in the model\n\tSpecies: %s.",
+                                "in the model\n\t Species: %s.",
 				trxn.token[0].s->name);
-			error_msg(error_string, CONTINUE);
+			if (stop == STOP) {
+				input_error++;
+				error_msg(error_string, CONTINUE);
+			} else {
+				warning_msg(error_string);
+			}
 			return(ERROR);
 		}
 		repeat = FALSE;
@@ -3319,15 +3324,21 @@ int tidy_redox (void)
 	for (pe_data_ptr = pe_x; pe_data_ptr->name != NULL; pe_data_ptr++) {
 		count_trxn=0;
 		trxn_add(pe_data_ptr->rxn, 1.0, FALSE);
-		if (write_mass_action_eqn_x() == FALSE) {
+		if (write_mass_action_eqn_x(CONTINUE) == FALSE) {
 			sprintf(error_string, "Could not rewrite redox "
-				"couple equation for %s\n\tPossibly a "
-				"circular definition of redox.", pe_data_ptr->name);
-			error_msg(error_string, STOP);
+				"couple equation for %s\n\t Possibly missing data for one "
+				"of the redox states.", pe_data_ptr->name);
+			warning_msg(error_string);
+			sprintf(error_string, "Using pe instead of %s.", pe_data_ptr->name);
+			warning_msg(error_string);
+			rxn_free(pe_data_ptr->rxn);
+			pe_data_ptr->rxn = rxn_dup (pe_x[0].rxn);
+			pe_data_ptr->name = pe_x[0].name;
+		} else {
+			rxn_free(pe_data_ptr->rxn);
+			pe_data_ptr->rxn = rxn_alloc(count_trxn+1);
+			trxn_copy (pe_data_ptr->rxn);
 		}
-		rxn_free(pe_data_ptr->rxn);
-		pe_data_ptr->rxn = rxn_alloc(count_trxn+1);
-		trxn_copy (pe_data_ptr->rxn);
 	}
 
 	return(OK);
