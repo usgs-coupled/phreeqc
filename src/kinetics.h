@@ -1,3 +1,6 @@
+#ifdef PHREEQC_IDENT
+static char const svnidkinetics[] = "$Id$";
+#endif
 void *cvode_kinetics_ptr;
 int  cvode_test;
 int  cvode_error;

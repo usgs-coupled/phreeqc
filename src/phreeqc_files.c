@@ -21,9 +21,7 @@ static int open_handler(const int type, const char *file_name);
 static int output_handler(const int type, const char *err_str, const int stop, void *cookie, const char *format, va_list args);
 static int rewind_wrapper(FILE* file_ptr);
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: phreeqc_files.c,v $  $Revision: 1.5 $";
-
+static char const svnid[] = "$Id$";
 
 /* ---------------------------------------------------------------------- */
 int phreeqc_handler(const int action, const int type, const char *err_str, const int stop, void *cookie, const char *format, va_list args)

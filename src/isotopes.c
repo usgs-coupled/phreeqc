@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: isotopes.c,v $  $Revision: 2.13 $";
+static char const svnid[] = "$Id$";
 
 static int calculate_value_init(struct calculate_value *calculate_value_ptr);
 static int isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr);
@@ -42,7 +41,7 @@ int read_isotopes(void)
 		"total_is_major"        /* 1 */
 	};
 	int count_opt_list = 2;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	master_isotope_ptr = NULL;
 	elt_ptr = NULL;

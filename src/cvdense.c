@@ -30,7 +30,7 @@
 /* WARNING don't include any headers below here */
 #define malloc PHRQ_malloc
 
-static char const rcsid[] = "$RCSfile: cvdense.c,v $  $Revision: 1.5 $";
+static char const svnid[] = "$Id$";
 
 /* Error Messages */
 
@@ -123,7 +123,7 @@ static void CVDenseDQJac(integertype N, DenseMat J, RhsFn f, void *f_data,
   M_Env machEnv;
   integertype j;
 
-  if (rcsid == NULL) fprintf(stderr," ");
+  if (svnid == NULL) fprintf(stderr," ");
   machEnv = y->menv; /* Get machine environment */
 
   ftemp = vtemp1; /* Rename work vector for use as f vector value */

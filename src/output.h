@@ -2,6 +2,9 @@
 #define _INC_MESSAGE_H
 
 #include <stdarg.h>
+#ifdef PHREEQC_IDENT
+static char const svnidoutput[] = "$Id$";
+#endif
 
 typedef int (*PFN_OUTPUT_CALLBACK)(const int action, const int type, const char *err_str, const int stop, void *cookie, const char *, va_list args);
 

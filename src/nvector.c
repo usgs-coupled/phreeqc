@@ -17,7 +17,7 @@
 
 #include "nvector.h"    /* generic M_Env and N_Vector */
 #include "output.h"
-static char const rcsid[] = "$RCSfile: nvector.c,v $  $Revision: 1.4 $";
+static char const svnid[] = "$Id$";
 
 N_Vector N_VNew(integertype n, M_Env machEnv)
 {

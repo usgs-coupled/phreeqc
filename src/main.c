@@ -1,14 +1,11 @@
-#define PHREEQC_IDENT
 #define EXTERNAL
 #include "global.h"
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
-#undef PHREEQC_IDENT
 
 
-/*     $Date: 2004/12/16 00:37:37 $ */
-static char const rcsid[] = "$RCSfile: main.c,v $  $Revision: 2.37 $";
+static char const svnid[] = "$Id$";
 
 #ifdef DOS
 static int write_banner(void);
@@ -25,7 +22,7 @@ int main(int argc, char *argv[])
 	int errors;
 	void *db_cookie = NULL;
 	void *input_cookie = NULL;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	phast = FALSE;
 /*
  *   Add callbacks for error_msg and warning_msg
@@ -96,14 +93,14 @@ int write_banner(void)
 {
 output_msg(OUTPUT_SCREEN, "              €ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ€\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫             * PHREEQC-2.10 *               ∫\n");
+output_msg(OUTPUT_SCREEN, "              ∫             * PHREEQC-2.11 *               ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫      A hydrogeochemical transport model    ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                    by                      ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫       D.L. Parkhurst and C.A.J. Appelo     ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫              November 2, 2004              ∫\n");
+output_msg(OUTPUT_SCREEN, "              ∫              February 7, 2005              ∫\n");
 output_msg(OUTPUT_SCREEN, "              €‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹€\n\n");
 
 return 0;

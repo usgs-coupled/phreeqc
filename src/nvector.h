@@ -39,6 +39,9 @@
  * into the 'ops' field).                                          *
  *                                                                 *
  *******************************************************************/
+#ifdef PHREEQC_IDENT
+static char const svnidnvector[] = "$Id$";
+#endif
 
 #ifdef __cplusplus     /* wrapper to enable C++ usage */
 extern "C" {

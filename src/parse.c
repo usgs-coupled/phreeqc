@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: parse.c,v $  $Revision: 2.9 $";
+static char const svnid[] = "$Id$";
 
 static int get_coef(LDBLE *coef, char **eqnaddr);
 static int get_secondary (char **t_ptr, char *element, int *i);
@@ -35,7 +34,7 @@ int parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	LDBLE coef, z;
 	char c;
 	char *ptr, *char_ptr;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	paren_count = 0;
 /*

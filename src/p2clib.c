@@ -7,13 +7,10 @@
  * by the licence agreement accompanying p2c itself.
  */
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: p2clib.c,v $  $Revision: 2.7 $";
+static char const svnid[] = "$Id$";
 
-#define PHREEQC_IDENT
 #include "p2c.h"
 #include "output.h"
-#undef PHREEQC_IDENT
 extern int error_msg (const char *err_str, const int stop);
 #define STOP 1
 #define CONTINUE 0
@@ -53,7 +50,7 @@ char **argv;
 #endif
 
 {
-  if (rcsid == NULL) fprintf(stderr," ");
+  if (svnid == NULL) fprintf(stderr," ");
     P_argc = argc;
     P_argv = argv;
     __top_jb = NULL;

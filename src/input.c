@@ -6,8 +6,7 @@
 #include "phrqproto.h"
 #include "phqalloc.h"
 
-static char const rcsid[] = "$RCSfile: input.c,v $";
-
+static char const svnid[] = "$Id$";
 
 int check_line_return;
  
@@ -18,7 +17,7 @@ static struct read_callback s_read_callback;
 int set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 /* ---------------------------------------------------------------------- */
 {
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	s_read_callback.callback = pfn;
 	s_read_callback.cookie   = cookie;
 	s_read_callback.database = database;

@@ -25,7 +25,7 @@
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
 #define malloc PHRQ_malloc
-static char const rcsid[] = "$RCSfile: dense.c,v $  $Revision: 1.4 $";
+static char const svnid[] = "$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
@@ -38,7 +38,7 @@ DenseMat DenseAllocMat(integertype N)
 {
   DenseMat A;
 
-  if (rcsid == NULL) fprintf(stderr," ");
+  if (svnid == NULL) fprintf(stderr," ");
   if (N <= 0) return(NULL);
 
   A = (DenseMat) malloc(sizeof *A);

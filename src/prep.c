@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: prep.c,v $  $Revision: 2.16 $";
+static char const svnid[] = "$Id$";
 
 static int add_potential_factor(void);
 static int add_surface_charge_balance(void);
@@ -68,7 +67,7 @@ int prep(void)
  *      for building jacobian.
  */
 	struct solution *solution_ptr;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	if (state >= REACTION) {
 		same_model = check_same_model(); 

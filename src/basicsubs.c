@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: basicsubs.c,v $  $Revision: 2.19 $";
+static char const svnid[] = "$Id$";
 
 struct system_species {
 	char * name;
@@ -22,7 +21,7 @@ LDBLE activity (char *species_name)
 {
 	struct species *s_ptr;
 	LDBLE a;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	s_ptr = s_search(species_name);
  	if (s_ptr == s_h2o) {

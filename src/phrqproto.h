@@ -1,3 +1,6 @@
+#ifdef PHREEQC_IDENT
+static char const svnidphrqproto[] = "$Id$";
+#endif
 /* advection.c */
 int advection(void);
 /* basic.c */

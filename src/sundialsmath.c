@@ -19,8 +19,8 @@
 #include "sundialsmath.h"
 #include "sundialstypes.h"
 #include "output.h"
-static char const rcsid[] = "$RCSfile: sundialsmath.c,v $  $Revision: 1.5 $";
 
+static char const svnid[] = "$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)

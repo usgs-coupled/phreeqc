@@ -38,8 +38,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
                 realtype uround, void *jac_data, long int *nfePtr,
                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-/*     $Date: 2005/01/19 23:53:33 $ */
-static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.39 $";
+static char const svnid[] = "$Id$";
 static int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
 static int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step);
 static int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fraction);
@@ -74,7 +73,7 @@ int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
  */	char command[] = "run";
 	struct rate *rate_ptr;
 /*	LDBLE t1, t2; */
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 /*
  *   Go through list and generate list of elements and
  *   coefficient of elements in reaction

@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: transport.c,v $  $Revision: 2.15 $";
+static char const svnid[] = "$Id$";
 
 static int init_mix(void);
 static int init_heat_mix(int nmix);
@@ -34,7 +33,7 @@ int transport(void)
 	struct mix *mix_ptr;
 	int punch_boolean;
 	LDBLE step_fraction;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	
         state = TRANSPORT;
 /*      mass_water_switch = TRUE; */

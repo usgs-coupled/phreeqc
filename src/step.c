@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: step.c,v $  $Revision: 2.14 $";
+static char const svnid[] = "$Id$";
 
 static int check_pp_assemblage (struct pp_assemblage *pp_assemblage_ptr);
 static int gas_phase_check (struct gas_phase *gas_phase_ptr);
@@ -31,7 +30,7 @@ int step(LDBLE step_fraction)
 	struct pp_assemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
 
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 /*
  *   Zero out global solution data

@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: readtr.c,v $  $Revision: 2.14 $";
+static char const svnid[] = "$Id$";
 
 static int read_line_LDBLEs(char *next_char, LDBLE **d, int *count_d, int *count_alloc);
 
@@ -89,7 +88,7 @@ int read_transport (void)
 		"thermal_diffusion"         /* 39 */
 	};
 	int count_opt_list = 40;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 
 	strcpy(file_name, "phreeqc.dmp");

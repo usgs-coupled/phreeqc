@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2005/01/19 23:53:33 $ */
-static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.38 $";
+static char const svnid[] = "$Id$";
 
 static int exchange_compare_int(const void *ptr1, const void *ptr2);
 static int gas_phase_compare_int(const void *ptr1, const void *ptr2);
@@ -76,7 +75,7 @@ int clean_up(void)
  *   Free all allocated memory, except strings
  */
 	int i, j;
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 
 	description_x = free_check_null(description_x);
 	isotopes_x = free_check_null(isotopes_x);

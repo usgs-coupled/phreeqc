@@ -4,8 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/16 00:34:51 $ */
-static char const rcsid[] = "$RCSfile: integrate.c,v $  $Revision: 2.9 $";
+static char const svnid[] = "$Id$";
 
 #define MAX_QUAD 20
 #define K_POLY 5
@@ -26,7 +25,7 @@ int calc_all_g( void )
 	LDBLE new_g, xd1;
 	LDBLE epsilon;
 
-	if (rcsid == NULL) fprintf(stderr," ");
+	if (svnid == NULL) fprintf(stderr," ");
 	if (use.surface_ptr == NULL) return(OK);
 /*
  *   calculate g for each surface
