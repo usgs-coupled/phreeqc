@@ -38,8 +38,8 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
                 realtype uround, void *jac_data, long int *nfePtr,
                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-/*     $Date: 2004/12/14 17:42:34 $ */
-static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.37 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: kinetics.c,v $  $Revision: 2.38 $";
 static int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
 static int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step);
 static int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fraction);

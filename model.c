@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/28 16:00:26 $ */
-static char const rcsid[] = "$RCSfile: model.c,v $  $Revision: 2.27 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: model.c,v $  $Revision: 2.28 $";
 
 static LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);

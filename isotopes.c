@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: isotopes.c,v $  $Revision: 2.12 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: isotopes.c,v $  $Revision: 2.13 $";
 
 static int calculate_value_init(struct calculate_value *calculate_value_ptr);
 static int isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr);

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/11/02 00:35:22 $ */
-static char const rcsid[] = "$RCSfile: readtr.c,v $  $Revision: 2.13 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: readtr.c,v $  $Revision: 2.14 $";
 
 static int read_line_LDBLEs(char *next_char, LDBLE **d, int *count_d, int *count_alloc);
 

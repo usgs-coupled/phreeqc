@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: step.c,v $  $Revision: 2.13 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: step.c,v $  $Revision: 2.14 $";
 
 static int check_pp_assemblage (struct pp_assemblage *pp_assemblage_ptr);
 static int gas_phase_check (struct gas_phase *gas_phase_ptr);

@@ -5,7 +5,7 @@
 #include "output.h"
 #include "phrqproto.h"
 
-static char const rcsid[] = "$RCSfile: tally.c,v $  $Revision: 1.15 $";
+static char const rcsid[] = "$RCSfile: tally.c,v $  $Revision: 1.16 $";
 /*
  *  storage
  */

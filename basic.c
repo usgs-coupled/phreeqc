@@ -2,8 +2,8 @@
 /* From input file "basic.p" */
 
 
-/*     $Date: 2004/12/02 21:56:44 $ */
-static char const rcsid[] = "$RCSfile: basic.c,v $  $Revision: 2.45 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: basic.c,v $  $Revision: 2.46 $";
 
 #define EXTERNAL extern
 #include "global.h"

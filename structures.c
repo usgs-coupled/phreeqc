@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/02 21:57:25 $ */
-static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.36 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.37 $";
 
 static int exchange_compare_int(const void *ptr1, const void *ptr2);
 static int gas_phase_compare_int(const void *ptr1, const void *ptr2);

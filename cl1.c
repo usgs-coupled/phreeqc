@@ -11,8 +11,8 @@
 #include "output.h"
 #include "phrqtype.h"
 
-/*     $Date: 2004/10/29 00:07:52 $ */
-static char const rcsid[] = "$RCSfile: cl1.c,v $  $Revision: 2.7 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: cl1.c,v $  $Revision: 2.8 $";
 
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,

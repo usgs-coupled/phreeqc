@@ -31,7 +31,7 @@ extern char *error_string;
 #include "sundialsmath.h"
 #include "output.h"
 #include "kinetics.h"
-static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.11 $";
+static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.12 $";
 
 /************************************************************/
 /******************** END Imports ***************************/

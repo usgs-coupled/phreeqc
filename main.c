@@ -7,8 +7,8 @@
 #undef PHREEQC_IDENT
 
 
-/*     $Date: 2004/11/12 22:45:13 $ */
-static char const rcsid[] = "$RCSfile: main.c,v $  $Revision: 2.36 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: main.c,v $  $Revision: 2.37 $";
 
 #ifdef DOS
 static int write_banner(void);

@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: integrate.c,v $  $Revision: 2.8 $";
+/*     $Date: 2004/12/16 00:34:51 $ */
+static char const rcsid[] = "$RCSfile: integrate.c,v $  $Revision: 2.9 $";
 
 #define MAX_QUAD 20
 #define K_POLY 5

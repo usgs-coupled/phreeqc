@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/12/02 21:57:58 $ */
-static char const rcsid[] = "$RCSfile: utilities.c,v $  $Revision: 2.31 $";
+/*     $Date: 2004/12/16 00:37:37 $ */
+static char const rcsid[] = "$RCSfile: utilities.c,v $  $Revision: 2.32 $";
 
 #ifdef PHREEQ98
 extern int AutoLoadOutputFile, CreateToC;
