@@ -146,8 +146,10 @@ int cl1(int k, int l, int m, int n,
 	if (svnid == NULL) fprintf(stderr," ");
 
 	
+	kode_arg = *kode;
+	x_arg = NULL;
+	res_arg = NULL;
 	if (check == 1) {
-		kode_arg = *kode;
 		/*
 		q_arg = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(LDBLE)));
 		if (q_arg == NULL) malloc_error();
