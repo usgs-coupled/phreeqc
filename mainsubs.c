@@ -453,8 +453,8 @@ void initialize(void)
 	pr.headings = TRUE;
 	pr.user_graph = TRUE;
 	pr.echo_input = TRUE;
-	count_warnings = 100;
-	pr.warnings = -1;
+	count_warnings = 0;
+	pr.warnings = 100;
 	pr.initial_isotopes = TRUE;
 	pr.isotope_ratios = TRUE;
 	pr.isotope_alphas = TRUE;

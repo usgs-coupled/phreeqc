@@ -92,6 +92,7 @@ int read_input(void)
 	parse_error = 0;
 	input_error = 0;
 	next_keyword = 0;
+	count_warnings = 0;
 /*
  *  Initialize keyword flags
  */
