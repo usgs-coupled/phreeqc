@@ -1,13 +1,13 @@
 --------------------------------------------------------------------------------
 comparison of ../examples/ex1.out with ex1.out
 1c1
-<    Input file: ex1
+<    Input file: ./ex1
 ---
 >    Input file: ../examples/ex1
 --------------------------------------------------------------------------------
 comparison of ../examples/ex2.out with ex2.out
 1c1
-<    Input file: ex2
+<    Input file: ./ex2
 ---
 >    Input file: ../examples/ex2
 --------------------------------------------------------------------------------
@@ -16,19 +16,19 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex3.out with ex3.out
 1c1
-<    Input file: ex3
+<    Input file: ./ex3
 ---
 >    Input file: ../examples/ex3
 --------------------------------------------------------------------------------
 comparison of ../examples/ex4.out with ex4.out
 1c1
-<    Input file: ex4
+<    Input file: ./ex4
 ---
 >    Input file: ../examples/ex4
 --------------------------------------------------------------------------------
 comparison of ../examples/ex5.out with ex5.out
 1c1
-<    Input file: ex5
+<    Input file: ./ex5
 ---
 >    Input file: ../examples/ex5
 --------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex6.out with ex6.out
 1c1
-<    Input file: ex6
+<    Input file: ./ex6
 ---
 >    Input file: ../examples/ex6
 --------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex7.out with ex7.out
 1c1
-<    Input file: ex7
+<    Input file: ./ex7
 ---
 >    Input file: ../examples/ex7
 --------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex8.out with ex8.out
 1c1
-<    Input file: ex8
+<    Input file: ./ex8
 ---
 >    Input file: ../examples/ex8
 --------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex9.out with ex9.out
 1c1
-<    Input file: ex9
+<    Input file: ./ex9
 ---
 >    Input file: ../examples/ex9
 --------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex10.out with ex10.out
 1c1
-<    Input file: ex10
+<    Input file: ./ex10
 ---
 >    Input file: ../examples/ex10
 --------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex11.out with ex11.out
 1c1
-<    Input file: ex11
+<    Input file: ./ex11
 ---
 >    Input file: ../examples/ex11
 --------------------------------------------------------------------------------
@@ -97,16 +97,25 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex12.out with ex12.out
 1c1
-<    Input file: ex12
+<    Input file: ./ex12
 ---
 >    Input file: ../examples/ex12
 --------------------------------------------------------------------------------
 comparison of ../examples/ex12.sel with ex12.sel
 FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
+comparison of ../examples/ex12a.out with ex12a.out
+1c1
+<    Input file: ./ex12a
+---
+>    Input file: ../examples/ex12a
+--------------------------------------------------------------------------------
+comparison of ../examples/ex12a.sel with ex12a.sel
+FILES ARE IDENTICAL
+--------------------------------------------------------------------------------
 comparison of ../examples/ex13a.out with ex13a.out
 1c1
-<    Input file: ex13a
+<    Input file: ./ex13a
 ---
 >    Input file: ../examples/ex13a
 --------------------------------------------------------------------------------
@@ -115,7 +124,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex13b.out with ex13b.out
 1c1
-<    Input file: ex13b
+<    Input file: ./ex13b
 ---
 >    Input file: ../examples/ex13b
 --------------------------------------------------------------------------------
@@ -124,7 +133,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex13c.out with ex13c.out
 1c1
-<    Input file: ex13c
+<    Input file: ./ex13c
 ---
 >    Input file: ../examples/ex13c
 --------------------------------------------------------------------------------
@@ -133,7 +142,7 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex14.out with ex14.out
 1c1
-<    Input file: ex14
+<    Input file: ./ex14
 ---
 >    Input file: ../examples/ex14
 --------------------------------------------------------------------------------
@@ -142,11 +151,11 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex15.out with ex15.out
 1c1
-<    Input file: ex15
+<    Input file: ./ex15
 ---
 >    Input file: ../examples/ex15
 3c3
-< Database file: ex15.dat
+< Database file: ./ex15.dat
 ---
 > Database file: ../examples/ex15.dat
 --------------------------------------------------------------------------------
@@ -155,18 +164,18 @@ FILES ARE IDENTICAL
 --------------------------------------------------------------------------------
 comparison of ../examples/ex16.out with ex16.out
 1c1
-<    Input file: ex16
+<    Input file: ./ex16
 ---
 >    Input file: ../examples/ex16
 --------------------------------------------------------------------------------
 comparison of ../examples/ex17.out with ex17.out
 1c1
-<    Input file: ex17
+<    Input file: ./ex17
 ---
 >    Input file: ../examples/ex17
 --------------------------------------------------------------------------------
 comparison of ../examples/ex18.out with ex18.out
 1c1
-<    Input file: ex18
+<    Input file: ./ex18
 ---
 >    Input file: ../examples/ex18

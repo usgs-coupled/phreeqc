@@ -25,7 +25,7 @@ if [ -f check.out ]; then rm check.out; fi
 
 for Namevar in $NameList
 do
-  for Test in 1 2 3 4 5 6 6A-B 6C 7 8 9 10 11 11adv 11trn 12 \
+  for Test in 1 2 3 4 5 6 6A-B 6C 7 8 9 10 11 11adv 11trn 12 12a \
 	      13a 13b 13c 14 15 16 17 18
   do
     for Sufx in out sel
