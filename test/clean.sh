@@ -5,4 +5,4 @@ for f in ex[1-9].out ex1[0-2].out ex13[abc].out ex1[4-8].out \
 do
    rm -f $f
 done
-rm -f check.out phreeqc.log
+rm -f check.out *.log *.out *.sel

@@ -1,6 +1,6 @@
-   Input file: ex15
+   Input file: ../examples/ex15
   Output file: ex15.out
-Database file: ex15.dat
+Database file: ../examples/ex15.dat
 
 ------------------
 Reading data base.

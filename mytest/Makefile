@@ -4,6 +4,7 @@ PROGRAM=../bin/phreeqc
 
 %.out : % ../bin/phreeqc ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat 
 	../bin/phreeqc $< 
+	mv phreeqc.log $<.log
 
 all: alkalinity.out \
 	aj1.out \
@@ -74,4 +75,4 @@ all: alkalinity.out \
 #	svn diff .
 
 clean:
-	rm *.out *.log *.pun *.prn *.flat *.sel *.dmp
+	rm -f *.out *.log *.pun *.prn *.flat *.sel *.dmp
