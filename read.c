@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: read.c,v $  $Revision: 2.43 $";
+/*     $Date: 2004/12/02 21:58:39 $ */
+static char const rcsid[] = "$RCSfile: read.c,v $  $Revision: 2.44 $";
 
 #if defined(SWIG_SHARED_OBJ)
 #define STATIC
@@ -64,7 +64,6 @@ extern int connect_simulations, graph_initial_solutions;
 extern int chart_type;
 extern int ShowChart;
 extern int RowOffset, ColumnOffset;
-extern int inputlinenr;
 #endif
 
 extern int reading_database(void);

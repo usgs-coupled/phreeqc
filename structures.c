@@ -4,8 +4,8 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/11/02 00:35:22 $ */
-static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.35 $";
+/*     $Date: 2004/12/02 21:57:25 $ */
+static char const rcsid[] = "$RCSfile: structures.c,v $  $Revision: 2.36 $";
 
 static int exchange_compare_int(const void *ptr1, const void *ptr2);
 static int gas_phase_compare_int(const void *ptr1, const void *ptr2);
@@ -214,7 +214,7 @@ int clean_up(void)
 
 /* logk hash table */
 	for (j = 0; j < count_logk; j++) {
-		free_check_null(logk[j]);
+		logk[j] = free_check_null(logk[j]);
 	}
 	logk = free_check_null(logk);
 
@@ -224,11 +224,12 @@ int clean_up(void)
 	}
 	save_values = free_check_null(save_values);
 
-/* model */			
+/* model */
 
 /* global solution */
 
 	pe_data_free(pe_x);
+        pe_x = NULL;
 
 /* species_list */
 
@@ -238,7 +239,6 @@ int clean_up(void)
 
 	stag_data = free_check_null(stag_data);
 	cell_data = free_check_null(cell_data);
-
 
 /* punch */
 
@@ -266,11 +266,11 @@ int clean_up(void)
 	/*
 	  Free llnl aqueous model parameters
 	 */
-	free_check_null(llnl_temp);
-	free_check_null(llnl_adh);
-	free_check_null(llnl_bdh);
-	free_check_null(llnl_bdot);
-	free_check_null(llnl_co2_coefs);
+	llnl_temp = free_check_null(llnl_temp);
+	llnl_adh = free_check_null(llnl_adh);
+	llnl_bdh = free_check_null(llnl_bdh);
+	llnl_bdot = free_check_null(llnl_bdot);
+	llnl_co2_coefs = free_check_null(llnl_co2_coefs);
 	/*
 	 * Copier space
 	 */
@@ -292,35 +292,38 @@ int clean_up(void)
 #endif
 	/* master_isotope */
 	for (i = 0; i < count_master_isotope; i++) {
-		free_check_null(master_isotope[i]);
+		master_isotope[i] = free_check_null(master_isotope[i]);
 	}
-	free_check_null(master_isotope);
+	master_isotope = free_check_null(master_isotope);
 	hdestroy_multi(master_isotope_hash_table);
+        master_isotope_hash_table = NULL;
 
 	/* calculate_value */
 	for (i = 0; i < count_calculate_value; i++) {
 		calculate_value_free(calculate_value[i]);
-		free_check_null(calculate_value[i]);
+		calculate_value[i] = free_check_null(calculate_value[i]);
 	}
-	free_check_null(calculate_value);
+	calculate_value = free_check_null(calculate_value);
 	hdestroy_multi(calculate_value_hash_table);
+        calculate_value_hash_table = NULL;
 
 	/* isotope_ratio */
 	for (i = 0; i < count_isotope_ratio; i++) {
-		free_check_null(isotope_ratio[i]);
+		isotope_ratio[i] = free_check_null(isotope_ratio[i]);
 	}
-	free_check_null(isotope_ratio);
+	isotope_ratio = free_check_null(isotope_ratio);
 	hdestroy_multi(isotope_ratio_hash_table);
+        isotope_ratio_hash_table = NULL;
 
 	/* isotope_alpha */
 	for (i = 0; i < count_isotope_alpha; i++) {
-		free_check_null(isotope_alpha[i]);
+		isotope_alpha[i] = free_check_null(isotope_alpha[i]);
 	}
-	free_check_null(isotope_alpha);
+	isotope_alpha = free_check_null(isotope_alpha);
 	hdestroy_multi(isotope_alpha_hash_table);
+        isotope_alpha_hash_table = NULL;
 
 	free_tally_table();
-
 
 /* hash tables */
 
@@ -330,9 +333,17 @@ int clean_up(void)
 	hdestroy_multi(phases_hash_table);
 	hdestroy_multi(keyword_hash_table);
 	keyword_hash = free_check_null(keyword_hash);
+
+       	elements_hash_table = NULL;
+	species_hash_table = NULL;
+	logk_hash_table = NULL;
+	phases_hash_table = NULL;
+	keyword_hash_table = NULL;
+
 /* strings */
 	free_hash_strings(strings_hash_table);
 	hdestroy_multi(strings_hash_table);
+	strings_hash_table = NULL;
 
 /* basic commands hash table */
 	cmd_free();
@@ -360,6 +371,38 @@ int clean_up(void)
 	PHRQ_free_all();
 
 	clean_up_output_callbacks();
+
+	count_solution = 0;
+	count_pp_assemblage = 0;
+	count_exchange = 0;
+	count_surface = 0;
+	count_gas_phase = 0;
+	count_kinetics = 0;
+	count_s_s_assemblage = 0;
+
+	count_elements = 0;
+	count_irrev = 0;
+	count_master = 0;
+	count_mix = 0;
+	count_phases=0;
+	count_s = 0;
+	count_temperature = 0;
+	count_logk = 0;
+	count_master_isotope = 0;
+
+        count_rates = 0;
+        count_inverse = 0;
+        count_save_values = 0;
+
+	llnl_count_temp = 0;
+	llnl_count_adh = 0;
+	llnl_count_bdh = 0;
+	llnl_count_bdot = 0;
+	llnl_count_co2_coefs = 0;
+
+        count_calculate_value = 0;
+	count_isotope_ratio = 0;
+	count_isotope_alpha = 0;
 
 	return(OK);
 }
@@ -390,7 +433,7 @@ struct element *element_store (char *element)
  *   If found, pointer to the appropriate element structure is returned.
  *
  *   If the string is not found, a new entry is made at the end of 
- *   the elements array (position count_elements) and count_elements is 
+ *   the elements array (position count_elements) and count_elements is
  *   incremented. A new entry is made in the hash table. Pointer to 
  *   the new structure is returned.
  *

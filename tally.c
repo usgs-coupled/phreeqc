@@ -1,11 +1,11 @@
-#define EXTERNAL
+#define EXTERNAL extern
 #define PHREEQC_IDENT
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
-static char const rcsid[] = "$RCSfile: tally.c,v $  $Revision: 1.14 $";
+static char const rcsid[] = "$RCSfile: tally.c,v $  $Revision: 1.15 $";
 /*
  *  storage
  */

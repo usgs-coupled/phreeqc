@@ -7,8 +7,8 @@
 #undef PHREEQC_IDENT
 
 
-/*     $Date: 2004/11/02 18:24:54 $ */
-static char const rcsid[] = "$RCSfile: main.c,v $  $Revision: 2.35 $";
+/*     $Date: 2004/11/12 22:45:13 $ */
+static char const rcsid[] = "$RCSfile: main.c,v $  $Revision: 2.36 $";
 
 #ifdef DOS
 static int write_banner(void);
@@ -36,10 +36,6 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-#ifdef DOS
-	write_banner(); 
-#endif
-
 /*
  *   Open input/output files
  */
@@ -48,6 +44,9 @@ int main(int argc, char *argv[])
 		clean_up();
 		return errors;
 	}
+#ifdef DOS
+	write_banner(); 
+#endif
 
 /*
  *   Initialize arrays
