@@ -124,6 +124,7 @@ all_dist: ../doc/RELEASE.TXT linux sun mytest dist
 
 ../doc/RELEASE.TXT: revisions
 	cp revisions ../doc/RELEASE.TXT
+	svn commit ../doc/RELEASE.TXT -m$(VERSION)
 
 sun: clean_sun
 	mkdir -p $(TOPDIR)/sun
