@@ -3,7 +3,7 @@ Type=FILELIST
 Version=1.10.000
 
 [DYNAMIC]
-FOLDER=C:\cygwin\home\charlton\programs\phreeqc.win.2.11\examples
+FOLDER=<PHREEQCTOPDIR>\examples
 INCLUDESUBDIR=NO
 WILDCARD0=*.*
 
