@@ -202,7 +202,7 @@ win:
 # remove example output
 	cd ..; rm -f $(PROGRAM)-$(VERSION)/examples/*.out $(PROGRAM)-$(VERSION)/examples/*.sel
 # copy Windows files
-o	cd ..; cp database/*.dat $(PROGRAM)-$(VERSION)/
+	cd ..; cp database/*.dat $(PROGRAM)-$(VERSION)/
 # remove database, bin directories
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)/database $(PROGRAM)-$(VERSION)/bin
 # copy bat file
