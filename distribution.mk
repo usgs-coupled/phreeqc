@@ -1,6 +1,6 @@
 # Locations to save compressed tar file for distribution
 EXPORT_DIR=$(TOPDIR)/src/phreeqc_export
-DIST_DIR=$(TOPDIR)/src
+DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.11
@@ -121,43 +121,53 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-all_dist:  export sed_files linux # sun mytest dist
+output_files: all examples mytest
 
-export:
-	svn export .. $(EXPORT_DIR)
+examples:
+	cd ../examples; make clean; make >& make.out 
 
-sed_files:
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VERSION_DATE/$(VERSION)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/src/revisions > $(EXPORT_DIR)/doc/RELEASE.TXT
-	for FILE in $(EXPORT_DIR)/doc/README.TXT $(EXPORT_DIR)/win/README.TXT; do \
-		sed -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+mytest:
+	cd ../mytest; make clean; make >& make.out 
 
-linux: linux_clean linux_compile linux_out linux_dist linux_test
+all_dist:  linux # sun mytest dist
+
+linux: linux_export linux_clean linux_sed_files linux_compile linux_output linux_dist linux_test
+
+linux_export:
+	mkdir -p $(EXPORT_DIR)
+	rm -rf $(EXPORT_DIR)/Linux
+	svn export .. $(EXPORT_DIR)/Linux
 
 linux_clean:
-	rm -f $(EXPORT_DIR)/bin/$(PROGRAM) $(EXPORT_DIR)/src/*.o 
+	rm -f $(EXPORT_DIR/Linux/bin/$(PROGRAM) $(EXPORT_DIR/Linux/src/*.o 
+
+linux_sed_files:
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VERSION_DATE/$(VERSION)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
+	for FILE in $(EXPORT_DIR)/Linux/doc/README.TXT; do \
+		sed -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
 
 linux_compile:
-	make -C $(EXPORT_DIR)/src
+	make -C $(EXPORT_DIR)/Linux/src
 
-linux_out:
-	cd $(EXPORT_DIR)/examples; make clean; make >& make.out
-	cd $(EXPORT_DIR)/test; ./clean.sh; ./test.sh
+linux_output:
+	cd $(EXPORT_DIR)/Linux/examples; make clean; make >& make.out
+	cd $(EXPORT_DIR)/Linux/test; ./clean.sh; ./test.sh
 
 linux_dist: 
-	cd $(EXPORT_DIR); rm -f $(PROGRAM).tar
-	cd $(EXPORT_DIR); for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd $(EXPORT_DIR); tar -rf $(PROGRAM).tar bin/$(PROGRAM)
-	cd $(EXPORT_DIR); rm -rf $(PROGRAM)-$(VERSION)
-	cd $(EXPORT_DIR); mkdir $(PROGRAM)-$(VERSION)
-	cd $(EXPORT_DIR); mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd $(EXPORT_DIR); cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
-	cd $(EXPORT_DIR); for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
-	cd $(EXPORT_DIR); tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
-	cd $(EXPORT_DIR); mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
-	cd $(EXPORT_DIR); echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
-	cd $(EXPORT_DIR); rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Linux; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Linux; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd $(EXPORT_DIR)/Linux; tar -rf $(PROGRAM).tar bin/$(PROGRAM)
+	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Linux; mkdir $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Linux; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Linux; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd $(EXPORT_DIR)/Linux; tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
+	cd $(EXPORT_DIR)/Linux; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
+	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
 
 linux_test:
 	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
@@ -235,9 +245,6 @@ win:
 	cd ..; mv $(PROGRAM).Windows.tar.gz $(DIST_DIR)/$(ROOTNAME).Windows.tar.gz
 	cd ..; echo $(ROOTNAME).Windows.tar.gz saved in $(DIST_DIR).
 	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-
-mytest:
-	cd ../mytest; make clean; make >& make.out 
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
