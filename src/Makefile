@@ -3,7 +3,7 @@
 #
 PROGRAM=phreeqc
 EXE=$(TOPDIR)/bin/$(PROGRAM)
-#EXE=$(PROGRAM)
+EXE=$(PROGRAM)
 
 # Do not print commands before executing
 #.SILENT:
@@ -21,7 +21,7 @@ CC=gcc
 
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic # -pg
-#CCFLAGS=-Wall -ansi -g 
+CCFLAGS=-Wall -ansi -g 
 #CCFLAGS=-fast             #Sun
 
 
