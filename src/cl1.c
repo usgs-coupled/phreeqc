@@ -11,14 +11,15 @@
 #include "output.h"
 #include "phrqtype.h"
 
-static char const svnid[] = "$Id$";
-
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
 	LDBLE *q,
 	int *kode, LDBLE toler,
 	int *iter, LDBLE *x, LDBLE *res, LDBLE *error,
-	LDBLE *cu, int *iu, int *s);
+	LDBLE *cu, int *iu, int *s,
+	int check);
+static char const svnid[] = "$Id$";
+
 extern void *free_check_null(void *ptr);
 extern void malloc_error(void);
 
@@ -31,7 +32,7 @@ int cl1(int k, int l, int m, int n,
 	LDBLE *q,
 	int *kode, LDBLE toler,
 	int *iter, LDBLE *x, LDBLE *res, LDBLE *error,
-	LDBLE *cu, int *iu, int *s)
+	LDBLE *cu, int *iu, int *s, int check)
 {
     /* System generated locals */
 	LDBLE *scratch;
@@ -53,6 +54,8 @@ int cl1(int k, int l, int m, int n,
 	static LDBLE cuv, sum;
 	static int klm1;
 	int q_dim, cu_dim;
+	int kode_arg;
+	LDBLE *x_arg, *res_arg, check_toler;
 /* THIS SUBROUTINE USES A MODIFICATION OF THE SIMPLEX */
 /* METHOD OF LINEAR PROGRAMMING TO CALCULATE AN L1 SOLUTION */
 /* TO A K BY N SYSTEM OF LINEAR EQUATIONS */
@@ -142,6 +145,27 @@ int cl1(int k, int l, int m, int n,
 /* INITIALIZATION. */
 	if (svnid == NULL) fprintf(stderr," ");
 
+	
+	if (check == 1) {
+		kode_arg = *kode;
+		/*
+		q_arg = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(LDBLE)));
+		if (q_arg == NULL) malloc_error();
+		for (i = 0; i < max_row_count*max_column_count; i++) {
+			q_arg[i] = q[i];
+		}
+		*/
+		x_arg = PHRQ_malloc((size_t) (n2d * sizeof(LDBLE)));
+		if (x_arg == NULL) malloc_error();
+		for (i = 0; i < n2d; i++) {
+			x_arg[i] = x[i];
+		}
+		res_arg = PHRQ_malloc((size_t) ((k + l + m) * sizeof(LDBLE)));
+		if (res_arg == NULL) malloc_error();
+		for (i = 0; i < k + l + m; i++) {
+			res_arg[i] = res[i];
+		}
+	}
 /* Parameter adjustments */
 	q_dim = n2d;
 	q2 = (union double_or_int *) q;
@@ -579,5 +603,69 @@ L590:
 /* L640: */
 	*error = sum;
 	scratch = free_check_null (scratch);
+	/*
+	 *  Check calculation
+	 */
+	if ((check == 1) && (*kode == 0)) {
+		check_toler = 10.*toler;
+		/*
+		 *  Check optimization constraints
+		 */
+		if (kode_arg == 1) {
+			for (i = 0; i < k; i++) {
+				if (res_arg[i] < 0.0) {
+					if (res[i] > check_toler) {
+						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, res[i], res_arg[i]);
+						*kode = 1;
+					}
+				} else if (res_arg[i] > 0.0) {
+					if (res[i] < -check_toler) {
+						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, res[i], res_arg[i]);
+						*kode = 1;
+					}
+				}
+			}
+		}
+		/*
+		 *  Check equalities
+		 */
+		for (i = k; i < k + l; i++) {
+			if (fabs(res[i]) > check_toler) {
+				output_msg(OUTPUT_MESSAGE, "\tCL1: equality constraint not satisfied row %d, res %e, tolerance %e.\n", i, res[i], check_toler);
+				*kode = 1;
+			}
+		}
+		/*
+		 *  Check inequalities
+		 */
+		for (i = k + l; i < k + l + m; i++) {
+			if (res[i] < -check_toler) {
+				output_msg(OUTPUT_MESSAGE, "\tCL1: inequality constraint not satisfied row %d, res %e, tolerance %e.\n", i, res[i], check_toler);
+				*kode = 1;
+			}
+		}
+		/*
+		 *   Check dissolution/precipitation constraints
+		 */
+		if (kode_arg == 1) {
+			for (i = 0; i < n; i++) {
+				if (x_arg[i] < 0.0) {
+					if (x[i] > check_toler) {
+						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, x[i], x_arg[i]);
+						*kode = 1;
+					}
+				} else if (x_arg[i] > 0.0) {
+					if (x[i] < -check_toler) {
+						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, x[i], x_arg[i]);
+						*kode = 1;
+					}
+				}
+			}
+		}
+	}	
+	if (check == 1) {
+		x_arg = free_check_null(x_arg);
+		res_arg = free_check_null(res_arg);
+	}
 	return 0;
 }
