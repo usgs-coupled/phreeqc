@@ -222,11 +222,11 @@ install() {
     ${IS_DEFINITIONS} ${IS_SWITCHES} && \
 # InstallShield build
   "${IS_BUILDER}" -p"${IS_INSTALLPROJECT}" -m"${IS_CURRENTBUILD}" && \
-  /usr/bin/install -m 644 "${objdir}/setup/Media/SingleDisk/Log Files/"* \
+  /usr/bin/install -m 644 "${objdir}/packages/win32-is/Media/SingleDisk/Log Files/"* \
   ${instdir}/. && \
-  /usr/bin/install -m 644 "${objdir}/setup/Media/SingleDisk/Report Files/"* \
+  /usr/bin/install -m 644 "${objdir}/packages/win32-is/Media/SingleDisk/Report Files/"* \
   ${instdir}/. && \
-  /usr/bin/install -m 755 "${objdir}/setup/Media/SingleDisk/Disk Images/Disk1/setup.exe" \
+  /usr/bin/install -m 755 "${objdir}/packages/win32-is/Media/SingleDisk/Disk Images/Disk1/setup.exe" \
     ${instdir}/${FULLPKG}.exe )
 }
 strip() {
