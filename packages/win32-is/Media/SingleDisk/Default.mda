@@ -44,7 +44,7 @@ Batch File=
 
 [Package]
 Create=Yes
-File=phreeqc-2.11.exe
+File=phreeqc-@VER@.exe
 Welcome=No
 CommandLine=
 ExtractFolder=
