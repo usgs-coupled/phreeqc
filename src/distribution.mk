@@ -3,6 +3,8 @@ DIST_DIR=~dlpark/temp
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.11
+REVISION=`svnversion .`
+ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 
 # list of files for distribution
 FILES=  \
@@ -58,9 +60,9 @@ FILES=  \
 	src/smalldense.h \
 	src/sundialsmath.h \
 	src/sundialstypes.h \
-	src/version \
 	database/llnl.dat \
 	database/minteq.dat \
+	database/minteq.v4.dat \
 	database/phreeqc.dat \
 	database/wateq4f.dat \
 	database/iso.dat \
@@ -117,13 +119,10 @@ OUTPUT_FILES = \
 	ex17.out \
 	ex18.out 
 
-all_dist: ../doc/RELEASE.TXT linux sun mytest subversion dist win 
+all_dist: ../doc/RELEASE.TXT linux sun mytest dist
 
 ../doc/RELEASE.TXT: revisions
 	cp revisions ../doc/RELEASE.TXT
-
-subversion:
-	cd ..; svn update; svn info | awk '{if (NR > 3) {print}}' > src/version; svn status -q -u >> src/version
 
 sun: clean_sun 
 	cp Makefile *.c *.h $(TOPDIR)/sun
@@ -144,92 +143,78 @@ linux: clean_linux
 clean_linux:
 	rm -f $(TOPDIR)/bin/$(PROGRAM) $(TOPDIR)/src/*.o 
 
-dist: 
-	error=0; for FILE in $(OUTPUT_FILES); do \
-	   if [ ! -f ../test/$$FILE ]; then echo test/$$FILE is missing.; error=1; fi; \
-	   if [ ! -f ../test.sun/$$FILE ]; then echo test.sun/$$FILE is missing.; error=1; fi; \
-	   done; if [ $$error -eq 1 ]; then echo Stopping because of missing files; exit 4; fi;
-	rm -f Makefile.internaldist; cp Makefile Makefile.internaldist
-	make -C $(TOPDIR) -f src/Makefile.internaldist internaldist TOPDIR=$(TOPDIR)
-	rm -f Makefile.internaldist
+dist: svn_update clean_dist dist_linux dist_sun dist_source win
 	echo Done with distribution.
-	echo
 
-internaldist: clean_dist dist_linux dist_sun dist_unix
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).Linux.tar.gz ~/programs/unix/phreeqc/ftp
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).SunOS.tar.gz ~/programs/unix/phreeqc/ftp
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).source.tar.gz ~/programs/unix/phreeqc/ftp
+dist_linux: 
+	cd ..; rm -f $(PROGRAM).tar
+	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd ..; tar -rf $(PROGRAM).tar bin/$(PROGRAM)
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd ..; mkdir $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
+	cd ..; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd ..; tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
+	cd ..; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
-dist_linux: $(FILES)
-	rm -f $(PROGRAM).tar
-	for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	tar -rf $(PROGRAM).tar bin/$(PROGRAM)
-	rm -rf $(PROGRAM)$(VERSION)
-	mkdir $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).tar $(PROGRAM)$(VERSION)
-	cd $(PROGRAM)$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
-	for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)$(VERSION)/examples; done;
-	tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(PROGRAM)$(VERSION).Linux.tar.gz
-	echo $(PROGRAM)$(VERSION).Linux.tar.gz saved in $(DIST_DIR).
-	rm -rf $(PROGRAM)$(VERSION)
+dist_sun: 
+	cd ..; rm -f $(PROGRAM).tar
+	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd ..; mkdir $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
+	cd ..; cp bin/$(PROGRAM).sun $(PROGRAM)-$(VERSION)/bin/$(PROGRAM)
+	cd ..; for FILE in $(OUTPUT_FILES); do cp test.sun/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd ..; tar -czf $(PROGRAM).SunOS.tar.gz $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).SunOS.tar.gz $(DIST_DIR)/$(ROOTNAME).SunOS.tar.gz
+	cd ..; echo $(ROOTNAME).SunOS.tar.gz saved in $(DIST_DIR).
+	cd ..; rm -rf $(PROGRAM)$(VERSION)
 
-dist_sun: $(FILES)
-	rm -f $(PROGRAM).tar
-	for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	rm -rf $(PROGRAM)$(VERSION)
-	mkdir $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).tar $(PROGRAM)$(VERSION)
-	cd $(PROGRAM)$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
-	cp bin/$(PROGRAM).sun $(PROGRAM)$(VERSION)/bin/$(PROGRAM)
-	rm -f $(PROGRAM)$(VERSION)/src/Makefile
-	cp src/Makefile $(PROGRAM)$(VERSION)/src/Makefile
-	for FILE in $(OUTPUT_FILES); do cp test.sun/$$FILE $(PROGRAM)$(VERSION)/examples; done;
-	tar -czf $(PROGRAM).SunOS.tar.gz $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).SunOS.tar.gz $(DIST_DIR)/$(PROGRAM)$(VERSION).SunOS.tar.gz
-	echo $(PROGRAM)$(VERSION).SunOS.tar.gz saved in $(DIST_DIR).
-	rm -rf $(PROGRAM)$(VERSION)
-
-dist_unix: $(FILES)
-	rm -f $(PROGRAM).tar
-	for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	rm -rf $(PROGRAM)$(VERSION)
-	mkdir $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).tar $(PROGRAM)$(VERSION)
-	cd $(PROGRAM)$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
-	for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)$(VERSION)/examples; done;
-	tar -czf $(PROGRAM).source.tar.gz $(PROGRAM)$(VERSION)
-	mv $(PROGRAM).source.tar.gz $(DIST_DIR)/$(PROGRAM)$(VERSION).source.tar.gz
-	echo $(PROGRAM)$(VERSION).source.tar.gz saved in $(DIST_DIR).
-	rm -rf $(PROGRAM)$(VERSION)
+dist_source: 
+	cd ..; rm -f $(PROGRAM).tar
+	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd ..; mkdir $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
+	cd ..; for FILE in $(OUTPUT_FILES); do cp test/$$FILE $(PROGRAM)-$(VERSION)/examples; done;
+	cd ..; tar -czf $(PROGRAM).source.tar.gz $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).source.tar.gz $(DIST_DIR)/$(ROOTNAME).source.tar.gz
+	cd ..; echo $(ROOTNAME).source.tar.gz saved in $(DIST_DIR).
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
 clean_dist:
 	rm -f $(DIST_DIR)/README.TXT
-	rm -f $(DIST_DIR)/$(PROGRAM)*gz
+	rm -f $(DIST_DIR)/phreeqc-$(VERSION)-*gz
 	echo Removed README.TXT and tar.gz files for $(PROGRAM) from $(DIST_DIR).
 
 win: 
-	rm -f $(PROGRAM).tar
+	cd ..; rm -f $(PROGRAM).tar
 	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd ..; rm -rf $(PROGRAM).win
-	cd ..; mkdir $(PROGRAM).win
-	cd ..; mv $(PROGRAM).tar $(PROGRAM).win
-	cd ../$(PROGRAM).win; tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd ..; mkdir $(PROGRAM)-$(VERSION)
+	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd ../$(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
 # remove example output
-	cd ..; rm -f $(PROGRAM).win/examples/*.out $(PROGRAM).win/examples/*.sel
-# remove database, bin directories
-	cd ..; rm -rf $(PROGRAM).win/database $(PROGRAM).win/bin
+	cd ..; rm -f $(PROGRAM)-$(VERSION)/examples/*.out $(PROGRAM)-$(VERSION)/examples/*.sel
 # copy Windows files
-	cd ..; cp database/phreeqc.dat database/llnl.dat database/wateq4f.dat database/minteq.dat database/iso.dat $(PROGRAM).win/
-	cd ..; cp win/phreeqc.bat $(PROGRAM).win/
-	cd ..; rm -f $(PROGRAM).win/test/*
-	cd ..; cp win/clean.bat win/check.bat win/test.bat $(PROGRAM).win/test
-	cd ..; rm -f $(PROGRAM).win/README.TXT
-	cd ..; cp win/README.TXT $(PROGRAM).win/
+o	cd ..; cp database/*.dat $(PROGRAM)-$(VERSION)/
+# remove database, bin directories
+	cd ..; rm -rf $(PROGRAM)-$(VERSION)/database $(PROGRAM)-$(VERSION)/bin
+# copy bat file
+	cd ..; cp win/phreeqc.bat $(PROGRAM)-$(VERSION)/
+	cd ..; rm -f $(PROGRAM)-$(VERSION)/test/*
+	cd ..; cp win/clean.bat win/check.bat win/test.bat $(PROGRAM)-$(VERSION)/test
+	cd ..; rm -f $(PROGRAM)-$(VERSION)/README.TXT
+	cd ..; cp win/README.TXT $(PROGRAM)-$(VERSION)/
 	cd ..; rm -f $(PROGRAM).Windows.tar.gz
-	cd ..; tar -czf $(PROGRAM).Windows.tar.gz $(PROGRAM).win
-	cd ..; echo $(PROGRAM).Windows.tar.gz created.
-	cd ..; rm -rf $(PROGRAM).win
+	cd ..; tar -czf $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz $(PROGRAM)-$(VERSION)
+	cd ..; echo $(PROGRAM).$(VERSION).$(REVISION).Windows.tar.gz created.
+#	cd ..; rm -rf $(PROGRAM)-$(VERSION)
 
 mytest:
 	cd ../mytest; make clean; make >& make.out 
@@ -238,37 +223,39 @@ debug:
 	mkdir -p $(DEBUG_DIR)
 	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/debug.mk; make -f $(TOPDIR)/src/Makefile CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
 
-test_dist: test_linux test_sunos test_src
+test_dist: test_linux test_sunos test_source
 
 test_linux:
-	rm -rf $(DIST_DIR)/phreeqc$(VERSION).Linux
-	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).Linux.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).Linux
-	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/test; ./test.sh
-	rm -f $(DIST_DIR)/phreeqc$(VERSION).Linux/bin/phreeqc
-	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/src; make -k
-	cd $(DIST_DIR)/phreeqc$(VERSION).Linux/test; ./clean.sh; ./test.sh
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.Linux.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).Linux
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./test.sh
+	rm -f $(DIST_DIR)/phreeqc-$(VERSION).Linux/bin/phreeqc
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/src; make -k
+	cd $(DIST_DIR)/phreeqc-$(VERSION).Linux/test; ./clean.sh; ./test.sh
 
 test_sunos:
-	rm -rf $(DIST_DIR)/phreeqc$(VERSION).SunOS
-	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).SunOS.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).SunOS
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/test; ./test.sh"
-	ssh u450rcolkr "rm -f $(DIST_DIR)/phreeqc$(VERSION).SunOS/bin/phreeqc"
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/src; make -k"
-	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc$(VERSION).SunOS/test; ./clean.sh; ./test.sh"
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).SunOS
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.SunOS.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).SunOS
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/test; ./test.sh"
+	ssh u450rcolkr "rm -f $(DIST_DIR)/phreeqc-$(VERSION).SunOS/bin/phreeqc"
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/src; make -k"
+	ssh u450rcolkr "cd $(DIST_DIR)/phreeqc-$(VERSION).SunOS/test; ./clean.sh; ./test.sh"
 
 test_source:
-	rm -rf $(DIST_DIR)/phreeqc$(VERSION).source
-	cd $(DIST_DIR); tar -xzf phreeqc$(VERSION).source.tar.gz; mv phreeqc$(VERSION) phreeqc$(VERSION).source
-	cd $(DIST_DIR)/phreeqc$(VERSION).source/src; make -k
-	cd $(DIST_DIR)/phreeqc$(VERSION).source/test; ./test.sh
+	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).source
+	cd $(DIST_DIR); tar -xzf phreeqc-$(VERSION)-*.source.tar.gz; mv phreeqc-$(VERSION) phreeqc-$(VERSION).source
+	cd $(DIST_DIR)/phreeqc-$(VERSION).source/src; make -k
+	cd $(DIST_DIR)/phreeqc-$(VERSION).source/test; ./test.sh
 
 web:
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).Linux.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).SunOS.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
-	cp $(DIST_DIR)/$(PROGRAM)$(VERSION).source.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
+	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
 	cp $(TOPDIR)/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
 	cp $(TOPDIR)/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
 	cp $(TOPDIR)/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
 	cp $(TOPDIR)/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
 	cp $(TOPDIR)/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(TOPDIR)/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
+
+svn_update:
+	cd ..; svn update .
+
