@@ -1452,7 +1452,7 @@ char *string_pad (char *str, int i)
 	l=strlen(str);
 	max = l;
 	if (l < i) max = i;
-	str_ptr = (char *) malloc((size_t) ((max+1) * sizeof(char)));
+	str_ptr = (char *) PHRQ_malloc((size_t) ((max+1) * sizeof(char)));
 	if (str_ptr == NULL) malloc_error();
 	strcpy(str_ptr, str);
 	if (i > l) {
