@@ -31,6 +31,9 @@ extern char *error_string;
 #include "sundialsmath.h"
 #include "output.h"
 #include "kinetics.h"
+#include "phqalloc.h"
+/* WARNING don't include any headers below here */
+#define malloc PHRQ_malloc
 static char const rcsid[] = "$RCSfile: cvode.c,v $  $Revision: 1.12 $";
 
 /************************************************************/

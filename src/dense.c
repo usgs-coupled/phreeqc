@@ -22,6 +22,9 @@
 #include "dense.h"
 #include "smalldense.h"
 #include "output.h"
+#include "phqalloc.h"
+/* WARNING don't include any headers below here */
+#define malloc PHRQ_malloc
 static char const rcsid[] = "$RCSfile: dense.c,v $  $Revision: 1.4 $";
 
 #define ZERO RCONST(0.0)
