@@ -6,8 +6,8 @@
 
 #include <assert.h>
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.38 $";
+/*     $Date: 2004/12/02 21:57:02 $ */
+static char const rcsid[] = "$RCSfile: print.c,v $  $Revision: 2.39 $";
 
 
 static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
@@ -1244,7 +1244,7 @@ int print_totals(void)
         }
 
         if (pure_water == TRUE) {
-                output_msg(OUTPUT_MESSAGE,"\t%-15s","Pure water\n");
+                output_msg(OUTPUT_MESSAGE,"\t%-15s\n","Pure water");
         }
 /*
  *   Description of solution

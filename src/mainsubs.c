@@ -6,8 +6,8 @@
 #include "phrqproto.h"
 #include "input.h"
 
-/*     $Date: 2004/10/29 00:07:52 $ */
-static char const rcsid[] = "$RCSfile: mainsubs.c,v $  $Revision: 2.38 $";
+/*     $Date: 2004/12/02 21:56:52 $ */
+static char const rcsid[] = "$RCSfile: mainsubs.c,v $  $Revision: 2.39 $";
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -21,6 +21,9 @@ static int xpp_assemblage_save(int n_user);
 static int xs_s_assemblage_save(int n_user);
 static int xsurface_save(int n_user);
 
+#ifdef PHREEQ98
+extern int phreeq98_debug;
+#endif
 /* ---------------------------------------------------------------------- */
 void initialize(void)
 /* ---------------------------------------------------------------------- */
@@ -2277,6 +2280,11 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			if (pr.headings == TRUE) output_msg(OUTPUT_MESSAGE,"%s\n\n", title_x);
 		}
 		tidy_model();
+
+#ifdef PHREEQ98
+                if (!phreeq98_debug) {
+#endif
+
 /*
  *   Calculate distribution of species for initial solutions
  */
@@ -2306,14 +2314,14 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
  */
 		if (use.advect_in == TRUE) {
 			dup_print ("Beginning of advection calculations.", TRUE);
-			advection(); 
+			advection();
 		}
 /*
  *   Calculate transport
  */
 		if (use.trans_in == TRUE) {
 			dup_print ("Beginning of transport calculations.", TRUE);
-			transport(); 
+			transport();
 		}
 /*
  *   Copy
@@ -2323,6 +2331,9 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
  *   End of simulation
  */
 		dup_print( "End of simulation.", TRUE);
+#ifdef PHREEQ98
+                } /* if (!phreeq98_debug) */
+#endif
 	}
 
 

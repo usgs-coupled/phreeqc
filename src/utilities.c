@@ -4,22 +4,17 @@
 #include "output.h"
 #include "phrqproto.h"
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: utilities.c,v $  $Revision: 2.30 $";
+/*     $Date: 2004/12/02 21:57:58 $ */
+static char const rcsid[] = "$RCSfile: utilities.c,v $  $Revision: 2.31 $";
 
 #ifdef PHREEQ98
 extern int AutoLoadOutputFile, CreateToC;
 extern int ProcessMessages, ShowProgress, ShowProgressWindow, ShowChart;
-extern int inputlinenr, outputlinenr;
+extern int outputlinenr;
 extern int stop_calculations;
-void Status98(char* s, char* s1 , char* s2);
-void Status98B(char* s, char* s1 , char* s2);
-void Status98T(char* s, char* s1 , char* s2);
-void Status98E(char* s, char* s1 , char* s2);
-void ThrowException(void);
 void AddToCEntry(char* a, int l, int i);
 void ApplicationProcessMessages(void);
-void check_line_breaks(char *s);
+//void check_line_breaks(char *s);
 char err_str98[80];
 int copy_title(char *token_ptr, char **ptr, int *length);
 extern int clean_up_null(void);
@@ -893,10 +888,6 @@ int status (int count, const char *str)
 
 	if (state == INITIALIZE) {
 		output_msg(OUTPUT_SCREEN,"\n%-80s","Initializing...");
-#ifdef PHREEQ98
-        if ((ShowProgress == TRUE) && (ShowProgressWindow == TRUE)) Status98("Initializing...","","");
-        if ((ShowProgress == TRUE) && (ShowChart == TRUE)) Status98B("Initializing...","","");
-#endif
 
 		status_on = TRUE;
 		return(OK);
@@ -916,10 +907,6 @@ int status (int count, const char *str)
 		output_msg(OUTPUT_SCREEN, "%-79s", str);
 #else
 		output_msg(OUTPUT_SCREEN, "%-80s", str);
-#endif
-#ifdef PHREEQ98
-        if ((ShowProgress == TRUE) && (ShowProgressWindow == TRUE)) Status98T((char*)str,"","");
-        if ((ShowProgress == TRUE) && (ShowChart == TRUE)) Status98B((char*)str,"","");
 #endif
 	} else if (state != TRANSPORT && state != PHAST ) {
 		if (state == INITIAL_SOLUTION) {
@@ -965,10 +952,6 @@ int status (int count, const char *str)
 #else
 			output_msg(OUTPUT_SCREEN, "%-15s%-27s%38s", sim_str, state_str, " ");
 #endif
-#ifdef PHREEQ98
-            if ((ShowProgress == TRUE) && (ShowProgressWindow == TRUE)) Status98(sim_str,state_str,"");
-            if ((ShowProgress == TRUE) && (ShowChart == TRUE)) Status98B(sim_str,state_str,"");
-#endif
 
 		} else {
 #ifdef DOS
@@ -976,10 +959,6 @@ int status (int count, const char *str)
 			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%36s", sim_str, state_str, spin_str, " ");
 #else
 			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%37s", sim_str, state_str, spin_str, " ");
-#endif
-#ifdef PHREEQ98
-            if ((ShowProgress == TRUE) && (ShowProgressWindow == TRUE)) Status98(sim_str, state_str, spin_str);
-            if ((ShowProgress == TRUE) && (ShowChart == TRUE)) Status98B(sim_str, state_str, spin_str);
 #endif
 		}
 	}

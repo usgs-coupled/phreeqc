@@ -1,15 +1,15 @@
 
-/*     $Date: 2004/11/02 00:35:22 $ */
+/*     $Date: 2004/12/02 21:58:16 $ */
 #ifdef PHREEQC_IDENT
-static char const rcsidglobal[] = "$RCSfile: global.h,v $  $Revision: 2.47 $";
+static char const rcsidglobal[] = "$RCSfile: global.h,v $  $Revision: 2.48 $";
 #endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 
 #define NO_DOS
-/*#define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
+/* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
 #ifdef PHREEQ98
-#define fprintf fprintf98
+//#define fprintf fprintf98
 #endif
 /*
  * uncomment following line, to use default DOS file name for

@@ -2,8 +2,8 @@
 /* From input file "basic.p" */
 
 
-/*     $Date: 2004/10/06 16:20:47 $ */
-static char const rcsid[] = "$RCSfile: basic.c,v $  $Revision: 2.44 $";
+/*     $Date: 2004/12/02 21:56:44 $ */
+static char const rcsid[] = "$RCSfile: basic.c,v $  $Revision: 2.45 $";
 
 #define EXTERNAL extern
 #include "global.h"
@@ -394,6 +394,7 @@ void cmd_free(void)
  *   destroy hash table
  */
 	hdestroy_multi(command_hash_table);
+        command_hash_table = NULL;
 	return;
 }
 
