@@ -473,7 +473,10 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
-Version 2.11
+Version 2.11 Date: Mon February 7, 2005
+
+	Fixed error in selected output file with mixing reaction. 
+	MIX number was written to two columns, should be one.
 
 	Fixed memory leak with PAD function.
 

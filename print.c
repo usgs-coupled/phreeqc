@@ -1728,7 +1728,6 @@ int punch_identifiers(void)
                         fpunchf(PHAST_NULL("soln"), dformat, use.solution_ptr->n_user);
                 } else {
                         if (use.mix_in == TRUE) {
-                                fpunchf(PHAST_NULL("soln"), dformat, use.n_mix_user);
 				if (state != TRANSPORT) {
 					fpunchf(PHAST_NULL("soln"),dformat, use.n_mix_user_orig);
 				} else {
