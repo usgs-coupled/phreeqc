@@ -41,9 +41,6 @@ DIST_DIR=/home/dlpark/temp
 TOPDIR=..
 # list of files for distribution
 FILES=  \
-	README.TXT \
-	NOTICE.TXT \
-	RELEASE.TXT \
 	src/Makefile \
 	src/advection.c \
 	src/basic.c \
@@ -121,6 +118,9 @@ FILES=  \
 	examples/ex16 examples/ex16.out \
 	examples/ex17 examples/ex17.out \
 	examples/ex18 examples/ex18.out \
+	doc/NOTICE.TXT \
+	doc/README.TXT \
+	doc/RELEASE.TXT \
 	doc/manual.pdf \
 	doc/wrir02-4172.pdf \
 	doc/phreeqc.txt \
