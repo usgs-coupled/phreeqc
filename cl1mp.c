@@ -24,9 +24,9 @@ int cl1mp(int k, int l, int m, int n,
 extern void *free_check_null(void *ptr);
 extern void malloc_error(void);
 
-/* debug 
+/* debug
 #define DEBUG_CL1
-*/ 
+ */ 
 
 int cl1mp(int k, int l, int m, int n,
 	int nklmd, int n2d,
@@ -36,23 +36,15 @@ int cl1mp(int k, int l, int m, int n,
 	LDBLE *cu_arg, int *iu, int *s, int check)
 {
     /* System generated locals */
-	LDBLE *scratch_xxx;
 	union double_or_int {int ival; mpf_t dval;} *q2;
 
     /* Local variables */
 	static int nklm;
-	static LDBLE xmin_xxx, xmax_xxx;
 	static int iout, i, j;
-	static LDBLE z_xxx;
 	static int maxit, n1, n2;
-	static LDBLE pivot_xxx;
 	static int ia, ii, kk, in, nk, js;
-	static LDBLE sn_xxx;
 	static int iphase, kforce;
-	static LDBLE zu_xxx, zv_xxx;
-	static LDBLE tpivot_xxx;
 	static int klm, jmn, nkl, jpn;
-	static LDBLE cuv_xxx, sum_xxx;
 	static int klm1;
 	static int *kode;
 	int q_dim, cu_dim;
@@ -65,6 +57,7 @@ int cl1mp(int k, int l, int m, int n,
 	mpf_t dummy, dummy1, sum, z, zu, zv, xmax, minus_one, toler, check_toler;
 	/*mpf_t *scratch;*/
 	mpf_t pivot, xmin, cuv, tpivot, sn;
+	mpf_t zero;
 /* THIS SUBROUTINE USES A MODIFICATION OF THE SIMPLEX */
 /* METHOD OF LINEAR PROGRAMMING TO CALCULATE AN L1 SOLUTION */
 /* TO A K BY N SYSTEM OF LINEAR EQUATIONS */
@@ -156,7 +149,7 @@ int cl1mp(int k, int l, int m, int n,
 	/*
 	 *  mp variables
 	 */
-	mpf_set_default_prec(48);
+	mpf_set_default_prec(96);
 	q = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(mpf_t)));
 	if (q == NULL) malloc_error();
 	for (i = 0; i < max_row_count*max_column_count; i++) {
@@ -196,6 +189,7 @@ int cl1mp(int k, int l, int m, int n,
 	mpf_init(cuv);
 	mpf_init(tpivot);
 	mpf_init(sn);
+	mpf_init(zero);
 /* Parameter adjustments */
 	q_dim = n2d;
 	q2 = (union double_or_int *) q;
@@ -253,7 +247,7 @@ int cl1mp(int k, int l, int m, int n,
 	output_msg(OUTPUT_MESSAGE, "Set up phase 1 costs\n");
 #endif
 /* Zero first row of cu and iu */
-	/*memcpy( (void *) &(cu[0]), (void *) &(scratch[0]), (size_t) nklm * sizeof(LDBLE) );*/
+	/*memcpy( (void *) &(cu[0]), (void *) &(scratch[0]), (size_t) nklm * sizeof(mpf_t) );*/
 	for (j = 0; j < nklm; ++j) {
 		mpf_set_si(cu[j], 0);
 		iu[ j ] = 0;
@@ -273,15 +267,11 @@ int cl1mp(int k, int l, int m, int n,
 	}
 
 /* Copy first row of cu and iu to second row */
-	/*
-	memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]),
-	       (size_t) nklm * sizeof(LDBLE) );
-	*/
+	/*memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]), (size_t) nklm * sizeof(mpf_t) );*/
 	for (i = 0; i < nklm; i++) {
 		mpf_set(cu[cu_dim + i], cu[i]);
 	}
-	memcpy( (void *) &(iu[cu_dim]), (void *) &(iu[0]),
-	       (size_t) nklm * sizeof(int) );
+	memcpy( (void *) &(iu[cu_dim]), (void *) &(iu[0]), (size_t) nklm * sizeof(int) );
 /* L60: */
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L60\n");
@@ -385,12 +375,12 @@ L160:
 			mpf_set(z, cu[ ii - 1 ]);
 		}
 		/*q2[ klm * q_dim + j ].dval -= z;*/
-		
+		mpf_sub(q2[ klm * q_dim + j ].dval, q2[ klm * q_dim + j ].dval, z);
 	}
 /* DETERMINE THE VECTOR TO ENTER THE BASIS. */
 L240:
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L240\n");
+	output_msg(OUTPUT_MESSAGE, "L240, xmax %e\n", mpf_get_d(xmax));
 #endif
 	/*xmax = 0.;*/
 	mpf_set_si(xmax, 0);
@@ -428,14 +418,13 @@ L240:
 /* L270 */
 		/*if (iu[ cu_dim + ii - 1 ] != 1 && zv > xmax ) {*/
 		if ((iu[ cu_dim + ii - 1 ] != 1) && (mpf_cmp(zv, xmax) > 0)) {
-			/*xmax = zv;*/
+		        /*xmax = zv;*/
 			mpf_set(xmax, zv);
 			in = j;
 		}
 	}
 /* L280 */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L280\n");
 	output_msg(OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", mpf_get_d(xmax), mpf_get_d(toler));
 #endif
 	/*if (xmax <= toler) {*/
@@ -473,18 +462,18 @@ L240:
 		}
 /* L310: */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L310\n");
+	output_msg(OUTPUT_MESSAGE, "L310, xmax %e\n", mpf_get_d(xmax));
 #endif
 /* switch row ia with row iout, use memcpy */
 		/*if (xmax > toler) {*/
 		if (mpf_cmp(xmax, toler) > 0) {
 			/*
 			memcpy( (void *) &(scratch[0]), (void *) &(q2[ ia * q_dim]),
-			       (size_t) n2 * sizeof(LDBLE) );
+			       (size_t) n2 * sizeof(mpf_t) );
 			memcpy( (void *) &(q2[ ia * q_dim ]), (void *) &(q2[ iout * q_dim]),
-			       (size_t) n2 * sizeof(LDBLE) );
+			       (size_t) n2 * sizeof(mpf_t) );
 			memcpy( (void *) &(q2[ iout * q_dim ]), (void *) &(scratch[ 0 ]),
-			       (size_t) n2 * sizeof(LDBLE) );
+			       (size_t) n2 * sizeof(mpf_t) );
 			*/
 			for (i = 0; i < n1; i++) {
 				mpf_set(dummy, q2[ ia * q_dim + i].dval);
@@ -506,7 +495,7 @@ L240:
 	}
 /* L330: */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L330\n");
+	output_msg(OUTPUT_MESSAGE, "L330, xmax %e\n", mpf_get_d(xmax));
 #endif
 	kk = -1;
 /* divide column n1 by positive value in column "in" greater than toler */
@@ -529,7 +518,7 @@ L240:
 #endif
 L350:
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L350\n");
+	output_msg(OUTPUT_MESSAGE, "L350, xmax %e\n", mpf_get_d(xmax));
 #endif
 	if (kk < 0) {
 /* no positive value found in L340 or bypass intermediate verticies */
@@ -538,7 +527,8 @@ L350:
 	}
 /* L360: */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L360\n");
+	output_msg(OUTPUT_MESSAGE, "L360, xmax %e\n", mpf_get_d(xmax));
+	output_msg(OUTPUT_MESSAGE, "L360, [q2 0, 20] %e\n", mpf_get_d(q2[ 20 ].dval));
 #endif
 /* find minimum residual */
 	/*xmin = res[ 0 ];*/
@@ -592,7 +582,6 @@ L350:
 	mpf_mul(dummy, pivot, cuv);
 	mpf_sub(dummy, q2[ klm * q_dim + in ].dval, dummy);
 	if (mpf_cmp(dummy, toler) > 0) {
-
 /* BYPASS INTERMEDIATE VERTICES. */
 		for (j = js; j < n1; ++j) {
 			/*z = q2[ iout * q_dim + j ].dval;*/
@@ -724,10 +713,8 @@ L500:
 		mpf_set_si(cu[j], 1);
 	}
 	/*
-	memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]),
-	       (size_t) nklm * sizeof(LDBLE) );
+	memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]), (size_t) nklm * sizeof(LDBLE) );
 	*/
-	/*memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]), (size_t) nklm * sizeof(mpf_t) );*/
 	for (i = 0; i < nklm; i++) {
 		mpf_set(cu[cu_dim + i], cu[i]);
 	}
@@ -752,23 +739,22 @@ L500:
 /* L540: */
 		++ia;
 /* switch row */
-/*
+                /*
 		memcpy( (void *) &(scratch[0]), (void *) &(q2[ ia * q_dim]),
 		       (size_t) n2 * sizeof(LDBLE) );
 		memcpy( (void *) &(q2[ ia * q_dim ]), (void *) &(q2[ i * q_dim]),
 		       (size_t) n2 * sizeof(LDBLE) );
 		memcpy( (void *) &(q2[ i * q_dim ]), (void *) &(scratch[ 0 ]),
 		       (size_t) n2 * sizeof(LDBLE) );
-*/
+		*/
 		for (iswitch = 0; iswitch < n1; iswitch++) {
 			mpf_set(dummy, q2[ ia * q_dim + iswitch].dval);
-			mpf_set(q2[ ia * q_dim + iswitch].dval, q2[ iout * q_dim + iswitch].dval);
-			mpf_set(q2[ iout * q_dim + iswitch].dval, dummy);
+			mpf_set(q2[ ia * q_dim + iswitch].dval, q2[ i * q_dim + iswitch].dval);
+			mpf_set(q2[ i * q_dim + iswitch].dval, dummy);
 		}
 		iswitch = q2[ ia * q_dim + n1].ival;
-		q2[ ia * q_dim + n1].ival = q2[ iout * q_dim + n1].ival;
-		q2[ iout * q_dim + n1].ival = iswitch;
-
+		q2[ ia * q_dim + n1].ival = q2[ i * q_dim + n1].ival;
+		q2[ i * q_dim + n1].ival = iswitch;
 /* L550: */
 	}
 /* L560: */
@@ -832,14 +818,18 @@ L590:
 					mpf_sub(dummy, res[i], check_toler);
 					mpf_set_si(dummy1, 0);
 					if (mpf_cmp(dummy,dummy1) > 0) {
+#ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE, "\tCL1MP: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, mpf_get_d(res[i]), res_arg[i]);
+#endif
 						*kode = 1;
 					}
 				} else if (res_arg[i] > 0.0) {
 					mpf_add(dummy, res[i], check_toler);
 					mpf_set_si(dummy1, 0);
 					if (mpf_cmp(dummy,dummy1) < 0) {
+#ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE, "\tCL1MP: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, mpf_get_d(res[i]), res_arg[i]);
+#endif
 						*kode = 1;
 					}
 				}
@@ -851,7 +841,10 @@ L590:
 		for (i = k; i < k + l; i++) {
 			mpf_abs(dummy, res[i]);
 			if (mpf_cmp(dummy, check_toler) > 0) {
+#ifdef CHECK_ERRORS
 				output_msg(OUTPUT_MESSAGE, "\tCL1MP: equality constraint not satisfied row %d, res %e, tolerance %e.\n", i, mpf_get_d(res[i]), mpf_get_d(check_toler));
+#endif
+
 				*kode = 1;
 			}
 		}
@@ -861,7 +854,9 @@ L590:
 		for (i = k + l; i < k + l + m; i++) {
 			mpf_add(dummy, res[i], check_toler);
 			if (mpf_cmp(dummy, check_toler) < 0) {
+#ifdef CHECK_ERRORS
 				output_msg(OUTPUT_MESSAGE, "\tCL1MP: inequality constraint not satisfied row %d, res %e, tolerance %e.\n", i, mpf_get_d(res[i]), mpf_get_d(check_toler));
+#endif
 				*kode = 1;
 			}
 		}
@@ -874,14 +869,18 @@ L590:
 					mpf_sub(dummy, x[i], check_toler);
 					mpf_set_si(dummy1, 0);
 					if (mpf_cmp(dummy,dummy1) > 0) {
+#ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE, "\tCL1MP: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, mpf_get_d(x[i]), x_arg[i]);
+#endif
 						*kode = 1;
 					}
 				} else if (x_arg[i] > 0.0) {
 					mpf_add(dummy, x[i], check_toler);
 					mpf_set_si(dummy1, 0);
 					if (mpf_cmp(dummy,dummy1) < 0) {
+#ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE, "\tCL1MP: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, mpf_get_d(x[i]), x_arg[i]);
+#endif
 						*kode = 1;
 					}
 				}
