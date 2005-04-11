@@ -11,9 +11,9 @@ static char const svnid[] = "$Id$";
 
 /* variables local to module */
 
-static int max_row_count, max_column_count;
+int max_row_count, max_column_count;
 static int carbon;
-static char **col_name, **row_name;
+char **col_name, **row_name;
 static int count_rows, count_optimize;
 static int col_phases, col_redox, col_epsilon, col_ph, col_water, col_isotopes, col_phase_isotopes;
 static int row_mb, row_fract, row_charge, row_carbon, row_isotopes, row_epsilon, row_isotope_epsilon, row_water;
@@ -23,7 +23,7 @@ static int *iu, *is;
 static int klmd, nklmd, n2d, kode, iter;
 static LDBLE toler, error, max_pct, scaled_error;
 static struct master *master_alk;
-static int *row_back, *col_back;
+int *row_back, *col_back;
 
 static unsigned long *good, *bad, *minimal;
 static int max_good, max_bad, max_minimal;
@@ -982,16 +982,6 @@ int solve_inverse(struct inverse *inv_ptr)
 					} else {
 						continue;
 					}
-				} else if (check_inverse(delta1) == ERROR) {
-					sprintf(error_string, "Cl1 failed in model calculation\n");
-					warning_msg(error_string);
-					if (first == TRUE) {
-						post_mortem();
-						quit = TRUE;
-						break;
-					} else {
-						continue;
-					}
 				}
 				first = FALSE;
 /*
@@ -1145,13 +1135,7 @@ unsigned long minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 			save_bad(minimal_bits);
 			/* put bit back */
 			minimal_bits = minimal_bits | ~temp_bits_l;  /* 0's and one 1 */
-		} else if (check_inverse(delta1) == ERROR) {
-			sprintf(error_string, "Cl1 failed in minimal model calculation\n");
-			warning_msg(error_string);
-			save_bad(minimal_bits);
-			/* put bit back */
-			minimal_bits = minimal_bits | ~temp_bits_l;  /* 0's and one 1 */
-		}
+		} 
 
 	}
 	if (debug_inverse == TRUE) {
@@ -1159,10 +1143,6 @@ unsigned long minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
 	solve_with_mask (inv_ptr, minimal_bits);
-	if (check_inverse(delta1) == ERROR) {
-		sprintf(error_string, "Cl1 failed in final minimal model calculation\n");
-		warning_msg(error_string);
-	}
 	return(minimal_bits);
 }
 
@@ -1187,12 +1167,18 @@ int solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 	memcpy( (void *) &(res[0]), (void *) &(zero[0]), (size_t) max_row_count * sizeof(LDBLE));
 	memcpy( (void *) &(delta2[0]), (void *) &(delta[0]), (size_t) max_column_count * sizeof(LDBLE));
+	memcpy( (void *) &(delta_save[0]), (void *) &(zero[0]), (size_t) max_column_count * sizeof(LDBLE));
 
 	shrink(inv_ptr, array, array1,
 	       &k, &l, &m, &n, 
 	       cur_bits,
 	       delta2, col_back, row_back);
-
+	/*
+	 *  Save delta constraints
+	 */
+	for (i=0; i < n; i++) {
+		delta_save[col_back[i]] = delta2[i];
+	}
 
 
 	if (debug_inverse == TRUE) {
@@ -1230,22 +1216,22 @@ int solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 		output_msg(OUTPUT_MESSAGE, "k, l, m, n, max_col, max_row\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			k, l, m, n, max_column_count, max_row_count);
 	}
-	/*
-	 *  Save delta constraints
-	 */
-	for (i=0; i < n; i++) {
-		delta_save[i] = delta2[i];
-	}
 
 	kode = 1;
 	iter = 1000;
 	count_calls++;
 
+#ifdef INVERSE_CL1MP
+	cl1mp(k, l, m, n,
+	    nklmd, n2d, array1,
+	    &kode, toler, &iter,
+	    delta2, res, &error, cu, iu, is, TRUE);
+#else
 	cl1(k, l, m, n,
 	    nklmd, n2d, array1,
 	    &kode, toler, &iter,
-	    delta2, res, &error, cu, iu, is);
-
+	    delta2, res, &error, cu, iu, is, TRUE);
+#endif
 	if (kode == 3) {
 		sprintf(error_string, "Exceeded maximum iterations in inverse modeling: %d.\n"
 			"Recompile program with larger limit.", iter);
@@ -1829,7 +1815,6 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 	int f;
 	unsigned long bits;
 	LDBLE error2;
-
 /*
  *   Include forced solutions and phases in range calculation
  */
@@ -1879,6 +1864,8 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			       (size_t) max_column_count * sizeof(LDBLE));
 			memcpy((void *) &(delta3[0]), (void *) &(zero[0]), 
 			       (size_t) max_column_count * sizeof(LDBLE));
+			memcpy((void *) &(delta_save[0]), (void *) &(zero[0]), 
+			       (size_t) max_column_count * sizeof(LDBLE));
 			memcpy((void *) &(res[0]), (void *) &(zero[0]), 
 			       (size_t) max_row_count * sizeof(LDBLE));
 			
@@ -1899,6 +1886,12 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			       &k, &l, &m, &n, 
 			       cur_bits,
 			       delta2, col_back, row_back);
+			/*
+			 *  Save delta constraints
+			 */
+			for (j=0; j < n; j++) {
+				delta_save[col_back[j]] = delta2[j];
+			}
 			if (debug_inverse == TRUE) {
 				output_msg(OUTPUT_MESSAGE, "\nInput delta:\n\n");
 				for (j = 0; j < n; j++) {
@@ -1911,12 +1904,19 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			kode = 1;
 			iter = 200;
 			count_calls++;
+#ifdef INVERSE_CL1MP
+			cl1mp(k, l, m, n,
+			    nklmd, n2d, array1,
+			    &kode, toler, &iter,
+			    delta2, res, &error2, cu, iu, is, TRUE);
+#else			
 			cl1(k, l, m, n,
 			    nklmd, n2d, array1,
 			    &kode, toler, &iter,
-			    delta2, res, &error2, cu, iu, is);
-			
+			    delta2, res, &error2, cu, iu, is, TRUE);
+#endif
 			if (kode != 0) {
+				/*check_inverse(delta2);*/
 				output_msg(OUTPUT_MESSAGE, "Error in subroutine range. Kode = %d\n", kode);
 			}
 				
@@ -1944,14 +1944,6 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			}
 			for(j = 0; j < n; j++) {
 				delta3[col_back[j]] = delta2[j];
-			}
-			if (check_inverse(delta3) == ERROR) {
-				if (f < 1) {
-					sprintf(error_string, "Cl1 failed in min range calculation for %s\n", col_name[i]);
-				} else {
-					sprintf(error_string, "Cl1 failed in max range calculation for %s\n", col_name[i]);
-				}
-				warning_msg(error_string);
 			}
 		}
 	}
@@ -2288,8 +2280,8 @@ int check_solns(struct inverse *inv_ptr)
 		count_calls++;
 		cl1(k, l, m, n,
 		    nklmd, n2d, array1,
-		    &kode, toler, &iter,
-		    delta2, res, &error2, cu, iu, is);
+		    &kode, 1e-10, &iter,
+		    delta2, res, &error2, cu, iu, is, TRUE);
 
 		if (kode != 0) {
 			sprintf(error_string, "Not possible to balance solution %d with input uncertainties.", inv_ptr->solns[i]);
@@ -2337,7 +2329,7 @@ int post_mortem(void)
 		}
 		
 		if ( equal(sum, array[(i * max_column_count) + count_unknowns], toler) == FALSE) {
-			output_msg(OUTPUT_MESSAGE, "\tERROR: equality not satisfied for %s.\n", row_name[i]);
+			output_msg(OUTPUT_MESSAGE, "\tERROR: equality not satisfied for %s, %e.\n", row_name[i], sum - array[(i * max_column_count) + count_unknowns]);
 		}
 	}
 /*
@@ -2350,17 +2342,17 @@ int post_mortem(void)
 		}
 		
 		if ( sum > array[(i * max_column_count) + count_unknowns] + toler) {
-			output_msg(OUTPUT_MESSAGE, "\tERROR: inequality not satisfied for %s.\n", row_name[i]);
+			output_msg(OUTPUT_MESSAGE, "\tERROR: inequality not satisfied for %s, %e\n", row_name[i], sum - array[(i * max_column_count) + count_unknowns]);
 		}
 	}
 /*
  *   Check dissolution/precipitation constraints
  */
-	for (i = 0; i < count_rows; i++) {
+	for (i = 0; i < count_unknowns; i++) {
 		if (delta_save[i] > 0.5 && delta1[i] < -toler) {
-			output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for %s.\n", col_name[col_back[i]]);
+			output_msg(OUTPUT_MESSAGE, "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta1[i]);
 		} else if (delta_save[i] < -0.5 && delta1[i] > toler) {
-			output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for %s.\n", col_name[col_back[i]]);
+			output_msg(OUTPUT_MESSAGE, "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta1[i]);
 		}
 	}		
 
@@ -2389,8 +2381,8 @@ int check_inverse(LDBLE *delta4)
 		}
 		if ( equal(sum, array[(i * max_column_count) + count_unknowns], toler) == FALSE) {
 			if (debug_inverse == TRUE) {
-				output_msg(OUTPUT_MESSAGE, "\tERROR: equality not satisfied for %s, %e.\n", row_name[i], (double) sum);
 			}
+				output_msg(OUTPUT_MESSAGE, "\tERROR: equality not satisfied for %s, %e.\n", row_name[i], (double) (sum - array[(i * max_column_count) + count_unknowns]));
 			return_code = ERROR;
 		}
 	}
@@ -2405,8 +2397,8 @@ int check_inverse(LDBLE *delta4)
 		
 		if ( sum > array[(i * max_column_count) + count_unknowns] + toler) {
 			if (debug_inverse == TRUE) {
-				output_msg(OUTPUT_MESSAGE, "\tERROR: inequality, row %d, %s, sum: %e, rhs: %e.\n", i, row_name[i], (double) sum, (double) array[(i * max_column_count) + count_unknowns]);
 			}
+				output_msg(OUTPUT_MESSAGE, "\tERROR: inequality, row %d, %s, sum: %e, rhs: %e.\n", i, row_name[i], (double) sum, (double) array[(i * max_column_count) + count_unknowns]);
 			return_code = ERROR;
 /* debug 
 			sum = 0;
@@ -2424,26 +2416,31 @@ int check_inverse(LDBLE *delta4)
 /*
  *   Check dissolution/precipitation constraints
  */
-	for (i = 0; i < count_rows; i++) {
+	for (i = 0; i < count_unknowns; i++) {
 		if (delta_save[i] > 0.5 && delta4[i] < -toler) {
 			if (debug_inverse == TRUE) {
-				output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for column %d, %s.\n", i, col_name[col_back[i]]);
 			}
+				sprintf(error_string, "\tDissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta4[i]);
+				warning_msg(error_string);
 			return_code = ERROR;
 		} else if (delta_save[i] < -0.5 && delta4[i] > toler) {
 			if (debug_inverse == TRUE) {
-				output_msg(OUTPUT_MESSAGE, "\tERROR: dissolution/precipitation constraint not satisfied for column %d, %s.\n", i, col_name[col_back[i]]);
 			}
+				sprintf(error_string, "\tDissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta4[i]);
+				warning_msg(error_string);
 			return_code = ERROR;
 		}
 	}		
+	/*
 	if (return_code == ERROR) {
 		sprintf(error_string, "Subroutine Cl1 has failed. \n"
 			"This may be due to small numerical values for uncertainties, "
 			" tolerances, or minor redox states.\n");
 		warning_msg(error_string);
 	}
-	return(return_code);
+	*/
+	return(OK);
+	/*return(return_code);*/
 }
 /* ---------------------------------------------------------------------- */
 int carbon_derivs(struct inverse *inv_ptr)

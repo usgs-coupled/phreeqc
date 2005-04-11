@@ -304,7 +304,7 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="-Wall -ansi -g" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="-Wall -ansi -g -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 

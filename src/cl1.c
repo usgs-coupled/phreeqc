@@ -26,7 +26,6 @@ extern void malloc_error(void);
 /* debug
 #define DEBUG_CL1
  */
-
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
 	LDBLE *q,
@@ -56,6 +55,10 @@ int cl1(int k, int l, int m, int n,
 	int q_dim, cu_dim;
 	int kode_arg;
 	LDBLE *x_arg, *res_arg, check_toler;
+#ifdef CHECK_ERRORS
+	extern char **col_name, **row_name;
+	extern int *row_back, *col_back;
+#endif
 /* THIS SUBROUTINE USES A MODIFICATION OF THE SIMPLEX */
 /* METHOD OF LINEAR PROGRAMMING TO CALCULATE AN L1 SOLUTION */
 /* TO A K BY N SYSTEM OF LINEAR EQUATIONS */
@@ -146,6 +149,7 @@ int cl1(int k, int l, int m, int n,
 	if (svnid == NULL) fprintf(stderr," ");
 
 	
+	zv = 0;
 	kode_arg = *kode;
 	x_arg = NULL;
 	res_arg = NULL;
@@ -210,7 +214,9 @@ int cl1(int k, int l, int m, int n,
 /* L30: */
 /* SET UP PHASE 1 COSTS. */
 	iphase = 2;
-
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "Set up phase 1 costs\n");
+#endif
 /* Zero first row of cu and iu */
 	memcpy( (void *) &(cu[0]), (void *) &(scratch[0]),
 	       (size_t) nklm * sizeof(LDBLE) );
@@ -218,6 +224,9 @@ int cl1(int k, int l, int m, int n,
 		iu[ j ] = 0;
 	}
 /* L40: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L40\n");
+#endif
 	if (l != 0) {
 		for (j = nk; j < nkl; ++j) {
 			cu[ j ] = 1.;
@@ -234,6 +243,9 @@ int cl1(int k, int l, int m, int n,
 	       (size_t) nklm * sizeof(int) );
 
 /* L60: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L60\n");
+#endif
 	if (m != 0) {
 		for (j = nkl; j < nklm; ++j) {
 			cu[ cu_dim + j ] = 1.;
@@ -246,6 +258,9 @@ int cl1(int k, int l, int m, int n,
 /* L70: */
 	}
 /* L80: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L80\n");
+#endif
 	if (*kode != 0) {
 		for (j = 0; j < n; ++j) {
 			if ( x[j] < 0.) {
@@ -258,6 +273,9 @@ int cl1(int k, int l, int m, int n,
 			}
 		}
 /* L110: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L110\n");
+#endif
 		for (j = 0; j < k; ++j) {
 			jpn = j + n;
 			if ( res[j] < 0.) {
@@ -279,11 +297,17 @@ int cl1(int k, int l, int m, int n,
 /* L140: */
 	}
 /* L150: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L150\n");
+#endif
 	if (iphase == 2) {
 		goto L500;
 	}
 /* COMPUTE THE MARGINAL COSTS. */
 L160:
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L160\n");
+#endif
 	for (j = js; j < n1; ++j) {
 		sum = 0.;
 		for (i = 0; i < klm; ++i) {
@@ -308,6 +332,9 @@ L160:
 	}
 /* DETERMINE THE VECTOR TO ENTER THE BASIS. */
 L240:
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L240, xmax %e\n", xmax);
+#endif
 	xmax = 0.;
 	if (js >= n) {
 		goto L490;    /* test for optimality */
@@ -337,6 +364,9 @@ L240:
 		}
 	}
 /* L280 */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", xmax, toler);
+#endif
 	if (xmax <= toler) {
 #ifdef DEBUG_CL1
 		output_msg(OUTPUT_MESSAGE, "xmax before optimality test %e\n",xmax);
@@ -363,6 +393,9 @@ L240:
 			}
 		}
 /* L310: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L310, xmax %e\n", xmax);
+#endif
 /* switch row ia with row iout, use memcpy */
 		if (xmax > toler) {
 			memcpy( (void *) &(scratch[0]), (void *) &(q2[ ia * q_dim]),
@@ -380,6 +413,9 @@ L240:
 		}
 	}
 /* L330: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L330, xmax %e\n", xmax);
+#endif
 	kk = -1;
 /* divide column n1 by positive value in column "in" greater than toler */
 	for (i = 0; i < klm; ++i) {
@@ -397,12 +433,18 @@ L240:
 	}
 #endif
 L350:
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L350, xmax %e\n", xmax);
+#endif
 	if (kk < 0) {
 /* no positive value found in L340 or bypass intermediate verticies */
 		*kode = 2;
 		goto L590;
 	}
 /* L360: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L360, xmax %e\n", xmax);
+#endif
 /* find minimum residual */
 	xmin = res[ 0 ];
 	iout = s[ 0 ];
@@ -421,6 +463,9 @@ L350:
 		s[j] = s[kk];
 	}
 /* L380: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L380\n");
+#endif
 	--kk;
 	pivot = q2[ iout * q_dim + in ].dval;
 	ii = q2[ iout * q_dim + n1 ].ival;
@@ -437,6 +482,9 @@ L350:
 		}
 	}
 /* L400: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L400\n");
+#endif
 	ii = abs(ii);
 	cuv = cu[ ii - 1 ] + cu[ cu_dim + ii - 1];
 	if (q2[ klm * q_dim + in ].dval - pivot * cuv > toler) {
@@ -461,6 +509,9 @@ L420:
 		goto L590;
 	}
 /* L430: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L430\n");
+#endif
 	++(*iter);
 	for (j = js; j < n1; ++j) {
 		if (j != in) {
@@ -480,6 +531,9 @@ L420:
 		}
 	}
 /* L460: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L460\n");
+#endif
 	tpivot = -pivot;
 	for (i = 0; i < klm1; ++i) {
 		if (i != iout) {
@@ -487,6 +541,9 @@ L420:
 		}
 	}
 /* L470: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L470\n");
+#endif
 	q2[ iout * q_dim + in ].dval = 1. / pivot;
 	ii = q2[ iout * q_dim + n1 ].ival;
 	q2[ iout * q_dim + n1 ].ival = q2[ klm1 * q_dim + in ].ival;
@@ -509,6 +566,9 @@ L420:
 	goto L240;
 /* TEST FOR OPTIMALITY. */
 L490:
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L490\n");
+#endif
 	if (kforce == 0) {
 		if (iphase == 1) {
 			if (q2[ klm * q_dim + n ].dval <= toler) {
@@ -574,6 +634,9 @@ L500:
 
 /* PREPARE OUTPUT. */
 L590:
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L590\n");
+#endif
 	sum = 0.;
 	for (j = 0; j < n; ++j) {
 		x[j] = 0.;
@@ -617,12 +680,16 @@ L590:
 			for (i = 0; i < k; i++) {
 				if (res_arg[i] < 0.0) {
 					if (res[i] > check_toler) {
-						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, res[i], res_arg[i]);
+#ifdef CHECK_ERRORS
+						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %d, res %s, constraint %f.\n", row_name[row_back[i]], res[i], res_arg[i]);
+#endif
 						*kode = 1;
 					}
 				} else if (res_arg[i] > 0.0) {
 					if (res[i] < -check_toler) {
-						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %d, res %e, constraint %f.\n", i, res[i], res_arg[i]);
+#ifdef CHECK_ERRORS
+						output_msg(OUTPUT_MESSAGE, "\tCL1: optimization constraint not satisfied row %s, res %e, constraint %f.\n", row_name[row_back[i]], res[i], res_arg[i]);
+#endif
 						*kode = 1;
 					}
 				}
@@ -633,7 +700,9 @@ L590:
 		 */
 		for (i = k; i < k + l; i++) {
 			if (fabs(res[i]) > check_toler) {
-				output_msg(OUTPUT_MESSAGE, "\tCL1: equality constraint not satisfied row %d, res %e, tolerance %e.\n", i, res[i], check_toler);
+#ifdef CHECK_ERRORS
+				output_msg(OUTPUT_MESSAGE, "\tCL1: equality constraint not satisfied row %s, res %e, tolerance %e.\n", row_name[row_back[i]], res[i], check_toler);
+#endif
 				*kode = 1;
 			}
 		}
@@ -642,7 +711,9 @@ L590:
 		 */
 		for (i = k + l; i < k + l + m; i++) {
 			if (res[i] < -check_toler) {
-				output_msg(OUTPUT_MESSAGE, "\tCL1: inequality constraint not satisfied row %d, res %e, tolerance %e.\n", i, res[i], check_toler);
+#ifdef CHECK_ERRORS
+				output_msg(OUTPUT_MESSAGE, "\tCL1: inequality constraint not satisfied row %s, res %e, tolerance %e.\n", row_name[row_back[i]], res[i], check_toler);
+#endif
 				*kode = 1;
 			}
 		}
@@ -653,12 +724,16 @@ L590:
 			for (i = 0; i < n; i++) {
 				if (x_arg[i] < 0.0) {
 					if (x[i] > check_toler) {
-						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, x[i], x_arg[i]);
+#ifdef CHECK_ERRORS
+						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n", col_name[col_back[i]], x[i], x_arg[i]);
+#endif
 						*kode = 1;
 					}
 				} else if (x_arg[i] > 0.0) {
 					if (x[i] < -check_toler) {
-						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n", i, x[i], x_arg[i]);
+#ifdef CHECK_ERRORS
+						output_msg(OUTPUT_MESSAGE, "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n", col_name[col_back[i]], x[i], x_arg[i]);
+#endif
 						*kode = 1;
 					}
 				}

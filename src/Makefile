@@ -22,12 +22,16 @@ CC=gcc
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic # -pg
 
+# Remove the following definition if you do not have 
+# gmp (Gnu Multiple Precision) package on your system
+INVERSE_CL1MP=TRUE
+
+LOADFLAGS= -lm # -pg
+
 #.c.o : 
 #	${CC} ${CCFLAGS} -c -o $@ $<
 %.o : $(SRC)/%.c
 	${CC} ${CCFLAGS} -c -o $@ $<
-
-LOADFLAGS= -lm # -pg
 
 # Location to copy scripts on installation
 BINDIR=$(HOME)/bin
@@ -67,6 +71,12 @@ OBJECTS=	main.o \
 		nvector_serial.o \
 		smalldense.o \
 		sundialsmath.o 
+
+ifdef INVERSE_CL1MP
+	LOADFLAGS += -lgmp 
+	CCFLAGS += -DINVERSE_CL1MP
+	OBJECTS += cl1mp.o
+endif
 
 all: $(EXE)
 
@@ -136,6 +146,8 @@ basic.o: $(SRC)/basic.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SR
 basicsubs.o: $(SRC)/basicsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 cl1.o: $(SRC)/cl1.c $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqtype.h
+
+cl1mp.o: $(SRC)/cl1mp.c $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqtype.h
 
 cvdense.o: $(SRC)/cvdense.c $(SRC)/cvdense.h $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/nvector.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 
