@@ -34,7 +34,6 @@ static unsigned long soln_bits, phase_bits, current_bits, temp_bits;
 
 static int bit_print(unsigned long bits, int l);
 static int carbon_derivs(struct inverse *inv_ptr);
-static int check_inverse(LDBLE *delta4);
 static int check_isotopes(struct inverse *inv_ptr);
 static int check_solns(struct inverse *inv_ptr);
 static int count_isotope_unknowns(struct inverse *inv_ptr, struct isotope **isotope_unknowns);
@@ -1916,7 +1915,6 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			    delta2, res, &error2, cu, iu, is, TRUE);
 #endif
 			if (kode != 0) {
-				/*check_inverse(delta2);*/
 				output_msg(OUTPUT_MESSAGE, "Error in subroutine range. Kode = %d\n", kode);
 			}
 				
@@ -2357,90 +2355,6 @@ int post_mortem(void)
 	}		
 
 	return(OK);
-}
-/* ---------------------------------------------------------------------- */
-int check_inverse(LDBLE *delta4)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Check_inverse simply identifies which equality and inequality of the
- *   array have not been satisfied. 
- *
- */
-	int i, j, return_code;
-	LDBLE sum;
-/*
- *   Check equalities
- */
-/*	output_msg(OUTPUT_MESSAGE, "\nPost_mortem examination of inverse modeling:\n\n");*/
-	return_code = OK;
-	for (i = row_mb; i < row_epsilon; i++) {
-		sum = 0;
-		for (j = 0; j < count_unknowns; j++) {
-			sum += delta4[j] * array[i * max_column_count + j];
-		}
-		if ( equal(sum, array[(i * max_column_count) + count_unknowns], toler) == FALSE) {
-			if (debug_inverse == TRUE) {
-			}
-				output_msg(OUTPUT_MESSAGE, "\tERROR: equality not satisfied for %s, %e.\n", row_name[i], (double) (sum - array[(i * max_column_count) + count_unknowns]));
-			return_code = ERROR;
-		}
-	}
-/*
- *   Check inequalities
- */
-	for (i = row_epsilon; i < count_rows; i++) {
-		sum = 0;
-		for (j = 0; j < count_unknowns; j++) {
-			sum += delta4[j] * array[i * max_column_count + j];
-		}
-		
-		if ( sum > array[(i * max_column_count) + count_unknowns] + toler) {
-			if (debug_inverse == TRUE) {
-			}
-				output_msg(OUTPUT_MESSAGE, "\tERROR: inequality, row %d, %s, sum: %e, rhs: %e.\n", i, row_name[i], (double) sum, (double) array[(i * max_column_count) + count_unknowns]);
-			return_code = ERROR;
-/* debug 
-			sum = 0;
-			output_msg(OUTPUT_MESSAGE, "%d %s\n", i, row_name[i]);
-			for (j = 0; j < count_unknowns; j++) {
-				sum += delta4[j] * array[i * max_column_count + j];
-				if (array[i * max_column_count + j] != 0.0) {
-					output_msg(OUTPUT_MESSAGE, "\t%d sum: %10.2e\tdelta: %10.2e\tarray: %10.2e\tdelta*array: %10.2e\n", 
-						j, sum, delta4[j], array[i * max_column_count + j], delta4[j] * array[i * max_column_count + j]);
-				}
-			}
- */
-		}
-	}
-/*
- *   Check dissolution/precipitation constraints
- */
-	for (i = 0; i < count_unknowns; i++) {
-		if (delta_save[i] > 0.5 && delta4[i] < -toler) {
-			if (debug_inverse == TRUE) {
-			}
-				sprintf(error_string, "\tDissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta4[i]);
-				warning_msg(error_string);
-			return_code = ERROR;
-		} else if (delta_save[i] < -0.5 && delta4[i] > toler) {
-			if (debug_inverse == TRUE) {
-			}
-				sprintf(error_string, "\tDissolution/precipitation constraint not satisfied for column %d, %s, %e.\n", i, col_name[i], delta4[i]);
-				warning_msg(error_string);
-			return_code = ERROR;
-		}
-	}		
-	/*
-	if (return_code == ERROR) {
-		sprintf(error_string, "Subroutine Cl1 has failed. \n"
-			"This may be due to small numerical values for uncertainties, "
-			" tolerances, or minor redox states.\n");
-		warning_msg(error_string);
-	}
-	*/
-	return(OK);
-	/*return(return_code);*/
 }
 /* ---------------------------------------------------------------------- */
 int carbon_derivs(struct inverse *inv_ptr)
