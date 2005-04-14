@@ -9,6 +9,16 @@ static char const svnid[] = "$Id$";
 #define MAX_MODELS 20
 #define MIN_TOTAL_INVERSE 1e-14
 
+#ifdef INVERSE_CL1MP
+/* cl1mp.c */
+extern int cl1mp(int k, int l, int m, int n,
+	int nklmd, int n2d,
+	LDBLE *q_arg,
+	int *kode, LDBLE toler,
+	int *iter, LDBLE *x_arg, LDBLE *res_arg, LDBLE *error,
+	LDBLE *cu_arg, int *iu, int *s, int check, LDBLE censor_arg);
+#endif
+
 /* variables local to module */
 
 int max_row_count, max_column_count;
@@ -167,7 +177,9 @@ int setup_inverse(struct inverse *inv_ptr)
  *   Determine array sizes, row and column positions
  */	
 	toler = inv_ptr->tolerance;
-
+	if (inv_ptr->mp == TRUE) {
+	  toler = inv_ptr->mp_tolerance;
+	}
 /*
  *   Alkalinity derivatives with pH and carbon
  */
@@ -1221,10 +1233,17 @@ int solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 	count_calls++;
 
 #ifdef INVERSE_CL1MP
-	cl1mp(k, l, m, n,
-	    nklmd, n2d, array1,
-	    &kode, toler, &iter,
-	    delta2, res, &error, cu, iu, is, TRUE);
+	if(inv_ptr->mp == TRUE) {
+	  cl1mp(k, l, m, n,
+		nklmd, n2d, array1,
+		&kode, inv_ptr->mp_tolerance, &iter,
+		delta2, res, &error, cu, iu, is, TRUE, inv_ptr->mp_censor);
+	} else {
+	  cl1(k, l, m, n,
+	      nklmd, n2d, array1,
+	      &kode, toler, &iter,
+	      delta2, res, &error, cu, iu, is, TRUE);
+	}
 #else
 	cl1(k, l, m, n,
 	    nklmd, n2d, array1,
@@ -1904,15 +1923,22 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			iter = 200;
 			count_calls++;
 #ifdef INVERSE_CL1MP
-			cl1mp(k, l, m, n,
-			    nklmd, n2d, array1,
-			    &kode, toler, &iter,
-			    delta2, res, &error2, cu, iu, is, TRUE);
-#else			
+			if(inv_ptr->mp == TRUE) {
+			  cl1mp(k, l, m, n,
+				nklmd, n2d, array1,
+				&kode, inv_ptr->mp_tolerance, &iter,
+				delta2, res, &error2, cu, iu, is, TRUE, inv_ptr->mp_censor);
+			} else {
+			  cl1(k, l, m, n,
+			      nklmd, n2d, array1,
+			      &kode, toler, &iter,
+			      delta2, res, &error2, cu, iu, is, TRUE);
+			}
+#else
 			cl1(k, l, m, n,
 			    nklmd, n2d, array1,
 			    &kode, toler, &iter,
-			    delta2, res, &error2, cu, iu, is, TRUE);
+			    delta2, res, &error, cu, iu, is, TRUE);
 #endif
 			if (kode != 0) {
 				output_msg(OUTPUT_MESSAGE, "Error in subroutine range. Kode = %d\n", kode);
@@ -2278,7 +2304,7 @@ int check_solns(struct inverse *inv_ptr)
 		count_calls++;
 		cl1(k, l, m, n,
 		    nklmd, n2d, array1,
-		    &kode, 1e-10, &iter,
+		    &kode, toler, &iter,
 		    delta2, res, &error2, cu, iu, is, TRUE);
 
 		if (kode != 0) {

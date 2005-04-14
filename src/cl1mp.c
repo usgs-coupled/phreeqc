@@ -20,15 +20,14 @@ int cl1mp(int k, int l, int m, int n,
 	LDBLE *q_arg,
 	int *kode, LDBLE toler,
 	int *iter, LDBLE *x_arg, LDBLE *res_arg, LDBLE *error,
-	LDBLE *cu_arg, int *iu, int *s, int check);
+	LDBLE *cu_arg, int *iu, int *s, int check, LDBLE censor_arg);
 extern void *free_check_null(void *ptr);
 extern void malloc_error(void);
 
 /* debug
 #define DEBUG_CL1
-#define CENSOR
- */ 
 #define CHECK_ERRORS
+ */ 
 
 
 int cl1mp(int k, int l, int m, int n,
@@ -36,7 +35,7 @@ int cl1mp(int k, int l, int m, int n,
 	LDBLE *q_arg,
 	int *kode_arg, LDBLE toler_arg,
 	int *iter, LDBLE *x_arg, LDBLE *res_arg, LDBLE *error_arg,
-	LDBLE *cu_arg, int *iu, int *s, int check)
+	LDBLE *cu_arg, int *iu, int *s, int check, LDBLE censor_arg)
 {
     /* System generated locals */
 	union double_or_int {int ival; mpf_t dval;} *q2;
@@ -61,6 +60,8 @@ int cl1mp(int k, int l, int m, int n,
 	/*mpf_t *scratch;*/
 	mpf_t pivot, xmin, cuv, tpivot, sn;
 	mpf_t zero;
+	int censor;
+	mpf_t censor_tol;
 /* THIS SUBROUTINE USES A MODIFICATION OF THE SIMPLEX */
 /* METHOD OF LINEAR PROGRAMMING TO CALCULATE AN L1 SOLUTION */
 /* TO A K BY N SYSTEM OF LINEAR EQUATIONS */
@@ -152,11 +153,25 @@ int cl1mp(int k, int l, int m, int n,
 	/*
 	 *  mp variables
 	 */
+	censor = 1;
+	if (censor_arg == 0.0) censor = 0;
 	mpf_set_default_prec(96);
+	mpf_init(zero);
+	mpf_init(dummy);
+	mpf_init(dummy1);
+	mpf_init_set_d(censor_tol, censor_arg);
 	q = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(mpf_t)));
 	if (q == NULL) malloc_error();
 	for (i = 0; i < max_row_count*max_column_count; i++) {
 		mpf_init_set_d(q[i], q_arg[i]);
+		if (censor == 1) {
+		  if (mpf_cmp(q[ i ], zero) != 0) {
+		    mpf_abs(dummy1, q[ i ]);
+		    if (mpf_cmp(dummy1, censor_tol) <= 0) {
+		      mpf_set_si(q[ i ], 0);
+		    }
+		  }
+		}
 	}
 	x = PHRQ_malloc((size_t) (n2d * sizeof(mpf_t)));
 	if (x == NULL) malloc_error();
@@ -176,8 +191,6 @@ int cl1mp(int k, int l, int m, int n,
 	kode = PHRQ_malloc(sizeof(int));
 	if (kode == NULL) malloc_error();
 	*kode = *kode_arg;
-	mpf_init(dummy);
-	mpf_init(dummy1);
 	mpf_init(sum);
 	mpf_init(error);
 	mpf_init(z);
@@ -192,7 +205,6 @@ int cl1mp(int k, int l, int m, int n,
 	mpf_init(cuv);
 	mpf_init(tpivot);
 	mpf_init(sn);
-	mpf_init(zero);
 /* Parameter adjustments */
 	q_dim = n2d;
 	q2 = (union double_or_int *) q;
@@ -236,8 +248,7 @@ int cl1mp(int k, int l, int m, int n,
 		if (mpf_cmp_d(q2[ i * q_dim + n ].dval, 0.0) < 0) {
 			for (j = 0; j < n1; ++j) {
 				/* q2[ i * q_dim + j ].dval = -q2[ i * q_dim + j ].dval; */
-				mpf_mul(dummy, q2[ i * q_dim + j ].dval, minus_one);
-				mpf_set(q2[ i * q_dim + j ].dval, dummy);
+				mpf_neg(q2[ i * q_dim + j ].dval, q2[ i * q_dim + j ].dval);
 			}
 			q2[ i * q_dim + n1 ].ival = -q2[ i * q_dim + n1 ].ival;
 /* L20: */
@@ -589,16 +600,16 @@ L350:
 			/*q2[ klm * q_dim + j ].dval -= z * cuv;*/
 			mpf_mul(dummy1, z, cuv);
 			mpf_sub(q2[ klm * q_dim + j ].dval, q2[ klm * q_dim + j ].dval, dummy1);
-#ifdef CENSOR
-			if (mpf_cmp(q2[ klm * q_dim + j ].dval, zero) != 0) {
-			  mpf_abs(dummy1, q2[ klm * q_dim + j ].dval);
-			  mpf_set_si(dummy, 1);
-			  mpf_mul(dummy1, dummy1, dummy);
-			  if (mpf_cmp(toler, dummy1) >= 0) {
-			    mpf_set_si(q2[ klm * q_dim + j ].dval, 0);
+
+			if (censor == 1) {
+			  if (mpf_cmp(q2[ klm * q_dim + j ].dval, zero) != 0) {
+			    mpf_abs(dummy1, q2[ klm * q_dim + j ].dval);
+			    if (mpf_cmp(dummy1, censor_tol) <= 0) {
+			      mpf_set_si(q2[ klm * q_dim + j ].dval, 0);
+			    }
 			  }
 			}
-#endif
+
 			/*q2[ iout * q_dim + j ].dval = -z;*/
 			mpf_neg(q2[ iout * q_dim + j ].dval, z);
 		}
@@ -636,16 +647,15 @@ L420:
 					/*q2[ i * q_dim + j ].dval += z * q2[ i * q_dim + in ].dval;*/
 					mpf_mul(dummy, z, q2[ i * q_dim + in ].dval);
 					mpf_add(q2[ i * q_dim + j ].dval, q2[ i * q_dim + j ].dval, dummy);
-#ifdef CENSOR
-					if (mpf_cmp(q2[ i * q_dim + j ].dval, zero) != 0) {
-					  mpf_abs(dummy1, q2[ i * q_dim + j ].dval);
-					  mpf_set_si(dummy, 1);
-					  mpf_mul(dummy1, dummy1, dummy);
-					  if (mpf_cmp(toler, dummy1) >= 0) {
-					    mpf_set_si(q2[ i * q_dim + j ].dval, 0);
+
+					if (censor == 1) {
+					  if (mpf_cmp(q2[ i * q_dim + j ].dval, zero) != 0) {
+					    mpf_abs(dummy1, q2[ i * q_dim + j ].dval);
+					    if (mpf_cmp(dummy1, censor_tol) <= 0) {
+					      mpf_set_si(q2[ i * q_dim + j ].dval, 0);
+					    }
 					  }
 					}
-#endif
 				}
 			}
 /* L450: */
@@ -906,6 +916,9 @@ L590:
 				}
 			}
 		}
+		if (*kode == 1) {
+		  output_msg(OUTPUT_MESSAGE, "\n\tCL1MP: Roundoff errors in optimization.\n\t       Deleting model.\n");
+		}
 	}	
 	/*
 	 * set return variables
@@ -955,6 +968,7 @@ L590:
 	mpf_clear(cuv);
 	mpf_clear(tpivot);
 	mpf_clear(sn);
+	mpf_clear(censor_tol);
 	kode = free_check_null(kode);
 	return 0;
 }

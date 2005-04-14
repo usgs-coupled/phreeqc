@@ -1457,9 +1457,12 @@ int read_inverse(void)
 		"force_solutions",    /* 18 */
 		"isotopes",           /* 19 */
 		"mineral_water",      /* 20 */
-		"phase"               /* 21 */
+		"phase",              /* 21 */
+		"multiple_precision", /* 22 */
+		"mp_tolerance",       /* 23 */
+		"censor_mp"           /* 24 */
 		};
-	int count_opt_list = 22;
+	int count_opt_list = 25;
 
 	ptr=line;
 /*
@@ -1481,7 +1484,7 @@ int read_inverse(void)
 	inverse[n].n_user = n_user;
 	inverse[n].range = FALSE;
 	inverse[n].range_max = 1000.;
-	inverse[n].tolerance = 1e-12;
+	inverse[n].tolerance = 1e-10;
 	inverse[n].minimal = FALSE;
 	inverse[n].description = description;
 	inverse[n].count_uncertainties = 1;
@@ -1490,6 +1493,9 @@ int read_inverse(void)
 	inverse[n].ph_uncertainties[0] = 0.05;
 	inverse[n].water_uncertainty = 0.0;
 	inverse[n].mineral_water = TRUE;
+	inverse[n].mp = FALSE;
+	inverse[n].mp_tolerance = 1e-12;
+	inverse[n].mp_censor = 1e-20;
 /*
  *   Read data for inverse modeling
  */
@@ -1577,6 +1583,21 @@ int read_inverse(void)
 			break;
  	            case 20:                  /* mineral_water */
 			inverse[n].mineral_water = get_true_false(next_char, TRUE);
+			break;
+ 	            case 22:                  /* multiple_precision */
+			inverse[n].mp = get_true_false(next_char, TRUE);
+			break;
+ 	            case 23:                  /* mp_tolerance */
+			j = sscanf( next_char, SCANFORMAT, &inv_tol ) ;
+			if (j == 1 ) {
+				inverse[n].mp_tolerance = fabs(inv_tol);
+			}
+			break;
+ 	            case 24:                  /* censor_mp */
+			j = sscanf( next_char, SCANFORMAT, &inv_tol ) ;
+			if (j == 1 ) {
+			  inverse[n].mp_censor = fabs(inv_tol);
+			}
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;

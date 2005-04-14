@@ -25,8 +25,8 @@ extern void malloc_error(void);
 
 /* debug
 #define DEBUG_CL1
- */
 #define CHECK_ERRORS
+ */
 
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
@@ -741,7 +741,10 @@ L590:
 				}
 			}
 		}
-	}	
+		if (*kode == 1) {
+		  output_msg(OUTPUT_MESSAGE, "\n\tCL1: Roundoff errors in optimization.\n\t     Try using -multiple_precision in INVERSE_MODELING\n");
+		}
+	}
 	if (check == 1) {
 		x_arg = free_check_null(x_arg);
 		res_arg = free_check_null(res_arg);
