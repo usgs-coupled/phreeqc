@@ -546,8 +546,11 @@ struct inverse {
 	int new_def;
 	int minimal;
 	int range;
+       	int mp;
+	LDBLE mp_censor;
 	LDBLE range_max;
 	LDBLE tolerance;
+	LDBLE mp_tolerance;
 	int count_uncertainties;
 	LDBLE *uncertainties;
 	int count_ph_uncertainties;

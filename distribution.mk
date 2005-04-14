@@ -304,11 +304,11 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG)  -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG)" INVERSE_CL1MP= EXE=$(DEBUG_EXE)
 
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
