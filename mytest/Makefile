@@ -71,7 +71,12 @@ all: alkalinity.out \
 	colt4.out \
 	colt5.out \
 	minteq.out \
-	minteqv4.out
+	minteqv4.out \
+	ex16mp.out ex17mp.out ex18mp.out \
+	feb.out febmp.out \
+	np.testmp.out \
+	oxygenmp.out
+
 #	svn diff .
 
 clean:
