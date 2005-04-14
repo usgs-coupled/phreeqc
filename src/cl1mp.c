@@ -26,7 +26,10 @@ extern void malloc_error(void);
 
 /* debug
 #define DEBUG_CL1
+#define CENSOR
  */ 
+#define CHECK_ERRORS
+
 
 int cl1mp(int k, int l, int m, int n,
 	int nklmd, int n2d,
@@ -438,7 +441,7 @@ L240:
 	if (mpf_cmp(q2[ klm * q_dim + in ].dval,xmax) != 0) {
 		for (i = 0; i < klm1; ++i) {
 			/*q2[ i * q_dim + in ].dval = -q2[ i * q_dim + in ].dval;*/
-			mpf_mul(q2[ i * q_dim + in ].dval, q2[ i * q_dim + in ].dval, minus_one);
+			mpf_neg(q2[ i * q_dim + in ].dval, q2[ i * q_dim + in ].dval);
 		}
 		q2[ klm1 * q_dim + in ].ival = -q2[ klm1 * q_dim + in ].ival;
 /* L290: */
@@ -450,7 +453,7 @@ L240:
 		/*xmax = 0.;*/
 		mpf_set_si(xmax, 0);
 /* find maximum absolute value in column "in" */
-		for (i = 0; i < ia; ++i) {
+		for (i = 0; i <= ia; ++i) {
 			/*z = fabs(q2[ i * q_dim + in ].dval);*/
 			mpf_abs(z, q2[ i * q_dim + in ].dval);
 			/*if (z > xmax) {*/
@@ -511,11 +514,9 @@ L240:
 		}
 	}
 /* L340: */
-#ifdef DEBUG_CL1
 	if (kk < 0) {
 		output_msg(OUTPUT_MESSAGE, "kode = 2 in loop 340.\n");
 	}
-#endif
 L350:
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L350, xmax %e\n", mpf_get_d(xmax));
@@ -528,7 +529,6 @@ L350:
 /* L360: */
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L360, xmax %e\n", mpf_get_d(xmax));
-	output_msg(OUTPUT_MESSAGE, "L360, [q2 0, 20] %e\n", mpf_get_d(q2[ 20 ].dval));
 #endif
 /* find minimum residual */
 	/*xmin = res[ 0 ];*/
@@ -553,7 +553,7 @@ L350:
 	}
 /* L380: */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L380\n");
+	output_msg(OUTPUT_MESSAGE, "L380 iout %d, xmin %e, xmax %e\n", iout, mpf_get_d(xmin), mpf_get_d(xmax));
 #endif
 	--kk;
 	/*pivot = q2[ iout * q_dim + in ].dval;*/
@@ -589,6 +589,16 @@ L350:
 			/*q2[ klm * q_dim + j ].dval -= z * cuv;*/
 			mpf_mul(dummy1, z, cuv);
 			mpf_sub(q2[ klm * q_dim + j ].dval, q2[ klm * q_dim + j ].dval, dummy1);
+#ifdef CENSOR
+			if (mpf_cmp(q2[ klm * q_dim + j ].dval, zero) != 0) {
+			  mpf_abs(dummy1, q2[ klm * q_dim + j ].dval);
+			  mpf_set_si(dummy, 1);
+			  mpf_mul(dummy1, dummy1, dummy);
+			  if (mpf_cmp(toler, dummy1) >= 0) {
+			    mpf_set_si(q2[ klm * q_dim + j ].dval, 0);
+			  }
+			}
+#endif
 			/*q2[ iout * q_dim + j ].dval = -z;*/
 			mpf_neg(q2[ iout * q_dim + j ].dval, z);
 		}
@@ -626,6 +636,16 @@ L420:
 					/*q2[ i * q_dim + j ].dval += z * q2[ i * q_dim + in ].dval;*/
 					mpf_mul(dummy, z, q2[ i * q_dim + in ].dval);
 					mpf_add(q2[ i * q_dim + j ].dval, q2[ i * q_dim + j ].dval, dummy);
+#ifdef CENSOR
+					if (mpf_cmp(q2[ i * q_dim + j ].dval, zero) != 0) {
+					  mpf_abs(dummy1, q2[ i * q_dim + j ].dval);
+					  mpf_set_si(dummy, 1);
+					  mpf_mul(dummy1, dummy1, dummy);
+					  if (mpf_cmp(toler, dummy1) >= 0) {
+					    mpf_set_si(q2[ i * q_dim + j ].dval, 0);
+					  }
+					}
+#endif
 				}
 			}
 /* L450: */
@@ -644,9 +664,6 @@ L420:
 		}
 	}
 /* L470: */
-#ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L470\n");
-#endif
 	/*q2[ iout * q_dim + in ].dval = 1. / pivot;*/
 	mpf_set_si(dummy, 1);
 	mpf_div(q2[ iout * q_dim + in ].dval, dummy, pivot);
@@ -803,6 +820,9 @@ L590:
 		}
 	}
 /* L640: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L640\n");
+#endif
 	/*
 	 *  Check calculation
 	 */
@@ -852,8 +872,8 @@ L590:
 		 *  Check inequalities
 		 */
 		for (i = k + l; i < k + l + m; i++) {
-			mpf_add(dummy, res[i], check_toler);
-			if (mpf_cmp(dummy, check_toler) < 0) {
+			mpf_neg(dummy, check_toler);
+			if (mpf_cmp(res[i], dummy) < 0) {
 #ifdef CHECK_ERRORS
 				output_msg(OUTPUT_MESSAGE, "\tCL1MP: inequality constraint not satisfied row %d, res %e, tolerance %e.\n", i, mpf_get_d(res[i]), mpf_get_d(check_toler));
 #endif

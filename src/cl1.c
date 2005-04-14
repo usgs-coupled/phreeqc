@@ -26,6 +26,8 @@ extern void malloc_error(void);
 /* debug
 #define DEBUG_CL1
  */
+#define CHECK_ERRORS
+
 int cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
 	LDBLE *q,
@@ -385,7 +387,7 @@ L240:
 	if (iphase != 1 && ia != -1) {
 		xmax = 0.;
 /* find maximum absolute value in column "in" */
-		for (i = 0; i < ia; ++i) {
+		for (i = 0; i <= ia; ++i) {
 			z = fabs(q2[ i * q_dim + in ].dval);
 			if (z > xmax) {
 				xmax = z;
@@ -464,7 +466,7 @@ L350:
 	}
 /* L380: */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L380\n");
+	output_msg(OUTPUT_MESSAGE, "L380 iout %d, xmin %e, xmax %e\n", iout, xmin, xmax);
 #endif
 	--kk;
 	pivot = q2[ iout * q_dim + in ].dval;
@@ -541,9 +543,6 @@ L420:
 		}
 	}
 /* L470: */
-#ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L470\n");
-#endif
 	q2[ iout * q_dim + in ].dval = 1. / pivot;
 	ii = q2[ iout * q_dim + n1 ].ival;
 	q2[ iout * q_dim + n1 ].ival = q2[ klm1 * q_dim + in ].ival;
@@ -666,6 +665,9 @@ L590:
 		}
 	}
 /* L640: */
+#ifdef DEBUG_CL1
+	output_msg(OUTPUT_MESSAGE, "L640\n");
+#endif
 	*error = sum;
 	scratch = free_check_null (scratch);
 	/*

@@ -1481,7 +1481,7 @@ int read_inverse(void)
 	inverse[n].n_user = n_user;
 	inverse[n].range = FALSE;
 	inverse[n].range_max = 1000.;
-	inverse[n].tolerance = 1e-10;
+	inverse[n].tolerance = 1e-12;
 	inverse[n].minimal = FALSE;
 	inverse[n].description = description;
 	inverse[n].count_uncertainties = 1;

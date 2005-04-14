@@ -1807,6 +1807,7 @@ Static void parseinput(tokenrec **buf)
   linerec *l, *l0, *l1;
 
   while (replace("\t"," ",inbuf));
+  while (replace("\r"," ",inbuf));
   string_trim(inbuf);
   curline = 0;
   while (*inbuf != '\0' && isdigit((int) inbuf[0])) {
