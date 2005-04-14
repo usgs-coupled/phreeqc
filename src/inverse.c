@@ -134,11 +134,10 @@ int inverse_models(void)
 /*
  *  Initial prints
  */
-			if (print1 == TRUE) {
-				dup_print("Beginning of inverse modeling calculations.", TRUE);
-				print1 = FALSE;
-				status(0, NULL);
-			}
+			sprintf(error_string,"Beginning of inverse modeling %d calculations.", inverse[n].n_user);
+			dup_print(error_string, TRUE);
+			status(0, NULL);
+
 /*
  *  Setup and solve
  */
