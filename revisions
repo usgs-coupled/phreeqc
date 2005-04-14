@@ -2,6 +2,28 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
+	Cl1mp is a new multiple precision version of routine cl1,
+	a simplex-based optimization routine. Cl1mp was develeped
+	by using the Gnu Multiple Precision package (gmp).
+	Calculations are carried out to about 30 significant
+	digits. Cl1mp may help in some situations where roundoff 
+	errors are a problem, but it is still possible that roundoff 
+	errors will cause cl1mp to fail to find a solution to an 
+	optimization problem. The mp version has the following 
+	options in INVERSE_MODELING:
+
+		-multiple_precision T/F--causes the mp version 
+			to be used in inverse modeling calculations.
+		-mp_tolerance 1e-12--tolerance for mp version of
+			cl1. As in cl1,	numbers less than the
+			tolerance are considered to be zero. 
+			1e-12 is the default.
+		-censor_mp 1e-20--as calculations occur in the
+			linear equation array, elements less
+			than this value are set to zero. Default
+			is 1e-20. A value of 0.0 causes no
+			censoring to occur.
+
 ------------------------------------------------------------
 Version 2.11:
 ------------------------------------------------------------
@@ -473,6 +495,39 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+
+	Carriage returns are now stripped from Basic program 
+	statements. Switching files from Windows to Unix sometimes
+	leaves extra carriage returns at the ends of lines, which
+	caused a syntax error for some Basic commands.
+
+	Two bugs were fixed in inverse modeling. (1) Potential 
+	models are now checked for all equality and inequality
+	constraints. Previously some constraints were not checked.
+	(2) One loop of cl1 did not include the last row when 
+	checking for the pivot element. Also printing of headers
+	was slightly modified for inverse modeling.
+
+	A new multiple precision version of cl1 was develeped by 
+	using the Gnu Multiple Precision package (gmp). Calculations 
+	are carried out to about 30 significant digits. The mp 
+	version may help in some situations where roundoff errors are
+	a problem, but it is still possible that roundoff errors will 
+	cause cl1mp to fail to find a solution to the optimization
+	problem. The mp version has the following options in 
+	INVERSE_MODELING:
+		-multiple_precision T/F--causes the mp version 
+			to be used in inverse modeling calculations.
+		-mp_tolerance 1e-12--tolerance for mp version of
+			cl1. As in cl1,	numbers less than the
+			tolerance are considered to be zero. 
+			1e-12 is the default.
+		-censor_mp 1e-20--as calculations occur in the
+			linear equation array, elements less
+			than this value are set to zero. Default
+			is 1e-20. A value of 0.0 causes no
+			censoring to occur.
+
 Version 2.11 Date: Mon February 7, 2005
 
 	Fixed error in selected output file with mixing reaction. 
