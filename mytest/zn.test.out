@@ -818,7 +818,7 @@ Using pure phase assemblage 3.
 	Pyrite           -9.41  -95.29  -85.88  3.000e+00            -3.000e+00
 	Siderite         -4.10  -14.99  -10.89  3.000e+00            -3.000e+00
 	Smithsonite      -0.23  -10.23  -10.00  3.000e+00            -3.000e+00
-	Sphalerite        0.00  -45.32  -45.32  3.000e+00  3.225e+01  2.925e+01
+	Sphalerite       -0.00  -45.32  -45.32  3.000e+00  3.225e+01  2.925e+01
 	Zincite(c)       -0.66   10.48   11.14  3.000e+00            -3.000e+00
 	Zincosite        -5.96   -2.95    3.01  3.000e+00            -3.000e+00
 	Zn(OH)2-a        -2.00   10.45   12.45  3.000e+00            -3.000e+00
@@ -856,9 +856,9 @@ Using pure phase assemblage 3.
                  Total alkalinity (eq/kg)  =   3.773e-04
                        Total CO2 (mol/kg)  =   4.030e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.394e-11
+                  Electrical balance (eq)  =  -4.735e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  35
+                               Iterations  =  31
                                   Total H  = 9.602850e+01
                                   Total O  = 6.069197e+01
 
@@ -1005,7 +1005,7 @@ Zn               1.913e-01
 	Siderite         -4.10  -14.99  -10.89  FeCO3
 	Siderite(d)(3)   -4.54  -14.99  -10.45  FeCO3
 	Smithsonite      -0.23  -10.23  -10.00  ZnCO3
-	Sphalerite        0.00  -11.62  -11.62  ZnS
+	Sphalerite       -0.00  -11.62  -11.62  ZnS
 	Sulfur           -9.40  -24.43  -15.03  S
 	Wurtzite         -1.94  -11.62   -9.68  ZnS
 	Zincite(c)       -0.66   10.48   11.14  ZnO
@@ -2868,7 +2868,7 @@ Using pure phase assemblage 3.
 	Pyrite           -9.63  -95.52  -85.88  9.000e+00            -9.000e+00
 	Siderite         -4.10  -14.99  -10.89  9.000e+00            -9.000e+00
 	Smithsonite      -0.12  -10.12  -10.00  9.000e+00            -9.000e+00
-	Sphalerite       -0.00  -45.32  -45.32  9.000e+00  9.675e+01  8.775e+01
+	Sphalerite        0.00  -45.32  -45.32  9.000e+00  9.675e+01  8.775e+01
 	Zincite(c)       -0.55   10.59   11.14  9.000e+00            -9.000e+00
 	Zincosite        -5.96   -2.95    3.01  9.000e+00            -9.000e+00
 	Zn(OH)2-a        -2.00   10.45   12.45  9.000e+00            -9.000e+00
@@ -2876,9 +2876,9 @@ Using pure phase assemblage 3.
 	Zn(OH)2-c        -1.75   10.45   12.20  9.000e+00            -9.000e+00
 	Zn(OH)2-e        -1.05   10.45   11.50  9.000e+00            -9.000e+00
 	Zn(OH)2-g        -1.26   10.45   11.71  9.000e+00            -9.000e+00
-	Zn2(OH)2SO4       0.00    7.50    7.50  9.000e+00  1.231e+01  3.312e+00
+	Zn2(OH)2SO4      -0.00    7.50    7.50  9.000e+00  1.231e+01  3.312e+00
 	Zn3O(SO4)2      -14.33    4.69   19.02  9.000e+00            -9.000e+00
-	Zn4(OH)6SO4       0.00   28.40   28.40  9.000e+00  7.896e+00 -1.104e+00
+	Zn4(OH)6SO4      -0.00   28.40   28.40  9.000e+00  7.896e+00 -1.104e+00
 	ZnCO3:H2O        -0.00  -10.26  -10.26  9.000e+00  5.400e+01  4.500e+01
 	ZnMetal         -25.75    0.00   25.76  9.000e+00            -9.000e+00
 	ZnO(a)           -0.72   10.59   11.31  9.000e+00            -9.000e+00
@@ -2906,9 +2906,9 @@ Using pure phase assemblage 3.
                  Total alkalinity (eq/kg)  =   7.040e-04
                        Total CO2 (mol/kg)  =   7.120e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.082e-10
+                  Electrical balance (eq)  =  -1.076e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 237
+                               Iterations  = 165
                                   Total H  = 6.602070e+01
                                   Total O  = 6.918589e+01
 
@@ -3039,7 +3039,7 @@ Zn               7.040e-02
 	H2(g)           -10.74  -13.89   -3.15  H2
 	H2O(g)           -1.65   -0.14    1.51  H2O
 	H2S(g)          -14.42  -15.42   -1.00  H2S
-	Hematite          0.00   -4.01   -4.01  Fe2O3
+	Hematite         -0.00   -4.01   -4.01  Fe2O3
 	Huntite          -4.94  -34.91  -29.97  CaMg3(CO3)4
 	Hydromagnesite  -10.34  -19.10   -8.76  Mg5(CO3)4(OH)2:4H2O
 	JarositeH       -28.36  -33.75   -5.39  (H3O)Fe3(SO4)2(OH)6
@@ -3055,7 +3055,7 @@ Zn               7.040e-02
 	Siderite         -4.10  -14.99  -10.89  FeCO3
 	Siderite(d)(3)   -4.54  -14.99  -10.45  FeCO3
 	Smithsonite      -0.12  -10.12  -10.00  ZnCO3
-	Sphalerite       -0.00  -11.62  -11.62  ZnS
+	Sphalerite        0.00  -11.62  -11.62  ZnS
 	Sulfur           -9.51  -24.54  -15.03  S
 	Wurtzite         -1.94  -11.62   -9.68  ZnS
 	Zincite(c)       -0.55   10.59   11.14  ZnO
@@ -3065,9 +3065,9 @@ Zn               7.040e-02
 	Zn(OH)2-c        -1.75   10.45   12.20  Zn(OH)2
 	Zn(OH)2-e        -1.05   10.45   11.50  Zn(OH)2
 	Zn(OH)2-g        -1.26   10.45   11.71  Zn(OH)2
-	Zn2(OH)2SO4       0.00    7.50    7.50  Zn2(OH)2SO4
+	Zn2(OH)2SO4      -0.00    7.50    7.50  Zn2(OH)2SO4
 	Zn3O(SO4)2      -14.33    4.69   19.02  ZnO:2ZnSO4
-	Zn4(OH)6SO4       0.00   28.40   28.40  Zn4(OH)6SO4
+	Zn4(OH)6SO4      -0.00   28.40   28.40  Zn4(OH)6SO4
 	ZnCO3:H2O        -0.00  -10.26  -10.26  ZnCO3:H2O
 	ZnMetal         -25.75    0.00   25.76  Zn
 	ZnO(a)           -0.72   10.59   11.31  ZnO

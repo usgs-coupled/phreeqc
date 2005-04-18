@@ -1164,17 +1164,15 @@ Iterations in revise_guesses: 1
 Removing unstable phases. Iteration 0.
 Ineq had infeasible solution, kode 2, iteration 2
 Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 13
 Ineq had infeasible solution, kode 0, iteration 14
 Ineq had infeasible solution, kode 2, iteration 15
 Ineq had infeasible solution, kode 2, iteration 16
-Ineq had infeasible solution, kode 2, iteration 17
-Ineq had infeasible solution, kode 2, iteration 19
-Ineq had infeasible solution, kode 0, iteration 20
 
-Number of infeasible solutions: 8
+Number of infeasible solutions: 6
 Number of basis changes: 0
 
-Number of iterations: 24
+Number of iterations: 21
 
 
 Cell 5.
@@ -1251,11 +1249,15 @@ Removing unstable phases. Iteration 0.
 Ineq had infeasible solution, kode 0, iteration 4
 Ineq had infeasible solution, kode 0, iteration 6
 Ineq had infeasible solution, kode 2, iteration 7
+Ineq had infeasible solution, kode 2, iteration 8
+Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 2, iteration 11
+Ineq had infeasible solution, kode 2, iteration 15
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 7
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 15
 
 
 Cell 5.
@@ -1330,7 +1332,7 @@ Iterations in revise_guesses: 1
               Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 0, iteration 6
 
 Number of infeasible solutions: 1
 Number of basis changes: 0
@@ -1500,10 +1502,9 @@ Iterations in revise_guesses: 1
               Pyrite Pure phase has not converged. 	Residual: 1.263645e+02
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 Ineq had infeasible solution, kode 0, iteration 5
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
 Number of iterations: 8
@@ -1660,9 +1661,8 @@ Iterations in revise_guesses: 1
               Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 8
@@ -1740,9 +1740,10 @@ Iterations in revise_guesses: 1
               Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
 Number of iterations: 8
@@ -1806,7 +1807,7 @@ Iterations in revise_guesses: 1
         Uraninite(c) Pure phase has not converged. 	Residual: 1.345605e+00
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 0, iteration 2
 
 Number of infeasible solutions: 1
 Number of basis changes: 0
@@ -1820,13 +1821,25 @@ Iterations in revise_guesses: 1
               Pyrite Pure phase has not converged. 	Residual: 1.272626e+02
                     Removing unstable phases, iteration 0.
 Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 2
 Ineq had infeasible solution, kode 0, iteration 5
 Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 2, iteration 10
+Ineq had infeasible solution, kode 0, iteration 11
+Ineq had infeasible solution, kode 0, iteration 12
+Ineq had infeasible solution, kode 0, iteration 13
+Ineq had infeasible solution, kode 2, iteration 14
+Ineq had infeasible solution, kode 2, iteration 16
+Ineq had infeasible solution, kode 0, iteration 18
+Ineq had infeasible solution, kode 0, iteration 19
+Ineq had infeasible solution, kode 0, iteration 20
+Ineq had infeasible solution, kode 2, iteration 22
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 14
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 26
 
 
 Cell 6.

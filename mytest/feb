@@ -1,4 +1,4 @@
-DATABASE C:\Program Files\USGS\phreeqc-2.11\llnl.dat
+DATABASE ../database/llnl.dat
 SOLUTION 1 EKATI LLCF
     temp      8
     pH        6.5

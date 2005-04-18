@@ -7053,7 +7053,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.410e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 107
+                               Iterations  = 122
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551177e+01
 
@@ -8409,7 +8409,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.709e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8441,7 +8441,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.410e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 107
+                               Iterations  = 161
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551133e+01
 
@@ -9778,12 +9778,6 @@ Zn               1.170e-06
 	Smithsonite      -1.63  -11.63  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.88    9.62   11.50  Zn(OH)2
 
-WARNING: Maximum iterations exceeded, 100
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
 Using solution 7.	Solution after simulation 3.
 Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 7.	Solid solution assemblage after simulation 3.
@@ -9803,7 +9797,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.418e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.420e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9833,9 +9827,9 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.230e-03
                        Total CO2 (mol/kg)  =   1.235e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.409e-12
+                  Electrical balance (eq)  =  -5.410e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 154
+                               Iterations  = 142
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551101e+01
 
@@ -11221,9 +11215,9 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.146e-03
                        Total CO2 (mol/kg)  =   1.146e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.409e-12
+                  Electrical balance (eq)  =  -5.410e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 102
+                               Iterations  =  38
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551079e+01
 
@@ -12579,7 +12573,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.238e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.240e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12609,9 +12603,9 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.089e-03
                        Total CO2 (mol/kg)  =   1.087e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.409e-12
+                  Electrical balance (eq)  =  -5.402e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 135
+                               Iterations  =  54
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551065e+01
 
@@ -13948,6 +13942,12 @@ Zn               1.113e-06
 	Smithsonite      -1.64  -11.64  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.61    9.89   11.50  Zn(OH)2
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 10.	Solution after simulation 3.
 Using pure phase assemblage 10.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 10.	Solid solution assemblage after simulation 3.
@@ -13967,7 +13967,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  1.497e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  1.494e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13997,9 +13997,9 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.052e-03
                        Total CO2 (mol/kg)  =   1.048e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.409e-12
+                  Electrical balance (eq)  =  -5.402e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  70
+                               Iterations  = 194
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551055e+01
 

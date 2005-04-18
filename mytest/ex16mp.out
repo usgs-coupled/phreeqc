@@ -1,6 +1,6 @@
-   Input file: ex11
-  Output file: ex11.out
-Database file: ../database/phreeqc.dat
+   Input file: ex16mp
+  Output file: ex16mp.out
+Database file: phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,32 +19,12 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE ../database/phreeqc.dat
-	knobs
-		logfile
-	TITLE Example 11.--Inverse modeling of Sierra springs
-	SOLUTION 1
-	        units  mmol/l
-	        pH      6.2
-	        Si      0.273
-	        Ca      0.078
-	        Mg      0.029
-	        Na      0.134
-	        K       0.028
-	        Alkalinity      0.328
-	        S(6)    0.010
-	        Cl      0.014
-	SOLUTION 2
-	        units  mmol/l
-	        pH      6.8
-	        Si      0.41
-	        Ca      0.26
-	        Mg      0.071
-	        Na      0.259
-	        K       0.04
-	        Alkalinity      0.895
-	        S(6)            0.025
-	        Cl              0.03
+	TITLE Example 16.--Inverse modeling of Sierra springs
+	SOLUTION_SPREAD
+	        units mmol/L
+	Number	pH	Si	Ca	Mg	Na	K	Alkalinity	S(6)	Cl
+	1	6.2	0.273	0.078	0.029	0.134	0.028	0.328      	0.01	0.014
+	2	6.8	0.41	0.26	0.071	0.259	0.04	0.895    	0.025	0.03
 	INVERSE_MODELING 1
 	        solutions 1 2
 	        uncertainty 0.025
@@ -61,22 +41,20 @@ Reading input data for simulation 1.
 	                Plagioclase             dissolve
 	        balances
 	                Ca      0.05     0.025
+		multiple_precision
 	PHASES
-	Halite
-	        NaCl = Na+ + Cl-
-	        log_k  0.0
 	Biotite
 	        KMg3AlSi3O10(OH)2 + 6H+ + 4H2O = K+ + 3Mg+2 + Al(OH)4- + 3H4SiO4 
-	        log_k  0.0
+	        log_k  0.0      # No log_k, Inverse modeling only
 	Plagioclase
-	        Na0.62Ca0.37Al1.38Si2.625O8 + 5.5 H+ + 2.5H2O =                 0.62Na+ + 0.37Ca+2 + 1.38Al+3 + 2.625H4SiO4
-	        log_k  0.0
+	        Na0.62Ca0.38Al1.38Si2.62O8 + 5.52 H+ + 2.48H2O =                 0.62Na+ + 0.38Ca+2 + 1.38Al+3 + 2.62H4SiO4
+	        log_k  0.0      # No log_k, inverse modeling only
 	END
 -----
 TITLE
 -----
 
- Example 11.--Inverse modeling of Sierra springs
+ Example 16.--Inverse modeling of Sierra springs
 
 -------------------------------------------
 Beginning of initial solution calculations.
@@ -187,7 +165,7 @@ Si               2.730e-04
 	Gypsum           -4.62   -9.20   -4.58  CaSO4:2H2O
 	H2(g)           -20.40  -23.55   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	Halite           -8.75   -8.75    0.00  NaCl
+	Halite          -10.33   -8.75    1.58  NaCl
 	O2(g)           -42.32  -45.28   -2.96  O2
 	Quartz            0.42   -3.56   -3.98  SiO2
 	Sepiolite       -10.82    4.94   15.76  Mg2Si3O7.5OH:3H2O
@@ -300,7 +278,7 @@ Si               4.100e-04
 	Gypsum           -3.77   -8.35   -4.58  CaSO4:2H2O
 	H2(g)           -21.60  -24.75   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	Halite           -8.14   -8.14    0.00  NaCl
+	Halite           -9.73   -8.14    1.58  NaCl
 	O2(g)           -39.92  -42.88   -2.96  O2
 	Quartz            0.59   -3.39   -3.98  SiO2
 	Sepiolite        -7.17    8.59   15.76  Mg2Si3O7.5OH:3H2O
@@ -358,12 +336,12 @@ Solution fractions:                   Minimum        Maximum
 Phase mole transfers:                 Minimum        Maximum
          Halite      1.600e-05      1.490e-05      1.710e-05   NaCl
          Gypsum      1.500e-05      1.413e-05      1.588e-05   CaSO4:2H2O
-      Kaolinite     -3.316e-05     -5.518e-05     -1.140e-05   Al2Si2O5(OH)4
-Ca-Montmorillon     -8.156e-05     -1.107e-04     -5.213e-05   Ca0.165Al2.33Si3.67O10(OH)2
-         CO2(g)      2.909e-04      2.346e-04      3.543e-04   CO2
-        Calcite      1.258e-04      1.028e-04      1.326e-04   CaCO3
+      Kaolinite     -3.392e-05     -5.587e-05     -1.224e-05   Al2Si2O5(OH)4
+Ca-Montmorillon     -8.090e-05     -1.100e-04     -5.154e-05   Ca0.165Al2.33Si3.67O10(OH)2
+         CO2(g)      2.928e-04      2.363e-04      3.563e-04   CO2
+        Calcite      1.240e-04      1.007e-04      1.309e-04   CaCO3
         Biotite      1.370e-05      1.317e-05      1.370e-05   KMg3AlSi3O10(OH)2
-    Plagioclase      1.758e-04      1.582e-04      1.935e-04   Na0.62Ca0.37Al1.38Si2.625O8
+    Plagioclase      1.758e-04      1.582e-04      1.935e-04   Na0.62Ca0.38Al1.38Si2.62O8
 
 Redox mole transfers:    
 
@@ -421,11 +399,11 @@ Phase mole transfers:                 Minimum        Maximum
          Halite      1.600e-05      1.490e-05      1.710e-05   NaCl
          Gypsum      1.500e-05      1.413e-05      1.588e-05   CaSO4:2H2O
       Kaolinite     -1.282e-04     -1.403e-04     -1.159e-04   Al2Si2O5(OH)4
-         CO2(g)      3.044e-04      2.474e-04      3.683e-04   CO2
-        Calcite      1.124e-04      8.874e-05      1.198e-04   CaCO3
-     Chalcedony     -1.093e-04     -1.483e-04     -6.986e-05   SiO2
+         CO2(g)      3.061e-04      2.490e-04      3.703e-04   CO2
+        Calcite      1.106e-04      8.680e-05      1.182e-04   CaCO3
+     Chalcedony     -1.084e-04     -1.473e-04     -6.906e-05   SiO2
         Biotite      1.370e-05      1.317e-05      1.370e-05   KMg3AlSi3O10(OH)2
-    Plagioclase      1.758e-04      1.582e-04      1.935e-04   Na0.62Ca0.37Al1.38Si2.625O8
+    Plagioclase      1.758e-04      1.582e-04      1.935e-04   Na0.62Ca0.38Al1.38Si2.62O8
 
 Redox mole transfers:    
 

@@ -1,5 +1,5 @@
-   Input file: oxygen
-  Output file: oxygen.out
+   Input file: oxygenmp
+  Output file: oxygenmp.out
 Database file: ../database/phreeqc.dat
 
 ------------------
@@ -172,6 +172,7 @@ Reading input data for simulation 2.
 		solutions 1 2
 		phases
 			CH2O	
+		multiple_precision
 	PHASES
 		CH2O
 		CH2O = 0.5CO2 + 0.5CH4
@@ -243,6 +244,7 @@ Reading input data for simulation 3.
 		phases
 			CH2O	
 			O2(g)
+		multiple_precision
 	END
 -------------------------------------------
 Beginning of initial solution calculations.
@@ -333,7 +335,7 @@ Redox mole transfers:
 
 Sum of residuals (epsilons in documentation):         1.005e+00
 Sum of delta/uncertainty limit:                       1.005e+00
-Maximum fractional error in element concentration:    1.000e-00
+Maximum fractional error in element concentration:    1.000e+00
 
 Model contains minimum number of phases.
 ===============================================================================

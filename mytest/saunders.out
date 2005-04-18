@@ -20970,7 +20970,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  1.086e-07  1.663e-07  5.766e-08
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -1.720e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  1.429e-07  1.334e-07 -9.478e-09
+	Pyrite           -0.00  -85.88  -85.88  1.429e-07  1.334e-07 -9.478e-09
 	Uraninite(c)      0.00  -13.84  -13.84  2.431e-18  1.582e-09  1.582e-09
 
 -----------------------------Solution composition------------------------------
@@ -20999,7 +20999,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.608e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.00
-                               Iterations  =  24
+                               Iterations  =  21
                                   Total H  = 1.110157e+02
                                   Total O  = 5.551106e+01
 
@@ -21204,7 +21204,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite            0.00  -18.48  -18.48  FeS2
+	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -21218,7 +21218,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 6.
@@ -22819,7 +22819,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  1.663e-07  5.559e-07  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  1.334e-07  6.883e-08 -6.455e-08
+	Pyrite            0.00  -85.88  -85.88  1.334e-07  6.883e-08 -6.455e-08
 	Uraninite(c)      0.00  -13.84  -13.84  1.582e-09  6.587e-08  6.429e-08
 
 -----------------------------Solution composition------------------------------
@@ -22848,7 +22848,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.608e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.00
-                               Iterations  =  13
+                               Iterations  =  15
                                   Total H  = 1.110157e+02
                                   Total O  = 5.551106e+01
 
@@ -23015,7 +23015,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -23053,7 +23053,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -23067,7 +23067,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)      0.00   -4.80   -4.80  UO2
+	Uraninite(c)     -0.00   -4.80   -4.80  UO2
 
 
 Cell 6.
@@ -23083,7 +23083,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)      0.00  -13.84  -13.84  1.630e-15  1.630e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -23317,7 +23317,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite            0.00  -18.48  -18.48  FeS2
+	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -23331,7 +23331,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 7.
@@ -24665,11 +24665,11 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  5.559e-07  9.455e-07  3.896e-07
+	Calcite          -0.00   -8.48   -8.48  5.559e-07  9.455e-07  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  6.883e-08  4.289e-09 -6.455e-08
-	Uraninite(c)      0.00  -13.84  -13.84  6.587e-08  1.302e-07  6.429e-08
+	Pyrite            0.00  -85.88  -85.88  6.883e-08  4.289e-09 -6.455e-08
+	Uraninite(c)     -0.00  -13.84  -13.84  6.587e-08  1.302e-07  6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -24864,7 +24864,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -24902,7 +24902,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -24932,7 +24932,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)      0.00  -13.84  -13.84  1.630e-15  1.630e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -25128,7 +25128,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -25180,7 +25180,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)      0.00   -4.80   -4.80  UO2
+	Uraninite(c)     -0.00   -4.80   -4.80  UO2
 
 
 Cell 7.
@@ -25196,7 +25196,7 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)      0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -25392,7 +25392,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -25430,7 +25430,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite            0.00  -18.48  -18.48  FeS2
+	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -25444,7 +25444,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 Beginning of advection time step 16, cumulative pore volumes 2.285714.
 
@@ -26514,11 +26514,11 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.455e-07  9.711e-07  2.564e-08
+	Calcite           0.00   -8.48   -8.48  9.455e-07  9.711e-07  2.564e-08
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -5.515e-08
 	Graphite        -18.06  -53.11  -35.04  0.000e+00             0.000e+00
 	Pyrite          -54.88 -140.76  -85.88  4.289e-09            -4.289e-09
-	Uraninite(c)      0.00  -13.84  -13.84  1.302e-07  1.379e-07  7.698e-09
+	Uraninite(c)     -0.00  -13.84  -13.84  1.302e-07  1.379e-07  7.698e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -26778,11 +26778,11 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05  0.000e+00
+	Calcite          -0.00   -8.48   -8.48  2.158e-05  2.158e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
-	Uraninite(c)      0.00  -13.84  -13.84  1.630e-15  1.630e-15  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Uraninite(c)     -0.00  -13.84  -13.84  1.630e-15  1.630e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -27045,7 +27045,7 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)      0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -27241,7 +27241,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -27279,7 +27279,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -27293,7 +27293,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)      0.00   -4.80   -4.80  UO2
+	Uraninite(c)     -0.00   -4.80   -4.80  UO2
 
 Beginning of advection time step 17, cumulative pore volumes 2.428571.
 
@@ -28864,7 +28864,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite            0.00  -18.48  -18.48  FeS2
+	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -28878,7 +28878,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 7.
@@ -28891,11 +28891,11 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
+	Calcite          -0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
-	Uraninite(c)      0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Uraninite(c)     -0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -30216,7 +30216,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.452e-08
 	Graphite        -18.18  -53.22  -35.04  0.000e+00             0.000e+00
 	Pyrite          -55.27 -141.15  -85.88  0.000e+00             0.000e+00
-	Uraninite(c)      0.00  -13.84  -13.84  1.379e-07  1.090e-07 -2.881e-08
+	Uraninite(c)     -0.00  -13.84  -13.84  1.379e-07  1.090e-07 -2.881e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -30479,8 +30479,8 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.194e-05  2.233e-05  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.669e-05  2.662e-05 -6.455e-08
-	Uraninite(c)     -0.00  -13.84  -13.84  5.659e-08  1.209e-07  6.429e-08
+	Pyrite            0.00  -85.88  -85.88  2.669e-05  2.662e-05 -6.455e-08
+	Uraninite(c)      0.00  -13.84  -13.84  5.659e-08  1.209e-07  6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -30713,7 +30713,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -30727,7 +30727,7 @@ U(6)             8.277e-16
 	U4O9(c)          -7.92  -11.31   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)      -13.67   -5.95    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 7.
@@ -32312,7 +32312,7 @@ U(6)             6.429e-08
 	U4O9(c)          -0.03   -3.42   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)       -5.77    1.94    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 6.
@@ -32328,7 +32328,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.233e-05  2.272e-05  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  2.662e-05  2.656e-05 -6.455e-08
+	Pyrite           -0.00  -85.88  -85.88  2.662e-05  2.656e-05 -6.455e-08
 	Uraninite(c)     -0.00  -13.84  -13.84  1.209e-07  1.852e-07  6.429e-08
 
 -----------------------------Solution composition------------------------------
@@ -32592,8 +32592,8 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
-	Uraninite(c)     -0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Uraninite(c)      0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -33914,7 +33914,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -1.420e-07
 	Graphite        -18.18  -53.22  -35.04  0.000e+00             0.000e+00
 	Pyrite          -55.27 -141.15  -85.88  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00  -13.84  -13.84  6.577e-08  2.250e-08 -4.327e-08
+	Uraninite(c)      0.00  -13.84  -13.84  6.577e-08  2.250e-08 -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -34161,7 +34161,7 @@ U(6)             6.429e-08
 	U4O9(c)          -0.03   -3.42   -3.38  U4O9
 	UO2(a)           -4.90   -4.80    0.10  UO2
 	UO3(gamma)       -5.77    1.94    7.72  UO3
-	Uraninite(c)     -0.00   -4.80   -4.80  UO2
+	Uraninite(c)      0.00   -4.80   -4.80  UO2
 
 
 Cell 6.
@@ -34177,7 +34177,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite          -0.00   -8.48   -8.48  2.272e-05  2.311e-05  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.656e-05  2.650e-05 -6.455e-08
+	Pyrite            0.00  -85.88  -85.88  2.656e-05  2.650e-05 -6.455e-08
 	Uraninite(c)      0.00  -13.84  -13.84  1.852e-07  2.495e-07  6.429e-08
 
 -----------------------------Solution composition------------------------------
@@ -34373,7 +34373,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -34411,7 +34411,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
@@ -34441,7 +34441,7 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)     -0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -35958,7 +35958,7 @@ U(6)             4.352e-08
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2       -3.77    1.77    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -41.05  -43.91   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -36026,7 +36026,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 	Calcite          -0.00   -8.48   -8.48  2.311e-05  2.350e-05  3.896e-07
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01 -9.988e-07
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite            0.00  -85.88  -85.88  2.650e-05  2.643e-05 -6.455e-08
+	Pyrite           -0.00  -85.88  -85.88  2.650e-05  2.643e-05 -6.455e-08
 	Uraninite(c)      0.00  -13.84  -13.84  2.495e-07  3.137e-07  6.429e-08
 
 -----------------------------Solution composition------------------------------
@@ -36055,7 +36055,7 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.608e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.00
-                               Iterations  =   8
+                               Iterations  =  26
                                   Total H  = 1.110157e+02
                                   Total O  = 5.551106e+01
 
@@ -36222,7 +36222,7 @@ U(6)             8.277e-16
 	Artinite         -5.52    4.08    9.60  MgCO3:Mg(OH)2:3H2O
 	B-UO2(OH)2      -11.49   -5.95    5.54  UO2(OH)2
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -9.29  -12.15   -2.86  CH4
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -0.18  -17.27  -17.09  CaMg(CO3)2
@@ -36290,7 +36290,7 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 	Calcite          -0.00   -8.48   -8.48  2.157e-05  2.157e-05  0.000e+00
 	CO2(g)           -3.50  -21.65  -18.15  1.000e+01  1.000e+01  0.000e+00
 	Graphite         -2.39  -37.43  -35.04  0.000e+00             0.000e+00
-	Pyrite           -0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
+	Pyrite            0.00  -85.88  -85.88  2.675e-05  2.675e-05  0.000e+00
 	Uraninite(c)      0.00  -13.84  -13.84  1.643e-15  1.643e-15  0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -36524,7 +36524,7 @@ U(6)             8.277e-16
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
 	O2(g)           -67.33  -70.29   -2.96  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
-	Pyrite           -0.00  -18.48  -18.48  FeS2
+	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
 	Schoepite       -11.35   -5.95    5.40  UO2(OH)2:H2O
 	Siderite          0.75  -10.14  -10.89  FeCO3
