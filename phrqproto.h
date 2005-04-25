@@ -241,9 +241,12 @@ int exchange_comp_compare(const void *ptr1, const void *ptr2);
 int exchange_copy(struct exchange *exchange_old_ptr, struct exchange *exchange_new_ptr, int n_user_new);
 int exchange_compare (const void *ptr1, const void *ptr2);
 int exchange_copy_to_last(int n, int n_user);
+int exchange_delete(int n_user_old);
 int exchange_duplicate(int n_user_old, int n_user_new);
 int exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end, char *description);
 int exchange_free (struct exchange *exchange_ptr);
+int exchange_ptr_to_user(struct exchange *exchange_old_ptr, int n_user_new);
+struct exchange *exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new);
 struct exchange *exchange_search(int n_user, int *n, int print);
 int exchange_sort(void);
 
@@ -254,9 +257,12 @@ int gas_phase_compare (const void *ptr1, const void *ptr2);
 int gas_phase_copy(struct gas_phase *gas_phase_old_ptr, 
 			  struct gas_phase *gas_phase_new_ptr, int n_user_new);
 int gas_phase_copy_to_last(int n, int n_user);
+int gas_phase_delete(int n_user_old);
 int gas_phase_duplicate(int n_user_old, int n_user_new);
 int gas_phase_init (struct gas_phase *gas_phase_ptr, int n_user, int n_user_end, char *description);
 int gas_phase_free (struct gas_phase *gas_phase_ptr);
+int gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new);
+struct gas_phase *gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new);
 struct gas_phase *gas_phase_search (int n_user, int *n);
 int gas_phase_sort(void);
 
@@ -276,6 +282,7 @@ struct irrev *irrev_search(int n_user, int *n);
 
 struct kinetics *kinetics_alloc (void);
 struct kinetics *kinetics_bsearch (int k, int *n);
+int kinetics_delete(int n_user_old);
 int kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr, struct kinetics_comp *kinetics_comp_old_ptr);
 int kinetics_compare (const void *ptr1, const void *ptr2);
 int kinetics_copy(struct kinetics *kinetics_old_ptr, 
@@ -284,13 +291,8 @@ int kinetics_copy_to_last(int n, int n_user);
 int kinetics_duplicate(int n_user_old, int n_user_new);
 int kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end, char *description);
 int kinetics_free (struct kinetics *kinetics_ptr);
-struct kinetics *kinetics_search(int n_user, int *n, int print);
-int kinetics_sort(void);
-int kinetics_copy(struct kinetics *kinetics_old_ptr, 
-		  struct kinetics *kinetics_new_ptr, int n_user_new);
-int kinetics_copy_to_last(int n, int n_user);
-int kinetics_duplicate(int n_user_old, int n_user_new);
-int kinetics_free (struct kinetics *kinetics_ptr);
+int kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new);
+struct kinetics *kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new);
 struct kinetics *kinetics_search(int n_user, int *n, int print);
 int kinetics_sort(void);
 
@@ -326,11 +328,12 @@ struct pp_assemblage *pp_assemblage_bsearch (int k, int *n);
 int pp_assemblage_compare(const void *ptr1, const void *ptr2);
 int pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr, struct pp_assemblage *pp_assemblage_new_ptr, int n_user_new);
 int pp_assemblage_copy_to_last(int n, int n_user);
-int pp_assemblage_delete(int i);
+int pp_assemblage_delete(int n_user_old);
 int pp_assemblage_duplicate(int n_user_old, int n_user_new);
 int pp_assemblage_free (struct pp_assemblage *pp_assemblage_ptr);
-int pp_assemblage_init (struct pp_assemblage *pp_assemblage_ptr, int n_user, int n_user_end, char *descriptioin);
-
+int pp_assemblage_init (struct pp_assemblage *pp_assemblage_ptr, int n_user, int n_user_end, char *description);
+int pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old, int n_user_new);
+struct pp_assemblage *pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr, int n_user_new);
 struct pp_assemblage *pp_assemblage_search (int n_user, int *n);
 int pp_assemblage_sort(void);
 
@@ -359,9 +362,11 @@ int s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
 			       struct s_s_assemblage *s_s_assemblage_new_ptr, int n_user_new);
 int s_s_assemblage_copy_to_last(int n, int n_user);
 int s_s_assemblage_duplicate(int n_user_old, int n_user_new);
-int s_s_assemblage_delete(int i);
+int s_s_assemblage_delete(int n_user_old);
 int s_s_assemblage_free (struct s_s_assemblage *s_s_assemblage_ptr);
 int s_s_assemblage_init (struct s_s_assemblage *s_s_assemblage_ptr, int n_user, int n_user_end, char *description);
+int s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old, int n_user_new);
+struct s_s_assemblage *s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr, int n_user_new);
 struct s_s_assemblage *s_s_assemblage_search (int n_user, int *n);
 int s_s_assemblage_sort(void);
 int s_s_compare (const void *ptr1, const void *ptr2);
@@ -377,8 +382,10 @@ struct solution *solution_alloc(void);
 struct solution *solution_bsearch (int k, int *n, int print);
 int solution_copy_to_last(int n, int n_user_new);
 int solution_duplicate(int n_user_old, int n_user_new);
-int solution_delete (int i);
+int solution_delete(int n_user_old);
 int solution_free (struct solution *solution_ptr);
+int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new);
+struct solution *solution_replicate(struct solution *solution_old_ptr, int n_user_new);
 int solution_sort(void);
 
 int species_list_compare_master (const void *ptr1, const void *ptr2);
@@ -394,6 +401,8 @@ int surface_delete(int n_user_old);
 int surface_duplicate(int n_user_old, int n_user_new);
 int surface_free(struct surface *surface_ptr);
 int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *description);
+int surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new);
+struct surface *surface_replicate(struct surface *surface_old_ptr, int n_user_new);
 struct surface *surface_search(int n_user, int *n, int print);
 int surface_sort(void);
 

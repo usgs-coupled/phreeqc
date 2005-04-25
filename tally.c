@@ -835,7 +835,8 @@ void add_all_components_tally(void)
  *   Delete solutions less than -1
  */
 	while (count_solution > 0 && solution[0]->n_user < -1) {
-		solution_delete(0);
+		i = solution[0]->n_user;
+		solution_delete(i);
 	}
 /*
  *   add all solutions

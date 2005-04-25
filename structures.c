@@ -760,6 +760,35 @@ int exchange_copy_to_last(int n, int n_user)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int exchange_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array exchange.
+ */
+{
+	int i;
+	int n_old;
+	struct exchange *exchange_ptr_old;
+/*
+ *   Find n_user_old in structure array 
+ */
+	exchange_ptr_old = exchange_bsearch(n_user_old, &n_old);
+	if (exchange_ptr_old != NULL) {
+		/*
+		 *   Delete exchange
+		 */
+		exchange_free(&exchange[n_old]);
+
+		for(i = n_old + 1; i < count_exchange; i++) {
+			memcpy( (void *) &exchange[i - 1], (void *) &exchange[i],
+				(size_t) sizeof (struct exchange) );
+		}
+		count_exchange--;
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int exchange_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -843,6 +872,57 @@ int exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end, ch
 	exchange_ptr->related_phases = FALSE;
 	exchange_ptr->related_rate = FALSE;
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies exchange_old_ptr to old n_user_new space if
+ *   found or to exchange[count_exchange] if not found.
+ *   Exchange array may not be in sort order after the copy.
+ */
+	int sort;
+	int n_new;
+	struct exchange *exchange_ptr_new;
+/*
+ *   Find n_user_old in structure array exchange
+ */
+	if (exchange_ptr_old == NULL) {
+		sprintf(error_string, "Exchange ptr is NULL");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array exchange or make new space
+ */
+	sort = FALSE;
+	exchange_ptr_new = exchange_bsearch(n_user_new, &n_new);
+	if (exchange_ptr_new == exchange_ptr_old) return(OK);
+	if (exchange_ptr_new != NULL) {
+		exchange_free(exchange_ptr_new);
+	} else {
+		space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		if (n_user_new < exchange[count_exchange-1].n_user) sort = TRUE;
+		n_new = count_exchange++;
+	}
+/*
+ *   Copy data
+ */
+	exchange_copy(exchange_ptr_old, &exchange[n_new], n_user_new);
+	if (sort == TRUE) exchange_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct exchange *exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct exchange *exchange_ptr;
+	exchange_ptr = exchange_alloc();
+	exchange_copy(exchange_old_ptr, exchange_ptr, n_user_new);
+	return (exchange_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct exchange *exchange_search(int n_user, int *n, int print)
@@ -1012,6 +1092,35 @@ int gas_phase_copy_to_last(int n, int n_user)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int gas_phase_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array gas_phase.
+ */
+{
+	int i;
+	int n_old;
+	struct gas_phase *gas_phase_ptr_old;
+/*
+ *   Find n_user_old in structure array 
+ */
+	gas_phase_ptr_old = gas_phase_bsearch(n_user_old, &n_old);
+	if (gas_phase_ptr_old != NULL) {
+		/*
+		 *   Delete gas_phase
+		 */
+		gas_phase_free(&gas_phase[n_old]);
+
+		for(i = n_old + 1; i < count_gas_phase; i++) {
+			memcpy( (void *) &gas_phase[i - 1], (void *) &gas_phase[i],
+				(size_t) sizeof (struct gas_phase) );
+		}
+		count_gas_phase--;
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int gas_phase_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1095,6 +1204,59 @@ int gas_phase_init (struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 	if (gas_phase_ptr->comps == NULL) malloc_error();
 
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies gas_phase_ptr_old to old n_user_new space if
+ *   found or to gas_phase[count_gas_phase] if not found.
+ *   Gas_Phase array may not be in sort order after the copy.
+ */
+	int n_new, sort;
+	struct gas_phase *gas_phase_ptr_new;
+/*
+ *   Find n_user_old in structure array gas_phase
+ */
+	if (gas_phase_ptr_old == NULL) {
+		sprintf(error_string, "Gas_Phase pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array gas_phase or make new space
+ */
+	sort = FALSE;
+	gas_phase_ptr_new = gas_phase_bsearch(n_user_new, &n_new);
+	if (gas_phase_ptr_new == gas_phase_ptr_old) return(OK);
+	if (gas_phase_ptr_new != NULL) {
+		gas_phase_free (&gas_phase[n_new]);
+#ifdef SKIP
+		gas_phase[n_new].comps = free_check_null (gas_phase[n_new].comps);
+#endif
+	} else {
+		space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		if (n_user_new < gas_phase[count_gas_phase-1].n_user) sort = TRUE;
+		n_new = count_gas_phase++;
+	}
+/*
+ *   Copy data
+ */
+	gas_phase_copy(gas_phase_ptr_old, &gas_phase[n_new], n_user_new);
+	if (sort == TRUE) gas_phase_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct gas_phase *gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct gas_phase *gas_phase_ptr;
+	gas_phase_ptr = gas_phase_alloc();
+	gas_phase_copy(gas_phase_old_ptr, gas_phase_ptr, n_user_new);
+	return (gas_phase_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct gas_phase *gas_phase_search (int n_user, int *n)
@@ -1773,6 +1935,35 @@ int kinetics_copy_to_last(int n, int n_user)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int kinetics_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array kinetics.
+ */
+{
+	int i;
+	int n_old;
+	struct kinetics *kinetics_ptr_old;
+/*
+ *   Find n_user_old in structure array 
+ */
+	kinetics_ptr_old = kinetics_bsearch(n_user_old, &n_old);
+	if (kinetics_ptr_old != NULL) {
+		/*
+		 *   Delete kinetics
+		 */
+		kinetics_free(&kinetics[n_old]);
+
+		for(i = n_old + 1; i < count_kinetics; i++) {
+			memcpy( (void *) &kinetics[i - 1], (void *) &kinetics[i],
+				(size_t) sizeof (struct kinetics) );
+		}
+		count_kinetics--;
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int kinetics_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1859,6 +2050,56 @@ int kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end, ch
 	kinetics_ptr->use_cvode = FALSE;
 
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies kinetics_ptr_old to old n_user_new space if
+ *   found or to kinetics[count_kinetics] if not found.
+ *   Kinetics array may not be in sort order after the copy.
+ */
+	int n_new, sort;
+	struct kinetics *kinetics_ptr_new;
+/*
+ *   Find n_user_old in structure array kinetics
+ */
+	if (kinetics_ptr_old == NULL) {
+		sprintf(error_string, "Kinetics pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array kinetics or make new space
+ */
+	sort = FALSE;
+	kinetics_ptr_new = kinetics_bsearch(n_user_new, &n_new);
+	if (kinetics_ptr_new == kinetics_ptr_old) return(OK);
+	if (kinetics_ptr_new != NULL) {
+		kinetics_free(kinetics_ptr_new);
+	} else {
+		space ((void *) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		if (n_user_new < kinetics[count_kinetics-1].n_user) sort = TRUE;
+		n_new = count_kinetics++;
+	}
+/*
+ *   Copy data
+ */
+	kinetics_copy(kinetics_ptr_old, &kinetics[n_new], n_user_new);
+	if (sort == TRUE) kinetics_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct kinetics *kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct kinetics *kinetics_ptr;
+	kinetics_ptr = kinetics_alloc();
+	kinetics_copy(kinetics_old_ptr, kinetics_ptr, n_user_new);
+	return (kinetics_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct kinetics *kinetics_search(int n_user, int *n, int print)
@@ -2820,23 +3061,32 @@ int pp_assemblage_duplicate(int n_user_old, int n_user_new)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int pp_assemblage_delete(int i)
+int pp_assemblage_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
-{
 /*
- *   Deletes pp_assemblage i from list, phases
- *   Frees memory allocated to solids in pp_assemblage
- *   Input: i, number of phase
- *   Return: OK
+ *   Frees space for user number n_user_old, removes structure from
+ *   array pp_assemblage.
  */
-	int j;
+{
+	int i;
+	int n_old;
+	struct pp_assemblage *pp_assemblage_ptr_old;
+/*
+ *   Find n_user_old in structure array 
+ */
+	pp_assemblage_ptr_old = pp_assemblage_bsearch(n_user_old, &n_old);
+	if (pp_assemblage_ptr_old != NULL) {
+		/*
+		 *   Delete pp_assemblage
+		 */
+		pp_assemblage_free(&pp_assemblage[n_old]);
 
-	pp_assemblage[i].pure_phases = free_check_null (pp_assemblage[i].pure_phases);
-	for (j=i; j < (count_pp_assemblage - 1); j++) {
-		memcpy ( (void *) &(pp_assemblage[j]), (void *) &(pp_assemblage[j+1]),
-			(size_t) sizeof (struct pp_assemblage));
+		for(i = n_old + 1; i < count_pp_assemblage; i++) {
+			memcpy( (void *) &pp_assemblage[i - 1], (void *) &pp_assemblage[i],
+				(size_t) sizeof (struct pp_assemblage) );
+		}
+		count_pp_assemblage--;
 	}
-	count_pp_assemblage--;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2875,6 +3125,56 @@ int pp_assemblage_init (struct pp_assemblage *pp_assemblage_ptr, int n_user, int
 	if (pp_assemblage_ptr->pure_phases == NULL) malloc_error();
 
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies pp_assemblage_ptr_old to old n_user_new space if
+ *   found or to pp_assemblage[count_pp_assemblage] if not found.
+ *   Pp_Assemblage array may not be in sort order after the copy.
+ */
+	int n_new, sort;
+	struct pp_assemblage *pp_assemblage_ptr_new;
+/*
+ *   Find n_user_old in structure array pp_assemblage
+ */
+	if (pp_assemblage_ptr_old == NULL) {
+		sprintf(error_string, "Pp_Assemblage pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array pp_assemblage or make new space
+ */
+	sort = FALSE;
+	pp_assemblage_ptr_new = pp_assemblage_bsearch(n_user_new, &n_new);
+	if (pp_assemblage_ptr_new == pp_assemblage_ptr_old) return(OK);
+	if (pp_assemblage_ptr_new != NULL) {
+		pp_assemblage_free(pp_assemblage_ptr_new);
+	} else {
+		space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		if (n_user_new < pp_assemblage[count_pp_assemblage-1].n_user) sort = TRUE;
+		n_new = count_pp_assemblage++;
+	}
+/*
+ *   Copy data
+ */
+	pp_assemblage_copy(pp_assemblage_ptr_old, &pp_assemblage[n_new], n_user_new);
+	if (sort == TRUE) pp_assemblage_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct pp_assemblage *pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct pp_assemblage *pp_assemblage_ptr;
+	pp_assemblage_ptr = pp_assemblage_alloc();
+	pp_assemblage_copy(pp_assemblage_old_ptr, pp_assemblage_ptr, n_user_new);
+	return (pp_assemblage_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct pp_assemblage *pp_assemblage_search (int n_user, int *n)
@@ -3547,23 +3847,32 @@ int s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int s_s_assemblage_delete(int i)
+int s_s_assemblage_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
-{
 /*
- *   Deletes s_s_assemblage i from list, phases
- *   Frees memory allocated to solids in s_s_assemblage
- *   Input: i, number of phase
- *   Return: OK
+ *   Frees space for user number n_user_old, removes structure from
+ *   array s_s_assemblage.
  */
-	int j;
+{
+	int i;
+	int n_old;
+	struct s_s_assemblage *s_s_assemblage_ptr_old;
+/*
+ *   Find n_user_old in structure array 
+ */
+	s_s_assemblage_ptr_old = s_s_assemblage_bsearch(n_user_old, &n_old);
+	if (s_s_assemblage_ptr_old != NULL) {
+		/*
+		 *   Delete s_s_assemblage
+		 */
+		s_s_assemblage_free(&s_s_assemblage[n_old]);
 
-	s_s_assemblage_free (&s_s_assemblage[i]);
-	for (j=i; j < (count_s_s_assemblage - 1); j++) {
-		memcpy ( (void *) &(s_s_assemblage[j]), (void *) &(s_s_assemblage[j+1]),
-			(size_t) sizeof (struct s_s_assemblage));
+		for(i = n_old + 1; i < count_s_s_assemblage; i++) {
+			memcpy( (void *) &s_s_assemblage[i - 1], (void *) &s_s_assemblage[i],
+				(size_t) sizeof (struct s_s_assemblage) );
+		}
+		count_s_s_assemblage--;
 	}
-	count_s_s_assemblage--;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -3596,6 +3905,56 @@ int s_s_assemblage_init (struct s_s_assemblage *s_s_assemblage_ptr, int n_user, 
 	if (s_s_assemblage_ptr->s_s == NULL) malloc_error();
 	
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies s_s_assemblage_ptr_old to old n_user_new space if
+ *   found or to s_s_assemblage[count_s_s_assemblage] if not found.
+ *   S_S_Assemblage array may not be in sort order after the copy.
+ */
+	int n_new, sort;
+	struct s_s_assemblage  *s_s_assemblage_ptr_new;
+/*
+ *   Find n_user_old in structure array s_s_assemblage
+ */
+	if (s_s_assemblage_ptr_old == NULL) {
+		sprintf(error_string, "S_S_Assemblage pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array s_s_assemblage or make new space
+ */
+	sort = FALSE;
+	s_s_assemblage_ptr_new = s_s_assemblage_bsearch(n_user_new, &n_new);
+	if (s_s_assemblage_ptr_new == s_s_assemblage_ptr_old) return(OK);
+	if (s_s_assemblage_ptr_new != NULL) {
+		s_s_assemblage_free(s_s_assemblage_ptr_new);
+	} else {
+		space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		if (n_user_new < s_s_assemblage[count_s_s_assemblage-1].n_user) sort = TRUE;
+		n_new = count_s_s_assemblage++;
+	}
+/*
+ *   Copy data
+ */
+	s_s_assemblage_copy(s_s_assemblage_ptr_old, &s_s_assemblage[n_new], n_user_new);
+	if (sort == TRUE) s_s_assemblage_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct s_s_assemblage *s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct s_s_assemblage *s_s_assemblage_ptr;
+	s_s_assemblage_ptr = s_s_assemblage_alloc();
+	s_s_assemblage_copy(s_s_assemblage_old_ptr, s_s_assemblage_ptr, n_user_new);
+	return (s_s_assemblage_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct s_s_assemblage *s_s_assemblage_search (int n_user, int *n)
@@ -4032,18 +4391,22 @@ int solution_duplicate(int n_user_old, int n_user_new)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int solution_delete (int i)
+int solution_delete (int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
  *   Delete a solution structure: free memory and renumber solution.
  */
-	int j;
-	solution_free ( solution[i] ); 
-	for (j=i; j < ( count_solution -1 ); j++) {
-		solution[j]=solution[j+1];
+	struct solution *solution_ptr;
+	int j, n;
+	solution_ptr = solution_bsearch(n_user, &n, FALSE);
+	if (solution_ptr != NULL) {
+		solution_free ( solution[n] ); 
+		for (j=n; j < ( count_solution -1 ); j++) {
+			solution[j]=solution[j+1];
+		}
+		count_solution--;
 	}
-	count_solution--;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -4065,6 +4428,64 @@ int solution_free (struct solution *solution_ptr)
 	solution_ptr = free_check_null (solution_ptr);
 
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees structure if it does
+ *   Copies structure for solution[n_user_old] to new space
+ *   Saves pointer in old position if it existed, no sort necessary
+ *   Otherwise saves in count_solution position, sort may be necessary
+ *   Solution array is in sort order on exit
+ */
+	int n, n_new, sort;
+	struct solution *solution_new_ptr;
+/*
+ *   Find solution n_user_old
+ */
+	if (solution_old_ptr == NULL) {
+		sprintf(error_string, "Solution pointer is NULL.");
+		error_msg(error_string, STOP);
+	}
+/*
+ *   Check if solution n_user_new already exists
+ */
+	solution_new_ptr = solution_bsearch(n_user_new, &n_new, FALSE);
+	if (solution_new_ptr == solution_old_ptr) return(OK);
+	if (solution_new_ptr != NULL) {
+		n = n_new;
+		solution_free(solution_new_ptr);
+		sort = FALSE;
+	} else {
+		n = count_solution;
+		count_solution++;
+		/*
+		 *   Make sure surface array is large enough
+		 */
+		if (count_solution >= max_solution) {
+			space ((void *) &(solution), count_solution, &max_solution,
+			       sizeof (struct solution *) );
+		}
+		if (n_user_new > solution[n-1]->n_user) {
+			sort = FALSE;
+		} else {
+			sort = TRUE;
+		}
+	}
+	solution[n] = solution_copy(solution_old_ptr, n_user_new);
+/*
+ *   Sort solution if necessary
+ */
+	if (sort == TRUE) solution_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct solution *solution_replicate(struct solution *solution_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	return(solution_copy(solution_old_ptr, n_user_new));
 }
 /* ---------------------------------------------------------------------- */
 int solution_sort(void)
@@ -4392,25 +4813,21 @@ int surface_delete(int n_user_old)
 	int n_old;
 	struct surface *surface_ptr_old;
 /*
- *   Find n_user_old in structure array surface_assemblage or make new space
+ *   Find n_user_old in structure array 
  */
 	surface_ptr_old = surface_bsearch(n_user_old, &n_old);
-	if (surface_ptr_old == NULL) {
-		sprintf(error_string, "Surface %d not found.", n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return(ERROR);
-	}
-/*
- *   Delete surface
- */
-	surface_free(&surface[n_old]);
+	if (surface_ptr_old != NULL) {
+		/*
+		 *   Delete surface
+		 */
+		surface_free(&surface[n_old]);
 
-	for(i = n_old + 1; i < count_surface; i++) {
-		memcpy( (void *) &surface[i - 1], (void *) &surface[i],
-			(size_t) sizeof (struct surface) );
+		for(i = n_old + 1; i < count_surface; i++) {
+			memcpy( (void *) &surface[i - 1], (void *) &surface[i],
+				(size_t) sizeof (struct surface) );
+		}
+		count_surface--;
 	}
-	count_surface--;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -4484,6 +4901,56 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->related_rate = FALSE;
 
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies surface_ptr_old to old n_user_new space if
+ *   found or to surface[count_surface] if not found.
+ *   Surface array may not be in sort order after the copy.
+ */
+	int n_new, sort;
+	struct surface *surface_ptr_new;
+/*
+ *   Find n_user_old in structure array surface
+ */
+	if (surface_ptr_old == NULL) {
+		sprintf(error_string, "Surface pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return(ERROR);
+	}
+/*
+ *   Find n_user_new in structure array surface or make new space
+ */
+	sort = FALSE;
+	surface_ptr_new = surface_bsearch(n_user_new, &n_new);
+	if (surface_ptr_new == surface_ptr_old) return(OK);
+	if (surface_ptr_new != NULL) {
+		surface_free(surface_ptr_new);
+	} else {
+		space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+		if (n_user_new < surface[count_surface-1].n_user) sort = TRUE;
+		n_new = count_surface++;
+	}
+/*
+ *   Copy data
+ */
+	surface_copy(surface_ptr_old, &surface[n_new], n_user_new);
+	if (sort == TRUE) surface_sort();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct surface *surface_replicate(struct surface *surface_old_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+	struct surface *surface_ptr;
+	surface_ptr = surface_alloc();
+	surface_copy(surface_old_ptr, surface_ptr, n_user_new);
+	return (surface_ptr);
 }
 /* ---------------------------------------------------------------------- */
 struct surface *surface_search(int n_user, int *n, int print)
