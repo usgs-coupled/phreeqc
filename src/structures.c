@@ -588,9 +588,9 @@ int elt_list_print0(void)
 /*
  *   Debug print for element list
  */
-	output_msg(OUTPUT_MESSAGE, "Elt_list\n");
+	output_msg(OUTPUT_STDERR, "Elt_list\n");
 	for (i = 0; i < count_elts; i++) {
-		output_msg(OUTPUT_MESSAGE, "\t%s\t%e\n", elt_list[i].elt->name, (double) elt_list[i].coef);
+		output_msg(OUTPUT_STDERR, "\t%s\t%e\n", elt_list[i].elt->name, (double) elt_list[i].coef);
 	}
 	return (OK);
 }
@@ -4413,6 +4413,7 @@ int solution_delete (int n_user)
 int solution_free (struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
+	if (solution_ptr == NULL) return(OK);
 /*
  *   Free all memory unique to a solution structure, free solution_ptr too.
  */
@@ -4425,7 +4426,7 @@ int solution_free (struct solution *solution_ptr)
 /*   Free isotope data */
 	solution_ptr->isotopes = free_check_null (solution_ptr->isotopes);
 /*   Free struct solution */
-	solution_ptr = free_check_null (solution_ptr);
+	/*solution_ptr = free_check_null (solution_ptr);*/
 
 	return(OK);
 }
