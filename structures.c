@@ -4426,7 +4426,7 @@ int solution_free (struct solution *solution_ptr)
 /*   Free isotope data */
 	solution_ptr->isotopes = free_check_null (solution_ptr->isotopes);
 /*   Free struct solution */
-	/*solution_ptr = free_check_null (solution_ptr);*/
+	solution_ptr = free_check_null (solution_ptr);
 
 	return(OK);
 }
