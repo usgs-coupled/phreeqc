@@ -1187,6 +1187,7 @@ int system_total_ex(void)
  */
 	for (i = 0; i < count_s_x; i++) {
 		if (s_x[i]->type != EX) continue;
+		if (s_x[i]->primary != NULL) continue;
 		sys[count_sys].name = string_duplicate(s_x[i]->name);
 		sys[count_sys].moles = s_x[i]->moles;
 		sys_tot += sys[count_sys].moles;
