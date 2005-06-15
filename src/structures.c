@@ -327,6 +327,9 @@ int clean_up(void)
 	/* CVODE memory */
 	free_cvode();
 
+	pitzer_clean_up();
+
+
 /* hash tables */
 
 	hdestroy_multi(elements_hash_table);

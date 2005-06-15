@@ -1026,7 +1026,8 @@ struct key keyword[] = {
 	{"calculate_values", 0},
 	{"isotope_ratios", 0},
 	{"isotope_alphas", 0},
-	{"copy", 0}
+	{"copy", 0},
+	{"pitzer", 0}
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords */
 #else

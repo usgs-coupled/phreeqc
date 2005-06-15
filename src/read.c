@@ -201,6 +201,7 @@ int read_input(void)
 	  56      "isotopes_ratios",
 	  57      "isotopes_alphas"
 	  58      "copy"
+	  59      "pitzer"
   */
 	for (;;) {
 		if (next_keyword >= 0) {
@@ -441,6 +442,10 @@ int read_input(void)
 		case 58:
 			keyword[58].keycount++;
 			read_copy();
+			break;
+		case 59:
+			keyword[58].keycount++;
+			read_pitzer();
 			break;
 		}
 	}
