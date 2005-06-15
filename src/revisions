@@ -487,6 +487,9 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	Removed exchange master species from SYS("ex",..)
+	list of species. This species is fictive and should
+	not be included in the list.
 
 	Changed -redox in SOLUTION so that if one of the
 	redox states of a couple is not defined, then 
