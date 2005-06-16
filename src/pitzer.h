@@ -13,6 +13,7 @@ extern double VP, DW0;
 
 struct pitz_param {
 	char * species[3];
+	int ispec[3];
 	pitz_param_type type;
 	union {double b0; 
 		double b1; 

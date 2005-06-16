@@ -65,9 +65,12 @@ int pitz_param_init (struct pitz_param *pitz_param_ptr)
  */
 
 	if (pitz_param_ptr == NULL) return(ERROR);
+	pitz_param_ptr->species[0] = NULL;
 	pitz_param_ptr->species[1] = NULL;
 	pitz_param_ptr->species[2] = NULL;
-	pitz_param_ptr->species[3] = NULL;
+	pitz_param_ptr->ispec[0] = -1;
+	pitz_param_ptr->ispec[1] = -1;
+	pitz_param_ptr->ispec[2] = -1;
 	pitz_param_ptr->type = TYPE_Other;
 	pitz_param_ptr->U.b0 = 0.0;
 	for (i = 0; i < 5; i++) {
@@ -84,7 +87,7 @@ struct pitz_param *pitz_param_read (char *string, int n)
  *   n is number of species (character values)
  *          
  */
-	int l, i, j;
+	int l, i, j, k;
 	char *ptr;
 	char token[2*MAX_LENGTH];
 	struct pitz_param pzp, *pzp_ptr;
@@ -92,20 +95,22 @@ struct pitz_param *pitz_param_read (char *string, int n)
 	if (n != 2 && n != 3) return (NULL);
 	if (string == NULL) return (NULL);
 
+	pitz_param_init(&pzp);
 	ptr = string;
 	if (copy_token(token, &ptr, &l) == EMPTY) return(NULL);
+	ptr = string;
 	for (i = 0; i < n; i++) {
 		if (copy_token(token, &ptr, &l) == EMPTY) return(NULL);
 		pzp.species[i] = string_hsave(token);
 	}
-	l = 0;
+	k = 0;
 	for (i = 0; i < 5; i++) {
-		if (copy_token(token, &ptr, &l) == EMPTY) return(NULL);
+		if (copy_token(token, &ptr, &l) == EMPTY) break;
 		j=sscanf(token,"%le", &pzp.a[i]);
 		if (j <= 0) break;
-		l++;
+		k++;
 	}
-	if (l <= 0) return(NULL);
+	if (k <= 0) return(NULL);
 	pzp_ptr = pitz_param_duplicate(&pzp);
 	return ( pzp_ptr);
 }
@@ -149,15 +154,16 @@ int pitz_param_search(struct pitz_param *pzp_ptr)
  *  Does linear search of pitz_params for same type and species
  *  Returns -1 if not found, index number in pitz_params if found
  */
-	int i, j;
+	int i;
 	if (pzp_ptr == NULL) return -1;
 	if (pzp_ptr->type == TYPE_Other) return -1;
 	for (i = 0; i < count_pitz_param; i++) {
-		if (pitz_params[i]->type != pzp_ptr->type) continue;
-		for (j = 0; j < 3; j++) {
-			if (pitz_params[i]->species[j] != pzp_ptr->species[j]) continue;
+		if (pitz_params[i]->type == pzp_ptr->type &&
+		    pitz_params[i]->species[0] == pzp_ptr->species[0] &&
+		    pitz_params[i]->species[1] == pzp_ptr->species[1] &&
+		    pitz_params[i]->species[2] == pzp_ptr->species[2] ) {
+			break;
 		}
-		break;
 	}
 	if (i >= count_pitz_param) {
 		return -1;

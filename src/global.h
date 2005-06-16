@@ -1037,7 +1037,7 @@ int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords
 EXTERNAL struct key *keyword_hash;
 EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface, new_reaction, new_temperature,
 	new_mix, new_solution, new_gas_phase, new_inverse, new_punch, new_s_s_assemblage, 
-	new_kinetics, new_copy;
+	new_kinetics, new_copy, new_pitzer;
 /*----------------------------------------------------------------------
  *   Elements
  *---------------------------------------------------------------------- */

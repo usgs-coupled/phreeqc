@@ -9,11 +9,13 @@
 static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
 /* variables */
 static double A0;
-struct species **ions, **cations, **anions, **neutrals;
+struct species **spec, **cations, **anions, **neutrals;
 int count_cations, count_anions, count_neutrals;
 int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
+struct pitz_param *mcb0, *mcb1, *mcc0;
 /* routines */
 int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
+int ISPEC(char * name);
 
 /* ---------------------------------------------------------------------- */
 int pitzer_init (void)
@@ -34,17 +36,19 @@ int pitzer_tidy (void)
 /*
  *      Make lists of species for cations, anions, neutral
  */
-	int i;
+	char * string1, *string2;
+	int i, j;
 
-	if (ions != NULL) ions = free_check_null(ions);
-	ions = PHRQ_malloc((size_t) (2*count_s*sizeof(struct species *)));
-	cations = ions;
-	anions = &(ions[count_s]);
+	if (spec != NULL) spec = free_check_null(spec);
+	spec = PHRQ_malloc((size_t) (3*count_s*sizeof(struct species *)));
+	if (spec == NULL) malloc_error();
+	for (i = 1; i < 3*count_s; i++) spec[i] = NULL;
+	cations = spec;
+	neutrals = &(spec[count_s]);
+	anions = &(spec[2*count_s]);
 	MAXCATIONS = count_s;
-	FIRSTANION = count_s;
+	FIRSTANION = 2*count_s;
 	MAXNEUTRAL = count_s;
-	if (neutrals != NULL) neutrals = free_check_null(neutrals);
-	neutrals = PHRQ_malloc((size_t) (count_s*sizeof(struct species *)));
 
 	count_cations = 0;
 	count_anions = 0;
@@ -60,7 +64,97 @@ int pitzer_tidy (void)
 			neutrals[count_neutrals++] = s[i];
 		}
 	}
+	/*
+	 *  put species numbers in pitz_params
+	 */
+	for (i = 0; i < count_pitz_param; i++) {
+		for (j = 0; j < 3; j++) {
+			if (pitz_params[i]->species[j] == NULL) continue;
+			pitz_params[i]->ispec[j] = ISPEC(pitz_params[i]->species[j]);
+		}
+	}
+	/*
+	 * McGinnis data
+	 */
+	string1 = string_hsave("K+");
+	string2 = string_hsave("Cl-");
+	for (i = 0; i < count_pitz_param; i++) {
+		if (pitz_params[i]->species[0] == string1 &&
+		    pitz_params[i]->species[1] == string2) {
+			switch (pitz_params[i]->type) {
+			case TYPE_B0:
+				mcb0 = pitz_params[i];
+				break;
+			case TYPE_B1:
+				mcb1 = pitz_params[i];
+				break;
+			case TYPE_C0:
+				mcc0 = pitz_params[i];
+				break;
+			case TYPE_B2:
+			case TYPE_THETA:
+			case TYPE_LAMDA:
+			case TYPE_ZETA:
+			case TYPE_PSI:
+			case TYPE_Other:
+				break;
+			}
+		}
+	}
+	/*
+	 * Set alpha values
+	 */
+	for (i = 0; i < count_pitz_param; i++) {
+		z0 = fabs(pitz_param[i]->species[0]->z);
+		z1 = fabs(pitz_param[i]->species[1]->z);
+		if (equal(z0, 1.0, 1e-8) || equal(z1, 1.0, 1e-8)) {
+			order = 1;
+		} else if (equal(z0,2.0, 1e-8) && equal(z1, 2.0, 1e-8)) {
+			order = 2;
+		} else {
+			order = 3;
+		}
+		if (pitz_param[i]->type == TYPE_B1) {
+			switch order {
+			case 1:
+			case 3:
+				pitz_param[i]->alpha = 2.0;
+				break;
+			case 2:
+				pitz_param[i]->alpha = 1.4;
+				break;
+			}
+		} else if (pitz_param[i]->type == TYPE_B2) {
+			switch order {
+			case 1:
+				pitz_param[i]->alpha = 0.0;
+				break;
+			case 2:
+				pitz_param[i]->alpha = 12.0;
+				break;
+			case 3:
+				pitz_param[i]->alpha = 50.0;
+				break;
+			}
+		}
+	}
 	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int ISPEC(char * name)
+/* ---------------------------------------------------------------------- */
+/*
+ *      Find species number in spec for character string species name
+ */
+{
+	int i;
+	for (i = 0; i < 3*count_s; i++) {
+		if (spec[i] == NULL) continue;
+		if (name == spec[i]->name) {
+			return(i);
+		}
+	}
+	return (-1);
 }
 /* ---------------------------------------------------------------------- */
 int read_pitzer (void)
@@ -271,6 +365,445 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	}
 	return OK;
 }
+/* ---------------------------------------------------------------------- */
+int pitzer (void)
+/* ---------------------------------------------------------------------- */
+{
+	int i;
+	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
+		BMXPHI, PHIPHI, AW;
+	int N, IK, IC, I1, I2, I3, KK, ISPEC, ICON;
+	/*
+	  C
+	  C     INITIALIZE
+	  C
+	*/
+	XI=0.0e0;
+	XX=0.0e0;
+	OSUM=0.0e0;
+	LNEUT=FALSE;
+	/*
+	  C
+	  C     TRANSFER DATA FROM MO TO M
+	  C
+	*/
+	for (i = 0; i < 3*count_s; i++) {
+		IPRSNT[i] = FALSE;
+		if (spec[i] != NULL) {
+			M[i] = under(spec[i]->lm);
+			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
+		}
+	}
+	for (i = count_s; i < count_s + count_neutrals; i++) {
+		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
+	}
+/*
+C
+C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
+C
+*/
+	PTEMP(TK);
+	for (i = 0; i < 2*count_cations + count_anions; i++) {
+		if (IPRSNT(i)) {
+			XX=XX+M(i)*fabs(spec[i]->z);
+			XI=XI+M(i)*spec[i]->z*spec[i]->z;
+			OSUM=OSUM+M(i);
+		}
+	}
+	I=XI/2.0e0;
+/*
+C
+C     EQUATION (8)
+C
+*/
+	BIGZ=XX;
+	DI=sqrt(I);
+/*
+C
+C     CALCULATE F & GAMCLM
+C
+*/
+	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
+	XXX=2.0e0*DI;
+	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
+	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
+	GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I;
+/*
+ *
+C
+C     EQUATION (3) PART 1
+C
+ */
+	/* F=F+M(J)*M(K)*BMXP() */
+	/* BMXP=(BCX(2,J,K)*GP(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*GP(ALPHA(3)*DSQRT(I)))/I */
+	for (i = 0; i < count_pitz_param; i++) {
+		i0 = pitz_params[i]->ispec[0];
+		i1 = pitz_params[i]->ispec[1];
+		param = pitz_params[i]->p;
+		alpha = pitz_params[i]->alpha;
+		if (pitz_params[i]->type == TYPE_B1) {
+			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I)); 
+		} else if (pitz_params[i]->type == TYPE_B2) {
+			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
+		}
+	}
+/*
+C
+C     EQUATION (3) PART 2
+C
+*/
+	/* F=F+M(J)*M(K)*ETHEAP() */
+	for (i = 0; i < count_cations - 1; i++) {
+		z0 = cations[i]->z;
+		for (j = i+1; j < count_cations; j++) {
+			z1 = cations[j]->z;
+			F=F+M(i)*M(j)*ETHETAP(z0, z1, I)
+		}
+	}
+	for (i = 0; i < count_anions - 1; i++) {
+		z0 = anions[i]->z;
+		for (j = i+1; j < count_anions; j++) {
+			z1 = anions[j]->z;
+			F=F+M(i)*M(j)*ETHETAP(z0, z1, I)
+		}
+	}
+/*
+C
+C     EQUATION (2B) PART 4
+C
+*/
+	CSUM=0.0D0;
+	/* CSUM=CSUM+M(J)*M(K)*CMX()*/
+	/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
+	for (i = 0; i < count_pitz_param; i++) {
+		if (pitz_params[i]->type == TYPE_C0) {
+			i0 = pitz_params[i]->ispec[0];
+			i1 = pitz_params[i]->ispec[1];
+			z0 = pitz_params[i]->species[0]->z;
+			i1 = pitz_params[i]->species[1];
+			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
+		}
+	}
+/*
+C
+C     CALCULATE LGAMMA FOR CATIONS
+C
+*/
+	for (J = 0; J < count_cations; J++) {
+		s = cations[J]->name;
+		i0 = J;
+		ZJ = cations[J]->z;
+		/* LGAMMA(J)=Z(J)*Z(J)*F+DABS(Z(J))*CSUM */
+		LGAMMA(J)=ZJ*ZJ*F+fabs(ZJ)*CSUM;
+		for (i = 0; i < count_pitz_param; i++) {
+			if (pitz_params[i]->species[0] != s) continue;
+			/*
+			  C
+			  C     EQUATION (2B) PART 3
+			  C
+			  LGAMMA(J)=LGAMMA(J)+M(K)*(2.0D0*BMX()+BIGZ*CMX())
+			  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
+			  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
+			*/
+			i1 = pitz_params[i]->ispec[1];
+			i2 = pitz_params[i]->ispec[2];
+			param = pitz_params[i]->p;
+			alpha = pitz_params[i]->alpha;
+			ZK = pitz_params[i]->species[1]->z;
+			if (pitz_params[i]->type == TYPE_B0) {
+				LGAMMA(J) += M[i1]*2.0*param;
+			} else if (pitz_params[i]->type == TYPE_B1) {
+				LGAMMA(J) += M[i1]*2.0*param*G(alpha*sqrt(I)); 
+			} else if (pitz_params[i]->type == TYPE_B2) {
+				LGAMMA(J) += M[i1]*2.0*param*G(alpha*sqrt(I)); 
+			} else if (pitz_params[i]->type == TYPE_C0) {
+				LGAMMA(J) += BIGZ*param/(2.0*sqrt(fabs(ZJ*ZK))); 
+			}
+		}
+		for (i = 0; i < count_pitz_param; i++) {
+			if (pitz_params[i]->species[0] != s) continue;
+			/*
+			  C
+			  C     EQUATION (2B) PART 2
+			  C
+			  LGAMMA(J)=LGAMMA(J)+2.0D0*M(K)*PHI()
+			  PHI=THETA(J,K)+ETHETA()
+			*/
+			i1 = pitz_params[i]->ispec[1];
+			i2 = pitz_params[i]->ispec[2];
+			param = pitz_params[i]->p;
+			ZK = pitz_params[i]->species[1]->z;
+			if (pitz_params[i]->type == TYPE_PHI) {
+				LGAMMA(J) += 2.0*M[i1]*(param + ETHETA(ZJ, ZK, I));
+			} else if (pitz_params[i]->type == TYPE_PSI) {
+				/*
+				  C
+				  C     EQUATION (2B) PART 2
+				  C
+				  LGAMMA(J)=LGAMMA(J)+M(KK)*M(K)*PSI(J,K,KK)
+				*/
+				LGAMMA(J) += M[i1]*M[i2]*param;
+			} else if (pitz_params[i]->type == TYPE_LAMDA) {
+				/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
+				LGAMMA(J) += 2.0*M[i1]*param;
+			}else if (pitz_params[i]->type == TYPE_ZETA) {
+				/*
+				C
+				C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
+				C
+				LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
+				*/
+				LGAMMA(J) += M[i1]*M[i2]*param;
+			}
+		}
+
+	}
+	/*
+	  C
+	  C     CALCULATE LGAMMA OF ANIONS
+	  C
+	*/
+	for (K = 2*count_s; K < 2*count_s + count_anions; K++) {
+		/*
+		  C
+		  C     EQUATION (2C) PART 1
+		  C
+		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
+		*/
+		s = spec[K]->name;
+		ZK = spec[k]->z;
+		LGAMMA(K)=ZK*ZK*F+fabs(ZK)*CSUM;
+		for (i = 0; i < count_pitz_param; i++) {
+			if (pitz_params[i]->species[1] != s) continue;
+			/*
+			  C
+			  C     EQUATION (2C) PART 2
+			  C
+			  LGAMMA(K)=LGAMMA(K)+M(J)*(2.0D0*BMX()+BIGZ*CMX())
+			  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
+			  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
+			*/
+			i0 = pitz_params[i]->ispec[0];
+			i2 = pitz_params[i]->ispec[2];
+			param = pitz_params[i]->p;
+			alpha = pitz_params[i]->alpha;
+			ZJ = pitz_params[i]->species[0]->z;
+			if (pitz_params[i]->type == TYPE_B0) {
+				LGAMMA(K) += M[i0]*2.0*param;
+			} else if (pitz_params[i]->type == TYPE_B1) {
+				LGAMMA(K) += M[i0]*2.0*param*G(alpha*sqrt(I)); 
+			} else if (pitz_params[i]->type == TYPE_B2) {
+				LGAMMA(K) += M[i0]*2.0*param*G(alpha*sqrt(I)); 
+			} else if (pitz_params[i]->type == TYPE_C0) {
+				LGAMMA(K) += BIGZ*param/(2.0*sqrt(fabs(ZJ*ZK))); 
+			}
+		}
+		for (i = 0; i < count_pitz_param; i++) {
+			if (pitz_params[i]->species[0] != s) continue;
+			/*
+			  C
+			  C     EQUATION (2C) PART 3
+			  C
+			  LGAMMA(K)=LGAMMA(K)+2.0D0*M(J)*PHI()
+			  PHI=THETA(J,K)+ETHETA()
+			*/
+			i0 = pitz_params[i]->ispec[0];
+			i2 = pitz_params[i]->ispec[2];
+			param = pitz_params[i]->p;
+			ZJ = pitz_params[i]->species[0]->z;
+			if (pitz_params[i]->type == TYPE_PHI) {
+				LGAMMA(K) += 2.0*M[i0]*(param + ETHETA(ZJ, ZK, I));
+			} else if (pitz_params[i]->type == TYPE_PSI) {
+				/*
+				  C
+				  C     EQUATION (2C) PART 3
+				  C
+				  LGAMMA(K)=LGAMMA(K)+M(KK)*M(J)*PSI(K,J,KK)
+				*/
+				LGAMMA(K) += M[i0]*M[i2]*param;
+			} else if (pitz_params[i]->type == TYPE_LAMDA) {
+				/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
+				LGAMMA(J) += 2.0*M[i1]*param;
+			}else if (pitz_params[i]->type == TYPE_ZETA) {
+				/*
+				C
+				C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
+				C
+				LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
+				*/
+				LGAMMA(J) += M[i1]*M[i2]*param;
+			}
+		}
+
+
+
+/*
+C dlp 11/5/98
+C      DO 250 J=21,M2
+      DO 250 J=FIRSTANION,M2
+      IF (.NOT.IPRSNT(J)) GO TO 250
+      LGAMMA(K)=LGAMMA(K)+2.0D0*M(J)*PHI()
+      DO 260 KK=1,M1
+      IF (.NOT.IPRSNT(KK)) GO TO 260
+C
+C     EQUATION (2C) PART 3
+C
+      LGAMMA(K)=LGAMMA(K)+M(KK)*M(J)*PSI(K,J,KK)
+  260 CONTINUE
+  250 CONTINUE
+      DO 270 J=1,M1-1
+      IF (.NOT.IPRSNT(J)) GO TO 270
+      DO 280 KK=J+1,M1
+      IF (.NOT.IPRSNT(KK)) GO TO 280
+C
+C     EQUATION (2C) PART 4
+C
+      LGAMMA(K)=LGAMMA(K)+M(J)*M(KK)*PSI(J,KK,K)
+  280 CONTINUE
+  270 CONTINUE
+      IF (.NOT.LNEUT) GO TO 230
+      DO 290 J=1,M3
+      LGAMMA(K)=LGAMMA(K)+2.0D0*MN(J)*LAM(K,J)
+  290 CONTINUE
+C
+C      EQUATION (A.2C) (FELMY AND WEARE, 1986) FOR ZETA
+C
+      DO 292 J=1,M1
+      IF (.NOT.IPRSNT(J)) GO TO 292
+      DO 294 KK=1,M3
+      LGAMMA(K)=LGAMMA(K)+MN(KK)*M(J)*ZETA(J,K,KK)
+  294 CONTINUE
+  292 CONTINUE
+  230 CONTINUE
+C
+C     CONVERT TO MACINNES CONVENTION
+C
+      IF (ICON.EQ.0) GO TO 300
+      PHIMAC=LGAMMA(IC)-GAMCLM
+C
+C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
+C
+      DO 220 K=1,M2
+      IF (.NOT.IPRSNT(K)) GO TO 220
+      LGAMMA(K)=LGAMMA(K)+Z(K)*PHIMAC
+  220 CONTINUE
+C
+  300 IF (.NOT.LNEUT) GO TO 860
+C
+C     CALCULATE THE GAMMA OF NEUTRAL IONS
+C
+      DO 800 K=1,M3
+      LGN(K)=0.0D0
+      DO 870 J=1,M2
+      IF (.NOT.IPRSNT(J)) GO TO 870
+      LGN(K)=LGN(K)+2.0D0*M(J)*LAM(J,K)
+  870 CONTINUE
+C
+C     EQUATION (A.2D) (FELMY AND WEARE, 1986) FOR ZETA
+C
+      DO 350 J=1,M1
+      IF (.NOT.IPRSNT(J)) GO TO 350
+C dlp 11/5/98
+C      DO 360 KK=21,M2
+      DO 360 KK=FIRSTANION,M2
+      IF (.NOT.IPRSNT(KK)) GO TO 360
+      LGN(K)=LGN(K)+M(J)*M(KK)*ZETA(J,KK,K)
+  360 CONTINUE
+  350 CONTINUE
+  800 CONTINUE
+C
+C     CALCULATE THE OSMOTIC COEFFICIENT
+C
+C     EQUATION (2A) PART 1
+C
+  860 OSMOT=-(A0)*I**1.5D0/(1.0D0+B*DI)
+      DO 420 J=1,M1
+      IF (.NOT.IPRSNT(J)) GO TO 420
+C dlp 11/5/98
+C      DO 430 K=21,M2
+      DO 430 K=FIRSTANION,M2
+      IF (.NOT.IPRSNT(K)) GO TO 430
+C
+C     EQUATION (2A) PART 2
+C
+      OSMOT=OSMOT+M(J)*M(K)*(BMXPHI()+BIGZ*CMX())
+  430 CONTINUE
+  420 CONTINUE
+      DO 440 J=1,M1-1
+      IF (.NOT.IPRSNT(J)) GO TO 440
+      DO 450 K=J+1,M1
+      IF (.NOT.IPRSNT(K)) GO TO 450
+      OSMOT=OSMOT+M(J)*M(K)*PHIPHI()
+C dlp 11/5/98
+C      DO 460 KK=21,M2
+      DO 460 KK=FIRSTANION,M2
+      IF (.NOT.IPRSNT(KK)) GO TO 460
+C
+C     EQUATION (2A) PART 3
+C
+      OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
+  460 CONTINUE
+  450 CONTINUE
+  440 CONTINUE
+C dlp 11/5/98
+C      DO 470 J=21,M2-1
+      DO 470 J=FIRSTANION,M2-1
+      IF (.NOT.IPRSNT(J)) GO TO 470
+      DO 480 K=J+1,M2
+      IF (.NOT.IPRSNT(K)) GO TO 480
+      OSMOT=OSMOT+M(J)*M(K)*PHIPHI()
+      DO 490 KK=1,M1
+      IF (.NOT.IPRSNT(KK)) GO TO 490
+C
+C     EQUATION (2A) PART 4
+C
+      OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
+  490 CONTINUE
+  480 CONTINUE
+  470 CONTINUE
+      IF (.NOT.LNEUT) GO TO 850
+      DO 810 K=1,M3
+      DO 820 J=1,M2
+      IF (.NOT.IPRSNT(J)) GO TO 820
+C
+C     EQUATION (A.3A) PART 5  HARVIE, MOLLER, WEARE (1984)
+C
+      OSMOT=OSMOT+MN(K)*M(J)*LAM(J,K)
+  820 CONTINUE
+C
+C      EQUATION (A.2A) (FELMY AND WEARE, 1986) FOR ZETA
+C
+      DO 950 J=1,M1
+      IF (.NOT.IPRSNT(J)) GO TO 950
+C dlp 11/5/98
+C      DO 960 KK=21,M2
+      DO 960 KK=FIRSTANION,M2
+      IF (.NOT.IPRSNT(KK)) GO TO 960
+      OSMOT=OSMOT+MN(K)*M(J)*M(KK)*ZETA(J,KK,K)
+  960 CONTINUE
+  950 CONTINUE
+  810 CONTINUE
+  850 COSMOT=1.0D0+2.0D0*OSMOT/OSUM
+C
+C     CALCULATE THE ACTIVITY OF WATER
+C
+      AW=DEXP(-OSUM*COSMOT/55.50837D0)
+C
+C     SET APPROPRIATE VALUES FOR RETURN
+C
+      MU=I
+      DO 900 N=1,M2
+      IF (.NOT.IPRSNT(N)) GO TO 900
+      LG(TRANS(N))=LGAMMA(N)*CONV
+  900 CONTINUE
+      IF (.NOT.LNEUT) RETURN
+      DO 910 N=1,M3
+      LG(IN(N))=LGN(N)*CONV
+  910 CONTINUE
+      RETURN
+      END
+*/
 
 
 /*
@@ -920,60 +1453,6 @@ C     EQUATION (A3)
 C
       ETHEAP=ZZ*(JPRIME(XJK)-JPRIME(XJJ)/2.0D0-JPRIME(XKK)/
      1 2.0D0)/(8.0D0*I**2.0D0) - ETHETA/I
-      RETURN
-      END
-C
-C     FUNCTION TO CALCULATE JAY AND JPRIME
-C
-C     J0 AND J1, USED IN CALCULATION OF ETHETA AND ETHEAP
-C
-      DOUBLE PRECISION FUNCTION JAY(X)
-C
-      DOUBLE PRECISION AK, BK, DK
-      COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
-C
-      DOUBLE PRECISION JPRIME, DZ, X, Y
-      EXTERNAL BDK
-C
-      CALL BDK (X)
-      JAY=X/4.0D0-1.0D0+0.5D0*(BK(0)-BK(2))
-      RETURN
-C     **************
-      ENTRY JPRIME(Y)
-C     **************
-      CALL BDK (Y)
-      IF (Y.GT.1.0D0) GO TO 10
-      DZ=0.8D0*Y**(-0.8D0)
-      GO TO 20
-   10 DZ=-4.0D0*Y**(-1.1D0)/9.0D0
-   20 JPRIME=Y*(.25D0+DZ*(DK(0)-DK(2))/2.0D0)
-      RETURN
-      END
-C
-C
-C
-      SUBROUTINE BDK (X)
-C
-C     NUMERICAL APPROXIMATION TO THE INTEGRALS IN THE EXPRESSIONS FOR J0
-C     AND J1.  CHEBYSHEV APPROXIMATION IS USED.  THE CONSTANTS 'AK' ARE
-C     DEFINED IN BLOCK COMMON.
-C
-      DOUBLE PRECISION AK, BK, DK
-      COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
-C
-      DOUBLE PRECISION Z,X
-      INTEGER II, M
-C
-      II=1
-      IF (X.LE.1.0D0) GO TO 10
-      II=2
-      Z=40.0D0*X**(-1.0D-1)/9.0D0-22.0D0/9.0D0
-      GO TO 20
-   10 Z=4.0D0*X**(0.2D0)-2.0D0
-   20 DO 30 M=20,0,-1
-      BK(M)=Z*BK(M+1)-BK(M+2)+AK(M,II)
-      DK(M)=BK(M+1)+Z*DK(M+1)-DK(M+2)
-   30 CONTINUE
       RETURN
       END
 C

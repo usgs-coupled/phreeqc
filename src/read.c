@@ -444,7 +444,7 @@ int read_input(void)
 			read_copy();
 			break;
 		case 59:
-			keyword[58].keycount++;
+			keyword[59].keycount++;
 			read_pitzer();
 			break;
 		}
