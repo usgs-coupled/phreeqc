@@ -468,14 +468,13 @@ C
 			F=F+M(i)*M(j)*ETHETAP(z0, z1, I)
 		}
 	}
+
 /*
 C
 C     EQUATION (2B) PART 4
 C
 */
 	CSUM=0.0D0;
-	/* CSUM=CSUM+M(J)*M(K)*CMX()*/
-	/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
 	for (i = 0; i < count_pitz_param; i++) {
 		if (pitz_params[i]->type == TYPE_C0) {
 			i0 = pitz_params[i]->ispec[0];
@@ -485,6 +484,87 @@ C
 			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
 		}
 	}
+
+
+
+/*
+ *    Sums for activity coefficients
+ */
+	for (i = 0; i < count_pitz_param; i++) {
+		i0 = pitz_params[i]->ispec[0];
+		i1 = pitz_params[i]->ispec[1];
+		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
+		z0 = pitz_params[i]->species[0]->z;
+		z1 = pitz_params[i]->species[1]->z;
+		param = pitz_params[i]->species[1]->p;
+		alpha = pitz_params[i]->species[1]->alpha;
+		/*
+		  C
+		  C     EQUATION (2B) PART 3
+		  C
+		  LGAMMA(J)=LGAMMA(J)+M(K)*(2.0D0*BMX()+BIGZ*CMX())
+		  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
+		  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
+		*/
+		if (pitz_params[i]->type == TYPE_B0) {
+			LGAMMA[i0] += M[i1]*2.0*param;
+			LGAMMA[i1] += M[i0]*2.0*param;
+		} else if (pitz_params[i]->type == TYPE_B1) {
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+		} else if (pitz_params[i]->type == TYPE_B2) {
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+		} else if (pitz_params[i]->type == TYPE_C0) {
+			LGAMMA[i0] += M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+			LGAMMA[i1] += M[i0]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+		} else if (pitz_params[i]->type == TYPE_THETA) {
+			/*
+			  C
+			  C     EQUATION (2B) PART 2
+			  C
+			  LGAMMA(J)=LGAMMA(J)+2.0D0*M(K)*PHI()
+			  PHI=THETA(J,K)+ETHETA()
+			*/
+			LGAMMA[i0] += 2.0*M[i1]*(param/(2.0*sqrt(fabs(z0*z1))) + ETHETA(z0, z1, I)); 
+			LGAMMA[i1] += 2.0*M[i0]*(param/(2.0*sqrt(fabs(z0*z1))) + ETHETA(z0, z1, I)); 
+		} else if (pitz_params[i]->type == TYPE_PSI) {
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE) continue;
+			z2 = pitz_params[i]->species[2]->z;
+			/*
+			  C
+			  C     EQUATION (2B) PART 2
+			  C
+			  LGAMMA(J)=LGAMMA(J)+M(KK)*M(K)*PSI(J,K,KK)
+			*/
+			LGAMMA[i0] += M[i1]*M[i2]*param;
+			LGAMMA[i1] += M[i0]*M[i2]*param;
+			LGAMMA[i2] += M[i0]*M[i1]*param;
+
+		} else if (pitz_params[i]->type == TYPE_LAMDA) {
+			/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
+			LGAMMA[i0] += 2.0*M[i1]*param;
+			LGAMMA[i1] += 2.0*M[i0]*param;
+		} else if (pitz_params[i]->type == TYPE_ZETA) {
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE) continue;
+			/*
+			  C
+			  C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
+			  C
+			  LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
+			*/
+			LGAMMA[i0] += M[i1]*M[i2]*param;
+			LGAMMA[i1] += M[i0]*M[i2]*param;
+			LGAMMA[i2] += M[i0]*M[i1]*param;
+		}
+	}
+	/* CSUM=CSUM+M(J)*M(K)*CMX()*/
+	/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
+
+#ifdef SKIP
+
 /*
 C
 C     CALCULATE LGAMMA FOR CATIONS
@@ -635,7 +715,7 @@ C
 				LGAMMA(J) += M[i1]*M[i2]*param;
 			}
 		}
-
+#endif
 
 
 /*
