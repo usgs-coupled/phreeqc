@@ -15,6 +15,7 @@ struct pitz_param {
 	char * species[3];
 	int ispec[3];
 	pitz_param_type type;
+	double p;
 	union {double b0; 
 		double b1; 
 		double b2; 
@@ -24,6 +25,7 @@ struct pitz_param {
 		double zeta;
 		double psi;} U;
 	double a[5];
+	double alpha;
 };
 
 struct pitz_param **pitz_params;

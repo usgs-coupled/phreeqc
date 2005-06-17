@@ -13,9 +13,20 @@ struct species **spec, **cations, **anions, **neutrals;
 int count_cations, count_anions, count_neutrals;
 int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
 struct pitz_param *mcb0, *mcb1, *mcc0;
+static int *IPRSNT;
+static double *M, *LGAMMA;
+static double BK[23], DK[23];
+
+
 /* routines */
-int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
-int ISPEC(char * name);
+static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
+static int ISPEC(char * name);
+static int DH_AB (double TK, double *A, double *B);
+static double G (double Y);
+static double GP (double Y);
+static double ETHETAP (double ZJ, double ZK, double I);
+static double ETHETA (double ZJ, double ZK, double I);
+static int BDK (double X);
 
 /* ---------------------------------------------------------------------- */
 int pitzer_init (void)
@@ -37,8 +48,12 @@ int pitzer_tidy (void)
  *      Make lists of species for cations, anions, neutral
  */
 	char * string1, *string2;
-	int i, j;
-
+	int i, j, order;
+	double z0, z1;
+	double temp_t, temp_mu;
+	/*
+	 *  allocate pointers to species structures
+	 */
 	if (spec != NULL) spec = free_check_null(spec);
 	spec = PHRQ_malloc((size_t) (3*count_s*sizeof(struct species *)));
 	if (spec == NULL) malloc_error();
@@ -49,10 +64,23 @@ int pitzer_tidy (void)
 	MAXCATIONS = count_s;
 	FIRSTANION = 2*count_s;
 	MAXNEUTRAL = count_s;
-
 	count_cations = 0;
 	count_anions = 0;
 	count_neutrals = 0;
+	/*
+	 *  allocate other arrays for Pitzer
+	 */
+	if (IPRSNT != NULL) IPRSNT = free_check_null(IPRSNT);
+	IPRSNT = PHRQ_malloc((size_t) (3*count_s*sizeof(int)));
+	if (IPRSNT == NULL) malloc_error();
+	if (M != NULL) M = free_check_null(M);
+	M = PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
+	if (M == NULL) malloc_error();
+	if (LGAMMA != NULL) LGAMMA = free_check_null(LGAMMA);
+	LGAMMA = PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
+	if (LGAMMA == NULL) malloc_error();
+	
+
 	for (i = 0; i < count_s; i++) {
 		if (s[i] == s_eminus) continue;
 		if (s[i] == s_h2o) continue;
@@ -71,6 +99,13 @@ int pitzer_tidy (void)
 		for (j = 0; j < 3; j++) {
 			if (pitz_params[i]->species[j] == NULL) continue;
 			pitz_params[i]->ispec[j] = ISPEC(pitz_params[i]->species[j]);
+			if ((j < 2 && pitz_params[i]->ispec[j] == -1) ||
+			     (j == 3 && (pitz_params[i]->type == TYPE_PSI || pitz_params[i]->type == TYPE_ZETA) && pitz_params[i]->ispec[j] == -1)) {
+				input_error++;
+				sprintf(error_string, "Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s", pitz_params[i]->species[j]);
+				error_msg(error_string, CONTINUE);
+				return(ERROR);
+			}
 		}
 	}
 	/*
@@ -105,8 +140,8 @@ int pitzer_tidy (void)
 	 * Set alpha values
 	 */
 	for (i = 0; i < count_pitz_param; i++) {
-		z0 = fabs(pitz_param[i]->species[0]->z);
-		z1 = fabs(pitz_param[i]->species[1]->z);
+		z0 = fabs(spec[pitz_params[i]->ispec[0]]->z);
+		z1 = fabs(spec[pitz_params[i]->ispec[1]]->z);
 		if (equal(z0, 1.0, 1e-8) || equal(z1, 1.0, 1e-8)) {
 			order = 1;
 		} else if (equal(z0,2.0, 1e-8) && equal(z1, 2.0, 1e-8)) {
@@ -114,30 +149,34 @@ int pitzer_tidy (void)
 		} else {
 			order = 3;
 		}
-		if (pitz_param[i]->type == TYPE_B1) {
-			switch order {
+		if (pitz_params[i]->type == TYPE_B1) {
+			switch (order) {
 			case 1:
 			case 3:
-				pitz_param[i]->alpha = 2.0;
+				pitz_params[i]->alpha = 2.0;
 				break;
 			case 2:
-				pitz_param[i]->alpha = 1.4;
+				pitz_params[i]->alpha = 1.4;
 				break;
 			}
-		} else if (pitz_param[i]->type == TYPE_B2) {
-			switch order {
+		} else if (pitz_params[i]->type == TYPE_B2) {
+			switch (order) {
 			case 1:
-				pitz_param[i]->alpha = 0.0;
+				pitz_params[i]->alpha = 0.0;
 				break;
 			case 2:
-				pitz_param[i]->alpha = 12.0;
+				pitz_params[i]->alpha = 12.0;
 				break;
 			case 3:
-				pitz_param[i]->alpha = 50.0;
+				pitz_params[i]->alpha = 50.0;
 				break;
 			}
 		}
 	}
+	temp_t = 298.15;
+	temp_mu = 1.0;
+	pitzer(&temp_t, &temp_mu);
+
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -280,7 +319,6 @@ int read_pitzer (void)
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
-	DW(298.15);
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
@@ -333,7 +371,7 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 			 pz_ptr->a[3]*(TK - TR) +
 			 pz_ptr->a[4]*(TK*TK - TR*TR)); 
 	}
-
+	pz_ptr->p = param;
 	switch 	(pz_ptr->type) {
 	    case TYPE_B0:
 	        pz_ptr->U.b0 = param;
@@ -366,14 +404,17 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-int pitzer (void)
+int pitzer (double *TK_X, double *I_X)
 /* ---------------------------------------------------------------------- */
 {
-	int i;
+	int i, j, i0, i1, i2;
+	double param, alpha, z0, z1, z2;
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
-		BMXPHI, PHIPHI, AW;
+		BMXPHI, PHIPHI, AW, A, B;
+	double I, TK;
 	int N, IK, IC, I1, I2, I3, KK, ISPEC, ICON;
+	int LNEUT;
 	/*
 	  C
 	  C     INITIALIZE
@@ -383,6 +424,9 @@ int pitzer (void)
 	XX=0.0e0;
 	OSUM=0.0e0;
 	LNEUT=FALSE;
+	I = *I_X;
+	TK = *TK_X;
+	DH_AB(TK, &A, &B);
 	/*
 	  C
 	  C     TRANSFER DATA FROM MO TO M
@@ -398,6 +442,13 @@ int pitzer (void)
 	for (i = count_s; i < count_s + count_neutrals; i++) {
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
+	/*  TESTING !!!!!!!!!!! */
+	M[5] = 1.0; /* K+ */
+	IPRSNT[5] = TRUE;
+	M[2*count_s + 5] = 1.0; /* Cl */
+	IPRSNT[2*count_s + 5] = TRUE;
+	IC = 2*count_s + 5;
+	ICON = 0;
 /*
 C
 C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
@@ -405,10 +456,10 @@ C
 */
 	PTEMP(TK);
 	for (i = 0; i < 2*count_cations + count_anions; i++) {
-		if (IPRSNT(i)) {
-			XX=XX+M(i)*fabs(spec[i]->z);
-			XI=XI+M(i)*spec[i]->z*spec[i]->z;
-			OSUM=OSUM+M(i);
+		if (IPRSNT[i]) {
+			XX=XX+M[i]*fabs(spec[i]->z);
+			XI=XI+M[i]*spec[i]->z*spec[i]->z;
+			OSUM=OSUM+M[i];
 		}
 	}
 	I=XI/2.0e0;
@@ -458,14 +509,14 @@ C
 		z0 = cations[i]->z;
 		for (j = i+1; j < count_cations; j++) {
 			z1 = cations[j]->z;
-			F=F+M(i)*M(j)*ETHETAP(z0, z1, I)
+			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
 		}
 	}
 	for (i = 0; i < count_anions - 1; i++) {
 		z0 = anions[i]->z;
 		for (j = i+1; j < count_anions; j++) {
 			z1 = anions[j]->z;
-			F=F+M(i)*M(j)*ETHETAP(z0, z1, I)
+			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
 		}
 	}
 
@@ -474,17 +525,39 @@ C
 C     EQUATION (2B) PART 4
 C
 */
-	CSUM=0.0D0;
+	CSUM=0.0e0;
 	for (i = 0; i < count_pitz_param; i++) {
+		/* CSUM=CSUM+M(J)*M(K)*CMX()*/
+		/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
 		if (pitz_params[i]->type == TYPE_C0) {
 			i0 = pitz_params[i]->ispec[0];
 			i1 = pitz_params[i]->ispec[1];
-			z0 = pitz_params[i]->species[0]->z;
-			i1 = pitz_params[i]->species[1];
+			z0 = spec[pitz_params[i]->ispec[0]]->z;
+			z1 = spec[pitz_params[i]->ispec[1]]->z;
 			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
 		}
 	}
 
+	for (i = 0; i < count_cations; i++) {
+		/*
+		  C
+		  C     EQUATION (2C) PART 1
+		  C
+		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
+		*/
+		z0 = spec[i]->z;
+		LGAMMA[i]=z0*z0*F+fabs(z0)*CSUM;
+	}
+	for (i = 2*count_s; i < 2*count_s + count_anions; i++) {
+		/*
+		  C
+		  C     EQUATION (2C) PART 1
+		  C
+		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
+		*/
+		z0 = spec[i]->z;
+		LGAMMA[i]=z0*z0*F+fabs(z0)*CSUM;
+	}
 
 
 /*
@@ -494,10 +567,10 @@ C
 		i0 = pitz_params[i]->ispec[0];
 		i1 = pitz_params[i]->ispec[1];
 		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
-		z0 = pitz_params[i]->species[0]->z;
-		z1 = pitz_params[i]->species[1]->z;
-		param = pitz_params[i]->species[1]->p;
-		alpha = pitz_params[i]->species[1]->alpha;
+		z0 = spec[pitz_params[i]->ispec[0]]->z;
+		z1 = spec[pitz_params[i]->ispec[1]]->z;
+		param = pitz_params[i]->p;
+		alpha = pitz_params[i]->alpha;
 		/*
 		  C
 		  C     EQUATION (2B) PART 3
@@ -531,7 +604,7 @@ C
 		} else if (pitz_params[i]->type == TYPE_PSI) {
 			i2 = pitz_params[i]->ispec[2];
 			if (IPRSNT[i2] == FALSE) continue;
-			z2 = pitz_params[i]->species[2]->z;
+			z2 = spec[pitz_params[i]->ispec[2]]->z;
 			/*
 			  C
 			  C     EQUATION (2B) PART 2
@@ -560,215 +633,27 @@ C
 			LGAMMA[i2] += M[i0]*M[i1]*param;
 		}
 	}
-	/* CSUM=CSUM+M(J)*M(K)*CMX()*/
-	/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
-
-#ifdef SKIP
-
-/*
-C
-C     CALCULATE LGAMMA FOR CATIONS
-C
-*/
-	for (J = 0; J < count_cations; J++) {
-		s = cations[J]->name;
-		i0 = J;
-		ZJ = cations[J]->z;
-		/* LGAMMA(J)=Z(J)*Z(J)*F+DABS(Z(J))*CSUM */
-		LGAMMA(J)=ZJ*ZJ*F+fabs(ZJ)*CSUM;
-		for (i = 0; i < count_pitz_param; i++) {
-			if (pitz_params[i]->species[0] != s) continue;
-			/*
-			  C
-			  C     EQUATION (2B) PART 3
-			  C
-			  LGAMMA(J)=LGAMMA(J)+M(K)*(2.0D0*BMX()+BIGZ*CMX())
-			  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
-			  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
-			*/
-			i1 = pitz_params[i]->ispec[1];
-			i2 = pitz_params[i]->ispec[2];
-			param = pitz_params[i]->p;
-			alpha = pitz_params[i]->alpha;
-			ZK = pitz_params[i]->species[1]->z;
-			if (pitz_params[i]->type == TYPE_B0) {
-				LGAMMA(J) += M[i1]*2.0*param;
-			} else if (pitz_params[i]->type == TYPE_B1) {
-				LGAMMA(J) += M[i1]*2.0*param*G(alpha*sqrt(I)); 
-			} else if (pitz_params[i]->type == TYPE_B2) {
-				LGAMMA(J) += M[i1]*2.0*param*G(alpha*sqrt(I)); 
-			} else if (pitz_params[i]->type == TYPE_C0) {
-				LGAMMA(J) += BIGZ*param/(2.0*sqrt(fabs(ZJ*ZK))); 
-			}
-		}
-		for (i = 0; i < count_pitz_param; i++) {
-			if (pitz_params[i]->species[0] != s) continue;
-			/*
-			  C
-			  C     EQUATION (2B) PART 2
-			  C
-			  LGAMMA(J)=LGAMMA(J)+2.0D0*M(K)*PHI()
-			  PHI=THETA(J,K)+ETHETA()
-			*/
-			i1 = pitz_params[i]->ispec[1];
-			i2 = pitz_params[i]->ispec[2];
-			param = pitz_params[i]->p;
-			ZK = pitz_params[i]->species[1]->z;
-			if (pitz_params[i]->type == TYPE_PHI) {
-				LGAMMA(J) += 2.0*M[i1]*(param + ETHETA(ZJ, ZK, I));
-			} else if (pitz_params[i]->type == TYPE_PSI) {
-				/*
-				  C
-				  C     EQUATION (2B) PART 2
-				  C
-				  LGAMMA(J)=LGAMMA(J)+M(KK)*M(K)*PSI(J,K,KK)
-				*/
-				LGAMMA(J) += M[i1]*M[i2]*param;
-			} else if (pitz_params[i]->type == TYPE_LAMDA) {
-				/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
-				LGAMMA(J) += 2.0*M[i1]*param;
-			}else if (pitz_params[i]->type == TYPE_ZETA) {
-				/*
-				C
-				C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
-				C
-				LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
-				*/
-				LGAMMA(J) += M[i1]*M[i2]*param;
-			}
-		}
-
-	}
-	/*
-	  C
-	  C     CALCULATE LGAMMA OF ANIONS
-	  C
-	*/
-	for (K = 2*count_s; K < 2*count_s + count_anions; K++) {
-		/*
-		  C
-		  C     EQUATION (2C) PART 1
-		  C
-		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
-		*/
-		s = spec[K]->name;
-		ZK = spec[k]->z;
-		LGAMMA(K)=ZK*ZK*F+fabs(ZK)*CSUM;
-		for (i = 0; i < count_pitz_param; i++) {
-			if (pitz_params[i]->species[1] != s) continue;
-			/*
-			  C
-			  C     EQUATION (2C) PART 2
-			  C
-			  LGAMMA(K)=LGAMMA(K)+M(J)*(2.0D0*BMX()+BIGZ*CMX())
-			  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
-			  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
-			*/
-			i0 = pitz_params[i]->ispec[0];
-			i2 = pitz_params[i]->ispec[2];
-			param = pitz_params[i]->p;
-			alpha = pitz_params[i]->alpha;
-			ZJ = pitz_params[i]->species[0]->z;
-			if (pitz_params[i]->type == TYPE_B0) {
-				LGAMMA(K) += M[i0]*2.0*param;
-			} else if (pitz_params[i]->type == TYPE_B1) {
-				LGAMMA(K) += M[i0]*2.0*param*G(alpha*sqrt(I)); 
-			} else if (pitz_params[i]->type == TYPE_B2) {
-				LGAMMA(K) += M[i0]*2.0*param*G(alpha*sqrt(I)); 
-			} else if (pitz_params[i]->type == TYPE_C0) {
-				LGAMMA(K) += BIGZ*param/(2.0*sqrt(fabs(ZJ*ZK))); 
-			}
-		}
-		for (i = 0; i < count_pitz_param; i++) {
-			if (pitz_params[i]->species[0] != s) continue;
-			/*
-			  C
-			  C     EQUATION (2C) PART 3
-			  C
-			  LGAMMA(K)=LGAMMA(K)+2.0D0*M(J)*PHI()
-			  PHI=THETA(J,K)+ETHETA()
-			*/
-			i0 = pitz_params[i]->ispec[0];
-			i2 = pitz_params[i]->ispec[2];
-			param = pitz_params[i]->p;
-			ZJ = pitz_params[i]->species[0]->z;
-			if (pitz_params[i]->type == TYPE_PHI) {
-				LGAMMA(K) += 2.0*M[i0]*(param + ETHETA(ZJ, ZK, I));
-			} else if (pitz_params[i]->type == TYPE_PSI) {
-				/*
-				  C
-				  C     EQUATION (2C) PART 3
-				  C
-				  LGAMMA(K)=LGAMMA(K)+M(KK)*M(J)*PSI(K,J,KK)
-				*/
-				LGAMMA(K) += M[i0]*M[i2]*param;
-			} else if (pitz_params[i]->type == TYPE_LAMDA) {
-				/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
-				LGAMMA(J) += 2.0*M[i1]*param;
-			}else if (pitz_params[i]->type == TYPE_ZETA) {
-				/*
-				C
-				C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
-				C
-				LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
-				*/
-				LGAMMA(J) += M[i1]*M[i2]*param;
-			}
-		}
-#endif
 
 
 /*
-C dlp 11/5/98
-C      DO 250 J=21,M2
-      DO 250 J=FIRSTANION,M2
-      IF (.NOT.IPRSNT(J)) GO TO 250
-      LGAMMA(K)=LGAMMA(K)+2.0D0*M(J)*PHI()
-      DO 260 KK=1,M1
-      IF (.NOT.IPRSNT(KK)) GO TO 260
-C
-C     EQUATION (2C) PART 3
-C
-      LGAMMA(K)=LGAMMA(K)+M(KK)*M(J)*PSI(K,J,KK)
-  260 CONTINUE
-  250 CONTINUE
-      DO 270 J=1,M1-1
-      IF (.NOT.IPRSNT(J)) GO TO 270
-      DO 280 KK=J+1,M1
-      IF (.NOT.IPRSNT(KK)) GO TO 280
-C
-C     EQUATION (2C) PART 4
-C
-      LGAMMA(K)=LGAMMA(K)+M(J)*M(KK)*PSI(J,KK,K)
-  280 CONTINUE
-  270 CONTINUE
-      IF (.NOT.LNEUT) GO TO 230
-      DO 290 J=1,M3
-      LGAMMA(K)=LGAMMA(K)+2.0D0*MN(J)*LAM(K,J)
-  290 CONTINUE
-C
-C      EQUATION (A.2C) (FELMY AND WEARE, 1986) FOR ZETA
-C
-      DO 292 J=1,M1
-      IF (.NOT.IPRSNT(J)) GO TO 292
-      DO 294 KK=1,M3
-      LGAMMA(K)=LGAMMA(K)+MN(KK)*M(J)*ZETA(J,K,KK)
-  294 CONTINUE
-  292 CONTINUE
-  230 CONTINUE
 C
 C     CONVERT TO MACINNES CONVENTION
 C
-      IF (ICON.EQ.0) GO TO 300
-      PHIMAC=LGAMMA(IC)-GAMCLM
+*/
+      if (ICON != 0) {
+	      PHIMAC=LGAMMA[IC]-GAMCLM;
+/*
 C
 C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
 C
-      DO 220 K=1,M2
-      IF (.NOT.IPRSNT(K)) GO TO 220
-      LGAMMA(K)=LGAMMA(K)+Z(K)*PHIMAC
-  220 CONTINUE
-C
+*/
+	      for (i = 0; i < count_cations; i++) {
+		      if (IPRSNT[i] == TRUE) {
+			      LGAMMA[i]=LGAMMA[i]+spec[i]->z*PHIMAC;
+		      }
+	      }
+      }
+/*
   300 IF (.NOT.LNEUT) GO TO 860
 C
 C     CALCULATE THE GAMMA OF NEUTRAL IONS
@@ -792,12 +677,16 @@ C      DO 360 KK=21,M2
   360 CONTINUE
   350 CONTINUE
   800 CONTINUE
+*/
+/*
 C
 C     CALCULATE THE OSMOTIC COEFFICIENT
 C
 C     EQUATION (2A) PART 1
 C
-  860 OSMOT=-(A0)*I**1.5D0/(1.0D0+B*DI)
+*/
+      OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
+/*
       DO 420 J=1,M1
       IF (.NOT.IPRSNT(J)) GO TO 420
 C dlp 11/5/98
@@ -1667,3 +1556,222 @@ C      IF (I.GT.M1.AND.I.LT.21) GO TO 10
       RETURN
       END
 */
+      return(OK);
+}
+/* ---------------------------------------------------------------------- */
+double JAY (double X)
+/* ---------------------------------------------------------------------- */
+/*
+C
+C     FUNCTION TO CALCULATE JAY AND JPRIME
+C
+C     J0 AND J1, USED IN CALCULATION OF ETHETA AND ETHEAP
+C
+*/
+{
+	double JAY;
+	BDK (X);
+	JAY=X/4.0e0-1.0e0+0.5e0*(BK[0]-BK[2]);
+	return JAY;
+}
+/* ---------------------------------------------------------------------- */
+double JPRIME (double Y)
+/* ---------------------------------------------------------------------- */
+{
+	double DZ;
+	BDK (Y);
+	if (Y > 1.0e0) {
+		DZ=-4.0e0*pow(Y,-1.1e0)/9.0e0;
+	} else {
+		DZ=0.8e0*pow(Y,-0.8e0);
+	}			   
+	return (Y*(.25e0+DZ*(DK[0]-DK[2])/2.0e0));
+}
+
+
+/* ---------------------------------------------------------------------- */
+int BDK (double X)
+/* ---------------------------------------------------------------------- */
+/*
+C
+C     NUMERICAL APPROXIMATION TO THE INTEGRALS IN THE EXPRESSIONS FOR J0
+C     AND J1.  CHEBYSHEV APPROXIMATION IS USED.  THE CONSTANTS 'AK' ARE
+C     DEFINED IN BLOCK COMMON.
+C
+*/
+/*
+C
+C     AK IS USED TO CALCULATE HIGHER ORDER ELECTROSTATIC TERMS IN
+C     SUBROUTINE PITZER
+C
+*/
+{
+     double AKX[42] = { 
+         1.925154014814667e0, -.060076477753119e0, -.029779077456514e0,
+         -.007299499690937e0, 0.000388260636404e0, 0.000636874599598e0,
+         0.000036583601823e0, -.000045036975204e0, -.000004537895710e0,
+         0.000002937706971e0, 0.000000396566462e0, -.000000202099617e0,
+         -.000000025267769e0, 0.000000013522610e0, 0.000000001229405e0,
+         -.000000000821969e0, -.000000000050847e0, 0.000000000046333e0,
+         0.000000000001943e0, -.000000000002563e0, -.000000000010991e0,
+         0.628023320520852e0, 0.462762985338493e0, 0.150044637187895e0,
+         -.028796057604906e0, -.036552745910311e0, -.001668087945272e0,
+         0.006519840398744e0, 0.001130378079086e0, -.000887171310131e0,
+         -.000242107641309e0, 0.000087294451594e0, 0.000034682122751e0,
+         -.000004583768938e0, -.000003548684306e0, -.000000250453880e0,
+         0.000000216991779e0, 0.000000080779570e0, 0.000000004558555e0,
+         -.000000006944757e0, -.000000002849257e0, 0.000000000237816e0};
+/*
+      DOUBLE PRECISION AK, BK, DK
+      COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
+*/
+        double *AK;
+	double Z;
+	int II;
+	int i;
+
+	if (X <= 1.0e0) {
+		II=1;
+		Z=4.0e0*pow(X,0.2e0)-2.0e0;
+		AK = &AKX[0];
+	} else {
+		II=2;
+		Z=40.0e0*pow(X,-1.0e-1)/9.0e0-22.0e0/9.0e0;
+		AK = &AKX[21];
+	}
+	for (i = 20; i >= 0; i--) {
+		BK[i]=Z*BK[i+1]-BK[i+2]+AK[i];
+		DK[i]=BK[i+1]+Z*DK[i+1]-DK[i+2];
+	}
+	return OK;
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+double PHI (int J, int K)
+/* ---------------------------------------------------------------------- */
+/*
+C
+C     FUNCTION TO CALCULATE PHI   (PHI' IS EQUAL TO ETHEAP)
+C
+*/
+{
+	double PHI;
+/*
+C dlp 11/5/98
+C      COMMON / MX7 / THETA(40,40)
+      COMMON / MX7 / THETA(MAXIONS,MAXIONS)
+C
+*/
+/*
+C
+C     EQUATION (10B)
+C
+*/
+	PHI=THETA[J,K]+ETHETA();
+	return (PHI);
+}
+/* ---------------------------------------------------------------------- */
+double PHIPHI (int J, int K)
+/* ---------------------------------------------------------------------- */
+/*
+C
+C     EQUATION (10A)
+C
+*/
+{
+	double PHIPHI;
+	PHIPHI=THETA[J,K]+ETHETA()+I*ETHEAP();
+	return PHIPHI;
+}
+#endif
+/* ---------------------------------------------------------------------- */
+double G (double Y)
+/* ---------------------------------------------------------------------- */
+{
+	return (2.0e0*(1.0e0-(1.0e0+Y)*exp(-Y))/(Y*Y));
+}
+/* ---------------------------------------------------------------------- */
+double GP (double Y)
+/* ---------------------------------------------------------------------- */
+{
+	return (-2.0e0*(1.0e0-(1.0e0+Y+Y*Y/2.0e0)*exp(-Y))/(Y*Y));
+}
+/* ---------------------------------------------------------------------- */
+double ETHETA (double ZJ, double ZK, double I)
+/* ---------------------------------------------------------------------- */
+{
+	double XCON, ZZ;
+	double XJK, XJJ, XKK;
+
+	if (ZJ == ZK) return(0.0);
+	XCON=6.0e0*A0*sqrt(I);
+	ZZ=ZJ*ZK;
+/*
+C
+C     NEXT 3 ARE EQUATION (A1)
+C
+*/
+	XJK=XCON*ZZ;
+	XJJ=XCON*ZJ*ZJ;
+	XKK=XCON*ZK*ZK;
+/*
+C
+C     EQUATION (A2)
+C
+*/
+	
+	return (ZZ*(JAY(XJK)-JAY(XJJ)/2.0e0-JAY(XKK)/2.0e0)/(4.0e0*I));
+}
+/* ---------------------------------------------------------------------- */
+double ETHETAP (double ZJ, double ZK, double I)
+/* ---------------------------------------------------------------------- */
+{
+	double XCON, ZZ, ETHETA, ETHETAP;
+	double XJK, XJJ, XKK;
+
+	if (ZJ == ZK) return(0.0);
+	XCON=6.0e0*A0*sqrt(I);
+	ZZ=ZJ*ZK;
+/*
+C
+C     NEXT 3 ARE EQUATION (A1)
+C
+*/
+	XJK=XCON*ZZ;
+	XJJ=XCON*ZJ*ZJ;
+	XKK=XCON*ZK*ZK;
+/*
+C
+C     EQUATION (A3)
+C
+*/
+	ETHETA=ZZ*(JAY(XJK)-JAY(XJJ)/2.0e0-JAY(XKK)/2.0e0)/(4.0e0*I);
+	ETHETAP=ZZ*(JPRIME(XJK)-JPRIME(XJJ)/2.0e0-JPRIME(XKK)/2.0e0)/(8.0e0*I*I) - ETHETA/I;
+	return (ETHETAP);
+}
+/* ---------------------------------------------------------------------- */
+int DH_AB (double TK, double *A, double *B)
+/* ---------------------------------------------------------------------- */
+{
+/*
+C
+C          COMPUTE TEMPERATURE DEPENDENCE OF A AND B FOR DEBYE-HUCKEL
+C
+*/
+	double S1, S2, S3, C1, TC;
+	TC = TK -273.15;
+	S1=374.11e0-TC;
+	S2=pow(S1,0.33333333e0);
+	S3=1.0e0+0.1342489e0*S2-3.946263e-03*S1;
+	S3=S3/(3.1975e0-0.3151548e0*S2-1.203374e-03*S1+7.48908e-13*pow(S1,4.0e0));
+	S3=sqrt(S3);
+	if (TK < 373.15e0) {
+		C1=87.74e0-TC*(TC*(1.41e-06*TC-9.398e-04)+0.4008e0);
+	} else {
+		C1=5321.0e0/TK+233.76e0-TK*(TK*(8.292e-07*TK-1.417e-03)+0.9297e0);
+	}
+	C1=sqrt(C1*TK);
+	*A=1824600.0e0*S3/pow(C1,3.0e0);
+	*B=50.29e0*S3/C1;
+	return (OK);
+}

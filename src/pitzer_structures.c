@@ -72,10 +72,12 @@ int pitz_param_init (struct pitz_param *pitz_param_ptr)
 	pitz_param_ptr->ispec[1] = -1;
 	pitz_param_ptr->ispec[2] = -1;
 	pitz_param_ptr->type = TYPE_Other;
+	pitz_param_ptr->p = 0.0;
 	pitz_param_ptr->U.b0 = 0.0;
 	for (i = 0; i < 5; i++) {
 		pitz_param_ptr->a[i] = 0.0;
 	}
+	pitz_param_ptr->alpha = 0.0;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
