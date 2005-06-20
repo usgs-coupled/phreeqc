@@ -10,13 +10,13 @@ static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
 /* variables */
 static double A0;
 struct species **spec, **cations, **anions, **neutrals;
-int count_cations, count_anions, count_neutrals;
-int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
+static int count_cations, count_anions, count_neutrals;
+static int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
 struct pitz_param *mcb0, *mcb1, *mcc0;
 static int *IPRSNT;
 static double *M, *LGAMMA;
 static double BK[23], DK[23];
-
+double COSMOT;
 
 /* routines */
 static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
@@ -50,7 +50,7 @@ int pitzer_tidy (void)
 	char * string1, *string2;
 	int i, j, order;
 	double z0, z1;
-	double temp_t, temp_mu;
+	double temp_t, temp_mu, temp_cosmot;
 	/*
 	 *  allocate pointers to species structures
 	 */
@@ -175,7 +175,7 @@ int pitzer_tidy (void)
 	}
 	temp_t = 298.15;
 	temp_mu = 1.0;
-	pitzer(&temp_t, &temp_mu);
+	pitzer(&temp_t, &temp_mu, &temp_cosmot);
 
 	return OK;
 }
@@ -404,22 +404,28 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-int pitzer (double *TK_X, double *I_X)
+int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, i0, i1, i2;
 	double param, alpha, z0, z1, z2;
+	/*
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
 		BMXPHI, PHIPHI, AW, A, B;
+	*/
+	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+		CSUM, PHIMAC, OSMOT, AW, A, B;
+	double COSMOT;
 	double I, TK;
-	int N, IK, IC, I1, I2, I3, KK, ISPEC, ICON;
+	int IC, ICON;
 	int LNEUT;
 	/*
 	  C
 	  C     INITIALIZE
 	  C
 	*/
+	CONV = 1.0/log(10.0);
 	XI=0.0e0;
 	XX=0.0e0;
 	OSUM=0.0e0;
@@ -443,11 +449,28 @@ int pitzer (double *TK_X, double *I_X)
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
 	/*  TESTING !!!!!!!!!!! */
+	for (i = 0; i < 3*count_s; i++) {
+		M[i] = 0.0;
+		IPRSNT[i] = FALSE;
+	}
+	/*
+	 * 67 Cl-
+	 * 68 HCO3-
+	 * 69 HSO4-
+	 * 70 OH-
+	 * 71 SO4-2
+	 */
+	M[1] = 1.0; /* Ca+2 */
+	IPRSNT[1] = TRUE;
+	M[11] = 0.0; /* Na+ */
+	IPRSNT[11] = FALSE;
 	M[5] = 1.0; /* K+ */
 	IPRSNT[5] = TRUE;
 	M[2*count_s + 5] = 1.0; /* Cl */
 	IPRSNT[2*count_s + 5] = TRUE;
 	IC = 2*count_s + 5;
+	M[71] = 1.0; /* SO4-2 */
+	IPRSNT[71] = TRUE;
 	ICON = 0;
 /*
 C
@@ -455,8 +478,8 @@ C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
 C
 */
 	PTEMP(TK);
-	for (i = 0; i < 2*count_cations + count_anions; i++) {
-		if (IPRSNT[i]) {
+	for (i = 0; i < 2*count_s + count_anions; i++) {
+		if (IPRSNT[i] == TRUE) {
 			XX=XX+M[i]*fabs(spec[i]->z);
 			XI=XI+M[i]*spec[i]->z*spec[i]->z;
 			OSUM=OSUM+M[i];
@@ -475,6 +498,7 @@ C
 C     CALCULATE F & GAMCLM
 C
 */
+	B = 1.2;
 	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
 	XXX=2.0e0*DI;
 	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
@@ -491,10 +515,11 @@ C
 	for (i = 0; i < count_pitz_param; i++) {
 		i0 = pitz_params[i]->ispec[0];
 		i1 = pitz_params[i]->ispec[1];
+		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
 		param = pitz_params[i]->p;
 		alpha = pitz_params[i]->alpha;
 		if (pitz_params[i]->type == TYPE_B1) {
-			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I)); 
+			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
 		} else if (pitz_params[i]->type == TYPE_B2) {
 			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
 		}
@@ -507,15 +532,17 @@ C
 	/* F=F+M(J)*M(K)*ETHEAP() */
 	for (i = 0; i < count_cations - 1; i++) {
 		z0 = cations[i]->z;
+		if (IPRSNT[i] == FALSE) continue;
 		for (j = i+1; j < count_cations; j++) {
+			if (IPRSNT[j] == FALSE) continue;
 			z1 = cations[j]->z;
 			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
 		}
 	}
-	for (i = 0; i < count_anions - 1; i++) {
-		z0 = anions[i]->z;
-		for (j = i+1; j < count_anions; j++) {
-			z1 = anions[j]->z;
+	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
+		z0 = spec[i]->z;
+		for (j = i+1; j < 2*count_s + count_anions; j++) {
+			z1 = spec[j]->z;
 			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
 		}
 	}
@@ -537,7 +564,6 @@ C
 			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
 		}
 	}
-
 	for (i = 0; i < count_cations; i++) {
 		/*
 		  C
@@ -559,9 +585,29 @@ C
 		LGAMMA[i]=z0*z0*F+fabs(z0)*CSUM;
 	}
 
-
+	/*
+	 *  Add etheta term to activity coefficients
+	 */
+	for (i = 0; i < count_cations - 1; i++) {
+		z0 = cations[i]->z;
+		if (IPRSNT[i] == FALSE) continue;
+		for (j = i+1; j < count_cations; j++) {
+			if (IPRSNT[j] == FALSE) continue;
+			z1 = cations[j]->z;
+			LGAMMA[i] += 2.0*M[j]*(ETHETA(z0, z1, I) ); 
+			LGAMMA[j] += 2.0*M[i]*(ETHETA(z0, z1, I) ); 
+		}
+	}
+	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
+		z0 = spec[i]->z;
+		for (j = i+1; j < 2*count_s + count_anions; j++) {
+			z1 = spec[j]->z;
+			LGAMMA[i] += 2.0*M[j]*(ETHETA(z0, z1, I) ); 
+			LGAMMA[j] += 2.0*M[i]*(ETHETA(z0, z1, I) ); 
+		}
+	}
 /*
- *    Sums for activity coefficients
+ *    Sums of Pitzer parameters for activity coefficients
  */
 	for (i = 0; i < count_pitz_param; i++) {
 		i0 = pitz_params[i]->ispec[0];
@@ -598,9 +644,10 @@ C
 			  C
 			  LGAMMA(J)=LGAMMA(J)+2.0D0*M(K)*PHI()
 			  PHI=THETA(J,K)+ETHETA()
+			  etheta added above in case theta is not defined for a pair
 			*/
-			LGAMMA[i0] += 2.0*M[i1]*(param/(2.0*sqrt(fabs(z0*z1))) + ETHETA(z0, z1, I)); 
-			LGAMMA[i1] += 2.0*M[i0]*(param/(2.0*sqrt(fabs(z0*z1))) + ETHETA(z0, z1, I)); 
+			LGAMMA[i0] += 2.0*M[i1]*(param /*+ ETHETA(z0, z1, I) */ ); 
+			LGAMMA[i1] += 2.0*M[i0]*(param /*+ ETHETA(z0, z1, I) */ ); 
 		} else if (pitz_params[i]->type == TYPE_PSI) {
 			i2 = pitz_params[i]->ispec[2];
 			if (IPRSNT[i2] == FALSE) continue;
@@ -634,7 +681,6 @@ C
 		}
 	}
 
-
 /*
 C
 C     CONVERT TO MACINNES CONVENTION
@@ -654,31 +700,6 @@ C
 	      }
       }
 /*
-  300 IF (.NOT.LNEUT) GO TO 860
-C
-C     CALCULATE THE GAMMA OF NEUTRAL IONS
-C
-      DO 800 K=1,M3
-      LGN(K)=0.0D0
-      DO 870 J=1,M2
-      IF (.NOT.IPRSNT(J)) GO TO 870
-      LGN(K)=LGN(K)+2.0D0*M(J)*LAM(J,K)
-  870 CONTINUE
-C
-C     EQUATION (A.2D) (FELMY AND WEARE, 1986) FOR ZETA
-C
-      DO 350 J=1,M1
-      IF (.NOT.IPRSNT(J)) GO TO 350
-C dlp 11/5/98
-C      DO 360 KK=21,M2
-      DO 360 KK=FIRSTANION,M2
-      IF (.NOT.IPRSNT(KK)) GO TO 360
-      LGN(K)=LGN(K)+M(J)*M(KK)*ZETA(J,KK,K)
-  360 CONTINUE
-  350 CONTINUE
-  800 CONTINUE
-*/
-/*
 C
 C     CALCULATE THE OSMOTIC COEFFICIENT
 C
@@ -686,78 +707,114 @@ C     EQUATION (2A) PART 1
 C
 */
       OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
+      /*
+       *  Add etheta terms to osmotic coefficient
+       */
+      /* OSMOT=OSMOT+M(J)*M(K)*PHIPHI() */
+      /* PHIPHI=THETA(J,K)+ETHETA()+I*ETHEAP() */
+      /* saving THETA for later */
+      for (i = 0; i < count_cations - 1; i++) {
+	      z0 = cations[i]->z;
+	      if (IPRSNT[i] == FALSE) continue;
+	      for (j = i+1; j < count_cations; j++) {
+		      if (IPRSNT[j] == FALSE) continue;
+		      z1 = cations[j]->z;
+		      OSMOT += M[i]*M[j]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+	      }
+      }
+      for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
+	      z0 = spec[i]->z;
+	      for (j = i+1; j < 2*count_s + count_anions; j++) {
+		      z1 = spec[j]->z;
+		      OSMOT += M[i]*M[j]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+	      }
+      }
+      /*
+       *    Sums of Pitzer parameters for osmotic coefficient
+       */
+      for (i = 0; i < count_pitz_param; i++) {
+	      i0 = pitz_params[i]->ispec[0];
+	      i1 = pitz_params[i]->ispec[1];
+	      if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
+	      z0 = spec[pitz_params[i]->ispec[0]]->z;
+	      z1 = spec[pitz_params[i]->ispec[1]]->z;
+	      param = pitz_params[i]->p;
+	      alpha = pitz_params[i]->alpha;
+	      /*
+		C
+		C     EQUATION (2B) PART 3
+		C
+		OSMOT=OSMOT+M(J)*M(K)*(BMXPHI()+BIGZ*CMX())
+		BMXPHI=BCX(1,J,K)+BCX(2,J,K)*DEXP(-ALPHA(2)*DSQRT(I))+BCX(3,J,K)*
+		       DEXP(-ALPHA(3)*DSQRT(I))
+		CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
+	      */
+	      if (pitz_params[i]->type == TYPE_B0) {
+		      OSMOT += M[i0]*M[i1]*param;
+	      } else if (pitz_params[i]->type == TYPE_B1) {
+		      OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
+	      } else if (pitz_params[i]->type == TYPE_B2) {
+		      OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
+	      } else if (pitz_params[i]->type == TYPE_C0) {
+		      OSMOT += M[i0]*M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+	      } else if (pitz_params[i]->type == TYPE_THETA) {
+		      /*
+			C
+			C     EQUATION (2B) PART 2
+			C
+			OSMOT=OSMOT+M(J)*M(K)*PHIPHI() 
+			PHIPHI=THETA(J,K)+ETHETA()+I*ETHEAP() 
+			etheta and ethetap added above in case theta is not defined for a pair
+		      */
+		      OSMOT += M[i0]*M[i1]*param;
+	      } else if (pitz_params[i]->type == TYPE_PSI) {
+		      i2 = pitz_params[i]->ispec[2];
+		      if (IPRSNT[i2] == FALSE) continue;
+		      z2 = spec[pitz_params[i]->ispec[2]]->z;
+		      /*
+			C
+			C     EQUATION (2B) PART 2
+			C
+			OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
+		      */
+		      OSMOT += M[i0]*M[i1]*M[i2]*param;
+	      } else if (pitz_params[i]->type == TYPE_LAMDA) {
+		      /* OSMOT=OSMOT+MN(K)*M(J)*LAM(J,K) */
+		      OSMOT += M[i0]*M[i1]*param;
+	      } else if (pitz_params[i]->type == TYPE_ZETA) {
+		      i2 = pitz_params[i]->ispec[2];
+		      if (IPRSNT[i2] == FALSE) continue;
+		      /*
+			C
+			C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
+			C
+			OSMOT=OSMOT+MN(K)*M(J)*M(KK)*ZETA(J,KK,K)
+		      */
+		      OSMOT += M[i0]*M[i1]*M[i2]*param;
+	      }
+      }
+      COSMOT = 1.0e0 + 2.0e0*OSMOT/OSUM;
 /*
-      DO 420 J=1,M1
-      IF (.NOT.IPRSNT(J)) GO TO 420
-C dlp 11/5/98
-C      DO 430 K=21,M2
-      DO 430 K=FIRSTANION,M2
-      IF (.NOT.IPRSNT(K)) GO TO 430
-C
-C     EQUATION (2A) PART 2
-C
-      OSMOT=OSMOT+M(J)*M(K)*(BMXPHI()+BIGZ*CMX())
-  430 CONTINUE
-  420 CONTINUE
-      DO 440 J=1,M1-1
-      IF (.NOT.IPRSNT(J)) GO TO 440
-      DO 450 K=J+1,M1
-      IF (.NOT.IPRSNT(K)) GO TO 450
-      OSMOT=OSMOT+M(J)*M(K)*PHIPHI()
-C dlp 11/5/98
-C      DO 460 KK=21,M2
-      DO 460 KK=FIRSTANION,M2
-      IF (.NOT.IPRSNT(KK)) GO TO 460
-C
-C     EQUATION (2A) PART 3
-C
-      OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
-  460 CONTINUE
-  450 CONTINUE
-  440 CONTINUE
-C dlp 11/5/98
-C      DO 470 J=21,M2-1
-      DO 470 J=FIRSTANION,M2-1
-      IF (.NOT.IPRSNT(J)) GO TO 470
-      DO 480 K=J+1,M2
-      IF (.NOT.IPRSNT(K)) GO TO 480
-      OSMOT=OSMOT+M(J)*M(K)*PHIPHI()
-      DO 490 KK=1,M1
-      IF (.NOT.IPRSNT(KK)) GO TO 490
-C
-C     EQUATION (2A) PART 4
-C
-      OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
-  490 CONTINUE
-  480 CONTINUE
-  470 CONTINUE
-      IF (.NOT.LNEUT) GO TO 850
-      DO 810 K=1,M3
-      DO 820 J=1,M2
-      IF (.NOT.IPRSNT(J)) GO TO 820
-C
-C     EQUATION (A.3A) PART 5  HARVIE, MOLLER, WEARE (1984)
-C
-      OSMOT=OSMOT+MN(K)*M(J)*LAM(J,K)
-  820 CONTINUE
-C
-C      EQUATION (A.2A) (FELMY AND WEARE, 1986) FOR ZETA
-C
-      DO 950 J=1,M1
-      IF (.NOT.IPRSNT(J)) GO TO 950
-C dlp 11/5/98
-C      DO 960 KK=21,M2
-      DO 960 KK=FIRSTANION,M2
-      IF (.NOT.IPRSNT(KK)) GO TO 960
-      OSMOT=OSMOT+MN(K)*M(J)*M(KK)*ZETA(J,KK,K)
-  960 CONTINUE
-  950 CONTINUE
-  810 CONTINUE
-  850 COSMOT=1.0D0+2.0D0*OSMOT/OSUM
 C
 C     CALCULATE THE ACTIVITY OF WATER
 C
-      AW=DEXP(-OSUM*COSMOT/55.50837D0)
+*/
+      AW=exp(-OSUM*COSMOT/55.50837e0);
+      for (i = 0; i < 2*count_s + count_anions; i++) {
+	      if (IPRSNT[i] == FALSE) continue;
+	      spec[i]->lg=LGAMMA[i]*CONV;
+	      fprintf(stderr, "%s: %e\n", spec[i]->name, LGAMMA[i]*CONV);
+      }
+      fprintf(stderr, "COSMOT: %e\n", COSMOT);
+      
+      *I_X = I;
+      *COSMOT_X = COSMOT;
+      return(OK);
+}
+
+
+
+/*
 C
 C     SET APPROPRIATE VALUES FOR RETURN
 C
@@ -770,8 +827,6 @@ C
       DO 910 N=1,M3
       LG(IN(N))=LGN(N)*CONV
   910 CONTINUE
-      RETURN
-      END
 */
 
 
@@ -1556,8 +1611,6 @@ C      IF (I.GT.M1.AND.I.LT.21) GO TO 10
       RETURN
       END
 */
-      return(OK);
-}
 /* ---------------------------------------------------------------------- */
 double JAY (double X)
 /* ---------------------------------------------------------------------- */
