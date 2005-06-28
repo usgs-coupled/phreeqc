@@ -51,6 +51,7 @@ int pitzer_tidy (void)
 	int i, j, order;
 	double z0, z1;
 	double temp_t, temp_mu, temp_cosmot;
+	struct pitz_param *pzp_ptr;
 	/*
 	 *  allocate pointers to species structures
 	 */
@@ -93,6 +94,32 @@ int pitzer_tidy (void)
 		}
 	}
 	/*
+	 *  Add etheta to parameter list in case theta not defined for 
+         *  cation-cation or anion-anion pair
+	 */
+	for (i = 0; i < count_cations - 1; i++) {
+		for (j = i+1; j < count_cations; j++) {
+			sprintf(line,"%s %s 1", spec[i]->name, spec[j]->name);
+			pzp_ptr = pitz_param_read(line, 2);
+			pzp_ptr->type = TYPE_ETHETA;
+			if (count_pitz_param >= max_pitz_param) {
+				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+			}
+			pitz_params[count_pitz_param++] = pzp_ptr;
+		}
+	}
+	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
+		for (j = i+1; j < 2*count_s + count_anions; j++) {
+			sprintf(line,"%s %s 1", spec[i]->name, spec[j]->name);
+			pzp_ptr = pitz_param_read(line, 2);
+			pzp_ptr->type = TYPE_ETHETA;
+			if (count_pitz_param >= max_pitz_param) {
+				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+			}
+			pitz_params[count_pitz_param++] = pzp_ptr;
+		}
+	}
+	/*
 	 *  put species numbers in pitz_params
 	 */
 	for (i = 0; i < count_pitz_param; i++) {
@@ -131,6 +158,7 @@ int pitzer_tidy (void)
 			case TYPE_LAMDA:
 			case TYPE_ZETA:
 			case TYPE_PSI:
+			case TYPE_ETHETA:
 			case TYPE_Other:
 				break;
 			}
@@ -394,6 +422,8 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	    case TYPE_ZETA:
 		pz_ptr->U.zeta = param;
 		break;
+	    case TYPE_ETHETA:
+		    break;
 	    case TYPE_PSI:
 		pz_ptr->U.psi = param;
 		break;
@@ -403,6 +433,236 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	}
 	return OK;
 }
+/* ---------------------------------------------------------------------- */
+int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
+/* ---------------------------------------------------------------------- */
+{
+	int i, i0, i1, i2;
+	double param, alpha, z0, z1, z2;
+	/*
+	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
+		BMXPHI, PHIPHI, AW, A, B;
+	*/
+	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+		CSUM, PHIMAC, OSMOT, AW, B;
+	double COSMOT;
+	double I, TK;
+	int IC, ICON;
+	int LNEUT;
+	/*
+	  C
+	  C     INITIALIZE
+	  C
+	*/
+	CONV = 1.0/log(10.0);
+	XI=0.0e0;
+	XX=0.0e0;
+	OSUM=0.0e0;
+	LNEUT=FALSE;
+	I = *I_X;
+	TK = *TK_X;
+	/*	DH_AB(TK, &A, &B); */
+	/*
+	  C
+	  C     TRANSFER DATA FROM MO TO M
+	  C
+	*/
+	for (i = 0; i < 3*count_s; i++) {
+		IPRSNT[i] = FALSE;
+		if (spec[i] != NULL) {
+			M[i] = under(spec[i]->lm);
+			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
+		}
+	}
+	for (i = count_s; i < count_s + count_neutrals; i++) {
+		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
+	}
+	/*  TESTING !!!!!!!!!!! */
+	for (i = 0; i < 3*count_s; i++) {
+		M[i] = 0.0;
+		IPRSNT[i] = FALSE;
+	}
+	/*
+	 * 67 Cl-
+	 * 68 HCO3-
+	 * 69 HSO4-
+	 * 70 OH-
+	 * 71 SO4-2
+	 */
+	M[1] = 1.0; /* Ca+2 */
+	IPRSNT[1] = TRUE;
+	M[11] = 0.0; /* Na+ */
+	IPRSNT[11] = FALSE;
+	M[5] = 1.0; /* K+ */
+	IPRSNT[5] = TRUE;
+	M[2*count_s + 5] = 1.0; /* Cl */
+	IPRSNT[2*count_s + 5] = TRUE;
+	IC = 2*count_s + 5;
+	M[71] = 1.0; /* SO4-2 */
+	IPRSNT[71] = TRUE;
+	ICON = 0;
+/*
+C
+C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
+C
+*/
+	PTEMP(TK);
+	for (i = 0; i < 2*count_s + count_anions; i++) {
+		LGAMMA[i] = 0.0;
+		if (IPRSNT[i] == TRUE) {
+			XX=XX+M[i]*fabs(spec[i]->z);
+			XI=XI+M[i]*spec[i]->z*spec[i]->z;
+			OSUM=OSUM+M[i];
+		}
+	}
+	I=XI/2.0e0;
+/*
+C
+C     EQUATION (8)
+C
+*/
+	BIGZ=XX;
+	DI=sqrt(I);
+/*
+C
+C     CALCULATE F & GAMCLM
+C
+*/
+	B = 1.2;
+	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
+	XXX=2.0e0*DI;
+	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
+	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
+	GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I;
+	CSUM=0.0e0;
+	OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
+/*
+ *  Sums for F, LGAMMA, and OSMOT
+ */
+	for (i = 0; i < count_pitz_param; i++) {
+		i0 = pitz_params[i]->ispec[0];
+		i1 = pitz_params[i]->ispec[1];
+		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
+		z0 = spec[i0]->z;
+		z1 = spec[i1]->z;
+		param = pitz_params[i]->p;
+		alpha = pitz_params[i]->alpha;
+		switch (pitz_params[i]->type) {
+		case TYPE_B0:
+			LGAMMA[i0] += M[i1]*2.0*param;
+			LGAMMA[i1] += M[i0]*2.0*param;
+			OSMOT += M[i0]*M[i1]*param;
+			break;
+		case TYPE_B1:
+			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+			OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
+			break;
+		case TYPE_B2:
+			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+			OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
+			break;
+		case TYPE_C0:
+			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
+			LGAMMA[i0] += M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+			LGAMMA[i1] += M[i0]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+			OSMOT += M[i0]*M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
+			break;
+		case TYPE_THETA:
+			LGAMMA[i0] += 2.0*M[i1]*(param /*+ ETHETA(z0, z1, I) */ ); 
+			LGAMMA[i1] += 2.0*M[i0]*(param /*+ ETHETA(z0, z1, I) */ ); 
+			OSMOT += M[i0]*M[i1]*param;
+			break;
+		case TYPE_ETHETA:
+			F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
+			LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
+			LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
+			OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+			break;
+		case TYPE_PSI:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE) continue;
+			z2 = spec[i2]->z;
+			LGAMMA[i0] += M[i1]*M[i2]*param;
+			LGAMMA[i1] += M[i0]*M[i2]*param;
+			LGAMMA[i2] += M[i0]*M[i1]*param;
+			OSMOT += M[i0]*M[i1]*M[i2]*param;
+			break;
+		case TYPE_LAMDA:
+			LGAMMA[i0] += 2.0*M[i1]*param;
+			LGAMMA[i1] += 2.0*M[i0]*param;
+			OSMOT += M[i0]*M[i1]*param;
+			break;
+		case TYPE_ZETA:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE) continue;
+			LGAMMA[i0] += M[i1]*M[i2]*param;
+			LGAMMA[i1] += M[i0]*M[i2]*param;
+			LGAMMA[i2] += M[i0]*M[i1]*param;
+			OSMOT += M[i0]*M[i1]*M[i2]*param;
+			break;
+		case TYPE_Other:
+			error_msg("TYPE_Other in pitz_param list.", STOP);
+			break;
+		}
+	}
+
+	/*
+	 *  Add F and CSUM terms to LGAMMA
+	 */
+
+	for (i = 0; i < count_cations; i++) {
+		z0 = spec[i]->z;
+		LGAMMA[i] += z0*z0*F+fabs(z0)*CSUM;
+	}
+	for (i = 2*count_s; i < 2*count_s + count_anions; i++) {
+		z0 = spec[i]->z;
+		LGAMMA[i] += z0*z0*F+fabs(z0)*CSUM;
+	}
+/*
+C
+C     CONVERT TO MACINNES CONVENTION
+C
+*/
+      if (ICON != 0) {
+	      PHIMAC=LGAMMA[IC]-GAMCLM;
+/*
+C
+C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
+C
+*/
+	      for (i = 0; i < count_cations; i++) {
+		      if (IPRSNT[i] == TRUE) {
+			      LGAMMA[i]=LGAMMA[i]+spec[i]->z*PHIMAC;
+		      }
+	      }
+      }
+
+      COSMOT = 1.0e0 + 2.0e0*OSMOT/OSUM;
+/*
+C
+C     CALCULATE THE ACTIVITY OF WATER
+C
+*/
+      AW=exp(-OSUM*COSMOT/55.50837e0);
+      for (i = 0; i < 2*count_s + count_anions; i++) {
+	      if (IPRSNT[i] == FALSE) continue;
+	      spec[i]->lg=LGAMMA[i]*CONV;
+	      fprintf(stderr, "%s: %e\n", spec[i]->name, LGAMMA[i]*CONV);
+      }
+      fprintf(stderr, "OSMOT: %e\n", OSMOT);
+      fprintf(stderr, "COSMOT: %e\n", COSMOT);
+      fprintf(stderr, "F: %e\n", F);
+      
+      *I_X = I;
+      *COSMOT_X = COSMOT;
+      return(OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
 /* ---------------------------------------------------------------------- */
@@ -811,7 +1071,7 @@ C
       *COSMOT_X = COSMOT;
       return(OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 double JAY (double X)
 /* ---------------------------------------------------------------------- */
