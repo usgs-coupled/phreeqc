@@ -121,6 +121,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define SURFACE_CB 21
 #define GAS_MOLES 23
 #define S_S_MOLES 24
+#define COMPLEX 25
 /* state */
 #define INITIALIZE         0
 #define INITIAL_SOLUTION   1
@@ -1241,6 +1242,7 @@ struct unknown {
 	   LDBLE si;
 	struct gas_phase *gas_phase;
 	struct conc *total;
+	struct species *s;
 	struct exch_comp *exch_comp;
 	struct pure_phase *pure_phase;
 	struct s_s *s_s;
@@ -1275,6 +1277,7 @@ EXTERNAL struct unknown *solution_phase_boundary_unknown;
 EXTERNAL struct unknown *surface_unknown;
 EXTERNAL struct unknown *gas_unknown;
 EXTERNAL struct unknown *s_s_unknown;
+EXTERNAL struct unknown *pitzer_complex_unknown;
 
 /*----------------------------------------------------------------------
  *   Reaction work space
@@ -1585,6 +1588,7 @@ enum entity_type { Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase,
 
 EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
+EXTERNAL int pitzer_model;
 
 EXTERNAL jmp_buf mark;
 

@@ -29,8 +29,8 @@ static int initial_guesses(void);
 static int jacobian_sums (void);
 static int mb_gases(void);
 static int mb_s_s(void);
-static int mb_sums (void);
-static int molalities (int allow_overflow);
+int mb_sums (void);
+int molalities (int allow_overflow);
 static int reset(void);
 static int residuals(void);
 static int revise_guesses(void);
@@ -2358,6 +2358,9 @@ int residuals(void)
 			if (fabs(residual[i]) > toler * x[i]->moles && x[i]->moles > MIN_TOTAL ) {
 				converge = FALSE;
 			}
+		} else if (x[i]->type == COMPLEX ) {
+			residual[i] = x[i]->f;
+			if (fabs(residual[i]) > toler) converge = FALSE;
 		} else if (x[i]->type == ALK) {
 			residual[i] = x[i]->moles - x[i]->f;
 			if (fabs(residual[i]) > toler * x[i]->moles ) converge = FALSE;
@@ -2507,6 +2510,10 @@ int set(int initial)
 /*
  *   Set initial log concentrations to zero
  */
+	if (pitzer_model) {
+		set_pz(initial);
+		return(OK);
+	}
 	iterations = -1;
 	solution_ptr = use.solution_ptr;
 	for (i=0; i < count_s_x; i++) {

@@ -43,7 +43,7 @@ static int setup_unknowns (void);
 static int store_dn (int k, LDBLE *source, int row, LDBLE coef_in, LDBLE *gamma_source);
 static int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef);
 static int store_jacob0(int row, int column, LDBLE coef);
-static int store_mb(LDBLE *source, LDBLE *target, LDBLE coef);
+int store_mb(LDBLE *source, LDBLE *target, LDBLE coef);
 static int store_mb_unknowns(struct unknown *unknown_ptr, LDBLE *LDBLE_ptr, LDBLE coef, LDBLE *gamma_ptr);
 static int store_sum_deltas(LDBLE *source, LDBLE *target, LDBLE coef);
 static int tidy_redox (void);
@@ -1012,7 +1012,7 @@ int build_model(void)
  				build_mb_sums();
  			} 
 #endif
-			build_jacobian_sums(i);
+			if (!pitzer_model) build_jacobian_sums(i);
 /*
  *    Build list of species for summing and printing
  */
@@ -1044,6 +1044,7 @@ int build_model(void)
 			}
 		}
 	}
+	if (pitzer_model) build_pitzer_complexes();
 /*
  *   Rewrite phases to current master species
  */
@@ -2848,6 +2849,26 @@ int setup_solution (void)
 			}				
 		}
 	}
+	if (pitzer_model) {
+/*
+ *   Non master species
+ */
+		for (i = 0; i < count_s; i++) {
+			if (s[i]->primary == NULL) {
+				count_trxn=0;
+				trxn_add (s[i]->rxn_s, 1.0, FALSE);  /* rxn_s is set in tidy_model */
+				if (inout() == TRUE) {
+					x[count_unknowns]->description= s[i]->name;
+					x[count_unknowns]->type=COMPLEX;
+					x[count_unknowns]->number=count_unknowns;
+					x[count_unknowns]->moles = 0.0;
+					x[count_unknowns]->s = s[i];
+					count_unknowns++;
+				}
+			}
+		}
+	}
+
 /*
  *   Ionic strength
  */
@@ -3024,6 +3045,7 @@ int setup_unknowns (void)
  *   One for luck
  */
 	max_unknowns++;
+	if (pitzer_model) max_unknowns += count_s;
 /*
  *   Allocate space for pointer array and structures
  */

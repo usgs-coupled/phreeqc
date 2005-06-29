@@ -5485,21 +5485,32 @@ struct unknown *unknown_alloc(void)
  */
 	unknown_ptr->type = 0;
 	unknown_ptr->moles = 0.0;
+	unknown_ptr->ln_moles = 0.0;
 	unknown_ptr->f = 0.0;
 	unknown_ptr->sum = 0.0;
 	unknown_ptr->delta = 0.0;
 	unknown_ptr->la = 0.0;
 	unknown_ptr->number = 0;
-
 	unknown_ptr->description=NULL;
 	unknown_ptr->master = NULL;
-	unknown_ptr->gas_phase=NULL;
 	unknown_ptr->phase = NULL;
+	unknown_ptr->si = 0.0;
+	unknown_ptr->gas_phase=NULL;
+	unknown_ptr->total=NULL;
+	unknown_ptr->s=NULL;
+	unknown_ptr->exch_comp = NULL;
+	unknown_ptr->pure_phase = NULL;
+	unknown_ptr->s_s = NULL;
+	unknown_ptr->s_s_comp = NULL;
+	unknown_ptr->s_s_comp_number = 0;
+	unknown_ptr->s_s_in = FALSE;
+	unknown_ptr->surface_comp = NULL;
+	unknown_ptr->related_moles = 0.0;
 	unknown_ptr->potential_unknown = NULL;
 	unknown_ptr->phase_unknown = NULL;
-	unknown_ptr->pure_phase = NULL;
-	unknown_ptr->surface_comp = NULL;
 	unknown_ptr->surface_charge = NULL;
+	unknown_ptr->mass_water = 0.0;
+	unknown_ptr->dissolve_only = FALSE;
 
 	return(unknown_ptr);
 }

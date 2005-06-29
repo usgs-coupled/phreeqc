@@ -35,6 +35,7 @@ int pitzer_init (void)
 /*
  *      Initialization for pitzer
  */
+	pitzer_model = FALSE;
 	max_pitz_param = 100;
 	count_pitz_param = 0;
 	space ((void *) &pitz_params, INIT, &max_pitz_param, sizeof(struct pitz_param *));
@@ -203,7 +204,7 @@ int pitzer_tidy (void)
 	}
 	temp_t = 298.15;
 	temp_mu = 1.0;
-	pitzer(&temp_t, &temp_mu, &temp_cosmot);
+	/* pitzer(&temp_t, &temp_mu, &temp_cosmot); */
 
 	return OK;
 }
@@ -347,6 +348,7 @@ int read_pitzer (void)
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
+	if (count_pitz_param > 0) pitzer_model = TRUE;
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
@@ -434,7 +436,7 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
+int pitzer ()
 /* ---------------------------------------------------------------------- */
 {
 	int i, i0, i1, i2;
@@ -460,17 +462,21 @@ int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
 	XX=0.0e0;
 	OSUM=0.0e0;
 	LNEUT=FALSE;
+	/*n
 	I = *I_X;
 	TK = *TK_X;
+	*/
+	I = mu_x;
+	TK = tk_x;
 	/*	DH_AB(TK, &A, &B); */
 	/*
 	  C
-	  C     TRANSFER DATA FROM MO TO M
+	  C     TRANSFER DATA FROM TO M
 	  C
 	*/
 	for (i = 0; i < 3*count_s; i++) {
 		IPRSNT[i] = FALSE;
-		if (spec[i] != NULL) {
+		if (spec[i] != NULL && spec[i]->in == TRUE) {
 			M[i] = under(spec[i]->lm);
 			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
 		}
@@ -478,6 +484,7 @@ int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
 	for (i = count_s; i < count_s + count_neutrals; i++) {
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
+#ifdef SKIP
 	/*  TESTING !!!!!!!!!!! */
 	for (i = 0; i < 3*count_s; i++) {
 		M[i] = 0.0;
@@ -501,6 +508,7 @@ int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
 	IC = 2*count_s + 5;
 	M[71] = 1.0; /* SO4-2 */
 	IPRSNT[71] = TRUE;
+#endif
 	ICON = 0;
 /*
 C
@@ -649,17 +657,21 @@ C     CALCULATE THE ACTIVITY OF WATER
 C
 */
       AW=exp(-OSUM*COSMOT/55.50837e0);
+      s_h2o->la=log10(AW);
       for (i = 0; i < 2*count_s + count_anions; i++) {
 	      if (IPRSNT[i] == FALSE) continue;
 	      spec[i]->lg=LGAMMA[i]*CONV;
-	      fprintf(stderr, "%s: %e\n", spec[i]->name, LGAMMA[i]*CONV);
+	      spec[i]->la=spec[i]->lm +spec[i]->lg;
+	      fprintf(stderr, "%s: %e\%e %e \n", spec[i]->name, spec[i]->la, spec[i]->lm, spec[i]->lg);
       }
       fprintf(stderr, "OSMOT: %e\n", OSMOT);
       fprintf(stderr, "COSMOT: %e\n", COSMOT);
       fprintf(stderr, "F: %e\n", F);
       
+      /*
       *I_X = I;
       *COSMOT_X = COSMOT;
+      */
       return(OK);
 }
 #ifdef SKIP
