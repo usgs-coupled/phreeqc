@@ -51,7 +51,6 @@ int pitzer_tidy (void)
 	char * string1, *string2;
 	int i, j, order;
 	double z0, z1;
-	double temp_t, temp_mu, temp_cosmot;
 	struct pitz_param *pzp_ptr;
 	/*
 	 *  allocate pointers to species structures
@@ -191,7 +190,7 @@ int pitzer_tidy (void)
 		} else if (pitz_params[i]->type == TYPE_B2) {
 			switch (order) {
 			case 1:
-				pitz_params[i]->alpha = 0.0;
+				pitz_params[i]->alpha = 1.0;
 				break;
 			case 2:
 				pitz_params[i]->alpha = 12.0;
@@ -202,9 +201,6 @@ int pitzer_tidy (void)
 			}
 		}
 	}
-	temp_t = 298.15;
-	temp_mu = 1.0;
-	/* pitzer(&temp_t, &temp_mu, &temp_cosmot); */
 
 	return OK;
 }
@@ -549,6 +545,9 @@ C
  *  Sums for F, LGAMMA, and OSMOT
  */
 	for (i = 0; i < count_pitz_param; i++) {
+		if (i == 107) {
+			fprintf(stderr,"\n");
+		}
 		i0 = pitz_params[i]->ispec[0];
 		i1 = pitz_params[i]->ispec[1];
 		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
@@ -658,16 +657,19 @@ C
 */
       AW=exp(-OSUM*COSMOT/55.50837e0);
       s_h2o->la=log10(AW);
+      mu_x = I;
       for (i = 0; i < 2*count_s + count_anions; i++) {
 	      if (IPRSNT[i] == FALSE) continue;
 	      spec[i]->lg=LGAMMA[i]*CONV;
-	      spec[i]->la=spec[i]->lm +spec[i]->lg;
-	      fprintf(stderr, "%s: %e\%e %e \n", spec[i]->name, spec[i]->la, spec[i]->lm, spec[i]->lg);
+	      /*n
+	      output_msg(OUTPUT_MESSAGE, "%s:\t%e\t%e\t%e \n", spec[i]->name, spec[i]->la, spec[i]->lm, spec[i]->lg);
+	      */
       }
-      fprintf(stderr, "OSMOT: %e\n", OSMOT);
-      fprintf(stderr, "COSMOT: %e\n", COSMOT);
-      fprintf(stderr, "F: %e\n", F);
-      
+      /*
+      output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
+      output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
+      output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
+      */
       /*
       *I_X = I;
       *COSMOT_X = COSMOT;
@@ -1264,3 +1266,24 @@ C
 	return (OK);
 }
 #endif
+/* ---------------------------------------------------------------------- */
+int pitzer_clean_up(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Free all allocated memory, except strings
+ */
+	int i;
+
+	if (svnid == NULL) fprintf(stderr," ");
+	for (i = 0; i < count_pitz_param; i++) {
+		pitz_params[i] = free_check_null(pitz_params[i]);
+	}
+	pitz_params = free_check_null(pitz_params);
+	LGAMMA = free_check_null(LGAMMA);
+	IPRSNT = free_check_null(IPRSNT);
+	spec = free_check_null(spec);
+	M = free_check_null(M);
+
+	return OK;
+}

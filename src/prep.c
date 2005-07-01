@@ -167,6 +167,7 @@ static int quick_setup (void)
 /*
  *   Reaction: pe for total hydrogen
  */
+	if (mass_hydrogen_unknown != NULL) {
 #define COMBINE
 	/*#define COMBINE_CHARGE*/
 #ifdef COMBINE
@@ -178,6 +179,7 @@ static int quick_setup (void)
 #else
 	mass_hydrogen_unknown->moles = use.solution_ptr->total_h;
 #endif
+	}
 /*
  *   Reaction H2O for total oxygen
  */
@@ -953,6 +955,7 @@ int build_model(void)
 			if (s[i]->gflag == 9 ) {
 				gfw_water = 18.0/1000.0;
 			}
+			s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x) {
 				space ((void *) &s_x, count_s_x + 1,
 				       &max_s_x,
@@ -1044,7 +1047,6 @@ int build_model(void)
 			}
 		}
 	}
-	if (pitzer_model) build_pitzer_complexes();
 /*
  *   Rewrite phases to current master species
  */
@@ -2849,29 +2851,10 @@ int setup_solution (void)
 			}				
 		}
 	}
-	if (pitzer_model) {
-/*
- *   Non master species
- */
-		for (i = 0; i < count_s; i++) {
-			if (s[i]->primary == NULL) {
-				count_trxn=0;
-				trxn_add (s[i]->rxn_s, 1.0, FALSE);  /* rxn_s is set in tidy_model */
-				if (inout() == TRUE) {
-					x[count_unknowns]->description= s[i]->name;
-					x[count_unknowns]->type=COMPLEX;
-					x[count_unknowns]->number=count_unknowns;
-					x[count_unknowns]->moles = 0.0;
-					x[count_unknowns]->s = s[i];
-					count_unknowns++;
-				}
-			}
-		}
-	}
-
-/*
- *   Ionic strength
- */
+	if (pitzer_model == FALSE) {
+	/*
+	 *   Ionic strength
+	 */
 	mu_unknown=x[count_unknowns];
 	x[count_unknowns]->description= string_hsave( "Mu" );
 	x[count_unknowns]->type=MU;
@@ -2879,9 +2862,9 @@ int setup_solution (void)
 	x[count_unknowns]->moles = 0.0;
 	mu_unknown = x[count_unknowns];
 	count_unknowns++;
-/*
- *   Activity of water
- */
+	/*
+	 *   Activity of water
+	 */
 	ah2o_unknown=x[count_unknowns];
 	ah2o_unknown->description= string_hsave( "A(H2O)" );
 	ah2o_unknown->type=AH2O;
@@ -2891,6 +2874,8 @@ int setup_solution (void)
 	ah2o_unknown->master[0]->unknown = ah2o_unknown;
 	ah2o_unknown->moles = 0.0;
 	count_unknowns++;
+	}
+
 	if (state >= REACTION) {
 /*
 
@@ -3045,7 +3030,6 @@ int setup_unknowns (void)
  *   One for luck
  */
 	max_unknowns++;
-	if (pitzer_model) max_unknowns += count_s;
 /*
  *   Allocate space for pointer array and structures
  */

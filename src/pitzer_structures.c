@@ -12,22 +12,6 @@ int pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr);
 
 
 
-/* ---------------------------------------------------------------------- */
-int pitzer_clean_up(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Free all allocated memory, except strings
- */
-	int i;
-
-	if (svnid == NULL) fprintf(stderr," ");
-	for (i = 0; i < count_pitz_param; i++) {
-		pitz_params[i] = free_check_null(pitz_params[i]);
-	}
-	pitz_params = free_check_null(pitz_params);
-	return OK;
-}
 /* **********************************************************************
  *
  *   Routines related to structure "pitz_param"

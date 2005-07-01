@@ -8,6 +8,7 @@ static char const svnid[] = "$Id: model.c 198 2005-03-31 18:11:06Z dlpark $";
 
 static int initial_guesses(void);
 static int revise_guesses(void);
+static int remove_unstable_phases;
 
 /* ---------------------------------------------------------------------- */
 int set_pz(int initial)
@@ -123,7 +124,8 @@ int revise_guesses(void)
  			return(OK);
   		}
 		molalities(TRUE);
-		pitzer();
+		/*pitzer();*/
+		/*s_h2o->la = 0.0;*/
 		/*molalities(TRUE);*/
 		mb_sums();
 		if (state < REACTION) {
@@ -133,7 +135,7 @@ int revise_guesses(void)
 				x[i]->sum = x[i]->f;
 			}
 		}
-		/*
+		/*n
 		if (debug_set == TRUE) {
 			pr.species = TRUE;
 			pr.all = TRUE;
@@ -194,13 +196,14 @@ int revise_guesses(void)
 		}
 	}
 	output_msg(OUTPUT_LOG,"Iterations in revise_guesses: %d\n", iter);
-	mu_x = mu_unknown->f * 0.5 / mass_water_aq_x;
+	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x;*/
 	if (mu_x <= 1e-8) {
 		mu_x = 1e-8;
 	}
 	/*gammas(mu_x);*/
 	return(OK);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int build_pitzer_complexes(void)
 /* ---------------------------------------------------------------------- */
@@ -235,4 +238,260 @@ int build_pitzer_complexes(void)
 		}
 	}
 	return(OK);
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int jacobian_pz(void)
+/* ---------------------------------------------------------------------- */
+{
+	double *base;
+	double d, d1, d2;
+	int i, j;
+
+	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
+	if (base == NULL) malloc_error();
+	for (i = 0; i < count_unknowns; i++) {
+		base[i] = residual[i];
+	}
+	d = 0.001;
+	d1 = d*log(10.0);
+	for (i = 0; i < count_unknowns; i++) {
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case MH2O:
+			mass_water_aq_x *= 1.0 + d;
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			d2 = log(1.0 + d);
+			break;
+
+		case MU:
+		case AH2O:
+		case MH:
+		case PP:
+			continue;
+			break;
+		}
+		molalities();
+		mb_sums();
+		residuals();
+		for (j = 0; j < count_unknowns; j++) {
+			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
+		}
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+			x[i]->master[0]->s->la -= d;
+			break;
+		case MH2O:
+			mass_water_aq_x /= 1 + d;
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			break;
+		}
+	}
+	molalities();
+	mb_sums();
+	residuals();
+	free_check_null(base);
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int model_pz(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   model is called after the equations have been set up by prep
+ *   and initial guesses have been made in set.
+ * 
+ *   Here is the outline of the calculation sequence:
+ *      residuals--residuals are calculated, if small we are done
+ *      sum_jacobian--jacobian is calculated 
+ *      ineq--inequality solver is called
+ *      reset--estimates of unknowns revised, if changes are small solution
+ *         has been found, usually convergence is found in residuals.
+ *      gammas--new activity coefficients
+ *      molalities--calculate molalities
+ *      mb_sums--calculate mass-balance sums
+ *      mb_gases--decide if gas_phase exists
+ *      mb_s_s--decide if solid_solutions exists
+ *      switch_bases--check to see if new basis species is needed
+ *         reprep--rewrite equations with new basis species if needed
+ *         revise_guesses--revise unknowns to get initial mole balance
+ *      check_residuals--check convergence one last time
+ *         sum_species--calculate sums of elements from species concentrations
+ *
+ *      An additional pass through may be needed if unstable phases still exist
+ *         in the phase assemblage. 
+ */
+	int i;
+	int kode, return_kode;
+	int r;
+	int count_infeasible, count_basis_change;
+	int debug_model_save;
+	int mass_water_switch_save;
+	if (svnid == NULL) fprintf(stderr," ");
+
+/*	debug_model = TRUE; */
+/*	debug_prep = TRUE; */
+/*	debug_set = TRUE; */
+	/* mass_water_switch == TRUE, mass of water is constant */
+	mass_water_switch_save = mass_water_switch;
+	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE) {
+		mass_water_switch = TRUE;
+	}
+	debug_model_save = debug_model;
+	pe_step_size_now = pe_step_size;
+	step_size_now = step_size;
+	status(0, NULL);
+	iterations=0;
+	count_basis_change = count_infeasible = 0;
+	stop_program = FALSE;
+	remove_unstable_phases = FALSE;
+	for (; ; ) {
+		mb_gases();
+		mb_s_s();
+		kode = 1;
+		while ( ( r = residuals() ) != CONVERGED || remove_unstable_phases == TRUE) {
+#if defined(PHREEQCI_GUI)
+			if (WaitForSingleObject(g_hKill /*g_eventKill*/, 0) == WAIT_OBJECT_0)
+				{
+					error_msg("Execution canceled by user.", CONTINUE);
+					RaiseException(USER_CANCELED_RUN, 0, 0, NULL);
+				}
+#endif
+			iterations++;
+			if (iterations > itmax - 1 && debug_model == FALSE && pr.logfile == TRUE) {
+				set_forward_output_to_log(TRUE);
+				debug_model = TRUE;
+			}
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"\nIteration %d\tStep_size = %f\n", 
+					   iterations, (double) step_size_now);
+				output_msg(OUTPUT_MESSAGE,"\t\tPe_step_size = %f\n\n", (double) pe_step_size_now);
+			}
+			/*
+			 *   Iterations exceeded
+			 */
+			if (iterations > itmax ) {
+				sprintf(error_string,"Maximum iterations exceeded, %d\n",itmax);
+				warning_msg(error_string);
+				stop_program = TRUE;
+				break;
+			}
+			/*
+			 *   Calculate jacobian
+			 */
+			jacobian_sums();
+			jacobian_pz();
+			/*
+			 *   Full matrix with pure phases
+			 */
+			if ( r == OK || remove_unstable_phases == TRUE) {
+				return_kode = ineq(kode);
+				if ( return_kode != OK ) {
+					if (debug_model == TRUE) {
+						output_msg(OUTPUT_MESSAGE, "Ineq had infeasible solution, "
+							   "kode %d, iteration %d\n", 
+							   return_kode, iterations);
+					}
+					output_msg(OUTPUT_LOG, "Ineq had infeasible solution, "
+						   "kode %d, iteration %d\n", return_kode, iterations);
+					count_infeasible++;
+				}
+				if ( return_kode == 2 ) { 
+					ineq(0);
+				}
+				reset();
+			}
+			molalities(TRUE);
+			if(use.surface_ptr != NULL && 
+			   use.surface_ptr->diffuse_layer == TRUE &&
+			   use.surface_ptr->related_phases == TRUE)
+				initial_surface_water();
+			mb_sums();
+			mb_gases();
+			mb_s_s();
+			/* debug
+			   species_list_sort();
+			   sum_species();
+			   print_species();
+			   print_exchange();
+			   print_surface();
+			*/
+			if (stop_program == TRUE) {
+				break;
+			}
+		}
+/*
+ *   Check for stop_program
+ */
+
+		if (stop_program == TRUE) {
+			break;
+		}
+		if (check_residuals() == ERROR) {
+			stop_program = TRUE;
+			break;
+		}
+		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE &&
+		    mass_water_switch == TRUE) {
+			output_msg(OUTPUT_LOG,"\nChanging water switch to FALSE. Iteration %d.\n", iterations);
+			mass_water_switch = FALSE;
+			continue;
+		}
+		if (check_gammas() != TRUE) continue;
+		if (remove_unstable_phases == FALSE) break;
+		if (debug_model == TRUE) {
+			output_msg(OUTPUT_MESSAGE,"\nRemoving unstable phases. Iteration %d.\n", iterations);
+		}
+		output_msg(OUTPUT_LOG,"\nRemoving unstable phases. Iteration %d.\n", iterations);
+        }
+	output_msg(OUTPUT_LOG,"\nNumber of infeasible solutions: %d\n",count_infeasible);
+	output_msg(OUTPUT_LOG,"Number of basis changes: %d\n\n",count_basis_change);
+	output_msg(OUTPUT_LOG,"Number of iterations: %d\n\n", iterations);
+	debug_model = debug_model_save;
+	set_forward_output_to_log(FALSE);
+	if (stop_program == TRUE) {
+		return(ERROR);
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int check_gammas(void)
+/* ---------------------------------------------------------------------- */
+{
+	double *base, old_aw, old_mu;
+	int converge, i;
+
+	base = (LDBLE *) PHRQ_malloc((size_t) count_s_x * sizeof(LDBLE));
+	if (base == NULL) malloc_error();
+
+	for (i = 0; i < count_s_x; i++) {
+		base[i] = s_x[i]->lg;
+	}
+	old_mu = mu_x;
+	old_aw = s_h2o->la;
+	pitzer();
+	molalities();
+	mb_sums();
+	converge = TRUE;
+	for (i = 0; i < count_s_x; i++) {
+		if (fabs(base[i] - s_x[i]->lg) > convergence_tolerance) converge = FALSE;
+	}
+	if (fabs(old_mu - mu_x) > convergence_tolerance) converge = FALSE;
+	if (fabs(old_aw - s_h2o->la) > convergence_tolerance) converge = FALSE;
+	
+	base = free_check_null(base);
+	return converge;
 }

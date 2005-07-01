@@ -202,6 +202,12 @@ Dolomite
         log_k           -17.083
         delta_h -9.436 kcal
 
+Gypsum
+        CaSO4:2H2O = Ca+2 + SO4-2 + 2 H2O
+        log_k           -4.581
+        delta_h -0.109 kcal
+        -analytic       90.318      0.0         -4213.      -32.641
+
 PITZER
 -B0
   Na+       Cl-       0.0765     -777.03     -4.4706      0.008946   -3.3158E-6

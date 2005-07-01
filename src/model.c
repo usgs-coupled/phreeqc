@@ -24,15 +24,15 @@ extern int slnq (int n, LDBLE *a, LDBLE *delta, int ncols, int print);
 static int calc_gas_pressures(void);
 static int calc_s_s_fractions(void);
 static int gammas (LDBLE mu);
-static int ineq(int kode);
+int ineq(int kode);
 static int initial_guesses(void);
-static int jacobian_sums (void);
-static int mb_gases(void);
-static int mb_s_s(void);
+int jacobian_sums (void);
+int mb_gases(void);
+int mb_s_s(void);
 int mb_sums (void);
 int molalities (int allow_overflow);
-static int reset(void);
-static int residuals(void);
+int reset(void);
+int residuals(void);
 static int revise_guesses(void);
 static int s_s_binary(struct s_s *s_s_ptr);
 static int s_s_ideal(struct s_s *s_s_ptr);
@@ -81,6 +81,7 @@ int model(void)
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
 	/* mass_water_switch == TRUE, mass of water is constant */
+	if (pitzer_model == TRUE) return model_pz();
 	mass_water_switch_save = mass_water_switch;
 	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE) {
 		mass_water_switch = TRUE;
@@ -291,13 +292,13 @@ int check_residuals(void)
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
 				error_msg(error_string, CONTINUE);
 			}
-		} else if (x[i]->type == MU) {
+		} else if (x[i]->type == MU && pitzer_model == FALSE) {
 			if (fabs (residual[i]) >= epsilon * mu_x * mass_water_aq_x /* || stop_program == TRUE */) {
 				sprintf(error_string,"%20s Ionic strength has not converged. "
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
 				error_msg(error_string, CONTINUE);
 			}
-		} else if (x[i]->type == AH2O) {
+		} else if (x[i]->type == AH2O && pitzer_model == FALSE) {
 			if (fabs (residual[i]) >= epsilon /* || stop_program == TRUE */) {
 				sprintf(error_string,"%20s Activity of water has not converged. "
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
@@ -679,6 +680,23 @@ int ineq(int in_kode)
 		return(OK);
 	}
 /*
+ *   Pitzer model does not have activity of water or mu 
+ */
+	if (pitzer_model == TRUE) {
+		for (i=0; i < count_unknowns; i++) {
+			if (x[i]->type == AH2O || 
+			    x[i]->type == MU || 
+			    x[i]->type == MH ) {
+				for (j=0; j<count_unknowns; j++) {
+					array[j*(count_unknowns +1) + i] = 0.0;
+				}
+				for (j=0; j<count_unknowns + 1; j++) {
+					array[i*(count_unknowns +1) + j] = 0.0;
+				}
+			}
+		}
+	}
+/*
  *   Normalize column
  */
 	normal = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
@@ -863,6 +881,7 @@ int ineq(int in_kode)
 		    x[i]->type != GAS_MOLES && 
 		    x[i]->type != S_S_MOLES && 
 		    x[i]->type != PP ) {
+			if(x[i]->type == MH && pitzer_model == TRUE) continue;
 			if(mass_water_switch == TRUE && x[i] == mass_oxygen_unknown) continue;
 /*
  *   Mass balance, CB, MU, AH2O, MH, MH2O, others
@@ -1292,24 +1311,28 @@ int jacobian_sums (void)
 /*
  *   Ionic strength
  */
-	for (i=0; i<count_unknowns; i++) {
-		array[mu_unknown->number*(count_unknowns+1)+i] *= 0.5;
+	if (mu_unknown != NULL) {
+		for (i=0; i<count_unknowns; i++) {
+			array[mu_unknown->number*(count_unknowns+1)+i] *= 0.5;
+		}
+		array[mu_unknown->number*(count_unknowns+1)+mu_unknown->number] -= mass_water_aq_x;
 	}
-	array[mu_unknown->number*(count_unknowns+1)+mu_unknown->number] -= mass_water_aq_x;
 /*
  *   Mass of oxygen
  */
-	if (mass_oxygen_unknown != NULL) {
+	if (mass_oxygen_unknown != NULL && mu_unknown != NULL) {
 		array[mu_unknown->number*(count_unknowns+1)+mass_oxygen_unknown->number] -= mu_x * mass_water_aq_x;
 	}
 /*
  *   Activity of water
  */
-	for (i=0; i<count_unknowns; i++) {
-		array[ah2o_unknown->number*(count_unknowns+1)+i] *= -0.017;
+	if (ah2o_unknown != NULL) {
+		for (i=0; i<count_unknowns; i++) {
+			array[ah2o_unknown->number*(count_unknowns+1)+i] *= -0.017;
+		}
+		array[ah2o_unknown->number*(count_unknowns+1)+ah2o_unknown->number] -= mass_water_aq_x*exp(s_h2o->la * LOG_10);
 	}
-	array[ah2o_unknown->number*(count_unknowns+1)+ah2o_unknown->number] -= mass_water_aq_x*exp(s_h2o->la * LOG_10);
-	if (mass_oxygen_unknown != NULL) {
+	if (mass_oxygen_unknown != NULL && ah2o_unknown != NULL) {
 		array[ah2o_unknown->number*(count_unknowns+1)+mass_oxygen_unknown->number] -=
 			(exp(s_h2o->la * LOG_10) - 1) * mass_water_aq_x;
 	}
@@ -2358,9 +2381,6 @@ int residuals(void)
 			if (fabs(residual[i]) > toler * x[i]->moles && x[i]->moles > MIN_TOTAL ) {
 				converge = FALSE;
 			}
-		} else if (x[i]->type == COMPLEX ) {
-			residual[i] = x[i]->f;
-			if (fabs(residual[i]) > toler) converge = FALSE;
 		} else if (x[i]->type == ALK) {
 			residual[i] = x[i]->moles - x[i]->f;
 			if (fabs(residual[i]) > toler * x[i]->moles ) converge = FALSE;
@@ -2373,13 +2393,13 @@ int residuals(void)
 				residual[i] += x[i]->moles;
 			}
 			if (fabs(residual[i]) >= toler * mu_x * mass_water_aq_x ) converge = FALSE;
-		} else if (x[i]->type == MU) {
+		} else if (x[i]->type == MU && pitzer_model == FALSE) {
 			residual[i] = mass_water_aq_x * mu_x - 0.5*x[i]->f;
 			if (fabs(residual[i]) > toler*mu_x * mass_water_aq_x ) converge = FALSE;
-		} else if (x[i]->type == AH2O) {
+		} else if (x[i]->type == AH2O && pitzer_model == FALSE) {
 			residual[i] = mass_water_aq_x*exp(s_h2o->la * LOG_10) - mass_water_aq_x + 0.017 * x[i]->f;
 			if (fabs(residual[i]) > toler ) converge = FALSE;
-		} else if (x[i]->type == MH) {
+		} else if (x[i]->type == MH && pitzer_model == FALSE) {
 #ifdef COMBINE
 			residual[i] = x[i]->moles - x[i]->f; 
 #else 
@@ -2510,10 +2530,7 @@ int set(int initial)
 /*
  *   Set initial log concentrations to zero
  */
-	if (pitzer_model) {
-		set_pz(initial);
-		return(OK);
-	}
+	if (pitzer_model == TRUE) return(set_pz());
 	iterations = -1;
 	solution_ptr = use.solution_ptr;
 	for (i=0; i < count_s_x; i++) {

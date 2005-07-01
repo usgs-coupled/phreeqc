@@ -121,7 +121,9 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define SURFACE_CB 21
 #define GAS_MOLES 23
 #define S_S_MOLES 24
+#ifdef SKIP
 #define COMPLEX 25
+#endif
 /* state */
 #define INITIALIZE         0
 #define INITIAL_SOLUTION   1
@@ -1277,8 +1279,9 @@ EXTERNAL struct unknown *solution_phase_boundary_unknown;
 EXTERNAL struct unknown *surface_unknown;
 EXTERNAL struct unknown *gas_unknown;
 EXTERNAL struct unknown *s_s_unknown;
+#ifdef SKIP
 EXTERNAL struct unknown *pitzer_complex_unknown;
-
+#endif
 /*----------------------------------------------------------------------
  *   Reaction work space
  *---------------------------------------------------------------------- */
