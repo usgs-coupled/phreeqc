@@ -202,11 +202,154 @@ Dolomite
         log_k           -17.083
         delta_h -9.436 kcal
 
+Epsomite
+        MgSO4:7H2O  =  Mg+2 + SO4-2 + 7 H2O
+        log_k           -1.881
+	-analytical	1.718       0.0         -1073.
+
+Gaylussite
+        CaNa2(CO3)2:5H2O = Ca+2 + 2 CO3-2 + 2 Na+ + 5 H2O
+        log_k           -9.421
+
+Glaserite
+        NaK3(SO4)2 =  Na+ + 3K+ + 2SO4-2
+        log_k           -3.803
+
+Glauberite
+        Na2Ca(SO4)2  =  Ca+2 + 2 Na+ + 2 SO4-2
+        log_k           -5.245
+
 Gypsum
         CaSO4:2H2O = Ca+2 + SO4-2 + 2 H2O
         log_k           -4.581
         delta_h -0.109 kcal
         -analytic       90.318      0.0         -4213.      -32.641
+
+Halite
+        NaCl  =  Cl- + Na+
+        log_k           1.570
+        -analytic -713.4616   -.1201241   37302.21    262.4583    -2106915.
+
+Hexahydrite
+        MgSO4:6H2O  =  Mg+2 + SO4-2 + 6 H2O
+        log_k           -1.635
+	-analytic	-62.666     0.0         1828.       22.187
+
+Kainite
+        KMgClSO4:3H2O  =  Cl- + K+ + Mg+2 + SO4-2 + 3 H2O
+        log_k           -0.193
+
+Kalicinite
+        KHCO3  =  K+ + H+ + CO3-2
+        log_k           -10.058
+
+Kieserite
+        MgSO4:H2O  =  Mg+2 + SO4-2 + H2O
+        log_k           -0.123
+
+Labile_S
+	Na4Ca(SO4)3:2H2O = 4Na+ + Ca+2 + 3SO4-2 + 2H2O
+        log_k           -5.672
+
+Leonhardite
+	MgSO4:4H2O = Mg+2 + SO4-2 + 4H2O
+        log_k           -0.887
+
+Leonite
+        K2Mg(SO4)2:4H2O  =  Mg+2 + 2 K+ + 2 SO4-2 + 4 H2O
+        log_k           -3.979
+
+Magnesite
+        MgCO3 =  CO3-2 + Mg+2
+        log_k	       -7.834
+	delta_h	       -6.169
+
+Mirabilite
+        Na2SO4:10H2O  =  SO4-2 + 2 Na+ + 10 H2O
+        log_k           -1.214
+        -analytic	-3862.234   -1.19856    93713.54    1577.756    0.
+
+Misenite
+        K8H6(SO4)7  =  6 H+ + 7 SO4-2 + 8 K+
+        log_k           -10.806
+
+Nahcolite
+        NaHCO3  =  CO3-2 + H+ + Na+
+        log_k           -10.742
+
+Natron
+        Na2CO3:10H2O = CO3-2 + 2 Na+ + 10.0000 H2O
+        log_k           -0.825
+
+Nesquehonite
+        MgCO3:3H2O =  CO3-2 + Mg+2 + 3 H2O
+        log_k           -5.167
+
+PCO2
+	CO2 + H2O = H2CO3
+	log_k		-1.468
+	-analytic	108.3865    0.01985076  -6919.53    -40.45154    669365.0
+
+Pentahydrite
+        MgSO4:5H2O  =  Mg+2 + SO4-2 + 5 H2O
+        log_k           -1.285
+
+Pirssonite
+        Na2Ca(CO3)2:2H2O = 2Na+ + Ca+2 + 2CO3-2 + 2 H2O
+        log_k           -9.234
+
+Polyhalite
+        K2MgCa2(SO4)4:2H2O  = 2K+ +  Mg+2 + 2 Ca+2 + 4SO4-2 + 2 H2O 
+        log_k           -13.744
+
+Portlandite
+        Ca(OH)2 =  Ca+2 + 2 OH-
+        log_k           -5.190
+
+Schoenite
+        K2Mg(SO4)2:6H2O  =  2K+ + Mg+2 + 2 SO4-2 + 6H2O
+        log_k           -4.328
+
+Sylvite
+        KCl  = K+ + Cl-
+        log_k           0.900
+        -analytic	3.984       0.0         -919.55
+
+Syngenite
+        K2Ca(SO4)2:H2O  =  2K+ + Ca+2 + 2SO4-2 + H2O 
+        log_k           -7.448
+
+Trona
+        Na3H(CO3)2:2H2O =  3 Na+ + H+ + 2CO3-2 + 2H2O
+        log_k           -11.384
+
+Borax
+        Na2(B4O5(OH)4):8H2O + 2 H+  =  4 B(OH)3 + 2 Na+ +  5 H2O
+        log_k           12.464
+
+Boric_acid,s
+        B(OH)3  =  B(OH)3
+        log_k           -0.030
+
+KB5O8:4H2O
+	KB5O8:4H2O + 3H2O + H+ = 5B(OH)3 + K+ 
+        log_k           4.671
+
+K2B4O7:4H2O
+	K2B4O7:4H2O + H2O + 2H+ = 4B(OH)3 + 2K+ 
+        log_k           13.906
+
+NaBO2:4H2O
+	NaBO2:4H2O + H+ = B(OH)3 + Na+ + 3H2O
+        log_k		9.568
+
+NaB5O8:5H2O
+	NaB5O8:5H2O + 2H2O + H+ = 5B(OH)3 + Na+
+        log_k		5.895
+
+Teepleite
+	Na2B(OH)4Cl + H+ = B(OH)3 + 2Na+ + Cl- + H2O
+        log_k		10.840
 
 PITZER
 -B0
