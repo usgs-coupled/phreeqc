@@ -932,7 +932,6 @@ int ineq(int in_kode)
 			if (x[i]->type == PP) {
 				/* not in model, ignore */
 				if (x[i]->pure_phase->phase->in == FALSE) continue;
-
 				/*   No moles and undersaturated, ignore */
 				if (x[i]->moles <= 0.0 && x[i]->f > 0e-8 &&
 				    x[i]->pure_phase->add_formula == NULL) {
@@ -1349,8 +1348,10 @@ int jacobian_sums (void)
 				}
 				array[x[i]->number * (count_unknowns + 1) + x[i]->number] -= 
 					sinh_constant * sqrt(mu_x) * cosh(x[i]->master[0]->s->la * LOG_10);
-				array[x[i]->number * (count_unknowns + 1) + mu_unknown->number] -= 
-					0.5 * sinh_constant / sqrt(mu_x) * sinh(x[i]->master[0]->s->la * LOG_10);
+				if (mu_unknown != NULL) {
+					array[x[i]->number * (count_unknowns + 1) + mu_unknown->number] -= 
+						0.5 * sinh_constant / sqrt(mu_x) * sinh(x[i]->master[0]->s->la * LOG_10);
+				}
 			}
 		}
 	} 
@@ -2871,8 +2872,10 @@ int free_model_allocs(void)
  *   free space allocated in model
  */
 	int i;
-	for (i = 0; i < max_unknowns; i++) {
-		unknown_free(x[i]);
+	if (x != NULL) {
+		for (i = 0; i < max_unknowns; i++) {
+			unknown_free(x[i]);
+		}
 	}
 	x = free_check_null(x);
 	max_unknowns = 0;

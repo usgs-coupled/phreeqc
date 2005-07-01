@@ -7,25 +7,25 @@ O        H2O            0.0     O               16.00
 O(0)     O2             0.0     O
 O(-2)    H2O            0.0     0.0
 Ca       Ca+2           0.0     Ca              40.08
-Mg       Mg+2           0.0     Mg              24.312
+Mg       Mg+2           0.0     Mg              24.305
 Na       Na+            0.0     Na              22.9898
-K        K+             0.0     K               39.102
+K        K+             0.0     K               39.0983
 Fe       Fe+2           0.0     Fe              55.847
 Mn       Mn+2           0.0     Mn              54.938
-Ba       Ba+2           0.0     Ba              137.34
+Ba       Ba+2           0.0     Ba              137.33
 Sr       Sr+2           0.0     Sr              87.62
 Cl       Cl-            0.0     Cl              35.453
 C        CO3-2          2.0     HCO3            12.0111
+C(4)     CO3-2          2.0     HCO3            12.0111
 Alkalinity CO3-2        1.0     Ca0.5(CO3)0.5   50.05
 S        SO4-2          0.0     SO4             32.064
 B        B(OH)3         0.0     B               10.81
-Li       Li+            0.0     Li              6.939
+Li       Li+            0.0     Li              6.941
 Br       Br-            0.0     Br              79.904
 SOLUTION_SPECIES
 
 H+ = H+
         log_k           0.000
-        -gamma          9.0000    0.0000
 
 e- = e-
         log_k           0.000
@@ -71,17 +71,14 @@ B(OH)3 = B(OH)3
 
 Li+ = Li+
         log_k           0.000
-        -gamma    6.0000    0.0000
 
 Br- = Br-
         log_k           0.000
-        -gamma    3.0000    0.0000
 
 H2O = OH- + H+
-        log_k           -14.000
-        delta_h 13.362  kcal
-        -analytic       -283.971       -0.05069842  13323.0    102.24447      -1119669.0
-        -gamma    3.5000    0.0000
+        log_k           -13.998
+        delta_h 13.345  kcal
+#        -analytic       -283.971       -0.05069842  13323.0    102.24447      -1119669.0
 
 2 H2O = O2 + 4 H+ + 4 e-
         log_k           -86.08
@@ -96,7 +93,7 @@ CO3-2 + H+ = HCO3-
         delta_h -3.561  kcal
         -analytic       107.8975       0.03252849  -5151.79     -38.92561       563713.9
 
-CO3-2 + 2 H+ = H2CO3
+CO3-2 + 2 H+ = CO2 + H2O
         log_k           16.6767
 	delta_h		-5.738  kcal
         -analytic       464.1925       0.09344813  -26986.16        -165.75951      2248628.9
@@ -107,7 +104,7 @@ CO3-2 + 2 H+ = H2CO3
 #        -analytic       464.1965       0.09344813  -26986.16    -165.75951      2248628.9
 
 SO4-2 + H+ = HSO4-
-        log_k           1.970
+        log_k           1.979
         delta_h 4.91    kcal
         -analytic      -5.3585     0.0183412   557.2461
 
@@ -141,7 +138,7 @@ Mg+2 + H2O = MgOH+ + H+
         delta_h 15.419 kcal
 
 Mg+2 + CO3-2 = MgCO3
-        log_k           2.98
+        log_k           2.928
         delta_h 2.535   kcal
         -analytic        -32.225     0.0          1093.486    12.72433
 
@@ -286,7 +283,7 @@ Nesquehonite
         log_k           -5.167
 
 PCO2
-	CO2 + H2O = H2CO3
+	CO2 = CO2
 	log_k		-1.468
 	-analytic	108.3865    0.01985076  -6919.53    -40.45154    669365.0
 
@@ -525,13 +522,13 @@ PITZER
   B3O3(OH)4-  HCO3-    -0.10
   B4O5(OH)4-2  HCO3-    -0.087
 -LAMDA
-  Na+       H2CO3     0.1
-  K+        H2CO3     0.051
-  Mg+2      H2CO3     0.183
-  Ca+2      H2CO3     0.183
-  Cl-       H2CO3    -0.005
-  SO4-2     H2CO3     0.097
-  HSO4-     H2CO3    -0.003
+  Na+       CO2       0.1
+  K+        CO2       0.051
+  Mg+2      CO2       0.183
+  Ca+2      CO2       0.183
+  Cl-       CO2      -0.005
+  SO4-2     CO2       0.097
+  HSO4-     CO2      -0.003
   Na+       B(OH)3   -0.097
   K+        B(OH)3   -0.14
   Cl-       B(OH)3    0.091
@@ -599,6 +596,166 @@ PITZER
   HCO3-     CO3-2     Na+        0.002
   HCO3-     CO3-2     K+         0.012
 
+EXCHANGE_MASTER_SPECIES
+        X       X-
+EXCHANGE_SPECIES
+        X- = X-
+        log_k           0.0
+
+        Na+ + X- = NaX
+        log_k   0.0
+
+        K+ + X- = KX
+        log_k   0.7
+        delta_h  -4.3   # Jardine & Sparks, 1984
+
+        Li+ + X- = LiX
+        log_k   -0.08
+        delta_h  1.4    # Merriam & Thomas, 1956
+
+        Ca+2 + 2X- = CaX2
+        log_k   0.8
+        delta_h  7.2    # Van Bladel & Gheyl, 1980
+
+        Mg+2 + 2X- = MgX2
+        log_k   0.6
+        delta_h  7.4    # Laudelout et al., 1968
+
+        Sr+2 + 2X- = SrX2
+        log_k   0.91
+        delta_h  5.5    # Laudelout et al., 1968
+
+        Ba+2 + 2X- = BaX2
+        log_k   0.91
+        delta_h  4.5    # Laudelout et al., 1968
+
+        Mn+2 + 2X- = MnX2
+        log_k   0.52
+
+        Fe+2 + 2X- = FeX2
+        log_k   0.44
+
+SURFACE_MASTER_SPECIES
+        Hfo_s  Hfo_sOH
+        Hfo_w  Hfo_wOH
+SURFACE_SPECIES
+#   All surface data from
+#   Dzombak and Morel, 1990
+#
+#
+#   Acid-base data from table 5.7
+#
+#   strong binding site--Hfo_s,
+
+        Hfo_sOH = Hfo_sOH
+        log_k  0.0
+
+        Hfo_sOH  + H+ = Hfo_sOH2+
+        log_k  7.29    # = pKa1,int
+
+        Hfo_sOH = Hfo_sO- + H+
+        log_k  -8.93   # = -pKa2,int
+
+#   weak binding site--Hfo_w
+
+        Hfo_wOH = Hfo_wOH
+        log_k  0.0
+
+        Hfo_wOH  + H+ = Hfo_wOH2+
+        log_k  7.29    # = pKa1,int
+
+        Hfo_wOH = Hfo_wO- + H+
+        log_k  -8.93   # = -pKa2,int
+
+###############################################
+#             CATIONS                         #
+###############################################
+#
+#   Cations from table 10.1 or 10.5
+#
+#   Calcium
+        Hfo_sOH + Ca+2 = Hfo_sOHCa+2
+        log_k  4.97
+
+        Hfo_wOH + Ca+2 = Hfo_wOCa+ + H+
+        log_k -5.85
+#   Strontium
+        Hfo_sOH + Sr+2 = Hfo_sOHSr+2
+        log_k  5.01
+
+        Hfo_wOH + Sr+2 = Hfo_wOSr+ + H+
+        log_k -6.58
+
+        Hfo_wOH + Sr+2 + H2O = Hfo_wOSrOH + 2H+
+        log_k -17.60
+#   Barium
+        Hfo_sOH + Ba+2 = Hfo_sOHBa+2
+        log_k  5.46
+
+        Hfo_wOH + Ba+2 = Hfo_wOBa+ + H+
+        log_k  -7.2                     # table 10.5
+#
+#   Derived constants table 10.5
+#
+#   Magnesium
+        Hfo_wOH + Mg+2 = Hfo_wOMg+ + H+
+        log_k -4.6
+#   Manganese
+        Hfo_sOH + Mn+2 = Hfo_sOMn+ + H+
+        log_k  -0.4                     # table 10.5
+
+        Hfo_wOH + Mn+2 = Hfo_wOMn+ + H+
+        log_k -3.5                      # table 10.5
+# Iron
+#        Hfo_sOH + Fe+2 = Hfo_sOFe+ + H+
+#        log_k   0.7     # LFER using table 10.5
+
+#        Hfo_wOH + Fe+2 = Hfo_wOFe+ + H+
+#        log_k -2.5      # LFER using table 10.5
+
+# Iron, strong site: Appelo, Van der Weiden, Tournassat & Charlet, subm.
+         Hfo_sOH + Fe+2 = Hfo_sOFe+ + H+
+         log_k   -0.95
+# Iron, weak site: Liger et al., GCA 63, 2939, re-optimized for D&M
+         Hfo_wOH + Fe+2 = Hfo_wOFe+ + H+
+         log_k -2.98
+
+         Hfo_wOH + Fe+2 + H2O = Hfo_wOFeOH + 2H+
+         log_k -11.55
+
+###############################################
+#             ANIONS                          #
+###############################################
+#
+#   Anions from table 10.6
+#
+#
+#   Anions from table 10.7
+#
+#   Borate
+        Hfo_wOH + B(OH)3 = Hfo_wH2BO3 + H2O
+        log_k   0.62
+#
+#   Anions from table 10.8
+#
+#   Sulfate
+        Hfo_wOH + SO4-2 + H+ = Hfo_wSO4- + H2O
+        log_k   7.78
+
+        Hfo_wOH + SO4-2 = Hfo_wOHSO4-2
+        log_k   0.79
+#
+# Carbonate: Van Geen et al., 1994 reoptimized for HFO
+# 0.15 g HFO/L has 0.344 mM sites == 2 g of Van Geen's Goethite/L
+#
+#        Hfo_wOH + CO3-2 + H+ = Hfo_wCO3- + H2O
+#        log_k   12.56
+# 
+#        Hfo_wOH + CO3-2 + 2H+= Hfo_wHCO3 + H2O
+#        log_k   20.62
+
+
+END
 MEAN GAM
 CaCl2    
 CaSO4    

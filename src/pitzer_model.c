@@ -263,6 +263,7 @@ int jacobian_pz(void)
 		case SOLUTION_PHASE_BOUNDARY:
 		case EXCH:
 		case SURFACE:
+		case SURFACE_CB:
 			x[i]->master[0]->s->la += d;
 			d2 = d1;
 			break;
@@ -276,6 +277,7 @@ int jacobian_pz(void)
 		case AH2O:
 		case MH:
 		case PP:
+		case S_S_MOLES:
 			continue;
 			break;
 		}
@@ -292,6 +294,7 @@ int jacobian_pz(void)
 		case SOLUTION_PHASE_BOUNDARY:
 		case EXCH:
 		case SURFACE:
+		case SURFACE_CB:
 			x[i]->master[0]->s->la -= d;
 			break;
 		case MH2O:
@@ -414,6 +417,7 @@ int model_pz(void)
 				}
 				reset();
 			}
+			gammas_pz();
 			molalities(TRUE);
 			if(use.surface_ptr != NULL && 
 			   use.surface_ptr->diffuse_layer == TRUE &&
@@ -494,4 +498,97 @@ int check_gammas(void)
 	
 	base = free_check_null(base);
 	return converge;
+}
+/* ---------------------------------------------------------------------- */
+int gammas_pz ()
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Need exchange gammas for pitzer
+ */
+	int i, j;
+	int ifirst, ilast;
+	LDBLE f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
+	LDBLE s1, s2, s3;
+	LDBLE c1, c2, a, b;
+	LDBLE muhalf;
+	/* Initialize */
+	a_llnl = b_llnl = bdot_llnl = log_g_co2 = dln_g_co2 = c2_llnl = 0;
+/*
+ *   Calculate activity coefficients
+ */
+	for (i=0; i < count_s_x; i++) {
+		switch (s_x[i]->gflag) {
+		    case 0:                   /* uncharged */
+		    case 1:                   /* Davies */
+		    case 2:                   /* Extended D-H, WATEQ D-H */
+		    case 3:                   /* Always 1.0 */
+			    break;
+		    case 4:		   /* Exchange */
+/*
+ *   Find CEC
+ *   z contains valence of cation for exchange species, alk contains cec
+ */
+/* !!!!! */
+			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+				if (s_x[i]->rxn_x->token[j].s->type == EX) {
+					s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+					break;
+				}
+			}
+			/*
+			 *   Master species is a dummy variable with meaningless activity and mass
+			 */
+			if (s_x[i]->primary != NULL) {
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+			} else {
+				if (s_x[i]->alk <= 0) {
+					s_x[i]->lg = 0.0;
+				} else {
+					s_x[i]->lg = log10(fabs(s_x[i]->equiv)/s_x[i]->alk);
+				}
+				s_x[i]->dg = 0.0;
+			}
+			break;
+		    case 5:                   /* Always 1.0 */
+			    break;
+		    case 6:		   /* Surface */
+/*
+ *   Find moles of sites. 
+ *   s_x[i]->equiv is stoichiometric coefficient of sites in species
+ */
+			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+				if (s_x[i]->rxn_x->token[j].s->type == SURF) {
+					s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+					break;
+				}
+			}
+			if (s_x[i]->alk > 0) {
+				s_x[i]->lg = log10(s_x[i]->equiv / s_x[i]->alk);
+				s_x[i]->dg = 0.0;
+			} else {
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+			}
+			break;
+		    case 7:		   /* LLNL */
+			    break;
+		    case 8:		   /* LLNL CO2*/
+			    break;
+		    case 9:		   /* activity water */
+			s_x[i]->lg = log10(exp( s_h2o->la * LOG_10) * gfw_water);
+			s_x[i]->dg = 0.0;
+			break;
+		}
+/*
+		if (mu_unknown != NULL) {
+			if (fabs(residual[mu_unknown->number]) > 0.1 &&
+			    fabs(residual[mu_unknown->number])/mu_x > 0.5) {
+				s_x[i]->dg = 0.0;
+			}
+		}
+ */
+	}
+	return(OK);
 }

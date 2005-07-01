@@ -473,6 +473,9 @@ int pitzer ()
 	for (i = 0; i < 3*count_s; i++) {
 		IPRSNT[i] = FALSE;
 		if (spec[i] != NULL && spec[i]->in == TRUE) {
+			if (spec[i]->type == EX ||
+			    spec[i]->type == SURF ||
+			    spec[i]->type == SURF_PSI) continue;
 			M[i] = under(spec[i]->lm);
 			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
 		}

@@ -2999,6 +2999,10 @@ int setup_unknowns (void)
 	if (use.exchange_ptr != NULL) {
 		for (j = 0; j < use.exchange_ptr->count_comps; j++) {
 			for (i = 0; use.exchange_ptr->comps[j].totals[i].elt != NULL; i++) {
+				if (use.exchange_ptr->comps[j].totals[i].elt->master == NULL) {
+					sprintf(error_string, "Master species missing for element %s", use.exchange_ptr->comps[j].totals[i].elt->name);
+					error_msg(error_string, STOP);
+				}
 				if (use.exchange_ptr->comps[j].totals[i].elt->master->type == EX) {
 					max_unknowns++;
 				}
