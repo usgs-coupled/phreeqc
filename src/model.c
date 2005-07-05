@@ -685,8 +685,8 @@ int ineq(int in_kode)
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
 			if (x[i]->type == AH2O || 
-			    x[i]->type == MU || 
-			    x[i]->type == MH ) {
+			    /* x[i]->type == MH || */
+			    x[i]->type == MU ) {
 				for (j=0; j<count_unknowns; j++) {
 					array[j*(count_unknowns +1) + i] = 0.0;
 				}
@@ -2060,8 +2060,13 @@ int reset(void)
 			down =  1.3*up;
 		} else if (x[i]->type == MH2O) {
                         /* ln gH2O + delta; ln(gH2O*delta); */
+			/*
 			up = log(10.);
 			down = log(4.);
+			*/
+			up = log(1.3);
+			down = log(1.2);
+
 		} else if (x[i]->type == PP) {
 			continue;
 		} else if (x[i]->type == GAS_MOLES) {

@@ -1405,6 +1405,7 @@ EXTERNAL int next_keyword;
 EXTERNAL int parse_error;
 EXTERNAL int paren_count;
 EXTERNAL int iterations;
+EXTERNAL int gamma_iterations;
 EXTERNAL int run_reactions_iterations;
 
 EXTERNAL int    max_line;

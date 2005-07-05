@@ -268,11 +268,10 @@ int jacobian_pz(void)
 			d2 = d1;
 			break;
 		case MH2O:
-			mass_water_aq_x *= 1.0 + d;
+			mass_water_aq_x *= (1.0 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
 			d2 = log(1.0 + d);
 			break;
-
 		case MU:
 		case AH2O:
 		case MH:
@@ -298,7 +297,7 @@ int jacobian_pz(void)
 			x[i]->master[0]->s->la -= d;
 			break;
 		case MH2O:
-			mass_water_aq_x /= 1 + d;
+			mass_water_aq_x /= (1 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
 			break;
 		}
@@ -358,6 +357,7 @@ int model_pz(void)
 	step_size_now = step_size;
 	status(0, NULL);
 	iterations=0;
+	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
 	remove_unstable_phases = FALSE;
@@ -454,6 +454,7 @@ int model_pz(void)
 			mass_water_switch = FALSE;
 			continue;
 		}
+		gamma_iterations++;
 		if (check_gammas() != TRUE) continue;
 		if (remove_unstable_phases == FALSE) break;
 		if (debug_model == TRUE) {
@@ -475,7 +476,7 @@ int model_pz(void)
 int check_gammas(void)
 /* ---------------------------------------------------------------------- */
 {
-	double *base, old_aw, old_mu;
+	double *base, old_aw, old_mu, tol;
 	int converge, i;
 
 	base = (LDBLE *) PHRQ_malloc((size_t) count_s_x * sizeof(LDBLE));
@@ -490,12 +491,22 @@ int check_gammas(void)
 	molalities();
 	mb_sums();
 	converge = TRUE;
+	tol = convergence_tolerance*10.;
 	for (i = 0; i < count_s_x; i++) {
-		if (fabs(base[i] - s_x[i]->lg) > convergence_tolerance) converge = FALSE;
+		if (fabs(base[i] - s_x[i]->lg) > tol) converge = FALSE;
 	}
-	if (fabs(old_mu - mu_x) > convergence_tolerance) converge = FALSE;
-	if (fabs(old_aw - s_h2o->la) > convergence_tolerance) converge = FALSE;
+	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
+	if (fabs(old_aw - s_h2o->la) > tol) converge = FALSE;
 	
+	/* underrelaxation for gammas and la water */
+	if (converge == FALSE && mu_x > 1) {
+		for (i = 0; i < count_s_x; i++) {
+			s_x[i]->lg = base[i] + (s_x[i]->lg - base[i])*.8;
+		}
+		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
+		s_h2o->la = old_aw + (s_h2o->la - old_aw)*.8;
+	}
+
 	base = free_check_null(base);
 	return converge;
 }
