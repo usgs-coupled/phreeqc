@@ -1292,6 +1292,7 @@ int check_gammas_pz(void)
 		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
 		s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;
 	}
+	fprintf(stderr, "old aw: %e\tnew aw: %e\n", old_aw, s_h2o->la);
 #endif
 	base = free_check_null(base);
 	return converge;

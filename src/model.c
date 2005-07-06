@@ -339,6 +339,9 @@ int check_residuals(void)
 			} else {
 				if ((fabs(residual[i]) >= epsilon && x[i]->moles > 0.0) /* || stop_program == TRUE */) {
 					output_msg(OUTPUT_LOG,"%20s Pure phase has not converged. \tResidual: %e\n", x[i]->description, (double) residual[i]);
+					sprintf(error_string,"%20s Pure phase with add formula has not converged. "
+						"\tResidual: %e\n", x[i]->description, (double) residual[i]);
+						error_msg(error_string, CONTINUE);
 				}
 			}
 		} else if (x[i]->type == EXCH) {
@@ -678,7 +681,7 @@ int ineq(int in_kode)
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
 			if (x[i]->type == AH2O || 
-			    /* x[i]->type == MH || */
+			    x[i]->type == MH || 
 			    x[i]->type == MU ) {
 				for (j=0; j<count_unknowns; j++) {
 					array[j*(count_unknowns +1) + i] = 0.0;
@@ -956,6 +959,32 @@ int ineq(int in_kode)
 			}
 		}
 	}
+/*
+ *   Add inequality for mass of oxygen greater than zero
+ */
+#ifdef SKIP
+#endif	
+	if (pitzer_model) {
+		for (i=0; i < count_unknowns; i++) {
+			if (x[i]->type == MH2O) {
+				memcpy( (void *) &(ineq_array[count_rows*max_column_count]),
+					(void *) &(array[i*(count_unknowns + 1)]),
+					(size_t) (count_unknowns + 1) * sizeof(LDBLE));
+				back[count_rows] = i;
+				for (j = 0; j < count_unknowns; j++) {
+					if (x[j]->type < PP) {
+						ineq_array[count_rows*max_column_count + j] = 0.0;
+					} else {
+						/*ineq_array[count_rows*max_column_count + j] = -ineq_array[count_rows*max_column_count + j]; */
+					}
+				}
+				ineq_array[count_rows*max_column_count + count_unknowns] = 0.5*x[i]->moles;
+				count_rows++;
+			}
+		}
+	}
+
+
 /*
  *   Hydrogen mass balance is good
  */
@@ -2438,7 +2467,7 @@ int residuals(void)
 				}
 			} else {
  				if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE;
-/*				if (fabs(residual[i]) > toler) converge = FALSE; */
+				/*if (residual[i] < -toler ) converge = FALSE;*/
 			}
 		} else if (x[i]->type == GAS_MOLES) {
 			residual[i] =  x[i]->gas_phase->total_p - x[i]->f;
