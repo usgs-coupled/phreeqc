@@ -328,7 +328,7 @@ int tidy_model(void)
 /*
  *   Tidy pitzer information
  */
-	if (new_pitzer) pitzer_tidy();
+	if (pitzer_model && new_model) pitzer_tidy();
 /*
  *   Tidy punch information
  */

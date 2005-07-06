@@ -24,15 +24,7 @@ extern int slnq (int n, LDBLE *a, LDBLE *delta, int ncols, int print);
 static int calc_gas_pressures(void);
 static int calc_s_s_fractions(void);
 static int gammas (LDBLE mu);
-int ineq(int kode);
 static int initial_guesses(void);
-int jacobian_sums (void);
-int mb_gases(void);
-int mb_s_s(void);
-int mb_sums (void);
-int molalities (int allow_overflow);
-int reset(void);
-int residuals(void);
 static int revise_guesses(void);
 static int s_s_binary(struct s_s *s_s_ptr);
 static int s_s_ideal(struct s_s *s_s_ptr);
@@ -407,6 +399,7 @@ int gammas (LDBLE mu)
 	LDBLE c1, c2, a, b;
 	LDBLE muhalf;
 	/* Initialize */
+	if (pitzer_model == TRUE) return gammas_pz();
 	a_llnl = b_llnl = bdot_llnl = log_g_co2 = dln_g_co2 = c2_llnl = 0;
 /*
  *   compute temperature dependence of a and b for debye-huckel
@@ -2494,7 +2487,7 @@ int residuals(void)
 				} else {
 					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
 				}
-				output_msg(OUTPUT_MESSAGE,"grams %g\n", (double) x[i]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,"\t                grams %g\n", (double) x[i]->surface_charge->grams);
 				output_msg(OUTPUT_MESSAGE,"\tCharge from potential %e\n", 
 					(double) (sinh_constant * sqrt(mu_x) * 
 					sinh(x[i]->master[0]->s->la * LOG_10)));
@@ -2536,7 +2529,7 @@ int set(int initial)
 /*
  *   Set initial log concentrations to zero
  */
-	if (pitzer_model == TRUE) return(set_pz());
+	if (pitzer_model == TRUE) return(set_pz(initial));
 	iterations = -1;
 	solution_ptr = use.solution_ptr;
 	for (i=0; i < count_s_x; i++) {

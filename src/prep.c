@@ -1028,6 +1028,9 @@ int build_model(void)
 			build_species_list(i);
 		}
 	}
+	if (diffuse_layer_x == TRUE && pitzer_model == TRUE) {
+		error_msg("-diffuse_layer option not available for Pizer model", STOP);
+	}
 /*
  *   Sum diffuse layer water into hydrogen and oxygen mass balances
  */

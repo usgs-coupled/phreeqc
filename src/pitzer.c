@@ -20,6 +20,7 @@ double COSMOT;
 
 /* routines */
 static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
+static int check_gammas_pz(void);
 static int ISPEC(char * name);
 /*static int DH_AB (double TK, double *A, double *B);*/
 static double G (double Y);
@@ -27,6 +28,9 @@ static double GP (double Y);
 static double ETHETAP (double ZJ, double ZK, double I);
 static double ETHETA (double ZJ, double ZK, double I);
 static int BDK (double X);
+static int initial_guesses(void);
+static int revise_guesses(void);
+static int remove_unstable_phases;
 
 /* ---------------------------------------------------------------------- */
 int pitzer_init (void)
@@ -58,7 +62,7 @@ int pitzer_tidy (void)
 	if (spec != NULL) spec = free_check_null(spec);
 	spec = PHRQ_malloc((size_t) (3*count_s*sizeof(struct species *)));
 	if (spec == NULL) malloc_error();
-	for (i = 1; i < 3*count_s; i++) spec[i] = NULL;
+	for (i = 0; i < 3*count_s; i++) spec[i] = NULL;
 	cations = spec;
 	neutrals = &(spec[count_s]);
 	anions = &(spec[2*count_s]);
@@ -68,6 +72,7 @@ int pitzer_tidy (void)
 	count_cations = 0;
 	count_anions = 0;
 	count_neutrals = 0;
+	if (itmax < 200) itmax = 200;
 	/*
 	 *  allocate other arrays for Pitzer
 	 */
@@ -432,7 +437,7 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-int pitzer ()
+int pitzer (void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, i0, i1, i2;
@@ -483,31 +488,6 @@ int pitzer ()
 	for (i = count_s; i < count_s + count_neutrals; i++) {
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
-#ifdef SKIP
-	/*  TESTING !!!!!!!!!!! */
-	for (i = 0; i < 3*count_s; i++) {
-		M[i] = 0.0;
-		IPRSNT[i] = FALSE;
-	}
-	/*
-	 * 67 Cl-
-	 * 68 HCO3-
-	 * 69 HSO4-
-	 * 70 OH-
-	 * 71 SO4-2
-	 */
-	M[1] = 1.0; /* Ca+2 */
-	IPRSNT[1] = TRUE;
-	M[11] = 0.0; /* Na+ */
-	IPRSNT[11] = FALSE;
-	M[5] = 1.0; /* K+ */
-	IPRSNT[5] = TRUE;
-	M[2*count_s + 5] = 1.0; /* Cl */
-	IPRSNT[2*count_s + 5] = TRUE;
-	IC = 2*count_s + 5;
-	M[71] = 1.0; /* SO4-2 */
-	IPRSNT[71] = TRUE;
-#endif
 	ICON = 0;
 /*
 C
@@ -679,416 +659,6 @@ C
       */
       return(OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int pitzer (double *TK_X, double *I_X, double *COSMOT_X)
-/* ---------------------------------------------------------------------- */
-{
-	int i, j, i0, i1, i2;
-	double param, alpha, z0, z1, z2;
-	/*
-	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
-		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
-		BMXPHI, PHIPHI, AW, A, B;
-	*/
-	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
-		CSUM, PHIMAC, OSMOT, AW, B;
-	double COSMOT;
-	double I, TK;
-	int IC, ICON;
-	int LNEUT;
-	/*
-	  C
-	  C     INITIALIZE
-	  C
-	*/
-	CONV = 1.0/log(10.0);
-	XI=0.0e0;
-	XX=0.0e0;
-	OSUM=0.0e0;
-	LNEUT=FALSE;
-	I = *I_X;
-	TK = *TK_X;
-	/*	DH_AB(TK, &A, &B); */
-	/*
-	  C
-	  C     TRANSFER DATA FROM MO TO M
-	  C
-	*/
-	for (i = 0; i < 3*count_s; i++) {
-		IPRSNT[i] = FALSE;
-		if (spec[i] != NULL) {
-			M[i] = under(spec[i]->lm);
-			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
-		}
-	}
-	for (i = count_s; i < count_s + count_neutrals; i++) {
-		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
-	}
-	/*  TESTING !!!!!!!!!!! */
-	for (i = 0; i < 3*count_s; i++) {
-		M[i] = 0.0;
-		IPRSNT[i] = FALSE;
-	}
-	/*
-	 * 67 Cl-
-	 * 68 HCO3-
-	 * 69 HSO4-
-	 * 70 OH-
-	 * 71 SO4-2
-	 */
-	M[1] = 1.0; /* Ca+2 */
-	IPRSNT[1] = TRUE;
-	M[11] = 0.0; /* Na+ */
-	IPRSNT[11] = FALSE;
-	M[5] = 1.0; /* K+ */
-	IPRSNT[5] = TRUE;
-	M[2*count_s + 5] = 1.0; /* Cl */
-	IPRSNT[2*count_s + 5] = TRUE;
-	IC = 2*count_s + 5;
-	M[71] = 1.0; /* SO4-2 */
-	IPRSNT[71] = TRUE;
-	ICON = 0;
-/*
-C
-C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
-C
-*/
-	PTEMP(TK);
-	for (i = 0; i < 2*count_s + count_anions; i++) {
-		if (IPRSNT[i] == TRUE) {
-			XX=XX+M[i]*fabs(spec[i]->z);
-			XI=XI+M[i]*spec[i]->z*spec[i]->z;
-			OSUM=OSUM+M[i];
-		}
-	}
-	I=XI/2.0e0;
-/*
-C
-C     EQUATION (8)
-C
-*/
-	BIGZ=XX;
-	DI=sqrt(I);
-/*
-C
-C     CALCULATE F & GAMCLM
-C
-*/
-	B = 1.2;
-	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
-	XXX=2.0e0*DI;
-	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
-	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
-	GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I;
-/*
- *
-C
-C     EQUATION (3) PART 1
-C
- */
-	/* F=F+M(J)*M(K)*BMXP() */
-	/* BMXP=(BCX(2,J,K)*GP(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*GP(ALPHA(3)*DSQRT(I)))/I */
-	for (i = 0; i < count_pitz_param; i++) {
-		i0 = pitz_params[i]->ispec[0];
-		i1 = pitz_params[i]->ispec[1];
-		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
-		param = pitz_params[i]->p;
-		alpha = pitz_params[i]->alpha;
-		if (pitz_params[i]->type == TYPE_B1) {
-			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
-		} else if (pitz_params[i]->type == TYPE_B2) {
-			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
-		}
-	}
-/*
-C
-C     EQUATION (3) PART 2
-C
-*/
-	/* F=F+M(J)*M(K)*ETHEAP() */
-	for (i = 0; i < count_cations - 1; i++) {
-		z0 = cations[i]->z;
-		if (IPRSNT[i] == FALSE) continue;
-		for (j = i+1; j < count_cations; j++) {
-			if (IPRSNT[j] == FALSE) continue;
-			z1 = cations[j]->z;
-			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
-		}
-	}
-	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
-		z0 = spec[i]->z;
-		for (j = i+1; j < 2*count_s + count_anions; j++) {
-			z1 = spec[j]->z;
-			F=F+M[i]*M[j]*ETHETAP(z0, z1, I);
-		}
-	}
-
-/*
-C
-C     EQUATION (2B) PART 4
-C
-*/
-	CSUM=0.0e0;
-	for (i = 0; i < count_pitz_param; i++) {
-		/* CSUM=CSUM+M(J)*M(K)*CMX()*/
-		/* CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) */
-		if (pitz_params[i]->type == TYPE_C0) {
-			i0 = pitz_params[i]->ispec[0];
-			i1 = pitz_params[i]->ispec[1];
-			z0 = spec[pitz_params[i]->ispec[0]]->z;
-			z1 = spec[pitz_params[i]->ispec[1]]->z;
-			CSUM += M[i0]*M[i1]*pitz_params[i]->p/(2.0e0*sqrt(fabs(z0*z1)));
-		}
-	}
-	for (i = 0; i < count_cations; i++) {
-		/*
-		  C
-		  C     EQUATION (2C) PART 1
-		  C
-		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
-		*/
-		z0 = spec[i]->z;
-		LGAMMA[i]=z0*z0*F+fabs(z0)*CSUM;
-	}
-	for (i = 2*count_s; i < 2*count_s + count_anions; i++) {
-		/*
-		  C
-		  C     EQUATION (2C) PART 1
-		  C
-		  LGAMMA(K)=Z(K)*Z(K)*F+DABS(Z(K))*CSUM
-		*/
-		z0 = spec[i]->z;
-		LGAMMA[i]=z0*z0*F+fabs(z0)*CSUM;
-	}
-
-	/*
-	 *  Add etheta term to activity coefficients
-	 */
-	for (i = 0; i < count_cations - 1; i++) {
-		z0 = cations[i]->z;
-		if (IPRSNT[i] == FALSE) continue;
-		for (j = i+1; j < count_cations; j++) {
-			if (IPRSNT[j] == FALSE) continue;
-			z1 = cations[j]->z;
-			LGAMMA[i] += 2.0*M[j]*(ETHETA(z0, z1, I) ); 
-			LGAMMA[j] += 2.0*M[i]*(ETHETA(z0, z1, I) ); 
-		}
-	}
-	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
-		z0 = spec[i]->z;
-		for (j = i+1; j < 2*count_s + count_anions; j++) {
-			z1 = spec[j]->z;
-			LGAMMA[i] += 2.0*M[j]*(ETHETA(z0, z1, I) ); 
-			LGAMMA[j] += 2.0*M[i]*(ETHETA(z0, z1, I) ); 
-		}
-	}
-/*
- *    Sums of Pitzer parameters for activity coefficients
- */
-	for (i = 0; i < count_pitz_param; i++) {
-		i0 = pitz_params[i]->ispec[0];
-		i1 = pitz_params[i]->ispec[1];
-		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
-		z0 = spec[pitz_params[i]->ispec[0]]->z;
-		z1 = spec[pitz_params[i]->ispec[1]]->z;
-		param = pitz_params[i]->p;
-		alpha = pitz_params[i]->alpha;
-		/*
-		  C
-		  C     EQUATION (2B) PART 3
-		  C
-		  LGAMMA(J)=LGAMMA(J)+M(K)*(2.0D0*BMX()+BIGZ*CMX())
-		  BMX=BCX(1,J,K)+BCX(2,J,K)*G(ALPHA(2)*DSQRT(I))+BCX(3,J,K)*G(ALPHA(3)*DSQRT(I))
-		  CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
-		*/
-		if (pitz_params[i]->type == TYPE_B0) {
-			LGAMMA[i0] += M[i1]*2.0*param;
-			LGAMMA[i1] += M[i0]*2.0*param;
-		} else if (pitz_params[i]->type == TYPE_B1) {
-			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
-			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
-		} else if (pitz_params[i]->type == TYPE_B2) {
-			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
-			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
-		} else if (pitz_params[i]->type == TYPE_C0) {
-			LGAMMA[i0] += M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
-			LGAMMA[i1] += M[i0]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
-		} else if (pitz_params[i]->type == TYPE_THETA) {
-			/*
-			  C
-			  C     EQUATION (2B) PART 2
-			  C
-			  LGAMMA(J)=LGAMMA(J)+2.0D0*M(K)*PHI()
-			  PHI=THETA(J,K)+ETHETA()
-			  etheta added above in case theta is not defined for a pair
-			*/
-			LGAMMA[i0] += 2.0*M[i1]*(param /*+ ETHETA(z0, z1, I) */ ); 
-			LGAMMA[i1] += 2.0*M[i0]*(param /*+ ETHETA(z0, z1, I) */ ); 
-		} else if (pitz_params[i]->type == TYPE_PSI) {
-			i2 = pitz_params[i]->ispec[2];
-			if (IPRSNT[i2] == FALSE) continue;
-			z2 = spec[pitz_params[i]->ispec[2]]->z;
-			/*
-			  C
-			  C     EQUATION (2B) PART 2
-			  C
-			  LGAMMA(J)=LGAMMA(J)+M(KK)*M(K)*PSI(J,K,KK)
-			*/
-			LGAMMA[i0] += M[i1]*M[i2]*param;
-			LGAMMA[i1] += M[i0]*M[i2]*param;
-			LGAMMA[i2] += M[i0]*M[i1]*param;
-
-		} else if (pitz_params[i]->type == TYPE_LAMDA) {
-			/*LGAMMA(J)=LGAMMA(J)+2.0D0*MN(K)*LAM(J,K)*/
-			LGAMMA[i0] += 2.0*M[i1]*param;
-			LGAMMA[i1] += 2.0*M[i0]*param;
-		} else if (pitz_params[i]->type == TYPE_ZETA) {
-			i2 = pitz_params[i]->ispec[2];
-			if (IPRSNT[i2] == FALSE) continue;
-			/*
-			  C
-			  C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
-			  C
-			  LGAMMA(J)=LGAMMA(J)+M(K)*MN(KK)*ZETA(J,K,KK)
-			*/
-			LGAMMA[i0] += M[i1]*M[i2]*param;
-			LGAMMA[i1] += M[i0]*M[i2]*param;
-			LGAMMA[i2] += M[i0]*M[i1]*param;
-		}
-	}
-
-/*
-C
-C     CONVERT TO MACINNES CONVENTION
-C
-*/
-      if (ICON != 0) {
-	      PHIMAC=LGAMMA[IC]-GAMCLM;
-/*
-C
-C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
-C
-*/
-	      for (i = 0; i < count_cations; i++) {
-		      if (IPRSNT[i] == TRUE) {
-			      LGAMMA[i]=LGAMMA[i]+spec[i]->z*PHIMAC;
-		      }
-	      }
-      }
-/*
-C
-C     CALCULATE THE OSMOTIC COEFFICIENT
-C
-C     EQUATION (2A) PART 1
-C
-*/
-      OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
-      /*
-       *  Add etheta terms to osmotic coefficient
-       */
-      /* OSMOT=OSMOT+M(J)*M(K)*PHIPHI() */
-      /* PHIPHI=THETA(J,K)+ETHETA()+I*ETHEAP() */
-      /* saving THETA for later */
-      for (i = 0; i < count_cations - 1; i++) {
-	      z0 = cations[i]->z;
-	      if (IPRSNT[i] == FALSE) continue;
-	      for (j = i+1; j < count_cations; j++) {
-		      if (IPRSNT[j] == FALSE) continue;
-		      z1 = cations[j]->z;
-		      OSMOT += M[i]*M[j]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
-	      }
-      }
-      for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
-	      z0 = spec[i]->z;
-	      for (j = i+1; j < 2*count_s + count_anions; j++) {
-		      z1 = spec[j]->z;
-		      OSMOT += M[i]*M[j]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
-	      }
-      }
-      /*
-       *    Sums of Pitzer parameters for osmotic coefficient
-       */
-      for (i = 0; i < count_pitz_param; i++) {
-	      i0 = pitz_params[i]->ispec[0];
-	      i1 = pitz_params[i]->ispec[1];
-	      if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
-	      z0 = spec[pitz_params[i]->ispec[0]]->z;
-	      z1 = spec[pitz_params[i]->ispec[1]]->z;
-	      param = pitz_params[i]->p;
-	      alpha = pitz_params[i]->alpha;
-	      /*
-		C
-		C     EQUATION (2B) PART 3
-		C
-		OSMOT=OSMOT+M(J)*M(K)*(BMXPHI()+BIGZ*CMX())
-		BMXPHI=BCX(1,J,K)+BCX(2,J,K)*DEXP(-ALPHA(2)*DSQRT(I))+BCX(3,J,K)*
-		       DEXP(-ALPHA(3)*DSQRT(I))
-		CMX=BCX(4,J,K)/(2.0D0*DSQRT(DABS(Z(J)*Z(K)))) 
-	      */
-	      if (pitz_params[i]->type == TYPE_B0) {
-		      OSMOT += M[i0]*M[i1]*param;
-	      } else if (pitz_params[i]->type == TYPE_B1) {
-		      OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
-	      } else if (pitz_params[i]->type == TYPE_B2) {
-		      OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
-	      } else if (pitz_params[i]->type == TYPE_C0) {
-		      OSMOT += M[i0]*M[i1]*BIGZ*param/(2.0*sqrt(fabs(z0*z1))); 
-	      } else if (pitz_params[i]->type == TYPE_THETA) {
-		      /*
-			C
-			C     EQUATION (2B) PART 2
-			C
-			OSMOT=OSMOT+M(J)*M(K)*PHIPHI() 
-			PHIPHI=THETA(J,K)+ETHETA()+I*ETHEAP() 
-			etheta and ethetap added above in case theta is not defined for a pair
-		      */
-		      OSMOT += M[i0]*M[i1]*param;
-	      } else if (pitz_params[i]->type == TYPE_PSI) {
-		      i2 = pitz_params[i]->ispec[2];
-		      if (IPRSNT[i2] == FALSE) continue;
-		      z2 = spec[pitz_params[i]->ispec[2]]->z;
-		      /*
-			C
-			C     EQUATION (2B) PART 2
-			C
-			OSMOT=OSMOT+M(J)*M(K)*M(KK)*PSI(J,K,KK)
-		      */
-		      OSMOT += M[i0]*M[i1]*M[i2]*param;
-	      } else if (pitz_params[i]->type == TYPE_LAMDA) {
-		      /* OSMOT=OSMOT+MN(K)*M(J)*LAM(J,K) */
-		      OSMOT += M[i0]*M[i1]*param;
-	      } else if (pitz_params[i]->type == TYPE_ZETA) {
-		      i2 = pitz_params[i]->ispec[2];
-		      if (IPRSNT[i2] == FALSE) continue;
-		      /*
-			C
-			C      EQUATION A.2B (FELMY AND WEARE, 1986) FOR ZETA
-			C
-			OSMOT=OSMOT+MN(K)*M(J)*M(KK)*ZETA(J,KK,K)
-		      */
-		      OSMOT += M[i0]*M[i1]*M[i2]*param;
-	      }
-      }
-      COSMOT = 1.0e0 + 2.0e0*OSMOT/OSUM;
-/*
-C
-C     CALCULATE THE ACTIVITY OF WATER
-C
-*/
-      AW=exp(-OSUM*COSMOT/55.50837e0);
-      for (i = 0; i < 2*count_s + count_anions; i++) {
-	      if (IPRSNT[i] == FALSE) continue;
-	      spec[i]->lg=LGAMMA[i]*CONV;
-	      fprintf(stderr, "%s: %e\n", spec[i]->name, LGAMMA[i]*CONV);
-      }
-      fprintf(stderr, "COSMOT: %e\n", COSMOT);
-      
-      *I_X = I;
-      *COSMOT_X = COSMOT;
-      return(OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 double JAY (double X)
 /* ---------------------------------------------------------------------- */
@@ -1241,34 +811,6 @@ C
 	ETHETAP=ZZ*(JPRIME(XJK)-JPRIME(XJJ)/2.0e0-JPRIME(XKK)/2.0e0)/(8.0e0*I*I) - ETHETA/I;
 	return (ETHETAP);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int DH_AB (double TK, double *A, double *B)
-/* ---------------------------------------------------------------------- */
-{
-/*
-C
-C          COMPUTE TEMPERATURE DEPENDENCE OF A AND B FOR DEBYE-HUCKEL
-C
-*/
-	double S1, S2, S3, C1, TC;
-	TC = TK -273.15;
-	S1=374.11e0-TC;
-	S2=pow(S1,0.33333333e0);
-	S3=1.0e0+0.1342489e0*S2-3.946263e-03*S1;
-	S3=S3/(3.1975e0-0.3151548e0*S2-1.203374e-03*S1+7.48908e-13*pow(S1,4.0e0));
-	S3=sqrt(S3);
-	if (TK < 373.15e0) {
-		C1=87.74e0-TC*(TC*(1.41e-06*TC-9.398e-04)+0.4008e0);
-	} else {
-		C1=5321.0e0/TK+233.76e0-TK*(TK*(8.292e-07*TK-1.417e-03)+0.9297e0);
-	}
-	C1=sqrt(C1*TK);
-	*A=1824600.0e0*S3/pow(C1,3.0e0);
-	*B=50.29e0*S3/C1;
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int pitzer_clean_up(void)
 /* ---------------------------------------------------------------------- */
@@ -1289,4 +831,555 @@ int pitzer_clean_up(void)
 	M = free_check_null(M);
 
 	return OK;
+}
+
+/* ---------------------------------------------------------------------- */
+int set_pz(int initial)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Sets initial guesses for unknowns if initial == TRUE
+ *   Revises guesses whether initial is true or not
+ */
+	int i;
+	struct solution *solution_ptr;
+/*
+ *   Set initial log concentrations to zero
+ */
+	iterations = -1;
+	solution_ptr = use.solution_ptr;
+	for (i=0; i < count_s_x; i++) {
+		s_x[i]->lm = LOG_ZERO_MOLALITY;
+		s_x[i]->lg = 0.0;
+	}
+/*
+ *   Set master species activities
+ */
+
+	tc_x=solution_ptr->tc;
+	tk_x=tc_x+273.15;
+/*
+ *   H+, e-, H2O
+ */
+	mass_water_aq_x = solution_ptr->mass_water;
+	mu_x = solution_ptr->mu;
+	s_h2o->moles = mass_water_aq_x/gfw_water;
+	s_h2o->la = log10(solution_ptr->ah2o);
+	s_hplus->la = - solution_ptr->ph;
+	s_hplus->lm = s_hplus->la;
+	s_hplus->moles = exp(s_hplus->lm * LOG_10)*mass_water_aq_x;
+	s_eminus->la= - solution_ptr->solution_pe;
+	if (initial == TRUE) initial_guesses(); 
+	if (diffuse_layer_x == TRUE) initial_surface_water();
+	revise_guesses();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int initial_guesses(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Make initial guesses for activities of master species and
+ *   ionic strength
+ */
+	int i;
+	struct solution *solution_ptr;
+
+	solution_ptr = use.solution_ptr;
+	mu_x = s_hplus->moles + exp((solution_ptr->ph - 14.) * LOG_10) * mass_water_aq_x;
+	mu_x /= mass_water_aq_x;
+	s_h2o->la=0.0;
+	for ( i=0; i < count_unknowns; i++ ) {
+		if (x[i] == ph_unknown || x[i] == pe_unknown ) continue;
+		if (x[i]->type < CB) {
+			mu_x += x[i]->moles / mass_water_aq_x * 0.5 * x[i]->master[0]->s->z *
+				x[i]->master[0]->s->z;
+			x[i]->master[0]->s->la = log10(x[i]->moles/mass_water_aq_x);
+		} else if (x[i]->type == CB) {
+			x[i]->master[0]->s->la = log10(0.001 * x[i]->moles/mass_water_aq_x);
+		} else if (x[i]->type == SOLUTION_PHASE_BOUNDARY) {
+			x[i]->master[0]->s->la = log10(0.001 * x[i]->moles/mass_water_aq_x);
+		} else if (x[i]->type == EXCH) {
+			if (x[i]->moles <= 0) {
+				x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+			} else {
+				x[i]->master[0]->s->la = log10(x[i]->moles);
+			}
+		} else if (x[i]->type == SURFACE) {
+			if (x[i]->moles <= 0) {
+				x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+			} else {
+				x[i]->master[0]->s->la = log10(0.1 * x[i]->moles);
+			}
+		} else if (x[i]->type == SURFACE_CB) {
+			x[i]->master[0]->s->la = 0.0;
+		}
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int revise_guesses(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Revise molalities species
+ */
+	int i;
+	int iter, max_iter, repeat, fail;
+	LDBLE weight, f;
+
+	max_iter = 10;
+	/* gammas(mu_x);*/
+	iter = 0;
+	repeat = TRUE;
+ 	fail = FALSE;;
+	while ( repeat == TRUE ) {
+		iter++;
+		if (debug_set == TRUE) {
+			output_msg(OUTPUT_MESSAGE,"\nBeginning set iteration %d.\n", iter);
+		}			
+ 		if (iter == max_iter + 1) {
+			output_msg(OUTPUT_LOG, "Did not converge in set, iteration %d.\n", iterations);
+ 			fail = TRUE;
+ 		}
+ 		if (iter > 2*max_iter) {
+			output_msg(OUTPUT_LOG, "Did not converge with relaxed criteria in set.\n");
+ 			return(OK);
+  		}
+		molalities(TRUE);
+		/*pitzer();*/
+		/*s_h2o->la = 0.0;*/
+		/*molalities(TRUE);*/
+		mb_sums();
+		if (state < REACTION) {
+			sum_species();
+		} else {
+			for (i = 0; i < count_unknowns; i++)  {
+				x[i]->sum = x[i]->f;
+			}
+		}
+		/*n
+		if (debug_set == TRUE) {
+			pr.species = TRUE;
+			pr.all = TRUE;
+			print_species();
+		}
+		*/
+		repeat=FALSE;
+		for ( i=0; i < count_unknowns; i++ ) {
+			if (x[i] == ph_unknown || x[i] == pe_unknown) continue;
+			if (x[i]->type == MB || 
+/*			    x[i]->type == ALK || */
+			    x[i]->type == CB || 
+			    x[i]->type == SOLUTION_PHASE_BOUNDARY || 
+			    x[i]->type == EXCH || 
+			    x[i]->type == SURFACE ) {
+				
+				if ( debug_set == TRUE ) {
+					output_msg(OUTPUT_MESSAGE,"\n\t%5s  at beginning of set %d: %e\t%e\t%e\n", x[i]->description, iter, (double) x[i]->sum, (double) x[i]->moles, (double) x[i]->master[0]->s->la);
+				}
+				if (fabs(x[i]->moles) < 1e-30) x[i]->moles = 0;
+				f = fabs(x[i]->sum);
+				if (f == 0 && x[i]->moles == 0) {
+					x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+					continue;
+				} else if (f == 0) {
+					repeat = TRUE;
+					x[i]->master[0]->s->la += 5;
+/*!!!!*/				if (x[i]->master[0]->s->la < -999.) x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+ 				} else if (fail == TRUE && f < 1.5 * fabs(x[i]->moles)) {
+ 					continue;
+				} else if (f > 1.5 * fabs(x[i]->moles) || f < 1e-5 * fabs(x[i]->moles) ) {
+					weight = (f < 1e-5 * fabs(x[i]->moles)) ? 0.3 : 1.0;
+					if (x[i]->moles <= 0) {
+						x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+					} else {
+						repeat = TRUE;
+						x[i]->master[0]->s->la += weight * log10(fabs(x[i]->moles / x[i]->sum));
+					}
+					if ( debug_set == TRUE ) {
+						output_msg(OUTPUT_MESSAGE,"\t%5s not converged in set %d: %e\t%e\t%e\n", x[i]->description, iter, (double) x[i]->sum, (double) x[i]->moles, (double) x[i]->master[0]->s->la);
+					}
+				}
+			} else if (x[i]->type == ALK) {
+				f = total_co2;
+ 				if (fail == TRUE && f < 1.5 * fabs(x[i]->moles)) {
+ 					continue;
+ 				}
+				if (f > 1.5 * fabs(x[i]->moles) || f < 1e-5 * fabs(x[i]->moles) ) {
+					repeat = TRUE;
+					weight = (f < 1e-5 * fabs(x[i]->moles)) ? 0.3 : 1.0;
+					x[i]->master[0]->s->la += weight * 
+						log10(fabs(x[i]->moles / x[i]->sum));
+					if ( debug_set == TRUE ) {
+						output_msg(OUTPUT_MESSAGE,"%s not converged in set. %e\t%e\t%e\n", x[i]->description, (double) x[i]->sum, (double) x[i]->moles, (double) x[i]->master[0]->s->la);
+					}
+				}
+			}
+		}
+	}
+	output_msg(OUTPUT_LOG,"Iterations in revise_guesses: %d\n", iter);
+	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x;*/
+	if (mu_x <= 1e-8) {
+		mu_x = 1e-8;
+	}
+	/*gammas(mu_x);*/
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int jacobian_pz(void)
+/* ---------------------------------------------------------------------- */
+{
+	double *base;
+	double d, d1, d2;
+	int i, j;
+
+	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
+	if (base == NULL) malloc_error();
+	for (i = 0; i < count_unknowns; i++) {
+		base[i] = residual[i];
+	}
+	d = 0.001;
+	d1 = d*log(10.0);
+	d2 = 0;
+	for (i = 0; i < count_unknowns; i++) {
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case MH2O:
+			mass_water_aq_x *= (1.0 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			d2 = log(1.0 + d);
+			break;
+		case MU:
+		case AH2O:
+		case MH:
+		case PP:
+		case S_S_MOLES:
+			continue;
+			break;
+		}
+		molalities(TRUE);
+		mb_sums();
+		residuals();
+		for (j = 0; j < count_unknowns; j++) {
+			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
+		}
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+			x[i]->master[0]->s->la -= d;
+			break;
+		case MH2O:
+			mass_water_aq_x /= (1 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			break;
+		}
+	}
+	molalities(TRUE);
+	mb_sums();
+	residuals();
+	free_check_null(base);
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int model_pz(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   model is called after the equations have been set up by prep
+ *   and initial guesses have been made in set.
+ * 
+ *   Here is the outline of the calculation sequence:
+ *      residuals--residuals are calculated, if small we are done
+ *      sum_jacobian--jacobian is calculated 
+ *      ineq--inequality solver is called
+ *      reset--estimates of unknowns revised, if changes are small solution
+ *         has been found, usually convergence is found in residuals.
+ *      gammas--new activity coefficients
+ *      molalities--calculate molalities
+ *      mb_sums--calculate mass-balance sums
+ *      mb_gases--decide if gas_phase exists
+ *      mb_s_s--decide if solid_solutions exists
+ *      switch_bases--check to see if new basis species is needed
+ *         reprep--rewrite equations with new basis species if needed
+ *         revise_guesses--revise unknowns to get initial mole balance
+ *      check_residuals--check convergence one last time
+ *         sum_species--calculate sums of elements from species concentrations
+ *
+ *      An additional pass through may be needed if unstable phases still exist
+ *         in the phase assemblage. 
+ */
+	int kode, return_kode;
+	int r;
+	int count_infeasible, count_basis_change;
+	int debug_model_save;
+	int mass_water_switch_save;
+	if (svnid == NULL) fprintf(stderr," ");
+
+/*	debug_model = TRUE; */
+/*	debug_prep = TRUE; */
+/*	debug_set = TRUE; */
+	/* mass_water_switch == TRUE, mass of water is constant */
+	mass_water_switch_save = mass_water_switch;
+	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE) {
+		mass_water_switch = TRUE;
+	}
+	debug_model_save = debug_model;
+	pe_step_size_now = pe_step_size;
+	step_size_now = step_size;
+	status(0, NULL);
+	iterations=0;
+	gamma_iterations = 0;
+	count_basis_change = count_infeasible = 0;
+	stop_program = FALSE;
+	remove_unstable_phases = FALSE;
+	for (; ; ) {
+		mb_gases();
+		mb_s_s();
+		kode = 1;
+		while ( ( r = residuals() ) != CONVERGED || remove_unstable_phases == TRUE) {
+#if defined(PHREEQCI_GUI)
+			if (WaitForSingleObject(g_hKill /*g_eventKill*/, 0) == WAIT_OBJECT_0)
+				{
+					error_msg("Execution canceled by user.", CONTINUE);
+					RaiseException(USER_CANCELED_RUN, 0, 0, NULL);
+				}
+#endif
+			iterations++;
+			if (iterations > itmax - 1 && debug_model == FALSE && pr.logfile == TRUE) {
+				set_forward_output_to_log(TRUE);
+				debug_model = TRUE;
+			}
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"\nIteration %d\tStep_size = %f\n", 
+					   iterations, (double) step_size_now);
+				output_msg(OUTPUT_MESSAGE,"\t\tPe_step_size = %f\n\n", (double) pe_step_size_now);
+			}
+			/*
+			 *   Iterations exceeded
+			 */
+			if (iterations > itmax ) {
+				sprintf(error_string,"Maximum iterations exceeded, %d\n",itmax);
+				warning_msg(error_string);
+				stop_program = TRUE;
+				break;
+			}
+			/*
+			 *   Calculate jacobian
+			 */
+			jacobian_sums();
+			jacobian_pz();
+			/*
+			 *   Full matrix with pure phases
+			 */
+			if ( r == OK || remove_unstable_phases == TRUE) {
+				return_kode = ineq(kode);
+				if ( return_kode != OK ) {
+					if (debug_model == TRUE) {
+						output_msg(OUTPUT_MESSAGE, "Ineq had infeasible solution, "
+							   "kode %d, iteration %d\n", 
+							   return_kode, iterations);
+					}
+					output_msg(OUTPUT_LOG, "Ineq had infeasible solution, "
+						   "kode %d, iteration %d\n", return_kode, iterations);
+					count_infeasible++;
+				}
+				if ( return_kode == 2 ) { 
+					ineq(0);
+				}
+				reset();
+			}
+			gammas_pz();
+			molalities(TRUE);
+			if(use.surface_ptr != NULL && 
+			   use.surface_ptr->diffuse_layer == TRUE &&
+			   use.surface_ptr->related_phases == TRUE)
+				initial_surface_water();
+			mb_sums();
+			mb_gases();
+			mb_s_s();
+			/* debug
+			   species_list_sort();
+			   sum_species();
+			   print_species();
+			   print_exchange();
+			   print_surface();
+			*/
+			if (stop_program == TRUE) {
+				break;
+			}
+		}
+/*
+ *   Check for stop_program
+ */
+
+		if (stop_program == TRUE) {
+			break;
+		}
+		if (check_residuals() == ERROR) {
+			stop_program = TRUE;
+			break;
+		}
+		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE &&
+		    mass_water_switch == TRUE) {
+			output_msg(OUTPUT_LOG,"\nChanging water switch to FALSE. Iteration %d.\n", iterations);
+			mass_water_switch = FALSE;
+			continue;
+		}
+		gamma_iterations++;
+		if (check_gammas_pz() != TRUE) continue;
+		if (remove_unstable_phases == FALSE) break;
+		if (debug_model == TRUE) {
+			output_msg(OUTPUT_MESSAGE,"\nRemoving unstable phases. Iteration %d.\n", iterations);
+		}
+		output_msg(OUTPUT_LOG,"\nRemoving unstable phases. Iteration %d.\n", iterations);
+        }
+	output_msg(OUTPUT_LOG,"\nNumber of infeasible solutions: %d\n",count_infeasible);
+	output_msg(OUTPUT_LOG,"Number of basis changes: %d\n\n",count_basis_change);
+	output_msg(OUTPUT_LOG,"Number of iterations: %d\n\n", iterations);
+	debug_model = debug_model_save;
+	set_forward_output_to_log(FALSE);
+	if (stop_program == TRUE) {
+		return(ERROR);
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int check_gammas_pz(void)
+/* ---------------------------------------------------------------------- */
+{
+	double *base, old_aw, old_mu, tol;
+	int converge, i;
+
+	base = (LDBLE *) PHRQ_malloc((size_t) count_s_x * sizeof(LDBLE));
+	if (base == NULL) malloc_error();
+
+	for (i = 0; i < count_s_x; i++) {
+		base[i] = s_x[i]->lg;
+	}
+	old_mu = mu_x;
+	old_aw = s_h2o->la;
+	pitzer();
+	molalities(TRUE);
+	mb_sums();
+	converge = TRUE;
+	tol = convergence_tolerance*10.;
+	for (i = 0; i < count_s_x; i++) {
+		if (fabs(base[i] - s_x[i]->lg) > tol) converge = FALSE;
+	}
+	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
+	if (fabs(old_aw - s_h2o->la) > tol) converge = FALSE;
+#ifdef SKIP
+	/* underrelaxation for gammas and la water */
+	if (converge == FALSE && mu_x > 1) {
+		for (i = 0; i < count_s_x; i++) {
+			s_x[i]->lg = base[i] + (s_x[i]->lg - base[i])*1.0;
+		}
+		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
+		s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;
+	}
+#endif
+	base = free_check_null(base);
+	return converge;
+}
+/* ---------------------------------------------------------------------- */
+int gammas_pz ()
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Need exchange gammas for pitzer
+ */
+	int i, j;
+	/* Initialize */
+/*
+ *   Calculate activity coefficients
+ */
+	for (i=0; i < count_s_x; i++) {
+		switch (s_x[i]->gflag) {
+		    case 0:                   /* uncharged */
+		    case 1:                   /* Davies */
+		    case 2:                   /* Extended D-H, WATEQ D-H */
+		    case 3:                   /* Always 1.0 */
+			    break;
+		    case 4:		   /* Exchange */
+/*
+ *   Find CEC
+ *   z contains valence of cation for exchange species, alk contains cec
+ */
+/* !!!!! */
+			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+				if (s_x[i]->rxn_x->token[j].s->type == EX) {
+					s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+					break;
+				}
+			}
+			/*
+			 *   Master species is a dummy variable with meaningless activity and mass
+			 */
+			if (s_x[i]->primary != NULL) {
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+			} else {
+				if (s_x[i]->alk <= 0) {
+					s_x[i]->lg = 0.0;
+				} else {
+					s_x[i]->lg = log10(fabs(s_x[i]->equiv)/s_x[i]->alk);
+				}
+				s_x[i]->dg = 0.0;
+			}
+			break;
+		    case 5:                   /* Always 1.0 */
+			    break;
+		    case 6:		   /* Surface */
+/*
+ *   Find moles of sites. 
+ *   s_x[i]->equiv is stoichiometric coefficient of sites in species
+ */
+			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+				if (s_x[i]->rxn_x->token[j].s->type == SURF) {
+					s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+					break;
+				}
+			}
+			if (s_x[i]->alk > 0) {
+				s_x[i]->lg = log10(s_x[i]->equiv / s_x[i]->alk);
+				s_x[i]->dg = 0.0;
+			} else {
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+			}
+			break;
+		    case 7:		   /* LLNL */
+			    break;
+		    case 8:		   /* LLNL CO2*/
+			    break;
+		    case 9:		   /* activity water */
+			s_x[i]->lg = log10(exp( s_h2o->la * LOG_10) * gfw_water);
+			s_x[i]->dg = 0.0;
+			break;
+		}
+/*
+		if (mu_unknown != NULL) {
+			if (fabs(residual[mu_unknown->number]) > 0.1 &&
+			    fabs(residual[mu_unknown->number])/mu_x > 0.5) {
+				s_x[i]->dg = 0.0;
+			}
+		}
+ */
+	}
+	return(OK);
 }

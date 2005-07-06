@@ -232,12 +232,12 @@ C
 		       AAT[5]={0,2.e4,2.e4,4.e4,25.e0}, AAD[5]={0,34.e0,4.e1,3.e1,1.05e3};
 	double *QZT;
 	double QR[12],QT[11] /*, QZT[10]*/;
-	QZT = &(QT[1]);
 	/*EQUIVALENCE (QT(2),QZT(1))*/
 
 	double E, Q10, Q20, V, QP, DDZ, DEL, EX1, DEX, ATT, TX,
 		TAU, EX2, TEX, QM, FCT, Q5T;
 	int I, K, L, J, KM;
+	QZT = &(QT[1]);
 	QR[1]=0.e0;
 	Q5=0.e0;
 	Q0=0.e0;
