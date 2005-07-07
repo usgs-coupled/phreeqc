@@ -16,7 +16,6 @@ struct pitz_param *mcb0, *mcb1, *mcc0;
 static int *IPRSNT;
 static double *M, *LGAMMA;
 static double BK[23], DK[23];
-double COSMOT;
 
 /* routines */
 static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
@@ -31,6 +30,7 @@ static int BDK (double X);
 static int initial_guesses(void);
 static int revise_guesses(void);
 static int remove_unstable_phases;
+
 
 /* ---------------------------------------------------------------------- */
 int pitzer_init (void)
@@ -448,7 +448,7 @@ int pitzer (void)
 		BMXPHI, PHIPHI, AW, A, B;
 	*/
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
-		CSUM, PHIMAC, OSMOT, AW, B;
+		CSUM, PHIMAC, OSMOT, B;
 	double COSMOT;
 	double I, TK;
 	int IC, ICON;
@@ -639,19 +639,22 @@ C     CALCULATE THE ACTIVITY OF WATER
 C
 */
       AW=exp(-OSUM*COSMOT/55.50837e0);
-      s_h2o->la=log10(AW);
+      if (AW > 1.0) AW = 1.0;
+      /*s_h2o->la=log10(AW);*/
       mu_x = I;
       for (i = 0; i < 2*count_s + count_anions; i++) {
 	      if (IPRSNT[i] == FALSE) continue;
 	      spec[i]->lg=LGAMMA[i]*CONV;
-	      /*n
-	      output_msg(OUTPUT_MESSAGE, "%s:\t%e\t%e\t%e \n", spec[i]->name, spec[i]->la, spec[i]->lm, spec[i]->lg);
+	      /*
+	      output_msg(OUTPUT_MESSAGE, "%s:\t%e\t%e\t%e \n", spec[i]->name, spec[i]->la, M[i], spec[i]->lg);
 	      */
       }
       /*
+      output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
       output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
       output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
       output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
+      output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
       */
       /*
       *I_X = I;
@@ -865,6 +868,7 @@ int set_pz(int initial)
 	mu_x = solution_ptr->mu;
 	s_h2o->moles = mass_water_aq_x/gfw_water;
 	s_h2o->la = log10(solution_ptr->ah2o);
+	AW = pow(10.0, s_h2o->la);
 	s_hplus->la = - solution_ptr->ph;
 	s_hplus->lm = s_hplus->la;
 	s_hplus->moles = exp(s_hplus->lm * LOG_10)*mass_water_aq_x;
@@ -1054,13 +1058,16 @@ int jacobian_pz(void)
 			x[i]->master[0]->s->la += d;
 			d2 = d1;
 			break;
+		case AH2O:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
 		case MH2O:
 			mass_water_aq_x *= (1.0 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
 			d2 = log(1.0 + d);
 			break;
 		case MU:
-		case AH2O:
 		case MH:
 		case PP:
 		case S_S_MOLES:
@@ -1081,6 +1088,7 @@ int jacobian_pz(void)
 		case EXCH:
 		case SURFACE:
 		case SURFACE_CB:
+		case AH2O:
 			x[i]->master[0]->s->la -= d;
 			break;
 		case MH2O:
@@ -1265,6 +1273,7 @@ int check_gammas_pz(void)
 	double *base, old_aw, old_mu, tol;
 	int converge, i;
 
+	if (debug_model == TRUE) output_msg(OUTPUT_MESSAGE,"\nRecalculating Gammas %d\n", iterations);
 	base = (LDBLE *) PHRQ_malloc((size_t) count_s_x * sizeof(LDBLE));
 	if (base == NULL) malloc_error();
 
@@ -1284,16 +1293,16 @@ int check_gammas_pz(void)
 	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
 	if (fabs(old_aw - s_h2o->la) > tol) converge = FALSE;
 #ifdef SKIP
+#endif
 	/* underrelaxation for gammas and la water */
 	if (converge == FALSE && mu_x > 1) {
 		for (i = 0; i < count_s_x; i++) {
-			s_x[i]->lg = base[i] + (s_x[i]->lg - base[i])*1.0;
+			s_x[i]->lg = base[i] + (s_x[i]->lg - base[i])*0.8;
 		}
 		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
-		s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;
+		/*s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;*/
 	}
-	fprintf(stderr, "old aw: %e\tnew aw: %e\n", old_aw, s_h2o->la);
-#endif
+	/*fprintf(stderr, "old aw: %e\tnew aw: %e\n", old_aw, s_h2o->la);*/
 	base = free_check_null(base);
 	return converge;
 }

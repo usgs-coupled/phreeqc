@@ -2865,6 +2865,7 @@ int setup_solution (void)
 	x[count_unknowns]->moles = 0.0;
 	mu_unknown = x[count_unknowns];
 	count_unknowns++;
+	}
 	/*
 	 *   Activity of water
 	 */
@@ -2877,7 +2878,6 @@ int setup_solution (void)
 	ah2o_unknown->master[0]->unknown = ah2o_unknown;
 	ah2o_unknown->moles = 0.0;
 	count_unknowns++;
-	}
 
 	if (state >= REACTION) {
 /*

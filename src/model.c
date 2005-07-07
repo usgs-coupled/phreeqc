@@ -680,7 +680,7 @@ int ineq(int in_kode)
  */
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
-			if (x[i]->type == AH2O || 
+			if (/*x[i]->type == AH2O || */
 			    x[i]->type == MH || 
 			    x[i]->type == MU ) {
 				for (j=0; j<count_unknowns; j++) {
@@ -2277,10 +2277,12 @@ int reset(void)
 				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n", x[i]->description, "old la", (double) x[i]->master[0]->s->la, "new la", (double) (x[i]->master[0]->s->la + d), "delta", (double) delta[i], "delta/c", (double) d);
 			}
 			s_h2o->la += d;
-			if (s_h2o->la < -1.0) {
-				d = -1.0 - s_h2o->la;
-				delta[i] = d * LOG_10;
-				s_h2o->la = -1.0; 
+			if (pitzer_model == FALSE) {
+				if (s_h2o->la < -1.0) {
+					d = -1.0 - s_h2o->la;
+					delta[i] = d * LOG_10;
+					s_h2o->la = -1.0; 
+				}
 			}
 /*   pe */
 		} else if (x[i]->type == MH) {
@@ -2424,8 +2426,11 @@ int residuals(void)
 		} else if (x[i]->type == MU && pitzer_model == FALSE) {
 			residual[i] = mass_water_aq_x * mu_x - 0.5*x[i]->f;
 			if (fabs(residual[i]) > toler*mu_x * mass_water_aq_x ) converge = FALSE;
-		} else if (x[i]->type == AH2O && pitzer_model == FALSE) {
+		} else if (x[i]->type == AH2O /*&& pitzer_model == FALSE*/) {
 			residual[i] = mass_water_aq_x*exp(s_h2o->la * LOG_10) - mass_water_aq_x + 0.017 * x[i]->f;
+			if (pitzer_model) {
+				residual[i] = pow(10.0,s_h2o->la) - AW;
+			}
 			if (fabs(residual[i]) > toler ) converge = FALSE;
 		} else if (x[i]->type == MH && pitzer_model == FALSE) {
 #ifdef COMBINE
