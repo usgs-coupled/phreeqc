@@ -19,7 +19,6 @@ static double BK[23], DK[23];
 
 /* routines */
 static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
-static int check_gammas_pz(void);
 static int ISPEC(char * name);
 /*static int DH_AB (double TK, double *A, double *B);*/
 static double G (double Y);
@@ -442,6 +441,7 @@ int pitzer (void)
 {
 	int i, i0, i1, i2;
 	double param, alpha, z0, z1, z2;
+	double etheta, ethetap;
 	/*
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
@@ -485,9 +485,11 @@ int pitzer (void)
 			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
 		}
 	}
+#ifdef SKIP
 	for (i = count_s; i < count_s + count_neutrals; i++) {
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
+#endif
 	ICON = 0;
 /*
 C
@@ -528,9 +530,6 @@ C
  *  Sums for F, LGAMMA, and OSMOT
  */
 	for (i = 0; i < count_pitz_param; i++) {
-		if (i == 107) {
-			fprintf(stderr,"\n");
-		}
 		i0 = pitz_params[i]->ispec[0];
 		i1 = pitz_params[i]->ispec[1];
 		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
@@ -568,10 +567,17 @@ C
 			OSMOT += M[i0]*M[i1]*param;
 			break;
 		case TYPE_ETHETA:
+			ETHETAS(z0, z1, I, &etheta, &ethetap);
+			F += M[i0]*M[i1]*ethetap;
+			LGAMMA[i0] += 2.0*M[i1]*etheta; 
+			LGAMMA[i1] += 2.0*M[i0]*etheta; 
+			OSMOT += M[i0]*M[i1]*(etheta + I*ethetap); 
+			/*
 			F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
 			LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
 			LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
 			OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+			*/
 			break;
 		case TYPE_PSI:
 			i2 = pitz_params[i]->ispec[2];
@@ -644,7 +650,8 @@ C
       mu_x = I;
       for (i = 0; i < 2*count_s + count_anions; i++) {
 	      if (IPRSNT[i] == FALSE) continue;
-	      spec[i]->lg=LGAMMA[i]*CONV;
+	      /*spec[i]->lg=LGAMMA[i]*CONV;*/
+	      spec[i]->lg_pitzer=LGAMMA[i]*CONV;
 	      /*
 	      output_msg(OUTPUT_MESSAGE, "%s:\t%e\t%e\t%e \n", spec[i]->name, spec[i]->la, M[i], spec[i]->lg);
 	      */
@@ -815,6 +822,33 @@ C
 	return (ETHETAP);
 }
 /* ---------------------------------------------------------------------- */
+int ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap)
+/* ---------------------------------------------------------------------- */
+{
+	double XCON, ZZ;
+	double XJK, XJJ, XKK;
+
+	if (ZJ == ZK) return(0.0);
+	XCON=6.0e0*A0*sqrt(I);
+	ZZ=ZJ*ZK;
+/*
+C
+C     NEXT 3 ARE EQUATION (A1)
+C
+*/
+	XJK=XCON*ZZ;
+	XJJ=XCON*ZJ*ZJ;
+	XKK=XCON*ZK*ZK;
+/*
+C
+C     EQUATION (A3)
+C
+*/
+	*etheta=ZZ*(JAY(XJK)-JAY(XJJ)/2.0e0-JAY(XKK)/2.0e0)/(4.0e0*I);
+	*ethetap=ZZ*(JPRIME(XJK)-JPRIME(XJJ)/2.0e0-JPRIME(XKK)/2.0e0)/(8.0e0*I*I) - *etheta/I;
+	return (OK);
+}
+/* ---------------------------------------------------------------------- */
 int pitzer_clean_up(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -854,6 +888,7 @@ int set_pz(int initial)
 	for (i=0; i < count_s_x; i++) {
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
 		s_x[i]->lg = 0.0;
+		s_x[i]->lg_pitzer = 0.0;
 	}
 /*
  *   Set master species activities
@@ -1038,12 +1073,15 @@ int jacobian_pz(void)
 	double d, d1, d2;
 	int i, j;
 
+	molalities(TRUE);
+	pitzer();
+	residuals();
 	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
 	if (base == NULL) malloc_error();
 	for (i = 0; i < count_unknowns; i++) {
 		base[i] = residual[i];
 	}
-	d = 0.001;
+	d = 0.0001;
 	d1 = d*log(10.0);
 	d2 = 0;
 	for (i = 0; i < count_unknowns; i++) {
@@ -1062,6 +1100,10 @@ int jacobian_pz(void)
 			x[i]->master[0]->s->la += d;
 			d2 = d1;
 			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg += d;
+			d2 = d;
+			break;
 		case MH2O:
 			mass_water_aq_x *= (1.0 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
@@ -1075,6 +1117,7 @@ int jacobian_pz(void)
 			break;
 		}
 		molalities(TRUE);
+		pitzer();
 		mb_sums();
 		residuals();
 		for (j = 0; j < count_unknowns; j++) {
@@ -1091,6 +1134,9 @@ int jacobian_pz(void)
 		case AH2O:
 			x[i]->master[0]->s->la -= d;
 			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg -= d;
+			break;
 		case MH2O:
 			mass_water_aq_x /= (1 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
@@ -1098,6 +1144,7 @@ int jacobian_pz(void)
 		}
 	}
 	molalities(TRUE);
+	pitzer();
 	mb_sums();
 	residuals();
 	free_check_null(base);
@@ -1189,6 +1236,7 @@ int model_pz(void)
 			/*
 			 *   Calculate jacobian
 			 */
+			gammas_pz();
 			jacobian_sums();
 			jacobian_pz();
 			/*
@@ -1212,6 +1260,7 @@ int model_pz(void)
 				reset();
 			}
 			gammas_pz();
+			pitzer();
 			molalities(TRUE);
 			if(use.surface_ptr != NULL && 
 			   use.surface_ptr->diffuse_layer == TRUE &&
@@ -1249,7 +1298,7 @@ int model_pz(void)
 			continue;
 		}
 		gamma_iterations++;
-		if (check_gammas_pz() != TRUE) continue;
+		/*if (check_gammas_pz() != TRUE) continue;*/
 		if (remove_unstable_phases == FALSE) break;
 		if (debug_model == TRUE) {
 			output_msg(OUTPUT_MESSAGE,"\nRemoving unstable phases. Iteration %d.\n", iterations);
@@ -1266,6 +1315,7 @@ int model_pz(void)
 	}
 	return(OK);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int check_gammas_pz(void)
 /* ---------------------------------------------------------------------- */
@@ -1306,6 +1356,7 @@ int check_gammas_pz(void)
 	base = free_check_null(base);
 	return converge;
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int gammas_pz ()
 /* ---------------------------------------------------------------------- */

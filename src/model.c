@@ -373,6 +373,10 @@ int check_residuals(void)
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
 				error_msg(error_string, CONTINUE);
 			}
+		} else if (x[i]->type == PITZER_GAMMA) {
+			if (fabs(residual[i]) > epsilon ) {
+				sprintf(error_string,"%20s log gamma not converged.\tResidual: %e\n", x[i]->description, (double) residual[i]);
+			}
 		} else if (x[i]->type == S_S_MOLES) {
 			if (x[i]->s_s_in == FALSE) continue;
 			if (residual[i] >= epsilon || residual[i] <= -epsilon /* || stop_program == TRUE */) {
@@ -911,12 +915,12 @@ int ineq(int in_kode)
 					ineq_array[count_rows * max_column_count + j] -= 2*array[k * (count_unknowns + 1) + j];
 				}
 			}
-#ifdef SKIP
-			if (count_rows == 5) {
-			  ineq_array[count_rows * max_column_count + slack_unknown->number] = 1;
-			}
-#endif
 			count_rows++;
+		} else if (x[i]->type == PITZER_GAMMA && include_pitzer_gammas == TRUE) {
+			memcpy( (void *) &(ineq_array[count_rows*max_column_count]),
+			       (void *) &(array[i*(count_unknowns + 1)]),
+			       (size_t) (count_unknowns + 1) * sizeof(LDBLE));
+			back[count_rows] = i;
 		}
 	}
 	count_equal = count_rows - count_optimize;
@@ -2351,6 +2355,13 @@ int reset(void)
 			x[i]->moles -= delta[i];
 			if (x[i]->moles < MIN_TOTAL) x[i]->moles = MIN_TOTAL; 
 			x[i]->s_s_comp->moles = x[i]->moles;
+/*   Pitzer gamma */
+		} else if ( x[i]->type == PITZER_GAMMA ) {
+			d = delta[i];
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n", x[i]->description, "old lg", (double) x[i]->s->lg, "new lg", (double) (x[i]->s->la + d), "delta", (double) delta[i], "delta", (double) d);
+			}
+			x[i]->s->lg += d;
 		}
 	}
 /*
@@ -2409,6 +2420,9 @@ int residuals(void)
 		if (x[i]->type == MB ) {
 			residual[i] = x[i]->moles - x[i]->f;
 			if (fabs(residual[i]) > toler * x[i]->moles && x[i]->moles > MIN_TOTAL ) {
+				/*
+				fprintf(stderr,"Residuals %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
+				*/
 				converge = FALSE;
 			}
 		} else if (x[i]->type == ALK) {
@@ -2492,6 +2506,14 @@ int residuals(void)
 			if (x[i]->moles <= MIN_RELATED_SURFACE) {
 				if ( fabs(residual[i]) > toler ) converge = FALSE;
 			} else if (fabs(residual[i]) > toler * x[i]->moles ) {
+				converge = FALSE;
+			}
+		} else if (x[i]->type == PITZER_GAMMA) {
+			residual[i] = x[i]->s->lg - x[i]->s->lg_pitzer;
+			if (fabs(residual[i]) > toler ) {
+				/*
+				fprintf(stderr,"Residuals %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
+				*/
 				converge = FALSE;
 			}
 		} else if (x[i]->type == SURFACE_CB) {

@@ -112,11 +112,19 @@ int prep(void)
 /*
  *   Allocate space for array
  */
+/*
 		array = (LDBLE *) PHRQ_malloc( (size_t) (count_unknowns+1) * count_unknowns * sizeof( LDBLE ));
 		if (array == NULL) malloc_error();
 		delta = (LDBLE *) PHRQ_malloc( (size_t) count_unknowns * sizeof( LDBLE ));
 		if (delta == NULL) malloc_error();
 		residual = (LDBLE *) PHRQ_malloc( (size_t) count_unknowns * sizeof( LDBLE ));
+		if (residual == NULL) malloc_error();
+*/
+		array = (LDBLE *) PHRQ_malloc( (size_t) (max_unknowns+1) * max_unknowns * sizeof( LDBLE ));
+		if (array == NULL) malloc_error();
+		delta = (LDBLE *) PHRQ_malloc( (size_t) max_unknowns * sizeof( LDBLE ));
+		if (delta == NULL) malloc_error();
+		residual = (LDBLE *) PHRQ_malloc( (size_t) max_unknowns * sizeof( LDBLE ));
 		if (residual == NULL) malloc_error();
 /*
  *   Build lists to fill Jacobian array and species list
@@ -1048,6 +1056,22 @@ int build_model(void)
 						 1 / gfw_water);
 				}
 			}
+		}
+	}
+/*
+ *   For Pizer model add lg unknown for each aqueous species
+ */
+
+	if (pitzer_model == TRUE) {
+		j = count_unknowns + count_s_x;
+		for (i = count_unknowns; i < j; i++) {
+			if (s_x[i - count_unknowns]->type == EX) continue;
+			if (s_x[i - count_unknowns]->type == SURF) continue;
+			x[i]->number = i;
+			x[i]->type = PITZER_GAMMA;
+			x[i]->s = s_x[i - count_unknowns];
+			x[i]->description = s_x[i - count_unknowns]->name;
+			count_unknowns++;
 		}
 	}
 /*
@@ -3033,10 +3057,14 @@ int setup_unknowns (void)
 			max_unknowns += use.s_s_assemblage_ptr->s_s[i].count_comps;
 		}
 	}
+
 /*
  *   One for luck
  */
 	max_unknowns++;
+	if (pitzer_model == TRUE) {
+		max_unknowns += count_s;
+	}
 /*
  *   Allocate space for pointer array and structures
  */

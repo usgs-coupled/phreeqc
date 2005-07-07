@@ -121,9 +121,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define SURFACE_CB 21
 #define GAS_MOLES 23
 #define S_S_MOLES 24
-#ifdef SKIP
-#define COMPLEX 25
-#endif
+#define PITZER_GAMMA 25
 /* state */
 #define INITIALIZE         0
 #define INITIAL_SOLUTION   1
@@ -1102,6 +1100,7 @@ struct species {                      /* all data pertinent to an aqueous specie
 	int count_add_logk;
 	struct name_coef *add_logk;
 	LDBLE lg;                    /* log10 activity coefficient, gamma */
+	LDBLE lg_pitzer;             /* log10 activity coefficient, from pitzer calculation */
 	LDBLE lm;                    /* log10 molality */
 	LDBLE la;                    /* log10 activity */
 	LDBLE dg;                    /* gamma term for jacobian */
@@ -1431,6 +1430,7 @@ EXTERNAL LDBLE pe_step_size_now;
 EXTERNAL LDBLE pp_scale;
 EXTERNAL LDBLE pp_column_scale;
 EXTERNAL int diagonal_scale;   /* 0 not used, 1 used */
+EXTERNAL int include_pitzer_gammas;
 EXTERNAL int mass_water_switch;
 EXTERNAL int delay_mass_water;
 EXTERNAL LDBLE censor;
