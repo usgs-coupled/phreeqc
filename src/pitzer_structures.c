@@ -7,9 +7,13 @@
 
 static char const svnid[] = "$Id: structures.c 269 2005-04-27 19:54:25Z dlpark $";
 
-struct pitz_param *pitz_param_duplicate(struct pitz_param *old_ptr);
-int pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr);
 
+static struct pitz_param *pitz_param_alloc (void);
+static int pitz_param_free (struct pitz_param *pitz_param_ptr);
+static int pitz_param_init (struct pitz_param *pitz_param_ptr);
+static struct pitz_param *pitz_param_duplicate(struct pitz_param *old_ptr);
+static int pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr);
+static int theta_param_free (struct theta_param *theta_param_ptr);
 
 
 /* **********************************************************************
@@ -62,6 +66,7 @@ int pitz_param_init (struct pitz_param *pitz_param_ptr)
 		pitz_param_ptr->a[i] = 0.0;
 	}
 	pitz_param_ptr->alpha = 0.0;
+	pitz_param_ptr->thetas = NULL;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -155,4 +160,63 @@ int pitz_param_search(struct pitz_param *pzp_ptr)
 		return -1;
 	} 
 	return i;
+}
+/* **********************************************************************
+ *
+ *   Routines related to structure "theta_parm"
+ *
+ * ********************************************************************** */
+/* ---------------------------------------------------------------------- */
+struct theta_param *theta_param_alloc (void)
+/* ---------------------------------------------------------------------- */
+{
+	struct theta_param *theta_param_ptr;
+	theta_param_ptr = (struct theta_param *) PHRQ_malloc(sizeof (struct theta_param));
+	if (theta_param_ptr == NULL) malloc_error();
+	return ( theta_param_ptr );
+}
+/* ---------------------------------------------------------------------- */
+int theta_param_free (struct theta_param *theta_param_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Frees all data associated with theta_param structure.
+ */
+	if (theta_param_ptr == NULL) return(ERROR);
+/*
+ *   Free space allocated for theta_param structure
+ */
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int theta_param_init (struct theta_param *theta_param_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Frees all data associated with theta_param structure.
+ */
+
+	if (theta_param_ptr == NULL) return(ERROR);
+	theta_param_ptr->zj = 0;
+	theta_param_ptr->zk = 0;
+	theta_param_ptr->etheta = 0;
+	theta_param_ptr->ethetap = 0;
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct theta_param *theta_param_search(double zj, double zk)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Does linear search of theta_params for same charge
+ *  Returns NULL if not found, index number in theta_params if found
+ */
+	int i;
+	for (i = 0; i < count_theta_param; i++) {
+		if ((theta_params[i]->zj == zj && theta_params[i]->zk == zk) ||
+		    (theta_params[i]->zk == zj && theta_params[i]->zj == zk)) {
+			return theta_params[i];
+		}
+	}
+	return NULL;
 }

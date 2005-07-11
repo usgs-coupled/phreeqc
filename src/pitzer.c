@@ -23,8 +23,11 @@ static int ISPEC(char * name);
 /*static int DH_AB (double TK, double *A, double *B);*/
 static double G (double Y);
 static double GP (double Y);
+#ifdef SKIP
 static double ETHETAP (double ZJ, double ZK, double I);
 static double ETHETA (double ZJ, double ZK, double I);
+#endif
+static int ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap);
 static int BDK (double X);
 static int initial_guesses(void);
 static int revise_guesses(void);
@@ -42,6 +45,11 @@ int pitzer_init (void)
 	max_pitz_param = 100;
 	count_pitz_param = 0;
 	space ((void *) &pitz_params, INIT, &max_pitz_param, sizeof(struct pitz_param *));
+
+	max_theta_param = 100;
+	count_theta_param = 0;
+	space ((void *) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
+	
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -55,6 +63,7 @@ int pitzer_tidy (void)
 	int i, j, order;
 	double z0, z1;
 	struct pitz_param *pzp_ptr;
+	struct theta_param *theta_param_ptr;
 	/*
 	 *  allocate pointers to species structures
 	 */
@@ -110,6 +119,7 @@ int pitzer_tidy (void)
 				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
 			pitz_params[count_pitz_param++] = pzp_ptr;
+			
 		}
 	}
 	for (i = 2*count_s; i < 2*count_s + count_anions - 1; i++) {
@@ -120,7 +130,8 @@ int pitzer_tidy (void)
 			if (count_pitz_param >= max_pitz_param) {
 				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
-			pitz_params[count_pitz_param++] = pzp_ptr;
+			pitz_params[count_pitz_param] = pzp_ptr;
+			count_pitz_param++;
 		}
 	}
 	/*
@@ -205,7 +216,35 @@ int pitzer_tidy (void)
 			}
 		}
 	}
+	/*
+	 *   Add thetas pointer to etheta pitzer parameters
+	 */
 
+	if (count_theta_param > 0 ) {
+		for (i = 0; i < count_theta_param; i++) {
+			theta_params[i] = free_check_null(theta_params[i]);
+		}
+	}
+	count_theta_param = 0;
+	for (i = 0; i < count_pitz_param; i++) {
+		if (pitz_params[i]->type == TYPE_ETHETA) {
+			z0 = spec[pitz_params[i]->ispec[0]]->z;
+			z1 = spec[pitz_params[i]->ispec[1]]->z;
+			theta_param_ptr = theta_param_search(z0, z1);
+			if (theta_param_ptr == NULL) {
+				if (count_theta_param >= max_theta_param) {
+					space ((void *) &theta_params, count_theta_param, &max_theta_param, sizeof(struct theta_param *));
+				}
+				theta_params[count_theta_param] = theta_param_alloc();
+				theta_param_init(theta_params[count_theta_param]);
+				theta_params[count_theta_param]->zj = z0;
+				theta_params[count_theta_param]->zk = z1;
+				theta_param_ptr = theta_params[count_theta_param];
+				count_theta_param++;
+			}
+			pitz_params[i]->thetas = theta_param_ptr;
+		}
+	}
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -527,6 +566,16 @@ C
 	CSUM=0.0e0;
 	OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
 /*
+ *  Calculate ethetas
+ */
+	for (i = 0; i < count_theta_param; i++) {
+		z0 = theta_params[i]->zj;
+		z1 = theta_params[i]->zk;
+		ETHETAS(z0, z1, I, &etheta, &ethetap);
+		theta_params[i]->etheta = etheta;
+		theta_params[i]->ethetap = etheta;;
+	}
+/*
  *  Sums for F, LGAMMA, and OSMOT
  */
 	for (i = 0; i < count_pitz_param; i++) {
@@ -544,15 +593,15 @@ C
 			OSMOT += M[i0]*M[i1]*param;
 			break;
 		case TYPE_B1:
-			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
-			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
-			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+			F += M[i0]*M[i1]*param*GP(alpha*DI)/I; 
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*DI);
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*DI);
 			OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
 			break;
 		case TYPE_B2:
-			F += M[i0]*M[i1]*param*GP(alpha*sqrt(I))/I; 
-			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*sqrt(I));
-			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*sqrt(I));
+			F += M[i0]*M[i1]*param*GP(alpha*DI)/I; 
+			LGAMMA[i0] += M[i1]*2.0*param*G(alpha*DI);
+			LGAMMA[i1] += M[i0]*2.0*param*G(alpha*DI);
 			OSMOT += M[i0]*M[i1]*param*exp(-alpha*DI);
 			break;
 		case TYPE_C0:
@@ -567,7 +616,9 @@ C
 			OSMOT += M[i0]*M[i1]*param;
 			break;
 		case TYPE_ETHETA:
-			ETHETAS(z0, z1, I, &etheta, &ethetap);
+			/*ETHETAS(z0, z1, I, &etheta, &ethetap);*/
+			etheta = pitz_params[i]->thetas->etheta;
+			ethetap = pitz_params[i]->thetas->ethetap;
 			F += M[i0]*M[i1]*ethetap;
 			LGAMMA[i0] += 2.0*M[i1]*etheta; 
 			LGAMMA[i1] += 2.0*M[i0]*etheta; 
@@ -768,6 +819,7 @@ double GP (double Y)
 {
 	return (-2.0e0*(1.0e0-(1.0e0+Y+Y*Y/2.0e0)*exp(-Y))/(Y*Y));
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 double ETHETA (double ZJ, double ZK, double I)
 /* ---------------------------------------------------------------------- */
@@ -821,6 +873,7 @@ C
 	ETHETAP=ZZ*(JPRIME(XJK)-JPRIME(XJJ)/2.0e0-JPRIME(XKK)/2.0e0)/(8.0e0*I*I) - ETHETA/I;
 	return (ETHETAP);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap)
 /* ---------------------------------------------------------------------- */
@@ -828,6 +881,8 @@ int ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap)
 	double XCON, ZZ;
 	double XJK, XJJ, XKK;
 
+	*etheta = 0.0;
+	*ethetap = 0.0;
 	if (ZJ == ZK) return(0.0);
 	XCON=6.0e0*A0*sqrt(I);
 	ZZ=ZJ*ZK;
@@ -862,6 +917,10 @@ int pitzer_clean_up(void)
 		pitz_params[i] = free_check_null(pitz_params[i]);
 	}
 	pitz_params = free_check_null(pitz_params);
+	for (i = 0; i < count_theta_param; i++) {
+		theta_params[i] = free_check_null(theta_params[i]);
+	}
+	theta_params = free_check_null(theta_params);
 	LGAMMA = free_check_null(LGAMMA);
 	IPRSNT = free_check_null(IPRSNT);
 	spec = free_check_null(spec);
