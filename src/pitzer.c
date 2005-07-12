@@ -574,7 +574,7 @@ C
 		z1 = theta_params[i]->zk;
 		ETHETAS(z0, z1, I, &etheta, &ethetap);
 		theta_params[i]->etheta = etheta;
-		theta_params[i]->ethetap = etheta;;
+		theta_params[i]->ethetap = ethetap;
 	}
 /*
  *  Sums for F, LGAMMA, and OSMOT
@@ -617,7 +617,9 @@ C
 			OSMOT += M[i0]*M[i1]*param;
 			break;
 		case TYPE_ETHETA:
+			/*
 			ETHETAS(z0, z1, I, &etheta, &ethetap);
+			*/
 			etheta = pitz_params[i]->thetas->etheta;
 			ethetap = pitz_params[i]->thetas->ethetap;
 			F += M[i0]*M[i1]*ethetap;

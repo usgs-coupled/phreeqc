@@ -214,7 +214,7 @@ struct theta_param *theta_param_search(double zj, double zk)
 	int i;
 	for (i = 0; i < count_theta_param; i++) {
 		if ((theta_params[i]->zj == zj && theta_params[i]->zk == zk) ||
-		    (theta_params[i]->zk == zj && theta_params[i]->zj == zk)) {
+		    (theta_params[i]->zj == zk && theta_params[i]->zk == zj)) {
 			return theta_params[i];
 		}
 	}
