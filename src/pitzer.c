@@ -1135,9 +1135,11 @@ int jacobian_pz(void)
 	double d, d1, d2;
 	int i, j;
 
-	molalities(TRUE);
-	pitzer();
-	residuals();
+	if (full_pitzer == TRUE) {
+		molalities(TRUE);
+		pitzer();
+		residuals();
+	}
 	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
 	if (base == NULL) malloc_error();
 	for (i = 0; i < count_unknowns; i++) {
@@ -1179,7 +1181,7 @@ int jacobian_pz(void)
 			break;
 		}
 		molalities(TRUE);
-		pitzer();
+		if (full_pitzer == TRUE) pitzer();
 		mb_sums();
 		residuals();
 		for (j = 0; j < count_unknowns; j++) {
@@ -1206,7 +1208,7 @@ int jacobian_pz(void)
 		}
 	}
 	molalities(TRUE);
-	pitzer();
+	if (full_pitzer == TRUE) pitzer();
 	mb_sums();
 	residuals();
 	free_check_null(base);
@@ -1264,6 +1266,7 @@ int model_pz(void)
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
 	remove_unstable_phases = FALSE;
+	full_pitzer = FALSE;
 	for (; ; ) {
 		mb_gases();
 		mb_s_s();
@@ -1322,7 +1325,8 @@ int model_pz(void)
 				reset();
 			}
 			gammas_pz();
-			pitzer();
+			if (full_pitzer == TRUE) pitzer();
+			full_pitzer = FALSE;
 			molalities(TRUE);
 			if(use.surface_ptr != NULL && 
 			   use.surface_ptr->diffuse_layer == TRUE &&
@@ -1360,7 +1364,10 @@ int model_pz(void)
 			continue;
 		}
 		gamma_iterations++;
-		/*if (check_gammas_pz() != TRUE) continue;*/
+		if (check_gammas_pz() != TRUE) {
+			full_pitzer = TRUE;
+			continue;
+		}
 		if (remove_unstable_phases == FALSE) break;
 		if (debug_model == TRUE) {
 			output_msg(OUTPUT_MESSAGE,"\nRemoving unstable phases. Iteration %d.\n", iterations);
@@ -1378,6 +1385,7 @@ int model_pz(void)
 	return(OK);
 }
 #ifdef SKIP
+#endif
 /* ---------------------------------------------------------------------- */
 int check_gammas_pz(void)
 /* ---------------------------------------------------------------------- */
@@ -1405,7 +1413,6 @@ int check_gammas_pz(void)
 	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
 	if (fabs(old_aw - s_h2o->la) > tol) converge = FALSE;
 #ifdef SKIP
-#endif
 	/* underrelaxation for gammas and la water */
 	if (converge == FALSE && mu_x > 1) {
 		for (i = 0; i < count_s_x; i++) {
@@ -1414,11 +1421,11 @@ int check_gammas_pz(void)
 		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
 		/*s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;*/
 	}
+#endif
 	/*fprintf(stderr, "old aw: %e\tnew aw: %e\n", old_aw, s_h2o->la);*/
 	base = free_check_null(base);
 	return converge;
 }
-#endif
 /* ---------------------------------------------------------------------- */
 int gammas_pz ()
 /* ---------------------------------------------------------------------- */

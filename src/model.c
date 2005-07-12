@@ -684,9 +684,10 @@ int ineq(int in_kode)
  */
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
-			if (/*x[i]->type == AH2O || */
+			if (/* (x[i]->type == AH2O && full_pitzer == FALSE) || */
 			    x[i]->type == MH || 
-			    x[i]->type == MU ) {
+			    x[i]->type == MU ||
+			    (x[i]->type == PITZER_GAMMA && full_pitzer == FALSE)) {
 				for (j=0; j<count_unknowns; j++) {
 					array[j*(count_unknowns +1) + i] = 0.0;
 				}
@@ -2275,6 +2276,7 @@ int reset(void)
 			}
 /*   Activity of water */
 		} else if (x[i]->type == AH2O) {
+			/*if (pitzer_model == TRUE && full_pitzer == FALSE) continue;*/
 			/*if (fabs(delta[i]) > epsilon) converge=FALSE;*/
 			d = delta[i] / LOG_10;
 			if (debug_model == TRUE) {
@@ -2357,6 +2359,7 @@ int reset(void)
 			x[i]->s_s_comp->moles = x[i]->moles;
 /*   Pitzer gamma */
 		} else if ( x[i]->type == PITZER_GAMMA ) {
+			if (full_pitzer == FALSE) continue;
 			d = delta[i];
 			if (debug_model == TRUE) {
 				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n", x[i]->description, "old lg", (double) x[i]->s->lg, "new lg", (double) (x[i]->s->lg + d), "delta", (double) delta[i], "delta", (double) d);
@@ -2441,6 +2444,7 @@ int residuals(void)
 			residual[i] = mass_water_aq_x * mu_x - 0.5*x[i]->f;
 			if (fabs(residual[i]) > toler*mu_x * mass_water_aq_x ) converge = FALSE;
 		} else if (x[i]->type == AH2O /*&& pitzer_model == FALSE*/) {
+			/*if (pitzer_model == TRUE && full_pitzer == FALSE) continue;*/
 			residual[i] = mass_water_aq_x*exp(s_h2o->la * LOG_10) - mass_water_aq_x + 0.017 * x[i]->f;
 			if (pitzer_model) {
 				residual[i] = pow(10.0,s_h2o->la) - AW;
@@ -2509,6 +2513,7 @@ int residuals(void)
 				converge = FALSE;
 			}
 		} else if (x[i]->type == PITZER_GAMMA) {
+			if (full_pitzer == FALSE) continue;
 			residual[i] = x[i]->s->lg - x[i]->s->lg_pitzer;
 			if (fabs(residual[i]) > toler ) {
 				/*
@@ -2567,7 +2572,7 @@ int residuals(void)
 /*
  *   Return
  */
-	if (iterations < 1) return(OK);
+	if (pitzer_model == TRUE && iterations < 1) return(OK);
 	if (converge == TRUE ) {
 		return (CONVERGED);
 	}
