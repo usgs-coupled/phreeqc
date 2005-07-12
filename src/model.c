@@ -684,7 +684,7 @@ int ineq(int in_kode)
  */
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
-			if (/* (x[i]->type == AH2O && full_pitzer == FALSE) || */
+			if ( (x[i]->type == AH2O && full_pitzer == FALSE) || 
 			    x[i]->type == MH || 
 			    x[i]->type == MU ||
 			    (x[i]->type == PITZER_GAMMA && full_pitzer == FALSE)) {
@@ -2448,6 +2448,9 @@ int residuals(void)
 			residual[i] = mass_water_aq_x*exp(s_h2o->la * LOG_10) - mass_water_aq_x + 0.017 * x[i]->f;
 			if (pitzer_model) {
 				residual[i] = pow(10.0,s_h2o->la) - AW;
+				if (full_pitzer == FALSE) {
+					residual[i] = 0.0;
+				}
 			}
 			if (fabs(residual[i]) > toler ) converge = FALSE;
 		} else if (x[i]->type == MH && pitzer_model == FALSE) {
