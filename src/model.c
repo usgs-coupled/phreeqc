@@ -2359,7 +2359,7 @@ int reset(void)
 		} else if ( x[i]->type == PITZER_GAMMA ) {
 			d = delta[i];
 			if (debug_model == TRUE) {
-				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n", x[i]->description, "old lg", (double) x[i]->s->lg, "new lg", (double) (x[i]->s->la + d), "delta", (double) delta[i], "delta", (double) d);
+				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n", x[i]->description, "old lg", (double) x[i]->s->lg, "new lg", (double) (x[i]->s->lg + d), "delta", (double) delta[i], "delta", (double) d);
 			}
 			x[i]->s->lg += d;
 		}
@@ -2567,6 +2567,7 @@ int residuals(void)
 /*
  *   Return
  */
+	if (iterations < 1) return(OK);
 	if (converge == TRUE ) {
 		return (CONVERGED);
 	}

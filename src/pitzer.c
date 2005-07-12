@@ -49,7 +49,8 @@ int pitzer_init (void)
 	max_theta_param = 100;
 	count_theta_param = 0;
 	space ((void *) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
-	
+
+	include_pitzer_gammas = TRUE;
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -616,7 +617,7 @@ C
 			OSMOT += M[i0]*M[i1]*param;
 			break;
 		case TYPE_ETHETA:
-			/*ETHETAS(z0, z1, I, &etheta, &ethetap);*/
+			ETHETAS(z0, z1, I, &etheta, &ethetap);
 			etheta = pitz_params[i]->thetas->etheta;
 			ethetap = pitz_params[i]->thetas->ethetap;
 			F += M[i0]*M[i1]*ethetap;
@@ -704,7 +705,7 @@ C
 	      /*spec[i]->lg=LGAMMA[i]*CONV;*/
 	      spec[i]->lg_pitzer=LGAMMA[i]*CONV;
 	      /*
-	      output_msg(OUTPUT_MESSAGE, "%s:\t%e\t%e\t%e \n", spec[i]->name, spec[i]->la, M[i], spec[i]->lg);
+	      output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg);
 	      */
       }
       /*

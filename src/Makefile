@@ -26,7 +26,7 @@ CCFLAGS=-O3 -Wall -ansi -pedantic # -pg
 # gmp (Gnu Multiple Precision) package on your system
 INVERSE_CL1MP=TRUE
 
-LOADFLAGS= -lm  -pg
+LOADFLAGS= -lm # -pg
 
 #.c.o : 
 #	${CC} ${CCFLAGS} -c -o $@ $<

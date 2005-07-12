@@ -12,7 +12,7 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(HOME)/../..$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
-CCFLAGS_DBG=-Wall -ansi -g -pg
+CCFLAGS_DBG=-Wall -ansi -g # -pg
 # list of files for distribution
 FILES=  \
 	src/Makefile \

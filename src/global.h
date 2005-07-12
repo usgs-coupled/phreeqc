@@ -1593,6 +1593,7 @@ enum entity_type { Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase,
 EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
 EXTERNAL int pitzer_model;
+EXTERNAL int full_pitzer;
 EXTERNAL double COSMOT;
 EXTERNAL double AW;
 

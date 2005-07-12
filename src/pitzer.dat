@@ -344,6 +344,11 @@ NaB5O8:5H2O
 	NaB5O8:5H2O + 2H2O + H+ = 5B(OH)3 + Na+
         log_k		5.895
 
+O2(g)
+        O2 = O2
+        log_k           -2.960
+        delta_h -1.844  kcal
+
 Teepleite
 	Na2B(OH)4Cl + H+ = B(OH)3 + 2Na+ + Cl- + H2O
         log_k		10.840
