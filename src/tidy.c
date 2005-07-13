@@ -72,7 +72,7 @@ int tidy_model(void)
 	    keyword[15].keycount > 0 ||   /*"master_surface_species"*/
 	    keyword[36].keycount > 0 ||   /*"rates"*/
 	    keyword[47].keycount > 0 ||   /*"llnl_aqueous_model_parameters"*/
-	    keyword[49].keycount > 0 ||   /*"database"*/
+	    (keyword[49].keycount > 0 && simulation == 0) ||   /*"database"*/
 	    keyword[51].keycount > 0 ||   /*"named_analytical_expressions"*/
 	    keyword[54].keycount > 0 ||   /*"isotopes"*/
 	    keyword[55].keycount > 0 ||   /*"calculate_values"*/

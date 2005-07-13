@@ -110,7 +110,17 @@ int pitzer_tidy (void)
 	/*
 	 *  Add etheta to parameter list in case theta not defined for 
          *  cation-cation or anion-anion pair
+	 *  Remove old TYPE_ETHETA definitions
 	 */
+	j = 0;
+	for (i = 0; i < count_pitz_param; i++) {
+		if (pitz_params[i]->type == TYPE_ETHETA) {
+			pitz_params[i] = free_check_null(pitz_params[i]);
+		} else {
+			pitz_params[j++] = pitz_params[i];
+		}
+	}
+	count_pitz_param = j;
 	for (i = 0; i < count_cations - 1; i++) {
 		for (j = i+1; j < count_cations; j++) {
 			sprintf(line,"%s %s 1", spec[i]->name, spec[j]->name);
@@ -206,7 +216,7 @@ int pitzer_tidy (void)
 		} else if (pitz_params[i]->type == TYPE_B2) {
 			switch (order) {
 			case 1:
-				pitz_params[i]->alpha = 1.0;
+				pitz_params[i]->alpha = 12.0;
 				break;
 			case 2:
 				pitz_params[i]->alpha = 12.0;
@@ -482,6 +492,7 @@ int pitzer (void)
 	int i, i0, i1, i2;
 	double param, alpha, z0, z1, z2;
 	double etheta, ethetap;
+	double dummy;
 	/*
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 		CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
@@ -531,6 +542,12 @@ int pitzer (void)
 	}
 #endif
 	ICON = 0;
+	/*
+	M[1] = 1.40070736;
+	M[4] = 2.52131086E-05;
+	M[140] = 4.59985435E-09;
+	*/
+
 /*
 C
 C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
@@ -560,6 +577,7 @@ C
 */
 	B = 1.2;
 	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
+	output_msg(OUTPUT_MESSAGE, "Initial F:\t\t%e\t%e\t%e\t%e\n", F, A0, B, DI);
 	XXX=2.0e0*DI;
 	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
 	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
@@ -579,6 +597,7 @@ C
 /*
  *  Sums for F, LGAMMA, and OSMOT
  */
+	dummy = LGAMMA[1];
 	for (i = 0; i < count_pitz_param; i++) {
 		i0 = pitz_params[i]->ispec[0];
 		i1 = pitz_params[i]->ispec[1];
@@ -659,8 +678,17 @@ C
 			error_msg("TYPE_Other in pitz_param list.", STOP);
 			break;
 		}
+		/*
+		if (i0 == 1 || i1 == 1 || pitz_params[i]->ispec[2] == 1) {
+			output_msg(OUTPUT_MESSAGE, "\t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, LGAMMA[1], LGAMMA[1] - dummy);
+			dummy = LGAMMA[1];
+		}
+		*/
+		output_msg(OUTPUT_MESSAGE, "XF: \t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, F, F - dummy);
+		dummy = F;
 	}
-
+	output_msg(OUTPUT_MESSAGE, "\t\tF and CSUM\t%e\t%e\n", F, CSUM);
+	
 	/*
 	 *  Add F and CSUM terms to LGAMMA
 	 */
@@ -668,6 +696,10 @@ C
 	for (i = 0; i < count_cations; i++) {
 		z0 = spec[i]->z;
 		LGAMMA[i] += z0*z0*F+fabs(z0)*CSUM;
+		if (i == 1 ) {
+			output_msg(OUTPUT_MESSAGE, "\t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, LGAMMA[1], LGAMMA[1] - dummy);
+			dummy = LGAMMA[1];
+		}
 	}
 	for (i = 2*count_s; i < 2*count_s + count_anions; i++) {
 		z0 = spec[i]->z;
@@ -706,17 +738,13 @@ C
 	      if (IPRSNT[i] == FALSE) continue;
 	      /*spec[i]->lg=LGAMMA[i]*CONV;*/
 	      spec[i]->lg_pitzer=LGAMMA[i]*CONV;
-	      /*
-	      output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg);
-	      */
+	      output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
       }
-      /*
       output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
       output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
       output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
       output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
       output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
-      */
       /*
       *I_X = I;
       *COSMOT_X = COSMOT;
