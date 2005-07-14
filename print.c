@@ -2052,7 +2052,6 @@ int fpunchf(const char* name, const char* format, ...)
 }
 int fpunchf_user(int user_index, const char* format, ...)
 {
-	extern int warning_msg(const char* err_str);
 	static int s_warning = 0;
 	int retval = 0;
 	va_list args;

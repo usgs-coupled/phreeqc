@@ -56,24 +56,30 @@ int clean_up_output_callbacks(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int error_msg (const char *err_str, const int stop)
+int error_msg (const char *err_str, const int stop, ...)
 /* ---------------------------------------------------------------------- */
 {
-	va_list args = NULL;
-	if (input_error <= 0) input_error = 1;
+	va_list args;
+	int return_value;
 
-	return output_message(OUTPUT_ERROR, err_str, stop, "", args);
+	if (input_error <= 0) input_error = 1;
+	va_start(args, stop);
+	return_value = output_message(OUTPUT_ERROR, err_str, stop, "", args);
+	va_end(args);
+	return(return_value);
 }
 
 /* ---------------------------------------------------------------------- */
-int warning_msg (const char *err_str)
+int warning_msg (const char *err_str, ...)
 /* ---------------------------------------------------------------------- */
 {
-	va_list args = NULL;
+	va_list args;
 	int return_value;
 
+	va_start(args, err_str);
 	return_value = output_message(OUTPUT_WARNING, err_str, CONTINUE, "", args);
 	count_warnings++;
+	va_end(args);
 	return (return_value);
 }
 /* ---------------------------------------------------------------------- */
@@ -102,51 +108,71 @@ int get_forward_output_to_log(void)
 	return forward_output_to_log;
 }
 /* ---------------------------------------------------------------------- */
-int output_fflush(const int type)
+int output_fflush(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
 	size_t i;
 	int check;
+	va_list args;
+
+	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
-		check = (output_callbacks[i].callback)(ACTION_FLUSH, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, NULL);
-		if (check != OK) return(ERROR);
+		check = (output_callbacks[i].callback)(ACTION_FLUSH, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
+		if (check != OK) break;
 	}
+	va_end(args);
+	if (check != OK) return(ERROR);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int output_rewind(const int type)
+int output_rewind(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
 	size_t i;
 	int check;
+	va_list args;
+
+	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
-		check = (output_callbacks[i].callback)(ACTION_REWIND, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, NULL);
-		if (check != OK) return(ERROR);
+		check = (output_callbacks[i].callback)(ACTION_REWIND, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
+		if (check != OK) break;
 	}
+	va_end(args);
+	if (check != OK) return(ERROR);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int output_close(const int type)
+int output_close(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
 	size_t i;
 	int check;
+	va_list args;
+
+	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
-		check = (output_callbacks[i].callback)(ACTION_CLOSE, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, NULL);
-		if (check != OK) return(ERROR);
+		check = (output_callbacks[i].callback)(ACTION_CLOSE, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
+		if (check != OK) break;
 	}
+	va_end(args);
+	if (check != OK) return(ERROR);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int output_open(const int type, const char *file_name)
+int output_open(const int type, const char *file_name, ...)
 /* ---------------------------------------------------------------------- */
 {
 	size_t i;
 	int check;
+	va_list args;
 	assert(file_name && strlen(file_name));
+
+	va_start(args, file_name);
 	for (i = 0; i < count_output_callback; ++i) {
-		check = (output_callbacks[i].callback)(ACTION_OPEN, type, file_name, CONTINUE, output_callbacks[i].cookie, NULL, NULL);
-		if (check != OK) return(ERROR);
+		check = (output_callbacks[i].callback)(ACTION_OPEN, type, file_name, CONTINUE, output_callbacks[i].cookie, NULL, args);
+		if (check != OK) break;
 	}
+	va_end(args);
+	if (check != OK) return(ERROR);
 	return(OK);
 }

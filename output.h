@@ -16,8 +16,8 @@ struct output_callback {
 int add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie);
 int clean_up_output_callbacks(void);
 int output_msg (const int type, const char* format, ...);
-int warning_msg (const char *err_str);
-int error_msg (const char *err_str, const int stop);
+int warning_msg (const char *err_str, ...);
+int error_msg (const char *err_str, const int stop, ...);
 int phreeqc_handler(const int action, const int type, const char *err_str, const int stop, void *cookie, const char *, va_list args);
 void set_forward_output_to_log(int value);
 int get_forward_output_to_log(void);
@@ -25,10 +25,10 @@ int get_forward_output_to_log(void);
 /*
  *  Functions for output callbacks
  */
-int output_open(const int type, const char *file_name);
-int output_fflush(const int type);
-int output_rewind(const int type);
-int output_close(const int type);
+int output_open(const int type, const char *file_name, ...);
+int output_fflush(const int type, ...);
+int output_rewind(const int type, ...);
+int output_close(const int type, ...);
 
 typedef enum {
 	OUTPUT_ERROR,
