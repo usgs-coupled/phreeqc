@@ -1,5 +1,4 @@
 /*#define DEBUG_CVODE*/
-extern int warning_msg (const char *err_str);
 extern char *error_string;
 /*******************************************************************
  *                                                                 *

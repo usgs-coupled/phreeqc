@@ -11,7 +11,6 @@ static char const svnid[] = "$Id$";
 
 #include "p2c.h"
 #include "output.h"
-extern int error_msg (const char *err_str, const int stop);
 #define STOP 1
 #define CONTINUE 0
 
