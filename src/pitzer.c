@@ -19,6 +19,7 @@ static double BK[23], DK[23];
 
 /* routines */
 static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
+static int check_gammas_pz(void);
 static int ISPEC(char * name);
 /*static int DH_AB (double TK, double *A, double *B);*/
 static double G (double Y);
@@ -429,7 +430,8 @@ C     Set DW0
 		A0=0.392e0;
 	} else {
 		DC0=DC(TK);
-		A0=1.400684e6*(DW0/pow(pow((DC0*TK),3.0e0),0.5e0));
+		A0=1.400684e6*sqrt(DW0/(pow((DC0*TK),3.0e0)));
+		/*A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0*/
 	}
 	return OK;
 }
@@ -577,7 +579,6 @@ C
 */
 	B = 1.2;
 	F=-A0*(DI/(1.0e0+B*DI)+2.0e0*log(1.0e0+B*DI)/B);
-	output_msg(OUTPUT_MESSAGE, "Initial F:\t\t%e\t%e\t%e\t%e\n", F, A0, B, DI);
 	XXX=2.0e0*DI;
 	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
 	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
@@ -678,16 +679,7 @@ C
 			error_msg("TYPE_Other in pitz_param list.", STOP);
 			break;
 		}
-		/*
-		if (i0 == 1 || i1 == 1 || pitz_params[i]->ispec[2] == 1) {
-			output_msg(OUTPUT_MESSAGE, "\t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, LGAMMA[1], LGAMMA[1] - dummy);
-			dummy = LGAMMA[1];
-		}
-		*/
-		output_msg(OUTPUT_MESSAGE, "XF: \t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, F, F - dummy);
-		dummy = F;
 	}
-	output_msg(OUTPUT_MESSAGE, "\t\tF and CSUM\t%e\t%e\n", F, CSUM);
 	
 	/*
 	 *  Add F and CSUM terms to LGAMMA
@@ -696,10 +688,6 @@ C
 	for (i = 0; i < count_cations; i++) {
 		z0 = spec[i]->z;
 		LGAMMA[i] += z0*z0*F+fabs(z0)*CSUM;
-		if (i == 1 ) {
-			output_msg(OUTPUT_MESSAGE, "\t\t%d type: %d\t%e\tterm: %e\n", i, pitz_params[i]->type, LGAMMA[1], LGAMMA[1] - dummy);
-			dummy = LGAMMA[1];
-		}
 	}
 	for (i = 2*count_s; i < 2*count_s + count_anions; i++) {
 		z0 = spec[i]->z;
@@ -738,13 +726,17 @@ C
 	      if (IPRSNT[i] == FALSE) continue;
 	      /*spec[i]->lg=LGAMMA[i]*CONV;*/
 	      spec[i]->lg_pitzer=LGAMMA[i]*CONV;
+	      /*
 	      output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
+	      */
       }
+      /*
       output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
       output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
       output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
       output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
       output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
+      */
       /*
       *I_X = I;
       *COSMOT_X = COSMOT;
@@ -1412,8 +1404,6 @@ int model_pz(void)
 	}
 	return(OK);
 }
-#ifdef SKIP
-#endif
 /* ---------------------------------------------------------------------- */
 int check_gammas_pz(void)
 /* ---------------------------------------------------------------------- */
