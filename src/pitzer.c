@@ -51,7 +51,7 @@ int pitzer_init (void)
 	count_theta_param = 0;
 	space ((void *) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
 
-	include_pitzer_gammas = TRUE;
+	ICON = TRUE;
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -167,6 +167,7 @@ int pitzer_tidy (void)
 	 */
 	string1 = string_hsave("K+");
 	string2 = string_hsave("Cl-");
+	IC = ISPEC(string2);
 	for (i = 0; i < count_pitz_param; i++) {
 		if (pitz_params[i]->species[0] == string1 &&
 		    pitz_params[i]->species[1] == string2) {
@@ -311,9 +312,12 @@ int read_pitzer (void)
 		"theta",                 /* 4 */
 		"lamda",                 /* 5 */
 		"zeta",                  /* 6 */
-		"psi"                    /* 7 */
+		"psi",                   /* 7 */
+		"macinnes",              /* 8 */
+		"macinnis",              /* 9 */
+		"mac"                    /* 10 */
 	};
-	int count_opt_list = 8;
+	int count_opt_list = 11;
 /*
  *   Read lines
  */
@@ -395,6 +399,12 @@ int read_pitzer (void)
 			pzp_type = TYPE_PSI;
 			n = 3;
 			opt_save = OPTION_DEFAULT;
+			break;
+		case 8:                        /* macinnes */
+		case 9:                        /* macinnis */
+		case 10:                       /* mac */
+			opt_save = OPTION_ERROR;
+			ICON = get_true_false(next_char, TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -502,9 +512,7 @@ int pitzer (void)
 	*/
 	double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 		CSUM, PHIMAC, OSMOT, B;
-	double COSMOT;
 	double I, TK;
-	int IC, ICON;
 	int LNEUT;
 	/*
 	  C
@@ -543,8 +551,8 @@ int pitzer (void)
 		if (M[i] > MIN_TOTAL) LNEUT = TRUE;
 	}
 #endif
-	ICON = 0;
 	/*
+	ICON = 0;
 	M[1] = 1.40070736;
 	M[4] = 2.52131086E-05;
 	M[140] = 4.59985435E-09;
@@ -582,7 +590,8 @@ C
 	XXX=2.0e0*DI;
 	XXX=(1.0e0-(1.0e0+XXX-XXX*XXX*0.5e0)*exp(-XXX))/(XXX*XXX);
 	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I;*/
-	GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I;
+    	/*GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I;*/
+	GAMCLM=F+I*2.0e0*(mcb0->p + mcb1->p*XXX) + 1.5e0*mcc0->p*I*I;
 	CSUM=0.0e0;
 	OSMOT=-(A0)*pow(I,1.5e0)/(1.0e0+B*DI);
 /*
@@ -698,14 +707,14 @@ C
 C     CONVERT TO MACINNES CONVENTION
 C
 */
-      if (ICON != 0) {
+      if (ICON == TRUE) {
 	      PHIMAC=LGAMMA[IC]-GAMCLM;
 /*
 C
 C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
 C
 */
-	      for (i = 0; i < count_cations; i++) {
+	      for (i = 0; i < 2*count_s + count_anions; i++) {
 		      if (IPRSNT[i] == TRUE) {
 			      LGAMMA[i]=LGAMMA[i]+spec[i]->z*PHIMAC;
 		      }
@@ -1286,7 +1295,11 @@ int model_pz(void)
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
 	remove_unstable_phases = FALSE;
-	full_pitzer = FALSE;
+	if (always_full_pitzer == TRUE) {
+		full_pitzer = TRUE;
+	} else {
+		full_pitzer = FALSE;
+	}
 	for (; ; ) {
 		mb_gases();
 		mb_s_s();
@@ -1346,7 +1359,11 @@ int model_pz(void)
 			}
 			gammas_pz();
 			if (full_pitzer == TRUE) pitzer();
-			full_pitzer = FALSE;
+			if (always_full_pitzer == TRUE) {
+				full_pitzer = TRUE;
+			} else {
+				full_pitzer = FALSE;
+			}
 			molalities(TRUE);
 			if(use.surface_ptr != NULL && 
 			   use.surface_ptr->diffuse_layer == TRUE &&

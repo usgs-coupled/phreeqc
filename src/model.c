@@ -338,10 +338,10 @@ int check_residuals(void)
 				}
 			} else {
 				if ((fabs(residual[i]) >= epsilon && x[i]->moles > 0.0) /* || stop_program == TRUE */) {
-					output_msg(OUTPUT_LOG,"%20s Pure phase has not converged. \tResidual: %e\n", x[i]->description, (double) residual[i]);
-					sprintf(error_string,"%20s Pure phase with add formula has not converged. "
+					output_msg(OUTPUT_LOG,"%s, Pure phase has not converged. \tResidual: %e\n", x[i]->description, (double) residual[i]);
+					sprintf(error_string,"%s, Pure phase with add formula has not converged.\n\t SI may be a local minimum."
 						"\tResidual: %e\n", x[i]->description, (double) residual[i]);
-						error_msg(error_string, CONTINUE);
+					warning_msg(error_string);
 				}
 			}
 		} else if (x[i]->type == EXCH) {
@@ -731,7 +731,7 @@ int ineq(int in_kode)
 			}
 		}				
 
-		if (x[i]->type == MH) {
+		if (x[i]->type == MH && pitzer_model == FALSE) {
 			/* make absolute value of diagonal at least 1e-12 */
 
  			min = 1e-12;
@@ -917,7 +917,7 @@ int ineq(int in_kode)
 				}
 			}
 			count_rows++;
-		} else if (x[i]->type == PITZER_GAMMA && include_pitzer_gammas == TRUE) {
+		} else if (x[i]->type == PITZER_GAMMA) {
 			memcpy( (void *) &(ineq_array[count_rows*max_column_count]),
 			       (void *) &(array[i*(count_unknowns + 1)]),
 			       (size_t) (count_unknowns + 1) * sizeof(LDBLE));
@@ -2492,8 +2492,10 @@ int residuals(void)
 					if (residual[i] < -toler ) converge = FALSE;
 				}
 			} else {
- 				if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE;
-				/*if (residual[i] < -toler ) converge = FALSE;*/
+ 				/*if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE;*/
+				if (residual[i] < -toler ) {
+					converge = FALSE;
+				}
 			}
 		} else if (x[i]->type == GAS_MOLES) {
 			residual[i] =  x[i]->gas_phase->total_p - x[i]->f;

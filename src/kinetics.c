@@ -962,12 +962,14 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 	
 	if (pitzer_model == TRUE) {
 		diagonal_scale = TRUE;
-		max_try = 1;
+		always_full_pitzer = TRUE;
+		max_try = 2;
 	} else {
 		max_try = 11;
 	}
 	for (j = 0; j < max_try; j++) {
 		if (j == 1) {
+			always_full_pitzer = FALSE;
 			if (pe_step_size <= small_pe_step && step_size <= small_step) continue;
 			itmax *= 2;
 			step_size = small_step;
