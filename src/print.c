@@ -977,8 +977,17 @@ int print_species(void)
 /*
  *   Heading for species
  */
-        output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," "," ",
-                "Log   ","Log   ","Log ");
+        if (pitzer_model == TRUE) {
+		if (ICON == TRUE) {
+			output_msg(OUTPUT_MESSAGE,"%67s%11s\n","MacInnes","MacInnes");
+			output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," ","MacInnes","Log   ","Log   ","Log ");
+		} else {
+			output_msg(OUTPUT_MESSAGE,"%67s%11s\n","Unscaled","Unscaled");
+			output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," ","Unscaled","Log   ","Log   ","Log ");
+		}
+	} else {
+		output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," "," ","Log   ","Log   ","Log ");
+	}
         output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n\n","Species","Molality","Activity",
                 "Molality","Activity","Gamma");
 /*

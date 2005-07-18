@@ -538,6 +538,7 @@ int pitzer (void)
 	*/
 	for (i = 0; i < 3*count_s; i++) {
 		IPRSNT[i] = FALSE;
+		M[i] = 0.0;
 		if (spec[i] != NULL && spec[i]->in == TRUE) {
 			if (spec[i]->type == EX ||
 			    spec[i]->type == SURF ||
@@ -545,6 +546,9 @@ int pitzer (void)
 			M[i] = under(spec[i]->lm);
 			if (M[i] > MIN_TOTAL) IPRSNT[i] = TRUE;
 		}
+	}
+	if (ICON == TRUE) {
+		IPRSNT[IC] = TRUE;
 	}
 #ifdef SKIP
 	for (i = count_s; i < count_s + count_neutrals; i++) {

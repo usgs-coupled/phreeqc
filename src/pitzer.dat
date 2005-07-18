@@ -354,6 +354,12 @@ Teepleite
         Na2B(OH)4Cl + H+ = B(OH)3 + 2Na+ + Cl- + H2O
         log_k           10.840
 
+H2O(g)
+        H2O = H2O
+        log_k           1.51
+        delta_h         -44.03   kJ
+#    Stumm and Morgan, from NBS and Robie, Hemmingway, and Fischer (1978)
+
 PITZER
 -B0
   Na+       Cl-       0.0765     -777.03     -4.4706        0.008946   -3.3158E-6
