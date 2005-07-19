@@ -3789,6 +3789,14 @@ int build_min_exch(void)
 		/* mole balance balance */
 		for (jj = 0; comp_ptr->formula_totals[jj].elt != NULL; jj++) {
 			master_ptr = comp_ptr->formula_totals[jj].elt->primary;
+			if (master_ptr->in == FALSE) {
+				master_ptr = master_ptr->s->secondary;
+			}
+			if (master_ptr == NULL) {
+				input_error++;
+				sprintf(error_string,"Did not find unknown for exchange related to mineral %s", exchange[n].comps[i].phase_name);
+				error_msg(error_string, STOP);
+			}
 			if (master_ptr->s->type == EX) {
 				if (equal(x[j]->moles, x[k]->moles * comp_ptr->formula_totals[jj].coef * comp_ptr->phase_proportion, 1.e-8) == FALSE) {
 					input_error++;
@@ -3879,6 +3887,14 @@ int build_min_surface(void)
 		/* mole balance balance */
 		for (jj = 0; next_elt[jj].elt != NULL; jj++) {
 			master_ptr = next_elt[jj].elt->primary;
+			if (master_ptr->in == FALSE) {
+				master_ptr = master_ptr->s->secondary;
+			}
+			if (master_ptr == NULL) {
+				input_error++;
+				sprintf(error_string,"Did not find unknown for surface related to mineral %s", surface[n].comps[i].phase_name);
+				error_msg(error_string, STOP);
+			}
 			if (master_ptr->s->type == SURF) {
 				if (equal(x[j]->moles, x[k]->moles * next_elt[jj].coef * comp_ptr->phase_proportion, 1.e-8) == FALSE) {
 					input_error++;
