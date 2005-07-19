@@ -919,7 +919,7 @@ int ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap)
 
 	*etheta = 0.0;
 	*ethetap = 0.0;
-	if (ZJ == ZK) return(0.0);
+	if (ZJ == ZK) return(OK);
 	XCON=6.0e0*A0*sqrt(I);
 	ZZ=ZJ*ZK;
 /*
