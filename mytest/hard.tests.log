@@ -35,14 +35,17 @@ Overflow: ZnHCO3+	1.000000e+03	5.429015e+00	-1
 Overflow: ZnSO4	2.344229e+02	2.370000e+00	-1
 Iterations in revise_guesses: 2
 Ineq had infeasible solution, kode 0, iteration 9
+Ineq had infeasible solution, kode 0, iteration 10
 Ineq had infeasible solution, kode 0, iteration 11
 Ineq had infeasible solution, kode 0, iteration 12
-Ineq had infeasible solution, kode 0, iteration 23
+           Zn(OH)2-a Pure phase has not converged. 	Residual: 4.605170e+00
+                    Removing unstable phases, iteration 21.
+Removing unstable phases. Iteration 21.
 
 Number of infeasible solutions: 4
 Number of basis changes: 0
 
-Number of iterations: 27
+Number of iterations: 35
 
 ------------------
 End of simulation.

@@ -322,7 +322,7 @@ Oxygen     old mole   5.55e+01   new mole   5.55e+01   delta  -1.25e-07
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -3.066780e-01
-grams 65
+	                grams 65
 	Charge from potential 1.766750e-02
 	             FPsi/2RT 5.548170e-01
 	       Sinh(FPsi/2RT) 5.837224e-01
@@ -818,7 +818,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta  -1.28e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge 1.010647e-16
-grams 65
+	                grams 65
 	Charge from potential 1.655439e-03
 	             FPsi/2RT 2.375184e-01
 	       Sinh(FPsi/2RT) 2.397580e-01
@@ -1309,7 +1309,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta  -1.39e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -9.925373e-17
-grams 65
+	                grams 65
 	Charge from potential 1.652657e-03
 	             FPsi/2RT 2.369803e-01
 	       Sinh(FPsi/2RT) 2.392046e-01
@@ -1761,7 +1761,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta  -1.10e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -4.731850e-17
-grams 65
+	                grams 65
 	Charge from potential 1.654959e-03
 	             FPsi/2RT 2.374254e-01
 	       Sinh(FPsi/2RT) 2.396624e-01
@@ -2254,7 +2254,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta   9.82e-21
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -7.953498e-17
-grams 65
+	                grams 65
 	Charge from potential 1.038042e-03
 	             FPsi/2RT 1.308600e-01
 	       Sinh(FPsi/2RT) 1.312338e-01
@@ -2703,7 +2703,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta   1.91e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge 5.569045e-17
-grams 65
+	                grams 65
 	Charge from potential 1.654959e-03
 	             FPsi/2RT 2.374254e-01
 	       Sinh(FPsi/2RT) 2.396624e-01
@@ -3193,7 +3193,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta  -1.28e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -4.845120e-17
-grams 65
+	                grams 65
 	Charge from potential 1.652657e-03
 	             FPsi/2RT 2.369803e-01
 	       Sinh(FPsi/2RT) 2.392047e-01
@@ -3645,7 +3645,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta   3.00e-21
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -1.298219e-17
-grams 65
+	                grams 65
 	Charge from potential 1.654959e-03
 	             FPsi/2RT 2.374254e-01
 	       Sinh(FPsi/2RT) 2.396624e-01
@@ -4136,7 +4136,7 @@ Oxygen     old mole   5.57e+01   new mole   5.57e+01   delta   7.22e-20
 Surf       old mole   1.50e-01   new mole   1.50e-01   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge -7.420344e-17
-grams 65
+	                grams 65
 	Charge from potential 1.652657e-03
 	             FPsi/2RT 2.369803e-01
 	       Sinh(FPsi/2RT) 2.392047e-01

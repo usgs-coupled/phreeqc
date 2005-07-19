@@ -70,7 +70,10 @@ OBJECTS=	main.o \
 		nvector.o \
 		nvector_serial.o \
 		smalldense.o \
-		sundialsmath.o 
+		sundialsmath.o \
+		dw.o \
+		pitzer.o \
+		pitzer_structures.o \
 
 ifdef INVERSE_CL1MP
 	LOADFLAGS += -lgmp 
@@ -184,6 +187,14 @@ parse.o: $(SRC)/parse.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SR
 phqalloc.o: $(SRC)/phqalloc.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h
 
 phreeqc_files.o: $(SRC)/phreeqc_files.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
+
+pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+
+dw.o: $(SRC)/dw.c $(SRC)/pitzer.h
+
+pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+
+prep.o: $(SRC)/prep.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 prep.o: $(SRC)/prep.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 

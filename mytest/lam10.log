@@ -136,13 +136,14 @@ Switching bases to N2.	Iteration 1
 Iterations in revise_guesses: 1
 Ineq had infeasible solution, kode 0, iteration 3
 Ineq had infeasible solution, kode 2, iteration 4
-Ineq had infeasible solution, kode 2, iteration 11
-Ineq had infeasible solution, kode 0, iteration 14
+Ineq had infeasible solution, kode 0, iteration 15
+Ineq had infeasible solution, kode 2, iteration 18
+Ineq had infeasible solution, kode 2, iteration 19
 
-Number of infeasible solutions: 5
+Number of infeasible solutions: 6
 Number of basis changes: 1
 
-Number of iterations: 22
+Number of iterations: 27
 
 ------------------
 End of simulation.

@@ -3,7 +3,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
+#include "pitzer.h"
 #include <assert.h>
 
 static char const svnid[] = "$Id$";
@@ -977,8 +977,17 @@ int print_species(void)
 /*
  *   Heading for species
  */
-        output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," "," ",
-                "Log   ","Log   ","Log ");
+        if (pitzer_model == TRUE) {
+		if (ICON == TRUE) {
+			output_msg(OUTPUT_MESSAGE,"%67s%11s\n","MacInnes","MacInnes");
+			output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," ","MacInnes","Log   ","Log   ","Log ");
+		} else {
+			output_msg(OUTPUT_MESSAGE,"%67s%11s\n","Unscaled","Unscaled");
+			output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," ","Unscaled","Log   ","Log   ","Log ");
+		}
+	} else {
+		output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," "," ","Log   ","Log   ","Log ");
+	}
         output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n\n","Species","Molality","Activity",
                 "Molality","Activity","Gamma");
 /*
@@ -1293,6 +1302,11 @@ int print_totals(void)
         output_msg(OUTPUT_MESSAGE,"%45s%11.3e\n","Electrical balance (eq)  = ", (double) cb_x);
         output_msg(OUTPUT_MESSAGE,"%45s%6.2f\n","Percent error, 100*(Cat-|An|)/(Cat+|An|)  = ", (double) (100*cb_x/total_ions_x));
         output_msg(OUTPUT_MESSAGE,"%45s%3d\n","Iterations  = ",iterations);
+        if (pitzer_model == TRUE) {
+		output_msg(OUTPUT_MESSAGE,"%45s%3d\n","Gamma iterations  = ",gamma_iterations);
+		output_msg(OUTPUT_MESSAGE,"%45s%9.5f\n","Osmotic coefficient  = ", COSMOT);
+		output_msg(OUTPUT_MESSAGE,"%45s%9.5f\n","Density of water  = ", DW0); 
+	}
         output_msg(OUTPUT_MESSAGE,"%45s%e\n","Total H  = ", (double) total_h_x);
         output_msg(OUTPUT_MESSAGE,"%45s%e\n","Total O  = ", (double) total_o_x);
         output_msg(OUTPUT_MESSAGE,"\n");

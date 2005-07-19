@@ -2,6 +2,38 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
+	Added Pitzer activity formulation. Use pizer.dat database
+	to invoke the Pitzer model. Should have same capabilities
+	as ion-association model except explicit diffuse layer 
+	calculation is not implemented with the Pitzer model.
+	New keyword is PITZER with following options:
+
+	PITZER
+	-MacInnes   T/F   # uses MacInnes assumption or unscaled for
+		    	  # individual activities and activity coefficients
+	-B0
+	  Na+       Cl-       0.0765     -777.03     -4.4706        0.008946   -3.3158E-6
+	-B1                                              
+	  Na+       Cl-       0.2664        0           0           6.1608E-5   1.0715E-6
+	-B2
+	  Mg+2      SO4-2    -37.23         0           0          -0.253
+	-C0
+	  Na+       Cl-       0.00127     33.317      0.09421    -4.655E-5
+	-THETA
+	  K+        Na+      -0.012
+	-LAMDA
+	  Na+       CO2       0.1
+	-ZETA
+	  H+        Cl-       B(OH)3    -0.0102
+	-PSI
+	  Na+       K+        Cl-       -0.0018
+
+	A five-term expression for temperature dependence is available
+	for all Pitzer parameter values: 
+	    P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3/(TK-TR) +
+	        A4*(TK*TK - TR*TR),
+	where TK is Kelvin and TR is 298.15.
+
 	Cl1mp is a new multiple precision version of routine cl1,
 	a simplex-based optimization routine. Cl1mp was develeped
 	by using the Gnu Multiple Precision package (gmp).
@@ -487,6 +519,18 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	Added Pitzer activity formulation. Use pizer.dat database
+	to invoke the Pitzer model. Should have same capabilities
+	as ion-association model except explicit diffuse layer 
+	calculation is not implemented with the Pitzer model.
+
+
+	Fixed bug in surface sites related to mineral and exchange
+	sites related to mineral. Did not have complete logic to 
+	handle redox valence states in formula for species.
+
+	Modified to remove non standard usage of va_list.
+
 	Removed exchange master species from SYS("ex",..)
 	list of species. This species is fictive and should
 	not be included in the list.

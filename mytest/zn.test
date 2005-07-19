@@ -1,7 +1,7 @@
 DATABASE ../database/wateq4f.dat
 knobs
 #	-delay_mass_water
-	-log
+#	-log
 PRINT
 #	-status false
 SOLUTION 1 Pure water

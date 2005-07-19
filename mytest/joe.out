@@ -20,8 +20,6 @@ Reading input data for simulation 1.
 ------------------------------------
 
 	DATABASE ../database/phreeqc.dat
-	knobs
-		logfile
 	PRINT
 		status false
 	SOLUTION 1	WLB ms APW04
@@ -1091,12 +1089,12 @@ X                1.065e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               7.285e-01   7.285e-01   6.838e-01     0.000
-	CaX2              8.999e-02   1.800e-01   1.689e-01     0.000
-	KX                7.886e-02   7.886e-02   7.403e-02     0.000
-	MgX2              3.124e-02   6.248e-02   5.865e-02     0.000
-	SrX2              7.733e-03   1.547e-02   1.452e-02     0.000
-	HX                1.307e-05   1.307e-05   1.227e-05     0.000
+	NaX               7.285e-01   7.285e-01   6.838e-01    -0.000
+	CaX2              8.999e-02   1.800e-01   1.689e-01    -0.000
+	KX                7.886e-02   7.886e-02   7.403e-02    -0.000
+	MgX2              3.124e-02   6.248e-02   5.865e-02    -0.000
+	SrX2              7.733e-03   1.547e-02   1.452e-02    -0.000
+	HX                1.307e-05   1.307e-05   1.227e-05    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -1114,7 +1112,7 @@ X                1.065e+00 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.607      Charge balance
-                                       pe  =  -2.361      Adjusted to redox equilibrium
+                                       pe  =  -2.395      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.240e-01
                        Mass of water (kg)  =   1.000e-05
@@ -1123,7 +1121,7 @@ X                1.065e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   5.539e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  23
                                   Total H  = 1.110362e-03
                                   Total O  = 5.556278e-04
 
@@ -1135,8 +1133,8 @@ X                1.065e+00 mol
 	H+                3.114e-07   2.471e-07    -6.507    -6.607    -0.101
 	OH-               5.763e-08   4.023e-08    -7.239    -7.395    -0.156
 	H2O               5.551e+01   9.929e-01     1.744    -0.003     0.000
-C(-4)            1.328e-12
-	CH4               1.328e-12   1.398e-12   -11.877   -11.854     0.022
+C(-4)            2.495e-12
+	CH4               2.495e-12   2.627e-12   -11.603   -11.581     0.022
 C(4)             1.885e-02
 	HCO3-             1.262e-02   9.334e-03    -1.899    -2.030    -0.131
 	CO2               4.960e-03   5.222e-03    -2.305    -2.282     0.022
@@ -1164,8 +1162,8 @@ F                1.936e-04
 	CaF+              2.543e-06   1.888e-06    -5.595    -5.724    -0.129
 	HF                4.080e-08   4.296e-08    -7.389    -7.367     0.022
 	HF2-              2.575e-11   1.912e-11   -10.589   -10.719    -0.129
-H(0)             4.330e-12
-	H2                2.165e-12   2.279e-12   -11.665   -11.642     0.022
+H(0)             5.069e-12
+	H2                2.534e-12   2.669e-12   -11.596   -11.574     0.022
 K                3.215e-03
 	K+                3.215e-03   2.262e-03    -2.493    -2.646    -0.153
 	KOH               2.993e-11   3.151e-11   -10.524   -10.502     0.022
@@ -1182,7 +1180,7 @@ Na               1.873e-01
 	NaCO3-            6.120e-06   4.543e-06    -5.213    -5.343    -0.129
 	NaOH              3.472e-09   3.656e-09    -8.459    -8.437     0.022
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -69.124   -69.102     0.022
+	O2                0.000e+00   0.000e+00   -69.261   -69.239     0.022
 Sr               5.889e-04
 	Sr+2              5.551e-04   1.741e-04    -3.256    -3.759    -0.503
 	SrHCO3+           3.362e-05   2.486e-05    -4.473    -4.604    -0.131
@@ -1194,15 +1192,15 @@ Sr               5.889e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
-	CH4(g)           -8.99  -11.85   -2.86  CH4
+	Calcite          -0.00   -8.48   -8.48  CaCO3
+	CH4(g)           -8.72  -11.58   -2.86  CH4
 	CO2(g)           -0.81   -2.28   -1.47  CO2
 	Dolomite          0.05  -17.04  -17.09  CaMg(CO3)2
 	Fluorite         -0.00  -10.60  -10.60  CaF2
-	H2(g)            -8.49  -11.64   -3.15  H2
+	H2(g)            -8.42  -11.57   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.29   -1.71    1.58  NaCl
-	O2(g)           -66.14  -69.10   -2.96  O2
+	O2(g)           -66.28  -69.24   -2.96  O2
 	Strontianite     -0.24   -9.51   -9.27  SrCO3
 
 ------------------
@@ -1224,6 +1222,18 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying diagonal scaling ...
+
 Using mix 1.	
 Using exchange 2.	Exchange assemblage after simulation 1.
 Using pure phase assemblage 2.	
@@ -1237,8 +1247,8 @@ Mixture 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e-01  1.000e-01 -1.600e-08
-	Fluorite          0.00  -10.60  -10.60  1.000e-01  1.000e-01 -4.712e-11
+	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -1.600e-08
+	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01 -4.712e-11
 
 -----------------------------Exchange composition------------------------------
 
@@ -1247,12 +1257,12 @@ X                1.065e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               7.285e-01   7.285e-01   6.838e-01    -0.000
-	CaX2              8.999e-02   1.800e-01   1.689e-01    -0.000
-	KX                7.886e-02   7.886e-02   7.403e-02    -0.000
-	MgX2              3.124e-02   6.248e-02   5.865e-02    -0.000
-	SrX2              7.733e-03   1.547e-02   1.452e-02    -0.000
-	HX                1.149e-05   1.149e-05   1.078e-05    -0.000
+	NaX               7.285e-01   7.285e-01   6.838e-01     0.000
+	CaX2              8.999e-02   1.800e-01   1.689e-01     0.000
+	KX                7.886e-02   7.886e-02   7.403e-02     0.000
+	MgX2              3.124e-02   6.248e-02   5.865e-02     0.000
+	SrX2              7.733e-03   1.547e-02   1.452e-02     0.000
+	HX                1.149e-05   1.149e-05   1.078e-05     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -1270,16 +1280,16 @@ X                1.065e+00 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.666      Charge balance
-                                       pe  =  12.252      Adjusted to redox equilibrium
+                                       pe  =  12.189      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.224e-01
                        Mass of water (kg)  =   1.000e-06
                  Total alkalinity (eq/kg)  =   1.229e-02
                        Total CO2 (mol/kg)  =   1.610e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.539e-16
+                  Electrical balance (eq)  =   5.536e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  49
+                               Iterations  =  43
                                   Total H  = 1.110323e-04
                                   Total O  = 5.555452e-05
 
@@ -1292,7 +1302,7 @@ X                1.065e+00 mol
 	OH-               6.588e-08   4.602e-08    -7.181    -7.337    -0.156
 	H2O               5.551e+01   9.929e-01     1.744    -0.003     0.000
 C(-4)            0.000e+00
-	CH4               0.000e+00   0.000e+00  -129.357  -129.335     0.022
+	CH4               0.000e+00   0.000e+00  -128.858  -128.836     0.022
 C(4)             1.610e-02
 	HCO3-             1.115e-02   8.249e-03    -1.953    -2.084    -0.131
 	CO2               3.833e-03   4.034e-03    -2.416    -2.394     0.022
@@ -1321,7 +1331,7 @@ F                1.942e-04
 	HF                3.588e-08   3.776e-08    -7.445    -7.423     0.022
 	HF2-              2.275e-11   1.689e-11   -10.643   -10.772    -0.129
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -41.006   -40.984     0.022
+	H2                0.000e+00   0.000e+00   -40.882   -40.860     0.022
 K                3.195e-03
 	K+                3.195e-03   2.249e-03    -2.496    -2.648    -0.152
 	KOH               3.406e-11   3.585e-11   -10.468   -10.445     0.022
@@ -1337,8 +1347,8 @@ Na               1.861e-01
 	NaF               8.730e-06   9.188e-06    -5.059    -5.037     0.022
 	NaCO3-            6.151e-06   4.568e-06    -5.211    -5.340    -0.129
 	NaOH              3.952e-09   4.160e-09    -8.403    -8.381     0.022
-O(0)             7.262e-11
-	O2                3.631e-11   3.822e-11   -10.440   -10.418     0.022
+O(0)             4.090e-11
+	O2                2.045e-11   2.152e-11   -10.689   -10.667     0.022
 Sr               5.776e-04
 	Sr+2              5.480e-04   1.723e-04    -3.261    -3.764    -0.503
 	SrHCO3+           2.938e-05   2.174e-05    -4.532    -4.663    -0.131
@@ -1350,15 +1360,15 @@ Sr               5.776e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
-	CH4(g)         -126.47 -129.33   -2.86  CH4
+	Calcite           0.00   -8.48   -8.48  CaCO3
+	CH4(g)         -125.98 -128.84   -2.86  CH4
 	CO2(g)           -0.93   -2.39   -1.47  CO2
 	Dolomite          0.05  -17.04  -17.09  CaMg(CO3)2
-	Fluorite          0.00  -10.60  -10.60  CaF2
-	H2(g)           -37.83  -40.98   -3.15  H2
+	Fluorite         -0.00  -10.60  -10.60  CaF2
+	H2(g)           -37.71  -40.86   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.30   -1.71    1.58  NaCl
-	O2(g)            -7.46  -10.42   -2.96  O2
+	O2(g)            -7.71  -10.67   -2.96  O2
 	Strontianite     -0.24   -9.51   -9.27  SrCO3
 
 ------------------
@@ -1426,7 +1436,7 @@ X                1.065e+00 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.672      Charge balance
-                                       pe  =  12.404      Adjusted to redox equilibrium
+                                       pe  =  12.698      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.222e-01
                        Mass of water (kg)  =   1.000e-07
@@ -1435,7 +1445,7 @@ X                1.065e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   5.539e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  43
+                               Iterations  =  78
                                   Total H  = 1.110320e-05
                                   Total O  = 5.555369e-06
 
@@ -1448,7 +1458,7 @@ X                1.065e+00 mol
 	OH-               6.685e-08   4.671e-08    -7.175    -7.331    -0.156
 	H2O               5.551e+01   9.929e-01     1.744    -0.003     0.000
 C(-4)            0.000e+00
-	CH4               0.000e+00   0.000e+00  -130.641  -130.618     0.022
+	CH4               0.000e+00   0.000e+00  -132.990  -132.968     0.022
 C(4)             1.582e-02
 	HCO3-             1.100e-02   8.137e-03    -1.959    -2.090    -0.131
 	CO2               3.726e-03   3.921e-03    -2.429    -2.407     0.022
@@ -1477,7 +1487,7 @@ F                1.943e-04
 	HF                3.537e-08   3.723e-08    -7.451    -7.429     0.022
 	HF2-              2.244e-11   1.666e-11   -10.649   -10.778    -0.129
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -41.324   -41.302     0.022
+	H2                0.000e+00   0.000e+00   -41.912   -41.889     0.022
 K                3.193e-03
 	K+                3.193e-03   2.248e-03    -2.496    -2.648    -0.152
 	KOH               3.455e-11   3.637e-11   -10.462   -10.439     0.022
@@ -1493,8 +1503,8 @@ Na               1.860e-01
 	NaF               8.730e-06   9.188e-06    -5.059    -5.037     0.022
 	NaCO3-            6.154e-06   4.570e-06    -5.211    -5.340    -0.129
 	NaOH              4.009e-09   4.220e-09    -8.397    -8.375     0.022
-O(0)             3.139e-10
-	O2                1.570e-10   1.652e-10    -9.804    -9.782     0.022
+O(0)             4.692e-09
+	O2                2.346e-09   2.469e-09    -8.630    -8.607     0.022
 Sr               5.764e-04
 	Sr+2              5.473e-04   1.721e-04    -3.262    -3.764    -0.503
 	SrHCO3+           2.894e-05   2.142e-05    -4.538    -4.669    -0.131
@@ -1506,15 +1516,15 @@ Sr               5.764e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
-	CH4(g)         -127.76 -130.62   -2.86  CH4
+	Calcite          -0.00   -8.48   -8.48  CaCO3
+	CH4(g)         -130.11 -132.97   -2.86  CH4
 	CO2(g)           -0.94   -2.41   -1.47  CO2
 	Dolomite          0.05  -17.04  -17.09  CaMg(CO3)2
 	Fluorite         -0.00  -10.60  -10.60  CaF2
-	H2(g)           -38.15  -41.30   -3.15  H2
+	H2(g)           -38.74  -41.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.30   -1.72    1.58  NaCl
-	O2(g)            -6.82   -9.78   -2.96  O2
+	O2(g)            -5.65   -8.61   -2.96  O2
 	Strontianite     -0.24   -9.51   -9.27  SrCO3
 
 ------------------
@@ -1536,6 +1546,12 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using mix 1.	
 Using exchange 2.	Exchange assemblage after simulation 1.
 Using pure phase assemblage 2.	
@@ -1549,8 +1565,8 @@ Mixture 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e-01  1.000e-01 -5.798e-11
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01  4.903e-11
+	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -5.798e-11
+	Fluorite          0.00  -10.60  -10.60  1.000e-01  1.000e-01  4.903e-11
 
 -----------------------------Exchange composition------------------------------
 
@@ -1582,16 +1598,16 @@ X                1.065e+00 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.673      Charge balance
-                                       pe  =  12.500      Adjusted to redox equilibrium
+                                       pe  =  12.483      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.222e-01
                        Mass of water (kg)  =   1.000e-08
                  Total alkalinity (eq/kg)  =   1.210e-02
                        Total CO2 (mol/kg)  =   1.580e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.539e-18
+                  Electrical balance (eq)  =   5.227e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  45
+                               Iterations  = 111
                                   Total H  = 1.110319e-06
                                   Total O  = 5.555361e-07
 
@@ -1604,7 +1620,7 @@ X                1.065e+00 mol
 	OH-               6.695e-08   4.677e-08    -7.174    -7.330    -0.156
 	H2O               5.551e+01   9.929e-01     1.744    -0.003     0.000
 C(-4)            0.000e+00
-	CH4               0.000e+00   0.000e+00  -131.412  -131.390     0.022
+	CH4               0.000e+00   0.000e+00  -131.275  -131.252     0.022
 C(4)             1.580e-02
 	HCO3-             1.098e-02   8.126e-03    -1.959    -2.090    -0.131
 	CO2               3.715e-03   3.910e-03    -2.430    -2.408     0.022
@@ -1633,7 +1649,7 @@ F                1.943e-04
 	HF                3.532e-08   3.718e-08    -7.452    -7.430     0.022
 	HF2-              2.241e-11   1.664e-11   -10.650   -10.779    -0.129
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -41.517   -41.495     0.022
+	H2                0.000e+00   0.000e+00   -41.482   -41.460     0.022
 K                3.193e-03
 	K+                3.193e-03   2.248e-03    -2.496    -2.648    -0.152
 	KOH               3.460e-11   3.642e-11   -10.461   -10.439     0.022
@@ -1649,8 +1665,8 @@ Na               1.859e-01
 	NaF               8.730e-06   9.188e-06    -5.059    -5.037     0.022
 	NaCO3-            6.155e-06   4.571e-06    -5.211    -5.340    -0.129
 	NaOH              4.015e-09   4.226e-09    -8.396    -8.374     0.022
-O(0)             7.620e-10
-	O2                3.810e-10   4.010e-10    -9.419    -9.397     0.022
+O(0)             6.504e-10
+	O2                3.252e-10   3.423e-10    -9.488    -9.466     0.022
 Sr               5.763e-04
 	Sr+2              5.472e-04   1.720e-04    -3.262    -3.764    -0.503
 	SrHCO3+           2.890e-05   2.139e-05    -4.539    -4.670    -0.131
@@ -1662,15 +1678,15 @@ Sr               5.763e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
-	CH4(g)         -128.53 -131.39   -2.86  CH4
+	Calcite           0.00   -8.48   -8.48  CaCO3
+	CH4(g)         -128.39 -131.25   -2.86  CH4
 	CO2(g)           -0.94   -2.41   -1.47  CO2
 	Dolomite          0.05  -17.04  -17.09  CaMg(CO3)2
-	Fluorite         -0.00  -10.60  -10.60  CaF2
-	H2(g)           -38.34  -41.49   -3.15  H2
+	Fluorite          0.00  -10.60  -10.60  CaF2
+	H2(g)           -38.31  -41.46   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.30   -1.72    1.58  NaCl
-	O2(g)            -6.44   -9.40   -2.96  O2
+	O2(g)            -6.51   -9.47   -2.96  O2
 	Strontianite     -0.24   -9.51   -9.27  SrCO3
 
 ------------------

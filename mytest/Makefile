@@ -2,7 +2,7 @@
 #             $(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 PROGRAM=../bin/phreeqc
 
-%.out : % ../bin/phreeqc ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat 
+%.out : % ../bin/phreeqc ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
 	../bin/phreeqc $< 
 	mv phreeqc.log $<.log
 
@@ -15,6 +15,7 @@ all: alkalinity.out \
 	co2.out \
 	comments.out \
 	dissolve_only.out \
+	evap.out \
 	exch_related.out \
 	exch_kin_related.out \
 	fixed_volume_gas.out \
@@ -35,6 +36,7 @@ all: alkalinity.out \
 	oxygen.out \
 	phantom_surface.out \
 	phreeqc.test.out \
+	phrqpitz.tst.out \
 	prob8.out \
 	saver.out \
 	saunders.out \

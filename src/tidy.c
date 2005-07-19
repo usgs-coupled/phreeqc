@@ -62,6 +62,7 @@ int tidy_model(void)
 	new_surface = FALSE;
 	new_s_s_assemblage = FALSE;
 	new_kinetics = FALSE;
+	new_pitzer = FALSE;
 	if (keyword[2].keycount > 0 ||   /*"species"*/
 	    keyword[3].keycount > 0 ||   /*"master"*/
 	    keyword[5].keycount > 0 ||   /*"phases"*/
@@ -71,12 +72,13 @@ int tidy_model(void)
 	    keyword[15].keycount > 0 ||   /*"master_surface_species"*/
 	    keyword[36].keycount > 0 ||   /*"rates"*/
 	    keyword[47].keycount > 0 ||   /*"llnl_aqueous_model_parameters"*/
-	    keyword[49].keycount > 0 ||   /*"database"*/
+	    (keyword[49].keycount > 0 && simulation == 0) ||   /*"database"*/
 	    keyword[51].keycount > 0 ||   /*"named_analytical_expressions"*/
 	    keyword[54].keycount > 0 ||   /*"isotopes"*/
 	    keyword[55].keycount > 0 ||   /*"calculate_values"*/
 	    keyword[56].keycount > 0 ||   /*"isotopes_ratios",*/
-	    keyword[57].keycount > 0 ) {   /*"isotopes_alphas"*/
+	    keyword[57].keycount > 0 ||   /*"isotopes_alphas"*/
+	    keyword[59].keycount > 0 ) {   /*"pitzer"*/
 		new_model = TRUE;
 	} 
 	if (keyword[6].keycount > 0) new_pp_assemblage = TRUE;  /*"pure_phases"*/
@@ -98,6 +100,7 @@ int tidy_model(void)
 	if (keyword[40].keycount > 0) new_s_s_assemblage = TRUE;/*"solid_solutions"*/
 	if (keyword[33].keycount > 0) new_kinetics = TRUE;      /*"kinetics"*/
 	if (keyword[58].keycount > 0) new_copy = TRUE;          /*"copy"*/
+	if (keyword[59].keycount > 0) new_pitzer = TRUE;        /*"pitzer"*/
 
 	/*
 	  0	  "eof"
@@ -159,6 +162,7 @@ int tidy_model(void)
 	  56      "isotopes_ratios",
 	  57      "isotopes_alphas"
 	  58      "copy"
+	  59      "pitzer"
 	*/
 
 /*
@@ -321,6 +325,10 @@ int tidy_model(void)
 			}
 		}
 	}
+/*
+ *   Tidy pitzer information
+ */
+	if (pitzer_model && new_model) pitzer_tidy();
 /*
  *   Tidy punch information
  */

@@ -47,11 +47,12 @@ Iterations in revise_guesses: 1
 Ineq had infeasible solution, kode 0, iteration 10
 Ineq had infeasible solution, kode 0, iteration 11
 Ineq had infeasible solution, kode 0, iteration 13
+Ineq had infeasible solution, kode 0, iteration 23
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 5
 Number of basis changes: 1
 
-Number of iterations: 20
+Number of iterations: 31
 
 ------------------
 End of simulation.

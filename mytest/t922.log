@@ -406,7 +406,7 @@ Oxygen     old mole   5.55e+01   new mole   5.55e+01   delta   1.28e-26
 Hfo_w      old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge 1.928004e-02
-grams 8.8
+	                grams 8.8
 	Charge from potential 1.928004e-02
 	             FPsi/2RT 1.002225e+00
 	       Sinh(FPsi/2RT) 1.178638e+00
@@ -754,7 +754,7 @@ Oxygen     old mole   5.55e+01   new mole   5.55e+01   delta   1.66e-25
 Hfo_w      old mole   1.00e-02   new mole   1.00e-02   delta   0.00e+00
 Charge/Potential
 	Sum of surface charge 1.928004e-02
-grams 8.8
+	                grams 8.8
 	Charge from potential 1.928004e-02
 	             FPsi/2RT 1.002225e+00
 	       Sinh(FPsi/2RT) 1.178638e+00

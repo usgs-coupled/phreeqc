@@ -43,7 +43,7 @@ static int setup_unknowns (void);
 static int store_dn (int k, LDBLE *source, int row, LDBLE coef_in, LDBLE *gamma_source);
 static int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef);
 static int store_jacob0(int row, int column, LDBLE coef);
-static int store_mb(LDBLE *source, LDBLE *target, LDBLE coef);
+int store_mb(LDBLE *source, LDBLE *target, LDBLE coef);
 static int store_mb_unknowns(struct unknown *unknown_ptr, LDBLE *LDBLE_ptr, LDBLE coef, LDBLE *gamma_ptr);
 static int store_sum_deltas(LDBLE *source, LDBLE *target, LDBLE coef);
 static int tidy_redox (void);
@@ -112,11 +112,19 @@ int prep(void)
 /*
  *   Allocate space for array
  */
+/*
 		array = (LDBLE *) PHRQ_malloc( (size_t) (count_unknowns+1) * count_unknowns * sizeof( LDBLE ));
 		if (array == NULL) malloc_error();
 		delta = (LDBLE *) PHRQ_malloc( (size_t) count_unknowns * sizeof( LDBLE ));
 		if (delta == NULL) malloc_error();
 		residual = (LDBLE *) PHRQ_malloc( (size_t) count_unknowns * sizeof( LDBLE ));
+		if (residual == NULL) malloc_error();
+*/
+		array = (LDBLE *) PHRQ_malloc( (size_t) (max_unknowns+1) * max_unknowns * sizeof( LDBLE ));
+		if (array == NULL) malloc_error();
+		delta = (LDBLE *) PHRQ_malloc( (size_t) max_unknowns * sizeof( LDBLE ));
+		if (delta == NULL) malloc_error();
+		residual = (LDBLE *) PHRQ_malloc( (size_t) max_unknowns * sizeof( LDBLE ));
 		if (residual == NULL) malloc_error();
 /*
  *   Build lists to fill Jacobian array and species list
@@ -167,6 +175,7 @@ static int quick_setup (void)
 /*
  *   Reaction: pe for total hydrogen
  */
+	if (mass_hydrogen_unknown != NULL) {
 #define COMBINE
 	/*#define COMBINE_CHARGE*/
 #ifdef COMBINE
@@ -178,6 +187,7 @@ static int quick_setup (void)
 #else
 	mass_hydrogen_unknown->moles = use.solution_ptr->total_h;
 #endif
+	}
 /*
  *   Reaction H2O for total oxygen
  */
@@ -884,7 +894,7 @@ int build_model(void)
  *    Guts of prep. Determines species in model, rewrites equations,
  *    builds lists for mass balance and jacobian sums.
  */
-	int i, j;
+	int i, j, j0;
 	LDBLE coef_e;
 
 	if (s_hplus == NULL || s_eminus == NULL || s_h2o == NULL) {
@@ -953,6 +963,7 @@ int build_model(void)
 			if (s[i]->gflag == 9 ) {
 				gfw_water = 18.0/1000.0;
 			}
+			s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x) {
 				space ((void *) &s_x, count_s_x + 1,
 				       &max_s_x,
@@ -1012,7 +1023,7 @@ int build_model(void)
  				build_mb_sums();
  			} 
 #endif
-			build_jacobian_sums(i);
+			if (!pitzer_model) build_jacobian_sums(i);
 /*
  *    Build list of species for summing and printing
  */
@@ -1024,6 +1035,9 @@ int build_model(void)
 			}
 			build_species_list(i);
 		}
+	}
+	if (diffuse_layer_x == TRUE && pitzer_model == TRUE) {
+		error_msg("-diffuse_layer option not available for Pizer model", STOP);
 	}
 /*
  *   Sum diffuse layer water into hydrogen and oxygen mass balances
@@ -1042,6 +1056,23 @@ int build_model(void)
 						 1 / gfw_water);
 				}
 			}
+		}
+	}
+/*
+ *   For Pizer model add lg unknown for each aqueous species
+ */
+
+	if (pitzer_model == TRUE) {
+		j0 = count_unknowns;
+		j = count_unknowns + count_s_x;
+		for (i = j0; i < j; i++) {
+			if (s_x[i - j0]->type == EX) continue;
+			if (s_x[i - j0]->type == SURF) continue;
+			x[i]->number = i;
+			x[i]->type = PITZER_GAMMA;
+			x[i]->s = s_x[i - j0];
+			x[i]->description = s_x[i - j0]->name;
+			count_unknowns++;
 		}
 	}
 /*
@@ -2848,9 +2879,10 @@ int setup_solution (void)
 			}				
 		}
 	}
-/*
- *   Ionic strength
- */
+	if (pitzer_model == FALSE) {
+	/*
+	 *   Ionic strength
+	 */
 	mu_unknown=x[count_unknowns];
 	x[count_unknowns]->description= string_hsave( "Mu" );
 	x[count_unknowns]->type=MU;
@@ -2858,9 +2890,10 @@ int setup_solution (void)
 	x[count_unknowns]->moles = 0.0;
 	mu_unknown = x[count_unknowns];
 	count_unknowns++;
-/*
- *   Activity of water
- */
+	}
+	/*
+	 *   Activity of water
+	 */
 	ah2o_unknown=x[count_unknowns];
 	ah2o_unknown->description= string_hsave( "A(H2O)" );
 	ah2o_unknown->type=AH2O;
@@ -2870,6 +2903,7 @@ int setup_solution (void)
 	ah2o_unknown->master[0]->unknown = ah2o_unknown;
 	ah2o_unknown->moles = 0.0;
 	count_unknowns++;
+
 	if (state >= REACTION) {
 /*
 
@@ -2993,6 +3027,10 @@ int setup_unknowns (void)
 	if (use.exchange_ptr != NULL) {
 		for (j = 0; j < use.exchange_ptr->count_comps; j++) {
 			for (i = 0; use.exchange_ptr->comps[j].totals[i].elt != NULL; i++) {
+				if (use.exchange_ptr->comps[j].totals[i].elt->master == NULL) {
+					sprintf(error_string, "Master species missing for element %s", use.exchange_ptr->comps[j].totals[i].elt->name);
+					error_msg(error_string, STOP);
+				}
 				if (use.exchange_ptr->comps[j].totals[i].elt->master->type == EX) {
 					max_unknowns++;
 				}
@@ -3020,10 +3058,14 @@ int setup_unknowns (void)
 			max_unknowns += use.s_s_assemblage_ptr->s_s[i].count_comps;
 		}
 	}
+
 /*
  *   One for luck
  */
 	max_unknowns++;
+	if (pitzer_model == TRUE) {
+		max_unknowns += count_s;
+	}
 /*
  *   Allocate space for pointer array and structures
  */

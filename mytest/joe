@@ -1,11 +1,4 @@
 DATABASE ../database/phreeqc.dat
-knobs
-#	-diag
-#	-tol	1e-17
-#	-step 10
-#	-pe 5
-#	-iter 300
-	-log
 #solution_species
 #	H2O + 0.01e- = H2O-0.01
 #	log_k -9
