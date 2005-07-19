@@ -533,6 +533,10 @@ int get_elts_in_species (char **t_ptr, LDBLE coef)
 			if ( get_elt( t_ptr, element, &l) == ERROR) {
 				return(ERROR);
 			}
+			if (count_elts >= max_elts) {
+				space ((void *) &elt_list, count_elts, &max_elts,
+				       sizeof(struct elt_list));
+			}
 			elt_list[count_elts].elt = element_store ( element );
 			if ( get_num( t_ptr , &d ) == ERROR) {
 				return(ERROR);

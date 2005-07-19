@@ -912,7 +912,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
-	int j, converge;
+	int j, converge, max_try;
 	int old_diag, old_itmax;
 	LDBLE old_tol, old_min_value, old_step, old_pe, old_pp_column_scale;
 	LDBLE small_pe_step, small_step;
@@ -960,8 +960,16 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 		kinetics_copy(use.kinetics_ptr, kinetics_save, use.kinetics_ptr->n_user);
 	}
 	
-	for (j = 0; j < 11; j++) {
+	if (pitzer_model == TRUE) {
+		diagonal_scale = TRUE;
+		always_full_pitzer = TRUE;
+		max_try = 2;
+	} else {
+		max_try = 11;
+	}
+	for (j = 0; j < max_try; j++) {
 		if (j == 1) {
+			always_full_pitzer = FALSE;
 			if (pe_step_size <= small_pe_step && step_size <= small_step) continue;
 			itmax *= 2;
 			step_size = small_step;

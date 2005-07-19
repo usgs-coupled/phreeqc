@@ -121,6 +121,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define SURFACE_CB 21
 #define GAS_MOLES 23
 #define S_S_MOLES 24
+#define PITZER_GAMMA 25
 /* state */
 #define INITIALIZE         0
 #define INITIAL_SOLUTION   1
@@ -1026,7 +1027,8 @@ struct key keyword[] = {
 	{"calculate_values", 0},
 	{"isotope_ratios", 0},
 	{"isotope_alphas", 0},
-	{"copy", 0}
+	{"copy", 0},
+	{"pitzer", 0}
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords */
 #else
@@ -1036,7 +1038,7 @@ int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords
 EXTERNAL struct key *keyword_hash;
 EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface, new_reaction, new_temperature,
 	new_mix, new_solution, new_gas_phase, new_inverse, new_punch, new_s_s_assemblage, 
-	new_kinetics, new_copy;
+	new_kinetics, new_copy, new_pitzer;
 /*----------------------------------------------------------------------
  *   Elements
  *---------------------------------------------------------------------- */
@@ -1098,6 +1100,7 @@ struct species {                      /* all data pertinent to an aqueous specie
 	int count_add_logk;
 	struct name_coef *add_logk;
 	LDBLE lg;                    /* log10 activity coefficient, gamma */
+	LDBLE lg_pitzer;             /* log10 activity coefficient, from pitzer calculation */
 	LDBLE lm;                    /* log10 molality */
 	LDBLE la;                    /* log10 activity */
 	LDBLE dg;                    /* gamma term for jacobian */
@@ -1240,6 +1243,7 @@ struct unknown {
 	   LDBLE si;
 	struct gas_phase *gas_phase;
 	struct conc *total;
+	struct species *s;
 	struct exch_comp *exch_comp;
 	struct pure_phase *pure_phase;
 	struct s_s *s_s;
@@ -1274,7 +1278,9 @@ EXTERNAL struct unknown *solution_phase_boundary_unknown;
 EXTERNAL struct unknown *surface_unknown;
 EXTERNAL struct unknown *gas_unknown;
 EXTERNAL struct unknown *s_s_unknown;
-
+#ifdef SKIP
+EXTERNAL struct unknown *pitzer_complex_unknown;
+#endif
 /*----------------------------------------------------------------------
  *   Reaction work space
  *---------------------------------------------------------------------- */
@@ -1398,6 +1404,7 @@ EXTERNAL int next_keyword;
 EXTERNAL int parse_error;
 EXTERNAL int paren_count;
 EXTERNAL int iterations;
+EXTERNAL int gamma_iterations;
 EXTERNAL int run_reactions_iterations;
 
 EXTERNAL int    max_line;
@@ -1584,6 +1591,10 @@ enum entity_type { Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase,
 
 EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
+EXTERNAL int pitzer_model;
+EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
+EXTERNAL double COSMOT;
+EXTERNAL double AW;
 
 EXTERNAL jmp_buf mark;
 

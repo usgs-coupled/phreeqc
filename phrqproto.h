@@ -136,7 +136,15 @@ int do_status(void);
 /* model.c */
 int check_residuals(void);
 int free_model_allocs(void);
+int ineq(int kode);
 int model(void);
+int jacobian_sums (void);
+int mb_gases(void);
+int mb_s_s(void);
+int mb_sums (void);
+int molalities (int allow_overflow);
+int reset(void);
+int residuals(void);
 int set(int initial);
 int sum_species(void);
 int surface_model(void);
@@ -151,6 +159,16 @@ int get_elts_in_species (char **t_ptr, LDBLE coef);
 int get_num (char **t_ptr, LDBLE *num);
 int get_secondary_in_species (char **t_ptr, LDBLE coef);
 int parse_eq(char *eqn, struct elt_list **elt_ptr, int association);
+
+/* pitzer.c */
+int gammas_pz(void);
+int model_pz(void);
+int pitzer (void);
+int pitzer_clean_up(void);
+int pitzer_init (void);
+int pitzer_tidy (void);
+int read_pitzer (void);
+int set_pz(int initial);
 
 /* prep.c */
 int check_same_model(void);

@@ -515,6 +515,10 @@ void initialize(void)
 
 	set_forward_output_to_log(FALSE);
 	simulation = 0;
+	/*
+	 *  Pitzer
+	 */
+	pitzer_init();
 
 	return;
 }
