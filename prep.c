@@ -894,7 +894,7 @@ int build_model(void)
  *    Guts of prep. Determines species in model, rewrites equations,
  *    builds lists for mass balance and jacobian sums.
  */
-	int i, j, j0;
+	int i, j, j0, k;
 	LDBLE coef_e;
 
 	if (s_hplus == NULL || s_eminus == NULL || s_h2o == NULL) {
@@ -1065,13 +1065,15 @@ int build_model(void)
 	if (pitzer_model == TRUE) {
 		j0 = count_unknowns;
 		j = count_unknowns + count_s_x;
+		k = j0;
 		for (i = j0; i < j; i++) {
 			if (s_x[i - j0]->type == EX) continue;
 			if (s_x[i - j0]->type == SURF) continue;
-			x[i]->number = i;
-			x[i]->type = PITZER_GAMMA;
-			x[i]->s = s_x[i - j0];
-			x[i]->description = s_x[i - j0]->name;
+			x[k]->number = k;
+			x[k]->type = PITZER_GAMMA;
+			x[k]->s = s_x[i - j0];
+			x[k]->description = s_x[i - j0]->name;
+			k++;
 			count_unknowns++;
 		}
 	}
