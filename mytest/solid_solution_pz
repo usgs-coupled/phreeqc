@@ -1,4 +1,4 @@
-DATABASE ../database/phreeqc.dat
+DATABASE ../database/pitzer.dat
 PHASES
 	Magnesite
 	MgCO3 = CO3-2 + Mg+2

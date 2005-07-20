@@ -17,8 +17,11 @@ all: alkalinity.out \
 	dissolve_only.out \
 	evap.out \
 	exch_related.out \
+	exch_related_pz.out \
 	exch_kin_related.out \
+	exch_kin_related_pz.out \
 	fixed_volume_gas.out \
+	fixed_volume_gas_pz.out \
 	fluorite.out \
 	gas.out \
 	hard.tests.out \
@@ -41,12 +44,15 @@ all: alkalinity.out \
 	saver.out \
 	saunders.out \
 	solid_solution.out \
+	solid_solution_pz.out \
 	solution_s.out \
 	spread_solution.out \
 	iso_example.out \
 	surf3.out \
 	surf_related.out \
+	surf_related_pz.out \
 	surf_kin_related.out \
+	surf_kin_related_pz.out \
 	ss_r.out \
 	t922.out \
 	transport.out \
