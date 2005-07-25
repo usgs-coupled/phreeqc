@@ -1,4 +1,3 @@
-#  $Id$
 SOLUTION_MASTER_SPECIES
 # Required master species
 H        H3O+           -1.     H               1.008
@@ -8,23 +7,30 @@ E        e-             0.0     0.0             0.0
 O        H2O            0.0     O               16.00
 O(0)     O2             0.0     O
 O(-2)    H2O            0.0     0.0
+# Other master species
 Ca       Ca+2           0.0     Ca              40.08
 Mg       Mg+2           0.0     Mg              24.312
 Na       Na+            0.0     Na              22.9898
 K        K+             0.0     K               39.102
 Cl       Cl-            0.0     Cl              35.453
-S        SO4-2          0.0     SO4             32.064
+# Elements with isotopes
+C        CO2            0     	HCO3            12.0111
+C(4)     CO2            0     	HCO3
+[13C]    [13C]O2	0	13		13
+[13C](4) [13C]O2	0	13	
+[14C]    [14C]O2        0	14		14
+[14C](4) [14C]O2        0	14	
+[18O]    H2[18O]	0	18		18
+D	 D2O		0	2		2
+T	 HTO		0	3		3
+S        SO4-2          0.0     SO4             31.972
 S(6)     SO4-2          0.0     SO4
 S(-2)    HS-            1.0     S
-C       CO2             0     	HCO3            12.0111
-C(4)    CO2             0     	HCO3
-[13C]   [13C]O2		0	13		13
-[13C](4) [13C]O2		0	13		13
-[18O]   H2[18O]		0	18		18
-D	D2O		0	2		2
-T	HTO		0	3		3
-[14C]   [14C]O2         0	14		14
-[14C](4) [14C]O2         0	14		14
+N        NO3-           0.0     N               14.0067
+N(+5)    NO3-           0.0     N
+N(+3)    NO2-           0.0     N
+N(0)     N2             0.0     N
+N(-3)    NH4+           0.0     N
 
 ISOTOPES
 H
@@ -39,9 +45,9 @@ C
 							# 13.56 Modern Carbon dpm (Kalin, in eds, Cook and Herczeg, 2000)
 C(4) 	
 	-isotope	[13C](4)	permil	0.0111802       # VPDB, Vienna Pee Dee Belemnite
-							# Chang and Li, 1990, Chinese Science Bulletin
+								# Chang and Li, 1990, Chinese Science Bulletin
 	-isotope	[14C](4)	pmc	1.175887709e-12 # Mole fraction of 14C in Modern Carbon
-							# 13.56 Modern Carbon dpm (Kalin, in eds, Cook and Herczeg, 2000)
+								# 13.56 Modern Carbon dpm (Kalin, in eds, Cook and Herczeg, 2000)
 	# 14C calculation
 	#
 	# lambda = ln(2)/(5730 yrs * 3.15576e7 sec/yr)
@@ -49,9 +55,10 @@ C(4)
 	# mole C/g C NBS Oxalic Acid with 13C = -19.3:  0.08325783313
 	# mole 14C/mol Modern Carbon mol/g carbon/ (mole C/g C) = 1.175887709e-12
 	#
-
+#	-isotope	[13C](-4)	permil	0.0111802       # ?
+								# ?
 O
-	-isotope	[18O]	permil	2005.2e-6       # VSMOW (Clark and Fritz, 1997)
+	-isotope	[18O]		permil	2005.2e-6       # VSMOW (Clark and Fritz, 1997)
 
 ISOTOPE_RATIOS
 	R(13C)_Calcite		[13C]
@@ -439,26 +446,9 @@ SO4-2 = SO4-2
         log_k           0.000
         -gamma    5.0000   -0.0400
 
-SO4-2 + H3O+ = HSO4- + H2O
-        log_k           1.988
-        delta_h 3.85    kcal
-        -analytic       -56.889        0.006473    2307.9       19.8858         0.0
-
-HS- + H2O = S-2 + H3O+
-        log_k           -12.918
-        delta_h 12.1    kcal
-        -gamma    5.0000    0.0000
-
-SO4-2 + 9 H3O+ + 8 e- = HS- + 13 H2O
-        log_k           33.65
-        delta_h -60.140 kcal
-        -gamma    3.5000    0.0000
-
-HS- + H3O+ = H2S + H2O
-        log_k           6.994
-        delta_h -5.300  kcal
-        -analytical  -11.17   0.02386  3279.0
-
+NO3- = NO3-
+        log_k           0.000
+        -gamma    3.0000    0.0000
 
 H2O = H2O
         log_k           0.000
@@ -543,6 +533,7 @@ SOLUTION_SPECIES
 # CO2 reactions
 
 	0.5CO2 + 0.5C[18O]2 = CO[18O]
+
 	log_k   	0.301029995663				# log10(2)
 
 	[13C]O2 + C[18O]2 = [13C][18O]2 + CO2
@@ -2346,8 +2337,1106 @@ CALCULATE_VALUES
 70 alpha = r1/r2
 1000 save alpha
 	-end
+
+#
+# Methane
+#
+SOLUTION_MASTER_SPECIES
+C(-4)    CH4            0       CH4
+[13C](-4) [13C]H4       0       [13C]H4
+ISOTOPES
+C
+	-isotope	[13C](-4)	permil	0.0111802       # VPDB, Vienna Pee Dee Belemnite
+ISOTOPE_RATIOS
+	R(13C)_CH4(aq)		[13C]
+	R(13C)_CH4(g)		[13C]
+	R(D)_CH4(aq)		D
+	R(D)_CH4(g)		D
+ISOTOPE_ALPHAS
+	Alpha_13C_CH4(aq)/CH4(g)		Log_alpha_13C_CH4(aq)/CH4(g)
+	Alpha_D_CH4(aq)/CH4(g)			Log_alpha_D_CH4(aq)/CH4(g)
+	Alpha_13C_CH4(aq)/CO3-2			Log_alpha_13C_CH4(aq)/CO3-2
+	Alpha_D_CH4(aq)/H3O+			Log_alpha_D_CH4(aq)/H3O+
+
+CALCULATE_VALUES
+	R(13C)_CH4(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 100
+30 total_13C = sum_species("{C,[13C]}{H,D}4","[13C]")
+40 total_C = sum_species("{C,[13C]}{H,D}4","C")
+50 if (total_C <= 0) THEN GOTO 100
+60 ratio = total_13C/total_C
+100 save ratio
+	-end
+	R(13C)_CH4(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 total_13C = SUM_GAS("{C,[13C]}{H,D,T}4", "[13C]")
+50 total_C = SUM_GAS("{C,[13C]}{H,D,T}4", "C")
+60 if (total_C <= 0) THEN GOTO 1000
+70 ratio = total_13C/total_C
+1000 save ratio
+	-end
+	R(D)_CH4(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("{C,[13C]}{H,D}4","D")
+40 total_H = sum_species("{C,[13C]}{H,D}4","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+	R(D)_CH4(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 total_D = SUM_GAS("{C,[13C]}{H,D,T}4", "D")
+50 total_H = SUM_GAS("{C,[13C]}{H,D,T}4", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_D/total_H
+1000 save ratio
+	-end
+
+	Alpha_13C_CH4(aq)/CH4(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("[13C]H4(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(13C)_CH4(aq)")
+60 r2 = CALC_VALUE("R(13C)_CH4(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_D_CH4(aq)/CH4(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("CH3D(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_CH4(aq)")
+60 r2 = CALC_VALUE("R(D)_CH4(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_13C_CH4(aq)/CO3-2
+	-start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(13C)_CH4(aq)")
+60 r2 = CALC_VALUE("R(13C)_CO3-2")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_D_CH4(aq)/H3O+
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_CH4(aq)")
+60 r2 = CALC_VALUE("R(D)_H3O+")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+NAMED_EXPRESSIONS
+
+	Log_KH_CH4(g)    CH4 = CH4
+	        log_k           -2.860
+        	delta_h -3.373  kcal
+
+	Log_K_CH4       CO3-2 + 10 H3O+ + 8 e- = CH4 + 13 H2O
+	        log_k           41.071
+        	delta_h -61.039 kcal
+
+	Log_alpha_13C_CH4(aq)/CH4(g)	
+		-ln_alpha1000	0.0
+
+	Log_alpha_D_CH4(aq)/CH4(g)	
+		-ln_alpha1000	0.0
+
+	Log_alpha_13C_CH4(aq)/CO3-2	
+		-ln_alpha1000	0.0
+
+	Log_alpha_D_CH4(aq)/H3O+
+		-ln_alpha1000	0.0
+
+SOLUTION_SPECIES
+	CO3-2 + 10 H3O+ + 8 e- = CH4 + 13 H2O
+	-add_logk	Log_K_CH4
+
+	CH4 + H2DO+ = CH3D + H3O+
+	log_k		0.124938736682999329		# log10(4/3)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	1.0
+
+#	CO3-2 + 9 H3O+ + H2DO+ + 8 e- = CH3D + 13 H2O
+#	log_k		0.124938736682999329		# log10(4/3)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	1.0
+
+	CH4 + HD2O+ = CH2D2 + H3O+
+	log_k		0.301029995663981198		# log10(2)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	2.0
+
+#	CO3-2 + 9 H3O+ + HD2O+ + 8 e- = CH2D2 + 13 H2O
+#	log_k		0.301029995663981198		# log10(2)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	2.0
+
+	CH4 + D3O+ = CHD3 + H3O+
+	log_k		0.602059991327962396		# log10(4)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	3.0
+
+#	CO3-2 + 9 H3O+ + D3O+ + 8 e- = CHD3 + 13 H2O
+#	log_k		0.602059991327962396		# log10(4)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	3.0
+
+	CH4 + 4H2DO+ = CD4 + 4H3O+
+	log_k		-1.908485018878649742		# -4*log10(3)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	4.0
+
+#	CO3-2 + 6 H3O+ + 4H2DO+ + 8 e- = CD4 + 13 H2O
+#	log_k		-1.908485018878649742		# -4*log10(3)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	4.0
+
+	[13C]O3-2 + 10 H3O+ + 8 e- = [13C]H4 + 13 H2O
+	-add_logk	Log_K_CH4
+	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+
+	CH4 + [13C]O3-2 + H2DO+ = [13C]H3D + CO3-2 + H3O+
+	log_k		0.124938736682999329		# log10(4/3)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	1.0
+	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+	-mole_balance [13C](-4)H3D
+
+#	[13C]O3-2 + 9 H3O+ + H2DO+ + 8 e- = [13C]H3D + 13 H2O
+#	log_k		0.124938736682999329		# log10(4/3)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	1.0
+
+	CH4 + [13C]O3-2 + HD2O+ = [13C]H2D2 + CO3-2 + H3O+
+	log_k		0.301029995663981198		# log10(2)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	2.0
+	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+	-mole_balance [13C](-4)H2D2
+
+#	[13C]O3-2 + 9 H3O+ + HD2O+ + 8 e- = [13C]H2D2 + 13 H2O
+#	log_k		0.301029995663981198		# log10(2)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	2.0
+
+	CH4 + [13C]O3-2 + D3O+ = [13C]HD3 + CO3-2 + H3O+
+	log_k		0.602059991327962396		# log10(4)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	3.0
+	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+	-mole_balance [13C](-4)HD3
+
+#	[13C]O3-2 + 9 H3O+ + D3O+ + 8 e- = [13C]HD3 + 13 H2O
+#	log_k		0.602059991327962396		# log10(4)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	3.0
+
+	CH4 + 4H2DO+ + [13C]O3-2  = [13C]D4 + CO3-2 + 4H3O+
+	log_k		-1.908485018878649742		# -4*log10(3)
+	-add_logk	Log_alpha_D_CH4(aq)/H3O+	4.0
+	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+
+#	[13C]O3-2 + 6 H3O+ + 4H2DO+ + 8 e- = [13C]D4 + 13 H2O
+#	log_k		-1.908485018878649742		# -4*log10(3)
+#	-add_logk	Log_K_CH4
+#	-add_logk	Log_alpha_13C_CH4(aq)/CO3-2	1.0
+#	-add_logk	Log_alpha_D_CH4(aq)/H3O+	4.0
+	-mole_balance [13C](-4)D4
+
+
+PHASES
+	CH4(g)
+        CH4 = CH4
+		-add_logk	Log_KH_CH4(g)			1.0
+
+	CH3D(g)
+        CH3D = CH3D
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	1.0
+
+	CH2D2(g)
+        CH2D2 = CH2D2
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	2.0
+
+	CHD3(g)
+        CHD3 = CHD3
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	3.0
+
+	CD4(g)
+        CD4 = CD4
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	4.0
+
+	[13C]H4(g)
+        [13C]H4 = [13C]H4
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_13C_CH4(aq)/CH4(g)	1.0
+
+	[13C]H3D(g)
+        [13C]H3D = [13C]H3D
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_13C_CH4(aq)/CH4(g)	1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	1.0
+
+	[13C]H2D2(g)
+        [13C]H2D2 = [13C]H2D2
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_13C_CH4(aq)/CH4(g)	1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	2.0
+
+	[13C]HD3(g)
+        [13C]HD3 = [13C]HD3
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_13C_CH4(aq)/CH4(g)	1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	3.0
+
+	[13C]D4(g)
+        [13C]D4 = [13C]D4
+		-add_logk	Log_KH_CH4(g)			1.0
+		-add_logk	Log_alpha_13C_CH4(aq)/CH4(g)	1.0
+		-add_logk	Log_alpha_D_CH4(aq)/CH4(g)	4.0
+
+
+#Hydrogen redox
+
+SOLUTION_MASTER_SPECIES
+D(1)    D2O	0	18		18
+D(0)    HD	0	18		18
+ISOTOPE_RATIOS
+	R(D)_H2(aq)		D
+	R(D)_H2(g)		D
+ISOTOPE_ALPHAS
+	Alpha_D_H2(aq)/H2(g)			Log_alpha_D_H2(aq)/H2(g)
+	Alpha_D_H2(aq)/H3O+			Log_alpha_D_H2(aq)/H3O+
+CALCULATE_VALUES
+	R(D)_H2(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("{H,D}2","D")
+40 total_H = sum_species("{H,D}2","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+	R(D)_H2(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (GAS("H2(g)") <= 0) THEN GOTO 1000
+40 total_D = SUM_GAS("{H,D,T}2", "D")
+50 total_H = SUM_GAS("{H,D,T}2", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_D/total_H
+1000 save ratio
+	-end
+
+	Alpha_D_H2(aq)/H2(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (GAS("H2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("HD(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_H2(aq)")
+60 r2 = CALC_VALUE("R(D)_H2(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_D_H2(aq)/H3O+
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_H2(aq)")
+60 r2 = CALC_VALUE("R(D)_H3O+")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+NAMED_EXPRESSIONS
+	Log_KH_H2(g)    H2 = H2
+	        log_k           -3.150
+        	delta_h -1.759  kcal
+
+	Log_K_H2       2 H3O+ + 2 e- = H2 + 2H2O
+	        log_k           -3.15
+        	delta_h 	-1.759 kcal
+
+	Log_alpha_D_H2(aq)/H2(g)		#
+		-ln_alpha1000	0.0
+
+	Log_alpha_D_H2(aq)/H3O+			#
+		-ln_alpha1000	0.0
+
+SOLUTION_SPECIES
+	H3O+ + H2DO+ + 2e- = HD + 2H2O 
+	log_k		-0.176091259055				1.0 # -log10(1.5)
+	-add_logk 	Log_K_H2
+	-add_logk	Log_alpha_D_H2(aq)/H3O+			1.0
+	-mole_balance H(0)D(0)
+
+	H2 + HD2O+ = D2 + H3O+
+	log_k		-0.477121254719				1.0 # -log10(3)
+	-add_logk	Log_alpha_D_H2(aq)/H3O+			2.0
+	-mole_balance D(0)2
+
+#	H3O+ + HD2O+ + 2e- = D2 + 2H2O 
+#	log_k		-0.477121254719				1.0 # -log10(3)
+#	-add_logk 	Log_K_H2
+#	-add_logk	Log_alpha_D_H2(aq)/H3O+			2.0
+
+PHASES
+	H2(g)
+        	H2 = H2
+	        -add_logk	Log_KH_H2(g)
+
+	HD(g)
+        	HD = HD
+	        -add_logk	Log_KH_H2(g)
+		-add_logk	Log_alpha_D_H2(aq)/H2(g)	1.0
+
+
+	D2(g)
+        	D2 = D2
+	        -add_logk	Log_KH_H2(g)
+		-add_logk	Log_alpha_D_H2(aq)/H2(g)	2.0
+
+#Oxygen redox
+
+SOLUTION_MASTER_SPECIES
+[18O](-2) H2[18O]	0	18		18
+[18O](0)  O[18O]	0	18		18
+ISOTOPE_RATIOS
+	R(18O)_O2(aq)		[18O]
+	R(18O)_O2(g)		[18O]
+ISOTOPE_ALPHAS
+	Alpha_18O_O2(aq)/O2(g)			Log_alpha_18O_O2(aq)/O2(g)
+	Alpha_18O_O2(aq)/H3O+			Log_alpha_18O_O2(aq)/H3O+
+CALCULATE_VALUES
+	R(18O)_O2(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[18O]") <= 0) THEN GOTO 100
+30 total_18O = sum_species("{O,[18O]}2","[18O]")
+40 total_O = sum_species("{O,[18O]}2","O")
+50 if (total_O <= 0) THEN GOTO 100
+60 ratio = total_18O/total_O
+100 save ratio
+	-end
+	R(18O)_O2(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[18O]") <= 0) THEN GOTO 1000
+30 if (GAS("O2(g)") <= 0) THEN GOTO 1000
+40 total_18O = SUM_GAS("{O,[18O]}2", "[18O]")
+50 total_O = SUM_GAS("{O,[18O]}2", "O")
+60 if (total_O <= 0) THEN GOTO 1000
+70 ratio = total_18O/total_O
+1000 save ratio
+	-end
+
+	Alpha_18O_O2(aq)/O2(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("[18O]") <= 0) THEN GOTO 1000
+30 if (GAS("O2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("O[18O](g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(18O)_O2(aq)")
+60 r2 = CALC_VALUE("R(18O)_O2(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_18O_O2(aq)/H3O+
+	-start
+10 alpha = -9999.999
+20 if (TOT("[18O]") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(18O)_O2(aq)")
+60 r2 = CALC_VALUE("R(18O)_H3O+")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+NAMED_EXPRESSIONS
+	Log_KH_O2(g)   O2(g) = O2(aq)
+	        log_k           -2.960
+        	delta_h -1.844  kcal
+
+	Log_K_O2       6 H2O = O2 + 4 H3O+ + 4 e-
+	        log_k           -86.08
+	        delta_h 	134.79 kcal
+
+	Log_alpha_18O_O2(aq)/O2(g)	
+		-ln_alpha1000	0.0
+
+	Log_alpha_18O_O2(aq)/H3O+	
+		-ln_alpha1000	0.0
+
+SOLUTION_SPECIES
+	6H2O + H3[18O]+	= O[18O] + 5H3O+ + 4e-
+	log_k   	0.301029995663				# log10(2)
+	-add_logk 	Log_K_O2
+	-add_logk	Log_alpha_18O_O2(aq)/H3O+		1.0
+	-mole_balance   O(0)[18O](0)
+
+	O2 + 2H3[18O]+ = [18O]2 + 2H3O+
+	-add_logk	Log_alpha_18O_O2(aq)/H3O+		2.0
+	-mole_balance [18O](0)2
+
+#	6H2O + 2H3[18O]+ = [18O]2 + 6H3O+ + 4e-
+#	-add_logk 	Log_K_O2
+#	-add_logk	Log_alpha_18O_O2(aq)/H3O+		2.0
+PHASES
+	O2(g)
+        O2 = O2
+	-add_logk	Log_KH_O2(g)	
+
+	O[18O](g)
+	O[18O] = O[18O]
+	-add_logk	Log_KH_O2(g)	
+	-add_logk	Log_alpha_18O_O2(aq)/O2(g)		1.0
+
+	[18O]2(g)
+	[18O]2 = [18O]2
+	-add_logk	Log_KH_O2(g)	
+	-add_logk	Log_alpha_18O_O2(aq)/O2(g)		2.0
+
+#
+# Sulfur system
+#
+SOLUTION_MASTER_SPECIES
+[34S]        [34S]O4-2      0       [34S]O4		33.967
+[34S](6)     [34S]O4-2      0       [34S]O4
+[34S](-2)    H[34S]-        0       H[34S]
+
+ISOTOPES
+S
+							    # Coplen and others, 2002
+	-isotope	[34S]		permil	0.04416264  # VCDT, Vienna Canyon Diablo Troilite
+	-isotope	[34S](6)	permil	0.04416264  # VCDT
+	-isotope	[34S](-2)	permil	0.04416264  # VCDT
+S(6)
+	-isotope	[34S](6)	permil	0.04416264  # VCDT
+S(-2)
+	-isotope	[34S](-2)	permil	0.04416264  # VCDT
+
+ISOTOPE_RATIOS
+	R(34S)_SO4-2		[34S]
+	R(34S)_HSO4-		[34S]
+	R(34S)_HS-		[34S]
+	R(34S)_H2S(aq)		[34S]
+	R(34S)_H2S(g)		[34S]
+	R(D)_HSO4-		D
+	R(D)_HS-		D
+	R(D)_H2S(aq)		D
+	R(D)_H2S(g)		D
+ISOTOPE_ALPHAS
+	Alpha_34S_HS-/SO4-2		Log_alpha_34S_HS-/SO4-2
+	Alpha_34S_H2S(aq)/H2S(g)	Log_alpha_34S_H2S(aq)/H2S(g)
+	Alpha_34S_HSO4-/SO4-2		Log_alpha_34S_HSO4-/SO4-2
+	Alpha_34S_H2S(aq)/HS-		Log_alpha_34S_H2S(aq)/HS-
+#	Alpha_34S_S-2/HS-		Log_alpha_34S_S-2/HS-
+
+	Alpha_D_H2S(aq)/H2S(g)		Log_alpha_D_H2S(aq)/H2S(g)
+	Alpha_D_H2S(aq)/HS-		Log_alpha_D_H2S(aq)/HS-
+#	Alpha_D_H2S(aq)/H3O+		Log_alpha_D_H2S(aq)/H3O+
+#	Alpha_D_HS-/H3O+		Log_alpha_D_HS-/H3O+
+
+CALCULATE_VALUES
+	R(34S)_SO4-2
+	-start
+10 ratio = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 100
+30 total_34S = sum_species("*[34S]O4*","[34S]") - sum_species("*{H,D,T}[34S]O4*","[34S]")
+40 total_S = sum_species("*SO4*","S") - sum_species("*{H,D,T}SO4*","[34S]")
+50 if (total_S <= 0) THEN GOTO 100
+60 ratio = total_34S/total_S
+100 save ratio
+	-end
+
+	R(34S)_HSO4-
+	-start
+10 ratio = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 100
+30 total_34S = sum_species("*{H,D,T}{S,[34S]}O4*","[34S]")
+40 total_S = sum_species("*{H,D,T}{S,[34S]}O4*","S")
+50 if (total_S <= 0) THEN GOTO 100
+60 ratio = total_34S/total_S
+100 save ratio
+	-end
+
+	R(34S)_HS-
+	-start
+10 ratio = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 100
+30 total_34S = sum_species("*{H,D,T}[34S]*","[34S]") - sum_species("*{H,D,T}[34S]O4*","[34S]")
+40 total_S = sum_species("*{H,D,T}S*","S") - sum_species("*{H,D,T}SO4*","S")
+50 if (total_S <= 0) THEN GOTO 100
+60 ratio = total_34S/total_S
+100 save ratio
+	-end
+
+	R(34S)_H2S(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 100
+30 total_34S = sum_species("*{H,D,T}2[34S]*","[34S]") - sum_species("*{H,D,T}2[34S]O4*","[34S]")
+40 total_S = sum_species("*{H,D,T}2S*","S") - sum_species("*{H,D,T}2SO4*","S")
+50 if (total_S <= 0) THEN GOTO 100
+60 ratio = total_34S/total_S
+100 save ratio
+	-end
+
+	R(34S)_H2S(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 1000
+30 if (GAS("H2S(g)") <= 0) THEN GOTO 1000
+40 total_34S = SUM_GAS("{H,D,T}2[34S]", "[34S]")
+50 total_S = SUM_GAS("{H,D,T}2S", "S")
+60 if (total_S <= 0) THEN GOTO 1000
+70 ratio = total_34S/total_S
+1000 save ratio
+	-end
+
+	R(D)_HSO4-
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("*{H,D,T}{S,[34S]}O4*","D")
+40 total_H = sum_species("*{H,D,T}{S,[34S]}O4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+
+	R(D)_HS-
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("*D{S,[34S]}*","D") - sum_species("*D{S,[34S]}O4*","D")
+40 total_H = sum_species("*H{S,[34S]}*","H") - sum_species("*H{S,[34S]}O4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+
+	R(D)_H2S(aq)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("*{H,D,T}2{S,[34S]}*","D") - sum_species("*{H,D,T}2{S,[34S]}O4*","D")
+40 total_S = sum_species("*{H,D,T}2{S,[34S]}*","H") - sum_species("*{H,D,T}2{S,[34]}SO4*","S")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+
+	R(D)_H2S(g)
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (GAS("H2S(g)") <= 0) THEN GOTO 1000
+40 total_D = SUM_GAS("{H,D,T}2{S,[34S]}", "D")
+50 total_H = SUM_GAS("{H,D,T}2{S,[34S]}", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_D/total_H
+1000 save ratio
+	-end
+
+	Alpha_34S_HS-/SO4-2
+	-start
+10 alpha = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 1000
+30 if (TOT("S(6)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(34S)_HS-")
+60 r2 = CALC_VALUE("R(34S)_SO4-2")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_34S_H2S(aq)/H2S(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 1000
+30 if (TOT("S(6)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(34S)_H2S(aq)")
+60 r2 = CALC_VALUE("R(34S)_H2S(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_34S_HSO4-/SO4-2
+	-start
+10 alpha = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 1000
+30 if (TOT("S(6)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(34S)_HSO4-")
+60 r2 = CALC_VALUE("R(34S)_SO4-2")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_34S_H2S(aq)/HS-
+	-start
+10 alpha = -9999.999
+20 if (TOT("[34S]") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(34S)_H2S(aq)")
+60 r2 = CALC_VALUE("R(34S)_HS-")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_D_H2S(aq)/H2S(g)
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_H2S(aq)")
+60 r2 = CALC_VALUE("R(D)_H2S(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_D_H2S(aq)/HS-
+	-start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_H2S(aq)")
+60 r2 = CALC_VALUE("R(D)_HS-")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+
+NAMED_EXPRESSIONS
+	Log_KH_H2S(g)    H2S = H2S
+	        log_k           -0.997
+        	delta_h -4.570  kcal
+
+	Log_K_SO4-2_HSO4-	SO4-2 + H3O+ = HSO4- + H2O
+        	log_k           1.988
+	        delta_h 3.85    kcal
+        	-analytic       -56.889        0.006473    2307.9       19.8858         0.0
+
+	Log_K_SO4-2_HS-       	SO4-2 + 9 H3O+ + 8 e- = HS- + 4 H2O
+	        log_k           33.65
+        	delta_h -60.140 kcal
+
+	Log_K_HS-_H2S		HS- + H3O+ = H2S
+        	log_k           6.994
+	        delta_h -5.300  kcal
+        	-analytical  -11.17   0.02386  3279.0
+
+	Log_K_HS-_S-2		 HS- + H2O = S-2 + H3O+
+        	log_k           -12.918
+        	delta_h 	12.1    kcal
+
+	Log_alpha_34S_HSO4-/SO4-2
+		-ln_alpha1000	0.0
+	Log_alpha_D_HSO4-/H3O+
+		-ln_alpha1000	0.0
+	Log_alpha_34S_HS-/SO4-2
+		-ln_alpha1000	0.0
+	Log_alpha_D_HS-/H3O+				
+		-ln_alpha1000	0.0
+	Log_alpha_D_H2S(aq)/HS-
+		-ln_alpha1000	0.0
+	Log_alpha_34S_H2S(aq)/HS-
+		-ln_alpha1000	0.0
+	Log_alpha_34S_S-2/HS-
+		-ln_alpha1000	0.0
+	Log_alpha_34S_H2S(aq)/H2S(g)
+		-ln_alpha1000	0.0
+	Log_alpha_D_H2S(aq)/H2S(g)
+		-ln_alpha1000	0.0
+
+SOLUTION_SPECIES
+	SO4-2 + H3O+ = HSO4- + H2O
+		-add_logk	Log_K_SO4-2_HSO4-        	
+
+	SO4-2 + 9 H3O+ + 8 e- = HS- + 13 H2O
+		-add_logk	Log_K_SO4-2_HS-
+	        -gamma    3.5000    0.0000
+	HS- + H3O+ = H2S + H2O
+		-add_logk 	Log_K_HS-_H2S
+	HS- + H2O = S-2 + H3O+
+	        -add_logk    Log_K_HS-_S-2
+	        -gamma    5.0000    0.0000
+
+	[34S]O4-2 = [34S]O4-2
+		-log_k	0.0
+	        -gamma    5.0000   -0.0400
+
+	[34S]O4-2 + H3O+ = H[34S]O4- + H2O
+		-add_logk	Log_K_SO4-2_HSO4-        	1.0
+		-add_logk	Log_alpha_34S_HSO4-/SO4-2	1.0
+
+	SO4-2 + H2DO+ = DSO4- + H2O
+		log_k		-0.477121254719			# -log10(3)
+		-add_logk	Log_K_SO4-2_HSO4-        	1.0
+		-add_logk	Log_alpha_D_HSO4-/H3O+		1.0
+
+	[34S]O4-2 + H2DO+ = D[34S]O4- + H2O
+		log_k		-0.477121254719			# -log10(3)
+		-add_logk	Log_K_SO4-2_HSO4-        	1.0
+		-add_logk	Log_alpha_D_HSO4-/H3O+		1.0
+		-add_logk	Log_alpha_34S_HSO4-/SO4-2	1.0
+
+	[34S]O4-2 + 9 H3O+ + 8 e- = H[34S]- + 13 H2O
+		-add_logk	Log_K_SO4-2_HS-			1.0
+		-add_logk	Log_alpha_34S_HS-/SO4-2		1.0
+	        -gamma    3.5000    0.0000
+
+	HS- + H2DO+ = DS- + H3O+
+		log_k		-0.477121254719			# -log10(3)
+		-add_logk	Log_alpha_D_HS-/H3O+		1.0
+		-mole_balance DS(-2)
+
+	H2DO+ + HS- + [34S]O4-2 = D[34S]- + H3O+ + SO4-2
+		log_k		-0.477121254719			# -log10(3)
+		-add_logk	Log_alpha_D_HS-/H3O+		1.0
+		-add_logk	Log_alpha_34S_HS-/SO4-2		1.0
+	        -gamma    3.5000    0.0000
+		-mole_balance D[34S](-2)
+
+	DS- + H3O+ = HDS + H2O
+		log_k   	0.301029995663			# log10(2)
+	        -add_logk	Log_K_HS-_H2S			1.0
+		-add_logk	Log_alpha_D_H2S(aq)/HS-		1.0
+		-mole_balance HDS(-2)
+
+	DS- + H2DO+ = D2S + H2O
+		log_k		-0.477121254719			# -log10(3)
+	        -add_logk	Log_K_HS-_H2S			1.0
+		-add_logk	Log_alpha_D_H2S(aq)/HS-		2.0
+		-add_logk	Log_alpha_D_HS-/H3O+		1.0
+		-mole_balance D2S(-2)
+
+	H[34S]- + H3O+ = H2[34S] + H2O
+		-add_logk 	Log_K_HS-_H2S			1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/HS-	1.0
+		-mole_balance H2[34S](-2)
+
+	D[34S]- + H3O+ = HD[34S] + H2O
+		log_k   	0.301029995663			# log10(2)
+		-add_logk 	Log_K_HS-_H2S			1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/HS-	1.0
+		-add_logk	Log_alpha_D_H2S(aq)/HS-		1.0
+		-mole_balance HD[34S](-2)
+
+	D[34S]- + H2DO+ = D2[34S] + H2O
+		log_k		-0.477121254719			# -log10(3)
+		-add_logk 	Log_K_HS-_H2S			1.0
+		-add_logk	Log_alpha_D_H2S(aq)/HS-		2.0
+		-add_logk	Log_alpha_D_HS-/H3O+		1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/HS-	1.0
+		-mole_balance D2[34S](-2)
+
+	H[34S]- + H2O = [34S]-2 + H3O+
+		-add_logk 	Log_K_HS-_S-2			1.0
+		-add_logk	Log_alpha_34S_S-2/HS-		1.0
+
+	Ca+2 + [34S]O4-2 = Ca[34S]O4
+	        log_k           2.300
+		delta_h 1.650   kcal
+
+	Ca+2 + H[34S]O4- = CaH[34S]O4+
+	        log_k           1.08
+
+	Mg+2 + [34S]O4-2 = Mg[34S]O4
+	        log_k           2.370
+		delta_h 4.550   kcal
+
+	Na+ + [34S]O4-2 = Na[34S]O4-
+	        log_k           0.700
+		delta_h 1.120   kcal
+
+	K+ + [34S]O4-2 = K[34S]O4-
+	        log_k           0.850
+		delta_h 2.250   kcal
+		-analytical      3.106  0.0   -673.6
+PHASES
+	H2[34S](g)
+        	H2[34S] = H2[34S]
+		-add_logk	Log_KH_H2S(g)			1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/H2S(g)	1.0
+
+	HDS(g)
+        	HDS = HDS
+		-add_logk	Log_KH_H2S(g)			1.0
+		-add_logk	Log_alpha_D_H2S(aq)/H2S(g)	1.0
+
+	D2S(g)
+        	D2S = D2S
+		-add_logk	Log_KH_H2S(g)			1.0
+		-add_logk	Log_alpha_D_H2S(aq)/H2S(g)	2.0
+
+	HD[34S](g)
+        	HD[34S] = HD[34S]
+		-add_logk	Log_KH_H2S(g)			1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/H2S(g)	1.0
+		-add_logk	Log_alpha_D_H2S(aq)/H2S(g)	1.0
+
+	D2[34S](g)
+        	D2[34S] = D2[34S]
+		-add_logk	Log_KH_H2S(g)			1.0
+		-add_logk	Log_alpha_34S_H2S(aq)/H2S(g)	1.0
+		-add_logk	Log_alpha_D_H2S(aq)/H2S(g)	2.0
+
+#
+# Nitrogen  system
+#
+SOLUTION_MASTER_SPECIES
+[15N]        [15N]O3-        0       [15N]O3		15.00010897312
+[15N](5)     [15N]O3-        0       [15N]
+[15N](0)     [15N]N          0       [15N]
+[15N](-3)    [15N]H4+        0       [15N]
+
+
+ISOTOPES
+N
+							     # Coplen and others, 2002
+	-isotope	[15N]		permil	0.003676867  # Air
+	-isotope	[15N](5)	permil	0.003676867  # Air
+	-isotope	[15N](0)	permil	0.003676867  # Air
+	-isotope	[15N](-3)	permil	0.003676867  # Air
+N(5)
+	-isotope	[15N](5)	permil	0.003676867  # Air
+N(0)
+	-isotope	[15N](0)	permil	0.003676867  # Air
+N(-3)
+	-isotope	[15N](-3)	permil	0.003676867  # Air
+
+ISOTOPE_RATIOS
+	R(15N)_NO3-		[15N]
+	R(15N)_N2		[15N]
+	R(15N)_NH3		[15N]
+	R(15N)_NH4+		[15N]
+	R(D)_NH3		D
+	R(D)_NH4+		D
+ISOTOPE_ALPHAS
+	Alpha_15N_N2/NO3-		Log_alpha_15N_N2/NO3-
+	Alpha_15N_NH4+/NO3-		Log_alpha_15N_NH4+/NO3-
+
+CALCULATE_VALUES
+	R(15N)_NO3-
+	-start
+10 ratio = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 100
+30 total_15N = TOT("[15N](5)")
+40 total_N = TOT("N(5)")
+50 if (total_N <= 0) THEN GOTO 100
+60 ratio = total_15N/total_N
+100 save ratio
+	-end
+
+	R(15N)_N2
+	-start
+10 ratio = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 100
+30 total_15N = TOT("[15N](0)")
+40 total_N = TOT("N(0)")
+50 if (total_N <= 0) THEN GOTO 100
+60 ratio = total_15N/total_N
+100 save ratio
+	-end
+
+	R(15N)_NH3
+	-start
+10 ratio = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 100
+30 total_15N = sum_species("{[15N],N}{H,D,T}3","[15N]") 
+40 total_N = sum_species("{15N,N}{H,D,T}3","N")
+50 if (total_N <= 0) THEN GOTO 100
+60 ratio = total_15N/total_N
+100 save ratio
+	-end
+
+	R(15N)_NH4+
+	-start
+10 ratio = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 100
+30 total_15N = sum_species("*{[15N],N}{H,D,T}4*","[15N]") 
+40 total_N = sum_species("*{15N,N}{H,D,T}4*","N")
+50 if (total_N <= 0) THEN GOTO 100
+60 ratio = total_15N/total_N
+100 save ratio
+	-end
+
+	R(D)_NH3
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("{[15N],N}{H,D,T}3","D") 
+40 total_H = sum_species("{15N,N}{H,D,T}3","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+
+	R(D)_NH4+
+	-start
+10 ratio = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 100
+30 total_D = sum_species("*{[15N],N}{H,D,T}4*","D") 
+40 total_H = sum_species("*{15N,N}{H,D,T}4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+	-end
+
+	Alpha_15N_N2/NO3-
+	-start
+10 alpha = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 1000
+30 if (TOT("N(5)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(15N)_N2")
+60 r2 = CALC_VALUE("R(15N)_NO3-")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+	Alpha_15N_NH4+/NO3-
+	-start
+10 alpha = -9999.999
+20 if (TOT("[15N]") <= 0) THEN GOTO 1000
+30 if (TOT("N(5)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(15N)_NH4+")
+60 r2 = CALC_VALUE("R(15N)_NO3-")
+70 if (r2 <= 0) THEN GOTO 1000
+80 alpha = r1/r2
+1000 save alpha
+	-end
+
+NAMED_EXPRESSIONS
+	Log_K_NO3-_N2		2 NO3- + 12 H+ + 10 e- = N2 + 6 H2O
+	        log_k           207.080
+		delta_h -312.130        kcal
+
+	Log_K_NO3-_NH4+	        NO3- + 10 H+ + 8 e- = NH4+ + 3 H2O
+	        log_k           119.077
+		delta_h -187.055        kcal
+
+        Log_K_NO3-_NO2-		NO3- + 2 H3O+ + 2 e- = NO2- + 3H2O
+	        log_k           28.570
+		delta_h -43.760 kcal
+
+	Log_alpha_15N_N2/NO3-
+		-ln_alpha1000	0.0
+
+	Log_alpha_15N_NH4+/NO3-
+		-ln_alpha1000	0.0
+
+	Log_alpha_15N_N2/NO3-
+		-ln_alpha1000	0.0
+
+	Log_alpha_D_NH4+/H3O+
+		-ln_alpha1000	0.0
+
+	 Log_alpha_15N_NO2-/NO3-	
+		-ln_alpha1000	0.0
+
+SOLUTION_SPECIES
+NO3- + 2 H3O+ + 2 e- = NO2- + 3H2O
+         -add_logk	 Log_K_NO3-_NO2-			1.0
+#        log_k           28.570
+#        delta_h -43.760 kcal
+        -gamma    3.0000    0.0000
+
+2 NO3- + 12 H3O+ + 10e- = N2 + 18 H2O
+        -add_log_k   Log_K_NO3-_N2	1.0        
+
+NH4+ + H2O = NH3 + H3O+
+        log_k           -9.252
+        delta_h 12.48   kcal
+        -analytic    0.6322    -0.001225     -2835.76
+
+NO3- + 10 H3O+ + 8 e- = NH4+ + 13 H2O
+        -add_log_k   Log_K_NO3-_NH4+	1.0        
+        -gamma    2.5000    0.0000
+
+NH4+ + SO4-2 = NH4SO4-
+        log_k           1.11
+	
+[15N]O3- = [15N]O3- 
+	 -log_k	    0.0
+	 -gamma    3.0000    0.0000
+
+NO3- + [15N]O3- + 12H3O+ + 10e-  = [15N]N + 18H2O
+	 log_k   	 0.301029995663			        # log10(2)
+         -add_logk	 Log_K_NO3-_N2				1.0
+	 -add_logk	 Log_alpha_15N_N2/NO3-			1.0
+	  -mole_balance   [15N](0)N(0)
+
+[15N]O3- + 10H3O+ + 8e-  = [15N]H4+ + 13H2O
+         -add_logk	 Log_K_NO3-_NH4+			1.0
+	 -add_logk	 Log_alpha_15N_NH4+/NO3-		1.0
+	 -mole_balance [15N](-3)H4
+	 -gamma    2.5000    0.0000
+
+[15N]O3- + 2 H3O+ + 2 e- = [15N]O2- + 3H2O
+         -add_logk	 Log_K_NO3-_NO2-			1.0
+	 -add_logk	 Log_alpha_15N_NO2-/NO3-		1.0
+	 delta_h -43.760 kcal
+	 -gamma    3.0000    0.0000
+
+#
+#  MISSING [15N]H3(aq), [15N]H4SO4-
+#
+
+
+2[15N]O3- + N2 = [15N]2 + 2NO3-
+	 -add_logk	 Log_alpha_15N_N2/NO3-			2.0
+	 -mole_balance [15N](0)2
+
+NH4+ + H2DO+ = NH3D+ + H3O+
+	 log_k		0.124938736682999329			# log10(4/3)
+	 -add_logk	 Log_alpha_D_NH4+/H3O+			1.0
+
+NH4+ + HD2O+ = NH2D2+ + H3O+
+	 log_k   	 0.301029995663			        # log10(2)
+	 -add_logk	 Log_alpha_D_NH4+/H3O+			2.0
+
+PHASES
+
+
 END
-
-
-
-
