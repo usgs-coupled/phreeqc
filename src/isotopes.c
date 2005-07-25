@@ -785,7 +785,7 @@ int print_isotope_ratios(void)
 		if (master_isotope[i]->minor_isotope == FALSE) continue;
 		master_ptr = master_bsearch(master_isotope[i]->name);
 		if (master_ptr == NULL) continue;
-		if (master_ptr->total > 0) {
+		if (master_ptr->total > 0 || master_ptr->s->moles > 0) {
 			print_isotope = TRUE;
 			break;
 		}
@@ -833,7 +833,7 @@ int print_isotope_alphas(void)
 		if (master_isotope[i]->minor_isotope == FALSE) continue;
 		master_ptr = master_bsearch(master_isotope[i]->name);
 		if (master_ptr == NULL) continue;
-		if (master_ptr->total > 0) {
+		if (master_ptr->total > 0 || master_ptr->s->moles > 0) {
 			print_isotope = TRUE;
 			break;
 		}

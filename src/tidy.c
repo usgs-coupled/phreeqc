@@ -1610,6 +1610,16 @@ int tidy_species(void)
 					s[i]->h += s[i]->next_secondary[j].coef;
 				} else if (s[i]->next_secondary[j].elt->primary->s == s_h2o) {
 					s[i]->o += s[i]->next_secondary[j].coef;
+				} else if (s[i]->mole_balance != NULL) {
+					master_ptr = s[i]->next_secondary[j].elt->master;
+					if (master_ptr->primary == TRUE) {
+						if (master_ptr->s->secondary != NULL) {
+							master_ptr = master_ptr->s->secondary;
+						} 
+					}
+					if (master_ptr->coef != 1) {
+						s[i]->next_secondary[j].coef /= master_ptr->coef;
+					}
 				}
 			}
 			if (s[i]->type == EX) {
