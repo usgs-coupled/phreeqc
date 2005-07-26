@@ -4170,6 +4170,8 @@ struct solution *solution_alloc(void)
 	solution_ptr->totals[0].description = NULL;
 	space ((void *) &(solution_ptr->master_activity), INIT, &max_mass_balance, sizeof (struct master_activity));
 	solution_ptr->master_activity[0].description = NULL;
+	solution_ptr->species_gamma = NULL;
+	solution_ptr->count_species_gamma = 0;
 /*
  *   Initial allocation of space for pe's
  */
@@ -4302,6 +4304,21 @@ static struct solution *solution_copy(struct solution *solution_old_ptr, int n_u
  */
 	memcpy ( (void *) solution_new_ptr->master_activity, (void *) solution_old_ptr->master_activity, (size_t) count_master_activity * sizeof (struct master_activity));
 /*
+ *   malloc space for species gammas
+ */
+	if (solution_old_ptr->count_species_gamma > 0) {
+		solution_new_ptr->species_gamma = (struct master_activity *) PHRQ_malloc( (size_t) solution_old_ptr->count_species_gamma * sizeof(struct master_activity));
+		if (solution_new_ptr->species_gamma == NULL) malloc_error();
+		/*
+		 *   Copy species gammas
+		 */
+		memcpy ( (void *) solution_new_ptr->species_gamma, (void *) solution_old_ptr->species_gamma, (size_t) solution_old_ptr->count_species_gamma * sizeof (struct master_activity));
+		solution_new_ptr->count_species_gamma = solution_old_ptr->count_species_gamma;
+	} else {
+		solution_new_ptr->species_gamma = NULL;
+		solution_new_ptr->count_species_gamma = 0;
+	}
+/*
  *   Copy pe data
  */
 	solution_new_ptr->pe = pe_data_dup (solution_old_ptr->pe);
@@ -4424,6 +4441,8 @@ int solution_free (struct solution *solution_ptr)
 /*   Free struct conc array */
 	solution_ptr->totals = free_check_null (solution_ptr->totals);
 	solution_ptr->master_activity = free_check_null (solution_ptr->master_activity);
+	solution_ptr->species_gamma = free_check_null (solution_ptr->species_gamma);
+	solution_ptr->count_species_gamma = 0;
 /*   Free struct pe_data array */
 	pe_data_free (solution_ptr->pe); 
 /*   Free isotope data */
