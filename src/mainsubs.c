@@ -1485,7 +1485,7 @@ int xsolution_save(int n_user)
  *
  *   input:  n_user is user solution number of target
  */
-	int i, n;
+	int i, j, n;
 	int count_mass_balance, count_master_activity;
 	int max_mass_balance, max_master_activity;
 	struct solution *solution_ptr;
@@ -1600,6 +1600,25 @@ int xsolution_save(int n_user)
 			space ((void *) &(solution_ptr->totals), count_mass_balance + 2,
 			       &max_mass_balance, sizeof (struct conc));
 		}
+	}
+	if (pitzer_model == TRUE) {
+		i = 0;
+		for (j = 0; j < count_s; j++) {
+			if (s[j]->lg != 0.0) i++;
+		}
+		solution_ptr->species_gamma = PHRQ_realloc(solution_ptr->species_gamma, (size_t) (i * sizeof(struct master_activity)));
+		i = 0;
+		for (j= 0; j < count_s; j++) {
+			if (s[j]->lg != 0.0) {
+				solution_ptr->species_gamma[i].la = s[j]->lg;
+				solution_ptr->species_gamma[i].description = s[j]->name;
+				i++;
+			}
+		}
+		solution_ptr->count_species_gamma = i;
+	} else {
+		solution_ptr->species_gamma = NULL;
+		solution_ptr->count_species_gamma = 0;
 	}
 /*
  *   Mark end of totals

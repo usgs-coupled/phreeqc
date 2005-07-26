@@ -42,6 +42,7 @@ int pitzer_init (void)
 /*
  *      Initialization for pitzer
  */
+	convergence_tolerance = 1e-10;
 	pitzer_model = FALSE;
 	max_pitz_param = 100;
 	count_pitz_param = 0;
@@ -982,7 +983,7 @@ int set_pz(int initial)
 	solution_ptr = use.solution_ptr;
 	for (i=0; i < count_s_x; i++) {
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
-		s_x[i]->lg = 0.0;
+		/*s_x[i]->lg = 0.0;*/
 		s_x[i]->lg_pitzer = 0.0;
 	}
 /*

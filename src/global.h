@@ -820,6 +820,8 @@ struct solution {
 	struct master_activity *master_activity;
 	int count_isotopes;
 	struct isotope *isotopes;
+	struct master_activity *species_gamma;
+	int count_species_gamma;
 };
 struct master_activity {
 	char *description;
@@ -1083,6 +1085,7 @@ struct species {                      /* all data pertinent to an aqueous specie
 	char *name;                   /* name of species */
 	char *mole_balance;           /* formula for mole balance */
 	int in;                       /* species used in model if TRUE */
+	int number;
 	struct master *primary;       /* points to master species list, NULL if not primary master */
 	struct master *secondary;     /* points to master species list, NULL if not secondary master */
 	LDBLE gfw;                   /* gram formula wt of species */

@@ -205,6 +205,11 @@ int xsolution_zero (void)
 		master[i]->total_primary = 0.0;
 		master[i]->s->la = 0.0;
 	}
+	if (pitzer_model == TRUE) {
+		for (i=0; i < count_s; i++) {
+			s[i]->lg = 0.0;
+		}
+	}
 /*
  *   Copy pe data (not sure this will be used
  */
@@ -226,6 +231,7 @@ int add_solution (struct solution *solution_ptr, LDBLE extensive, LDBLE intensiv
  */
 	int i;
 	struct master *master_ptr;
+	struct species *species_ptr;
 /*
  *   Add solution to global variables
  */
@@ -253,6 +259,17 @@ int add_solution (struct solution *solution_ptr, LDBLE extensive, LDBLE intensiv
 	for (i=0; solution_ptr->master_activity[i].description != NULL; i++) {
 		master_ptr = master_bsearch(solution_ptr->master_activity[i].description);
 		master_ptr->s->la += solution_ptr->master_activity[i].la * intensive;
+	}
+/*
+ *   Accumulate initial guesses for log gamma
+ */
+	if (pitzer_model == TRUE) {
+		for (i=0; i < solution_ptr->count_species_gamma ; i++) {
+			species_ptr = s_search(solution_ptr->species_gamma[i].description);
+			if (species_ptr != NULL) {
+				species_ptr->lg += solution_ptr->species_gamma[i].la * intensive;
+			}
+		}
 	}
 	return(OK);
 }

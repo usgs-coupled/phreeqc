@@ -963,7 +963,7 @@ int build_model(void)
 			if (s[i]->gflag == 9 ) {
 				gfw_water = 18.0/1000.0;
 			}
-			s[i]->lg = 0.0;
+			if (pitzer_model == FALSE) s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x) {
 				space ((void *) &s_x, count_s_x + 1,
 				       &max_s_x,

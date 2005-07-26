@@ -1462,6 +1462,7 @@ int tidy_species(void)
  *   Set secondary and primary pointers in species structures
  */
 	for (i=0; i < count_s; i++) {
+		s[i]->number = i;
 		s[i]->primary=NULL;
 		s[i]->secondary=NULL;
 		if (s[i]->check_equation == TRUE ) {
