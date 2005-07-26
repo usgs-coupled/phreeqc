@@ -296,7 +296,7 @@ int check_residuals(void)
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
 				error_msg(error_string, CONTINUE);
 			}
-		} else if (x[i]->type == MH) {
+		} else if (x[i]->type == MH && pitzer_model == FALSE) {
 #define COMBINE
 			/*#define COMBINE_CHARGE*/
 #ifdef COMBINE
