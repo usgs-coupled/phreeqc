@@ -1566,12 +1566,32 @@ int xsolution_save(int n_user)
  *   Save list of log activities
  */
 		if (master[i]->in != FALSE) {
+			count_master_activity++;
+		}
+	}
+	solution_ptr->master_activity = PHRQ_realloc(solution_ptr->master_activity, (size_t) (count_master_activity + 1)*sizeof(struct master_activity));
+	solution_ptr->count_master_activity = count_master_activity;
+	count_master_activity = 0;
+	for (i=0; i < count_master; i++) {
+		if (master[i]->s->type == EX || 
+		    master[i]->s->type == SURF || 
+		    master[i]->s->type == SURF_PSI) continue;
+		if (strcmp(master[i]->elt->name,"H") == 0 ||
+		    strcmp(master[i]->elt->name,"H(1)") == 0 ||
+		    strcmp(master[i]->elt->name,"O") == 0 ||
+    		    strcmp(master[i]->elt->name,"O(-2)") == 0) continue;
+/*
+ *   Save list of log activities
+ */
+		if (master[i]->in != FALSE) {
 			solution_ptr->master_activity[count_master_activity].description = master[i]->elt->name;
 			solution_ptr->master_activity[count_master_activity++].la = master[i]->s->la;
+			/*
 			if (count_master_activity + 2 >= max_master_activity) {
 				space ((void *) &(solution_ptr->master_activity), count_master_activity + 2,
 				       &max_master_activity, sizeof (struct master_activity));
 			}
+			*/
 		}
 		if (master[i]->total <= MIN_TOTAL) {
 			master[i]->total = 0.0;
@@ -1631,6 +1651,7 @@ int xsolution_save(int n_user)
 	if (solution_ptr->totals == NULL) malloc_error();
 	solution_ptr->master_activity = PHRQ_realloc(solution_ptr->master_activity, (size_t) count_master_activity * sizeof(struct master_activity)); 
 	if (solution_ptr->master_activity == NULL) malloc_error();
+	solution_ptr->count_master_activity = count_master_activity;
 /*
  *   Save isotope data
  */
