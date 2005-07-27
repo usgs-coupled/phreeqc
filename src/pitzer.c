@@ -1451,7 +1451,8 @@ int check_gammas_pz(void)
 		if (fabs(base[i] - s_x[i]->lg) > tol) converge = FALSE;
 	}
 	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
-	if (fabs(log10(AW) - s_h2o->la) > tol) converge = FALSE;
+	if ((pow(10.0,s_h2o->la) - AW) > tol) converge = FALSE;
+	/* if (fabs(log10(AW) - s_h2o->la) > tol) converge = FALSE; */
 #ifdef SKIP
 	/* underrelaxation for gammas and la water */
 	if (converge == FALSE && mu_x > 1) {
