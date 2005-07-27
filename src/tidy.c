@@ -382,13 +382,15 @@ int tidy_model(void)
 		input_error++;
 		error_msg("e-, primary master species for E-, not defined.", CONTINUE);
 	}
-	if (s_h2 == NULL) {
-		input_error++;
-		error_msg("H2(aq) not defined in solution_species.", CONTINUE);
-	}
-	if (s_o2 == NULL) {
-		input_error++;
-		error_msg("O2(aq) not defined in solution_species.", CONTINUE);
+	if (pitzer_model == FALSE) {
+		if (s_h2 == NULL) {
+			input_error++;
+			error_msg("H2(aq) not defined in solution_species.", CONTINUE);
+		}
+		if (s_o2 == NULL) {
+			input_error++;
+			error_msg("O2(aq) not defined in solution_species.", CONTINUE);
+		}
 	}
 	element_h_one = element_store ("H(1)");
 	if (element_h_one == NULL) {

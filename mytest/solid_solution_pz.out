@@ -141,13 +141,13 @@ Using solid solution assemblage 1.
                                        pe  =   4.000      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   5.658e-05
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   3.292e-05
                        Total CO2 (mol/kg)  =   4.000e-05
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   7.075e-06
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   9.68
-                               Iterations  =   3
+                               Iterations  =   1
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.99455
                          Density of water  =   0.99706
@@ -263,8 +263,8 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   7.075e-06
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   1.38
-                               Iterations  =  11
-                         Gamma iterations  =   1
+                               Iterations  =  14
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.98127
                          Density of water  =   0.99706
                                   Total H  = 1.110125e+02

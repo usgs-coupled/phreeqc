@@ -1,5 +1,6 @@
 DATABASE ../database/pitzer.dat
 knobs
+	-conv	1e-10
 	-log
 # test removing all of surface
 solution 1

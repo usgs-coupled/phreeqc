@@ -1,5 +1,6 @@
 DATABASE ../database/pitzer.dat
 knobs
+	-conv	1e-10
 	-step	10
 #	-iter	400
 #Test Problem 1a:  Canadian Shield Brine T-93; Frape et al., 1984, Alk+Mac Scale

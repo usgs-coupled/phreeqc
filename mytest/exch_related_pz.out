@@ -43,16 +43,16 @@ Initial solution 1.
                                        pH  =   7.000    
                                        pe  =   4.000    
                         Activity of water  =   1.000
-                           Ionic strength  =   1.002e-07
+                           Ionic strength  =   1.003e-07
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   4.616e-10
+                 Total alkalinity (eq/kg)  =   4.618e-10
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
-                               Iterations  =   1
-                         Gamma iterations  =   1
+                               Iterations  =   2
+                         Gamma iterations  =   2
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -64,9 +64,9 @@ Initial solution 1.
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	OH-               1.005e-07   1.005e-07    -6.998    -6.998     0.000
-	H+                1.000e-07   1.000e-07    -7.000    -7.000     0.000
-	H2O               5.551e+01   1.000e+00     1.744     0.000     0.000
+	OH-               1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+	H+                1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             1.416e-25
 	H2                7.079e-26   7.079e-26   -25.150   -25.150     0.000
 O(0)             0.000e+00
@@ -76,7 +76,7 @@ O(0)             0.000e+00
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	O2(g)          -139.12 -142.08   -2.96  O2
 
 -----------------------------------------
@@ -93,7 +93,7 @@ Using pure phase assemblage 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.41   -8.41  1.000e-02  9.868e-03 -1.318e-04
+	Calcite           0.00   -8.41   -8.41  1.000e-02  9.868e-03 -1.318e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -112,10 +112,10 @@ Using pure phase assemblage 1.
                  Total alkalinity (eq/kg)  =   2.635e-04
                        Total CO2 (mol/kg)  =   1.318e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  12
-                         Gamma iterations  =   1
+                               Iterations  =  17
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.98136
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -185,7 +185,7 @@ X                3.257e-03 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              1.628e-03   3.257e-03   1.000e+00     0.000
+	CaX2              1.628e-03   3.257e-03   1.000e+00    -0.000
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -221,7 +221,7 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                2.010e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -245,10 +245,10 @@ X                2.010e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                  Total alkalinity (eq/kg)  =  -2.300e-01
                        Total CO2 (mol/kg)  =   9.998e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.615e-10
+                  Electrical balance (eq)  =  -5.560e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  13
-                         Gamma iterations  =   1
+                               Iterations  =  17
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.94479
                          Density of water  =   0.99706
                                   Total H  = 1.112624e+02
@@ -320,7 +320,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                2.010e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -344,9 +344,9 @@ X                2.010e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                  Total alkalinity (eq/kg)  =  -2.300e-01
                        Total CO2 (mol/kg)  =   9.998e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.615e-10
+                  Electrical balance (eq)  =  -5.560e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  17
+                               Iterations  =   1
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.94479
                          Density of water  =   0.99706
@@ -426,8 +426,8 @@ Initial solution 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
-                               Iterations  =   2
-                         Gamma iterations  =   1
+                               Iterations  =   3
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -495,7 +495,7 @@ Using pure phase assemblage 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
-                               Iterations  =   2
+                               Iterations  =   1
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
@@ -578,7 +578,7 @@ Reaction 1.	Irreversible reaction defined in simulation 5.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.41   -8.41  0.000e+00  9.987e-02  9.987e-02
+	Calcite           0.00   -8.41   -8.41  0.000e+00  9.987e-02  9.987e-02
 
 -----------------------------Exchange composition------------------------------
 
@@ -608,8 +608,8 @@ X                3.296e-02 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  19
-                         Gamma iterations  =   1
+                               Iterations  =  29
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.98136
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -642,7 +642,7 @@ O(0)             0.000e+00
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
-	Calcite          -0.00   -8.41   -8.41  CaCO3
+	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -6.19   -7.66   -1.47  CO2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	O2(g)          -127.38 -130.34   -2.96  O2

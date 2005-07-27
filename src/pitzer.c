@@ -42,7 +42,6 @@ int pitzer_init (void)
 /*
  *      Initialization for pitzer
  */
-	convergence_tolerance = 1e-10;
 	pitzer_model = FALSE;
 	max_pitz_param = 100;
 	count_pitz_param = 0;
@@ -1430,16 +1429,9 @@ int model_pz(void)
 int check_gammas_pz(void)
 /* ---------------------------------------------------------------------- */
 {
-	double *base, old_aw, old_mu, tol;
+	double old_aw, old_mu, tol;
 	int converge, i;
 
-	if (debug_model == TRUE) output_msg(OUTPUT_MESSAGE,"\nRecalculating Gammas %d\n", iterations);
-	base = (LDBLE *) PHRQ_malloc((size_t) count_s_x * sizeof(LDBLE));
-	if (base == NULL) malloc_error();
-
-	for (i = 0; i < count_s_x; i++) {
-		base[i] = s_x[i]->lg;
-	}
 	old_mu = mu_x;
 	old_aw = s_h2o->la;
 	pitzer();
@@ -1447,24 +1439,14 @@ int check_gammas_pz(void)
 	mb_sums();
 	converge = TRUE;
 	tol = convergence_tolerance*10.;
-	for (i = 0; i < count_s_x; i++) {
-		if (fabs(base[i] - s_x[i]->lg) > tol) converge = FALSE;
+	for (i = 0; i < count_unknowns; i++) {
+		if (x[i]->type != PITZER_GAMMA) continue;
+		if (fabs(x[i]->s->lg - x[i]->s->lg_pitzer) > tol) {
+			converge = FALSE;
+		}
 	}
 	if (fabs(old_mu - mu_x) > tol) converge = FALSE;
 	if ((pow(10.0,s_h2o->la) - AW) > tol) converge = FALSE;
-	/* if (fabs(log10(AW) - s_h2o->la) > tol) converge = FALSE; */
-#ifdef SKIP
-	/* underrelaxation for gammas and la water */
-	if (converge == FALSE && mu_x > 1) {
-		for (i = 0; i < count_s_x; i++) {
-			s_x[i]->lg = base[i] + (s_x[i]->lg - base[i])*0.8;
-		}
-		if (fabs(old_mu - mu_x) > tol) converge = FALSE;
-		/*s_h2o->la = old_aw + (s_h2o->la - old_aw)*1.0;*/
-	}
-#endif
-	/*fprintf(stderr, "old aw: %e\tnew aw: %e\n", old_aw, s_h2o->la);*/
-	base = free_check_null(base);
 	return converge;
 }
 /* ---------------------------------------------------------------------- */

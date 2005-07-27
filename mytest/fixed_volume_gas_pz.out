@@ -42,16 +42,16 @@ Initial solution 1.
                                        pH  =   7.000    
                                        pe  =   4.000    
                         Activity of water  =   1.000
-                           Ionic strength  =   1.002e-07
+                           Ionic strength  =   1.003e-07
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   4.616e-10
+                 Total alkalinity (eq/kg)  =   4.618e-10
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
-                               Iterations  =   1
-                         Gamma iterations  =   1
+                               Iterations  =   2
+                         Gamma iterations  =   2
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -63,9 +63,9 @@ Initial solution 1.
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	OH-               1.005e-07   1.005e-07    -6.998    -6.998     0.000
-	H+                1.000e-07   1.000e-07    -7.000    -7.000     0.000
-	H2O               5.551e+01   1.000e+00     1.744     0.000     0.000
+	OH-               1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+	H+                1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             1.416e-25
 	H2                7.079e-26   7.079e-26   -25.150   -25.150     0.000
 O(0)             0.000e+00
@@ -75,7 +75,7 @@ O(0)             0.000e+00
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	O2(g)          -139.12 -142.08   -2.96  O2
 
 -----------------------------------------
@@ -107,13 +107,13 @@ Using pure phase assemblage 1.
                         Activity of water  =   1.000
                            Ionic strength  =   2.237e-05
                        Mass of water (kg)  =   1.000e-00
-                 Total alkalinity (eq/kg)  =   4.616e-10
+                 Total alkalinity (eq/kg)  =   4.618e-10
                        Total CO2 (mol/kg)  =   1.099e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
-                         Gamma iterations  =   1
+                               Iterations  =  12
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.99993
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -229,8 +229,8 @@ CO2(g)                -2.12   7.512e-03   1.293e-03   3.070e-04  -9.855e-04
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.41   -8.41  1.000e+01  9.999e+00 -5.441e-04
-	Dolomite         -0.00  -17.08  -17.08  1.000e+01  9.999e+00 -6.494e-04
+	Calcite           0.00   -8.41   -8.41  1.000e+01  9.999e+00 -5.441e-04
+	Dolomite          0.00  -17.08  -17.08  1.000e+01  9.999e+00 -6.494e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -250,10 +250,10 @@ CO2(g)                -2.12   7.512e-03   1.293e-03   3.070e-04  -9.855e-04
                  Total alkalinity (eq/kg)  =   3.686e-03
                        Total CO2 (mol/kg)  =   3.927e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  10
-                         Gamma iterations  =   1
+                               Iterations  =  15
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.95407
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -292,9 +292,9 @@ O(0)             0.000e+00
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
 	Brucite          -5.52  -16.40  -10.88  Mg(OH)2
-	Calcite          -0.00   -8.41   -8.41  CaCO3
+	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.12   -3.59   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Magnesite        -0.84   -8.68   -7.83  MgCO3
 	Nesquehonite     -3.51   -8.68   -5.17  MgCO3:3H2O
@@ -341,8 +341,8 @@ CO2(g)                -2.86   1.365e-03   0.000e+00   5.580e-05   5.580e-05
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -3.036e-04
-	Dolomite          0.00  -17.08  -17.08  1.000e+01  1.000e+01 -3.556e-04
+	Calcite          -0.00   -8.41   -8.41  1.000e+01  1.000e+01 -3.036e-04
+	Dolomite         -0.00  -17.08  -17.08  1.000e+01  1.000e+01 -3.556e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -362,10 +362,10 @@ CO2(g)                -2.86   1.365e-03   0.000e+00   5.580e-05   5.580e-05
                  Total alkalinity (eq/kg)  =   2.030e-03
                        Total CO2 (mol/kg)  =   2.058e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.616e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  11
-                         Gamma iterations  =   1
+                               Iterations  =  15
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.96296
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02

@@ -2172,7 +2172,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(18O)_CO2(aq)")
 60 r2 = CALC_VALUE("R(18O)_CO2(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_13C_CO2(aq)/CO2(g)
@@ -2184,7 +2185,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(13C)_CO2(aq)")
 60 r2 = CALC_VALUE("R(13C)_CO2(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_CO2(aq)/H2O(l)
@@ -2195,7 +2197,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(18O)_CO2(aq)")
 50 r2 = CALC_VALUE("R(18O)_H2O(l)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_D_H2O(l)/H2O(g)
@@ -2206,7 +2209,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(D)_H2O(l)")
 50 r2 = CALC_VALUE("R(D)_H2O(g)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_H2O(l)/H2O(g)
@@ -2217,7 +2221,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(18O)_H2O(l)")
 50 r2 = CALC_VALUE("R(18O)_H2O(g)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_H3O+/H2O(l)
@@ -2227,7 +2232,8 @@ CALCULATE_VALUES
 30 r1 = CALC_VALUE("R(18O)_H3O+")
 40 r2 = CALC_VALUE("R(18O)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
-60 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_D_H3O+/H2O(l)
@@ -2237,7 +2243,8 @@ CALCULATE_VALUES
 30 r1 = CALC_VALUE("R(D)_H3O+")
 40 r2 = CALC_VALUE("R(D)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
-60 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_OH-/H2O(l)
@@ -2247,7 +2254,8 @@ CALCULATE_VALUES
 30 r1 = CALC_VALUE("R(18O)_OH-")
 40 r2 = CALC_VALUE("R(18O)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
-60 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_D_OH-/H2O(l)
@@ -2257,7 +2265,8 @@ CALCULATE_VALUES
 30 r1 = CALC_VALUE("R(D)_OH-")
 40 r2 = CALC_VALUE("R(D)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
-60 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_13C_CO3-2/CO2(aq)
@@ -2268,7 +2277,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(13C)_CO3-2")
 50 r2 = CALC_VALUE("R(13C)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_CO3-2/CO2(aq)
@@ -2279,7 +2289,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(18O)_CO3-2")
 50 r2 = CALC_VALUE("R(18O)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_13C_HCO3-/CO2(aq)
@@ -2290,7 +2301,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(13C)_HCO3-")
 50 r2 = CALC_VALUE("R(13C)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_HCO3-/CO2(aq)
@@ -2301,7 +2313,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(18O)_HCO3-")
 50 r2 = CALC_VALUE("R(18O)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_D_HCO3-/H2O(l)
@@ -2312,7 +2325,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(D)_HCO3-")
 50 r2 = CALC_VALUE("R(D)_H2O(l)")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_13C_CO2(aq)/Calcite
@@ -2323,7 +2337,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(13C)_CO2(aq)")
 50 r2 = CALC_VALUE("R(13C)_Calcite")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 	Alpha_18O_CO2(aq)/Calcite
@@ -2334,7 +2349,8 @@ CALCULATE_VALUES
 40 r1 = CALC_VALUE("R(18O)_CO2(aq)")
 50 r2 = CALC_VALUE("R(18O)_Calcite")
 60 if (r2 <= 0) THEN GOTO 1000
-70 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2411,7 +2427,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(13C)_CH4(aq)")
 60 r2 = CALC_VALUE("R(13C)_CH4(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2424,7 +2441,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_CH4(aq)")
 60 r2 = CALC_VALUE("R(D)_CH4(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2436,7 +2454,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(13C)_CH4(aq)")
 60 r2 = CALC_VALUE("R(13C)_CO3-2")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2448,7 +2467,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_CH4(aq)")
 60 r2 = CALC_VALUE("R(D)_H3O+")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2665,7 +2685,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_H2(aq)")
 60 r2 = CALC_VALUE("R(D)_H2(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2676,7 +2697,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_H2(aq)")
 60 r2 = CALC_VALUE("R(D)_H3O+")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2771,7 +2793,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(18O)_O2(aq)")
 60 r2 = CALC_VALUE("R(18O)_O2(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2782,7 +2805,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(18O)_O2(aq)")
 60 r2 = CALC_VALUE("R(18O)_H3O+")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2981,7 +3005,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(34S)_HS-")
 60 r2 = CALC_VALUE("R(34S)_SO4-2")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -2993,7 +3018,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(34S)_H2S(aq)")
 60 r2 = CALC_VALUE("R(34S)_H2S(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3005,7 +3031,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(34S)_HSO4-")
 60 r2 = CALC_VALUE("R(34S)_SO4-2")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3017,7 +3044,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(34S)_H2S(aq)")
 60 r2 = CALC_VALUE("R(34S)_HS-")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3029,7 +3057,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_H2S(aq)")
 60 r2 = CALC_VALUE("R(D)_H2S(g)")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3041,7 +3070,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(D)_H2S(aq)")
 60 r2 = CALC_VALUE("R(D)_HS-")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3331,7 +3361,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(15N)_N2")
 60 r2 = CALC_VALUE("R(15N)_NO3-")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 
@@ -3343,7 +3374,8 @@ CALCULATE_VALUES
 50 r1 = CALC_VALUE("R(15N)_NH4+")
 60 r2 = CALC_VALUE("R(15N)_NO3-")
 70 if (r2 <= 0) THEN GOTO 1000
-80 alpha = r1/r2
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
 1000 save alpha
 	-end
 

@@ -213,7 +213,7 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   2.581e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  24.31
-                               Iterations  =  20
+                               Iterations  =  31
                                   Total H  = 5.552525e+00
                                   Total O  = 2.776344e+00
 

@@ -67,10 +67,10 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  =   1.424e-14
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  12
-                         Gamma iterations  =   2
+                  Electrical balance (eq)  =  -1.002e-11
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  13
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.93031
                          Density of water  =   0.99823
                                   Total H  = 1.110124e+02
@@ -149,9 +149,9 @@ X                5.000e-02 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  =   1.110e-12
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  = 609
+                  Electrical balance (eq)  =  -1.291e-10
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  = 545
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.92002
                          Density of water  =   0.99823
