@@ -1,10 +1,8 @@
 SOLUTION_MASTER_SPECIES
 H        H+             -1.     H               1.008
-H(0)     H2             0.0     H
 H(1)     H+             -1.     0.0
 E        e-             0.0     0.0             0.0
 O        H2O            0.0     O               16.00
-O(0)     O2             0.0     O
 O(-2)    H2O            0.0     0.0
 Ca       Ca+2           0.0     Ca              40.08
 Mg       Mg+2           0.0     Mg              24.305
@@ -19,6 +17,7 @@ C        CO3-2          2.0     HCO3            12.0111
 C(4)     CO3-2          2.0     HCO3            12.0111
 Alkalinity CO3-2        1.0     Ca0.5(CO3)0.5   50.05
 S        SO4-2          0.0     SO4             32.064
+S(6)     SO4-2          0.0     SO4 
 B        B(OH)3         0.0     B               10.81
 Li       Li+            0.0     Li              6.941
 Br       Br-            0.0     Br              79.904
@@ -79,15 +78,6 @@ H2O = OH- + H+
         log_k           -13.998
         delta_h 13.345  kcal
 #        -analytic       -283.971       -0.05069842  13323.0    102.24447      -1119669.0
-
-2 H2O = O2 + 4 H+ + 4 e-
-#        log_k           -86.08
-        log_k           -186.08
-        delta_h 134.79 kcal
-
-2 H+ + 2 e- = H2
-        log_k           -3.15
-        delta_h -1.759 kcal
 
 CO3-2 + H+ = HCO3-
         log_k           10.3393
@@ -344,11 +334,6 @@ NaBO2:4H2O
 NaB5O8:5H2O
         NaB5O8:5H2O + 2H2O + H+ = 5B(OH)3 + Na+
         log_k           5.895
-
-O2(g)
-        O2 = O2
-        log_k           -2.960
-        delta_h -1.844  kcal
 
 Teepleite
         Na2B(OH)4Cl + H+ = B(OH)3 + 2Na+ + Cl- + H2O
