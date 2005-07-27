@@ -818,6 +818,7 @@ struct solution {
 	int default_pe;
 	struct conc *totals;
 	struct master_activity *master_activity;
+	int count_master_activity;
 	int count_isotopes;
 	struct isotope *isotopes;
 	struct master_activity *species_gamma;

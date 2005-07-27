@@ -256,9 +256,14 @@ int add_solution (struct solution *solution_ptr, LDBLE extensive, LDBLE intensiv
 /*
  *   Accumulate initial guesses for activities
  */
-	for (i=0; solution_ptr->master_activity[i].description != NULL; i++) {
-		master_ptr = master_bsearch(solution_ptr->master_activity[i].description);
-		master_ptr->s->la += solution_ptr->master_activity[i].la * intensive;
+	/*for (i=0; solution_ptr->master_activity[i].description != NULL; i++) {*/
+	for (i=0; i < solution_ptr->count_master_activity; i++) {
+		if (solution_ptr->master_activity[i].description != NULL) {
+			master_ptr = master_bsearch(solution_ptr->master_activity[i].description);
+			if (master_ptr != NULL) {
+				master_ptr->s->la += solution_ptr->master_activity[i].la * intensive;
+			}
+		}
 	}
 /*
  *   Accumulate initial guesses for log gamma
