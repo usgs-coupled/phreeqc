@@ -2,7 +2,31 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
-	Added Pitzer activity formulation. Use pizer.dat database
+------------------------------------------------------------
+Version 2.12:
+------------------------------------------------------------
+
+*	Added multiplier format to REACTION increments, which
+	simplifies definition of multiple equal reaction increments.
+
+            This definition:
+
+		   INCREMENTAL_REACTIONS true
+		   REACTION
+			H2O 1
+			-36 3*-4 2*-.25 -0.19 4*-0.1 3*-0.05 moles
+
+ 	    is equivalent to this definition:
+
+		   INCREMENTAL_REACTIONS true
+		   REACTION
+			H2O 1
+			-36 -4 -4 -4 -.25 -.25 -0.19 -0.1 -0.1 -0.1
+			-0.1  -0.05 -0.05 -0.05  moles
+
+	
+
+*	Added Pitzer activity formulation. Use pizer.dat database
 	to invoke the Pitzer model. Should have same capabilities
 	as ion-association model except explicit diffuse layer 
 	calculation is not implemented with the Pitzer model.
@@ -34,7 +58,7 @@ Features not documented in WRIR 99-4259.
 	        A4*(TK*TK - TR*TR),
 	where TK is Kelvin and TR is 298.15.
 
-	Cl1mp is a new multiple precision version of routine cl1,
+*	Cl1mp is a new multiple precision version of routine cl1,
 	a simplex-based optimization routine. Cl1mp was develeped
 	by using the Gnu Multiple Precision package (gmp).
 	Calculations are carried out to about 30 significant
@@ -60,7 +84,7 @@ Features not documented in WRIR 99-4259.
 Version 2.11:
 ------------------------------------------------------------
 
-	A new database, minteq.v4.dat, has been translated from
+*	A new database, minteq.v4.dat, has been translated from
 	version 4.02 of MINTEQA2 and is included in all
 	distributions. The database minteq.dat from earlier
 	version of MINTEQA2 has been slightly revised and is 
@@ -75,7 +99,7 @@ Version 2.10:
 ------------------------------------------------------------
 Version 2.9:
 ------------------------------------------------------------
-	Added new keyword COPY that allows a data entity 
+*	Added new keyword COPY that allows a data entity 
 		to be copied from one index to a new index 
 		or to a range of indicies. Format is 
 
@@ -92,7 +116,7 @@ Version 2.9:
 				SOLID_SOLUTION
 				SURFACE
 
-	Added new Basic functions
+*	Added new Basic functions
 	b$ = PAD(a$, 20)   pads a$ to a total of 20 characters
 		with spaces and stores result in b$. PAD returns
 		a copy of a$ if a$ is more than 20 characters.
@@ -106,7 +130,7 @@ Version 2.9:
 		end of string a$ and stores result in b$.
 
 
-	Added new Basic function SYS that calculates the to
+*	Added new Basic function SYS that calculates the to
 	total amount of an element in all phases (solution,
 	equilibrium_phases, surfaces, exchangers, solid solutions, 
 	and gas phase). KINETIC reactions are not included.
@@ -180,10 +204,10 @@ Version 2.9:
 			Arrays are filled with each gas component;
 				values are moles.
 
-	Added new Basic function, DESCRIPTION, that has the value
+*	Added new Basic function, DESCRIPTION, that has the value
 	defined for the description field of the SOLUTION keyword line.	
 
-	Added alternative ordinary differential equation solver
+*	Added alternative ordinary differential equation solver
 	called CVODE, a set of C routines from the Lawrence 
 	Livermore National Labs. CVODE is part of the SUNDIALS
 	package. CVODE is used in place of the Runge Kutta method
@@ -519,6 +543,16 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+
+Version 2.12 Date: 
+
+	Added multiplier format to REACTION increments, which
+	simplifies definition of multiple equal reaction increments.
+
+		   REACTION
+			H2O 1
+			-36 3*-4 2*-.25 -0.19 4*-0.1 3*-0.05 moles
+
 	Added Pitzer activity formulation. Use pizer.dat database
 	to invoke the Pitzer model. Should have same capabilities
 	as ion-association model except explicit diffuse layer 

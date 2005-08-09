@@ -270,7 +270,7 @@ int read_transport (void)
 		    case 24:                    /* lengths */
 			if (read_line_LDBLEs(next_char, &length, &count_length, &count_length_alloc) == ERROR) {
 				input_error++;
-				error_msg("Reading lengths in TRANPORT keyword.\n", CONTINUE);
+				error_msg("Reading lengths in TRANSPORT keyword.\n", CONTINUE);
 			}
 			opt_save = 8;
 			break;
@@ -279,7 +279,7 @@ int read_transport (void)
                     case 25:                /* dispersivities */
 			if (read_line_LDBLEs(next_char, &disp, &count_disp, &count_disp_alloc) == ERROR) {
 				input_error++;
-				error_msg("Reading dispersivities in TRANPORT keyword.\n", CONTINUE);
+				error_msg("Reading dispersivities in TRANSPORT keyword.\n", CONTINUE);
 			}
 			opt_save = 9;
 			break;

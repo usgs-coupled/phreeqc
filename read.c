@@ -3309,11 +3309,11 @@ int read_reaction_steps(struct irrev *irrev_ptr)
  *
  *   1 2 3 4 5 6 millimoles
  */
-	int i, j, l;
+	int i, j, l, n;
 	int count_steps;
 	char *ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
-	LDBLE step;
+	LDBLE step, value;
 
 	ptr = line;
 	count_steps = irrev_ptr->count_steps;
@@ -3327,16 +3327,33 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 /*
  *   Read next step increment
  */
-		j = sscanf(token, SCANFORMAT, &step);
-		if (j == 1 ) {
-			count_steps++;
-			irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-			if (irrev_ptr->steps == NULL) malloc_error();
-			irrev_ptr->steps[irrev_ptr->count_steps] = step;
-			irrev_ptr->count_steps = count_steps;
+/* begin modif 29 july 2005... */
+		if (replace("*"," ",token) == TRUE) {
+			if (sscanf(token,"%d" SCANFORMAT, &n, &value) == 2) {
+				for (i = 0; i < n; i++) {
+					count_steps++;
+					irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+					if (irrev_ptr->steps == NULL) malloc_error();
+					irrev_ptr->steps[irrev_ptr->count_steps] = value;
+					irrev_ptr->count_steps = count_steps;
+				}
+			} else {
+				input_error++;
+				error_msg("Format error in multiple, equal REACTION steps.\nCorrect is (for example): 0.2 4*0.1 2*0.5 0.3\n", CONTINUE);
+			}
 		} else {
-			break;
+			j = sscanf(token, SCANFORMAT, &step);
+			if (j == 1 ) {
+				count_steps++;
+				irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+				if (irrev_ptr->steps == NULL) malloc_error();
+				irrev_ptr->steps[irrev_ptr->count_steps] = step;
+				irrev_ptr->count_steps = count_steps;
+			} else {
+				break;
+			}
 		}
+/* ...end modif 29 july 2005 */
 	}
 /*
  *   Read units
