@@ -1,16 +1,17 @@
-(1) Update version and date in main.c
+x(1) Update version and date in main.c
 
-(2) Update version and date in doc/README.TXT
+x(2) Update version and date in doc/README.TXT
 	uname -r
 	gcc -v
 
-(3) Update src/revisions
-    all_dist copies src/revisions doc/RELEASE.TXT
+x(3) Update src/revisions
+    when all_dist is run by make, src/revisions is copied 
+    to doc/RELEASE.TXT
 
    ( ../doc/phreeqc.txt now static, only RELEASE.TXT
     has history 2/2/05)
 
-(4) Update Makefile
+x(4) Update Makefile
 	   set VERSION number
 	   set VER_DATE
 	   add any new files to distribution	
@@ -19,7 +20,7 @@
 	       output files
 	       doc files
 
-(5) remake everything
+x(5) remake everything
     make clean_all
     make output_files (also remakes programs)
 

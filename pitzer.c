@@ -1405,6 +1405,12 @@ int model_pz(void)
 			continue;
 		}
 		gamma_iterations++;
+		if (gamma_iterations > itmax ) {
+			sprintf(error_string,"Maximum gamma iterations exceeded, %d\n", itmax);
+			warning_msg(error_string);
+			stop_program = TRUE;
+			break;
+		}
 		if (check_gammas_pz() != TRUE) {
 			full_pitzer = TRUE;
 			continue;
