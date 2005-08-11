@@ -45,9 +45,9 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc-VERSION.REVISION-SunOS.tar.gz  - Compiled with gcc 2.8.1, SunOS 5.8
-  phreeqc-VERSION.REVISION-Linux.tar.gz  - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
-                                     kernel 2.6.8.1-24mdkenterprise
+  phreeqc-VERSION.REVISION-SunOS.tar.gz   - Compiled with gcc 3.4.4, SunOS 5.8
+  phreeqc-VERSION.REVISION-Linux.tar.gz   - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
+                                            kernel 2.6.8.1-24mdkenterprise
   phreeqc-VERSION.REVISION-.source.tar.gz - Source code but no executable
 
 
@@ -143,9 +143,11 @@ To generate a new executable, do the following:
 2.  Modify the beginning of the file named Makefile to correctly specify 
     system-dependent variables:
      
-        CC           C compiler name
-        CCFLAGS      C compiler flags
-        LOADFLAGS    linker flags
+        CC             C compiler name
+        CCFLAGS        C compiler flags
+        LOADFLAGS      linker flags
+	INVERSE_CL1MP  remove definition if gmp package 
+                       is not available on your system
 
 3.  Run make in the src directory to compile the source:
 
