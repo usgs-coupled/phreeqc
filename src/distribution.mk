@@ -5,8 +5,8 @@ WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
-VERSION=2.11
-VER_DATE=February 7, 2005
+VERSION=2.12
+VER_DATE=August 15, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
@@ -20,9 +20,11 @@ FILES=  \
 	src/basic.c \
 	src/basicsubs.c \
 	src/cl1.c \
+	src/cl1mp.c \
 	src/cvdense.c \
 	src/cvode.c \
 	src/dense.c \
+	src/dw.c \
 	src/input.c \
 	src/integrate.c \
 	src/inverse.c \
@@ -38,6 +40,9 @@ FILES=  \
 	src/parse.c \
 	src/phqalloc.c \
 	src/phreeqc_files.c \
+	src/phreeqc_files.c \
+	src/pitzer.c \
+	src/pitzer_structures.c \
 	src/prep.c \
 	src/print.c \
 	src/read.c \
@@ -64,6 +69,7 @@ FILES=  \
 	src/phqalloc.h \
 	src/phrqproto.h \
 	src/phrqtype.h \
+	src/pitzer.h \
 	src/smalldense.h \
 	src/sundialsmath.h \
 	src/sundialstypes.h \
@@ -73,6 +79,7 @@ FILES=  \
 	database/phreeqc.dat \
 	database/wateq4f.dat \
 	database/iso.dat \
+	database/pitzer.dat \
 	examples/ex1 examples/ex1.out \
 	examples/ex2 examples/ex2.out examples/ex2.sel \
 	examples/ex3 examples/ex3.out \
@@ -122,7 +129,7 @@ sun_output_files: phreeqc.sun
 	ssh u450rcolkr "cd $(SUN_DIR)/examples; make -f $(SUN_DIR)/../../examples/Makefile INPUT=$(SUN_DIR)/../../examples PHREEQCDAT=$(SUN_DIR)/../../database/phreeqc.dat WATEQ4FDAT=$(SUN_DIR)/../../database/wateq4f.dat"
 
 phreeqc.sun: 
-	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../Makefile SRC=$(SUN_DIR)/.. EXE=$(SUN_DIR)/bin/phreeqc"	
+	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../Makefile INVERSE_CL1MP= SRC=$(SUN_DIR)/.. EXE=$(SUN_DIR)/bin/phreeqc"	
 
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
@@ -219,7 +226,7 @@ sun_sed_files:
 		sed -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
 
 sun_compile:
-	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src"
+	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src INVERSE_CL1MP="
 
 sun_output:
 	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/examples clean"
