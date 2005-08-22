@@ -1937,8 +1937,7 @@ int range(struct inverse *inv_ptr, unsigned long cur_bits)
 			cl1(k, l, m, n,
 			    nklmd, n2d, array1,
 			    &kode, toler, &iter,
-			    delta2, res, &error, cu, iu, is, TRUE);
-			error2 = error;
+			    delta2, res, &error2, cu, iu, is, TRUE);
 #endif
 			if (kode != 0) {
 				output_msg(OUTPUT_MESSAGE, "Error in subroutine range. Kode = %d\n", kode);

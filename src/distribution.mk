@@ -129,7 +129,7 @@ sun_output_files: phreeqc.sun
 	ssh u450rcolkr "cd $(SUN_DIR)/examples; make -f $(SUN_DIR)/../../examples/Makefile INPUT=$(SUN_DIR)/../../examples PHREEQCDAT=$(SUN_DIR)/../../database/phreeqc.dat WATEQ4FDAT=$(SUN_DIR)/../../database/wateq4f.dat"
 
 phreeqc.sun: 
-	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../Makefile INVERSE_CL1MP= SRC=$(SUN_DIR)/.. EXE=$(SUN_DIR)/bin/phreeqc"	
+	ssh u450rcolkr "cd $(SUN_DIR)/src; make -f $(SUN_DIR)/../Makefile SRC=$(SUN_DIR)/.. EXE=$(SUN_DIR)/bin/phreeqc"	
 
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
@@ -226,7 +226,7 @@ sun_sed_files:
 		sed -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
 
 sun_compile:
-	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src INVERSE_CL1MP="
+	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src"
 
 sun_output:
 	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/examples clean"

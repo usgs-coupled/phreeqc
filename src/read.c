@@ -1861,7 +1861,7 @@ int read_kinetics (void)
 /*
  *   Read kinetics
  */
-	int i, j, l, count_comps, count_steps, count_list;
+	int i, j, k, l, count_comps, count_steps, count_list;
 	char *ptr;
 	char *description;
 	char token[MAX_LENGTH];
@@ -2082,13 +2082,29 @@ int read_kinetics (void)
 			 *   Read one or more kinetics time increments
 			 */
 			while ( (j = copy_token (token, &next_char, &l)) == DIGIT ) {
-				/*  Read next step increment */
-				step = strtod(token, &ptr);
-				count_steps++;
-				kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-				if (kinetics_ptr->steps == NULL) malloc_error();
-				kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
-				kinetics_ptr->count_steps = count_steps;
+				/*  Read next step increment(s) */
+/* multiple, equal timesteps 15 aug. 2005 */
+				if (replace("*"," ",token) == TRUE) {
+					if (sscanf(token,"%d" SCANFORMAT, &k, &step) == 2) {
+						for (i = 0; i < k; i++) {
+							count_steps++;
+							kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+							if (kinetics_ptr->steps == NULL) malloc_error();
+							kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
+							kinetics_ptr->count_steps = count_steps;
+						}
+					} else {
+						input_error++;
+						error_msg("Format error in multiple, equal KINETICS timesteps.\nCorrect is (for example): 20 4*10 2*5 3\n", CONTINUE);
+					}
+				} else {
+					step = strtod(token, &ptr);
+					count_steps++;
+					kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+					if (kinetics_ptr->steps == NULL) malloc_error();
+					kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
+					kinetics_ptr->count_steps = count_steps;
+				}
 			}
 			if (j == EMPTY) break;
 			/*
@@ -3303,11 +3319,14 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Read amount(s) of irrev reactions in one of two forms:
+ *   Read amount(s) of irrev reactions in one of three forms:
  *
  *   6 millimoles in 6 steps   or
  *
- *   1 2 3 4 5 6 millimoles
+ *   1 2 3 4 5 6 millimoles    or
+ *
+ *   6*1 millimoles
+ *   INCREMENTAL_REACTIONS
  */
 	int i, j, l, n;
 	int count_steps;

@@ -6,8 +6,8 @@ Features not documented in WRIR 99-4259.
 Version 2.12:
 ------------------------------------------------------------
 
-*	Added multiplier format to REACTION increments, which
-	simplifies definition of multiple equal reaction increments.
+*	Added multiplier format to REACTION steps and KINETICS steps, 
+	which simplifies definition of multiple equal reaction increments.
 
             This definition:
 
