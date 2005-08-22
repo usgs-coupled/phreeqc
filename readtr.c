@@ -993,8 +993,12 @@ int dump_gas_phase(int k)
  *   Calculate partial pressure
  */
 		lp=-gas_phase_ptr->comps[i].phase->lk;
-		for (rxn_ptr = use.gas_phase_ptr->comps[i].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
-			lp += rxn_ptr->s->la * rxn_ptr->coef;
+		if (use.gas_phase_ptr->comps[i].phase->rxn_x != NULL) {
+			for (rxn_ptr = use.gas_phase_ptr->comps[i].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
+				lp += rxn_ptr->s->la * rxn_ptr->coef;
+			}
+		} else {
+			lp = -99.9;
 		}
 		output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
 			gas_phase[n].comps[i].name,
