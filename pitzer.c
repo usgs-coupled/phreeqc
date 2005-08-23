@@ -1463,6 +1463,7 @@ int gammas_pz ()
  *   Need exchange gammas for pitzer
  */
 	int i, j;
+	double coef;
 	/* Initialize */
 /*
  *   Calculate activity coefficients
@@ -1474,36 +1475,12 @@ int gammas_pz ()
 		    case 2:                   /* Extended D-H, WATEQ D-H */
 		    case 3:                   /* Always 1.0 */
 			    break;
-		    case 4:		   /* Exchange */
-/*
- *   Find CEC
- *   z contains valence of cation for exchange species, alk contains cec
- */
-/* !!!!! */
-			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
-				if (s_x[i]->rxn_x->token[j].s->type == EX) {
-					s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
-					break;
-				}
-			}
-			/*
-			 *   Master species is a dummy variable with meaningless activity and mass
-			 */
-			if (s_x[i]->primary != NULL) {
-				s_x[i]->lg = 0.0;
-				s_x[i]->dg = 0.0;
-			} else {
-				if (s_x[i]->alk <= 0) {
-					s_x[i]->lg = 0.0;
-				} else {
-					s_x[i]->lg = log10(fabs(s_x[i]->equiv)/s_x[i]->alk);
-				}
-				s_x[i]->dg = 0.0;
-			}
-			break;
+		    case 4:		      /* Exchange */
+			    /* Now calculated in next loop */
+			    break;
 		    case 5:                   /* Always 1.0 */
 			    break;
-		    case 6:		   /* Surface */
+		    case 6:		      /* Surface */
 /*
  *   Find moles of sites. 
  *   s_x[i]->equiv is stoichiometric coefficient of sites in species
@@ -1540,49 +1517,65 @@ int gammas_pz ()
 		}
  */
 	}
-	for (i=0; i < count_s_x; i++) {
-		switch (s_x[i]->gflag) {
-		    case 0:                   /* uncharged */
-		    case 1:                   /* Davies */
-		    case 2:                   /* Extended D-H, WATEQ D-H */
-		    case 3:                   /* Always 1.0 */
-		    case 5:                   /* Always 1.0 */
-		    case 6:		      /* Surface */
-		    case 7:		      /* LLNL */
-		    case 8:		      /* LLNL CO2*/
-		    case 9:		      /* activity water */
-			    break;
-		    case 4:		      /* Exchange */
+	/*
+	 *  calculate exchange gammas 
+	 */
 
+	if (use.exchange_ptr != NULL) {
+		for (i=0; i < count_s_x; i++) {
+			switch (s_x[i]->gflag) {
+			case 0:               /* uncharged */
+			case 1:               /* Davies */
+			case 2:               /* Extended D-H, WATEQ D-H */
+			case 3:               /* Always 1.0 */
+			case 5:               /* Always 1.0 */
+			case 6:		      /* Surface */
+			case 7:		      /* LLNL */
+			case 8:		      /* LLNL CO2*/
+			case 9:		      /* activity water */
+				break;
+			case 4:		      /* Exchange */
 
+				/*
+				 *   Find CEC
+				 *   z contains valence of cation for exchange species, alk contains cec
+				 */
+				/* !!!!! */
+				for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+					if (s_x[i]->rxn_x->token[j].s->type == EX) {
+						s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+						break;
+					}
+				}
+				/*
+				 *   Master species is a dummy variable with meaningless activity and mass
+				 */
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+				if (s_x[i]->primary != NULL) {
+					break;
+				} 
+				/*
+				 *   All other species
+				 */
 
-/* modific 29 july 2005... */
-			s_x[i]->lg = 0;
-			if (s_x[i]->equiv != 0 && s_x[i]->alk > 0) {
-				s_x[i]->lg = log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
-			}
-			s_x[i]->dg = 0;
-
-/* Assume equal gamma's of solute and exchangeable species...  */
-			for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
-				if (s_x[i]->rxn_x->token[j].s->type == EX) continue;
-				name =  s_x[i]->rxn_x->token[j].s->name;
-				coef = s_x[i]->rxn_x->token[j].coef;
-				for (k=0; k < count_s_x; k++) {
-					if (strcmp(name, s_x[k]->name) == NULL) {
-						s_x[i]->lg += coef * s_x[k]->lg;
-						s_x[i]->dg += coef * s_x[k]->dg;
-/* debug..					output_msg(OUTPUT_MESSAGE,"%s\t%s\t%f\t%f\n", s_x[i]->name, name,
-							coef, s_x[i]->lg);
-						output_msg(OUTPUT_MESSAGE,"\t%s\t%f\t%f\n", s_x[k]->name, 
-							s_x[k]->lg, s_x[k]->dg);
- */						break;						
+				/* modific 29 july 2005... */
+				if (s_x[i]->equiv != 0 && s_x[i]->alk > 0) {
+					s_x[i]->lg = log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
+				}
+				if (use.exchange_ptr->pitzer_exchange_gammas == TRUE) {
+					/* Assume equal gamma's of solute and exchangeable species...  */
+					for (j=1; s_x[i]->rxn_x->token[j].s != NULL; j++) {
+						if (s_x[i]->rxn_x->token[j].s->type == EX) continue;
+						coef = s_x[i]->rxn_x->token[j].coef;
+						s_x[i]->lg += coef * s_x[i]->rxn_x->token[j].s->lg;
+						s_x[i]->dg += coef * s_x[i]->rxn_x->token[j].s->dg;
 					}
 				}
 			}
-
+		}
+	}
 /* ...end modific 29 july 2005 */
-
 
 	return(OK);
 }

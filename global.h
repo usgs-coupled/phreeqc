@@ -338,6 +338,7 @@ struct exchange {
 	struct exch_comp *comps;
 	int related_phases;
 	int related_rate;
+	int pitzer_exchange_gammas;
 };
 struct exch_comp {
  	char *formula;
@@ -1282,9 +1283,6 @@ EXTERNAL struct unknown *solution_phase_boundary_unknown;
 EXTERNAL struct unknown *surface_unknown;
 EXTERNAL struct unknown *gas_unknown;
 EXTERNAL struct unknown *s_s_unknown;
-#ifdef SKIP
-EXTERNAL struct unknown *pitzer_complex_unknown;
-#endif
 /*----------------------------------------------------------------------
  *   Reaction work space
  *---------------------------------------------------------------------- */

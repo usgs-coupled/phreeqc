@@ -966,10 +966,13 @@ int read_exchange(void)
 	int return_value, opt;
 	char *next_char;
 	const char *opt_list[] = {
-		"equilibrate",         /* 0 */
-		"equil"                /* 1 */
+		"equilibrate",             /* 0 */
+		"equil",                   /* 1 */
+		"pitzer_exchange_gammas",  /* 2 */
+		"exchange_gammas",         /* 3 */ 
+		"gammas"                   /* 4 */
 	};
-	int count_opt_list = 2;
+	int count_opt_list = 5;
 /*
  * kin_exch is for exchangers, related to kinetically reacting minerals
  *    they are defined if "sites" is followed by mineral name:
@@ -1008,22 +1011,22 @@ int read_exchange(void)
 	for (;;) {
 		opt = get_option(opt_list, count_opt_list, &next_char);
 		switch (opt) {
-		    case OPTION_EOF:                /* end of file */
+		case OPTION_EOF:                /* end of file */
 			return_value = EOF;
 			break;
-		    case OPTION_KEYWORD:           /* keyword */
+		case OPTION_KEYWORD:           /* keyword */
 			return_value = KEYWORD;
 			break;
-		    case OPTION_ERROR:
+		case OPTION_ERROR:
 			input_error++;
 			error_msg("Unknown input in EXCHANGE keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
-		    case 0:                       /* equilibrate */
-		    case 1:
-/*
- *   Read solution to equilibrate with
- */
+		case 0:                       /* equilibrate */
+		case 1:
+			/*
+			 *   Read solution to equilibrate with
+			 */
 			for (;;) {
 				i = copy_token(token, &next_char, &l);
 				if (i == DIGIT) {
@@ -1040,7 +1043,12 @@ int read_exchange(void)
 				}
 			}
 			break;
-		    case OPTION_DEFAULT:
+		case 2:                 /* pitzer_exchange_gammas */
+		case 3:                 /* exchange_gammas */
+		case 4:                 /* gammas */
+			exchange[n].pitzer_exchange_gammas = get_true_false(next_char, TRUE);
+			break;
+		case OPTION_DEFAULT:
 			exchange[n].comps = (struct exch_comp *) PHRQ_realloc(exchange[n].comps, (size_t) (count_comps + 1) * sizeof (struct exch_comp));
 			if (exchange[n].comps == NULL) malloc_error();
 			exchange[n].comps[count_comps].formula = NULL;
@@ -1050,9 +1058,9 @@ int read_exchange(void)
 			exchange[n].comps[count_comps].rate_name = NULL;
 			ptr=line;
 			i = copy_token(token, &ptr, &l);
-/*
- *   Species formula is stored in token
- */
+			/*
+			 *   Species formula is stored in token
+			 */
 			if (i != UPPER && token[0] != '[') {
 				error_msg("Expected exchanger name to begin with a capital letter.", CONTINUE);
 				error_msg(line_save, CONTINUE);
@@ -1062,9 +1070,9 @@ int read_exchange(void)
 			exchange[n].comps[count_comps].formula = string_hsave(token);
 			i = copy_token(token1, &ptr, &l);
 			if (i == DIGIT)  {
-/*
- *   Read exchange concentration
- */
+				/*
+				 *   Read exchange concentration
+				 */
 
 				/* exchanger conc. is read directly .. */
 				if ( sscanf(token1, SCANFORMAT, &conc) < 1) {
@@ -1084,9 +1092,9 @@ int read_exchange(void)
 					sscanf(token1, SCANFORMAT, &exchange[n].comps[count_comps].phase_proportion);
 					exchange[n].related_rate = TRUE;
 				}
-/*
- *   Read equilibrium phase name or kinetics rate name
- */
+				/*
+				 *   Read equilibrium phase name or kinetics rate name
+				 */
 			} else if (i != EMPTY) {
 
 				/* exchanger conc. is related to mineral or kinetics */
@@ -1124,22 +1132,22 @@ int read_exchange(void)
 				input_error++;
 				break;
 			}
-/*
- *   Accumulate elements in elt_list
- */
+			/*
+			 *   Accumulate elements in elt_list
+			 */
 			count_elts = 0;
 			paren_count = 0;
 			ptr = token;
 			get_elts_in_species(&ptr, conc);
-/*
- *   save formula for adjusting number of exchange sites
- */
+			/*
+			 *   save formula for adjusting number of exchange sites
+			 */
 			ptr = token;
 			get_token(&ptr, token1, &exchange[n].comps[count_comps].formula_z, &l);
 			exchange[n].comps[count_comps].formula_totals = elt_list_save();
-/* 
- *   Save elt_list 
- */
+			/* 
+			 *   Save elt_list 
+			 */
 			exchange[n].comps[count_comps].moles = conc;
 			exchange[n].comps[count_comps].totals = elt_list_save();
 			exchange[n].comps[count_comps].charge_balance = 0.0;
@@ -1861,7 +1869,7 @@ int read_kinetics (void)
 /*
  *   Read kinetics
  */
-	int i, j, k, l, count_comps, count_steps, count_list;
+	int i, j, l, count_comps, count_steps, count_list;
 	char *ptr;
 	char *description;
 	char token[MAX_LENGTH];
@@ -2082,29 +2090,13 @@ int read_kinetics (void)
 			 *   Read one or more kinetics time increments
 			 */
 			while ( (j = copy_token (token, &next_char, &l)) == DIGIT ) {
-				/*  Read next step increment(s) */
-/* multiple, equal timesteps 15 aug. 2005 */
-				if (replace("*"," ",token) == TRUE) {
-					if (sscanf(token,"%d" SCANFORMAT, &k, &step) == 2) {
-						for (i = 0; i < k; i++) {
-							count_steps++;
-							kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-							if (kinetics_ptr->steps == NULL) malloc_error();
-							kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
-							kinetics_ptr->count_steps = count_steps;
-						}
-					} else {
-						input_error++;
-						error_msg("Format error in multiple, equal KINETICS timesteps.\nCorrect is (for example): 20 4*10 2*5 3\n", CONTINUE);
-					}
-				} else {
-					step = strtod(token, &ptr);
-					count_steps++;
-					kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-					if (kinetics_ptr->steps == NULL) malloc_error();
-					kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
-					kinetics_ptr->count_steps = count_steps;
-				}
+				/*  Read next step increment */
+				step = strtod(token, &ptr);
+				count_steps++;
+				kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+				if (kinetics_ptr->steps == NULL) malloc_error();
+				kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
+				kinetics_ptr->count_steps = count_steps;
 			}
 			if (j == EMPTY) break;
 			/*
@@ -3319,20 +3311,17 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Read amount(s) of irrev reactions in one of three forms:
+ *   Read amount(s) of irrev reactions in one of two forms:
  *
  *   6 millimoles in 6 steps   or
  *
- *   1 2 3 4 5 6 millimoles    or
- *
- *   6*1 millimoles
- *   INCREMENTAL_REACTIONS
+ *   1 2 3 4 5 6 millimoles
  */
-	int i, j, l, n;
+	int i, j, l;
 	int count_steps;
 	char *ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
-	LDBLE step, value;
+	LDBLE step;
 
 	ptr = line;
 	count_steps = irrev_ptr->count_steps;
@@ -3346,33 +3335,16 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 /*
  *   Read next step increment
  */
-/* begin modif 29 july 2005... */
-		if (replace("*"," ",token) == TRUE) {
-			if (sscanf(token,"%d" SCANFORMAT, &n, &value) == 2) {
-				for (i = 0; i < n; i++) {
-					count_steps++;
-					irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-					if (irrev_ptr->steps == NULL) malloc_error();
-					irrev_ptr->steps[irrev_ptr->count_steps] = value;
-					irrev_ptr->count_steps = count_steps;
-				}
-			} else {
-				input_error++;
-				error_msg("Format error in multiple, equal REACTION steps.\nCorrect is (for example): 0.2 4*0.1 2*0.5 0.3\n", CONTINUE);
-			}
+		j = sscanf(token, SCANFORMAT, &step);
+		if (j == 1 ) {
+			count_steps++;
+			irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+			if (irrev_ptr->steps == NULL) malloc_error();
+			irrev_ptr->steps[irrev_ptr->count_steps] = step;
+			irrev_ptr->count_steps = count_steps;
 		} else {
-			j = sscanf(token, SCANFORMAT, &step);
-			if (j == 1 ) {
-				count_steps++;
-				irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
-				if (irrev_ptr->steps == NULL) malloc_error();
-				irrev_ptr->steps[irrev_ptr->count_steps] = step;
-				irrev_ptr->count_steps = count_steps;
-			} else {
-				break;
-			}
+			break;
 		}
-/* ...end modif 29 july 2005 */
 	}
 /*
  *   Read units
