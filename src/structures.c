@@ -874,6 +874,7 @@ int exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end, ch
 	if (exchange_ptr->comps == NULL) malloc_error();
 	exchange_ptr->related_phases = FALSE;
 	exchange_ptr->related_rate = FALSE;
+	exchange_ptr->pitzer_exchange_gammas = TRUE;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */

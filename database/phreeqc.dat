@@ -1000,8 +1000,11 @@ CO2(g)
 
 O2(g)
         O2 = O2
-        log_k           -2.960
-        delta_h -1.844  kcal
+#        log_k           -2.960
+#        delta_h -1.844  kcal
+	 # log K from llnl.dat  Aug 23, 2005
+        log_k           -2.8983
+        -analytic -7.5001e+000 7.8981e-003 0.0000e+000 0.0000e+000 2.0027e+005
 
 H2(g)
         H2 = H2
@@ -1166,9 +1169,11 @@ EXCHANGE_SPECIES
 
         Cd+2 + 2X- = CdX2
         log_k   0.8
+        -gamma  0.0     0.0
 
         Pb+2 + 2X- = PbX2
         log_k   1.05
+        -gamma  0.0     0.0
 
         Al+3 + 3X- = AlX3
         log_k   0.41
