@@ -6,7 +6,7 @@ DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
-VER_DATE=October 1, 2005
+VER_DATE=September 23, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
@@ -134,7 +134,7 @@ phreeqc.sun:
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
 
-all_dist:  clean_dist linux win # sun # 
+all_dist:  clean_dist linux # win # sun 
 
 test_dist: linux_test source_test # sun_test
 

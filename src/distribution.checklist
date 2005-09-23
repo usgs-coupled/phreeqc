@@ -1,17 +1,17 @@
-x(1) Update version and date in main.c
+(1) Update version and date in main.c
 
-x(2) Update doc/README.TXT
+(2) Update doc/README.TXT
 	uname -r
 	gcc -v
 
-x(3) Update src/revisions
+(3) Update src/revisions
     when all_dist is run by make, src/revisions is copied 
     to doc/RELEASE.TXT
 
    ( ../doc/phreeqc.txt now static, only RELEASE.TXT
     has history 2/2/05)
 
-x(4) Update Makefile
+(4) Update Makefile
 	   set VERSION number
 	   set VER_DATE
 	   add any new files to distribution	
@@ -20,11 +20,12 @@ x(4) Update Makefile
 	       output files
 	       doc files
 
-x(5) remake everything
+(5) remake everything
+    svn update
     make clean_all
     make output_files (also remakes programs)
 
-x(6) svn status ~/programs/phreeqc -q
+(6) svn status ~/programs/phreeqc -q
 	should be clean
 	otherwise commit and restart checklist at item 5
 
@@ -33,7 +34,7 @@ x(6) svn status ~/programs/phreeqc -q
 (8) test Unix distributions
        make test_dist 
        or
-	    make linux_test, sun_test, source_test
+       make linux_test, sun_test, source_test
 
 (9) Scott is making batch windows
 
