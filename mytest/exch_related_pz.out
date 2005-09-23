@@ -102,16 +102,16 @@ Using pure phase assemblage 1.
                                        pH  =   9.935      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
                         Activity of water  =   1.000
-                           Ionic strength  =   4.162e-04
+                           Ionic strength  =   4.164e-04
                        Mass of water (kg)  =   1.000e-00
-                 Total alkalinity (eq/kg)  =   2.635e-04
+                 Total alkalinity (eq/kg)  =   2.637e-04
                        Total CO2 (mol/kg)  =   1.318e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  17
                          Gamma iterations  =   3
-                      Osmotic coefficient  =   0.98136
+                      Osmotic coefficient  =   0.98107
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550661e+01
@@ -122,16 +122,16 @@ Using pure phase assemblage 1.
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	OH-               8.865e-05   8.655e-05    -4.052    -4.063    -0.010
-	H+                1.189e-10   1.161e-10    -9.925    -9.935    -0.011
+	OH-               8.871e-05   8.650e-05    -4.052    -4.063    -0.011
+	H+                1.190e-10   1.161e-10    -9.925    -9.935    -0.011
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 C(4)             1.318e-04
-	HCO3-             8.860e-05   8.658e-05    -4.053    -4.063    -0.010
-	CO3-2             3.757e-05   3.415e-05    -4.425    -4.467    -0.041
+	HCO3-             8.867e-05   8.665e-05    -4.052    -4.062    -0.010
+	CO3-2             3.758e-05   3.416e-05    -4.425    -4.466    -0.041
 	CaCO3             5.560e-06   5.560e-06    -5.255    -5.255     0.000
-	CO2               2.186e-08   2.186e-08    -7.660    -7.660     0.000
+	CO2               2.189e-08   2.189e-08    -7.660    -7.660     0.000
 Ca               1.318e-04
-	Ca+2              1.262e-04   1.149e-04    -3.899    -3.940    -0.041
+	Ca+2              1.263e-04   1.149e-04    -3.899    -3.940    -0.041
 	CaCO3             5.560e-06   5.560e-06    -5.255    -5.255     0.000
 
 ------------------------------Saturation indices-------------------------------
@@ -139,7 +139,7 @@ Ca               1.318e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
-	Calcite          -0.00   -8.41   -8.41  CaCO3
+	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -6.19   -7.66   -1.47  CO2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite      -6.88  -12.07   -5.19  Ca(OH)2
@@ -170,12 +170,12 @@ Beginning of initial exchange-composition calculations.
 
 Exchange 1.	
 
-X                3.257e-03 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                3.256e-03 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              1.628e-03   3.257e-03   1.000e+00    -0.041
+	CaX2              1.628e-03   3.256e-03   1.000e+00    -0.041
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -211,7 +211,7 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                9.426e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -237,7 +237,7 @@ X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  20
+                               Iterations  =  21
                          Gamma iterations  =   3
                       Osmotic coefficient  =   0.94479
                          Density of water  =   0.99706
@@ -251,7 +251,7 @@ X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	Species            Molality    Activity  Molality  Activity     Gamma
 
 	H+                2.300e-01   1.890e-01    -0.638    -0.723    -0.085
-	OH-               9.304e-14   5.269e-14   -13.031   -13.278    -0.247
+	OH-               9.360e-14   5.269e-14   -13.029   -13.278    -0.250
 	H2O               5.551e+01   9.915e-01     1.744    -0.004     0.000
 C(4)             9.998e-03
 	CO2               9.998e-03   1.001e-02    -2.000    -2.000     0.001
@@ -305,7 +305,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                9.426e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -345,7 +345,7 @@ X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	Species            Molality    Activity  Molality  Activity     Gamma
 
 	H+                2.300e-01   1.890e-01    -0.638    -0.723    -0.085
-	OH-               9.304e-14   5.269e-14   -13.031   -13.278    -0.247
+	OH-               9.360e-14   5.269e-14   -13.029   -13.278    -0.250
 	H2O               5.551e+01   9.915e-01     1.744    -0.004     0.000
 C(4)             9.998e-03
 	CO2               9.998e-03   1.001e-02    -2.000    -2.000     0.001
@@ -571,16 +571,16 @@ X                3.296e-02 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                                        pH  =   9.935      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
                         Activity of water  =   1.000
-                           Ionic strength  =   4.162e-04
+                           Ionic strength  =   4.164e-04
                        Mass of water (kg)  =   1.000e-00
-                 Total alkalinity (eq/kg)  =   2.635e-04
+                 Total alkalinity (eq/kg)  =   2.637e-04
                        Total CO2 (mol/kg)  =   1.318e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  30
                          Gamma iterations  =   4
-                      Osmotic coefficient  =   0.98136
+                      Osmotic coefficient  =   0.98107
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550661e+01
@@ -591,16 +591,16 @@ X                3.296e-02 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	OH-               8.865e-05   8.655e-05    -4.052    -4.063    -0.010
-	H+                1.189e-10   1.161e-10    -9.925    -9.935    -0.011
+	OH-               8.871e-05   8.650e-05    -4.052    -4.063    -0.011
+	H+                1.190e-10   1.161e-10    -9.925    -9.935    -0.011
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 C(4)             1.318e-04
-	HCO3-             8.860e-05   8.658e-05    -4.053    -4.063    -0.010
-	CO3-2             3.757e-05   3.415e-05    -4.425    -4.467    -0.041
+	HCO3-             8.867e-05   8.665e-05    -4.052    -4.062    -0.010
+	CO3-2             3.758e-05   3.416e-05    -4.425    -4.466    -0.041
 	CaCO3             5.560e-06   5.560e-06    -5.255    -5.255     0.000
-	CO2               2.186e-08   2.186e-08    -7.660    -7.660     0.000
+	CO2               2.189e-08   2.189e-08    -7.660    -7.660     0.000
 Ca               1.318e-04
-	Ca+2              1.262e-04   1.149e-04    -3.899    -3.940    -0.041
+	Ca+2              1.263e-04   1.149e-04    -3.899    -3.940    -0.041
 	CaCO3             5.560e-06   5.560e-06    -5.255    -5.255     0.000
 
 ------------------------------Saturation indices-------------------------------
@@ -608,7 +608,7 @@ Ca               1.318e-04
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
-	Calcite           0.00   -8.41   -8.41  CaCO3
+	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -6.19   -7.66   -1.47  CO2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite      -6.88  -12.07   -5.19  Ca(OH)2

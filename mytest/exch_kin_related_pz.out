@@ -63,7 +63,7 @@ Initial solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.350e-02
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -3.370e-08
+                 Total alkalinity (eq/kg)  =  -3.199e-08
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  20.000
@@ -83,7 +83,7 @@ Initial solution 1.
 	Species            Molality    Activity  Molality  Activity     Gamma
 
 	H+                1.122e-07   1.000e-07    -6.950    -7.000    -0.050
-	OH-               7.849e-08   6.840e-08    -7.105    -7.165    -0.060
+	OH-               8.020e-08   6.840e-08    -7.096    -7.165    -0.069
 	H2O               5.551e+01   9.998e-01     1.744    -0.000     0.000
 Ca               4.500e-03
 	Ca+2              4.500e-03   2.872e-03    -2.347    -2.542    -0.195
@@ -135,16 +135,16 @@ X                5.000e-02 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   6.956      Charge balance
+                                       pH  =   6.959      Charge balance
                                        pe  =   8.000      Adjusted to redox equilibrium
                         Activity of water  =   0.983
                            Ionic strength  =   5.120e-01
                        Mass of water (kg)  =   1.000e-00
-                 Total alkalinity (eq/kg)  =  -3.370e-08
+                 Total alkalinity (eq/kg)  =  -3.199e-08
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  =  -9.478e-12
+                  Electrical balance (eq)  =  -9.470e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  = 692
                          Gamma iterations  =   1
@@ -159,8 +159,8 @@ X                5.000e-02 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.329e-07   1.106e-07    -6.877    -6.956    -0.080
-	OH-               9.918e-08   6.085e-08    -7.004    -7.216    -0.212
+	H+                1.320e-07   1.098e-07    -6.880    -6.959    -0.080
+	OH-               9.997e-08   6.127e-08    -7.000    -7.213    -0.213
 	H2O               5.551e+01   9.833e-01     1.744    -0.007     0.000
 Ca               2.956e-03
 	Ca+2              2.956e-03   7.778e-04    -2.529    -3.109    -0.580
@@ -175,7 +175,7 @@ Na               5.031e-01
 
 	H2O(g)           -1.65   -0.01    1.64  H2O
 	Halite           -2.49   -0.93    1.56  NaCl
-	Portlandite     -12.35  -17.54   -5.19  Ca(OH)2
+	Portlandite     -12.34  -17.53   -5.19  Ca(OH)2
 
 ------------------
 End of simulation.
