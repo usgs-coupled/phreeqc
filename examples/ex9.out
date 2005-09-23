@@ -166,7 +166,7 @@ Initial solution 1.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000    
-                                       pe  =  13.613      Equilibrium with O2(g)
+                                       pe  =  13.629      Equilibrium with O2(g)
                         Activity of water  =   1.000
                            Ionic strength  =   1.030e-02
                        Mass of water (kg)  =   1.000e+00
@@ -174,11 +174,11 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.155e-18
+                  Electrical balance (eq)  =  -2.532e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550668e+01
+                                  Total O  = 5.550676e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -196,21 +196,21 @@ Fe_di            1.000e-04
 	Fe_diCl+          9.149e-07   8.242e-07    -6.039    -6.084    -0.045
 	Fe_diOH+          2.285e-07   2.058e-07    -6.641    -6.687    -0.045
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              5.943e-10   5.957e-10    -9.226    -9.225     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -218,11 +218,11 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
-WARNING: Element Fe_tri has negative moles in solution, -5.977583e-06. 
+WARNING: Element Fe_tri has negative moles in solution, -5.977575e-06. 
 	Erroneous mole balance occurs as moles are added to produce zero moles.
 	Usually caused by KINETICS, REACTION, or diffuse layer calculation.
 	May be due to large time steps in early part of KINETICS simulation or negative concentrations in the diffuse layer.
-WARNING: Element Fe_tri has negative moles in solution, -1.366855e-06. 
+WARNING: Element Fe_tri has negative moles in solution, -1.366854e-06. 
 	Erroneous mole balance occurs as moles are added to produce zero moles.
 	Usually caused by KINETICS, REACTION, or diffuse layer calculation.
 	May be due to large time steps in early part of KINETICS simulation or negative concentrations in the diffuse layer.
@@ -244,7 +244,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -2.645e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -2.645e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -258,7 +258,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.048      Charge balance
-                                       pe  =  14.565      Adjusted to redox equilibrium
+                                       pe  =  14.582      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.030e-02
                        Mass of water (kg)  =   1.000e-00
@@ -266,11 +266,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.261e-16
+                  Electrical balance (eq)  =   8.508e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  = 206
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550676e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -302,22 +302,22 @@ Fe_tri           1.058e-06
 	Fe_triCl3         3.282e-18   3.290e-18   -17.484   -17.483     0.001
 	Fe_tri3(OH)4+5    3.336e-19   2.452e-20   -18.477   -19.610    -1.134
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              6.631e-11   6.647e-11   -10.178   -10.177     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.64    5.64   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 2.
 
@@ -339,7 +339,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -1.841e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -1.841e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -353,7 +353,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.810      Charge balance
-                                       pe  =  14.803      Adjusted to redox equilibrium
+                                       pe  =  14.820      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.030e-02
                        Mass of water (kg)  =   1.000e-00
@@ -361,11 +361,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.256e-16
+                  Electrical balance (eq)  =   8.599e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  25
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550676e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -397,22 +397,22 @@ Fe_tri           1.794e-06
 	Fe_triCl3         1.745e-17   1.749e-17   -16.758   -16.757     0.001
 	Fe_tri3(OH)4+5    5.604e-18   4.120e-19   -17.252   -18.385    -1.134
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              3.834e-11   3.843e-11   -10.416   -10.415     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.65    5.65   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 3.
 
@@ -434,7 +434,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.036e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -4.036e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -448,7 +448,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.525      Charge balance
-                                       pe  =  15.088      Adjusted to redox equilibrium
+                                       pe  =  15.105      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.029e-02
                        Mass of water (kg)  =   1.000e-00
@@ -456,11 +456,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.885e-16
+                  Electrical balance (eq)  =   9.432e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  65
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -492,22 +492,22 @@ Fe_tri           3.408e-06
 	Fe_tri3(OH)4+5    1.553e-16   1.142e-17   -15.809   -16.942    -1.134
 	Fe_triCl3         1.267e-16   1.270e-16   -15.897   -15.896     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              1.989e-11   1.994e-11   -10.701   -10.700     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 4.
 
@@ -529,7 +529,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.883e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -4.883e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -543,7 +543,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.327      Charge balance
-                                       pe  =  15.286      Adjusted to redox equilibrium
+                                       pe  =  15.303      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.029e-02
                        Mass of water (kg)  =   1.000e-00
@@ -551,11 +551,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.821e-15
+                  Electrical balance (eq)  =   6.885e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  24
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -587,22 +587,22 @@ Fe_tri           5.361e-06
 	Fe_tri3(OH)4+5    1.533e-15   1.128e-16   -14.814   -15.948    -1.133
 	Fe_triCl3         4.990e-16   5.001e-16   -15.302   -15.301     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              1.261e-11   1.264e-11   -10.899   -10.898     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 5.
 
@@ -624,7 +624,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.688e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -4.689e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -638,7 +638,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.197      Charge balance
-                                       pe  =  15.415      Adjusted to redox equilibrium
+                                       pe  =  15.432      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.029e-02
                        Mass of water (kg)  =   1.000e-00
@@ -646,11 +646,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.816e-15
+                  Electrical balance (eq)  =   6.890e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  22
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -682,22 +682,22 @@ Fe_tri           7.236e-06
 	Fe_tri3(OH)4+5    6.830e-15   5.024e-16   -14.166   -15.299    -1.133
 	Fe_triCl3         1.221e-15   1.224e-15   -14.913   -14.912     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.019e-03    -2.000    -2.045    -0.045
 	NaOH              9.365e-12   9.387e-12   -11.029   -11.027     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 6.
 
@@ -719,7 +719,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -6.016e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -6.017e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -733,7 +733,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.075      Charge balance
-                                       pe  =  15.538      Adjusted to redox equilibrium
+                                       pe  =  15.554      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.029e-02
                        Mass of water (kg)  =   1.000e-00
@@ -741,11 +741,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.820e-15
+                  Electrical balance (eq)  =   6.901e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  22
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -777,22 +777,22 @@ Fe_tri           9.642e-06
 	Fe_tri3(OH)4+5    2.807e-14   2.065e-15   -13.552   -14.685    -1.133
 	Fe_triCl3         2.850e-15   2.857e-15   -14.545   -14.544     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              7.063e-12   7.080e-12   -11.151   -11.150     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 7.
 
@@ -814,7 +814,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -6.156e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -6.156e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -828,7 +828,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.979      Charge balance
-                                       pe  =  15.634      Adjusted to redox equilibrium
+                                       pe  =  15.651      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.029e-02
                        Mass of water (kg)  =   1.000e-00
@@ -836,11 +836,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.816e-15
+                  Electrical balance (eq)  =   6.899e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  21
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -872,22 +872,22 @@ Fe_tri           1.210e-05
 	Fe_tri3(OH)4+5    8.494e-14   6.251e-15   -13.071   -14.204    -1.133
 	Fe_triCl3         5.536e-15   5.549e-15   -14.257   -14.256     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              5.662e-12   5.676e-12   -11.247   -11.246     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 8.
 
@@ -909,7 +909,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -7.722e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -7.722e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -923,7 +923,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.884      Charge balance
-                                       pe  =  15.729      Adjusted to redox equilibrium
+                                       pe  =  15.745      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.028e-02
                        Mass of water (kg)  =   1.000e-00
@@ -931,11 +931,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.817e-15
+                  Electrical balance (eq)  =   6.903e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  21
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -967,22 +967,22 @@ Fe_tri           1.519e-05
 	Fe_tri3(OH)4+5    2.539e-13   1.869e-14   -12.595   -13.728    -1.133
 	Fe_triCl3         1.068e-14   1.070e-14   -13.972   -13.971     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              4.550e-12   4.561e-12   -11.342   -11.341     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 9.
 
@@ -1004,7 +1004,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -5.393e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -5.394e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1018,7 +1018,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.829      Charge balance
-                                       pe  =  15.784      Adjusted to redox equilibrium
+                                       pe  =  15.800      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.028e-02
                        Mass of water (kg)  =   1.000e-00
@@ -1026,11 +1026,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.280e-14
+                  Electrical balance (eq)  =   5.287e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  18
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1039,7 +1039,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 	H+                1.624e-05   1.482e-05    -4.789    -4.829    -0.040
 	OH-               7.509e-10   6.751e-10    -9.124    -9.171    -0.046
-	H2O               5.551e+01   9.997e-01     1.744    -0.000     0.000
+	H2O               5.551e+01   9.996e-01     1.744    -0.000     0.000
 Cl               1.020e-02
 	Cl-               1.020e-02   9.172e-03    -1.991    -2.038    -0.046
 	Fe_diCl+          7.581e-07   6.830e-07    -6.120    -6.166    -0.045
@@ -1062,22 +1062,22 @@ Fe_tri           1.735e-05
 	Fe_tri3(OH)4+5    4.783e-13   3.522e-14   -12.320   -13.453    -1.133
 	Fe_triCl3         1.561e-14   1.565e-14   -13.807   -13.806     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              4.009e-12   4.019e-12   -11.397   -11.396     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 10.
 
@@ -1099,7 +1099,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.279e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -4.279e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1113,7 +1113,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.790      Charge balance
-                                       pe  =  15.822      Adjusted to redox equilibrium
+                                       pe  =  15.839      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.028e-02
                        Mass of water (kg)  =   1.000e-00
@@ -1121,11 +1121,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.585e-14
+                  Electrical balance (eq)  =   5.596e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  18
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550669e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1134,7 +1134,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 	H+                1.776e-05   1.621e-05    -4.751    -4.790    -0.040
 	OH-               6.869e-10   6.175e-10    -9.163    -9.209    -0.046
-	H2O               5.551e+01   9.997e-01     1.744    -0.000     0.000
+	H2O               5.551e+01   9.996e-01     1.744    -0.000     0.000
 Cl               1.020e-02
 	Cl-               1.020e-02   9.172e-03    -1.991    -2.038    -0.046
 	Fe_diCl+          7.425e-07   6.689e-07    -6.129    -6.175    -0.045
@@ -1157,22 +1157,22 @@ Fe_tri           1.906e-05
 	Fe_tri3(OH)4+5    7.472e-13   5.503e-14   -12.127   -13.259    -1.133
 	Fe_triCl3         2.040e-14   2.045e-14   -13.690   -13.689     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              3.667e-12   3.676e-12   -11.436   -11.435     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 Reaction step 11.
 
@@ -1194,7 +1194,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -3.603e-07
+	O2(g)            -0.67   82.52   83.19  1.000e+01  1.000e+01 -3.603e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1208,7 +1208,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.760      Charge balance
-                                       pe  =  15.852      Adjusted to redox equilibrium
+                                       pe  =  15.869      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.028e-02
                        Mass of water (kg)  =   1.000e-00
@@ -1216,11 +1216,11 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.628e-14
+                  Electrical balance (eq)  =   5.636e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  18
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550670e+01
+                                  Total O  = 5.550677e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1229,7 +1229,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 	H+                1.902e-05   1.736e-05    -4.721    -4.760    -0.040
 	OH-               6.413e-10   5.765e-10    -9.193    -9.239    -0.046
-	H2O               5.551e+01   9.997e-01     1.744    -0.000     0.000
+	H2O               5.551e+01   9.996e-01     1.744    -0.000     0.000
 Cl               1.020e-02
 	Cl-               1.020e-02   9.172e-03    -1.991    -2.038    -0.046
 	Fe_diCl+          7.293e-07   6.570e-07    -6.137    -6.182    -0.045
@@ -1252,22 +1252,22 @@ Fe_tri           2.050e-05
 	Fe_tri3(OH)4+5    1.054e-12   7.762e-14   -11.977   -13.110    -1.133
 	Fe_triCl3         2.508e-14   2.513e-14   -13.601   -13.600     0.001
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.376   -44.375     0.001
+	H2                0.000e+00   0.000e+00   -44.410   -44.409     0.001
 Na               1.000e-02
 	Na+               1.000e-02   9.020e-03    -2.000    -2.045    -0.045
 	NaOH              3.424e-12   3.432e-12   -11.465   -11.464     0.001
-O(0)             4.677e-04
-	O2                2.339e-04   2.344e-04    -3.631    -3.630     0.001
+O(0)             5.466e-04
+	O2                2.733e-04   2.739e-04    -3.563    -3.562     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	Goethite          6.66    5.66   -1.00  Fe_triOOH
-	H2(g)           -41.23  -44.38   -3.15  H2
+	H2(g)           -41.26  -44.41   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.66   -4.08    1.58  NaCl
-	O2(g)            -0.67   -3.63   -2.96  O2
+	O2(g)            -0.67   -3.56   -2.89  O2
 
 ------------------
 End of simulation.

@@ -253,7 +253,7 @@ U(6)             2.102e-08
 	Nahcolite        -4.60   -5.14   -0.55  NaHCO3
 	Natron           -9.22  -10.53   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.56   -9.18   -5.62  MgCO3:3H2O
-	O2(g)           -44.92  -47.88   -2.96  O2
+	O2(g)           -44.99  -47.88   -2.89  O2
 	Portlandite     -10.71   12.09   22.80  Ca(OH)2
 	Rutherfordine    -5.29  -19.74  -14.45  UO2CO3
 	Schoepite        -4.73    0.68    5.40  UO2(OH)2:H2O
@@ -379,7 +379,7 @@ O(0)             0.000e+00
 	Hematite         -1.73   -5.74   -4.01  Fe2O3
 	Maghemite       -12.12   -5.74    6.39  Fe2O3
 	Magnetite        -2.32    1.41    3.74  Fe3O4
-	O2(g)           -71.12  -74.08   -2.96  O2
+	O2(g)           -71.19  -74.08   -2.89  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -505,7 +505,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -620,7 +620,7 @@ O(0)             0.000e+00
 	Hematite         -1.73   -5.74   -4.01  Fe2O3
 	Maghemite       -12.12   -5.74    6.39  Fe2O3
 	Magnetite        -2.32    1.41    3.74  Fe3O4
-	O2(g)           -71.12  -74.08   -2.96  O2
+	O2(g)           -71.19  -74.08   -2.89  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -746,7 +746,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1003,7 +1003,7 @@ U(6)             8.254e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.34  -70.30   -2.96  O2
+	O2(g)           -67.40  -70.30   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -1134,7 +1134,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1253,7 +1253,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1372,7 +1372,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1491,7 +1491,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1610,7 +1610,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1729,7 +1729,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -1982,7 +1982,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -2246,7 +2246,7 @@ U(6)             8.230e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.34  -70.30   -2.96  O2
+	O2(g)           -67.41  -70.30   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -2377,7 +2377,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -2496,7 +2496,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -2615,7 +2615,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -2734,7 +2734,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -2853,7 +2853,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -3106,7 +3106,7 @@ U(6)             4.109e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.94  -54.90   -2.96  O2
+	O2(g)           -52.01  -54.90   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -53.90  -72.38  -18.48  FeS2
 	Rutherfordine    -5.45  -19.90  -14.45  UO2CO3
@@ -3370,7 +3370,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -3634,7 +3634,7 @@ U(6)             8.206e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.34  -70.30   -2.96  O2
+	O2(g)           -67.41  -70.30   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -3765,7 +3765,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -3884,7 +3884,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -4003,7 +4003,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -4122,7 +4122,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -4375,7 +4375,7 @@ U(6)             4.297e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.45  -54.41   -2.96  O2
+	O2(g)           -51.52  -54.41   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.62  -74.10  -18.48  FeS2
 	Rutherfordine    -5.43  -19.88  -14.45  UO2CO3
@@ -4639,7 +4639,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -4903,7 +4903,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -5167,7 +5167,7 @@ U(6)             8.183e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.78   -5.62  MgCO3:3H2O
-	O2(g)           -67.34  -70.30   -2.96  O2
+	O2(g)           -67.41  -70.30   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -5298,7 +5298,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -5417,7 +5417,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -5536,7 +5536,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -5789,7 +5789,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -6053,7 +6053,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -6317,7 +6317,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -6581,7 +6581,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -6845,7 +6845,7 @@ U(6)             8.158e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.78   -5.62  MgCO3:3H2O
-	O2(g)           -67.35  -70.31   -2.96  O2
+	O2(g)           -67.42  -70.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -6976,7 +6976,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -7095,7 +7095,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -7348,7 +7348,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -7612,7 +7612,7 @@ U(6)             2.257e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -52.46  -55.42   -2.96  O2
+	O2(g)           -52.53  -55.42   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -52.07  -70.55  -18.48  FeS2
 	Rutherfordine    -5.71  -20.16  -14.45  UO2CO3
@@ -7876,7 +7876,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -8140,7 +8140,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -8404,7 +8404,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -8668,7 +8668,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -8799,7 +8799,7 @@ O(0)             0.000e+00
 	Magnetite        -9.67   -5.94    3.74  Fe3O4
 	Nahcolite        -7.72   -8.27   -0.55  NaHCO3
 	Natron          -14.24  -15.55   -1.31  Na2CO3:10H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Siderite         -6.29  -17.18  -10.89  FeCO3
 	Siderite(d)(3)   -6.73  -17.18  -10.45  FeCO3
 	Thermonatrite   -15.67  -15.55    0.12  Na2CO3:H2O
@@ -9052,7 +9052,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -9316,7 +9316,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -9580,7 +9580,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -9844,7 +9844,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -10108,7 +10108,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -10372,7 +10372,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -10636,7 +10636,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -10901,7 +10901,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -11165,7 +11165,7 @@ U(6)             6.025e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.53  -54.49   -2.96  O2
+	O2(g)           -51.60  -54.49   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.34  -73.82  -18.48  FeS2
 	Rutherfordine    -5.28  -19.73  -14.45  UO2CO3
@@ -11429,7 +11429,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -11693,7 +11693,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -11957,7 +11957,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -12221,7 +12221,7 @@ U(6)             7.612e-16
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.78   -5.62  MgCO3:3H2O
-	O2(g)           -67.41  -70.37   -2.96  O2
+	O2(g)           -67.48  -70.37   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.18  -27.63  -14.45  UO2CO3
@@ -12485,7 +12485,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -12750,7 +12750,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -13014,7 +13014,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -13278,7 +13278,7 @@ U(6)             9.207e-09
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -53.24  -56.20   -2.96  O2
+	O2(g)           -53.31  -56.20   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -49.34  -67.82  -18.48  FeS2
 	Rutherfordine    -6.10  -20.55  -14.45  UO2CO3
@@ -13542,7 +13542,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -13806,7 +13806,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -14070,7 +14070,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -14334,7 +14334,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -14599,7 +14599,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -14863,7 +14863,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -15127,7 +15127,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -15391,7 +15391,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -15655,7 +15655,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -15919,7 +15919,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -16183,7 +16183,7 @@ U(6)             5.388e-17
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.15   -8.77   -5.62  MgCO3:3H2O
-	O2(g)           -69.73  -72.69   -2.96  O2
+	O2(g)           -69.80  -72.69   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -14.34  -28.79  -14.45  UO2CO3
@@ -16448,7 +16448,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -16712,7 +16712,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -16976,7 +16976,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -17240,7 +17240,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -17504,7 +17504,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -17768,7 +17768,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -18032,7 +18032,7 @@ U(6)             6.935e-16
 	Nahcolite        -5.02   -5.57   -0.55  NaHCO3
 	Natron           -8.84  -10.15   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.78   -5.62  MgCO3:3H2O
-	O2(g)           -67.50  -70.46   -2.96  O2
+	O2(g)           -67.57  -70.46   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.23  -27.68  -14.45  UO2CO3
@@ -18297,7 +18297,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -18561,7 +18561,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -18825,7 +18825,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -19089,7 +19089,7 @@ U(6)             1.582e-09
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -54.77  -57.73   -2.96  O2
+	O2(g)           -54.84  -57.73   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -43.98  -62.45  -18.48  FeS2
 	Rutherfordine    -6.86  -21.31  -14.45  UO2CO3
@@ -19353,7 +19353,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -19617,7 +19617,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -19881,7 +19881,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -20146,7 +20146,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -20410,7 +20410,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -20674,7 +20674,7 @@ U(6)             2.910e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.39  -54.35   -2.96  O2
+	O2(g)           -51.46  -54.35   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.84  -74.32  -18.48  FeS2
 	Rutherfordine    -5.60  -20.05  -14.45  UO2CO3
@@ -20938,7 +20938,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -21202,7 +21202,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -21466,7 +21466,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -21730,7 +21730,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -21995,7 +21995,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -22259,7 +22259,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -22523,7 +22523,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -22787,7 +22787,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -23051,7 +23051,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -23315,7 +23315,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -23579,7 +23579,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -23844,7 +23844,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -24108,7 +24108,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -24372,7 +24372,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -24636,7 +24636,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -24900,7 +24900,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -25164,7 +25164,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -25428,7 +25428,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -25693,7 +25693,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -25957,7 +25957,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -26221,7 +26221,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -26485,7 +26485,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -26749,7 +26749,7 @@ U(6)             5.659e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.66  -54.62   -2.96  O2
+	O2(g)           -51.73  -54.62   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -54.88  -73.36  -18.48  FeS2
 	Rutherfordine    -5.31  -19.76  -14.45  UO2CO3
@@ -27013,7 +27013,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -27277,7 +27277,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -27542,7 +27542,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -27806,7 +27806,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -28070,7 +28070,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -28334,7 +28334,7 @@ U(6)             3.548e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.42  -54.38   -2.96  O2
+	O2(g)           -51.49  -54.38   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.74  -74.22  -18.48  FeS2
 	Rutherfordine    -5.51  -19.96  -14.45  UO2CO3
@@ -28598,7 +28598,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -28862,7 +28862,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -29126,7 +29126,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -29391,7 +29391,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -29655,7 +29655,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -29919,7 +29919,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -30183,7 +30183,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -30447,7 +30447,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -30711,7 +30711,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -30975,7 +30975,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -31240,7 +31240,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -31504,7 +31504,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -31768,7 +31768,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -32032,7 +32032,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -32296,7 +32296,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -32560,7 +32560,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -32824,7 +32824,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -33089,7 +33089,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -33353,7 +33353,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -33617,7 +33617,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -33881,7 +33881,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -34145,7 +34145,7 @@ U(6)             6.429e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.55  -54.51   -2.96  O2
+	O2(g)           -51.62  -54.51   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.27  -73.75  -18.48  FeS2
 	Rutherfordine    -5.25  -19.70  -14.45  UO2CO3
@@ -34409,7 +34409,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -34673,7 +34673,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -34938,7 +34938,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -35202,7 +35202,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -35466,7 +35466,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -35730,7 +35730,7 @@ U(6)             2.101e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.35  -54.31   -2.96  O2
+	O2(g)           -51.42  -54.31   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.96  -74.44  -18.48  FeS2
 	Rutherfordine    -5.74  -20.19  -14.45  UO2CO3
@@ -35994,7 +35994,7 @@ U(6)             4.352e-08
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -51.45  -54.41   -2.96  O2
+	O2(g)           -51.52  -54.41   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite          -55.61  -74.09  -18.48  FeS2
 	Rutherfordine    -5.42  -19.87  -14.45  UO2CO3
@@ -36258,7 +36258,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3
@@ -36522,7 +36522,7 @@ U(6)             8.277e-16
 	Nahcolite        -5.03   -5.57   -0.55  NaHCO3
 	Natron           -8.85  -10.16   -1.31  Na2CO3:10H2O
 	Nesquehonite     -3.16   -8.79   -5.62  MgCO3:3H2O
-	O2(g)           -67.33  -70.29   -2.96  O2
+	O2(g)           -67.40  -70.29   -2.89  O2
 	Portlandite      -9.63   13.17   22.80  Ca(OH)2
 	Pyrite            0.00  -18.48  -18.48  FeS2
 	Rutherfordine   -13.15  -27.60  -14.45  UO2CO3

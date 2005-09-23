@@ -175,7 +175,7 @@ X                3.257e-03 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              1.628e-03   3.257e-03   1.000e+00    -0.000
+	CaX2              1.628e-03   3.257e-03   1.000e+00    -0.041
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -211,7 +211,7 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -235,9 +235,9 @@ X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                  Total alkalinity (eq/kg)  =  -2.300e-01
                        Total CO2 (mol/kg)  =   9.998e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.560e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  17
+                               Iterations  =  20
                          Gamma iterations  =   3
                       Osmotic coefficient  =   0.94479
                          Density of water  =   0.99706
@@ -305,7 +305,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
+X                9.220e-13 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -329,7 +329,7 @@ X                0.000e+00 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                  Total alkalinity (eq/kg)  =  -2.300e-01
                        Total CO2 (mol/kg)  =   9.998e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.560e-10
+                  Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                          Gamma iterations  =   1
@@ -557,7 +557,7 @@ X                3.296e-02 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              1.648e-02   3.296e-02   1.000e+00    -0.000
+	CaX2              1.648e-02   3.296e-02   1.000e+00    -0.041
 
 -----------------------------Solution composition------------------------------
 
@@ -578,7 +578,7 @@ X                3.296e-02 mol	[0.33 (mol Ca.5X)/(mol Calcite)]
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  29
+                               Iterations  =  30
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.98136
                          Density of water  =   0.99706

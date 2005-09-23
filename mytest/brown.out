@@ -618,7 +618,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -34.02   -2.02   32.00  Ni4(OH)6SO4
 	NiCO3           -10.60  -17.44   -6.84  NiCO3
 	Nsutite         -17.99   24.57   42.56  MnO2
-	O2(g)           -39.92  -42.88   -2.96  O2
+	O2(g)           -39.99  -42.88   -2.89  O2
 	Otavite          -6.63  -18.73  -12.10  CdCO3
 	Phillipsite      -4.78  -24.66  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -34.10    9.20   43.30  KMg3AlSi3O10(OH)2
@@ -1122,7 +1122,7 @@ Zn               2.501e-07
 	Ni4(OH)6SO4     -18.41   13.59   32.00  Ni4(OH)6SO4
 	NiCO3            -6.05  -12.89   -6.84  NiCO3
 	Nsutite           5.18   47.75   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -1.30  -13.40  -12.10  CdCO3
 	Phillipsite       0.06  -19.81  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -2.84   40.46   43.30  KMg3AlSi3O10(OH)2
@@ -1774,7 +1774,7 @@ Zn               3.108e-04
 	Ni4(OH)6SO4     -17.64   14.36   32.00  Ni4(OH)6SO4
 	NiCO3            -4.35  -11.19   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -20.51  -23.47   -2.96  O2
+	O2(g)           -20.58  -23.47   -2.89  O2
 	Otavite          -0.01  -12.11  -12.10  CdCO3
 	Phillipsite       6.13  -13.74  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -5.28   38.02   43.30  KMg3AlSi3O10(OH)2
@@ -2385,7 +2385,7 @@ Zn               1.420e-04
 	Ni4(OH)6SO4     -17.13   14.87   32.00  Ni4(OH)6SO4
 	NiCO3            -4.31  -11.15   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -21.14  -24.10   -2.96  O2
+	O2(g)           -21.20  -24.10   -2.89  O2
 	Otavite           0.22  -11.88  -12.10  CdCO3
 	Phillipsite       6.36  -13.51  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -3.80   39.50   43.30  KMg3AlSi3O10(OH)2
@@ -2988,7 +2988,7 @@ Zn               1.420e-04
 	Ni4(OH)6SO4     -17.13   14.87   32.00  Ni4(OH)6SO4
 	NiCO3            -4.31  -11.15   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -21.14  -24.10   -2.96  O2
+	O2(g)           -21.20  -24.10   -2.89  O2
 	Otavite           0.22  -11.88  -12.10  CdCO3
 	Phillipsite       6.36  -13.51  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -3.80   39.50   43.30  KMg3AlSi3O10(OH)2
@@ -3591,7 +3591,7 @@ Zn               1.420e-04
 	Ni4(OH)6SO4     -17.13   14.87   32.00  Ni4(OH)6SO4
 	NiCO3            -4.31  -11.15   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -21.14  -24.10   -2.96  O2
+	O2(g)           -21.20  -24.10   -2.89  O2
 	Otavite           0.22  -11.88  -12.10  CdCO3
 	Phillipsite       6.36  -13.51  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -3.80   39.50   43.30  KMg3AlSi3O10(OH)2
@@ -4240,7 +4240,7 @@ Zn               3.464e-04
 	Ni4(OH)6SO4     -25.87    6.13   32.00  Ni4(OH)6SO4
 	NiCO3            -7.91  -14.75   -6.84  NiCO3
 	Nsutite         -15.62   26.95   42.56  MnO2
-	O2(g)           -40.60  -43.56   -2.96  O2
+	O2(g)           -40.67  -43.56   -2.89  O2
 	Otavite          -3.94  -16.04  -12.10  CdCO3
 	Phillipsite       0.61  -19.26  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -20.56   22.74   43.30  KMg3AlSi3O10(OH)2
@@ -4849,7 +4849,7 @@ Zn               1.082e-03
 	Ni4(OH)6SO4     -17.65   14.35   32.00  Ni4(OH)6SO4
 	NiCO3            -4.28  -11.12   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -20.43  -23.39   -2.96  O2
+	O2(g)           -20.50  -23.39   -2.89  O2
 	Otavite          -0.01  -12.11  -12.10  CdCO3
 	Phillipsite       6.04  -13.84  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -5.68   37.62   43.30  KMg3AlSi3O10(OH)2
@@ -5458,7 +5458,7 @@ Zn               2.158e-04
 	Ni4(OH)6SO4     -16.95   15.05   32.00  Ni4(OH)6SO4
 	NiCO3            -4.19  -11.03   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -21.06  -24.02   -2.96  O2
+	O2(g)           -21.13  -24.02   -2.89  O2
 	Otavite           0.15  -11.95  -12.10  CdCO3
 	Phillipsite       6.27  -13.60  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -4.47   38.83   43.30  KMg3AlSi3O10(OH)2
@@ -6107,7 +6107,7 @@ Zn               3.452e-04
 	Ni4(OH)6SO4     -31.58    0.42   32.00  Ni4(OH)6SO4
 	NiCO3            -9.79  -16.63   -6.84  NiCO3
 	Nsutite         -13.71   28.85   42.56  MnO2
-	O2(g)           -32.98  -35.94   -2.96  O2
+	O2(g)           -33.05  -35.94   -2.89  O2
 	Otavite          -5.82  -17.92  -12.10  CdCO3
 	Phillipsite      -3.19  -23.07  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.08   13.22   43.30  KMg3AlSi3O10(OH)2
@@ -6716,7 +6716,7 @@ Zn               3.462e-04
 	Ni4(OH)6SO4     -25.59    6.41   32.00  Ni4(OH)6SO4
 	NiCO3            -7.82  -14.66   -6.84  NiCO3
 	Nsutite         -15.71   26.86   42.56  MnO2
-	O2(g)           -40.97  -43.93   -2.96  O2
+	O2(g)           -41.03  -43.93   -2.89  O2
 	Otavite          -3.85  -15.95  -12.10  CdCO3
 	Phillipsite       0.79  -19.08  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -20.10   23.20   43.30  KMg3AlSi3O10(OH)2
@@ -7325,7 +7325,7 @@ Zn               1.022e-03
 	Ni4(OH)6SO4     -17.66   14.34   32.00  Ni4(OH)6SO4
 	NiCO3            -4.28  -11.12   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)           -20.40  -23.36   -2.96  O2
+	O2(g)           -20.47  -23.36   -2.89  O2
 	Otavite          -0.01  -12.11  -12.10  CdCO3
 	Phillipsite       6.03  -13.85  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -5.72   37.58   43.30  KMg3AlSi3O10(OH)2
@@ -7974,7 +7974,7 @@ Zn               3.452e-04
 	Ni4(OH)6SO4     -31.88    0.12   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.61   28.96   42.56  MnO2
-	O2(g)           -32.58  -35.54   -2.96  O2
+	O2(g)           -32.64  -35.54   -2.89  O2
 	Otavite          -5.92  -18.02  -12.10  CdCO3
 	Phillipsite      -3.40  -23.27  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.58   12.72   43.30  KMg3AlSi3O10(OH)2
@@ -8583,7 +8583,7 @@ Zn               3.454e-04
 	Ni4(OH)6SO4     -25.56    6.44   32.00  Ni4(OH)6SO4
 	NiCO3            -7.81  -14.65   -6.84  NiCO3
 	Nsutite         -15.72   26.84   42.56  MnO2
-	O2(g)           -41.02  -43.98   -2.96  O2
+	O2(g)           -41.09  -43.98   -2.89  O2
 	Otavite          -3.84  -15.94  -12.10  CdCO3
 	Phillipsite       0.82  -19.06  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -20.04   23.26   43.30  KMg3AlSi3O10(OH)2
@@ -9192,7 +9192,7 @@ Zn               3.465e-04
 	Ni4(OH)6SO4     -29.08    2.92   32.00  Ni4(OH)6SO4
 	NiCO3            -8.96  -15.80   -6.84  NiCO3
 	Nsutite         -14.53   28.03   42.56  MnO2
-	O2(g)           -36.31  -39.27   -2.96  O2
+	O2(g)           -36.38  -39.27   -2.89  O2
 	Otavite          -5.00  -17.10  -12.10  CdCO3
 	Phillipsite      -1.53  -21.40  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -25.92   17.38   43.30  KMg3AlSi3O10(OH)2
@@ -9841,7 +9841,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -10450,7 +10450,7 @@ Zn               3.455e-04
 	Ni4(OH)6SO4     -26.20    5.80   32.00  Ni4(OH)6SO4
 	NiCO3            -8.01  -14.85   -6.84  NiCO3
 	Nsutite         -15.50   27.06   42.56  MnO2
-	O2(g)           -40.16  -43.12   -2.96  O2
+	O2(g)           -40.22  -43.12   -2.89  O2
 	Otavite          -4.05  -16.15  -12.10  CdCO3
 	Phillipsite       0.39  -19.48  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -21.11   22.19   43.30  KMg3AlSi3O10(OH)2
@@ -11059,7 +11059,7 @@ Zn               3.454e-04
 	Ni4(OH)6SO4     -27.88    4.12   32.00  Ni4(OH)6SO4
 	NiCO3            -8.56  -15.40   -6.84  NiCO3
 	Nsutite         -14.94   27.62   42.56  MnO2
-	O2(g)           -37.92  -40.88   -2.96  O2
+	O2(g)           -37.98  -40.88   -2.89  O2
 	Otavite          -4.60  -16.70  -12.10  CdCO3
 	Phillipsite      -0.73  -20.60  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -23.91   19.39   43.30  KMg3AlSi3O10(OH)2
@@ -11708,7 +11708,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -12317,7 +12317,7 @@ Zn               3.452e-04
 	Ni4(OH)6SO4     -31.62    0.38   32.00  Ni4(OH)6SO4
 	NiCO3            -9.80  -16.64   -6.84  NiCO3
 	Nsutite         -13.70   28.87   42.56  MnO2
-	O2(g)           -32.93  -35.89   -2.96  O2
+	O2(g)           -33.00  -35.89   -2.89  O2
 	Otavite          -5.83  -17.93  -12.10  CdCO3
 	Phillipsite      -3.22  -23.09  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.14   13.16   43.30  KMg3AlSi3O10(OH)2
@@ -12926,7 +12926,7 @@ Zn               3.454e-04
 	Ni4(OH)6SO4     -27.39    4.61   32.00  Ni4(OH)6SO4
 	NiCO3            -8.40  -15.24   -6.84  NiCO3
 	Nsutite         -15.11   27.46   42.56  MnO2
-	O2(g)           -38.57  -41.53   -2.96  O2
+	O2(g)           -38.64  -41.53   -2.89  O2
 	Otavite          -4.44  -16.54  -12.10  CdCO3
 	Phillipsite      -0.40  -20.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -23.09   20.21   43.30  KMg3AlSi3O10(OH)2
@@ -13575,7 +13575,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -14184,7 +14184,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.56  -35.52   -2.96  O2
+	O2(g)           -32.63  -35.52   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.40  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.61   12.69   43.30  KMg3AlSi3O10(OH)2
@@ -14793,7 +14793,7 @@ Zn               3.455e-04
 	Ni4(OH)6SO4     -27.09    4.91   32.00  Ni4(OH)6SO4
 	NiCO3            -8.30  -15.14   -6.84  NiCO3
 	Nsutite         -15.21   27.36   42.56  MnO2
-	O2(g)           -38.97  -41.93   -2.96  O2
+	O2(g)           -39.04  -41.93   -2.89  O2
 	Otavite          -4.34  -16.44  -12.10  CdCO3
 	Phillipsite      -0.20  -20.08  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -22.60   20.70   43.30  KMg3AlSi3O10(OH)2
@@ -15442,7 +15442,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -16051,7 +16051,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -16660,7 +16660,7 @@ Zn               3.454e-04
 	Ni4(OH)6SO4     -31.08    0.92   32.00  Ni4(OH)6SO4
 	NiCO3            -9.62  -16.46   -6.84  NiCO3
 	Nsutite         -13.88   28.69   42.56  MnO2
-	O2(g)           -33.64  -36.60   -2.96  O2
+	O2(g)           -33.71  -36.60   -2.89  O2
 	Otavite          -5.66  -17.76  -12.10  CdCO3
 	Phillipsite      -2.86  -22.74  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -29.25   14.05   43.30  KMg3AlSi3O10(OH)2
@@ -17309,7 +17309,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -17918,7 +17918,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -18527,7 +18527,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -19176,7 +19176,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -19785,7 +19785,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -20394,7 +20394,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -21043,7 +21043,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -21652,7 +21652,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -22261,7 +22261,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -22852,7 +22852,7 @@ Zn               2.501e-07
 	Ni4(OH)6SO4     -20.68   11.32   32.00  Ni4(OH)6SO4
 	NiCO3            -6.10  -12.94   -6.84  NiCO3
 	Nsutite           1.34   43.91   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.28  -14.38  -12.10  CdCO3
 	Phillipsite       0.07  -19.80  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -8.88   34.42   43.30  KMg3AlSi3O10(OH)2
@@ -23458,7 +23458,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -24061,7 +24061,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -24664,7 +24664,7 @@ Zn               3.451e-04
 	Ni4(OH)6SO4     -31.90    0.10   32.00  Ni4(OH)6SO4
 	NiCO3            -9.89  -16.73   -6.84  NiCO3
 	Nsutite         -13.60   28.96   42.56  MnO2
-	O2(g)           -32.55  -35.51   -2.96  O2
+	O2(g)           -32.62  -35.51   -2.89  O2
 	Otavite          -5.93  -18.03  -12.10  CdCO3
 	Phillipsite      -3.41  -23.28  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -30.62   12.68   43.30  KMg3AlSi3O10(OH)2
@@ -25313,7 +25313,7 @@ Zn               9.733e-08
 	Ni4(OH)6SO4     -25.08    6.92   32.00  Ni4(OH)6SO4
 	NiCO3            -7.30  -14.14   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -4.11  -16.21  -12.10  CdCO3
 	Phillipsite      -1.23  -21.11  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -17.63   25.67   43.30  KMg3AlSi3O10(OH)2
@@ -25922,7 +25922,7 @@ Zn               1.064e-06
 	Ni4(OH)6SO4     -37.26   -5.26   32.00  Ni4(OH)6SO4
 	NiCO3           -11.20  -18.04   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.77   -3.73   -2.96  O2
+	O2(g)            -0.84   -3.73   -2.89  O2
 	Otavite          -7.63  -19.73  -12.10  CdCO3
 	Phillipsite      -6.90  -26.77  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -36.26    7.04   43.30  KMg3AlSi3O10(OH)2
@@ -26531,7 +26531,7 @@ Zn               1.241e-04
 	Ni4(OH)6SO4     -32.72   -0.72   32.00  Ni4(OH)6SO4
 	NiCO3           -10.13  -16.97   -6.84  NiCO3
 	Nsutite         -13.46   29.10   42.56  MnO2
-	O2(g)           -32.03  -34.99   -2.96  O2
+	O2(g)           -32.10  -34.99   -2.89  O2
 	Otavite          -6.09  -18.19  -12.10  CdCO3
 	Phillipsite      -3.54  -23.42  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -31.01   12.29   43.30  KMg3AlSi3O10(OH)2
@@ -27180,7 +27180,7 @@ Zn               1.751e-08
 	Ni4(OH)6SO4     -25.37    6.63   32.00  Ni4(OH)6SO4
 	NiCO3            -7.14  -13.98   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -3.40  -15.50  -12.10  CdCO3
 	Phillipsite      -0.55  -20.42  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -14.71   28.59   43.30  KMg3AlSi3O10(OH)2
@@ -27789,7 +27789,7 @@ Zn               1.836e-08
 	Ni4(OH)6SO4     -35.71   -3.71   32.00  Ni4(OH)6SO4
 	NiCO3           -10.50  -17.34   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -6.94  -19.04  -12.10  CdCO3
 	Phillipsite      -7.19  -27.07  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -32.79   10.51   43.30  KMg3AlSi3O10(OH)2
@@ -28398,7 +28398,7 @@ Zn               6.944e-08
 	Ni4(OH)6SO4     -37.88   -5.88   32.00  Ni4(OH)6SO4
 	NiCO3           -11.30  -18.14   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -7.98  -20.08  -12.10  CdCO3
 	Phillipsite      -9.01  -28.88  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -37.80    5.50   43.30  KMg3AlSi3O10(OH)2
@@ -29047,7 +29047,7 @@ Zn               1.046e-08
 	Ni4(OH)6SO4     -24.40    7.60   32.00  Ni4(OH)6SO4
 	NiCO3            -6.89  -13.73   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.97  -15.07  -12.10  CdCO3
 	Phillipsite      -0.08  -19.96  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -12.42   30.88   43.30  KMg3AlSi3O10(OH)2
@@ -29656,7 +29656,7 @@ Zn               3.385e-09
 	Ni4(OH)6SO4     -35.36   -3.36   32.00  Ni4(OH)6SO4
 	NiCO3           -10.21  -17.05   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -6.11  -18.21  -12.10  CdCO3
 	Phillipsite      -5.53  -25.40  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -28.60   14.70   43.30  KMg3AlSi3O10(OH)2
@@ -30265,7 +30265,7 @@ Zn               7.905e-09
 	Ni4(OH)6SO4     -38.72   -6.72   32.00  Ni4(OH)6SO4
 	NiCO3           -11.40  -18.24   -6.84  NiCO3
 	Nsutite          -1.26   41.30   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -7.54  -19.64  -12.10  CdCO3
 	Phillipsite      -8.34  -28.22  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -35.74    7.56   43.30  KMg3AlSi3O10(OH)2
@@ -30914,7 +30914,7 @@ Zn               8.794e-09
 	Ni4(OH)6SO4     -23.66    8.34   32.00  Ni4(OH)6SO4
 	NiCO3            -6.74  -13.58   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.73  -14.83  -12.10  CdCO3
 	Phillipsite       0.01  -19.86  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -11.24   32.06   43.30  KMg3AlSi3O10(OH)2
@@ -31523,7 +31523,7 @@ Zn               6.537e-10
 	Ni4(OH)6SO4     -36.18   -4.18   32.00  Ni4(OH)6SO4
 	NiCO3           -10.29  -17.13   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -5.74  -17.84  -12.10  CdCO3
 	Phillipsite      -5.16  -25.03  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -27.17   16.13   43.30  KMg3AlSi3O10(OH)2
@@ -32132,7 +32132,7 @@ Zn               1.618e-09
 	Ni4(OH)6SO4     -39.60   -7.60   32.00  Ni4(OH)6SO4
 	NiCO3           -11.54  -18.38   -6.84  NiCO3
 	Nsutite          -1.30   41.27   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -7.24  -19.34  -12.10  CdCO3
 	Phillipsite      -7.78  -27.65  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -34.28    9.02   43.30  KMg3AlSi3O10(OH)2
@@ -32781,7 +32781,7 @@ Zn               8.382e-09
 	Ni4(OH)6SO4     -23.12    8.88   32.00  Ni4(OH)6SO4
 	NiCO3            -6.63  -13.47   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.59  -14.69  -12.10  CdCO3
 	Phillipsite       0.04  -19.83  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -10.51   32.79   43.30  KMg3AlSi3O10(OH)2
@@ -33390,7 +33390,7 @@ Zn               1.282e-10
 	Ni4(OH)6SO4     -36.32   -4.32   32.00  Ni4(OH)6SO4
 	NiCO3           -10.14  -16.98   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -5.13  -17.23  -12.10  CdCO3
 	Phillipsite      -4.16  -24.03  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -24.34   18.96   43.30  KMg3AlSi3O10(OH)2
@@ -33999,7 +33999,7 @@ Zn               3.966e-10
 	Ni4(OH)6SO4     -40.49   -8.49   32.00  Ni4(OH)6SO4
 	NiCO3           -11.70  -18.54   -6.84  NiCO3
 	Nsutite          -1.32   41.24   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -6.99  -19.09  -12.10  CdCO3
 	Phillipsite      -7.29  -27.16  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -33.03   10.27   43.30  KMg3AlSi3O10(OH)2
@@ -34648,7 +34648,7 @@ Zn               8.485e-09
 	Ni4(OH)6SO4     -22.72    9.28   32.00  Ni4(OH)6SO4
 	NiCO3            -6.55  -13.39   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.50  -14.60  -12.10  CdCO3
 	Phillipsite       0.05  -19.82  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -10.03   33.27   43.30  KMg3AlSi3O10(OH)2
@@ -35257,7 +35257,7 @@ Zn               2.826e-11
 	Ni4(OH)6SO4     -35.37   -3.37   32.00  Ni4(OH)6SO4
 	NiCO3            -9.75  -16.59   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -4.38  -16.48  -12.10  CdCO3
 	Phillipsite      -2.56  -22.44  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -20.30   23.00   43.30  KMg3AlSi3O10(OH)2
@@ -35866,7 +35866,7 @@ Zn               7.452e-11
 	Ni4(OH)6SO4     -41.78   -9.78   32.00  Ni4(OH)6SO4
 	NiCO3           -11.99  -18.83   -6.84  NiCO3
 	Nsutite          -1.21   41.35   42.56  MnO2
-	O2(g)            -0.69   -3.65   -2.96  O2
+	O2(g)            -0.76   -3.65   -2.89  O2
 	Otavite          -6.85  -18.95  -12.10  CdCO3
 	Phillipsite      -7.01  -26.88  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -32.32   10.98   43.30  KMg3AlSi3O10(OH)2
@@ -36515,7 +36515,7 @@ Zn               8.867e-09
 	Ni4(OH)6SO4     -22.40    9.60   32.00  Ni4(OH)6SO4
 	NiCO3            -6.48  -13.32   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.44  -14.54  -12.10  CdCO3
 	Phillipsite       0.06  -19.81  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -9.70   33.60   43.30  KMg3AlSi3O10(OH)2
@@ -37124,7 +37124,7 @@ Zn               1.009e-11
 	Ni4(OH)6SO4     -34.50   -2.50   32.00  Ni4(OH)6SO4
 	NiCO3            -9.45  -16.29   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -3.84  -15.94  -12.10  CdCO3
 	Phillipsite      -1.40  -21.27  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -17.24   26.06   43.30  KMg3AlSi3O10(OH)2
@@ -37733,7 +37733,7 @@ Zn               1.350e-11
 	Ni4(OH)6SO4     -44.53  -12.53   32.00  Ni4(OH)6SO4
 	NiCO3           -12.65  -19.49   -6.84  NiCO3
 	Nsutite          -1.40   41.16   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -7.08  -19.18  -12.10  CdCO3
 	Phillipsite      -8.06  -27.93  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -34.20    9.10   43.30  KMg3AlSi3O10(OH)2
@@ -38382,7 +38382,7 @@ Zn               9.425e-09
 	Ni4(OH)6SO4     -22.15    9.85   32.00  Ni4(OH)6SO4
 	NiCO3            -6.43  -13.27   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.39  -14.49  -12.10  CdCO3
 	Phillipsite       0.06  -19.81  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -9.47   33.83   43.30  KMg3AlSi3O10(OH)2
@@ -38991,7 +38991,7 @@ Zn               5.159e-12
 	Ni4(OH)6SO4     -33.70   -1.70   32.00  Ni4(OH)6SO4
 	NiCO3            -9.21  -16.05   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -3.47  -15.57  -12.10  CdCO3
 	Phillipsite      -0.68  -20.56  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -15.15   28.15   43.30  KMg3AlSi3O10(OH)2
@@ -39600,7 +39600,7 @@ Zn               3.059e-12
 	Ni4(OH)6SO4     -45.14  -13.14   32.00  Ni4(OH)6SO4
 	NiCO3           -12.74  -19.58   -6.84  NiCO3
 	Nsutite          -1.50   41.06   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -6.82  -18.92  -12.10  CdCO3
 	Phillipsite      -7.56  -27.43  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -32.92   10.38   43.30  KMg3AlSi3O10(OH)2
@@ -40249,7 +40249,7 @@ Zn               1.011e-08
 	Ni4(OH)6SO4     -21.95   10.05   32.00  Ni4(OH)6SO4
 	NiCO3            -6.39  -13.23   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.36  -14.46  -12.10  CdCO3
 	Phillipsite       0.07  -19.81  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -9.31   33.99   43.30  KMg3AlSi3O10(OH)2
@@ -40858,7 +40858,7 @@ Zn               3.272e-12
 	Ni4(OH)6SO4     -32.95   -0.95   32.00  Ni4(OH)6SO4
 	NiCO3            -9.02  -15.86   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -3.22  -15.32  -12.10  CdCO3
 	Phillipsite      -0.31  -20.18  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -13.74   29.56   43.30  KMg3AlSi3O10(OH)2
@@ -41467,7 +41467,7 @@ Zn               7.730e-13
 	Ni4(OH)6SO4     -45.57  -13.57   32.00  Ni4(OH)6SO4
 	NiCO3           -12.77  -19.61   -6.84  NiCO3
 	Nsutite          -1.68   40.88   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -6.52  -18.62  -12.10  CdCO3
 	Phillipsite      -6.97  -26.84  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -31.42   11.88   43.30  KMg3AlSi3O10(OH)2
@@ -42116,7 +42116,7 @@ Zn               1.087e-08
 	Ni4(OH)6SO4     -21.78   10.22   32.00  Ni4(OH)6SO4
 	NiCO3            -6.35  -13.19   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -2.34  -14.44  -12.10  CdCO3
 	Phillipsite       0.07  -19.81  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -9.19   34.11   43.30  KMg3AlSi3O10(OH)2
@@ -42725,7 +42725,7 @@ Zn               2.363e-12
 	Ni4(OH)6SO4     -32.24   -0.24   32.00  Ni4(OH)6SO4
 	NiCO3            -8.85  -15.69   -6.84  NiCO3
 	Nsutite          -1.18   41.38   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -3.03  -15.13  -12.10  CdCO3
 	Phillipsite      -0.13  -20.00  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -12.75   30.55   43.30  KMg3AlSi3O10(OH)2
@@ -43334,7 +43334,7 @@ Zn               2.056e-13
 	Ni4(OH)6SO4     -45.60  -13.60   32.00  Ni4(OH)6SO4
 	NiCO3           -12.68  -19.52   -6.84  NiCO3
 	Nsutite          -1.89   40.67   42.56  MnO2
-	O2(g)            -0.70   -3.66   -2.96  O2
+	O2(g)            -0.76   -3.66   -2.89  O2
 	Otavite          -6.11  -18.21  -12.10  CdCO3
 	Phillipsite      -6.15  -26.02  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite      -29.34   13.96   43.30  KMg3AlSi3O10(OH)2

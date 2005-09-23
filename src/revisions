@@ -553,7 +553,10 @@ End of Features not documented in WRIR 99-4259.
 Revisions and bug fixes
 ------------------------------------------------------------
 
-Version 2.12 Date: 
+Version 2.12 Date: Sat October 1, 2005
+
+	Executables and output files for Sun operating systems
+	are no longer provided.
 
         Made aqueous activity coefficients the default activity
         coefficients for exchange species when using the 
@@ -564,9 +567,10 @@ Version 2.12 Date:
         model (non-Pitzer).
 
         Edited phreeqc.dat to add -gamma expression for 
-        CdX2 and PbX2. Replaced O2(g) log K with data
-        from llnl.dat, which appears to be better in
-	phreeqc.dat and wateq4f.dat.
+        CdX2 and PbX2. 
+
+        Replaced O2(g) log K in	phreeqc.dat and wateq4f.dat
+        with data from llnl.dat, which appears to be better.
 
         Added multiplier format to REACTION increments, which
         simplifies definition of multiple equal reaction increments.

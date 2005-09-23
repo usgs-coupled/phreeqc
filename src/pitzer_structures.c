@@ -9,11 +9,9 @@ static char const svnid[] = "$Id: structures.c 269 2005-04-27 19:54:25Z dlpark $
 
 
 static struct pitz_param *pitz_param_alloc (void);
-static int pitz_param_free (struct pitz_param *pitz_param_ptr);
 static int pitz_param_init (struct pitz_param *pitz_param_ptr);
 static struct pitz_param *pitz_param_duplicate(struct pitz_param *old_ptr);
 static int pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr);
-static int theta_param_free (struct theta_param *theta_param_ptr);
 
 
 /* **********************************************************************
@@ -29,19 +27,6 @@ struct pitz_param *pitz_param_alloc (void)
 	pitz_param_ptr = (struct pitz_param *) PHRQ_malloc(sizeof (struct pitz_param));
 	if (pitz_param_ptr == NULL) malloc_error();
 	return ( pitz_param_ptr );
-}
-/* ---------------------------------------------------------------------- */
-int pitz_param_free (struct pitz_param *pitz_param_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees all data associated with pitz_param structure.
- */
-	if (pitz_param_ptr == NULL) return(ERROR);
-/*
- *   Free space allocated for pitz_param structure
- */
-	return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int pitz_param_init (struct pitz_param *pitz_param_ptr)
@@ -174,19 +159,6 @@ struct theta_param *theta_param_alloc (void)
 	theta_param_ptr = (struct theta_param *) PHRQ_malloc(sizeof (struct theta_param));
 	if (theta_param_ptr == NULL) malloc_error();
 	return ( theta_param_ptr );
-}
-/* ---------------------------------------------------------------------- */
-int theta_param_free (struct theta_param *theta_param_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees all data associated with theta_param structure.
- */
-	if (theta_param_ptr == NULL) return(ERROR);
-/*
- *   Free space allocated for theta_param structure
- */
-	return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int theta_param_init (struct theta_param *theta_param_ptr)

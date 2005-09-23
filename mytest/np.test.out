@@ -189,7 +189,7 @@ Si               2.730e-04
 	H2(g)           -20.40  -23.55   -3.15  H2
 	H2O(g)           -0.00   -0.00    0.00  H2O
 	Halite           -8.75   -8.75    0.00  NaCl
-	O2(g)           -42.32  -45.28   -2.96  O2
+	O2(g)           -42.39  -45.28   -2.89  O2
 	Quartz            0.42   -3.56   -3.98  SiO2
 	Sepiolite       -10.82    4.94   15.76  Mg2Si3O7.5OH:3H2O
 	Sepiolite(d)    -13.72    4.94   18.66  Mg2Si3O7.5OH:3H2O
@@ -302,7 +302,7 @@ Si               4.100e-04
 	H2(g)           -21.60  -24.75   -3.15  H2
 	H2O(g)           -0.00   -0.00    0.00  H2O
 	Halite           -8.14   -8.14    0.00  NaCl
-	O2(g)           -39.92  -42.88   -2.96  O2
+	O2(g)           -39.99  -42.88   -2.89  O2
 	Quartz            0.59   -3.39   -3.98  SiO2
 	Sepiolite        -7.17    8.59   15.76  Mg2Si3O7.5OH:3H2O
 	Sepiolite(d)    -10.07    8.59   18.66  Mg2Si3O7.5OH:3H2O
@@ -699,7 +699,7 @@ Si               5.000e-04
 	H2O(g)           -0.00   -0.00    0.00  H2O
 	Halite           -4.18   -4.18    0.00  NaCl
 	Mirabilite       -7.66   -7.66    0.00  Na2SO4:10H2O
-	O2(g)           -34.72  -37.68   -2.96  O2
+	O2(g)           -34.79  -37.68   -2.89  O2
 	Quartz            0.67   -3.31   -3.98  SiO2
 	Sepiolite         0.66   16.42   15.76  Mg2Si3O7.5OH:3H2O
 	Sepiolite(d)     -2.24   16.42   18.66  Mg2Si3O7.5OH:3H2O
@@ -815,7 +815,7 @@ Si               5.000e-04
 	H2O(g)           -0.10   -0.10    0.00  H2O
 	Halite            1.46    1.46    0.00  NaCl
 	Mirabilite       -1.52   -1.52    0.00  Na2SO4:10H2O
-	O2(g)           -37.32  -40.28   -2.96  O2
+	O2(g)           -37.39  -40.28   -2.89  O2
 	Quartz            1.53   -2.45   -3.98  SiO2
 	Sepiolite         6.11   21.87   15.76  Mg2Si3O7.5OH:3H2O
 	Sepiolite(d)      3.21   21.87   18.66  Mg2Si3O7.5OH:3H2O
@@ -1614,7 +1614,7 @@ S(6)             1.978e-04
 	H2(g)           -23.20  -26.31   -3.11  H2
 	H2O(g)           -0.00   -0.00    0.00  H2O
 	Mirabilite      -11.52  -11.52    0.00  Na2SO4:10H2O
-	O2(g)           -39.48  -42.40   -2.92  O2
+	O2(g)           -39.57  -42.40   -2.83  O2
 
 Initial solution 2.	
 
@@ -1708,7 +1708,7 @@ S(6)             1.354e-04
 	H2(g)           -24.80  -27.92   -3.12  H2
 	H2O(g)           -0.00   -0.00    0.00  H2O
 	Mirabilite       -8.54   -8.54    0.00  Na2SO4:10H2O
-	O2(g)           -35.58  -38.51   -2.93  O2
+	O2(g)           -35.66  -38.51   -2.85  O2
 
 ---------------------------------------------
 Beginning of inverse modeling 1 calculations.
@@ -2099,7 +2099,7 @@ Si               5.328e-04
 	Manganite        -1.47   23.87   25.34  MnOOH
 	Mirabilite       -9.86   -9.86    0.00  Na2SO4:10H2O
 	MnOOH           -44.64  -44.64    0.00  MnOOH
-	O2(g)            -0.80   -3.73   -2.93  O2
+	O2(g)            -0.89   -3.73   -2.85  O2
 	Pyrochroite      -5.98    9.22   15.20  Mn(OH)2
 	Pyrolusite       -3.84   38.52   42.36  MnO2
 	Quartz            0.80   -3.28   -4.07  SiO2
@@ -2298,7 +2298,7 @@ Si               1.687e-03
 	Melanterite      -1.57   -3.87   -2.30  FeSO4:7H2O
 	Mirabilite       -6.25   -6.25    0.00  Na2SO4:10H2O
 	MnOOH           -53.76  -53.76    0.00  MnOOH
-	O2(g)            -1.85   -4.78   -2.93  O2
+	O2(g)            -1.94   -4.78   -2.84  O2
 	Plagioclase       5.54    5.54    0.00  Na0.62Ca0.37Al1.38Si2.625O8
 	Pyrochroite     -11.29    3.91   15.20  Mn(OH)2
 	Pyrolusite      -16.60   25.92   42.53  MnO2
@@ -2499,7 +2499,7 @@ Si               1.606e-03
 	Melanterite      -2.36   -4.65   -2.30  FeSO4:7H2O
 	Mirabilite       -6.95   -6.95    0.00  Na2SO4:10H2O
 	MnOOH           -52.09  -52.09    0.00  MnOOH
-	O2(g)            -1.79   -4.72   -2.93  O2
+	O2(g)            -1.88   -4.72   -2.84  O2
 	Plagioclase       6.74    6.74    0.00  Na0.62Ca0.37Al1.38Si2.625O8
 	Pyrochroite     -10.15    5.05   15.20  Mn(OH)2
 	Pyrolusite      -14.40   28.13   42.53  MnO2
@@ -6258,7 +6258,7 @@ Z                1.760e-05
 	Halite           -9.47   -9.47    0.00  NaCl
 	Melanterite      -7.88  -10.29   -2.41  FeSO4:7H2O
 	Mirabilite      -13.48  -13.48    0.00  Na2SO4:10H2O
-	O2(g)           -58.26  -61.15   -2.89  O2
+	O2(g)           -58.39  -61.15   -2.76  O2
 	Siderite         -0.86  -11.66  -10.79  FeCO3
 	Sylvite          -9.47   -9.47    0.00  KCl
 
@@ -6401,7 +6401,7 @@ Z                2.330e-03
 	Mackinawite      -0.29   -4.94   -4.65  FeS
 	Melanterite      -8.07   -9.92   -1.85  FeSO4:7H2O
 	Mirabilite       -5.54   -5.54    0.00  Na2SO4:10H2O
-	O2(g)           -45.36  -48.47   -3.11  O2
+	O2(g)           -45.40  -48.47   -3.07  O2
 	Pyrite           -2.68   -2.68    0.00  FeS2Z0.156
 	Siderite         -2.46  -13.56  -11.10  FeCO3
 	Sulfur            5.18    9.27    4.09  S

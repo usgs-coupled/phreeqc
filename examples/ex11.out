@@ -77,19 +77,19 @@ Initial solution 0.	CaCl2
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Equilibrium with O2(g)
+                                       pe  =  13.630      Equilibrium with O2(g)
                         Activity of water  =   1.000
                            Ionic strength  =   1.800e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.065e-20
+                 Total alkalinity (eq/kg)  =   1.145e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.653e-18
+                  Electrical balance (eq)  =   1.810e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   4
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -105,17 +105,17 @@ Ca               6.000e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Initial solution 1.	Initial solution for column
 
@@ -130,19 +130,19 @@ Initial solution 1.	Initial solution for column
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Equilibrium with O2(g)
+                                       pe  =  13.628      Equilibrium with O2(g)
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.092e-19
+                 Total alkalinity (eq/kg)  =  -1.038e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.354e-17
+                  Electrical balance (eq)  =  -8.431e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   3
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -153,7 +153,7 @@ Initial solution 1.	Initial solution for column
 	OH-               1.039e-07   9.991e-08    -6.983    -7.000    -0.017
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
@@ -162,16 +162,16 @@ N(5)             1.200e-03
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 -------------------------------------------------------
 Beginning of initial exchange-composition calculations.
@@ -219,11 +219,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.307e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.809e-19
+                 Total alkalinity (eq/kg)  =   1.127e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -231,7 +231,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   8
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -247,24 +247,24 @@ Ca               1.067e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.152e-03    -2.921    -2.938    -0.018
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                4.584e-04
 	K+                4.584e-04   4.402e-04    -3.339    -3.356    -0.018
 	KOH               1.522e-11   1.522e-11   -10.818   -10.818     0.000
 Na               5.281e-04
 	Na+               5.281e-04   5.073e-04    -3.277    -3.295    -0.017
 	NaOH              3.342e-11   3.343e-11   -10.476   -10.476     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.82   -6.23    1.58  NaCl
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 ------------------------------------
 Beginning of advection calculations.
@@ -305,7 +305,7 @@ X                1.100e-03 mol
 
 	KX                5.507e-04   5.507e-04   5.006e-01    -0.017
 	NaX               5.493e-04   5.493e-04   4.994e-01    -0.017
-	NH4X              4.148e-63   4.148e-63   3.771e-60    -0.017
+	NH4X              3.038e-63   3.038e-63   2.761e-60    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -318,19 +318,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.092e-19
+                 Total alkalinity (eq/kg)  =  -1.038e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.539e-16
+                  Electrical balance (eq)  =  -3.332e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -341,34 +341,34 @@ X                1.100e-03 mol
 	OH-               1.039e-07   9.991e-08    -6.983    -7.000    -0.017
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -62.722   -62.739    -0.017
-	NH3               0.000e+00   0.000e+00   -64.984   -64.984     0.000
-N(0)             2.552e-19
-	N2                1.276e-19   1.276e-19   -18.894   -18.894     0.000
-N(3)             2.686e-16
-	NO2-              2.686e-16   2.583e-16   -15.571   -15.588    -0.017
+	NH4+              0.000e+00   0.000e+00   -62.857   -62.874    -0.017
+	NH3               0.000e+00   0.000e+00   -65.120   -65.120     0.000
+N(0)             1.729e-19
+	N2                8.645e-20   8.647e-20   -19.063   -19.063     0.000
+N(3)             2.485e-16
+	NO2-              2.485e-16   2.389e-16   -15.605   -15.622    -0.017
 N(5)             1.200e-03
 	NO3-              1.200e-03   1.154e-03    -2.921    -2.938    -0.017
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	N2(g)           -15.63  -18.89   -3.26  N2
-	NH3(g)          -66.75  -64.98    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -15.80  -19.06   -3.26  N2
+	NH3(g)          -66.89  -65.12    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Beginning of advection time step 21, cumulative pore volumes 0.525000.
 Beginning of advection time step 22, cumulative pore volumes 0.550000.
@@ -417,11 +417,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -2.150e-19
+                 Total alkalinity (eq/kg)  =   9.116e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -429,7 +429,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -442,24 +442,24 @@ X                1.100e-03 mol
 Cl               1.200e-03
 	Cl-               1.200e-03   1.154e-03    -2.921    -2.938    -0.017
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.54   -5.95    1.58  NaCl
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Beginning of advection time step 41, cumulative pore volumes 1.025000.
 Beginning of advection time step 42, cumulative pore volumes 1.050000.
@@ -508,11 +508,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.101e-19
+                 Total alkalinity (eq/kg)  =   1.481e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -520,7 +520,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   4
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -533,24 +533,24 @@ X                1.100e-03 mol
 Cl               1.200e-03
 	Cl-               1.200e-03   1.154e-03    -2.921    -2.938    -0.017
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                3.105e-04
 	K+                3.105e-04   2.986e-04    -3.508    -3.525    -0.017
 	KOH               1.033e-11   1.033e-11   -10.986   -10.986     0.000
 Na               8.895e-04
 	Na+               8.895e-04   8.558e-04    -3.051    -3.068    -0.017
 	NaOH              5.641e-11   5.643e-11   -10.249   -10.249     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.59   -6.01    1.58  NaCl
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Beginning of advection time step 61, cumulative pore volumes 1.525000.
 Beginning of advection time step 62, cumulative pore volumes 1.550000.
@@ -601,19 +601,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Adjusted to redox equilibrium
+                                       pe  =  13.630      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.800e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.192e-18
+                 Total alkalinity (eq/kg)  =  -9.106e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.791e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -2.054e-19
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   6
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -629,24 +629,24 @@ Ca               6.000e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                7.667e-08
 	K+                7.667e-08   7.312e-08    -7.115    -7.136    -0.021
 	KOH               2.519e-15   2.520e-15   -14.599   -14.599     0.000
 Na               1.406e-19
 	Na+               1.406e-19   1.341e-19   -18.852   -18.872    -0.020
 	NaOH              8.804e-27   8.807e-27   -26.055   -26.055     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -23.40  -21.81    1.58  NaCl
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Beginning of advection time step 81, cumulative pore volumes 2.025000.
 Beginning of advection time step 82, cumulative pore volumes 2.050000.
@@ -693,19 +693,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Adjusted to redox equilibrium
+                                       pe  =  13.630      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.800e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.065e-20
+                 Total alkalinity (eq/kg)  =   1.145e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.653e-18
+                  Electrical balance (eq)  =   1.810e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -721,17 +721,17 @@ Ca               6.000e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Beginning of advection time step 101, cumulative pore volumes 2.525000.
 Beginning of advection time step 102, cumulative pore volumes 2.550000.
@@ -778,19 +778,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Adjusted to redox equilibrium
+                                       pe  =  13.630      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.800e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.065e-20
+                 Total alkalinity (eq/kg)  =   1.145e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.653e-18
+                  Electrical balance (eq)  =   1.810e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -806,17 +806,17 @@ Ca               6.000e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 ------------------
 End of simulation.
@@ -876,19 +876,19 @@ Initial solution 1.	Initial solution for column
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Equilibrium with O2(g)
+                                       pe  =  13.628      Equilibrium with O2(g)
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.092e-19
+                 Total alkalinity (eq/kg)  =  -1.038e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.354e-17
+                  Electrical balance (eq)  =  -8.431e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   3
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -899,7 +899,7 @@ Initial solution 1.	Initial solution for column
 	OH-               1.039e-07   9.991e-08    -6.983    -7.000    -0.017
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
@@ -908,16 +908,16 @@ N(5)             1.200e-03
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -0.68   -3.64   -2.96  O2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 -------------------------------------------------------
 Beginning of initial exchange-composition calculations.
@@ -951,7 +951,7 @@ X                1.100e-03 mol
 
 	KX                5.507e-04   5.507e-04   5.006e-01    -0.017
 	NaX               5.493e-04   5.493e-04   4.994e-01    -0.017
-	NH4X              4.148e-63   4.148e-63   3.771e-60    -0.017
+	NH4X              3.038e-63   3.038e-63   2.761e-60    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -964,19 +964,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.092e-19
+                 Total alkalinity (eq/kg)  =  -1.038e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.522e-16
+                  Electrical balance (eq)  =  -3.328e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -987,34 +987,34 @@ X                1.100e-03 mol
 	OH-               1.039e-07   9.991e-08    -6.983    -7.000    -0.017
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -62.722   -62.739    -0.017
-	NH3               0.000e+00   0.000e+00   -64.984   -64.984     0.000
-N(0)             2.552e-19
-	N2                1.276e-19   1.276e-19   -18.894   -18.894     0.000
-N(3)             2.686e-16
-	NO2-              2.686e-16   2.583e-16   -15.571   -15.588    -0.017
+	NH4+              0.000e+00   0.000e+00   -62.857   -62.874    -0.017
+	NH3               0.000e+00   0.000e+00   -65.120   -65.120     0.000
+N(0)             1.729e-19
+	N2                8.645e-20   8.647e-20   -19.063   -19.063     0.000
+N(3)             2.485e-16
+	NO2-              2.485e-16   2.389e-16   -15.605   -15.622    -0.017
 N(5)             1.200e-03
 	NO3-              1.200e-03   1.154e-03    -2.921    -2.938    -0.017
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	N2(g)           -15.63  -18.89   -3.26  N2
-	NH3(g)          -66.75  -64.98    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -15.80  -19.06   -3.26  N2
+	NH3(g)          -66.89  -65.12    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 ------------------------------------
 Beginning of transport calculations.
@@ -1036,7 +1036,7 @@ X                1.100e-03 mol
 
 	KX                5.507e-04   5.507e-04   5.006e-01    -0.017
 	NaX               5.493e-04   5.493e-04   4.994e-01    -0.017
-	NH4X              4.148e-63   4.148e-63   3.771e-60    -0.017
+	NH4X              3.038e-63   3.038e-63   2.761e-60    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -1049,19 +1049,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.092e-19
+                 Total alkalinity (eq/kg)  =  -1.038e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.522e-16
+                  Electrical balance (eq)  =  -3.328e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1072,34 +1072,34 @@ X                1.100e-03 mol
 	OH-               1.039e-07   9.991e-08    -6.983    -7.000    -0.017
 	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -62.722   -62.739    -0.017
-	NH3               0.000e+00   0.000e+00   -64.984   -64.984     0.000
-N(0)             2.552e-19
-	N2                1.276e-19   1.276e-19   -18.894   -18.894     0.000
-N(3)             2.686e-16
-	NO2-              2.686e-16   2.583e-16   -15.571   -15.588    -0.017
+	NH4+              0.000e+00   0.000e+00   -62.857   -62.874    -0.017
+	NH3               0.000e+00   0.000e+00   -65.120   -65.120     0.000
+N(0)             1.729e-19
+	N2                8.645e-20   8.647e-20   -19.063   -19.063     0.000
+N(3)             2.485e-16
+	NO2-              2.485e-16   2.389e-16   -15.605   -15.622    -0.017
 N(5)             1.200e-03
 	NO3-              1.200e-03   1.154e-03    -2.921    -2.938    -0.017
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	N2(g)           -15.63  -18.89   -3.26  N2
-	NH3(g)          -66.75  -64.98    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -15.80  -19.06   -3.26  N2
+	NH3(g)          -66.89  -65.12    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step   1.
 
@@ -1319,7 +1319,7 @@ X                1.100e-03 mol
 
 	KX                5.507e-04   5.507e-04   5.006e-01    -0.017
 	NaX               5.493e-04   5.493e-04   4.994e-01    -0.017
-	NH4X              4.141e-63   4.141e-63   3.765e-60    -0.017
+	NH4X              3.033e-63   3.033e-63   2.757e-60    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -1333,19 +1333,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.646e-18
+                 Total alkalinity (eq/kg)  =  -2.683e-19
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.564e-14
+                  Electrical balance (eq)  =   1.566e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.551027e+01
+                                  Total O  = 5.551035e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1358,35 +1358,35 @@ X                1.100e-03 mol
 Cl               1.848e-06
 	Cl-               1.848e-06   1.777e-06    -5.733    -5.750    -0.017
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.000e-04
 	K+                2.000e-04   1.923e-04    -3.699    -3.716    -0.017
 	KOH               6.654e-12   6.656e-12   -11.177   -11.177     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -62.723   -62.740    -0.017
-	NH3               0.000e+00   0.000e+00   -64.985   -64.985     0.000
-N(0)             2.544e-19
-	N2                1.272e-19   1.272e-19   -18.895   -18.895     0.000
-N(3)             2.682e-16
-	NO2-              2.682e-16   2.579e-16   -15.571   -15.589    -0.017
+	NH4+              0.000e+00   0.000e+00   -62.858   -62.875    -0.017
+	NH3               0.000e+00   0.000e+00   -65.120   -65.120     0.000
+N(0)             1.724e-19
+	N2                8.618e-20   8.620e-20   -19.065   -19.064     0.000
+N(3)             2.481e-16
+	NO2-              2.481e-16   2.386e-16   -15.605   -15.622    -0.017
 N(5)             1.198e-03
 	NO3-              1.198e-03   1.152e-03    -2.921    -2.939    -0.017
 Na               1.000e-03
 	Na+               1.000e-03   9.621e-04    -3.000    -3.017    -0.017
 	NaOH              6.342e-11   6.344e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.572    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -10.35   -8.77    1.58  NaCl
-	N2(g)           -15.64  -18.90   -3.26  N2
-	NH3(g)          -66.75  -64.98    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -15.80  -19.06   -3.26  N2
+	NH3(g)          -66.89  -65.12    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step  21.
 
@@ -1606,7 +1606,7 @@ X                1.100e-03 mol
 
 	KX                5.512e-04   5.512e-04   5.011e-01    -0.017
 	NaX               5.488e-04   5.488e-04   4.989e-01    -0.017
-	NH4X              1.796e-63   1.796e-63   1.633e-60    -0.017
+	NH4X              1.315e-63   1.315e-63   1.196e-60    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -1620,11 +1620,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   2.282e-18
+                 Total alkalinity (eq/kg)  =   1.362e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -1632,7 +1632,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550823e+01
+                                  Total O  = 5.550831e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1645,35 +1645,35 @@ X                1.100e-03 mol
 Cl               6.801e-04
 	Cl-               6.801e-04   6.540e-04    -3.167    -3.184    -0.017
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                2.004e-04
 	K+                2.004e-04   1.927e-04    -3.698    -3.715    -0.017
 	KOH               6.666e-12   6.668e-12   -11.176   -11.176     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -63.085   -63.102    -0.017
-	NH3               0.000e+00   0.000e+00   -65.348   -65.347     0.000
-N(0)             4.792e-20
-	N2                2.396e-20   2.397e-20   -19.621   -19.620     0.000
-N(3)             1.164e-16
-	NO2-              1.164e-16   1.119e-16   -15.934   -15.951    -0.017
+	NH4+              0.000e+00   0.000e+00   -63.220   -63.238    -0.017
+	NH3               0.000e+00   0.000e+00   -65.483   -65.483     0.000
+N(0)             3.246e-20
+	N2                1.623e-20   1.624e-20   -19.790   -19.790     0.000
+N(3)             1.077e-16
+	NO2-              1.077e-16   1.035e-16   -15.968   -15.985    -0.017
 N(5)             5.199e-04
 	NO3-              5.199e-04   4.999e-04    -3.284    -3.301    -0.017
 Na               9.996e-04
 	Na+               9.996e-04   9.617e-04    -3.000    -3.017    -0.017
 	NaOH              6.340e-11   6.341e-11   -10.198   -10.198     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.78   -6.20    1.58  NaCl
-	N2(g)           -16.36  -19.62   -3.26  N2
-	NH3(g)          -67.12  -65.35    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -16.53  -19.79   -3.26  N2
+	NH3(g)          -67.25  -65.48    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step  41.
 
@@ -1894,7 +1894,7 @@ X                1.100e-03 mol
 	KX                9.451e-04   9.451e-04   8.592e-01    -0.017
 	NaX               1.549e-04   1.549e-04   1.408e-01    -0.017
 	CaX2              2.150e-20   4.300e-20   3.909e-17    -0.067
-	NH4X              5.255e-65   5.255e-65   4.777e-62    -0.017
+	NH4X              3.848e-65   3.848e-65   3.498e-62    -0.017
 
 -----------------------------Solution composition------------------------------
 
@@ -1909,11 +1909,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.999      Charge balance
-                                       pe  =  13.611      Adjusted to redox equilibrium
+                                       pe  =  13.628      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.200e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.115e-18
+                 Total alkalinity (eq/kg)  =   1.422e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -1921,7 +1921,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550676e+01
+                                  Total O  = 5.550684e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -1937,35 +1937,35 @@ Ca               9.153e-23
 Cl               1.171e-03
 	Cl-               1.171e-03   1.126e-03    -2.932    -2.948    -0.017
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                6.589e-04
 	K+                6.589e-04   6.337e-04    -3.181    -3.198    -0.017
 	KOH               2.192e-11   2.193e-11   -10.659   -10.659     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -64.336   -64.353    -0.017
-	NH3               0.000e+00   0.000e+00   -66.598   -66.598     0.000
-N(0)             1.509e-22
-	N2                7.545e-23   7.547e-23   -22.122   -22.122     0.000
-N(3)             6.532e-18
-	NO2-              6.532e-18   6.281e-18   -17.185   -17.202    -0.017
+	NH4+              0.000e+00   0.000e+00   -64.471   -64.489    -0.017
+	NH3               0.000e+00   0.000e+00   -66.734   -66.734     0.000
+N(0)             1.022e-22
+	N2                5.111e-23   5.113e-23   -22.291   -22.291     0.000
+N(3)             6.043e-18
+	NO2-              6.043e-18   5.810e-18   -17.219   -17.236    -0.017
 N(5)             2.918e-05
 	NO3-              2.918e-05   2.805e-05    -4.535    -4.552    -0.017
 Na               5.411e-04
 	Na+               5.411e-04   5.206e-04    -3.267    -3.284    -0.017
 	NaOH              3.432e-11   3.433e-11   -10.464   -10.464     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.81   -6.23    1.58  NaCl
-	N2(g)           -18.86  -22.12   -3.26  N2
-	NH3(g)          -68.37  -66.60    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -19.03  -22.29   -3.26  N2
+	NH3(g)          -68.50  -66.73    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step  61.
 
@@ -2186,7 +2186,7 @@ X                1.100e-03 mol
 	CaX2              5.430e-04   1.086e-03   9.874e-01    -0.079
 	KX                1.370e-05   1.370e-05   1.245e-02    -0.020
 	NaX               2.152e-07   2.152e-07   1.956e-04    -0.020
-	NH4X              7.135e-68   7.135e-68   6.486e-65    -0.020
+	NH4X              5.225e-68   5.225e-68   4.750e-65    -0.020
 
 -----------------------------Solution composition------------------------------
 
@@ -2201,11 +2201,11 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.998      Charge balance
-                                       pe  =  13.612      Adjusted to redox equilibrium
+                                       pe  =  13.629      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.723e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   5.387e-18
+                 Total alkalinity (eq/kg)  =   8.838e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -2213,7 +2213,7 @@ X                1.100e-03 mol
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550668e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -2229,35 +2229,35 @@ Ca               5.226e-04
 Cl               1.199e-03
 	Cl-               1.199e-03   1.145e-03    -2.921    -2.941    -0.020
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                1.436e-04
 	K+                1.436e-04   1.370e-04    -3.843    -3.863    -0.020
 	KOH               4.723e-12   4.725e-12   -11.326   -11.326     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -66.026   -66.047    -0.020
-	NH3               0.000e+00   0.000e+00   -68.293   -68.293     0.000
-N(0)             6.148e-26
-	N2                3.074e-26   3.075e-26   -25.512   -25.512     0.000
-N(3)             1.324e-19
-	NO2-              1.324e-19   1.263e-19   -18.878   -18.899    -0.020
+	NH4+              0.000e+00   0.000e+00   -66.161   -66.182    -0.020
+	NH3               0.000e+00   0.000e+00   -68.429   -68.429     0.000
+N(0)             4.165e-26
+	N2                2.083e-26   2.083e-26   -25.681   -25.681     0.000
+N(3)             1.224e-19
+	NO2-              1.224e-19   1.168e-19   -18.912   -18.932    -0.020
 N(5)             5.912e-07
 	NO3-              5.912e-07   5.642e-07    -6.228    -6.249    -0.020
 Na               1.130e-05
 	Na+               1.130e-05   1.080e-05    -4.947    -4.967    -0.020
 	NaOH              7.089e-13   7.092e-13   -12.149   -12.149     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -9.49   -7.91    1.58  NaCl
-	N2(g)           -22.25  -25.51   -3.26  N2
-	NH3(g)          -70.06  -68.29    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -22.42  -25.68   -3.26  N2
+	NH3(g)          -70.20  -68.43    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step  81.
 
@@ -2478,7 +2478,7 @@ X                1.100e-03 mol
 	CaX2              5.499e-04   1.100e-03   9.999e-01    -0.080
 	KX                1.363e-07   1.363e-07   1.239e-04    -0.021
 	NaX               1.851e-09   1.851e-09   1.683e-06    -0.020
-	NH4X              8.683e-70   8.683e-70   7.894e-67    -0.021
+	NH4X              6.359e-70   6.359e-70   5.781e-67    -0.021
 
 -----------------------------Solution composition------------------------------
 
@@ -2493,19 +2493,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Adjusted to redox equilibrium
+                                       pe  =  13.630      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.799e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -2.085e-18
+                 Total alkalinity (eq/kg)  =  -6.888e-20
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   7.774e-14
+                  Electrical balance (eq)  =   7.773e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -2521,35 +2521,35 @@ Ca               5.992e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                1.520e-06
 	K+                1.520e-06   1.450e-06    -5.818    -5.839    -0.021
 	KOH               4.994e-14   4.996e-14   -13.302   -13.301     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -67.914   -67.935    -0.021
-	NH3               0.000e+00   0.000e+00   -70.182   -70.182     0.000
-N(0)             1.028e-29
-	N2                5.139e-30   5.141e-30   -29.289   -29.289     0.000
-N(3)             1.712e-21
-	NO2-              1.712e-21   1.632e-21   -20.766   -20.787    -0.021
+	NH4+              0.000e+00   0.000e+00   -68.049   -68.070    -0.021
+	NH3               0.000e+00   0.000e+00   -70.317   -70.317     0.000
+N(0)             6.963e-30
+	N2                3.481e-30   3.483e-30   -29.458   -29.458     0.000
+N(3)             1.584e-21
+	NO2-              1.584e-21   1.510e-21   -20.800   -20.821    -0.021
 N(5)             7.648e-09
 	NO3-              7.648e-09   7.291e-09    -8.116    -8.137    -0.021
 Na               1.035e-07
 	Na+               1.035e-07   9.874e-08    -6.985    -7.006    -0.020
 	NaOH              6.480e-15   6.483e-15   -14.188   -14.188     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -11.53   -9.95    1.58  NaCl
-	N2(g)           -26.03  -29.29   -3.26  N2
-	NH3(g)          -71.95  -70.18    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -26.20  -29.46   -3.26  N2
+	NH3(g)          -72.09  -70.32    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 Transport step 101.
 
@@ -2770,7 +2770,7 @@ X                1.100e-03 mol
 	CaX2              5.500e-04   1.100e-03   1.000e-00    -0.081
 	KX                1.753e-09   1.753e-09   1.593e-06    -0.021
 	NaX               1.743e-11   1.743e-11   1.585e-08    -0.020
-	NH4X              8.965e-72   8.965e-72   8.150e-69    -0.021
+	NH4X              6.565e-72   6.565e-72   5.969e-69    -0.021
 
 -----------------------------Solution composition------------------------------
 
@@ -2785,19 +2785,19 @@ X                1.100e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Adjusted to redox equilibrium
+                                       pe  =  13.630      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.800e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.556e-18
+                 Total alkalinity (eq/kg)  =  -1.006e-18
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.164e-15
+                  Electrical balance (eq)  =   1.157e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
-                                  Total O  = 5.550667e+01
+                                  Total O  = 5.550675e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -2813,35 +2813,35 @@ Ca               6.000e-04
 Cl               1.200e-03
 	Cl-               1.200e-03   1.144e-03    -2.921    -2.941    -0.021
 H(0)             0.000e+00
-	H2                0.000e+00   0.000e+00   -44.370   -44.370     0.000
+	H2                0.000e+00   0.000e+00   -44.404   -44.404     0.000
 K                1.956e-08
 	K+                1.956e-08   1.865e-08    -7.709    -7.729    -0.021
 	KOH               6.425e-16   6.428e-16   -15.192   -15.192     0.000
 N(-3)            0.000e+00
-	NH4+              0.000e+00   0.000e+00   -69.900   -69.921    -0.021
-	NH3               0.000e+00   0.000e+00   -72.168   -72.168     0.000
-N(0)             1.097e-33
-	N2                5.484e-34   5.487e-34   -33.261   -33.261     0.000
-N(3)             1.769e-23
-	NO2-              1.769e-23   1.686e-23   -22.752   -22.773    -0.021
+	NH4+              0.000e+00   0.000e+00   -70.035   -70.056    -0.021
+	NH3               0.000e+00   0.000e+00   -72.303   -72.303     0.000
+N(0)             7.431e-34
+	N2                3.716e-34   3.717e-34   -33.430   -33.430     0.000
+N(3)             1.636e-23
+	NO2-              1.636e-23   1.560e-23   -22.786   -22.807    -0.021
 N(5)             7.901e-11
 	NO3-              7.901e-11   7.532e-11   -10.102   -10.123    -0.021
 Na               9.751e-10
 	Na+               9.751e-10   9.305e-10    -9.011    -9.031    -0.020
 	NaOH              6.107e-17   6.109e-17   -16.214   -16.214     0.000
-O(0)             4.580e-04
-	O2                2.290e-04   2.291e-04    -3.640    -3.640     0.000
+O(0)             5.352e-04
+	O2                2.676e-04   2.677e-04    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
+	H2(g)           -41.25  -44.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -13.55  -11.97    1.58  NaCl
-	N2(g)           -30.00  -33.26   -3.26  N2
-	NH3(g)          -73.94  -72.17    1.77  NH3
-	O2(g)            -0.68   -3.64   -2.96  O2
+	N2(g)           -30.17  -33.43   -3.26  N2
+	NH3(g)          -74.07  -72.30    1.77  NH3
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 ------------------
 End of simulation.

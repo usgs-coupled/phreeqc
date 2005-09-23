@@ -547,7 +547,7 @@ Zn               1.837e-07
 	Minium          -63.37    6.03   69.40  Pb3O4
 	Mirabilite       -7.08   -7.40   -0.32  Na2SO4:10H2O
 	Mn2(SO4)3       -60.19  -67.54   -7.34  Mn2(SO4)3
-	Mn3(AsO4):8H2O  -28.36  -57.07  -28.71  Mn3(AsO4)2:8H2O
+	Mn3(AsO4)2:8H2O -28.36  -57.07  -28.71  Mn3(AsO4)2:8H2O
 	MnCl2:4H2O      -14.39  -10.95    3.44  MnCl2:4H2O
 	MnS(Green)      -14.34  -10.78    3.56  MnS
 	MnSO4           -12.38  -10.36    2.02  MnSO4
@@ -560,7 +560,7 @@ Zn               1.837e-07
 	Ni3(AsO4)2:8H2O -32.82  -58.33  -25.51  Ni3(AsO4)2:8H2O
 	Ni4(OH)6SO4     -44.38  -12.38   32.00  Ni4(OH)6SO4
 	Nsutite         -30.38   12.19   42.56  MnO2
-	O2(g)           -52.82  -55.86   -3.04  O2
+	O2(g)           -52.86  -55.86   -3.00  O2
 	Orpiment         -0.42  -44.09  -43.68  As2S3
 	Pb(BO2)2        -15.90   -8.53    7.37  Pb(BO2)2
 	Pb(OH)2          -9.65   -2.09    7.57  Pb(OH)2
@@ -968,14 +968,14 @@ Zn               5.971e-07
 	Melanterite      -7.20   -9.13   -1.93  FeSO4:7H2O
 	Mirabilite       -7.78   -7.71    0.08  Na2SO4:10H2O
 	Mn2(SO4)3       -61.80  -69.96   -8.16  Mn2(SO4)3
-	Mn3(AsO4):8H2O  -35.43  -64.14  -28.71  Mn3(AsO4)2:8H2O
+	Mn3(AsO4)2:8H2O -35.43  -64.14  -28.71  Mn3(AsO4)2:8H2O
 	MnCl2:4H2O      -15.41  -11.61    3.80  MnCl2:4H2O
 	MnS(Green)      -14.85  -11.41    3.44  MnS
 	MnSO4           -12.51  -10.81    1.70  MnSO4
 	Montmorillonite-Ca  -6.09  -47.45  -41.37  Ca0.165Al2.33Si3.67O10(OH)2
 	NH3(g)          -10.82   -9.56    1.26  NH3
 	Nsutite         -33.93    8.63   42.56  MnO2
-	O2(g)           -55.67  -58.75   -3.08  O2
+	O2(g)           -55.71  -58.75   -3.04  O2
 	Orpiment         -1.50  -43.85  -42.36  As2S3
 	Phillipsite      -3.68  -23.56  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Portlandite     -18.81    2.05   20.86  Ca(OH)2
@@ -1544,7 +1544,7 @@ Zn               7.663e-08
 	Minium          -50.55   11.96   62.50  Pb3O4
 	Mirabilite       -8.17   -7.22    0.95  Na2SO4:10H2O
 	Mn2(SO4)3       -57.07  -67.03   -9.96  Mn2(SO4)3
-	Mn3(AsO4):8H2O  -22.66  -51.37  -28.71  Mn3(AsO4)2:8H2O
+	Mn3(AsO4)2:8H2O -22.66  -51.37  -28.71  Mn3(AsO4)2:8H2O
 	MnCl2:4H2O      -15.51  -10.91    4.60  MnCl2:4H2O
 	MnS(Green)      -13.29  -10.12    3.17  MnS
 	MnSO4           -11.75  -10.77    0.98  MnSO4
@@ -1559,7 +1559,7 @@ Zn               7.663e-08
 	Ni3(AsO4)2:8H2O -26.80  -52.31  -25.51  Ni3(AsO4)2:8H2O
 	Ni4(OH)6SO4     -39.57   -7.57   32.00  Ni4(OH)6SO4
 	Nsutite         -28.92   13.65   42.56  MnO2
-	O2(g)           -43.93  -47.09   -3.16  O2
+	O2(g)           -43.99  -47.09   -3.10  O2
 	Orpiment         -4.83  -44.28  -39.46  As2S3
 	Pb(BO2)2        -13.12   -6.14    6.98  Pb(BO2)2
 	Pb(OH)2          -6.69   -0.07    6.63  Pb(OH)2
@@ -2037,14 +2037,14 @@ Zn               3.365e-07
 	Minium          -63.89    4.71   68.60  Pb3O4
 	Mirabilite       -6.96   -7.14   -0.17  Na2SO4:10H2O
 	Mn2(SO4)3       -54.33  -61.97   -7.65  Mn2(SO4)3
-	Mn3(AsO4):8H2O  -29.79  -58.49  -28.71  Mn3(AsO4)2:8H2O
+	Mn3(AsO4)2:8H2O -29.79  -58.49  -28.71  Mn3(AsO4)2:8H2O
 	MnCl2:4H2O      -14.23  -10.66    3.57  MnCl2:4H2O
 	MnS(Green)      -15.48  -11.97    3.51  MnS
 	MnSO4           -11.20   -9.29    1.90  MnSO4
 	Monteponite     -17.94   -5.40   12.54  CdO
 	Montmorillonite-Ca  -6.38  -48.51  -42.14  Ca0.165Al2.33Si3.67O10(OH)2
 	Nsutite         -29.98   12.58   42.56  MnO2
-	O2(g)           -49.39  -52.45   -3.05  O2
+	O2(g)           -49.43  -52.45   -3.02  O2
 	Orpiment         -2.26  -45.44  -43.19  As2S3
 	Pb(BO2)2        -16.92   -9.59    7.32  Pb(BO2)2
 	Pb(OH)2         -10.38   -2.92    7.46  Pb(OH)2
@@ -2614,7 +2614,7 @@ Zn               4.287e-07
 	Minium          -60.04    7.29   67.33  Pb3O4
 	Mirabilite       -7.13   -7.07    0.06  Na2SO4:10H2O
 	Mn2(SO4)3       -50.93  -59.05   -8.13  Mn2(SO4)3
-	Mn3(AsO4):8H2O  -26.19  -54.90  -28.71  Mn3(AsO4)2:8H2O
+	Mn3(AsO4)2:8H2O -26.19  -54.90  -28.71  Mn3(AsO4)2:8H2O
 	MnCl2:4H2O      -14.44  -10.66    3.79  MnCl2:4H2O
 	MnS(Green)      -15.43  -11.99    3.44  MnS
 	MnSO4           -10.85   -9.14    1.71  MnSO4
@@ -2624,7 +2624,7 @@ Zn               4.287e-07
 	Montmorillonite-Ca  -5.12  -46.53  -41.41  Ca0.165Al2.33Si3.67O10(OH)2
 	Nantokite        -6.79  -12.93   -6.14  CuCl
 	Nsutite         -27.68   14.89   42.56  MnO2
-	O2(g)           -43.58  -46.66   -3.07  O2
+	O2(g)           -43.62  -46.66   -3.04  O2
 	Orpiment         -5.22  -47.63  -42.41  As2S3
 	Pb(BO2)2        -16.76   -9.51    7.25  Pb(BO2)2
 	Pb(OH)2         -10.03   -2.75    7.28  Pb(OH)2

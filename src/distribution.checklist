@@ -1,6 +1,6 @@
 x(1) Update version and date in main.c
 
-x(2) Update version and date in doc/README.TXT
+x(2) Update doc/README.TXT
 	uname -r
 	gcc -v
 
@@ -20,7 +20,7 @@ x(4) Update Makefile
 	       output files
 	       doc files
 
-x(5) remake everything
+(5) remake everything
     make clean_all
     make output_files (also remakes programs)
 

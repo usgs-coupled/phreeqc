@@ -45,8 +45,7 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc-VERSION.REVISION-SunOS.tar.gz   - Compiled with gcc 3.4.4, SunOS 5.8
-  phreeqc-VERSION.REVISION-Linux.tar.gz   - Compiled with gcc 3.4.1, Mandrake Linux 10.1 3.4.1-4mdk
+  phreeqc-VERSION.REVISION-Linux.tar.gz   - Compiled with gcc 3.4.3, Mandrake Linux 10.2 3.4.3-7mdk
                                             kernel 2.6.8.1-24mdkenterprise
   phreeqc-VERSION.REVISION-.source.tar.gz - Source code but no executable
 
@@ -268,8 +267,7 @@ To clean up after the tests, type the command:
 
      ./clean.sh
 
-Notes: The output data files for Linux and SunOS were created on their
-       respective systems. The output data files for phreeqc-VERSION.REVISION.source.tar.gz
+Notes: The output data files for phreeqc-VERSION.REVISION.source.tar.gz
        were created on a Linux system. You may notice slight numeric differences 
        in the results. These are generally due to different round-off algorithms
        and the different architecture of the central processing unit chip.

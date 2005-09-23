@@ -126,7 +126,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 ------------------
 End of simulation.
@@ -214,7 +214,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 ------------------
 End of simulation.
@@ -352,7 +352,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 2.	
 Using surface 2.	Surface defined in simulation 4.
@@ -435,7 +435,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 3.	
 Using surface 3.	Surface defined in simulation 4.
@@ -518,7 +518,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 4.	
 Using surface 4.	Surface defined in simulation 4.
@@ -601,7 +601,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 5.	
 Using surface 5.	Surface defined in simulation 4.
@@ -684,7 +684,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 6.	
 Using surface 6.	Surface defined in simulation 4.
@@ -767,7 +767,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 7.	
 Using surface 7.	Surface defined in simulation 4.
@@ -850,7 +850,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 8.	
 Using surface 8.	Surface defined in simulation 4.
@@ -933,7 +933,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 9.	
 Using surface 9.	Surface defined in simulation 4.
@@ -1016,7 +1016,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 10.	
 Using surface 10.	Surface defined in simulation 4.
@@ -1099,7 +1099,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 11.	
 Using surface 11.	Surface defined in simulation 4.
@@ -1182,7 +1182,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 12.	
 Using surface 12.	Surface defined in simulation 4.
@@ -1265,7 +1265,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 13.	
 Using surface 13.	Surface defined in simulation 4.
@@ -1348,7 +1348,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 14.	
 Using surface 14.	Surface defined in simulation 4.
@@ -1431,7 +1431,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 15.	
 Using surface 15.	Surface defined in simulation 4.
@@ -1514,7 +1514,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 16.	
 Using surface 16.	Surface defined in simulation 4.
@@ -1597,7 +1597,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 17.	
 Using surface 17.	Surface defined in simulation 4.
@@ -1680,7 +1680,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 18.	
 Using surface 18.	Surface defined in simulation 4.
@@ -1763,7 +1763,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 19.	
 Using surface 19.	Surface defined in simulation 4.
@@ -1846,7 +1846,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 20.	
 Using surface 20.	Surface defined in simulation 4.
@@ -1929,7 +1929,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 21.	
 Using surface 21.	Surface defined in simulation 4.
@@ -2012,7 +2012,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 22.	
 Using surface 22.	Surface defined in simulation 4.
@@ -2095,7 +2095,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 23.	
 Using surface 23.	Surface defined in simulation 4.
@@ -2178,7 +2178,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 24.	
 Using surface 24.	Surface defined in simulation 4.
@@ -2261,7 +2261,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 25.	
 Using surface 25.	Surface defined in simulation 4.
@@ -2344,7 +2344,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 26.	
 Using surface 26.	Surface defined in simulation 4.
@@ -2427,7 +2427,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 27.	
 Using surface 27.	Surface defined in simulation 4.
@@ -2510,7 +2510,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 28.	
 Using surface 28.	Surface defined in simulation 4.
@@ -2593,7 +2593,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 29.	
 Using surface 29.	Surface defined in simulation 4.
@@ -2676,7 +2676,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 30.	
 Using surface 30.	Surface defined in simulation 4.
@@ -2759,7 +2759,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 31.	
 Using surface 31.	Surface defined in simulation 4.
@@ -2842,7 +2842,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 32.	
 Using surface 32.	Surface defined in simulation 4.
@@ -2925,7 +2925,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 33.	
 Using surface 33.	Surface defined in simulation 4.
@@ -3008,7 +3008,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 34.	
 Using surface 34.	Surface defined in simulation 4.
@@ -3091,7 +3091,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 35.	
 Using surface 35.	Surface defined in simulation 4.
@@ -3174,7 +3174,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 36.	
 Using surface 36.	Surface defined in simulation 4.
@@ -3257,7 +3257,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 37.	
 Using surface 37.	Surface defined in simulation 4.
@@ -3340,7 +3340,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 38.	
 Using surface 38.	Surface defined in simulation 4.
@@ -3423,7 +3423,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 39.	
 Using surface 39.	Surface defined in simulation 4.
@@ -3506,7 +3506,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 40.	
 Using surface 40.	Surface defined in simulation 4.
@@ -3589,7 +3589,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 41.	
 Using surface 41.	Surface defined in simulation 4.
@@ -3672,7 +3672,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 42.	
 Using surface 42.	Surface defined in simulation 4.
@@ -3755,7 +3755,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 43.	
 Using surface 43.	Surface defined in simulation 4.
@@ -3838,7 +3838,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 44.	
 Using surface 44.	Surface defined in simulation 4.
@@ -3921,7 +3921,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Using solution 45.	
 Using surface 45.	Surface defined in simulation 4.
@@ -4004,7 +4004,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Transport step   1.
 
@@ -4114,7 +4114,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -4218,7 +4218,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -4322,7 +4322,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -4426,7 +4426,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -4530,7 +4530,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -4634,7 +4634,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -4738,7 +4738,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -4842,7 +4842,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -4946,7 +4946,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -5050,7 +5050,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -5154,7 +5154,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -5258,7 +5258,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -5362,7 +5362,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -5466,7 +5466,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -5570,7 +5570,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -5674,7 +5674,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -5778,7 +5778,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -5882,7 +5882,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -5986,7 +5986,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -6090,7 +6090,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -6194,7 +6194,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -6298,7 +6298,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -6402,7 +6402,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -6506,7 +6506,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -6610,7 +6610,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -6714,7 +6714,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -6818,7 +6818,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -6922,7 +6922,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -7026,7 +7026,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -7130,7 +7130,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -7234,7 +7234,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -7338,7 +7338,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -7442,7 +7442,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -7546,7 +7546,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -7650,7 +7650,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -7754,7 +7754,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -7858,7 +7858,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -7962,7 +7962,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -8066,7 +8066,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -8170,7 +8170,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -8274,7 +8274,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -8378,7 +8378,7 @@ O(0)             4.311e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.71  -39.86   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.71  -12.67   -2.96  O2
+	O2(g)            -9.77  -12.67   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -8485,7 +8485,7 @@ O(0)             3.473e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.66  -39.81   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.80  -12.76   -2.96  O2
+	O2(g)            -9.87  -12.76   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -8592,7 +8592,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -10.86  -14.01   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -61.40  -64.36   -2.96  O2
+	O2(g)           -61.47  -64.36   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -8699,7 +8699,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -10.58  -13.73   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -61.97  -64.93   -2.96  O2
+	O2(g)           -62.04  -64.93   -2.89  O2
 
 Transport step   2.
 
@@ -8809,7 +8809,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -8913,7 +8913,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -9017,7 +9017,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -9121,7 +9121,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -9225,7 +9225,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -9329,7 +9329,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -9433,7 +9433,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -9537,7 +9537,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -9641,7 +9641,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -9745,7 +9745,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -9849,7 +9849,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -9953,7 +9953,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -10057,7 +10057,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -10161,7 +10161,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -10265,7 +10265,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -10369,7 +10369,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -10473,7 +10473,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -10577,7 +10577,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -10681,7 +10681,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -10785,7 +10785,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -10889,7 +10889,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -10993,7 +10993,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -11097,7 +11097,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -11201,7 +11201,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -11305,7 +11305,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -11409,7 +11409,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -11513,7 +11513,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -11617,7 +11617,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -11721,7 +11721,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -11825,7 +11825,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -11929,7 +11929,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -12033,7 +12033,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -12137,7 +12137,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -12241,7 +12241,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -12345,7 +12345,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -12449,7 +12449,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -12553,7 +12553,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -12657,7 +12657,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -12761,7 +12761,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -12868,7 +12868,7 @@ O(0)             4.692e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.74  -12.63   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -12975,7 +12975,7 @@ O(0)             4.676e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.72  -39.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.74  -12.63   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -13082,7 +13082,7 @@ O(0)             4.477e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.72  -39.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.69  -12.65   -2.96  O2
+	O2(g)            -9.76  -12.65   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -13189,7 +13189,7 @@ O(0)             3.004e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.63  -39.78   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.86  -12.82   -2.96  O2
+	O2(g)            -9.93  -12.82   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -13296,7 +13296,7 @@ O(0)             7.015e-14
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.31  -39.46   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -10.49  -13.45   -2.96  O2
+	O2(g)           -10.56  -13.45   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -13403,7 +13403,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -10.54  -13.69   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -62.04  -65.00   -2.96  O2
+	O2(g)           -62.10  -65.00   -2.89  O2
 
 Transport step   3.
 
@@ -13513,7 +13513,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -13617,7 +13617,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -13721,7 +13721,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -13825,7 +13825,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -13929,7 +13929,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -14033,7 +14033,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -14137,7 +14137,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -14241,7 +14241,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -14345,7 +14345,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -14449,7 +14449,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -14553,7 +14553,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -14657,7 +14657,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -14761,7 +14761,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -14865,7 +14865,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -14969,7 +14969,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -15073,7 +15073,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -15177,7 +15177,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -15281,7 +15281,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -15385,7 +15385,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -15489,7 +15489,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -15593,7 +15593,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -15697,7 +15697,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -15801,7 +15801,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -15905,7 +15905,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -16009,7 +16009,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -16113,7 +16113,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -16217,7 +16217,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -16321,7 +16321,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -16425,7 +16425,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -16529,7 +16529,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -16633,7 +16633,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -16737,7 +16737,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -16841,7 +16841,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -16945,7 +16945,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -17049,7 +17049,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -17153,7 +17153,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -17260,7 +17260,7 @@ O(0)             4.958e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.71  -12.61   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -17367,7 +17367,7 @@ O(0)             4.896e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -17474,7 +17474,7 @@ O(0)             4.725e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.73  -12.63   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -17581,7 +17581,7 @@ O(0)             4.595e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.72  -39.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.68  -12.64   -2.96  O2
+	O2(g)            -9.75  -12.64   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -17688,7 +17688,7 @@ O(0)             4.027e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.69  -39.84   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.74  -12.70   -2.96  O2
+	O2(g)            -9.80  -12.70   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -17795,7 +17795,7 @@ O(0)             2.787e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.61  -39.76   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.90  -12.86   -2.96  O2
+	O2(g)            -9.96  -12.86   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -17902,7 +17902,7 @@ O(0)             1.378e-13
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.46  -39.61   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -10.20  -13.16   -2.96  O2
+	O2(g)           -10.27  -13.16   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -18009,7 +18009,7 @@ O(0)             5.310e-14
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.25  -39.40   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -10.62  -13.58   -2.96  O2
+	O2(g)           -10.68  -13.58   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -18116,7 +18116,7 @@ O(0)             0.000e+00
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -12.27  -15.42   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -58.58  -61.54   -2.96  O2
+	O2(g)           -58.65  -61.54   -2.89  O2
 
 Transport step   4.
 
@@ -18226,7 +18226,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -18330,7 +18330,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -18434,7 +18434,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -18538,7 +18538,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -18642,7 +18642,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -18746,7 +18746,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -18850,7 +18850,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -18954,7 +18954,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -19058,7 +19058,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -19162,7 +19162,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -19266,7 +19266,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -19370,7 +19370,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -19474,7 +19474,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -19578,7 +19578,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -19682,7 +19682,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -19786,7 +19786,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -19890,7 +19890,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -19994,7 +19994,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -20098,7 +20098,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -20202,7 +20202,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -20306,7 +20306,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -20410,7 +20410,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -20514,7 +20514,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -20618,7 +20618,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -20722,7 +20722,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -20826,7 +20826,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -20930,7 +20930,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -21034,7 +21034,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -21138,7 +21138,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -21242,7 +21242,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -21346,7 +21346,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -21450,7 +21450,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -21554,7 +21554,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -21661,7 +21661,7 @@ O(0)             4.923e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -21768,7 +21768,7 @@ O(0)             4.820e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -21875,7 +21875,7 @@ O(0)             4.848e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -21982,7 +21982,7 @@ O(0)             4.808e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -22089,7 +22089,7 @@ O(0)             4.737e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.73  -12.63   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -22196,7 +22196,7 @@ O(0)             4.459e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.71  -39.86   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.69  -12.65   -2.96  O2
+	O2(g)            -9.76  -12.65   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -22303,7 +22303,7 @@ O(0)             3.709e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.67  -39.82   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.77  -12.73   -2.96  O2
+	O2(g)            -9.84  -12.73   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -22410,7 +22410,7 @@ O(0)             2.709e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.61  -39.76   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.91  -12.87   -2.96  O2
+	O2(g)            -9.98  -12.87   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -22517,7 +22517,7 @@ O(0)             1.591e-13
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.49  -39.64   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -10.14  -13.10   -2.96  O2
+	O2(g)           -10.21  -13.10   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -22624,7 +22624,7 @@ O(0)             1.064e-12
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.90  -40.05   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.31  -12.27   -2.96  O2
+	O2(g)            -9.38  -12.27   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -22731,7 +22731,7 @@ O(0)             2.883e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.62  -41.77   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.88   -8.84   -2.96  O2
+	O2(g)            -5.95   -8.84   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -22838,7 +22838,7 @@ O(0)             8.274e-13
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -36.85  -40.00   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.42  -12.38   -2.96  O2
+	O2(g)            -9.49  -12.38   -2.89  O2
 
 Transport step   5.
 
@@ -22948,7 +22948,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -23052,7 +23052,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -23156,7 +23156,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -23260,7 +23260,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -23364,7 +23364,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -23468,7 +23468,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -23572,7 +23572,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -23676,7 +23676,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -23780,7 +23780,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -23884,7 +23884,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -23988,7 +23988,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -24092,7 +24092,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -24196,7 +24196,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -24300,7 +24300,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -24404,7 +24404,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -24508,7 +24508,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -24612,7 +24612,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -24716,7 +24716,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -24820,7 +24820,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -24924,7 +24924,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -25028,7 +25028,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -25132,7 +25132,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -25236,7 +25236,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -25340,7 +25340,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -25444,7 +25444,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -25548,7 +25548,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -25652,7 +25652,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -25756,7 +25756,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -25860,7 +25860,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -25964,7 +25964,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -26071,7 +26071,7 @@ O(0)             4.861e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -26178,7 +26178,7 @@ O(0)             4.830e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -26285,7 +26285,7 @@ O(0)             4.821e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -26392,7 +26392,7 @@ O(0)             4.864e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -26499,7 +26499,7 @@ O(0)             4.831e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -26606,7 +26606,7 @@ O(0)             4.779e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -26713,7 +26713,7 @@ O(0)             4.668e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.72  -39.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.74  -12.63   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -26820,7 +26820,7 @@ O(0)             4.342e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.71  -39.86   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.70  -12.66   -2.96  O2
+	O2(g)            -9.77  -12.66   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -26927,7 +26927,7 @@ O(0)             3.619e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.67  -39.82   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.78  -12.74   -2.96  O2
+	O2(g)            -9.85  -12.74   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -27034,7 +27034,7 @@ O(0)             3.121e-13
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -36.64  -39.79   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.85  -12.81   -2.96  O2
+	O2(g)            -9.91  -12.81   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -27141,7 +27141,7 @@ O(0)             3.392e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.65  -41.80   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.81   -8.77   -2.96  O2
+	O2(g)            -5.88   -8.77   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -27248,7 +27248,7 @@ O(0)             7.218e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.82  -41.97   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.48   -8.44   -2.96  O2
+	O2(g)            -5.55   -8.44   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -27355,7 +27355,7 @@ O(0)             5.015e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.74  -41.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.64   -8.60   -2.96  O2
+	O2(g)            -5.71   -8.60   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -27462,7 +27462,7 @@ O(0)             6.045e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.78  -41.93   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.56   -8.52   -2.96  O2
+	O2(g)            -5.63   -8.52   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -27569,7 +27569,7 @@ O(0)             3.017e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.63  -41.78   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.86   -8.82   -2.96  O2
+	O2(g)            -5.93   -8.82   -2.89  O2
 
 Transport step   6.
 
@@ -27679,7 +27679,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -27783,7 +27783,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -27887,7 +27887,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -27991,7 +27991,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -28095,7 +28095,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -28199,7 +28199,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -28303,7 +28303,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -28407,7 +28407,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -28511,7 +28511,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -28615,7 +28615,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -28719,7 +28719,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -28823,7 +28823,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -28927,7 +28927,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -29031,7 +29031,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -29135,7 +29135,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -29239,7 +29239,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -29343,7 +29343,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -29447,7 +29447,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -29551,7 +29551,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -29655,7 +29655,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -29759,7 +29759,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -29863,7 +29863,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -29967,7 +29967,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -30071,7 +30071,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -30175,7 +30175,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -30279,7 +30279,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -30383,7 +30383,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -30490,7 +30490,7 @@ O(0)             4.921e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -30597,7 +30597,7 @@ O(0)             4.861e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -30704,7 +30704,7 @@ O(0)             4.886e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -30811,7 +30811,7 @@ O(0)             4.836e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -30918,7 +30918,7 @@ O(0)             4.807e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -31025,7 +31025,7 @@ O(0)             4.771e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -31132,7 +31132,7 @@ O(0)             4.801e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -31239,7 +31239,7 @@ O(0)             4.775e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -31346,7 +31346,7 @@ O(0)             4.588e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.72  -39.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.68  -12.64   -2.96  O2
+	O2(g)            -9.75  -12.64   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -31453,7 +31453,7 @@ O(0)             4.132e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.70  -39.85   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.72  -12.68   -2.96  O2
+	O2(g)            -9.79  -12.68   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -31560,7 +31560,7 @@ O(0)             3.174e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.64  -41.79   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.84   -8.80   -2.96  O2
+	O2(g)            -5.91   -8.80   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -31667,7 +31667,7 @@ O(0)             8.575e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.86  -42.01   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.41   -8.37   -2.96  O2
+	O2(g)            -5.48   -8.37   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -31774,7 +31774,7 @@ O(0)             6.643e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.59   -8.48   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -31881,7 +31881,7 @@ O(0)             6.387e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.60   -8.50   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -31988,7 +31988,7 @@ O(0)             5.640e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.59   -8.55   -2.96  O2
+	O2(g)            -5.66   -8.55   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -32095,7 +32095,7 @@ O(0)             5.147e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.63   -8.59   -2.96  O2
+	O2(g)            -5.70   -8.59   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -32202,7 +32202,7 @@ O(0)             4.567e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.72  -41.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.68   -8.64   -2.96  O2
+	O2(g)            -5.75   -8.64   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -32309,7 +32309,7 @@ O(0)             4.186e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.70  -41.85   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.72   -8.68   -2.96  O2
+	O2(g)            -5.79   -8.68   -2.89  O2
 
 Transport step   7.
 
@@ -32419,7 +32419,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -32523,7 +32523,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -32627,7 +32627,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -32731,7 +32731,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -32835,7 +32835,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -32939,7 +32939,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -33043,7 +33043,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -33147,7 +33147,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -33251,7 +33251,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -33355,7 +33355,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -33459,7 +33459,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -33563,7 +33563,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -33667,7 +33667,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -33771,7 +33771,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -33875,7 +33875,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -33979,7 +33979,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -34083,7 +34083,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -34187,7 +34187,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -34291,7 +34291,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -34395,7 +34395,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -34499,7 +34499,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -34603,7 +34603,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -34707,7 +34707,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -34811,7 +34811,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -34918,7 +34918,7 @@ O(0)             4.872e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -35025,7 +35025,7 @@ O(0)             4.861e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -35132,7 +35132,7 @@ O(0)             4.866e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -35239,7 +35239,7 @@ O(0)             4.834e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -35346,7 +35346,7 @@ O(0)             4.860e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -35453,7 +35453,7 @@ O(0)             4.881e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -35560,7 +35560,7 @@ O(0)             4.850e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -35667,7 +35667,7 @@ O(0)             4.821e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -35774,7 +35774,7 @@ O(0)             4.757e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -35881,7 +35881,7 @@ O(0)             4.710e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.67  -12.63   -2.96  O2
+	O2(g)            -9.74  -12.63   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -35988,7 +35988,7 @@ O(0)             3.791e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.68  -41.83   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.76   -8.72   -2.96  O2
+	O2(g)            -5.83   -8.72   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -36095,7 +36095,7 @@ O(0)             7.516e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.83  -41.98   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.46   -8.42   -2.96  O2
+	O2(g)            -5.53   -8.42   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -36202,7 +36202,7 @@ O(0)             6.975e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.50   -8.46   -2.96  O2
+	O2(g)            -5.56   -8.46   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -36309,7 +36309,7 @@ O(0)             7.275e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.82  -41.97   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.48   -8.44   -2.96  O2
+	O2(g)            -5.55   -8.44   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -36416,7 +36416,7 @@ O(0)             6.847e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.51   -8.47   -2.96  O2
+	O2(g)            -5.57   -8.47   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -36523,7 +36523,7 @@ O(0)             6.311e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -36630,7 +36630,7 @@ O(0)             5.699e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -36737,7 +36737,7 @@ O(0)             5.139e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.63   -8.59   -2.96  O2
+	O2(g)            -5.70   -8.59   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -36844,7 +36844,7 @@ O(0)             4.823e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.73  -41.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.66   -8.62   -2.96  O2
+	O2(g)            -5.73   -8.62   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -36951,7 +36951,7 @@ O(0)             4.589e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.72  -41.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.68   -8.64   -2.96  O2
+	O2(g)            -5.75   -8.64   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -37058,7 +37058,7 @@ O(0)             3.650e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.67  -41.82   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.78   -8.74   -2.96  O2
+	O2(g)            -5.85   -8.74   -2.89  O2
 
 Transport step   8.
 
@@ -37168,7 +37168,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -37272,7 +37272,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -37376,7 +37376,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -37480,7 +37480,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -37584,7 +37584,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -37688,7 +37688,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -37792,7 +37792,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -37896,7 +37896,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -38000,7 +38000,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -38104,7 +38104,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -38208,7 +38208,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -38312,7 +38312,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -38416,7 +38416,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -38520,7 +38520,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -38624,7 +38624,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -38728,7 +38728,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -38832,7 +38832,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -38936,7 +38936,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -39040,7 +39040,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -39144,7 +39144,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -39248,7 +39248,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -39355,7 +39355,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -39462,7 +39462,7 @@ O(0)             4.935e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -39569,7 +39569,7 @@ O(0)             4.904e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -39676,7 +39676,7 @@ O(0)             4.829e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -39783,7 +39783,7 @@ O(0)             4.916e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -39890,7 +39890,7 @@ O(0)             4.882e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -39997,7 +39997,7 @@ O(0)             4.866e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -40104,7 +40104,7 @@ O(0)             4.812e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.73  -12.62   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -40211,7 +40211,7 @@ O(0)             4.902e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -40318,7 +40318,7 @@ O(0)             4.875e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -40425,7 +40425,7 @@ O(0)             4.056e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.69  -41.84   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.73   -8.69   -2.96  O2
+	O2(g)            -5.80   -8.69   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -40532,7 +40532,7 @@ O(0)             6.266e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -40639,7 +40639,7 @@ O(0)             6.133e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.78  -41.93   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.55   -8.51   -2.96  O2
+	O2(g)            -5.62   -8.51   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -40746,7 +40746,7 @@ O(0)             6.756e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.51   -8.47   -2.96  O2
+	O2(g)            -5.58   -8.47   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -40853,7 +40853,7 @@ O(0)             7.028e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.49   -8.45   -2.96  O2
+	O2(g)            -5.56   -8.45   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -40960,7 +40960,7 @@ O(0)             7.063e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.49   -8.45   -2.96  O2
+	O2(g)            -5.56   -8.45   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -41067,7 +41067,7 @@ O(0)             6.773e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.51   -8.47   -2.96  O2
+	O2(g)            -5.58   -8.47   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -41174,7 +41174,7 @@ O(0)             6.283e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -41281,7 +41281,7 @@ O(0)             5.724e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -41388,7 +41388,7 @@ O(0)             5.228e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.62   -8.58   -2.96  O2
+	O2(g)            -5.69   -8.58   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -41495,7 +41495,7 @@ O(0)             4.829e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.73  -41.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.66   -8.62   -2.96  O2
+	O2(g)            -5.72   -8.62   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -41602,7 +41602,7 @@ O(0)             4.574e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.72  -41.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.68   -8.64   -2.96  O2
+	O2(g)            -5.75   -8.64   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -41709,7 +41709,7 @@ O(0)             4.193e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.70  -41.85   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.72   -8.68   -2.96  O2
+	O2(g)            -5.79   -8.68   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -41816,7 +41816,7 @@ O(0)             3.115e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.64  -41.79   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.85   -8.81   -2.96  O2
+	O2(g)            -5.92   -8.81   -2.89  O2
 
 Transport step   9.
 
@@ -41926,7 +41926,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -42030,7 +42030,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -42134,7 +42134,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -42238,7 +42238,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -42342,7 +42342,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -42446,7 +42446,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -42550,7 +42550,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -42654,7 +42654,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -42758,7 +42758,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -42862,7 +42862,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -42966,7 +42966,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -43070,7 +43070,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -43174,7 +43174,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -43278,7 +43278,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -43382,7 +43382,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -43486,7 +43486,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -43590,7 +43590,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -43694,7 +43694,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -43801,7 +43801,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -43908,7 +43908,7 @@ O(0)             4.879e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -44015,7 +44015,7 @@ O(0)             4.860e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -44122,7 +44122,7 @@ O(0)             4.873e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -44229,7 +44229,7 @@ O(0)             4.937e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -44336,7 +44336,7 @@ O(0)             4.851e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -44443,7 +44443,7 @@ O(0)             4.919e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -44550,7 +44550,7 @@ O(0)             4.955e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.71  -12.61   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -44657,7 +44657,7 @@ O(0)             4.863e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -44764,7 +44764,7 @@ O(0)             4.922e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -44871,7 +44871,7 @@ O(0)             4.175e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.70  -41.85   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.72   -8.68   -2.96  O2
+	O2(g)            -5.79   -8.68   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -44978,7 +44978,7 @@ O(0)             5.714e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -45085,7 +45085,7 @@ O(0)             5.479e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.76  -41.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.60   -8.56   -2.96  O2
+	O2(g)            -5.67   -8.56   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -45192,7 +45192,7 @@ O(0)             5.900e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.78  -41.93   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.57   -8.53   -2.96  O2
+	O2(g)            -5.64   -8.53   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -45299,7 +45299,7 @@ O(0)             6.263e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -45406,7 +45406,7 @@ O(0)             6.661e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.58   -8.48   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -45513,7 +45513,7 @@ O(0)             6.917e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.50   -8.46   -2.96  O2
+	O2(g)            -5.57   -8.46   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -45620,7 +45620,7 @@ O(0)             6.933e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.50   -8.46   -2.96  O2
+	O2(g)            -5.57   -8.46   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -45727,7 +45727,7 @@ O(0)             6.687e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.58   -8.48   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -45834,7 +45834,7 @@ O(0)             6.253e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -45941,7 +45941,7 @@ O(0)             5.747e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -46048,7 +46048,7 @@ O(0)             5.270e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.62   -8.58   -2.96  O2
+	O2(g)            -5.69   -8.58   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -46155,7 +46155,7 @@ O(0)             4.876e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.73  -41.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.65   -8.61   -2.96  O2
+	O2(g)            -5.72   -8.61   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -46262,7 +46262,7 @@ O(0)             4.506e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.72  -41.87   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.69   -8.65   -2.96  O2
+	O2(g)            -5.75   -8.65   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -46369,7 +46369,7 @@ O(0)             5.013e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.74  -41.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.64   -8.60   -2.96  O2
+	O2(g)            -5.71   -8.60   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -46476,7 +46476,7 @@ O(0)             6.551e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.59   -8.48   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -46583,7 +46583,7 @@ O(0)             5.721e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Transport step  10.
 
@@ -46693,7 +46693,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 2.	 
 Using surface 2.	Surface assemblage after simulation 5.
@@ -46797,7 +46797,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 3.	 
 Using surface 3.	Surface assemblage after simulation 5.
@@ -46901,7 +46901,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 4.	 
 Using surface 4.	Surface assemblage after simulation 5.
@@ -47005,7 +47005,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 5.	 
 Using surface 5.	Surface assemblage after simulation 5.
@@ -47109,7 +47109,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 6.	 
 Using surface 6.	Surface assemblage after simulation 5.
@@ -47213,7 +47213,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 7.	 
 Using surface 7.	Surface assemblage after simulation 5.
@@ -47317,7 +47317,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 8.	 
 Using surface 8.	Surface assemblage after simulation 5.
@@ -47421,7 +47421,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 9.	 
 Using surface 9.	Surface assemblage after simulation 5.
@@ -47525,7 +47525,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 10.	 
 Using surface 10.	Surface assemblage after simulation 5.
@@ -47629,7 +47629,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 11.	 
 Using surface 11.	Surface assemblage after simulation 5.
@@ -47733,7 +47733,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 12.	 
 Using surface 12.	Surface assemblage after simulation 5.
@@ -47837,7 +47837,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 13.	 
 Using surface 13.	Surface assemblage after simulation 5.
@@ -47941,7 +47941,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 14.	 
 Using surface 14.	Surface assemblage after simulation 5.
@@ -48045,7 +48045,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 15.	 
 Using surface 15.	Surface assemblage after simulation 5.
@@ -48149,7 +48149,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 16.	 
 Using surface 16.	Surface assemblage after simulation 5.
@@ -48256,7 +48256,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 17.	 
 Using surface 17.	Surface assemblage after simulation 5.
@@ -48363,7 +48363,7 @@ O(0)             4.880e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 18.	 
 Using surface 18.	Surface assemblage after simulation 5.
@@ -48470,7 +48470,7 @@ O(0)             4.950e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.71  -12.61   -2.89  O2
 
 Using mix 19.	 
 Using surface 19.	Surface assemblage after simulation 5.
@@ -48577,7 +48577,7 @@ O(0)             4.861e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 20.	 
 Using surface 20.	Surface assemblage after simulation 5.
@@ -48684,7 +48684,7 @@ O(0)             4.868e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 21.	 
 Using surface 21.	Surface assemblage after simulation 5.
@@ -48791,7 +48791,7 @@ O(0)             4.912e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 22.	 
 Using surface 22.	Surface assemblage after simulation 5.
@@ -48898,7 +48898,7 @@ O(0)             4.920e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.72  -12.61   -2.89  O2
 
 Using mix 23.	 
 Using surface 23.	Surface assemblage after simulation 5.
@@ -49005,7 +49005,7 @@ O(0)             4.850e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.73  -39.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.66  -12.62   -2.96  O2
+	O2(g)            -9.72  -12.62   -2.89  O2
 
 Using mix 24.	 
 Using surface 24.	Surface assemblage after simulation 5.
@@ -49112,7 +49112,7 @@ O(0)             4.970e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.64  -12.60   -2.96  O2
+	O2(g)            -9.71  -12.60   -2.89  O2
 
 Using mix 25.	 
 Using surface 25.	Surface assemblage after simulation 5.
@@ -49219,7 +49219,7 @@ O(0)             4.960e-13
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -36.74  -39.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -9.65  -12.61   -2.96  O2
+	O2(g)            -9.71  -12.61   -2.89  O2
 
 Using mix 26.	 
 Using surface 26.	Surface assemblage after simulation 5.
@@ -49326,7 +49326,7 @@ O(0)             4.228e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.70  -41.85   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.71   -8.67   -2.96  O2
+	O2(g)            -5.78   -8.67   -2.89  O2
 
 Using mix 27.	 
 Using surface 27.	Surface assemblage after simulation 5.
@@ -49433,7 +49433,7 @@ O(0)             5.550e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.76  -41.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.60   -8.56   -2.96  O2
+	O2(g)            -5.66   -8.56   -2.89  O2
 
 Using mix 28.	 
 Using surface 28.	Surface assemblage after simulation 5.
@@ -49540,7 +49540,7 @@ O(0)             5.244e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.62   -8.58   -2.96  O2
+	O2(g)            -5.69   -8.58   -2.89  O2
 
 Using mix 29.	 
 Using surface 29.	Surface assemblage after simulation 5.
@@ -49647,7 +49647,7 @@ O(0)             5.453e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.76  -41.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.60   -8.56   -2.96  O2
+	O2(g)            -5.67   -8.56   -2.89  O2
 
 Using mix 30.	 
 Using surface 30.	Surface assemblage after simulation 5.
@@ -49754,7 +49754,7 @@ O(0)             5.616e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.76  -41.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.59   -8.55   -2.96  O2
+	O2(g)            -5.66   -8.55   -2.89  O2
 
 Using mix 31.	 
 Using surface 31.	Surface assemblage after simulation 5.
@@ -49861,7 +49861,7 @@ O(0)             5.913e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.78  -41.93   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.57   -8.53   -2.96  O2
+	O2(g)            -5.64   -8.53   -2.89  O2
 
 Using mix 32.	 
 Using surface 32.	Surface assemblage after simulation 5.
@@ -49968,7 +49968,7 @@ O(0)             6.266e-09
 	CO2(g)           -2.28   -3.75   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 33.	 
 Using surface 33.	Surface assemblage after simulation 5.
@@ -50075,7 +50075,7 @@ O(0)             6.604e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.59   -8.48   -2.89  O2
 
 Using mix 34.	 
 Using surface 34.	Surface assemblage after simulation 5.
@@ -50182,7 +50182,7 @@ O(0)             6.817e-09
 	CO2(g)           -2.29   -3.75   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.51   -8.47   -2.96  O2
+	O2(g)            -5.57   -8.47   -2.89  O2
 
 Using mix 35.	 
 Using surface 35.	Surface assemblage after simulation 5.
@@ -50289,7 +50289,7 @@ O(0)             6.825e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.81  -41.96   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.51   -8.47   -2.96  O2
+	O2(g)            -5.57   -8.47   -2.89  O2
 
 Using mix 36.	 
 Using surface 36.	Surface assemblage after simulation 5.
@@ -50396,7 +50396,7 @@ O(0)             6.608e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.80  -41.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.52   -8.48   -2.96  O2
+	O2(g)            -5.59   -8.48   -2.89  O2
 
 Using mix 37.	 
 Using surface 37.	Surface assemblage after simulation 5.
@@ -50503,7 +50503,7 @@ O(0)             6.222e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.55   -8.51   -2.96  O2
+	O2(g)            -5.61   -8.51   -2.89  O2
 
 Using mix 38.	 
 Using surface 38.	Surface assemblage after simulation 5.
@@ -50610,7 +50610,7 @@ O(0)             5.757e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.77  -41.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.58   -8.54   -2.96  O2
+	O2(g)            -5.65   -8.54   -2.89  O2
 
 Using mix 39.	 
 Using surface 39.	Surface assemblage after simulation 5.
@@ -50717,7 +50717,7 @@ O(0)             5.301e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.62   -8.58   -2.96  O2
+	O2(g)            -5.68   -8.58   -2.89  O2
 
 Using mix 40.	 
 Using surface 40.	Surface assemblage after simulation 5.
@@ -50824,7 +50824,7 @@ O(0)             4.929e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.74  -41.89   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.65   -8.61   -2.96  O2
+	O2(g)            -5.72   -8.61   -2.89  O2
 
 Using mix 41.	 
 Using surface 41.	Surface assemblage after simulation 5.
@@ -50931,7 +50931,7 @@ O(0)             4.851e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.73  -41.88   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.65   -8.61   -2.96  O2
+	O2(g)            -5.72   -8.61   -2.89  O2
 
 Using mix 42.	 
 Using surface 42.	Surface assemblage after simulation 5.
@@ -51038,7 +51038,7 @@ O(0)             5.292e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.75  -41.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.62   -8.58   -2.96  O2
+	O2(g)            -5.68   -8.58   -2.89  O2
 
 Using mix 43.	 
 Using surface 43.	Surface assemblage after simulation 5.
@@ -51145,7 +51145,7 @@ O(0)             6.032e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.78  -41.93   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.56   -8.52   -2.96  O2
+	O2(g)            -5.63   -8.52   -2.89  O2
 
 Using mix 44.	 
 Using surface 44.	Surface assemblage after simulation 5.
@@ -51252,7 +51252,7 @@ O(0)             6.287e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.79  -41.94   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.54   -8.50   -2.96  O2
+	O2(g)            -5.61   -8.50   -2.89  O2
 
 Using mix 45.	 
 Using surface 45.	Surface assemblage after simulation 5.
@@ -51359,7 +51359,7 @@ O(0)             5.520e-09
 	CO2(g)           -2.29   -3.76   -1.47  CO2
 	H2(g)           -38.76  -41.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)            -5.60   -8.56   -2.96  O2
+	O2(g)            -5.67   -8.56   -2.89  O2
 
 ------------------
 End of simulation.

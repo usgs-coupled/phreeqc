@@ -320,7 +320,7 @@ Zn               3.348e-04
 	Manganite       -15.05   10.29   25.34  MnOOH
 	Melanterite      -1.67   -3.88   -2.21  FeSO4:7H2O
 	MnO2            -23.79   17.59   41.38  MnO2
-	O2(g)           -53.92  -56.88   -2.96  O2
+	O2(g)           -53.99  -56.88   -2.89  O2
 	Pyrochroite     -12.21    2.99   15.20  Mn(OH)2
 	Pyrolusite      -23.79   17.59   41.38  MnO2
 	Rhodochrosite    -7.53  -18.66  -11.13  MnCO3
@@ -548,7 +548,7 @@ Zn               2.501e-07
 	Manganite        -7.02   18.32   25.34  MnOOH
 	Melanterite      -8.12  -10.33   -2.21  FeSO4:7H2O
 	MnO2            -11.87   29.51   41.38  MnO2
-	O2(g)            -1.00   -3.96   -2.96  O2
+	O2(g)            -1.07   -3.96   -2.89  O2
 	Pyrochroite      -8.07    7.13   15.20  Mn(OH)2
 	Pyrolusite      -11.87   29.51   41.38  MnO2
 	Rhodochrosite    -1.94  -13.07  -11.13  MnCO3
@@ -833,7 +833,7 @@ Zn               6.510e-04
 	Manganite        -8.27   17.07   25.34  MnOOH
 	Melanterite      -1.65   -3.86   -2.21  FeSO4:7H2O
 	MnO2            -15.55   25.83   41.38  MnO2
-	O2(g)           -48.08  -51.04   -2.96  O2
+	O2(g)           -48.14  -51.04   -2.89  O2
 	Pyrite          -53.73  -72.21  -18.48  FeS2
 	Pyrochroite      -6.89    8.31   15.20  Mn(OH)2
 	Pyrolusite      -15.55   25.83   41.38  MnO2
@@ -1112,7 +1112,7 @@ Zn               5.161e-05
 	Manganite        -7.89   17.45   25.34  MnOOH
 	Melanterite      -2.02   -4.23   -2.21  FeSO4:7H2O
 	MnO2            -16.57   24.81   41.38  MnO2
-	O2(g)           -53.68  -56.64   -2.96  O2
+	O2(g)           -53.75  -56.64   -2.89  O2
 	Pyrite          -36.27  -54.75  -18.48  FeS2
 	Pyrochroite      -5.11   10.09   15.20  Mn(OH)2
 	Pyrolusite      -16.57   24.81   41.38  MnO2
@@ -1391,7 +1391,7 @@ Zn               2.064e-05
 	Manganite         0.12   25.46   25.34  MnOOH
 	Melanterite     -10.01  -12.22   -2.21  FeSO4:7H2O
 	MnO2              0.00   41.38   41.38  MnO2
-	O2(g)           -19.45  -22.41   -2.96  O2
+	O2(g)           -19.52  -22.41   -2.89  O2
 	Pyrite         -163.49 -181.97  -18.48  FeS2
 	Pyrochroite      -5.66    9.54   15.20  Mn(OH)2
 	Pyrolusite        0.00   41.38   41.38  MnO2
@@ -1670,7 +1670,7 @@ Zn               4.762e-07
 	Manganite        -0.12   25.22   25.34  MnOOH
 	Melanterite     -10.92  -13.13   -2.21  FeSO4:7H2O
 	MnO2             -0.00   41.38   41.38  MnO2
-	O2(g)           -18.49  -21.45   -2.96  O2
+	O2(g)           -18.56  -21.45   -2.89  O2
 	Pyrite         -168.42 -186.90  -18.48  FeS2
 	Pyrochroite      -6.13    9.07   15.20  Mn(OH)2
 	Pyrolusite       -0.00   41.38   41.38  MnO2
@@ -1949,7 +1949,7 @@ Zn               7.625e-10
 	Manganite        -2.39   22.95   25.34  MnOOH
 	Melanterite     -16.14  -18.35   -2.21  FeSO4:7H2O
 	MnO2              0.00   41.38   41.38  MnO2
-	O2(g)            -9.42  -12.38   -2.96  O2
+	O2(g)            -9.48  -12.38   -2.89  O2
 	Pyrite         -208.36 -226.84  -18.48  FeS2
 	Pyrochroite     -10.67    4.53   15.20  Mn(OH)2
 	Pyrolusite        0.00   41.38   41.38  MnO2
@@ -2233,7 +2233,7 @@ Zn               3.424e-04
 	Manganite        -9.02   16.32   25.34  MnOOH
 	Melanterite      -1.67   -3.88   -2.21  FeSO4:7H2O
 	MnO2            -16.28   25.10   41.38  MnO2
-	O2(g)           -47.99  -50.95   -2.96  O2
+	O2(g)           -48.06  -50.95   -2.89  O2
 	Pyrite          -54.05  -72.53  -18.48  FeS2
 	Pyrochroite      -7.66    7.54   15.20  Mn(OH)2
 	Pyrolusite      -16.28   25.10   41.38  MnO2
@@ -2512,7 +2512,7 @@ Zn               1.121e-05
 	Manganite        -9.44   15.90   25.34  MnOOH
 	Melanterite      -1.70   -3.91   -2.21  FeSO4:7H2O
 	MnO2            -20.31   21.07   41.38  MnO2
-	O2(g)           -62.44  -65.40   -2.96  O2
+	O2(g)           -62.51  -65.40   -2.89  O2
 	Pyrite           -7.14  -25.62  -18.48  FeS2
 	Pyrochroite      -4.47   10.73   15.20  Mn(OH)2
 	Pyrolusite      -20.31   21.07   41.38  MnO2
@@ -2791,7 +2791,7 @@ Zn               1.048e-06
 	Manganite        -9.34   16.00   25.34  MnOOH
 	Melanterite      -1.72   -3.93   -2.21  FeSO4:7H2O
 	MnO2            -19.56   21.82   41.38  MnO2
-	O2(g)           -59.84  -62.80   -2.96  O2
+	O2(g)           -59.91  -62.80   -2.89  O2
 	Pyrite          -15.63  -34.11  -18.48  FeS2
 	Pyrochroite      -5.02   10.18   15.20  Mn(OH)2
 	Pyrolusite      -19.56   21.82   41.38  MnO2
@@ -3070,7 +3070,7 @@ Zn               6.940e-06
 	Manganite        -7.25   18.09   25.34  MnOOH
 	Melanterite      -2.57   -4.78   -2.21  FeSO4:7H2O
 	MnO2            -15.12   26.26   41.38  MnO2
-	O2(g)           -50.43  -53.39   -2.96  O2
+	O2(g)           -50.50  -53.39   -2.89  O2
 	Pyrite          -47.93  -66.40  -18.48  FeS2
 	Pyrochroite      -5.29    9.91   15.20  Mn(OH)2
 	Pyrolusite      -15.12   26.26   41.38  MnO2
@@ -3349,7 +3349,7 @@ Zn               7.347e-06
 	Manganite         0.17   25.51   25.34  MnOOH
 	Melanterite     -10.05  -12.26   -2.21  FeSO4:7H2O
 	MnO2              0.00   41.38   41.38  MnO2
-	O2(g)           -19.65  -22.61   -2.96  O2
+	O2(g)           -19.72  -22.61   -2.89  O2
 	Pyrite         -162.90 -181.38  -18.48  FeS2
 	Pyrochroite      -5.55    9.65   15.20  Mn(OH)2
 	Pyrolusite        0.00   41.38   41.38  MnO2
@@ -3633,7 +3633,7 @@ Zn               3.370e-04
 	Manganite        -9.02   16.32   25.34  MnOOH
 	Melanterite      -1.66   -3.87   -2.21  FeSO4:7H2O
 	MnO2            -14.24   27.14   41.38  MnO2
-	O2(g)           -39.83  -42.79   -2.96  O2
+	O2(g)           -39.90  -42.79   -2.89  O2
 	Pyrite          -80.54  -99.02  -18.48  FeS2
 	Pyrochroite      -9.70    5.50   15.20  Mn(OH)2
 	Pyrolusite      -14.24   27.14   41.38  MnO2
@@ -3912,7 +3912,7 @@ Zn               4.707e-05
 	Manganite        -9.01   16.33   25.34  MnOOH
 	Melanterite      -1.68   -3.89   -2.21  FeSO4:7H2O
 	MnO2            -19.58   21.80   41.38  MnO2
-	O2(g)           -61.24  -64.20   -2.96  O2
+	O2(g)           -61.31  -64.20   -2.89  O2
 	Pyrite          -11.01  -29.49  -18.48  FeS2
 	Pyrochroite      -4.34   10.86   15.20  Mn(OH)2
 	Pyrolusite      -19.58   21.80   41.38  MnO2
@@ -4191,7 +4191,7 @@ Zn               6.177e-07
 	Manganite        -9.75   15.59   25.34  MnOOH
 	Melanterite      -1.67   -3.88   -2.21  FeSO4:7H2O
 	MnO2            -20.55   20.83   41.38  MnO2
-	O2(g)           -62.13  -65.09   -2.96  O2
+	O2(g)           -62.19  -65.09   -2.89  O2
 	Pyrite           -8.11  -26.59  -18.48  FeS2
 	Pyrochroite      -4.86   10.34   15.20  Mn(OH)2
 	Pyrolusite      -20.55   20.83   41.38  MnO2
@@ -4470,7 +4470,7 @@ Zn               1.500e-07
 	Manganite        -9.67   15.67   25.34  MnOOH
 	Melanterite      -1.68   -3.89   -2.21  FeSO4:7H2O
 	MnO2            -20.24   21.14   41.38  MnO2
-	O2(g)           -61.24  -64.20   -2.96  O2
+	O2(g)           -61.31  -64.20   -2.89  O2
 	Pyrite          -11.00  -29.48  -18.48  FeS2
 	Pyrochroite      -5.00   10.20   15.20  Mn(OH)2
 	Pyrolusite      -20.24   21.14   41.38  MnO2
@@ -4749,7 +4749,7 @@ Zn               1.956e-07
 	Manganite        -9.20   16.14   25.34  MnOOH
 	Melanterite      -1.73   -3.94   -2.21  FeSO4:7H2O
 	MnO2            -19.24   22.14   41.38  MnO2
-	O2(g)           -59.10  -62.06   -2.96  O2
+	O2(g)           -59.17  -62.06   -2.89  O2
 	Pyrite          -18.08  -36.55  -18.48  FeS2
 	Pyrochroite      -5.07   10.13   15.20  Mn(OH)2
 	Pyrolusite      -19.24   22.14   41.38  MnO2
@@ -5033,7 +5033,7 @@ Zn               3.352e-04
 	Manganite        -9.02   16.32   25.34  MnOOH
 	Melanterite      -1.66   -3.87   -2.21  FeSO4:7H2O
 	MnO2            -13.43   27.95   41.38  MnO2
-	O2(g)           -36.60  -39.56   -2.96  O2
+	O2(g)           -36.66  -39.56   -2.89  O2
 	Pyrite          -91.06 -109.54  -18.48  FeS2
 	Pyrochroite     -10.51    4.69   15.20  Mn(OH)2
 	Pyrolusite      -13.43   27.95   41.38  MnO2
@@ -5312,7 +5312,7 @@ Zn               8.298e-04
 	Manganite        -8.19   17.15   25.34  MnOOH
 	Melanterite      -1.66   -3.87   -2.21  FeSO4:7H2O
 	MnO2            -16.84   24.54   41.38  MnO2
-	O2(g)           -53.58  -56.54   -2.96  O2
+	O2(g)           -53.65  -56.54   -2.89  O2
 	Pyrite          -35.85  -54.33  -18.48  FeS2
 	Pyrochroite      -5.43    9.77   15.20  Mn(OH)2
 	Pyrolusite      -16.84   24.54   41.38  MnO2
@@ -5591,7 +5591,7 @@ Zn               3.401e-05
 	Manganite        -8.67   16.67   25.34  MnOOH
 	Melanterite      -1.70   -3.91   -2.21  FeSO4:7H2O
 	MnO2            -18.93   22.45   41.38  MnO2
-	O2(g)           -60.00  -62.96   -2.96  O2
+	O2(g)           -60.07  -62.96   -2.89  O2
 	Pyrite          -15.07  -33.55  -18.48  FeS2
 	Pyrochroite      -4.31   10.89   15.20  Mn(OH)2
 	Pyrolusite      -18.93   22.45   41.38  MnO2
@@ -5870,7 +5870,7 @@ Zn               3.976e-07
 	Manganite        -9.42   15.92   25.34  MnOOH
 	Melanterite      -1.69   -3.90   -2.21  FeSO4:7H2O
 	MnO2            -19.78   21.60   41.38  MnO2
-	O2(g)           -60.38  -63.34   -2.96  O2
+	O2(g)           -60.45  -63.34   -2.89  O2
 	Pyrite          -13.81  -32.29  -18.48  FeS2
 	Pyrochroite      -4.97   10.23   15.20  Mn(OH)2
 	Pyrolusite      -19.78   21.60   41.38  MnO2
@@ -6149,7 +6149,7 @@ Zn               7.486e-08
 	Manganite        -9.66   15.68   25.34  MnOOH
 	Melanterite      -1.68   -3.89   -2.21  FeSO4:7H2O
 	MnO2            -20.23   21.15   41.38  MnO2
-	O2(g)           -61.26  -64.22   -2.96  O2
+	O2(g)           -61.33  -64.22   -2.89  O2
 	Pyrite          -10.93  -29.41  -18.48  FeS2
 	Pyrochroite      -4.98   10.22   15.20  Mn(OH)2
 	Pyrolusite      -20.23   21.15   41.38  MnO2
@@ -6433,7 +6433,7 @@ Zn               3.349e-04
 	Manganite        -9.02   16.32   25.34  MnOOH
 	Melanterite      -1.66   -3.87   -2.21  FeSO4:7H2O
 	MnO2            -12.40   28.98   41.38  MnO2
-	O2(g)           -32.47  -35.43   -2.96  O2
+	O2(g)           -32.53  -35.43   -2.89  O2
 	Pyrite         -104.49 -122.97  -18.48  FeS2
 	Pyrochroite     -11.55    3.65   15.20  Mn(OH)2
 	Pyrolusite      -12.40   28.98   41.38  MnO2
@@ -6712,7 +6712,7 @@ Zn               4.199e-04
 	Manganite        -9.01   16.33   25.34  MnOOH
 	Melanterite      -1.67   -3.88   -2.21  FeSO4:7H2O
 	MnO2            -16.27   25.11   41.38  MnO2
-	O2(g)           -48.00  -50.96   -2.96  O2
+	O2(g)           -48.07  -50.96   -2.89  O2
 	Pyrite          -54.02  -72.50  -18.48  FeS2
 	Pyrochroite      -7.65    7.55   15.20  Mn(OH)2
 	Pyrolusite      -16.27   25.11   41.38  MnO2
@@ -6991,7 +6991,7 @@ Zn               1.464e-04
 	Manganite        -8.57   16.77   25.34  MnOOH
 	Melanterite      -1.67   -3.88   -2.21  FeSO4:7H2O
 	MnO2            -19.03   22.35   41.38  MnO2
-	O2(g)           -60.83  -63.79   -2.96  O2
+	O2(g)           -60.89  -63.79   -2.89  O2
 	Pyrite          -12.33  -30.81  -18.48  FeS2
 	Pyrochroite      -4.00   11.20   15.20  Mn(OH)2
 	Pyrolusite      -19.03   22.35   41.38  MnO2
@@ -7270,7 +7270,7 @@ Zn               5.835e-06
 	Manganite        -9.02   16.32   25.34  MnOOH
 	Melanterite      -1.69   -3.90   -2.21  FeSO4:7H2O
 	MnO2            -19.37   22.01   41.38  MnO2
-	O2(g)           -60.38  -63.34   -2.96  O2
+	O2(g)           -60.45  -63.34   -2.89  O2
 	Pyrite          -13.83  -32.31  -18.48  FeS2
 	Pyrochroite      -4.57   10.63   15.20  Mn(OH)2
 	Pyrolusite      -19.37   22.01   41.38  MnO2
@@ -7549,7 +7549,7 @@ Zn               3.525e-07
 	Manganite        -9.15   16.19   25.34  MnOOH
 	Melanterite      -1.70   -3.91   -2.21  FeSO4:7H2O
 	MnO2            -19.19   22.19   41.38  MnO2
-	O2(g)           -59.12  -62.08   -2.96  O2
+	O2(g)           -59.18  -62.08   -2.89  O2
 	Pyrite          -17.95  -36.43  -18.48  FeS2
 	Pyrochroite      -5.02   10.18   15.20  Mn(OH)2
 	Pyrolusite      -19.19   22.19   41.38  MnO2

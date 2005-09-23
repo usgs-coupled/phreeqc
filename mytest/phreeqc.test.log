@@ -1378,35 +1378,37 @@ Overflow: N2	1.000000e+03	1.283210e+01	-1
 Iterations in revise_guesses: 3
 Switching bases to N2.	Iteration 1
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 2
 Ineq had infeasible solution, kode 0, iteration 5
-Ineq had infeasible solution, kode 0, iteration 6
            Aragonite Pure phase has not converged. 	Residual: 3.310423e-01
-                    Removing unstable phases, iteration 20.
-Removing unstable phases. Iteration 20.
-Ineq had infeasible solution, kode 0, iteration 22
+                    Removing unstable phases, iteration 21.
+Removing unstable phases. Iteration 21.
 Ineq had infeasible solution, kode 0, iteration 23
-          Chalcedony Pure phase has not converged. 	Residual: 3.801450e+00
-                    Removing unstable phases, iteration 28.
-Removing unstable phases. Iteration 28.
+Ineq had infeasible solution, kode 2, iteration 24
+Ineq had infeasible solution, kode 0, iteration 28
+Ineq had infeasible solution, kode 0, iteration 29
 Ineq had infeasible solution, kode 0, iteration 30
+Ineq had infeasible solution, kode 0, iteration 31
+Ineq had infeasible solution, kode 0, iteration 35
 
-Number of infeasible solutions: 6
+Number of infeasible solutions: 8
 Number of basis changes: 1
 
-Number of iterations: 37
+Number of iterations: 40
 
 Reaction step 2.
 
 Iterations in revise_guesses: 2
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 0, iteration 11
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 2, iteration 8
            Aragonite Pure phase has not converged. 	Residual: 3.150090e-01
                     Removing unstable phases, iteration 19.
 Removing unstable phases. Iteration 19.
+Ineq had infeasible solution, kode 2, iteration 21
+Ineq had infeasible solution, kode 2, iteration 22
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 6
 Number of basis changes: 0
 
 Number of iterations: 27

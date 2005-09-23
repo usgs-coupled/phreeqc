@@ -122,33 +122,33 @@ X                5.000e-02 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               4.800e-02   4.800e-02   9.601e-01     0.000
-	CaX2              9.983e-04   1.997e-03   3.993e-02     0.000
+	NaX               4.691e-02   4.691e-02   9.383e-01    -0.148
+	CaX2              1.544e-03   3.087e-03   6.174e-02    -0.580
 
 -----------------------------Solution composition------------------------------
 
 	Elements           Molality       Moles
 
-	Ca                3.502e-03   3.502e-03
+	Ca                2.956e-03   2.956e-03
 	Cl                5.090e-01   5.090e-01
-	Na                5.020e-01   5.020e-01
+	Na                5.031e-01   5.031e-01
 
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.956      Charge balance
                                        pe  =   8.000      Adjusted to redox equilibrium
                         Activity of water  =   0.983
-                           Ionic strength  =   5.125e-01
+                           Ionic strength  =   5.120e-01
                        Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -3.370e-08
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  =  -1.291e-10
+                  Electrical balance (eq)  =  -9.478e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 545
+                               Iterations  = 692
                          Gamma iterations  =   1
-                      Osmotic coefficient  =   0.92002
+                      Osmotic coefficient  =   0.92008
                          Density of water  =   0.99823
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -159,15 +159,15 @@ X                5.000e-02 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
 	                               MacInnes    Log       Log         Log 
 	Species            Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.330e-07   1.106e-07    -6.876    -6.956    -0.080
-	OH-               9.926e-08   6.081e-08    -7.003    -7.216    -0.213
+	H+                1.329e-07   1.106e-07    -6.877    -6.956    -0.080
+	OH-               9.918e-08   6.085e-08    -7.004    -7.216    -0.212
 	H2O               5.551e+01   9.833e-01     1.744    -0.007     0.000
-Ca               3.502e-03
-	Ca+2              3.502e-03   9.214e-04    -2.456    -3.036    -0.580
+Ca               2.956e-03
+	Ca+2              2.956e-03   7.778e-04    -2.529    -3.109    -0.580
 Cl               5.090e-01
-	Cl-               5.090e-01   3.292e-01    -0.293    -0.482    -0.189
-Na               5.020e-01
-	Na+               5.020e-01   3.574e-01    -0.299    -0.447    -0.148
+	Cl-               5.090e-01   3.293e-01    -0.293    -0.482    -0.189
+Na               5.031e-01
+	Na+               5.031e-01   3.581e-01    -0.298    -0.446    -0.148
 
 ------------------------------Saturation indices-------------------------------
 
@@ -175,7 +175,7 @@ Na               5.020e-01
 
 	H2O(g)           -1.65   -0.01    1.64  H2O
 	Halite           -2.49   -0.93    1.56  NaCl
-	Portlandite     -12.28  -17.47   -5.19  Ca(OH)2
+	Portlandite     -12.35  -17.54   -5.19  Ca(OH)2
 
 ------------------
 End of simulation.

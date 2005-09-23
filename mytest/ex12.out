@@ -159,7 +159,7 @@ S(6)             1.527e-02
 	H2O              -0.00   -0.00    0.00  H2O
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.03   -1.45    1.58  NaCl
-	O2(g)           -35.13  -38.09   -2.96  O2
+	O2(g)           -35.20  -38.09   -2.89  O2
 
 Initial solution 2.	Composition during halite precipitation
 
@@ -234,7 +234,7 @@ S(6)             8.986e-01
 	H2O              -0.10   -0.10    0.00  H2O
 	H2O(g)           -1.61   -0.10    1.51  H2O
 	Halite           -0.31    1.27    1.58  NaCl
-	O2(g)           -35.31  -38.27   -2.96  O2
+	O2(g)           -35.38  -38.27   -2.89  O2
 
 ---------------------------------------------
 Beginning of inverse modeling 1 calculations.

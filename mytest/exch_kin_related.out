@@ -149,7 +149,7 @@ O(0)             0.000e+00
 	Hausmannite     -48.28   14.01   62.29  Mn3O4
 	Hematite          9.09    5.47   -3.62  Fe2O3
 	Manganite       -18.67    6.67   25.34  MnOOH
-	O2(g)           -60.83  -63.77   -2.94  O2
+	O2(g)           -60.91  -63.77   -2.85  O2
 	Pyrochroite     -14.53    0.67   15.20  Mn(OH)2
 	Pyrolusite      -29.53   12.67   42.19  MnO2
 
@@ -203,7 +203,7 @@ O(0)             3.423e-28
 
 	H2(g)           -30.00  -33.13   -3.13  H2
 	H2O(g)           -1.64   -0.00    1.64  H2O
-	O2(g)           -24.83  -27.77   -2.94  O2
+	O2(g)           -24.91  -27.77   -2.85  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -361,7 +361,7 @@ O(0)             4.923e-01
 	Hausmannite      53.09  115.37   62.29  Mn3O4
 	Hematite         16.81   13.19   -3.62  Fe2O3
 	Manganite        20.38   45.72   25.34  MnOOH
-	O2(g)             2.42   -0.52   -2.94  O2
+	O2(g)             2.33   -0.52   -2.85  O2
 	Pyrochroite       8.70   23.90   15.20  Mn(OH)2
 	Pyrolusite       25.35   67.54   42.19  MnO2
 
