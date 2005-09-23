@@ -6,7 +6,7 @@ DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
-VER_DATE=August 15, 2005
+VER_DATE=October 1, 2005
 REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
@@ -112,9 +112,9 @@ FILES=  \
 	test/clean.sh \
 	test/check.sh 
 
-remake_output_files: clean_linux_output_files clean_sun_output_files linux_output_files sun_output_files
+remake_output_files: clean_linux_output_files linux_output_files # clean_sun_output_files sun_output_files
 
-output_files: linux_output_files sun_output_files
+output_files: linux_output_files # sun_output_files
 
 # make sure program is compiles, run examples and mytest
 linux_output_files: all 
@@ -134,9 +134,9 @@ phreeqc.sun:
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
 
-all_dist:  clean_dist linux sun # win
+all_dist:  clean_dist linux # sun # win
 
-test_dist: linux_test source_test sun_test
+test_dist: linux_test source_test # sun_test
 
 #
 #Linux
@@ -256,7 +256,7 @@ sun_test:
 clean_dist:
 	rm -rf $(EXPORT_DIR)
 
-clean_all: clean_dist clean_linux_output_files clean_sun_output_files clean
+clean_all: clean_dist clean_linux_output_files clean # clean_sun_output_files
 
 #
 #Win
