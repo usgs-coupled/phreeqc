@@ -20,11 +20,11 @@ x(4) Update Makefile
 	       output files
 	       doc files
 
-(5) remake everything
+x(5) remake everything
     make clean_all
     make output_files (also remakes programs)
 
-(6) svn status ~/programs/phreeqc -q
+x(6) svn status ~/programs/phreeqc -q
 	should be clean
 	otherwise commit and restart checklist at item 5
 
