@@ -134,7 +134,7 @@ phreeqc.sun:
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
 
-all_dist:  clean_dist linux # sun # win
+all_dist:  clean_dist linux win # sun # 
 
 test_dist: linux_test source_test # sun_test
 
