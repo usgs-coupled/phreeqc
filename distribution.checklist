@@ -1,3 +1,5 @@
+(!) Copy distribution.checklist to checklist.VERSION
+
 (1) Update version and date in main.c
 
 (2) Update doc/README.TXT
@@ -11,7 +13,7 @@
    ( ../doc/phreeqc.txt now static, only RELEASE.TXT
     has history 2/2/05)
 
-(4) Update Makefile
+(4) Update Makefile and distribution.mk
 	   set VERSION number
 	   set VER_DATE
 	   add any new files to distribution	
@@ -20,8 +22,11 @@
 	       output files
 	       doc files
 
+(4.5) svn status ~/programs/phreeqc -q
+      svn ci ~/programs/phreeqc 
+      svn update
+
 (5) remake everything
-    svn update
     make clean_all
     make output_files (also remakes programs)
 
@@ -30,6 +35,7 @@
 	otherwise commit and restart checklist at item 5
 
 (7) make all_dist
+       ls phreeqc_export
 
 (8) test Unix distributions
        make test_dist 
@@ -42,8 +48,8 @@
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
-	cp $(EXPORT_DIR)/Win/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-	cp $(EXPORT_DIR)/Win/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+?	cp $(EXPORT_DIR)/Win/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+?	cp $(EXPORT_DIR)/Win/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
 	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(EXPORT_DIR)/Linux/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
