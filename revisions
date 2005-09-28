@@ -558,6 +558,12 @@ Version 2.12 Date: Sat October 1, 2005
 	Executables and output files for Sun operating systems
 	are no longer provided.
 
+	Limited log activities of master species to be greater
+	than the smallest machine precision exponential number.
+	Avoids a matherr exception and allows trial of additional
+        parameter sets to attempt to solve the system of 
+        equations.
+
         Made aqueous activity coefficients the default activity
         coefficients for exchange species when using the 
         Pitzer formulation. New option in EXCHANGE is
