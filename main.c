@@ -100,7 +100,7 @@ output_msg(OUTPUT_SCREEN, "              ∫                                      
 output_msg(OUTPUT_SCREEN, "              ∫                    by                      ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫       D.L. Parkhurst and C.A.J. Appelo     ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫              September 23, 2005            ∫\n");
+output_msg(OUTPUT_SCREEN, "              ∫              September 28, 2005            ∫\n");
 output_msg(OUTPUT_SCREEN, "              €‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹€\n\n");
 
 return 0;
