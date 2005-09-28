@@ -2184,6 +2184,7 @@ int reset(void)
 					"delta", (double) delta[i], "delta/c", (double) d);
 			}
 			x[i]->master[0]->s->la += d;
+			if (x[i]->master[0]->s->la < (double) (DBL_MIN_10_EXP+10)) x[i]->master[0]->s->la = (double) (DBL_MIN_10_EXP+10);
 
 /*   
  * Surface charge balance
@@ -3067,3 +3068,6 @@ LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE 
 	f = xcaq*(xb/r + xc) + xbaq*(xb + r*xc) - 1;
 	return(f);
 }
+
+
+
