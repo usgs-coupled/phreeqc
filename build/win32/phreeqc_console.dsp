@@ -154,6 +154,10 @@ SOURCE=..\..\src\dense.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\dw.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\input.c
 # End Source File
 # Begin Source File
@@ -222,6 +226,14 @@ SOURCE=..\..\src\phqalloc.c
 # Begin Source File
 
 SOURCE=..\..\src\phreeqc_files.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\pitzer.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\pitzer_structures.c
 # End Source File
 # Begin Source File
 
@@ -347,6 +359,10 @@ SOURCE=..\..\src\phrqproto.h
 # Begin Source File
 
 SOURCE=..\..\src\phrqtype.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\pitzer.h
 # End Source File
 # Begin Source File
 
