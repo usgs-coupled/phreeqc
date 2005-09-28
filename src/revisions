@@ -35,7 +35,7 @@ Version 2.12:
 
         
 
-*       Added Pitzer activity formulation. Use pizer.dat database
+*       Added Pitzer activity formulation. Use pitzer.dat database
         to invoke the Pitzer model. Should have same capabilities
         as ion-association model except explicit diffuse layer 
         calculation is not implemented with the Pitzer model.
@@ -553,7 +553,7 @@ End of Features not documented in WRIR 99-4259.
 Revisions and bug fixes
 ------------------------------------------------------------
 
-Version 2.12 Date: Sat October 1, 2005
+Version 2.12 Date: Wed September 28, 2005
 
 	Executables and output files for Sun operating systems
 	are no longer provided.
