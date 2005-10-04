@@ -17,7 +17,7 @@ Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
    interface to the geochemical model PHREEQC: U.S. Geological Survey 
    Fact Sheet FS-031-02, 2 p.
 
-             PHREEQC - Version VERSION  VER_DATE
+             PHREEQC - Version 2.12  September 28, 2005
 
 Instructions for installation, execution, and testing are provided
 below.  After installation, see the file doc\phreeqc.txt in the PHREEQC
@@ -63,7 +63,7 @@ B. DISTRIBUTION FILE
 The following distribution file (containing the software, test data sets,
 and information files) is currently available.
 
-  phreeqc-VERSION-REVISION.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
+  phreeqc-2.12-577.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
 
 
 C. DOCUMENTATION
@@ -98,20 +98,20 @@ Note that if the software is to be installed on a server system,
 the person installing the software generally must have administrator 
 rights.
 
-To install the software, double-click phreeqc-VERSION-REVISION.exe to execute
+To install the software, double-click phreeqc-2.12-577.exe to execute
 the installation program and follow the directions on the screen.
 The installation program optionally will modify the PATH environment
 variable so that the PHREEQC program can be executed from any directory,
 without needing to type the full pathname of the program's location.
 
 By default, the software is installed in the directory
-C:\Program Files\USGS\phreeqc-VERSION.  This is the recommended installation 
+C:\Program Files\USGS\phreeqc-2.12.  This is the recommended installation 
 directory, but you may use other directories or disk drives.
 
 Note that program components not installed initially can be installed
 later, and that any components damaged by, for example, being
 inadvertently overwritten, can be quickly reinstalled by double-clicking
-phreeqc-VERSION-REVISION.exe--a maintenance version of the installation program
+phreeqc-2.12-577.exe--a maintenance version of the installation program
 will be executed.
 
 
@@ -121,7 +121,7 @@ PHREEQC directory structure
 The following directory structure will be created (the contents of each
 directory are shown to the right):
 
-   phreeqc-VERSION           files NOTICE.TXT, RELEASE.TXT, and this README.TXT;
+   phreeqc-2.12           files NOTICE.TXT, RELEASE.TXT, and this README.TXT;
                           batch file to run PHREEQC, database files
      `-----doc            documentation files 
      `-----examples       examples from user's guide--used in verification tests
@@ -145,7 +145,7 @@ version of the software, you will need:
        (b) familiarity with the compiler and the Windows operating system.
 
 A Makefile used to compile the program under Linux is provided as an example
-in the phreeqc-VERSION-REVISION.exe distribution, 
+in the phreeqc-2.12-577.exe distribution, 
 
 
 F. RUNNING THE SOFTWARE
@@ -179,13 +179,13 @@ PHREEQC from an MS-DOS Command Prompt window.
 If the option to modify the PATH environment variable was not chosen
 during installation, then two options exist: (1) the full pathname 
 to the script that runs phreeqc can be used in place of "phreeqc" in
-the above commands (for example "c:\program files\usgs\phreeqc-VERSION\phreeqc". 
+the above commands (for example "c:\program files\usgs\phreeqc-2.12\phreeqc". 
 Note that because of the space present in "program files", quotation
 marks must be used to enter the full pathname.), or, (2) the
-executable (installed in phreeqc-VERSION\src\release\phreeqc.exe) may be
+executable (installed in phreeqc-2.12\src\release\phreeqc.exe) may be
 copied to the current directory; further, the default database file
 must be in the current directory and named "phreeqc.dat". The default
-database file is installed in phreeqc-VERSION\database\phreeqc.dat.
+database file is installed in phreeqc-2.12\database\phreeqc.dat.
 
 The environment variable PHREEQC_DATABASE can be used to specify the
 default database for a DOS window session.  This environment variable
@@ -229,16 +229,16 @@ G. TESTING
 Test data sets are provided to verify that the program is correctly installed
 and running on the system.  The tests execute the examples presented in
 the user's guide, which demonstrate most of the program's capabilities.
-The tests are run in the phreeqc-VERSION\test directory.  The directory
-phreeqc-VERSION\examples contains the PHREEQC input data and expected results
+The tests are run in the phreeqc-2.12\test directory.  The directory
+phreeqc-2.12\examples contains the PHREEQC input data and expected results
 for each test.
 
 To test the installation, in an MS-DOS Command Prompt window change to
-the phreeqc-VERSION\test directory:
+the phreeqc-2.12\test directory:
 
      c:
      cd "program files"
-     cd usgs\phreeqc-VERSION\test
+     cd usgs\phreeqc-2.12\test
 
 Execute the tests by typing the command:
 
