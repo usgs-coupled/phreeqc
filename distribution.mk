@@ -7,7 +7,6 @@ DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
 VER_DATE=September 28, 2005
-REVISION=$(shell svnversion .)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(HOME)/../..$(TOPDIR)/src/Sun
@@ -134,19 +133,21 @@ phreeqc.sun:
 clean_sun_output_files:
 	cd $(SUN_DIR)/examples; make -f ../../../examples/Makefile clean
 
-all_dist:  clean_dist linux # win # sun 
+all_dist:  clean_dist linux source # win # sun 
 
 test_dist: linux_test source_test # sun_test
 
 #
 #Linux
 #
-linux: linux_export linux_clean linux_sed_files linux_compile linux_output linux_dist source_dist
+linux: linux_export linux_clean linux_sed_files linux_compile linux_output linux_dist 
+
+source: source_export source_clean source_sed_files source_dist
 
 linux_export:
 	mkdir -p $(EXPORT_DIR)
 	rm -rf $(EXPORT_DIR)/Linux
-	svn export .. $(EXPORT_DIR)/Linux
+	svn export -r $(REVISION) http://internalbrr/svn_GW/phreeqc/trunk $(EXPORT_DIR)/Linux
 
 linux_clean:
 	rm -f $(EXPORT_DIR/Linux/bin/$(PROGRAM) $(EXPORT_DIR/Linux/src/*.o 
@@ -178,17 +179,33 @@ linux_dist:
 	cd $(EXPORT_DIR)/Linux; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
 	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
 
+source_export:
+	mkdir -p $(EXPORT_DIR)
+	rm -rf $(EXPORT_DIR)/Source
+	svn export -r $(REVISION) http://internalbrr/svn_GW/phreeqc/trunk $(EXPORT_DIR)/Source
+
+source_clean:
+	rm -f $(EXPORT_DIR/Source/bin/$(PROGRAM) $(EXPORT_DIR/Source/src/*.o 
+
+source_sed_files:
+	sed -e "s/VERSION/$(VERSION)/" \
+	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/VERSION_DATE/$(VERSION)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/doc/RELEASE.TXT
+	for FILE in $(EXPORT_DIR)/Source/doc/README.TXT; do \
+		sed  -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+
 source_dist:
-	cd ..; rm -f $(PROGRAM).tar
-	cd ..; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
-	cd ..; mkdir $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd ..; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
-	cd ..; tar -czf $(PROGRAM).source.tar.gz $(PROGRAM)-$(VERSION)
-	cd ..; mv $(PROGRAM).source.tar.gz $(DIST_DIR)/$(ROOTNAME).source.tar.gz
-	cd ..; echo $(ROOTNAME).source.tar.gz saved in $(DIST_DIR).
-	cd ..; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Source; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Source; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
+	cd $(EXPORT_DIR)/Source; rm -rf $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Source; mkdir $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Source; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Source; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Source; tar -czf $(PROGRAM).source.tar.gz $(PROGRAM)-$(VERSION)
+	cd $(EXPORT_DIR)/Source; mv $(PROGRAM).source.tar.gz $(DIST_DIR)/$(ROOTNAME).source.tar.gz
+	cd $(EXPORT_DIR)/Source; echo $(ROOTNAME).source.tar.gz saved in $(DIST_DIR).
+	cd $(EXPORT_DIR)/Source; rm -rf $(PROGRAM)-$(VERSION)
 
 linux_test:
 	rm -rf $(DIST_DIR)/phreeqc-$(VERSION).Linux
@@ -321,8 +338,8 @@ web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
-	cp $(EXPORT_DIR)/Win/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-	cp $(EXPORT_DIR)/Win/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+	cp ~/programs/phreeqc/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+	cp ~/programs/phreeqc/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
 	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(EXPORT_DIR)/Linux/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 

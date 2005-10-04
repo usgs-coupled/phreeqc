@@ -1,19 +1,19 @@
-(!) Copy distribution.checklist to checklist.VERSION
+(1) Copy distribution.checklist to checklist.VERSION
 
-(1) Update version and date in main.c
+(2) Update version and date in main.c
 
-(2) Update doc/README.TXT
+(3) Update doc/README.TXT
 	uname -r
 	gcc -v
 
-(3) Update src/revisions
+(4) Update src/revisions
     when all_dist is run by make, src/revisions is copied 
     to doc/RELEASE.TXT
 
    ( ../doc/phreeqc.txt now static, only RELEASE.TXT
     has history 2/2/05)
 
-(4) Update Makefile and distribution.mk
+(5) Update Makefile and distribution.mk
 	   set VERSION number
 	   set VER_DATE
 	   add any new files to distribution	
@@ -22,53 +22,64 @@
 	       output files
 	       doc files
 
-(4.5) svn status ~/programs/phreeqc -q
+(6) svn status ~/programs/phreeqc -q
       svn ci ~/programs/phreeqc 
       svn update
 
-(5) remake everything
+(7) remake everything
     make clean_all
     make output_files (also remakes programs)
 
-(6) svn status ~/programs/phreeqc -q
+(8) svn status ~/programs/phreeqc -q
 	should be clean
 	otherwise commit and restart checklist at item 5
 
-(7) make all_dist
+(9) make all_dist REVISION=xxx
        ls phreeqc_export
+Linux/	phreeqc-2.12-577.Linux.tar.gz  phreeqc-2.12-577.source.tar.gz  Source/
 
-(8) test Unix distributions
+(10) test Unix distributions
        make test_dist 
        or
        make linux_test, sun_test, source_test
 
-(9) Scott is making batch windows
+(11) Scott is making batch windows
 
-(10) make web
+(12) make web
+     install windows version
+     copy README.TXT to  ~/programs/phreeqc/win
+
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
 	cp $(EXPORT_DIR)/Linux/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
-?	cp $(EXPORT_DIR)/Win/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
-?	cp $(EXPORT_DIR)/Win/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
+	cp ~/programs/phreeqc/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
+	cp ~/programs/phreeqc/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
 	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(EXPORT_DIR)/Linux/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
-(11) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/index.html
-     phreeqci version, date, size
-     phreeqc for windows version, date, size
-     windows batch phreeqc version size
-     Linux batch phreeqc version size
-     Sun batch phreeqc version size
-     Generic batch phreeqc version size
-
-
-(12) update PhreeqcI version
-
 (13) check for latest version of Phreeqc For Windows.
 
-(14) send mail to Brian Marshal
+(14) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/index.html
+     phreeqci version, date, size
+     windows batch phreeqc version size
+     Linux batch phreeqc version size
+     Generic batch phreeqc version size
+     phreeqc for windows version, date, size
 
 (15) update web page /z/linarcolkr/home/www/projects/GWC_coupled/phreeqci/index.html
+     PhreeqcI version, date, size
 
-(16) Update status.fm
+(16) send mail to Brian Marshal
+
+(17) PHAST
+     unpack release version in packages
+     Update table in /z/linarcolkr/home/www/projects/GWC_coupled/phast/index.html
+     copy release notes 
+          from ~/packages/phast-x.x/doc/RELEASE.TXT
+	  to /z/linarcolkr/home/www/projects/GWC_coupled/phast/RELEASE.TXT
+     copy readme
+          from ~/packages/phast-x.x/README
+	  to /z/linarcolkr/home/www/projects/GWC_coupled/phast/README
+
+(18) Update status.fm
 
