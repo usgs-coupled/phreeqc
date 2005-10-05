@@ -136,6 +136,11 @@ int inverse_models(void)
  */
 			sprintf(error_string,"Beginning of inverse modeling %d calculations.", inverse[n].n_user);
 			dup_print(error_string, TRUE);
+#ifdef INVERSE_CL1MP
+			output_msg(OUTPUT_MESSAGE, "Using Cl1MP multiprecision optimization routine.\n");
+#else
+			output_msg(OUTPUT_MESSAGE, "Using Cl1 standard precision optimization routine.\n");
+#endif
 			status(0, NULL);
 
 /*
