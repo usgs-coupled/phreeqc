@@ -39,6 +39,7 @@ static int remove_unstable_phases;
 int pitzer_init (void)
 /* ---------------------------------------------------------------------- */
 {
+	int i;
 /*
  *      Initialization for pitzer
  */
@@ -52,6 +53,11 @@ int pitzer_init (void)
 	space ((void *) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
 
 	ICON = TRUE;
+	OTEMP=0.0;
+	for (i = 0; i < 23; i++) {
+		BK[i] = 0.0;
+		DK[i] = 0.0;
+	}
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -424,7 +430,6 @@ C
 	double DC0;
 	int i;
 	double TR=298.15;
-	static double OTEMP=0.0;
 
 	if (fabs(TK-OTEMP) < 0.01e0) return OK;
 	OTEMP=TK;

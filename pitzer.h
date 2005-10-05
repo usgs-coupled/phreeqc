@@ -53,3 +53,4 @@ struct theta_param {
 };
 struct theta_param **theta_params;
 int count_theta_param, max_theta_param;
+double OTEMP;
