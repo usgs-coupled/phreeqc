@@ -314,6 +314,7 @@ Si               4.100e-04
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 
 Solution 1: 
 
@@ -829,6 +830,7 @@ Si               5.000e-04
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 
 Solution 1: Inflow
 
@@ -1717,6 +1719,7 @@ S(6)             1.354e-04
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 
 Solution 1: 
 
@@ -2520,6 +2523,7 @@ Si               1.606e-03
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 WARNING: Cl is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: Cl is included in solution 2, but is not included as a mass-balance constraint.
 WARNING: Cl is included in solution 3, but is not included as a mass-balance constraint.
@@ -6053,6 +6057,7 @@ Z                2.330e-03
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 
 Solution 1: Recharge number 3
 

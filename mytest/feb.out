@@ -1618,6 +1618,7 @@ Zn               4.590e-08
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 WARNING: As(5) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: B(3) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: Ba is included in solution 1, but is not included as a mass-balance constraint.
@@ -1718,6 +1719,7 @@ Reading input data for simulation 2.
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 WARNING: As(5) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: B(3) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: Ba is included in solution 1, but is not included as a mass-balance constraint.
@@ -1798,6 +1800,7 @@ Reading input data for simulation 3.
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 WARNING: As(5) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: B(3) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: Ba is included in solution 1, but is not included as a mass-balance constraint.
@@ -2719,6 +2722,7 @@ Reading input data for simulation 4.
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
+Using Cl1MP multiprecision optimization routine.
 WARNING: As(5) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: B(3) is included in solution 1, but is not included as a mass-balance constraint.
 WARNING: Ba is included in solution 1, but is not included as a mass-balance constraint.
