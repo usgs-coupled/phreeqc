@@ -270,7 +270,7 @@ S(6)             8.986e-01
 Beginning of inverse modeling 1 calculations.
 ---------------------------------------------
 
-Using Cl1MP multiprecision optimization routine.
+Using Cl1 standard precision optimization routine.
 
 Solution 1: Black Sea water
 
