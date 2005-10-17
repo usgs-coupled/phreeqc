@@ -76,7 +76,7 @@ OBJECTS=	main.o \
 		pitzer_structures.o \
 
 ifdef INVERSE_CL1MP
-	LOADFLAGS += -lgmp 
+	LOADFLAGS += -L/home/dlpark/lib -lgmp 
 	CCFLAGS += -DINVERSE_CL1MP
 	OBJECTS += cl1mp.o
 endif
