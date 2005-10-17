@@ -552,6 +552,27 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 603:
+	Link gmp library statically.
+
+	svn 601:
+	Fixed statement on multiprecision.
+
+	svn 581:
+	Fixed bug in PhreeqcI that did not reinitialize
+	Chebyschev parameters leading to incorrect results
+	with Pitzer activity coefficients. Results were
+	correct on first run, but erroneous on subsequent 
+        runs.
+
+	Added statement to identify multiprecision or
+	standard solver for inverse modeling. 
+
+	svn 578:
+
+	Distribution changes. Fixed names in README file.
+	Modified Makefile to use specified version. Split
+	Linux and source distribution procedure.
 
 Version 2.12 Date: Wed September 28, 2005
 
