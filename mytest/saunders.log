@@ -132,7 +132,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -142,7 +142,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -152,7 +152,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -162,7 +162,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -172,7 +172,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -182,7 +182,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -215,7 +215,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -225,7 +225,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -235,7 +235,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -245,7 +245,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -255,7 +255,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -277,18 +277,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 9
+Number of iterations: 8
 
 
 Cell 3.
@@ -298,7 +297,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -308,7 +307,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -318,7 +317,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -328,7 +327,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -351,12 +350,11 @@ Number of iterations: 13
 Cell 1.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 11
+Number of iterations: 10
 
 
 Cell 2.
@@ -366,7 +364,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -376,7 +374,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 9
+Number of iterations: 3
 
 
 Cell 4.
@@ -386,7 +384,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -396,7 +394,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -406,7 +404,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -425,12 +423,11 @@ Cell 1.
 
 Iterations in revise_guesses: 1
 Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 2, iteration 11
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 11
+Number of iterations: 13
 
 
 Cell 2.
@@ -440,7 +437,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 3
+Number of iterations: 1
 
 
 Cell 3.
@@ -450,7 +447,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -470,7 +467,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -480,7 +477,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -522,7 +519,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -532,16 +529,14 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 2
-Ineq had infeasible solution, kode 2, iteration 3
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 7
@@ -554,7 +549,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -582,22 +577,22 @@ Number of iterations: 4
 Cell 2.
 
 Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 0
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 6
+Number of iterations: 7
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -607,15 +602,16 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 3
+Number of iterations: 2
 
 
 Cell 5.
 
 Iterations in revise_guesses: 1
 Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 2, iteration 8
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
 Number of iterations: 10
@@ -628,7 +624,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -646,25 +642,30 @@ Number of iterations: 6
 Cell 1.
 
 Iterations in revise_guesses: 1
+              CO2(g) Pure phase has not converged. 	Residual: 2.650743e-02
+                    Removing unstable phases, iteration 5.
+Removing unstable phases. Iteration 5.
+Ineq had infeasible solution, kode 2, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
 
-Number of infeasible solutions: 0
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
-Number of iterations: 6
+Number of iterations: 13
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 8
-Ineq had infeasible solution, kode 2, iteration 9
-Ineq had infeasible solution, kode 2, iteration 12
-Ineq had infeasible solution, kode 2, iteration 14
+Ineq had infeasible solution, kode 2, iteration 7
+Ineq had infeasible solution, kode 0, iteration 8
+Ineq had infeasible solution, kode 0, iteration 10
+Ineq had infeasible solution, kode 2, iteration 23
 
 Number of infeasible solutions: 4
 Number of basis changes: 0
 
-Number of iterations: 18
+Number of iterations: 27
 
 
 Cell 3.
@@ -680,9 +681,8 @@ Number of iterations: 2
 Cell 4.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 2
@@ -691,11 +691,17 @@ Number of iterations: 2
 Cell 5.
 
 Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 1
+            Graphite Pure phase has not converged. 	Residual: 5.330822e+00
+                    Removing unstable phases, iteration 4.
+Removing unstable phases. Iteration 4.
+Ineq had infeasible solution, kode 0, iteration 10
+Ineq had infeasible solution, kode 2, iteration 18
 
-Number of infeasible solutions: 0
+Number of infeasible solutions: 3
 Number of basis changes: 0
 
-Number of iterations: 4
+Number of iterations: 29
 
 
 Cell 6.
@@ -705,7 +711,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -727,7 +733,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -737,7 +743,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 10
 
 
 Cell 3.
@@ -747,7 +753,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -757,7 +763,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -767,18 +773,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 7
+Number of iterations: 9
 
 
 Cell 7.
@@ -800,7 +805,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -816,11 +821,8 @@ Number of iterations: 4
 Cell 3.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 4
-Ineq had infeasible solution, kode 2, iteration 5
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 7
@@ -833,7 +835,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -843,15 +845,15 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 2, iteration 8
-Ineq had infeasible solution, kode 2, iteration 12
+Ineq had infeasible solution, kode 2, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 2, iteration 7
 
 Number of infeasible solutions: 3
 Number of basis changes: 0
@@ -878,7 +880,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -894,20 +896,11 @@ Number of iterations: 4
 Cell 3.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 5
-Ineq had infeasible solution, kode 2, iteration 8
-Ineq had infeasible solution, kode 0, iteration 9
-Ineq had infeasible solution, kode 2, iteration 10
-Ineq had infeasible solution, kode 2, iteration 14
-Ineq had infeasible solution, kode 2, iteration 15
-Ineq had infeasible solution, kode 2, iteration 19
-Ineq had infeasible solution, kode 0, iteration 23
-Ineq had infeasible solution, kode 2, iteration 26
 
-Number of infeasible solutions: 9
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 31
+Number of iterations: 9
 
 
 Cell 4.
@@ -927,15 +920,14 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 5
@@ -960,7 +952,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -990,7 +982,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
@@ -1000,7 +992,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -1010,7 +1002,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1032,23 +1024,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 4
-             Calcite Pure phase has not converged. 	Residual: 2.511582e-06
-              CO2(g) Pure phase has not converged. 	Residual: 2.980938e-01
-                    Removing unstable phases, iteration 4.
-Removing unstable phases. Iteration 4.
-Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 10
+Number of iterations: 5
 
 
 Cell 3.
@@ -1058,16 +1044,14 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 3
-Ineq had infeasible solution, kode 2, iteration 4
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 5
@@ -1080,7 +1064,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -1090,7 +1074,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1112,7 +1096,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1122,7 +1106,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1138,24 +1122,21 @@ Number of iterations: 4
 Cell 4.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 2, iteration 9
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 21
+Number of iterations: 9
 
 
 Cell 5.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 1
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -1165,7 +1146,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1187,7 +1168,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1197,7 +1178,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1227,7 +1208,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -1237,7 +1218,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1259,7 +1240,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1269,7 +1250,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1289,7 +1270,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 6
 
 
 Cell 5.
@@ -1299,7 +1280,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 6.
@@ -1309,7 +1290,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1331,7 +1312,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1341,7 +1322,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1361,15 +1342,14 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 5.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 5
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 6
@@ -1382,7 +1362,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.
@@ -1404,7 +1384,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1414,7 +1394,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1424,151 +1404,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 4
-
-
-Cell 5.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 6
-
-
-Cell 6.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 7.
-
-
-Beginning of advection time step 19, cumulative pore volumes 2.714286.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 6
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 4
-
-
-Cell 5.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 6
-
-
-Cell 6.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 7.
-
-
-Beginning of advection time step 20, cumulative pore volumes 2.857143.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 6
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -1599,7 +1435,152 @@ Ineq had infeasible solution, kode 2, iteration 1
 Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
+
+
+Cell 7.
+
+
+Beginning of advection time step 19, cumulative pore volumes 2.714286.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+Ineq had infeasible solution, kode 2, iteration 4
+
+Number of infeasible solutions: 1
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 7.
+
+
+Beginning of advection time step 20, cumulative pore volumes 2.857143.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 4
+
+
+Cell 5.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 6
+
+
+Cell 6.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 1
 
 
 Cell 7.
@@ -1621,7 +1602,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 2.
@@ -1631,7 +1612,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 3.
@@ -1641,7 +1622,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 4.
@@ -1667,12 +1648,11 @@ Number of iterations: 6
 Cell 6.
 
 Iterations in revise_guesses: 1
-Ineq had infeasible solution, kode 2, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 2
+Number of iterations: 1
 
 
 Cell 7.

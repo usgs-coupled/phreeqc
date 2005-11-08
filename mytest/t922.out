@@ -723,7 +723,7 @@ X                1.250e-01 mol
                       Temperature (deg C)  =  20.000
                   Electrical balance (eq)  =   4.919e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.25
-                               Iterations  =  29
+                               Iterations  =  28
                                   Total H  = 1.110124e+02
                                   Total O  = 5.555608e+01
 
@@ -893,7 +893,7 @@ Hfo_w
                       Temperature (deg C)  =  20.000
                   Electrical balance (eq)  =  -1.505e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -6.68
-                               Iterations  =  19
+                               Iterations  =  21
                                   Total H  = 1.110145e+02
                                   Total O  = 5.551759e+01
 

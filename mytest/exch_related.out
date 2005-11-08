@@ -354,7 +354,7 @@ X                8.855e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
 ----------------------------Description of solution----------------------------
 
                                        pH  =   0.861      Charge balance
-                                       pe  =  17.018      Adjusted to redox equilibrium
+                                       pe  =  17.021      Adjusted to redox equilibrium
                         Activity of water  =   0.992
                            Ionic strength  =   3.229e-01
                        Mass of water (kg)  =   9.995e-01
@@ -364,7 +364,7 @@ X                8.855e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.112826e+02
                                   Total O  = 5.562639e+01
 
@@ -387,10 +387,10 @@ Ca               6.174e-04
 	CaOH+             2.866e-16   2.099e-16   -15.543   -15.678    -0.135
 Cl               2.501e-01
 	Cl-               2.501e-01   1.690e-01    -0.602    -0.772    -0.170
-H(0)             2.295e-39
-	H2                1.147e-39   1.236e-39   -38.940   -38.908     0.032
-O(0)             4.982e-15
-	O2                2.491e-15   2.683e-15   -14.604   -14.571     0.032
+H(0)             2.270e-39
+	H2                1.135e-39   1.223e-39   -38.945   -38.913     0.032
+O(0)             5.091e-15
+	O2                2.545e-15   2.742e-15   -14.594   -14.562     0.032
 Si               3.672e-02
 	H4SiO4            3.672e-02   3.955e-02    -1.435    -1.403     0.032
 	H3SiO4-           5.778e-11   4.232e-11   -10.238   -10.373    -0.135
@@ -408,7 +408,7 @@ Si               3.672e-02
 	H2(g)           -35.76  -38.91   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Kaolinite       -10.26   -2.83    7.43  Al2Si2O5(OH)4
-	O2(g)           -11.61  -14.57   -2.96  O2
+	O2(g)           -11.60  -14.56   -2.96  O2
 	Quartz            2.58   -1.40   -3.98  SiO2
 	SiO2(a)           1.32   -1.40   -2.71  SiO2
 

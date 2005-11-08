@@ -775,9 +775,9 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.780e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   1.469e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -1426,7 +1426,7 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -3.747e-16
+	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02 -6.384e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -1459,9 +1459,9 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.279e-15
+                  Electrical balance (eq)  =   1.800e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -1768,7 +1768,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -2.082e-16
+	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -3.053e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -1801,9 +1801,9 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.061e-15
+                  Electrical balance (eq)  =   1.872e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -2049,7 +2049,7 @@ Zn               3.350e-04
 	Anorthite         7.05  -12.67  -19.71  CaAl2Si2O8
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
 	Ca-Montmorillonite  16.26  -28.77  -45.03  Ca0.165Al2.33Si3.67O10(OH)2
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	Cd(OH)2          -7.31    6.34   13.65  Cd(OH)2
 	CdSiO3           -5.42    3.64    9.06  CdSiO3
 	CdSO4            -8.04   -8.14   -0.10  CdSO4
@@ -2110,7 +2110,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02 -1.110e-16
+	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02  1.013e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -2143,9 +2143,9 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.148e-15
+                  Electrical balance (eq)  =   1.898e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -2490,9 +2490,9 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.780e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   1.469e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -2832,9 +2832,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.050e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   8.251e-18
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -3141,7 +3141,7 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.012e-02  4.803e-02 -2.208e-02
+	Calcite          -0.00   -8.48   -8.48  7.012e-02  4.803e-02 -2.208e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -3174,7 +3174,7 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.941e-15
+                  Electrical balance (eq)  =   1.969e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  10
                                   Total H  = 1.110217e+02
@@ -3422,7 +3422,7 @@ Zn               3.350e-04
 	Anorthite         7.05  -12.67  -19.71  CaAl2Si2O8
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
 	Ca-Montmorillonite  16.26  -28.77  -45.03  Ca0.165Al2.33Si3.67O10(OH)2
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	Cd(OH)2          -7.31    6.34   13.65  Cd(OH)2
 	CdSiO3           -5.42    3.64    9.06  CdSiO3
 	CdSO4            -8.04   -8.14   -0.10  CdSO4
@@ -3483,7 +3483,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -1.388e-16
+	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02  5.551e-17
 
 -----------------------------Solution composition------------------------------
 
@@ -3516,9 +3516,9 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.478e-14
+                  Electrical balance (eq)  =   5.118e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -3825,7 +3825,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -2.359e-16
+	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02  1.804e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -3858,9 +3858,9 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.164e-15
+                  Electrical balance (eq)  =   1.903e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -4205,9 +4205,9 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.780e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   1.469e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -4547,9 +4547,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.050e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   8.251e-18
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -4889,9 +4889,9 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.335e-17
+                  Electrical balance (eq)  =   3.992e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -5231,7 +5231,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.058e-15
+                  Electrical balance (eq)  =   1.892e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  10
                                   Total H  = 1.110217e+02
@@ -5540,7 +5540,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02 -6.453e-14
+	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02  4.802e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -5573,9 +5573,9 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.970e-12
+                  Electrical balance (eq)  =   4.749e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.598478e+01
 
@@ -5821,7 +5821,7 @@ Zn               3.350e-04
 	Anorthite         7.05  -12.67  -19.71  CaAl2Si2O8
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
 	Ca-Montmorillonite  16.26  -28.77  -45.03  Ca0.165Al2.33Si3.67O10(OH)2
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	Cd(OH)2          -7.31    6.34   13.65  Cd(OH)2
 	CdSiO3           -5.42    3.64    9.06  CdSiO3
 	CdSO4            -8.04   -8.14   -0.10  CdSO4
@@ -5920,9 +5920,9 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.780e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   1.469e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -6262,9 +6262,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.050e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   8.251e-18
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -6604,9 +6604,9 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.335e-17
+                  Electrical balance (eq)  =   3.992e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -6946,9 +6946,9 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.449e-17
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =  -1.763e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -7288,7 +7288,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   4.240e-02
                        Total CO2 (mol/kg)  =   2.210e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.043e-15
+                  Electrical balance (eq)  =   1.892e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  10
                                   Total H  = 1.110217e+02
@@ -7635,9 +7635,9 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.780e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   1.469e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -7977,9 +7977,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.050e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =   8.251e-18
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -8319,9 +8319,9 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.335e-17
+                  Electrical balance (eq)  =   3.992e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -8661,9 +8661,9 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.449e-17
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =  -1.763e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
@@ -9003,9 +9003,9 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =  -1.685e-03
                        Total CO2 (mol/kg)  =   1.028e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.055e-17
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   2
+                  Electrical balance (eq)  =  -9.933e-18
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   1
                                   Total H  = 1.110217e+02
                                   Total O  = 5.591853e+01
 
