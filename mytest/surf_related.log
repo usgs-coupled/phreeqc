@@ -91,7 +91,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 ------------------
 End of simulation.
@@ -252,7 +252,7 @@ Number of iterations: 30
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Number of infeasible solutions: 0
@@ -279,13 +279,13 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 ------------------
 End of simulation.
@@ -334,13 +334,12 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 Iterations in revise_guesses: 2
-Ineq had infeasible solution, kode 2, iteration 2
-Ineq had infeasible solution, kode 2, iteration 3
-Ineq had infeasible solution, kode 2, iteration 4
-Ineq had infeasible solution, kode 2, iteration 5
-Ineq had infeasible solution, kode 2, iteration 6
+Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 5
 
-Number of infeasible solutions: 5
+Number of infeasible solutions: 4
 Number of basis changes: 0
 
 Number of iterations: 27
@@ -349,7 +348,7 @@ Number of iterations: 27
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Number of infeasible solutions: 0
@@ -480,7 +479,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 ------------------
 End of simulation.

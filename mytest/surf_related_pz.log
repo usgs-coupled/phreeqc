@@ -80,7 +80,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 1
+Number of iterations: 2
 
 ------------------
 End of simulation.
@@ -125,10 +125,309 @@ Reaction step 1.
 Iterations in revise_guesses: 2
 Ineq had infeasible solution, kode 0, iteration 1
 
+Iteration 200	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+Charge/Potential
+	Sum of surface charge 3.717589e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 1.260802e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.648961e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 3.099324e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 3.459173e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge -8.261749e-05
+	                grams 0.214729
+	Charge from potential 2.588834e-05
+	             FPsi/2RT 6.496802e-01
+	       Sinh(FPsi/2RT) 6.963578e-01
+	       Cosh(FPsi/2RT) 1.218571e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 1.717005e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+
+A and B arrays:
+
+0
+   1.00e+00   1.00e+00   0.00e+00  -0.00e+00   0.00e+00  -0.00e+00  -0.00e+00  -0.00e+00
+  -0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+1
+   3.53e-02  -0.00e+00   0.00e+00  -1.25e-03   0.00e+00   3.19e-02   2.10e-03  -1.09e-02
+   1.25e-03  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   6.94e-18
+
+2
+  -0.00e+00   3.53e-02   0.00e+00   2.96e-04   0.00e+00   3.19e-02  -0.00e+00   1.28e-02
+   3.35e-03  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+  -6.94e-18
+
+3
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+4
+   6.93e-02  -7.03e-02   0.00e+00   2.47e-03   0.00e+00  -2.88e-06   4.21e-03  -5.24e-02
+  -4.21e-03   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   1.29e-17
+
+5
+   3.36e-03   1.44e-01   0.00e+00   8.88e-04   0.00e+00   5.52e+01   2.15e-03   5.07e-02
+   3.46e-02  -5.89e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+6
+   2.10e-03  -0.00e+00   0.00e+00   2.45e-06   0.00e+00  -0.00e+00   2.15e-03  -8.42e-03
+  -0.00e+00   1.00e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   4.34e-19
+
+7
+   4.91e-02  -5.76e-02   0.00e+00   2.22e-02   0.00e+00  -0.00e+00   3.78e-02  -4.71e-01
+  -3.78e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   6.84e-17
+
+8
+   1.25e-03   3.35e-03   0.00e+00  -1.59e-06   0.00e+00  -0.00e+00  -0.00e+00   8.42e-03
+   2.15e-02   1.00e-01   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   3.47e-18
+
+9
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+10
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+11
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+12
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+13
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+14
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+15
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   2.15e-01
+
+16
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.15e-03   5.07e-02
+   3.46e-02  -5.89e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   2.76e+01
+
+
+k, l, m	1	14	2
+kode: 0	iter: 8	error: 0.000000e+00
+
+solution vector:
+     0  Ca             4.12e-17
+     1  S             -4.12e-17
+     2  A(H2O)         0.00e+00
+     3  pH            -3.04e-15
+     4  Hydrogen       0.00e+00
+     5  Oxygen         4.22e-19
+     6  Hfo_s         -1.51e-15
+     7  Hfo_CB        -4.27e-16
+     8  Hfo_w          3.32e-16
+     9  gypsum         2.32e-19   -SI   0.00e+00   Moles   2.15e-01 **
+    10  Ca+2           0.00e+00
+    11  H+             0.00e+00
+    12  H2O            0.00e+00
+    13  HSO4-          0.00e+00
+    14  OH-            0.00e+00
+    15  SO4-2          0.00e+00
+
+residual vector:
+     0  gypsum         0.00e+00
+     1  Ca             0.00e+00
+     2  S              0.00e+00
+     3  A(H2O)         0.00e+00
+     4  pH             0.00e+00
+     5  Oxygen         0.00e+00
+     6  Hfo_s          0.00e+00
+     7  Hfo_CB         0.00e+00
+     8  Hfo_w          0.00e+00
+     9  Ca+2           0.00e+00
+    10  H+             0.00e+00
+    11  H2O            0.00e+00
+    12  HSO4-          0.00e+00
+    13  OH-            0.00e+00
+    14  SO4-2          0.00e+00
+    15  gypsum         2.15e-01
+    16  Oxygen         2.76e+01
+
+Sum of deltas:     0.000000
+Factor:   1.0000e+00
+Ca         old la     -2.03847   new la     -2.03847   delta   4.12e-17   delta/c   1.79e-17
+S          old la     -2.54203   new la     -2.54203   delta  -4.12e-17   delta/c  -1.79e-17
+A(H2O)     old la     -0.00000   new la     -0.00000   delta   0.00e+00   delta/c   0.00e+00
+pH         old la     -7.44059   new la     -7.44059   delta  -3.04e-15   delta/c  -1.32e-15
+Hydrogen   old pe     -4.00000   new pe     -4.00000   delta   0.00e+00   delta/c   0.00e+00
+Oxygen     old MH2O   9.92e-01   new MH2O   9.92e-01   delta   4.22e-19   10**d/c   1.00e+00
+Hfo_s      old la     -1.81219   new la     -1.81219   delta  -1.51e-15   delta/c  -6.56e-16
+Hfo_CB     old f*psi   0.28205   new f*psi   0.28205   delta  -1.86e-16
+Hfo_w      old la     -0.22264   new la     -0.22264   delta   3.32e-16   delta/c   1.44e-16
+gypsum     old mass   2.15e-01   new mass   2.15e-01   delta   2.32e-19
+Ca         old mole   3.53e-02   new mole   3.53e-02   delta   2.32e-19
+S          old mole   3.53e-02   new mole   3.53e-02   delta   2.32e-19
+pH         old mole  -4.62e-10   new mole  -4.62e-10   delta   0.00e+00
+Hydrogen   old mole  -3.06e-01   new mole  -3.06e-01   delta  -1.83e-18
+Oxygen     old mole   5.52e+01   new mole   5.52e+01   delta   1.37e-18
+Hfo_s      old mole   2.15e-03   new mole   2.15e-03   delta   0.00e+00
+Hfo_w      old mole   2.15e-02   new mole   2.15e-02   delta   0.00e+00
+Charge/Potential
+	Sum of surface charge 2.587791e-05
+	                grams 0.214729
+	Charge from potential 2.587791e-05
+	             FPsi/2RT 6.494500e-01
+	       Sinh(FPsi/2RT) 6.960773e-01
+	       Cosh(FPsi/2RT) 1.218410e+00
+	           Sqrt(mu_x) 3.166514e-04
+
+Iteration 201	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Maximum iterations exceeded, 200
+
+
 Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 36
+Number of iterations: 201
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+Iterations in revise_guesses: 2
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 13
 
 ------------------
 End of simulation.
@@ -159,141 +458,10 @@ Reaction step 1.
 
 Iterations in revise_guesses: 2
 
-Iteration 200	Step_size = 100.000000
-		Pe_step_size = 10.000000
-
-
-A and B arrays:
-
-0
-   1.00e+00   1.00e+00   0.00e+00  -0.00e+00   0.00e+00  -0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-1
-   1.53e-02  -0.00e+00   0.00e+00  -0.00e+00   0.00e+00   1.53e-02  -1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   6.94e-18
-
-2
-  -0.00e+00   1.53e-02   0.00e+00   4.53e-08   0.00e+00   1.53e-02  -1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -8.67e-18
-
-3
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-4
-   3.05e-02  -3.05e-02   0.00e+00   1.60e-07   0.00e+00  -4.62e-10   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.68e-17
-
-5
-  -0.00e+00   6.11e-02   0.00e+00   5.55e-08   0.00e+00   5.56e+01  -6.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-6
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-7
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-8
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-9
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-10
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-11
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-12
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   4.74e-03
-
-13
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -6.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.78e+01
-
-
-k, l, m	1	11	2
-kode: 0	iter: 5	error: 0.000000e+00
-
-solution vector:
-     0  Ca             4.85e-16
-     1  S             -4.85e-16
-     2  A(H2O)         0.00e+00
-     3  pH            -1.78e-11
-     4  Hydrogen       0.00e+00
-     5  Oxygen         6.01e-19
-     6  gypsum         4.73e-19   -SI   0.00e+00   Moles   4.74e-03 **
-     7  Ca+2           0.00e+00
-     8  H+             0.00e+00
-     9  H2O            0.00e+00
-    10  HSO4-          0.00e+00
-    11  OH-            0.00e+00
-    12  SO4-2          0.00e+00
-
-residual vector:
-     0  gypsum         0.00e+00
-     1  Ca             0.00e+00
-     2  S              0.00e+00
-     3  A(H2O)         0.00e+00
-     4  pH             0.00e+00
-     5  Oxygen         0.00e+00
-     6  Ca+2           0.00e+00
-     7  H+             0.00e+00
-     8  H2O            0.00e+00
-     9  HSO4-          0.00e+00
-    10  OH-            0.00e+00
-    11  SO4-2          0.00e+00
-    12  gypsum         4.74e-03
-    13  Oxygen         2.78e+01
-
-Sum of deltas:     0.000000
-Factor:   1.0000e+00
-Ca         old la     -2.26576   new la     -2.26576   delta   4.85e-16   delta/c   2.11e-16
-S          old la     -2.31473   new la     -2.31473   delta  -4.85e-16   delta/c  -2.11e-16
-A(H2O)     old la     -0.00000   new la     -0.00000   delta   0.00e+00   delta/c   0.00e+00
-pH         old la     -7.09725   new la     -7.09725   delta  -1.78e-11   delta/c  -7.73e-12
-Hydrogen   old pe     -4.00000   new pe     -4.00000   delta   0.00e+00   delta/c   0.00e+00
-Oxygen     old MH2O   1.00e+00   new MH2O   1.00e+00   delta   6.01e-19   10**d/c   1.00e+00
-gypsum     old mass   4.74e-03   new mass   4.74e-03   delta   4.73e-19
-Ca         old mole   1.53e-02   new mole   1.53e-02   delta   4.73e-19
-S          old mole   1.53e-02   new mole   1.53e-02   delta   4.73e-19
-pH         old mole  -4.62e-10   new mole  -4.62e-10   delta   0.00e+00
-Hydrogen   old mole  -1.22e-01   new mole  -1.22e-01   delta  -3.79e-18
-Oxygen     old mole   5.56e+01   new mole   5.56e+01   delta   2.84e-18
-
-Iteration 201	Step_size = 100.000000
-		Pe_step_size = 10.000000
-
-WARNING: Maximum iterations exceeded, 200
-
-WARNING: Maximum iterations exceeded, 200
-
-
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 201
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
-Iterations in revise_guesses: 2
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 13
+Number of iterations: 12
 
 ------------------
 End of simulation.
@@ -323,13 +491,13 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 Iterations in revise_guesses: 2
-Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 2, iteration 1
 Ineq had infeasible solution, kode 0, iteration 2
 
 Number of infeasible solutions: 2
 Number of basis changes: 0
 
-Number of iterations: 19
+Number of iterations: 20
 
 ------------------
 End of simulation.
@@ -350,7 +518,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 1
+Number of iterations: 2
 
 ------------------
 End of simulation.
@@ -393,12 +561,311 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 Iterations in revise_guesses: 2
+
+Iteration 200	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+Charge/Potential
+	Sum of surface charge 3.688610e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 1.231819e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.619983e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 3.070346e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 3.430194e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge -8.290743e-05
+	                grams 0.216984
+	Charge from potential 2.559852e-05
+	             FPsi/2RT 6.432711e-01
+	       Sinh(FPsi/2RT) 6.885621e-01
+	       Cosh(FPsi/2RT) 1.214133e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 1.688020e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+
+A and B arrays:
+
+0
+   1.00e+00   1.00e+00   0.00e+00  -0.00e+00   0.00e+00  -0.00e+00  -0.00e+00  -0.00e+00
+  -0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+1
+   3.30e-02  -0.00e+00   0.00e+00  -1.26e-03   0.00e+00   2.96e-02   2.13e-03  -1.10e-02
+   1.26e-03  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   1.39e-17
+
+2
+  -0.00e+00   3.30e-02   0.00e+00   2.99e-04   0.00e+00   2.96e-02  -0.00e+00   1.30e-02
+   3.39e-03  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+  -1.39e-17
+
+3
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+4
+   6.48e-02  -6.57e-02   0.00e+00   2.50e-03   0.00e+00  -2.88e-06   4.25e-03  -5.30e-02
+  -4.25e-03   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   6.84e-17
+
+5
+   3.39e-03   1.35e-01   0.00e+00   8.97e-04   0.00e+00   5.52e+01   2.17e-03   5.13e-02
+   3.50e-02  -5.89e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+6
+   2.13e-03  -0.00e+00   0.00e+00   2.48e-06   0.00e+00  -0.00e+00   2.17e-03  -8.50e-03
+  -0.00e+00   1.00e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   8.67e-19
+
+7
+   4.91e-02  -5.76e-02   0.00e+00   2.22e-02   0.00e+00  -0.00e+00   3.78e-02  -4.71e-01
+  -3.78e-02   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   7.30e-17
+
+8
+   1.26e-03   3.39e-03   0.00e+00  -1.60e-06   0.00e+00  -0.00e+00  -0.00e+00   8.51e-03
+   2.17e-02   1.00e-01   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+  -3.47e-18
+
+9
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+10
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+11
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+12
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+13
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+14
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00
+
+15
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   0.00e+00   1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   2.17e-01
+
+16
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.17e-03   5.13e-02
+   3.50e-02  -5.89e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
+   2.76e+01
+
+
+k, l, m	1	14	2
+kode: 0	iter: 8	error: 0.000000e+00
+
+solution vector:
+     0  Ca             5.08e-16
+     1  S             -5.08e-16
+     2  A(H2O)         0.00e+00
+     3  pH             2.54e-15
+     4  Hydrogen       0.00e+00
+     5  Oxygen         1.03e-18
+     6  Hfo_s          3.86e-16
+     7  Hfo_CB         1.23e-16
+     8  Hfo_w         -1.54e-16
+     9  gypsum        -1.02e-18   -SI   0.00e+00   Moles   2.17e-01 **
+    10  Ca+2           0.00e+00
+    11  H+             0.00e+00
+    12  H2O            0.00e+00
+    13  HSO4-          0.00e+00
+    14  OH-            0.00e+00
+    15  SO4-2          0.00e+00
+
+residual vector:
+     0  gypsum         0.00e+00
+     1  Ca             0.00e+00
+     2  S              0.00e+00
+     3  A(H2O)         0.00e+00
+     4  pH             0.00e+00
+     5  Oxygen         0.00e+00
+     6  Hfo_s          0.00e+00
+     7  Hfo_CB         0.00e+00
+     8  Hfo_w          0.00e+00
+     9  Ca+2           0.00e+00
+    10  H+             0.00e+00
+    11  H2O            0.00e+00
+    12  HSO4-          0.00e+00
+    13  OH-            0.00e+00
+    14  SO4-2          0.00e+00
+    15  gypsum         2.17e-01
+    16  Oxygen         2.76e+01
+
+Sum of deltas:     0.000000
+Factor:   1.0000e+00
+Ca         old la     -2.04961   new la     -2.04961   delta   5.08e-16   delta/c   2.20e-16
+S          old la     -2.53089   new la     -2.53089   delta  -5.08e-16   delta/c  -2.20e-16
+A(H2O)     old la     -0.00000   new la     -0.00000   delta   0.00e+00   delta/c   0.00e+00
+pH         old la     -7.44616   new la     -7.44616   delta   2.54e-15   delta/c   1.10e-15
+Hydrogen   old pe     -4.00000   new pe     -4.00000   delta   0.00e+00   delta/c   0.00e+00
+Oxygen     old MH2O   9.92e-01   new MH2O   9.92e-01   delta   1.03e-18   10**d/c   1.00e+00
+Hfo_s      old la     -1.81219   new la     -1.81219   delta   3.86e-16   delta/c   1.68e-16
+Hfo_CB     old f*psi   0.27927   new f*psi   0.27927   delta   5.34e-17
+Hfo_w      old la     -0.22264   new la     -0.22264   delta  -1.54e-16   delta/c  -6.67e-17
+gypsum     old mass   2.17e-01   new mass   2.17e-01   delta  -1.02e-18
+Ca         old mole   3.30e-02   new mole   3.30e-02   delta  -1.02e-18
+S          old mole   3.30e-02   new mole   3.30e-02   delta  -1.02e-18
+pH         old mole  -4.62e-10   new mole  -4.62e-10   delta   0.00e+00
+Hydrogen   old mole  -2.88e-01   new mole  -2.88e-01   delta   8.07e-18
+Oxygen     old mole   5.52e+01   new mole   5.52e+01   delta  -6.02e-18
+Hfo_s      old mole   2.17e-03   new mole   2.17e-03   delta   0.00e+00
+Hfo_w      old mole   2.17e-02   new mole   2.17e-02   delta   0.00e+00
+Charge/Potential
+	Sum of surface charge 2.558812e-05
+	                grams 0.216984
+	Charge from potential 2.558812e-05
+	             FPsi/2RT 6.430408e-01
+	       Sinh(FPsi/2RT) 6.882825e-01
+	       Cosh(FPsi/2RT) 1.213974e+00
+	           Sqrt(mu_x) 3.166514e-04
+
+Iteration 201	Step_size = 100.000000
+		Pe_step_size = 10.000000
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Maximum iterations exceeded, 200
+
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 201
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+Iterations in revise_guesses: 2
 Ineq had infeasible solution, kode 0, iteration 1
 
 Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 40
+Number of iterations: 13
 
 ------------------
 End of simulation.
@@ -426,137 +893,6 @@ Beginning of batch-reaction calculations.
 -----------------------------------------
 
 Reaction step 1.
-
-Iterations in revise_guesses: 2
-
-Iteration 200	Step_size = 100.000000
-		Pe_step_size = 10.000000
-
-
-A and B arrays:
-
-0
-   1.00e+00   1.00e+00   0.00e+00  -0.00e+00   0.00e+00  -0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-1
-   1.53e-02  -0.00e+00   0.00e+00  -0.00e+00   0.00e+00   1.53e-02  -1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   5.20e-18
-
-2
-  -0.00e+00   1.53e-02   0.00e+00   4.53e-08   0.00e+00   1.53e-02  -1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -6.94e-18
-
-3
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-4
-   3.05e-02  -3.05e-02   0.00e+00   1.60e-07   0.00e+00  -4.62e-10   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.68e-17
-
-5
-  -0.00e+00   6.11e-02   0.00e+00   5.55e-08   0.00e+00   5.56e+01  -6.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -7.11e-15
-
-6
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-7
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-8
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-9
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-10
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-11
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
-
-12
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   1.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   4.74e-03
-
-13
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -6.00e+00   0.00e+00
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.78e+01
-
-
-k, l, m	1	11	2
-kode: 0	iter: 5	error: 0.000000e+00
-
-solution vector:
-     0  Ca             4.12e-16
-     1  S             -4.12e-16
-     2  A(H2O)         0.00e+00
-     3  pH             9.84e-12
-     4  Hydrogen       0.00e+00
-     5  Oxygen        -1.27e-16
-     6  gypsum        -8.55e-19   -SI   0.00e+00   Moles   4.74e-03 **
-     7  Ca+2           0.00e+00
-     8  H+             0.00e+00
-     9  H2O            0.00e+00
-    10  HSO4-          0.00e+00
-    11  OH-            0.00e+00
-    12  SO4-2          0.00e+00
-
-residual vector:
-     0  gypsum         0.00e+00
-     1  Ca             0.00e+00
-     2  S              0.00e+00
-     3  A(H2O)         0.00e+00
-     4  pH             0.00e+00
-     5  Oxygen         0.00e+00
-     6  Ca+2           0.00e+00
-     7  H+             0.00e+00
-     8  H2O            0.00e+00
-     9  HSO4-          0.00e+00
-    10  OH-            0.00e+00
-    11  SO4-2          0.00e+00
-    12  gypsum         4.74e-03
-    13  Oxygen         2.78e+01
-
-Sum of deltas:     0.000000
-Factor:   1.0000e+00
-Ca         old la     -2.26576   new la     -2.26576   delta   4.12e-16   delta/c   1.79e-16
-S          old la     -2.31473   new la     -2.31473   delta  -4.12e-16   delta/c  -1.79e-16
-A(H2O)     old la     -0.00000   new la     -0.00000   delta   0.00e+00   delta/c   0.00e+00
-pH         old la     -7.09725   new la     -7.09725   delta   9.84e-12   delta/c   4.27e-12
-Hydrogen   old pe     -4.00000   new pe     -4.00000   delta   0.00e+00   delta/c   0.00e+00
-Oxygen     old MH2O   1.00e+00   new MH2O   1.00e+00   delta  -1.27e-16   10**d/c   1.00e-00
-gypsum     old mass   4.74e-03   new mass   4.74e-03   delta  -8.55e-19
-Ca         old mole   1.53e-02   new mole   1.53e-02   delta  -8.55e-19
-S          old mole   1.53e-02   new mole   1.53e-02   delta  -8.55e-19
-pH         old mole  -4.62e-10   new mole  -4.62e-10   delta   0.00e+00
-Hydrogen   old mole  -1.22e-01   new mole  -1.22e-01   delta   6.84e-18
-Oxygen     old mole   5.56e+01   new mole   5.56e+01   delta  -5.13e-18
-
-Iteration 201	Step_size = 100.000000
-		Pe_step_size = 10.000000
-
-WARNING: Maximum iterations exceeded, 200
-
-WARNING: Maximum iterations exceeded, 200
-
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 201
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Iterations in revise_guesses: 2
 
@@ -593,8 +929,10 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 Iterations in revise_guesses: 2
+Ineq had infeasible solution, kode 0, iteration 1
+Ineq had infeasible solution, kode 0, iteration 2
 
-Number of infeasible solutions: 0
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
 Number of iterations: 20
@@ -618,7 +956,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 1
+Number of iterations: 2
 
 ------------------
 End of simulation.
@@ -674,11 +1012,11 @@ A and B arrays:
 
 1
    3.35e-02  -0.00e+00   0.00e+00  -4.83e-03   0.00e+00   2.65e-02   2.16e-03   4.83e-03
-  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -4.16e-17
+  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -6.94e-18
 
 2
   -0.00e+00   3.35e-02   0.00e+00   5.38e-05   0.00e+00   3.32e-02  -0.00e+00   2.73e-04
-  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   2.08e-17
+  -1.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   6.94e-18
 
 3
    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
@@ -686,7 +1024,7 @@ A and B arrays:
 
 4
    6.21e-02  -6.69e-02   0.00e+00   9.02e-04   0.00e+00  -1.34e-02   4.32e-03   9.11e-03
-   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -8.43e-17
+   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -2.88e-17
 
 5
    6.99e-03   1.34e-01   0.00e+00   1.62e-04   0.00e+00   5.52e+01   2.17e-03   2.27e-02
@@ -698,7 +1036,7 @@ A and B arrays:
 
 7
    4.83e-03   2.73e-04   0.00e+00   3.01e-07   0.00e+00  -0.00e+00  -0.00e+00   2.17e-02
-   1.00e-01   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -1.39e-17
+   1.00e-01   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00  -3.47e-18
 
 8
    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.00e+00
@@ -737,15 +1075,15 @@ k, l, m	1	13	2
 kode: 0	iter: 7	error: 0.000000e+00
 
 solution vector:
-     0  Ca            -6.57e-16
-     1  S              6.57e-16
+     0  Ca            -2.14e-16
+     1  S              2.14e-16
      2  A(H2O)         0.00e+00
-     3  pH             3.51e-15
+     3  pH            -1.92e-16
      4  Hydrogen       0.00e+00
-     5  Oxygen        -1.21e-18
-     6  Hfo_s          4.48e-16
-     7  Hfo_w         -5.08e-16
-     8  gypsum         1.19e-18   -SI   0.00e+00   Moles   2.17e-01 **
+     5  Oxygen        -4.27e-19
+     6  Hfo_s          1.25e-17
+     7  Hfo_w         -1.16e-16
+     8  gypsum         1.63e-19   -SI   0.00e+00   Moles   2.17e-01 **
      9  Ca+2           0.00e+00
     10  H+             0.00e+00
     11  H2O            0.00e+00
@@ -773,20 +1111,20 @@ residual vector:
 
 Sum of deltas:     0.000000
 Factor:   1.0000e+00
-Ca         old la     -2.09841   new la     -2.09841   delta  -6.57e-16   delta/c  -2.85e-16
-S          old la     -2.48209   new la     -2.48209   delta   6.57e-16   delta/c   2.85e-16
+Ca         old la     -2.09841   new la     -2.09841   delta  -2.14e-16   delta/c  -9.29e-17
+S          old la     -2.48209   new la     -2.48209   delta   2.14e-16   delta/c   9.29e-17
 A(H2O)     old la     -0.00000   new la     -0.00000   delta   0.00e+00   delta/c   0.00e+00
-pH         old la     -7.59989   new la     -7.59989   delta   3.51e-15   delta/c   1.52e-15
+pH         old la     -7.59989   new la     -7.59989   delta  -1.92e-16   delta/c  -8.34e-17
 Hydrogen   old pe     -4.00000   new pe     -4.00000   delta   0.00e+00   delta/c   0.00e+00
-Oxygen     old MH2O   9.92e-01   new MH2O   9.92e-01   delta  -1.21e-18   10**d/c   1.00e+00
-Hfo_s      old la     -2.87249   new la     -2.87249   delta   4.48e-16   delta/c   1.94e-16
-Hfo_w      old la     -0.30324   new la     -0.30324   delta  -5.08e-16   delta/c  -2.21e-16
-gypsum     old mass   2.17e-01   new mass   2.17e-01   delta   1.19e-18
-Ca         old mole   3.35e-02   new mole   3.35e-02   delta   1.19e-18
-S          old mole   3.35e-02   new mole   3.35e-02   delta   1.19e-18
+Oxygen     old MH2O   9.92e-01   new MH2O   9.92e-01   delta  -4.27e-19   10**d/c   1.00e+00
+Hfo_s      old la     -2.87249   new la     -2.87249   delta   1.25e-17   delta/c   5.43e-18
+Hfo_w      old la     -0.30324   new la     -0.30324   delta  -1.16e-16   delta/c  -5.04e-17
+gypsum     old mass   2.17e-01   new mass   2.17e-01   delta   1.63e-19
+Ca         old mole   3.35e-02   new mole   3.35e-02   delta   1.63e-19
+S          old mole   3.35e-02   new mole   3.35e-02   delta   1.63e-19
 pH         old mole  -4.62e-10   new mole  -4.62e-10   delta   0.00e+00
-Hydrogen   old mole  -2.92e-01   new mole  -2.92e-01   delta  -9.35e-18
-Oxygen     old mole   5.52e+01   new mole   5.52e+01   delta   6.98e-18
+Hydrogen   old mole  -2.92e-01   new mole  -2.92e-01   delta  -1.29e-18
+Oxygen     old mole   5.52e+01   new mole   5.52e+01   delta   9.63e-19
 Hfo_s      old mole   2.17e-03   new mole   2.17e-03   delta   0.00e+00
 Hfo_w      old mole   2.17e-02   new mole   2.17e-02   delta   0.00e+00
 

@@ -2490,11 +2490,11 @@ int residuals(void)
 					converge = FALSE;
 					} 
 				} else {
-					if (residual[i] < -toler ) converge = FALSE;
+					if (residual[i] < -toler || iterations < 2) converge = FALSE;
 				}
 			} else {
- 				/*if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE;*/
-				if (residual[i] < -toler ) {
+ 				/* if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE;*/
+				if (residual[i] < -toler || iterations < 2) {
 					converge = FALSE;
 				}
 			}

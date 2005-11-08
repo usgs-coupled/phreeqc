@@ -34,14 +34,11 @@ Beginning of advection calculations.
 
 Beginning of advection time step 1, cumulative pore volumes 0.200000.
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 10
 
 
 Cell 1.
@@ -89,120 +86,6 @@ Cell 5.
 
 Beginning of advection time step 2, cumulative pore volumes 0.400000.
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 4
-
-Number of infeasible solutions: 1
-Number of basis changes: 0
-
-Number of iterations: 14
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 3, cumulative pore volumes 0.600000.
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 12
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 4, cumulative pore volumes 0.800000.
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
@@ -217,7 +100,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -227,7 +110,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -237,7 +120,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -247,7 +130,111 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 3, cumulative pore volumes 0.600000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 4, cumulative pore volumes 0.800000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
 
 
 Cell 5.
@@ -259,20 +246,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.625390e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 9
+Number of iterations: 5
 
 
 Cell 2.
@@ -282,7 +266,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -292,7 +276,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -302,7 +286,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -314,127 +298,12 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 5
-
-Number of infeasible solutions: 1
-Number of basis changes: 0
-
-Number of iterations: 14
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 7, cumulative pore volumes 1.400000.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 8
-
-Number of infeasible solutions: 1
-Number of basis changes: 0
-
-Number of iterations: 14
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 8, cumulative pore volumes 1.600000.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
@@ -449,7 +318,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -459,7 +328,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -469,7 +338,111 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 7, cumulative pore volumes 1.400000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 8, cumulative pore volumes 1.600000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
 
 
 Cell 5.
@@ -481,7 +454,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -491,21 +464,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 7.579569e-01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 9
+Number of iterations: 4
 
 
 Cell 3.
@@ -515,7 +484,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -525,7 +494,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -537,7 +506,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -547,21 +516,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 10
 
 
 Cell 3.
@@ -571,7 +536,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -581,7 +546,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -593,7 +558,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -603,21 +568,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 10
 
 
 Cell 3.
@@ -627,7 +588,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -637,7 +598,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -649,7 +610,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -659,18 +620,66 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 13, cumulative pore volumes 2.600000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 11
@@ -683,7 +692,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -693,62 +702,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 13, cumulative pore volumes 2.600000.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 12
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -760,7 +714,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -770,7 +724,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -780,20 +734,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 4.688859e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 6
 
 
 Cell 4.
@@ -803,7 +754,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -815,7 +766,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -825,7 +776,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -835,125 +786,12 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 14
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 16, cumulative pore volumes 3.200000.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 13
-
-
-Cell 4.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 5.
-
-
-Beginning of advection time step 17, cumulative pore volumes 3.400000.
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 1.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 2.
-
-Iterations in revise_guesses: 1
-
-Number of infeasible solutions: 0
-Number of basis changes: 0
-
-Number of iterations: 0
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
@@ -968,7 +806,111 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 16, cumulative pore volumes 3.200000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 10
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 5.
+
+
+Beginning of advection time step 17, cumulative pore volumes 3.400000.
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 1.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 2.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 9
+
+
+Cell 4.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 2
 
 
 Cell 5.
@@ -980,7 +922,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -990,7 +932,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1000,7 +942,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1010,20 +952,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.693907e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 9
+Number of iterations: 5
 
 
 Cell 5.
@@ -1035,7 +974,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1045,7 +984,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1055,7 +994,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1065,21 +1004,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 5
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 10
 
 
 Cell 5.
@@ -1091,7 +1026,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1101,7 +1036,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1111,7 +1046,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1121,20 +1056,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 10
 
 
 Cell 5.
@@ -1146,7 +1078,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1156,7 +1088,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1166,7 +1098,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1176,15 +1108,15 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 2.134025e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
+             Calcite Pure phase has not converged. 	Residual: 1.553395e-01
+                    Removing unstable phases, iteration 10.
+Removing unstable phases. Iteration 10.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
@@ -1201,7 +1133,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1211,7 +1143,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1221,7 +1153,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1231,7 +1163,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1241,7 +1173,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1253,7 +1185,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1263,7 +1195,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1273,7 +1205,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1283,7 +1215,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1293,7 +1225,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1305,7 +1237,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1315,7 +1247,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1325,7 +1257,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1335,7 +1267,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1345,7 +1277,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1357,7 +1289,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 1.
@@ -1367,7 +1299,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1377,7 +1309,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -1387,7 +1319,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1397,7 +1329,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.

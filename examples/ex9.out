@@ -266,9 +266,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.508e-16
+                  Electrical balance (eq)  =   8.670e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  = 206
+                               Iterations  = 210
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550676e+01
 
@@ -361,9 +361,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.599e-16
+                  Electrical balance (eq)  =   8.778e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  25
+                               Iterations  =  29
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550676e+01
 
@@ -456,9 +456,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.432e-16
+                  Electrical balance (eq)  =   9.603e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  65
+                               Iterations  =  69
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -551,9 +551,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.885e-15
+                  Electrical balance (eq)  =   6.903e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  24
+                               Iterations  =  28
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -646,9 +646,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.890e-15
+                  Electrical balance (eq)  =   6.909e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  22
+                               Iterations  =  26
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -741,9 +741,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.901e-15
+                  Electrical balance (eq)  =   6.915e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  22
+                               Iterations  =  26
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -836,9 +836,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.899e-15
+                  Electrical balance (eq)  =   6.911e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  25
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -931,9 +931,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.903e-15
+                  Electrical balance (eq)  =   6.906e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  25
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -1028,7 +1028,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   5.287e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  18
+                               Iterations  =  22
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -1121,9 +1121,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.596e-14
+                  Electrical balance (eq)  =   5.594e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  18
+                               Iterations  =  22
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 
@@ -1216,9 +1216,9 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.636e-14
+                  Electrical balance (eq)  =   5.637e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  18
+                               Iterations  =  22
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550677e+01
 

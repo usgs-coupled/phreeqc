@@ -108,7 +108,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -118,7 +118,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -128,7 +128,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -138,7 +138,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -156,18 +156,14 @@ Number of iterations: 9
 Cell 1.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 3.496806e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 4
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 0, iteration 8
-Ineq had infeasible solution, kode 2, iteration 10
+Ineq had infeasible solution, kode 0, iteration 2
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 2, iteration 8
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 3
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 11
 
 
 Cell 2.
@@ -177,7 +173,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -187,7 +183,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -197,7 +193,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -215,17 +211,11 @@ Number of iterations: 6
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.896141e+00
-                MnO2 Pure phase has not converged. 	Residual: 3.924349e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 8
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 17
+Number of iterations: 12
 
 
 Cell 2.
@@ -235,7 +225,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -245,7 +235,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -255,7 +245,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -273,16 +263,16 @@ Number of iterations: 11
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                MnO2 Pure phase has not converged. 	Residual: 3.748019e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 3
+             Calcite Pure phase has not converged. 	Residual: 4.231577e+00
+                    Removing unstable phases, iteration 10.
+Removing unstable phases. Iteration 10.
+Ineq had infeasible solution, kode 0, iteration 14
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
-Number of iterations: 12
+Number of iterations: 20
 
 
 Cell 2.
@@ -292,7 +282,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -302,7 +292,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -312,7 +302,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -330,36 +320,25 @@ Number of iterations: 12
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 2, iteration 13
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 9
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 3.878817e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 2, iteration 4
+Ineq had infeasible solution, kode 2, iteration 2
+Ineq had infeasible solution, kode 0, iteration 5
+Ineq had infeasible solution, kode 0, iteration 6
 Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 0, iteration 8
-Ineq had infeasible solution, kode 0, iteration 10
 
-Number of infeasible solutions: 5
+Number of infeasible solutions: 4
 Number of basis changes: 0
 
-Number of iterations: 14
+Number of iterations: 13
 
 
 Cell 3.
@@ -369,7 +348,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -379,7 +358,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -397,33 +376,22 @@ Number of iterations: 6
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 2, iteration 4
-Ineq had infeasible solution, kode 2, iteration 5
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 11
+Number of iterations: 9
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.466217e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 2
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 7
+Ineq had infeasible solution, kode 0, iteration 6
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 14
 
 
 Cell 3.
@@ -433,7 +401,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -443,7 +411,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -461,32 +429,21 @@ Number of iterations: 11
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 6
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 12
+Number of iterations: 9
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.466217e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 7
+Number of iterations: 6
 
 
 Cell 3.
@@ -496,7 +453,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -506,7 +463,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -524,16 +481,11 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 6
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 17
+Number of iterations: 9
 
 
 Cell 2.
@@ -543,21 +495,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.271196e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 17
+Number of iterations: 11
 
 
 Cell 4.
@@ -567,7 +515,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -585,18 +533,11 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 8.963995e+00
-             Calcite Pure phase has not converged. 	Residual: 1.989568e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 0, iteration 9
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 15
 
 
 Cell 2.
@@ -606,21 +547,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.466217e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 7
 
 
 Cell 4.
@@ -630,7 +567,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -648,19 +585,11 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-             Calcite Pure phase has not converged. 	Residual: 1.995139e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 9
-Ineq had infeasible solution, kode 0, iteration 10
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 12
 
 
 Cell 2.
@@ -670,7 +599,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
@@ -680,25 +609,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 3.494195e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 2
-Ineq had infeasible solution, kode 0, iteration 4
-Ineq had infeasible solution, kode 0, iteration 5
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 5
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 9
 
 
 Cell 5.
@@ -716,28 +637,22 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 10
-Ineq had infeasible solution, kode 0, iteration 11
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 17
+Number of iterations: 9
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
              Calcite Pure phase has not converged. 	Residual: 4.021338e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 5
+                    Removing unstable phases, iteration 2.
+Removing unstable phases. Iteration 2.
 Ineq had infeasible solution, kode 0, iteration 6
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
 Number of iterations: 11
@@ -750,22 +665,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.466217e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 12
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 17
+Number of iterations: 13
 
 
 Cell 5.
@@ -783,10 +693,7 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
+Ineq had infeasible solution, kode 0, iteration 4
 
 Number of infeasible solutions: 1
 Number of basis changes: 0
@@ -797,18 +704,11 @@ Number of iterations: 15
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 2, iteration 3
-Ineq had infeasible solution, kode 2, iteration 4
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 2, iteration 9
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 11
+Number of iterations: 9
 
 
 Cell 3.
@@ -818,20 +718,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-                MnO2 Pure phase has not converged. 	Residual: 4.150583e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 8
+Number of iterations: 12
 
 
 Cell 5.
@@ -849,28 +746,21 @@ Number of iterations: 7
 Cell 1.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 10
+Number of iterations: 5
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 9
 
 
 Cell 3.
@@ -880,7 +770,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -890,7 +780,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -912,27 +802,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 6.836474e+00
-             Calcite Pure phase has not converged. 	Residual: 1.778092e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 5
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 0, iteration 9
-Ineq had infeasible solution, kode 0, iteration 10
 
-Number of infeasible solutions: 6
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 12
 
 
 Cell 3.
@@ -942,7 +822,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -952,7 +832,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -974,26 +854,18 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-             Calcite Pure phase has not converged. 	Residual: 1.995139e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 Ineq had infeasible solution, kode 0, iteration 4
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 0, iteration 7
-Ineq had infeasible solution, kode 0, iteration 11
 
-Number of infeasible solutions: 5
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
-Number of iterations: 24
+Number of iterations: 14
 
 
 Cell 3.
@@ -1003,7 +875,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1013,7 +885,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1035,22 +907,19 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-             Calcite Pure phase has not converged. 	Residual: 1.995139e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
+Ineq had infeasible solution, kode 0, iteration 3
 Ineq had infeasible solution, kode 0, iteration 4
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 2
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 12
 
 
 Cell 3.
@@ -1060,7 +929,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 4.
@@ -1070,7 +939,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1092,36 +961,27 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 8
-Ineq had infeasible solution, kode 0, iteration 9
-
-Number of infeasible solutions: 3
-Number of basis changes: 0
-
-Number of iterations: 15
-
-
-Cell 3.
-
-Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 4.282338e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
 Number of iterations: 9
+
+
+Cell 3.
+
+Iterations in revise_guesses: 1
+
+Number of infeasible solutions: 0
+Number of basis changes: 0
+
+Number of iterations: 8
 
 
 Cell 4.
@@ -1131,7 +991,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1153,20 +1013,15 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 4
-Ineq had infeasible solution, kode 0, iteration 11
+Ineq had infeasible solution, kode 0, iteration 6
 
-Number of infeasible solutions: 3
+Number of infeasible solutions: 1
 Number of basis changes: 0
 
 Number of iterations: 15
@@ -1175,15 +1030,11 @@ Number of iterations: 15
 Cell 3.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 9
 
 
 Cell 4.
@@ -1193,7 +1044,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1215,34 +1066,27 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 10
+Number of iterations: 6
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 11
+Number of iterations: 9
 
 
 Cell 4.
@@ -1252,7 +1096,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1274,7 +1118,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1284,23 +1128,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 6.074076e+00
-             Calcite Pure phase has not converged. 	Residual: 1.702606e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 11
 
 
 Cell 4.
@@ -1310,7 +1148,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1332,7 +1170,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1342,25 +1180,20 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-             Calcite Pure phase has not converged. 	Residual: 1.995139e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
-Ineq had infeasible solution, kode 0, iteration 5
-Ineq had infeasible solution, kode 0, iteration 6
-Ineq had infeasible solution, kode 0, iteration 12
+             Calcite Pure phase has not converged. 	Residual: 3.759405e+00
+                    Removing unstable phases, iteration 10.
+Removing unstable phases. Iteration 10.
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 18
 
 
 Cell 4.
@@ -1370,7 +1203,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1392,7 +1225,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1402,23 +1235,17 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-             Calcite Pure phase has not converged. 	Residual: 1.995139e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 0, iteration 9
 
-Number of infeasible solutions: 2
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 16
+Number of iterations: 9
 
 
 Cell 4.
@@ -1428,7 +1255,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 5.
@@ -1450,7 +1277,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1460,35 +1287,33 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 15
+Number of iterations: 9
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
              Calcite Pure phase has not converged. 	Residual: 4.434804e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
+                    Removing unstable phases, iteration 2.
+Removing unstable phases. Iteration 2.
+Ineq had infeasible solution, kode 0, iteration 4
+Ineq had infeasible solution, kode 0, iteration 6
+Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 3
 Number of basis changes: 0
 
-Number of iterations: 13
+Number of iterations: 12
 
 
 Cell 5.
@@ -1510,7 +1335,7 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 2.
@@ -1520,37 +1345,27 @@ Iterations in revise_guesses: 1
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 0
+Number of iterations: 2
 
 
 Cell 3.
 
 Iterations in revise_guesses: 1
-          Al(OH)3(a) Pure phase has not converged. 	Residual: 9.019973e+00
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
 
 Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 15
+Number of iterations: 9
 
 
 Cell 4.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.132000e+01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 2
-Ineq had infeasible solution, kode 2, iteration 3
-Ineq had infeasible solution, kode 2, iteration 4
-Ineq had infeasible solution, kode 0, iteration 7
 
-Number of infeasible solutions: 4
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 12
+Number of iterations: 9
 
 
 Cell 5.

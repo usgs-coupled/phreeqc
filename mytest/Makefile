@@ -20,6 +20,7 @@ all: alkalinity.out \
 	exch_related_pz.out \
 	exch_kin_related.out \
 	exch_kin_related_pz.out \
+	fiona.out \
 	fixed_volume_gas.out \
 	fixed_volume_gas_pz.out \
 	fluorite.out \
@@ -32,6 +33,7 @@ all: alkalinity.out \
 	lam7.out \
 	lam10.out \
 	llnl.out \
+	local_min_pz.out \
 	mahoney.out \
 	mu.out \
 	np.test.out \

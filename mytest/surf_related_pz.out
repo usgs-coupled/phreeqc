@@ -351,7 +351,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Gypsum            0.00   -4.58   -4.58  1.607e-01  1.607e-01  4.896e-14
+	Gypsum            0.00   -4.58   -4.58  1.607e-01  1.607e-01  4.252e-14
 
 ------------------------------Surface composition------------------------------
 
@@ -408,7 +408,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.304e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.99
-                               Iterations  =   1
+                               Iterations  =   2
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.90794
                          Density of water  =   0.99706
@@ -548,6 +548,10 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 1.	
 Using surface 1.	Surface assemblage after simulation 4.
 Using pure phase assemblage 1.	
@@ -629,8 +633,8 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.664e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.75
-                               Iterations  =  36
-                         Gamma iterations  =   6
+                               Iterations  =  13
+                         Gamma iterations  =   1
                       Osmotic coefficient  =   0.69607
                          Density of water  =   0.99706
                                   Total H  = 1.100873e+02
@@ -699,7 +703,7 @@ Initial solution 1.
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
                                Iterations  =   3
-                         Gamma iterations  =   3
+                         Gamma iterations  =   1
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -726,10 +730,6 @@ Beginning of batch-reaction calculations.
 -----------------------------------------
 
 Reaction step 1.
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	
 Using pure phase assemblage 1.	
@@ -761,8 +761,8 @@ Using pure phase assemblage 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  13
-                         Gamma iterations  =   1
+                               Iterations  =  12
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.69611
                          Density of water  =   0.99706
                                   Total H  = 1.110735e+02
@@ -788,7 +788,7 @@ S(6)             1.525e-02
 	Phase               SI log IAP  log KT
 
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite     -10.95  -16.14   -5.19  Ca(OH)2
 
@@ -888,11 +888,11 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  6.042e-26  Surface charge, eq
+	  4.054e-26  Surface charge, eq
 	undefined  sigma, C/m**2
-	  5.941e-02  psi, V
-	 -2.312e+00  -F*psi/RT
-	  9.903e-02  exp(-F*psi/RT)
+	  5.153e-02  psi, V
+	 -2.006e+00  -F*psi/RT
+	  1.346e-01  exp(-F*psi/RT)
 	  5.000e+04  specific area, m**2/mol Gypsum
 	  0.000e+00  m**2 for   0.000e+00 moles of Gypsum
 
@@ -902,22 +902,22 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         2.913e-26       0.000   2.910e-26     -25.536
-	Hfo_sOHCa+2       7.996e-31       0.000   7.986e-31     -30.098
-	Hfo_sOH           8.251e-32       0.000   8.241e-32     -31.084
-	Hfo_sO-           5.354e-39       0.000   5.347e-39     -38.272
+	Hfo_sOH2+         2.669e-26       0.000   2.665e-26     -25.574
+	Hfo_sOHCa+2       9.952e-31       0.000   9.940e-31     -30.003
+	Hfo_sOH           5.562e-32       0.000   5.555e-32     -31.255
+	Hfo_sO-           2.656e-39       0.000   2.653e-39     -38.576
 
 Hfo_w         
 	  0.000e+00  moles	[0.1 mol/(mol Gypsum)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+         4.714e-26       0.000   4.708e-26     -25.327
-	Hfo_wSO4-         1.585e-26       0.000   1.583e-26     -25.801
-	Hfo_wOH           1.335e-31       0.000   1.333e-31     -30.875
-	Hfo_wOHSO4-2      8.874e-32       0.000   8.863e-32     -31.052
-	Hfo_wO-           8.662e-39       0.000   8.651e-39     -38.063
-	Hfo_wOCa+         1.081e-39       0.000   1.080e-39     -38.967
+	Hfo_wOH2+         1.694e-26       0.000   1.692e-26     -25.772
+	Hfo_wSO4-         3.084e-27       0.000   3.081e-27     -26.511
+	Hfo_wOH           3.531e-32       0.000   3.527e-32     -31.453
+	Hfo_wOHSO4-2      1.271e-32       0.000   1.270e-32     -31.896
+	Hfo_wO-           1.686e-39       0.000   1.684e-39     -38.774
+	Hfo_wOCa+         3.886e-40       0.000   3.881e-40     -39.411
 
 -----------------------------Solution composition------------------------------
 
@@ -940,7 +940,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   1.877e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =  19
+                               Iterations  =  20
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.92410
                          Density of water  =   0.99706
@@ -1005,11 +1005,11 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 6.
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  5.875e-25  Surface charge, eq
+	  8.722e-25  Surface charge, eq
 	undefined  sigma, C/m**2
-	  5.941e-02  psi, V
-	 -2.312e+00  -F*psi/RT
-	  9.903e-02  exp(-F*psi/RT)
+	  5.153e-02  psi, V
+	 -2.006e+00  -F*psi/RT
+	  1.346e-01  exp(-F*psi/RT)
 	  5.000e+04  specific area, m**2/mol Gypsum
 	  0.000e+00  m**2 for   0.000e+00 moles of Gypsum
 
@@ -1019,22 +1019,22 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         3.531e-25       0.000   3.526e-25     -24.453
-	Hfo_sOHCa+2       9.690e-30       0.000   9.678e-30     -29.014
+	Hfo_sOH2+         4.798e-25       0.000   4.792e-25     -24.320
+	Hfo_sOHCa+2       1.789e-29       0.000   1.787e-29     -28.748
 	Hfo_sOH           1.000e-30       0.000   9.987e-31     -30.001
-	Hfo_sO-           6.488e-38       0.000   6.480e-38     -37.188
+	Hfo_sO-           4.775e-38       0.000   4.769e-38     -37.322
 
 Hfo_w         
 	  0.000e+00  moles	[0.1 mol/(mol Gypsum)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+         3.531e-25       0.000   3.526e-25     -24.453
-	Hfo_wSO4-         1.187e-25       0.000   1.185e-25     -24.926
+	Hfo_wOH2+         4.798e-25       0.000   4.792e-25     -24.320
+	Hfo_wSO4-         8.735e-26       0.000   8.724e-26     -25.059
 	Hfo_wOH           1.000e-30       0.000   9.987e-31     -30.001
-	Hfo_wOHSO4-2      6.647e-31       0.000   6.639e-31     -30.178
-	Hfo_wO-           6.488e-38       0.000   6.480e-38     -37.188
-	Hfo_wOCa+         8.100e-39       0.000   8.090e-39     -38.092
+	Hfo_wOHSO4-2      3.600e-31       0.000   3.595e-31     -30.444
+	Hfo_wO-           4.775e-38       0.000   4.769e-38     -37.322
+	Hfo_wOCa+         1.101e-38       0.000   1.099e-38     -37.959
 
 -----------------------------Solution composition------------------------------
 
@@ -1057,7 +1057,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   1.877e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =   1
+                               Iterations  =   2
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.92410
                          Density of water  =   0.99706
@@ -1164,11 +1164,11 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Hfo           
-	  1.489e-31  Surface charge, eq
+	  3.501e-31  Surface charge, eq
 	undefined  sigma, C/m**2
-	  5.941e-02  psi, V
-	 -2.312e+00  -F*psi/RT
-	  9.903e-02  exp(-F*psi/RT)
+	  5.153e-02  psi, V
+	 -2.006e+00  -F*psi/RT
+	  1.346e-01  exp(-F*psi/RT)
 	  5.000e+04  specific area, m**2/mol Gypsum
 	  0.000e+00  m**2 for   0.000e+00 moles of Gypsum
 
@@ -1179,8 +1179,8 @@ Hfo_s
 	Species               Moles    Fraction    Molality    Molality
 
 	Hfo_sOH           1.000e-30       0.000   1.000e-30     -30.000
-	Hfo_sOH2+         1.931e-31       0.000   1.931e-31     -30.714
-	Hfo_sO-           1.186e-31       0.000   1.186e-31     -30.926
+	Hfo_sOH2+         2.624e-31       0.000   2.624e-31     -30.581
+	Hfo_sO-           8.731e-32       0.000   8.731e-32     -31.059
 
 Hfo_w         
 	  0.000e+00  moles	[0.1 mol/(mol Gypsum)]
@@ -1188,14 +1188,18 @@ Hfo_w
 	Species               Moles    Fraction    Molality    Molality
 
 	Hfo_wOH           1.000e-30       0.000   1.000e-30     -30.000
-	Hfo_wOH2+         1.931e-31       0.000   1.931e-31     -30.714
-	Hfo_wO-           1.186e-31       0.000   1.186e-31     -30.926
+	Hfo_wOH2+         2.624e-31       0.000   2.624e-31     -30.581
+	Hfo_wO-           8.731e-32       0.000   8.731e-32     -31.059
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
 -----------------------------------------
 
 Reaction step 1.
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	
 Using surface 1.	Surface assemblage after simulation 8.
@@ -1222,7 +1226,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Gypsum            0.00   -4.58   -4.58  0.000e+00  2.314e-01  2.314e-01
+	Gypsum           -0.00   -4.58   -4.58  0.000e+00  2.314e-01  2.314e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -1278,8 +1282,8 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.664e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.75
-                               Iterations  =  40
-                         Gamma iterations  =   6
+                               Iterations  =  13
+                         Gamma iterations  =   1
                       Osmotic coefficient  =   0.69607
                          Density of water  =   0.99706
                                   Total H  = 1.100873e+02
@@ -1348,7 +1352,7 @@ Initial solution 1.
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.23
                                Iterations  =   3
-                         Gamma iterations  =   3
+                         Gamma iterations  =   1
                       Osmotic coefficient  =   0.99988
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -1375,10 +1379,6 @@ Beginning of batch-reaction calculations.
 -----------------------------------------
 
 Reaction step 1.
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
 Using solution 1.	
 Using pure phase assemblage 1.	
@@ -1411,7 +1411,7 @@ Using pure phase assemblage 1.
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  13
-                         Gamma iterations  =   1
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.69611
                          Density of water  =   0.99706
                                   Total H  = 1.110735e+02
@@ -1437,7 +1437,7 @@ S(6)             1.525e-02
 	Phase               SI log IAP  log KT
 
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite     -10.95  -16.14   -5.19  Ca(OH)2
 
@@ -1532,30 +1532,30 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  3.214e-26  Surface charge, eq
+	  7.260e-27  Surface charge, eq
 Hfo_s         
 	  0.000e+00  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         1.583e-26       0.000   1.581e-26     -25.801
-	Hfo_sOHCa+2       4.374e-30       0.000   4.368e-30     -29.360
-	Hfo_sOH           4.422e-33       0.000   4.416e-33     -32.355
-	Hfo_sO-           2.830e-41       0.000   2.827e-41     -40.549
+	Hfo_sOH2+         4.287e-27       0.000   4.282e-27     -26.368
+	Hfo_sOHCa+2       1.185e-30       0.000   1.183e-30     -29.927
+	Hfo_sOH           1.198e-33       0.000   1.196e-33     -32.922
+	Hfo_sO-           7.666e-42       0.000   7.657e-42     -41.116
 
 Hfo           
-	  3.214e-26  Surface charge, eq
+	  7.260e-27  Surface charge, eq
 Hfo_w         
 	  0.000e+00  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+         1.636e-26       0.000   1.633e-26     -25.787
-	Hfo_wSO4-         5.322e-29       0.000   5.315e-29     -28.274
-	Hfo_wOH           4.569e-33       0.000   4.564e-33     -32.341
-	Hfo_wOHSO4-2      2.940e-35       0.000   2.936e-35     -34.532
-	Hfo_wOCa+         3.726e-40       0.000   3.722e-40     -39.429
-	Hfo_wO-           2.925e-41       0.000   2.921e-41     -40.534
+	Hfo_wOH2+         2.980e-27       0.000   2.976e-27     -26.526
+	Hfo_wSO4-         9.696e-30       0.000   9.683e-30     -29.014
+	Hfo_wOH           8.324e-34       0.000   8.314e-34     -33.080
+	Hfo_wOHSO4-2      5.356e-36       0.000   5.349e-36     -35.272
+	Hfo_wOCa+         6.789e-41       0.000   6.780e-41     -40.169
+	Hfo_wO-           5.328e-42       0.000   5.321e-42     -41.274
 
 -----------------------------Solution composition------------------------------
 
@@ -1689,7 +1689,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   1.584e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.27
-                               Iterations  =   1
+                               Iterations  =   2
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.92423
                          Density of water  =   0.99706
@@ -1853,7 +1853,7 @@ Reaction 1.	Irreversible reaction defined in simulation 12.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Gypsum           -0.00   -4.58   -4.58  0.000e+00  2.309e-01  2.309e-01
+	Gypsum            0.00   -4.58   -4.58  0.000e+00  2.309e-01  2.309e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -1930,7 +1930,7 @@ S(6)             1.869e-02
 	Phase               SI log IAP  log KT
 
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
-	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite      -9.74  -14.93   -5.19  Ca(OH)2
 

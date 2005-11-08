@@ -552,6 +552,11 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 631:
+	Fixed bug with alternate formula for equilibrium phase,
+	nothing happened if all other equations were satisfied
+	at beginning of reaction calculation.
+
 	svn 603:
 	Link gmp library statically.
 

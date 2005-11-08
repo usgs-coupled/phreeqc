@@ -149,15 +149,11 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 Iterations in revise_guesses: 1
-             Calcite Pure phase has not converged. 	Residual: 1.844913e-01
-                    Removing unstable phases, iteration 0.
-Removing unstable phases. Iteration 0.
-Ineq had infeasible solution, kode 0, iteration 3
 
-Number of infeasible solutions: 1
+Number of infeasible solutions: 0
 Number of basis changes: 0
 
-Number of iterations: 7
+Number of iterations: 12
 
 ------------------
 End of simulation.
