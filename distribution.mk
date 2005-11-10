@@ -206,13 +206,28 @@ source_export:
 source_clean:
 	rm -f $(EXPORT_DIR/Source/bin/$(PROGRAM) $(EXPORT_DIR/Source/src/*.o 
 
+source_sed_list="$(EXPORT_DIR)/Linux/doc/README.TXT \
+	        $(EXPORT_DIR)/Linux/src/main.c"
+
 source_sed_files:
 	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
+	    -e "s/%V4%/$(VERSION)/" \
+	    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
 	    -e "s/VERSION_DATE/$(VERSION)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/doc/RELEASE.TXT
-	for FILE in $(EXPORT_DIR)/Source/doc/README.TXT; do \
-		sed  -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+	    -e "s/%GCC_VER%/$(GCC_VER)/" \
+	    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
+	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
+	for FILE in "$(source_sed_list)"; do \
+		sed -e "s/VERSION/$(VERSION)/" \
+		    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
+		    -e "s/%V4%/$(VERSION)/" \
+		    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
+		    -e "s/VERSION_DATE/$(VERSION)/" \
+		    -e "s/%GCC_VER%/$(GCC_VER)/" \
+		    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
+		    -e "s/REVISION/$(REVISION)/" \
+		     < $$FILE > t; mv t $$FILE; done
 
 source_dist:
 	cd $(EXPORT_DIR)/Source; rm -f $(PROGRAM).tar
