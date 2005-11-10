@@ -1,10 +1,10 @@
 (1) Copy distribution.checklist to checklist.VERSION
 
-(2) Update version and date in main.c
+(2) XXX Update version and date in main.c
 
-(3) Update doc/README.TXT
-	uname -r
-	gcc -v
+(3) XXX Update doc/README.TXT
+	XXX uname -r
+	XXX gcc -v
 
 (4) Update src/revisions
     when all_dist is run by make, src/revisions is copied 

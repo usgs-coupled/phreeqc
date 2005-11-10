@@ -45,8 +45,8 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc-VERSION-REVISION.Linux.tar.gz  - Compiled with gcc 3.4.3, Mandrake Linux 10.2 3.4.3-7mdk
-                                           kernel 2.6.11-12mdksmp
+  phreeqc-VERSION-REVISION.Linux.tar.gz  - Compiled with %GCC_VER%
+                                           kernel %KERNEL_VER%
   phreeqc-VERSION-REVISION.source.tar.gz - Source code but no executable
 
 
