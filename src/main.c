@@ -93,14 +93,14 @@ int write_banner(void)
 {
 output_msg(OUTPUT_SCREEN, "              €ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ€\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫              * PHREEQC-2.12 *              ∫\n");
+output_msg(OUTPUT_SCREEN, "              ∫              * PHREEQC-%V4% *              ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫      A hydrogeochemical transport model    ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                    by                      ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫       D.L. Parkhurst and C.A.J. Appelo     ∫\n");
 output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫              September 28, 2005            ∫\n");
+output_msg(OUTPUT_SCREEN, "              ∫                 VER_FIXDATE                ∫\n");
 output_msg(OUTPUT_SCREEN, "              €‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹€\n\n");
 
 return 0;
