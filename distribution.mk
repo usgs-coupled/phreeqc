@@ -6,9 +6,11 @@ DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
-VER_DATE:=September 28, 2005
+VER_DATE:=November 11, 2005
 VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
 VER_FIXDATE:=$(shell date -d "$(VER_DATE)" "+%d-%b-%G")
+GCC_VER:=$(shell gcc -v 2>&1 | egrep version | sed "s/version //" | sed "s/ (Mandrakelinux/, Mandrake Linux/" | sed "s/)//")
+KERNEL_VER:=$(shell uname -r")
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
@@ -163,12 +165,17 @@ linux_sed_files:
 	    -e "s/%V4%/$(VERSION)/" \
 	    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
 	    -e "s/VERSION_DATE/$(VERSION)/" \
+	    -e "s/%GCC_VER%/$(GCC_VER)/" \
+	    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
 	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
 	for FILE in "$(linux_sed_list)"; do \
-		sed -e "s/VER_DATE/$(VER_LONG_DATE)/" \
+		sed -e "s/VERSION/$(VERSION)/" \
+		    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
 		    -e "s/%V4%/$(VERSION)/" \
 		    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
-		    -e "s/VERSION/$(VERSION)/" \
+		    -e "s/VERSION_DATE/$(VERSION)/" \
+		    -e "s/%GCC_VER%/$(GCC_VER)/" \
+		    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
 		    -e "s/REVISION/$(REVISION)/" \
 		     < $$FILE > t; mv t $$FILE; done
 
