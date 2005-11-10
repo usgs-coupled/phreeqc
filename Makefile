@@ -2,7 +2,7 @@
 # Make file for PHREEQC
 #
 # $(CURDIR) is current directory
-TOPDIR=$(CURDIR)/..
+TOPDIR:=$(CURDIR)/..
 PROGRAM=phreeqc
 EXE=$(TOPDIR)/bin/$(PROGRAM)
 SRC=.

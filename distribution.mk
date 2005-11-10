@@ -1,15 +1,17 @@
 # Locations to save compressed tar file for distribution
 EXPORT=$(TOPDIR)/src/phreeqc_export
-EXPORT_DIR=$(HOME)/../..$(EXPORT)
+EXPORT_DIR=$(EXPORT)
 WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
 DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
-VER_DATE=September 28, 2005
+VER_DATE:=September 28, 2005
+VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
+VER_FIXDATE:=$(shell date -d "$(VER_DATE)" "+%d-%b-%G")
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
-SUN_DIR=$(HOME)/../..$(TOPDIR)/src/Sun
+SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
 CCFLAGS_DBG=-Wall -ansi -g 
 # list of files for distribution
@@ -150,15 +152,25 @@ linux_export:
 	svn export -r $(REVISION) http://internalbrr/svn_GW/phreeqc/trunk $(EXPORT_DIR)/Linux
 
 linux_clean:
-	rm -f $(EXPORT_DIR/Linux/bin/$(PROGRAM) $(EXPORT_DIR/Linux/src/*.o 
+	rm -f $(EXPORT_DIR)/Linux/bin/$(PROGRAM) $(EXPORT_DIR)/Linux/src/*.o 
+
+linux_sed_list="$(EXPORT_DIR)/Linux/doc/README.TXT \
+	        $(EXPORT_DIR)/Linux/src/main.c"
 
 linux_sed_files:
 	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_DATE)/" \
+	    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
+	    -e "s/%V4%/$(VERSION)/" \
+	    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
 	    -e "s/VERSION_DATE/$(VERSION)/" \
 	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
-	for FILE in $(EXPORT_DIR)/Linux/doc/README.TXT; do \
-		sed  -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+	for FILE in "$(linux_sed_list)"; do \
+		sed -e "s/VER_DATE/$(VER_LONG_DATE)/" \
+		    -e "s/%V4%/$(VERSION)/" \
+		    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
+		    -e "s/VERSION/$(VERSION)/" \
+		    -e "s/REVISION/$(REVISION)/" \
+		     < $$FILE > t; mv t $$FILE; done
 
 linux_compile:
 	make -C $(EXPORT_DIR)/Linux/src
