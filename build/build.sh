@@ -165,7 +165,7 @@ prep() {
   unpack ${src_orig_pkg} && \
   cd ${topdir} && \
   if [ -f ${src_patch} ] ; then \
-    patch -Z -p0 < ${src_patch} ;\
+    patch -p0 --binary < ${src_patch} ;\
   fi && \
   mkdirs )
 }
@@ -183,8 +183,7 @@ reconf() {
 }
 build() {
   (cd ${objdir} && \
-  msdev `cygpath -w ./build/win32/phreeqc_console.dsw` /MAKE "phreeqc_console - Win32 Release" && \
-  )
+  msdev `cygpath -w ./build/win32/phreeqc_console.dsw` /MAKE "phreeqc_console - Win32 Release" )
 }
 check() {
   (cd ${objdir} && \
