@@ -11,7 +11,7 @@
 # the definition of ${test_rule} below.
 
 # echo everything
-# set -x
+set -x
 
 # find out where the build script is located
 tdir=`echo "$0" | sed 's%[\\/][^\\/][^\\/]*$%%'`
