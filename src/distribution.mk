@@ -8,8 +8,8 @@ DEBUG_EXE=$(TOPDIR)/src/phreeqc
 VERSION=2.12
 VER_DATE:=November 10, 2005
 VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
-VER_FIXDATE:=$(shell date -d "$(VER_DATE)" "+%d-%b-%G")
-GCC_VER:=$(shell gcc -v 2>&1 | egrep version | sed "s/version //" | sed "s/ (Mandrakelinux/, Mandrake Linux/" | sed "s/)//")
+V_FIXDATE:=$(shell date -d "$(VER_DATE)" "+%d-%b-%G")
+GCC_VER:=$(shell gcc -v 2>&1 | egrep ^gcc | sed "s/version //" | sed "s/ (Mandrakelinux/, Mandrake Linux/" | sed "s/)//")
 KERNEL_VER:=$(shell uname -r)
 ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
@@ -114,6 +114,16 @@ FILES=  \
 	test/test.sh \
 	test/clean.sh \
 	test/check.sh 
+	
+SED_ARGS= \
+	-e "s/VERSION/$(VERSION)/" \
+	-e "s/VER_DATE/$(VER_LONG_DATE)/" \
+	-e "s/@VV@/$(VERSION)/" \
+	-e "s/@V_FIXDATE@/$(V_FIXDATE)/" \
+	-e "s/VERSION_DATE/$(VERSION)/" \
+	-e "s/@GCC_VER@/$(GCC_VER)/" \
+	-e "s/@KERNEL_VER@/$(KERNEL_VER)/" \
+	-e "s/REVISION/$(REVISION)/"
 
 remake_output_files: clean_linux_output_files linux_output_files # clean_sun_output_files sun_output_files
 
@@ -156,28 +166,14 @@ linux_export:
 linux_clean:
 	rm -f $(EXPORT_DIR)/Linux/bin/$(PROGRAM) $(EXPORT_DIR)/Linux/src/*.o 
 
-linux_sed_list="$(EXPORT_DIR)/Linux/doc/README.TXT \
-	        $(EXPORT_DIR)/Linux/src/main.c"
+linux_sed_list= \
+	"$(EXPORT_DIR)/Linux/doc/README.TXT \
+	$(EXPORT_DIR)/Linux/src/main.c"
 
 linux_sed_files:
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
-	    -e "s/%V4%/$(VERSION)/" \
-	    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
-	    -e "s/VERSION_DATE/$(VERSION)/" \
-	    -e "s/%GCC_VER%/$(GCC_VER)/" \
-	    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
 	for FILE in "$(linux_sed_list)"; do \
-		sed -e "s/VERSION/$(VERSION)/" \
-		    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
-		    -e "s/%V4%/$(VERSION)/" \
-		    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
-		    -e "s/VERSION_DATE/$(VERSION)/" \
-		    -e "s/%GCC_VER%/$(GCC_VER)/" \
-		    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
-		    -e "s/REVISION/$(REVISION)/" \
-		     < $$FILE > t; mv t $$FILE; done
+		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done
 
 linux_compile:
 	make -C $(EXPORT_DIR)/Linux/src
@@ -206,28 +202,14 @@ source_export:
 source_clean:
 	rm -f $(EXPORT_DIR/Source/bin/$(PROGRAM) $(EXPORT_DIR/Source/src/*.o 
 
-source_sed_list="$(EXPORT_DIR)/Source/doc/README.TXT \
-	        $(EXPORT_DIR)/Source/src/main.c"
+source_sed_list= \
+	"$(EXPORT_DIR)/Source/doc/README.TXT \
+	$(EXPORT_DIR)/Source/src/main.c"
 
 source_sed_files:
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
-	    -e "s/%V4%/$(VERSION)/" \
-	    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
-	    -e "s/VERSION_DATE/$(VERSION)/" \
-	    -e "s/%GCC_VER%/$(GCC_VER)/" \
-	    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/doc/RELEASE.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/doc/RELEASE.TXT
 	for FILE in "$(source_sed_list)"; do \
-		sed -e "s/VERSION/$(VERSION)/" \
-		    -e "s/VER_DATE/$(VER_LONG_DATE)/" \
-		    -e "s/%V4%/$(VERSION)/" \
-		    -e "s/VER_FIXDATE/$(VER_FIXDATE)/" \
-		    -e "s/VERSION_DATE/$(VERSION)/" \
-		    -e "s/%GCC_VER%/$(GCC_VER)/" \
-		    -e "s/%KERNEL_VER%/$(KERNEL_VER)/" \
-		    -e "s/REVISION/$(REVISION)/" \
-		     < $$FILE > t; mv t $$FILE; done
+		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done	
 
 source_dist:
 	cd $(EXPORT_DIR)/Source; rm -f $(PROGRAM).tar
@@ -268,13 +250,14 @@ sun_export:
 sun_clean:
 	rm -f $(EXPORT_DIR)/Sun/bin/$(PROGRAM) $(EXPORT_DIR)/Sun/src/*.o 
 
+sun_sed_list= \
+	"$(EXPORT_DIR)/Sun/doc/README.TXT \
+	$(EXPORT_DIR)/Sun/src/main.c"
+
 sun_sed_files:
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_DATE)/" \
-	    -e "s/VERSION_DATE/$(VERSION)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Sun/src/revisions > $(EXPORT_DIR)/Sun/doc/RELEASE.TXT
-	for FILE in $(EXPORT_DIR)/Sun/doc/README.TXT; do \
-		sed -e "s/VER_DATE/$(VER_DATE)/" -e "s/VERSION/$(VERSION)/" -e "s/REVISION/$(REVISION)/" < $$FILE > t; mv t $$FILE; done
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Sun/src/revisions > $(EXPORT_DIR)/Sun/doc/RELEASE.TXT
+	for FILE in "$(sun_sed_list)"; do \
+		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done	
 
 sun_compile:
 	ssh u450rcolkr "make -C $(EXPORT_DIR)/Sun/src"
@@ -318,16 +301,20 @@ win_export:
 	mkdir -p $(EXPORT_DIR)
 	rm -rf $(EXPORT_DIR)/Win
 	svn export .. $(EXPORT_DIR)/Win
+	
+win_sed_list= \
+	"$(EXPORT_DIR)/Win/src/main.c"
 
 win_sed_files:
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_DATE)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/doc/RELEASE.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/doc/RELEASE.TXT
 	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/RELEASE.TXT
-	sed -e "s/VERSION/$(VERSION)/" \
-	    -e "s/VER_DATE/$(VER_DATE)/" \
-	    -e "s/REVISION/$(REVISION)/" < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/doc/README.TXT
+	sed $(SED_ARGS) < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/doc/README.TXT
 	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/README.TXT
+	for FILE in "$(win_sed_list)"; do \
+		sed $(SED_ARGS) < $$FILE > t; \
+		mv t $$FILE; \
+		$(UNIX2DOS) $$FILE; \
+	done
 
 win_dist: 
 	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM).tar

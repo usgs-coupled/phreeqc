@@ -121,7 +121,8 @@ LOWER='abcdefghijklmnopqrstuvwxyz'
 UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 VER_UC=`echo $VER | sed -e "y/$LOWER/$UPPER/"`
 
-RELEASE_DATE="`date -d $RDATE  "+%B %e, %G"`"
+RELEASE_DATE="`date -d "$RDATE" "+%B %e, %G"`"
+V_FIXDATE="`date -d "$RDATE" "+%d-%b-%G"`"
 
 if [ -z "$REPOS_PATH" ]; then
   REPOS_PATH="branches/$VERSION"
@@ -158,6 +159,7 @@ if [ -z "$ver_patch" ]; then
 fi
 
 SED_FILES="$DISTPATH/build/phreeqc_version.h \
+           $DISTPATH/src/main.c \
            $DISTPATH/packages/win32-is/phreeqc.ipr \
            $DISTPATH/packages/win32-is/STRING~1/0009-English/value.shl"
 
@@ -172,6 +174,8 @@ do
    -e "/#define *PHREEQC_VER_REVISION/s/[0-9]\+/$REVISION_SVN/" \
    -e "s/@RELEASE_DATE@/$RELEASE_DATE/g" \
    -e "s/@VER@/$VER/g" \
+   -e "s/@VV@/$VER/g" \
+   -e "s/@V_FIXDATE@/$V_FIXDATE/g" \
    -e "s/@VER_UC@/$VER_UC/g" \
    -e "s/@REL@/$REL/g" \
     < "$vsn_file" > "$vsn_file.tmp"
