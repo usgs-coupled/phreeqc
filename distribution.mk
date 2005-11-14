@@ -114,7 +114,7 @@ FILES=  \
 	test/test.sh \
 	test/clean.sh \
 	test/check.sh 
-	
+
 SED_ARGS= \
 	-e "s/VERSION/$(VERSION)/" \
 	-e "s/VER_DATE/$(VER_LONG_DATE)/" \
@@ -301,7 +301,7 @@ win_export:
 	mkdir -p $(EXPORT_DIR)
 	rm -rf $(EXPORT_DIR)/Win
 	svn export .. $(EXPORT_DIR)/Win
-	
+
 win_sed_list= \
 	"$(EXPORT_DIR)/Win/src/main.c"
 
