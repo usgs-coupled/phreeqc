@@ -3354,12 +3354,16 @@ int tidy_redox (void)
 				error_msg(error_string, STOP);
 			}
 			if (inout() == FALSE) {
-				sprintf(error_string, "Analytical data missing for redox couple, %s.", pe_data_ptr->name );
-				error_msg(error_string, STOP);
+				sprintf(error_string, "Analytical data missing for redox couple, %s\n\t Using pe instead.", pe_data_ptr->name );
+				warning_msg(error_string);
+				rxn_free(pe_data_ptr->rxn);
+				pe_data_ptr->rxn = rxn_dup(s_eminus->rxn);
+				pe_data_ptr->name = pe_x[0].name;
+			} else {
+				rxn_free(pe_data_ptr->rxn);
+				pe_data_ptr->rxn = rxn_alloc(count_trxn+1);
+				trxn_copy (pe_data_ptr->rxn);
 			}
-			rxn_free(pe_data_ptr->rxn);
-			pe_data_ptr->rxn = rxn_alloc(count_trxn+1);
-			trxn_copy (pe_data_ptr->rxn);
 		}
 	}
 /*
