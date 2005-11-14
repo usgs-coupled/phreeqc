@@ -877,6 +877,7 @@ struct iso iso_defaults[] = {
 	{"2H", -28, 1},
 	{"18O", -5, .1},
 	{"87Sr", .71, .01},
+	{"11B", 20, 5}
 };
 int count_iso_defaults = (sizeof(iso_defaults) / sizeof(struct iso));
 #else
