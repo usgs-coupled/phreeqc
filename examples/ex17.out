@@ -272,6 +272,22 @@ Beginning of inverse modeling 1 calculations.
 
 Using Cl1 standard precision optimization routine.
 
+	CL1: Roundoff errors in optimization.
+	     Try using -multiple_precision in INVERSE_MODELING
+Error in subroutine range. Kode = 1
+
+	CL1: Roundoff errors in optimization.
+	     Try using -multiple_precision in INVERSE_MODELING
+Error in subroutine range. Kode = 1
+
+	CL1: Roundoff errors in optimization.
+	     Try using -multiple_precision in INVERSE_MODELING
+Error in subroutine range. Kode = 1
+
+	CL1: Roundoff errors in optimization.
+	     Try using -multiple_precision in INVERSE_MODELING
+Error in subroutine range. Kode = 1
+
 Solution 1: Black Sea water
 
                          Input          Delta    Input+Delta

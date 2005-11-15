@@ -93,10 +93,10 @@ Initial solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.236e-05
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.258e-19
+                 Total alkalinity (eq/kg)  =  -1.255e-19
                        Total CO2 (mol/kg)  =   3.528e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.258e-19
+                  Electrical balance (eq)  =   1.255e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  17
                                   Total H  = 1.110125e+02
@@ -205,10 +205,10 @@ Using solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.236e-05
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.258e-19
+                 Total alkalinity (eq/kg)  =  -1.255e-19
                        Total CO2 (mol/kg)  =   3.528e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.258e-19
+                  Electrical balance (eq)  =   1.255e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110125e+02
@@ -257,10 +257,10 @@ Using solution 2.
                         Activity of water  =   1.000
                            Ionic strength  =   1.236e-05
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.258e-19
+                 Total alkalinity (eq/kg)  =  -1.255e-19
                        Total CO2 (mol/kg)  =   3.528e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.258e-19
+                  Electrical balance (eq)  =   1.255e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110125e+02
@@ -371,7 +371,7 @@ Kinetics 1.
                  Total alkalinity (eq/kg)  =   7.403e-04
                        Total CO2 (mol/kg)  =   7.234e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.696e-13
+                  Electrical balance (eq)  =  -5.697e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  = 245
                                   Total H  = 1.110125e+02

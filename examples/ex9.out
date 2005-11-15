@@ -174,7 +174,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.532e-19
+                  Electrical balance (eq)  =  -1.761e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
@@ -266,7 +266,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.437e-16
+                  Electrical balance (eq)  =   8.681e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  = 208
                                   Total H  = 1.110124e+02
@@ -361,7 +361,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.548e-16
+                  Electrical balance (eq)  =   8.689e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  27
                                   Total H  = 1.110124e+02
@@ -456,7 +456,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.359e-16
+                  Electrical balance (eq)  =   9.550e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  67
                                   Total H  = 1.110124e+02
@@ -551,7 +551,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.863e-15
+                  Electrical balance (eq)  =   6.888e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  26
                                   Total H  = 1.110124e+02
@@ -646,7 +646,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.878e-15
+                  Electrical balance (eq)  =   6.893e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  24
                                   Total H  = 1.110124e+02
@@ -741,7 +741,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.889e-15
+                  Electrical balance (eq)  =   6.882e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  24
                                   Total H  = 1.110124e+02
@@ -836,7 +836,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.895e-15
+                  Electrical balance (eq)  =   6.898e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  23
                                   Total H  = 1.110124e+02
@@ -931,7 +931,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.883e-15
+                  Electrical balance (eq)  =   6.908e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  23
                                   Total H  = 1.110124e+02
@@ -1026,7 +1026,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.284e-14
+                  Electrical balance (eq)  =   5.285e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.110124e+02
@@ -1121,7 +1121,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.593e-14
+                  Electrical balance (eq)  =   5.595e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.110124e+02
@@ -1216,7 +1216,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.634e-14
+                  Electrical balance (eq)  =   5.636e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.110124e+02

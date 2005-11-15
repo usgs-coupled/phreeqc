@@ -104,7 +104,7 @@ WARNING: Equivalent wt for alkalinity should be Ca.5(CO3).5. Using 50.0455 g/eq.
                     Total carbon (mol/kg)  =   1.188e-02
                        Total CO2 (mol/kg)  =   1.188e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.887e-16
+                  Electrical balance (eq)  =   1.993e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  10
                                   Total H  = 1.110239e+02
@@ -1232,7 +1232,7 @@ WARNING: Equivalent wt for alkalinity should be Ca.5(CO3).5. Using 50.0455 g/eq.
                     Total carbon (mol/kg)  =   1.577e-01
                        Total CO2 (mol/kg)  =   1.577e-01
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.497e-17
+                  Electrical balance (eq)  =  -5.551e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  12
                                   Total H  = 1.111270e+02
@@ -1858,6 +1858,10 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 2.	Average Leachate concentrations from Lambton
 Using exchange 1.	Exchange assemblage after simulation 1.
 Using surface 1.	Surface assemblage after simulation 1.
@@ -1882,9 +1886,9 @@ Using pure phase assemblage 2.
 	Chalcedony       -0.43   -3.98   -3.55  0.000e+00             0.000e+00
 	Chlorite14A      -0.00   68.38   68.38  1.000e+01  1.058e+01  5.767e-01
 	Chrysotile       -1.22   30.98   32.20  0.000e+00             0.000e+00
-	CupricFerrite    -4.40   27.52   31.92  0.000e+00             0.000e+00
-	Cuprite         -11.65  -18.64   -6.99  0.000e+00             0.000e+00
-	CuprousFerrite   -0.00    1.38    1.38  0.000e+00  1.917e-04  1.917e-04
+	CupricFerrite    -4.40   30.24   34.64  0.000e+00             0.000e+00
+	Cuprite         -11.65  -13.20   -1.55  0.000e+00             0.000e+00
+	CuprousFerrite   -0.00    4.10    4.10  0.000e+00  1.917e-04  1.917e-04
 	Dolomite(d)      -2.36  -18.90  -16.54  0.000e+00             0.000e+00
 	FCO3Apatite      -0.00 -114.40 -114.40  0.000e+00  6.109e-04  6.109e-04
 	Fe(OH)3(a)       -7.24   10.67   17.91  0.000e+00             0.000e+00
@@ -1893,15 +1897,15 @@ Using pure phase assemblage 2.
 	Fluorite        -11.48  -22.08  -10.60  0.000e+00             0.000e+00
 	Gibbsite         -0.42    7.69    8.11  0.000e+00             0.000e+00
 	Goethite         -1.33   10.69   12.02  0.000e+00             0.000e+00
-	Gypsum           -0.00   -4.58   -4.58  0.000e+00  5.592e-02  5.592e-02
+	Gypsum            0.00   -4.58   -4.58  0.000e+00  5.592e-02  5.592e-02
 	Hausmannite      -0.42   60.61   61.03  0.000e+00             0.000e+00
-	Hydroxyapatite    0.00  -40.46  -40.46  0.000e+00  1.090e-01  1.090e-01
+	Hydroxyapatite   -0.00  -40.46  -40.46  0.000e+00  1.090e-01  1.090e-01
 	Illite           -1.03   10.83   11.86  1.000e+01            -1.000e+01
 	Jarosite(ss)    -31.04   -1.81   29.23  0.000e+00             0.000e+00
-	Kaolinite        -0.00    7.43    7.43  0.000e+00  1.890e+01  1.890e+01
+	Kaolinite         0.00    7.43    7.43  0.000e+00  1.890e+01  1.890e+01
 	Laumontite       -0.00   14.37   14.37  0.000e+00  3.554e-01  3.554e-01
 	Mackinawite    -109.39 -147.74  -38.35  0.000e+00             0.000e+00
-	Manganite        -0.00   25.34   25.34  0.000e+00  7.853e-05  7.853e-05
+	Manganite         0.00   25.34   25.34  0.000e+00  7.853e-05  7.853e-05
 	Massicot         -9.74    3.17   12.91  0.000e+00             0.000e+00
 	Montmorillonite-Ca  -1.97    5.81    7.78  1.000e+01            -1.000e+01
 	Ni(OH)2          -3.05    7.75   10.80  0.000e+00             0.000e+00
@@ -1917,7 +1921,7 @@ Using pure phase assemblage 2.
 	Smithsonite      -6.50  -16.50  -10.00  0.000e+00             0.000e+00
 	Sphalerite      -90.77 -136.09  -45.32  0.000e+00             0.000e+00
 	Strontianite     -1.50  -10.77   -9.27  0.000e+00             0.000e+00
-	Tenorite         -1.50    6.12    7.62  0.000e+00             0.000e+00
+	Tenorite         -1.50    8.84   10.34  0.000e+00             0.000e+00
 	Vivianite       -55.09  -91.09  -36.00  0.000e+00             0.000e+00
 	Willemite        -5.49    9.84   15.33  0.000e+00             0.000e+00
 	Zincite(c)       -4.23    6.91   11.14  0.000e+00             0.000e+00
@@ -2025,7 +2029,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.308e-01
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  = -62.00
-                               Iterations  =  27
+                               Iterations  =  31
                                   Total H  = 6.523936e+01
                                   Total O  = 3.267333e+01
 
@@ -2534,7 +2538,7 @@ Zn               3.246e-09
 	Hxypyromorphite -36.46  -99.25  -62.79  Pb5(PO4)3OH
 	Hydrocerrusite  -19.86  -37.32  -17.46  Pb(OH)2:2PbCO3
 	Hydromagnesite  -20.00  -28.76   -8.76  Mg5(CO3)4(OH)2:4H2O
-	Hydroxyapatite    0.00   -3.42   -3.42  Ca5(PO4)3OH
+	Hydroxyapatite   -0.00   -3.42   -3.42  Ca5(PO4)3OH
 	Illite           -1.03  -41.30  -40.27  K0.6Mg0.25Al2.3Si3.5O10(OH)2
 	Jarosite(ss)    -31.04  -40.87   -9.83  (K0.77Na0.03H0.2)Fe3(SO4)2(OH)6
 	Jarosite-K      -30.44  -39.65   -9.21  KFe3(SO4)2(OH)6
@@ -2673,7 +2677,7 @@ Zn               3.246e-09
 	ZnMetal         -49.73  -23.97   25.76  Zn
 	ZnO(a)           -4.40    6.91   11.31  ZnO
 	ZnS(a)          -93.33 -102.38   -9.05  ZnS
-	ZnSiO3            0.00    2.93    2.93  ZnSiO3
+	ZnSiO3           -0.00    2.93    2.93  ZnSiO3
 	ZnSO4:H2O       -12.01  -12.58   -0.57  ZnSO4:H2O
 
 ------------------

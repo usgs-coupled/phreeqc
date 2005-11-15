@@ -154,8 +154,8 @@ O2(g)                 -6.35   4.485e-07   8.175e-03   1.286e-08  -8.175e-03
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.359e-04
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.273e-03
+	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.359e-04
+	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.273e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -229,10 +229,10 @@ O(0)             1.145e-09
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -129.58 -132.44   -2.86  CH4
 	CO2(g)           -1.68   -3.15   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	H2(g)           -38.42  -41.57   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -0.01   -3.27   -3.26  N2
@@ -280,8 +280,8 @@ O2(g)                 -6.34   4.540e-07   8.175e-03   1.327e-08  -8.175e-03
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.149e-04
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.216e-03
+	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.149e-04
+	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.216e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -355,10 +355,10 @@ O(0)             1.159e-09
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -129.49 -132.35   -2.86  CH4
 	CO2(g)           -1.59   -3.06   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	H2(g)           -38.42  -41.57   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -0.01   -3.27   -3.26  N2
@@ -484,7 +484,7 @@ O(0)             1.147e-09
 	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -129.41 -132.27   -2.86  CH4
 	CO2(g)           -1.51   -2.98   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	H2(g)           -38.42  -41.57   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -0.01   -3.27   -3.26  N2
@@ -532,8 +532,8 @@ O2(g)                 -6.36   4.359e-07   8.175e-03   1.325e-08  -8.175e-03
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -7.677e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.087e-03
+	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -7.677e-04
+	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.087e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -607,10 +607,10 @@ O(0)             1.113e-09
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -129.31 -132.17   -2.86  CH4
 	CO2(g)           -1.44   -2.91   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	H2(g)           -38.41  -41.56   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -0.02   -3.28   -3.26  N2
@@ -733,10 +733,10 @@ O(0)             1.059e-09
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -129.21 -132.07   -2.86  CH4
 	CO2(g)           -1.38   -2.85   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	H2(g)           -38.40  -41.55   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -0.02   -3.28   -3.26  N2
@@ -784,8 +784,8 @@ O2(g)                 -6.81   1.558e-07   8.175e-03   5.389e-09  -8.175e-03
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -5.813e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -1.578e-03
+	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -5.813e-04
+	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -1.578e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1036,8 +1036,8 @@ O2(g)                -70.32   4.833e-71   8.175e-03   0.000e+00  -8.175e-03
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -1.024e-03
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.997e+00 -2.705e-03
+	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -1.024e-03
+	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.997e+00 -2.705e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1060,7 +1060,7 @@ O2(g)                -70.32   4.833e-71   8.175e-03   0.000e+00  -8.175e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -2.896e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -8.83
-                               Iterations  =  22
+                               Iterations  =  24
                                   Total H  = 1.110432e+02
                                   Total O  = 5.559010e+01
 
@@ -1111,7 +1111,7 @@ O(0)             0.000e+00
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)           -0.33   -3.19   -2.86  CH4
 	CO2(g)           -0.37   -1.84   -1.47  CO2
 	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
