@@ -86,8 +86,8 @@ all: alkalinity.out \
 	ex16mp.out ex17mp.out ex18mp.out \
 	feb.out febmp.out \
 	np.testmp.out \
-	oxygenmp.out
-
+	oxygenmp.out \
+	spread_redox.out 
 #	svn diff .
 
 clean:
