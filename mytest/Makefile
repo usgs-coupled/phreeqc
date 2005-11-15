@@ -74,6 +74,7 @@ all: alkalinity.out \
 	ex10.out \
 	ex11.out \
 	ex12.out \
+	ex6.cvode.out ex9.cvode.out ex15.cvode.out \
 	colt1.out \
 	colt2.out \
 	colt3.out \
