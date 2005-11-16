@@ -206,7 +206,7 @@ Initial solution 0.
                  Total alkalinity (eq/kg)  =  -1.707e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   8.990e-15
+                  Electrical balance (eq)  =   8.974e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  12
                                   Total H  = 1.110217e+02
@@ -704,7 +704,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   2.264e-03
                        Total CO2 (mol/kg)  =   2.264e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.490e-17
+                  Electrical balance (eq)  =   1.430e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  10
                                   Total H  = 1.110162e+02
@@ -1236,10 +1236,10 @@ Using pure phase assemblage 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite           0.00   -8.48   -8.48  6.700e-02  2.603e-02 -4.097e-02
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  1.023e+00  5.319e-02
-	Gypsum            0.00   -4.58   -4.58  0.000e+00  4.139e-02  4.139e-02
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  1.023e+00  5.319e-02
+	Gypsum           -0.00   -4.58   -4.58  0.000e+00  4.139e-02  4.139e-02
 	Pyrolusite        0.00   41.38   41.38  4.500e-02  1.841e-02 -2.659e-02
-	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00  2.591e-05  2.591e-05
+	SiO2(a)           0.00   -2.71   -2.71  0.000e+00  2.591e-05  2.591e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1713,7 +1713,7 @@ Zn               3.108e-04
 	Dolomite(d)      -0.37  -16.91  -16.54  CaMg(CO3)2
 	Epsomite         -2.40   -4.54   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.41    2.37   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -8.18   12.04   20.22  Fe3(OH)8
 	FeS(ppt)        -99.84 -103.76   -3.92  FeS
 	Fluorite         -3.29  -13.89  -10.60  CaF2
@@ -1793,7 +1793,7 @@ Zn               3.108e-04
 	Siderite         -5.26  -16.15  -10.89  FeCO3
 	Siderite(d)(3)   -5.70  -16.15  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -0.36  -10.36  -10.00  ZnCO3
 	Sphalerite      -86.35  -97.96  -11.62  ZnS
 	SrF2             -8.31  -16.85   -8.54  SrF2
@@ -1846,10 +1846,10 @@ Using pure phase assemblage 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  9.700e-01  4.547e-08
+	Calcite           0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  9.700e-01  4.547e-08
 	Gypsum           -0.26   -4.84   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.652e-11
+	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.649e-11
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -2324,7 +2324,7 @@ Zn               1.420e-04
 	Dolomite(d)      -0.15  -16.69  -16.54  CaMg(CO3)2
 	Epsomite         -2.43   -4.57   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.36    2.32   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -8.02   12.20   20.22  Fe3(OH)8
 	FeS(ppt)        -98.89 -102.81   -3.92  FeS
 	Fluorite         -2.82  -13.42  -10.60  CaF2
@@ -2393,7 +2393,7 @@ Zn               1.420e-04
 	Prehnite          6.21   -5.48  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -158.56 -177.04  -18.48  FeS2
 	Pyrochroite      -4.81   10.39   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite     19.87  -28.45  -48.31  Al2Si4O10(OH)2
 	Quartz            1.27   -2.71   -3.98  SiO2
 	Retgersite       -5.47   -7.51   -2.04  NiSO4:6H2O
@@ -2449,10 +2449,10 @@ Using pure phase assemblage 5.	Pp_Assemblage defined in simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  9.700e-01  4.547e-08
+	Calcite           0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  9.700e-01  4.547e-08
 	Gypsum           -0.26   -4.84   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.652e-11
+	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.649e-11
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -2927,7 +2927,7 @@ Zn               1.420e-04
 	Dolomite(d)      -0.15  -16.69  -16.54  CaMg(CO3)2
 	Epsomite         -2.43   -4.57   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.36    2.32   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -8.02   12.20   20.22  Fe3(OH)8
 	FeS(ppt)        -98.89 -102.81   -3.92  FeS
 	Fluorite         -2.82  -13.42  -10.60  CaF2
@@ -2996,7 +2996,7 @@ Zn               1.420e-04
 	Prehnite          6.21   -5.48  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -158.56 -177.04  -18.48  FeS2
 	Pyrochroite      -4.81   10.39   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite     19.87  -28.45  -48.31  Al2Si4O10(OH)2
 	Quartz            1.27   -2.71   -3.98  SiO2
 	Retgersite       -5.47   -7.51   -2.04  NiSO4:6H2O
@@ -3052,10 +3052,10 @@ Using pure phase assemblage 10.	Pp_Assemblage defined in simulation 1.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  9.700e-01  4.547e-08
+	Calcite           0.00   -8.48   -8.48  6.700e-02  7.505e-02  8.055e-03
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  9.700e-01  4.547e-08
 	Gypsum           -0.26   -4.84   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.652e-11
+	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -8.649e-11
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -3530,7 +3530,7 @@ Zn               1.420e-04
 	Dolomite(d)      -0.15  -16.69  -16.54  CaMg(CO3)2
 	Epsomite         -2.43   -4.57   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.36    2.32   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -8.02   12.20   20.22  Fe3(OH)8
 	FeS(ppt)        -98.89 -102.81   -3.92  FeS
 	Fluorite         -2.82  -13.42  -10.60  CaF2
@@ -3599,7 +3599,7 @@ Zn               1.420e-04
 	Prehnite          6.21   -5.48  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -158.56 -177.04  -18.48  FeS2
 	Pyrochroite      -4.81   10.39   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite     19.87  -28.45  -48.31  Al2Si4O10(OH)2
 	Quartz            1.27   -2.71   -3.98  SiO2
 	Retgersite       -5.47   -7.51   -2.04  NiSO4:6H2O
@@ -3702,7 +3702,7 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.01  -12.49   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.060e+00  1.060e+00  7.283e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.060e+00  1.060e+00  7.283e-06
 	Gypsum           -0.00   -4.58   -4.58  7.929e-02  8.025e-02  9.589e-04
 	Pyrolusite      -14.43   26.95   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  4.263e-04  4.784e-04  5.211e-05
@@ -4310,8 +4310,8 @@ Mixture 5.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.635e-02  5.706e-02 -1.929e-02
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  9.728e-01  2.788e-03
+	Calcite           0.00   -8.48   -8.48  7.635e-02  5.706e-02 -1.929e-02
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  9.728e-01  2.788e-03
 	Gypsum           -0.00   -4.58   -4.58  5.218e-04  1.791e-02  1.739e-02
 	Pyrolusite        0.00   41.38   41.38  4.500e-02  4.372e-02 -1.282e-03
 	SiO2(a)          -0.00   -2.72   -2.71  0.000e+00             0.000e+00
@@ -4738,7 +4738,7 @@ Zn               1.082e-03
 	Brochantite      -5.92    9.42   15.34  Cu4(OH)6SO4
 	Brucite          -6.96    9.88   16.84  Mg(OH)2
 	Bunsenite        -5.26    7.19   12.45  NiO
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	Cd(gamma)       -38.73  -25.14   13.59  Cd
 	Cd(OH)2          -7.45    6.20   13.65  Cd(OH)2
 	Cd(OH)2(a)       -7.53    6.20   13.73  Cd(OH)2
@@ -4919,10 +4919,10 @@ Mixture 10.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Calcite           0.00   -8.48   -8.48  7.527e-02  7.550e-02  2.293e-04
-	Fe(OH)3(a)       -0.00   17.91   17.91  9.700e-01  9.700e-01  2.120e-09
+	Calcite          -0.00   -8.48   -8.48  7.527e-02  7.550e-02  2.293e-04
+	Fe(OH)3(a)       -0.00    4.89    4.89  9.700e-01  9.700e-01  2.120e-09
 	Gypsum           -0.17   -4.75   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02 -3.075e-12
+	Pyrolusite        0.00   41.38   41.38  4.500e-02  4.500e-02 -3.103e-12
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -5347,7 +5347,7 @@ Zn               2.158e-04
 	Brochantite      -6.58    8.76   15.34  Cu4(OH)6SO4
 	Brucite          -6.64   10.20   16.84  Mg(OH)2
 	Bunsenite        -5.00    7.45   12.45  NiO
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	Cd(gamma)       -38.09  -24.50   13.59  Cd
 	Cd(OH)2          -7.12    6.53   13.65  Cd(OH)2
 	Cd(OH)2(a)       -7.20    6.53   13.73  Cd(OH)2
@@ -5466,7 +5466,7 @@ Zn               2.158e-04
 	Prehnite          5.95   -5.74  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -158.41 -176.89  -18.48  FeS2
 	Pyrochroite      -4.85   10.35   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Pyrophyllite     19.85  -28.46  -48.31  Al2Si4O10(OH)2
 	Quartz            1.27   -2.71   -3.98  SiO2
 	Retgersite       -5.26   -7.30   -2.04  NiSO4:6H2O
@@ -5569,8 +5569,8 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.89  -14.37   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.059e+00  1.059e+00 -3.494e-04
-	Gypsum            0.00   -4.58   -4.58  8.878e-02  8.971e-02  9.334e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.059e+00  1.059e+00 -3.494e-04
+	Gypsum           -0.00   -4.58   -4.58  8.878e-02  8.971e-02  9.334e-04
 	Pyrolusite      -12.53   28.85   41.38  0.000e+00             0.000e+00
 	SiO2(a)           0.00   -2.71   -2.71  9.454e-04  9.972e-04  5.173e-05
 
@@ -6178,8 +6178,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.92  -12.40   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.061e+00  1.061e+00 -2.103e-06
-	Gypsum            0.00   -4.58   -4.58  7.206e-02  7.206e-02 -2.535e-07
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.061e+00  1.061e+00 -2.103e-06
+	Gypsum           -0.00   -4.58   -4.58  7.206e-02  7.206e-02 -2.535e-07
 	Pyrolusite      -14.52   26.86   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
@@ -6655,7 +6655,7 @@ Zn               3.462e-04
 	Dolomite(d)      -8.11  -24.65  -16.54  CaMg(CO3)2
 	Epsomite         -2.30   -4.44   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.87    2.83   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -3.07   17.15   20.22  Fe3(OH)8
 	FeS(ppt)        -50.57  -54.48   -3.92  FeS
 	Fluorite         -4.78  -15.38  -10.60  CaF2
@@ -6666,7 +6666,7 @@ Zn               3.462e-04
 	Greenalite       -4.11   16.70   20.81  Fe3Si2O5(OH)4
 	Greenockite     -42.81  -58.74  -15.93  CdS
 	Greigite       -185.22 -230.26  -45.03  Fe3S4
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -21.08  -24.23   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	H2S(g)          -53.92  -54.91   -1.00  H2S
@@ -6787,9 +6787,9 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite           0.00   -8.48   -8.48  7.691e-02  7.656e-02 -3.545e-04
-	Fe(OH)3(a)        0.00   17.91   17.91  9.700e-01  9.700e-01 -1.307e-09
-	Gypsum            0.00   -4.58   -4.58  2.708e-04  6.054e-04  3.346e-04
-	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02  2.649e-12
+	Fe(OH)3(a)        0.00    4.89    4.89  9.700e-01  9.700e-01 -1.307e-09
+	Gypsum           -0.00   -4.58   -4.58  2.708e-04  6.054e-04  3.346e-04
+	Pyrolusite       -0.00   41.38   41.38  4.500e-02  4.500e-02  2.648e-12
 	SiO2(a)          -0.01   -2.72   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -7436,8 +7436,8 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.99  -14.47   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.056e+00  1.055e+00 -3.846e-04
-	Gypsum            0.00   -4.58   -4.58  9.811e-02  9.905e-02  9.343e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.056e+00  1.055e+00 -3.846e-04
+	Gypsum           -0.00   -4.58   -4.58  9.811e-02  9.905e-02  9.343e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
 	SiO2(a)           0.00   -2.71   -2.71  1.463e-03  1.515e-03  5.174e-05
 
@@ -7913,7 +7913,7 @@ Zn               3.452e-04
 	Dolomite(d)     -12.25  -28.79  -16.54  CaMg(CO3)2
 	Epsomite         -2.30   -4.44   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     6.18    3.14   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -5.16   15.06   20.22  Fe3(OH)8
 	FeS(ppt)        -67.34  -71.26   -3.92  FeS
 	Fluorite         -4.79  -15.39  -10.60  CaF2
@@ -8045,8 +8045,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.91  -12.39   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.061e+00  1.061e+00  4.317e-07
-	Gypsum           -0.00   -4.58   -4.58  7.206e-02  7.206e-02  8.497e-08
+	Fe(OH)3(a)        0.00    4.89    4.89  1.061e+00  1.061e+00  4.317e-07
+	Gypsum            0.00   -4.58   -4.58  7.206e-02  7.206e-02  8.497e-08
 	Pyrolusite      -14.54   26.84   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
@@ -8522,7 +8522,7 @@ Zn               3.454e-04
 	Dolomite(d)      -8.09  -24.63  -16.54  CaMg(CO3)2
 	Epsomite         -2.30   -4.44   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.87    2.83   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -3.05   17.17   20.22  Fe3(OH)8
 	FeS(ppt)        -50.46  -54.38   -3.92  FeS
 	Fluorite         -4.78  -15.38  -10.60  CaF2
@@ -8533,7 +8533,7 @@ Zn               3.454e-04
 	Greenalite       -4.07   16.74   20.81  Fe3Si2O5(OH)4
 	Greenockite     -42.70  -58.63  -15.93  CdS
 	Greigite       -184.84 -229.88  -45.03  Fe3S4
-	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -21.05  -24.20   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	H2S(g)          -53.83  -54.82   -1.00  H2S
@@ -8654,7 +8654,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.06  -13.54   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -2.471e-05
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -2.471e-05
 	Gypsum           -0.00   -4.58   -4.58  7.112e-02  7.111e-02 -3.849e-06
 	Pyrolusite      -13.35   28.03   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
@@ -9303,10 +9303,10 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.052e+00  1.051e+00 -3.852e-04
-	Gypsum            0.00   -4.58   -4.58  1.075e-01  1.084e-01  9.342e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.052e+00  1.051e+00 -3.852e-04
+	Gypsum           -0.00   -4.58   -4.58  1.075e-01  1.084e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  1.980e-03  2.032e-03  5.174e-05
+	SiO2(a)          -0.00   -2.71   -2.71  1.980e-03  2.032e-03  5.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -9912,10 +9912,10 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.12  -12.60   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.061e+00  1.061e+00  1.391e-04
-	Gypsum            0.00   -4.58   -4.58  7.208e-02  7.210e-02  1.558e-05
+	Fe(OH)3(a)        0.00    4.89    4.89  1.061e+00  1.061e+00  1.391e-04
+	Gypsum           -0.00   -4.58   -4.58  7.208e-02  7.210e-02  1.558e-05
 	Pyrolusite      -14.32   27.06   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  7.456e-07  9.957e-07  2.501e-07
+	SiO2(a)           0.00   -2.71   -2.71  7.456e-07  9.958e-07  2.501e-07
 
 ------------------------------Surface composition------------------------------
 
@@ -10469,7 +10469,7 @@ Zn               3.455e-04
 	Siderite         -1.00  -11.89  -10.89  FeCO3
 	Siderite(d)(3)   -1.44  -11.89  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -4.22  -14.22  -10.00  ZnCO3
 	Sphalerite      -46.80  -58.42  -11.62  ZnS
 	SrF2             -9.69  -18.23   -8.54  SrF2
@@ -10521,8 +10521,8 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.67  -13.15   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.050e+00  1.050e+00 -6.527e-06
-	Gypsum            0.00   -4.58   -4.58  7.109e-02  7.109e-02 -1.416e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.050e+00  1.050e+00 -6.527e-06
+	Gypsum           -0.00   -4.58   -4.58  7.109e-02  7.109e-02 -1.416e-06
 	Pyrolusite      -13.76   27.62   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
 
@@ -11170,8 +11170,8 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.048e+00  1.048e+00 -3.853e-04
-	Gypsum            0.00   -4.58   -4.58  1.168e-01  1.177e-01  9.342e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.048e+00  1.048e+00 -3.853e-04
+	Gypsum           -0.00   -4.58   -4.58  1.168e-01  1.177e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  2.498e-03  2.549e-03  5.174e-05
 
@@ -11779,8 +11779,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.90  -14.38   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00  2.388e-05
-	Gypsum            0.00   -4.58   -4.58  7.220e-02  7.220e-02 -5.205e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  2.388e-05
+	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02 -5.205e-07
 	Pyrolusite      -12.51   28.87   41.38  0.000e+00             0.000e+00
 	SiO2(a)           0.00   -2.71   -2.71  2.249e-06  2.253e-06  3.580e-09
 
@@ -12388,7 +12388,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.51  -12.99   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.050e+00  1.050e+00 -4.212e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.050e+00  1.050e+00 -4.212e-06
 	Gypsum           -0.00   -4.58   -4.58  7.108e-02  7.108e-02 -1.005e-06
 	Pyrolusite      -13.92   27.46   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
@@ -12865,7 +12865,7 @@ Zn               3.454e-04
 	Dolomite(d)      -9.28  -25.82  -16.54  CaMg(CO3)2
 	Epsomite         -2.30   -4.44   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.96    2.92   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -3.67   16.56   20.22  Fe3(OH)8
 	FeS(ppt)        -55.35  -59.27   -3.92  FeS
 	Fluorite         -4.79  -15.39  -10.60  CaF2
@@ -13037,10 +13037,10 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.044e+00  1.044e+00 -3.853e-04
-	Gypsum            0.00   -4.58   -4.58  1.261e-01  1.271e-01  9.342e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.044e+00  1.044e+00 -3.853e-04
+	Gypsum           -0.00   -4.58   -4.58  1.261e-01  1.271e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  3.015e-03  3.067e-03  5.174e-05
+	SiO2(a)           0.00   -2.71   -2.71  3.015e-03  3.067e-03  5.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -13594,7 +13594,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -13646,7 +13646,7 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00  4.539e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  4.539e-07
 	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  1.939e-08
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
 	SiO2(a)           0.00   -2.71   -2.71  2.275e-06  2.276e-06  2.473e-10
@@ -14255,7 +14255,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.41  -12.89   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.050e+00  1.050e+00 -2.259e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.050e+00  1.050e+00 -2.259e-06
 	Gypsum           -0.00   -4.58   -4.58  7.107e-02  7.107e-02 -5.507e-07
 	Pyrolusite      -14.02   27.36   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  0.000e+00             0.000e+00
@@ -14904,10 +14904,10 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.040e+00  1.040e+00 -3.853e-04
-	Gypsum            0.00   -4.58   -4.58  1.355e-01  1.364e-01  9.342e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.040e+00  1.040e+00 -3.853e-04
+	Gypsum           -0.00   -4.58   -4.58  1.355e-01  1.364e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  3.532e-03  3.584e-03  5.174e-05
+	SiO2(a)          -0.00   -2.71   -2.71  3.532e-03  3.584e-03  5.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -14986,7 +14986,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.685e-13
+                  Electrical balance (eq)  =   6.687e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -15461,7 +15461,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)           0.00   -2.71   -2.71  SiO2
+	SiO2(a)          -0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -15513,10 +15513,10 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00  6.033e-09
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  6.033e-09
 	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  2.612e-10
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  3.296e-12
+	SiO2(a)           0.00   -2.71   -2.71  2.276e-06  2.276e-06  3.296e-12
 
 ------------------------------Surface composition------------------------------
 
@@ -16070,7 +16070,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -16122,8 +16122,8 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.73  -14.21   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.051e+00  1.051e+00  1.554e-04
-	Gypsum            0.00   -4.58   -4.58  7.113e-02  7.113e-02  6.685e-06
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.051e+00  1.051e+00  1.554e-04
+	Gypsum           -0.00   -4.58   -4.58  7.113e-02  7.113e-02  6.686e-06
 	Pyrolusite      -12.69   28.69   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  7.098e-07  7.962e-07  8.643e-08
 
@@ -16382,7 +16382,7 @@ Fe(3)            1.821e-04
 	FeOH+2            4.377e-05   1.337e-05    -4.359    -4.874    -0.515
 	Fe(OH)2+          3.650e-05   2.714e-05    -4.438    -4.566    -0.129
 	Fe(SO4)2-         2.270e-05   1.688e-05    -4.644    -4.773    -0.129
-	Fe+3              4.868e-06   3.380e-07    -5.313    -6.471    -1.159
+	Fe+3              4.868e-06   3.379e-07    -5.313    -6.471    -1.159
 	FeF+2             8.247e-07   2.520e-07    -6.084    -6.599    -0.515
 	Fe2(OH)2+4        5.521e-07   4.814e-09    -6.258    -8.318    -2.060
 	FeCl+2            2.241e-07   6.847e-08    -6.650    -7.164    -0.515
@@ -16599,7 +16599,7 @@ Zn               3.454e-04
 	Dolomite(d)     -11.72  -28.26  -16.54  CaMg(CO3)2
 	Epsomite         -2.30   -4.44   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     6.14    3.10   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -4.90   15.32   20.22  Fe3(OH)8
 	FeS(ppt)        -65.21  -69.13   -3.92  FeS
 	Fluorite         -4.79  -15.39  -10.60  CaF2
@@ -16771,10 +16771,10 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.036e+00  1.036e+00 -3.853e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.036e+00  1.036e+00 -3.853e-04
 	Gypsum           -0.00   -4.58   -4.58  1.448e-01  1.458e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  4.050e-03  4.101e-03  5.174e-05
+	SiO2(a)          -0.00   -2.71   -2.71  4.050e-03  4.101e-03  5.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -17328,7 +17328,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)           0.00   -2.71   -2.71  SiO2
+	SiO2(a)          -0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -17380,10 +17380,10 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00  6.561e-11
-	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  2.843e-12
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  6.558e-11
+	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  2.844e-12
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  3.581e-14
+	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  3.582e-14
 
 ------------------------------Surface composition------------------------------
 
@@ -17989,8 +17989,8 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00  8.014e-08
-	Gypsum            0.00   -4.58   -4.58  7.114e-02  7.114e-02  3.474e-09
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00  8.014e-08
+	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02  3.474e-09
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.00   -2.71   -2.71  8.606e-07  8.607e-07  4.376e-11
 
@@ -18477,7 +18477,7 @@ Zn               3.451e-04
 	Greenalite      -10.42   10.39   20.81  Fe3Si2O5(OH)4
 	Greenockite     -59.64  -75.57  -15.93  CdS
 	Greigite       -246.23 -291.26  -45.03  Fe3S4
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -25.29  -28.44   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	H2S(g)          -68.64  -69.64   -1.00  H2S
@@ -18638,7 +18638,7 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.033e+00  1.032e+00 -3.853e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.033e+00  1.032e+00 -3.853e-04
 	Gypsum           -0.00   -4.58   -4.58  1.542e-01  1.551e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
 	SiO2(a)           0.00   -2.71   -2.71  4.567e-03  4.619e-03  5.174e-05
@@ -18720,7 +18720,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.348e-13
+                  Electrical balance (eq)  =   6.349e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -19247,10 +19247,10 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00  3.362e-13
-	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  1.597e-14
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  3.522e-13
+	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02  1.524e-14
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  2.022e-16
+	SiO2(a)           0.00   -2.71   -2.71  2.276e-06  2.276e-06  1.916e-16
 
 ------------------------------Surface composition------------------------------
 
@@ -19329,7 +19329,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.890e-13
+                  Electrical balance (eq)  =   5.891e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -19804,7 +19804,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -19856,10 +19856,10 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00  1.856e-10
-	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02  8.045e-12
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00  1.856e-10
+	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02  8.044e-12
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  8.607e-07  8.607e-07  1.013e-13
+	SiO2(a)          -0.00   -2.71   -2.71  8.607e-07  8.607e-07  1.013e-13
 
 ------------------------------Surface composition------------------------------
 
@@ -20505,10 +20505,10 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.029e+00  1.028e+00 -3.853e-04
+	Fe(OH)3(a)        0.00    4.89    4.89  1.029e+00  1.028e+00 -3.853e-04
 	Gypsum           -0.00   -4.58   -4.58  1.635e-01  1.644e-01  9.342e-04
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  5.084e-03  5.136e-03  5.174e-05
+	SiO2(a)           0.00   -2.71   -2.71  5.084e-03  5.136e-03  5.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -20587,7 +20587,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.349e-13
+                  Electrical balance (eq)  =   6.350e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -21062,7 +21062,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)          -0.00   -2.71   -2.71  SiO2
+	SiO2(a)           0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -21114,10 +21114,10 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -8.882e-16
-	Gypsum            0.00   -4.58   -4.58  7.220e-02  7.220e-02  4.580e-16
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  8.438e-15
+	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02 -2.776e-16
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  7.128e-18
+	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06 -3.424e-18
 
 ------------------------------Surface composition------------------------------
 
@@ -21196,7 +21196,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.830e-13
+                  Electrical balance (eq)  =   5.827e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -21723,10 +21723,10 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00  5.631e-13
-	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02  2.497e-14
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00  5.609e-13
+	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02  2.476e-14
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  8.607e-07  8.607e-07  3.163e-16
+	SiO2(a)          -0.00   -2.71   -2.71  8.607e-07  8.607e-07  3.154e-16
 
 ------------------------------Surface composition------------------------------
 
@@ -21805,7 +21805,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.921e-13
+                  Electrical balance (eq)  =   5.919e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -22434,7 +22434,7 @@ Initial solution 0.
                     Total carbon (mol/kg)  =   2.588e-03
                        Total CO2 (mol/kg)  =   2.588e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.782e-17
+                  Electrical balance (eq)  =   2.022e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  11
                                   Total H  = 1.110163e+02
@@ -22920,10 +22920,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.026e+00  1.026e+00 -4.663e-15
-	Gypsum           -0.00   -4.58   -4.58  1.710e-01  1.710e-01  1.665e-16
+	Fe(OH)3(a)        0.00    4.89    4.89  1.026e+00  1.026e+00 -3.331e-15
+	Gypsum           -0.00   -4.58   -4.58  1.710e-01  1.710e-01  1.388e-16
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  5.498e-03  5.498e-03  6.939e-18
+	SiO2(a)           0.00   -2.71   -2.71  5.498e-03  5.498e-03  6.072e-18
 
 ------------------------------Surface composition------------------------------
 
@@ -23523,10 +23523,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -2.887e-15
-	Gypsum            0.00   -4.58   -4.58  7.220e-02  7.220e-02  8.327e-17
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00  1.332e-15
+	Gypsum           -0.00   -4.58   -4.58  7.220e-02  7.220e-02 -4.163e-17
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)          -0.00   -2.71   -2.71  2.276e-06  2.276e-06  1.089e-18
+	SiO2(a)           0.00   -2.71   -2.71  2.276e-06  2.276e-06 -7.585e-19
 
 ------------------------------Surface composition------------------------------
 
@@ -23605,7 +23605,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.829e-13
+                  Electrical balance (eq)  =   5.827e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -24126,10 +24126,10 @@ Using pure phase assemblage 10.	Pure-phase assemblage after simulation 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -6.00  -14.48   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -2.132e-14
-	Gypsum            0.00   -4.58   -4.58  7.114e-02  7.114e-02  6.800e-16
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00  6.661e-16
+	Gypsum           -0.00   -4.58   -4.58  7.114e-02  7.114e-02 -1.388e-17
 	Pyrolusite      -12.42   28.96   41.38  0.000e+00             0.000e+00
-	SiO2(a)           0.00   -2.71   -2.71  8.607e-07  8.607e-07  1.023e-17
+	SiO2(a)          -0.00   -2.71   -2.71  8.607e-07  8.607e-07  1.954e-18
 
 ------------------------------Surface composition------------------------------
 
@@ -24208,7 +24208,7 @@ Surf_w
                  Total alkalinity (eq/kg)  =  -1.321e-03
                        Total CO2 (mol/kg)  =   4.142e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.830e-13
+                  Electrical balance (eq)  =   5.826e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110191e+02
@@ -24683,7 +24683,7 @@ Zn               3.451e-04
 	Siderite         -2.88  -13.77  -10.89  FeCO3
 	Siderite(d)(3)   -3.32  -13.77  -10.45  FeCO3
 	Silicagel         0.31   -2.71   -3.02  SiO2
-	SiO2(a)           0.00   -2.71   -2.71  SiO2
+	SiO2(a)          -0.00   -2.71   -2.71  SiO2
 	Smithsonite      -6.10  -16.10  -10.00  ZnCO3
 	Sphalerite      -62.02  -73.63  -11.62  ZnS
 	SrF2             -9.70  -18.24   -8.54  SrF2
@@ -24775,9 +24775,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.08   -9.56   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.027e+00  1.027e+00  3.475e-07
-	Gypsum            0.00   -4.58   -4.58  4.073e-02  2.597e-02 -1.476e-02
-	Pyrolusite       -0.00   41.38   41.38  1.175e-05  1.185e-05  1.000e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.475e-07
+	Gypsum           -0.00   -4.58   -4.58  4.073e-02  2.597e-02 -1.476e-02
+	Pyrolusite        0.00   41.38   41.38  1.175e-05  1.185e-05  1.000e-07
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -25384,8 +25384,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.22  -13.70   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -1.076e-05
-	Gypsum            0.00   -4.58   -4.58  7.254e-02  7.253e-02 -7.640e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -1.076e-05
+	Gypsum           -0.00   -4.58   -4.58  7.254e-02  7.253e-02 -7.640e-06
 	Pyrolusite        0.00   41.38   41.38  4.772e-06  4.763e-06 -8.824e-09
 	SiO2(a)          -0.51   -3.22   -2.71  0.000e+00             0.000e+00
 
@@ -25930,7 +25930,7 @@ Zn               1.064e-06
 	Prehnite        -21.19  -32.88  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -225.31 -243.79  -18.48  FeS2
 	Pyrochroite     -14.99    0.21   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Pyrophyllite      1.07  -47.24  -48.31  Al2Si4O10(OH)2
 	Quartz            0.76   -3.22   -3.98  SiO2
 	Retgersite       -6.89   -8.93   -2.04  NiSO4:6H2O
@@ -25993,7 +25993,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.72  -14.20   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.051e+00  1.051e+00  6.150e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00  6.150e-07
 	Gypsum           -0.00   -4.58   -4.58  7.116e-02  7.118e-02  1.826e-05
 	Pyrolusite      -12.28   29.10   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.01   -2.72   -2.71  0.000e+00             0.000e+00
@@ -26470,7 +26470,7 @@ Zn               1.241e-04
 	Dolomite(d)     -12.21  -28.75  -16.54  CaMg(CO3)2
 	Epsomite         -2.79   -4.93   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     6.04    3.00   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8         -5.30   14.92   20.22  Fe3(OH)8
 	FeS(ppt)        -68.97  -72.89   -3.92  FeS
 	Fluorite         -4.91  -15.51  -10.60  CaF2
@@ -26642,9 +26642,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.48   -9.95   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  2.968e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  2.968e-07
 	Gypsum           -1.56   -6.14   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  1.275e-05  1.285e-05  1.000e-07
+	Pyrolusite       -0.00   41.38   41.38  1.275e-05  1.285e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -27251,8 +27251,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.93  -12.41   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00 -3.164e-06
-	Gypsum            0.00   -4.58   -4.58  7.254e-02  7.255e-02  9.692e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -3.164e-06
+	Gypsum           -0.00   -4.58   -4.58  7.254e-02  7.255e-02  9.692e-06
 	Pyrolusite        0.00   41.38   41.38  4.713e-06  4.711e-06 -1.906e-09
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
@@ -27797,7 +27797,7 @@ Zn               1.836e-08
 	Prehnite        -19.95  -31.65  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -228.20 -246.68  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Pyrophyllite     -0.46  -48.77  -48.31  Al2Si4O10(OH)2
 	Quartz            0.59   -3.39   -3.98  SiO2
 	Retgersite       -7.47   -9.51   -2.04  NiSO4:6H2O
@@ -27860,9 +27860,9 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.99  -13.47   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.052e+00  1.052e+00 -3.464e-06
-	Gypsum            0.00   -4.58   -4.58  7.108e-02  7.108e-02 -1.253e-06
-	Pyrolusite        0.00   41.38   41.38  8.908e-09  4.232e-09 -4.676e-09
+	Fe(OH)3(a)        0.00    4.89    4.89  1.052e+00  1.052e+00 -3.464e-06
+	Gypsum           -0.00   -4.58   -4.58  7.108e-02  7.108e-02 -1.253e-06
+	Pyrolusite       -0.00   41.38   41.38  8.908e-09  4.232e-09 -4.676e-09
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -28406,7 +28406,7 @@ Zn               6.944e-08
 	Prehnite        -24.66  -36.36  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -226.06 -244.54  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite     -3.03  -51.35  -48.31  Al2Si4O10(OH)2
 	Quartz            0.59   -3.39   -3.98  SiO2
 	Retgersite       -7.22   -9.26   -2.04  NiSO4:6H2O
@@ -28509,7 +28509,7 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.11   -9.59   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.043e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.043e-07
 	Gypsum           -1.74   -6.32   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.00   41.38   41.38  1.375e-05  1.385e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -29118,8 +29118,8 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.10  -11.58   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -8.664e-07
-	Gypsum            0.00   -4.58   -4.58  7.274e-02  7.259e-02 -1.458e-04
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.063e+00  1.063e+00 -8.664e-07
+	Gypsum           -0.00   -4.58   -4.58  7.274e-02  7.259e-02 -1.458e-04
 	Pyrolusite       -0.00   41.38   41.38  4.705e-06  4.705e-06 -1.593e-10
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
@@ -29595,7 +29595,7 @@ Zn               3.385e-09
 	Dolomite(d)      -8.26  -24.80  -16.54  CaMg(CO3)2
 	Epsomite         -4.09   -6.23   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.41    2.37   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.14    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -142.22 -146.14   -3.92  FeS
 	Fluorite         -1.71  -12.31  -10.60  CaF2
@@ -29727,8 +29727,8 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.52  -13.00   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.052e+00  1.052e+00 -2.028e-06
-	Gypsum            0.00   -4.58   -4.58  7.108e-02  7.108e-02 -3.782e-07
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.052e+00  1.052e+00 -2.028e-06
+	Gypsum           -0.00   -4.58   -4.58  7.108e-02  7.108e-02 -3.782e-07
 	Pyrolusite       -0.08   41.30   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
@@ -30204,7 +30204,7 @@ Zn               7.905e-09
 	Dolomite(d)     -11.11  -27.65  -16.54  CaMg(CO3)2
 	Epsomite         -4.09   -6.23   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.63    2.59   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.14    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -140.78 -144.69   -3.92  FeS
 	Fluorite         -1.78  -12.38  -10.60  CaF2
@@ -30215,7 +30215,7 @@ Zn               7.905e-09
 	Greenalite      -35.68  -14.87   20.81  Fe3Si2O5(OH)4
 	Greenockite    -126.44 -142.37  -15.93  CdS
 	Greigite       -515.87 -560.91  -45.03  Fe3S4
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -41.21  -44.36   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	H2S(g)         -134.06 -135.06   -1.00  H2S
@@ -30376,9 +30376,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.88   -9.36   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.080e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.080e-07
 	Gypsum           -1.79   -6.37   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  1.475e-05  1.485e-05  1.000e-07
+	Pyrolusite        0.00   41.38   41.38  1.475e-05  1.485e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -30922,7 +30922,7 @@ Zn               8.794e-09
 	Prehnite         -2.79  -14.48  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -239.08 -257.56  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Pyrophyllite      9.39  -38.93  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -8.55  -10.59   -2.04  NiSO4:6H2O
@@ -30985,9 +30985,9 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.34  -11.82   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -1.136e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -1.136e-06
 	Gypsum           -0.77   -5.35   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  4.704e-06  4.704e-06 -1.658e-10
+	Pyrolusite       -0.00   41.38   41.38  4.704e-06  4.704e-06 -1.658e-10
 	SiO2(a)          -0.68   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -31462,7 +31462,7 @@ Zn               6.537e-10
 	Dolomite(d)      -8.16  -24.70  -16.54  CaMg(CO3)2
 	Epsomite         -4.27   -6.41   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.39    2.35   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -142.75 -146.66   -3.92  FeS
 	Fluorite         -2.05  -12.65  -10.60  CaF2
@@ -31531,7 +31531,7 @@ Zn               6.537e-10
 	Prehnite        -15.75  -27.44  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -230.94 -249.42  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite      2.53  -45.79  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -8.62  -10.66   -2.04  NiSO4:6H2O
@@ -31594,7 +31594,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.23  -12.71   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -1.698e-06
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.051e+00  1.051e+00 -1.698e-06
 	Gypsum           -0.00   -4.58   -4.58  7.107e-02  7.107e-02  2.612e-07
 	Pyrolusite       -0.11   41.27   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
@@ -32071,7 +32071,7 @@ Zn               1.618e-09
 	Dolomite(d)     -10.51  -27.05  -16.54  CaMg(CO3)2
 	Epsomite         -4.09   -6.23   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.58    2.54   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.14    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -141.08 -144.99   -3.92  FeS
 	Fluorite         -1.75  -12.35  -10.60  CaF2
@@ -32243,7 +32243,7 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.74   -9.22   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.110e-07
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.027e+00  1.027e+00  3.110e-07
 	Gypsum           -1.82   -6.40   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.00   41.38   41.38  1.575e-05  1.585e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -32720,7 +32720,7 @@ Zn               8.382e-09
 	Dolomite(d)      -2.42  -18.96  -16.54  CaMg(CO3)2
 	Epsomite         -4.78   -6.92   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     4.85    1.81   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -147.08 -150.99   -3.92  FeS
 	Fluorite         -2.19  -12.79  -10.60  CaF2
@@ -32852,7 +32852,7 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.29  -11.77   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -3.057e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -3.057e-07
 	Gypsum           -1.53   -6.11   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.00   41.38   41.38  4.703e-06  4.703e-06  3.918e-11
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -33398,7 +33398,7 @@ Zn               1.282e-10
 	Prehnite        -14.15  -25.84  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -232.61 -251.09  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite      3.99  -44.33  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -9.28  -11.32   -2.04  NiSO4:6H2O
@@ -33461,7 +33461,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.97  -12.45   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.051e+00  1.051e+00 -1.339e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -1.339e-06
 	Gypsum           -0.00   -4.58   -4.58  7.108e-02  7.108e-02  9.553e-07
 	Pyrolusite       -0.14   41.24   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
@@ -33938,7 +33938,7 @@ Zn               3.966e-10
 	Dolomite(d)     -10.01  -26.55  -16.54  CaMg(CO3)2
 	Epsomite         -4.09   -6.23   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.54    2.50   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.14    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -141.33 -145.24   -3.92  FeS
 	Fluorite         -1.73  -12.33  -10.60  CaF2
@@ -34110,9 +34110,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.65   -9.13   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.129e-07
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.027e+00  1.027e+00  3.129e-07
 	Gypsum           -1.83   -6.41   -4.58  0.000e+00             0.000e+00
-	Pyrolusite       -0.00   41.38   41.38  1.675e-05  1.685e-05  1.000e-07
+	Pyrolusite        0.00   41.38   41.38  1.675e-05  1.685e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -34587,7 +34587,7 @@ Zn               8.485e-09
 	Dolomite(d)      -2.23  -18.77  -16.54  CaMg(CO3)2
 	Epsomite         -4.80   -6.94   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     4.82    1.78   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -147.25 -151.17   -3.92  FeS
 	Fluorite         -2.19  -12.79  -10.60  CaF2
@@ -34656,7 +34656,7 @@ Zn               8.485e-09
 	Prehnite         -2.31  -14.01  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -239.95 -258.43  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Pyrophyllite      9.08  -39.23  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -8.64  -10.68   -2.04  NiSO4:6H2O
@@ -34719,9 +34719,9 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -2.53  -11.01   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -8.348e-08
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -8.348e-08
 	Gypsum           -1.57   -6.15   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  4.704e-06  4.704e-06  8.169e-12
+	Pyrolusite       -0.00   41.38   41.38  4.704e-06  4.704e-06  8.169e-12
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -35196,7 +35196,7 @@ Zn               2.826e-11
 	Dolomite(d)      -6.00  -22.54  -16.54  CaMg(CO3)2
 	Epsomite         -4.52   -6.66   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.20    2.16   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -144.43 -148.34   -3.92  FeS
 	Fluorite         -2.43  -13.03  -10.60  CaF2
@@ -35265,7 +35265,7 @@ Zn               2.826e-11
 	Prehnite        -10.14  -21.83  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -234.30 -252.78  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite      6.37  -41.94  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -9.68  -11.72   -2.04  NiSO4:6H2O
@@ -35328,8 +35328,8 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -3.83  -12.31   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -2.493e-07
-	Gypsum            0.00   -4.58   -4.58  7.109e-02  7.109e-02 -1.297e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -2.493e-07
+	Gypsum           -0.00   -4.58   -4.58  7.109e-02  7.109e-02 -1.297e-07
 	Pyrolusite       -0.03   41.35   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.68   -3.39   -2.71  0.000e+00             0.000e+00
 
@@ -35977,9 +35977,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.58   -9.06   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.142e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.142e-07
 	Gypsum           -1.84   -6.42   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  1.775e-05  1.785e-05  1.000e-07
+	Pyrolusite       -0.00   41.38   41.38  1.775e-05  1.785e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -36586,9 +36586,9 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.99  -10.47   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -4.237e-08
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -4.237e-08
 	Gypsum           -1.61   -6.20   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  4.704e-06  4.704e-06  8.139e-13
+	Pyrolusite       -0.00   41.38   41.38  4.704e-06  4.704e-06  8.139e-13
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -37195,7 +37195,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -5.23  -13.71   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.051e+00  1.051e+00 -3.059e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -3.059e-06
 	Gypsum           -1.50   -6.09   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.22   41.16   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -37672,7 +37672,7 @@ Zn               1.350e-11
 	Dolomite(d)     -11.40  -27.94  -16.54  CaMg(CO3)2
 	Epsomite         -4.47   -6.61   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.62    2.58   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -141.57 -145.49   -3.92  FeS
 	Fluorite         -2.50  -13.10  -10.60  CaF2
@@ -37844,7 +37844,7 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.54   -9.02   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.027e+00  1.027e+00  3.150e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.150e-07
 	Gypsum           -1.85   -6.43   -4.58  0.000e+00             0.000e+00
 	Pyrolusite        0.00   41.38   41.38  1.875e-05  1.885e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -38453,7 +38453,7 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.63  -10.10   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.063e+00  1.063e+00 -2.735e-08
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -2.735e-08
 	Gypsum           -1.66   -6.24   -4.58  0.000e+00             0.000e+00
 	Pyrolusite        0.00   41.38   41.38  4.704e-06  4.704e-06 -2.328e-14
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -39062,7 +39062,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.98  -13.46   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -2.829e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -2.829e-06
 	Gypsum           -1.51   -6.09   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.32   41.06   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -39711,9 +39711,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.51   -8.99   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.027e+00  1.027e+00  3.155e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.155e-07
 	Gypsum           -1.86   -6.44   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  1.975e-05  1.985e-05  1.000e-07
+	Pyrolusite       -0.00   41.38   41.38  1.975e-05  1.985e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -40320,7 +40320,7 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.37   -9.85   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -1.836e-08
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.063e+00  1.063e+00 -1.836e-08
 	Gypsum           -1.70   -6.28   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.00   41.38   41.38  4.704e-06  4.704e-06 -6.974e-14
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -40797,7 +40797,7 @@ Zn               3.272e-12
 	Dolomite(d)      -3.68  -20.22  -16.54  CaMg(CO3)2
 	Epsomite         -4.66   -6.80   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     4.99    1.95   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -146.00 -149.92   -3.92  FeS
 	Fluorite         -2.27  -12.87  -10.60  CaF2
@@ -40929,7 +40929,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.68  -13.16   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)        0.00   17.91   17.91  1.051e+00  1.051e+00 -2.617e-06
+	Fe(OH)3(a)       -0.00    4.89    4.89  1.051e+00  1.051e+00 -2.617e-06
 	Gypsum           -1.51   -6.09   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.50   40.88   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -41406,7 +41406,7 @@ Zn               7.730e-13
 	Dolomite(d)     -10.29  -26.83  -16.54  CaMg(CO3)2
 	Epsomite         -4.47   -6.61   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.54    2.50   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -142.13 -146.05   -3.92  FeS
 	Fluorite         -2.47  -13.07  -10.60  CaF2
@@ -41578,9 +41578,9 @@ Mixture 1.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -0.49   -8.97   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.027e+00  1.027e+00  3.158e-07
+	Fe(OH)3(a)        0.00    4.89    4.89  1.027e+00  1.027e+00  3.158e-07
 	Gypsum           -1.86   -6.44   -4.58  0.000e+00             0.000e+00
-	Pyrolusite        0.00   41.38   41.38  2.075e-05  2.085e-05  1.000e-07
+	Pyrolusite       -0.00   41.38   41.38  2.075e-05  2.085e-05  1.000e-07
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
 
 ------------------------------Surface composition------------------------------
@@ -42124,7 +42124,7 @@ Zn               1.087e-08
 	Prehnite         -2.01  -13.70  -11.70  Ca2Al2Si3O10(OH)2
 	Pyrite         -240.55 -259.03  -18.48  FeS2
 	Pyrochroite     -15.03    0.17   15.20  Mn(OH)2
-	Pyrolusite        0.00   41.38   41.38  MnO2
+	Pyrolusite       -0.00   41.38   41.38  MnO2
 	Pyrophyllite      8.84  -39.48  -48.31  Al2Si4O10(OH)2
 	Quartz            0.58   -3.40   -3.98  SiO2
 	Retgersite       -8.63  -10.67   -2.04  NiSO4:6H2O
@@ -42187,7 +42187,7 @@ Mixture 5.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -1.18   -9.66   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.063e+00  1.063e+00 -1.275e-08
+	Fe(OH)3(a)        0.00    4.89    4.89  1.063e+00  1.063e+00 -1.275e-08
 	Gypsum           -1.74   -6.32   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.00   41.38   41.38  4.704e-06  4.704e-06 -4.908e-14
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -42664,7 +42664,7 @@ Zn               2.363e-12
 	Dolomite(d)      -3.30  -19.84  -16.54  CaMg(CO3)2
 	Epsomite         -4.70   -6.84   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     4.95    1.91   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -146.31 -150.22   -3.92  FeS
 	Fluorite         -2.23  -12.83  -10.60  CaF2
@@ -42796,7 +42796,7 @@ Mixture 10.
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
 	Calcite          -4.26  -12.74   -8.48  0.000e+00             0.000e+00
-	Fe(OH)3(a)       -0.00   17.91   17.91  1.051e+00  1.051e+00 -1.936e-06
+	Fe(OH)3(a)        0.00    4.89    4.89  1.051e+00  1.051e+00 -1.936e-06
 	Gypsum           -1.52   -6.10   -4.58  0.000e+00             0.000e+00
 	Pyrolusite       -0.71   40.67   41.38  0.000e+00             0.000e+00
 	SiO2(a)          -0.69   -3.40   -2.71  0.000e+00             0.000e+00
@@ -43273,7 +43273,7 @@ Zn               2.056e-13
 	Dolomite(d)      -9.46  -26.00  -16.54  CaMg(CO3)2
 	Epsomite         -4.47   -6.61   -2.14  MgSO4:7H2O
 	Fe(OH)2.7Cl.3     5.47    2.43   -3.04  Fe(OH)2.7Cl0.3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	Fe3(OH)8        -13.13    7.09   20.22  Fe3(OH)8
 	FeS(ppt)       -142.56 -146.47   -3.92  FeS
 	Fluorite         -2.46  -13.06  -10.60  CaF2

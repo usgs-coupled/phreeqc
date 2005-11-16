@@ -274,7 +274,7 @@ Solution 2: Composition during halite precipitation
 
 Solution fractions:                   Minimum        Maximum
    Solution   1      8.815e+01      0.000e+00      0.000e+00
-   Solution   2      1.000e+00      0.000e+00      0.000e+00
+   Solution   2      1.000e-00      0.000e+00      0.000e+00
 
 Phase mole transfers:                 Minimum        Maximum
             H2O     -4.837e+03      0.000e+00      0.000e+00   H2O

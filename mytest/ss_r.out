@@ -117,7 +117,7 @@ Zn               1.500e-06
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CO2(g)           -2.11   -3.58   -1.47  CO2
 	H2(g)           -41.09  -44.24   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
@@ -145,7 +145,7 @@ Initial solution 1.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.969e-16
+                  Electrical balance (eq)  =  -8.919e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   6
                                   Total H  = 1.110134e+02
@@ -327,7 +327,7 @@ Using solid solution assemblage 1.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -443,7 +443,7 @@ Using solid solution assemblage 2.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -559,7 +559,7 @@ Using solid solution assemblage 3.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -675,7 +675,7 @@ Using solid solution assemblage 4.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -791,7 +791,7 @@ Using solid solution assemblage 5.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -907,7 +907,7 @@ Using solid solution assemblage 6.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1023,7 +1023,7 @@ Using solid solution assemblage 7.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1139,7 +1139,7 @@ Using solid solution assemblage 8.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1255,7 +1255,7 @@ Using solid solution assemblage 9.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1371,7 +1371,7 @@ Using solid solution assemblage 10.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.968e-16
+                  Electrical balance (eq)  =  -8.929e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1499,9 +1499,9 @@ Kinetics 1.
                  Total alkalinity (eq/kg)  =   2.819e-03
                        Total CO2 (mol/kg)  =   3.029e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.591e-12
+                  Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  35
+                               Iterations  =  36
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551543e+01
 
@@ -1625,7 +1625,7 @@ Kinetics 2.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.042e-16
+                  Electrical balance (eq)  =  -8.925e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1751,7 +1751,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1877,7 +1877,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2003,7 +2003,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2129,7 +2129,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2255,7 +2255,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2381,7 +2381,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2507,7 +2507,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2633,7 +2633,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.983e-16
+                  Electrical balance (eq)  =  -8.944e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2838,18 +2838,12 @@ Zn               1.469e-06
 	Smithsonite      -1.71  -11.71  -10.00  ZnCO3
 	Zn(OH)2(e)       -2.87    8.63   11.50  Zn(OH)2
 
-WARNING: Maximum iterations exceeded, 100
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      7200 seconds
 	Time step: 3600 seconds
@@ -2863,7 +2857,7 @@ Kinetics 2.	Kinetics defined in simulation 3.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.752e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.754e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2895,7 +2889,7 @@ Kinetics 2.	Kinetics defined in simulation 3.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 221
+                               Iterations  =  89
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551394e+01
 
@@ -3019,7 +3013,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.079e-16
+                  Electrical balance (eq)  =  -8.926e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3145,7 +3139,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3271,7 +3265,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3397,7 +3391,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3523,7 +3517,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3649,7 +3643,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3775,7 +3769,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3901,7 +3895,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.982e-16
+                  Electrical balance (eq)  =  -8.961e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4109,9 +4103,9 @@ Zn               1.470e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      10800 seconds
 	Time step: 3600 seconds
@@ -4283,7 +4277,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  70
+                               Iterations  = 106
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551309e+01
 
@@ -4407,7 +4401,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.079e-16
+                  Electrical balance (eq)  =  -8.952e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4533,7 +4527,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4659,7 +4653,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4785,7 +4779,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4911,7 +4905,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5037,7 +5031,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5163,7 +5157,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.015e-16
+                  Electrical balance (eq)  =  -8.977e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5371,9 +5365,9 @@ Zn               1.471e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      14400 seconds
 	Time step: 3600 seconds
@@ -5669,9 +5663,9 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.731e-03
                        Total CO2 (mol/kg)  =   1.773e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.592e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  53
+                               Iterations  = 107
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551238e+01
 
@@ -5795,7 +5789,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.081e-16
+                  Electrical balance (eq)  =  -8.925e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5921,7 +5915,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.059e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6047,7 +6041,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.059e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6173,7 +6167,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.059e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6299,7 +6293,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.059e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6425,7 +6419,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.059e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6633,9 +6627,9 @@ Zn               1.473e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      18000 seconds
 	Time step: 3600 seconds
@@ -7033,7 +7027,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.931e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.928e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7063,9 +7057,9 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.516e-03
                        Total CO2 (mol/kg)  =   1.540e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.533e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 131
+                               Iterations  = 163
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551180e+01
 
@@ -7189,7 +7183,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.079e-16
+                  Electrical balance (eq)  =  -8.907e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7315,7 +7309,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.100e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7441,7 +7435,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.100e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7567,7 +7561,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.100e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7693,7 +7687,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.100e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7901,9 +7895,9 @@ Zn               1.474e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      21600 seconds
 	Time step: 3600 seconds
@@ -8421,7 +8415,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.711e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8451,9 +8445,9 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.351e-03
                        Total CO2 (mol/kg)  =   1.364e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.521e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  95
+                               Iterations  =  71
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551137e+01
 
@@ -8577,7 +8571,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.121e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8703,7 +8697,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.133e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8829,7 +8823,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.133e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8955,7 +8949,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.133e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -9083,7 +9077,7 @@ Kinetics 1.
                  Total alkalinity (eq/kg)  =   2.819e-03
                        Total CO2 (mol/kg)  =   3.029e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.467e-12
+                  Electrical balance (eq)  =  -4.468e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  25
                                   Total H  = 1.110154e+02
@@ -9163,9 +9157,9 @@ Zn               1.475e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      25200 seconds
 	Time step: 3600 seconds
@@ -9815,7 +9809,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.416e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.418e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9845,9 +9839,9 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.230e-03
                        Total CO2 (mol/kg)  =   1.235e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.521e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 271
+                               Iterations  = 281
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551105e+01
 
@@ -9971,7 +9965,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.097e-16
+                  Electrical balance (eq)  =  -8.925e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10097,7 +10091,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.167e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10223,7 +10217,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.167e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10431,9 +10425,9 @@ Zn               1.476e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      28800 seconds
 	Time step: 3600 seconds
@@ -11203,7 +11197,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  3.221e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  3.222e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11233,9 +11227,9 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.146e-03
                        Total CO2 (mol/kg)  =   1.146e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.521e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 190
+                               Iterations  = 130
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551083e+01
 
@@ -11359,7 +11353,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.111e-16
+                  Electrical balance (eq)  =  -8.907e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11485,7 +11479,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.199e-16
+                  Electrical balance (eq)  =  -8.992e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11693,9 +11687,9 @@ Zn               1.477e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      32400 seconds
 	Time step: 3600 seconds
@@ -12591,7 +12585,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.240e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.236e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12621,9 +12615,9 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.089e-03
                        Total CO2 (mol/kg)  =   1.087e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.521e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  55
+                               Iterations  = 105
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551068e+01
 
@@ -12747,7 +12741,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.152e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -12955,9 +12949,9 @@ Zn               1.478e-06
 Using solution 2.	Solution after simulation 3.
 Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 2.	Solid solution assemblage after simulation 3.
-Using kinetics 2.	Kinetics defined in simulation 3.
+Using kinetics 2.	Kinetics defined in simulation 2.
 
-Kinetics 2.	Kinetics defined in simulation 3.
+Kinetics 2.	Kinetics defined in simulation 2.
 
 	Time:      36000 seconds
 	Time step: 3600 seconds
@@ -13979,7 +13973,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  1.497e-12
+	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  1.496e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -14009,9 +14003,9 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.052e-03
                        Total CO2 (mol/kg)  =   1.048e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.521e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 166
+                               Iterations  =  81
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551059e+01
 

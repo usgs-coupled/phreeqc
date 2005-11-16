@@ -175,7 +175,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.738e-18
+                  Electrical balance (eq)  =  -4.856e-19
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
@@ -237,7 +237,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -2.616e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -2.616e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -259,7 +259,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.094e-15
+                  Electrical balance (eq)  =  -3.099e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  = 337
                                   Total H  = 1.110124e+02
@@ -332,7 +332,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -1.855e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -1.855e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -354,7 +354,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.094e-15
+                  Electrical balance (eq)  =  -3.117e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  53
                                   Total H  = 1.110124e+02
@@ -427,7 +427,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.026e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -4.026e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -449,7 +449,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.083e-15
+                  Electrical balance (eq)  =  -3.114e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  69
                                   Total H  = 1.110124e+02
@@ -522,7 +522,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.898e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -4.898e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -544,7 +544,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.357e-15
+                  Electrical balance (eq)  =   3.326e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  53
                                   Total H  = 1.110124e+02
@@ -617,7 +617,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.702e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -4.702e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -639,7 +639,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.383e-15
+                  Electrical balance (eq)  =   3.338e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  42
                                   Total H  = 1.110124e+02
@@ -712,7 +712,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -6.017e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -6.017e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -734,7 +734,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.391e-15
+                  Electrical balance (eq)  =   3.349e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  40
                                   Total H  = 1.110124e+02
@@ -807,7 +807,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -6.164e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -6.164e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -829,7 +829,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.382e-15
+                  Electrical balance (eq)  =   3.359e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  38
                                   Total H  = 1.110124e+02
@@ -902,7 +902,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -7.731e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -7.731e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -924,7 +924,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.369e-15
+                  Electrical balance (eq)  =   3.371e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  38
                                   Total H  = 1.110124e+02
@@ -997,7 +997,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -5.385e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -5.385e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1092,7 +1092,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -4.263e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -4.263e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1114,7 +1114,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.159e-14
+                  Electrical balance (eq)  =   5.158e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.110124e+02
@@ -1187,7 +1187,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	O2(g)            -0.67   82.45   83.12  1.000e+01  1.000e+01 -3.587e-07
+	O2(g)            -0.67   -3.63   -2.96  1.000e+01  1.000e+01 -3.587e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1209,7 +1209,7 @@ Kinetics 1.	Kinetics defined in simulation 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.199e-14
+                  Electrical balance (eq)  =   5.198e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.110124e+02

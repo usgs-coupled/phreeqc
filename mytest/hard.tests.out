@@ -125,17 +125,17 @@ Using pure phase assemblage 3.
 
 	Calcite          -3.34  -11.82   -8.48  2.000e+00            -2.000e+00
 	Dolomite         -3.95  -21.04  -17.09  2.000e+00            -2.000e+00
-	FeS(ppt)        -12.46  -50.07  -37.62  2.000e+00            -2.000e+00
-	Goethite         -1.02   11.00   12.02  2.000e+00            -2.000e+00
-	Greigite        -41.61 -195.42 -153.80  2.000e+00            -2.000e+00
+	FeS(ppt)        -12.46  -16.37   -3.92  2.000e+00            -2.000e+00
+	Goethite         -1.02   -2.02   -1.00  2.000e+00            -2.000e+00
+	Greigite        -41.61  -86.65  -45.03  2.000e+00            -2.000e+00
 	Gypsum           -0.00   -4.58   -4.58  2.000e+00  5.995e+00  3.995e+00
-	Hematite         -0.00   22.03   22.03  2.000e+00  1.300e+01  1.100e+01
-	Mackinawite     -11.72  -50.07  -38.35  2.000e+00            -2.000e+00
-	Magnetite        -2.03   27.75   29.78  2.000e+00            -2.000e+00
-	Pyrite           -9.39  -95.27  -85.88  2.000e+00            -2.000e+00
+	Hematite         -0.00   -4.01   -4.01  2.000e+00  1.300e+01  1.100e+01
+	Mackinawite     -11.72  -16.37   -4.65  2.000e+00            -2.000e+00
+	Magnetite        -2.03    1.71    3.74  2.000e+00            -2.000e+00
+	Pyrite           -9.39  -27.87  -18.48  2.000e+00            -2.000e+00
 	Siderite         -4.10  -14.99  -10.89  2.000e+00            -2.000e+00
 	Smithsonite      -0.24  -10.24  -10.00  2.000e+00            -2.000e+00
-	Sphalerite        0.00  -45.32  -45.32  2.000e+00  2.150e+01  1.950e+01
+	Sphalerite       -0.00  -11.62  -11.62  2.000e+00  2.150e+01  1.950e+01
 	Zincite(c)       -0.67   10.47   11.14  2.000e+00            -2.000e+00
 	Zincosite        -5.96   -2.95    3.01  2.000e+00            -2.000e+00
 	Zn(OH)2-a        -2.00   10.45   12.45  2.000e+00            -2.000e+00
@@ -146,10 +146,10 @@ Using pure phase assemblage 3.
 	Zn2(OH)2SO4      -0.00    7.50    7.50  2.000e+00  2.408e+00  4.084e-01
 	Zn3O(SO4)2      -14.45    4.57   19.02  2.000e+00            -2.000e+00
 	Zn4(OH)6SO4      -0.00   28.40   28.40  2.000e+00  1.864e+00 -1.361e-01
-	ZnCO3:H2O         0.00  -10.26  -10.26  2.000e+00  1.200e+01  1.000e+01
+	ZnCO3:H2O        -0.00  -10.26  -10.26  2.000e+00  1.200e+01  1.000e+01
 	ZnMetal         -25.88   -0.12   25.76  2.000e+00            -2.000e+00
 	ZnO(a)           -0.84   10.47   11.31  2.000e+00            -2.000e+00
-	ZnS(a)           -2.57  -45.32  -42.75  2.000e+00            -2.000e+00
+	ZnS(a)           -2.57  -11.62   -9.05  2.000e+00            -2.000e+00
 	ZnSO4:H2O        -2.40   -2.97   -0.57  2.000e+00            -2.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -173,9 +173,9 @@ Using pure phase assemblage 3.
                  Total alkalinity (eq/kg)  =   3.479e-04
                        Total CO2 (mol/kg)  =   3.752e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   7.587e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  38
+                  Electrical balance (eq)  =  -1.082e-10
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  30
                                   Total H  = 1.010320e+02
                                   Total O  = 5.944689e+01
 
@@ -322,7 +322,7 @@ Zn               2.504e-01
 	Siderite         -4.10  -14.99  -10.89  FeCO3
 	Siderite(d)(3)   -4.54  -14.99  -10.45  FeCO3
 	Smithsonite      -0.24  -10.24  -10.00  ZnCO3
-	Sphalerite        0.00  -11.62  -11.62  ZnS
+	Sphalerite       -0.00  -11.62  -11.62  ZnS
 	Sulfur           -9.39  -24.42  -15.03  S
 	Wurtzite         -1.94  -11.62   -9.68  ZnS
 	Zincite(c)       -0.67   10.47   11.14  ZnO
@@ -332,10 +332,10 @@ Zn               2.504e-01
 	Zn(OH)2-c        -1.75   10.45   12.20  Zn(OH)2
 	Zn(OH)2-e        -1.05   10.45   11.50  Zn(OH)2
 	Zn(OH)2-g        -1.26   10.45   11.71  Zn(OH)2
-	Zn2(OH)2SO4       0.00    7.50    7.50  Zn2(OH)2SO4
+	Zn2(OH)2SO4      -0.00    7.50    7.50  Zn2(OH)2SO4
 	Zn3O(SO4)2      -14.45    4.57   19.02  ZnO:2ZnSO4
-	Zn4(OH)6SO4       0.00   28.40   28.40  Zn4(OH)6SO4
-	ZnCO3:H2O         0.00  -10.26  -10.26  ZnCO3:H2O
+	Zn4(OH)6SO4      -0.00   28.40   28.40  Zn4(OH)6SO4
+	ZnCO3:H2O        -0.00  -10.26  -10.26  ZnCO3:H2O
 	ZnMetal         -25.88   -0.12   25.76  Zn
 	ZnO(a)           -0.84   10.47   11.31  ZnO
 	ZnS(a)           -2.57  -11.62   -9.05  ZnS
@@ -606,8 +606,8 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Pyrite           -0.00  -85.88  -85.88  1.000e+01  1.000e+01  1.078e-03
-	Sphalerite       -0.00  -45.32  -45.32  1.000e+01  1.000e+01  3.114e-03
+	Pyrite           -0.00  -18.48  -18.48  1.000e+01  1.000e+01  1.078e-03
+	Sphalerite       -0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.114e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -866,8 +866,8 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Pyrite            0.00  -85.88  -85.88  1.000e+01  1.000e+01  3.885e-03
-	Sphalerite       -0.00  -45.32  -45.32  1.000e+01  1.000e+01  3.202e-03
+	Pyrite           -0.00  -18.48  -18.48  1.000e+01  1.000e+01  3.885e-03
+	Sphalerite        0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.202e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1071,7 +1071,7 @@ Zn               2.490e-05
 	Nesquehonite     -3.67   -9.29   -5.62  MgCO3:3H2O
 	O2(g)           -64.27  -67.17   -2.89  O2
 	Portlandite     -13.73    9.07   22.80  Ca(OH)2
-	Pyrite            0.00  -18.48  -18.48  FeS2
+	Pyrite           -0.00  -18.48  -18.48  FeS2
 	Siderite          0.65  -10.24  -10.89  FeCO3
 	Siderite(d)(3)    0.21  -10.24  -10.45  FeCO3
 	Smithsonite      -1.91  -11.91  -10.00  ZnCO3
@@ -1126,8 +1126,8 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                      Moles in assemblage
 	Phase               SI log IAP  log KT    Initial      Final      Delta
 
-	Pyrite            0.00  -85.88  -85.88  1.000e+01  1.000e+01  4.856e-03
-	Sphalerite        0.00  -45.32  -45.32  1.000e+01  1.000e+01  3.226e-03
+	Pyrite           -0.00  -18.48  -18.48  1.000e+01  1.000e+01  4.856e-03
+	Sphalerite       -0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.226e-03
 
 -----------------------------Solution composition------------------------------
 
