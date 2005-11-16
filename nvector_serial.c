@@ -293,32 +293,38 @@ void N_VLinearSum_Serial(realtype a, N_Vector x, realtype b, N_Vector y, N_Vecto
 
   /* Cases: (1) a == 1.0, b = -1.0, (2) a == -1.0, b == 1.0 */
 
-  if ((test = ((a == ONE) && (b == -ONE))) || ((a == -ONE) && (b == ONE))) {
-    v1 = test ? y : x;
-    v2 = test ? x : y;
-    VDiff_Serial(v2, v1, z);
-    return;
+  /*if ((test = ((a == ONE) && (b == -ONE))) || ((a == -ONE) && (b == ONE))) {*/
+  test = ((a == ONE) && (b == -ONE));
+  if (test || ((a == -ONE) && (b == ONE))) {
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VDiff_Serial(v2, v1, z);
+	  return;
   }
-
+      
   /* Cases: (1) a == 1.0, b == other or 0.0, (2) a == other or 0.0, b == 1.0 */
   /* if a or b is 0.0, then user should have called N_VScale */
-
-  if ((test = (a == ONE)) || (b == ONE)) {
-    c = test ? b : a;
-    v1 = test ? y : x;
-    v2 = test ? x : y;
-    VLin1_Serial(c, v1, v2, z);
-    return;
+      
+  /*if ((test = (a == ONE)) || (b == ONE)) {*/
+  test = (a == ONE);
+  if (test || (b == ONE)) {
+	  c = test ? b : a;
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VLin1_Serial(c, v1, v2, z);
+	  return;
   }
 
   /* Cases: (1) a == -1.0, b != 1.0, (2) a != 1.0, b == -1.0 */
 
-  if ((test = (a == -ONE)) || (b == -ONE)) {
-    c = test ? b : a;
-    v1 = test ? y : x;
-    v2 = test ? x : y;
-    VLin2_Serial(c, v1, v2, z);
-    return;
+  /*if ((test = (a == -ONE)) || (b == -ONE)) {*/
+  test = (a == -ONE);
+  if (test || (b == -ONE)) {
+	  c = test ? b : a;
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VLin2_Serial(c, v1, v2, z);
+	  return;
   }
 
   /* Case: a == b */

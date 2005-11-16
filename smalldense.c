@@ -87,7 +87,9 @@ integertype gefa(realtype **a, integertype n, integertype *p)
     
     /* swap a(l,k) and a(k,k) if necessary */
     
-    if ( (swap = (l != k) )) {
+    /*if ( (swap = (l != k) )) {*/
+    swap = (l != k);
+    if (swap) {
       temp = col_k[l];
       col_k[l] = *diag_k;
       *diag_k = temp;

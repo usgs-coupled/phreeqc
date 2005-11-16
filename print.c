@@ -898,9 +898,10 @@ int print_pp_assemblage(void)
  *   Prints saturation indices and masses of pure_phases in pp_assemblage
  */
         int j, k;
-        LDBLE si, iap;
+        LDBLE si, iap, lk;
         char token[MAX_LENGTH];
         struct rxn_token *rxn_ptr;
+	struct phase *phase_ptr;
 
         if (pr.pp_assemblage == FALSE || pr.all == FALSE) return(OK);
         if (pure_phase_unknown == NULL) return(OK);
@@ -919,14 +920,28 @@ int print_pp_assemblage(void)
  *   Print saturation index
  */
                 iap = 0.0;
-                if (x[j]->phase->rxn_x == NULL) {
+		phase_ptr=x[j]->phase;
+                if (x[j]->phase->rxn_x == NULL || phase_ptr->in == FALSE) {
                         output_msg(OUTPUT_MESSAGE,"\t%-15s%23s", x[j]->phase->name, "Element not present.");
                 } else {
+			phase_ptr=x[j]->phase;
+			lk = k_calc(phase_ptr->rxn->logk, tk_x);
+			for (rxn_ptr = phase_ptr->rxn->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
+				if (rxn_ptr->s != s_eminus) {
+					iap += (rxn_ptr->s->lm + rxn_ptr->s->lg) * rxn_ptr->coef; 
+				} else {
+					iap += s_eminus->la * rxn_ptr->coef; 
+				}
+			}
+			si=-lk + iap;
+			/*
                         for (rxn_ptr = x[j]->phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
                                 iap += rxn_ptr->s->la * rxn_ptr->coef;
                         }
                         si = -x[j]->phase->lk + iap;
                         output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
+			*/
+                        output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) lk);
                 }
 /*
  *   Print pure phase assemblage data

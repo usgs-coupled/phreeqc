@@ -552,6 +552,14 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 655:
+	IAP and log K printed in Phase assemblage data 
+	block were calculated from reactions rewritten to
+	new master species. Now the original data base 
+	reaction is used to calculate IAP and log K.
+	Also fixed check that ensured all elements of 
+	phase in are in solution before SI is calculated.
+
 	svn 631:
 	Fixed bug with alternate formula for equilibrium phase,
 	nothing happened if all other equations were satisfied

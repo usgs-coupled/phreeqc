@@ -3191,7 +3191,7 @@ static int CVsldet(CVodeMem cv_mem)
       saqk = ABS(qkr[k])/ssmax[k];
       if (saqk > sqmax) sqmax = saqk;
     } 
-    
+    sqmin = sqmax;
     if (sqmax < sqtol) {
       kflag = 2;
       
