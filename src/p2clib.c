@@ -40,14 +40,7 @@ __p2c_jmp_buf *__top_jb;
 
 
 
-#ifdef __STDC__
 void PASCAL_MAIN(int argc, char **argv)
-#else
-void PASCAL_MAIN(argc, argv)
-int argc;
-char **argv;
-#endif
-
 {
   if (svnid == NULL) fprintf(stderr," ");
     P_argc = argc;
@@ -66,12 +59,7 @@ char **argv;
 
 /* In case your system lacks these... */
 
-#ifdef __STDC__
 long my_labs(long x)
-#else
-long my_labs(x)
-long x;
-#endif
 {
     return((x > 0) ? x : -x);
 }
@@ -79,13 +67,7 @@ long x;
 
 /* #define __STDC__  */ /* PHREEQ98 */
 
-#ifdef __STDC__
 Anyptr my_memmove(Anyptr d, Const Anyptr s, size_t n)
-#else
-Anyptr my_memmove(d, s, n)
-Anyptr d, s;
-register int n;
-#endif
 {
     register char *dd = (char *)d, *ss = (char *)s;
     if (dd < ss || dd - ss >= n) {
@@ -100,13 +82,7 @@ register int n;
 }
 
 
-#ifdef __STDC__
 Anyptr my_memcpy(Anyptr d, Const Anyptr s, size_t n)
-#else
-Anyptr my_memcpy(d, s, n)
-Anyptr d, s;
-register int n;
-#endif
 
 {
     register char *ss = (char *)s, *dd = (char *)d;
@@ -115,13 +91,7 @@ register int n;
     return d;
 }
 
-#ifdef __STDC__
 int my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
-#else
-int my_memcmp(s1, s2, n)
-Anyptr s1, s2;
-register int n;
-#endif
 {
     register char *a = (char *)s1, *b = (char *)s2;
     register int i;
@@ -131,14 +101,7 @@ register int n;
     return 0;
 }
 
-#ifdef __STDC__
 Anyptr my_memset(Anyptr d, int c, size_t n)
-#else
-Anyptr my_memset(d, c, n)
-Anyptr d;
-register int c;
-register int n;
-#endif
 {
     register char *dd = (char *)d;
     while (n-- > 0)
@@ -146,12 +109,7 @@ register int n;
     return d;
 }
 
-#ifdef __STDC__
 int my_toupper(int c)
-#else
-int my_toupper(c)
-int c;
-#endif
 {
     if (islower(c))
 	return _toupper(c);
@@ -160,12 +118,7 @@ int c;
 }
 
 
-#ifdef __STDC__
 int my_tolower(int c)
-#else
-int my_tolower(c)
-int c;
-#endif
 
 {
     if (isupper(c))
@@ -177,12 +130,7 @@ int c;
 
 
 
-#ifdef __STDC__
 long ipow(long a, long b)
-#else
-long ipow(a, b)
-long a, b;
-#endif
 {
     long v;
 
@@ -210,13 +158,7 @@ long a, b;
 
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
-#ifdef __STDC__
 char *strsub(register char *ret, register char *s, register int pos, register int len)
-#else
-char *strsub(ret, s, pos, len)
-register char *ret, *s;
-register int pos, len;
-#endif
 {
     register char *s2;
 
@@ -244,14 +186,7 @@ register int pos, len;
 /* Return the index of the first occurrence of "pat" as a substring of "s",
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
-#ifdef __STDC__
 int strpos2(char *s, register char *pat, register int pos)
-#else
-int strpos2(s, pat, pos)
-char *s;
-register char *pat;
-register int pos;
-#endif
 {
     register char *cp, ch;
     register int slen;
@@ -273,12 +208,7 @@ register int pos;
 
 
 /* Case-insensitive version of strcmp. */
-#ifdef __STDC__
 int strcicmp(register char *s1, register char *s2)
-#else
-int strcicmp(s1, s2)
-register char *s1, *s2;
-#endif
 {
     register unsigned char c1, c2;
 
@@ -303,12 +233,7 @@ register char *s1, *s2;
 /* HP and Turbo Pascal string functions: */
 
 /* Trim blanks at left end of string. */
-#ifdef __STDC__
 char *strltrim(register char *s)
-#else
-char *strltrim(s)
-register char *s;
-#endif
 {
     while (Isspace((int) *s++)) ;
     return s - 1;
@@ -316,12 +241,7 @@ register char *s;
 
 
 /* Trim blanks at right end of string. */
-#ifdef __STDC__
 char *strrtrim(register char *s)
-#else
-char *strrtrim(s)
-register char *s;
-#endif
 {
     register char *s2 = s;
 
@@ -380,13 +300,7 @@ register int padchar, num;
 /* Copy the substring of length "len" from index "spos" of "s" (1-based)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
-#ifdef __STDC__
 void strmove(register int len, register char *s, register int spos, register char *d, register int dpos)
-#else
-void strmove(len, s, spos, d, dpos)
-register char *s, *d;
-register int len, spos, dpos;
-#endif
 {
     s += spos - 1;
     d += dpos - 1;
@@ -424,13 +338,7 @@ register int pos, len;
 #endif
 
 /* Insert string "src" at index "pos" of "dst". */
-#ifdef __STDC__
 void strinsert(register char *src, register char *dst, register int pos)
-#else
-void strinsert(src, dst, pos)
-register char *src, *dst;
-register int pos;
-#endif
 {
     register int slen, dlen;
 
@@ -459,12 +367,7 @@ register int pos;
 /* File functions */
 
 /* Peek at next character of input stream; return EOF at end-of-file. */
-#ifdef __STDC__
 int P_peek(FILE *f)
-#else
-int P_peek(f)
-FILE *f;
-#endif
 {
     int ch;
 
@@ -479,12 +382,7 @@ FILE *f;
 /* Check if at end of file, using Pascal "eof" semantics.  End-of-file for
    stdin is broken; remove the special case for it to be broken in a
    different way. */
-#ifdef __STDC__
 int P_eof(FILE *f)
-#else
-int P_eof(f)
-FILE *f;
-#endif
 {
     register int ch;
 
@@ -501,12 +399,7 @@ FILE *f;
 
 
 /* Check if at end of line (or end of entire file). */
-#ifdef __STDC__
 int P_eoln(FILE *f)
-#else
-int P_eoln(f)
-FILE *f;
-#endif
 {
     register int ch;
 
@@ -519,14 +412,7 @@ FILE *f;
 
 
 /* Read a packed array of characters from a file. */
-#ifdef __STDC__
 Void P_readpaoc(FILE *f, char *s, int len)
-#else
-Void P_readpaoc(f, s, len)
-FILE *f;
-char *s;
-int len;
-#endif
 {
     int ch;
 
@@ -544,14 +430,7 @@ int len;
     if (ch != EOF)
 	ungetc(ch, f);
 }
-#ifdef __STDC__
 Void P_readlnpaoc(FILE *f, char *s, int len)
-#else
-Void P_readlnpaoc(f, s, len)
-FILE *f;
-char *s;
-int len;
-#endif
 {
     int ch;
 
@@ -570,12 +449,7 @@ int len;
 
 
 /* Compute maximum legal "seek" index in file (0-based). */
-#ifdef __STDC__
 long P_maxpos(FILE *f)
-#else
-long P_maxpos(f)
-FILE *f;
-#endif
 {
     long savepos = ftell(f);
     long val;
@@ -590,13 +464,7 @@ FILE *f;
 
 
 /* Use packed array of char for a file name. */
-#ifdef __STDC__
 Char *P_trimname(register Char *fn, register int len)
-#else
-Char *P_trimname(fn, len)
-register Char *fn;
-register int len;
-#endif
 {
     static Char fnbuf[256];
     register Char *cp = fnbuf;
@@ -634,12 +502,7 @@ long maxavail(void)
    the lowest five bits of the first long are unused and always zero.) */
 
 /* (Sets with 32 or fewer elements are normally stored as plain longs.) */
-#ifdef __STDC__
 long *P_setunion(register long *d, register long *s1, register long *s2)         /* d := s1 + s2 */
-#else
-long *P_setunion(d, s1, s2)         /* d := s1 + s2 */
-register long *d, *s1, *s2;
-#endif
 {
     long *dbase = d++;
     register int sz1 = *s1++, sz2 = *s2++;
@@ -655,12 +518,7 @@ register long *d, *s1, *s2;
     return dbase;
 }
 
-#ifdef __STDC__
 long *P_setint(register long *d, register long *s1, register long *s2)           /* d := s1 * s2 */
-#else
-long *P_setint(d, s1, s2)           /* d := s1 * s2 */
-register long *d, *s1, *s2;
-#endif
 {
     long *dbase = d++;
     register int sz1 = *s1++, sz2 = *s2++;
@@ -671,12 +529,7 @@ register long *d, *s1, *s2;
     return dbase;
 }
 
-#ifdef __STDC__
 long *P_setdiff(register long *d, register long *s1, register long *s2)          /* d := s1 - s2 */
-#else
-long *P_setdiff(d, s1, s2)          /* d := s1 - s2 */
-register long *d, *s1, *s2;
-#endif
 {
     long *dbase = d++;
     register int sz1 = *s1++, sz2 = *s2++;
@@ -691,12 +544,7 @@ register long *d, *s1, *s2;
     return dbase;
 }
 
-#ifdef __STDC__
 long *P_setxor(register long *d, register long *s1, register long *s2)         /* d := s1 / s2 */
-#else
-long *P_setxor(d, s1, s2)         /* d := s1 / s2 */
-register long *d, *s1, *s2;
-#endif
 {
     long *dbase = d++;
     register int sz1 = *s1++, sz2 = *s2++;
@@ -713,13 +561,7 @@ register long *d, *s1, *s2;
     return dbase;
 }
 
-#ifdef __STDC__
 int P_inset(register unsigned val, register long *s)                 /* val IN s */
-#else
-int P_inset(val, s)                 /* val IN s */
-register unsigned val;
-register long *s;
-#endif
 {
     register int bit;
     bit = val % SETBITS;
@@ -729,13 +571,7 @@ register long *s;
     return 0;
 }
 
-#ifdef __STDC__
 long *P_addset(register long *s, register unsigned val)              /* s := s + [val] */
-#else
-long *P_addset(s, val)              /* s := s + [val] */
-register long *s;
-register unsigned val;
-#endif
 {
     register long *sbase = s;
     register int bit, size;
@@ -753,13 +589,7 @@ register unsigned val;
     return sbase;
 }
 
-#ifdef __STDC__
 long *P_addsetr(register long *s, register unsigned v1, register unsigned v2)              /* s := s + [v1..v2] */
-#else
-long *P_addsetr(s, v1, v2)              /* s := s + [v1..v2] */
-register long *s;
-register unsigned v1, v2;
-#endif
 {
     register long *sbase = s;
     register int b1, b2, size;
@@ -789,13 +619,7 @@ register unsigned v1, v2;
     return sbase;
 }
 
-#ifdef __STDC__
 long *P_remset(register long *s, register unsigned val)              /* s := s - [val] */
-#else
-long *P_remset(s, val)              /* s := s - [val] */
-register long *s;
-register unsigned val;
-#endif
 {
     register int bit;
     bit = val % SETBITS;
@@ -808,12 +632,7 @@ register unsigned val;
     return s;
 }
 
-#ifdef __STDC__
 int P_setequal(register long *s1, register long *s2)              /* s1 = s2 */
-#else
-int P_setequal(s1, s2)              /* s1 = s2 */
-register long *s1, *s2;
-#endif
 {
     register int size = *s1++;
     if (*s2++ != size)
@@ -825,12 +644,7 @@ register long *s1, *s2;
     return 1;
 }
 
-#ifdef __STDC__
 int P_subset(register long *s1, register long *s2)                /* s1 <= s2 */
-#else
-int P_subset(s1, s2)                /* s1 <= s2 */
-register long *s1, *s2;
-#endif
 {
     register int sz1 = *s1++, sz2 = *s2++;
     if (sz1 > sz2)
@@ -842,12 +656,7 @@ register long *s1, *s2;
     return 1;
 }
 
-#ifdef __STDC__
 long *P_setcpy(register long *d, register long *s)                /* d := s */
-#else
-long *P_setcpy(d, s)                /* d := s */
-register long *d, *s;
-#endif
 {
     register long *save_d = d;
 
@@ -864,13 +673,7 @@ register long *d, *s;
 
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
-#ifdef __STDC__
 long *P_expset(register long *d, register long s)                /* d := s */
-#else
-long *P_expset(d, s)                /* d := s */
-register long *d;
-register long s;
-#endif
 {
     if (s) {
 	d[1] = s;
@@ -880,12 +683,7 @@ register long s;
     return d;
 }
 
-#ifdef __STDC__
 long P_packset(register long *s)                   /* convert s to a small-set */
-#else
-long P_packset(s)                   /* convert s to a small-set */
-register long *s;
-#endif
 {
     if (*s++)
         return *s;
@@ -898,13 +696,7 @@ register long *s;
 
 
 /* Oregon Software Pascal extensions, courtesy of William Bader */
-#ifdef __STDC__
 int P_getcmdline(int l, int h, Char *line)
-#else
-int P_getcmdline(l, h, line)
-int l, h;
-Char *line;
-#endif
 {
     int i, len;
     char *s;
@@ -979,13 +771,7 @@ char *s;
 
 
 /* SUN Berkeley Pascal extensions */
-#ifdef __STDC__
 Void P_sun_argv(register char *s, register int len, register int n)
-#else
-Void P_sun_argv(s, len, n)
-register char *s;
-register int len, n;
-#endif
 {
     register char *cp;
 
@@ -1112,12 +898,7 @@ static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
     return buf;
 }
 
-#ifdef __STDC__
 int _Escape(int code)
-#else
-int _Escape(code)
-int code;
-#endif
 {
     char buf[100];
     char token[200];
@@ -1144,12 +925,7 @@ int code;
     error_msg(token, STOP);
     return(1);
 }
-#ifdef __STDC__
 int _EscIO(int code)
-#else
-int _EscIO(code)
-int code;
-#endif
 {
     P_ioresult = code;
     return _Escape(-10);

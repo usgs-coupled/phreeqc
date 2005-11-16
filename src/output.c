@@ -115,6 +115,7 @@ int output_fflush(const int type, ...)
 	int check;
 	va_list args;
 
+	check = OK;
 	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
 		check = (output_callbacks[i].callback)(ACTION_FLUSH, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
@@ -132,6 +133,7 @@ int output_rewind(const int type, ...)
 	int check;
 	va_list args;
 
+	check = OK;
 	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
 		check = (output_callbacks[i].callback)(ACTION_REWIND, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
@@ -149,6 +151,7 @@ int output_close(const int type, ...)
 	int check;
 	va_list args;
 
+	check = OK;
 	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i) {
 		check = (output_callbacks[i].callback)(ACTION_CLOSE, type, NULL, CONTINUE, output_callbacks[i].cookie, NULL, args);
@@ -167,6 +170,7 @@ int output_open(const int type, const char *file_name, ...)
 	va_list args;
 	assert(file_name && strlen(file_name));
 
+	check = OK;
 	va_start(args, file_name);
 	for (i = 0; i < count_output_callback; ++i) {
 		check = (output_callbacks[i].callback)(ACTION_OPEN, type, file_name, CONTINUE, output_callbacks[i].cookie, NULL, args);
