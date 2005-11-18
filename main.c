@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
 	void *input_cookie = NULL;
 	if (svnid == NULL) fprintf(stderr," ");
 	phast = FALSE;
-
 /*
  *   Add callbacks for error_msg and warning_msg
  */
