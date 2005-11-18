@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
 	}
 #ifdef DOS
 	write_banner(); 
-	return 0;
 #endif
 
 /*
