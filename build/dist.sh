@@ -173,8 +173,9 @@ do
    -e "/#define *PHREEQC_VER_NUMTAG/s/\".*\"/\"$VER_NUMTAG\"/" \
    -e "/#define *PHREEQC_VER_REVISION/s/[0-9]\+/$REVISION_SVN/" \
    -e "s/@RELEASE_DATE@/$RELEASE_DATE/g" \
+   -e "s/@VER_DATE@/$RELEASE_DATE/g" \
    -e "s/@VER@/$VER/g" \
-   -e "s/@VV@/$VER/g" \
+   -e "s/@VERSION@/$VER/g" \
    -e "s/@V_FIXDATE@/$V_FIXDATE/g" \
    -e "s/@VER_UC@/$VER_UC/g" \
    -e "s/@REL@/$REL/g" \

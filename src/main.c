@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 	void *input_cookie = NULL;
 	if (svnid == NULL) fprintf(stderr," ");
 	phast = FALSE;
+
 /*
  *   Add callbacks for error_msg and warning_msg
  */
@@ -43,6 +44,7 @@ int main(int argc, char *argv[])
 	}
 #ifdef DOS
 	write_banner(); 
+	return 0;
 #endif
 
 /*
@@ -91,17 +93,30 @@ int main(int argc, char *argv[])
 int write_banner(void)
 /* ---------------------------------------------------------------------- */
 {
-output_msg(OUTPUT_SCREEN, "              €ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ€\n");
-output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫              * PHREEQC-@VV@ *              ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫      A hydrogeochemical transport model    ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫                    by                      ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫       D.L. Parkhurst and C.A.J. Appelo     ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
-output_msg(OUTPUT_SCREEN, "              ∫                 @V_FIXDATE@                ∫\n");
-output_msg(OUTPUT_SCREEN, "              €‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹€\n\n");
+	char buffer[80];
+	int len, indent;
+	output_msg(OUTPUT_SCREEN, "              €ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ€\n");
+	output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
+
+	/* version */
+	len = sprintf(buffer, "* PHREEQC-%s *", "@VERSION@");
+	indent = (44 - len) / 2;
+	output_msg(OUTPUT_SCREEN, "%14c∫%*c%s%*c∫\n", ' ', indent, ' ', buffer, 44 - indent - len, ' ');
+
+	output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
+	output_msg(OUTPUT_SCREEN, "              ∫      A hydrogeochemical transport model    ∫\n");
+	output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
+	output_msg(OUTPUT_SCREEN, "              ∫                    by                      ∫\n");
+	output_msg(OUTPUT_SCREEN, "              ∫       D.L. Parkhurst and C.A.J. Appelo     ∫\n");
+	output_msg(OUTPUT_SCREEN, "              ∫                                            ∫\n");
+
+
+	/* date */
+	len = sprintf(buffer, "%s", "@VER_DATE@");
+	indent = (44 - len) / 2;
+	output_msg(OUTPUT_SCREEN, "%14c∫%*c%s%*c∫\n", ' ', indent, ' ', buffer, 44 - indent - len, ' ');
+
+	output_msg(OUTPUT_SCREEN, "              €‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹€\n\n");
 
 return 0;
 }
