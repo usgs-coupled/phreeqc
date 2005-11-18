@@ -116,10 +116,8 @@ FILES=  \
 	test/check.sh 
 
 SED_ARGS= \
-	-e "s/VERSION/$(VERSION)/" \
-	-e "s/VER_DATE/$(VER_LONG_DATE)/" \
-	-e "s/@VV@/$(VERSION)/" \
-	-e "s/@V_FIXDATE@/$(V_FIXDATE)/" \
+	-e "s/@VERSION@/$(VERSION)/" \
+	-e "s/@VER_DATE@/$(VER_LONG_DATE)/" \
 	-e "s/VERSION_DATE/$(VERSION)/" \
 	-e "s^@GCC_VER@^$(GCC_VER)^" \
 	-e "s^@KERNEL_VER@^$(KERNEL_VER)^" \
