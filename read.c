@@ -71,6 +71,7 @@ extern int check_line(const char *string, int allow_empty, int allow_eof, int al
 
 #ifdef PHREEQ98
 extern int copy_title(char *token_ptr, char **ptr, int *length);
+extern int OpenCSVFile(char file_name[MAX_LENGTH]);
 void GridHeadings(char* s, int i);
 void SetAxisTitles(char* s, int i);
 void SetAxisScale(char* a, int c, char* v, int l);
@@ -6683,6 +6684,7 @@ int read_user_graph (void)
  */
 	int l, length, line_length;
 	int return_value, opt, opt_save;
+  	char file_name[MAX_LENGTH];
 	char token[MAX_LENGTH];
 	char *next_char;
 	const char *opt_list[] = {
@@ -6697,10 +6699,11 @@ int read_user_graph (void)
         "plot_concentration_vs",/* 8 */
         "shifts_as_points",     /* 9 */
         "grid_offset",          /* 10 */
-        "connect_simulations"   /* 11 */
+        "connect_simulations",  /* 11 */
+        "plot_csv_file"         /* 12 */
 
 	};
-	int count_opt_list = 12;
+	int count_opt_list = 13;
     int i;
 
 	opt_save = OPTION_DEFAULT;
@@ -6813,6 +6816,15 @@ int read_user_graph (void)
             break;
             case 11:
             connect_simulations = get_true_false(next_char, TRUE);
+            break;
+            case 12:
+            string_trim(next_char);
+			strcpy(file_name, next_char);
+			if (!OpenCSVFile(file_name)) {
+				sprintf(error_string, "Can't open file, %s.", file_name);
+				input_error++;
+				error_msg(error_string, CONTINUE);
+			}
             break;
 	    /* End of modifications */
 		    case OPTION_DEFAULT:           /* read first command */

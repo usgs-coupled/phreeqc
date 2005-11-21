@@ -150,6 +150,12 @@ int copy_token (char *token_ptr, char **ptr, int *length)
 	}
 	token_ptr[i]='\0';
 	*length=i;
+#ifdef PHREEQ98
+        if ((return_value == DIGIT) && (strstr(token_ptr, ",") != NULL)) {
+		sprintf(error_string, "Commas are not allowed as decimal separator: %s.", token_ptr);
+		error_msg(error_string, CONTINUE);
+        }
+#endif
 	return(return_value);
 }
 #ifdef PHREEQ98
