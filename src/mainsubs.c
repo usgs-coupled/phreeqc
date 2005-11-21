@@ -22,6 +22,7 @@ static int xsurface_save(int n_user);
 
 #ifdef PHREEQ98
 extern int phreeq98_debug;
+extern int AddSeries, connect_simulations;
 #endif
 /* ---------------------------------------------------------------------- */
 void initialize(void)
@@ -2311,6 +2312,9 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
  */
 	for (simulation = 1; ; simulation++) {
 
+#ifdef PHREEQ98
+   		AddSeries = !connect_simulations;
+#endif
 		sprintf(token, "Reading input data for simulation %d.", simulation);
 
 		output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
