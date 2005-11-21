@@ -406,6 +406,7 @@ int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new);
 struct solution *solution_replicate(struct solution *solution_old_ptr, int n_user_new);
 int solution_sort(void);
 
+int species_list_compare_alk (const void *ptr1, const void *ptr2);
 int species_list_compare_master (const void *ptr1, const void *ptr2);
 int species_list_sort(void);
 

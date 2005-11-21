@@ -2,6 +2,15 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
+	svn 675:
+	Added PRINT option to print the species that contribute
+	to alkalinity. Alkalinity distribution is printed in
+	the output file following the distribution of species.
+	Default at program startup is false.
+
+	PRINT
+		-alkalinity true
+
 ------------------------------------------------------------
 Version 2.12:
 ------------------------------------------------------------
@@ -552,6 +561,15 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 675:
+	Added PRINT option to print the species that contribute
+	to alkalinity. Alkalinity distribution is printed in
+	the output file following the distribution of species.
+	Default at program startup is false.
+
+	PRINT
+		-alkalinity true
+	
 	svn 655:
 	IAP and log K printed in Phase assemblage data 
 	block were calculated from reactions rewritten to

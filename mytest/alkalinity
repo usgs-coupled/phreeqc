@@ -1,4 +1,6 @@
 DATABASE ../database/phreeqc.dat
+PRINT
+	-alkalinity
 SOLUTION 1 Fixed Carbon, Fixed Na, Fixed pH
 	temp 	25.
 	units 	mmol/kgw
@@ -17,6 +19,8 @@ SOLUTION 2 Fixed Carbon, Fixed Na, Adj. pH
 	N	1.0
 	H(0)	0.001
 END
+PRINT
+	-censor		1e-5
 SOLUTION 3 Fixed Carbon, Adj. Na, Fixed pH
 	temp 	25.
 	units 	mmol/kgw

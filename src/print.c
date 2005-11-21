@@ -8,6 +8,7 @@
 
 static char const svnid[] = "$Id$";
 
+static int print_alkalinity(void);
 static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
 static int print_eh(void);
 static int print_irrev(void);
@@ -112,6 +113,7 @@ int print_all(void)
         print_totals();
         print_eh();
         print_species();
+        print_alkalinity();
         print_saturation_indices();
         return(OK);
 }
@@ -2204,3 +2206,49 @@ char *sformatf(const char* format, ...)
 #endif
 }
 
+/* ---------------------------------------------------------------------- */
+int print_alkalinity(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Prints description of solution, uses array species_list for
+ *   order of aqueous species.
+ */
+        int i, j;
+	struct species_list *alk_list;
+	int count_alk_list;
+	double min;
+
+        if (pr.alkalinity == FALSE || pr.all == FALSE) return(OK);
+        print_centered("Distribution of alkalinity");
+	alk_list = PHRQ_malloc((size_t) (count_s_x *sizeof(struct species_list)));
+	if (alk_list == NULL) malloc_error();
+	j = 0;
+	for (i = 0; i < count_s_x; i++) {
+		if (s_x[i]->alk == 0.0) continue;
+		alk_list[j].master_s = s_hplus;
+		alk_list[j].s = s_x[i];
+		alk_list[j].coef = s_x[i]->alk;
+		j++;
+	}
+	count_alk_list = j;
+	min = fabs(censor*total_alkalinity/mass_water_aq_x);
+	if (count_alk_list > 0) {
+                output_msg(OUTPUT_MESSAGE,"\t%26s%11.3e\n\n","Total alkalinity (eq/kgw)  = ", (double) (total_alkalinity/mass_water_aq_x));
+		output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s\n\n","Species","Alkalinity","Molality", "Alk/Mol");
+		qsort (&alk_list[0], (size_t) count_alk_list,
+		       (size_t) sizeof(struct species_list), species_list_compare_alk);
+		for (i = 0; i < count_alk_list; i++) {
+			if (fabs(alk_list[i].s->alk*(alk_list[i].s->moles)/mass_water_aq_x) < min) continue;
+			output_msg(OUTPUT_MESSAGE,"\t%-15s%12.3e%12.3e%10.2f\n",
+				   alk_list[i].s->name,
+				   (double) (alk_list[i].s->alk*(alk_list[i].s->moles)/mass_water_aq_x),
+				   (double) ((alk_list[i].s->moles)/mass_water_aq_x),
+				   (double) (alk_list[i].s->alk));
+		}
+	}
+
+        output_msg(OUTPUT_MESSAGE,"\n");
+	alk_list = free_check_null(alk_list);
+        return(OK);
+}
