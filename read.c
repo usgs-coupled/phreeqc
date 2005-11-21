@@ -5941,10 +5941,11 @@ int read_print (void)
 		"initial_isotopes",       /* 34 */
 		"isotope_ratios",         /* 35 */
 		"isotope_alphas",         /* 36 */
-		"censor_species"          /* 37 */
+		"censor_species",         /* 37 */
+		"alkalinity"              /* 38 */
 	};
 
-  	int count_opt_list = 38;
+  	int count_opt_list = 39;
 	int value;
 /*
  *   Read flags:
@@ -6075,12 +6076,15 @@ int read_print (void)
 		    case 36:                       /* isotope_alphas */
 			pr.isotope_alphas = get_true_false(next_char, TRUE);
 			break;
-		    case 37:                       /* isotope_alphas */
+		    case 37:                       /* censor_species */
 			if (copy_token(token, &next_char, &l) != EMPTY) {
 			  sscanf(token,SCANFORMAT, &censor);
 			} else {
 			  censor = 0;
 			}
+			break;
+		    case 38:                       /* alkalinity */
+			pr.alkalinity = get_true_false(next_char, TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;

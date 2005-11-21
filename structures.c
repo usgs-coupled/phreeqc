@@ -4585,6 +4585,29 @@ static int species_list_compare (const void *ptr1, const void *ptr2)
 	}
 }
 /* ---------------------------------------------------------------------- */
+int species_list_compare_alk (const void *ptr1, const void *ptr2)
+/* ---------------------------------------------------------------------- */
+{
+	const struct species_list *nptr1, *nptr2;
+	double alk1, alk2;
+
+	nptr1= (const struct species_list *) ptr1;
+	nptr2= (const struct species_list *) ptr2;
+/*
+ *   Else, descending order by log molality
+ */
+	alk1 = fabs(under(nptr1->s->lm)*nptr1->s->alk);
+	alk2 = fabs(under(nptr2->s->lm)*nptr2->s->alk);
+
+	if ( alk1 > alk2) {
+		return (-1);
+	} else if ( alk1 < alk2) {
+		return (1);
+	} else {
+		return (0);
+	}
+}
+/* ---------------------------------------------------------------------- */
 int species_list_compare_master (const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {

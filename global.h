@@ -1349,6 +1349,7 @@ struct prints {
         int isotope_ratios;
 	int isotope_alphas;
         int hdf;
+        int alkalinity;
 };
 EXTERNAL struct prints pr;
 EXTERNAL int status_on;

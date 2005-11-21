@@ -459,6 +459,7 @@ void initialize(void)
 	pr.isotope_ratios = TRUE;
 	pr.isotope_alphas = TRUE;
 	pr.hdf = FALSE;
+	pr.alkalinity = FALSE;
 
 	species_list = NULL;
 
