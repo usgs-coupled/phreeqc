@@ -121,7 +121,7 @@ SED_ARGS= \
 	-e "s/VERSION_DATE/$(VERSION)/" \
 	-e "s^@GCC_VER@^$(GCC_VER)^" \
 	-e "s^@KERNEL_VER@^$(KERNEL_VER)^" \
-	-e "s/REVISION/$(REVISION)/"
+	-e "s/@REVISION@/$(REVISION)/"
 
 remake_output_files: clean_linux_output_files linux_output_files # clean_sun_output_files sun_output_files
 

@@ -45,9 +45,9 @@ A. DISTRIBUTION FILES
 The following distribution packages (containing the software, test data sets,
 and information files) are currently available for UNIX systems:
 
-  phreeqc-@VERSION@-REVISION.Linux.tar.gz  - Compiled with @GCC_VER@
+  phreeqc-@VERSION@-@REVISION@.Linux.tar.gz  - Compiled with @GCC_VER@
                                            kernel @KERNEL_VER@
-  phreeqc-@VERSION@-REVISION.source.tar.gz - Source code but no executable
+  phreeqc-@VERSION@-@REVISION@.source.tar.gz - Source code but no executable
 
 
 B. DOCUMENTATION
@@ -78,7 +78,7 @@ C. EXTRACTING FILES
 Compressed tar files are used to distribute the source code and
 versions of the software compiled for selected UNIX operating systems.
 All of the PHREEQC files needed to install and test the program are
-contained in the file phreeqc-@VERSION@.REVISION-OS.tar.gz (where OS is a
+contained in the file phreeqc-@VERSION@.@REVISION@-OS.tar.gz (where OS is a
 string indicating the intended operating system.)  If there is not a
 tar file for your operating system or you want to compile the
 software, the source version of the tar file contains all of the
@@ -93,9 +93,9 @@ file.
 
   Steps in extracting files                 explanation
   ----------------------------------------  -----------------------------------
-  gunzip phreeqc-@VERSION@-REVISION.OS.tar.gz       Uncompress the distribution file.
+  gunzip phreeqc-@VERSION@-@REVISION@.OS.tar.gz       Uncompress the distribution file.
 
-  tar -xvpof phreeqc-@VERSION@-REVISION.OS.tar      Extract files from the tar file.
+  tar -xvpof phreeqc-@VERSION@-@REVISION@.OS.tar      Extract files from the tar file.
 
 The following directory structure is created (the contents of each
 directory are shown to the right):
@@ -145,7 +145,7 @@ To generate a new executable, do the following:
         CC             C compiler name
         CCFLAGS        C compiler flags
         LOADFLAGS      linker flags
-	INVERSE_CL1MP  remove definition if gmp package 
+        INVERSE_CL1MP  remove definition if gmp package 
                        is not available on your system
 
 3.  Run make in the src directory to compile the source:
@@ -267,7 +267,7 @@ To clean up after the tests, type the command:
 
      ./clean.sh
 
-Notes: The output data files for phreeqc-@VERSION@.REVISION.source.tar.gz
+Notes: The output data files for phreeqc-@VERSION@.@REVISION@.source.tar.gz
        were created on a Linux system. You may notice slight numeric differences 
        in the results. These are generally due to different round-off algorithms
        and the different architecture of the central processing unit chip.

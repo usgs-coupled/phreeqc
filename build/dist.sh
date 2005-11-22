@@ -160,6 +160,9 @@ fi
 
 SED_FILES="$DISTPATH/build/phreeqc_version.h \
            $DISTPATH/src/main.c \
+           $DISTPATH/src/revisions \
+           $DISTPATH/win/README.TXT \
+           $DISTPATH/doc/README.TXT \
            $DISTPATH/packages/win32-is/phreeqc.ipr \
            $DISTPATH/packages/win32-is/STRING~1/0009-English/value.shl"
 
@@ -178,6 +181,7 @@ do
    -e "s/@VERSION@/$VER/g" \
    -e "s/@V_FIXDATE@/$V_FIXDATE/g" \
    -e "s/@VER_UC@/$VER_UC/g" \
+   -e "s/@REVISION@/$REL/g" \
    -e "s/@REL@/$REL/g" \
     < "$vsn_file" > "$vsn_file.tmp"
   unix2dos "$vsn_file.tmp" 2> /dev/null

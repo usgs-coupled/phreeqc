@@ -144,6 +144,9 @@ export test_rule=test
 if [ -z "$SIG" ]; then
   export SIG=0	# set to 1 to turn on signing by default
 fi
+if [ -z "$SKIP_TEST" ]; then
+  export SKIP_TEST=0	# set to 1 to skip running examples by default
+fi
 
 # helper function
 # unpacks the original package source archive into ./${BASEPKG}/
@@ -173,7 +176,18 @@ conf() {
   (cd ${objdir} && \
   CFLAGS="${MY_CFLAGS}" LDFLAGS="${MY_LDFLAGS}" \
 # copy links to ${objdir} for building
-  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; )
+  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; && \
+# copy links to ${objdir}/src/phreeqc_export for distribution
+# this is the equivalent of make win_export
+  mkdir -p ${objdir}/src/phreeqc_export/Win && \
+  cd ${objdir}/src/phreeqc_export/Win && \
+  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; && \
+# rearrange files for windows distribution
+# this is the equivalent of make win_sed_files except that the text
+# replacemnts were already made by dist.sh
+  cp -al ${objdir}/src/phreeqc_export/Win/src/revisions ${objdir}/src/phreeqc_export/Win/doc/RELEASE.TXT && \
+  rm -f ${objdir}/src/phreeqc_export/Win/doc/README.TXT && \
+  cp -al ${objdir}/src/phreeqc_export/Win/win/README.TXT ${objdir}/src/phreeqc_export/Win/doc/README.TXT )
 }
 reconf() {
   (cd ${topdir} && \
@@ -194,15 +208,7 @@ clean() {
   make clean )
 }
 install() {
-  (mkdir -p ${objdir}/src/phreeqc_export && \
-  cd ${objdir}/src/phreeqc_export && \
-  rm -rf *.Windows.tar.gz Win && \
-  unpack ${src_orig_pkg} && \
-  cd ${objdir}/src/phreeqc_export && \
-  mv phreeqc* Win && \
-  cd ${objdir}/src && \
-  make win_sed_files REVISION="${REL}" TEXTCP="cp" && \
-  cd ${objdir}/src && \
+  (cd ${objdir}/src && \
   make win_dist REVISION="${REL}" TEXTCP="cp" && \
   mkdir -p ${instdir}/${PKG}-${VER} && \
   cd ${instdir}/${PKG}-${VER} && \
@@ -212,10 +218,12 @@ install() {
   mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir}/${PKG}-${VER} && \
   mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
   cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
-  cd ${instdir}/${PKG}-${VER}/test && \
-  cmd /c test.bat && \
-  mv *.out *.sel ../examples/. && \
-  cmd /c clean.bat && \
+  if [ "${SKIP_TEST}" -eq 0 ] ; then \
+    cd ${instdir}/${PKG}-${VER}/test && \
+    cmd /c test.bat && \
+    mv *.out *.sel ../examples/. && \
+    cmd /c clean.bat; \
+  fi && \
 # InstallShield compile
   "${IS_COMPILER}" "${IS_RULFILES}" -I"${IS_INCLUDEIFX}" -I"${IS_INCLUDEISRT}" \
     -I"${IS_INCLUDESCRIPT}" "${IS_LINKPATH1}" "${IS_LINKPATH2}" ${IS_LIBRARIES} \
