@@ -1792,6 +1792,14 @@ int free_cvode(void)
 	kinetics_cvode_mem = NULL;
 	if (kinetics_machEnv != NULL) M_EnvFree_Serial(kinetics_machEnv); /* Free the machine environment memory */
 	kinetics_machEnv = NULL;
+	if (cvode_pp_assemblage_save != NULL) {
+		pp_assemblage_free(cvode_pp_assemblage_save);
+		cvode_pp_assemblage_save = free_check_null(cvode_pp_assemblage_save);
+	}
+	if (cvode_s_s_assemblage_save != NULL) {
+		s_s_assemblage_free(cvode_s_s_assemblage_save);
+		cvode_s_s_assemblage_save = free_check_null(cvode_s_s_assemblage_save);
+	}
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2236,5 +2244,27 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 		kinetics_ptr->comps[i].moles = 0;
 	}
 	initial_rates = free_check_null(initial_rates);
+	return;
+}
+
+void cvode_init(void)
+{
+	cvode_kinetics_ptr = NULL;
+	cvode_test = 0;
+	cvode_error = 0;
+	cvode_n_user = -99;
+	cvode_n_reactions = -99;
+	cvode_step_fraction = 0.0;
+	cvode_rate_sim_time = 0.0;
+	cvode_rate_sim_time_start = 0.0;
+	cvode_last_good_time = 0.0;
+	cvode_prev_good_time = 0.0;
+	cvode_last_good_y = NULL;
+	cvode_prev_good_y = NULL;
+	kinetics_machEnv = NULL;
+	kinetics_y = kinetics_abstol = NULL;
+	kinetics_cvode_mem = NULL;
+	cvode_pp_assemblage_save = NULL;
+	cvode_s_s_assemblage_save = NULL;
 	return;
 }
