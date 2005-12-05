@@ -107,6 +107,7 @@ int read_isotope_alphas (void);
 
 /* kinetics.c */
 
+void cvode_init(void);
 int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction);
 int set_and_run(int i, int use_mix, int use_kinetics, int nsaver, LDBLE step_fraction);
 int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE step_fraction);

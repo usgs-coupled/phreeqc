@@ -518,6 +518,10 @@ void initialize(void)
 	set_forward_output_to_log(FALSE);
 	simulation = 0;
 	/*
+	 *  cvode
+	 */
+	cvode_init();
+	/*
 	 *  Pitzer
 	 */
 	pitzer_init();
