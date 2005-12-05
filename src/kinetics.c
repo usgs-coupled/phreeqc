@@ -255,7 +255,6 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 	struct surface *surface_save = NULL;
 #endif
 
-	char str[MAX_LENGTH];	
  	static LDBLE	b31 = 3./40., b32 = 9./40.,
  			b51 = -11./54., b53 = -70./27., b54 = 35./27.,
  			b61 = 1631./55296., b62 = 175./512., b63 = 575./13824., b64 = 44275./110592., b65 = 253./4096.,
