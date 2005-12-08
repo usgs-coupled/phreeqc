@@ -155,12 +155,12 @@ Version 2.9:
         The function has two forms: (1) one element name as an
         argument (variable names are user specified)
 
-        10 tot = SYS("As")
+        10 t = SYS("As")
 
         the function will return the total arsenic in the system.
         (2) 5 argumens
 
-        10 tot = SYS("As", count_species, names$, types$, moles)
+        10 t = SYS("As", count_species, names$, types$, moles)
 
         will return the total arsenic in the system to tot; count_species--
         the number of species that contain arsenic, including
@@ -828,12 +828,12 @@ Version 2.9 Date: Wed September 15, 2004
         The function has two forms: (1) one element name as an
         argument (variable names are user specified)
 
-        10 tot = SYS("As")
+        10 t = SYS("As")
 
         the function will return the total arsenic in the system.
         (2) 5 argumens
 
-        10 tot = SYS("As", count_species, names$, types$, moles)
+        10 t = SYS("As", count_species, names$, types$, moles)
 
         will return the total arsenic in the system to tot; count_species--
         the number of species that contain arsenic, including
