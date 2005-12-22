@@ -847,6 +847,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 #if !defined(PHREEQCI_GUI)
 #ifndef PHREEQ98
 		if (pr.status == TRUE && status_on == TRUE) {
+			char str[MAX_LENGTH];
 			backspace_screen(37);
 			sprintf(str, "RK-steps: Bad%4d. OK%5d. Time %3d%%", step_bad, step_ok, (int) (100*h_sum/kin_time));
 			output_msg(OUTPUT_SCREEN, "%-37s", str);
