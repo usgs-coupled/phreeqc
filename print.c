@@ -911,9 +911,9 @@ int print_pp_assemblage(void)
  *   Print heading
  */
         print_centered("Phase assemblage");
-        output_msg(OUTPUT_MESSAGE, "%72s\n", "Moles in assemblage");
+        output_msg(OUTPUT_MESSAGE, "%74s\n", "Moles in assemblage");
         output_msg(OUTPUT_MESSAGE,"\t%-15s%7s%8s%8s","Phase","SI","log IAP", "log KT");
-        output_msg(OUTPUT_MESSAGE,"%11s%11s%11s", "Initial", "Final", "Delta");
+        output_msg(OUTPUT_MESSAGE,"%12s%12s%12s", " Initial", " Final", " Delta");
         output_msg(OUTPUT_MESSAGE,"\n\n");
 
         for( j = 0; j < count_unknowns; j++) {
@@ -950,25 +950,25 @@ int print_pp_assemblage(void)
  */
                 if (x[j]->moles < 0.0) x[j]->moles = 0.0;
                 if (state != TRANSPORT && state != PHAST) {
-                        sprintf(token, "%11.3e%11.3e%11.3e",
+                        sprintf(token, " %11.3e %11.3e %11.3e",
                                 (double) (x[j]->pure_phase->moles + x[j]->pure_phase->delta),
                                 (double) x[j]->moles,
                                 (double) (x[j]->moles - x[j]->pure_phase->moles - x[j]->pure_phase->delta));
                 } else {
-                        sprintf(token, "%11.3e%11.3e%11.3e",
+                        sprintf(token, " %11.3e %11.3e %11.3e",
                                 (double) x[j]->pure_phase->initial_moles,
                                 (double) x[j]->moles,
                                 (double) (x[j]->moles - x[j]->pure_phase->initial_moles));
                 }
                 if (x[j]->moles <= 0.0) {
                         for (k=0; k < 11; k++) {
-                                token[11+k] = ' ';
+                                token[12+k] = ' ';
                         }
                 }
                 if (x[j]->pure_phase->add_formula == NULL) {
-                        output_msg(OUTPUT_MESSAGE, "%33s\n", token);
+                        output_msg(OUTPUT_MESSAGE, "%36s\n", token);
                 } else {
-                        output_msg(OUTPUT_MESSAGE,"\n\t\t%-15s%-15s%33s\n",x[j]->pure_phase->add_formula," is reactant", token);
+                        output_msg(OUTPUT_MESSAGE,"\n\t\t%-15s%-15s%36s\n",x[j]->pure_phase->add_formula," is reactant", token);
                 }
         }
         output_msg(OUTPUT_MESSAGE,"\n");
