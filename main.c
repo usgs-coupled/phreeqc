@@ -4,6 +4,10 @@
 #include "phrqproto.h"
 #include "input.h"
 
+#define PHREEQC_XML
+#ifdef PHREEQC_XML
+#include "SAXPhreeqc.h"
+#endif
 
 static char const svnid[] = "$Id$";
 
@@ -72,6 +76,18 @@ int main(int argc, char *argv[])
 		return errors;
 	}
 
+#ifdef PHREEQC_XML
+ {
+	 int n;
+		SAX_StartSystem();
+		for (n = 0; n < 10; ++n)
+		{
+		  SAX_AddSolution(solution[0]);
+		}
+		SAX_EndSystem();
+		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+ }
+#endif
 /*
  *   Display successful status
  */
