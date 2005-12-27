@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
 		}
 		SAX_EndSystem();
 		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+		n = 1;
  }
 #endif
 /*

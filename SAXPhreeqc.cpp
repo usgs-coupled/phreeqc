@@ -155,7 +155,7 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
   
   // set output precision
   s_oss.precision(DBL_DIG + 1);
-  s_oss << std::ios::scientific;
+  //s_oss << std::ios::scientific;
   
   // <temp_c>25.0</temp_c>
   s_oss << "<temp_c>" << solution_ptr->tc << "</temp_c>";
