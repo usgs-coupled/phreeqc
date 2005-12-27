@@ -3,9 +3,9 @@
 #
 # $(CURDIR) is current directory
 TOPDIR:=$(CURDIR)/..
-PROGRAM=phreeqc
+PROGRAM=phreeqcsax
 EXE=$(TOPDIR)/bin/$(PROGRAM)
-SRC=.
+SRC:=$(CURDIR)
 
 # Do not print commands before executing
 #.SILENT:
@@ -19,15 +19,28 @@ PWD=pwd
 # Change to C compiler on your system
 CC=gcc
 
+USE_XML=TRUE
+XERCESCROOT=/z/parkplace/home/dlpark/packages/xerces-c-src_2_7_0
+
 # Change to C compiler options on your system
-CCFLAGS=-O3 -Wall -ansi -pedantic # -frounding-math  # -pg
+CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
 CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
 INVERSE_CL1MP=TRUE
 
-LOADFLAGS= -lm  # -pg
+LOADFLAGS= -lm -lxerces-c # -pg
+
+PLATFORM= LINUX
+CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic
+CXXFLAGS= -Wall -g
+LINK= g++ -D${PLATFORM} -fpic
+PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
+EXTRA_LINK_OPTIONS=-lc 
+LIBRARY_NAMES= -lxerces-c
+LIBRARY_SEARCH_PATHS= -L${XERCESCROOT}/lib # -L/home/dlpark/lib #
+INCLUDES= -I${XERCESCROOT}/include 
 
 #.c.o : 
 #	${CC} ${CCFLAGS} -c -o $@ $<
@@ -75,6 +88,10 @@ OBJECTS=	main.o \
 		dw.o \
 		pitzer.o \
 		pitzer_structures.o \
+
+ifdef USE_XML
+	OBJECTS += SAXPhreeqc.o
+endif
 
 ifdef INVERSE_CL1MP
 	LOADFLAGS += /z/parkplace/usr/lib/libgmp.a 
@@ -140,7 +157,11 @@ clean:
 
 $(EXE): $(OBJECTS) 
 	echo $(TOPDIR)
+ifdef USE_XML
+	${LINK} ${PLATFORM_LIB_LINK_OPTIONS} ${OBJECTS} -o $(EXE) ${LIBRARY_SEARCH_PATHS} ${LIBRARY_NAMES} ${EXTRA_LINK_OPTIONS} ${LOADFLAGS}
+else	
 	$(CC) -o $(EXE) $(OBJECTS) $(LOADFLAGS) # -L/z/estespark/home/dlpark/packages/efence -lefence
+endif
 	echo Compilation complete, $(EXE).
 
 advection.o: $(SRC)/advection.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
@@ -206,6 +227,9 @@ read.o: $(SRC)/read.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)
 
 readtr.o: $(SRC)/readtr.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
+SAXPhreeqc.o: $(SRC)/SAXPhreeqc.cpp $(SRC)/SAXPhreeqc.h $(SRC)/SaxPhreeqcHandlers.h
+	${CXX} ${CMP} $(INCLUDES) -o SAXPhreeqc.o $(SRC)/SAXPhreeqc.cpp
+
 smalldense.o: $(SRC)/smalldense.c $(SRC)/smalldense.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 
 spread.o: $(SRC)/spread.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
@@ -224,6 +248,6 @@ transport.o: $(SRC)/transport.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqallo
 
 utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
--include $(TOPDIR)/src/distribution.mk
+-include $(SRC)/distribution.mk
 
 

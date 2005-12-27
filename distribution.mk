@@ -4,7 +4,7 @@ EXPORT_DIR=$(EXPORT)
 WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
-DEBUG_EXE=$(TOPDIR)/src/phreeqc
+DEBUG_EXE=$(SRC)/$(PROGRAM)
 VERSION=2.12
 VER_DATE:=November 10, 2005
 VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
@@ -346,8 +346,11 @@ win_echo_files:
 	@echo $(FILES)
 
 debug: 
+	echo DEBUG_EXE $(DEBUG_EXE)
+	echo SRC       $(SRC)
+	echo CURDIR    $(CURDIR)
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(SRC)/Makefile SRC=$(SRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)
