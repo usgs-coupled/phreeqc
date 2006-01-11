@@ -140,17 +140,8 @@ class Initializer
 {
 public:
   Initializer(){ 
-	char *KeywordList[] = {"system", "Bb"};
-	char *test = "system";
-	int KeywordListCount = 2;
-	int i;
 	XMLPlatformUtils::Initialize();
 	s_handler = new SaxPhreeqcHandlers();
-	for (i=0; i < KeywordListCount; i++) {
-		XMLCh tmpString[100];
-		XMLString::transcode(KeywordList[i], tmpString, 99);
-		//		s_handler.m_mapXMLCh2Type[tmpString] = typeSYSTEM;
-	}
   }
 };
 
@@ -164,7 +155,7 @@ extern "C" void SAX_StartSystem()
   <system system_number=\"1\"> \
     <solution> \
     </solution> \
-  </system/> \
+  </system> \
 </phast_state>";
 
   assert(!s_bSysIsOpen);     // system already open and has not been closed
