@@ -11,11 +11,23 @@
 #include <strstream>                       // std::ostrstream
 #include <iostream>                        // std::cerr
 
+
+#include <xercesc/framework/StdInInputSource.hpp>
+#include <xercesc/framework/MemoryManager.hpp>
+#include <xercesc/framework/XMLGrammarPool.hpp>
+#include <xercesc/internal/XMLGrammarPoolImpl.hpp>
+#include <xercesc/internal/MemoryManagerImpl.hpp>
+#include <xercesc/validators/common/Grammar.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+
 #include <xercesc/parsers/SAXParser.hpp>           // SAXParser
 #include <xercesc/sax/AttributeList.hpp>           // AttributeList
 #include <xercesc/util/XMLUniDefs.hpp>             // Unicode definitions
 #include <xercesc/framework/MemBufInputSource.hpp> // MemBufInputSource
+#include <xercesc/framework/MemoryManager.hpp>
+#include <xercesc/internal/MemoryManagerImpl.hpp>
 #include <xercesc/util/PlatformUtils.hpp>          // XMLPlatformUtils::getCurrentMillis
+#include <xercesc/util/XMLUni.hpp>
 
 #include "SAXPhreeqc.h"                    // SAX_ functions
 #include "SaxPhreeqcHandlers.h"            // SaxPhreeqcHandlers
@@ -24,7 +36,8 @@
 ///static std::ostrstream s_oss(buffer, 300000);        // must never go out of scope
 static std::ostrstream s_oss;        // must never go out of scope
 static bool s_bSysIsOpen = false;    // must never go out of scope
-static SaxPhreeqcHandlers s_handler; // one and only instance
+//static SaxPhreeqcHandlers s_handler; // one and only instance
+static SaxPhreeqcHandlers *s_handler; // one and only instance
 
 // global.h defines
 #define OK 1
@@ -126,13 +139,34 @@ extern "C" int max_solution;
 class Initializer
 {
 public:
-  Initializer(){ XMLPlatformUtils::Initialize();}
+  Initializer(){ 
+	char *KeywordList[] = {"system", "Bb"};
+	char *test = "system";
+	int KeywordListCount = 2;
+	int i;
+	XMLPlatformUtils::Initialize();
+	s_handler = new SaxPhreeqcHandlers();
+	for (i=0; i < KeywordListCount; i++) {
+		XMLCh tmpString[100];
+		XMLString::transcode(KeywordList[i], tmpString, 99);
+		//		s_handler.m_mapXMLCh2Type[tmpString] = typeSYSTEM;
+	}
+  }
 };
 
 static Initializer sInit;  // initialize xerces once
 
 extern "C" void SAX_StartSystem()
 {
+	char buffer[10000] = 
+"<?xml version=\"1.0\" ?> \
+<phast_state nx=\"2\"> \
+  <system system_number=\"1\"> \
+    <solution> \
+    </solution> \
+  </system/> \
+</phast_state>";
+
   assert(!s_bSysIsOpen);     // system already open and has not been closed
   
   // init stream
@@ -140,8 +174,11 @@ extern "C" void SAX_StartSystem()
   s_oss.seekp(0);
   
   // write stream
-  s_oss << "<system>";
+  // s_oss << "<system>";
+  s_oss << buffer;
+
   s_bSysIsOpen = true;
+
 }
 
 extern "C" int SAX_AddSolution(struct solution* solution_ptr)
@@ -239,7 +276,7 @@ extern "C" void SAX_EndSystem()
 {
   assert(s_bSysIsOpen);      // must call SAX_StartSystem first
 
-  s_oss << "</system>";
+  //s_oss << "</system>";
   
   s_oss << '\0';
   
@@ -282,11 +319,11 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
   try
     {
       unsigned long duration = 0;
-      parser.setDocumentHandler(&s_handler);
-      parser.setErrorHandler(&s_handler);
+      parser.setDocumentHandler(s_handler);
+      parser.setErrorHandler(s_handler);
       
       int t = 0;
-      for (; t < 10; ++t)
+      for (; t < 1; ++t)
 	{
 	  const unsigned long startMillis = XMLPlatformUtils::getCurrentMillis();
 	  parser.parse(memBufIS);
@@ -330,6 +367,7 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
 //////////////////////////////////////////////////////////////////////
 
 // element names
+
 const XMLCh SaxPhreeqcHandlers::s_strSYSTEM[] 	    =  // "system"
   {chLatin_s, chLatin_y, chLatin_s, chLatin_t, chLatin_e, chLatin_m, 0};
 
@@ -389,6 +427,24 @@ const XMLCh SaxPhreeqcHandlers::s_strNAME[] 		=  // "name"
 SaxPhreeqcHandlers::SaxPhreeqcHandlers()
   : m_type(typeNULL), m_totals(), m_acts(), m_solution_ptr(NULL)
 {
+	int i;
+	int count_info;
+	struct mapinfo {char *key; enum ElementType type;};
+	struct mapinfo info[] = {
+		{"phast_state", typePHAST_STATE},
+		{"system", typeSYSTEM},
+		{"solution", typeSOLUTION},
+		{"soln_pe", typeSOLN_PE},
+		{"reaction", typeREACTION},
+		{"soln_total", typeSOLN_TOTAL},
+		{"soln_master_activity", typeSOLN_MASTER_ACTIVITY}
+	};
+	count_info = 7;
+	for (i = 0; i < count_info; i++) {
+		this->Keyword[i] = XMLString::transcode(info[i].key);
+		this->m_mapXMLCh2Type[Keyword[i]] = info[i].type;
+	}
+	/*
   m_mapXMLCh2Type[s_strSYSTEM]      = typeSYSTEM;
   m_mapXMLCh2Type[s_strSOLUTION]    = typeSOLUTION;
   m_mapXMLCh2Type[s_strTC]          = typeTC;
@@ -404,7 +460,7 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
   m_mapXMLCh2Type[s_strTOTAL]       = typeTOTAL;
   m_mapXMLCh2Type[s_strACTS]        = typeACTS;
   m_mapXMLCh2Type[s_strACT]         = typeACT;
-  
+	*/
   m_totals.reserve(50);
   m_acts.reserve(50);
 }
@@ -535,10 +591,19 @@ void SaxPhreeqcHandlers::startDocument()
 void SaxPhreeqcHandlers::startElement(const XMLCh* const name, AttributeList& attributes)
 {
   const char ERR_MSG[] = "Unpacking solution message: %s, element not found\n";
+  char *string;
+  int i;
+
+  string = XMLString::transcode(name);
   m_type = m_mapXMLCh2Type[name];
-  
+  XMLString::release(&string);
   switch (m_type)
     {
+    case typePHAST_STATE:
+	i =  wcstol((wchar_t*)attributes.getValue(XMLString::transcode("nx")), NULL, 10);
+
+	// m_solution_ptr->n_user = (int) wcstol((wchar_t*)attributes.getValue(s_strN_USER), NULL, 10);
+      break;
     case typeSOLUTION:
       assert(m_solution_ptr == NULL);
       assert(m_totals.size() == 0);

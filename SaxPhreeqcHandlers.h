@@ -103,8 +103,14 @@ public:
 	enum ElementType
 	{
 		typeNULL,
+		typePHAST_STATE,
 		typeSYSTEM,
 		typeSOLUTION,
+		typeSOLN_PE,
+		typeREACTION,
+		typeSOLN_TOTAL,
+		typeSOLN_MASTER_ACTIVITY,
+
 		typeTC,
 		typePH,
 		typeSOLUTION_PE,
@@ -120,8 +126,9 @@ public:
 		typeMOLES,
 		typeACTS,
 		typeACT,
-		typeLA
+		typeLA,
 	} m_type;
+	XMLCh *Keyword[10];
 
 private:
 	std::vector<conc> m_totals;

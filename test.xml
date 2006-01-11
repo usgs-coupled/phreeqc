@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<phast_state nx="2">
+  <system system_number="1">
+    <solution 
+        soln_new_def="0"
+	soln_n_user="2" 
+	soln_n_user_end="2" 
+	soln_description="Test solution" 
+	soln_tc="25.0"
+	soln_ph="6.3"
+	soln_solution_pe="4.5"
+	soln_mu="0.0011"
+	soln_ah2o="0.995"
+	soln_density="1.0"
+	soln_total_h="111.1"
+	soln_total_o="55.5"
+	soln_cb="1e-15"
+	soln_mass_water="1.0"
+	soln_total_alkalinity="0.001"
+	soln_total_co2="0.002"
+	soln_units="mg/L"
+	soln_count_pe="1"
+	soln_default_pe="1"
+	soln_count_totals="2"
+	soln_count_master_activity="2"
+	soln_count_isotopes="0"
+	soln_count_species_gamma="0">
+	<soln_pe soln_pe_name="Fe(2)/Fe(3)">
+	     <reaction 
+	          lk0="0"
+	          lk1="0"
+	          lk2="0"
+	          lk3="0"
+	          lk4="0"
+	          lk5="0"
+	          lk6="0"
+	          lk7="0"
+		  rxn_count_tokens="3">
+		  <rxn_token s="Na" coef="0.001"/>
+		  <rxn_token s="Cl" coef="0.001"/>
+		  <rxn_token s="Alkalinity" coef="0.001"/>
+	     </reaction>
+	</soln_pe>
+	<soln_total
+	     description="Ca"
+	     skip="0"
+	     moles="0.001"
+	     input_conc="0.001"
+	     equation_name="Fe(2)/Fe(3)"
+	     phase="Calcite"
+	     phase_si="0.0"
+	     n_pe="0"
+	     as="mg/L"
+	     gfw="40.08"/>
+	<soln_total
+	     description="Ca"
+	     skip="0"
+	     moles="0.001"
+	     input_conc="0.001"
+	     equation_name="Fe(2)/Fe(3)"
+	     phase="Calcite"
+	     phase_si="0.0"
+	     n_pe="0"
+	     as="mg/L"
+	     gfw="40.08"/>
+         <soln_master_activity description="Ca+2" la="-3.0"/>
+         <soln_master_activity description="Cl-" la="-3.0"/>
+         <soln_master_activity description="C" la="-3.0"/>
+    </solution>
+  </system>
+</phast_state>

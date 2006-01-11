@@ -80,10 +80,12 @@ int main(int argc, char *argv[])
  {
 	 int n;
 		SAX_StartSystem();
+		/*
 		for (n = 0; n < 10; ++n)
 		{
 		  SAX_AddSolution(solution[0]);
 		}
+		*/
 		SAX_EndSystem();
 		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
 		n = 1;
