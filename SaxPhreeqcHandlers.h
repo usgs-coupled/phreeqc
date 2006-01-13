@@ -17,6 +17,8 @@
 #include <vector>
 #include <map>
 
+#define xns XERCES_CPP_NAMESPACE
+
 #ifdef USE_LONG_DOUBLE
 #define LDBLE long double
 #else
@@ -36,14 +38,30 @@ struct conc {
 	char *as;
 	double gfw;
 };
+struct isotope {
+	LDBLE isotope_number;
+	char *elt_name;
+	char *isotope_name;
+	LDBLE total;
+	LDBLE ratio;
+	LDBLE ratio_uncertainty;
+	LDBLE x_ratio_uncertainty;
+	struct master *master;
+	struct master *primary;
+	LDBLE coef;                    /* coefficient of element in phase */
+};
 struct master_activity {
 	char *description;
 	LDBLE la;
 };
 
+///XERCES_CPP_NAMESPACE_USE
+
 struct XMLCH_LESS : std::binary_function<const XMLCh*, const XMLCh*, bool> {
 bool operator()(const XMLCh* _X, const XMLCh* _Y) const
-	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) < 0; }
+{return xns::XMLString::compareString( _X, _Y) < 0;}
+//	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) < 0; }
+
 };
 
 /**
@@ -52,9 +70,9 @@ bool operator()(const XMLCh* _X, const XMLCh* _Y) const
 	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) == 0; }
 };
 **/
-XERCES_CPP_NAMESPACE_USE
 
-class SaxPhreeqcHandlers : public HandlerBase
+
+class SaxPhreeqcHandlers : public xns::HandlerBase
 {
 public:
 	SaxPhreeqcHandlers();
@@ -75,69 +93,88 @@ public:
 
     void startDocument();
 
-    void startElement(const XMLCh* const name, AttributeList& attributes);
-
-	// element names
-	static const XMLCh s_strSYSTEM[];
-	static const XMLCh s_strSOLUTION[];
-	static const XMLCh s_strTC[];
-	static const XMLCh s_strPH[];
-	static const XMLCh s_strSOLUTION_PE[];
-	static const XMLCh s_strMU[];
-	static const XMLCh s_strAH2O[];
-	static const XMLCh s_strTOTAL_H[];
-	static const XMLCh s_strTOTAL_O[];
-	static const XMLCh s_strCB[];
-	static const XMLCh s_strMASS_WATER[];
-	static const XMLCh s_strTOTALS[];
-	static const XMLCh s_strTOTAL[];
-	static const XMLCh s_strACTS[];
-	static const XMLCh s_strACT[];
-
-	// attribute names
-	static const XMLCh s_strN_USER[];
-	static const XMLCh s_strNAME[];
-
+    void startElement(const XMLCh* const name, xns::AttributeList& attributes);
 
 	// element types
-	enum ElementType
+	enum elementType
 	{
 		typeNULL,
 		typePHAST_STATE,
 		typeSYSTEM,
 		typeSOLUTION,
 		typeSOLN_PE,
-		typeREACTION,
 		typeSOLN_TOTAL,
 		typeSOLN_MASTER_ACTIVITY,
+		typeSOLN_ISOTOPES,
+		typeSOLN_SPECIES_GAMMA
+	} eltType;
+	enum attributeType
+	{
+		attNULL,
+		attSOLN_new_def,
+		attSOLN_n_user,
+		attSOLN_n_user_end,
+		attSOLN_description,
+		attSOLN_tc,
+		attSOLN_ph,
+		attSOLN_solution_pe,
+		attSOLN_mu,
+		attSOLN_ah2o,
+		attSOLN_density,
+		attSOLN_total_h,
+		attSOLN_total_o,
+		attSOLN_cb,
+		attSOLN_mass_water,
+		attSOLN_total_alkalinity,
+		attSOLN_total_co2,
+		attSOLN_units,
+		attSOLN_count_pe,
+		attSOLN_default_pe,
+		attSOLN_count_totals,
+		attSOLN_count_master_activity,
+		attSOLN_count_isotopes,
+		attSOLN_count_species_gamma,
+		attSOLN_PE_name,
+		attM_A_description,
+		attM_A_la,
+		attISOTOPE_isotope_number,
+		attISOTOPE_elt_name,
+		attISOTOPE_isotope_name,
+		attISOTOPE_ratio,		
+		attISOTOPE_ratio_uncertainty,			
+		attISOTOPE_x_ratio_uncertainty,			
+		attISOTOPE_master,			
+		attISOTOPE_primary,	
+		attISOTOPE_coef,	
+		attSOLN_TOTAL_description,
+		attSOLN_TOTAL_skip,
+		attSOLN_TOTAL_moles,
+		attSOLN_TOTAL_input_conc,
+		attSOLN_TOTAL_equation_name,
+		//attSOLN_TOTAL_phase,
+		attSOLN_TOTAL_phase_si,
+		attSOLN_TOTAL_n_pe,
+		attSOLN_TOTAL_as,
+		attSOLN_TOTAL_gfw,
+		attSOLN_MASTER_ACTIVITY_description,
+		attSOLN_MASTER_ACTIVITY_la,
+	} attType;
 
-		typeTC,
-		typePH,
-		typeSOLUTION_PE,
-		typeMU,
-		typeAH2O,
-		typeTOTAL_H,
-		typeTOTAL_O,
-		typeCB,
-		typeMASS_WATER,
-		typeTOTALS,
-		typeTOTAL,
-		typeNAME,
-		typeMOLES,
-		typeACTS,
-		typeACT,
-		typeLA,
-	} m_type;
-	XMLCh *Keyword[10];
+	int  processSolutionAttributes(xns::AttributeList& attributes);
+	struct conc *processSolutionTotalAttributes(xns::AttributeList& attributes);
+	struct master_activity *processMasterActivityAttributes(xns::AttributeList& attributes);
+	struct isotope *processIsotopeAttributes(xns::AttributeList& attributes);
 
-private:
-	std::vector<conc> m_totals;
-	std::vector<master_activity> m_acts;
-	std::map<const XMLCh*, ElementType, XMLCH_LESS> m_mapXMLCh2Type;
+protected:
+	std::vector<conc> totals;
+	std::vector<master_activity> acts, s_gammas;
+	std::vector<isotope> isotopes;
+	std::map<const XMLCh*, elementType, XMLCH_LESS> mapXMLCh2Type;
+	std::map<const XMLCh*, attributeType, XMLCH_LESS> mapXMLCh2AttType;
 	/**
 	std::hash_map<const XMLCh*, ElementType, hash<const XMLCh*>, XMLCH_EQUALS> m_hashmapXMLCh2Type;
 	**/
-	struct solution* m_solution_ptr;
+	struct solution* solution_ptr;
 };
 
 #endif // !defined(AFX_SAXPHREEQCHANDLERS_H__4A69D5F5_2E57_4001_911D_4ABF6F2C0A0B__INCLUDED_)

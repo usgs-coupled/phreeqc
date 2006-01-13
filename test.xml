@@ -25,47 +25,30 @@
 	soln_count_master_activity="2"
 	soln_count_isotopes="0"
 	soln_count_species_gamma="0">
-	<soln_pe soln_pe_name="Fe(2)/Fe(3)">
-	     <reaction 
-	          lk0="0"
-	          lk1="0"
-	          lk2="0"
-	          lk3="0"
-	          lk4="0"
-	          lk5="0"
-	          lk6="0"
-	          lk7="0"
-		  rxn_count_tokens="3">
-		  <rxn_token s="Na" coef="0.001"/>
-		  <rxn_token s="Cl" coef="0.001"/>
-		  <rxn_token s="Alkalinity" coef="0.001"/>
-	     </reaction>
-	</soln_pe>
+	<soln_pe soln_pe_name="Fe(2)/Fe(3)"/>
 	<soln_total
-	     description="Ca"
-	     skip="0"
-	     moles="0.001"
-	     input_conc="0.001"
-	     equation_name="Fe(2)/Fe(3)"
-	     phase="Calcite"
-	     phase_si="0.0"
-	     n_pe="0"
-	     as="mg/L"
-	     gfw="40.08"/>
+	     soln_total_description="Ca"
+	     soln_total_skip="0"
+	     soln_total_moles="0.001"
+	     soln_total_input_conc="0.001"
+	     soln_total_equation_name="Fe(2)/Fe(3)"
+	     soln_total_phase_si="0.0"
+	     soln_total_n_pe="0"
+	     soln_total_as="mg/L"
+	     soln_total_gfw="40.08"/>
 	<soln_total
-	     description="Ca"
-	     skip="0"
-	     moles="0.001"
-	     input_conc="0.001"
-	     equation_name="Fe(2)/Fe(3)"
-	     phase="Calcite"
-	     phase_si="0.0"
-	     n_pe="0"
-	     as="mg/L"
-	     gfw="40.08"/>
-         <soln_master_activity description="Ca+2" la="-3.0"/>
-         <soln_master_activity description="Cl-" la="-3.0"/>
-         <soln_master_activity description="C" la="-3.0"/>
+	     soln_total_description="Na"
+	     soln_total_skip="0"
+	     soln_total_moles="0.001"
+	     soln_total_input_conc="0.001"
+	     soln_total_equation_name="Fe(2)/Fe(3)"
+	     soln_total_phase_si="0.0"
+	     soln_total_n_pe="0"
+	     soln_total_as="mg/L"
+	     soln_total_gfw="40.08"/>
+         <soln_master_activity soln_m_a_description="Ca+2" la="-3.0"/>
+         <soln_master_activity soln_m_a_description="Cl-" la="-3.0"/>
+         <soln_master_activity soln_m_a_description="C" la="-3.0"/>
     </solution>
   </system>
 </phast_state>

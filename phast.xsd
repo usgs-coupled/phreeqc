@@ -22,9 +22,9 @@
 				<xs:element ref="soln_pe" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_total" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_master_activity" minOccurs='0' maxOccurs='unbounded'/>
-<!--  Not Yet Defined
 				<xs:element ref="soln_isotopes" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_species_gamma" minOccurs='0' maxOccurs='unbounded'/>
+<!--  Not Yet Defined
 -->
 			</xs:sequence>	
 			<xs:attribute name="soln_new_def" type="xs:integer" use='required'/>
@@ -84,22 +84,21 @@
 	</xs:element>
 	<xs:element name="soln_total">
 		<xs:complexType>
-			<xs:attribute name="description" type="xs:string" use='required'/>
-			<xs:attribute name="skip" type="xs:integer" use='required'/>
-			<xs:attribute name="moles" type="xs:double" use='required'/>
-			<xs:attribute name="input_conc" type="xs:double" use='required'/>
-			<xs:attribute name="equation_name" type="xs:string" use='required'/>
-			<xs:attribute name="phase" type="xs:string" use='required'/>
-			<xs:attribute name="phase_si" type="xs:double" use='required'/>
-			<xs:attribute name="n_pe" type="xs:integer" use='required'/>
-			<xs:attribute name="as" type="xs:string" use='required'/>
-			<xs:attribute name="gfw" type="xs:double" use='required'/>
+			<xs:attribute name="soln_total_description" type="xs:string" use='required'/>
+			<xs:attribute name="soln_total_skip" type="xs:integer" use='required'/>
+			<xs:attribute name="soln_total_moles" type="xs:double" use='required'/>
+			<xs:attribute name="soln_total_input_conc" type="xs:double" use='required'/>
+			<xs:attribute name="soln_total_equation_name" type="xs:string" use='required'/>
+			<xs:attribute name="soln_total_phase_si" type="xs:double" use='required'/>
+			<xs:attribute name="soln_total_n_pe" type="xs:integer" use='required'/>
+			<xs:attribute name="soln_total_as" type="xs:string" use='required'/>
+			<xs:attribute name="soln_total_gfw" type="xs:double" use='required'/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="soln_master_activity">
 		<xs:complexType>
-			<xs:attribute name="description" type="xs:string" use='required'/>
-			<xs:attribute name="la" type="xs:double" use='required'/>
+			<xs:attribute name="m_a_description" type="xs:string" use='required'/>
+			<xs:attribute name="m_a_la" type="xs:double" use='required'/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema> 
