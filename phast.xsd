@@ -82,23 +82,45 @@
 			<xs:attribute name="coef" type="xs:double" use='required'/>
 		</xs:complexType>
 	</xs:element>
+	<xs:attributeGroup name="conc">
+		<xs:attribute name="conc_description" type="xs:string" use='required'/>
+		<xs:attribute name="conc_skip" type="xs:integer" use='required'/>
+		<xs:attribute name="conc_moles" type="xs:double" use='required'/>
+		<xs:attribute name="conc_input_conc" type="xs:double" use='required'/>
+		<xs:attribute name="conc_equation_name" type="xs:string" use='required'/>
+		<xs:attribute name="conc_phase_si" type="xs:double" use='required'/>
+		<xs:attribute name="conc_n_pe" type="xs:integer" use='required'/>
+		<xs:attribute name="conc_as" type="xs:string" use='required'/>
+		<xs:attribute name="conc_gfw" type="xs:double" use='required'/>
+	</xs:attributeGroup>
 	<xs:element name="soln_total">
 		<xs:complexType>
-			<xs:attribute name="soln_total_description" type="xs:string" use='required'/>
-			<xs:attribute name="soln_total_skip" type="xs:integer" use='required'/>
-			<xs:attribute name="soln_total_moles" type="xs:double" use='required'/>
-			<xs:attribute name="soln_total_input_conc" type="xs:double" use='required'/>
-			<xs:attribute name="soln_total_equation_name" type="xs:string" use='required'/>
-			<xs:attribute name="soln_total_phase_si" type="xs:double" use='required'/>
-			<xs:attribute name="soln_total_n_pe" type="xs:integer" use='required'/>
-			<xs:attribute name="soln_total_as" type="xs:string" use='required'/>
-			<xs:attribute name="soln_total_gfw" type="xs:double" use='required'/>
+			<xs:attributeGroup ref="conc" />
 		</xs:complexType>
 	</xs:element>
+	<xs:attributeGroup name="master_activity">
+		<xs:attribute name="m_a_description" type="xs:string" use='required'/>
+		<xs:attribute name="m_a_la" type="xs:double" use='required'/>
+	</xs:attributeGroup>
 	<xs:element name="soln_master_activity">
 		<xs:complexType>
-			<xs:attribute name="m_a_description" type="xs:string" use='required'/>
-			<xs:attribute name="m_a_la" type="xs:double" use='required'/>
+			<xs:attributeGroup ref="master_activity" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="soln_species_gamma">
+		<xs:complexType>
+			<xs:attributeGroup ref="master_activity" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="soln_isotopes">
+		<xs:complexType>
+			<xs:attribute name="iso_isotope_number" type="xs:integer" use='required'/>
+			<xs:attribute name="iso_elt_name" type="xs:string" use='required'/>
+			<xs:attribute name="iso_isotope_name" type="xs:string" use='required'/>
+			<xs:attribute name="iso_total" type="xs:double" use='required'/>
+			<xs:attribute name="iso_ratio" type="xs:double" use='required'/>
+			<xs:attribute name="iso_ratio_uncertainty" type="xs:double" use='required'/>
+			<xs:attribute name="iso_coef" type="xs:double" use='required'/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema> 

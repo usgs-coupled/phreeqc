@@ -19,36 +19,54 @@
 	soln_total_alkalinity="0.001"
 	soln_total_co2="0.002"
 	soln_units="mg/L"
-	soln_count_pe="1"
-	soln_default_pe="1"
+	soln_default_pe="0"
 	soln_count_totals="2"
 	soln_count_master_activity="2"
 	soln_count_isotopes="0"
 	soln_count_species_gamma="0">
 	<soln_pe soln_pe_name="Fe(2)/Fe(3)"/>
 	<soln_total
-	     soln_total_description="Ca"
-	     soln_total_skip="0"
-	     soln_total_moles="0.001"
-	     soln_total_input_conc="0.001"
-	     soln_total_equation_name="Fe(2)/Fe(3)"
-	     soln_total_phase_si="0.0"
-	     soln_total_n_pe="0"
-	     soln_total_as="mg/L"
-	     soln_total_gfw="40.08"/>
+	     conc_description="Ca"
+	     conc_skip="0"
+	     conc_moles="0.001"
+	     conc_input_conc="0.001"
+	     conc_equation_name="Fe(2)/Fe(3)"
+	     conc_phase_si="0.0"
+	     conc_n_pe="0"
+	     conc_as="mg/L"
+	     conc_gfw="40.08"/>
 	<soln_total
-	     soln_total_description="Na"
-	     soln_total_skip="0"
-	     soln_total_moles="0.001"
-	     soln_total_input_conc="0.001"
-	     soln_total_equation_name="Fe(2)/Fe(3)"
-	     soln_total_phase_si="0.0"
-	     soln_total_n_pe="0"
-	     soln_total_as="mg/L"
-	     soln_total_gfw="40.08"/>
-         <soln_master_activity soln_m_a_description="Ca+2" la="-3.0"/>
-         <soln_master_activity soln_m_a_description="Cl-" la="-3.0"/>
-         <soln_master_activity soln_m_a_description="C" la="-3.0"/>
+	     conc_description="Na"
+	     conc_skip="0"
+	     conc_moles="0.001"
+	     conc_input_conc="0.001"
+	     conc_equation_name="Fe(2)/Fe(3)"
+	     conc_phase_si="0.0"
+	     conc_n_pe="0"
+	     conc_as="mg/L"
+	     conc_gfw="40.08"/>
+         <soln_master_activity m_a_description="Ca+2" m_a_la="-3.0"/>
+         <soln_master_activity m_a_description="Cl-" m_a_la="-3.0"/>
+         <soln_master_activity m_a_description="C" m_a_la="-3.0"/>
+         <soln_species_gamma m_a_description="CO3-2" m_a_la=".1"/>
+         <soln_species_gamma m_a_description="HCO3-" m_a_la=".2"/>
+         <soln_species_gamma m_a_description="CO2" m_a_la=".3"/>
+         <soln_isotope 
+	      iso_isotope_number="2"
+	      iso_elt_name="H"
+	      iso_isotope_name="D"
+	      iso_total="1e-6"
+	      iso_ratio="11."
+	      iso_ratio_uncertainty="0.5"
+	      iso_coef="2.2"/>
+         <soln_isotope 
+	      iso_isotope_number="3"
+	      iso_elt_name="H"
+	      iso_isotope_name="T"
+	      iso_total="1e-14"
+	      iso_ratio="3.1"
+	      iso_ratio_uncertainty="0.25"
+	      iso_coef="2.1"/>
     </solution>
   </system>
 </phast_state>

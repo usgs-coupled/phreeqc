@@ -186,40 +186,57 @@ s_oss << "	soln_mass_water=\"1.0\"";
 s_oss << "	soln_total_alkalinity=\"0.001\"";
 s_oss << "	soln_total_co2=\"0.002\"";
 s_oss << "	soln_units=\"mg/L\"";
-//s_oss << "	soln_count_pe=\"1\"";
-s_oss << "	soln_default_pe=\"1\"";
+s_oss << "	soln_default_pe=\"0\"";
 s_oss << "	soln_count_totals=\"2\"";
-s_oss << "	soln_count_master_activity=\"3\"";
+s_oss << "	soln_count_master_activity=\"2\"";
 s_oss << "	soln_count_isotopes=\"0\"";
 s_oss << "	soln_count_species_gamma=\"0\">";
 s_oss << "	<soln_pe soln_pe_name=\"Fe(2)/Fe(3)\"/>";
 s_oss << "	<soln_total";
-s_oss << "	     soln_total_description=\"Ca\"";
-s_oss << "	     soln_total_skip=\"0\"";
-s_oss << "	     soln_total_moles=\"0.001\"";
-s_oss << "	     soln_total_input_conc=\"0.001\"";
-s_oss << "	     soln_total_equation_name=\"Fe(2)/Fe(3)\"";
-s_oss << "	     soln_total_phase_si=\"0.0\"";
-s_oss << "	     soln_total_n_pe=\"0\"";
-s_oss << "	     soln_total_as=\"mg/L\"";
-s_oss << "	     soln_total_gfw=\"40.08\"/>";
+s_oss << "	     conc_description=\"Ca\"";
+s_oss << "	     conc_skip=\"0\"";
+s_oss << "	     conc_moles=\"0.001\"";
+s_oss << "	     conc_input_conc=\"0.001\"";
+s_oss << "	     conc_equation_name=\"Fe(2)/Fe(3)\"";
+s_oss << "	     conc_phase_si=\"0.0\"";
+s_oss << "	     conc_n_pe=\"0\"";
+s_oss << "	     conc_as=\"mg/L\"";
+s_oss << "	     conc_gfw=\"40.08\"/>";
 s_oss << "	<soln_total";
-s_oss << "	     soln_total_description=\"Na\"";
-s_oss << "	     soln_total_skip=\"0\"";
-s_oss << "	     soln_total_moles=\"0.001\"";
-s_oss << "	     soln_total_input_conc=\"0.001\"";
-s_oss << "	     soln_total_equation_name=\"Fe(2)/Fe(3)\"";
-s_oss << "	     soln_total_phase_si=\"0.0\"";
-s_oss << "	     soln_total_n_pe=\"0\"";
-s_oss << "	     soln_total_as=\"mg/L\"";
-s_oss << "	     soln_total_gfw=\"40.08\"/>";
-s_oss << "         <soln_master_activity m_a_description=\"Ca+2\" la=\"-3.0\"/>";
-s_oss << "         <soln_master_activity m_a_description=\"Cl-\" la=\"-3.0\"/>";
-s_oss << "         <soln_master_activity m_a_description=\"C\" la=\"-3.0\"/>";
+s_oss << "	     conc_description=\"Na\"";
+s_oss << "	     conc_skip=\"0\"";
+s_oss << "	     conc_moles=\"0.001\"";
+s_oss << "	     conc_input_conc=\"0.001\"";
+s_oss << "	     conc_equation_name=\"Fe(2)/Fe(3)\"";
+s_oss << "	     conc_phase_si=\"0.0\"";
+s_oss << "	     conc_n_pe=\"0\"";
+s_oss << "	     conc_as=\"mg/L\"";
+s_oss << "	     conc_gfw=\"40.08\"/>";
+s_oss << "         <soln_master_activity m_a_description=\"Ca+2\" m_a_la=\"-3.0\"/>";
+s_oss << "         <soln_master_activity m_a_description=\"Cl-\" m_a_la=\"-3.0\"/>";
+s_oss << "         <soln_master_activity m_a_description=\"C\" m_a_la=\"-3.0\"/>";
+s_oss << "         <soln_species_gamma m_a_description=\"CO3-2\" m_a_la=\".1\"/>";
+s_oss << "         <soln_species_gamma m_a_description=\"HCO3-\" m_a_la=\".2\"/>";
+s_oss << "         <soln_species_gamma m_a_description=\"CO2\" m_a_la=\".3\"/>";
+s_oss << "         <soln_isotope ";
+s_oss << "	      iso_isotope_number=\"2\"";
+s_oss << "	      iso_elt_name=\"H\"";
+s_oss << "	      iso_isotope_name=\"D\"";
+s_oss << "	      iso_total=\"1e-6\"";
+s_oss << "	      iso_ratio=\"11.\"";
+s_oss << "	      iso_ratio_uncertainty=\"0.5\"";
+s_oss << "	      iso_coef=\"2.2\"/>";
+s_oss << "         <soln_isotope ";
+s_oss << "	      iso_isotope_number=\"3\"";
+s_oss << "	      iso_elt_name=\"H\"";
+s_oss << "	      iso_isotope_name=\"T\"";
+s_oss << "	      iso_total=\"1e-14\"";
+s_oss << "	      iso_ratio=\"3.1\"";
+s_oss << "	      iso_ratio_uncertainty=\"0.25\"";
+s_oss << "	      iso_coef=\"2.1\"/>";
 s_oss << "    </solution>";
 s_oss << "  </system>";
 s_oss << "</phast_state>";
-
 
   s_bSysIsOpen = true;
 
@@ -351,8 +368,8 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
   //
 	xns::SAXParser parser;
 	parser.setValidationScheme(xns::SAXParser::Val_Always);
-  parser.setDoNamespaces(false);
-  parser.setDoSchema(false);
+	parser.setDoNamespaces(false);
+	parser.setDoSchema(false);
 
   
   //
@@ -427,11 +444,12 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 		{"soln_pe", typeSOLN_PE},
 		{"soln_total", typeSOLN_TOTAL},
 		{"soln_master_activity", typeSOLN_MASTER_ACTIVITY},
-		{"soln_isotopes", typeSOLN_ISOTOPES},
+		{"soln_isotope", typeSOLN_ISOTOPE},
 		{"soln_species_gamma", typeSOLN_SPECIES_GAMMA}
 	};
 	count_elementInfo = sizeof(elementInfo)/sizeof(struct mapElementInfo);
 	struct mapAttributeInfo	attributeInfo[] = {	
+		// Solution structure
 	  {attSOLN_new_def, "soln_new_def"},
 	  {attSOLN_n_user, "soln_n_user"},
 	  {attSOLN_n_user_end, "soln_n_user_end"},
@@ -456,28 +474,29 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 	  {attSOLN_count_isotopes, "soln_count_isotopes"},
 	  {attSOLN_count_species_gamma, "soln_count_species_gamma"},
 	  {attSOLN_PE_name, "soln_pe_name"},
+		// master_activity structure
 	  {attM_A_description, "m_a_description"},
-	  {attM_A_la, "M_A_la"},
-	  {attISOTOPE_isotope_number, "ISOTOPE_isotope_number"},
-	  {attISOTOPE_elt_name, "isotope_elt_name"},
-	  {attISOTOPE_isotope_name, "isotope_isotope_name"},
-	  {attISOTOPE_ratio, "isotope_ratio"},
-	  {attISOTOPE_ratio_uncertainty, "isotope_ratio_uncertainty"},
-	  {attISOTOPE_x_ratio_uncertainty, "isotope_x_ratio_uncertainty"},
-	  {attISOTOPE_master, "isotope_master"},
-	  {attISOTOPE_primary, "isotope_primary"},
-	  {attISOTOPE_coef, "isotope_coef"},
-	  {attSOLN_TOTAL_description, "soln_total_description"},
-	  {attSOLN_TOTAL_skip, "soln_total_skip"},
-	  {attSOLN_TOTAL_moles, "soln_total_moles"},
-	  {attSOLN_TOTAL_input_conc, "soln_total_input_conc"},
-	  {attSOLN_TOTAL_equation_name, "soln_total_equation_name"},
-	  {attSOLN_TOTAL_phase_si, "soln_total_phase_si"},
-	  {attSOLN_TOTAL_n_pe, "soln_total_n_pe"},
-	  {attSOLN_TOTAL_as, "soln_total_as"},
-	  {attSOLN_TOTAL_gfw, "soln_total_gfw"},
-	  {attSOLN_MASTER_ACTIVITY_description, "soln_m_a_description"},
-	  {attSOLN_MASTER_ACTIVITY_la, "soln_m_a_la"},
+	  {attM_A_la, "m_a_la"},
+		// isotope structure
+	  {attISO_isotope_number, "iso_isotope_number"},
+	  {attISO_elt_name, "iso_elt_name"},
+	  {attISO_isotope_name, "iso_isotope_name"},
+	  {attISO_total, "iso_total"},
+	  {attISO_ratio, "iso_ratio"},
+	  {attISO_ratio_uncertainty, "iso_ratio_uncertainty"},
+	  {attISO_x_ratio_uncertainty, "iso_x_ratio_uncertainty"},
+	  {attISO_coef, "iso_coef"},
+		// conc structure
+	  {attCONC_description, "conc_description"},
+	  {attCONC_skip, "conc_skip"},
+	  {attCONC_moles, "conc_moles"},
+	  {attCONC_input_conc, "conc_input_conc"},
+	  {attCONC_equation_name, "conc_equation_name"},
+	  {attCONC_phase_si, "conc_phase_si"},
+	  {attCONC_n_pe, "conc_n_pe"},
+	  {attCONC_as, "conc_as"},
+	  {attCONC_gfw, "conc_gfw"},
+
 	};
 	count_attributeInfo = sizeof(attributeInfo)/sizeof(struct mapAttributeInfo);
 	for (i = 0; i < count_elementInfo; i++) {
@@ -669,7 +688,6 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			// store in c, push_back on totals
 			// need to copy and clean up at end of </solution>
 			struct conc *c;
-			assert(this->solution_ptr->totals != NULL);
 			c = processSolutionTotalAttributes(attributes);
 			this->totals.push_back(*c);
 		}
@@ -687,13 +705,19 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			// store in ma, push_back on s_gammas
 			// need to copy and clean up at end of </solution>
 			struct master_activity *ma;
-			assert(this->solution_ptr->species_gamma != NULL);
 			ma = processMasterActivityAttributes(attributes);
 			this->s_gammas.push_back(*ma);
 			break;
 		}
-    case typeSOLN_ISOTOPES:
-		assert(this->solution_ptr->isotopes != NULL);
+    case typeSOLN_ISOTOPE:
+		{
+			// store in iso, push_back on isotopes
+			// need to copy and clean up at end of </solution>
+			struct isotope *iso;
+			iso = processIsotopeAttributes(attributes);
+			this->isotopes.push_back(*iso);
+			break;
+		}
 		break;  
 				
 				
@@ -837,46 +861,43 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 {
 	const char ERR_MSG[] = "Unpacking solution totals attributes: %s, attribute not found\n";	
 	unsigned int i;
-	int l, n;
+	int l;
 	struct conc *c = new conc();
 	attributeType attType;
 	assert(this->eltType == typeSOLN_TOTAL);
 
-	// Find location
-	for (n=0; this->solution_ptr->totals[n].description != NULL; n++);
-	this->solution_ptr->totals[n+1].description = NULL;
-	
+
 	// Get attribute name, map to attribute type, process
 
 	for (i = 0; i < attributes.getLength(); i++) {
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
-		case attSOLN_TOTAL_description:
+		case attCONC_description:
 			c->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
 			break;
-		case attSOLN_TOTAL_skip:
+		case attCONC_skip:
 			c->skip = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
 			break;
-		case attSOLN_TOTAL_moles:
+		case attCONC_moles:
 			c->moles = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
 			break;
-		case attSOLN_TOTAL_input_conc:
+		case attCONC_input_conc:
 			c->input_conc = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
 			break;		
-		case attSOLN_TOTAL_equation_name:
+		case attCONC_equation_name:
 			c->equation_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
-			c->phase = phase_bsearch(this->solution_ptr->totals[n].equation_name, &l, FALSE);
+			c->phase = phase_bsearch(c->equation_name, &l, FALSE);
 			break;
-		case attSOLN_TOTAL_phase_si:
+		case attCONC_phase_si:
 			c->phase_si = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
 			break;		
-		case attSOLN_TOTAL_n_pe:
+		case attCONC_n_pe:
 			c->n_pe = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
 			break;
-		case attSOLN_TOTAL_as:
+		case attCONC_as:
 			c->as = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
 			break;
-		case attSOLN_TOTAL_gfw:
+		case attCONC_gfw:
 			c->gfw = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
 			break;		
 	
@@ -922,12 +943,28 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 	for (i = 0; i < attributes.getLength(); i++) {
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
-			case attM_A_description:
-				ma->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			case attISO_isotope_number:
+				iso->isotope_number = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
 				break;
-			case attM_A_la:
-				ma->la = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			case attISO_elt_name:
+				iso->elt_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
 				break;
+			case attISO_isotope_name:
+				iso->isotope_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				break;					
+			case attISO_total:
+				iso->total = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				break;
+			case attISO_ratio:
+				iso->ratio = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				break;
+			case attISO_ratio_uncertainty:
+				iso->ratio_uncertainty = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				break;
+			case attISO_coef:
+				iso->coef = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				break;
+
 			default:
 				++input_error;
 				sprintf(error_string, ERR_MSG, xns::XMLString::transcode(attributes.getName(i)));
@@ -935,5 +972,5 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 				break;
 		}	
 	}
-	return ma;
+	return iso;
 }
