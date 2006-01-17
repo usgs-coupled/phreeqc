@@ -76,16 +76,14 @@ int main(int argc, char *argv[])
 		return errors;
 	}
 
-#ifdef PHREEQC_XML
+#ifdef xxxPHREEQC_XML
  {
 	 int n;
 		SAX_StartSystem();
-		/*
-		for (n = 0; n < 10; ++n)
+		for (n = 0; n < 2; ++n)
 		{
 		  SAX_AddSolution(solution[0]);
 		}
-		*/
 		SAX_EndSystem();
 		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
  }
@@ -98,7 +96,16 @@ int main(int argc, char *argv[])
 		clean_up();
 		return errors;
 	}
-
+ {
+	 int n;
+		SAX_StartSystem();
+		for (n = 0; n < count_solution; ++n)
+		{
+		  SAX_AddSolution(solution[n]);
+		}
+		SAX_EndSystem();
+		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+ }
 	clean_up();
 	close_input_files();
 	close_output_files();
