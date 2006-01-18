@@ -147,6 +147,7 @@ public:
 		attCONC_skip,
 		attCONC_moles,
 		attCONC_input_conc,
+		attCONC_units,
 		attCONC_equation_name,
 		attCONC_phase_si,
 		attCONC_n_pe,

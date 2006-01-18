@@ -132,6 +132,7 @@ struct pe_data {
 // extern routines
 extern "C" {
 #include "phqalloc.h"
+  int conc_init(struct conc *conc_ptr);
   void *free_check_null(void *ptr);
   int pe_data_store (struct pe_data **pe, const char *token);
   struct phase *phase_bsearch (char *ptr, int *j, int print);
@@ -264,16 +265,19 @@ s_oss << "</phast_state>";
   s_bSysIsOpen = true;
 
 }
+
 char * stringify(char * string) {
-	if (string == NULL) return("");
+	if (string == NULL) return(string_hsave(""));
 	return(string);
 }
 extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 {
   const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
-  int i;  
+  int i, newd;  
   assert(s_bSysIsOpen);      // must call SAX_StartSystem first
+  s_oss.precision(DBL_DIG + 1);
 	// Solution element and attributes
+    newd = solution_ptr->new_def;
 	s_oss << "    <solution " << std::endl;
 	s_oss << "      soln_new_def=\"" << solution_ptr->new_def << "\"" << std::endl;
 	s_oss << "      soln_n_user=\"" << solution_ptr->n_user << "\" " << std::endl;
@@ -306,14 +310,19 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 		struct conc *c = &(solution_ptr->totals[i]);
 		s_oss << "      <soln_total " << std::endl;
 		s_oss << "        conc_description=\"" << c->description << "\"" << std::endl;
-		s_oss << "        conc_skip=\"" << c->skip << "\"" << std::endl;
 		s_oss << "        conc_moles=\"" << c->moles << "\"" << std::endl;
-		s_oss << "        conc_input_conc=\"" << c->input_conc << "\"" << std::endl;
-		s_oss << "        conc_equation_name=\"" << stringify(c->equation_name) << "\"" << std::endl;
-		s_oss << "        conc_phase_si=\"" << c->phase_si << "\"" << std::endl;
+		if (newd == TRUE) {
+			s_oss << "        conc_input_conc=\"" << c->input_conc << "\"" << std::endl;
+			if (c->units != NULL) s_oss << "        conc_units=\"" << c->units << "\"" << std::endl;
+			if (c->equation_name != NULL) {
+				s_oss << "        conc_equation_name=\"" << stringify(c->equation_name) << "\"" << std::endl;
+				s_oss << "        conc_phase_si=\"" << c->phase_si << "\"" << std::endl;
+			}
+			if (c->as != NULL) s_oss << "        conc_as=\"" << stringify(c->as) << "\"" << std::endl;
+			s_oss << "        conc_gfw=\"" << c->gfw << "\"" << std::endl;
+		}
 		s_oss << "        conc_n_pe=\"" << c->n_pe << "\"" << std::endl;
-		s_oss << "        conc_as=\"" << stringify(c->as) << "\"" << std::endl;
-		s_oss << "        conc_gfw=\"" << c->gfw << "\"/>" << std::endl; 
+		s_oss << "        />" << std::endl; 
 	}
 	// master_activity, master_activity structure
 	for (i=0; i < solution_ptr->count_master_activity; i++) {
@@ -349,6 +358,7 @@ extern "C" void SAX_EndSystem()
   s_oss << '\0';
   
   s_bSysIsOpen = false;
+  //delete[] s_handler;
   return;
 }
 
@@ -363,6 +373,48 @@ extern "C" char* SAX_GetXMLStr()
   assert(!s_bSysIsOpen);      // must call SAX_EndSystem first
   return s_oss.str();
 }
+
+extern "C" void SAX_cleanup()
+{
+   delete[] s_handler;
+} 
+
+// utility routines
+
+int XMLCh2Int(const XMLCh* const attValue) {
+		int i;
+		char *string;
+		string = xns::XMLString::transcode(attValue);
+	    i = strtol(string, NULL, 10);
+		xns::XMLString::release(&string);
+		return i;
+}
+double XMLCh2Double(const XMLCh* const attValue) {
+		double d;
+		char *string;
+		string = xns::XMLString::transcode(attValue);
+	    d = strtod(string, NULL);
+		xns::XMLString::release(&string);
+		return d;
+}
+char * XMLCh2String(const XMLCh* const attValue) {
+	    char *s;
+		char *string;
+		string = xns::XMLString::transcode(attValue);
+		s = string_duplicate(string);
+		xns::XMLString::release(&string);
+		return s;
+}
+char * XMLCh_hsave(const XMLCh* const attValue, bool allow_null) {
+	    char *s;
+		char *string;
+		string = xns::XMLString::transcode(attValue);
+	    s = string_hsave(string);
+		if (allow_null && strlen(s) == 0) s = NULL;
+		xns::XMLString::release(&string);
+		return s;
+}
+
 
 extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
 {
@@ -406,7 +458,7 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
       input_error++;
       sprintf(error_string, "SAX_UnpackSolutions: %s\n", psz);
       error_msg(error_string, CONTINUE);
-      delete[] psz;
+	  xns::XMLString::release(&psz);
       return ERROR;
     }
   catch (const xns::XMLException& toCatch)
@@ -415,7 +467,7 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
       input_error++;
       sprintf(error_string, "SAX_UnpackSolutions: %s\n", psz);
       error_msg(error_string, CONTINUE);
-      delete[] psz;
+	  xns::XMLString::release(&psz);
       return ERROR;
     }
   catch (...)
@@ -425,7 +477,7 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
       error_msg(error_string, CONTINUE);
       return ERROR;
     }
-  
+
   return(OK);
 }
 
@@ -493,9 +545,9 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 	  {attISO_coef, "iso_coef"},
 		// conc structure
 	  {attCONC_description, "conc_description"},
-	  {attCONC_skip, "conc_skip"},
 	  {attCONC_moles, "conc_moles"},
 	  {attCONC_input_conc, "conc_input_conc"},
+	  {attCONC_units, "conc_units"},
 	  {attCONC_equation_name, "conc_equation_name"},
 	  {attCONC_phase_si, "conc_phase_si"},
 	  {attCONC_n_pe, "conc_n_pe"},
@@ -503,13 +555,17 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 	  {attCONC_gfw, "conc_gfw"},
 
 	};
+
 	count_attributeInfo = sizeof(attributeInfo)/sizeof(struct mapAttributeInfo);
 	for (i = 0; i < count_elementInfo; i++) {
+		// memory freed in destructor
 		this->mapXMLCh2Type[xns::XMLString::transcode(elementInfo[i].key)] = elementInfo[i].type;
 	}
 	for (i = 0; i < count_attributeInfo; i++) {
+		// memory freed in destructor
 		this->mapXMLCh2AttType[xns::XMLString::transcode(attributeInfo[i].key)] = attributeInfo[i].type;
 	}
+
 	this->totals.reserve(50);
 	this->acts.reserve(50);
 }
@@ -522,6 +578,14 @@ SaxPhreeqcHandlers::~SaxPhreeqcHandlers()
 		XMLCh* p = (XMLCh*)it->first;
 		xns::XMLString::release(&p);
 	}
+	this->mapXMLCh2Type.clear();
+	std::map<const XMLCh*, attributeType, XMLCH_LESS>::iterator ita = this->mapXMLCh2AttType.begin();
+	for (; ita != this->mapXMLCh2AttType.end(); ++ita)
+	{
+		XMLCh* p = (XMLCh*)ita->first;
+		xns::XMLString::release(&p);
+	}
+	this->mapXMLCh2AttType.clear();
 
 }
 
@@ -687,6 +751,7 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 {
   const char ERR_MSG[] = "Unpacking solution message: %s, element not found\n";
   char *string;
+
   int i;
 
   string = xns::XMLString::transcode(name);
@@ -695,10 +760,11 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
   switch (this->eltType)
     {
     case typePHAST_STATE:
-		i =  wcstol((wchar_t*)attributes.getValue(xns::XMLString::transcode("nx")), NULL, 10);
-
-	// m_solution_ptr->n_user = (int) wcstol((wchar_t*)attributes.getValue(s_strN_USER), NULL, 10);
-      break;
+		XMLCh *x;
+		x = xns::XMLString::transcode("nx");
+		i = XMLCh2Int(attributes.getValue(x));
+		xns::XMLString::release(&x);
+		break;
     case typeSOLUTION:
       assert(this->solution_ptr == NULL);
       assert(this->totals.size() == 0);
@@ -713,10 +779,10 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
     case typeSOLN_PE:
 		assert(this->solution_ptr->pe != NULL);
 		// store pe, no need to clean up at end of solution
-		string = xns::XMLString::transcode(attributes.getName(0));
 		if ((attributes.getLength() >= 1) && (this->mapXMLCh2AttType[attributes.getName(0)] == attSOLN_PE_name)){
 			string = xns::XMLString::transcode(attributes.getValue((unsigned int) 0));
 			pe_data_store(&(this->solution_ptr->pe), string);
+			xns::XMLString::release(&string);
 		} else {
 			++input_error;
 			sprintf(error_string, "No attribute data for SOLN_PE.\n");
@@ -819,73 +885,100 @@ int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
 		case attSOLN_new_def:
-			this->solution_ptr->new_def = strtol(string = xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
-			xns::XMLString::release(&string);
+			//this->solution_ptr->new_def = strtol(string = xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//xns::XMLString::release(&string);
+			this->solution_ptr->new_def = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_n_user:
-			this->solution_ptr->n_user = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//this->solution_ptr->n_user = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->n_user = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_n_user_end:
-			this->solution_ptr->n_user_end = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//this->solution_ptr->n_user_end = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->n_user_end = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_description:
-			this->solution_ptr->description = string_duplicate(xns::XMLString::transcode(attributes.getValue(i)));
+			//this->solution_ptr->description = string_duplicate(xns::XMLString::transcode(attributes.getValue(i)));
+			this->solution_ptr->description = XMLCh2String(attributes.getValue(i));
 			break;
 		case attSOLN_tc:
-			this->solution_ptr->tc = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->tc = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->tc = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_ph:
-			this->solution_ptr->ph = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->ph = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->ph = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_solution_pe:
-			this->solution_ptr->solution_pe = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->solution_pe = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->solution_pe = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_mu:
-			this->solution_ptr->mu = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->mu = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->mu = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_ah2o:
-			this->solution_ptr->ah2o = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->ah2o = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->ah2o = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_density:
-			this->solution_ptr->density = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->density = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->density = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_total_h:
-			this->solution_ptr->total_h = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->total_h = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->total_h = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_total_o:
-			this->solution_ptr->total_o = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->total_o = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->total_o = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_cb:
-			this->solution_ptr->cb = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->cb = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->cb = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_mass_water:
-			this->solution_ptr->mass_water = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->mass_water = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->mass_water = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_total_alkalinity:
-			this->solution_ptr->total_alkalinity = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->total_alkalinity = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->total_alkalinity = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_total_co2:
-			this->solution_ptr->total_co2 = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//this->solution_ptr->total_co2 = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			this->solution_ptr->total_co2 = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attSOLN_units:
-			this->solution_ptr->units = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//this->solution_ptr->units = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//string = XMLCh2String(attributes.getValue(i));
+			//this->solution_ptr->units = string_hsave(string);
+			// need to delete with PHREEQC memory mgr
+			//string = (char *) free_check_null(string);
+			this->solution_ptr->units = XMLCh_hsave(attributes.getValue(i), TRUE);
+			// need to delete with PHREEQC memory mgr
 			break;
 		case attSOLN_default_pe:
-			this->solution_ptr->default_pe = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
-			break;
+			//this->solution_ptr->default_pe = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->default_pe = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_count_master_activity:
-			this->solution_ptr->count_master_activity = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//this->solution_ptr->count_master_activity = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->count_master_activity = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_count_isotopes:
-			this->solution_ptr->count_isotopes = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//this->solution_ptr->count_isotopes = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->count_isotopes = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attSOLN_count_species_gamma:
-			this->solution_ptr->count_species_gamma = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//this->solution_ptr->count_species_gamma = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			this->solution_ptr->count_species_gamma = XMLCh2Int(attributes.getValue(i));
 			break;
 		default:
 			++input_error;
-			sprintf(error_string, ERR_MSG, xns::XMLString::transcode(attributes.getName(i)));
+			string = xns::XMLString::transcode(attributes.getName(i));
+			sprintf(error_string, ERR_MSG, string);
+			xns::XMLString::release(&string);
 			error_msg(error_string, CONTINUE);		
 			break;
 		}
@@ -897,7 +990,9 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 	const char ERR_MSG[] = "Unpacking solution totals attributes: %s, attribute not found\n";	
 	unsigned int i;
 	int l;
+	char *string;
 	struct conc *c = new conc();
+	conc_init(c);
 	attributeType attType;
 	assert(this->eltType == typeSOLN_TOTAL);
 
@@ -908,38 +1003,62 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
 		case attCONC_description:
-			c->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//c->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//string = xns::XMLString::transcode(attributes.getValue(i));
+			//c->description = string_hsave(string);
+			//xns::XMLString::release(&string);
+			c->description = XMLCh_hsave(attributes.getValue(i), TRUE);
 			break;
 		case attCONC_skip:
-			c->skip = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//c->skip = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			c->skip = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attCONC_moles:
-			c->moles = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//c->moles = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			c->moles = XMLCh2Double(attributes.getValue(i));
 			break;
 		case attCONC_input_conc:
-			c->input_conc = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//c->input_conc = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			c->input_conc = XMLCh2Double(attributes.getValue(i));
 			break;		
+		case attCONC_units:
+			c->units = XMLCh_hsave(attributes.getValue(i), TRUE);
+			break;	
 		case attCONC_equation_name:
-			c->equation_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
-			c->phase = phase_bsearch(c->equation_name, &l, FALSE);
+			//c->equation_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//string = xns::XMLString::transcode(attributes.getValue(i));
+			//c->equation_name = string_hsave(string);
+			//xns::XMLString::release(&string);
+			c->equation_name = XMLCh_hsave(attributes.getValue(i), TRUE);
+			//c->phase = phase_bsearch(c->equation_name, &l, FALSE);
+			c->phase = NULL;
 			break;
 		case attCONC_phase_si:
-			c->phase_si = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//c->phase_si = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			c->phase_si = XMLCh2Double(attributes.getValue(i));
 			break;		
 		case attCONC_n_pe:
-			c->n_pe = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			//c->n_pe = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+			c->n_pe = XMLCh2Int(attributes.getValue(i));
 			break;
 		case attCONC_as:
-			c->as = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//c->as = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+			//string = xns::XMLString::transcode(attributes.getValue(i));
+			//c->as = string_hsave(string);
+			//xns::XMLString::release(&string);
+			c->as = XMLCh_hsave(attributes.getValue(i), TRUE);
 			break;
 		case attCONC_gfw:
-			c->gfw = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			//c->gfw = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+			c->gfw = XMLCh2Double(attributes.getValue(i));
 			break;		
 	
 		default:
 			++input_error;
-			sprintf(error_string, ERR_MSG, xns::XMLString::transcode(attributes.getName(i)));
-			error_msg(error_string, CONTINUE);		
+			string = xns::XMLString::transcode(attributes.getName(i));
+			sprintf(error_string, ERR_MSG, string);
+			error_msg(error_string, CONTINUE);
+			xns::XMLString::release(&string);
 			break;
 		}
 	}
@@ -948,6 +1067,7 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns::AttributeList& attributes)
 {
 	int i;
+	char *string;
 	const char ERR_MSG[] = "Unpacking master activity attributes: %s, attribute not found\n";	
 	struct master_activity *ma = new master_activity();
 	attributeType attType;
@@ -955,15 +1075,22 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns:
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
 			case attM_A_description:
-				ma->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//ma->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//string = xns::XMLString::transcode(attributes.getValue(i));
+				//ma->description = string_hsave(string);
+				//xns::XMLString::release(&string);
+				ma->description = XMLCh_hsave(attributes.getValue(i), TRUE);
 				break;
 			case attM_A_la:
-				ma->la = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				//ma->la = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				ma->la = XMLCh2Double(attributes.getValue(i));
 				break;
 			default:
 				++input_error;
-				sprintf(error_string, ERR_MSG, xns::XMLString::transcode(attributes.getName(i)));
-				error_msg(error_string, CONTINUE);		
+				string = xns::XMLString::transcode(attributes.getName(i));
+				sprintf(error_string, ERR_MSG, string);
+				error_msg(error_string, CONTINUE);
+				xns::XMLString::release(&string);
 				break;
 		}	
 	}
@@ -972,6 +1099,7 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns:
 struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList& attributes)
 {
 	int i;
+	char *string;
 	const char ERR_MSG[] = "Unpacking isotope attributes: %s, attribute not found\n";	
 	struct isotope *iso = new isotope();
 
@@ -981,31 +1109,46 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 		attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		switch (attType) {
 			case attISO_isotope_number:
-				iso->isotope_number = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+				//iso->isotope_number = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
+				iso->isotope_number = XMLCh2Int(attributes.getValue(i));
 				break;
 			case attISO_elt_name:
-				iso->elt_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//iso->elt_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//string = xns::XMLString::transcode(attributes.getValue(i));
+				//iso->elt_name = string_hsave(string);
+				//xns::XMLString::release(&string);
+				iso->elt_name = XMLCh_hsave(attributes.getValue(i), TRUE);
 				break;
 			case attISO_isotope_name:
-				iso->isotope_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//iso->isotope_name = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
+				//string = xns::XMLString::transcode(attributes.getValue(i));
+				//iso->isotope_name = string_hsave(string);
+				//xns::XMLString::release(&string);
+				iso->isotope_name = XMLCh_hsave(attributes.getValue(i), TRUE);
 				break;					
 			case attISO_total:
-				iso->total = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				//iso->total = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				iso->total = XMLCh2Double(attributes.getValue(i));
 				break;
 			case attISO_ratio:
-				iso->ratio = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				//iso->ratio = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				iso->ratio = XMLCh2Double(attributes.getValue(i));
 				break;
 			case attISO_ratio_uncertainty:
-				iso->ratio_uncertainty = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				//iso->ratio_uncertainty = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				iso->ratio_uncertainty = XMLCh2Double(attributes.getValue(i));
 				break;
 			case attISO_coef:
-				iso->coef = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				//iso->coef = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
+				iso->coef = XMLCh2Double(attributes.getValue(i));
 				break;
 
 			default:
 				++input_error;
-				sprintf(error_string, ERR_MSG, xns::XMLString::transcode(attributes.getName(i)));
+				string = xns::XMLString::transcode(attributes.getName(i));
+				sprintf(error_string, ERR_MSG, string);
 				error_msg(error_string, CONTINUE);		
+				xns::XMLString::release(&string);
 				break;
 		}	
 	}

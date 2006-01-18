@@ -84,14 +84,14 @@
 	</xs:element>
 	<xs:attributeGroup name="conc">
 		<xs:attribute name="conc_description" type="xs:string" use='required'/>
-		<xs:attribute name="conc_skip" type="xs:integer" use='required'/>
 		<xs:attribute name="conc_moles" type="xs:double" use='required'/>
 		<xs:attribute name="conc_input_conc" type="xs:double" use='required'/>
-		<xs:attribute name="conc_equation_name" type="xs:string" use='required'/>
-		<xs:attribute name="conc_phase_si" type="xs:double" use='required'/>
+		<xs:attribute name="conc_units" type="xs:string" />
+		<xs:attribute name="conc_equation_name" type="xs:string" />
+		<xs:attribute name="conc_phase_si" type="xs:double" />
 		<xs:attribute name="conc_n_pe" type="xs:integer" use='required'/>
-		<xs:attribute name="conc_as" type="xs:string" use='required'/>
-		<xs:attribute name="conc_gfw" type="xs:double" use='required'/>
+		<xs:attribute name="conc_as" type="xs:string" />
+		<xs:attribute name="conc_gfw" type="xs:double" />
 	</xs:attributeGroup>
 	<xs:element name="soln_total">
 		<xs:complexType>

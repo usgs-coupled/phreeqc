@@ -466,6 +466,7 @@ int read_conc(int n, int count_mass_balance, char *str)
 /*
  *   Set defaults
  */
+	/*
 	solution[n]->totals[count_mass_balance].equation_name = NULL;
 	solution[n]->totals[count_mass_balance].phase = NULL;
 	solution[n]->totals[count_mass_balance].phase_si = 0.0;
@@ -473,6 +474,9 @@ int read_conc(int n, int count_mass_balance, char *str)
 	solution[n]->totals[count_mass_balance].n_pe=-1;
 	solution[n]->totals[count_mass_balance].as=NULL;
 	solution[n]->totals[count_mass_balance].gfw= 0.0;
+    */
+	conc_init(&(solution[n]->totals[count_mass_balance]));
+
 /*
  *   Remove space between "kg" and "solution" or "water" in units
  */

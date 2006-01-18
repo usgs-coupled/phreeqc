@@ -4126,6 +4126,20 @@ int conc_compare (const void *ptr1, const void *ptr2)
 
 }
 /* ---------------------------------------------------------------------- */
+int conc_init (struct conc *conc_ptr)
+/* ---------------------------------------------------------------------- */
+{
+	if (conc_ptr == NULL) return(ERROR); 
+	conc_ptr->equation_name = NULL;
+	conc_ptr->phase = NULL;
+	conc_ptr->phase_si = 0.0;
+	conc_ptr->units=NULL;
+	conc_ptr->n_pe=-1;
+	conc_ptr->as=NULL;
+	conc_ptr->gfw= 0.0;
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
 int isotope_compare (const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {

@@ -68,4 +68,7 @@ PHASES
         log_k          -3.490
         delta_h        -18.630 kcal
 END
-
+USE solution 1
+REACTION_TEMPERATURE 
+	30
+END

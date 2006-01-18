@@ -2326,6 +2326,7 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 
 		dup_print(token, TRUE);
 		if (read_input() == EOF) break;
+
 		if (title_x != NULL) {
 			sprintf(token, "TITLE");
 			dup_print(token, TRUE);
@@ -2386,6 +2387,19 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #ifdef PHREEQ98
                 } /* if (!phreeq98_debug) */
 #endif
+		#ifdef SKIP
+		#endif
+{
+	 int n;
+		SAX_StartSystem();
+		for (n = 0; n < count_solution; ++n)
+		{
+		  SAX_AddSolution(solution[n]);
+		}
+		SAX_EndSystem();
+		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+ }
+
 	}
 
 
