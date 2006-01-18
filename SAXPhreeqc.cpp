@@ -169,6 +169,7 @@ extern "C" void SAX_StartSystem()
 {
 
   assert(!s_bSysIsOpen);     // system already open and has not been closed
+#ifdef SKIP
 #if defined(_DEBUG) 
 	int tmpDbgFlag;
 
@@ -183,6 +184,7 @@ extern "C" void SAX_StartSystem()
 	tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
 	_CrtSetDbgFlag(tmpDbgFlag);
 #endif 
+#endif
   // init stream
   s_oss.freeze(false);
   s_oss.seekp(0);
@@ -275,7 +277,7 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
   const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
   int i, newd;  
   assert(s_bSysIsOpen);      // must call SAX_StartSystem first
-  s_oss.precision(DBL_DIG + 1);
+	s_oss.precision(DBL_DIG - 1);
 	// Solution element and attributes
     newd = solution_ptr->new_def;
 	s_oss << "    <solution " << std::endl;
@@ -309,7 +311,7 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 	for (i=0; solution_ptr->totals[i].description != NULL; i++) {
 		struct conc *c = &(solution_ptr->totals[i]);
 		s_oss << "      <soln_total " << std::endl;
-		s_oss << "        conc_description=\"" << c->description << "\"" << std::endl;
+		s_oss << "        conc_desc=\"" << c->description << "\"" << std::endl;
 		s_oss << "        conc_moles=\"" << c->moles << "\"" << std::endl;
 		if (newd == TRUE) {
 			s_oss << "        conc_input_conc=\"" << c->input_conc << "\"" << std::endl;
@@ -326,11 +328,11 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 	}
 	// master_activity, master_activity structure
 	for (i=0; i < solution_ptr->count_master_activity; i++) {
-		s_oss << "      <soln_master_activity m_a_description=\"" << stringify(solution_ptr->master_activity[i].description) << "\" m_a_la=\"" << solution_ptr->master_activity[i].la << "\"/>" << std::endl;
+		s_oss << "      <soln_m_a m_a_desc=\"" << stringify(solution_ptr->master_activity[i].description) << "\" m_a_la=\"" << solution_ptr->master_activity[i].la << "\"/>" << std::endl;
 	}
 	// species_gamma, mater_activity structure
 	for (i=0; i < solution_ptr->count_species_gamma; i++) {
-		s_oss << "      <soln_species_gamma m_a_description=\"" << stringify(solution_ptr->species_gamma[i].description) << "\" m_a_la=\"" << solution_ptr->species_gamma[i].la << "\"/>" << std::endl;
+		s_oss << "      <soln_s_g m_a_desc=\"" << stringify(solution_ptr->species_gamma[i].description) << "\" m_a_la=\"" << solution_ptr->species_gamma[i].la << "\"/>" << std::endl;
 	}
 	// isotopes, isotope structure
 	for (i=0; solution_ptr->count_isotopes; i++) {
@@ -443,14 +445,14 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
       parser.setErrorHandler(s_handler);
       
       int t = 0;
-      for (; t < 1; ++t)
+      for (; t < 1000; ++t)
 	{
 		const unsigned long startMillis = xns::XMLPlatformUtils::getCurrentMillis();
 		parser.parse(memBufIS);
 		const unsigned long endMillis = xns::XMLPlatformUtils::getCurrentMillis();
 		duration += endMillis - startMillis;
 	}
-      std::cerr << "\nSaxParse time = " << (float)duration/t << " millis\n";
+      std::cerr << "\nSaxParse time = " << duration << " millis\n";
     }
   catch (const xns::SAXException& toCatch)
     {
@@ -502,9 +504,9 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 		{"solution", typeSOLUTION},
 		{"soln_pe", typeSOLN_PE},
 		{"soln_total", typeSOLN_TOTAL},
-		{"soln_master_activity", typeSOLN_MASTER_ACTIVITY},
+		{"soln_m_a", typeSOLN_MASTER_ACTIVITY},
 		{"soln_isotope", typeSOLN_ISOTOPE},
-		{"soln_species_gamma", typeSOLN_SPECIES_GAMMA}
+		{"soln_s_g", typeSOLN_SPECIES_GAMMA}
 	};
 	count_elementInfo = sizeof(elementInfo)/sizeof(struct mapElementInfo);
 	struct mapAttributeInfo	attributeInfo[] = {	
@@ -532,7 +534,7 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 	  {attSOLN_count_species_gamma, "soln_count_species_gamma"},
 	  {attSOLN_PE_name, "soln_pe_name"},
 		// master_activity structure
-	  {attM_A_description, "m_a_description"},
+	  {attM_A_description, "m_a_desc"},
 	  {attM_A_la, "m_a_la"},
 		// isotope structure
 	  {attISO_isotope_number, "iso_isotope_number"},
@@ -544,7 +546,7 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 	  {attISO_x_ratio_uncertainty, "iso_x_ratio_uncertainty"},
 	  {attISO_coef, "iso_coef"},
 		// conc structure
-	  {attCONC_description, "conc_description"},
+	  {attCONC_description, "conc_desc"},
 	  {attCONC_moles, "conc_moles"},
 	  {attCONC_input_conc, "conc_input_conc"},
 	  {attCONC_units, "conc_units"},
