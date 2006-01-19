@@ -10,7 +10,8 @@
 #endif // _MSC_VER > 1000
 
 #include <wchar.h>                         // iswspace sprintf
-#include <xercesc/sax/HandlerBase.hpp>
+//#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 /**
 #include <hash_map>
 **/
@@ -25,38 +26,6 @@
 #define LDBLE double
 #endif
 
-struct conc {
-	char *description;
-	int skip;
-	double moles;
-	double input_conc;
-	char *units;
-	char *equation_name;
-	struct phase *phase;
-	double phase_si;
-	int n_pe;
-	char *as;
-	double gfw;
-};
-struct isotope {
-	LDBLE isotope_number;
-	char *elt_name;
-	char *isotope_name;
-	LDBLE total;
-	LDBLE ratio;
-	LDBLE ratio_uncertainty;
-	LDBLE x_ratio_uncertainty;
-	struct master *master;
-	struct master *primary;
-	LDBLE coef;                    /* coefficient of element in phase */
-};
-struct master_activity {
-	char *description;
-	LDBLE la;
-};
-
-///XERCES_CPP_NAMESPACE_USE
-
 struct XMLCH_LESS : std::binary_function<const XMLCh*, const XMLCh*, bool> {
 bool operator()(const XMLCh* _X, const XMLCh* _Y) const
 {return xns::XMLString::compareString( _X, _Y) < 0;}
@@ -70,9 +39,25 @@ bool operator()(const XMLCh* _X, const XMLCh* _Y) const
 	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) == 0; }
 };
 **/
+#include <math.h>
+extern "C" {
+#define EXTERNAL
+//#include "phqalloc.h"
+#include "global.h"
+ int conc_init(struct conc *conc_ptr);
+}
 
 
-class SaxPhreeqcHandlers : public xns::HandlerBase
+class Cconc : public conc
+{
+public:
+	Cconc() { conc_init(this); }
+	~Cconc() { ; }
+};
+
+
+//class SaxPhreeqcHandlers : public xns::HandlerBase
+class SaxPhreeqcHandlers : public xns::DefaultHandler
 {
 public:
 	SaxPhreeqcHandlers();
@@ -83,7 +68,8 @@ public:
     // -----------------------------------------------------------------------
     void endDocument();
 
-    void endElement(const XMLCh* const name);
+    //void endElement(const XMLCh* const name);
+	void endElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname);
 
     void characters(const XMLCh* const chars, const unsigned int length);
 
@@ -93,7 +79,8 @@ public:
 
     void startDocument();
 
-    void startElement(const XMLCh* const name, xns::AttributeList& attributes);
+    //void startElement(const XMLCh* const name, xns::AttributeList& attributes);
+	void startElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname, const xns::Attributes& attributes);
 
 	// element types
 	enum elementType
@@ -155,17 +142,21 @@ public:
 		attCONC_gfw,
 	} attType;
 
-	int  processSolutionAttributes(xns::AttributeList& attributes);
-	struct conc *processSolutionTotalAttributes(xns::AttributeList& attributes);
-	struct master_activity *processMasterActivityAttributes(xns::AttributeList& attributes);
-	struct isotope *processIsotopeAttributes(xns::AttributeList& attributes);
+	//int  processSolutionAttributes(xns::AttributeList& attributes);
+	//struct conc *processSolutionTotalAttributes(xns::AttributeList& attributes);
+	//struct master_activity *processMasterActivityAttributes(xns::AttributeList& attributes);
+	//struct isotope *processIsotopeAttributes(xns::AttributeList& attributes);
+	int  processSolutionAttributes(const xns::Attributes& attributes);
+	struct conc *processSolutionTotalAttributes(const xns::Attributes& attributes);
+	struct master_activity *processMasterActivityAttributes(const xns::Attributes& attributes);
+	struct isotope *processIsotopeAttributes(const xns::Attributes& attributes);
 
 protected:
 	std::vector<conc> totals;
 	std::vector<master_activity> acts, s_gammas;
 	std::vector<isotope> isotopes;
-	std::map<const XMLCh*, elementType, XMLCH_LESS> mapXMLCh2Type;
-	std::map<const XMLCh*, attributeType, XMLCH_LESS> mapXMLCh2AttType;
+	std::map< const XMLCh*, elementType, XMLCH_LESS > mapXMLCh2Type;
+	std::map< const XMLCh*, attributeType, XMLCH_LESS > mapXMLCh2AttType;
 	/**
 	std::hash_map<const XMLCh*, ElementType, hash<const XMLCh*>, XMLCH_EQUALS> m_hashmapXMLCh2Type;
 	**/

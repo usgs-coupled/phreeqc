@@ -10,11 +10,13 @@
 #include <cassert>                         // assert
 #include <strstream>                       // std::ostrstream
 #include <iostream>                        // std::cerr
-
+#ifdef SKIP
+#endif
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #endif
+
 
 #include <xercesc/framework/StdInInputSource.hpp>
 #include <xercesc/framework/MemoryManager.hpp>
@@ -22,9 +24,8 @@
 #include <xercesc/internal/XMLGrammarPoolImpl.hpp>
 #include <xercesc/internal/MemoryManagerImpl.hpp>
 #include <xercesc/validators/common/Grammar.hpp>
-#include <xercesc/parsers/SAXParser.hpp>
 
-#include <xercesc/parsers/SAXParser.hpp>           // SAXParser
+//#include <xercesc/parsers/SAXParser.hpp>           // SAXParser
 #include <xercesc/sax/AttributeList.hpp>           // AttributeList
 #include <xercesc/util/XMLUniDefs.hpp>             // Unicode definitions
 #include <xercesc/framework/MemBufInputSource.hpp> // MemBufInputSource
@@ -32,6 +33,9 @@
 #include <xercesc/internal/MemoryManagerImpl.hpp>
 #include <xercesc/util/PlatformUtils.hpp>          // XMLPlatformUtils::getCurrentMillis
 #include <xercesc/util/XMLUni.hpp>
+
+#include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <xercesc/sax2/XMLReaderFactory.hpp>
 
 #include "SAXPhreeqc.h"                    // SAX_ functions
 #include "SaxPhreeqcHandlers.h"            // SaxPhreeqcHandlers
@@ -43,8 +47,6 @@
 ///static std::ostrstream s_oss(buffer, 300000);        // must never go out of scope
 static std::ostrstream s_oss;        // must never go out of scope
 static bool s_bSysIsOpen = false;    // must never go out of scope
-//static SaxPhreeqcHandlers s_handler; // one and only instance
-static SaxPhreeqcHandlers *s_handler; // one and only instance
 
 // global.h defines
 #define OK 1
@@ -61,77 +63,13 @@ static SaxPhreeqcHandlers *s_handler; // one and only instance
 #define LDBLE double
 #endif
 
-// global.h defs
-struct solution {
-  int new_def;
-  int n_user;
-  int n_user_end;
-  char *description;
-  double tc;
-  double ph;
-  double solution_pe;
-  double mu;
-  double ah2o;
-  double density;
-  LDBLE total_h;
-  LDBLE total_o;
-  LDBLE cb;
-  LDBLE mass_water;
-  LDBLE total_alkalinity;
-  LDBLE total_co2;
-  char *units;
-  struct pe_data *pe; 
-  int default_pe;
-  struct conc *totals;
-  struct master_activity *master_activity;
-  int count_master_activity;
-  int count_isotopes;
-  struct isotope *isotopes;
-  struct master_activity *species_gamma;
-  int count_species_gamma;
-};
-struct master {                       /* list of name and number of elements in an equation */
-  int in;                       /* TRUE if in model, FALSE if out, REWRITE if other mb eq */
-  int number;                   /* sequence number in list of masters */
-  int last_model;               /* saved to determine if model has changed */
-  int type;                     /* AQ or EX */ 
-  int primary;                  /* TRUE if master species is primary */
-  double coef;                  /* coefficient of element in master species */
-  LDBLE total;                 /* total concentration for element or valence state */
-  double isotope_ratio;
-  double isotope_ratio_uncertainty;
-  int isotope;
-  double total_primary;
-  /*	double la;           */       /* initial guess of master species log activity */
-  struct element *elt;          /* element structure */
-  double alk;                   /* alkalinity of species */
-  double gfw;                   /* default gfw for species */
-  char *gfw_formula;            /* formula from which to calcuate gfw */
-  struct unknown *unknown;      /* pointer to unknown structure */
-  struct species *s;            /* pointer to species structure */
-  struct reaction *rxn_primary; /* reaction writes master species in terms of primary 
-				   master species */
-  struct reaction *rxn_secondary; /* reaction writes master species in terms of secondary 
-				     master species */
-  struct reaction **pe_rxn;        /* e- written in terms of redox couple (or e-), points
-				      to location */
-};
 
-struct element {
-  char *name;                   /* element name */
-  /*	int in; */
-  struct master *master;
-  struct master *primary;
-  double gfw;
-};
-struct pe_data {
-	char *name;
-	struct reaction *rxn;
-};
-
+#include <math.h>
 // extern routines
 extern "C" {
+#define EXTERNAL
 #include "phqalloc.h"
+#include "global.h"
   int conc_init(struct conc *conc_ptr);
   void *free_check_null(void *ptr);
   int pe_data_store (struct pe_data **pe, const char *token);
@@ -154,22 +92,12 @@ extern "C" struct solution **solution;
 extern "C" int count_solution;
 extern "C" int max_solution;
 
+extern "C" int clean_up(void);
+
 class Initializer
 {
 public:
   Initializer(){ 
-	xns::XMLPlatformUtils::Initialize();
-	s_handler = new SaxPhreeqcHandlers();
-  }
-};
-
-static Initializer sInit;  // initialize xerces once
-
-extern "C" void SAX_StartSystem()
-{
-
-  assert(!s_bSysIsOpen);     // system already open and has not been closed
-#ifdef SKIP
 #if defined(_DEBUG) 
 	int tmpDbgFlag;
 
@@ -179,12 +107,26 @@ extern "C" void SAX_StartSystem()
 	* inadvertent use of freed memory
 	*/
 	tmpDbgFlag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
-	tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;
+	//tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;
 	tmpDbgFlag |= _CRTDBG_LEAK_CHECK_DF;
-	tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
+	//tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
 	_CrtSetDbgFlag(tmpDbgFlag);
 #endif 
-#endif
+
+	xns::XMLPlatformUtils::Initialize();
+	//s_handler = new SaxPhreeqcHandlers();
+  }
+};
+
+static Initializer sInit;  // initialize xerces once
+static SaxPhreeqcHandlers s_handler; // one and only instance
+//static SaxPhreeqcHandlers *s_handler; // one and only instance
+
+extern "C" void SAX_StartSystem()
+{
+
+  assert(!s_bSysIsOpen);     // system already open and has not been closed
+
   // init stream
   s_oss.freeze(false);
   s_oss.seekp(0);
@@ -330,6 +272,16 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 	for (i=0; i < solution_ptr->count_master_activity; i++) {
 		s_oss << "      <soln_m_a m_a_desc=\"" << stringify(solution_ptr->master_activity[i].description) << "\" m_a_la=\"" << solution_ptr->master_activity[i].la << "\"/>" << std::endl;
 	}
+	/*
+	if (solution_ptr->count_master_activity > 0) {
+	s_oss << "      <soln_m_a> " << std::endl;
+		for (i=0; i < solution_ptr->count_master_activity; i++) {
+			if (solution_ptr->master_activity[i].description != NULL) s_oss << stringify(solution_ptr->master_activity[i].description) << " " << solution_ptr->master_activity[i].la << std::endl;
+		}
+		s_oss << "</soln_m_a>" << std::endl;
+	}
+	*/
+
 	// species_gamma, mater_activity structure
 	for (i=0; i < solution_ptr->count_species_gamma; i++) {
 		s_oss << "      <soln_s_g m_a_desc=\"" << stringify(solution_ptr->species_gamma[i].description) << "\" m_a_la=\"" << solution_ptr->species_gamma[i].la << "\"/>" << std::endl;
@@ -378,18 +330,21 @@ extern "C" char* SAX_GetXMLStr()
 
 extern "C" void SAX_cleanup()
 {
-   delete[] s_handler;
+   //delete s_handler;
+	s_oss.freeze(false);
 } 
 
 // utility routines
 
 int XMLCh2Int(const XMLCh* const attValue) {
 		int i;
+
 		char *string;
 		string = xns::XMLString::transcode(attValue);
 	    i = strtol(string, NULL, 10);
 		xns::XMLString::release(&string);
 		return i;
+		//return (xns::XMLString::parseInt(attValue));
 }
 double XMLCh2Double(const XMLCh* const attValue) {
 		double d;
@@ -427,12 +382,16 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
   //
   //  Create a SAX parser object.
   //
-	xns::SAXParser parser;
-	parser.setValidationScheme(xns::SAXParser::Val_Always);
-	parser.setDoNamespaces(false);
-	parser.setDoSchema(false);
+	//xns::SAXParser parser;
+	//parser.setValidationScheme(xns::SAXParser::Val_Always);
+	//parser.setDoNamespaces(false);
+	//parser.setDoSchema(false);
 
-  
+	xns::SAX2XMLReader * parser = xns::XMLReaderFactory::createXMLReader();
+	parser->setFeature(xns::XMLUni::fgXercesSchemaFullChecking, false);
+	parser->setFeature(xns::XMLUni::fgSAX2CoreNameSpaces, false);
+	parser->setFeature(xns::XMLUni::fgXercesSchema, false);
+ 	parser->setFeature(xns::XMLUni::fgXercesIdentityConstraintChecking, false); 
   //
   //  Create the handler object and install it as the document and error
   //  handler for the parser. Then parse the MemBufferInputSource and 
@@ -441,14 +400,16 @@ extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
   try
     {
       unsigned long duration = 0;
-      parser.setDocumentHandler(s_handler);
-      parser.setErrorHandler(s_handler);
-      
+      //parser.setDocumentHandler(s_handler);
+      //parser.setErrorHandler(s_handler);
+      parser->setContentHandler(&s_handler);
+      parser->setErrorHandler(&s_handler);      
       int t = 0;
       for (; t < 1000; ++t)
 	{
 		const unsigned long startMillis = xns::XMLPlatformUtils::getCurrentMillis();
-		parser.parse(memBufIS);
+		//parser.parse(memBufIS);
+		parser->parse(memBufIS);
 		const unsigned long endMillis = xns::XMLPlatformUtils::getCurrentMillis();
 		duration += endMillis - startMillis;
 	}
@@ -599,7 +560,7 @@ void SaxPhreeqcHandlers::endDocument()
 {
 }
 
-void SaxPhreeqcHandlers::endElement(const XMLCh* const name)
+void SaxPhreeqcHandlers::endElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname)
 {
   switch (this->mapXMLCh2Type[name])
     {
@@ -685,57 +646,29 @@ void SaxPhreeqcHandlers::endElement(const XMLCh* const name)
 void SaxPhreeqcHandlers::characters(const XMLCh* const chars, const unsigned int length)
 {
   // skip whitespace
-  XMLCh* pChar = (XMLCh*)chars;
+
+	//XMLCh* pChar = (XMLCh*)chars;
+	//while(pChar && iswspace(*pChar)) ++pChar;
+	//if (*pChar)
+	// {
 /*
-  while(pChar && iswspace(*pChar)) ++pChar;
-  if (*pChar)
-    {
-      switch(m_type)
+    switch(this->eltType)
 	{
-
-	  case typeTC:
-	  m_solution_ptr->tc = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typePH:
-	  m_solution_ptr->ph = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeSOLUTION_PE:
-	  m_solution_ptr->solution_pe = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeMU:
-	  m_solution_ptr->mu = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeAH2O:
-	  m_solution_ptr->ah2o = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeTOTAL_H:
-	  m_solution_ptr->total_h = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeTOTAL_O:
-	  m_solution_ptr->total_o = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeCB:
-	  m_solution_ptr->cb = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeMASS_WATER:
-	  m_solution_ptr->mass_water = wcstod((wchar_t*)pChar, NULL);
-	  break;
-	case typeTOTAL:
-	  // description stored in startElement
-	  m_solution_ptr->totals[0].moles = wcstod((wchar_t*)pChar, NULL);
-	  m_totals.push_back(m_solution_ptr->totals[0]);
-	  break;
-	case typeACT:
-	  // description stored in startElement
-	  m_solution_ptr->master_activity[0].la = wcstod((wchar_t*)pChar, NULL);
-	  m_acts.push_back(m_solution_ptr->master_activity[0]);
-	  break;
-
-	default:
-	  break;
+		case typeSOLN_MASTER_ACTIVITY:
+			//xns::BaseRefVectorOf<XMLCh> *arg = xns::XMLString::tokenizeString(chars);
+			for ( i = 0; i < arg->size() - 1; i+=2 ) {
+				struct master_activity *ma = new master_activity();
+				ma->description = XMLCh_hsave( arg->elementAt(i), true);
+				ma->la = XMLCh2Double( arg->elementAt(i + 1));
+				this->acts.push_back(*ma);
+			}
+			//struct master_activity *ma = new master_activity();
+			//ma->description = NULL;
+			//this->acts.push_back(*ma);
+			break;
 	}
- 	}
-	  */
+	*/
+
 }
 
 void SaxPhreeqcHandlers::ignorableWhitespace(const XMLCh* const chars, const unsigned int length)
@@ -749,7 +682,9 @@ void SaxPhreeqcHandlers::processingInstruction(const XMLCh* const target, const 
 void SaxPhreeqcHandlers::startDocument()
 {
 }
-void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeList& attributes)
+
+//void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeList& attributes)
+void SaxPhreeqcHandlers::startElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname, const xns::Attributes& attributes)
 {
   const char ERR_MSG[] = "Unpacking solution message: %s, element not found\n";
   char *string;
@@ -781,7 +716,8 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
     case typeSOLN_PE:
 		assert(this->solution_ptr->pe != NULL);
 		// store pe, no need to clean up at end of solution
-		if ((attributes.getLength() >= 1) && (this->mapXMLCh2AttType[attributes.getName(0)] == attSOLN_PE_name)){
+		//if ((attributes.getLength() >= 1) && (this->mapXMLCh2AttType[attributes.getName(0)] == attSOLN_PE_name)){
+		if ((attributes.getLength() >= 1) && (this->mapXMLCh2AttType[attributes.getLocalName(0)] == attSOLN_PE_name)){
 			string = xns::XMLString::transcode(attributes.getValue((unsigned int) 0));
 			pe_data_store(&(this->solution_ptr->pe), string);
 			xns::XMLString::release(&string);
@@ -798,6 +734,7 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			struct conc *c;
 			c = processSolutionTotalAttributes(attributes);
 			this->totals.push_back(*c);
+			delete c;
 		}
 		break;  
     case typeSOLN_MASTER_ACTIVITY:
@@ -807,7 +744,19 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			struct master_activity *ma;
 			ma = processMasterActivityAttributes(attributes);
 			this->acts.push_back(*ma);
+			delete ma;
+			/*
+			xns::BaseRefVectorOf<XMLCh> *arg = xns::XMLString::tokenizeString(attributes.getValue((unsigned int) 0));
+			for ( i = 0; i < arg->size(); i+=2 ) {
+				struct master_activity *ma = new master_activity();
+				ma->description = xns::XMLString::transcode( arg->elementAt(i));
+				//ma->description = xns::XMLString::transcode( arg->elementAt(i));
+				this->acts.push_back(*ma);
+				
+			}
+			*/
 		}
+		break;
     case typeSOLN_SPECIES_GAMMA:
 		{
 			// store in ma, push_back on s_gammas
@@ -815,6 +764,7 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			struct master_activity *ma;
 			ma = processMasterActivityAttributes(attributes);
 			this->s_gammas.push_back(*ma);
+			delete ma;
 			break;
 		}
     case typeSOLN_ISOTOPE:
@@ -824,6 +774,7 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
 			struct isotope *iso;
 			iso = processIsotopeAttributes(attributes);
 			this->isotopes.push_back(*iso);
+			delete iso;
 			break;
 		}
 		break;  
@@ -872,7 +823,8 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const name, xns::AttributeLis
       break;
     }
 }
-int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes)
+//int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes)
+int SaxPhreeqcHandlers::processSolutionAttributes(const xns::Attributes& attributes)
 {
 	const char ERR_MSG[] = "Unpacking solution attributes: %s, attribute not found\n";	
 	unsigned int i;
@@ -884,7 +836,8 @@ int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes
 	// Get attribute name, map to attribute type, process
 
 	for (i = 0; i < attributes.getLength(); i++) {
-		attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 		switch (attType) {
 		case attSOLN_new_def:
 			//this->solution_ptr->new_def = strtol(string = xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
@@ -978,7 +931,8 @@ int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes
 			break;
 		default:
 			++input_error;
-			string = xns::XMLString::transcode(attributes.getName(i));
+			//string = xns::XMLString::transcode(attributes.getName(i));
+			string = xns::XMLString::transcode(attributes.getLocalName(i));
 			sprintf(error_string, ERR_MSG, string);
 			xns::XMLString::release(&string);
 			error_msg(error_string, CONTINUE);		
@@ -987,11 +941,11 @@ int SaxPhreeqcHandlers::processSolutionAttributes(xns::AttributeList& attributes
 	}
 	return 0;
 }
-struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeList& attributes)
+//struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeList& attributes)
+struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(const xns::Attributes& attributes)
 {
 	const char ERR_MSG[] = "Unpacking solution totals attributes: %s, attribute not found\n";	
 	unsigned int i;
-	int l;
 	char *string;
 	struct conc *c = new conc();
 	conc_init(c);
@@ -1002,7 +956,8 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 	// Get attribute name, map to attribute type, process
 
 	for (i = 0; i < attributes.getLength(); i++) {
-		attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 		switch (attType) {
 		case attCONC_description:
 			//c->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
@@ -1057,7 +1012,8 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 	
 		default:
 			++input_error;
-			string = xns::XMLString::transcode(attributes.getName(i));
+			//string = xns::XMLString::transcode(attributes.getName(i));
+			string = xns::XMLString::transcode(attributes.getLocalName(i));
 			sprintf(error_string, ERR_MSG, string);
 			error_msg(error_string, CONTINUE);
 			xns::XMLString::release(&string);
@@ -1066,7 +1022,8 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeLi
 	}
 	return c;
 }
-struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns::AttributeList& attributes)
+//struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns::AttributeList& attributes)
+struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(const xns::Attributes& attributes)
 {
 	int i;
 	char *string;
@@ -1074,7 +1031,8 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns:
 	struct master_activity *ma = new master_activity();
 	attributeType attType;
 	for (i = 0; i < attributes.getLength(); i++) {
-		attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 		switch (attType) {
 			case attM_A_description:
 				//ma->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
@@ -1089,7 +1047,8 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns:
 				break;
 			default:
 				++input_error;
-				string = xns::XMLString::transcode(attributes.getName(i));
+				//string = xns::XMLString::transcode(attributes.getName(i));
+				string = xns::XMLString::transcode(attributes.getLocalName(i));
 				sprintf(error_string, ERR_MSG, string);
 				error_msg(error_string, CONTINUE);
 				xns::XMLString::release(&string);
@@ -1098,7 +1057,8 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns:
 	}
 	return ma;
 }
-struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList& attributes)
+//struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList& attributes)
+struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(const xns::Attributes& attributes)
 {
 	int i;
 	char *string;
@@ -1108,7 +1068,8 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 	iso->primary = iso->master = NULL;
 	attributeType attType;
 	for (i = 0; i < attributes.getLength(); i++) {
-		attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
+		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 		switch (attType) {
 			case attISO_isotope_number:
 				//iso->isotope_number = strtol(xns::XMLString::transcode(attributes.getValue(i)), NULL, 10);
@@ -1147,7 +1108,8 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 
 			default:
 				++input_error;
-				string = xns::XMLString::transcode(attributes.getName(i));
+				//string = xns::XMLString::transcode(attributes.getName(i));
+				string = xns::XMLString::transcode(attributes.getLocalName(i));
 				sprintf(error_string, ERR_MSG, string);
 				error_msg(error_string, CONTINUE);		
 				xns::XMLString::release(&string);
@@ -1156,3 +1118,4 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList&
 	}
 	return iso;
 }
+
