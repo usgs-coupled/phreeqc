@@ -10,8 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include <wchar.h>                         // iswspace sprintf
-//#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp> // SAX2XMLReader
 /**
 #include <hash_map>
 **/
@@ -28,17 +27,10 @@
 
 struct XMLCH_LESS : std::binary_function<const XMLCh*, const XMLCh*, bool> {
 bool operator()(const XMLCh* _X, const XMLCh* _Y) const
-{return xns::XMLString::compareString( _X, _Y) < 0;}
-//	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) < 0; }
-
+{
+	return xns::XMLString::compareString( _X, _Y) < 0;}
 };
 
-/**
-struct XMLCH_EQUALS : std::binary_function<const XMLCh*, const XMLCh*, bool> {
-bool operator()(const XMLCh* _X, const XMLCh* _Y) const
-	{return wcscmp((const wchar_t*) _X, (const wchar_t*) _Y) == 0; }
-};
-**/
 #include <math.h>
 extern "C" {
 #define EXTERNAL
@@ -56,7 +48,6 @@ public:
 };
 
 
-//class SaxPhreeqcHandlers : public xns::HandlerBase
 class SaxPhreeqcHandlers : public xns::DefaultHandler
 {
 public:
@@ -68,7 +59,6 @@ public:
     // -----------------------------------------------------------------------
     void endDocument();
 
-    //void endElement(const XMLCh* const name);
 	void endElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname);
 
     void characters(const XMLCh* const chars, const unsigned int length);
@@ -79,7 +69,6 @@ public:
 
     void startDocument();
 
-    //void startElement(const XMLCh* const name, xns::AttributeList& attributes);
 	void startElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname, const xns::Attributes& attributes);
 
 	// element types
@@ -95,6 +84,7 @@ public:
 		typeSOLN_ISOTOPE,
 		typeSOLN_SPECIES_GAMMA
 	} eltType;
+	// attribute types
 	enum attributeType
 	{
 		attNULL,
@@ -143,10 +133,6 @@ public:
 		attCONC_gfw,
 	} attType;
 
-	//int  processSolutionAttributes(xns::AttributeList& attributes);
-	//struct conc *processSolutionTotalAttributes(xns::AttributeList& attributes);
-	//struct master_activity *processMasterActivityAttributes(xns::AttributeList& attributes);
-	//struct isotope *processIsotopeAttributes(xns::AttributeList& attributes);
 	int processSolutionAttributes(const xns::Attributes& attributes);
 	int processSolutionTotalAttributes(const xns::Attributes& attributes, struct conc *c);
 	int processMasterActivityAttributes(const xns::Attributes& attributes, struct master_activity *ma);
