@@ -122,6 +122,7 @@ public:
 		attSOLN_PE_name,
 		attM_A_description,
 		attM_A_la,
+		attM_A_list,
 		attISO_isotope_number,
 		attISO_elt_name,
 		attISO_isotope_name,
@@ -146,10 +147,11 @@ public:
 	//struct conc *processSolutionTotalAttributes(xns::AttributeList& attributes);
 	//struct master_activity *processMasterActivityAttributes(xns::AttributeList& attributes);
 	//struct isotope *processIsotopeAttributes(xns::AttributeList& attributes);
-	int  processSolutionAttributes(const xns::Attributes& attributes);
-	struct conc *processSolutionTotalAttributes(const xns::Attributes& attributes);
-	struct master_activity *processMasterActivityAttributes(const xns::Attributes& attributes);
-	struct isotope *processIsotopeAttributes(const xns::Attributes& attributes);
+	int processSolutionAttributes(const xns::Attributes& attributes);
+	int processSolutionTotalAttributes(const xns::Attributes& attributes, struct conc *c);
+	int processMasterActivityAttributes(const xns::Attributes& attributes, struct master_activity *ma);
+	//int processMasterActivityAttributes(const xns::Attributes& attributes, std::vector<struct master_activity> *v);
+	int processIsotopeAttributes(const xns::Attributes& attributes, struct isotope *iso);
 
 protected:
 	std::vector<conc> totals;

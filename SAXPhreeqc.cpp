@@ -269,19 +269,24 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
 		s_oss << "        />" << std::endl; 
 	}
 	// master_activity, master_activity structure
+	
 	for (i=0; i < solution_ptr->count_master_activity; i++) {
 		s_oss << "      <soln_m_a m_a_desc=\"" << stringify(solution_ptr->master_activity[i].description) << "\" m_a_la=\"" << solution_ptr->master_activity[i].la << "\"/>" << std::endl;
 	}
 	/*
 	if (solution_ptr->count_master_activity > 0) {
-	s_oss << "      <soln_m_a> " << std::endl;
+		s_oss << "      <soln_m_a m_a_list=\"" << std::endl;
 		for (i=0; i < solution_ptr->count_master_activity; i++) {
-			if (solution_ptr->master_activity[i].description != NULL) s_oss << stringify(solution_ptr->master_activity[i].description) << " " << solution_ptr->master_activity[i].la << std::endl;
+			if (solution_ptr->master_activity[i].description != NULL) {
+				s_oss << stringify(solution_ptr->master_activity[i].description) << " ";
+				s_oss << solution_ptr->master_activity[i].la << std::endl;
+			} else {
+				s_oss << "null 0.0" << std::endl;
+			}
 		}
-		s_oss << "</soln_m_a>" << std::endl;
+		s_oss << "\"/>" << std::endl;
 	}
-	*/
-
+    */
 	// species_gamma, mater_activity structure
 	for (i=0; i < solution_ptr->count_species_gamma; i++) {
 		s_oss << "      <soln_s_g m_a_desc=\"" << stringify(solution_ptr->species_gamma[i].description) << "\" m_a_la=\"" << solution_ptr->species_gamma[i].la << "\"/>" << std::endl;
@@ -497,6 +502,7 @@ SaxPhreeqcHandlers::SaxPhreeqcHandlers()
 		// master_activity structure
 	  {attM_A_description, "m_a_desc"},
 	  {attM_A_la, "m_a_la"},
+	  {attM_A_list, "m_a_list"},
 		// isotope structure
 	  {attISO_isotope_number, "iso_isotope_number"},
 	  {attISO_elt_name, "iso_elt_name"},
@@ -731,50 +737,37 @@ void SaxPhreeqcHandlers::startElement(const XMLCh* const uri, const XMLCh* const
 		{
 			// store in c, push_back on totals
 			// need to copy and clean up at end of </solution>
-			struct conc *c;
-			c = processSolutionTotalAttributes(attributes);
-			this->totals.push_back(*c);
-			delete c;
+			struct conc c;
+			processSolutionTotalAttributes(attributes, &c);
+			this->totals.push_back(c);
 		}
 		break;  
     case typeSOLN_MASTER_ACTIVITY:
 		{
 			// store in ma, push_back on acts
 			// need to copy and clean up at end of </solution>
-			struct master_activity *ma;
-			ma = processMasterActivityAttributes(attributes);
-			this->acts.push_back(*ma);
-			delete ma;
-			/*
-			xns::BaseRefVectorOf<XMLCh> *arg = xns::XMLString::tokenizeString(attributes.getValue((unsigned int) 0));
-			for ( i = 0; i < arg->size(); i+=2 ) {
-				struct master_activity *ma = new master_activity();
-				ma->description = xns::XMLString::transcode( arg->elementAt(i));
-				//ma->description = xns::XMLString::transcode( arg->elementAt(i));
-				this->acts.push_back(*ma);
-				
-			}
-			*/
+			struct master_activity ma;
+			processMasterActivityAttributes(attributes, &ma);
+			this->acts.push_back(ma);
+			//processMasterActivityAttributes(attributes, &this->acts);
 		}
 		break;
     case typeSOLN_SPECIES_GAMMA:
 		{
 			// store in ma, push_back on s_gammas
 			// need to copy and clean up at end of </solution>
-			struct master_activity *ma;
-			ma = processMasterActivityAttributes(attributes);
-			this->s_gammas.push_back(*ma);
-			delete ma;
+			struct master_activity ma;
+			//processMasterActivityAttributes(attributes, &ma);
+			this->s_gammas.push_back(ma);
 			break;
 		}
     case typeSOLN_ISOTOPE:
 		{
 			// store in iso, push_back on isotopes
 			// need to copy and clean up at end of </solution>
-			struct isotope *iso;
-			iso = processIsotopeAttributes(attributes);
-			this->isotopes.push_back(*iso);
-			delete iso;
+			struct isotope iso;
+			processIsotopeAttributes(attributes, &iso);
+			this->isotopes.push_back(iso);
 			break;
 		}
 		break;  
@@ -942,12 +935,11 @@ int SaxPhreeqcHandlers::processSolutionAttributes(const xns::Attributes& attribu
 	return 0;
 }
 //struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(xns::AttributeList& attributes)
-struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(const xns::Attributes& attributes)
+int SaxPhreeqcHandlers::processSolutionTotalAttributes(const xns::Attributes& attributes, struct conc *c)
 {
 	const char ERR_MSG[] = "Unpacking solution totals attributes: %s, attribute not found\n";	
 	unsigned int i;
 	char *string;
-	struct conc *c = new conc();
 	conc_init(c);
 	attributeType attType;
 	assert(this->eltType == typeSOLN_TOTAL);
@@ -1020,20 +1012,24 @@ struct conc *SaxPhreeqcHandlers::processSolutionTotalAttributes(const xns::Attri
 			break;
 		}
 	}
-	return c;
+	return(OK);
 }
 //struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(xns::AttributeList& attributes)
-struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(const xns::Attributes& attributes)
+int SaxPhreeqcHandlers::processMasterActivityAttributes(const xns::Attributes& attributes, struct master_activity *ma)
+//int SaxPhreeqcHandlers::processMasterActivityAttributes(const xns::Attributes& attributes, std::vector<struct master_activity> *v)
 {
 	int i;
 	char *string;
 	const char ERR_MSG[] = "Unpacking master activity attributes: %s, attribute not found\n";	
-	struct master_activity *ma = new master_activity();
+	ma->description = NULL;
+	ma->la = 0.0;
 	attributeType attType;
 	for (i = 0; i < attributes.getLength(); i++) {
 		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
 		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
+
 		switch (attType) {
+
 			case attM_A_description:
 				//ma->description = string_hsave(xns::XMLString::transcode(attributes.getValue(i)));
 				//string = xns::XMLString::transcode(attributes.getValue(i));
@@ -1045,6 +1041,24 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(cons
 				//ma->la = strtod(xns::XMLString::transcode(attributes.getValue(i)), NULL);
 				ma->la = XMLCh2Double(attributes.getValue(i));
 				break;
+			/*
+			case attM_A_list:
+				{
+					struct master_activity ma;
+					xns::BaseRefVectorOf<XMLCh> *arg = xns::XMLString::tokenizeString(attributes.getValue((unsigned int) 0));
+				
+					for ( i = 0; i < arg->size(); i+=2 ) {
+						ma.description = XMLCh_hsave( arg->elementAt(i), TRUE);
+						if (strcmp(ma.description, "null") == 0) {
+								ma.description = NULL;
+						}
+						ma.la = XMLCh2Double( arg->elementAt(i+1));
+						//this->acts.push_back(ma);
+						(*v).push_back(ma);
+					}
+				}
+				break;
+			*/
 			default:
 				++input_error;
 				//string = xns::XMLString::transcode(attributes.getName(i));
@@ -1055,17 +1069,17 @@ struct master_activity *SaxPhreeqcHandlers::processMasterActivityAttributes(cons
 				break;
 		}	
 	}
-	return ma;
+	return (OK);
 }
 //struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(xns::AttributeList& attributes)
-struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(const xns::Attributes& attributes)
+int SaxPhreeqcHandlers::processIsotopeAttributes(const xns::Attributes& attributes, struct isotope *iso)
 {
 	int i;
 	char *string;
 	const char ERR_MSG[] = "Unpacking isotope attributes: %s, attribute not found\n";	
-	struct isotope *iso = new isotope();
 
 	iso->primary = iso->master = NULL;
+	iso->elt_name = iso->isotope_name = NULL;
 	attributeType attType;
 	for (i = 0; i < attributes.getLength(); i++) {
 		//attType = this->mapXMLCh2AttType[attributes.getName(i)];
@@ -1116,6 +1130,6 @@ struct isotope *SaxPhreeqcHandlers::processIsotopeAttributes(const xns::Attribut
 				break;
 		}	
 	}
-	return iso;
+	return (OK);
 }
 
