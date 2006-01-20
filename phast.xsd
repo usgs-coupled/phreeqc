@@ -11,7 +11,7 @@
 	<xs:element name="system">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="solution" minOccurs='0' maxOccurs='1'/>
+				<xs:element ref="solution" minOccurs='0' maxOccurs="unbounded"/>
 			</xs:sequence>	
 			<xs:attribute name="system_number" type="xs:integer" use='required'/>
 		</xs:complexType>
@@ -22,10 +22,8 @@
 				<xs:element ref="soln_pe" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_total" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_m_a" minOccurs='0' maxOccurs='unbounded'/>
-				<xs:element ref="soln_isotopes" minOccurs='0' maxOccurs='unbounded'/>
 				<xs:element ref="soln_s_g" minOccurs='0' maxOccurs='unbounded'/>
-<!--  Not Yet Defined
--->
+				<xs:element ref="soln_isotopes" minOccurs='0' maxOccurs='unbounded'/>
 			</xs:sequence>	
 			<xs:attribute name="soln_new_def" type="xs:integer" use='required'/>
 			<xs:attribute name="soln_n_user" type="xs:integer" use='required'/>
@@ -44,9 +42,7 @@
 			<xs:attribute name="soln_total_alkalinity" type="xs:double" use='required'/>
 			<xs:attribute name="soln_total_co2" type="xs:double" use='required'/>
 			<xs:attribute name="soln_units" type="xs:string" use='required'/>
-			<xs:attribute name="soln_count_pe" type="xs:integer" use='required'/>
 			<xs:attribute name="soln_default_pe" type="xs:integer" use='required'/>
-			<xs:attribute name="soln_count_totals" type="xs:integer" use='required'/>
 			<xs:attribute name="soln_count_master_activity" type="xs:integer" use='required'/>
 			<xs:attribute name="soln_count_isotopes" type="xs:integer" use='required'/>
 			<xs:attribute name="soln_count_species_gamma" type="xs:integer" use='required'/>
@@ -54,38 +50,18 @@
 	</xs:element>
 	<xs:element name="soln_pe">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="reaction" minOccurs='1' maxOccurs='1'/>
-			</xs:sequence>	
 			<xs:attribute name="soln_pe_name" type="xs:string" use='required'/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="reaction">
+	<xs:element name="soln_total">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="rxn_token" minOccurs='0' maxOccurs='unbounded'/>
-			</xs:sequence>	
-			<xs:attribute name="lk0" type="xs:double" use='required'/>
-			<xs:attribute name="lk1" type="xs:double" use='required'/>
-			<xs:attribute name="lk2" type="xs:double" use='required'/>
-			<xs:attribute name="lk3" type="xs:double" use='required'/>
-			<xs:attribute name="lk4" type="xs:double" use='required'/>
-			<xs:attribute name="lk5" type="xs:double" use='required'/>
-			<xs:attribute name="lk6" type="xs:double" use='required'/>
-			<xs:attribute name="lk7" type="xs:double" use='required'/>
-			<xs:attribute name="rxn_count_tokens" type="xs:integer" use='required'/>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="rxn_token">
-		<xs:complexType>
-			<xs:attribute name="s" type="xs:string" use='required'/>
-			<xs:attribute name="coef" type="xs:double" use='required'/>
+			<xs:attributeGroup ref="conc" />
 		</xs:complexType>
 	</xs:element>
 	<xs:attributeGroup name="conc">
 		<xs:attribute name="conc_desc" type="xs:string" use='required'/>
 		<xs:attribute name="conc_moles" type="xs:double" use='required'/>
-		<xs:attribute name="conc_input_conc" type="xs:double" use='required'/>
+		<xs:attribute name="conc_input_conc" type="xs:double" />
 		<xs:attribute name="conc_units" type="xs:string" />
 		<xs:attribute name="conc_equation_name" type="xs:string" />
 		<xs:attribute name="conc_phase_si" type="xs:double" />
@@ -93,21 +69,16 @@
 		<xs:attribute name="conc_as" type="xs:string" />
 		<xs:attribute name="conc_gfw" type="xs:double" />
 	</xs:attributeGroup>
-	<xs:element name="soln_total">
-		<xs:complexType>
-			<xs:attributeGroup ref="conc" />
-		</xs:complexType>
-	</xs:element>
 	<xs:attributeGroup name="master_activity">
 		<xs:attribute name="m_a_desc" type="xs:string" use='required'/>
 		<xs:attribute name="m_a_la" type="xs:double" use='required'/>
 	</xs:attributeGroup>
-	<xs:element name="soln_master_activity">
+	<xs:element name="soln_m_a">
 		<xs:complexType>
 			<xs:attributeGroup ref="master_activity" />
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="soln_species_gamma">
+	<xs:element name="soln_s_g">
 		<xs:complexType>
 			<xs:attributeGroup ref="master_activity" />
 		</xs:complexType>

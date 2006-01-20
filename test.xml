@@ -26,8 +26,7 @@
 	soln_count_species_gamma="0">
 	<soln_pe soln_pe_name="Fe(2)/Fe(3)"/>
 	<soln_total
-	     conc_description="Ca"
-	     conc_skip="0"
+	     conc_desc="Ca"
 	     conc_moles="0.001"
 	     conc_input_conc="0.001"
 	     conc_equation_name="Fe(2)/Fe(3)"
@@ -36,8 +35,7 @@
 	     conc_as="mg/L"
 	     conc_gfw="40.08"/>
 	<soln_total
-	     conc_description="Na"
-	     conc_skip="0"
+	     conc_desc="Na"
 	     conc_moles="0.001"
 	     conc_input_conc="0.001"
 	     conc_equation_name="Fe(2)/Fe(3)"
@@ -45,13 +43,13 @@
 	     conc_n_pe="0"
 	     conc_as="mg/L"
 	     conc_gfw="40.08"/>
-         <soln_master_activity m_a_description="Ca+2" m_a_la="-3.0"/>
-         <soln_master_activity m_a_description="Cl-" m_a_la="-3.0"/>
-         <soln_master_activity m_a_description="C" m_a_la="-3.0"/>
-         <soln_species_gamma m_a_description="CO3-2" m_a_la=".1"/>
-         <soln_species_gamma m_a_description="HCO3-" m_a_la=".2"/>
-         <soln_species_gamma m_a_description="CO2" m_a_la=".3"/>
-         <soln_isotope 
+         <soln_m_a m_a_desc="Ca+2" m_a_la="-3.0"/>
+         <soln_m_a m_a_desc="Cl-" m_a_la="-3.0"/>
+         <soln_m_a m_a_desc="C" m_a_la="-3.0"/>
+         <soln_s_g m_a_desc="CO3-2" m_a_la=".1"/>
+         <soln_s_g m_a_desc="HCO3-" m_a_la=".2"/>
+         <soln_s_g m_a_desc="CO2" m_a_la=".3"/>
+         <soln_isotopes
 	      iso_isotope_number="2"
 	      iso_elt_name="H"
 	      iso_isotope_name="D"
@@ -59,7 +57,7 @@
 	      iso_ratio="11."
 	      iso_ratio_uncertainty="0.5"
 	      iso_coef="2.2"/>
-         <soln_isotope 
+         <soln_isotopes
 	      iso_isotope_number="3"
 	      iso_elt_name="H"
 	      iso_isotope_name="T"
