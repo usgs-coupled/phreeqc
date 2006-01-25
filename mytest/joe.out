@@ -220,12 +220,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  1.000e+01  2.560e-04
-	CO2(g)           -0.94   -2.41   -1.47  1.000e+01  1.000e+01  4.108e-04
-	Fluorite          0.00  -10.60  -10.60  1.000e+01  1.000e+01  4.154e-06
+	Calcite          -0.00   -8.48   -8.48   1.000e+01   1.000e+01   2.560e-04
+	CO2(g)           -0.94   -2.41   -1.47   1.000e+01   1.000e+01   4.108e-04
+	Fluorite          0.00  -10.60  -10.60   1.000e+01   1.000e+01   4.154e-06
 
 -----------------------------Exchange composition------------------------------
 
@@ -452,11 +452,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e-01  8.766e-02 -1.234e-02
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  9.999e-02 -8.505e-06
+	Calcite          -0.00   -8.48   -8.48   1.000e-01   8.766e-02  -1.234e-02
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   9.999e-02  -8.505e-06
 
 -----------------------------Exchange composition------------------------------
 
@@ -608,11 +608,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  9.877e-02 -1.226e-03
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01 -9.031e-07
+	Calcite           0.00   -8.48   -8.48   1.000e-01   9.877e-02  -1.226e-03
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01  -9.031e-07
 
 -----------------------------Exchange composition------------------------------
 
@@ -764,11 +764,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  9.989e-02 -1.054e-04
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01 -9.144e-08
+	Calcite           0.00   -8.48   -8.48   1.000e-01   9.989e-02  -1.054e-04
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01  -9.144e-08
 
 -----------------------------Exchange composition------------------------------
 
@@ -920,11 +920,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -4.410e-06
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01 -9.407e-09
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.000e-01  -4.410e-06
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01  -9.407e-09
 
 -----------------------------Exchange composition------------------------------
 
@@ -1076,11 +1076,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -1.885e-07
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01 -9.179e-10
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.000e-01  -1.885e-07
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01  -9.179e-10
 
 -----------------------------Exchange composition------------------------------
 
@@ -1232,11 +1232,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -1.600e-08
-	Fluorite          0.00  -10.60  -10.60  1.000e-01  1.000e-01 -4.712e-11
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.000e-01  -1.600e-08
+	Fluorite          0.00  -10.60  -10.60   1.000e-01   1.000e-01  -4.712e-11
 
 -----------------------------Exchange composition------------------------------
 
@@ -1394,11 +1394,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -1.483e-09
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01  4.028e-11
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.000e-01  -1.483e-09
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01   4.028e-11
 
 -----------------------------Exchange composition------------------------------
 
@@ -1550,11 +1550,11 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.000e-01 -5.798e-11
-	Fluorite         -0.00  -10.60  -10.60  1.000e-01  1.000e-01  4.903e-11
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.000e-01  -5.798e-11
+	Fluorite         -0.00  -10.60  -10.60   1.000e-01   1.000e-01   4.903e-11
 
 -----------------------------Exchange composition------------------------------
 

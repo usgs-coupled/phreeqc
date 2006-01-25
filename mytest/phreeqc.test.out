@@ -536,11 +536,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+02  1.000e+02 -1.646e-03
-	CO2(g)           -2.00   -3.47   -1.47  1.000e+02  1.000e+02 -1.976e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+02   1.000e+02  -1.646e-03
+	CO2(g)           -2.00   -3.47   -1.47   1.000e+02   1.000e+02  -1.976e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -945,11 +945,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  9.998e+01 -1.571e-02
-	Dolomite         -0.00  -17.09  -17.09  1.000e+02  1.000e+02  7.939e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   9.998e+01  -1.571e-02
+	Dolomite         -0.00  -17.09  -17.09   1.000e+02   1.000e+02   7.939e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1110,10 +1110,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  1.000e+02 -3.023e-05
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   1.000e+02  -3.023e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -1348,12 +1348,12 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+02  1.000e+02 -1.228e-04
-	Goethite          0.00   -1.00   -1.00  1.000e+02  1.000e+02  1.476e-07
-	Pyrite           -0.00  -18.48  -18.48  1.000e+02  1.000e+02 -1.477e-07
+	Calcite           0.00   -8.48   -8.48   1.000e+02   1.000e+02  -1.228e-04
+	Goethite          0.00   -1.00   -1.00   1.000e+02   1.000e+02   1.476e-07
+	Pyrite           -0.00  -18.48  -18.48   1.000e+02   1.000e+02  -1.477e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1491,12 +1491,12 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+02  1.000e+02 -1.057e-03
-	Goethite         -0.00   -1.00   -1.00  1.000e+02  1.000e+02  2.666e-04
-	Pyrite           -0.00  -18.48  -18.48  1.000e+02  1.000e+02 -2.667e-04
+	Calcite           0.00   -8.48   -8.48   1.000e+02   1.000e+02  -1.057e-03
+	Goethite         -0.00   -1.00   -1.00   1.000e+02   1.000e+02   2.666e-04
+	Pyrite           -0.00  -18.48  -18.48   1.000e+02   1.000e+02  -2.667e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -1634,12 +1634,12 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  1.000e+02 -4.538e-03
-	Goethite         -0.00   -1.00   -1.00  1.000e+02  1.000e+02  1.332e-03
-	Pyrite            0.00  -18.48  -18.48  1.000e+02  1.000e+02 -1.333e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   1.000e+02  -4.538e-03
+	Goethite         -0.00   -1.00   -1.00   1.000e+02   1.000e+02   1.332e-03
+	Pyrite            0.00  -18.48  -18.48   1.000e+02   1.000e+02  -1.333e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1777,12 +1777,12 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  9.999e+01 -8.151e-03
-	Goethite         -0.00   -1.00   -1.00  1.000e+02  1.000e+02  2.661e-03
-	Pyrite            0.00  -18.48  -18.48  1.000e+02  1.000e+02 -2.667e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   9.999e+01  -8.151e-03
+	Goethite         -0.00   -1.00   -1.00   1.000e+02   1.000e+02   2.661e-03
+	Pyrite            0.00  -18.48  -18.48   1.000e+02   1.000e+02  -2.667e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1920,12 +1920,12 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  9.997e+01 -3.261e-02
-	Goethite          0.00   -1.00   -1.00  1.000e+02  1.000e+02  1.322e-02
-	Pyrite            0.00  -18.48  -18.48  1.000e+02  9.999e+01 -1.334e-02
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   9.997e+01  -3.261e-02
+	Goethite          0.00   -1.00   -1.00   1.000e+02   1.000e+02   1.322e-02
+	Pyrite            0.00  -18.48  -18.48   1.000e+02   9.999e+01  -1.334e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -2124,12 +2124,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  1.000e+02 -3.083e-04
-	CO2(g)           -2.00   -3.47   -1.47  1.000e+02  1.000e+02 -2.339e-03
-	Dolomite         -0.00  -17.09  -17.09  1.000e+02  1.000e+02 -8.522e-04
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   1.000e+02  -3.083e-04
+	CO2(g)           -2.00   -3.47   -1.47   1.000e+02   1.000e+02  -2.339e-03
+	Dolomite         -0.00  -17.09  -17.09   1.000e+02   1.000e+02  -8.522e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2245,11 +2245,11 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+02  1.000e+02  1.745e-03
-	Dolomite          0.00  -17.09  -17.09  1.000e+02  1.000e+02 -8.214e-04
+	Calcite           0.00   -8.48   -8.48   1.000e+02   1.000e+02   1.745e-03
+	Dolomite          0.00  -17.09  -17.09   1.000e+02   1.000e+02  -8.214e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2363,11 +2363,11 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  1.000e+02  3.493e-03
-	Dolomite         -0.00  -17.09  -17.09  1.000e+02  1.000e+02 -1.663e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   1.000e+02   3.493e-03
+	Dolomite         -0.00  -17.09  -17.09   1.000e+02   1.000e+02  -1.663e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -2481,11 +2481,11 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+02  1.000e+02  5.243e-03
-	Dolomite         -0.00  -17.09  -17.09  1.000e+02  1.000e+02 -2.514e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+02   1.000e+02   5.243e-03
+	Dolomite         -0.00  -17.09  -17.09   1.000e+02   1.000e+02  -2.514e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -2599,11 +2599,11 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+02  1.000e+02  6.995e-03
-	Dolomite          0.00  -17.09  -17.09  1.000e+02  1.000e+02 -3.371e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+02   1.000e+02   6.995e-03
+	Dolomite          0.00  -17.09  -17.09   1.000e+02   1.000e+02  -3.371e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -2740,11 +2740,11 @@ Reaction 1.	Irreversible reaction defined in simulation 9.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.54   -8.54  1.000e+02  1.000e+02  1.384e-03
-	Dolomite          0.00  -17.31  -17.31  1.000e+02  1.000e+02 -5.973e-04
+	Calcite           0.00   -8.54   -8.54   1.000e+02   1.000e+02   1.384e-03
+	Dolomite          0.00  -17.31  -17.31   1.000e+02   1.000e+02  -5.973e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2859,11 +2859,11 @@ Reaction 1.	Irreversible reaction defined in simulation 9.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.62   -8.62  1.000e+02  1.000e+02  2.759e-03
-	Dolomite         -0.00  -17.52  -17.52  1.000e+02  1.000e+02 -1.202e-03
+	Calcite          -0.00   -8.62   -8.62   1.000e+02   1.000e+02   2.759e-03
+	Dolomite         -0.00  -17.52  -17.52   1.000e+02   1.000e+02  -1.202e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -2978,11 +2978,11 @@ Reaction 1.	Irreversible reaction defined in simulation 9.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.71   -8.71  1.000e+02  1.000e+02  4.371e-03
-	Dolomite         -0.00  -17.72  -17.72  1.000e+02  1.000e+02 -1.931e-03
+	Calcite          -0.00   -8.71   -8.71   1.000e+02   1.000e+02   4.371e-03
+	Dolomite         -0.00  -17.72  -17.72   1.000e+02   1.000e+02  -1.931e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -3097,11 +3097,11 @@ Reaction 1.	Irreversible reaction defined in simulation 9.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.81   -8.81  1.000e+02  1.000e+02  6.452e-03
-	Dolomite         -0.00  -17.91  -17.91  1.000e+02  1.000e+02 -2.902e-03
+	Calcite           0.00   -8.81   -8.81   1.000e+02   1.000e+02   6.452e-03
+	Dolomite         -0.00  -17.91  -17.91   1.000e+02   1.000e+02  -2.902e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -3241,11 +3241,11 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.54   -8.54  1.000e+02  1.000e+02  1.354e-03
-	Dolomite          0.00  -17.31  -17.31  1.000e+02  1.000e+02 -6.014e-04
+	Calcite           0.00   -8.54   -8.54   1.000e+02   1.000e+02   1.354e-03
+	Dolomite          0.00  -17.31  -17.31   1.000e+02   1.000e+02  -6.014e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -3362,11 +3362,11 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.62   -8.62  1.000e+02  1.000e+02  2.727e-03
-	Dolomite          0.00  -17.52  -17.52  1.000e+02  1.000e+02 -1.129e-03
+	Calcite           0.00   -8.62   -8.62   1.000e+02   1.000e+02   2.727e-03
+	Dolomite          0.00  -17.52  -17.52   1.000e+02   1.000e+02  -1.129e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -3483,11 +3483,11 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.71   -8.71  1.000e+02  1.000e+02  4.347e-03
-	Dolomite          0.00  -17.72  -17.72  1.000e+02  1.000e+02 -1.730e-03
+	Calcite          -0.00   -8.71   -8.71   1.000e+02   1.000e+02   4.347e-03
+	Dolomite          0.00  -17.72  -17.72   1.000e+02   1.000e+02  -1.730e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -3604,11 +3604,11 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.81   -8.81  1.000e+02  1.000e+02  6.402e-03
-	Dolomite         -0.00  -17.91  -17.91  1.000e+02  1.000e+02 -2.516e-03
+	Calcite           0.00   -8.81   -8.81   1.000e+02   1.000e+02   6.402e-03
+	Dolomite         -0.00  -17.91  -17.91   1.000e+02   1.000e+02  -2.516e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -3750,13 +3750,13 @@ Reaction 1.	Irreversible reaction defined in simulation 11.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.54   -8.54  1.000e+02  1.000e+02  1.424e-03
-	Dolomite         -0.00  -17.31  -17.31  1.000e+02  1.000e+02 -4.975e-04
-	Goethite         -0.00   -1.34   -1.34  1.000e+02  1.000e+02 -2.672e-04
-	Pyrite           -0.00  -18.21  -18.21  1.000e+02  1.000e+02  2.666e-04
+	Calcite          -0.00   -8.54   -8.54   1.000e+02   1.000e+02   1.424e-03
+	Dolomite         -0.00  -17.31  -17.31   1.000e+02   1.000e+02  -4.975e-04
+	Goethite         -0.00   -1.34   -1.34   1.000e+02   1.000e+02  -2.672e-04
+	Pyrite           -0.00  -18.21  -18.21   1.000e+02   1.000e+02   2.666e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -3911,13 +3911,13 @@ Reaction 1.	Irreversible reaction defined in simulation 11.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.62   -8.62  1.000e+02  1.000e+02  2.865e-03
-	Dolomite          0.00  -17.52  -17.52  1.000e+02  1.000e+02 -9.670e-04
-	Goethite          0.00   -1.67   -1.67  1.000e+02  1.000e+02 -5.340e-04
-	Pyrite            0.00  -17.96  -17.96  1.000e+02  1.000e+02  5.333e-04
+	Calcite           0.00   -8.62   -8.62   1.000e+02   1.000e+02   2.865e-03
+	Dolomite          0.00  -17.52  -17.52   1.000e+02   1.000e+02  -9.670e-04
+	Goethite          0.00   -1.67   -1.67   1.000e+02   1.000e+02  -5.340e-04
+	Pyrite            0.00  -17.96  -17.96   1.000e+02   1.000e+02   5.333e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -4072,13 +4072,13 @@ Reaction 1.	Irreversible reaction defined in simulation 11.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.71   -8.71  1.000e+02  1.000e+02  4.527e-03
-	Dolomite          0.00  -17.72  -17.72  1.000e+02  1.000e+02 -1.519e-03
-	Goethite         -0.00   -1.97   -1.97  1.000e+02  1.000e+02 -8.007e-04
-	Pyrite            0.00  -17.72  -17.72  1.000e+02  1.000e+02  7.999e-04
+	Calcite          -0.00   -8.71   -8.71   1.000e+02   1.000e+02   4.527e-03
+	Dolomite          0.00  -17.72  -17.72   1.000e+02   1.000e+02  -1.519e-03
+	Goethite         -0.00   -1.97   -1.97   1.000e+02   1.000e+02  -8.007e-04
+	Pyrite            0.00  -17.72  -17.72   1.000e+02   1.000e+02   7.999e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -4233,13 +4233,13 @@ Reaction 1.	Irreversible reaction defined in simulation 11.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.81   -8.81  1.000e+02  1.000e+02  6.586e-03
-	Dolomite         -0.00  -17.91  -17.91  1.000e+02  1.000e+02 -2.249e-03
-	Goethite          0.00   -2.26   -2.26  1.000e+02  1.000e+02 -1.067e-03
-	Pyrite           -0.00  -17.50  -17.50  1.000e+02  1.000e+02  1.067e-03
+	Calcite           0.00   -8.81   -8.81   1.000e+02   1.000e+02   6.586e-03
+	Dolomite         -0.00  -17.91  -17.91   1.000e+02   1.000e+02  -2.249e-03
+	Goethite          0.00   -2.26   -2.26   1.000e+02   1.000e+02  -1.067e-03
+	Pyrite           -0.00  -17.50  -17.50   1.000e+02   1.000e+02   1.067e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -4559,14 +4559,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite          0.00    8.05    8.05
-		KAlSi3O8        is reactant     1.000e+02  1.000e+02 -2.671e-08
-	Kaolinite        -3.80    1.90    5.71  0.000e+00             0.000e+00
-	Microcline      -14.68  -13.81    0.88  0.000e+00             0.000e+00
-	Muscovite       -10.68    2.29   12.97  0.000e+00             0.000e+00
+		KAlSi3O8        is reactant      1.000e+02   1.000e+02  -2.671e-08
+	Kaolinite        -3.80    1.90    5.71   0.000e+00           0   0.000e+00
+	Microcline      -14.68  -13.81    0.88   0.000e+00           0   0.000e+00
+	Muscovite       -10.68    2.29   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4663,14 +4663,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.00    8.05    8.05  0.000e+00  1.782e-06  1.782e-06
+	Gibbsite         -0.00    8.05    8.05   0.000e+00   1.782e-06   1.782e-06
 	Kaolinite        -0.00    5.71    5.71
-		KAlSi3O8        is reactant     1.000e+02  1.000e+02 -2.179e-06
-	Microcline       -5.86   -4.99    0.88  0.000e+00             0.000e+00
-	Muscovite        -1.86   11.11   12.97  0.000e+00             0.000e+00
+		KAlSi3O8        is reactant      1.000e+02   1.000e+02  -2.179e-06
+	Microcline       -5.86   -4.99    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -1.86   11.11   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4767,14 +4767,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.73    7.32    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  9.715e-06  9.715e-06
-	Microcline       -2.55   -1.67    0.88  0.000e+00             0.000e+00
+	Gibbsite         -0.73    7.32    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   9.715e-06   9.715e-06
+	Microcline       -2.55   -1.67    0.88   0.000e+00           0   0.000e+00
 	Muscovite        -0.00   12.97   12.97
-		KAlSi3O8        is reactant     1.000e+02  1.000e+02 -2.001e-05
+		KAlSi3O8        is reactant      1.000e+02   1.000e+02  -2.001e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -4871,13 +4871,13 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -2.00    6.05    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.72    4.99    5.71  0.000e+00             0.000e+00
-	Microcline        0.00    0.88    0.88  1.000e+02  1.000e+02 -1.909e-04
-	Muscovite         0.00   12.97   12.97  0.000e+00  6.361e-05  6.361e-05
+	Gibbsite         -2.00    6.05    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.72    4.99    5.71   0.000e+00           0   0.000e+00
+	Microcline        0.00    0.88    0.88   1.000e+02   1.000e+02  -1.909e-04
+	Muscovite         0.00   12.97   12.97   0.000e+00   6.361e-05   6.361e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -4972,12 +4972,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite         -0.00    8.05    8.05
-		KAlSi3O8        is reactant     1.000e+02  1.000e+02 -3.023e-06
-	Kaolinite        -0.00    5.71    5.71  1.000e+00  1.000e+00  1.237e-06
+		KAlSi3O8        is reactant      1.000e+02   1.000e+02  -3.023e-06
+	Kaolinite        -0.00    5.71    5.71   1.000e+00   1.000e+00   1.237e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -5072,12 +5072,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Kaolinite        -0.00    5.71    5.71
-		KAlSi3O8        is reactant     1.000e+02  1.000e+02 -3.268e-05
-	Muscovite        -0.00   12.97   12.97  1.000e+00  1.000e+00  1.079e-05
+		KAlSi3O8        is reactant      1.000e+02   1.000e+02  -3.268e-05
+	Muscovite        -0.00   12.97   12.97   1.000e+00   1.000e+00   1.079e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -5194,13 +5194,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite          0.00    8.05    8.05  0.000e+00  8.081e-07  8.081e-07
-	Kaolinite        -0.67    5.04    5.71  0.000e+00             0.000e+00
-	Microcline       -7.51   -6.64    0.88  0.000e+00             0.000e+00
-	Muscovite        -3.51    9.46   12.97  0.000e+00             0.000e+00
+	Gibbsite          0.00    8.05    8.05   0.000e+00   8.081e-07   8.081e-07
+	Kaolinite        -0.67    5.04    5.71   0.000e+00           0   0.000e+00
+	Microcline       -7.51   -6.64    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -3.51    9.46   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5295,13 +5295,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite          0.00    8.05    8.05  0.000e+00  1.633e-06  1.633e-06
-	Kaolinite        -0.07    5.64    5.71  0.000e+00             0.000e+00
-	Microcline       -6.04   -5.17    0.88  0.000e+00             0.000e+00
-	Muscovite        -2.04   10.93   12.97  0.000e+00             0.000e+00
+	Gibbsite          0.00    8.05    8.05   0.000e+00   1.633e-06   1.633e-06
+	Kaolinite        -0.07    5.64    5.71   0.000e+00           0   0.000e+00
+	Microcline       -6.04   -5.17    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -2.04   10.93   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5396,13 +5396,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite          0.00    8.05    8.05  0.000e+00  4.898e-08  4.898e-08
-	Kaolinite         0.00    5.71    5.71  0.000e+00  1.203e-06  1.203e-06
-	Microcline       -5.58   -4.71    0.88  0.000e+00             0.000e+00
-	Muscovite        -1.58   11.39   12.97  0.000e+00             0.000e+00
+	Gibbsite          0.00    8.05    8.05   0.000e+00   4.898e-08   4.898e-08
+	Kaolinite         0.00    5.71    5.71   0.000e+00   1.203e-06   1.203e-06
+	Microcline       -5.58   -4.71    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -1.58   11.39   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5497,13 +5497,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.11    7.94    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  1.712e-06  1.712e-06
-	Microcline       -5.11   -4.23    0.88  0.000e+00             0.000e+00
-	Muscovite        -1.32   11.65   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.11    7.94    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   1.712e-06   1.712e-06
+	Microcline       -5.11   -4.23    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -1.32   11.65   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5598,13 +5598,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.20    7.85    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  2.204e-06  2.204e-06
-	Microcline       -4.74   -3.86    0.88  0.000e+00             0.000e+00
-	Muscovite        -1.13   11.84   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.20    7.85    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   2.204e-06   2.204e-06
+	Microcline       -4.74   -3.86    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -1.13   11.84   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5699,13 +5699,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.27    7.78    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  2.699e-06  2.699e-06
-	Microcline       -4.44   -3.56    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.97   12.00   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.27    7.78    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   2.699e-06   2.699e-06
+	Microcline       -4.44   -3.56    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.97   12.00   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5800,13 +5800,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.33    7.72    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  3.196e-06  3.196e-06
-	Microcline       -4.19   -3.31    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.84   12.13   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.33    7.72    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   3.196e-06   3.196e-06
+	Microcline       -4.19   -3.31    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.84   12.13   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5901,13 +5901,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.38    7.67    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  3.695e-06  3.695e-06
-	Microcline       -3.97   -3.10    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.73   12.24   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.38    7.67    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   3.695e-06   3.695e-06
+	Microcline       -3.97   -3.10    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.73   12.24   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6002,13 +6002,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.42    7.63    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  4.194e-06  4.194e-06
-	Microcline       -3.79   -2.91    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.63   12.34   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.42    7.63    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   4.194e-06   4.194e-06
+	Microcline       -3.79   -2.91    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.63   12.34   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6103,13 +6103,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.46    7.58    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  4.694e-06  4.694e-06
-	Microcline       -3.62   -2.74    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.54   12.43   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.46    7.58    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   4.694e-06   4.694e-06
+	Microcline       -3.62   -2.74    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.54   12.43   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6204,13 +6204,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.50    7.55    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  5.194e-06  5.194e-06
-	Microcline       -3.47   -2.59    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.47   12.50   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.50    7.55    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   5.194e-06   5.194e-06
+	Microcline       -3.47   -2.59    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.47   12.50   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6305,13 +6305,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.53    7.51    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  5.695e-06  5.695e-06
-	Microcline       -3.33   -2.46    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.40   12.57   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.53    7.51    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   5.695e-06   5.695e-06
+	Microcline       -3.33   -2.46    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.40   12.57   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6406,13 +6406,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.56    7.48    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  6.196e-06  6.196e-06
-	Microcline       -3.21   -2.33    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.33   12.64   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.56    7.48    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   6.196e-06   6.196e-06
+	Microcline       -3.21   -2.33    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.33   12.64   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6507,13 +6507,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.59    7.46    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  6.698e-06  6.698e-06
-	Microcline       -3.09   -2.22    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.28   12.69   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.59    7.46    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   6.698e-06   6.698e-06
+	Microcline       -3.09   -2.22    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.28   12.69   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6608,13 +6608,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.62    7.43    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  7.199e-06  7.199e-06
-	Microcline       -2.99   -2.11    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.22   12.75   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.62    7.43    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   7.199e-06   7.199e-06
+	Microcline       -2.99   -2.11    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.22   12.75   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6709,13 +6709,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.64    7.41    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  7.701e-06  7.701e-06
-	Microcline       -2.89   -2.01    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.17   12.80   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.64    7.41    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   7.701e-06   7.701e-06
+	Microcline       -2.89   -2.01    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.17   12.80   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6810,13 +6810,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.67    7.38    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  8.202e-06  8.202e-06
-	Microcline       -2.79   -1.92    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.12   12.85   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.67    7.38    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   8.202e-06   8.202e-06
+	Microcline       -2.79   -1.92    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.12   12.85   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6911,13 +6911,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.69    7.36    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  8.704e-06  8.704e-06
-	Microcline       -2.71   -1.83    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.08   12.89   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.69    7.36    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   8.704e-06   8.704e-06
+	Microcline       -2.71   -1.83    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.08   12.89   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7012,13 +7012,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.71    7.34    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  9.206e-06  9.206e-06
-	Microcline       -2.63   -1.75    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.04   12.93   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.71    7.34    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   9.206e-06   9.206e-06
+	Microcline       -2.63   -1.75    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.04   12.93   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7113,13 +7113,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.73    7.32    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  9.707e-06  9.707e-06
-	Microcline       -2.55   -1.67    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00             0.000e+00
+	Gibbsite         -0.73    7.32    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   9.707e-06   9.707e-06
+	Microcline       -2.55   -1.67    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7214,13 +7214,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.75    7.30    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  8.963e-06  8.963e-06
-	Microcline       -2.51   -1.63    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  8.398e-07  8.398e-07
+	Gibbsite         -0.75    7.30    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   8.963e-06   8.963e-06
+	Microcline       -2.51   -1.63    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   8.398e-07   8.398e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -7315,13 +7315,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.77    7.28    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  8.200e-06  8.200e-06
-	Microcline       -2.47   -1.59    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  1.692e-06  1.692e-06
+	Gibbsite         -0.77    7.28    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   8.200e-06   8.200e-06
+	Microcline       -2.47   -1.59    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   1.692e-06   1.692e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7416,13 +7416,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.79    7.26    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  7.436e-06  7.436e-06
-	Microcline       -2.43   -1.55    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  2.543e-06  2.543e-06
+	Gibbsite         -0.79    7.26    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   7.436e-06   7.436e-06
+	Microcline       -2.43   -1.55    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   2.543e-06   2.543e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7517,13 +7517,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.81    7.24    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  6.672e-06  6.672e-06
-	Microcline       -2.39   -1.51    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  3.394e-06  3.394e-06
+	Gibbsite         -0.81    7.24    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   6.672e-06   6.672e-06
+	Microcline       -2.39   -1.51    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   3.394e-06   3.394e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7618,13 +7618,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.82    7.22    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  5.907e-06  5.907e-06
-	Microcline       -2.35   -1.48    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  4.245e-06  4.245e-06
+	Gibbsite         -0.82    7.22    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   5.907e-06   5.907e-06
+	Microcline       -2.35   -1.48    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   4.245e-06   4.245e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7719,13 +7719,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.84    7.21    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  5.141e-06  5.141e-06
-	Microcline       -2.32   -1.44    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  5.096e-06  5.096e-06
+	Gibbsite         -0.84    7.21    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   5.141e-06   5.141e-06
+	Microcline       -2.32   -1.44    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   5.096e-06   5.096e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7820,13 +7820,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.86    7.19    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  4.374e-06  4.374e-06
-	Microcline       -2.29   -1.41    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  5.947e-06  5.947e-06
+	Gibbsite         -0.86    7.19    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   4.374e-06   4.374e-06
+	Microcline       -2.29   -1.41    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   5.947e-06   5.947e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7921,13 +7921,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.87    7.17    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  3.606e-06  3.606e-06
-	Microcline       -2.25   -1.38    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  6.798e-06  6.798e-06
+	Gibbsite         -0.87    7.17    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   3.606e-06   3.606e-06
+	Microcline       -2.25   -1.38    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   6.798e-06   6.798e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -8022,13 +8022,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.89    7.16    8.05  0.000e+00             0.000e+00
-	Kaolinite         0.00    5.71    5.71  0.000e+00  2.838e-06  2.838e-06
-	Microcline       -2.22   -1.35    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  7.649e-06  7.649e-06
+	Gibbsite         -0.89    7.16    8.05   0.000e+00           0   0.000e+00
+	Kaolinite         0.00    5.71    5.71   0.000e+00   2.838e-06   2.838e-06
+	Microcline       -2.22   -1.35    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   7.649e-06   7.649e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -8123,13 +8123,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.90    7.14    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  2.069e-06  2.069e-06
-	Microcline       -2.19   -1.32    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  8.500e-06  8.500e-06
+	Gibbsite         -0.90    7.14    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   2.069e-06   2.069e-06
+	Microcline       -2.19   -1.32    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   8.500e-06   8.500e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -8224,13 +8224,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.92    7.13    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  1.298e-06  1.298e-06
-	Microcline       -2.16   -1.29    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  9.352e-06  9.352e-06
+	Gibbsite         -0.92    7.13    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   1.298e-06   1.298e-06
+	Microcline       -2.16   -1.29    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   9.352e-06   9.352e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -8325,13 +8325,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.93    7.12    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.71    5.71  0.000e+00  5.270e-07  5.270e-07
-	Microcline       -2.14   -1.26    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  1.020e-05  1.020e-05
+	Gibbsite         -0.93    7.12    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   5.270e-07   5.270e-07
+	Microcline       -2.14   -1.26    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   1.020e-05   1.020e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8426,13 +8426,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.95    7.10    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.00    5.70    5.71  0.000e+00             0.000e+00
-	Microcline       -2.11   -1.23    0.88  0.000e+00             0.000e+00
-	Muscovite         0.00   12.97   12.97  0.000e+00  1.089e-05  1.089e-05
+	Gibbsite         -0.95    7.10    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.00    5.70    5.71   0.000e+00           0   0.000e+00
+	Microcline       -2.11   -1.23    0.88   0.000e+00           0   0.000e+00
+	Muscovite         0.00   12.97   12.97   0.000e+00   1.089e-05   1.089e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8527,13 +8527,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.97    7.08    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.02    5.69    5.71  0.000e+00             0.000e+00
-	Microcline       -2.07   -1.19    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  1.123e-05  1.123e-05
+	Gibbsite         -0.97    7.08    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.02    5.69    5.71   0.000e+00           0   0.000e+00
+	Microcline       -2.07   -1.19    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   1.123e-05   1.123e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8628,13 +8628,13 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gibbsite         -0.99    7.06    8.05  0.000e+00             0.000e+00
-	Kaolinite        -0.03    5.68    5.71  0.000e+00             0.000e+00
-	Microcline       -2.03   -1.16    0.88  0.000e+00             0.000e+00
-	Muscovite        -0.00   12.97   12.97  0.000e+00  1.156e-05  1.156e-05
+	Gibbsite         -0.99    7.06    8.05   0.000e+00           0   0.000e+00
+	Kaolinite        -0.03    5.68    5.71   0.000e+00           0   0.000e+00
+	Microcline       -2.03   -1.16    0.88   0.000e+00           0   0.000e+00
+	Muscovite        -0.00   12.97   12.97   0.000e+00   1.156e-05   1.156e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -9206,23 +9206,23 @@ Reaction 1.	Irreversible reaction defined in simulation 21.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.19   -4.55   -4.36  1.000e+00            -1.000e+00
-	Aragonite        -0.14   -8.48   -8.34  2.500e+00            -2.500e+00
-	Calcite           0.00   -8.48   -8.48  1.000e+00  3.570e+00  2.570e+00
-	Chalcedony        0.00   -3.55   -3.55  2.100e+00  9.989e-02 -2.000e+00
-	CO2(g)           -3.00   -4.47   -1.47  0.000e+00  1.584e+00  1.584e+00
-	Dolomite          0.00  -17.09  -17.09  1.000e+00  6.740e-01 -3.260e-01
-	FeS(ppt)         -0.00   -3.92   -3.92  1.000e+00  6.664e-01 -3.336e-01
-	Gibbsite         -1.65    6.40    8.05  2.000e+00            -2.000e+00
-	Goethite          0.00   -1.00   -1.00  1.000e+00  2.334e+00  1.334e+00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  2.350e+00  1.350e+00
-	Kaolinite        -0.00    5.71    5.71  5.000e+00  6.000e+00  1.000e+00
-	O2(g)           -68.80  -71.69   -2.89  1.000e+00            -1.000e+00
-	Siderite         -1.83  -12.72  -10.89  1.000e+00            -1.000e+00
-	Sulfur           -3.09    1.79    4.88  0.000e+00             0.000e+00
+	Anhydrite        -0.19   -4.55   -4.36   1.000e+00           0  -1.000e+00
+	Aragonite        -0.14   -8.48   -8.34   2.500e+00           0  -2.500e+00
+	Calcite           0.00   -8.48   -8.48   1.000e+00   3.570e+00   2.570e+00
+	Chalcedony        0.00   -3.55   -3.55   2.100e+00   9.989e-02  -2.000e+00
+	CO2(g)           -3.00   -4.47   -1.47   0.000e+00   1.584e+00   1.584e+00
+	Dolomite          0.00  -17.09  -17.09   1.000e+00   6.740e-01  -3.260e-01
+	FeS(ppt)         -0.00   -3.92   -3.92   1.000e+00   6.664e-01  -3.336e-01
+	Gibbsite         -1.65    6.40    8.05   2.000e+00           0  -2.000e+00
+	Goethite          0.00   -1.00   -1.00   1.000e+00   2.334e+00   1.334e+00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   2.350e+00   1.350e+00
+	Kaolinite        -0.00    5.71    5.71   5.000e+00   6.000e+00   1.000e+00
+	O2(g)           -68.80  -71.69   -2.89   1.000e+00           0  -1.000e+00
+	Siderite         -1.83  -12.72  -10.89   1.000e+00           0  -1.000e+00
+	Sulfur           -3.09    1.79    4.88   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -9645,23 +9645,23 @@ Reaction 1.	Irreversible reaction defined in simulation 21.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.13   -4.55   -4.42  1.000e+00            -1.000e+00
-	Aragonite        -0.14   -8.54   -8.41  2.500e+00            -2.500e+00
-	Calcite           0.00   -8.54   -8.54  1.000e+00  3.312e+00  2.312e+00
-	Chalcedony        0.00   -3.44   -3.44  2.100e+00  9.988e-02 -2.000e+00
-	CO2(g)           -3.00   -4.58   -1.58  0.000e+00  1.834e+00  1.834e+00
-	Dolomite          0.00  -17.31  -17.31  1.000e+00  6.778e-01 -3.222e-01
-	FeS(ppt)          0.00   -3.91   -3.92  1.000e+00  6.664e-01 -3.336e-01
-	Gibbsite         -1.64    5.86    7.51  2.000e+00            -2.000e+00
-	Goethite         -0.00   -1.34   -1.34  1.000e+00  2.334e+00  1.334e+00
-	Gypsum            0.00   -4.59   -4.59  1.000e+00  2.353e+00  1.353e+00
-	Kaolinite        -0.00    4.87    4.87  5.000e+00  6.000e+00  1.000e+00
-	O2(g)           -66.38  -69.34   -2.96  1.000e+00            -1.000e+00
-	Siderite         -2.12  -13.07  -10.95  1.000e+00            -1.000e+00
-	Sulfur           -3.05    1.60    4.66  0.000e+00             0.000e+00
+	Anhydrite        -0.13   -4.55   -4.42   1.000e+00           0  -1.000e+00
+	Aragonite        -0.14   -8.54   -8.41   2.500e+00           0  -2.500e+00
+	Calcite           0.00   -8.54   -8.54   1.000e+00   3.312e+00   2.312e+00
+	Chalcedony        0.00   -3.44   -3.44   2.100e+00   9.988e-02  -2.000e+00
+	CO2(g)           -3.00   -4.58   -1.58   0.000e+00   1.834e+00   1.834e+00
+	Dolomite          0.00  -17.31  -17.31   1.000e+00   6.778e-01  -3.222e-01
+	FeS(ppt)          0.00   -3.91   -3.92   1.000e+00   6.664e-01  -3.336e-01
+	Gibbsite         -1.64    5.86    7.51   2.000e+00           0  -2.000e+00
+	Goethite         -0.00   -1.34   -1.34   1.000e+00   2.334e+00   1.334e+00
+	Gypsum            0.00   -4.59   -4.59   1.000e+00   2.353e+00   1.353e+00
+	Kaolinite        -0.00    4.87    4.87   5.000e+00   6.000e+00   1.000e+00
+	O2(g)           -66.38  -69.34   -2.96   1.000e+00           0  -1.000e+00
+	Siderite         -2.12  -13.07  -10.95   1.000e+00           0  -1.000e+00
+	Sulfur           -3.05    1.60    4.66   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 

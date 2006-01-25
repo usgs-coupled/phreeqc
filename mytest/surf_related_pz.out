@@ -87,10 +87,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  2.000e-01  1.847e-01 -1.526e-02
+	Gypsum            0.00   -4.58   -4.58   2.000e-01   1.847e-01  -1.526e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -231,10 +231,10 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  2.000e-01  1.607e-01 -3.933e-02
+	Gypsum            0.00   -4.58   -4.58   2.000e-01   1.607e-01  -3.933e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -348,10 +348,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  1.607e-01  1.607e-01  4.899e-14
+	Gypsum            0.00   -4.58   -4.58   1.607e-01   1.607e-01   4.899e-14
 
 ------------------------------Surface composition------------------------------
 
@@ -574,10 +574,10 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.00   -4.58   -4.58  0.000e+00  2.314e-01  2.314e-01
+	Gypsum           -0.00   -4.58   -4.58   0.000e+00   2.314e-01   2.314e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -736,10 +736,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.00   -4.58   -4.58  2.000e-02  4.737e-03 -1.526e-02
+	Gypsum           -0.00   -4.58   -4.58   2.000e-02   4.737e-03  -1.526e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -880,10 +880,10 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.38   -4.96   -4.58  2.000e-02            -2.000e-02
+	Gypsum           -0.38   -4.96   -4.58   2.000e-02           0  -2.000e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -997,10 +997,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.38   -4.96   -4.58  0.000e+00             0.000e+00
+	Gypsum           -0.38   -4.96   -4.58   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -1219,10 +1219,10 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  0.000e+00  2.314e-01  2.314e-01
+	Gypsum            0.00   -4.58   -4.58   0.000e+00   2.314e-01   2.314e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -1385,10 +1385,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  2.000e-02  4.737e-03 -1.526e-02
+	Gypsum            0.00   -4.58   -4.58   2.000e-02   4.737e-03  -1.526e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -1524,10 +1524,10 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.38   -4.96   -4.58  2.000e-02            -2.000e-02
+	Gypsum           -0.38   -4.96   -4.58   2.000e-02           0  -2.000e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -1635,10 +1635,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum           -0.38   -4.96   -4.58  0.000e+00             0.000e+00
+	Gypsum           -0.38   -4.96   -4.58   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -1850,10 +1850,10 @@ Reaction 1.	Irreversible reaction defined in simulation 12.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Gypsum            0.00   -4.58   -4.58  0.000e+00  2.309e-01  2.309e-01
+	Gypsum            0.00   -4.58   -4.58   0.000e+00   2.309e-01   2.309e-01
 
 ------------------------------Surface composition------------------------------
 

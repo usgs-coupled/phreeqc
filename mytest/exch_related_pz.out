@@ -85,10 +85,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e-02  9.868e-03 -1.318e-04
+	Calcite           0.00   -8.41   -8.41   1.000e-02   9.868e-03  -1.318e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -204,10 +204,10 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite         -11.31  -19.72   -8.41  9.868e-03            -9.868e-03
+	Calcite         -11.31  -19.72   -8.41   9.868e-03           0  -9.868e-03
 
 -----------------------------Exchange composition------------------------------
 
@@ -298,10 +298,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite         -11.31  -19.72   -8.41  0.000e+00             0.000e+00
+	Calcite         -11.31  -19.72   -8.41   0.000e+00           0   0.000e+00
 
 -----------------------------Exchange composition------------------------------
 
@@ -446,10 +446,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -545,10 +545,10 @@ Reaction 1.	Irreversible reaction defined in simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.41   -8.41  0.000e+00  9.987e-02  9.987e-02
+	Calcite          -0.00   -8.41   -8.41   0.000e+00   9.987e-02   9.987e-02
 
 -----------------------------Exchange composition------------------------------
 

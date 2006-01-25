@@ -739,10 +739,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1081,10 +1081,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  6.152e-02 -1.333e-02
+	Calcite           0.00   -8.48   -8.48   7.485e-02   6.152e-02  -1.333e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -1423,10 +1423,10 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02 -5.967e-16
+	Calcite          -0.00   -8.48   -8.48   7.485e-02   7.485e-02  -5.967e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -1765,10 +1765,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02 -3.053e-16
+	Calcite           0.00   -8.48   -8.48   7.485e-02   7.485e-02  -3.053e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -2107,10 +2107,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02  1.055e-15
+	Calcite           0.00   -8.48   -8.48   7.485e-02   7.485e-02   1.055e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -2454,10 +2454,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2796,10 +2796,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3138,10 +3138,10 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.012e-02  4.803e-02 -2.208e-02
+	Calcite          -0.00   -8.48   -8.48   7.012e-02   4.803e-02  -2.208e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -3480,10 +3480,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02  4.163e-17
+	Calcite          -0.00   -8.48   -8.48   7.485e-02   7.485e-02   4.163e-17
 
 -----------------------------Solution composition------------------------------
 
@@ -3822,10 +3822,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.485e-02  7.485e-02  2.220e-16
+	Calcite           0.00   -8.48   -8.48   7.485e-02   7.485e-02   2.220e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -4169,10 +4169,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4511,10 +4511,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4853,10 +4853,10 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5195,10 +5195,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  5.663e-02  3.455e-02 -2.208e-02
+	Calcite          -0.00   -8.48   -8.48   5.663e-02   3.455e-02  -2.208e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -5537,10 +5537,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  7.485e-02  7.485e-02  4.816e-15
+	Calcite          -0.00   -8.48   -8.48   7.485e-02   7.485e-02   4.816e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -5884,10 +5884,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6226,10 +6226,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6568,10 +6568,10 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6910,10 +6910,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7252,10 +7252,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  4.315e-02  2.107e-02 -2.208e-02
+	Calcite          -0.00   -8.48   -8.48   4.315e-02   2.107e-02  -2.208e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -7599,10 +7599,10 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7941,10 +7941,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -8283,10 +8283,10 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -8625,10 +8625,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -8967,10 +8967,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -9.27  -17.75   -8.48  0.000e+00             0.000e+00
+	Calcite          -9.27  -17.75   -8.48   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 

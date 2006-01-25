@@ -156,11 +156,11 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Pyrite            0.00  -18.48  -18.48  1.000e+01  1.000e+01  1.074e-03
-	Sphalerite       -0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.121e-03
+	Pyrite            0.00  -18.48  -18.48   1.000e+01   1.000e+01   1.074e-03
+	Sphalerite       -0.00  -11.62  -11.62   1.000e+01   1.000e+01   3.121e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -304,11 +304,11 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Pyrite           -0.00  -18.48  -18.48  1.000e+01  1.000e+01  3.881e-03
-	Sphalerite       -0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.208e-03
+	Pyrite           -0.00  -18.48  -18.48   1.000e+01   1.000e+01   3.881e-03
+	Sphalerite       -0.00  -11.62  -11.62   1.000e+01   1.000e+01   3.208e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -452,11 +452,11 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Pyrite            0.00  -18.48  -18.48  1.000e+01  1.000e+01  4.852e-03
-	Sphalerite       -0.00  -11.62  -11.62  1.000e+01  1.000e+01  3.224e-03
+	Pyrite            0.00  -18.48  -18.48   1.000e+01   1.000e+01   4.852e-03
+	Sphalerite       -0.00  -11.62  -11.62   1.000e+01   1.000e+01   3.224e-03
 
 -----------------------------Solution composition------------------------------
 

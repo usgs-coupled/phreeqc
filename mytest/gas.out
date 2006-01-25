@@ -151,11 +151,11 @@ O2(g)                 -6.35   4.485e-07   8.175e-03   1.286e-08  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.359e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.273e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+01   9.999e+00  -8.359e-04
+	Dolomite         -0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.273e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -277,11 +277,11 @@ O2(g)                 -6.34   4.540e-07   8.175e-03   1.327e-08  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.149e-04
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.216e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.999e+00  -8.149e-04
+	Dolomite          0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.216e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -403,11 +403,11 @@ O2(g)                 -6.35   4.493e-07   8.175e-03   1.339e-08  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -7.920e-04
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.153e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.999e+00  -7.920e-04
+	Dolomite          0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.153e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -529,11 +529,11 @@ O2(g)                 -6.36   4.359e-07   8.175e-03   1.325e-08  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -7.677e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.087e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.999e+00  -7.677e-04
+	Dolomite         -0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.087e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -655,11 +655,11 @@ O2(g)                 -6.38   4.148e-07   8.175e-03   1.285e-08  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -7.423e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.017e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+01   9.999e+00  -7.423e-04
+	Dolomite         -0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.017e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -781,11 +781,11 @@ O2(g)                 -6.81   1.558e-07   8.175e-03   5.389e-09  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -5.813e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -1.578e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+01   9.999e+00  -5.813e-04
+	Dolomite         -0.00  -17.09  -17.09   1.000e+01   9.998e+00  -1.578e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -907,11 +907,11 @@ O2(g)                -70.34   4.577e-71   8.175e-03   0.000e+00  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e+01  9.999e+00 -8.378e-04
-	Dolomite         -0.00  -17.09  -17.09  1.000e+01  9.998e+00 -2.222e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e+01   9.999e+00  -8.378e-04
+	Dolomite         -0.00  -17.09  -17.09   1.000e+01   9.998e+00  -2.222e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1033,11 +1033,11 @@ O2(g)                -70.32   4.833e-71   8.175e-03   0.000e+00  -8.175e-03
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.999e+00 -1.024e-03
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  9.997e+00 -2.705e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.999e+00  -1.024e-03
+	Dolomite          0.00  -17.09  -17.09   1.000e+01   9.997e+00  -2.705e-03
 
 -----------------------------Solution composition------------------------------
 

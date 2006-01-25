@@ -95,11 +95,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.998e+00 -1.646e-03
-	CO2(g)           -2.00   -3.47   -1.47  1.000e+01  9.998e+00 -1.976e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.998e+00  -1.646e-03
+	CO2(g)           -2.00   -3.47   -1.47   1.000e+01   9.998e+00  -1.976e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -493,11 +493,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.984e+00 -1.571e-02
-	Dolomite          0.00  -17.09  -17.09  1.000e+01  1.001e+01  7.935e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.984e+00  -1.571e-02
+	Dolomite          0.00  -17.09  -17.09   1.000e+01   1.001e+01   7.935e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -649,10 +649,10 @@ Using pure phase assemblage 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  1.000e+01 -3.992e-05
+	Calcite           0.00   -8.48   -8.48   1.000e+01   1.000e+01  -3.992e-05
 
 -----------------------------Solution composition------------------------------
 

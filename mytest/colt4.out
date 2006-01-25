@@ -185,12 +185,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.70   -9.15   -8.45  1.500e-02  1.494e-02 -6.334e-05
-	Goethite          3.00    2.00   -1.00  2.000e-02  2.000e-02  3.787e-08
-	Pyrite            0.00  -18.62  -18.62  5.000e-02  5.000e-02  8.528e-07
+	Calcite          -0.70   -9.15   -8.45   1.500e-02   1.494e-02  -6.334e-05
+	Goethite          3.00    2.00   -1.00   2.000e-02   2.000e-02   3.787e-08
+	Pyrite            0.00  -18.62  -18.62   5.000e-02   5.000e-02   8.528e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -414,12 +414,12 @@ Reaction 1.	Irreversible reaction defined in simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.70   -9.15   -8.45  1.494e-02  8.337e-03 -6.600e-03
-	Goethite          3.00    2.00   -1.00  2.000e-02  1.887e-02 -1.129e-03
-	Pyrite            0.00  -18.62  -18.62  5.000e-02  4.421e-02 -5.795e-03
+	Calcite          -0.70   -9.15   -8.45   1.494e-02   8.337e-03  -6.600e-03
+	Goethite          3.00    2.00   -1.00   2.000e-02   1.887e-02  -1.129e-03
+	Pyrite            0.00  -18.62  -18.62   5.000e-02   4.421e-02  -5.795e-03
 
 -----------------------------Exchange composition------------------------------
 
@@ -596,12 +596,12 @@ Reaction 1.	Irreversible reaction defined in simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.70   -9.15   -8.45  1.494e-02  3.321e-03 -1.162e-02
-	Goethite          3.00    2.00   -1.00  2.000e-02  1.344e-02 -6.562e-03
-	Pyrite            0.00  -18.62  -18.62  5.000e-02  3.525e-02 -1.475e-02
+	Calcite          -0.70   -9.15   -8.45   1.494e-02   3.321e-03  -1.162e-02
+	Goethite          3.00    2.00   -1.00   2.000e-02   1.344e-02  -6.562e-03
+	Pyrite            0.00  -18.62  -18.62   5.000e-02   3.525e-02  -1.475e-02
 
 -----------------------------Exchange composition------------------------------
 
@@ -778,12 +778,12 @@ Reaction 1.	Irreversible reaction defined in simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -1.00   -9.45   -8.45  1.494e-02            -1.494e-02
-	Goethite          2.83    1.83   -1.00  2.000e-02            -2.000e-02
-	Pyrite           -0.00  -18.62  -18.62  5.000e-02  2.000e-02 -3.000e-02
+	Calcite          -1.00   -9.45   -8.45   1.494e-02           0  -1.494e-02
+	Goethite          2.83    1.83   -1.00   2.000e-02           0  -2.000e-02
+	Pyrite           -0.00  -18.62  -18.62   5.000e-02   2.000e-02  -3.000e-02
 
 -----------------------------Exchange composition------------------------------
 

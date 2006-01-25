@@ -88,10 +88,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.00   -1.00   -1.00  1.000e-02  1.000e-02 -5.487e-14
+	Goethite         -0.00   -1.00   -1.00   1.000e-02   1.000e-02  -5.487e-14
 
 -----------------------------Solution composition------------------------------
 
@@ -238,10 +238,10 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.21   -1.21   -1.00  1.000e-02            -1.000e-02
+	Goethite         -0.21   -1.21   -1.00   1.000e-02           0  -1.000e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -369,10 +369,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.21   -1.21   -1.00  0.000e+00             0.000e+00
+	Goethite         -0.21   -1.21   -1.00   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -606,10 +606,10 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.00   -1.00   -1.00  0.000e+00  1.186e-01  1.186e-01
+	Goethite         -0.00   -1.00   -1.00   0.000e+00   1.186e-01   1.186e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -787,10 +787,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.00   -1.00   -1.00  1.000e-02  1.000e-02 -5.487e-14
+	Goethite         -0.00   -1.00   -1.00   1.000e-02   1.000e-02  -5.487e-14
 
 -----------------------------Solution composition------------------------------
 
@@ -947,10 +947,10 @@ Reaction 1.	Irreversible reaction defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.21   -1.21   -1.00  1.000e-02            -1.000e-02
+	Goethite         -0.21   -1.21   -1.00   1.000e-02           0  -1.000e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -1088,10 +1088,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.21   -1.21   -1.00  0.000e+00             0.000e+00
+	Goethite         -0.21   -1.21   -1.00   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -1344,10 +1344,10 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite          0.00   -1.00   -1.00  0.000e+00  1.237e-01  1.237e-01
+	Goethite          0.00   -1.00   -1.00   0.000e+00   1.237e-01   1.237e-01
 
 ------------------------------Surface composition------------------------------
 
@@ -1535,10 +1535,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.00   -1.00   -1.00  1.000e-02  1.000e-02 -5.487e-14
+	Goethite         -0.00   -1.00   -1.00   1.000e-02   1.000e-02  -5.487e-14
 
 -----------------------------Solution composition------------------------------
 
@@ -1680,10 +1680,10 @@ Reaction 1.	Irreversible reaction defined in simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.22   -1.22   -1.00  1.000e-02            -1.000e-02
+	Goethite         -0.22   -1.22   -1.00   1.000e-02           0  -1.000e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -1805,10 +1805,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 10.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite         -0.22   -1.22   -1.00  0.000e+00             0.000e+00
+	Goethite         -0.22   -1.22   -1.00   0.000e+00           0   0.000e+00
 
 ------------------------------Surface composition------------------------------
 
@@ -2031,10 +2031,10 @@ Reaction 1.	Irreversible reaction defined in simulation 12.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite          0.00   -1.00   -1.00  0.000e+00  1.186e-01  1.186e-01
+	Goethite          0.00   -1.00   -1.00   0.000e+00   1.186e-01   1.186e-01
 
 ------------------------------Surface composition------------------------------
 

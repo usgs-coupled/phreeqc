@@ -84,10 +84,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	CO2(g)           -1.50   -2.97   -1.47  1.000e+01  9.999e+00 -1.099e-03
+	CO2(g)           -1.50   -2.97   -1.47   1.000e+01   9.999e+00  -1.099e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -216,11 +216,11 @@ CO2(g)                -2.12   7.512e-03   1.293e-03   3.070e-04  -9.855e-04
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.41   -8.41  1.000e+01  9.999e+00 -5.441e-04
-	Dolomite         -0.00  -17.08  -17.08  1.000e+01  9.999e+00 -6.494e-04
+	Calcite          -0.00   -8.41   -8.41   1.000e+01   9.999e+00  -5.441e-04
+	Dolomite         -0.00  -17.08  -17.08   1.000e+01   9.999e+00  -6.494e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -323,11 +323,11 @@ CO2(g)                -2.86   1.365e-03   0.000e+00   5.580e-05   5.580e-05
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -3.036e-04
-	Dolomite          0.00  -17.08  -17.08  1.000e+01  1.000e+01 -3.556e-04
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -3.036e-04
+	Dolomite          0.00  -17.08  -17.08   1.000e+01   1.000e+01  -3.556e-04
 
 -----------------------------Solution composition------------------------------
 

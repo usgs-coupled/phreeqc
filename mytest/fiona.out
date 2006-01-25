@@ -287,11 +287,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            7.00    7.00    0.00
-		O2              is reactant     1.000e+00  1.000e+00  2.511e-11
+		O2              is reactant      1.000e+00   1.000e+00   2.511e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -484,11 +484,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            6.00    6.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  2.511e-11
+		O2              is reactant      1.000e+01   1.000e+01   2.511e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -681,11 +681,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            5.00    5.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  2.510e-11
+		O2              is reactant      1.000e+01   1.000e+01   2.510e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -878,11 +878,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            4.00    4.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  2.505e-11
+		O2              is reactant      1.000e+01   1.000e+01   2.505e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -1075,11 +1075,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            3.00    3.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  2.453e-11
+		O2              is reactant      1.000e+01   1.000e+01   2.453e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -1272,11 +1272,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            2.00    2.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  2.034e-11
+		O2              is reactant      1.000e+01   1.000e+01   2.034e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -1469,11 +1469,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            1.00    1.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  7.502e-12
+		O2              is reactant      1.000e+01   1.000e+01   7.502e-12
 
 -----------------------------Solution composition------------------------------
 
@@ -1666,11 +1666,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe            0.00    0.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  1.027e-12
+		O2              is reactant      1.000e+01   1.000e+01   1.027e-12
 
 -----------------------------Solution composition------------------------------
 
@@ -1863,11 +1863,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe           -1.00   -1.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  1.084e-13
+		O2              is reactant      1.000e+01   1.000e+01   1.084e-13
 
 -----------------------------Solution composition------------------------------
 
@@ -2060,11 +2060,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe           -2.00   -2.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  1.243e-14
+		O2              is reactant      1.000e+01   1.000e+01   1.243e-14
 
 -----------------------------Solution composition------------------------------
 
@@ -2257,11 +2257,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_pe           -3.00   -3.00    0.00
-		O2              is reactant     1.000e+01  1.000e+01  1.776e-15
+		O2              is reactant      1.000e+01   1.000e+01   1.776e-15
 
 -----------------------------Solution composition------------------------------
 

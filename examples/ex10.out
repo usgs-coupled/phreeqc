@@ -180,11 +180,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Aragonite         0.00   -8.34   -8.34  1.000e+01  9.993e+00 -6.605e-03
-	CO2(g)           -0.01   -1.48   -1.47  1.000e+01  9.961e+00 -3.944e-02
+	Aragonite         0.00   -8.34   -8.34   1.000e+01   9.993e+00  -6.605e-03
+	CO2(g)           -0.01   -1.48   -1.47   1.000e+01   9.961e+00  -3.944e-02
 
 -----------------------------Solution composition------------------------------
 

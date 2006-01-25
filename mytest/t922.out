@@ -129,10 +129,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite          3.00    2.18   -0.82  1.000e-01  1.000e-01 -6.068e-11
+	Goethite          3.00    2.18   -0.82   1.000e-01   1.000e-01  -6.068e-11
 
 -----------------------------Solution composition------------------------------
 
@@ -660,10 +660,10 @@ Kinetics 1.	Kinetics defined in simulation 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite          3.00    2.18   -0.82  1.000e-01  1.000e-01  1.471e-08
+	Goethite          3.00    2.18   -0.82   1.000e-01   1.000e-01   1.471e-08
 
 ------------------------------Surface composition------------------------------
 
@@ -841,10 +841,10 @@ Mixture 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Goethite          3.00    2.18   -0.82  1.000e-01  1.000e-01  4.555e-09
+	Goethite          3.00    2.18   -0.82   1.000e-01   1.000e-01   4.555e-09
 
 ------------------------------Surface composition------------------------------
 

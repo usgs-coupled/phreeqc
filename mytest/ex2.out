@@ -106,11 +106,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.22   -4.58   -4.36  1.000e+00            -1.000e+00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.849e-01
+	Anhydrite        -0.22   -4.58   -4.36   1.000e+00           0  -1.000e+00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.849e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -183,11 +183,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.22   -4.58   -4.37  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.849e-01
+	Anhydrite        -0.22   -4.58   -4.37   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.849e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -260,11 +260,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.21   -4.58   -4.37  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.848e-01
+	Anhydrite        -0.21   -4.58   -4.37   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.848e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -337,11 +337,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.21   -4.58   -4.37  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.848e-01
+	Anhydrite        -0.21   -4.58   -4.37   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.848e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -414,11 +414,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.20   -4.58   -4.38  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.847e-01
+	Anhydrite        -0.20   -4.58   -4.38   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.847e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -491,11 +491,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.20   -4.58   -4.39  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.847e-01
+	Anhydrite        -0.20   -4.58   -4.39   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.847e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -568,11 +568,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.19   -4.58   -4.39  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.58   -4.58  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.19   -4.58   -4.39   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.58   -4.58   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -645,11 +645,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.19   -4.59   -4.40  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.59   -4.59  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.19   -4.59   -4.40   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.59   -4.59   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -722,11 +722,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.18   -4.59   -4.40  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.59   -4.59  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.18   -4.59   -4.40   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.59   -4.59   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -799,11 +799,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.18   -4.59   -4.41  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.59   -4.59  1.000e+00  1.985e+00  9.845e-01
+	Anhydrite        -0.18   -4.59   -4.41   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.59   -4.59   1.000e+00   1.985e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -876,11 +876,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.17   -4.59   -4.42  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.59   -4.59  1.000e+00  1.985e+00  9.845e-01
+	Anhydrite        -0.17   -4.59   -4.42   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.59   -4.59   1.000e+00   1.985e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -953,11 +953,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.17   -4.59   -4.42  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.59   -4.59  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.17   -4.59   -4.42   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.59   -4.59   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1030,11 +1030,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.16   -4.59   -4.43  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.59   -4.59  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.16   -4.59   -4.43   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.59   -4.59   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1107,11 +1107,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.15   -4.59   -4.44  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.59   -4.59  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.15   -4.59   -4.44   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.59   -4.59   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1184,11 +1184,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.15   -4.60   -4.45  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.60   -4.60  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.15   -4.60   -4.45   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.60   -4.60   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1261,11 +1261,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.14   -4.60   -4.46  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.60   -4.60  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.14   -4.60   -4.46   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.60   -4.60   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1338,11 +1338,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.13   -4.60   -4.47  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.60   -4.60  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.13   -4.60   -4.47   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.60   -4.60   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1415,11 +1415,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.13   -4.60   -4.47  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.60   -4.60  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.13   -4.60   -4.47   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.60   -4.60   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1492,11 +1492,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.12   -4.60   -4.48  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.60   -4.60  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.12   -4.60   -4.48   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.60   -4.60   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1569,11 +1569,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.11   -4.61   -4.49  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.61   -4.61  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.11   -4.61   -4.49   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.61   -4.61   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1646,11 +1646,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.11   -4.61   -4.50  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.61   -4.61  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.11   -4.61   -4.50   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.61   -4.61   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1723,11 +1723,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.10   -4.61   -4.51  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.61   -4.61  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.10   -4.61   -4.51   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.61   -4.61   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1800,11 +1800,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.09   -4.61   -4.52  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.61   -4.61  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.09   -4.61   -4.52   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.61   -4.61   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1877,11 +1877,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.08   -4.62   -4.53  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.62   -4.62  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.08   -4.62   -4.53   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.62   -4.62   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -1954,11 +1954,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.08   -4.62   -4.54  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.62   -4.62  1.000e+00  1.984e+00  9.844e-01
+	Anhydrite        -0.08   -4.62   -4.54   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.62   -4.62   1.000e+00   1.984e+00   9.844e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2031,11 +2031,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.07   -4.62   -4.55  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.62   -4.62  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.07   -4.62   -4.55   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.62   -4.62   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2108,11 +2108,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.06   -4.62   -4.56  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.62   -4.62  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.06   -4.62   -4.56   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.62   -4.62   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2185,11 +2185,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.05   -4.63   -4.58  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.63   -4.63  1.000e+00  1.984e+00  9.845e-01
+	Anhydrite        -0.05   -4.63   -4.58   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.63   -4.63   1.000e+00   1.984e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2262,11 +2262,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.04   -4.63   -4.59  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.63   -4.63  1.000e+00  1.985e+00  9.845e-01
+	Anhydrite        -0.04   -4.63   -4.59   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.63   -4.63   1.000e+00   1.985e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2339,11 +2339,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.03   -4.63   -4.60  1.000e-00            -1.000e-00
-	Gypsum            0.00   -4.63   -4.63  1.000e+00  1.985e+00  9.845e-01
+	Anhydrite        -0.03   -4.63   -4.60   1.000e-00           0  -1.000e-00
+	Gypsum            0.00   -4.63   -4.63   1.000e+00   1.985e+00   9.845e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2416,11 +2416,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.03   -4.64   -4.61  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.64   -4.64  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.03   -4.64   -4.61   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.64   -4.64   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2493,11 +2493,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.02   -4.64   -4.62  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.64   -4.64  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.02   -4.64   -4.62   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.64   -4.64   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2570,11 +2570,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.01   -4.64   -4.63  1.000e-00            -1.000e-00
-	Gypsum           -0.00   -4.64   -4.64  1.000e+00  1.985e+00  9.846e-01
+	Anhydrite        -0.01   -4.64   -4.63   1.000e-00           0  -1.000e-00
+	Gypsum           -0.00   -4.64   -4.64   1.000e+00   1.985e+00   9.846e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2647,11 +2647,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.65   -4.65  1.000e-00  1.984e+00  9.835e-01
-	Gypsum           -0.00   -4.65   -4.65  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.65   -4.65   1.000e-00   1.984e+00   9.835e-01
+	Gypsum           -0.00   -4.65   -4.65   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2724,11 +2724,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.66   -4.66  1.000e-00  1.984e+00  9.839e-01
-	Gypsum           -0.01   -4.66   -4.65  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.66   -4.66   1.000e-00   1.984e+00   9.839e-01
+	Gypsum           -0.01   -4.66   -4.65   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2801,11 +2801,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.67   -4.67  1.000e-00  1.984e+00  9.842e-01
-	Gypsum           -0.02   -4.67   -4.65  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.67   -4.67   1.000e-00   1.984e+00   9.842e-01
+	Gypsum           -0.02   -4.67   -4.65   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2878,11 +2878,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.69   -4.69  1.000e-00  1.984e+00  9.845e-01
-	Gypsum           -0.03   -4.69   -4.66  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.69   -4.69   1.000e-00   1.984e+00   9.845e-01
+	Gypsum           -0.03   -4.69   -4.66   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2955,11 +2955,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.70   -4.70  1.000e-00  1.985e+00  9.848e-01
-	Gypsum           -0.04   -4.70   -4.66  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.70   -4.70   1.000e-00   1.985e+00   9.848e-01
+	Gypsum           -0.04   -4.70   -4.66   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3032,11 +3032,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.71   -4.71  1.000e-00  1.985e+00  9.851e-01
-	Gypsum           -0.05   -4.71   -4.67  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.71   -4.71   1.000e-00   1.985e+00   9.851e-01
+	Gypsum           -0.05   -4.71   -4.67   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3109,11 +3109,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.73   -4.73  1.000e-00  1.985e+00  9.854e-01
-	Gypsum           -0.06   -4.73   -4.67  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.73   -4.73   1.000e-00   1.985e+00   9.854e-01
+	Gypsum           -0.06   -4.73   -4.67   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3186,11 +3186,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.74   -4.74  1.000e-00  1.986e+00  9.857e-01
-	Gypsum           -0.07   -4.74   -4.67  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.74   -4.74   1.000e-00   1.986e+00   9.857e-01
+	Gypsum           -0.07   -4.74   -4.67   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3263,11 +3263,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.75   -4.75  1.000e-00  1.986e+00  9.860e-01
-	Gypsum           -0.08   -4.75   -4.68  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.75   -4.75   1.000e-00   1.986e+00   9.860e-01
+	Gypsum           -0.08   -4.75   -4.68   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3340,11 +3340,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.77   -4.77  1.000e-00  1.986e+00  9.863e-01
-	Gypsum           -0.09   -4.77   -4.68  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.77   -4.77   1.000e-00   1.986e+00   9.863e-01
+	Gypsum           -0.09   -4.77   -4.68   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3417,11 +3417,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.78   -4.78  1.000e-00  1.987e+00  9.866e-01
-	Gypsum           -0.10   -4.78   -4.69  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.78   -4.78   1.000e-00   1.987e+00   9.866e-01
+	Gypsum           -0.10   -4.78   -4.69   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3494,11 +3494,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.80   -4.80  1.000e-00  1.987e+00  9.869e-01
-	Gypsum           -0.11   -4.80   -4.69  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.80   -4.80   1.000e-00   1.987e+00   9.869e-01
+	Gypsum           -0.11   -4.80   -4.69   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3571,11 +3571,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.81   -4.81  1.000e-00  1.987e+00  9.872e-01
-	Gypsum           -0.12   -4.81   -4.69  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.81   -4.81   1.000e-00   1.987e+00   9.872e-01
+	Gypsum           -0.12   -4.81   -4.69   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3648,11 +3648,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.83   -4.83  1.000e-00  1.988e+00  9.875e-01
-	Gypsum           -0.13   -4.83   -4.70  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.83   -4.83   1.000e-00   1.988e+00   9.875e-01
+	Gypsum           -0.13   -4.83   -4.70   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3725,11 +3725,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.84   -4.84  1.000e-00  1.988e+00  9.878e-01
-	Gypsum           -0.14   -4.84   -4.70  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.84   -4.84   1.000e-00   1.988e+00   9.878e-01
+	Gypsum           -0.14   -4.84   -4.70   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3802,11 +3802,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.86   -4.86  1.000e-00  1.988e+00  9.881e-01
-	Gypsum           -0.15   -4.86   -4.71  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.86   -4.86   1.000e-00   1.988e+00   9.881e-01
+	Gypsum           -0.15   -4.86   -4.71   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3879,11 +3879,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite         0.00   -4.87   -4.87  1.000e-00  1.988e+00  9.884e-01
-	Gypsum           -0.16   -4.87   -4.71  1.000e+00            -1.000e+00
+	Anhydrite         0.00   -4.87   -4.87   1.000e-00   1.988e+00   9.884e-01
+	Gypsum           -0.16   -4.87   -4.71   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3956,11 +3956,11 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.89   -4.89  1.000e-00  1.989e+00  9.887e-01
-	Gypsum           -0.17   -4.89   -4.72  1.000e+00            -1.000e+00
+	Anhydrite        -0.00   -4.89   -4.89   1.000e-00   1.989e+00   9.887e-01
+	Gypsum           -0.17   -4.89   -4.72   1.000e+00           0  -1.000e+00
 
 -----------------------------Solution composition------------------------------
 

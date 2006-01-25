@@ -239,11 +239,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e-01  1.020e-01  1.982e-03
-	Dolomite          0.00  -17.09  -17.09  1.600e+00  1.599e+00 -7.679e-04
+	Calcite           0.00   -8.48   -8.48   1.000e-01   1.020e-01   1.982e-03
+	Dolomite          0.00  -17.09  -17.09   1.600e+00   1.599e+00  -7.679e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -618,12 +618,12 @@ Using pure phase assemblage 0.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.000e-01  9.966e-02 -3.443e-04
-	CO2(g)           -1.50   -2.97   -1.47  1.000e+01  9.996e+00 -4.067e-03
-	Dolomite         -0.00  -17.09  -17.09  1.600e+00  1.599e+00 -1.349e-03
+	Calcite          -0.00   -8.48   -8.48   1.000e-01   9.966e-02  -3.443e-04
+	CO2(g)           -1.50   -2.97   -1.47   1.000e+01   9.996e+00  -4.067e-03
+	Dolomite         -0.00  -17.09  -17.09   1.600e+00   1.599e+00  -1.349e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -795,11 +795,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  5.212e-02  5.085e-02 -1.272e-03
-	Dolomite         -0.00  -17.09  -17.09  1.576e+00  1.575e+00 -1.774e-04
+	Calcite          -0.00   -8.48   -8.48   5.212e-02   5.085e-02  -1.272e-03
+	Dolomite         -0.00  -17.09  -17.09   1.576e+00   1.575e+00  -1.774e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -1017,11 +1017,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.832e-02  2.720e-02 -1.117e-03
-	Dolomite         -0.00  -17.09  -17.09  1.573e+00  1.573e+00 -5.221e-05
+	Calcite          -0.00   -8.48   -8.48   2.832e-02   2.720e-02  -1.117e-03
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -5.221e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1239,11 +1239,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.030e-03  6.028e-03 -1.002e-03
-	Dolomite         -0.00  -17.09  -17.09  1.573e+00  1.573e+00  1.267e-05
+	Calcite           0.00   -8.48   -8.48   7.030e-03   6.028e-03  -1.002e-03
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00   1.267e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1461,11 +1461,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.01   -8.49   -8.48  0.000e+00             0.000e+00
-	Dolomite          0.00  -17.09  -17.09  1.568e+00  1.568e+00 -3.004e-04
+	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
+	Dolomite          0.00  -17.09  -17.09   1.568e+00   1.568e+00  -3.004e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -1683,11 +1683,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.02   -8.50   -8.48  0.000e+00             0.000e+00
-	Dolomite          0.00  -17.09  -17.09  1.565e+00  1.565e+00 -5.456e-05
+	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
+	Dolomite          0.00  -17.09  -17.09   1.565e+00   1.565e+00  -5.456e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1905,11 +1905,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.02   -8.50   -8.48  0.000e+00             0.000e+00
-	Dolomite         -0.00  -17.09  -17.09  1.565e+00  1.565e+00  1.153e-06
+	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
+	Dolomite         -0.00  -17.09  -17.09   1.565e+00   1.565e+00   1.153e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -2127,11 +2127,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.02   -8.50   -8.48  0.000e+00             0.000e+00
-	Dolomite          0.00  -17.09  -17.09  1.565e+00  1.565e+00  2.132e-06
+	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
+	Dolomite          0.00  -17.09  -17.09   1.565e+00   1.565e+00   2.132e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -2349,11 +2349,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.02   -8.50   -8.48  0.000e+00             0.000e+00
-	Dolomite         -0.00  -17.09  -17.09  1.565e+00  1.565e+00  1.465e-06
+	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
+	Dolomite         -0.00  -17.09  -17.09   1.565e+00   1.565e+00   1.465e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -2571,11 +2571,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.01   -8.49   -8.48  0.000e+00             0.000e+00
-	Dolomite          0.00  -17.09  -17.09  1.565e+00  1.565e+00  1.206e-06
+	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
+	Dolomite          0.00  -17.09  -17.09   1.565e+00   1.565e+00   1.206e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -2793,11 +2793,11 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.01   -8.49   -8.48  0.000e+00             0.000e+00
-	Dolomite         -0.00  -17.09  -17.09  1.565e+00  1.565e+00  1.046e-06
+	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
+	Dolomite         -0.00  -17.09  -17.09   1.565e+00   1.565e+00   1.046e-06
 
 ------------------------------Surface composition------------------------------
 

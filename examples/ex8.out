@@ -216,11 +216,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.00   -5.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.273e-04
+		NaOH            is reactant      1.000e+01   1.000e+01   1.273e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -347,11 +347,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.25   -5.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.060e-04
+		NaOH            is reactant      1.000e+01   1.000e+01   1.060e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -478,11 +478,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.50   -5.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  8.815e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   8.815e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -609,11 +609,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.75   -5.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  7.298e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   7.298e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -740,11 +740,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.00   -6.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  5.997e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   5.997e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -871,11 +871,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.25   -6.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  4.875e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   4.875e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1002,11 +1002,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.50   -6.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  3.904e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   3.904e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1133,11 +1133,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.75   -6.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  3.063e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   3.063e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1264,11 +1264,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.00   -7.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  2.330e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   2.330e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1395,11 +1395,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.25   -7.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.683e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   1.683e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1526,11 +1526,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.50   -7.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.097e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   1.097e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1657,11 +1657,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.75   -7.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  5.425e-06
+		NaOH            is reactant      1.000e+01   1.000e+01   5.425e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -1788,11 +1788,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -8.00   -8.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -1.388e-07
+		NaOH            is reactant      1.000e+01   1.000e+01  -1.388e-07
 
 ------------------------------Surface composition------------------------------
 
@@ -1919,11 +1919,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.00   -5.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.399e-04
+		NaOH            is reactant      1.000e+01   1.000e+01   1.399e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -2050,11 +2050,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.25   -5.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.178e-04
+		NaOH            is reactant      1.000e+01   1.000e+01   1.178e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -2181,11 +2181,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.50   -5.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  9.839e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   9.839e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2312,11 +2312,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -5.75   -5.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  8.089e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   8.089e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2443,11 +2443,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.00   -6.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  6.529e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   6.529e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2574,11 +2574,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.25   -6.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  5.100e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   5.100e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2705,11 +2705,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.50   -6.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  3.598e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   3.598e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2836,11 +2836,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -6.75   -6.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01  1.709e-05
+		NaOH            is reactant      1.000e+01   1.000e+01   1.709e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -2967,11 +2967,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.00   -7.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -7.621e-06
+		NaOH            is reactant      1.000e+01   1.000e+01  -7.621e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -3098,11 +3098,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.25   -7.25    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -3.628e-05
+		NaOH            is reactant      1.000e+01   1.000e+01  -3.628e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -3229,11 +3229,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.50   -7.50    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -6.533e-05
+		NaOH            is reactant      1.000e+01   1.000e+01  -6.533e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -3360,11 +3360,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -7.75   -7.75    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -9.246e-05
+		NaOH            is reactant      1.000e+01   1.000e+01  -9.246e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -3491,11 +3491,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Fix_H+           -8.00   -8.00    0.00
-		NaOH            is reactant     1.000e+01  1.000e+01 -1.167e-04
+		NaOH            is reactant      1.000e+01   1.000e+01  -1.167e-04
 
 ------------------------------Surface composition------------------------------
 

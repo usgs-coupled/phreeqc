@@ -241,10 +241,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -2.645e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -2.645e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -336,10 +336,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -1.841e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -1.841e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -431,10 +431,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -4.036e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -4.036e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -526,10 +526,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -4.883e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -4.883e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -621,10 +621,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -4.689e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -4.689e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -716,10 +716,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -6.017e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -6.017e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -811,10 +811,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -6.156e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -6.156e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -906,10 +906,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -7.722e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -7.722e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1001,10 +1001,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -5.394e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -5.394e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1096,10 +1096,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -4.279e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -4.279e-07
 
 -----------------------------Solution composition------------------------------
 
@@ -1191,10 +1191,10 @@ Kinetics 1.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	O2(g)            -0.67   -3.56   -2.89  1.000e+01  1.000e+01 -3.603e-07
+	O2(g)            -0.67   -3.56   -2.89   1.000e+01   1.000e+01  -3.603e-07
 
 -----------------------------Solution composition------------------------------
 

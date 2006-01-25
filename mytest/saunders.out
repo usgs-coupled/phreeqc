@@ -400,14 +400,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.303e-05
-	Graphite         -0.00    6.03    6.03  5.000e-07  4.135e-07 -8.648e-08
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.303e-05
+	Graphite         -0.00    6.03    6.03   5.000e-07   4.135e-07  -8.648e-08
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -641,14 +641,14 @@ Using pure phase assemblage 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.303e-05
-	Graphite         -0.00    6.03    6.03  1.000e-04  9.991e-05 -8.648e-08
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.303e-05
+	Graphite         -0.00    6.03    6.03   1.000e-04   9.991e-05  -8.648e-08
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -765,14 +765,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  0.000e+00  1.037e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.220e-03
-	Graphite         -2.39    3.64    6.03  5.000e-07            -5.000e-07
-	Pyrite            0.00  -18.48  -18.48  0.000e+00  7.831e-08  7.831e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  0.000e+00  2.102e-08  2.102e-08
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.037e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.220e-03
+	Graphite         -2.39    3.64    6.03   5.000e-07           0  -5.000e-07
+	Pyrite            0.00  -18.48  -18.48   0.000e+00   7.831e-08   7.831e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   0.000e+00   2.102e-08   2.102e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -1029,14 +1029,14 @@ Using pure phase assemblage 2.	Pp_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.495e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.495e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1148,14 +1148,14 @@ Using pure phase assemblage 3.	Pp_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.495e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.495e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1267,14 +1267,14 @@ Using pure phase assemblage 4.	Pp_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.495e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.495e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1386,14 +1386,14 @@ Using pure phase assemblage 5.	Pp_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.495e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.495e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1505,14 +1505,14 @@ Using pure phase assemblage 6.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  1.000e-04  1.000e-04 -5.496e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   1.000e-04   1.000e-04  -5.496e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1624,14 +1624,14 @@ Using pure phase assemblage 7.	Pp_Assemblage defined in simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  1.000e-04  1.000e-04 -5.496e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   1.000e-04   1.000e-04  -5.496e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1744,14 +1744,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.037e-03  2.074e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.220e-03
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  7.831e-08  1.377e-08 -6.455e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  2.102e-08  4.203e-08  2.102e-08
+	Calcite          -0.00   -8.48   -8.48   1.037e-03   2.074e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.220e-03
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   7.831e-08   1.377e-08  -6.455e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   2.102e-08   4.203e-08   2.102e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -2008,14 +2008,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  0.000e+00  1.086e-07  1.086e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.000e-07
-	Graphite         -2.39    3.64    6.03  5.000e-07            -5.000e-07
-	Pyrite            0.00  -18.48  -18.48  0.000e+00  1.429e-07  1.429e-07
-	Uraninite(c)     -0.00   -4.80   -4.80  0.000e+00  2.380e-18  2.380e-18
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.086e-07   1.086e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.000e-07
+	Graphite         -2.39    3.64    6.03   5.000e-07           0  -5.000e-07
+	Pyrite            0.00  -18.48  -18.48   0.000e+00   1.429e-07   1.429e-07
+	Uraninite(c)     -0.00   -4.80   -4.80   0.000e+00   2.380e-18   2.380e-18
 
 -----------------------------Solution composition------------------------------
 
@@ -2272,14 +2272,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  5.000e-07  5.000e-07 -5.498e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   5.000e-07   5.000e-07  -5.498e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2391,14 +2391,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  5.000e-07  5.000e-07 -5.498e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   5.000e-07   5.000e-07  -5.498e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2510,14 +2510,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  5.000e-07  5.000e-07 -5.498e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   5.000e-07   5.000e-07  -5.498e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2629,14 +2629,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.498e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.498e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2748,14 +2748,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.498e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.498e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2868,14 +2868,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.074e-03  3.111e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.221e-03
-	Graphite        -17.79  -11.76    6.03  0.000e+00             0.000e+00
-	Pyrite          -53.90  -72.38  -18.48  1.377e-08            -1.377e-08
-	Uraninite(c)      0.00   -4.80   -4.80  4.203e-08  2.195e-08 -2.008e-08
+	Calcite           0.00   -8.48   -8.48   2.074e-03   3.111e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.221e-03
+	Graphite        -17.79  -11.76    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -53.90  -72.38  -18.48   1.377e-08           0  -1.377e-08
+	Uraninite(c)      0.00   -4.80   -4.80   4.203e-08   2.195e-08  -2.008e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -3132,14 +3132,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  1.086e-07  3.176e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.429e-07  3.177e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.380e-18  2.380e-18  3.732e-27
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   1.086e-07   3.176e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.429e-07   3.177e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.380e-18   2.380e-18   3.732e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -3396,14 +3396,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  0.000e+00  1.086e-07  1.086e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.000e-07
-	Graphite         -2.39    3.64    6.03  5.000e-07            -5.000e-07
-	Pyrite            0.00  -18.48  -18.48  0.000e+00  1.429e-07  1.429e-07
-	Uraninite(c)      0.00   -4.80   -4.80  0.000e+00  2.396e-18  2.396e-18
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.086e-07   1.086e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.000e-07
+	Graphite         -2.39    3.64    6.03   5.000e-07           0  -5.000e-07
+	Pyrite            0.00  -18.48  -18.48   0.000e+00   1.429e-07   1.429e-07
+	Uraninite(c)      0.00   -4.80   -4.80   0.000e+00   2.396e-18   2.396e-18
 
 -----------------------------Solution composition------------------------------
 
@@ -3660,14 +3660,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.491e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.491e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3779,14 +3779,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  5.000e-07  5.000e-07 -5.491e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   5.000e-07   5.000e-07  -5.491e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -3898,14 +3898,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  1.000e-04  1.000e-04 -5.490e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   1.000e-04   1.000e-04  -5.490e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4017,14 +4017,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  1.000e-04  1.000e-04 -5.490e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   1.000e-04   1.000e-04  -5.490e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4137,14 +4137,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  3.111e-03  4.147e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.221e-03
-	Graphite        -18.28  -12.25    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.62  -74.10  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.22   -5.02   -4.80  2.195e-08            -2.195e-08
+	Calcite          -0.00   -8.48   -8.48   3.111e-03   4.147e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.221e-03
+	Graphite        -18.28  -12.25    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.62  -74.10  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.22   -5.02   -4.80   2.195e-08           0  -2.195e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -4401,14 +4401,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  4.158e-07  3.072e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.168e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  9.208e-08 -5.078e-08
-	Uraninite(c)      0.00   -4.80   -4.80  2.380e-18  4.109e-08  4.109e-08
+	Calcite           0.00   -8.48   -8.48   1.086e-07   4.158e-07   3.072e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.168e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   9.208e-08  -5.078e-08
+	Uraninite(c)      0.00   -4.80   -4.80   2.380e-18   4.109e-08   4.109e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -4665,14 +4665,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.422e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.875e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.396e-18  2.396e-18  2.877e-27
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.422e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.875e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.396e-18   2.396e-18   2.877e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -4929,14 +4929,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  0.000e+00  1.086e-07  1.086e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.000e-07
-	Graphite         -2.38    3.65    6.03  5.000e-07            -5.000e-07
-	Pyrite           -0.00  -18.48  -18.48  0.000e+00  1.429e-07  1.429e-07
-	Uraninite(c)      0.00   -4.80   -4.80  0.000e+00  2.413e-18  2.413e-18
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.086e-07   1.086e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.000e-07
+	Graphite         -2.38    3.65    6.03   5.000e-07           0  -5.000e-07
+	Pyrite           -0.00  -18.48  -18.48   0.000e+00   1.429e-07   1.429e-07
+	Uraninite(c)      0.00   -4.80   -4.80   0.000e+00   2.413e-18   2.413e-18
 
 -----------------------------Solution composition------------------------------
 
@@ -5193,14 +5193,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  5.000e-07  5.000e-07 -5.479e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   5.000e-07   5.000e-07  -5.479e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5312,14 +5312,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.479e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.479e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5431,14 +5431,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.479e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.479e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5551,14 +5551,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  4.147e-03  5.184e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   4.147e-03   5.184e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5815,14 +5815,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  4.158e-07  8.071e-07  3.913e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.069e-06
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  9.208e-08  2.753e-08 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  4.109e-08  8.406e-08  4.297e-08
+	Calcite           0.00   -8.48   -8.48   4.158e-07   8.071e-07   3.913e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.069e-06
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   9.208e-08   2.753e-08  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   4.109e-08   8.406e-08   4.297e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -6079,14 +6079,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07 -1.770e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07 -2.328e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.396e-18  2.396e-18 -4.077e-27
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07  -1.770e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07  -2.328e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.396e-18   2.396e-18  -4.077e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -6343,14 +6343,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.044e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.420e-17
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  2.413e-18  5.695e-23
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.044e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.420e-17
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   2.413e-18   5.695e-23
 
 -----------------------------Solution composition------------------------------
 
@@ -6607,14 +6607,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  0.000e+00  1.086e-07  1.086e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.000e-07
-	Graphite         -2.38    3.65    6.03  5.000e-07            -5.000e-07
-	Pyrite            0.00  -18.48  -18.48  0.000e+00  1.429e-07  1.429e-07
-	Uraninite(c)      0.00   -4.80   -4.80  0.000e+00  2.431e-18  2.431e-18
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.086e-07   1.086e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.000e-07
+	Graphite         -2.38    3.65    6.03   5.000e-07           0  -5.000e-07
+	Pyrite            0.00  -18.48  -18.48   0.000e+00   1.429e-07   1.429e-07
+	Uraninite(c)      0.00   -4.80   -4.80   0.000e+00   2.431e-18   2.431e-18
 
 -----------------------------Solution composition------------------------------
 
@@ -6871,14 +6871,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.473e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.473e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6990,14 +6990,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.473e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.473e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7110,14 +7110,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  5.184e-03  6.220e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   5.184e-03   6.220e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -7374,14 +7374,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  8.071e-07  9.757e-07  1.686e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -5.213e-07
-	Graphite        -17.27  -11.24    6.03  0.000e+00             0.000e+00
-	Pyrite          -52.07  -70.55  -18.48  2.753e-08            -2.753e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  8.406e-08  8.251e-08 -1.552e-09
+	Calcite          -0.00   -8.48   -8.48   8.071e-07   9.757e-07   1.686e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -5.213e-07
+	Graphite        -17.27  -11.24    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -52.07  -70.55  -18.48   2.753e-08           0  -2.753e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   8.406e-08   8.251e-08  -1.552e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -7638,14 +7638,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.818e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  2.397e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.396e-18  2.397e-18  5.617e-23
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.818e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   2.397e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.396e-18   2.397e-18   5.617e-23
 
 -----------------------------Solution composition------------------------------
 
@@ -7902,14 +7902,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  1.086e-07 -1.266e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07 -1.667e-17
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  2.413e-18 -8.769e-29
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   1.086e-07  -1.266e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07  -1.667e-17
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   2.413e-18  -8.769e-29
 
 -----------------------------Solution composition------------------------------
 
@@ -8166,14 +8166,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.767e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.522e-18
-	Uraninite(c)     -0.00   -4.80   -4.80  2.431e-18  2.431e-18  5.777e-23
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.767e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.522e-18
+	Uraninite(c)     -0.00   -4.80   -4.80   2.431e-18   2.431e-18   5.777e-23
 
 -----------------------------Solution composition------------------------------
 
@@ -8430,14 +8430,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  0.000e+00  9.116e-06  9.116e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  2.509e-05
-	Graphite         -0.00    6.03    6.03  1.000e-04  5.770e-05 -4.230e-05
-	Pyrite           -0.00  -18.48  -18.48  0.000e+00  1.117e-05  1.117e-05
-	Uraninite(c)      0.00   -4.80   -4.80  0.000e+00  7.753e-16  7.753e-16
+	Calcite          -0.00   -8.48   -8.48   0.000e+00   9.116e-06   9.116e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   2.509e-05
+	Graphite         -0.00    6.03    6.03   1.000e-04   5.770e-05  -4.230e-05
+	Pyrite           -0.00  -18.48  -18.48   0.000e+00   1.117e-05   1.117e-05
+	Uraninite(c)      0.00   -4.80   -4.80   0.000e+00   7.753e-16   7.753e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -8694,14 +8694,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           Element not present.  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04 -5.485e-17
-	Pyrite            Element not present.  0.000e+00             0.000e+00
-	Uraninite(c)      Element not present.  0.000e+00             0.000e+00
+	Calcite           Element not present.   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04  -5.485e-17
+	Pyrite            Element not present.   0.000e+00           0   0.000e+00
+	Uraninite(c)      Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -8814,14 +8814,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  6.220e-03  7.257e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   6.220e-03   7.257e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -9078,14 +9078,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.757e-07  9.790e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  8.251e-08  3.924e-08 -4.327e-08
+	Calcite           0.00   -8.48   -8.48   9.757e-07   9.790e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   8.251e-08   3.924e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -9342,14 +9342,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  3.330e-07  2.244e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -6.195e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.058e-07 -3.701e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  2.397e-18  2.257e-08  2.257e-08
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   3.330e-07   2.244e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -6.195e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.058e-07  -3.701e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   2.397e-18   2.257e-08   2.257e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -9606,14 +9606,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.484e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.939e-17
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  2.413e-18  3.179e-28
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.484e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.939e-17
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   2.413e-18   3.179e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -9870,14 +9870,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07 -1.602e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07 -1.969e-18
-	Uraninite(c)      0.00   -4.80   -4.80  2.431e-18  2.431e-18 -5.717e-29
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07  -1.602e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07  -1.969e-18
+	Uraninite(c)      0.00   -4.80   -4.80   2.431e-18   2.431e-18  -5.717e-29
 
 -----------------------------Solution composition------------------------------
 
@@ -10134,14 +10134,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.116e-06  1.877e-05  9.659e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  2.659e-05
-	Graphite         -0.00    6.03    6.03  5.770e-05  1.291e-05 -4.480e-05
-	Pyrite            0.00  -18.48  -18.48  1.117e-05  2.306e-05  1.189e-05
-	Uraninite(c)     -0.00   -4.80   -4.80  7.753e-16  1.563e-15  7.873e-16
+	Calcite          -0.00   -8.48   -8.48   9.116e-06   1.877e-05   9.659e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   2.659e-05
+	Graphite         -0.00    6.03    6.03   5.770e-05   1.291e-05  -4.480e-05
+	Pyrite            0.00  -18.48  -18.48   1.117e-05   2.306e-05   1.189e-05
+	Uraninite(c)     -0.00   -4.80   -4.80   7.753e-16   1.563e-15   7.873e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -10398,14 +10398,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite          0.00    6.03    6.03  1.000e-04  1.000e-04  7.688e-16
-	Pyrite            0.00  -18.48  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  0.000e+00  7.280e-30  7.280e-30
+	Calcite          -0.00   -8.48   -8.48   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite          0.00    6.03    6.03   1.000e-04   1.000e-04   7.688e-16
+	Pyrite            0.00  -18.48  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   0.000e+00   7.280e-30   7.280e-30
 
 -----------------------------Solution composition------------------------------
 
@@ -10663,14 +10663,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.257e-03  8.294e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   7.257e-03   8.294e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -10927,14 +10927,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.790e-07  9.821e-07  3.064e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.287e-07
-	Graphite        -18.20  -12.17    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.34  -73.82  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.04   -4.84   -4.80  3.924e-08            -3.924e-08
+	Calcite          -0.00   -8.48   -8.48   9.790e-07   9.821e-07   3.064e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.287e-07
+	Graphite        -18.20  -12.17    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.34  -73.82  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.04   -4.84   -4.80   3.924e-08           0  -3.924e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -11191,14 +11191,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  3.330e-07  7.226e-07  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.058e-07  4.130e-08 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  2.257e-08  8.685e-08  6.429e-08
+	Calcite          -0.00   -8.48   -8.48   3.330e-07   7.226e-07   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.058e-07   4.130e-08  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   2.257e-08   8.685e-08   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -11455,14 +11455,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  2.362e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.776e-15
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  2.756e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  2.413e-18  1.968e-26
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   2.362e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.776e-15
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   2.756e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   2.413e-18   1.968e-26
 
 -----------------------------Solution composition------------------------------
 
@@ -11719,14 +11719,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07 -8.307e-19
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07 -7.677e-19
-	Uraninite(c)     -0.00   -4.80   -4.80  2.431e-18  2.431e-18 -2.618e-29
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07  -8.307e-19
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07  -7.677e-19
+	Uraninite(c)     -0.00   -4.80   -4.80   2.431e-18   2.431e-18  -2.618e-29
 
 -----------------------------Solution composition------------------------------
 
@@ -11983,14 +11983,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.877e-05  2.158e-05  2.802e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  7.741e-06
-	Graphite         -2.32    3.71    6.03  1.291e-05            -1.291e-05
-	Pyrite            0.00  -18.48  -18.48  2.306e-05  2.675e-05  3.688e-06
-	Uraninite(c)     -0.00   -4.80   -4.80  1.563e-15  1.630e-15  6.720e-17
+	Calcite           0.00   -8.48   -8.48   1.877e-05   2.158e-05   2.802e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   7.741e-06
+	Graphite         -2.32    3.71    6.03   1.291e-05           0  -1.291e-05
+	Pyrite            0.00  -18.48  -18.48   2.306e-05   2.675e-05   3.688e-06
+	Uraninite(c)     -0.00   -4.80   -4.80   1.563e-15   1.630e-15   6.720e-17
 
 -----------------------------Solution composition------------------------------
 
@@ -12247,14 +12247,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  0.000e+00             0.000e+00
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite         -0.00    6.03    6.03  1.000e-04  1.000e-04  2.251e-15
-	Pyrite            0.00  -18.48  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  7.280e-30  1.801e-31 -7.100e-30
+	Calcite          -0.00   -8.48   -8.48   0.000e+00           0   0.000e+00
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite         -0.00    6.03    6.03   1.000e-04   1.000e-04   2.251e-15
+	Pyrite            0.00  -18.48  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   7.280e-30   1.801e-31  -7.100e-30
 
 -----------------------------Solution composition------------------------------
 
@@ -12512,14 +12512,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  8.294e-03  9.330e-03  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   8.294e-03   9.330e-03   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -12776,14 +12776,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -13040,14 +13040,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  7.226e-07  9.713e-07  2.487e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -6.069e-07
-	Graphite        -16.49  -10.46    6.03  0.000e+00             0.000e+00
-	Pyrite          -49.34  -67.82  -18.48  4.130e-08            -4.130e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  8.685e-08  1.379e-07  5.104e-08
+	Calcite           0.00   -8.48   -8.48   7.226e-07   9.713e-07   2.487e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -6.069e-07
+	Graphite        -16.49  -10.46    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -49.34  -67.82  -18.48   4.130e-08           0  -4.130e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   8.685e-08   1.379e-07   5.104e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -13304,14 +13304,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  1.238e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.628e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  2.413e-18  3.075e-27
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   1.238e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.628e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   2.413e-18   3.075e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -13568,14 +13568,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07 -3.451e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.429e-07 -4.556e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.431e-18  2.431e-18 -7.726e-27
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07  -3.451e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.429e-07  -4.556e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.431e-18   2.431e-18  -7.726e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -13832,14 +13832,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05 -2.121e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05 -6.437e-19
-	Uraninite(c)      0.00   -4.80   -4.80  1.630e-15  1.630e-15  1.795e-28
+	Calcite           0.00   -8.48   -8.48   2.158e-05   2.158e-05  -2.121e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05  -6.437e-19
+	Uraninite(c)      0.00   -4.80   -4.80   1.630e-15   1.630e-15   1.795e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -14096,14 +14096,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  0.000e+00  6.857e-06  6.857e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.885e-05
-	Graphite         -0.00    6.03    6.03  1.000e-04  6.811e-05 -3.189e-05
-	Pyrite           -0.00  -18.48  -18.48  0.000e+00  8.200e-06  8.200e-06
-	Uraninite(c)      0.00   -4.80   -4.80  1.801e-31  7.201e-16  7.201e-16
+	Calcite          -0.00   -8.48   -8.48   0.000e+00   6.857e-06   6.857e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.885e-05
+	Graphite         -0.00    6.03    6.03   1.000e-04   6.811e-05  -3.189e-05
+	Pyrite           -0.00  -18.48  -18.48   0.000e+00   8.200e-06   8.200e-06
+	Uraninite(c)      0.00   -4.80   -4.80   1.801e-31   7.201e-16   7.201e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -14361,14 +14361,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.330e-03  1.037e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   9.330e-03   1.037e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -14625,14 +14625,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -14889,14 +14889,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.713e-07  9.747e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  1.379e-07  9.463e-08 -4.327e-08
+	Calcite           0.00   -8.48   -8.48   9.713e-07   9.747e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   1.379e-07   9.463e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -15153,14 +15153,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  2.499e-07  1.413e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -4.052e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.196e-07 -2.324e-08
-	Uraninite(c)      0.00   -4.80   -4.80  2.413e-18  9.207e-09  9.207e-09
+	Calcite           0.00   -8.48   -8.48   1.086e-07   2.499e-07   1.413e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -4.052e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.196e-07  -2.324e-08
+	Uraninite(c)      0.00   -4.80   -4.80   2.413e-18   9.207e-09   9.207e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -15417,14 +15417,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.086e-07  3.179e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.429e-07  4.604e-17
-	Uraninite(c)     -0.00   -4.80   -4.80  2.431e-18  2.431e-18  1.226e-27
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.086e-07   3.179e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.429e-07   4.604e-17
+	Uraninite(c)     -0.00   -4.80   -4.80   2.431e-18   2.431e-18   1.226e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -15681,14 +15681,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.158e-05  2.158e-05 -2.863e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05 -3.588e-17
-	Uraninite(c)     -0.00   -4.80   -4.80  1.630e-15  1.630e-15 -8.281e-28
+	Calcite          -0.00   -8.48   -8.48   2.158e-05   2.158e-05  -2.863e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05  -3.588e-17
+	Uraninite(c)     -0.00   -4.80   -4.80   1.630e-15   1.630e-15  -8.281e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -15945,14 +15945,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  6.857e-06  1.652e-05  9.659e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  2.659e-05
-	Graphite         -0.00    6.03    6.03  6.811e-05  2.332e-05 -4.480e-05
-	Pyrite            0.00  -18.48  -18.48  8.200e-06  2.009e-05  1.189e-05
-	Uraninite(c)     -0.00   -4.80   -4.80  7.201e-16  1.507e-15  7.873e-16
+	Calcite           0.00   -8.48   -8.48   6.857e-06   1.652e-05   9.659e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   2.659e-05
+	Graphite         -0.00    6.03    6.03   6.811e-05   2.332e-05  -4.480e-05
+	Pyrite            0.00  -18.48  -18.48   8.200e-06   2.009e-05   1.189e-05
+	Uraninite(c)     -0.00   -4.80   -4.80   7.201e-16   1.507e-15   7.873e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -16210,14 +16210,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.037e-02  1.140e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.037e-02   1.140e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -16474,14 +16474,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -16738,14 +16738,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.747e-07  9.781e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  9.463e-08  5.135e-08 -4.327e-08
+	Calcite           0.00   -8.48   -8.48   9.747e-07   9.781e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   9.463e-08   5.135e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -17002,14 +17002,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.499e-07  6.395e-07  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.196e-07  5.507e-08 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  9.207e-09  7.349e-08  6.429e-08
+	Calcite           0.00   -8.48   -8.48   2.499e-07   6.395e-07   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.196e-07   5.507e-08  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   9.207e-09   7.349e-08   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -17266,14 +17266,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  1.086e-07  3.342e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  4.311e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.431e-18  2.431e-18  7.209e-27
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   1.086e-07   3.342e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   4.311e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.431e-18   2.431e-18   7.209e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -17530,14 +17530,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.158e-05  2.158e-05  3.866e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05  4.970e-18
-	Uraninite(c)     -0.00   -4.80   -4.80  1.630e-15  1.630e-15 -1.542e-28
+	Calcite          -0.00   -8.48   -8.48   2.158e-05   2.158e-05   3.866e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05   4.970e-18
+	Uraninite(c)     -0.00   -4.80   -4.80   1.630e-15   1.630e-15  -1.542e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -17794,14 +17794,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.652e-05  2.157e-05  5.056e-06
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.397e-05
-	Graphite         -2.23    3.80    6.03  2.332e-05            -2.332e-05
-	Pyrite           -0.00  -18.48  -18.48  2.009e-05  2.675e-05  6.662e-06
-	Uraninite(c)      0.00   -4.80   -4.80  1.507e-15  1.643e-15  1.356e-16
+	Calcite           0.00   -8.48   -8.48   1.652e-05   2.157e-05   5.056e-06
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.397e-05
+	Graphite         -2.23    3.80    6.03   2.332e-05           0  -2.332e-05
+	Pyrite           -0.00  -18.48  -18.48   2.009e-05   2.675e-05   6.662e-06
+	Uraninite(c)      0.00   -4.80   -4.80   1.507e-15   1.643e-15   1.356e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -18059,14 +18059,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.140e-02  1.244e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.001e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.140e-02   1.244e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.001e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -18323,14 +18323,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -18587,14 +18587,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.781e-07  9.815e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  5.135e-08  8.081e-09 -4.327e-08
+	Calcite           0.00   -8.48   -8.48   9.781e-07   9.815e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   5.135e-08   8.081e-09  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -18851,14 +18851,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  6.395e-07  9.714e-07  3.319e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.268e-07
-	Graphite        -14.96   -8.93    6.03  0.000e+00             0.000e+00
-	Pyrite          -43.98  -62.45  -18.48  5.507e-08            -5.507e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  7.349e-08  1.362e-07  6.271e-08
+	Calcite          -0.00   -8.48   -8.48   6.395e-07   9.714e-07   3.319e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.268e-07
+	Graphite        -14.96   -8.93    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -43.98  -62.45  -18.48   5.507e-08           0  -5.507e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   7.349e-08   1.362e-07   6.271e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -19115,14 +19115,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.086e-07  1.086e-07  9.341e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  1.429e-07  1.429e-07  1.208e-16
-	Uraninite(c)      0.00   -4.80   -4.80  2.431e-18  2.431e-18  2.986e-27
+	Calcite          -0.00   -8.48   -8.48   1.086e-07   1.086e-07   9.341e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   1.429e-07   1.429e-07   1.208e-16
+	Uraninite(c)      0.00   -4.80   -4.80   2.431e-18   2.431e-18   2.986e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -19379,14 +19379,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05  2.008e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05  2.688e-17
-	Uraninite(c)      0.00   -4.80   -4.80  1.630e-15  1.630e-15  4.250e-28
+	Calcite           0.00   -8.48   -8.48   2.158e-05   2.158e-05   2.008e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05   2.688e-17
+	Uraninite(c)      0.00   -4.80   -4.80   1.630e-15   1.630e-15   4.250e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -19643,14 +19643,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05 -3.219e-19
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  4.743e-20
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15 -1.755e-29
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05  -3.219e-19
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   4.743e-20
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15  -1.755e-29
 
 -----------------------------Solution composition------------------------------
 
@@ -19908,14 +19908,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.244e-02  1.348e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.001e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.244e-02   1.348e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.001e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -20172,14 +20172,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -20436,14 +20436,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.815e-07  9.821e-07  6.311e-10
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -2.651e-08
-	Graphite        -18.34  -12.31    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.84  -74.32  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.43   -5.23   -4.80  8.081e-09            -8.081e-09
+	Calcite           0.00   -8.48   -8.48   9.815e-07   9.821e-07   6.311e-10
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -2.651e-08
+	Graphite        -18.34  -12.31    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.84  -74.32  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.43   -5.23   -4.80   8.081e-09           0  -8.081e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -20700,14 +20700,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.714e-07  9.714e-07  7.904e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  1.362e-07  1.362e-07  2.156e-16
+	Calcite          -0.00   -8.48   -8.48   9.714e-07   9.714e-07   7.904e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   1.362e-07   1.362e-07   2.156e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -20964,14 +20964,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.086e-07  1.663e-07  5.766e-08
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.720e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.429e-07  1.334e-07 -9.478e-09
-	Uraninite(c)      0.00   -4.80   -4.80  2.431e-18  1.582e-09  1.582e-09
+	Calcite           0.00   -8.48   -8.48   1.086e-07   1.663e-07   5.766e-08
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.720e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.429e-07   1.334e-07  -9.478e-09
+	Uraninite(c)      0.00   -4.80   -4.80   2.431e-18   1.582e-09   1.582e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -21228,14 +21228,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.158e-05  2.158e-05 -5.363e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.776e-15
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05 -7.052e-16
-	Uraninite(c)      0.00   -4.80   -4.80  1.630e-15  1.630e-15 -1.197e-26
+	Calcite          -0.00   -8.48   -8.48   2.158e-05   2.158e-05  -5.363e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.776e-15
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05  -7.052e-16
+	Uraninite(c)      0.00   -4.80   -4.80   1.630e-15   1.630e-15  -1.197e-26
 
 -----------------------------Solution composition------------------------------
 
@@ -21492,14 +21492,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  1.813e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  2.548e-18
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15  1.775e-29
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05   1.813e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   2.548e-18
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15   1.775e-29
 
 -----------------------------Solution composition------------------------------
 
@@ -21757,14 +21757,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.348e-02  1.451e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.348e-02   1.451e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -22021,14 +22021,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -22285,14 +22285,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -22549,14 +22549,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.714e-07  9.742e-07  2.748e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.155e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  1.362e-07  1.010e-07 -3.519e-08
+	Calcite          -0.00   -8.48   -8.48   9.714e-07   9.742e-07   2.748e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.155e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   1.362e-07   1.010e-07  -3.519e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -22813,14 +22813,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  1.663e-07  5.559e-07  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  1.334e-07  6.883e-08 -6.455e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  1.582e-09  6.587e-08  6.429e-08
+	Calcite          -0.00   -8.48   -8.48   1.663e-07   5.559e-07   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   1.334e-07   6.883e-08  -6.455e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   1.582e-09   6.587e-08   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -23077,14 +23077,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05  3.663e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  4.817e-16
-	Uraninite(c)     -0.00   -4.80   -4.80  1.630e-15  1.630e-15  7.926e-27
+	Calcite           0.00   -8.48   -8.48   2.158e-05   2.158e-05   3.663e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   4.817e-16
+	Uraninite(c)     -0.00   -4.80   -4.80   1.630e-15   1.630e-15   7.926e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -23341,14 +23341,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05 -2.780e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05 -3.440e-17
-	Uraninite(c)     -0.00   -4.80   -4.80  1.643e-15  1.643e-15 -7.786e-28
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05  -2.780e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05  -3.440e-17
+	Uraninite(c)     -0.00   -4.80   -4.80   1.643e-15   1.643e-15  -7.786e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -23606,14 +23606,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.451e-02  1.555e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.451e-02   1.555e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -23870,14 +23870,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -24134,14 +24134,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -24398,14 +24398,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.742e-07  9.776e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  1.010e-07  5.774e-08 -4.327e-08
+	Calcite          -0.00   -8.48   -8.48   9.742e-07   9.776e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   1.010e-07   5.774e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -24662,14 +24662,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  5.559e-07  9.455e-07  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  6.883e-08  4.289e-09 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  6.587e-08  1.302e-07  6.429e-08
+	Calcite          -0.00   -8.48   -8.48   5.559e-07   9.455e-07   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   6.883e-08   4.289e-09  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   6.587e-08   1.302e-07   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -24926,14 +24926,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.158e-05  2.158e-05  3.835e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05  5.029e-16
-	Uraninite(c)      0.00   -4.80   -4.80  1.630e-15  1.630e-15  8.269e-27
+	Calcite          -0.00   -8.48   -8.48   2.158e-05   2.158e-05   3.835e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05   5.029e-16
+	Uraninite(c)      0.00   -4.80   -4.80   1.630e-15   1.630e-15   8.269e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -25190,14 +25190,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  2.769e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  3.656e-17
-	Uraninite(c)     -0.00   -4.80   -4.80  1.643e-15  1.643e-15  5.650e-28
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05   2.769e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   3.656e-17
+	Uraninite(c)     -0.00   -4.80   -4.80   1.643e-15   1.643e-15   5.650e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -25455,14 +25455,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.555e-02  1.659e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.555e-02   1.659e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -25719,14 +25719,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -25983,14 +25983,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -26247,14 +26247,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.776e-07  9.809e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)      0.00   -4.80   -4.80  5.774e-08  1.446e-08 -4.327e-08
+	Calcite          -0.00   -8.48   -8.48   9.776e-07   9.809e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)      0.00   -4.80   -4.80   5.774e-08   1.446e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -26511,14 +26511,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.455e-07  9.711e-07  2.564e-08
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -5.515e-08
-	Graphite        -18.06  -12.03    6.03  0.000e+00             0.000e+00
-	Pyrite          -54.88  -73.36  -18.48  4.289e-09            -4.289e-09
-	Uraninite(c)     -0.00   -4.80   -4.80  1.302e-07  1.379e-07  7.698e-09
+	Calcite           0.00   -8.48   -8.48   9.455e-07   9.711e-07   2.564e-08
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -5.515e-08
+	Graphite        -18.06  -12.03    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -54.88  -73.36  -18.48   4.289e-09           0  -4.289e-09
+	Uraninite(c)     -0.00   -4.80   -4.80   1.302e-07   1.379e-07   7.698e-09
 
 -----------------------------Solution composition------------------------------
 
@@ -26775,14 +26775,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.158e-05 -4.522e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05 -5.944e-16
-	Uraninite(c)     -0.00   -4.80   -4.80  1.630e-15  1.630e-15 -9.619e-27
+	Calcite           0.00   -8.48   -8.48   2.158e-05   2.158e-05  -4.522e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05  -5.944e-16
+	Uraninite(c)     -0.00   -4.80   -4.80   1.630e-15   1.630e-15  -9.619e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -27039,14 +27039,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  2.739e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05  3.629e-17
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15  5.887e-28
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05   2.739e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05   3.629e-17
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15   5.887e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -27304,14 +27304,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.659e-02  1.762e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.659e-02   1.762e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -27568,14 +27568,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -27832,14 +27832,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -28096,14 +28096,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.809e-07  9.821e-07  1.130e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -4.745e-08
-	Graphite        -18.31  -12.28    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.74  -74.22  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.32   -5.12   -4.80  1.446e-08            -1.446e-08
+	Calcite           0.00   -8.48   -8.48   9.809e-07   9.821e-07   1.130e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -4.745e-08
+	Graphite        -18.31  -12.28    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.74  -74.22  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.32   -5.12   -4.80   1.446e-08           0  -1.446e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -28360,14 +28360,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.711e-07  9.711e-07 -6.365e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.421e-14
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  1.379e-07  1.379e-07 -1.734e-15
+	Calcite          -0.00   -8.48   -8.48   9.711e-07   9.711e-07  -6.365e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.421e-14
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   1.379e-07   1.379e-07  -1.734e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -28624,14 +28624,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.158e-05  2.194e-05  3.640e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.437e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.669e-05 -6.026e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  1.630e-15  5.659e-08  5.659e-08
+	Calcite           0.00   -8.48   -8.48   2.158e-05   2.194e-05   3.640e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.437e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.669e-05  -6.026e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   1.630e-15   5.659e-08   5.659e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -28888,14 +28888,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05 -2.774e-17
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05 -3.630e-17
-	Uraninite(c)     -0.00   -4.80   -4.80  1.643e-15  1.643e-15 -4.102e-28
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05  -2.774e-17
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05  -3.630e-17
+	Uraninite(c)     -0.00   -4.80   -4.80   1.643e-15   1.643e-15  -4.102e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -29153,14 +29153,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.762e-02  1.866e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.762e-02   1.866e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -29417,14 +29417,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -29681,14 +29681,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -29945,14 +29945,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  8.304e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   8.304e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -30209,14 +30209,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.711e-07  9.734e-07  2.250e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.452e-08
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  1.379e-07  1.090e-07 -2.881e-08
+	Calcite          -0.00   -8.48   -8.48   9.711e-07   9.734e-07   2.250e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.452e-08
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   1.379e-07   1.090e-07  -2.881e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -30473,14 +30473,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.194e-05  2.233e-05  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.669e-05  2.662e-05 -6.455e-08
-	Uraninite(c)     -0.00   -4.80   -4.80  5.659e-08  1.209e-07  6.429e-08
+	Calcite           0.00   -8.48   -8.48   2.194e-05   2.233e-05   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.669e-05   2.662e-05  -6.455e-08
+	Uraninite(c)     -0.00   -4.80   -4.80   5.659e-08   1.209e-07   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -30737,14 +30737,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05  4.787e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  6.279e-16
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15  1.034e-26
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05   4.787e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   6.279e-16
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15   1.034e-26
 
 -----------------------------Solution composition------------------------------
 
@@ -31002,14 +31002,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.866e-02  1.970e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.866e-02   1.970e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -31266,14 +31266,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -31530,14 +31530,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -31794,14 +31794,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  8.304e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   8.304e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -32058,14 +32058,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.734e-07  9.768e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  1.090e-07  6.577e-08 -4.327e-08
+	Calcite          -0.00   -8.48   -8.48   9.734e-07   9.768e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   1.090e-07   6.577e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -32322,14 +32322,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.233e-05  2.272e-05  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.662e-05  2.656e-05 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  1.209e-07  1.852e-07  6.429e-08
+	Calcite          -0.00   -8.48   -8.48   2.233e-05   2.272e-05   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.662e-05   2.656e-05  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   1.209e-07   1.852e-07   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -32586,14 +32586,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.157e-05  2.157e-05  9.165e-18
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05  1.018e-17
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15  1.436e-28
+	Calcite          -0.00   -8.48   -8.48   2.157e-05   2.157e-05   9.165e-18
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05   1.018e-17
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15   1.436e-28
 
 -----------------------------Solution composition------------------------------
 
@@ -32851,14 +32851,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.970e-02  2.073e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.002e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   1.970e-02   2.073e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.002e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -33115,14 +33115,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -33379,14 +33379,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -33643,14 +33643,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  8.304e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   8.304e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -33907,14 +33907,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.768e-07  9.801e-07  3.379e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.420e-07
-	Graphite        -18.18  -12.15    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.27  -73.75  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.00   -4.80   -4.80  6.577e-08  2.250e-08 -4.327e-08
+	Calcite          -0.00   -8.48   -8.48   9.768e-07   9.801e-07   3.379e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.420e-07
+	Graphite        -18.18  -12.15    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.27  -73.75  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.00   -4.80   -4.80   6.577e-08   2.250e-08  -4.327e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -34171,14 +34171,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.272e-05  2.311e-05  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.656e-05  2.650e-05 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  1.852e-07  2.495e-07  6.429e-08
+	Calcite           0.00   -8.48   -8.48   2.272e-05   2.311e-05   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.656e-05   2.650e-05  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   1.852e-07   2.495e-07   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -34435,14 +34435,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  2.157e-05  2.157e-05 -1.816e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.675e-05  2.675e-05 -2.384e-16
-	Uraninite(c)      0.00   -4.80   -4.80  1.643e-15  1.643e-15 -3.705e-27
+	Calcite          -0.00   -8.48   -8.48   2.157e-05   2.157e-05  -1.816e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.675e-05   2.675e-05  -2.384e-16
+	Uraninite(c)      0.00   -4.80   -4.80   1.643e-15   1.643e-15  -3.705e-27
 
 -----------------------------Solution composition------------------------------
 
@@ -34700,14 +34700,14 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.073e-02  2.177e-02  1.037e-03
-	CO2(g)           -3.50   -4.97   -1.47  1.002e+01  1.003e+01  1.221e-03
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite           0.00   -8.48   -8.48   2.073e-02   2.177e-02   1.037e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.002e+01   1.003e+01   1.221e-03
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -34964,14 +34964,14 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07 -1.495e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.553e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07  -1.495e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.553e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -35228,14 +35228,14 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  2.782e-15
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -8.882e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   2.782e-15
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -8.882e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -35492,14 +35492,14 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48  9.821e-07  9.821e-07  8.304e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -1.776e-15
-	Graphite        -18.37  -12.34    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.96  -74.44  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.58   -5.38   -4.80  0.000e+00             0.000e+00
+	Calcite          -0.00   -8.48   -8.48   9.821e-07   9.821e-07   8.304e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -1.776e-15
+	Graphite        -18.37  -12.34    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.96  -74.44  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.58   -5.38   -4.80   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -35756,14 +35756,14 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  9.801e-07  9.819e-07  1.757e-09
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -7.382e-08
-	Graphite        -18.27  -12.24    6.03  0.000e+00             0.000e+00
-	Pyrite          -55.61  -74.09  -18.48  0.000e+00             0.000e+00
-	Uraninite(c)     -0.22   -5.02   -4.80  2.250e-08            -2.250e-08
+	Calcite           0.00   -8.48   -8.48   9.801e-07   9.819e-07   1.757e-09
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -7.382e-08
+	Graphite        -18.27  -12.24    6.03   0.000e+00           0   0.000e+00
+	Pyrite          -55.61  -74.09  -18.48   0.000e+00           0   0.000e+00
+	Uraninite(c)     -0.22   -5.02   -4.80   2.250e-08           0  -2.250e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -36020,14 +36020,14 @@ Using pure phase assemblage 6.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.311e-05  2.350e-05  3.896e-07
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01 -9.988e-07
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite            0.00  -18.48  -18.48  2.650e-05  2.643e-05 -6.455e-08
-	Uraninite(c)      0.00   -4.80   -4.80  2.495e-07  3.137e-07  6.429e-08
+	Calcite           0.00   -8.48   -8.48   2.311e-05   2.350e-05   3.896e-07
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01  -9.988e-07
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite            0.00  -18.48  -18.48   2.650e-05   2.643e-05  -6.455e-08
+	Uraninite(c)      0.00   -4.80   -4.80   2.495e-07   3.137e-07   6.429e-08
 
 -----------------------------Solution composition------------------------------
 
@@ -36284,14 +36284,14 @@ Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  2.157e-05  2.157e-05 -1.116e-16
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  0.000e+00
-	Graphite         -2.39    3.64    6.03  0.000e+00             0.000e+00
-	Pyrite           -0.00  -18.48  -18.48  2.675e-05  2.675e-05 -1.467e-16
-	Uraninite(c)     -0.00   -4.80   -4.80  1.643e-15  1.643e-15 -2.659e-27
+	Calcite           0.00   -8.48   -8.48   2.157e-05   2.157e-05  -1.116e-16
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   0.000e+00
+	Graphite         -2.39    3.64    6.03   0.000e+00           0   0.000e+00
+	Pyrite           -0.00  -18.48  -18.48   2.675e-05   2.675e-05  -1.467e-16
+	Uraninite(c)     -0.00   -4.80   -4.80   1.643e-15   1.643e-15  -2.659e-27
 
 -----------------------------Solution composition------------------------------
 

@@ -466,11 +466,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.37   -8.37
-		CO2             is reactant     1.000e+01  1.000e+01  3.168e-03
+		CO2             is reactant      1.000e+01   1.000e+01   3.168e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -745,11 +745,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.00   -8.37   -8.37
-		CO2             is reactant     1.000e+01  1.001e+01  1.032e-02
+		CO2             is reactant      1.000e+01   1.001e+01   1.032e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -948,16 +948,16 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Anhydrite        -0.00   -4.36   -4.36  1.000e+01  9.998e+00 -2.414e-03
-	Bischofite       -0.00    4.46    4.46  1.000e+02  8.535e+01 -1.465e+01
-	Carnallite       -0.00    4.33    4.33  1.000e+01  9.944e+00 -5.579e-02
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.910e-04
-	Halite           -0.00    1.57    1.57  1.000e+01  9.759e+00 -2.415e-01
-	Kieserite         0.00   -0.12   -0.12  1.000e+01  9.838e+00 -1.620e-01
-	Magnesite         0.00   -7.83   -7.83  1.000e+01  9.999e+00 -5.395e-04
+	Anhydrite        -0.00   -4.36   -4.36   1.000e+01   9.998e+00  -2.414e-03
+	Bischofite       -0.00    4.46    4.46   1.000e+02   8.535e+01  -1.465e+01
+	Carnallite       -0.00    4.33    4.33   1.000e+01   9.944e+00  -5.579e-02
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.910e-04
+	Halite           -0.00    1.57    1.57   1.000e+01   9.759e+00  -2.415e-01
+	Kieserite         0.00   -0.12   -0.12   1.000e+01   9.838e+00  -1.620e-01
+	Magnesite         0.00   -7.83   -7.83   1.000e+01   9.999e+00  -5.395e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -1177,12 +1177,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Anhydrite         0.00   -4.36   -4.36
-		NaCl            is reactant     1.000e+01  4.417e+00 -5.583e+00
-	Gypsum            0.00   -4.58   -4.58  1.000e+01  9.952e+00 -4.810e-02
+		NaCl            is reactant      1.000e+01   4.417e+00  -5.583e+00
+	Gypsum            0.00   -4.58   -4.58   1.000e+01   9.952e+00  -4.810e-02
 
 -----------------------------Solution composition------------------------------
 
@@ -1325,10 +1325,10 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite            0.00    1.50    1.50  1.000e+02  9.391e+01 -6.093e+00
+	Halite            0.00    1.50    1.50   1.000e+02   9.391e+01  -6.093e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1392,10 +1392,10 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite           -0.00    1.57    1.57  1.000e+02  9.390e+01 -6.100e+00
+	Halite           -0.00    1.57    1.57   1.000e+02   9.390e+01  -6.100e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1459,10 +1459,10 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite           -0.00    1.56    1.56  1.000e+02  9.338e+01 -6.625e+00
+	Halite           -0.00    1.56    1.56   1.000e+02   9.338e+01  -6.625e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1526,10 +1526,10 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite            0.00    1.20    1.20  1.000e+02  9.216e+01 -7.838e+00
+	Halite            0.00    1.20    1.20   1.000e+02   9.216e+01  -7.838e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1593,10 +1593,10 @@ Using temperature 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite            0.00    0.29    0.29  1.000e+02  8.979e+01 -1.021e+01
+	Halite            0.00    0.29    0.29   1.000e+02   8.979e+01  -1.021e+01
 
 -----------------------------Solution composition------------------------------
 
@@ -1725,11 +1725,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  9.998e+00 -1.741e-03
-	CO2(g)           -2.00   -3.47   -1.47  1.000e+01  9.998e+00 -2.072e-03
+	Calcite           0.00   -8.41   -8.41   1.000e+01   9.998e+00  -1.741e-03
+	CO2(g)           -2.00   -3.47   -1.47   1.000e+01   9.998e+00  -2.072e-03
 
 -----------------------------Solution composition------------------------------
 
@@ -1865,12 +1865,12 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  9.997e+00 -2.544e-03
-	CO2(g)           -2.00   -3.47   -1.47  1.000e+01  9.997e+00 -2.597e-03
-	Halite           -0.00    1.57    1.57  1.000e+01  3.902e+00 -6.098e+00
+	Calcite           0.00   -8.41   -8.41   1.000e+01   9.997e+00  -2.544e-03
+	CO2(g)           -2.00   -3.47   -1.47   1.000e+01   9.997e+00  -2.597e-03
+	Halite           -0.00    1.57    1.57   1.000e+01   3.902e+00  -6.098e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1968,10 +1968,10 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -3.053e-04
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -3.053e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2069,10 +2069,10 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -3.191e-04
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -3.191e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2170,10 +2170,10 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -2.585e-04
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -2.585e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2271,10 +2271,10 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -1.620e-04
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -1.620e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2372,10 +2372,10 @@ Mixture 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.41   -8.41  1.000e+01  1.000e+01 -5.383e-05
+	Calcite           0.00   -8.41   -8.41   1.000e+01   1.000e+01  -5.383e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -2597,11 +2597,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  8.225e-04
-	Dolomite         -0.00  -17.08  -17.08  1.000e+01  1.000e+01  5.098e-04
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   8.225e-04
+	Dolomite         -0.00  -17.08  -17.08   1.000e+01   1.000e+01   5.098e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2739,13 +2739,13 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  1.855e-04
-	Dolomite          0.00  -17.08  -17.08  1.000e+01  1.000e+01  9.455e-05
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   1.855e-04
+	Dolomite          0.00  -17.08  -17.08   1.000e+01   1.000e+01   9.455e-05
 	Gypsum            0.00   -4.58   -4.58
-		H2O             is reactant     1.000e+02  1.396e+02  3.962e+01
+		H2O             is reactant      1.000e+02   1.396e+02   3.962e+01
 
 -----------------------------Solution composition------------------------------
 
@@ -2884,14 +2884,14 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	CO2(g)           -3.50   -4.97   -1.47  1.000e+01  1.000e+01  3.146e-05
-	Dolomite          0.00  -17.08  -17.08  1.000e+01  1.000e+01  1.371e-05
-	Gypsum            0.00   -4.58   -4.58  1.000e+01  1.001e+01  9.016e-03
+	CO2(g)           -3.50   -4.97   -1.47   1.000e+01   1.000e+01   3.146e-05
+	Dolomite          0.00  -17.08  -17.08   1.000e+01   1.000e+01   1.371e-05
+	Gypsum            0.00   -4.58   -4.58   1.000e+01   1.001e+01   9.016e-03
 	Halite            0.00    1.57    1.57
-		H2O             is reactant     1.000e+02  1.107e+02  1.066e+01
+		H2O             is reactant      1.000e+02   1.107e+02   1.066e+01
 
 -----------------------------Solution composition------------------------------
 

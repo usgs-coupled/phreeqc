@@ -294,10 +294,10 @@ Using solid solution assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -410,10 +410,10 @@ Using solid solution assemblage 2.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -526,10 +526,10 @@ Using solid solution assemblage 3.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -642,10 +642,10 @@ Using solid solution assemblage 4.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -758,10 +758,10 @@ Using solid solution assemblage 5.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -874,10 +874,10 @@ Using solid solution assemblage 6.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -990,10 +990,10 @@ Using solid solution assemblage 7.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1106,10 +1106,10 @@ Using solid solution assemblage 8.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1222,10 +1222,10 @@ Using solid solution assemblage 9.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1338,10 +1338,10 @@ Using solid solution assemblage 10.	S_S_Assemblage defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.040e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.040e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1466,10 +1466,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.096e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.096e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1592,10 +1592,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1718,10 +1718,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1844,10 +1844,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -1970,10 +1970,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2096,10 +2096,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2222,10 +2222,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2348,10 +2348,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2474,10 +2474,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2600,10 +2600,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2728,10 +2728,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2854,10 +2854,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.754e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.754e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2980,10 +2980,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3106,10 +3106,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3232,10 +3232,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3358,10 +3358,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3484,10 +3484,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3610,10 +3610,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3736,10 +3736,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3862,10 +3862,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -3990,10 +3990,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4116,10 +4116,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4242,10 +4242,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.507e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.507e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4368,10 +4368,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4494,10 +4494,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4620,10 +4620,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4746,10 +4746,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4872,10 +4872,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4998,10 +4998,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5124,10 +5124,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5252,10 +5252,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5378,10 +5378,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5504,10 +5504,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5630,10 +5630,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5756,10 +5756,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5882,10 +5882,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6008,10 +6008,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6134,10 +6134,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6260,10 +6260,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6386,10 +6386,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6514,10 +6514,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6640,10 +6640,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6766,10 +6766,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -6892,10 +6892,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7024,10 +7024,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.928e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.928e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7150,10 +7150,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7276,10 +7276,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7402,10 +7402,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7528,10 +7528,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7654,10 +7654,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7782,10 +7782,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7908,10 +7908,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8034,10 +8034,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8160,10 +8160,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8286,10 +8286,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.930e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8412,10 +8412,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.711e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.711e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8538,10 +8538,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8664,10 +8664,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8790,10 +8790,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8916,10 +8916,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9044,10 +9044,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9170,10 +9170,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9296,10 +9296,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9422,10 +9422,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9548,10 +9548,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.930e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9674,10 +9674,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9806,10 +9806,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.418e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.418e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9932,10 +9932,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10058,10 +10058,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10184,10 +10184,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10312,10 +10312,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10438,10 +10438,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10564,10 +10564,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10690,10 +10690,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10816,10 +10816,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.930e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10942,10 +10942,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11068,10 +11068,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.420e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.420e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11194,10 +11194,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  3.222e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.222e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11320,10 +11320,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11446,10 +11446,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11574,10 +11574,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11700,10 +11700,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11826,10 +11826,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11952,10 +11952,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12078,10 +12078,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.930e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12204,10 +12204,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12330,10 +12330,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.420e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.420e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12456,10 +12456,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  3.224e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.224e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12582,10 +12582,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.236e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   2.236e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12708,10 +12708,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  0.000e+00
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   0.000e+00
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12836,10 +12836,10 @@ Kinetics 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01 -2.092e-09
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01  -2.092e-09
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12962,10 +12962,10 @@ Kinetics 2.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.756e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.756e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13088,10 +13088,10 @@ Kinetics 3.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  8.509e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13214,10 +13214,10 @@ Kinetics 4.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13340,10 +13340,10 @@ Kinetics 5.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  6.930e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13466,10 +13466,10 @@ Kinetics 6.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  5.713e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13592,10 +13592,10 @@ Kinetics 7.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  4.420e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.420e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13718,10 +13718,10 @@ Kinetics 8.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  3.224e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.224e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13844,10 +13844,10 @@ Kinetics 9.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  2.240e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   2.240e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -13970,10 +13970,10 @@ Kinetics 10.	Kinetics defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58  1.000e+01  1.000e+01  1.496e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   1.496e-12
 
 --------------------------------Solid solutions--------------------------------
 

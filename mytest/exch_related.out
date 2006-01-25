@@ -88,10 +88,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Ca-Montmorillonite  -0.00  -45.03  -45.03  1.000e-02  9.997e-03 -2.610e-06
+	Ca-Montmorillonite  -0.00  -45.03  -45.03   1.000e-02   9.997e-03  -2.610e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -222,10 +222,10 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Ca-Montmorillonite -13.28  -58.30  -45.03  9.997e-03            -9.997e-03
+	Ca-Montmorillonite -13.28  -58.30  -45.03   9.997e-03           0  -9.997e-03
 
 -----------------------------Exchange composition------------------------------
 
@@ -329,10 +329,10 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Ca-Montmorillonite -13.28  -58.30  -45.03  0.000e+00             0.000e+00
+	Ca-Montmorillonite -13.28  -58.30  -45.03   0.000e+00           0   0.000e+00
 
 -----------------------------Exchange composition------------------------------
 
@@ -495,10 +495,10 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Ca-Montmorillonite   Element not present.  0.000e+00             0.000e+00
+	Ca-Montmorillonite   Element not present.   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -598,10 +598,10 @@ Reaction 1.	Irreversible reaction defined in simulation 5.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Ca-Montmorillonite  -0.00  -45.03  -45.03  0.000e+00  1.000e-01  1.000e-01
+	Ca-Montmorillonite  -0.00  -45.03  -45.03   0.000e+00   1.000e-01   1.000e-01
 
 -----------------------------Exchange composition------------------------------
 

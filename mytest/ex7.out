@@ -100,11 +100,11 @@ Using pure phase assemblage 1.
 
 -------------------------------Phase assemblage--------------------------------
 
-                                                     Moles in assemblage
-	Phase               SI log IAP  log KT    Initial      Final      Delta
+                                                       Moles in assemblage
+	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48  1.000e+01  9.997e+00 -2.502e-03
-	CO2(g)           -1.50   -2.97   -1.47  1.000e+01  9.996e+00 -3.568e-03
+	Calcite           0.00   -8.48   -8.48   1.000e+01   9.997e+00  -2.502e-03
+	CO2(g)           -1.50   -2.97   -1.47   1.000e+01   9.996e+00  -3.568e-03
 
 -----------------------------Solution composition------------------------------
 
