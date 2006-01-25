@@ -32,12 +32,13 @@ bool operator()(const XMLCh* _X, const XMLCh* _Y) const
 };
 
 #include <math.h>
-extern "C" {
-#define EXTERNAL
+//extern "C" {
+#define EXTERNAL extern
 //#include "phqalloc.h"
 #include "global.h"
- int conc_init(struct conc *conc_ptr);
-}
+#include "phrqproto.h"
+// int conc_init(struct conc *conc_ptr);
+//}
 
 
 class Cconc : public conc

@@ -191,7 +191,7 @@ typedef struct __p2c_jmp_buf {
 
 #define SETBITS  32
 
-
+#ifdef SKIP
 #if defined(__STDC__) || defined(__TURBOC__)
 # if !defined(vms) && !defined(M_LINT)
 #  define Signed    signed
@@ -227,6 +227,21 @@ typedef void *Anyptr;
 # define PV()       ()
 typedef char *Anyptr;
 #endif
+#endif
+
+
+#define Signed
+#define Void       void
+#ifndef Const
+#  define Const
+#endif
+#ifndef Volatile
+#  define Volatile
+#endif
+#define P2PP(x)      ()
+#define PV()       ()
+typedef char *Anyptr;
+
 
 #ifdef __GNUC__
 # define Inline     inline
@@ -269,7 +284,8 @@ typedef struct {
 #endif
 
 
-extern Void    PASCAL_MAIN  P2PP( (int, Char **) );
+//extern Void    PASCAL_MAIN  P2PP( (int, Char **) );
+extern Void    PASCAL_MAIN  (int, Char **) ;
 /*
 extern Char    **P_argv;
 extern int     P_argc;
@@ -315,9 +331,10 @@ extern Void     free        P2PP( (Anyptr) );
 extern int      _OutMem     PV();
 extern int      _CaseCheck  PV();
 extern int      _NilCheck   PV();
-extern int	_Escape     P2PP( (int) );
-extern int	_EscIO      P2PP( (int) );
-
+//extern int	_Escape     P2PP( (int) );
+extern int _Escape(int);
+//extern int	_EscIO      P2PP( (int) );
+extern int _EscIO (int);
 extern long     ipow        P2PP( (long, long) );
 extern Char    *strsub      P2PP( (Char *, Char *, int, int) );
 extern Char    *strltrim    P2PP( (Char *) );

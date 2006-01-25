@@ -50,10 +50,11 @@ static bool s_bSysIsOpen = false;    // must never go out of scope
 
 #include <math.h>
 // extern routines
-extern "C" {
-  #define EXTERNAL
   #include "phqalloc.h"
   #include "global.h"
+#include "phrqproto.h"
+#include "output.h"
+#ifdef SKIP
   int conc_init(struct conc *conc_ptr);
   void *free_check_null(void *ptr);
   int pe_data_store (struct pe_data **pe, const char *token);
@@ -67,16 +68,9 @@ extern "C" {
   int error_msg (const char *err_str, const int stop);
   struct master *master_bsearch (const char *ptr);
   void malloc_error(void);
-}
+#endif
+//}
 
-// globals
-extern "C" int input_error;
-extern "C" char error_string[10*MAX_LENGTH];
-extern "C" struct solution **solution;
-extern "C" int count_solution;
-extern "C" int max_solution;
-
-extern "C" int clean_up(void);
 
 class Initializer
 {
@@ -104,7 +98,7 @@ public:
 static Initializer sInit;  // initialize xerces once
 static SaxPhreeqcHandlers s_handler; // one and only instance
 
-extern "C" void SAX_StartSystem()
+void SAX_StartSystem()
 {
 
   assert(!s_bSysIsOpen);     // system already open and has not been closed
@@ -126,7 +120,7 @@ char * stringify_null(char * string) {
 	if (string == NULL) return(string_hsave(""));
 	return(string);
 }
-extern "C" int SAX_AddSolution(struct solution* solution_ptr)
+int SAX_AddSolution(struct solution* solution_ptr)
 {
   const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
   int i, newd;  
@@ -220,7 +214,7 @@ extern "C" int SAX_AddSolution(struct solution* solution_ptr)
   return(OK);
 }
 
-extern "C" void SAX_EndSystem()
+void SAX_EndSystem()
 {
   assert(s_bSysIsOpen);      // must call SAX_StartSystem first
 
@@ -233,19 +227,19 @@ extern "C" void SAX_EndSystem()
   return;
 }
 
-extern "C" int SAX_GetXMLLength()
+int SAX_GetXMLLength()
 {
   assert(!s_bSysIsOpen);      // must call SAX_EndSystem first
   return s_oss.pcount();
 }
 
-extern "C" char* SAX_GetXMLStr()
+char* SAX_GetXMLStr()
 {
   assert(!s_bSysIsOpen);      // must call SAX_EndSystem first
   return s_oss.str();
 }
 
-extern "C" void SAX_cleanup()
+void SAX_cleanup()
 {
    //delete s_handler;
 	s_oss.freeze(false);
@@ -281,7 +275,7 @@ char * XMLCh_hsave(const XMLCh* const attValue, bool allow_null) {
 }
 
 
-extern "C" int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
+int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
 {
   //  Create MemBufferInputSource from the buffer containing the XML
   //  statements.
