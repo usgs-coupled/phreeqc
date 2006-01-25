@@ -382,7 +382,7 @@ int P_peek(FILE *f)
    different way. */
 int P_eof() {
 	return 0;
-};
+}
 int P_eof(FILE *f)
 {
     register int ch;

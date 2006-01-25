@@ -6214,7 +6214,7 @@ int check_units (char *tot_units,  int alkalinity, int check_compatibility,
  *   Check if unit in list
  */
 	found = FALSE;
-	for (i=0; i < NUNITS; i++) {
+	for (i=0; i < (int) NUNITS; i++) {
 		if (strcmp(tot_units, units[i]) == 0) {
 			found=TRUE;
 			break;
