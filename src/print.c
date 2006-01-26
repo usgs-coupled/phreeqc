@@ -201,10 +201,11 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 
         output_msg(OUTPUT_MESSAGE,"\tKg water in diffuse layer: %e\n", 
                 (double) surface_charge_ptr1->mass_water);
-/*
-        output_msg(OUTPUT_MESSAGE,"\n\t\tDistribution of species in diffuse layer\n\n");
-        output_msg(OUTPUT_MESSAGE,"\n\tSpecies     \t    Moles   \tMoles excess\t      g\n");
- */
+
+	if (debug_diffuse_layer == TRUE) {
+	        output_msg(OUTPUT_MESSAGE,"\n\t\tDistribution of species in diffuse layer\n\n");
+        	output_msg(OUTPUT_MESSAGE,"\n\tSpecies     \t    Moles   \tMoles excess\t      g\n");
+	}
         mass_water_surface = surface_charge_ptr1->mass_water;
         count_elts = 0;
         paren_count = 0;
@@ -219,11 +220,10 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 #endif
                 moles_excess = mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g; 
                 moles_surface = mass_water_surface * molality + moles_excess;
-/*
-                output_msg(OUTPUT_MESSAGE,"\t%-12s\t%12.3e\t%12.3e\t%12.3e\n", s_x[j]->name,
-                        moles_surface, moles_excess, 
-                        s_x[j]->diff_layer[i].charge->g[count_g].g);
- */
+		if (debug_diffuse_layer == TRUE) {
+	                output_msg(OUTPUT_MESSAGE,"\t%-12s\t%12.3e\t%12.3e\t%12.3e\n", s_x[j]->name,
+                        moles_surface, moles_excess, s_x[j]->diff_layer[i].charge->g[count_g].g);
+		}
 /*
  *   Accumulate elements in diffuse layer
  */
@@ -242,7 +242,11 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /*
  *   Print totals
  */
-        output_msg(OUTPUT_MESSAGE,"\n\tTotal moles in diffuse layer (excluding water)\n\n");
+	if (use.surface_ptr->donnan == FALSE) {
+	        output_msg(OUTPUT_MESSAGE,"\n\tTotal moles in diffuse layer (excluding water)\n\n");
+	} else {
+	        output_msg(OUTPUT_MESSAGE,"\n\tTotal moles in diffuse layer (excluding water), Donnan calculation \n\n");
+	}
         output_msg(OUTPUT_MESSAGE,"\tElement       \t     Moles\n");
         for ( j=0; j < count_elts; j++ ) {
                 output_msg(OUTPUT_MESSAGE, "\t%-14s\t%12.4e\n",

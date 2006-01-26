@@ -34,6 +34,7 @@ static int gas_in;
 
 LDBLE min_value = 1e-10;
 
+
 /* ---------------------------------------------------------------------- */
 int model(void)
 /* ---------------------------------------------------------------------- */
@@ -710,7 +711,6 @@ int ineq(int in_kode)
 
 		if (x[i]->type == MB || x[i]->type == ALK || x[i]->type == EXCH || x[i]->type == SURFACE || x[i]->type == SURFACE_CB) {
 /* !!!! */		if ( x[i]->moles <= MIN_RELATED_SURFACE && (x[i]->type == EXCH || x[i]->type == SURFACE)) continue;
-
 			for (j = 0; j < count_unknowns; j++) {
 				if (x[i]->type == SURFACE && x[j]->type == SURFACE_CB ) continue;
 
@@ -1409,12 +1409,14 @@ int mb_sums (void)
  */
 	for (k=0; k < count_sum_mb1; k++) {
 		*sum_mb1[k].target += *sum_mb1[k].source;
+/*		{ k += 1; k -= 1;} */
 	}
 /*
  *   Add terms with coefficients != 1.0
  */
 	for (k=0; k < count_sum_mb2; k++) {
 		*sum_mb2[k].target += *sum_mb2[k].source * sum_mb2[k].coef;
+/*		{ k += 1; k -= 1;} */
 	}
 	return(OK);
 }
@@ -1645,9 +1647,8 @@ int molalities (int allow_overflow)
 				/* revised eq. 61 */
 				s_x[i]->diff_layer[j].g_moles = s_x[i]->moles *
 					(s_x[i]->diff_layer[j].charge->g[count_g].g +
-					 s_x[i]->diff_layer[j].charge->mass_water / 
+					 s_x[i]->diff_layer[j].charge->mass_water /
 					 mass_water_aq_x);
-
 				if (s_x[i]->moles > 1e-30) {
 					s_x[i]->diff_layer[j].dg_g_moles = s_x[i]->dg * s_x[i]->diff_layer[j].g_moles / s_x[i]->moles;
 				}
@@ -1658,7 +1659,6 @@ int molalities (int allow_overflow)
 				 *  the jacobian for species i
 				 */
 				total_g += s_x[i]->diff_layer[j].charge->g[count_g].g + s_x[i]->diff_layer[j].charge->mass_water / mass_water_aq_x;
-
 
 				/* revised eq. 63, second term */
 			        /* g.dg is dg/dx(-2y**2) or dg/d(ln y) */
@@ -1672,7 +1672,6 @@ int molalities (int allow_overflow)
 				s_x[i]->diff_layer[j].drelated_moles = s_x[i]->moles * 
 					use.surface_ptr->charge[j].specific_area * 
 					use.surface_ptr->thickness  / mass_water_aq_x;
-
 			}
 			s_x[i]->tot_g_moles = s_x[i]->moles * (1 + total_g);
 
@@ -1714,7 +1713,7 @@ int molalities (int allow_overflow)
 				output_msg(OUTPUT_MESSAGE, "\n");
 			}
 		}
-	}		
+	}
 	if (use.gas_phase_ptr != NULL) calc_gas_pressures();
 	if (use.s_s_assemblage_ptr != NULL) calc_s_s_fractions();
 
@@ -1984,6 +1983,8 @@ int reset(void)
 #endif
 	LDBLE mu_calc;
 	LDBLE old_moles;
+/*appt	char name[MAX_LENGTH]; LDBLE surf_chrg_eq;
+ */
 /*
  *   Calculate interphase mass transfers
  */
@@ -2213,16 +2214,17 @@ int reset(void)
 				output_msg(OUTPUT_MESSAGE,"%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e\n",
 					x[i]->description, "old f*psi", (double) x[i]->master[0]->s->la, "new f*psi", (double) x[i]->master[0]->s->la + (double) d,"delta", (double) d);
 			}
+
 			x[i]->master[0]->s->la += d;
- 
+
 			/* recalculte g's for component */
 			if (diffuse_layer_x == TRUE) {
-				if (debug_model == TRUE) {
+				if (debug_diffuse_layer == TRUE) {
 					output_msg(OUTPUT_MESSAGE, "\ncharge, old g, new g, dg*delta,"
 						" dg, delta\n");
 				}
 				for (j = 0; j < x[i]->surface_charge->count_g; j++) {
-					if (debug_model == TRUE) {
+					if (debug_diffuse_layer == TRUE) {
 						output_msg(OUTPUT_MESSAGE, "%12f\t%12.4e\t%12.4e\t%12.4e\t%12.4e\t%12.4e\n", 
 							(double) x[i]->surface_charge->g[j].charge, 
 							(double) x[i]->surface_charge->g[j].g, 
@@ -2231,10 +2233,14 @@ int reset(void)
 							(double) (x[i]->surface_charge->g[j].dg * delta[i]),
 							(double) x[i]->surface_charge->g[j].dg,
 							(double) delta[i]);
+						}
+/*appt*/				if (use.surface_ptr->donnan != TRUE) {
+						x[i]->surface_charge->g[j].g += x[i]->surface_charge->g[j].dg * delta[i];
 					}
-					x[i]->surface_charge->g[j].g += x[i]->surface_charge->g[j].dg * delta[i];
 				}
-
+/*appt*/			if (use.surface_ptr->donnan == TRUE) {
+					calc_all_donnan();
+				}
 			}
 			
 /*   Solution phase boundary */
@@ -2533,7 +2539,7 @@ int residuals(void)
 /*			if (x[i]->surface_charge->grams <= MIN_RELATED_SURFACE) { */
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-			} else if (diffuse_layer_x == TRUE) { 
+			} else if (diffuse_layer_x == TRUE) {
 				residual[i] = - x[i]->f;
 			} else {
 /*
@@ -2549,14 +2555,15 @@ int residuals(void)
 			if (debug_model == TRUE) {
 				output_msg(OUTPUT_MESSAGE,"Charge/Potential\n");
 				if (x[i]->surface_charge->grams > 0) {
-					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e\n", 
-						(double) (x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)));
+					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
+						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
 				} else {
 					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
 				}
 				output_msg(OUTPUT_MESSAGE,"\t                grams %g\n", (double) x[i]->surface_charge->grams);
-				output_msg(OUTPUT_MESSAGE,"\tCharge from potential %e\n", 
-					(double) (sinh_constant * sqrt(mu_x) * 
+				output_msg(OUTPUT_MESSAGE,"\tCharge from potential %e eq\n",
+					(double) (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams / F_C_MOL *
+					sinh_constant * sqrt(mu_x) *
 					sinh(x[i]->master[0]->s->la * LOG_10)));
 				output_msg(OUTPUT_MESSAGE,"\t             FPsi/2RT %e\n", 
 					(double) (x[i]->master[0]->s->la * LOG_10));
@@ -2679,7 +2686,8 @@ int revise_guesses(void)
 	int i;
 	int iter, max_iter, repeat, fail;
 	LDBLE weight, f;
-
+/*appt	char name[MAX_LENGTH]; LDBLE surf_chrg_eq;
+ */
 	max_iter = 10;
 	gammas(mu_x);
 	iter = 0;
@@ -2880,7 +2888,7 @@ int surface_model(void)
  */
 	debug_diffuse_layer_save = debug_diffuse_layer;
 	debug_model_save = debug_model;
-	if(last_model.force_prep == TRUE) {
+	if (last_model.force_prep == TRUE) {
 		same_model = FALSE;
 	} else {
 		same_model = check_same_model();
@@ -2894,7 +2902,12 @@ int surface_model(void)
 	}
 	prep();
 	k_temp(tc_x);
-	calc_init_g(); 
+	if (use.surface_ptr->donnan == TRUE) {
+		initial_surface_water();
+		calc_init_donnan();
+	} else {
+		calc_init_g();
+	}
 	if (state >= REACTION && use.surface_ptr->new_def == FALSE) {
 		set(FALSE);
 	} else {
@@ -2902,24 +2915,39 @@ int surface_model(void)
 	}
 	if (model() == ERROR) return(ERROR);
 	g_iterations = 0;
-	do {
-		g_iterations++;
-		if (g_iterations > itmax - 10) {
-			debug_model = TRUE;
-			debug_diffuse_layer = TRUE;
-		}
-		k_temp(tc_x);
-		gammas(mu_x);
-		molalities(TRUE);
-		mb_sums();
-		if (model() == ERROR) return(ERROR);
-		if(use.surface_ptr->related_phases != TRUE && use.surface_ptr->related_rate != TRUE) initial_surface_water();
-/*		initial_surface_water(); */
-		if (debug_model == TRUE) { 
-			output_msg(OUTPUT_MESSAGE, "Surface_model iteration: %d,\t%d iterations\n",
-				g_iterations, iterations);
-		} 
-	} while (calc_all_g() == FALSE && g_iterations < itmax);
+	if (use.surface_ptr->donnan == TRUE) {
+		do {
+			g_iterations++;
+			k_temp(tc_x);
+			gammas(mu_x);
+			molalities(TRUE);
+			mb_sums();
+			if (model() == ERROR) return(ERROR);
+			if (use.surface_ptr->related_phases != TRUE && use.surface_ptr->related_rate != TRUE) initial_surface_water();
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE, "Surface_model (Donnan approximation): %d g_iterations, %d model iterations\n",
+					g_iterations, iterations);
+			}
+		} while (calc_all_donnan() == FALSE && g_iterations < itmax);
+	} else {
+		do {
+			g_iterations++;
+			if (g_iterations > itmax - 10) {
+				debug_model = TRUE;
+				debug_diffuse_layer = TRUE;
+			}
+			k_temp(tc_x);
+			gammas(mu_x);
+			molalities(TRUE);
+			mb_sums();
+			if (model() == ERROR) return(ERROR);
+			if (use.surface_ptr->related_phases != TRUE && use.surface_ptr->related_rate != TRUE) initial_surface_water();
+			if (debug_model == TRUE) { 
+				output_msg(OUTPUT_MESSAGE, "Surface_model (full integration): %d g_iterations, %d iterations\n",
+					g_iterations, iterations);
+			}
+		} while (calc_all_g() == FALSE && g_iterations < itmax);
+	}
 	if (g_iterations >= itmax) {
 		error_msg("Did not converge on g (diffuse layer excess)", STOP);
 	}
@@ -2955,6 +2983,7 @@ int free_model_allocs(void)
 	sum_jacob1 = free_check_null(sum_jacob1);
 	sum_jacob2 = free_check_null(sum_jacob2);
 	sum_delta = free_check_null(sum_delta);
+	charge_group = free_check_null(charge_group);
 	return(OK);
 }
 #ifdef SLNQ
