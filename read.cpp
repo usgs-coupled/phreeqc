@@ -4984,7 +4984,7 @@ int read_surf(void)
 	int i, j, n, l;
 	int count_comps, count_charge;
 	int n_user, n_user_end;
-	LDBLE conc, area, grams, thickness /*, factor */;
+	LDBLE conc, area, grams /*, thickness , factor */;
 	char *ptr, *ptr1;
 	char *description;
 	char token[MAX_LENGTH], token1[MAX_LENGTH], name[MAX_LENGTH];
@@ -4999,9 +4999,11 @@ int read_surf(void)
 		"diffuse_layer",       /* 3 */
 		"no_edl",              /* 4 */
 		"no_electrostatic",    /* 5 */
-		"only_counter_ions"    /* 6 */
+		"only_counter_ions",   /* 6 */
+		"donnan",		/* 7 */
+		"transport"		/* 8 */
 	};
-	int count_opt_list = 7;
+	int count_opt_list = 9;
 /*
  * kin_surf is for Surfaces, related to kinetically reacting minerals
  *    they are defined if "sites" is followed by mineral name:
@@ -5074,8 +5076,31 @@ int read_surf(void)
 		    case 3:
 			surface[n].thickness = 1e-8;
 			surface[n].diffuse_layer = TRUE;
-			if (sscanf(next_char, SCANFORMAT, &thickness) == 1) {
-				surface[n].thickness = thickness;
+			for (;;) {
+				i = copy_token(token, &next_char, &l);
+				if (i == DIGIT) {
+					sscanf(token, SCANFORMAT, &surface[n].thickness);
+					break;
+				} else if (i != EMPTY) {
+					if (token[0] == 'D' || token[0] == 'd') {
+						surface[n].debye_units = 1.0;
+						j = copy_token(token1, &ptr, &l);
+		                                if (j == DIGIT) {
+							sscanf(token1, SCANFORMAT, &surface[n].debye_units);
+							break;
+						} else if (j != EMPTY) {
+							error_msg("Expected number of Debye units (1/k) for calculating diffuse layer thickness.", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							break;
+						} else break;
+					} else {
+						error_msg("Expected D or d for Donnan calculations.", CONTINUE);
+						error_msg(line_save, CONTINUE);
+						input_error++;
+						break;
+					}
+				} else break;
 			}
 			break;
 		    case 4:                       /* no electrostatic */
@@ -5084,6 +5109,12 @@ int read_surf(void)
 			break;
 		    case 6:
 			surface[n].only_counter_ions = TRUE;
+			break;
+		    case 7:			/* donnan for DL conc's */
+			surface[n].donnan = TRUE;
+			break;
+		    case 8:			/* transport */
+			surface[n].transport = TRUE;
 			break;
 		    case OPTION_DEFAULT:
 /*
@@ -5121,24 +5152,6 @@ int read_surf(void)
 				}
 #ifdef PHREEQCI_GUI
 				surface[n].comps[count_comps].moles = conc;
-#endif
-#ifdef SKIP/*!!!! not used ?? */
-				/*  Read surface related to kinetics */
-				ptr1 = ptr;
-				j = copy_token(token1, &ptr1, &l);
-				if( j == UPPER || j == LOWER) {
-
-					ptr = ptr1;
-					surface[n].comps[count_comps].rate_name = string_hsave(token1);
-		                        if (copy_token(token1, &ptr, &l) != DIGIT) {
-                	                        error_msg("Expected a coefficient to relate surface to kinetic reaction.\n", CONTINUE);
-						input_error++;
-						break;
-        		                }             
-					sscanf(token1, SCANFORMAT, &surface[n].comps[count_comps].phase_proportion);
-					surface[n].related_rate = TRUE;
-				} 
-/* !!!!*/
 #endif
 /*
  *   Read equilibrium phase name or kinetics rate name

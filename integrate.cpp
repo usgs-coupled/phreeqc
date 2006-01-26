@@ -15,6 +15,9 @@ static LDBLE qromb_midpnt (LDBLE x1, LDBLE x2);
 static LDBLE z, xd, alpha, G_TOL;
 static struct surface_charge *surface_charge_ptr;
 
+/*static LDBLE calc_psi_avg(char *name);*/
+static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
+
 /* ---------------------------------------------------------------------- */
 int calc_all_g( void )
 /* ---------------------------------------------------------------------- */
@@ -577,4 +580,272 @@ int sum_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 		elt_list_combine();
 	}
 	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int calc_all_donnan(void)
+/* ---------------------------------------------------------------------- */
+{
+	int i, j, k;
+	int count_g, count_charge, converge;
+	char name[MAX_LENGTH];
+	LDBLE new_g, f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
+	LDBLE new_g2, f_psi2, surf_chrg_eq2, psi_avg2, dif;
+
+	if (use.surface_ptr == NULL) return(OK);
+	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x * mu_x);
+/*
+ *   calculate g for each surface...
+ */
+	converge = TRUE;
+	count_charge = 0;
+	for (j = 0; j < count_unknowns; j++) {
+		if (x[j]->type != SURFACE_CB) continue;
+		surface_charge_ptr = x[j]->surface_charge;
+
+		if (debug_diffuse_layer == TRUE) output_msg(OUTPUT_MESSAGE, "Calc_all_g, X[%d]\n", j);
+/*
+ *  sum eq of each charge number in solution...
+ */
+		count_g = x[j]->surface_charge->count_g;
+		for (i = 0; i < count_g; i++) {
+			charge_group[i].eq = 0.0;
+		}
+		for (i = 0; i < count_s_x; i++) {
+			if (s_x[i]->type > HPLUS) continue;
+			for (k = 0; k < count_g; k++) {
+				if (equal(charge_group[k].z, s_x[i]->z, G_TOL) == TRUE) {
+					charge_group[k].eq += s_x[i]->z * s_x[i]->moles;
+					break;
+				}
+			}
+		}
+			/* find surface charge from potential... */
+		A_surf = x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
+		f_psi = x[j]->master[0]->s->la * LOG_10;
+		surf_chrg_eq = A_surf * f_sinh * sinh(f_psi) / F_C_MOL;
+			/* also for the derivative... */
+		dif = 1e-5;
+		f_psi2 = f_psi + dif;
+		surf_chrg_eq2 = A_surf * f_sinh * sinh(f_psi2) / F_C_MOL;
+
+
+			/* find psi_avg that matches surface charge... */
+		psi_avg = calc_psi_avg(surf_chrg_eq);
+		psi_avg2 = calc_psi_avg(surf_chrg_eq2);
+
+			/* fill in g's */
+		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
+
+		for (k = 0; k < count_g; k++) {
+			x[j]->surface_charge->g[k].charge = charge_group[k].z;
+
+			new_g = exp(-charge_group[k].z * psi_avg) - 1;
+			if (new_g <= - ratio_aq) new_g = G_TOL;
+			new_g2 = exp(-charge_group[k].z * psi_avg2) - 1;
+			if (new_g2 <= - ratio_aq) new_g2 = G_TOL;
+
+			if (fabs(new_g) >= 1) {
+				if (fabs((new_g - x[j]->surface_charge->g[k].g) / new_g) > convergence_tolerance) {
+					converge = FALSE;
+				}
+			} else {
+				if (fabs(new_g - x[j]->surface_charge->g[k].g) > convergence_tolerance) {
+					converge = FALSE;
+				}
+			}
+			x[j]->surface_charge->g[k].g = new_g;
+			if (new_g != 0) {
+				x[j]->surface_charge->g[k].dg = (new_g2 - new_g) / dif;
+			} else {
+				x[j]->surface_charge->g[k].dg = -charge_group[k].z;
+			}
+				/* save g for species */
+			for (i = 0; i < count_s_x; i++) {
+				if (equal(charge_group[k].z, s_x[i]->z, G_TOL) == TRUE) {
+					s_x[i]->diff_layer[count_charge].charge = x[j]->surface_charge;
+					s_x[i]->diff_layer[count_charge].count_g = k;
+				}
+			}
+		}
+		if (debug_diffuse_layer == TRUE) {
+			strcpy(name, x[j]->master[0]->elt->name);
+			replace ("_psi", "", name);
+/*			surf_chrg_eq = calc_surface_charge(name);
+ */
+			output_msg(OUTPUT_MESSAGE, "\nDonnan all on %s (%d): charge, \tg, \tdg, Psi_surface = %8f V. \n", name, count_charge,
+				x[j]->master[0]->s->la * 2 * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ);
+			for (i = 0; i < count_g; i++) {
+				output_msg(OUTPUT_MESSAGE, "\t%12f\t%12.4e\t%12.4e\n",
+					(double) x[j]->surface_charge->g[i].charge,
+					(double) x[j]->surface_charge->g[i].g,
+					(double) x[j]->surface_charge->g[i].dg);
+			}
+		}
+		count_charge++;
+	}
+	return (converge);
+}
+/* ---------------------------------------------------------------------- */
+int calc_init_donnan(void) 
+/* ---------------------------------------------------------------------- */
+{
+	int i, j, k;
+	int count_g, count_charge;
+	char name[MAX_LENGTH];
+	LDBLE f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
+
+	if (use.surface_ptr == NULL) return(OK);
+	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x * mu_x);
+/*
+ *  sum eq of each charge number in solution...
+ */
+	charge_group = (struct charge_group *) free_check_null(charge_group);
+	charge_group = (struct charge_group *) PHRQ_malloc((size_t) sizeof(struct charge_group));
+	if (charge_group == NULL) malloc_error();
+	charge_group[0].z = 0.0;
+	charge_group[0].eq = 0.0;
+
+	count_g = 1;
+	for (i = 0; i < count_s_x; i++) {
+		if (s_x[i]->type > HPLUS) continue;
+		for (k = 0; k < count_g; k++) {
+			if (equal(charge_group[k].z, s_x[i]->z, G_TOL) == TRUE) {
+				charge_group[k].eq += s_x[i]->z * s_x[i]->moles;
+				break;
+			}
+		}
+		if (k >= count_g) {
+			charge_group = (struct charge_group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
+						     sizeof(struct charge_group));
+			if (charge_group == NULL) malloc_error();
+			charge_group[count_g].z = s_x[i]->z;
+			charge_group[count_g].eq = s_x[i]->z * s_x[i]->moles;
+
+			count_g++;
+		}
+	}
+/*
+ *   calculate g for each surface...
+ */
+	count_charge = 0;
+	for (j = 0; j < count_unknowns; j++) {
+		if (x[j]->type != SURFACE_CB) continue;
+		surface_charge_ptr = x[j]->surface_charge;
+
+		x[j]->surface_charge->g = (struct surface_diff_layer *) PHRQ_malloc((size_t) count_g * sizeof(struct surface_diff_layer));
+		if (x[j]->surface_charge->g == NULL) malloc_error();
+		x[j]->surface_charge->count_g = count_g;
+
+			/* find surface charge from potential... */
+		A_surf = x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
+		f_psi = x[j]->master[0]->s->la * LOG_10;
+		surf_chrg_eq = A_surf * f_sinh * sinh(f_psi) / F_C_MOL;
+
+			/* find psi_avg that matches surface charge... */
+		psi_avg = calc_psi_avg(surf_chrg_eq);
+
+			/* fill in g's */
+		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
+
+		for (k = 0; k < count_g; k++) {
+			x[j]->surface_charge->g[k].charge = charge_group[k].z;
+			x[j]->surface_charge->g[k].g = exp(-charge_group[k].z * psi_avg) - 1;
+			if (x[j]->surface_charge->g[k].g != 0) {
+				x[j]->surface_charge->g[k].dg = - A_surf * f_sinh * cosh(f_psi) /
+					(charge_group[k].eq * F_C_MOL);
+			} else {
+				x[j]->surface_charge->g[k].dg = -charge_group[k].z;
+			}
+				/* save g for species */
+			for (i = 0; i < count_s_x; i++) {
+				if (equal(charge_group[k].z, s_x[i]->z, G_TOL) == TRUE) {
+					s_x[i]->diff_layer[count_charge].charge = x[j]->surface_charge;
+					s_x[i]->diff_layer[count_charge].count_g = k;
+					s_x[i]->diff_layer[count_charge].g_moles = 0.0;
+					s_x[i]->diff_layer[count_charge].dg_g_moles = 0.0;
+				}
+			}
+                } 
+		if (debug_diffuse_layer == TRUE) {
+			strcpy(name, x[j]->master[0]->elt->name);
+			replace ("_psi", "", name);
+/*			surf_chrg_eq = calc_surface_charge(name);
+ */
+			output_msg(OUTPUT_MESSAGE, "\nDonnan init on %s : charge, \tg, \tdg, Psi_surface = %8f V. \n", name,
+				x[j]->master[0]->s->la * 2 * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ);
+			for (i = 0; i < count_g; i++) {
+				output_msg(OUTPUT_MESSAGE, "\t%12f\t%12.4e\t%12.4e\n", 
+					(double) x[j]->surface_charge->g[i].charge, (double) x[j]->surface_charge->g[i].g, (double) x[j]->surface_charge->g[i].dg );
+			}
+		}
+		count_charge++;
+	}
+	return (OK);
+}
+/* ---------------------------------------------------------------------- */
+LDBLE calc_psi_avg(LDBLE surf_chrg_eq)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ * calculate the average (F * Psi / RT) that lets the DL charge counter the surface charge
+ */
+	int i, iter, count_g;
+	LDBLE fd, fd1, p, temp, ratio_aq;
+/*	LDBLE dif;
+ */
+	count_g = surface_charge_ptr->count_g;
+	if (convergence_tolerance >= 1e-8) {
+		G_TOL = 1e-9;
+	} else {
+		G_TOL = 1e-10;
+	}
+	ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
+	p = 0;
+	if (surf_chrg_eq == 0) {
+		return(0.0);
+	} else if (surf_chrg_eq < 0) {
+		p = -0.5 * log(-surf_chrg_eq * ratio_aq / mu_x + 1);
+	} else if (surf_chrg_eq > 0) {
+		p = 0.5 * log(surf_chrg_eq * ratio_aq / mu_x + 1);
+	}
+/*
+ * Optimize p in SS{s_x[i]->moles * z_i * g(p)} = -surf_chrg_eq
+ *  g(p) = exp(-p * z_i) - 1
+ */
+	iter = 0;
+	do {
+		fd = surf_chrg_eq;
+		fd1 = 0.0;
+		for (i = 1; i < count_g; i++) {
+			temp = exp(-charge_group[i].z * p);
+			if (temp > 1 - ratio_aq) {
+				fd += charge_group[i].eq * (temp - 1);
+				fd1 -= charge_group[i].z * charge_group[i].eq * temp;
+			}
+		}
+/*		fd1 = surf_chrg_eq * ratio_aq;
+		dif = 1e-5;
+		p += dif;
+		for (i = 1; i < count_g; i++) {
+			temp = exp(-charge_group[i].z * p);
+			fd1 += charge_group[i].eq * temp;
+		}
+		fd /= -(fd1 - fd) / dif;
+		p -= dif;
+		p += (fd > 1) ? 1 : ((fd < -1) ?  -1 : fd);
+ */
+		fd /= -fd1;
+		p += (fd > 1) ? 1 : ((fd < -1) ?  -1 : fd);
+		if (fabs(p) < G_TOL) p = 0.0;
+		iter++;
+		if (iter > 50) {
+			sprintf(error_string, "\nToo many iterations for surface in subroutine calc_psi_avg.\n");
+			error_msg(error_string, STOP);
+		}
+	} while (fabs(fd) > G_TOL && p != 0.0);
+	if (debug_diffuse_layer == TRUE)
+		output_msg(OUTPUT_MESSAGE, "iter in calc_psi_avg = %d. g(+1) = %8f. surface charge = %8f.\n",
+		iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);
+
+	return(p);
 }

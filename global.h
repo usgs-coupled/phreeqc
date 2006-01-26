@@ -280,7 +280,9 @@ struct surface {
 	int diffuse_layer;
 	int edl;
 	int only_counter_ions;
+	int donnan;
 	LDBLE thickness;
+	LDBLE debye_units;
 	char *description;
 	int solution_equilibria;
 	int n_solution;
@@ -290,6 +292,7 @@ struct surface {
 	struct surface_charge *charge;
 	int related_phases;
 	int related_rate;
+	int transport;
 };
 struct surface_comp {
  	char *formula;
@@ -324,6 +327,10 @@ struct surface_diff_layer {
 EXTERNAL struct surface *surface;
 EXTERNAL int count_surface;
 EXTERNAL int max_surface;
+EXTERNAL struct charge_group {
+	LDBLE z;
+	LDBLE eq;
+} *charge_group;
 /* ----------------------------------------------------------------------
  *   Exchange
  * ---------------------------------------------------------------------- */

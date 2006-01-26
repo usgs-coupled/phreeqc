@@ -65,10 +65,12 @@ int getc_callback(void* cookie);
 int process_file_names(int argc, char *argv[], void **db_cookie, void **input_cookie, int log);
 
 /* integrate.c */
-int calc_all_g(void );
+int calc_all_g(void);
 int calc_init_g(void); 
 int initial_surface_water(void);
 int sum_diffuse_layer(struct surface_charge *surface_charge_ptr1);
+int calc_all_donnan(void);
+int calc_init_donnan(void); 
 
 /* inverse.c */
 int inverse_models(void);

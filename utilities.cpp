@@ -13,7 +13,7 @@ extern int outputlinenr;
 extern int stop_calculations;
 void AddToCEntry(char* a, int l, int i);
 void ApplicationProcessMessages(void);
-//void check_line_breaks(char *s);
+/* void check_line_breaks(char *s); */
 char err_str98[80];
 int copy_title(char *token_ptr, char **ptr, int *length);
 extern int clean_up_null(void);
