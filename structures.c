@@ -4921,6 +4921,9 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
         surface_ptr->diffuse_layer = FALSE;
         surface_ptr->edl = TRUE;
 	surface_ptr->only_counter_ions = FALSE;
+	surface_ptr->donnan = FALSE;
+	surface_ptr->debye_units = 0.0;
+	surface_ptr->transport = FALSE;
 	surface_ptr->thickness = 1e-8;
 	surface_ptr->solution_equilibria = FALSE;
 	surface_ptr->n_solution = -999;
