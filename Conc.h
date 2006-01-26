@@ -1,7 +1,7 @@
 #if !defined(CONC_H_INCLUDED)
 #define CONC_H_INCLUDED
 
-#include "Parser.h"
+//#include "Parser.h"
 #include "Utilities.h"
 
 #include <string>
@@ -22,7 +22,7 @@ public:
 
 public:
 
-	STATUS_TYPE read(CParser& parser, CSolution& sol);
+	//STATUS_TYPE read(CParser& parser, CSolution& sol);
 
 	void dump_xml(const CSolution& solution, std::ostream& os, unsigned int indent = 0)const;
 

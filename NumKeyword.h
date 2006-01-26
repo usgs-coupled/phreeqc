@@ -1,7 +1,7 @@
 #if !defined(NUMKEYWORD_H_INCLUDED)
 #define NUMKEYWORD_H_INCLUDED
 
-#include "Parser.h"
+//#include "Parser.h"
 #include <ostream>  // std::ostream
 #include <string>   // std::string
 
@@ -21,7 +21,7 @@ public:
 
 	virtual void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void read_number_description(CParser& parser);
+	//void read_number_description(CParser& parser);
 
 protected:
 	int n_user;

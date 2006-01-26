@@ -15,7 +15,7 @@ COMMON_OBJS =	Conc.o\
 		Parser.o\
 		Pe_Data.o\
 		Solution.o\
-		utilities.o
+		Utilities.o
 
 TEST_OBJS = 	TestCIsotope.o\
 		TestCSolution.o\

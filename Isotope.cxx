@@ -1,6 +1,7 @@
 #include "Isotope.h"
 #include "Utilities.h"
 #include <cassert>
+#include <strstream>                       // std::ostrstream
 
 CIsotope::CIsotope(void)
 : isotope_number(0.0)
@@ -14,9 +15,35 @@ CIsotope::~CIsotope(void)
 
 std::string CIsotope::get_name()const
 {
-	std::ostringstream oss;
+	//	std::ostringstream oss;
+	std::ostrstream oss;
 	oss << this->isotope_number << this->elt_name;
 	return oss.str();
+}
+void CIsotope::dump_xml(std::ostream& os, unsigned int indent)const
+{
+	unsigned int i;
+
+	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
+	os << "<isotope name=\"" << get_name() << "\" value=\"" << this->ratio << "\"";
+	if ( this->ratio_uncertainty_defined /* Utilities::isnan(this->ratio_uncertainty) */ ) {
+        os << "/>\n";
+	}
+	else {
+        os << ">\n";
+
+		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+		os << "<uncertainity_limit>" << this->ratio_uncertainty << "</uncertainity_limit>\n";
+
+		for(i = 0; i < indent; ++i) os << Utilities::INDENT;
+        os << "</isotope>\n";
+	}
+}
+bool CIsotope::operator<(const CIsotope& isotope)const
+{
+	int i = Utilities::strcmp_nocase(this->elt_name.c_str(), isotope.elt_name.c_str());
+	if (i != 0) return (i < 0);
+	return ( this->isotope_number < isotope.isotope_number );
 }
 #ifdef SKIP
 CIsotope::STATUS CIsotope::read(CParser& parser)
@@ -70,31 +97,3 @@ CIsotope::STATUS CIsotope::read(CParser& parser)
 	return OK;
 }
 #endif
-#ifdef SKIP
-void CIsotope::dump_xml(std::ostream& os, unsigned int indent)const
-{
-	unsigned int i;
-
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-	os << "<isotope name=\"" << get_name() << "\" value=\"" << this->ratio << "\"";
-	if ( this->ratio_uncertainty_defined /* Utilities::isnan(this->ratio_uncertainty) */ ) {
-        os << "/>\n";
-	}
-	else {
-        os << ">\n";
-
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-		os << "<uncertainity_limit>" << this->ratio_uncertainty << "</uncertainity_limit>\n";
-
-		for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-        os << "</isotope>\n";
-	}
-}
-#endif
-bool CIsotope::operator<(const CIsotope& isotope)const
-{
-	int i = Utilities::strcmp_nocase(this->elt_name.c_str(), isotope.elt_name.c_str());
-	if (i != 0) return (i < 0);
-	return ( this->isotope_number < isotope.isotope_number );
-}
-

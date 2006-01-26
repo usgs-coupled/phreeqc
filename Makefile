@@ -52,6 +52,8 @@ INCLUDES= -I${XERCESCROOT}/include
 #	${CC} ${CCFLAGS} -c -o $@ $<
 %.o : $(SRC)/%.cpp
 	${CXX} ${CXXFLAGS} $(INCLUDES) -c -o $@ $<
+%.o : $(SRC)/%.cxx
+	${CXX} ${CXXFLAGS} $(INCLUDES) -c -o $@ $<
 
 # Location to copy scripts on installation
 BINDIR=$(HOME)/bin
@@ -94,6 +96,15 @@ OBJECTS=	main.o \
 		dw.o \
 		pitzer.o \
 		pitzer_structures.o \
+
+CLASS_OBJECTS=  Conc.o \
+		Isotope.o \
+		NumKeyword.o \
+		Pe_Data.o \
+		Solution.o \
+		Utilities.o
+
+OBJECTS += $(CLASS_OBJECTS)
 
 ifdef USE_XML
 	OBJECTS += SAXPhreeqc.o
@@ -254,6 +265,14 @@ tidy.o: $(SRC)/tidy.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SR
 transport.o: $(SRC)/transport.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 utilities.o: $(SRC)/utilities.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+
+
+Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h 
+Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h 
+NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h 
+Pe_Data.o: $(SRC)/Pe_Data.cxx $(SRC)/Pe_Data.h 
+Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h 
+Utilities.o: $(SRC)/Utilities.cxx $(SRC)/Utilities.h ..
 
 -include $(SRC)/distribution.mk
 

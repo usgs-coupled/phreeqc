@@ -1,7 +1,7 @@
 #if !defined(ISOTOPE_H_INCLUDED)
 #define ISOTOPE_H_INCLUDED
 
-#include "Parser.h"
+//#include "Parser.h"
 #include <ostream>   // std::ostream
 #include <string>    // std::string
 
@@ -16,7 +16,7 @@ public:
 		OK    = 1
 	};
 
-	CIsotope::STATUS read(CParser& parser);
+	//CIsotope::STATUS read(CParser& parser);
 
 	void dump_xml(std::ostream& os, unsigned int indent)const;
 

@@ -2,7 +2,7 @@
 #define SOLUTION_H_INCLUDED
 
 #include "NumKeyword.h"
-#include "Parser.h"
+//#include "Parser.h"
 #include "Conc.h"
 #include "Isotope.h"
 #include "Pe_Data.h"
@@ -19,7 +19,7 @@ public:
 	CSolution();
 	~CSolution();
 
-	static CSolution& read(CParser& parser);
+	//static CSolution& read(CParser& parser);
 
 	void add(CConc conc)       { this->totals.push_back(conc); }
 	void add(CIsotope isotope) { this->isotopes.push_back(isotope); }
