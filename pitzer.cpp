@@ -47,11 +47,11 @@ int pitzer_init (void)
 	pitzer_model = FALSE;
 	max_pitz_param = 100;
 	count_pitz_param = 0;
-	space ((void **) &pitz_params, INIT, &max_pitz_param, sizeof(struct pitz_param *));
+	space ((void **) ((void *) &pitz_params), INIT, &max_pitz_param, sizeof(struct pitz_param *));
 
 	max_theta_param = 100;
 	count_theta_param = 0;
-	space ((void **) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
+	space ((void **) ((void *) &theta_params), INIT, &max_theta_param, sizeof(struct theta_param *));
 
 	ICON = TRUE;
 	OTEMP=0.0;
@@ -135,7 +135,7 @@ int pitzer_tidy (void)
 			pzp_ptr = pitz_param_read(line, 2);
 			pzp_ptr->type = TYPE_ETHETA;
 			if (count_pitz_param >= max_pitz_param) {
-				space ((void **) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+				space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
 			pitz_params[count_pitz_param++] = pzp_ptr;
 			
@@ -147,7 +147,7 @@ int pitzer_tidy (void)
 			pzp_ptr = pitz_param_read(line, 2);
 			pzp_ptr->type = TYPE_ETHETA;
 			if (count_pitz_param >= max_pitz_param) {
-				space ((void **) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+				space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
 			pitz_params[count_pitz_param] = pzp_ptr;
 			count_pitz_param++;
@@ -253,7 +253,7 @@ int pitzer_tidy (void)
 			theta_param_ptr = theta_param_search(z0, z1);
 			if (theta_param_ptr == NULL) {
 				if (count_theta_param >= max_theta_param) {
-					space ((void **) &theta_params, count_theta_param, &max_theta_param, sizeof(struct theta_param *));
+					space ((void **) ((void *) &theta_params), count_theta_param, &max_theta_param, sizeof(struct theta_param *));
 				}
 				theta_params[count_theta_param] = theta_param_alloc();
 				theta_param_init(theta_params[count_theta_param]);
@@ -351,7 +351,7 @@ int read_pitzer (void)
 				    j = pitz_param_search(pzp_ptr);
 				    if (j < 0) {
 					    if (count_pitz_param >= max_pitz_param) {
-						    space ((void **) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+						    space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 					    }
 					    
 					    pitz_params[count_pitz_param] = pzp_ptr;

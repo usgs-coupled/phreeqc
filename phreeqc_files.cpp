@@ -117,8 +117,8 @@ int process_file_names(int argc, char *argv[], void **db_cookie, void **input_co
  *   Prep for get_line
  */
 	max_line = MAX_LINE;
-	space ((void **) &line, INIT, &max_line, sizeof(char));
-	space ((void **) &line_save, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line), INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 	hcreate_multi(5, &strings_hash_table);
 	hcreate_multi(2, &keyword_hash_table);
 

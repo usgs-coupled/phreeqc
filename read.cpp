@@ -997,7 +997,7 @@ int read_exchange(void)
 		exchange_free(exchange_ptr);
 	} else {
 		n = count_exchange++;
-		space ((void **) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	}
 /*
  *   Default values
@@ -1211,7 +1211,7 @@ int read_exchange_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master >= max_master) {
-			space ((void **) &master, count_master+1, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+1, &max_master, sizeof(struct master *));
 		}
 		master[count_master] = master_alloc();
 /*
@@ -1252,7 +1252,7 @@ int read_exchange_master_species (void)
 
 		count_master++;
 		if (count_master >= max_master) {
-			space ((void **) &master, count_master, &max_master,
+			space ((void **) ((void *) &master), count_master, &max_master,
 			       sizeof(struct master *));
 		}
 	}
@@ -1310,7 +1310,7 @@ int read_gas_phase(void)
 	} else {
 		n=count_gas_phase;
 		count_gas_phase++;
-		space ((void **) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	}
 /*
  *   Initialize
@@ -1916,7 +1916,7 @@ int read_kinetics (void)
 	if (kinetics_ptr != NULL) {
 		kinetics_free(kinetics_ptr);
 	} else {
-		space ((void **) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		n = count_kinetics++;
 	}
 /*
@@ -2607,7 +2607,7 @@ int read_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master >= max_master) {
-			space ((void **) &master, count_master+1, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+1, &max_master, sizeof(struct master *));
 		}
 		master[count_master] = master_alloc();
 /*
@@ -2700,7 +2700,7 @@ int read_master_species (void)
 		}
 		count_master++;
 		if (count_master >= max_master) {
-			space ((void **) &master, count_master, &max_master,
+			space ((void **) ((void *) &master), count_master, &max_master,
 			       sizeof(struct master *));
 		}
 
@@ -3089,7 +3089,7 @@ int read_pure_phases(void)
 		pp_assemblage_free (&pp_assemblage[n]);
 	} else {
 		n=count_pp_assemblage++;
-		space ((void **) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 	}	
 /*
  *   Set use data to first read
@@ -3937,7 +3937,7 @@ int read_solution(void)
 	} else {
 		n=count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void **) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_alloc();
@@ -5023,7 +5023,7 @@ int read_surf(void)
 		surface_free(&surface[n]);
 	} else {
 		n = count_surface++;
-		space ((void **) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	}
 /*
  *   Initialize
@@ -5324,7 +5324,7 @@ int read_surface_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master + 2 >= max_master) {
-			space ((void **) &master, count_master+2, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+2, &max_master, sizeof(struct master *));
 		}
 /*
  *   Save values in master and species structure for surface sites
@@ -6936,7 +6936,7 @@ int read_solid_solutions(void)
 		s_s_assemblage_free(&s_s_assemblage[n]);
 	} else {
 		n=count_s_s_assemblage;
-		space ((void **) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		count_s_s_assemblage++;
 	}
 /*

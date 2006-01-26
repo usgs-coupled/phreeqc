@@ -1014,7 +1014,7 @@ struct master_isotope  *master_isotope_store (char *name, int replace_if_found)
 		n = count_master_isotope++;
                                        /* make sure there is space in s */
 		if (count_master_isotope >= max_master_isotope) {
-			space ((void **) &master_isotope, count_master_isotope, &max_master_isotope, sizeof(struct master_isotope *));
+			space ((void **) ((void *) &master_isotope), count_master_isotope, &max_master_isotope, sizeof(struct master_isotope *));
 		}
 		                       /* Make new master_isotope structure */
 		master_isotope[n] = master_isotope_alloc();
@@ -1150,7 +1150,7 @@ struct calculate_value  *calculate_value_store (char *name, int replace_if_found
 		n = count_calculate_value++;
                                        /* make sure there is space in s */
 		if (count_calculate_value >= max_calculate_value) {
-			space ((void **) &calculate_value, count_calculate_value, &max_calculate_value, sizeof(struct calculate_value *));
+			space ((void **) ((void *) &calculate_value), count_calculate_value, &max_calculate_value, sizeof(struct calculate_value *));
 		}
 		                       /* Make new calculate_value structure */
 		calculate_value[n] = calculate_value_alloc();
@@ -1310,7 +1310,7 @@ struct isotope_ratio  *isotope_ratio_store (char *name, int replace_if_found)
 		n = count_isotope_ratio++;
                                        /* make sure there is space in s */
 		if (count_isotope_ratio >= max_isotope_ratio) {
-			space ((void **) &isotope_ratio, count_isotope_ratio, &max_isotope_ratio, sizeof(struct isotope_ratio *));
+			space ((void **) ((void *) &isotope_ratio), count_isotope_ratio, &max_isotope_ratio, sizeof(struct isotope_ratio *));
 		}
 		                       /* Make new isotope_ratio structure */
 		isotope_ratio[n] = isotope_ratio_alloc();
@@ -1450,7 +1450,7 @@ struct isotope_alpha  *isotope_alpha_store (char *name, int replace_if_found)
 		n = count_isotope_alpha++;
                                        /* make sure there is space in s */
 		if (count_isotope_alpha >= max_isotope_alpha) {
-			space ((void **) &isotope_alpha, count_isotope_alpha, &max_isotope_alpha, sizeof(struct isotope_alpha *));
+			space ((void **) ((void *) &isotope_alpha), count_isotope_alpha, &max_isotope_alpha, sizeof(struct isotope_alpha *));
 		}
 		                       /* Make new isotope_alpha structure */
 		isotope_alpha[n] = isotope_alpha_alloc();

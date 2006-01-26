@@ -380,13 +380,11 @@ int P_peek(FILE *f)
 /* Check if at end of file, using Pascal "eof" semantics.  End-of-file for
    stdin is broken; remove the special case for it to be broken in a
    different way. */
-int P_eof() {
-	return 0;
-}
-int P_eof(FILE *f)
+/*int P_eof(FILE *f)*/
+int P_eof(void)
 {
+#ifdef SKIP
     register int ch;
-
     if (feof(f))
 	return 1;
     if (f == stdin)
@@ -395,6 +393,7 @@ int P_eof(FILE *f)
     if (ch == EOF)
 	return 1;
     ungetc(ch, f);
+#endif
     return 0;
 }
 

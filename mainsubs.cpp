@@ -149,24 +149,24 @@ void initialize(void)
 /*
  *   Allocate space
  */
-	space ((void **) &pp_assemblage, INIT, &max_pp_assemblage, sizeof(struct pp_assemblage));
+	space ((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage, sizeof(struct pp_assemblage));
 
-	space ((void **) &exchange, INIT, &max_exchange, sizeof(struct exchange));
+	space ((void **) ((void *) &exchange), INIT, &max_exchange, sizeof(struct exchange));
 
-	space ((void **) &surface, INIT, &max_surface, sizeof(struct surface));
+	space ((void **) ((void *) &surface), INIT, &max_surface, sizeof(struct surface));
 
-	space ((void **) &gas_phase, INIT, &max_gas_phase, sizeof(struct gas_phase));
+	space ((void **) ((void *) &gas_phase), INIT, &max_gas_phase, sizeof(struct gas_phase));
 
-	space ((void **) &kinetics, INIT, &max_kinetics, sizeof(struct kinetics));
+	space ((void **) ((void *) &kinetics), INIT, &max_kinetics, sizeof(struct kinetics));
 
-	space ((void **) &s_s_assemblage, INIT, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+	space ((void **) ((void *) &s_s_assemblage), INIT, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 
-        space ((void **) &cell_data, INIT, &count_cells, 
+        space ((void **) ((void *) &cell_data), INIT, &count_cells, 
                 sizeof(struct cell_data));
         
-	space ((void **) &elements, INIT, &max_elements, sizeof(struct element *));
+	space ((void **) ((void *) &elements), INIT, &max_elements, sizeof(struct element *));
 
-	space ((void **) &elt_list, INIT, &max_elts, sizeof(struct elt_list));
+	space ((void **) ((void *) &elt_list), INIT, &max_elts, sizeof(struct elt_list));
 
 
 	inverse = (struct inverse *) PHRQ_malloc( (size_t) sizeof (struct inverse) );
@@ -176,13 +176,13 @@ void initialize(void)
 	irrev = (struct irrev *) PHRQ_malloc( (size_t) sizeof (struct irrev) );
 	if (irrev == NULL) malloc_error();
 
-	space ((void **) &line, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 
-	space ((void **) &line_save, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 
-	space ((void **) &master, INIT, &max_master, sizeof(struct master *));
+	space ((void **) ((void *) &master), INIT, &max_master, sizeof(struct master *));
 
-	space ((void **) &mb_unknowns, INIT, &max_mb_unknowns, sizeof(struct unknown_list));
+	space ((void **) ((void *) &mb_unknowns), INIT, &max_mb_unknowns, sizeof(struct unknown_list));
 
         mix = (struct mix *) PHRQ_malloc((size_t) sizeof(struct mix));
 	if (mix == NULL) malloc_error();
@@ -195,16 +195,16 @@ void initialize(void)
 	stag_data->th_m = 0;
 	stag_data->th_im = 0;
 
-	space ((void **) &phases, INIT, &max_phases, sizeof(struct phase *));
+	space ((void **) ((void *) &phases), INIT, &max_phases, sizeof(struct phase *));
 
 	space ((void **) &trxn.token, INIT, &max_trxn, 
 	       sizeof(struct rxn_token_temp));
 
-	space ((void **) &s, INIT, &max_s, sizeof(struct species *));
+	space ((void **) ((void *) &s), INIT, &max_s, sizeof(struct species *));
 
-	space ((void **) &logk, INIT, &max_logk, sizeof(struct logk *));
+	space ((void **) ((void *) &logk), INIT, &max_logk, sizeof(struct logk *));
 
-	space ((void **) &master_isotope, INIT, &max_master_isotope, sizeof(struct master_isotope *));
+	space ((void **) ((void *) &master_isotope), INIT, &max_master_isotope, sizeof(struct master_isotope *));
 
         solution = (struct solution **) PHRQ_malloc((size_t) MAX_SOLUTION * sizeof(struct solution *));
 	if (solution == NULL) malloc_error();
@@ -480,19 +480,19 @@ void initialize(void)
 	/* calculate_value */
 	max_calculate_value = MAX_ELTS;
 	count_calculate_value = 0;
-	space ((void **) &calculate_value, INIT, &max_calculate_value, sizeof(struct calculate_value *));
+	space ((void **) ((void *) &calculate_value), INIT, &max_calculate_value, sizeof(struct calculate_value *));
 	hcreate_multi((unsigned) max_calculate_value, &calculate_value_hash_table);
 
 	/* isotope_ratio */
 	max_isotope_ratio = MAX_ELTS;
 	count_isotope_ratio = 0;
-	space ((void **) &isotope_ratio, INIT, &max_isotope_ratio, sizeof(struct isotope_ratio *));
+	space ((void **) ((void *) &isotope_ratio), INIT, &max_isotope_ratio, sizeof(struct isotope_ratio *));
 	hcreate_multi((unsigned) max_isotope_ratio, &isotope_ratio_hash_table);
 
 	/* isotope_value */
 	max_isotope_alpha = MAX_ELTS;
 	count_isotope_alpha = 0;
-	space ((void **) &isotope_alpha, INIT, &max_isotope_alpha, sizeof(struct isotope_alpha *));
+	space ((void **) ((void *) &isotope_alpha), INIT, &max_isotope_alpha, sizeof(struct isotope_alpha *));
 	hcreate_multi((unsigned) max_isotope_alpha, &isotope_alpha_hash_table);
 
 	/* 
@@ -1250,7 +1250,7 @@ static int xexchange_save(int n_user)
 	exchange_ptr = exchange_bsearch(n_user, &n);
 	if (exchange_ptr == NULL) {
 		n = count_exchange++;
-		space ((void **) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	} else {
 		exchange_free(&exchange[n]); 
 	}
@@ -1319,7 +1319,7 @@ static int xgas_save(int n_user)
 	gas_phase_ptr = gas_phase_bsearch(n_user, &n);
 	if (gas_phase_ptr == NULL) {
 		n = count_gas_phase++;
-		space ((void **) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	} else {
 		gas_phase_free(&gas_phase[n]);
 	}
@@ -1396,7 +1396,7 @@ static int xs_s_assemblage_save(int n_user)
  */
 	s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user, &n);
 	if (s_s_assemblage_ptr == NULL) {
-		space ((void **) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		n = count_s_s_assemblage++;
 	} else {
 		s_s_assemblage_free(&s_s_assemblage[n]);
@@ -1463,7 +1463,7 @@ static int xpp_assemblage_save(int n_user)
  */
 	pp_assemblage_ptr = pp_assemblage_bsearch(n_user, &n);
 	if (pp_assemblage_ptr == NULL) {
-		space ((void **) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		n = count_pp_assemblage++;
 	} else {
 		pp_assemblage_free(&pp_assemblage[n]);
@@ -1688,7 +1688,7 @@ int xsolution_save(int n_user)
 	} else {
 		n = count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void **) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_ptr;
@@ -1827,7 +1827,7 @@ static int xsurface_save(int n_user)
 	surface_ptr = surface_bsearch(n_user, &n);
 	if (surface_ptr == NULL) {
 		n = count_surface++;
-		space ((void **) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	} else {
 		surface_free(&surface[n]);
 	}

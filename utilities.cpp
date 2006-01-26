@@ -32,7 +32,7 @@ int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 		
 	for (elt_list_ptr1=elt_list_ptr; elt_list_ptr1->elt != NULL; elt_list_ptr1++) {
 		if (count_elts >= max_elts) {
-			space ((void **) &elt_list, count_elts, &max_elts,
+			space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 			       sizeof(struct elt_list));
 		}
 		elt_list[count_elts].elt = elt_list_ptr1->elt;

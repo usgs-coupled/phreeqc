@@ -864,11 +864,11 @@ int build_mb_sums(void)
  *   Make space for lists
  */
 	if (count_sum_mb1 + count_mb_unknowns >= max_sum_mb1) {
-		space ((void **) &sum_mb1, count_sum_mb1 + count_mb_unknowns,
+		space ((void **) ((void *) &sum_mb1), count_sum_mb1 + count_mb_unknowns,
 		       &max_sum_mb1, sizeof(struct list1));
 	}
 	if (count_sum_mb2 + count_mb_unknowns >= max_sum_mb2) {
-		space ((void **) &sum_mb2, count_sum_mb2 + count_mb_unknowns,
+		space ((void **) ((void *) &sum_mb2), count_sum_mb2 + count_mb_unknowns,
 		       &max_sum_mb2, sizeof(struct list2));
 	}
 
@@ -906,41 +906,41 @@ int build_model(void)
  */
 
 	max_s_x = MAX_S;
-	space ((void **) &s_x, INIT, &max_s_x, sizeof(struct species *));
+	space ((void **) ((void *) &s_x), INIT, &max_s_x, sizeof(struct species *));
 
 	max_sum_mb1=MAX_SUM_MB;
 	count_sum_mb1=0;
-	space ((void **) &sum_mb1, INIT, &max_sum_mb1, sizeof(struct list1));
+	space ((void **) ((void *) &sum_mb1), INIT, &max_sum_mb1, sizeof(struct list1));
 
 	max_sum_mb2=MAX_SUM_MB;
 	count_sum_mb2=0;
-	space ((void **) &sum_mb2, INIT, &max_sum_mb2, sizeof(struct list2));
+	space ((void **) ((void *) &sum_mb2), INIT, &max_sum_mb2, sizeof(struct list2));
 
 	max_sum_jacob0=MAX_SUM_JACOB0;
 	count_sum_jacob0=0;
-	space ((void **) &sum_jacob0, INIT, &max_sum_jacob0,
+	space ((void **) ((void *) &sum_jacob0), INIT, &max_sum_jacob0,
 	       sizeof(struct list0));
 
 	max_sum_jacob1=MAX_SUM_JACOB1;
 	count_sum_jacob1=0;
-	space ((void **) &sum_jacob1, INIT, &max_sum_jacob1,
+	space ((void **) ((void *) &sum_jacob1), INIT, &max_sum_jacob1,
 	       sizeof(struct list1));
 
 	max_sum_jacob2=MAX_SUM_JACOB2;
 	count_sum_jacob2=0;
-	space ((void **) &sum_jacob2, INIT, &max_sum_jacob2,
+	space ((void **) ((void *) &sum_jacob2), INIT, &max_sum_jacob2,
 	       sizeof(struct list2));
 
 
 	max_sum_delta=MAX_SUM_JACOB0;
 	count_sum_delta=0;
-	space ((void **) &sum_delta, INIT, &max_sum_delta,
+	space ((void **) ((void *) &sum_delta), INIT, &max_sum_delta,
 	       sizeof(struct list2));
 
 	max_species_list = 5 * MAX_S;
 	count_species_list = 0;
 	species_list = (struct species_list *) free_check_null(species_list);
-	space ((void **) &species_list, INIT, &max_species_list, 
+	space ((void **) ((void *) &species_list), INIT, &max_species_list, 
 	       sizeof (struct species_list));
 
 /*
@@ -965,7 +965,7 @@ int build_model(void)
 			}
 			if (pitzer_model == FALSE) s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x) {
-				space ((void **) &s_x, count_s_x + 1,
+				space ((void **) ((void *) &s_x), count_s_x + 1,
 				       &max_s_x,
 				       sizeof (struct species *));
 			}
@@ -1333,7 +1333,7 @@ int build_species_list(int n)
  *   Check space and store reaction token name and pointer to species
  */
 	if (count_species_list + count_elts >= max_species_list) {
-		space ((void **) &species_list, count_species_list + count_elts,
+		space ((void **) ((void *) &species_list), count_species_list + count_elts,
 		       &max_species_list, sizeof (struct species_list));
 	}
 /*
@@ -1717,7 +1717,7 @@ int store_mb_unknowns(struct unknown *unknown_ptr, LDBLE *LDBLE_ptr, LDBLE coef,
 {
 	if (equal(coef, 0.0, TOL) == TRUE) return(OK);
 	if ( (count_mb_unknowns + 1) >= max_mb_unknowns) {
-		space ((void **) &mb_unknowns, count_mb_unknowns + 1, &max_mb_unknowns, 
+		space ((void **) ((void *) &mb_unknowns), count_mb_unknowns + 1, &max_mb_unknowns, 
 		       sizeof(struct unknown_list));
 	}
 	mb_unknowns[count_mb_unknowns].unknown = unknown_ptr;
@@ -3072,7 +3072,7 @@ int setup_unknowns (void)
  *   Allocate space for pointer array and structures
  */
 
-	space ((void **) &x, INIT, &max_unknowns, sizeof(struct unknown *));
+	space ((void **) ((void *) &x), INIT, &max_unknowns, sizeof(struct unknown *));
 	for (i = 0; i < max_unknowns; i++) {
 		x[i] = (struct unknown *) unknown_alloc ();
 		x[i]->number = i;
@@ -3165,7 +3165,7 @@ int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_jacob1[count_sum_jacob1++].target = target;
 					                            /*    Check space */
 		if (count_sum_jacob1 >= max_sum_jacob1) {
-			space ((void **) &sum_jacob1, count_sum_jacob1,
+			space ((void **) ((void *) &sum_jacob1), count_sum_jacob1,
 			       &max_sum_jacob1, 
 			       sizeof(struct list1));
 		}
@@ -3178,7 +3178,7 @@ int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_jacob2[count_sum_jacob2++].coef=coef;
 					                            /*    Check space */
 		if (count_sum_jacob2 >= max_sum_jacob2) {
-			space ((void **) &sum_jacob2, count_sum_jacob2, &max_sum_jacob2, 
+			space ((void **) ((void *) &sum_jacob2), count_sum_jacob2, &max_sum_jacob2, 
 			       sizeof(struct list2));
 		}
 	}
@@ -3195,7 +3195,7 @@ int store_jacob0(int row, int column, LDBLE coef)
 	sum_jacob0[count_sum_jacob0++].coef=coef;
 					                            /*    Check space */
 	if (count_sum_jacob0 >= max_sum_jacob0) {
-		space ((void **) &sum_jacob0, count_sum_jacob0,
+		space ((void **) ((void *) &sum_jacob0), count_sum_jacob0,
 		       &max_sum_jacob0, 
 		       sizeof(struct list0));
 	}
@@ -3214,7 +3214,7 @@ int store_mb(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_mb1[count_sum_mb1].source = source;
 		sum_mb1[count_sum_mb1++].target = target;
 		if (count_sum_mb1 >= max_sum_mb1) {
-			space ((void **) &sum_mb1, count_sum_mb1 + count_trxn + 4,
+			space ((void **) ((void *) &sum_mb1), count_sum_mb1 + count_trxn + 4,
 			       &max_sum_mb1, sizeof(struct list1));
 		}
 	} else {
@@ -3222,7 +3222,7 @@ int store_mb(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_mb2[count_sum_mb2].coef = coef;
 		sum_mb2[count_sum_mb2++].target = target;
 		if (count_sum_mb2 >= max_sum_mb2) {
-			space ((void **) &sum_mb2, count_sum_mb2,
+			space ((void **) ((void *) &sum_mb2), count_sum_mb2,
 			       &max_sum_mb2, sizeof(struct list2));
 		}
 	}
@@ -3243,7 +3243,7 @@ int store_sum_deltas(LDBLE *source, LDBLE *target, LDBLE coef)
 	sum_delta[count_sum_delta++].coef=coef;
 					                            /*    Check space */
 	if (count_sum_delta >= max_sum_delta) {
-		space ((void **) &sum_delta, count_sum_delta, &max_sum_delta,
+		space ((void **) ((void *) &sum_delta), count_sum_delta, &max_sum_delta,
 		       sizeof(struct list2));
 	}
 	return(OK);
@@ -3494,7 +3494,7 @@ int write_mb_for_species_list (int n)
 	for (i = 0; i < count_elts; i++) {
 		if (strcmp(elt_list[i].elt->name, "O(-2)") == 0) {
 			if (count_elts >= max_elts) {
-				space ((void **) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			elt_list[count_elts].elt = element_h_one;
@@ -3543,7 +3543,7 @@ int write_phase_sys_total (int n)
 	for (i = 0; i < count_elts; i++) {
 		if (strcmp(elt_list[i].elt->name, "O(-2)") == 0) {
 			if (count_elts >= max_elts) {
-				space ((void **) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			elt_list[count_elts].elt = element_h_one;

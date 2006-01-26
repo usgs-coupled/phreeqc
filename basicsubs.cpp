@@ -967,7 +967,7 @@ LDBLE system_total(char *total_name, LDBLE *count, char ***names, char ***types,
 	sys_tot = 0;
 	count_sys = 0;
 	max_sys = 100;
-	space ((void **) &sys, INIT, &max_sys, sizeof (struct system_species));
+	space ((void **) ((void *) &sys), INIT, &max_sys, sizeof (struct system_species));
 	if (strcmp_nocase(total_name,"elements") == 0) {
 		system_total_elements();
 	} else if (strcmp_nocase(total_name,"phases") == 0) {
@@ -1047,13 +1047,13 @@ int system_total_elements(void)
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	sys[count_sys].name = string_duplicate("O");
 	sys[count_sys].moles = total_o_x;
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	/*
 	 * Include H(1) and O(-2)
 	 */
@@ -1062,13 +1062,13 @@ int system_total_elements(void)
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	sys[count_sys].name = string_duplicate("O(-2)");
 	sys[count_sys].moles = solution_sum_secondary("O(-2)");
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 
 	for (i = 0; i < count_master; i++) {
 		master_ptr=master[i];
@@ -1117,7 +1117,7 @@ int system_total_elements(void)
 			sys[count_sys].type = string_duplicate("surf");
 		}
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 
 	}
         return(OK);
@@ -1148,7 +1148,7 @@ int system_total_si(void)
 		if (si > sys_tot) sys_tot = si;
 		sys[count_sys].type = string_duplicate("phase");
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
         return(OK);
 }
@@ -1170,7 +1170,7 @@ int system_total_aq(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("aq");
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1193,7 +1193,7 @@ int system_total_ex(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("ex");
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1215,7 +1215,7 @@ int system_total_surf(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("surf");
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1238,7 +1238,7 @@ int system_total_gas(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("gas");
 		count_sys++;
-		space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1262,7 +1262,7 @@ int system_total_s_s(void)
 			sys_tot += sys[count_sys].moles;
 			sys[count_sys].type = string_duplicate("s_s");
 			count_sys++;
-			space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+			space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 		}
 	}
 	return(OK);
@@ -1315,7 +1315,7 @@ int system_total_elt(char *total_name)
 					error_msg("System_total", STOP);
 				}
 				count_sys++;
-				space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1363,7 +1363,7 @@ int system_total_elt(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("diff");
 					count_sys++;
-					space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1391,7 +1391,7 @@ int system_total_elt(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
 					count_sys++;
-					space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1419,7 +1419,7 @@ int system_total_elt(char *total_name)
 							sys_tot += sys[count_sys].moles;
 							sys[count_sys].type = string_duplicate("s_s");
 							count_sys++;
-							space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+							space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 							break;
 						}
 					}
@@ -1452,7 +1452,7 @@ int system_total_elt(char *total_name)
 						sys_tot += sys[count_sys].moles;
 						sys[count_sys].type = string_duplicate("gas");
 						count_sys++;
-						space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+						space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 						break;
 					}
 				}
@@ -1517,7 +1517,7 @@ int system_total_elt_secondary(char *total_name)
 					error_msg("System_total", STOP);
 				}
 				count_sys++;
-				space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1564,7 +1564,7 @@ int system_total_elt_secondary(char *total_name)
 				sys_tot += sys[count_sys].moles;
 				sys[count_sys].type = string_duplicate("diff");
 				count_sys++;
-				space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1597,7 +1597,7 @@ int system_total_elt_secondary(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
 					count_sys++;
-					space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1625,7 +1625,7 @@ int system_total_elt_secondary(char *total_name)
 							sys_tot += sys[count_sys].moles;
 							sys[count_sys].type = string_duplicate("s_s");
 							count_sys++;
-							space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+							space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 							break;
 						}
 					}
@@ -1658,7 +1658,7 @@ int system_total_elt_secondary(char *total_name)
 						sys_tot += sys[count_sys].moles;
 						sys[count_sys].type = string_duplicate("gas");
 						count_sys++;
-						space ((void **) &sys, count_sys, &max_sys, sizeof(struct system_species));
+						space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 						break;
 					}
 				}

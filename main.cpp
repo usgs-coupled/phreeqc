@@ -4,9 +4,10 @@
 #include "phrqproto.h"
 #include "input.h"
 
-#define PHREEQC_XML
+/*#define PHREEQC_XML*/
 #ifdef PHREEQC_XML
 #include "SAXPhreeqc.h"
+extern void SAX_cleanup(void);
 #endif
 
 static char const svnid[] = "$Id: main.c 715 2006-01-18 01:26:29Z dlpark $";
@@ -14,7 +15,6 @@ static char const svnid[] = "$Id: main.c 715 2006-01-18 01:26:29Z dlpark $";
 #ifdef DOS
 static int write_banner(void);
 #endif
-extern void SAX_cleanup(void);
 
 /* ----------------------------------------------------------------------
  *   MAIN
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 		clean_up();
 		return errors;
 	}
-#ifdef SKIP
+#ifdef PHREEQC_XML
 {
 	 int n;
 		SAX_StartSystem();
@@ -102,7 +102,9 @@ int main(int argc, char *argv[])
 	clean_up();
 	close_input_files();
 	close_output_files();
+#ifdef PHREEQC_XML
 	SAX_cleanup();
+#endif
 	return 0;
 }
 /* ---------------------------------------------------------------------- */

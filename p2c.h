@@ -284,7 +284,7 @@ typedef struct {
 #endif
 
 
-//extern Void    PASCAL_MAIN  P2PP( (int, Char **) );
+/*extern Void    PASCAL_MAIN  P2PP( (int, Char **) );*/
 extern Void    PASCAL_MAIN  (int, Char **) ;
 /*
 extern Char    **P_argv;
@@ -331,9 +331,9 @@ extern Void     free        P2PP( (Anyptr) );
 extern int      _OutMem     PV();
 extern int      _CaseCheck  PV();
 extern int      _NilCheck   PV();
-//extern int	_Escape     P2PP( (int) );
+/*extern int	_Escape     P2PP( (int) );*/
 extern int _Escape(int);
-//extern int	_EscIO      P2PP( (int) );
+/*extern int	_EscIO      P2PP( (int) );*/
 extern int _EscIO (int);
 extern long     ipow        P2PP( (long, long) );
 extern Char    *strsub      P2PP( (Char *, Char *, int, int) );

@@ -475,7 +475,7 @@ struct element *element_store (char *element)
 	elements[count_elements]->gfw = 0.0;
 	n = count_elements++;
 	if (count_elements >= max_elements) {
-		space ((void **) &elements, count_elements, &max_elements, sizeof(struct element *));
+		space ((void **) ((void *) &elements), count_elements, &max_elements, sizeof(struct element *));
 	}
 /*
  *   Update hash table
@@ -757,7 +757,7 @@ int exchange_copy_to_last(int n, int n_user)
  *   Copies an exchange definition from position n to position count_exchange.
  *   New exchange structure is given user number n_user.
  */
-	space ((void **) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+	space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	exchange_copy(&exchange[n], &exchange[count_exchange], n_user);
 	count_exchange++;
 	return(OK);
@@ -823,7 +823,7 @@ int exchange_duplicate(int n_user_old, int n_user_new)
 	if (exchange_ptr_new != NULL) {
 		exchange_free(exchange_ptr_new);
 	} else {
-		space ((void **) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 		if (n_user_new < exchange[count_exchange-1].n_user) sort = TRUE;
 		n_new = count_exchange++;
 	}
@@ -908,7 +908,7 @@ int exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
 	if (exchange_ptr_new != NULL) {
 		exchange_free(exchange_ptr_new);
 	} else {
-		space ((void **) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 		if (n_user_new < exchange[count_exchange-1].n_user) sort = TRUE;
 		n_new = count_exchange++;
 	}
@@ -1090,7 +1090,7 @@ int gas_phase_copy_to_last(int n, int n_user)
 /*
  *   Copies an gas_phase definition to position count_gas_phase.
  */
-	space ((void **) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+	space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	gas_phase_copy(&gas_phase[n], &gas_phase[count_gas_phase], n_user);
 	count_gas_phase++;
 	return(OK);
@@ -1158,7 +1158,7 @@ int gas_phase_duplicate(int n_user_old, int n_user_new)
 		gas_phase[n_new].comps = free_check_null (gas_phase[n_new].comps);
 #endif
 	} else {
-		space ((void **) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 		if (n_user_new < gas_phase[count_gas_phase-1].n_user) sort = TRUE;
 		n_new = count_gas_phase++;
 	}
@@ -1242,7 +1242,7 @@ int gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 		gas_phase[n_new].comps = free_check_null (gas_phase[n_new].comps);
 #endif
 	} else {
-		space ((void **) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 		if (n_user_new < gas_phase[count_gas_phase-1].n_user) sort = TRUE;
 		n_new = count_gas_phase++;
 	}
@@ -1933,7 +1933,7 @@ int kinetics_copy_to_last(int n, int n_user)
  *   Copies an kinetics definition from position n to position count_kinetics.
  *   New kinetics structure is given user number n_user.
  */
-	space ((void **) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+	space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 	kinetics_copy(&kinetics[n], &kinetics[count_kinetics], n_user);
 	count_kinetics++;
 	return(OK);
@@ -1998,7 +1998,7 @@ int kinetics_duplicate(int n_user_old, int n_user_new)
 	if (kinetics_ptr_new != NULL) {
 		kinetics_free(kinetics_ptr_new);
 	} else {
-		space ((void **) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		if (n_user_new < kinetics[count_kinetics-1].n_user) sort = TRUE;
 		n_new = count_kinetics++;
 	}
@@ -2085,7 +2085,7 @@ int kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
 	if (kinetics_ptr_new != NULL) {
 		kinetics_free(kinetics_ptr_new);
 	} else {
-		space ((void **) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		if (n_user_new < kinetics[count_kinetics-1].n_user) sort = TRUE;
 		n_new = count_kinetics++;
 	}
@@ -2802,7 +2802,7 @@ struct phase  *phase_store (char *name)
                                        /* make sure there is space in phases */
 	n = count_phases++;
 	if (count_phases >= max_phases) {
-		space ((void **) &phases, count_phases, &max_phases, sizeof(struct phase *));
+		space ((void **) ((void *) &phases), count_phases, &max_phases, sizeof(struct phase *));
 	}
 	phases[n]=phase_alloc();
 		                       /* set name in phase structure */
@@ -3017,7 +3017,7 @@ int pp_assemblage_copy_to_last(int n, int n_user)
  *   Copies an pp_assemblage definition from position n
  *   to position count_pp_assemblage.
  */
-	space ((void **) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+	space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 	pp_assemblage_copy(&pp_assemblage[n], &pp_assemblage[count_pp_assemblage], n_user);
 	count_pp_assemblage++;
 	return(OK);
@@ -3053,7 +3053,7 @@ int pp_assemblage_duplicate(int n_user_old, int n_user_new)
 	if (pp_assemblage_ptr_new != NULL) {
 		pp_assemblage_free(pp_assemblage_ptr_new);
 	} else {
-		space ((void **) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		if (n_user_new < pp_assemblage[count_pp_assemblage-1].n_user) sort = TRUE;
 		n_new = count_pp_assemblage++;
 	}
@@ -3160,7 +3160,7 @@ int pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old, int n
 	if (pp_assemblage_ptr_new != NULL) {
 		pp_assemblage_free(pp_assemblage_ptr_new);
 	} else {
-		space ((void **) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		if (n_user_new < pp_assemblage[count_pp_assemblage-1].n_user) sort = TRUE;
 		n_new = count_pp_assemblage++;
 	}
@@ -3651,7 +3651,7 @@ struct species  *s_store (char *name, LDBLE z, int replace_if_found)
 		n = count_s++;
                                        /* make sure there is space in s */
 		if (count_s >= max_s) {
-			space ((void **) &s, count_s, &max_s, sizeof(struct species *));
+			space ((void **) ((void *) &s), count_s, &max_s, sizeof(struct species *));
 		}
 		                       /* Make new species structure */
 		s[n] = s_alloc();
@@ -3803,7 +3803,7 @@ int s_s_assemblage_copy_to_last(int n, int n_user)
  *   Copies an s_s_assemblage definition from position n
  *   to position count_s_s_assemblage.
  */
-	space ((void **) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+	space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 	s_s_assemblage_copy(&s_s_assemblage[n], &s_s_assemblage[count_s_s_assemblage], n_user);
 	count_s_s_assemblage++;
 	return(OK);
@@ -3839,7 +3839,7 @@ int s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 	if (s_s_assemblage_ptr_new != NULL) {
 		s_s_assemblage_free(s_s_assemblage_ptr_new);
 	} else {
-		space ((void **) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		if (n_user_new < s_s_assemblage[count_s_s_assemblage-1].n_user) sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
@@ -3940,7 +3940,7 @@ int s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old, in
 	if (s_s_assemblage_ptr_new != NULL) {
 		s_s_assemblage_free(s_s_assemblage_ptr_new);
 	} else {
-		space ((void **) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		if (n_user_new < s_s_assemblage[count_s_s_assemblage-1].n_user) sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
@@ -4364,7 +4364,7 @@ int solution_copy_to_last(int n, int n_user_new)
  */
                                  /* Make sure solution array is large enough */
 	if (count_solution + 1 >= max_solution) {
-		space ((void **) &(solution), count_solution, &max_solution,
+		space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 		       sizeof (struct solution *) );
 	}
                                  /* malloc space and copy solution */
@@ -4416,7 +4416,7 @@ int solution_duplicate(int n_user_old, int n_user_new)
  *   Make sure surface array is large enough
  */
 	if (count_solution >= max_solution) {
-		space ((void **) &(solution), count_solution, &max_solution,
+		space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 		       sizeof (struct solution *) );
 	}
 /*
@@ -4503,7 +4503,7 @@ int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
 		 *   Make sure surface array is large enough
 		 */
 		if (count_solution >= max_solution) {
-			space ((void **) &(solution), count_solution, &max_solution,
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 			       sizeof (struct solution *) );
 		}
 		if (n_user_new > solution[n-1]->n_user) {
@@ -4815,7 +4815,7 @@ int surface_copy_to_last(int n, int n_user)
 /*
  *   Copies an surface definition to position count_surface.
  */
-	space ((void **) &surface, count_surface, &max_surface, sizeof(struct surface));
+	space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	surface_copy(&surface[n], &surface[count_surface], n_user);
 	count_surface++;
 	return(OK);
@@ -4851,7 +4851,7 @@ int surface_duplicate(int n_user_old, int n_user_new)
 	if (surface_ptr_new != NULL) {
 		surface_free(surface_ptr_new);
 	} else {
-		space ((void **) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 		if (n_user_new < surface[count_surface-1].n_user) sort = TRUE;
 		n_new = count_surface++;
 	}
@@ -4996,7 +4996,7 @@ int surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
 	if (surface_ptr_new != NULL) {
 		surface_free(surface_ptr_new);
 	} else {
-		space ((void **) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 		if (n_user_new < surface[count_surface-1].n_user) sort = TRUE;
 		n_new = count_surface++;
 	}
@@ -5661,7 +5661,7 @@ struct logk  *logk_store (char *name, int replace_if_found)
 		n = count_logk++;
                                        /* make sure there is space in s */
 		if (count_logk >= max_logk) {
-			space ((void **) &logk, count_logk, &max_logk, sizeof(struct logk *));
+			space ((void **) ((void *) &logk), count_logk, &max_logk, sizeof(struct logk *));
 		}
 		                       /* Make new logk structure */
 		logk[n] = logk_alloc();

@@ -484,7 +484,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 	} else {
 		n=count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void **) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_alloc();

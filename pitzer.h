@@ -1,13 +1,7 @@
 typedef enum { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA, TYPE_PSI, TYPE_ETHETA, TYPE_Other } pitz_param_type;
 
 
-//#ifdef PITZER
-/* COMMON /MX10/ */
 PITZER_EXTERNAL double VP, DW0;
-//#else
-/* COMMON /MX10/ */
-//extern double VP, DW0;
-//#endif
 
 struct pitz_param {
 	char * species[3];
