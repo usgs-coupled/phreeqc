@@ -534,7 +534,7 @@ int get_elts_in_species (char **t_ptr, LDBLE coef)
 				return(ERROR);
 			}
 			if (count_elts >= max_elts) {
-				space ((void *) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			elt_list[count_elts].elt = element_store ( element );
@@ -547,7 +547,7 @@ int get_elts_in_species (char **t_ptr, LDBLE coef)
  *   Expand working space for elements if necessary
  */
 			if (count_elts >= max_elts) {
-				space ((void *) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			continue;
@@ -759,7 +759,7 @@ int get_secondary_in_species (char **t_ptr, LDBLE coef)
  *   Expand working space for elements if necessary
  */
 			if (count_elts >= max_elts) {
-				space ((void *) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			continue;
@@ -888,7 +888,7 @@ int get_species (char **ptr)
 	int l;
 
 	if (count_trxn + 1 >= max_trxn) {
-		space ((void *) &(trxn.token), count_trxn+1, &max_trxn,
+		space ((void **) &(trxn.token), count_trxn+1, &max_trxn,
 		       sizeof(struct rxn_token_temp));
 	}
 	                                                       /* coefficient */

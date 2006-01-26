@@ -32,7 +32,7 @@ int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 		
 	for (elt_list_ptr1=elt_list_ptr; elt_list_ptr1->elt != NULL; elt_list_ptr1++) {
 		if (count_elts >= max_elts) {
-			space ((void *) &elt_list, count_elts, &max_elts,
+			space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 			       sizeof(struct elt_list));
 		}
 		elt_list[count_elts].elt = elt_list_ptr1->elt;
@@ -265,7 +265,7 @@ int dup_print(const char *ptr, int emphasis)
 		output_msg(OUTPUT_MESSAGE,"%s\n\n", ptr);
 		output_msg(OUTPUT_LOG,"%s\n\n", ptr);
 	}
-	dash = free_check_null(dash);
+	dash = (char*) free_check_null(dash);
 
 	return(OK);
 }
@@ -834,7 +834,7 @@ char *string_hsave (const char *str)
 		count_strings++;
 		return(new_string);
 	}
-	new_string = free_check_null(new_string);
+	new_string = (char*) free_check_null(new_string);
 	return(found_item->key);
 }
 /* ---------------------------------------------------------------------- */
@@ -1187,7 +1187,7 @@ ENTRY * hsearch_multi(HashTable *Table, ENTRY item, ACTION action)
     ** Initialize new element
     */
     q->Key = item.key;
-    q->Data = item.data;
+    q->Data =(char*) item.data;
     /*
     ** cleared by calloc(3)
     q->Next = NULL;
@@ -1313,7 +1313,7 @@ void free_hash_strings(HashTable *Table)
 			    p = seg[j];
 			    while (p != NULL) {
 				    q = p->Next;
-				    p->Data = free_check_null((void*)p->Data);
+				    p->Data = (char*) free_check_null((void*)p->Data);
 				    p = q;
 			    }
 		    }

@@ -177,7 +177,7 @@ int read_calculate_values (void)
 	n = -1;
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -219,7 +219,7 @@ int read_calculate_values (void)
 			}				
 			calculate_value_ptr = calculate_value_store(token, TRUE);
 			calculate_value_ptr->new_def = TRUE;
-			calculate_value_ptr->commands = PHRQ_malloc(sizeof(char));
+			calculate_value_ptr->commands = (char *) PHRQ_malloc(sizeof(char));
 			if (calculate_value_ptr->commands == NULL) malloc_error();
 			calculate_value_ptr->commands[0] = '\0';
 			calculate_value_ptr->linebase = NULL;
@@ -231,7 +231,7 @@ int read_calculate_values (void)
 		    case OPT_1:          /* read command */
 			length = strlen(calculate_value_ptr->commands);
 			line_length = strlen(line);
-			calculate_value_ptr->commands = PHRQ_realloc(calculate_value_ptr->commands, (size_t) (length + line_length + 2) * sizeof(char));
+			calculate_value_ptr->commands = (char *) PHRQ_realloc(calculate_value_ptr->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (calculate_value_ptr->commands == NULL) malloc_error();
 			calculate_value_ptr->commands[length] = ';';
 			calculate_value_ptr->commands[length + 1] = '\0';
@@ -280,7 +280,7 @@ int read_isotope_ratios (void)
 	n = -1;
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -368,7 +368,7 @@ int read_isotope_alphas (void)
 	n = -1;
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -1014,7 +1014,7 @@ struct master_isotope  *master_isotope_store (char *name, int replace_if_found)
 		n = count_master_isotope++;
                                        /* make sure there is space in s */
 		if (count_master_isotope >= max_master_isotope) {
-			space ((void *) &master_isotope, count_master_isotope, &max_master_isotope, sizeof(struct master_isotope *));
+			space ((void **) ((void *) &master_isotope), count_master_isotope, &max_master_isotope, sizeof(struct master_isotope *));
 		}
 		                       /* Make new master_isotope structure */
 		master_isotope[n] = master_isotope_alloc();
@@ -1150,7 +1150,7 @@ struct calculate_value  *calculate_value_store (char *name, int replace_if_found
 		n = count_calculate_value++;
                                        /* make sure there is space in s */
 		if (count_calculate_value >= max_calculate_value) {
-			space ((void *) &calculate_value, count_calculate_value, &max_calculate_value, sizeof(struct calculate_value *));
+			space ((void **) ((void *) &calculate_value), count_calculate_value, &max_calculate_value, sizeof(struct calculate_value *));
 		}
 		                       /* Make new calculate_value structure */
 		calculate_value[n] = calculate_value_alloc();
@@ -1252,7 +1252,7 @@ int calculate_value_free(struct calculate_value *calculate_value_ptr)
  	char cmd[] = "new; quit";
 
 	if (calculate_value_ptr == NULL) return(ERROR);
-	calculate_value_ptr->commands = free_check_null(calculate_value_ptr->commands);
+	calculate_value_ptr->commands = (char *) free_check_null(calculate_value_ptr->commands);
 	basic_run(cmd, calculate_value_ptr->linebase, calculate_value_ptr->varbase, calculate_value_ptr->loopbase);
 	calculate_value_ptr->linebase = NULL;
 	calculate_value_ptr->varbase = NULL;
@@ -1310,7 +1310,7 @@ struct isotope_ratio  *isotope_ratio_store (char *name, int replace_if_found)
 		n = count_isotope_ratio++;
                                        /* make sure there is space in s */
 		if (count_isotope_ratio >= max_isotope_ratio) {
-			space ((void *) &isotope_ratio, count_isotope_ratio, &max_isotope_ratio, sizeof(struct isotope_ratio *));
+			space ((void **) ((void *) &isotope_ratio), count_isotope_ratio, &max_isotope_ratio, sizeof(struct isotope_ratio *));
 		}
 		                       /* Make new isotope_ratio structure */
 		isotope_ratio[n] = isotope_ratio_alloc();
@@ -1450,7 +1450,7 @@ struct isotope_alpha  *isotope_alpha_store (char *name, int replace_if_found)
 		n = count_isotope_alpha++;
                                        /* make sure there is space in s */
 		if (count_isotope_alpha >= max_isotope_alpha) {
-			space ((void *) &isotope_alpha, count_isotope_alpha, &max_isotope_alpha, sizeof(struct isotope_alpha *));
+			space ((void **) ((void *) &isotope_alpha), count_isotope_alpha, &max_isotope_alpha, sizeof(struct isotope_alpha *));
 		}
 		                       /* Make new isotope_alpha structure */
 		isotope_alpha[n] = isotope_alpha_alloc();

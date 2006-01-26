@@ -2,6 +2,7 @@
 #include "global.h"
 #include "phrqproto.h"
 #include "output.h"
+#define PITZER_EXTERNAL extern
 #include "pitzer.h"
 
 static int BB (double T);

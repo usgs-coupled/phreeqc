@@ -103,13 +103,13 @@ int read_transport (void)
 		old_cells = count_cells;
 	}
         count_length = count_disp = count_punch = count_print = 0;
-	length = PHRQ_malloc(sizeof(LDBLE));
+	length = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (length == NULL) malloc_error();
-	disp = PHRQ_malloc(sizeof(LDBLE));
+	disp = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (disp == NULL) malloc_error();
-	punch_temp = PHRQ_malloc(sizeof(int));
+	punch_temp = (int *) PHRQ_malloc(sizeof(int));
 	if (punch_temp == NULL) malloc_error();
-	print_temp = PHRQ_malloc(sizeof(int));
+	print_temp = (int *) PHRQ_malloc(sizeof(int));
 	if (print_temp == NULL) malloc_error();
         count_length_alloc = count_disp_alloc = 1;
 	transport_start = 1;
@@ -118,7 +118,7 @@ int read_transport (void)
  */
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 /*
  *   Set use data to last read
  */
@@ -596,10 +596,10 @@ int read_transport (void)
 /*
  *   free storage for length, disp, punch
  */
-	length = free_check_null(length);
-	disp = free_check_null(disp);
-	punch_temp = free_check_null(punch_temp);
-	print_temp = free_check_null(print_temp);
+	length = (LDBLE *) free_check_null(length);
+	disp = (LDBLE *) free_check_null(disp);
+	punch_temp = (int *) free_check_null(punch_temp);
+	print_temp = (int *) free_check_null(print_temp);
 
 	if (dump_in == TRUE) {
 		if(output_open(OUTPUT_DUMP, file_name) != OK) {
@@ -637,7 +637,7 @@ int read_line_LDBLEs(char *next_char, LDBLE **d, int *count_d, int *count_alloc)
 		for (;;) {
 			if ((*count_d) + n > (*count_alloc)) {
 				*count_alloc *= 2;
-				*d = PHRQ_realloc(*d, (size_t) (*count_alloc) * sizeof(LDBLE));
+				*d = (LDBLE *) PHRQ_realloc(*d, (size_t) (*count_alloc) * sizeof(LDBLE));
 				if (*d == NULL ) malloc_error();
 			} else {
 				break;

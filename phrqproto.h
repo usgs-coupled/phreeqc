@@ -398,6 +398,7 @@ int save_values_sort(void);
 int save_values_store(struct save_values *s_v);
 
 int conc_compare(const void *ptr1, const void *ptr2);
+int conc_init (struct conc *conc_ptr);
 int isotope_compare (const void *ptr1, const void *ptr2);
 struct solution *solution_alloc(void);
 struct solution *solution_bsearch (int k, int *n, int print);

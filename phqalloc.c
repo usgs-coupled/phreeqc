@@ -58,7 +58,7 @@ void *PHRQ_malloc( size_t size)
 
 #if !defined(NDEBUG)
 	p->size = sizeof(PHRQMemHeader) + size;
-	p->szFileName = malloc(strlen(szFileName) + 1);
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName) strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif
@@ -163,7 +163,7 @@ void *PHRQ_calloc( size_t num,
 
 #if !defined(NDEBUG)
 	p->size = sizeof(PHRQMemHeader) + size * num;
-	p->szFileName = malloc(strlen(szFileName) + 1);
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName) strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif
@@ -235,7 +235,7 @@ void *PHRQ_realloc( void *ptr,
 
 #if !defined(NDEBUG)
 	free(p->szFileName);	
-	p->szFileName = malloc(strlen(szFileName) + 1);
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName) strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif

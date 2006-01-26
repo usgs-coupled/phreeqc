@@ -89,7 +89,7 @@ int read_solution_spread(void)
 	heading = NULL;
 	units = NULL;
 	defaults.count_iso = count_iso_defaults;
-	defaults.iso = PHRQ_malloc((size_t) defaults.count_iso * sizeof(struct iso));
+	defaults.iso = (struct iso *) PHRQ_malloc((size_t) defaults.count_iso * sizeof(struct iso));
 	if (defaults.iso == NULL) malloc_error();
 	memcpy(defaults.iso, iso_defaults, (size_t) defaults.count_iso * sizeof(struct iso));
 	return_value = UNKNOWN;
@@ -306,7 +306,7 @@ int read_solution_spread(void)
 				}
 			}
 			if (i == defaults.count_iso) {
-				defaults.iso = PHRQ_realloc(defaults.iso, (size_t) (i+1) * sizeof(struct iso));
+				defaults.iso = (struct iso *) PHRQ_realloc(defaults.iso, (size_t) (i+1) * sizeof(struct iso));
 				if (defaults.iso == NULL) malloc_error();
 				defaults.iso[i].name = string_duplicate(token);
 				defaults.iso[i].value = NAN;
@@ -352,7 +352,7 @@ int read_solution_spread(void)
 				}
 			}
 			if (i == defaults.count_iso) {
-				defaults.iso = PHRQ_realloc(defaults.iso, (size_t) (i+1) * sizeof(struct iso));
+				defaults.iso = (struct iso *) PHRQ_realloc(defaults.iso, (size_t) (i+1) * sizeof(struct iso));
 				if (defaults.iso == NULL) malloc_error();
 				defaults.iso[i].name = string_duplicate(token);
 				defaults.iso[i].value = NAN;
@@ -399,9 +399,9 @@ int read_solution_spread(void)
 	spread_row_free(units);
 	/* free non-default iso names */
 	for (i = count_iso_defaults; i < defaults.count_iso; i++) {
-	  defaults.iso[i].name = free_check_null(defaults.iso[i].name);
+	  defaults.iso[i].name = (char *) free_check_null(defaults.iso[i].name);
 	}
-	defaults.iso = free_check_null(defaults.iso);
+	defaults.iso = (struct iso *) free_check_null(defaults.iso);
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
@@ -469,7 +469,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		strcpy(string, "solution_s ");
 		strcat(string, data->char_vector[i]);
 		ptr = string;
-		description = free_check_null(description);
+		description = (char *) free_check_null(description);
 		next_keyword_save = next_keyword;
 		next_keyword = 42;
 		read_number_description (ptr, &n_user, &n_user_end, &description);
@@ -484,7 +484,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 	} else {
 		n=count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void *) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_alloc();
@@ -621,7 +621,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 				error_msg(error_string, CONTINUE);
 				continue;
 		        }
-			solution[n]->isotopes = PHRQ_realloc(solution[n]->isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
+			solution[n]->isotopes = (struct isotope *) PHRQ_realloc(solution[n]->isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
 			if (solution[n]->isotopes == NULL) malloc_error();
 			/* read and save element name */
 			ptr1 = token;
@@ -683,7 +683,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		    case 11:                        /* description */
 		    case 12:                        /* desc */
 		    case 13:                        /* descriptor */
-			    solution[n]->description = free_check_null(solution[n]->description);
+			    solution[n]->description = (char *) free_check_null(solution[n]->description);
 			    solution[n]->description = string_duplicate(next_char);
 			    break;
 		    case OPTION_DEFAULT:
@@ -703,7 +703,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 			break;
 		}
 		if (count_mass_balance + 1 >= max_mass_balance) {
-			space ((void *) &(solution[n]->totals), count_mass_balance + 1,
+			space ((void **) &(solution[n]->totals), count_mass_balance + 1,
 			       &max_mass_balance, sizeof (struct conc));
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -749,7 +749,7 @@ int spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		       (size_t) sizeof(struct isotope),
 		       isotope_compare);
  	} else {
-		solution[n]->isotopes = free_check_null(solution[n]->isotopes);
+		solution[n]->isotopes = (struct isotope *) free_check_null(solution[n]->isotopes);
 	}
 	return(return_value);
 }
@@ -816,9 +816,9 @@ struct spread_row *string_to_spread_row(char *string)
  *   Clean up and return
  */
 	if (spread_row_ptr->count == 0) {
-		spread_row_ptr->char_vector = free_check_null(spread_row_ptr->char_vector);
-		spread_row_ptr->d_vector = free_check_null(spread_row_ptr->d_vector);
-		spread_row_ptr->type_vector = free_check_null(spread_row_ptr->type_vector);
+		spread_row_ptr->char_vector = (char **) free_check_null(spread_row_ptr->char_vector);
+		spread_row_ptr->d_vector = (LDBLE *) free_check_null(spread_row_ptr->d_vector);
+		spread_row_ptr->type_vector = (int *) free_check_null(spread_row_ptr->type_vector);
 	} else {
 		spread_row_ptr->char_vector = (char **) PHRQ_realloc(spread_row_ptr->char_vector, (size_t) spread_row_ptr->count * sizeof(char *));
 		if (spread_row_ptr->char_vector == NULL) malloc_error();
@@ -838,13 +838,13 @@ int spread_row_free(struct spread_row *spread_row_ptr)
 
 	if (spread_row_ptr == NULL) return(OK);
 	for (i = 0; i< spread_row_ptr->count; i++) {
-		spread_row_ptr->char_vector[i] = free_check_null(spread_row_ptr->char_vector[i]);
+		spread_row_ptr->char_vector[i] = (char *) free_check_null(spread_row_ptr->char_vector[i]);
 	}
 
-	spread_row_ptr->char_vector = free_check_null(spread_row_ptr->char_vector);
-	spread_row_ptr->d_vector = free_check_null(spread_row_ptr->d_vector);
-	spread_row_ptr->type_vector = free_check_null(spread_row_ptr->type_vector);
-	spread_row_ptr = free_check_null(spread_row_ptr);
+	spread_row_ptr->char_vector = (char **) free_check_null(spread_row_ptr->char_vector);
+	spread_row_ptr->d_vector = (double *) free_check_null(spread_row_ptr->d_vector);
+	spread_row_ptr->type_vector = (int *) free_check_null(spread_row_ptr->type_vector);
+	spread_row_ptr = (struct spread_row *) free_check_null(spread_row_ptr);
 	return(OK);
 }
 

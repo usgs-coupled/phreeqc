@@ -472,7 +472,7 @@ int init_mix(void)
         int i, n, nmix, count_comps, max_mix;
         LDBLE *m;
 
-        m = PHRQ_malloc((count_cells+1)*sizeof(LDBLE));
+        m = (LDBLE *) PHRQ_malloc((count_cells+1)*sizeof(LDBLE));
         if (m == NULL) malloc_error();
 
 /*
@@ -573,7 +573,7 @@ int init_mix(void)
                 for (i=1; i<=count_cells; i++) {
                         dav = 0;
                         count_comps = 0;
-			mix[n].description = free_check_null(mix[n].description);
+			mix[n].description = (char *) free_check_null(mix[n].description);
                         mix[n].description = string_duplicate(" ");
 /*
  * max_mix brings n_user outside range of active cells
@@ -598,7 +598,7 @@ int init_mix(void)
                         n++;
                 }
         }
-        m = free_check_null(m);
+        m = (LDBLE *) free_check_null(m);
         return(nmix);
 }
 /* ---------------------------------------------------------------------- */
@@ -713,11 +713,11 @@ int init_heat_mix(int nmix)
 /*
  * Initialize arrays...
  */
-        heat_mix_array = PHRQ_malloc((count_cells+2)*sizeof(LDBLE));
+        heat_mix_array = (LDBLE *) PHRQ_malloc((count_cells+2)*sizeof(LDBLE));
         if (heat_mix_array == NULL) malloc_error();
-        temp1 = PHRQ_malloc((count_cells + 2)*sizeof(LDBLE));
+        temp1 = (LDBLE *) PHRQ_malloc((count_cells + 2)*sizeof(LDBLE));
         if (temp1 == NULL) malloc_error();
-        temp2 = PHRQ_malloc((count_cells + 2)*sizeof(LDBLE));
+        temp2 = (LDBLE *) PHRQ_malloc((count_cells + 2)*sizeof(LDBLE));
         if (temp2 == NULL) malloc_error();
 /*
  * Define mixing factors among inner cells...

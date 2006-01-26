@@ -133,7 +133,7 @@ int read_input(void)
 	save.surface = FALSE;
 	save.gas_phase = FALSE;
 	save.s_s_assemblage = FALSE;
-	title_x = free_check_null(title_x);
+	title_x = (char *) free_check_null(title_x);
 
 	while ( (i = check_line("Subroutine Read", FALSE, TRUE, TRUE, TRUE)) != KEYWORD) {
                                 		/* empty, eof, keyword, print */
@@ -408,7 +408,7 @@ int read_input(void)
 				if (string_trim(user_database) == EMPTY) {
 					error_msg("DATABASE file name is missing.", CONTINUE);
 					input_error++;
-					user_database = free_check_null(user_database);
+					user_database = (char *) free_check_null(user_database);
 				}
 				first_read_input = FALSE;
 			}
@@ -466,6 +466,7 @@ int read_conc(int n, int count_mass_balance, char *str)
 /*
  *   Set defaults
  */
+	/*
 	solution[n]->totals[count_mass_balance].equation_name = NULL;
 	solution[n]->totals[count_mass_balance].phase = NULL;
 	solution[n]->totals[count_mass_balance].phase_si = 0.0;
@@ -473,6 +474,9 @@ int read_conc(int n, int count_mass_balance, char *str)
 	solution[n]->totals[count_mass_balance].n_pe=-1;
 	solution[n]->totals[count_mass_balance].as=NULL;
 	solution[n]->totals[count_mass_balance].gfw= 0.0;
+    */
+	conc_init(&(solution[n]->totals[count_mass_balance]));
+
 /*
  *   Remove space between "kg" and "solution" or "water" in units
  */
@@ -800,10 +804,10 @@ int read_exchange_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			/* read name */
@@ -830,10 +834,10 @@ int read_exchange_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			i = sscanf(next_char,SCANFORMAT, &s_ptr->add_logk[s_ptr->count_add_logk].coef);
@@ -993,7 +997,7 @@ int read_exchange(void)
 		exchange_free(exchange_ptr);
 	} else {
 		n = count_exchange++;
-		space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	}
 /*
  *   Default values
@@ -1207,7 +1211,7 @@ int read_exchange_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master >= max_master) {
-			space ((void *) &master, count_master+1, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+1, &max_master, sizeof(struct master *));
 		}
 		master[count_master] = master_alloc();
 /*
@@ -1248,7 +1252,7 @@ int read_exchange_master_species (void)
 
 		count_master++;
 		if (count_master >= max_master) {
-			space ((void *) &master, count_master, &max_master,
+			space ((void **) ((void *) &master), count_master, &max_master,
 			       sizeof(struct master *));
 		}
 	}
@@ -1306,7 +1310,7 @@ int read_gas_phase(void)
 	} else {
 		n=count_gas_phase;
 		count_gas_phase++;
-		space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	}
 /*
  *   Initialize
@@ -1541,7 +1545,7 @@ int read_inverse(void)
 			    break;
 		    case 1:                 /* uncertainty */
 		    case 2:                 /* uncertainties */
-			    inverse[n].uncertainties = free_check_null (inverse[n].uncertainties);
+			    inverse[n].uncertainties = (double *) free_check_null (inverse[n].uncertainties);
 			    inverse[n].uncertainties = read_list_doubles(&next_char, &inverse[n].count_uncertainties);
 			    opt_save = OPTION_ERROR;
 			    break;
@@ -1587,7 +1591,7 @@ int read_inverse(void)
 		    case 16:                 /* force */
 		    case 17:                 /* force_solution */
 		    case 18:                 /* force_solutions */
-			    inverse[n].force_solns = free_check_null (inverse[n].force_solns);
+			    inverse[n].force_solns = (int *) free_check_null (inverse[n].force_solns);
 			    inverse[n].force_solns = read_list_t_f(&next_char, 
 							       &inverse[n].count_force_solns);
 			    opt_save = OPTION_ERROR;
@@ -1620,7 +1624,7 @@ int read_inverse(void)
  *  Default: soln 1 -> soln 2
  */
 	if (inverse[n].count_solns == 0) {
-		inverse[n].solns = PHRQ_malloc( 2 * sizeof( int ) );
+		inverse[n].solns = (int *) PHRQ_malloc( 2 * sizeof( int ) );
 		if (inverse[n].solns == NULL) malloc_error();
 		inverse[n].solns[0] = 1;
 		inverse[n].solns[1] = 2;
@@ -1662,7 +1666,7 @@ int read_inv_balances (struct inverse *inverse_ptr, char *ptr)
 		error_msg(line_save, CONTINUE);
 		input_error++;
 	} else if (strcmp_nocase_arg1(token, "ph") != 0) {
-		inverse_ptr->elts = PHRQ_realloc(inverse_ptr->elts, (size_t) (inverse_ptr->count_elts + 1) * sizeof( struct inv_elts));
+		inverse_ptr->elts = (struct inv_elts *) PHRQ_realloc(inverse_ptr->elts, (size_t) (inverse_ptr->count_elts + 1) * sizeof( struct inv_elts));
 		if (inverse_ptr->elts == NULL) malloc_error();
 		replace("(+","(",token);
 		inverse_ptr->elts[inverse_ptr->count_elts].name = string_hsave(token);
@@ -1673,7 +1677,7 @@ int read_inv_balances (struct inverse *inverse_ptr, char *ptr)
 		inverse_ptr->elts[inverse_ptr->count_elts].count_uncertainties = count;
 		inverse_ptr->count_elts++;
 	}  else if (strcmp_nocase_arg1(token, "ph") == 0) {
-		inverse_ptr->ph_uncertainties = free_check_null (inverse_ptr->ph_uncertainties);
+		inverse_ptr->ph_uncertainties = (double *) free_check_null (inverse_ptr->ph_uncertainties);
 		inverse_ptr->ph_uncertainties = read_list_doubles(&ptr, &count);
 		inverse_ptr->count_ph_uncertainties = count;
 	}
@@ -1733,18 +1737,18 @@ int read_inv_isotopes (struct inverse *inverse_ptr, char *ptr)
 		if (element_name == inverse_ptr->isotopes[i].elt_name) break;
 	}
 	if (i == inverse_ptr->count_isotopes) {
-		inverse_ptr->isotopes = PHRQ_realloc(inverse_ptr->isotopes, (size_t) (inverse_ptr->count_isotopes + 1) * sizeof( struct inv_isotope));
+		inverse_ptr->isotopes = (struct inv_isotope *) PHRQ_realloc(inverse_ptr->isotopes, (size_t) (inverse_ptr->count_isotopes + 1) * sizeof( struct inv_isotope));
 		if (inverse_ptr->isotopes == NULL) malloc_error();
 		inverse_ptr->isotopes[inverse_ptr->count_isotopes].isotope_number = isotope_number;
 		inverse_ptr->isotopes[inverse_ptr->count_isotopes].elt_name = element_name;
-		inverse_ptr->isotopes[inverse_ptr->count_isotopes].uncertainties = PHRQ_malloc((size_t) sizeof(LDBLE));
+		inverse_ptr->isotopes[inverse_ptr->count_isotopes].uncertainties = (double *) PHRQ_malloc((size_t) sizeof(LDBLE));
 		if (inverse_ptr->isotopes[inverse_ptr->count_isotopes].uncertainties == NULL) malloc_error();
 		inverse_ptr->count_isotopes++;
 	}
 /*
  *  add redox state name to inv_ptr->i_u
  */
-	inverse_ptr->i_u = PHRQ_realloc(inverse_ptr->i_u, (size_t) (inverse_ptr->count_i_u + 1) * sizeof( struct inv_isotope));
+	inverse_ptr->i_u = (struct inv_isotope *) PHRQ_realloc(inverse_ptr->i_u, (size_t) (inverse_ptr->count_i_u + 1) * sizeof( struct inv_isotope));
 	if (inverse_ptr->i_u == NULL) malloc_error();
 	inverse_ptr->i_u[inverse_ptr->count_i_u].elt_name = redox_name;
 	inverse_ptr->i_u[inverse_ptr->count_i_u].isotope_number = isotope_number;
@@ -1770,7 +1774,7 @@ int read_inv_phases (struct inverse *inverse_ptr, char *ptr)
  */		
 	j = copy_token(token, &ptr, &l);
 	if (j == EMPTY) return(OK);
-	inverse_ptr->phases = PHRQ_realloc(inverse_ptr->phases, (size_t) (inverse_ptr->count_phases + 1) * sizeof( struct inv_phases));
+	inverse_ptr->phases = (struct inv_phases *) PHRQ_realloc(inverse_ptr->phases, (size_t) (inverse_ptr->count_phases + 1) * sizeof( struct inv_phases));
 	if (inverse_ptr->phases == NULL) malloc_error();
 	inverse_ptr->phases[inverse_ptr->count_phases].name = string_hsave(token);
 /*
@@ -1779,7 +1783,7 @@ int read_inv_phases (struct inverse *inverse_ptr, char *ptr)
 	inverse_ptr->phases[inverse_ptr->count_phases].constraint = EITHER;
 	inverse_ptr->phases[inverse_ptr->count_phases].force = FALSE;
 	count_isotopes = 0;
-	isotopes = PHRQ_malloc(sizeof(struct isotope));
+	isotopes = (struct isotope *) PHRQ_malloc(sizeof(struct isotope));
 	if (isotopes == NULL) malloc_error();
 
 	for (;;) {
@@ -1797,7 +1801,7 @@ int read_inv_phases (struct inverse *inverse_ptr, char *ptr)
 /* 
  *   read isotope data
  */
-			isotopes = PHRQ_realloc( isotopes , (size_t) (count_isotopes + 1) * sizeof (struct isotope));
+			isotopes = (struct isotope *) PHRQ_realloc( isotopes , (size_t) (count_isotopes + 1) * sizeof (struct isotope));
 			if (isotopes == NULL) malloc_error();
 			ptr1 = token;
 
@@ -1845,7 +1849,7 @@ int read_inv_phases (struct inverse *inverse_ptr, char *ptr)
 	} else {
 		inverse_ptr->phases[inverse_ptr->count_phases].isotopes = NULL;
 		inverse_ptr->phases[inverse_ptr->count_phases].count_isotopes = 0;
-		isotopes = free_check_null(isotopes);
+		isotopes = (struct isotope *) free_check_null(isotopes);
 	}
 	inverse_ptr->count_phases++;
 	return(OK);
@@ -1912,7 +1916,7 @@ int read_kinetics (void)
 	if (kinetics_ptr != NULL) {
 		kinetics_free(kinetics_ptr);
 	} else {
-		space ((void *) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		n = count_kinetics++;
 	}
 /*
@@ -1946,7 +1950,7 @@ int read_kinetics (void)
 			break;
 		    case OPTION_DEFAULT:           /* allocate space, read new name */
 			count_comps = kinetics_ptr->count_comps++;
-			kinetics_ptr->comps = PHRQ_realloc(kinetics_ptr->comps, (size_t) (count_comps + 1) * sizeof(struct kinetics_comp));
+			kinetics_ptr->comps = (struct kinetics_comp *) PHRQ_realloc(kinetics_ptr->comps, (size_t) (count_comps + 1) * sizeof(struct kinetics_comp));
 			if (kinetics_ptr->comps == NULL) malloc_error();
 			kinetics_ptr->comps[count_comps].moles = 0;
 			ptr = line;
@@ -1961,16 +1965,16 @@ int read_kinetics (void)
 			kinetics_ptr->comps[count_comps].count_c_params = 0;
 
 			kinetics_comp_ptr = &kinetics_ptr->comps[count_comps];
-			kinetics_comp_ptr->d_params = PHRQ_malloc(sizeof(LDBLE));
+			kinetics_comp_ptr->d_params = (double *) PHRQ_malloc(sizeof(LDBLE));
 			if (kinetics_comp_ptr->d_params == NULL) malloc_error();
 			kinetics_comp_ptr->count_d_params = 0;
 
-			kinetics_comp_ptr->c_params = PHRQ_malloc(sizeof(char *));
+			kinetics_comp_ptr->c_params = (char **) PHRQ_malloc(sizeof(char *));
 			if (kinetics_comp_ptr->c_params == NULL) malloc_error();
 			kinetics_comp_ptr->count_c_params = 0;
 
 			kinetics_comp_ptr->count_list = 0;
-			kinetics_comp_ptr->list = PHRQ_malloc(sizeof(struct name_coef));
+			kinetics_comp_ptr->list = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 			if (kinetics_comp_ptr->list == NULL) malloc_error();
 			break;
 		    case OPTION_ERROR:
@@ -2035,7 +2039,7 @@ int read_kinetics (void)
 				 *   Store a LDBLE parameter
 				 */
 			    if (j == DIGIT) {
-			      kinetics_comp_ptr->d_params = PHRQ_realloc(kinetics_comp_ptr->d_params, (size_t) (kinetics_comp_ptr->count_d_params + 1) * sizeof(LDBLE));
+			      kinetics_comp_ptr->d_params = (double *) PHRQ_realloc(kinetics_comp_ptr->d_params, (size_t) (kinetics_comp_ptr->count_d_params + 1) * sizeof(LDBLE));
 			      if (kinetics_comp_ptr->d_params == NULL) malloc_error();
 			      kinetics_comp_ptr->d_params[kinetics_comp_ptr->count_d_params] = strtod(token, &ptr);
 			      kinetics_comp_ptr->count_d_params++;
@@ -2043,7 +2047,7 @@ int read_kinetics (void)
 				/*
 				 *   Store a character parameter
 				 */
-			      kinetics_comp_ptr->c_params = PHRQ_realloc(kinetics_comp_ptr->c_params, (size_t) (kinetics_comp_ptr->count_c_params + 1) * sizeof(char *));
+			      kinetics_comp_ptr->c_params = (char **) PHRQ_realloc(kinetics_comp_ptr->c_params, (size_t) (kinetics_comp_ptr->count_c_params + 1) * sizeof(char *));
 			      if (kinetics_comp_ptr->c_params == NULL) malloc_error();
 			      kinetics_comp_ptr->c_params[kinetics_comp_ptr->count_c_params] = string_hsave(token);
 			      kinetics_comp_ptr->count_c_params++;
@@ -2064,7 +2068,7 @@ int read_kinetics (void)
 			  while (copy_token (token, &ptr, &l) != EMPTY) {
 			    if ( isalpha((int) token[0]) || (token[0] == '(' ) || (token[0] == '[' )) {
 			      count_list = kinetics_comp_ptr->count_list++;
-			      kinetics_comp_ptr->list = PHRQ_realloc(kinetics_comp_ptr->list,
+			      kinetics_comp_ptr->list = (struct name_coef *) PHRQ_realloc(kinetics_comp_ptr->list,
 								     (size_t) (count_list + 1) * sizeof(struct name_coef));
 			      if (kinetics_comp_ptr->list == NULL) malloc_error();
 			      kinetics_comp_ptr->list[count_list].name = string_hsave(token);
@@ -2097,7 +2101,7 @@ int read_kinetics (void)
 					if (sscanf(token,"%d" SCANFORMAT, &k, &step) == 2) {
 						for (i = 0; i < k; i++) {
 							count_steps++;
-							kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+							kinetics_ptr->steps = (double *) PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
 							if (kinetics_ptr->steps == NULL) malloc_error();
 							kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
 							kinetics_ptr->count_steps = count_steps;
@@ -2109,7 +2113,7 @@ int read_kinetics (void)
 				} else {
 					step = strtod(token, &ptr);
 					count_steps++;
-					kinetics_ptr->steps = PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+					kinetics_ptr->steps = (double *) PHRQ_realloc(kinetics_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
 					if (kinetics_ptr->steps == NULL) malloc_error();
 					kinetics_ptr->steps[kinetics_ptr->count_steps] = step;
 					kinetics_ptr->count_steps = count_steps;
@@ -2236,7 +2240,7 @@ LDBLE *read_list_doubles(char **ptr, int *count_doubles )
 	char *ptr_save;
 	int l;
 
-	LDBLE_list = PHRQ_malloc(sizeof(LDBLE));
+	LDBLE_list = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (LDBLE_list == NULL) malloc_error();
 	*count_doubles = 0;
 
@@ -2244,7 +2248,7 @@ LDBLE *read_list_doubles(char **ptr, int *count_doubles )
 	while ( copy_token(token, ptr, &l) != EMPTY) {
 		if (sscanf(token,SCANFORMAT, &value) == 1) {
 			*count_doubles = *count_doubles + 1;
-			LDBLE_list = PHRQ_realloc(LDBLE_list, (size_t) (*count_doubles) * sizeof (LDBLE));
+			LDBLE_list = (LDBLE *) PHRQ_realloc(LDBLE_list, (size_t) (*count_doubles) * sizeof (LDBLE));
 			if (LDBLE_list == NULL) malloc_error();
 			LDBLE_list[ (*count_doubles) - 1] = value;
 			ptr_save = *ptr;
@@ -2280,7 +2284,7 @@ int *read_list_ints (char **ptr, int *count_ints, int positive )
 	int l;
 	char *ptr_save;
 
-	int_list = PHRQ_malloc(sizeof(int));
+	int_list = (int *) PHRQ_malloc(sizeof(int));
 	if (int_list == NULL) malloc_error();
 	*count_ints = 0;
 
@@ -2288,7 +2292,7 @@ int *read_list_ints (char **ptr, int *count_ints, int positive )
 	while ( copy_token(token, ptr, &l) != EMPTY) {
 		if (sscanf(token,"%d", &value) == 1) {
 			(*count_ints)++;
-			int_list = PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
+			int_list = (int *) PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
 			if (int_list == NULL) malloc_error();
 			int_list[(*count_ints) - 1] = value;
 			if (value <= 0 && positive == TRUE) {
@@ -2329,7 +2333,7 @@ int *read_list_ints_range (char **ptr, int *count_ints, int positive, int *int_l
 	char *ptr_save;
 
 	if (int_list == NULL) {
-		int_list = PHRQ_malloc(sizeof(int));
+		int_list = (int *) PHRQ_malloc(sizeof(int));
 		if (int_list == NULL) malloc_error();
 		*count_ints = 0;
 	}
@@ -2338,7 +2342,7 @@ int *read_list_ints_range (char **ptr, int *count_ints, int positive, int *int_l
 		if (sscanf(token,"%d", &value) == 1) {
 			/* Read an integer */
 			(*count_ints)++;
-			int_list = PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
+			int_list = (int *) PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
 			if (int_list == NULL) malloc_error();
 			int_list[(*count_ints) - 1] = value;
 			if (value <= 0 && positive == TRUE) {
@@ -2363,7 +2367,7 @@ int *read_list_ints_range (char **ptr, int *count_ints, int positive, int *int_l
 				} else {
 					for (i = value1 + 1; i <= value2; i++) {
 						(*count_ints)++;
-						int_list = PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
+						int_list = (int *) PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
 						if (int_list == NULL) malloc_error();
 						int_list[(*count_ints) - 1] = i;
 					}
@@ -2401,7 +2405,7 @@ int *read_list_t_f (char **ptr, int *count_ints )
 	int value;
 	int l;
 
-	int_list = PHRQ_malloc(sizeof(int));
+	int_list = (int *) PHRQ_malloc(sizeof(int));
 	if (int_list == NULL) malloc_error();
 	*count_ints = 0;
 
@@ -2418,7 +2422,7 @@ int *read_list_t_f (char **ptr, int *count_ints )
 			break;
 		}
 		(*count_ints)++;
-		int_list = PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
+		int_list = (int *) PHRQ_realloc(int_list, (size_t) (*count_ints) * sizeof (int));
 		if (int_list == NULL) malloc_error();
 		int_list[(*count_ints) - 1] = value;
 	}
@@ -2603,7 +2607,7 @@ int read_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master >= max_master) {
-			space ((void *) &master, count_master+1, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+1, &max_master, sizeof(struct master *));
 		}
 		master[count_master] = master_alloc();
 /*
@@ -2696,7 +2700,7 @@ int read_master_species (void)
 		}
 		count_master++;
 		if (count_master >= max_master) {
-			space ((void *) &master, count_master, &max_master,
+			space ((void **) ((void *) &master), count_master, &max_master,
 			       sizeof(struct master *));
 		}
 
@@ -2943,10 +2947,10 @@ int read_phases (void)
 		    case 10:                /* add_log_k */
 			if (phase_ptr == NULL) break;
 			if (phase_ptr->count_add_logk == 0) {
-				phase_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				phase_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (phase_ptr->add_logk == NULL) malloc_error();
 			} else {
-				phase_ptr->add_logk = PHRQ_realloc(phase_ptr->add_logk, (size_t) ((phase_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				phase_ptr->add_logk = (struct name_coef *) PHRQ_realloc(phase_ptr->add_logk, (size_t) ((phase_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (phase_ptr->add_logk == NULL) malloc_error();
 			}
 			/* read name */
@@ -2968,10 +2972,10 @@ int read_phases (void)
 		    case 11:                 /* add_constant */
 		      if (phase_ptr == NULL) break;
 		      if (phase_ptr->count_add_logk == 0) {
-				phase_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				phase_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (phase_ptr->add_logk == NULL) malloc_error();
 			} else {
-				phase_ptr->add_logk = PHRQ_realloc(phase_ptr->add_logk, (size_t) ((phase_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				phase_ptr->add_logk = (struct name_coef *) PHRQ_realloc(phase_ptr->add_logk, (size_t) ((phase_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (phase_ptr->add_logk == NULL) malloc_error();
 			}
 			i = sscanf(next_char,SCANFORMAT, &phase_ptr->add_logk[phase_ptr->count_add_logk].coef);
@@ -3085,7 +3089,7 @@ int read_pure_phases(void)
 		pp_assemblage_free (&pp_assemblage[n]);
 	} else {
 		n=count_pp_assemblage++;
-		space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 	}	
 /*
  *   Set use data to first read
@@ -3234,9 +3238,9 @@ int read_reaction (void)
 	irrev[n].n_user = n_user;
 	irrev[n].n_user_end = n_user_end;
 	irrev[n].description = description;
-	irrev[n].steps = PHRQ_malloc((size_t) sizeof(LDBLE));
+	irrev[n].steps = (double *) PHRQ_malloc((size_t) sizeof(LDBLE));
 	if (irrev[n].steps == NULL) malloc_error();
-	irrev[n].list = PHRQ_malloc((size_t) sizeof(struct name_coef));
+	irrev[n].list = (struct name_coef *) PHRQ_malloc((size_t) sizeof(struct name_coef));
 	if (irrev[n].list == NULL) malloc_error();
 	irrev[n].count_steps = 0;
 	irrev[n].count_list = 0;
@@ -3302,7 +3306,7 @@ int read_reaction_reactants(struct irrev *irrev_ptr)
 		if ( isalpha((int) token[0]) || (token[0] == '(' ) || (token[0] == '[') ) {
 			irrev_ptr->count_list++;
 			count_list = irrev_ptr->count_list - 1;
-			irrev_ptr->list = PHRQ_realloc(irrev_ptr->list, (size_t) (count_list + 1) * sizeof(struct name_coef));
+			irrev_ptr->list = (struct name_coef *) PHRQ_realloc(irrev_ptr->list, (size_t) (count_list + 1) * sizeof(struct name_coef));
 			if (irrev_ptr->list == NULL) malloc_error();
 			irrev_ptr->list[count_list].name = string_hsave(token);
 			irrev_ptr->list[count_list].coef = 1.0;
@@ -3360,7 +3364,7 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 			if (sscanf(token,"%d" SCANFORMAT, &n, &value) == 2) {
 				for (i = 0; i < n; i++) {
 					count_steps++;
-					irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+					irrev_ptr->steps = (double *) PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
 					if (irrev_ptr->steps == NULL) malloc_error();
 					irrev_ptr->steps[irrev_ptr->count_steps] = value;
 					irrev_ptr->count_steps = count_steps;
@@ -3373,7 +3377,7 @@ int read_reaction_steps(struct irrev *irrev_ptr)
 			j = sscanf(token, SCANFORMAT, &step);
 			if (j == 1 ) {
 				count_steps++;
-				irrev_ptr->steps = PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
+				irrev_ptr->steps = (double *) PHRQ_realloc(irrev_ptr->steps, (size_t) count_steps * sizeof(LDBLE));
 				if (irrev_ptr->steps == NULL) malloc_error();
 				irrev_ptr->steps[irrev_ptr->count_steps] = step;
 				irrev_ptr->count_steps = count_steps;
@@ -3671,7 +3675,7 @@ int read_selected_output (void)
 					warning_msg(error_string);
 				} else {
 					punch.count_totals++;
-					punch.totals = PHRQ_realloc(punch.totals, (size_t) punch.count_totals * sizeof(struct name_master));
+					punch.totals = (struct name_master *) PHRQ_realloc(punch.totals, (size_t) punch.count_totals * sizeof(struct name_master));
 					if (punch.totals == NULL) malloc_error();
 					punch.totals[punch.count_totals - 1].name = string_hsave(token);
 				}
@@ -3686,7 +3690,7 @@ int read_selected_output (void)
 					warning_msg(error_string);
 				} else {
 					punch.count_molalities++;
-					punch.molalities = PHRQ_realloc(punch.molalities, (size_t) punch.count_molalities * sizeof(struct name_species));
+					punch.molalities = (struct name_species *) PHRQ_realloc(punch.molalities, (size_t) punch.count_molalities * sizeof(struct name_species));
 					if (punch.molalities == NULL) malloc_error();
 					punch.molalities[punch.count_molalities - 1].name = 
 						string_hsave(token);
@@ -3701,7 +3705,7 @@ int read_selected_output (void)
 					warning_msg(error_string);
 				} else {
 					punch.count_activities++;
-					punch.activities = PHRQ_realloc(punch.activities, (size_t) punch.count_activities * sizeof(struct name_species));
+					punch.activities = (struct name_species *) PHRQ_realloc(punch.activities, (size_t) punch.count_activities * sizeof(struct name_species));
 					if (punch.activities == NULL) malloc_error();
 					punch.activities[punch.count_activities - 1].name = 
 						string_hsave(token);
@@ -3715,7 +3719,7 @@ int read_selected_output (void)
 		    case 11:                 /* pure */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_pure_phases++;
-				punch.pure_phases = PHRQ_realloc(punch.pure_phases, (size_t) punch.count_pure_phases * sizeof(struct name_phase));
+				punch.pure_phases = (struct name_phase *) PHRQ_realloc(punch.pure_phases, (size_t) punch.count_pure_phases * sizeof(struct name_phase));
 				if (punch.pure_phases == NULL) malloc_error();
 				punch.pure_phases[punch.count_pure_phases - 1].name = string_hsave(token);
 			}
@@ -3724,7 +3728,7 @@ int read_selected_output (void)
                     case 6:                  /* saturation_index */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_si++;
-				punch.si = PHRQ_realloc(punch.si, (size_t) punch.count_si * sizeof(struct name_phase));	
+				punch.si = (struct name_phase *) PHRQ_realloc(punch.si, (size_t) punch.count_si * sizeof(struct name_phase));	
 				if (punch.si == NULL) malloc_error();
 				punch.si[punch.count_si - 1].name = string_hsave(token);
 			}
@@ -3732,7 +3736,7 @@ int read_selected_output (void)
                     case 7:                         /* gases */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_gases++;
-				punch.gases = PHRQ_realloc(punch.gases, (size_t) punch.count_gases * sizeof(struct name_phase));
+				punch.gases = (struct name_phase *) PHRQ_realloc(punch.gases, (size_t) punch.count_gases * sizeof(struct name_phase));
 				if (punch.gases == NULL) malloc_error();
 				punch.gases[punch.count_gases - 1].name = string_hsave(token);
 			}
@@ -3746,7 +3750,7 @@ int read_selected_output (void)
                     case 41:                       /* kin */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_kinetics++;
-				punch.kinetics = PHRQ_realloc(punch.kinetics, (size_t) punch.count_kinetics * sizeof(struct name_phase));
+				punch.kinetics = (struct name_phase *) PHRQ_realloc(punch.kinetics, (size_t) punch.count_kinetics * sizeof(struct name_phase));
 				if (punch.kinetics == NULL) malloc_error();
 				punch.kinetics[punch.count_kinetics - 1].name = string_hsave(token);
 			}
@@ -3754,7 +3758,7 @@ int read_selected_output (void)
                     case 15:                         /* solid_solutions */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_s_s++;
-				punch.s_s = PHRQ_realloc(punch.s_s, (size_t) punch.count_s_s * sizeof(struct name_phase));
+				punch.s_s = (struct name_phase *) PHRQ_realloc(punch.s_s, (size_t) punch.count_s_s * sizeof(struct name_phase));
 				if (punch.s_s == NULL) malloc_error();
 				punch.s_s[punch.count_s_s - 1].name = string_hsave(token);
 			}
@@ -3767,7 +3771,7 @@ int read_selected_output (void)
 					warning_msg(error_string);
 				} else {
 					punch.count_isotopes++;
-					punch.isotopes = PHRQ_realloc(punch.isotopes, (size_t) punch.count_isotopes * sizeof(struct name_master));
+					punch.isotopes = (struct name_master *) PHRQ_realloc(punch.isotopes, (size_t) punch.count_isotopes * sizeof(struct name_master));
 					if (punch.isotopes == NULL) malloc_error();
 					punch.isotopes[punch.count_isotopes - 1].name = string_hsave(token);
 				}
@@ -3776,7 +3780,7 @@ int read_selected_output (void)
 		    case 47:                 /* calculate_values */
 			while( (i = copy_token(token, &next_char, &l)) != EMPTY) {
 				punch.count_calculate_values++;
-				punch.calculate_values = PHRQ_realloc(punch.calculate_values, (size_t) punch.count_calculate_values * sizeof(struct name_master));
+				punch.calculate_values = (struct name_master *) PHRQ_realloc(punch.calculate_values, (size_t) punch.count_calculate_values * sizeof(struct name_master));
 				if (punch.calculate_values == NULL) malloc_error();
 				punch.calculate_values[punch.count_calculate_values - 1].name = string_hsave(token);
 			}
@@ -3933,7 +3937,7 @@ int read_solution(void)
 	} else {
 		n=count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void *) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_alloc();
@@ -4045,7 +4049,7 @@ int read_solution(void)
 				error_msg(error_string, CONTINUE);
 				continue;
 		        }
-			solution[n]->isotopes = PHRQ_realloc(solution[n]->isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
+			solution[n]->isotopes = (struct isotope *) PHRQ_realloc(solution[n]->isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
 			if (solution[n]->isotopes == NULL) malloc_error();
 
 			/* read and save element name */
@@ -4107,7 +4111,7 @@ int read_solution(void)
 			break;
 		}
 		if (count_mass_balance + 1 >= max_mass_balance) {
-			space ((void *) &(solution[n]->totals), count_mass_balance + 1,
+			space ((void **) &(solution[n]->totals), count_mass_balance + 1,
 			       &max_mass_balance, sizeof (struct conc));
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -4359,10 +4363,10 @@ int read_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			/* read name */
@@ -4389,10 +4393,10 @@ int read_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			i = sscanf(next_char,SCANFORMAT, &s_ptr->add_logk[s_ptr->count_add_logk].coef);
@@ -4837,10 +4841,10 @@ int read_surface_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			/* read name */
@@ -4867,10 +4871,10 @@ int read_surface_species (void)
 				break;
 			}
 			if (s_ptr->count_add_logk == 0) {
-				s_ptr->add_logk = PHRQ_malloc(sizeof(struct name_coef));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			} else {
-				s_ptr->add_logk = PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				s_ptr->add_logk = (struct name_coef *) PHRQ_realloc(s_ptr->add_logk, (size_t) ((s_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
 				if (s_ptr->add_logk == NULL) malloc_error();
 			}
 			i = sscanf(next_char,SCANFORMAT, &s_ptr->add_logk[s_ptr->count_add_logk].coef);
@@ -5019,7 +5023,7 @@ int read_surf(void)
 		surface_free(&surface[n]);
 	} else {
 		n = count_surface++;
-		space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	}
 /*
  *   Initialize
@@ -5211,7 +5215,7 @@ int read_surf(void)
 				if (strcmp(surface[n].charge[i].name, name) == 0) break;
 			}
 			if (i >= count_charge) {
-				surface[n].charge = PHRQ_realloc(surface[n].charge, (size_t) ( count_charge + 1) * sizeof(struct surface_charge));
+				surface[n].charge = (struct surface_charge *) PHRQ_realloc(surface[n].charge, (size_t) ( count_charge + 1) * sizeof(struct surface_charge));
 				if (surface[n].charge == NULL) malloc_error();
 				i = count_charge;
 				surface[n].charge[i].name = string_hsave(name);
@@ -5320,7 +5324,7 @@ int read_surface_master_species (void)
  *   Increase pointer array, if necessary,  and malloc space
  */
 		if (count_master + 2 >= max_master) {
-			space ((void *) &master, count_master+2, &max_master, sizeof(struct master *));
+			space ((void **) ((void *) &master), count_master+2, &max_master, sizeof(struct master *));
 		}
 /*
  *   Save values in master and species structure for surface sites
@@ -5552,11 +5556,11 @@ int read_title (void)
 	ptr=line;
 	copy_token(token, &ptr, &l);
 	ptr1 = ptr;
-	title_x = free_check_null(title_x);
+	title_x = (char *) free_check_null(title_x);
 	if (copy_token(token, &ptr, &l) != EMPTY) {
 		title_x = string_duplicate(ptr1);
 	} else {
-		title_x = PHRQ_malloc(sizeof(char));
+		title_x = (char *) PHRQ_malloc(sizeof(char));
 		if (title_x == NULL) malloc_error();
 		title_x[0] = '\0';
 	}
@@ -5573,7 +5577,7 @@ int read_title (void)
  */
 		title_x_length = strlen(title_x);
 		line_length = strlen(line);
-		title_x = PHRQ_realloc(title_x, (size_t) (title_x_length + line_length + 2) * sizeof(char));
+		title_x = (char *) PHRQ_realloc(title_x, (size_t) (title_x_length + line_length + 2) * sizeof(char));
 		if (title_x == NULL) malloc_error();
 		if (title_x_length > 0) {
 			title_x[title_x_length] = '\n';
@@ -5639,7 +5643,7 @@ int read_advection (void)
  */
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 /*
  *   Set use data
  */
@@ -5650,9 +5654,9 @@ int read_advection (void)
 	punch_ad_modulus = 1;
         count_punch = 0;
         count_print = 0;
-	punch_temp = PHRQ_malloc(sizeof(int));
+	punch_temp = (int *) PHRQ_malloc(sizeof(int));
 	if (punch_temp == NULL) malloc_error();
-	print_temp = PHRQ_malloc(sizeof(int));
+	print_temp = (int *) PHRQ_malloc(sizeof(int));
 	if (print_temp == NULL) malloc_error();
 /*
  *   Read lines
@@ -5746,7 +5750,7 @@ int read_advection (void)
 /*
  *   Fill in data for punch
  */
-	advection_punch = PHRQ_realloc(advection_punch, (size_t) (count_ad_cells + 1) * sizeof(int));
+	advection_punch = (int *) PHRQ_realloc(advection_punch, (size_t) (count_ad_cells + 1) * sizeof(int));
 	if (advection_punch == NULL) malloc_error();
 	if (count_punch != 0) {
 		for (i=0; i<count_ad_cells; i++) advection_punch[i] = FALSE;
@@ -5761,11 +5765,11 @@ int read_advection (void)
 	} else {
 		for (i=0; i<count_ad_cells; i++) advection_punch[i] = TRUE;
 	}
-	punch_temp = free_check_null(punch_temp);
+	punch_temp = (int *) free_check_null(punch_temp);
 /*
  *   Fill in data for print
  */
-	advection_print = PHRQ_realloc(advection_print, (size_t) (count_ad_cells + 1) * sizeof(int));
+	advection_print = (int *) PHRQ_realloc(advection_print, (size_t) (count_ad_cells + 1) * sizeof(int));
 	if (advection_print == NULL) malloc_error();
 	if (count_print != 0) {
 		for (i=0; i<count_ad_cells; i++) advection_print[i] = FALSE;
@@ -5780,7 +5784,7 @@ int read_advection (void)
 	} else {
 		for (i=0; i<count_ad_cells; i++) advection_print[i] = TRUE;
 	}
-	print_temp = free_check_null(print_temp);
+	print_temp = (int *) free_check_null(print_temp);
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
@@ -6223,7 +6227,7 @@ int check_units (char *tot_units,  int alkalinity, int check_compatibility,
  *   Check if unit in list
  */
 	found = FALSE;
-	for (i=0; i < NUNITS; i++) {
+	for (i=0; i < (int) NUNITS; i++) {
 		if (strcmp(tot_units, units[i]) == 0) {
 			found=TRUE;
 			break;
@@ -6434,7 +6438,7 @@ int read_rates (void)
 	n = -1;
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = free_check_null(description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -6469,7 +6473,7 @@ int read_rates (void)
 			copy_token(token, &ptr, &l);
 			rate_ptr = rate_search(token, &n);
 			if (rate_ptr == NULL) {
-				rates = PHRQ_realloc(rates, (size_t) (count_rates + 1) * sizeof (struct rate));
+				rates = (struct rate *) PHRQ_realloc(rates, (size_t) (count_rates + 1) * sizeof (struct rate));
 				if (rates == NULL) malloc_error();
 				rate_ptr = &rates[count_rates];
 				count_rates++;
@@ -6477,7 +6481,7 @@ int read_rates (void)
 				rate_free(rate_ptr);
 			}
 			rate_ptr->new_def = TRUE;
-			rate_ptr->commands = PHRQ_malloc(sizeof(char));
+			rate_ptr->commands = (char *) PHRQ_malloc(sizeof(char));
 			if (rate_ptr->commands == NULL) malloc_error();
 			rate_ptr->commands[0] = '\0';
 			rate_ptr->name = string_hsave(token);
@@ -6496,7 +6500,7 @@ int read_rates (void)
 			}
 			length = strlen(rate_ptr->commands);
 			line_length = strlen(line);
-			rate_ptr->commands = PHRQ_realloc(rate_ptr->commands, (size_t) (length + line_length + 2) * sizeof(char));
+			rate_ptr->commands = (char *) PHRQ_realloc(rate_ptr->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (rate_ptr->commands == NULL) malloc_error();
 			rate_ptr->commands[length] = ';';
 			rate_ptr->commands[length + 1] = '\0';
@@ -6566,7 +6570,7 @@ int read_user_print (void)
 		    case OPTION_DEFAULT:           /* read first command */
 			rate_free(user_print);
 			user_print->new_def = TRUE;
-			user_print->commands = PHRQ_malloc(sizeof(char));
+			user_print->commands = (char *) PHRQ_malloc(sizeof(char));
 			if (user_print->commands == NULL) malloc_error();
 			user_print->commands[0] = '\0';
 			user_print->linebase = NULL;
@@ -6576,7 +6580,7 @@ int read_user_print (void)
 		    case OPT_1:          /* read command */
 			length = strlen(user_print->commands);
 			line_length = strlen(line);
-			user_print->commands = PHRQ_realloc(user_print->commands, (size_t) (length + line_length + 2) * sizeof(char));
+			user_print->commands = (char *) PHRQ_realloc(user_print->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (user_print->commands == NULL) malloc_error();
 			user_print->commands[length] = ';';
 			user_print->commands[length + 1] = '\0';
@@ -6650,7 +6654,7 @@ int read_user_punch (void)
 		    case 2:                        /* headings */
 		    case 3:                        /* heading*/
 			while (copy_token(token, &next_char, &l) != EMPTY) {
-				user_punch_headings = PHRQ_realloc(user_punch_headings, (size_t) (user_punch_count_headings + 1) * sizeof(char *));
+				user_punch_headings = (char **) PHRQ_realloc(user_punch_headings, (size_t) (user_punch_count_headings + 1) * sizeof(char *));
 				if (user_punch_headings == NULL) malloc_error();
 				user_punch_headings[user_punch_count_headings] = string_hsave(token);
 				user_punch_count_headings++;
@@ -6659,7 +6663,7 @@ int read_user_punch (void)
 		    case OPTION_DEFAULT:           /* read first command */
 			rate_free(user_punch);
 			user_punch->new_def = TRUE;
-			user_punch->commands = PHRQ_malloc(sizeof(char));
+			user_punch->commands = (char *) PHRQ_malloc(sizeof(char));
 			if (user_punch->commands == NULL) malloc_error();
 			user_punch->commands[0] = '\0';
 			user_punch->linebase = NULL;
@@ -6669,7 +6673,7 @@ int read_user_punch (void)
 		    case OPT_1:          /* read command */
 			length = strlen(user_punch->commands);
 			line_length = strlen(line);
-			user_punch->commands = PHRQ_realloc(user_punch->commands, (size_t) (length + line_length + 2) * sizeof(char));
+			user_punch->commands = (char *) PHRQ_realloc(user_punch->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (user_punch->commands == NULL) malloc_error();
 			user_punch->commands[length] = ';';
 			user_punch->commands[length + 1] = '\0';
@@ -6932,7 +6936,7 @@ int read_solid_solutions(void)
 		s_s_assemblage_free(&s_s_assemblage[n]);
 	} else {
 		n=count_s_s_assemblage;
-		space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		count_s_s_assemblage++;
 	}
 /*
@@ -6974,7 +6978,7 @@ int read_solid_solutions(void)
 		    case 0:                                   /* component */
 		    case 1:                                   /* comp */
 			count_comps=s_s_assemblage[n].s_s[number_s_s].count_comps++;
-			s_s_assemblage[n].s_s[number_s_s].comps = PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps+1) * sizeof(struct s_s_comp));
+			s_s_assemblage[n].s_s[number_s_s].comps = (struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps+1) * sizeof(struct s_s_comp));
 			if ( s_s_assemblage[n].s_s[number_s_s].comps == NULL) malloc_error();
 			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].initial_moles = 0;
 			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].delta = 0;
@@ -7174,7 +7178,7 @@ int read_solid_solutions(void)
 			if (count_comps < 2) {
 				s_s_assemblage[n].s_s[number_s_s].count_comps = 2;
 				count_comps = 2;
-				s_s_assemblage[n].s_s[number_s_s].comps = PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps) * sizeof(struct s_s_comp));
+				s_s_assemblage[n].s_s[number_s_s].comps = (struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps) * sizeof(struct s_s_comp));
 				if (s_s_assemblage[n].s_s[number_s_s].comps == NULL) malloc_error();
 			}
 			/*
@@ -7202,7 +7206,7 @@ int read_solid_solutions(void)
 			if (count_comps < 2) {
 				s_s_assemblage[n].s_s[number_s_s].count_comps = 2;
 				count_comps = 2;
-				s_s_assemblage[n].s_s[number_s_s].comps = PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps) * sizeof(struct s_s_comp));
+				s_s_assemblage[n].s_s[number_s_s].comps = (struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].s_s[number_s_s].comps, (size_t) (count_comps) * sizeof(struct s_s_comp));
 				if (s_s_assemblage[n].s_s[number_s_s].comps == NULL) malloc_error();
 			}
 			/*
@@ -7240,7 +7244,7 @@ int read_solid_solutions(void)
 			if (s_s_assemblage[n].s_s == NULL) malloc_error();
 
 			/* malloc space for one component */
-			s_s_assemblage[n].s_s[number_s_s].comps = PHRQ_malloc((size_t) sizeof(struct s_s_comp));
+			s_s_assemblage[n].s_s[number_s_s].comps = (struct s_s_comp *) PHRQ_malloc((size_t) sizeof(struct s_s_comp));
 			if (s_s_assemblage[n].s_s[number_s_s].comps == NULL) malloc_error();
 			count_comps = 0;
 			s_s_assemblage[n].s_s[number_s_s].count_comps = 0;
@@ -7507,7 +7511,7 @@ int read_line_doubles(char *next_char, LDBLE **d, int *count_d, int *count_alloc
 		for (;;) {
 			if ((*count_d) + n > (*count_alloc)) {
 				*count_alloc *= 2;
-				*d = PHRQ_realloc(*d, (size_t) (*count_alloc) * sizeof(LDBLE));
+				*d = (LDBLE *) PHRQ_realloc(*d, (size_t) (*count_alloc) * sizeof(LDBLE));
 				if (*d == NULL ) malloc_error();
 			} else {
 				break;

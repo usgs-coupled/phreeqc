@@ -38,8 +38,6 @@ Anyptr __MallocTemp__;
 
 __p2c_jmp_buf *__top_jb;
 
-
-
 void PASCAL_MAIN(int argc, char **argv)
 {
   if (svnid == NULL) fprintf(stderr," ");
@@ -70,7 +68,7 @@ long my_labs(long x)
 Anyptr my_memmove(Anyptr d, Const Anyptr s, size_t n)
 {
     register char *dd = (char *)d, *ss = (char *)s;
-    if (dd < ss || dd - ss >= n) {
+    if (dd < ss || (unsigned int) (dd - ss) >= n) {
 	memcpy(dd, ss, n);
     } else if (n > 0) {
 	dd += n;
@@ -382,10 +380,11 @@ int P_peek(FILE *f)
 /* Check if at end of file, using Pascal "eof" semantics.  End-of-file for
    stdin is broken; remove the special case for it to be broken in a
    different way. */
-int P_eof(FILE *f)
+/*int P_eof(FILE *f)*/
+int P_eof(void)
 {
+#ifdef SKIP
     register int ch;
-
     if (feof(f))
 	return 1;
     if (f == stdin)
@@ -394,6 +393,7 @@ int P_eof(FILE *f)
     if (ch == EOF)
 	return 1;
     ungetc(ch, f);
+#endif
     return 0;
 }
 
@@ -897,7 +897,6 @@ static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
     }
     return buf;
 }
-
 int _Escape(int code)
 {
     char buf[100];

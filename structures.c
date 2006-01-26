@@ -77,19 +77,19 @@ int clean_up(void)
 	int i, j;
 	if (svnid == NULL) fprintf(stderr," ");
 
-	description_x = free_check_null(description_x);
-	isotopes_x = free_check_null(isotopes_x);
-	moles_per_kilogram_string = free_check_null(moles_per_kilogram_string);
-	pe_string = free_check_null(pe_string);
+	description_x = (char *) free_check_null(description_x);
+	isotopes_x = (struct isotope *) free_check_null(isotopes_x);
+	moles_per_kilogram_string = (char *) free_check_null(moles_per_kilogram_string);
+	pe_string = (char *) free_check_null(pe_string);
 /* model */
-	last_model.exchange = free_check_null(last_model.exchange);
-	last_model.gas_phase = free_check_null(last_model.gas_phase);
-	last_model.pp_assemblage = free_check_null(last_model.pp_assemblage);
-	last_model.s_s_assemblage = free_check_null(last_model.s_s_assemblage);
-	last_model.add_formula = free_check_null(last_model.add_formula);
-	last_model.si = free_check_null(last_model.si);
-	last_model.surface_comp = free_check_null(last_model.surface_comp);
-	last_model.surface_charge = free_check_null(last_model.surface_charge);
+	last_model.exchange = (struct master **) free_check_null(last_model.exchange);
+	last_model.gas_phase = (struct phase **) free_check_null(last_model.gas_phase);
+	last_model.pp_assemblage = (struct phase **) free_check_null(last_model.pp_assemblage);
+	last_model.s_s_assemblage = (char **) free_check_null(last_model.s_s_assemblage);
+	last_model.add_formula = (char **) free_check_null(last_model.add_formula);
+	last_model.si = (double *) free_check_null(last_model.si);
+	last_model.surface_comp = (struct master **) free_check_null(last_model.surface_comp);
+	last_model.surface_charge = (struct master **) free_check_null(last_model.surface_charge);
 
 	/* model */
 	free_model_allocs();
@@ -98,130 +98,130 @@ int clean_up(void)
 
 	for (j=0; j<count_s; j++) {
 		s_free(s[j]);
-		s[j] = free_check_null(s[j]);
+		s[j] = (struct species *) free_check_null(s[j]);
 	}
-	s = free_check_null(s);
+	s = (struct species **) free_check_null(s);
 
 /* master species */
 
 	for (j=0; j<count_master; j++) {
 		master_free(master[j]);
 	}
-	master = free_check_null(master);
+	master = (struct master **) free_check_null(master);
 
 /* elements */
 
 	for (j=0; j<count_elements; j++) {
-		elements[j] = free_check_null(elements[j]);
+		elements[j] = (struct element *) free_check_null(elements[j]);
 	}
-	elements = free_check_null(elements);
+	elements = (struct element **) free_check_null(elements);
 
 /* solutions */
 
 	for (j=0; j<count_solution; j++) {
 		solution_free(solution[j]);
 	}
-	solution = free_check_null(solution);
+	solution = (struct solution **) free_check_null(solution);
 
 /* surfaces */
 
 	for (j=0; j < count_surface; j++) {
 		surface_free(&surface[j]);
 	}
-	surface = free_check_null(surface);
+	surface = (struct surface *) free_check_null(surface);
 
 /* exchange */
 
 	for (j=0; j < count_exchange; j++) {
 		exchange_free(&exchange[j]);
 	}
-	exchange = free_check_null(exchange);
+	exchange = (struct exchange *) free_check_null(exchange);
 
 /* pp assemblages */
 
 	for (j=0; j<count_pp_assemblage; j++) {
 		pp_assemblage_free(&pp_assemblage[j]);
 	}
-	pp_assemblage = free_check_null(pp_assemblage);
+	pp_assemblage = (struct pp_assemblage *) free_check_null(pp_assemblage);
 
 /* s_s assemblages */
 
 	for (j=0; j<count_s_s_assemblage; j++) {
 		s_s_assemblage_free(&s_s_assemblage[j]);
 	}
-	s_s_assemblage = free_check_null(s_s_assemblage);
+	s_s_assemblage = (struct s_s_assemblage *) free_check_null(s_s_assemblage);
 
 /* irreversible reactions */
 
 	for (j=0; j<count_irrev; j++) {
 		irrev_free (&irrev[j]);
 	}
-	irrev = free_check_null(irrev);
+	irrev = (struct irrev *) free_check_null(irrev);
 
 /* temperature */
 
 	for (j=0; j<count_temperature; j++) {
 		temperature_free (&temperature[j]);
 	}
-	temperature = free_check_null(temperature);
+	temperature = (struct temperature *) free_check_null(temperature);
 
 /* unknowns */
 
 	for (j = 0; j < max_unknowns; j++) {
 		unknown_free(x[j]);
 	}
-	x = free_check_null (x);
+	x = (struct unknown **) free_check_null (x);
 
 /* mixtures */
 
 	for (j = 0; j < count_mix; j++) {
 		mix_free(&mix[j]);
 	}
-	mix = free_check_null (mix);
+	mix = (struct mix *) free_check_null (mix);
 
 /* phases */
 
 	for (j = 0; j < count_phases; j++) {
 		phase_free(phases[j]);
-		phases[j] = free_check_null(phases[j]);
+		phases[j] = (struct phase *) free_check_null(phases[j]);
 	}
-	phases = free_check_null (phases);
+	phases = (struct phase **) free_check_null (phases);
 
 /* inverse */
 	for (j = 0; j < count_inverse; j++) {
 		inverse_free(&(inverse[j]));
 	}
-	inverse = free_check_null(inverse);
+	inverse = (struct inverse *) free_check_null(inverse);
 
 /* gases */
 	for (j = 0; j < count_gas_phase; j++) {
 		gas_phase_free(&gas_phase[j]);
 	};
-	gas_phase = free_check_null(gas_phase);
+	gas_phase = (struct gas_phase *) free_check_null(gas_phase);
 
 /* kinetics */
 	for (j = 0; j < count_kinetics; j++) {
 		kinetics_free(&kinetics[j]);
 	}
-	kinetics = free_check_null(kinetics);
+	kinetics = (struct kinetics *) free_check_null(kinetics);
 
 /* rates */
 	for (j = 0; j < count_rates; j++) {
 		rate_free(&rates[j]);
 	}
-	rates = free_check_null(rates);
+	rates = (struct rate *) free_check_null(rates);
 
 /* logk hash table */
 	for (j = 0; j < count_logk; j++) {
-		logk[j] = free_check_null(logk[j]);
+		logk[j] = (struct logk *) free_check_null(logk[j]);
 	}
-	logk = free_check_null(logk);
+	logk = (struct logk **) free_check_null(logk);
 
 /* save_values */
 	for (j = 0; j < count_save_values; j++) {
-		save_values[j].subscripts = free_check_null(save_values[j].subscripts);
+		save_values[j].subscripts = (int *) free_check_null(save_values[j].subscripts);
 	}
-	save_values = free_check_null(save_values);
+	save_values = (struct save_values *) free_check_null(save_values);
 
 /* model */
 
@@ -232,44 +232,44 @@ int clean_up(void)
 
 /* species_list */
 
-	species_list = free_check_null(species_list);
+	species_list = (struct species_list *) free_check_null(species_list);
 
 /* transport data */
 
-	stag_data = free_check_null(stag_data);
-	cell_data = free_check_null(cell_data);
+	stag_data = (struct stag_data *) free_check_null(stag_data);
+	cell_data = (struct cell_data *) free_check_null(cell_data);
 
 /* punch */
 
-	punch.totals = free_check_null(punch.totals);
-	punch.molalities = free_check_null(punch.molalities);
-	punch.activities = free_check_null(punch.activities);
-	punch.pure_phases = free_check_null(punch.pure_phases);
-	punch.si = free_check_null(punch.si);
-	punch.gases = free_check_null(punch.gases);
-	punch.s_s = free_check_null(punch.s_s);
-	punch.kinetics = free_check_null(punch.kinetics);
-	advection_punch = free_check_null(advection_punch);
-	advection_print = free_check_null(advection_print);
-	punch.isotopes = free_check_null(punch.isotopes);
-	punch.calculate_values = free_check_null(punch.calculate_values);
+	punch.totals = (struct name_master *) free_check_null(punch.totals);
+	punch.molalities = (struct name_species *) free_check_null(punch.molalities);
+	punch.activities = (struct name_species *) free_check_null(punch.activities);
+	punch.pure_phases = (struct name_phase *) free_check_null(punch.pure_phases);
+	punch.si = (struct name_phase *) free_check_null(punch.si);
+	punch.gases = (struct name_phase *) free_check_null(punch.gases);
+	punch.s_s = (struct name_phase *) free_check_null(punch.s_s);
+	punch.kinetics = (struct name_phase *) free_check_null(punch.kinetics);
+	advection_punch = (int *) free_check_null(advection_punch);
+	advection_print = (int *) free_check_null(advection_print);
+	punch.isotopes = (struct name_master *) free_check_null(punch.isotopes);
+	punch.calculate_values = (struct name_master *) free_check_null(punch.calculate_values);
 
 /*  user_print and user_punch */
 	rate_free(user_print);
 	rate_free(user_punch);
-	user_print = free_check_null(user_print);
+	user_print = (struct rate *) free_check_null(user_print);
 
-	user_punch = free_check_null(user_punch);
-	user_punch_headings = free_check_null(user_punch_headings);
+	user_punch = (struct rate *) free_check_null(user_punch);
+	user_punch_headings = (char **) free_check_null(user_punch_headings);
 
 	/*
 	  Free llnl aqueous model parameters
 	 */
-	llnl_temp = free_check_null(llnl_temp);
-	llnl_adh = free_check_null(llnl_adh);
-	llnl_bdh = free_check_null(llnl_bdh);
-	llnl_bdot = free_check_null(llnl_bdot);
-	llnl_co2_coefs = free_check_null(llnl_co2_coefs);
+	llnl_temp = (LDBLE *) free_check_null(llnl_temp);
+	llnl_adh = (LDBLE *) free_check_null(llnl_adh);
+	llnl_bdh = (LDBLE *) free_check_null(llnl_bdh);
+	llnl_bdot = (LDBLE *) free_check_null(llnl_bdot);
+	llnl_co2_coefs = (LDBLE *) free_check_null(llnl_co2_coefs);
 	/*
 	 * Copier space
 	 */
@@ -291,34 +291,34 @@ int clean_up(void)
 #endif
 	/* master_isotope */
 	for (i = 0; i < count_master_isotope; i++) {
-		master_isotope[i] = free_check_null(master_isotope[i]);
+		master_isotope[i] = (struct master_isotope *)free_check_null(master_isotope[i]);
 	}
-	master_isotope = free_check_null(master_isotope);
+	master_isotope = (struct master_isotope **)free_check_null(master_isotope);
 	hdestroy_multi(master_isotope_hash_table);
         master_isotope_hash_table = NULL;
 
 	/* calculate_value */
 	for (i = 0; i < count_calculate_value; i++) {
 		calculate_value_free(calculate_value[i]);
-		calculate_value[i] = free_check_null(calculate_value[i]);
+		calculate_value[i] = (struct calculate_value *) free_check_null(calculate_value[i]);
 	}
-	calculate_value = free_check_null(calculate_value);
+	calculate_value = (struct calculate_value **) free_check_null(calculate_value);
 	hdestroy_multi(calculate_value_hash_table);
         calculate_value_hash_table = NULL;
 
 	/* isotope_ratio */
 	for (i = 0; i < count_isotope_ratio; i++) {
-		isotope_ratio[i] = free_check_null(isotope_ratio[i]);
+		isotope_ratio[i] = (struct isotope_ratio *) free_check_null(isotope_ratio[i]);
 	}
-	isotope_ratio = free_check_null(isotope_ratio);
+	isotope_ratio = (struct isotope_ratio **) free_check_null(isotope_ratio);
 	hdestroy_multi(isotope_ratio_hash_table);
         isotope_ratio_hash_table = NULL;
 
 	/* isotope_alpha */
 	for (i = 0; i < count_isotope_alpha; i++) {
-		isotope_alpha[i] = free_check_null(isotope_alpha[i]);
+		isotope_alpha[i] = (struct isotope_alpha *) free_check_null(isotope_alpha[i]);
 	}
-	isotope_alpha = free_check_null(isotope_alpha);
+	isotope_alpha = (struct isotope_alpha **) free_check_null(isotope_alpha);
 	hdestroy_multi(isotope_alpha_hash_table);
         isotope_alpha_hash_table = NULL;
 
@@ -337,7 +337,7 @@ int clean_up(void)
 	hdestroy_multi(logk_hash_table);
 	hdestroy_multi(phases_hash_table);
 	hdestroy_multi(keyword_hash_table);
-	keyword_hash = free_check_null(keyword_hash);
+	keyword_hash = (struct key *) free_check_null(keyword_hash);
 
        	elements_hash_table = NULL;
 	species_hash_table = NULL;
@@ -355,16 +355,16 @@ int clean_up(void)
 
 /* miscellaneous work space */
 
-	elt_list = free_check_null(elt_list);
-	trxn.token = free_check_null(trxn.token);
-	mb_unknowns = free_check_null(mb_unknowns);
-	line = free_check_null(line);
-	line_save = free_check_null(line_save);
+	elt_list = (struct elt_list *) free_check_null(elt_list);
+	trxn.token = (struct rxn_token_temp *) free_check_null(trxn.token);
+	mb_unknowns = (struct unknown_list *) free_check_null(mb_unknowns);
+	line = (char *) free_check_null(line);
+	line_save = (char *) free_check_null(line_save);
 
 /* free user database name if defined */
-	user_database = free_check_null(user_database);
- 	selected_output_file_name = free_check_null(selected_output_file_name);
- 	dump_file_name = free_check_null(dump_file_name);
+	user_database = (char *) free_check_null(user_database);
+ 	selected_output_file_name = (char *) free_check_null(selected_output_file_name);
+ 	dump_file_name = (char *) free_check_null(dump_file_name);
 #ifdef PHREEQCI_GUI
 	free_spread();
 	title_x = free_check_null(title_x);
@@ -475,7 +475,7 @@ struct element *element_store (char *element)
 	elements[count_elements]->gfw = 0.0;
 	n = count_elements++;
 	if (count_elements >= max_elements) {
-		space ((void *) &elements, count_elements, &max_elements, sizeof(struct element *));
+		space ((void **) ((void *) &elements), count_elements, &max_elements, sizeof(struct element *));
 	}
 /*
  *   Update hash table
@@ -757,7 +757,7 @@ int exchange_copy_to_last(int n, int n_user)
  *   Copies an exchange definition from position n to position count_exchange.
  *   New exchange structure is given user number n_user.
  */
-	space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+	space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	exchange_copy(&exchange[n], &exchange[count_exchange], n_user);
 	count_exchange++;
 	return(OK);
@@ -823,7 +823,7 @@ int exchange_duplicate(int n_user_old, int n_user_new)
 	if (exchange_ptr_new != NULL) {
 		exchange_free(exchange_ptr_new);
 	} else {
-		space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 		if (n_user_new < exchange[count_exchange-1].n_user) sort = TRUE;
 		n_new = count_exchange++;
 	}
@@ -846,12 +846,12 @@ int exchange_free (struct exchange *exchange_ptr)
 /*
  *   Free space allocated for exchange structure
  */
-	exchange_ptr->description = free_check_null (exchange_ptr->description);
+	exchange_ptr->description = (char *) free_check_null (exchange_ptr->description);
 	for (i=0; i < exchange_ptr->count_comps; i++) {
-		exchange_ptr->comps[i].totals = free_check_null (exchange_ptr->comps[i].totals);
-		exchange_ptr->comps[i].formula_totals = free_check_null (exchange_ptr->comps[i].formula_totals);
+		exchange_ptr->comps[i].totals = (struct elt_list *) free_check_null (exchange_ptr->comps[i].totals);
+		exchange_ptr->comps[i].formula_totals = (struct elt_list *) free_check_null (exchange_ptr->comps[i].formula_totals);
 	}
-	exchange_ptr->comps = free_check_null (exchange_ptr->comps);
+	exchange_ptr->comps = (struct exch_comp *) free_check_null (exchange_ptr->comps);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -908,7 +908,7 @@ int exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
 	if (exchange_ptr_new != NULL) {
 		exchange_free(exchange_ptr_new);
 	} else {
-		space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 		if (n_user_new < exchange[count_exchange-1].n_user) sort = TRUE;
 		n_new = count_exchange++;
 	}
@@ -1090,7 +1090,7 @@ int gas_phase_copy_to_last(int n, int n_user)
 /*
  *   Copies an gas_phase definition to position count_gas_phase.
  */
-	space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+	space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	gas_phase_copy(&gas_phase[n], &gas_phase[count_gas_phase], n_user);
 	count_gas_phase++;
 	return(OK);
@@ -1158,7 +1158,7 @@ int gas_phase_duplicate(int n_user_old, int n_user_new)
 		gas_phase[n_new].comps = free_check_null (gas_phase[n_new].comps);
 #endif
 	} else {
-		space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 		if (n_user_new < gas_phase[count_gas_phase-1].n_user) sort = TRUE;
 		n_new = count_gas_phase++;
 	}
@@ -1180,8 +1180,8 @@ int gas_phase_free (struct gas_phase *gas_phase_ptr)
 /*
  *   Free space allocated for gas_phase structure
  */
-	gas_phase_ptr->description = free_check_null (gas_phase_ptr->description);
-	gas_phase_ptr->comps = free_check_null (gas_phase_ptr->comps);
+	gas_phase_ptr->description = (char *) free_check_null (gas_phase_ptr->description);
+	gas_phase_ptr->comps = (struct gas_comp *) free_check_null (gas_phase_ptr->comps);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -1204,7 +1204,7 @@ int gas_phase_init (struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 	gas_phase_ptr->volume = 1.0;
 	gas_phase_ptr->temperature = 298.15;
 	gas_phase_ptr->count_comps = 0;
-	gas_phase_ptr->comps = PHRQ_malloc((size_t) sizeof(struct gas_comp));
+	gas_phase_ptr->comps = (struct gas_comp *) PHRQ_malloc((size_t) sizeof(struct gas_comp));
 	if (gas_phase_ptr->comps == NULL) malloc_error();
 
 	return(OK);
@@ -1242,7 +1242,7 @@ int gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 		gas_phase[n_new].comps = free_check_null (gas_phase[n_new].comps);
 #endif
 	} else {
-		space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 		if (n_user_new < gas_phase[count_gas_phase-1].n_user) sort = TRUE;
 		n_new = count_gas_phase++;
 	}
@@ -1340,10 +1340,10 @@ struct inverse *inverse_alloc(void)
  *   allocate space for pointers in structure to NULL
  */
 
-	inverse_ptr->uncertainties = PHRQ_malloc((size_t) sizeof(LDBLE));
+	inverse_ptr->uncertainties = (double *) PHRQ_malloc((size_t) sizeof(LDBLE));
 	if (inverse_ptr->uncertainties == NULL) malloc_error();
 
-	inverse_ptr->ph_uncertainties = PHRQ_malloc((size_t) sizeof(LDBLE));
+	inverse_ptr->ph_uncertainties = (double *) PHRQ_malloc((size_t) sizeof(LDBLE));
 	if (inverse_ptr->ph_uncertainties == NULL) malloc_error();
 
 #ifdef SKIP
@@ -1351,7 +1351,7 @@ struct inverse *inverse_alloc(void)
 	if (inverse_ptr->alk_uncertainties == NULL) malloc_error();
 #endif
 
-	inverse_ptr->force_solns = PHRQ_malloc((size_t) sizeof(int));
+	inverse_ptr->force_solns = (int *) PHRQ_malloc((size_t) sizeof(int));
 	if (inverse_ptr->force_solns == NULL) malloc_error();
 
 	inverse_ptr->dalk_dph = NULL;
@@ -1360,24 +1360,24 @@ struct inverse *inverse_alloc(void)
 	
 	inverse_ptr->solns = NULL;
 
-	inverse_ptr->elts = PHRQ_malloc((size_t) sizeof(struct inv_elts));
+	inverse_ptr->elts = (struct inv_elts *) PHRQ_malloc((size_t) sizeof(struct inv_elts));
 	if (inverse_ptr->elts == NULL) malloc_error();
 	inverse_ptr->elts[0].name = NULL;
 	inverse_ptr->elts[0].uncertainties = NULL;
 
-	inverse_ptr->isotopes = PHRQ_malloc((size_t) sizeof(struct inv_isotope));
+	inverse_ptr->isotopes = (struct inv_isotope *) PHRQ_malloc((size_t) sizeof(struct inv_isotope));
 	if (inverse_ptr->isotopes == NULL) malloc_error();
 	inverse_ptr->isotopes[0].isotope_name = NULL;
 	inverse_ptr->isotopes[0].isotope_number = 0;
 	inverse_ptr->isotopes[0].elt_name = NULL;
 
-	inverse_ptr->i_u = PHRQ_malloc((size_t) sizeof(struct inv_isotope));
+	inverse_ptr->i_u = (struct inv_isotope *) PHRQ_malloc((size_t) sizeof(struct inv_isotope));
 	if (inverse_ptr->i_u == NULL) malloc_error();
 	inverse_ptr->i_u[0].isotope_name = NULL;
 	inverse_ptr->i_u[0].isotope_number = 0;
 	inverse_ptr->i_u[0].elt_name = NULL;
 
-	inverse_ptr->phases = PHRQ_malloc((size_t) sizeof(struct inv_phases));
+	inverse_ptr->phases = (struct inv_phases *) PHRQ_malloc((size_t) sizeof(struct inv_phases));
 	if (inverse_ptr->phases == NULL) malloc_error();
 
 	return(inverse_ptr);
@@ -1427,46 +1427,46 @@ int inverse_free (struct inverse *inverse_ptr)
  */
 	int i;
 
-	inverse_ptr->description = free_check_null (inverse_ptr->description);
+	inverse_ptr->description = (char *) free_check_null (inverse_ptr->description);
 /*   Free solns */
-	inverse_ptr->solns = free_check_null (inverse_ptr->solns);
+	inverse_ptr->solns = (int *) free_check_null (inverse_ptr->solns);
 
 /*   Free uncertainties */
-	inverse_ptr->uncertainties = free_check_null (inverse_ptr->uncertainties);
-	inverse_ptr->ph_uncertainties = free_check_null (inverse_ptr->ph_uncertainties); 
+	inverse_ptr->uncertainties = (double *) free_check_null (inverse_ptr->uncertainties);
+	inverse_ptr->ph_uncertainties = (double *) free_check_null (inverse_ptr->ph_uncertainties); 
 #ifdef SKIP
-	inverse_ptr->alk_uncertainties = free_check_null (inverse_ptr->alk_uncertainties);
+	inverse_ptr->alk_uncertainties = (double *) free_check_null (inverse_ptr->alk_uncertainties);
 #endif
 
 /*   Free force_solns */
-	inverse_ptr->force_solns = free_check_null (inverse_ptr->force_solns); 
+	inverse_ptr->force_solns = (int *) free_check_null (inverse_ptr->force_solns); 
 
 /*   Free elts */
 	for (i = 0; i < inverse_ptr->count_elts; i++) {
-		inverse_ptr->elts[i].uncertainties = free_check_null (inverse_ptr->elts[i].uncertainties);
+		inverse_ptr->elts[i].uncertainties = (double *) free_check_null (inverse_ptr->elts[i].uncertainties);
 	};
-	inverse_ptr->elts = free_check_null (inverse_ptr->elts);
+	inverse_ptr->elts = (struct inv_elts *) free_check_null (inverse_ptr->elts);
 
 /*   Free isotopes */
 	for (i = 0; i < inverse_ptr->count_isotopes; i++) {
-		inverse_ptr->isotopes[i].uncertainties = free_check_null (inverse_ptr->isotopes[i].uncertainties);
+		inverse_ptr->isotopes[i].uncertainties = (double *) free_check_null (inverse_ptr->isotopes[i].uncertainties);
 	};
-	inverse_ptr->isotopes = free_check_null (inverse_ptr->isotopes);
+	inverse_ptr->isotopes = (struct inv_isotope *) free_check_null (inverse_ptr->isotopes);
 
 	for (i = 0; i < inverse_ptr->count_i_u; i++) {
-		inverse_ptr->i_u[i].uncertainties = free_check_null (inverse_ptr->i_u[i].uncertainties);
+		inverse_ptr->i_u[i].uncertainties = (double *) free_check_null (inverse_ptr->i_u[i].uncertainties);
 	};
-	inverse_ptr->i_u = free_check_null (inverse_ptr->i_u);
+	inverse_ptr->i_u = (struct inv_isotope *) free_check_null (inverse_ptr->i_u);
 
 /*   Free phases */
 	for (i = 0; i < inverse_ptr->count_phases; i++) {
-		inverse_ptr->phases[i].isotopes = free_check_null(inverse_ptr->phases[i].isotopes);
+		inverse_ptr->phases[i].isotopes = (struct isotope *) free_check_null(inverse_ptr->phases[i].isotopes);
 	}
-	inverse_ptr->phases = free_check_null (inverse_ptr->phases);
+	inverse_ptr->phases = (struct inv_phases *) free_check_null (inverse_ptr->phases);
 
 /*   Free carbon derivatives */
-	inverse_ptr->dalk_dph = free_check_null(inverse_ptr->dalk_dph);
-	inverse_ptr->dalk_dc = free_check_null(inverse_ptr->dalk_dc);
+	inverse_ptr->dalk_dph = (LDBLE *) free_check_null(inverse_ptr->dalk_dph);
+	inverse_ptr->dalk_dc = (LDBLE *) free_check_null(inverse_ptr->dalk_dc);
 
 	return(OK);
 }
@@ -1712,10 +1712,10 @@ int irrev_free (struct irrev *irrev_ptr)
 /*
  *   Free space allocated for irrev structure
  */
-	irrev_ptr->description = free_check_null (irrev_ptr->description);
-	irrev_ptr->list = free_check_null (irrev_ptr->list);
-	irrev_ptr->elts = free_check_null (irrev_ptr->elts);
-	irrev_ptr->steps = free_check_null (irrev_ptr->steps);
+	irrev_ptr->description = (char *) free_check_null (irrev_ptr->description);
+	irrev_ptr->list = (struct name_coef *) free_check_null (irrev_ptr->list);
+	irrev_ptr->elts = (struct elt_list *) free_check_null (irrev_ptr->elts);
+	irrev_ptr->steps = (LDBLE *) free_check_null (irrev_ptr->steps);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -1873,7 +1873,7 @@ int kinetics_copy(struct kinetics *kinetics_old_ptr,
  *   Copy kinetic components
  */
 	if (kinetics_new_ptr->count_comps > 0) {
-		kinetics_new_ptr->comps = PHRQ_malloc((size_t) kinetics_old_ptr->count_comps * sizeof (struct kinetics_comp));
+		kinetics_new_ptr->comps = (struct kinetics_comp *) PHRQ_malloc((size_t) kinetics_old_ptr->count_comps * sizeof (struct kinetics_comp));
 		if (kinetics_new_ptr->comps == NULL) malloc_error();
 	} else {
 		kinetics_new_ptr->comps = NULL;
@@ -1933,7 +1933,7 @@ int kinetics_copy_to_last(int n, int n_user)
  *   Copies an kinetics definition from position n to position count_kinetics.
  *   New kinetics structure is given user number n_user.
  */
-	space ((void *) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+	space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 	kinetics_copy(&kinetics[n], &kinetics[count_kinetics], n_user);
 	count_kinetics++;
 	return(OK);
@@ -1998,7 +1998,7 @@ int kinetics_duplicate(int n_user_old, int n_user_new)
 	if (kinetics_ptr_new != NULL) {
 		kinetics_free(kinetics_ptr_new);
 	} else {
-		space ((void *) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		if (n_user_new < kinetics[count_kinetics-1].n_user) sort = TRUE;
 		n_new = count_kinetics++;
 	}
@@ -2022,14 +2022,14 @@ int kinetics_free (struct kinetics *kinetics_ptr)
  *   Free space allocated for kinetics structure
  */
 	for (i = 0; i < kinetics_ptr->count_comps; i++) {
-		kinetics_ptr->comps[i].c_params = free_check_null (kinetics_ptr->comps[i].c_params);
-		kinetics_ptr->comps[i].d_params = free_check_null (kinetics_ptr->comps[i].d_params);
-		kinetics_ptr->comps[i].list = free_check_null (kinetics_ptr->comps[i].list);
+		kinetics_ptr->comps[i].c_params = (char **) free_check_null (kinetics_ptr->comps[i].c_params);
+		kinetics_ptr->comps[i].d_params = (LDBLE *) free_check_null (kinetics_ptr->comps[i].d_params);
+		kinetics_ptr->comps[i].list = (struct name_coef *) free_check_null (kinetics_ptr->comps[i].list);
 	}
-	kinetics_ptr->description = free_check_null (kinetics_ptr->description);
-	kinetics_ptr->steps = free_check_null (kinetics_ptr->steps);
-	kinetics_ptr->comps = free_check_null (kinetics_ptr->comps);
-	kinetics_ptr->totals = free_check_null (kinetics_ptr->totals);
+	kinetics_ptr->description = (char *) free_check_null (kinetics_ptr->description);
+	kinetics_ptr->steps = (LDBLE *) free_check_null (kinetics_ptr->steps);
+	kinetics_ptr->comps = (struct kinetics_comp *) free_check_null (kinetics_ptr->comps);
+	kinetics_ptr->totals = (struct elt_list *) free_check_null (kinetics_ptr->totals);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2041,10 +2041,10 @@ int kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end, ch
 	kinetics_ptr->n_user_end = n_user_end;
 	kinetics_ptr->description = string_duplicate(description);
 	kinetics_ptr->count_comps = 0;
-	kinetics_ptr->comps = PHRQ_malloc((size_t) sizeof(struct kinetics_comp));
+	kinetics_ptr->comps = (struct kinetics_comp *) PHRQ_malloc((size_t) sizeof(struct kinetics_comp));
 	if (kinetics_ptr->comps == NULL) malloc_error();
 	kinetics_ptr->count_steps = 0;
-	kinetics_ptr->steps = PHRQ_malloc((size_t) sizeof(LDBLE));
+	kinetics_ptr->steps = (LDBLE *) PHRQ_malloc((size_t) sizeof(LDBLE));
 	if (kinetics_ptr->steps == NULL)  malloc_error();
 	kinetics_ptr->step_divide = 1.0;
 	kinetics_ptr->units = string_hsave("sec");
@@ -2085,7 +2085,7 @@ int kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
 	if (kinetics_ptr_new != NULL) {
 		kinetics_free(kinetics_ptr_new);
 	} else {
-		space ((void *) &kinetics, count_kinetics, &max_kinetics, sizeof(struct kinetics));
+		space ((void **) ((void *) &kinetics), count_kinetics, &max_kinetics, sizeof(struct kinetics));
 		if (n_user_new < kinetics[count_kinetics-1].n_user) sort = TRUE;
 		n_new = count_kinetics++;
 	}
@@ -2218,7 +2218,7 @@ int master_free(struct master *master_ptr)
 	if (master_ptr == NULL) return(ERROR);
 	rxn_free (master_ptr->rxn_primary);
 	rxn_free (master_ptr->rxn_secondary);
-	master_ptr = free_check_null (master_ptr);
+	master_ptr = (struct master *) free_check_null (master_ptr);
 	return(OK);
 }
 
@@ -2430,7 +2430,7 @@ int mix_duplicate(int n_user_old, int n_user_new)
 /*
  *   Count mix components and allocate space
  */
-	mix[n_new].comps = PHRQ_malloc((size_t) (count_comps) * sizeof (struct mix_comp));
+	mix[n_new].comps = (struct mix_comp *) PHRQ_malloc((size_t) (count_comps) * sizeof (struct mix_comp));
 	if (mix[n_new].comps == NULL) malloc_error();
 /*
  *   Write mix_comp structure for each mix component
@@ -2449,8 +2449,8 @@ int mix_free (struct mix *mix_ptr)
  */
 	if (mix_ptr == NULL) return(ERROR);
 
-	mix_ptr->description = free_check_null (mix_ptr->description);
-	mix_ptr->comps = free_check_null (mix_ptr->comps);
+	mix_ptr->description = (char *) free_check_null (mix_ptr->description);
+	mix_ptr->comps = (struct mix_comp *) free_check_null (mix_ptr->comps);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2544,7 +2544,7 @@ struct pe_data *pe_data_dup (struct pe_data *pe_ptr_old)
 	if (pe_ptr_old == NULL) return(ERROR);
 	for (i = 0; pe_ptr_old[i].name != NULL; i++);
 	count_pe = i + 1;
-	pe_ptr_new = PHRQ_malloc( (size_t) count_pe * sizeof(struct pe_data));
+	pe_ptr_new = (struct pe_data *) PHRQ_malloc( (size_t) count_pe * sizeof(struct pe_data));
 	if (pe_ptr_new == NULL) malloc_error();
 	memcpy ( (void *) pe_ptr_new,  (void *) pe_ptr_old, (size_t) count_pe * sizeof(struct pe_data) );
 	for (i = 0; i < count_pe - 1; i++) {
@@ -2566,7 +2566,7 @@ int pe_data_free (struct pe_data *pe_data_ptr)
 	for (i=0; pe_data_ptr[i].name != NULL; i++) {
 		rxn_free(pe_data_ptr[i].rxn);
 	}
-	pe_data_ptr = free_check_null (pe_data_ptr);
+	pe_data_ptr = (struct pe_data *) free_check_null (pe_data_ptr);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2591,7 +2591,7 @@ int pe_data_store (struct pe_data **pe, const char *token)
 /*
  *   Save new struct pe_data in array
  */
-	*pe = PHRQ_realloc( (void *) *pe, (size_t) (i+2) * sizeof(struct pe_data));
+	*pe = (struct pe_data *) PHRQ_realloc( (void *) *pe, (size_t) (i+2) * sizeof(struct pe_data));
 	if (*pe == NULL) malloc_error();
 	pe_data_ptr = *pe;
 	pe_data_ptr[i].name = string_hsave ( token );
@@ -2661,7 +2661,7 @@ int phase_delete(int i)
 	int j;
 
 	phase_free(phases[i]);
-	phases[i] = free_check_null(phases[i]);
+	phases[i] = (struct phase *) free_check_null(phases[i]);
 	for (j=i; j < (count_phases - 1); j++) {
 		phases[j]=phases[j+1];
 	}
@@ -2678,12 +2678,12 @@ int phase_free(struct phase *phase_ptr)
  *   Return: OK
  */
 	if (phase_ptr == NULL) return(ERROR);
-	phase_ptr->next_elt = free_check_null (phase_ptr->next_elt);
-	phase_ptr->next_sys_total = free_check_null (phase_ptr->next_sys_total); 
+	phase_ptr->next_elt = (struct elt_list *) free_check_null (phase_ptr->next_elt);
+	phase_ptr->next_sys_total = (struct elt_list *) free_check_null (phase_ptr->next_sys_total); 
 	rxn_free (phase_ptr->rxn);
 	rxn_free (phase_ptr->rxn_s);
 	rxn_free (phase_ptr->rxn_x);
-	phase_ptr->add_logk = free_check_null (phase_ptr->add_logk);
+	phase_ptr->add_logk = (struct name_coef *) free_check_null (phase_ptr->add_logk);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2802,7 +2802,7 @@ struct phase  *phase_store (char *name)
                                        /* make sure there is space in phases */
 	n = count_phases++;
 	if (count_phases >= max_phases) {
-		space ((void *) &phases, count_phases, &max_phases, sizeof(struct phase *));
+		space ((void **) ((void *) &phases), count_phases, &max_phases, sizeof(struct phase *));
 	}
 	phases[n]=phase_alloc();
 		                       /* set name in phase structure */
@@ -2885,7 +2885,7 @@ struct phase  *phase_store (char *name)
                                        /* make sure there is space in phases */
 	n = count_phases++;
 	if (count_phases >= max_phases) {
-		space ((void *) &phases, count_phases, &max_phases, sizeof(struct phase *));
+		space ((void **) &phases, count_phases, &max_phases, sizeof(struct phase *));
 	}
 	phases[n]=phase_alloc();
 		                       /* set name in phase structure */
@@ -3017,7 +3017,7 @@ int pp_assemblage_copy_to_last(int n, int n_user)
  *   Copies an pp_assemblage definition from position n
  *   to position count_pp_assemblage.
  */
-	space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+	space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 	pp_assemblage_copy(&pp_assemblage[n], &pp_assemblage[count_pp_assemblage], n_user);
 	count_pp_assemblage++;
 	return(OK);
@@ -3053,7 +3053,7 @@ int pp_assemblage_duplicate(int n_user_old, int n_user_new)
 	if (pp_assemblage_ptr_new != NULL) {
 		pp_assemblage_free(pp_assemblage_ptr_new);
 	} else {
-		space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		if (n_user_new < pp_assemblage[count_pp_assemblage-1].n_user) sort = TRUE;
 		n_new = count_pp_assemblage++;
 	}
@@ -3102,9 +3102,9 @@ int pp_assemblage_free (struct pp_assemblage *pp_assemblage_ptr)
  */
 	if (pp_assemblage_ptr == NULL) return(ERROR);
 
-	pp_assemblage_ptr->description = free_check_null (pp_assemblage_ptr->description);
-	pp_assemblage_ptr->next_elt = free_check_null (pp_assemblage_ptr->next_elt);
-	pp_assemblage_ptr->pure_phases = free_check_null (pp_assemblage_ptr->pure_phases);
+	pp_assemblage_ptr->description = (char *) free_check_null (pp_assemblage_ptr->description);
+	pp_assemblage_ptr->next_elt = (struct elt_list *) free_check_null (pp_assemblage_ptr->next_elt);
+	pp_assemblage_ptr->pure_phases = (struct pure_phase *) free_check_null (pp_assemblage_ptr->pure_phases);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -3125,7 +3125,7 @@ int pp_assemblage_init (struct pp_assemblage *pp_assemblage_ptr, int n_user, int
 
 	pp_assemblage_ptr->next_elt = NULL;
 	pp_assemblage_ptr->count_comps = 0;
-	pp_assemblage_ptr->pure_phases = PHRQ_malloc((size_t) sizeof(struct pure_phase));
+	pp_assemblage_ptr->pure_phases = (struct pure_phase *) PHRQ_malloc((size_t) sizeof(struct pure_phase));
 	if (pp_assemblage_ptr->pure_phases == NULL) malloc_error();
 
 	return(OK);
@@ -3160,7 +3160,7 @@ int pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old, int n
 	if (pp_assemblage_ptr_new != NULL) {
 		pp_assemblage_free(pp_assemblage_ptr_new);
 	} else {
-		space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		if (n_user_new < pp_assemblage[count_pp_assemblage-1].n_user) sort = TRUE;
 		n_new = count_pp_assemblage++;
 	}
@@ -3305,7 +3305,7 @@ int rate_free(struct rate *rate_ptr)
  	char cmd[] = "new; quit";
 
 	if (rate_ptr == NULL) return(ERROR);
-	rate_ptr->commands = free_check_null(rate_ptr->commands);
+	rate_ptr->commands = (char *) free_check_null(rate_ptr->commands);
 	basic_run(cmd, rate_ptr->linebase, rate_ptr->varbase, rate_ptr->loopbase);
 	rate_ptr->linebase = NULL;
 	rate_ptr->varbase = NULL;
@@ -3451,8 +3451,8 @@ int rxn_free(struct reaction *rxn_ptr)
  *              OK, otherwise.
  */
 	if (rxn_ptr == NULL) return(ERROR);
-	rxn_ptr->token = free_check_null (rxn_ptr->token);
-	rxn_ptr = free_check_null (rxn_ptr);
+	rxn_ptr->token = (struct rxn_token *) free_check_null (rxn_ptr->token);
+	rxn_ptr = (struct reaction *) free_check_null (rxn_ptr);
 	return(OK);
 }
 /* **********************************************************************
@@ -3499,7 +3499,7 @@ int s_delete (int i)
 	int j;
 
 	s_free (s[i]);
-	s[i] = free_check_null(s[i]);
+	s[i] = (struct species *) free_check_null(s[i]);
 	for (j=i; j < (count_s - 1); j++) {
 		s[j]=s[j+1];
 	}
@@ -3514,14 +3514,14 @@ int s_free (struct species *s_ptr)
  *   Free space allocated for species structure, s_ptr. Does not free s_ptr.
  */
 	if (s_ptr == NULL) return(ERROR);
-	s_ptr->next_elt = free_check_null (s_ptr->next_elt);
-	s_ptr->next_secondary = free_check_null (s_ptr->next_secondary);
-	s_ptr->next_sys_total = free_check_null (s_ptr->next_sys_total);
-	s_ptr->add_logk = free_check_null(s_ptr->add_logk);
+	s_ptr->next_elt = (struct elt_list *) free_check_null (s_ptr->next_elt);
+	s_ptr->next_secondary = (struct elt_list *) free_check_null (s_ptr->next_secondary);
+	s_ptr->next_sys_total = (struct elt_list *) free_check_null (s_ptr->next_sys_total);
+	s_ptr->add_logk = (struct name_coef *) free_check_null(s_ptr->add_logk);
 	rxn_free (s_ptr->rxn);
 	rxn_free (s_ptr->rxn_s);
 	rxn_free (s_ptr->rxn_x);
-	s_ptr->diff_layer = free_check_null (s_ptr->diff_layer);
+	s_ptr->diff_layer = (struct species_diff_layer *) free_check_null (s_ptr->diff_layer);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -3651,7 +3651,7 @@ struct species  *s_store (char *name, LDBLE z, int replace_if_found)
 		n = count_s++;
                                        /* make sure there is space in s */
 		if (count_s >= max_s) {
-			space ((void *) &s, count_s, &max_s, sizeof(struct species *));
+			space ((void **) ((void *) &s), count_s, &max_s, sizeof(struct species *));
 		}
 		                       /* Make new species structure */
 		s[n] = s_alloc();
@@ -3803,7 +3803,7 @@ int s_s_assemblage_copy_to_last(int n, int n_user)
  *   Copies an s_s_assemblage definition from position n
  *   to position count_s_s_assemblage.
  */
-	space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+	space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 	s_s_assemblage_copy(&s_s_assemblage[n], &s_s_assemblage[count_s_s_assemblage], n_user);
 	count_s_s_assemblage++;
 	return(OK);
@@ -3839,7 +3839,7 @@ int s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 	if (s_s_assemblage_ptr_new != NULL) {
 		s_s_assemblage_free(s_s_assemblage_ptr_new);
 	} else {
-		space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		if (n_user_new < s_s_assemblage[count_s_s_assemblage-1].n_user) sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
@@ -3889,11 +3889,11 @@ int s_s_assemblage_free (struct s_s_assemblage *s_s_assemblage_ptr)
 	int i;
 
 	if (s_s_assemblage_ptr == NULL) return(ERROR);
-	s_s_assemblage_ptr->description = free_check_null (s_s_assemblage_ptr->description);
+	s_s_assemblage_ptr->description = (char *) free_check_null (s_s_assemblage_ptr->description);
 	for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++) {
-		s_s_assemblage_ptr->s_s[i].comps = free_check_null(s_s_assemblage_ptr->s_s[i].comps);
+		s_s_assemblage_ptr->s_s[i].comps = (struct s_s_comp *) free_check_null(s_s_assemblage_ptr->s_s[i].comps);
 	}
-	s_s_assemblage_ptr->s_s = free_check_null (s_s_assemblage_ptr->s_s);
+	s_s_assemblage_ptr->s_s = (struct s_s *) free_check_null (s_s_assemblage_ptr->s_s);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -3905,7 +3905,7 @@ int s_s_assemblage_init (struct s_s_assemblage *s_s_assemblage_ptr, int n_user, 
 	s_s_assemblage_ptr->description = string_duplicate(description);
 	s_s_assemblage_ptr->new_def = TRUE;
 	s_s_assemblage_ptr->count_s_s = 0;
-	s_s_assemblage_ptr->s_s = PHRQ_malloc((size_t) sizeof(struct s_s));
+	s_s_assemblage_ptr->s_s = (struct s_s *) PHRQ_malloc((size_t) sizeof(struct s_s));
 	if (s_s_assemblage_ptr->s_s == NULL) malloc_error();
 	
 	return(OK);
@@ -3940,7 +3940,7 @@ int s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old, in
 	if (s_s_assemblage_ptr_new != NULL) {
 		s_s_assemblage_free(s_s_assemblage_ptr_new);
 	} else {
-		space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		if (n_user_new < s_s_assemblage[count_s_s_assemblage-1].n_user) sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
@@ -4091,15 +4091,15 @@ int save_values_store(struct save_values *s_v)
 	if (s_v_ptr != NULL) {
 		s_v_ptr->value = s_v->value;
 	} else {
-		save_values = PHRQ_realloc(save_values, (size_t) (count_save_values + 1) * sizeof( struct save_values));
+		save_values = (struct save_values *) PHRQ_realloc(save_values, (size_t) (count_save_values + 1) * sizeof( struct save_values));
 		if (save_values == NULL) malloc_error();
 		save_values[count_save_values].value = s_v->value;
 		save_values[count_save_values].count_subscripts = s_v->count_subscripts;
 		i = s_v->count_subscripts;
 		if (i == 0) i = 1;
-		save_values[count_save_values].subscripts = PHRQ_malloc ((size_t) i * sizeof(int));
+		save_values[count_save_values].subscripts = (int *) PHRQ_malloc ((size_t) i * sizeof(int));
 		if (save_values[count_save_values].subscripts == NULL) malloc_error();
-		save_values[count_save_values].subscripts = memcpy(save_values[count_save_values].subscripts, s_v->subscripts, (size_t) i * sizeof(int));
+		save_values[count_save_values].subscripts = (int *) memcpy(save_values[count_save_values].subscripts, s_v->subscripts, (size_t) i * sizeof(int));
 		count_save_values++;
 		save_values_sort();
 	}
@@ -4124,6 +4124,20 @@ int conc_compare (const void *ptr1, const void *ptr2)
 	conc_ptr2 = (const struct conc *) ptr2;
 	return(strcmp_nocase(conc_ptr1->description, conc_ptr2->description)); 
 
+}
+/* ---------------------------------------------------------------------- */
+int conc_init (struct conc *conc_ptr)
+/* ---------------------------------------------------------------------- */
+{
+	if (conc_ptr == NULL) return(ERROR); 
+	conc_ptr->equation_name = NULL;
+	conc_ptr->phase = NULL;
+	conc_ptr->phase_si = 0.0;
+	conc_ptr->units=NULL;
+	conc_ptr->n_pe=-1;
+	conc_ptr->as=NULL;
+	conc_ptr->gfw= 0.0;
+	return OK;
 }
 /* ---------------------------------------------------------------------- */
 int isotope_compare (const void *ptr1, const void *ptr2)
@@ -4166,10 +4180,10 @@ struct solution *solution_alloc(void)
  *   Initial allocation of space for totals and activities
  */
 	max_mass_balance=MAX_MASS_BALANCE;
-	space ((void *) &(solution_ptr->totals), INIT, &max_mass_balance, sizeof (struct conc));
+	space ((void **) &(solution_ptr->totals), INIT, &max_mass_balance, sizeof (struct conc));
 	max_mass_balance=MAX_MASS_BALANCE;
 	solution_ptr->totals[0].description = NULL;
-	space ((void *) &(solution_ptr->master_activity), INIT, &max_mass_balance, sizeof (struct master_activity));
+	space ((void **) &(solution_ptr->master_activity), INIT, &max_mass_balance, sizeof (struct master_activity));
 	solution_ptr->master_activity[0].description = NULL;
 	solution_ptr->species_gamma = NULL;
 	solution_ptr->count_species_gamma = 0;
@@ -4180,7 +4194,7 @@ struct solution *solution_alloc(void)
 /*
  *   Initial allocation of space for isotopes
  */
-	solution_ptr->isotopes = PHRQ_malloc(sizeof(struct isotope));
+	solution_ptr->isotopes = (struct isotope *) PHRQ_malloc(sizeof(struct isotope));
 	if (solution_ptr->isotopes == NULL) malloc_error();
 	solution_ptr->new_def=TRUE;
 
@@ -4328,7 +4342,7 @@ static struct solution *solution_copy(struct solution *solution_old_ptr, int n_u
  */
 	if (solution_old_ptr->count_isotopes > 0) {
 		solution_new_ptr->count_isotopes = solution_old_ptr->count_isotopes;
-		solution_new_ptr->isotopes = PHRQ_malloc((size_t) solution_old_ptr->count_isotopes * sizeof(struct isotope));
+		solution_new_ptr->isotopes = (struct isotope *) PHRQ_malloc((size_t) solution_old_ptr->count_isotopes * sizeof(struct isotope));
 		if (solution_new_ptr->isotopes == NULL) malloc_error();
 		memcpy(solution_new_ptr->isotopes, solution_old_ptr->isotopes, (size_t) solution_old_ptr->count_isotopes * sizeof(struct isotope));
 	} else {
@@ -4350,7 +4364,7 @@ int solution_copy_to_last(int n, int n_user_new)
  */
                                  /* Make sure solution array is large enough */
 	if (count_solution + 1 >= max_solution) {
-		space ((void *) &(solution), count_solution, &max_solution,
+		space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 		       sizeof (struct solution *) );
 	}
                                  /* malloc space and copy solution */
@@ -4402,7 +4416,7 @@ int solution_duplicate(int n_user_old, int n_user_new)
  *   Make sure surface array is large enough
  */
 	if (count_solution >= max_solution) {
-		space ((void *) &(solution), count_solution, &max_solution,
+		space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 		       sizeof (struct solution *) );
 	}
 /*
@@ -4438,18 +4452,18 @@ int solution_free (struct solution *solution_ptr)
 /*
  *   Free all memory unique to a solution structure, free solution_ptr too.
  */
-	solution_ptr->description = free_check_null (solution_ptr->description);
+	solution_ptr->description = (char *) free_check_null (solution_ptr->description);
 /*   Free struct conc array */
-	solution_ptr->totals = free_check_null (solution_ptr->totals);
-	solution_ptr->master_activity = free_check_null (solution_ptr->master_activity);
-	solution_ptr->species_gamma = free_check_null (solution_ptr->species_gamma);
+	solution_ptr->totals = (struct conc *) free_check_null (solution_ptr->totals);
+	solution_ptr->master_activity = (struct master_activity *) free_check_null (solution_ptr->master_activity);
+	solution_ptr->species_gamma = (struct master_activity *) free_check_null (solution_ptr->species_gamma);
 	solution_ptr->count_species_gamma = 0;
 /*   Free struct pe_data array */
 	pe_data_free (solution_ptr->pe); 
 /*   Free isotope data */
-	solution_ptr->isotopes = free_check_null (solution_ptr->isotopes);
+	solution_ptr->isotopes = (struct isotope *) free_check_null (solution_ptr->isotopes);
 /*   Free struct solution */
-	solution_ptr = free_check_null (solution_ptr);
+	solution_ptr = (struct solution *) free_check_null (solution_ptr);
 
 	return(OK);
 }
@@ -4489,7 +4503,7 @@ int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
 		 *   Make sure surface array is large enough
 		 */
 		if (count_solution >= max_solution) {
-			space ((void *) &(solution), count_solution, &max_solution,
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution,
 			       sizeof (struct solution *) );
 		}
 		if (n_user_new > solution[n-1]->n_user) {
@@ -4801,7 +4815,7 @@ int surface_copy_to_last(int n, int n_user)
 /*
  *   Copies an surface definition to position count_surface.
  */
-	space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+	space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	surface_copy(&surface[n], &surface[count_surface], n_user);
 	count_surface++;
 	return(OK);
@@ -4837,7 +4851,7 @@ int surface_duplicate(int n_user_old, int n_user_new)
 	if (surface_ptr_new != NULL) {
 		surface_free(surface_ptr_new);
 	} else {
-		space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 		if (n_user_new < surface[count_surface-1].n_user) sort = TRUE;
 		n_new = count_surface++;
 	}
@@ -4887,24 +4901,24 @@ int surface_free(struct surface *surface_ptr)
 	int k;
 
 	if (surface_ptr == NULL) return(ERROR);
-	surface_ptr->description = free_check_null(surface_ptr->description);
+	surface_ptr->description = (char *) free_check_null(surface_ptr->description);
 /*
  *   totals, then comps
  */
 	for (k = 0; k < surface_ptr->count_comps; k++) {
-		surface_ptr->comps[k].totals = free_check_null(surface_ptr->comps[k].totals);
+		surface_ptr->comps[k].totals = (struct elt_list *) free_check_null(surface_ptr->comps[k].totals);
 	}
-	surface_ptr->comps = free_check_null (surface_ptr->comps);
+	surface_ptr->comps = (struct surface_comp *) free_check_null (surface_ptr->comps);
 /*
  *   diffuse_layer_totals and g, then charge
  */
 	if (surface_ptr->edl == TRUE) {
 		for (k = 0; k < surface_ptr->count_charge; k++) {
-			surface_ptr->charge[k].diffuse_layer_totals = free_check_null(surface_ptr->charge[k].diffuse_layer_totals);
-			surface_ptr->charge[k].g = free_check_null(surface_ptr->charge[k].g);
+			surface_ptr->charge[k].diffuse_layer_totals = (struct elt_list *) free_check_null(surface_ptr->charge[k].diffuse_layer_totals);
+			surface_ptr->charge[k].g = (struct surface_diff_layer *) free_check_null(surface_ptr->charge[k].g);
 		}
 	}
-	surface_ptr->charge = free_check_null (surface_ptr->charge);
+	surface_ptr->charge = (struct surface_charge *) free_check_null (surface_ptr->charge);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -4982,7 +4996,7 @@ int surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
 	if (surface_ptr_new != NULL) {
 		surface_free(surface_ptr_new);
 	} else {
-		space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 		if (n_user_new < surface[count_surface-1].n_user) sort = TRUE;
 		n_new = count_surface++;
 	}
@@ -5183,8 +5197,8 @@ int temperature_free (struct temperature *temperature_ptr)
  */
 	if (temperature_ptr == NULL) return(ERROR);
 
-	temperature_ptr->description = free_check_null (temperature_ptr->description);
-	temperature_ptr->t = free_check_null (temperature_ptr->t);
+	temperature_ptr->description = (char *) free_check_null (temperature_ptr->description);
+	temperature_ptr->t = (LDBLE *) free_check_null (temperature_ptr->t);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -5277,7 +5291,7 @@ int trxn_add (struct reaction *r_ptr, LDBLE coef, int combine)
 	next_token = r_ptr->token;
 	while (next_token->s != NULL) {
 		if (count_trxn + 1 >= max_trxn) {
-			space ((void *) &(trxn.token), count_trxn+1, &max_trxn,
+			space ((void **) &(trxn.token), count_trxn+1, &max_trxn,
 			       sizeof(struct rxn_token_temp));
 		}
 		trxn.token[count_trxn].name = next_token->s->name;
@@ -5583,8 +5597,8 @@ int unknown_free(struct unknown *unknown_ptr)
  *   Frees space allocated to an unknown structure, frees unknown_ptr.
  */
 	if (unknown_ptr == NULL) return(ERROR);
-	unknown_ptr->master = free_check_null (unknown_ptr->master);
-	unknown_ptr = free_check_null (unknown_ptr);
+	unknown_ptr->master = (struct master **) free_check_null (unknown_ptr->master);
+	unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -5647,7 +5661,7 @@ struct logk  *logk_store (char *name, int replace_if_found)
 		n = count_logk++;
                                        /* make sure there is space in s */
 		if (count_logk >= max_logk) {
-			space ((void *) &logk, count_logk, &max_logk, sizeof(struct logk *));
+			space ((void **) ((void *) &logk), count_logk, &max_logk, sizeof(struct logk *));
 		}
 		                       /* Make new logk structure */
 		logk[n] = logk_alloc();
@@ -5932,11 +5946,11 @@ int copier_add(struct copier *copier_ptr, int n_user, int start, int end)
 
 	if (copier_ptr->count >= copier_ptr->max) {
 		copier_ptr->max = copier_ptr->count*2;
-		copier_ptr->n_user = PHRQ_realloc(copier_ptr->n_user, (size_t) (copier_ptr->max*sizeof(int)));
+		copier_ptr->n_user = (int *) PHRQ_realloc(copier_ptr->n_user, (size_t) (copier_ptr->max*sizeof(int)));
 		if (copier_ptr->n_user == NULL) malloc_error();
-		copier_ptr->start = PHRQ_realloc(copier_ptr->start, (size_t) (copier_ptr->max*sizeof(int)));
+		copier_ptr->start = (int *) PHRQ_realloc(copier_ptr->start, (size_t) (copier_ptr->max*sizeof(int)));
 		if (copier_ptr->start == NULL) malloc_error();
-		copier_ptr->end = PHRQ_realloc(copier_ptr->end, (size_t) (copier_ptr->max*sizeof(int)));
+		copier_ptr->end = (int *) PHRQ_realloc(copier_ptr->end, (size_t) (copier_ptr->max*sizeof(int)));
 		if (copier_ptr->end == NULL) malloc_error();
 	}
 	copier_ptr->n_user[copier_ptr->count] = n_user;
@@ -5953,9 +5967,9 @@ int copier_free(struct copier *copier_ptr)
  */
 {
 
-	copier_ptr->n_user = free_check_null(copier_ptr->n_user);
-	copier_ptr->start = free_check_null(copier_ptr->start);
-	copier_ptr->end = free_check_null(copier_ptr->end);
+	copier_ptr->n_user = (int *) free_check_null(copier_ptr->n_user);
+	copier_ptr->start = (int *) free_check_null(copier_ptr->start);
+	copier_ptr->end = (int *) free_check_null(copier_ptr->end);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -5968,8 +5982,8 @@ int copier_init(struct copier *copier_ptr)
 
 	copier_ptr->count = 0;
 	copier_ptr->max = 10;
-	copier_ptr->n_user = PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
-	copier_ptr->start = PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
-	copier_ptr->end = PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
+	copier_ptr->n_user = (int *) PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
+	copier_ptr->start = (int *) PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
+	copier_ptr->end = (int *) PHRQ_malloc((size_t) (copier_ptr->max*sizeof(int)));
 	return(OK);
 }

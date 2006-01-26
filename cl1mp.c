@@ -160,7 +160,7 @@ int cl1mp(int k, int l, int m, int n,
 	mpf_init(dummy);
 	mpf_init(dummy1);
 	mpf_init_set_d(censor_tol, censor_arg);
-	q = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(mpf_t)));
+	q = (mpf_t *) PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(mpf_t)));
 	if (q == NULL) malloc_error();
 	for (i = 0; i < max_row_count*max_column_count; i++) {
 		mpf_init_set_d(q[i], q_arg[i]);
@@ -173,22 +173,22 @@ int cl1mp(int k, int l, int m, int n,
 		  }
 		}
 	}
-	x = PHRQ_malloc((size_t) (n2d * sizeof(mpf_t)));
+	x = (mpf_t *) PHRQ_malloc((size_t) (n2d * sizeof(mpf_t)));
 	if (x == NULL) malloc_error();
 	for (i = 0; i < n2d; i++) {
 		mpf_init_set_d (x[i], x_arg[i]);
 	}
-	res = PHRQ_malloc((size_t) ((k + l + m) * sizeof(mpf_t)));
+	res = (mpf_t *) PHRQ_malloc((size_t) ((k + l + m) * sizeof(mpf_t)));
 	if (res == NULL) malloc_error();
 	for (i = 0; i < k + l + m; i++) {
 		mpf_init_set_d (res[i], res_arg[i]);
 	}
-	cu = PHRQ_malloc((size_t) (2*nklmd * sizeof(mpf_t)));
+	cu = (mpf_t *) PHRQ_malloc((size_t) (2*nklmd * sizeof(mpf_t)));
 	if (cu == NULL) malloc_error();
 	for (i = 0; i < 2*nklmd; i++) {
 		mpf_init_set_d (cu[i], cu_arg[i]);
 	}
-	kode = PHRQ_malloc(sizeof(int));
+	kode = (int *) PHRQ_malloc(sizeof(int));
 	if (kode == NULL) malloc_error();
 	*kode = *kode_arg;
 	mpf_init(sum);
@@ -939,19 +939,19 @@ L590:
 	for (i = 0; i < max_row_count*max_column_count; i++) {
 		mpf_clear(q[i]);
 	}
-	q = free_check_null(q);
+	q = (mpf_t *) free_check_null(q);
 	for (i = 0; i < n2d; i++) {
 		mpf_clear (x[i]);
 	}
-	x = free_check_null(x);
+	x = (mpf_t *) free_check_null(x);
 	for (i = 0; i < k + l + m; i++) {
 		mpf_clear (res[i]);
 	}
-	res = free_check_null(res);
+	res = (mpf_t *) free_check_null(res);
 	for (i = 0; i < 2*nklmd; i++) {
 		mpf_clear (cu[i]);
 	}
-	cu = free_check_null(cu);
+	cu = (mpf_t *) free_check_null(cu);
 	mpf_clear(dummy);
 	mpf_clear(dummy1);
 	mpf_clear(sum);
@@ -969,6 +969,6 @@ L590:
 	mpf_clear(tpivot);
 	mpf_clear(sn);
 	mpf_clear(censor_tol);
-	kode = free_check_null(kode);
+	kode = (int *) free_check_null(kode);
 	return 0;
 }

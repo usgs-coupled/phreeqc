@@ -153,7 +153,7 @@ int inverse_models(void)
 			punch_model_heading(&inverse[n]);
 			solve_inverse(&(inverse[n]));
 			if (inverse[n].count_isotope_unknowns > 0 ) {
-				inverse[n].isotope_unknowns = free_check_null(inverse[n].isotope_unknowns);
+				inverse[n].isotope_unknowns = (struct isotope *) free_check_null(inverse[n].isotope_unknowns);
 			}
 			inverse[n].new_def = FALSE;
 		}
@@ -270,7 +270,7 @@ int setup_inverse(struct inverse *inv_ptr)
 /*
  *   Malloc space for arrays
  */
-	array = free_check_null(array);
+	array = (LDBLE *) free_check_null(array);
 	array = (LDBLE *) PHRQ_malloc((size_t) max_column_count * max_row_count * sizeof(LDBLE));
 	if (array == NULL) malloc_error();
 
@@ -283,7 +283,7 @@ int setup_inverse(struct inverse *inv_ptr)
 	row_name = (char **) PHRQ_malloc((size_t) max_row_count * sizeof(char *));
 	if (row_name == NULL) malloc_error();
 
-	delta = free_check_null (delta);
+	delta = (LDBLE *) free_check_null (delta);
 	delta = (LDBLE *) PHRQ_malloc( (size_t) max_column_count * sizeof(LDBLE));
 	if (delta == NULL) malloc_error();
 
@@ -917,22 +917,22 @@ int solve_inverse(struct inverse *inv_ptr)
 	max_bad = MAX_MODELS;
 	max_minimal = MAX_MODELS;
 
-	good = PHRQ_malloc( (size_t) max_good * sizeof(unsigned long));
+	good = (unsigned long *) PHRQ_malloc( (size_t) max_good * sizeof(unsigned long));
 	if (good == NULL) malloc_error();
 	count_good = 0;
 
-	bad = PHRQ_malloc( (size_t) max_bad * sizeof(unsigned long));
+	bad = (unsigned long *) PHRQ_malloc( (size_t) max_bad * sizeof(unsigned long));
 	if (bad == NULL) malloc_error();
 	count_bad = 0;
 
-	minimal = PHRQ_malloc( (size_t) max_minimal * sizeof(unsigned long));
+	minimal = (unsigned long *) PHRQ_malloc( (size_t) max_minimal * sizeof(unsigned long));
 	if (minimal == NULL) malloc_error();
 	count_minimal = 0;
 
-	col_back = PHRQ_malloc((size_t) max_column_count * sizeof(int));
+	col_back = (int *) PHRQ_malloc((size_t) max_column_count * sizeof(int));
 	if (col_back == NULL) malloc_error();
 
-	row_back = PHRQ_malloc((size_t) max_row_count * sizeof(int));
+	row_back = (int *) PHRQ_malloc((size_t) max_row_count * sizeof(int));
 	if (row_back == NULL) malloc_error();
 
 /*
@@ -1090,27 +1090,27 @@ int solve_inverse(struct inverse *inv_ptr)
 		output_msg(OUTPUT_MESSAGE,"\tNumber of infeasible sets of phases saved: %d\n", count_bad);
 		output_msg(OUTPUT_MESSAGE,"\tNumber of calls to cl1: %d\n", count_calls);
 	}
-	array = free_check_null(array);
-	delta = free_check_null(delta);
-	array1 = free_check_null(array1);
-	zero = free_check_null(zero);
-	res = free_check_null(res);
-	delta1 = free_check_null(delta1);
-	delta2 = free_check_null(delta2);
-	delta3 = free_check_null(delta3);
-	delta_save = free_check_null(delta_save);
-	cu = free_check_null(cu);
-	iu = free_check_null(iu);
-	is = free_check_null(is);
-	col_name = free_check_null(col_name);
-	row_name = free_check_null(row_name);
-	col_back = free_check_null(col_back);
-	row_back = free_check_null(row_back);
-	min_delta = free_check_null(min_delta);
-	max_delta = free_check_null(max_delta);
-	good = free_check_null(good);
-	bad = free_check_null(bad);
-	minimal = free_check_null(minimal);
+	array = (LDBLE *) free_check_null(array);
+	delta = (LDBLE *) free_check_null(delta);
+	array1 = (LDBLE *) free_check_null(array1);
+	zero = (LDBLE *) free_check_null(zero);
+	res = (LDBLE *) free_check_null(res);
+	delta1 = (LDBLE *) free_check_null(delta1);
+	delta2 = (LDBLE *) free_check_null(delta2);
+	delta3 = (LDBLE *) free_check_null(delta3);
+	delta_save = (LDBLE *) free_check_null(delta_save);
+	cu = (LDBLE *) free_check_null(cu);
+	iu = (int *) free_check_null(iu);
+	is = (int *) free_check_null(is);
+	col_name = (char **) free_check_null(col_name);
+	row_name = (char **) free_check_null(row_name);
+	col_back = (int *) free_check_null(col_back);
+	row_back = (int *) free_check_null(row_back);
+	min_delta = (LDBLE *) free_check_null(min_delta);
+	max_delta = (LDBLE *) free_check_null(max_delta);
+	good = (unsigned long *) free_check_null(good);
+	bad = (unsigned long *) free_check_null(bad);
+	minimal = (unsigned long *) free_check_null(minimal);
 
 	return(OK);
 }
@@ -1310,7 +1310,7 @@ int save_minimal(unsigned long bits)
 	count_minimal++;
 	if (count_minimal >= max_minimal) {
 		max_minimal *= 2;
-		minimal = PHRQ_realloc(minimal, (size_t) max_minimal * sizeof (unsigned long));
+		minimal = (unsigned long *) PHRQ_realloc(minimal, (size_t) max_minimal * sizeof (unsigned long));
 		if (minimal == NULL) malloc_error();
 	}
 	return(TRUE);
@@ -1326,7 +1326,7 @@ int save_good(unsigned long bits)
 	count_good++;
 	if (count_good >= max_good) {
 		max_good *= 2;
-		good = PHRQ_realloc(good, (size_t) max_good * sizeof (unsigned long));
+		good = (unsigned long *) PHRQ_realloc(good, (size_t) max_good * sizeof (unsigned long));
 		if (good == NULL) malloc_error();
 	}
 	return(TRUE);
@@ -1342,7 +1342,7 @@ int save_bad(unsigned long bits)
 	count_bad++;
 	if (count_bad >= max_bad) {
 		max_bad *= 2;
-		bad = PHRQ_realloc(bad, (size_t) max_bad * sizeof (unsigned long));
+		bad = (unsigned long *) PHRQ_realloc(bad, (size_t) max_bad * sizeof (unsigned long));
 		if (bad == NULL) malloc_error();
 	}
 	return(TRUE);
@@ -2396,12 +2396,12 @@ int carbon_derivs(struct inverse *inv_ptr)
 	LDBLE c_uncertainty, d_carbon, alk_plus, alk_minus;
 	struct solution *solution_ptr_orig, *solution_ptr;
 
-	inv_ptr->dalk_dph = free_check_null(inv_ptr->dalk_dph);
-        inv_ptr->dalk_dph = PHRQ_malloc( (size_t) inv_ptr->count_solns * sizeof(LDBLE) );
+	inv_ptr->dalk_dph = (LDBLE *) free_check_null(inv_ptr->dalk_dph);
+        inv_ptr->dalk_dph = (LDBLE *) PHRQ_malloc( (size_t) inv_ptr->count_solns * sizeof(LDBLE) );
 	if (inv_ptr->dalk_dph == NULL) malloc_error();
 
-	inv_ptr->dalk_dc = free_check_null(inv_ptr->dalk_dc);
-        inv_ptr->dalk_dc = PHRQ_malloc( (size_t) inv_ptr->count_solns * sizeof(LDBLE) );
+	inv_ptr->dalk_dc = (LDBLE *) free_check_null(inv_ptr->dalk_dc);
+        inv_ptr->dalk_dc = (LDBLE *) PHRQ_malloc( (size_t) inv_ptr->count_solns * sizeof(LDBLE) );
 	if (inv_ptr->dalk_dc == NULL) malloc_error();
 
 	for (i = 0; i < inv_ptr->count_solns; i++) {
@@ -2648,7 +2648,7 @@ int count_isotope_unknowns(struct inverse *inv_ptr, struct isotope **isotope_unk
 		*isotope_unknowns = NULL;
 		return(0);
 	}
-	isotopes = PHRQ_malloc((size_t) sizeof(struct isotope));
+	isotopes = (struct isotope *) PHRQ_malloc((size_t) sizeof(struct isotope));
 	if (isotopes == NULL) malloc_error();
 	count_isotopes = 0;
 
@@ -2674,7 +2674,7 @@ int count_isotope_unknowns(struct inverse *inv_ptr, struct isotope **isotope_unk
 
 		/* nonredox element */
 		if (primary_ptr->s->secondary == NULL) {
-			isotopes = PHRQ_realloc(isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
+			isotopes = (struct isotope *) PHRQ_realloc(isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
 			if (isotopes == NULL) malloc_error();
 			isotopes[count_isotopes].primary = primary_ptr;
 			isotopes[count_isotopes].master = primary_ptr;
@@ -2694,7 +2694,7 @@ int count_isotope_unknowns(struct inverse *inv_ptr, struct isotope **isotope_unk
 			k++;
 			for ( ; k < count_master; k++) {
 				if (master[k]->elt->primary != primary_ptr) break;
-				isotopes = PHRQ_realloc(isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
+				isotopes = (struct isotope *) PHRQ_realloc(isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
 				if (isotopes == NULL) malloc_error();
 				isotopes[count_isotopes].primary = primary_ptr;
 				isotopes[count_isotopes].master = master[k];

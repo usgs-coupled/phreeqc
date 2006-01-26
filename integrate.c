@@ -264,9 +264,9 @@ void polint(LDBLE *xa, LDBLE *ya, int n, LDBLE xv, LDBLE *yv, LDBLE *dy)
 /*
  *   Malloc work space
  */
-	c = PHRQ_malloc((size_t) (n + 1) * sizeof (LDBLE) );
+	c = (double *) PHRQ_malloc((size_t) (n + 1) * sizeof (LDBLE) );
 	if (c == NULL) malloc_error();
-	d = PHRQ_malloc((size_t) (n + 1) * sizeof (LDBLE) );
+	d = (double *) PHRQ_malloc((size_t) (n + 1) * sizeof (LDBLE) );
 	if (d == NULL) malloc_error();
 
 	
@@ -303,8 +303,8 @@ void polint(LDBLE *xa, LDBLE *ya, int n, LDBLE xv, LDBLE *yv, LDBLE *dy)
 
 /*		*yv += (*dy = (2 * ns < (n-m) ? c[ns+1] : d[ns--])); */
 	}
-	c = free_check_null(c);
-	d = free_check_null(d);
+	c = (double *) free_check_null(c);
+	d = (double *) free_check_null(d);
 	return;
 }
 /* ---------------------------------------------------------------------- */
@@ -405,7 +405,7 @@ int calc_init_g(void)
 			count_g = x[j]->surface_charge->count_g;
 		}
 		if( count_g == 0 ) {
-			x[j]->surface_charge->g = PHRQ_malloc((size_t) sizeof(struct surface_diff_layer));
+			x[j]->surface_charge->g = (struct surface_diff_layer *) PHRQ_malloc((size_t) sizeof(struct surface_diff_layer));
 			if (x[j]->surface_charge->g == NULL) malloc_error();
 			x[j]->surface_charge->g[0].charge = 0.0;
 			x[j]->surface_charge->g[0].g = 0.0;
@@ -433,7 +433,7 @@ int calc_init_g(void)
 			if (k >= count_g) {
 
 				/* malloc space to save g for charge */
-				x[j]->surface_charge->g = PHRQ_realloc(x[j]->surface_charge->g, 
+				x[j]->surface_charge->g = (struct surface_diff_layer *) PHRQ_realloc(x[j]->surface_charge->g, 
 							     (size_t) (count_g + 1) * 
 							     sizeof(struct surface_diff_layer));
 				if (x[j]->surface_charge->g == NULL) malloc_error();
@@ -699,8 +699,8 @@ int calc_init_donnan(void)
 /*
  *  sum eq of each charge number in solution...
  */
-	charge_group = free_check_null(charge_group);
-	charge_group = PHRQ_malloc((size_t) sizeof(struct charge_group));
+	charge_group = (struct charge_group *) free_check_null(charge_group);
+	charge_group = (struct charge_group *) PHRQ_malloc((size_t) sizeof(struct charge_group));
 	if (charge_group == NULL) malloc_error();
 	charge_group[0].z = 0.0;
 	charge_group[0].eq = 0.0;
@@ -715,7 +715,7 @@ int calc_init_donnan(void)
 			}
 		}
 		if (k >= count_g) {
-			charge_group = PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
+			charge_group = (struct charge_group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
 						     sizeof(struct charge_group));
 			if (charge_group == NULL) malloc_error();
 			charge_group[count_g].z = s_x[i]->z;
@@ -732,7 +732,7 @@ int calc_init_donnan(void)
 		if (x[j]->type != SURFACE_CB) continue;
 		surface_charge_ptr = x[j]->surface_charge;
 
-		x[j]->surface_charge->g = PHRQ_malloc((size_t) count_g * sizeof(struct surface_diff_layer));
+		x[j]->surface_charge->g = (struct surface_diff_layer *) PHRQ_malloc((size_t) count_g * sizeof(struct surface_diff_layer));
 		if (x[j]->surface_charge->g == NULL) malloc_error();
 		x[j]->surface_charge->count_g = count_g;
 

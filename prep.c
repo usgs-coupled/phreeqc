@@ -83,7 +83,7 @@ int prep(void)
 	if (solution_ptr == NULL) {
 		error_msg("Solution needed for calculation not found, stopping.", STOP);
 	}
-	description_x = free_check_null(description_x);
+	description_x = (char *) free_check_null(description_x);
 	description_x = string_duplicate(solution_ptr->description);
 /*
  *   Allocate space for unknowns
@@ -864,11 +864,11 @@ int build_mb_sums(void)
  *   Make space for lists
  */
 	if (count_sum_mb1 + count_mb_unknowns >= max_sum_mb1) {
-		space ((void *) &sum_mb1, count_sum_mb1 + count_mb_unknowns,
+		space ((void **) ((void *) &sum_mb1), count_sum_mb1 + count_mb_unknowns,
 		       &max_sum_mb1, sizeof(struct list1));
 	}
 	if (count_sum_mb2 + count_mb_unknowns >= max_sum_mb2) {
-		space ((void *) &sum_mb2, count_sum_mb2 + count_mb_unknowns,
+		space ((void **) ((void *) &sum_mb2), count_sum_mb2 + count_mb_unknowns,
 		       &max_sum_mb2, sizeof(struct list2));
 	}
 
@@ -906,41 +906,41 @@ int build_model(void)
  */
 
 	max_s_x = MAX_S;
-	space ((void *) &s_x, INIT, &max_s_x, sizeof(struct species *));
+	space ((void **) ((void *) &s_x), INIT, &max_s_x, sizeof(struct species *));
 
 	max_sum_mb1=MAX_SUM_MB;
 	count_sum_mb1=0;
-	space ((void *) &sum_mb1, INIT, &max_sum_mb1, sizeof(struct list1));
+	space ((void **) ((void *) &sum_mb1), INIT, &max_sum_mb1, sizeof(struct list1));
 
 	max_sum_mb2=MAX_SUM_MB;
 	count_sum_mb2=0;
-	space ((void *) &sum_mb2, INIT, &max_sum_mb2, sizeof(struct list2));
+	space ((void **) ((void *) &sum_mb2), INIT, &max_sum_mb2, sizeof(struct list2));
 
 	max_sum_jacob0=MAX_SUM_JACOB0;
 	count_sum_jacob0=0;
-	space ((void *) &sum_jacob0, INIT, &max_sum_jacob0,
+	space ((void **) ((void *) &sum_jacob0), INIT, &max_sum_jacob0,
 	       sizeof(struct list0));
 
 	max_sum_jacob1=MAX_SUM_JACOB1;
 	count_sum_jacob1=0;
-	space ((void *) &sum_jacob1, INIT, &max_sum_jacob1,
+	space ((void **) ((void *) &sum_jacob1), INIT, &max_sum_jacob1,
 	       sizeof(struct list1));
 
 	max_sum_jacob2=MAX_SUM_JACOB2;
 	count_sum_jacob2=0;
-	space ((void *) &sum_jacob2, INIT, &max_sum_jacob2,
+	space ((void **) ((void *) &sum_jacob2), INIT, &max_sum_jacob2,
 	       sizeof(struct list2));
 
 
 	max_sum_delta=MAX_SUM_JACOB0;
 	count_sum_delta=0;
-	space ((void *) &sum_delta, INIT, &max_sum_delta,
+	space ((void **) ((void *) &sum_delta), INIT, &max_sum_delta,
 	       sizeof(struct list2));
 
 	max_species_list = 5 * MAX_S;
 	count_species_list = 0;
-	species_list = free_check_null(species_list);
-	space ((void *) &species_list, INIT, &max_species_list, 
+	species_list = (struct species_list *) free_check_null(species_list);
+	space ((void **) ((void *) &species_list), INIT, &max_species_list, 
 	       sizeof (struct species_list));
 
 /*
@@ -965,7 +965,7 @@ int build_model(void)
 			}
 			if (pitzer_model == FALSE) s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x) {
-				space ((void *) &s_x, count_s_x + 1,
+				space ((void **) ((void *) &s_x), count_s_x + 1,
 				       &max_s_x,
 				       sizeof (struct species *));
 			}
@@ -1333,7 +1333,7 @@ int build_species_list(int n)
  *   Check space and store reaction token name and pointer to species
  */
 	if (count_species_list + count_elts >= max_species_list) {
-		space ((void *) &species_list, count_species_list + count_elts,
+		space ((void **) ((void *) &species_list), count_species_list + count_elts,
 		       &max_species_list, sizeof (struct species_list));
 	}
 /*
@@ -1633,7 +1633,7 @@ struct master **get_list_master_ptrs(char *ptr, struct master *master_ptr)
 			master_ptr_list[count_list++] = master_ptr0->s->secondary;
 			while (j < count_master && master[j]->elt->primary == master_ptr0) {
 				if (master[j]->s->primary == NULL) {
-					master_ptr_list = PHRQ_realloc((void *) master_ptr_list, (size_t) (count_list + 2) * sizeof(struct master *));
+					master_ptr_list = (struct master **) PHRQ_realloc((void *) master_ptr_list, (size_t) (count_list + 2) * sizeof(struct master *));
 					if (master_ptr_list == NULL) malloc_error();
 					master_ptr_list[count_list++] = master[j];
 				}
@@ -1648,7 +1648,7 @@ struct master **get_list_master_ptrs(char *ptr, struct master *master_ptr)
 		while (copy_token(token,&ptr, &l) != EMPTY) {
 			master_ptr = master_bsearch(token);
 			if (master_ptr != NULL) {
-				master_ptr_list = PHRQ_realloc((void *) master_ptr_list, (size_t) (count_list + 2) * sizeof(struct master *));
+				master_ptr_list = (struct master **) PHRQ_realloc((void *) master_ptr_list, (size_t) (count_list + 2) * sizeof(struct master *));
 				if (master_ptr_list == NULL) malloc_error();
 				master_ptr_list[count_list++] = master_ptr;
 			}
@@ -1717,7 +1717,7 @@ int store_mb_unknowns(struct unknown *unknown_ptr, LDBLE *LDBLE_ptr, LDBLE coef,
 {
 	if (equal(coef, 0.0, TOL) == TRUE) return(OK);
 	if ( (count_mb_unknowns + 1) >= max_mb_unknowns) {
-		space ((void *) &mb_unknowns, count_mb_unknowns + 1, &max_mb_unknowns, 
+		space ((void **) ((void *) &mb_unknowns), count_mb_unknowns + 1, &max_mb_unknowns, 
 		       sizeof(struct unknown_list));
 	}
 	mb_unknowns[count_mb_unknowns].unknown = unknown_ptr;
@@ -2033,13 +2033,13 @@ int reprep (void)
 /*
  *   Free arrays built in build_model
  */
-	s_x = free_check_null(s_x);
-	sum_mb1 = free_check_null(sum_mb1);
-	sum_mb2 = free_check_null(sum_mb2);
-	sum_jacob0 = free_check_null(sum_jacob0);
-	sum_jacob1 = free_check_null(sum_jacob1);
-	sum_jacob2 = free_check_null(sum_jacob2);
-	sum_delta = free_check_null(sum_delta);
+	s_x = (struct species **) free_check_null(s_x);
+	sum_mb1 = (struct list1 *) free_check_null(sum_mb1);
+	sum_mb2 = (struct list2 *) free_check_null(sum_mb2);
+	sum_jacob0 = (struct list0 *) free_check_null(sum_jacob0);
+	sum_jacob1 = (struct list1 *) free_check_null(sum_jacob1);
+	sum_jacob2 = (struct list2 *) free_check_null(sum_jacob2);
+	sum_delta = (struct list2 *) free_check_null(sum_delta);
 /*
  *   Build model again
  */
@@ -2193,7 +2193,7 @@ int add_potential_factor(void)
  *   Make sure there is space
  */
 	if (count_trxn + 1 >= max_trxn) {
-		space ((void *) &(trxn.token), count_trxn+1, &max_trxn, 
+		space ((void **) &(trxn.token), count_trxn+1, &max_trxn, 
 		       sizeof(struct rxn_token_temp));
 	}
 /*
@@ -3072,7 +3072,7 @@ int setup_unknowns (void)
  *   Allocate space for pointer array and structures
  */
 
-	space ((void *) &x, INIT, &max_unknowns, sizeof(struct unknown *));
+	space ((void **) ((void *) &x), INIT, &max_unknowns, sizeof(struct unknown *));
 	for (i = 0; i < max_unknowns; i++) {
 		x[i] = (struct unknown *) unknown_alloc ();
 		x[i]->number = i;
@@ -3165,7 +3165,7 @@ int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_jacob1[count_sum_jacob1++].target = target;
 					                            /*    Check space */
 		if (count_sum_jacob1 >= max_sum_jacob1) {
-			space ((void *) &sum_jacob1, count_sum_jacob1,
+			space ((void **) ((void *) &sum_jacob1), count_sum_jacob1,
 			       &max_sum_jacob1, 
 			       sizeof(struct list1));
 		}
@@ -3178,7 +3178,7 @@ int store_jacob(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_jacob2[count_sum_jacob2++].coef=coef;
 					                            /*    Check space */
 		if (count_sum_jacob2 >= max_sum_jacob2) {
-			space ((void *) &sum_jacob2, count_sum_jacob2, &max_sum_jacob2, 
+			space ((void **) ((void *) &sum_jacob2), count_sum_jacob2, &max_sum_jacob2, 
 			       sizeof(struct list2));
 		}
 	}
@@ -3195,7 +3195,7 @@ int store_jacob0(int row, int column, LDBLE coef)
 	sum_jacob0[count_sum_jacob0++].coef=coef;
 					                            /*    Check space */
 	if (count_sum_jacob0 >= max_sum_jacob0) {
-		space ((void *) &sum_jacob0, count_sum_jacob0,
+		space ((void **) ((void *) &sum_jacob0), count_sum_jacob0,
 		       &max_sum_jacob0, 
 		       sizeof(struct list0));
 	}
@@ -3214,7 +3214,7 @@ int store_mb(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_mb1[count_sum_mb1].source = source;
 		sum_mb1[count_sum_mb1++].target = target;
 		if (count_sum_mb1 >= max_sum_mb1) {
-			space ((void *) &sum_mb1, count_sum_mb1 + count_trxn + 4,
+			space ((void **) ((void *) &sum_mb1), count_sum_mb1 + count_trxn + 4,
 			       &max_sum_mb1, sizeof(struct list1));
 		}
 	} else {
@@ -3222,7 +3222,7 @@ int store_mb(LDBLE *source, LDBLE *target, LDBLE coef)
 		sum_mb2[count_sum_mb2].coef = coef;
 		sum_mb2[count_sum_mb2++].target = target;
 		if (count_sum_mb2 >= max_sum_mb2) {
-			space ((void *) &sum_mb2, count_sum_mb2,
+			space ((void **) ((void *) &sum_mb2), count_sum_mb2,
 			       &max_sum_mb2, sizeof(struct list2));
 		}
 	}
@@ -3243,7 +3243,7 @@ int store_sum_deltas(LDBLE *source, LDBLE *target, LDBLE coef)
 	sum_delta[count_sum_delta++].coef=coef;
 					                            /*    Check space */
 	if (count_sum_delta >= max_sum_delta) {
-		space ((void *) &sum_delta, count_sum_delta, &max_sum_delta,
+		space ((void **) ((void *) &sum_delta), count_sum_delta, &max_sum_delta,
 		       sizeof(struct list2));
 	}
 	return(OK);
@@ -3494,7 +3494,7 @@ int write_mb_for_species_list (int n)
 	for (i = 0; i < count_elts; i++) {
 		if (strcmp(elt_list[i].elt->name, "O(-2)") == 0) {
 			if (count_elts >= max_elts) {
-				space ((void *) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			elt_list[count_elts].elt = element_h_one;
@@ -3507,7 +3507,7 @@ int write_mb_for_species_list (int n)
 		       (size_t) sizeof(struct elt_list), elt_list_compare);
 		elt_list_combine ();
 	}
-	s[n]->next_sys_total = free_check_null(s[n]->next_sys_total);
+	s[n]->next_sys_total = (struct elt_list *) free_check_null(s[n]->next_sys_total);
 	s[n]->next_sys_total = elt_list_save();
 	return(OK);
 }
@@ -3543,7 +3543,7 @@ int write_phase_sys_total (int n)
 	for (i = 0; i < count_elts; i++) {
 		if (strcmp(elt_list[i].elt->name, "O(-2)") == 0) {
 			if (count_elts >= max_elts) {
-				space ((void *) &elt_list, count_elts, &max_elts,
+				space ((void **) ((void *) &elt_list), count_elts, &max_elts,
 				       sizeof(struct elt_list));
 			}
 			elt_list[count_elts].elt = element_h_one;
@@ -3556,7 +3556,7 @@ int write_phase_sys_total (int n)
 		       (size_t) sizeof(struct elt_list), elt_list_compare);
 		elt_list_combine ();
 	}
-	phases[n]->next_sys_total = free_check_null(phases[n]->next_sys_total);
+	phases[n]->next_sys_total = (struct elt_list *) free_check_null(phases[n]->next_sys_total);
 	phases[n]->next_sys_total = elt_list_save();
 	return(OK);
 }
@@ -3646,10 +3646,10 @@ static int save_model(void)
 /*
  *   save list of phase pointers for gas phase
  */
-	last_model.gas_phase = free_check_null(last_model.gas_phase);
+	last_model.gas_phase = (struct phase **) free_check_null(last_model.gas_phase);
 	if (use.gas_phase_ptr != NULL) {
 		last_model.count_gas_phase = use.gas_phase_ptr->count_comps;
-		last_model.gas_phase = PHRQ_malloc((size_t) use.gas_phase_ptr->count_comps * sizeof(struct phase *));
+		last_model.gas_phase = (struct phase **) PHRQ_malloc((size_t) use.gas_phase_ptr->count_comps * sizeof(struct phase *));
 		if (last_model.gas_phase == NULL) malloc_error();
 		for (i = 0; i < use.gas_phase_ptr->count_comps; i++) {
 			last_model.gas_phase[i] = use.gas_phase_ptr->comps[i].phase;
@@ -3661,10 +3661,10 @@ static int save_model(void)
 /*
  *   save list of names of solid solutions
  */
-	last_model.s_s_assemblage = free_check_null(last_model.s_s_assemblage);
+	last_model.s_s_assemblage = (char **) free_check_null(last_model.s_s_assemblage);
 	if (use.s_s_assemblage_ptr != NULL) {
 		last_model.count_s_s_assemblage = use.s_s_assemblage_ptr->count_s_s;
-		last_model.s_s_assemblage = PHRQ_malloc((size_t) use.s_s_assemblage_ptr->count_s_s * sizeof(char *));
+		last_model.s_s_assemblage = (char **) PHRQ_malloc((size_t) use.s_s_assemblage_ptr->count_s_s * sizeof(char *));
 		if (last_model.s_s_assemblage == NULL) malloc_error();
 		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++) {
 			last_model.s_s_assemblage[i] = use.s_s_assemblage_ptr->s_s[i].name;
@@ -3676,16 +3676,16 @@ static int save_model(void)
 /*
  *   save list of phase pointers for pp_assemblage
  */
-	last_model.pp_assemblage = free_check_null(last_model.pp_assemblage);
-	last_model.add_formula = free_check_null(last_model.add_formula);
-	last_model.si = free_check_null(last_model.si);
+	last_model.pp_assemblage = (struct phase **) free_check_null(last_model.pp_assemblage);
+	last_model.add_formula = (char **) free_check_null(last_model.add_formula);
+	last_model.si = (double *) free_check_null(last_model.si);
 	if (use.pp_assemblage_ptr != NULL) {
 		last_model.count_pp_assemblage = use.pp_assemblage_ptr->count_comps;
-		last_model.pp_assemblage = PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(struct phase *));
+		last_model.pp_assemblage = (struct phase **) PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(struct phase *));
 		if (last_model.pp_assemblage == NULL) malloc_error();
-		last_model.add_formula = PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(char *));
+		last_model.add_formula = (char **) PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(char *));
 		if (last_model.add_formula == NULL) malloc_error();
-		last_model.si = PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(LDBLE));
+		last_model.si = (double *) PHRQ_malloc((size_t) use.pp_assemblage_ptr->count_comps * sizeof(LDBLE));
 		if (last_model.si == NULL) malloc_error();
 		for (i = 0; i < use.pp_assemblage_ptr->count_comps; i++) {
 			last_model.pp_assemblage[i] = use.pp_assemblage_ptr->pure_phases[i].phase;

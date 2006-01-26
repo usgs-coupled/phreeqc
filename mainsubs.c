@@ -118,12 +118,12 @@ void initialize(void)
         count_ad_shifts = 1;
         print_ad_modulus = 1;
         punch_ad_modulus = 1;
-	advection_punch = PHRQ_malloc(sizeof(int));
+	advection_punch = (int *) PHRQ_malloc(sizeof(int));
 	if (advection_punch == NULL) malloc_error();
 	advection_punch[0] = TRUE;
 	advection_kin_time = 0.0;
 	advection_kin_time_defined = FALSE;
-	advection_print = PHRQ_malloc(sizeof(int));
+	advection_print = (int *) PHRQ_malloc(sizeof(int));
 	if (advection_print == NULL) malloc_error();
 	advection_print[0] = TRUE;
 	advection_warnings = TRUE;
@@ -149,24 +149,24 @@ void initialize(void)
 /*
  *   Allocate space
  */
-	space ((void *) &pp_assemblage, INIT, &max_pp_assemblage, sizeof(struct pp_assemblage));
+	space ((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage, sizeof(struct pp_assemblage));
 
-	space ((void *) &exchange, INIT, &max_exchange, sizeof(struct exchange));
+	space ((void **) ((void *) &exchange), INIT, &max_exchange, sizeof(struct exchange));
 
-	space ((void *) &surface, INIT, &max_surface, sizeof(struct surface));
+	space ((void **) ((void *) &surface), INIT, &max_surface, sizeof(struct surface));
 
-	space ((void *) &gas_phase, INIT, &max_gas_phase, sizeof(struct gas_phase));
+	space ((void **) ((void *) &gas_phase), INIT, &max_gas_phase, sizeof(struct gas_phase));
 
-	space ((void *) &kinetics, INIT, &max_kinetics, sizeof(struct kinetics));
+	space ((void **) ((void *) &kinetics), INIT, &max_kinetics, sizeof(struct kinetics));
 
-	space ((void *) &s_s_assemblage, INIT, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+	space ((void **) ((void *) &s_s_assemblage), INIT, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 
-        space ((void *) &cell_data, INIT, &count_cells, 
+        space ((void **) ((void *) &cell_data), INIT, &count_cells, 
                 sizeof(struct cell_data));
         
-	space ((void *) &elements, INIT, &max_elements, sizeof(struct element *));
+	space ((void **) ((void *) &elements), INIT, &max_elements, sizeof(struct element *));
 
-	space ((void *) &elt_list, INIT, &max_elts, sizeof(struct elt_list));
+	space ((void **) ((void *) &elt_list), INIT, &max_elts, sizeof(struct elt_list));
 
 
 	inverse = (struct inverse *) PHRQ_malloc( (size_t) sizeof (struct inverse) );
@@ -176,13 +176,13 @@ void initialize(void)
 	irrev = (struct irrev *) PHRQ_malloc( (size_t) sizeof (struct irrev) );
 	if (irrev == NULL) malloc_error();
 
-	space ((void *) &line, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 
-	space ((void *) &line_save, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 
-	space ((void *) &master, INIT, &max_master, sizeof(struct master *));
+	space ((void **) ((void *) &master), INIT, &max_master, sizeof(struct master *));
 
-	space ((void *) &mb_unknowns, INIT, &max_mb_unknowns, sizeof(struct unknown_list));
+	space ((void **) ((void *) &mb_unknowns), INIT, &max_mb_unknowns, sizeof(struct unknown_list));
 
         mix = (struct mix *) PHRQ_malloc((size_t) sizeof(struct mix));
 	if (mix == NULL) malloc_error();
@@ -195,16 +195,16 @@ void initialize(void)
 	stag_data->th_m = 0;
 	stag_data->th_im = 0;
 
-	space ((void *) &phases, INIT, &max_phases, sizeof(struct phase *));
+	space ((void **) ((void *) &phases), INIT, &max_phases, sizeof(struct phase *));
 
-	space ((void *) &trxn.token, INIT, &max_trxn, 
+	space ((void **) &trxn.token, INIT, &max_trxn, 
 	       sizeof(struct rxn_token_temp));
 
-	space ((void *) &s, INIT, &max_s, sizeof(struct species *));
+	space ((void **) ((void *) &s), INIT, &max_s, sizeof(struct species *));
 
-	space ((void *) &logk, INIT, &max_logk, sizeof(struct logk *));
+	space ((void **) ((void *) &logk), INIT, &max_logk, sizeof(struct logk *));
 
-	space ((void *) &master_isotope, INIT, &max_master_isotope, sizeof(struct master_isotope *));
+	space ((void **) ((void *) &master_isotope), INIT, &max_master_isotope, sizeof(struct master_isotope *));
 
         solution = (struct solution **) PHRQ_malloc((size_t) MAX_SOLUTION * sizeof(struct solution *));
 	if (solution == NULL) malloc_error();
@@ -225,7 +225,7 @@ void initialize(void)
 	sum_jacob2 = NULL;
 	sum_delta = NULL;
 /* SRC ADDED */
-	isotopes_x = PHRQ_malloc((size_t) sizeof(struct isotope));
+	isotopes_x = (struct isotope *) PHRQ_malloc((size_t) sizeof(struct isotope));
 	if (isotopes_x == NULL) malloc_error();
 	x = NULL;
 	max_unknowns = 0;
@@ -263,41 +263,41 @@ void initialize(void)
  */
 	punch.in = FALSE;
 	punch.count_totals = 0;
-	punch.totals = PHRQ_malloc(sizeof(struct name_master));
+	punch.totals = (struct name_master *) PHRQ_malloc(sizeof(struct name_master));
 	if (punch.totals == NULL) malloc_error();
 	punch.count_molalities = 0;
-	punch.molalities = PHRQ_malloc(sizeof(struct name_species));
+	punch.molalities = (struct name_species *) PHRQ_malloc(sizeof(struct name_species));
 	if (punch.molalities == NULL) malloc_error();
 	punch.count_activities = 0;
-	punch.activities = PHRQ_malloc(sizeof(struct name_species));
+	punch.activities = (struct name_species *) PHRQ_malloc(sizeof(struct name_species));
 	if (punch.activities == NULL) malloc_error();
 	punch.count_pure_phases = 0;
-	punch.pure_phases = PHRQ_malloc(sizeof(struct name_phase));
+	punch.pure_phases = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.pure_phases == NULL) malloc_error();
 	punch.count_si = 0;
-	punch.si = PHRQ_malloc(sizeof(struct name_phase));
+	punch.si = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.si == NULL) malloc_error();
 	punch.count_gases = 0;
-	punch.gases = PHRQ_malloc(sizeof(struct name_phase));
+	punch.gases = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.gases == NULL) malloc_error();
 	punch.count_s_s = 0;
-	punch.s_s = PHRQ_malloc(sizeof(struct name_phase));
+	punch.s_s = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.s_s == NULL) malloc_error();
 
  	punch.count_kinetics = 0;
-	punch.kinetics = PHRQ_malloc(sizeof(struct name_phase));
+	punch.kinetics = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
  	if (punch.kinetics == NULL) malloc_error();
 
  	punch.count_isotopes = 0;
-	punch.isotopes = PHRQ_malloc(sizeof(struct name_master));
+	punch.isotopes = (struct name_master *) PHRQ_malloc(sizeof(struct name_master));
  	if (punch.isotopes == NULL) malloc_error();
 
  	punch.count_calculate_values = 0;
-	punch.calculate_values = PHRQ_malloc(sizeof(struct name_master));
+	punch.calculate_values = (struct name_master *) PHRQ_malloc(sizeof(struct name_master));
  	if (punch.calculate_values == NULL) malloc_error();
 
 	count_save_values = 0;
-	save_values = PHRQ_malloc(sizeof(struct save_values));
+	save_values = (struct save_values *) PHRQ_malloc(sizeof(struct save_values));
 	if (save_values == NULL) malloc_error();
 
 	punch.inverse = TRUE;
@@ -334,7 +334,7 @@ void initialize(void)
 /*
  *   Update hash table
  */
-	keyword_hash = PHRQ_malloc((size_t) NKEYS * sizeof(struct key));
+	keyword_hash = (struct key *) PHRQ_malloc((size_t) NKEYS * sizeof(struct key));
 	if (keyword_hash == NULL) malloc_error();
 	for (i = 0; i < NKEYS; i++) {
 		keyword_hash[i].name = string_hsave(keyword[i].name);
@@ -350,7 +350,7 @@ void initialize(void)
 /*
  *   rates
  */	
-	rates = PHRQ_malloc(sizeof(struct rate));
+	rates = (struct rate *) PHRQ_malloc(sizeof(struct rate));
 	if (rates == NULL) malloc_error();
 	count_rates = 0;
 	initial_total_time = 0;
@@ -367,13 +367,13 @@ void initialize(void)
 /*
  *   user_print, user_punch
  */
-	user_print = PHRQ_malloc((size_t) sizeof (struct rate));
+	user_print = (struct rate *) PHRQ_malloc((size_t) sizeof (struct rate));
 	if (user_print == NULL) malloc_error();
 	user_print->commands = NULL;
 	user_print->linebase = NULL;
 	user_print->varbase = NULL;
 	user_print->loopbase = NULL;
-	user_punch = PHRQ_malloc((size_t) sizeof (struct rate));
+	user_punch = (struct rate *) PHRQ_malloc((size_t) sizeof (struct rate));
 	if (user_punch == NULL) malloc_error();
 	user_punch->commands = NULL;
 	user_punch->linebase = NULL;
@@ -399,19 +399,19 @@ void initialize(void)
 	/*
 	  Initialize llnl aqueous model parameters
 	 */
-	llnl_temp = PHRQ_malloc(sizeof(LDBLE));
+	llnl_temp = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_temp == NULL) malloc_error();
 	llnl_count_temp = 0;
-	llnl_adh = PHRQ_malloc(sizeof(LDBLE));
+	llnl_adh = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_adh == NULL) malloc_error();
 	llnl_count_adh = 0;
-	llnl_bdh = PHRQ_malloc(sizeof(LDBLE));
+	llnl_bdh = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_bdh == NULL) malloc_error();
 	llnl_count_bdh = 0;
-	llnl_bdot = PHRQ_malloc(sizeof(LDBLE));
+	llnl_bdot = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_bdot == NULL) malloc_error();
 	llnl_count_bdot = 0;
-	llnl_co2_coefs = PHRQ_malloc(sizeof(LDBLE));
+	llnl_co2_coefs = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_co2_coefs == NULL) malloc_error();
 	llnl_count_co2_coefs = 0;
 /*
@@ -480,19 +480,19 @@ void initialize(void)
 	/* calculate_value */
 	max_calculate_value = MAX_ELTS;
 	count_calculate_value = 0;
-	space ((void *) &calculate_value, INIT, &max_calculate_value, sizeof(struct calculate_value *));
+	space ((void **) ((void *) &calculate_value), INIT, &max_calculate_value, sizeof(struct calculate_value *));
 	hcreate_multi((unsigned) max_calculate_value, &calculate_value_hash_table);
 
 	/* isotope_ratio */
 	max_isotope_ratio = MAX_ELTS;
 	count_isotope_ratio = 0;
-	space ((void *) &isotope_ratio, INIT, &max_isotope_ratio, sizeof(struct isotope_ratio *));
+	space ((void **) ((void *) &isotope_ratio), INIT, &max_isotope_ratio, sizeof(struct isotope_ratio *));
 	hcreate_multi((unsigned) max_isotope_ratio, &isotope_ratio_hash_table);
 
 	/* isotope_value */
 	max_isotope_alpha = MAX_ELTS;
 	count_isotope_alpha = 0;
-	space ((void *) &isotope_alpha, INIT, &max_isotope_alpha, sizeof(struct isotope_alpha *));
+	space ((void **) ((void *) &isotope_alpha), INIT, &max_isotope_alpha, sizeof(struct isotope_alpha *));
 	hcreate_multi((unsigned) max_isotope_alpha, &isotope_alpha_hash_table);
 
 	/* 
@@ -739,7 +739,7 @@ int initial_solutions(int print)
 			/* copy isotope data */
 			if (solution[n]->count_isotopes > 0) {
 				count_isotopes_x = solution[n]->count_isotopes;
-				isotopes_x = PHRQ_realloc(isotopes_x, (size_t) count_isotopes_x * sizeof(struct isotope));
+				isotopes_x = (struct isotope *) PHRQ_realloc(isotopes_x, (size_t) count_isotopes_x * sizeof(struct isotope));
 				if (isotopes_x == NULL) malloc_error();
 				memcpy(isotopes_x, solution[n]->isotopes, (size_t) count_isotopes_x * sizeof(struct isotope));
 			} else {
@@ -1115,7 +1115,7 @@ int saver(void)
 
 	if (save.solution == TRUE) {
 		sprintf(token, "Solution after simulation %d.", simulation);
-		description_x = free_check_null(description_x);
+		description_x = (char *) free_check_null(description_x);
 		description_x = string_duplicate(token);
 		n = save.n_solution_user;
 		xsolution_save(n);
@@ -1250,7 +1250,7 @@ static int xexchange_save(int n_user)
 	exchange_ptr = exchange_bsearch(n_user, &n);
 	if (exchange_ptr == NULL) {
 		n = count_exchange++;
-		space ((void *) &exchange, count_exchange, &max_exchange, sizeof(struct exchange));
+		space ((void **) ((void *) &exchange), count_exchange, &max_exchange, sizeof(struct exchange));
 	} else {
 		exchange_free(&exchange[n]); 
 	}
@@ -1319,7 +1319,7 @@ static int xgas_save(int n_user)
 	gas_phase_ptr = gas_phase_bsearch(n_user, &n);
 	if (gas_phase_ptr == NULL) {
 		n = count_gas_phase++;
-		space ((void *) &gas_phase, count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
+		space ((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase, sizeof(struct gas_phase));
 	} else {
 		gas_phase_free(&gas_phase[n]);
 	}
@@ -1396,7 +1396,7 @@ static int xs_s_assemblage_save(int n_user)
  */
 	s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user, &n);
 	if (s_s_assemblage_ptr == NULL) {
-		space ((void *) &s_s_assemblage, count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage, &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		n = count_s_s_assemblage++;
 	} else {
 		s_s_assemblage_free(&s_s_assemblage[n]);
@@ -1463,7 +1463,7 @@ static int xpp_assemblage_save(int n_user)
  */
 	pp_assemblage_ptr = pp_assemblage_bsearch(n_user, &n);
 	if (pp_assemblage_ptr == NULL) {
-		space ((void *) &pp_assemblage, count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
 		n = count_pp_assemblage++;
 	} else {
 		pp_assemblage_free(&pp_assemblage[n]);
@@ -1575,7 +1575,7 @@ int xsolution_save(int n_user)
 			count_master_activity++;
 		}
 	}
-	solution_ptr->master_activity = PHRQ_realloc(solution_ptr->master_activity, (size_t) (count_master_activity + 1)*sizeof(struct master_activity));
+	solution_ptr->master_activity = (struct master_activity *) PHRQ_realloc(solution_ptr->master_activity, (size_t) (count_master_activity + 1)*sizeof(struct master_activity));
 	solution_ptr->count_master_activity = count_master_activity;
 	count_master_activity = 0;
 	for (i=0; i < count_master; i++) {
@@ -1623,7 +1623,7 @@ int xsolution_save(int n_user)
  *   Make space
  */
 		if (count_mass_balance + 2 >= max_mass_balance) {
-			space ((void *) &(solution_ptr->totals), count_mass_balance + 2,
+			space ((void **) &(solution_ptr->totals), count_mass_balance + 2,
 			       &max_mass_balance, sizeof (struct conc));
 		}
 	}
@@ -1632,7 +1632,7 @@ int xsolution_save(int n_user)
 		for (j = 0; j < count_s; j++) {
 			if (s[j]->lg != 0.0) i++;
 		}
-		solution_ptr->species_gamma = PHRQ_realloc(solution_ptr->species_gamma, (size_t) (i * sizeof(struct master_activity)));
+		solution_ptr->species_gamma = (struct master_activity *) PHRQ_realloc(solution_ptr->species_gamma, (size_t) (i * sizeof(struct master_activity)));
 		i = 0;
 		for (j= 0; j < count_s; j++) {
 			if (s[j]->lg != 0.0) {
@@ -1653,9 +1653,9 @@ int xsolution_save(int n_user)
 	count_mass_balance++;
 	solution_ptr->master_activity[count_master_activity].description = NULL;
 	count_master_activity++;
-	solution_ptr->totals = PHRQ_realloc(solution_ptr->totals, (size_t) count_mass_balance * sizeof(struct conc)); 
+	solution_ptr->totals = (struct conc *) PHRQ_realloc(solution_ptr->totals, (size_t) count_mass_balance * sizeof(struct conc)); 
 	if (solution_ptr->totals == NULL) malloc_error();
-	solution_ptr->master_activity = PHRQ_realloc(solution_ptr->master_activity, (size_t) count_master_activity * sizeof(struct master_activity)); 
+	solution_ptr->master_activity = (struct master_activity *) PHRQ_realloc(solution_ptr->master_activity, (size_t) count_master_activity * sizeof(struct master_activity)); 
 	if (solution_ptr->master_activity == NULL) malloc_error();
 	solution_ptr->count_master_activity = count_master_activity;
 /*
@@ -1663,7 +1663,7 @@ int xsolution_save(int n_user)
  */
 	if (count_isotopes_x > 0 ) {
 		solution_ptr->count_isotopes = count_isotopes_x;
-		solution_ptr->isotopes = PHRQ_realloc(solution_ptr->isotopes, (size_t) count_isotopes_x * sizeof(struct isotope));
+		solution_ptr->isotopes = (struct isotope *) PHRQ_realloc(solution_ptr->isotopes, (size_t) count_isotopes_x * sizeof(struct isotope));
 		if (solution_ptr->isotopes == NULL) malloc_error();
 		memcpy(solution_ptr->isotopes, isotopes_x, (size_t) count_isotopes_x * sizeof(struct isotope));
 		for (i = 0; i < count_isotopes_x; i++) {
@@ -1677,7 +1677,7 @@ int xsolution_save(int n_user)
 		}
 	} else {
 		solution_ptr->count_isotopes = 0;
-		solution_ptr->isotopes = free_check_null(solution_ptr->isotopes);
+		solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
 		solution_ptr->isotopes = NULL;
 	}	
 /*
@@ -1688,7 +1688,7 @@ int xsolution_save(int n_user)
 	} else {
 		n = count_solution++;
 		if (count_solution >= max_solution) {
-			space ((void *) &(solution), count_solution, &max_solution, sizeof (struct solution *) );
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
 		}
 	}
 	solution[n] = solution_ptr;
@@ -1827,7 +1827,7 @@ static int xsurface_save(int n_user)
 	surface_ptr = surface_bsearch(n_user, &n);
 	if (surface_ptr == NULL) {
 		n = count_surface++;
-		space ((void *) &surface, count_surface, &max_surface, sizeof(struct surface));
+		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	} else {
 		surface_free(&surface[n]);
 	}
@@ -2326,6 +2326,7 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 
 		dup_print(token, TRUE);
 		if (read_input() == EOF) break;
+
 		if (title_x != NULL) {
 			sprintf(token, "TITLE");
 			dup_print(token, TRUE);
@@ -2386,6 +2387,20 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #ifdef PHREEQ98
                 } /* if (!phreeq98_debug) */
 #endif
+		#ifdef SKIP
+
+{
+	 int n;
+		SAX_StartSystem();
+		for (n = 0; n < count_solution; ++n)
+		{
+		  SAX_AddSolution(solution[n]);
+		}
+		SAX_EndSystem();
+		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+ }
+		#endif
+
 	}
 
 
