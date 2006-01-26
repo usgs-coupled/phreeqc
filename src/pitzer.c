@@ -4,6 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 #define PITZER
+#define PITZER_EXTERNAL
 #include "pitzer.h"
 
 static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
@@ -46,11 +47,11 @@ int pitzer_init (void)
 	pitzer_model = FALSE;
 	max_pitz_param = 100;
 	count_pitz_param = 0;
-	space ((void *) &pitz_params, INIT, &max_pitz_param, sizeof(struct pitz_param *));
+	space ((void **) ((void *) &pitz_params), INIT, &max_pitz_param, sizeof(struct pitz_param *));
 
 	max_theta_param = 100;
 	count_theta_param = 0;
-	space ((void *) &theta_params, INIT, &max_theta_param, sizeof(struct theta_param *));
+	space ((void **) ((void *) &theta_params), INIT, &max_theta_param, sizeof(struct theta_param *));
 
 	ICON = TRUE;
 	OTEMP=0.0;
@@ -75,8 +76,8 @@ int pitzer_tidy (void)
 	/*
 	 *  allocate pointers to species structures
 	 */
-	if (spec != NULL) spec = free_check_null(spec);
-	spec = PHRQ_malloc((size_t) (3*count_s*sizeof(struct species *)));
+	if (spec != NULL) spec = (struct species **) free_check_null(spec);
+	spec = (struct species **) PHRQ_malloc((size_t) (3*count_s*sizeof(struct species *)));
 	if (spec == NULL) malloc_error();
 	for (i = 0; i < 3*count_s; i++) spec[i] = NULL;
 	cations = spec;
@@ -92,14 +93,14 @@ int pitzer_tidy (void)
 	/*
 	 *  allocate other arrays for Pitzer
 	 */
-	if (IPRSNT != NULL) IPRSNT = free_check_null(IPRSNT);
-	IPRSNT = PHRQ_malloc((size_t) (3*count_s*sizeof(int)));
+	if (IPRSNT != NULL) IPRSNT = (int *) free_check_null(IPRSNT);
+	IPRSNT = (int *) PHRQ_malloc((size_t) (3*count_s*sizeof(int)));
 	if (IPRSNT == NULL) malloc_error();
-	if (M != NULL) M = free_check_null(M);
-	M = PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
+	if (M != NULL) M = (double *) free_check_null(M);
+	M = (double *) PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
 	if (M == NULL) malloc_error();
-	if (LGAMMA != NULL) LGAMMA = free_check_null(LGAMMA);
-	LGAMMA = PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
+	if (LGAMMA != NULL) LGAMMA = (double *) free_check_null(LGAMMA);
+	LGAMMA = (double *) PHRQ_malloc((size_t) (3*count_s*sizeof(double)));
 	if (LGAMMA == NULL) malloc_error();
 	
 
@@ -122,7 +123,7 @@ int pitzer_tidy (void)
 	j = 0;
 	for (i = 0; i < count_pitz_param; i++) {
 		if (pitz_params[i]->type == TYPE_ETHETA) {
-			pitz_params[i] = free_check_null(pitz_params[i]);
+			pitz_params[i] = (struct pitz_param *) free_check_null(pitz_params[i]);
 		} else {
 			pitz_params[j++] = pitz_params[i];
 		}
@@ -134,7 +135,7 @@ int pitzer_tidy (void)
 			pzp_ptr = pitz_param_read(line, 2);
 			pzp_ptr->type = TYPE_ETHETA;
 			if (count_pitz_param >= max_pitz_param) {
-				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+				space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
 			pitz_params[count_pitz_param++] = pzp_ptr;
 			
@@ -146,7 +147,7 @@ int pitzer_tidy (void)
 			pzp_ptr = pitz_param_read(line, 2);
 			pzp_ptr->type = TYPE_ETHETA;
 			if (count_pitz_param >= max_pitz_param) {
-				space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+				space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 			}
 			pitz_params[count_pitz_param] = pzp_ptr;
 			count_pitz_param++;
@@ -241,7 +242,7 @@ int pitzer_tidy (void)
 
 	if (count_theta_param > 0 ) {
 		for (i = 0; i < count_theta_param; i++) {
-			theta_params[i] = free_check_null(theta_params[i]);
+			theta_params[i] = (struct theta_param *) free_check_null(theta_params[i]);
 		}
 	}
 	count_theta_param = 0;
@@ -252,7 +253,7 @@ int pitzer_tidy (void)
 			theta_param_ptr = theta_param_search(z0, z1);
 			if (theta_param_ptr == NULL) {
 				if (count_theta_param >= max_theta_param) {
-					space ((void *) &theta_params, count_theta_param, &max_theta_param, sizeof(struct theta_param *));
+					space ((void **) ((void *) &theta_params), count_theta_param, &max_theta_param, sizeof(struct theta_param *));
 				}
 				theta_params[count_theta_param] = theta_param_alloc();
 				theta_param_init(theta_params[count_theta_param]);
@@ -350,13 +351,13 @@ int read_pitzer (void)
 				    j = pitz_param_search(pzp_ptr);
 				    if (j < 0) {
 					    if (count_pitz_param >= max_pitz_param) {
-						    space ((void *) &pitz_params, count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
+						    space ((void **) ((void *) &pitz_params), count_pitz_param, &max_pitz_param, sizeof(struct pitz_param *));
 					    }
 					    
 					    pitz_params[count_pitz_param] = pzp_ptr;
 					    count_pitz_param++;
 				    } else {
-					    pitz_params[j] = free_check_null(pitz_params[j]);
+					    pitz_params[j] = (struct pitz_param *) free_check_null(pitz_params[j]);
 					    pitz_params[j] = pzp_ptr;
 				    }
 			    }
@@ -955,17 +956,17 @@ int pitzer_clean_up(void)
 
 	if (svnid == NULL) fprintf(stderr," ");
 	for (i = 0; i < count_pitz_param; i++) {
-		pitz_params[i] = free_check_null(pitz_params[i]);
+		pitz_params[i] = (struct pitz_param *) free_check_null(pitz_params[i]);
 	}
-	pitz_params = free_check_null(pitz_params);
+	pitz_params = (struct pitz_param **) free_check_null(pitz_params);
 	for (i = 0; i < count_theta_param; i++) {
-		theta_params[i] = free_check_null(theta_params[i]);
+		theta_params[i] = (struct theta_param *) free_check_null(theta_params[i]);
 	}
-	theta_params = free_check_null(theta_params);
-	LGAMMA = free_check_null(LGAMMA);
-	IPRSNT = free_check_null(IPRSNT);
-	spec = free_check_null(spec);
-	M = free_check_null(M);
+	theta_params = (struct theta_param **) free_check_null(theta_params);
+	LGAMMA = (double *) free_check_null(LGAMMA);
+	IPRSNT = (int *) free_check_null(IPRSNT);
+	spec = (struct species **) free_check_null(spec);
+	M = (double *) free_check_null(M);
 
 	return OK;
 }

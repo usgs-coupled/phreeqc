@@ -1,13 +1,7 @@
 typedef enum { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA, TYPE_PSI, TYPE_ETHETA, TYPE_Other } pitz_param_type;
 
 
-#ifdef PITZER
-/* COMMON /MX10/ */
-double VP, DW0;
-#else
-/* COMMON /MX10/ */
-extern double VP, DW0;
-#endif
+PITZER_EXTERNAL double VP, DW0;
 
 struct pitz_param {
 	char * species[3];
@@ -27,23 +21,23 @@ struct pitz_param {
 	struct theta_param *thetas;
 };
 
-struct pitz_param **pitz_params;
-int count_pitz_param, max_pitz_param;
+PITZER_EXTERNAL struct pitz_param **pitz_params;
+PITZER_EXTERNAL int count_pitz_param, max_pitz_param;
 
 
 
 /* routines define in pitzer_structures.c */
-struct pitz_param *pitz_param_read (char *string, int n);
-int pitz_param_search(struct pitz_param *pzp_ptr);
-struct theta_param *theta_param_search(double zj, double zk);
-struct theta_param *theta_param_alloc (void);
-int theta_param_init (struct theta_param *theta_param_ptr);
+PITZER_EXTERNAL struct pitz_param *pitz_param_read (char *string, int n);
+PITZER_EXTERNAL int pitz_param_search(struct pitz_param *pzp_ptr);
+PITZER_EXTERNAL struct theta_param *theta_param_search(double zj, double zk);
+PITZER_EXTERNAL struct theta_param *theta_param_alloc (void);
+PITZER_EXTERNAL int theta_param_init (struct theta_param *theta_param_ptr);
 
 
 
 /* defined in DW */
-int DW (double T);
-double DC (double T);
+PITZER_EXTERNAL int DW (double T);
+PITZER_EXTERNAL double DC (double T);
 
 struct theta_param {
 	double zj;
@@ -51,6 +45,6 @@ struct theta_param {
 	double etheta;
 	double ethetap;
 };
-struct theta_param **theta_params;
-int count_theta_param, max_theta_param;
-double OTEMP;
+PITZER_EXTERNAL struct theta_param **theta_params;
+PITZER_EXTERNAL int count_theta_param, max_theta_param;
+PITZER_EXTERNAL double OTEMP;

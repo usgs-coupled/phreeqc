@@ -324,7 +324,7 @@ int CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	  return(LMEM_FAIL);
   }
 
-  cvdense_mem = lmem;   /* Use existing linear solver memory pointer */
+  cvdense_mem = (CVDenseMem) lmem;   /* Use existing linear solver memory pointer */
 
   /* Set four main function fields in cv_mem */
   linit  = CVDenseInit;

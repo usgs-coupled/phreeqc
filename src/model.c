@@ -1278,15 +1278,15 @@ int ineq(int in_kode)
 			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n",i, x[back[i]]->description, (double) res[i]);
 		}
 	}
-	normal = free_check_null(normal);
-	ineq_array = free_check_null(ineq_array);
-	back = free_check_null(back);
-	zero = free_check_null(zero);
-	res = free_check_null(res);
-	delta1 = free_check_null(delta1);
-	cu = free_check_null(cu);
-	iu = free_check_null(iu);
-	is = free_check_null(is);
+	normal = (LDBLE *) free_check_null(normal);
+	ineq_array = (LDBLE *) free_check_null(ineq_array);
+	back = (int *) free_check_null(back);
+	zero = (LDBLE *) free_check_null(zero);
+	res = (LDBLE *) free_check_null(res);
+	delta1 = (LDBLE *) free_check_null(delta1);
+	cu = (LDBLE *) free_check_null(cu);
+	iu = (int *) free_check_null(iu);
+	is = (int *) free_check_null(is);
 #ifdef SLNQ
 	slnq_array = free_check_null(slnq_array);
 	slnq_delta1 = free_check_null(slnq_delta1);
@@ -2895,7 +2895,7 @@ int surface_model(void)
 	}
 	if (diffuse_layer_x == TRUE &&  same_model == FALSE) {
 		for (i=0; i < count_s; i++) {
-			s[i]->diff_layer = free_check_null(s[i]->diff_layer);
+			s[i]->diff_layer = (struct species_diff_layer *) free_check_null(s[i]->diff_layer);
 			s[i]->diff_layer = (struct species_diff_layer *) PHRQ_malloc((size_t) use.surface_ptr->count_charge * sizeof (struct species_diff_layer));
 			if (s[i]->diff_layer == NULL) malloc_error();
 		}
@@ -2971,19 +2971,19 @@ int free_model_allocs(void)
 			unknown_free(x[i]);
 		}
 	}
-	x = free_check_null(x);
+	x = (struct unknown **) free_check_null(x);
 	max_unknowns = 0;
-	array = free_check_null(array);
-	delta = free_check_null(delta);
-	residual = free_check_null(residual);
-	s_x = free_check_null(s_x);
-	sum_mb1 = free_check_null(sum_mb1);
-	sum_mb2 = free_check_null(sum_mb2);
-	sum_jacob0 = free_check_null(sum_jacob0);
-	sum_jacob1 = free_check_null(sum_jacob1);
-	sum_jacob2 = free_check_null(sum_jacob2);
-	sum_delta = free_check_null(sum_delta);
-	charge_group = free_check_null(charge_group);
+	array = (LDBLE *) free_check_null(array);
+	delta = (LDBLE *) free_check_null(delta);
+	residual = (LDBLE *) free_check_null(residual);
+	s_x = (struct species **) free_check_null(s_x);
+	sum_mb1 = (struct list1*) free_check_null(sum_mb1);
+	sum_mb2 = (struct list2 *) free_check_null(sum_mb2);
+	sum_jacob0 = (struct list0 *) free_check_null(sum_jacob0);
+	sum_jacob1 = (struct list1 *) free_check_null(sum_jacob1);
+	sum_jacob2 = (struct list2 *) free_check_null(sum_jacob2);
+	sum_delta = (struct list2 *) free_check_null(sum_delta);
+ 	charge_group = (struct charge_group *) free_check_null(charge_group);
 	return(OK);
 }
 #ifdef SLNQ

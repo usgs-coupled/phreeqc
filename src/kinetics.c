@@ -13,6 +13,7 @@
 #include "nvector_serial.h"  /* definitions of type N_Vector and macro        */
                              /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
 #include "dense.h"           /* definitions of type DenseMat, macro DENSE_ELEM*/
+#define KINETICS_EXTERNAL extern
 #include "kinetics.h"
 /* These macros are defined in order to write code which exactly matches
    the mathematical problem description given above.
@@ -150,7 +151,7 @@ int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
  *   Go through list and generate list of elements and
  *   coefficient of elements in reaction
  */
-	kinetics_ptr->totals = free_check_null(kinetics_ptr->totals);
+	kinetics_ptr->totals = (struct elt_list *) free_check_null(kinetics_ptr->totals);
 	count_elts = 0;
 	paren_count = 0;
 	for (i=0; i < kinetics_ptr->count_comps; i++) {
@@ -276,7 +277,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
  */
 	if (kinetics_bsearch(i, &m) == NULL) return(OK);
 	n_reactions = kinetics[m].count_comps;
-	rk_moles = PHRQ_malloc((size_t) 6 * n_reactions * sizeof(LDBLE)); 
+	rk_moles = (LDBLE *) PHRQ_malloc((size_t) 6 * n_reactions * sizeof(LDBLE)); 
 	if (rk_moles == NULL) malloc_error();
 
 	/*if (use_mix != NOMIX) last_model.force_prep = TRUE;*/
@@ -292,11 +293,11 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 		set_reaction(i, NOMIX, TRUE);
 	}
 	if (use.pp_assemblage_ptr != NULL) {
-		pp_assemblage_save = PHRQ_malloc(sizeof(struct pp_assemblage));
+		pp_assemblage_save = (struct pp_assemblage *) PHRQ_malloc(sizeof(struct pp_assemblage));
 		if (pp_assemblage_save == NULL) malloc_error();
 	}
 	if (use.s_s_assemblage_ptr != NULL) {
-		s_s_assemblage_save = PHRQ_malloc(sizeof(struct s_s_assemblage));
+		s_s_assemblage_save = (struct s_s_assemblage *) PHRQ_malloc(sizeof(struct s_s_assemblage));
 		if (s_s_assemblage_save == NULL) malloc_error();
 	}
 
@@ -883,7 +884,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 	if (nsaver != i) {
 		solution_duplicate(save_old, i);
 	}
-	rk_moles = free_check_null(rk_moles);
+	rk_moles = (LDBLE *) free_check_null(rk_moles);
 
 #ifdef SKIP
 	if (state != TRANSPORT) {
@@ -900,10 +901,10 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 	/*  Free space */
 
 	if (pp_assemblage_save != NULL) {
-		pp_assemblage_save = free_check_null(pp_assemblage_save);
+		pp_assemblage_save = (struct pp_assemblage *) free_check_null(pp_assemblage_save);
 	}
 	if (s_s_assemblage_save != NULL) {
-		s_s_assemblage_save = free_check_null(s_s_assemblage_save);
+		s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 	return(OK);
 }
@@ -945,17 +946,17 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 		set_reaction(i, use_mix, use_kinetics);
 	}
 	if (use.pp_assemblage_ptr != NULL) {
-		pp_assemblage_save = PHRQ_malloc(sizeof(struct pp_assemblage));
+		pp_assemblage_save = (struct pp_assemblage *) PHRQ_malloc(sizeof(struct pp_assemblage));
 		if (pp_assemblage_save == NULL) malloc_error();
 		pp_assemblage_copy(use.pp_assemblage_ptr, pp_assemblage_save, use.pp_assemblage_ptr->n_user);
 	}
 	if (use.s_s_assemblage_ptr != NULL) {
-		s_s_assemblage_save = PHRQ_malloc(sizeof(struct s_s_assemblage));
+		s_s_assemblage_save = (struct s_s_assemblage *) PHRQ_malloc(sizeof(struct s_s_assemblage));
 		if (s_s_assemblage_save == NULL) malloc_error();
 		s_s_assemblage_copy(use.s_s_assemblage_ptr, s_s_assemblage_save, use.s_s_assemblage_ptr->n_user);
 	}
 	if (use.kinetics_ptr != NULL) {
-		kinetics_save = PHRQ_malloc(sizeof(struct kinetics));
+		kinetics_save = (struct kinetics *) PHRQ_malloc(sizeof(struct kinetics));
 		if (kinetics_save == NULL) malloc_error();
 		kinetics_copy(use.kinetics_ptr, kinetics_save, use.kinetics_ptr->n_user);
 	}
@@ -1133,15 +1134,15 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 	}
 	if (pp_assemblage_save != NULL) {
 		pp_assemblage_free(pp_assemblage_save);
-		pp_assemblage_save = free_check_null(pp_assemblage_save);
+		pp_assemblage_save = (struct pp_assemblage *) free_check_null(pp_assemblage_save);
 	}
 	if (s_s_assemblage_save != NULL) {
 		s_s_assemblage_free(s_s_assemblage_save);
-		s_s_assemblage_save = free_check_null(s_s_assemblage_save);
+		s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 	if (kinetics_save != NULL) {
 		kinetics_free(kinetics_save);
-		kinetics_save = free_check_null(kinetics_save);
+		kinetics_save = (struct kinetics *) free_check_null(kinetics_save);
 	}
 	if (converge == MASS_BALANCE) {
 		return(MASS_BALANCE);
@@ -1551,10 +1552,10 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
  */
 		kinetics_ptr = kinetics_bsearch(i, &n);
 
-		m_temp = PHRQ_malloc((size_t) kinetics_ptr->count_comps * sizeof(LDBLE)); 
+		m_temp = (LDBLE *) PHRQ_malloc((size_t) kinetics_ptr->count_comps * sizeof(LDBLE)); 
 		if (m_temp == NULL) malloc_error();
 
-		m_original = PHRQ_malloc((size_t) kinetics_ptr->count_comps * sizeof(LDBLE)); 
+		m_original = (LDBLE *) PHRQ_malloc((size_t) kinetics_ptr->count_comps * sizeof(LDBLE)); 
 		if (m_original == NULL) malloc_error();
 
 		for (j = 0; j < kinetics_ptr->count_comps; j++) {
@@ -1601,12 +1602,12 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			pp_assemblage_ptr = pp_assemblage_bsearch(i, &n);
 			s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &n);
 			if (pp_assemblage_ptr != NULL) {
-				cvode_pp_assemblage_save = PHRQ_malloc(sizeof(struct pp_assemblage));
+				cvode_pp_assemblage_save = (struct pp_assemblage *) PHRQ_malloc(sizeof(struct pp_assemblage));
 				if (cvode_pp_assemblage_save == NULL) malloc_error();
 				pp_assemblage_copy(pp_assemblage_ptr, cvode_pp_assemblage_save, pp_assemblage_ptr->n_user);
 			}
 			if (s_s_assemblage_ptr != NULL) {
-				cvode_s_s_assemblage_save = PHRQ_malloc(sizeof(struct s_s_assemblage));
+				cvode_s_s_assemblage_save = (struct s_s_assemblage *) PHRQ_malloc(sizeof(struct s_s_assemblage));
 				if (cvode_s_s_assemblage_save == NULL) malloc_error();
 				s_s_assemblage_copy(s_s_assemblage_ptr, cvode_s_s_assemblage_save, s_s_assemblage_ptr->n_user);
 			}
@@ -1684,8 +1685,8 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				sum_t += cvode_last_good_time;
 				cvode_last_good_time = 0;
 				if (++iter >= 200) {
-					m_temp = free_check_null(m_temp);
-					m_original = free_check_null(m_original);
+					m_temp = (LDBLE *) free_check_null(m_temp);
+					m_original = (LDBLE *) free_check_null(m_original);
 					error_msg("Repeated restart of integration.", STOP);
 				}
 				tout1 = tout - sum_t;
@@ -1762,17 +1763,17 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			kinetics_ptr->comps[j].moles = m_original[j] - kinetics_ptr->comps[j].m;
 /*                        if (kinetics_ptr->comps[j].moles < 1.e-15) kinetics_ptr->comps[j].moles = 0.0;
  */		}
-		m_temp = free_check_null(m_temp);
-		m_original = free_check_null(m_original);
+		m_temp = (LDBLE *) free_check_null(m_temp);
+		m_original = (LDBLE *) free_check_null(m_original);
 	}
 	iterations = run_reactions_iterations;
 	if (cvode_pp_assemblage_save != NULL) {
 		pp_assemblage_free(cvode_pp_assemblage_save);
-		cvode_pp_assemblage_save = free_check_null(cvode_pp_assemblage_save);
+		cvode_pp_assemblage_save = (struct pp_assemblage *) free_check_null(cvode_pp_assemblage_save);
 	}
 	if (cvode_s_s_assemblage_save != NULL) {
 		s_s_assemblage_free(cvode_s_s_assemblage_save);
-		cvode_s_s_assemblage_save = free_check_null(cvode_s_s_assemblage_save);
+		cvode_s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(cvode_s_s_assemblage_save);
 	}
 	return(OK);
 }
@@ -1794,11 +1795,11 @@ int free_cvode(void)
 	kinetics_machEnv = NULL;
 	if (cvode_pp_assemblage_save != NULL) {
 		pp_assemblage_free(cvode_pp_assemblage_save);
-		cvode_pp_assemblage_save = free_check_null(cvode_pp_assemblage_save);
+		cvode_pp_assemblage_save = (struct pp_assemblage *) free_check_null(cvode_pp_assemblage_save);
 	}
 	if (cvode_s_s_assemblage_save != NULL) {
 		s_s_assemblage_free(cvode_s_s_assemblage_save);
-		cvode_s_s_assemblage_save = free_check_null(cvode_s_s_assemblage_save);
+		cvode_s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(cvode_s_s_assemblage_save);
 	}
 	return(OK);
 }
@@ -1984,7 +1985,7 @@ int store_get_equi_reactants(int l, int kin_end)
 		k = count_pp + count_s_s + count_pg;
 		x0_moles = NULL;
 		if (k == 0) return(OK);
-		x0_moles = PHRQ_malloc((size_t) k * sizeof(LDBLE));
+		x0_moles = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 		if (x0_moles == NULL) malloc_error();
 
 		k = -1;
@@ -2025,7 +2026,7 @@ int store_get_equi_reactants(int l, int kin_end)
  *   This condition makes output equal for incremental_reactions TRUE/FALSE...
  *		if (incremental_reactions == FALSE || reaction_step == count_total_steps)
  */
-		x0_moles = free_check_null(x0_moles);
+		x0_moles = (LDBLE *) free_check_null(x0_moles);
  	}
 	return(OK);
 }
@@ -2135,7 +2136,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 	step_fraction = cvode_step_fraction;
 	rate_sim_time = cvode_rate_sim_time;
 
-	initial_rates = PHRQ_malloc((size_t) n_reactions * sizeof(LDBLE));
+	initial_rates = (LDBLE *) PHRQ_malloc((size_t) n_reactions * sizeof(LDBLE));
 	if (initial_rates == NULL) malloc_error();
 
 	for (i = 0; i < n_reactions; i++) {
@@ -2173,7 +2174,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 		/*
 		error_msg("Mass balance error in jacobian", CONTINUE);
 		*/
-		initial_rates = free_check_null(initial_rates);
+		initial_rates = (LDBLE *) free_check_null(initial_rates);
 		return;
 	} 
 	run_reactions_iterations += iterations;
@@ -2226,7 +2227,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 			error_msg("Mass balance error in jacobian 2", CONTINUE);
 			*/
 			cvode_error = TRUE;
-			initial_rates = free_check_null(initial_rates);
+			initial_rates = (LDBLE *) free_check_null(initial_rates);
 			return;
 		}
 		run_reactions_iterations += iterations;
@@ -2243,7 +2244,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 	for (i = 0; i < n_reactions; i++) {
 		kinetics_ptr->comps[i].moles = 0;
 	}
-	initial_rates = free_check_null(initial_rates);
+	initial_rates = (LDBLE *) free_check_null(initial_rates);
 	return;
 }
 

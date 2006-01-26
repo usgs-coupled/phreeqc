@@ -3,6 +3,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#define PITZER_EXTERNAL extern
 #include "pitzer.h"
 #include <assert.h>
 
@@ -2225,7 +2226,7 @@ int print_alkalinity(void)
 
         if (pr.alkalinity == FALSE || pr.all == FALSE) return(OK);
         print_centered("Distribution of alkalinity");
-	alk_list = PHRQ_malloc((size_t) (count_s_x *sizeof(struct species_list)));
+	alk_list = (struct species_list *) PHRQ_malloc((size_t) (count_s_x *sizeof(struct species_list)));
 	if (alk_list == NULL) malloc_error();
 	j = 0;
 	for (i = 0; i < count_s_x; i++) {
@@ -2253,6 +2254,6 @@ int print_alkalinity(void)
 	}
 
         output_msg(OUTPUT_MESSAGE,"\n");
-	alk_list = free_check_null(alk_list);
+	alk_list = (struct species_list *) free_check_null(alk_list);
         return(OK);
 }

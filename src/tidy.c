@@ -488,7 +488,7 @@ int add_other_logk(LDBLE *source_k, int count_add_logk, struct name_coef *add_lo
 			error_msg(error_string, CONTINUE);
 			return(ERROR);
 		}
-		logk_ptr = found_item->data;
+		logk_ptr = (struct logk *) found_item->data;
 		analytic = FALSE;
 		for (j=2; j < 7; j++) {
 			if (logk_ptr->log_k[j] != 0.0) {
@@ -711,7 +711,7 @@ int tidy_inverse(void)
  *   Set default uncertainties for all solutions, if necessary
  */		
 		if (inverse[i].count_uncertainties < inverse[i].count_solns) {
-			inverse[i].uncertainties = PHRQ_realloc(inverse[i].uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
+			inverse[i].uncertainties = (LDBLE *)PHRQ_realloc(inverse[i].uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
 			if (inverse[i].uncertainties == NULL) malloc_error();
 			for (j = inverse[i].count_uncertainties; j < inverse[i].count_solns; j++) {
 				inverse[i].uncertainties[j] = inverse[i].uncertainties[inverse[i].count_uncertainties - 1];
@@ -721,7 +721,7 @@ int tidy_inverse(void)
  *   Set default ph uncertainties for all solutions, if necessary
  */		
 		if (inverse[i].count_ph_uncertainties < inverse[i].count_solns) {
-			inverse[i].ph_uncertainties = PHRQ_realloc(inverse[i].ph_uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
+			inverse[i].ph_uncertainties = (LDBLE *)PHRQ_realloc(inverse[i].ph_uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
 			if ( inverse[i].ph_uncertainties == NULL) malloc_error();
 			for (j = inverse[i].count_ph_uncertainties; j < inverse[i].count_solns; j++) {
 				inverse[i].ph_uncertainties[j] = inverse[i].ph_uncertainties[inverse[i].count_ph_uncertainties - 1];
@@ -731,7 +731,7 @@ int tidy_inverse(void)
  *   Set default force for all solutions
  */		
 		if (inverse[i].count_force_solns < inverse[i].count_solns) {
-			inverse[i].force_solns = PHRQ_realloc(inverse[i].force_solns, (size_t) inverse[i].count_solns * sizeof (int));
+			inverse[i].force_solns = (int *) PHRQ_realloc(inverse[i].force_solns, (size_t) inverse[i].count_solns * sizeof (int));
 			if (inverse[i].force_solns == NULL) malloc_error();
 			for (j = inverse[i].count_force_solns; j < inverse[i].count_solns; j++) {
 				inverse[i].force_solns[j] = FALSE;
@@ -748,7 +748,7 @@ int tidy_inverse(void)
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
-			inverse[i].elts[j].uncertainties = PHRQ_realloc(inverse[i].elts[j].uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
+			inverse[i].elts[j].uncertainties = (double *) PHRQ_realloc(inverse[i].elts[j].uncertainties, (size_t) inverse[i].count_solns * sizeof (LDBLE));
 			if (inverse[i].elts[j].uncertainties == NULL) malloc_error();
 			if (inverse[i].elts[j].count_uncertainties == 0) {
 /* use default uncertainties for element */
@@ -888,7 +888,7 @@ int tidy_inverse(void)
 				/* set master */
 				inv_elts[count_in].master = master[j];
 				/* alloc uncertainties and set default */
-				inv_elts[count_in].uncertainties = PHRQ_malloc((size_t) inverse[i].count_solns * sizeof(LDBLE));
+				inv_elts[count_in].uncertainties = (double *) PHRQ_malloc((size_t) inverse[i].count_solns * sizeof(LDBLE));
 				if (inv_elts[count_in].uncertainties == NULL) malloc_error();
 				for(k=0; k < inverse[i].count_solns; k++) {
 					inv_elts[count_in].uncertainties[k] = inverse[i].uncertainties[k];
@@ -921,7 +921,7 @@ int tidy_inverse(void)
 					}
 				}
 			}
-			inverse[i].elts[j].uncertainties = free_check_null(inverse[i].elts[j].uncertainties);
+			inverse[i].elts[j].uncertainties = (double *) free_check_null(inverse[i].elts[j].uncertainties);
 		}
 		/* copy masters that are not primary redox */
 		for (j=0; j < inverse[i].count_elts; j++) {
@@ -941,12 +941,12 @@ int tidy_inverse(void)
 					break;
 				}
 			}
-			inverse[i].elts[j].uncertainties = free_check_null(inverse[i].elts[j].uncertainties);
+			inverse[i].elts[j].uncertainties = (double *) free_check_null(inverse[i].elts[j].uncertainties);
 		}
 /*
  *   replace elts in inverse struct
  */
-		inverse[i].elts = free_check_null(inverse[i].elts);
+		inverse[i].elts = (struct inv_elts *) free_check_null(inverse[i].elts);
 		inverse[i].elts = inv_elts;
 		inverse[i].count_elts = count_in;
 		for (j = 0; j < inverse[i].count_elts; j++) {
@@ -1058,7 +1058,7 @@ int tidy_pp_assemblage(void)
 			qsort (elt_list, (size_t) count_elts, (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine ();
 		} 
-		pp_assemblage[i].next_elt = free_check_null(pp_assemblage[i].next_elt);
+		pp_assemblage[i].next_elt = (struct elt_list *) free_check_null(pp_assemblage[i].next_elt);
 		pp_assemblage[i].next_elt = elt_list_save();
 
 /*
@@ -1727,7 +1727,7 @@ int tidy_solutions(void)
 				       (size_t) sizeof(struct isotope),
 				       isotope_compare);
 			} else {
-				solution[n]->isotopes = free_check_null(solution[n]->isotopes);
+				solution[n]->isotopes = (struct isotope *) free_check_null(solution[n]->isotopes);
 			}
 			for ( i=0; solution[n]->totals[i].description != NULL; i++) {
 				tot_ptr=&(solution[n]->totals[i]);
@@ -1795,7 +1795,7 @@ int species_rxn_to_trxn(struct species *s_ptr)
 		trxn.token[i].coef = s_ptr->rxn->token[i].coef;
 		count_trxn = i + 1;
 		if (count_trxn + 1 >= max_trxn) {
-			space ((void *) &(trxn.token), count_trxn+1, &max_trxn,
+			space ((void **) &(trxn.token), count_trxn+1, &max_trxn,
 			       sizeof(struct rxn_token_temp));
 		}
 	}
@@ -1832,7 +1832,7 @@ int phase_rxn_to_trxn(struct phase *phase_ptr)
 		trxn.token[i].coef = phase_ptr->rxn->token[i].coef;
 		count_trxn = i + 1;
 		if (count_trxn + 1 >= max_trxn) {
-			space ((void *) &(trxn.token), count_trxn+1, &max_trxn,
+			space ((void **) &(trxn.token), count_trxn+1, &max_trxn,
 			       sizeof(struct rxn_token_temp));
 		}
 	}
@@ -1860,10 +1860,10 @@ int tidy_isotopes (void)
 		if (solution[n]->new_def != TRUE) continue;
 		if (solution[n]->count_isotopes == 0) continue;
 		solution_ptr = solution[n];
-		primary_isotopes = PHRQ_malloc((size_t) (sizeof(struct isotope)));
+		primary_isotopes = (struct isotope *) PHRQ_malloc((size_t) (sizeof(struct isotope)));
 		if (primary_isotopes == NULL) malloc_error();
 		count_primary = 0;
-		new_isotopes = PHRQ_malloc((size_t) (sizeof(struct isotope)));
+		new_isotopes = (struct isotope *) PHRQ_malloc((size_t) (sizeof(struct isotope)));
 		if (new_isotopes == NULL) malloc_error();
 		count_isotopes = 0;
 /*
@@ -1884,7 +1884,7 @@ int tidy_isotopes (void)
 				    primary_isotopes[j].isotope_number == isotope_number) break;
 			}
 			if (j == count_primary) {
-				primary_isotopes = PHRQ_realloc(primary_isotopes, (size_t) (count_primary + 1) * sizeof(struct isotope));
+				primary_isotopes = (struct isotope *) PHRQ_realloc(primary_isotopes, (size_t) (count_primary + 1) * sizeof(struct isotope));
 				if (primary_isotopes == NULL) malloc_error();
 				primary_isotopes[count_primary].master = master_ptr;
 				primary_isotopes[count_primary].isotope_number = isotope_number;
@@ -1960,7 +1960,7 @@ int tidy_isotopes (void)
 					error_msg(error_string, CONTINUE);
 				}
 				if (master[k]->isotope == FALSE) continue;
-				new_isotopes = PHRQ_realloc(new_isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
+				new_isotopes = (struct isotope *) PHRQ_realloc(new_isotopes, (size_t) (count_isotopes + 1) * sizeof(struct isotope));
 				if (new_isotopes == NULL) malloc_error();
 				new_isotopes[count_isotopes].master = master[k];
 				new_isotopes[count_isotopes].primary = primary_ptr;
@@ -1974,8 +1974,8 @@ int tidy_isotopes (void)
 				count_isotopes++;
 			}
 		}
-		primary_isotopes = free_check_null(primary_isotopes);
-		solution_ptr->isotopes = free_check_null(solution_ptr->isotopes);
+		primary_isotopes = (struct isotope *) free_check_null(primary_isotopes);
+		solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
 		solution_ptr->isotopes = new_isotopes;
 		solution_ptr->count_isotopes = count_isotopes;
 		qsort (solution_ptr->isotopes, 
@@ -2063,7 +2063,7 @@ int tidy_kin_exchange(void)
 			paren_count = 0;
 			ptr = comp_ptr->formula;
 			get_elts_in_species(&ptr, conc);
-			comp_ptr->totals = free_check_null(comp_ptr->totals);
+			comp_ptr->totals = (struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
 /*
  *   No check on availability of exchange elements 
@@ -2146,7 +2146,7 @@ int tidy_min_exchange(void)
 			paren_count = 0;
 			ptr = comp_ptr->formula;
 			get_elts_in_species(&ptr, conc);
-			comp_ptr->totals = free_check_null(comp_ptr->totals);
+			comp_ptr->totals = (struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
 /*
  *   make sure exchange elements are in phase
@@ -2253,7 +2253,7 @@ int tidy_min_surface(void)
 			count_elts = 0;
 			paren_count = 0;
 			get_elts_in_species(&ptr, conc);
-			comp_ptr->totals = free_check_null(comp_ptr->totals);
+			comp_ptr->totals = (struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
 
 			/* area */
@@ -2387,7 +2387,7 @@ int tidy_kin_surface(void)
 			count_elts = 0;
 			paren_count = 0;
 			get_elts_in_species(&ptr, conc);
-			comp_ptr->totals = free_check_null(comp_ptr->totals);
+			comp_ptr->totals = (struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
 
 			/* area */
@@ -2460,7 +2460,7 @@ int tidy_kin_surface(void)
 					}
 				}
 			}
-			elt_list_kinetics = free_check_null(elt_list_kinetics);
+			elt_list_kinetics = (struct elt_list *) free_check_null(elt_list_kinetics);
 		}
 	}
         return(OK);
@@ -3315,19 +3315,19 @@ int reset_last_model(void)
  */
 	last_model.force_prep = TRUE;
 	last_model.count_exchange = 0;
-	last_model.exchange = free_check_null(last_model.exchange);
+	last_model.exchange = (struct master **) free_check_null(last_model.exchange);
 	last_model.count_gas_phase = 0;
-	last_model.gas_phase = free_check_null(last_model.gas_phase);
+	last_model.gas_phase = (struct phase **) free_check_null(last_model.gas_phase);
 	last_model.count_s_s_assemblage = 0;
-	last_model.s_s_assemblage = free_check_null(last_model.s_s_assemblage);
+	last_model.s_s_assemblage = (char **) free_check_null(last_model.s_s_assemblage);
 	last_model.count_pp_assemblage = 0;
-	last_model.pp_assemblage = free_check_null(last_model.pp_assemblage);
-	last_model.add_formula = free_check_null(last_model.add_formula);
-	last_model.si = free_check_null(last_model.si);
+	last_model.pp_assemblage = (struct phase **) free_check_null(last_model.pp_assemblage);
+	last_model.add_formula = (char **) free_check_null(last_model.add_formula);
+	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	last_model.diffuse_layer = FALSE;
 	last_model.count_surface_comp = 0;
-	last_model.surface_comp = free_check_null(last_model.surface_comp);
+	last_model.surface_comp = (struct master **) free_check_null(last_model.surface_comp);
 	last_model.count_surface_charge = 0;
-	last_model.surface_charge = free_check_null(last_model.surface_charge);
+	last_model.surface_charge = (struct master **) free_check_null(last_model.surface_charge);
 	return(OK);
 }

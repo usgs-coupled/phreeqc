@@ -1,4 +1,4 @@
-#define EXTERNAL
+#define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -117,15 +117,15 @@ int process_file_names(int argc, char *argv[], void **db_cookie, void **input_co
  *   Prep for get_line
  */
 	max_line = MAX_LINE;
-	space ((void *) &line, INIT, &max_line, sizeof(char));
-	space ((void *) &line_save, INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line), INIT, &max_line, sizeof(char));
+	space ((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 	hcreate_multi(5, &strings_hash_table);
 	hcreate_multi(2, &keyword_hash_table);
 
 /*
  *   Initialize hash table
  */
-	keyword_hash = PHRQ_malloc(sizeof(struct key));
+	keyword_hash = (struct key *) PHRQ_malloc(sizeof(struct key));
 	if (keyword_hash == NULL) {
 		malloc_error();
 	} else {
@@ -208,7 +208,7 @@ int process_file_names(int argc, char *argv[], void **db_cookie, void **input_co
 			user_database = string_duplicate(ptr);
 			if (string_trim(user_database) == EMPTY) {
 				warning_msg("DATABASE file name is missing; default database will be used.");
-				user_database = free_check_null(user_database);
+				user_database = (char *) free_check_null(user_database);
 			}
 		}
 	}
@@ -254,12 +254,12 @@ int process_file_names(int argc, char *argv[], void **db_cookie, void **input_co
 /*
  *   local cleanup
  */
-	user_database = free_check_null(user_database);
-	line = free_check_null(line);
-	line_save = free_check_null(line_save);
+	user_database = (char *) free_check_null(user_database);
+	line = (char *) free_check_null(line);
+	line_save = (char *) free_check_null(line_save);
 
 	hdestroy_multi(keyword_hash_table);
-	keyword_hash = free_check_null(keyword_hash);
+	keyword_hash = (struct key *) free_check_null(keyword_hash);
 	keyword_hash_table = NULL;
 
 	free_hash_strings(strings_hash_table);

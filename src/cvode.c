@@ -29,6 +29,7 @@ extern char *error_string;
 #include "nvector.h"
 #include "sundialsmath.h"
 #include "output.h"
+#define KINETICS_EXTERNAL 
 #include "kinetics.h"
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
@@ -1487,10 +1488,9 @@ static booleantype CVEwtSetSS(CVodeMem cv_mem, N_Vector ycur)
 static booleantype CVEwtSetSV(CVodeMem cv_mem, N_Vector ycur)
 {
   realtype rtoli;
-  
   rtoli = *reltol;
   N_VAbs(ycur, tempv);
-  N_VLinearSum(rtoli, tempv, ONE, abstol, tempv);
+  N_VLinearSum(rtoli, tempv, ONE, (N_Vector) abstol, tempv);
   if (N_VMin(tempv) <= ZERO) return(FALSE);
   N_VInv(tempv, ewt);
   return(TRUE);

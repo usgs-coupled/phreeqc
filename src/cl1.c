@@ -163,12 +163,12 @@ int cl1(int k, int l, int m, int n,
 			q_arg[i] = q[i];
 		}
 		*/
-		x_arg = PHRQ_malloc((size_t) (n2d * sizeof(LDBLE)));
+		x_arg = (double *) PHRQ_malloc((size_t) (n2d * sizeof(LDBLE)));
 		if (x_arg == NULL) malloc_error();
 		for (i = 0; i < n2d; i++) {
 			x_arg[i] = x[i];
 		}
-		res_arg = PHRQ_malloc((size_t) ((k + l + m) * sizeof(LDBLE)));
+		res_arg = (double *) PHRQ_malloc((size_t) ((k + l + m) * sizeof(LDBLE)));
 		if (res_arg == NULL) malloc_error();
 		for (i = 0; i < k + l + m; i++) {
 			res_arg[i] = res[i];
@@ -669,7 +669,7 @@ L590:
 	output_msg(OUTPUT_MESSAGE, "L640\n");
 #endif
 	*error = sum;
-	scratch = free_check_null (scratch);
+	scratch = (double *) free_check_null (scratch);
 	/*
 	 *  Check calculation
 	 */
@@ -746,8 +746,8 @@ L590:
 		}
 	}
 	if (check == 1) {
-		x_arg = free_check_null(x_arg);
-		res_arg = free_check_null(res_arg);
+		x_arg = (double *) free_check_null(x_arg);
+		res_arg = (double *) free_check_null(res_arg);
 	}
 	return 0;
 }

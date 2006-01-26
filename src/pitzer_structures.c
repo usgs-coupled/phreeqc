@@ -3,6 +3,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#define PITZER_EXTERNAL extern
 #include "pitzer.h"
 
 static char const svnid[] = "$Id: structures.c 269 2005-04-27 19:54:25Z dlpark $";

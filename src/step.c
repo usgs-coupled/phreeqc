@@ -110,7 +110,7 @@ int step(LDBLE step_fraction)
  *   Pure phases
  */
 	if (use.pp_assemblage_ptr != NULL) {
-		pp_assemblage_save = PHRQ_malloc(sizeof(struct pp_assemblage));
+		pp_assemblage_save = (struct pp_assemblage *) PHRQ_malloc(sizeof(struct pp_assemblage));
 		if (pp_assemblage_save == NULL) malloc_error();
 		pp_assemblage_copy(use.pp_assemblage_ptr, pp_assemblage_save, use.pp_assemblage_ptr->n_user);
 		add_pp_assemblage (use.pp_assemblage_ptr);
@@ -119,7 +119,7 @@ int step(LDBLE step_fraction)
  *   Solid solutions
  */
 	if(use.s_s_assemblage_ptr != NULL) {
-		s_s_assemblage_save = PHRQ_malloc(sizeof(struct s_s_assemblage));
+		s_s_assemblage_save = (struct s_s_assemblage *) PHRQ_malloc(sizeof(struct s_s_assemblage));
 		if (s_s_assemblage_save == NULL) malloc_error();
 		s_s_assemblage_copy(use.s_s_assemblage_ptr, s_s_assemblage_save, use.s_s_assemblage_ptr->n_user);
 		add_s_s_assemblage(use.s_s_assemblage_ptr);
@@ -146,13 +146,13 @@ int step(LDBLE step_fraction)
 			pp_assemblage_free(use.pp_assemblage_ptr);
 			pp_assemblage_copy(pp_assemblage_save, use.pp_assemblage_ptr, use.pp_assemblage_ptr->n_user);
 			pp_assemblage_free(pp_assemblage_save);
-			pp_assemblage_save = free_check_null(pp_assemblage_save);
+			pp_assemblage_save = (struct pp_assemblage *) free_check_null(pp_assemblage_save);
 		}
 		if (use.s_s_assemblage_ptr != NULL) {
 			s_s_assemblage_free(use.s_s_assemblage_ptr);
 			s_s_assemblage_copy(s_s_assemblage_save, use.s_s_assemblage_ptr, use.s_s_assemblage_ptr->n_user);
 			s_s_assemblage_free(s_s_assemblage_save);
-			s_s_assemblage_save = free_check_null(s_s_assemblage_save);
+			s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 		}
 		return(MASS_BALANCE);
 	}
@@ -167,11 +167,11 @@ int step(LDBLE step_fraction)
  */
 	if (pp_assemblage_save != NULL) {
 		pp_assemblage_free(pp_assemblage_save);
-		pp_assemblage_save = free_check_null(pp_assemblage_save);
+		pp_assemblage_save = (struct pp_assemblage *) free_check_null(pp_assemblage_save);
 	}
 	if (s_s_assemblage_save != NULL) {
 		s_s_assemblage_free(s_s_assemblage_save);
-		s_s_assemblage_save = free_check_null(s_s_assemblage_save);
+		s_s_assemblage_save = (struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 	return(OK);
 }

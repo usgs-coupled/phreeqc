@@ -515,7 +515,7 @@ int saturation_index (char *phase_name, LDBLE *iap, LDBLE *si)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE sum_match_gases (char *template, char *name)
+LDBLE sum_match_gases (char *mytemplate, char *name)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -525,7 +525,7 @@ LDBLE sum_match_gases (char *template, char *name)
 	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL) return(0);
 	tot = 0;
 	for (i=0; i < use.gas_phase_ptr->count_comps; i++) {
-		if (match_elts_in_species(use.gas_phase_ptr->comps[i].phase->formula,template) == TRUE) {
+		if (match_elts_in_species(use.gas_phase_ptr->comps[i].phase->formula,mytemplate) == TRUE) {
 			if (name == NULL) {
 				tot += use.gas_phase_ptr->comps[i].phase->moles_x;
 			} else {
@@ -541,7 +541,7 @@ LDBLE sum_match_gases (char *template, char *name)
 	return(tot);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE sum_match_species (char *template, char *name)
+LDBLE sum_match_species (char *mytemplate, char *name)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -552,7 +552,7 @@ LDBLE sum_match_species (char *template, char *name)
 	paren_count = 0;
 	tot = 0;
 	for (i = 0; i < count_s_x; i++) {
-		if (match_elts_in_species(s_x[i]->name, template) == TRUE) {
+		if (match_elts_in_species(s_x[i]->name, mytemplate) == TRUE) {
 			if (name == NULL) {
 				tot += s_x[i]->moles;
 			} else {
@@ -568,7 +568,7 @@ LDBLE sum_match_species (char *template, char *name)
 	return(tot);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE sum_match_s_s (char *template, char *name)
+LDBLE sum_match_s_s (char *mytemplate, char *name)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -578,7 +578,7 @@ LDBLE sum_match_s_s (char *template, char *name)
 	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL) return(0);
 	tot = 0;
 	for (j=0; j < use.s_s_assemblage_ptr->count_s_s; j++) {
-		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, template) == 0) {
+		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, mytemplate) == 0) {
 			if (use.s_s_assemblage_ptr->s_s[j].s_s_in == FALSE) {
 				tot = 0;
 				break;
@@ -631,7 +631,7 @@ LDBLE sum_match_s_s (char *template, char *name)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int match_elts_in_species (char *name, char *template)
+int match_elts_in_species (char *name, char *mytemplate)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -698,7 +698,7 @@ int match_elts_in_species (char *name, char *template)
 	/*
 	 *  Replace elements with first of equivalent elements
 	 */
-	strcpy(template1, template);
+	strcpy(template1, mytemplate);
 	squeeze_white(template1);
 	ptr = template1;
 	while (extract_bracket(&ptr, equal_list) == TRUE) {
@@ -710,7 +710,7 @@ int match_elts_in_species (char *name, char *template)
 		 *   Get first name in a list from template
 		 */
 		if (copy_token(elt_name, &ptr1, &l) == EMPTY) {
-			sprintf(error_string, "Expecting a nonempty list of element names in isotope sum. %s", template);
+			sprintf(error_string, "Expecting a nonempty list of element names in isotope sum. %s", mytemplate);
 			error_msg(error_string, CONTINUE);
 			return(ERROR);
 		}
@@ -755,7 +755,7 @@ int match_elts_in_species (char *name, char *template)
 	/*
 	 *  Write a template name using first of equivalent elements
 	 */
-	strcpy(template1, template);
+	strcpy(template1, mytemplate);
 	squeeze_white(template1);
 	ptr = template1;
 	while (extract_bracket(&ptr, equal_list) == TRUE) {
@@ -768,7 +768,7 @@ int match_elts_in_species (char *name, char *template)
 		 *   Get first name in a list
 		 */
 		if (copy_token(elt_name, &ptr1, &l) == EMPTY) {
-			sprintf(error_string, "Expecting a nonempty list of element names in isotope sum. %s", template);
+			sprintf(error_string, "Expecting a nonempty list of element names in isotope sum. %s", mytemplate);
 			error_msg(error_string, CONTINUE);
 			return(ERROR);
 		}
@@ -967,7 +967,7 @@ LDBLE system_total(char *total_name, LDBLE *count, char ***names, char ***types,
 	sys_tot = 0;
 	count_sys = 0;
 	max_sys = 100;
-	space ((void *) &sys, INIT, &max_sys, sizeof (struct system_species));
+	space ((void **) ((void *) &sys), INIT, &max_sys, sizeof (struct system_species));
 	if (strcmp_nocase(total_name,"elements") == 0) {
 		system_total_elements();
 	} else if (strcmp_nocase(total_name,"phases") == 0) {
@@ -1047,13 +1047,13 @@ int system_total_elements(void)
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	sys[count_sys].name = string_duplicate("O");
 	sys[count_sys].moles = total_o_x;
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	/*
 	 * Include H(1) and O(-2)
 	 */
@@ -1062,13 +1062,13 @@ int system_total_elements(void)
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	sys[count_sys].name = string_duplicate("O(-2)");
 	sys[count_sys].moles = solution_sum_secondary("O(-2)");
 	sys_tot += sys[count_sys].moles;
 	sys[count_sys].type = string_duplicate("dis");
 	count_sys++;
-	space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+	space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 
 	for (i = 0; i < count_master; i++) {
 		master_ptr=master[i];
@@ -1117,7 +1117,7 @@ int system_total_elements(void)
 			sys[count_sys].type = string_duplicate("surf");
 		}
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 
 	}
         return(OK);
@@ -1148,7 +1148,7 @@ int system_total_si(void)
 		if (si > sys_tot) sys_tot = si;
 		sys[count_sys].type = string_duplicate("phase");
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
         return(OK);
 }
@@ -1170,7 +1170,7 @@ int system_total_aq(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("aq");
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1193,7 +1193,7 @@ int system_total_ex(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("ex");
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1215,7 +1215,7 @@ int system_total_surf(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("surf");
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1238,7 +1238,7 @@ int system_total_gas(void)
 		sys_tot += sys[count_sys].moles;
 		sys[count_sys].type = string_duplicate("gas");
 		count_sys++;
-		space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
 	return(OK);
 }
@@ -1262,7 +1262,7 @@ int system_total_s_s(void)
 			sys_tot += sys[count_sys].moles;
 			sys[count_sys].type = string_duplicate("s_s");
 			count_sys++;
-			space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+			space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 		}
 	}
 	return(OK);
@@ -1315,7 +1315,7 @@ int system_total_elt(char *total_name)
 					error_msg("System_total", STOP);
 				}
 				count_sys++;
-				space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1363,7 +1363,7 @@ int system_total_elt(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("diff");
 					count_sys++;
-					space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1391,7 +1391,7 @@ int system_total_elt(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
 					count_sys++;
-					space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1419,7 +1419,7 @@ int system_total_elt(char *total_name)
 							sys_tot += sys[count_sys].moles;
 							sys[count_sys].type = string_duplicate("s_s");
 							count_sys++;
-							space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+							space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 							break;
 						}
 					}
@@ -1452,7 +1452,7 @@ int system_total_elt(char *total_name)
 						sys_tot += sys[count_sys].moles;
 						sys[count_sys].type = string_duplicate("gas");
 						count_sys++;
-						space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+						space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 						break;
 					}
 				}
@@ -1517,7 +1517,7 @@ int system_total_elt_secondary(char *total_name)
 					error_msg("System_total", STOP);
 				}
 				count_sys++;
-				space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1564,7 +1564,7 @@ int system_total_elt_secondary(char *total_name)
 				sys_tot += sys[count_sys].moles;
 				sys[count_sys].type = string_duplicate("diff");
 				count_sys++;
-				space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+				space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 				break;
 			}
 		}
@@ -1597,7 +1597,7 @@ int system_total_elt_secondary(char *total_name)
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
 					count_sys++;
-					space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+					space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 					break;
 				}
 			}
@@ -1625,7 +1625,7 @@ int system_total_elt_secondary(char *total_name)
 							sys_tot += sys[count_sys].moles;
 							sys[count_sys].type = string_duplicate("s_s");
 							count_sys++;
-							space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+							space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 							break;
 						}
 					}
@@ -1658,7 +1658,7 @@ int system_total_elt_secondary(char *total_name)
 						sys_tot += sys[count_sys].moles;
 						sys[count_sys].type = string_duplicate("gas");
 						count_sys++;
-						space ((void *) &sys, count_sys, &max_sys, sizeof(struct system_species));
+						space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 						break;
 					}
 				}
