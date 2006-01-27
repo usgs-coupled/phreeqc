@@ -5,18 +5,18 @@
 #include <ostream>   // std::ostream
 #include <string>    // std::string
 
-class CIsotope
+class cxxIsotope
 {
 public:
-	CIsotope(void);
-	~CIsotope(void);
+	cxxIsotope(void);
+	~cxxIsotope(void);
 
 	enum STATUS {
 		ERROR = 0,
 		OK    = 1
 	};
 
-	//CIsotope::STATUS read(CParser& parser);
+	//cxxIsotope::STATUS read(CParser& parser);
 
 	void dump_xml(std::ostream& os, unsigned int indent)const;
 
@@ -28,7 +28,7 @@ public:
 
 	bool get_ratio_uncertainty_defined()const  { return this->ratio_uncertainty_defined; }
 
-	bool operator<(const CIsotope& conc)const;
+	bool operator<(const cxxIsotope& conc)const;
 
 private:
 	double       isotope_number;

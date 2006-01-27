@@ -1,8 +1,9 @@
-// Solution.cxx: implementation of the CSolutionxx class.
+// Solution.cxx: implementation of the cxxSolutionxx class.
 //
 //////////////////////////////////////////////////////////////////////
-
 #include "Solution.h"
+#define EXTERNAL extern
+#include "global.h"
 
 #include <cassert>     // assert
 #include <algorithm>   // std::sort 
@@ -11,13 +12,13 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-//static std::map<int, CSolution> ss_map;
-//std::map<int, CSolution>& CSolution::s_map = ss_map;
+//static std::map<int, cxxSolution> ss_map;
+//std::map<int, cxxSolution>& cxxSolution::s_map = ss_map;
 
-CSolution::CSolution()
-: CNumKeyword()
+cxxSolution::cxxSolution()
+: cxxNumKeyword()
 , units("mMol/kgw")
-, pe(CPe_Data::alloc())
+	//, pe(cxxPe_Data::alloc())
 {
 	ph          = 7.0;
 	tc          = 25.0;
@@ -30,11 +31,41 @@ CSolution::CSolution()
 	default_pe  = -1;
 }
 
-CSolution::~CSolution()
+cxxSolution::cxxSolution(struct solution *solution_ptr)
+: cxxNumKeyword()
+	//, pe(cxxPe_Data::alloc())
+{
+	new_def     = solution_ptr->new_def;
+	tc          = solution_ptr->tc;
+	ph          = solution_ptr->ph;
+	solution_pe = solution_ptr->solution_pe;
+	mu          = solution_ptr->mu;
+	ah2o        = solution_ptr->ah2o;
+	density     = solution_ptr->density;
+	total_h     = solution_ptr->total_h;
+	total_o     = solution_ptr->total_o;
+	cb          = solution_ptr->cb;
+	mass_water  = solution_ptr->mass_water;
+	total_alkalinity     = solution_ptr->total_alkalinity;
+	total_co2   = solution_ptr->total_co2;
+	units       = solution_ptr->units;
+	// totals
+	for (int i = 0; solution_ptr->totals[i].description != NULL; i++) {
+		cxxConc c(&(solution_ptr->totals[i]));
+		totals.push_back(c);
+	}
+	default_pe  = solution_ptr->default_pe;
+	// pe_data
+	for (int i=0; solution_ptr->pe[i].name != NULL; i++) {
+		pe[solution_ptr->pe[i].name] = solution_ptr->pe[i].rxn;
+	}
+}
+
+cxxSolution::~cxxSolution()
 {
 }
 #ifdef SKIP
-CSolution& CSolution::read(CParser& parser)
+cxxSolution& cxxSolution::read(CParser& parser)
 {
 	static std::vector<std::string> vopts;
 	if (vopts.empty()) {
@@ -53,7 +84,7 @@ CSolution& CSolution::read(CParser& parser)
 	}
 	// const int count_opt_list = vopts.size();
 
-	CSolution numkey;
+	cxxSolution numkey;
 
 	// Read solution number and description
 	numkey.read_number_description(parser);
@@ -67,7 +98,7 @@ CSolution& CSolution::read(CParser& parser)
 	std::string token;
 	CParser::TOKEN_TYPE j;
 	
-	CSolution& sol = s_map[numkey.n_user()];
+	cxxSolution& sol = s_map[numkey.n_user()];
 	int default_pe = 0;
 
 	for (;;)
@@ -119,7 +150,7 @@ CSolution& CSolution::read(CParser& parser)
 		case 5: // redox
 			if (parser.copy_token(token, next_char) == CParser::TT_EMPTY) break;
 			if (parser.parse_couple(token) == CParser::OK) {
-				default_pe = CPe_Data::store(sol.pe, token);
+				default_pe = cxxPe_Data::store(sol.pe, token);
 			} else {
 				parser.incr_input_error();
 			}
@@ -127,8 +158,8 @@ CSolution& CSolution::read(CParser& parser)
 
 		case 6: // ph
 			{
-				CConc conc;
-				if (conc.read(parser, sol) == CConc::ERROR) {
+				cxxConc conc;
+				if (conc.read(parser, sol) == cxxConc::ERROR) {
 					parser.incr_input_error();
 					break;
 				}
@@ -143,8 +174,8 @@ CSolution& CSolution::read(CParser& parser)
 
 		case 7: // pe
 			{
-				CConc conc;
-				if (conc.read(parser, sol) == CConc::ERROR) {
+				cxxConc conc;
+				if (conc.read(parser, sol) == cxxConc::ERROR) {
 					parser.incr_input_error();
 					break;
 				}
@@ -159,8 +190,8 @@ CSolution& CSolution::read(CParser& parser)
 
 		case 9: // isotope
 			{
-				CIsotope isotope;
-				if (isotope.read(parser) == CIsotope::OK) {
+				cxxIsotope isotope;
+				if (isotope.read(parser) == cxxIsotope::OK) {
 					sol.add(isotope);
 				}
 			}
@@ -181,8 +212,8 @@ CSolution& CSolution::read(CParser& parser)
 		case CParser::OPTION_DEFAULT:
 			{
 				//  Read concentration
-				CConc conc;
-				if (conc.read(parser, sol) == CConc::ERROR) {
+				cxxConc conc;
+				if (conc.read(parser, sol) == cxxConc::ERROR) {
 					parser.incr_input_error();
 				} else {
 					sol.add(conc);
@@ -203,7 +234,7 @@ CSolution& CSolution::read(CParser& parser)
 	// fix up default units and default pe
 	//
 	std::string token1;
-	std::vector<CConc>::iterator iter = sol.totals.begin();
+	std::vector<cxxConc>::iterator iter = sol.totals.begin();
 	for (; iter != sol.totals.end(); ++iter)
 	{
 		token = (*iter).get_description();
@@ -228,14 +259,14 @@ CSolution& CSolution::read(CParser& parser)
 	return sol;
 }
 #endif
-void CSolution::dump_xml(std::ostream& os, unsigned int indent)const
+void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;		
 	os << "<solution>\n";
 
-	CNumKeyword::dump_xml(os, indent);
+	cxxNumKeyword::dump_xml(os, indent);
 
 	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
 	os << "<temp>" << this->get_tc() << "</temp>" << "\n";
@@ -249,7 +280,7 @@ void CSolution::dump_xml(std::ostream& os, unsigned int indent)const
 	assert(this->pe.size() > 0);
 	assert(this->default_pe >= 0);
 	assert(this->pe.size() > (unsigned int) this->default_pe);
-	this->pe[this->default_pe].dump_xml(os, indent + 1);
+	//this->pe[this->default_pe].dump_xml(os, indent + 1);
 
 	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
 	os << "<units>" << this->get_units() << "</units>" << "\n";
@@ -263,7 +294,7 @@ void CSolution::dump_xml(std::ostream& os, unsigned int indent)const
 		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
 		os << "<totals>\n";
 
-		std::vector<CConc>::const_iterator iter = this->totals.begin();
+		std::vector<cxxConc>::const_iterator iter = this->totals.begin();
 		for(; iter != this->totals.end(); ++iter)
 		{
 			(*iter).dump_xml(*this, os, indent + 2);
@@ -279,7 +310,7 @@ void CSolution::dump_xml(std::ostream& os, unsigned int indent)const
 		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
 		os << "<isotopes>\n";
 
-		std::list<CIsotope>::const_iterator iter = this->isotopes.begin();
+		std::list<cxxIsotope>::const_iterator iter = this->isotopes.begin();
 		for(; iter != this->isotopes.end(); ++iter)
 		{
 			(*iter).dump_xml(os, indent + 2);

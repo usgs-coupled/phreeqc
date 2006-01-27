@@ -7,13 +7,14 @@
 #include <string>
 
 // forward declarations
-class CSolution;  // reqd for read and dump_xml
+class cxxSolution;  // reqd for read and dump_xml
 
-class CConc
+class cxxConc
 {
 public:
-	CConc(void);
-	~CConc(void);
+	cxxConc(void);
+	cxxConc(struct conc *conc_ptr);
+	~cxxConc(void);
 
 	enum STATUS_TYPE {
 		ERROR  = 0,
@@ -24,37 +25,37 @@ public:
 
 	//STATUS_TYPE read(CParser& parser, CSolution& sol);
 
-	void dump_xml(const CSolution& solution, std::ostream& os, unsigned int indent = 0)const;
+	void dump_xml(const cxxSolution& solution, std::ostream& os, unsigned int indent = 0)const;
 
 	double get_input_conc()const {return this->input_conc;}
 	void set_input_conc(double input_conc) {this->input_conc = input_conc;}
 
 	std::string get_equation_name()const {return this->equation_name;}
-	void set_equation_name(std::string equation_name) {this->equation_name = equation_name;}
+	void set_equation_name(char * equation_name) {this->equation_name = equation_name;}
 
 	std::string get_description()const {return this->description;}
-	void set_description(std::string description) {this->description = description;}
+	void set_description(char * description) {this->description = description;}
 
 	std::string get_units()const {return this->units;}
-	void set_units(std::string units) {this->units = units;}
+	void set_units(char * units) {this->units = units;}
 
 	int get_n_pe()const {return this->n_pe;}
 	void set_n_pe(int n_pe) {this->n_pe = n_pe;}
 
-	bool operator<(const CConc& conc)const    { return (this->description < conc.description); }
+	bool operator<(const cxxConc& conc)const    { return (this->description < conc.description); }
 
 private:
-	std::string description;
-	// int m_skip;
+	char * description;
 	double moles;
 	double input_conc;
-	std::string units;
-	std::string equation_name;
-	// struct phase *m_phase;
+	char * units;
+	char * equation_name;
+	struct phase *phase;
 	double phase_si;
 	int n_pe;
-	std::string as;
+	char * as;
 	double gfw;
+	int skip;
 };
 
 #endif // CONC_H_INCLUDED

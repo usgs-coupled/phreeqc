@@ -1,4 +1,4 @@
-// NumKeyword.cxx: implementation of the CNumKeyword class.
+// NumKeyword.cxx: implementation of the cxxNumKeyword class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -8,15 +8,15 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CNumKeyword::CNumKeyword()
+cxxNumKeyword::cxxNumKeyword()
 {
 }
 
-CNumKeyword::~CNumKeyword()
+cxxNumKeyword::~cxxNumKeyword()
 {
 }
 
-void CNumKeyword::dump_xml(std::ostream& os, unsigned int indent)const
+void cxxNumKeyword::dump_xml(std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 
@@ -30,7 +30,7 @@ void CNumKeyword::dump_xml(std::ostream& os, unsigned int indent)const
 	os << "<Description>" << this->description << "</Description>" << "\n";
 }
 #ifdef SKIP
-void CNumKeyword::read_number_description(CParser& parser)
+void cxxNumKeyword::read_number_description(CParser& parser)
 {
 	// skip keyword
 	std::string keyword;
@@ -84,7 +84,7 @@ void CNumKeyword::read_number_description(CParser& parser)
 }
 #endif
 #ifdef SKIP
-void CNumKeyword::read_number_description(std::istream& is)
+void cxxNumKeyword::read_number_description(std::istream& is)
 {
 	// KEYWORD [[1[-20]] [This is the description]]
 

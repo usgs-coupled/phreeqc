@@ -2,28 +2,46 @@
 #include "Solution.h"
 #include "Utilities.h"
 #include <cassert>
+#define EXTERNAL extern
+#include "global.h"
+#include "phrqproto.h"
 
-CConc::CConc(void)
-: description("")
-, moles(0.0)
+cxxConc::cxxConc(void)
+: moles(0.0)
 , input_conc(0.0)
-, units("")
-, equation_name("")
 , phase_si(0.0)
 , n_pe(-1)
-, as("")
 , gfw(0.0)
 	//, skip(0);
 	//, phase(NULL)
 {
+	description = string_hsave("");
+	units = this->description;
+	as    = this->description;
+        equation_name = this->description;
+	
+}
+cxxConc::cxxConc(struct conc *conc_ptr)
+{
+	description         = conc_ptr->description;
+	moles               = conc_ptr->moles; 
+	input_conc          = conc_ptr->input_conc;
+	units               = conc_ptr->units;
+	equation_name       = conc_ptr->equation_name;
+	phase_si            = conc_ptr->phase_si;
+	n_pe                = conc_ptr->n_pe;
+	as                  = conc_ptr->as;
+	gfw                 = conc_ptr->gfw;
+	skip                = conc_ptr->skip;
+	phase               = conc_ptr->phase;
 }
 
-CConc::~CConc(void)
+cxxConc::~cxxConc(void)
 {
 }
 
 #ifdef SKIP
-CConc::STATUS_TYPE CConc::read(CParser& parser, CSolution& solution)
+cxxConc::STATUS_TYPE cxxConc::read(CParser& parser, cxxSolution& solution)
 {
 	// std::string& str = parser.line(); 
 	std::string str = parser.line();
@@ -57,7 +75,7 @@ CConc::STATUS_TYPE CConc::read(CParser& parser, CSolution& solution)
 	if (count_redox_states == 0) {
 		parser.incr_input_error();
 		parser.error_msg("No element or master species given for concentration input.", CParser::OT_CONTINUE);
-		return CConc::ERROR;
+		return cxxConc::ERROR;
 	}
 	description = token1;
 
@@ -73,9 +91,9 @@ CConc::STATUS_TYPE CConc::read(CParser& parser, CSolution& solution)
 		std::ostringstream err;
 		err << "Concentration data error for " << token1 << " in solution input.";
 		parser.error_msg(err, CParser::OT_CONTINUE);
-		return CConc::ERROR;
+		return cxxConc::ERROR;
 	}
-	if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+	if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 
 	// Read optional data
 	token1 = token;
@@ -84,9 +102,9 @@ CConc::STATUS_TYPE CConc::read(CParser& parser, CSolution& solution)
 	if (parser.check_units(token1, alk, false, solution.get_units(), false) == CParser::OK) {
 		if (parser.check_units(token1, alk, false, solution.get_units(), true) == CParser::OK) {
 			this->units = token1;
-			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 		} else {
-			return CConc::ERROR;
+			return cxxConc::ERROR;
 		}
 	}
 
@@ -97,48 +115,48 @@ CConc::STATUS_TYPE CConc::read(CParser& parser, CSolution& solution)
 	{
 		parser.copy_token(token, ptr);
 		this->as = token;
-		if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+		if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 	}
 	// Check for "gfw" followed by gram formula weight
 	else if (token1.compare("gfw") == 0)
 	{
 		if (parser.copy_token(token, ptr) != CParser::TT_DIGIT) {
 			parser.error_msg("Expecting gram formula weight.", CParser::OT_CONTINUE);
-			return CConc::ERROR;
+			return cxxConc::ERROR;
 		} else {
 			parser.get_iss() >> this->gfw;
-			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 		}
 	}
 
 	// Check for redox couple for pe
 	if  ( Utilities::strcmp_nocase_arg1(token.c_str(), "pe") == 0 ) {
-		this->n_pe = CPe_Data::store(solution.pe, token);
-		if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+		this->n_pe = cxxPe_Data::store(solution.pe, token);
+		if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 	} else if (token.find("/") != std::string::npos) {
 		if (parser.parse_couple(token) == CParser::OK) {
-			this->n_pe = CPe_Data::store(solution.pe, token);
-			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+			this->n_pe = cxxPe_Data::store(solution.pe, token);
+			if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 		} else {
-			return CConc::ERROR;
+			return cxxConc::ERROR;
 		}
 	}
 
 	// Must have phase
 	this->equation_name = token;
-	if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return CConc::OK;
+	if ( (j = parser.copy_token(token, ptr)) == CParser::TT_EMPTY) return cxxConc::OK;
 
 	// Check for saturation index
 	if (!(std::istringstream(token) >> this->phase_si))
 	{
 		parser.error_msg("Expected saturation index.", CParser::OT_CONTINUE);
-		return CConc::ERROR;
+		return cxxConc::ERROR;
 	}
-	return CConc::OK;
+	return cxxConc::OK;
 }
 #endif
 
-void CConc::dump_xml(const CSolution& solution, std::ostream& os, unsigned int indent)const
+void cxxConc::dump_xml(const cxxSolution& solution, std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
@@ -150,38 +168,38 @@ void CConc::dump_xml(const CSolution& solution, std::ostream& os, unsigned int i
 	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
 	os << "<concentration>" << this->input_conc << "</concentration>\n";
 
-	if (!this->units.empty()) {
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-		os << "<units>" << this->units << "</units>\n";
-	}
+	//if (!this->units.empty()) {
+	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//os << "<units>" << this->units << "</units>\n";
+	//}
 
-	if ( !this->as.empty() ) {
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-		os << "<as>" << this->as << "</as>\n";
-	}
-	else if (this->gfw > 0.0) {
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-		os << "<gfw>" << this->gfw << "</gfw>\n";
-	}
+	//if ( !this->as.empty() ) {
+	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//os << "<as>" << this->as << "</as>\n";
+	//}
+	//else if (this->gfw > 0.0) {
+	//	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//	os << "<gfw>" << this->gfw << "</gfw>\n";
+	//}
 	////if (this->n_pe > 0) {
 		solution.pe[this->n_pe].dump_xml(os, indent + 1);
 	////}
 
-	if (!this->equation_name.empty()) {
-		if (Utilities::strcmp_nocase_arg1(this->equation_name.c_str(), "charge") == 0)
-		{
-			for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-			os << "<charge/>\n";
-		}
-		else
-		{
-			for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-			os << "<phase_name>" << this->equation_name << "</phase_name>\n";
+	//if (!this->equation_name.empty()) {
+	//	if (Utilities::strcmp_nocase_arg1(this->equation_name.c_str(), "charge") == 0)
+	//	{
+	//		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//		os << "<charge/>\n";
+	//	}
+	//	else
+	//	{
+	//		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//		os << "<phase_name>" << this->equation_name << "</phase_name>\n";
 
-			for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-			os << "<saturation_index>" << this->phase_si << "</saturation_index>\n";
-		}
-	}
+	//			for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
+	//os << "<saturation_index>" << this->phase_si << "</saturation_index>\n";
+	//}
+	//}
 
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
 	os << "</conc>\n";

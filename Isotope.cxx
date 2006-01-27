@@ -3,24 +3,24 @@
 #include <cassert>
 #include <strstream>                       // std::ostrstream
 
-CIsotope::CIsotope(void)
+cxxIsotope::cxxIsotope(void)
 : isotope_number(0.0)
 , ratio_uncertainty_defined(false)
 {
 }
 
-CIsotope::~CIsotope(void)
+cxxIsotope::~cxxIsotope(void)
 {
 }
 
-std::string CIsotope::get_name()const
+std::string cxxIsotope::get_name()const
 {
-	//	std::ostringstream oss;
+	//std::ostringstream oss;
 	std::ostrstream oss;
 	oss << this->isotope_number << this->elt_name;
 	return oss.str();
 }
-void CIsotope::dump_xml(std::ostream& os, unsigned int indent)const
+void cxxIsotope::dump_xml(std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 
@@ -39,14 +39,14 @@ void CIsotope::dump_xml(std::ostream& os, unsigned int indent)const
         os << "</isotope>\n";
 	}
 }
-bool CIsotope::operator<(const CIsotope& isotope)const
+bool cxxIsotope::operator<(const cxxIsotope& isotope)const
 {
 	int i = Utilities::strcmp_nocase(this->elt_name.c_str(), isotope.elt_name.c_str());
 	if (i != 0) return (i < 0);
 	return ( this->isotope_number < isotope.isotope_number );
 }
 #ifdef SKIP
-CIsotope::STATUS CIsotope::read(CParser& parser)
+cxxIsotope::STATUS cxxIsotope::read(CParser& parser)
 {
 	if ( !(parser.get_iss() >> this->isotope_number) ) {
 		assert(parser.get_iss().fail());
