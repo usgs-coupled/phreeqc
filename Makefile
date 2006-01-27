@@ -37,8 +37,8 @@ LOADFLAGS= -lm -lxerces-c # -pg
 
 PLATFORM= LINUX
 CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic 
-#CXXFLAGS= -Wall -g
-CXXFLAGS= -O3
+CXXFLAGS= -Wall -g
+#CXXFLAGS= -O3
 LINK= g++ -D${PLATFORM} -fpic
 PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
 EXTRA_LINK_OPTIONS=-lc 
@@ -100,8 +100,8 @@ OBJECTS=	main.o \
 CLASS_OBJECTS=  Conc.o \
 		Isotope.o \
 		NumKeyword.o \
-		Pe_Data.o \
 		Solution.o \
+		ISolution.o \
 		Utilities.o
 
 OBJECTS += $(CLASS_OBJECTS)
@@ -271,6 +271,7 @@ Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h
 Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h 
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h 
 Pe_Data.o: $(SRC)/Pe_Data.cxx $(SRC)/Pe_Data.h 
+ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h 
 Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h 
 Utilities.o: $(SRC)/Utilities.cxx $(SRC)/Utilities.h ..
 

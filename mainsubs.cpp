@@ -6,6 +6,8 @@
 #include "phrqproto.h"
 #include "input.h"
 
+extern void test_classes(void);
+
 static char const svnid[] = "$Id: mainsubs.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(WINDOWS) || defined(_WINDOWS)
@@ -1521,7 +1523,7 @@ int xsolution_save(int n_user)
 
 	solution_ptr->mass_water = mass_water_aq_x;
 	solution_ptr->total_alkalinity = total_alkalinity;
-	solution_ptr->total_co2 = total_co2;
+	/*solution_ptr->total_co2 = total_co2;*/
 	solution_ptr->units = moles_per_kilogram_string;
 /*
  *   Copy pe data
@@ -2333,6 +2335,7 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			if (pr.headings == TRUE) output_msg(OUTPUT_MESSAGE,"%s\n\n", title_x);
 		}
 		tidy_model();
+		test_classes();
 
 #ifdef PHREEQ98
                 if (!phreeq98_debug) {

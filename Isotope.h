@@ -4,11 +4,13 @@
 //#include "Parser.h"
 #include <ostream>   // std::ostream
 #include <string>    // std::string
+#include <list>    // std::list
 
 class cxxIsotope
 {
 public:
 	cxxIsotope(void);
+	cxxIsotope(struct isotope *isotope_ptr);
 	~cxxIsotope(void);
 
 	enum STATUS {
@@ -17,6 +19,7 @@ public:
 	};
 
 	//cxxIsotope::STATUS read(CParser& parser);
+	static struct isotope * list2isotope(std::list<cxxIsotope> &t);
 
 	void dump_xml(std::ostream& os, unsigned int indent)const;
 
@@ -26,15 +29,19 @@ public:
 
 	double get_ratio_uncertainty()const  { return this->ratio_uncertainty; }
 
-	bool get_ratio_uncertainty_defined()const  { return this->ratio_uncertainty_defined; }
+	//bool get_ratio_uncertainty_defined()const  { return this->ratio_uncertainty_defined; }
 
 	bool operator<(const cxxIsotope& conc)const;
 
 private:
 	double       isotope_number;
-	std::string  elt_name;
+	char *       elt_name;
+	char *       isotope_name;
+	double       total;
 	double       ratio;
 	double       ratio_uncertainty;
-	bool         ratio_uncertainty_defined;
+	struct master *master;
+	struct master *primary;
+	//bool         ratio_uncertainty_defined;
 };
 #endif // ISOTOPE_H_INCLUDED

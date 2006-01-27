@@ -11,6 +11,7 @@ public:
 	cxxNumKeyword();
 	virtual ~cxxNumKeyword();
 
+
 	int get_n_user()const         { return this->n_user; }
 	void set_n_user(int user) { this->n_user = user; }
 

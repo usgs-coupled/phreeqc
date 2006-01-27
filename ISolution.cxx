@@ -1,12 +1,12 @@
-// Solution.cxx: implementation of the cxxSolution class.
+// ISolution.cxx: implementation of the cxxSolutionxx class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "Solution.h"
-#include "Utilities.h"   // define before global.h
+#include "ISolution.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
 #include "phrqproto.h"
+
 #include <cassert>     // assert
 #include <algorithm>   // std::sort 
 
@@ -14,134 +14,71 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-//static std::map<int, cxxSolution> ss_map;
-//std::map<int, cxxSolution>& cxxSolution::s_map = ss_map;
+//static std::map<int, cxxISolution> ss_map;
+//std::map<int, cxxISolution>& cxxISolution::s_map = ss_map;
 
-cxxSolution::cxxSolution()
-	//
-	// default constructor for cxxSolution 
-	//
-: cxxNumKeyword()
+cxxISolution::cxxISolution()
+: 
+units("mMol/kgw")
 {
-	tc          = 25.0;
-	ph          = 7.0;
-	pe          = 4.0;
-	mu          = 1e-7;
-	ah2o        = 1.0;
-	total_h     = 111.1;
-	total_o     = 55.55;
-	cb          = 0.0;
-	mass_water  = 1.0;
-	total_alkalinity = 0.0;
+	density     = 1.0;
+	default_pe  = -1;
 }
 
-cxxSolution::cxxSolution(struct solution *solution_ptr)
-	//
-	// constructor for cxxSolution from struct solution
-	//
-: cxxNumKeyword()
+cxxISolution::cxxISolution(struct solution *solution_ptr)
+: cxxSolution(solution_ptr)
+	//, pe(cxxPe_Data::alloc())
 {
-	description = solution_ptr->description;
-	n_user      = solution_ptr->n_user;
-	n_user_end  = solution_ptr->n_user_end;
+	/*
+	new_def     = solution_ptr->new_def;
 	tc          = solution_ptr->tc;
 	ph          = solution_ptr->ph;
-	pe          = solution_ptr->solution_pe;
+	solution_pe = solution_ptr->solution_pe;
 	mu          = solution_ptr->mu;
 	ah2o        = solution_ptr->ah2o;
+	*/
+	density     = solution_ptr->density;
+	/*
 	total_h     = solution_ptr->total_h;
 	total_o     = solution_ptr->total_o;
 	cb          = solution_ptr->cb;
 	mass_water  = solution_ptr->mass_water;
 	total_alkalinity     = solution_ptr->total_alkalinity;
-	// Totals, just save description and moles
+	*/
+	units       = solution_ptr->units;
+	// totals
 	for (int i = 0; solution_ptr->totals[i].description != NULL; i++) {
-		totals[solution_ptr->totals[i].description] = solution_ptr->totals[i].moles;
+		cxxConc c(&(solution_ptr->totals[i]));
+		concs.push_back(c);
 	}
-	// Isotopes
-	for (int i = 0; i < solution_ptr->count_isotopes; i++) {
-		cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
-		isotopes.push_back(iso);
-	}
-	// Master_activity
-	for (int i = 0; i < solution_ptr->count_master_activity; i++) {
-		totals[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
-	}
-	// Species_gammas
-	for (int i = 0; i < solution_ptr->count_species_gamma; i++) {
-		totals[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
-	}
-}
-
-cxxSolution::~cxxSolution()
-{
-}
-
-struct solution *cxxSolution::cxxSolution2solution()
-	//
-	// Builds a solution structure from instance of cxxSolution 
-	//
-{
-	struct solution *soln_ptr = solution_alloc();
-	
-	soln_ptr->description        = string_duplicate(this->description.c_str());
-	soln_ptr->n_user             = this->n_user;
-	soln_ptr->n_user_end         = this->n_user_end;
-	soln_ptr->new_def            = 0;
-	soln_ptr->tc                 = this->tc;
-	soln_ptr->ph                 = this->ph;
-	soln_ptr->solution_pe        = this->pe;
-	soln_ptr->mu                 = this->mu;
-	soln_ptr->ah2o               = this->ah2o;
-	soln_ptr->total_h            = this->total_h;
-	soln_ptr->total_o            = this->total_o;
-	soln_ptr->cb                 = this->cb;
-	soln_ptr->mass_water         = this->mass_water;
-	soln_ptr->total_alkalinity   = this->total_alkalinity;
-	soln_ptr->units              = moles_per_kilogram_string;
-	soln_ptr->default_pe         = 0;
+	default_pe  = solution_ptr->default_pe;
 	// pe_data
-xxx
+	for (int i=0; solution_ptr->pe[i].name != NULL; i++) {
+		pe[solution_ptr->pe[i].name] = solution_ptr->pe[i].rxn;
+	}
+}
+
+cxxISolution::~cxxISolution()
+{
+}
+
+struct solution *cxxISolution::cxxISolution2solution()
+	//
+	// Builds a solution structure from instance of cxxISolution 
+	//
+{
+	struct solution *soln_ptr    = this->cxxSolution2solution();
+	soln_ptr->new_def            = 1;
+	soln_ptr->density            = this->density;
+	soln_ptr->units              = string_duplicate(this->units.c_str());
+	soln_ptr->default_pe         = this->default_pe;
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
-	soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
-	// master_activity
-	{
-		soln_ptr->master_activity = (struct master_activity *) PHRQ_malloc((size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
-		int i = 0;
-		if (soln_ptr->master_activity == NULL) malloc_error();
-		for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-			soln_ptr->master_activity[i].description = (char *)it->first;
-			soln_ptr->master_activity[i].la = it->second;
-			i++;
-		}
-		soln_ptr->master_activity[i].description = NULL;
-		soln_ptr->count_master_activity = this->master_activity.size() + 1;
-	}
-	// species_gamma
-	{
-		soln_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size() + 1) * sizeof(struct master_activity)));
-		int i = 0;
-		if (soln_ptr->species_gamma == NULL) malloc_error();
-		for (std::map <char *, double>::iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-			soln_ptr->species_gamma[i].description = (char *)it->first;
-			soln_ptr->species_gamma[i].la = it->second;
-			i++;
-		}
-		soln_ptr->species_gamma[i].description = NULL;
-		soln_ptr->count_species_gamma = this->species_gamma.size() + 1;
-	}
-	// isotopes
-	soln_ptr->isotopes = (struct isotope *) free_check_null(soln_ptr->isotopes);
-	soln_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
-
+	soln_ptr->totals = cxxConc::concarray((const std::vector<cxxConc>) this->concs);
 	return(soln_ptr);
 }
-
-
-
 #ifdef SKIP
-cxxSolution& cxxSolution::read(CParser& parser)
+cxxISolution& cxxISolution::read(CParser& parser)
 {
 	static std::vector<std::string> vopts;
 	if (vopts.empty()) {
@@ -160,7 +97,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 	}
 	// const int count_opt_list = vopts.size();
 
-	cxxSolution numkey;
+	cxxISolution numkey;
 
 	// Read solution number and description
 	numkey.read_number_description(parser);
@@ -174,7 +111,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 	std::string token;
 	CParser::TOKEN_TYPE j;
 	
-	cxxSolution& sol = s_map[numkey.n_user()];
+	cxxISolution& sol = s_map[numkey.n_user()];
 	int default_pe = 0;
 
 	for (;;)
@@ -335,7 +272,8 @@ cxxSolution& cxxSolution::read(CParser& parser)
 	return sol;
 }
 #endif
-void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
+#ifdef SKIP
+void cxxISolution::dump_xml(std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 
@@ -351,21 +289,20 @@ void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
 	os << "<pH>" << this->get_ph() << "</pH>" << "\n";
 
 	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	os << "<pe>" << this->get_pe() << "</pe>" << "\n";
+	os << "<pe>" << this->get_solution_pe() << "</pe>" << "\n";
 
-	//assert(this->pe.size() > 0);
-	//assert(this->default_pe >= 0);
-	//assert(this->pe.size() > (unsigned int) this->default_pe);
+	assert(this->pe.size() > 0);
+	assert(this->default_pe >= 0);
+	assert(this->pe.size() > (unsigned int) this->default_pe);
 	//this->pe[this->default_pe].dump_xml(os, indent + 1);
 
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	//os << "<units>" << this->get_units() << "</units>" << "\n";
+	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
+	os << "<units>" << this->get_units() << "</units>" << "\n";
 
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	//os << "<density>" << this->get_density() << "</density>" << "\n";
+	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
+	os << "<density>" << this->get_density() << "</density>" << "\n";
 
 	// foreach conc
-	/*
 	if (!this->totals.empty())
 	{
 		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
@@ -380,7 +317,6 @@ void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
 		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
 		os << "</totals>\n";
 	}
-	*/
 
 	// foreach isotope
 	if (!this->isotopes.empty())
@@ -404,19 +340,4 @@ void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;		
 	os << "</solution>" << "\n";
 }
-#include "ISolution.h"
-void test_classes(void)
-{
-	int i;
-	for (i=0; i < count_solution; i++) {
-		if (solution[i]->new_def == true) {
-			cxxSolution sol(solution[i]);
-			solution[i] = (struct solution *) solution_free(solution[i]);
-			solution[i] = sol.cxxSolution2solution();
-		} else {
-			cxxISolution sol(solution[i]);
-			solution[i] = (struct solution *) solution_free(solution[i]);
-			solution[i] = sol.cxxISolution2solution();
-		}
-	}
-} 
+#endif

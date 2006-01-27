@@ -803,6 +803,7 @@ char * string_duplicate (const char *token)
 	int l;
 	char *str;
 
+	if (token == NULL) return NULL;
 	l = strlen(token);
 	str = (char *) PHRQ_malloc((size_t) (l +1) * sizeof(char) );
 	if (str == NULL) malloc_error();

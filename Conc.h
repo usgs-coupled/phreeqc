@@ -5,9 +5,11 @@
 #include "Utilities.h"
 
 #include <string>
+#include <map>     // std::map
+#include <vector>
 
 // forward declarations
-class cxxSolution;  // reqd for read and dump_xml
+class cxxISolution;  // reqd for read and dump_xml
 
 class cxxConc
 {
@@ -25,7 +27,7 @@ public:
 
 	//STATUS_TYPE read(CParser& parser, CSolution& sol);
 
-	void dump_xml(const cxxSolution& solution, std::ostream& os, unsigned int indent = 0)const;
+	//void dump_xml(const cxxISolution& solution, std::ostream& os, unsigned int indent = 0)const;
 
 	double get_input_conc()const {return this->input_conc;}
 	void set_input_conc(double input_conc) {this->input_conc = input_conc;}
@@ -44,18 +46,22 @@ public:
 
 	bool operator<(const cxxConc& conc)const    { return (this->description < conc.description); }
 
+	static struct conc * concarray(const std::map<char *, double> &t );
+
+	static struct conc * concarray(const std::vector<cxxConc> &t );
+
 private:
 	char * description;
 	double moles;
 	double input_conc;
 	char * units;
 	char * equation_name;
-	struct phase *phase;
+	//struct phase *phase;
 	double phase_si;
 	int n_pe;
 	char * as;
 	double gfw;
-	int skip;
+	//int skip;
 };
 
 #endif // CONC_H_INCLUDED

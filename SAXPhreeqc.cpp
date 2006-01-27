@@ -122,7 +122,7 @@ char * stringify_null(char * string) {
 }
 int SAX_AddSolution(struct solution* solution_ptr)
 {
-  const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+	//const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
   int i, newd;  
   assert(s_bSysIsOpen);      // must call SAX_StartSystem first
 	s_oss.precision(DBL_DIG - 1);
@@ -144,7 +144,7 @@ int SAX_AddSolution(struct solution* solution_ptr)
 	s_oss << "   soln_cb=\"" << solution_ptr->cb << "\"" << std::endl;
 	s_oss << "   soln_mass_water=\"" << solution_ptr->mass_water << "\"" << std::endl;
 	s_oss << "   soln_total_alkalinity=\"" << solution_ptr->total_alkalinity << "\"" << std::endl;
-	s_oss << "   soln_total_co2=\"" << solution_ptr->total_co2 << "\"" << std::endl;
+	//s_oss << "   soln_total_co2=\"" << solution_ptr->total_co2 << "\"" << std::endl;
 	s_oss << "   soln_units=\"" << solution_ptr->units << "\"" << std::endl;
 	s_oss << "   soln_default_pe=\"" << solution_ptr->default_pe << "\"" << std::endl;
 	s_oss << "   soln_count_master_activity=\"" << solution_ptr->count_master_activity << "\"" << std::endl;
@@ -563,7 +563,7 @@ void SaxPhreeqcHandlers::startDocument()
 
 void SaxPhreeqcHandlers::startElement(const XMLCh* const uri, const XMLCh* const name, const XMLCh* const qname, const xns::Attributes& attributes)
 {
-  const char ERR_MSG[] = "Unpacking solution message: %s, element not found\n";
+	//const char ERR_MSG[] = "Unpacking solution message: %s, element not found\n";
   char *string;
 
   int i;
@@ -704,9 +704,9 @@ int SaxPhreeqcHandlers::processSolutionAttributes(const xns::Attributes& attribu
 		case attSOLN_total_alkalinity:
 			this->solution_ptr->total_alkalinity = XMLCh2Double(attributes.getValue(i));
 			break;
-		case attSOLN_total_co2:
-			this->solution_ptr->total_co2 = XMLCh2Double(attributes.getValue(i));
-			break;
+			//case attSOLN_total_co2:
+			//this->solution_ptr->total_co2 = XMLCh2Double(attributes.getValue(i));
+			//break;
 		case attSOLN_units:
 			this->solution_ptr->units = XMLCh_hsave(attributes.getValue(i), TRUE);
 			break;
@@ -800,7 +800,7 @@ int SaxPhreeqcHandlers::processMasterActivityAttributes(const xns::Attributes& a
 	ma->description = NULL;
 	ma->la = 0.0;
 	attributeType attType;
-	for (i = 0; i < attributes.getLength(); i++) {
+	for (i = 0; i < (int) attributes.getLength(); i++) {
 		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 
 		switch (attType) {
@@ -849,7 +849,7 @@ int SaxPhreeqcHandlers::processIsotopeAttributes(const xns::Attributes& attribut
 	iso->primary = iso->master = NULL;
 	iso->elt_name = iso->isotope_name = NULL;
 	attributeType attType;
-	for (i = 0; i < attributes.getLength(); i++) {
+	for (i = 0; i < (int) attributes.getLength(); i++) {
 		attType = this->mapXMLCh2AttType[attributes.getLocalName(i)];
 		switch (attType) {
 			case attISO_isotope_number:

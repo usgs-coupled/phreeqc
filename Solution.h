@@ -2,10 +2,10 @@
 #define SOLUTION_H_INCLUDED
 
 #include "NumKeyword.h"
-//#include "Parser.h"
-#include "Conc.h"
 #include "Isotope.h"
-#include "Pe_Data.h"
+#include "Conc.h"
+#define EXTERNAL extern
+#include "global.h"
 #include <cassert> // assert
 #include <map>     // std::map
 #include <string>  // std::string
@@ -24,54 +24,60 @@ public:
 
 	//static cxxSolution& read(CParser& parser);
 
-	void add(cxxConc conc)       { this->totals.push_back(conc); }
+	//void add(cxxConc conc)       { this->totals.push_back(conc); }
+	//void add(cxxIsotope isotope) { this->isotopes.push_back(isotope); }
 	void add(cxxIsotope isotope) { this->isotopes.push_back(isotope); }
-
-	double get_ph()const {return this->ph;}
-	void set_ph(double pH) {this->ph = pH;}
-
-	double get_solution_pe()const {return this->solution_pe;}
-	void set_solution_pe(double solution_pe) {this->solution_pe = solution_pe;}
 
 	double get_tc()const {return this->tc;}
 	void set_tc(double tc) {this->tc = tc;}
 
-	double get_density()const {return this->density;}
-	void set_density(double density) {this->density = density;}
+	double get_ph()const {return this->ph;}
+	void set_ph(double pH) {this->ph = pH;}
 
-	char * get_units()const {return this->units;}
-	void set_units(char * units) {this->units = units;}
+	double get_pe()const {return this->pe;}
+	void set_pe(double pe) {this->pe =pe;}
 
-	//char * get_redox()const {return this->pe[this->default_pe].get_name();}
+	double get_mu()const {return this->mu;}
+	void set_mu(double mu) {this->pe = mu;}
 
-	long double get_mass_water()const {return this->mass_water;};
+	double get_ah2o()const {return this->ah2o;}
+	void set_ah2o(double ah2o) {this->pe = ah2o;}
+
+	double get_total_h()const {return this->total_h;}
+	void set_total_h(double total_h) {this->pe = mu;}
+
+	double get_total_o()const {return this->total_o;}
+	void set_total_o(double total_o) {this->pe = mu;}
+
+	double get_mass_water()const {return this->mass_water;};
 	void set_mass_water(long double mass_water) {this->mass_water = mass_water;};
+
+	double get_total_alkalinity()const {return this->total_alkalinity;}
+	void set_total_alkalinity(double total_alkalinity) {this->pe = total_alkalinity;}
+
+	char * get_pe_reaction()const {return this->pe_reaction;}
+	void set_pe_reaction(char * pe_reaction) {this->pe_reaction = pe_reaction;}
+
+	struct solution *cxxSolution2solution();
 
 	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
 protected:
-	friend class cxxConc; // for this->pe access
-	int new_def;
 	double tc;
 	double ph;
-	double solution_pe;
+	double pe;
 	double mu;
 	double ah2o;
-	double density;
 	double total_h;
 	double total_o;
 	double cb;
 	double mass_water;
 	double total_alkalinity;
-	double total_co2;
-	char * units;
-	std::vector<cxxConc> totals; /// std::set<cxxConc> m_totals; ////std::list<cxxConc> m_totals;
-	//std::vector<cxxPe_Data> pe;
-	std::map <char *, struct reaction *> pe;
-	int default_pe;
+	char *pe_reaction;
+	std::map <char *, double> totals; 
 	std::list<cxxIsotope> isotopes;
-	std::map <char *, double> species_gamma;
 	std::map <char *, double> master_activity;
+	std::map <char *, double> species_gamma;
 
 public:
 	//static std::map<int, cxxSolution>& map;

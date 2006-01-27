@@ -1,25 +1,25 @@
 #include "Conc.h"
-#include "Solution.h"
+#include "ISolution.h"
 #include "Utilities.h"
 #include <cassert>
 #define EXTERNAL extern
 #include "global.h"
 #include "phrqproto.h"
+#include "phqalloc.h"
 
 cxxConc::cxxConc(void)
-: moles(0.0)
+: description(NULL)
+, moles(0.0)
 , input_conc(0.0)
+, units(NULL)
+, equation_name(NULL)
 , phase_si(0.0)
 , n_pe(-1)
+, as(NULL)
 , gfw(0.0)
 	//, skip(0);
 	//, phase(NULL)
 {
-	description = string_hsave("");
-	units = this->description;
-	as    = this->description;
-        equation_name = this->description;
-	
 }
 cxxConc::cxxConc(struct conc *conc_ptr)
 {
@@ -32,16 +32,78 @@ cxxConc::cxxConc(struct conc *conc_ptr)
 	n_pe                = conc_ptr->n_pe;
 	as                  = conc_ptr->as;
 	gfw                 = conc_ptr->gfw;
-	skip                = conc_ptr->skip;
-	phase               = conc_ptr->phase;
+	//skip                = conc_ptr->skip;
+	//phase               = conc_ptr->phase;
 }
 
 cxxConc::~cxxConc(void)
 {
 }
 
+struct conc *cxxConc::concarray(const std::map <char *, double> &totals)
+	// for Solutions, not ISolutions
+	// takes a map of (elt name, moles)
+	// returns list of conc structures
+{
+	struct conc *c;
+	if (totals.size() <= 0) {
+		return NULL;
+	} else {
+		c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
+		if (c == NULL) malloc_error();
+		int i = 0;
+		for (std::map <char *, double>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+			c[i].description         = (char *)it->first;
+			c[i].moles               = it->second;
+			c[i].input_conc          = 0.0;
+			c[i].units               = NULL;
+			c[i].equation_name       = NULL;
+			c[i].phase_si            = 0.0;
+			c[i].n_pe                = 0;
+			c[i].as                  = NULL;
+			c[i].gfw                 = 0.0;
+			c[i].skip                = 0;
+			c[i].phase               = NULL;
+			i++;
+		}			
+		c[i].description = NULL;
+	}
+	return(c);
+}
+
+struct conc *cxxConc::concarray(const std::vector <cxxConc> &totals)
+	// for ISolutions
+	// takes a std::vector cxxConc structures
+	// returns list of conc structures
+{
+	struct conc *c;
+	if (totals.size() <= 0) {
+		return NULL;
+	} else {
+		c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
+		if (c == NULL) malloc_error();
+		int i = 0;
+		for (std::vector<cxxConc>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+			c[i].description         = it->description;
+			c[i].moles               = it->moles;
+			c[i].input_conc          = it->input_conc;
+			c[i].units               = it->units;
+			c[i].equation_name       = it->equation_name;
+			c[i].phase_si            = it->phase_si;
+			c[i].n_pe                = it->n_pe;
+			c[i].as                  = it->as;
+			c[i].gfw                 = it->gfw;
+			c[i].skip                = 0;
+			c[i].phase               = NULL;
+			i++;
+		}			
+		c[i].description = NULL;
+	}
+	return(c);
+}
+
 #ifdef SKIP
-cxxConc::STATUS_TYPE cxxConc::read(CParser& parser, cxxSolution& solution)
+cxxConc::STATUS_TYPE cxxConc::read(CParser& parser, cxxISolution& solution)
 {
 	// std::string& str = parser.line(); 
 	std::string str = parser.line();
@@ -156,7 +218,8 @@ cxxConc::STATUS_TYPE cxxConc::read(CParser& parser, cxxSolution& solution)
 }
 #endif
 
-void cxxConc::dump_xml(const cxxSolution& solution, std::ostream& os, unsigned int indent)const
+#ifdef SKIP
+void cxxConc::dump_xml(const cxxISolution& solution, std::ostream& os, unsigned int indent)const
 {
 	unsigned int i;
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
@@ -204,3 +267,4 @@ void cxxConc::dump_xml(const cxxSolution& solution, std::ostream& os, unsigned i
 	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
 	os << "</conc>\n";
 }
+#endif

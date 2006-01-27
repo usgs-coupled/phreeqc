@@ -820,7 +820,7 @@ struct solution {
 	LDBLE cb;
 	LDBLE mass_water;
 	LDBLE total_alkalinity;
-	LDBLE total_co2;
+	/*LDBLE total_co2;*/
 	char *units;
 	struct pe_data *pe;
 	int default_pe;
