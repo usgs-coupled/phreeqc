@@ -7,6 +7,11 @@
 #include "input.h"
 
 extern void test_classes(void);
+#define PHREEQC_XML
+#ifdef PHREEQC_XML
+#include "SAXPhreeqc.h"
+extern void SAX_cleanup(void);
+#endif
 
 static char const svnid[] = "$Id: mainsubs.c 715 2006-01-18 01:26:29Z dlpark $";
 
@@ -795,6 +800,16 @@ int initial_exchangers(int print)
 			if (use.solution_ptr == NULL) {
 				error_msg("Solution not found for initial exchange calculation", STOP);
 			}
+#ifdef PHREEQC_XML
+{
+	// int n;
+	//SAX_StartSystem();
+	//SAX_AddSolution(use.solution_ptr);
+	//SAX_EndSystem();
+	//SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+	//SAX_cleanup();
+ }
+#endif
 			prep();
 			k_temp(use.solution_ptr->tc);
 			set(TRUE);
@@ -2334,8 +2349,8 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			dup_print(token, TRUE);
 			if (pr.headings == TRUE) output_msg(OUTPUT_MESSAGE,"%s\n\n", title_x);
 		}
-		tidy_model();
 		test_classes();
+		tidy_model();
 
 #ifdef PHREEQ98
                 if (!phreeq98_debug) {

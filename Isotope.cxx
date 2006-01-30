@@ -38,7 +38,7 @@ struct isotope *cxxIsotope::list2isotope(std::list <cxxIsotope> &isolist)
 	if (isolist.size() <= 0) {
 		return NULL;
 	} else {
-		iso = (struct isotope *) PHRQ_malloc((size_t) ((isolist.size() + 1) * sizeof(struct isotope)));
+		iso = (struct isotope *) PHRQ_malloc((size_t) ((isolist.size()) * sizeof(struct isotope)));
 		if (iso == NULL) malloc_error();
 		int i = 0;
 		for (std::list <cxxIsotope>::iterator it = isolist.begin(); it != isolist.end(); ++it) {

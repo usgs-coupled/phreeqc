@@ -25,9 +25,9 @@ XERCESCROOT=/z/parkplace/home/dlpark/packages/xerces-c-src_2_7_0
 
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+#CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
 CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
-CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
+#CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -37,8 +37,8 @@ LOADFLAGS= -lm -lxerces-c # -pg
 
 PLATFORM= LINUX
 CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic 
-CXXFLAGS= -Wall -g
-#CXXFLAGS= -O3
+#CXXFLAGS= -Wall -g
+CXXFLAGS= -O3
 LINK= g++ -D${PLATFORM} -fpic
 PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
 EXTRA_LINK_OPTIONS=-lc 
@@ -102,7 +102,7 @@ CLASS_OBJECTS=  Conc.o \
 		NumKeyword.o \
 		Solution.o \
 		ISolution.o \
-		Utilities.o
+		Utils.o
 
 OBJECTS += $(CLASS_OBJECTS)
 
@@ -273,7 +273,7 @@ NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h
 Pe_Data.o: $(SRC)/Pe_Data.cxx $(SRC)/Pe_Data.h 
 ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h 
 Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h 
-Utilities.o: $(SRC)/Utilities.cxx $(SRC)/Utilities.h ..
+Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h ..
 
 -include $(SRC)/distribution.mk
 

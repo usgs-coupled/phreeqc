@@ -74,10 +74,9 @@ protected:
 	double mass_water;
 	double total_alkalinity;
 	char *pe_reaction;
-	std::map <char *, double> master_activity;
-	std::map <char *, const double> totals; 
+	std::map <char *, double> totals; 
 	std::list<cxxIsotope> isotopes;
-
+	std::map <char *, double> master_activity;
 	std::map <char *, double> species_gamma;
 
 public:

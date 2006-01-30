@@ -46,28 +46,24 @@ struct conc *cxxConc::concarray(const std::map <char *, double> &totals)
 	// returns list of conc structures
 {
 	struct conc *c;
-	if (totals.size() <= 0) {
-		return NULL;
-	} else {
-		c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
-		if (c == NULL) malloc_error();
-		int i = 0;
-		for (std::map <char *, double>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-			c[i].description         = (char *)it->first;
-			c[i].moles               = it->second;
-			c[i].input_conc          = 0.0;
-			c[i].units               = NULL;
-			c[i].equation_name       = NULL;
-			c[i].phase_si            = 0.0;
-			c[i].n_pe                = 0;
-			c[i].as                  = NULL;
-			c[i].gfw                 = 0.0;
-			c[i].skip                = 0;
-			c[i].phase               = NULL;
-			i++;
-		}			
-		c[i].description = NULL;
-	}
+	c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
+	if (c == NULL) malloc_error();
+	int i = 0;
+	for (std::map <char *, double>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+		c[i].description         = (char *)it->first;
+		c[i].moles               = it->second;
+		c[i].input_conc          = it->second;
+		c[i].units               = NULL;
+		c[i].equation_name       = NULL;
+		c[i].phase_si            = 0.0;
+		c[i].n_pe                = 0;
+		c[i].as                  = NULL;
+		c[i].gfw                 = 0.0;
+		c[i].skip                = 0;
+		c[i].phase               = NULL;
+		i++;
+	}			
+	c[i].description = NULL;
 	return(c);
 }
 
@@ -77,28 +73,24 @@ struct conc *cxxConc::concarray(const std::vector <cxxConc> &totals)
 	// returns list of conc structures
 {
 	struct conc *c;
-	if (totals.size() <= 0) {
-		return NULL;
-	} else {
-		c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
-		if (c == NULL) malloc_error();
-		int i = 0;
-		for (std::vector<cxxConc>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-			c[i].description         = it->description;
-			c[i].moles               = it->moles;
-			c[i].input_conc          = it->input_conc;
-			c[i].units               = it->units;
-			c[i].equation_name       = it->equation_name;
-			c[i].phase_si            = it->phase_si;
-			c[i].n_pe                = it->n_pe;
-			c[i].as                  = it->as;
-			c[i].gfw                 = it->gfw;
-			c[i].skip                = 0;
-			c[i].phase               = NULL;
-			i++;
-		}			
-		c[i].description = NULL;
-	}
+	c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
+	if (c == NULL) malloc_error();
+	int i = 0;
+	for (std::vector<cxxConc>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+		c[i].description         = it->description;
+		c[i].moles               = it->moles;
+		c[i].input_conc          = it->input_conc;
+		c[i].units               = it->units;
+		c[i].equation_name       = it->equation_name;
+		c[i].phase_si            = it->phase_si;
+		c[i].n_pe                = it->n_pe;
+		c[i].as                  = it->as;
+		c[i].gfw                 = it->gfw;
+		c[i].skip                = 0;
+		c[i].phase               = NULL;
+		i++;
+	}			
+	c[i].description = NULL;
 	return(c);
 }
 

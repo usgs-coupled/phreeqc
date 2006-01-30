@@ -58,6 +58,7 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 	total_alkalinity     = solution_ptr->total_alkalinity;
 	// Totals, just save description and moles
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++) {
+		if (solution_ptr->totals[i].description == NULL) continue;
 		totals[solution_ptr->totals[i].description] = solution_ptr->totals[i].moles;
 	}
 	// Isotopes
@@ -66,11 +67,13 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 		isotopes.push_back(iso);
 	}
 	// Master_activity
-	for (i = 0; i < solution_ptr->count_master_activity; i++) {
+	for (i = 0; i < solution_ptr->count_master_activity ; i++) {
+		if (solution_ptr->master_activity[i].description == NULL) continue;
 		master_activity[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
 	}
 	// Species_gammas
 	for (i = 0; i < solution_ptr->count_species_gamma; i++) {
+		if (solution_ptr->species_gamma[i].description == NULL) continue;
 		species_gamma[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
 	}
 }
@@ -84,12 +87,14 @@ struct solution *cxxSolution::cxxSolution2solution()
 	// Builds a solution structure from instance of cxxSolution 
 	//
 {
+	int i;
+
 	struct solution *soln_ptr = solution_alloc();
 	
 	soln_ptr->description        = string_duplicate(this->description.c_str());
 	soln_ptr->n_user             = this->n_user;
 	soln_ptr->n_user_end         = this->n_user_end;
-	soln_ptr->new_def            = 0;
+	soln_ptr->new_def            = FALSE;
 	soln_ptr->tc                 = this->tc;
 	soln_ptr->ph                 = this->ph;
 	soln_ptr->solution_pe        = this->pe;
@@ -100,6 +105,7 @@ struct solution *cxxSolution::cxxSolution2solution()
 	soln_ptr->cb                 = this->cb;
 	soln_ptr->mass_water         = this->mass_water;
 	soln_ptr->total_alkalinity   = this->total_alkalinity;
+	soln_ptr->density            = 1.0;
 	soln_ptr->units              = moles_per_kilogram_string;
 	soln_ptr->default_pe         = 0;
 	// pe_data
@@ -107,22 +113,22 @@ struct solution *cxxSolution::cxxSolution2solution()
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
 	soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
+
 	// master_activity
-	{
-		soln_ptr->master_activity = (struct master_activity *) PHRQ_realloc(soln_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
-		int i = 0;
-		if (soln_ptr->master_activity == NULL) malloc_error();
-		for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-			soln_ptr->master_activity[i].description = (char *)it->first;
-			soln_ptr->master_activity[i].la = it->second;
-			i++;
-		}
-		soln_ptr->master_activity[i].description = NULL;
-		soln_ptr->count_master_activity = this->master_activity.size() + 1;
+	soln_ptr->master_activity = (struct master_activity *) PHRQ_realloc(soln_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
+	if (soln_ptr->master_activity == NULL) malloc_error();
+	i = 0;
+	for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); it++) {
+		soln_ptr->master_activity[i].description = (char *)it->first;
+		soln_ptr->master_activity[i].la = it->second;
+		i++;
 	}
+	soln_ptr->master_activity[i].description = NULL;
+	soln_ptr->count_master_activity = this->master_activity.size() + 1;
+
 	// species_gamma
 	if (species_gamma.size() >= 0) {
-		soln_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size() + 1) * sizeof(struct master_activity)));
+		soln_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size()) * sizeof(struct master_activity)));
 		int i = 0;
 		if (soln_ptr->species_gamma == NULL) malloc_error();
 		for (std::map <char *, double>::iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
@@ -130,12 +136,15 @@ struct solution *cxxSolution::cxxSolution2solution()
 			soln_ptr->species_gamma[i].la = it->second;
 			i++;
 		}
-		soln_ptr->species_gamma[i].description = NULL;
-		soln_ptr->count_species_gamma = this->species_gamma.size() + 1;
+		soln_ptr->count_species_gamma = this->species_gamma.size();
+	} else {
+		soln_ptr->species_gamma = NULL;
+		soln_ptr->count_species_gamma = 0;
 	}
 	// isotopes
 	soln_ptr->isotopes = (struct isotope *) free_check_null(soln_ptr->isotopes);
 	soln_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
+	soln_ptr->count_isotopes = this->isotopes.size();
 
 	return(soln_ptr);
 }
@@ -411,14 +420,35 @@ void test_classes(void)
 {
 	int i;
 	for (i=0; i < count_solution; i++) {
-		if (solution[i]->new_def == 0) {
+		if (solution[i]->new_def == TRUE) {
 			cxxISolution sol(solution[i]);
-			solution[i] = (struct solution *) solution_free(solution[i]);
-			solution[i] = sol.cxxISolution2solution();
+			//int j;
+			//struct solution *soln_ptr, *soln_ptr1;
+			//soln_ptr = solution[i];
+			  solution[i] = (struct solution *) solution_free(solution[i]);
+			  solution[i] = sol.cxxISolution2solution();
+			//soln_ptr1 = solution[i];
+			//for (j = 0; soln_ptr->totals[j].description != NULL; j++) {
+			//	assert(soln_ptr->totals[j].description == soln_ptr1->totals[j].description);
+			//	assert(soln_ptr->totals[j].input_conc == soln_ptr1->totals[j].input_conc);
+			//}
+			//solution_free(soln_ptr);
 		} else {
 			cxxSolution sol(solution[i]);
+			//int j;
+			//struct solution *soln_ptr, *soln_ptr1;
+			//soln_ptr = solution[i];
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxSolution2solution();
+			//soln_ptr1 = solution[i];
+			//for (j = 0; soln_ptr->totals[j].description != NULL; j++) {
+			//assert(soln_ptr->totals[j].description == soln_ptr1->totals[j].description);
+			//assert(soln_ptr->totals[j].moles == soln_ptr1->totals[j].moles);
+			//}
+			//solution[i] = (struct solution *) solution_free(solution[i]);
 		}
+		//struct solution *soln_ptr;
+		//soln_ptr = solution[i];
+		//soln_ptr = solution[i];
 	}
 } 

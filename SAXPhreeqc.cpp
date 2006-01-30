@@ -281,6 +281,7 @@ int SAX_UnpackSolutions(void* pvBuffer, int buf_size)
   //  statements.
 	xns::MemBufInputSource memBufIS((const XMLByte*)pvBuffer, buf_size, "solution_id", false);
 	fprintf(stderr,"%s", (char *) pvBuffer);
+	return 0;
   //
   //  Create a SAX2 parser object.
   //

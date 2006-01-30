@@ -29,22 +29,7 @@ cxxISolution::cxxISolution(struct solution *solution_ptr)
 : cxxSolution(solution_ptr)
 	//, pe(cxxPe_Data::alloc())
 {
-	/*
-	new_def     = solution_ptr->new_def;
-	tc          = solution_ptr->tc;
-	ph          = solution_ptr->ph;
-	solution_pe = solution_ptr->solution_pe;
-	mu          = solution_ptr->mu;
-	ah2o        = solution_ptr->ah2o;
-	*/
 	density     = solution_ptr->density;
-	/*
-	total_h     = solution_ptr->total_h;
-	total_o     = solution_ptr->total_o;
-	cb          = solution_ptr->cb;
-	mass_water  = solution_ptr->mass_water;
-	total_alkalinity     = solution_ptr->total_alkalinity;
-	*/
 	units       = solution_ptr->units;
 	// totals
 	for (int i = 0; solution_ptr->totals[i].description != NULL; i++) {
@@ -53,9 +38,6 @@ cxxISolution::cxxISolution(struct solution *solution_ptr)
 	}
 	default_pe  = solution_ptr->default_pe;
 	// pe_data
-	//for (int i=0; solution_ptr->pe[i].name != NULL; i++) {
-	//	pe[solution_ptr->pe[i].name] = solution_ptr->pe[i].rxn;
-	//}
 	pes = pe_data_dup(solution_ptr->pe);
 }
 
@@ -70,7 +52,7 @@ struct solution *cxxISolution::cxxISolution2solution()
 	//
 {
 	struct solution *soln_ptr    = this->cxxSolution2solution();
-	soln_ptr->new_def            = 1;
+	soln_ptr->new_def            = TRUE;
 	soln_ptr->density            = this->density;
 	soln_ptr->units              = string_hsave(this->units.c_str());
 	soln_ptr->default_pe         = this->default_pe;
