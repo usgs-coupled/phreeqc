@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "Solution.h"
-#include "Utilities.h"   // define before global.h
+#include "Utils.h"   // define before global.h
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -41,6 +41,8 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 	//
 : cxxNumKeyword()
 {
+	int i;
+
 	description = solution_ptr->description;
 	n_user      = solution_ptr->n_user;
 	n_user_end  = solution_ptr->n_user_end;
@@ -55,20 +57,20 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 	mass_water  = solution_ptr->mass_water;
 	total_alkalinity     = solution_ptr->total_alkalinity;
 	// Totals, just save description and moles
-	for (int i = 0; solution_ptr->totals[i].description != NULL; i++) {
+	for (i = 0; solution_ptr->totals[i].description != NULL; i++) {
 		totals[solution_ptr->totals[i].description] = solution_ptr->totals[i].moles;
 	}
 	// Isotopes
-	for (int i = 0; i < solution_ptr->count_isotopes; i++) {
+	for (i = 0; i < solution_ptr->count_isotopes; i++) {
 		cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
 		isotopes.push_back(iso);
 	}
 	// Master_activity
-	for (int i = 0; i < solution_ptr->count_master_activity; i++) {
+	for (i = 0; i < solution_ptr->count_master_activity; i++) {
 		master_activity[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
 	}
 	// Species_gammas
-	for (int i = 0; i < solution_ptr->count_species_gamma; i++) {
+	for (i = 0; i < solution_ptr->count_species_gamma; i++) {
 		species_gamma[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
 	}
 }
@@ -409,7 +411,7 @@ void test_classes(void)
 {
 	int i;
 	for (i=0; i < count_solution; i++) {
-		if (solution[i]->new_def == true) {
+		if (solution[i]->new_def == 0) {
 			cxxISolution sol(solution[i]);
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxISolution2solution();

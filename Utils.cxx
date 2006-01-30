@@ -2,7 +2,7 @@
 #include <ctype.h>   // ::tolower
 #include <algorithm> //std::transform
 
-#include "Utilities.h"
+#include "Utils.h"
 //#include "Parser.h"
 
 ////////////////////////////////////////////////////////////////////////////
