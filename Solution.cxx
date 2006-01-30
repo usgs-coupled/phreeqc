@@ -65,11 +65,11 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 	}
 	// Master_activity
 	for (int i = 0; i < solution_ptr->count_master_activity; i++) {
-		totals[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
+		master_activity[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
 	}
 	// Species_gammas
 	for (int i = 0; i < solution_ptr->count_species_gamma; i++) {
-		totals[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
+		species_gamma[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
 	}
 }
 
@@ -101,13 +101,13 @@ struct solution *cxxSolution::cxxSolution2solution()
 	soln_ptr->units              = moles_per_kilogram_string;
 	soln_ptr->default_pe         = 0;
 	// pe_data
-xxx
+
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
 	soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
 	// master_activity
 	{
-		soln_ptr->master_activity = (struct master_activity *) PHRQ_malloc((size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
+		soln_ptr->master_activity = (struct master_activity *) PHRQ_realloc(soln_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
 		int i = 0;
 		if (soln_ptr->master_activity == NULL) malloc_error();
 		for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
@@ -119,7 +119,7 @@ xxx
 		soln_ptr->count_master_activity = this->master_activity.size() + 1;
 	}
 	// species_gamma
-	{
+	if (species_gamma.size() >= 0) {
 		soln_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size() + 1) * sizeof(struct master_activity)));
 		int i = 0;
 		if (soln_ptr->species_gamma == NULL) malloc_error();
@@ -410,13 +410,13 @@ void test_classes(void)
 	int i;
 	for (i=0; i < count_solution; i++) {
 		if (solution[i]->new_def == true) {
-			cxxSolution sol(solution[i]);
-			solution[i] = (struct solution *) solution_free(solution[i]);
-			solution[i] = sol.cxxSolution2solution();
-		} else {
 			cxxISolution sol(solution[i]);
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxISolution2solution();
+		} else {
+			cxxSolution sol(solution[i]);
+			solution[i] = (struct solution *) solution_free(solution[i]);
+			solution[i] = sol.cxxSolution2solution();
 		}
 	}
 } 

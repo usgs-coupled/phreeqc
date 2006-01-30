@@ -43,7 +43,8 @@ protected:
 	double density;
 	std::string units;
 	std::vector<cxxConc> concs; 
-	std::map <char *, struct reaction *> pe;
+	//std::map <char *, struct reaction *> pe;
+	struct pe_data *pes;
 	int default_pe;
 
 public:

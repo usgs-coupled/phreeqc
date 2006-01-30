@@ -53,13 +53,15 @@ cxxISolution::cxxISolution(struct solution *solution_ptr)
 	}
 	default_pe  = solution_ptr->default_pe;
 	// pe_data
-	for (int i=0; solution_ptr->pe[i].name != NULL; i++) {
-		pe[solution_ptr->pe[i].name] = solution_ptr->pe[i].rxn;
-	}
+	//for (int i=0; solution_ptr->pe[i].name != NULL; i++) {
+	//	pe[solution_ptr->pe[i].name] = solution_ptr->pe[i].rxn;
+	//}
+	pes = pe_data_dup(solution_ptr->pe);
 }
 
 cxxISolution::~cxxISolution()
 {
+	pe_data_free(this->pes);
 }
 
 struct solution *cxxISolution::cxxISolution2solution()
@@ -70,8 +72,11 @@ struct solution *cxxISolution::cxxISolution2solution()
 	struct solution *soln_ptr    = this->cxxSolution2solution();
 	soln_ptr->new_def            = 1;
 	soln_ptr->density            = this->density;
-	soln_ptr->units              = string_duplicate(this->units.c_str());
+	soln_ptr->units              = string_hsave(this->units.c_str());
 	soln_ptr->default_pe         = this->default_pe;
+	// pe
+	soln_ptr->pe = (struct pe_data *) pe_data_free(soln_ptr->pe);
+	soln_ptr->pe = pe_data_dup(this->pes);
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
 	soln_ptr->totals = cxxConc::concarray((const std::vector<cxxConc>) this->concs);
