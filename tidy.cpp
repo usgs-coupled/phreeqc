@@ -1713,7 +1713,6 @@ int tidy_solutions(void)
 			 *   Sort totals by description
 			 */
 			i = 0;
-			struct solution *soln_ptr = solution[n];
 			while(solution[n]->totals[i].description != NULL) i++;
 			qsort (solution[n]->totals, 
 			       (size_t) i,

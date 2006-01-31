@@ -752,9 +752,6 @@ int SaxPhreeqcHandlers::processSolutionTotalAttributes(const xns::Attributes& at
 		case attCONC_description:
 			c->description = XMLCh_hsave(attributes.getValue(i), TRUE);
 			break;
-		case attCONC_skip:
-			c->skip = XMLCh2Int(attributes.getValue(i));
-			break;
 		case attCONC_moles:
 			c->moles = XMLCh2Double(attributes.getValue(i));
 			break;

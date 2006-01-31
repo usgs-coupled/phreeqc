@@ -838,7 +838,7 @@ struct master_activity {
 };
 struct conc {
 	char *description;
-	int skip;
+	/*int skip;*/
 	LDBLE moles;
 	LDBLE input_conc;
 	char *units;

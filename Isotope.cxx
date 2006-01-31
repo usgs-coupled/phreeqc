@@ -5,7 +5,7 @@
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include <cassert>
-#include <strstream>                       // std::ostrstream
+#include <sstream>                       // std::ostrstream
 
 cxxIsotope::cxxIsotope(void)
 : isotope_number(0.0)
@@ -57,8 +57,8 @@ struct isotope *cxxIsotope::list2isotope(std::list <cxxIsotope> &isolist)
 
 std::string cxxIsotope::get_name()const
 {
-	//std::ostringstream oss;
-	std::ostrstream oss;
+	std::ostringstream oss;
+	//std::ostrstream oss;
 	oss << this->isotope_number << this->elt_name;
 	return oss.str();
 }

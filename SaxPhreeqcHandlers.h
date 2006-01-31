@@ -123,7 +123,6 @@ public:
 		attISO_x_ratio_uncertainty,			
 		attISO_coef,	
 		attCONC_description,
-		attCONC_skip,
 		attCONC_moles,
 		attCONC_input_conc,
 		attCONC_units,

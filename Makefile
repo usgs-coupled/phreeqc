@@ -266,14 +266,19 @@ transport.o: $(SRC)/transport.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqal
 
 utilities.o: $(SRC)/utilities.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-
-Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h 
-Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h 
-NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h 
-Pe_Data.o: $(SRC)/Pe_Data.cxx $(SRC)/Pe_Data.h 
-ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h 
-Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h 
-Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h ..
+Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/ISolution.h \
+	$(SRC)/NumKeyword.h $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/global.h \
+	$(SRC)/phrqtype.h $(SRC)/phrqproto.h $(SRC)/phqalloc.h
+ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h $(SRC)/NumKeyword.h $(SRC)/Solution.h \
+	$(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h \
+	$(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h $(SRC)/Utils.h $(SRC)/global.h \
+	$(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h
+Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Isotope.h \
+	$(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h \
+	$(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
+Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h
 
 -include $(SRC)/distribution.mk
 

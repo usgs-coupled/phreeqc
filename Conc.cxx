@@ -63,7 +63,7 @@ struct conc *cxxConc::concarray(std::map <char *, double, CHARSTAR_LESS> &totals
 		c[i].n_pe                = 0;
 		c[i].as                  = NULL;
 		c[i].gfw                 = 0.0;
-		c[i].skip                = 0;
+		//c[i].skip                = 0;
 		c[i].phase               = NULL;
 		i++;
 	}			
@@ -90,7 +90,7 @@ struct conc *cxxConc::concarray(const std::set <cxxConc> &totals)
 		c[i].n_pe                = it->n_pe;
 		c[i].as                  = it->as;
 		c[i].gfw                 = it->gfw;
-		c[i].skip                = 0;
+		//c[i].skip                = 0;
 		c[i].phase               = NULL;
 		i++;
 	}			
