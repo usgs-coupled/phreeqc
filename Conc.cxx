@@ -1,3 +1,7 @@
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
+
 #include "Conc.h"
 #include "ISolution.h"
 #include "Utils.h"
@@ -40,7 +44,7 @@ cxxConc::~cxxConc(void)
 {
 }
 
-struct conc *cxxConc::concarray(const std::map <char *, double> &totals)
+struct conc *cxxConc::concarray(std::map <char *, double, CHARSTAR_LESS> &totals)
 	// for Solutions, not ISolutions
 	// takes a map of (elt name, moles)
 	// returns list of conc structures
@@ -49,7 +53,7 @@ struct conc *cxxConc::concarray(const std::map <char *, double> &totals)
 	c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
 	if (c == NULL) malloc_error();
 	int i = 0;
-	for (std::map <char *, double>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
 		c[i].description         = (char *)it->first;
 		c[i].moles               = it->second;
 		c[i].input_conc          = it->second;
@@ -67,7 +71,7 @@ struct conc *cxxConc::concarray(const std::map <char *, double> &totals)
 	return(c);
 }
 
-struct conc *cxxConc::concarray(const std::vector <cxxConc> &totals)
+struct conc *cxxConc::concarray(const std::set <cxxConc> &totals)
 	// for ISolutions
 	// takes a std::vector cxxConc structures
 	// returns list of conc structures
@@ -76,7 +80,7 @@ struct conc *cxxConc::concarray(const std::vector <cxxConc> &totals)
 	c = (struct conc *) PHRQ_malloc((size_t) ((totals.size() + 1) * sizeof(struct conc)));
 	if (c == NULL) malloc_error();
 	int i = 0;
-	for (std::vector<cxxConc>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+	for (std::set<cxxConc>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
 		c[i].description         = it->description;
 		c[i].moles               = it->moles;
 		c[i].input_conc          = it->input_conc;

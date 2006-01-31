@@ -7,6 +7,8 @@
 #include <string>
 #include <map>     // std::map
 #include <vector>
+#include <set>
+#include "char_star.h"
 
 // forward declarations
 class cxxISolution;  // reqd for read and dump_xml
@@ -44,11 +46,12 @@ public:
 	int get_n_pe()const {return this->n_pe;}
 	void set_n_pe(int n_pe) {this->n_pe = n_pe;}
 
-	bool operator<(const cxxConc& conc)const    { return (this->description < conc.description); }
+	//bool operator<(const cxxConc& conc)const    { return (this->description < conc.description); }
+	bool operator<(const cxxConc& conc)const    { return ::strcmp(this->description, conc.description) < 0; }
 
-	static struct conc * concarray(const std::map<char *, double> &t );
+	static struct conc * concarray(std::map<char *, double, CHARSTAR_LESS> &t );
 
-	static struct conc * concarray(const std::vector<cxxConc> &t );
+	static struct conc * concarray(const std::set<cxxConc> &t );
 
 private:
 	char * description;

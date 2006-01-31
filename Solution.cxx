@@ -1,6 +1,10 @@
 // Solution.cxx: implementation of the cxxSolution class.
 //
 //////////////////////////////////////////////////////////////////////
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
+
 #include "Solution.h"
 #include "Utils.h"   // define before global.h
 #define EXTERNAL extern
@@ -9,6 +13,8 @@
 #include "phrqproto.h"
 #include <cassert>     // assert
 #include <algorithm>   // std::sort 
+
+
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -112,7 +118,8 @@ struct solution *cxxSolution::cxxSolution2solution()
 
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
-	soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
+	//soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
+	soln_ptr->totals = cxxConc::concarray(this->totals);
 
 	// master_activity
 	soln_ptr->master_activity = (struct master_activity *) PHRQ_realloc(soln_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));

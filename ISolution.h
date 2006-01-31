@@ -11,6 +11,7 @@
 #include <string>  // std::string
 #include <list>    // std::list
 #include <vector>  // std::vector
+#include <set>     // std::set
 
 
 class cxxISolution : public cxxSolution
@@ -42,7 +43,7 @@ protected:
 	friend class cxxConc; // for this->pe access
 	double density;
 	std::string units;
-	std::vector<cxxConc> concs; 
+	std::set<cxxConc> concs; 
 	//std::map <char *, struct reaction *> pe;
 	struct pe_data *pes;
 	int default_pe;

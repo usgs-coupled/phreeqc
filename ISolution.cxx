@@ -1,6 +1,10 @@
 // ISolution.cxx: implementation of the cxxSolutionxx class.
 //
 //////////////////////////////////////////////////////////////////////
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
+
 #include "ISolution.h"
 #define EXTERNAL extern
 #include "global.h"
@@ -34,7 +38,7 @@ cxxISolution::cxxISolution(struct solution *solution_ptr)
 	// totals
 	for (int i = 0; solution_ptr->totals[i].description != NULL; i++) {
 		cxxConc c(&(solution_ptr->totals[i]));
-		concs.push_back(c);
+		concs.insert(c);
 	}
 	default_pe  = solution_ptr->default_pe;
 	// pe_data
@@ -61,7 +65,7 @@ struct solution *cxxISolution::cxxISolution2solution()
 	soln_ptr->pe = pe_data_dup(this->pes);
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
-	soln_ptr->totals = cxxConc::concarray((const std::vector<cxxConc>) this->concs);
+	soln_ptr->totals = cxxConc::concarray((const std::set<cxxConc>) this->concs);
 	return(soln_ptr);
 }
 #ifdef SKIP
