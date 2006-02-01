@@ -8,6 +8,8 @@
 #include <map>          // std::map
 #include <cassert>      // assert
 #include <iostream>     // std::cout std::cerr
+#include "char_star.h"
+extern char *string_hsave (const char *str);
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -336,13 +338,13 @@ CParser::STATUS_TYPE CParser::check_units(std::string& tot_units, bool alkalinit
 			err << "Unknown unit, " << tot_units;
 			error_msg(err, OT_CONTINUE);
 		}
-		return ERROR;
+		return PARSER_ERROR;
 	}
 
 	//
 	//   Check if units are compatible with default_units
 	//
-	if (check_compatibility == false) return OK;
+	if (check_compatibility == false) return PARSER_OK;
 
 	//
 	//   Special cases for alkalinity
@@ -357,15 +359,15 @@ CParser::STATUS_TYPE CParser::check_units(std::string& tot_units, bool alkalinit
 		if (print) {
 			error_msg("Only alkalinity can be entered in equivalents.", OT_CONTINUE);
 		}
-		return ERROR;
+		return PARSER_ERROR;
 	}
 
 	//
 	//  See if default_units are compatible with tot_units
 	//
-	if (default_units.find("/l")   != std::string::npos && tot_units.find("/l")   != std::string::npos) return OK;
-	if (default_units.find("/kgs") != std::string::npos && tot_units.find("/kgs") != std::string::npos) return OK;
-	if (default_units.find("/kgw") != std::string::npos && tot_units.find("/kgw") != std::string::npos) return OK;
+	if (default_units.find("/l")   != std::string::npos && tot_units.find("/l")   != std::string::npos) return PARSER_OK;
+	if (default_units.find("/kgs") != std::string::npos && tot_units.find("/kgs") != std::string::npos) return PARSER_OK;
+	if (default_units.find("/kgw") != std::string::npos && tot_units.find("/kgw") != std::string::npos) return PARSER_OK;
 
 	std::string str = default_units;
 	replace("kgs", "kg solution", str);
@@ -382,7 +384,7 @@ CParser::STATUS_TYPE CParser::check_units(std::string& tot_units, bool alkalinit
 		err << "Units for master species, " << tot_units << ", are not compatible with default units, " << str << ".";
 		error_msg(err, OT_CONTINUE);
 	}
-	return ERROR;
+	return PARSER_ERROR;
 }
 
 CParser::TOKEN_TYPE CParser::token_type(const std::string& token)
@@ -499,11 +501,11 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::string::i
 	LINE_TYPE lt = check_line("get_option", false, true, true, false);
 	if (lt == LT_EOF)
 	{
-		j = OPTION_EOF;
+		j = OPT_EOF;
 	}
 	else if (lt == LT_KEYWORD)
 	{
-		j = OPTION_KEYWORD;
+		j = OPT_KEYWORD;
 	}
 	else if (lt == LT_OPTION)
 	{
@@ -544,7 +546,7 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::string::i
 			std::cerr << "Unknown option." << "\n";
 			std::cerr << m_line_save << "\n";
 
-			j = OPTION_ERROR;
+			j = OPT_ERROR;
 			next_char = m_line.begin();
 		}
 	}
@@ -560,7 +562,7 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::string::i
 		}
 		else
 		{
-			j = OPTION_DEFAULT;
+			j = OPT_DEFAULT;
 			next_char = m_line.begin();
 		}
 		if (true) // pr.echo_input == TRUE
@@ -590,11 +592,11 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::istream::
 	LINE_TYPE lt = check_line("get_option", false, true, true, false);
 	if (lt == LT_EOF)
 	{
-		j = OPTION_EOF;
+		j = OPT_EOF;
 	}
 	else if (lt == LT_KEYWORD)
 	{
-		j = OPTION_KEYWORD;
+		j = OPT_KEYWORD;
 	}
 	else if (lt == LT_OPTION)
 	{
@@ -636,7 +638,7 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::istream::
 			error_msg("Unknown option.", OT_CONTINUE);
 			error_msg(m_line_save.c_str(), OT_CONTINUE);
 			incr_input_error();
-			j = OPTION_ERROR;
+			j = OPT_ERROR;
 			next_pos = pos_ptr;
 		}
 	}
@@ -651,7 +653,7 @@ int CParser::get_option(const std::vector<std::string>& opt_list, std::istream::
 		}
 		else
 		{
-			j = OPTION_DEFAULT;
+			j = OPT_DEFAULT;
 			next_pos = 0;
 		}
 		if (true) // pr.echo_input == TRUE
@@ -697,7 +699,7 @@ CParser::STATUS_TYPE CParser::get_elt(std::string::iterator& begin, const std::s
 
 	if (begin == end) {
 		error_msg("Empty string in get_elt.  Expected an element name.", OT_CONTINUE);
-		return ERROR;
+		return PARSER_ERROR;
 	}
 
 	//
@@ -717,7 +719,7 @@ CParser::STATUS_TYPE CParser::get_elt(std::string::iterator& begin, const std::s
 			} else if (begin == end) {
 				error_msg("No ending bracket (]) for element name", OT_CONTINUE);
 				incr_input_error();
-				return ERROR;
+				return PARSER_ERROR;
 			}
 		}
 		while (::islower(c = *begin) || c == '_') {
@@ -732,7 +734,7 @@ CParser::STATUS_TYPE CParser::get_elt(std::string::iterator& begin, const std::s
 			if (begin == end) break;
 		}
 	}
-	return OK;
+	return PARSER_OK;
 }
 
 CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
@@ -743,7 +745,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 
 	if (Utilities::strcmp_nocase_arg1(token.c_str(), "pe") == 0) {
 		Utilities::str_tolower(token);
-		return OK;
+		return PARSER_OK;
 	}
 
 	while ( Utilities::replace("+", "", token) );
@@ -758,7 +760,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 			"parentheses in redox couple, " << token << ".";
 		error_msg(err_msg, OT_CONTINUE);
 		incr_input_error();
-		return ERROR;
+		return PARSER_ERROR;
 	}
 
 	int paren_count = 1;
@@ -770,7 +772,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 			err_msg << "End of line or  ""/"" encountered before end of parentheses, " <<
 				token << ".";
 			error_msg(err_msg, OT_CONTINUE);
-			return ERROR;
+			return PARSER_ERROR;
 		}
 		paren1.insert(paren1.end(), *ptr);  // element.push_back(c);
 		if (*ptr == '(') ++paren_count;
@@ -784,7 +786,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 		err_msg << " ""/"" must follow parentheses " <<
 			"ending first half of redox couple, " << token << ".";
 		error_msg(err_msg, OT_CONTINUE);
-		return ERROR;
+		return PARSER_ERROR;
 	}
 	++ptr;
 	std::string elt2;
@@ -794,7 +796,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 		err_msg << "Redox couple must be two redox states " <<
 			"of the same element, " << token << ".";
 		error_msg(err_msg, OT_CONTINUE);
-		return ERROR;
+		return PARSER_ERROR;
 	}
 	if (*ptr != '(') {
 		std::ostringstream err_msg;
@@ -802,7 +804,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 			"parentheses in redox couple, " << token << ".";
 		error_msg(err_msg, OT_CONTINUE);
 		incr_input_error();
-		return ERROR;
+		return PARSER_ERROR;
 	}
 	std::string paren2 = "(";
 	paren_count = 1;
@@ -814,7 +816,7 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 			err_msg << "End of line or  ""/"" encountered before end of parentheses, " <<
 				token << ".";
 			error_msg(err_msg, OT_CONTINUE);
-			return ERROR;
+			return PARSER_ERROR;
 		}
 		paren2.insert(paren2.end(), *ptr);  // element.push_back(c);
 		if (*ptr == '(') ++paren_count;
@@ -830,7 +832,54 @@ CParser::STATUS_TYPE CParser::parse_couple(std::string& token)
 		err_msg << "Both parts of redox couple are the same, " <<
 			token << ".";
 		error_msg(err_msg, OT_CONTINUE);
-		return ERROR;
+		return PARSER_ERROR;
 	}
-	return OK;
+	return PARSER_OK;
+}
+
+CParser::STATUS_TYPE CParser::addPair(std::map<char *, double, CHARSTAR_LESS> &totals, std::istream::pos_type& pos)
+{
+	std::string token;
+	char * ctoken;
+	double d;
+
+	m_line_iss.seekg(pos);	
+	if( !(m_line_iss >> token)) {
+		return PARSER_ERROR;
+	}
+	if( !(m_line_iss >> d)) {
+		return PARSER_ERROR;
+	}
+	ctoken = string_hsave(token.c_str());
+	totals[ctoken] = d;
+	return PARSER_OK;
+}
+#ifdef SKIP
+CParser::TOKEN_TYPE CParser::copy_token(std::string& token, std::istream::pos_type& pos)
+{
+	m_line_iss.seekg(pos);	
+	// m_line_iss >> token;
+	if( !(m_line_iss >> token)) {
+		token.erase(token.begin(), token.end()); // token.clear();
+	}
+	pos = m_line_iss.tellg();
+	return token_type(token);
+}
+#endif
+CParser::STATUS_TYPE CParser::addPair(std::map<char *, double> &totals, std::istream::pos_type& pos)
+{
+	std::string token;
+	char * ctoken;
+	double d;
+
+	m_line_iss.seekg(pos);	
+	if( !(m_line_iss >> token)) {
+		return PARSER_ERROR;
+	}
+	if( !(m_line_iss >> d)) {
+		return PARSER_ERROR;
+	}
+	ctoken = string_hsave(token.c_str());
+	totals[ctoken] = d;
+	return PARSER_OK;
 }

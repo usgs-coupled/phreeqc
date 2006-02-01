@@ -3,7 +3,7 @@
 #include <algorithm> //std::transform
 
 #include "Utils.h"
-//#include "Parser.h"
+#include "Parser.h"
 
 ////////////////////////////////////////////////////////////////////////////
 int Utilities::strcmp_nocase_arg1(const char *str1, const char *str2)
@@ -54,7 +54,6 @@ bool Utilities::replace(const char* str1, const char* str2, std::string& str)
 	str.replace(n, ::strlen(str1), str2);
 	return true;
 }
-#ifdef SKIP
 ////////////////////////////////////////////////////////////////////////////
 void Utilities::squeeze_white(std::string& s_l)
 ////////////////////////////////////////////////////////////////////////////
@@ -65,4 +64,4 @@ void Utilities::squeeze_white(std::string& s_l)
 	CParser::copy_token(str, beg, end);
 	s_l = str;
 }
-#endif
+

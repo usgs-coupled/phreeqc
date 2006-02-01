@@ -2,10 +2,12 @@
 #define PARSER_H_INCLUDED
 
 #include <string>   // std::string
+#include <map>      // std::map
 #include <vector>   // std::vector
 #include <sstream>  // std::istringstream std::ostringstream
 #include <ostream>  // std::ostream
 #include <istream>  // std::istream
+#include "char_star.h"
 
 class CParser
 {
@@ -44,11 +46,11 @@ public:
 		KT_SOLUTION     =  4
 	};
 
-	enum OPTION_TYPE {
-		OPTION_DEFAULT  = -4,
-		OPTION_ERROR    = -3,
-		OPTION_KEYWORD  = -2,
-		OPTION_EOF      = -1
+	enum OPT_TYPE {
+		OPT_DEFAULT  = -4,
+		OPT_ERROR    = -3,
+		OPT_KEYWORD  = -2,
+		OPT_EOF      = -1
 	};
 
 	enum ONERROR_TYPE {
@@ -57,8 +59,8 @@ public:
 	};
 
 	enum STATUS_TYPE {
-		ERROR           = 0,
-		OK              = 1
+		PARSER_ERROR    = 0,
+		PARSER_OK       = 1
 	};
 
 	/**
@@ -178,6 +180,9 @@ public:
 
 
 	STATUS_TYPE parse_couple(std::string& token);
+
+	STATUS_TYPE addPair(std::map<char *, double, CHARSTAR_LESS> &totals, std::istream::pos_type& pos);
+	STATUS_TYPE addPair(std::map<char *, double> &totals, std::istream::pos_type& pos);
 
 protected:
 	LINE_TYPE get_logical_line();

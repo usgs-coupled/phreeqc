@@ -1,7 +1,7 @@
 #if !defined(ISOTOPE_H_INCLUDED)
 #define ISOTOPE_H_INCLUDED
 
-//#include "Parser.h"
+#include "Parser.h"
 #include <ostream>   // std::ostream
 #include <string>    // std::string
 #include <list>    // std::list
@@ -23,6 +23,8 @@ public:
 
 	void dump_xml(std::ostream& os, unsigned int indent)const;
 	void dump_raw(std::ostream& os, unsigned int indent)const;
+
+	CParser::STATUS_TYPE cxxIsotope::read_raw(CParser& parser);
 
 	std::string get_name()const ;
 

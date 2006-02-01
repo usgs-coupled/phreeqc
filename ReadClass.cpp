@@ -48,9 +48,9 @@ int read_solution_raw (void)
 		keywordLines.append("\n");
 	}
 
+	std::istringstream iss_in(keywordLines);
 	std::ostringstream oss_out;
 	std::ostringstream oss_err;
-	std::istringstream iss_in(keywordLines);
 
 	CParser parser(iss_in, oss_out, oss_err);
 

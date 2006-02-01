@@ -1,5 +1,6 @@
 #include "Isotope.h"
 #include "Utils.h"
+#include "Parser.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -101,16 +102,62 @@ void cxxIsotope::dump_raw(std::ostream& s_oss, unsigned int indent)const
 	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
 
 	s_oss << indent0;
-	s_oss << "-isotope ";
 	s_oss << this->isotope_name << " ";
 	s_oss << this->isotope_number << " ";
-	s_oss << this->isotope_name << " ";
+	s_oss << this->elt_name << " ";
 	s_oss << this->total << " ";
 	s_oss << this->ratio << " ";
 	if (this->ratio_uncertainty != NAN) {
 		s_oss << this->ratio_uncertainty << " ";
 	}
 	s_oss << std::endl;
+}
+
+CParser::STATUS_TYPE cxxIsotope::read_raw(CParser& parser)
+{
+	std::string token;
+	std::istream::pos_type next_char;
+	CParser::TOKEN_TYPE j;
+
+	// isotope_name
+	if( !(parser.get_iss() >> token)) {
+		return CParser::PARSER_ERROR;
+	}
+	this->isotope_name  = string_hsave(token.c_str());
+
+	// isotope_number
+	if( !(parser.get_iss() >> isotope_number)) {
+		return CParser::PARSER_ERROR;
+	}
+
+	// elt_name
+	if( !(parser.get_iss() >> token)) {
+		return CParser::PARSER_ERROR;
+	}
+	this->elt_name  = string_hsave(token.c_str());
+
+	// total
+	if( !(parser.get_iss() >> this->total)) {
+		return CParser::PARSER_ERROR;
+	}
+
+	// ratio
+	if( !(parser.get_iss() >> this->ratio)) {
+		return CParser::PARSER_ERROR;
+	}
+
+	// ratio_uncertainty
+	j = parser.copy_token(token, next_char);
+	if (j == CParser::TT_EMPTY) {
+		this->ratio_uncertainty = NAN;
+	} else if (j != CParser::TT_DIGIT) {
+		parser.incr_input_error();
+		parser.error_msg("Expected numeric value for mass of water in solution.", CParser::OT_CONTINUE);
+	} else {
+		std::istringstream(token) >> this->ratio_uncertainty;
+	}
+
+	return CParser::PARSER_OK;
 }
 
 bool cxxIsotope::operator<(const cxxIsotope& isotope)const

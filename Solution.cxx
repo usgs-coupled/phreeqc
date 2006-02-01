@@ -5,16 +5,14 @@
 #pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
 #endif
 
+#include "Utils.h"   // define first
 #include "Solution.h"
-#include "Utils.h"   // define before global.h
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include <cassert>     // assert
 #include <algorithm>   // std::sort 
-
-
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -68,7 +66,8 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 
 	// Isotopes
 	for (i = 0; i < solution_ptr->count_isotopes; i++) {
-		cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
+		//cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
+		cxxIsotope iso(&solution_ptr->isotopes[i]);
 		isotopes.push_back(iso);
 	}
 
@@ -158,8 +157,8 @@ struct solution *cxxSolution::cxxSolution2solution()
 }
 void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
-	const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
-	int i;
+	//const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+	unsigned int i;
 	s_oss.precision(DBL_DIG - 1);
 	std::string indent0(""), indent1("");
 	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
@@ -251,12 +250,13 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 
 void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
-	const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
-	int i;
+	//const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+	unsigned int i;
 	s_oss.precision(DBL_DIG - 1);
-	std::string indent0(""), indent1("");
+	std::string indent0(""), indent1(""), indent2("");
 	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
 	for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
+	for(i = 0; i < indent + 2; ++i) indent2.append(Utilities::INDENT);
 
 	// Solution element and attributes
 	s_oss << indent0;
@@ -300,30 +300,270 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
 	s_oss << "-total_alkalinity  " << this->total_alkalinity << std::endl;
 
 	// soln_total conc structures
+	s_oss << indent1;
+	s_oss << "-totals" << std::endl;
 	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "-tot   "  << it->first << "   " <<  it->second << std::endl;
+		s_oss << indent2;
+		s_oss << it->first << "   " <<  it->second << std::endl;
 	}
 
 	// master_activity map
+	s_oss << indent1;
+	s_oss << "-activities" << std::endl;
 	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "-act  "  << it->first << "   " << it->second << std::endl;
+		s_oss << indent2;
+		s_oss << it->first << "   " << it->second << std::endl;
 	}
 
 	// species_gamma map
+	s_oss << indent1;
+	s_oss << "-gammas" << std::endl;
 	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+		s_oss << indent2;
+		s_oss << it->first << "   " << it->second << std::endl;
+	}
+
+	// Isotopes
 		s_oss << indent1;
-		s_oss << "-gam  "  << it->first << "   " << it->second << std::endl;
-	}
-
+	s_oss << "-Isotopes" << std::endl;
 	for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
-		it->dump_raw(s_oss, indent + 1);
+		it->dump_raw(s_oss, indent + 2);
 	}
 
-	// End of solution
-	//s_oss << indent0;
-	//s_oss << "SOLUTION_RAW_END" << std::endl;
+	return;
+}
+
+void cxxSolution::read_raw(CParser& parser)
+{
+	static std::vector<std::string> vopts;
+	if (vopts.empty()) {
+		vopts.reserve(21);
+		vopts.push_back("totals");                    // 0 
+		vopts.push_back("activities");		      // 1 
+		vopts.push_back("gammas");    		      // 2 
+		vopts.push_back("isotopes");  		      // 3 
+		vopts.push_back("temp");             	      // 4 
+		vopts.push_back("tc");               	      // 5 
+		vopts.push_back("temperature");      	      // 6 
+		vopts.push_back("ph");               	      // 7 
+		vopts.push_back("pe");               	      // 8 
+		vopts.push_back("mu");               	      // 9 
+		vopts.push_back("ionic_strength");   	      // 10
+		vopts.push_back("ah2o");             	      // 11
+		vopts.push_back("activity_water");   	      // 12
+		vopts.push_back("total_h");          	      // 13
+		vopts.push_back("total_o");          	      // 14
+		vopts.push_back("mass_water");       	      // 15
+		vopts.push_back("mass_h2o");                  // 16
+		vopts.push_back("total_alkalinity"); 	      // 17
+		vopts.push_back("total_alk");        	      // 18
+		vopts.push_back("cb");           	      // 19
+		vopts.push_back("charge_balance");            // 20
+	}
+
+	cxxSolution numkey;
+
+	// Read solution number and description
+	numkey.read_number_description(parser);
+
+	//skip keyword
+	parser.get_line();
+
+	std::istream::pos_type ptr;
+	std::istream::pos_type next_char;
+	std::string token;
+	char * cstring;
+	int opt_save;
+
+	opt_save = CParser::OPT_ERROR;
+	bool tc_defined(false); 
+	bool ph_defined(false); 
+	bool pe_defined(false); 
+	bool mu_defined(false); 
+	bool ah2o_defined(false); 
+	bool total_h_defined(false); 
+	bool total_o_defined(false); 
+	bool cb_defined(false); 
+	bool mass_water_defined(false); 
+	bool total_alkalinity_defined(false);
+
+	for (;;)
+	{
+		int opt = parser.get_option(vopts, next_char);
+		if (opt == CParser::OPT_DEFAULT)
+		{
+			opt = opt_save;
+		}
+
+		switch (opt)
+		{
+		case CParser::OPT_EOF:
+			break;
+		case CParser::OPT_KEYWORD:
+			break;
+		case CParser::OPT_DEFAULT:
+		case CParser::OPT_ERROR:
+			opt = CParser::OPT_EOF;
+			parser.error_msg("Unknown input in SOLUTION_RAW keyword.", CParser::OT_CONTINUE);
+			parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
+			break;
+
+		case 0: // totals
+			if (parser.copy_token(token, ptr) != CParser::TT_EMPTY) {
+				if ( parser.addPair(this->totals, next_char) != CParser::PARSER_OK) {
+					parser.incr_input_error();
+					parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
+				}			
+			}	
+			opt_save = 0;
+			break;
+
+		case 1: // activities
+			if ( parser.addPair(this->master_activity, next_char) != CParser::PARSER_OK) {
+				parser.incr_input_error();
+				parser.error_msg("Expected species name and log activity for activities.", CParser::OT_CONTINUE);
+			}				
+			opt_save = 1;
+			break;
+
+		case 2: // gammas
+			if ( parser.addPair(this->species_gamma, next_char) != CParser::PARSER_OK) {
+				parser.incr_input_error();
+				parser.error_msg("Expected species name and activity coefficient for gammas.", CParser::OT_CONTINUE);
+			}				
+			opt_save = 2;
+			break;
+
+		case 3: // isotopes
+			{
+				cxxIsotope iso;
+				iso.read_raw(parser);
+				if ( iso.read_raw(parser) != CParser::PARSER_OK) {
+					parser.incr_input_error();
+					parser.error_msg("Expected data for isotopes.", CParser::OT_CONTINUE);
+				} else {
+					this->isotopes.push_back(iso);
+				}
+			}
+			opt_save = 3;
+			break;
+
+		case 4: // temp
+		case 5: // tc
+		case 6: // temperature			
+			if (!(parser.get_iss() >> this->tc))
+			{
+				this->tc = 25.0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for temperature.", CParser::OT_CONTINUE);
+			}
+			tc_defined = true;
+			break;
+
+		case 7: // ph
+			if (!(parser.get_iss() >> this->ph))
+			{
+				this->ph = 7.0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for pH.", CParser::OT_CONTINUE);
+			}
+			ph_defined = true;
+			break;
+
+		case 8: // pe
+			if (!(parser.get_iss() >> this->pe))
+			{
+				this->pe = 4.0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for pe.", CParser::OT_CONTINUE);
+			}
+			pe_defined = true;
+			break;
+
+		case 9: // mu
+		case 10: // ionic_strength
+			if (!(parser.get_iss() >> this->mu))
+			{
+				this->mu = 1e-7;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for ionic strength.", CParser::OT_CONTINUE);
+			}
+			mu_defined = true;
+			break;
+
+		case 11: // ah2o
+		case 12: // activity_water
+			if (!(parser.get_iss() >> this->ah2o))
+			{
+				this->ah2o = 1.0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for activity of water.", CParser::OT_CONTINUE);
+			}
+			ah2o_defined = true;
+			break;
+
+		case 13: // total_h
+			if (!(parser.get_iss() >> this->total_h))
+			{
+				this->total_h = 111.1;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for total hydrogen.", CParser::OT_CONTINUE);
+			}
+			total_h_defined = true;
+			break;
+
+		case 14: // total_o
+			if (!(parser.get_iss() >> this->total_o))
+			{
+				this->total_o = 55.55;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for total oxygen.", CParser::OT_CONTINUE);
+			}
+			total_o_defined = true;
+			break;
+
+		case 15: // mass_water
+		case 16: // mass_h2o
+			if (!(parser.get_iss() >> this->mass_water))
+			{
+				this->mass_water = 1.0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for mass of water.", CParser::OT_CONTINUE);
+			}
+			mass_water_defined = true;
+			break;
+
+		case 17: // total_alkalinity
+		case 18: // total_alk
+			if (!(parser.get_iss() >> this->total_alkalinity))
+			{
+				this->total_alkalinity = 0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for total_alkalinity.", CParser::OT_CONTINUE);
+			}
+			total_alkalinity_defined = true;
+			break;
+
+		case 19: // cb
+		case 20: // charge_balance
+			if (!(parser.get_iss() >> this->cb))
+			{
+				this->cb = 0;
+				parser.incr_input_error();
+				parser.error_msg("Expected numeric value for charge balance.", CParser::OT_CONTINUE);
+			}
+			cb_defined = true;
+			break;
+
+		}
+		if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
+	}
+#ifdef SKIP
+	//
+	// Sort totals by description
+	//
+	std::sort(sol.totals.begin(), sol.totals.end());
+#endif
 
 	return;
 }
@@ -522,6 +762,9 @@ cxxSolution& cxxSolution::read(CParser& parser)
 
 
 #include "ISolution.h"
+#include <iostream>     // std::cout std::cerr
+#include <strstream>
+#include <fstream>
 void test_classes(void)
 {
 	int i;
@@ -531,9 +774,24 @@ void test_classes(void)
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxISolution2solution();
 		} else {
+			std::strstream oss;
 			cxxSolution sol(solution[i]);
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxSolution2solution();
+			sol.dump_raw(oss, 0);
+			cxxSolution sol1;
+
+			//std::ostringstream oss_out;
+			//std::ostringstream oss_err;
+			//std::istringstream iss_in();
+
+			std::fstream myfile("t");
+
+
+			CParser cparser(myfile, std::cout, std::cerr);
+
+			sol1.read_raw(cparser);
+			
 		}
 	}
 } 

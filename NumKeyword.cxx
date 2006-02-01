@@ -29,7 +29,7 @@ void cxxNumKeyword::dump_xml(std::ostream& os, unsigned int indent)const
 	for(i = 0; i < indent + 1; ++i) os << "  ";		
 	os << "<Description>" << this->description << "</Description>" << "\n";
 }
-#ifdef SKIP
+
 void cxxNumKeyword::read_number_description(CParser& parser)
 {
 	// skip keyword
@@ -82,8 +82,8 @@ void cxxNumKeyword::read_number_description(CParser& parser)
 	// copy description
 	std::getline(parser.get_iss(), this->description);
 }
-#endif
-#ifdef SKIP
+
+
 void cxxNumKeyword::read_number_description(std::istream& is)
 {
 	// KEYWORD [[1[-20]] [This is the description]]
@@ -118,4 +118,4 @@ void cxxNumKeyword::read_number_description(std::istream& is)
 
 	std::getline(is, this->description);
 }
-#endif
+

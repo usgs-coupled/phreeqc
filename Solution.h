@@ -61,6 +61,9 @@ public:
 
 	void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
+	void cxxSolution::read_raw(CParser& parser);
+
+
 protected:
 	double tc;
 	double ph;
