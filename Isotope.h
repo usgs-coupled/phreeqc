@@ -22,6 +22,7 @@ public:
 	static struct isotope * list2isotope(std::list<cxxIsotope> &t);
 
 	void dump_xml(std::ostream& os, unsigned int indent)const;
+	void dump_raw(std::ostream& os, unsigned int indent)const;
 
 	std::string get_name()const ;
 

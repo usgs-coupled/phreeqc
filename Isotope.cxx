@@ -93,6 +93,26 @@ void cxxIsotope::dump_xml(std::ostream& s_oss, unsigned int indent)const
 	s_oss << "\">" << std::endl;
 }
 
+void cxxIsotope::dump_raw(std::ostream& s_oss, unsigned int indent)const
+{
+	unsigned int i;
+
+	std::string indent0("");
+	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
+
+	s_oss << indent0;
+	s_oss << "-isotope ";
+	s_oss << this->isotope_name << " ";
+	s_oss << this->isotope_number << " ";
+	s_oss << this->isotope_name << " ";
+	s_oss << this->total << " ";
+	s_oss << this->ratio << " ";
+	if (this->ratio_uncertainty != NAN) {
+		s_oss << this->ratio_uncertainty << " ";
+	}
+	s_oss << std::endl;
+}
+
 bool cxxIsotope::operator<(const cxxIsotope& isotope)const
 {
 	int i = Utilities::strcmp_nocase(this->elt_name, isotope.elt_name);

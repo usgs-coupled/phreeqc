@@ -98,10 +98,12 @@ OBJECTS=	main.o \
 		pitzer_structures.o \
 
 CLASS_OBJECTS=  Conc.o \
+		ISolution.o \
 		Isotope.o \
 		NumKeyword.o \
+		Parser.o \
+		ReadClass.o \
 		Solution.o \
-		ISolution.o \
 		Utils.o
 
 OBJECTS += $(CLASS_OBJECTS)
@@ -279,6 +281,8 @@ Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Iso
 	$(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h \
 	$(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
 Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h
+ReadClass.o: $(SRC)/ReadClass.cpp
+Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h
 
 -include $(SRC)/distribution.mk
 
