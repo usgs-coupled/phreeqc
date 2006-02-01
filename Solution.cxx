@@ -211,30 +211,36 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 	s_oss << "\">" << std::endl;
 
 	// soln_total conc structures
-	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_total";
-		s_oss << " conc_desc=\"" << it->first << "\"";
-		s_oss << " conc_moles=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
+	{
+		for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+			s_oss << indent1;
+			s_oss << "<soln_total";
+			s_oss << " conc_desc=\"" << it->first << "\"";
+			s_oss << " conc_moles=\"" << it->second << "\"" ;
+			s_oss << "\">" << std::endl;
+		}
 	}
 
 	// master_activity map
-	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_m_a";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
+	{
+		for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
+			s_oss << indent1;
+			s_oss << "<soln_m_a";
+			s_oss << " m_a_desc=\"" << it->first << "\"" ;
+			s_oss << " m_a_la=\"" << it->second << "\"" ;
+			s_oss << "\">" << std::endl;
+		}
 	}
 
 	// species_gamma map
-	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_s_g";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
+	{
+		for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+			s_oss << indent1;
+			s_oss << "<soln_s_g";
+			s_oss << " m_a_desc=\"" << it->first << "\"" ;
+			s_oss << " m_a_la=\"" << it->second << "\"" ;
+			s_oss << "\">" << std::endl;
+		}
 	}
 
 	for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
@@ -310,24 +316,32 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
 	// master_activity map
 	s_oss << indent1;
 	s_oss << "-activities" << std::endl;
-	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-		s_oss << indent2;
-		s_oss << it->first << "   " << it->second << std::endl;
+	{
+		for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
+			s_oss << indent2;
+			s_oss << it->first << "   " << it->second << std::endl;
+		}
 	}
 
 	// species_gamma map
 	s_oss << indent1;
 	s_oss << "-gammas" << std::endl;
-	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-		s_oss << indent2;
-		s_oss << it->first << "   " << it->second << std::endl;
+	{
+		{
+			for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+				s_oss << indent2;
+				s_oss << it->first << "   " << it->second << std::endl;
+			}
+		}
 	}
 
 	// Isotopes
-		s_oss << indent1;
+	s_oss << indent1;
 	s_oss << "-Isotopes" << std::endl;
-	for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
-		it->dump_raw(s_oss, indent + 2);
+	{
+		for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
+			it->dump_raw(s_oss, indent + 2);
+		}
 	}
 
 	return;
@@ -339,9 +353,9 @@ void cxxSolution::read_raw(CParser& parser)
 	if (vopts.empty()) {
 		vopts.reserve(21);
 		vopts.push_back("totals");                    // 0 
-		vopts.push_back("activities");		      // 1 
-		vopts.push_back("gammas");    		      // 2 
-		vopts.push_back("isotopes");  		      // 3 
+		vopts.push_back("activities");		          // 1 
+		vopts.push_back("gammas");    		          // 2 
+		vopts.push_back("isotopes");  		          // 3 
 		vopts.push_back("temp");             	      // 4 
 		vopts.push_back("tc");               	      // 5 
 		vopts.push_back("temperature");      	      // 6 
@@ -372,7 +386,6 @@ void cxxSolution::read_raw(CParser& parser)
 	std::istream::pos_type ptr;
 	std::istream::pos_type next_char;
 	std::string token;
-	char * cstring;
 	int opt_save;
 
 	opt_save = CParser::OPT_ERROR;
@@ -409,12 +422,10 @@ void cxxSolution::read_raw(CParser& parser)
 			break;
 
 		case 0: // totals
-			if (parser.copy_token(token, ptr) != CParser::TT_EMPTY) {
-				if ( parser.addPair(this->totals, next_char) != CParser::PARSER_OK) {
-					parser.incr_input_error();
-					parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
-				}			
-			}	
+			if ( parser.addPair(this->totals, next_char) != CParser::PARSER_OK) {
+				parser.incr_input_error();
+				parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
+			}			
 			opt_save = 0;
 			break;
 

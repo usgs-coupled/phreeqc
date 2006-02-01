@@ -1,3 +1,6 @@
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
 #include "Parser.h"
 #include "Solution.h"
 #define EXTERNAL extern
@@ -53,6 +56,8 @@ int read_solution_raw (void)
 	std::ostringstream oss_err;
 
 	CParser parser(iss_in, oss_out, oss_err);
+	cxxSolution sol;
+	sol.read_raw(parser);
 
 	return(return_value);
 }

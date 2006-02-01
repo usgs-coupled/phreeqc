@@ -1,6 +1,9 @@
 // Parser.cpp: implementation of the CParser class.
 //
 //////////////////////////////////////////////////////////////////////
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
 
 #include "Parser.h"
 #include "Utils.h"
@@ -844,9 +847,8 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double, CHARSTAR_LESS> &t
 	double d;
 
 	m_line_iss.seekg(pos);	
-	if( !(m_line_iss >> token)) {
-		return PARSER_ERROR;
-	}
+	if (copy_token(token, pos) == TT_EMPTY) return PARSER_OK;
+
 	if( !(m_line_iss >> d)) {
 		return PARSER_ERROR;
 	}
@@ -854,18 +856,7 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double, CHARSTAR_LESS> &t
 	totals[ctoken] = d;
 	return PARSER_OK;
 }
-#ifdef SKIP
-CParser::TOKEN_TYPE CParser::copy_token(std::string& token, std::istream::pos_type& pos)
-{
-	m_line_iss.seekg(pos);	
-	// m_line_iss >> token;
-	if( !(m_line_iss >> token)) {
-		token.erase(token.begin(), token.end()); // token.clear();
-	}
-	pos = m_line_iss.tellg();
-	return token_type(token);
-}
-#endif
+
 CParser::STATUS_TYPE CParser::addPair(std::map<char *, double> &totals, std::istream::pos_type& pos)
 {
 	std::string token;
@@ -873,9 +864,8 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double> &totals, std::ist
 	double d;
 
 	m_line_iss.seekg(pos);	
-	if( !(m_line_iss >> token)) {
-		return PARSER_ERROR;
-	}
+	if (copy_token(token, pos) == TT_EMPTY) return PARSER_OK;
+
 	if( !(m_line_iss >> d)) {
 		return PARSER_ERROR;
 	}
