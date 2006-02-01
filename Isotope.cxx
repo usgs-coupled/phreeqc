@@ -16,14 +16,10 @@ cxxIsotope::cxxIsotope(struct isotope *isotope_ptr)
 {
 	isotope_number          = isotope_ptr->isotope_number;
 	elt_name                = isotope_ptr->elt_name;
+	isotope_name            = isotope_ptr->isotope_name;
 	total                   = isotope_ptr->total;
 	ratio                   = isotope_ptr->ratio;
 	ratio_uncertainty       = isotope_ptr->ratio_uncertainty;
-	master                  = isotope_ptr->master;
-	primary                 = isotope_ptr->primary;
-	// Don't think these need to be stored
-	//x_ratio_uncertainty
-	//coef
 }
 
 cxxIsotope::~cxxIsotope(void)
@@ -31,7 +27,7 @@ cxxIsotope::~cxxIsotope(void)
 }
 
 struct isotope *cxxIsotope::list2isotope(std::list <cxxIsotope> &isolist)
-	// takes a std::list of isotope structures
+	// takes a std::list of cxxIsotope structures
 	// returns array of isotope structures
 {
 	struct isotope *iso;
@@ -47,8 +43,8 @@ struct isotope *cxxIsotope::list2isotope(std::list <cxxIsotope> &isolist)
 			iso[i].total                   = it->total;
 			iso[i].ratio                   = it->ratio;
 			iso[i].ratio_uncertainty       = it->ratio_uncertainty;
-			iso[i].master                  = it->master;
-			iso[i].primary                 = it->primary;
+			iso[i].master                  = it->master();
+			iso[i].primary                 = it->primary();
 			i++;
 		}			
 	}
@@ -62,34 +58,58 @@ std::string cxxIsotope::get_name()const
 	oss << this->isotope_number << this->elt_name;
 	return oss.str();
 }
-void cxxIsotope::dump_xml(std::ostream& os, unsigned int indent)const
+
+void cxxIsotope::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
 	unsigned int i;
 
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-	os << "<isotope name=\"" << get_name() << "\" value=\"" << this->ratio << "\"";
-	#ifdef SKIP
-	if ( this->ratio_uncertainty_defined /* Utilities::isnan(this->ratio_uncertainty) */ ) {
-        os << "/>\n";
-	}
-	else {
-        os << ">\n";
+	std::string indent0(""), indent1("");
+	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
+	for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
 
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-		os << "<uncertainity_limit>" << this->ratio_uncertainty << "</uncertainity_limit>\n";
+	s_oss << indent0;
+	s_oss << "<soln_isotope=\""  << std::endl;
 
-		for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-        os << "</isotope>\n";
+	s_oss << indent1;
+	s_oss << "iso_isotope_number=\"" << this->isotope_number << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "iso_elt_name=\"" << this->elt_name << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "iso_isotope_name=\"" << this->isotope_name << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "iso_total=\"" << this->total << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "iso_ratio=\"" << this->ratio << "\"" << std::endl;
+
+	if (this->ratio_uncertainty != NAN) {
+		s_oss << indent1;
+		s_oss << "iso_ratio_uncertainty=\"" << this->ratio_uncertainty << "\"" << std::endl;
 	}
-	#endif
+	s_oss << indent0;
+	s_oss << "\">" << std::endl;
 }
+
 bool cxxIsotope::operator<(const cxxIsotope& isotope)const
 {
-        //int i = Utilities::strcmp_nocase(this->elt_name.c_str(), isotope.elt_name.c_str());
 	int i = Utilities::strcmp_nocase(this->elt_name, isotope.elt_name);
 	if (i != 0) return (i < 0);
 	return ( this->isotope_number < isotope.isotope_number );
 }
+
+struct master *cxxIsotope::master(void)
+{
+	return (master_bsearch(this->elt_name));
+}
+
+struct master *cxxIsotope::primary(void)
+{
+	return (master_bsearch_primary(this->elt_name));
+}
+
 #ifdef SKIP
 cxxIsotope::STATUS cxxIsotope::read(CParser& parser)
 {
@@ -141,4 +161,6 @@ cxxIsotope::STATUS cxxIsotope::read(CParser& parser)
 	assert(parser.get_iss().good() || parser.get_iss().eof());
 	return OK;
 }
+
+
 #endif

@@ -20,9 +20,6 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-//static std::map<int, cxxSolution> ss_map;
-//std::map<int, cxxSolution>& cxxSolution::s_map = ss_map;
-
 cxxSolution::cxxSolution()
 	//
 	// default constructor for cxxSolution 
@@ -62,21 +59,25 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
 	cb          = solution_ptr->cb;
 	mass_water  = solution_ptr->mass_water;
 	total_alkalinity     = solution_ptr->total_alkalinity;
+
 	// Totals, just save description and moles
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++) {
 		if (solution_ptr->totals[i].description == NULL) continue;
 		totals[solution_ptr->totals[i].description] = solution_ptr->totals[i].moles;
 	}
+
 	// Isotopes
 	for (i = 0; i < solution_ptr->count_isotopes; i++) {
 		cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
 		isotopes.push_back(iso);
 	}
+
 	// Master_activity
 	for (i = 0; i < solution_ptr->count_master_activity ; i++) {
 		if (solution_ptr->master_activity[i].description == NULL) continue;
 		master_activity[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
 	}
+
 	// Species_gammas
 	for (i = 0; i < solution_ptr->count_species_gamma; i++) {
 		if (solution_ptr->species_gamma[i].description == NULL) continue;
@@ -97,7 +98,7 @@ struct solution *cxxSolution::cxxSolution2solution()
 
 	struct solution *soln_ptr = solution_alloc();
 	
-	soln_ptr->description        = string_duplicate(this->description.c_str());
+	soln_ptr->description        = this->get_description();
 	soln_ptr->n_user             = this->n_user;
 	soln_ptr->n_user_end         = this->n_user_end;
 	soln_ptr->new_def            = FALSE;
@@ -155,8 +156,177 @@ struct solution *cxxSolution::cxxSolution2solution()
 
 	return(soln_ptr);
 }
+void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
+{
+	const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+	int i;
+	s_oss.precision(DBL_DIG - 1);
+	std::string indent0(""), indent1("");
+	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
+	for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
 
+	// Solution element and attributes
+	s_oss << indent0;
+	s_oss << "<solution " << std::endl;
 
+	//s_oss << indent1;
+	//s_oss << "soln_new_def=\"" << this->new_def << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_n_user=\"" << this->n_user << "\" " << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_description=\"" << this->description << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_tc=\"" << this->tc << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_ph=\"" << this->ph << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_solution_pe=\"" << this->pe << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_mu=\"" << this->mu << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_ah2o=\""	 << this->ah2o << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_total_h=\"" << this->total_h << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_total_o=\"" << this->total_o << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_cb=\"" << this->cb << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_mass_water=\"" << this->mass_water << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "soln_total_alkalinity=\"" << this->total_alkalinity << "\"" << std::endl;
+
+	s_oss << indent1;
+	s_oss << "\">" << std::endl;
+
+	// soln_total conc structures
+	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "<soln_total";
+		s_oss << " conc_desc=\"" << it->first << "\"";
+		s_oss << " conc_moles=\"" << it->second << "\"" ;
+		s_oss << "\">" << std::endl;
+	}
+
+	// master_activity map
+	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "<soln_m_a";
+		s_oss << " m_a_desc=\"" << it->first << "\"" ;
+		s_oss << " m_a_la=\"" << it->second << "\"" ;
+		s_oss << "\">" << std::endl;
+	}
+
+	// species_gamma map
+	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "<soln_s_g";
+		s_oss << " m_a_desc=\"" << it->first << "\"" ;
+		s_oss << " m_a_la=\"" << it->second << "\"" ;
+		s_oss << "\">" << std::endl;
+	}
+
+	for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
+		it->dump_xml(s_oss, indent + 1);
+	}
+
+	// End of solution
+	s_oss << indent0;
+	s_oss << "</solution>" << std::endl;
+
+	return;
+}
+
+void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
+{
+	const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+	int i;
+	s_oss.precision(DBL_DIG - 1);
+	std::string indent0(""), indent1("");
+	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
+	for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
+
+	// Solution element and attributes
+	s_oss << indent0;
+	s_oss << "SOLUTION_RAW       " << this->n_user  << " " << this->description << std::endl;
+
+	s_oss << indent1;
+	s_oss << "-temp              " << this->tc << std::endl;
+
+	s_oss << indent1;
+	s_oss << "-pH                " << this->ph << std::endl;
+
+	s_oss << indent1;
+	s_oss << "-pe                " << this->pe << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-mu                " << this->mu << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-ah2o              " << this->ah2o << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-total_h           " << this->total_h << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-total_o           " << this->total_o << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-cb                " << this->cb << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-mass_water        " << this->mass_water << std::endl;
+
+	// new identifier
+	s_oss << indent1;
+	s_oss << "-total_alkalinity  " << this->total_alkalinity << std::endl;
+
+	// soln_total conc structures
+	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "-tot   "  << it->first << "   " <<  it->second << std::endl;
+	}
+
+	// master_activity map
+	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "-act  "  << it->first << "   " << it->second << std::endl;
+	}
+
+	// species_gamma map
+	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "-gam  "  << it->first << "   " << it->second << std::endl;
+	}
+
+	for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
+		it->dump_raw(s_oss, indent + 1);
+	}
+
+	// End of solution
+	//s_oss << indent0;
+	//s_oss << "SOLUTION_RAW_END" << std::endl;
+
+	return;
+}
 
 #ifdef SKIP
 cxxSolution& cxxSolution::read(CParser& parser)
@@ -183,16 +353,12 @@ cxxSolution& cxxSolution::read(CParser& parser)
 	// Read solution number and description
 	numkey.read_number_description(parser);
 
-	// Malloc space for solution data
-	//// g_solution_map[numkey.n_user()] = numkey;
-	s_map[numkey.n_user()] = numkey;
-
 	std::istream::pos_type ptr;
 	std::istream::pos_type next_char;
 	std::string token;
 	CParser::TOKEN_TYPE j;
 	
-	cxxSolution& sol = s_map[numkey.n_user()];
+	//cxxSolution& sol = s_map[numkey.n_user()];
 	int default_pe = 0;
 
 	for (;;)
@@ -353,75 +519,8 @@ cxxSolution& cxxSolution::read(CParser& parser)
 	return sol;
 }
 #endif
-void cxxSolution::dump_xml(std::ostream& os, unsigned int indent)const
-{
-	unsigned int i;
 
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;		
-	os << "<solution>\n";
 
-	cxxNumKeyword::dump_xml(os, indent);
-
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	os << "<temp>" << this->get_tc() << "</temp>" << "\n";
-
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	os << "<pH>" << this->get_ph() << "</pH>" << "\n";
-
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	os << "<pe>" << this->get_pe() << "</pe>" << "\n";
-
-	//assert(this->pe.size() > 0);
-	//assert(this->default_pe >= 0);
-	//assert(this->pe.size() > (unsigned int) this->default_pe);
-	//this->pe[this->default_pe].dump_xml(os, indent + 1);
-
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	//os << "<units>" << this->get_units() << "</units>" << "\n";
-
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	//os << "<density>" << this->get_density() << "</density>" << "\n";
-
-	// foreach conc
-	/*
-	if (!this->totals.empty())
-	{
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-		os << "<totals>\n";
-
-		std::vector<cxxConc>::const_iterator iter = this->totals.begin();
-		for(; iter != this->totals.end(); ++iter)
-		{
-			(*iter).dump_xml(*this, os, indent + 2);
-		}
-
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-		os << "</totals>\n";
-	}
-	*/
-
-	// foreach isotope
-	if (!this->isotopes.empty())
-	{
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-		os << "<isotopes>\n";
-
-		std::list<cxxIsotope>::const_iterator iter = this->isotopes.begin();
-		for(; iter != this->isotopes.end(); ++iter)
-		{
-			(*iter).dump_xml(os, indent + 2);
-		}
-
-		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-		os << "</isotopes>\n";
-	}
-
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;		
-	os << "<water>" << this->get_mass_water() << "</water>" << "\n";
-
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;		
-	os << "</solution>" << "\n";
-}
 #include "ISolution.h"
 void test_classes(void)
 {
@@ -429,33 +528,12 @@ void test_classes(void)
 	for (i=0; i < count_solution; i++) {
 		if (solution[i]->new_def == TRUE) {
 			cxxISolution sol(solution[i]);
-			//int j;
-			//struct solution *soln_ptr, *soln_ptr1;
-			//soln_ptr = solution[i];
-			  solution[i] = (struct solution *) solution_free(solution[i]);
-			  solution[i] = sol.cxxISolution2solution();
-			//soln_ptr1 = solution[i];
-			//for (j = 0; soln_ptr->totals[j].description != NULL; j++) {
-			//	assert(soln_ptr->totals[j].description == soln_ptr1->totals[j].description);
-			//	assert(soln_ptr->totals[j].input_conc == soln_ptr1->totals[j].input_conc);
-			//}
-			//solution_free(soln_ptr);
+			solution[i] = (struct solution *) solution_free(solution[i]);
+			solution[i] = sol.cxxISolution2solution();
 		} else {
 			cxxSolution sol(solution[i]);
-			//int j;
-			//struct solution *soln_ptr, *soln_ptr1;
-			//soln_ptr = solution[i];
 			solution[i] = (struct solution *) solution_free(solution[i]);
 			solution[i] = sol.cxxSolution2solution();
-			//soln_ptr1 = solution[i];
-			//for (j = 0; soln_ptr->totals[j].description != NULL; j++) {
-			//assert(soln_ptr->totals[j].description == soln_ptr1->totals[j].description);
-			//assert(soln_ptr->totals[j].moles == soln_ptr1->totals[j].moles);
-			//}
-			//solution[i] = (struct solution *) solution_free(solution[i]);
 		}
-		//struct solution *soln_ptr;
-		//soln_ptr = solution[i];
-		//soln_ptr = solution[i];
 	}
 } 

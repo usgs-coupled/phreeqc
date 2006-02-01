@@ -29,7 +29,7 @@ public:
 
 	//STATUS_TYPE read(CParser& parser, CSolution& sol);
 
-	//void dump_xml(const cxxISolution& solution, std::ostream& os, unsigned int indent = 0)const;
+	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
 	double get_input_conc()const {return this->input_conc;}
 	void set_input_conc(double input_conc) {this->input_conc = input_conc;}

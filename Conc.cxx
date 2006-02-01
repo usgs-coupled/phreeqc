@@ -215,52 +215,19 @@ cxxConc::STATUS_TYPE cxxConc::read(CParser& parser, cxxISolution& solution)
 #endif
 
 #ifdef SKIP
-void cxxConc::dump_xml(const cxxISolution& solution, std::ostream& os, unsigned int indent)const
+void cxxConc::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
 	unsigned int i;
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-	os << "<conc>\n";
+	std::string indent0("");
+	for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
 
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	os << "<element_list>" << this->description << "</element_list>\n";
+	s_oss << indent0;
+	s_oss << "<soln_total" ;
 
-	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	os << "<concentration>" << this->input_conc << "</concentration>\n";
+	s_oss << " conc_desc=\"" << this->description << "\"" ;
 
-	//if (!this->units.empty()) {
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//os << "<units>" << this->units << "</units>\n";
-	//}
+	s_oss << " conc_moles=\"" << this->moles << "\"" ;
 
-	//if ( !this->as.empty() ) {
-	//for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//os << "<as>" << this->as << "</as>\n";
-	//}
-	//else if (this->gfw > 0.0) {
-	//	for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//	os << "<gfw>" << this->gfw << "</gfw>\n";
-	//}
-	////if (this->n_pe > 0) {
-		solution.pe[this->n_pe].dump_xml(os, indent + 1);
-	////}
-
-	//if (!this->equation_name.empty()) {
-	//	if (Utilities::strcmp_nocase_arg1(this->equation_name.c_str(), "charge") == 0)
-	//	{
-	//		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//		os << "<charge/>\n";
-	//	}
-	//	else
-	//	{
-	//		for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//		os << "<phase_name>" << this->equation_name << "</phase_name>\n";
-
-	//			for(i = 0; i < indent + 1; ++i) os << Utilities::INDENT;
-	//os << "<saturation_index>" << this->phase_si << "</saturation_index>\n";
-	//}
-	//}
-
-	for(i = 0; i < indent; ++i) os << Utilities::INDENT;
-	os << "</conc>\n";
+	s_oss << "\">" << std::endl;
 }
 #endif

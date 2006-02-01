@@ -29,9 +29,12 @@ public:
 
 	double get_ratio_uncertainty()const  { return this->ratio_uncertainty; }
 
-	//bool get_ratio_uncertainty_defined()const  { return this->ratio_uncertainty_defined; }
+	bool get_ratio_uncertainty_defined()const  { return this->ratio_uncertainty_defined; }
 
 	bool operator<(const cxxIsotope& conc)const;
+	
+	struct master *master(void);
+	struct master *primary(void);
 
 private:
 	double       isotope_number;
@@ -40,8 +43,8 @@ private:
 	double       total;
 	double       ratio;
 	double       ratio_uncertainty;
-	struct master *master;
-	struct master *primary;
-	//bool         ratio_uncertainty_defined;
+	//struct master *master;
+	//struct master *primary;
+	bool         ratio_uncertainty_defined;
 };
 #endif // ISOTOPE_H_INCLUDED

@@ -4,6 +4,10 @@
 //#include "Parser.h"
 #include <ostream>  // std::ostream
 #include <string>   // std::string
+//#define EXTERNAL extern
+//#include "global.h"
+//#include "phrqproto.h"
+extern char *string_duplicate(const char *);
 
 class cxxNumKeyword
 {
@@ -11,6 +15,10 @@ public:
 	cxxNumKeyword();
 	virtual ~cxxNumKeyword();
 
+
+	char * get_description()const { return string_duplicate(this->description.c_str()); }
+	void set_description(std::string str) { this->description = str; }
+	void set_description(char * str) { this->description = str; }
 
 	int get_n_user()const         { return this->n_user; }
 	void set_n_user(int user) { this->n_user = user; }

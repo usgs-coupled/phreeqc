@@ -25,10 +25,6 @@ public:
 
 	//static cxxSolution& read(CParser& parser);
 
-	//void add(cxxConc conc)       { this->totals.push_back(conc); }
-	//void add(cxxIsotope isotope) { this->isotopes.push_back(isotope); }
-	void add(cxxIsotope isotope) { this->isotopes.push_back(isotope); }
-
 	double get_tc()const {return this->tc;}
 	void set_tc(double tc) {this->tc = tc;}
 
@@ -56,12 +52,14 @@ public:
 	double get_total_alkalinity()const {return this->total_alkalinity;}
 	void set_total_alkalinity(double total_alkalinity) {this->pe = total_alkalinity;}
 
-	char * get_pe_reaction()const {return this->pe_reaction;}
-	void set_pe_reaction(char * pe_reaction) {this->pe_reaction = pe_reaction;}
+	//char * get_pe_reaction()const {return this->pe_reaction;}
+	//void set_pe_reaction(char * pe_reaction) {this->pe_reaction = pe_reaction;}
 
 	struct solution *cxxSolution2solution();
 
 	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+
+	void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
 protected:
 	double tc;
@@ -74,7 +72,7 @@ protected:
 	double cb;
 	double mass_water;
 	double total_alkalinity;
-	char *pe_reaction;
+	//char *pe_reaction;
 	std::map <char *, double, CHARSTAR_LESS> totals; 
 	std::list<cxxIsotope> isotopes;
 	std::map <char *, double> master_activity;
