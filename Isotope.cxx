@@ -52,6 +52,7 @@ struct isotope *cxxIsotope::list2isotope(std::list <cxxIsotope> &isolist)
 	return(iso);
 }
 
+#ifdef SKIP
 std::string cxxIsotope::get_name()const
 {
 	std::ostringstream oss;
@@ -59,6 +60,7 @@ std::string cxxIsotope::get_name()const
 	oss << this->isotope_number << this->elt_name;
 	return oss.str();
 }
+#endif
 
 void cxxIsotope::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
@@ -120,8 +122,11 @@ CParser::STATUS_TYPE cxxIsotope::read_raw(CParser& parser)
 	CParser::TOKEN_TYPE j;
 
 	// isotope_name
-	if( !(parser.get_iss() >> token)) {
-		return CParser::PARSER_ERROR;
+	j = parser.copy_token(token, next_char);
+
+	if (j == CParser::TT_EMPTY) {
+		this->isotope_name = NULL;
+		return(CParser::PARSER_OK);
 	}
 	this->isotope_name  = string_hsave(token.c_str());
 

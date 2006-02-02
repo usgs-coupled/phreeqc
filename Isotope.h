@@ -26,7 +26,10 @@ public:
 
 	CParser::STATUS_TYPE cxxIsotope::read_raw(CParser& parser);
 
-	std::string get_name()const ;
+	char * get_isotope_name()const          { return this->isotope_name;}
+	void   set_isotope_name(char * cstring) { this->isotope_name = cstring;}
+	char * get_elt_name()const              { return this->elt_name;}
+	void   set_elt_name(char * cstring)     { this->elt_name = cstring;}
 
 	double get_ratio()const              { return this->ratio; }
 

@@ -32,9 +32,10 @@ void cxxNumKeyword::dump_xml(std::ostream& os, unsigned int indent)const
 
 void cxxNumKeyword::read_number_description(CParser& parser)
 {
-	// skip keyword
 	std::string keyword;
 	std::istream::pos_type ptr;
+
+	// skip keyword
 	parser.copy_token(keyword, ptr);
 
 	std::istream::pos_type ptr1 = ptr;
@@ -44,7 +45,18 @@ void cxxNumKeyword::read_number_description(CParser& parser)
 	{
 		this->n_user = 1;
 		this->n_user_end = 1;
+	} else {
+		std::istringstream iss(token);
+		iss >> this->n_user;
+		std::string token1;
+		iss >> token1;
+		if ( (pos = token1.find_first_of("-")) != std::string::npos ) {
+			token1.replace(pos, 1, " ");
+			this->n_user_end = this->n_user;
+			//	ptr1 = ptr;
+		}
 	}
+	/*
 	else if ( (pos = token.find_first_of("-")) != std::string::npos )
 	{
 		token.replace(pos, 1, " ");
@@ -72,9 +84,9 @@ void cxxNumKeyword::read_number_description(CParser& parser)
 		this->n_user_end = this->n_user;
 		ptr1 = ptr;
 	}
-
+	*/
 	// reset get position
-	parser.get_iss().seekg(ptr1);
+	//parser.get_iss().seekg(ptr1);
 
 	// skip whitespace
 	while (::isspace(parser.get_iss().peek())) parser.get_iss().ignore();

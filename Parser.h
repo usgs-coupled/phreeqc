@@ -43,7 +43,8 @@ public:
 		KT_NONE         = -1,
 		KT_END          =  0,
 		KT_EOF          =  1,
-		KT_SOLUTION     =  4
+		KT_SOLUTION     =  4,
+		KT_SOLUTION_RAW     =  5
 	};
 
 	enum OPT_TYPE {

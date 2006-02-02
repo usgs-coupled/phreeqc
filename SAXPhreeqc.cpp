@@ -8,7 +8,8 @@
 #include <wctype.h>                        // iswspace
 
 #include <cassert>                         // assert
-#include <strstream>                       // std::ostrstream
+//#include <strstream>                       // std::ostrstream
+#include <sstream>
 #include <iostream>                        // std::cerr
 #ifdef SKIP
 #endif
@@ -45,7 +46,7 @@
 
 ///static char buffer[300000];
 ///static std::ostrstream s_oss(buffer, 300000);        // must never go out of scope
-static std::ostrstream s_oss;        // must never go out of scope
+static std::ostringstream s_oss;        // must never go out of scope
 static bool s_bSysIsOpen = false;    // must never go out of scope
 
 #include <math.h>
@@ -104,7 +105,7 @@ void SAX_StartSystem()
   assert(!s_bSysIsOpen);     // system already open and has not been closed
 
   // init stream
-  s_oss.freeze(false);
+  //s_oss.freeze(false);
   s_oss.seekp(0);
   
   // write stream
@@ -230,19 +231,20 @@ void SAX_EndSystem()
 int SAX_GetXMLLength()
 {
   assert(!s_bSysIsOpen);      // must call SAX_EndSystem first
-  return s_oss.pcount();
+  //return s_oss.pcount();
+  return s_oss.str().size();
 }
 
-char* SAX_GetXMLStr()
+const char* SAX_GetXMLStr()
 {
   assert(!s_bSysIsOpen);      // must call SAX_EndSystem first
-  return s_oss.str();
+  return s_oss.str().c_str();
 }
 
 void SAX_cleanup()
 {
    //delete s_handler;
-	s_oss.freeze(false);
+   //s_oss.freeze(false);
 } 
 
 // utility routines

@@ -233,6 +233,7 @@ bool CParser::check_key(std::string::iterator begin, std::string::iterator end)
 	if (s_keyword_map.size() == 0)
 	{
 		s_keyword_map.insert(std::map<std::string, KEY_TYPE>::value_type("solution", KT_SOLUTION));
+		s_keyword_map.insert(std::map<std::string, KEY_TYPE>::value_type("solution_raw", KT_SOLUTION_RAW));
 		s_keyword_map.insert(std::map<std::string, KEY_TYPE>::value_type("end",      KT_END));
 	}
 
@@ -846,8 +847,13 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double, CHARSTAR_LESS> &t
 	char * ctoken;
 	double d;
 
+	CParser::TOKEN_TYPE j;
+
 	m_line_iss.seekg(pos);	
-	if (copy_token(token, pos) == TT_EMPTY) return PARSER_OK;
+
+	j = copy_token(token, pos);
+
+	if (j == TT_EMPTY) return PARSER_OK;
 
 	if( !(m_line_iss >> d)) {
 		return PARSER_ERROR;
@@ -862,9 +868,13 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double> &totals, std::ist
 	std::string token;
 	char * ctoken;
 	double d;
+	CParser::TOKEN_TYPE j;
 
 	m_line_iss.seekg(pos);	
-	if (copy_token(token, pos) == TT_EMPTY) return PARSER_OK;
+
+	j = copy_token(token, pos);
+
+	if (j == TT_EMPTY) return PARSER_OK;
 
 	if( !(m_line_iss >> d)) {
 		return PARSER_ERROR;

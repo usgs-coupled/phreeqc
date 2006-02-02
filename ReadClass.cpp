@@ -29,10 +29,7 @@ int read_solution_raw (void)
  *         ERROR   if error occurred reading data
  *
  */
-	char *ptr, *ptr1;
-	int l, title_x_length, line_length;
 	int return_value;
-	char token[MAX_LENGTH];
 	/*
 	 *  Accumulate lines in std string
 	 */

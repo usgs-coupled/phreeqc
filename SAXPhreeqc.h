@@ -9,7 +9,7 @@ void  SAX_StartSystem    ();
 int   SAX_AddSolution    (struct solution* solution_ptr);
 void  SAX_EndSystem      ();
 int   SAX_GetXMLLength   ();
-char* SAX_GetXMLStr      ();
+const char* SAX_GetXMLStr      ();
 int   SAX_UnpackSolutions(void* pvBuffer, int buf_size);
 
 
