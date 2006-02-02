@@ -48,11 +48,13 @@ void cxxNumKeyword::read_number_description(CParser& parser)
 	} else {
 		std::istringstream iss(token);
 		iss >> this->n_user;
+		this->n_user_end = this->n_user;
 		std::string token1;
 		iss >> token1;
 		if ( (pos = token1.find_first_of("-")) != std::string::npos ) {
 			token1.replace(pos, 1, " ");
-			this->n_user_end = this->n_user;
+			std::istringstream iss1(token1);
+			iss1 >> this->n_user_end;
 			//	ptr1 = ptr;
 		}
 	}

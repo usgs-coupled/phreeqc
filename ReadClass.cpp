@@ -53,8 +53,31 @@ int read_solution_raw (void)
 	std::ostringstream oss_err;
 
 	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+
 	cxxSolution sol;
 	sol.read_raw(parser);
+	struct solution *soln_ptr = sol.cxxSolution2solution();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (solution_bsearch(soln_ptr->n_user, &n, FALSE) != NULL) {
+		solution_free(solution[n]);
+	} else {
+		n=count_solution++;
+		if (count_solution >= max_solution) {
+			space ((void **) ((void *) &(solution)), count_solution, &max_solution, sizeof (struct solution *) );
+		}
+	}
+	solution[n] = soln_ptr;
+
 
 	return(return_value);
 }

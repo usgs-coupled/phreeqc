@@ -524,6 +524,7 @@ struct use {
 	int advect_in;
 };
 EXTERNAL struct use use;
+EXTERNAL struct use *dbg_use;
 /*----------------------------------------------------------------------
  *   Copy
  *---------------------------------------------------------------------- */
@@ -866,6 +867,7 @@ struct isotope {
 	LDBLE coef;                    /* coefficient of element in phase */
 };
 EXTERNAL struct solution **solution;
+EXTERNAL struct solution **dbg_solution;
 EXTERNAL int count_solution;
 EXTERNAL int max_solution;
 struct iso {

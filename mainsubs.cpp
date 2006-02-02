@@ -532,7 +532,11 @@ void initialize(void)
 	 *  Pitzer
 	 */
 	pitzer_init();
-
+	/*
+	 * to facilitate debuging
+	 */
+	dbg_use = &use;
+	dbg_solution = solution;
 	return;
 }
 /* ---------------------------------------------------------------------- */
