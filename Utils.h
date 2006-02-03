@@ -23,6 +23,9 @@ namespace Utilities {
 	bool replace(const char* str1, const char* str2, std::string& str);
 
 	void squeeze_white(std::string& s_l);
+
+	void error_msg(const std::string&, const int stopflag);
+
 }
 
 #endif // UTILITIES_H_INCLUDED

@@ -40,11 +40,7 @@ cxxSolution::cxxSolution(struct solution *solution_ptr)
         //
         // constructor for cxxSolution from struct solution
         //
-: 
-cxxNumKeyword(),
-totals(solution_ptr->totals),
-master_activity(solution_ptr->master_activity, solution_ptr->count_master_activity, cxxNameDouble::ND_SPECIES_LA),
-species_gamma(solution_ptr->species_gamma, solution_ptr->count_species_gamma, cxxNameDouble::ND_SPECIES_GAMMA)
+: cxxNumKeyword()
 {
         int i;
 
@@ -62,16 +58,30 @@ species_gamma(solution_ptr->species_gamma, solution_ptr->count_species_gamma, cx
         mass_water  = solution_ptr->mass_water;
         total_alkalinity     = solution_ptr->total_alkalinity;
 
-        // Totals filled in constructor, just save description and moles 
+        // Totals, just save description and moles
+        for (i = 0; solution_ptr->totals[i].description != NULL; i++) {
+                if (solution_ptr->totals[i].description == NULL) continue;
+                totals[solution_ptr->totals[i].description] = solution_ptr->totals[i].moles;
+        }
 
         // Isotopes
         for (i = 0; i < solution_ptr->count_isotopes; i++) {
+                //cxxIsotope iso = cxxIsotope(&solution_ptr->isotopes[i]);
                 cxxIsotope iso(&solution_ptr->isotopes[i]);
                 isotopes.push_back(iso);
         }
 
-        // Master_activity in constructor
-        // Species_gamma in constructor
+        // Master_activity
+        for (i = 0; i < solution_ptr->count_master_activity ; i++) {
+                if (solution_ptr->master_activity[i].description == NULL) continue;
+                master_activity[solution_ptr->master_activity[i].description] = solution_ptr->master_activity[i].la;
+        }
+
+        // Species_gammas
+        for (i = 0; i < solution_ptr->count_species_gamma; i++) {
+                if (solution_ptr->species_gamma[i].description == NULL) continue;
+                species_gamma[solution_ptr->species_gamma[i].description] = solution_ptr->species_gamma[i].la;
+        }
 }
 
 cxxSolution::~cxxSolution()
@@ -85,65 +95,65 @@ struct solution *cxxSolution::cxxSolution2solution()
 {
         int i;
 
-        struct solution *solution_ptr = solution_alloc();
+        struct solution *soln_ptr = solution_alloc();
         
-        solution_ptr->description        = this->get_description();
-        solution_ptr->n_user             = this->n_user;
-        solution_ptr->n_user_end         = this->n_user_end;
-        solution_ptr->new_def            = FALSE;
-        solution_ptr->tc                 = this->tc;
-        solution_ptr->ph                 = this->ph;
-        solution_ptr->solution_pe        = this->pe;
-        solution_ptr->mu                 = this->mu;
-        solution_ptr->ah2o               = this->ah2o;
-        solution_ptr->total_h            = this->total_h;
-        solution_ptr->total_o            = this->total_o;
-        solution_ptr->cb                 = this->cb;
-        solution_ptr->mass_water         = this->mass_water;
-        solution_ptr->total_alkalinity   = this->total_alkalinity;
-        solution_ptr->density            = 1.0;
-        solution_ptr->units              = moles_per_kilogram_string;
-        solution_ptr->default_pe         = 0;
+        soln_ptr->description        = this->get_description();
+        soln_ptr->n_user             = this->n_user;
+        soln_ptr->n_user_end         = this->n_user_end;
+        soln_ptr->new_def            = FALSE;
+        soln_ptr->tc                 = this->tc;
+        soln_ptr->ph                 = this->ph;
+        soln_ptr->solution_pe        = this->pe;
+        soln_ptr->mu                 = this->mu;
+        soln_ptr->ah2o               = this->ah2o;
+        soln_ptr->total_h            = this->total_h;
+        soln_ptr->total_o            = this->total_o;
+        soln_ptr->cb                 = this->cb;
+        soln_ptr->mass_water         = this->mass_water;
+        soln_ptr->total_alkalinity   = this->total_alkalinity;
+        soln_ptr->density            = 1.0;
+        soln_ptr->units              = moles_per_kilogram_string;
+        soln_ptr->default_pe         = 0;
         // pe_data
 
         // totals
-        solution_ptr->totals = (struct conc *) free_check_null(solution_ptr->totals);
-        //solution_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
-        solution_ptr->totals = cxxConc::concarray(this->totals);
+        soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
+        //soln_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
+        soln_ptr->totals = cxxConc::concarray(this->totals);
 
         // master_activity
-        solution_ptr->master_activity = (struct master_activity *) PHRQ_realloc(solution_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
-        if (solution_ptr->master_activity == NULL) malloc_error();
+        soln_ptr->master_activity = (struct master_activity *) PHRQ_realloc(soln_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
+        if (soln_ptr->master_activity == NULL) malloc_error();
         i = 0;
         for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); it++) {
-                solution_ptr->master_activity[i].description = (char *)it->first;
-                solution_ptr->master_activity[i].la = it->second;
+                soln_ptr->master_activity[i].description = (char *)it->first;
+                soln_ptr->master_activity[i].la = it->second;
                 i++;
         }
-        solution_ptr->master_activity[i].description = NULL;
-        solution_ptr->count_master_activity = this->master_activity.size() + 1;
+        soln_ptr->master_activity[i].description = NULL;
+        soln_ptr->count_master_activity = this->master_activity.size() + 1;
 
         // species_gamma
         if (species_gamma.size() >= 0) {
-                solution_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size()) * sizeof(struct master_activity)));
+                soln_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size()) * sizeof(struct master_activity)));
                 int i = 0;
-                if (solution_ptr->species_gamma == NULL) malloc_error();
+                if (soln_ptr->species_gamma == NULL) malloc_error();
                 for (std::map <char *, double>::iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-                        solution_ptr->species_gamma[i].description = (char *)it->first;
-                        solution_ptr->species_gamma[i].la = it->second;
+                        soln_ptr->species_gamma[i].description = (char *)it->first;
+                        soln_ptr->species_gamma[i].la = it->second;
                         i++;
                 }
-                solution_ptr->count_species_gamma = this->species_gamma.size();
+                soln_ptr->count_species_gamma = this->species_gamma.size();
         } else {
-                solution_ptr->species_gamma = NULL;
-                solution_ptr->count_species_gamma = 0;
+                soln_ptr->species_gamma = NULL;
+                soln_ptr->count_species_gamma = 0;
         }
         // isotopes
-        solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
-        solution_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
-        solution_ptr->count_isotopes = this->isotopes.size();
+        soln_ptr->isotopes = (struct isotope *) free_check_null(soln_ptr->isotopes);
+        soln_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
+        soln_ptr->count_isotopes = this->isotopes.size();
 
-        return(solution_ptr);
+        return(soln_ptr);
 }
 void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {

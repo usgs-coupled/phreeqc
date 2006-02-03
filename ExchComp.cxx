@@ -1,4 +1,4 @@
-// Solution.cxx: implementation of the cxxSolution class.
+// Solution.cxx: implementation of the cxxExchComp class.
 //
 //////////////////////////////////////////////////////////////////////
 #ifdef _DEBUG
@@ -6,7 +6,7 @@
 #endif
 
 #include "Utils.h"   // define first
-#include "Solution.h"
+#include "ExchComp.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -18,145 +18,105 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-cxxSolution::cxxSolution()
+cxxExchComp::cxxExchComp()
         //
-        // default constructor for cxxSolution 
+        // default constructor for cxxExchComp 
         //
-: cxxNumKeyword()
 {
-        tc          = 25.0;
-        ph          = 7.0;
-        pe          = 4.0;
-        mu          = 1e-7;
-        ah2o        = 1.0;
-        total_h     = 111.1;
-        total_o     = 55.55;
-        cb          = 0.0;
-        mass_water  = 1.0;
-        total_alkalinity = 0.0;
+        moles                   = 0.0;
+        la                      = 0.0;
+        charge_balance          = 0.0;
+        phase_name              = NULL;
+        phase_proportion        = 0.0;
+	rate_name               = NULL;
 }
 
-cxxSolution::cxxSolution(struct solution *solution_ptr)
+cxxExchComp::cxxExchComp(struct exch_comp *exch_comp_ptr)
         //
-        // constructor for cxxSolution from struct solution
+        // constructor for cxxExchComp from struct exch_comp
         //
 : 
-cxxNumKeyword(),
-totals(solution_ptr->totals),
-master_activity(solution_ptr->master_activity, solution_ptr->count_master_activity, cxxNameDouble::ND_SPECIES_LA),
-species_gamma(solution_ptr->species_gamma, solution_ptr->count_species_gamma, cxxNameDouble::ND_SPECIES_GAMMA)
+formula_totals(exch_comp_ptr->totals),
+totals(exch_comp_ptr->totals)
 {
-        int i;
-
-        description = solution_ptr->description;
-        n_user      = solution_ptr->n_user;
-        n_user_end  = solution_ptr->n_user_end;
-        tc          = solution_ptr->tc;
-        ph          = solution_ptr->ph;
-        pe          = solution_ptr->solution_pe;
-        mu          = solution_ptr->mu;
-        ah2o        = solution_ptr->ah2o;
-        total_h     = solution_ptr->total_h;
-        total_o     = solution_ptr->total_o;
-        cb          = solution_ptr->cb;
-        mass_water  = solution_ptr->mass_water;
-        total_alkalinity     = solution_ptr->total_alkalinity;
-
-        // Totals filled in constructor, just save description and moles 
-
-        // Isotopes
-        for (i = 0; i < solution_ptr->count_isotopes; i++) {
-                cxxIsotope iso(&solution_ptr->isotopes[i]);
-                isotopes.push_back(iso);
-        }
-
-        // Master_activity in constructor
-        // Species_gamma in constructor
+	formula                  = exch_comp_ptr->formula;
+	formula_z                = exch_comp_ptr->formula_z;
+	moles                    = exch_comp_ptr->moles;
+        // totals in constructor
+	//formula_totals in constructor
+	la                       = exch_comp_ptr->la;
+	charge_balance           = exch_comp_ptr->charge_balance;
+	phase_name               = exch_comp_ptr->phase_name;
+	phase_proportion         = exch_comp_ptr->phase_proportion;
+	rate_name                = exch_comp_ptr->rate_name;
 }
 
-cxxSolution::~cxxSolution()
+cxxExchComp::~cxxExchComp()
 {
 }
 
-struct solution *cxxSolution::cxxSolution2solution()
+struct master *cxxExchComp::get_master()
+{	
+	struct master *master_ptr = NULL;
+	for (std::map <char *, double, CHARSTAR_LESS>::iterator it = totals.begin(); it != totals.end(); it++) {
+
+		/* Find master species */
+		char *eltName = it->first;
+		struct element *elt_ptr = element_store(eltName);
+		if (elt_ptr->master == NULL) {
+                        std::ostringstream error_oss;
+			error_oss << "Master species not in data base for " << elt_ptr->name << std::endl;
+			Utilities::error_msg(error_oss.str(), CONTINUE);
+		}
+		if (elt_ptr->master->type != EX) continue;
+		master_ptr = elt_ptr->master;
+		break;
+	}
+	if (master_ptr == NULL) {
+		std::ostringstream error_oss;
+		error_oss << "Exchange formula does not contain an exchange master species, " << this->formula << std::endl;
+		Utilities::error_msg(error_oss.str(), CONTINUE);
+	}
+	return(master_ptr);
+}
+
+struct exch_comp *cxxExchComp::cxxExchComp2exch_comp()
         //
-        // Builds a solution structure from instance of cxxSolution 
+        // Builds a exch_comp structure from instance of cxxExchComp 
         //
 {
-        int i;
+	struct exch_comp *exch_comp_ptr = (struct exch_comp *) PHRQ_malloc((size_t) (this->totals.size() * sizeof(struct exch_comp)));
+	if (exch_comp_ptr == NULL) malloc_error();
 
-        struct solution *solution_ptr = solution_alloc();
-        
-        solution_ptr->description        = this->get_description();
-        solution_ptr->n_user             = this->n_user;
-        solution_ptr->n_user_end         = this->n_user_end;
-        solution_ptr->new_def            = FALSE;
-        solution_ptr->tc                 = this->tc;
-        solution_ptr->ph                 = this->ph;
-        solution_ptr->solution_pe        = this->pe;
-        solution_ptr->mu                 = this->mu;
-        solution_ptr->ah2o               = this->ah2o;
-        solution_ptr->total_h            = this->total_h;
-        solution_ptr->total_o            = this->total_o;
-        solution_ptr->cb                 = this->cb;
-        solution_ptr->mass_water         = this->mass_water;
-        solution_ptr->total_alkalinity   = this->total_alkalinity;
-        solution_ptr->density            = 1.0;
-        solution_ptr->units              = moles_per_kilogram_string;
-        solution_ptr->default_pe         = 0;
-        // pe_data
-
-        // totals
-        solution_ptr->totals = (struct conc *) free_check_null(solution_ptr->totals);
-        //solution_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
-        solution_ptr->totals = cxxConc::concarray(this->totals);
-
-        // master_activity
-        solution_ptr->master_activity = (struct master_activity *) PHRQ_realloc(solution_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
-        if (solution_ptr->master_activity == NULL) malloc_error();
-        i = 0;
-        for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); it++) {
-                solution_ptr->master_activity[i].description = (char *)it->first;
-                solution_ptr->master_activity[i].la = it->second;
-                i++;
-        }
-        solution_ptr->master_activity[i].description = NULL;
-        solution_ptr->count_master_activity = this->master_activity.size() + 1;
-
-        // species_gamma
-        if (species_gamma.size() >= 0) {
-                solution_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size()) * sizeof(struct master_activity)));
-                int i = 0;
-                if (solution_ptr->species_gamma == NULL) malloc_error();
-                for (std::map <char *, double>::iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-                        solution_ptr->species_gamma[i].description = (char *)it->first;
-                        solution_ptr->species_gamma[i].la = it->second;
-                        i++;
-                }
-                solution_ptr->count_species_gamma = this->species_gamma.size();
-        } else {
-                solution_ptr->species_gamma = NULL;
-                solution_ptr->count_species_gamma = 0;
-        }
-        // isotopes
-        solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
-        solution_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
-        solution_ptr->count_isotopes = this->isotopes.size();
-
-        return(solution_ptr);
+	int i = 0;
+	for (std::map <char *, double, CHARSTAR_LESS>::iterator it = this->totals.begin(); it != totals.end(); ++it) {
+		exch_comp_ptr->formula		        =  formula;
+		exch_comp_ptr->formula_z		=  formula_z;
+		exch_comp_ptr->formula_totals           =  formula_totals.exch_comp();
+		exch_comp_ptr->moles			=  moles;
+		exch_comp_ptr->totals                   =  formula_totals.exch_comp();
+		exch_comp_ptr->la			=  la;
+		exch_comp_ptr->charge_balance		=  charge_balance;
+		exch_comp_ptr->phase_name		=  phase_name;
+		exch_comp_ptr->phase_proportion		=  phase_proportion;
+		exch_comp_ptr->rate_name            	=  rate_name;
+		i++;
+	}
+        return(exch_comp_ptr);
 }
-void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
+#ifdef SKIP
+void cxxExchComp::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
-        //const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+        //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
         unsigned int i;
         s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
 
-        // Solution element and attributes
+        // Exch_Comp element and attributes
         s_oss << indent0;
-        s_oss << "<solution " << std::endl;
+        s_oss << "<exch_comp " << std::endl;
 
         //s_oss << indent1;
         //s_oss << "soln_new_def=\"" << this->new_def << "\"" << std::endl;
@@ -174,7 +134,7 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
         s_oss << "soln_ph=\"" << this->ph << "\"" << std::endl;
 
         s_oss << indent1;
-        s_oss << "soln_solution_pe=\"" << this->pe << "\"" << std::endl;
+        s_oss << "soln_exch_comp_pe=\"" << this->pe << "\"" << std::endl;
 
         s_oss << indent1;
         s_oss << "soln_mu=\"" << this->mu << "\"" << std::endl;
@@ -235,16 +195,17 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
                 it->dump_xml(s_oss, indent + 1);
         }
 
-        // End of solution
+        // End of exch_comp
         s_oss << indent0;
-        s_oss << "</solution>" << std::endl;
+        s_oss << "</exch_comp>" << std::endl;
 
         return;
 }
-
-void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
+#endif
+#ifdef SKIP
+void cxxExchComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
-        //const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
+        //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
         unsigned int i;
 	s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
@@ -252,9 +213,9 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
         for(i = 0; i < indent + 2; ++i) indent2.append(Utilities::INDENT);
 
-        // Solution element and attributes
+        // Exch_Comp element and attributes
         s_oss << indent0;
-        s_oss << "SOLUTION_RAW       " << this->n_user  << " " << this->description << std::endl;
+        s_oss << "EXCH_COMP_RAW       " << this->n_user  << " " << this->description << std::endl;
 
         s_oss << indent1;
         s_oss << "-temp              " << this->tc << std::endl;
@@ -334,8 +295,9 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
 
         return;
 }
-
-void cxxSolution::read_raw(CParser& parser)
+#endif
+#ifdef SKIP
+void cxxExchComp::read_raw(CParser& parser)
 {
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
@@ -368,7 +330,7 @@ void cxxSolution::read_raw(CParser& parser)
         std::string token;
         int opt_save;
 
-        // Read solution number and description
+        // Read exch_comp number and description
         this->read_number_description(parser);
 
         opt_save = CParser::OPT_ERROR;
@@ -400,7 +362,7 @@ void cxxSolution::read_raw(CParser& parser)
                 case CParser::OPT_DEFAULT:
                 case CParser::OPT_ERROR:
                         opt = CParser::OPT_EOF;
-                        parser.error_msg("Unknown input in SOLUTION_RAW keyword.", CParser::OT_CONTINUE);
+                        parser.error_msg("Unknown input in EXCH_COMP_RAW keyword.", CParser::OT_CONTINUE);
                         parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
                         break;
 
@@ -556,49 +518,49 @@ void cxxSolution::read_raw(CParser& parser)
 	// all members must be defined
         if (tc_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Temp not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (ph_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("pH not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("pH not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (pe_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("pe not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("pe not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (mu_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Ionic strength not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Ionic strength not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (ah2o_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Activity of water not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Activity of water not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (total_h_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Total hydrogen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Total hydrogen not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (total_o_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Total oxygen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Total oxygen not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (cb_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Charge balance not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Charge balance not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (mass_water_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Temp not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
 	if (total_alkalinity_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Total alkalinity not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Total alkalinity not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
 	}
         return;
 }
-
+#endif
 #ifdef SKIP
-cxxSolution& cxxSolution::read(CParser& parser)
+cxxExchComp& cxxExchComp::read(CParser& parser)
 {
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
@@ -617,9 +579,9 @@ cxxSolution& cxxSolution::read(CParser& parser)
         }
         // const int count_opt_list = vopts.size();
 
-        cxxSolution numkey;
+        cxxExchComp numkey;
 
-        // Read solution number and description
+        // Read exch_comp number and description
         numkey.read_number_description(parser);
 
         std::istream::pos_type ptr;
@@ -627,7 +589,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
         std::string token;
         CParser::TOKEN_TYPE j;
         
-        //cxxSolution& sol = s_map[numkey.n_user()];
+        //cxxExchComp& sol = s_map[numkey.n_user()];
         int default_pe = 0;
 
         for (;;)
@@ -649,7 +611,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
                         break;
                 case CParser::OPTION_ERROR:
                         opt = CParser::OPTION_EOF;
-                        parser.error_msg("Unknown input in SOLUTION keyword.", CParser::OT_CONTINUE);
+                        parser.error_msg("Unknown input in EXCH_COMP keyword.", CParser::OT_CONTINUE);
                         parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
                         break;
 
@@ -708,7 +670,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
                                         parser.incr_input_error();
                                         break;
                                 }
-                                sol.solution_pe = conc.get_input_conc();
+                                sol.exch_comp_pe = conc.get_input_conc();
                                 if (conc.get_equation_name().empty()) {
                                         break;
                                 }
@@ -732,7 +694,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
                                 sol.mass_water = 1.0;
                         } else if (j != CParser::TT_DIGIT) {
                                 parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for mass of water in solution.", CParser::OT_CONTINUE);
+                                parser.error_msg("Expected numeric value for mass of water in exch_comp.", CParser::OT_CONTINUE);
                         } else {
                                 std::istringstream(token) >> sol.mass_water;
                         }
@@ -789,48 +751,3 @@ cxxSolution& cxxSolution::read(CParser& parser)
 }
 #endif
 
-
-#include "ISolution.h"
-#include <iostream>     // std::cout std::cerr
-//#include <strstream>
-#include <sstream>
-#include <fstream>
-void test_classes(void)
-{
-        int i;
-        for (i=0; i < count_solution; i++) {
-                if (solution[i]->new_def == TRUE) {
-                        cxxISolution sol(solution[i]);
-                        solution[i] = (struct solution *) solution_free(solution[i]);
-                        solution[i] = sol.cxxISolution2solution();
-                        struct solution *soln_ptr;
-			soln_ptr = solution[i];
-			soln_ptr = solution[i];
-                } else {
-                        std::ostringstream oss;
-                        cxxSolution sol(solution[i]);
-                        solution[i] = (struct solution *) solution_free(solution[i]);
-                        sol.dump_raw(oss, 0);
-
-                        //std::fstream myfile("t");
-                        //CParser cparser(myfile, std::cout, std::cerr);
-                        cxxSolution sol1;
-                        std::string keyInput = oss.str();
-                        std::istringstream iss(keyInput);
-
-                        CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
-
-
-                        sol1.read_raw(cparser);
-
-                        solution[i] = sol1.cxxSolution2solution();
-                        struct solution *soln_ptr;
-			soln_ptr = solution[i];
-			soln_ptr = solution[i];
-                }
-        }
-} 

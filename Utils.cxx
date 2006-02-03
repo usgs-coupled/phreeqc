@@ -1,6 +1,7 @@
 #include <stdlib.h>  // ::tolower
 #include <ctype.h>   // ::tolower
 #include <algorithm> //std::transform
+#include <iostream>     // std::cout std::cerr
 
 #include "Utils.h"
 #include "Parser.h"
@@ -63,5 +64,13 @@ void Utilities::squeeze_white(std::string& s_l)
 	std::string::iterator end = s_l.end();
 	CParser::copy_token(str, beg, end);
 	s_l = str;
+}
+
+////////////////////////////////////////////////////////////////////////////
+void Utilities::error_msg (const std::string& err_str, const int stop)
+////////////////////////////////////////////////////////////////////////////
+{
+	std::cerr << err_str << std::endl;
+	//output_message(OUTPUT_ERROR, err_str, stop, "", args);
 }
 
