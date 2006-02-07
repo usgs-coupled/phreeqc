@@ -85,6 +85,7 @@ CParser::LINE_TYPE CParser::check_line(const std::string& str, bool allow_empty,
 		error_msg(msg, OT_CONTINUE);
 		incr_input_error();
 	}
+	m_line_type = i;
 	return i;
 }
 
@@ -882,4 +883,188 @@ CParser::STATUS_TYPE CParser::addPair(std::map<char *, double> &totals, std::ist
 	ctoken = string_hsave(token.c_str());
 	totals[ctoken] = d;
 	return PARSER_OK;
+}
+int CParser::getOptionFromLastLine(const std::vector<std::string>& opt_list, std::string::iterator& next_char)
+{
+	//
+	// Read a line and check for options
+	//
+	int j;	
+	int /*  opt_l,  */ opt;
+	//char *opt_ptr;
+	std::string::iterator opt_ptr;
+
+	// char option[MAX_LENGTH];
+	std::string option;
+
+	//
+	// Read line
+	//
+	LINE_TYPE lt = m_line_type;
+	if (lt == LT_EOF)
+	{
+		j = OPT_EOF;
+	}
+	else if (lt == LT_KEYWORD)
+	{
+		j = OPT_KEYWORD;
+	}
+	else if (lt == LT_OPTION)
+	{
+		opt_ptr = m_line.begin();
+		std::string::iterator end = m_line.end();
+		copy_token(option, opt_ptr, end);
+		if (find_option(option, &opt, opt_list, false) == CParser::FT_OK)
+		{
+			j = opt;
+			m_line_save.replace(m_line_save.find(option), option.size(), opt_list[opt]);
+			m_line.replace(m_line.find(option), option.size(), opt_list[opt]);
+			opt_ptr = m_line.begin();
+			std::string::iterator end = m_line.end();
+			copy_token(option, opt_ptr, end);
+			next_char = opt_ptr;
+			if (true) // pr.echo_input == TRUE
+			{
+				if (true) // database_file == NULL
+				{
+					get_output() << "\t" << m_line_save  << "\n";
+				}
+			}
+		}
+		else
+		{
+			if (true) // (database_file == NULL)
+			{
+				get_output() << "\t" << m_line_save  << "\n";
+			}
+			//////std::istringstream err_msg;
+			//////err_msg << "Unknown option.";
+			//////err_msg << line_save;
+			//////error_msg(const std::string& msg, ONERROR_TYPE);
+
+			// error_msg("Unknown option.", CONTINUE);
+			// error_msg(line_save, CONTINUE);
+			// input_error++;
+			std::cerr << "Unknown option." << "\n";
+			std::cerr << m_line_save << "\n";
+
+			j = OPT_ERROR;
+			next_char = m_line.begin();
+		}
+	}
+	else
+	{
+		opt_ptr = m_line.begin();
+		std::string::iterator end = m_line.end();
+		copy_token(option, opt_ptr, end);
+		if (find_option(option, &opt, opt_list, true) == FT_OK)
+		{
+			j = opt;
+			next_char = opt_ptr;
+		}
+		else
+		{
+			j = OPT_DEFAULT;
+			next_char = m_line.begin();
+		}
+		if (true) // pr.echo_input == TRUE
+		{
+			if (true) // database_file == NULL
+			{
+				std::cout << "\t" << m_line_save  << "\n";
+			}
+		}
+	}
+	return (j);
+}
+int CParser::getOptionFromLastLine(const std::vector<std::string>& opt_list, std::istream::pos_type& next_pos)
+{
+	//
+	// Read a line and check for options
+	//
+	int j;	
+	int opt;
+	std::istream::pos_type pos_ptr;
+	std::string option;
+
+	//
+	// Read line
+	//
+	//LINE_TYPE lt = check_line("get_option", false, true, true, false);
+	LINE_TYPE lt = m_line_type;
+	if (lt == LT_EOF)
+	{
+		j = OPT_EOF;
+	}
+	else if (lt == LT_KEYWORD)
+	{
+		j = OPT_KEYWORD;
+	}
+	else if (lt == LT_OPTION)
+	{
+		std::string::iterator opt_ptr = m_line.begin();
+		std::string::iterator end = m_line.end();
+		copy_token(option, opt_ptr, end);
+		if (find_option(option.substr(1), &opt, opt_list, false) == FT_OK)
+		{
+			// replace -option with option
+			j = opt;
+			m_line_save.replace(m_line_save.find(option), option.size(), opt_list[opt]);
+			m_line.replace(m_line.find(option), option.size(), opt_list[opt]);
+
+			// reset iss
+			m_line_iss.str(m_line);
+			m_line_iss.seekg(0, std::ios_base::beg);
+			m_line_iss.clear();
+
+			pos_ptr = 0;
+			copy_token(option, pos_ptr);
+			next_pos = pos_ptr;
+			//{{
+			////  m_line_iss.clear();
+			//}}
+			if (true) // pr.echo_input == TRUE
+			{
+				if (true) // database_file == NULL
+				{
+					get_output() << "\t" << m_line_save << "\n";
+				}
+			}
+		}
+		else
+		{
+			if (true) // (database_file == NULL)
+			{
+				get_output() << "\t" << m_line_save << "\n";
+			}
+			error_msg("Unknown option.", OT_CONTINUE);
+			error_msg(m_line_save.c_str(), OT_CONTINUE);
+			incr_input_error();
+			j = OPT_ERROR;
+			next_pos = pos_ptr;
+		}
+	}
+	else
+	{
+		pos_ptr = 0;
+		copy_token(option, pos_ptr);
+		if (find_option(option, &opt, opt_list, true) == FT_OK)
+		{
+			j = opt;
+			next_pos = pos_ptr;
+		}
+		else
+		{
+			j = OPT_DEFAULT;
+			next_pos = 0;
+		}
+		if (true) // pr.echo_input == TRUE
+		{
+			if (true) // database_file == NULL
+			{
+				get_output() << "\t" << m_line_save  << "\n";
+			}
+		}
+	}
+	return (j);
 }

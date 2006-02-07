@@ -111,6 +111,8 @@ public:
 	KEY_TYPE next_keyword()const { return m_next_keyword; }
 	int get_option(const std::vector<std::string>& opt_list, std::string::iterator& next_char);
 	int get_option(const std::vector<std::string>& opt_list, std::istream::pos_type& next_pos);
+	int getOptionFromLastLine(const std::vector<std::string>& opt_list, std::string::iterator& next_char);
+	int getOptionFromLastLine(const std::vector<std::string>& opt_list, std::istream::pos_type& next_pos);
 
 
 	std::string& line()            {return m_line;}
@@ -197,6 +199,7 @@ private:
 	std::string          m_line;
 	std::string          m_line_save;
 	std::istringstream   m_line_iss;
+	LINE_TYPE            m_line_type;
 };
 
 #endif // PARSER_H_INCLUDED

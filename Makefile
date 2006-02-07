@@ -98,6 +98,7 @@ OBJECTS=	main.o \
 		pitzer_structures.o \
 
 CLASS_OBJECTS=  Conc.o \
+		Exchange.o \
 		ExchComp.o \
 		ISolution.o \
 		Isotope.o \
@@ -273,6 +274,7 @@ utilities.o: $(SRC)/utilities.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqal
 Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/ISolution.h \
 	$(SRC)/NumKeyword.h $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/global.h \
 	$(SRC)/phrqtype.h $(SRC)/phrqproto.h $(SRC)/phqalloc.h
+Exchange.o: $(SRC)/Exchange.cxx $(SRC)/Exchange.h
 ExchComp.o: $(SRC)/ExchComp.cxx $(SRC)/ExchComp.h
 ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h $(SRC)/NumKeyword.h $(SRC)/Solution.h \
 	$(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h \

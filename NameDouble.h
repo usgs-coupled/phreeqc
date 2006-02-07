@@ -27,9 +27,13 @@ public:
         cxxNameDouble(struct master_activity *ma, int count, cxxNameDouble::ND_TYPE);
 	~cxxNameDouble();
 
-	struct elt_list *exch_comp();
+	struct elt_list *elt_list();
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+	struct master_activity *master_activity()const;
+
+	struct conc *conc()const;
+
+	void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const;
 
 	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 

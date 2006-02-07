@@ -16,6 +16,10 @@ class cxxExchComp
 {
 
 public:
+	enum EXCHANGE_CONSTRUCTOR {
+		MAKE_LIST        = 1
+	};
+
 	cxxExchComp();
 	cxxExchComp(struct exch_comp *);
 	~cxxExchComp();
@@ -23,7 +27,7 @@ public:
 
 	struct master *get_master();
 
-	struct exch_comp *cxxExchComp2exch_comp();
+	static struct exch_comp *cxxExchComp2exch_comp(std::list<cxxExchComp>& el);
 
 	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
@@ -31,15 +35,11 @@ public:
 
 	void read_raw(CParser& parser);
 
-
 protected:
  	char * formula;
 	char * exchange_name;                     // 
  	double moles;
-	// map from element name to number of moles in formula
-	//std::map <char *, double, CHARSTAR_LESS> formula_totals; 
 	cxxNameDouble formula_totals;
-	// map from element name to number of moles in exchange component
 	cxxNameDouble totals; 
 	double la;
 	double charge_balance;

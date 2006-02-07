@@ -43,7 +43,7 @@ cxxConc::cxxConc(struct conc *conc_ptr)
 cxxConc::~cxxConc(void)
 {
 }
-
+/*
 struct conc *cxxConc::concarray(std::map <char *, double, CHARSTAR_LESS> &totals)
 	// for Solutions, not ISolutions
 	// takes a map of (elt name, moles)
@@ -70,8 +70,8 @@ struct conc *cxxConc::concarray(std::map <char *, double, CHARSTAR_LESS> &totals
 	c[i].description = NULL;
 	return(c);
 }
-
-struct conc *cxxConc::concarray(const std::set <cxxConc> &totals)
+*/
+struct conc *cxxConc::cxxConc2conc(const std::set <cxxConc> &totals)
 	// for ISolutions
 	// takes a std::vector cxxConc structures
 	// returns list of conc structures

@@ -49,9 +49,9 @@ public:
 	//bool operator<(const cxxConc& conc)const    { return (this->description < conc.description); }
 	bool operator<(const cxxConc& conc)const    { return ::strcmp(this->description, conc.description) < 0; }
 
-	static struct conc * concarray(std::map<char *, double, CHARSTAR_LESS> &t );
+	//static struct conc * concarray(std::map<char *, double, CHARSTAR_LESS> &t );
 
-	static struct conc * concarray(const std::set<cxxConc> &t );
+	static struct conc * cxxConc2conc(const std::set<cxxConc> &t );
 
 private:
 	char * description;

@@ -6,6 +6,7 @@
 #endif
 
 #include "Utils.h"   // define first
+#include "Conc.h"
 #include "NameDouble.h"
 #define EXTERNAL extern
 #include "global.h"
@@ -64,7 +65,7 @@ cxxNameDouble::~cxxNameDouble()
 {
 }
 
-struct elt_list *cxxNameDouble::exch_comp()
+struct elt_list *cxxNameDouble::elt_list()
         //
         // Builds a exch_comp structure from instance of cxxNameDouble 
         //
@@ -73,15 +74,78 @@ struct elt_list *cxxNameDouble::exch_comp()
 	struct elt_list *elt_list_ptr = (struct elt_list *) PHRQ_malloc((size_t)((this->size() + 1) *sizeof(struct elt_list)));
 	int i = 0;
 	for (iterator it = this->begin(); it != this->end(); ++it) {
-		elt_list[i].elt = element_store(it->first);
-		elt_list[i].coef = it->second;
+		elt_list_ptr[i].elt = element_store(it->first);
+		elt_list_ptr[i].coef = it->second;
 	}
-	elt_list[i].elt = NULL;
-	elt_list[i].coef = 0;
+	elt_list_ptr[i].elt = NULL;
+	elt_list_ptr[i].coef = 0;
 	return(elt_list_ptr);
 }
 
-#ifdef SKIP
+struct master_activity *cxxNameDouble::master_activity()const
+        //
+        // Builds a list of master_activity structures from instance of cxxNameDouble 
+        //
+{
+	int i = 0;
+	assert (this->type == cxxNameDouble::ND_SPECIES_LA || this->type == cxxNameDouble::ND_SPECIES_GAMMA);
+	struct master_activity *master_activity_ptr = NULL;
+	switch ((*this).type) {
+	case cxxNameDouble::ND_SPECIES_LA:
+		master_activity_ptr= (struct master_activity *) PHRQ_malloc((size_t) (((*this).size() + 1) * sizeof(struct master_activity)));
+		if (master_activity_ptr == NULL) malloc_error();
+		for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {
+			master_activity_ptr[i].description = (char *)it->first;
+			master_activity_ptr[i].la = it->second;
+			i++;
+		}
+		master_activity_ptr[i].description = NULL;
+		break;
+	case cxxNameDouble::ND_SPECIES_GAMMA:
+		if ((*this).size() > 0) {
+			master_activity_ptr = (struct master_activity *) PHRQ_malloc((size_t) (((*this).size()) * sizeof(struct master_activity)));
+			if (master_activity_ptr == NULL) malloc_error();
+			for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {
+				master_activity_ptr[i].description = (char *)it->first;
+				master_activity_ptr[i].la = it->second;
+				i++;
+			}
+		}
+		break;
+	case cxxNameDouble::ND_ELT_MOLES:
+		break;
+	}
+	return(master_activity_ptr);
+}
+
+struct conc *cxxNameDouble::conc()const
+	// for Solutions, not ISolutions
+	// takes a map of (elt name, moles)
+	// returns list of conc structures
+{
+	struct conc *c;
+	assert (this->type == cxxNameDouble::ND_ELT_MOLES);
+	c = (struct conc *) PHRQ_malloc((size_t) (((*this).size() + 1) * sizeof(struct conc)));
+	if (c == NULL) malloc_error();
+	int i = 0;
+	for (const_iterator it = (*this).begin(); it != (*this).end(); ++it) {
+		c[i].description         = (char *)it->first;
+		c[i].moles               = it->second;
+		c[i].input_conc          = it->second;
+		c[i].units               = NULL;
+		c[i].equation_name       = NULL;
+		c[i].phase_si            = 0.0;
+		c[i].n_pe                = 0;
+		c[i].as                  = NULL;
+		c[i].gfw                 = 0.0;
+		//c[i].skip                = 0;
+		c[i].phase               = NULL;
+		i++;
+	}			
+	c[i].description = NULL;
+	return(c);
+}
+
 void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
@@ -90,27 +154,48 @@ void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const
         std::string indent0(""), indent1("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
+	std::string xmlElement, xmlAtt1, xmlAtt2;
 
-        // Exch_Comp element and attributes
-        s_oss << indent0;
-        s_oss << "<exch_comp " << std::endl;
+	switch ((*this).type) {
+	case cxxNameDouble::ND_SPECIES_LA:
+		xmlElement = "<soln_m_a ";
+		xmlAtt1 = " m_a_desc=\"";
+		xmlAtt1 = " m_a_la=\"";
+		break;
+	case cxxNameDouble::ND_SPECIES_GAMMA:
+		xmlElement = "<soln_s_g ";
+		xmlAtt1 = " m_a_desc=\"";
+		xmlAtt1 = " m_a_la=\"";
+		break;
+	case cxxNameDouble::ND_ELT_MOLES:
+		xmlElement = "<soln_total ";
+		xmlAtt1 = " conc_desc=\"";
+		xmlAtt1 = " conc_moles=\"";
+		break;
+	}
+	
+	for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {
+		s_oss << indent0;
+		s_oss << xmlElement << xmlAtt1 << it->first << xmlAtt2 << it->second << "/>" << std::endl;
+	}
 }
 
 void cxxNameDouble::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
-        std::string indent0(""), indent1(""), indent2("");
+        s_oss.precision(DBL_DIG - 1);
+        std::string indent0("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
-        for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
-        for(i = 0; i < indent + 2; ++i) indent2.append(Utilities::INDENT);
-
-        // Exch_Comp element and attributes
-        s_oss << indent0;
-        s_oss << "EXCH_COMP_RAW       " << this->n_user  << " " << this->description << std::endl;
+	
+	for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {
+		s_oss << indent0;
+		s_oss << it->first << "   " << it->second << std::endl;
+	}
 }
-#endif
+
+
+
 #ifdef SKIP
 void cxxNameDouble::read_raw(CParser& parser)
 {

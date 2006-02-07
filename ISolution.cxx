@@ -65,7 +65,7 @@ struct solution *cxxISolution::cxxISolution2solution()
 	soln_ptr->pe = pe_data_dup(this->pes);
 	// totals
 	soln_ptr->totals = (struct conc *) free_check_null(soln_ptr->totals);
-	soln_ptr->totals = cxxConc::concarray((const std::set<cxxConc>) this->concs);
+	soln_ptr->totals = cxxConc::cxxConc2conc(this->concs);
 	return(soln_ptr);
 }
 #ifdef SKIP

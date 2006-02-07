@@ -11,6 +11,7 @@
 #include <vector>  // std::vector
 
 #include "char_star.h"
+#include "ExchComp.h"
 
 class cxxExchange : public cxxNumKeyword
 {
@@ -25,6 +26,8 @@ public:
 	//void set_tc(double tc) {this->tc = tc;}
 
 	struct exchange *cxxExchange2exchange();
+
+	struct exch_comp *cxxExchComp2exch_comp();
 
 	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 

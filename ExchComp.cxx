@@ -36,7 +36,7 @@ cxxExchComp::cxxExchComp(struct exch_comp *exch_comp_ptr)
         // constructor for cxxExchComp from struct exch_comp
         //
 : 
-formula_totals(exch_comp_ptr->totals),
+formula_totals(exch_comp_ptr->formula_totals),
 totals(exch_comp_ptr->totals)
 {
 	formula                  = exch_comp_ptr->formula;
@@ -80,21 +80,47 @@ struct master *cxxExchComp::get_master()
 	return(master_ptr);
 }
 
+struct exch_comp *cxxExchComp::cxxExchComp2exch_comp(std::list<cxxExchComp>& el)
+        //
+        // Builds exch_comp structure from of cxxExchComp 
+        //
+{
+	struct exch_comp *exch_comp_ptr = (struct exch_comp *) PHRQ_malloc((size_t) (el.size() * sizeof(struct exch_comp)));
+	if (exch_comp_ptr == NULL) malloc_error();
+
+	int i = 0;
+	for (std::list<cxxExchComp>::iterator it = el.begin(); it != el.end(); ++it) {
+		exch_comp_ptr[i].formula		=  it->formula;
+		exch_comp_ptr[i].formula_z		=  it->formula_z;
+		exch_comp_ptr[i].formula_totals         =  it->formula_totals.elt_list();
+		exch_comp_ptr[i].moles			=  it->moles;
+		exch_comp_ptr[i].totals                 =  it->formula_totals.elt_list();
+		exch_comp_ptr[i].la			=  it->la;
+		exch_comp_ptr[i].charge_balance		=  it->charge_balance;
+		exch_comp_ptr[i].phase_name		=  it->phase_name;
+		exch_comp_ptr[i].phase_proportion	=  it->phase_proportion;
+		exch_comp_ptr[i].rate_name            	=  it->rate_name;
+		i++;
+	}
+        return(exch_comp_ptr);
+}
+
+#ifdef SKIP
 struct exch_comp *cxxExchComp::cxxExchComp2exch_comp()
         //
-        // Builds a exch_comp structure from instance of cxxExchComp 
+        // Builds exch_comp structure from of cxxExchComp 
         //
 {
 	struct exch_comp *exch_comp_ptr = (struct exch_comp *) PHRQ_malloc((size_t) (this->totals.size() * sizeof(struct exch_comp)));
 	if (exch_comp_ptr == NULL) malloc_error();
 
 	int i = 0;
-	for (std::map <char *, double, CHARSTAR_LESS>::iterator it = this->totals.begin(); it != totals.end(); ++it) {
+	for (std::list::iterator it = this->totals.begin(); it != totals.end(); ++it) {
 		exch_comp_ptr->formula		        =  formula;
 		exch_comp_ptr->formula_z		=  formula_z;
-		exch_comp_ptr->formula_totals           =  formula_totals.exch_comp();
+		exch_comp_ptr->formula_totals           =  formula_totals.elt_list();
 		exch_comp_ptr->moles			=  moles;
-		exch_comp_ptr->totals                   =  formula_totals.exch_comp();
+		exch_comp_ptr->totals                   =  formula_totals.elt_list();
 		exch_comp_ptr->la			=  la;
 		exch_comp_ptr->charge_balance		=  charge_balance;
 		exch_comp_ptr->phase_name		=  phase_name;
@@ -104,105 +130,44 @@ struct exch_comp *cxxExchComp::cxxExchComp2exch_comp()
 	}
         return(exch_comp_ptr);
 }
-#ifdef SKIP
+#endif
+
 void cxxExchComp::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
         unsigned int i;
-        s_oss.precision(DBL_DIG - 1);
-        std::string indent0(""), indent1("");
+	s_oss.precision(DBL_DIG - 1);
+        std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
+        for(i = 0; i < indent + 2; ++i) indent2.append(Utilities::INDENT);
 
         // Exch_Comp element and attributes
+
+        s_oss << indent0 << "formula=\"" << this->formula << "\"" << std::endl;
+        s_oss << indent0 << "exchange_name=\"" << this->exchange_name << "\"" << std::endl;
+        s_oss << indent0 << "moles=\"" << this->moles  << "\"" << std::endl;
+        s_oss << indent0 << "la=\"" << this->la     << "\"" << std::endl;
+        s_oss << indent0 << "charge_balance=\"" << this->charge_balance << "\"" << std::endl;
+	if (this->phase_name != NULL) {
+		s_oss << indent0 << "phase_name=\"" << this->phase_name << "\"" << std::endl;
+	}
+	if (this->rate_name != NULL) {
+		s_oss << indent0 << "rate_name=\"" << this->rate_name << "\"" << std::endl;
+	}
+        s_oss << indent0 << "phase_proportion=\"" << this->phase_proportion  << "\"" << std::endl;
+
+        // totals
         s_oss << indent0;
-        s_oss << "<exch_comp " << std::endl;
+        s_oss << "<totals " << std::endl;
+	this->totals.dump_xml(s_oss, indent + 1);
 
-        //s_oss << indent1;
-        //s_oss << "soln_new_def=\"" << this->new_def << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_n_user=\"" << this->n_user << "\" " << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_description=\"" << this->description << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_tc=\"" << this->tc << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_ph=\"" << this->ph << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_exch_comp_pe=\"" << this->pe << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_mu=\"" << this->mu << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_ah2o=\""  << this->ah2o << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_total_h=\"" << this->total_h << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_total_o=\"" << this->total_o << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_cb=\"" << this->cb << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_mass_water=\"" << this->mass_water << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "soln_total_alkalinity=\"" << this->total_alkalinity << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "\">" << std::endl;
-
-        // soln_total conc structures
-	{
-	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_total";
-		s_oss << " conc_desc=\"" << it->first << "\"";
-		s_oss << " conc_moles=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-        // master_activity map
-	{
-	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_m_a";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-        // species_gamma map
-	{
-	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_s_g";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-
-        for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
-                it->dump_xml(s_oss, indent + 1);
-        }
-
-        // End of exch_comp
+        // formula_totals
         s_oss << indent0;
-        s_oss << "</exch_comp>" << std::endl;
-
-        return;
+        s_oss << "<formula_totals " << std::endl;
+	this->formula_totals.dump_xml(s_oss, indent + 1);
 }
-#endif
-#ifdef SKIP
+
 void cxxExchComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exch_comp message: %s, element not found\n";
@@ -214,115 +179,51 @@ void cxxExchComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
         for(i = 0; i < indent + 2; ++i) indent2.append(Utilities::INDENT);
 
         // Exch_Comp element and attributes
-        s_oss << indent0;
-        s_oss << "EXCH_COMP_RAW       " << this->n_user  << " " << this->description << std::endl;
 
-        s_oss << indent1;
-        s_oss << "-temp              " << this->tc << std::endl;
+        s_oss << indent0 << "-formula               " << this->formula << std::endl;
+        s_oss << indent0 << "-exchange_name         " << this->exchange_name << std::endl;
+        s_oss << indent0 << "-moles                 " << this->moles  << std::endl;
+        s_oss << indent0 << "-la                    " << this->la     << std::endl;
+        s_oss << indent0 << "-charge_balance        " << this->charge_balance << std::endl;
+	if (this->phase_name != NULL) {
+		s_oss << indent0 << "-phase_name            " << this->phase_name << std::endl;
+	}
+	if (this->rate_name != NULL) {
+		s_oss << indent0 << "-rate_name             " << this->rate_name << std::endl;
+	}
+        s_oss << indent0 << "-phase_proportion              " << this->phase_proportion  << std::endl;
 
-        s_oss << indent1;
-        s_oss << "-pH                " << this->ph << std::endl;
-
-        s_oss << indent1;
-        s_oss << "-pe                " << this->pe << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-mu                " << this->mu << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-ah2o              " << this->ah2o << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-total_h           " << this->total_h << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-total_o           " << this->total_o << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-cb                " << this->cb << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-mass_water        " << this->mass_water << std::endl;
-
-        // new identifier
-        s_oss << indent1;
-        s_oss << "-total_alkalinity  " << this->total_alkalinity << std::endl;
-
-        // soln_total conc structures
+        // totals
         s_oss << indent1;
         s_oss << "-totals" << std::endl;
+	this->totals.dump_raw(s_oss, indent + 2);
+	/*
         for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
                 s_oss << indent2;
                 s_oss << it->first << "   " <<  it->second << std::endl;
         }
-
-        // master_activity map
+	*/
+        // formula_totals
         s_oss << indent1;
-        s_oss << "-activities" << std::endl;
-        {
-                for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-                        s_oss << indent2;
-                        s_oss << it->first << "   " << it->second << std::endl;
-                }
-        }
-
-        // species_gamma map
-        s_oss << indent1;
-        s_oss << "-gammas" << std::endl;
-        {
-                {
-                        for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-                                s_oss << indent2;
-                                s_oss << it->first << "   " << it->second << std::endl;
-                        }
-                }
-        }
-
-        // Isotopes
-        s_oss << indent1;
-        s_oss << "-Isotopes" << std::endl;
-        {
-                for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
-                        it->dump_raw(s_oss, indent + 2);
-                }
-        }
-
-        return;
+        s_oss << "-formula_totals" << std::endl;
+	this->formula_totals.dump_raw(s_oss, indent + 2);
 }
-#endif
+
 #ifdef SKIP
 void cxxExchComp::read_raw(CParser& parser)
 {
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
-                vopts.reserve(21);
-                vopts.push_back("totals");                    // 0 
-                vopts.push_back("activities");                // 1 
-                vopts.push_back("gammas");                    // 2 
-                vopts.push_back("isotopes");                  // 3 
-                vopts.push_back("temp");                      // 4 
-                vopts.push_back("tc");                        // 5 
-                vopts.push_back("temperature");               // 6 
-                vopts.push_back("ph");                        // 7 
-                vopts.push_back("pe");                        // 8 
-                vopts.push_back("mu");                        // 9 
-                vopts.push_back("ionic_strength");            // 10
-                vopts.push_back("ah2o");                      // 11
-                vopts.push_back("activity_water");            // 12
-                vopts.push_back("total_h");                   // 13
-                vopts.push_back("total_o");                   // 14
-                vopts.push_back("mass_water");                // 15
-                vopts.push_back("mass_h2o");                  // 16
-                vopts.push_back("total_alkalinity");          // 17
-                vopts.push_back("total_alk");                 // 18
-                vopts.push_back("cb");                        // 19
-                vopts.push_back("charge_balance");            // 20
+                vopts.reserve(10);
+                vopts.push_back("formula");                   // 0 
+                vopts.push_back("exchange_name");             // 1 
+                vopts.push_back("moles");                     // 2 
+                vopts.push_back("la");                        // 3 
+                vopts.push_back("charge_balance");            // 4 
+                vopts.push_back("phase_name");                // 5 
+                vopts.push_back("rate_name");                 // 6 
+                vopts.push_back("phase_proportion");          // 7 
+                vopts.push_back("totals");                    // 8
         }
 
         std::istream::pos_type ptr;
@@ -330,20 +231,12 @@ void cxxExchComp::read_raw(CParser& parser)
         std::string token;
         int opt_save;
 
-        // Read exch_comp number and description
-        this->read_number_description(parser);
-
         opt_save = CParser::OPT_ERROR;
-        bool tc_defined(false); 
-        bool ph_defined(false); 
-        bool pe_defined(false); 
-        bool mu_defined(false); 
-        bool ah2o_defined(false); 
-        bool total_h_defined(false); 
-        bool total_o_defined(false); 
-        bool cb_defined(false); 
-        bool mass_water_defined(false); 
-        bool total_alkalinity_defined(false);
+        bool formula_defined(false); 
+        bool exchange_name_defined(false); 
+        bool moles_defined(false); 
+        bool la_defined(false); 
+        bool charge_balance_defined(false); 
 
         for (;;)
         {

@@ -83,7 +83,6 @@ struct solution *cxxSolution::cxxSolution2solution()
         // Builds a solution structure from instance of cxxSolution 
         //
 {
-        int i;
 
         struct solution *solution_ptr = solution_alloc();
         
@@ -108,36 +107,17 @@ struct solution *cxxSolution::cxxSolution2solution()
 
         // totals
         solution_ptr->totals = (struct conc *) free_check_null(solution_ptr->totals);
-        //solution_ptr->totals = cxxConc::concarray((const std::map<char *, double>) this->totals);
-        solution_ptr->totals = cxxConc::concarray(this->totals);
+	solution_ptr->totals = this->totals.conc();
 
         // master_activity
-        solution_ptr->master_activity = (struct master_activity *) PHRQ_realloc(solution_ptr->master_activity, (size_t) ((master_activity.size() + 1) * sizeof(struct master_activity)));
-        if (solution_ptr->master_activity == NULL) malloc_error();
-        i = 0;
-        for (std::map <char *, double>::iterator it = master_activity.begin(); it != master_activity.end(); it++) {
-                solution_ptr->master_activity[i].description = (char *)it->first;
-                solution_ptr->master_activity[i].la = it->second;
-                i++;
-        }
-        solution_ptr->master_activity[i].description = NULL;
+	solution_ptr->master_activity = (struct master_activity *) free_check_null(solution_ptr->master_activity);
+	solution_ptr->master_activity = this->master_activity.master_activity();
         solution_ptr->count_master_activity = this->master_activity.size() + 1;
 
         // species_gamma
-        if (species_gamma.size() >= 0) {
-                solution_ptr->species_gamma = (struct master_activity *) PHRQ_malloc((size_t) ((species_gamma.size()) * sizeof(struct master_activity)));
-                int i = 0;
-                if (solution_ptr->species_gamma == NULL) malloc_error();
-                for (std::map <char *, double>::iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-                        solution_ptr->species_gamma[i].description = (char *)it->first;
-                        solution_ptr->species_gamma[i].la = it->second;
-                        i++;
-                }
-                solution_ptr->count_species_gamma = this->species_gamma.size();
-        } else {
-                solution_ptr->species_gamma = NULL;
-                solution_ptr->count_species_gamma = 0;
-        }
+	solution_ptr->species_gamma = this->species_gamma.master_activity();
+	solution_ptr->count_species_gamma = this->species_gamma.size();
+
         // isotopes
         solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
         solution_ptr->isotopes = cxxIsotope::list2isotope(this->isotopes);
@@ -201,6 +181,8 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
         s_oss << "\">" << std::endl;
 
         // soln_total conc structures
+	this->totals.dump_xml(s_oss, indent + 1);
+	/*
 	{
 	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
 		s_oss << indent1;
@@ -210,7 +192,10 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 		s_oss << "\">" << std::endl;
 	}
 	}
+	*/
         // master_activity map
+	this->master_activity.dump_xml(s_oss, indent + 1);
+	/*
 	{
 	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
 		s_oss << indent1;
@@ -220,7 +205,10 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 		s_oss << "\">" << std::endl;
 	}
 	}
+	*/
         // species_gamma map
+	this->species_gamma.dump_xml(s_oss, indent + 1);
+	/*
 	{
 	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
 		s_oss << indent1;
@@ -230,6 +218,7 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
 		s_oss << "\">" << std::endl;
 	}
 	}
+	*/
 
         for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
                 it->dump_xml(s_oss, indent + 1);
@@ -296,24 +285,31 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
         // soln_total conc structures
         s_oss << indent1;
         s_oss << "-totals" << std::endl;
+	this->totals.dump_raw(s_oss, indent + 2);
+	/*
         for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
                 s_oss << indent2;
                 s_oss << it->first << "   " <<  it->second << std::endl;
         }
+	*/
 
         // master_activity map
         s_oss << indent1;
         s_oss << "-activities" << std::endl;
+	this->master_activity.dump_raw(s_oss, indent + 2);
+	/*
         {
                 for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
                         s_oss << indent2;
                         s_oss << it->first << "   " << it->second << std::endl;
                 }
         }
-
+	*/
         // species_gamma map
         s_oss << indent1;
         s_oss << "-gammas" << std::endl;
+	this->species_gamma.dump_raw(s_oss, indent + 2);
+	/*
         {
                 {
                         for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
@@ -322,7 +318,7 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
                         }
                 }
         }
-
+	*/
         // Isotopes
         s_oss << indent1;
         s_oss << "-Isotopes" << std::endl;
