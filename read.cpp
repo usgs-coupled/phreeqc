@@ -4,6 +4,7 @@
 #include "output.h"
 #include "phrqproto.h"
 extern int read_solution_raw (void);
+extern int read_exchange_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -204,6 +205,7 @@ int read_input(void)
 	  58      "copy"
 	  59      "pitzer"
 	  60      "solution_raw"
+	  61      "exchange_raw"
   */
 	for (;;) {
 		if (next_keyword >= 0) {
@@ -452,7 +454,12 @@ int read_input(void)
 		case 60:
 			keyword[60].keycount++;
 			read_solution_raw();
-			break;		}
+			break;		
+		case 61:
+			keyword[61].keycount++;
+			read_exchange_raw();
+			break;		
+		}
 	}
  END_OF_SIMULATION_INPUT:
 	return(OK);

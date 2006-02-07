@@ -537,6 +537,7 @@ void initialize(void)
 	 */
 	dbg_use = &use;
 	dbg_solution = solution;
+	dbg_exchange = exchange;
 	return;
 }
 /* ---------------------------------------------------------------------- */
@@ -1549,7 +1550,8 @@ int xsolution_save(int n_user)
  */
 
 	pe_data_free(solution_ptr->pe); 
-	solution_ptr->pe = pe_data_dup(pe_x); 
+	/*solution_ptr->pe = pe_data_dup(pe_x); */
+	solution_ptr->pe = pe_data_alloc();
 	solution_ptr->default_pe = 0;
 	/*
 	 * Add in minor isotopes if initial solution calculation

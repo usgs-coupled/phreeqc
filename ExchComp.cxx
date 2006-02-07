@@ -29,6 +29,8 @@ cxxExchComp::cxxExchComp()
         phase_name              = NULL;
         phase_proportion        = 0.0;
 	rate_name               = NULL;
+	totals.type             = cxxNameDouble::ND_ELT_MOLES;
+	formula_totals.type     = cxxNameDouble::ND_ELT_MOLES;
 }
 
 cxxExchComp::cxxExchComp(struct exch_comp *exch_comp_ptr)
@@ -40,7 +42,6 @@ formula_totals(exch_comp_ptr->formula_totals),
 totals(exch_comp_ptr->totals)
 {
 	formula                  = exch_comp_ptr->formula;
-	formula_z                = exch_comp_ptr->formula_z;
 	moles                    = exch_comp_ptr->moles;
         // totals in constructor
 	//formula_totals in constructor
@@ -49,6 +50,7 @@ totals(exch_comp_ptr->totals)
 	phase_name               = exch_comp_ptr->phase_name;
 	phase_proportion         = exch_comp_ptr->phase_proportion;
 	rate_name                = exch_comp_ptr->rate_name;
+	formula_z                = exch_comp_ptr->formula_z;
 }
 
 cxxExchComp::~cxxExchComp()
@@ -92,45 +94,19 @@ struct exch_comp *cxxExchComp::cxxExchComp2exch_comp(std::list<cxxExchComp>& el)
 	for (std::list<cxxExchComp>::iterator it = el.begin(); it != el.end(); ++it) {
 		exch_comp_ptr[i].formula		=  it->formula;
 		exch_comp_ptr[i].formula_z		=  it->formula_z;
-		exch_comp_ptr[i].formula_totals         =  it->formula_totals.elt_list();
+		exch_comp_ptr[i].totals                 =  it->totals.elt_list();
 		exch_comp_ptr[i].moles			=  it->moles;
-		exch_comp_ptr[i].totals                 =  it->formula_totals.elt_list();
+		exch_comp_ptr[i].formula_totals         =  it->formula_totals.elt_list();
 		exch_comp_ptr[i].la			=  it->la;
 		exch_comp_ptr[i].charge_balance		=  it->charge_balance;
 		exch_comp_ptr[i].phase_name		=  it->phase_name;
 		exch_comp_ptr[i].phase_proportion	=  it->phase_proportion;
 		exch_comp_ptr[i].rate_name            	=  it->rate_name;
+		exch_comp_ptr[i].master                 =  it->get_master();
 		i++;
 	}
         return(exch_comp_ptr);
 }
-
-#ifdef SKIP
-struct exch_comp *cxxExchComp::cxxExchComp2exch_comp()
-        //
-        // Builds exch_comp structure from of cxxExchComp 
-        //
-{
-	struct exch_comp *exch_comp_ptr = (struct exch_comp *) PHRQ_malloc((size_t) (this->totals.size() * sizeof(struct exch_comp)));
-	if (exch_comp_ptr == NULL) malloc_error();
-
-	int i = 0;
-	for (std::list::iterator it = this->totals.begin(); it != totals.end(); ++it) {
-		exch_comp_ptr->formula		        =  formula;
-		exch_comp_ptr->formula_z		=  formula_z;
-		exch_comp_ptr->formula_totals           =  formula_totals.elt_list();
-		exch_comp_ptr->moles			=  moles;
-		exch_comp_ptr->totals                   =  formula_totals.elt_list();
-		exch_comp_ptr->la			=  la;
-		exch_comp_ptr->charge_balance		=  charge_balance;
-		exch_comp_ptr->phase_name		=  phase_name;
-		exch_comp_ptr->phase_proportion		=  phase_proportion;
-		exch_comp_ptr->rate_name            	=  rate_name;
-		i++;
-	}
-        return(exch_comp_ptr);
-}
-#endif
 
 void cxxExchComp::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
@@ -145,7 +121,6 @@ void cxxExchComp::dump_xml(std::ostream& s_oss, unsigned int indent)const
         // Exch_Comp element and attributes
 
         s_oss << indent0 << "formula=\"" << this->formula << "\"" << std::endl;
-        s_oss << indent0 << "exchange_name=\"" << this->exchange_name << "\"" << std::endl;
         s_oss << indent0 << "moles=\"" << this->moles  << "\"" << std::endl;
         s_oss << indent0 << "la=\"" << this->la     << "\"" << std::endl;
         s_oss << indent0 << "charge_balance=\"" << this->charge_balance << "\"" << std::endl;
@@ -181,7 +156,6 @@ void cxxExchComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
         // Exch_Comp element and attributes
 
         s_oss << indent0 << "-formula               " << this->formula << std::endl;
-        s_oss << indent0 << "-exchange_name         " << this->exchange_name << std::endl;
         s_oss << indent0 << "-moles                 " << this->moles  << std::endl;
         s_oss << indent0 << "-la                    " << this->la     << std::endl;
         s_oss << indent0 << "-charge_balance        " << this->charge_balance << std::endl;
@@ -192,38 +166,36 @@ void cxxExchComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
 		s_oss << indent0 << "-rate_name             " << this->rate_name << std::endl;
 	}
         s_oss << indent0 << "-phase_proportion              " << this->phase_proportion  << std::endl;
+        s_oss << indent0 << "-formula_z                     " << this->formula_z  << std::endl;
 
         // totals
-        s_oss << indent1;
+        s_oss << indent0;
         s_oss << "-totals" << std::endl;
-	this->totals.dump_raw(s_oss, indent + 2);
-	/*
-        for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-                s_oss << indent2;
-                s_oss << it->first << "   " <<  it->second << std::endl;
-        }
-	*/
+	this->totals.dump_raw(s_oss, indent + 1);
+
         // formula_totals
-        s_oss << indent1;
+        s_oss << indent0;
         s_oss << "-formula_totals" << std::endl;
-	this->formula_totals.dump_raw(s_oss, indent + 2);
+	this->formula_totals.dump_raw(s_oss, indent + 1);
 }
 
-#ifdef SKIP
 void cxxExchComp::read_raw(CParser& parser)
 {
+	std::string str;
+	
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
                 vopts.reserve(10);
                 vopts.push_back("formula");                   // 0 
-                vopts.push_back("exchange_name");             // 1 
-                vopts.push_back("moles");                     // 2 
-                vopts.push_back("la");                        // 3 
-                vopts.push_back("charge_balance");            // 4 
-                vopts.push_back("phase_name");                // 5 
-                vopts.push_back("rate_name");                 // 6 
+                vopts.push_back("moles");                     // 1
+                vopts.push_back("la");                        // 2 
+                vopts.push_back("charge_balance");            // 3 
+                vopts.push_back("phase_name");                // 4 
+                vopts.push_back("rate_name");                 // 5 
+                vopts.push_back("formula_z");                 // 6
                 vopts.push_back("phase_proportion");          // 7 
                 vopts.push_back("totals");                    // 8
+                vopts.push_back("formula_totals");            // 9
         }
 
         std::istream::pos_type ptr;
@@ -233,10 +205,10 @@ void cxxExchComp::read_raw(CParser& parser)
 
         opt_save = CParser::OPT_ERROR;
         bool formula_defined(false); 
-        bool exchange_name_defined(false); 
         bool moles_defined(false); 
         bool la_defined(false); 
         bool charge_balance_defined(false); 
+	bool formula_z_defined(false);
 
         for (;;)
         {
@@ -254,204 +226,136 @@ void cxxExchComp::read_raw(CParser& parser)
                         break;
                 case CParser::OPT_DEFAULT:
                 case CParser::OPT_ERROR:
-                        opt = CParser::OPT_EOF;
-                        parser.error_msg("Unknown input in EXCH_COMP_RAW keyword.", CParser::OT_CONTINUE);
-                        parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
+                        opt = CParser::OPT_KEYWORD;
+			// Allow return to Exchange for more processing
+                        //parser.error_msg("Unknown input in EXCH_COMP read.", CParser::OT_CONTINUE);
+                        //parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
                         break;
 
-                case 0: // totals
-                        if ( parser.addPair(this->totals, next_char) != CParser::PARSER_OK) {
+                case 0: // formula
+                        if (!(parser.get_iss() >> str))
+                        {
+                                this->formula = NULL;
                                 parser.incr_input_error();
-                                parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
-                        }                       
-                        opt_save = 0;
+                                parser.error_msg("Expected string value for formula.", CParser::OT_CONTINUE);
+                        } else {
+				this->formula = string_hsave(str.c_str());
+			}
+                        formula_defined = true;
                         break;
 
-                case 1: // activities
-                        if ( parser.addPair(this->master_activity, next_char) != CParser::PARSER_OK) {
+                case 1: // moles
+                        if (!(parser.get_iss() >> this->moles))
+                        {
+                                this->moles = 0;
                                 parser.incr_input_error();
-                                parser.error_msg("Expected species name and log activity for activities.", CParser::OT_CONTINUE);
+                                parser.error_msg("Expected numeric value for moles.", CParser::OT_CONTINUE);
+                        }
+                        moles_defined = true;
+                        break;
+
+                case 2: // la
+                        if (!(parser.get_iss() >> this->la))
+                        {
+                                this->la = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for la.", CParser::OT_CONTINUE);
+                        }
+                        la_defined = true;
+                        break;
+
+                case 3: // charge_balance
+                        if (!(parser.get_iss() >> this->charge_balance))
+                        {
+                                this->charge_balance = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for charge_balance.", CParser::OT_CONTINUE);
+                        }
+                        charge_balance_defined = true;
+                        break;
+
+                case 4: // phase_name
+                        if (!(parser.get_iss() >> str))
+                        {
+                                this->phase_name = NULL;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected string value for phase_name.", CParser::OT_CONTINUE);
+                        } else {
+				this->phase_name = string_hsave(str.c_str());
+			}
+			break;
+
+                case 5: // rate_name
+                        if (!(parser.get_iss() >> str))
+                        {
+                                this->rate_name = NULL;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected string value for rate_name.", CParser::OT_CONTINUE);
+                        } else {
+				this->rate_name = string_hsave(str.c_str());
+			}
+			break;
+
+                case 6: // formula_z
+                        if (!(parser.get_iss() >> this->formula_z))
+                        {
+                                this->formula_z = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for formula_z.", CParser::OT_CONTINUE);
+                        }
+                        formula_z_defined = true;
+                        break;
+
+                case 7: // phase_proportion
+                        if (!(parser.get_iss() >> this->phase_proportion))
+                        {
+                                this->phase_proportion = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for phase_proportion.", CParser::OT_CONTINUE);
+                        }
+                        break;
+
+                case 8: // totals
+			if ( this->totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
+                                parser.incr_input_error();
+                                parser.error_msg("Expected element name and molality for ExchComp totals.", CParser::OT_CONTINUE);
                         }                               
-                        opt_save = 1;
+                        opt_save = 8;
                         break;
 
-                case 2: // gammas
-                        if ( parser.addPair(this->species_gamma, next_char) != CParser::PARSER_OK) {
+                case 9: // formula_totals
+			if ( this->formula_totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
-                                parser.error_msg("Expected species name and activity coefficient for gammas.", CParser::OT_CONTINUE);
+                                parser.error_msg("Expected element name and molality for ExchComp formula totals.", CParser::OT_CONTINUE);
                         }                               
-                        opt_save = 2;
+                        opt_save = 9;
                         break;
-
-                case 3: // isotopes
-                        {
-                                cxxIsotope iso;
-				if ( iso.read_raw(parser) != CParser::PARSER_OK) {
-                                        parser.incr_input_error();
-                                        parser.error_msg("Expected data for isotopes.", CParser::OT_CONTINUE);
-                                } else {
-					if (iso.get_isotope_name() != NULL) {
-						this->isotopes.push_back(iso);
-					}
-                                }
-                        }
-                        opt_save = 3;
-                        break;
-
-                case 4: // temp
-                case 5: // tc
-                case 6: // temperature                  
-                        if (!(parser.get_iss() >> this->tc))
-                        {
-                                this->tc = 25.0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for temperature.", CParser::OT_CONTINUE);
-                        }
-                        tc_defined = true;
-                        break;
-
-                case 7: // ph
-                        if (!(parser.get_iss() >> this->ph))
-                        {
-                                this->ph = 7.0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for pH.", CParser::OT_CONTINUE);
-                        }
-                        ph_defined = true;
-                        break;
-
-                case 8: // pe
-                        if (!(parser.get_iss() >> this->pe))
-                        {
-                                this->pe = 4.0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for pe.", CParser::OT_CONTINUE);
-                        }
-                        pe_defined = true;
-                        break;
-
-                case 9: // mu
-                case 10: // ionic_strength
-                        if (!(parser.get_iss() >> this->mu))
-                        {
-                                this->mu = 1e-7;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for ionic strength.", CParser::OT_CONTINUE);
-                        }
-                        mu_defined = true;
-                        break;
-
-                case 11: // ah2o
-                case 12: // activity_water
-                        if (!(parser.get_iss() >> this->ah2o))
-                        {
-                                this->ah2o = 1.0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for activity of water.", CParser::OT_CONTINUE);
-                        }
-                        ah2o_defined = true;
-                        break;
-
-                case 13: // total_h
-                        if (!(parser.get_iss() >> this->total_h))
-                        {
-                                this->total_h = 111.1;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for total hydrogen.", CParser::OT_CONTINUE);
-                        }
-                        total_h_defined = true;
-                        break;
-
-                case 14: // total_o
-                        if (!(parser.get_iss() >> this->total_o))
-                        {
-                                this->total_o = 55.55;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for total oxygen.", CParser::OT_CONTINUE);
-                        }
-                        total_o_defined = true;
-                        break;
-
-                case 15: // mass_water
-                case 16: // mass_h2o
-                        if (!(parser.get_iss() >> this->mass_water))
-                        {
-                                this->mass_water = 1.0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for mass of water.", CParser::OT_CONTINUE);
-                        }
-                        mass_water_defined = true;
-                        break;
-
-                case 17: // total_alkalinity
-                case 18: // total_alk
-                        if (!(parser.get_iss() >> this->total_alkalinity))
-                        {
-                                this->total_alkalinity = 0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for total_alkalinity.", CParser::OT_CONTINUE);
-                        }
-                        total_alkalinity_defined = true;
-                        break;
-
-                case 19: // cb
-                case 20: // charge_balance
-                        if (!(parser.get_iss() >> this->cb))
-                        {
-                                this->cb = 0;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected numeric value for charge balance.", CParser::OT_CONTINUE);
-                        }
-                        cb_defined = true;
-                        break;
-
-                }
+		}
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
         }
-	// all members must be defined
-        if (tc_defined == false) {
+	// members that must be defined
+        if (formula_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Temp not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Formula not defined for ExchComp input.", CParser::OT_CONTINUE);
 	}
-	if (ph_defined == false) {
+        if (moles_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("pH not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Moles not defined for ExchComp input.", CParser::OT_CONTINUE);
 	}
-	if (pe_defined == false) {
+        if (la_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("pe not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("La not defined for ExchComp input.", CParser::OT_CONTINUE);
 	}
-	if (mu_defined == false) {
+        if (charge_balance_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Ionic strength not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Charge_balance not defined for ExchComp input.", CParser::OT_CONTINUE);
 	}
-	if (ah2o_defined == false) {
+        if (formula_z_defined == false) {
 		parser.incr_input_error();
-		parser.error_msg("Activity of water not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
+		parser.error_msg("Formula_z not defined for ExchComp input.", CParser::OT_CONTINUE);
 	}
-	if (total_h_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total hydrogen not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (total_o_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total oxygen not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (cb_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Charge balance not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (mass_water_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Temp not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (total_alkalinity_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total alkalinity not defined for EXCH_COMP_RAW input.", CParser::OT_CONTINUE);
-	}
-        return;
 }
-#endif
+
 #ifdef SKIP
 cxxExchComp& cxxExchComp::read(CParser& parser)
 {

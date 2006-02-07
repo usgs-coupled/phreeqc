@@ -24,10 +24,10 @@ USE_XML=TRUE
 XERCESCROOT=/z/parkplace/home/dlpark/packages/xerces-c-src_2_7_0
 
 # Change to C compiler options on your system
-#CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-#CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
-CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
+CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+#CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
+#CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -37,8 +37,8 @@ LOADFLAGS= -lm -lxerces-c # -pg
 
 PLATFORM= LINUX
 CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic 
-CXXFLAGS= -Wall -g
-#CXXFLAGS= -O3
+#CXXFLAGS= -Wall -g
+CXXFLAGS= -O3
 LINK= g++ -D${PLATFORM} -fpic
 PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
 EXTRA_LINK_OPTIONS=-lc 
@@ -271,24 +271,28 @@ transport.o: $(SRC)/transport.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqal
 
 utilities.o: $(SRC)/utilities.cpp $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/ISolution.h \
-	$(SRC)/NumKeyword.h $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/global.h \
-	$(SRC)/phrqtype.h $(SRC)/phrqproto.h $(SRC)/phqalloc.h
-Exchange.o: $(SRC)/Exchange.cxx $(SRC)/Exchange.h
-ExchComp.o: $(SRC)/ExchComp.cxx $(SRC)/ExchComp.h
-ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h $(SRC)/NumKeyword.h $(SRC)/Solution.h \
-	$(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h \
-	$(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
-Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h $(SRC)/Utils.h $(SRC)/global.h \
-	$(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
-NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/NameDouble.h
-NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h
-Solution.o: $(SRC)/Solution.cxx $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Isotope.h \
-	$(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h \
-	$(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
-Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h
+Conc.o: $(SRC)/Conc.cxx $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/char_star.h $(SRC)/ISolution.h $(SRC)/NumKeyword.h \
+  $(SRC)/Parser.h $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
+  $(SRC)/phrqproto.h $(SRC)/phqalloc.h
+Exchange.o: $(SRC)/Exchange.cxx $(SRC)/Utils.h $(SRC)/Exchange.h $(SRC)/NumKeyword.h Parser.h \
+  $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/ExchComp.h $(SRC)/NameDouble.h $(SRC)/phqalloc.h \
+  $(SRC)/phrqproto.h
+ExchComp.o: $(SRC)/ExchComp.cxx $(SRC)/Utils.h $(SRC)/ExchComp.h $(SRC)/NameDouble.h $(SRC)/global.h \
+  $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h \
+  $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
+  $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+Isotope.o: Isotope.cxx Isotope.h Parser.h char_star.h Utils.h global.h \
+  phrqtype.h phqalloc.h phrqproto.h
+NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_star.h $(SRC)/NameDouble.h \
+  $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h
+Solution.o: $(SRC)/Solution.cxx $(SRC)/Utils.h $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
+  $(SRC)/char_star.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
+  $(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
 ReadClass.o: $(SRC)/ReadClass.cpp
-Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h
+Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h
+Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h $(SRC)/Parser.h $(SRC)/char_star.h
 
 -include $(SRC)/distribution.mk
 

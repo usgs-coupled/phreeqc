@@ -88,7 +88,7 @@ struct exchange *cxxExchange::cxxExchange2exchange()
 	} else {
 		exchange_ptr->pitzer_exchange_gammas      = FALSE;
 	}
-
+	exchange_ptr->count_comps = this->exchComps.size();
         exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
 	exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(this->exchComps);
         return(exchange_ptr);
@@ -150,10 +150,10 @@ void cxxExchange::dump_raw(std::ostream& s_oss, unsigned int indent)const
         s_oss << indent1;
         s_oss << "-pitzer_exchange_gammas " << this->pitzer_exchange_gammas << std::endl;
 
-        // soln_total conc structures
-        s_oss << indent1;
-        s_oss << "-component" << std::endl;
+        // exchComps structures
         for (std::list<cxxExchComp>::const_iterator it = exchComps.begin(); it != exchComps.end(); ++it) {
+		s_oss << indent1;
+		s_oss << "-component" << std::endl;
 		it->dump_raw(s_oss, indent + 2);
         }
 
@@ -176,6 +176,9 @@ void cxxExchange::read_raw(CParser& parser)
         std::string token;				       
         int opt_save;
 	bool useLastLine(false);
+
+        // Read exchange number and description
+        this->read_number_description(parser);
 
         opt_save = CParser::OPT_ERROR;
         bool related_phases_defined(false); 
@@ -235,20 +238,17 @@ void cxxExchange::read_raw(CParser& parser)
 			useLastLine = false;
                         break;
                 case 3: // component
-			/*
-                        if (!(parser.get_iss() >> this->pitzer_exchange_gammas))
-                        {
-                                this->pitzer_exchange_gammas = false;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected boolean value for pitzer_exchange_gammas.", CParser::OT_CONTINUE);
-                        }
-			*/
+			{
+				cxxExchComp ec;
+				ec.read_raw(parser);
+				this->exchComps.push_back(ec);
+			}
 			useLastLine = true;
                         break;
-
 		}
+                if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
 	}
-	// all members must be defined
+	// members that must be defined
 	if (related_phases_defined == false) {
 		parser.incr_input_error();
 		parser.error_msg("Related_phases not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);

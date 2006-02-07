@@ -21,10 +21,6 @@ public:
 	cxxExchange(struct exchange *);
 	~cxxExchange();
 
-
-	//double get_tc()const {return this->tc;}
-	//void set_tc(double tc) {this->tc = tc;}
-
 	struct exchange *cxxExchange2exchange();
 
 	struct exch_comp *cxxExchComp2exch_comp();

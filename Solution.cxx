@@ -34,6 +34,9 @@ cxxSolution::cxxSolution()
         cb          = 0.0;
         mass_water  = 1.0;
         total_alkalinity = 0.0;
+	totals.type = cxxNameDouble::ND_ELT_MOLES;
+	master_activity.type = cxxNameDouble::ND_SPECIES_LA;
+	species_gamma.type = cxxNameDouble::ND_SPECIES_GAMMA;
 }
 
 cxxSolution::cxxSolution(struct solution *solution_ptr)
@@ -401,7 +404,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 0: // totals
-                        if ( parser.addPair(this->totals, next_char) != CParser::PARSER_OK) {
+			if ( this->totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
                         }                       
@@ -409,7 +412,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 1: // activities
-                        if ( parser.addPair(this->master_activity, next_char) != CParser::PARSER_OK) {
+			if ( this->master_activity.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected species name and log activity for activities.", CParser::OT_CONTINUE);
                         }                               
@@ -417,7 +420,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 2: // gammas
-                        if ( parser.addPair(this->species_gamma, next_char) != CParser::PARSER_OK) {
+			if ( this->species_gamma.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected species name and activity coefficient for gammas.", CParser::OT_CONTINUE);
                         }                               
@@ -787,6 +790,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 
 
 #include "ISolution.h"
+#include "Exchange.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -824,9 +828,32 @@ void test_classes(void)
                         sol1.read_raw(cparser);
 
                         solution[i] = sol1.cxxSolution2solution();
-                        struct solution *soln_ptr;
-			soln_ptr = solution[i];
-			soln_ptr = solution[i];
+                }
+        }
+        for (i=0; i < count_exchange; i++) {
+                if (exchange[i].new_def != TRUE) {
+                        std::ostringstream oss;
+                        cxxExchange ex(&(exchange[i]));
+                        ex.dump_raw(oss, 0);
+			std::cerr << oss.str();
+
+                        cxxExchange ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+			//For testing, need to read line to get started
+			std::vector<std::string> vopts;
+			std::istream::pos_type next_char;
+			cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+
+                        struct exchange *exchange_ptr = ex1.cxxExchange2exchange();
+			exchange_free(&exchange[i]);
+			exchange_copy(exchange_ptr, &exchange[i], exchange_ptr->n_user);
+			exchange_free(exchange_ptr);
+			free_check_null(exchange_ptr);
                 }
         }
 } 

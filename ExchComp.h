@@ -37,7 +37,6 @@ public:
 
 protected:
  	char * formula;
-	char * exchange_name;                     // 
  	double moles;
 	cxxNameDouble formula_totals;
 	cxxNameDouble totals; 

@@ -361,6 +361,7 @@ struct exch_comp {
 	char *rate_name;
 };
 EXTERNAL struct exchange *exchange;
+EXTERNAL struct exchange *dbg_exchange;
 EXTERNAL int count_exchange;
 EXTERNAL int max_exchange;
 /* ----------------------------------------------------------------------
@@ -1043,7 +1044,8 @@ struct key keyword[] = {
 	{"isotope_alphas", 0},
 	{"copy", 0},
 	{"pitzer", 0},
-	{"solution_raw", 0}
+	{"solution_raw", 0},
+	{"exchange_raw", 0}
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords */
 #else

@@ -37,7 +37,7 @@ public:
 
 	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+	CParser::STATUS_TYPE read_raw(CParser& parser, std::istream::pos_type& pos);
 
 	enum ND_TYPE type;
 
