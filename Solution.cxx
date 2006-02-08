@@ -792,6 +792,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "ISolution.h"
 #include "Exchange.h"
 #include "Surface.h"
+#include "PPassemblage.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -884,6 +885,35 @@ void test_classes(void)
 			surface_copy(surface_ptr, &surface[i], surface_ptr->n_user);
 			surface_free(surface_ptr);
 			free_check_null(surface_ptr);
+
+		}
+
+        }
+        for (i=0; i < count_pp_assemblage; i++) {
+                if (pp_assemblage[i].new_def != TRUE) {
+                        std::ostringstream oss;
+                        cxxPPassemblage ex(&(pp_assemblage[i]));
+                        ex.dump_raw(oss, 0);
+			std::cerr << oss.str();
+
+
+                        cxxPPassemblage ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+			//For testing, need to read line to get started
+			std::vector<std::string> vopts;
+			std::istream::pos_type next_char;
+			cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+
+                        struct pp_assemblage *pp_assemblage_ptr = ex1.cxxPPassemblage2pp_assemblage();
+			pp_assemblage_free(&pp_assemblage[i]);
+			pp_assemblage_copy(pp_assemblage_ptr, &pp_assemblage[i], pp_assemblage_ptr->n_user);
+			pp_assemblage_free(pp_assemblage_ptr);
+			free_check_null(pp_assemblage_ptr);
 
 		}
 

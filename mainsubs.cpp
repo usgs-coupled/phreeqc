@@ -539,6 +539,7 @@ void initialize(void)
 	dbg_solution = solution;
 	dbg_exchange = exchange;
 	dbg_surface = surface;
+	dbg_pp_assemblage = pp_assemblage;
 	return;
 }
 /* ---------------------------------------------------------------------- */

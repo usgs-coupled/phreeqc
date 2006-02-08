@@ -736,7 +736,6 @@ struct pp_assemblage {
 	char *description;
 	int new_def;
 	struct elt_list *next_elt;
-/*	struct elt_list *next_secondary; */
 	int count_comps;
 	struct pure_phase *pure_phases;
 };
@@ -753,6 +752,7 @@ struct pure_phase {
 EXTERNAL int count_pp_assemblage;
 EXTERNAL int max_pp_assemblage;
 EXTERNAL struct pp_assemblage *pp_assemblage;
+EXTERNAL struct pp_assemblage *dbg_pp_assemblage;
 /*----------------------------------------------------------------------
  *   Species_list
  *---------------------------------------------------------------------- */
@@ -1046,7 +1046,12 @@ struct key keyword[] = {
 	{"copy", 0},
 	{"pitzer", 0},
 	{"solution_raw", 0},
-	{"exchange_raw", 0}
+	{"exchange_raw", 0},
+	{"surface_raw", 0},
+	{"equilibrium_phases_raw", 0},
+	{"kinetics_raw", 0},
+	{"solid_solutions_raw", 0},
+	{"gas_phase_raw", 0}
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords */
 #else

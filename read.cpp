@@ -5,6 +5,8 @@
 #include "phrqproto.h"
 extern int read_solution_raw (void);
 extern int read_exchange_raw (void);
+extern int read_surface_raw (void);
+extern int read_equilibrium_phases_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -206,6 +208,12 @@ int read_input(void)
 	  59      "pitzer"
 	  60      "solution_raw"
 	  61      "exchange_raw"
+	  62      "surface_raw"
+	  63      "equilibrium_phases_raw"
+	  64      "kinetics_raw"
+	  65      "solid_solutions_raw"
+	  66      "gas_phase_raw"
+
   */
 	for (;;) {
 		if (next_keyword >= 0) {
@@ -459,6 +467,28 @@ int read_input(void)
 			keyword[61].keycount++;
 			read_exchange_raw();
 			break;		
+		case 62:
+			keyword[61].keycount++;
+			read_surface_raw();
+			break;		
+		case 63:
+			keyword[61].keycount++;
+			read_equilibrium_phases_raw();
+			break;		
+#ifdef SKIP			
+		case 64:
+			keyword[61].keycount++;
+			read_kinetics_raw();
+			break;		
+		case 65:
+			keyword[61].keycount++;
+			read_solid_solutins_raw();
+			break;		
+		case 66:
+			keyword[61].keycount++;
+			read_gas_phase_raw();
+			break;		
+#endif
 		}
 	}
  END_OF_SIMULATION_INPUT:

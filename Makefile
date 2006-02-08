@@ -105,6 +105,8 @@ CLASS_OBJECTS=  Conc.o \
 		NameDouble.o \
 		NumKeyword.o \
 		Parser.o \
+		PPassemblage.o \
+		PPassemblageComp.o \
 		ReadClass.o \
 		Solution.o \
 		Surface.o \
@@ -292,6 +294,11 @@ NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_sta
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h
 ReadClass.o: $(SRC)/ReadClass.cpp
 Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h
+PPassemblageComp.o: $(SRC)/PPassemblageComp.cxx $(SRC)/Utils.h $(SRC)/NameDouble.h \
+  $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+PPassemblage.o: $(SRC)/PPassemblage.cxx $(SRC)/Utils.h $(SRC)/PPassemblage.h $(SRC)/NumKeyword.h \
+  $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/PPassemblageComp.h \
+  $(SRC)/NameDouble.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 Solution.o: $(SRC)/Solution.cxx $(SRC)/Utils.h $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
   $(SRC)/char_star.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
   $(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
