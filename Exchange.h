@@ -31,11 +31,12 @@ public:
 
 	void read_raw(CParser& parser);
 
+	bool get_related_phases(void);
+
+	bool get_related_rate(void);
 
 protected:
 	std::list<cxxExchComp> exchComps;
-	bool related_phases;
-	bool related_rate;
 	bool pitzer_exchange_gammas;
 
 public:

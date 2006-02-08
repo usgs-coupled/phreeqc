@@ -25,8 +25,6 @@ cxxExchange::cxxExchange()
         //
 : cxxNumKeyword()
 {
-        related_phases          = false;
-        related_rate            = false;
 	pitzer_exchange_gammas  = false;
 }
 
@@ -43,8 +41,6 @@ cxxNumKeyword()
         description                  = exchange_ptr->description; 
         n_user      		     = exchange_ptr->n_user;	 
         n_user_end  		     = exchange_ptr->n_user_end;  
-	related_phases               = (exchange_ptr->related_phases == TRUE);
-	related_rate                 = (exchange_ptr->related_rate == TRUE);
 	pitzer_exchange_gammas       = (exchange_ptr->pitzer_exchange_gammas == TRUE);
 	for (i = 0; i < exchange_ptr->count_comps; i++) {
 		cxxExchComp ec(&(exchange_ptr->comps[i]));
@@ -60,6 +56,24 @@ cxxExchange::~cxxExchange()
 {
 }
 
+bool cxxExchange::get_related_phases()
+{	
+        for (std::list<cxxExchComp>::const_iterator it = this->exchComps.begin(); it != this->exchComps.end(); ++it) {
+		if (it->get_phase_name() == NULL) continue;
+		return(true);
+        }
+	return(false);
+}
+
+bool cxxExchange::get_related_rate()
+{	
+        for (std::list<cxxExchComp>::const_iterator it = this->exchComps.begin(); it != this->exchComps.end(); ++it) {
+		if (it->get_rate_name() == NULL) continue;
+		return(true);
+        }
+	return(false);
+}
+
 struct exchange *cxxExchange::cxxExchange2exchange()
         //
         // Builds a exchange structure from instance of cxxExchange 
@@ -73,21 +87,9 @@ struct exchange *cxxExchange::cxxExchange2exchange()
         exchange_ptr->new_def            	  = FALSE;                    
         exchange_ptr->solution_equilibria         = FALSE;
         exchange_ptr->n_solution                  = -2;
-	if (this->related_phases) {
-		exchange_ptr->related_phases              = TRUE;
-	} else {
-		exchange_ptr->related_phases              = FALSE;
-	}
-	if (this->related_phases) {
-		exchange_ptr->related_rate                = TRUE;
-	} else {
-		exchange_ptr->related_rate                = FALSE;
-	}
-	if (this->related_phases) {
-		exchange_ptr->pitzer_exchange_gammas      = TRUE;
-	} else {
-		exchange_ptr->pitzer_exchange_gammas      = FALSE;
-	}
+	exchange_ptr->related_phases              = (int) this->get_related_phases();
+	exchange_ptr->related_rate                = (int) this->get_related_rate();
+	exchange_ptr->pitzer_exchange_gammas      = (int) this->pitzer_exchange_gammas;
 	exchange_ptr->count_comps = this->exchComps.size();
         exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
 	exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(this->exchComps);
@@ -107,12 +109,6 @@ void cxxExchange::dump_xml(std::ostream& s_oss, unsigned int indent)const
         // Exchange element and attributes
         s_oss << indent0;
         s_oss << "<exchange " << std::endl;
-
-        s_oss << indent1;
-        s_oss << "related_phases=\"" << this->related_phases << "\"" << std::endl;
-
-        s_oss << indent1;
-        s_oss << "related_rate=\"" << this->related_rate << "\"" << std::endl;
 
         s_oss << indent1;
         s_oss << "pitzer_exchange_gammas=\"" << this->pitzer_exchange_gammas << "\"" << std::endl;
@@ -142,12 +138,6 @@ void cxxExchange::dump_raw(std::ostream& s_oss, unsigned int indent)const
         s_oss << "EXCHANGE_RAW       " << this->n_user  << " " << this->description << std::endl;
 
         s_oss << indent1;
-        s_oss << "-related_phases " << this->related_phases << std::endl;
-
-        s_oss << indent1;
-        s_oss << "-related_rate " << this->related_rate << std::endl;
-
-        s_oss << indent1;
         s_oss << "-pitzer_exchange_gammas " << this->pitzer_exchange_gammas << std::endl;
 
         // exchComps structures
@@ -165,10 +155,8 @@ void cxxExchange::read_raw(CParser& parser)
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
                 vopts.reserve(15);
-                vopts.push_back("related_phases");             // 0
-                vopts.push_back("related_rate");  	       // 1
-                vopts.push_back("pitzer_exchange_gammas");     // 2
-                vopts.push_back("component");  		       // 3
+                vopts.push_back("pitzer_exchange_gammas");     // 0
+                vopts.push_back("component");  		       // 1
         }						       
 							       
         std::istream::pos_type ptr;			       
@@ -181,8 +169,6 @@ void cxxExchange::read_raw(CParser& parser)
         this->read_number_description(parser);
 
         opt_save = CParser::OPT_ERROR;
-        bool related_phases_defined(false); 
-        bool related_rate_defined(false); 
         bool pitzer_exchange_gammas_defined(false); 
 
         for (;;)
@@ -207,27 +193,7 @@ void cxxExchange::read_raw(CParser& parser)
 			useLastLine = false;
                         break;
 
-                case 0: // related_phases
-                        if (!(parser.get_iss() >> this->related_phases))
-                        {
-                                this->related_phases = false;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected boolean value for related_phases.", CParser::OT_CONTINUE);
-                        }
-                        related_phases_defined = true;
-			useLastLine = false;
-                        break;
-                case 1: // related_rate
-                        if (!(parser.get_iss() >> this->related_rate))
-                        {
-                                this->related_rate = false;
-                                parser.incr_input_error();
-                                parser.error_msg("Expected boolean value for related_rate.", CParser::OT_CONTINUE);
-                        }
-                        related_rate_defined = true;
-			useLastLine = false;
-                        break;
-                case 2: // pitzer_exchange_gammas
+                case 0: // pitzer_exchange_gammas
                         if (!(parser.get_iss() >> this->pitzer_exchange_gammas))
                         {
                                 this->pitzer_exchange_gammas = false;
@@ -237,7 +203,7 @@ void cxxExchange::read_raw(CParser& parser)
                         pitzer_exchange_gammas_defined = true;
 			useLastLine = false;
                         break;
-                case 3: // component
+                case 1: // component
 			{
 				cxxExchComp ec;
 				ec.read_raw(parser);
@@ -249,14 +215,6 @@ void cxxExchange::read_raw(CParser& parser)
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
 	}
 	// members that must be defined
-	if (related_phases_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Related_phases not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);
-	}
-        if (related_rate_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Related_rate not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);
-	}
         if (pitzer_exchange_gammas_defined == false) {
 		parser.incr_input_error();
 		parser.error_msg("Pitzer_exchange_gammsa not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);

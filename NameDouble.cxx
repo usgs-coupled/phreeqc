@@ -33,8 +33,10 @@ cxxNameDouble::cxxNameDouble(struct elt_list *elt_list_ptr)
         //
 {
 	int i;
-	for (i = 0; elt_list_ptr[i].elt != NULL; i++) {
-		(*this)[elt_list_ptr[i].elt->name] = elt_list_ptr[i].coef;
+	if (elt_list_ptr != NULL) {
+		for (i = 0; elt_list_ptr[i].elt != NULL; i++) {
+			(*this)[elt_list_ptr[i].elt->name] = elt_list_ptr[i].coef;
+		}
 	}
 	this->type = ND_ELT_MOLES;
 }

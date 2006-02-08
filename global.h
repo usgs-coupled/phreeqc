@@ -325,6 +325,7 @@ struct surface_diff_layer {
 	LDBLE psi_to_z;
 };
 EXTERNAL struct surface *surface;
+EXTERNAL struct surface *dbg_surface;
 EXTERNAL int count_surface;
 EXTERNAL int max_surface;
 EXTERNAL struct charge_group {

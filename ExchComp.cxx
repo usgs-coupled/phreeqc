@@ -1,4 +1,4 @@
-// Solution.cxx: implementation of the cxxExchComp class.
+// ExchComp.cxx: implementation of the cxxExchComp class.
 //
 //////////////////////////////////////////////////////////////////////
 #ifdef _DEBUG

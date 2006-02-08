@@ -791,6 +791,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 
 #include "ISolution.h"
 #include "Exchange.h"
+#include "Surface.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -798,6 +799,8 @@ cxxSolution& cxxSolution::read(CParser& parser)
 void test_classes(void)
 {
         int i;
+	bool b(true);
+	i = (int) b;
         for (i=0; i < count_solution; i++) {
                 if (solution[i]->new_def == TRUE) {
                         cxxISolution sol(solution[i]);
@@ -835,7 +838,7 @@ void test_classes(void)
                         std::ostringstream oss;
                         cxxExchange ex(&(exchange[i]));
                         ex.dump_raw(oss, 0);
-			std::cerr << oss.str();
+			//std::cerr << oss.str();
 
                         cxxExchange ex1;
                         std::string keyInput = oss.str();
@@ -855,5 +858,34 @@ void test_classes(void)
 			exchange_free(exchange_ptr);
 			free_check_null(exchange_ptr);
                 }
+        }
+        for (i=0; i < count_surface; i++) {
+                if (surface[i].new_def != TRUE) {
+                        std::ostringstream oss;
+                        cxxSurface ex(&(surface[i]));
+                        ex.dump_raw(oss, 0);
+			std::cerr << oss.str();
+
+
+                        cxxSurface ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+			//For testing, need to read line to get started
+			std::vector<std::string> vopts;
+			std::istream::pos_type next_char;
+			cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+
+                        struct surface *surface_ptr = ex1.cxxSurface2surface();
+			surface_free(&surface[i]);
+			surface_copy(surface_ptr, &surface[i], surface_ptr->n_user);
+			surface_free(surface_ptr);
+			free_check_null(surface_ptr);
+
+		}
+
         }
 } 

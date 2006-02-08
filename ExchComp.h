@@ -16,16 +16,14 @@ class cxxExchComp
 {
 
 public:
-	enum EXCHANGE_CONSTRUCTOR {
-		MAKE_LIST        = 1
-	};
-
 	cxxExchComp();
 	cxxExchComp(struct exch_comp *);
 	~cxxExchComp();
 
 
 	struct master *get_master();
+	char *get_phase_name()const {return this->phase_name;}
+	char *get_rate_name()const {return this->rate_name;}
 
 	static struct exch_comp *cxxExchComp2exch_comp(std::list<cxxExchComp>& el);
 

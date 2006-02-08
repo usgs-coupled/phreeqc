@@ -107,6 +107,9 @@ CLASS_OBJECTS=  Conc.o \
 		Parser.o \
 		ReadClass.o \
 		Solution.o \
+		Surface.o \
+		SurfComp.o \
+		SurfCharge.o \
 		Utils.o
 
 OBJECTS += $(CLASS_OBJECTS)
@@ -287,11 +290,17 @@ Isotope.o: Isotope.cxx Isotope.h Parser.h char_star.h Utils.h global.h \
 NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_star.h $(SRC)/NameDouble.h \
   $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h
+ReadClass.o: $(SRC)/ReadClass.cpp
+Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h
 Solution.o: $(SRC)/Solution.cxx $(SRC)/Utils.h $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
   $(SRC)/char_star.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
   $(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
-ReadClass.o: $(SRC)/ReadClass.cpp
-Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h
+Surface.o: $(SRC)/Surface.cxx $(SRC)/Utils.h $(SRC)/Surface.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
+  $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/SurfComp.h $(SRC)/NameDouble.h $(SRC)/phqalloc.h \
+  $(SRC)/phrqproto.h
+SurfComp.o: $(SRC)/SurfComp.cxx $(SRC)/Utils.h $(SRC)/SurfComp.h $(SRC)/NameDouble.h $(SRC)/global.h \
+  $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+
 Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h $(SRC)/Parser.h $(SRC)/char_star.h
 
 -include $(SRC)/distribution.mk
