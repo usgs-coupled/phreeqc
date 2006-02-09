@@ -7,6 +7,7 @@ extern int read_solution_raw (void);
 extern int read_exchange_raw (void);
 extern int read_surface_raw (void);
 extern int read_equilibrium_phases_raw (void);
+extern int read_kinetics_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -475,11 +476,11 @@ int read_input(void)
 			keyword[61].keycount++;
 			read_equilibrium_phases_raw();
 			break;		
-#ifdef SKIP			
 		case 64:
 			keyword[61].keycount++;
 			read_kinetics_raw();
 			break;		
+#ifdef SKIP			
 		case 65:
 			keyword[61].keycount++;
 			read_solid_solutins_raw();

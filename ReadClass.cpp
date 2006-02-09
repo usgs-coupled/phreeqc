@@ -6,6 +6,7 @@
 #include "Exchange.h"
 #include "Surface.h"
 #include "PPassemblage.h"
+#include "Kinetics.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -286,5 +287,73 @@ int read_equilibrium_phases_raw (void)
 	pp_assemblage_copy(pp_assemblage_ptr, &pp_assemblage[n], pp_assemblage_ptr->n_user);
 	pp_assemblage_free(pp_assemblage_ptr);
 	free_check_null(pp_assemblage_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_kinetics_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads KINETICS_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("kinetics_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxKinetics ex;
+	ex.read_raw(parser);
+	struct kinetics *kinetics_ptr = ex.cxxKinetics2kinetics();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (kinetics_bsearch(kinetics_ptr->n_user, &n) != NULL) {
+		kinetics_free(&kinetics[n]);
+	} else {
+		n=count_kinetics++;
+		if (count_kinetics >= max_kinetics) {
+			space ((void **) ((void *) &(kinetics)), count_kinetics, &max_kinetics, sizeof (struct kinetics *) );
+		}
+	}
+	kinetics_copy(kinetics_ptr, &kinetics[n], kinetics_ptr->n_user);
+	kinetics_free(kinetics_ptr);
+	free_check_null(kinetics_ptr);
 	return(return_value);
 }

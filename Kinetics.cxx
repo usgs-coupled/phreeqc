@@ -180,14 +180,16 @@ void cxxKinetics::dump_raw(std::ostream& s_oss, unsigned int indent)const
         s_oss << "-steps         "  << std::endl;
 	{
 		int i = 0;
+		s_oss << indent2;
 		for (std::vector<double>::const_iterator it = this->steps.begin(); it != this->steps.end(); it++) {
 			if (i++ == 5) {
 				s_oss << std::endl;
 				s_oss << indent2;
 				i = 0;
 			}
-			s_oss << *it;
+			s_oss << *it << " ";
 		}
+		s_oss << std::endl;
 	}	
         return;
 }
@@ -231,6 +233,10 @@ void cxxKinetics::read_raw(CParser& parser)
 		} else {
 			opt = parser.getOptionFromLastLine(vopts, next_char);
 		}
+                if (opt == CParser::OPT_DEFAULT)
+                {
+                        opt = opt_save;
+                }
                 switch (opt)
                 {
                 case CParser::OPT_EOF:
@@ -308,7 +314,7 @@ void cxxKinetics::read_raw(CParser& parser)
 
                 case 6: // steps
 			while (parser.copy_token(token, next_char) == CParser::TT_DIGIT) {
-				sscanf(token.c_str(), "%e", &d);
+				sscanf(token.c_str(), "%lf", &d);
 				this->steps.push_back(d);
 			}
 			opt_save = 6;

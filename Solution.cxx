@@ -793,6 +793,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "Exchange.h"
 #include "Surface.h"
 #include "PPassemblage.h"
+#include "Kinetics.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -916,6 +917,36 @@ void test_classes(void)
 			free_check_null(pp_assemblage_ptr);
 
 		}
+
+        }
+        for (i=0; i < count_kinetics; i++) {
+                        std::ostringstream oss;
+                        cxxKinetics ex(&(kinetics[i]));
+                        ex.dump_raw(oss, 0);
+			std::cerr << oss.str();
+
+
+                        cxxKinetics ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+			//For testing, need to read line to get started
+			std::vector<std::string> vopts;
+			std::istream::pos_type next_char;
+			cparser.get_option(vopts, next_char);
+
+
+                        ex1.read_raw(cparser);
+
+			/*
+                        struct kinetics *kinetics_ptr = ex1.cxxKinetics2kinetics();
+			kinetics_free(&kinetics[i]);
+			kinetics_copy(kinetics_ptr, &kinetics[i], kinetics_ptr->n_user);
+			kinetics_free(kinetics_ptr);
+			free_check_null(kinetics_ptr);
+			*/
+
 
         }
 } 

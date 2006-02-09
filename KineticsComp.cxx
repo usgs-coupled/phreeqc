@@ -146,14 +146,16 @@ void cxxKineticsComp::dump_raw(std::ostream& s_oss, unsigned int indent)const
         s_oss << "-d_params" << std::endl;
 	{
 		int i = 0;
+		s_oss << indent1;
 		for (std::vector<double>::const_iterator it = d_params.begin(); it != d_params.end(); it++) {
 			if (i++ == 5) {
 				s_oss << std::endl;
 				s_oss << indent1;
 				i = 0;
 			}
-			s_oss << *it;
+			s_oss << *it << " ";
 		}
+		s_oss << std::endl;
 	}
 }
 
@@ -272,7 +274,7 @@ void cxxKineticsComp::read_raw(CParser& parser)
 
                 case 6: // d_params
 			while (parser.copy_token(token, next_char) == CParser::TT_DIGIT) {
-				sscanf(token.c_str(), "%e", &d);
+				sscanf(token.c_str(), "%lf", &d);
 				this->d_params.push_back(d);
 			}
 			opt_save = 6;
