@@ -63,6 +63,18 @@ cxxNameDouble::cxxNameDouble(struct master_activity *ma, int count, cxxNameDoubl
         }
 	this->type = ND_SPECIES_LA;
 }
+cxxNameDouble::cxxNameDouble(struct name_coef *nc, int count, cxxNameDouble::ND_TYPE)
+        //
+        // constructor for cxxNameDouble from list of elt_list
+        //
+{
+	int i;
+        for (i = 0; i < count; i++) {
+                if (nc[i].name == NULL) continue;
+                (*this)[nc[i].name] = nc[i].coef;
+        }
+	this->type = ND_NAME_COEF;
+}
 cxxNameDouble::~cxxNameDouble()
 {
 }
@@ -148,6 +160,23 @@ struct conc *cxxNameDouble::conc()const
 	}			
 	c[i].description = NULL;
 	return(c);
+}
+
+struct name_coef *cxxNameDouble::name_coef()const
+        //
+        // Builds a name_coef structure from instance of cxxNameDouble 
+        //
+{
+	assert (this->type == cxxNameDouble::ND_NAME_COEF);
+	struct name_coef *name_coef_ptr = (struct name_coef *) PHRQ_malloc((size_t)((this->size()) *sizeof(struct name_coef)));
+	if (name_coef_ptr == NULL) malloc_error();
+	int i = 0;
+	for (const_iterator it = (*this).begin(); it != (*this).end(); ++it) {
+		name_coef_ptr[i].name = it->first;
+		name_coef_ptr[i].coef = it->second;
+		i++;
+	}
+	return(name_coef_ptr);
 }
 
 void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const

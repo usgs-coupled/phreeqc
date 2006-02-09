@@ -18,13 +18,15 @@ public:
 	enum ND_TYPE {
 		ND_ELT_MOLES     = 1,
 		ND_SPECIES_LA    = 2,
-		ND_SPECIES_GAMMA = 3
+		ND_SPECIES_GAMMA = 3,
+		ND_NAME_COEF     = 4
 	};
 
 	cxxNameDouble();
 	cxxNameDouble(struct elt_list *);
 	cxxNameDouble(struct conc *);
         cxxNameDouble(struct master_activity *ma, int count, cxxNameDouble::ND_TYPE);
+        cxxNameDouble(struct name_coef *nc, int count, cxxNameDouble::ND_TYPE);
 	~cxxNameDouble();
 
 	struct elt_list *elt_list();
@@ -32,6 +34,8 @@ public:
 	struct master_activity *master_activity()const;
 
 	struct conc *conc()const;
+
+	struct name_coef *name_coef()const;
 
 	void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const;
 

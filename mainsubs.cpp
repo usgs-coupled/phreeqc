@@ -540,6 +540,7 @@ void initialize(void)
 	dbg_exchange = exchange;
 	dbg_surface = surface;
 	dbg_pp_assemblage = pp_assemblage;
+	dbg_kinetics = kinetics;
 	return;
 }
 /* ---------------------------------------------------------------------- */

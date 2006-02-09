@@ -377,7 +377,7 @@ struct kinetics {
 	int count_steps;
 	LDBLE *steps;
 	LDBLE step_divide;
-	char *units;
+	/*char *units;*/
 	struct elt_list *totals;
 	int rk;
 	int bad_step_max;
@@ -402,6 +402,7 @@ struct kinetics_comp {
  	LDBLE *d_params;
 };
 EXTERNAL struct kinetics *kinetics;
+EXTERNAL struct kinetics *dbg_kinetics;
 EXTERNAL int count_kinetics;
 EXTERNAL int max_kinetics;
 

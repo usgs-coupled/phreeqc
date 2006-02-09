@@ -1771,7 +1771,7 @@ struct kinetics *kinetics_alloc (void)
 	kinetics_ptr->comps = NULL;
 	kinetics_ptr->count_steps = 0;
 	kinetics_ptr->steps = NULL;
-	kinetics_ptr->units = NULL;
+	/*kinetics_ptr->units = NULL;*/
 	kinetics_ptr->totals = NULL;
 	return ( kinetics_ptr );
 }
@@ -2047,7 +2047,7 @@ int kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end, ch
 	kinetics_ptr->steps = (LDBLE *) PHRQ_malloc((size_t) sizeof(LDBLE));
 	if (kinetics_ptr->steps == NULL)  malloc_error();
 	kinetics_ptr->step_divide = 1.0;
-	kinetics_ptr->units = string_hsave("sec");
+	/*kinetics_ptr->units = string_hsave("sec");*/
 	kinetics_ptr->totals = NULL;
   	kinetics_ptr->rk = 3;
 	kinetics_ptr->bad_step_max = 500;

@@ -102,6 +102,8 @@ CLASS_OBJECTS=  Conc.o \
 		ExchComp.o \
 		ISolution.o \
 		Isotope.o \
+		Kinetics.o \
+		KineticsComp.o \
 		NameDouble.o \
 		NumKeyword.o \
 		Parser.o \
@@ -287,8 +289,13 @@ ExchComp.o: $(SRC)/ExchComp.cxx $(SRC)/Utils.h $(SRC)/ExchComp.h $(SRC)/NameDoub
 ISolution.o: $(SRC)/ISolution.cxx $(SRC)/ISolution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h \
   $(SRC)/Solution.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/Utils.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
   $(SRC)/phqalloc.h $(SRC)/phrqproto.h
-Isotope.o: Isotope.cxx Isotope.h Parser.h char_star.h Utils.h global.h \
-  phrqtype.h phqalloc.h phrqproto.h
+Isotope.o: $(SRC)/Isotope.cxx $(SRC)/Isotope.h $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h $(SRC)/global.h \
+  $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+KineticsComp.o: $(SRC)/KineticsComp.cxx $(SRC)/Utils.h $(SRC)/KineticsComp.h $(SRC)/NameDouble.h \
+  $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+Kinetics.o: $(SRC)/Kinetics.cxx $(SRC)/Utils.h $(SRC)/Kinetics.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
+  $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/KineticsComp.h $(SRC)/NameDouble.h $(SRC)/phqalloc.h \
+  $(SRC)/phrqproto.h
 NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_star.h $(SRC)/NameDouble.h \
   $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h
