@@ -34,9 +34,9 @@ cxxSolution::cxxSolution()
         cb          = 0.0;
         mass_water  = 1.0;
         total_alkalinity = 0.0;
-	totals.type = cxxNameDouble::ND_ELT_MOLES;
-	master_activity.type = cxxNameDouble::ND_SPECIES_LA;
-	species_gamma.type = cxxNameDouble::ND_SPECIES_GAMMA;
+        totals.type = cxxNameDouble::ND_ELT_MOLES;
+        master_activity.type = cxxNameDouble::ND_SPECIES_LA;
+        species_gamma.type = cxxNameDouble::ND_SPECIES_GAMMA;
 }
 
 cxxSolution::cxxSolution(struct solution *solution_ptr)
@@ -110,16 +110,16 @@ struct solution *cxxSolution::cxxSolution2solution()
 
         // totals
         solution_ptr->totals = (struct conc *) free_check_null(solution_ptr->totals);
-	solution_ptr->totals = this->totals.conc();
+        solution_ptr->totals = this->totals.conc();
 
         // master_activity
-	solution_ptr->master_activity = (struct master_activity *) free_check_null(solution_ptr->master_activity);
-	solution_ptr->master_activity = this->master_activity.master_activity();
+        solution_ptr->master_activity = (struct master_activity *) free_check_null(solution_ptr->master_activity);
+        solution_ptr->master_activity = this->master_activity.master_activity();
         solution_ptr->count_master_activity = this->master_activity.size() + 1;
 
         // species_gamma
-	solution_ptr->species_gamma = this->species_gamma.master_activity();
-	solution_ptr->count_species_gamma = this->species_gamma.size();
+        solution_ptr->species_gamma = this->species_gamma.master_activity();
+        solution_ptr->count_species_gamma = this->species_gamma.size();
 
         // isotopes
         solution_ptr->isotopes = (struct isotope *) free_check_null(solution_ptr->isotopes);
@@ -184,44 +184,44 @@ void cxxSolution::dump_xml(std::ostream& s_oss, unsigned int indent)const
         s_oss << "\">" << std::endl;
 
         // soln_total conc structures
-	this->totals.dump_xml(s_oss, indent + 1);
-	/*
-	{
-	for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_total";
-		s_oss << " conc_desc=\"" << it->first << "\"";
-		s_oss << " conc_moles=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-	*/
+        this->totals.dump_xml(s_oss, indent + 1);
+        /*
+        {
+        for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
+                s_oss << indent1;
+                s_oss << "<soln_total";
+                s_oss << " conc_desc=\"" << it->first << "\"";
+                s_oss << " conc_moles=\"" << it->second << "\"" ;
+                s_oss << "\">" << std::endl;
+        }
+        }
+        */
         // master_activity map
-	this->master_activity.dump_xml(s_oss, indent + 1);
-	/*
-	{
-	for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_m_a";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-	*/
+        this->master_activity.dump_xml(s_oss, indent + 1);
+        /*
+        {
+        for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
+                s_oss << indent1;
+                s_oss << "<soln_m_a";
+                s_oss << " m_a_desc=\"" << it->first << "\"" ;
+                s_oss << " m_a_la=\"" << it->second << "\"" ;
+                s_oss << "\">" << std::endl;
+        }
+        }
+        */
         // species_gamma map
-	this->species_gamma.dump_xml(s_oss, indent + 1);
-	/*
-	{
-	for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "<soln_s_g";
-		s_oss << " m_a_desc=\"" << it->first << "\"" ;
-		s_oss << " m_a_la=\"" << it->second << "\"" ;
-		s_oss << "\">" << std::endl;
-	}
-	}
-	*/
+        this->species_gamma.dump_xml(s_oss, indent + 1);
+        /*
+        {
+        for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
+                s_oss << indent1;
+                s_oss << "<soln_s_g";
+                s_oss << " m_a_desc=\"" << it->first << "\"" ;
+                s_oss << " m_a_la=\"" << it->second << "\"" ;
+                s_oss << "\">" << std::endl;
+        }
+        }
+        */
 
         for (std::list<cxxIsotope>::const_iterator it = this->isotopes.begin(); it != isotopes.end(); ++it) {
                 it->dump_xml(s_oss, indent + 1);
@@ -238,7 +238,7 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing solution message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
+        s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
@@ -288,31 +288,31 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
         // soln_total conc structures
         s_oss << indent1;
         s_oss << "-totals" << std::endl;
-	this->totals.dump_raw(s_oss, indent + 2);
-	/*
+        this->totals.dump_raw(s_oss, indent + 2);
+        /*
         for (std::map <char *, double, CHARSTAR_LESS>::const_iterator it = totals.begin(); it != totals.end(); ++it) {
                 s_oss << indent2;
                 s_oss << it->first << "   " <<  it->second << std::endl;
         }
-	*/
+        */
 
         // master_activity map
         s_oss << indent1;
         s_oss << "-activities" << std::endl;
-	this->master_activity.dump_raw(s_oss, indent + 2);
-	/*
+        this->master_activity.dump_raw(s_oss, indent + 2);
+        /*
         {
                 for (std::map <char *, double>::const_iterator it = master_activity.begin(); it != master_activity.end(); ++it) {
                         s_oss << indent2;
                         s_oss << it->first << "   " << it->second << std::endl;
                 }
         }
-	*/
+        */
         // species_gamma map
         s_oss << indent1;
         s_oss << "-gammas" << std::endl;
-	this->species_gamma.dump_raw(s_oss, indent + 2);
-	/*
+        this->species_gamma.dump_raw(s_oss, indent + 2);
+        /*
         {
                 {
                         for (std::map <char *, double>::const_iterator it = species_gamma.begin(); it != species_gamma.end(); ++it) {
@@ -321,7 +321,7 @@ void cxxSolution::dump_raw(std::ostream& s_oss, unsigned int indent)const
                         }
                 }
         }
-	*/
+        */
         // Isotopes
         s_oss << indent1;
         s_oss << "-Isotopes" << std::endl;
@@ -404,7 +404,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 0: // totals
-			if ( this->totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
+                        if ( this->totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected element name and moles for totals.", CParser::OT_CONTINUE);
                         }                       
@@ -412,7 +412,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 1: // activities
-			if ( this->master_activity.read_raw(parser, next_char) != CParser::PARSER_OK) {
+                        if ( this->master_activity.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected species name and log activity for activities.", CParser::OT_CONTINUE);
                         }                               
@@ -420,7 +420,7 @@ void cxxSolution::read_raw(CParser& parser)
                         break;
 
                 case 2: // gammas
-			if ( this->species_gamma.read_raw(parser, next_char) != CParser::PARSER_OK) {
+                        if ( this->species_gamma.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected species name and activity coefficient for gammas.", CParser::OT_CONTINUE);
                         }                               
@@ -430,13 +430,13 @@ void cxxSolution::read_raw(CParser& parser)
                 case 3: // isotopes
                         {
                                 cxxIsotope iso;
-				if ( iso.read_raw(parser) != CParser::PARSER_OK) {
+                                if ( iso.read_raw(parser) != CParser::PARSER_OK) {
                                         parser.incr_input_error();
                                         parser.error_msg("Expected data for isotopes.", CParser::OT_CONTINUE);
                                 } else {
-					if (iso.get_isotope_name() != NULL) {
-						this->isotopes.push_back(iso);
-					}
+                                        if (iso.get_isotope_name() != NULL) {
+                                                this->isotopes.push_back(iso);
+                                        }
                                 }
                         }
                         opt_save = 3;
@@ -452,6 +452,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for temperature.", CParser::OT_CONTINUE);
                         }
                         tc_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 7: // ph
@@ -462,6 +463,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for pH.", CParser::OT_CONTINUE);
                         }
                         ph_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 8: // pe
@@ -472,6 +474,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for pe.", CParser::OT_CONTINUE);
                         }
                         pe_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 9: // mu
@@ -483,6 +486,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for ionic strength.", CParser::OT_CONTINUE);
                         }
                         mu_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 11: // ah2o
@@ -494,6 +498,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for activity of water.", CParser::OT_CONTINUE);
                         }
                         ah2o_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 13: // total_h
@@ -504,6 +509,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for total hydrogen.", CParser::OT_CONTINUE);
                         }
                         total_h_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 14: // total_o
@@ -514,6 +520,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for total oxygen.", CParser::OT_CONTINUE);
                         }
                         total_o_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 15: // mass_water
@@ -525,6 +532,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for mass of water.", CParser::OT_CONTINUE);
                         }
                         mass_water_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 17: // total_alkalinity
@@ -536,6 +544,7 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for total_alkalinity.", CParser::OT_CONTINUE);
                         }
                         total_alkalinity_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 case 19: // cb
@@ -547,52 +556,53 @@ void cxxSolution::read_raw(CParser& parser)
                                 parser.error_msg("Expected numeric value for charge balance.", CParser::OT_CONTINUE);
                         }
                         cb_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
                         break;
 
                 }
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
         }
-	// all members must be defined
+        // all members must be defined
         if (tc_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (ph_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("pH not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (pe_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("pe not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (mu_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Ionic strength not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (ah2o_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Activity of water not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (total_h_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total hydrogen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (total_o_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total oxygen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (cb_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Charge balance not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (mass_water_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
-	if (total_alkalinity_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Total alkalinity not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (ph_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("pH not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (pe_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("pe not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (mu_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Ionic strength not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (ah2o_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Activity of water not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (total_h_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Total hydrogen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (total_o_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Total oxygen not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (cb_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Charge balance not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (mass_water_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Temp not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
+        if (total_alkalinity_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Total alkalinity not defined for SOLUTION_RAW input.", CParser::OT_CONTINUE);
+        }
         return;
 }
 
@@ -794,6 +804,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "Surface.h"
 #include "PPassemblage.h"
 #include "KineticsCxx.h"
+#include "SSassemblage.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -801,16 +812,16 @@ cxxSolution& cxxSolution::read(CParser& parser)
 void test_classes(void)
 {
         int i;
-	bool b(true);
-	i = (int) b;
+        bool b(true);
+        i = (int) b;
         for (i=0; i < count_solution; i++) {
                 if (solution[i]->new_def == TRUE) {
                         cxxISolution sol(solution[i]);
                         solution[i] = (struct solution *) solution_free(solution[i]);
                         solution[i] = sol.cxxISolution2solution();
                         struct solution *soln_ptr;
-			soln_ptr = solution[i];
-			soln_ptr = solution[i];
+                        soln_ptr = solution[i];
+                        soln_ptr = solution[i];
                 } else {
                         std::ostringstream oss;
                         cxxSolution sol(solution[i]);
@@ -824,10 +835,10 @@ void test_classes(void)
                         std::istringstream iss(keyInput);
 
                         CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
 
 
                         sol1.read_raw(cparser);
@@ -840,25 +851,25 @@ void test_classes(void)
                         std::ostringstream oss;
                         cxxExchange ex(&(exchange[i]));
                         ex.dump_raw(oss, 0);
-			//std::cerr << oss.str();
+                        //std::cerr << oss.str();
 
                         cxxExchange ex1;
                         std::string keyInput = oss.str();
                         std::istringstream iss(keyInput);
 
                         CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
 
                         ex1.read_raw(cparser);
 
                         struct exchange *exchange_ptr = ex1.cxxExchange2exchange();
-			exchange_free(&exchange[i]);
-			exchange_copy(exchange_ptr, &exchange[i], exchange_ptr->n_user);
-			exchange_free(exchange_ptr);
-			free_check_null(exchange_ptr);
+                        exchange_free(&exchange[i]);
+                        exchange_copy(exchange_ptr, &exchange[i], exchange_ptr->n_user);
+                        exchange_free(exchange_ptr);
+                        free_check_null(exchange_ptr);
                 }
         }
         for (i=0; i < count_surface; i++) {
@@ -866,7 +877,7 @@ void test_classes(void)
                         std::ostringstream oss;
                         cxxSurface ex(&(surface[i]));
                         ex.dump_raw(oss, 0);
-			std::cerr << oss.str();
+                        std::cerr << oss.str();
 
 
                         cxxSurface ex1;
@@ -874,20 +885,20 @@ void test_classes(void)
                         std::istringstream iss(keyInput);
 
                         CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
 
                         ex1.read_raw(cparser);
 
                         struct surface *surface_ptr = ex1.cxxSurface2surface();
-			surface_free(&surface[i]);
-			surface_copy(surface_ptr, &surface[i], surface_ptr->n_user);
-			surface_free(surface_ptr);
-			free_check_null(surface_ptr);
+                        surface_free(&surface[i]);
+                        surface_copy(surface_ptr, &surface[i], surface_ptr->n_user);
+                        surface_free(surface_ptr);
+                        free_check_null(surface_ptr);
 
-		}
+                }
 
         }
         for (i=0; i < count_pp_assemblage; i++) {
@@ -895,7 +906,7 @@ void test_classes(void)
                         std::ostringstream oss;
                         cxxPPassemblage ex(&(pp_assemblage[i]));
                         ex.dump_raw(oss, 0);
-			std::cerr << oss.str();
+                        std::cerr << oss.str();
 
 
                         cxxPPassemblage ex1;
@@ -903,27 +914,27 @@ void test_classes(void)
                         std::istringstream iss(keyInput);
 
                         CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
 
                         ex1.read_raw(cparser);
 
                         struct pp_assemblage *pp_assemblage_ptr = ex1.cxxPPassemblage2pp_assemblage();
-			pp_assemblage_free(&pp_assemblage[i]);
-			pp_assemblage_copy(pp_assemblage_ptr, &pp_assemblage[i], pp_assemblage_ptr->n_user);
-			pp_assemblage_free(pp_assemblage_ptr);
-			free_check_null(pp_assemblage_ptr);
+                        pp_assemblage_free(&pp_assemblage[i]);
+                        pp_assemblage_copy(pp_assemblage_ptr, &pp_assemblage[i], pp_assemblage_ptr->n_user);
+                        pp_assemblage_free(pp_assemblage_ptr);
+                        free_check_null(pp_assemblage_ptr);
 
-		}
+                }
 
         }
         for (i=0; i < count_kinetics; i++) {
                         std::ostringstream oss;
                         cxxKinetics ex(&(kinetics[i]));
                         ex.dump_raw(oss, 0);
-			std::cerr << oss.str();
+                        std::cerr << oss.str();
 
 
                         cxxKinetics ex1;
@@ -931,22 +942,49 @@ void test_classes(void)
                         std::istringstream iss(keyInput);
 
                         CParser cparser(iss, oss, std::cerr);
-			//For testing, need to read line to get started
-			std::vector<std::string> vopts;
-			std::istream::pos_type next_char;
-			cparser.get_option(vopts, next_char);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
 
 
                         ex1.read_raw(cparser);
 
 			/*
                         struct kinetics *kinetics_ptr = ex1.cxxKinetics2kinetics();
-			kinetics_free(&kinetics[i]);
-			kinetics_copy(kinetics_ptr, &kinetics[i], kinetics_ptr->n_user);
-			kinetics_free(kinetics_ptr);
-			free_check_null(kinetics_ptr);
+                        kinetics_free(&kinetics[i]);
+                        kinetics_copy(kinetics_ptr, &kinetics[i], kinetics_ptr->n_user);
+                        kinetics_free(kinetics_ptr);
+                        free_check_null(kinetics_ptr);
 			*/
+        }
+        for (i=0; i < count_s_s_assemblage; i++) {
+                if (s_s_assemblage[i].new_def != TRUE) {
+                        std::ostringstream oss;
+                        cxxSSassemblage ex(&(s_s_assemblage[i]));
+                        ex.dump_raw(oss, 0);
+                        std::cerr << oss.str();
 
+
+                        cxxSSassemblage ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+
+                        struct s_s_assemblage *s_s_assemblage_ptr = ex1.cxxSSassemblage2s_s_assemblage();
+                        s_s_assemblage_free(&s_s_assemblage[i]);
+                        s_s_assemblage_copy(s_s_assemblage_ptr, &s_s_assemblage[i], s_s_assemblage_ptr->n_user);
+                        s_s_assemblage_free(s_s_assemblage_ptr);
+                        free_check_null(s_s_assemblage_ptr);
+
+                }
 
         }
 } 

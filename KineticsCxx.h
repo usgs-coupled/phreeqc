@@ -17,34 +17,34 @@ class cxxKinetics : public cxxNumKeyword
 {
 
 public:
-	cxxKinetics();
-	cxxKinetics(struct kinetics *);
-	~cxxKinetics();
+        cxxKinetics();
+        cxxKinetics(struct kinetics *);
+        ~cxxKinetics();
 
-	struct kinetics *cxxKinetics2kinetics();
+        struct kinetics *cxxKinetics2kinetics();
 
-	struct kinetics_comp *cxxKineticsComp2kinetics_comp();
+        struct kinetics_comp *cxxKineticsComp2kinetics_comp();
 
-	//void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        //void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
-	bool get_related_phases(void);
+        bool get_related_phases(void);
 
-	bool get_related_rate(void);
+        bool get_related_rate(void);
 
 protected:
-	std::list<cxxKineticsComp> kineticsComps;
-	std::vector<double> steps;
-	cxxNameDouble totals;
-	double step_divide;
-	int rk;
-	int bad_step_max;
-	bool use_cvode;
+        std::list<cxxKineticsComp> kineticsComps;
+        std::vector<double> steps;
+        cxxNameDouble totals;
+        double step_divide;
+        int rk;
+        int bad_step_max;
+        bool use_cvode;
 public:
-	//static std::map<int, cxxKinetics>& map;
+        //static std::map<int, cxxKinetics>& map;
 
 };
 

@@ -4,7 +4,7 @@
 struct CHARSTAR_LESS : std::binary_function<const char*, const char*, bool> {
 bool operator()(const char* _X, const char* _Y) const
 {
-	return ::strcmp( _X, _Y) < 0;}
+        return ::strcmp( _X, _Y) < 0;}
 };
 
 #endif

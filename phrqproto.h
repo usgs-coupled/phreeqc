@@ -51,12 +51,12 @@ LDBLE total (char *total_name);
 
 /* cl1.c */
 int cl1(int k, int l, int m, int n,
-	int nklmd, int n2d,
-	LDBLE *q,
-	int *kode, LDBLE toler,
-	int *iter, LDBLE *x, LDBLE *res, LDBLE *error,
-	LDBLE *cu, int *iu, int *s,
-	int check);
+        int nklmd, int n2d,
+        LDBLE *q,
+        int *kode, LDBLE toler,
+        int *iter, LDBLE *x, LDBLE *res, LDBLE *error,
+        LDBLE *cu, int *iu, int *s,
+        int check);
 
 /* default.c */
 int close_input_files(void);
@@ -203,10 +203,10 @@ int read_conc(int n, int count_mass_balance, char *str);
 int *read_list_ints_range (char **ptr, int *count_ints, int positive, int *int_list );
 int read_log_k_only (char *ptr, LDBLE *log_k);
 int read_number_description (char *ptr, int *n_user, int *n_user_end, 
-			     char **description);
+                             char **description);
 int check_key (char *str);
 int check_units (char *tot_units,  int alkalinity, int check_compatibility,
-		 const char *default_units, int  print);
+                 const char *default_units, int  print);
 int find_option(char *item, int *n, const char **list, int count_list, int exact);
 int get_option (const char **opt_list, int count_opt_list, char **next_char);
 int get_true_false(char *string, int default_value);
@@ -238,7 +238,7 @@ int add_pp_assemblage (struct pp_assemblage *pp_assemblage_ptr);
 int add_reaction (struct irrev *irrev_ptr, int step_number, LDBLE step_fraction);
 int add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr);
 int add_solution (struct solution *solution_ptr, LDBLE extensive, 
-		  LDBLE intensive);
+                  LDBLE intensive);
 int add_surface (struct surface *surface_ptr);
 int add_temperature(struct temperature *temperature_ptr, int step_number);
 
@@ -276,7 +276,7 @@ struct gas_phase *gas_phase_alloc (void);
 struct gas_phase *gas_phase_bsearch (int k, int *n);
 int gas_phase_compare (const void *ptr1, const void *ptr2);
 int gas_phase_copy(struct gas_phase *gas_phase_old_ptr, 
-			  struct gas_phase *gas_phase_new_ptr, int n_user_new);
+                          struct gas_phase *gas_phase_new_ptr, int n_user_new);
 int gas_phase_copy_to_last(int n, int n_user);
 int gas_phase_delete(int n_user_old);
 int gas_phase_duplicate(int n_user_old, int n_user_new);
@@ -307,7 +307,7 @@ int kinetics_delete(int n_user_old);
 int kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr, struct kinetics_comp *kinetics_comp_old_ptr);
 int kinetics_compare (const void *ptr1, const void *ptr2);
 int kinetics_copy(struct kinetics *kinetics_old_ptr, 
-		  struct kinetics *kinetics_new_ptr, int n_user_new);
+                  struct kinetics *kinetics_new_ptr, int n_user_new);
 int kinetics_copy_to_last(int n, int n_user);
 int kinetics_duplicate(int n_user_old, int n_user_new);
 int kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end, char *description);
@@ -380,7 +380,7 @@ struct s_s_assemblage *s_s_assemblage_bsearch (int k, int *n);
 int s_s_assemblage_compare (const void *ptr1, const void *ptr2);
 
 int s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr, 
-			       struct s_s_assemblage *s_s_assemblage_new_ptr, int n_user_new);
+                               struct s_s_assemblage *s_s_assemblage_new_ptr, int n_user_new);
 int s_s_assemblage_copy_to_last(int n, int n_user);
 int s_s_assemblage_duplicate(int n_user_old, int n_user_new);
 int s_s_assemblage_delete(int n_user_old);

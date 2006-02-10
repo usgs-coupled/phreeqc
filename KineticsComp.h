@@ -16,26 +16,26 @@ class cxxKineticsComp
 {
 
 public:
-	cxxKineticsComp();
-	cxxKineticsComp(struct kinetics_comp *);
-	~cxxKineticsComp();
+        cxxKineticsComp();
+        cxxKineticsComp(struct kinetics_comp *);
+        ~cxxKineticsComp();
 
-	static struct kinetics_comp *cxxKineticsComp2kinetics_comp(std::list<cxxKineticsComp>& el);
+        static struct kinetics_comp *cxxKineticsComp2kinetics_comp(std::list<cxxKineticsComp>& el);
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
 protected:
- 	char * rate_name;
-	cxxNameDouble namecoef;
-	double tol;
-	double m;
-	double m0;
-	double moles;
-	std::vector<double> d_params;
+        char * rate_name;
+        cxxNameDouble namecoef;
+        double tol;
+        double m;
+        double m0;
+        double moles;
+        std::vector<double> d_params;
 
 public:
 

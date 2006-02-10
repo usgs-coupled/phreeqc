@@ -16,29 +16,29 @@ class cxxPPassemblageComp
 {
 
 public:
-	cxxPPassemblageComp();
-	cxxPPassemblageComp(struct pure_phase *);
-	~cxxPPassemblageComp();
+        cxxPPassemblageComp();
+        cxxPPassemblageComp(struct pure_phase *);
+        ~cxxPPassemblageComp();
 
 
-	static struct pure_phase *cxxPPassemblageComp2pure_phase(std::list<cxxPPassemblageComp>& el);
+        static struct pure_phase *cxxPPassemblageComp2pure_phase(std::list<cxxPPassemblageComp>& el);
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
-	struct phase *get_phase();
+        struct phase *get_phase();
 
 protected:
- 	char * name;
- 	char *add_formula;
-	double si;
-	double moles;
-	double delta;
-	double initial_moles;
-	bool dissolve_only;
+        char * name;
+        char *add_formula;
+        double si;
+        double moles;
+        double delta;
+        double initial_moles;
+        bool dissolve_only;
 
 public:
 

@@ -17,30 +17,30 @@ class cxxExchange : public cxxNumKeyword
 {
 
 public:
-	cxxExchange();
-	cxxExchange(struct exchange *);
-	~cxxExchange();
+        cxxExchange();
+        cxxExchange(struct exchange *);
+        ~cxxExchange();
 
-	struct exchange *cxxExchange2exchange();
+        struct exchange *cxxExchange2exchange();
 
-	struct exch_comp *cxxExchComp2exch_comp();
+        struct exch_comp *cxxExchComp2exch_comp();
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
-	bool get_related_phases(void);
+        bool get_related_phases(void);
 
-	bool get_related_rate(void);
+        bool get_related_rate(void);
 
 protected:
-	std::list<cxxExchComp> exchComps;
-	bool pitzer_exchange_gammas;
+        std::list<cxxExchComp> exchComps;
+        bool pitzer_exchange_gammas;
 
 public:
-	//static std::map<int, cxxExchange>& map;
+        //static std::map<int, cxxExchange>& map;
 
 };
 

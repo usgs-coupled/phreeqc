@@ -18,38 +18,38 @@ class cxxSurface : public cxxNumKeyword
 {
 
 public:
-	cxxSurface();
-	cxxSurface(struct surface *);
-	~cxxSurface();
+        cxxSurface();
+        cxxSurface(struct surface *);
+        ~cxxSurface();
 
-	struct surface *cxxSurface2surface();
+        struct surface *cxxSurface2surface();
 
-	struct surf_comp *cxxSurfComp2surf_comp();
+        struct surf_comp *cxxSurfComp2surf_comp();
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
-	bool get_related_phases(void);
+        bool get_related_phases(void);
 
-	bool get_related_rate(void);
+        bool get_related_rate(void);
 
 
 protected:
-	std::list<cxxSurfComp> surfComps;
-	std::list<cxxSurfCharge> surfCharges;
-	bool diffuse_layer;
-	bool edl;
-	bool only_counter_ions;
-	bool donnan;
-	double thickness;
-	//double debye_units;
-	//int transport;
+        std::list<cxxSurfComp> surfComps;
+        std::list<cxxSurfCharge> surfCharges;
+        bool diffuse_layer;
+        bool edl;
+        bool only_counter_ions;
+        bool donnan;
+        double thickness;
+        //double debye_units;
+        //int transport;
 
 public:
-	//static std::map<int, cxxSurface>& map;
+        //static std::map<int, cxxSurface>& map;
 
 };
 

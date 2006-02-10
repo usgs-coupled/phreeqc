@@ -23,13 +23,13 @@ cxxSurfCharge::cxxSurfCharge()
         // default constructor for cxxSurfCharge 
         //
 {
-	name                    = NULL;
+        name                    = NULL;
         specific_area           = 0.0;
         grams                   = 0.0;
         charge_balance          = 0.0;
         mass_water              = 0.0;
         la_psi                  = 0.0;
-	diffuse_layer_totals.type = cxxNameDouble::ND_ELT_MOLES;
+        diffuse_layer_totals.type = cxxNameDouble::ND_ELT_MOLES;
 }
 
 cxxSurfCharge::cxxSurfCharge(struct surface_charge *surf_charge_ptr)
@@ -39,12 +39,12 @@ cxxSurfCharge::cxxSurfCharge(struct surface_charge *surf_charge_ptr)
 : 
 diffuse_layer_totals(surf_charge_ptr->diffuse_layer_totals)
 {
-	name                     = surf_charge_ptr->name;
-	specific_area            = surf_charge_ptr->specific_area;
-	grams                    = surf_charge_ptr->grams;
-	charge_balance           = surf_charge_ptr->charge_balance;
-	mass_water               = surf_charge_ptr->mass_water;
-	la_psi                   = surf_charge_ptr->la_psi;
+        name                     = surf_charge_ptr->name;
+        specific_area            = surf_charge_ptr->specific_area;
+        grams                    = surf_charge_ptr->grams;
+        charge_balance           = surf_charge_ptr->charge_balance;
+        mass_water               = surf_charge_ptr->mass_water;
+        la_psi                   = surf_charge_ptr->la_psi;
 }
 
 cxxSurfCharge::~cxxSurfCharge()
@@ -52,18 +52,18 @@ cxxSurfCharge::~cxxSurfCharge()
 }
 
 struct master *cxxSurfCharge::get_psi_master()
-{	
-	struct master *master_ptr = NULL;
-	std::string str = this->name;
+{       
+        struct master *master_ptr = NULL;
+        std::string str = this->name;
 
-	str.append("_psi");
-	master_ptr = master_bsearch(str.c_str());
-	if (master_ptr == NULL) {
-		std::ostringstream error_oss;
-		error_oss << "Surface charge psi_master not found." << this->name << std::endl;
-		Utilities::error_msg(error_oss.str(), CONTINUE);
-	}
-	return(master_ptr);
+        str.append("_psi");
+        master_ptr = master_bsearch(str.c_str());
+        if (master_ptr == NULL) {
+                std::ostringstream error_oss;
+                error_oss << "Surface charge psi_master not found." << this->name << std::endl;
+                Utilities::error_msg(error_oss.str(), CONTINUE);
+        }
+        return(master_ptr);
 }
 
 struct surface_charge *cxxSurfCharge::cxxSurfCharge2surface_charge(std::list<cxxSurfCharge>& el)
@@ -71,23 +71,23 @@ struct surface_charge *cxxSurfCharge::cxxSurfCharge2surface_charge(std::list<cxx
         // Builds surface_charge structure from of cxxSurfCharge 
         //
 {
-	struct surface_charge *surf_charge_ptr = (struct surface_charge *) PHRQ_malloc((size_t) (el.size() * sizeof(struct surface_charge)));
-	if (surf_charge_ptr == NULL) malloc_error();
+        struct surface_charge *surf_charge_ptr = (struct surface_charge *) PHRQ_malloc((size_t) (el.size() * sizeof(struct surface_charge)));
+        if (surf_charge_ptr == NULL) malloc_error();
 
-	int i = 0;
-	for (std::list<cxxSurfCharge>::iterator it = el.begin(); it != el.end(); ++it) {
-		surf_charge_ptr[i].name		        = it->name;
-		surf_charge_ptr[i].specific_area	= it->specific_area;
-		surf_charge_ptr[i].grams                = it->grams;
-		surf_charge_ptr[i].charge_balance       = it->charge_balance;
-		surf_charge_ptr[i].mass_water		= it->mass_water;
-		surf_charge_ptr[i].la_psi  		= it->la_psi;
-		surf_charge_ptr[i].diffuse_layer_totals = it->diffuse_layer_totals.elt_list();
-		surf_charge_ptr[i].psi_master           = it->get_psi_master();
-		surf_charge_ptr[i].count_g              = 0;
-		surf_charge_ptr[i].g                    = NULL;
-		i++;
-	}
+        int i = 0;
+        for (std::list<cxxSurfCharge>::iterator it = el.begin(); it != el.end(); ++it) {
+                surf_charge_ptr[i].name                 = it->name;
+                surf_charge_ptr[i].specific_area        = it->specific_area;
+                surf_charge_ptr[i].grams                = it->grams;
+                surf_charge_ptr[i].charge_balance       = it->charge_balance;
+                surf_charge_ptr[i].mass_water           = it->mass_water;
+                surf_charge_ptr[i].la_psi               = it->la_psi;
+                surf_charge_ptr[i].diffuse_layer_totals = it->diffuse_layer_totals.elt_list();
+                surf_charge_ptr[i].psi_master           = it->get_psi_master();
+                surf_charge_ptr[i].count_g              = 0;
+                surf_charge_ptr[i].g                    = NULL;
+                i++;
+        }
         return(surf_charge_ptr);
 }
 
@@ -95,7 +95,7 @@ void cxxSurfCharge::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing surf_charge message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
+        s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
@@ -113,7 +113,7 @@ void cxxSurfCharge::dump_xml(std::ostream& s_oss, unsigned int indent)const
         // totals
         s_oss << indent0;
         s_oss << "<diffuse_layer_totals " << std::endl;
-	this->diffuse_layer_totals.dump_xml(s_oss, indent + 1);
+        this->diffuse_layer_totals.dump_xml(s_oss, indent + 1);
 
 }
 
@@ -121,7 +121,7 @@ void cxxSurfCharge::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing surf_charge message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
+        s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
@@ -139,25 +139,25 @@ void cxxSurfCharge::dump_raw(std::ostream& s_oss, unsigned int indent)const
         // totals
         s_oss << indent0;
         s_oss << "-diffuse_layer_totals" << std::endl;
-	this->diffuse_layer_totals.dump_raw(s_oss, indent + 1);
+        this->diffuse_layer_totals.dump_raw(s_oss, indent + 1);
 
 }
 
 void cxxSurfCharge::read_raw(CParser& parser)
 {
-	std::string str;
-	
+        std::string str;
+        
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
                 vopts.reserve(10);
                 vopts.push_back("name");                       // 0 
-                vopts.push_back("specific_area");      	       // 1 
-                vopts.push_back("grams");              	       // 2 
-                vopts.push_back("charge_balance");     	       // 3 
-                vopts.push_back("mass_water");         	       // 4 
-                vopts.push_back("la_psi");             	       // 5 
+                vopts.push_back("specific_area");              // 1 
+                vopts.push_back("grams");                      // 2 
+                vopts.push_back("charge_balance");             // 3 
+                vopts.push_back("mass_water");                 // 4 
+                vopts.push_back("la_psi");                     // 5 
                 vopts.push_back("diffuse_layer_totals");       // 6 
-        }						       
+        }                                                      
 
         std::istream::pos_type ptr;
         std::istream::pos_type next_char;
@@ -189,7 +189,7 @@ void cxxSurfCharge::read_raw(CParser& parser)
                 case CParser::OPT_DEFAULT:
                 case CParser::OPT_ERROR:
                         opt = CParser::OPT_KEYWORD;
-			// Allow return to Surface for more processing
+                        // Allow return to Surface for more processing
                         //parser.error_msg("Unknown input in SURF_CHARGE read.", CParser::OT_CONTINUE);
                         //parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
                         break;
@@ -201,8 +201,8 @@ void cxxSurfCharge::read_raw(CParser& parser)
                                 parser.incr_input_error();
                                 parser.error_msg("Expected string value for name.", CParser::OT_CONTINUE);
                         } else {
-				this->name = string_hsave(str.c_str());
-			}
+                                this->name = string_hsave(str.c_str());
+                        }
                         name_defined = true;
                         break;
 
@@ -260,41 +260,41 @@ void cxxSurfCharge::read_raw(CParser& parser)
 
 
                 case 6: // diffuse_layer_totals
-			if ( this->diffuse_layer_totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
+                        if ( this->diffuse_layer_totals.read_raw(parser, next_char) != CParser::PARSER_OK) {
                                 parser.incr_input_error();
                                 parser.error_msg("Expected element name and molality for SurfCharge diffuse_layer_totals.", CParser::OT_CONTINUE);
                         }                               
                         opt_save = 6;
                         break;
 
-		}
+                }
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
         }
-	// members that must be defined
+        // members that must be defined
         if (name_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Name not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Name not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
         if (specific_area_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Specific_area not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Specific_area not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
         if (grams_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Grams not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Grams not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
         if (charge_balance_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Charge_balance not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Charge_balance not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
         if (mass_water_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Mass_water not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Mass_water not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
         if (la_psi_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("La_psi not defined for SurfCharge input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("La_psi not defined for SurfCharge input.", CParser::OT_CONTINUE);
+        }
 }
 
 #ifdef SKIP

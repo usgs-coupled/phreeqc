@@ -24,10 +24,10 @@ USE_XML=TRUE
 XERCESCROOT=/z/parkplace/home/dlpark/packages/xerces-c-src_2_7_0
 
 # Change to C compiler options on your system
-#CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-#CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
-CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
+CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+#CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
+#CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -37,8 +37,8 @@ LOADFLAGS= -lm -lxerces-c # -pg
 
 PLATFORM= LINUX
 CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic 
-CXXFLAGS= -Wall -g
-#CXXFLAGS= -O3
+#CXXFLAGS= -Wall -g
+CXXFLAGS= -O3
 LINK= g++ -D${PLATFORM} -fpic
 PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
 EXTRA_LINK_OPTIONS=-lc 
@@ -111,6 +111,8 @@ CLASS_OBJECTS=  Conc.o \
 		PPassemblageComp.o \
 		ReadClass.o \
 		Solution.o \
+		SSassemblage.o \
+		SSassemblageSS.o \
 		Surface.o \
 		SurfComp.o \
 		SurfCharge.o \
@@ -309,6 +311,12 @@ PPassemblage.o: $(SRC)/PPassemblage.cxx $(SRC)/Utils.h $(SRC)/PPassemblage.h $(S
 Solution.o: $(SRC)/Solution.cxx $(SRC)/Utils.h $(SRC)/Solution.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
   $(SRC)/char_star.h $(SRC)/Isotope.h $(SRC)/Conc.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h \
   $(SRC)/phqalloc.h $(SRC)/phrqproto.h $(SRC)/ISolution.h
+SSassemblage.o: $(SRC)/SSassemblage.cxx $(SRC)/Utils.h $(SRC)/SSassemblage.h $(SRC)/NumKeyword.h \
+  $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/SSassemblageSS.h \
+  $(SRC)/NameDouble.h $(SRC)/SSassemblageSS.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
+SSassemblageSS.o: $(SRC)/SSassemblageSS.cxx $(SRC)/Utils.h $(SRC)/SSassemblageSS.h \
+  $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h \
+  $(SRC)/phrqproto.h
 Surface.o: $(SRC)/Surface.cxx $(SRC)/Utils.h $(SRC)/Surface.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
   $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/SurfComp.h $(SRC)/NameDouble.h $(SRC)/phqalloc.h \
   $(SRC)/phrqproto.h

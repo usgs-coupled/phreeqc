@@ -17,31 +17,31 @@ class cxxSurfCharge
 
 public:
 
-	cxxSurfCharge();
-	cxxSurfCharge(struct surface_charge *);
-	~cxxSurfCharge();
+        cxxSurfCharge();
+        cxxSurfCharge(struct surface_charge *);
+        ~cxxSurfCharge();
 
 
-	struct master *get_psi_master();
+        struct master *get_psi_master();
 
-	static struct surface_charge *cxxSurfCharge2surface_charge(std::list<cxxSurfCharge>& el);
+        static struct surface_charge *cxxSurfCharge2surface_charge(std::list<cxxSurfCharge>& el);
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
 protected:
- 	char * name;
- 	double specific_area;
- 	double grams;
-	double charge_balance;
-	double mass_water;
-	double la_psi;
-	//std::map<double, cxxSurfDL> g;
-	//char * psi_master_name;
-	cxxNameDouble diffuse_layer_totals; 
+        char * name;
+        double specific_area;
+        double grams;
+        double charge_balance;
+        double mass_water;
+        double la_psi;
+        //std::map<double, cxxSurfDL> g;
+        //char * psi_master_name;
+        cxxNameDouble diffuse_layer_totals; 
 
 public:
 

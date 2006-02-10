@@ -16,34 +16,34 @@ class cxxExchComp
 {
 
 public:
-	cxxExchComp();
-	cxxExchComp(struct exch_comp *);
-	~cxxExchComp();
+        cxxExchComp();
+        cxxExchComp(struct exch_comp *);
+        ~cxxExchComp();
 
 
-	struct master *get_master();
-	char *get_phase_name()const {return this->phase_name;}
-	char *get_rate_name()const {return this->rate_name;}
+        struct master *get_master();
+        char *get_phase_name()const {return this->phase_name;}
+        char *get_rate_name()const {return this->rate_name;}
 
-	static struct exch_comp *cxxExchComp2exch_comp(std::list<cxxExchComp>& el);
+        static struct exch_comp *cxxExchComp2exch_comp(std::list<cxxExchComp>& el);
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
 protected:
- 	char * formula;
- 	double moles;
-	cxxNameDouble formula_totals;
-	cxxNameDouble totals; 
-	double la;
-	double charge_balance;
-	char   *phase_name;
-	double phase_proportion;
-	char   *rate_name;
-	double formula_z;                         // charge on formula
+        char * formula;
+        double moles;
+        cxxNameDouble formula_totals;
+        cxxNameDouble totals; 
+        double la;
+        double charge_balance;
+        char   *phase_name;
+        double phase_proportion;
+        char   *rate_name;
+        double formula_z;                         // charge on formula
 
 public:
 

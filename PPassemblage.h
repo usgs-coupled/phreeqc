@@ -17,26 +17,26 @@ class cxxPPassemblage : public cxxNumKeyword
 {
 
 public:
-	cxxPPassemblage();
-	cxxPPassemblage(struct pp_assemblage *);
-	~cxxPPassemblage();
+        cxxPPassemblage();
+        cxxPPassemblage(struct pp_assemblage *);
+        ~cxxPPassemblage();
 
-	struct pp_assemblage *cxxPPassemblage2pp_assemblage();
+        struct pp_assemblage *cxxPPassemblage2pp_assemblage();
 
-	struct pure_phase *cxxPPassemblageComp2pure_phase();
+        struct pure_phase *cxxPPassemblageComp2pure_phase();
 
-	void dump_xml(std::ostream& os, unsigned int indent = 0)const;
+        void dump_xml(std::ostream& os, unsigned int indent = 0)const;
 
-	void dump_raw(std::ostream& s_oss, unsigned int indent)const;
+        void dump_raw(std::ostream& s_oss, unsigned int indent)const;
 
-	void read_raw(CParser& parser);
+        void read_raw(CParser& parser);
 
 protected:
-	std::list<cxxPPassemblageComp> ppAssemblageComps;
-	cxxNameDouble eltList;
+        std::list<cxxPPassemblageComp> ppAssemblageComps;
+        cxxNameDouble eltList;
 
 public:
-	//static std::map<int, cxxPPassemblage>& map;
+        //static std::map<int, cxxPPassemblage>& map;
 
 };
 

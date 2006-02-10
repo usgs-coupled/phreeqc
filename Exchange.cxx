@@ -25,7 +25,7 @@ cxxExchange::cxxExchange()
         //
 : cxxNumKeyword()
 {
-	pitzer_exchange_gammas  = false;
+        pitzer_exchange_gammas  = false;
 }
 
 cxxExchange::cxxExchange(struct exchange *exchange_ptr)
@@ -39,13 +39,13 @@ cxxNumKeyword()
         int i;
 
         description                  = exchange_ptr->description; 
-        n_user      		     = exchange_ptr->n_user;	 
-        n_user_end  		     = exchange_ptr->n_user_end;  
-	pitzer_exchange_gammas       = (exchange_ptr->pitzer_exchange_gammas == TRUE);
-	for (i = 0; i < exchange_ptr->count_comps; i++) {
-		cxxExchComp ec(&(exchange_ptr->comps[i]));
-		exchComps.push_back(ec);
-	}
+        n_user                       = exchange_ptr->n_user;     
+        n_user_end                   = exchange_ptr->n_user_end;  
+        pitzer_exchange_gammas       = (exchange_ptr->pitzer_exchange_gammas == TRUE);
+        for (i = 0; i < exchange_ptr->count_comps; i++) {
+                cxxExchComp ec(&(exchange_ptr->comps[i]));
+                exchComps.push_back(ec);
+        }
 
 
 
@@ -57,21 +57,21 @@ cxxExchange::~cxxExchange()
 }
 
 bool cxxExchange::get_related_phases()
-{	
+{       
         for (std::list<cxxExchComp>::const_iterator it = this->exchComps.begin(); it != this->exchComps.end(); ++it) {
-		if (it->get_phase_name() == NULL) continue;
-		return(true);
+                if (it->get_phase_name() == NULL) continue;
+                return(true);
         }
-	return(false);
+        return(false);
 }
 
 bool cxxExchange::get_related_rate()
-{	
+{       
         for (std::list<cxxExchComp>::const_iterator it = this->exchComps.begin(); it != this->exchComps.end(); ++it) {
-		if (it->get_rate_name() == NULL) continue;
-		return(true);
+                if (it->get_rate_name() == NULL) continue;
+                return(true);
         }
-	return(false);
+        return(false);
 }
 
 struct exchange *cxxExchange::cxxExchange2exchange()
@@ -82,17 +82,17 @@ struct exchange *cxxExchange::cxxExchange2exchange()
         struct exchange *exchange_ptr = exchange_alloc();
         
         exchange_ptr->description                 = this->get_description();  
-        exchange_ptr->n_user             	  = this->n_user;      	     
-        exchange_ptr->n_user_end         	  = this->n_user_end;  	     
-        exchange_ptr->new_def            	  = FALSE;                    
+        exchange_ptr->n_user                      = this->n_user;            
+        exchange_ptr->n_user_end                  = this->n_user_end;        
+        exchange_ptr->new_def                     = FALSE;                    
         exchange_ptr->solution_equilibria         = FALSE;
         exchange_ptr->n_solution                  = -2;
-	exchange_ptr->related_phases              = (int) this->get_related_phases();
-	exchange_ptr->related_rate                = (int) this->get_related_rate();
-	exchange_ptr->pitzer_exchange_gammas      = (int) this->pitzer_exchange_gammas;
-	exchange_ptr->count_comps = this->exchComps.size();
+        exchange_ptr->related_phases              = (int) this->get_related_phases();
+        exchange_ptr->related_rate                = (int) this->get_related_rate();
+        exchange_ptr->pitzer_exchange_gammas      = (int) this->pitzer_exchange_gammas;
+        exchange_ptr->count_comps = this->exchComps.size();
         exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
-	exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(this->exchComps);
+        exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(this->exchComps);
         return(exchange_ptr);
 }
 
@@ -100,7 +100,7 @@ void cxxExchange::dump_xml(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exchange message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
+        s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
@@ -117,7 +117,7 @@ void cxxExchange::dump_xml(std::ostream& s_oss, unsigned int indent)const
         s_oss << indent1;
         s_oss << "<component " << std::endl;
         for (std::list<cxxExchComp>::const_iterator it = exchComps.begin(); it != exchComps.end(); ++it) {
-		it->dump_xml(s_oss, indent + 2);
+                it->dump_xml(s_oss, indent + 2);
         }
 
         return;
@@ -127,7 +127,7 @@ void cxxExchange::dump_raw(std::ostream& s_oss, unsigned int indent)const
 {
         //const char    ERR_MESSAGE[] = "Packing exchange message: %s, element not found\n";
         unsigned int i;
-	s_oss.precision(DBL_DIG - 1);
+        s_oss.precision(DBL_DIG - 1);
         std::string indent0(""), indent1(""), indent2("");
         for(i = 0; i < indent; ++i) indent0.append(Utilities::INDENT);
         for(i = 0; i < indent + 1; ++i) indent1.append(Utilities::INDENT);
@@ -142,9 +142,9 @@ void cxxExchange::dump_raw(std::ostream& s_oss, unsigned int indent)const
 
         // exchComps structures
         for (std::list<cxxExchComp>::const_iterator it = exchComps.begin(); it != exchComps.end(); ++it) {
-		s_oss << indent1;
-		s_oss << "-component" << std::endl;
-		it->dump_raw(s_oss, indent + 2);
+                s_oss << indent1;
+                s_oss << "-component" << std::endl;
+                it->dump_raw(s_oss, indent + 2);
         }
 
         return;
@@ -156,14 +156,14 @@ void cxxExchange::read_raw(CParser& parser)
         if (vopts.empty()) {
                 vopts.reserve(15);
                 vopts.push_back("pitzer_exchange_gammas");     // 0
-                vopts.push_back("component");  		       // 1
-        }						       
-							       
-        std::istream::pos_type ptr;			       
-        std::istream::pos_type next_char;		       
-        std::string token;				       
+                vopts.push_back("component");                  // 1
+        }                                                      
+                                                               
+        std::istream::pos_type ptr;                            
+        std::istream::pos_type next_char;                      
+        std::string token;                                     
         int opt_save;
-	bool useLastLine(false);
+        bool useLastLine(false);
 
         // Read exchange number and description
         this->read_number_description(parser);
@@ -173,12 +173,12 @@ void cxxExchange::read_raw(CParser& parser)
 
         for (;;)
         {
-		int opt;
-		if (useLastLine == false) {
-			opt = parser.get_option(vopts, next_char);
-		} else {
-			opt = parser.getOptionFromLastLine(vopts, next_char);
-		}
+                int opt;
+                if (useLastLine == false) {
+                        opt = parser.get_option(vopts, next_char);
+                } else {
+                        opt = parser.getOptionFromLastLine(vopts, next_char);
+                }
                 switch (opt)
                 {
                 case CParser::OPT_EOF:
@@ -190,7 +190,7 @@ void cxxExchange::read_raw(CParser& parser)
                         opt = CParser::OPT_EOF;
                         parser.error_msg("Unknown input in EXCH_COMP_RAW keyword.", CParser::OT_CONTINUE);
                         parser.error_msg(parser.line().c_str(), CParser::OT_CONTINUE);
-			useLastLine = false;
+                        useLastLine = false;
                         break;
 
                 case 0: // pitzer_exchange_gammas
@@ -201,24 +201,24 @@ void cxxExchange::read_raw(CParser& parser)
                                 parser.error_msg("Expected boolean value for pitzer_exchange_gammas.", CParser::OT_CONTINUE);
                         }
                         pitzer_exchange_gammas_defined = true;
-			useLastLine = false;
+                        useLastLine = false;
                         break;
                 case 1: // component
-			{
-				cxxExchComp ec;
-				ec.read_raw(parser);
-				this->exchComps.push_back(ec);
-			}
-			useLastLine = true;
+                        {
+                                cxxExchComp ec;
+                                ec.read_raw(parser);
+                                this->exchComps.push_back(ec);
+                        }
+                        useLastLine = true;
                         break;
-		}
+                }
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
-	}
-	// members that must be defined
+        }
+        // members that must be defined
         if (pitzer_exchange_gammas_defined == false) {
-		parser.incr_input_error();
-		parser.error_msg("Pitzer_exchange_gammsa not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);
-	}
+                parser.incr_input_error();
+                parser.error_msg("Pitzer_exchange_gammsa not defined for EXCHANGE_RAW input.", CParser::OT_CONTINUE);
+        }
 }
 #ifdef SKIP
 cxxExchange& cxxExchange::read(CParser& parser)

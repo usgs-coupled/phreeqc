@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "PPassemblage.h"
 #include "KineticsCxx.h"
+#include "SSassemblage.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -355,5 +356,73 @@ int read_kinetics_raw (void)
 	kinetics_copy(kinetics_ptr, &kinetics[n], kinetics_ptr->n_user);
 	kinetics_free(kinetics_ptr);
 	free_check_null(kinetics_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_solid_solutions_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads SOLID_SOLUTION_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("solid_solution_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxSSassemblage ex;
+	ex.read_raw(parser);
+	struct s_s_assemblage *s_s_assemblage_ptr = ex.cxxSSassemblage2s_s_assemblage();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (s_s_assemblage_bsearch(s_s_assemblage_ptr->n_user, &n) != NULL) {
+		s_s_assemblage_free(&s_s_assemblage[n]);
+	} else {
+		n=count_s_s_assemblage++;
+		if (count_s_s_assemblage >= max_s_s_assemblage) {
+			space ((void **) ((void *) &(s_s_assemblage)), count_s_s_assemblage, &max_s_s_assemblage, sizeof (struct s_s_assemblage *) );
+		}
+	}
+	s_s_assemblage_copy(s_s_assemblage_ptr, &s_s_assemblage[n], s_s_assemblage_ptr->n_user);
+	s_s_assemblage_free(s_s_assemblage_ptr);
+	free_check_null(s_s_assemblage_ptr);
 	return(return_value);
 }
