@@ -1,3 +1,6 @@
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
 #include <stdlib.h>  // ::tolower
 #include <ctype.h>   // ::tolower
 #include <algorithm> //std::transform

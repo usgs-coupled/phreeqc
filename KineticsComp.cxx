@@ -71,6 +71,11 @@ struct kinetics_comp *cxxKineticsComp::cxxKineticsComp2kinetics_comp(std::list<c
 		kinetics_comp_ptr[i].moles                  =  it->moles;
 		kinetics_comp_ptr[i].count_c_params         =  0;
 		kinetics_comp_ptr[i].c_params               =  NULL;
+/*
+		kinetics_comp_ptr[i].count_d_params         =  0;
+		kinetics_comp_ptr[i].d_params               =  NULL;
+*/
+
 		kinetics_comp_ptr[i].count_d_params         =  it->d_params.size();
 		kinetics_comp_ptr[i].d_params               =  NULL;
 		if (it->d_params.size() > 0) {
@@ -79,6 +84,7 @@ struct kinetics_comp *cxxKineticsComp::cxxKineticsComp2kinetics_comp(std::list<c
 			std::copy(it->d_params.begin(), it->d_params.end(), kinetics_comp_ptr[i].d_params);
 			i++;
 		}
+
 	}
         return(kinetics_comp_ptr);
 }

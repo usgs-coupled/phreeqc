@@ -793,7 +793,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "Exchange.h"
 #include "Surface.h"
 #include "PPassemblage.h"
-#include "Kinetics.h"
+#include "KineticsCxx.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>

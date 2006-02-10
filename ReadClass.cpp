@@ -6,7 +6,7 @@
 #include "Exchange.h"
 #include "Surface.h"
 #include "PPassemblage.h"
-#include "Kinetics.h"
+#include "KineticsCxx.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"

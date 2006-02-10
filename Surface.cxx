@@ -45,10 +45,10 @@ cxxNumKeyword()
         description                  = surface_ptr->description; 
         n_user      		     = surface_ptr->n_user;	 
         n_user_end  		     = surface_ptr->n_user_end;  
-        diffuse_layer                = surface_ptr->diffuse_layer; 
-        edl                          = surface_ptr->edl; 
-        only_counter_ions            = surface_ptr->only_counter_ions; 
-        donnan                       = surface_ptr->donnan; 
+        diffuse_layer                = (surface_ptr->diffuse_layer == TRUE); 
+        edl                          = (surface_ptr->edl == TRUE); 
+        only_counter_ions            = (surface_ptr->only_counter_ions == TRUE); 
+        donnan                       = (surface_ptr->donnan == TRUE); 
 	thickness                    = surface_ptr->thickness; 
         // Surface components
 	for (i = 0; i < surface_ptr->count_comps; i++) {
@@ -94,7 +94,8 @@ struct surface *cxxSurface::cxxSurface2surface()
         surface_ptr->description                 = this->get_description();  
         surface_ptr->n_user             	 = this->n_user;      	     
         surface_ptr->n_user_end         	 = this->n_user_end;  	     
-        surface_ptr->new_def            	 = FALSE;                    
+        surface_ptr->new_def            	 = FALSE;  
+		surface_ptr->diffuse_layer               = this->diffuse_layer;
         surface_ptr->edl                    	 = this->edl;
         surface_ptr->only_counter_ions         	 = this->only_counter_ions;                
         surface_ptr->donnan                    	 = this->donnan;  
@@ -202,11 +203,13 @@ void cxxSurface::dump_raw(std::ostream& s_oss, unsigned int indent)const
 		it->dump_raw(s_oss, indent + 2);
         }
         // surface charge structures
+		{
         for (std::list<cxxSurfCharge>::const_iterator it = surfCharges.begin(); it != surfCharges.end(); ++it) {
 		s_oss << indent1;
 		s_oss << "-charge_component " << std::endl;
 		it->dump_raw(s_oss, indent + 2);
         }
+		}
 
         return;
 }

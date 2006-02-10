@@ -108,6 +108,7 @@ struct master_activity *cxxNameDouble::master_activity()const
 	struct master_activity *master_activity_ptr = NULL;
 	switch ((*this).type) {
 	case cxxNameDouble::ND_SPECIES_LA:
+		{
 		master_activity_ptr= (struct master_activity *) PHRQ_malloc((size_t) (((*this).size() + 1) * sizeof(struct master_activity)));
 		if (master_activity_ptr == NULL) malloc_error();
 		for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {
@@ -115,9 +116,11 @@ struct master_activity *cxxNameDouble::master_activity()const
 			master_activity_ptr[i].la = it->second;
 			i++;
 		}
+		}
 		master_activity_ptr[i].description = NULL;
 		break;
 	case cxxNameDouble::ND_SPECIES_GAMMA:
+		{
 		if ((*this).size() > 0) {
 			master_activity_ptr = (struct master_activity *) PHRQ_malloc((size_t) (((*this).size()) * sizeof(struct master_activity)));
 			if (master_activity_ptr == NULL) malloc_error();
@@ -126,6 +129,7 @@ struct master_activity *cxxNameDouble::master_activity()const
 				master_activity_ptr[i].la = it->second;
 				i++;
 			}
+		}
 		}
 		break;
 	case cxxNameDouble::ND_ELT_MOLES:

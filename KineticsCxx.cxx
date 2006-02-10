@@ -85,13 +85,13 @@ struct kinetics *cxxKinetics::cxxKinetics2kinetics()
 	kinetics_ptr->totals                      = this->totals.elt_list();
 
 	// comps
-        kinetics_ptr->count_comps            	  = this->kineticsComps.size();
-        kinetics_ptr->comps                       = (struct kinetics_comp *) free_check_null(kinetics_ptr->comps);
-	kinetics_ptr->comps                       = cxxKineticsComp::cxxKineticsComp2kinetics_comp(this->kineticsComps);
+    kinetics_ptr->count_comps             = this->kineticsComps.size();
+    kinetics_ptr->comps                   = (struct kinetics_comp *) free_check_null(kinetics_ptr->comps);
+	kinetics_ptr->comps                   = cxxKineticsComp::cxxKineticsComp2kinetics_comp(this->kineticsComps);
 
 	// steps
-        kinetics_ptr->count_steps            	  = this->steps.size();
-        kinetics_ptr->steps                       = (double *) free_check_null(kinetics_ptr->comps);
+    kinetics_ptr->count_steps            	  = this->steps.size();
+    kinetics_ptr->steps                       = (double *) free_check_null(kinetics_ptr->steps);
 	if (this->steps.size() > 0) {
 		kinetics_ptr->steps = (double *) PHRQ_malloc((size_t) (this->steps.size() * sizeof(double)));
 		if (kinetics_ptr->steps == NULL) malloc_error();
@@ -102,8 +102,6 @@ struct kinetics *cxxKinetics::cxxKinetics2kinetics()
 			kinetics_ptr->steps[i] = *it;
 		}
 		*/
-	} else {
-		kinetics_ptr->steps = NULL;
 	}
 	return(kinetics_ptr);
 }

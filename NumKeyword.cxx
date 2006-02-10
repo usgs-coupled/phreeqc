@@ -1,3 +1,6 @@
+#ifdef _DEBUG
+#pragma warning(disable : 4786)   // disable truncation warning (Only used by debugger)
+#endif
 // NumKeyword.cxx: implementation of the cxxNumKeyword class.
 //
 //////////////////////////////////////////////////////////////////////
