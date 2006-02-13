@@ -9,6 +9,7 @@ extern int read_surface_raw (void);
 extern int read_equilibrium_phases_raw (void);
 extern int read_kinetics_raw (void);
 extern int read_solid_solutions_raw (void);
+extern int read_gas_phase_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -485,12 +486,10 @@ int read_input(void)
 			keyword[61].keycount++;
 			read_solid_solutions_raw();
 			break;		
-#ifdef SKIP			
 		case 66:
 			keyword[61].keycount++;
 			read_gas_phase_raw();
 			break;		
-#endif
 		}
 	}
  END_OF_SIMULATION_INPUT:

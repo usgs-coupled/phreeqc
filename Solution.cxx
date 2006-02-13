@@ -805,6 +805,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "PPassemblage.h"
 #include "KineticsCxx.h"
 #include "SSassemblage.h"
+#include "GasPhase.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -981,6 +982,35 @@ void test_classes(void)
                         s_s_assemblage_copy(s_s_assemblage_ptr, &s_s_assemblage[i], s_s_assemblage_ptr->n_user);
                         s_s_assemblage_free(s_s_assemblage_ptr);
                         free_check_null(s_s_assemblage_ptr);
+
+                }
+
+        }
+        for (i=0; i < count_gas_phase; i++) {
+                if (gas_phase[i].new_def != TRUE) {
+                        std::ostringstream oss;
+                        cxxGasPhase ex(&(gas_phase[i]));
+                        ex.dump_raw(oss, 0);
+                        std::cerr << oss.str();
+
+
+                        cxxGasPhase ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+
+                        struct gas_phase *gas_phase_ptr = ex1.cxxGasPhase2gas_phase();
+                        gas_phase_free(&gas_phase[i]);
+                        gas_phase_copy(gas_phase_ptr, &gas_phase[i], gas_phase_ptr->n_user);
+                        gas_phase_free(gas_phase_ptr);
+                        free_check_null(gas_phase_ptr);
 
                 }
 

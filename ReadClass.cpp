@@ -8,6 +8,7 @@
 #include "PPassemblage.h"
 #include "KineticsCxx.h"
 #include "SSassemblage.h"
+#include "GasPhase.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -424,5 +425,73 @@ int read_solid_solutions_raw (void)
 	s_s_assemblage_copy(s_s_assemblage_ptr, &s_s_assemblage[n], s_s_assemblage_ptr->n_user);
 	s_s_assemblage_free(s_s_assemblage_ptr);
 	free_check_null(s_s_assemblage_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_gas_phase_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads SOLID_SOLUTION_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("solid_solution_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxGasPhase ex;
+	ex.read_raw(parser);
+	struct gas_phase *gas_phase_ptr = ex.cxxGasPhase2gas_phase();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (gas_phase_bsearch(gas_phase_ptr->n_user, &n) != NULL) {
+		gas_phase_free(&gas_phase[n]);
+	} else {
+		n=count_gas_phase++;
+		if (count_gas_phase >= max_gas_phase) {
+			space ((void **) ((void *) &(gas_phase)), count_gas_phase, &max_gas_phase, sizeof (struct gas_phase *) );
+		}
+	}
+	gas_phase_copy(gas_phase_ptr, &gas_phase[n], gas_phase_ptr->n_user);
+	gas_phase_free(gas_phase_ptr);
+	free_check_null(gas_phase_ptr);
 	return(return_value);
 }
