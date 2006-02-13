@@ -2360,8 +2360,8 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			dup_print(token, TRUE);
 			if (pr.headings == TRUE) output_msg(OUTPUT_MESSAGE,"%s\n\n", title_x);
 		}
-		test_classes();
 		tidy_model();
+		test_classes();
 
 #ifdef PHREEQ98
                 if (!phreeq98_debug) {

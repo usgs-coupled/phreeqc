@@ -49,7 +49,7 @@ protected:
         //double total_moles;
         //double dn;
         double a0, a1;
-        //double ag0, ag1;
+        double ag0, ag1;
         //bool s_s_in;
         bool miscibility;
         //bool spinodal;

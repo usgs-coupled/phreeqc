@@ -24,11 +24,13 @@ USE_XML=TRUE
 XERCESCROOT=/z/parkplace/home/dlpark/packages/xerces-c-src_2_7_0
 
 # Change to C compiler options on your system
-CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-#CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
-CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
-#CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
-
+ifdef OPTIMIZE
+  CCFLAGS=-O3 -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+  CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
+else
+  CCFLAGS=-g -Wall -ansi -pedantic -I${XERCESCROOT}/include # -frounding-math  # -pg
+  CCFLAGS_MODEL=-g -Wall -ansi -pedantic  # -pg
+endif
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
 INVERSE_CL1MP=TRUE
@@ -37,8 +39,11 @@ LOADFLAGS= -lm -lxerces-c # -pg
 
 PLATFORM= LINUX
 CXX= g++ -c -D${PLATFORM} -D_REENTRANT -fpic 
-#CXXFLAGS= -Wall -g
-CXXFLAGS= -O3
+ifdef OPTIMIZE
+  CXXFLAGS= -O3
+else
+  CXXFLAGS= -Wall -g
+endif
 LINK= g++ -D${PLATFORM} -fpic
 PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
 EXTRA_LINK_OPTIONS=-lc 

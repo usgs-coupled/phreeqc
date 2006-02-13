@@ -950,13 +950,11 @@ void test_classes(void)
 
                         ex1.read_raw(cparser);
 
-			/*
                         struct kinetics *kinetics_ptr = ex1.cxxKinetics2kinetics();
                         kinetics_free(&kinetics[i]);
                         kinetics_copy(kinetics_ptr, &kinetics[i], kinetics_ptr->n_user);
                         kinetics_free(kinetics_ptr);
                         free_check_null(kinetics_ptr);
-			*/
         }
         for (i=0; i < count_s_s_assemblage; i++) {
                 if (s_s_assemblage[i].new_def != TRUE) {

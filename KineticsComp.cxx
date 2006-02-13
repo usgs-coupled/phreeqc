@@ -42,6 +42,7 @@ namecoef(kinetics_comp_ptr->list, kinetics_comp_ptr->count_list, cxxNameDouble::
         tol                          = kinetics_comp_ptr->tol;
         m                            = kinetics_comp_ptr->m;
         m0                           = kinetics_comp_ptr->m0;
+        moles                        = kinetics_comp_ptr->moles;
         for (int i = 0; i < kinetics_comp_ptr->count_d_params; i++) {
                 this->d_params.push_back(kinetics_comp_ptr->d_params[i]);
         }

@@ -28,8 +28,8 @@ cxxSSassemblageSS::cxxSSassemblageSS()
         //total_moles                    = 0;
         a0                             = 0;
         a1                             = 0;
-        //ag0                            = 0;
-        //ag1                            = 0;
+        ag0                            = 0;
+        ag1                            = 0;
         miscibility                    = false;
         //spinodal                       = false;
         //tk                             = 25.;
@@ -49,8 +49,8 @@ cxxSSassemblageSS::cxxSSassemblageSS(struct s_s *s_s_ptr)
         //total_moles                              = s_s_ptr->total_moles;                            
         a0                                         = s_s_ptr->a0;                                     
         a1                                         = s_s_ptr->a1;                                     
-        //ag0                                      = s_s_ptr->ag0;                                    
-        //ag1                                      = s_s_ptr->ag1;                                    
+        ag0                                        = s_s_ptr->ag0;                                    
+        ag1                                        = s_s_ptr->ag1;                                    
         miscibility                                = (s_s_ptr->miscibility == TRUE);                  
         //spinodal                                   = (s_s_ptr->spinodal == TRUE);                     
         //tk                                         = s_s_ptr->tk;
@@ -91,10 +91,10 @@ struct s_s *cxxSSassemblageSS::cxxSSassemblageSS2s_s(std::list<cxxSSassemblageSS
                 s_s_ptr[j].dn                                          = 0;
                 s_s_ptr[j].a0                                          = it->a0;
                 s_s_ptr[j].a1                                          = it->a1;
-                //s_s_ptr[j].ag0                                         = this->ag0;
-                //s_s_ptr[j].ag1                                         = this->ag1;
-                s_s_ptr[j].ag0                                         = 0;
-                s_s_ptr[j].ag1                                         = 0;
+                s_s_ptr[j].ag0                                         = it->ag0;
+                s_s_ptr[j].ag1                                         = it->ag1;
+                //s_s_ptr[j].ag0                                         = 0;
+                //s_s_ptr[j].ag1                                         = 0;
                 s_s_ptr[j].s_s_in                                      = TRUE;
                 s_s_ptr[j].miscibility                                 = it->miscibility;
                 //s_s_ptr[j].spinodal                                    = it->spinodal;
@@ -177,8 +177,8 @@ void cxxSSassemblageSS::dump_raw(std::ostream& s_oss, unsigned int indent)const
         //s_oss << indent0 << "-total_moles           " << this->total_moles    << std::endl;
         s_oss << indent0 << "-a0                    " << this->a0 << std::endl;
         s_oss << indent0 << "-a1                    " << this->a1 << std::endl;
-        //s_oss << indent0 << "-ag0                   " << this->ag0 << std::endl;
-        //s_oss << indent0 << "-ag1                   " << this->ag1 << std::endl;
+        s_oss << indent0 << "-ag0                   " << this->ag0 << std::endl;
+        s_oss << indent0 << "-ag1                   " << this->ag1 << std::endl;
         s_oss << indent0 << "-miscibility           " << this->miscibility << std::endl;
         //s_oss << indent0 << "-spinodal              " << this->spinodal << std::endl;
         //s_oss << indent0 << "-tk                    " << this->tk << std::endl;
@@ -205,8 +205,8 @@ void cxxSSassemblageSS::read_raw(CParser& parser)
                 vopts.push_back("tk");                    // 7
                 vopts.push_back("xb1");                   // 8
                 vopts.push_back("xb2");                   // 9
-                //vopts.push_back("ag0");                 // 5 
-                //vopts.push_back("ag1");                 // 6
+                vopts.push_back("ag0");                   // 10
+                vopts.push_back("ag1");                   // 11
         }
 
         std::istream::pos_type ptr;
@@ -219,8 +219,8 @@ void cxxSSassemblageSS::read_raw(CParser& parser)
         //bool total_moles_defined(false);
         bool a0_defined(false); 
         bool a1_defined(false); 
-        //bool ag0_defined(false); 
-        //bool ag1_defined(false);
+        bool ag0_defined(false); 
+        bool ag1_defined(false);
         bool miscibility_defined(false); 
         //bool spinodal_defined(false); 
         //bool tk_defined(false); 
@@ -364,6 +364,29 @@ void cxxSSassemblageSS::read_raw(CParser& parser)
                         opt_save = CParser::OPT_DEFAULT;
                         break;
 
+                case 10: // ag0
+                        if (!(parser.get_iss() >> this->ag0))
+                        {
+                                this->ag0 = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for ag0.", CParser::OT_CONTINUE);
+                        }
+                        ag0_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
+                        break;
+
+                case 11: // ag1
+                        if (!(parser.get_iss() >> this->ag1))
+                        {
+                                this->ag1 = 0;
+                                parser.incr_input_error();
+                                parser.error_msg("Expected numeric value for ag1.", CParser::OT_CONTINUE);
+                        }
+                        ag1_defined = true;
+                        opt_save = CParser::OPT_DEFAULT;
+                        break;
+
+
                 }
                 if (opt == CParser::OPT_EOF || opt == CParser::OPT_KEYWORD) break;
         }
@@ -385,6 +408,14 @@ void cxxSSassemblageSS::read_raw(CParser& parser)
         if (a1_defined == false) {
                 parser.incr_input_error();
                 parser.error_msg("A1 not defined for SSassemblageSS input.", CParser::OT_CONTINUE);
+        }
+        if (ag0_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Ag0 not defined for SSassemblageSS input.", CParser::OT_CONTINUE);
+        }
+        if (ag1_defined == false) {
+                parser.incr_input_error();
+                parser.error_msg("Ag1 not defined for SSassemblageSS input.", CParser::OT_CONTINUE);
         }
         if (miscibility_defined == false) {
                 parser.incr_input_error();
