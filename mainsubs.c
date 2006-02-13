@@ -1521,7 +1521,7 @@ int xsolution_save(int n_user)
 
 	solution_ptr->mass_water = mass_water_aq_x;
 	solution_ptr->total_alkalinity = total_alkalinity;
-	solution_ptr->total_co2 = total_co2;
+	/*solution_ptr->total_co2 = total_co2;*/
 	solution_ptr->units = moles_per_kilogram_string;
 /*
  *   Copy pe data

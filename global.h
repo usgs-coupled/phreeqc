@@ -375,7 +375,7 @@ struct kinetics {
 	int count_steps;
 	LDBLE *steps;
 	LDBLE step_divide;
-	char *units;
+	/*char *units;*/
 	struct elt_list *totals;
 	int rk;
 	int bad_step_max;
@@ -838,7 +838,7 @@ struct master_activity {
 };
 struct conc {
 	char *description;
-	int skip;
+	/*	int skip;*/
 	LDBLE moles;
 	LDBLE input_conc;
 	char *units;

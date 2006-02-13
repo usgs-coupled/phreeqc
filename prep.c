@@ -2710,7 +2710,7 @@ int setup_solution (void)
 	solution_ptr = use.solution_ptr;
 	count_unknowns = 0;
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++ ) {
-		solution_ptr->totals[i].skip = FALSE;
+		/*		solution_ptr->totals[i].skip = FALSE; */
 		ptr=solution_ptr->totals[i].description;
 		copy_token(token, &ptr, &l);
 		master_ptr = master_bsearch(token);
@@ -2722,7 +2722,7 @@ int setup_solution (void)
 			if (master_isotope_ptr != NULL) {
 				master_isotope_ptr->ratio = solution_ptr->totals[i].input_conc;
 			}
-			solution_ptr->totals[i].skip = TRUE;
+			/*			solution_ptr->totals[i].skip = TRUE; */
 			continue;
 		}
 /*
@@ -2731,7 +2731,7 @@ int setup_solution (void)
 		if (solution_ptr->totals[i].input_conc <= 0.0) {
 			if (strcmp(token,"H(1)") != 0 &&
 			    strcmp(token,"E") != 0 ) {
-				solution_ptr->totals[i].skip = TRUE;
+				/*				solution_ptr->totals[i].skip = TRUE; */
 				continue;
 			}
 		}
@@ -2740,13 +2740,13 @@ int setup_solution (void)
  */
 		master_ptr = master_bsearch(token);
 		if (master_ptr == NULL) {
-			solution_ptr->totals[i].skip = TRUE;
+			/*			solution_ptr->totals[i].skip = TRUE;*/
 			sprintf(error_string,"Master species not in data base for %s, skipping element.", solution_ptr->totals[i].description);
 			warning_msg(error_string);
 			continue;
 		}
 		if (master_ptr->type != AQ) {
-			solution_ptr->totals[i].skip = TRUE;
+			/*			solution_ptr->totals[i].skip = TRUE;*/
 			sprintf(error_string, "Only aqueous concentrations are allowed in solution data, ignoring %s.", solution_ptr->totals[i].description);
 			warning_msg(error_string);
 			continue;
