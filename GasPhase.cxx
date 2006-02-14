@@ -171,7 +171,6 @@ void cxxGasPhase::read_raw(CParser& parser)
 {
 
 	int i;
-        double d;
         static std::vector<std::string> vopts;
         if (vopts.empty()) {
                 vopts.reserve(15);

@@ -806,6 +806,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "KineticsCxx.h"
 #include "SSassemblage.h"
 #include "GasPhase.h"
+#include "Reaction.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -1013,6 +1014,33 @@ void test_classes(void)
                         free_check_null(gas_phase_ptr);
 
                 }
+
+        }
+        for (i=0; i < count_irrev; i++) {
+                        std::ostringstream oss;
+                        cxxReaction ex(&(irrev[i]));
+                        ex.dump_raw(oss, 0);
+                        std::cerr << oss.str();
+
+
+                        cxxReaction ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+                        struct irrev *irrev_ptr = ex1.cxxReaction2irrev();
+
+                        irrev_free(&irrev[i]);
+                        irrev_copy(irrev_ptr, &irrev[i], irrev_ptr->n_user);
+
+                        irrev_free(irrev_ptr);
+                        free_check_null(irrev_ptr);
 
         }
 } 

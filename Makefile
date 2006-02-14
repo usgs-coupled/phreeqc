@@ -115,6 +115,7 @@ CLASS_OBJECTS=  Conc.o \
 		Parser.o \
 		PPassemblage.o \
 		PPassemblageComp.o \
+		Reaction.o \
 		ReadClass.o \
 		Solution.o \
 		SSassemblage.o \
@@ -309,6 +310,8 @@ KineticsCxx.o: $(SRC)/KineticsCxx.cxx $(SRC)/Utils.h $(SRC)/KineticsCxx.h $(SRC)
 NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_star.h $(SRC)/NameDouble.h \
   $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h
+Reaction.o: $(SRC)/Reaction.cxx $(SRC)/Utils.h $(SRC)/Reaction.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
+  $(SRC)/char_star.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 ReadClass.o: $(SRC)/ReadClass.cpp
 Parser.o: $(SRC)/Parser.cxx $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/Utils.h
 PPassemblageComp.o: $(SRC)/PPassemblageComp.cxx $(SRC)/Utils.h $(SRC)/NameDouble.h \

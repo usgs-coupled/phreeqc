@@ -312,8 +312,15 @@ void cxxKinetics::read_raw(CParser& parser)
 
                 case 6: // steps
                         while (parser.copy_token(token, next_char) == CParser::TT_DIGIT) {
-                                sscanf(token.c_str(), "%lf", &d);
-                                this->steps.push_back(d);
+                                //sscanf(token.c_str(), "%lf", &d);
+                                //this->steps.push_back(d);
+				std::istringstream iss(token);
+				if (!(iss >> d)) {
+					parser.incr_input_error();
+					parser.error_msg("Expected numeric value for steps.", CParser::OT_CONTINUE);
+				} else {
+					this->steps.push_back(d);
+				}
                         }
                         opt_save = 6;
                         useLastLine = false;

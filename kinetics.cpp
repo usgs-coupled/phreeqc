@@ -2180,6 +2180,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 	run_reactions_iterations += iterations;
 	for (i = 0; i < n_reactions; i++) kinetics_ptr->comps[i].moles = 0.0;
 	calc_kinetic_reaction(kinetics_ptr, 1.0);
+	/*calc_kinetic_reaction(kinetics_ptr, 1e-4);*/
 	for (i = 0; i < n_reactions; i++) {
 	        initial_rates[i] = kinetics_ptr->comps[i].moles;
 	}

@@ -655,6 +655,7 @@ struct name_coef {
         LDBLE coef;
 };
 EXTERNAL struct irrev *irrev;
+EXTERNAL struct irrev *dbg_irrev;
 EXTERNAL int count_irrev;
 /*----------------------------------------------------------------------
  *   Gas phase
@@ -1052,7 +1053,10 @@ struct key keyword[] = {
         {"equilibrium_phases_raw", 0},
         {"kinetics_raw", 0},
         {"solid_solutions_raw", 0},
-        {"gas_phase_raw", 0}
+        {"gas_phase_raw", 0},
+        {"reaction_raw", 0},
+        {"mix_raw", 0},
+        {"reaction_temperature_raw", 0}
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct key));  /* Number of valid keywords */
 #else

@@ -10,6 +10,7 @@ extern int read_equilibrium_phases_raw (void);
 extern int read_kinetics_raw (void);
 extern int read_solid_solutions_raw (void);
 extern int read_gas_phase_raw (void);
+extern int read_reaction_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -216,7 +217,9 @@ int read_input(void)
 	  64      "kinetics_raw"
 	  65      "solid_solutions_raw"
 	  66      "gas_phase_raw"
-
+	  67      "reaction_raw"
+	  68      "mix_raw"
+	  69      "reaction_temperature_raw"
   */
 	for (;;) {
 		if (next_keyword >= 0) {
@@ -471,25 +474,39 @@ int read_input(void)
 			read_exchange_raw();
 			break;		
 		case 62:
-			keyword[61].keycount++;
+			keyword[62].keycount++;
 			read_surface_raw();
 			break;		
 		case 63:
-			keyword[61].keycount++;
+			keyword[63].keycount++;
 			read_equilibrium_phases_raw();
 			break;		
 		case 64:
-			keyword[61].keycount++;
+			keyword[64].keycount++;
 			read_kinetics_raw();
 			break;		
 		case 65:
-			keyword[61].keycount++;
+			keyword[65].keycount++;
 			read_solid_solutions_raw();
 			break;		
 		case 66:
-			keyword[61].keycount++;
+			keyword[66].keycount++;
 			read_gas_phase_raw();
 			break;		
+		case 67:
+			keyword[67].keycount++;
+			read_reaction_raw();
+			break;		
+			/*
+		case 68:
+			keyword[68].keycount++;
+			read_mix_raw();
+			break;		
+		case 69:
+			keyword[69].keycount++;
+			read_reaction_temperature_raw();
+			break;		
+			*/
 		}
 	}
  END_OF_SIMULATION_INPUT:

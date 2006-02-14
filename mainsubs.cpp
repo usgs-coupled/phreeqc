@@ -541,6 +541,7 @@ void initialize(void)
 	dbg_surface = surface;
 	dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
+	dbg_irrev = irrev;
 	return;
 }
 /* ---------------------------------------------------------------------- */

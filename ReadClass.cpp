@@ -9,6 +9,7 @@
 #include "KineticsCxx.h"
 #include "SSassemblage.h"
 #include "GasPhase.h"
+#include "Reaction.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -493,5 +494,72 @@ int read_gas_phase_raw (void)
 	gas_phase_copy(gas_phase_ptr, &gas_phase[n], gas_phase_ptr->n_user);
 	gas_phase_free(gas_phase_ptr);
 	free_check_null(gas_phase_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_reaction_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads SOLID_SOLUTION_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("solid_solution_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxReaction ex;
+	ex.read_raw(parser);
+	struct irrev *irrev_ptr = ex.cxxReaction2irrev();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (irrev_bsearch(irrev_ptr->n_user, &n) != NULL) {
+		irrev_free(&irrev[n]);
+	} else {
+		n=count_irrev++;
+		irrev = (struct irrev *) PHRQ_realloc(irrev, (size_t) count_irrev * sizeof (struct irrev));
+		if (irrev == NULL) malloc_error();
+	}
+	irrev_copy(irrev_ptr, &irrev[n], irrev_ptr->n_user);
+	irrev_free(irrev_ptr);
+	free_check_null(irrev_ptr);
 	return(return_value);
 }
