@@ -542,6 +542,7 @@ void initialize(void)
 	dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
 	dbg_irrev = irrev;
+	dbg_mix = mix;
 	return;
 }
 /* ---------------------------------------------------------------------- */

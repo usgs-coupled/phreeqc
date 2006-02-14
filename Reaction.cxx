@@ -277,7 +277,6 @@ void cxxReaction::read_raw(CParser& parser)
 					this->steps.push_back(d);
 				}
                         }
-			fprintf(stderr, "%s %e %d\n", token.c_str(), d, k);
                         opt_save = 3;
                         useLastLine = false;
                         break;

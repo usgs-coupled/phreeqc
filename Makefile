@@ -110,6 +110,7 @@ CLASS_OBJECTS=  Conc.o \
 		Isotope.o \
 		KineticsCxx.o \
 		KineticsComp.o \
+		Mix.o \
 		NameDouble.o \
 		NumKeyword.o \
 		Parser.o \
@@ -307,6 +308,8 @@ KineticsComp.o: $(SRC)/KineticsComp.cxx $(SRC)/Utils.h $(SRC)/KineticsComp.h $(S
 KineticsCxx.o: $(SRC)/KineticsCxx.cxx $(SRC)/Utils.h $(SRC)/KineticsCxx.h $(SRC)/NumKeyword.h $(SRC)/Parser.h \
   $(SRC)/char_star.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/KineticsComp.h $(SRC)/NameDouble.h $(SRC)/phqalloc.h \
   $(SRC)/phrqproto.h
+Mix.o: $(SRC)/Mix.cxx $(SRC)/Utils.h $(SRC)/Mix.h $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/global.h \
+  $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h 
 NameDouble.o: $(SRC)/NameDouble.cxx $(SRC)/Utils.h $(SRC)/Conc.h $(SRC)/char_star.h $(SRC)/NameDouble.h \
   $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 NumKeyword.o: $(SRC)/NumKeyword.cxx $(SRC)/NumKeyword.h $(SRC)/Parser.h $(SRC)/char_star.h

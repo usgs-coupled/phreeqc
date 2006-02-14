@@ -11,6 +11,7 @@ extern int read_kinetics_raw (void);
 extern int read_solid_solutions_raw (void);
 extern int read_gas_phase_raw (void);
 extern int read_reaction_raw (void);
+extern int read_mix_raw (void);
 static char const svnid[] = "$Id: read.c 715 2006-01-18 01:26:29Z dlpark $";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -497,11 +498,11 @@ int read_input(void)
 			keyword[67].keycount++;
 			read_reaction_raw();
 			break;		
-			/*
 		case 68:
 			keyword[68].keycount++;
 			read_mix_raw();
 			break;		
+			/*
 		case 69:
 			keyword[69].keycount++;
 			read_reaction_temperature_raw();

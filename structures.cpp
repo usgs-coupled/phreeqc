@@ -2381,6 +2381,38 @@ static int mix_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
+int mix_copy(struct mix *mix_old_ptr, 
+			 struct mix *mix_new_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies mix data from mix_old_ptr to new location, mix_new_ptr.
+ *   Space for the mix_new_ptr structure must already be malloced.
+ *   Space for mix components is malloced here.
+ */
+	char token[MAX_LENGTH];
+/*
+ *   Copy old to new
+ */
+	memcpy(mix_new_ptr, mix_old_ptr, sizeof (struct mix));
+/*
+ *   Store data for structure mix
+ */
+	mix_new_ptr->n_user = n_user_new;
+	mix_new_ptr->n_user_end = n_user_new;
+	sprintf(token, "Mix defined in simulation %d.", simulation);
+	mix_new_ptr->description = string_duplicate(token);
+/*
+ *   Count mix components and allocate space
+ */
+	mix_new_ptr->comps = (struct mix_comp *) PHRQ_malloc((size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
+	if (mix_new_ptr->comps == NULL) malloc_error();
+	memcpy(mix_new_ptr->comps, mix_old_ptr->comps, 
+	       (size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
+
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int mix_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {

@@ -10,6 +10,7 @@
 #include "SSassemblage.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "Mix.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -433,7 +434,7 @@ int read_gas_phase_raw (void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *      Reads SOLID_SOLUTION_RAW data block
+ *      Reads GAS_PHASE_RAW data block
  *
  *      Arguments:
  *         none
@@ -501,7 +502,7 @@ int read_reaction_raw (void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *      Reads SOLID_SOLUTION_RAW data block
+ *      Reads REACTION_RAW data block
  *
  *      Arguments:
  *         none
@@ -561,5 +562,72 @@ int read_reaction_raw (void)
 	irrev_copy(irrev_ptr, &irrev[n], irrev_ptr->n_user);
 	irrev_free(irrev_ptr);
 	free_check_null(irrev_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_mix_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads MIX (_RAW) data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("solid_solution_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxMix ex;
+	ex.read_raw(parser);
+	struct mix *mix_ptr = ex.cxxMix2mix();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (mix_bsearch(mix_ptr->n_user, &n) != NULL) {
+		mix_free(&mix[n]);
+	} else {
+		n=count_mix++;
+		mix = (struct mix *) PHRQ_realloc(mix, (size_t) count_mix * sizeof (struct mix));
+		if (mix == NULL) malloc_error();
+	}
+	mix_copy(mix_ptr, &mix[n], mix_ptr->n_user);
+	mix_free(mix_ptr);
+	free_check_null(mix_ptr);
 	return(return_value);
 }

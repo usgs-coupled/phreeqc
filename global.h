@@ -635,6 +635,7 @@ struct mix_comp {
         LDBLE fraction;
 };
 EXTERNAL struct mix *mix;
+EXTERNAL struct mix *dbg_mix;
 EXTERNAL int count_mix;
 /*----------------------------------------------------------------------
  *   Irreversible reaction
