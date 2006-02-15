@@ -1657,7 +1657,6 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, BDF, NEWTON, SV, &reltol, abstol, NULL, NULL, TRUE, iopt, ropt, machEnv); 
 			cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, ADAMS, FUNCTIONAL, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv); 
 			*/
-			/* iopt[MAXORD] = 3; */
 			kinetics_cvode_mem = CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV, &reltol, kinetics_abstol, NULL, NULL, TRUE, iopt, ropt, kinetics_machEnv); 
 			if (kinetics_cvode_mem == NULL) malloc_error();
 
@@ -1707,7 +1706,6 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				if (flag != SUCCESS) { 
 					error_msg("CVDense failed.", STOP);
 				}
-				/*ropt[HMAX] = tout1/10.;*/
 				flag = CVode(kinetics_cvode_mem, tout1, kinetics_y, &t, NORMAL);
 				/*
 				  sprintf(error_string, "CVode failed, flag=%d.\n", flag); 
@@ -2124,6 +2122,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
                 realtype uround, void *jac_data, long int *nfePtr,
                 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3)
 {
+	int count_cvode_errors;
 	int i, j, n_reactions, n_user;
 	LDBLE *initial_rates, del;
 	struct kinetics *kinetics_ptr;
@@ -2185,60 +2184,78 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 	}
 	for (i = 0; i < n_reactions; i++) {
 		/* calculate reaction up to current time */
-		for (j = 0; j < n_reactions; j++) {
-			/*
-			kinetics_ptr->comps[j].moles = y[j + 1];
-			kinetics_ptr->comps[j].m = m_original[j] - y[j + 1]; 
-			*/
-			kinetics_ptr->comps[j].moles = Ith(y, j+1);
-			kinetics_ptr->comps[j].m = m_original[j] - Ith(y,j + 1);
-			if (kinetics_ptr->comps[i].m < 0) {
-				/* 
-				   NOTE: y is not correct if it is greater than m_original
-				   However, it seems to work to let y wander off, but use
-				   .moles as the correct integral.
-				   It does not work to reset Y to m_original, presumably
-				   because the rational extrapolation gets screwed up.
-				*/
-				
-				/*
-				  Ith(y,i + 1) = m_original[i]; 
-				*/
-				kinetics_ptr->comps[i].moles = m_original[i];
-				kinetics_ptr->comps[i].m = 0.0;
-			}
-		}
-
-		/* Add small amount of ith reaction */
-		del = kinetics_ptr->comps[i].tol*10.;
 		del = 1e-12;
+		cvode_error = TRUE;
+		count_cvode_errors = 0;
+		while (cvode_error == TRUE) {
+			del /= 10.;
+			for (j = 0; j < n_reactions; j++) {
+				/*
+				  kinetics_ptr->comps[j].moles = y[j + 1];
+				  kinetics_ptr->comps[j].m = m_original[j] - y[j + 1]; 
+				*/
+				kinetics_ptr->comps[j].moles = Ith(y, j+1);
+				kinetics_ptr->comps[j].m = m_original[j] - Ith(y,j + 1);
+				if (kinetics_ptr->comps[i].m < 0) {
+					/* 
+					   NOTE: y is not correct if it is greater than m_original
+					   However, it seems to work to let y wander off, but use
+					   .moles as the correct integral.
+					   It does not work to reset Y to m_original, presumably
+					   because the rational extrapolation gets screwed up.
+					*/
+				
+					/*
+					  Ith(y,i + 1) = m_original[i]; 
+					*/
+					kinetics_ptr->comps[i].moles = m_original[i];
+					kinetics_ptr->comps[i].m = 0.0;
+				}
+			}
 
-		kinetics_ptr->comps[i].m -= del;
-		if (kinetics_ptr->comps[i].m < 0) kinetics_ptr->comps[i].m = 0;
-		kinetics_ptr->comps[i].moles += del;
-		calc_final_kinetic_reaction(kinetics_ptr);
-		if (use.pp_assemblage_ptr != NULL) {
-			pp_assemblage_free(use.pp_assemblage_ptr);
-			pp_assemblage_copy(cvode_pp_assemblage_save, use.pp_assemblage_ptr, n_user);
-		}
-		if (set_and_run_wrapper(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) {
+			/* Add small amount of ith reaction */
+			kinetics_ptr->comps[i].m -= del;
+			if (kinetics_ptr->comps[i].m < 0) {
+				kinetics_ptr->comps[i].m = 0;
+			}
+			kinetics_ptr->comps[i].moles += del;
+			calc_final_kinetic_reaction(kinetics_ptr);
+			if (use.pp_assemblage_ptr != NULL) {
+				pp_assemblage_free(use.pp_assemblage_ptr);
+				pp_assemblage_copy(cvode_pp_assemblage_save, use.pp_assemblage_ptr, n_user);
+			}
+#ifdef SKIP
+			if (set_and_run_wrapper(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) {
+				run_reactions_iterations += iterations;
+				/*
+				  error_msg("Mass balance error in jacobian 2", CONTINUE);
+				*/
+				cvode_error = TRUE;
+				initial_rates = (LDBLE *) free_check_null(initial_rates);
+				return;
+			}
+#endif
+			if (set_and_run_wrapper(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) {
+				count_cvode_errors++;
+				cvode_error = TRUE;
+				if (count_cvode_errors > 30) {
+					initial_rates = (LDBLE *) free_check_null(initial_rates);
+					return;
+				}
+				run_reactions_iterations += iterations;
+				continue;
+			}
+			cvode_error = FALSE;
 			run_reactions_iterations += iterations;
-			/*
-			error_msg("Mass balance error in jacobian 2", CONTINUE);
-			*/
-			cvode_error = TRUE;
-			initial_rates = (LDBLE *) free_check_null(initial_rates);
-			return;
-		}
-		run_reactions_iterations += iterations;
-		/*kinetics_ptr->comps[i].moles -= del;*/
-		for (j = 0; j < n_reactions; j++) kinetics_ptr->comps[j].moles = 0.0;
-		calc_kinetic_reaction(kinetics_ptr, 1.0);
+			/*kinetics_ptr->comps[i].moles -= del;*/
+			for (j = 0; j < n_reactions; j++) kinetics_ptr->comps[j].moles = 0.0;
+			calc_kinetic_reaction(kinetics_ptr, 1.0);
 
-		/* calculate new rates for df/dy[i] */
-		/* dfdx[i + 1] = 0.0; */
-		for (j = 0; j < n_reactions; j++) {
-			IJth(J,j+1,i+1) = (kinetics_ptr->comps[j].moles - initial_rates[j])/del; 
+			/* calculate new rates for df/dy[i] */
+			/* dfdx[i + 1] = 0.0; */
+			for (j = 0; j < n_reactions; j++) {
+				IJth(J,j+1,i+1) = (kinetics_ptr->comps[j].moles - initial_rates[j])/del; 
+			}
 		}
 	}
 	for (i = 0; i < n_reactions; i++) {
