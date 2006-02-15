@@ -51,7 +51,7 @@ species_gamma(solution_ptr->species_gamma, solution_ptr->count_species_gamma, cx
 {
         int i;
 
-        description = solution_ptr->description;
+        this->set_description(solution_ptr->description);
         n_user      = solution_ptr->n_user;
         n_user_end  = solution_ptr->n_user_end;
         tc          = solution_ptr->tc;
@@ -808,6 +808,7 @@ cxxSolution& cxxSolution::read(CParser& parser)
 #include "GasPhase.h"
 #include "Reaction.h"
 #include "Mix.h"
+#include "Temperature.h"
 #include <iostream>     // std::cout std::cerr
 //#include <strstream>
 #include <sstream>
@@ -854,7 +855,7 @@ void test_classes(void)
                         std::ostringstream oss;
                         cxxExchange ex(&(exchange[i]));
                         ex.dump_raw(oss, 0);
-                        //std::cerr << oss.str();
+                        std::cerr << oss.str();
 
                         cxxExchange ex1;
                         std::string keyInput = oss.str();
@@ -1069,6 +1070,33 @@ void test_classes(void)
 
                         mix_free(mix_ptr);
                         free_check_null(mix_ptr);
+
+        }
+        for (i=0; i < count_temperature; i++) {
+                        std::ostringstream oss;
+                        cxxTemperature ex(&(temperature[i]));
+                        ex.dump_raw(oss, 0);
+                        std::cerr << oss.str();
+
+
+                        cxxTemperature ex1;
+                        std::string keyInput = oss.str();
+                        std::istringstream iss(keyInput);
+
+                        CParser cparser(iss, oss, std::cerr);
+                        //For testing, need to read line to get started
+                        std::vector<std::string> vopts;
+                        std::istream::pos_type next_char;
+                        cparser.get_option(vopts, next_char);
+
+                        ex1.read_raw(cparser);
+                        struct temperature *temperature_ptr = ex1.cxxTemperature2temperature();
+
+                        temperature_free(&temperature[i]);
+                        temperature_copy(temperature_ptr, &temperature[i], temperature_ptr->n_user);
+
+                        temperature_free(temperature_ptr);
+                        free_check_null(temperature_ptr);
 
         }
 } 

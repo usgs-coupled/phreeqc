@@ -11,6 +11,7 @@
 #include "global.h"
 #include "phqalloc.h"
 #include "phrqproto.h"
+#include "output.h"
 #include <cassert>     // assert
 #include <algorithm>   // std::sort 
 
@@ -66,7 +67,8 @@ struct master *cxxSurfComp::get_master()
                 if (elt_ptr->master == NULL) {
                         std::ostringstream error_oss;
                         error_oss << "Master species not in data base for " << elt_ptr->name << std::endl;
-                        Utilities::error_msg(error_oss.str(), CONTINUE);
+                        //Utilities::error_msg(error_oss.str(), CONTINUE);
+			error_msg(error_oss.str().c_str(), CONTINUE);
                         return(NULL);
                 }
                 if (elt_ptr->master->type != SURF) continue;
@@ -76,8 +78,9 @@ struct master *cxxSurfComp::get_master()
         if (master_ptr == NULL) {
                 std::ostringstream error_oss;
                 error_oss << "Surface formula does not contain an surface master species, " << this->formula << std::endl;
-                Utilities::error_msg(error_oss.str(), CONTINUE);
-        }
+                //Utilities::error_msg(error_oss.str(), CONTINUE);
+		error_msg(error_oss.str().c_str(), CONTINUE);        
+	}
         return(master_ptr);
 }
 

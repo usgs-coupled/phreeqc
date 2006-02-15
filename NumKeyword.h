@@ -18,7 +18,7 @@ public:
 
         char * get_description()const { return string_duplicate(this->description.c_str()); }
         void set_description(std::string str) { this->description = str; }
-        void set_description(char * str) { this->description = str; }
+        void set_description(char * str) { if (str != NULL) this->description = str; }
 
         int get_n_user()const         { return this->n_user; }
         void set_n_user(int user) { this->n_user = user; }

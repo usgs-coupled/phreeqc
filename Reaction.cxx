@@ -42,7 +42,7 @@ elementList(irrev_ptr->elts)
 {
         int i;
 
-        this->description                  = irrev_ptr->description; 
+        this->set_description(irrev_ptr->description);
         this->n_user                       = irrev_ptr->n_user;     
         this->n_user_end                   = irrev_ptr->n_user_end;  
         this->units                        = irrev_ptr->units;  

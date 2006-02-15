@@ -124,6 +124,7 @@ CLASS_OBJECTS=  Conc.o \
 		Surface.o \
 		SurfComp.o \
 		SurfCharge.o \
+		Temperature.o \
 		Utils.o
 
 OBJECTS += $(CLASS_OBJECTS)
@@ -337,6 +338,9 @@ Surface.o: $(SRC)/Surface.cxx $(SRC)/Utils.h $(SRC)/Surface.h $(SRC)/NumKeyword.
 SurfComp.o: $(SRC)/SurfComp.cxx $(SRC)/Utils.h $(SRC)/SurfComp.h $(SRC)/NameDouble.h $(SRC)/global.h \
   $(SRC)/phrqtype.h $(SRC)/char_star.h $(SRC)/Parser.h $(SRC)/phqalloc.h $(SRC)/phrqproto.h
 
+Temperature.o: $(SRC)/Temperature.cxx $(SRC)/Utils.h $(SRC)/Temperature.h $(SRC)/NumKeyword.h \
+  $(SRC)/Parser.h $(SRC)/char_star.h $(SRC)/NameDouble.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h \
+  $(SRC)/phrqproto.h
 Utils.o: $(SRC)/Utils.cxx $(SRC)/Utils.h $(SRC)/Parser.h $(SRC)/char_star.h
 
 -include $(SRC)/distribution.mk

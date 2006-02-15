@@ -11,6 +11,7 @@
 #include "GasPhase.h"
 #include "Reaction.h"
 #include "Mix.h"
+#include "Temperature.h"
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -629,5 +630,72 @@ int read_mix_raw (void)
 	mix_copy(mix_ptr, &mix[n], mix_ptr->n_user);
 	mix_free(mix_ptr);
 	free_check_null(mix_ptr);
+	return(return_value);
+}
+/* ---------------------------------------------------------------------- */
+int read_temperature_raw (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads TEMPERATURE (_RAW) data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	/*
+	 *  Accumulate lines in std string
+	 */
+	std::string keywordLines("");
+
+	keywordLines.append(line);
+	keywordLines.append("\n");
+/*
+ *   Read additonal lines
+ */
+	for (;;) {
+		return_value = check_line("solid_solution_raw",TRUE,TRUE,TRUE,TRUE);
+                                               /* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD ) break;
+		keywordLines.append(line);
+		keywordLines.append("\n");
+	}
+
+	std::istringstream iss_in(keywordLines);
+	std::ostringstream oss_out;
+	std::ostringstream oss_err;
+
+	CParser parser(iss_in, oss_out, oss_err);
+	//For testing, need to read line to get started
+	std::vector<std::string> vopts;
+	std::istream::pos_type next_char;
+	parser.get_option(vopts, next_char);
+
+	cxxTemperature ex;
+	ex.read_raw(parser);
+	struct temperature *temperature_ptr = ex.cxxTemperature2temperature();
+	int n;
+
+	/*
+	 *  This is not quite right, may not produce sort order
+	 */
+
+	if (temperature_bsearch(temperature_ptr->n_user, &n) != NULL) {
+		temperature_free(&temperature[n]);
+	} else {
+		n=count_temperature++;
+		temperature = (struct temperature *) PHRQ_realloc(temperature, (size_t) count_temperature * sizeof (struct temperature));
+		if (temperature == NULL) malloc_error();
+	}
+	temperature_copy(temperature_ptr, &temperature[n], temperature_ptr->n_user);
+	temperature_free(temperature_ptr);
+	free_check_null(temperature_ptr);
 	return(return_value);
 }

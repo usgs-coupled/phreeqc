@@ -42,7 +42,7 @@ totals(kinetics_ptr->totals)
 {
         int i;
 
-        description                  = kinetics_ptr->description; 
+        this->set_description(kinetics_ptr->description);
         n_user                       = kinetics_ptr->n_user;     
         n_user_end                   = kinetics_ptr->n_user_end;  
         step_divide                  = kinetics_ptr->step_divide; 

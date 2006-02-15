@@ -5157,6 +5157,44 @@ static int temperature_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
+int temperature_copy(struct temperature *temperature_old_ptr, 
+			 struct temperature *temperature_new_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies temperature data from temperature_old_ptr to new location, temperature_new_ptr.
+ *   Space for the temperature_new_ptr structure must already be malloced.
+ *   Space for temperature components is malloced here.
+ */
+	int count;
+	char token[MAX_LENGTH];
+/*
+ *   Copy old to new
+ */
+	memcpy(temperature_new_ptr, temperature_old_ptr, sizeof (struct temperature));
+/*
+ *   Store data for structure temperature
+ */
+	temperature_new_ptr->n_user = n_user_new;
+	temperature_new_ptr->n_user_end = n_user_new;
+	sprintf(token, "Temperature defined in simulation %d.", simulation);
+	temperature_new_ptr->description = string_duplicate(token);
+/*
+ *   Count temperature components and allocate space
+ */
+	if (temperature_old_ptr->count_t < 0) {
+		count = 2;
+	} else {
+		count = temperature_old_ptr->count_t;
+	}
+	temperature_new_ptr->t = (double *) PHRQ_malloc((size_t) (count) * sizeof (double));
+	if (temperature_new_ptr->t == NULL) malloc_error();
+	memcpy(temperature_new_ptr->t, temperature_old_ptr->t, 
+	       (size_t) (count * sizeof (double)));
+
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int temperature_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {

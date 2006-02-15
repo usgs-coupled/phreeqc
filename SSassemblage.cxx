@@ -35,7 +35,7 @@ cxxSSassemblage::cxxSSassemblage(struct s_s_assemblage *s_s_assemblage_ptr)
 cxxNumKeyword()
 {
         int i;
-        description                  = s_s_assemblage_ptr->description; 
+        this->set_description(s_s_assemblage_ptr->description);
         n_user                       = s_s_assemblage_ptr->n_user;        
         n_user_end                   = s_s_assemblage_ptr->n_user_end;  
         for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++) {

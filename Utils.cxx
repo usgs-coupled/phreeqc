@@ -8,7 +8,7 @@
 
 #include "Utils.h"
 #include "Parser.h"
-
+#include "output.h"
 ////////////////////////////////////////////////////////////////////////////
 int Utilities::strcmp_nocase_arg1(const char *str1, const char *str2)
 ////////////////////////////////////////////////////////////////////////////
@@ -68,12 +68,12 @@ void Utilities::squeeze_white(std::string& s_l)
         CParser::copy_token(str, beg, end);
         s_l = str;
 }
-
+#ifdef SKIP
 ////////////////////////////////////////////////////////////////////////////
 void Utilities::error_msg (const std::string& err_str, const int stop)
 ////////////////////////////////////////////////////////////////////////////
 {
-        std::cerr << err_str << std::endl;
-        //output_message(OUTPUT_ERROR, err_str, stop, "", args);
+        //std::cerr << err_str << std::endl;
+        output_message(OUTPUT_ERROR, err_str, stop, "", args);
 }
-
+#endif

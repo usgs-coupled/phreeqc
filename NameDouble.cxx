@@ -133,6 +133,7 @@ struct master_activity *cxxNameDouble::master_activity()const
                 }
                 break;
         case cxxNameDouble::ND_ELT_MOLES:
+        case cxxNameDouble::ND_NAME_COEF:
                 break;
         }
         return(master_activity_ptr);
@@ -209,6 +210,11 @@ void cxxNameDouble::dump_xml(std::ostream& s_oss, unsigned int indent)const
                 xmlAtt1 = " conc_desc=\"";
                 xmlAtt1 = " conc_moles=\"";
                 break;
+        case cxxNameDouble::ND_NAME_COEF:
+                xmlElement = "<NameCoef ";
+                xmlAtt1 = " name=\"";
+                xmlAtt1 = " coef=\"";
+		break;
         }
         
         for (const_iterator it = (*this).begin(); it != (*this).end(); it++) {

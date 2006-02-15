@@ -21,11 +21,6 @@ public:
         cxxReaction(struct irrev *);
         ~cxxReaction();
 
-        enum GP_TYPE {
-                GP_PRESSURE     = 0,
-                GP_VOLUME       = 1
-        };
-
         struct irrev *cxxReaction2irrev();
 
         //void dump_xml(std::ostream& os, unsigned int indent = 0)const;

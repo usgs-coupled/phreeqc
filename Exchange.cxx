@@ -38,7 +38,7 @@ cxxNumKeyword()
 {
         int i;
 
-        description                  = exchange_ptr->description; 
+        this->set_description(exchange_ptr->description);
         n_user                       = exchange_ptr->n_user;     
         n_user_end                   = exchange_ptr->n_user_end;  
         pitzer_exchange_gammas       = (exchange_ptr->pitzer_exchange_gammas == TRUE);

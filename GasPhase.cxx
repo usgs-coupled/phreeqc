@@ -38,7 +38,7 @@ cxxNumKeyword()
 {
         int i;
 
-        description                  = gas_phase_ptr->description; 
+        this->set_description(gas_phase_ptr->description);
         n_user                       = gas_phase_ptr->n_user;     
         n_user_end                   = gas_phase_ptr->n_user_end;  
 	if (gas_phase_ptr->type == PRESSURE) {

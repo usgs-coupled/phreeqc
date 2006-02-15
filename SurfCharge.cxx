@@ -9,6 +9,7 @@
 #include "SurfCharge.h"
 #define EXTERNAL extern
 #include "global.h"
+#include "output.h"
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include <cassert>     // assert
@@ -61,7 +62,8 @@ struct master *cxxSurfCharge::get_psi_master()
         if (master_ptr == NULL) {
                 std::ostringstream error_oss;
                 error_oss << "Surface charge psi_master not found." << this->name << std::endl;
-                Utilities::error_msg(error_oss.str(), CONTINUE);
+                //Utilities::error_msg(error_oss.str(), CONTINUE);
+		error_msg(error_oss.str().c_str(), CONTINUE);
         }
         return(master_ptr);
 }

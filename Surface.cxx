@@ -42,7 +42,7 @@ cxxNumKeyword()
 {
         int i;
 
-        description                  = surface_ptr->description; 
+        this->set_description(surface_ptr->description);
         n_user                       = surface_ptr->n_user;      
         n_user_end                   = surface_ptr->n_user_end;  
         diffuse_layer                = (surface_ptr->diffuse_layer == TRUE); 
