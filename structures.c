@@ -1771,6 +1771,7 @@ struct kinetics *kinetics_alloc (void)
 	kinetics_ptr->comps = NULL;
 	kinetics_ptr->count_steps = 0;
 	kinetics_ptr->steps = NULL;
+	/*kinetics_ptr->units = NULL;*/
 	kinetics_ptr->totals = NULL;
 	return ( kinetics_ptr );
 }
@@ -2378,6 +2379,38 @@ static int mix_compare_int(const void *ptr1, const void *ptr2)
 	if (*nptr1 > nptr2->n_user) return(1);
 	if (*nptr1 < nptr2->n_user) return(-1);
 	return (0);
+}
+/* ---------------------------------------------------------------------- */
+int mix_copy(struct mix *mix_old_ptr, 
+			 struct mix *mix_new_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies mix data from mix_old_ptr to new location, mix_new_ptr.
+ *   Space for the mix_new_ptr structure must already be malloced.
+ *   Space for mix components is malloced here.
+ */
+	char token[MAX_LENGTH];
+/*
+ *   Copy old to new
+ */
+	memcpy(mix_new_ptr, mix_old_ptr, sizeof (struct mix));
+/*
+ *   Store data for structure mix
+ */
+	mix_new_ptr->n_user = n_user_new;
+	mix_new_ptr->n_user_end = n_user_new;
+	sprintf(token, "Mix defined in simulation %d.", simulation);
+	mix_new_ptr->description = string_duplicate(token);
+/*
+ *   Count mix components and allocate space
+ */
+	mix_new_ptr->comps = (struct mix_comp *) PHRQ_malloc((size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
+	if (mix_new_ptr->comps == NULL) malloc_error();
+	memcpy(mix_new_ptr->comps, mix_old_ptr->comps, 
+	       (size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
+
+	return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int mix_duplicate(int n_user_old, int n_user_new)
@@ -5122,6 +5155,44 @@ static int temperature_compare_int(const void *ptr1, const void *ptr2)
 	if (*nptr1 > nptr2->n_user) return(1);
 	if (*nptr1 < nptr2->n_user) return(-1);
 	return (0);
+}
+/* ---------------------------------------------------------------------- */
+int temperature_copy(struct temperature *temperature_old_ptr, 
+			 struct temperature *temperature_new_ptr, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies temperature data from temperature_old_ptr to new location, temperature_new_ptr.
+ *   Space for the temperature_new_ptr structure must already be malloced.
+ *   Space for temperature components is malloced here.
+ */
+	int count;
+	char token[MAX_LENGTH];
+/*
+ *   Copy old to new
+ */
+	memcpy(temperature_new_ptr, temperature_old_ptr, sizeof (struct temperature));
+/*
+ *   Store data for structure temperature
+ */
+	temperature_new_ptr->n_user = n_user_new;
+	temperature_new_ptr->n_user_end = n_user_new;
+	sprintf(token, "Temperature defined in simulation %d.", simulation);
+	temperature_new_ptr->description = string_duplicate(token);
+/*
+ *   Count temperature components and allocate space
+ */
+	if (temperature_old_ptr->count_t < 0) {
+		count = 2;
+	} else {
+		count = temperature_old_ptr->count_t;
+	}
+	temperature_new_ptr->t = (double *) PHRQ_malloc((size_t) (count) * sizeof (double));
+	if (temperature_new_ptr->t == NULL) malloc_error();
+	memcpy(temperature_new_ptr->t, temperature_old_ptr->t, 
+	       (size_t) (count * sizeof (double)));
+
+	return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int temperature_duplicate(int n_user_old, int n_user_new)

@@ -6,6 +6,13 @@
 #include "phrqproto.h"
 #include "input.h"
 
+extern void test_classes(void);
+/*#define PHREEQC_XML*/
+#ifdef PHREEQC_XML
+#include "SAXPhreeqc.h"
+extern void SAX_cleanup(void);
+#endif
+
 static char const svnid[] = "$Id$";
 
 #if defined(WINDOWS) || defined(_WINDOWS)
@@ -525,7 +532,17 @@ void initialize(void)
 	 *  Pitzer
 	 */
 	pitzer_init();
-
+	/*
+	 * to facilitate debuging
+	 */
+	dbg_use = &use;
+	dbg_solution = solution;
+	dbg_exchange = exchange;
+	dbg_surface = surface;
+	dbg_pp_assemblage = pp_assemblage;
+	dbg_kinetics = kinetics;
+	dbg_irrev = irrev;
+	dbg_mix = mix;
 	return;
 }
 /* ---------------------------------------------------------------------- */
@@ -793,6 +810,18 @@ int initial_exchangers(int print)
 			if (use.solution_ptr == NULL) {
 				error_msg("Solution not found for initial exchange calculation", STOP);
 			}
+#ifdef PHREEQC_XML
+{
+	/*
+	int n;
+	SAX_StartSystem();
+	SAX_AddSolution(use.solution_ptr);
+	SAX_EndSystem();
+	SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
+	SAX_cleanup();
+	*/
+ }
+#endif
 			prep();
 			k_temp(use.solution_ptr->tc);
 			set(TRUE);
@@ -1528,7 +1557,8 @@ int xsolution_save(int n_user)
  */
 
 	pe_data_free(solution_ptr->pe); 
-	solution_ptr->pe = pe_data_dup(pe_x); 
+	/*solution_ptr->pe = pe_data_dup(pe_x); */
+	solution_ptr->pe = pe_data_alloc();
 	solution_ptr->default_pe = 0;
 	/*
 	 * Add in minor isotopes if initial solution calculation
@@ -1798,12 +1828,14 @@ static int xsurface_save(int n_user)
 /*
  *   Added code to save g
  */
+/*
 			if (x[i]->surface_charge->count_g > 0) {
 				temp_surface.charge[count_charge].count_g = x[i]->surface_charge->count_g;
 				temp_surface.charge[count_charge].g = (struct surface_diff_layer *) PHRQ_malloc((size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 				if (temp_surface.charge[count_charge].g == NULL) malloc_error();
 				memcpy(temp_surface.charge[count_charge].g, x[i]->surface_charge->g, (size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 			}
+*/
 			temp_surface.charge[count_charge].psi_master = x[i]->master[0]; 
 			temp_surface.charge[count_charge].la_psi = x[i]->master[0]->s->la;
 /*
@@ -2333,7 +2365,9 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			if (pr.headings == TRUE) output_msg(OUTPUT_MESSAGE,"%s\n\n", title_x);
 		}
 		tidy_model();
-
+#ifdef PHREEQC_CPP
+		test_classes();
+#endif
 #ifdef PHREEQ98
                 if (!phreeq98_debug) {
 #endif
