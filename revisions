@@ -561,6 +561,11 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 794: Errors in minteq.v4.dat database. Several redox
+        reactions had delta H listed as kcal instead of kJ. kcal
+        is correct only for the following species H2, NO2-, and
+        NH4+.
+
 	svn 675:
 	Added PRINT option to print the species that contribute
 	to alkalinity. Alkalinity distribution is printed in
