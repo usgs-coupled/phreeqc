@@ -2062,7 +2062,14 @@ int reset(void)
 	factor=1.0; 
 	sum_deltas=0.0;
 	for (i=0; i < count_unknowns; i++) {
-		sum_deltas += fabs(delta[i]);
+		/* fixes underflow problem on Windows */
+		if (delta[i] > 0) {
+			sum_deltas += delta[i];
+		} else {
+			sum_deltas -= delta[i];
+
+		}		
+		/*sum_deltas += fabs(delta[i]);*/
 		up = step_up;
 		down = up;
 		if (x[i]->type <= SOLUTION_PHASE_BOUNDARY) {
@@ -3097,6 +3104,3 @@ LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE 
 	f = xcaq*(xb/r + xc) + xbaq*(xb + r*xc) - 1;
 	return(f);
 }
-
-
-
