@@ -8,14 +8,14 @@ static char const svnid[] = "$Id$";
 /*
  *  storage
  */
-struct buffer {
+struct tally_buffer {
 	char *name;
 	struct master *master;
 	LDBLE moles;
 	LDBLE gfw;
 };
-struct buffer *buffer;
-int count_component;
+struct tally_buffer *t_buffer;
+int tally_count_component;
 struct tally {
 	char *name;
 	enum entity_type type;
@@ -27,13 +27,13 @@ struct tally {
 	 * second total is final
 	 * third total is difference (final - initial)
 	 */
-	struct buffer *total[3];
+	struct tally_buffer *total[3];
 };
 struct tally *tally_table;
 int count_tally_table_columns;
 int count_tally_table_rows;
 
-static int elt_list_to_tally_table(struct buffer *buffer_ptr);
+static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
 
 /*   
      Calling sequence 
@@ -109,10 +109,10 @@ int get_all_components(void)
 /*
  *   Count components, 2 for hydrogen, oxygen,  + others,
  */
-	count_component = 0;
+	tally_count_component = 0;
 	for (i = 0; i < count_master; i++) {
 		if (master[i]->total > 0.0 && master[i]->s->type == AQ) {
-			count_component++;
+			tally_count_component++;
 		}
 	}
 /*
@@ -121,19 +121,19 @@ int get_all_components(void)
  *   species that can be used in the transport problem.
  *   Each entry in buffer is sent to HST for transort.
  */
-	buffer = (struct buffer *) PHRQ_malloc ((size_t) count_component * sizeof(struct buffer));
+	t_buffer = (struct tally_buffer *) PHRQ_malloc ((size_t) tally_count_component * sizeof(struct tally_buffer));
 	j = 0;
 	for (i = 0; i < count_master; i++) {
 		if (master[i]->total > 0.0 && master[i]->s->type == AQ) {
-			buffer[j].name = master[i]->elt->name;
-			buffer[j].master = master[i];
-			buffer[j].gfw = master[i]->elt->gfw;
+			t_buffer[j].name = master[i]->elt->name;
+			t_buffer[j].master = master[i];
+			t_buffer[j].gfw = master[i]->elt->gfw;
 			j++;
 		}
 	}
 #ifdef SKIP
 	output_msg(OUTPUT_MESSAGE, "List of Components:\n");
-	for (i = 0; i < count_component; i++) {
+	for (i = 0; i < tally_count_component; i++) {
 		output_msg(OUTPUT_MESSAGE, "\t%d\t%s\n", i+1, buffer[i].name);
 		/*
 		for (j=0; buffer[i].name[j] != '\0'; j++) {
@@ -146,7 +146,7 @@ int get_all_components(void)
 	 *  Return value
 	 */
 	/**n_comp = count_component;*/
-	count_tally_table_rows = count_component;
+	count_tally_table_rows = tally_count_component;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -230,7 +230,7 @@ int get_tally_table_row_heading(int row, char *string)
 		error_msg("Row exceeds tally table size, get_tally_table row_heading", CONTINUE);
 		return(ERROR);
 	}
-	strcpy(string, buffer[row].name);
+	strcpy(string, t_buffer[row].name);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -265,11 +265,11 @@ int free_tally_table(void)
 	for (i = 0; i < count_tally_table_columns; i++) {
 		if (tally_table[i].formula != NULL) (struct elt_list *) free_check_null(tally_table[i].formula);
 		for (k = 0; k < 3; k++) {
-			tally_table[i].total[k] = (struct buffer *) free_check_null(tally_table[i].total[k]);
+			tally_table[i].total[k] = (struct tally_buffer *) free_check_null(tally_table[i].total[k]);
 		}
 	}
 	tally_table = (struct tally *) free_check_null(tally_table);
-	buffer = (struct buffer *) free_check_null(buffer);
+	t_buffer = (struct tally_buffer *) free_check_null(t_buffer);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -319,7 +319,7 @@ int print_tally_table(void)
 		output_msg(OUTPUT_MESSAGE,"\n");
 		output_msg(OUTPUT_MESSAGE, "\t%15s\t%15s\t%15s\n", "Initial", "Final", "Difference");
 		for (j = 0; j < count_tally_table_rows; j++) {
-			output_msg(OUTPUT_MESSAGE,"%5s\t%15g\t%15g\t%15g\n", buffer[j].name, tally_table[i].total[0][j].moles, tally_table[i].total[1][j].moles, tally_table[i].total[2][j].moles);
+			output_msg(OUTPUT_MESSAGE,"%5s\t%15g\t%15g\t%15g\n", t_buffer[j].name, tally_table[i].total[0][j].moles, tally_table[i].total[1][j].moles, tally_table[i].total[2][j].moles);
 		}
 		output_msg(OUTPUT_MESSAGE,"\n");
 	}
@@ -528,7 +528,7 @@ int fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 }
 
 /* ---------------------------------------------------------------------- */
-int elt_list_to_tally_table(struct buffer *buffer_ptr) 
+int elt_list_to_tally_table(struct tally_buffer *buffer_ptr) 
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -564,7 +564,7 @@ int build_tally_table(void)
 /*
  *   Routine accumulates elements from all solutions, phases, gas phases,
  *   exchangers, and surfaces. Counts number of aqueous components
- *   to transport. Stores in global variable count_component.
+ *   to transport. Stores in global variable tally_count_component.
  *   Also calculates a number greater than all user numbers and
  *   stores in global variable first_user_number.
  */
@@ -823,7 +823,7 @@ void add_all_components_tally(void)
 /*
  *   Routine accumulates elements from all solutions, phases, gas phases,
  *   exchangers, and surfaces. Counts number of aqueous components
- *   to transport. Stores in global variable count_component.
+ *   to transport. Stores in global variable tally_count_component.
  *   Also calculates a number greater than all user numbers and
  *   stores in global variable first_user_number.
  */
@@ -949,11 +949,11 @@ int extend_tally_table(void)
 	tally_table = (struct tally *)PHRQ_realloc((void *) tally_table, (size_t) (count_tally_table_columns + 1) * sizeof(struct tally));
 	if (tally_table == NULL) malloc_error();
 	for (i = 0; i < 3; i++) {
-		tally_table[count_tally_table_columns].total[i] = (struct buffer *)PHRQ_malloc( (size_t) (count_tally_table_rows) * sizeof( struct buffer ));
+		tally_table[count_tally_table_columns].total[i] = (struct tally_buffer *)PHRQ_malloc( (size_t) (count_tally_table_rows) * sizeof( struct tally_buffer ));
 		if (tally_table[count_tally_table_columns].total[i] == NULL) malloc_error();
 		for (j = 0; j < count_tally_table_rows; j++) {
-			tally_table[count_tally_table_columns].total[i][j].name = buffer[j].name;
-			tally_table[count_tally_table_columns].total[i][j].master = buffer[j].master;
+			tally_table[count_tally_table_columns].total[i][j].name = t_buffer[j].name;
+			tally_table[count_tally_table_columns].total[i][j].master = t_buffer[j].master;
 		}
 	}
 	tally_table[count_tally_table_columns].name = NULL;
