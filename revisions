@@ -561,6 +561,12 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 826: Update tally.c to avoid conflicts in C++
+	version of phast.
+
+	svn 801: Wrote around underflow in fabs in subroutine 
+	reset. 
+
 	svn 794: Errors in minteq.v4.dat database. Several redox
         reactions had delta H listed as kcal instead of kJ. kcal
         is correct only for the following species H2, NO2-, and
