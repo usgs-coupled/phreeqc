@@ -2066,6 +2066,9 @@ Local long ixor(long a, long b, struct LOC_exec *LINK)
 
 Local valrec factor(struct LOC_exec *LINK)
 {
+  char string[MAX_LENGTH];
+  struct solution *soln_ptr;
+  int nn;
   varrec *v;
   tokenrec *facttok;
   valrec n;
@@ -2350,7 +2353,28 @@ Local valrec factor(struct LOC_exec *LINK)
 
   case tokdescription:
     n.stringval = true;
-    n.UU.sval = string_duplicate(use.solution_ptr->description);
+    if (state == REACTION) {
+	    if (use.mix_in == TRUE) {
+		    sprintf(string, "Mix %d", use.n_mix_user);
+		    n.UU.sval = string_duplicate(string);
+	    } else {
+		    soln_ptr = solution_bsearch(use.n_solution_user, &nn, TRUE);
+		    if (soln_ptr != NULL) {
+			    n.UU.sval = string_duplicate(soln_ptr->description);
+		    } else {
+			    n.UU.sval = string_duplicate("Unknown");
+		    }
+	    }
+    } else if (state == ADVECTION || state == TRANSPORT || state == PHAST) {
+	    sprintf(string, "Cell %d", cell_no);
+	    n.UU.sval = string_duplicate(string);
+    } else {
+	    if (use.solution_ptr != NULL) {
+		    n.UU.sval = string_duplicate(use.solution_ptr->description);
+	    } else {
+		    n.UU.sval = string_duplicate("Unknown");
+	    }
+    }
     while (replace("\t"," ",n.UU.sval));
     break;
 

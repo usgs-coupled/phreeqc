@@ -561,6 +561,9 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 847: Fixed bug with DESCRIPTION function. Did not
+	give correct solution description for reactions.
+
 	svn 826: Update tally.c to avoid conflicts in C++
 	version of phast.
 
