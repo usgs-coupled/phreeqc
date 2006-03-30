@@ -14,6 +14,7 @@ all: alkalinity.out \
 	brown.out \
 	co2.out \
 	comments.out \
+	desc.out \
 	dissolve_only.out \
 	evap.out \
 	exch_related.out \
