@@ -1636,4 +1636,14 @@ EXTERNAL jmp_buf mark;
 #include <crtdbg.h>
 #endif
 
+struct system {
+	struct solution *solution;
+	struct exchange *exchange;
+	struct pp_assemblage *pp_assemblage;
+	struct gas_phase *gas_phase;
+	struct s_s_assemblage *s_s_assemblage;
+	struct kinetics *kinetics;
+	struct surface *surface;
+};
+
 #endif  /* _INC_GLOBAL_H */
