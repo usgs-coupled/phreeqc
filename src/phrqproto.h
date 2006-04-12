@@ -244,6 +244,7 @@ int add_temperature(struct temperature *temperature_ptr, int step_number);
 
 /* structures.c */
 int clean_up(void);
+int reinitialize(void);
 int copier_add(struct copier *copier_ptr, int n_user, int start, int end);
 int copier_free(struct copier *copier_ptr);
 int copier_init(struct copier *copier_ptr);

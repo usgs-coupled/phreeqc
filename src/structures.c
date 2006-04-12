@@ -411,7 +411,72 @@ int clean_up(void)
 
 	return(OK);
 }
+/* ---------------------------------------------------------------------- */
+int reinitialize(void)
+/* ---------------------------------------------------------------------- */
+{
+	int j;
+/* solutions */
+	for (j=0; j<count_solution; j++) {
+		solution_free(solution[j]);
+	}
+	count_solution = 0;
 
+/* surfaces */
+
+	for (j=0; j < count_surface; j++) {
+		surface_free(&surface[j]);
+	}
+	count_surface = 0;
+
+/* exchange */
+
+	for (j=0; j < count_exchange; j++) {
+		exchange_free(&exchange[j]);
+	}
+	count_exchange = 0;
+
+/* pp assemblages */
+
+	for (j=0; j<count_pp_assemblage; j++) {
+		pp_assemblage_free(&pp_assemblage[j]);
+	}
+	count_pp_assemblage = 0;
+
+/* s_s assemblages */
+
+	for (j=0; j<count_s_s_assemblage; j++) {
+		s_s_assemblage_free(&s_s_assemblage[j]);
+	}
+	count_s_s_assemblage = 0;
+
+/* gases */
+	for (j = 0; j < count_gas_phase; j++) {
+		gas_phase_free(&gas_phase[j]);
+	};
+	count_gas_phase = 0;
+
+/* kinetics */
+	for (j = 0; j < count_kinetics; j++) {
+		kinetics_free(&kinetics[j]);
+	}
+	count_kinetics = 0;
+
+/* irreversible reactions */
+
+	for (j=0; j<count_irrev; j++) {
+		irrev_free (&irrev[j]);
+	}
+	count_irrev = 0;
+
+/* temperature */
+
+	for (j=0; j<count_temperature; j++) {
+		temperature_free (&temperature[j]);
+	}
+	count_temperature = 0;
+	return(OK);
+}
 /* **********************************************************************
  *
  *   Routines related to structure "element"
