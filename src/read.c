@@ -1120,7 +1120,11 @@ int read_exchange(void)
 			exchange[n].comps = (struct exch_comp *) PHRQ_realloc(exchange[n].comps, (size_t) (count_comps + 1) * sizeof (struct exch_comp));
 			if (exchange[n].comps == NULL) malloc_error();
 			exchange[n].comps[count_comps].formula = NULL;
+			exchange[n].comps[count_comps].formula_z = 0.0;
 			exchange[n].comps[count_comps].formula_totals = NULL;
+			exchange[n].comps[count_comps].moles = 0.0;
+			exchange[n].comps[count_comps].la = 0.0;
+			exchange[n].comps[count_comps].charge_balance = 0.0;
 			exchange[n].comps[count_comps].phase_name = NULL;
 			exchange[n].comps[count_comps].phase_proportion = 0.0;
 			exchange[n].comps[count_comps].rate_name = NULL;
@@ -3183,8 +3187,9 @@ int read_pure_phases(void)
 		pp_assemblage[n].pure_phases[count_pure_phases-1].si = 0.0;
 		pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = NULL;
 		pp_assemblage[n].pure_phases[count_pure_phases-1].moles = 10.0;
-		pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = FALSE;
 		pp_assemblage[n].pure_phases[count_pure_phases-1].delta = 0.0;
+		pp_assemblage[n].pure_phases[count_pure_phases-1].initial_moles = 0.0;
+		pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = FALSE;
 /*
  *   Read name
  */
@@ -5198,8 +5203,11 @@ int read_surf(void)
 			if (surface[n].comps == NULL) malloc_error();
 			surface[n].comps[count_comps].formula = string_hsave(token);
 			surface[n].comps[count_comps].moles = 0;
+			surface[n].comps[count_comps].la = 0;
+			surface[n].comps[count_comps].charge = 0;
 			surface[n].comps[count_comps].cb = 0;
 			surface[n].comps[count_comps].phase_name = NULL;
+			surface[n].comps[count_comps].phase_proportion = 0;
 			surface[n].comps[count_comps].rate_name = NULL;
 			i = copy_token(token1, &ptr, &l);
 			if (i == DIGIT) {
