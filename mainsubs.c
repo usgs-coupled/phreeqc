@@ -2366,7 +2366,7 @@ int run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 		}
 		tidy_model();
 #ifdef PHREEQC_CPP
-		test_classes();
+		//test_classes();
 #endif
 #ifdef PHREEQ98
                 if (!phreeq98_debug) {
