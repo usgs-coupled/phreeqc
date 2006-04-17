@@ -4901,6 +4901,7 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 			surface_new_ptr->charge[i].g = NULL;
 		}
 	} else {
+		surface_new_ptr->count_charge = 0;
 		surface_new_ptr->charge = NULL;
 	}
 	return(OK);
