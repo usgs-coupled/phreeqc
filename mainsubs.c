@@ -543,6 +543,7 @@ void initialize(void)
 	dbg_kinetics = kinetics;
 	dbg_irrev = irrev;
 	dbg_mix = mix;
+	dbg_master = master;
 	return;
 }
 /* ---------------------------------------------------------------------- */

@@ -195,9 +195,9 @@ struct model {
 
         int diffuse_layer;
         int count_surface_comp;
-        struct master **surface_comp;
+        struct char **surface_comp;
         int count_surface_charge;
-        struct master **surface_charge;
+        struct char **surface_charge;
 };
 EXTERNAL struct model last_model;
 EXTERNAL int same_model;
@@ -272,7 +272,7 @@ EXTERNAL struct temperature *temperature;
 EXTERNAL int count_temperature;
 /* ----------------------------------------------------------------------
  *   Surface
- * ---------------------------------------------------------------------- */
+ * --------------------------------------------------------------------- */
 struct surface {
         int n_user;
         int n_user_end;
@@ -1254,6 +1254,7 @@ struct master {                       /* list of name and number of elements in 
         int minor_isotope;
 };
 EXTERNAL struct master  **master;              /* structure array of master species */
+EXTERNAL struct master  **dbg_master;
 EXTERNAL int                   count_master;
 EXTERNAL int                   max_master;
 /*----------------------------------------------------------------------
