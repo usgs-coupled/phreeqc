@@ -561,6 +561,13 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 874: Fixed bug in check_same_model. Thought surface
+	calculation was the same even though -edl switch was
+	different, which gave irratic results and possible 
+	crash. Now checks more carefully to make sure calculation
+	for surfaces is really the same and reinitializes if
+        not.
+
 	svn 847: Fixed bug with DESCRIPTION function. Did not
 	give correct solution description for reactions.
 

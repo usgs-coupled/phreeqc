@@ -88,8 +88,8 @@ int clean_up(void)
 	last_model.s_s_assemblage = (char **) free_check_null(last_model.s_s_assemblage);
 	last_model.add_formula = (char **) free_check_null(last_model.add_formula);
 	last_model.si = (double *) free_check_null(last_model.si);
-	last_model.surface_comp = (struct master **) free_check_null(last_model.surface_comp);
-	last_model.surface_charge = (struct master **) free_check_null(last_model.surface_charge);
+	last_model.surface_comp = (char **) free_check_null(last_model.surface_comp);
+	last_model.surface_charge = (char **) free_check_null(last_model.surface_charge);
 
 	/* model */
 	free_model_allocs();

@@ -194,10 +194,14 @@ struct model {
         LDBLE *si;
 
         int diffuse_layer;
+        int edl;
+        int only_counter_ions;
+        int donnan;
+        LDBLE thickness;
         int count_surface_comp;
-        struct char **surface_comp;
+        char **surface_comp;
         int count_surface_charge;
-        struct char **surface_charge;
+        char **surface_charge;
 };
 EXTERNAL struct model last_model;
 EXTERNAL int same_model;
