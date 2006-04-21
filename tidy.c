@@ -3326,8 +3326,8 @@ int reset_last_model(void)
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	last_model.diffuse_layer = FALSE;
 	last_model.count_surface_comp = 0;
-	last_model.surface_comp = (struct master **) free_check_null(last_model.surface_comp);
+	last_model.surface_comp = (char **) free_check_null(last_model.surface_comp);
 	last_model.count_surface_charge = 0;
-	last_model.surface_charge = (struct master **) free_check_null(last_model.surface_charge);
+	last_model.surface_charge = (char **) free_check_null(last_model.surface_charge);
 	return(OK);
 }

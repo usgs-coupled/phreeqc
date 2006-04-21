@@ -3698,6 +3698,36 @@ static int save_model(void)
 		last_model.add_formula = NULL;
 		last_model.si = NULL;
 	}
+/*
+ *   save data for surface
+ */
+	last_model.surface_comp = (char **) free_check_null(last_model.surface_comp);
+	last_model.surface_charge = (char **) free_check_null(last_model.surface_charge);
+	if (use.surface_ptr != NULL) {
+		/* comps */
+		last_model.count_surface_comp = use.surface_ptr->count_comps;
+		last_model.surface_comp = (char **) PHRQ_malloc((size_t) use.surface_ptr->count_comps * sizeof(char *));
+		if (last_model.surface_comp == NULL) malloc_error();
+		for (i = 0; i < use.surface_ptr->count_comps; i++) {
+			last_model.surface_comp[i] = use.surface_ptr->comps[i].formula;
+		}
+		/* charge */
+		last_model.count_surface_charge = use.surface_ptr->count_charge;
+		last_model.surface_charge = (char **) PHRQ_malloc((size_t) use.surface_ptr->count_charge * sizeof(char *));
+		if (last_model.surface_charge == NULL) malloc_error();
+		for (i = 0; i < use.surface_ptr->count_charge; i++) {
+			last_model.surface_charge[i] = use.surface_ptr->charge[i].name;
+		}
+		last_model.diffuse_layer = use.surface_ptr->diffuse_layer;
+		last_model.edl = use.surface_ptr->edl;
+	} else {
+		last_model.diffuse_layer = -1;
+		last_model.edl = -1;
+		last_model.count_surface_comp = 0;
+		last_model.surface_comp = NULL;
+		last_model.count_surface_charge = 0;
+		last_model.surface_charge = NULL;
+	}
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -3778,6 +3808,27 @@ int check_same_model(void)
 		}
 	} else {
 		if(last_model.pp_assemblage != NULL) return(FALSE);
+	}
+/*
+ *   Check surface
+ */
+	if (use.surface_ptr != NULL) {
+		if (last_model.count_surface_comp != use.surface_ptr->count_comps) return(FALSE);
+		if (last_model.count_surface_charge != use.surface_ptr->count_charge) return(FALSE);
+		if (last_model.diffuse_layer != use.surface_ptr->diffuse_layer) return(FALSE);
+		if (last_model.edl != use.surface_ptr->edl) return(FALSE);
+		/*
+		if (last_model.only_counter_ions != use.surface_ptr->only_counter_ions) return(FALSE);
+		if (last_model.donnan != use.surface_ptr->donnan) return(FALSE);
+		*/
+		for (i = 0; i < use.surface_ptr->count_comps; i++) {
+			if (last_model.surface_comp[i] != use.surface_ptr->comps[i].formula) return(FALSE);
+		}
+		for (i = 0; i < use.surface_ptr->count_charge; i++) {
+			if (last_model.surface_charge[i] != use.surface_ptr->charge[i].name) return(FALSE);
+		}
+	} else {
+		if(last_model.surface_comp != NULL) return(FALSE);
 	}
 /*
  *   Model is the same
