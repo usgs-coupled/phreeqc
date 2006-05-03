@@ -4407,8 +4407,7 @@ static struct solution *solution_copy(struct solution *solution_old_ptr, int n_u
 /*
  *   Count master activity guesses and malloc space
  */
-	for (i = 0; solution_old_ptr->master_activity[i].description != NULL; i++);
-	count_master_activity = i + 1;
+	count_master_activity = solution_old_ptr->count_master_activity;
 	solution_new_ptr->master_activity = (struct master_activity *) PHRQ_malloc( (size_t) count_master_activity * sizeof(struct master_activity));
 	if (solution_new_ptr->master_activity == NULL) malloc_error();
 /*
