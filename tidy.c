@@ -2703,7 +2703,7 @@ static int scan(LDBLE f(LDBLE x), LDBLE *xx0, LDBLE *xx1)
 	diff = x1 - x0;
 	for (j = 0; j < 3; j++) {
 		fx0 = f(x0);
-		divisions = (int) pow(10, j);
+		divisions = (int) pow((double)10, (double)j);
 		for (i = 1; i < divisions; i++) {
 			x1 = *xx0 + diff * (LDBLE) i / divisions;
 			fx1 = f(x1);
