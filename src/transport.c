@@ -245,7 +245,7 @@ int transport(void)
 
  			/* For half of mixing steps */
 
-			for (j = 1; j <= floor(nmix/2); j++) {
+			for (j = 1; j <= floor((double)nmix/2); j++) {
 				rate_sim_time_start = (transport_step - 1) * timest + (j-1) * kin_time;
 				rate_sim_time = rate_sim_time_start + kin_time;
 
