@@ -1317,6 +1317,7 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find surface
  */
+	diffuse_layer_x = FALSE;
 	use.surface_ptr = surface_bsearch(i, &use.n_surface);
 	if (use.surface_ptr != NULL) {
 		use.surface_in = TRUE;
@@ -1446,6 +1447,7 @@ int set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find surface
  */
+	diffuse_layer_x = FALSE;
 	if (use.surface_in == TRUE) {
 		use.surface_ptr = surface_bsearch (i, &use.n_surface);
 		if (use.surface_ptr == NULL) {
@@ -1885,6 +1887,7 @@ int set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find surface
  */
+	diffuse_layer_x = FALSE;
 	use.surface_ptr = surface_bsearch(i, &use.n_surface);
 	if (use.surface_ptr != NULL) {
 		use.surface_in = TRUE;
