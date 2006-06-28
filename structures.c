@@ -3649,6 +3649,7 @@ static int s_init(struct species *s_ptr)
 	s_ptr->in = FALSE;
 	s_ptr->gfw = 0.0;
 	s_ptr->z = 0.0;
+	s_ptr->dw = 0.0;
 	s_ptr->alk = 0.0;
 	s_ptr->carbon = 0.0;
 	s_ptr->co2 = 0.0;

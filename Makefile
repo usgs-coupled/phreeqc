@@ -224,6 +224,6 @@ transport.o: $(SRC)/transport.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqallo
 
 utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
--include $(TOPDIR)/src/distribution.mk
+-include $(TOPDIR)/diffusion/distribution.mk
 
 

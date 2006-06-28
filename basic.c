@@ -159,6 +159,8 @@ typedef Char string255[256];
 #define tokrtrim        128
 #define toktrim         129
 #define tokpad          130
+#define tokchange_por   131
+#define tokget_por    	132
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -357,7 +359,9 @@ static const struct key command[] = {
 	{"put", tokput},
 	{"get", tokget},
 	{"exists", tokexists},
-	{"rem", tokrem}
+	{"rem", tokrem},
+	{"change_por", tokchange_por},
+	{"get_por", tokget_por}
 };
 static int NCMDS = (sizeof(command) / sizeof(struct key));
 
@@ -1080,6 +1084,10 @@ Static void parse(Char *inbuf, tokenrec **buf)
 	    t->kind = tokparm;
 	  else if (!strcmp(token, "act"))
 	    t->kind = tokact;
+	  else if (!strcmp(token, "change_por"))
+	    t->kind = tokchange_por;
+	  else if (!strcmp(token, "get_por"))
+	    t->kind = tokget_por;
 	  else if (!strcmp(token, "edl"))
 	    t->kind = tokedl;
 	  else if (!strcmp(token, "surf"))
@@ -1579,6 +1587,14 @@ Static void listtokens(FILE *f, tokenrec *buf)
 
     case tokact:
 	    output_msg(OUTPUT_BASIC, "ACT");
+	    break;
+
+    case tokchange_por:
+	    output_msg(OUTPUT_BASIC, "CHANGE_POR");
+	    break;
+
+    case tokget_por:
+	    output_msg(OUTPUT_BASIC, "GET_POR");
 	    break;
 
     case tokmol:
@@ -2233,6 +2249,15 @@ Local valrec factor(struct LOC_exec *LINK)
 
   case tokact:
     n.UU.val = activity(stringfactor(STR1, LINK));
+    break;
+
+  case tokget_por:
+    i = intfactor(LINK);
+    if (i == 0 || i == count_cells + 1) {
+/*		warning_msg("Note... no porosity for boundary solutions.");
+ */		break;
+    }
+    else n.UU.val = cell_data[i - 1].por;
     break;
 
   case tokedl:
@@ -3292,6 +3317,22 @@ Local void cmdput(struct LOC_exec *LINK)
 	save_values_store(&s_v);
 	s_v.subscripts = (int*) free_check_null(s_v.subscripts);
 }
+
+Local void cmdchange_por(struct LOC_exec *LINK)
+{
+	int j;
+	LDBLE TEMP;
+	require(toklp, LINK);
+	/* get new porosity */
+	TEMP = realexpr(LINK);
+	require(tokcomma, LINK);
+	/* get cell_no */
+	j = intexpr(LINK);
+	require(tokrp, LINK);
+	if (j != 0 && j != count_cells + 1)
+		cell_data[j - 1].por = TEMP;
+}
+
 #ifdef SKIP
 /* LINK not used */
 Local void cmdbye(struct LOC_exec *LINK)
@@ -4213,6 +4254,10 @@ Static void exec(void)
 
 	  case tokput:
 	    cmdput(&V);
+	    break;
+
+	  case tokchange_por:
+	    cmdchange_por(&V);
 	    break;
 
 #ifdef PHREEQ98

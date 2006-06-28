@@ -943,15 +943,8 @@ LDBLE total (char *total_name)
 		 */
 		} else {
 			t = 0;
-			/*
 			for (i = master_ptr->number + 1; master[i]->elt->primary == master_ptr; i++) {
 				t += master[i]->total/mass_water_aq_x;
-			}
-			*/
-			i = master_ptr->number + 1;
-			while (i < count_master && master[i]->elt->primary == master_ptr) {
-				t += master[i]->total/mass_water_aq_x;
-				i++;
 			}
 		}
 /*
