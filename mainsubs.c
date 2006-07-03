@@ -544,6 +544,8 @@ void initialize(void)
 	dbg_irrev = irrev;
 	dbg_mix = mix;
 	dbg_master = master;
+	calculating_deriv = FALSE;
+	numerical_deriv = TRUE;
 	return;
 }
 /* ---------------------------------------------------------------------- */

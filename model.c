@@ -9,6 +9,7 @@ static char const svnid[] = "$Id$";
 static LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq);
+static int numerical_jacobian(void);
 
 #ifdef SKIP
 static int adjust_step_size(void);
@@ -121,7 +122,11 @@ int model(void)
 /*
  *   Calculate jacobian
  */
-			jacobian_sums();
+			if (state >= REACTION && numerical_deriv) {
+				numerical_jacobian();
+			} else {
+				jacobian_sums();
+			}
 /*
  *   Full matrix with pure phases
  */
@@ -1997,7 +2002,7 @@ int reset(void)
 	step_up = log(step_size_now);
 	factor = 1.;
 
-	if ( pure_phase_unknown != NULL || s_s_unknown != NULL) {
+	if ( (pure_phase_unknown != NULL || s_s_unknown != NULL) && calculating_deriv == FALSE) {
 /*
  *   Don't take out more mineral than is present
  */
@@ -2070,6 +2075,7 @@ int reset(void)
 
 		}		
 		/*sum_deltas += fabs(delta[i]);*/
+		if (calculating_deriv == FALSE) {
 		up = step_up;
 		down = up;
 		if (x[i]->type <= SOLUTION_PHASE_BOUNDARY) {
@@ -2138,6 +2144,7 @@ int reset(void)
 				}
 				factor=f0;
 			}
+		}
 		}
 	}
 
@@ -2369,7 +2376,7 @@ int reset(void)
 					"delta", (double) delta[i]);
 			}
 			x[i]->moles -= delta[i];
-			if (x[i]->moles < MIN_TOTAL) x[i]->moles = MIN_TOTAL; 
+			if (x[i]->moles < MIN_TOTAL && calculating_deriv == FALSE) x[i]->moles = MIN_TOTAL; 
 			x[i]->s_s_comp->moles = x[i]->moles;
 /*   Pitzer gamma */
 		} else if ( x[i]->type == PITZER_GAMMA ) {
@@ -3103,4 +3110,161 @@ LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE 
 	r = lc*kc/(lb*kb);
 	f = xcaq*(xb/r + xc) + xbaq*(xb + r*xc) - 1;
 	return(f);
+}
+/* ---------------------------------------------------------------------- */
+int numerical_jacobian(void)
+/* ---------------------------------------------------------------------- */
+{
+	double *base;
+	double d, d1, d2;
+	int i, j;
+
+	calculating_deriv = TRUE;
+	/*
+	gammas(mu_x);
+	molalities(TRUE);
+	residuals();
+	*/
+/*
+ *   Clear array, note residuals are in array[i, count_unknowns+1]
+ */
+	for (i=0; i < count_unknowns; i++) {
+		array[i]=0.0;
+	}
+	for (i=1; i < count_unknowns; i++) {
+		memcpy ( (void *) &(array[i*(count_unknowns + 1)]), (void *) &(array[0]),
+			 (size_t) count_unknowns * sizeof(LDBLE));
+	}
+
+	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
+	if (base == NULL) malloc_error();
+	for (i = 0; i < count_unknowns; i++) {
+		base[i] = residual[i];
+	}
+	d = 1e-6;
+	d1 = d*log(10.0);
+	d2 = 0;
+	for (i = 0; i < count_unknowns; i++) {
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case MH:
+			s_eminus->la += d;
+			d2 = d1;
+			break;
+		case AH2O:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg += d;
+			d2 = d;
+			break;
+		case MH2O:
+			mass_water_aq_x *= (1.0 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			d2 = log(1.0 + d);
+			break;
+		case MU:
+			d2 = d*mu_x;
+			mu_x += d2;
+			gammas(mu_x);
+			break;
+		case PP:
+			for (j=0; j < count_unknowns; j++) {
+				delta[j]=0.0;
+			}
+			d2 = -1e-8;
+			delta[i] = d2; 
+			reset();
+			d2 = delta[i]; 
+			break;
+		case S_S_MOLES:
+			if (x[i]->s_s_in == FALSE) continue;
+			for (j=0; j < count_unknowns; j++) {
+				delta[j]=0.0;
+			}
+			/*d2 = -1e-8;*/
+			d2 = -d*x[i]->moles;
+			if (d2 > -1e-10) d2 = -1e-10;
+			calculating_deriv = FALSE;
+			delta[i] = d2; 
+			/*fprintf (stderr, "delta before reset %e\n", delta[i]);*/
+			reset();
+			d2 = delta[i]; 
+			/*fprintf (stderr, "delta after reset %e\n", delta[i]);*/
+			break;
+		case GAS_MOLES:
+			if (gas_in == FALSE) continue;
+
+			d2 = d*x[i]->moles;
+			if (d2 < 1e-14) d2 = 1e-14;
+			x[i]->moles += d2;
+			break;
+		}
+		molalities(TRUE);
+		mb_sums();
+		/*
+		mb_s_s();
+		mb_gases();
+		*/
+		residuals();
+		for (j = 0; j < count_unknowns; j++) {
+			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
+			output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
+		}
+		switch (x[i]->type) {
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+		case AH2O:
+			x[i]->master[0]->s->la -= d;
+			break;
+		case MH:
+			s_eminus->la -= d;
+			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg -= d;
+			break;
+		case MH2O:
+			mass_water_aq_x /= (1 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
+			break;
+		case MU:
+			mu_x -= d2;
+			gammas(mu_x);
+			break;
+		case PP:
+			delta[i] = -d2;
+			reset();
+			break;
+		case S_S_MOLES:
+			delta[i] = -d2;
+			reset();
+			break;
+		case GAS_MOLES:
+			x[i]->moles -= d2;
+			break;
+		}
+	}
+	molalities(TRUE);
+	mb_sums();
+	mb_gases();
+	mb_s_s();
+	residuals();
+	free_check_null(base);
+	calculating_deriv = FALSE;
+	return OK;
 }

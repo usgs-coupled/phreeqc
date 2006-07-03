@@ -561,6 +561,12 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 984: Fixed bug in transport when cell without a
+	surface followed a cell with a diffuse-layer surface.
+	Fixed bug in TOTAL function; code ran of the end of
+        the list of master species; changed logic to recognize
+        the end of the list.
+
 	svn 874: Fixed bug in check_same_model. Thought surface
 	calculation was the same even though -edl switch was
 	different, which gave irratic results and possible 

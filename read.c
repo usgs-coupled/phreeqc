@@ -5892,9 +5892,10 @@ int read_debug (void)
 		"log_file",               /* 11 */
 		"debug_diffuse_layer",	  /* 12 */
 		"delay_mass_water", 	  /* 13 */
-		"convergence_tolerance"   /* 14 */
+		"convergence_tolerance",  /* 14 */
+		"numerical_derivatives"   /* 15 */
 	};
-	int count_opt_list = 15;
+	int count_opt_list = 16;
 /*
  *   Read parameters: 
  *        ineq_tol;
@@ -5965,6 +5966,9 @@ int read_debug (void)
 			break;
 		    case 14:                       /* convergence_tolerance */
 			sscanf(next_char, SCANFORMAT, &convergence_tolerance);
+			break;
+		    case 15:                       /* numerical_derivatives */
+			numerical_deriv = get_true_false(next_char, TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
