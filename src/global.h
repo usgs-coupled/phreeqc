@@ -1469,6 +1469,8 @@ EXTERNAL int delay_mass_water;
 EXTERNAL LDBLE censor;
 EXTERNAL int aqueous_only;
 EXTERNAL int negative_concentrations;
+EXTERNAL int calculating_deriv;
+EXTERNAL int numerical_deriv;
 
 EXTERNAL int count_total_steps;
 EXTERNAL int phast;
