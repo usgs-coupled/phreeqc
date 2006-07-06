@@ -2032,6 +2032,14 @@ int reset(void)
 						}
 						factor=f0;
 					}
+				} else if (x[i]->dissolve_only == TRUE && delta[i] < 0.0 && (-delta[i] > (x[i]->pure_phase->initial_moles - x[i]->moles)) && (x[i]->pure_phase->initial_moles - x[i]->moles != 0.0))  {
+					f0 = -delta[i] / (x[i]->pure_phase->initial_moles - x[i]->moles) ;
+					if (f0 > factor) {
+						if (debug_model == TRUE) {
+							output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitating too much dissolve_only mineral.\t%f\n", x[i]->description, (double) f0);
+						}
+						factor=f0;
+					}
 				}
 			}
 		}
