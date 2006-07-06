@@ -3136,6 +3136,7 @@ int numerical_jacobian(void)
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
+
 	for (i=0; i < count_unknowns; i++) {
 		array[i]=0.0;
 	}
@@ -3202,8 +3203,11 @@ int numerical_jacobian(void)
 			}
 			/*d2 = -1e-8;*/
 			d2 = -d*x[i]->moles;
-			if (d2 > -1e-10) d2 = -1e-10;
-			calculating_deriv = FALSE;
+			d2 = -.1*x[i]->moles;
+			/*
+			  if (d2 > -1e-10) d2 = -1e-10;
+			  calculating_deriv = FALSE;
+			*/
 			delta[i] = d2; 
 			/*fprintf (stderr, "delta before reset %e\n", delta[i]);*/
 			reset();
