@@ -2651,7 +2651,7 @@ struct pe_data *pe_data_dup (struct pe_data *pe_ptr_old)
 	return(pe_ptr_new);
 }
 /* ---------------------------------------------------------------------- */
-int pe_data_free (struct pe_data *pe_data_ptr)
+struct pe_data * pe_data_free (struct pe_data *pe_data_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2664,7 +2664,7 @@ int pe_data_free (struct pe_data *pe_data_ptr)
 		rxn_free(pe_data_ptr[i].rxn);
 	}
 	pe_data_ptr = (struct pe_data *) free_check_null (pe_data_ptr);
-	return(OK);
+	return(NULL);
 }
 /* ---------------------------------------------------------------------- */
 int pe_data_store (struct pe_data **pe, const char *token)

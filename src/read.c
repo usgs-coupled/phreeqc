@@ -5646,8 +5646,8 @@ int read_title (void)
 /*
  *   append line to title_x
  */
-		title_x_length = strlen(title_x);
-		line_length = strlen(line);
+		title_x_length = (int) strlen(title_x);
+		line_length = (int) strlen(line);
 		title_x = (char *) PHRQ_realloc(title_x, (size_t) (title_x_length + line_length + 2) * sizeof(char));
 		if (title_x == NULL) malloc_error();
 		if (title_x_length > 0) {
@@ -6573,8 +6573,8 @@ int read_rates (void)
 				opt_save = OPT_1;
 				break;
 			}
-			length = strlen(rate_ptr->commands);
-			line_length = strlen(line);
+			length = (int) strlen(rate_ptr->commands);
+			line_length = (int) strlen(line);
 			rate_ptr->commands = (char *) PHRQ_realloc(rate_ptr->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (rate_ptr->commands == NULL) malloc_error();
 			rate_ptr->commands[length] = ';';
@@ -6653,8 +6653,8 @@ int read_user_print (void)
 			user_print->loopbase = NULL;
 			user_print->name = string_hsave("user defined Basic print routine");
 		    case OPT_1:          /* read command */
-			length = strlen(user_print->commands);
-			line_length = strlen(line);
+			length = (int) strlen(user_print->commands);
+			line_length = (int) strlen(line);
 			user_print->commands = (char *) PHRQ_realloc(user_print->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (user_print->commands == NULL) malloc_error();
 			user_print->commands[length] = ';';
@@ -6746,8 +6746,8 @@ int read_user_punch (void)
 			user_punch->loopbase = NULL;
 			user_punch->name = string_hsave("user defined Basic punch routine");
 		    case OPT_1:          /* read command */
-			length = strlen(user_punch->commands);
-			line_length = strlen(line);
+			length = (int) strlen(user_punch->commands);
+			line_length = (int) strlen(line);
 			user_punch->commands = (char *) PHRQ_realloc(user_punch->commands, (size_t) (length + line_length + 2) * sizeof(char));
 			if (user_punch->commands == NULL) malloc_error();
 			user_punch->commands[length] = ';';

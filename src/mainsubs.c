@@ -1897,7 +1897,7 @@ FILE *file_open (char *query, char *default_name, const char *status, int batch)
 				output_msg(OUTPUT_SCREEN,"Default: %s\n", default_name);
 			}
 			fgets(name, MAX_LENGTH, stdin);
-			l = strlen(name);
+			l = (int) strlen(name);
 			name[l-1]='\0';
 			if (name[0] == '\0') {
 				strcpy(name, default_name);
@@ -1937,7 +1937,7 @@ FILE *file_open (char *query, char *default_name, const char *status, int batch)
 					output_msg(OUTPUT_SCREEN,"Warning: File already exists, %s.\n"
 						"Enter new file name or <Enter> to overwrite:", name);
 					fgets(answer, MAX_LENGTH, stdin);
-					l = strlen(answer);
+					l = (int) strlen(answer);
 					answer[l-1]='\0';
 					if (answer != '\0') {
 						strcpy(name, answer);

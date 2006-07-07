@@ -127,7 +127,7 @@ int get_line(PFN_READ_CALLBACK pfn, void *cookie)
 		j = l;
 		ptr = strchr (line_save, '#');
 		if (ptr != NULL) {
-			j = ptr - line_save;
+			j = (int) (ptr - line_save);
 		}
 		strncpy(line, line_save, (unsigned) j);
 		line[j] = '\0';

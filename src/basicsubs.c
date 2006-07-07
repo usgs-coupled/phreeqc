@@ -787,7 +787,7 @@ int match_elts_in_species (char *name, char *mytemplate)
 	 */
 	case_no = 0; 
 	if (template1[0] == '*') case_no = 1;
-	l = strlen(template1);
+	l = (int) strlen(template1);
 	if (template1[l - 1] == '*') {
 		if (case_no != 1) {
 			case_no = 2;
