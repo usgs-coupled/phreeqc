@@ -560,7 +560,7 @@ long *P_setxor(register long *d, register long *s1, register long *s2)         /
     *dbase = (int) (d - dbase);
     return dbase;
 }
-
+#ifdef SKIP
 int P_inset(register unsigned val, register long *s)                 /* val IN s */
 {
     register int bit;
@@ -570,7 +570,7 @@ int P_inset(register unsigned val, register long *s)                 /* val IN s
 	return 1;
     return 0;
 }
-
+#endif
 long *P_addset(register long *s, register unsigned val)              /* s := s + [val] */
 {
     register long *sbase = s;
