@@ -15,6 +15,7 @@ static char const svnidp2c[] = "$Id$";
 
 
 #include <stdio.h>
+#include <limits.h>
 
 
 
