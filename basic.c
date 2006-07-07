@@ -744,7 +744,7 @@ Static Char *numtostr(Char *Result, LDBLE n)
 		  sprintf(s, "%20.12e", (double) n);
 	  }
   }
-    i = strlen(s) + 1;
+    i = (int) strlen(s) + 1;
     s[i - 1] = '\0';
 /* p2c: basic.p, line 237:
  * Note: Modification of string length may translate incorrectly [146] */
@@ -810,7 +810,7 @@ Static void parse(Char *inbuf, tokenrec **buf)
       case '\'':
 	t->kind = tokstr;
 	j = 0;
-	len = strlen(inbuf);
+	len = (int) strlen(inbuf);
 	begin = i;
 	while (i <= len && inbuf[i - 1] != ch) {
 	  ++j;
@@ -925,13 +925,13 @@ Static void parse(Char *inbuf, tokenrec **buf)
 	  if (found_item != NULL) {
 		  t->kind = ((struct key *) (found_item->data))->keycount;
 		  if (t->kind == tokrem) {
-			  m = strlen(inbuf) + 1;
+			  m = (int) strlen(inbuf) + 1;
 			  if (m < 256) m = 256;
 			  t->UU.sp = (char *) PHRQ_malloc(m);
 			  if ( t->UU.sp == NULL) malloc_error();
 			  sprintf(t->UU.sp, "%.*s",
 				  (int)(strlen(inbuf) - i + 1), inbuf + i - 1);
-			  i = strlen(inbuf) + 1;
+			  i = (int) strlen(inbuf) + 1;
 		  }
 #endif
 #ifdef LONG
@@ -2113,7 +2113,7 @@ Local valrec factor(struct LOC_exec *LINK)
 
   case tokstr:
     n.stringval = true;
-    m = strlen(facttok->UU.sp) + 1;
+    m = (int) strlen(facttok->UU.sp) + 1;
     if (m < 256) m = 256;
     n.UU.sval = (char *) PHRQ_malloc(m);
     if (n.UU.sval == NULL) malloc_error();
@@ -2126,7 +2126,7 @@ Local valrec factor(struct LOC_exec *LINK)
     n.stringval = v->stringvar;
     if (n.stringval) {
 	    if (*v->UU.U1.sval != NULL) {
-		    m = strlen(*v->UU.U1.sval) + 1;
+		    m = (int) strlen(*v->UU.U1.sval) + 1;
 		    if (m < 256) m = 256;
 	    } else {
 		    m = 256;
@@ -2755,13 +2755,13 @@ Local valrec factor(struct LOC_exec *LINK)
     if (i < 1)
       i = 1;
     /*j = 255;*/
-    j = strlen(n.UU.sval);
+    j = (int) strlen(n.UU.sval);
     if (LINK->t != NULL && LINK->t->kind == tokcomma) {
       LINK->t = LINK->t->next;
       j = intexpr(LINK);
     }
     if (j > (int) strlen(n.UU.sval) - i + 1)
-      j = strlen(n.UU.sval) - i + 1;
+      j = (int) strlen(n.UU.sval) - i + 1;
     if (i > (int) strlen(n.UU.sval))
       *n.UU.sval = '\0';
     else {
@@ -2875,7 +2875,7 @@ Local valrec sexpr(struct LOC_exec *LINK)
       tmerr();
     if (k == tokplus) {
       if (n.stringval) {
-	      m = strlen(n.UU.sval) + strlen(n2.UU.sval) + 1;
+	      m = (int) strlen(n.UU.sval) + (int) strlen(n2.UU.sval) + 1;
 	      if (m < 256) m = 256;
 
 	      n.UU.sval = (char *) PHRQ_realloc(n.UU.sval, m);

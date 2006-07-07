@@ -253,7 +253,7 @@ int dup_print(const char *ptr, int emphasis)
                 else if ((strstr(ptr,"TITLE") != ptr) && (strstr(ptr,"End") != ptr)) AddToCEntry((char*)ptr, 3, outputlinenr);
     }
 #endif
-	l = strlen(ptr);
+	l = (int) strlen(ptr);
 	dash = (char *) PHRQ_malloc((size_t) (l+2) * sizeof(char));
 	if (dash == NULL) malloc_error();
 	if (emphasis == TRUE) {
@@ -584,7 +584,7 @@ int print_centered(const char *string)
 #ifdef PHREEQ98
     if ((CreateToC == TRUE) && (AutoLoadOutputFile == TRUE)) AddToCEntry((char*)string, 4, outputlinenr);
 #endif
-	l = strlen(string);
+	l = (int) strlen(string);
 	l1 = (79 - l)/2;
 	l2 = 79 -l -l1;
 	for (i=0; i < l1; i++) token[i]='-';
@@ -622,9 +622,9 @@ int replace(const char *str1, const char *str2, char *str)
 /*
  *   Str1 found, replace Str1 with Str2
  */
-	l=strlen(str);
-	l1=strlen(str1);
-	l2=strlen(str2);
+	l= (int) strlen(str);
+	l1= (int) strlen(str1);
+	l2= (int) strlen(str2);
 /*
  *   Make gap in str long enough for str2
  */
@@ -804,7 +804,7 @@ char * string_duplicate (const char *token)
 	char *str;
 
 	if (token == NULL) return NULL;
-	l = strlen(token);
+	l = (int) strlen(token);
 	str = (char *) PHRQ_malloc((size_t) (l +1) * sizeof(char) );
 	if (str == NULL) malloc_error();
 	strcpy (str, token);
@@ -1347,7 +1347,7 @@ int string_trim (char *str)
 	int i, l, start, end, length;
 	char *ptr_start;
 
-	l=strlen(str);
+	l= (int) strlen(str);
 	/*
 	 *   leading whitespace
 	 */
@@ -1390,7 +1390,7 @@ int string_trim_right (char *str)
  */
 	int i, l, end, length;
 
-	l=strlen(str);
+	l= (int) strlen(str);
 	for (i = l-1; i >= 0; i--) {
 		if (isspace((int) str[i])) continue;
 		break;
@@ -1420,7 +1420,7 @@ int string_trim_left (char *str)
 	int i, l, start, end, length;
 	char *ptr_start;
 
-	l=strlen(str);
+	l= (int) strlen(str);
 	/*
 	 *   leading whitespace
 	 */
@@ -1455,7 +1455,7 @@ char *string_pad (char *str, int i)
 	int j, l, max;
 	char *str_ptr;
 
-	l=strlen(str);
+	l= (int) strlen(str);
 	max = l;
 	if (l < i) max = i;
 	str_ptr = (char *) PHRQ_malloc((size_t) ((max+1) * sizeof(char)));

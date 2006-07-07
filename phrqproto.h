@@ -339,7 +339,7 @@ int mix_sort(void);
 
 struct pe_data *pe_data_alloc(void);
 struct pe_data *pe_data_dup (struct pe_data *pe_ptr_old);
-int pe_data_free (struct pe_data *pe_data_ptr);
+struct pe_data *pe_data_free (struct pe_data *pe_data_ptr);
 int pe_data_store (struct pe_data **pe, const char *token);
 
 struct phase *phase_bsearch (char *ptr, int *j, int print);

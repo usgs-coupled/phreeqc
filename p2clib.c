@@ -191,15 +191,15 @@ int strpos2(char *s, register char *pat, register int pos)
 
     if (--pos < 0)
         return 0;
-    slen = strlen(s) - pos;
+    slen = (int) strlen(s) - pos;
     cp = s + pos;
     if (!(ch = *pat++))
         return 0;
-    pos = strlen(pat);
+    pos = (int) strlen(pat);
     slen -= pos;
     while (--slen >= 0) {
         if (*cp++ == ch && !strncmp(cp, pat, pos))
-            return cp - s;
+            return (int) (cp - s);
     }
     return 0;
 }
@@ -342,14 +342,14 @@ void strinsert(register char *src, register char *dst, register int pos)
 
     if (--pos < 0)
         return;
-    dlen = strlen(dst);
+    dlen = (int) strlen(dst);
     dst += dlen;
     dlen -= pos;
     if (dlen <= 0) {
         strcpy(dst, src);
         return;
     }
-    slen = strlen(src);
+    slen = (int) strlen(src);
     do {
         dst[slen] = *dst;
         --dst;
@@ -514,7 +514,7 @@ long *P_setunion(register long *d, register long *s1, register long *s2)        
 	*d++ = *s1++;
     while (--sz2 >= 0)
 	*d++ = *s2++;
-    *dbase = d - dbase - 1;
+    *dbase = (int) (d - dbase - 1);
     return dbase;
 }
 
@@ -525,7 +525,7 @@ long *P_setint(register long *d, register long *s1, register long *s2)          
     while (--sz1 >= 0 && --sz2 >= 0)
         *d++ = *s1++ & *s2++;
     while (--d > dbase && !*d) ;
-    *dbase = d - dbase;
+    *dbase = (int) (d - dbase);
     return dbase;
 }
 
@@ -540,7 +540,7 @@ long *P_setdiff(register long *d, register long *s1, register long *s2)         
             *d++ = *s1++;
     }
     while (--d > dbase && !*d) ;
-    *dbase = d - dbase;
+    *dbase = (int) (d - dbase);
     return dbase;
 }
 
@@ -557,7 +557,7 @@ long *P_setxor(register long *d, register long *s1, register long *s2)         /
     while (--sz2 >= 0)
 	*d++ = *s2++;
     while (--d > dbase && !*d) ;
-    *dbase = d - dbase;
+    *dbase = (int) (d - dbase);
     return dbase;
 }
 
