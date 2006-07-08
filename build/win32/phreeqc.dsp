@@ -1,25 +1,25 @@
-# Microsoft Developer Studio Project File - Name="phreeqc_console" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="phreeqc" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=phreeqc_console - Win32 Test
+CFG=phreeqc - Win32 Test
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "phreeqc_console.mak".
+!MESSAGE NMAKE /f "phreeqc.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "phreeqc_console.mak" CFG="phreeqc_console - Win32 Test"
+!MESSAGE NMAKE /f "phreeqc.mak" CFG="phreeqc - Win32 Test"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "phreeqc_console - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "phreeqc_console - Win32 Debug" (based on "Win32 (x86) Console Application")
-!MESSAGE "phreeqc_console - Win32 Test" (based on "Win32 (x86) Console Application")
+!MESSAGE "phreeqc - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "phreeqc - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "phreeqc - Win32 Test" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -30,7 +30,7 @@ CPP=cl.exe
 F90=df.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "phreeqc_console - Win32 Release"
+!IF  "$(CFG)" == "phreeqc - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -54,10 +54,10 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 gmp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /version:2.5 /subsystem:console /debug /machine:I386 /out:"Release/phreeqc.exe" /libpath:"$(DEV_GMP_LIB)" /RELEASE
+# ADD LINK32 gmp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /version:2.5 /subsystem:console /debug /machine:I386 /libpath:"$(DEV_GMP_LIB)" /RELEASE
 # SUBTRACT LINK32 /pdb:none
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Debug"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -81,14 +81,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 gmpDebug.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /out:"Debug/phreeqc.exe" /pdbtype:sept /libpath:"$(DEV_GMP_LIB)"
+# ADD LINK32 gmpDebug.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"$(DEV_GMP_LIB)"
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Test"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Test"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "phreeqc_console___Win32_Test"
-# PROP BASE Intermediate_Dir "phreeqc_console___Win32_Test"
+# PROP BASE Output_Dir "phreeqc___Win32_Test"
+# PROP BASE Intermediate_Dir "phreeqc___Win32_Test"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
@@ -108,15 +108,15 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /out:"Debug/phreeqc.exe" /pdbtype:sept
-# ADD LINK32 gmpDebug.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /out:"Test/phreeqc.exe" /pdbtype:sept /libpath:"$(DEV_GMP_LIB)"
+# ADD LINK32 gmpDebug.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"$(DEV_GMP_LIB)"
 
 !ENDIF 
 
 # Begin Target
 
-# Name "phreeqc_console - Win32 Release"
-# Name "phreeqc_console - Win32 Debug"
-# Name "phreeqc_console - Win32 Test"
+# Name "phreeqc - Win32 Release"
+# Name "phreeqc - Win32 Debug"
+# Name "phreeqc - Win32 Test"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -180,11 +180,11 @@ SOURCE=..\..\src\kinetics.c
 
 SOURCE=..\..\src\main.c
 
-!IF  "$(CFG)" == "phreeqc_console - Win32 Release"
+!IF  "$(CFG)" == "phreeqc - Win32 Release"
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Debug"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Debug"
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Test"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Test"
 
 # PROP Exclude_From_Build 1
 
@@ -279,15 +279,15 @@ SOURCE=..\..\src\tally.c
 
 SOURCE=.\test.cxx
 
-!IF  "$(CFG)" == "phreeqc_console - Win32 Release"
+!IF  "$(CFG)" == "phreeqc - Win32 Release"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Debug"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Debug"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "phreeqc_console - Win32 Test"
+!ELSEIF  "$(CFG)" == "phreeqc - Win32 Test"
 
 !ENDIF 
 
