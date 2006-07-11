@@ -2008,6 +2008,31 @@ int reset(void)
  */
 		for (i=0; i<count_unknowns; i++) {
 			if (x[i]->type == PP || x[i]->type == S_S_MOLES) {
+				if (x[i]->dissolve_only == TRUE) {
+#ifdef SKIP
+					if (x[i]->moles > x[i]->pure_phase->initial_moles) {
+							output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitated dissolve_only mineral!*\tDiff %e\n", 
+                              x[i]->description, x[i]->moles - x[i]->pure_phase->initial_moles);
+					}
+#endif
+					if ((delta[i] < 0.0) && (-delta[i] > (x[i]->pure_phase->initial_moles - x[i]->moles))) {
+						if ((x[i]->pure_phase->initial_moles - x[i]->moles) != 0.0)  {
+							f0 = fabs(delta[i] / (x[i]->pure_phase->initial_moles - x[i]->moles));
+							if (f0 > factor) {
+								if (debug_model == TRUE) {
+									output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitating too much dissolve_only mineral.\tDelta %e\tCurrent %e\tInitial %e\n", 
+										x[i]->description, (double) delta[i], (double) x[i]->moles, (double) x[i]->pure_phase->initial_moles);
+								}
+								factor=f0;
+							}
+						} else {
+							if (debug_model == TRUE) {
+								output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitating dissolve_only mineral.\tDelta %e\n", x[i]->description, (double) delta[i]);
+							}
+								delta[i] = 0;
+						}
+					}
+				}
 				if (/* delta[i] > 0.0 && */ x[i]->moles > 0.0 && delta[i] > x[i]->moles )  {
 					f0 = delta[i] / x[i]->moles;
 					if (f0 > factor) {
@@ -2032,15 +2057,7 @@ int reset(void)
 						}
 						factor=f0;
 					}
-				} else if (x[i]->dissolve_only == TRUE && delta[i] < 0.0 && (-delta[i] > (x[i]->pure_phase->initial_moles - x[i]->moles)) && (x[i]->pure_phase->initial_moles - x[i]->moles != 0.0))  {
-					f0 = -delta[i] / (x[i]->pure_phase->initial_moles - x[i]->moles) ;
-					if (f0 > factor) {
-						if (debug_model == TRUE) {
-							output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitating too much dissolve_only mineral.\t%f\n", x[i]->description, (double) f0);
-						}
-						factor=f0;
-					}
-				}
+				} 
 			}
 		}
 	}
@@ -2359,7 +2376,19 @@ int reset(void)
 					x[i]->description, "old mass", (double) x[i]->moles,
 					"new mass", (double) (x[i]->moles - delta[i]), "delta", (double) delta[i]);
 			}
-			x[i]->moles -= delta[i];
+
+			if (x[i]->dissolve_only == TRUE) {
+#ifdef SKIP
+					if ((x[i]->moles - delta[i]) > x[i]->pure_phase->initial_moles) {
+							output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitating dissolve_only mineral!!!\t %e %e %e %e\n", 
+                              x[i]->description, x[i]->moles - delta[i] - x[i]->pure_phase->initial_moles, x[i]->moles, delta[i], x[i]->pure_phase->initial_moles );
+					}
+#endif
+					x[i]->moles -= delta[i];
+					if (equal(x[i]->moles, x[i]->pure_phase->initial_moles, ineq_tol)) x[i]->moles = x[i]->pure_phase->initial_moles;
+			} else {
+				x[i]->moles -= delta[i];
+			}
 /*			if (fabs(x[i]->moles) < MIN_RELATED_SURFACE) x[i]->moles = 0.0; */
 		} else if (x[i]->type == GAS_MOLES) {
 
