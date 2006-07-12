@@ -607,9 +607,12 @@ int calc_all_donnan(void)
 	char name[MAX_LENGTH];
 	LDBLE new_g, f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
 	LDBLE new_g2, f_psi2, surf_chrg_eq2, psi_avg2, dif;
+	LDBLE cz, cm, cp;
 
 	if (use.surface_ptr == NULL) return(OK);
 	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x * mu_x);
+	cz = cm = 1.0;
+	cp = 1.0;
 /*
  *   calculate g for each surface...
  */
@@ -631,6 +634,13 @@ int calc_all_donnan(void)
 			if (s_x[i]->type > HPLUS) continue;
 			for (k = 0; k < count_g; k++) {
 				if (equal(charge_group[k].z, s_x[i]->z, G_TOL) == TRUE) {
+#ifdef SKIP
+					if (s_x[i]->z > 0)
+						cz = s_x[i]->z * pow(cp, s_x[i]->z);
+					else
+						cz = s_x[i]->z * pow(cm, -s_x[i]->z);
+					charge_group[k].eq += cz * s_x[i]->moles;
+#endif
 					charge_group[k].eq += s_x[i]->z * s_x[i]->moles;
 					break;
 				}
@@ -655,12 +665,20 @@ int calc_all_donnan(void)
 
 		for (k = 0; k < count_g; k++) {
 			x[j]->surface_charge->g[k].charge = charge_group[k].z;
-
+#ifdef SKIP
+			if (charge_group[k].z > 0)
+				cz = pow(cp, charge_group[k].z);
+			else
+				cz = pow(cm, -charge_group[k].z);
+			new_g = cz * (exp(-charge_group[k].z * psi_avg)) - 1;
+			if (new_g < - ratio_aq) new_g = -ratio_aq + G_TOL * 1e-5;
+			new_g2 = cz * (exp(-charge_group[k].z * psi_avg2)) - 1;
+			if (new_g2 < - ratio_aq) new_g2 = -ratio_aq + G_TOL * 1e-5;
+#endif
 			new_g = exp(-charge_group[k].z * psi_avg) - 1;
-			if (new_g <= - ratio_aq) new_g = G_TOL;
+			if (new_g < - ratio_aq) new_g = -ratio_aq + G_TOL * 1e-5;
 			new_g2 = exp(-charge_group[k].z * psi_avg2) - 1;
-			if (new_g2 <= - ratio_aq) new_g2 = G_TOL;
-
+			if (new_g2 < - ratio_aq) new_g2 = -ratio_aq + G_TOL * 1e-5;
 			if (fabs(new_g) >= 1) {
 				if (fabs((new_g - x[j]->surface_charge->g[k].g) / new_g) > convergence_tolerance) {
 					converge = FALSE;
@@ -764,7 +782,7 @@ int calc_init_donnan(void)
 		surf_chrg_eq = A_surf * f_sinh * sinh(f_psi) / F_C_MOL;
 
 			/* find psi_avg that matches surface charge... */
-		psi_avg = calc_psi_avg(surf_chrg_eq);
+		psi_avg = calc_psi_avg(0);/*(surf_chrg_eq);*/
 
 			/* fill in g's */
 		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
@@ -835,22 +853,9 @@ LDBLE calc_psi_avg(LDBLE surf_chrg_eq)
 		fd1 = 0.0;
 		for (i = 1; i < count_g; i++) {
 			temp = exp(-charge_group[i].z * p);
-			if (temp > 1 - ratio_aq) {
-				fd += charge_group[i].eq * (temp - 1);
-				fd1 -= charge_group[i].z * charge_group[i].eq * temp;
-			}
+			fd += charge_group[i].eq * temp;
+			fd1 -= charge_group[i].z * charge_group[i].eq * temp;
 		}
-/*		fd1 = surf_chrg_eq * ratio_aq;
-		dif = 1e-5;
-		p += dif;
-		for (i = 1; i < count_g; i++) {
-			temp = exp(-charge_group[i].z * p);
-			fd1 += charge_group[i].eq * temp;
-		}
-		fd /= -(fd1 - fd) / dif;
-		p -= dif;
-		p += (fd > 1) ? 1 : ((fd < -1) ?  -1 : fd);
- */
 		fd /= -fd1;
 		p += (fd > 1) ? 1 : ((fd < -1) ?  -1 : fd);
 		if (fabs(p) < G_TOL) p = 0.0;

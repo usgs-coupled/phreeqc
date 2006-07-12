@@ -107,7 +107,7 @@ int transport(void)
 		}
 		else
 			solution_duplicate(count_cells, count_cells + 1);
-    }
+	}
 /*
  *   Initialize temperature in stagnant cells ...
  */
@@ -385,7 +385,7 @@ int transport(void)
 
 					/* punch and output file */
 					if ((ishift == 0) && (j == nmix) && ((stag_data->count_stag == 0) ||
-					    solution_bsearch(i+1+count_cells, &use.n_solution, FALSE) == 0)) {
+						solution_bsearch(i+1+count_cells, &use.n_solution, FALSE) == 0)) {
 						if ((cell_data[i-1].punch == TRUE) && (transport_step % punch_modulus == 0))
 							punch_all();
 						if ((cell_data[i-1].print == TRUE) && (transport_step % print_modulus == 0))
@@ -469,7 +469,7 @@ int transport(void)
 /* end revision Dec 7, 1999 */
 
 				if ((nmix == 0) && ((stag_data->count_stag == 0) ||
-				    (solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0))) {
+					(solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0))) {
 					if ((cell_data[i - 1].punch == TRUE) && (transport_step % punch_modulus == 0))
 						punch_all();
 					if ((cell_data[i - 1].print == TRUE) && (transport_step % print_modulus == 0))
@@ -1044,7 +1044,7 @@ int multi_D(LDBLE DDt)
 		find_J(i);
 /*
  * 2. sum up the primary or secondary master_species from all the solute species
- *    H and O go in total_h and total_o
+ *	H and O go in total_h and total_o
  */
 		tot_h = tot_o = 0.0;
 		count_m_s = 0;
@@ -1053,13 +1053,13 @@ int multi_D(LDBLE DDt)
 			count_elts = 0;
 			get_elts_in_species(&ptr, 1);
 			for (k = 0; k < count_elts; k++) {
-				if (strncmp(elt_list[k].elt->name, "H", 1) == NULL)
+				if (strcmp(elt_list[k].elt->name, "H") == NULL)
 					tot_h += elt_list[k].coef * J_ij[j].tot;
-				else if (strncmp(elt_list[k].elt->name, "O", 1) == NULL)
+				else if (strcmp(elt_list[k].elt->name, "O") == NULL)
 					tot_o += elt_list[k].coef * J_ij[j].tot;
 				else {
-					length = strlen(elt_list[k].elt->name);
 					for (l = 0; l < count_m_s; l++) {
+						length = strlen(elt_list[k].elt->name);
 						if (strncmp(m_s[l].name, elt_list[k].elt->name, length) == NULL) {
 							m_s[l].tot += elt_list[k].coef * J_ij[j].tot;
 							break;
@@ -1115,7 +1115,7 @@ int multi_D(LDBLE DDt)
 							}
 							if (temp != 0.0) {
 								sprintf(token,"Negative concentration in MCD: added %.1e moles %s in cell %d.",
-									m_s[l].tot / cell_data[i - 1].length - temp, m_s[l].name, cell_no);
+									m_s[l].tot / cell_data[i - 1].length - temp, m_s[l].name, i);
 								warning_msg(token);
 							}
 						}
@@ -1128,7 +1128,7 @@ int multi_D(LDBLE DDt)
 						use.solution_ptr->totals[j].moles -= m_s[l].tot / cell_data[i - 1].length;
 						if (use.solution_ptr->totals[j].moles < 0) {
 							sprintf(token,"Negative concentration in MCD: added %.1e moles %s in cell %d.",
-								-use.solution_ptr->totals[j].moles, m_s[l].name, cell_no);
+								-use.solution_ptr->totals[j].moles, m_s[l].name, i);
 							warning_msg(token);
 							use.solution_ptr->totals[j].moles = 0;
 						}
@@ -1143,7 +1143,7 @@ int multi_D(LDBLE DDt)
 					use.solution_ptr->totals[j].moles = -m_s[l].tot / cell_data[i - 1].length;
 					if (use.solution_ptr->totals[j].moles < 0) {
 						sprintf(token,"Negative concentration in MCD: added %.2e moles %s in cell %d.",
-							-use.solution_ptr->totals[j].moles, m_s[l].name, cell_no);
+							-use.solution_ptr->totals[j].moles, m_s[l].name, i);
 						warning_msg(token);
 						use.solution_ptr->totals[j].moles = 0;
 					}
@@ -1182,7 +1182,7 @@ int multi_D(LDBLE DDt)
 							}
 							if (temp != 0.0) {
 								sprintf(token,"Negative concentration in MCD: added %.3e moles %s in cell %d",
-									-m_s[l].tot / cell_data[i].length - temp, m_s[l].name, cell_no);
+									-m_s[l].tot / cell_data[i].length - temp, m_s[l].name, i + 1);
 								warning_msg(token);
 							}
 						}
@@ -1195,7 +1195,7 @@ int multi_D(LDBLE DDt)
 						use.solution_ptr->totals[j].moles += m_s[l].tot / cell_data[i].length;
 						if (use.solution_ptr->totals[j].moles < 0) {
 							sprintf(token,"Negative concentration in MCD: added %.3e moles %s in cell %d.",
-								-use.solution_ptr->totals[j].moles, m_s[l].name, cell_no);
+								-use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
 							warning_msg(token);
 							use.solution_ptr->totals[j].moles = 0;
 						}
@@ -1210,7 +1210,7 @@ int multi_D(LDBLE DDt)
 					use.solution_ptr->totals[j].moles = m_s[l].tot / cell_data[i].length;
 					if (use.solution_ptr->totals[j].moles < 0) {
 							sprintf(token,"Negative concentration in MCD: added %.4e moles %s in cell %d.",
-								-use.solution_ptr->totals[j].moles, m_s[l].name, cell_no);
+								-use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
 						warning_msg(token);
 						use.solution_ptr->totals[j].moles = 0;
 					}
@@ -1273,7 +1273,7 @@ int find_J(int cell_no)
 		visc2 = visc1;
 
 	/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
-	                 free pore surface = mass_water_free / (cell_length * tortuosity)
+					 free pore surface = mass_water_free / (cell_length * tortuosity)
 	   determine DL surface as a fraction of the total pore surface... */
 	if (dl_aq1 > 0) {
 		dl_aq1 /= (dl_aq1 + solution[cell_no]->mass_water);
@@ -1421,14 +1421,14 @@ int find_J(int cell_no)
 	if (Dz2c == 0)
 		k = 0;
 	J_ij_count_spec = k;
-    J_ij_sum = 0;
+	J_ij_sum = 0;
 	c = 0.0;
 	for (j = 0; j < k; j++)
 		c += Dz[j] * grad[j];
 	for (i = 0; i < k; i++) {
 		J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
 		if (Dz2c_dl > 0)
-			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) + 
+			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) +
 				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * 2 / (visc1 + visc2);
 		J_ij[i].tot *= A_ij;
 		J_ij_sum += z[i] * J_ij[i].tot;
@@ -1506,7 +1506,7 @@ int fill_spec(int cell_no)
 /* appt			lm = s_h2o->la - species_list[i].s->lg;
 		else
  */			lm = species_list[i].s->lm;
-            
+
 		if (lm > -20) {
 			sol_D[cell_no].spec[count_spec].name = string_hsave(species_list[i].s->name);
 			sol_D[cell_no].spec[count_spec].c = species_list[i].s->moles / mass_water_aq_x;
@@ -1514,7 +1514,7 @@ int fill_spec(int cell_no)
 			sol_D[cell_no].spec[count_spec].lm = lm;
 			sol_D[cell_no].spec[count_spec].lg = species_list[i].s->lg;
 			sol_D[cell_no].spec[count_spec].z = species_list[i].s->z;
-            if (species_list[i].s->dw == 0)
+			if (species_list[i].s->dw == 0)
 				sol_D[cell_no].spec[count_spec].Dp = default_Dw * por_factor;
 			else
 				sol_D[cell_no].spec[count_spec].Dp = species_list[i].s->dw * por_factor;
@@ -1553,9 +1553,9 @@ int multi_Dstag(int mobile_cell)
 		for the interface between 2 cells.
  * 2. sum up as mole transfer of master_species
  * 3. add moles of master_species to the 2 cells
- *    NOTE. Define the water content of stagnant cells relative to the
- *    mobile cell (with, for example, 1 kg water)
- *    Define properties of each interface only 1 time with MIX.
+ *	NOTE. Define the water content of stagnant cells relative to the
+ *	mobile cell (with, for example, 1 kg water)
+ *	Define properties of each interface only 1 time with MIX.
  */
 	int icell, jcell, i, j, k, l, n, length;
 	char *ptr;
@@ -1575,7 +1575,7 @@ int multi_Dstag(int mobile_cell)
 		if (n == 0) icell -= 1;
 
 /*
- *    find the mix ptr for icell and go along the cells that mix with it
+ *	find the mix ptr for icell and go along the cells that mix with it
  */
 		use.mix_ptr = mix_search (icell, &use.n_mix, FALSE);
 		if (use.mix_ptr == NULL) continue;
@@ -1589,7 +1589,7 @@ int multi_Dstag(int mobile_cell)
 			find_Jstag(icell, jcell, mixf);
 /*
  * 2. sum up the primary or secondary master_species from all the solute species
- *    H and O go in total_h and total_o
+ *	H and O go in total_h and total_o
  */
 			tot_h = tot_o = 0.0;
 			count_m_s = 0;
@@ -1598,13 +1598,13 @@ int multi_Dstag(int mobile_cell)
 				count_elts = 0;
 				get_elts_in_species(&ptr, 1);
 				for (k = 0; k < count_elts; k++) {
-					if (strncmp(elt_list[k].elt->name, "H", 1) == NULL)
+					if (strcmp(elt_list[k].elt->name, "H") == NULL)
 						tot_h += elt_list[k].coef * J_ij[j].tot;
-					else if (strncmp(elt_list[k].elt->name, "O", 1) == NULL)
+					else if (strcmp(elt_list[k].elt->name, "O") == NULL)
 						tot_o += elt_list[k].coef * J_ij[j].tot;
 					else {
-						length = strlen(elt_list[k].elt->name);
 						for (l = 0; l < count_m_s; l++) {
+							length = strlen(elt_list[k].elt->name);
 							if (strncmp(m_s[l].name, elt_list[k].elt->name, length) == NULL) {
 								m_s[l].tot += elt_list[k].coef * J_ij[j].tot;
 								break;
@@ -1621,9 +1621,9 @@ int multi_Dstag(int mobile_cell)
 /*
  * timestep is in mixf.
  * NOTE. The timestep calculated in init_mix for MCD (by PHREEQC) must be equal or smaller than
- *      the timestep taken (by the user) for calculating mixf in MIX.
- *      Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
- *      Dw used for calculating mixf must be given as default_Dw in the input file.
+ *	  the timestep taken (by the user) for calculating mixf in MIX.
+ *	  Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
+ *	  Dw used for calculating mixf must be given as default_Dw in the input file.
  */
 /*
  * 3. find the solutions, add or subtract the moles...
@@ -1768,7 +1768,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
  * J_ij = mixf_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
  *		mixf_ij = mixf / (Dw * init_pf) * new_por / init_por
  *		mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
- *		init_pf equals multi_Dpor^multi_Dn;  
+ *		init_pf equals multi_Dpor^multi_Dn;
  */
 	int i, i_max, j, j_max, k, l;
 	LDBLE ddlm;
@@ -1776,7 +1776,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	struct surface *s_ptr1, *s_ptr2;
 	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2;
 
-    if (cell_data[icell - 1].por < multi_Dpor_lim || cell_data[jcell - 1].por < multi_Dpor_lim)
+	if (cell_data[icell - 1].por < multi_Dpor_lim || cell_data[jcell - 1].por < multi_Dpor_lim)
 		mixf = 0.0;
 	else
 		mixf *= cell_data[icell - 1].por / (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
@@ -1784,7 +1784,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
  * check if DL calculations must be made...
  */
 	dl_s = dl_aq1 = dl_aq2 = 0.0;
-    visc1 = visc2 = 1.0;
+	visc1 = visc2 = 1.0;
 	s_ptr1 = surface_bsearch(icell, &i);
 	if (s_ptr1 != NULL ) {
 		if (s_ptr1->diffuse_layer == TRUE) {
@@ -1800,7 +1800,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 		}
 	}
 	/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
-	                 free pore surface = mass_water_free / (cell_length * tortuosity)
+					 free pore surface = mass_water_free / (cell_length * tortuosity)
 	   determine DL surface as a fraction of the total pore surface... */
 	if (dl_aq1 > 0) {
 		dl_aq1 /= (dl_aq1 + solution[icell]->mass_water);
@@ -1945,14 +1945,14 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	if (Dz2c == 0)
 		k = 0;
 	J_ij_count_spec = k;
-    J_ij_sum = 0;
+	J_ij_sum = 0;
 	c = 0.0;
 	for (j = 0; j < k; j++)
 		c += Dz[j] * grad[j];
 	for (i = 0; i < k; i++) {
 		J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
 		if (Dz2c_dl > 0)
-			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) + 
+			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) +
 				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * 2 / (visc1 + visc2);
 		J_ij[i].tot *= mixf;
 		J_ij_sum += z[i] * J_ij[i].tot;
