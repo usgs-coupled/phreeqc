@@ -2064,6 +2064,17 @@ int reset(void)
 /*
  *   Calculate change in element concentrations due to pure phases and gases
  */
+	for(i=0; i < count_unknowns; i++) {
+#ifdef _MSC_VER
+		if (_isnan(delta[i])) {
+#else
+		if (isnan(delta[i])) {
+#endif
+			sprintf(error_string,"Delta %d equals NaN\n", i);
+			warning_msg(error_string);
+            delta[i] = 0;
+		}
+	}
 	if (pure_phase_unknown != NULL || gas_unknown != NULL || s_s_unknown != NULL) {
 		for(i=0; i < count_unknowns; i++) {
 			x[i]->delta = 0.0;
