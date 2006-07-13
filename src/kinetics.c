@@ -1515,7 +1515,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	struct kinetics *kinetics_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
-	
+	struct use use_save;
 	int save_old, m, n_reactions /*, nok, nbad */;
 
 	/* CVODE definitions */
@@ -1673,6 +1673,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			tout = kin_time;
 			/*ropt[HMAX] = tout/10.;*/
 			/*ropt[HMIN] = 1e-17;*/
+			use_save = use;
 			flag = CVode(kinetics_cvode_mem, tout, kinetics_y, &t, NORMAL);
 			rate_sim_time = rate_sim_time_start + t;
 			/*
@@ -1714,8 +1715,6 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				  error_msg(error_string, STOP);
 				*/
 			}
-
-
 			/*
 			odeint(&ystart[-1], n_reactions, 0, kin_time, kinetics_ptr->comps[0].tol, kin_time/kinetics_ptr->step_divide, 0.0, &nok, &nbad, i, nsaver );
 			*/
@@ -1753,6 +1752,8 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				solution_duplicate(save_old, i);
 			}
 			free_cvode();
+			use.mix_in = use_save.mix_in;
+			use.mix_ptr = use_save.mix_ptr;
 		}
 
 		store_get_equi_reactants(i, TRUE);
