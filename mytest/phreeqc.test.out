@@ -5400,7 +5400,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite          0.00    8.05    8.05   0.000e+00   4.898e-08   4.898e-08
-	Kaolinite         0.00    5.71    5.71   0.000e+00   1.203e-06   1.203e-06
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   1.203e-06   1.203e-06
 	Microcline       -5.58   -4.71    0.88   0.000e+00           0   0.000e+00
 	Muscovite        -1.58   11.39   12.97   0.000e+00           0   0.000e+00
 
@@ -5415,7 +5415,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   8.351      Charge balance
-                                       pe  =   9.488      Adjusted to redox equilibrium
+                                       pe  =   9.476      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   3.005e-06
                        Mass of water (kg)  =   1.000e-00
@@ -5423,7 +5423,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.691e-14
+                  Electrical balance (eq)  =  -3.121e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  12
                                   Total H  = 1.110124e+02
@@ -5443,13 +5443,13 @@ Al               5.451e-07
 	Al(OH)2+          3.895e-11   3.887e-11   -10.410   -10.410    -0.001
 	AlOH+2            2.230e-14   2.212e-14   -13.652   -13.655    -0.004
 	Al+3              1.011e-17   9.930e-18   -16.995   -17.003    -0.008
-H(0)             2.980e-39
-	H2                1.490e-39   1.490e-39   -38.827   -38.827     0.000
+H(0)             3.144e-39
+	H2                1.572e-39   1.572e-39   -38.804   -38.804     0.000
 K                3.000e-06
 	K+                3.000e-06   2.994e-06    -5.523    -5.524    -0.001
 	KOH               2.328e-12   2.328e-12   -11.633   -11.633     0.000
-O(0)             3.755e-15
-	O2                1.877e-15   1.877e-15   -14.726   -14.726     0.000
+O(0)             3.374e-15
+	O2                1.687e-15   1.687e-15   -14.773   -14.773     0.000
 Si               6.594e-06
 	H4SiO4            6.383e-06   6.383e-06    -5.195    -5.195     0.000
 	H3SiO4-           2.115e-07   2.110e-07    -6.675    -6.676    -0.001
@@ -5462,14 +5462,14 @@ Si               6.594e-06
 	Al(OH)3(a)       -2.75    8.05   10.80  Al(OH)3
 	Chalcedony       -1.64   -5.20   -3.55  SiO2
 	Gibbsite          0.00    8.05    8.05  Al(OH)3
-	H2(g)           -35.68  -38.83   -3.15  H2
+	H2(g)           -35.65  -38.80   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -6.80  -27.37  -20.57  KAlSi3O8
 	K-mica           -1.31   11.39   12.70  KAl3Si3O10(OH)2
-	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
 	Microcline       -5.58   -4.71    0.88  KAlSi3O8
 	Muscovite        -1.58   11.39   12.97  KAl3Si3O10(OH)2
-	O2(g)           -11.83  -14.73   -2.89  O2
+	O2(g)           -11.88  -14.77   -2.89  O2
 	Quartz           -1.21   -5.20   -3.98  SiO2
 	SiO2(a)          -2.48   -5.20   -2.71  SiO2
 
@@ -5625,8 +5625,8 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.306e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   8.172e-16
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550624e+01
@@ -7059,13 +7059,13 @@ Al               5.887e-07
 	Al(OH)2+          1.387e-12   1.380e-12   -11.858   -11.860    -0.002
 	AlOH+2            1.454e-16   1.424e-16   -15.838   -15.846    -0.009
 	Al+3              1.214e-20   1.160e-20   -19.916   -19.936    -0.020
-H(0)             1.431e-16
-	H2                7.156e-17   7.156e-17   -16.145   -16.145     0.000
+H(0)             1.432e-16
+	H2                7.158e-17   7.158e-17   -16.145   -16.145     0.000
 K                1.900e-05
 	K+                1.900e-05   1.890e-05    -4.721    -4.723    -0.002
 	KOH               8.102e-11   8.102e-11   -10.091   -10.091     0.000
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -60.089   -60.089     0.000
+	O2                0.000e+00   0.000e+00   -60.090   -60.090     0.000
 Si               3.859e-05
 	H4SiO4            3.261e-05   3.261e-05    -4.487    -4.487     0.000
 	H3SiO4-           5.974e-06   5.944e-06    -5.224    -5.226    -0.002
@@ -7746,9 +7746,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.198e-15
+                  Electrical balance (eq)  =  -1.903e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  14
+                               Iterations  =  18
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550632e+01
 
@@ -7766,13 +7766,13 @@ Al               4.311e-07
 	Al(OH)2+          1.025e-12   1.019e-12   -11.989   -11.992    -0.002
 	AlOH+2            1.080e-16   1.057e-16   -15.967   -15.976    -0.009
 	Al+3              9.070e-21   8.648e-21   -20.042   -20.063    -0.021
-H(0)             7.160e-39
+H(0)             7.159e-39
 	H2                3.580e-39   3.580e-39   -38.446   -38.446     0.000
 K                2.090e-05
 	K+                2.090e-05   2.079e-05    -4.680    -4.682    -0.002
 	KOH               8.871e-11   8.872e-11   -10.052   -10.052     0.000
-O(0)             6.505e-16
-	O2                3.252e-16   3.252e-16   -15.488   -15.488     0.000
+O(0)             6.506e-16
+	O2                3.253e-16   3.253e-16   -15.488   -15.488     0.000
 Si               5.243e-05
 	H4SiO4            4.434e-05   4.434e-05    -4.353    -4.353     0.000
 	H3SiO4-           8.088e-06   8.045e-06    -5.092    -5.094    -0.002
@@ -7925,9 +7925,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite         -0.87    7.17    8.05   0.000e+00           0   0.000e+00
-	Kaolinite        -0.00    5.71    5.71   0.000e+00   3.606e-06   3.606e-06
+	Kaolinite         0.00    5.71    5.71   0.000e+00   3.606e-06   3.606e-06
 	Microcline       -2.25   -1.38    0.88   0.000e+00           0   0.000e+00
-	Muscovite        -0.00   12.97   12.97   0.000e+00   6.798e-06   6.798e-06
+	Muscovite         0.00   12.97   12.97   0.000e+00   6.798e-06   6.798e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -7948,7 +7948,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.244e-16
+                  Electrical balance (eq)  =  -1.022e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  14
                                   Total H  = 1.110124e+02
@@ -7974,7 +7974,7 @@ K                2.120e-05
 	K+                2.120e-05   2.109e-05    -4.674    -4.676    -0.002
 	KOH               8.871e-11   8.872e-11   -10.052   -10.052     0.000
 O(0)             2.887e-15
-	O2                1.444e-15   1.444e-15   -14.841   -14.841     0.000
+	O2                1.443e-15   1.443e-15   -14.841   -14.841     0.000
 Si               5.639e-05
 	H4SiO4            4.780e-05   4.780e-05    -4.321    -4.321     0.000
 	H3SiO4-           8.597e-06   8.551e-06    -5.066    -5.068    -0.002
@@ -7991,9 +7991,9 @@ Si               5.639e-05
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -3.47  -24.04  -20.57  KAlSi3O8
 	K-mica            0.27   12.97   12.70  KAl3Si3O10(OH)2
-	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
 	Microcline       -2.25   -1.38    0.88  KAlSi3O8
-	Muscovite        -0.00   12.97   12.97  KAl3Si3O10(OH)2
+	Muscovite         0.00   12.97   12.97  KAl3Si3O10(OH)2
 	O2(g)           -11.95  -14.84   -2.89  O2
 	Quartz           -0.34   -4.32   -3.98  SiO2
 	SiO2(a)          -1.61   -4.32   -2.71  SiO2
@@ -8026,9 +8026,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite         -0.89    7.16    8.05   0.000e+00           0   0.000e+00
-	Kaolinite         0.00    5.71    5.71   0.000e+00   2.838e-06   2.838e-06
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   2.838e-06   2.838e-06
 	Microcline       -2.22   -1.35    0.88   0.000e+00           0   0.000e+00
-	Muscovite         0.00   12.97   12.97   0.000e+00   7.649e-06   7.649e-06
+	Muscovite        -0.00   12.97   12.97   0.000e+00   7.649e-06   7.649e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -8049,9 +8049,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.107e-18
+                  Electrical balance (eq)  =  -1.536e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  14
+                               Iterations  =  15
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550633e+01
 
@@ -8069,7 +8069,7 @@ Al               3.779e-07
 	Al(OH)2+          9.372e-13   9.321e-13   -12.028   -12.031    -0.002
 	AlOH+2            1.009e-16   9.871e-17   -15.996   -16.006    -0.009
 	Al+3              8.655e-21   8.248e-21   -20.063   -20.084    -0.021
-H(0)             6.200e-15
+H(0)             6.201e-15
 	H2                3.100e-15   3.100e-15   -14.509   -14.509     0.000
 K                2.135e-05
 	K+                2.135e-05   2.124e-05    -4.671    -4.673    -0.002
@@ -8092,9 +8092,9 @@ Si               5.838e-05
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -3.44  -24.01  -20.57  KAlSi3O8
 	K-mica            0.27   12.97   12.70  KAl3Si3O10(OH)2
-	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
 	Microcline       -2.22   -1.35    0.88  KAlSi3O8
-	Muscovite         0.00   12.97   12.97  KAl3Si3O10(OH)2
+	Muscovite        -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	O2(g)           -60.47  -63.36   -2.89  O2
 	Quartz           -0.32   -4.31   -3.98  SiO2
 	SiO2(a)          -1.59   -4.31   -2.71  SiO2
@@ -8150,7 +8150,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.524e-18
+                  Electrical balance (eq)  =  -4.539e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  15
                                   Total H  = 1.110124e+02
@@ -8331,7 +8331,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Gibbsite         -0.93    7.12    8.05   0.000e+00           0   0.000e+00
 	Kaolinite        -0.00    5.71    5.71   0.000e+00   5.270e-07   5.270e-07
 	Microcline       -2.14   -1.26    0.88   0.000e+00           0   0.000e+00
-	Muscovite         0.00   12.97   12.97   0.000e+00   1.020e-05   1.020e-05
+	Muscovite        -0.00   12.97   12.97   0.000e+00   1.020e-05   1.020e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8352,7 +8352,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.951e-15
+                  Electrical balance (eq)  =   1.982e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  16
                                   Total H  = 1.110124e+02
@@ -8397,7 +8397,7 @@ Si               6.434e-05
 	K-mica            0.27   12.97   12.70  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
 	Microcline       -2.14   -1.26    0.88  KAlSi3O8
-	Muscovite         0.00   12.97   12.97  KAl3Si3O10(OH)2
+	Muscovite        -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	O2(g)           -13.00  -15.90   -2.89  O2
 	Quartz           -0.28   -4.26   -3.98  SiO2
 	SiO2(a)          -1.55   -4.26   -2.71  SiO2
@@ -8432,7 +8432,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Gibbsite         -0.95    7.10    8.05   0.000e+00           0   0.000e+00
 	Kaolinite        -0.00    5.70    5.71   0.000e+00           0   0.000e+00
 	Microcline       -2.11   -1.23    0.88   0.000e+00           0   0.000e+00
-	Muscovite         0.00   12.97   12.97   0.000e+00   1.089e-05   1.089e-05
+	Muscovite        -0.00   12.97   12.97   0.000e+00   1.089e-05   1.089e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8453,9 +8453,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.152e-13
+                  Electrical balance (eq)  =  -1.293e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  13
+                               Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550635e+01
 
@@ -8498,7 +8498,7 @@ Si               6.632e-05
 	K-mica            0.27   12.97   12.70  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.70    5.71  Al2Si2O5(OH)4
 	Microcline       -2.11   -1.23    0.88  KAlSi3O8
-	Muscovite         0.00   12.97   12.97  KAl3Si3O10(OH)2
+	Muscovite        -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	O2(g)           -12.27  -15.16   -2.89  O2
 	Quartz           -0.27   -4.25   -3.98  SiO2
 	SiO2(a)          -1.54   -4.25   -2.71  SiO2
@@ -8533,7 +8533,7 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
 	Gibbsite         -0.97    7.08    8.05   0.000e+00           0   0.000e+00
 	Kaolinite        -0.02    5.69    5.71   0.000e+00           0   0.000e+00
 	Microcline       -2.07   -1.19    0.88   0.000e+00           0   0.000e+00
-	Muscovite        -0.00   12.97   12.97   0.000e+00   1.123e-05   1.123e-05
+	Muscovite         0.00   12.97   12.97   0.000e+00   1.123e-05   1.123e-05
 
 -----------------------------Solution composition------------------------------
 
@@ -8554,9 +8554,9 @@ Reaction 1.	Irreversible reaction defined in simulation 20.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.481e-14
+                  Electrical balance (eq)  =  -2.079e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  22
+                               Iterations  =  15
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550635e+01
 
@@ -8599,7 +8599,7 @@ Si               6.832e-05
 	K-mica            0.27   12.97   12.70  KAl3Si3O10(OH)2
 	Kaolinite        -0.02    5.69    5.71  Al2Si2O5(OH)4
 	Microcline       -2.07   -1.19    0.88  KAlSi3O8
-	Muscovite        -0.00   12.97   12.97  KAl3Si3O10(OH)2
+	Muscovite         0.00   12.97   12.97  KAl3Si3O10(OH)2
 	O2(g)           -12.01  -14.90   -2.89  O2
 	Quartz           -0.26   -4.24   -3.98  SiO2
 	SiO2(a)          -1.52   -4.24   -2.71  SiO2
@@ -8675,7 +8675,7 @@ Al               3.083e-07
 	Al(OH)2+          7.405e-13   7.364e-13   -12.130   -12.133    -0.002
 	AlOH+2            7.850e-17   7.675e-17   -16.105   -16.115    -0.010
 	Al+3              6.637e-21   6.311e-21   -20.178   -20.200    -0.022
-H(0)             6.992e-15
+H(0)             6.993e-15
 	H2                3.496e-15   3.496e-15   -14.456   -14.456     0.000
 K                2.344e-05
 	K+                2.344e-05   2.330e-05    -4.630    -4.633    -0.002
@@ -9212,14 +9212,14 @@ Reaction 1.	Irreversible reaction defined in simulation 21.
 	Anhydrite        -0.19   -4.55   -4.36   1.000e+00           0  -1.000e+00
 	Aragonite        -0.14   -8.48   -8.34   2.500e+00           0  -2.500e+00
 	Calcite           0.00   -8.48   -8.48   1.000e+00   3.570e+00   2.570e+00
-	Chalcedony        0.00   -3.55   -3.55   2.100e+00   9.989e-02  -2.000e+00
+	Chalcedony       -0.00   -3.55   -3.55   2.100e+00   9.989e-02  -2.000e+00
 	CO2(g)           -3.00   -4.47   -1.47   0.000e+00   1.584e+00   1.584e+00
 	Dolomite          0.00  -17.09  -17.09   1.000e+00   6.740e-01  -3.260e-01
 	FeS(ppt)         -0.00   -3.92   -3.92   1.000e+00   6.664e-01  -3.336e-01
 	Gibbsite         -1.65    6.40    8.05   2.000e+00           0  -2.000e+00
 	Goethite          0.00   -1.00   -1.00   1.000e+00   2.334e+00   1.334e+00
 	Gypsum           -0.00   -4.58   -4.58   1.000e+00   2.350e+00   1.350e+00
-	Kaolinite        -0.00    5.71    5.71   5.000e+00   6.000e+00   1.000e+00
+	Kaolinite         0.00    5.71    5.71   5.000e+00   6.000e+00   1.000e+00
 	O2(g)           -68.80  -71.69   -2.89   1.000e+00           0  -1.000e+00
 	Siderite         -1.83  -12.72  -10.89   1.000e+00           0  -1.000e+00
 	Sulfur           -3.09    1.79    4.88   0.000e+00           0   0.000e+00
@@ -9304,7 +9304,7 @@ X                3.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -3.219e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.01
-                               Iterations  =  30
+                               Iterations  =  21
                                   Total H  = 1.067848e+02
                                   Total O  = 5.344789e+01
 
@@ -9574,7 +9574,7 @@ Sr               1.652e-05
 	Calcite           0.00   -8.48   -8.48  CaCO3
 	Celestite        -2.02   -8.66   -6.63  SrSO4
 	CH4(g)           -6.02   -8.88   -2.86  CH4
-	Chalcedony        0.00   -3.55   -3.55  SiO2
+	Chalcedony       -0.00   -3.55   -3.55  SiO2
 	Chlorite(14A)    -3.56   64.82   68.38  Mg5Al2Si3O10(OH)8
 	Chrysotile       -1.72   30.48   32.20  Mg3Si2O5(OH)4
 	CO2(g)           -3.00   -4.47   -1.47  CO2
@@ -9596,7 +9596,7 @@ Sr               1.652e-05
 	Jarosite-K      -24.50  -33.71   -9.21  KFe3(SO4)2(OH)6
 	K-feldspar       -2.57  -23.14  -20.57  KAlSi3O8
 	K-mica           -0.36   12.35   12.70  KAl3Si3O10(OH)2
-	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
 	Mackinawite       0.73   -3.92   -4.65  FeS
 	Manganite       -17.49    7.85   25.34  MnOOH
 	Melanterite      -6.68   -8.89   -2.21  FeSO4:7H2O
@@ -9651,12 +9651,12 @@ Reaction 1.	Irreversible reaction defined in simulation 21.
 	Anhydrite        -0.13   -4.55   -4.42   1.000e+00           0  -1.000e+00
 	Aragonite        -0.14   -8.54   -8.41   2.500e+00           0  -2.500e+00
 	Calcite           0.00   -8.54   -8.54   1.000e+00   3.312e+00   2.312e+00
-	Chalcedony        0.00   -3.44   -3.44   2.100e+00   9.988e-02  -2.000e+00
+	Chalcedony       -0.00   -3.44   -3.44   2.100e+00   9.988e-02  -2.000e+00
 	CO2(g)           -3.00   -4.58   -1.58   0.000e+00   1.834e+00   1.834e+00
-	Dolomite          0.00  -17.31  -17.31   1.000e+00   6.778e-01  -3.222e-01
+	Dolomite         -0.00  -17.31  -17.31   1.000e+00   6.778e-01  -3.222e-01
 	FeS(ppt)          0.00   -3.91   -3.92   1.000e+00   6.664e-01  -3.336e-01
 	Gibbsite         -1.64    5.86    7.51   2.000e+00           0  -2.000e+00
-	Goethite         -0.00   -1.34   -1.34   1.000e+00   2.334e+00   1.334e+00
+	Goethite          0.00   -1.34   -1.34   1.000e+00   2.334e+00   1.334e+00
 	Gypsum            0.00   -4.59   -4.59   1.000e+00   2.353e+00   1.353e+00
 	Kaolinite        -0.00    4.87    4.87   5.000e+00   6.000e+00   1.000e+00
 	O2(g)           -66.38  -69.34   -2.96   1.000e+00           0  -1.000e+00
@@ -9743,7 +9743,7 @@ X                3.000e+00 mol
                       Temperature (deg C)  =  35.000
                   Electrical balance (eq)  =  -3.885e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.01
-                               Iterations  =  50
+                               Iterations  =  28
                                   Total H  = 1.072736e+02
                                   Total O  = 5.368092e+01
 
@@ -10013,16 +10013,16 @@ Sr               2.466e-05
 	Calcite           0.00   -8.54   -8.54  CaCO3
 	Celestite        -2.10   -8.77   -6.67  SrSO4
 	CH4(g)           -5.69   -8.63   -2.94  CH4
-	Chalcedony        0.00   -3.44   -3.44  SiO2
+	Chalcedony       -0.00   -3.44   -3.44  SiO2
 	Chlorite(14A)    -1.55   63.23   64.78  Mg5Al2Si3O10(OH)8
 	Chrysotile       -0.82   30.18   31.00  Mg3Si2O5(OH)4
 	CO2(g)           -3.00   -4.58   -1.58  CO2
-	Dolomite          0.00  -17.31  -17.31  CaMg(CO3)2
+	Dolomite         -0.00  -17.31  -17.31  CaMg(CO3)2
 	Fe(OH)3(a)       -6.26   -1.37    4.89  Fe(OH)3
 	FeS(ppt)          0.00   -3.91   -3.92  FeS
 	Fluorite         -0.47  -10.97  -10.49  CaF2
 	Gibbsite         -1.64    5.86    7.51  Al(OH)3
-	Goethite         -0.00   -1.34   -1.34  FeOOH
+	Goethite          0.00   -1.34   -1.34  FeOOH
 	Gypsum            0.00   -4.59   -4.59  CaSO4:2H2O
 	H2(g)            -6.79   -9.98   -3.19  H2
 	H2O(g)           -1.28   -0.02    1.26  H2O

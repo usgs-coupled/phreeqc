@@ -5117,7 +5117,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.990e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.46
-                               Iterations  =  21
+                               Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552979e+01
 
@@ -5252,8 +5252,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   4.287e-02   4.161e-02  -1.256e-03
-	Dolomite         -0.00  -17.09  -17.09   1.587e+00   1.587e+00  -1.639e-04
+	Calcite           0.00   -8.48   -8.48   4.287e-02   4.161e-02  -1.256e-03
+	Dolomite          0.00  -17.09  -17.09   1.587e+00   1.587e+00  -1.639e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -5291,10 +5291,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.974e-01   5.974e-01   5.974e-01     0.000
-	CaX2              1.372e-01   2.743e-01   2.743e-01     0.000
-	MgX2              6.411e-02   1.282e-01   1.282e-01     0.000
-	HX                6.507e-07   6.507e-07   6.507e-07     0.000
+	NaX               5.974e-01   5.974e-01   5.974e-01    -0.000
+	CaX2              1.372e-01   2.743e-01   2.743e-01    -0.000
+	MgX2              6.411e-02   1.282e-01   1.282e-01    -0.000
+	HX                6.507e-07   6.507e-07   6.507e-07    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -5320,7 +5320,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.762e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.45
-                               Iterations  =  12
+                               Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552970e+01
 
@@ -5413,11 +5413,11 @@ S(6)             2.350e-04
 	As_native       -86.47  -99.00  -12.53  As
 	Brucite          -3.96   12.88   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -14.77  -33.67  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.54 -145.40   -2.86  CH4
 	Claudetite      -72.94  -74.28   -1.34  As2O3
 	CO2(g)           -3.34   -4.81   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.85   -8.99   -2.14  MgSO4:7H2O
 	Gypsum           -4.28   -8.86   -4.58  CaSO4:2H2O
@@ -5455,8 +5455,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   4.161e-02   4.037e-02  -1.246e-03
-	Dolomite         -0.00  -17.09  -17.09   1.587e+00   1.586e+00  -1.554e-04
+	Calcite           0.00   -8.48   -8.48   4.161e-02   4.037e-02  -1.246e-03
+	Dolomite          0.00  -17.09  -17.09   1.587e+00   1.586e+00  -1.554e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -5494,10 +5494,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.878e-01   5.878e-01   5.878e-01    -0.000
-	CaX2              1.404e-01   2.809e-01   2.809e-01    -0.000
-	MgX2              6.564e-02   1.313e-01   1.313e-01    -0.000
-	HX                6.737e-07   6.737e-07   6.737e-07    -0.000
+	NaX               5.878e-01   5.878e-01   5.878e-01     0.000
+	CaX2              1.404e-01   2.809e-01   2.809e-01     0.000
+	MgX2              6.564e-02   1.313e-01   1.313e-01     0.000
+	HX                6.737e-07   6.737e-07   6.737e-07     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -5616,11 +5616,11 @@ S(6)             2.350e-04
 	As_native       -86.47  -99.00  -12.53  As
 	Brucite          -3.98   12.86   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -14.82  -33.72  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.52 -145.38   -2.86  CH4
 	Claudetite      -72.92  -74.26   -1.34  As2O3
 	CO2(g)           -3.32   -4.79   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.83   -8.97   -2.14  MgSO4:7H2O
 	Gypsum           -4.26   -8.84   -4.58  CaSO4:2H2O
@@ -5659,7 +5659,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   4.037e-02   3.913e-02  -1.237e-03
-	Dolomite          0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.473e-04
+	Dolomite         -0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.473e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -5823,7 +5823,7 @@ S(6)             2.350e-04
 	CH4(g)         -142.50 -145.36   -2.86  CH4
 	Claudetite      -72.91  -74.25   -1.34  As2O3
 	CO2(g)           -3.30   -4.77   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.81   -8.95   -2.14  MgSO4:7H2O
 	Gypsum           -4.24   -8.82   -4.58  CaSO4:2H2O
@@ -5861,7 +5861,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   3.913e-02   3.790e-02  -1.227e-03
+	Calcite           0.00   -8.48   -8.48   3.913e-02   3.790e-02  -1.227e-03
 	Dolomite         -0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.395e-04
 
 ------------------------------Surface composition------------------------------
@@ -5900,10 +5900,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.688e-01   5.688e-01   5.688e-01    -0.000
-	CaX2              1.469e-01   2.938e-01   2.938e-01    -0.000
-	MgX2              6.866e-02   1.373e-01   1.373e-01    -0.000
-	HX                7.216e-07   7.216e-07   7.216e-07    -0.000
+	NaX               5.688e-01   5.688e-01   5.688e-01     0.000
+	CaX2              1.469e-01   2.938e-01   2.938e-01     0.000
+	MgX2              6.866e-02   1.373e-01   1.373e-01     0.000
+	HX                7.216e-07   7.216e-07   7.216e-07     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -5929,7 +5929,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.169e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.43
-                               Iterations  =  12
+                               Iterations  =  16
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552947e+01
 
@@ -6022,7 +6022,7 @@ S(6)             2.350e-04
 	As_native       -86.45  -98.98  -12.53  As
 	Brucite          -4.02   12.82   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -14.91  -33.81  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.48 -145.34   -2.86  CH4
 	Claudetite      -72.90  -74.24   -1.34  As2O3
 	CO2(g)           -3.28   -4.75   -1.47  CO2
@@ -6103,10 +6103,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.594e-01   5.594e-01   5.594e-01     0.000
-	CaX2              1.501e-01   3.003e-01   3.003e-01     0.000
-	MgX2              7.016e-02   1.403e-01   1.403e-01     0.000
-	HX                7.464e-07   7.464e-07   7.464e-07     0.000
+	NaX               5.594e-01   5.594e-01   5.594e-01    -0.000
+	CaX2              1.501e-01   3.003e-01   3.003e-01    -0.000
+	MgX2              7.016e-02   1.403e-01   1.403e-01    -0.000
+	HX                7.464e-07   7.464e-07   7.464e-07    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -6335,7 +6335,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.836e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  12
+                               Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552933e+01
 
@@ -6470,8 +6470,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   3.547e-02   3.427e-02  -1.201e-03
-	Dolomite         -0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.181e-04
+	Calcite           0.00   -8.48   -8.48   3.547e-02   3.427e-02  -1.201e-03
+	Dolomite          0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.181e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -6538,7 +6538,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.685e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  14
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552926e+01
 
@@ -6631,11 +6631,11 @@ S(6)             2.350e-04
 	As_native       -86.43  -98.97  -12.53  As
 	Brucite          -4.08   12.76   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.05  -33.96  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.42 -145.28   -2.86  CH4
 	Claudetite      -72.86  -74.20   -1.34  As2O3
 	CO2(g)           -3.22   -4.69   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.73   -8.87   -2.14  MgSO4:7H2O
 	Gypsum           -4.16   -8.74   -4.58  CaSO4:2H2O
@@ -6712,10 +6712,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.314e-01   5.314e-01   5.314e-01     0.000
-	CaX2              1.597e-01   3.193e-01   3.193e-01     0.000
-	MgX2              7.462e-02   1.492e-01   1.492e-01     0.000
-	HX                8.250e-07   8.250e-07   8.250e-07     0.000
+	NaX               5.314e-01   5.314e-01   5.314e-01    -0.000
+	CaX2              1.597e-01   3.193e-01   3.193e-01    -0.000
+	MgX2              7.462e-02   1.492e-01   1.492e-01    -0.000
+	HX                8.250e-07   8.250e-07   8.250e-07    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -6741,7 +6741,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.544e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.40
-                               Iterations  =  22
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552920e+01
 
@@ -6876,8 +6876,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   3.308e-02   3.189e-02  -1.186e-03
-	Dolomite         -0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.053e-04
+	Calcite           0.00   -8.48   -8.48   3.308e-02   3.189e-02  -1.186e-03
+	Dolomite          0.00  -17.09  -17.09   1.586e+00   1.586e+00  -1.053e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -6915,10 +6915,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               5.222e-01   5.222e-01   5.222e-01    -0.000
-	CaX2              1.628e-01   3.256e-01   3.256e-01    -0.000
-	MgX2              7.609e-02   1.522e-01   1.522e-01    -0.000
-	HX                8.526e-07   8.526e-07   8.526e-07    -0.000
+	NaX               5.222e-01   5.222e-01   5.222e-01     0.000
+	CaX2              1.628e-01   3.256e-01   3.256e-01     0.000
+	MgX2              7.609e-02   1.522e-01   1.522e-01     0.000
+	HX                8.526e-07   8.526e-07   8.526e-07     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -7037,11 +7037,11 @@ S(6)             2.350e-04
 	As_native       -86.42  -98.95  -12.53  As
 	Brucite          -4.12   12.72   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.15  -34.05  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.38 -145.24   -2.86  CH4
 	Claudetite      -72.83  -74.17   -1.34  As2O3
 	CO2(g)           -3.18   -4.65   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.69   -8.83   -2.14  MgSO4:7H2O
 	Gypsum           -4.12   -8.70   -4.58  CaSO4:2H2O
@@ -7079,8 +7079,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   3.189e-02   3.072e-02  -1.178e-03
-	Dolomite         -0.00  -17.09  -17.09   1.586e+00   1.585e+00  -9.926e-05
+	Calcite           0.00   -8.48   -8.48   3.189e-02   3.072e-02  -1.178e-03
+	Dolomite          0.00  -17.09  -17.09   1.586e+00   1.585e+00  -9.926e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -7240,11 +7240,11 @@ S(6)             2.350e-04
 	As_native       -86.42  -98.95  -12.53  As
 	Brucite          -4.14   12.70   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.20  -34.10  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.36 -145.22   -2.86  CH4
 	Claudetite      -72.82  -74.16   -1.34  As2O3
 	CO2(g)           -3.16   -4.63   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.67   -8.81   -2.14  MgSO4:7H2O
 	Gypsum           -4.09   -8.68   -4.58  CaSO4:2H2O
@@ -7282,8 +7282,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48   3.072e-02   2.954e-02  -1.171e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -9.346e-05
+	Calcite          -0.00   -8.48   -8.48   3.072e-02   2.954e-02  -1.171e-03
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -9.346e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -7350,7 +7350,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.172e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  10
+                               Iterations  =  12
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552902e+01
 
@@ -7443,11 +7443,11 @@ S(6)             2.349e-04
 	As_native       -86.41  -98.94  -12.53  As
 	Brucite          -4.16   12.68   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.24  -34.15  -18.91  Ca3(AsO4)2:4H2O
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.34 -145.20   -2.86  CH4
 	Claudetite      -72.81  -74.15   -1.34  As2O3
 	CO2(g)           -3.14   -4.61   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.65   -8.79   -2.14  MgSO4:7H2O
 	Gypsum           -4.07   -8.65   -4.58  CaSO4:2H2O
@@ -7524,10 +7524,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               4.947e-01   4.947e-01   4.947e-01     0.000
-	CaX2              1.722e-01   3.443e-01   3.443e-01     0.000
-	MgX2              8.047e-02   1.609e-01   1.609e-01     0.000
-	HX                9.404e-07   9.404e-07   9.404e-07     0.000
+	NaX               4.947e-01   4.947e-01   4.947e-01    -0.000
+	CaX2              1.722e-01   3.443e-01   3.443e-01    -0.000
+	MgX2              8.047e-02   1.609e-01   1.609e-01    -0.000
+	HX                9.404e-07   9.404e-07   9.404e-07    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -7553,7 +7553,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.064e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.38
-                               Iterations  =  23
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552897e+01
 
@@ -7688,8 +7688,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   2.838e-02   2.722e-02  -1.157e-03
-	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -8.251e-05
+	Calcite           0.00   -8.48   -8.48   2.838e-02   2.722e-02  -1.157e-03
+	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -8.251e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -7756,7 +7756,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.962e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.38
-                               Iterations  =  10
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552892e+01
 
@@ -7849,11 +7849,11 @@ S(6)             2.349e-04
 	As_native       -86.40  -98.93  -12.53  As
 	Brucite          -4.20   12.64   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.34  -34.25  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.30 -145.16   -2.86  CH4
 	Claudetite      -72.79  -74.13   -1.34  As2O3
 	CO2(g)           -3.10   -4.57   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.60   -8.74   -2.14  MgSO4:7H2O
 	Gypsum           -4.03   -8.61   -4.58  CaSO4:2H2O
@@ -7891,8 +7891,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48   2.722e-02   2.607e-02  -1.151e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -7.735e-05
+	Calcite          -0.00   -8.48   -8.48   2.722e-02   2.607e-02  -1.151e-03
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -7.735e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -7959,7 +7959,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.867e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  17
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552886e+01
 
@@ -8052,11 +8052,11 @@ S(6)             2.349e-04
 	As_native       -86.39  -98.92  -12.53  As
 	Brucite          -4.22   12.62   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.39  -34.30  -18.91  Ca3(AsO4)2:4H2O
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.28 -145.14   -2.86  CH4
 	Claudetite      -72.78  -74.12   -1.34  As2O3
 	CO2(g)           -3.08   -4.55   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.58   -8.72   -2.14  MgSO4:7H2O
 	Gypsum           -4.01   -8.59   -4.58  CaSO4:2H2O
@@ -8162,7 +8162,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.778e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  10
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552881e+01
 
@@ -8298,7 +8298,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   2.493e-02   2.379e-02  -1.138e-03
-	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -6.758e-05
+	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -6.758e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -8365,7 +8365,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.695e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  12
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552877e+01
 
@@ -8462,7 +8462,7 @@ S(6)             2.349e-04
 	CH4(g)         -142.23 -145.09   -2.86  CH4
 	Claudetite      -72.75  -74.09   -1.34  As2O3
 	CO2(g)           -3.04   -4.51   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.54   -8.68   -2.14  MgSO4:7H2O
 	Gypsum           -3.97   -8.55   -4.58  CaSO4:2H2O
@@ -8501,7 +8501,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   2.379e-02   2.266e-02  -1.132e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -6.295e-05
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -6.295e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -8568,7 +8568,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.617e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  13
+                               Iterations  =   9
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552872e+01
 
@@ -8665,7 +8665,7 @@ S(6)             2.349e-04
 	CH4(g)         -142.21 -145.07   -2.86  CH4
 	Claudetite      -72.74  -74.08   -1.34  As2O3
 	CO2(g)           -3.02   -4.49   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.52   -8.66   -2.14  MgSO4:7H2O
 	Gypsum           -3.95   -8.53   -4.58  CaSO4:2H2O
@@ -8771,7 +8771,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.545e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  12
+                               Iterations  =   9
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552868e+01
 
@@ -8945,10 +8945,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               4.320e-01   4.320e-01   4.320e-01     0.000
-	CaX2              1.936e-01   3.871e-01   3.871e-01     0.000
-	MgX2              9.046e-02   1.809e-01   1.809e-01     0.000
-	HX                1.179e-06   1.179e-06   1.179e-06     0.000
+	NaX               4.320e-01   4.320e-01   4.320e-01    -0.000
+	CaX2              1.936e-01   3.871e-01   3.871e-01    -0.000
+	MgX2              9.046e-02   1.809e-01   1.809e-01    -0.000
+	HX                1.179e-06   1.179e-06   1.179e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -8974,7 +8974,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.478e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  12
+                               Iterations  =  10
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552863e+01
 
@@ -9380,7 +9380,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.359e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  10
+                               Iterations  =  12
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552855e+01
 
@@ -9515,8 +9515,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48   1.819e-02   1.709e-02  -1.103e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -4.210e-05
+	Calcite          -0.00   -8.48   -8.48   1.819e-02   1.709e-02  -1.103e-03
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -4.210e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -9583,7 +9583,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.307e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  10
+                               Iterations  =  12
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552851e+01
 
@@ -9676,11 +9676,11 @@ S(6)             2.347e-04
 	As_native       -86.35  -98.88  -12.53  As
 	Brucite          -4.39   12.45   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.82  -34.72  -18.91  Ca3(AsO4)2:4H2O
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.11 -144.97   -2.86  CH4
 	Claudetite      -72.69  -74.03   -1.34  As2O3
 	CO2(g)           -2.91   -4.38   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.41   -8.55   -2.14  MgSO4:7H2O
 	Gypsum           -3.84   -8.42   -4.58  CaSO4:2H2O
@@ -9718,7 +9718,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   1.709e-02   1.599e-02  -1.098e-03
+	Calcite           0.00   -8.48   -8.48   1.709e-02   1.599e-02  -1.098e-03
 	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -3.833e-05
 
 ------------------------------Surface composition------------------------------
@@ -9786,7 +9786,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.259e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  12
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552847e+01
 
@@ -9879,7 +9879,7 @@ S(6)             2.347e-04
 	As_native       -86.34  -98.88  -12.53  As
 	Brucite          -4.41   12.43   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -15.87  -34.78  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -142.08 -144.94   -2.86  CH4
 	Claudetite      -72.68  -74.02   -1.34  As2O3
 	CO2(g)           -2.89   -4.36   -1.47  CO2
@@ -9922,7 +9922,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   1.599e-02   1.490e-02  -1.092e-03
-	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -3.467e-05
+	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -3.467e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -9960,10 +9960,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               3.882e-01   3.882e-01   3.882e-01    -0.000
-	CaX2              2.085e-01   4.170e-01   4.170e-01    -0.000
-	MgX2              9.744e-02   1.949e-01   1.949e-01    -0.000
-	HX                1.386e-06   1.386e-06   1.386e-06    -0.000
+	NaX               3.882e-01   3.882e-01   3.882e-01     0.000
+	CaX2              2.085e-01   4.170e-01   4.170e-01     0.000
+	MgX2              9.744e-02   1.949e-01   1.949e-01     0.000
+	HX                1.386e-06   1.386e-06   1.386e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -9989,7 +9989,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.215e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  12
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552843e+01
 
@@ -10086,7 +10086,7 @@ S(6)             2.346e-04
 	CH4(g)         -142.06 -144.92   -2.86  CH4
 	Claudetite      -72.67  -74.01   -1.34  As2O3
 	CO2(g)           -2.87   -4.34   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.37   -8.51   -2.14  MgSO4:7H2O
 	Gypsum           -3.79   -8.38   -4.58  CaSO4:2H2O
@@ -10125,7 +10125,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   1.490e-02   1.381e-02  -1.087e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -3.112e-05
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -3.112e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -10163,10 +10163,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               3.795e-01   3.795e-01   3.795e-01     0.000
-	CaX2              2.114e-01   4.229e-01   4.229e-01     0.000
-	MgX2              9.882e-02   1.976e-01   1.976e-01     0.000
-	HX                1.432e-06   1.432e-06   1.432e-06     0.000
+	NaX               3.795e-01   3.795e-01   3.795e-01    -0.000
+	CaX2              2.114e-01   4.229e-01   4.229e-01    -0.000
+	MgX2              9.882e-02   1.976e-01   1.976e-01    -0.000
+	HX                1.432e-06   1.432e-06   1.432e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -10289,7 +10289,7 @@ S(6)             2.346e-04
 	CH4(g)         -142.04 -144.90   -2.86  CH4
 	Claudetite      -72.66  -74.00   -1.34  As2O3
 	CO2(g)           -2.85   -4.31   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.34   -8.48   -2.14  MgSO4:7H2O
 	Gypsum           -3.77   -8.35   -4.58  CaSO4:2H2O
@@ -10531,7 +10531,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   1.273e-02   1.165e-02  -1.076e-03
-	Dolomite          0.00  -17.09  -17.09   1.585e+00   1.585e+00  -2.433e-05
+	Dolomite         -0.00  -17.09  -17.09   1.585e+00   1.585e+00  -2.433e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -10569,10 +10569,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               3.623e-01   3.623e-01   3.623e-01     0.000
-	CaX2              2.173e-01   4.346e-01   4.346e-01     0.000
-	MgX2              1.016e-01   2.031e-01   2.031e-01     0.000
-	HX                1.529e-06   1.529e-06   1.529e-06     0.000
+	NaX               3.623e-01   3.623e-01   3.623e-01    -0.000
+	CaX2              2.173e-01   4.346e-01   4.346e-01    -0.000
+	MgX2              1.016e-01   2.031e-01   2.031e-01    -0.000
+	HX                1.529e-06   1.529e-06   1.529e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -10695,7 +10695,7 @@ S(6)             2.345e-04
 	CH4(g)         -142.00 -144.86   -2.86  CH4
 	Claudetite      -72.64  -73.98   -1.34  As2O3
 	CO2(g)           -2.80   -4.27   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.30   -8.44   -2.14  MgSO4:7H2O
 	Gypsum           -3.73   -8.31   -4.58  CaSO4:2H2O
@@ -10772,10 +10772,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               3.537e-01   3.537e-01   3.537e-01     0.000
-	CaX2              2.202e-01   4.404e-01   4.404e-01     0.000
-	MgX2              1.029e-01   2.058e-01   2.058e-01     0.000
-	HX                1.581e-06   1.581e-06   1.581e-06     0.000
+	NaX               3.537e-01   3.537e-01   3.537e-01    -0.000
+	CaX2              2.202e-01   4.404e-01   4.404e-01    -0.000
+	MgX2              1.029e-01   2.058e-01   2.058e-01    -0.000
+	HX                1.581e-06   1.581e-06   1.581e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -11342,8 +11342,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   8.456e-03   7.401e-03  -1.055e-03
-	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00  -1.174e-05
+	Calcite           0.00   -8.48   -8.48   8.456e-03   7.401e-03  -1.055e-03
+	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00  -1.174e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -11381,10 +11381,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               3.283e-01   3.283e-01   3.283e-01    -0.000
-	CaX2              2.289e-01   4.578e-01   4.578e-01    -0.000
-	MgX2              1.070e-01   2.140e-01   2.140e-01    -0.000
-	HX                1.746e-06   1.746e-06   1.746e-06    -0.000
+	NaX               3.283e-01   3.283e-01   3.283e-01     0.000
+	CaX2              2.289e-01   4.578e-01   4.578e-01     0.000
+	MgX2              1.070e-01   2.140e-01   2.140e-01     0.000
+	HX                1.746e-06   1.746e-06   1.746e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -11503,11 +11503,11 @@ S(6)             2.341e-04
 	As_native       -86.30  -98.83  -12.53  As
 	Brucite          -4.59   12.25   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -16.34  -35.24  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -141.90 -144.76   -2.86  CH4
 	Claudetite      -72.60  -73.94   -1.34  As2O3
 	CO2(g)           -2.71   -4.18   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.20   -8.34   -2.14  MgSO4:7H2O
 	Gypsum           -3.63   -8.21   -4.58  CaSO4:2H2O
@@ -11749,7 +11749,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   6.352e-03   5.309e-03  -1.043e-03
-	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00  -5.848e-06
+	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00  -5.848e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -11913,7 +11913,7 @@ S(6)             2.339e-04
 	CH4(g)         -141.85 -144.71   -2.86  CH4
 	Claudetite      -72.58  -73.92   -1.34  As2O3
 	CO2(g)           -2.66   -4.13   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.15   -8.29   -2.14  MgSO4:7H2O
 	Gypsum           -3.58   -8.16   -4.58  CaSO4:2H2O
@@ -11952,7 +11952,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite           0.00   -8.48   -8.48   5.309e-03   4.271e-03  -1.038e-03
-	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00  -2.977e-06
+	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00  -2.977e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -12116,7 +12116,7 @@ S(6)             2.337e-04
 	CH4(g)         -141.83 -144.69   -2.86  CH4
 	Claudetite      -72.57  -73.91   -1.34  As2O3
 	CO2(g)           -2.64   -4.10   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.13   -8.27   -2.14  MgSO4:7H2O
 	Gypsum           -3.56   -8.14   -4.58  CaSO4:2H2O
@@ -12154,8 +12154,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite           0.00   -8.48   -8.48   4.271e-03   3.239e-03  -1.032e-03
-	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00  -1.474e-07
+	Calcite          -0.00   -8.48   -8.48   4.271e-03   3.239e-03  -1.032e-03
+	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00  -1.474e-07
 
 ------------------------------Surface composition------------------------------
 
@@ -12315,11 +12315,11 @@ S(6)             2.336e-04
 	As_native       -86.28  -98.81  -12.53  As
 	Brucite          -4.69   12.15   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -16.58  -35.49  -18.91  Ca3(AsO4)2:4H2O
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -141.81 -144.67   -2.86  CH4
 	Claudetite      -72.56  -73.90   -1.34  As2O3
 	CO2(g)           -2.61   -4.08   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.10   -8.24   -2.14  MgSO4:7H2O
 	Gypsum           -3.53   -8.11   -4.58  CaSO4:2H2O
@@ -12396,10 +12396,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               2.865e-01   2.865e-01   2.865e-01    -0.000
-	CaX2              2.431e-01   4.862e-01   4.862e-01    -0.000
-	MgX2              1.136e-01   2.272e-01   2.272e-01    -0.000
-	HX                2.069e-06   2.069e-06   2.069e-06    -0.000
+	NaX               2.865e-01   2.865e-01   2.865e-01     0.000
+	CaX2              2.431e-01   4.862e-01   4.862e-01     0.000
+	MgX2              1.136e-01   2.272e-01   2.272e-01     0.000
+	HX                2.069e-06   2.069e-06   2.069e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -12560,7 +12560,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   2.214e-03   1.194e-03  -1.020e-03
+	Calcite           0.00   -8.48   -8.48   2.214e-03   1.194e-03  -1.020e-03
 	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00   5.415e-06
 
 ------------------------------Surface composition------------------------------
@@ -12721,7 +12721,7 @@ S(6)             2.332e-04
 	As_native       -86.27  -98.80  -12.53  As
 	Brucite          -4.74   12.10   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -16.71  -35.62  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -141.76 -144.62   -2.86  CH4
 	Claudetite      -72.53  -73.87   -1.34  As2O3
 	CO2(g)           -2.56   -4.03   -1.47  CO2
@@ -12763,8 +12763,8 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Calcite          -0.00   -8.48   -8.48   1.194e-03   1.806e-04  -1.013e-03
-	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00   8.163e-06
+	Calcite           0.00   -8.48   -8.48   1.194e-03   1.806e-04  -1.013e-03
+	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00   8.163e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -12831,7 +12831,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.021e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  13
+                               Iterations  =  12
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552793e+01
 
@@ -12924,11 +12924,11 @@ S(6)             2.329e-04
 	As_native       -86.27  -98.80  -12.53  As
 	Brucite          -4.77   12.07   16.84  Mg(OH)2
 	Ca3(AsO4)2:4w   -16.78  -35.68  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -141.73 -144.59   -2.86  CH4
 	Claudetite      -72.52  -73.86   -1.34  As2O3
 	CO2(g)           -2.54   -4.00   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.03   -8.17   -2.14  MgSO4:7H2O
 	Gypsum           -3.46   -8.04   -4.58  CaSO4:2H2O
@@ -12967,7 +12967,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.00   -8.48   -8.48   1.806e-04           0  -1.806e-04
-	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.584e+00  -4.018e-04
+	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.584e+00  -4.018e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -13005,10 +13005,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	NaX               2.620e-01   2.620e-01   2.620e-01    -0.000
-	CaX2              2.511e-01   5.021e-01   5.021e-01    -0.000
-	MgX2              1.179e-01   2.359e-01   2.359e-01    -0.000
-	HX                2.297e-06   2.297e-06   2.297e-06    -0.000
+	NaX               2.620e-01   2.620e-01   2.620e-01     0.000
+	CaX2              2.511e-01   5.021e-01   5.021e-01     0.000
+	MgX2              1.179e-01   2.359e-01   2.359e-01     0.000
+	HX                2.297e-06   2.297e-06   2.297e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -13034,7 +13034,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.087e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  11
+                               Iterations  =  12
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552789e+01
 
@@ -13131,7 +13131,7 @@ S(6)             2.326e-04
 	CH4(g)         -141.71 -144.57   -2.86  CH4
 	Claudetite      -72.51  -73.85   -1.34  As2O3
 	CO2(g)           -2.51   -3.98   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -6.00   -8.14   -2.14  MgSO4:7H2O
 	Gypsum           -3.43   -8.01   -4.58  CaSO4:2H2O
@@ -13237,7 +13237,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.127e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  12
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552785e+01
 
@@ -13373,7 +13373,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.00   -8.48   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.584e+00   1.583e+00  -4.793e-04
+	Dolomite          0.00  -17.09  -17.09   1.584e+00   1.583e+00  -4.793e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -13537,7 +13537,7 @@ S(6)             2.320e-04
 	CH4(g)         -141.65 -144.51   -2.86  CH4
 	Claudetite      -72.49  -73.83   -1.34  As2O3
 	CO2(g)           -2.46   -3.93   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.94   -8.08   -2.14  MgSO4:7H2O
 	Gypsum           -3.38   -7.96   -4.58  CaSO4:2H2O
@@ -13576,7 +13576,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.00   -8.48   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.583e+00   1.583e+00  -4.727e-04
+	Dolomite         -0.00  -17.09  -17.09   1.583e+00   1.583e+00  -4.727e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -13740,7 +13740,7 @@ S(6)             2.316e-04
 	CH4(g)         -141.63 -144.49   -2.86  CH4
 	Claudetite      -72.48  -73.82   -1.34  As2O3
 	CO2(g)           -2.43   -3.90   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.92   -8.06   -2.14  MgSO4:7H2O
 	Gypsum           -3.35   -7.94   -4.58  CaSO4:2H2O
@@ -13779,7 +13779,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.583e+00   1.582e+00  -4.659e-04
+	Dolomite          0.00  -17.09  -17.09   1.583e+00   1.582e+00  -4.659e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -13943,7 +13943,7 @@ S(6)             2.311e-04
 	CH4(g)         -141.60 -144.46   -2.86  CH4
 	Claudetite      -72.47  -73.81   -1.34  As2O3
 	CO2(g)           -2.41   -3.87   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.89   -8.03   -2.14  MgSO4:7H2O
 	Gypsum           -3.33   -7.91   -4.58  CaSO4:2H2O
@@ -13982,7 +13982,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.582e+00   1.582e+00  -4.590e-04
+	Dolomite          0.00  -17.09  -17.09   1.582e+00   1.582e+00  -4.590e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -14020,10 +14020,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.622e-01   5.244e-01   5.244e-01    -0.000
-	NaX               2.221e-01   2.221e-01   2.221e-01    -0.000
-	MgX2              1.267e-01   2.535e-01   2.535e-01    -0.000
-	HX                2.751e-06   2.751e-06   2.751e-06    -0.000
+	CaX2              2.622e-01   5.244e-01   5.244e-01     0.000
+	NaX               2.221e-01   2.221e-01   2.221e-01     0.000
+	MgX2              1.267e-01   2.535e-01   2.535e-01     0.000
+	HX                2.751e-06   2.751e-06   2.751e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -14146,7 +14146,7 @@ S(6)             2.306e-04
 	CH4(g)         -141.57 -144.43   -2.86  CH4
 	Claudetite      -72.46  -73.80   -1.34  As2O3
 	CO2(g)           -2.38   -3.85   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.86   -8.00   -2.14  MgSO4:7H2O
 	Gypsum           -3.30   -7.88   -4.58  CaSO4:2H2O
@@ -14591,7 +14591,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.581e+00   1.580e+00  -4.364e-04
+	Dolomite          0.00  -17.09  -17.09   1.581e+00   1.580e+00  -4.364e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -14629,10 +14629,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.687e-01   5.374e-01   5.374e-01    -0.000
-	NaX               1.989e-01   1.989e-01   1.989e-01    -0.000
-	MgX2              1.319e-01   2.637e-01   2.637e-01    -0.000
-	HX                3.069e-06   3.069e-06   3.069e-06    -0.000
+	CaX2              2.687e-01   5.374e-01   5.374e-01     0.000
+	NaX               1.989e-01   1.989e-01   1.989e-01     0.000
+	MgX2              1.319e-01   2.637e-01   2.637e-01     0.000
+	HX                3.069e-06   3.069e-06   3.069e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -14755,7 +14755,7 @@ S(6)             2.287e-04
 	CH4(g)         -141.49 -144.35   -2.86  CH4
 	Claudetite      -72.42  -73.76   -1.34  As2O3
 	CO2(g)           -2.30   -3.77   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.77   -7.91   -2.14  MgSO4:7H2O
 	Gypsum           -3.22   -7.80   -4.58  CaSO4:2H2O
@@ -14794,7 +14794,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.580e+00   1.580e+00  -4.283e-04
+	Dolomite          0.00  -17.09  -17.09   1.580e+00   1.580e+00  -4.283e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -14818,7 +14818,7 @@ Hfo_w
 	Hfo_wO-           5.909e-03       0.084   5.909e-03      -2.228
 	Hfo_wOHAsO4-3     1.452e-03       0.021   1.452e-03      -2.838
 	Hfo_wOHSO4-2      5.925e-05       0.001   5.926e-05      -4.227
-	Hfo_wSO4-         5.996e-06       0.000   5.997e-06      -5.222
+	Hfo_wSO4-         5.996e-06       0.000   5.996e-06      -5.222
 	Hfo_wHAsO4-       1.325e-06       0.000   1.325e-06      -5.878
 	Hfo_wH2AsO4       8.655e-09       0.000   8.656e-09      -8.063
 	Hfo_wOCa+         4.566e-13       0.000   4.566e-13     -12.340
@@ -14832,10 +14832,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.708e-01   5.416e-01   5.416e-01    -0.000
-	NaX               1.913e-01   1.913e-01   1.913e-01    -0.000
-	MgX2              1.335e-01   2.671e-01   2.671e-01    -0.000
-	HX                3.183e-06   3.183e-06   3.183e-06    -0.000
+	CaX2              2.708e-01   5.416e-01   5.416e-01     0.000
+	NaX               1.913e-01   1.913e-01   1.913e-01     0.000
+	MgX2              1.335e-01   2.671e-01   2.671e-01     0.000
+	HX                3.183e-06   3.183e-06   3.183e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -14958,7 +14958,7 @@ S(6)             2.278e-04
 	CH4(g)         -141.47 -144.33   -2.86  CH4
 	Claudetite      -72.41  -73.75   -1.34  As2O3
 	CO2(g)           -2.27   -3.74   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.74   -7.88   -2.14  MgSO4:7H2O
 	Gypsum           -3.20   -7.78   -4.58  CaSO4:2H2O
@@ -15035,10 +15035,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.729e-01   5.458e-01   5.458e-01     0.000
-	NaX               1.838e-01   1.838e-01   1.838e-01     0.000
-	MgX2              1.352e-01   2.704e-01   2.704e-01     0.000
-	HX                3.301e-06   3.301e-06   3.301e-06     0.000
+	CaX2              2.729e-01   5.458e-01   5.458e-01    -0.000
+	NaX               1.838e-01   1.838e-01   1.838e-01    -0.000
+	MgX2              1.352e-01   2.704e-01   2.704e-01    -0.000
+	HX                3.301e-06   3.301e-06   3.301e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -15200,7 +15200,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.01   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.580e+00   1.579e+00  -4.108e-04
+	Dolomite          0.00  -17.09  -17.09   1.580e+00   1.579e+00  -4.108e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -15238,10 +15238,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.750e-01   5.500e-01   5.500e-01    -0.000
-	NaX               1.764e-01   1.764e-01   1.764e-01    -0.000
-	MgX2              1.368e-01   2.736e-01   2.736e-01    -0.000
-	HX                3.424e-06   3.424e-06   3.424e-06    -0.000
+	CaX2              2.750e-01   5.500e-01   5.500e-01     0.000
+	NaX               1.764e-01   1.764e-01   1.764e-01     0.000
+	MgX2              1.368e-01   2.736e-01   2.736e-01     0.000
+	HX                3.424e-06   3.424e-06   3.424e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -15364,7 +15364,7 @@ S(6)             2.260e-04
 	CH4(g)         -141.41 -144.27   -2.86  CH4
 	Claudetite      -72.38  -73.72   -1.34  As2O3
 	CO2(g)           -2.22   -3.68   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.69   -7.83   -2.14  MgSO4:7H2O
 	Gypsum           -3.14   -7.72   -4.58  CaSO4:2H2O
@@ -15441,10 +15441,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.771e-01   5.541e-01   5.541e-01     0.000
-	NaX               1.690e-01   1.690e-01   1.690e-01     0.000
-	MgX2              1.384e-01   2.768e-01   2.768e-01     0.000
-	HX                3.550e-06   3.550e-06   3.550e-06     0.000
+	CaX2              2.771e-01   5.541e-01   5.541e-01    -0.000
+	NaX               1.690e-01   1.690e-01   1.690e-01    -0.000
+	MgX2              1.384e-01   2.768e-01   2.768e-01    -0.000
+	HX                3.550e-06   3.550e-06   3.550e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -15606,7 +15606,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.579e+00   1.578e+00  -3.918e-04
+	Dolomite         -0.00  -17.09  -17.09   1.579e+00   1.578e+00  -3.918e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -15770,7 +15770,7 @@ S(6)             2.237e-04
 	CH4(g)         -141.36 -144.22   -2.86  CH4
 	Claudetite      -72.35  -73.69   -1.34  As2O3
 	CO2(g)           -2.16   -3.63   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.63   -7.77   -2.14  MgSO4:7H2O
 	Gypsum           -3.09   -7.67   -4.58  CaSO4:2H2O
@@ -16012,7 +16012,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.578e+00   1.578e+00  -3.710e-04
+	Dolomite         -0.00  -17.09  -17.09   1.578e+00   1.578e+00  -3.710e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -16176,7 +16176,7 @@ S(6)             2.210e-04
 	CH4(g)         -141.30 -144.16   -2.86  CH4
 	Claudetite      -72.32  -73.66   -1.34  As2O3
 	CO2(g)           -2.11   -3.58   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.57   -7.71   -2.14  MgSO4:7H2O
 	Gypsum           -3.03   -7.61   -4.58  CaSO4:2H2O
@@ -16215,7 +16215,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.578e+00   1.577e+00  -3.599e-04
+	Dolomite         -0.00  -17.09  -17.09   1.578e+00   1.577e+00  -3.599e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -16379,7 +16379,7 @@ S(6)             2.195e-04
 	CH4(g)         -141.28 -144.14   -2.86  CH4
 	Claudetite      -72.31  -73.65   -1.34  As2O3
 	CO2(g)           -2.08   -3.55   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.54   -7.68   -2.14  MgSO4:7H2O
 	Gypsum           -3.01   -7.59   -4.58  CaSO4:2H2O
@@ -16456,10 +16456,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.869e-01   5.739e-01   5.739e-01     0.000
-	MgX2              1.461e-01   2.922e-01   2.922e-01     0.000
-	NaX               1.339e-01   1.339e-01   1.339e-01     0.000
-	HX                4.241e-06   4.241e-06   4.241e-06     0.000
+	CaX2              2.869e-01   5.739e-01   5.739e-01    -0.000
+	MgX2              1.461e-01   2.922e-01   2.922e-01    -0.000
+	NaX               1.339e-01   1.339e-01   1.339e-01    -0.000
+	HX                4.241e-06   4.241e-06   4.241e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -16621,7 +16621,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.577e+00   1.577e+00  -3.364e-04
+	Dolomite          0.00  -17.09  -17.09   1.577e+00   1.577e+00  -3.364e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -16659,10 +16659,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.888e-01   5.776e-01   5.776e-01     0.000
-	MgX2              1.475e-01   2.951e-01   2.951e-01     0.000
-	NaX               1.273e-01   1.273e-01   1.273e-01     0.000
-	HX                4.389e-06   4.389e-06   4.389e-06     0.000
+	CaX2              2.888e-01   5.776e-01   5.776e-01    -0.000
+	MgX2              1.475e-01   2.951e-01   2.951e-01    -0.000
+	NaX               1.273e-01   1.273e-01   1.273e-01    -0.000
+	HX                4.389e-06   4.389e-06   4.389e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -16785,7 +16785,7 @@ S(6)             2.161e-04
 	CH4(g)         -141.22 -144.08   -2.86  CH4
 	Claudetite      -72.27  -73.61   -1.34  As2O3
 	CO2(g)           -2.03   -3.50   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.49   -7.63   -2.14  MgSO4:7H2O
 	Gypsum           -2.96   -7.54   -4.58  CaSO4:2H2O
@@ -16891,7 +16891,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.390e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  14
+                               Iterations  =  13
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552681e+01
 
@@ -17674,10 +17674,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.976e-01   5.953e-01   5.953e-01     0.000
-	MgX2              1.543e-01   3.085e-01   3.085e-01     0.000
-	NaX               9.621e-02   9.621e-02   9.621e-02     0.000
-	HX                5.169e-06   5.169e-06   5.169e-06     0.000
+	CaX2              2.976e-01   5.953e-01   5.953e-01    -0.000
+	MgX2              1.543e-01   3.085e-01   3.085e-01    -0.000
+	NaX               9.621e-02   9.621e-02   9.621e-02    -0.000
+	HX                5.169e-06   5.169e-06   5.169e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -17839,7 +17839,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.575e+00   1.575e+00  -2.566e-04
+	Dolomite          0.00  -17.09  -17.09   1.575e+00   1.575e+00  -2.566e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -18003,7 +18003,7 @@ S(6)             2.049e-04
 	CH4(g)         -141.07 -143.93   -2.86  CH4
 	Claudetite      -72.16  -73.50   -1.34  As2O3
 	CO2(g)           -1.88   -3.35   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.33   -7.47   -2.14  MgSO4:7H2O
 	Gypsum           -2.81   -7.39   -4.58  CaSO4:2H2O
@@ -18245,7 +18245,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.575e+00   1.574e+00  -2.282e-04
+	Dolomite         -0.00  -17.09  -17.09   1.575e+00   1.574e+00  -2.282e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -18409,7 +18409,7 @@ S(6)             2.013e-04
 	CH4(g)         -141.03 -143.89   -2.86  CH4
 	Claudetite      -72.12  -73.46   -1.34  As2O3
 	CO2(g)           -1.83   -3.30   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.29   -7.43   -2.14  MgSO4:7H2O
 	Gypsum           -2.76   -7.34   -4.58  CaSO4:2H2O
@@ -18448,7 +18448,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.574e+00   1.574e+00  -2.139e-04
+	Dolomite         -0.00  -17.09  -17.09   1.574e+00   1.574e+00  -2.139e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -18612,7 +18612,7 @@ S(6)             1.996e-04
 	CH4(g)         -141.01 -143.87   -2.86  CH4
 	Claudetite      -72.09  -73.43   -1.34  As2O3
 	CO2(g)           -1.81   -3.28   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.26   -7.40   -2.14  MgSO4:7H2O
 	Gypsum           -2.74   -7.32   -4.58  CaSO4:2H2O
@@ -18651,7 +18651,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.574e+00   1.574e+00  -1.998e-04
+	Dolomite         -0.00  -17.09  -17.09   1.574e+00   1.574e+00  -1.998e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -18815,7 +18815,7 @@ S(6)             1.981e-04
 	CH4(g)         -140.99 -143.85   -2.86  CH4
 	Claudetite      -72.07  -73.41   -1.34  As2O3
 	CO2(g)           -1.79   -3.26   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.24   -7.38   -2.14  MgSO4:7H2O
 	Gypsum           -2.72   -7.30   -4.58  CaSO4:2H2O
@@ -19260,7 +19260,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.574e+00   1.573e+00  -1.587e-04
+	Dolomite         -0.00  -17.09  -17.09   1.574e+00   1.573e+00  -1.587e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -19424,7 +19424,7 @@ S(6)             1.944e-04
 	CH4(g)         -140.93 -143.79   -2.86  CH4
 	Claudetite      -72.00  -73.34   -1.34  As2O3
 	CO2(g)           -1.73   -3.20   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.18   -7.32   -2.14  MgSO4:7H2O
 	Gypsum           -2.66   -7.24   -4.58  CaSO4:2H2O
@@ -19463,7 +19463,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.457e-04
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.457e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -19627,7 +19627,7 @@ S(6)             1.936e-04
 	CH4(g)         -140.91 -143.77   -2.86  CH4
 	Claudetite      -71.98  -73.32   -1.34  As2O3
 	CO2(g)           -1.72   -3.18   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.16   -7.30   -2.14  MgSO4:7H2O
 	Gypsum           -2.64   -7.22   -4.58  CaSO4:2H2O
@@ -19666,7 +19666,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.333e-04
+	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.333e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -19830,7 +19830,7 @@ S(6)             1.929e-04
 	CH4(g)         -140.89 -143.75   -2.86  CH4
 	Claudetite      -71.96  -73.30   -1.34  As2O3
 	CO2(g)           -1.70   -3.17   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.14   -7.28   -2.14  MgSO4:7H2O
 	Gypsum           -2.62   -7.20   -4.58  CaSO4:2H2O
@@ -19869,7 +19869,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.213e-04
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -1.213e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -20033,7 +20033,7 @@ S(6)             1.925e-04
 	CH4(g)         -140.88 -143.74   -2.86  CH4
 	Claudetite      -71.94  -73.28   -1.34  As2O3
 	CO2(g)           -1.68   -3.15   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.12   -7.26   -2.14  MgSO4:7H2O
 	Gypsum           -2.60   -7.18   -4.58  CaSO4:2H2O
@@ -20275,7 +20275,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -9.921e-05
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -9.921e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -20439,7 +20439,7 @@ S(6)             1.923e-04
 	CH4(g)         -140.85 -143.71   -2.86  CH4
 	Claudetite      -71.89  -73.23   -1.34  As2O3
 	CO2(g)           -1.66   -3.12   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.08   -7.22   -2.14  MgSO4:7H2O
 	Gypsum           -2.57   -7.15   -4.58  CaSO4:2H2O
@@ -20478,7 +20478,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -8.913e-05
+	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -8.913e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -20642,7 +20642,7 @@ S(6)             1.925e-04
 	CH4(g)         -140.84 -143.70   -2.86  CH4
 	Claudetite      -71.87  -73.21   -1.34  As2O3
 	CO2(g)           -1.64   -3.11   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.07   -7.21   -2.14  MgSO4:7H2O
 	Gypsum           -2.55   -7.13   -4.58  CaSO4:2H2O
@@ -20884,7 +20884,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.573e+00   1.573e+00  -7.100e-05
+	Dolomite         -0.00  -17.09  -17.09   1.573e+00   1.573e+00  -7.100e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -21048,7 +21048,7 @@ S(6)             1.935e-04
 	CH4(g)         -140.82 -143.68   -2.86  CH4
 	Claudetite      -71.83  -73.17   -1.34  As2O3
 	CO2(g)           -1.62   -3.09   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.04   -7.18   -2.14  MgSO4:7H2O
 	Gypsum           -2.52   -7.10   -4.58  CaSO4:2H2O
@@ -21290,7 +21290,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -5.557e-05
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -5.557e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -21454,7 +21454,7 @@ S(6)             1.952e-04
 	CH4(g)         -140.80 -143.66   -2.86  CH4
 	Claudetite      -71.79  -73.13   -1.34  As2O3
 	CO2(g)           -1.60   -3.07   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -5.01   -7.15   -2.14  MgSO4:7H2O
 	Gypsum           -2.49   -7.07   -4.58  CaSO4:2H2O
@@ -22305,7 +22305,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -2.776e-05
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -2.776e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -22469,7 +22469,7 @@ S(6)             2.015e-04
 	CH4(g)         -140.76 -143.62   -2.86  CH4
 	Claudetite      -71.70  -73.04   -1.34  As2O3
 	CO2(g)           -1.56   -3.03   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.94   -7.08   -2.14  MgSO4:7H2O
 	Gypsum           -2.43   -7.01   -4.58  CaSO4:2H2O
@@ -22952,10 +22952,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.230e-01   6.459e-01   6.459e-01    -0.000
-	MgX2              1.711e-01   3.422e-01   3.422e-01    -0.000
-	NaX               1.188e-02   1.188e-02   1.188e-02    -0.000
-	HX                8.144e-06   8.144e-06   8.144e-06    -0.000
+	CaX2              3.230e-01   6.459e-01   6.459e-01     0.000
+	MgX2              1.711e-01   3.422e-01   3.422e-01     0.000
+	NaX               1.188e-02   1.188e-02   1.188e-02     0.000
+	HX                8.144e-06   8.144e-06   8.144e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -23320,7 +23320,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -1.202e-05
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -1.202e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -23484,7 +23484,7 @@ S(6)             2.091e-04
 	CH4(g)         -140.73 -143.59   -2.86  CH4
 	Claudetite      -71.64  -72.98   -1.34  As2O3
 	CO2(g)           -1.54   -3.01   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.90   -7.04   -2.14  MgSO4:7H2O
 	Gypsum           -2.38   -6.96   -4.58  CaSO4:2H2O
@@ -23726,7 +23726,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -8.090e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -8.090e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -23890,7 +23890,7 @@ S(6)             2.121e-04
 	CH4(g)         -140.73 -143.59   -2.86  CH4
 	Claudetite      -71.62  -72.96   -1.34  As2O3
 	CO2(g)           -1.53   -3.00   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.88   -7.02   -2.14  MgSO4:7H2O
 	Gypsum           -2.37   -6.95   -4.58  CaSO4:2H2O
@@ -23929,7 +23929,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -6.504e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -6.504e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -24093,7 +24093,7 @@ S(6)             2.135e-04
 	CH4(g)         -140.72 -143.58   -2.86  CH4
 	Claudetite      -71.61  -72.95   -1.34  As2O3
 	CO2(g)           -1.53   -3.00   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.88   -7.02   -2.14  MgSO4:7H2O
 	Gypsum           -2.36   -6.94   -4.58  CaSO4:2H2O
@@ -24335,7 +24335,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -3.953e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -3.953e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -24499,7 +24499,7 @@ S(6)             2.162e-04
 	CH4(g)         -140.72 -143.58   -2.86  CH4
 	Claudetite      -71.59  -72.93   -1.34  As2O3
 	CO2(g)           -1.52   -2.99   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.87   -7.01   -2.14  MgSO4:7H2O
 	Gypsum           -2.35   -6.93   -4.58  CaSO4:2H2O
@@ -24538,7 +24538,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -2.940e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -2.940e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -24702,7 +24702,7 @@ S(6)             2.175e-04
 	CH4(g)         -140.72 -143.58   -2.86  CH4
 	Claudetite      -71.59  -72.93   -1.34  As2O3
 	CO2(g)           -1.52   -2.99   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.86   -7.00   -2.14  MgSO4:7H2O
 	Gypsum           -2.34   -6.92   -4.58  CaSO4:2H2O
@@ -24944,7 +24944,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.51   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00  -1.338e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00  -1.338e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -25108,7 +25108,7 @@ S(6)             2.200e-04
 	CH4(g)         -140.71 -143.57   -2.86  CH4
 	Claudetite      -71.57  -72.91   -1.34  As2O3
 	CO2(g)           -1.52   -2.98   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.85   -6.99   -2.14  MgSO4:7H2O
 	Gypsum           -2.33   -6.91   -4.58  CaSO4:2H2O
@@ -25185,10 +25185,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.260e-01   6.521e-01   6.521e-01     0.000
-	MgX2              1.717e-01   3.434e-01   3.434e-01     0.000
-	NaX               4.517e-03   4.517e-03   4.517e-03     0.000
-	HX                8.479e-06   8.479e-06   8.479e-06     0.000
+	CaX2              3.260e-01   6.521e-01   6.521e-01    -0.000
+	MgX2              1.717e-01   3.434e-01   3.434e-01    -0.000
+	NaX               4.517e-03   4.517e-03   4.517e-03    -0.000
+	HX                8.479e-06   8.479e-06   8.479e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -25388,10 +25388,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.262e-01   6.525e-01   6.525e-01     0.000
-	MgX2              1.717e-01   3.434e-01   3.434e-01     0.000
-	NaX               4.169e-03   4.169e-03   4.169e-03     0.000
-	HX                8.495e-06   8.495e-06   8.495e-06     0.000
+	CaX2              3.262e-01   6.525e-01   6.525e-01    -0.000
+	MgX2              1.717e-01   3.434e-01   3.434e-01    -0.000
+	NaX               4.169e-03   4.169e-03   4.169e-03    -0.000
+	HX                8.495e-06   8.495e-06   8.495e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -25591,10 +25591,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.264e-01   6.528e-01   6.528e-01    -0.000
-	MgX2              1.717e-01   3.433e-01   3.433e-01    -0.000
-	NaX               3.856e-03   3.856e-03   3.856e-03    -0.000
-	HX                8.510e-06   8.510e-06   8.510e-06    -0.000
+	CaX2              3.264e-01   6.528e-01   6.528e-01     0.000
+	MgX2              1.717e-01   3.433e-01   3.433e-01     0.000
+	NaX               3.856e-03   3.856e-03   3.856e-03     0.000
+	HX                8.510e-06   8.510e-06   8.510e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -25794,10 +25794,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.266e-01   6.532e-01   6.532e-01    -0.000
-	MgX2              1.716e-01   3.432e-01   3.432e-01    -0.000
-	NaX               3.573e-03   3.573e-03   3.573e-03    -0.000
-	HX                8.523e-06   8.523e-06   8.523e-06    -0.000
+	CaX2              3.266e-01   6.532e-01   6.532e-01     0.000
+	MgX2              1.716e-01   3.432e-01   3.432e-01     0.000
+	NaX               3.573e-03   3.573e-03   3.573e-03     0.000
+	HX                8.523e-06   8.523e-06   8.523e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -26162,7 +26162,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.03   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.191e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.191e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -26326,7 +26326,7 @@ S(6)             2.258e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.54  -72.88   -1.34  As2O3
 	CO2(g)           -1.51   -2.98   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.83   -6.97   -2.14  MgSO4:7H2O
 	Gypsum           -2.31   -6.89   -4.58  CaSO4:2H2O
@@ -27012,10 +27012,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.275e-01   6.549e-01   6.549e-01     0.000
-	MgX2              1.713e-01   3.427e-01   3.427e-01     0.000
-	NaX               2.382e-03   2.382e-03   2.382e-03     0.000
-	HX                8.579e-06   8.579e-06   8.579e-06     0.000
+	CaX2              3.275e-01   6.549e-01   6.549e-01    -0.000
+	MgX2              1.713e-01   3.427e-01   3.427e-01    -0.000
+	NaX               2.382e-03   2.382e-03   2.382e-03    -0.000
+	HX                8.579e-06   8.579e-06   8.579e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -27215,10 +27215,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.276e-01   6.552e-01   6.552e-01     0.000
-	MgX2              1.713e-01   3.426e-01   3.426e-01     0.000
-	NaX               2.247e-03   2.247e-03   2.247e-03     0.000
-	HX                8.586e-06   8.586e-06   8.586e-06     0.000
+	CaX2              3.276e-01   6.552e-01   6.552e-01    -0.000
+	MgX2              1.713e-01   3.426e-01   3.426e-01    -0.000
+	NaX               2.247e-03   2.247e-03   2.247e-03    -0.000
+	HX                8.586e-06   8.586e-06   8.586e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -27380,7 +27380,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.968e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.968e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -27544,7 +27544,7 @@ S(6)             2.296e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.53  -72.87   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.82   -6.96   -2.14  MgSO4:7H2O
 	Gypsum           -2.30   -6.88   -4.58  CaSO4:2H2O
@@ -27583,7 +27583,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.017e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.017e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -27747,7 +27747,7 @@ S(6)             2.301e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.52  -72.86   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.82   -6.96   -2.14  MgSO4:7H2O
 	Gypsum           -2.29   -6.88   -4.58  CaSO4:2H2O
@@ -27824,10 +27824,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.280e-01   6.559e-01   6.559e-01     0.000
-	MgX2              1.711e-01   3.422e-01   3.422e-01     0.000
-	NaX               1.919e-03   1.919e-03   1.919e-03     0.000
-	HX                8.601e-06   8.601e-06   8.601e-06     0.000
+	CaX2              3.280e-01   6.559e-01   6.559e-01    -0.000
+	MgX2              1.711e-01   3.422e-01   3.422e-01    -0.000
+	NaX               1.919e-03   1.919e-03   1.919e-03    -0.000
+	HX                8.601e-06   8.601e-06   8.601e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -28027,10 +28027,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.281e-01   6.561e-01   6.561e-01     0.000
-	MgX2              1.710e-01   3.420e-01   3.420e-01     0.000
-	NaX               1.831e-03   1.831e-03   1.831e-03     0.000
-	HX                8.605e-06   8.605e-06   8.605e-06     0.000
+	CaX2              3.281e-01   6.561e-01   6.561e-01    -0.000
+	MgX2              1.710e-01   3.420e-01   3.420e-01    -0.000
+	NaX               1.831e-03   1.831e-03   1.831e-03    -0.000
+	HX                8.605e-06   8.605e-06   8.605e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -28192,7 +28192,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.092e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.092e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -28356,7 +28356,7 @@ S(6)             2.313e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.52  -72.86   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.82   -6.96   -2.14  MgSO4:7H2O
 	Gypsum           -2.29   -6.87   -4.58  CaSO4:2H2O
@@ -29004,7 +29004,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.090e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.090e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -29168,7 +29168,7 @@ S(6)             2.325e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.29   -6.87   -4.58  CaSO4:2H2O
@@ -29410,7 +29410,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.066e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.066e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -29448,10 +29448,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.288e-01   6.576e-01   6.576e-01     0.000
-	MgX2              1.705e-01   3.410e-01   3.410e-01     0.000
-	NaX               1.422e-03   1.422e-03   1.422e-03     0.000
-	HX                8.623e-06   8.623e-06   8.623e-06     0.000
+	CaX2              3.288e-01   6.576e-01   6.576e-01    -0.000
+	MgX2              1.705e-01   3.410e-01   3.410e-01    -0.000
+	NaX               1.422e-03   1.422e-03   1.422e-03    -0.000
+	HX                8.623e-06   8.623e-06   8.623e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -29574,7 +29574,7 @@ S(6)             2.330e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.87   -4.58  CaSO4:2H2O
@@ -29613,7 +29613,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.051e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.051e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -29777,7 +29777,7 @@ S(6)             2.332e-04
 	CH4(g)         -140.70 -143.56   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.87   -4.58  CaSO4:2H2O
@@ -30057,10 +30057,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.291e-01   6.581e-01   6.581e-01     0.000
-	MgX2              1.703e-01   3.406e-01   3.406e-01     0.000
-	NaX               1.321e-03   1.321e-03   1.321e-03     0.000
-	HX                8.626e-06   8.626e-06   8.626e-06     0.000
+	CaX2              3.291e-01   6.581e-01   6.581e-01    -0.000
+	MgX2              1.703e-01   3.406e-01   3.406e-01    -0.000
+	NaX               1.321e-03   1.321e-03   1.321e-03    -0.000
+	HX                8.626e-06   8.626e-06   8.626e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -30222,7 +30222,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.000e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   2.000e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -30260,10 +30260,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.291e-01   6.583e-01   6.583e-01     0.000
-	MgX2              1.702e-01   3.404e-01   3.404e-01     0.000
-	NaX               1.294e-03   1.294e-03   1.294e-03     0.000
-	HX                8.627e-06   8.627e-06   8.627e-06     0.000
+	CaX2              3.291e-01   6.583e-01   6.583e-01    -0.000
+	MgX2              1.702e-01   3.404e-01   3.404e-01    -0.000
+	NaX               1.294e-03   1.294e-03   1.294e-03    -0.000
+	HX                8.627e-06   8.627e-06   8.627e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -30386,7 +30386,7 @@ S(6)             2.337e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -30425,7 +30425,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.982e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.982e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -30463,10 +30463,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.292e-01   6.585e-01   6.585e-01    -0.000
-	MgX2              1.701e-01   3.403e-01   3.403e-01    -0.000
-	NaX               1.270e-03   1.270e-03   1.270e-03    -0.000
-	HX                8.628e-06   8.628e-06   8.628e-06    -0.000
+	CaX2              3.292e-01   6.585e-01   6.585e-01     0.000
+	MgX2              1.701e-01   3.403e-01   3.403e-01     0.000
+	NaX               1.270e-03   1.270e-03   1.270e-03     0.000
+	HX                8.628e-06   8.628e-06   8.628e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -30589,7 +30589,7 @@ S(6)             2.338e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -30869,10 +30869,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.294e-01   6.588e-01   6.588e-01    -0.000
-	MgX2              1.700e-01   3.400e-01   3.400e-01    -0.000
-	NaX               1.229e-03   1.229e-03   1.229e-03    -0.000
-	HX                8.629e-06   8.629e-06   8.629e-06    -0.000
+	CaX2              3.294e-01   6.588e-01   6.588e-01     0.000
+	MgX2              1.700e-01   3.400e-01   3.400e-01     0.000
+	NaX               1.229e-03   1.229e-03   1.229e-03     0.000
+	HX                8.629e-06   8.629e-06   8.629e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -31034,7 +31034,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.926e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.926e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -31072,10 +31072,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.295e-01   6.590e-01   6.590e-01     0.000
-	MgX2              1.699e-01   3.398e-01   3.398e-01     0.000
-	NaX               1.212e-03   1.212e-03   1.212e-03     0.000
-	HX                8.630e-06   8.630e-06   8.630e-06     0.000
+	CaX2              3.295e-01   6.590e-01   6.590e-01    -0.000
+	MgX2              1.699e-01   3.398e-01   3.398e-01    -0.000
+	NaX               1.212e-03   1.212e-03   1.212e-03    -0.000
+	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -31198,7 +31198,7 @@ S(6)             2.342e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -31440,7 +31440,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.890e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.890e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -31604,7 +31604,7 @@ S(6)             2.343e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -31643,7 +31643,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.873e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.873e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -31681,10 +31681,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.297e-01   6.595e-01   6.595e-01    -0.000
-	MgX2              1.697e-01   3.394e-01   3.394e-01    -0.000
-	NaX               1.169e-03   1.169e-03   1.169e-03    -0.000
-	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
+	CaX2              3.297e-01   6.595e-01   6.595e-01     0.000
+	MgX2              1.697e-01   3.394e-01   3.394e-01     0.000
+	NaX               1.169e-03   1.169e-03   1.169e-03     0.000
+	HX                8.630e-06   8.630e-06   8.630e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -31807,7 +31807,7 @@ S(6)             2.344e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -32087,10 +32087,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.299e-01   6.598e-01   6.598e-01     0.000
-	MgX2              1.695e-01   3.391e-01   3.391e-01     0.000
-	NaX               1.148e-03   1.148e-03   1.148e-03     0.000
-	HX                8.630e-06   8.630e-06   8.630e-06     0.000
+	CaX2              3.299e-01   6.598e-01   6.598e-01    -0.000
+	MgX2              1.695e-01   3.391e-01   3.391e-01    -0.000
+	NaX               1.148e-03   1.148e-03   1.148e-03    -0.000
+	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -32252,7 +32252,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.822e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.822e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -32290,10 +32290,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.300e-01   6.599e-01   6.599e-01     0.000
-	MgX2              1.695e-01   3.389e-01   3.389e-01     0.000
-	NaX               1.139e-03   1.139e-03   1.139e-03     0.000
-	HX                8.630e-06   8.630e-06   8.630e-06     0.000
+	CaX2              3.300e-01   6.599e-01   6.599e-01    -0.000
+	MgX2              1.695e-01   3.389e-01   3.389e-01    -0.000
+	NaX               1.139e-03   1.139e-03   1.139e-03    -0.000
+	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -32416,7 +32416,7 @@ S(6)             2.346e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -32493,10 +32493,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.300e-01   6.601e-01   6.601e-01    -0.000
-	MgX2              1.694e-01   3.388e-01   3.388e-01    -0.000
-	NaX               1.131e-03   1.131e-03   1.131e-03    -0.000
-	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
+	CaX2              3.300e-01   6.601e-01   6.601e-01     0.000
+	MgX2              1.694e-01   3.388e-01   3.388e-01     0.000
+	NaX               1.131e-03   1.131e-03   1.131e-03     0.000
+	HX                8.630e-06   8.630e-06   8.630e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -32658,7 +32658,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.790e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.790e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -32822,7 +32822,7 @@ S(6)             2.347e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -32861,7 +32861,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.775e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.775e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -32899,10 +32899,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.302e-01   6.604e-01   6.604e-01     0.000
-	MgX2              1.692e-01   3.385e-01   3.385e-01     0.000
-	NaX               1.117e-03   1.117e-03   1.117e-03     0.000
-	HX                8.630e-06   8.630e-06   8.630e-06     0.000
+	CaX2              3.302e-01   6.604e-01   6.604e-01    -0.000
+	MgX2              1.692e-01   3.385e-01   3.385e-01    -0.000
+	NaX               1.117e-03   1.117e-03   1.117e-03    -0.000
+	HX                8.630e-06   8.630e-06   8.630e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -33025,7 +33025,7 @@ S(6)             2.347e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -33673,7 +33673,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.718e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.718e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -33711,10 +33711,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.305e-01   6.610e-01   6.610e-01     0.000
-	MgX2              1.690e-01   3.379e-01   3.379e-01     0.000
-	NaX               1.096e-03   1.096e-03   1.096e-03     0.000
-	HX                8.629e-06   8.629e-06   8.629e-06     0.000
+	CaX2              3.305e-01   6.610e-01   6.610e-01    -0.000
+	MgX2              1.690e-01   3.379e-01   3.379e-01    -0.000
+	NaX               1.096e-03   1.096e-03   1.096e-03    -0.000
+	HX                8.629e-06   8.629e-06   8.629e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -33837,7 +33837,7 @@ S(6)             2.349e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -33876,7 +33876,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.704e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.704e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -34040,7 +34040,7 @@ S(6)             2.349e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -34079,7 +34079,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.691e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.691e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -34243,7 +34243,7 @@ S(6)             2.349e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -34282,7 +34282,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.678e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.678e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -34446,7 +34446,7 @@ S(6)             2.349e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -34523,10 +34523,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.308e-01   6.616e-01   6.616e-01    -0.000
-	MgX2              1.687e-01   3.373e-01   3.373e-01    -0.000
-	NaX               1.083e-03   1.083e-03   1.083e-03    -0.000
-	HX                8.627e-06   8.627e-06   8.627e-06    -0.000
+	CaX2              3.308e-01   6.616e-01   6.616e-01     0.000
+	MgX2              1.687e-01   3.373e-01   3.373e-01     0.000
+	NaX               1.083e-03   1.083e-03   1.083e-03     0.000
+	HX                8.627e-06   8.627e-06   8.627e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -34688,7 +34688,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.654e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.654e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -34726,10 +34726,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.309e-01   6.617e-01   6.617e-01    -0.000
-	MgX2              1.686e-01   3.372e-01   3.372e-01    -0.000
-	NaX               1.081e-03   1.081e-03   1.081e-03    -0.000
-	HX                8.627e-06   8.627e-06   8.627e-06    -0.000
+	CaX2              3.309e-01   6.617e-01   6.617e-01     0.000
+	MgX2              1.686e-01   3.372e-01   3.372e-01     0.000
+	NaX               1.081e-03   1.081e-03   1.081e-03     0.000
+	HX                8.627e-06   8.627e-06   8.627e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -34852,7 +34852,7 @@ S(6)             2.350e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -35335,10 +35335,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.311e-01   6.621e-01   6.621e-01    -0.000
-	MgX2              1.684e-01   3.368e-01   3.368e-01    -0.000
-	NaX               1.075e-03   1.075e-03   1.075e-03    -0.000
-	HX                8.626e-06   8.626e-06   8.626e-06    -0.000
+	CaX2              3.311e-01   6.621e-01   6.621e-01     0.000
+	MgX2              1.684e-01   3.368e-01   3.368e-01     0.000
+	NaX               1.075e-03   1.075e-03   1.075e-03     0.000
+	HX                8.626e-06   8.626e-06   8.626e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -35500,7 +35500,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.607e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.607e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -35664,7 +35664,7 @@ S(6)             2.350e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.28   -6.86   -4.58  CaSO4:2H2O
@@ -36109,7 +36109,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.573e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.573e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -36147,10 +36147,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.313e-01   6.627e-01   6.627e-01    -0.000
-	MgX2              1.681e-01   3.363e-01   3.363e-01    -0.000
-	NaX               1.069e-03   1.069e-03   1.069e-03    -0.000
-	HX                8.624e-06   8.624e-06   8.624e-06    -0.000
+	CaX2              3.313e-01   6.627e-01   6.627e-01     0.000
+	MgX2              1.681e-01   3.363e-01   3.363e-01     0.000
+	NaX               1.069e-03   1.069e-03   1.069e-03     0.000
+	HX                8.624e-06   8.624e-06   8.624e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -36273,7 +36273,7 @@ S(6)             2.350e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.86   -4.58  CaSO4:2H2O
@@ -36718,7 +36718,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.542e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.542e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -36882,7 +36882,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.86   -4.58  CaSO4:2H2O
@@ -36921,7 +36921,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.531e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.531e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -37085,7 +37085,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.86   -4.58  CaSO4:2H2O
@@ -37124,7 +37124,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.521e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.521e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -37162,10 +37162,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.317e-01   6.633e-01   6.633e-01     0.000
-	MgX2              1.678e-01   3.356e-01   3.356e-01     0.000
-	NaX               1.065e-03   1.065e-03   1.065e-03     0.000
-	HX                8.622e-06   8.622e-06   8.622e-06     0.000
+	CaX2              3.317e-01   6.633e-01   6.633e-01    -0.000
+	MgX2              1.678e-01   3.356e-01   3.356e-01    -0.000
+	NaX               1.065e-03   1.065e-03   1.065e-03    -0.000
+	HX                8.622e-06   8.622e-06   8.622e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -37288,7 +37288,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.86   -4.58  CaSO4:2H2O
@@ -37365,10 +37365,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.317e-01   6.634e-01   6.634e-01    -0.000
-	MgX2              1.677e-01   3.355e-01   3.355e-01    -0.000
-	NaX               1.064e-03   1.064e-03   1.064e-03    -0.000
-	HX                8.622e-06   8.622e-06   8.622e-06    -0.000
+	CaX2              3.317e-01   6.634e-01   6.634e-01     0.000
+	MgX2              1.677e-01   3.355e-01   3.355e-01     0.000
+	NaX               1.064e-03   1.064e-03   1.064e-03     0.000
+	HX                8.622e-06   8.622e-06   8.622e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -37530,7 +37530,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.501e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.501e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -37694,7 +37694,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -37733,7 +37733,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.491e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.491e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -37897,7 +37897,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -37936,7 +37936,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.481e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.481e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -38100,7 +38100,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -38177,10 +38177,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.320e-01   6.639e-01   6.639e-01     0.000
-	MgX2              1.675e-01   3.350e-01   3.350e-01     0.000
-	NaX               1.062e-03   1.062e-03   1.062e-03     0.000
-	HX                8.620e-06   8.620e-06   8.620e-06     0.000
+	CaX2              3.320e-01   6.639e-01   6.639e-01    -0.000
+	MgX2              1.675e-01   3.350e-01   3.350e-01    -0.000
+	NaX               1.062e-03   1.062e-03   1.062e-03    -0.000
+	HX                8.620e-06   8.620e-06   8.620e-06    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -38342,7 +38342,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.462e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.462e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -38506,7 +38506,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -38748,7 +38748,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.443e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.443e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -38786,10 +38786,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.322e-01   6.643e-01   6.643e-01    -0.000
-	MgX2              1.673e-01   3.346e-01   3.346e-01    -0.000
-	NaX               1.061e-03   1.061e-03   1.061e-03    -0.000
-	HX                8.619e-06   8.619e-06   8.619e-06    -0.000
+	CaX2              3.322e-01   6.643e-01   6.643e-01     0.000
+	MgX2              1.673e-01   3.346e-01   3.346e-01     0.000
+	NaX               1.061e-03   1.061e-03   1.061e-03     0.000
+	HX                8.619e-06   8.619e-06   8.619e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -38912,7 +38912,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -39357,7 +39357,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.415e-06
+	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.415e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -39521,7 +39521,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -39763,7 +39763,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.397e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.397e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -39801,10 +39801,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.324e-01   6.649e-01   6.649e-01    -0.000
-	MgX2              1.670e-01   3.340e-01   3.340e-01    -0.000
-	NaX               1.060e-03   1.060e-03   1.060e-03    -0.000
-	HX                8.616e-06   8.616e-06   8.616e-06    -0.000
+	CaX2              3.324e-01   6.649e-01   6.649e-01     0.000
+	MgX2              1.670e-01   3.340e-01   3.340e-01     0.000
+	NaX               1.060e-03   1.060e-03   1.060e-03     0.000
+	HX                8.616e-06   8.616e-06   8.616e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -39927,7 +39927,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -40207,10 +40207,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.326e-01   6.651e-01   6.651e-01    -0.000
-	MgX2              1.669e-01   3.338e-01   3.338e-01    -0.000
-	NaX               1.059e-03   1.059e-03   1.059e-03    -0.000
-	HX                8.615e-06   8.615e-06   8.615e-06    -0.000
+	CaX2              3.326e-01   6.651e-01   6.651e-01     0.000
+	MgX2              1.669e-01   3.338e-01   3.338e-01     0.000
+	NaX               1.059e-03   1.059e-03   1.059e-03     0.000
+	HX                8.615e-06   8.615e-06   8.615e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -40372,7 +40372,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.50   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.370e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.370e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -40536,7 +40536,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -40778,7 +40778,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Calcite          -0.02   -8.49   -8.48   0.000e+00           0   0.000e+00
-	Dolomite          0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.353e-06
+	Dolomite         -0.00  -17.09  -17.09   1.572e+00   1.572e+00   1.353e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -40942,7 +40942,7 @@ S(6)             2.351e-04
 	CH4(g)         -140.69 -143.55   -2.86  CH4
 	Claudetite      -71.51  -72.85   -1.34  As2O3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
+	Dolomite         -0.00  -17.09  -17.09  CaMg(CO3)2
 	Dolomite(d)      -0.55  -17.09  -16.54  CaMg(CO3)2
 	Epsomite         -4.81   -6.95   -2.14  MgSO4:7H2O
 	Gypsum           -2.27   -6.85   -4.58  CaSO4:2H2O
@@ -41019,10 +41019,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.328e-01   6.656e-01   6.656e-01    -0.000
-	MgX2              1.667e-01   3.334e-01   3.334e-01    -0.000
-	NaX               1.059e-03   1.059e-03   1.059e-03    -0.000
-	HX                8.614e-06   8.614e-06   8.614e-06    -0.000
+	CaX2              3.328e-01   6.656e-01   6.656e-01     0.000
+	MgX2              1.667e-01   3.334e-01   3.334e-01     0.000
+	NaX               1.059e-03   1.059e-03   1.059e-03     0.000
+	HX                8.614e-06   8.614e-06   8.614e-06     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -41222,10 +41222,10 @@ X                1.000e+00 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              3.328e-01   6.657e-01   6.657e-01    -0.000
-	MgX2              1.666e-01   3.332e-01   3.332e-01    -0.000
-	NaX               1.059e-03   1.059e-03   1.059e-03    -0.000
-	HX                8.613e-06   8.613e-06   8.613e-06    -0.000
+	CaX2              3.328e-01   6.657e-01   6.657e-01     0.000
+	MgX2              1.666e-01   3.332e-01   3.332e-01     0.000
+	NaX               1.059e-03   1.059e-03   1.059e-03     0.000
+	HX                8.613e-06   8.613e-06   8.613e-06     0.000
 
 -----------------------------Solution composition------------------------------
 

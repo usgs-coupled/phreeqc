@@ -1809,7 +1809,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 
 	Gibbsite         -0.93    7.12    8.05   0.000e+00           0   0.000e+00
 	K-feldspar       -2.14   -1.26    0.88   0.000e+00           0   0.000e+00
-	K-mica            0.00   12.97   12.97   0.000e+00   1.020e-05   1.020e-05
+	K-mica           -0.00   12.97   12.97   0.000e+00   1.020e-05   1.020e-05
 	Kaolinite        -0.00    5.71    5.71   0.000e+00   5.270e-07   5.270e-07
 
 -----------------------------Solution composition------------------------------
@@ -1831,7 +1831,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.951e-15
+                  Electrical balance (eq)  =   1.982e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  16
                                   Total H  = 1.110124e+02
@@ -1873,7 +1873,7 @@ Si               6.434e-05
 	H2(g)           -35.09  -38.24   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -2.14   -1.26    0.88  KAlSi3O8
-	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
+	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
 	O2(g)           -12.94  -15.90   -2.96  O2
 	Quartz           -0.28   -4.26   -3.98  SiO2
@@ -1930,7 +1930,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.624e-18
+                  Electrical balance (eq)  =  -3.763e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  15
                                   Total H  = 1.110124e+02
@@ -1950,13 +1950,13 @@ Al               1.812e-07
 	Al(OH)2+          2.313e-13   2.295e-13   -12.636   -12.639    -0.003
 	AlOH+2            1.797e-17   1.744e-17   -16.745   -16.759    -0.013
 	Al+3              1.118e-21   1.045e-21   -20.951   -20.981    -0.029
-H(0)             8.082e-39
-	H2                4.041e-39   4.041e-39   -38.393   -38.393     0.000
+H(0)             8.084e-39
+	H2                4.042e-39   4.042e-39   -38.393   -38.393     0.000
 K                4.273e-05
 	K+                4.273e-05   4.240e-05    -4.369    -4.373    -0.003
 	KOH               2.469e-10   2.469e-10    -9.607    -9.607     0.000
-O(0)             5.105e-16
-	O2                2.553e-16   2.553e-16   -15.593   -15.593     0.000
+O(0)             5.103e-16
+	O2                2.551e-16   2.551e-16   -15.593   -15.593     0.000
 Si               1.282e-04
 	H4SiO4            1.026e-04   1.026e-04    -3.989    -3.989     0.000
 	H3SiO4-           2.560e-05   2.540e-05    -4.592    -4.595    -0.003
@@ -2120,7 +2120,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   9.389      Charge balance
-                                       pe  =   8.438      Adjusted to redox equilibrium
+                                       pe  =   8.988      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.273e-04
                        Mass of water (kg)  =   1.000e-00
@@ -2128,8 +2128,8 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.563e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   2.777e-14
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  15
                                   Total H  = 1.110123e+02
                                   Total O  = 5.550698e+01
@@ -2148,13 +2148,13 @@ Al               5.990e-08
 	Al(OH)2+          3.590e-14   3.544e-14   -13.445   -13.451    -0.006
 	AlOH+2            1.944e-18   1.845e-18   -17.711   -17.734    -0.023
 	Al+3              8.505e-23   7.579e-23   -22.070   -22.120    -0.050
-H(0)             3.143e-39
-	H2                1.571e-39   1.571e-39   -38.804   -38.804     0.000
+H(0)             2.492e-40
+	H2                1.246e-40   1.246e-40   -39.905   -39.905     0.000
 K                1.273e-04
 	K+                1.273e-04   1.256e-04    -3.895    -3.901    -0.006
 	KOH               1.067e-09   1.067e-09    -8.972    -8.972     0.000
-O(0)             3.376e-15
-	O2                1.688e-15   1.688e-15   -14.773   -14.773     0.000
+O(0)             5.371e-13
+	O2                2.685e-13   2.685e-13   -12.571   -12.571     0.000
 Si               3.818e-04
 	H4SiO4            2.795e-04   2.795e-04    -3.554    -3.554     0.000
 	H3SiO4-           1.023e-04   1.010e-04    -3.990    -3.996    -0.006
@@ -2167,12 +2167,12 @@ Si               3.818e-04
 	Al(OH)3(a)       -4.75    6.05   10.80  Al(OH)3
 	Chalcedony       -0.00   -3.55   -3.55  SiO2
 	Gibbsite         -2.00    6.05    8.05  Al(OH)3
-	H2(g)           -35.65  -38.80   -3.15  H2
+	H2(g)           -36.75  -39.90   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar        0.00    0.88    0.88  KAlSi3O8
 	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.72    4.99    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.81  -14.77   -2.96  O2
+	O2(g)            -9.61  -12.57   -2.96  O2
 	Quartz            0.43   -3.55   -3.98  SiO2
 	SiO2(a)          -0.84   -3.55   -2.71  SiO2
 
@@ -2770,7 +2770,7 @@ C: Gibbsite  -> Kaolinite    6.7368e+04   7.3263e-06   3.6070e+00  -4.8506e+00
 
 	Gibbsite         -0.59    7.45    8.05   1.142e-06           0  -1.142e-06
 	K-mica           -0.27   12.70   12.97   0.000e+00           0   0.000e+00
-	Kaolinite         0.00    5.71    5.71   0.000e+00   6.724e-06   6.724e-06
+	Kaolinite        -0.00    5.71    5.71   0.000e+00   6.724e-06   6.724e-06
 
 -----------------------------Solution composition------------------------------
 
@@ -2793,7 +2793,7 @@ C: Gibbsite  -> Kaolinite    6.7368e+04   7.3263e-06   3.6070e+00  -4.8506e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  25
+                               Iterations  =  26
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550627e+01
 
@@ -2834,7 +2834,7 @@ Si               2.871e-05
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -3.09   -2.21    0.88  KAlSi3O8
 	K-mica           -0.27   12.70   12.97  KAl3Si3O10(OH)2
-	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
 	O2(g)           -10.34  -13.30   -2.96  O2
 	Quartz           -0.62   -4.60   -3.98  SiO2
 	SiO2(a)          -1.89   -4.60   -2.71  SiO2
@@ -2870,7 +2870,7 @@ E: Kaolinite -> K-mica       1.9739e+06   3.9590e-05   4.5392e+00  -4.1772e+00
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite         -1.76    6.29    8.05   0.000e+00           0   0.000e+00
-	K-mica           -0.00   12.97   12.97   0.000e+00   4.217e-05   4.217e-05
+	K-mica            0.00   12.97   12.97   0.000e+00   4.217e-05   4.217e-05
 	Kaolinite        -0.57    5.14    5.71   6.724e-06           0  -6.724e-06
 
 -----------------------------Solution composition------------------------------
@@ -2884,7 +2884,7 @@ E: Kaolinite -> K-mica       1.9739e+06   3.9590e-05   4.5392e+00  -4.1772e+00
 ----------------------------Description of solution----------------------------
 
                                        pH  =   9.339      Charge balance
-                                       pe  =   8.859      Adjusted to redox equilibrium
+                                       pe  =   8.856      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   8.444e-05
                        Mass of water (kg)  =   1.000e-00
@@ -2894,7 +2894,7 @@ E: Kaolinite -> K-mica       1.9739e+06   3.9590e-05   4.5392e+00  -4.1772e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 146
+                               Iterations  = 145
                                   Total H  = 1.110123e+02
                                   Total O  = 5.550672e+01
 
@@ -2912,13 +2912,13 @@ Al               9.275e-08
 	Al(OH)2+          6.996e-14   6.921e-14   -13.155   -13.160    -0.005
 	AlOH+2            4.218e-18   4.042e-18   -17.375   -17.393    -0.018
 	Al+3              2.047e-22   1.863e-22   -21.689   -21.730    -0.041
-H(0)             5.681e-40
-	H2                2.840e-40   2.840e-40   -39.547   -39.547     0.000
+H(0)             5.746e-40
+	H2                2.873e-40   2.873e-40   -39.542   -39.542     0.000
 K                8.443e-05
 	K+                8.443e-05   8.354e-05    -4.073    -4.078    -0.005
 	KOH               6.328e-10   6.328e-10    -9.199    -9.199     0.000
-O(0)             1.033e-13
-	O2                5.167e-14   5.167e-14   -13.287   -13.287     0.000
+O(0)             1.010e-13
+	O2                5.050e-14   5.050e-14   -13.297   -13.297     0.000
 Si               2.533e-04
 	H4SiO4            1.911e-04   1.911e-04    -3.719    -3.719     0.000
 	H3SiO4-           6.222e-05   6.156e-05    -4.206    -4.211    -0.005
@@ -2931,12 +2931,12 @@ Si               2.533e-04
 	Al(OH)3(a)       -4.51    6.29   10.80  Al(OH)3
 	Chalcedony       -0.17   -3.72   -3.55  SiO2
 	Gibbsite         -1.76    6.29    8.05  Al(OH)3
-	H2(g)           -36.40  -39.55   -3.15  H2
+	H2(g)           -36.39  -39.54   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -0.48    0.39    0.88  KAlSi3O8
-	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
+	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.57    5.14    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.33  -13.29   -2.96  O2
+	O2(g)           -10.34  -13.30   -2.96  O2
 	Quartz            0.26   -3.72   -3.98  SiO2
 	SiO2(a)          -1.01   -3.72   -2.71  SiO2
 
@@ -2986,7 +2986,7 @@ F: K-mica    -> K-feldspar   4.4619e+07   1.9072e-04   5.4879e+00  -3.5540e+00
 ----------------------------Description of solution----------------------------
 
                                        pH  =   9.389      Charge balance
-                                       pe  =   8.811      Adjusted to redox equilibrium
+                                       pe  =   8.806      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.273e-04
                        Mass of water (kg)  =   1.000e-00
@@ -3014,13 +3014,13 @@ Al               5.990e-08
 	Al(OH)2+          3.590e-14   3.544e-14   -13.445   -13.451    -0.006
 	AlOH+2            1.944e-18   1.845e-18   -17.711   -17.734    -0.023
 	Al+3              8.505e-23   7.579e-23   -22.070   -22.120    -0.050
-H(0)             5.620e-40
-	H2                2.810e-40   2.810e-40   -39.551   -39.551     0.000
+H(0)             5.771e-40
+	H2                2.885e-40   2.885e-40   -39.540   -39.540     0.000
 K                1.273e-04
 	K+                1.273e-04   1.256e-04    -3.895    -3.901    -0.006
 	KOH               1.067e-09   1.067e-09    -8.972    -8.972     0.000
-O(0)             1.056e-13
-	O2                5.278e-14   5.278e-14   -13.278   -13.278     0.000
+O(0)             1.001e-13
+	O2                5.007e-14   5.007e-14   -13.300   -13.300     0.000
 Si               3.818e-04
 	H4SiO4            2.795e-04   2.795e-04    -3.554    -3.554     0.000
 	H3SiO4-           1.023e-04   1.010e-04    -3.990    -3.996    -0.006
@@ -3033,12 +3033,12 @@ Si               3.818e-04
 	Al(OH)3(a)       -4.75    6.05   10.80  Al(OH)3
 	Chalcedony       -0.00   -3.55   -3.55  SiO2
 	Gibbsite         -2.00    6.05    8.05  Al(OH)3
-	H2(g)           -36.40  -39.55   -3.15  H2
+	H2(g)           -36.39  -39.54   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -0.00    0.87    0.88  KAlSi3O8
 	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.72    4.99    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.32  -13.28   -2.96  O2
+	O2(g)           -10.34  -13.30   -2.96  O2
 	Quartz            0.43   -3.55   -3.98  SiO2
 	SiO2(a)          -0.84   -3.55   -2.71  SiO2
 

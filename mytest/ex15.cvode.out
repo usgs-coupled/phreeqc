@@ -409,8 +409,14 @@ Transport step   5.
 
 Transport step   5. Mixrun   1.
 
-Using solution 10.	Solution after simulation 3.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 3.                           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
+	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -520,8 +526,14 @@ Transport step  10.
 
 Transport step  10. Mixrun   1.
 
-Using solution 10.	Solution after simulation 3.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 3.                           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
+	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -631,8 +643,14 @@ Transport step  15.
 
 Transport step  15. Mixrun   1.
 
-Using solution 10.	Solution after simulation 3.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 3.                           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
+	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -742,8 +760,14 @@ Transport step  20.
 
 Transport step  20. Mixrun   1.
 
-Using solution 10.	Solution after simulation 3.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 3.                           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
+	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1077,8 +1101,14 @@ Transport step   5.
 
 Transport step   5. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1188,8 +1218,14 @@ Transport step  10.
 
 Transport step  10. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1299,8 +1335,14 @@ Transport step  15.
 
 Transport step  15. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1410,8 +1452,14 @@ Transport step  20.
 
 Transport step  20. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1521,8 +1569,14 @@ Transport step  25.
 
 Transport step  25. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1632,8 +1686,14 @@ Transport step  30.
 
 Transport step  30. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1743,8 +1803,14 @@ Transport step  35.
 
 Transport step  35. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1854,8 +1920,14 @@ Transport step  40.
 
 Transport step  40. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -1965,8 +2037,14 @@ Transport step  45.
 
 Transport step  45. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -2076,8 +2154,14 @@ Transport step  50.
 
 Transport step  50. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 
@@ -2187,8 +2271,14 @@ Transport step  55.
 
 Transport step  55. Mixrun   1.
 
-Using solution 10.	Solution after simulation 5.
+Using mix 10.	 
 Using kinetics 10.	Kinetics defined in simulation 3.
+
+Mixture 10.	 
+
+	  6.000e-02 Solution 9	Solution after simulation 5.                           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
+	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
 

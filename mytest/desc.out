@@ -564,7 +564,7 @@ Using pure phase assemblage 1.
 
 ----------------------------------User print-----------------------------------
 
-Infilling   5.6594e+00            0 
+Cell 1   5.6594e+00            0 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -632,7 +632,7 @@ Using solution 2.	 A
 
 ----------------------------------User print-----------------------------------
 
- A    8.0000e+00   2.4950e-03 
+Cell 2   8.0000e+00   2.4950e-03 
 
 -----------------------------Solution composition------------------------------
 
@@ -688,7 +688,7 @@ Using solution 3.	 B
 
 ----------------------------------User print-----------------------------------
 
- B    7.0000e+00   1.2475e-03 
+Cell 3   7.0000e+00   1.2475e-03 
 
 -----------------------------Solution composition------------------------------
 
@@ -746,7 +746,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Infilling   5.6594e+00            0 
+Cell 1   5.6594e+00            0 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -814,7 +814,7 @@ Using solution 2.	Solution after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Solution after simulation 6.   5.6594e+00            0 
+Cell 2   5.6594e+00            0 
 
 -----------------------------Solution composition------------------------------
 
@@ -874,7 +874,7 @@ Using solution 3.	Solution after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Solution after simulation 6.   8.0000e+00   2.4950e-03 
+Cell 3   8.0000e+00   2.4950e-03 
 
 -----------------------------Solution composition------------------------------
 
@@ -932,7 +932,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Infilling   5.6594e+00            0 
+Cell 1   5.6594e+00            0 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -1000,7 +1000,7 @@ Using solution 2.	Solution after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Solution after simulation 6.   5.6594e+00            0 
+Cell 2   5.6594e+00            0 
 
 -----------------------------Solution composition------------------------------
 
@@ -1060,7 +1060,7 @@ Using solution 3.	Solution after simulation 6.
 
 ----------------------------------User print-----------------------------------
 
-Solution after simulation 6.   5.6594e+00            0 
+Cell 3   5.6594e+00            0 
 
 -----------------------------Solution composition------------------------------
 
@@ -1140,7 +1140,7 @@ Mixture 2.
 
 ----------------------------------User print-----------------------------------
 
-Solution after simulation 6.   5.6594e+00            0 
+Mix 2   5.6594e+00            0 
 
 -----------------------------Solution composition------------------------------
 

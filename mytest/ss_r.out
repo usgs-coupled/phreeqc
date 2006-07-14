@@ -1501,7 +1501,7 @@ Kinetics 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  36
+                               Iterations  =  48
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551543e+01
 
@@ -2857,7 +2857,7 @@ Kinetics 2.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.754e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.752e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4245,7 +4245,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.507e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.502e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4275,9 +4275,9 @@ Kinetics 3.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.993e-03
                        Total CO2 (mol/kg)  =   2.064e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.592e-12
+                  Electrical balance (eq)  =  -5.591e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 106
+                               Iterations  = 136
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551309e+01
 
@@ -5633,7 +5633,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.896e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   7.898e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -5665,7 +5665,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 107
+                               Iterations  =  69
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551238e+01
 
@@ -7002,12 +7002,6 @@ Zn               1.251e-06
 	Smithsonite      -1.64  -11.64  -10.00  ZnCO3
 	Zn(OH)2(e)       -2.21    9.29   11.50  Zn(OH)2
 
-WARNING: Maximum iterations exceeded, 100
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
 Using solution 5.	Solution after simulation 3.
 Using pure phase assemblage 5.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 5.	Solid solution assemblage after simulation 3.
@@ -7059,7 +7053,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 163
+                               Iterations  = 129
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551180e+01
 
@@ -8415,7 +8409,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.711e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8447,7 +8441,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  71
+                               Iterations  = 160
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551137e+01
 
@@ -9809,7 +9803,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.418e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.416e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9841,7 +9835,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 281
+                               Iterations  = 180
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551105e+01
 
@@ -11197,7 +11191,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.222e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.224e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11229,7 +11223,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 130
+                               Iterations  =  72
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551083e+01
 
@@ -12617,7 +12611,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 105
+                               Iterations  = 128
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551068e+01
 
@@ -13973,7 +13967,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   1.496e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   1.497e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -14005,7 +13999,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  81
+                               Iterations  = 131
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551059e+01
 

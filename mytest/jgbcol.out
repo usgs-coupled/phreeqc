@@ -562,7 +562,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 1.
 	Al(OH)3(a)       -0.00   10.80   10.80   2.558e-02   1.923e-02  -6.346e-03
 	AlOHSO4           0.00   -2.20   -2.20   1.685e-02   3.371e-02   1.685e-02
 	Calcite          -4.92  -13.40   -8.48   0.000e+00           0   0.000e+00
-	Fe(OH)3          -0.00    4.89    4.89   8.230e-01   8.232e-01   1.521e-04
+	Fe(OH)3           0.00    4.89    4.89   8.230e-01   8.232e-01   1.521e-04
 	Gypsum           -0.00   -4.58   -4.58   1.360e-01   1.367e-01   7.340e-04
 	MnO2            -16.28   25.10   41.38   0.000e+00           0   0.000e+00
 
@@ -774,8 +774,8 @@ Zn               3.348e-04
 	CH4(g)          -48.15  -51.01   -2.86  CH4
 	CO2(g)           -3.67   -5.14   -1.47  CO2
 	Dolomite         -9.56  -26.65  -17.09  CaMg(CO3)2
-	Fe(OH)3          -0.00    4.89    4.89  Fe(OH)3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3           0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	FeS(ppt)        -36.57  -40.48   -3.92  FeS
 	Gibbsite          2.69   10.80    8.11  Al(OH)3
 	Goethite          5.89    4.89   -1.00  FeOOH
@@ -813,9 +813,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   7.113e-06   1.447e-04   1.376e-04
+	Al(OH)3(a)        0.00   10.80   10.80   7.113e-06   1.447e-04   1.376e-04
 	AlOHSO4          -2.11   -4.31   -2.20   0.000e+00           0   0.000e+00
-	Calcite          -0.00   -8.48   -8.48   9.978e-02   7.648e-02  -2.330e-02
+	Calcite           0.00   -8.48   -8.48   9.978e-02   7.648e-02  -2.330e-02
 	Fe(OH)3           0.00    4.89    4.89   7.967e-01   8.193e-01   2.260e-02
 	Gypsum           -0.00   -4.58   -4.58   3.620e-02   5.825e-02   2.205e-02
 	MnO2            -16.85   24.53   41.38   1.020e-02           0  -1.020e-02
@@ -847,9 +847,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   1.928e-02
                        Total CO2 (mol/kg)  =   2.335e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.736e-11
+                  Electrical balance (eq)  =  -5.742e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  12
+                               Iterations  =  10
                                   Total H  = 1.108565e+02
                                   Total O  = 5.573377e+01
 
@@ -1019,12 +1019,12 @@ Zn               3.354e-04
 
 	Phase               SI log IAP  log KT
 
-	Al(OH)3(a)       -0.00   10.80   10.80  Al(OH)3
+	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
 	AlOHSO4          -2.11   -4.31   -2.20  AlOHSO4
 	Alunite           6.30    4.90   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -31.41  -34.27   -2.86  CH4
 	CO2(g)           -0.86   -2.33   -1.47  CO2
 	Dolomite          0.23  -16.86  -17.09  CaMg(CO3)2
@@ -1067,12 +1067,12 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)        0.00   10.80   10.80   0.000e+00   6.615e-18   6.615e-18
+	Al(OH)3(a)       -0.00   10.80   10.80   0.000e+00           0   0.000e+00
 	AlOHSO4          -1.33   -3.53   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01  -1.446e-14
+	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01  -2.220e-16
 	Fe(OH)3           0.00    4.89    4.89   7.300e-01   7.300e-01   0.000e+00
-	Gypsum           -0.00   -4.58   -4.58   0.000e+00   6.617e-24   6.617e-24
-	MnO2              0.00   41.38   41.38   4.500e-02   4.500e-02  -1.062e-15
+	Gypsum           -0.00   -4.58   -4.58   0.000e+00           0   0.000e+00
+	MnO2              0.00   41.38   41.38   4.500e-02   4.500e-02   6.037e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -1101,9 +1101,9 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   3.347e-02
                        Total CO2 (mol/kg)  =   6.028e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.403e-11
+                  Electrical balance (eq)  =  -5.242e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                               Iterations  =   1
                                   Total H  = 1.105941e+02
                                   Total O  = 5.561299e+01
 
@@ -1273,7 +1273,7 @@ Zn               3.362e-04
 
 	Phase               SI log IAP  log KT
 
-	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
+	Al(OH)3(a)       -0.00   10.80   10.80  Al(OH)3
 	AlOHSO4          -1.33   -3.53   -2.20  AlOHSO4
 	Alunite           7.43    6.03   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
@@ -1323,10 +1323,10 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 	Al(OH)3(a)       -0.04   10.76   10.80   0.000e+00           0   0.000e+00
 	AlOHSO4          -1.37   -3.57   -2.20   0.000e+00           0   0.000e+00
-	Calcite          -0.00   -8.48   -8.48   1.398e-01   1.398e-01   4.885e-15
+	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01  -2.220e-16
 	Fe(OH)3           0.00    4.89    4.89   7.300e-01   7.300e-01   0.000e+00
-	Gypsum           -0.00   -4.58   -4.58   1.926e-15           0  -1.926e-15
-	MnO2             -0.00   41.38   41.38   4.500e-02   4.500e-02  -5.662e-15
+	Gypsum           -0.00   -4.58   -4.58   0.000e+00           0   0.000e+00
+	MnO2              0.00   41.38   41.38   4.500e-02   4.500e-02   2.776e-16
 
 -----------------------------Solution composition------------------------------
 
@@ -1355,7 +1355,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   3.347e-02
                        Total CO2 (mol/kg)  =   6.028e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.738e-11
+                  Electrical balance (eq)  =  -5.739e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.105941e+02
@@ -1532,7 +1532,7 @@ Zn               3.362e-04
 	Alunite           7.29    5.89   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)         -100.19 -103.05   -2.86  CH4
 	CO2(g)           -0.08   -1.55   -1.47  CO2
 	Dolomite          0.16  -16.93  -17.09  CaMg(CO3)2
@@ -1552,11 +1552,11 @@ Zn               3.362e-04
 	Mackinawite     -99.74 -104.39   -4.65  FeS
 	Manganite         0.30   25.64   25.34  MnOOH
 	Melanterite      -9.95  -12.16   -2.21  FeSO4:7H2O
-	MnO2             -0.00   41.38   41.38  MnO2
+	MnO2              0.00   41.38   41.38  MnO2
 	O2(g)           -20.24  -23.14   -2.89  O2
 	Pyrite         -161.00 -179.48  -18.48  FeS2
 	Pyrochroite      -5.29    9.91   15.20  Mn(OH)2
-	Pyrolusite       -0.00   41.38   41.38  MnO2
+	Pyrolusite        0.00   41.38   41.38  MnO2
 	Rhodochrosite     2.81   -8.32  -11.13  MnCO3
 	Siderite         -5.16  -16.05  -10.89  FeCO3
 	Smithsonite      -0.37  -10.37  -10.00  ZnCO3
@@ -1577,10 +1577,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
 
 	Al(OH)3(a)       -0.00   10.80   10.80   0.000e+00           0   0.000e+00
 	AlOHSO4          -1.33   -3.53   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01   2.776e-17
+	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01   0.000e+00
 	Fe(OH)3           0.00    4.89    4.89   7.300e-01   7.300e-01   0.000e+00
 	Gypsum           -0.00   -4.58   -4.58   0.000e+00           0   0.000e+00
-	MnO2             -0.00   41.38   41.38   4.500e-02   4.500e-02  -1.013e-15
+	MnO2             -0.00   41.38   41.38   4.500e-02   4.500e-02   6.939e-18
 
 -----------------------------Solution composition------------------------------
 
@@ -2088,9 +2088,9 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   6.252e-04   1.058e-02   9.957e-03
+	Al(OH)3(a)        0.00   10.80   10.80   6.252e-04   1.058e-02   9.957e-03
 	AlOHSO4          -1.92   -4.12   -2.20   0.000e+00           0   0.000e+00
-	Calcite          -0.00   -8.48   -8.48   4.745e-02   1.505e-02  -3.239e-02
+	Calcite           0.00   -8.48   -8.48   4.745e-02   1.505e-02  -3.239e-02
 	Fe(OH)3           0.00    4.89    4.89   8.283e-01   8.311e-01   2.813e-03
 	Gypsum           -0.00   -4.58   -4.58   8.613e-02   1.174e-01   3.123e-02
 	MnO2            -18.03   23.35   41.38   0.000e+00           0   0.000e+00
@@ -2294,12 +2294,12 @@ Zn               3.354e-04
 
 	Phase               SI log IAP  log KT
 
-	Al(OH)3(a)       -0.00   10.80   10.80  Al(OH)3
+	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
 	AlOHSO4          -1.92   -4.12   -2.20  AlOHSO4
 	Alunite           6.59    5.19   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -30.99  -33.85   -2.86  CH4
 	CO2(g)           -0.68   -2.14   -1.47  CO2
 	Dolomite          0.24  -16.85  -17.09  CaMg(CO3)2
@@ -2342,11 +2342,11 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)        0.00   10.80   10.80   2.830e-05   2.830e-05  -1.023e-17
+	Al(OH)3(a)        0.00   10.80   10.80   2.830e-05   2.830e-05   1.458e-17
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
-	Calcite          -0.00   -8.48   -8.48   8.825e-02   8.825e-02   2.720e-15
-	Fe(OH)3           0.00    4.89    4.89   8.152e-01   8.152e-01  -1.554e-15
-	Gypsum           -0.00   -4.58   -4.58   4.736e-02   4.736e-02  -2.623e-15
+	Calcite           0.00   -8.48   -8.48   8.825e-02   8.825e-02  -3.733e-15
+	Fe(OH)3           0.00    4.89    4.89   8.152e-01   8.152e-01   2.109e-15
+	Gypsum           -0.00   -4.58   -4.58   4.736e-02   4.736e-02   3.490e-15
 	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -2553,7 +2553,7 @@ Zn               3.350e-04
 	Alunite           4.70    3.30   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -21.35  -24.21   -2.86  CH4
 	CO2(g)           -1.94   -3.41   -1.47  CO2
 	Dolomite          0.26  -16.83  -17.09  CaMg(CO3)2
@@ -2599,8 +2599,8 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 	Al(OH)3(a)       -0.00   10.80   10.80   9.666e-06   2.831e-05   1.865e-05
 	AlOHSO4          -1.71   -3.91   -2.20   0.000e+00           0   0.000e+00
 	Calcite           0.00   -8.48   -8.48   1.112e-01   8.292e-02  -2.831e-02
-	Fe(OH)3           0.00    4.89    4.89   7.768e-01   8.170e-01   4.027e-02
-	Gypsum            0.00   -4.58   -4.58   2.629e-02   5.257e-02   2.628e-02
+	Fe(OH)3          -0.00    4.89    4.89   7.768e-01   8.170e-01   4.027e-02
+	Gypsum           -0.00   -4.58   -4.58   2.629e-02   5.257e-02   2.628e-02
 	MnO2            -15.18   26.20   41.38   2.039e-02           0  -2.039e-02
 
 -----------------------------Solution composition------------------------------
@@ -2630,9 +2630,9 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   2.485e-02
                        Total CO2 (mol/kg)  =   3.566e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.390e-09
+                  Electrical balance (eq)  =  -5.531e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  12
+                               Iterations  =   7
                                   Total H  = 1.107519e+02
                                   Total O  = 5.566397e+01
 
@@ -2811,12 +2811,12 @@ Zn               3.357e-04
 	CH4(g)          -38.45  -41.31   -2.86  CH4
 	CO2(g)           -0.47   -1.93   -1.47  CO2
 	Dolomite          0.20  -16.89  -17.09  CaMg(CO3)2
-	Fe(OH)3           0.00    4.89    4.89  Fe(OH)3
-	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3          -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
 	FeS(ppt)        -30.97  -34.88   -3.92  FeS
 	Gibbsite          2.69   10.80    8.11  Al(OH)3
 	Goethite          5.89    4.89   -1.00  FeOOH
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -15.94  -19.09   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	H2S(g)          -36.89  -37.89   -1.00  H2S
@@ -2850,12 +2850,12 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   0.000e+00           0   0.000e+00
+	Al(OH)3(a)       -0.00   10.80   10.80  -9.630e-35           0   9.630e-35
 	AlOHSO4          -1.61   -3.81   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01   2.276e-15
+	Calcite           0.00   -8.48   -8.48   1.398e-01   1.398e-01  -3.331e-15
 	Fe(OH)3           0.00    4.89    4.89   7.300e-01   7.300e-01   0.000e+00
-	Gypsum           -0.00   -4.58   -4.58   7.677e-15   3.755e-15  -3.921e-15
-	MnO2              0.00   41.38   41.38   4.500e-02   4.500e-02  -1.298e-15
+	Gypsum           -0.00   -4.58   -4.58   0.000e+00   3.041e-15   3.041e-15
+	MnO2              0.00   41.38   41.38   4.500e-02   4.500e-02   2.921e-15
 
 -----------------------------Solution composition------------------------------
 
@@ -2884,7 +2884,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   2.576e-02
                        Total CO2 (mol/kg)  =   3.947e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.318e-11
+                  Electrical balance (eq)  =  -5.788e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.107073e+02
@@ -3617,7 +3617,7 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   4.070e-04   3.854e-03   3.447e-03
+	Al(OH)3(a)        0.00   10.80   10.80   4.070e-04   3.854e-03   3.447e-03
 	AlOHSO4          -2.48   -4.68   -2.20   0.000e+00           0   0.000e+00
 	Calcite           0.00   -8.48   -8.48   6.117e-02   4.469e-02  -1.648e-02
 	Fe(OH)3           0.00    4.89    4.89   8.219e-01   8.244e-01   2.468e-03
@@ -3651,7 +3651,7 @@ Using pure phase assemblage 3.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   1.502e-02
                        Total CO2 (mol/kg)  =   1.650e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.481e-11
+                  Electrical balance (eq)  =  -5.510e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  13
                                   Total H  = 1.109313e+02
@@ -3823,7 +3823,7 @@ Zn               3.351e-04
 
 	Phase               SI log IAP  log KT
 
-	Al(OH)3(a)       -0.00   10.80   10.80  Al(OH)3
+	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
 	AlOHSO4          -2.48   -4.68   -2.20  AlOHSO4
 	Alunite           5.77    4.37   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
@@ -3871,11 +3871,11 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   2.831e-05   2.831e-05   6.291e-17
+	Al(OH)3(a)       -0.00   10.80   10.80   2.831e-05   2.831e-05  -9.080e-18
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   8.292e-02   8.292e-02  -1.607e-14
-	Fe(OH)3          -0.00    4.89    4.89   8.170e-01   8.170e-01   9.104e-15
-	Gypsum           -0.00   -4.58   -4.58   5.257e-02   5.257e-02   1.522e-14
+	Calcite           0.00   -8.48   -8.48   8.292e-02   8.292e-02   2.359e-15
+	Fe(OH)3          -0.00    4.89    4.89   8.170e-01   8.170e-01  -1.332e-15
+	Gypsum           -0.00   -4.58   -4.58   5.257e-02   5.257e-02  -2.290e-15
 	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -4125,12 +4125,12 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   1.874e-05   1.874e-05  -2.313e-17
+	Al(OH)3(a)       -0.00   10.80   10.80   1.874e-05   1.874e-05   5.163e-17
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   8.935e-02   8.935e-02   5.898e-15
-	Fe(OH)3          -0.00    4.89    4.89   8.153e-01   8.153e-01  -3.331e-15
-	Gypsum           -0.00   -4.58   -4.58   4.639e-02   4.639e-02  -5.614e-15
-	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
+	Calcite          -0.00   -8.48   -8.48   8.935e-02   8.935e-02  -1.329e-14
+	Fe(OH)3           0.00    4.89    4.89   8.153e-01   8.153e-01   7.550e-15
+	Gypsum           -0.00   -4.58   -4.58   4.639e-02   4.639e-02   1.263e-14
+	MnO2            -19.40   21.98   41.38  -9.630e-35           0   9.630e-35
 
 -----------------------------Solution composition------------------------------
 
@@ -4159,7 +4159,7 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   7.465e-03
                        Total CO2 (mol/kg)  =   7.271e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.125e-11
+                  Electrical balance (eq)  =  -5.643e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.109779e+02
@@ -4336,12 +4336,12 @@ Zn               3.350e-04
 	Alunite           4.70    3.30   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -21.35  -24.21   -2.86  CH4
 	CO2(g)           -1.94   -3.41   -1.47  CO2
 	Dolomite          0.26  -16.83  -17.09  CaMg(CO3)2
-	Fe(OH)3          -0.00    4.89    4.89  Fe(OH)3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3           0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	FeS(ppt)        -11.55  -15.47   -3.92  FeS
 	Gibbsite          2.69   10.80    8.11  Al(OH)3
 	Goethite          5.89    4.89   -1.00  FeOOH
@@ -5148,7 +5148,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 
 	Al(OH)3(a)        0.00   10.80   10.80   2.859e-04   4.060e-04   1.201e-04
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   6.400e-02   5.675e-02  -7.258e-03
+	Calcite          -0.00   -8.48   -8.48   6.400e-02   5.675e-02  -7.258e-03
 	Fe(OH)3           0.00    4.89    4.89   8.215e-01   8.238e-01   2.250e-03
 	Gypsum           -0.00   -4.58   -4.58   7.052e-02   7.749e-02   6.969e-03
 	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
@@ -5180,7 +5180,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   7.465e-03
                        Total CO2 (mol/kg)  =   7.271e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.501e-11
+                  Electrical balance (eq)  =  -4.627e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.109779e+02
@@ -5357,7 +5357,7 @@ Zn               3.350e-04
 	Alunite           4.70    3.30   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite           0.00   -8.48   -8.48  CaCO3
+	Calcite          -0.00   -8.48   -8.48  CaCO3
 	CH4(g)          -21.35  -24.21   -2.86  CH4
 	CO2(g)           -1.94   -3.41   -1.47  CO2
 	Dolomite          0.26  -16.83  -17.09  CaMg(CO3)2
@@ -5400,11 +5400,11 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)        0.00   10.80   10.80   1.874e-05   1.874e-05   2.479e-17
+	Al(OH)3(a)        0.00   10.80   10.80   1.874e-05   1.874e-05  -4.753e-17
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
-	Calcite           0.00   -8.48   -8.48   8.935e-02   8.935e-02  -6.301e-15
-	Fe(OH)3           0.00    4.89    4.89   8.153e-01   8.153e-01   3.553e-15
-	Gypsum           -0.00   -4.58   -4.58   4.639e-02   4.639e-02   5.926e-15
+	Calcite           0.00   -8.48   -8.48   8.935e-02   8.935e-02   1.227e-14
+	Fe(OH)3           0.00    4.89    4.89   8.153e-01   8.153e-01  -6.883e-15
+	Gypsum           -0.00   -4.58   -4.58   4.639e-02   4.639e-02  -1.170e-14
 	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
 
 -----------------------------Solution composition------------------------------
@@ -6422,7 +6422,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Al(OH)3(a)        0.00   10.80   10.80   8.704e-03   2.358e-03  -6.346e-03
-	AlOHSO4          -0.00   -2.20   -2.20   2.450e-02   4.094e-02   1.645e-02
+	AlOHSO4           0.00   -2.20   -2.20   2.450e-02   4.094e-02   1.645e-02
 	Calcite          -4.92  -13.40   -8.48   0.000e+00           0   0.000e+00
 	Fe(OH)3           0.00    4.89    4.89   8.304e-01   8.310e-01   6.505e-04
 	Gypsum           -0.00   -4.58   -4.58   1.322e-01   1.321e-01  -9.631e-05
@@ -6455,7 +6455,7 @@ Using pure phase assemblage 4.	Pure-phase assemblage after simulation 1.
                  Total alkalinity (eq/kg)  =   5.548e-05
                        Total CO2 (mol/kg)  =   1.029e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.439e-11
+                  Electrical balance (eq)  =  -5.614e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.110129e+02
@@ -6628,7 +6628,7 @@ Zn               3.348e-04
 	Phase               SI log IAP  log KT
 
 	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
-	AlOHSO4          -0.00   -2.20   -2.20  AlOHSO4
+	AlOHSO4           0.00   -2.20   -2.20  AlOHSO4
 	Alunite           9.49    8.09   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
 	Aragonite        -5.06  -13.40   -8.34  CaCO3
@@ -6675,10 +6675,10 @@ Using pure phase assemblage 5.	Pure-phase assemblage after simulation 1.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Al(OH)3(a)       -0.00   10.80   10.80   1.555e-04   2.756e-04   1.201e-04
+	Al(OH)3(a)        0.00   10.80   10.80   1.555e-04   2.756e-04   1.201e-04
 	AlOHSO4          -3.19   -5.39   -2.20   0.000e+00           0   0.000e+00
 	Calcite           0.00   -8.48   -8.48   7.817e-02   7.092e-02  -7.258e-03
-	Fe(OH)3          -0.00    4.89    4.89   8.176e-01   8.198e-01   2.250e-03
+	Fe(OH)3           0.00    4.89    4.89   8.176e-01   8.198e-01   2.250e-03
 	Gypsum           -0.00   -4.58   -4.58   5.693e-02   6.390e-02   6.969e-03
 	MnO2            -19.40   21.98   41.38   0.000e+00           0   0.000e+00
 
@@ -6881,7 +6881,7 @@ Zn               3.350e-04
 
 	Phase               SI log IAP  log KT
 
-	Al(OH)3(a)       -0.00   10.80   10.80  Al(OH)3
+	Al(OH)3(a)        0.00   10.80   10.80  Al(OH)3
 	AlOHSO4          -3.19   -5.39   -2.20  AlOHSO4
 	Alunite           4.70    3.30   -1.40  KAl3(SO4)2(OH)6
 	Anhydrite        -0.22   -4.58   -4.36  CaSO4
@@ -6890,8 +6890,8 @@ Zn               3.350e-04
 	CH4(g)          -21.35  -24.21   -2.86  CH4
 	CO2(g)           -1.94   -3.41   -1.47  CO2
 	Dolomite          0.26  -16.83  -17.09  CaMg(CO3)2
-	Fe(OH)3          -0.00    4.89    4.89  Fe(OH)3
-	Fe(OH)3(a)       -0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3           0.00    4.89    4.89  Fe(OH)3
+	Fe(OH)3(a)        0.00    4.89    4.89  Fe(OH)3
 	FeS(ppt)        -11.55  -15.47   -3.92  FeS
 	Gibbsite          2.69   10.80    8.11  Al(OH)3
 	Goethite          5.89    4.89   -1.00  FeOOH

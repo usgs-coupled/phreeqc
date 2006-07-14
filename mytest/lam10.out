@@ -1876,7 +1876,7 @@ Using pure phase assemblage 2.
 	Birnessite       -2.81   40.79   43.60   0.000e+00           0   0.000e+00
 	Brucite          -3.86   12.98   16.84   0.000e+00           0   0.000e+00
 	Bunsenite        -4.68    7.77   12.45   0.000e+00           0   0.000e+00
-	Calcite          -0.00   -8.48   -8.48   0.000e+00   1.569e-01   1.569e-01
+	Calcite           0.00   -8.48   -8.48   0.000e+00   1.569e-01   1.569e-01
 	Celestite        -0.20   -6.84   -6.63   0.000e+00           0   0.000e+00
 	Cerrusite        -7.11  -20.24  -13.13   0.000e+00           0   0.000e+00
 	Chalcedony       -0.43   -3.98   -3.55   0.000e+00           0   0.000e+00
@@ -1884,7 +1884,7 @@ Using pure phase assemblage 2.
 	Chrysotile       -1.22   30.98   32.20   0.000e+00           0   0.000e+00
 	CupricFerrite    -4.40    1.48    5.88   0.000e+00           0   0.000e+00
 	Cuprite         -11.65  -13.20   -1.55   0.000e+00           0   0.000e+00
-	CuprousFerrite   -0.00   -8.92   -8.92   0.000e+00   1.917e-04   1.917e-04
+	CuprousFerrite    0.00   -8.92   -8.92   0.000e+00   1.917e-04   1.917e-04
 	Dolomite(d)      -2.36  -18.90  -16.54   0.000e+00           0   0.000e+00
 	FCO3Apatite       0.00 -114.40 -114.40   0.000e+00   6.109e-04   6.109e-04
 	Fe(OH)3(a)       -7.24   -2.35    4.89   0.000e+00           0   0.000e+00
@@ -1899,7 +1899,7 @@ Using pure phase assemblage 2.
 	Illite           -1.03  -41.30  -40.27   1.000e+01           0  -1.000e+01
 	Jarosite(ss)    -31.04  -40.87   -9.83   0.000e+00           0   0.000e+00
 	Kaolinite         0.00    7.44    7.43   0.000e+00   1.890e+01   1.890e+01
-	Laumontite       -0.00  -30.96  -30.96   0.000e+00   3.554e-01   3.554e-01
+	Laumontite        0.00  -30.96  -30.96   0.000e+00   3.554e-01   3.554e-01
 	Mackinawite    -109.39 -114.04   -4.65   0.000e+00           0   0.000e+00
 	Manganite         0.00   25.34   25.34   0.000e+00   7.853e-05   7.853e-05
 	Massicot         -9.74    3.17   12.91   0.000e+00           0   0.000e+00
@@ -1909,7 +1909,7 @@ Using pure phase assemblage 2.
 	Ni4(OH)6SO4     -20.45   11.55   32.00   0.000e+00           0   0.000e+00
 	NiCO3            -8.80  -15.64   -6.84   0.000e+00           0   0.000e+00
 	Pb(OH)2          -5.00    3.15    8.15   0.000e+00           0   0.000e+00
-	Phillipsite      -0.00  -19.87  -19.87   0.000e+00   1.398e+00   1.398e+00
+	Phillipsite       0.00  -19.87  -19.87   0.000e+00   1.398e+00   1.398e+00
 	Quartz            0.00   -3.98   -3.98   1.000e+01   2.086e+01   1.086e+01
 	Rhodochrosite(d)  -3.11  -13.50  -10.39   0.000e+00           0   0.000e+00
 	Sepiolite        -1.78   13.98   15.76   0.000e+00           0   0.000e+00
@@ -2025,7 +2025,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.308e-01
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  = -62.00
-                               Iterations  =  48
+                               Iterations  =  50
                                   Total H  = 6.523936e+01
                                   Total O  = 3.267333e+01
 
@@ -2465,7 +2465,7 @@ Zn               3.246e-09
 	Brucite          -3.86   12.98   16.84  Mg(OH)2
 	Bunsenite        -4.68    7.77   12.45  NiO
 	Ca3(AsO4)2:4w   -18.47  -37.37  -18.91  Ca3(AsO4)2:4H2O
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	Celestite        -0.20   -6.84   -6.63  SrSO4
 	Cerrusite        -7.11  -20.24  -13.13  PbCO3
 	CH4(g)         -103.03 -105.89   -2.86  CH4
@@ -2498,7 +2498,7 @@ Zn               3.246e-09
 	CuOCuSO4        -18.76   -7.23   11.53  CuO:CuSO4
 	CupricFerrite    -4.40    1.48    5.88  CuFe2O4
 	Cuprite         -11.65  -13.20   -1.55  Cu2O
-	CuprousFerrite   -0.00   -8.92   -8.92  CuFeO2
+	CuprousFerrite    0.00   -8.92   -8.92  CuFeO2
 	CuSO4           -16.36  -13.35    3.01  CuSO4
 	Diaspore          0.83    7.71    6.88  AlOOH
 	Diopside          0.07   19.96   19.89  CaMgSi2O6
@@ -2545,7 +2545,7 @@ Zn               3.246e-09
 	Kmica             4.80   17.50   12.70  KAl3Si3O10(OH)2
 	Langite         -11.85    4.94   16.79  Cu4(OH)6SO4:H2O
 	Larnakite       -12.85  -13.13   -0.28  PbO:PbSO4
-	Laumontite       -0.00  -30.96  -30.96  CaAl2Si4O12:4H2O
+	Laumontite        0.00  -30.96  -30.96  CaAl2Si4O12:4H2O
 	Laurionite       -5.83   -5.21    0.62  PbOHCl
 	Leonhardite       7.85  -61.90  -69.76  Ca2Al4Si8O24:7H2O
 	Litharge         -9.55    3.17   12.72  PbO
@@ -2609,7 +2609,7 @@ Zn               3.246e-09
 	PbMetal         -31.98  -27.71    4.27  Pb
 	PbO:0.3H2O       -9.81    3.17   12.98  PbO:0.33H2O
 	PbSiO3           -8.13   -0.81    7.32  PbSiO3
-	Phillipsite      -0.00  -19.87  -19.87  Na0.5K0.5AlSi3O8:H2O
+	Phillipsite       0.00  -19.87  -19.87  Na0.5K0.5AlSi3O8:H2O
 	Phlogopite       -2.25   41.05   43.30  KMg3AlSi3O10(OH)2
 	Phosgenite      -14.00  -33.81  -19.81  PbCl2:PbCO3
 	Plattnerite     -15.25   34.05   49.30  PbO2
