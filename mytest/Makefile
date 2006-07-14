@@ -27,6 +27,12 @@ all: alkalinity.out \
 	fluorite.out \
 	gas.out \
 	hard.tests.out \
+	i2.out \
+	i3.out \
+	i4.out \
+	i5.out \
+	i6.out \
+	i7.out \
 	jgb2col.out \
 	jgbcol.out \
 	joe.out \
