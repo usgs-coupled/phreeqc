@@ -176,7 +176,7 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
  *   Remove comment to print total moles of each species
  */
         int i, j, count_g;
-        LDBLE mass_water_surface;
+        LDBLE mass_water_surface, r;
         LDBLE molality, moles_excess, moles_surface;
 
         if (use.surface_ptr == NULL) return(OK);
@@ -200,8 +200,13 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
  *   H2O aq, and H2O bulk (diffuse layers plus aqueous).
  */
 
-        output_msg(OUTPUT_MESSAGE,"\tKg water in diffuse layer: %e\n", 
-                (double) surface_charge_ptr1->mass_water);
+        output_msg(OUTPUT_MESSAGE,"\tWater in diffuse layer: %e kg.   Thickness: %e m.\n",
+				(double) surface_charge_ptr1->mass_water, (double) use.surface_ptr->thickness);
+		if (use.surface_ptr->debye_units > 0) {
+			r = 0.002 * mass_water_bulk_x / (surface_charge_ptr1->specific_area * surface_charge_ptr1->grams);
+			output_msg(OUTPUT_MESSAGE,"\tRadius of total pore:   %e m; of free pore: %e m.\n",
+				(double) r, (double) r - use.surface_ptr->thickness);
+		}
 
 	if (debug_diffuse_layer == TRUE) {
 	        output_msg(OUTPUT_MESSAGE,"\n\t\tDistribution of species in diffuse layer\n\n");
@@ -219,12 +224,12 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /*                      s_x[j]->diff_layer[i].charge->g[count_g].g * molality; */
                         surface_charge_ptr1->g[count_g].g * molality; 
 #endif
-                moles_excess = mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g; 
-                moles_surface = mass_water_surface * molality + moles_excess;
-		if (debug_diffuse_layer == TRUE) {
-	                output_msg(OUTPUT_MESSAGE,"\t%-12s\t%12.3e\t%12.3e\t%12.3e\n", s_x[j]->name,
-                        moles_surface, moles_excess, s_x[j]->diff_layer[i].charge->g[count_g].g);
-		}
+				moles_excess = mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g;
+				moles_surface = mass_water_surface * molality + moles_excess;
+				if (debug_diffuse_layer == TRUE) {
+					output_msg(OUTPUT_MESSAGE,"\t%-12s\t%12.3e\t%12.3e\t%12.3e\n", s_x[j]->name,
+						moles_surface, moles_excess, s_x[j]->diff_layer[i].charge->g[count_g].g);
+				}
 /*
  *   Accumulate elements in diffuse layer
  */

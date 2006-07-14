@@ -4,7 +4,8 @@ EXPORT_DIR=$(EXPORT)
 WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
-DEBUG_EXE=$(TOPDIR)/src/phreeqc
+CURSRC=$(CURDIR)
+DEBUG_EXE=$(CURSRC)/phreeqc
 VERSION=2.12
 VER_DATE:=November 10, 2005
 VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
@@ -18,64 +19,64 @@ UNIX2DOS=unix2dos
 CCFLAGS_DBG=-Wall -ansi -g -std=c99
 # list of files for distribution
 FILES=  \
-	src/Makefile \
-	src/advection.c \
-	src/basic.c \
-	src/basicsubs.c \
-	src/cl1.c \
-	src/cl1mp.c \
-	src/cvdense.c \
-	src/cvode.c \
-	src/dense.c \
-	src/dw.c \
-	src/input.c \
-	src/integrate.c \
-	src/inverse.c \
-	src/isotopes.c \
-	src/kinetics.c \
-	src/main.c \
-	src/mainsubs.c \
-	src/model.c \
-	src/nvector.c \
-	src/nvector_serial.c \
-	src/output.c \
-	src/p2clib.c \
-	src/parse.c \
-	src/phqalloc.c \
-	src/phreeqc_files.c \
-	src/phreeqc_files.c \
-	src/pitzer.c \
-	src/pitzer_structures.c \
-	src/prep.c \
-	src/print.c \
-	src/read.c \
-	src/readtr.c \
-	src/smalldense.c \
-	src/spread.c \
-	src/step.c \
-	src/structures.c \
-	src/sundialsmath.c \
-	src/tally.c \
-	src/tidy.c \
-	src/transport.c \
-	src/utilities.c \
-	src/cvdense.h \
-	src/cvode.h \
-	src/dense.h \
-	src/global.h \
-	src/input.h \
-	src/kinetics.h \
-	src/nvector.h \
-	src/nvector_serial.h \
-	src/output.h \
-	src/p2c.h \
-	src/phqalloc.h \
-	src/phrqproto.h \
-	src/phrqtype.h \
-	src/pitzer.h \
-	src/smalldense.h \
-	src/sundialsmath.h \
-	src/sundialstypes.h \
+	$(CURSRC)/Makefile \
+	$(CURSRC)/advection.c \
+	$(CURSRC)/basic.c \
+	$(CURSRC)/basicsubs.c \
+	$(CURSRC)/cl1.c \
+	$(CURSRC)/cl1mp.c \
+	$(CURSRC)/cvdense.c \
+	$(CURSRC)/cvode.c \
+	$(CURSRC)/dense.c \
+	$(CURSRC)/dw.c \
+	$(CURSRC)/input.c \
+	$(CURSRC)/integrate.c \
+	$(CURSRC)/inverse.c \
+	$(CURSRC)/isotopes.c \
+	$(CURSRC)/kinetics.c \
+	$(CURSRC)/main.c \
+	$(CURSRC)/mainsubs.c \
+	$(CURSRC)/model.c \
+	$(CURSRC)/nvector.c \
+	$(CURSRC)/nvector_serial.c \
+	$(CURSRC)/output.c \
+	$(CURSRC)/p2clib.c \
+	$(CURSRC)/parse.c \
+	$(CURSRC)/phqalloc.c \
+	$(CURSRC)/phreeqc_files.c \
+	$(CURSRC)/phreeqc_files.c \
+	$(CURSRC)/pitzer.c \
+	$(CURSRC)/pitzer_structures.c \
+	$(CURSRC)/prep.c \
+	$(CURSRC)/print.c \
+	$(CURSRC)/read.c \
+	$(CURSRC)/readtr.c \
+	$(CURSRC)/smalldense.c \
+	$(CURSRC)/spread.c \
+	$(CURSRC)/step.c \
+	$(CURSRC)/structures.c \
+	$(CURSRC)/sundialsmath.c \
+	$(CURSRC)/tally.c \
+	$(CURSRC)/tidy.c \
+	$(CURSRC)/transport.c \
+	$(CURSRC)/utilities.c \
+	$(CURSRC)/cvdense.h \
+	$(CURSRC)/cvode.h \
+	$(CURSRC)/dense.h \
+	$(CURSRC)/global.h \
+	$(CURSRC)/input.h \
+	$(CURSRC)/kinetics.h \
+	$(CURSRC)/nvector.h \
+	$(CURSRC)/nvector_serial.h \
+	$(CURSRC)/output.h \
+	$(CURSRC)/p2c.h \
+	$(CURSRC)/phqalloc.h \
+	$(CURSRC)/phrqproto.h \
+	$(CURSRC)/phrqtype.h \
+	$(CURSRC)/pitzer.h \
+	$(CURSRC)/smalldense.h \
+	$(CURSRC)/sundialsmath.h \
+	$(CURSRC)/sundialstypes.h \
 	database/llnl.dat \
 	database/minteq.dat \
 	database/minteq.v4.dat \
@@ -347,11 +348,11 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/src/Makefile SRC=$(TOPDIR)/src CCFLAGS="$(CCFLAGS_DBG)" INVERSE_CL1MP= EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG)" INVERSE_CL1MP= EXE=$(DEBUG_EXE)
 
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc

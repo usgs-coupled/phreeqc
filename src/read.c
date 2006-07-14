@@ -4267,9 +4267,10 @@ int read_species (void)
 		"activity_water",     /* 15 */
 		"add_logk",           /* 16 */
 		"add_log_k",          /* 17 */
-		"add_constant"        /* 18 */
+		"add_constant",        /* 18 */
+		"dw",        /* 19 */
 		};
-	int count_opt_list = 19;
+	int count_opt_list = 20;
 
         association=TRUE;
 	s_ptr = NULL;
@@ -4480,6 +4481,17 @@ int read_species (void)
 			s_ptr->count_add_logk++;
  			opt_save = OPTION_DEFAULT;
  			break;
+		    case 19:                 /* tracer diffusion coefficient */
+			if (s_ptr == NULL) {
+				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			i = sscanf(next_char, SCANFORMAT, &s_ptr->dw );
+			opt_save = OPTION_DEFAULT;
+			break;
+
 		    case OPTION_DEFAULT:
 /*
  *   Get space for species information and parse equation
@@ -5052,7 +5064,7 @@ int read_surf(void)
 	int i, j, n, l;
 	int count_comps, count_charge;
 	int n_user, n_user_end;
-	LDBLE conc, area, grams /*, thickness , factor */;
+	LDBLE conc, area, grams, thickness;
 	char *ptr, *ptr1;
 	char *description;
 	char token[MAX_LENGTH], token1[MAX_LENGTH], name[MAX_LENGTH];
@@ -5144,33 +5156,10 @@ int read_surf(void)
 		    case 3:
 			surface[n].thickness = 1e-8;
 			surface[n].diffuse_layer = TRUE;
-			for (;;) {
-				i = copy_token(token, &next_char, &l);
-				if (i == DIGIT) {
-					sscanf(token, SCANFORMAT, &surface[n].thickness);
-					break;
-				} else if (i != EMPTY) {
-					if (token[0] == 'D' || token[0] == 'd') {
-						surface[n].debye_units = 1.0;
-						j = copy_token(token1, &ptr, &l);
-		                                if (j == DIGIT) {
-							sscanf(token1, SCANFORMAT, &surface[n].debye_units);
-							break;
-						} else if (j != EMPTY) {
-							error_msg("Expected number of Debye units (1/k) for calculating diffuse layer thickness.", CONTINUE);
-							error_msg(line_save, CONTINUE);
-							input_error++;
-							break;
-						} else break;
-					} else {
-						error_msg("Expected D or d for Donnan calculations.", CONTINUE);
-						error_msg(line_save, CONTINUE);
-						input_error++;
-						break;
-					}
-				} else break;
+			sscanf(next_char, SCANFORMAT, &surface[n].thickness);
+/*				surface[n].thickness = thickness;
 			}
-			break;
+ */			break;
 		    case 4:                       /* no electrostatic */
 		    case 5:
 			surface[n].edl = FALSE;
@@ -5180,6 +5169,58 @@ int read_surf(void)
 			break;
 		    case 7:			/* donnan for DL conc's */
 			surface[n].donnan = TRUE;
+			surface[n].diffuse_layer = TRUE;
+			surface[n].debye_units = 0.0;
+			surface[n].DDL_viscosity = 1.0;
+			thickness = 0.0;
+			for (;;) {
+				i = copy_token(token, &next_char, &l);
+				if (i == DIGIT) {
+					sscanf(token, SCANFORMAT, &surface[n].thickness);
+					thickness = 1;
+					continue;
+				} else if (i != EMPTY) {
+					if (token[0] == 'D' || token[0] == 'd') {
+						if (thickness != 0) {
+							error_msg("You must enter EITHER thickness OR Debye units (1/k),\n       and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n\t\t\t  -donnan debye_units 1.5 viscosity 0.5", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+						j = copy_token(token1, &next_char, &l);
+						if (j == DIGIT) {
+							sscanf(token1, SCANFORMAT, &surface[n].debye_units);
+							continue;
+						}
+						else if (j != EMPTY) {
+							error_msg("Expected number of Debye units (1/k).", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
+					else if (token[0] == 'V' || token[0] == 'v') {
+						j = copy_token(token1, &next_char, &l);
+						if (j == DIGIT) {
+							sscanf(token1, SCANFORMAT, &surface[n].DDL_viscosity);
+							continue;
+						}
+						else if (j != EMPTY) {
+							error_msg("Expected number for relative DDL viscosity.", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
+					else {
+						error_msg("Expected diffuse layer thickness (m) or Debye_units (1/k) for calculating the thickness, and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 visc 0.5  or   -donnan debye_units 1.5 visc 0.5", CONTINUE);
+						error_msg(line_save, CONTINUE);
+						input_error++;
+						break;
+					}
+				}
+				else break;
+			}
 			break;
 		    case 8:			/* transport */
 			surface[n].transport = TRUE;
@@ -5342,7 +5383,7 @@ int read_surf(void)
 		}
 	} else {
 		if (surface[n].diffuse_layer == TRUE) {
-			sprintf(error_string, "Diffuse_layer and no_edl are mutually exclusive options.\n");
+			sprintf(error_string, "[Diffuse_layer / donnan] and no_edl are mutually exclusive options.\n");
 			error_msg(error_string, CONTINUE);
 			input_error++;
 		}
