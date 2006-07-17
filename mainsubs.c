@@ -745,6 +745,12 @@ int initial_solutions(int print)
 			k_temp(solution[n]->tc);
 			set(TRUE);
 			converge = model();
+			if (converge == ERROR && diagonal_scale == FALSE) {
+				diagonal_scale = TRUE;
+				set(TRUE);
+				converge = model();
+				diagonal_scale = FALSE;
+			}
 			converge1 = check_residuals();
 			sum_species();
 			add_isotopes(solution[n]);
