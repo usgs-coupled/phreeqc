@@ -4891,7 +4891,8 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 /*
  *   Write surface_charge structure for each surface
  */
-	if (surface_old_ptr->edl == TRUE) {
+	/*if (surface_old_ptr->edl == TRUE) {*/
+	if (surface_old_ptr->type == DDL) {
 		surface_new_ptr->charge = (struct surface_charge *) PHRQ_malloc((size_t) (count_charge) * sizeof (struct surface_charge));
 		if (surface_new_ptr->charge == NULL) malloc_error();
 		memcpy(surface_new_ptr->charge, surface_old_ptr->charge, 
@@ -5010,7 +5011,8 @@ int surface_free(struct surface *surface_ptr)
 /*
  *   diffuse_layer_totals and g, then charge
  */
-	if (surface_ptr->edl == TRUE) {
+	/*if (surface_ptr->edl == TRUE) {*/
+	if (surface_ptr->type == DDL) {
 		for (k = 0; k < surface_ptr->count_charge; k++) {
 			surface_ptr->charge[k].diffuse_layer_totals = (struct elt_list *) free_check_null(surface_ptr->charge[k].diffuse_layer_totals);
 			surface_ptr->charge[k].g = (struct surface_diff_layer *) free_check_null(surface_ptr->charge[k].g);
@@ -5031,7 +5033,8 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->description = string_duplicate(description);
 	surface_ptr->new_def = TRUE;
         surface_ptr->diffuse_layer = FALSE;
-        surface_ptr->edl = TRUE;
+        /*surface_ptr->edl = TRUE;*/
+        surface_ptr->type = DDL;
 	surface_ptr->only_counter_ions = FALSE;
 	surface_ptr->donnan = FALSE;
 	surface_ptr->debye_units = 0.0;

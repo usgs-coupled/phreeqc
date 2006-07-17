@@ -173,6 +173,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 /* ----------------------------------------------------------------------
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
+enum SURFACE_TYPE { UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC } ;
 struct model {
 		int force_prep;
 		LDBLE temperature;
@@ -194,7 +195,8 @@ struct model {
 		LDBLE *si;
 
 		int diffuse_layer;
-		int edl;
+	        /*int edl;*/
+	        enum SURFACE_TYPE surface_type;
 		int only_counter_ions;
 		int donnan;
 		LDBLE thickness;
@@ -282,9 +284,10 @@ struct surface {
 		int n_user_end;
 		int new_def;
 		int diffuse_layer;
-		int edl;
+	/*int edl;*/
 		int only_counter_ions;
 		int donnan;
+ 	        enum SURFACE_TYPE type;
 		LDBLE thickness;
 		LDBLE debye_units;
 		LDBLE DDL_viscosity;

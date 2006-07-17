@@ -334,7 +334,8 @@ int add_surface (struct surface *surface_ptr)
  */
 	diffuse_layer_x = surface_ptr->diffuse_layer;
 	for (i = 0; i < surface_ptr->count_comps; i++) {
-		if(surface_ptr->edl == FALSE) {
+		/*if(surface_ptr->edl == FALSE) {*/
+		if(surface_ptr->type == NO_EDL) {
 			cb_x += surface_ptr->comps[i].cb;
 		}
 		if (surface_ptr->new_def == FALSE) {
@@ -354,9 +355,11 @@ int add_surface (struct surface *surface_ptr)
 			}
 		}
 	}
-	if (surface_ptr->edl == FALSE) return(OK);
+	/*if (surface_ptr->edl == FALSE) return(OK);*/
+	if (surface_ptr->type != DDL) return(OK);
 	for (i = 0; i < surface_ptr->count_charge; i++) {
-		if (surface_ptr->edl == TRUE) {
+		/*if (surface_ptr->edl == TRUE) {*/
+		if (surface_ptr->type == DDL) {
 			cb_x += surface_ptr->charge[i].charge_balance;
 		}
 		if (surface_ptr->new_def == FALSE) {

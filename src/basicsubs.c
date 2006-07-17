@@ -169,7 +169,8 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
  */
 	i = 0;
 	for (j =0; j < count_unknowns; j++) {
-		if (use.surface_ptr->edl == TRUE) {
+		/*if (use.surface_ptr->edl == TRUE) {*/
+		if (use.surface_ptr->type == DDL) {
 			if (x[j]->type != SURFACE_CB) continue;
 			strcpy(name, x[j]->master[0]->elt->name);
 			replace ("_psi", "", name);
@@ -192,20 +193,23 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	 *   Psi, charge, sigma
 	 */
 	if (strcmp_nocase("psi", total_name) == 0) {
-		if (use.surface_ptr->edl == TRUE) {
+		/*if (use.surface_ptr->edl == TRUE) {*/
+		if (use.surface_ptr->type == DDL) {
 			return((LDBLE) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL * 
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else {
 			return(0);
 		}
 	} else if (strcmp_nocase("charge", total_name) == 0) {
-		if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {
+		/*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {*/
+		if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {
 			return((LDBLE) (x[j]->f));
 		} else {
 			return(calc_surface_charge(surface_name_local));
 		}
 	} else if (strcmp_nocase("sigma", total_name) == 0) {
-		if (use.surface_ptr->edl == TRUE) {
+		/*if (use.surface_ptr->edl == TRUE) {*/
+		if (use.surface_ptr->type == DDL) {
 			if (diffuse_layer_x == TRUE) {
 				charge = calc_surface_charge(surface_name_local);
 			} else {

@@ -2152,7 +2152,8 @@ int add_potential_factor(void)
 	struct master *master_ptr;
 	struct unknown *unknown_ptr;
 
-	if (use.surface_ptr->edl == FALSE) return(OK);
+	/*if (use.surface_ptr->edl == FALSE) return(OK);*/
+	if (use.surface_ptr->type != DDL) return(OK);
 	sum_z = 0.0;
 	master_ptr = NULL;
 /*
@@ -2226,7 +2227,8 @@ int add_surface_charge_balance(void)
 	struct master *master_ptr;
 	struct unknown *unknown_ptr;
 
-	if (use.surface_ptr->edl == FALSE) return(OK);
+	/*if (use.surface_ptr->edl == FALSE) return(OK);*/
+	if (use.surface_ptr->type != DDL) return(OK);
 	master_ptr = NULL;
 /*
  *   Find master species
@@ -2480,7 +2482,8 @@ int setup_surface (void)
 			if (surface_unknown == NULL) surface_unknown = x[count_unknowns];
 			x[count_unknowns]->potential_unknown = NULL;
 			count_unknowns++;
-			if (use.surface_ptr->edl == FALSE) continue;
+			/*if (use.surface_ptr->edl == FALSE) continue;*/
+			if (use.surface_ptr->type != DDL) continue;
 /*
  *   Setup surface-potential unknown
  */
@@ -3719,10 +3722,12 @@ static int save_model(void)
 			last_model.surface_charge[i] = use.surface_ptr->charge[i].name;
 		}
 		last_model.diffuse_layer = use.surface_ptr->diffuse_layer;
-		last_model.edl = use.surface_ptr->edl;
+		/*last_model.edl = use.surface_ptr->edl;*/
+		last_model.surface_type = use.surface_ptr->type;
 	} else {
 		last_model.diffuse_layer = -1;
-		last_model.edl = -1;
+		/*last_model.edl = -1;*/
+		last_model.surface_type = UNKNOWN_DL;
 		last_model.count_surface_comp = 0;
 		last_model.surface_comp = NULL;
 		last_model.count_surface_charge = 0;
@@ -3816,7 +3821,8 @@ int check_same_model(void)
 		if (last_model.count_surface_comp != use.surface_ptr->count_comps) return(FALSE);
 		if (last_model.count_surface_charge != use.surface_ptr->count_charge) return(FALSE);
 		if (last_model.diffuse_layer != use.surface_ptr->diffuse_layer) return(FALSE);
-		if (last_model.edl != use.surface_ptr->edl) return(FALSE);
+		/*if (last_model.edl != use.surface_ptr->edl) return(FALSE);*/
+		if (last_model.surface_type != use.surface_ptr->type) return(FALSE);
 		/*
 		if (last_model.only_counter_ions != use.surface_ptr->only_counter_ions) return(FALSE);
 		if (last_model.donnan != use.surface_ptr->donnan) return(FALSE);

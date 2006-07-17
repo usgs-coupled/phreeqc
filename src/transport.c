@@ -124,7 +124,8 @@ int transport(void)
  */
 	dup_print("Equilibrating initial solutions", TRUE);
 	transport_step = 0;
-	for (i = 0; i <= count_cells + 1; i++) {
+	/*for (i = 0; i <= count_cells + 1; i++) {*/
+	for (i = 0; i <= count_cells ; i++) {
 		set_initial_moles(i);
 		cell_no = i;
 		set_and_run_wrapper(i, NOMIX, FALSE, i, 0.0);

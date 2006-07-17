@@ -5162,8 +5162,9 @@ int read_surf(void)
  */			break;
 		    case 4:                       /* no electrostatic */
 		    case 5:
-			surface[n].edl = FALSE;
-			break;
+			    /*surface[n].edl = FALSE;*/
+			    surface[n].type = NO_EDL;
+			    break;
 		    case 6:
 			surface[n].only_counter_ions = TRUE;
 			break;
@@ -5373,7 +5374,8 @@ int read_surf(void)
 /*
  *   Make sure surface area is defined
  */
-	if (surface[n].edl == TRUE) {
+	/*if (surface[n].edl == TRUE) {*/
+	if (surface[n].type == DDL) {
 		for (i = 0; i < count_charge; i++) {
 			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <= 0) {
 				sprintf(error_string, "Surface area not defined for %s.\n", surface[n].charge[i].name);

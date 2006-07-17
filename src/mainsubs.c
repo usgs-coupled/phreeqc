@@ -1767,7 +1767,8 @@ static int xsurface_save(int n_user)
 	temp_surface.count_comps = count_comps;
 	temp_surface.comps = (struct surface_comp *) PHRQ_malloc((size_t) (count_comps) * sizeof (struct surface_comp));
 	if (temp_surface.comps == NULL) malloc_error();
-	if (temp_surface.edl == FALSE) {
+	/*if (temp_surface.edl == FALSE) {*/
+	if (temp_surface.type == NO_EDL) {
 		temp_surface.charge = NULL;
 		temp_surface.count_charge = 0;
 	} else {
@@ -2146,7 +2147,8 @@ int step_save_surf(int n_user)
 	/*
 	 *   Update grams
 	 */
-	if (surface_ptr->edl == TRUE && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {
+	/*if (surface_ptr->edl == TRUE && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {*/
+	if (surface_ptr->type == DDL && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {
 		for (j = 0; j < surface_ptr->count_comps; j++) {
 			if (surface_ptr->comps[j].rate_name != NULL) {
 				for (m = 0; m < use.kinetics_ptr->count_comps; m++) {

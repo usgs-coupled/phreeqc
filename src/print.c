@@ -1099,7 +1099,8 @@ int print_surface(void)
 
         s_h2o->lm = s_h2o->la;
         for (j =0; j < count_unknowns; j++) {
-                if (use.surface_ptr->edl == TRUE) {
+                /*if (use.surface_ptr->edl == TRUE) {*/
+                if (use.surface_ptr->type == DDL) {
                         if (x[j]->type != SURFACE_CB) continue;
                         strcpy(name, x[j]->master[0]->elt->name);
                         replace ("_psi", "", name);
@@ -1117,7 +1118,8 @@ int print_surface(void)
                 if (diffuse_layer_x == TRUE) {
                         output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", (double) x[j]->f );
                 }
-                if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {
+                /*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {*/
+                if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {
                         charge = x[j]->f;
                 } else {
                         charge = calc_surface_charge(name);
