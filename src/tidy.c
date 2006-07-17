@@ -1660,7 +1660,7 @@ int tidy_surface(void)
 		surface_ptr = &surface[k];
 		for (i = 0; i < surface_ptr->count_comps; i++ ) {
 /*
- *   Find master species for each surface, setup unknown structure
+ *   Find master species for each surface
  */
 			for (j = 0; surface_ptr->comps[i].totals[j].elt != NULL; j++) {
 				master_ptr = surface_ptr->comps[i].totals[j].elt->master;

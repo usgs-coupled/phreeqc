@@ -2231,10 +2231,16 @@ struct master *master_alloc(void)
  *   set pointers in structure to NULL
  */
 	ptr->in=FALSE;
+	ptr->number = -1;
+	ptr->last_model = -1;
 	ptr->type=0;
 	ptr->primary=FALSE;
 	ptr->coef=0.0;
 	ptr->total=0.0;
+	ptr->isotope_ratio = 0;
+	ptr->isotope_ratio_uncertainty = 0; 
+	ptr->isotope = 0;
+	ptr->total_primary = 0; 
 	ptr->elt=NULL;
 	ptr->alk = 0.0;
 	ptr->gfw = 0.0;
@@ -2245,7 +2251,9 @@ struct master *master_alloc(void)
 	ptr->rxn_secondary=NULL;
 	ptr->pe_rxn=NULL;
 	ptr->minor_isotope = FALSE;
-
+	ptr->capacitance[0] = 0;
+	ptr->capacitance[1] = 0;
+	ptr->capacitance_defined = FALSE;
 	return(ptr);
 }
 /* ---------------------------------------------------------------------- */
@@ -3671,6 +3679,11 @@ static int s_init(struct species *s_ptr)
 	s_ptr->type = 0;
 	s_ptr->gflag = 0;
 	s_ptr->check_equation = TRUE;
+
+	for (i = 0; i < 5; i++) {
+		s_ptr->cd_music[i] = 0.0;
+	}
+
 
 	return(OK);
 }
