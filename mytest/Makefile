@@ -92,6 +92,7 @@ all: alkalinity.out \
 	minteqv4.out \
 	ex16mp.out ex17mp.out ex18mp.out \
 	feb.out febmp.out \
+	katz.out \
 	np.testmp.out \
 	oxygenmp.out \
 	spread_redox.out 
