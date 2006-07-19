@@ -1986,7 +1986,11 @@ int mb_for_species_surf(int n)
 /*
  *   SURF_PSI, sum surface species in (surface + DL) charge balance
  */
-		if (master_ptr->s->type == SURF_PSI) {
+		if (master_ptr->s->type == SURF_PSI && use.surface_ptr->type != CD_MUSIC) {
+			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->z, &s[n]->dg ); 
+			continue;
+		}			
+		if (master_ptr->s->type == SURF_PSI && use.surface_ptr->type == CD_MUSIC) {
 			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[0], &s[n]->dg ); 
 			continue;
 		}			
