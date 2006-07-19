@@ -2251,9 +2251,6 @@ struct master *master_alloc(void)
 	ptr->rxn_secondary=NULL;
 	ptr->pe_rxn=NULL;
 	ptr->minor_isotope = FALSE;
-	ptr->capacitance[0] = 0;
-	ptr->capacitance[1] = 0;
-	ptr->capacitance_defined = FALSE;
 	return(ptr);
 }
 /* ---------------------------------------------------------------------- */
@@ -3682,6 +3679,9 @@ static int s_init(struct species *s_ptr)
 
 	for (i = 0; i < 5; i++) {
 		s_ptr->cd_music[i] = 0.0;
+	}
+	for (i = 0; i < 3; i++) {
+		s_ptr->dz[i] = 0.0;
 	}
 
 
@@ -5576,17 +5576,17 @@ int trxn_print (void)
  *   Print log k for reaction
  */
 
-	output_msg(OUTPUT_MESSAGE,"log k data:\n");
+	output_msg(OUTPUT_MESSAGE,"\tlog k data:\n");
 	for (i=0; i < 7; i++) {
-		output_msg(OUTPUT_MESSAGE,"\t%f",(double) trxn.logk[i]);
+		output_msg(OUTPUT_MESSAGE,"\t\t%f\n",(double) trxn.logk[i]);
 	}
-	output_msg(OUTPUT_MESSAGE,"\n");
 
 /*
  *   Print stoichiometry
  */
+	output_msg(OUTPUT_MESSAGE,"\tReaction stoichiometry\n");
 	for (i=0; i<count_trxn; i++) {
-		output_msg(OUTPUT_MESSAGE,"\t\t%s\t%.2f\n",trxn.token[i].name,(double) trxn.token[i].coef);
+		output_msg(OUTPUT_MESSAGE,"\t\t%-20s\t%10.2f\n",trxn.token[i].name,(double) trxn.token[i].coef);
 	}
 	output_msg(OUTPUT_MESSAGE,"\n");
 	return(OK);
@@ -5719,6 +5719,10 @@ struct unknown *unknown_alloc(void)
 	unknown_ptr->surface_comp = NULL;
 	unknown_ptr->related_moles = 0.0;
 	unknown_ptr->potential_unknown = NULL;
+	unknown_ptr->potential_unknown1 = NULL;
+	unknown_ptr->potential_unknown2 = NULL;
+	unknown_ptr->count_comp_unknowns = 0;
+	unknown_ptr->comp_unknowns = NULL;
 	unknown_ptr->phase_unknown = NULL;
 	unknown_ptr->surface_charge = NULL;
 	unknown_ptr->mass_water = 0.0;

@@ -22,6 +22,7 @@ static char const svnid[] = "$Id$";
 #else
 #define STATIC static
 #endif
+STATIC int add_psi_master_species (char *token);
 STATIC int read_advection (void);
 STATIC int read_analytical_expression_only (char *ptr, LDBLE *log_k);
 STATIC int read_copy (void);
@@ -4980,13 +4981,13 @@ int read_surface_species (void)
 				input_error++;
 				break;
 			}
-			j = 0;
-			while (sscanf(next_char,SCANFORMAT, &s_ptr->cd_music[j]) == 1) {
-				j++;
-				if (j >= 5) {
-					break;
-				}
+			for (j=0; j < 5; j++) {
+				if (copy_token(token, &next_char, &i) == EMPTY) break;
+				if (sscanf(token, SCANFORMAT, &s_ptr->cd_music[j]) != 1) break;
 			}
+			s_ptr->dz[0] = s_ptr->cd_music[0] + s_ptr->cd_music[3]*s_ptr->cd_music[4];
+			s_ptr->dz[1] = s_ptr->cd_music[1] + (1 - s_ptr->cd_music[3])*s_ptr->cd_music[4];
+			s_ptr->dz[2] = s_ptr->cd_music[2];
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:
@@ -5389,6 +5390,17 @@ int read_surf(void)
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].grams = grams;
 			} 
+/*
+ *   Read capacitance for CD_MUSIC
+ */
+			copy_token(token1, &ptr, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				surface[n].charge[i].capacitance[0] = grams;
+			} 
+			copy_token(token1, &ptr, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				surface[n].charge[i].capacitance[1] = grams;
+			} 
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -5423,19 +5435,21 @@ int read_surface_master_species (void)
 	/*
 	 *   Reads master species data from data file or input file
 	 */
-	int i, j, l, n, return_value;
+	int l, return_value;
 	char *ptr, *ptr1;
 	LDBLE z;
-	struct master *master_ptr, *m_ptr;
+	struct master *m_ptr;
 	struct species *s_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 	int  opt, opt_save;
 	char *next_char;
 	const char *opt_list[] = {
+#ifdef SKIP
 		"capacitance",           /* 0 */
 		"cd_music_capacitance"   /* 1 */
+#endif
 	};
-	int count_opt_list = 2;
+	int count_opt_list = 0;
 	opt_save = OPTION_DEFAULT;
 	return_value = UNKNOWN;
 	m_ptr = NULL;
@@ -5456,6 +5470,7 @@ int read_surface_master_species (void)
 			error_msg("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
+#ifdef SKIP
 		case 0:                 /* capacitance */
 		case 1:                 /* cd_music_capacitance */
 			if (m_ptr == NULL) {
@@ -5464,17 +5479,15 @@ int read_surface_master_species (void)
 				input_error++;
 				break;
 			}
-			j = 0;
-			while (sscanf(next_char,SCANFORMAT, &m_ptr->capacitance[j]) == 1) {
-				j++;
-				if (j >= 2) {
-					break;
-				}
+			for (j=0; j < 2; j++) {
+				if (copy_token(token, &next_char, &l) == EMPTY) break;
+				if (sscanf(token, SCANFORMAT, &m_ptr->capacitance[j]) != 1) break;
 			}
 			m_ptr->capacitance_defined = TRUE;
 			opt_save = OPTION_DEFAULT;
 
 			break;
+#endif
 		case OPTION_DEFAULT:
 			/*
 			 *   Get "element" name with valence, allocate space, store
@@ -5497,8 +5510,8 @@ int read_surface_master_species (void)
 			/*
 			 *   Increase pointer array, if necessary,  and malloc space
 			 */
-			if (count_master + 2 >= max_master) {
-				space ((void **) ((void *) &master), count_master+2, &max_master, sizeof(struct master *));
+			if (count_master + 4 >= max_master) {
+				space ((void **) ((void *) &master), count_master+4, &max_master, sizeof(struct master *));
 			}
 			/*
 			 *   Save values in master and species structure for surface sites
@@ -5532,7 +5545,8 @@ int read_surface_master_species (void)
 			ptr1 = token1;
 			copy_token(token, &ptr1, &l);
 			strcat(token,"_psi");
-			master_ptr=master_search (token, &n);
+			add_psi_master_species(token);
+#ifdef SKIP
 			if (master_ptr == NULL) {
 				master[count_master] = master_alloc();
 				master[count_master]->type = SURF_PSI;
@@ -5565,12 +5579,72 @@ int read_surface_master_species (void)
 				master[count_master]->s->rxn->token[2].s = NULL;
 				count_master++;
 			}
+#endif
 			opt_save = OPTION_DEFAULT;
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
 	return (return_value);
+}
+/* ---------------------------------------------------------------------- */
+int add_psi_master_species (char *token)
+/* ---------------------------------------------------------------------- */
+{
+	struct species *s_ptr;
+	struct master *master_ptr;
+	char *ptr;
+	char token1[MAX_LENGTH];
+	int i, n, plane;
+
+	strcpy(token1, token);
+	for (plane = SURF_PSI; plane <= SURF_PSI2; plane++) {
+		strcpy(token, token1);
+		switch (plane) {
+		case SURF_PSI:
+			break;
+		case SURF_PSI1:
+			strcat(token,"b");
+			break;
+		case SURF_PSI2:
+			strcat(token,"d");
+			break;
+		}
+		master_ptr=master_search (token, &n);
+		if (master_ptr == NULL) {
+			master[count_master] = master_alloc();
+			master[count_master]->type = plane;
+			master[count_master]->elt = element_store ( token );
+			s_ptr=s_search (token);
+			if (s_ptr != NULL) {
+				master[count_master]->s = s_ptr;
+			} else {
+				master[count_master]->s = s_store(token, 0.0, FALSE);
+			}
+			count_elts = 0;
+			paren_count = 0;
+			ptr = token;
+			get_elts_in_species(&ptr, 1.0);
+			master[count_master]->s->next_elt = elt_list_save();
+			
+			master[count_master]->s->type=plane;
+			master[count_master]->primary=TRUE;
+			master[count_master]->s->rxn = rxn_alloc(3);
+			/*
+			 *   Define reaction for psi
+			 */
+			for( i = 0; i < 8; i++) {
+				master[count_master]->s->rxn->logk[i] = 0.0;
+			}
+			master[count_master]->s->rxn->token[0].s = master[count_master]->s;
+			master[count_master]->s->rxn->token[0].coef = -1.0;
+			master[count_master]->s->rxn->token[1].s = master[count_master]->s;
+			master[count_master]->s->rxn->token[1].coef = 1.0;
+			master[count_master]->s->rxn->token[2].s = NULL;
+			count_master++;
+		}
+	}
+	return(OK);
 }
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */

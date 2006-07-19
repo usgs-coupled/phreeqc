@@ -105,6 +105,8 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define EX 5
 #define SURF 6
 #define SURF_PSI 7
+#define SURF_PSI1 8
+#define SURF_PSI2 9
 
 /* unknown types */
 #define MB 10
@@ -119,9 +121,11 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define EXCH 19
 #define SURFACE 20
 #define SURFACE_CB 21
-#define GAS_MOLES 23
-#define S_S_MOLES 24
-#define PITZER_GAMMA 25
+#define SURFACE_CB1 22
+#define SURFACE_CB2 23
+#define GAS_MOLES 24
+#define S_S_MOLES 25
+#define PITZER_GAMMA 26
 /* state */
 #define INITIALIZE               0
 #define INITIAL_SOLUTION   1
@@ -323,8 +327,9 @@ struct surface_charge {
         struct elt_list *diffuse_layer_totals;
         int count_g;
         struct surface_diff_layer *g;   /* stores g and dg/dXd for each ionic charge */
-        struct master *psi_master;
-        LDBLE la_psi;
+        struct master *psi_master, *psi_master1, *psi_master2;
+        LDBLE la_psi, la_psi1, la_psi2;
+        double capacitance[2];
 };
 struct surface_diff_layer {
         LDBLE charge;
@@ -1170,6 +1175,7 @@ struct species {                                          /* all data pertinent 
         struct species_diff_layer *diff_layer;  /* information related to diffuse layer factors for each
                                                    surface */
         double cd_music[5];
+        double dz[3];
 };
 struct logk {                                    /* Named log K's */
         char *name;                                /* name of species */
@@ -1269,8 +1275,6 @@ struct master {                                    /* list of name and number of
         struct reaction **pe_rxn;       /* e- written in terms of redox couple (or e-), points
                                            to location */
         int minor_isotope;
-        double capacitance[2];
-	int capacitance_defined;
 };
 EXTERNAL struct master  **master;                         /* structure array of master species */
 EXTERNAL struct master  **dbg_master;
@@ -1303,7 +1307,9 @@ struct unknown {
         int s_s_in;
         struct surface_comp *surface_comp;
         LDBLE related_moles;
-        struct unknown *potential_unknown;
+        struct unknown *potential_unknown, *potential_unknown1, *potential_unknown2;
+	int count_comp_unknowns;
+	struct unknown **comp_unknowns;   /* list for CD_MUSIC of comps that contribute to 0 plane mass-balance term */
         struct unknown *phase_unknown;
         struct surface_charge *surface_charge;
         LDBLE mass_water;

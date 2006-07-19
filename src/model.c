@@ -2467,12 +2467,13 @@ int residuals(void)
 /*
  *   Calculates residuals for all equations
  */
-	int i;
+	int i, j;
 	int converge;
 
 	LDBLE toler;
 	LDBLE sum_residual;
 	LDBLE sinh_constant;
+	LDBLE sum, psi, f0, f1, f2;
 
 	sum_residual = 0.0;
 
@@ -2595,7 +2596,7 @@ int residuals(void)
 				*/
 				converge = FALSE;
 			}
-		} else if (x[i]->type == SURFACE_CB) {
+		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == DDL) {
 			/*sinh_constant = 0.1174;*/
 			sinh_constant = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*tk_x*1000);
 /*			if (x[i]->surface_charge->grams <= MIN_RELATED_SURFACE) { */
@@ -2613,6 +2614,110 @@ int residuals(void)
 					sinh(x[i]->master[0]->s->la * LOG_10) - 
 					x[i]->f * F_C_MOL / 
 					(x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+			}
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"Charge/Potential\n");
+				if (x[i]->surface_charge->grams > 0) {
+					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
+						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
+				} else {
+					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
+				}
+				output_msg(OUTPUT_MESSAGE,"\t                grams %g\n", (double) x[i]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,"\tCharge from potential %e eq\n",
+					(double) (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams / F_C_MOL *
+					sinh_constant * sqrt(mu_x) *
+					sinh(x[i]->master[0]->s->la * LOG_10)));
+				output_msg(OUTPUT_MESSAGE,"\t             FPsi/2RT %e\n", 
+					(double) (x[i]->master[0]->s->la * LOG_10));
+				output_msg(OUTPUT_MESSAGE,"\t       Sinh(FPsi/2RT) %e\n", 
+					sinh(x[i]->master[0]->s->la * LOG_10));
+				output_msg(OUTPUT_MESSAGE,"\t       Cosh(FPsi/2RT) %e\n", 
+					cosh(x[i]->master[0]->s->la * LOG_10));
+				output_msg(OUTPUT_MESSAGE,"\t           Sqrt(mu_x) %e\n", 
+					sqrt(mu_x));
+			}
+			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
+		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC) {
+			if (x[i]->surface_charge->grams == 0) {
+				residual[i] = 0.0; 
+			} else if (diffuse_layer_x == TRUE) {
+				residual[i] = - x[i]->f;
+			} else {
+				/* sum is in moles of charge */
+				sum = 0;
+				for (j = 0; j < x[i]->count_comp_unknowns; j++) {
+					sum += x[i]->comp_unknowns[j]->moles*x[i]->comp_unknowns[j]->master[0]->s->z;
+				}
+				/* f is in moles */
+				/* eqns A-3 */
+				residual[i] = (x[i]->f + sum) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)  - x[i]->surface_charge->capacitance[0]*(x[i]->surface_charge->psi_master->s->la - x[i]->surface_charge->psi_master1->s->la);
+			}
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"CD_music Charge/Potential 0\n");
+				if (x[i]->surface_charge->grams > 0) {
+					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
+						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
+				} else {
+					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
+				}
+				output_msg(OUTPUT_MESSAGE,"\t                grams %g\n", (double) x[i]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,"\t             FPsi/2RT %e\n", 
+					(double) (x[i]->master[0]->s->la * LOG_10));
+			}
+			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
+		} else if (x[i]->type == SURFACE_CB1) {
+			if (x[i]->surface_charge->grams == 0) {
+				residual[i] = 0.0; 
+#ifdef SKIP
+			} else if (diffuse_layer_x == TRUE) {
+				residual[i] = - x[i]->f;
+#endif
+			} else {
+				/* eqns A-4 */
+				f1 = x[i]->f;
+				f0 = x[i]->surface_charge->psi_master->unknown->f;
+				residual[i] = (f1 + f0) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) - x[i]->surface_charge->capacitance[1]*(x[i]->surface_charge->psi_master1->s->la - x[i]->surface_charge->psi_master2->s->la);
+			}
+			if (debug_model == TRUE) {
+				output_msg(OUTPUT_MESSAGE,"CD_music Charge/Potential 1\n");
+				if (x[i]->surface_charge->grams > 0) {
+					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
+						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
+				} else {
+					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
+				}
+				output_msg(OUTPUT_MESSAGE,"\t                grams %g\n", (double) x[i]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,"\t             FPsi/2RT %e\n", 
+					(double) (x[i]->master[0]->s->la * LOG_10));
+			}
+			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
+		} else if (x[i]->type == SURFACE_CB2) {
+			if (x[i]->surface_charge->grams == 0) {
+				residual[i] = 0.0; 
+#ifdef SKIP
+			} else if (diffuse_layer_x == TRUE) {
+				residual[i] = - x[i]->f;
+#endif
+			} else {
+				/* eqns A-6 and A-7 */
+				sinh_constant = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*tk_x*1000);
+				/*
+				 *   sinh_constant is (8 e e0 R T 1000)**1/2
+				 *                 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
+				 *                 ~ 0.1174 at 25C
+				 */
+				psi = x[i]->surface_charge->psi_master2->s->la * F_C_MOL/(R_KJ_DEG_MOL*tk_x);
+				sum = 0;
+				for (j = 0; j < count_s_x; j++) {
+					if (s_x[j]->type < H2O) {
+						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*psi) - 1);
+					}
+				}
+				f0 = x[i]->surface_charge->psi_master->unknown->f;
+				f1 = x[i]->surface_charge->psi_master1->unknown->f;
+				f2 = x[i]->f;
+				residual[i] = (f0 + f1 + f2) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) + 0.5*sinh_constant*sqrt(sum);
 			}
 			if (debug_model == TRUE) {
 				output_msg(OUTPUT_MESSAGE,"Charge/Potential\n");
