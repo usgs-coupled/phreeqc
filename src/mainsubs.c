@@ -978,7 +978,8 @@ int initial_surfaces(int print)
 #endif
 			set_and_run_wrapper(-1, FALSE, FALSE, -1, 0.0);
 			species_list_sort();
-			print_surface();
+			/*print_surface();*/
+			print_all();
 			punch_all();
 #ifdef SKIP
 			if (converge == ERROR || converge1 == ERROR) { 

@@ -160,6 +160,8 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 
 	if (use.surface_ptr == NULL || (diffuse_layer_x == FALSE &&
 					strcmp_nocase("psi", total_name) != 0 &&
+					strcmp_nocase("psi1", total_name) != 0 &&
+					strcmp_nocase("psi2", total_name) != 0 &&
 					strcmp_nocase("charge", total_name) != 0 &&
 					strcmp_nocase("sigma", total_name) != 0 )
 	    ) return(0);
@@ -171,6 +173,10 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	for (j =0; j < count_unknowns; j++) {
 		/*if (use.surface_ptr->edl == TRUE) {*/
 		if (use.surface_ptr->type == DDL) {
+			if (x[j]->type != SURFACE_CB) continue;
+			strcpy(name, x[j]->master[0]->elt->name);
+			replace ("_psi", "", name);
+		} else if (use.surface_ptr->type == CD_MUSIC) {
 			if (x[j]->type != SURFACE_CB) continue;
 			strcpy(name, x[j]->master[0]->elt->name);
 			replace ("_psi", "", name);
@@ -196,6 +202,23 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 		/*if (use.surface_ptr->edl == TRUE) {*/
 		if (use.surface_ptr->type == DDL) {
 			return((LDBLE) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL * 
+					 tk_x * LOG_10 / F_KJ_V_EQ));
+		} else if (use.surface_ptr->type == CD_MUSIC) {
+			return((LDBLE) (-x[j]->surface_charge->psi_master->s->la * R_KJ_DEG_MOL * 
+					 tk_x * LOG_10 / F_KJ_V_EQ));
+		} else {
+			return(0);
+		}
+	} else if (strcmp_nocase("psi1", total_name) == 0) {
+		if (use.surface_ptr->type == CD_MUSIC) {
+			return((LDBLE) (-x[j]->surface_charge->psi_master1->s->la * R_KJ_DEG_MOL * 
+					 tk_x * LOG_10 / F_KJ_V_EQ));
+		} else {
+			return(0);
+		}
+	} else if (strcmp_nocase("psi2", total_name) == 0) {
+		if (use.surface_ptr->type == CD_MUSIC) {
+			return((LDBLE) (-x[j]->surface_charge->psi_master2->s->la * R_KJ_DEG_MOL * 
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else {
 			return(0);
