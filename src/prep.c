@@ -2709,6 +2709,8 @@ int setup_surface (void)
 				for (plane = SURF_PSI; plane <= SURF_PSI2; plane++) {
 					strcpy(cb_suffix,"_CB");
 					strcpy(psi_suffix, "_psi");
+					unknown_target = NULL;
+					type = SURFACE_CB;
 					switch (plane) {
 					case SURF_PSI:
 						type = SURFACE_CB;

@@ -5444,10 +5444,8 @@ int read_surface_master_species (void)
 	int  opt, opt_save;
 	char *next_char;
 	const char *opt_list[] = {
-#ifdef SKIP
 		"capacitance",           /* 0 */
 		"cd_music_capacitance"   /* 1 */
-#endif
 	};
 	int count_opt_list = 0;
 	opt_save = OPTION_DEFAULT;

@@ -123,6 +123,7 @@ int model(void)
  *   Calculate jacobian
  */
 			if (state >= REACTION && numerical_deriv) {
+				numerical_jacobian();
 			} else {
 				jacobian_sums();
 				numerical_jacobian();
@@ -2165,8 +2166,10 @@ int reset(void)
 		} else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) {
 			up = step_up;
 			down = 1.3 * up;
+			/*
 			up = 1.3;
 			down = 1.2;
+			*/
 		}
 
 		if (delta[i] > 0.0) {
@@ -2486,6 +2489,7 @@ int residuals(void)
  *   Calculate residuals
  */
 	converge = TRUE;
+	f0 = f1 = f2 = sum = psi = 0;
 #ifdef SKIP
 	if (punch.high_precision == FALSE)
 		toler = 1e-8;
@@ -3272,8 +3276,8 @@ int numerical_jacobian(void)
 	double d, d1, d2;
 	int i, j;
 
-	calculating_deriv = TRUE;
 	if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) return(OK);
+	calculating_deriv = TRUE;
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
