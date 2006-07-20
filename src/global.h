@@ -1311,7 +1311,7 @@ struct unknown {
 	int count_comp_unknowns;
 	struct unknown **comp_unknowns;   /* list for CD_MUSIC of comps that contribute to 0 plane mass-balance term */
         struct unknown *phase_unknown;
-        struct surface_charge *surface_charge;
+        /*struct surface_charge *surface_charge;*/
         LDBLE mass_water;
         int dissolve_only;
 };

@@ -2166,10 +2166,8 @@ int reset(void)
 		} else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) {
 			up = step_up;
 			down = 1.3 * up;
-			/*
 			up = 1.3;
 			down = 1.2;
-			*/
 		}
 
 		if (delta[i] > 0.0) {

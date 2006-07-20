@@ -4905,7 +4905,7 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
  *   Write surface_charge structure for each surface
  */
 	/*if (surface_old_ptr->edl == TRUE) {*/
-	if (surface_old_ptr->type == DDL) {
+	if (surface_old_ptr->type == DDL || surface_old_ptr->type == CD_MUSIC) {
 		surface_new_ptr->charge = (struct surface_charge *) PHRQ_malloc((size_t) (count_charge) * sizeof (struct surface_charge));
 		if (surface_new_ptr->charge == NULL) malloc_error();
 		memcpy(surface_new_ptr->charge, surface_old_ptr->charge, 
@@ -4918,6 +4918,38 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 		surface_new_ptr->count_charge = 0;
 		surface_new_ptr->charge = NULL;
 	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct surface_charge *surface_charge_duplicate(struct surface_charge *charge_old_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Duplicates data from surface_old_ptr 
+ *   Space is malloced.
+ */
+	struct surface_charge *charge;
+/*
+ *   Write surface_charge structure for each surface
+ */
+	charge = (struct surface_charge *) PHRQ_malloc(sizeof (struct surface_charge));
+	if (charge == NULL) malloc_error();
+	memcpy(charge, charge_old_ptr,  sizeof (struct surface_charge));
+	charge->diffuse_layer_totals = elt_list_dup(charge_old_ptr->diffuse_layer_totals);
+	charge->count_g = 0;
+	charge->g = NULL;
+	return(charge);
+}
+/* ---------------------------------------------------------------------- */
+int surface_charge_free(struct surface_charge *charge)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *    Frees all space related to surface_charge
+ */
+	if (charge == NULL) return(ERROR);
+	charge->diffuse_layer_totals = (struct elt_list *) free_check_null(charge->diffuse_layer_totals);
+	charge->g = (struct surface_diff_layer *) free_check_null(charge->g);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -5025,7 +5057,7 @@ int surface_free(struct surface *surface_ptr)
  *   diffuse_layer_totals and g, then charge
  */
 	/*if (surface_ptr->edl == TRUE) {*/
-	if (surface_ptr->type == DDL) {
+	if (surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC) {
 		for (k = 0; k < surface_ptr->count_charge; k++) {
 			surface_ptr->charge[k].diffuse_layer_totals = (struct elt_list *) free_check_null(surface_ptr->charge[k].diffuse_layer_totals);
 			surface_ptr->charge[k].g = (struct surface_diff_layer *) free_check_null(surface_ptr->charge[k].g);
@@ -5754,6 +5786,12 @@ int unknown_free(struct unknown *unknown_ptr)
  */
 	if (unknown_ptr == NULL) return(ERROR);
 	unknown_ptr->master = (struct master **) free_check_null (unknown_ptr->master);
+	if (unknown_ptr->type == SURFACE_CB) {
+		/*
+		surface_charge_free(unknown_ptr->surface_charge);
+		unknown_ptr->surface_charge = (struct surface_charge *) free_check_null(unknown_ptr->surface_charge);
+		*/
+	}
 	unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
 	return(OK);
 }

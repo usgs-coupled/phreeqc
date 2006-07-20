@@ -2149,7 +2149,7 @@ int step_save_surf(int n_user)
 	 *   Update grams
 	 */
 	/*if (surface_ptr->edl == TRUE && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {*/
-	if (surface_ptr->type == DDL && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {
+	if ((surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC) && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) {
 		for (j = 0; j < surface_ptr->count_comps; j++) {
 			if (surface_ptr->comps[j].rate_name != NULL) {
 				for (m = 0; m < use.kinetics_ptr->count_comps; m++) {
