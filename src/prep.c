@@ -2696,7 +2696,7 @@ int setup_surface (void)
 					replace("_psi","_CB",token);
 					x[count_unknowns]->description = string_hsave(token);
 					x[count_unknowns]->master = master_ptr_list;
-					use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];
+					/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];*/
 					x[count_unknowns]->master[0]->unknown = x[count_unknowns];
 					x[count_unknowns]->moles = 0.0;
 					x[count_unknowns - 1]->potential_unknown = x[count_unknowns];
@@ -2760,13 +2760,13 @@ int setup_surface (void)
 						 *   Find surface charge structure
 						 */
 						if (plane == SURF_PSI) {
-							use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];
+							/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];*/
 							x[mb_unknown_number]->potential_unknown = x[count_unknowns];
 						} else if (plane == SURF_PSI1) {
-							use.surface_ptr->charge[k].psi_master1 = x[count_unknowns]->master[0];
+							/*use.surface_ptr->charge[k].psi_master1 = x[count_unknowns]->master[0];*/
 							x[mb_unknown_number]->potential_unknown1 = x[count_unknowns];
 						} else if (plane == SURF_PSI2) {
-							use.surface_ptr->charge[k].psi_master2 = x[count_unknowns]->master[0];
+							/*use.surface_ptr->charge[k].psi_master2 = x[count_unknowns]->master[0];*/
 							x[mb_unknown_number]->potential_unknown2 = x[count_unknowns];
 						}
 						x[count_unknowns]->master[0]->unknown = x[count_unknowns];

@@ -154,6 +154,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	char name[MAX_LENGTH], token[MAX_LENGTH];
 	char surface_name_local[MAX_LENGTH];
 	char *ptr;
+	struct master *master_ptr;
 
 	LDBLE mass_water_surface;
 	LDBLE molality, moles_excess, moles_surface, charge;
@@ -204,25 +205,48 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 			return((LDBLE) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL * 
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else if (use.surface_ptr->type == CD_MUSIC) {
-			return((LDBLE) (-x[j]->surface_charge->psi_master->s->la * R_KJ_DEG_MOL * 
-					 tk_x * LOG_10 / F_KJ_V_EQ));
+			master_ptr = surface_get_psi_master(surface_name, SURF_PSI);
+			if (master_ptr != NULL) {
+				/*return((LDBLE) (-x[j]->surface_charge->psi_master->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));*/
+				return((LDBLE) (-master_ptr->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));
+			} else {
+				return (0.0);
+			}
 		} else {
 			return(0);
 		}
 	} else if (strcmp_nocase("psi1", total_name) == 0) {
+		master_ptr = surface_get_psi_master(surface_name, SURF_PSI1);
+		if (master_ptr != NULL) {
+			/*return((LDBLE) (-x[j]->surface_charge->psi_master->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));*/
+			return((LDBLE) (-master_ptr->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));
+		} else {
+			return (0.0);
+		}
+		/*
 		if (use.surface_ptr->type == CD_MUSIC) {
 			return((LDBLE) (-x[j]->surface_charge->psi_master1->s->la * R_KJ_DEG_MOL * 
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else {
 			return(0);
 		}
+		*/
 	} else if (strcmp_nocase("psi2", total_name) == 0) {
+		master_ptr = surface_get_psi_master(surface_name, SURF_PSI2);
+		if (master_ptr != NULL) {
+			/*return((LDBLE) (-x[j]->surface_charge->psi_master->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));*/
+			return((LDBLE) (-master_ptr->s->la * R_KJ_DEG_MOL * tk_x * LOG_10 / F_KJ_V_EQ));
+		} else {
+			return (0.0);
+		}
+		/*
 		if (use.surface_ptr->type == CD_MUSIC) {
 			return((LDBLE) (-x[j]->surface_charge->psi_master2->s->la * R_KJ_DEG_MOL * 
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else {
 			return(0);
 		}
+		*/
 	} else if (strcmp_nocase("charge", total_name) == 0) {
 		/*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {*/
 		if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {

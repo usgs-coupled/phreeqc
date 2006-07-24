@@ -2479,15 +2479,17 @@ int residuals(void)
 	LDBLE toler;
 	LDBLE sum_residual;
 	LDBLE sinh_constant;
-	LDBLE sum, psi, f0, f1, f2;
+	LDBLE sum;
+	struct master *master_ptr, *master_ptr1, *master_ptr2;
+	double sigmaddl;
 
 	sum_residual = 0.0;
-
+	sigmaddl = 0;
+	sum = 0;
 /*
  *   Calculate residuals
  */
 	converge = TRUE;
-	f0 = f1 = f2 = sum = psi = 0;
 #ifdef SKIP
 	if (punch.high_precision == FALSE)
 		toler = 1e-8;
@@ -2652,26 +2654,21 @@ int residuals(void)
 				residual[i] = - x[i]->f;
 			} else {
 				/* sum is in moles of charge */
-				psi = pow(10, x[i]->surface_charge->psi_master->s->la); /* = exp(-Fpsi/RT) */
+				/*psi = pow(10, x[i]->surface_charge->psi_master->s->la);*/ /* = exp(-Fpsi/RT) */
+				master_ptr = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI);
+				master_ptr1 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI1);
+				master_ptr2 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI2);
+				x[i]->surface_charge->psi = -(master_ptr->s->la * LOG_10)  * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ; 
+				x[i]->surface_charge->psi1 = -(master_ptr1->s->la * LOG_10)  * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ; 
+				x[i]->surface_charge->psi2 = -(master_ptr2->s->la * LOG_10)  * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ; 
 				sum = 0;
 				for (j = 0; j < x[i]->count_comp_unknowns; j++) {
 					sum += x[i]->comp_unknowns[j]->moles*x[i]->comp_unknowns[j]->master[0]->s->z;
 				}
+				x[i]->surface_charge->sigma0 = (x[i]->f + sum) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 				/* f is in moles */
 				/* eqns A-3 */
-				residual[i] = (x[i]->f + sum) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)  - x[i]->surface_charge->capacitance[0]*(x[i]->surface_charge->psi_master->s->la - x[i]->surface_charge->psi_master1->s->la);
-			}
-			if (debug_model == TRUE) {
-				output_msg(OUTPUT_MESSAGE,"CD_music Charge/Potential 0\n");
-				if (x[i]->surface_charge->grams > 0) {
-					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
-						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
-				} else {
-					output_msg(OUTPUT_MESSAGE,"\tResidual %e\n", (double) x[i]->f );
-				}
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi/RT)     %e\n", (double) psi );
-				output_msg(OUTPUT_MESSAGE,"\t-FPsi/RT          %e\n", (double) (x[i]->master[0]->s->la * LOG_10));
-				output_msg(OUTPUT_MESSAGE,"\tgrams             %g\n", (double) x[i]->surface_charge->grams);
+				residual[i] = x[i]->surface_charge->sigma0 - x[i]->surface_charge->capacitance[0]*(x[i]->surface_charge->psi - x[i]->surface_charge->psi1);
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
 		} else if (x[i]->type == SURFACE_CB1) {
@@ -2683,22 +2680,9 @@ int residuals(void)
 #endif
 			} else {
 				/* eqns A-4 */
-				psi = pow(10, x[i]->surface_charge->psi_master1->s->la); /* = exp(-Fpsi/RT) */
-				f1 = x[i]->f;
-				f0 = x[i]->surface_charge->psi_master->unknown->f;
-				residual[i] = (f1 + f0) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) - x[i]->surface_charge->capacitance[1]*(x[i]->surface_charge->psi_master1->s->la - x[i]->surface_charge->psi_master2->s->la);
-			}
-			if (debug_model == TRUE) {
-				output_msg(OUTPUT_MESSAGE,"CD_music Charge/Potential 1\n");
-				if (x[i]->surface_charge->grams > 0) {
-					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n",
-						(double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
-				} else {
-					output_msg(OUTPUT_MESSAGE,"\tResidual        %e\n", (double) x[i]->f );
-				}
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi/RT)     %e\n", (double) psi );
-				output_msg(OUTPUT_MESSAGE,"\t-FPsi/RT          %e\n", (double) (x[i]->master[0]->s->la * LOG_10));
-				output_msg(OUTPUT_MESSAGE,"\tgrams             %g\n", (double) x[i]->surface_charge->grams);
+				/*psi = pow(10, x[i]->surface_charge->psi_master1->s->la);*/ /* = exp(-Fpsi/RT) */
+				x[i]->surface_charge->sigma1 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+				residual[i] = (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1) - x[i]->surface_charge->capacitance[1]*(x[i]->surface_charge->psi1 - x[i]->surface_charge->psi2);
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
 		} else if (x[i]->type == SURFACE_CB2) {
@@ -2716,31 +2700,42 @@ int residuals(void)
 				 *                 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
 				 *                 ~ 0.1174 at 25C
 				 */
-				psi = pow(10, x[i]->surface_charge->psi_master2->s->la); /* = exp(-Fpsi/RT) */
 				sum = 0;
 				for (j = 0; j < count_s_x; j++) {
 					if (s_x[j]->type < H2O) {
-						sum += under(s_x[j]->lm)*(pow(psi, s_x[j]->z) - 1);
+						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*x[i]->surface_charge->psi2) - 1);
 					}
 				}
-				f0 = x[i]->surface_charge->psi_master->unknown->f;
-				f1 = x[i]->surface_charge->psi_master1->unknown->f;
-				f2 = x[i]->f;
-				residual[i] = (f0 + f1 + f2) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) + 0.5*sinh_constant*sqrt(sum);
+				if (sum <= 0) sum = 0;
+				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+				sigmaddl = 0.5*sinh_constant*sqrt(sum);
+				residual[i] = (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) + 0.5*sinh_constant*sqrt(sum);
 			}
 			if (debug_model == TRUE) {
+				master_ptr = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI);
+				master_ptr1 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI1);
+				master_ptr2 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI2);
 				output_msg(OUTPUT_MESSAGE,"CD_music Charge/Potential 2\n");
-				if (x[i]->surface_charge->grams > 0) {
-					output_msg(OUTPUT_MESSAGE,"\tSum of surface charge %e eq\n", (double) (x[i]->f /* F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams)*/));
-				} 
-				output_msg(OUTPUT_MESSAGE,"\tResidual     %e\n", (double) residual[i] );
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi/RT)     %e\n", (double) psi );
-				output_msg(OUTPUT_MESSAGE,"\t-FPsi/RT          %e\n", (double) (x[i]->master[0]->s->la * LOG_10));
-				output_msg(OUTPUT_MESSAGE,"\tgrams             %g\n", (double) x[i]->surface_charge->grams);
-				output_msg(OUTPUT_MESSAGE,"\tf0                %e\n", (double) f0);
-				output_msg(OUTPUT_MESSAGE,"\tf1                %e\n", (double) f1);
-				output_msg(OUTPUT_MESSAGE,"\tf2                %e\n", (double) f2);
-				output_msg(OUTPUT_MESSAGE,"\texp sum           %e\n", (double) sum);
+				output_msg(OUTPUT_MESSAGE,"\tgrams              %g\n", (double) x[i]->surface_charge->grams);				
+				output_msg(OUTPUT_MESSAGE,"\tCapacitances       %g\t%g\n", (double) x[i]->surface_charge->capacitance[0], x[i]->surface_charge->capacitance[1]);
+				output_msg(OUTPUT_MESSAGE,"\t-F/(RT)            %g\n", (double) -F_KJ_V_EQ / (R_KJ_DEG_MOL * tk_x ));
+				output_msg(OUTPUT_MESSAGE,"\tResidual 0         %14e\n", (double) residual[master_ptr->unknown->number]);
+				output_msg(OUTPUT_MESSAGE,"\tResidual 1         %14e\n", (double) residual[master_ptr1->unknown->number]);
+				output_msg(OUTPUT_MESSAGE,"\tResidual 2         %14e\n", (double) residual[master_ptr2->unknown->number]);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi0/RT)     %14e", (double) master_ptr->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\tPsi0               %14e\n", (double) x[i]->surface_charge->psi);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi1/RT)     %14e", (double) master_ptr1->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\tPsi1               %14e\n", (double) x[i]->surface_charge->psi1);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi2/RT)     %14e", (double) master_ptr2->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\tPsi2               %14e\n", (double) x[i]->surface_charge->psi2);
+				output_msg(OUTPUT_MESSAGE,"\tf 0                %14e", (double) master_ptr->unknown->f);
+				output_msg(OUTPUT_MESSAGE,"\tsigma 0            %14e\n", (double) x[i]->surface_charge->sigma0);
+				output_msg(OUTPUT_MESSAGE,"\tf 1                %14e", (double) master_ptr1->unknown->f);
+				output_msg(OUTPUT_MESSAGE,"\tsigma 1            %14e\n", (double) x[i]->surface_charge->sigma1);
+				output_msg(OUTPUT_MESSAGE,"\tf 2                %14e", (double) master_ptr2->unknown->f);
+				output_msg(OUTPUT_MESSAGE,"\tsigma 2            %14e\n", (double) x[i]->surface_charge->sigma2);
+				output_msg(OUTPUT_MESSAGE,"\tsigma ddl          %14e\n", (double) sigmaddl);
+				output_msg(OUTPUT_MESSAGE,"\texp sum            %14e\n", (double) sum);
 
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE && fabs(residual[i]) > toler ) converge = FALSE;
@@ -3306,7 +3301,9 @@ int numerical_jacobian(void)
 		residuals();
 		for (j = 0; j < count_unknowns; j++) {
 			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
+			/*
 			output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
+			*/
 		}
 		switch (x[i]->type) {
 		default:
@@ -3372,6 +3369,8 @@ int numerical_jacobian(void)
 		case EXCH:
 		case SURFACE:
 		case SURFACE_CB:
+		case SURFACE_CB1:
+		case SURFACE_CB2:
 			x[i]->master[0]->s->la += d;
 			d2 = d1;
 			break;
@@ -3441,7 +3440,9 @@ int numerical_jacobian(void)
 		residuals();
 		for (j = 0; j < count_unknowns; j++) {
 			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
+			/*
 			output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
+			*/
 		}
 		switch (x[i]->type) {
 		case MB:
@@ -3451,6 +3452,8 @@ int numerical_jacobian(void)
 		case EXCH:
 		case SURFACE:
 		case SURFACE_CB:
+		case SURFACE_CB1:
+		case SURFACE_CB2:
 		case AH2O:
 			x[i]->master[0]->s->la -= d;
 			break;

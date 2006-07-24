@@ -5288,6 +5288,7 @@ int read_surf(void)
 					input_error++;
 					break;
 				}
+				surface[n].comps[count_comps].moles = conc;
 #ifdef PHREEQCI_GUI
 				surface[n].comps[count_comps].moles = conc;
 #endif
@@ -5364,12 +5365,22 @@ int read_surf(void)
 					surface[n].charge[i].specific_area = 0.0;
 					surface[n].charge[i].grams = 1.0;
 				}
-				surface[n].charge[i].mass_water = 0.0;
 				surface[n].charge[i].charge_balance = 0.0;
+				surface[n].charge[i].mass_water = 0.0;
 				surface[n].charge[i].diffuse_layer_totals = NULL;
 				surface[n].charge[i].count_g = 0;
 				surface[n].charge[i].g = NULL;
-				surface[n].charge[i].psi_master = NULL;
+				surface[n].charge[i].la_psi = 0;
+				surface[n].charge[i].la_psi1 = 0;
+				surface[n].charge[i].la_psi2 = 0;
+				surface[n].charge[i].psi = 0;
+				surface[n].charge[i].psi1 = 0;
+				surface[n].charge[i].psi2 = 0;
+				surface[n].charge[i].capacitance[0] = 0;
+				surface[n].charge[i].capacitance[1] = 0;
+				surface[n].charge[i].sigma0 = 0;
+				surface[n].charge[i].sigma1 = 0;
+				surface[n].charge[i].sigma2 = 0;
 				count_charge++;
 			}
 			surface[n].comps[count_comps].charge = i;

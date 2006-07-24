@@ -1676,6 +1676,9 @@ int tidy_surface(void)
  *   Set flags
  */
 				surface_ptr->comps[i].master = master_ptr;
+				if (surface_ptr->type == CD_MUSIC) {
+					surface_ptr->charge[surface_ptr->comps[i].charge].charge_balance += surface_ptr->comps[i].moles*surface_ptr->comps[i].master->s->z;
+				}
 				break;
 			}
 		}

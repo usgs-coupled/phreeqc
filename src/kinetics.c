@@ -968,6 +968,7 @@ int set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver, LDBLE 
 	} else {
 		max_try = 11;
 	}
+	/*max_try = 1;*/
 	for (j = 0; j < max_try; j++) {
 		if (j == 1) {
 			always_full_pitzer = TRUE;

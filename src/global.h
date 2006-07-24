@@ -327,9 +327,10 @@ struct surface_charge {
         struct elt_list *diffuse_layer_totals;
         int count_g;
         struct surface_diff_layer *g;   /* stores g and dg/dXd for each ionic charge */
-        struct master *psi_master, *psi_master1, *psi_master2;
         LDBLE la_psi, la_psi1, la_psi2;
+        LDBLE psi, psi1, psi2;
         double capacitance[2];
+	double sigma0, sigma1, sigma2;
 };
 struct surface_diff_layer {
         LDBLE charge;
@@ -1311,7 +1312,7 @@ struct unknown {
 	int count_comp_unknowns;
 	struct unknown **comp_unknowns;   /* list for CD_MUSIC of comps that contribute to 0 plane mass-balance term */
         struct unknown *phase_unknown;
-        /*struct surface_charge *surface_charge;*/
+        struct surface_charge *surface_charge;
         LDBLE mass_water;
         int dissolve_only;
 };

@@ -4831,6 +4831,31 @@ struct surface *surface_bsearch (int k, int *n)
 	return ( (struct surface *) void_ptr);
 }
 /* ---------------------------------------------------------------------- */
+struct master *surface_get_psi_master (char *name, int plane)
+/* ---------------------------------------------------------------------- */
+{
+	struct master *master_ptr;
+	char token[MAX_LENGTH];
+
+	if (name == NULL) return (NULL);
+	strcpy(token, name);
+	strcat(token,"_psi");
+	switch (plane) {
+	case SURF_PSI:
+		break;
+	case SURF_PSI1:
+		strcat(token,"b");
+		break;
+	case SURF_PSI2:
+		strcat(token,"d");
+		break;
+	default:
+		error_msg("Unknown plane for surface_get_psi_master", STOP);
+	}
+	master_ptr = master_bsearch(token);
+	return(master_ptr);
+}
+/* ---------------------------------------------------------------------- */
 int surface_comp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {

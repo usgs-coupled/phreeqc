@@ -1745,7 +1745,7 @@ static int xsurface_save(int n_user)
 	char token[MAX_LENGTH];
 	struct surface temp_surface, *surface_ptr;
 	LDBLE charge;
-
+	double sum;
 	if (use.surface_ptr == NULL) return(OK);
 /*
  *   Store data for structure surface
@@ -1823,7 +1823,7 @@ static int xsurface_save(int n_user)
 			/* update unknown pointer */
 			x[i]->surface_comp = &(temp_surface.comps[count_comps]);
 			count_comps++;
-		} else if (x[i]->type == SURFACE_CB) {
+		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == DDL) {
 			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge, sizeof(struct surface_charge));
 			temp_surface.charge[count_charge].charge_balance = x[i]->f; 
 			temp_surface.charge[count_charge].mass_water = x[i]->surface_charge->mass_water;
@@ -1841,7 +1841,44 @@ static int xsurface_save(int n_user)
 				memcpy(temp_surface.charge[count_charge].g, x[i]->surface_charge->g, (size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 			}
 */
-			temp_surface.charge[count_charge].psi_master = x[i]->master[0]; 
+			/*temp_surface.charge[count_charge].psi_master = x[i]->master[0]; */
+			temp_surface.charge[count_charge].la_psi = x[i]->master[0]->s->la;
+/*
+ *   Store moles from diffuse_layer
+ */
+			if (diffuse_layer_x == TRUE) {
+				sum_diffuse_layer(x[i]->surface_charge);
+				temp_surface.charge[count_charge].diffuse_layer_totals = elt_list_save();
+			}
+
+			/* update unknown pointer */
+			x[i]->surface_charge = &(temp_surface.charge[count_charge]);
+			x[i]->surface_comp = x[i - 1]->surface_comp;
+
+			count_charge++;
+		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC) {
+			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge, sizeof(struct surface_charge));
+			sum = 0;
+			for (j = 0; j < x[i]->count_comp_unknowns; j++) {
+				sum += x[i]->comp_unknowns[j]->moles*x[i]->comp_unknowns[j]->master[0]->s->z;
+			}
+			temp_surface.charge[count_charge].charge_balance = x[i]->f - sum; 
+			temp_surface.charge[count_charge].mass_water = x[i]->surface_charge->mass_water;
+			temp_surface.charge[count_charge].diffuse_layer_totals = NULL;
+			temp_surface.charge[count_charge].count_g = 0;
+			temp_surface.charge[count_charge].g = NULL;
+/*
+ *   Added code to save g
+ */
+/*
+			if (x[i]->surface_charge->count_g > 0) {
+				temp_surface.charge[count_charge].count_g = x[i]->surface_charge->count_g;
+				temp_surface.charge[count_charge].g = (struct surface_diff_layer *) PHRQ_malloc((size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
+				if (temp_surface.charge[count_charge].g == NULL) malloc_error();
+				memcpy(temp_surface.charge[count_charge].g, x[i]->surface_charge->g, (size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
+			}
+*/
+			/*temp_surface.charge[count_charge].psi_master = x[i]->master[0]; */
 			temp_surface.charge[count_charge].la_psi = x[i]->master[0]->s->la;
 /*
  *   Store moles from diffuse_layer
