@@ -5422,7 +5422,7 @@ int read_surf(void)
  *   Make sure surface area is defined
  */
 	/*if (surface[n].edl == TRUE) {*/
-	if (surface[n].type == DDL) {
+	if (surface[n].type == DDL || surface[n].type == CD_MUSIC) {
 		for (i = 0; i < count_charge; i++) {
 			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <= 0) {
 				sprintf(error_string, "Surface area not defined for %s.\n", surface[n].charge[i].name);
