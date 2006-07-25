@@ -411,7 +411,7 @@ int gammas (LDBLE mu)
 	LDBLE f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
 	LDBLE s1, s2, s3;
 	LDBLE c1, c2, a, b;
-	LDBLE muhalf;
+	LDBLE muhalf, equiv;
 	/* Initialize */
 	if (pitzer_model == TRUE) return gammas_pz();
 	a_llnl = b_llnl = bdot_llnl = log_g_co2 = dln_g_co2 = c2_llnl = 0;
@@ -571,8 +571,14 @@ int gammas (LDBLE mu)
 					break;
 				}
 			}
+			if (use.surface_ptr->type == CD_MUSIC) {
+				/*  mole fraction */
+				equiv = 1.0;
+			} else {
+				equiv = s_x[i]->equiv;
+			}
 			if (s_x[i]->alk > 0) {
-				s_x[i]->lg = log10(s_x[i]->equiv / s_x[i]->alk);
+				s_x[i]->lg = log10(equiv / s_x[i]->alk);
 				s_x[i]->dg = 0.0;
 			} else {
 				s_x[i]->lg = 0.0;
@@ -2166,8 +2172,10 @@ int reset(void)
 		} else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) {
 			up = step_up;
 			down = 1.3 * up;
+			/*
 			up = 1.3;
 			down = 1.2;
+			*/
 		}
 
 		if (delta[i] > 0.0) {
@@ -2481,7 +2489,7 @@ int residuals(void)
 	LDBLE sinh_constant;
 	LDBLE sum;
 	struct master *master_ptr, *master_ptr1, *master_ptr2;
-	double sigmaddl;
+	double sigmaddl, negfpsirt;
 
 	sum_residual = 0.0;
 	sigmaddl = 0;
@@ -2700,16 +2708,18 @@ int residuals(void)
 				 *                 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
 				 *                 ~ 0.1174 at 25C
 				 */
+				master_ptr2 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI2);
+				negfpsirt = master_ptr2->s->la*LOG_10;
 				sum = 0;
 				for (j = 0; j < count_s_x; j++) {
 					if (s_x[j]->type < H2O) {
-						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*x[i]->surface_charge->psi2) - 1);
+						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*negfpsirt) - 1);
 					}
 				}
 				if (sum <= 0) sum = 0;
 				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 				sigmaddl = 0.5*sinh_constant*sqrt(sum);
-				residual[i] = (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) + 0.5*sinh_constant*sqrt(sum);
+				residual[i] = (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) + sigmaddl;
 			}
 			if (debug_model == TRUE) {
 				master_ptr = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI);
@@ -2722,11 +2732,11 @@ int residuals(void)
 				output_msg(OUTPUT_MESSAGE,"\tResidual 0         %14e\n", (double) residual[master_ptr->unknown->number]);
 				output_msg(OUTPUT_MESSAGE,"\tResidual 1         %14e\n", (double) residual[master_ptr1->unknown->number]);
 				output_msg(OUTPUT_MESSAGE,"\tResidual 2         %14e\n", (double) residual[master_ptr2->unknown->number]);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi0/RT)     %14e", (double) master_ptr->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi0/RT)     %14e", (double) pow(10, master_ptr->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi0               %14e\n", (double) x[i]->surface_charge->psi);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi1/RT)     %14e", (double) master_ptr1->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi1/RT)     %14e", (double) pow(10,master_ptr1->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi1               %14e\n", (double) x[i]->surface_charge->psi1);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi2/RT)     %14e", (double) master_ptr2->s->la*LOG_10);
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi2/RT)     %14e", (double) pow(10,master_ptr2->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi2               %14e\n", (double) x[i]->surface_charge->psi2);
 				output_msg(OUTPUT_MESSAGE,"\tf 0                %14e", (double) master_ptr->unknown->f);
 				output_msg(OUTPUT_MESSAGE,"\tsigma 0            %14e\n", (double) x[i]->surface_charge->sigma0);
@@ -3261,6 +3271,7 @@ LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE 
 	f = xcaq*(xb/r + xc) + xbaq*(xb + r*xc) - 1;
 	return(f);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int numerical_jacobian(void)
 /* ---------------------------------------------------------------------- */
@@ -3325,7 +3336,7 @@ int numerical_jacobian(void)
 	calculating_deriv = FALSE;
 	return OK;
 }
-#ifdef SKIP
+#endif
 /* ---------------------------------------------------------------------- */
 int numerical_jacobian(void)
 /* ---------------------------------------------------------------------- */
@@ -3334,6 +3345,7 @@ int numerical_jacobian(void)
 	double d, d1, d2;
 	int i, j;
 
+	if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) return(OK);
 	calculating_deriv = TRUE;
 	/*
 	gammas(mu_x);
@@ -3493,4 +3505,3 @@ int numerical_jacobian(void)
 	calculating_deriv = FALSE;
 	return OK;
 }
-#endif
