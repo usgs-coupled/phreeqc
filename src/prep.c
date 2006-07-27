@@ -153,7 +153,7 @@ static int quick_setup (void)
  *       been accumulated in array master, usually by subroutine step.
  *   Updates essential information for the model.
  */
-	int i, j, k, l;
+	int i, j, k, l, charge;
 
 	for (i = 0; i < count_master; i++) {
 		if (master[i]->s->type == SURF_PSI) continue;
@@ -302,6 +302,14 @@ static int quick_setup (void)
 				x[i]->mass_water = use.surface_ptr->charge[j++].mass_water;
 			        x[i]->surface_comp = x[i-1]->surface_comp;
 				/* moles picked up from master->total */
+			} else if (x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) {
+				/*
+				charge = use.surface_ptr->comps[i].charge;
+				x[count_unknowns]->surface_charge = &use.surface_ptr->charge[charge];
+				*/
+				x[i]->surface_charge = x[i-1]->surface_charge;
+				x[i]->related_moles = x[i]->surface_charge->grams;
+				x[i]->mass_water = x[i]->surface_charge->mass_water;
 			} else if (x[i]->type == SURFACE) {
 				x[i]->surface_comp = &(use.surface_ptr->comps[k++]);
 				/* moles picked up from master->total

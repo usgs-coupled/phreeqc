@@ -2718,7 +2718,12 @@ int residuals(void)
 				}
 				if (sum <= 0) sum = 0;
 				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
-				sigmaddl = 0.5*sinh_constant*sqrt(sum);
+				if ((x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) > 0) {
+					sigmaddl = -0.5*sinh_constant*sqrt(sum);
+				} else {
+					sigmaddl = 0.5*sinh_constant*sqrt(sum);
+				}
+				x[i]->surface_charge->sigmaddl = sigmaddl;
 				residual[i] = (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) + sigmaddl;
 			}
 			if (debug_model == TRUE) {
@@ -3271,72 +3276,6 @@ LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE 
 	f = xcaq*(xb/r + xc) + xbaq*(xb + r*xc) - 1;
 	return(f);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int numerical_jacobian(void)
-/* ---------------------------------------------------------------------- */
-{
-	double *base;
-	double d, d1, d2;
-	int i, j;
-
-	if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) return(OK);
-	calculating_deriv = TRUE;
-/*
- *   Clear array, note residuals are in array[i, count_unknowns+1]
- */
-
-
-	base = (LDBLE *) PHRQ_malloc((size_t) count_unknowns * sizeof(LDBLE));
-	if (base == NULL) malloc_error();
-	for (i = 0; i < count_unknowns; i++) {
-		base[i] = residual[i];
-	}
-	d = 1e-6;
-	d1 = d*log(10.0);
-	d2 = 0;
-	for (i = 0; i < count_unknowns; i++) {
-		switch (x[i]->type) {
-		default:
-			continue;
-		case SURFACE:
-		case SURFACE_CB:
-		case SURFACE_CB1:
-		case SURFACE_CB2:
-			x[i]->master[0]->s->la += d;
-			d2 = d1;
-			break;
-		}
-		molalities(TRUE);
-		mb_sums();
-		residuals();
-		for (j = 0; j < count_unknowns; j++) {
-			array[j*(count_unknowns + 1) + i] = -(residual[j] - base[j])/d2;
-			/*
-			output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
-			*/
-		}
-		switch (x[i]->type) {
-		default:
-			continue;
-		case SURFACE:
-		case SURFACE_CB:
-		case SURFACE_CB1:
-		case SURFACE_CB2:
-			x[i]->master[0]->s->la -= d;
-			break;
-		}
-	}
-	molalities(TRUE);
-	mb_sums();
-	mb_gases();
-	mb_s_s();
-	residuals();
-	free_check_null(base);
-	calculating_deriv = FALSE;
-	return OK;
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int numerical_jacobian(void)
 /* ---------------------------------------------------------------------- */
@@ -3471,6 +3410,10 @@ int numerical_jacobian(void)
 			break;
 		case MH:
 			s_eminus->la -= d;
+			if (array[i*(count_unknowns + 1) + i] == 0) {
+				/*output_msg(OUTPUT_MESSAGE, "Zero diagonal for MH\n");*/
+				array[i*(count_unknowns + 1) +i] = exp(s_h2->lm*LOG_10)*2;
+			}
 			break;
 		case PITZER_GAMMA:
 			x[i]->s->lg -= d;

@@ -304,8 +304,8 @@ Using solid solution assemblage 1.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -327,9 +327,9 @@ Using solid solution assemblage 1.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -420,8 +420,8 @@ Using solid solution assemblage 2.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -443,9 +443,9 @@ Using solid solution assemblage 2.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -536,8 +536,8 @@ Using solid solution assemblage 3.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -559,9 +559,9 @@ Using solid solution assemblage 3.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -652,8 +652,8 @@ Using solid solution assemblage 4.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -675,9 +675,9 @@ Using solid solution assemblage 4.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -768,8 +768,8 @@ Using solid solution assemblage 5.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -791,9 +791,9 @@ Using solid solution assemblage 5.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -884,8 +884,8 @@ Using solid solution assemblage 6.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -907,9 +907,9 @@ Using solid solution assemblage 6.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -1000,8 +1000,8 @@ Using solid solution assemblage 7.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1023,9 +1023,9 @@ Using solid solution assemblage 7.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -1116,8 +1116,8 @@ Using solid solution assemblage 8.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1139,9 +1139,9 @@ Using solid solution assemblage 8.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -1232,8 +1232,8 @@ Using solid solution assemblage 9.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1255,9 +1255,9 @@ Using solid solution assemblage 9.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -1348,8 +1348,8 @@ Using solid solution assemblage 10.	S_S_Assemblage defined in simulation 2.
 
 	Solid solution         Component        Moles  Delta moles   Mole fract
 	CaZnCO3                              0.00e+00
-	                         Calcite     0.00e+00     9.55e-15     0.00e+00
-	                     Smithsonite     0.00e+00     1.95e-22     0.00e+00
+	                         Calcite     0.00e+00     4.60e-14     0.00e+00
+	                     Smithsonite     0.00e+00     4.84e-22     0.00e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1371,9 +1371,9 @@ Using solid solution assemblage 10.	S_S_Assemblage defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.929e-16
+                  Electrical balance (eq)  =  -8.908e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   8
+                               Iterations  =  15
                                   Total H  = 1.110134e+02
                                   Total O  = 5.550941e+01
 
@@ -1501,7 +1501,7 @@ Kinetics 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  48
+                               Iterations  =  41
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551543e+01
 
@@ -1621,11 +1621,11 @@ Kinetics 2.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.925e-16
+                  Electrical balance (eq)  =  -8.904e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1751,7 +1751,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1877,7 +1877,7 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2003,7 +2003,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2129,7 +2129,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2255,7 +2255,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2381,7 +2381,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2507,7 +2507,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2633,7 +2633,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.944e-16
+                  Electrical balance (eq)  =  -8.888e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2857,7 +2857,7 @@ Kinetics 2.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.752e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.754e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2889,7 +2889,7 @@ Kinetics 2.	Kinetics defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  89
+                               Iterations  =  77
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551394e+01
 
@@ -3009,11 +3009,11 @@ Kinetics 3.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.926e-16
+                  Electrical balance (eq)  =  -8.903e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3135,11 +3135,11 @@ Kinetics 4.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3261,11 +3261,11 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3387,11 +3387,11 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3513,11 +3513,11 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3639,11 +3639,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3765,11 +3765,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3891,11 +3891,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.961e-16
+                  Electrical balance (eq)  =  -8.869e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4245,7 +4245,7 @@ Kinetics 3.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.502e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   8.509e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -4275,9 +4275,9 @@ Kinetics 3.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.993e-03
                        Total CO2 (mol/kg)  =   2.064e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.591e-12
+                  Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 136
+                               Iterations  = 103
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551309e+01
 
@@ -4397,11 +4397,11 @@ Kinetics 4.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.952e-16
+                  Electrical balance (eq)  =  -8.902e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4523,11 +4523,11 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4649,11 +4649,11 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4775,11 +4775,11 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4901,11 +4901,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5027,11 +5027,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5153,11 +5153,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.977e-16
+                  Electrical balance (eq)  =  -8.827e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5614,6 +5614,18 @@ Zn               1.306e-06
 	Smithsonite      -1.66  -11.66  -10.00  ZnCO3
 	Zn(OH)2(e)       -2.40    9.10   11.50  Zn(OH)2
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying diagonal scaling ...
+
 Using solution 4.	Solution after simulation 3.
 Using pure phase assemblage 4.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 4.	Solid solution assemblage after simulation 3.
@@ -5663,9 +5675,9 @@ Kinetics 4.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.731e-03
                        Total CO2 (mol/kg)  =   1.773e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  69
+                               Iterations  =  63
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551238e+01
 
@@ -5785,11 +5797,11 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.925e-16
+                  Electrical balance (eq)  =  -8.917e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5911,11 +5923,11 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.842e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6037,11 +6049,11 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.842e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6163,11 +6175,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.842e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6289,11 +6301,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.842e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6415,11 +6427,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.842e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7021,7 +7033,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.928e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   6.930e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7051,9 +7063,9 @@ Kinetics 5.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.516e-03
                        Total CO2 (mol/kg)  =   1.540e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -5.533e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 129
+                               Iterations  =  76
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551180e+01
 
@@ -7173,11 +7185,11 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.907e-16
+                  Electrical balance (eq)  =  -8.914e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7299,11 +7311,11 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.841e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7425,11 +7437,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.841e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7551,11 +7563,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.841e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7677,11 +7689,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.841e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8439,9 +8451,9 @@ Kinetics 6.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.351e-03
                        Total CO2 (mol/kg)  =   1.364e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -1.765e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 160
+                               Iterations  =  38
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551137e+01
 
@@ -8561,11 +8573,11 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.908e-16
+                  Electrical balance (eq)  =  -8.957e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8687,11 +8699,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.866e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8813,11 +8825,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.866e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8939,11 +8951,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.866e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -9071,7 +9083,7 @@ Kinetics 1.
                  Total alkalinity (eq/kg)  =   2.819e-03
                        Total CO2 (mol/kg)  =   3.029e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.468e-12
+                  Electrical balance (eq)  =  -4.467e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  25
                                   Total H  = 1.110154e+02
@@ -9778,12 +9790,6 @@ Zn               1.170e-06
 	Smithsonite      -1.63  -11.63  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.88    9.62   11.50  Zn(OH)2
 
-WARNING: Maximum iterations exceeded, 100
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
 Using solution 7.	Solution after simulation 3.
 Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 7.	Solid solution assemblage after simulation 3.
@@ -9803,7 +9809,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.416e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   4.420e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -9833,9 +9839,9 @@ Kinetics 7.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.230e-03
                        Total CO2 (mol/kg)  =   1.235e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -1.765e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 180
+                               Iterations  =  92
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551105e+01
 
@@ -9955,11 +9961,11 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.925e-16
+                  Electrical balance (eq)  =  -8.968e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10081,11 +10087,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.879e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10207,11 +10213,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.879e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11172,6 +11178,12 @@ Zn               1.144e-06
 	Smithsonite      -1.63  -11.63  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.76    9.74   11.50  Zn(OH)2
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 8.	Solution after simulation 3.
 Using pure phase assemblage 8.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 8.	Solid solution assemblage after simulation 3.
@@ -11191,7 +11203,7 @@ Kinetics 8.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.224e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   3.221e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -11221,9 +11233,9 @@ Kinetics 8.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.146e-03
                        Total CO2 (mol/kg)  =   1.146e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -1.765e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  72
+                               Iterations  = 135
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551083e+01
 
@@ -11343,11 +11355,11 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.907e-16
+                  Electrical balance (eq)  =  -8.948e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11469,11 +11481,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.992e-16
+                  Electrical balance (eq)  =  -8.877e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -12560,12 +12572,24 @@ Zn               1.126e-06
 	Smithsonite      -1.63  -11.63  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.68    9.82   11.50  Zn(OH)2
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+WARNING: Maximum iterations exceeded, 200
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying diagonal scaling ...
+
 Using solution 9.	Solution after simulation 3.
 Using pure phase assemblage 9.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 9.	Solid solution assemblage after simulation 3.
-Using kinetics 9.	Kinetics defined in simulation 2.
+Using kinetics 9.	Kinetics defined in simulation 3.
 
-Kinetics 9.	Kinetics defined in simulation 2.
+Kinetics 9.	Kinetics defined in simulation 3.
 
 	Time:      32400 seconds
 	Time step: 3600 seconds
@@ -12579,7 +12603,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                                        Moles in assemblage
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
-	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   2.236e-12
+	Halite          -19.00  -17.42    1.58   1.000e+01   1.000e+01   2.240e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12609,9 +12633,9 @@ Kinetics 9.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.089e-03
                        Total CO2 (mol/kg)  =   1.087e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -1.765e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 128
+                               Iterations  = 115
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551068e+01
 
@@ -12731,11 +12755,11 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                        pe  =  12.268      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.463e-03
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.908e-16
+                  Electrical balance (eq)  =  -8.931e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -13825,9 +13849,9 @@ Zn               1.126e-06
 Using solution 9.	Solution after simulation 3.
 Using pure phase assemblage 9.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 9.	Solid solution assemblage after simulation 3.
-Using kinetics 9.	Kinetics defined in simulation 2.
+Using kinetics 9.	Kinetics defined in simulation 3.
 
-Kinetics 9.	Kinetics defined in simulation 2.
+Kinetics 9.	Kinetics defined in simulation 3.
 
 	Time:      36000 seconds
 	Time step: 3600 seconds
@@ -13997,9 +14021,9 @@ Kinetics 10.	Kinetics defined in simulation 2.
                  Total alkalinity (eq/kg)  =   1.052e-03
                        Total CO2 (mol/kg)  =   1.048e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.394e-12
+                  Electrical balance (eq)  =  -1.764e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 131
+                               Iterations  =  39
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551059e+01
 

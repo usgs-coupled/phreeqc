@@ -1,0 +1,66 @@
+DATABASE eco.dat
+PHASES
+Fix_pH
+	H+ = H+
+	log_k 0
+END
+SOLUTION 1
+	 -units mmol/kgw
+	 pH	10
+	 Na	10
+	 Cl	10
+	 As	1 umol/kgw
+	 P	1 umol/kgw
+END
+SURFACE
+	Goe_uniOH .000552 96.387 1  1.1   5
+	Goe_triO  .000432
+#	-donnan
+	-cd_music
+#	-equil 1
+END
+USE solution 1
+USE surface 1
+EQUILIBRIUM_PHASES
+Fix_pH -10 NaOH 10
+KNOBS
+#	-conv	1e-10	
+#	-step 1000000
+#	-pe   1000000
+#	-iter 1000
+#	-debug_model
+#	-debug_prep
+END
+SOLUTION 1
+	 -units mmol/kgw
+	 pH	8
+	 Na	10
+	 Cl	10
+	 As	1 umol/kgw
+	 P	1 umol/kgw
+USE surface 1
+EQUILIBRIUM_PHASES
+Fix_pH -8 HCl 10
+END
+SOLUTION 1
+	 -units mmol/kgw
+	 pH	6
+	 Na	10
+	 Cl	10
+	 As	1 umol/kgw
+	 P	1 umol/kgw
+USE surface 1
+EQUILIBRIUM_PHASES
+Fix_pH -6 HCl 10
+END
+SOLUTION 1
+	 -units mmol/kgw
+	 pH	4
+	 Na	10
+	 Cl	10
+	 As	1 umol/kgw
+	 P	1 umol/kgw
+USE surface 1
+EQUILIBRIUM_PHASES
+Fix_pH -4 HCl 10
+END

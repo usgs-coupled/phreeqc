@@ -330,7 +330,7 @@ struct surface_charge {
         LDBLE la_psi, la_psi1, la_psi2;
         LDBLE psi, psi1, psi2;
         double capacitance[2];
-	double sigma0, sigma1, sigma2;
+	double sigma0, sigma1, sigma2, sigmaddl;
 };
 struct surface_diff_layer {
         LDBLE charge;
