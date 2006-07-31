@@ -153,7 +153,7 @@ static int quick_setup (void)
  *       been accumulated in array master, usually by subroutine step.
  *   Updates essential information for the model.
  */
-	int i, j, k, l, charge;
+	int i, j, k, l;
 
 	for (i = 0; i < count_master; i++) {
 		if (master[i]->s->type == SURF_PSI) continue;
@@ -704,18 +704,6 @@ int build_jacobian_sums (int k)
  *   Calculate jacobian coefficients for each mass balance equation
  */
 	for (i = 0; i < count_mb_unknowns; i++) {
-#ifdef SKIP
-		/* switch for mu term */
-		if (diffuse_layer_x == TRUE && ((mb_unknowns[i].unknown == charge_balance_unknown) ||
-		    (mb_unknowns[i].unknown == ah2o_unknown) ||
-		    (mb_unknowns[i].unknown == mu_unknown))) {
-			use_tot_g = 1;
-		} else if (diffuse_layer_x == TRUE && mb_unknowns[i].unknown->type == SURFACE_CB) {
-			use_tot_g = 2;
-		} else {
-			use_tot_g = 0;
-		}
-#endif
 /*
  *   Store d(moles) for a mass balance equation
  */
@@ -1758,6 +1746,7 @@ int mb_for_species_aq(int n)
  */
 	int i, j;
 	struct master *master_ptr;
+	struct unknown *unknown_ptr;
 
 	count_mb_unknowns = 0;
 /*
@@ -1819,7 +1808,9 @@ int mb_for_species_aq(int n)
 		j = 0;
 		for(i = 0; i < count_unknowns; i++) {
 			if (x[i]->type == SURFACE_CB) {
-				store_mb_unknowns(x[i], &s[n]->diff_layer[j].g_moles, s[n]->z, &s[n]->diff_layer[j].dg_g_moles);
+				unknown_ptr = x[i];
+				if (use.surface_ptr->type == CD_MUSIC) unknown_ptr = x[i+2];
+				store_mb_unknowns(unknown_ptr, &s[n]->diff_layer[j].g_moles, s[n]->z, &s[n]->diff_layer[j].dg_g_moles);
 				j++;
 			}
 		}
@@ -2007,7 +1998,14 @@ int mb_for_species_surf(int n)
 			continue;
 		}			
 		if (master_ptr->s->type == SURF_PSI2) {
-			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[2], &s[n]->dg ); 
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[2], &s[n]->dg ); 
+			/*
+			if (diffuse_layer_x == TRUE) {
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->z, &s[n]->dg ); 
+			} else {
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[2], &s[n]->dg ); 
+			}
+			*/
 			continue;
 		}			
 /*

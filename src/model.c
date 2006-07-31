@@ -1613,9 +1613,13 @@ int molalities (int allow_overflow)
 			}
 
 		}
+	}
 /*
  *   other terms for diffuse layer model
  */
+	if (use.surface_ptr != NULL && use.surface_ptr->type == CD_MUSIC && diffuse_layer_x == TRUE) calc_all_donnan();
+	for (i=0; i < count_s_x; i++) {
+		if (s_x[i]->type > HPLUS && s_x[i]->type != EX && s_x[i]->type != SURF) continue;
 		if (use.surface_ptr != NULL && diffuse_layer_x == TRUE && s_x[i]->type <= HPLUS) {
 			total_g = 0.0;
 			s_x[i]->tot_dh2o_moles = 0.0;
@@ -2282,7 +2286,7 @@ int reset(void)
 			x[i]->master[0]->s->la += d;
 
 			/* recalculte g's for component */
-			if (diffuse_layer_x == TRUE) {
+			if (diffuse_layer_x == TRUE && (use.surface_ptr->type == DDL || (use.surface_ptr->type == CD_MUSIC && x[i]->type == SURFACE_CB2))) {
 				if (debug_diffuse_layer == TRUE) {
 					output_msg(OUTPUT_MESSAGE, "\ncharge, old g, new g, dg*delta,"
 						" dg, delta\n");
@@ -2487,7 +2491,7 @@ int residuals(void)
 	LDBLE toler;
 	LDBLE sum_residual;
 	LDBLE sinh_constant;
-	LDBLE sum;
+	LDBLE sum, sum1;
 	struct master *master_ptr, *master_ptr1, *master_ptr2;
 	double sigmaddl, negfpsirt;
 
@@ -2627,10 +2631,7 @@ int residuals(void)
  *                 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
  *                 ~ 0.1174 at 25C
  */
-				residual[i] = sinh_constant * sqrt(mu_x) * 
-					sinh(x[i]->master[0]->s->la * LOG_10) - 
-					x[i]->f * F_C_MOL / 
-					(x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+				residual[i] = sinh_constant * sqrt(mu_x) * sinh(x[i]->master[0]->s->la * LOG_10) - x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 			}
 			if (debug_model == TRUE) {
 				output_msg(OUTPUT_MESSAGE,"Charge/Potential\n");
@@ -2658,8 +2659,6 @@ int residuals(void)
 		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC) {
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-			} else if (diffuse_layer_x == TRUE) {
-				residual[i] = - x[i]->f;
 			} else {
 				/* sum is in moles of charge */
 				/*psi = pow(10, x[i]->surface_charge->psi_master->s->la);*/ /* = exp(-Fpsi/RT) */
@@ -2682,10 +2681,6 @@ int residuals(void)
 		} else if (x[i]->type == SURFACE_CB1) {
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-#ifdef SKIP
-			} else if (diffuse_layer_x == TRUE) {
-				residual[i] = - x[i]->f;
-#endif
 			} else {
 				/* eqns A-4 */
 				/*psi = pow(10, x[i]->surface_charge->psi_master1->s->la);*/ /* = exp(-Fpsi/RT) */
@@ -2696,10 +2691,27 @@ int residuals(void)
 		} else if (x[i]->type == SURFACE_CB2) {
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-#ifdef SKIP
 			} else if (diffuse_layer_x == TRUE) {
-				residual[i] = - x[i]->f;
-#endif
+				sum = 0;
+				sum1 = 0;
+				for (j = 0; j < count_s_x; j++) {
+					if (s_x[j]->type == SURF) {
+						sum += under(s_x[j]->lm)*s_x[j]->dz[2];
+					}
+					if (s_x[j]->type < H2O) {
+						sum1 += s_x[j]->z * s_x[j]->diff_layer->g_moles;
+					}
+				}
+				x[i]->surface_charge->sigma2 = sum * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+				x[i]->surface_charge->sigmaddl = (x[i]->f - sum) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
+				
+				output_msg(OUTPUT_MESSAGE, "Sum sorbed plane 2          %e\n", sum);
+				output_msg(OUTPUT_MESSAGE, "Sum aq diffuse layer        %e\n", sum1);
+				output_msg(OUTPUT_MESSAGE, "Sum aq diffuse + sorbed 2   %e\n", sum + sum1);
+				output_msg(OUTPUT_MESSAGE, "f, plane 2                  %e\n", x[i]->f);
+				output_msg(OUTPUT_MESSAGE, "Sigmaddl                    %e\n", x[i]->surface_charge->sigmaddl);
+				residual[i] = x[i]->f + (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1) * (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) / F_C_MOL;
+				/* residual[i] = sum + (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1) * (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) / F_C_MOL */
 			} else {
 				/* eqns A-6 and A-7 */
 				sinh_constant = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*tk_x*1000);
@@ -2718,7 +2730,7 @@ int residuals(void)
 				}
 				if (sum <= 0) sum = 0;
 				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
-				if ((x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1 + x[i]->surface_charge->sigma2) > 0) {
+				if ((negfpsirt) < 0) {
 					sigmaddl = -0.5*sinh_constant*sqrt(sum);
 				} else {
 					sigmaddl = 0.5*sinh_constant*sqrt(sum);

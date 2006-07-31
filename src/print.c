@@ -1251,11 +1251,10 @@ int print_surface_cd_music(void)
  */
         int i, j, k;
         struct surface *surface_ptr;
-        char name[MAX_LENGTH], token[MAX_LENGTH];
+        char name[MAX_LENGTH];
         struct master *master_ptr, *master_ptr0, *master_ptr1, *master_ptr2;
 	struct unknown *unknown_ptr0, *unknown_ptr1, *unknown_ptr2;
         LDBLE molfrac, charge0, charge1, charge2, sum;
-        char  *ptr;
 	
 
 /*
@@ -1281,7 +1280,8 @@ int print_surface_cd_music(void)
  *   Description of surface
  */
                 if (diffuse_layer_x == TRUE) {
-                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", (double) x[j]->f );
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", 
+				   (double) x[j+2]->f + (x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1)*(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL);
                 }
 		master_ptr0 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI);
 		master_ptr1 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI1);
@@ -1292,7 +1292,11 @@ int print_surface_cd_music(void)
 			
 		charge0 = unknown_ptr0->f;
 		charge1 = unknown_ptr1->f;
-		charge2 = unknown_ptr2->f;
+		if (diffuse_layer_x == TRUE) {
+			charge2 = x[j]->surface_charge->sigma2 * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL;
+		} else {
+			charge2 = unknown_ptr2->f;
+		}
 		sum = 0;
 		for (k = 0; k < x[j]->count_comp_unknowns; k++) {
 			sum += x[j]->comp_unknowns[k]->moles*x[j]->comp_unknowns[k]->master[0]->s->z;
