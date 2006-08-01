@@ -2705,11 +2705,6 @@ int residuals(void)
 				x[i]->surface_charge->sigma2 = sum * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 				x[i]->surface_charge->sigmaddl = (x[i]->f - sum) * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 				
-				output_msg(OUTPUT_MESSAGE, "Sum sorbed plane 2          %e\n", sum);
-				output_msg(OUTPUT_MESSAGE, "Sum aq diffuse layer        %e\n", sum1);
-				output_msg(OUTPUT_MESSAGE, "Sum aq diffuse + sorbed 2   %e\n", sum + sum1);
-				output_msg(OUTPUT_MESSAGE, "f, plane 2                  %e\n", x[i]->f);
-				output_msg(OUTPUT_MESSAGE, "Sigmaddl                    %e\n", x[i]->surface_charge->sigmaddl);
 				residual[i] = x[i]->f + (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1) * (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) / F_C_MOL;
 				/* residual[i] = sum + (x[i]->surface_charge->sigma0 + x[i]->surface_charge->sigma1) * (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) / F_C_MOL */
 			} else {

@@ -375,7 +375,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 3.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
 	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -492,7 +492,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 3.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
 	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -609,7 +609,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 3.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
 	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -726,7 +726,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 3.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 3.                           
 	  9.400e-01 Solution 10	Solution after simulation 3.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1023,7 +1023,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1140,7 +1140,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1257,7 +1257,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1374,7 +1374,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1491,7 +1491,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1608,7 +1608,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1725,7 +1725,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1842,7 +1842,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -1959,7 +1959,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -2076,7 +2076,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.
@@ -2193,7 +2193,7 @@ Using kinetics 10.	Kinetics defined in simulation 3.
 Mixture 10.	 
 
 	  6.000e-02 Solution 9	Solution after simulation 5.                           
-	  0.000e+00 Solution 11	Background solution initially filling column           
+	  0.000e+00 Solution 11	Solution after simulation 5.                           
 	  9.400e-01 Solution 10	Solution after simulation 5.                           
 
 Kinetics 10.	Kinetics defined in simulation 3.

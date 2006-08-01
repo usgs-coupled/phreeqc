@@ -15,10 +15,8 @@ static LDBLE qromb_midpnt (LDBLE x1, LDBLE x2);
 static LDBLE z, xd, alpha;
 static struct surface_charge *surface_charge_ptr;
 
-/*static LDBLE calc_psi_avg(char *name);*/
 static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
 static int calc_all_donnan_music(void);
-static LDBLE calc_psi_avg_music(LDBLE surf_chrg_eq);
 static int calc_init_donnan_music(void);
 
 /* ---------------------------------------------------------------------- */
@@ -666,6 +664,8 @@ int calc_all_donnan(void)
 		psi_avg = calc_psi_avg(surf_chrg_eq);
 		psi_avg2 = calc_psi_avg(surf_chrg_eq2);
 
+		/*output_msg(OUTPUT_MESSAGE, "psi's  %e %e %e\n", f_psi, psi_avg, surf_chrg_eq);*/
+
 			/* fill in g's */
 		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
 
@@ -886,12 +886,10 @@ int calc_all_donnan_music(void)
 	int count_g, count_charge, converge;
 	char name[MAX_LENGTH];
 	LDBLE new_g, f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
-	LDBLE new_g2, f_psi2, surf_chrg_eq2, psi_avg2, dif;
 	LDBLE cz, cm, cp;
-	LDBLE sum, sigmaddl;
 
 	if (use.surface_ptr == NULL) return(OK);
-	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x);
+	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x * mu_x);
 	cz = cm = 1.0;
 	cp = 1.0;
 /*
@@ -922,30 +920,13 @@ int calc_all_donnan_music(void)
 		}
 			/* find surface charge from potential... */
 		A_surf = x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
-		f_psi = x[j+2]->master[0]->s->la * LOG_10;
-		surf_chrg_eq = -(x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1 + x[j]->surface_charge->sigma2) * 
-			(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) / F_C_MOL;
+		f_psi = x[j+2]->master[0]->s->la * LOG_10;   /* -FPsi/RT */
+		f_psi = f_psi/2;
+		surf_chrg_eq = A_surf * f_sinh * sinh(f_psi) / F_C_MOL;
 		psi_avg = calc_psi_avg(surf_chrg_eq);
-		output_msg(OUTPUT_MESSAGE, "psi's  %e %e \n", f_psi, psi_avg);
+
+		/*output_msg(OUTPUT_MESSAGE, "psi's  %e %e %e\n", f_psi, psi_avg, surf_chrg_eq);*/
 		
-		/*surf_chrg_eq = A_surf * f_sinh * sinh(f_psi) / F_C_MOL;*/
-#ifdef SKIP
-		sum = 0;
-		for (i = 0; i < count_s_x; i++) {
-			if (s_x[i]->type < H2O) {
-				sum += under(s_x[i]->lm)*(exp(s_x[i]->z*f_psi) - 1);
-			}
-		}
-		if ((x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1 + x[j]->surface_charge->sigma2) > 0) {
-			sigmaddl = -0.5*f_sinh*sqrt(sum);
-		} else {
-			sigmaddl = 0.5*f_sinh*sqrt(sum);
-		}
-		surf_chrg_eq = sigmaddl * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) / F_C_MOL;
-			/* find psi_avg that matches surface charge... */
-		psi_avg = calc_psi_avg(surf_chrg_eq);
-#endif
-		psi_avg = f_psi;
 			/* fill in g's */
 		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
 
@@ -996,7 +977,7 @@ int calc_init_donnan_music(void)
 	int i, j, k;
 	int count_g, count_charge;
 	char name[MAX_LENGTH];
-	LDBLE f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
+	LDBLE psi_avg, f_sinh, ratio_aq;
 
 	if (use.surface_ptr == NULL) return(OK);
 	f_sinh = sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x);
@@ -1045,15 +1026,10 @@ int calc_init_donnan_music(void)
 		if (x[j]->surface_charge->g == NULL) malloc_error();
 		x[j]->surface_charge->count_g = count_g;
 
-			/* find surface charge from potential... */
-		A_surf = x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
-		f_psi = x[j+2]->master[0]->s->la * LOG_10;
-		surf_chrg_eq = -(x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1 + x[j]->surface_charge->sigma2) * 
-			(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) / F_C_MOL;
-		psi_avg = calc_psi_avg(surf_chrg_eq);
 			/* find psi_avg that matches surface charge... */
-		psi_avg = calc_psi_avg(0);/*(surf_chrg_eq);*/
-		psi_avg = f_psi;
+
+		psi_avg = calc_psi_avg(0);
+
 			/* fill in g's */
 		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
 
@@ -1087,53 +1063,4 @@ int calc_init_donnan_music(void)
 		count_charge++;
 	}
 	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-LDBLE calc_psi_avg_music(LDBLE surf_chrg_eq)
-/* ---------------------------------------------------------------------- */
-{
-/*
- * calculate the average (F * Psi / RT) that lets the DL charge counter the surface charge
- */
-	int i, iter, count_g;
-	LDBLE fd, fd1, p, temp, ratio_aq;
-/*	LDBLE dif;
- */
-	count_g = surface_charge_ptr->count_g;
-	ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
-	p = 0;
-	if (surf_chrg_eq == 0) {
-		return(0.0);
-	} else if (surf_chrg_eq < 0) {
-		p = -0.5 * log(-surf_chrg_eq * ratio_aq / mu_x + 1);
-	} else if (surf_chrg_eq > 0) {
-		p = 0.5 * log(surf_chrg_eq * ratio_aq / mu_x + 1);
-	}
-/*
- * Optimize p in SS{s_x[i]->moles * z_i * g(p)} = -surf_chrg_eq
- *  g(p) = exp(-p * z_i) - 1
- */
-	iter = 0;
-	do {
-		fd = surf_chrg_eq;
-		fd1 = 0.0;
-		for (i = 1; i < count_g; i++) {
-			temp = exp(-charge_group[i].z * p);
-			fd += charge_group[i].eq * temp;
-			fd1 -= charge_group[i].z * charge_group[i].eq * temp;
-		}
-		fd /= -fd1;
-		p += (fd > 1) ? 1 : ((fd < -1) ?  -1 : fd);
-		if (fabs(p) < G_TOL) p = 0.0;
-		iter++;
-		if (iter > 50) {
-			sprintf(error_string, "\nToo many iterations for surface in subroutine calc_psi_avg.\n");
-			error_msg(error_string, STOP);
-		}
-	} while (fabs(fd) > G_TOL && p != 0.0);
-	if (debug_diffuse_layer == TRUE)
-		output_msg(OUTPUT_MESSAGE, "iter in calc_psi_avg = %d. g(+1) = %8f. surface charge = %8f.\n",
-		iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);
-
-	return(p);
 }
