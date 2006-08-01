@@ -334,7 +334,11 @@ int add_surface (struct surface *surface_ptr)
  */
 	diffuse_layer_x = surface_ptr->diffuse_layer;
 	for (i = 0; i < surface_ptr->count_comps; i++) {
-		if(surface_ptr->edl == FALSE) {
+		/*if(surface_ptr->edl == FALSE) {*/
+		if(surface_ptr->type == NO_EDL) {
+			cb_x += surface_ptr->comps[i].cb;
+		}
+		if (surface_ptr->type == CD_MUSIC) {
 			cb_x += surface_ptr->comps[i].cb;
 		}
 		if (surface_ptr->new_def == FALSE) {
@@ -354,13 +358,18 @@ int add_surface (struct surface *surface_ptr)
 			}
 		}
 	}
-	if (surface_ptr->edl == FALSE) return(OK);
+	/*if (surface_ptr->edl == FALSE) return(OK);*/
+	if (surface_ptr->type != DDL && surface_ptr->type != CD_MUSIC) return(OK);
 	for (i = 0; i < surface_ptr->count_charge; i++) {
-		if (surface_ptr->edl == TRUE) {
+		/*if (surface_ptr->edl == TRUE) {*/
+		/*cb_x += surface_ptr->charge[i].charge_balance;*/
+		if (surface_ptr->type == DDL) {
 			cb_x += surface_ptr->charge[i].charge_balance;
 		}
 		if (surface_ptr->new_def == FALSE) {
-			surface_ptr->charge[i].psi_master->s->la = surface_ptr->charge[i].la_psi;
+			master_ptr = surface_get_psi_master(surface_ptr->charge[i].name, SURF_PSI);
+			master_ptr->s->la = surface_ptr->charge[i].la_psi;
+			/*surface_ptr->charge[i].psi_master->s->la = surface_ptr->charge[i].la_psi;*/
 		}
 /*
  *   Add diffuse layer elements (including water in Debye layer)
