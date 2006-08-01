@@ -196,8 +196,6 @@ struct model {
 		int diffuse_layer;
 		int edl;
 		int only_counter_ions;
-		int donnan;
-		LDBLE thickness;
 		int count_surface_comp;
 		char **surface_comp;
 		int count_surface_charge;
@@ -286,8 +284,9 @@ struct surface {
 		int only_counter_ions;
 		int donnan;
 		LDBLE thickness;
-		LDBLE debye_units;
-		LDBLE DDL_viscosity;
+		LDBLE debye_lengths;
+		LDBLE DDL_viscosity;	/* viscosity relative to pure water */
+		LDBLE DDL_limit;		/* limits DDL water to this fraction of bulk water */
 		char *description;
 		int solution_equilibria;
 		int n_solution;
@@ -297,7 +296,7 @@ struct surface {
 		struct surface_charge *charge;
 		int related_phases;
 		int related_rate;
-		int transport;
+		int transport;			/* transports comp's and charges if true */
 };
 struct surface_comp {
 		char *formula;
@@ -310,6 +309,7 @@ struct surface_comp {
 		char *phase_name;
 		LDBLE phase_proportion;
 		char *rate_name;
+		LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
 };
 struct surface_charge {
 		char *name;

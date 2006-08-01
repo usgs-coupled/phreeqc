@@ -117,7 +117,11 @@ int write_banner(void)
 	output_msg(OUTPUT_SCREEN, "              º                                            º\n");
 
 	/* version */
+#ifdef DOS
+	len = sprintf(buffer, "* PHREEQC-%s *", "2.12 donnan");
+#else
 	len = sprintf(buffer, "* PHREEQC-%s *", "@VERSION@");
+#endif
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer, 44 - indent - len, ' ');
 
@@ -130,7 +134,11 @@ int write_banner(void)
 
 
 	/* date */
+#ifdef DOS
+	len = sprintf(buffer, "%s", "1 july 2006");
+#else
 	len = sprintf(buffer, "%s", "@VER_DATE@");
+#endif
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer, 44 - indent - len, ' ');
 

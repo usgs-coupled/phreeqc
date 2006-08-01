@@ -202,7 +202,7 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 
         output_msg(OUTPUT_MESSAGE,"\tWater in diffuse layer: %e kg.   Thickness: %e m.\n",
 				(double) surface_charge_ptr1->mass_water, (double) use.surface_ptr->thickness);
-		if (use.surface_ptr->debye_units > 0) {
+		if (use.surface_ptr->debye_lengths > 0) {
 			r = 0.002 * mass_water_bulk_x / (surface_charge_ptr1->specific_area * surface_charge_ptr1->grams);
 			output_msg(OUTPUT_MESSAGE,"\tRadius of total pore:   %e m; of free pore: %e m.\n",
 				(double) r, (double) r - use.surface_ptr->thickness);

@@ -483,10 +483,10 @@ int initial_surface_water(void)
  *   Ionic strength is fixed, so diffuse-layer water will not change
  */
 	int i;
-	LDBLE debye_length, r, rd;
+	LDBLE debye_length, r, rd, ddl_limit, rd_limit, fraction, sum_fracs, sum_surfs, s;
 	LDBLE mass_water_surface;
 
-	if (use.surface_ptr->debye_units > 0)
+	if (use.surface_ptr->debye_lengths > 0) {
 /*
  *   Debye  length = 1/k = sqrt[eta*eta_zero*R*T/(2*F**2*mu_x*1000)], Dzombak and Morel, p 36
  *
@@ -495,38 +495,45 @@ int initial_surface_water(void)
 		debye_length = (EPSILON * EPSILON_ZERO * R_KJ_DEG_MOL * 1000.0 * tk_x)
 			/ (2. * F_C_MOL * F_C_MOL * mu_x * 1000.);
 		debye_length = sqrt(debye_length);
+	}
 /*
  *   Loop through all surface components, calculate each H2O surface (diffuse layer),
  *   H2O aq, and H2O bulk (diffuse layers plus aqueous).
  */
-	mass_water_surfaces_x = 0.0;
+	sum_fracs = sum_surfs = mass_water_surfaces_x = 0.0;
+
 	for (i = 0; i < count_unknowns; i++) {
 		if (x[i]->type != SURFACE_CB) continue;
-		if (use.surface_ptr->debye_units > 0) {
-			rd = debye_length * use.surface_ptr->debye_units;
+		if (use.surface_ptr->debye_lengths > 0) {
+			rd = debye_length * use.surface_ptr->debye_lengths;
+			/*  ddl is at most the fraction ddl_limit of bulk water */
+			ddl_limit = use.surface_ptr->DDL_limit;
 			use.surface_ptr->thickness = rd;
 			if (state == INITIAL_SURFACE) {
 				/* distribute water over DDL (rd) and free pore (r - rd) */
 				/* find r: free pore (m3) = pi * (r - rd)^2 * L, where L = A / (2*pi*r) */
 				r = 2 * (rd + use.solution_ptr->mass_water / (1000 * x[i]->surface_charge->specific_area * x[i]->surface_charge->grams));
-/*				r = 2 * (rd + mass_water_aq_x / (1000 * x[i]->surface_charge->specific_area * x[i]->surface_charge->grams));
- */				r = 0.5 * (r + sqrt(r * r - 4 * rd * rd));
+				r = 0.5 * (r + sqrt(r * r - 4 * rd * rd));
 				/* DDL (m3) = pi * (r^2 - (r - rd)^2) * L */
-				mass_water_surface = (r * r / pow(r - rd, 2) - 1) * mass_water_aq_x;
+				rd_limit = (1 - sqrt(1 - ddl_limit)) * r;
+				if (rd > rd_limit)
+					use.surface_ptr->thickness = rd = rd_limit;
+				mass_water_surface = (r * r / pow(r - rd, 2) - 1) * use.solution_ptr->mass_water;
 			}
-/*			else mass_water_surface =  x[i]->surface_charge->specific_area *
-				x[i]->surface_charge->grams * use.surface_ptr->thickness * 1000;
-*/
 			else {
-/* assume that only 1 surface exists */
-				r = 0.002 * mass_water_bulk_x / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
-				/* rd should be smaller than r, +must be worked on */
-				rd = (rd > 0.999 * r) ? 0.999 : (1 - pow(r - rd, 2) / (r * r));
-				mass_water_aq_x = (mass_water_aq_x + (1 - rd) * mass_water_bulk_x) / 2;
-				mass_water_surface = mass_water_bulk_x - mass_water_aq_x;
-/* this may not be correct in all cases... */
-/*				mass_water_switch = TRUE;
-  */		  }
+				s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+				sum_surfs += s;
+				r = 0.002 * mass_water_bulk_x / s;
+				/* rd should be smaller than r */
+				rd_limit = (1 - sqrt(1 - ddl_limit)) * r;
+				if (rd > rd_limit) {
+					use.surface_ptr->thickness = rd = rd_limit;
+					fraction = ddl_limit;
+				} else
+					fraction = 1 - pow(r - rd, 2) / (r * r);
+				mass_water_surface = fraction * mass_water_bulk_x;
+				sum_fracs += fraction;
+			}
 		}
 		else
 			/* make constant thickness of, default 1e-8 m (100 Angstroms) */
@@ -534,11 +541,21 @@ int initial_surface_water(void)
 				x[i]->surface_charge->grams * use.surface_ptr->thickness * 1000;
 
 		x[i]->surface_charge->mass_water = mass_water_surface;
-/*		use.surface_ptr->charge->mass_water = mass_water_surface;
-		sum_diffuse_layer(x[i]->surface_charge);
- */		mass_water_surfaces_x += mass_water_surface;
+		mass_water_surfaces_x += mass_water_surface;
 	}
-	mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
+	if (use.surface_ptr->debye_lengths > 0 && sum_fracs > ddl_limit) {
+		mass_water_surfaces_x *= ddl_limit / sum_fracs;
+		/* distribute water according to surface area */
+		for (i = 0; i < count_unknowns; i++) {
+			if (x[i]->type != SURFACE_CB) continue;
+			s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+			x[i]->surface_charge->mass_water = mass_water_bulk_x * ddl_limit * s / sum_surfs;
+		}
+	}
+	if (state > INITIAL_SURFACE)
+		mass_water_aq_x = mass_water_bulk_x - mass_water_surfaces_x;
+	else
+		mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
