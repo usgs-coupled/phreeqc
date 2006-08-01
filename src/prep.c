@@ -7,7 +7,9 @@
 static char const svnid[] = "$Id$";
 
 static int add_potential_factor(void);
+static int add_cd_music_factors(int n);
 static int add_surface_charge_balance(void);
+static int add_cd_music_charge_balances(int i);
 static int build_gas_phase(void);
 static int build_jacobian_sums (int k);
 static int build_mb_sums(void);
@@ -21,7 +23,7 @@ static int build_min_surface(void);
 static int change_hydrogen_in_elt_list(LDBLE charge);
 static int clear (void);
 static int convert_units(struct solution *solution_ptr);
-static struct unknown *find_surface_charge_unknown(char *str_ptr);
+static struct unknown *find_surface_charge_unknown(char *str_ptr, int plane);
 static struct master **get_list_master_ptrs(char *ptr, struct master *master_ptr);
 static int inout(void);
 static int is_special(struct species *spec);
@@ -300,6 +302,14 @@ static int quick_setup (void)
 				x[i]->mass_water = use.surface_ptr->charge[j++].mass_water;
 			        x[i]->surface_comp = x[i-1]->surface_comp;
 				/* moles picked up from master->total */
+			} else if (x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) {
+				/*
+				charge = use.surface_ptr->comps[i].charge;
+				x[count_unknowns]->surface_charge = &use.surface_ptr->charge[charge];
+				*/
+				x[i]->surface_charge = x[i-1]->surface_charge;
+				x[i]->related_moles = x[i]->surface_charge->grams;
+				x[i]->mass_water = x[i]->surface_charge->mass_water;
 			} else if (x[i]->type == SURFACE) {
 				x[i]->surface_comp = &(use.surface_ptr->comps[k++]);
 				/* moles picked up from master->total
@@ -694,18 +704,6 @@ int build_jacobian_sums (int k)
  *   Calculate jacobian coefficients for each mass balance equation
  */
 	for (i = 0; i < count_mb_unknowns; i++) {
-#ifdef SKIP
-		/* switch for mu term */
-		if (diffuse_layer_x == TRUE && ((mb_unknowns[i].unknown == charge_balance_unknown) ||
-		    (mb_unknowns[i].unknown == ah2o_unknown) ||
-		    (mb_unknowns[i].unknown == mu_unknown))) {
-			use_tot_g = 1;
-		} else if (diffuse_layer_x == TRUE && mb_unknowns[i].unknown->type == SURFACE_CB) {
-			use_tot_g = 2;
-		} else {
-			use_tot_g = 0;
-		}
-#endif
 /*
  *   Store d(moles) for a mass balance equation
  */
@@ -740,6 +738,7 @@ int build_jacobian_sums (int k)
 			count_g = 0;
 			for (j = 0; j < count_unknowns; j++) {
 				if (x[j]->type != SURFACE_CB) continue;
+				/*if (x[j]->type < SURFACE_CB || x[j]->type > SURFACE_CB1) continue;*/
 				source = &s[k]->diff_layer[count_g].dx_moles;
 				target = &(array[mb_unknowns[i].unknown->number * 
 						 (count_unknowns + 1) +
@@ -759,6 +758,7 @@ int build_jacobian_sums (int k)
                         count_g = 0;
 			for (j = 0; j < count_unknowns; j++) {
 				if (x[j]->type != SURFACE_CB) continue;
+				/*if (x[j]->type < SURFACE_CB || x[j]->type > SURFACE_CB1) continue;*/
 
 				/* has related phase */
 				if (x[j-1]->surface_comp->phase_name == NULL) continue;
@@ -976,12 +976,13 @@ int build_model(void)
 			write_mass_action_eqn_x(STOP);
 			if (s[i]->type == SURF) {
 				add_potential_factor();
+				add_cd_music_factors(i);
 			}
 			rxn_free(s[i]->rxn_x);
 			s[i]->rxn_x = rxn_alloc(count_trxn+1);
 			trxn_copy (s[i]->rxn_x);
 			if ( debug_prep == TRUE ) {
-				output_msg(OUTPUT_MESSAGE,"\nSpecies: %s\n", s[i]->name);
+				output_msg(OUTPUT_MESSAGE,"\n%s\n\tMass-action equation\n", s[i]->name);
 				trxn_print();
 			}
 /*
@@ -997,16 +998,18 @@ int build_model(void)
 			}
 			if (s[i]->type == SURF) {
 				add_potential_factor();
+				add_cd_music_factors(i);
 				add_surface_charge_balance();
+				add_cd_music_charge_balances(i);
 			}
 			if ( debug_prep == TRUE ) {
-				output_msg(OUTPUT_MESSAGE,"%s\n", trxn.token[0].s->name);
+				output_msg(OUTPUT_MESSAGE,"\tElement composition\n", trxn.token[0].s->name);
 				for (j = 0; j < count_elts; j++) {
-					output_msg(OUTPUT_MESSAGE,"\t%s\t%f\n", elt_list[j].elt->name, (double) elt_list[j].coef);
+					output_msg(OUTPUT_MESSAGE,"\t\t%-20s\t%10.2f\n", elt_list[j].elt->name, (double) elt_list[j].coef);
 				}
 			}
 			if ( debug_prep == TRUE ) {
-				output_msg(OUTPUT_MESSAGE,"\nSpecies: %s\n", s[i]->name);
+				output_msg(OUTPUT_MESSAGE,"\n\tMass balance equation\n", s[i]->name);
 				trxn_print();
 			}
 			if (s[i]->type < EMINUS) {
@@ -1743,6 +1746,7 @@ int mb_for_species_aq(int n)
  */
 	int i, j;
 	struct master *master_ptr;
+	struct unknown *unknown_ptr;
 
 	count_mb_unknowns = 0;
 /*
@@ -1804,7 +1808,9 @@ int mb_for_species_aq(int n)
 		j = 0;
 		for(i = 0; i < count_unknowns; i++) {
 			if (x[i]->type == SURFACE_CB) {
-				store_mb_unknowns(x[i], &s[n]->diff_layer[j].g_moles, s[n]->z, &s[n]->diff_layer[j].dg_g_moles);
+				unknown_ptr = x[i];
+				if (use.surface_ptr->type == CD_MUSIC) unknown_ptr = x[i+2];
+				store_mb_unknowns(unknown_ptr, &s[n]->diff_layer[j].g_moles, s[n]->z, &s[n]->diff_layer[j].dg_g_moles);
 				j++;
 			}
 		}
@@ -1979,8 +1985,27 @@ int mb_for_species_surf(int n)
 /*
  *   SURF_PSI, sum surface species in (surface + DL) charge balance
  */
-		if (master_ptr->s->type == SURF_PSI) {
+		if (master_ptr->s->type == SURF_PSI && use.surface_ptr->type != CD_MUSIC) {
 			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->z, &s[n]->dg ); 
+			continue;
+		}			
+		if (master_ptr->s->type == SURF_PSI && use.surface_ptr->type == CD_MUSIC) {
+			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[0], &s[n]->dg ); 
+			continue;
+		}			
+		if (master_ptr->s->type == SURF_PSI1) {
+			store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[1], &s[n]->dg ); 
+			continue;
+		}			
+		if (master_ptr->s->type == SURF_PSI2) {
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[2], &s[n]->dg ); 
+			/*
+			if (diffuse_layer_x == TRUE) {
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->z, &s[n]->dg ); 
+			} else {
+				store_mb_unknowns(master_ptr->unknown, &s[n]->moles, s[n]->dz[2], &s[n]->dg ); 
+			}
+			*/
 			continue;
 		}			
 /*
@@ -2152,7 +2177,8 @@ int add_potential_factor(void)
 	struct master *master_ptr;
 	struct unknown *unknown_ptr;
 
-	if (use.surface_ptr->edl == FALSE) return(OK);
+	/*if (use.surface_ptr->edl == FALSE) return(OK);*/
+	if (use.surface_ptr->type != DDL) return(OK);
 	sum_z = 0.0;
 	master_ptr = NULL;
 /*
@@ -2183,7 +2209,7 @@ int add_potential_factor(void)
 		return(ERROR);
 	}
 	strcpy(token, master_ptr->elt->name);
-	unknown_ptr = find_surface_charge_unknown(token);
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
 	if (unknown_ptr == NULL) {
 		sprintf(error_string, "No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
@@ -2211,13 +2237,111 @@ int add_potential_factor(void)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int add_cd_music_factors(int n)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Add the potential factors for cd_music to surface mass-action equations.
+ *   Factors are essentially the activity coefficient, representing
+ *   the work required to bring charged ions to the three charge layers 
+ *   of the cd_music model
+ */
+	int i;
+	char token[MAX_LENGTH];
+	struct master *master_ptr;
+	struct unknown *unknown_ptr;
+
+	/*if (use.surface_ptr->edl == FALSE) return(OK);*/
+	if (use.surface_ptr->type != CD_MUSIC) return(OK);
+	master_ptr = NULL;
+/*
+ *   Find sum of charge of aqueous species and surface master species
+ */
+	for (i=1; i < count_trxn; i++) {
+		if (trxn.token[i].s->type == SURF) {
+			master_ptr = trxn.token[i].s->primary;
+		}
+	}
+/*
+ *  Find potential unknown for surface species
+ */
+	if (master_ptr == NULL) {
+		sprintf(error_string,"Did not find a surface species in equation defining %s", trxn.token[0].name);
+		error_msg(error_string, CONTINUE);
+		sprintf(error_string,"One of the following must be defined with SURFACE_SPECIES:");
+		error_msg(error_string, CONTINUE);
+		for (i=1; i < count_trxn; i++) {
+			sprintf(error_string,"     %s", trxn.token[i].name);
+			error_msg(error_string, CONTINUE);
+		}
+		input_error++;
+		return(ERROR);
+	}
+	strcpy(token, master_ptr->elt->name);
+	/*
+	 *  Plane 0
+	 */
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
+	if (unknown_ptr == NULL) {
+		sprintf(error_string, "No potential unknown found for surface species %s.", token);
+		error_msg(error_string, STOP);
+	}
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Make sure there is space
+	 */
+	if (count_trxn + 3 >= max_trxn) {
+		space ((void **) &(trxn.token), count_trxn+3, &max_trxn, sizeof(struct rxn_token_temp));
+	}
+	/*
+	 *   Include psi in mass action equation
+	 */
+	trxn.token[count_trxn].name = master_ptr->s->name;
+	trxn.token[count_trxn].s = master_ptr->s;
+	trxn.token[count_trxn].coef = s[n]->dz[0];
+	count_trxn++;
+
+	/*
+	 *  Plane 1
+	 */
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI1);
+	if (unknown_ptr == NULL) {
+		sprintf(error_string, "No potential unknown found for surface species %s.", token);
+		error_msg(error_string, STOP);
+	}
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Include psi in mass action equation
+	 */
+	trxn.token[count_trxn].name = master_ptr->s->name;
+	trxn.token[count_trxn].s = master_ptr->s;
+	trxn.token[count_trxn].coef = s[n]->dz[1];
+	count_trxn++;
+	/*
+	 *  Plane 2
+	 */
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI2);
+	if (unknown_ptr == NULL) {
+		sprintf(error_string, "No potential unknown found for surface species %s.", token);
+		error_msg(error_string, STOP);
+	}
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Include psi in mass action equation
+	 */
+	trxn.token[count_trxn].name = master_ptr->s->name;
+	trxn.token[count_trxn].s = master_ptr->s;
+	trxn.token[count_trxn].coef = s[n]->dz[2];
+	count_trxn++;
+
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int add_surface_charge_balance(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Add the potential factor to surface mass-action equations.
- *   Factor is essentially the activity coefficient, representing
- *   the work required to bring charged ions to the surface
+ *   Include charge balance in list for mass-balance equations
  */
 	int i;
 	char *ptr;
@@ -2226,7 +2350,7 @@ int add_surface_charge_balance(void)
 	struct master *master_ptr;
 	struct unknown *unknown_ptr;
 
-	if (use.surface_ptr->edl == FALSE) return(OK);
+	if (use.surface_ptr->type != DDL) return(OK);
 	master_ptr = NULL;
 /*
  *   Find master species
@@ -2245,7 +2369,7 @@ int add_surface_charge_balance(void)
  *  Find potential unknown for surface species
  */
 	strcpy(token, master_ptr->elt->name);
-	unknown_ptr = find_surface_charge_unknown(token);
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
 	if (unknown_ptr == NULL) {
 		sprintf(error_string, "No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
@@ -2256,6 +2380,73 @@ int add_surface_charge_balance(void)
  */
 	ptr = master_ptr->elt->name;
 	get_secondary_in_species(&ptr, 1.0);
+
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int add_cd_music_charge_balances(int n)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Add the potential factor to surface mass-action equations.
+ *   Factor is essentially the activity coefficient, representing
+ *   the work required to bring charged ions to the surface
+ */
+	int i;
+	char *ptr;
+	char token[MAX_LENGTH];
+
+	struct master *master_ptr;
+	struct unknown *unknown_ptr;
+
+	if (use.surface_ptr->type != CD_MUSIC) return(OK);
+	master_ptr = NULL;
+/*
+ *   Find master species
+ */
+	for (i=0; i < count_elts; i++) {
+		if (elt_list[i].elt->primary->s->type == SURF) {
+			master_ptr = elt_list[i].elt->primary;
+			break;
+		}
+	}
+	if (i >= count_elts) {
+		sprintf(error_string, "No surface master species found for surface species.");
+		error_msg(error_string, STOP);
+	}
+	/*
+	 *  Find potential unknown for plane 0
+	 */
+	strcpy(token, master_ptr->elt->name);
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Include charge balance in list for mass-balance equations
+	 */
+	ptr = master_ptr->elt->name;
+	get_secondary_in_species(&ptr, s[n]->dz[0]);
+	/*
+	 *  Find potential unknown for plane 1
+	 */
+	strcpy(token, master_ptr->elt->name);
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI1);
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Include charge balance in list for mass-balance equations
+	 */
+	ptr = master_ptr->elt->name;
+	get_secondary_in_species(&ptr, s[n]->dz[1]);
+	/*
+	 *  Find potential unknown for plane 2
+	 */
+	strcpy(token, master_ptr->elt->name);
+	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI2);
+	master_ptr = unknown_ptr->master[0];  /* potential for surface component */
+	/*
+	 *   Include charge balance in list for mass-balance equations
+	 */
+	ptr = master_ptr->elt->name;
+	get_secondary_in_species(&ptr, s[n]->dz[2]);
 
 	return(OK);
 }
@@ -2432,12 +2623,14 @@ int setup_surface (void)
 /*
  *   Fill in data for surface assemblage in unknown structure
  */
-	int i, j, k;
+	int i, j, k, plane;
 	struct master *master_ptr;
 	struct master **master_ptr_list;
-	struct unknown *unknown_ptr;
-	char token[MAX_LENGTH];
+	struct unknown *unknown_ptr, **unknown_target;
+	char token[MAX_LENGTH], cb_suffix[MAX_LENGTH], psi_suffix[MAX_LENGTH], mass_balance_name[MAX_LENGTH];
 	char *name1, *name2;
+	int mb_unknown_number, type;
+
 	if (use.surface_ptr == NULL) return(OK);
 
 	for (i = 0; i < use.surface_ptr->count_comps; i++ ) {
@@ -2480,40 +2673,119 @@ int setup_surface (void)
 			if (surface_unknown == NULL) surface_unknown = x[count_unknowns];
 			x[count_unknowns]->potential_unknown = NULL;
 			count_unknowns++;
-			if (use.surface_ptr->edl == FALSE) continue;
+			/*if (use.surface_ptr->edl == FALSE) continue;*/
+			if (use.surface_ptr->type == DDL) {
 /*
  *   Setup surface-potential unknown
  */
-			strcpy(token, master_ptr->elt->name);
-			unknown_ptr = find_surface_charge_unknown(token);
-			if (unknown_ptr != NULL) {
-				x[count_unknowns - 1]->potential_unknown = unknown_ptr;
-			} else {
+				strcpy(token, master_ptr->elt->name);
+				unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
+				if (unknown_ptr != NULL) {
+					x[count_unknowns - 1]->potential_unknown = unknown_ptr;
+				} else {
 /*
  *   Find master species
  */
-				replace ("_CB", "_psi", token);
-				master_ptr = master_bsearch (token);
-				master_ptr_list = unknown_alloc_master();
-				master_ptr_list[0] = master_ptr;
-				master_ptr->in = TRUE;
+					replace ("_CB", "_psi", token);
+					master_ptr = master_bsearch (token);
+					master_ptr_list = unknown_alloc_master();
+					master_ptr_list[0] = master_ptr;
+					master_ptr->in = TRUE;
+					/*
+					 *   Find surface charge structure
+					 */
+					x[count_unknowns]->type = SURFACE_CB;
+					k = use.surface_ptr->comps[i].charge;
+					x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
+					x[count_unknowns]->related_moles = x[count_unknowns]->surface_charge->grams;
+					x[count_unknowns]->mass_water = use.surface_ptr->charge[k].mass_water;
+					replace("_psi","_CB",token);
+					x[count_unknowns]->description = string_hsave(token);
+					x[count_unknowns]->master = master_ptr_list;
+					/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];*/
+					x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+					x[count_unknowns]->moles = 0.0;
+					x[count_unknowns - 1]->potential_unknown = x[count_unknowns];
+					x[count_unknowns]->surface_comp = x[count_unknowns - 1]->surface_comp;
+					count_unknowns++;
+				}
+			} else if (use.surface_ptr->type == CD_MUSIC) {
 /*
- *   Find surface charge structure
+ *   Setup 3 surface-potential unknowns
  */
-				x[count_unknowns]->type = SURFACE_CB;
-				k = use.surface_ptr->comps[i].charge;
-				x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
-				x[count_unknowns]->related_moles = x[count_unknowns]->surface_charge->grams;
-				x[count_unknowns]->mass_water = use.surface_ptr->charge[k].mass_water;
-				replace("_psi","_CB",token);
-				x[count_unknowns]->description = string_hsave(token);
-				x[count_unknowns]->master = master_ptr_list;
-				use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];
-				x[count_unknowns]->master[0]->unknown = x[count_unknowns];
-				x[count_unknowns]->moles = 0.0;
-			        x[count_unknowns - 1]->potential_unknown = x[count_unknowns];
-			        x[count_unknowns]->surface_comp = x[count_unknowns - 1]->surface_comp;
-				count_unknowns++;
+				mb_unknown_number = count_unknowns - 1;
+				strcpy(token, master_ptr->elt->name);				
+				strcpy(mass_balance_name, token);
+				for (plane = SURF_PSI; plane <= SURF_PSI2; plane++) {
+					strcpy(cb_suffix,"_CB");
+					strcpy(psi_suffix, "_psi");
+					unknown_target = NULL;
+					type = SURFACE_CB;
+					switch (plane) {
+					case SURF_PSI:
+						type = SURFACE_CB;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown);
+						break;
+					case SURF_PSI1:
+						strcat(cb_suffix,"b");
+						strcat(psi_suffix,"b");
+						type = SURFACE_CB1;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown1);
+						break;
+					case SURF_PSI2:
+						strcat(cb_suffix,"d");
+						strcat(psi_suffix,"d");
+						type = SURFACE_CB2;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown2);
+						break;
+					}
+					unknown_ptr = find_surface_charge_unknown(token, plane);
+					if (unknown_ptr != NULL) {
+						*unknown_target = unknown_ptr;
+					} else {
+						/*
+						 *   Find master species
+						 */
+						replace (cb_suffix, psi_suffix, token);
+						master_ptr = master_bsearch (token);
+						master_ptr_list = unknown_alloc_master();
+						master_ptr_list[0] = master_ptr;
+						master_ptr->in = TRUE;
+						/*
+						 *   Find surface charge structure
+						 */
+						x[count_unknowns]->type = type;
+						k = use.surface_ptr->comps[i].charge;
+						x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
+						x[count_unknowns]->related_moles = x[count_unknowns]->surface_charge->grams;
+						x[count_unknowns]->mass_water = use.surface_ptr->charge[k].mass_water;
+						replace(psi_suffix,cb_suffix,token);
+						x[count_unknowns]->description = string_hsave(token);
+						x[count_unknowns]->master = master_ptr_list;
+						/*
+						 *   Find surface charge structure
+						 */
+						if (plane == SURF_PSI) {
+							/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0];*/
+							x[mb_unknown_number]->potential_unknown = x[count_unknowns];
+						} else if (plane == SURF_PSI1) {
+							/*use.surface_ptr->charge[k].psi_master1 = x[count_unknowns]->master[0];*/
+							x[mb_unknown_number]->potential_unknown1 = x[count_unknowns];
+						} else if (plane == SURF_PSI2) {
+							/*use.surface_ptr->charge[k].psi_master2 = x[count_unknowns]->master[0];*/
+							x[mb_unknown_number]->potential_unknown2 = x[count_unknowns];
+						}
+						x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+						x[count_unknowns]->moles = 0.0;
+						x[count_unknowns]->surface_comp = x[mb_unknown_number]->surface_comp;
+						count_unknowns++;
+					}
+				}
+				/* Add SURFACE unknown to a list for SURF_PSI */
+				unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
+				unknown_ptr->comp_unknowns = (struct unknown **) realloc(unknown_ptr->comp_unknowns, (size_t) ((unknown_ptr->count_comp_unknowns + 1)*sizeof (struct unknown *)));
+				if (unknown_ptr->comp_unknowns == NULL) malloc_error();
+				unknown_ptr->comp_unknowns[unknown_ptr->count_comp_unknowns++] = x[mb_unknown_number];
 			}
 		}
 	}
@@ -2580,6 +2852,38 @@ int setup_surface (void)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+struct unknown *find_surface_charge_unknown(char *str_ptr, int plane) 
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *    Makes name for the potential unknown and returns in str_ptr
+ *    Returns NULL if this unknown not in unknown list else
+ *    returns a pointer to the potential unknown
+ */
+	int i;
+	char *ptr;
+	char token[MAX_LENGTH];
+
+	replace ("_", " ", str_ptr);
+	ptr = str_ptr;
+	copy_token(token, &ptr, &i);
+	if (plane == SURF_PSI) {
+		strcat(token, "_CB");
+	} else if (plane == SURF_PSI1) {
+		strcat(token, "_CBb");
+	} else if (plane == SURF_PSI2) {
+		strcat(token, "_CBd");
+	}
+	strcpy(str_ptr, token);
+	for (i = 0; i < count_unknowns; i++) {
+		if ( strcmp(token, x[i]->description) == 0 ) {
+			return(x[i]);
+		}
+	}
+	return(NULL);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
 struct unknown *find_surface_charge_unknown(char *str_ptr) 
 /* ---------------------------------------------------------------------- */
 {
@@ -2604,7 +2908,7 @@ struct unknown *find_surface_charge_unknown(char *str_ptr)
 	}
 	return(NULL);
 }
-	
+#endif	
 /* ---------------------------------------------------------------------- */
 int setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
 /* ---------------------------------------------------------------------- */
@@ -3043,7 +3347,11 @@ int setup_unknowns (void)
  *   Count surfaces
  */
 	if (use.surface_ptr != NULL) {
-		max_unknowns += use.surface_ptr->count_comps + use.surface_ptr->count_charge;
+		if (use.surface_ptr->type != CD_MUSIC) {
+			max_unknowns += use.surface_ptr->count_comps + use.surface_ptr->count_charge;
+		} else {
+			max_unknowns += use.surface_ptr->count_comps + 4*use.surface_ptr->count_charge;
+		}
 	}
 /*
  *   Count gas components
@@ -3719,10 +4027,12 @@ static int save_model(void)
 			last_model.surface_charge[i] = use.surface_ptr->charge[i].name;
 		}
 		last_model.diffuse_layer = use.surface_ptr->diffuse_layer;
-		last_model.edl = use.surface_ptr->edl;
+		/*last_model.edl = use.surface_ptr->edl;*/
+		last_model.surface_type = use.surface_ptr->type;
 	} else {
 		last_model.diffuse_layer = -1;
-		last_model.edl = -1;
+		/*last_model.edl = -1;*/
+		last_model.surface_type = UNKNOWN_DL;
 		last_model.count_surface_comp = 0;
 		last_model.surface_comp = NULL;
 		last_model.count_surface_charge = 0;
@@ -3816,7 +4126,8 @@ int check_same_model(void)
 		if (last_model.count_surface_comp != use.surface_ptr->count_comps) return(FALSE);
 		if (last_model.count_surface_charge != use.surface_ptr->count_charge) return(FALSE);
 		if (last_model.diffuse_layer != use.surface_ptr->diffuse_layer) return(FALSE);
-		if (last_model.edl != use.surface_ptr->edl) return(FALSE);
+		/*if (last_model.edl != use.surface_ptr->edl) return(FALSE);*/
+		if (last_model.surface_type != use.surface_ptr->type) return(FALSE);
 		/*
 		if (last_model.only_counter_ions != use.surface_ptr->only_counter_ions) return(FALSE);
 		if (last_model.donnan != use.surface_ptr->donnan) return(FALSE);

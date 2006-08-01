@@ -18,6 +18,7 @@ static int print_mix(void);
 static int print_pp_assemblage(void);
 static int print_s_s_assemblage(void);
 static int print_saturation_indices(void);
+static int print_surface_cd_music(void);
 static int print_totals(void);
 static int print_using(void);
 static int print_user_print(void);
@@ -1089,6 +1090,7 @@ int print_surface(void)
  */
         surface_ptr = use.surface_ptr;
         if (surface_ptr == NULL || pr.surface == FALSE || pr.all == FALSE) return(OK);
+	if (surface_ptr->type == CD_MUSIC) return(print_surface_cd_music());
 
         if (state >= REACTION) {
                 print_centered("Surface composition");
@@ -1099,7 +1101,8 @@ int print_surface(void)
 
         s_h2o->lm = s_h2o->la;
         for (j =0; j < count_unknowns; j++) {
-                if (use.surface_ptr->edl == TRUE) {
+                /*if (use.surface_ptr->edl == TRUE) {*/
+                if (use.surface_ptr->type == DDL) {
                         if (x[j]->type != SURFACE_CB) continue;
                         strcpy(name, x[j]->master[0]->elt->name);
                         replace ("_psi", "", name);
@@ -1117,7 +1120,8 @@ int print_surface(void)
                 if (diffuse_layer_x == TRUE) {
                         output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", (double) x[j]->f );
                 }
-                if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {
+                /*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {*/
+                if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {
                         charge = x[j]->f;
                 } else {
                         charge = calc_surface_charge(name);
@@ -1233,6 +1237,158 @@ int print_surface(void)
                         }
                         output_msg(OUTPUT_MESSAGE,"\n");
                 }
+        }
+        return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int print_surface_cd_music(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Prints description of cd music surfaces, including charge and potential,
+ *   grams and specific area, moles of each species on surface sites,
+ *   and description of diffuse layer if applicable.
+ */
+        int i, j, k;
+        struct surface *surface_ptr;
+        char name[MAX_LENGTH];
+        struct master *master_ptr, *master_ptr0, *master_ptr1, *master_ptr2;
+	struct unknown *unknown_ptr0, *unknown_ptr1, *unknown_ptr2;
+        LDBLE molfrac, charge0, charge1, charge2, sum;
+	
+
+/*
+ *  Print surface speciation
+ */
+        surface_ptr = use.surface_ptr;
+        if (surface_ptr == NULL || pr.surface == FALSE || pr.all == FALSE) return(OK);
+
+        if (state >= REACTION) {
+                print_centered("Surface composition");
+        }
+/*
+ *   Print list of species
+ */
+
+        s_h2o->lm = s_h2o->la;
+        for (j =0; j < count_unknowns; j++) {
+		if (x[j]->type != SURFACE_CB) continue;
+		strcpy(name, x[j]->master[0]->elt->name);
+		replace ("_psi", "", name);
+                output_msg(OUTPUT_MESSAGE,"%-14s\n",name);
+/*
+ *   Description of surface
+ */
+                if (diffuse_layer_x == TRUE) {
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", 
+				   (double) x[j+2]->f + (x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1)*(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL);
+                }
+		master_ptr0 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI);
+		master_ptr1 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI1);
+		master_ptr2 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI2);
+		unknown_ptr0 = x[master_ptr0->unknown->number];
+		unknown_ptr1 = x[master_ptr1->unknown->number];
+		unknown_ptr2 = x[master_ptr2->unknown->number];
+			
+		charge0 = unknown_ptr0->f;
+		charge1 = unknown_ptr1->f;
+		if (diffuse_layer_x == TRUE) {
+			charge2 = x[j]->surface_charge->sigma2 * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL;
+		} else {
+			charge2 = unknown_ptr2->f;
+		}
+		sum = 0;
+		for (k = 0; k < x[j]->count_comp_unknowns; k++) {
+			sum += x[j]->comp_unknowns[k]->moles*x[j]->comp_unknowns[k]->master[0]->s->z;
+		}
+                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 0, eq\n", (double) charge0 + sum);
+                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 1, eq\n", (double) charge1);
+                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 2, eq\n\n", (double) charge2);
+                if (x[j]->type == SURFACE_CB) {
+                        if ((x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) > 0) {
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  sigma, plane 0, C/m**2\n", x[j]->surface_charge->sigma0);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  sigma, plane 1, C/m**2\n", x[j]->surface_charge->sigma1);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  sigma, plane 2, C/m**2\n", x[j]->surface_charge->sigma2);                                
+				output_msg(OUTPUT_MESSAGE,"\t%11.3e  sigma, diffuse layer, C/m**2\n\n", x[j]->surface_charge->sigmaddl);
+                        } else {
+                                output_msg(OUTPUT_MESSAGE,"\tundefined  sigma, C/m**2\n");
+                        }
+			output_msg(OUTPUT_MESSAGE,"\t%11.3e  psi, plane 0, V\n", -master_ptr0->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ);
+			output_msg(OUTPUT_MESSAGE,"\t%11.3e  psi, plane 1, V\n", -master_ptr1->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ);
+			output_msg(OUTPUT_MESSAGE,"\t%11.3e  psi, plane 2, V\n\n", -master_ptr2->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ);
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  exp(-F*psi/RT), plane 0\n", exp(master_ptr0->s->la * LOG_10));
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  exp(-F*psi/RT), plane 1\n", exp(master_ptr1->s->la * LOG_10));
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  exp(-F*psi/RT), plane 2\n\n", exp(master_ptr2->s->la * LOG_10));
+
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  capacitance 0-1, F/m^2\n", x[j]->surface_charge->capacitance[0]);
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  capacitance 1-2, F/m^2\n", x[j]->surface_charge->capacitance[1]);
+
+                        if (x[j]->surface_comp->phase_name != NULL) {
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  specific area, m^2/mol %s\n",
+                                        (double) x[j]->surface_charge->specific_area,
+                                        x[j]->surface_comp->phase_name);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  m^2 for %11.3e moles of %s\n\n", 
+                                        (double) (x[j]->surface_charge->grams * x[j]->surface_charge->specific_area),
+                                        (double) x[j]->surface_charge->grams,
+                                        x[j]->surface_comp->phase_name);
+                        } else if (x[j]->surface_comp->rate_name != NULL) {
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  specific area, m^2/mol %s\n", 
+                                        (double) x[j]->surface_charge->specific_area,
+                                        x[j]->surface_comp->rate_name);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  m^2 for %11.3e moles of %s\n\n", 
+                                        (double) (x[j]->surface_charge->grams * x[j]->surface_charge->specific_area),
+                                        (double) x[j]->surface_charge->grams,
+                                        x[j]->surface_comp->rate_name);
+                        } else {
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  specific area, m^2/g\n", 
+                                        (double) x[j]->surface_charge->specific_area);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  m^2 for %11.3e g\n\n",
+                                        (double) (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams),
+                                        (double) x[j]->surface_charge->grams);
+                        }
+                        if (diffuse_layer_x == TRUE) print_diffuse_layer(x[j]->surface_charge); 
+                        output_msg(OUTPUT_MESSAGE,"\n");
+/*
+ *   Heading for species
+ */
+                        for (k = j - 1; k < count_unknowns; k++) {
+                                if (x[k]->type != SURFACE) continue;
+                                if (x[j] != x[k]->potential_unknown) continue;
+                                master_ptr = x[k]->master[0];
+                                output_msg(OUTPUT_MESSAGE,"%-14s\n",x[k]->master[0]->elt->name);
+                                output_msg(OUTPUT_MESSAGE,"\t%11.3e  moles", (double) x[k]->moles);
+                                if (x[k]->surface_comp->phase_name != NULL) {
+                                        output_msg(OUTPUT_MESSAGE,"\t[%g mol/(mol %s)]\n", (double) x[k]->surface_comp->phase_proportion, x[k]->surface_comp->phase_name);
+                                } else
+                                if (x[k]->surface_comp->rate_name != NULL) {
+                                        output_msg(OUTPUT_MESSAGE,"\t[%g mol/(mol kinetic reactant %s)]\n", (double) x[k]->surface_comp->phase_proportion, x[k]->surface_comp->rate_name);
+                                } else {
+                                        output_msg(OUTPUT_MESSAGE,"\n");
+                                }
+                                output_msg(OUTPUT_MESSAGE,"\t%-20s%12s%12s%12s%12s\n"," "," ","Mole",
+                                        " ", "Log");
+                                output_msg(OUTPUT_MESSAGE,"\t%-20s%12s%12s%12s%12s\n\n","Species",
+                                        "Moles", "Fraction", "Molality", "Molality");
+                                for (i=0; i < count_species_list; i++) {
+                                        if (species_list[i].master_s != master_ptr->s) continue;
+/*
+ *   Print species data
+ */
+                                        if (x[k]->moles >= MIN_RELATED_SURFACE) {
+                                                molfrac = (LDBLE) (species_list[i].s->moles) / x[k]->moles * species_list[i].s->equiv;
+                                        } else {
+                                                molfrac = 0.0;
+                                        }
+                                        output_msg(OUTPUT_MESSAGE,"\t%-20s%12.3e%12.3f%12.3e%12.3f\n",
+                                                species_list[i].s->name,
+                                                (double) species_list[i].s->moles,
+                                                (double) molfrac,
+                                                (double) (species_list[i].s->moles/mass_water_aq_x),
+                                                log10(species_list[i].s->moles/mass_water_aq_x));
+                                }
+                                output_msg(OUTPUT_MESSAGE,"\n");
+                        }
+                } 
         }
         return(OK);
 }

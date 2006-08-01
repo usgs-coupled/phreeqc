@@ -419,6 +419,7 @@ int species_list_sort(void);
 
 struct surface *surface_alloc (void);
 struct surface *surface_bsearch (int k, int *n);
+struct master *surface_get_psi_master (char *name, int plane);
 int surface_comp_compare(const void *ptr1, const void *ptr2);
 int surface_compare (const void *ptr1, const void *ptr2);
 int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_ptr, int n_user_new);

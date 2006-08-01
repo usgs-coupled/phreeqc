@@ -1023,7 +1023,8 @@ int dump_surface(int k)
 				}
 #endif
 			}
- 			if (surface[n].edl == TRUE) {
+ 			/*if (surface[n].edl == TRUE) {*/
+ 			if (surface[n].type == DDL) {
  				l = surface[n].comps[i].charge;
  				output_msg(OUTPUT_DUMP, " %13.5e", (double) surface[n].charge[l].specific_area);
  				if (surface[n].comps[i].phase_name	== NULL && surface[n].comps[i].rate_name == NULL) {
@@ -1034,7 +1035,8 @@ int dump_surface(int k)
 	}
 	if (surface[n].diffuse_layer == TRUE) {
 		output_msg(OUTPUT_DUMP, "\t-diffuse\t%13.5e\n", (double) surface[n].thickness);
- 	} else if (surface[n].edl == FALSE) {
+		/*} else if (surface[n].edl == FALSE) {*/
+	} else if (surface[n].type == NO_EDL) {
 		output_msg(OUTPUT_DUMP, "\t-no_edl\n");
   	}
 

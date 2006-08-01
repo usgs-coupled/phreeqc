@@ -22,6 +22,7 @@ static char const svnid[] = "$Id$";
 #else
 #define STATIC static
 #endif
+STATIC int add_psi_master_species (char *token);
 STATIC int read_advection (void);
 STATIC int read_analytical_expression_only (char *ptr, LDBLE *log_k);
 STATIC int read_copy (void);
@@ -4764,10 +4765,10 @@ int read_use (void)
 int read_surface_species (void)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *   Read data for surface species, parse equations
- */
-	int i;
+	/*
+	 *   Read data for surface species, parse equations
+	 */
+	int i, j;
 	int association;
 	char token[MAX_LENGTH];
 	char *ptr;
@@ -4795,14 +4796,16 @@ int read_surface_species (void)
 		"offset",             /* 12 */
 		"add_logk",           /* 13 */
 		"add_log_k",          /* 14 */
-		"add_constant"        /* 15 */
-		};
-	int count_opt_list = 16;
+		"add_constant",       /* 15 */
+		"cd_music",           /* 16 */
+		"music"               /* 17 */
+	};
+	int count_opt_list = 18;
 
         association=TRUE;
-/*
- *   Read eqn from file and call parser
- */
+	/*
+	 *   Read eqn from file and call parser
+	 */
 	opt_save = OPTION_DEFAULT;
 	return_value = UNKNOWN;
 	s_ptr = NULL;
@@ -4812,18 +4815,18 @@ int read_surface_species (void)
 			opt = opt_save;
 		}
 		switch (opt) {
-		    case OPTION_EOF:                /* end of file */
+		case OPTION_EOF:                /* end of file */
 			return_value = EOF;
 			break;
-		    case OPTION_KEYWORD:           /* keyword */
+		case OPTION_KEYWORD:           /* keyword */
 			return_value = KEYWORD;
 			break;
-		    case OPTION_ERROR:
+		case OPTION_ERROR:
 			input_error++;
 			error_msg("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
-		    case 0:                 /* no_check */
+		case 0:                 /* no_check */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4832,7 +4835,7 @@ int read_surface_species (void)
 			}
 			s_ptr->check_equation = FALSE;
 			break;
-		    case 1:                 /* check */
+		case 1:                 /* check */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4841,9 +4844,9 @@ int read_surface_species (void)
 			}
 			s_ptr->check_equation = TRUE;
 			break;
-		    case 2:                 /* mb */
-		    case 3:                 /* mass_balance */
-		    case 11:                /* mole_balance */
+		case 2:                 /* mb */
+		case 3:                 /* mass_balance */
+		case 11:                /* mole_balance */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4857,16 +4860,16 @@ int read_surface_species (void)
 			ptr = token;
 			get_secondary_in_species(&ptr, 1.0);
 			s_ptr->next_secondary = elt_list_save();
-/* debug
-			for (i = 0; i < count_elts; i++) {
-				output_msg(OUTPUT_MESSAGE,"%s\t%f\n", elt_list[i].elt->name,
-					elt_list[i].coef);
-			}
- */
+			/* debug
+			   for (i = 0; i < count_elts; i++) {
+			   output_msg(OUTPUT_MESSAGE,"%s\t%f\n", elt_list[i].elt->name,
+			   elt_list[i].coef);
+			   }
+			*/
 			opt_save = OPTION_DEFAULT;
 			break;
-		    case 4:                 /* log_k */
-		    case 5:                 /* logk */
+		case 4:                 /* log_k */
+		case 5:                 /* logk */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4876,8 +4879,8 @@ int read_surface_species (void)
 			read_log_k_only(next_char, &s_ptr->logk[0]);
 			opt_save = OPTION_DEFAULT;
 			break;
-		    case 6:                 /* delta_h */
-		    case 7:                 /* deltah */
+		case 6:                 /* delta_h */
+		case 7:                 /* deltah */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4887,9 +4890,9 @@ int read_surface_species (void)
 			read_delta_h_only(next_char, &s_ptr->logk[1], &s_ptr->original_units);
 			opt_save = OPTION_DEFAULT;
 			break;
-		    case 8:                 /* analytical_expression */
-		    case 9:                 /* a_e */
-		    case 10:                /* ae */
+		case 8:                 /* analytical_expression */
+		case 9:                 /* a_e */
+		case 10:                /* ae */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4899,7 +4902,7 @@ int read_surface_species (void)
 			read_analytical_expression_only(next_char, &(s_ptr->logk[2]));
 			opt_save = OPTION_DEFAULT;
 			break;
-		    case 12:                /* offset */
+		case 12:                /* offset */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4912,8 +4915,8 @@ int read_surface_species (void)
 			s_ptr->logk[0] += offset;
 			opt_save = OPTION_DEFAULT;
 			break;
-		    case 13:                 /* add_logk */
-		    case 14:                 /* add_log_k */
+		case 13:                 /* add_logk */
+		case 14:                 /* add_log_k */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4943,7 +4946,7 @@ int read_surface_species (void)
 			s_ptr->count_add_logk++;
  			opt_save = OPTION_DEFAULT;
  			break;
-		    case 15:                 /* add_constant */
+		case 15:                 /* add_constant */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -4970,10 +4973,27 @@ int read_surface_species (void)
 			s_ptr->count_add_logk++;
  			opt_save = OPTION_DEFAULT;
  			break;
-		    case OPTION_DEFAULT:
-/*
- *   Get surface species information and parse equation
- */
+		case 16:                /* cd_music */
+		case 17:                /* music */
+			if (s_ptr == NULL) {
+				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			for (j=0; j < 5; j++) {
+				if (copy_token(token, &next_char, &i) == EMPTY) break;
+				if (sscanf(token, SCANFORMAT, &s_ptr->cd_music[j]) != 1) break;
+			}
+			s_ptr->dz[0] = s_ptr->cd_music[0] + s_ptr->cd_music[3]*s_ptr->cd_music[4];
+			s_ptr->dz[1] = s_ptr->cd_music[1] + (1 - s_ptr->cd_music[3])*s_ptr->cd_music[4];
+			s_ptr->dz[2] = s_ptr->cd_music[2];
+			opt_save = OPTION_DEFAULT;
+			break;
+		case OPTION_DEFAULT:
+			/*
+			 *   Get surface species information and parse equation
+			 */
 			s_ptr = NULL;
 			if ( parse_eq(line, &next_elt, association ) == ERROR) {
 				parse_error++;
@@ -4981,16 +5001,16 @@ int read_surface_species (void)
 				error_msg(line_save, CONTINUE);
 				break;
 			}
-/*
- *   Get pointer to each species in the reaction, store new species if necessary
- */
+			/*
+			 *   Get pointer to each species in the reaction, store new species if necessary
+			 */
 			trxn.token[0].s = s_store(trxn.token[0].name, trxn.token[0].z, TRUE);
 			for (i=1; i<count_trxn; i++) {
 				trxn.token[i].s = s_store(trxn.token[i].name, trxn.token[i].z, FALSE);
 			}
-/*
- *   Save element list and carbon, hydrogen, and oxygen in species
- */
+			/*
+			 *   Save element list and carbon, hydrogen, and oxygen in species
+			 */
 			trxn.token[0].s->next_elt=next_elt;
 			for ( ; next_elt->elt != NULL; next_elt++) {
 				if ( strcmp (next_elt->elt->name,"C") == 0 ) {
@@ -5003,9 +5023,9 @@ int read_surface_species (void)
 					trxn.token[0].s->o = next_elt->coef;
 				}
 			}
-/*
- *   Find coefficient of surface in rxn, store in equiv
- */
+			/*
+			 *   Find coefficient of surface in rxn, store in equiv
+			 */
 			trxn.token[0].s->equiv = 0.0;
 			for (i=1; i<count_trxn; i++) {
 				if (trxn.token[i].s->type == SURF) {
@@ -5013,27 +5033,27 @@ int read_surface_species (void)
 				}
 			}
 			if (trxn.token[0].s->equiv == 0.0) trxn.token[0].s->equiv = 1.0;
-/*
- *   Malloc space for species reaction
- */
+			/*
+			 *   Malloc space for species reaction
+			 */
 			trxn.token[0].s->rxn = rxn_alloc (count_trxn+1);
-/*
- *   Copy reaction to reaction for species
- */
+			/*
+			 *   Copy reaction to reaction for species
+			 */
 			token_ptr=trxn.token[0].s->rxn->token;
 			for (i=0; i<count_trxn; i++) {
 				token_ptr[i].s=trxn.token[i].s;
 				token_ptr[i].coef=trxn.token[i].coef;
 			}
 			token_ptr[i].s=NULL;
-/*
- *   Set type for species
- */
+			/*
+			 *   Set type for species
+			 */
 			trxn.token[0].s->type = SURF;
 			s_ptr=trxn.token[0].s;
-/*
- *   Read gamma data
- */
+			/*
+			 *   Read gamma data
+			 */
 			s_ptr->gflag = 6;
 			s_ptr->dha = 0.0;
 			s_ptr->dhb = 0.0;
@@ -5081,9 +5101,10 @@ int read_surf(void)
 		"no_electrostatic",    /* 5 */
 		"only_counter_ions",   /* 6 */
 		"donnan",		/* 7 */
-		"transport"		/* 8 */
+		"transport",		/* 8 */
+		"cd_music"		/* 9 */
 	};
-	int count_opt_list = 9;
+	int count_opt_list = 10;
 /*
  * kin_surf is for Surfaces, related to kinetically reacting minerals
  *    they are defined if "sites" is followed by mineral name:
@@ -5162,8 +5183,9 @@ int read_surf(void)
  */			break;
 		    case 4:                       /* no electrostatic */
 		    case 5:
-			surface[n].edl = FALSE;
-			break;
+			    /*surface[n].edl = FALSE;*/
+			    surface[n].type = NO_EDL;
+			    break;
 		    case 6:
 			surface[n].only_counter_ions = TRUE;
 			break;
@@ -5225,6 +5247,10 @@ int read_surf(void)
 		    case 8:			/* transport */
 			surface[n].transport = TRUE;
 			break;
+		    case 9:			/* cd_music */
+			    /*surface[n].edl = FALSE;*/
+			    surface[n].type = CD_MUSIC;
+			    break;
 		    case OPTION_DEFAULT:
 /*
  *   Read surface component
@@ -5262,6 +5288,7 @@ int read_surf(void)
 					input_error++;
 					break;
 				}
+				surface[n].comps[count_comps].moles = conc;
 #ifdef PHREEQCI_GUI
 				surface[n].comps[count_comps].moles = conc;
 #endif
@@ -5338,12 +5365,22 @@ int read_surf(void)
 					surface[n].charge[i].specific_area = 0.0;
 					surface[n].charge[i].grams = 1.0;
 				}
-				surface[n].charge[i].mass_water = 0.0;
 				surface[n].charge[i].charge_balance = 0.0;
+				surface[n].charge[i].mass_water = 0.0;
 				surface[n].charge[i].diffuse_layer_totals = NULL;
 				surface[n].charge[i].count_g = 0;
 				surface[n].charge[i].g = NULL;
-				surface[n].charge[i].psi_master = NULL;
+				surface[n].charge[i].la_psi = 0;
+				surface[n].charge[i].la_psi1 = 0;
+				surface[n].charge[i].la_psi2 = 0;
+				surface[n].charge[i].psi = 0;
+				surface[n].charge[i].psi1 = 0;
+				surface[n].charge[i].psi2 = 0;
+				surface[n].charge[i].capacitance[0] = 0;
+				surface[n].charge[i].capacitance[1] = 0;
+				surface[n].charge[i].sigma0 = 0;
+				surface[n].charge[i].sigma1 = 0;
+				surface[n].charge[i].sigma2 = 0;
 				count_charge++;
 			}
 			surface[n].comps[count_comps].charge = i;
@@ -5364,6 +5401,17 @@ int read_surf(void)
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].grams = grams;
 			} 
+/*
+ *   Read capacitance for CD_MUSIC
+ */
+			copy_token(token1, &ptr, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				surface[n].charge[i].capacitance[0] = grams;
+			} 
+			copy_token(token1, &ptr, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				surface[n].charge[i].capacitance[1] = grams;
+			} 
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -5373,7 +5421,8 @@ int read_surf(void)
 /*
  *   Make sure surface area is defined
  */
-	if (surface[n].edl == TRUE) {
+	/*if (surface[n].edl == TRUE) {*/
+	if (surface[n].type == DDL || surface[n].type == CD_MUSIC) {
 		for (i = 0; i < count_charge; i++) {
 			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <= 0) {
 				sprintf(error_string, "Surface area not defined for %s.\n", surface[n].charge[i].name);
@@ -5390,6 +5439,223 @@ int read_surf(void)
 	}
 	return(return_value);
 }
+/* ---------------------------------------------------------------------- */
+int read_surface_master_species (void)
+/* ---------------------------------------------------------------------- */
+{
+	/*
+	 *   Reads master species data from data file or input file
+	 */
+	int l, return_value;
+	char *ptr, *ptr1;
+	LDBLE z;
+	struct master *m_ptr;
+	struct species *s_ptr;
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
+	int  opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"capacitance",           /* 0 */
+		"cd_music_capacitance"   /* 1 */
+	};
+	int count_opt_list = 0;
+	opt_save = OPTION_DEFAULT;
+	return_value = UNKNOWN;
+	m_ptr = NULL;
+	for (;;) {
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT) {
+			opt = opt_save;
+		}
+		switch (opt) {
+		case OPTION_EOF:                /* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:           /* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+#ifdef SKIP
+		case 0:                 /* capacitance */
+		case 1:                 /* cd_music_capacitance */
+			if (m_ptr == NULL) {
+				sprintf(error_string, "No master_species defined before option, %s.", opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			for (j=0; j < 2; j++) {
+				if (copy_token(token, &next_char, &l) == EMPTY) break;
+				if (sscanf(token, SCANFORMAT, &m_ptr->capacitance[j]) != 1) break;
+			}
+			m_ptr->capacitance_defined = TRUE;
+			opt_save = OPTION_DEFAULT;
+
+			break;
+#endif
+		case OPTION_DEFAULT:
+			/*
+			 *   Get "element" name with valence, allocate space, store
+			 */
+			ptr=line;
+			/*
+			 *   Get element name and save pointer to character string
+			 */
+			if ( copy_token(token, &ptr, &l) != UPPER && token[0] != '[' ) {
+				parse_error++;
+				error_msg ("Reading element for master species.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				continue;
+			}
+			replace ("(+", "(", token);
+			/*
+			 *   Delete master if it exists
+			 */
+			master_delete(token);
+			/*
+			 *   Increase pointer array, if necessary,  and malloc space
+			 */
+			if (count_master + 4 >= max_master) {
+				space ((void **) ((void *) &master), count_master+4, &max_master, sizeof(struct master *));
+			}
+			/*
+			 *   Save values in master and species structure for surface sites
+			 */
+			master[count_master] = master_alloc();
+			master[count_master]->type = SURF;
+			master[count_master]->elt = element_store ( token );
+			m_ptr = master[count_master];
+			if ( copy_token(token, &ptr, &l) != UPPER  && token[0] != '[' ) {
+				parse_error++;
+				error_msg("Reading surface master species name.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				continue;
+			}
+			s_ptr=s_search (token);
+			if (s_ptr != NULL) {
+				master[count_master]->s = s_ptr;
+			} else {
+				ptr1=token;
+				get_token(&ptr1, token1, &z, &l);
+				master[count_master]->s = s_store(token1, z, FALSE);
+			}
+			master[count_master]->primary=TRUE;
+			strcpy(token,master[count_master]->elt->name);
+			count_master++;
+			/*
+			 *   Save values in master and species structure for surface psi
+			 */
+			strcpy(token1, token);
+			replace ("_", " ", token1);
+			ptr1 = token1;
+			copy_token(token, &ptr1, &l);
+			strcat(token,"_psi");
+			add_psi_master_species(token);
+#ifdef SKIP
+			if (master_ptr == NULL) {
+				master[count_master] = master_alloc();
+				master[count_master]->type = SURF_PSI;
+				master[count_master]->elt = element_store ( token );
+				s_ptr=s_search (token);
+				if (s_ptr != NULL) {
+					master[count_master]->s = s_ptr;
+				} else {
+					master[count_master]->s = s_store(token, 0.0, FALSE);
+				}
+				count_elts = 0;
+				paren_count = 0;
+				ptr = token;
+				get_elts_in_species(&ptr, 1.0);
+				master[count_master]->s->next_elt = elt_list_save();
+
+				master[count_master]->s->type=SURF_PSI;
+				master[count_master]->primary=TRUE;
+				master[count_master]->s->rxn = rxn_alloc(3);
+				/*
+				 *   Define reaction for psi
+				 */
+				for( i = 0; i < 8; i++) {
+					master[count_master]->s->rxn->logk[i] = 0.0;
+				}
+				master[count_master]->s->rxn->token[0].s = master[count_master]->s;
+				master[count_master]->s->rxn->token[0].coef = -1.0;
+				master[count_master]->s->rxn->token[1].s = master[count_master]->s;
+				master[count_master]->s->rxn->token[1].coef = 1.0;
+				master[count_master]->s->rxn->token[2].s = NULL;
+				count_master++;
+			}
+#endif
+			opt_save = OPTION_DEFAULT;
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD) break;
+	}
+	return (return_value);
+}
+/* ---------------------------------------------------------------------- */
+int add_psi_master_species (char *token)
+/* ---------------------------------------------------------------------- */
+{
+	struct species *s_ptr;
+	struct master *master_ptr;
+	char *ptr;
+	char token1[MAX_LENGTH];
+	int i, n, plane;
+
+	strcpy(token1, token);
+	for (plane = SURF_PSI; plane <= SURF_PSI2; plane++) {
+		strcpy(token, token1);
+		switch (plane) {
+		case SURF_PSI:
+			break;
+		case SURF_PSI1:
+			strcat(token,"b");
+			break;
+		case SURF_PSI2:
+			strcat(token,"d");
+			break;
+		}
+		master_ptr=master_search (token, &n);
+		if (master_ptr == NULL) {
+			master[count_master] = master_alloc();
+			master[count_master]->type = plane;
+			master[count_master]->elt = element_store ( token );
+			s_ptr=s_search (token);
+			if (s_ptr != NULL) {
+				master[count_master]->s = s_ptr;
+			} else {
+				master[count_master]->s = s_store(token, 0.0, FALSE);
+			}
+			count_elts = 0;
+			paren_count = 0;
+			ptr = token;
+			get_elts_in_species(&ptr, 1.0);
+			master[count_master]->s->next_elt = elt_list_save();
+			
+			master[count_master]->s->type=plane;
+			master[count_master]->primary=TRUE;
+			master[count_master]->s->rxn = rxn_alloc(3);
+			/*
+			 *   Define reaction for psi
+			 */
+			for( i = 0; i < 8; i++) {
+				master[count_master]->s->rxn->logk[i] = 0.0;
+			}
+			master[count_master]->s->rxn->token[0].s = master[count_master]->s;
+			master[count_master]->s->rxn->token[0].coef = -1.0;
+			master[count_master]->s->rxn->token[1].s = master[count_master]->s;
+			master[count_master]->s->rxn->token[1].coef = 1.0;
+			master[count_master]->s->rxn->token[2].s = NULL;
+			count_master++;
+		}
+	}
+	return(OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int read_surface_master_species (void)
 /* ---------------------------------------------------------------------- */
@@ -5506,6 +5772,7 @@ int read_surface_master_species (void)
 	}
 	return (return_value);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int read_temperature (void)
 /* ---------------------------------------------------------------------- */

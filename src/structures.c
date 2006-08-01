@@ -2231,10 +2231,16 @@ struct master *master_alloc(void)
  *   set pointers in structure to NULL
  */
 	ptr->in=FALSE;
+	ptr->number = -1;
+	ptr->last_model = -1;
 	ptr->type=0;
 	ptr->primary=FALSE;
 	ptr->coef=0.0;
 	ptr->total=0.0;
+	ptr->isotope_ratio = 0;
+	ptr->isotope_ratio_uncertainty = 0; 
+	ptr->isotope = 0;
+	ptr->total_primary = 0; 
 	ptr->elt=NULL;
 	ptr->alk = 0.0;
 	ptr->gfw = 0.0;
@@ -2245,7 +2251,6 @@ struct master *master_alloc(void)
 	ptr->rxn_secondary=NULL;
 	ptr->pe_rxn=NULL;
 	ptr->minor_isotope = FALSE;
-
 	return(ptr);
 }
 /* ---------------------------------------------------------------------- */
@@ -3672,6 +3677,14 @@ static int s_init(struct species *s_ptr)
 	s_ptr->gflag = 0;
 	s_ptr->check_equation = TRUE;
 
+	for (i = 0; i < 5; i++) {
+		s_ptr->cd_music[i] = 0.0;
+	}
+	for (i = 0; i < 3; i++) {
+		s_ptr->dz[i] = 0.0;
+	}
+
+
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -4818,6 +4831,31 @@ struct surface *surface_bsearch (int k, int *n)
 	return ( (struct surface *) void_ptr);
 }
 /* ---------------------------------------------------------------------- */
+struct master *surface_get_psi_master (char *name, int plane)
+/* ---------------------------------------------------------------------- */
+{
+	struct master *master_ptr;
+	char token[MAX_LENGTH];
+
+	if (name == NULL) return (NULL);
+	strcpy(token, name);
+	strcat(token,"_psi");
+	switch (plane) {
+	case SURF_PSI:
+		break;
+	case SURF_PSI1:
+		strcat(token,"b");
+		break;
+	case SURF_PSI2:
+		strcat(token,"d");
+		break;
+	default:
+		error_msg("Unknown plane for surface_get_psi_master", STOP);
+	}
+	master_ptr = master_bsearch(token);
+	return(master_ptr);
+}
+/* ---------------------------------------------------------------------- */
 int surface_comp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4891,7 +4929,8 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 /*
  *   Write surface_charge structure for each surface
  */
-	if (surface_old_ptr->edl == TRUE) {
+	/*if (surface_old_ptr->edl == TRUE) {*/
+	if (surface_old_ptr->type == DDL || surface_old_ptr->type == CD_MUSIC) {
 		surface_new_ptr->charge = (struct surface_charge *) PHRQ_malloc((size_t) (count_charge) * sizeof (struct surface_charge));
 		if (surface_new_ptr->charge == NULL) malloc_error();
 		memcpy(surface_new_ptr->charge, surface_old_ptr->charge, 
@@ -4904,6 +4943,38 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 		surface_new_ptr->count_charge = 0;
 		surface_new_ptr->charge = NULL;
 	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+struct surface_charge *surface_charge_duplicate(struct surface_charge *charge_old_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Duplicates data from surface_old_ptr 
+ *   Space is malloced.
+ */
+	struct surface_charge *charge;
+/*
+ *   Write surface_charge structure for each surface
+ */
+	charge = (struct surface_charge *) PHRQ_malloc(sizeof (struct surface_charge));
+	if (charge == NULL) malloc_error();
+	memcpy(charge, charge_old_ptr,  sizeof (struct surface_charge));
+	charge->diffuse_layer_totals = elt_list_dup(charge_old_ptr->diffuse_layer_totals);
+	charge->count_g = 0;
+	charge->g = NULL;
+	return(charge);
+}
+/* ---------------------------------------------------------------------- */
+int surface_charge_free(struct surface_charge *charge)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *    Frees all space related to surface_charge
+ */
+	if (charge == NULL) return(ERROR);
+	charge->diffuse_layer_totals = (struct elt_list *) free_check_null(charge->diffuse_layer_totals);
+	charge->g = (struct surface_diff_layer *) free_check_null(charge->g);
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -5010,7 +5081,8 @@ int surface_free(struct surface *surface_ptr)
 /*
  *   diffuse_layer_totals and g, then charge
  */
-	if (surface_ptr->edl == TRUE) {
+	/*if (surface_ptr->edl == TRUE) {*/
+	if (surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC) {
 		for (k = 0; k < surface_ptr->count_charge; k++) {
 			surface_ptr->charge[k].diffuse_layer_totals = (struct elt_list *) free_check_null(surface_ptr->charge[k].diffuse_layer_totals);
 			surface_ptr->charge[k].g = (struct surface_diff_layer *) free_check_null(surface_ptr->charge[k].g);
@@ -5031,7 +5103,8 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->description = string_duplicate(description);
 	surface_ptr->new_def = TRUE;
         surface_ptr->diffuse_layer = FALSE;
-        surface_ptr->edl = TRUE;
+        /*surface_ptr->edl = TRUE;*/
+        surface_ptr->type = DDL;
 	surface_ptr->only_counter_ions = FALSE;
 	surface_ptr->donnan = FALSE;
 	surface_ptr->debye_units = 0.0;
@@ -5560,17 +5633,17 @@ int trxn_print (void)
  *   Print log k for reaction
  */
 
-	output_msg(OUTPUT_MESSAGE,"log k data:\n");
+	output_msg(OUTPUT_MESSAGE,"\tlog k data:\n");
 	for (i=0; i < 7; i++) {
-		output_msg(OUTPUT_MESSAGE,"\t%f",(double) trxn.logk[i]);
+		output_msg(OUTPUT_MESSAGE,"\t\t%f\n",(double) trxn.logk[i]);
 	}
-	output_msg(OUTPUT_MESSAGE,"\n");
 
 /*
  *   Print stoichiometry
  */
+	output_msg(OUTPUT_MESSAGE,"\tReaction stoichiometry\n");
 	for (i=0; i<count_trxn; i++) {
-		output_msg(OUTPUT_MESSAGE,"\t\t%s\t%.2f\n",trxn.token[i].name,(double) trxn.token[i].coef);
+		output_msg(OUTPUT_MESSAGE,"\t\t%-20s\t%10.2f\n",trxn.token[i].name,(double) trxn.token[i].coef);
 	}
 	output_msg(OUTPUT_MESSAGE,"\n");
 	return(OK);
@@ -5703,6 +5776,10 @@ struct unknown *unknown_alloc(void)
 	unknown_ptr->surface_comp = NULL;
 	unknown_ptr->related_moles = 0.0;
 	unknown_ptr->potential_unknown = NULL;
+	unknown_ptr->potential_unknown1 = NULL;
+	unknown_ptr->potential_unknown2 = NULL;
+	unknown_ptr->count_comp_unknowns = 0;
+	unknown_ptr->comp_unknowns = NULL;
 	unknown_ptr->phase_unknown = NULL;
 	unknown_ptr->surface_charge = NULL;
 	unknown_ptr->mass_water = 0.0;
@@ -5734,6 +5811,12 @@ int unknown_free(struct unknown *unknown_ptr)
  */
 	if (unknown_ptr == NULL) return(ERROR);
 	unknown_ptr->master = (struct master **) free_check_null (unknown_ptr->master);
+	if (unknown_ptr->type == SURFACE_CB) {
+		/*
+		surface_charge_free(unknown_ptr->surface_charge);
+		unknown_ptr->surface_charge = (struct surface_charge *) free_check_null(unknown_ptr->surface_charge);
+		*/
+	}
 	unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
 	return(OK);
 }

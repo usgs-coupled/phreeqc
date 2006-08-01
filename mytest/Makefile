@@ -16,6 +16,7 @@ all: alkalinity.out \
 	comments.out \
 	desc.out \
 	dissolve_only.out \
+	eco.out \
 	evap.out \
 	exch_related.out \
 	exch_related_pz.out \
