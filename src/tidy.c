@@ -8,7 +8,7 @@ static char const svnid[] = "$Id$";
 
 static int check_species_input(void);
 static LDBLE coef_in_master(struct master *master_ptr);
-static int phase_rxn_to_trxn(struct phase *phase_ptr);
+static int phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr);
 static int reset_last_model(void);
 static int rewrite_eqn_to_primary(void);
 static int rewrite_eqn_to_secondary(void);
@@ -572,6 +572,59 @@ int rewrite_eqn_to_secondary(void)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int replace_solids_gases(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Write equation for species in terms of secondary species
+ *   Result is in trxn.
+ */
+	LDBLE coef;
+	int n;
+	int repeat, i, add_count;
+	struct rxn_token_temp *token_ptr;
+	struct phase *phase_ptr;
+	int replaced;
+/*
+ *
+ */
+	add_count=0;
+	repeat=TRUE;
+	replaced = FALSE;
+/*
+ *   Reduce reaction equation to primary and secondary species
+ */
+	while (repeat == TRUE) {
+		repeat = FALSE;
+                                                     /*   Check for too many iterations */
+		if (++add_count > MAX_ADD_EQUATIONS) {
+			parse_error++;
+			sprintf(error_string, "Could not remove all solids and gases from equation, %s.", trxn.token[0].name);
+			error_msg(error_string, CONTINUE);
+			break;
+		}
+
+		for (i=1; i < count_trxn; i++) {
+			token_ptr = &(trxn.token[i]);
+			if (token_ptr->s == NULL) {
+				phase_ptr = phase_bsearch(token_ptr->name, &n, FALSE);
+				coef=token_ptr->coef;
+				/* add reaction for solid/gas */
+				trxn_add(phase_ptr->rxn, coef, FALSE);
+				/* remove solid/gas from trxn list */
+				trxn.token[i].name = phase_ptr->rxn->token[0].name;
+				trxn.token[i].s = phase_ptr->rxn->token[0].s;
+				trxn.token[i].coef = -coef*phase_ptr->rxn->token[0].coef;
+				repeat=TRUE;
+				replaced = TRUE;
+				break;
+			}
+		}
+	}
+	trxn_combine();
+	return(replaced);
+}
+/* ---------------------------------------------------------------------- */
 int rewrite_eqn_to_primary(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -973,15 +1026,39 @@ int tidy_phases(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-/*
- *   Rewrite all phases to secondary species
- */
+	int replaced;
+	/*
+	 *  Fix log Ks first, so they can possibly be added to other phase equations
+	 */
 	for (i=0; i < count_phases; i++) {
-/*
- *   Check equation
- */
+		select_log_k_expression(phases[i]->logk, phases[i]->rxn->logk);
+		add_other_logk(phases[i]->rxn->logk, phases[i]->count_add_logk, phases[i]->add_logk);
+	}
+	/*
+	 *   Rewrite all phases to secondary species
+	 */
+	for (i=0; i < count_phases; i++) {
+		/*
+		 *   Rewrite equation
+		 */
+		count_trxn=0;
+		trxn_add_phase (phases[i]->rxn, 1.0, FALSE);
+		replaced = replace_solids_gases();
+		trxn_reverse_k();
+		rewrite_eqn_to_secondary();
+		trxn_reverse_k();
+		rxn_free (phases[i]->rxn_s);
+		phases[i]->rxn_s = rxn_alloc(count_trxn+1);
+		trxn_copy (phases[i]->rxn_s);
+		/*
+		 *   Check equation
+		 */
 		if (phases[i]->check_equation == TRUE) {
-			phase_rxn_to_trxn(phases[i]);
+			if (replaced == FALSE) {
+				phase_rxn_to_trxn(phases[i], phases[i]->rxn);
+			} else {
+				phase_rxn_to_trxn(phases[i], phases[i]->rxn_s);
+			}
 			if (check_eqn(FALSE) == ERROR) {
 				input_error++;
 				sprintf(error_string, "Equation for phase %s does not balance.",
@@ -989,23 +1066,8 @@ int tidy_phases(void)
 				error_msg(error_string, CONTINUE);
 			}
 		}
-/*
- *   Rewrite equation
- */
-		select_log_k_expression(phases[i]->logk, phases[i]->rxn->logk);
-		add_other_logk(phases[i]->rxn->logk, phases[i]->count_add_logk, phases[i]->add_logk);
-		count_trxn=0;
-		trxn_add (phases[i]->rxn, 1.0, FALSE);
-		trxn_reverse_k();
-		rewrite_eqn_to_secondary();
-		trxn_reverse_k();
-		rxn_free (phases[i]->rxn_s);
-		phases[i]->rxn_s = rxn_alloc(count_trxn+1);
-		trxn_copy (phases[i]->rxn_s);
-		/* debug	
-		   trxn_print(); 
-		   */
 	}
+
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -1805,7 +1867,7 @@ int species_rxn_to_trxn(struct species *s_ptr)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int phase_rxn_to_trxn(struct phase *phase_ptr)
+int phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1827,12 +1889,12 @@ int phase_rxn_to_trxn(struct phase *phase_ptr)
 	/*trxn.token[0].coef = -1.0;*/
 	/* check for leading coefficient of 1.0 for phase did not work */
 	trxn.token[0].coef = phase_ptr->rxn->token[0].coef;
-	for (i = 1; phase_ptr->rxn->token[i].s != NULL; i++) {
-		trxn.token[i].name = phase_ptr->rxn->token[i].s->name;
-		trxn.token[i].z = phase_ptr->rxn->token[i].s->z;
+	for (i = 1; rxn_ptr->token[i].s != NULL; i++) {
+		trxn.token[i].name = rxn_ptr->token[i].s->name;
+		trxn.token[i].z = rxn_ptr->token[i].s->z;
 		trxn.token[i].s = NULL;
 		trxn.token[i].unknown = NULL;
-		trxn.token[i].coef = phase_ptr->rxn->token[i].coef;
+		trxn.token[i].coef = rxn_ptr->token[i].coef;
 		count_trxn = i + 1;
 		if (count_trxn + 1 >= max_trxn) {
 			space ((void **) &(trxn.token), count_trxn+1, &max_trxn,

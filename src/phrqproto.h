@@ -444,6 +444,7 @@ struct temperature *temperature_search(int n_user, int *n);
 int temperature_sort(void);
 
 int trxn_add (struct reaction *r_ptr, LDBLE coef, int combine);
+int trxn_add_phase (struct reaction *r_ptr, LDBLE coef, int combine);
 int trxn_combine (void);
 int trxn_copy (struct reaction *rxn_ptr);
 LDBLE trxn_find_coef(const char *str, int start);

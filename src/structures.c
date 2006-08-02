@@ -5513,6 +5513,60 @@ int trxn_add (struct reaction *r_ptr, LDBLE coef, int combine)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int trxn_add_phase (struct reaction *r_ptr, LDBLE coef, int combine)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Adds reactions together.
+ *
+ *   Global variable count_trxn determines which position in trxn is used.
+ *      If count_trxn=0, then the equation effectively is copied into trxn.
+ *      If count_trxn>0, then new equation is added to existing equation.
+ *
+ *   Arguments:
+ *      *r_ptr         points to rxn structure to add.
+ *
+ *       coef          added equation is multiplied by coef.
+ *       combine       if TRUE, reaction is reaction is sorted and
+ *                     like terms combined.
+ */
+	int i;
+	struct rxn_token *next_token;
+/*
+ *   Accumulate log k for reaction
+ */
+	if (count_trxn == 0) {
+		memcpy( (void *) trxn.logk, (void *) r_ptr->logk,
+		       (size_t) 7 * sizeof(LDBLE) );
+	} else {
+		for (i=0; i < 7; i++) {
+			trxn.logk[i] += coef * (r_ptr->logk[i]);
+		}
+	}
+/*
+ *   Copy  equation into work space
+ */
+	next_token = r_ptr->token;
+	while (next_token->s != NULL || next_token->name != NULL) {
+		if (count_trxn + 1 >= max_trxn) {
+			space ((void **) &(trxn.token), count_trxn+1, &max_trxn,
+			       sizeof(struct rxn_token_temp));
+		}
+		if (next_token->s != NULL) {
+			trxn.token[count_trxn].name = next_token->s->name;
+			trxn.token[count_trxn].s = next_token->s;
+		} else {
+			trxn.token[count_trxn].name = next_token->name;
+			trxn.token[count_trxn].s = NULL;
+		}
+		trxn.token[count_trxn].coef = coef*next_token->coef;
+		count_trxn++;
+		next_token++;
+	}
+	if (combine == TRUE) trxn_combine();
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int trxn_combine (void)
 /* ---------------------------------------------------------------------- */
 {
