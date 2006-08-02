@@ -34,6 +34,8 @@ int parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	LDBLE coef, z;
 	char c;
 	char *ptr, *char_ptr;
+	char token[MAX_LENGTH];
+
 	if (svnid == NULL) fprintf(stderr," ");
 
 	paren_count = 0;
@@ -120,6 +122,13 @@ int parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
  */
 	count_elts=0;
         char_ptr=trxn.token[0].name;
+	strcpy(token, trxn.token[0].name);
+	replace("(s)","", token);
+	replace("(S)","", token);
+	replace("(g)","", token);
+	replace("(G)","", token);
+        char_ptr = token;
+
 	if ( get_elts_in_species( &char_ptr , trxn.token[0].coef ) == ERROR ) {
 		return(ERROR);
 	}
@@ -900,5 +909,8 @@ int get_species (char **ptr)
 		return(ERROR);
 	}
 	trxn.token[count_trxn].name = string_hsave ( string );
+	trxn.token[count_trxn].z = 0;
+	trxn.token[count_trxn].s = NULL;
+	trxn.token[count_trxn].unknown = NULL;
 	return(OK);
 }

@@ -1127,6 +1127,7 @@ struct reaction {
 struct rxn_token {
         struct species *s;
         LDBLE coef;
+	char *name;
 };
 /*----------------------------------------------------------------------
  *   Species

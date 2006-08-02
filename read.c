@@ -3085,8 +3085,19 @@ int read_phases (void)
  *   Get pointer to each species in the reaction, store new species if necessary
  */
 			phase_ptr->formula = string_hsave(trxn.token[0].name );
+			replace("(g)", "", phase_ptr->formula);
+			replace("(s)", "", phase_ptr->formula);
+			replace("(G)", "", phase_ptr->formula);
+			replace("(S)", "", phase_ptr->formula);
 			for (i=1; i<count_trxn; i++) {
-				trxn.token[i].s = s_store(trxn.token[i].name, trxn.token[i].z, FALSE);
+				if ((strstr(trxn.token[i].name, "(s)") == NULL) &&
+				    (strstr(trxn.token[i].name, "(g)") == NULL) &&
+				    (strstr(trxn.token[i].name, "(S)") == NULL) &&
+				    (strstr(trxn.token[i].name, "(G)") == NULL)) {
+					trxn.token[i].s = s_store(trxn.token[i].name, trxn.token[i].z, FALSE);
+				} else {
+					trxn.token[i].s = NULL;
+				}
 			}
 /*
  *   Save element list
@@ -3105,10 +3116,16 @@ int read_phases (void)
 			token_ptr[0].coef=trxn.token[0].coef;
 			token_ptr[0].s=trxn.token[1].s;
 			for (i=1; i<count_trxn; i++) {
+				token_ptr[i].name = NULL;
 				token_ptr[i].s=trxn.token[i].s;
 				token_ptr[i].coef=trxn.token[i].coef;
+				if (token_ptr[i].s == NULL) {
+					token_ptr[i].name = trxn.token[i].name;
+				}
 			}
+			token_ptr[0].name=trxn.token[1].name;
 			token_ptr[i].s=NULL;
+			token_ptr[i].name=NULL;
 /*
  *   Set type for phase
  */
