@@ -756,6 +756,7 @@ int read_exchange_species (void)
 			s_ptr->mole_balance = string_hsave(token);
 			ptr = token;
 			get_secondary_in_species(&ptr, 1.0);
+			s_ptr->next_secondary = (struct elt_list *) free_check_null(s_ptr->next_secondary);
 			s_ptr->next_secondary = elt_list_save();
 /* debug
 			for (i = 0; i < count_elts; i++) {
@@ -4362,6 +4363,7 @@ int read_species (void)
 			copy_token(token, &next_char, &i);
 			s_ptr->mole_balance = string_hsave(token);
 			ptr = token;
+			s_ptr->next_secondary = (struct elt_list *) free_check_null(s_ptr->next_secondary);
 			get_secondary_in_species(&ptr, 1.0);
 			s_ptr->next_secondary = elt_list_save();
 /* debug
@@ -4875,6 +4877,7 @@ int read_surface_species (void)
 			copy_token(token, &next_char, &i);
 			s_ptr->mole_balance = string_hsave(token);
 			ptr = token;
+			s_ptr->next_secondary = (struct elt_list *) free_check_null(s_ptr->next_secondary);
 			get_secondary_in_species(&ptr, 1.0);
 			s_ptr->next_secondary = elt_list_save();
 			/* debug

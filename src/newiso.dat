@@ -715,7 +715,6 @@ SOLUTION_SPECIES
 #
 
         O2 + H2[18O] = O[18O] + H2O
-	-mole_balance  O(0)[18O](0)
         log_k           0.301029995663                          # log10(2)
         -add_logk       Log_alpha_18O_O2(aq)/H2O                1.0
         -mole_balance   O(0)[18O](0)
@@ -814,7 +813,7 @@ SOLUTION_SPECIES
         [13C]O3-2 + C[18O]3-2 = [13C][18O]3-2 + CO3-2
 	log_k           0.0
 
-        CO3-2 + [14C]O2 = [14]O3-2 + CO2
+        CO3-2 + [14C]O2 = [14C]O3-2 + CO2
         -add_logk       Log_alpha_14C_CO3-2/CO2(aq)             1.0
 
         [14C]O3-2 + CO2[18O]-2 = [14C]O2[18O]-2 + CO3-2
@@ -1117,7 +1116,7 @@ SOLUTION_SPECIES
         DCO3- + HCO[18O]O- = DCO[18O]O- + HCO3-
 	log_k           0.0
 
-        DCO3- + HC[18O]OO- = DC[18O]OO- + HCO3-
+        DCO3- + HC[18O]O2- = DC[18O]O2- + HCO3-
 	log_k           0.0
 
         DCO3- + HCO[18O]2- = DCO[18O]2- + HCO3-
@@ -1142,7 +1141,7 @@ SOLUTION_SPECIES
         TCO3- + HCO[18O]O- = TCO[18O]O- + HCO3-
 	log_k           0.0
 
-        TCO3- + HC[18O]OO- = TC[18O]OO- + HCO3-
+        TCO3- + HC[18O]O2- = TC[18O]O2- + HCO3-
 	log_k           0.0
 
         TCO3- + HCO[18O]2- = TCO[18O]2- + HCO3-
@@ -1181,7 +1180,7 @@ SOLUTION_SPECIES
         H[13C]O3- + HC[18O]3- = H[13C][18O]3- + HCO3-
 	log_k           0.0
 
-        DCO3- + [13C]O3- = D[13C]O3- + HCO3-
+        DCO3- + H[13C]O3- = D[13C]O3- + HCO3-
 	log_k           0.0
 
         H[13C]O3- + DCO2[18O]- = D[13C]O2[18O]- + HCO3-
@@ -1205,7 +1204,7 @@ SOLUTION_SPECIES
         H[13C]O3- + DC[18O]3- = D[13C][18O]3- + HCO3-
 	log_k           0.0
 
-        TCO3- + [13C]O3- = T[13C]O3- + HCO3-
+        TCO3- + H[13C]O3- = T[13C]O3- + HCO3-
 	log_k           0.0
 
         H[13C]O3- + TCO2[18O]- = T[13C]O2[18O]- + HCO3-
@@ -1253,7 +1252,7 @@ SOLUTION_SPECIES
         H[14C]O3- + HC[18O]3- = H[14C][18O]3- + HCO3-
 	log_k           0.0
 
-        DCO3- + [14C]O3- = D[14C]O3- + HCO3-
+        DCO3- + H[14C]O3- = D[14C]O3- + HCO3-
 	log_k           0.0
 
         H[14C]O3- + DCO2[18O]- = D[14C]O2[18O]- + HCO3-
@@ -1277,7 +1276,7 @@ SOLUTION_SPECIES
         H[14C]O3- + DC[18O]3- = D[14C][18O]3- + HCO3-
 	log_k           0.0
 
-        TCO3- + [14C]O3- = T[14C]O3- + HCO3-
+        TCO3- + H[14C]O3- = T[14C]O3- + HCO3-
 	log_k           0.0
 
         H[14C]O3- + TCO2[18O]- = T[14C]O2[18O]- + HCO3-
