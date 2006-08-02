@@ -561,6 +561,51 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 1096: Allows solids and gases in the equations for
+	PHASES. This capability simplifies the definitions for
+	gas and solid isotopic components. Solids must be identified
+	with "(s)" and gases with "(g)". The first entity on the left-
+	hand-side of the equation must be the stoichiometric formula
+	of the solid of gas component being defined, optionally with
+	(g) or (s). In turn gases and solids included in the equation
+	must be defined with reactions that ultimately allow the
+	defined species (C[18O]2(g) in this case) in terms of aqueous
+	species.
+
+C[18O]2(g)
+	C[18O]2(g) + CO2(g) = 2CO[18O](g) 
+        log_k           0.602059991327962396                   # log10(4)
+
+	svn 1092: CD_MUSIC sorption model has been implemented.
+	Still missing logic for surfaces related to equilibrium-
+	phases and kinetics. Has explicit calculation of diffuse
+	layer composition with Donnan assumption. Old diffuse-layer
+	calculation will not be implemented.
+	
+	Example:
+
+SURFACE
+	Goe_uniOH .000552 96.387 1  1.1   5
+	Goe_triO  .000432
+	-cd_music
+	-donnan
+
+	1.1 5 are capacitances for the cd-music model. 
+	-cd_music specifies that the surface is a cd-music surface.
+	-donnan optionally calculates the diffuse layer composition
+		with the Donnan model.
+
+SURFACE_SPECIES
+	Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
+	     log_k     20.1                 # eq 7   K1, Kin1
+	     -cd_music  -1 -6 0 0.25 5
+
+	-cd_music gives the charge contribution of the surface
+		  species to the three planes. Plane 0 is
+		  -1 + 0.25*5; Plane 1 is -6 + (1-0.25)*5; 
+		  Plane 2 (or d) is 0.
+
+
 	svn 1030: Fixed bug in tranport. Mixing was not printed
         when using -cvode in kinetics.
 

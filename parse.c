@@ -909,8 +909,10 @@ int get_species (char **ptr)
 		return(ERROR);
 	}
 	trxn.token[count_trxn].name = string_hsave ( string );
+	/*
 	trxn.token[count_trxn].z = 0;
 	trxn.token[count_trxn].s = NULL;
 	trxn.token[count_trxn].unknown = NULL;
+	*/
 	return(OK);
 }
