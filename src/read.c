@@ -5086,21 +5086,21 @@ int read_surface_species (void)
 }
 /* ---------------------------------------------------------------------- */
 int read_surf(void)
-/* ---------------------------------------------------------------------- */
+     /* ---------------------------------------------------------------------- */
 {
-/*
- *      Reads surface data
- *
- *      Arguments:
- *         none
- *
- *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
- *
- */
+	/*
+	 *      Reads surface data
+	 *
+	 *      Arguments:
+	 *         none
+	 *
+	 *      Returns:
+	 *         KEYWORD if keyword encountered, input_error may be incremented if
+	 *                    a keyword is encountered in an unexpected position
+	 *         EOF     if eof encountered while reading mass balance concentrations
+	 *         ERROR   if error occurred reading data
+	 *
+	 */
 	int i, j, n, l;
 	int count_comps, count_charge;
 	int n_user, n_user_end;
@@ -5109,6 +5109,8 @@ int read_surf(void)
 	char *description;
 	char token[MAX_LENGTH], token1[MAX_LENGTH], name[MAX_LENGTH];
 	struct surface *surface_ptr;
+	struct surface_charge *charge_ptr;
+	struct surface_comp *comp_ptr;
 
 	int return_value, opt;
 	char *next_char;
@@ -5122,23 +5124,24 @@ int read_surf(void)
 		"only_counter_ions",   /* 6 */
 		"donnan",		/* 7 */
 		"transport",		/* 8 */
-		"cd_music"		/* 9 */
+		"cd_music",		/* 9 */
+		"capacitances"          /* 10 */
 	};
-	int count_opt_list = 10;
-/*
- * kin_surf is for Surfaces, related to kinetically reacting minerals
- *    they are defined if "sites" is followed by mineral name:
- *    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25         4000
- *    ^Name     mineral    ^switch                               ^prop.factor ^m2/mol 
- */
-/*
- *   Read surface number and description
- */
+	int count_opt_list = 11;
+	/*
+	 * kin_surf is for Surfaces, related to kinetically reacting minerals
+	 *    they are defined if "sites" is followed by mineral name:
+	 *    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25         4000
+	 *    ^Name     mineral    ^switch                               ^prop.factor ^m2/mol 
+	 */
+	/*
+	 *   Read surface number and description
+	 */
 	ptr=line;
 	read_number_description (ptr, &n_user, &n_user_end, &description);
-/*
- *   Find space for surface data
- */
+	/*
+	 *   Find space for surface data
+	 */
 	surface_ptr = surface_search(n_user, &n, FALSE);
 	if (surface_ptr != NULL) {
 		surface_free(&surface[n]);
@@ -5146,9 +5149,9 @@ int read_surf(void)
 		n = count_surface++;
 		space ((void **) ((void *) &surface), count_surface, &max_surface, sizeof(struct surface));
 	}
-/*
- *   Initialize
- */
+	/*
+	 *   Initialize
+	 */
 	surface_init(&(surface[n]), n_user, n_user_end, description);
 	free_check_null(description);
 
@@ -5156,28 +5159,30 @@ int read_surf(void)
 		use.surface_in = TRUE;
 		use.n_surface_user = n_user;
 	}
-/*
- *   Read surface data
- */
+	/*
+	 *   Read surface data
+	 */
 	count_charge = 0;
 	count_comps = 0;
 	return_value = UNKNOWN;
+	comp_ptr = NULL;
+	charge_ptr = NULL;
 	for (;;) {
 		opt = get_option(opt_list, count_opt_list, &next_char);
 		switch (opt) {
-		    case OPTION_EOF:                /* end of file */
+		case OPTION_EOF:                /* end of file */
 			return_value = EOF;
 			break;
-		    case OPTION_KEYWORD:           /* keyword */
+		case OPTION_KEYWORD:           /* keyword */
 			return_value = KEYWORD;
 			break;
-		    case OPTION_ERROR:
+		case OPTION_ERROR:
 			input_error++;
 			error_msg("Unknown input in SURFACE keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
-		    case 0:                       /* equilibrate */
-		    case 1:
+		case 0:                       /* equilibrate */
+		case 1:
 			for (;;) {
 				i = copy_token(token, &next_char, &l);
 				if (i == DIGIT) {
@@ -5193,23 +5198,23 @@ int read_surf(void)
 				}
 			}
 			break;
-		    case 2:                       /* diffuse_layer */
-		    case 3:
+		case 2:                       /* diffuse_layer */
+		case 3:
 			surface[n].thickness = 1e-8;
 			surface[n].diffuse_layer = TRUE;
 			sscanf(next_char, SCANFORMAT, &surface[n].thickness);
-/*				surface[n].thickness = thickness;
-			}
- */			break;
-		    case 4:                       /* no electrostatic */
-		    case 5:
-			    /*surface[n].edl = FALSE;*/
-			    surface[n].type = NO_EDL;
-			    break;
-		    case 6:
+			/*				surface[n].thickness = thickness;
+							}
+			*/			break;
+		case 4:                       /* no electrostatic */
+		case 5:
+			/*surface[n].edl = FALSE;*/
+			surface[n].type = NO_EDL;
+			break;
+		case 6:
 			surface[n].only_counter_ions = TRUE;
 			break;
-		    case 7:			/* donnan for DL conc's */
+		case 7:			/* donnan for DL conc's */
 			surface[n].donnan = TRUE;
 			surface[n].diffuse_layer = TRUE;
 			surface[n].debye_units = 0.0;
@@ -5264,17 +5269,36 @@ int read_surf(void)
 				else break;
 			}
 			break;
-		    case 8:			/* transport */
+		case 8:			/* transport */
 			surface[n].transport = TRUE;
 			break;
-		    case 9:			/* cd_music */
-			    /*surface[n].edl = FALSE;*/
-			    surface[n].type = CD_MUSIC;
-			    break;
-		    case OPTION_DEFAULT:
-/*
- *   Read surface component
- */
+		case 9:			/* cd_music */
+			/*surface[n].edl = FALSE;*/
+			surface[n].type = CD_MUSIC;
+			break;
+		case 10:                        /* capacitances */
+			/*
+			 *   Read capacitance for CD_MUSIC
+			 */
+			if (charge_ptr == NULL) {
+				error_msg("Surface component has not been defined for capacitances.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				break;
+			}
+			copy_token(token1, &next_char, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				charge_ptr->capacitance[0] = grams;
+			} 
+			copy_token(token1, &next_char, &l);
+			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
+				charge_ptr->capacitance[1] = grams;
+			} 
+			break;
+		case OPTION_DEFAULT:
+			/*
+			 *   Read surface component
+			 */
 			ptr=line;
 			i = copy_token(token, &ptr, &l);
 			if (i != UPPER && token[0] != '['  ) {
@@ -5283,9 +5307,9 @@ int read_surf(void)
 				input_error++;
 				break;
 			}
-/*
- *   Realloc space for new surface component
- */
+			/*
+			 *   Realloc space for new surface component
+			 */
 			surface[n].comps = (struct surface_comp *) PHRQ_realloc( surface[n].comps, (size_t) (count_comps + 1) * sizeof (struct surface_comp));
 			if (surface[n].comps == NULL) malloc_error();
 			surface[n].comps[count_comps].formula = string_hsave(token);
@@ -5296,11 +5320,12 @@ int read_surf(void)
 			surface[n].comps[count_comps].phase_name = NULL;
 			surface[n].comps[count_comps].phase_proportion = 0;
 			surface[n].comps[count_comps].rate_name = NULL;
+			comp_ptr = &(surface[n].comps[count_comps]);
 			i = copy_token(token1, &ptr, &l);
 			if (i == DIGIT) {
-/*
- *   Read surface concentration
- */
+				/*
+				 *   Read surface concentration
+				 */
 				/* surface concentration is read directly */
 				if ( sscanf(token1, SCANFORMAT, &conc) < 1) {
 					error_msg("Expected number of surface sites in moles.", CONTINUE);
@@ -5312,9 +5337,9 @@ int read_surf(void)
 #ifdef PHREEQCI_GUI
 				surface[n].comps[count_comps].moles = conc;
 #endif
-/*
- *   Read equilibrium phase name or kinetics rate name
- */
+				/*
+				 *   Read equilibrium phase name or kinetics rate name
+				 */
 			} else if (i != EMPTY) {
 
 				/* surface conc. is related to mineral or kinetics */
@@ -5355,17 +5380,17 @@ int read_surf(void)
 				input_error++;
 				break;
 			}
-/*
- *   Accumulate elements in elt_list
- */
+			/*
+			 *   Accumulate elements in elt_list
+			 */
 			count_elts = 0;
 			paren_count = 0;
 			ptr1 = token;
 			get_elts_in_species(&ptr1, conc);
 			surface[n].comps[count_comps].totals = elt_list_save();
-/*
- *   Search for charge structure
- */
+			/*
+			 *   Search for charge structure
+			 */
 			ptr1 = token;
 			get_elt(&ptr1, name, &l);
 			ptr1 = strchr(name,'_');
@@ -5396,34 +5421,36 @@ int read_surf(void)
 				surface[n].charge[i].psi = 0;
 				surface[n].charge[i].psi1 = 0;
 				surface[n].charge[i].psi2 = 0;
-				surface[n].charge[i].capacitance[0] = 0;
-				surface[n].charge[i].capacitance[1] = 0;
+				surface[n].charge[i].capacitance[0] = 1.0;
+				surface[n].charge[i].capacitance[1] = 5.0;
 				surface[n].charge[i].sigma0 = 0;
 				surface[n].charge[i].sigma1 = 0;
 				surface[n].charge[i].sigma2 = 0;
 				count_charge++;
 			}
+			charge_ptr = &(surface[n].charge[i]);
 			surface[n].comps[count_comps].charge = i;
 			count_comps++;
-/*
- *   Read surface area (m2/g)
- */
+			/*
+			 *   Read surface area (m2/g)
+			 */
 			copy_token(token1, &ptr, &l);
 			if (sscanf(token1, SCANFORMAT, &area) == 1) {
 				surface[n].charge[i].specific_area = area;
 			} else {
 				break;
 			}
-/*
- *   Read grams of solid (g)
- */
+			/*
+			 *   Read grams of solid (g)
+			 */
 			copy_token(token1, &ptr, &l);
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].grams = grams;
 			} 
-/*
- *   Read capacitance for CD_MUSIC
- */
+#ifdef SKIP
+			/*
+			 *   Read capacitance for CD_MUSIC
+			 */
 			copy_token(token1, &ptr, &l);
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].capacitance[0] = grams;
@@ -5433,14 +5460,15 @@ int read_surf(void)
 				surface[n].charge[i].capacitance[1] = grams;
 			} 
 			break;
+#endif
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
 	surface[n].count_comps = count_comps;
 	surface[n].count_charge = count_charge;
-/*
- *   Make sure surface area is defined
- */
+	/*
+	 *   Make sure surface area is defined
+	 */
 	/*if (surface[n].edl == TRUE) {*/
 	if (surface[n].type == DDL || surface[n].type == CD_MUSIC) {
 		for (i = 0; i < count_charge; i++) {

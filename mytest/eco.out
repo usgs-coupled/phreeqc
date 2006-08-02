@@ -119,7 +119,8 @@ Reading input data for simulation 3.
 ------------------------------------
 
 	SURFACE
-		Goe_uniOH .000552 96.387 1  1.1   5
+		Goe_uniOH .000552 96.387 1  # 1.1   5
+			  capacitances	  1.1 5
 		Goe_triO  .000432
 		cd_music
 	END
@@ -788,6 +789,7 @@ Reading input data for simulation 8.
 	SURFACE
 		Goe_uniOH .000552 96.387 1  1.1   5
 		Goe_triO  .000432
+			  capacitances	  1.1 5
 		donnan
 		cd_music
 	END

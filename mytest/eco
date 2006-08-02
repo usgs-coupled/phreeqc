@@ -13,7 +13,8 @@ SOLUTION 1
 	 P	1 umol/kgw
 END
 SURFACE
-	Goe_uniOH .000552 96.387 1  1.1   5
+	Goe_uniOH .000552 96.387 1  # 1.1   5
+		  -cap	  1.1 5
 	Goe_triO  .000432
 #	-donnan
 	-cd_music
@@ -52,8 +53,9 @@ EQUILIBRIUM_PHASES
 Fix_pH -4 HCl 10
 END
 SURFACE
-	Goe_uniOH .000552 96.387 1  1.1   5
+	Goe_uniOH .000552 96.387 1  # 1.1   5
 	Goe_triO  .000432
+		  -cap	  1.1 5
 	-donnan
 	-cd_music
 #	-equil 1

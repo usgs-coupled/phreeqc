@@ -590,7 +590,8 @@ SURFACE
 	-cd_music
 	-donnan
 
-	1.1 5 are capacitances for the cd-music model. 
+	1.1 5 are capacitances for the cd-music model for 0-1 and 1-2
+	    planes, respectively. 
 	-cd_music specifies that the surface is a cd-music surface.
 	-donnan optionally calculates the diffuse layer composition
 		with the Donnan model.
