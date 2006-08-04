@@ -2326,7 +2326,7 @@ int tidy_min_surface(void)
 /*
  *   make sure surface elements are in phase
  */
-			xxx Need to fix this with test case eco1 
+			/*	xxx Need to fix this with test case eco1  */
 
 				count_elts = 0;
 				paren_count = 0;
@@ -2336,8 +2336,7 @@ int tidy_min_surface(void)
 					if (comp_ptr->charge != surface[i].comps[jj].charge) continue;
 					if (surface[i].comps[jj].master->s->z != 0.0) {
 						input_error++;
-						sprintf(error_string, "Master species of surface, %s, must be uncha
-rged if the number of sites is related to a phase.", surface[i].comps[jj].master->s->name);
+						sprintf(error_string, "Master species of surface, %s, must be uncharged if the number of sites is related to a phase.", surface[i].comps[jj].master->s->name);
 						error_msg(error_string, CONTINUE);
 					}
 					ptr = surface[i].comps[jj].master->s->name;
