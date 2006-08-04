@@ -2326,44 +2326,48 @@ int tidy_min_surface(void)
 /*
  *   make sure surface elements are in phase
  */
-			count_elts = 0;
-			paren_count = 0;
-			ptr =  pp_a_ptr->pure_phases[k].phase->formula;
-			get_elts_in_species(&ptr, 1.0);
-			for (jj = 0; jj < surface[i].count_comps; jj++) {
-				if (comp_ptr->charge != surface[i].comps[jj].charge) continue;
-				if (surface[i].comps[jj].master->s->z != 0.0) {
-					input_error++;
-					sprintf(error_string, "Master species of surface, %s, must be uncharged if the number of sites is related to a phase.", surface[i].comps[jj].master->s->name);
-					error_msg(error_string, CONTINUE);
-				}
-				ptr = surface[i].comps[jj].master->s->name;
-				get_elts_in_species(&ptr, -surface[i].comps[jj].phase_proportion);
-			}
-			qsort (elt_list, (size_t) count_elts,
-			       (size_t) sizeof(struct elt_list), elt_list_compare);
-			elt_list_combine();
-/* Makes no sense: sorbed species need not be in mineral structure... */
-/* For example, if master species is SurfOH, then increasing the amount of surface
- * adds SurfOH to the system, the OH must then come from phase,
- * otherwise, O and H are not conserved
- */
-			for (jj = 0; jj < count_elts; jj++) {
-				if (elt_list[jj].elt->primary->s->type != SURF && elt_list[jj].coef < 0) {
-					input_error++;
-					sprintf(error_string,"Element %s in sum of surface sites,\n"
-						"\tincluding %s * %g mol sites/mol phase,\n"
-						"\texceeds stoichiometry in the related phase %s, %s.", 
-						elt_list[jj].elt->name,
-						comp_ptr->master->s->name, 
-						(double) comp_ptr->phase_proportion, 
-						pp_a_ptr->pure_phases[k].phase->name, 
-						pp_a_ptr->pure_phases[k].phase->formula);
-					error_msg(error_string, CONTINUE);
-					break;
-				}
-			}
+			xxx Need to fix this with test case eco1 
 
+				count_elts = 0;
+				paren_count = 0;
+				ptr =  pp_a_ptr->pure_phases[k].phase->formula;
+				get_elts_in_species(&ptr, 1.0);
+				for (jj = 0; jj < surface[i].count_comps; jj++) {
+					if (comp_ptr->charge != surface[i].comps[jj].charge) continue;
+					if (surface[i].comps[jj].master->s->z != 0.0) {
+						input_error++;
+						sprintf(error_string, "Master species of surface, %s, must be uncha
+rged if the number of sites is related to a phase.", surface[i].comps[jj].master->s->name);
+						error_msg(error_string, CONTINUE);
+					}
+					ptr = surface[i].comps[jj].master->s->name;
+					get_elts_in_species(&ptr, -surface[i].comps[jj].phase_proportion);
+				}
+				qsort (elt_list, (size_t) count_elts,
+				       (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				/* Makes no sense: sorbed species need not be in mineral structure... */
+				/* But species that can desorb into solution must be in mineral */
+				/* There is also a charge balance issue */
+				/* For example, if master species is SurfOH, then increasing the amount of surface
+				 * adds SurfOH to the system, the OH must then come from phase,
+				 * otherwise, O and H are not conserved
+				 */
+				for (jj = 0; jj < count_elts; jj++) {
+					if (elt_list[jj].elt->primary->s->type != SURF && elt_list[jj].coef < 0) {
+						input_error++;
+						sprintf(error_string,"Element %s in sum of surface sites,\n"
+							"\tincluding %s * %g mol sites/mol phase,\n"
+							"\texceeds stoichiometry in the related phase %s, %s.", 
+							elt_list[jj].elt->name,
+							comp_ptr->master->s->name, 
+							(double) comp_ptr->phase_proportion, 
+							pp_a_ptr->pure_phases[k].phase->name, 
+							pp_a_ptr->pure_phases[k].phase->formula);
+						error_msg(error_string, CONTINUE);
+						break;
+					}
+				}
 		}
 	}
         return(OK);

@@ -308,6 +308,8 @@ struct surface {
 };
 struct surface_comp {
         char *formula;
+        struct elt_list *formula_totals;
+	LDBLE formula_z;
         LDBLE moles;
         struct master *master;
         struct elt_list *totals;
