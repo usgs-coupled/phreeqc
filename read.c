@@ -5387,6 +5387,15 @@ int read_surf(void)
 			paren_count = 0;
 			ptr1 = token;
 			get_elts_in_species(&ptr1, conc);
+
+			/*
+			 *   save formula for adjusting number of exchange sites
+			 */
+
+			ptr1 = token;
+			get_token(&ptr1, token1, &surface[n].comps[count_comps].formula_z, &l);
+			surface[n].comps[count_comps].formula_totals = elt_list_save();
+
 			surface[n].comps[count_comps].totals = elt_list_save();
 			/*
 			 *   Search for charge structure

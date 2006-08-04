@@ -4279,22 +4279,22 @@ int build_min_surface(void)
 		}
 		if (j == -1 || k == -1) continue;
 
-		next_elt = x[j]->master[0]->s->next_elt;
+		/*next_elt = x[j]->master[0]->s->next_elt;*/
+
 		comp_ptr = x[j]->surface_comp;
 
 		/* update grams == moles in this case */
 		if(j < count_unknowns - 1 && x[j+1]->type == SURFACE_CB) {
-#ifdef SKIP
-/*  Major error, can't use "use." because it changes every time 
-    have to use only things allocated in prep.c  Now put
-    grams into unknown structure. */
-/*
-			store_sum_deltas(&delta[k], &(use.surface_ptr->charge[comp_ptr->charge].grams), -1.0);
- */
-#endif
 			store_sum_deltas(&delta[k], &(x[j+1]->related_moles), -1.0); 
  		} 
+
+		/* charge balance */
+		store_jacob0(charge_balance_unknown->number, x[k]->number, comp_ptr->formula_z  * comp_ptr->phase_proportion);
+		store_sum_deltas(&delta[k], &charge_balance_unknown->delta, -comp_ptr->formula_z  * comp_ptr->phase_proportion);
+
 		/* mole balance balance */
+		next_elt = comp_ptr->formula_totals;
+
 		for (jj = 0; next_elt[jj].elt != NULL; jj++) {
 			master_ptr = next_elt[jj].elt->primary;
 			if (master_ptr->in == FALSE) {
