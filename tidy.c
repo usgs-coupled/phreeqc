@@ -2327,7 +2327,7 @@ int tidy_min_surface(void)
  *   make sure surface elements are in phase
  */
 			/*	xxx Need to fix this with test case eco1  */
-
+#ifdef SKIP
 				count_elts = 0;
 				paren_count = 0;
 				ptr =  pp_a_ptr->pure_phases[k].phase->formula;
@@ -2367,6 +2367,7 @@ int tidy_min_surface(void)
 						break;
 					}
 				}
+#endif
 		}
 	}
         return(OK);

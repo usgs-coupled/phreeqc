@@ -5086,7 +5086,7 @@ int read_surface_species (void)
 }
 /* ---------------------------------------------------------------------- */
 int read_surf(void)
-     /* ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 {
 	/*
 	 *      Reads surface data
@@ -5313,6 +5313,8 @@ int read_surf(void)
 			surface[n].comps = (struct surface_comp *) PHRQ_realloc( surface[n].comps, (size_t) (count_comps + 1) * sizeof (struct surface_comp));
 			if (surface[n].comps == NULL) malloc_error();
 			surface[n].comps[count_comps].formula = string_hsave(token);
+			surface[n].comps[count_comps].formula_totals = NULL;
+			surface[n].comps[count_comps].formula_z = 0.0;
 			surface[n].comps[count_comps].moles = 0;
 			surface[n].comps[count_comps].la = 0;
 			surface[n].comps[count_comps].charge = 0;
@@ -5395,7 +5397,6 @@ int read_surf(void)
 			ptr1 = token;
 			get_token(&ptr1, token1, &surface[n].comps[count_comps].formula_z, &l);
 			surface[n].comps[count_comps].formula_totals = elt_list_save();
-
 			surface[n].comps[count_comps].totals = elt_list_save();
 			/*
 			 *   Search for charge structure
@@ -5628,7 +5629,6 @@ int read_surface_master_species (void)
 				ptr = token;
 				get_elts_in_species(&ptr, 1.0);
 				master[count_master]->s->next_elt = elt_list_save();
-
 				master[count_master]->s->type=SURF_PSI;
 				master[count_master]->primary=TRUE;
 				master[count_master]->s->rxn = rxn_alloc(3);
@@ -5692,7 +5692,6 @@ int add_psi_master_species (char *token)
 			ptr = token;
 			get_elts_in_species(&ptr, 1.0);
 			master[count_master]->s->next_elt = elt_list_save();
-			
 			master[count_master]->s->type=plane;
 			master[count_master]->primary=TRUE;
 			master[count_master]->s->rxn = rxn_alloc(3);
