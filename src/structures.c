@@ -4924,6 +4924,7 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 	memcpy(surface_new_ptr->comps, surface_old_ptr->comps, 
 	       (size_t) (count_comps) * sizeof (struct surface_comp));
 	for ( i = 0; i < count_comps; i++) {
+		surface_new_ptr->comps[i].formula_totals = elt_list_dup(surface_old_ptr->comps[i].formula_totals);
 		surface_new_ptr->comps[i].totals = elt_list_dup(surface_old_ptr->comps[i].totals);
 	}
 /*
@@ -5075,6 +5076,7 @@ int surface_free(struct surface *surface_ptr)
  *   totals, then comps
  */
 	for (k = 0; k < surface_ptr->count_comps; k++) {
+		surface_ptr->comps[k].formula_totals = (struct elt_list *) free_check_null(surface_ptr->comps[k].formula_totals);
 		surface_ptr->comps[k].totals = (struct elt_list *) free_check_null(surface_ptr->comps[k].totals);
 	}
 	surface_ptr->comps = (struct surface_comp *) free_check_null (surface_ptr->comps);

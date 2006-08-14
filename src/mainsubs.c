@@ -1824,6 +1824,7 @@ static int xsurface_save(int n_user)
 				}
 			}
 			temp_surface.comps[count_comps].totals = elt_list_save();
+			temp_surface.comps[count_comps].formula_totals = elt_list_dup(x[i]->surface_comp->formula_totals);
 			temp_surface.comps[count_comps].cb = charge;
 
 			/* update unknown pointer */
