@@ -45,7 +45,7 @@ extern int FirstCallToUSER_GRAPH;
 #endif
 
 #if defined(SWIG_SHARED_OBJ)
-extern void EndRow(void);
+extern int EndRow(void);
 extern void AddSelectedOutput(const char* name, const char* format, va_list argptr);
 #endif
 
