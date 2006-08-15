@@ -3485,6 +3485,11 @@ struct reaction *rxn_alloc(int ntokens)
  *   Malloc rxn_token structure
  */
 	rxn_ptr->token = (struct rxn_token *) PHRQ_malloc((size_t) ntokens*sizeof(struct rxn_token));
+	for (i = 0; i < ntokens; i++) {
+	  rxn_ptr->token[i].s = NULL;
+	  rxn_ptr->token[i].name = NULL;
+	  rxn_ptr->token[i].coef = 0.0;
+	}
 	if (rxn_ptr->token == NULL) malloc_error();
 	return(rxn_ptr);
 }
