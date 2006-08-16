@@ -1564,9 +1564,9 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 		for (j = 0; j < kinetics_ptr->count_comps; j++) {
 			m_original[j] = kinetics_ptr->comps[j].m;
 			m_temp[j] = kinetics_ptr->comps[j].m;
-	}
+		}
 /*
- *   Start the loop for timestepping ...
+*   Start the loop for timestepping ...
  *   Use either Runge-Kutta-Fehlberg, or final result extrapolation
  */
 		pr_all_save = pr.all;
@@ -1757,6 +1757,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			use.mix_ptr = use_save.mix_ptr;
 		}
 
+		rate_sim_time = rate_sim_time_start + kin_time;
 		store_get_equi_reactants(i, TRUE);
 		pr.all = pr_all_save;
 
