@@ -4279,9 +4279,16 @@ int build_min_surface(void)
 		}
 		if (j == -1 || k == -1) continue;
 
-		/*next_elt = x[j]->master[0]->s->next_elt;*/
-
 		comp_ptr = x[j]->surface_comp;
+
+		if (surface[n].type == CD_MUSIC) {
+			/* Add formula for CD_MUSIC */
+			next_elt = comp_ptr->formula_totals;
+		} else {
+			/* Add master species for non CD_MUSIC */
+			next_elt = x[j]->master[0]->s->next_elt;
+		}
+
 
 		/* update grams == moles in this case */
 		if(j < count_unknowns - 1 && x[j+1]->type == SURFACE_CB) {
@@ -4292,8 +4299,6 @@ int build_min_surface(void)
 		store_jacob0(charge_balance_unknown->number, x[k]->number, comp_ptr->formula_z  * comp_ptr->phase_proportion);
 		store_sum_deltas(&delta[k], &charge_balance_unknown->delta, -comp_ptr->formula_z  * comp_ptr->phase_proportion);
 
-		/* mole balance balance */
-		next_elt = comp_ptr->formula_totals;
 
 		for (jj = 0; next_elt[jj].elt != NULL; jj++) {
 			master_ptr = next_elt[jj].elt->primary;

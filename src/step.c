@@ -338,9 +338,11 @@ int add_surface (struct surface *surface_ptr)
 		if(surface_ptr->type == NO_EDL) {
 			cb_x += surface_ptr->comps[i].cb;
 		}
+#ifdef SKIP_MUSIC
 		if (surface_ptr->type == CD_MUSIC) {
 			cb_x += surface_ptr->comps[i].cb;
 		}
+#endif
 		if (surface_ptr->new_def == FALSE) {
 			surface_ptr->comps[i].master->s->la = surface_ptr->comps[i].la;
 		}
@@ -349,6 +351,11 @@ int add_surface (struct surface *surface_ptr)
  */
 		for (j = 0; surface_ptr->comps[i].totals[j].elt != NULL; j++) {
 			master_ptr = surface_ptr->comps[i].totals[j].elt->primary;
+			if (master_ptr == NULL) {
+				input_error++;
+				sprintf(error_string, "Element not defined in database, %s.", surface_ptr->comps[i].totals[j].elt->name);
+				error_msg(error_string, STOP);
+			}
 			if (master_ptr->s == s_hplus) {
 				total_h_x += surface_ptr->comps[i].totals[j].coef;
 			} else if (master_ptr->s == s_h2o) {
@@ -363,7 +370,7 @@ int add_surface (struct surface *surface_ptr)
 	for (i = 0; i < surface_ptr->count_charge; i++) {
 		/*if (surface_ptr->edl == TRUE) {*/
 		/*cb_x += surface_ptr->charge[i].charge_balance;*/
-		if (surface_ptr->type == DDL) {
+		if (surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC) {
 			cb_x += surface_ptr->charge[i].charge_balance;
 		}
 		if (surface_ptr->new_def == FALSE) {

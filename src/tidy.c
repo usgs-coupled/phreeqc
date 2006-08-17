@@ -1739,10 +1739,22 @@ int tidy_surface(void)
  */
 				surface_ptr->comps[i].master = master_ptr;
 				if (surface_ptr->type == CD_MUSIC) {
+					/*
 					surface_ptr->charge[surface_ptr->comps[i].charge].charge_balance += surface_ptr->comps[i].moles*surface_ptr->comps[i].master->s->z;
+					*/
+					surface_ptr->charge[surface_ptr->comps[i].charge].charge_balance += surface_ptr->comps[i].moles*surface_ptr->comps[i].formula_z;
+
 				}
 				break;
 			}
+#ifdef SKIP_MUSIC
+			/*
+			 *  If charge of formula is non zero
+			 */
+			if (surface_ptr->type == CD_MUSIC) {
+				surface_ptr->comps[i].cb = surface_ptr->comps[i].formula_z*surface_ptr->comps[i].moles;
+			}
+#endif
 		}
 /*
  *   Sort components
@@ -2313,6 +2325,9 @@ int tidy_min_surface(void)
 			comp_ptr->phase_name = pp_a_ptr->pure_phases[k].phase->name;
 			/* make surface concentration proportional to mineral ... */
 			conc=pp_a_ptr->pure_phases[k].moles * comp_ptr->phase_proportion;
+#ifdef SKIP_MUSIC
+			comp_ptr->cb = conc*comp_ptr->formula_z;
+#endif
 /*			if (conc < MIN_RELATED_SURFACE) conc = 0.0; */
 			ptr = comp_ptr->formula;
 			count_elts = 0;
@@ -2325,15 +2340,18 @@ int tidy_min_surface(void)
 			surface[i].charge[comp_ptr->charge].grams = pp_a_ptr->pure_phases[k].moles;
 /*
  *   make sure surface elements are in phase
+ *   logically necessary for mass balance and to avoid negative concentrations when dissolving phase
  */
-			/*	xxx Need to fix this with test case eco1  */
-#ifdef SKIP
-				count_elts = 0;
-				paren_count = 0;
-				ptr =  pp_a_ptr->pure_phases[k].phase->formula;
-				get_elts_in_species(&ptr, 1.0);
-				for (jj = 0; jj < surface[i].count_comps; jj++) {
-					if (comp_ptr->charge != surface[i].comps[jj].charge) continue;
+			count_elts = 0;
+			paren_count = 0;
+			ptr =  pp_a_ptr->pure_phases[k].phase->formula;
+			get_elts_in_species(&ptr, 1.0);
+			for (jj = 0; jj < surface[i].count_comps; jj++) {
+				if (comp_ptr->charge != surface[i].comps[jj].charge) continue;
+				if (surface[i].type == CD_MUSIC) {
+					ptr = surface[i].comps[jj].formula;
+					get_elts_in_species(&ptr, -surface[i].comps[jj].phase_proportion);
+				} else {
 					if (surface[i].comps[jj].master->s->z != 0.0) {
 						input_error++;
 						sprintf(error_string, "Master species of surface, %s, must be uncharged if the number of sites is related to a phase.", surface[i].comps[jj].master->s->name);
@@ -2342,32 +2360,34 @@ int tidy_min_surface(void)
 					ptr = surface[i].comps[jj].master->s->name;
 					get_elts_in_species(&ptr, -surface[i].comps[jj].phase_proportion);
 				}
-				qsort (elt_list, (size_t) count_elts,
-				       (size_t) sizeof(struct elt_list), elt_list_compare);
-				elt_list_combine();
-				/* Makes no sense: sorbed species need not be in mineral structure... */
-				/* But species that can desorb into solution must be in mineral */
-				/* There is also a charge balance issue */
-				/* For example, if master species is SurfOH, then increasing the amount of surface
-				 * adds SurfOH to the system, the OH must then come from phase,
-				 * otherwise, O and H are not conserved
-				 */
-				for (jj = 0; jj < count_elts; jj++) {
-					if (elt_list[jj].elt->primary->s->type != SURF && elt_list[jj].coef < 0) {
-						input_error++;
-						sprintf(error_string,"Element %s in sum of surface sites,\n"
-							"\tincluding %s * %g mol sites/mol phase,\n"
-							"\texceeds stoichiometry in the related phase %s, %s.", 
-							elt_list[jj].elt->name,
-							comp_ptr->master->s->name, 
-							(double) comp_ptr->phase_proportion, 
-							pp_a_ptr->pure_phases[k].phase->name, 
-							pp_a_ptr->pure_phases[k].phase->formula);
-						error_msg(error_string, CONTINUE);
-						break;
-					}
+			}
+			qsort (elt_list, (size_t) count_elts,
+			       (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			/* Makes no sense: sorbed species need not be in mineral structure... */
+			/* But elements that can desorb into solution must be in mineral */
+			/* If you precipitate Ca-Mont, and make SurfMg (assuming this is the 
+			   formula in SURFACE), where does the Mg come from? 
+			   Further, if you precipitate Ca-Mont, make SurfCa, desorb
+			   all the Ca, then dissolve the "Ca-Mont", you must remove SurfCa, or you
+			   will end up with Ca in solution. H and O are excluded */
+			for (jj = 0; jj < count_elts; jj++) {
+				if (elt_list[jj].elt->primary->s->type != SURF && elt_list[jj].coef < 0 &&
+				    elt_list[jj].elt->primary->s != s_hplus &&
+				    elt_list[jj].elt->primary->s != s_h2o) {
+					input_error++;
+					sprintf(error_string,"Element %s in sum of surface sites,\n"
+						"\tincluding %s * %g mol sites/mol phase,\n"
+						"\texceeds stoichiometry in the related phase %s, %s.", 
+						elt_list[jj].elt->name,
+						comp_ptr->master->s->name, 
+						(double) comp_ptr->phase_proportion, 
+						pp_a_ptr->pure_phases[k].phase->name, 
+						pp_a_ptr->pure_phases[k].phase->formula);
+					error_msg(error_string, CONTINUE);
+					break;
 				}
-#endif
+			}
 		}
 	}
         return(OK);

@@ -1865,11 +1865,22 @@ static int xsurface_save(int n_user)
 			count_charge++;
 		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC) {
 			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge, sizeof(struct surface_charge));
-			sum = 0;
-			for (j = 0; j < x[i]->count_comp_unknowns; j++) {
-				sum += x[i]->comp_unknowns[j]->moles*x[i]->comp_unknowns[j]->master[0]->s->z;
+			if (diffuse_layer_x == TRUE) {
+				temp_surface.charge[count_charge].charge_balance = 
+					(x[i]->surface_charge->sigma0 + 
+					 x[i]->surface_charge->sigma1 + 
+					 x[i]->surface_charge->sigma2 + 
+					 x[i]->surface_charge->sigmaddl) 
+					* (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) 
+					/ F_C_MOL;
+			} else {
+				temp_surface.charge[count_charge].charge_balance = 
+					(x[i]->surface_charge->sigma0 + 
+					 x[i]->surface_charge->sigma1 + 
+					 x[i]->surface_charge->sigma2)
+					* (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams) 
+					/ F_C_MOL;
 			}
-			temp_surface.charge[count_charge].charge_balance = x[i]->f - sum; 
 			temp_surface.charge[count_charge].mass_water = x[i]->surface_charge->mass_water;
 			temp_surface.charge[count_charge].diffuse_layer_totals = NULL;
 			temp_surface.charge[count_charge].count_g = 0;
