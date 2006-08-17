@@ -1280,7 +1280,7 @@ int print_surface_cd_music(void)
  *   Description of surface
  */
                 if (diffuse_layer_x == TRUE) {
-                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", 
+                        output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n\n", 
 				   (double) x[j+2]->f + (x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1)*(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL);
                 }
 		master_ptr0 = surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI);
@@ -1303,7 +1303,8 @@ int print_surface_cd_music(void)
 		}
                 output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 0, eq\n", (double) charge0 + sum);
                 output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 1, eq\n", (double) charge1);
-                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 2, eq\n\n", (double) charge2);
+                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface charge, plane 2, eq\n", (double) charge2);
+                output_msg(OUTPUT_MESSAGE,"\t%11.3e  Sum of surface charge, all planes, eq\n\n", (double) (charge0 + sum + charge1 + charge2));
                 if (x[j]->type == SURFACE_CB) {
                         if ((x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) > 0) {
                                 output_msg(OUTPUT_MESSAGE,"\t%11.3e  sigma, plane 0, C/m**2\n", x[j]->surface_charge->sigma0);

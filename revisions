@@ -561,6 +561,11 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 1128: Fixed bug with value of time printed to selected
+	output file when using cvode. Value printed was an
+	intermediate integration time step, not time at end 
+	of integration.
+	
 	svn 1096: Allows solids and gases in the equations for
 	PHASES. This capability simplifies the definitions for
 	gas and solid isotopic components. Solids must be identified
