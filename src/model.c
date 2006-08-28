@@ -2744,11 +2744,11 @@ int residuals(void)
 				output_msg(OUTPUT_MESSAGE,"\tResidual 0         %14e\n", (double) residual[master_ptr->unknown->number]);
 				output_msg(OUTPUT_MESSAGE,"\tResidual 1         %14e\n", (double) residual[master_ptr1->unknown->number]);
 				output_msg(OUTPUT_MESSAGE,"\tResidual 2         %14e\n", (double) residual[master_ptr2->unknown->number]);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi0/RT)     %14e", (double) pow(10, master_ptr->s->la));
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi0/RT)     %14e", (double) pow(10., master_ptr->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi0               %14e\n", (double) x[i]->surface_charge->psi);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi1/RT)     %14e", (double) pow(10,master_ptr1->s->la));
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi1/RT)     %14e", (double) pow(10.,master_ptr1->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi1               %14e\n", (double) x[i]->surface_charge->psi1);
-				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi2/RT)     %14e", (double) pow(10,master_ptr2->s->la));
+				output_msg(OUTPUT_MESSAGE,"\texp(-FPsi2/RT)     %14e", (double) pow(10.,master_ptr2->s->la));
 				output_msg(OUTPUT_MESSAGE,"\tPsi2               %14e\n", (double) x[i]->surface_charge->psi2);
 				output_msg(OUTPUT_MESSAGE,"\tf 0                %14e", (double) master_ptr->unknown->f);
 				output_msg(OUTPUT_MESSAGE,"\tsigma 0            %14e\n", (double) x[i]->surface_charge->sigma0);
