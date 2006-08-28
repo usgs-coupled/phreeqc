@@ -1751,7 +1751,6 @@ static int xsurface_save(int n_user)
 	char token[MAX_LENGTH];
 	struct surface temp_surface, *surface_ptr;
 	LDBLE charge;
-	double sum;
 	if (use.surface_ptr == NULL) return(OK);
 /*
  *   Store data for structure surface
