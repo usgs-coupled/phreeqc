@@ -1715,11 +1715,13 @@ int tidy_surface(void)
  *   Sort surface
  */
 	int i, j, k;
+	char * ptr1;
 	struct surface *surface_ptr;
 	struct master *master_ptr;
 
 	for (k = 0; k < count_surface; k++) {
 		surface_ptr = &surface[k];
+
 		for (i = 0; i < surface_ptr->count_comps; i++ ) {
 /*
  *   Find master species for each surface
@@ -1738,6 +1740,23 @@ int tidy_surface(void)
  *   Set flags
  */
 				surface_ptr->comps[i].master = master_ptr;
+				/*
+				 * Calculate moles of sites
+				 */
+				if (surface_ptr->new_def == TRUE && surface_ptr->sites_units == SITES_DENSITY && surface_ptr->comps[i].phase_name == NULL) {
+					surface_ptr->comps[i].moles = surface_ptr->comps[i].moles * 1.0e18 * surface_ptr->charge[surface_ptr->comps[i].charge].specific_area * surface_ptr->charge[surface_ptr->comps[i].charge].grams / AVOGADRO;
+					/*
+					 *  Calculate totals
+					 */
+					count_elts = 0;
+					paren_count = 0;
+					ptr1 = surface_ptr->comps[i].formula;
+					get_elts_in_species(&ptr1, surface_ptr->comps[i].moles);
+					surface_ptr->comps[i].formula_totals = (struct elt_list *) free_check_null(surface_ptr->comps[i].formula_totals);
+					surface_ptr->comps[i].formula_totals = elt_list_save();
+					surface_ptr->comps[i].totals = (struct elt_list *) free_check_null(surface_ptr->comps[i].totals);
+					surface_ptr->comps[i].totals = elt_list_save();
+				}
 				if (surface_ptr->type == CD_MUSIC) {
 					/*
 					surface_ptr->charge[surface_ptr->comps[i].charge].charge_balance += surface_ptr->comps[i].moles*surface_ptr->comps[i].master->s->z;

@@ -2,14 +2,81 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
-	svn 675:
-	Added PRINT option to print the species that contribute
-	to alkalinity. Alkalinity distribution is printed in
-	the output file following the distribution of species.
-	Default at program startup is false.
+        svn 1179: New option (-sites_units density) allows alternative
+        units (sites/nm^2) for definition of number of sites for a
+        surface. This approach requires better consistency among the
+        parameters as both the number of sites and the surface area
+        are based on the mass. It makes more sense than the default,
+        which requires the number of sites (first numeric item in a
+        line) to be defined in units of moles, independently of the
+        number of grams of sorbent.
 
-	PRINT
-		-alkalinity true
+SURFACE 1
+        -sites     DENSITY
+        SurfOH  2.6    600.    1.0
+        SurfaOH 2.6    30.     2.0
+
+	In this example, Surf has a site density of 2.6 sites per
+	nanometer squared, a specific area of 600 meters squared per
+	gram, and a mass of 1 gram. Surfa has a site density of 2.6
+	sites per nanometer squared, a specific area of 30 meters
+	squared per gram, and mass of 2 grams.
+
+
+        svn 1096: Allows solids and gases in the equations for
+        PHASES. This capability simplifies the definitions for
+        gas and solid isotopic components. Solids must be identified
+        with "(s)" and gases with "(g)". The first entity on the left-
+        hand-side of the equation must be the stoichiometric formula
+        of the solid of gas component being defined, optionally with
+        (g) or (s). In turn gases and solids included in the equation
+        must be defined with reactions that ultimately allow the
+        defined species (C[18O]2(g) in this case) in terms of aqueous
+        species.
+
+C[18O]2(g)
+        C[18O]2(g) + CO2(g) = 2CO[18O](g) 
+        log_k           0.602059991327962396                   # log10(4)
+
+        svn 1092: CD_MUSIC sorption model has been implemented.
+        Still missing logic for surfaces related to equilibrium-
+        phases and kinetics. Has explicit calculation of diffuse
+        layer composition with Donnan assumption. Old diffuse-layer
+        calculation will not be implemented.
+        
+        Example:
+
+SURFACE
+        Goe_uniOH .000552 96.387 1
+                  -capacitance    1.1   5
+        Goe_triO  .000432
+        -cd_music
+        -donnan
+
+        1.1 5 are capacitances for the cd-music model for 0-1 and 1-2
+            planes, respectively. 
+        -cd_music specifies that the surface is a cd-music surface.
+        -donnan optionally calculates the diffuse layer composition
+                with the Donnan model.
+
+SURFACE_SPECIES
+        Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
+             log_k     20.1                 # eq 7   K1, Kin1
+             -cd_music  -1 -6 0 0.25 5
+
+        -cd_music gives the charge contribution of the surface
+                  species to the three planes. Plane 0 is
+                  -1 + 0.25*5; Plane 1 is -6 + (1-0.25)*5; 
+                  Plane 2 (or d) is 0.
+
+        svn 675:
+        Added PRINT option to print the species that contribute
+        to alkalinity. Alkalinity distribution is printed in
+        the output file following the distribution of species.
+        Default at program startup is false.
+
+        PRINT
+                -alkalinity true
 
 ------------------------------------------------------------
 Version 2.12:
@@ -561,139 +628,160 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
-	svn 1128: Fixed bug with value of time printed to selected
-	output file when using cvode. Value printed was an
-	intermediate integration time step, not time at end 
-	of integration.
-	
-	svn 1096: Allows solids and gases in the equations for
-	PHASES. This capability simplifies the definitions for
-	gas and solid isotopic components. Solids must be identified
-	with "(s)" and gases with "(g)". The first entity on the left-
-	hand-side of the equation must be the stoichiometric formula
-	of the solid of gas component being defined, optionally with
-	(g) or (s). In turn gases and solids included in the equation
-	must be defined with reactions that ultimately allow the
-	defined species (C[18O]2(g) in this case) in terms of aqueous
-	species.
+        svn 1179: New option (-sites_units density) allows alternative
+        units (sites/nm^2) for definition of number of sites for a
+        surface. This approach requires better consistency among the
+        parameters as both the number of sites and the surface area
+        are based on the mass. It makes more sense than the default,
+        which requires the number of sites (first numeric item in a
+        line) to be defined in units of moles, independently of the
+        number of grams of sorbent.
+
+SURFACE 1
+        -sites     DENSITY
+        SurfOH  2.6    600.    1.0
+        SurfaOH 2.6    30.     2.0
+
+	In this example, Surf has a site density of 2.6 sites per
+	nanometer squared, a specific area of 600 meters squared per
+	gram, and a mass of 1 gram. Surfa has a site density of 2.6
+	sites per nanometer squared, a specific area of 30 meters
+	squared per gram, and mass of 2 grams.
+
+        svn 1128: Fixed bug with value of time printed to selected
+        output file when using cvode. Value printed was an
+        intermediate integration time step, not time at end 
+        of integration.
+        
+        svn 1096: Allows solids and gases in the equations for
+        PHASES. This capability simplifies the definitions for
+        gas and solid isotopic components. Solids must be identified
+        with "(s)" and gases with "(g)". The first entity on the left-
+        hand-side of the equation must be the stoichiometric formula
+        of the solid of gas component being defined, optionally with
+        (g) or (s). In turn gases and solids included in the equation
+        must be defined with reactions that ultimately allow the
+        defined species (C[18O]2(g) in this case) in terms of aqueous
+        species.
 
 C[18O]2(g)
-	C[18O]2(g) + CO2(g) = 2CO[18O](g) 
+        C[18O]2(g) + CO2(g) = 2CO[18O](g) 
         log_k           0.602059991327962396                   # log10(4)
 
-	svn 1092: CD_MUSIC sorption model has been implemented.
-	Still missing logic for surfaces related to equilibrium-
-	phases and kinetics. Has explicit calculation of diffuse
-	layer composition with Donnan assumption. Old diffuse-layer
-	calculation will not be implemented.
-	
-	Example:
+        svn 1092: CD_MUSIC sorption model has been implemented.
+        Still missing logic for surfaces related to equilibrium-
+        phases and kinetics. Has explicit calculation of diffuse
+        layer composition with Donnan assumption. Old diffuse-layer
+        calculation will not be implemented.
+        
+        Example:
 
 SURFACE
-	Goe_uniOH .000552 96.387 1  1.1   5
-	Goe_triO  .000432
-	-cd_music
-	-donnan
+        Goe_uniOH .000552 96.387 1
+                  -capacitance    1.1   5
+        Goe_triO  .000432
+        -cd_music
+        -donnan
 
-	1.1 5 are capacitances for the cd-music model for 0-1 and 1-2
-	    planes, respectively. 
-	-cd_music specifies that the surface is a cd-music surface.
-	-donnan optionally calculates the diffuse layer composition
-		with the Donnan model.
+        1.1 5 are capacitances for the cd-music model for 0-1 and 1-2
+            planes, respectively. 
+        -cd_music specifies that the surface is a cd-music surface.
+        -donnan optionally calculates the diffuse layer composition
+                with the Donnan model.
 
 SURFACE_SPECIES
-	Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
-	     log_k     20.1                 # eq 7   K1, Kin1
-	     -cd_music  -1 -6 0 0.25 5
+        Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
+             log_k     20.1                 # eq 7   K1, Kin1
+             -cd_music  -1 -6 0 0.25 5
 
-	-cd_music gives the charge contribution of the surface
-		  species to the three planes. Plane 0 is
-		  -1 + 0.25*5; Plane 1 is -6 + (1-0.25)*5; 
-		  Plane 2 (or d) is 0.
+        -cd_music gives the charge contribution of the surface
+                  species to the three planes. Plane 0 is
+                  -1 + 0.25*5; Plane 1 is -6 + (1-0.25)*5; 
+                  Plane 2 (or d) is 0.
 
 
-	svn 1030: Fixed bug in tranport. Mixing was not printed
+        svn 1030: Fixed bug in tranport. Mixing was not printed
         when using -cvode in kinetics.
 
-	svn 984: Fixed bug in transport when cell without a
-	surface followed a cell with a diffuse-layer surface.
-	Fixed bug in TOTAL function; code ran of the end of
+        svn 984: Fixed bug in transport when cell without a
+        surface followed a cell with a diffuse-layer surface.
+        Fixed bug in TOTAL function; code ran of the end of
         the list of master species; changed logic to recognize
         the end of the list.
 
-	svn 874: Fixed bug in check_same_model. Thought surface
-	calculation was the same even though -edl switch was
-	different, which gave irratic results and possible 
-	crash. Now checks more carefully to make sure calculation
-	for surfaces is really the same and reinitializes if
+        svn 874: Fixed bug in check_same_model. Thought surface
+        calculation was the same even though -edl switch was
+        different, which gave irratic results and possible 
+        crash. Now checks more carefully to make sure calculation
+        for surfaces is really the same and reinitializes if
         not.
 
-	svn 847: Fixed bug with DESCRIPTION function. Did not
-	give correct solution description for reactions.
+        svn 847: Fixed bug with DESCRIPTION function. Did not
+        give correct solution description for reactions.
 
-	svn 826: Update tally.c to avoid conflicts in C++
-	version of phast.
+        svn 826: Update tally.c to avoid conflicts in C++
+        version of phast.
 
-	svn 801: Wrote around underflow in fabs in subroutine 
-	reset. 
+        svn 801: Wrote around underflow in fabs in subroutine 
+        reset. 
 
-	svn 794: Errors in minteq.v4.dat database. Several redox
+        svn 794: Errors in minteq.v4.dat database. Several redox
         reactions had delta H listed as kcal instead of kJ. kcal
         is correct only for the following species H2, NO2-, and
         NH4+.
 
-	svn 675:
-	Added PRINT option to print the species that contribute
-	to alkalinity. Alkalinity distribution is printed in
-	the output file following the distribution of species.
-	Default at program startup is false.
+        svn 675:
+        Added PRINT option to print the species that contribute
+        to alkalinity. Alkalinity distribution is printed in
+        the output file following the distribution of species.
+        Default at program startup is false.
 
-	PRINT
-		-alkalinity true
-	
-	svn 655:
-	IAP and log K printed in Phase assemblage data 
-	block were calculated from reactions rewritten to
-	new master species. Now the original data base 
-	reaction is used to calculate IAP and log K.
-	Also fixed check that ensured all elements of 
-	phase in are in solution before SI is calculated.
+        PRINT
+                -alkalinity true
+        
+        svn 655:
+        IAP and log K printed in Phase assemblage data 
+        block were calculated from reactions rewritten to
+        new master species. Now the original data base 
+        reaction is used to calculate IAP and log K.
+        Also fixed check that ensured all elements of 
+        phase in are in solution before SI is calculated.
 
-	svn 631:
-	Fixed bug with alternate formula for equilibrium phase,
-	nothing happened if all other equations were satisfied
-	at beginning of reaction calculation.
+        svn 631:
+        Fixed bug with alternate formula for equilibrium phase,
+        nothing happened if all other equations were satisfied
+        at beginning of reaction calculation.
 
-	svn 603:
-	Link gmp library statically.
+        svn 603:
+        Link gmp library statically.
 
-	svn 601:
-	Fixed statement on multiprecision.
+        svn 601:
+        Fixed statement on multiprecision.
 
-	svn 581:
-	Fixed bug in PhreeqcI that did not reinitialize
-	Chebyschev parameters leading to incorrect results
-	with Pitzer activity coefficients. Results were
-	correct on first run, but erroneous on subsequent 
+        svn 581:
+        Fixed bug in PhreeqcI that did not reinitialize
+        Chebyschev parameters leading to incorrect results
+        with Pitzer activity coefficients. Results were
+        correct on first run, but erroneous on subsequent 
         runs.
 
-	Added statement to identify multiprecision or
-	standard solver for inverse modeling. 
+        Added statement to identify multiprecision or
+        standard solver for inverse modeling. 
 
-	svn 578:
+        svn 578:
 
-	Distribution changes. Fixed names in README file.
-	Modified Makefile to use specified version. Split
-	Linux and source distribution procedure.
+        Distribution changes. Fixed names in README file.
+        Modified Makefile to use specified version. Split
+        Linux and source distribution procedure.
 
 Version 2.12 Date: Wed September 28, 2005
 
-	Executables and output files for Sun operating systems
-	are no longer provided.
+        Executables and output files for Sun operating systems
+        are no longer provided.
 
-	Limited log activities of master species to be greater
-	than the smallest machine precision exponential number.
-	Avoids a matherr exception and allows trial of additional
+        Limited log activities of master species to be greater
+        than the smallest machine precision exponential number.
+        Avoids a matherr exception and allows trial of additional
         parameter sets to attempt to solve the system of 
         equations.
 
@@ -708,7 +796,7 @@ Version 2.12 Date: Wed September 28, 2005
         Edited phreeqc.dat to add -gamma expression for 
         CdX2 and PbX2. 
 
-        Replaced O2(g) log K in	phreeqc.dat and wateq4f.dat
+        Replaced O2(g) log K in phreeqc.dat and wateq4f.dat
         with data from llnl.dat, which appears to be better.
 
         Added multiplier format to REACTION increments, which

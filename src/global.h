@@ -62,7 +62,7 @@ typedef enum { preorder, postorder, endorder, leaf } VISIT;
 #define EPSILON 78.5              /* dialectric constant, dimensionless */
 #define EPSILON_ZERO 8.854e-12    /* permittivity of free space, C/V-m = C**2/m-J */
 #define JOULES_PER_CALORIE 4.1840
-
+#define AVOGADRO 6.02252e23       /* atoms / mole */
 typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 
 #define TRUE 1
@@ -178,6 +178,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
 enum SURFACE_TYPE { UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC } ;
+enum SITES_UNITS { SITES_ABSOLUTE, SITES_DENSITY } ;
 struct model {
         int force_prep;
         LDBLE temperature;
@@ -292,6 +293,7 @@ struct surface {
         int only_counter_ions;
         int donnan;
         enum SURFACE_TYPE type;
+	enum SITES_UNITS sites_units;
         LDBLE thickness;
         LDBLE debye_units;
         LDBLE DDL_viscosity;

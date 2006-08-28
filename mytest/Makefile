@@ -60,6 +60,7 @@ all: alkalinity.out \
 	spread_solution.out \
 	iso_example.out \
 	surf3.out \
+	surf3_density.out \
 	surf_related.out \
 	surf_related_pz.out \
 	surf_kin_related.out \
