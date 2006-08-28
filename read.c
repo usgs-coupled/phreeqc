@@ -5125,9 +5125,11 @@ int read_surf(void)
 		"donnan",		/* 7 */
 		"transport",		/* 8 */
 		"cd_music",		/* 9 */
-		"capacitances"          /* 10 */
+		"capacitances",         /* 10 */
+		"sites",                /* 11 */
+		"sites_units"           /* 12 */
 	};
-	int count_opt_list = 11;
+	int count_opt_list = 13;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -5294,6 +5296,19 @@ int read_surf(void)
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				charge_ptr->capacitance[1] = grams;
 			} 
+			break;
+		case 11:			/* sites */
+		case 12:			/* sites_units */
+			j = copy_token(token1, &next_char, &l);
+			if (token1[0] == 'A' || token1[0] == 'a') {
+				surface[n].sites_units = SITES_ABSOLUTE;
+			} else if (token1[0] == 'D' || token1[0] == 'd') {
+				surface[n].sites_units = SITES_DENSITY;
+			} else {
+				error_msg("Character string expected to be 'Absolute' or 'Density' to define the units of the first item in the definition of a surface component.\n", CONTINUE);
+				input_error++;
+				break;
+			}			       
 			break;
 		case OPTION_DEFAULT:
 			/*
@@ -5469,8 +5484,9 @@ int read_surf(void)
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].capacitance[1] = grams;
 			} 
-			break;
 #endif
+			break;
+
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
