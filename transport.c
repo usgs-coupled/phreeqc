@@ -1482,7 +1482,7 @@ int fill_spec(int cell_no)
 /*
  * correct diffusion coefficient for temperature and viscosity, D_T = D_298 * Tk * viscos_298 / (298 * viscos)
  */
-	viscos = pow(10, -(1.37023 * (tc_x - 20) + 0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
+	viscos = pow(10., -(1.37023 * (tc_x - 20) + 0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
 /*
  * put temperature factor in por_factor which corrects for porous medium...
  */
