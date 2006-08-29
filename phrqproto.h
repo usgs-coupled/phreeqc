@@ -27,6 +27,7 @@ LDBLE kinetics_moles (char *kinetics_name);
 LDBLE log_activity (char *species_name);
 LDBLE log_molality (char *species_name);
 LDBLE molality (char *species_name);
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell_no);
 LDBLE saturation_ratio (char *phase_name);
 int saturation_index (char *phase_name, LDBLE *iap, LDBLE *si);
 LDBLE solution_sum_secondary(char *total_name);
@@ -479,6 +480,8 @@ int tidy_model(void);
 /* transport.c */
 int transport(void);
 int set_initial_moles(int i);
+int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2, int k, LDBLE f2, struct surface *target, LDBLE new_Dw);
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell_no);
 
 /* utilities.c */
 int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef);

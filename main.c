@@ -118,7 +118,7 @@ int write_banner(void)
 
 	/* version */
 #ifdef DOS
-	len = sprintf(buffer, "* PHREEQC-%s *", "2.12 donnan");
+	len = sprintf(buffer, "* PHREEQC-%s *", "2.13");
 #else
 	len = sprintf(buffer, "* PHREEQC-%s *", "@VERSION@");
 #endif
@@ -127,6 +127,7 @@ int write_banner(void)
 
 	output_msg(OUTPUT_SCREEN, "              º                                            º\n");
 	output_msg(OUTPUT_SCREEN, "              º      A hydrogeochemical transport model    º\n");
+	output_msg(OUTPUT_SCREEN, "              º á version with donnan/MCD/Surface colloids º\n");
 	output_msg(OUTPUT_SCREEN, "              º                                            º\n");
 	output_msg(OUTPUT_SCREEN, "              º                    by                      º\n");
 	output_msg(OUTPUT_SCREEN, "              º       D.L. Parkhurst and C.A.J. Appelo     º\n");
@@ -135,7 +136,7 @@ int write_banner(void)
 
 	/* date */
 #ifdef DOS
-	len = sprintf(buffer, "%s", "1 july 2006");
+	len = sprintf(buffer, "%s", "10 august 2006");
 #else
 	len = sprintf(buffer, "%s", "@VER_DATE@");
 #endif

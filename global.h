@@ -338,6 +338,14 @@ EXTERNAL struct charge_group {
 		LDBLE z;
 		LDBLE eq;
 } *charge_group;
+EXTERNAL int change_surf_flag;
+EXTERNAL struct change_surf {
+		char *comp_name;
+		LDBLE fraction;
+		char *new_comp_name;
+		LDBLE new_Dw;
+		int cell_no;
+} *change_surf;
 /* ----------------------------------------------------------------------
  *   Exchange
  * ---------------------------------------------------------------------- */
