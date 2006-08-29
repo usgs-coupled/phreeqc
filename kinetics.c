@@ -429,9 +429,9 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 				}
 			}
 			if (zero_rate || equal_rate) {
-/* appt */
+/* appt
 				save.surface = FALSE;
-				saver();
+ */				saver();
 				/*  Free space */
 				if (pp_assemblage_save != NULL) {
 					pp_assemblage_free(pp_assemblage_save);

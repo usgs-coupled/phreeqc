@@ -1829,14 +1829,14 @@ static int xsurface_save(int n_user)
 /*
  *   Added code to save g
  */
-/*
+
 			if (x[i]->surface_charge->count_g > 0) {
 				temp_surface.charge[count_charge].count_g = x[i]->surface_charge->count_g;
 				temp_surface.charge[count_charge].g = (struct surface_diff_layer *) PHRQ_malloc((size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 				if (temp_surface.charge[count_charge].g == NULL) malloc_error();
 				memcpy(temp_surface.charge[count_charge].g, x[i]->surface_charge->g, (size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 			}
-*/
+
 			temp_surface.charge[count_charge].psi_master = x[i]->master[0]; 
 			temp_surface.charge[count_charge].la_psi = x[i]->master[0]->s->la;
 /*
