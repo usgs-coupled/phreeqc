@@ -4,8 +4,8 @@ EXPORT_DIR=$(EXPORT)
 WIN_DIR=$(TOPDIR)/win
 DIST_DIR=$(EXPORT_DIR)
 DEBUG_DIR=phreeqc_debug
-CURSRC=diffusion
-DEBUG_EXE=$(TOPDIR)/$(CURSRC)/phreeqc
+CURSRC=$(CURDIR)
+DEBUG_EXE=$(CURSRC)/phreeqc
 VERSION=2.12
 VER_DATE:=November 10, 2005
 VER_LONG_DATE:=$(shell date -d "$(VER_DATE)" "+%B %e, %G")
@@ -16,7 +16,7 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
-CCFLAGS_DBG=-Wall -ansi -g 
+CCFLAGS_DBG=-Wall -ansi -g -std=c99
 # list of files for distribution
 FILES=  \
 	$(CURSRC)/Makefile \
@@ -348,11 +348,11 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/$(CURSRC)/Makefile SRC=$(TOPDIR)/$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(TOPDIR)/$(CURSRC)/Makefile SRC=$(TOPDIR)/$(CURSRC) CCFLAGS="$(CCFLAGS_DBG)" INVERSE_CL1MP= EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG)" INVERSE_CL1MP= EXE=$(DEBUG_EXE)
 
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc

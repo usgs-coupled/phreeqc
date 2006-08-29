@@ -20,8 +20,8 @@ PWD=pwd
 CC=gcc
 
 # Change to C compiler options on your system
-CCFLAGS=-O3 -Wall -ansi -pedantic # -frounding-math  # -pg
-CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic  # -pg
+CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
+CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic -std=c99 # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -224,6 +224,6 @@ transport.o: $(SRC)/transport.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqallo
 
 utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
--include $(TOPDIR)/diffusion/distribution.mk
+-include $(CURDIR)/distribution.mk
 
 
