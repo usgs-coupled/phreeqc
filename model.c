@@ -2326,11 +2326,12 @@ int reset(void)
 				output_msg(OUTPUT_MESSAGE,"mass_water bulk: %e\taq: %e\tsurfaces: %e\n",
 					(double) mass_water_bulk_x, (double) mass_water_aq_x, (double) mass_water_surfaces_x);
 			}
+			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
 /*appt */
-			if (use.surface_ptr->debye_lengths == 0)
-				x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
-			else
-				x[i]->master[0]->s->moles = mass_water_bulk_x / gfw_water;
+			if (use.surface_ptr != NULL) {
+				if (use.surface_ptr->debye_lengths > 0)
+					x[i]->master[0]->s->moles = mass_water_bulk_x / gfw_water;
+			}
 
 			if (mass_water_aq_x < 1e-10) {
 				sprintf(error_string, "Mass of water is less than 1e-10 kilogram.\n"
@@ -2834,13 +2835,15 @@ int sum_species(void)
 		total_alkalinity += s_x[i]->alk * s_x[i]->moles;
 		total_carbon += s_x[i]->carbon * s_x[i]->moles;
 		total_co2 += s_x[i]->co2 * s_x[i]->moles;
+
+		total_h_x += s_x[i]->h * s_x[i]->moles;
+		total_o_x += s_x[i]->o * s_x[i]->moles;
 /* appt */
-		if (use.surface_ptr->debye_lengths > 0 && state >= REACTION && s_x[i]->type == H2O) {
-			total_h_x += s_x[i]->h * s_x[i]->moles - 2 * mass_water_surfaces_x / gfw_water;
-			total_o_x += s_x[i]->o * s_x[i]->moles - mass_water_surfaces_x / gfw_water;
-		} else {
-			total_h_x += s_x[i]->h * s_x[i]->moles;
-			total_o_x += s_x[i]->o * s_x[i]->moles;
+		if (use.surface_ptr != NULL) {
+			if (use.surface_ptr->debye_lengths > 0 && state >= REACTION && s_x[i]->type == H2O) {
+				total_h_x -= 2 * mass_water_surfaces_x / gfw_water;
+				total_o_x -= mass_water_surfaces_x / gfw_water;
+			}
 		}
 	}
 /*

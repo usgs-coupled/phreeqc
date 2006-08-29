@@ -5039,7 +5039,7 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
         surface_ptr->thickness = 1e-8;
         surface_ptr->debye_lengths = 0.0;
         surface_ptr->DDL_viscosity = 1.0;
-        surface_ptr->DDL_limit = 0.9;
+        surface_ptr->DDL_limit = 0.8;
         surface_ptr->description = string_duplicate(description);
         surface_ptr->solution_equilibria = FALSE;
         surface_ptr->n_solution = -999;

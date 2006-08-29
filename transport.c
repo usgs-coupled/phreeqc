@@ -1098,7 +1098,7 @@ int multi_D(LDBLE DDt)
 
 	for (i = 0; i <= count_cells; i++) {
 /*
- * 1. obtain J_ij...
+ * 1. obtain J_ij in mol/s...
  */
 		find_J(i);
 /*
@@ -1141,32 +1141,32 @@ int multi_D(LDBLE DDt)
 		tot_o *= DDt;
 		J_ij_sum *= DDt;
 /*
- * 3. find the solutions, multiply with A/V, and add or subtract mol/L...
+ * 3. find the solutions and add or subtract mol/L...
  */
 		if (i > 0) {
 			if (i == count_cells && bcon_last != 1)
 				continue;
 			use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
-			use.solution_ptr->total_h -= tot_h / cell_data[i - 1].length;
-			use.solution_ptr->total_o -= tot_o / cell_data[i - 1].length;
-			use.solution_ptr->cb -= J_ij_sum / cell_data[i - 1].length;
+			use.solution_ptr->total_h -= tot_h;
+			use.solution_ptr->total_o -= tot_o;
+			use.solution_ptr->cb -= J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
 				length = strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == NULL) {
-						if (use.solution_ptr->totals[j].moles < m_s[l].tot / cell_data[i - 1].length) {
+						if (use.solution_ptr->totals[j].moles < m_s[l].tot) {
 							temp = use.solution_ptr->totals[j].moles;
 							use.solution_ptr->totals[j].moles = 0;
 							/* see if other redox states have more moles... */
 							for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++) {
 								if (strncmp(m_s[l].name, use.solution_ptr->totals[j + k].description, length) == NULL) {
 									temp += use.solution_ptr->totals[j + k].moles;
-									if (temp < m_s[l].tot / cell_data[i - 1].length) {
+									if (temp < m_s[l].tot) {
 										use.solution_ptr->totals[j + k].moles = 0;
 									}
 									else {
-										use.solution_ptr->totals[j + k].moles = temp - m_s[l].tot / cell_data[i - 1].length;
+										use.solution_ptr->totals[j + k].moles = temp - m_s[l].tot;
 										temp = 0.0;
 										break;
 									}
@@ -1174,12 +1174,12 @@ int multi_D(LDBLE DDt)
 							}
 							if (temp != 0.0) {
 								sprintf(token,"Negative concentration in MCD: added %.1e moles %s in cell %d.",
-									m_s[l].tot / cell_data[i - 1].length - temp, m_s[l].name, i);
+									m_s[l].tot - temp, m_s[l].name, i);
 								warning_msg(token);
 							}
 						}
 						else
-							use.solution_ptr->totals[j].moles -= m_s[l].tot / cell_data[i - 1].length;
+							use.solution_ptr->totals[j].moles -= m_s[l].tot;
 						break;
 					}
 				}
@@ -1187,7 +1187,7 @@ int multi_D(LDBLE DDt)
 					use.solution_ptr->totals = (struct conc *) PHRQ_realloc(use.solution_ptr->totals,
 						(size_t) (j + 2) * sizeof(struct conc));
 					use.solution_ptr->totals[j].description = string_hsave(m_s[l].name);
-					use.solution_ptr->totals[j].moles = -m_s[l].tot / cell_data[i - 1].length;
+					use.solution_ptr->totals[j].moles = -m_s[l].tot;
 					if (use.solution_ptr->totals[j].moles < 0) {
 						sprintf(token,"Negative concentration in MCD: added %.2e moles %s in cell %d.",
 							-use.solution_ptr->totals[j].moles, m_s[l].name, i);
@@ -1202,26 +1202,26 @@ int multi_D(LDBLE DDt)
 			if (i == 0 && bcon_first != 1)
 				continue;
 			use.solution_ptr = solution_bsearch(i + 1, &use.n_solution, FALSE);
-			use.solution_ptr->total_h += tot_h / cell_data[i].length;
-			use.solution_ptr->total_o += tot_o / cell_data[i].length;
-			use.solution_ptr->cb += J_ij_sum / cell_data[i].length;
+			use.solution_ptr->total_h += tot_h;
+			use.solution_ptr->total_o += tot_o;
+			use.solution_ptr->cb += J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
 				length = strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == NULL) {
-						if (use.solution_ptr->totals[j].moles < -m_s[l].tot / cell_data[i].length) {
+						if (use.solution_ptr->totals[j].moles < -m_s[l].tot) {
 							temp = use.solution_ptr->totals[j].moles;
 							use.solution_ptr->totals[j].moles = 0;
 							/* see if other redox states have more moles... */
 							for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++) {
 								if (strncmp(m_s[l].name, use.solution_ptr->totals[j + k].description, length) == NULL) {
 									temp += use.solution_ptr->totals[j + k].moles;
-									if (temp < -m_s[l].tot / cell_data[i].length) {
+									if (temp < -m_s[l].tot) {
 										use.solution_ptr->totals[j + k].moles = 0;
 									}
 									else {
-										use.solution_ptr->totals[j + k].moles = temp + m_s[l].tot / cell_data[i].length;
+										use.solution_ptr->totals[j + k].moles = temp + m_s[l].tot;
 										temp = 0.0;
 										break;
 									}
@@ -1229,12 +1229,12 @@ int multi_D(LDBLE DDt)
 							}
 							if (temp != 0.0) {
 								sprintf(token,"Negative concentration in MCD: added %.3e moles %s in cell %d",
-									-m_s[l].tot / cell_data[i].length - temp, m_s[l].name, i + 1);
+									-m_s[l].tot - temp, m_s[l].name, i + 1);
 								warning_msg(token);
 							}
 						}
 						else
-							use.solution_ptr->totals[j].moles += m_s[l].tot / cell_data[i].length;
+							use.solution_ptr->totals[j].moles += m_s[l].tot;
 						break;
 					}
 				}
@@ -1242,7 +1242,7 @@ int multi_D(LDBLE DDt)
 					use.solution_ptr->totals = (struct conc *) PHRQ_realloc(use.solution_ptr->totals,
 						(size_t) (j + 2) * sizeof(struct conc));
 					use.solution_ptr->totals[j].description = string_hsave(m_s[l].name);
-					use.solution_ptr->totals[j].moles = m_s[l].tot / cell_data[i].length;
+					use.solution_ptr->totals[j].moles = m_s[l].tot;
 					if (use.solution_ptr->totals[j].moles < 0) {
 							sprintf(token,"Negative concentration in MCD: added %.4e moles %s in cell %d.",
 								-use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
@@ -1266,79 +1266,89 @@ int find_J(int cell_no)
  * Eqn 1:
  * J_ij = A_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
  */
-	int i, i_max, j, j_max, k, l;
-	LDBLE lav, ddlm;
+	int i, i_max, j, j_max, k, l, n;
+	LDBLE lav, ddlm, aq1, aq2;
 	LDBLE *grad, *D, *z, *Dz, *Dzc, *Dzc_dl, Dz2c, Dz2c_dl, c, A_ij;
 	struct surface *s_ptr1, *s_ptr2;
 	struct surface_charge *s_charge_ptr1, *s_charge_ptr2;
-	LDBLE dl_s, dl_aq1, dl_aq2, visc1, visc2, c_dl;
+	LDBLE dl_s, dl_aq1, dl_aq2, visc1, visc2, c_dl, temp;
 
 	if (cell_no == 0) {
 		lav = cell_data[0].length / 2;
-		A_ij = cell_data[0].por;
+		aq1 = solution_bsearch(0, &n, TRUE)->mass_water;
+		aq2 = solution_bsearch(1, &n, TRUE)->mass_water;
+		A_ij = aq2 / cell_data[0].length;
 	}
 	else if (cell_no == count_cells) {
 		lav = cell_data[count_cells - 1].length / 2;
-		A_ij = cell_data[count_cells - 1].por;
+		aq1 = solution_bsearch(count_cells, &n, TRUE)->mass_water;
+		aq2 = solution_bsearch(count_cells + 1, &n, TRUE)->mass_water;
+		A_ij = aq1 / cell_data[count_cells - 1].length;
 	}
 	else {
 		lav = (cell_data[cell_no - 1].length + cell_data[cell_no].length) / 2;
-		A_ij = (cell_data[cell_no - 1].por < cell_data[cell_no].por ? cell_data[cell_no - 1].por : cell_data[cell_no].por);
+		aq1 = solution_bsearch(cell_no, &n, TRUE)->mass_water;
+		aq2 = solution_bsearch(cell_no + 1, &n, TRUE)->mass_water;
+		A_ij = aq1 / (cell_data[cell_no - 1].length * cell_data[cell_no - 1].por);
+		A_ij += aq2 / (cell_data[cell_no].length * cell_data[cell_no].por);
+		A_ij /= 2;
+		A_ij *= (cell_data[cell_no - 1].por < cell_data[cell_no].por ? cell_data[cell_no - 1].por : cell_data[cell_no].por);
 	}
 /*
  * check if DL calculations must be made...
  */
-	dl_s = dl_aq1 = dl_aq2 = 0.0;
+	s_charge_ptr1 = s_charge_ptr2 = NULL;
+	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
 	visc1 = visc2 = 1.0;
-	if (transp_surf == FALSE) {
-		s_ptr1 = surface_bsearch(cell_no, &i);
-		if (s_ptr1 != NULL ) {
-			if (s_ptr1->diffuse_layer == TRUE) {
-				/* find the one (and only one...) immobile surface comp with DL... */
-				for (i = 0; i < s_ptr1->count_comps; i++) {
-					if (s_ptr1->comps[i].Dw == 0) {
-						s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
-						dl_aq1 = s_charge_ptr1->mass_water;
-						visc1 = s_ptr1->DDL_viscosity;
-						break;
-					}
-				}
-			}
-		}
-		s_ptr2 = surface_bsearch(cell_no + 1, &i);
-		if (s_ptr2 != NULL ) {
-			if (s_ptr2->diffuse_layer == TRUE) {
-				for (i = 0; i < s_ptr2->count_comps; i++) {
-					if (s_ptr2->comps[i].Dw == 0) {
-						s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
-						dl_aq2 = s_charge_ptr2->mass_water;
-						visc2 = s_ptr2->DDL_viscosity;
-						break;
-					}
-				}
-			}
-		}
-		if (cell_no == 0)
-			visc1 = visc2;
-		else if (cell_no == count_cells)
-			visc2 = visc1;
 
-		/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
-						 free pore surface = mass_water_free / (cell_length * tortuosity)
-		   determine DL surface as a fraction of the total pore surface... */
-		if (dl_aq1 > 0) {
-			dl_aq1 /= (dl_aq1 + solution[cell_no]->mass_water);
-			dl_s = dl_aq1;
+	s_ptr1 = surface_bsearch(cell_no, &i);
+	if (s_ptr1 != NULL ) {
+		if (s_ptr1->diffuse_layer == TRUE) {
+			/* find the one (and only one...) immobile surface comp with DL... */
+			for (i = 0; i < s_ptr1->count_comps; i++) {
+				if (s_ptr1->comps[i].Dw == 0) {
+					s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
+					dl_aq1 = s_charge_ptr1->mass_water;
+					visc1 = s_ptr1->DDL_viscosity;
+					break;
+				}
+			}
 		}
-		if (dl_aq2 > 0)
-			dl_aq2 /= (dl_aq2 + solution[cell_no + 1]->mass_water);
-		if (dl_aq1 > 0 && dl_aq2 > 0)
-			/* average the 2... */
-			dl_s = (dl_aq1 + dl_aq2) / 2;
-		else if (dl_aq2 > 0)
-			/* there is one DL surface... */
-			dl_s = dl_aq2;
 	}
+	s_ptr2 = surface_bsearch(cell_no + 1, &i);
+	if (s_ptr2 != NULL ) {
+		if (s_ptr2->diffuse_layer == TRUE) {
+			for (i = 0; i < s_ptr2->count_comps; i++) {
+				if (s_ptr2->comps[i].Dw == 0) {
+					s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
+					dl_aq2 = s_charge_ptr2->mass_water;
+					visc2 = s_ptr2->DDL_viscosity;
+					break;
+				}
+			}
+		}
+	}
+	if (cell_no == 0)
+		visc1 = visc2;
+	else if (cell_no == count_cells)
+		visc2 = visc1;
+
+	/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
+					 free pore surface = mass_water_free / (cell_length * tortuosity)
+	   determine DL surface as a fraction of the total pore surface... */
+	if (dl_aq1 > 0)
+		dl_s = dl_aq1 / (dl_aq1 + aq1);
+	if (dl_aq2 > 0)
+		temp = dl_aq2 / (dl_aq2 + aq2);
+	if (dl_aq1 > 0 && dl_aq2 > 0)
+		/* average the 2... */
+		dl_s = 0.5 * (dl_s + temp);
+	else if (dl_aq2 > 0)
+		/* there is one DL surface... */
+		dl_s = temp;
+	/* total pore surface becomes... */
+	if (dl_s > 0)
+		A_ij /= dl_s;
 /*
  * malloc sufficient space...
  */
@@ -1363,10 +1373,8 @@ int find_J(int cell_no)
 	Dzc = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 	if (Dzc == NULL) malloc_error();
 
-	if (dl_s > 0) {
-		Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
-		if (Dzc_dl == NULL) malloc_error();
-	}
+	Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
+	if (Dzc_dl == NULL) malloc_error();
 
 	Dz2c = Dz2c_dl = 0.0;
 
@@ -1389,7 +1397,7 @@ int find_J(int cell_no)
 			if (dl_s > 0 && dl_aq1 > 0) {
 				for (l = 0; l < s_charge_ptr1->count_g; l++) {
 					if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2 * (s_charge_ptr1->g[l].g + 1);
+						Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 						break;
 					}
 				}
@@ -1410,7 +1418,7 @@ int find_J(int cell_no)
 			if (dl_s > 0 && dl_aq2 > 0) {
 				for (l = 0; l < s_charge_ptr2->count_g; l++) {
 					if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (s_charge_ptr2->g[l].g + 1);
+						Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 						break;
 					}
 				}
@@ -1437,7 +1445,7 @@ int find_J(int cell_no)
 				if (dl_aq1 > 0) {
 					for (l = 0; l < s_charge_ptr1->count_g; l++) {
 						if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl = sol_D[cell_no].spec[i].c / 2 * (s_charge_ptr1->g[l].g + 1);
+							c_dl = sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 							break;
 						}
 					}
@@ -1447,7 +1455,7 @@ int find_J(int cell_no)
 				if (dl_aq2 > 0) {
 					for (l = 0; l < s_charge_ptr2->count_g; l++) {
 						if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl += sol_D[cell_no + 1].spec[j].c / 2 * (s_charge_ptr2->g[l].g + 1);
+							c_dl += sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 							break;
 						}
 					}
@@ -1481,7 +1489,7 @@ int find_J(int cell_no)
 		J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
 		if (Dz2c_dl > 0)
 			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) +
-				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * 2 / (visc1 + visc2);
+				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * (2 / (visc1 + visc2));
 		J_ij[i].tot *= A_ij;
 		J_ij_sum += z[i] * J_ij[i].tot;
 	}
@@ -1490,8 +1498,7 @@ int find_J(int cell_no)
 	z = (LDBLE *) free_check_null(z);
 	Dz = (LDBLE *) free_check_null(Dz);
 	Dzc = (LDBLE *) free_check_null(Dzc);
-	if (dl_s > 0)
-		Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
+	Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
 	grad = (LDBLE *) free_check_null(grad);
 
 	return(OK);
@@ -1564,7 +1571,7 @@ int fill_spec(int cell_no)
 			if (/*strcmp(species_list[i].s->name, "H+") != NULL &&
 				strcmp(species_list[i].s->name, "OH-") != NULL && */
 				por * sol_D[cell_no].spec[count_spec].Dp > diffc_max)
-				diffc_max = por * sol_D[cell_no].spec[count_spec].Dp;
+				diffc_max = sol_D[cell_no].spec[count_spec].Dp;
 			count_spec++;
 		}
 	}
@@ -1792,70 +1799,93 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
  *		init_pf equals multi_Dpor^multi_Dn;
  */
 	int i, i_max, j, j_max, k, l;
-	LDBLE ddlm;
+	LDBLE ddlm, aq1, aq2;
 	LDBLE *grad, *D, *z, *Dz, *Dzc, *Dzc_dl, Dz2c, Dz2c_dl, c;
 	struct surface *s_ptr1, *s_ptr2;
 	struct surface_charge *s_charge_ptr1, *s_charge_ptr2;
-	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2;
+	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, temp;
+	char token[MAX_LENGTH];
 
 	if (cell_data[icell - 1].por < multi_Dpor_lim || cell_data[jcell - 1].por < multi_Dpor_lim) {
 		J_ij_count_spec = 0;
 		J_ij_sum = 0;
 		return(OK);
 	}
-	else {
-		mixf *= (cell_data[icell - 1].por <= cell_data[jcell - 1].por ? cell_data[icell - 1].por : cell_data[jcell - 1].por);
-		mixf /= (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
-	}
+
+	mixf *= (cell_data[icell - 1].por <= cell_data[jcell - 1].por ? cell_data[icell - 1].por : cell_data[jcell - 1].por);
+	mixf /= (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
+	aq1 = solution_bsearch(icell, &i, TRUE)->mass_water;
+	aq2 = solution_bsearch(jcell, &i, TRUE)->mass_water;
+
 /*
  * check if DL calculations must be made...
  */
-	dl_s = dl_aq1 = dl_aq2 = 0.0;
+	s_charge_ptr1 = s_charge_ptr2 = NULL;
+	s_ptr1 = s_ptr2 = NULL;
+	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
 	visc1 = visc2 = 1.0;
-	if (transp_surf == FALSE) {
-		s_ptr1 = surface_bsearch(icell, &i);
-		if (s_ptr1 != NULL ) {
-			if (s_ptr1->diffuse_layer == TRUE) {
-				/* find the one (and only one...) immobile surface comp with DL... */
-				for (i = 0; i < s_ptr1->count_comps; i++) {
-					if (s_ptr1->comps[i].Dw == 0) {
-						s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
-						dl_aq1 = s_charge_ptr1->mass_water;
-						visc1 = s_ptr1->DDL_viscosity;
-						break;
+
+	s_ptr1 = surface_bsearch(icell, &i);
+	if (s_ptr1 != NULL ) {
+		if (s_ptr1->diffuse_layer == TRUE) {
+			/* find the one (and only one...) immobile surface comp with DL... */
+			for (i = 0; i < s_ptr1->count_comps; i++) {
+				if (s_ptr1->comps[i].Dw == 0) {
+					s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
+					dl_aq1 = s_charge_ptr1->mass_water;
+					visc1 = s_ptr1->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr1->count_comps; j++) {
+						if (s_ptr1->comps[j].Dw == 0) {
+							if (s_ptr1->comps[j].charge == s_ptr1->comps[i].charge) {
+								sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", s_ptr1->comps[i].formula);
+								warning_msg(token);
+								break;
+							}
+						}
 					}
+					break;
 				}
 			}
 		}
-		s_ptr2 = surface_bsearch(jcell, &i);
-		if (s_ptr2 != NULL ) {
-			if (s_ptr2->diffuse_layer == TRUE) {
-				for (i = 0; i < s_ptr2->count_comps; i++) {
-					if (s_ptr2->comps[i].Dw == 0) {
-						s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
-						dl_aq2 = s_charge_ptr2->mass_water;
-						visc2 = s_ptr2->DDL_viscosity;
-						break;
-					}
-				}
-			}
-		}
-		/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
-						 free pore surface = mass_water_free / (cell_length * tortuosity)
-		   determine DL surface as a fraction of the total pore surface... */
-		if (dl_aq1 > 0) {
-			dl_aq1 /= (dl_aq1 + solution[icell]->mass_water);
-			dl_s = dl_aq1;
-		}
-		if (dl_aq2 > 0)
-			dl_aq2 /= (dl_aq2 + solution[jcell]->mass_water);
-		if (dl_aq1 > 0 && dl_aq2 > 0)
-			/* average the 2... */
-			dl_s = (dl_aq1 + dl_aq2) / 2;
-		else if (dl_aq2 > 0)
-			/* there is one DL surface... */
-			dl_s = dl_aq2;
 	}
+	s_ptr2 = surface_bsearch(jcell, &i);
+	if (s_ptr2 != NULL ) {
+		if (s_ptr2->diffuse_layer == TRUE) {
+			for (i = 0; i < s_ptr2->count_comps; i++) {
+				if (s_ptr2->comps[i].Dw == 0) {
+					s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
+					dl_aq2 = s_charge_ptr2->mass_water;
+					visc2 = s_ptr2->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr2->count_comps; j++) {
+						if (s_ptr2->comps[j].Dw == 0) {
+							if (s_ptr2->comps[j].charge == s_ptr2->comps[i].charge) {
+								sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", s_ptr2->comps[i].formula);
+								warning_msg(token);
+								break;
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	/* in each cell: DL surface = mass_water_DL / (cell_length * tortuosity)
+					 free pore surface = mass_water_free / (cell_length * tortuosity)
+	   determine DL surface as a fraction of the total pore surface... */
+	if (dl_aq1 > 0)
+		dl_s = dl_aq1 / (dl_aq1 + aq1);
+	if (dl_aq2 > 0)
+		temp = dl_aq2 / (dl_aq2 + aq2);
+	if (dl_aq1 > 0 && dl_aq2 > 0)
+		/* average the 2... */
+		dl_s = (dl_s + temp) / 2;
+	else if (dl_aq2 > 0)
+		/* there is one DL surface... */
+		dl_s = temp;
+
 /*
  * malloc sufficient space...
  */
@@ -1880,10 +1910,8 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	Dzc = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 	if (Dzc == NULL) malloc_error();
 
-	if (dl_s > 0) {
-		Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
-		if (Dzc_dl == NULL) malloc_error();
-	}
+	Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
+	if (Dzc_dl == NULL) malloc_error();
 
 	Dz2c = Dz2c_dl = 0.0;
 
@@ -1905,7 +1933,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 			if (dl_s > 0 && dl_aq1 > 0) {
 				for (l = 0; l < s_charge_ptr1->count_g; l++) {
 					if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[icell].spec[i].c / 2 * (s_charge_ptr1->g[l].g + 1);
+						Dzc_dl[k] = Dz[k] * sol_D[icell].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 						break;
 					}
 				}
@@ -1925,7 +1953,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 			if (dl_s > 0 && dl_aq2 > 0) {
 				for (l = 0; l < s_charge_ptr2->count_g; l++) {
 					if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[jcell].spec[j].c / 2 * (s_charge_ptr2->g[l].g + 1);
+						Dzc_dl[k] = Dz[k] * sol_D[jcell].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 						break;
 					}
 				}
@@ -1951,7 +1979,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 				if (dl_aq1 > 0) {
 					for (l = 0; l < s_charge_ptr1->count_g; l++) {
 						if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl = sol_D[icell].spec[i].c / 2 * (s_ptr1->charge->g[l].g + 1);
+							c_dl = sol_D[icell].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 							break;
 						}
 					}
@@ -1961,7 +1989,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 				if (dl_aq2 > 0) {
 					for (l = 0; l < s_charge_ptr2->count_g; l++) {
 						if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl += sol_D[jcell].spec[j].c / 2 * (s_charge_ptr2->g[l].g + 1);
+							c_dl += sol_D[jcell].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 							break;
 						}
 					}
@@ -2004,8 +2032,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	z = (LDBLE *) free_check_null(z);
 	Dz = (LDBLE *) free_check_null(Dz);
 	Dzc = (LDBLE *) free_check_null(Dzc);
-	if (dl_s > 0)
-		Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
+	Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
 	grad = (LDBLE *) free_check_null(grad);
 
 	return(OK);
@@ -2032,7 +2059,7 @@ int disp_surf(LDBLE DDt)
 {
 	int i, i1, i2, j, k, k1, n, n1, n2, temp_count_surface;
 	int charge_done, surf1, surf2;
-	LDBLE f1, f2, mixf, mcd_mixf;
+	LDBLE f1, f2, mixf, mixf_store, mcd_mixf;
 	LDBLE lav, A_ij, por, Dp1, Dp2;
 	struct mix *mix_ptr;
 	struct surface *surface_ptr1, *surface_ptr2;
@@ -2044,6 +2071,7 @@ int disp_surf(LDBLE DDt)
 	viscos_f = tk_x * 0.88862 / (298.15 * viscos_f);
 
 	n1 = count_surface;
+	n2 = n1 + 1;
 	temp_count_surface = count_surface + 2;
 	space ((void **) ((void *) &surface), temp_count_surface, &max_surface, sizeof(struct surface));
 	surface[n1].count_comps = surface[n1 + 1].count_comps = 0;
@@ -2079,6 +2107,8 @@ int disp_surf(LDBLE DDt)
 			if (surface_ptr1->transport == TRUE)
 				surf1 = 1;
 		}
+
+		mixf = mixf_store = 0;
 		if (surf1 || surf2) {
 /*
  * step 2a. Dispersive mixing of mobile surfaces from column cells i2 < i1...
@@ -2091,12 +2121,12 @@ int disp_surf(LDBLE DDt)
 			for (j = 0; j < mix_ptr->count_comps; j++) {
 				if (i1 <= count_cells) {
 					if (mix_ptr->comps[j].n_solution == i2) {
-						mixf = mix_ptr->comps[j].fraction;
+						mixf = mixf_store = mix_ptr->comps[j].fraction;
 						break;
 					}
 				}
 				else if (mix_ptr->comps[j].n_solution == i1) {
-					mixf = mix_ptr->comps[j].fraction;
+					mixf = mixf_store = mix_ptr->comps[j].fraction;
 					break;
 				}
 			}
@@ -2133,21 +2163,23 @@ int disp_surf(LDBLE DDt)
 /*
  * For MCD, step 2b. Find physical dimensions and porosity of the cells... 
  */
-			if (multi_Dflag) {
-
-				if (i1 == 1) {
-					por = A_ij = cell_data[0].por;
-					lav = sqrt(0.5) * cell_data[0].length;
-				}
-				else if (i1 == count_cells + 1) {
-					por = A_ij = cell_data[count_cells - 1].por;
-					lav = sqrt(0.5) * cell_data[count_cells - 1].length;
-				}
-				else {
-					A_ij = (cell_data[i1 - 1].por < cell_data[i2 - 1].por ? cell_data[i1 - 1].por : cell_data[i2 - 1].por);
-					por = cell_data[i2 - 1].por;
-					lav = (cell_data[i1 - 1].length + cell_data[i2 - 1].length) / 2;
-				}
+			if (i1 == 1) {
+				por = cell_data[0].por;
+				lav = cell_data[0].length / 2;
+				A_ij = solution_bsearch(1, &n, TRUE)->mass_water / cell_data[0].length;
+			}
+			else if (i1 == count_cells + 1) {
+				por = cell_data[count_cells - 1].por;
+				lav = cell_data[count_cells - 1].length / 2;
+				A_ij = solution_bsearch(count_cells, &n, TRUE)->mass_water / cell_data[count_cells - 1].length;
+			}
+			else {
+				por = cell_data[i2 - 1].por;
+				lav = (cell_data[i1 - 1].length + cell_data[i2 - 1].length) / 2;
+				A_ij = solution_bsearch(i1, &n, TRUE)->mass_water / (cell_data[i1 - 1].length * cell_data[i1 - 1].por);
+				A_ij += solution_bsearch(i2, &n, TRUE)->mass_water / (cell_data[i2 - 1].length * cell_data[i2 - 1].por);
+				A_ij /= 2;
+				A_ij *= (cell_data[i1 - 1].por < cell_data[i2 - 1].por ? cell_data[i1 - 1].por : cell_data[i2 - 1].por);
 			}
 
 			/* mix in comps with the same charge structure... */
@@ -2182,9 +2214,9 @@ int disp_surf(LDBLE DDt)
 							Dp2 = (Dp2 + Dp1) / 2;
 
 						/* and the mixing factor... */
-						mcd_mixf = Dp2 * viscos_f * A_ij * DDt / (lav * lav) / solution_bsearch(i2, &n, FALSE)->mass_water;
+						mcd_mixf = Dp2 * viscos_f * A_ij * DDt / lav;
 					}
-					mixf += mcd_mixf;
+					mixf = mixf_store + mcd_mixf;
 
 					if (mixf < 1e-4)
 						mixf = 0;
@@ -2235,9 +2267,9 @@ int disp_surf(LDBLE DDt)
 							Dp1 = (Dp1 + Dp2) / 2;
 
 						/* and the mixing factor... */
-						mcd_mixf = Dp1 * viscos_f * A_ij * DDt / (lav * lav) / solution_bsearch(i1, &n, FALSE)->mass_water;
+						mcd_mixf = Dp1 * viscos_f * A_ij * DDt / lav;
 					}
-					mixf += mcd_mixf;
+					mixf = mixf_store + mcd_mixf;
 
 					if (mixf < 1e-4)
 						mixf = 0;
@@ -2773,6 +2805,7 @@ int diff_stag_surf(int mobile_cell)
 	viscos_f = tk_x * 0.88862 / (298.15 * viscos_f);
 
 	n1 = count_surface;
+	n2 = n1 + 1;
 	temp_count_surface = count_surface + 2;
 	space ((void **) ((void *) &surface), temp_count_surface, &max_surface, sizeof(struct surface));
 	surface[n1].count_comps = surface[n1 + 1].count_comps = 0;

@@ -5179,7 +5179,7 @@ int read_surf(void)
 				} else if (i != EMPTY) {
 					if (token[0] == 'D' || token[0] == 'd') {
 						if (thickness != 0) {
-							error_msg("You must enter EITHER thickness OR Debye lengths (1/k),\n       and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n\t\t\t  -donnan debye_lengths 1.5 viscosity 0.5 limit 0.45", CONTINUE);
+							error_msg("You must enter EITHER thickness OR Debye lengths (1/k),\n	   and relative DDL viscosity, DDL limit.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n or (default values):     -donnan debye_lengths 1 viscosity 1 limit 0.8", CONTINUE);
 							error_msg(line_save, CONTINUE);
 							input_error++;
 							break;
@@ -5223,7 +5223,7 @@ int read_surf(void)
 						}
 					}
 					else {
-						error_msg("Expected diffuse layer thickness (m) or Debye lengths (1/k) for calculating the thickness, and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 visc 0.5  or   -donnan debye_lengths 1.5 visc 0.5 lim 0.45", CONTINUE);
+						error_msg("Expected diffuse layer thickness (m) or Debye lengths (1/k) for \n\tcalculating the thickness, and relative DDL viscosity and DDL limit.\nCorrect is (for example): -donnan 1e-8 visc 0.5\n or (default values):     -donnan debye_lengths 1 visc 1 lim 0.8", CONTINUE);
 						error_msg(line_save, CONTINUE);
 						input_error++;
 						break;
