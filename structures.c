@@ -5028,19 +5028,17 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 
 	surface_ptr->n_user = n_user;
 	surface_ptr->n_user_end = n_user_end;
+	surface_ptr->description = string_duplicate(description);
 	surface_ptr->new_def = TRUE;
-	surface_ptr->diffuse_layer = FALSE;
-	surface_ptr->edl = TRUE;
+        surface_ptr->diffuse_layer = FALSE;
+        surface_ptr->edl = TRUE;
 	surface_ptr->only_counter_ions = FALSE;
 	surface_ptr->donnan = FALSE;
+	surface_ptr->debye_units = 0.0;
+	surface_ptr->transport = FALSE;
 	surface_ptr->thickness = 1e-8;
-	surface_ptr->debye_lengths = 0.0;
-	surface_ptr->DDL_viscosity = 1.0;
-	surface_ptr->DDL_limit = 0.9;
-	surface_ptr->description = string_duplicate(description);
 	surface_ptr->solution_equilibria = FALSE;
 	surface_ptr->n_solution = -999;
-	surface_ptr->transport = FALSE;
 /*
  *   Malloc one surface_comp structure
  */
@@ -5054,7 +5052,6 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->comps[0].charge = -1;
 	surface_ptr->comps[0].moles = 0;
 	surface_ptr->comps[0].cb = 0;
-	surface_ptr->comps[0].Dw = 0;
 /*
  *   Malloc one charge structure
  */
