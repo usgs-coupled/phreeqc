@@ -3138,6 +3138,7 @@ int read_phases (void)
 	}
 	return (return_value);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int read_pure_phases(void)
 /* ---------------------------------------------------------------------- */
@@ -3266,6 +3267,174 @@ int read_pure_phases(void)
 	       (size_t) sizeof(struct pure_phase),
 	       pure_phase_compare);
 
+	return(return_value);
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int read_pure_phases(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads pure phase data
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int j, n, l, return_value;
+	int count_pure_phases;
+	int n_user, n_user_end;
+	char *ptr;
+	char *description;
+	char token[MAX_LENGTH];
+	int opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"weight"           /* 0 */
+	};
+	int count_opt_list = 1;
+
+	ptr = line;
+	/*
+	 *   Read pp_assemblage number
+	 */
+	read_number_description (ptr, &n_user, &n_user_end, &description);
+	/*
+	 *   Find pp_assemblage or realloc space for pp_assemblage
+	 */
+
+	if (pp_assemblage_search(n_user, &n) != NULL) {
+		pp_assemblage_free (&pp_assemblage[n]);
+	} else {
+		n=count_pp_assemblage++;
+		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage, &max_pp_assemblage, sizeof(struct pp_assemblage));
+	}	
+	/*
+	 *   Set use data to first read
+	 */
+	if (use.pp_assemblage_in == FALSE) {
+		use.pp_assemblage_in = TRUE;
+		use.n_pp_assemblage_user = n_user;
+	}
+
+	pp_assemblage_init(&(pp_assemblage[n]), n_user, n_user_end, description);
+	free_check_null(description);
+	count_pure_phases = 0;
+	/*
+	 *  Read equilibrium phase data
+	 */
+	opt_save = OPTION_DEFAULT;
+	return_value = UNKNOWN;
+	for (;;) {
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT) {
+			opt = opt_save;
+		}
+		switch (opt) {
+		    case OPTION_EOF:                /* end of file */
+			return_value = EOF;
+			break;
+		    case OPTION_KEYWORD:           /* keyword */
+			return_value = KEYWORD;
+			break;
+		    case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in PHASES keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+		    case 0:                 /* no_check */
+			if (count_pure_phases == 0) {
+				error_msg("Weighting factor defined before equilibrium phase has been defined.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+			} else {
+				j=sscanf(next_char,SCANFORMAT, &(pp_assemblage[n].pure_phases[count_pure_phases-1].weight));
+				if (j == 0) {
+					error_msg("Expected weighting factor for equilibrium_phase.", CONTINUE);
+					error_msg(line_save, CONTINUE);
+					input_error++;
+				}
+			break;
+		    case OPTION_DEFAULT:
+			    /*
+			     *   Make space, set default
+			     */
+			    count_pure_phases++;
+			    pp_assemblage[n].pure_phases = (struct pure_phase *) PHRQ_realloc(pp_assemblage[n].pure_phases, (size_t) (count_pure_phases) * sizeof(struct pure_phase));
+			    if (pp_assemblage[n].pure_phases == NULL) malloc_error();
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].si = 0.0;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = NULL;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].moles = 10.0;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].delta = 0.0;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].initial_moles = 0.0;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].weight = 1.0;
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = FALSE;
+			    /*
+			     *   Read name
+			     */
+			    ptr = line;
+			    copy_token(token, &ptr, &l);
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].name = string_hsave(token);
+			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			    /*
+			     *   Read saturation index
+			     */
+			    j=sscanf(token,SCANFORMAT, &dummy);
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].si = (LDBLE) dummy;
+			    if (j != 1 ) {
+				    error_msg("Expected saturation index.", CONTINUE);
+				    error_msg(line_save, CONTINUE);
+				    input_error++;
+				    continue;
+			    }
+			    /*
+			     *   Adding a reaction to the phase boundary
+			     */
+			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			    if ( j == UPPER || j == LOWER) {
+				    pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = string_hsave(token);
+				    j = copy_token(token, &ptr, &l);
+			    } 			
+			    /*
+			     *   Read amount
+			     */
+			    if ( j == EMPTY) continue;
+			    j=sscanf(token,SCANFORMAT, &dummy);
+			    pp_assemblage[n].pure_phases[count_pure_phases-1].moles = (LDBLE) dummy;
+			    if (j != 1 ) {
+				    error_msg("Expected amount of mineral.", CONTINUE);
+				    error_msg(line_save, CONTINUE);
+				    input_error++;
+				    continue;
+			    }
+			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			    str_tolower(token);
+			    if (strstr(token,"d") == token) {
+				    pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = TRUE;
+			    } else {
+				    error_msg("Unexpected data at end of equilibrium-phase definition.", CONTINUE);
+				    input_error++;
+				    continue;
+			    }
+			}
+		}
+		if (return_value == EOF || return_value == KEYWORD) break;
+	}
+	pp_assemblage[n].count_comps = count_pure_phases;
+	/*
+	 *   Sort phases by name (lowercase)
+	 */
+	qsort (pp_assemblage[n].pure_phases, 
+	       (size_t) count_pure_phases,
+	       (size_t) sizeof(struct pure_phase),
+	       pure_phase_compare);
+	
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
