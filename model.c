@@ -841,6 +841,11 @@ int ineq(int in_kode)
 						ineq_array[count_rows * max_column_count + j] *= pp_scale;
 					}
 				}
+				if (x[i]->pure_phase->weight != 1){
+					for (j = 0; j < count_unknowns +1; j++) {
+						ineq_array[count_rows * max_column_count + j] *= x[i]->pure_phase->weight;
+					}
+				}
 
 
 				if (in_kode != 1) {
@@ -1162,7 +1167,7 @@ int ineq(int in_kode)
 			}
 			normal[i] = pp_column_scale;
 		}
-
+		
 	}
 	if (debug_model == TRUE) {
 		output_msg(OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
