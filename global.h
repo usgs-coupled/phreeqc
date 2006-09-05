@@ -769,7 +769,7 @@ struct pure_phase {
         LDBLE moles;
         LDBLE delta;
         LDBLE initial_moles;
-        LDBLE weight;
+        int force_equality;
         int dissolve_only;
 };
 EXTERNAL int count_pp_assemblage;

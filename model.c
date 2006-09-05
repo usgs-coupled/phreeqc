@@ -817,7 +817,7 @@ int ineq(int in_kode)
 		if ( x[i]->type == PP ) {
 			/* not in model, ignore */
 			if (x[i]->pure_phase->phase->in == FALSE) continue;
-			if (x[i]->pure_phase->weight != 1 ) continue;
+			if (x[i]->pure_phase->force_equality == TRUE) continue;
 			/*   Undersaturated and no mass, ignore */
 			if (x[i]->f > 0e-8 && x[i]->moles <= 0 && x[i]->pure_phase->add_formula == NULL) {
 				continue;
@@ -842,12 +842,6 @@ int ineq(int in_kode)
 						ineq_array[count_rows * max_column_count + j] *= pp_scale;
 					}
 				}
-				if (x[i]->pure_phase->weight != 1){
-					for (j = 0; j < count_unknowns +1; j++) {
-						ineq_array[count_rows * max_column_count + j] *= x[i]->pure_phase->weight;
-					}
-				}
-
 
 				if (in_kode != 1) {
 					res[count_rows] = 0.0;
@@ -904,7 +898,7 @@ int ineq(int in_kode)
 		    x[i]->type != S_S_MOLES 
 		    /* && x[i]->type != PP */
 		    ) {
-			if (x[i]->type == PP && x[i]->pure_phase->weight == 1) continue;
+			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE) continue;
 			if(x[i]->type == MH && pitzer_model == TRUE) continue;
 			if(mass_water_switch == TRUE && x[i] == mass_oxygen_unknown) continue;
 /*

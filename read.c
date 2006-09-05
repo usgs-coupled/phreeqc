@@ -3296,7 +3296,7 @@ int read_pure_phases(void)
 	int opt, opt_save;
 	char *next_char;
 	const char *opt_list[] = {
-		"weight"           /* 0 */
+		"force_equality"           /* 0 */
 	};
 	int count_opt_list = 1;
 
@@ -3337,92 +3337,88 @@ int read_pure_phases(void)
 			opt = opt_save;
 		}
 		switch (opt) {
-		    case OPTION_EOF:                /* end of file */
+		case OPTION_EOF:                /* end of file */
 			return_value = EOF;
 			break;
-		    case OPTION_KEYWORD:           /* keyword */
+		case OPTION_KEYWORD:           /* keyword */
 			return_value = KEYWORD;
 			break;
-		    case OPTION_ERROR:
+		case OPTION_ERROR:
 			input_error++;
 			error_msg("Unknown input in PHASES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
-		    case 0:                 /* no_check */
+		case 0:                 /* force_equality */
 			if (count_pure_phases == 0) {
-				error_msg("Weighting factor defined before equilibrium phase has been defined.", CONTINUE);
+				error_msg("Force_equality defined before equilibrium phase has been defined.", CONTINUE);
 				error_msg(line_save, CONTINUE);
 				input_error++;
 			} else {
-				j=sscanf(next_char,SCANFORMAT, &(pp_assemblage[n].pure_phases[count_pure_phases-1].weight));
-				if (j == 0) {
-					error_msg("Expected weighting factor for equilibrium_phase.", CONTINUE);
-					error_msg(line_save, CONTINUE);
-					input_error++;
-				}
-			break;
-		    case OPTION_DEFAULT:
-			    /*
-			     *   Make space, set default
-			     */
-			    count_pure_phases++;
-			    pp_assemblage[n].pure_phases = (struct pure_phase *) PHRQ_realloc(pp_assemblage[n].pure_phases, (size_t) (count_pure_phases) * sizeof(struct pure_phase));
-			    if (pp_assemblage[n].pure_phases == NULL) malloc_error();
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].si = 0.0;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = NULL;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].moles = 10.0;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].delta = 0.0;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].initial_moles = 0.0;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].weight = 1.0;
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = FALSE;
-			    /*
-			     *   Read name
-			     */
-			    ptr = line;
-			    copy_token(token, &ptr, &l);
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].name = string_hsave(token);
-			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
-			    /*
-			     *   Read saturation index
-			     */
-			    j=sscanf(token,SCANFORMAT, &dummy);
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].si = (LDBLE) dummy;
-			    if (j != 1 ) {
-				    error_msg("Expected saturation index.", CONTINUE);
-				    error_msg(line_save, CONTINUE);
-				    input_error++;
-				    continue;
-			    }
-			    /*
-			     *   Adding a reaction to the phase boundary
-			     */
-			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
-			    if ( j == UPPER || j == LOWER) {
-				    pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = string_hsave(token);
-				    j = copy_token(token, &ptr, &l);
-			    } 			
-			    /*
-			     *   Read amount
-			     */
-			    if ( j == EMPTY) continue;
-			    j=sscanf(token,SCANFORMAT, &dummy);
-			    pp_assemblage[n].pure_phases[count_pure_phases-1].moles = (LDBLE) dummy;
-			    if (j != 1 ) {
-				    error_msg("Expected amount of mineral.", CONTINUE);
-				    error_msg(line_save, CONTINUE);
-				    input_error++;
-				    continue;
-			    }
-			    if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
-			    str_tolower(token);
-			    if (strstr(token,"d") == token) {
-				    pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = TRUE;
-			    } else {
-				    error_msg("Unexpected data at end of equilibrium-phase definition.", CONTINUE);
-				    input_error++;
-				    continue;
-			    }
+				pp_assemblage[n].pure_phases[count_pure_phases-1].force_equality = get_true_false(next_char, TRUE);
 			}
+			break;
+		case OPTION_DEFAULT:
+			/*
+			 *   Make space, set default
+			 */
+			count_pure_phases++;
+			pp_assemblage[n].pure_phases = (struct pure_phase *) PHRQ_realloc(pp_assemblage[n].pure_phases, (size_t) (count_pure_phases) * sizeof(struct pure_phase));
+			if (pp_assemblage[n].pure_phases == NULL) malloc_error();
+			pp_assemblage[n].pure_phases[count_pure_phases-1].si = 0.0;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = NULL;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].moles = 10.0;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].delta = 0.0;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].initial_moles = 0.0;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].force_equality = FALSE;
+			pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = FALSE;
+			/*
+			 *   Read name
+			 */
+			ptr = line;
+			copy_token(token, &ptr, &l);
+			pp_assemblage[n].pure_phases[count_pure_phases-1].name = string_hsave(token);
+			if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			/*
+			 *   Read saturation index
+			 */
+			j=sscanf(token,SCANFORMAT, &dummy);
+			pp_assemblage[n].pure_phases[count_pure_phases-1].si = (LDBLE) dummy;
+			if (j != 1 ) {
+				error_msg("Expected saturation index.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				continue;
+			}
+			/*
+			 *   Adding a reaction to the phase boundary
+			 */
+			if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			if ( j == UPPER || j == LOWER) {
+				pp_assemblage[n].pure_phases[count_pure_phases-1].add_formula = string_hsave(token);
+				j = copy_token(token, &ptr, &l);
+			} 			
+			/*
+			 *   Read amount
+			 */
+			if ( j == EMPTY) continue;
+			j=sscanf(token,SCANFORMAT, &dummy);
+			pp_assemblage[n].pure_phases[count_pure_phases-1].moles = (LDBLE) dummy;
+			if (j != 1 ) {
+				error_msg("Expected amount of mineral.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				continue;
+			}
+			if ( (j = copy_token(token, &ptr, &l)) == EMPTY) continue;
+			str_tolower(token);
+			if (strstr(token,"d") == token) {
+				pp_assemblage[n].pure_phases[count_pure_phases-1].dissolve_only = TRUE;
+			} else {
+				error_msg("Unexpected data at end of equilibrium-phase definition.", CONTINUE);
+				input_error++;
+				continue;
+			}
+			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
 	}
