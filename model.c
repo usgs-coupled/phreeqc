@@ -817,6 +817,7 @@ int ineq(int in_kode)
 		if ( x[i]->type == PP ) {
 			/* not in model, ignore */
 			if (x[i]->pure_phase->phase->in == FALSE) continue;
+			if (x[i]->pure_phase->weight != 1 ) continue;
 			/*   Undersaturated and no mass, ignore */
 			if (x[i]->f > 0e-8 && x[i]->moles <= 0 && x[i]->pure_phase->add_formula == NULL) {
 				continue;
@@ -900,8 +901,10 @@ int ineq(int in_kode)
 		if (x[i]->type != SOLUTION_PHASE_BOUNDARY &&
 		    x[i]->type != ALK &&
 		    x[i]->type != GAS_MOLES && 
-		    x[i]->type != S_S_MOLES && 
-		    x[i]->type != PP ) {
+		    x[i]->type != S_S_MOLES 
+		    /* && x[i]->type != PP */
+		    ) {
+			if (x[i]->type == PP && x[i]->pure_phase->weight == 1) continue;
 			if(x[i]->type == MH && pitzer_model == TRUE) continue;
 			if(mass_water_switch == TRUE && x[i] == mass_oxygen_unknown) continue;
 /*
