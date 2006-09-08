@@ -721,7 +721,7 @@ int ineq(int in_kode)
 	for (i=0; i < count_unknowns; i++) {
 		max = 0.0;
 
-		if (x[i]->type == MB || x[i]->type == ALK || x[i]->type == EXCH || x[i]->type == SURFACE || x[i]->type == SURFACE_CB || SURFACE_CB1 || SURFACE_CB2 || SURFACE_CB2) {
+		if (x[i]->type == MB || x[i]->type == ALK || x[i]->type == EXCH || x[i]->type == SURFACE || x[i]->type == SURFACE_CB || SURFACE_CB1 || SURFACE_CB2 ) {
 /* !!!! */		if ( x[i]->moles <= MIN_RELATED_SURFACE && (x[i]->type == EXCH || x[i]->type == SURFACE)) continue;
 			for (j = 0; j < count_unknowns; j++) {
 				if (x[i]->type == SURFACE && x[j]->type == SURFACE_CB ) continue;
@@ -908,7 +908,7 @@ int ineq(int in_kode)
 			if (x[i]->type == SURFACE && 
 			    x[i]->phase_unknown == NULL && 
 			    x[i]->moles <= MIN_RELATED_SURFACE) continue;
-			if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB) && 
+			if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2) && 
 			    /* x[i-1]->phase_unknown == NULL && */
 			    /* x[i-1]->moles <= MIN_RELATED_SURFACE) continue; */
 			    x[i]->surface_charge->grams <= MIN_RELATED_SURFACE) continue;
