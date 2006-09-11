@@ -2725,7 +2725,10 @@ int residuals(void)
 						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*negfpsirt) - 1);
 					}
 				}
-				if (sum <= 0) sum = 0;
+				if (sum < 0) {
+					sum = -sum;
+					/*output_msg(OUTPUT_MESSAGE, "Negative sum, iteration %d\n", iterations);*/
+				}
 				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
 				if ((negfpsirt) < 0) {
 					sigmaddl = -0.5*sinh_constant*sqrt(sum);
@@ -3295,11 +3298,10 @@ int numerical_jacobian(void)
 
 	if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) return(OK);
 	calculating_deriv = TRUE;
-	/*
 	gammas(mu_x);
 	molalities(TRUE);
+	mb_sums();
 	residuals();
-	*/
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
