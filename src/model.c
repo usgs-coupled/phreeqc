@@ -2720,13 +2720,19 @@ int residuals(void)
 				master_ptr2 = surface_get_psi_master(x[i]->surface_charge->name, SURF_PSI2);
 				negfpsirt = master_ptr2->s->la*LOG_10;
 				sum = 0;
+				sum1 = 0;
 				for (j = 0; j < count_s_x; j++) {
 					if (s_x[j]->type < H2O) {
 						sum += under(s_x[j]->lm)*(exp(s_x[j]->z*negfpsirt) - 1);
+						sum1 += under(s_x[j]->lm)*s_x[j]->z;
 					}
 				}
+				/* add fictitious monovalent ion that balances charge */
+				sum += sum1*(exp(-sum1/fabs(sum1)*negfpsirt) - 1);
+				
 				if (sum < 0) {
 					sum = -sum;
+					converge = FALSE;
 					/*output_msg(OUTPUT_MESSAGE, "Negative sum, iteration %d\n", iterations);*/
 				}
 				x[i]->surface_charge->sigma2 = x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area * x[i]->surface_charge->grams);
