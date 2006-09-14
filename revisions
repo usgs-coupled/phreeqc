@@ -1,6 +1,34 @@
 ------------------------------------------------------------
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
+	svn 1245: Enabled redox in Pitzer model with option in
+        PITZER keyword. Typically, the option will be included
+        in the pitzer database file. 
+
+PITZER
+    -redox  TRUE
+
+        The default database for the Pitzer model does not contain 
+        any redox definitions and the default value for the option 
+        is FALSE. At a minimum, species O2 and H2 must be defined 
+        in the database or input file to allow redox calculations.
+        
+	svn 1207: Added option to force an equilibrium phase to be 
+	included in the equality constraints. Normally, the SIs of 
+	equilibrium phases are optimized to be negative and a the
+	sum of SIs is minimized. If -force_equality is used, then
+	the phase must reach its target SI or the calculation fails
+	with an error.
+
+EQUILIBRIUM_PHASES
+   Fix_pH  -7  NaOH
+	-force_equality
+   Calcite  0
+   Dolomite 0
+   CO2      -3.5
+
+        One example of using the new option would be to ensure that 
+	a target pH is attained, as in the example above. 
 
         svn 1179: New option (-sites_units density) allows alternative
         units (sites/nm^2) for definition of number of sites for a
@@ -628,6 +656,18 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 1245: Enabled redox in Pitzer model with option in
+        PITZER keyword. Typically, the option will be included
+        in the pitzer database file. 
+
+PITZER
+    -redox  TRUE
+
+        The default database for the Pitzer model does not contain 
+        any redox definitions and the default value for the option 
+        is FALSE. At a minimum, species O2 and H2 must be defined 
+        in the database or input file to allow redox calculations.
+
         svn 1179: New option (-sites_units density) allows alternative
         units (sites/nm^2) for definition of number of sites for a
         surface. This approach requires better consistency among the

@@ -59,6 +59,7 @@ int pitzer_init (void)
 		BK[i] = 0.0;
 		DK[i] = 0.0;
 	}
+	pitzer_pe = FALSE;
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -322,9 +323,11 @@ int read_pitzer (void)
 		"psi",                   /* 7 */
 		"macinnes",              /* 8 */
 		"macinnis",              /* 9 */
-		"mac"                    /* 10 */
+		"mac",                   /* 10 */
+		"redox",                 /* 11 */
+		"pe"                     /* 12 */
 	};
-	int count_opt_list = 11;
+	int count_opt_list = 13;
 /*
  *   Read lines
  */
@@ -412,6 +415,11 @@ int read_pitzer (void)
 		case 10:                       /* mac */
 			opt_save = OPTION_ERROR;
 			ICON = get_true_false(next_char, TRUE);
+			break;
+		case 11:                        /* redox */
+		case 12:                        /* pe */
+			opt_save = OPTION_ERROR;
+			pitzer_pe = get_true_false(next_char, TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD) break;
@@ -1212,8 +1220,15 @@ int jacobian_pz(void)
 			x[i]->master[0]->s->moles = mass_water_aq_x/gfw_water;
 			d2 = log(1.0 + d);
 			break;
-		case MU:
 		case MH:
+			if (pitzer_pe == TRUE) {
+				s_eminus->la += d;
+				d2 = d1;
+				break;
+			} else {
+				continue;
+			}
+		case MU:
 		case PP:
 		case S_S_MOLES:
 			continue;
@@ -1236,6 +1251,12 @@ int jacobian_pz(void)
 		case SURFACE_CB:
 		case AH2O:
 			x[i]->master[0]->s->la -= d;
+			break;
+		case MH:
+			s_eminus->la -= d;
+			if (array[i*(count_unknowns + 1) + i] == 0) {
+				array[i*(count_unknowns + 1) +i] = exp(s_h2->lm*LOG_10)*2;
+			}
 			break;
 		case PITZER_GAMMA:
 			x[i]->s->lg -= d;
