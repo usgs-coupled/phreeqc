@@ -382,7 +382,7 @@ int tidy_model(void)
 		input_error++;
 		error_msg("e-, primary master species for E-, not defined.", CONTINUE);
 	}
-	if (pitzer_model == FALSE) {
+	if (pitzer_model == FALSE || pitzer_pe == TRUE) {
 		if (s_h2 == NULL) {
 			input_error++;
 			error_msg("H2(aq) not defined in solution_species.", CONTINUE);

@@ -303,7 +303,7 @@ int check_residuals(void)
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
 				error_msg(error_string, CONTINUE);
 			}
-		} else if (x[i]->type == MH && pitzer_model == FALSE) {
+		} else if ((x[i]->type == MH && (pitzer_model == FALSE || pitzer_pe == TRUE))) {
 #define COMBINE
 			/*#define COMBINE_CHARGE*/
 #ifdef COMBINE
@@ -698,7 +698,7 @@ int ineq(int in_kode)
 	if (pitzer_model == TRUE) {
 		for (i=0; i < count_unknowns; i++) {
 			if ( (x[i]->type == AH2O && full_pitzer == FALSE) || 
-			    x[i]->type == MH || 
+			    (x[i]->type == MH && pitzer_pe == FALSE) ||
 			    x[i]->type == MU ||
 			    (x[i]->type == PITZER_GAMMA && full_pitzer == FALSE)) {
 				for (j=0; j<count_unknowns; j++) {
@@ -744,7 +744,7 @@ int ineq(int in_kode)
 			}
 		}				
 
-		if (x[i]->type == MH && pitzer_model == FALSE) {
+		if (x[i]->type == MH && (pitzer_model == FALSE || pitzer_pe == TRUE)) {
 			/* make absolute value of diagonal at least 1e-12 */
 
  			min = 1e-12;
@@ -899,7 +899,7 @@ int ineq(int in_kode)
 		    /* && x[i]->type != PP */
 		    ) {
 			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE) continue;
-			if(x[i]->type == MH && pitzer_model == TRUE) continue;
+			if(x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE) continue;
 			if(mass_water_switch == TRUE && x[i] == mass_oxygen_unknown) continue;
 /*
  *   Mass balance, CB, MU, AH2O, MH, MH2O, others
@@ -2542,7 +2542,7 @@ int residuals(void)
 				}
 			}
 			if (fabs(residual[i]) > toler ) converge = FALSE;
-		} else if (x[i]->type == MH && pitzer_model == FALSE) {
+		} else if (x[i]->type == MH && (pitzer_model == FALSE || pitzer_pe == TRUE)) {
 #ifdef COMBINE
 			residual[i] = x[i]->moles - x[i]->f; 
 #else 

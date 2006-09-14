@@ -2806,11 +2806,11 @@ Using pure phase assemblage 2.
 	Calcite           0.00   -8.48   -8.48   0.000e+00   1.577e-01   1.577e-01
 	Celestite        -1.46   -8.10   -6.63   0.000e+00           0   0.000e+00
 	Chalcedony       -0.00   -3.55   -3.55   0.000e+00   6.192e+00   6.192e+00
-	Chlorite14A       0.00   68.38   68.38   1.000e+01   1.007e+01   6.722e-02
+	Chlorite14A      -0.00   68.38   68.38   1.000e+01   1.007e+01   6.722e-02
 	Dolomite(d)     -10.88  -27.42  -16.54   0.000e+00           0   0.000e+00
 	Fe(OH)3(a)       -5.91   -1.02    4.89   0.000e+00           0   0.000e+00
 	FeS(ppt)        -66.17  -70.09   -3.92   0.000e+00           0   0.000e+00
-	Fluorite          0.00  -10.60  -10.60   0.000e+00   5.326e-04   5.326e-04
+	Fluorite         -0.00  -10.60  -10.60   0.000e+00   5.326e-04   5.326e-04
 	Gibbsite         -0.85    7.26    8.11   0.000e+00           0   0.000e+00
 	Goethite         -0.00   -1.00   -1.00   0.000e+00   1.261e-04   1.261e-04
 	Gypsum           -0.00   -4.58   -4.58   0.000e+00   6.207e-02   6.207e-02
@@ -2818,7 +2818,7 @@ Using pure phase assemblage 2.
 	Illite           -0.00  -40.27  -40.27   1.000e+01   1.005e+01   4.576e-02
 	Kaolinite        -0.00    7.43    7.43   0.000e+00   5.442e+00   5.442e+00
 	Mackinawite     -65.44  -70.09   -4.65   0.000e+00           0   0.000e+00
-	Manganite         0.00   25.34   25.34   0.000e+00   8.052e-04   8.052e-04
+	Manganite        -0.00   25.34   25.34   0.000e+00   8.052e-04   8.052e-04
 	Montmorillonite-Ca  -0.00  -45.03  -45.03   1.000e+01   5.226e+00  -4.774e+00
 	Rhodochrosite(d)  -5.87  -16.26  -10.39   0.000e+00           0   0.000e+00
 	Sepiolite        -0.67   15.09   15.76   0.000e+00           0   0.000e+00
@@ -2890,7 +2890,7 @@ X                1.000e+00 mol
 	PbX2              2.384e-15   4.768e-15   4.768e-15     0.000
 	FeX2              6.489e-23   1.298e-22   1.298e-22     0.000
 	NH4X              6.512e-29   6.512e-29   6.512e-29     0.000
-	AlX3              3.957e-30   1.187e-29   1.187e-29     0.000
+	AlX3              3.957e-30   1.187e-29   1.187e-29    -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -2932,7 +2932,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.010e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.02
-                               Iterations  =  71
+                               Iterations  =  65
                                   Total H  = 9.821431e+01
                                   Total O  = 4.938242e+01
 
@@ -3380,7 +3380,7 @@ Zn               9.123e-04
 	Chalcedony       -0.00   -3.55   -3.55  SiO2
 	Chalcocite      -30.42  -65.04  -34.62  Cu2S
 	Chalcopyrite    -96.46 -131.73  -35.27  CuFeS2
-	Chlorite14A       0.00   68.38   68.38  Mg5Al2Si3O10(OH)8
+	Chlorite14A      -0.00   68.38   68.38  Mg5Al2Si3O10(OH)8
 	Chlorite7A       -3.37   68.38   71.75  Mg5Al2Si3O10(OH)8
 	Chrysotile       -0.62   31.58   32.20  Mg3Si2O5(OH)4
 	Claudetite      -59.77  -61.11   -1.34  As2O3
@@ -3420,7 +3420,7 @@ Zn               9.123e-04
 	Fe3(OH)8        -20.02    0.21   20.22  Fe3(OH)8
 	FeS(ppt)        -66.17  -70.09   -3.92  FeS
 	Fluorapatite     -2.79  -20.39  -17.60  Ca5(PO4)3F
-	Fluorite          0.00  -10.60  -10.60  CaF2
+	Fluorite         -0.00  -10.60  -10.60  CaF2
 	Forsterite       -6.04   22.26   28.31  Mg2SiO4
 	Galena          -50.35  -63.13  -12.78  PbS
 	Gibbsite         -0.85    7.26    8.11  Al(OH)3
@@ -3462,7 +3462,7 @@ Zn               9.123e-04
 	Magnesite       -10.91  -18.94   -8.03  MgCO3
 	Magnetite        -3.46    0.28    3.74  Fe3O4
 	Malachite        -5.28   -0.13    5.15  Cu2(OH)2CO3
-	Manganite         0.00   25.34   25.34  MnOOH
+	Manganite        -0.00   25.34   25.34  MnOOH
 	Massicot         -3.69    9.22   12.91  PbO
 	Matlockite      -10.77  -20.20   -9.43  PbClF
 	Melanothallite  -17.90  -14.17    3.73  CuCl2

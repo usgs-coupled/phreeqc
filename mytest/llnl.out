@@ -2375,12 +2375,12 @@ O2(g)                -58.04   9.214e-59   8.175e-03   0.000e+00  -8.175e-03
 	Aragonite        -0.15    1.67    1.82   2.500e+00           0  -2.500e+00
 	Calcite          -0.00    1.67    1.67   1.000e+00   2.997e+00   1.997e+00
 	Chalcedony        0.00   -3.58   -3.58   2.100e+00   9.982e-02  -2.000e+00
-	Dolomite          0.00    2.12    2.12   1.000e+00   1.004e+00   4.371e-03
+	Dolomite         -0.00    2.12    2.12   1.000e+00   1.004e+00   4.371e-03
 	Gibbsite         -0.66    6.50    7.15   2.000e+00           0  -2.000e+00
 	Goethite          0.00    0.18    0.18   1.000e+00   1.034e+00   3.360e-02
-	Gypsum            0.00   -4.55   -4.55   1.000e+00   2.019e+00   1.019e+00
+	Gypsum           -0.00   -4.55   -4.55   1.000e+00   2.019e+00   1.019e+00
 	Kaolinite        -0.00    5.85    5.85   5.000e+00   6.000e+00   1.000e-00
-	Siderite          0.00   -0.41   -0.41   1.000e+00   9.575e-01  -4.253e-02
+	Siderite         -0.00   -0.41   -0.41   1.000e+00   9.575e-01  -4.253e-02
 
 ------------------------------Surface composition------------------------------
 
@@ -2462,7 +2462,7 @@ X                3.000e+00 mol
                       Temperature (deg C)  =  35.000
                   Electrical balance (eq)  =  -9.806e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.03
-                               Iterations  =  54
+                               Iterations  =  47
                                   Total H  = 1.099476e+02
                                   Total O  = 5.507750e+01
 
@@ -3007,7 +3007,7 @@ Sr               2.552e-05
 	Diaspore         -0.00    6.52    6.52  AlHO2
 	Dicalcium_silicate -20.28   15.61   35.89  Ca2SiO4
 	Diopside         -9.32   10.80   20.12  CaMgSi2O6
-	Dolomite          0.00    2.12    2.12  CaMg(CO3)2
+	Dolomite         -0.00    2.12    2.12  CaMg(CO3)2
 	Dolomite-dis     -1.47    2.12    3.59  CaMg(CO3)2
 	Dolomite-ord      0.01    2.12    2.12  CaMg(CO3)2
 	Enstatite        -6.03    4.79   10.82  MgSiO3
@@ -3043,7 +3043,7 @@ Sr               2.552e-05
 	Goethite          0.00    0.18    0.18  FeOOH
 	Greenalite       -6.30   15.34   21.64  Fe3Si2O5(OH)4
 	Grossular       -18.22   31.09   49.31  Ca3Al2(SiO4)3
-	Gypsum            0.00   -4.55   -4.55  CaSO4:2H2O
+	Gypsum           -0.00   -4.55   -4.55  CaSO4:2H2O
 	Gyrolite        -13.93    8.40   22.33  Ca2Si3O7(OH)2:1.5H2O
 	H2(g)           -10.93  -14.05   -3.12  H2
 	H2O(g)           -1.36   -0.02    1.34  H2O
@@ -3214,7 +3214,7 @@ Sr               2.552e-05
 	Sepiolite       -17.47   11.86   29.32  Mg4Si6O15(OH)2:6H2O
 	Si              -86.51   57.41  143.93  Si
 	Si(g)          -155.04   57.41  212.46  Si
-	Siderite          0.00   -0.41   -0.41  FeCO3
+	Siderite         -0.00   -0.41   -0.41  FeCO3
 	SiF4(g)         -27.69  -43.12  -15.43  SiF4
 	Sillimanite      -5.41    9.47   14.88  Al2SiO5
 	SiO2(am)         -0.95   -3.58   -2.63  SiO2

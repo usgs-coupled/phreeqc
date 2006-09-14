@@ -173,9 +173,9 @@ Using pure phase assemblage 3.
                  Total alkalinity (eq/kg)  =   3.479e-04
                        Total CO2 (mol/kg)  =   3.752e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.084e-10
+                  Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  25
+                               Iterations  =  34
                                   Total H  = 1.010320e+02
                                   Total O  = 5.944689e+01
 

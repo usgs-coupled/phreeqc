@@ -1541,7 +1541,7 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
 	Phase               SI log IAP  log KT     Initial       Final       Delta
 
 	Gibbsite         -0.11    7.94    8.05   0.000e+00           0   0.000e+00
-	Kaolinite        -0.00    5.71    5.71   0.000e+00   1.712e-06   1.712e-06
+	Kaolinite         0.00    5.71    5.71   0.000e+00   1.712e-06   1.712e-06
 	Microcline       -5.11   -4.23    0.88   0.000e+00           0   0.000e+00
 	Muscovite        -1.32   11.65   12.97   0.000e+00           0   0.000e+00
 
@@ -1607,7 +1607,7 @@ Si               8.576e-06
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	K-feldspar       -6.32  -26.90  -20.57  KAlSi3O8
 	K-mica           -1.06   11.65   12.70  KAl3Si3O10(OH)2
-	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
+	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
 	Microcline       -5.11   -4.23    0.88  KAlSi3O8
 	Muscovite        -1.32   11.65   12.97  KAl3Si3O10(OH)2
 	O2(g)           -60.33  -63.22   -2.89  O2
@@ -2090,7 +2090,7 @@ Al               2.268e-07
 	AlOH+2            3.210e-17   3.125e-17   -16.493   -16.505    -0.012
 	Al+3              2.241e-21   2.111e-21   -20.649   -20.676    -0.026
 H(0)             1.867e-15
-	H2                9.336e-16   9.336e-16   -15.030   -15.030     0.000
+	H2                9.335e-16   9.335e-16   -15.030   -15.030     0.000
 K                3.341e-05
 	K+                3.341e-05   3.318e-05    -4.476    -4.479    -0.003
 	KOH               1.715e-10   1.715e-10    -9.766    -9.766     0.000

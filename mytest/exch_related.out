@@ -229,7 +229,7 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                8.941e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
+X                8.952e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
@@ -281,9 +281,9 @@ Ca               6.174e-04
 Cl               2.501e-01
 	Cl-               2.501e-01   1.690e-01    -0.602    -0.772    -0.170
 H(0)             2.065e-39
-	H2                1.032e-39   1.112e-39   -38.986   -38.954     0.032
-O(0)             6.154e-15
-	O2                3.077e-15   3.315e-15   -14.512   -14.480     0.032
+	H2                1.033e-39   1.112e-39   -38.986   -38.954     0.032
+O(0)             6.152e-15
+	O2                3.076e-15   3.313e-15   -14.512   -14.480     0.032
 Si               3.672e-02
 	H4SiO4            3.672e-02   3.955e-02    -1.435    -1.403     0.032
 	H3SiO4-           5.778e-11   4.232e-11   -10.238   -10.373    -0.135
@@ -336,7 +336,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
 
 -----------------------------Exchange composition------------------------------
 
-X                8.941e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
+X                8.952e-17 mol	[0.33 (mol Ca.5X)/(mol Ca-Montmorillonite)]
 
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma

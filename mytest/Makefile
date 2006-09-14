@@ -34,13 +34,13 @@ all: alkalinity.out \
 	i4.out \
 	i5.out \
 	i6.out \
-	i7.out \
 	jgb2col.out \
 	jgbcol.out \
 	joe.out \
 	krest.out \
 	lam7.out \
 	lam10.out \
+	lassin.out \
 	llnl.out \
 	local_min_pz.out \
 	mahoney.out \
