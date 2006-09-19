@@ -1899,6 +1899,8 @@ NH4+ + SO4-2 = NH4SO4-
 
 #
 #   Updated March 20, 2006
+#   Updated September 19, 2006
+#   Checked September 19, 2006
 #
 
 [15N]O3- + NO2- = [15N]O2- + NO3-
@@ -1907,63 +1909,59 @@ NH4+ + SO4-2 = NH4SO4-
 
 N2 + [15N]O3- = N[15N] + NO3-
          log_k           0.301029995663                         # log10(2)
-         -add_logk       Log_alpha_15N_N2/NO3-                  1.0
+         -add_logk       Log_alpha_15N_N2(aq)/NO3-                  1.0
          -mole_balance   [15N](0)N(0)
 
-# May 30, 2006
 2N[15N] = [15N]2 + N2
         log_k           -0.602059991327962396                   # -log10(4)
          -mole_balance   [15N](0)2
 
 HDO + NH3 = NH2D + H2O
         log_k            0.176091259055                        # log10(1.5)
-         -add_logk       Log_alpha_D_NH3/H2O(l)                   1.0
+         -add_logk       Log_alpha_D_NH3(aq)/H2O(l)                1.0
 
-2HDO + NH3 = NHD2 + 2H2O
-         logk            -0.124938736682999329                 # log10(3/4)
-         -add_logk       Log_alpha_D_NH3/H2O(l)                   2.0
+2NH2D = NHD2 + NH3
+        log_k           -0.477121254719                         # -log10(3)
 
-3HDO + NH3 = ND3 + 3H2O
-         logk             -0.42596873227228                    # log10(3/8)
-         -add_logk       Log_alpha_D_NH3/H2O(l)                   3.0
+3NH2D = ND3 + 2NH3
+         -logk           -1.431363764158                         # log10(1/27)
 
 HTO + NH3 = NH2T + H2O
-         log_k            0.176091259055                       # log10(1.5)
-         -add_logk       Log_alpha_T_NH3/H2O(l)                   1.0
+          log_k            0.176091259055                       # log10(1.5)
+          -add_logk       Log_alpha_T_NH3(aq)/H2O(l)                1.0
 
-2HTO + NH3 = NHT2 + 2H2O
-         logk            -0.124938736682999329                 # log10(3/4)
-         -add_logk       Log_alpha_T_NH3/H2O(l)                   2.0
+2NH2T = NHT2 + NH3
+        log_k           -0.477121254719662                      # log10(1/3)
 
-3HTO + NH3 = NT3 + 3H2O
-         logk             -0.42596873227228                    # log10(3/8)
-         -add_logk       Log_alpha_T_NH3/H2O(l)                   3.0
-#
-#  Added Ammonia DT species, May 19, 2006
-#
-HTO + ND3 = ND2T + HDO
-         log_k           0.477121254719                        # log10(3)
-         -add_logk       Log_alpha_T_NH3/H2O(l)                   1.0
-2HTO + ND3 = NDT2 + 2HDO
-         log_k           0.477121254719                        # log10(3)
-         -add_logk       Log_alpha_T_NH3/H2O(l)                   2.0
+3NH2T = NT3 + 2NH3
+         -logk           -1.431363764158                         # log10(1/27)
+
+NHD2 + NH2T = ND2T + NH3
+         log_k            -0.477121254719                       # -log10(3)
+
+NH2D + NHT2 = NDT2 + NH3
+         log_k            -0.477121254719                       # -log10(3)
 
 # [15]N ammonium
 
-NH3 + [15N]O3- = [15N]H3 + NO3-
-         -add_logk       Log_alpha_15N_NH3/NO3-                 1.0
-         -mole_balance [15N](-3)H3
+# Checked September 19, 2006
 
+NH3 + [15N]O3- = [15N]H3 + NO3-
+         -add_logk       Log_alpha_15N_NH3(aq)/NO3-                 1.0
+         -mole_balance [15N](-3)H3
 
     [15N]H3 + NH2D   = [15N]H2D + NH3
     [15N]H3 + NHD2   = [15N]HD2 + NH3
-    [15N]H3 + ND3    = [15N]D3 + NH3
+    [15N]H3 + ND3    = [15N]D3  + NH3
     [15N]H3 + NH2T   = [15N]H2T + NH3
     [15N]H3 + NHT2   = [15N]HT2 + NH3
-    [15N]H3 + NT3    = [15N]T3 + NH3
+    [15N]H3 + NT3    = [15N]T3  + NH3
     [15N]H3 + ND2T   = [15N]D2T + NH3
     [15N]H3 + NDT2   = [15N]DT2 + NH3
 
+
+# Updated September 19, 2006
+# Checked September 19, 2006
 
 HDO + NH4+ = NH3D+ + H2O
          log_k           0.301029995663                         # log10(2)
@@ -1971,21 +1969,18 @@ HDO + NH4+ = NH3D+ + H2O
          -mole_balance N(-3)H3D
          -gamma    2.5000    0.0000
 
-2HDO + NH4+ = NH2D2+ + 2H2O
-         log_k           0.176091259055                         # log10(1.5)
-         -add_logk       Log_alpha_D_NH4+/H2O(l)                   2.0
+2NH3D+ = NH2D2+ + NH4+
+         logk             -0.42596873227228                    # log10(3/8)
          -mole_balance N(-3)H2D2
          -gamma    2.5000    0.0000
 
-3HDO + NH4+ = NHD3+ + 3H2O
-         log_k           -0.301029995663                        # -log10(2)
-         -add_logk       Log_alpha_D_NH4+/H2O(l)                   3.0
+3NH3D+ = NHD3+ + 2NH4+
+        log_k           -1.20411998265                          # log10(1/16)
          -mole_balance N(-3)HD3
          -gamma    2.5000    0.0000
 
-4HDO + NH4+ = ND4+ + 4H2O
-         log_k           -1.20411998265                         # log10(1/16)
-         -add_logk       Log_alpha_D_NH4+/H2O(l)                   4.0
+4NH3D+ = ND4+ + 3NH4+
+        log_k            -2.408239965311                        # log10(1/256)
          -mole_balance N(-3)D4
          -gamma    2.5000    0.0000
 
@@ -1995,44 +1990,41 @@ HTO + NH4+ = NH3T+ + H2O
          -mole_balance N(-3)H3T
          -gamma    2.5000    0.0000
 
-2HTO + NH4+ = NH2T2+ + 2H2O
-         log_k           0.176091259055                         # log10(1.5)
-         -add_logk       Log_alpha_T_NH4+/H2O(l)                   2.0
+2NH3T+ = NH2T2+ + NH4+
+         logk             -0.42596873227228                    # log10(3/8)
          -mole_balance N(-3)H2T2
          -gamma    2.5000    0.0000
 
-3HTO + NH4+ = NHT3+ + 3H2O
-         log_k           -0.301029995663                        # -log10(2)
-         -add_logk       Log_alpha_T_NH4+/H2O(l)                   3.0
+3NH3T+ = NHT3+ + 2NH4+
+        log_k           -1.20411998265                          # log10(1/16)
          -mole_balance N(-3)HT3
          -gamma    2.5000    0.0000
 
-4HTO + NH4+ = NT4+ + 4H2O
-         log_k           -1.20411998265                         # log10(1/16)
-         -add_logk       Log_alpha_T_NH4+/H2O(l)                   4.0
+4NH3T+ = NT4+ + 3NH4+
+        log_k            -2.408239965311                        # log10(1/256)
          -mole_balance N(-3)T4
          -gamma    2.5000    0.0000
 
-HTO + ND4+ = ND3T+ + HDO
-         log_k           0.602059991327962396                   # log10(4)
-         -add_logk       Log_alpha_T_NH4+/H2O(l)                   1.0
+# Updated September 19, 2006
+# Checked September 19, 2006
+
+NHD3+ + NH3T+ = ND3T+ + NH4+
+         log_k           -0.602059991327962396                   # -log10(4)
          -mole_balance N(-3)D3T
          -gamma    2.5000    0.0000
 
-2HTO + ND4+ = ND2T2+ + 2HDO
-         log_k             0.7781512503836                      # log10(6)
-         -add_logk         Log_alpha_T_NH4+/H2O(l)                 2.0
+NH2D2+ + NH2T2+ = ND2T2+ + NH4+
+         log_k             -0.7781512503836                      # -log10(6)
          -mole_balance N(-3)D2T2
          -gamma    2.5000    0.0000
 
-3HTO + ND4+ = NDT3+ + 3HDO
-         log_k           0.602059991327962396                   # log10(4)
-         -add_logk         Log_alpha_T_NH4+/H2O(l)                 3.0
+NH3D+ + NHT3+ = NDT3+ + NH4+
+         log_k           -0.602059991327962396                   # -log10(4)
          -mole_balance N(-3)DT3
          -gamma    2.5000    0.0000
 
 [15N]H3 + NH4+ = [15N]H4+ + NH3
-         -add_logk         Log_alpha_15N_NH4+/NH3               1.0
+         -add_logk         Log_alpha_15N_NH4+/NH3(aq)              1.0
          -mole_balance [15N](-3)H4
          -gamma    2.5000    0.0000
 
@@ -2068,6 +2060,17 @@ HTO + ND4+ = ND3T+ + HDO
          -mole_balance [15N](-3)T4+
          -gamma    2.5000    0.0000
 
+[15N]H4+ + ND3T+ =  [15N]D3T+ + NH4+
+         -mole_balance [15N](-3)D3T
+         -gamma    2.5000    0.0000
+
+[15N]H4+ + ND2T2+ =  [15N]D2T2+ + NH4+
+         -mole_balance [15N](-3)D2T2
+         -gamma    2.5000    0.0000
+
+[15N]H4+ + NDT3+ =  [15N]DT3+ + NH4+
+         -mole_balance [15N](-3)DT3
+         -gamma    2.5000    0.0000
 
 SOLUTION_SPECIES
 
@@ -3246,8 +3249,6 @@ PHASES
 	CDT3(g) + CH4(g) = CHT3(g) + CH3D(g)
         log_k           0.602059991327962396                   # log10(4)
 
-# Checked September 19, 2006
-
         [13C]H4(g)
         [13C]H4(g) + CO2(aq) = [13C]O2(aq) + CH4(g)
                  -add_logk       Log_alpha_13C_CH4(g)/CO2(aq)    -1.0
@@ -3287,8 +3288,6 @@ PHASES
 
         [13C]T4(g)
         [13C]T4(g) + CH4(g) = CT4(g) + [13C]H4(g)
-
-# Checked September 19, 2006
 
         [14C]H4(g)
         [14C]H4(g) + CO2(aq) = [14C]O2(aq) + CH4(g)
@@ -3565,119 +3564,82 @@ PHASES
 PHASES
 #
 #  Nitrogen phases
+#  Checked September 19, 2006
 #
 N2(g)
         N2 = N2
         -add_logk       Log_KH_N2(g)                            1.0
 
 N[15N](g)
-        N[15N] = N[15N]
-        -add_logk       Log_KH_N2(g)                            1.0             
+        N[15N](g) + N2(aq) = N[15N](aq) + N2(g)
         -add_logk       Log_alpha_15N_N2(g)/N2(aq)              -1.0            
 
 [15N]2(g)
-        [15N]2 = [15N]2
-        -add_logk       Log_KH_N2(g)                            1.0             
-        -add_logk       Log_alpha_15N_N2(g)/N2(aq)              -2.0            
+[15N]2(g) + N2(g) = 2N[15N](g)
+        log_k           0.602059991327962396                   # log10(4)
 
 NH3(g)
         NH3 = NH3
         -add_logk       Log_KH_NH3(g)                           1.0             
 
 NH2D(g)
-        NH2D = NH2D
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -1.0
+NH2D(g) + H2O(l) = NH3(g) + HDO(aq)
+        -add_logk       Log_alpha_D_NH3(g)/H2O(l)                -1.0
 
 NHD2(g)
-        NHD2 = NHD2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -2.0
+NHD2(g) + NH3(g) = 2NH2D(g)
+         log_k           0.477121254719                        # log10(3)
 
 ND3(g)
-        ND3 = ND3
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -3.0
+ND3(g) + 2NH3(g) = 3NH2D(g)
+         -logk           1.431363764158                         # log10(27)
 
 NH2T(g)
-        NH2T = NH2T
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -1.0
+NH2T(g) + H2O(l) = NH3(g) + HTO(aq)
+        -add_logk       Log_alpha_T_NH3(g)/H2O(l)                -1.0
 
 NHT2(g)
-        NHT2 = NHT2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -2.0
+NHT2(g) + NH3(g) = 2NH2T(g)
+         log_k           0.477121254719                        # log10(3)
 
 NT3(g)
-        NT3 = NT3
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -3.0
+NT3(g) + 2NH3(g) = 3NH2T(g)
+         -logk           1.431363764158                         # log10(27)
+
+ND2T(g)
+ND2T(g) + NH3(g) = NHD2(g) + NH2T(g)
+         log_k           0.477121254719                        # log10(3)
+
+NDT2(g)
+NDT2(g) + NH3(g) = NH2D(g) + NHT2(g)
+         log_k           0.477121254719                        # log10(3)
 
 [15N]H3(g)
-        [15N]H3 = [15N]H3
-        -add_logk       Log_KH_NH3(g)                           1.0             
+[15N]H3(g) + NH3(aq) = [15N]H3(aq) + NH3(g)
         -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
 
 [15N]H2D(g)
-        [15N]H2D = [15N]H2D
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -1.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]H2D(g) + NH3(g) = NH2D(g) + [15N]H3(g)
 
 [15N]HD2(g)
-        [15N]HD2 = [15N]HD2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -2.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]HD2(g) + NH3(g) = NHD2(g) + [15N]H3(g)
 
 [15N]D3(g)
-        [15N]D3 = [15N]D3
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -3.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]D3(g) + NH3(g) = ND3(g) + [15N]H3(g)
 
 [15N]H2T(g)
-        [15N]H2T = [15N]H2T
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -1.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]H2T(g) + NH3(g) = NH2T(g) + [15N]H3(g)
 
 [15N]HT2(g)
-        [15N]HT2 = [15N]HT2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -2.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]HT2(g) + NH3(g) = NHT2(g) + [15N]H3(g)
 
 [15N]T3(g)
-        [15N]T3 = [15N]T3
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -3.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
-
-ND2T(g)
-        ND2T = ND2T
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -2.0
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -1.0
-
-NDT2(g)
-        NDT2 = NDT2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -1.0
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -2.0
+[15N]T3(g) + NH3(g) = NT3(g) + [15N]H3(g)
 
 [15N]D2T(g)
-        [15N]D2T = [15N]D2T
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -2.0
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -1.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]D2T(g) + NH3(g) = ND2T(g) + [15N]H3(g)
 
 [15N]DT2(g)
-        [15N]DT2 = [15N]DT2
-        -add_logk       Log_KH_NH3(g)                           1.0             
-        -add_logk       Log_alpha_D_NH3(g)/NH3(aq)              -1.0
-        -add_logk       Log_alpha_T_NH3(g)/NH3(aq)              -2.0
-        -add_logk       Log_alpha_15N_NH3(g)/NH3(aq)            -1.0            
+[15N]DT2(g) + NH3(g) = NDT2(g) + [15N]H3(g)
+
 END
