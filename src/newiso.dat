@@ -515,6 +515,7 @@ SOLUTION_SPECIES
 #
 # H2O reactions 
 # last update July 31, 2006
+# checked September 19, 2006
 #
         H2O = H2O
         log_k           0
@@ -546,11 +547,12 @@ SOLUTION_SPECIES
         -activity_water
 
         H2[18O] + HDO = HD[18O] + H2O
+	-mole_balance  HD[18O]
         log_k           0.0
         -activity_water
 
         H2[18O] + HTO = HT[18O] + H2O
-	-mole_balance  HT
+	-mole_balance  HT[18O]
         log_k           0.0
         -activity_water
 
@@ -572,6 +574,7 @@ SOLUTION_SPECIES
 #
 # OH- reactions 
 # last update July 31, 2006
+# checked September 19, 2006
 #
 
         2H2O = OH- + H3O+
@@ -608,6 +611,7 @@ SOLUTION_SPECIES
 #
 # H3O+ reactions
 # last update July 31, 2006
+# checked September 19, 2006
 #
 
         H3O+ + HDO = H2DO+ + H2O
@@ -638,7 +642,7 @@ SOLUTION_SPECIES
         -gamma          9.0000    0.0000
 
         H2TO+ + HT2O+ = T3O+ + H3O+
-	-mole_balance  D3O
+	-mole_balance  T3O
         log_k            -0.954242509439324                     # log10(1/9)
         -gamma          9.0000    0.0000
 
@@ -682,13 +686,11 @@ SOLUTION_SPECIES
 	-log_k          0.0
         -gamma          9.0000    0.0000
 
-        H2[18O] + HT2O+ = HT2[18O]+ + H2O
         H3[18O]+ + HT2O+ = HT2[18O]+ + H3O+
 	-mole_balance  HT2[18O]
 	-log_k          0.0
         -gamma          9.0000    0.0000
 
-        H2[18O] + T3O+ = T3[18O]+ + H2O
         H3[18O]+ + T3O+ = T3[18O]+ + H3O+
 	-mole_balance  T3[18O]
 	-log_k          0.0
@@ -712,6 +714,7 @@ SOLUTION_SPECIES
 #
 # O2 reactions
 # last update July 31, 2006
+# checked September 19, 2006
 #
 
         O2 + H2[18O] = O[18O] + H2O
@@ -726,6 +729,7 @@ SOLUTION_SPECIES
 #
 # H2 reactions
 # last update July 31, 2006
+# checked September 19, 2006
 #
 
         H2 + HDO = HD + H2O
@@ -2094,6 +2098,8 @@ PHASES
 #
 # Water vapor - Water
 # last update March 20, 2006
+# Updated September 19, 2006
+# Checked September 19, 2006
 #
 
 H2O(g)
@@ -2101,70 +2107,95 @@ H2O(g)
         -add_logk       Log_KH_H2O(g)                           1.0
 
 HDO(g)
-        HDO = HDO
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
+#        HDO = HDO
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
+	 HDO(g) + H2O(l) = H2O(g) + HDO(aq)
+         -add_logk       Log_alpha_D_H2O(g)/H2O(l)              -1.0
 
 HTO(g)
-        HTO = HTO
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+#        HTO = HTO
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+	 HTO(g) + H2O(l) = H2O(g) + HTO(aq)
+         -add_logk       Log_alpha_T_H2O(g)/H2O(l)              -1.0
 
 DTO(g)
-        DTO = DTO
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+#        DTO = DTO
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+	 DTO(g) + H2O(g) = HDO(g) + HTO(g)
+         log_k           0.301029995663                          # log10(2)
+
 
 D2O(g)
-        D2O = D2O
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               2.0
+#        D2O = D2O
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               2.0
+	 D2O(g) + H2O(g) = 2HDO(g)
+         log_k           0.602059991327962396                   # log10(4)
 
 T2O(g)
-        T2O = T2O
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               2.0
+#        T2O = T2O
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               2.0
+	 T2O(g) + H2O(g) = 2HTO(g)
+         log_k           0.602059991327962396                   # log10(4)
 
 H2[18O](g)
-        H2[18O] = H2[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        H2[18O] = H2[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 H2[18O](g) + H2O(l) = H2O(g) + H2[18O](aq)
+         -add_logk       Log_alpha_18O_H2O(g)/H2O(l)              -1.0
 
 HD[18O](g)
-        HD[18O] = HD[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        HD[18O] = HD[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 HD[18O](g) + H2O(g) = HDO(g) + H2[18O](g)
+	 log_k           0.0
 
 HT[18O](g)
-        HT[18O] = HT[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        HT[18O] = HT[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 HT[18O](g) + H2O(g) = HTO(g) + H2[18O](g)
+	 log_k           0.0
 
 D2[18O](g)
-        D2[18O] = D2[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               2.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        D2[18O] = D2[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               2.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 D2[18O](g) + H2O(g) = D2O(g) + H2[18O](g)
+	 log_k           0.0
 
 T2[18O](g)
-        T2[18O] = T2[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               2.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        T2[18O] = T2[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               2.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 T2[18O](g) + H2O(g) = T2O(g) + H2[18O](g)
+	 log_k           0.0
 
 DT[18O](g)
-        DT[18O] = DT[18O]
-        -add_logk       Log_KH_H2O(g)                           1.0
-        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
-        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
-        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+#        DT[18O] = DT[18O]
+#        -add_logk       Log_KH_H2O(g)                           1.0
+#        -add_logk       Log_alpha_D_H2O(l)/H2O(g)               1.0
+#        -add_logk       Log_alpha_T_H2O(l)/H2O(g)               1.0
+#        -add_logk       Log_alpha_18O_H2O(l)/H2O(g)             1.0
+	 DT[18O](g) + H2O(g) = DTO(g) + H2[18O](g)
+	 log_k           0.0
 
 #
 # O2 gas - O2 aqueous
 # last update March 20, 2006
+# Updated September 19, 2006
+# Checked September 19, 2006
 #
 
 O2(g)
@@ -2172,18 +2203,24 @@ O2(g)
         -add_logk       Log_KH_O2(g)    
 
 O[18O](g)
-        O[18O] = O[18O]
-        -add_logk       Log_KH_O2(g)    
-        -add_logk       Log_alpha_18O_O2(aq)/O2(g)              1.0
+#        O[18O] = O[18O]
+#        -add_logk       Log_KH_O2(g)    
+#        -add_logk       Log_alpha_18O_O2(aq)/O2(g)              1.0
+        O[18O](g) + H2O(l) = O2(g) + H2[18O](aq)
+        -add_logk       Log_alpha_18O_O2(g)/H2O(l)               -1.0
 
 [18O]2(g)
-        [18O]2 = [18O]2
-        -add_logk       Log_KH_O2(g)    
-        -add_logk       Log_alpha_18O_O2(aq)/O2(g)              2.0
+#        [18O]2 = [18O]2
+#        -add_logk       Log_KH_O2(g)    
+#        -add_logk       Log_alpha_18O_O2(aq)/O2(g)              2.0
+        [18O]2(g) + O2(g) = 2O[18O](g)
+        log_k           0.602059991327962396                   # log10(4)
 
 #
 # H2 gas - H2 aqueous
 # last update March 20, 2006
+# Updated September 19, 2006
+# Checked September 19, 2006
 #
 
 H2(g)
@@ -2191,30 +2228,40 @@ H2(g)
         -add_logk       Log_KH_H2(g)
 
 HD(g)
-        HD = HD
-        -add_logk       Log_KH_H2(g)
-        -add_logk       Log_alpha_D_H2(aq)/H2(g)        1.0
+#        HD = HD
+#        -add_logk       Log_KH_H2(g)
+#        -add_logk       Log_alpha_D_H2(aq)/H2(g)                1.0
+	 HD(g) + H2O(l) = H2(g) + HDO(aq)
+         -add_logk       Log_alpha_D_H2(g)/H2O(l)               -1.0
 
 HT(g)
-        HT = HT
-        -add_logk       Log_KH_H2(g)
-        -add_logk       Log_alpha_T_H2(aq)/H2(g)        1.0
+#        HT = HT
+#        -add_logk       Log_KH_H2(g)
+#        -add_logk       Log_alpha_T_H2(aq)/H2(g)                1.0
+	 HT(g) + H2O(l) = H2(g) + HTO(aq)
+         -add_logk       Log_alpha_T_H2(g)/H2O(l)               -1.0
 
 D2(g)
-        D2 = D2
-        -add_logk       Log_KH_H2(g)
-        -add_logk       Log_alpha_D_H2(aq)/H2(g)        2.0
-
+#        D2 = D2
+#        -add_logk       Log_KH_H2(g)
+#        -add_logk       Log_alpha_D_H2(aq)/H2(g)                2.0
+	 D2(g) + H2(g) = 2HD(g)
+         log_k           0.602059991327962396                   # log10(4)
+	 
 T2(g)
-        T2 = T2
-        -add_logk       Log_KH_H2(g)
-        -add_logk       Log_alpha_T_H2(aq)/H2(g)        2.0
+#        T2 = T2
+#        -add_logk       Log_KH_H2(g)
+#        -add_logk       Log_alpha_T_H2(aq)/H2(g)        2.0
+	 T2(g) + H2(g) = 2HT(g)
+         log_k           0.602059991327962396                   # log10(4)
 
 DT(g)
-        DT = DT
-        -add_logk       Log_KH_H2(g)
-        -add_logk       Log_alpha_D_H2(aq)/H2(g)        1.0
-        -add_logk       Log_alpha_T_H2(aq)/H2(g)        1.0
+#        DT = DT
+#        -add_logk       Log_KH_H2(g)
+#        -add_logk       Log_alpha_D_H2(aq)/H2(g)        1.0
+#        -add_logk       Log_alpha_T_H2(aq)/H2(g)        1.0
+	 DT(g) + H2(g) = HD(g) + HT(g)
+         log_k           0.301029995663                          # log10(2)
 
 #
 # CO2 gas - CO2 aqueous
