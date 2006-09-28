@@ -428,30 +428,6 @@ NAMED_EXPRESSIONS
 
 
 
-NAMED_EXPRESSIONS
-#
-# Selected equilibrium_constants
-#
-        Log_KH_H2O(g) H2O(g) = H2O(l)
-                log_k           1.51
-                delta_h         -44.03   kJ
-
-        Log_K_water   2H2O = OH- + H3O+ 
-                log_k           -14.000
-                delta_h         13.362  kcal
-                -analytic       -283.971       -0.05069842  13323.0    102.24447      -1119669.0
-
-        Log_KH_CO2(g)  CO2(g) = CO2(aq)
-                log_k           -1.468
-                delta_h         -4.776 kcal
-                -analytic       108.3865      0.01985076   -6919.53      -40.45154      669365.0
-
-        Log_K_calcite         CaCO3 = CO3-2 + Ca+2
-                log_k           -8.480
-                delta_h -2.297 kcal
-                -analytic       -171.9065     -0.077993      2839.319      71.595
-
-
 SOLUTION_SPECIES
 H3O+ = H3O+
         log_k           0.000
@@ -588,7 +564,9 @@ SOLUTION_SPECIES
 #
 
         2H2O = OH- + H3O+
-        -add_logk       Log_K_water                             1.0
+	log_k           -14.000
+	delta_h         13.362  kcal
+	-analytic       -283.971       -0.05069842  13323.0    102.24447      -1119669.0
         -gamma          3.5000    0.0000
 
         OH- + HDO = OD- + H2O
@@ -979,15 +957,6 @@ CALCULATE_VALUES
         -end
 
 NAMED_EXPRESSIONS
-
-        Log_KH_CH4(g)    CH4 = CH4
-                log_k           -2.860
-                delta_h -3.373  kcal
-
-        Log_K_CH4       CO3-2 + 10 H3O+ + 8 e- = CH4 + 13 H2O
-                log_k           41.071
-                delta_h -61.039 kcal
-
         Log_alpha_13C_CH4(aq)/CH4(g)    
                 -ln_alpha1000   0.0
 
@@ -1009,7 +978,8 @@ SOLUTION_SPECIES
 #
 
         CO3-2 + 10 H3O+ + 8 e- = CH4 + 13 H2O
-        -add_logk       Log_K_CH4                               1.0
+                log_k           41.071
+                delta_h -61.039 kcal
 
         CH4 + HDO = CH3D + H2O
         log_k           0.301029995663981198                    # log10(2)
@@ -1551,28 +1521,6 @@ CALCULATE_VALUES
         -end
 
 NAMED_EXPRESSIONS
-        Log_KH_H2S(g)    H2S = H2S
-                log_k           -0.997
-                delta_h -4.570  kcal
-
-        Log_K_SO4-2_HSO4-       SO4-2 + H3O+ = HSO4- + H2O
-                log_k           1.988
-                delta_h 3.85    kcal
-                -analytic       -56.889        0.006473    2307.9       19.8858         0.0
-
-        Log_K_SO4-2_HS-         SO4-2 + 9 H3O+ + 8 e- = HS- + 4 H2O
-                log_k           33.65
-                delta_h -60.140 kcal
-
-        Log_K_HS-_H2S           HS- + H3O+ = H2S
-                log_k           6.994
-                delta_h -5.300  kcal
-                -analytical  -11.17   0.02386  3279.0
-
-        Log_K_HS-_S-2            HS- + H2O = S-2 + H3O+
-                log_k           -12.918
-                delta_h         12.1    kcal
-
         Log_alpha_34S_HSO4-/SO4-2
                 -ln_alpha1000   0.0
         Log_alpha_D_HSO4-/H3O+
@@ -1589,19 +1537,8 @@ NAMED_EXPRESSIONS
                 -ln_alpha1000   0.0
         Log_alpha_D_H2S(aq)/H2S(g)
                 -ln_alpha1000   0.0
-
-        Log_K_Gypsum
-                log_k           -4.580
-                delta_h -0.109 kcal
-                -analytic       68.2401       0.0          -3221.51      -25.0627
-
         Log_alpha_34S_SO4-2/Gypsum
                 -ln_alpha1000   0.0
-
-        Log_K_Anhydrite
-                log_k           -4.360
-                delta_h -1.710 kcal
-                -analytic       197.52        0.0          -8669.8       -69.835
 
         Log_alpha_34S_SO4-2/Anhydrite
                 -ln_alpha1000   0.0
@@ -1615,14 +1552,20 @@ SOLUTION_SPECIES
 #  Checked September 28, 2006
 #
         SO4-2 + H3O+ = HSO4- + H2O
-                -add_logk       Log_K_SO4-2_HSO4-               
+                log_k           1.988
+                delta_h 3.85    kcal
+                -analytic       -56.889        0.006473    2307.9       19.8858         0.0
         SO4-2 + 9 H3O+ + 8 e- = HS- + 13 H2O
-                -add_logk       Log_K_SO4-2_HS-
+                log_k           33.65
+                delta_h -60.140 kcal
                 -gamma    3.5000    0.0000
         HS- + H3O+ = H2S + H2O
-                -add_logk       Log_K_HS-_H2S
+                log_k           6.994
+                delta_h -5.300  kcal
+                -analytical  -11.17   0.02386  3279.0
         HS- + H2O = S-2 + H3O+
-                -add_logk    Log_K_HS-_S-2
+                log_k           -12.918
+                delta_h         12.1    kcal
                 -gamma    5.0000    0.0000
         [34S]O4-2 = [34S]O4-2
                 -log_k  0.0
@@ -1821,31 +1764,6 @@ CALCULATE_VALUES
         -end
 
 NAMED_EXPRESSIONS
-        Log_K_NO3-_N2           2 NO3- + 12 H+ + 10 e- = N2 + 6 H2O
-                log_k           207.080
-                delta_h -312.130        kcal
-
-        Log_K_NH4+_NH3          NH4+ + H2O = NH3 + H3O+
-                log_k           -9.252
-                delta_h 12.48   kcal
-                -analytic    0.6322    -0.001225     -2835.76
-
-        Log_K_NO3-_NH4+         NO3- + 10 H+ + 8 e- = NH4+ + 3 H2O
-                log_k           119.077
-                delta_h -187.055        kcal
-
-        Log_K_NO3-_NO2-         NO3- + 2 H3O+ + 2 e- = NO2- + 3H2O
-                log_k           28.570
-                delta_h -43.760 kcal
-
-        Log_KH_N2(g)            N2(g) = N2
-                log_k           -3.260
-                delta_h -1.358  kcal
-
-        Log_KH_NH3(g)           NH3(g) = NH3
-                log_k           1.770
-                delta_h -8.170  kcal
-
         Log_alpha_15N_N2/NO3-
                 -ln_alpha1000   0.0
 
@@ -1884,13 +1802,17 @@ NO3- + 2 H3O+ + 2 e- = NO2- + 3H2O
         -gamma    3.0000    0.0000
 
 2 NO3- + 12 H3O+ + 10e- = N2 + 18 H2O
-        -add_log_k   Log_K_NO3-_N2      1.0        
+                log_k           207.080
+                delta_h -312.130        kcal
 
 NH4+ + H2O = NH3 + H3O+
-        -add_log_k  Log_K_NH4+_NH3      1.0
+                log_k           -9.252
+                delta_h 12.48   kcal
+                -analytic    0.6322    -0.001225     -2835.76
 
 NO3- + 10 H3O+ + 8 e- = NH4+ + 13 H2O
-        -add_log_k   Log_K_NO3-_NH4+    1.0        
+                log_k           119.077
+                delta_h -187.055        kcal
         -gamma    2.5000    0.0000
 
 NH4+ + SO4-2 = NH4SO4-
@@ -2112,7 +2034,8 @@ PHASES
 
 H2O(g)
         H2O = H2O
-        -add_logk       Log_KH_H2O(g)                           1.0
+	log_k           1.51
+	delta_h         -44.03   kJ
 
 HDO(g)
          HDO(g) + H2O(l) = H2O(g) + HDO(aq)
@@ -2168,7 +2091,8 @@ DT[18O](g)
 
 O2(g)
         O2 = O2
-        -add_logk       Log_KH_O2(g)    
+                log_k           -2.960
+                delta_h -1.844  kcal
 
 O[18O](g)
         O[18O](g) + H2O(l) = O2(g) + H2[18O](aq)
@@ -2187,7 +2111,8 @@ O[18O](g)
 
 H2(g)
         H2 = H2
-        -add_logk       Log_KH_H2(g)
+                log_k           -3.150
+                delta_h -1.759  kcal
 
 HD(g)
          HD(g) + H2O(l) = H2(g) + HDO(aq)
@@ -2218,7 +2143,9 @@ DT(g)
 
 CO2(g)
         CO2 = CO2
-        -add_logk       Log_KH_CO2(g)                           1.0
+	log_k           -1.468
+	delta_h         -4.776 kcal
+	-analytic       108.3865      0.01985076   -6919.53      -40.45154      669365.0
 
 CO[18O](g)
          CO[18O](g) + H2O(l) = H2[18O](aq) + CO2(g)
@@ -2261,7 +2188,9 @@ C[18O]2(g)
 
 Calcite
         CaCO3 = CO3-2 + Ca+2
-        -add_logk       Log_K_calcite                           1.0
+	log_k           -8.480
+	delta_h -2.297 kcal
+	-analytic       -171.9065     -0.077993      2839.319      71.595
 
 CaCO2[18O](s)
          CaCO2[18O](s) + H2O(l) = H2[18O](aq) + Calcite(s) 
@@ -3199,7 +3128,8 @@ PHASES
 #
         CH4(g)
         CH4 = CH4
-                -add_logk       Log_KH_CH4(g)                   1.0
+                log_k           -2.860
+                delta_h -3.373  kcal
 
         CH3D(g)
         CH3D(g) + H2O(l) = CH4(g) + HDO(aq)
@@ -3377,14 +3307,6 @@ CALCULATE_VALUES
         -end
 
 NAMED_EXPRESSIONS
-        Log_KH_H2(g)    H2 = H2
-                log_k           -3.150
-                delta_h -1.759  kcal
-
-        Log_K_H2       2 H3O+ + 2 e- = H2 + 2H2O
-                log_k           -3.15
-                delta_h         -1.759 kcal
-
         Log_alpha_D_H2(aq)/H2(g)                #
                 -ln_alpha1000   0.0
 
@@ -3447,21 +3369,11 @@ CALCULATE_VALUES
         -end
 
 NAMED_EXPRESSIONS
-        Log_KH_O2(g)   O2(g) = O2(aq)
-                log_k           -2.960
-                delta_h -1.844  kcal
-
-        Log_K_O2       6 H2O = O2 + 4 H3O+ + 4 e-
-                log_k           -86.08
-                delta_h         134.79 kcal
-
         Log_alpha_18O_O2(aq)/O2(g)      
                 -ln_alpha1000   0.0
 
         Log_alpha_18O_O2(aq)/H2O       
                 -ln_alpha1000   0.0
-
-
 
 PHASES
 #
@@ -3471,7 +3383,8 @@ PHASES
 #
         H2S(g)
                 H2S = H2S
-                -add_logk       Log_KH_H2S(g)                   1.0
+                log_k           -0.997
+                delta_h -4.570  kcal
 
         HDS(g)
 		HDS(g) + H2S(aq) = HDS(aq) + H2S(g)
@@ -3504,11 +3417,15 @@ PHASES
 
         Gypsum
                 CaSO4:2H2O = Ca+2 + SO4-2 + 2 H2O
-                -add_logk           Log_K_Gypsum
+                log_k           -4.580
+                delta_h -0.109 kcal
+                -analytic       68.2401       0.0          -3221.51      -25.0627
 
         Anhydrite
                 CaSO4 = Ca+2 + SO4-2
-                -add_logk           Log_K_Anhydrite
+                log_k           -4.360
+                delta_h -1.710 kcal
+                -analytic       197.52        0.0          -8669.8       -69.835
 
         Ca[34S]O4:2H2O
                 Ca[34S]O4:2H2O + SO4-2 = [34S]O4-2 + Gypsum
@@ -3525,7 +3442,8 @@ PHASES
 #
 N2(g)
         N2 = N2
-        -add_logk       Log_KH_N2(g)                            1.0
+                log_k           -3.260
+                delta_h -1.358  kcal
 
 N[15N](g)
         N[15N](g) + N2(aq) = N[15N](aq) + N2(g)
@@ -3537,7 +3455,8 @@ N[15N](g)
 
 NH3(g)
         NH3 = NH3
-        -add_logk       Log_KH_NH3(g)                           1.0             
+                log_k           1.770
+                delta_h -8.170  kcal
 
 NH2D(g)
 NH2D(g) + H2O(l) = NH3(g) + HDO(aq)
