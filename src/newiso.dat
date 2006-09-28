@@ -1610,6 +1610,10 @@ NAMED_EXPRESSIONS
                 -ln_alpha1000   0.0
 
 SOLUTION_SPECIES
+#
+#  Updated September 28, 2006
+#  Checked September 28, 2006
+#
         SO4-2 + H3O+ = HSO4- + H2O
                 -add_logk       Log_K_SO4-2_HSO4-               
         SO4-2 + 9 H3O+ + 8 e- = HS- + 13 H2O
@@ -1634,12 +1638,13 @@ SOLUTION_SPECIES
         [34S]O4-2 + HSO4- = H[34S]O4- + SO4-2
                 -add_logk       Log_alpha_34S_HSO4-/SO4-2       1.0
                 -mole_balance   H[34S](6)O4-
-        [34S]O4-2 + DSO4- = D[34S]O4- + SO4-2
-                -add_logk       Log_alpha_34S_HSO4-/SO4-2       1.0
-                -mole_balance   D[34S](6)O4-
-        [34S]O4-2 + TSO4- = T[34S]O4- + SO4-2
-                -add_logk       Log_alpha_34S_HSO4-/SO4-2       1.0
+        H[34S]O4- + DSO4- = D[34S]O4- + HSO4-
+                -mole_balance   D[34S](6)O4
+        H[34S]O4- + TSO4- = T[34S]O4- + HSO4-
                 -mole_balance   T[34S](6)O4-
+#
+#  Sulfide
+#
         HS- + HDO = DS- + H2O
                 -log_k          -0.301029995663                 # -log10(2)
                 -add_logk       Log_alpha_D_HS-/H2O(l)             1.0
@@ -1650,49 +1655,47 @@ SOLUTION_SPECIES
                 -add_logk       Log_alpha_T_HS-/H2O(l)             1.0
                 -mole_balance TS(-2)
                 -gamma    3.5000    0.0000
-
-#  Sulfide equations, removed sulfate May 19, 2006
-        H2S + HDO = HDS + H2O
-                -add_logk       Log_alpha_D_H2S(aq)/H2O(l)         1.0
-                -mole_balance HDS(-2)
-        H2S + 2HDO = D2S + 2H2O
-                log_k           -0.602059991327962396           # -log10(4)
-                -add_logk       Log_alpha_D_H2S(aq)/H2O(l)         2.0
-                -mole_balance D2S(-2)
-        H2S + HTO = HTS + H2O
-                -add_logk       Log_alpha_T_H2S(aq)/H2O(l)         1.0
-                -mole_balance HTS(-2)
-        H2S + 2HTO = T2S + 2H2O
-                log_k           -0.602059991327962396           # -log10(4)
-                -add_logk       Log_alpha_T_H2S(aq)/H2O(l)         2.0
-                -mole_balance T2S(-2)
-        HDS + HTO = DTS + H2O
-                -add_logk       Log_alpha_T_H2S(aq)/H2O(l)         1.0
-                -mole_balance DTS(-2)
         HS- + [34S]O4-2 = H[34S]- + SO4-2
                 -add_logk       Log_alpha_34S_HS-/SO4-2         1.0
                 -mole_balance   H[34S](-2)
                 -gamma    3.5000    0.0000
+        S-2 + H[34S]- = [34S]-2 + HS-
+                -add_logk       Log_alpha_34S_S-2/HS-           1.0
+                -mole_balance [34S](-2)
+                -gamma    5.0000    0.0000
          H[34S]- + DS- = D[34S]- + HS-
                 -gamma    3.5000    0.0000
                 -mole_balance   D[34S](-2)
          H[34S]- + TS- = T[34S]- + HS-
                 -gamma    3.5000    0.0000
                 -mole_balance   T[34S](-2)
-        S-2 + H[34S]- = [34S]-2 + HS-
-                -mole_balance [34S](-2)
-                -gamma    5.0000    0.0000
-        H[34S]- + H2S = H2[34S] + HS-
+         H2S + HDO = HDS + H2O
+                -add_logk       Log_alpha_D_H2S(aq)/H2O(l)         1.0
+                -mole_balance HDS(-2)
+         2HDS = D2S + H2S
+                log_k           -0.602059991327962396           # -log10(4)
+                -mole_balance D2S(-2)
+         H2S + HTO = HTS + H2O
+                -add_logk       Log_alpha_T_H2S(aq)/H2O(l)         1.0
+                -mole_balance HTS(-2)
+         2HTS = T2S + H2S
+                log_k           -0.602059991327962396           # -log10(4)
+                -mole_balance T2S(-2)
+         HDS + HTS = DTS + H2S
+	        log_k           -0.301029995663                         # log10(1/2)
+                -mole_balance DTS(-2)
+         H[34S]- + H2S = H2[34S] + HS-
+                -add_logk       Log_alpha_34S_H2S(aq)/HS-           1.0
                 -mole_balance H2[34S](-2)
-        H[34S]- + HDS = HD[34S] + HS-
+         H2[34S] + HDS = HD[34S] + H2S
                 -mole_balance HD[34S](-2)
-        H[34S]- + D2S = D2[34S] + HS-
+         H2[34S] + D2S = D2[34S] + H2S
                 -mole_balance D2[34S](-2)
-        H[34S]- + HTS = HT[34S] + HS-
+         H2[34S] + HTS = HT[34S] + H2S
                 -mole_balance HT[34S](-2)
-        H[34S]- + T2S = T2[34S] + HS-
+         H2[34S] + T2S = T2[34S] + H2S
                 -mole_balance T2[34S](-2)
-        H[34S]- + DTS = DT[34S] + HS-
+         H2[34S] + DTS = DT[34S] + H2S
                 -mole_balance DT[34S](-2)
 
 #
@@ -2306,30 +2309,23 @@ Ca[14C][18O]3(s)
 
 #
 # Pyrite, March 20, 2006
+# Update September 28, 2006
+# Checked September 28, 2006
 # 
-#Pyrite
-#        FeS2 + 2H3O+ + 2e- = Fe+2 + 2HS- + 2H2O
-#        -add_logk       Log_K_pyrite                           1.0
-##        log_k           -18.479
-##        delta_h 11.300 kcal
+Pyrite
+        FeS2 + 2H3O+ + 2e- = Fe+2 + 2HS- + 2H2O
+        log_k           -18.479
+        delta_h 11.300 kcal
 
-#Pyrite-FeS[34S]
-#        FeS[34S] + 2H3O+ + 2e- = Fe+2 + H[34S]- + HS- + 2H2O
-#        log_k           0.176091259055                         # log10(1.5)
-#        -add_logk       Log_K_pyrite                           1.0
-#        -add_logk       Log_alpha_34S_HS-/Pyrite               1.0
+Pyrite-FeS[34S]
+	 FeS[34S](s) + HS- = Pyrite(s) + H[34S]-
+         -add_logk       Log_alpha_34S_Pyrite/HS-               -1.0
 
-#Pyrite-Fe[34S]S
-#        Fe[34S]S + 2H3O+ + 2e- = Fe+2 + H[34S]- + HS- + 2H2O
-#        log_k           0.176091259055                         # log10(1.5)
-#        -add_logk       Log_K_pyrite                           1.0
-#        -add_logk       Log_alpha_34S_HS-/Pyrite               1.0
+Pyrite-Fe[34S]S
+	 Fe[34S]S(s) = FeS[34S](s)
 
-#Pyrite-Fe[34S]2
-#        Fe[34S]2 + 2H3O+ + 2e- = Fe+2 + 2H[34S]- + 2H2O
-#        log_k           0.176091259055                         # log10(1.5)
-#        -add_logk       Log_K_pyrite                           1.0
-#        -add_logk       Log_alpha_34S_HS-/Pyrite               2.0
+Pyrite-Fe[34S]2
+	 Fe[34S]2 + Pyrite(s) = 2FeS[34](s)
 
 SOLUTION_SPECIES
 
@@ -3470,72 +3466,41 @@ NAMED_EXPRESSIONS
 PHASES
 #
 # updated March 20, 2006
+# Updated September 28, 2006
+# Checked September 28, 2006
 #
         H2S(g)
                 H2S = H2S
                 -add_logk       Log_KH_H2S(g)                   1.0
 
         HDS(g)
-                HDS = HDS
-                -add_logk       Log_KH_H2S(g)                   1.0
+		HDS(g) + H2S(aq) = HDS(aq) + H2S(g)
                 -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      -1.0
-
         D2S(g)
-                D2S = D2S
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      -2.0
-
+		D2S(g) + H2S(g) = 2HDS(g)
+		log_k           0.602059991327962396             # log10(4)
         HTS(g)
-                HTS = HTS
-                -add_logk       Log_KH_H2S(g)                   1.0
+		HTS(g) + H2S(aq) = HTS(aq) + H2S(g)
                 -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -1.0
-
         T2S(g)
-                T2S = T2S
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -2.0
-
+		T2S(g) + H2S(g) = 2HTS(g)
+		log_k           0.602059991327962396             # log10(4)
         DTS(g)
-                DTS = DTS
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      -1.0
-                -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -1.0
-
+		 DTS(g) + H2S(g) = HDS(g) + HTS(g)
+		 log_k           0.301029995663                  # log10(2)
         H2[34S](g)
-                H2[34S] = H2[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-
+                H2[34S](g) + H2S(aq) = H2[34S](aq) + H2S(g)
+		 -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
         HD[34S](g)
-                HD[34S] = HD[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-                -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      -1.0
-
+                HD[34S](g) + H2S(g) = HDS(g) + H2[34S](g)
         D2[34S](g)
-                D2[34S] = D2[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-                -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      2.0
-
+                D2[34S](g) + H2S(g) = D2S(g) + H2[34S](g)
         HT[34S](g)
-                HT[34S] = HT[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-                -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -1.0
-
+                HT[34S](g) + H2S(g) = HTS(g) + H2[34S](g)
         T2[34S](g)
-                T2[34S] = T2[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-                -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -2.0
-
+                T2[34S](g) + H2S(g) = T2S(g) + H2[34S](g)
         DT[34S](g)
-                DT[34S] = DT[34S]
-                -add_logk       Log_KH_H2S(g)                   1.0
-                -add_logk       Log_alpha_34S_H2S(g)/H2S(aq)    -1.0
-                -add_logk       Log_alpha_T_H2S(g)/H2S(aq)      -1.0
-                -add_logk       Log_alpha_D_H2S(g)/H2S(aq)      -1.0
+                DT[34S](g) + H2S(g) = DTS(g) + H2[34S](g)
 
         Gypsum
                 CaSO4:2H2O = Ca+2 + SO4-2 + 2 H2O
@@ -3546,21 +3511,13 @@ PHASES
                 -add_logk           Log_K_Anhydrite
 
         Ca[34S]O4:2H2O
-                Ca[34S]O4:2H2O = Ca+2 + [34S]O4-2 + 2 H2O
-                -add_logk           Log_K_Gypsum
-                -add_logk           Log_alpha_34S_Gypsum/SO4-2      -1.0
-                
-#       CaSO4:H2O:HDO
-#               CaSO4:H2O:HDO = Ca+2 + SO4-2 + H2O + HDO
-#               -add_logk           Log_K_Gypsum
-#               -add_logk           Log_alpha_D_H2O/Gypsum
+                Ca[34S]O4:2H2O + SO4-2 = [34S]O4-2 + Gypsum
+                -add_logk           Log_alpha_34S_Gypsum/SO4-2       -1.0
 
         Ca[34S]O4
-                Ca[34S]O4 = Ca+2 + [34S]O4-2
-                -add_logk           Log_K_Anhydrite
-                -add_logk           Log_alpha_34S_Anhydrite/SO4-2   -1.0
+                Ca[34S]O4 + SO4-2 = [34S]O4-2 + Anhydrite
+                -add_logk           Log_alpha_34S_Anhydrite/SO4-2    -1.0
 
-                
 PHASES
 #
 #  Nitrogen phases
