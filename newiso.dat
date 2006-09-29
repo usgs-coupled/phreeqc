@@ -995,57 +995,118 @@ ISOTOPE_RATIOS
         R(D)_NH3(g)             D
 
 ISOTOPE_ALPHAS
-        Alpha_13C_CH4(aq)/CH4(g)                Log_alpha_13C_CH4(aq)/CH4(g)
-        Alpha_13C_CH4(aq)/CO2(aq)               Log_alpha_13C_CH4(aq)/CO2(aq)
-        Alpha_13C_CO2(g)/CO2(aq)                Log_alpha_13C_CO2(g)/CO2(aq)
-        Alpha_13C_CO2(aq)/Calcite               Log_alpha_13C_CO2(aq)/Calcite
-        Alpha_13C_CO3-2/CO2(aq)                 Log_alpha_13C_CO3-2/CO2(aq)
-        Alpha_13C_HCO3-/CO2(aq)                 Log_alpha_13C_HCO3-/CO2(aq)
-        Alpha_15N_N2/NO3-                       Log_alpha_15N_N2/NO3-
-        Alpha_15N_NH4+/NO3-                     Log_alpha_15N_NH4+/NO3-
-        Alpha_18O_CO2(g)/CO2(aq)                Log_alpha_18O_CO2(g)/CO2(aq)
-        Alpha_18O_CO2(aq)/H2O(l)                Log_alpha_18O_CO2(aq)/H2O(l)
-        Alpha_18O_CO3-2/Calcite                 Log_alpha_18O_CO2(aq)/Calcite
-        Alpha_18O_CO3-2/H2O(l)                  Log_alpha_18O_CO3-2/H2O(l)
-        Alpha_18O_H2O(l)/H2O(g)                 Log_alpha_18O_H2O(l)/H2O(g)
-        Alpha_18O_H3O+/H2O(l)                   Log_alpha_18O_H3O+/H2O(l)
-        Alpha_18O_HCO3-/CO2(aq)                 Log_alpha_18O_HCO3-/CO2(aq)
-        Alpha_18O_O2(aq)/H2O(l)                 Log_alpha_18O_O2(aq)/H2O(l)
-        Alpha_18O_O2(aq)/O2(g)                  Log_alpha_18O_O2(aq)/O2(g)
-        Alpha_18O_OH-/H2O(l)                    Log_alpha_18O_OH-/H2O(l)
-        Alpha_34S_H2S(aq)/H2S(g)                Log_alpha_34S_H2S(aq)/H2S(g)
-        Alpha_34S_H2S(aq)/HS-                   Log_alpha_34S_H2S(aq)/HS-
-        Alpha_34S_HS-/SO4-2                     Log_alpha_34S_HS-/SO4-2
-        Alpha_34S_HSO4-/SO4-2                   Log_alpha_34S_HSO4-/SO4-2
-        Alpha_34S_S-2/HS-                       Log_alpha_34S_S-2/HS-
-        Alpha_D_CH4(aq)/CH4(g)                  Log_alpha_D_CH4(aq)/CH4(g)
-        Alpha_D_CH4(aq)/H2O(l)                  Log_alpha_D_CH4(aq)/H2O(l)
-        Alpha_D_H2(aq)/H2(g)                    Log_alpha_D_H2(aq)/H2(g)
-        Alpha_D_H2(aq)/H2O(l)                   Log_alpha_D_H2(aq)/H2O(l)
-        Alpha_D_H2O(l)/H2O(g)                   Log_alpha_D_H2O(l)/H2O(g)
-        Alpha_D_H2S(aq)/H2S(g)                  Log_alpha_D_H2S(aq)/H2S(g)
-        Alpha_D_H2S(aq)/HS-                     Log_alpha_D_H2S(aq)/HS-
-        Alpha_D_H3O+/H2O(l)                     Log_alpha_D_H3O+/H2O(l)
-        Alpha_D_HCO3-/H2O(l)                    Log_alpha_D_HCO3-/H2O(l)
+# OH-
         Alpha_D_OH-/H2O(l)                      Log_alpha_D_OH-/H2O(l)
+        Alpha_T_OH-/H2O(l)                      Log_alpha_T_OH-/H2O(l)
+        Alpha_18O_OH-/H2O(l)                    Log_alpha_18O_OH-/H2O(l)
+# H3O+
+        Alpha_D_H3O+/H2O(l)                     Log_alpha_D_H3O+/H2O(l)
+        Alpha_T_H3O+/H2O(l)                     Log_alpha_T_H3O+/H2O(l)
+        Alpha_18O_H3O+/H2O(l)                   Log_alpha_18O_H3O+/H2O(l)
+# O2(aq)
+        Alpha_18O_O2(aq)/H2O(l)                 Log_alpha_18O_O2(aq)/H2O(l)
+# H2(aq)
+        Alpha_D_H2(aq)/H2O(l)                   Log_alpha_D_H2(aq)/H2O(l)
+        Alpha_T_H2(aq)/H2O(l)                   Log_alpha_T_H2(aq)/H2O(l)
+# CO2(aq)
+        Alpha_18O_CO2(aq)/H2O(l)                Log_alpha_18O_CO2(aq)/H2O(l)
+# HCO3-
+        Alpha_18O_HCO3-/H2O(l)                  Log_alpha_18O_HCO3-/H2O(l)
+        Alpha_D_HCO3-/H2O(l)                    Log_alpha_D_HCO3-/H2O(l)
+        Alpha_T_HCO3-/H2O(l)                    Log_alpha_T_HCO3-/H2O(l)
+        Alpha_13C_HCO3-/CO2(aq)                 Log_alpha_13C_HCO3-/CO2(aq)
+        Alpha_14C_HCO3-/CO2(aq)                 Log_alpha_14C_HCO3-/CO2(aq)
+# CO3-2
+        Alpha_18O_CO3-2/H2O(l)                  Log_alpha_18O_CO3-2/H2O(l)
+        Alpha_13C_CO3-2/CO2(aq)                 Log_alpha_13C_CO3-2/CO2(aq)
+        Alpha_14C_CO3-2/CO2(aq)                 Log_alpha_14C_CO3-2/CO2(aq)
+# CH4(aq)
+        Alpha_D_CH4(aq)/H2O(l)                  Log_alpha_D_CH4(aq)/H2O(l)
+        Alpha_T_CH4(aq)/H2O(l)                  Log_alpha_T_CH4(aq)/H2O(l)
+        Alpha_13C_CH4(aq)/CO2(aq)               Log_alpha_13C_CH4(aq)/CO2(aq)
+        Alpha_14C_CH4(aq)/CO2(aq)               Log_alpha_14C_CH4(aq)/CO2(aq)
+# HSO4-
+        Alpha_D_HSO4-/H2O(l)                    Log_alpha_D_HSO4-/H2O(l)
+        Alpha_T_HSO4-/H2O(l)                    Log_alpha_T_HSO4-/H2O(l)
+        Alpha_34S_HSO4-/SO4-2                   Log_alpha_34S_HSO4-/SO4-2
+# S-2
+        Alpha_34S_S-2/HS-                       Log_alpha_34S_S-2/HS-
+# HS-
+        Alpha_D_HS-/H2O(l)                      Log_alpha_D_HS-/H2O(l)
+        Alpha_T_HS-/H2O(l)                      Log_alpha_T_HS-/H2O(l)
+        Alpha_34S_HS-/SO4-2                     Log_alpha_34S_HS-/SO4-2
+# H2S
+        Alpha_D_H2S(aq)/H2O(l)                  Log_alpha_D_H2S(aq)/H2O(l)
+        Alpha_T_H2S(aq)/H2O(l)                  Log_alpha_T_H2S(aq)/H2O(l)
+        Alpha_34S_H2S(aq)/HS-                   Log_alpha_34S_H2S(aq)/HS-
+# NO2-
+        Alpha_15N_NO2-/NO3-                     Log_alpha_15N_NO2-/NO3- 
+# N(aq)
+        Alpha_15N_N2(aq)/NO3-                   Log_alpha_15N_N2(aq)/NO3-
+# NH3(aq)
+	Alpha_D_NH3(aq)/H2O(l)                  Log_alpha_D_NH3(aq)/H2O(l)
+	Alpha_T_NH3(aq)/H2O(l)                  Log_alpha_T_NH3(aq)/H2O(l)
+        Alpha_15N_NH3(aq)/NO3-                  Log_alpha_15N_NH3(aq)/NO3-
+# NH4+
+        Alpha_D_NH4+/H2O(l)                     Log_alpha_D_NH4+/H2O(l)
+        Alpha_T_NH4+/H2O(l)                     Log_alpha_T_NH4+/H2O(l)
+        Alpha_15N_NH4+/NH3(aq)                  Log_alpha_15N_NH4+/NH3(aq)
+# H2O(g)
+        Alpha_D_H2O(g)/H2O(l)                   Log_alpha_D_H2O(g)/H2O(l)
+        Alpha_T_H2O(g)/H2O(l)                   Log_alpha_T_H2O(g)/H2O(l)
+        Alpha_18O_H2O(g)/H2O(l)                 Log_alpha_18O_H2O(g)/H2O(l)
+# O2(g)
+        Alpha_18O_O2(g)/H2O(l)                  Log_alpha_18O_O2(g)/H2O(l) #?
+# H2(g)
+        Alpha_D_H2(g)/H2O(l)                    Log_alpha_D_H2(g)/H2O(l)   #?
+        Alpha_T_H2(g)/H2O(l)                    Log_alpha_T_H2(g)/H2O(l)   #?
+# CO2(g)
+        Alpha_18O_CO2(g)/H2O(l)                 Log_alpha_18O_CO2(g)/H2O(l)
+        Alpha_13C_CO2(g)/CO2(aq)                Log_alpha_13C_CO2(g)/CO2(aq)
+        Alpha_14C_CO2(g)/CO2(aq)                Log_alpha_14C_CO2(g)/CO2(aq)
+# Calcite
+        Alpha_18O_Calcite/H2O(l)                Log_alpha_18O_Calcite/H2O(l)
+        Alpha_13C_Calcite/CO3-2                 Log_alpha_13C_Calcite/CO3-2
+        Alpha_14C_Calcite/CO3-2                 Log_alpha_14C_Calcite/CO3-2
+# Pyrite
+        Alpha_34S_Pyrite/HS-                    Log_alpha_34S_Pyrite/HS-
+# CH4(g)
+        Alpha_D_CH4(g)/H2O(l)                   Log_alpha_D_CH4(g)/H2O(l)
+        Alpha_T_CH4(g)/H2O(l)                   Log_alpha_T_CH4(g)/H2O(l)
+        Alpha_13C_CH4(g)/CO2(aq)                Log_alpha_13C_CH4(g)/CO2(aq) #?
+        Alpha_14C_CH4(g)/CO2(aq)                Log_alpha_14C_CH4(g)/CO2(aq) #?
+# H2S(g)
+        Alpha_D_H2S(g)/H2S(aq)                  Log_alpha_D_H2S(g)/H2S(aq)
+        Alpha_T_H2S(g)/H2S(aq)                  Log_alpha_T_H2S(g)/H2S(aq)
+        Alpha_34S_H2S(g)/H2S(aq)                Log_alpha_34S_H2S(g)/H2S(aq)
+# Gypsum
+        Alpha_34S_Gypsum/SO4-2                  Log_alpha_34S_Gypsum/SO4-2
+# Anhydrite
+        Alpha_34S_Anhydrite/SO4-2               Log_alpha_34S_Anhydrite/SO4-2
+# N2(g)
+        Alpha_15N_N2(g)/N2(aq)                  Log_alpha_15N_N2(g)/N2(aq)
+# NH3(g)
+        Alpha_D_NH3(g)/H2O(l)                   Log_alpha_D_NH3(g)/H2O(l)
+        Alpha_T_NH3(g)/H2O(l)                   Log_alpha_T_NH3(g)/H2O(l)
+        Alpha_15N_NH3(g)/NH3(aq)                Log_alpha_15N_NH3(g)/NH3(aq)
+
+#  No longer used
+#        Alpha_D_H2(aq)/H2(g)                    Log_alpha_D_H2(aq)/H2(g)
+#        Alpha_T_H2(aq)/H2(g)                    Log_alpha_T_H2(aq)/H2(g)
+#        Alpha_13C_CH4(aq)/CH4(g)                Log_alpha_13C_CH4(aq)/CH4(g)
+#        Alpha_13C_CO2(aq)/Calcite               Log_alpha_13C_CO2(aq)/Calcite
+#        Alpha_15N_NH4+/NO3-                     Log_alpha_15N_NH4+/NO3-
+#        Alpha_18O_CO2(g)/CO2(aq)                Log_alpha_18O_CO2(g)/CO2(aq)
+#        Alpha_18O_CO3-2/Calcite                 Log_alpha_18O_CO2(aq)/Calcite
+#        Alpha_18O_H2O(l)/H2O(g)                 Log_alpha_18O_H2O(l)/H2O(g)
+#        Alpha_18O_HCO3-/CO2(aq)                 Log_alpha_18O_HCO3-/CO2(aq)
+#        Alpha_18O_O2(aq)/O2(g)                  Log_alpha_18O_O2(aq)/O2(g)
+#        Alpha_34S_H2S(aq)/H2S(g)                Log_alpha_34S_H2S(aq)/H2S(g)
+#        Alpha_D_CH4(aq)/CH4(g)                  Log_alpha_D_CH4(aq)/CH4(g)
+#        Alpha_D_H2O(l)/H2O(g)                   Log_alpha_D_H2O(l)/H2O(g)
+#        Alpha_D_H2S(aq)/H2S(g)                  Log_alpha_D_H2S(aq)/H2S(g)
+#        Alpha_D_H2S(aq)/HS-                     Log_alpha_D_H2S(aq)/HS-
 NAMED_EXPRESSIONS
-#
-# H2O fractionation factors
-#
-Log_alpha_D_H2O(l)/H2O(g)               # 1000ln(alpha(25C)) = 76.4
-     # 0-100 C
-     -ln_alpha1000   52.612  0.0     -76.248e3       0.0     24.844e6
-
-Log_alpha_T_H2O(l)/H2O(g)               # 1000ln(alpha(25C)) = 152.7
-     # 0-100 C
-     -ln_alpha1000   105.224 0.0     -152.496e3      0.0     49.688e6
-
-Log_alpha_18O_H2O(l)/H2O(g)             # 1000ln(alpha(25C)) = 9.3
-     # 0-100 C
-     -ln_alpha1000   -2.0667 0.0     -0.4156e3       0.0     1.137e6
-
-Log_alpha_18O_O2(aq)/H2O(l)             
-     -ln_alpha1000   0
 #
 # OH- fractionation factors
 #
@@ -1075,12 +1136,170 @@ Log_alpha_18O_H3O+/H2O(l)               # 1000ln(alpha(25C)) = 22.9
      # 25 C
      -ln_alpha1000   22.86   
 #
-# CO2 fractionation factors
+# O2(aq) fractionation factors
+#
+Log_alpha_18O_O2(aq)/H2O       
+     -ln_alpha1000   0.0
+#
+# H2(aq) fractionation factors
+#
+Log_alpha_D_H2(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_H2(aq)/H2O(l)
+     -ln_alpha1000   0
+#
+# CO2(aq) fractionation factors
 #
 Log_alpha_18O_CO2(aq)/H2O(l)            # 1000ln(alpha(25C)) = 41.2
      # 0-100 C
      -ln_alpha1000   -21.9285        0.0     19.43596e3      0.0     -0.181115e6
+#
+# HCO3- fractionation factors
+#
+Log_alpha_18O_HCO3-/H2O(l) 
+     -ln_alpha1000   0.0 #?
 
+Log_alpha_D_HCO3-/H2O(l)
+     -ln_alpha1000   0.0
+
+Log_alpha_T_HCO3-/H2O(l)                    
+     -ln_alpha1000   0.0
+
+Log_alpha_13C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 8.7
+     # 0-100 C
+     -ln_alpha1000   -3.63   0.0     0.0     0.0     1.0927e6
+
+Log_alpha_14C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 17.3
+     # 0-100 C
+     -ln_alpha1000   -7.26   0.0     0.0     0.0     2.1854e6
+#
+# CO3-2 fractionation factors
+#
+Log_alpha_18O_CO3-2/H2O(l)
+     -ln_alpha1000   0.0
+     
+Log_alpha_13C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 7.2
+     # 0-100 C
+     -ln_alpha1000   -2.49   0.0     0.0     0.0     0.8637e6
+     
+Log_alpha_14C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 14.5
+     # 0-100 C
+     -ln_alpha1000   -4.98   0.0     0.0     0.0     1.7274e6
+#
+# CH4(aq) fractionation factors
+#
+Log_alpha_D_CH4(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_CH4(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_13C_CH4(aq)/CO2(aq)
+     -ln_alpha1000   0
+
+Log_alpha_14C_CH4(aq)/CO2(aq)
+     -ln_alpha1000   0
+#
+# HSO4- fractionation factors     
+#
+Log_alpha_D_HSO4-/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_HSO4-/H2O(l)
+     -ln_alpha1000   0
+     
+Log_alpha_34S_HSO4-/SO4-2
+     -ln_alpha1000   0.0
+#
+# S-2 fractionation factors
+#
+Log_alpha_34S_S-2/HS-
+     -ln_alpha1000   0.0
+#
+# HS- fractionation factors
+#
+Log_alpha_D_HS-/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_HS-/H2O(l)
+     -ln_alpha1000   0
+     
+Log_alpha_34S_HS-/SO4-2
+     -ln_alpha1000   0.0
+#
+# H2S fractionation factors
+#
+Log_alpha_D_H2S(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_H2S(aq)/H2O(l)
+     -ln_alpha1000   0
+     
+Log_alpha_34S_H2S(aq)/HS-
+     -ln_alpha1000   0.0
+#
+# NO2- fractionation factors
+#
+Log_alpha_15N_NO2-/NO3- 
+     -ln_alpha1000   0.0
+#
+# N2(aq) fractionation factors
+#     
+Log_alpha_15N_N2(aq)/NO3-
+     -ln_alpha1000   0.0
+#
+# NH3(aq) fractionation factors
+#     
+Log_alpha_D_NH3(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_NH3(aq)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_15N_NH3/NO3-
+     -ln_alpha1000   0
+#
+# NH4+ fractionation factors
+#     
+Log_alpha_D_NH4+/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_NH4+/H2O(l)
+     -ln_alpha1000   0
+     
+Log_alpha_15N_NH4+/NH3(aq)
+     -ln_alpha1000   0
+#
+# H2O(g) fractionation factors
+#
+Log_alpha_D_H2O(g)/H2O(l)               # 1000ln(alpha(25C)) = -76.4
+     # 0-100 C
+     -ln_alpha1000   -52.612  0.0     76.248e3       0.0     -24.844e6
+
+Log_alpha_T_H2O(g)/H2O(l)               # 1000ln(alpha(25C)) = -152.7
+     # 0-100 C
+     -ln_alpha1000   -105.224 0.0     152.496e3      0.0     -49.688e6
+
+Log_alpha_18O_H2O(g)/H2O(l)             # 1000ln(alpha(25C)) = -9.3
+     # 0-100 C
+     -ln_alpha1000   2.0667   0.0     0.4156e3       0.0     -1.137e6
+#
+# O2(g) fractionaton factors
+#
+Log_alpha_18O_O2(g)/H2O(l)      
+     -ln_alpha1000   0.0
+#
+# H2(g) fractionaton factors
+#
+Log_alpha_D_H2(g)/H2O(l)
+     -ln_alpha1000   0
+
+Log_alpha_T_H2(g)/H2O(l)
+     -ln_alpha1000   0
+#
+# CO2(g) fractionaton factors
+#     
 Log_alpha_18O_CO2(g)/H2O(l)             # 1000ln(alpha(25C)) = -1.07
      # 0-100 C
      -ln_alpha1000   -19.97  0.0     17.9942e3        0.0     -0.0206e6
@@ -1094,174 +1313,83 @@ Log_alpha_14C_CO2(g)/CO2(aq)            # 1000ln(alpha(25C)) = 1.7
      # 0-100 C
      -ln_alpha1000   1.82   0.0     0.0     0.0     -0.0126e6
 #
-# HCO3 fractionation factors
-#
-Log_alpha_D_HCO3-/H2O(l)
-     -ln_alpha1000   0.0
-
-Log_alpha_T_HCO3-/H2O(l)                    
-     -ln_alpha1000   0.0
-
-Log_alpha_18O_HCO3-/CO2(aq)
-     -ln_alpha1000   0.0
-
-Log_alpha_13C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 8.7
-     # 0-100 C
-     -ln_alpha1000   -3.63   0.0     0.0     0.0     1.0927e6
-
-Log_alpha_14C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 17.3
-     # 0-100 C
-     -ln_alpha1000   -7.26   0.0     0.0     0.0     2.1854e6
-#
-# CO3 fractionation factors
-#
-Log_alpha_18O_CO3-2/H2O(l)
-     -ln_alpha1000   0.0
-     
-Log_alpha_13C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 7.2
-     # 0-100 C
-     -ln_alpha1000   -2.49   0.0     0.0     0.0     0.8637e6
-     
-Log_alpha_14C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 14.5
-     # 0-100 C
-     -ln_alpha1000   -4.98   0.0     0.0     0.0     1.7274e6
-#
 # CO2-Calcite fractionation factors
 #
-Log_alpha_18O_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = 13.6
-     # 0-100 C
-     -ln_alpha1000   -4.7383 0.0     12.05276e3      0.0     -1.963915e6
+#Log_alpha_18O_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = 13.6
+#     # 0-100 C
+#     -ln_alpha1000   -4.7383 0.0     12.05276e3      0.0     -1.963915e6
+Log_alpha_18O_Calcite/H2O(l)
+     -ln_alpha1000   0 #?
      
-Log_alpha_13C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -10.6
-     # 0-100 C
-     -ln_alpha1000   2.72    0.0     0.0     0.0     -1.1877e6
-     
-Log_alpha_14C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -21.3
-     # 0-100 C
-     -ln_alpha1000   5.44    0.0     0.0     0.0     -2.3754e6
+#Log_alpha_13C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -10.6
+#     # 0-100 C
+#     -ln_alpha1000   2.72    0.0     0.0     0.0     -1.1877e6
 
-#
-# May 30, 2006
-#
-Log_alpha_13C_CH4(aq)/CO2(aq)
-     -ln_alpha1000   0
-
-Log_alpha_14C_CH4(aq)/CO2(aq)
-     -ln_alpha1000   0
-     
-Log_alpha_13C_CH4(g)/CH4(aq)
-     -ln_alpha1000   0
-
-Log_alpha_14C_CH4(g)/CH4(aq)
-     -ln_alpha1000   0
-
-Log_alpha_D_CH4(g)/CH4(aq)
-     -ln_alpha1000   0
-
-Log_alpha_T_CH4(g)/CH4(aq)
-     -ln_alpha1000   0
-     
-Log_alpha_D_CH4(aq)/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_CH4(aq)/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_HCO3-/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_HCO3-/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_HS-/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_HS-/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_HSO4-/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_HSO4-/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_H2(aq)/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_H2(aq)/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_H2S(aq)/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_H2S(aq)/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_18O_HCO3-/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_NH3/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_NH3/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_D_NH4+/H2O(l)
-     -ln_alpha1000   0
-
-Log_alpha_T_NH4+/H2O(l)
-     -ln_alpha1000   0
-     
-Log_alpha_15N_NH3/NO3-
-     -ln_alpha1000   0
-     
-Log_alpha_15N_NH4+/NH3
-     -ln_alpha1000   0
-     
-Log_alpha_15N_N2(g)/N2(aq)
-     -ln_alpha1000   0
-     
-Log_alpha_15N_NH3(g)/NH3(aq)
-     -ln_alpha1000   0
-
-Log_alpha_D_NH3(g)/NH3(aq)
-     -ln_alpha1000   0
-
-Log_alpha_T_NH3(g)/NH3(aq)
-     -ln_alpha1000   0
-     
 Log_alpha_13C_Calcite/CO3-2
-     -ln_alpha1000   0
+     -ln_alpha1000   0 #?
+     
+#Log_alpha_14C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -21.3
+#     # 0-100 C
+#     -ln_alpha1000   5.44    0.0     0.0     0.0     -2.3754e6
 
 Log_alpha_14C_Calcite/CO3-2
-     -ln_alpha1000   0
+     -ln_alpha1000   0 #?
+#
+# Pyrite fractionation factors
+#     
+Log_alpha_34S_Pyrite/HS-
+     -ln_alpha1000   0 
+#
+# CH4(g) fractionation factors
+#     
+Log_alpha_D_CH4(g)/H2O(l) #?
+     -ln_alpha1000   0.0
+
+Log_alpha_T_CH4(g)/H2O(l) #?
+     -ln_alpha1000   0.0
      
-Log_alpha_18O_Calcite/H2O(l)
-     -ln_alpha1000   0
+Log_alpha_13C_CH4(g)/CO2(aq) #?
+     -ln_alpha1000   0.0
      
-Log_alpha_34S_Anhydrite/SO4-2
-     -ln_alpha1000   0
-
-Log_alpha_34S_Gypsum/SO4-2
-     -ln_alpha1000   0
-
-Log_alpha_34S_H2S(g)/H2S(aq)
-     -ln_alpha1000   0
-
+Log_alpha_14C_CH4(g)/CO2(aq) #?
+     -ln_alpha1000   0.0
+#
+# H2S(g) fractionation factors
+#
 Log_alpha_D_H2S(g)/H2S(aq)
      -ln_alpha1000   0
 
 Log_alpha_T_H2S(g)/H2S(aq)
      -ln_alpha1000   0
 
-Log_alpha_T_H2(aq)/H2(g)
+Log_alpha_34S_H2S(g)/H2S(aq)
      -ln_alpha1000   0
-     
-Log_alpha_18O_O2(aq)/O2(g)      
-     -ln_alpha1000   0.0
-     
-Log_alpha_18O_O2(aq)/H2O       
-     -ln_alpha1000   0.0
+#
+# Gypsum fractionation factors
+#
+Log_alpha_34S_Gypsum/SO4-2
+     -ln_alpha1000   0
+#
+# Anhydrite fractionation factors
+#
+Log_alpha_34S_Anhydrite/SO4-2
+     -ln_alpha1000   0
+#
+# N2(g) fractionation factors
+#
+Log_alpha_15N_N2(g)/N2(aq)
+     -ln_alpha1000   0
+#
+# NH3(g) fractionation factors
+#
+Log_alpha_D_NH3(g)/H2O(l) #?
+     -ln_alpha1000   0
+
+Log_alpha_T_NH3(g)/H2O(l) #?
+     -ln_alpha1000   0
+
+Log_alpha_15N_NH3(g)/NH3(aq)
+     -ln_alpha1000   0
 
 ###############################################################################################
 CALCULATE_VALUES
@@ -2369,91 +2497,6 @@ Alpha_18O_O2(aq)/H2O
 90 alpha = r1/r2
 1000 save alpha
      -end
-###############################################################################################
-NAMED_EXPRESSIONS
-###############################################################################################
-Log_alpha_13C_CH4(aq)/CH4(g)    
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_CH4(aq)/CH4(g)      
-     -ln_alpha1000   0.0
-     
-Log_alpha_13C_CH4(aq)/CO2(aq)
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_CH4(aq)/H2O(l)
-     -ln_alpha1000   0.0
-     
-Log_alpha_34S_HSO4-/SO4-2
-     -ln_alpha1000   0.0
-
-Log_alpha_D_HSO4-/H3O+
-     -ln_alpha1000   0.0
-
-Log_alpha_34S_HS-/SO4-2
-     -ln_alpha1000   0.0
-
-Log_alpha_D_H2S(aq)/HS-
-     -ln_alpha1000   0.0
-
-Log_alpha_34S_H2S(aq)/HS-
-     -ln_alpha1000   0.0
-
-Log_alpha_34S_S-2/HS-
-     -ln_alpha1000   0.0
-
-Log_alpha_34S_H2S(aq)/H2S(g)
-     -ln_alpha1000   0.0
-
-Log_alpha_D_H2S(aq)/H2S(g)
-     -ln_alpha1000   0.0
-
-Log_alpha_34S_SO4-2/Gypsum
-     -ln_alpha1000   0.0
-
-
-Log_alpha_34S_SO4-2/Anhydrite
-     -ln_alpha1000   0.0
-     
-
-Log_alpha_D_H2O/Gypsum
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_N2/NO3-
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_NH4+/NO3-
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_N2/NO3-
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_NH4+/H3O+
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_NO2-/NO3- 
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_NH3/NH4+
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_NH3/NH4+
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_N2(aq)_N2(g)
-     -ln_alpha1000   0.0
-     
-Log_alpha_15N_NH3(aq)_NH3(g)
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_NH3(aq)_NH3(g)
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_H2(aq)/H2(g)                #
-     -ln_alpha1000   0.0
-     
-Log_alpha_D_H2(aq)/H2O                  #
-     -ln_alpha1000   0.0
 
 ###############################################################################################
 SOLUTION_SPECIES
