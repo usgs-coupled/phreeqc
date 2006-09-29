@@ -3095,6 +3095,10 @@ int read_phases (void)
 				    (strstr(trxn.token[i].name, "(g)") == NULL) &&
 				    (strstr(trxn.token[i].name, "(S)") == NULL) &&
 				    (strstr(trxn.token[i].name, "(G)") == NULL)) {
+					replace("(aq)", "", trxn.token[i].name);
+					replace("(AQ)", "", trxn.token[i].name);
+					replace("H2O(l)", "H2O", trxn.token[i].name);
+					replace("(H2O(L)", "H2O", trxn.token[i].name);
 					trxn.token[i].s = s_store(trxn.token[i].name, trxn.token[i].z, FALSE);
 				} else {
 					trxn.token[i].s = NULL;
