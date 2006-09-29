@@ -944,55 +944,113 @@ ISOTOPE_RATIOS
         R(14C)                  [14C]
         R(15N)                  [15N]
         R(34S)                  [34S]
-        R(13C)_CH4(aq)          [13C]
-        R(13C)_CO2(aq)          [13C]
-        R(13C)_CO3-2            [13C]
-        R(13C)_HCO3-            [13C]
-        R(15N)_N2               [15N]
-        R(15N)_NH3              [15N]
-        R(15N)_NH4+             [15N]
-        R(15N)_NO3-             [15N]
-        R(18O)_CO2(aq)          [18O]
-        R(18O)_CO3-2            [18O]
-        R(18O)_H2O(l)           [18O]
-        R(18O)_H3O+             [18O]
-        R(18O)_HCO3-            [18O]
-        R(18O)_O2(aq)           [18O]
-        R(18O)_OH-              [18O]
-        R(34S)_H2S(aq)          [34S]
-        R(34S)_HS-              [34S]
-        R(34S)_HSO4-            [34S]
-        R(34S)_SO4-2            [34S]
-        R(D)_CH4(aq)            D
-        R(D)_H2(aq)             D
+# H2O(l)
         R(D)_H2O(l)             D
-        R(D)_H2S(aq)            D
-        R(D)_H3O+               D
-        R(D)_HCO3-              D
-        R(D)_HS-                D
-        R(D)_HSO4-              D
-        R(D)_NH3                D
-        R(D)_NH4+               D
+        #R(T)_H2O(l)            T
+        R(18O)_H2O(l)           [18O]
+# OH- ratios
         R(D)_OH-                D
+        #R(T)_OH-               T
+        R(18O)_OH-              [18O]
+# H3O+
+        R(D)_H3O+               D
+        #R(T)_H3O+              T
+        R(18O)_H3O+             [18O]
+# O2(aq)
+        R(18O)_O2(aq)           [18O]
+# H2(aq)
+        R(D)_H2(aq)             D
+        #R(T)_H2(aq)            T
+# CO2(aq)
+        R(13C)_CO2(aq)          [13C]
+        #R(14C)_CO2(a)          [14C]
+        R(18O)_CO2(aq)          [18O]
+# HCO3-
+        R(18O)_HCO3-            [18O]
+        R(D)_HCO3-              D
+        #R(T)_HCO3-             T
+        R(13C)_HCO3-            [13C]
+        #R(14C)_HCO3-           [14C]
+# CO3-2
+        R(18O)_CO3-2            [18O]
+        R(13C)_CO3-2            [13C]
+        #R(14C)_CO3-2           [14C]
+# CH4(aq)
+        R(D)_CH4(aq)            D
+        #R(T)_CH4(aq)           T
+        R(13C)_CH4(aq)          [13C]
+        #R(14C)_CH4(aq)         [14C]
+# SO4-2
+        R(34S)_SO4-2            [34S]
+# HSO4-
+        R(D)_HSO4-              D
+        #R(T)_HSO4-             T
+        R(34S)_HSO4-            [34S]
+# S-2
+        R(34S)_S-2              [34S]
+# HS-
+        R(D)_HS-                D
+        #R(T)_HS-               T
+        R(34S)_HS-              [34S]
+# H2S
+        R(D)_H2S(aq)            D
+        #R(T)_H2S(aq)           T
+        R(34S)_H2S(aq)          [34S]
+# NO3-
+        R(15N)_NO3-             [15N]
+# NO2-
+        R(15N)_NO2-             [15N]
+# N2(aq)
+        R(15N)_N2(aq)           [15N]
+# NH3(aq)
+        R(D)_NH3(aq)            D
+        #R(T)_NH3               T
+        R(15N)_NH3              [15N]
+# NH4+
+        R(D)_NH4+               D
+        #R(T)_NH4+              T
+        R(15N)_NH4+             [15N]
 #
 #  minerals and gases
 #
-        R(13C)_CH4(g)           [13C]
-        R(13C)_CO2(g)           [13C]
-        R(13C)_Calcite          [13C]
-        R(15N)_NH3(g)           [15N]
-        R(18O)_CO2(g)           [18O]
-        R(18O)_Calcite          [18O]
-        R(18O)_H2O(g)           [18O]
-        R(18O)_O2(g)            [18O]
-        R(34S)_Anhydrite        [34S]
-        R(34S)_Gypsum           [34S]
-        R(34S)_H2S(g)           [34S]
-        R(D)_CH4(g)             D
-        R(D)_H2(g)              D
+# H2O(g)
         R(D)_H2O(g)             D
+        #R(T)_H2O(g)            T
+        R(18O)_H2O(g)           [18O]
+# O2(g)
+        R(18O)_O2(g)            [18O]
+# H2(g)
+        R(D)_H2(g)              D
+        #R(T)_H2(g)             T
+# CO2(g)
+        R(18O)_CO2(g)           [18O]
+        R(13C)_CO2(g)           [13C]
+        #R(14C)_CO2(g)          [14C]
+# Calcite
+        R(18O)_Calcite          [18O]
+        R(13C)_Calcite          [13C]
+        #R(14C)_Calcite         [14C]
+# Pyrite
+        R(34S)_Pyrite           [34S]
+# CH4(g)
+        R(D)_CH4(g)             D
+        #R(T)_CH4(g)            T
+        R(13C)_CH4(g)           [13C]
+        #R(14C)_CH4(g)          [14C]
+# H2S(g)
         R(D)_H2S(g)             D
+        #R(T)_H2S(g)            T
+        R(34S)_H2S(g)           [34S]
+# Gypsum
+        R(34S)_Gypsum           [34S]
+# Anhydrite
+        R(34S)_Anhydrite        [34S]
+# N2(g)
+        R(15N)_N2(g)            [15N]
+# NH3(g)
         R(D)_NH3(g)             D
+        #R(T)_NH3(g)            T
+        R(15N)_NH3(g)           [15N]
 
 ISOTOPE_ALPHAS
 # OH-
@@ -1041,7 +1099,7 @@ ISOTOPE_ALPHAS
         Alpha_34S_H2S(aq)/HS-                   Log_alpha_34S_H2S(aq)/HS-
 # NO2-
         Alpha_15N_NO2-/NO3-                     Log_alpha_15N_NO2-/NO3- 
-# N(aq)
+# N2(aq)
         Alpha_15N_N2(aq)/NO3-                   Log_alpha_15N_N2(aq)/NO3-
 # NH3(aq)
 	Alpha_D_NH3(aq)/H2O(l)                  Log_alpha_D_NH3(aq)/H2O(l)
