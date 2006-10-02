@@ -161,6 +161,7 @@ typedef Char string255[256];
 #define tokpad          130
 #define tokchange_por   131
 #define tokget_por    	132
+#define tokosmotic    	133
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -327,6 +328,7 @@ static const struct key command[] = {
 	{"misc1", tokmisc1},
 	{"misc2", tokmisc2},
 	{"mu", tokmu},
+	{"osmotic", tokosmotic},
 	{"alk", tokalk},
 	{"lk_species", toklk_species},
 	{"lk_named", toklk_named},
@@ -1106,6 +1108,8 @@ Static void parse(Char *inbuf, tokenrec **buf)
 	    t->kind = tokmisc2;
 	  else if (!strcmp(token, "mu"))
 	    t->kind = tokmu;
+	  else if (!strcmp(token, "osmotic"))
+	    t->kind = tokosmotic;
 	  else if (!strcmp(token, "alk"))
 	    t->kind = tokalk;
 	  else if (!strcmp(token, "lk_species"))
@@ -1659,6 +1663,10 @@ Static void listtokens(FILE *f, tokenrec *buf)
 
     case tokmu:
 	    output_msg(OUTPUT_BASIC, "MU");
+	    break;
+
+    case tokosmotic:
+	    output_msg(OUTPUT_BASIC, "OSMOTIC");
 	    break;
 
     case tokalk:
@@ -2313,6 +2321,14 @@ Local valrec factor(struct LOC_exec *LINK)
   case tokmu:
     n.UU.val = mu_x;
     break;
+
+  case tokosmotic:
+	  if (pitzer_model == TRUE) {
+		  n.UU.val = COSMOT;
+	  } else {
+		  n.UU.val = 0.0;
+	  }
+	  break;
 
   case tokalk:
     n.UU.val = total_alkalinity/mass_water_aq_x;
