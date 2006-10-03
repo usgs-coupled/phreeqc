@@ -1,6 +1,23 @@
 ------------------------------------------------------------
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
+	svn 1281: Added new option to PITZER to allow definition
+	of alpha1 and alpha2 for specific electrolytes. First number
+        following ions is alpha1, second is alpha2. Both alpha1 and
+        alpha2 should be defined. Default is 0.0 for each missing value.
+
+PITZER
+-ALPHAS
+#
+# Defaults for ion valences in salts
+#
+#   1-N (only B1): alpha1 = 2 
+#   2-2:           alpha1 = 1.4  alpha2 = 12.0
+#   3-2, 4-2:      alpha1 = 2    alpha2 = 50
+#
+ Fe+2      Cl-       2      1
+ Fe+2      SO4-2     1.559  5.268
+
 
         svn 1279: Added new Basic function OSMOTIC that returns the
 	osmotic coefficient if the Pitzer model (PITZER keyword data

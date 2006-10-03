@@ -51,6 +51,7 @@ all: alkalinity.out \
 	phantom_surface.out \
 	phreeqc.test.out \
 	phrqpitz.tst.out \
+	pitzalphas.out \
 	prob8.out \
 	saver.out \
 	saunders.out \
