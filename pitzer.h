@@ -1,4 +1,4 @@
-typedef enum { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA, TYPE_PSI, TYPE_ETHETA, TYPE_Other } pitz_param_type;
+typedef enum { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA, TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_Other } pitz_param_type;
 
 
 PITZER_EXTERNAL double VP, DW0;
@@ -15,7 +15,9 @@ struct pitz_param {
 		double theta; 
 		double lamda;
 		double zeta;
-		double psi;} U;
+		double psi;
+		double alphas;
+	} U;
 	double a[5];
 	double alpha;
 	struct theta_param *thetas;

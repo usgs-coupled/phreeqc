@@ -195,6 +195,7 @@ int pitzer_tidy (void)
 			case TYPE_ZETA:
 			case TYPE_PSI:
 			case TYPE_ETHETA:
+			case TYPE_ALPHAS:
 			case TYPE_Other:
 				break;
 			}
@@ -237,6 +238,28 @@ int pitzer_tidy (void)
 			}
 		}
 	}
+	/*
+	 * Add specific alphas
+	 */
+	for (i = 0; i < count_pitz_param; i++) {
+		if (pitz_params[i]->type == TYPE_ALPHAS) {
+			for (j = 0; j < count_pitz_param; j++) {
+				if (pitz_params[j]->type != TYPE_B1) continue;
+				if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0]) continue;
+				if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1]) continue;
+				pitz_params[j]->alpha = pitz_params[i]->a[0];
+				break;
+			}
+			for (j = 0; j < count_pitz_param; j++) {
+				if (pitz_params[j]->type != TYPE_B2) continue;
+				if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0]) continue;
+				if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1]) continue;
+				pitz_params[j]->alpha = pitz_params[i]->a[1];
+				break;
+			}
+		}
+	}
+
 	/*
 	 *   Add thetas pointer to etheta pitzer parameters
 	 */
@@ -325,9 +348,10 @@ int read_pitzer (void)
 		"macinnis",              /* 9 */
 		"mac",                   /* 10 */
 		"redox",                 /* 11 */
-		"pe"                     /* 12 */
+		"pe",                    /* 12 */
+		"alphas"                 /* 13 */
 	};
-	int count_opt_list = 13;
+	int count_opt_list = 14;
 /*
  *   Read lines
  */
@@ -408,6 +432,11 @@ int read_pitzer (void)
 		case 7:                        /* psi */
 			pzp_type = TYPE_PSI;
 			n = 3;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 13:                        /* alphas */
+			pzp_type = TYPE_ALPHAS;
+			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 8:                        /* macinnes */
@@ -504,6 +533,8 @@ int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
 		    break;
 	    case TYPE_PSI:
 		pz_ptr->U.psi = param;
+		break;
+	    case TYPE_ALPHAS:
 		break;
 	    case TYPE_Other:
 	        error_msg("Should not be TYPE_Other in function calc_pitz_param", STOP);
@@ -701,6 +732,8 @@ C
 			LGAMMA[i1] += M[i0]*M[i2]*param;
 			LGAMMA[i2] += M[i0]*M[i1]*param;
 			OSMOT += M[i0]*M[i1]*M[i2]*param;
+			break;
+		case TYPE_ALPHAS:
 			break;
 		case TYPE_Other:
 			error_msg("TYPE_Other in pitz_param list.", STOP);
