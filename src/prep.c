@@ -4078,6 +4078,7 @@ int check_same_model(void)
  *   Check gas_phase
  */
 	if (use.gas_phase_ptr != NULL) {
+		if (last_model.gas_phase == NULL) return(FALSE);
 		if (last_model.count_gas_phase != use.gas_phase_ptr->count_comps) return(FALSE);
 		for (i = 0; i < use.gas_phase_ptr->count_comps; i++) {
 			if(last_model.gas_phase[i] != use.gas_phase_ptr->comps[i].phase) {
