@@ -3678,24 +3678,19 @@ NH3D+ + NHT3+ = NDT3+ + NH4+
      -mole_balance   [15N](-3)DT3
      -gamma          2.5000    0.0000
 #     
-# NH4SO4- reactions
-# Missing
+# Missing NH4SO4- reactions
 #     
 #
-# HPO4-2 reactions
-# Missing
+# Missing HPO4-2 reactions
 #
 #
-# H2PO4- reactions
-# Missing
+# Missing H2PO4- reactions
 #
 #
-# HF reactions 
-# Missing
+# Missing HF reactions 
 #
 #
-# HF2- reactions 
-# Missing
+# Missing HF2- reactions 
 #
 #
 # CaOH reactions 
@@ -3953,16 +3948,13 @@ CaHSO4+ + H[34S]O4- = CaH[34S]O4+ + HSO4-
 CaHSO4+ + D[34S]O4- = CaD[34S]O4+ + HSO4-
 CaHSO4+ + T[34S]O4- = CaT[34S]O4+ + HSO4-
 #
-# CaPO4- reactions
-# Missing
+# Missing CaPO4- reactions
 #
 #
-# CaHPO4 reactions
-# Missing
+# Missing CaHPO4 reactions
 #
 #
-# CaH2PO4+ reactions
-# Missing
+# Missing CaH2PO4+ reactions
 #
 #
 # MgOH+ reactions
@@ -4069,16 +4061,13 @@ MgHCO3+ + T[14C][18O]3- = MgT[14C][18O]3+ + HCO3-
 #
 MgSO4 + [34S]O4-2 = Mg[34S]O4 + SO4-2
 #
-# MgPO4- reactions
-# Missing
+# Missing MgPO4- reactions
 #     
 #
-# MgHPO4 reactions
-# Missing
+# Missing MgHPO4 reactions
 #     
 #
-# Mg2PO4+ reactions
-# Missing
+# Missing Mg2PO4+ reactions
 #     
 #
 # NaOH reactions
@@ -4185,8 +4174,7 @@ NaHCO3 + T[14C][18O]3- = NaT[14C][18O]3 + HCO3-
 #
 NaSO4- + [34S]O4-2 = Na[34S]O4- + SO4-2
 #
-# NaHPO4- reactions
-# Missing
+# Missing NaHPO4- reactions
 #
 #
 # KOH reactions
@@ -4201,124 +4189,94 @@ KOH + [18O]T- = K[18O]T + OH-
 #     
 KSO4- + [34S]O4-2 = K[34S]O4- + SO4-2
 #
-# FeOH+ reactions
-# Missing
+# Missing FeOH+ reactions
 #
 #
-# FeCO3 reactions
-# Missing
+# Missing FeCO3 reactions
 #
 #
-# FeHCO3+ reactions
-# Missing
+# Missing FeHCO3+ reactions
 #
 #
-# FeSO4 reactions
-# Missing
+# Missing FeSO4 reactions
 #
 #
-# FeHSO4+ reactions
-# Missing
+# Missing FeHSO4+ reactions
 #
 #
-# Fe(HS)2 reactions
-# Missing
+# Missing Fe(HS)2 reactions
 #
 #
-# Fe(HS)3- reactions
-# Missing
+# Missing Fe(HS)3- reactions
 #
 #
-# FeHPO4 reactions
-# Missing
+# Missing FeHPO4 reactions
 #
 #
-# FeH2PO4+ reactions
-# Missing
+# Missing FeH2PO4+ reactions
 #
 #
-# FeOH+2 reactions
-# Missing
+# Missing FeOH+2 reactions
 #
 #
-# Fe(OH)2+ reactions
-# Missing
+# Missing Fe(OH)2+ reactions
 #
 #
-# Fe(OH)3 reactions
-# Missing
+# Missing Fe(OH)3 reactions
 #
 #
-# Fe(OH)4- reactions
-# Missing
+# Missing Fe(OH)4- reactions
 #
 #
-# Fe2(OH)2+4 reactions
-# Missing
+# Missing Fe2(OH)2+4 reactions
 #
 #
-# Fe3(OH)4+5 reactions
-# Missing
+# Missing Fe3(OH)4+5 reactions
 #
 #
-# FeSO4+ reactions
-# Missing
+# Missing FeSO4+ reactions
 #
 #
-# FeHSO4+2 reactions
-# Missing
+# Missing FeHSO4+2 reactions
 #
 #
-# Fe(SO4)2- reactions
-# Missing
+# Missing Fe(SO4)2- reactions
 #
 #
-# FeHPO4+ reactions
-# Missing
+# Missing FeHPO4+ reactions
 #
 #
-# FeH2PO4+2 reactions
-# Missing
+# Missing FeH2PO4+2 reactions
 #
 #
-# AlOH+2 reactions
-# Missing
+# Missing AlOH+2 reactions
 #
 #
-# Al(OH)2+ reactions
-# Missing
+# Missing Al(OH)2+ reactions
 #
 #
-# Al(OH)3 reactions
-# Missing
+# Missing Al(OH)3 reactions
 #
 #
-# Al(OH)4- reactions
-# Missing
+# Missing Al(OH)4- reactions
 #
 #
-# AlSO4+ reactions
-# Missing
+# Missing AlSO4+ reactions
 #
 #
-# Al(SO4)2- reactions
-# Missing
+# Missing Al(SO4)2- reactions
 #
 #
-# AlHSO4+2 reactions
-# Missing
+# Missing AlHSO4+2 reactions
 #
 #
-# H4SiO4 reactions
-# Missing
+# Missing H4SiO4 reactions
 #
 #
-# H3SiO4- reactions
-# Missing
+# Missing H3SiO4- reactions
 #
 #
-# H2SiO4-2 reactions
-# Missing
+# Missing H2SiO4-2 reactions
 #
 
 ###############################################################################################
