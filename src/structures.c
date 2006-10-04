@@ -3562,6 +3562,33 @@ int rxn_free(struct reaction *rxn_ptr)
 	rxn_ptr = (struct reaction *) free_check_null (rxn_ptr);
 	return(OK);
 }
+/* ---------------------------------------------------------------------- */
+int rxn_print(struct reaction *rxn_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Frees space allocated for a reaction structure
+ *      input: rxn_ptr, pointer to reaction structure
+ *      return: ERROR, if pointer is NULL
+ *              OK, otherwise.
+ */
+	struct rxn_token *next_token;
+	if (rxn_ptr == NULL) return(ERROR);
+	next_token = rxn_ptr->token;
+	output_msg(OUTPUT_MESSAGE, "Reaction definition\n");
+	while (next_token->s != NULL || next_token->name != NULL) {
+		output_msg(OUTPUT_MESSAGE, "\tcoef %f ", next_token->coef);
+		if (next_token->s != NULL) {
+			output_msg(OUTPUT_MESSAGE, "\tspecies token: %s ", next_token->s->name);
+		} 
+		if (next_token->name != NULL) {
+			output_msg(OUTPUT_MESSAGE, "\tname token: %s", next_token->name);
+		}
+		output_msg(OUTPUT_MESSAGE, "\n");
+		next_token++;
+	}
+	return(OK);
+}
 /* **********************************************************************
  *
  *   Routines related to structure "species"
@@ -5574,6 +5601,7 @@ int trxn_add_phase (struct reaction *r_ptr, LDBLE coef, int combine)
 	if (combine == TRUE) trxn_combine();
 	return(OK);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int trxn_combine (void)
 /* ---------------------------------------------------------------------- */
@@ -5601,6 +5629,54 @@ int trxn_combine (void)
 				trxn.token[j].name = trxn.token[k].name;
 				trxn.token[j].s = trxn.token[k].s;
 				trxn.token[j].coef = trxn.token[k].coef;
+			}
+		}
+	}
+	count_trxn=j+1;                  /* number excluding final NULL */
+	return(OK);
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int trxn_combine (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Combines coefficients of tokens that are equal in temporary
+ *   reaction structure, trxn.
+ */
+	int j, k;
+/*
+ *   Sort trxn species
+ */
+	trxn_sort();
+/*
+ *   Combine trxn tokens
+ */
+	j=1;
+	for ( k=2; k < count_trxn; k++) {
+		if (trxn.token[k].s != NULL) {
+			if ( ( j > 0 ) && ( trxn.token[k].s == trxn.token[j].s) ) {
+				trxn.token[j].coef += trxn.token[k].coef;
+				if (equal(trxn.token[j].coef, 0.0, 1e-5)) j--;
+			} else {
+				j++;
+				if ( k != j ) {
+					trxn.token[j].name = trxn.token[k].name;
+					trxn.token[j].s = trxn.token[k].s;
+					trxn.token[j].coef = trxn.token[k].coef;
+				}
+			} 
+		} else {
+			if ( ( j > 0 ) && ( trxn.token[k].s == trxn.token[j].s) && (trxn.token[k].name == trxn.token[j].name)) {
+				trxn.token[j].coef += trxn.token[k].coef;
+				if (equal(trxn.token[j].coef, 0.0, 1e-5)) j--;
+			} else {
+				j++;
+				if ( k != j ) {
+					trxn.token[j].name = trxn.token[k].name;
+					trxn.token[j].s = trxn.token[k].s;
+					trxn.token[j].coef = trxn.token[k].coef;
+				}
 			}
 		}
 	}
