@@ -1,59 +1,86 @@
 ------------------------------------------------------------
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
-	svn 1281: Added new option to PITZER to allow definition
-	of alpha1 and alpha2 for specific electrolytes. First number
-        following ions is alpha1, second is alpha2. Both alpha1 and
-        alpha2 should be defined. Default is 0.0 for each missing value.
+        --------
+        svn 1281
+        --------
+        Added new option to PITZER data block to allow definition of
+        alpha1 and alpha2 for specific electrolytes. Entries are 
+	following -ALPHAS are Ion1, Ion2, alpha1, alpha2. Both
+        alpha1 and alpha2 should be defined. Default is 0.0 for
+        undefined values following Ion1 and Ion2.
 
-PITZER
--ALPHAS
-#
-# Defaults for ion valences in salts
-#
-#   1-N (only B1): alpha1 = 2 
-#   2-2:           alpha1 = 1.4  alpha2 = 12.0
-#   3-2, 4-2:      alpha1 = 2    alpha2 = 50
-#
- Fe+2      Cl-       2      1
- Fe+2      SO4-2     1.559  5.268
+	Example:
+
+	PITZER
+	-ALPHAS
+	#
+	# Defaults for ion valences in salts
+	#
+	#   1-N (only B1): alpha1 = 2 
+	#   2-2:           alpha1 = 1.4  alpha2 = 12.0
+	#   3-2, 4-2:      alpha1 = 2    alpha2 = 50
+	#
+        #Ion1     Ion2      Alpha1   Alpha2
+	Fe+2      Cl-       2        1
+	Fe+2      SO4-2     1.559    5.268
+
+        --------
+        svn 1279
+        --------
+        Added new Basic function OSMOTIC that returns the
+        osmotic coefficient if the Pitzer model (PITZER keyword data
+        block) is used or 0.0 if the ion-association model is used.
+
+	Example:
+
+	USER_PRINT
+	10 PRINT "Osmotic coefficient: ", OSMOTIC
 
 
-        svn 1279: Added new Basic function OSMOTIC that returns the
-	osmotic coefficient if the Pitzer model (PITZER keyword data
-	block) is used or 0.0 if the ion-association model is used.
-
-
-	svn 1245: Enabled redox in Pitzer model with option in
+        --------
+        svn 1245 
+        --------
+        Enabled redox in Pitzer model with option in
         PITZER keyword. Typically, the option will be included
         in the pitzer database file. 
 
-PITZER
-    -redox  TRUE
+	Example:
+
+	PITZER
+	-redox  TRUE
 
         The default database for the Pitzer model does not contain 
         any redox definitions and the default value for the option 
         is FALSE. At a minimum, species O2 and H2 must be defined 
         in the database or input file to allow redox calculations.
         
-	svn 1207: Added option to force an equilibrium phase to be 
-	included in the equality constraints. Normally, the SIs of 
-	equilibrium phases are optimized to be negative and a the
-	sum of SIs is minimized. If -force_equality is used, then
-	the phase must reach its target SI or the calculation fails
-	with an error.
+        --------
+        svn 1207 
+        --------
+        Added option to force an equilibrium phase to be 
+        included in the equality constraints. Normally, the SIs of 
+        equilibrium phases are optimized to be negative and a the
+        sum of SIs is minimized. If -force_equality is used, then
+        the phase must reach its target SI or the calculation fails
+        with an error.
 
-EQUILIBRIUM_PHASES
-   Fix_pH  -7  NaOH
-	-force_equality
-   Calcite  0
-   Dolomite 0
-   CO2      -3.5
+	Example: 
+
+	EQUILIBRIUM_PHASES
+	Fix_pH  -7  NaOH
+	     -force_equality
+	Calcite  0
+	Dolomite 0
+	CO2      -3.5
 
         One example of using the new option would be to ensure that 
-	a target pH is attained, as in the example above. 
+        a target pH is attained, as in the example above. 
 
-        svn 1179: New option (-sites_units density) allows alternative
+        --------
+        svn 1179 
+        --------
+        New option (-sites_units density) allows alternative
         units (sites/nm^2) for definition of number of sites for a
         surface. This approach requires better consistency among the
         parameters as both the number of sites and the surface area
@@ -62,34 +89,47 @@ EQUILIBRIUM_PHASES
         line) to be defined in units of moles, independently of the
         number of grams of sorbent.
 
-SURFACE 1
+	Example:
+
+	SURFACE 1
         -sites     DENSITY
         SurfOH  2.6    600.    1.0
         SurfaOH 2.6    30.     2.0
 
-	In this example, Surf has a site density of 2.6 sites per
-	nanometer squared, a specific area of 600 meters squared per
-	gram, and a mass of 1 gram. Surfa has a site density of 2.6
-	sites per nanometer squared, a specific area of 30 meters
-	squared per gram, and mass of 2 grams.
+	Explanation: 
+
+        In this example, Surf has a site density of 2.6 sites per
+        nanometer squared, a specific area of 600 meters squared per
+        gram, and a mass of 1 gram. Surfa has a site density of 2.6
+        sites per nanometer squared, a specific area of 30 meters
+        squared per gram, and mass of 2 grams.
 
 
-        svn 1096: Allows solids and gases in the equations for
-        PHASES. This capability simplifies the definitions for
-        gas and solid isotopic components. Solids must be identified
-        with "(s)" and gases with "(g)". The first entity on the left-
-        hand-side of the equation must be the stoichiometric formula
-        of the solid of gas component being defined, optionally with
-        (g) or (s). In turn gases and solids included in the equation
-        must be defined with reactions that ultimately allow the
-        defined species (C[18O]2(g) in this case) in terms of aqueous
-        species.
+        --------
+        svn 1096 
+        --------
 
-C[18O]2(g)
-        C[18O]2(g) + CO2(g) = 2CO[18O](g) 
-        log_k           0.602059991327962396                   # log10(4)
+        Allows solids and gases in the equations for PHASES. This
+        capability simplifies the definitions for gas and solid
+        isotopic components. Solids must be identified with "(s)" and
+        gases with "(g)". The first entity on the left- hand-side of
+        the equation must be the stoichiometric formula of the solid
+        of gas component being defined, optionally with (g) or (s). In
+        turn gases and solids included in the equation must be defined
+        with reactions that ultimately allow the defined species
+        (C[18O]2(g) in this case) in terms of aqueous species.
 
-        svn 1092: CD_MUSIC sorption model has been implemented.
+	Example:
+
+	PHASES
+	C[18O]2(g)
+		C[18O]2(g) + CO2(g) = 2CO[18O](g) 
+		log_k          0.602059991327962396        # log10(4)
+
+        --------
+        svn 1092 
+        --------
+        CD_MUSIC sorption model has been implemented.
         Still missing logic for surfaces related to equilibrium-
         phases and kinetics. Has explicit calculation of diffuse
         layer composition with Donnan assumption. Old diffuse-layer
@@ -97,12 +137,14 @@ C[18O]2(g)
         
         Example:
 
-SURFACE
+        SURFACE
         Goe_uniOH .000552 96.387 1
-                  -capacitance    1.1   5
+             -capacitance    1.1   5
         Goe_triO  .000432
         -cd_music
         -donnan
+
+        Explanation:
 
         1.1 5 are capacitances for the cd-music model for 0-1 and 1-2
             planes, respectively. 
@@ -110,21 +152,28 @@ SURFACE
         -donnan optionally calculates the diffuse layer composition
                 with the Donnan model.
 
-SURFACE_SPECIES
+        Example:
+
+        SURFACE_SPECIES
         Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
              log_k     20.1                 # eq 7   K1, Kin1
              -cd_music  -1 -6 0 0.25 5
 
-        -cd_music gives the charge contribution of the surface
-                  species to the three planes. Plane 0 is
-                  -1 + 0.25*5; Plane 1 is -6 + (1-0.25)*5; 
-                  Plane 2 (or d) is 0.
+        Explanation:
 
+        -cd_music gives the charge contribution of the surface species
+        to the three planes. Plane 0 is -1 + 0.25*5; Plane 1 is -6 +
+        (1-0.25)*5; Plane 2 (or d) is 0.
+
+        --------
         svn 675:
+        --------
         Added PRINT option to print the species that contribute
         to alkalinity. Alkalinity distribution is printed in
         the output file following the distribution of species.
         Default at program startup is false.
+
+        Example:
 
         PRINT
                 -alkalinity true
@@ -190,7 +239,7 @@ Version 2.12:
 
         A five-term expression for temperature dependence is available
         for all Pitzer parameter values: 
-            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3/(TK-TR) +
+            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
         where TK is Kelvin and TR is 298.15.
 
@@ -679,7 +728,10 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
-	svn 1245: Enabled redox in Pitzer model with option in
+	svn 1282: Fixed bug when gas phase had no gas components.
+	Looked the same as not having a gas phase at all.
+
+        svn 1245: Enabled redox in Pitzer model with option in
         PITZER keyword. Typically, the option will be included
         in the pitzer database file. 
 
@@ -705,11 +757,11 @@ SURFACE 1
         SurfOH  2.6    600.    1.0
         SurfaOH 2.6    30.     2.0
 
-	In this example, Surf has a site density of 2.6 sites per
-	nanometer squared, a specific area of 600 meters squared per
-	gram, and a mass of 1 gram. Surfa has a site density of 2.6
-	sites per nanometer squared, a specific area of 30 meters
-	squared per gram, and mass of 2 grams.
+        In this example, Surf has a site density of 2.6 sites per
+        nanometer squared, a specific area of 600 meters squared per
+        gram, and a mass of 1 gram. Surfa has a site density of 2.6
+        sites per nanometer squared, a specific area of 30 meters
+        squared per gram, and mass of 2 grams.
 
         svn 1128: Fixed bug with value of time printed to selected
         output file when using cvode. Value printed was an

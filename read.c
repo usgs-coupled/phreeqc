@@ -2939,6 +2939,7 @@ int read_phases (void)
 	int    association;
 	char *ptr;
 	char token[MAX_LENGTH];
+	char token1[MAX_LENGTH];
 	struct phase *phase_ptr;
 	struct elt_list *next_elt;
 	struct rxn_token *token_ptr;
@@ -3085,21 +3086,23 @@ int read_phases (void)
 /*
  *   Get pointer to each species in the reaction, store new species if necessary
  */
-			phase_ptr->formula = string_hsave(trxn.token[0].name );
-			replace("(g)", "", phase_ptr->formula);
-			replace("(s)", "", phase_ptr->formula);
-			replace("(G)", "", phase_ptr->formula);
-			replace("(S)", "", phase_ptr->formula);
+			strcpy(token1, trxn.token[0].name);
+			replace("(g)", "", token1);
+			replace("(s)", "", token1);
+			replace("(G)", "", token1);
+			replace("(S)", "", token1);
+			phase_ptr->formula = string_hsave(token1);
 			for (i=1; i<count_trxn; i++) {
 				if ((strstr(trxn.token[i].name, "(s)") == NULL) &&
 				    (strstr(trxn.token[i].name, "(g)") == NULL) &&
 				    (strstr(trxn.token[i].name, "(S)") == NULL) &&
 				    (strstr(trxn.token[i].name, "(G)") == NULL)) {
-					replace("(aq)", "", trxn.token[i].name);
-					replace("(AQ)", "", trxn.token[i].name);
-					replace("H2O(l)", "H2O", trxn.token[i].name);
-					replace("(H2O(L)", "H2O", trxn.token[i].name);
-					trxn.token[i].s = s_store(trxn.token[i].name, trxn.token[i].z, FALSE);
+					strcpy(token1, trxn.token[i].name);
+					replace("(aq)", "", token1);
+					replace("(AQ)", "", token1);
+					replace("H2O(l)", "H2O", token1);
+					replace("(H2O(L)", "H2O", token1);
+					trxn.token[i].s = s_store(token1, trxn.token[i].z, FALSE);
 				} else {
 					trxn.token[i].s = NULL;
 				}
@@ -3128,7 +3131,9 @@ int read_phases (void)
 					token_ptr[i].name = trxn.token[i].name;
 				}
 			}
-			token_ptr[0].name=trxn.token[1].name;
+			/*token_ptr[0].name=trxn.token[1].name;*/
+			token_ptr[0].name=phase_ptr->name;
+			token_ptr[0].s=NULL;
 			token_ptr[i].s=NULL;
 			token_ptr[i].name=NULL;
 /*

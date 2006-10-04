@@ -372,6 +372,7 @@ struct reaction *rxn_alloc(int ntokens);
 struct reaction *rxn_dup(struct reaction *rxn_ptr_old);
 LDBLE rxn_find_coef(struct reaction *r_ptr, const char *str);
 int rxn_free(struct reaction *rxn_ptr);
+int rxn_print(struct reaction *rxn_ptr);
 
 int s_compare (const void *ptr1, const void *ptr2);
 int s_delete (int i);

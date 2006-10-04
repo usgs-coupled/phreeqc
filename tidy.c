@@ -559,6 +559,12 @@ int rewrite_eqn_to_secondary(void)
 
 		for (i=1; i < count_trxn; i++) {
 			token_ptr = &(trxn.token[i]);
+			if (token_ptr->s == NULL) {
+				sprintf(error_string, "NULL species pointer for species, %s.", token_ptr->name);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
 			if (token_ptr->s->secondary == NULL &&
 			    token_ptr->s->primary == NULL) {
 				coef=token_ptr->coef;
@@ -585,6 +591,7 @@ int replace_solids_gases(void)
 	struct rxn_token_temp *token_ptr;
 	struct phase *phase_ptr;
 	int replaced;
+	char token[MAX_LENGTH];
 /*
  *
  */
@@ -608,15 +615,35 @@ int replace_solids_gases(void)
 			token_ptr = &(trxn.token[i]);
 			if (token_ptr->s == NULL) {
 				phase_ptr = phase_bsearch(token_ptr->name, &n, FALSE);
+				/* try phase name without (g) or  (s) */
+				if (phase_ptr == NULL) {
+					strcpy(token, token_ptr->name);
+					replace("(g)", "", token);
+					replace("(s)", "", token);
+					replace("(G)", "", token);
+					replace("(S)", "", token);
+					phase_ptr = phase_bsearch(token, &n, FALSE);
+				}
+				if (phase_ptr == NULL) {
+					input_error++;
+					sprintf(error_string, "Phase not found, %s.", token_ptr->name);
+					error_msg(error_string, CONTINUE);
+					break;
+				}
 				coef=token_ptr->coef;
 				/* add reaction for solid/gas */
-				trxn_add(phase_ptr->rxn, coef, FALSE);
+
+				trxn_add_phase(phase_ptr->rxn, coef, FALSE);
+				
 				/* remove solid/gas from trxn list */
 				trxn.token[i].name = phase_ptr->rxn->token[0].name;
 				trxn.token[i].s = phase_ptr->rxn->token[0].s;
 				trxn.token[i].coef = -coef*phase_ptr->rxn->token[0].coef;
 				repeat=TRUE;
 				replaced = TRUE;
+
+				/* combine */
+				trxn_combine();
 				break;
 			}
 		}
@@ -1043,6 +1070,7 @@ int tidy_phases(void)
 		 */
 		count_trxn=0;
 		trxn_add_phase (phases[i]->rxn, 1.0, FALSE);
+		trxn.token[0].name = phases[i]->name;
 		replaced = replace_solids_gases();
 		trxn_reverse_k();
 		rewrite_eqn_to_secondary();
