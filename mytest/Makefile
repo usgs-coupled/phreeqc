@@ -12,6 +12,7 @@ all: alkalinity.out \
 	as.ex.out \
 	ball.out \
 	brown.out \
+	cdmusic_related.out \
 	co2.out \
 	comments.out \
 	desc.out \
@@ -28,7 +29,6 @@ all: alkalinity.out \
 	fluorite.out \
 	gas.out \
 	hard.tests.out \
-	homo.out \
 	i2.out \
 	i3.out \
 	i4.out \
