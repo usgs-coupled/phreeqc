@@ -3131,9 +3131,11 @@ int read_phases (void)
 					token_ptr[i].name = trxn.token[i].name;
 				}
 			}
-			/*token_ptr[0].name=trxn.token[1].name;*/
-			token_ptr[0].name=phase_ptr->name;
-			token_ptr[0].s=NULL;
+			token_ptr[0].name=trxn.token[1].name;
+			/*
+			  token_ptr[0].name=phase_ptr->name;
+			  token_ptr[0].s=NULL;
+			*/
 			token_ptr[i].s=NULL;
 			token_ptr[i].name=NULL;
 /*

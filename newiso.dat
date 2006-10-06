@@ -29,6 +29,7 @@ N(0)         N2             0       N
 N(-3)        NH4+           0       N
 P            PO4-3          2.0     P               30.9738
 F            F-             0.0     F               18.9984
+Br           Br-            0.0     Br              79.904
 
 SOLUTION_SPECIES
 H3O+ = H3O+
@@ -87,6 +88,10 @@ PO4-3 = PO4-3
 F- = F-
         log_k           0.000
         -gamma    3.5000    0.0000
+
+Br- = Br-
+        log_k           0.000
+        -gamma    3.0000    0.0000
 
 2H2O = OH- + H3O+
      log_k           -14.000
@@ -185,7 +190,8 @@ Ca+2 + CO3-2 = CaCO3
      delta_h         3.545 kcal
      -analytic       -1228.732     -0.299440    35512.75      485.818
 
-Ca+2 + HCO3- = CaHCO3+
+#Ca+2 + HCO3- = CaHCO3+
+Ca+2 + CO3-2 + H3O+ = CaHCO3+ + H2O
      log_k           11.435
      delta_h         -0.871 kcal
      -analytic       1317.0071     0.34546894   -39916.84     -517.70761     563713.9
@@ -2066,7 +2072,7 @@ R(34S)_HS-
 Alpha_D_HS-/H2O(l)
      -start
 10 alpha = -9999.999
-20 if (TOT("[D]") <= 0) THEN GOTO 1000
+20 if (TOT("D") <= 0) THEN GOTO 1000
 30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_HS-")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
