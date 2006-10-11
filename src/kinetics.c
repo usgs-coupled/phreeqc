@@ -1200,9 +1200,9 @@ int set_and_run(int i, int use_mix, int use_kinetics, int nsaver, LDBLE step_fra
 			(cell == 1 || cell == count_cells)) last_model.force_prep = TRUE;
 #endif
 	if (use.surface_ptr != NULL ) {
-		diffuse_layer_x = use.surface_ptr->diffuse_layer;
+		dl_type_x = use.surface_ptr->dl_type;
 	}
-	if (use.surface_ptr != NULL && diffuse_layer_x == TRUE) {
+	if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
 		converge = surface_model();
 	} else {
 		prep();
@@ -1328,7 +1328,7 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	} else {
 		use.surface_in = FALSE;
 				save.surface = FALSE;
-		diffuse_layer_x = FALSE;
+		dl_type_x = NO_DL;
 	}
 /*
  *   Find temperature;  temp retardation is done in step
@@ -1448,7 +1448,7 @@ int set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find surface
  */
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	if (use.surface_in == TRUE) {
 		use.surface_ptr = surface_bsearch (i, &use.n_surface);
 		if (use.surface_ptr == NULL) {
@@ -1900,7 +1900,7 @@ int set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 	} else {
 		use.surface_in = FALSE;
 				save.surface = FALSE;
-		diffuse_layer_x = FALSE;
+		dl_type_x = NO_DL;
 	}
 /*
  *   Find temperature;  temp retardation is done in step

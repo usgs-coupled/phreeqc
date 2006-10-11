@@ -178,6 +178,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
 enum SURFACE_TYPE { UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC } ;
+enum DIFFUSE_LAYER_TYPE { NO_DL, BORKOVEK_DL, DONNAN_DL } ;
 enum SITES_UNITS { SITES_ABSOLUTE, SITES_DENSITY } ;
 struct model {
         int force_prep;
@@ -199,11 +200,12 @@ struct model {
         char **add_formula;
         LDBLE *si;
 
-        int diffuse_layer;
+        /*int diffuse_layer;*/
         /*int edl;*/
+        enum DIFFUSE_LAYER_TYPE dl_type;
         enum SURFACE_TYPE surface_type;
         int only_counter_ions;
-        int donnan;
+        /*int donnan;*/
         LDBLE thickness;
         int count_surface_comp;
         char **surface_comp;
@@ -288,10 +290,11 @@ struct surface {
         int n_user;
         int n_user_end;
         int new_def;
-        int diffuse_layer;
+        /*int diffuse_layer;*/
         /*int edl;*/
         int only_counter_ions;
-        int donnan;
+        /*int donnan;*/
+	enum DIFFUSE_LAYER_TYPE dl_type;
         enum SURFACE_TYPE type;
 	enum SITES_UNITS sites_units;
         LDBLE thickness;
@@ -942,7 +945,8 @@ EXTERNAL struct pe_data *pe_x;
 EXTERNAL int count_isotopes_x;
 EXTERNAL struct isotope *isotopes_x;
 EXTERNAL int default_pe_x;
-EXTERNAL int diffuse_layer_x;
+/*EXTERNAL int diffuse_layer_x;*/
+EXTERNAL enum DIFFUSE_LAYER_TYPE dl_type_x;
 EXTERNAL LDBLE total_carbon;
 EXTERNAL LDBLE total_co2;
 EXTERNAL LDBLE total_alkalinity;

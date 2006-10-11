@@ -154,7 +154,7 @@ int model(void)
 /*				adjust_step_size(); */
 			}
 			if(use.surface_ptr != NULL && 
-			   use.surface_ptr->diffuse_layer == TRUE &&
+			   use.surface_ptr->dl_type != NO_DL &&
 			   use.surface_ptr->related_phases == TRUE)
 				initial_surface_water();
 			mb_sums();
@@ -170,7 +170,7 @@ int model(void)
 				gammas(mu_x);
 				molalities(TRUE);
 				if(use.surface_ptr != NULL && 
-				   use.surface_ptr->diffuse_layer == TRUE &&
+				   use.surface_ptr->dl_type != NO_DL &&
 				   use.surface_ptr->related_phases == TRUE)
 				   initial_surface_water();
 				revise_guesses();
@@ -1382,7 +1382,7 @@ int jacobian_sums (void)
 /*
  *   Surface charge balance
  */
-	if (surface_unknown != NULL && diffuse_layer_x == FALSE) {
+	if (surface_unknown != NULL && dl_type_x == NO_DL) {
 		sinh_constant = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*tk_x*1000);
 		for (i=0; i<count_unknowns; i++) {
 			if (x[i]->type == SURFACE_CB && x[i]->surface_charge->grams > 0 ) {
@@ -1586,7 +1586,7 @@ int molalities (int allow_overflow)
 			master[i]->s->la = master[i]->s->lm + master[i]->s->lg;
 		}
 	}
-	if (diffuse_layer_x == TRUE) {
+	if (dl_type_x != NO_DL) {
 		s_h2o->tot_g_moles = s_h2o->moles; 
 		s_h2o->tot_dh2o_moles = 0.0;
 	}
@@ -1619,10 +1619,10 @@ int molalities (int allow_overflow)
 /*
  *   other terms for diffuse layer model
  */
-	if (use.surface_ptr != NULL && use.surface_ptr->type == CD_MUSIC && diffuse_layer_x == TRUE) calc_all_donnan();
+	if (use.surface_ptr != NULL && use.surface_ptr->type == CD_MUSIC && dl_type_x != NO_DL) calc_all_donnan();
 	for (i=0; i < count_s_x; i++) {
 		if (s_x[i]->type > HPLUS && s_x[i]->type != EX && s_x[i]->type != SURF) continue;
-		if (use.surface_ptr != NULL && diffuse_layer_x == TRUE && s_x[i]->type <= HPLUS) {
+		if (use.surface_ptr != NULL && dl_type_x != NO_DL && s_x[i]->type <= HPLUS) {
 			total_g = 0.0;
 			s_x[i]->tot_dh2o_moles = 0.0;
 			for (j = 0; j < use.surface_ptr->count_charge; j++) {
@@ -2288,7 +2288,7 @@ int reset(void)
 			x[i]->master[0]->s->la += d;
 
 			/* recalculte g's for component */
-			if (diffuse_layer_x == TRUE && (use.surface_ptr->type == DDL || (use.surface_ptr->type == CD_MUSIC && x[i]->type == SURFACE_CB2))) {
+			if (dl_type_x != NO_DL && (use.surface_ptr->type == DDL || (use.surface_ptr->type == CD_MUSIC && x[i]->type == SURFACE_CB2))) {
 				if (debug_diffuse_layer == TRUE) {
 					output_msg(OUTPUT_MESSAGE, "\ncharge, old g, new g, dg*delta,"
 						" dg, delta\n");
@@ -2304,11 +2304,11 @@ int reset(void)
 							(double) x[i]->surface_charge->g[j].dg,
 							(double) delta[i]);
 						}
-/*appt*/				if (use.surface_ptr->donnan != TRUE) {
+/*appt*/				if (use.surface_ptr->dl_type != DONNAN_DL) {
 						x[i]->surface_charge->g[j].g += x[i]->surface_charge->g[j].dg * delta[i];
 					}
 				}
-/*appt*/			if (use.surface_ptr->donnan == TRUE) {
+/*appt*/			if (use.surface_ptr->dl_type == DONNAN_DL) {
 					calc_all_donnan();
 				}
 			}
@@ -2386,7 +2386,7 @@ int reset(void)
 			}
 			mass_water_aq_x *= d;
 			mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x; 
-			if (debug_model == TRUE && diffuse_layer_x == TRUE) {
+			if (debug_model == TRUE && dl_type_x != NO_DL) {
 				output_msg(OUTPUT_MESSAGE,"mass_water bulk: %e\taq: %e\tsurfaces: %e\n",
 					(double) mass_water_bulk_x, (double) mass_water_aq_x, (double) mass_water_surfaces_x);
 			}
@@ -2621,7 +2621,7 @@ int residuals(void)
 /*			if (x[i]->surface_charge->grams <= MIN_RELATED_SURFACE) { */
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-			} else if (diffuse_layer_x == TRUE) {
+			} else if (dl_type_x != NO_DL) {
 				residual[i] = - x[i]->f;
 			} else {
 /*
@@ -2689,7 +2689,7 @@ int residuals(void)
 		} else if (x[i]->type == SURFACE_CB2) {
 			if (x[i]->surface_charge->grams == 0) {
 				residual[i] = 0.0; 
-			} else if (diffuse_layer_x == TRUE) {
+			} else if (dl_type_x != NO_DL) {
 				sum = 0;
 				sum1 = 0;
 				for (j = 0; j < count_s_x; j++) {
@@ -2822,7 +2822,7 @@ int set(int initial)
 	s_hplus->moles = exp(s_hplus->lm * LOG_10)*mass_water_aq_x;
 	s_eminus->la= - solution_ptr->solution_pe;
 	if (initial == TRUE) initial_guesses(); 
-	if (diffuse_layer_x == TRUE) initial_surface_water();
+	if (dl_type_x != NO_DL) initial_surface_water();
 	revise_guesses();
 	return(OK);
 }
@@ -3086,7 +3086,7 @@ int surface_model(void)
 	} else {
 		same_model = check_same_model();
 	}
-	if (diffuse_layer_x == TRUE &&  same_model == FALSE) {
+	if (dl_type_x != NO_DL &&  same_model == FALSE) {
 		for (i=0; i < count_s; i++) {
 			s[i]->diff_layer = (struct species_diff_layer *) free_check_null(s[i]->diff_layer);
 			s[i]->diff_layer = (struct species_diff_layer *) PHRQ_malloc((size_t) use.surface_ptr->count_charge * sizeof (struct species_diff_layer));
@@ -3095,7 +3095,7 @@ int surface_model(void)
 	}
 	prep();
 	k_temp(tc_x);
-	if (use.surface_ptr->donnan == TRUE) {
+	if (use.surface_ptr->dl_type == DONNAN_DL) {
 		initial_surface_water();
 		calc_init_donnan();
 	} else {
@@ -3108,7 +3108,7 @@ int surface_model(void)
 	}
 	if (model() == ERROR) return(ERROR);
 	g_iterations = 0;
-	if (use.surface_ptr->donnan == TRUE) {
+	if (use.surface_ptr->dl_type == DONNAN_DL) {
 		do {
 			g_iterations++;
 			k_temp(tc_x);

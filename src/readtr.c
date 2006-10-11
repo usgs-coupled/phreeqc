@@ -1033,11 +1033,17 @@ int dump_surface(int k)
  			} else	output_msg(OUTPUT_DUMP, "\n");
 		}
 	}
-	if (surface[n].diffuse_layer == TRUE) {
-		output_msg(OUTPUT_DUMP, "\t-diffuse\t%13.5e\n", (double) surface[n].thickness);
-		/*} else if (surface[n].edl == FALSE) {*/
-	} else if (surface[n].type == NO_EDL) {
+	if (surface[n].type == NO_EDL) {
 		output_msg(OUTPUT_DUMP, "\t-no_edl\n");
+	} else if (surface[n].type == DDL) {
+	} else if (surface[n].type == CD_MUSIC) {
+		output_msg(OUTPUT_DUMP, "\t-cd_music\n");
+	}
+	if (surface[n].dl_type == DONNAN_DL) {
+		output_msg(OUTPUT_DUMP, "\t-donnan\t%13.5e\n", (double) surface[n].thickness);
+		/*} else if (surface[n].edl == FALSE) {*/
+	} else if (surface[n].dl_type == BORKOVEK_DL) {
+		output_msg(OUTPUT_DUMP, "\t-diffuse_layer\t%13.5e\n", (double) surface[n].thickness);
   	}
 
 

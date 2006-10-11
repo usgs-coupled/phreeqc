@@ -5136,12 +5136,12 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->n_user_end = n_user_end;
 	surface_ptr->description = string_duplicate(description);
 	surface_ptr->new_def = TRUE;
-        surface_ptr->diffuse_layer = FALSE;
+        surface_ptr->dl_type = NO_DL;
         surface_ptr->sites_units = SITES_ABSOLUTE;
         /*surface_ptr->edl = TRUE;*/
         surface_ptr->type = DDL;
 	surface_ptr->only_counter_ions = FALSE;
-	surface_ptr->donnan = FALSE;
+	/*surface_ptr->donnan = FALSE;*/
 	surface_ptr->debye_units = 0.0;
 	surface_ptr->transport = FALSE;
 	surface_ptr->thickness = 1e-8;

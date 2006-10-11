@@ -249,7 +249,7 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /*
  *   Print totals
  */
-	if (use.surface_ptr->donnan == FALSE) {
+	if (use.surface_ptr->dl_type != DONNAN_DL) {
 	        output_msg(OUTPUT_MESSAGE,"\n\tTotal moles in diffuse layer (excluding water)\n\n");
 	} else {
 	        output_msg(OUTPUT_MESSAGE,"\n\tTotal moles in diffuse layer (excluding water), Donnan calculation \n\n");
@@ -1117,11 +1117,11 @@ int print_surface(void)
 /*
  *   Description of surface
  */
-                if (diffuse_layer_x == TRUE) {
+                if (dl_type_x != NO_DL) {
                         output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n", (double) x[j]->f );
                 }
                 /*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) {*/
-                if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {
+                if (use.surface_ptr->type == DDL && dl_type_x == NO_DL) {
                         charge = x[j]->f;
                 } else {
                         charge = calc_surface_charge(name);
@@ -1167,7 +1167,7 @@ int print_surface(void)
                                         (double) (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams),
                                         (double) x[j]->surface_charge->grams);
                         }
-                        if (diffuse_layer_x == TRUE) print_diffuse_layer(x[j]->surface_charge); 
+                        if (dl_type_x != NO_DL) print_diffuse_layer(x[j]->surface_charge); 
                         output_msg(OUTPUT_MESSAGE,"\n");
 /*
  *   Heading for species
@@ -1279,7 +1279,7 @@ int print_surface_cd_music(void)
 /*
  *   Description of surface
  */
-                if (diffuse_layer_x == TRUE) {
+                if (dl_type_x != NO_DL) {
                         output_msg(OUTPUT_MESSAGE,"\t%11.3e  Surface + diffuse layer charge, eq\n\n", 
 				   (double) x[j+2]->f + (x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1)*(x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL);
                 }
@@ -1292,7 +1292,7 @@ int print_surface_cd_music(void)
 			
 		charge0 = unknown_ptr0->f;
 		charge1 = unknown_ptr1->f;
-		if (diffuse_layer_x == TRUE) {
+		if (dl_type_x != NO_DL) {
 			charge2 = x[j]->surface_charge->sigma2 * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) /  F_C_MOL;
 		} else {
 			charge2 = unknown_ptr2->f;
@@ -1347,7 +1347,7 @@ int print_surface_cd_music(void)
                                         (double) (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams),
                                         (double) x[j]->surface_charge->grams);
                         }
-                        if (diffuse_layer_x == TRUE) print_diffuse_layer(x[j]->surface_charge); 
+                        if (dl_type_x != NO_DL) print_diffuse_layer(x[j]->surface_charge); 
                         output_msg(OUTPUT_MESSAGE,"\n");
 /*
  *   Heading for species

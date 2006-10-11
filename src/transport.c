@@ -1256,14 +1256,14 @@ int find_J(int cell_no)
 	visc1 = visc2 = 1.0;
 	s_ptr1 = surface_bsearch(cell_no, &i);
 	if (s_ptr1 != NULL ) {
-		if (s_ptr1->diffuse_layer == TRUE) {
+		if (s_ptr1->dl_type != NO_DL) {
 			dl_aq1 = s_ptr1->charge->mass_water;
 			visc1 = s_ptr1->DDL_viscosity;
 		}
 	}
 	s_ptr2 = surface_bsearch(cell_no + 1, &i);
 	if (s_ptr2 != NULL ) {
-		if (s_ptr2->diffuse_layer == TRUE) {
+		if (s_ptr2->dl_type != NO_DL) {
 			dl_aq2 = s_ptr2->charge->mass_water;
 			visc2 = s_ptr2->DDL_viscosity;
 		}
@@ -1789,14 +1789,14 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	visc1 = visc2 = 1.0;
 	s_ptr1 = surface_bsearch(icell, &i);
 	if (s_ptr1 != NULL ) {
-		if (s_ptr1->diffuse_layer == TRUE) {
+		if (s_ptr1->dl_type != NO_DL) {
 			dl_aq1 = s_ptr1->charge->mass_water;
 			visc1 = s_ptr1->DDL_viscosity;
 		}
 	}
 	s_ptr2 = surface_bsearch(jcell, &i);
 	if (s_ptr2 != NULL ) {
-		if (s_ptr2->diffuse_layer == TRUE) {
+		if (s_ptr2->dl_type != NO_DL) {
 			dl_aq2 = s_ptr2->charge->mass_water;
 			visc2 = s_ptr2->DDL_viscosity;
 		}
