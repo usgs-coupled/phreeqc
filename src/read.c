@@ -5671,7 +5671,6 @@ int read_surf(void)
 	/*
 	 *   Make sure surface area is defined
 	 */
-	/*if (surface[n].edl == TRUE) {*/
 	if (surface[n].type == DDL || surface[n].type == CD_MUSIC) {
 		for (i = 0; i < count_charge; i++) {
 			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <= 0) {
@@ -5680,11 +5679,27 @@ int read_surf(void)
 				input_error++;
 			}
 		}
-	} else {
+	} 
+        /*
+         *  Logical checks
+         */
+	if (surface[n].type == UNKNOWN_DL) {
+		sprintf(error_string, "Unknown surface type.\n");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+	} else if (surface[n].type == NO_EDL) {
 		if (surface[n].dl_type != NO_DL) {
-			sprintf(error_string, "[Diffuse_layer / donnan] and no_edl are mutually exclusive options.\n");
-			error_msg(error_string, CONTINUE);
-			input_error++;
+			sprintf(error_string, "No electrostatic term calculations do not allow calculation of the diffuse layer composition.\n");
+			warning_msg(error_string);
+			surface[n].dl_type = NO_DL;
+		}
+	} else if (surface[n].type == DDL) {
+		/* all values of dl_type are valid */
+	} else if (surface[n].type == CD_MUSIC) {
+		if (surface[n].dl_type == BORKOVEK_DL) {
+			sprintf(error_string, "Only Donnan diffuse layer calculation is allowed with a CD_MUSIC surface.\n");
+			warning_msg(error_string);
+			surface[n].dl_type = DONNAN_DL;
 		}
 	}
 	return(return_value);
