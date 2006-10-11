@@ -5697,7 +5697,7 @@ int read_surf(void)
 		/* all values of dl_type are valid */
 	} else if (surface[n].type == CD_MUSIC) {
 		if (surface[n].dl_type == BORKOVEK_DL) {
-			sprintf(error_string, "Only Donnan diffuse layer calculation is allowed with a CD_MUSIC surface.\n");
+			sprintf(error_string, "Borkovec and Westall diffuse layer calculation is not allowed with a CD_MUSIC surface.\n\tUsing Donnan diffuse layer calculation.");
 			warning_msg(error_string);
 			surface[n].dl_type = DONNAN_DL;
 		}
