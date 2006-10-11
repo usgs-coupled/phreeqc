@@ -152,6 +152,7 @@ int residuals(void);
 int set(int initial);
 int sum_species(void);
 int surface_model(void);
+int g_iterations;
 
 /* p2clib.c */
 

@@ -34,7 +34,6 @@ static int gas_in;
 
 LDBLE min_value = 1e-10;
 
-
 /* ---------------------------------------------------------------------- */
 int model(void)
 /* ---------------------------------------------------------------------- */
@@ -2898,7 +2897,7 @@ int surface_model(void)
 /*
  *   Use extra iterative loop to converge on g_factors
  */
-	int i, n, g_iterations, debug_diffuse_layer_save, debug_model_save;
+	int i, n, debug_diffuse_layer_save, debug_model_save;
 	struct solution *solution_ptr;
 	LDBLE prev_aq_x;
 /*
@@ -2949,6 +2948,10 @@ int surface_model(void)
 	}
 	if (model() == ERROR) return(ERROR);
 	g_iterations = 0;
+/* appt this is a stop for debugging...
+	if (transport_step == 4 && cell_no == 2)
+		 g_iterations = 0;
+ */
 	if (use.surface_ptr->donnan == TRUE) {
 		do {
 			g_iterations++;
@@ -2963,7 +2966,7 @@ int surface_model(void)
 				output_msg(OUTPUT_MESSAGE, "Surface_model (Donnan approximation): %d g_iterations, %d model iterations\n",
 					g_iterations, iterations);
 			}
-		} while ((calc_all_donnan() == FALSE || fabs(1 - prev_aq_x / mass_water_aq_x) > 1e-7) && g_iterations < itmax);
+		} while ((calc_all_donnan() == FALSE || fabs(1 - prev_aq_x / mass_water_aq_x) > 1e-6) && g_iterations < itmax);
 	} else {
 		do {
 			g_iterations++;
@@ -2984,11 +2987,13 @@ int surface_model(void)
 		} while (calc_all_g() == FALSE && g_iterations < itmax);
 	}
 	if (g_iterations >= itmax) {
+		pr.all = TRUE;
+		pr.surface = TRUE;
+		pr.species = TRUE;
+		pr.use = TRUE;
+		print_all();
 		error_msg("Did not converge on g (diffuse layer excess)", STOP);
 	}
-/*
-	print_all();
- */
 	debug_diffuse_layer = debug_diffuse_layer_save;
 	debug_model = debug_model_save;
 	return(OK);
