@@ -718,7 +718,7 @@ int build_jacobian_sums (int k)
 /*
  *   Add extra terms for change in dg/dx in diffuse layer model
  */
-		if (s[k]->type >= H2O || diffuse_layer_x == FALSE) {
+		if (s[k]->type >= H2O || dl_type_x == NO_DL) {
 			continue;
 		} else if ( (mb_unknowns[i].unknown->type == MB ||
 			    mb_unknowns[i].unknown->type == MH ||
@@ -1039,13 +1039,13 @@ int build_model(void)
 			build_species_list(i);
 		}
 	}
-	if (diffuse_layer_x == TRUE && pitzer_model == TRUE) {
+	if (dl_type_x != NO_DL && pitzer_model == TRUE) {
 		error_msg("-diffuse_layer option not available for Pizer model", STOP);
 	}
 /*
  *   Sum diffuse layer water into hydrogen and oxygen mass balances
  */
-	if (diffuse_layer_x == TRUE && state >= REACTION) {
+	if (dl_type_x != NO_DL && state >= REACTION) {
 		for (i = 0; i < count_unknowns; i++) {
 			if (x[i]->type == SURFACE_CB) {
 #ifndef COMBINE
@@ -1772,7 +1772,7 @@ int mb_for_species_aq(int n)
  *   Include diffuse layer in hydrogen and oxygen mass balance
  */
 	if (mass_hydrogen_unknown != NULL ) {
-		if (diffuse_layer_x == TRUE && state >= REACTION) {
+		if (dl_type_x != NO_DL && state >= REACTION) {
 #ifdef COMBINE
 #ifndef COMBINE_CHARGE
 			store_mb_unknowns(mass_hydrogen_unknown, &s[n]->tot_g_moles, s[n]->h - 2 *s[n]->o, &s[n]->dg_total_g);
@@ -1795,7 +1795,7 @@ int mb_for_species_aq(int n)
 		}
 	}
 	if (mass_oxygen_unknown != NULL ) {
-		if (diffuse_layer_x == TRUE && state >= REACTION) {
+		if (dl_type_x != NO_DL && state >= REACTION) {
 			store_mb_unknowns(mass_oxygen_unknown, &s[n]->tot_g_moles, s[n]->o, &s[n]->dg_total_g );
 		} else {
 			store_mb_unknowns(mass_oxygen_unknown, &s[n]->moles, s[n]->o, &s[n]->dg );
@@ -1804,7 +1804,7 @@ int mb_for_species_aq(int n)
 /* 
  *   Sum diffuse layer charge into (surface + DL) charge balance
  */
-	if (use.surface_ptr != NULL && s[n]->type < H2O && diffuse_layer_x == TRUE) {
+	if (use.surface_ptr != NULL && s[n]->type < H2O && dl_type_x != NO_DL) {
 		j = 0;
 		for(i = 0; i < count_unknowns; i++) {
 			if (x[i]->type == SURFACE_CB) {
@@ -1838,7 +1838,7 @@ int mb_for_species_aq(int n)
 		} else if (master_ptr->unknown->type == SOLUTION_PHASE_BOUNDARY ) {
 			continue;
 		}
-		if (diffuse_layer_x == TRUE && state >= REACTION) {
+		if (dl_type_x != NO_DL && state >= REACTION) {
 			store_mb_unknowns(master_ptr->unknown, 
 					  &s[n]->tot_g_moles,
 					  elt_list[i].coef * master_ptr->coef, &s[n]->dg_total_g );
@@ -1945,7 +1945,7 @@ int mb_for_species_surf(int n)
 /*
  *   Include in charge balance, if diffuse_layer_x == FALSE
  */
-	if (charge_balance_unknown != NULL && diffuse_layer_x == FALSE) {
+	if (charge_balance_unknown != NULL && dl_type_x == NO_DL) {
 		store_mb_unknowns(charge_balance_unknown, &s[n]->moles, s[n]->z, &s[n]->dg);
 	}
 /* 
@@ -4026,11 +4026,11 @@ static int save_model(void)
 		for (i = 0; i < use.surface_ptr->count_charge; i++) {
 			last_model.surface_charge[i] = use.surface_ptr->charge[i].name;
 		}
-		last_model.diffuse_layer = use.surface_ptr->diffuse_layer;
+		last_model.dl_type = use.surface_ptr->dl_type;
 		/*last_model.edl = use.surface_ptr->edl;*/
 		last_model.surface_type = use.surface_ptr->type;
 	} else {
-		last_model.diffuse_layer = -1;
+		last_model.dl_type = NO_DL;
 		/*last_model.edl = -1;*/
 		last_model.surface_type = UNKNOWN_DL;
 		last_model.count_surface_comp = 0;
@@ -4126,7 +4126,7 @@ int check_same_model(void)
 	if (use.surface_ptr != NULL) {
 		if (last_model.count_surface_comp != use.surface_ptr->count_comps) return(FALSE);
 		if (last_model.count_surface_charge != use.surface_ptr->count_charge) return(FALSE);
-		if (last_model.diffuse_layer != use.surface_ptr->diffuse_layer) return(FALSE);
+		if (last_model.dl_type != use.surface_ptr->dl_type) return(FALSE);
 		/*if (last_model.edl != use.surface_ptr->edl) return(FALSE);*/
 		if (last_model.surface_type != use.surface_ptr->type) return(FALSE);
 		/*

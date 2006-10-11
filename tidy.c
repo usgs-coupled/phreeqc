@@ -3460,7 +3460,7 @@ int reset_last_model(void)
 	last_model.pp_assemblage = (struct phase **) free_check_null(last_model.pp_assemblage);
 	last_model.add_formula = (char **) free_check_null(last_model.add_formula);
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
-	last_model.diffuse_layer = FALSE;
+	last_model.dl_type = NO_DL;
 	last_model.count_surface_comp = 0;
 	last_model.surface_comp = (char **) free_check_null(last_model.surface_comp);
 	last_model.count_surface_charge = 0;

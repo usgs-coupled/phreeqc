@@ -159,7 +159,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	LDBLE mass_water_surface;
 	LDBLE molality, moles_excess, moles_surface, charge;
 
-	if (use.surface_ptr == NULL || (diffuse_layer_x == FALSE &&
+	if (use.surface_ptr == NULL || (dl_type_x != NO_DL &&
 					strcmp_nocase("psi", total_name) != 0 &&
 					strcmp_nocase("psi1", total_name) != 0 &&
 					strcmp_nocase("psi2", total_name) != 0 &&
@@ -234,7 +234,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 			return (0.0);
 		}
 	} else if (strcmp_nocase("charge", total_name) == 0) {
-		if (use.surface_ptr->type == DDL && diffuse_layer_x == FALSE) {
+		if (use.surface_ptr->type == DDL && dl_type_x == NO_DL) {
 			return((LDBLE) (x[j]->f));
 		} else if (use.surface_ptr->type == CD_MUSIC) {
 			return((LDBLE) (x[j]->surface_charge->sigma0 * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) / F_C_MOL ));
@@ -255,7 +255,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 		}
 	} else if (strcmp_nocase("sigma", total_name) == 0) {
 		if (use.surface_ptr->type == DDL) {
-			if (diffuse_layer_x == TRUE) {
+			if (dl_type_x != NO_DL) {
 				charge = calc_surface_charge(surface_name_local);
 			} else {
 				charge = x[j]->f;
@@ -283,7 +283,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 			return(0);
 		}
 	} else if (strcmp_nocase("water", total_name) == 0) {
-		if (diffuse_layer_x == TRUE) {
+		if (dl_type_x != NO_DL) {
 			return(x[j]->surface_charge->mass_water);
 		} else {
 			return(0);
@@ -1383,7 +1383,7 @@ int system_total_elt(char *total_name)
 			}
 		}
 	}
-        if (use.surface_ptr != NULL && diffuse_layer_x == TRUE) {
+        if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
 		/*
 		 *   Find position of component in surface charge data
 		 */     
@@ -1585,7 +1585,7 @@ int system_total_elt_secondary(char *total_name)
 			}
 		}
 	}
-        if (use.surface_ptr != NULL && diffuse_layer_x == TRUE) {
+        if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
 		/*
 		 *   Find position of component in surface charge data
 		 */     

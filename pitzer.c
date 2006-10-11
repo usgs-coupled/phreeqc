@@ -1051,7 +1051,7 @@ int set_pz(int initial)
 	s_hplus->moles = exp(s_hplus->lm * LOG_10)*mass_water_aq_x;
 	s_eminus->la= - solution_ptr->solution_pe;
 	if (initial == TRUE) initial_guesses(); 
-	if (diffuse_layer_x == TRUE) initial_surface_water();
+	if (dl_type_x != NO_DL) initial_surface_water();
 	revise_guesses();
 	return(OK);
 }
@@ -1430,7 +1430,7 @@ int model_pz(void)
 			}
 			molalities(TRUE);
 			if(use.surface_ptr != NULL && 
-			   use.surface_ptr->diffuse_layer == TRUE &&
+			   use.surface_ptr->dl_type != NO_DL &&
 			   use.surface_ptr->related_phases == TRUE)
 				initial_surface_water();
 			mb_sums();

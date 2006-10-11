@@ -122,7 +122,7 @@ int inverse_models(void)
 
 	print1 = TRUE;
 	state = INVERSE;
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	for (n=0; n < count_inverse; n++) {
 		if (inverse[n].new_def == TRUE) {
 /*

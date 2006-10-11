@@ -332,7 +332,7 @@ int add_surface (struct surface *surface_ptr)
 /*
  *   Add element concentrations on surface to master species totals
  */
-	diffuse_layer_x = surface_ptr->diffuse_layer;
+	dl_type_x = surface_ptr->dl_type;
 	for (i = 0; i < surface_ptr->count_comps; i++) {
 		/*if(surface_ptr->edl == FALSE) {*/
 		if(surface_ptr->type == NO_EDL) {
@@ -381,7 +381,7 @@ int add_surface (struct surface *surface_ptr)
 /*
  *   Add diffuse layer elements (including water in Debye layer)
  */
-		if (surface_ptr->diffuse_layer == TRUE && surface_ptr->new_def == FALSE) {
+		if (surface_ptr->dl_type != NO_DL && surface_ptr->new_def == FALSE) {
 			for (j = 0; surface_ptr->charge[i].diffuse_layer_totals[j].elt != NULL; j++) {
 				master_ptr = surface_ptr->charge[i].diffuse_layer_totals[j].elt->primary;
 				if (master_ptr->s == s_hplus) {

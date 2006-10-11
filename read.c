@@ -5379,7 +5379,7 @@ int read_surf(void)
 		case 2:                       /* diffuse_layer */
 		case 3:
 			surface[n].thickness = 1e-8;
-			surface[n].diffuse_layer = TRUE;
+			surface[n].dl_type = BORKOVEK_DL;
 			sscanf(next_char, SCANFORMAT, &surface[n].thickness);
 			/*				surface[n].thickness = thickness;
 							}
@@ -5393,8 +5393,8 @@ int read_surf(void)
 			surface[n].only_counter_ions = TRUE;
 			break;
 		case 7:			/* donnan for DL conc's */
-			surface[n].donnan = TRUE;
-			surface[n].diffuse_layer = TRUE;
+			surface[n].dl_type = DONNAN_DL;
+			/*surface[n].diffuse_layer = TRUE;*/
 			surface[n].debye_units = 0.0;
 			surface[n].DDL_viscosity = 1.0;
 			thickness = 0.0;
@@ -5681,7 +5681,7 @@ int read_surf(void)
 			}
 		}
 	} else {
-		if (surface[n].diffuse_layer == TRUE) {
+		if (surface[n].dl_type != NO_DL) {
 			sprintf(error_string, "[Diffuse_layer / donnan] and no_edl are mutually exclusive options.\n");
 			error_msg(error_string, CONTINUE);
 			input_error++;

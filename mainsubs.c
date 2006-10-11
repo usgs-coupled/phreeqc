@@ -665,7 +665,7 @@ static int set_use(void)
 /*
  *   Find surface
  */
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	if (use.surface_in == TRUE) {
 		use.surface_ptr = surface_bsearch(use.n_surface_user, &use.n_surface);
 		if (use.surface_ptr == NULL) {
@@ -728,7 +728,7 @@ int initial_solutions(int print)
 	state = INITIAL_SOLUTION;
 	set_use();
 	print1 = TRUE;
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	for (n=0; n < count_solution; n++) {
 		initial_solution_isotopes = FALSE;
 		if (solution[n] != NULL && solution[n]->new_def == TRUE) {
@@ -796,7 +796,7 @@ int initial_exchangers(int print)
 	state = INITIAL_EXCHANGE;
 	set_use();
 	print1 = TRUE;
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	for (n=0; n < count_exchange; n++) {
 		if (exchange[n].new_def != TRUE) continue;
 		n_user = exchange[n].n_user;
@@ -872,7 +872,7 @@ int initial_gas_phases(int print)
 	state = INITIAL_GAS_PHASE;
 	set_use();
 	print1 = TRUE;
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	for (n=0; n < count_gas_phase; n++) {
 		if (gas_phase[n].new_def != TRUE) continue;
 		n_user = gas_phase[n].n_user;
@@ -965,7 +965,7 @@ int initial_surfaces(int print)
 				dup_print(token, FALSE);
 			}
 			use.surface_ptr = &(surface[n]);
-			diffuse_layer_x = use.surface_ptr->diffuse_layer;
+			dl_type_x = use.surface_ptr->dl_type;
 			use.solution_ptr = solution_bsearch(surface[n].n_solution, &i, TRUE);
 			if (use.solution_ptr == NULL) {
 				error_msg("Solution not found for initial surface calculation", STOP);
@@ -1759,7 +1759,7 @@ static int xsurface_save(int n_user)
 	temp_surface.n_user = n_user;
 	temp_surface.n_user_end = n_user;
 	temp_surface.new_def = FALSE;
-	temp_surface.diffuse_layer = diffuse_layer_x;
+	temp_surface.dl_type = dl_type_x;
 	sprintf(token, "Surface assemblage after simulation %d.", simulation);
 	temp_surface.description = string_duplicate(token);
 	temp_surface.solution_equilibria = FALSE;
@@ -1852,7 +1852,7 @@ static int xsurface_save(int n_user)
 /*
  *   Store moles from diffuse_layer
  */
-			if (diffuse_layer_x == TRUE) {
+			if (dl_type_x != NO_DL) {
 				sum_diffuse_layer(x[i]->surface_charge);
 				temp_surface.charge[count_charge].diffuse_layer_totals = elt_list_save();
 			}
@@ -1864,7 +1864,7 @@ static int xsurface_save(int n_user)
 			count_charge++;
 		} else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC) {
 			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge, sizeof(struct surface_charge));
-			if (diffuse_layer_x == TRUE) {
+			if (dl_type_x != NO_DL) {
 				temp_surface.charge[count_charge].charge_balance = 
 					(x[i]->surface_charge->sigma0 + 
 					 x[i]->surface_charge->sigma1 + 
@@ -1900,7 +1900,7 @@ static int xsurface_save(int n_user)
 /*
  *   Store moles from diffuse_layer
  */
-			if (diffuse_layer_x == TRUE) {
+			if (dl_type_x != NO_DL) {
 				sum_diffuse_layer(x[i]->surface_charge);
 				temp_surface.charge[count_charge].diffuse_layer_totals = elt_list_save();
 			}
@@ -2084,7 +2084,7 @@ int copy_use (int i)
 /*
  *   Find surface
  */
-	diffuse_layer_x = FALSE;
+	dl_type_x = NO_DL;
 	if (use.surface_in == TRUE) {
 		surface_duplicate(use.n_surface_user, i);
 		save.surface = TRUE;
