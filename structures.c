@@ -502,9 +502,9 @@ struct element *element_store (char *element)
  *
  *   If found, pointer to the appropriate element structure is returned.
  *
- *   If the string is not found, a new entry is made at the end of 
+ *   If the string is not found, a new entry is made at the end of
  *   the elements array (position count_elements) and count_elements is
- *   incremented. A new entry is made in the hash table. Pointer to 
+ *   incremented. A new entry is made in the hash table. Pointer to
  *   the new structure is returned.
  *
  *   Arguments:
@@ -521,7 +521,7 @@ struct element *element_store (char *element)
  */
 	item.key = element;
 	item.data = NULL;
-	found_item = hsearch_multi(elements_hash_table, item, FIND); 
+	found_item = hsearch_multi(elements_hash_table, item, FIND);
 	if (found_item != NULL) {
 		elts_ptr = (struct element *) (found_item->data);
 		return (elts_ptr);
@@ -547,7 +547,7 @@ struct element *element_store (char *element)
  */
 	item.key = elements[n]->name;
 	item.data = (void *) elements[n];
-	found_item = hsearch_multi(elements_hash_table, item, ENTER);  
+	found_item = hsearch_multi(elements_hash_table, item, ENTER);
 	if (found_item == NULL) {
 		sprintf(error_string, "Hash table error in element_store.");
 		error_msg(error_string, CONTINUE);
@@ -623,7 +623,7 @@ struct elt_list *elt_list_dup(struct elt_list *elt_list_ptr_old)
 	elt_list_ptr_new = (struct elt_list *) PHRQ_malloc( (size_t) (count_totals + 1)
 						  * sizeof(struct elt_list));
 	if (elt_list_ptr_new == NULL ) malloc_error();
-	memcpy(elt_list_ptr_new, elt_list_ptr_old, 
+	memcpy(elt_list_ptr_new, elt_list_ptr_old,
 	       (size_t) (count_totals + 1) * sizeof(struct elt_list));
 	return (elt_list_ptr_new);
 }
@@ -668,7 +668,7 @@ struct elt_list *elt_list_save(void)
 {
 /*
  *   Takes data from work space elt_list, allocates a new elt_list structure,
- *   copies data from work space to new structure, and returns pointer to 
+ *   copies data from work space to new structure, and returns pointer to
  *   new structure.
  */
 	int j;
@@ -774,7 +774,7 @@ static int exchange_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int exchange_copy(struct exchange *exchange_old_ptr, 
+int exchange_copy(struct exchange *exchange_old_ptr,
 			 struct exchange *exchange_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -806,7 +806,7 @@ int exchange_copy(struct exchange *exchange_old_ptr,
 /*
  *   Write exch_comp structure for each exchange component
  */
-	memcpy(exchange_new_ptr->comps, exchange_old_ptr->comps, 
+	memcpy(exchange_new_ptr->comps, exchange_old_ptr->comps,
 	       (size_t) (count_comps) * sizeof (struct exch_comp));
 	for ( i = 0; i < count_comps; i++) {
 		exchange_new_ptr->comps[i].totals = elt_list_dup(exchange_old_ptr->comps[i].totals);
@@ -839,7 +839,7 @@ int exchange_delete(int n_user_old)
 	int n_old;
 	struct exchange *exchange_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	exchange_ptr_old = exchange_bsearch(n_user_old, &n_old);
 	if (exchange_ptr_old != NULL) {
@@ -1016,7 +1016,7 @@ struct exchange *exchange_search(int n_user, int *n, int print)
 		}
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&exchange[i]);
 }
@@ -1115,7 +1115,7 @@ static int gas_phase_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int gas_phase_copy(struct gas_phase *gas_phase_old_ptr, 
+int gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
 			  struct gas_phase *gas_phase_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1137,14 +1137,14 @@ int gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
 	sprintf(token, "Gas defined in simulation %d.", simulation);
 	gas_phase_new_ptr->description = string_duplicate(token);
 /*
- *    Allocate space for gas components 
+ *    Allocate space for gas components
  */
 	gas_phase_new_ptr->comps = (struct gas_comp *) PHRQ_malloc((size_t) (count_comps) * sizeof (struct gas_comp));
 	if (gas_phase_new_ptr->comps == NULL) malloc_error();
 /*
  *   Write gas_comp structure for each gas component
  */
-	memcpy(gas_phase_new_ptr->comps, gas_phase_old_ptr->comps, 
+	memcpy(gas_phase_new_ptr->comps, gas_phase_old_ptr->comps,
 	       (size_t) (count_comps) * sizeof (struct gas_comp));
 	return(OK);
 }
@@ -1172,7 +1172,7 @@ int gas_phase_delete(int n_user_old)
 	int n_old;
 	struct gas_phase *gas_phase_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	gas_phase_ptr_old = gas_phase_bsearch(n_user_old, &n_old);
 	if (gas_phase_ptr_old != NULL) {
@@ -1250,7 +1250,7 @@ int gas_phase_free (struct gas_phase *gas_phase_ptr)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
-int gas_phase_init (struct gas_phase *gas_phase_ptr, int n_user, int n_user_end, char *description) 
+int gas_phase_init (struct gas_phase *gas_phase_ptr, int n_user, int n_user_end, char *description)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1385,7 +1385,7 @@ struct inverse *inverse_alloc(void)
  */
 {
 	struct inverse *inverse_ptr;
-	
+
 	count_inverse++;
 	inverse = (struct inverse *) PHRQ_realloc(inverse, (size_t) count_inverse * sizeof(struct inverse));
 	if (inverse == NULL) malloc_error();
@@ -1422,7 +1422,7 @@ struct inverse *inverse_alloc(void)
 	inverse_ptr->dalk_dph = NULL;
 	inverse_ptr->dalk_dc = NULL;
 
-	
+
 	inverse_ptr->solns = NULL;
 
 	inverse_ptr->elts = (struct inv_elts *) PHRQ_malloc((size_t) sizeof(struct inv_elts));
@@ -1475,7 +1475,7 @@ int inverse_delete(int i)
  */
 	int j;
 
-	inverse_free ( &(inverse[i]) ); 
+	inverse_free ( &(inverse[i]) );
 	for (j=i; j < (count_inverse - 1); j++) {
 		memcpy ( (void *) &(inverse[j]), (void *) &(inverse[j+1]),
 			(size_t) sizeof (struct inverse));
@@ -1498,13 +1498,13 @@ int inverse_free (struct inverse *inverse_ptr)
 
 /*   Free uncertainties */
 	inverse_ptr->uncertainties = (double *) free_check_null (inverse_ptr->uncertainties);
-	inverse_ptr->ph_uncertainties = (double *) free_check_null (inverse_ptr->ph_uncertainties); 
+	inverse_ptr->ph_uncertainties = (double *) free_check_null (inverse_ptr->ph_uncertainties);
 #ifdef SKIP
 	inverse_ptr->alk_uncertainties = (double *) free_check_null (inverse_ptr->alk_uncertainties);
 #endif
 
 /*   Free force_solns */
-	inverse_ptr->force_solns = (int *) free_check_null (inverse_ptr->force_solns); 
+	inverse_ptr->force_solns = (int *) free_check_null (inverse_ptr->force_solns);
 
 /*   Free elts */
 	for (i = 0; i < inverse_ptr->count_elts; i++) {
@@ -1551,7 +1551,7 @@ int inverse_isotope_compare (const void *ptr1, const void *ptr2)
 	} else if (iso_ptr1->isotope_number > iso_ptr2->isotope_number) {
 		return(1);
 	}
-	return(0); 
+	return(0);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1749,13 +1749,13 @@ int irrev_duplicate(int n_user_old, int n_user_new)
  */
 	irrev[n_new].list = (struct name_coef *) PHRQ_malloc((size_t) (count_list) * sizeof (struct name_coef));
 	if (irrev[n_new].list == NULL) malloc_error();
-	memcpy(irrev[n_new].list, irrev[n_old].list, 
+	memcpy(irrev[n_new].list, irrev[n_old].list,
 	       (size_t) (count_list) * sizeof (struct name_coef));
 
 	if (count_steps < 0) count_steps = 1;
 	irrev[n_new].steps = (LDBLE *) PHRQ_malloc((size_t) (count_steps) * sizeof (LDBLE));
 	if (irrev[n_new].steps == NULL) malloc_error();
-	memcpy(irrev[n_new].steps, irrev[n_old].steps, 
+	memcpy(irrev[n_new].steps, irrev[n_old].steps,
 	       (size_t) (count_steps) * sizeof (LDBLE));
 
 	if (irrev[n_old].elts != NULL) {
@@ -1789,7 +1789,7 @@ struct irrev *irrev_search(int n_user, int *n)
 {
 /*
  *   Linear search for irrev user number n_user.
- *   If found, n is position in irrev array and pointer to irrev structure 
+ *   If found, n is position in irrev array and pointer to irrev structure
  *      is returned
  *   If not found, NULL is returned.
  */
@@ -1802,7 +1802,7 @@ struct irrev *irrev_search(int n_user, int *n)
 	if (i >= count_irrev) {
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&irrev[i]);
 }
@@ -1895,7 +1895,7 @@ static int kinetics_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int kinetics_copy(struct kinetics *kinetics_old_ptr, 
+int kinetics_copy(struct kinetics *kinetics_old_ptr,
 			 struct kinetics *kinetics_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2015,7 +2015,7 @@ int kinetics_delete(int n_user_old)
 	int n_old;
 	struct kinetics *kinetics_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	kinetics_ptr_old = kinetics_bsearch(n_user_old, &n_old);
 	if (kinetics_ptr_old != NULL) {
@@ -2193,7 +2193,7 @@ struct kinetics *kinetics_search(int n_user, int *n, int print)
 		}
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&kinetics[i]);
 }
@@ -2238,9 +2238,9 @@ struct master *master_alloc(void)
 	ptr->coef=0.0;
 	ptr->total=0.0;
 	ptr->isotope_ratio = 0;
-	ptr->isotope_ratio_uncertainty = 0; 
+	ptr->isotope_ratio_uncertainty = 0;
 	ptr->isotope = 0;
-	ptr->total_primary = 0; 
+	ptr->total_primary = 0;
 	ptr->elt=NULL;
 	ptr->alk = 0.0;
 	ptr->gfw = 0.0;
@@ -2261,9 +2261,9 @@ int master_delete(char *ptr)
  *   Delete master species:  Free memory of master species structure, free
  *   the structure, and remove from array master.
  *
- *   Input 
+ *   Input
  *        ptr  character string with name of element or valence state
- *   Returns 
+ *   Returns
  *        TRUE if master species was deleted.
  *        FALSE if master species was not found.
  */
@@ -2327,8 +2327,8 @@ int master_compare_string (const void *ptr1, const void *ptr2)
 	const struct master *master_ptr;
 
 	string_ptr =  (const char *) ptr1;
-	master_ptr =  * (const struct master **) ptr2; 
-	return(strcmp_nocase(string_ptr, master_ptr->elt->name));  
+	master_ptr =  * (const struct master **) ptr2;
+	return(strcmp_nocase(string_ptr, master_ptr->elt->name));
 }
 /* ---------------------------------------------------------------------- */
 int master_compare (const void *ptr1, const void *ptr2)
@@ -2337,7 +2337,7 @@ int master_compare (const void *ptr1, const void *ptr2)
 	const struct master *master_ptr1, *master_ptr2;
 	master_ptr1 = * (const struct master **) ptr1;
 	master_ptr2 = * (const struct master **) ptr2;
-	return(strcmp_nocase(master_ptr1->elt->name, master_ptr2->elt->name)); 
+	return(strcmp_nocase(master_ptr1->elt->name, master_ptr2->elt->name));
 }
 /* ---------------------------------------------------------------------- */
 struct master *master_bsearch_primary (char *ptr)
@@ -2451,7 +2451,7 @@ static int mix_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int mix_copy(struct mix *mix_old_ptr, 
+int mix_copy(struct mix *mix_old_ptr,
 			 struct mix *mix_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2477,7 +2477,7 @@ int mix_copy(struct mix *mix_old_ptr,
  */
 	mix_new_ptr->comps = (struct mix_comp *) PHRQ_malloc((size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
 	if (mix_new_ptr->comps == NULL) malloc_error();
-	memcpy(mix_new_ptr->comps, mix_old_ptr->comps, 
+	memcpy(mix_new_ptr->comps, mix_old_ptr->comps,
 	       (size_t) (mix_old_ptr->count_comps) * sizeof (struct mix_comp));
 
 	return(OK);
@@ -2537,7 +2537,7 @@ int mix_duplicate(int n_user_old, int n_user_new)
 /*
  *   Write mix_comp structure for each mix component
  */
-	memcpy(mix[n_new].comps, mix[n_old].comps, 
+	memcpy(mix[n_new].comps, mix[n_old].comps,
 	       (size_t) (count_comps) * sizeof (struct mix_comp));
 	if (sort == TRUE) mix_sort();
 	return(OK);
@@ -2577,7 +2577,7 @@ struct mix *mix_search(int n_user, int *n, int print)
 		}
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&mix[i]);
 }
@@ -2627,7 +2627,7 @@ struct pe_data *pe_data_alloc(void)
 	}
 	pe_data_ptr[1].name = NULL;
 	pe_data_ptr[1].rxn = NULL;
-	
+
 	return (pe_data_ptr);
 }
 /* ---------------------------------------------------------------------- */
@@ -2738,7 +2738,7 @@ int phase_compare (const void *ptr1, const void *ptr2)
 	const struct phase *phase_ptr1, *phase_ptr2;
 	phase_ptr1 = * (const struct phase **) ptr1;
 	phase_ptr2 = * (const struct phase **) ptr2;
-	return(strcmp_nocase(phase_ptr1->name, phase_ptr2->name)); 
+	return(strcmp_nocase(phase_ptr1->name, phase_ptr2->name));
 }
 /* ---------------------------------------------------------------------- */
 int phase_compare_string (const void *ptr1, const void *ptr2)
@@ -2781,7 +2781,7 @@ int phase_free(struct phase *phase_ptr)
  */
 	if (phase_ptr == NULL) return(ERROR);
 	phase_ptr->next_elt = (struct elt_list *) free_check_null (phase_ptr->next_elt);
-	phase_ptr->next_sys_total = (struct elt_list *) free_check_null (phase_ptr->next_sys_total); 
+	phase_ptr->next_sys_total = (struct elt_list *) free_check_null (phase_ptr->next_sys_total);
 	rxn_free (phase_ptr->rxn);
 	rxn_free (phase_ptr->rxn_s);
 	rxn_free (phase_ptr->rxn_x);
@@ -2862,9 +2862,9 @@ struct phase  *phase_store (char *name)
  *
  *   If found, pointer to the appropriate phase structure is returned.
  *
- *   If the string is not found, a new entry is made at the end of 
- *   the phases array (position count_phases) and count_phases is 
- *   incremented. A new entry is made in the hash table. Pointer to 
+ *   If the string is not found, a new entry is made at the end of
+ *   the phases array (position count_phases) and count_phases is
+ *   incremented. A new entry is made in the hash table. Pointer to
  *   the new structure is returned.
  *
  *   Arguments:
@@ -2872,7 +2872,7 @@ struct phase  *phase_store (char *name)
  *
  *   Returns:
  *      The address of a phase structure that contains the phase data.
- *      If phase existed, it is reinitialized. The structure returned 
+ *      If phase existed, it is reinitialized. The structure returned
  *      contains only the name of the phase.
  */
 	int n;
@@ -2890,7 +2890,7 @@ struct phase  *phase_store (char *name)
 
 	item.key = ptr;
 	item.data = NULL;
-	found_item = hsearch_multi(phases_hash_table, item, FIND); 
+	found_item = hsearch_multi(phases_hash_table, item, FIND);
 	if (found_item != NULL) {
 		phase_ptr = (struct phase *) (found_item->data);
 		phase_free (phase_ptr);
@@ -2914,7 +2914,7 @@ struct phase  *phase_store (char *name)
  */
 	item.key = ptr;
 	item.data = (void *) phases[n];
-	found_item = hsearch_multi(phases_hash_table, item, ENTER);  
+	found_item = hsearch_multi(phases_hash_table, item, ENTER);
 	if (found_item == NULL) {
 		sprintf(error_string, "Hash table error in phase_store.");
 		error_msg(error_string, CONTINUE);
@@ -2956,9 +2956,9 @@ struct phase  *phase_store (char *name)
  *
  *   If found, pointer to the appropriate phase structure is returned.
  *
- *   If the string is not found, a new entry is made at the end of 
- *   the phases array (position count_phases) and count_phases is 
- *   incremented. A new entry is made in the hash table. Pointer to 
+ *   If the string is not found, a new entry is made at the end of
+ *   the phases array (position count_phases) and count_phases is
+ *   incremented. A new entry is made in the hash table. Pointer to
  *   the new structure is returned.
  *
  *   Arguments:
@@ -2966,7 +2966,7 @@ struct phase  *phase_store (char *name)
  *
  *   Returns:
  *      The address of a phase structure that contains the phase data.
- *      If phase existed, it is reinitialized. The structure returned 
+ *      If phase existed, it is reinitialized. The structure returned
  *      contains only the name of the phase.
  */
 	int n;
@@ -2974,7 +2974,7 @@ struct phase  *phase_store (char *name)
 /*
  *   Search list
  */
-	phase_ptr = phase_search(name, &n); 
+	phase_ptr = phase_search(name, &n);
 	if (phase_ptr != NULL) {
 		phase_free (phase_ptr);
 		phase_init (phase_ptr);
@@ -3022,7 +3022,7 @@ struct pp_assemblage *pp_assemblage_bsearch (int k, int *n)
  *   Assumes pp_assemblage is in sort order.
  *
  *   Input: k, user number to find.
- *   
+ *
  *   Output: n, position in array pp_assemblage for user number k.
  *
  *   Return: pointer to pp_assemblage structure for user number k, if found.
@@ -3075,7 +3075,7 @@ static int pp_assemblage_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr, 
+int pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr,
 			      struct pp_assemblage *pp_assemblage_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -3106,7 +3106,7 @@ int pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr,
 	pp_assemblage_new_ptr->pure_phases = (struct pure_phase *) PHRQ_malloc( (size_t) count_comps * sizeof(struct pure_phase));
 	if (pp_assemblage_new_ptr->pure_phases == NULL) malloc_error();
 
-	memcpy( (void *) pp_assemblage_new_ptr->pure_phases, 
+	memcpy( (void *) pp_assemblage_new_ptr->pure_phases,
 	       (void *) pp_assemblage_old_ptr->pure_phases,
 	       (size_t) count_comps * sizeof(struct pure_phase) );
 	return(OK);
@@ -3178,7 +3178,7 @@ int pp_assemblage_delete(int n_user_old)
 	int n_old;
 	struct pp_assemblage *pp_assemblage_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	pp_assemblage_ptr_old = pp_assemblage_bsearch(n_user_old, &n_old);
 	if (pp_assemblage_ptr_old != NULL) {
@@ -3383,7 +3383,7 @@ int rate_compare (const void *ptr1, const void *ptr2)
 	const struct rate *rate_ptr1, *rate_ptr2;
 	rate_ptr1 = * (const struct rate **) ptr1;
 	rate_ptr2 = * (const struct rate **) ptr2;
-	return(strcmp_nocase(rate_ptr1->name, rate_ptr2->name)); 
+	return(strcmp_nocase(rate_ptr1->name, rate_ptr2->name));
 }
 /* ---------------------------------------------------------------------- */
 int rate_compare_string (const void *ptr1, const void *ptr2)
@@ -3421,7 +3421,7 @@ struct rate *rate_search (char *name, int *n)
 /*   Linear search of the structure array "rates" for name.
  *
  *   Arguments:
- *     name     input, name of rate 
+ *     name     input, name of rate
  *      n       output, position in rates
  *
  *   Returns:
@@ -3580,7 +3580,7 @@ int rxn_print(struct reaction *rxn_ptr)
 		output_msg(OUTPUT_MESSAGE, "\tcoef %f ", next_token->coef);
 		if (next_token->s != NULL) {
 			output_msg(OUTPUT_MESSAGE, "\tspecies token: %s ", next_token->s->name);
-		} 
+		}
 		if (next_token->name != NULL) {
 			output_msg(OUTPUT_MESSAGE, "\tname token: %s", next_token->name);
 		}
@@ -3620,7 +3620,7 @@ int s_compare (const void *ptr1, const void *ptr2)
 	const struct species *s_ptr1, *s_ptr2;
 	s_ptr1 = * (const struct species **) ptr1;
 	s_ptr2 = * (const struct species **) ptr2;
-	return(strcmp(s_ptr1->name, s_ptr2->name)); 
+	return(strcmp(s_ptr1->name, s_ptr2->name));
 
 }
 /* ---------------------------------------------------------------------- */
@@ -3739,7 +3739,7 @@ struct species *s_search (char *name)
 
 	item.key = name;
 	item.data = NULL;
-	found_item = hsearch_multi(species_hash_table, item, FIND); 
+	found_item = hsearch_multi(species_hash_table, item, FIND);
         if (found_item != NULL) {
 		s_ptr = (struct species *) (found_item->data);
 		return (s_ptr);
@@ -3755,9 +3755,9 @@ struct species  *s_store (char *name, LDBLE z, int replace_if_found)
  *
  *   Pointer to a species structure is always returned.
  *
- *   If the string is not found, a new entry is made at the end of 
- *      the elements array (position count_elements) and count_elements is 
- *      incremented. A new entry is made in the hash table. Pointer to 
+ *   If the string is not found, a new entry is made at the end of
+ *      the elements array (position count_elements) and count_elements is
+ *      incremented. A new entry is made in the hash table. Pointer to
  *      the new structure is returned.
  *   If "name" is found and replace is true, pointers in old species structure
  *      are freed and replaced with additional input.
@@ -3781,7 +3781,7 @@ struct species  *s_store (char *name, LDBLE z, int replace_if_found)
  */
 	item.key = name;
 	item.data = NULL;
-	found_item = hsearch_multi(species_hash_table, item, FIND); 
+	found_item = hsearch_multi(species_hash_table, item, FIND);
 
         if (found_item != NULL && replace_if_found == FALSE) {
 		s_ptr = (struct species *) (found_item->data);
@@ -3808,7 +3808,7 @@ struct species  *s_store (char *name, LDBLE z, int replace_if_found)
  */
 	item.key = s_ptr->name;
 	item.data = (void *) s_ptr;
-	found_item = hsearch_multi(species_hash_table, item, ENTER);  
+	found_item = hsearch_multi(species_hash_table, item, ENTER);
 	if (found_item == NULL) {
 		sprintf(error_string, "Hash table error in species_store.");
 		error_msg(error_string, CONTINUE);
@@ -3842,7 +3842,7 @@ struct s_s_assemblage *s_s_assemblage_bsearch (int k, int *n)
  *   Assumes s_s_assemblage is in sort order.
  *
  *   Input: k, user number to find.
- *   
+ *
  *   Output: n, position in array s_s_assemblage for user number k.
  *
  *   Return: pointer to s_s_assemblage structure for user number k, if found.
@@ -3895,7 +3895,7 @@ static int s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr, 
+int s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
 			      struct s_s_assemblage *s_s_assemblage_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -4005,7 +4005,7 @@ int s_s_assemblage_delete(int n_user_old)
 	int n_old;
 	struct s_s_assemblage *s_s_assemblage_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	s_s_assemblage_ptr_old = s_s_assemblage_bsearch(n_user_old, &n_old);
 	if (s_s_assemblage_ptr_old != NULL) {
@@ -4050,7 +4050,7 @@ int s_s_assemblage_init (struct s_s_assemblage *s_s_assemblage_ptr, int n_user, 
 	s_s_assemblage_ptr->count_s_s = 0;
 	s_s_assemblage_ptr->s_s = (struct s_s *) PHRQ_malloc((size_t) sizeof(struct s_s));
 	if (s_s_assemblage_ptr->s_s == NULL) malloc_error();
-	
+
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -4163,7 +4163,7 @@ struct save_values *save_values_bsearch (struct save_values *k, int *n)
 {
 /*
  *   Binary search save_values to find if one exists with given coefficients
- *   Save_Values is assumed to be in sort order by count_subscripts and 
+ *   Save_Values is assumed to be in sort order by count_subscripts and
  *   values of subscripts
  */
 	void *void_ptr;
@@ -4202,7 +4202,7 @@ int save_values_compare(const void *ptr1, const void *ptr2)
 				return(-1);
 			} else if (save_values_ptr1->subscripts[i] > save_values_ptr2->subscripts[i]) {
 				return(1);
-			} 
+			}
 		}
 	}
 	return(0);
@@ -4246,7 +4246,7 @@ int save_values_store(struct save_values *s_v)
 		count_save_values++;
 		save_values_sort();
 	}
-		
+
 	if (count_save_values > 0) {
 		qsort (save_values, (size_t) count_save_values, (size_t) sizeof(struct save_values),
 		       save_values_compare);
@@ -4265,14 +4265,14 @@ int conc_compare (const void *ptr1, const void *ptr2)
 	const struct conc *conc_ptr1, *conc_ptr2;
 	conc_ptr1 = (const struct conc *) ptr1;
 	conc_ptr2 = (const struct conc *) ptr2;
-	return(strcmp_nocase(conc_ptr1->description, conc_ptr2->description)); 
+	return(strcmp_nocase(conc_ptr1->description, conc_ptr2->description));
 
 }
 /* ---------------------------------------------------------------------- */
 int conc_init (struct conc *conc_ptr)
 /* ---------------------------------------------------------------------- */
 {
-	if (conc_ptr == NULL) return(ERROR); 
+	if (conc_ptr == NULL) return(ERROR);
 	conc_ptr->equation_name = NULL;
 	conc_ptr->phase = NULL;
 	conc_ptr->phase_si = 0.0;
@@ -4298,7 +4298,7 @@ int isotope_compare (const void *ptr1, const void *ptr2)
 	} else if (iso_ptr1->isotope_number > iso_ptr2->isotope_number) {
 		return(1);
 	}
-	return(0); 
+	return(0);
 }
 /* ---------------------------------------------------------------------- */
 struct solution *solution_alloc(void)
@@ -4355,7 +4355,7 @@ struct solution *solution_bsearch (int k, int *n, int print)
  *          print, TRUE print warning if solution not found.
  *   Output: n, position of solution ptr in solution array.
  *   Return: pointer to solution structure if found
- *           NULL if not found.  
+ *           NULL if not found.
  */
 	void *void_ptr;
 	void_ptr = NULL;
@@ -4578,7 +4578,7 @@ int solution_delete (int n_user)
 	int j, n;
 	solution_ptr = solution_bsearch(n_user, &n, FALSE);
 	if (solution_ptr != NULL) {
-		solution_free ( solution[n] ); 
+		solution_free ( solution[n] );
 		for (j=n; j < ( count_solution -1 ); j++) {
 			solution[j]=solution[j+1];
 		}
@@ -4601,7 +4601,7 @@ int solution_free (struct solution *solution_ptr)
 	solution_ptr->species_gamma = (struct master_activity *) free_check_null (solution_ptr->species_gamma);
 	solution_ptr->count_species_gamma = 0;
 /*   Free struct pe_data array */
-	pe_data_free (solution_ptr->pe); 
+	pe_data_free (solution_ptr->pe);
 /*   Free isotope data */
 	solution_ptr->isotopes = (struct isotope *) free_check_null (solution_ptr->isotopes);
 /*   Free struct solution */
@@ -4675,8 +4675,8 @@ int solution_sort(void)
  *   Sort array of pointers to solution structures, solution.
  */
 	if (count_solution > 0) {
-		qsort (solution, 
-		       (size_t) count_solution, 
+		qsort (solution,
+		       (size_t) count_solution,
 		       (size_t) sizeof(struct solution *),
 		       solution_compare);
 	}
@@ -4953,7 +4953,7 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
  */
 	surface_new_ptr->comps = (struct surface_comp *) PHRQ_malloc((size_t) (count_comps) * sizeof (struct surface_comp));
 	if (surface_new_ptr->comps == NULL) malloc_error();
-	memcpy(surface_new_ptr->comps, surface_old_ptr->comps, 
+	memcpy(surface_new_ptr->comps, surface_old_ptr->comps,
 	       (size_t) (count_comps) * sizeof (struct surface_comp));
 	for ( i = 0; i < count_comps; i++) {
 		surface_new_ptr->comps[i].formula_totals = elt_list_dup(surface_old_ptr->comps[i].formula_totals);
@@ -4966,7 +4966,7 @@ int surface_copy(struct surface *surface_old_ptr, struct surface *surface_new_pt
 	if (surface_old_ptr->type == DDL || surface_old_ptr->type == CD_MUSIC) {
 		surface_new_ptr->charge = (struct surface_charge *) PHRQ_malloc((size_t) (count_charge) * sizeof (struct surface_charge));
 		if (surface_new_ptr->charge == NULL) malloc_error();
-		memcpy(surface_new_ptr->charge, surface_old_ptr->charge, 
+		memcpy(surface_new_ptr->charge, surface_old_ptr->charge,
 		       (size_t) (count_charge) * sizeof (struct surface_charge));
 		for ( i = 0; i < count_charge; i++) {
 			surface_new_ptr->charge[i].diffuse_layer_totals = elt_list_dup(surface_old_ptr->charge[i].diffuse_layer_totals);
@@ -4983,7 +4983,7 @@ struct surface_charge *surface_charge_duplicate(struct surface_charge *charge_ol
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Duplicates data from surface_old_ptr 
+ *   Duplicates data from surface_old_ptr
  *   Space is malloced.
  */
 	struct surface_charge *charge;
@@ -5076,7 +5076,7 @@ int surface_delete(int n_user_old)
 	int n_old;
 	struct surface *surface_ptr_old;
 /*
- *   Find n_user_old in structure array 
+ *   Find n_user_old in structure array
  */
 	surface_ptr_old = surface_bsearch(n_user_old, &n_old);
 	if (surface_ptr_old != NULL) {
@@ -5136,10 +5136,10 @@ int surface_init(struct surface *surface_ptr, int n_user, int n_user_end, char *
 	surface_ptr->n_user_end = n_user_end;
 	surface_ptr->description = string_duplicate(description);
 	surface_ptr->new_def = TRUE;
-        surface_ptr->dl_type = NO_DL;
-        surface_ptr->sites_units = SITES_ABSOLUTE;
-        /*surface_ptr->edl = TRUE;*/
-        surface_ptr->type = DDL;
+	surface_ptr->dl_type = NO_DL;
+	surface_ptr->sites_units = SITES_ABSOLUTE;
+	/*surface_ptr->edl = TRUE;*/
+	surface_ptr->type = DDL;
 	surface_ptr->only_counter_ions = FALSE;
 	/*surface_ptr->donnan = FALSE;*/
 	surface_ptr->debye_units = 0.0;
@@ -5249,7 +5249,7 @@ struct surface *surface_search(int n_user, int *n, int print)
 		}
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&surface[i]);
 }
@@ -5331,7 +5331,7 @@ static int temperature_compare_int(const void *ptr1, const void *ptr2)
 	return (0);
 }
 /* ---------------------------------------------------------------------- */
-int temperature_copy(struct temperature *temperature_old_ptr, 
+int temperature_copy(struct temperature *temperature_old_ptr,
 			 struct temperature *temperature_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5363,7 +5363,7 @@ int temperature_copy(struct temperature *temperature_old_ptr,
 	}
 	temperature_new_ptr->t = (double *) PHRQ_malloc((size_t) (count) * sizeof (double));
 	if (temperature_new_ptr->t == NULL) malloc_error();
-	memcpy(temperature_new_ptr->t, temperature_old_ptr->t, 
+	memcpy(temperature_new_ptr->t, temperature_old_ptr->t,
 	       (size_t) (count * sizeof (double)));
 
 	return(OK);
@@ -5401,7 +5401,7 @@ int temperature_duplicate(int n_user_old, int n_user_new)
 	if (temperature_ptr_new != NULL) {
 		temperature_free(&temperature[n_new]);
 	} else {
-		temperature = (struct temperature *) PHRQ_realloc( temperature, 
+		temperature = (struct temperature *) PHRQ_realloc( temperature,
 							     (size_t) (count_temperature + 1) *
 							     sizeof (struct temperature));
 		if (temperature == NULL) malloc_error();
@@ -5421,13 +5421,13 @@ int temperature_duplicate(int n_user_old, int n_user_new)
 /*
  *   Count temperature components and allocate space
  */
-	temperature[n_new].t = (LDBLE *) PHRQ_malloc((size_t) (count_t) * 
+	temperature[n_new].t = (LDBLE *) PHRQ_malloc((size_t) (count_t) *
 						  sizeof (LDBLE));
 	if (temperature[n_new].t == NULL) malloc_error();
 /*
  *   Write temperature_comp structure for each temperature component
  */
-	memcpy(temperature[n_new].t, temperature[n_old].t, 
+	memcpy(temperature[n_new].t, temperature[n_old].t,
 	       (size_t) (count_t) * sizeof (LDBLE));
 	if (sort == TRUE) temperature_sort();
 	return(OK);
@@ -5468,7 +5468,7 @@ struct temperature *temperature_search(int n_user, int *n)
 	if (i >= count_temperature) {
 		*n = -999;
 		return(NULL);
-	} 
+	}
 	*n = i;
 	return(&temperature[i]);
 }
@@ -5496,7 +5496,7 @@ int rxn_token_temp_compare (const void *ptr1, const void *ptr2)
 	const struct rxn_token_temp *rxn_token_temp_ptr1, *rxn_token_temp_ptr2;
 	rxn_token_temp_ptr1 = (const struct rxn_token_temp *) ptr1;
 	rxn_token_temp_ptr2 = (const struct rxn_token_temp *) ptr2;
-	return(strcmp(rxn_token_temp_ptr1->name, rxn_token_temp_ptr2->name)); 
+	return(strcmp(rxn_token_temp_ptr1->name, rxn_token_temp_ptr2->name));
 }
 /* ---------------------------------------------------------------------- */
 int trxn_add (struct reaction *r_ptr, LDBLE coef, int combine)
@@ -5665,7 +5665,7 @@ int trxn_combine (void)
 					trxn.token[j].s = trxn.token[k].s;
 					trxn.token[j].coef = trxn.token[k].coef;
 				}
-			} 
+			}
 		} else {
 			if ( ( j > 0 ) && ( trxn.token[k].s == trxn.token[j].s) && (trxn.token[k].name == trxn.token[j].name)) {
 				trxn.token[j].coef += trxn.token[k].coef;
@@ -5810,8 +5810,8 @@ int trxn_sort( void )
  *   Compare names in tokens in trxn array for sorting
  */
 	if (count_trxn - 1 > 0) {
-		qsort(&trxn.token[1], 
-		      (size_t) count_trxn-1, 
+		qsort(&trxn.token[1],
+		      (size_t) count_trxn-1,
 		      (size_t) sizeof(struct rxn_token_temp),
 		      rxn_token_temp_compare);
 	}
@@ -5982,7 +5982,7 @@ struct logk  *logk_store (char *name, int replace_if_found)
  *
  *   Pointer to a logk structure is always returned.
  *
- *   If the string is not found, a new entry is made in the hash table. Pointer to 
+ *   If the string is not found, a new entry is made in the hash table. Pointer to
  *      the new structure is returned.
  *   If "name" is found and replace is true, pointers in old logk structure
  *      are freed and replaced with additional input.
@@ -6006,7 +6006,7 @@ struct logk  *logk_store (char *name, int replace_if_found)
 	str_tolower(name);
 	item.key = name;
 	item.data = NULL;
-	found_item = hsearch_multi(logk_hash_table, item, FIND); 
+	found_item = hsearch_multi(logk_hash_table, item, FIND);
 
         if (found_item != NULL && replace_if_found == FALSE) {
 		logk_ptr = (struct logk *) (found_item->data);
@@ -6031,7 +6031,7 @@ struct logk  *logk_store (char *name, int replace_if_found)
  */
 	item.key = logk_ptr->name;
 	item.data = (void *) logk_ptr;
-	found_item = hsearch_multi(logk_hash_table, item, ENTER);  
+	found_item = hsearch_multi(logk_hash_table, item, ENTER);
 	if (found_item == NULL) {
 		sprintf(error_string, "Hash table error in logk_store.");
 		error_msg(error_string, CONTINUE);
@@ -6101,12 +6101,12 @@ struct logk  *logk_search (char *name)
 	str_tolower(name);
 	item.key = name;
 	item.data = NULL;
-	found_item = hsearch_multi(logk_hash_table, item, FIND); 
+	found_item = hsearch_multi(logk_hash_table, item, FIND);
 
         if (found_item != NULL) {
 		logk_ptr = (struct logk *) (found_item->data);
 		return (logk_ptr);
-	} 
+	}
 	return(NULL);
 }
 /* ---------------------------------------------------------------------- */
@@ -6114,17 +6114,17 @@ int entity_exists (char *name, int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads solution,                   0 Solution    
- *         reaction,                   1 Reaction    
- *         exchange,                   2 Exchange    
- *         surface,                    3 Surface     
- *         gas_phase,                  4 Gas_phase   
- *         equilibrium_phases,         5 Pure_phase  
- *         solid_solution,             6 Ss_phase    
- *         kinetics,                   7 Kinetics    
- *         mix,                        8 Mix         
- *         reaction_temperature        9 Temperature 
- *         unknown                     10 UnKnown    
+ *   Reads solution,                   0 Solution
+ *         reaction,                   1 Reaction
+ *         exchange,                   2 Exchange
+ *         surface,                    3 Surface
+ *         gas_phase,                  4 Gas_phase
+ *         equilibrium_phases,         5 Pure_phase
+ *         solid_solution,             6 Ss_phase
+ *         kinetics,                   7 Kinetics
+ *         mix,                        8 Mix
+ *         reaction_temperature        9 Temperature
+ *         unknown                     10 UnKnown
  */
 	int i, return_value;
 	char *ptr;
@@ -6200,17 +6200,17 @@ enum entity_type get_entity_enum (char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads solution,                   0 Solution    
- *         reaction,                   1 Reaction    
- *         exchange,                   2 Exchange    
- *         surface,                    3 Surface     
- *         gas_phase,                  4 Gas_phase   
- *         equilibrium_phases,         5 Pure_phase  
- *         solid_solution,             6 Ss_phase    
- *         kinetics,                   7 Kinetics    
- *         mix,                        8 Mix         
- *         reaction_temperature        9 Temperature 
- *         unknown                     10 UnKnown    
+ *   Reads solution,                   0 Solution
+ *         reaction,                   1 Reaction
+ *         exchange,                   2 Exchange
+ *         surface,                    3 Surface
+ *         gas_phase,                  4 Gas_phase
+ *         equilibrium_phases,         5 Pure_phase
+ *         solid_solution,             6 Ss_phase
+ *         kinetics,                   7 Kinetics
+ *         mix,                        8 Mix
+ *         reaction_temperature        9 Temperature
+ *         unknown                     10 UnKnown
  *
  */
 	int i;

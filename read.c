@@ -5298,9 +5298,9 @@ int read_surf(void)
 		"no_edl",              /* 4 */
 		"no_electrostatic",    /* 5 */
 		"only_counter_ions",   /* 6 */
-		"donnan",		/* 7 */
-		"transport",		/* 8 */
-		"cd_music",		/* 9 */
+		"donnan",              /* 7 */
+		"transport",           /* 8 */
+		"cd_music",            /* 9 */
 		"capacitances",         /* 10 */
 		"sites",                /* 11 */
 		"sites_units"           /* 12 */
@@ -5527,9 +5527,6 @@ int read_surf(void)
 					break;
 				}
 				surface[n].comps[count_comps].moles = conc;
-#ifdef PHREEQCI_GUI
-				surface[n].comps[count_comps].moles = conc;
-#endif
 				/*
 				 *   Read equilibrium phase name or kinetics rate name
 				 */
