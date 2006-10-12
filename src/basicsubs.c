@@ -1006,7 +1006,7 @@ LDBLE total (char *total_name)
 		 */
 		} else {
 			t = 0;
-			for (i = master_ptr->number + 1; master[i]->elt->primary == master_ptr; i++) {
+			for (i = master_ptr->number + 1; (i < count_master  && master[i]->elt->primary == master_ptr) ; i++) {
 				t += master[i]->total/mass_water_aq_x;
 			}
 		}

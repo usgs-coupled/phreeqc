@@ -3573,8 +3573,13 @@ int rxn_print(struct reaction *rxn_ptr)
  *              OK, otherwise.
  */
 	struct rxn_token *next_token;
+	int i;
 	if (rxn_ptr == NULL) return(ERROR);
 	next_token = rxn_ptr->token;
+	output_msg(OUTPUT_MESSAGE,"log k data:\n");
+	for (i=0; i < 7; i++) {
+		output_msg(OUTPUT_MESSAGE,"\t%f\n",(double) rxn_ptr->logk[i]);
+	}
 	output_msg(OUTPUT_MESSAGE, "Reaction definition\n");
 	while (next_token->s != NULL || next_token->name != NULL) {
 		output_msg(OUTPUT_MESSAGE, "\tcoef %f ", next_token->coef);
@@ -6073,7 +6078,6 @@ static int logk_init(struct logk *logk_ptr)
 /*
  *   set varibles = 0
  */
-	logk_ptr->lk = 0.0;
 	for (i =0; i < 8; i++) {
 		logk_ptr->log_k[i] = 0.0;
 	}
