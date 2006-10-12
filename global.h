@@ -1190,7 +1190,6 @@ struct species {                                          /* all data pertinent 
 };
 struct logk {                                    /* Named log K's */
         char *name;                                /* name of species */
-        LDBLE lk;                                        /* log10 k at working temperature */
         LDBLE log_k[8];                   /* log kt0, delh, 6 coefficients analalytical expression */
         DELTA_H_UNIT original_units;  /* enum with original delta H units */
 };
