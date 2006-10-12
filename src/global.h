@@ -294,9 +294,9 @@ struct surface {
         /*int edl;*/
         int only_counter_ions;
         /*int donnan;*/
-	enum DIFFUSE_LAYER_TYPE dl_type;
+        enum DIFFUSE_LAYER_TYPE dl_type;
         enum SURFACE_TYPE type;
-	enum SITES_UNITS sites_units;
+        enum SITES_UNITS sites_units;
         LDBLE thickness;
         LDBLE debye_units;
         LDBLE DDL_viscosity;
@@ -314,7 +314,7 @@ struct surface {
 struct surface_comp {
         char *formula;
         struct elt_list *formula_totals;
-	LDBLE formula_z;
+        LDBLE formula_z;
         LDBLE moles;
         struct master *master;
         struct elt_list *totals;
@@ -337,7 +337,7 @@ struct surface_charge {
         LDBLE la_psi, la_psi1, la_psi2;
         LDBLE psi, psi1, psi2;
         double capacitance[2];
-	double sigma0, sigma1, sigma2, sigmaddl;
+        double sigma0, sigma1, sigma2, sigmaddl;
 };
 struct surface_diff_layer {
         LDBLE charge;
@@ -1136,7 +1136,7 @@ struct reaction {
 struct rxn_token {
         struct species *s;
         LDBLE coef;
-	char *name;
+        char *name;
 };
 /*----------------------------------------------------------------------
  *   Species
@@ -1319,8 +1319,8 @@ struct unknown {
         struct surface_comp *surface_comp;
         LDBLE related_moles;
         struct unknown *potential_unknown, *potential_unknown1, *potential_unknown2;
-	int count_comp_unknowns;
-	struct unknown **comp_unknowns;   /* list for CD_MUSIC of comps that contribute to 0 plane mass-balance term */
+        int count_comp_unknowns;
+        struct unknown **comp_unknowns;   /* list for CD_MUSIC of comps that contribute to 0 plane mass-balance term */
         struct unknown *phase_unknown;
         struct surface_charge *surface_charge;
         LDBLE mass_water;
