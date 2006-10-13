@@ -450,8 +450,8 @@ int print_gas_phase(void)
         output_msg(OUTPUT_MESSAGE, "Total pressure: %8.4f   atmospheres\n", (double) use.gas_phase_ptr->total_p);
         output_msg(OUTPUT_MESSAGE, "    Gas volume: %10.2e liters\n", (double) use.gas_phase_ptr->volume);
 
-        output_msg(OUTPUT_MESSAGE, "\n%66s\n%75s\n", "Moles in gas", "----------------------------------");
-        output_msg(OUTPUT_MESSAGE,"%-15s%12s%12s%12s%12s%12s\n","Component","log P", "P", "Initial", "Final",
+        output_msg(OUTPUT_MESSAGE, "\n%68s\n%78s\n", "Moles in gas", "----------------------------------");
+        output_msg(OUTPUT_MESSAGE,"%-18s%12s%12s%12s%12s%12s\n\n","Component","log P", "P", "Initial", "Final",
                 "Delta");
 
         for( j = 0; j < use.gas_phase_ptr->count_comps; j++) {
@@ -483,7 +483,7 @@ int print_gas_phase(void)
                 }
                 if (moles <= MIN_TOTAL) moles = 0.0;
                 if (fabs(delta_moles) <= MIN_TOTAL) delta_moles = 0.0;
-                output_msg(OUTPUT_MESSAGE,"%-15s%12.2f%12.3e%12.3e%12.3e%12.3e\n", 
+                output_msg(OUTPUT_MESSAGE,"%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n", 
                         use.gas_phase_ptr->comps[j].phase->name, 
                         (double) lp,
                         (double) use.gas_phase_ptr->comps[j].phase->p_soln_x, 
@@ -513,7 +513,7 @@ int print_s_s_assemblage(void)
 	 */
         print_centered("Solid solutions");
         output_msg(OUTPUT_MESSAGE,"\n");
-        output_msg(OUTPUT_MESSAGE, "\t%-15s  %15s  %11s  %11s  %11s\n", "Solid solution", "Component", "Moles", 
+        output_msg(OUTPUT_MESSAGE, "%-15s  %22s  %11s  %11s  %11s\n\n", "Solid solution", "Component", "Moles", 
                 "Delta moles", "Mole fract");
 	/*
 	 *   Print solid solutions
@@ -521,7 +521,7 @@ int print_s_s_assemblage(void)
         for( j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++) {
 		if (use.s_s_assemblage_ptr->s_s[j].s_s_in == TRUE) {
 			/* solid solution name, moles */
-			output_msg(OUTPUT_MESSAGE,"\t%-15s  %15s  %11.2e\n", use.s_s_assemblage_ptr->s_s[j].name,"  ",
+			output_msg(OUTPUT_MESSAGE,"%-15s  %22s  %11.2e\n", use.s_s_assemblage_ptr->s_s[j].name,"  ",
 				(double) use.s_s_assemblage_ptr->s_s[j].total_moles);
 			/* component name, moles, delta moles, mole fraction */
 			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++) {
@@ -533,7 +533,7 @@ int print_s_s_assemblage(void)
 					delta_moles = use.s_s_assemblage_ptr->s_s[j].comps[i].moles - 
 						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
-				output_msg(OUTPUT_MESSAGE, "\t%15s  %15s  %11.2e  %11.2e  %11.2e\n", " ",
+				output_msg(OUTPUT_MESSAGE, "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
 					use.s_s_assemblage_ptr->s_s[j].comps[i].name,
 					(double) use.s_s_assemblage_ptr->s_s[j].comps[i].moles,
 					(double) delta_moles,
@@ -552,15 +552,15 @@ int print_s_s_assemblage(void)
 					xb2moles = (xb1 - 1)/xb1*nb + nc;
 					xb2moles = xb2moles / ((xb1 - 1)/xb1*xb2 + (1 - xb2));
 					xb1moles = (nb - xb2moles*xb2)/xb1;
-					output_msg(OUTPUT_MESSAGE, "\n\t%15s  Solid solution is in miscibility gap\n", " ");
-					output_msg(OUTPUT_MESSAGE, "\t%15s  End members in pct of %s\n\n", " ", s_s_ptr->comps[1].name);
-					output_msg(OUTPUT_MESSAGE, "\t%15s  %11g pct  %11.2e\n", " ", (double) xb1, (double) xb1moles);
-					output_msg(OUTPUT_MESSAGE, "\t%15s  %11g pct  %11.2e\n", " ", (double) xb2, (double) xb2moles);
+					output_msg(OUTPUT_MESSAGE, "\n%14s  Solid solution is in miscibility gap\n", " ");
+					output_msg(OUTPUT_MESSAGE, "%14s  End members in pct of %s\n\n", " ", s_s_ptr->comps[1].name);
+					output_msg(OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n", " ", (double) xb1, (double) xb1moles);
+					output_msg(OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n", " ", (double) xb2, (double) xb2moles);
 				}
 			}
 		} else {
 			/* solid solution name, moles */
-			output_msg(OUTPUT_MESSAGE,"\t%-15s  %15s  %11.2e\n", use.s_s_assemblage_ptr->s_s[j].name,"  ",
+			output_msg(OUTPUT_MESSAGE,"%-15s  %22s  %11.2e\n", use.s_s_assemblage_ptr->s_s[j].name,"  ",
 				(double) 0.0);
 			/* component name, moles, delta moles, mole fraction */
 			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++) {
@@ -572,7 +572,7 @@ int print_s_s_assemblage(void)
 					delta_moles = use.s_s_assemblage_ptr->s_s[j].comps[i].moles - 
 						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
-				output_msg(OUTPUT_MESSAGE, "\t%15s  %15s  %11.2e  %11.2e  %11.2e\n", " ",
+				output_msg(OUTPUT_MESSAGE, "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
 					use.s_s_assemblage_ptr->s_s[j].comps[i].name,
 					(double) 0,
 					(double) delta_moles,
@@ -922,9 +922,9 @@ int print_pp_assemblage(void)
  *   Print heading
  */
         print_centered("Phase assemblage");
-        output_msg(OUTPUT_MESSAGE, "%74s\n", "Moles in assemblage");
-        output_msg(OUTPUT_MESSAGE,"\t%-15s%7s%8s%8s","Phase","SI","log IAP", "log KT");
-        output_msg(OUTPUT_MESSAGE,"%12s%12s%12s", " Initial", " Final", " Delta");
+        output_msg(OUTPUT_MESSAGE, "%73s\n", "Moles in assemblage");
+        output_msg(OUTPUT_MESSAGE,"%-18s%7s%8s%8s","Phase","SI","log IAP", "log KT");
+        output_msg(OUTPUT_MESSAGE," %12s%12s%12s", " Initial", " Final", " Delta");
         output_msg(OUTPUT_MESSAGE,"\n\n");
 
         for( j = 0; j < count_unknowns; j++) {
@@ -935,7 +935,7 @@ int print_pp_assemblage(void)
                 iap = 0.0;
 		phase_ptr=x[j]->phase;
                 if (x[j]->phase->rxn_x == NULL || phase_ptr->in == FALSE) {
-                        output_msg(OUTPUT_MESSAGE,"\t%-15s%23s", x[j]->phase->name, "Element not present.");
+                        output_msg(OUTPUT_MESSAGE,"%-18s%23s", x[j]->phase->name, "Element not present.");
                 } else {
 			phase_ptr=x[j]->phase;
 			lk = k_calc(phase_ptr->rxn->logk, tk_x);
@@ -954,7 +954,7 @@ int print_pp_assemblage(void)
                         si = -x[j]->phase->lk + iap;
                         output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
 			*/
-                        output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) lk);
+                        output_msg(OUTPUT_MESSAGE,"%-18s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) lk);
                 }
 /*
  *   Print pure phase assemblage data
@@ -977,9 +977,9 @@ int print_pp_assemblage(void)
                         }
                 }
                 if (x[j]->pure_phase->add_formula == NULL) {
-                        output_msg(OUTPUT_MESSAGE, "%36s\n", token);
+                        output_msg(OUTPUT_MESSAGE, "%37s\n", token);
                 } else {
-                        output_msg(OUTPUT_MESSAGE,"\n\t\t%-15s%-15s%36s\n",x[j]->pure_phase->add_formula," is reactant", token);
+                        output_msg(OUTPUT_MESSAGE,"\n         %-18s%-15s%36s\n",x[j]->pure_phase->add_formula," is reactant", token);
                 }
         }
         output_msg(OUTPUT_MESSAGE,"\n");
@@ -1014,9 +1014,9 @@ int print_species(void)
 			output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," ","Unscaled","Log   ","Log   ","Log ");
 		}
 	} else {
-		output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n"," "," "," ","Log   ","Log   ","Log ");
+		output_msg(OUTPUT_MESSAGE,"   %-20s%12s%12s%10s%10s%10s\n"," "," "," ","Log   ","Log   ","Log ");
 	}
-        output_msg(OUTPUT_MESSAGE,"\t%-15s%12s%12s%10s%10s%10s\n\n","Species","Molality","Activity",
+        output_msg(OUTPUT_MESSAGE,"   %-20s%12s%12s%10s%10s%10s\n\n","Species","Molality","Activity",
                 "Molality","Activity","Gamma");
 /*
  *   Print list of species
@@ -1058,7 +1058,7 @@ int print_species(void)
 			} else {
 				lm = species_list[i].s->lm;
 			}
-			output_msg(OUTPUT_MESSAGE,"\t%-15s%12.3e%12.3e%10.3f%10.3f%10.3f\n",
+			output_msg(OUTPUT_MESSAGE,"   %-20s%12.3e%12.3e%10.3f%10.3f%10.3f\n",
 				species_list[i].s->name,
 				(double) ((species_list[i].s->moles)/mass_water_aq_x),
 				(double) under(species_list[i].s->lm + species_list[i].s->lg),

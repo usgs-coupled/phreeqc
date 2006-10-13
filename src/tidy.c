@@ -1060,6 +1060,8 @@ int tidy_phases(void)
 	for (i=0; i < count_phases; i++) {
 		select_log_k_expression(phases[i]->logk, phases[i]->rxn->logk);
 		add_other_logk(phases[i]->rxn->logk, phases[i]->count_add_logk, phases[i]->add_logk);
+		phases[i]->rxn->token[0].name = phases[i]->name;
+		phases[i]->rxn->token[0].s = NULL;
 	}
 	/*
 	 *   Rewrite all phases to secondary species
@@ -1072,6 +1074,11 @@ int tidy_phases(void)
 		trxn_add_phase (phases[i]->rxn, 1.0, FALSE);
 		trxn.token[0].name = phases[i]->name;
 		replaced = replace_solids_gases();
+		/*  save rxn */
+		rxn_free (phases[i]->rxn);
+		phases[i]->rxn = rxn_alloc(count_trxn+1);
+		trxn_copy (phases[i]->rxn);
+		/*  save rxn_s */
 		trxn_reverse_k();
 		rewrite_eqn_to_secondary();
 		trxn_reverse_k();
@@ -1218,7 +1225,7 @@ int tidy_s_s_assemblage(void)
 				for (k = 0; k < s_s_ptr->count_comps; k++) {
 					moles = s_s_assemblage[i].s_s[j].comps[k].moles;
 					if (s_s_assemblage[i].s_s[j].comps[k].moles <= 0.0) {
-						moles = MIN_TOTAL;
+						moles = MIN_TOTAL_SS;
 						s_s_assemblage[i].s_s[j].comps[k].initial_moles = moles;
 					}
 					n_tot += moles;
@@ -1227,7 +1234,7 @@ int tidy_s_s_assemblage(void)
 				for (k = 0; k < s_s_ptr->count_comps; k++) {
 					moles = s_s_assemblage[i].s_s[j].comps[k].moles;
 					if (s_s_assemblage[i].s_s[j].comps[k].moles <= 0.0) {
-						moles = MIN_TOTAL;
+						moles = MIN_TOTAL_SS;
 					}
 					s_s_assemblage[i].s_s[j].comps[k].fraction_x = moles / n_tot;
 					s_s_assemblage[i].s_s[j].comps[k].log10_fraction_x = log10(moles / n_tot);
@@ -1241,9 +1248,9 @@ int tidy_s_s_assemblage(void)
 				if (a0 != 0.0 || a1 != 0) {
 					s_s_assemblage[i].s_s[j].dn = 1.0 / n_tot;
 					nc = s_s_assemblage[i].s_s[j].comps[0].moles;
-					if (nc == 0) nc = MIN_TOTAL;
+					if (nc == 0) nc = MIN_TOTAL_SS;
 					nb = s_s_assemblage[i].s_s[j].comps[1].moles;
-					if (nb == 0) nb = MIN_TOTAL;
+					if (nb == 0) nb = MIN_TOTAL_SS;
 					xc = nc/n_tot;
 					xb = nb/n_tot;
 
@@ -1281,7 +1288,7 @@ int tidy_s_s_assemblage(void)
 					for (k = 0; k < s_s_ptr->count_comps; k++) {
 						s_s_assemblage[i].s_s[j].comps[k].log10_lambda = 0;
 						moles = s_s_assemblage[i].s_s[j].comps[k].moles;
-						if (moles <= 0.0) moles = MIN_TOTAL;
+						if (moles <= 0.0) moles = MIN_TOTAL_SS;
 						s_s_assemblage[i].s_s[j].comps[k].dnb = (n_tot - moles)/(moles*n_tot);
 						s_s_assemblage[i].s_s[j].comps[k].dn = 1.0 / n_tot;
 					}

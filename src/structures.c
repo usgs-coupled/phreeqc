@@ -5710,6 +5710,7 @@ int trxn_copy (struct reaction *rxn_ptr)
  */
 	for (i=0; i < count_trxn; i++ ) {
 		rxn_ptr->token[i].s = trxn.token[i].s;
+		rxn_ptr->token[i].name = trxn.token[i].name;
 		rxn_ptr->token[i].coef = trxn.token[i].coef;
 	}
 	rxn_ptr->token[count_trxn].s=NULL;
