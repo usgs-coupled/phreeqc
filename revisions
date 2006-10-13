@@ -728,6 +728,13 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Revisions and bug fixes
 ------------------------------------------------------------
+	svn 1306: Revised printing of distribution of species,
+	pure phase assemblages, and solid solutions to use 
+	longer fields for names. More revisions to logic
+	for using gases and solids in equations for phases.
+	Revised logic for solid solutions with small (1e-25) amounts
+	of component.
+
 	svn 1282: Fixed bug when gas phase had no gas components.
 	Looked the same as not having a gas phase at all.
 
