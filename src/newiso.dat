@@ -952,55 +952,55 @@ ISOTOPE_RATIOS
         R(34S)                  [34S]
 # H2O(l) ratios
         R(D)_H2O(l)             D
-        #R(T)_H2O(l)            T
+        R(T)_H2O(l)             T
         R(18O)_H2O(l)           [18O]
 # OH- ratios
         R(D)_OH-                D
-        #R(T)_OH-               T
+        R(T)_OH-                T
         R(18O)_OH-              [18O]
 # H3O+ ratios
         R(D)_H3O+               D
-        #R(T)_H3O+              T
+        R(T)_H3O+               T
         R(18O)_H3O+             [18O]
 # O2(aq) ratios
         R(18O)_O2(aq)           [18O]
 # H2(aq) ratios
         R(D)_H2(aq)             D
-        #R(T)_H2(aq)            T
+        R(T)_H2(aq)             T
 # CO2(aq) ratios
         R(13C)_CO2(aq)          [13C]
-        #R(14C)_CO2(a)          [14C]
+        R(14C)_CO2(aq)          [14C]
         R(18O)_CO2(aq)          [18O]
 # HCO3- ratios
         R(D)_HCO3-              D
-        #R(T)_HCO3-             T
+        R(T)_HCO3-              T
         R(18O)_HCO3-            [18O]
         R(13C)_HCO3-            [13C]
-        #R(14C)_HCO3-           [14C]
+        R(14C)_HCO3-            [14C]
 # CO3-2 ratios
         R(18O)_CO3-2            [18O]
         R(13C)_CO3-2            [13C]
-        #R(14C)_CO3-2           [14C]
+        R(14C)_CO3-2            [14C]
 # CH4(aq) ratios
         R(D)_CH4(aq)            D
-        #R(T)_CH4(aq)           T
+        R(T)_CH4(aq)            T
         R(13C)_CH4(aq)          [13C]
-        #R(14C)_CH4(aq)         [14C]
+        R(14C)_CH4(aq)          [14C]
 # SO4-2 ratios
         R(34S)_SO4-2            [34S]
 # HSO4- ratios
         R(D)_HSO4-              D
-        #R(T)_HSO4-             T
+        R(T)_HSO4-              T
         R(34S)_HSO4-            [34S]
 # S-2 ratios
         R(34S)_S-2              [34S]
 # HS- ratios
         R(D)_HS-                D
-        #R(T)_HS-               T
+        R(T)_HS-                T
         R(34S)_HS-              [34S]
 # H2S ratios
         R(D)_H2S(aq)            D
-        #R(T)_H2S(aq)           T
+        R(T)_H2S(aq)            T
         R(34S)_H2S(aq)          [34S]
 # NO3- ratios
         R(15N)_NO3-             [15N]
@@ -1010,42 +1010,42 @@ ISOTOPE_RATIOS
         R(15N)_N2(aq)           [15N]
 # NH3(aq) ratios
         R(D)_NH3(aq)            D
-        #R(T)_NH3               T
+        R(T)_NH3(aq)            T
         R(15N)_NH3(aq)          [15N]
 # NH4+ ratios
         R(D)_NH4+               D
-        #R(T)_NH4+              T
+        R(T)_NH4+               T
         R(15N)_NH4+             [15N]
 #
 #  Ratios for minerals and gases
 #
 # H2O(g) ratios
         R(D)_H2O(g)             D
-        #R(T)_H2O(g)            T
+        R(T)_H2O(g)             T
         R(18O)_H2O(g)           [18O]
 # O2(g) ratios
         R(18O)_O2(g)            [18O]
 # H2(g) ratios
         R(D)_H2(g)              D
-        #R(T)_H2(g)             T
+        R(T)_H2(g)              T
 # CO2(g) ratios
         R(18O)_CO2(g)           [18O]
         R(13C)_CO2(g)           [13C]
-        #R(14C)_CO2(g)          [14C]
+        R(14C)_CO2(g)           [14C]
 # Calcite ratios
         R(18O)_Calcite          [18O]
         R(13C)_Calcite          [13C]
-        #R(14C)_Calcite         [14C]
+        R(14C)_Calcite          [14C]
 # Pyrite ratios
         R(34S)_Pyrite           [34S]
 # CH4(g) ratios
         R(D)_CH4(g)             D
-        #R(T)_CH4(g)            T
+        R(T)_CH4(g)             T
         R(13C)_CH4(g)           [13C]
-        #R(14C)_CH4(g)          [14C]
+        R(14C)_CH4(g)           [14C]
 # H2S(g) ratios
         R(D)_H2S(g)             D
-        #R(T)_H2S(g)            T
+        R(T)_H2S(g)             T
         R(34S)_H2S(g)           [34S]
 # Gypsum ratios
         R(34S)_Gypsum           [34S]
@@ -1055,53 +1055,53 @@ ISOTOPE_RATIOS
         R(15N)_N2(g)            [15N]
 # NH3(g) ratios
         R(D)_NH3(g)             D
-        #R(T)_NH3(g)            T
+        R(T)_NH3(g)             T
         R(15N)_NH3(g)           [15N]
 
 ISOTOPE_ALPHAS
 # OH-
         Alpha_D_OH-/H2O(l)                      Log_alpha_D_OH-/H2O(l)
-        #Alpha_T_OH-/H2O(l)                     Log_alpha_T_OH-/H2O(l)
+        Alpha_T_OH-/H2O(l)                      Log_alpha_T_OH-/H2O(l)
         Alpha_18O_OH-/H2O(l)                    Log_alpha_18O_OH-/H2O(l)
 # H3O+
         Alpha_D_H3O+/H2O(l)                     Log_alpha_D_H3O+/H2O(l)
-        #Alpha_T_H3O+/H2O(l)                    Log_alpha_T_H3O+/H2O(l)
+        Alpha_T_H3O+/H2O(l)                     Log_alpha_T_H3O+/H2O(l)
         Alpha_18O_H3O+/H2O(l)                   Log_alpha_18O_H3O+/H2O(l)
 # O2(aq)
         Alpha_18O_O2(aq)/H2O(l)                 Log_alpha_18O_O2(aq)/H2O(l)
 # H2(aq)
         Alpha_D_H2(aq)/H2O(l)                   Log_alpha_D_H2(aq)/H2O(l)
-        #Alpha_T_H2(aq)/H2O(l)                  Log_alpha_T_H2(aq)/H2O(l)
+        Alpha_T_H2(aq)/H2O(l)                   Log_alpha_T_H2(aq)/H2O(l)
 # CO2(aq)
         Alpha_18O_CO2(aq)/H2O(l)                Log_alpha_18O_CO2(aq)/H2O(l)
 # HCO3-
-        Alpha_18O_HCO3-/H2O(l)                  Log_alpha_18O_HCO3-/H2O(l)
         Alpha_D_HCO3-/H2O(l)                    Log_alpha_D_HCO3-/H2O(l)
-        #Alpha_T_HCO3-/H2O(l)                   Log_alpha_T_HCO3-/H2O(l)
+        Alpha_T_HCO3-/H2O(l)                    Log_alpha_T_HCO3-/H2O(l)
+        Alpha_18O_HCO3-/H2O(l)                  Log_alpha_18O_HCO3-/H2O(l)
         Alpha_13C_HCO3-/CO2(aq)                 Log_alpha_13C_HCO3-/CO2(aq)
-        #Alpha_14C_HCO3-/CO2(aq)                Log_alpha_14C_HCO3-/CO2(aq)
+        Alpha_14C_HCO3-/CO2(aq)                 Log_alpha_14C_HCO3-/CO2(aq)
 # CO3-2
         Alpha_18O_CO3-2/H2O(l)                  Log_alpha_18O_CO3-2/H2O(l)
         Alpha_13C_CO3-2/CO2(aq)                 Log_alpha_13C_CO3-2/CO2(aq)
-        #Alpha_14C_CO3-2/CO2(aq)                Log_alpha_14C_CO3-2/CO2(aq)
+        Alpha_14C_CO3-2/CO2(aq)                 Log_alpha_14C_CO3-2/CO2(aq)
 # CH4(aq)
         Alpha_D_CH4(aq)/H2O(l)                  Log_alpha_D_CH4(aq)/H2O(l)
-        #Alpha_T_CH4(aq)/H2O(l)                 Log_alpha_T_CH4(aq)/H2O(l)
+        Alpha_T_CH4(aq)/H2O(l)                  Log_alpha_T_CH4(aq)/H2O(l)
         Alpha_13C_CH4(aq)/CO2(aq)               Log_alpha_13C_CH4(aq)/CO2(aq)
-        #Alpha_14C_CH4(aq)/CO2(aq)              Log_alpha_14C_CH4(aq)/CO2(aq)
+        Alpha_14C_CH4(aq)/CO2(aq)               Log_alpha_14C_CH4(aq)/CO2(aq)
 # HSO4-
         Alpha_D_HSO4-/H2O(l)                    Log_alpha_D_HSO4-/H2O(l)
-        #Alpha_T_HSO4-/H2O(l)                   Log_alpha_T_HSO4-/H2O(l)
+        Alpha_T_HSO4-/H2O(l)                    Log_alpha_T_HSO4-/H2O(l)
         Alpha_34S_HSO4-/SO4-2                   Log_alpha_34S_HSO4-/SO4-2
 # S-2
         Alpha_34S_S-2/HS-                       Log_alpha_34S_S-2/HS-
 # HS-
         Alpha_D_HS-/H2O(l)                      Log_alpha_D_HS-/H2O(l)
-        #Alpha_T_HS-/H2O(l)                     Log_alpha_T_HS-/H2O(l)
+        Alpha_T_HS-/H2O(l)                      Log_alpha_T_HS-/H2O(l)
         Alpha_34S_HS-/SO4-2                     Log_alpha_34S_HS-/SO4-2
 # H2S
         Alpha_D_H2S(aq)/H2O(l)                  Log_alpha_D_H2S(aq)/H2O(l)
-        #Alpha_T_H2S(aq)/H2O(l)                 Log_alpha_T_H2S(aq)/H2O(l)
+        Alpha_T_H2S(aq)/H2O(l)                  Log_alpha_T_H2S(aq)/H2O(l)
         Alpha_34S_H2S(aq)/HS-                   Log_alpha_34S_H2S(aq)/HS-
 # NO2-
         Alpha_15N_NO2-/NO3-                     Log_alpha_15N_NO2-/NO3- 
@@ -1109,39 +1109,39 @@ ISOTOPE_ALPHAS
         Alpha_15N_N2(aq)/NO3-                   Log_alpha_15N_N2(aq)/NO3-
 # NH3(aq)
 	Alpha_D_NH3(aq)/H2O(l)                  Log_alpha_D_NH3(aq)/H2O(l)
-	#Alpha_T_NH3(aq)/H2O(l)                 Log_alpha_T_NH3(aq)/H2O(l)
+	Alpha_T_NH3(aq)/H2O(l)                  Log_alpha_T_NH3(aq)/H2O(l)
         Alpha_15N_NH3(aq)/NO3-                  Log_alpha_15N_NH3(aq)/NO3-
 # NH4+
         Alpha_D_NH4+/H2O(l)                     Log_alpha_D_NH4+/H2O(l)
-        #Alpha_T_NH4+/H2O(l)                    Log_alpha_T_NH4+/H2O(l)
+        Alpha_T_NH4+/H2O(l)                     Log_alpha_T_NH4+/H2O(l)
         Alpha_15N_NH4+/NH3(aq)                  Log_alpha_15N_NH4+/NH3(aq)
 # H2O(g)
         Alpha_D_H2O(g)/H2O(l)                   Log_alpha_D_H2O(g)/H2O(l)
-        #Alpha_T_H2O(g)/H2O(l)                  Log_alpha_T_H2O(g)/H2O(l)
+        Alpha_T_H2O(g)/H2O(l)                   Log_alpha_T_H2O(g)/H2O(l)
         Alpha_18O_H2O(g)/H2O(l)                 Log_alpha_18O_H2O(g)/H2O(l)
 # O2(g)
         Alpha_18O_O2(g)/H2O(l)                  Log_alpha_18O_O2(g)/H2O(l) #?
 # H2(g)
         Alpha_D_H2(g)/H2O(l)                    Log_alpha_D_H2(g)/H2O(l)   #?
-        #Alpha_T_H2(g)/H2O(l)                   Log_alpha_T_H2(g)/H2O(l)   #?
+        Alpha_T_H2(g)/H2O(l)                    Log_alpha_T_H2(g)/H2O(l)   #?
 # CO2(g)
         Alpha_18O_CO2(g)/H2O(l)                 Log_alpha_18O_CO2(g)/H2O(l)
         Alpha_13C_CO2(g)/CO2(aq)                Log_alpha_13C_CO2(g)/CO2(aq)
-        #Alpha_14C_CO2(g)/CO2(aq)               Log_alpha_14C_CO2(g)/CO2(aq)
+        Alpha_14C_CO2(g)/CO2(aq)                Log_alpha_14C_CO2(g)/CO2(aq)
 # Calcite
         Alpha_18O_Calcite/H2O(l)                Log_alpha_18O_Calcite/H2O(l)
         Alpha_13C_Calcite/CO3-2                 Log_alpha_13C_Calcite/CO3-2
-        #Alpha_14C_Calcite/CO3-2                Log_alpha_14C_Calcite/CO3-2
+        Alpha_14C_Calcite/CO3-2                 Log_alpha_14C_Calcite/CO3-2
 # Pyrite
         Alpha_34S_Pyrite/HS-                    Log_alpha_34S_Pyrite/HS-
 # CH4(g)
         Alpha_D_CH4(g)/H2O(l)                   Log_alpha_D_CH4(g)/H2O(l)
-        #Alpha_T_CH4(g)/H2O(l)                  Log_alpha_T_CH4(g)/H2O(l)
+        Alpha_T_CH4(g)/H2O(l)                   Log_alpha_T_CH4(g)/H2O(l)
         Alpha_13C_CH4(g)/CO2(aq)                Log_alpha_13C_CH4(g)/CO2(aq) #?
-        #Alpha_14C_CH4(g)/CO2(aq)               Log_alpha_14C_CH4(g)/CO2(aq) #?
+        Alpha_14C_CH4(g)/CO2(aq)                Log_alpha_14C_CH4(g)/CO2(aq) #?
 # H2S(g)
         Alpha_D_H2S(g)/H2S(aq)                  Log_alpha_D_H2S(g)/H2S(aq)
-        #Alpha_T_H2S(g)/H2S(aq)                 Log_alpha_T_H2S(g)/H2S(aq)
+        Alpha_T_H2S(g)/H2S(aq)                  Log_alpha_T_H2S(g)/H2S(aq)
         Alpha_34S_H2S(g)/H2S(aq)                Log_alpha_34S_H2S(g)/H2S(aq)
 # Gypsum
         Alpha_34S_Gypsum/SO4-2                  Log_alpha_34S_Gypsum/SO4-2
@@ -1154,22 +1154,6 @@ ISOTOPE_ALPHAS
         #Alpha_T_NH3(g)/H2O(l)                  Log_alpha_T_NH3(g)/H2O(l)
         Alpha_15N_NH3(g)/NH3(aq)                Log_alpha_15N_NH3(g)/NH3(aq)
 
-#  No longer used
-#        Alpha_D_H2(aq)/H2(g)                    Log_alpha_D_H2(aq)/H2(g)
-#        Alpha_T_H2(aq)/H2(g)                    Log_alpha_T_H2(aq)/H2(g)
-#        Alpha_13C_CH4(aq)/CH4(g)                Log_alpha_13C_CH4(aq)/CH4(g)
-#        Alpha_13C_CO2(aq)/Calcite               Log_alpha_13C_CO2(aq)/Calcite
-#        Alpha_15N_NH4+/NO3-                     Log_alpha_15N_NH4+/NO3-
-#        Alpha_18O_CO2(g)/CO2(aq)                Log_alpha_18O_CO2(g)/CO2(aq)
-#        Alpha_18O_CO3-2/Calcite                 Log_alpha_18O_CO2(aq)/Calcite
-#        Alpha_18O_H2O(l)/H2O(g)                 Log_alpha_18O_H2O(l)/H2O(g)
-#        Alpha_18O_HCO3-/CO2(aq)                 Log_alpha_18O_HCO3-/CO2(aq)
-#        Alpha_18O_O2(aq)/O2(g)                  Log_alpha_18O_O2(aq)/O2(g)
-#        Alpha_34S_H2S(aq)/H2S(g)                Log_alpha_34S_H2S(aq)/H2S(g)
-#        Alpha_D_CH4(aq)/CH4(g)                  Log_alpha_D_CH4(aq)/CH4(g)
-#        Alpha_D_H2O(l)/H2O(g)                   Log_alpha_D_H2O(l)/H2O(g)
-#        Alpha_D_H2S(aq)/H2S(g)                  Log_alpha_D_H2S(aq)/H2S(g)
-#        Alpha_D_H2S(aq)/HS-                     Log_alpha_D_H2S(aq)/HS-
 NAMED_EXPRESSIONS
 #
 # OH- fractionation factors
@@ -1471,7 +1455,17 @@ R(D)
 100 save ratio
      -end
 
-R(T)
+#R(T)
+#     -start
+#10 ratio = -9999.999
+#20 if (TOT("T") <= 0) THEN GOTO 100
+#30 total_T = TOT("T")
+#40 total_H = TOT("H")
+#50 ratio = total_T/total_H
+#100 save ratio
+     -end
+
+R(T)  ??
      -start
 10 ratio = -9999.999
 20 if (TOT("T") <= 0) THEN GOTO 100
@@ -1544,6 +1538,17 @@ R(D)_H2O(l)
 100 save ratio
      -end
 
+R(T)_H2O(l)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("{H,D,T}2{O,[18O]}","T")
+40 total_H = sum_species("{H,D,T}2{O,[18O]}","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(18O)_H2O(l)
      -start
 10 ratio = -9999.999
@@ -1568,6 +1573,17 @@ R(D)_OH-
 100 save ratio
      -end
 
+R(T)_OH-
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_D = sum_species("*{O,[18O]}T*","T")
+40 total_T = sum_species("*{O,[18O]}H*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(18O)_OH-
      -start
 10 ratio = -9999.999
@@ -1584,6 +1600,18 @@ Alpha_D_OH-/H2O(l)
 20 if (TOT("D") <= 0) THEN GOTO 1000
 30 r1 = CALC_VALUE("R(D)_OH-")
 40 r2 = CALC_VALUE("R(D)_H2O(l)")
+50 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_OH-/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 r1 = CALC_VALUE("R(T)_OH-")
+40 r2 = CALC_VALUE("R(T)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -1614,6 +1642,16 @@ R(D)_H3O+
 100 save ratio
      -end
 
+R(T)_H3O+
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("{H,D,T}3{O,[18O]}+","T")
+40 total_H = sum_species("{H,D,T}3{O,[18O]}+","H")
+50 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(18O)_H3O+
      -start
 10 ratio = -9999.999
@@ -1630,6 +1668,18 @@ Alpha_D_H3O+/H2O(l)
 20 if (TOT("D") <= 0) THEN GOTO 1000
 30 r1 = CALC_VALUE("R(D)_H3O+")
 40 r2 = CALC_VALUE("R(D)_H2O(l)")
+50 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H3O+/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 r1 = CALC_VALUE("R(T)_H3O+")
+40 r2 = CALC_VALUE("R(T)_H2O(l)")
 50 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -1688,12 +1738,35 @@ R(D)_H2(aq)
 100 save ratio
      -end
 
+R(T)_H2(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("{H,D,T}2","T")
+40 total_H = sum_species("{H,D,T}2","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 Alpha_D_H2(aq)/H2O(l)
      -start
 10 alpha = -9999.999
 20 if (TOT("D") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_H2(aq)")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2(aq)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2(aq)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -1710,6 +1783,17 @@ R(13C)_CO2(aq)
 40 total_12C = sum_species("C{O,[18O]}2","C")
 50 if (total_12C <= 0) THEN GOTO 100
 60 ratio = total_13C/total_12C
+100 save ratio
+     -end
+
+R(14C)_CO2(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 100
+30 total_14C = sum_species("[14C]{O,[18O]}2","[14C]")
+40 total_12C = sum_species("C{O,[18O]}2","C")
+50 if (total_12C <= 0) THEN GOTO 100
+60 ratio = total_14C/total_12C
 100 save ratio
      -end
 
@@ -1752,6 +1836,18 @@ R(D)_HCO3-
 100 save ratio
      -end
 
+R(T)_HCO3-
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 if (TOT("C") <= 0) THEN GOTO 100
+40 total_T = sum_species("*T{C,[13C],[14C]}{O,[18O]}3*","T")
+50 total_H = sum_species("*H{C,[13C],[14C]}{O,[18O]}3*","H")
+60 if (total_H <= 0) THEN GOTO 100
+70 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(18O)_HCO3-
      -start
 10 ratio = -9999.999
@@ -1775,6 +1871,17 @@ R(13C)_HCO3-
 100 save ratio
      -end
 
+R(14C)_HCO3-
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 100
+30 total_14C = sum_species("*{H,D,T}[14C]{O,[18O]}3*","[14C]")
+40 total_12C = sum_species("*{H,D,T}C{O,[18O]}3*","C")
+50 if (total_12C <= 0) THEN GOTO 100
+60 ratio = total_14C/total_12C
+100 save ratio
+     -end
+
 Alpha_D_HCO3-/H2O(l)
      -start
 10 alpha = -9999.999
@@ -1788,13 +1895,13 @@ Alpha_D_HCO3-/H2O(l)
 1000 save alpha
      -end
 
-Alpha_D_HCO3-/H2O(l)
+Alpha_T_HCO3-/H2O(l)
      -start
 10 alpha = -9999.999
-20 if (TOT("D") <= 0) THEN GOTO 1000
+20 if (TOT("T") <= 0) THEN GOTO 1000
 30 if (TOT("C") <= 0) THEN GOTO 1000
-40 r1 = CALC_VALUE("R(D)_HCO3-")
-50 r2 = CALC_VALUE("R(D)_H2O(l)")
+40 r1 = CALC_VALUE("R(T)_HCO3-")
+50 r2 = CALC_VALUE("R(T)_H2O(l)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -1839,6 +1946,19 @@ Alpha_13C_HCO3-/CO2(aq)
 90 alpha = r1/r2
 1000 save alpha
      -end
+
+Alpha_14C_HCO3-/CO2(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_HCO3-")
+50 r2 = CALC_VALUE("R(14C)_CO2(aq)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
 #
 # CO3-2 ratios
 #
@@ -1862,6 +1982,17 @@ R(13C)_CO3-2
 40 total_12C = sum_species("*C{O,[18O]}3*","C") - sum_species("*{H,D,T}C{O,[18O]}3*","C")
 50 if (total_12C <= 0) THEN GOTO 100
 60 ratio = total_13C/total_12C
+100 save ratio
+     -end
+
+R(14C)_CO3-2
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 100
+30 total_14C = sum_species("*[14C]{O,[18O]}3*","[13C]") - sum_species("*{H,D,T}[14C]{O,[18O]}3*","[14C]")
+40 total_12C = sum_species("*C{O,[18O]}3*","C") - sum_species("*{H,D,T}C{O,[18O]}3*","C")
+50 if (total_12C <= 0) THEN GOTO 100
+60 ratio = total_14C/total_12C
 100 save ratio
      -end
 
@@ -1904,6 +2035,18 @@ Alpha_13C_CO3-2/CO2(aq) #?
 1000 save alpha
      -end
 
+Alpha_14C_CO3-2/CO2(aq) #?
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_CO3-2")
+50 r2 = CALC_VALUE("R(14C)_CO2(aq)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
 #
 # CH4(aq) ratios
 #
@@ -1911,10 +2054,21 @@ R(D)_CH4(aq)
      -start
 10 ratio = -9999.999
 20 if (TOT("D") <= 0) THEN GOTO 100
-30 total_D = sum_species("{C,[13C]}{H,D,T}4","D")
-40 total_H = sum_species("{C,[13C]}{H,D,T}4","H")
+30 total_D = sum_species("{C,[13C],[14C]}{H,D,T}4","D")
+40 total_H = sum_species("{C,[13C],[14C]}{H,D,T}4","H")
 50 if (total_H <= 0) THEN GOTO 100
 60 ratio = total_D/total_H
+100 save ratio
+     -end
+
+R(T)_CH4(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("{C,[13C],[14C]}{H,D,T}4","T")
+40 total_H = sum_species("{C,[13C],[14C]}{H,D,T}4","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
 100 save ratio
      -end
 
@@ -1922,11 +2076,48 @@ R(13C)_CH4(aq)
      -start
 10 ratio = -9999.999
 20 if (TOT("[13C]") <= 0) THEN GOTO 100
-30 total_13C = sum_species("{C,[13C]}{H,D}4","[13C]")
-40 total_C = sum_species("{C,[13C]}{H,D}4","C")
+30 total_13C = sum_species("[13C]{H,D,T}4","[13C]")
+40 total_C = sum_species("C{H,D,T}4","C")
 50 if (total_C <= 0) THEN GOTO 100
 60 ratio = total_13C/total_C
 100 save ratio
+     -end
+
+R(14C)_CH4(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 100
+30 total_14C = sum_species("[14C]{H,D,T}4","[14C]")
+40 total_C = sum_species("C{H,D,T}4","C")
+50 if (total_C <= 0) THEN GOTO 100
+60 ratio = total_14C/total_C
+100 save ratio
+     -end
+
+Alpha_D_CH4(aq)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("D") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(D)_CH4(aq)")
+60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_CH4(aq)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_CH4(aq)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
      -end
 
 Alpha_13C_CH4(aq)/CO2(aq)
@@ -1942,13 +2133,13 @@ Alpha_13C_CH4(aq)/CO2(aq)
 1000 save alpha
      -end
 
-Alpha_D_CH4(aq)/H2O(l)
+Alpha_14C_CH4(aq)/CO2(aq)
      -start
 10 alpha = -9999.999
-20 if (TOT("D") <= 0) THEN GOTO 1000
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
 30 if (TOT("C") <= 0) THEN GOTO 1000
-50 r1 = CALC_VALUE("R(D)_CH4(aq)")
-60 r2 = CALC_VALUE("R(D)_H2O(l)")
+50 r1 = CALC_VALUE("R(14C)_CH4(aq)")
+60 r2 = CALC_VALUE("R(14C)_CO2(aq)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -1981,6 +2172,17 @@ R(D)_HSO4-
 100 save ratio
      -end
 
+R(T)_HSO4-
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("*{H,D,T}{S,[34S]}O4*","T")
+40 total_H = sum_species("*{H,D,T}{S,[34S]}O4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(34S)_HSO4-
      -start
 10 ratio = -9999.999
@@ -1999,6 +2201,19 @@ Alpha_D_HSO4-/H2O(l)
 30 if (TOT("S(6)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_HSO4-")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_HSO4-/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("S(6)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_HSO4-")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2058,6 +2273,17 @@ R(D)_HS-
 100 save ratio
      -end
 
+R(T)_HS-
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("*T{S,[34S]}*","T") - sum_species("*T{S,[34S]}O4*","T")
+40 total_H = sum_species("*H{S,[34S]}*","H") - sum_species("*H{S,[34S]}O4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(34S)_HS-
      -start
 10 ratio = -9999.999
@@ -2076,6 +2302,19 @@ Alpha_D_HS-/H2O(l)
 30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_HS-")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_HS-/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_HS-")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2103,7 +2342,18 @@ R(D)_H2S(aq)
 10 ratio = -9999.999
 20 if (TOT("D") <= 0) THEN GOTO 100
 30 total_D = sum_species("*{H,D,T}2{S,[34S]}*","D") - sum_species("*{H,D,T}2{S,[34S]}O4*","D")
-40 total_S = sum_species("*{H,D,T}2{S,[34S]}*","H") - sum_species("*{H,D,T}2{S,[34]}SO4*","S")
+40 total_S = sum_species("*{H,D,T}2{S,[34S]}*","H") - sum_species("*{H,D,T}2{S,[34]}SO4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_D/total_H
+100 save ratio
+     -end
+
+R(T)_H2S(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_D = sum_species("*{H,D,T}2{S,[34S]}*","T") - sum_species("*{H,D,T}2{S,[34S]}O4*","T")
+40 total_S = sum_species("*{H,D,T}2{S,[34S]}*","H") - sum_species("*{H,D,T}2{S,[34]}SO4*","H")
 50 if (total_H <= 0) THEN GOTO 100
 60 ratio = total_D/total_H
 100 save ratio
@@ -2140,6 +2390,32 @@ Alpha_D_H2S(aq)/HS-
 30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_H2S(aq)")
 60 r2 = CALC_VALUE("R(D)_HS-")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2S(aq)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2S(aq)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2S(aq)/HS-
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2S(aq)")
+60 r2 = CALC_VALUE("R(T)_HS-")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2238,6 +2514,17 @@ R(D)_NH3(aq)
 100 save ratio
      -end
 
+R(T)_NH3(aq)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("{[15N],N}{H,D,T}3","T") 
+40 total_H = sum_species("{[15N],N}{H,D,T}3","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(15N)_NH3(aq)
      -start
 10 ratio = -9999.999
@@ -2256,6 +2543,19 @@ Alpha_D_NH3(aq)/H2O(l)
 30 if (TOT("N(-3)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_NH3(aq)")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_NH3(aq)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("N(-3)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_NH3(aq)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2288,12 +2588,23 @@ R(D)_NH4+
 100 save ratio
      -end
 
+R(T)_NH4+
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 100
+30 total_T = sum_species("*{[15N],N}{H,D,T}4*","T") 
+40 total_H = sum_species("*{[15N],N}{H,D,T}4*","H")
+50 if (total_H <= 0) THEN GOTO 100
+60 ratio = total_T/total_H
+100 save ratio
+     -end
+
 R(15N)_NH4+
      -start
 10 ratio = -9999.999
 20 if (TOT("[15N]") <= 0) THEN GOTO 100
-30 total_15N = sum_species("*{[15N],N}{H,D,T}4*","[15N]") 
-40 total_N = sum_species("*{[15N],N}{H,D,T}4*","N")
+30 total_15N = sum_species("*[15N]{H,D,T}4*","[15N]") 
+40 total_N = sum_species("*N{H,D,T}4*","N")
 50 if (total_N <= 0) THEN GOTO 100
 60 ratio = total_15N/total_N
 100 save ratio
@@ -2306,6 +2617,19 @@ Alpha_D_NH4+/H2O(l)
 30 if (TOT("N(-3)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_NH4+")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_NH4+/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("N(-3)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_NH4+")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2356,6 +2680,18 @@ R(D)_H2O(g)
 1000 save ratio
      -end
 
+R(T)_H2O(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2O(g)") <= 0) THEN GOTO 1000
+40 total_T = SUM_GAS("{H,D,T}2{O,[18O]}", "T")
+50 total_H = SUM_GAS("{H,D,T}2{O,[18O]}", "H")
+60 if (total_h <= 0) THEN GOTO 1000
+70 ratio = total_T/total_H
+1000 save ratio
+     -end
+
 R(18O)_H2O(g)
      -start
 10 ratio = -9999.999
@@ -2375,6 +2711,19 @@ Alpha_D_H2O(g)/H2O(l)
 30 if (GAS("H2O(g)") <= 0) THEN GOTO 1000
 40 r1 = CALC_VALUE("R(D)_H2O(g)")
 50 r2 = CALC_VALUE("R(D)_H2O(l)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2O(g)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2O(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(T)_H2O(g)")
+50 r2 = CALC_VALUE("R(T)_H2O(l)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2451,6 +2800,18 @@ R(D)_H2(g)
 1000 save ratio
      -end
 
+R(T)_H2(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2(g)") <= 0) THEN GOTO 1000
+40 total_T = SUM_GAS("{H,D,T}2", "T")
+50 total_H = SUM_GAS("{H,D,T}2", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_T/total_H
+1000 save ratio
+     -end
+
 Alpha_D_H2(g)/H2O(l)
      -start
 10 alpha = -9999.999
@@ -2465,6 +2826,20 @@ Alpha_D_H2(g)/H2O(l)
 1000 save alpha
      -end
 
+Alpha_T_H2(g)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("HT(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2(g)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
 Alpha_D_H2(aq)/H2(g)
      -start
 10 alpha = -9999.999
@@ -2473,6 +2848,20 @@ Alpha_D_H2(aq)/H2(g)
 40 if (GAS("HD(g)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_H2(aq)")
 60 r2 = CALC_VALUE("R(D)_H2(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2(aq)/H2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("HT(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2(aq)")
+60 r2 = CALC_VALUE("R(T)_H2(g)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2503,6 +2892,19 @@ R(13C)_CO2(g)
 60 total_C = SUM_GAS("C{O,[18O]}2", "C")
 70 if (total_C <= 0) THEN GOTO 1000
 80 ratio = total_13C/total_C
+1000 save ratio
+     -end
+
+R(14C)_CO2(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("[14C]O2(g)") <= 0) THEN GOTO 1000
+50 total_14C = SUM_GAS("[14C]{O,[18O]}2", "[14C]")
+60 total_C = SUM_GAS("C{O,[18O]}2", "C")
+70 if (total_C <= 0) THEN GOTO 1000
+80 ratio = total_14C/total_C
 1000 save ratio
      -end
 
@@ -2547,6 +2949,20 @@ Alpha_13C_CO2(g)/CO2(aq)
 90 alpha = r1/r2
 1000 save alpha
      -end
+
+Alpha_14C_CO2(g)/CO2(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 if (GAS("[134]O2(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(14C)_CO2(g)")
+60 r2 = CALC_VALUE("R(14C)_CO2(aq)")
+70 if (r1 <= 0) THEN GOTO 1000
+80 if (r2 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
 #
 # Calcite ratios
 #
@@ -2571,6 +2987,18 @@ R(13C)_Calcite
 50 total_C = SUM_S_S("Calcite", "C")
 60 if (total_C <= 0) THEN GOTO 1000
 70 ratio = total_13C/total_C
+1000 save ratio
+     -end
+
+R(14C)_Calcite
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 total_14C = SUM_S_S("Calcite", "[14C]")
+50 total_C = SUM_S_S("Calcite", "C")
+60 if (total_C <= 0) THEN GOTO 1000
+70 ratio = total_14C/total_C
 1000 save ratio
      -end
 
@@ -2600,19 +3028,6 @@ Alpha_18O_Calcite/CO3-2
 1000 save alpha
      -end
 
-Alpha_13C_Calcite/CO3-2
-     -start
-10 alpha = -9999.999
-20 if (TOT("[13C]") <= 0) THEN GOTO 1000
-30 if (S_S("Calcite") <= 0) THEN GOTO 1000
-40 r1 = CALC_VALUE("R(13C)_Calcite")
-50 r2 = CALC_VALUE("R(13C)_CO3-2")
-60 if (r2 <= 0) THEN GOTO 1000
-80 if (r1 <= -9999) THEN GOTO 1000
-90 alpha = r1/r2
-1000 save alpha
-     -end
-
 Alpha_18O_CO2(aq)/Calcite
      -start
 10 alpha = -9999.999
@@ -2626,6 +3041,19 @@ Alpha_18O_CO2(aq)/Calcite
 1000 save alpha
      -end
 
+Alpha_13C_Calcite/CO3-2
+     -start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_Calcite")
+50 r2 = CALC_VALUE("R(13C)_CO3-2")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
 Alpha_13C_CO2(aq)/Calcite
      -start
 10 alpha = -9999.999
@@ -2633,6 +3061,32 @@ Alpha_13C_CO2(aq)/Calcite
 30 if (S_S("Calcite") <= 0) THEN GOTO 1000
 40 r1 = CALC_VALUE("R(13C)_CO2(aq)")
 50 r2 = CALC_VALUE("R(13C)_Calcite")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_Calcite/CO3-2
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_Calcite")
+50 r2 = CALC_VALUE("R(14C)_CO3-2")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_CO2(aq)/Calcite
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_CO2(aq)")
+50 r2 = CALC_VALUE("R(14C)_Calcite")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2673,10 +3127,22 @@ R(D)_CH4(g)
 10 ratio = -9999.999
 20 if (TOT("D") <= 0) THEN GOTO 1000
 30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
-40 total_D = SUM_GAS("{C,[13C]}{H,D,T}4", "D")
-50 total_H = SUM_GAS("{C,[13C]}{H,D,T}4", "H")
+40 total_D = SUM_GAS("{C,[13C],[14C]}{H,D,T}4", "D")
+50 total_H = SUM_GAS("{C,[13C],[14C]}{H,D,T}4", "H")
 60 if (total_H <= 0) THEN GOTO 1000
 70 ratio = total_D/total_H
+1000 save ratio
+     -end
+
+R(T)_CH4(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 total_T = SUM_GAS("{C,[13C],[14C]}{H,D,T}4", "T")
+50 total_H = SUM_GAS("{C,[13C],[14C]}{H,D,T}4", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_T/total_H
 1000 save ratio
      -end
 
@@ -2685,10 +3151,22 @@ R(13C)_CH4(g)
 10 ratio = -9999.999
 20 if (TOT("[13C]") <= 0) THEN GOTO 1000
 30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
-40 total_13C = SUM_GAS("{C,[13C]}{H,D,T}4", "[13C]")
-50 total_C = SUM_GAS("{C,[13C]}{H,D,T}4", "C")
+40 total_13C = SUM_GAS("[13C]{H,D,T}4", "[13C]")
+50 total_C = SUM_GAS("C{H,D,T}4", "C")
 60 if (total_C <= 0) THEN GOTO 1000
 70 ratio = total_13C/total_C
+1000 save ratio
+     -end
+
+R(14C)_CH4(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 total_14C = SUM_GAS("[14C]{H,D,T}4", "[14C]")
+50 total_C = SUM_GAS("C{H,D,T}4", "C")
+60 if (total_C <= 0) THEN GOTO 1000
+70 ratio = total_14C/total_C
 1000 save ratio
      -end
 
@@ -2714,6 +3192,34 @@ Alpha_D_CH4(g)/H2O(l)
 40 if (GAS("CH3D(g)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_CH4(g)")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_CH4(aq)/CH4(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("CH3T(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_CH4(aq)")
+60 r2 = CALC_VALUE("R(T)_CH4(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_CH4(g)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("CH3T(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_CH4(g)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2747,6 +3253,34 @@ Alpha_13C_CH4(aq)/CH4(g)
 90 alpha = r1/r2
 1000 save alpha
      -end
+
+Alpha_14C_CH4(g)/CO2(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("[14C]H4(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(14C)_CH4(g)")
+60 r2 = CALC_VALUE("R(14C)_CO2(aq)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_CH4(aq)/CH4(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CH4(g)") <= 0) THEN GOTO 1000
+40 if (GAS("[14C]H4(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(14C)_CH4(aq)")
+60 r2 = CALC_VALUE("R(14C)_CH4(g)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
 #
 # H2S(g) ratios
 #
@@ -2759,6 +3293,18 @@ R(D)_H2S(g)
 50 total_H = SUM_GAS("{H,D,T}2{S,[34S]}", "H")
 60 if (total_H <= 0) THEN GOTO 1000
 70 ratio = total_D/total_H
+1000 save ratio
+     -end
+
+R(T)_H2S(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("H2S(g)") <= 0) THEN GOTO 1000
+40 total_T = SUM_GAS("{H,D,T}2{S,[34S]}", "T")
+50 total_H = SUM_GAS("{H,D,T}2{S,[34S]}", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_T/total_H
 1000 save ratio
      -end
 
@@ -2781,6 +3327,19 @@ Alpha_D_H2S(g)/H2S(aq)
 30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_H2S(g)")
 60 r2 = CALC_VALUE("R(D)_H2S(aq)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_H2S(g)/H2S(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("S(-2)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_H2S(g)")
+60 r2 = CALC_VALUE("R(T)_H2S(aq)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2898,6 +3457,18 @@ R(D)_NH3(g)
 1000 save ratio
      -end
 
+R(T)_NH3(g)
+     -start
+10 ratio = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (GAS("NH3(g)") <= 0) THEN GOTO 1000
+40 total_T = SUM_GAS("{[15N],N}{H,D,T}3", "T")
+50 total_H = SUM_GAS("{[15N],N}{H,D,T}3", "H")
+60 if (total_H <= 0) THEN GOTO 1000
+70 ratio = total_T/total_H
+1000 save ratio
+     -end
+
 R(15N)_NH3(g)
      -start
 10 ratio = -9999.999
@@ -2918,6 +3489,20 @@ Alpha_D_NH3(g)/H2O(l)
 40 if (GAS("NH3(g)") <= 0) THEN GOTO 1000
 50 r1 = CALC_VALUE("R(D)_NH3(g)")
 60 r2 = CALC_VALUE("R(D)_H2O(l)")
+70 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_T_NH3(g)/H2O(l)
+     -start
+10 alpha = -9999.999
+20 if (TOT("T") <= 0) THEN GOTO 1000
+30 if (TOT("N(-3)") <= 0) THEN GOTO 1000
+40 if (GAS("NH3(g)") <= 0) THEN GOTO 1000
+50 r1 = CALC_VALUE("R(T)_NH3(g)")
+60 r2 = CALC_VALUE("R(T)_H2O(l)")
 70 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
