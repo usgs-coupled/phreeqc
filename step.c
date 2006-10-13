@@ -796,7 +796,7 @@ int add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr)
 						continue;
 					} else if (master_ptr->s == s_h2o) {
 						continue;
-					} else if (master_ptr->total > MIN_TOTAL) {
+					} else if (master_ptr->total > MIN_TOTAL_SS) {
 						continue;
 					} else {
 						total = (-master_ptr->total + 1e-10) / elt_list[k].coef;
@@ -988,7 +988,7 @@ int s_s_assemblage_check (struct s_s_assemblage *s_s_assemblage_ptr)
 						continue;
 					} else if (master_ptr->s == s_h2o) {
 						continue;
-					} else if (master_ptr->total > MIN_TOTAL) {
+					} else if (master_ptr->total > MIN_TOTAL_SS) {
 						continue;
 					} else {
 						if (state != ADVECTION && state != TRANSPORT && state != PHAST ) {

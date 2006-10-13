@@ -236,8 +236,8 @@ static int quick_setup (void)
 				x[i]->s_s_comp_number = j;
 				x[i]->moles = x[i]->s_s_comp->moles;
 				if (x[i]->moles <= 0) {
-					x[i]->moles = MIN_TOTAL;
-					x[i]->s_s_comp->moles = MIN_TOTAL;
+					x[i]->moles = MIN_TOTAL_SS;
+					x[i]->s_s_comp->moles = MIN_TOTAL_SS;
 				}
 				x[i]->s_s_comp->initial_moles = x[i]->moles;
 				x[i]->ln_moles = log(x[i]->moles);
@@ -1085,7 +1085,7 @@ int build_model(void)
  */
 	for (i=0; i < count_phases; i++) {
 		count_trxn=0;
-		trxn_add(phases[i]->rxn_s, 1.0, FALSE);
+		trxn_add_phase(phases[i]->rxn_s, 1.0, FALSE);
 		trxn_reverse_k();
 		phases[i]->in = inout();
 		if (phases[i]->in == TRUE) {
@@ -2595,7 +2595,7 @@ int setup_s_s_assemblage(void)
 			x[count_unknowns]->description = string_hsave(use.s_s_assemblage_ptr->s_s[j].comps[i].name);
 			x[count_unknowns]->moles = 0.0;
 			if (use.s_s_assemblage_ptr->s_s[j].comps[i].moles <= 0) {
-				use.s_s_assemblage_ptr->s_s[j].comps[i].moles =  MIN_TOTAL;
+				use.s_s_assemblage_ptr->s_s[j].comps[i].moles =  MIN_TOTAL_SS;
 			}
 			x[count_unknowns]->moles = use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
 			use.s_s_assemblage_ptr->s_s[j].comps[i].initial_moles = x[count_unknowns]->moles;

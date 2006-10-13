@@ -386,6 +386,7 @@ int check_residuals(void)
 			}
 		} else if (x[i]->type == S_S_MOLES) {
 			if (x[i]->s_s_in == FALSE) continue;
+			if (x[i]->moles <= MIN_TOTAL_SS) continue;
 			if (residual[i] >= epsilon || residual[i] <= -epsilon /* || stop_program == TRUE */) {
 				sprintf(error_string,"%20s Total moles in solid solution has not converged. "
 					"\tResidual: %e\n", x[i]->description, (double) residual[i]);
@@ -1116,7 +1117,7 @@ int ineq(int in_kode)
 				       (void *) &(zero[ 0 ]),
 				       (size_t) (count_unknowns + 1) * sizeof(LDBLE));
 				ineq_array[count_rows*max_column_count + i] = 1.0;
-				ineq_array[count_rows*max_column_count + count_unknowns ] = 0.99*x[i]->moles - MIN_TOTAL;
+				ineq_array[count_rows*max_column_count + count_unknowns ] = 0.99*x[i]->moles - MIN_TOTAL_SS;
 				back[count_rows] = i;
 				count_rows++;
 			} else {
@@ -1806,7 +1807,7 @@ int calc_s_s_fractions(void)
 		for (k = 0; k < s_s_ptr->count_comps; k++) {
 			moles = s_s_ptr->comps[k].moles;
 			if (s_s_ptr->comps[k].moles < 0) {
-				moles = MIN_TOTAL;
+				moles = MIN_TOTAL_SS;
 				s_s_ptr->comps[k].initial_moles = moles;
 			}
 			n_tot += moles;
@@ -1815,7 +1816,7 @@ int calc_s_s_fractions(void)
 		for (k = 0; k < s_s_ptr->count_comps; k++) {
 			moles = s_s_ptr->comps[k].moles;
 			if (s_s_ptr->comps[k].moles < 0) {
-				moles = MIN_TOTAL;
+				moles = MIN_TOTAL_SS;
 			}
 			s_s_ptr->comps[k].fraction_x = moles / n_tot;
 			s_s_ptr->comps[k].log10_fraction_x = log10(moles / n_tot);
@@ -2440,7 +2441,7 @@ int reset(void)
 					"delta", (double) delta[i]);
 			}
 			x[i]->moles -= delta[i];
-			if (x[i]->moles < MIN_TOTAL && calculating_deriv == FALSE) x[i]->moles = MIN_TOTAL; 
+			if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE) x[i]->moles = MIN_TOTAL_SS; 
 			x[i]->s_s_comp->moles = x[i]->moles;
 /*   Pitzer gamma */
 		} else if ( x[i]->type == PITZER_GAMMA ) {
@@ -2591,6 +2592,7 @@ int residuals(void)
 			if (fabs(residual[i]) > toler && gas_in == TRUE) converge = FALSE;
 		} else if (x[i]->type == S_S_MOLES) {
 			residual[i] =  x[i]->f * LOG_10;
+			if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2) continue;
 			if (fabs(residual[i]) > toler && x[i]->s_s_in == TRUE) converge = FALSE;
 		} else if (x[i]->type == EXCH) {
 			residual[i] = x[i]->moles - x[i]->f;
