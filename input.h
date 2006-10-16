@@ -7,9 +7,9 @@ static char const svnidinput[] = "$Id$";
 typedef int (*PFN_READ_CALLBACK)(void *cookie);
 
 struct read_callback {
-	PFN_READ_CALLBACK callback;
-	void *cookie;
-	int database;
+        PFN_READ_CALLBACK callback;
+        void *cookie;
+        int database;
 };
 
 int add_char_to_line(int *i, char c);

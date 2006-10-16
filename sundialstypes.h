@@ -86,9 +86,9 @@ extern "C" {
  ******************************************************************/
 
 #ifdef USE_LONG_DOUBLE
-	typedef long double realtype;
+        typedef long double realtype;
 #else
-	typedef double realtype;
+        typedef double realtype;
 #endif
 typedef long int integertype;
 

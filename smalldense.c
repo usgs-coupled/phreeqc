@@ -118,16 +118,16 @@ integertype gefa(realtype **a, integertype n, integertype *p)
       /* Swap the elements a(k,j) and a(k,l) if l!=k. */
 
       if (swap) {
-	col_j[l] = col_j[k];
-	col_j[k] = a_kj;
+        col_j[l] = col_j[k];
+        col_j[k] = a_kj;
       }
 
       /* a(i,j) = a(i,j) - [a(i,k)/a(k,k)]*a(k,j)  */
       /* a_kj = a(k,j), col_k[i] = - a(i,k)/a(k,k) */
 
       if (a_kj != ZERO) {
-	for (i=k+1; i < n; i++)
-	  col_j[i] += a_kj * col_k[i];
+        for (i=k+1; i < n; i++)
+          col_j[i] += a_kj * col_k[i];
       }
     }
   }
