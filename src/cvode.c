@@ -519,48 +519,48 @@ void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
   fp = (errfp == NULL) ? stdout : errfp;
 
   if (y0==NULL) {
-          output_msg(OUTPUT_CVODE, MSG_Y0_NULL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_Y0_NULL);
+	  return(NULL);
   }
   
   if (N <= 0) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_N, N);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_N, N);
+	  return(NULL);
   }
 
   if ((lmm != ADAMS) && (lmm != BDF)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_LMM, lmm, ADAMS, BDF);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_LMM, lmm, ADAMS, BDF);
+	  return(NULL);
   }
 
   if ((iter != FUNCTIONAL) && (iter != NEWTON)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
+	  return(NULL);
   }
 
   if ((itol != SS) && (itol != SV)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ITOL, itol, SS, SV);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ITOL, itol, SS, SV);
+	  return(NULL);
   }
 
   if (f == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_F_NULL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_F_NULL);
+	  return(NULL);
   }
 
   if (reltol == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_RELTOL_NULL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_RELTOL_NULL);
+	  return(NULL);
   }
 
   if (*reltol < ZERO) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_RELTOL, (double) *reltol);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_RELTOL, (double) *reltol);
+	  return(NULL);
   }
    
   if (abstol == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_ABSTOL_NULL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_ABSTOL_NULL);
+	  return(NULL);
   }
 
   if (itol == SS) {
@@ -569,18 +569,18 @@ void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
     neg_abstol = (N_VMin((N_Vector)abstol) < ZERO);
   }
   if (neg_abstol) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ABSTOL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ABSTOL);
+	  return(NULL);
   }
 
   if ((optIn != FALSE) && (optIn != TRUE)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_OPTIN, optIn, FALSE, TRUE);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_OPTIN, optIn, FALSE, TRUE);
+	  return(NULL);
   }
 
   if ((optIn) && (iopt == NULL) && (ropt == NULL)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_OPT);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_OPT);
+	  return(NULL);
   } 
 
   ioptExists = (iopt != NULL);
@@ -596,17 +596,17 @@ void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 
   cv_mem = (CVodeMem) malloc(sizeof(struct CVodeMemRec));
   if (cv_mem == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  return(NULL);
   }
  
   /* Allocate the vectors */
 
   allocOK = CVAllocVectors(cv_mem, N, maxord, machEnv);
   if (!allocOK) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-          free(cv_mem);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  free(cv_mem);
+	  return(NULL);
   }
 
   /* Copy tolerances into memory, and set the ewt vector */
@@ -616,10 +616,10 @@ void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
   cv_mem->cv_abstol = abstol;
   ewtsetOK = CVEwtSet(cv_mem, y0);
   if (!ewtsetOK) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_EWT);
-          CVFreeVectors(cv_mem, maxord);
-          free(cv_mem);
-          return(NULL);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_EWT);
+	  CVFreeVectors(cv_mem, maxord);
+	  free(cv_mem);
+	  return(NULL);
   }
   
   /* All error checking is complete at this point */
@@ -758,49 +758,49 @@ int CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
   fp = (errfp == NULL) ? stdout : errfp;
 
   if (cvode_mem == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_REI_NO_MEM);
-          return(CVREI_NO_MEM);
+	  output_msg(OUTPUT_CVODE, MSG_REI_NO_MEM);
+	  return(CVREI_NO_MEM);
   }
   cv_mem = (CVodeMem) cvode_mem;
 
   if (y0 == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_Y0_NULL);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_Y0_NULL);
+	  return(CVREI_ILL_INPUT);
   }
   
   if ((lmm != ADAMS) && (lmm != BDF)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_LMM, lmm, ADAMS, BDF);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_LMM, lmm, ADAMS, BDF);
+	  return(CVREI_ILL_INPUT);
   }
 
   if ((iter != FUNCTIONAL) && (iter != NEWTON)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
+	  return(CVREI_ILL_INPUT);
   }
 
   if ((itol != SS) && (itol != SV)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ITOL, itol, SS, SV);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ITOL, itol, SS, SV);
+	  return(CVREI_ILL_INPUT);
   }
 
   if (f == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_F_NULL);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_F_NULL);
+	  return(CVREI_ILL_INPUT);
   }
 
   if (reltol == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_RELTOL_NULL);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_RELTOL_NULL);
+	  return(CVREI_ILL_INPUT);
   }
 
   if (*reltol < ZERO) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_RELTOL,(double)  *reltol);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_RELTOL,(double)  *reltol);
+	  return(CVREI_ILL_INPUT);
   }
    
   if (abstol == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_ABSTOL_NULL);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_ABSTOL_NULL);
+	  return(CVREI_ILL_INPUT);
   }
 
   if (itol == SS) {
@@ -809,18 +809,18 @@ int CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
     neg_abstol = (N_VMin((N_Vector)abstol) < ZERO);
   }
   if (neg_abstol) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ABSTOL);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ABSTOL);
+	  return(CVREI_ILL_INPUT);
   }
 
   if ((optIn != FALSE) && (optIn != TRUE)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_OPTIN, optIn, FALSE, TRUE);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_OPTIN, optIn, FALSE, TRUE);
+	  return(CVREI_ILL_INPUT);
   }
 
   if ((optIn) && (iopt == NULL) && (ropt == NULL)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_OPT);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_OPT);
+	  return(CVREI_ILL_INPUT);
   } 
 
   ioptExists = (iopt != NULL);
@@ -832,8 +832,8 @@ int CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
   if (optIn && ioptExists)
     { if (iopt[MAXORD] > 0)  maxord = MIN(maxord, iopt[MAXORD]); }
   if (maxord > qmax) {
-          output_msg(OUTPUT_CVODE, MSG_REI_MAXORD, qmax, maxord);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_REI_MAXORD, qmax, maxord);
+	  return(CVREI_ILL_INPUT);
   }
 
   /* Copy tolerances into memory, and set the ewt vector */
@@ -843,8 +843,8 @@ int CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
   cv_mem->cv_abstol = abstol;
   ewtsetOK = CVEwtSet(cv_mem, y0);
   if (!ewtsetOK) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_EWT);
-          return(CVREI_ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_EWT);
+	  return(CVREI_ILL_INPUT);
   }
   
   /* All error checking is complete at this point */
@@ -994,25 +994,25 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
 
   cv_mem = (CVodeMem) cvode_mem;
   if (cvode_mem == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_CVODE_NO_MEM);
-          return(CVODE_NO_MEM);
+	  output_msg(OUTPUT_CVODE, MSG_CVODE_NO_MEM);
+	  return(CVODE_NO_MEM);
   }
   
   if ((y = yout) == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_YOUT_NULL);       
-          return(ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_YOUT_NULL);       
+	  return(ILL_INPUT);
   }
   
   if (t == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_T_NULL);
-          return(ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_T_NULL);
+	  return(ILL_INPUT);
   }
   t0 = tn;
   *t = tn;
 
   if ((itask != NORMAL) && (itask != ONE_STEP)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_ITASK, itask, NORMAL, ONE_STEP);
-          return(ILL_INPUT);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_ITASK, itask, NORMAL, ONE_STEP);
+	  return(ILL_INPUT);
   }
 
   /* Set hmax_inv from ropt[HMAX] and test for hmin > hmax */
@@ -1020,8 +1020,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
   if (optIn && ropt != NULL) {
     if (ropt[HMAX] > ZERO) hmax_inv = ONE/ropt[HMAX];
     if (hmin*hmax_inv > ONE) {
-            output_msg(OUTPUT_CVODE, MSG_BAD_HMIN_HMAX, (double) hmin, (double) ropt[HMAX]);
-            return(ILL_INPUT);
+	    output_msg(OUTPUT_CVODE, MSG_BAD_HMIN_HMAX, (double) hmin, (double) ropt[HMAX]);
+	    return(ILL_INPUT);
     }
   }
 
@@ -1030,25 +1030,25 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
   if (nst == 0) {
     if (iter == NEWTON) {
       if (linit == NULL) {
-              output_msg(OUTPUT_CVODE, MSG_LINIT_NULL);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_LINIT_NULL);
+	      return(ILL_INPUT);
       }
       if (lsetup == NULL) {
-              output_msg(OUTPUT_CVODE, MSG_LSETUP_NULL);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_LSETUP_NULL);
+	      return(ILL_INPUT);
       }
       if (lsolve == NULL) {
-              output_msg(OUTPUT_CVODE, MSG_LSOLVE_NULL);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_LSOLVE_NULL);
+	      return(ILL_INPUT);
       }
       if (lfree == NULL) {
-              output_msg(OUTPUT_CVODE, MSG_LFREE_NULL);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_LFREE_NULL);
+	      return(ILL_INPUT);
       }
       ier = linit(cv_mem);
       if (ier != LINIT_OK) {
-              output_msg(OUTPUT_CVODE, MSG_LINIT_FAIL);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_LINIT_FAIL);
+	      return(ILL_INPUT);
       }
     }
     
@@ -1062,14 +1062,14 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     h = ZERO;
     if (ropt != NULL) h = ropt[H0];
     if ( (h != ZERO) && ((tout-tn)*h < ZERO) ) {
-            output_msg(OUTPUT_CVODE, MSG_BAD_H0, (double) h, (double) (tout-tn));
-            return(ILL_INPUT);
+	    output_msg(OUTPUT_CVODE, MSG_BAD_H0, (double) h, (double) (tout-tn));
+	    return(ILL_INPUT);
     }
     if (h == ZERO) {
       hOK = CVHin(cv_mem, tout);
       if (!hOK) {
-              output_msg(OUTPUT_CVODE, MSG_TOO_CLOSE, (double) tout, (double) tn);
-              return(ILL_INPUT);
+	      output_msg(OUTPUT_CVODE, MSG_TOO_CLOSE, (double) tout, (double) tn);
+	      return(ILL_INPUT);
       }
     }
     rh = ABS(h)*hmax_inv;
@@ -1086,8 +1086,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     *t = tout;
     ier =  CVodeDky(cv_mem, tout, 0, yout);
     if (ier != OKAY) {  /* ier must be == BAD_T */
-            output_msg(OUTPUT_CVODE, MSG_BAD_TOUT, (double) tout);
-            return(ILL_INPUT);
+	    output_msg(OUTPUT_CVODE, MSG_BAD_TOUT, (double) tout);
+	    return(ILL_INPUT);
     }
     return(SUCCESS);
   }
@@ -1105,33 +1105,33 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     if (nst > 0) {
       ewtsetOK = CVEwtSet(cv_mem, zn[0]);
       if (!ewtsetOK) {
-              output_msg(OUTPUT_CVODE, MSG_EWT_NOW_BAD, (double) tn);
-              istate = ILL_INPUT;
-              *t = tn;
-              N_VScale(ONE, zn[0], yout);
-              break;
+	      output_msg(OUTPUT_CVODE, MSG_EWT_NOW_BAD, (double) tn);
+	      istate = ILL_INPUT;
+	      *t = tn;
+	      N_VScale(ONE, zn[0], yout);
+	      break;
       }
     }
     
     /* Check for too many steps */
     
     if (nstloc >= mxstep) {
-            /* output_msg(OUTPUT_CVODE, MSG_MAX_STEPS, tn, mxstep, tout); */
-            istate = TOO_MUCH_WORK;
-            *t = tn;
-            N_VScale(ONE, zn[0], yout);
-            break;
+	    /* output_msg(OUTPUT_CVODE, MSG_MAX_STEPS, tn, mxstep, tout); */
+	    istate = TOO_MUCH_WORK;
+	    *t = tn;
+	    N_VScale(ONE, zn[0], yout);
+	    break;
     }
 
     /* Check for too much accuracy requested */
 
     if ((tolsf = uround * N_VWrmsNorm(zn[0], ewt)) > ONE) {
-            output_msg(OUTPUT_CVODE, MSG_TOO_MUCH_ACC, (double) tn);
-            istate = TOO_MUCH_ACC;
-            *t = tn;
-            N_VScale(ONE, zn[0], yout);
-            tolsf *= TWO;
-            break;
+	    output_msg(OUTPUT_CVODE, MSG_TOO_MUCH_ACC, (double) tn);
+	    istate = TOO_MUCH_ACC;
+	    *t = tn;
+	    N_VScale(ONE, zn[0], yout);
+	    tolsf *= TWO;
+	    break;
     }
 
     /* Check for h below roundoff level in tn */
@@ -1150,17 +1150,17 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After CVStep, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"After CVStep, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After CVStep, y OK\n");
+	    output_msg(OUTPUT_CVODE,"After CVStep, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After CVStep, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After CVStep, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After CVStep, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After CVStep, zn OK\n");
     }
 #endif
     /* Process failed step cases, and exit loop */
@@ -1192,11 +1192,11 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     /* Check if tout reached, and if so interpolate and exit loop */
 
     if ((tn-tout)*h >= ZERO) {
-            /*
-              output_msg(OUTPUT_CVODE, "*tn %e, t0 %e, tout %e, h %e\n", tn, t0, tout,h);
-            */
-            cvode_rate_sim_time = cvode_rate_sim_time_start + tout;
-            cvode_step_fraction = 1.0;
+	    /*
+	      output_msg(OUTPUT_CVODE, "*tn %e, t0 %e, tout %e, h %e\n", tn, t0, tout,h);
+	    */
+	    cvode_rate_sim_time = cvode_rate_sim_time_start + tout;
+	    cvode_step_fraction = 1.0;
       istate = SUCCESS;
       *t = tout;
       (void) CVodeDky(cv_mem, tout, 0, yout);
@@ -1233,10 +1233,10 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"End of cvode, Interpolated y Fail\n");
-            return(-1);
+	    output_msg(OUTPUT_CVODE,"End of cvode, Interpolated y Fail\n");
+	    return(-1);
     } else {
-            output_msg(OUTPUT_CVODE,"End of cvode, Interpolated y OK\n");
+	    output_msg(OUTPUT_CVODE,"End of cvode, Interpolated y OK\n");
     }
 #endif
   return(istate);
@@ -1270,18 +1270,18 @@ int CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky)
   /* Check all inputs for legality */
  
   if (cvode_mem == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_DKY_NO_MEM);
-          return(DKY_NO_MEM);
+	  output_msg(OUTPUT_CVODE, MSG_DKY_NO_MEM);
+	  return(DKY_NO_MEM);
   }
   
   if (dky == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_DKY);
-          return(BAD_DKY);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_DKY);
+	  return(BAD_DKY);
   }
 
   if ((k < 0) || (k > q)) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_K, k);
-          return(BAD_K);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_K, k);
+	  return(BAD_K);
   }
   
   tfuzz = FUZZ_FACTOR * uround * (ABS(tn) + ABS(hu));
@@ -1289,8 +1289,8 @@ int CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky)
   tp = tn - hu - tfuzz;
   tn1 = tn + tfuzz;
   if ((t-tp)*(t-tn1) > ZERO) {
-          output_msg(OUTPUT_CVODE, MSG_BAD_T, (double) t, (double) (tn-hu), (double) tn);
-          return(BAD_T);
+	  output_msg(OUTPUT_CVODE, MSG_BAD_T, (double) t, (double) (tn-hu), (double) tn);
+	  return(BAD_T);
   }
 
   /* Sum the differentiated interpolating polynomial */
@@ -1546,11 +1546,11 @@ static booleantype CVHin(CVodeMem cv_mem, realtype tout)
     hgs = hg*sign;
     yddnrm = CVYddNorm(cv_mem, hgs);
     if (cvode_error == TRUE) {
-            hg /= 2.;
+	    hg /= 2.;
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE, "halving step in CVHin\n");
+	    output_msg(OUTPUT_CVODE, "halving step in CVHin\n");
 #endif
-            continue;
+	    continue;
     }
 
     hnew =  (yddnrm*hub*hub > TWO) ? RSqrt(TWO/yddnrm) : RSqrt(hg*hub);
@@ -1623,7 +1623,7 @@ static realtype CVYddNorm(CVodeMem cv_mem, realtype hg)
   f(N, tn+hg, y, tempv, f_data);
 #ifdef DEBUG_CVODE
   if (cvode_error == TRUE) {
-          output_msg(OUTPUT_CVODE,"CVYddNorm error\n");
+	  output_msg(OUTPUT_CVODE,"CVYddNorm error\n");
   }
 #endif
   nfe++;
@@ -1675,15 +1675,15 @@ static int CVStep(CVodeMem cv_mem)
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"Before predict, y Fail, time %e\n", tn);
+	    output_msg(OUTPUT_CVODE,"Before predict, y Fail, time %e\n", tn);
 #endif
     } else {
-          cvode_prev_good_time = cvode_last_good_time;
-          N_VScale(1.0, cvode_last_good_y, cvode_prev_good_y);
-          cvode_last_good_time = tn;
-          N_VScale(1.0, y, cvode_last_good_y);
+	  cvode_prev_good_time = cvode_last_good_time;
+	  N_VScale(1.0, cvode_last_good_y, cvode_prev_good_y);
+	  cvode_last_good_time = tn;
+	  N_VScale(1.0, y, cvode_last_good_y);
 #ifdef DEBUG_CVODE
-          output_msg(OUTPUT_CVODE,"Before predict, y OK, time %e\n", tn);
+	  output_msg(OUTPUT_CVODE,"Before predict, y OK, time %e\n", tn);
 #endif
     }
 #ifdef DEBUG_CVODE
@@ -1691,9 +1691,9 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"Before predict, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"Before predict, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"Before predict, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"Before predict, zn OK\n");
     }
     saved_t = tn;
 #endif
@@ -1703,18 +1703,18 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After predict, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"After predict, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After predict, y OK\n");
+	    output_msg(OUTPUT_CVODE,"After predict, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After predict, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After predict, zn Fail\n");
 
     } else {
-            output_msg(OUTPUT_CVODE,"After predict, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After predict, zn OK\n");
     }
 #endif
     CVSet(cv_mem);
@@ -1725,17 +1725,17 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After CVnls, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"After CVnls, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After CVnls, y OK\n");
+	    output_msg(OUTPUT_CVODE,"After CVnls, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After CVnls, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After CVnls, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After CVnls, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After CVnls, zn OK\n");
     }
 #endif
     kflag = CVHandleNFlag(cv_mem, &nflag, saved_t, &ncf);
@@ -1747,17 +1747,17 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"Before error test, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"Before error test, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"Before error test, y OK\n");
+	    output_msg(OUTPUT_CVODE,"Before error test, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"Before error test, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"Before error test, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"Before error test, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"Before error test, zn OK\n");
     }
 #endif
     passed = CVDoErrorTest(cv_mem, &nflag, &kflag, saved_t, &nef, &dsm);
@@ -1766,17 +1766,17 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After error test, y Fail, passed %d\n", passed);
+	    output_msg(OUTPUT_CVODE,"After error test, y Fail, passed %d\n", passed);
     } else {
-            output_msg(OUTPUT_CVODE,"After error test, y OK, passed %d\n", passed);
+	    output_msg(OUTPUT_CVODE,"After error test, y OK, passed %d\n", passed);
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After error test, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After error test, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After error test, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After error test, zn OK\n");
     }
 #endif
     /* Return if error test failed and recovery not possible. */
@@ -1797,17 +1797,17 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After complete step, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"After complete step, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After complete step, y OK\n");
+	    output_msg(OUTPUT_CVODE,"After complete step, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After complete step, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After complete step, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After complete step, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After complete step, zn OK\n");
     }
 #endif
   CVPrepareNextStep(cv_mem, dsm); 
@@ -1821,17 +1821,17 @@ static int CVStep(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After cvbfdstab, y Fail\n");
+	    output_msg(OUTPUT_CVODE,"After cvbfdstab, y Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After cvbfdstab, y OK\n");
+	    output_msg(OUTPUT_CVODE,"After cvbfdstab, y OK\n");
     }
     cvode_test = TRUE;
     f(N, tn, zn[0], ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"After cvbfdstab, zn Fail\n");
+	    output_msg(OUTPUT_CVODE,"After cvbfdstab, zn Fail\n");
     } else {
-            output_msg(OUTPUT_CVODE,"After cvbfdstab, zn OK\n");
+	    output_msg(OUTPUT_CVODE,"After cvbfdstab, zn OK\n");
     }
 #endif
   etamax = (nst <= SMALL_NST) ? ETAMX2 : ETAMX3;
@@ -2319,12 +2319,12 @@ static int CVnlsFunctional(CVodeMem cv_mem)
   nfe++;
   if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-          output_msg(OUTPUT_CVODE,"CVnlsFunctional, Fail at beginning\n");
+	  output_msg(OUTPUT_CVODE,"CVnlsFunctional, Fail at beginning\n");
 #endif
     return(CONV_FAIL);
   } else {
 #ifdef DEBUG_CVODE
-          output_msg(OUTPUT_CVODE,"CVnlsFunctional, OK at beginning\n");
+	  output_msg(OUTPUT_CVODE,"CVnlsFunctional, OK at beginning\n");
 #endif
   }
   N_VConst(ZERO, acor);
@@ -2359,12 +2359,12 @@ static int CVnlsFunctional(CVodeMem cv_mem)
     f(N, tn, y, tempv, f_data);
     if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsFunctional, Fail at end\n");
+	    output_msg(OUTPUT_CVODE,"CVnlsFunctional, Fail at end\n");
 #endif
-            return(CONV_FAIL);
+	    return(CONV_FAIL);
     } else {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsFunctional, OK at end\n");
+	    output_msg(OUTPUT_CVODE,"CVnlsFunctional, OK at end\n");
 #endif
     }
     nfe++;
@@ -2414,12 +2414,12 @@ static int CVnlsNewton(CVodeMem cv_mem, int nflag)
     nfe++; 
     if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, start of loop, time %e\n", tn);
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, start of loop, time %e\n", tn);
 #endif
-            return (CONV_FAIL);
+	    return (CONV_FAIL);
     } else {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, OK, start of loop, time %e\n", tn);
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, OK, start of loop, time %e\n", tn);
 #endif
     }
     
@@ -2448,12 +2448,12 @@ static int CVnlsNewton(CVodeMem cv_mem, int nflag)
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"After CVNewtonIteration, Fail, ier %d\n", ier);
+	    output_msg(OUTPUT_CVODE,"After CVNewtonIteration, Fail, ier %d\n", ier);
 #endif
-            return(CONV_FAIL);
+	    return(CONV_FAIL);
     } else {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"After CVNewtonIteration, OK, ier %d\n", ier);
+	    output_msg(OUTPUT_CVODE,"After CVNewtonIteration, OK, ier %d\n", ier);
 #endif
     }
     /* If there is a convergence failure and the Jacobian-related 
@@ -2525,10 +2525,10 @@ static int CVNewtonIteration(CVodeMem cv_mem)
     f(N, tn, y, ftemp, f_data);
     cvode_test = FALSE;
     if (cvode_error == TRUE) {
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, Fail at SOLVED\n");
-            return(CONV_FAIL);
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, Fail at SOLVED\n");
+	    return(CONV_FAIL);
     } else {
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, OK at SOLVED\n");
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, OK at SOLVED\n");
     }
 #endif
     if (dcon <= ONE) {
@@ -2553,12 +2553,12 @@ static int CVNewtonIteration(CVodeMem cv_mem)
 
     if (cvode_error == TRUE) {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, Fail at end\n");
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, Fail at end\n");
 #endif
-            return(CONV_FAIL);
+	    return(CONV_FAIL);
     } else {
 #ifdef DEBUG_CVODE
-            output_msg(OUTPUT_CVODE,"CVnlsNewton, OK at end\n");
+	    output_msg(OUTPUT_CVODE,"CVnlsNewton, OK at end\n");
 #endif
     }
     nfe++;
@@ -2716,9 +2716,9 @@ static booleantype CVDoErrorTest(CVodeMem cv_mem, int *nflagPtr, int *kflagPtr,
   nscon = 0;
   f(N, tn, zn[0], tempv, f_data);
   if (cvode_error == TRUE) {
-          output_msg(OUTPUT_CVODE, "CVDoErrorTest");
-          /*exit(8);*/
-          error_msg("CVDoErrorTest", 1 /* STOP */);
+	  output_msg(OUTPUT_CVODE, "CVDoErrorTest");
+	  /*exit(8);*/
+	  error_msg("CVDoErrorTest", 1 /* STOP */);
   }
   nfe++;
   N_VScale(h, tempv, zn[1]);
@@ -2922,21 +2922,21 @@ static int CVHandleFailure(CVodeMem cv_mem, int kflag)
   /* Depending on kflag, print error message and return error flag */
   switch (kflag) {
     case REP_ERR_FAIL:  
-            sprintf(error_string_long, MSG_ERR_FAILS, (double) tn, (double) h);
-            warning_msg(error_string_long);
-            return(ERR_FAILURE);
+	    sprintf(error_string_long, MSG_ERR_FAILS, (double) tn, (double) h);
+	    warning_msg(error_string_long);
+	    return(ERR_FAILURE);
     case REP_CONV_FAIL: 
-            sprintf(error_string_long, MSG_CONV_FAILS, (double) tn, (double) h);
-            warning_msg(error_string_long);
-            return(CONV_FAILURE);
+	    sprintf(error_string_long, MSG_CONV_FAILS, (double) tn, (double) h);
+	    warning_msg(error_string_long);
+	    return(CONV_FAILURE);
     case SETUP_FAILED:  
-            sprintf(error_string_long, MSG_SETUP_FAILED, (double) tn);
-            warning_msg(error_string_long);
-            return(SETUP_FAILURE);
+	    sprintf(error_string_long, MSG_SETUP_FAILED, (double) tn);
+	    warning_msg(error_string_long);
+	    return(SETUP_FAILURE);
     case SOLVE_FAILED:  
-            sprintf(error_string_long, MSG_SOLVE_FAILED, (double) tn);
-            warning_msg(error_string_long);
-            return(SOLVE_FAILURE);
+	    sprintf(error_string_long, MSG_SOLVE_FAILED, (double) tn);
+	    warning_msg(error_string_long);
+	    return(SOLVE_FAILURE);
   }
   return(-99);
 }

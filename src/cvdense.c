@@ -230,8 +230,8 @@ int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
   /* Return immediately if cvode_mem is NULL */
   cv_mem = (CVodeMem) cvode_mem;
   if (cv_mem == NULL) {                   /* CVode reports this error */
-          output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+	  return(LMEM_FAIL);
   }
 
   /* Test if the NVECTOR package is compatible with the DENSE solver */
@@ -240,7 +240,7 @@ int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
       machenv->ops->nvdispose == NULL ||
       machenv->ops->nvgetdata == NULL || 
       machenv->ops->nvsetdata == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
+	  output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
     return(LMEM_FAIL);
   }
 
@@ -255,7 +255,7 @@ int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
   /* Get memory for CVDenseMemRec */
   lmem = cvdense_mem = (CVDenseMem) malloc(sizeof(CVDenseMemRec));
   if (cvdense_mem == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
     return(LMEM_FAIL);
   }
 
@@ -272,21 +272,21 @@ int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
   
   M = DenseAllocMat(N);
   if (M == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  return(LMEM_FAIL);
   }
   savedJ = DenseAllocMat(N);
   if (savedJ == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-          DenseFreeMat(M);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  DenseFreeMat(M);
+	  return(LMEM_FAIL);
   }
   pivots = DenseAllocPiv(N);
   if (pivots == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-          DenseFreeMat(M);
-          DenseFreeMat(savedJ);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+	  DenseFreeMat(M);
+	  DenseFreeMat(savedJ);
+	  return(LMEM_FAIL);
   }
 
   return(SUCCESS);
@@ -310,8 +310,8 @@ int CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
   /* Return immediately if cvode_mem is NULL */
   cv_mem = (CVodeMem) cvode_mem;
   if (cv_mem == NULL) {                   /* CVode reports this error */
-          output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+	  return(LMEM_FAIL);
   }
 
   /* Test if the NVECTOR package is compatible with the DENSE solver */
@@ -320,8 +320,8 @@ int CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
       machenv->ops->nvdispose == NULL ||
       machenv->ops->nvgetdata == NULL || 
       machenv->ops->nvsetdata == NULL) {
-          output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
-          return(LMEM_FAIL);
+	  output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
+	  return(LMEM_FAIL);
   }
 
   cvdense_mem = (CVDenseMem) lmem;   /* Use existing linear solver memory pointer */

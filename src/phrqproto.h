@@ -331,7 +331,7 @@ struct master *master_search (char *ptr, int *n);
 
 struct mix *mix_bsearch (int k, int *n);
 int mix_copy(struct mix *mix_old_ptr, 
-             struct mix *mix_new_ptr, int n_user_new);
+	     struct mix *mix_new_ptr, int n_user_new);
 int mix_duplicate(int n_user_old, int n_user_new);
 int mix_free (struct mix *mix_ptr);
 struct mix *mix_search(int n_user, int *n, int print);
@@ -438,7 +438,7 @@ int system_duplicate (int i, int save_old);
 
 struct temperature *temperature_bsearch (int k, int *n);
 int temperature_copy(struct temperature *temperature_old_ptr, 
-                     struct temperature *temperature_new_ptr, int n_user_new);
+		     struct temperature *temperature_new_ptr, int n_user_new);
 int temperature_duplicate(int n_user_old, int n_user_new);
 int temperature_free (struct temperature *temperature_ptr);
 struct temperature *temperature_search(int n_user, int *n);

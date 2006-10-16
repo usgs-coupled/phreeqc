@@ -296,10 +296,10 @@ void N_VLinearSum_Serial(realtype a, N_Vector x, realtype b, N_Vector y, N_Vecto
   /*if ((test = ((a == ONE) && (b == -ONE))) || ((a == -ONE) && (b == ONE))) {*/
   test = ((a == ONE) && (b == -ONE));
   if (test || ((a == -ONE) && (b == ONE))) {
-          v1 = test ? y : x;
-          v2 = test ? x : y;
-          VDiff_Serial(v2, v1, z);
-          return;
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VDiff_Serial(v2, v1, z);
+	  return;
   }
       
   /* Cases: (1) a == 1.0, b == other or 0.0, (2) a == other or 0.0, b == 1.0 */
@@ -308,11 +308,11 @@ void N_VLinearSum_Serial(realtype a, N_Vector x, realtype b, N_Vector y, N_Vecto
   /*if ((test = (a == ONE)) || (b == ONE)) {*/
   test = (a == ONE);
   if (test || (b == ONE)) {
-          c = test ? b : a;
-          v1 = test ? y : x;
-          v2 = test ? x : y;
-          VLin1_Serial(c, v1, v2, z);
-          return;
+	  c = test ? b : a;
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VLin1_Serial(c, v1, v2, z);
+	  return;
   }
 
   /* Cases: (1) a == -1.0, b != 1.0, (2) a != 1.0, b == -1.0 */
@@ -320,11 +320,11 @@ void N_VLinearSum_Serial(realtype a, N_Vector x, realtype b, N_Vector y, N_Vecto
   /*if ((test = (a == -ONE)) || (b == -ONE)) {*/
   test = (a == -ONE);
   if (test || (b == -ONE)) {
-          c = test ? b : a;
-          v1 = test ? y : x;
-          v2 = test ? x : y;
-          VLin2_Serial(c, v1, v2, z);
-          return;
+	  c = test ? b : a;
+	  v1 = test ? y : x;
+	  v2 = test ? x : y;
+	  VLin2_Serial(c, v1, v2, z);
+	  return;
   }
 
   /* Case: a == b */
