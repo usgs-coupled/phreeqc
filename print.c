@@ -20,7 +20,7 @@ static int print_s_s_assemblage(void);
 static int print_saturation_indices(void);
 static int print_totals(void);
 static int print_using(void);
-static int print_user_print(void);
+/*static int print_user_print(void);*/
 static int punch_gas_phase(void);
 static int punch_identifiers(void);
 static int punch_kinetics(void);

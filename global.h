@@ -14,7 +14,7 @@ static char const svnidglobal[] = "$Id$";
  * uncomment following line, to use default DOS file name for
  * output file
  */
-/*#define DOS*/
+#define DOS
 /*
  *   BUG FIX FOR DGs
  */
@@ -338,13 +338,14 @@ EXTERNAL struct charge_group {
 		LDBLE z;
 		LDBLE eq;
 } *charge_group;
-EXTERNAL int change_surf_flag;
+EXTERNAL int change_surf_count;
 EXTERNAL struct change_surf {
 		char *comp_name;
 		LDBLE fraction;
 		char *new_comp_name;
 		LDBLE new_Dw;
 		int cell_no;
+		int next;
 } *change_surf;
 /* ----------------------------------------------------------------------
  *   Exchange

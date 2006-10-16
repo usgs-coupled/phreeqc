@@ -189,12 +189,11 @@ int transport(void)
 		diffc = diffc_max;
 	if ((stag_data->exch_f > 0) && (stag_data->count_stag == 1)) {
 		/* multi_D calc's are OK if all cells have the same amount of water */
-		if (multi_Dflag == TRUE) {
-			/* error_msg("In multicomponent diffusion, stagnant mixing must be defined with keyword MIX.", CONTINUE); */
+/*		if (multi_Dflag == TRUE) {
 			sprintf(token, "multi_D calc's and stagnant: define MIXing factors explicitly, or \n\t give all cells the same amount of water.");
 			warning_msg(token);
 		}
-		mix_ptr = &mix[0];
+ */		mix_ptr = &mix[0];
 		for (i = 0; i < count_mix; i++)
 			mix_free(mix_ptr++);
 		count_mix = 2 * count_cells;
@@ -210,6 +209,8 @@ int transport(void)
  */
 	nmix = init_mix();
 	heat_nmix = init_heat_mix(nmix);
+/* appt */
+	transport_substeps = nmix + (int) fabs(ishift);
 	if (nmix < 2)
 		stagkin_time = timest;
 	else
@@ -373,9 +374,9 @@ int transport(void)
 					/* punch and output file */
 					if ((ishift == 0) && (j == nmix) && ((stag_data->count_stag == 0) ||
 						solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0)) {
-						if ((cell_data[i-1].punch == TRUE) && (transport_step % punch_modulus == 0))
+						if ((cell_data[i - 1].punch == TRUE) && (transport_step % punch_modulus == 0))
 							punch_all();
-						if ((cell_data[i-1].print == TRUE) && (transport_step % print_modulus == 0))
+						if ((cell_data[i - 1].print == TRUE) && (transport_step % print_modulus == 0))
 							print_all();
 					}
 					if (i > 1) solution_duplicate(-2, i - 1);
@@ -384,9 +385,14 @@ int transport(void)
 					/* maybe sorb a surface component... */
 					if ((ishift == 0) && (j == nmix) && ((stag_data->count_stag == 0) ||
 						solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0)) {
-						if (change_surf_flag && i == change_surf->cell_no) {
-							reformat_surf(change_surf->comp_name, change_surf->fraction, change_surf->new_comp_name, change_surf->new_Dw, change_surf->cell_no);
-							change_surf_flag = FALSE;
+						if (change_surf_count > 0) {
+							for (k = 0; k < change_surf_count; k++) {
+								if (change_surf[k].cell_no != i)
+									break;
+								reformat_surf(change_surf[k].comp_name, change_surf[k].fraction, change_surf[k].new_comp_name, change_surf[k].new_Dw, change_surf[k].cell_no);
+								change_surf[k].cell_no = -99;
+							}
+							change_surf_count = 0;
 						}
 					}
 				}
@@ -394,7 +400,6 @@ int transport(void)
 
 				/* Stagnant zone mixing after completion of each
 				   diffusive/dispersive step ...  */
-
 				rate_sim_time_start = (transport_step - 1) * timest + (j - 1) * stagkin_time;
 				rate_sim_time = rate_sim_time_start + stagkin_time;
 
@@ -420,7 +425,7 @@ int transport(void)
 				rate_sim_time_start = (transport_step - 1) * timest;
 			rate_sim_time = rate_sim_time_start + kin_time;
 
-/* halftime kinetics for resident water in first cell ... */
+			/* halftime kinetics for resident water in first cell ... */
 			if (kinetics_bsearch(first_c, &i) != NULL && count_cells > 1) {
 				cell_no = first_c;
 				kin_time = kin_time_save / 2;
@@ -509,14 +514,19 @@ int transport(void)
 				/* maybe sorb a surface component... */
 				if ((nmix == 0) && ((stag_data->count_stag == 0) ||
 					(solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0))) {
-					if (change_surf_flag && i == change_surf->cell_no) {
-						reformat_surf(change_surf->comp_name, change_surf->fraction, change_surf->new_comp_name, change_surf->new_Dw, change_surf->cell_no);
-						change_surf_flag = FALSE;
+					if (change_surf_count > 0) {
+						for (k = 0; k < change_surf_count; k++) {
+							if (change_surf[k].cell_no != i)
+								break;
+							reformat_surf(change_surf[k].comp_name, change_surf[k].fraction, change_surf[k].new_comp_name, change_surf[k].new_Dw, change_surf[k].cell_no);
+							change_surf[k].cell_no = -99;
+						}
+						change_surf_count = 0;
 					}
 				}
+
 				/* If nmix is zero, stagnant zone mixing after
 				   advective step ... */
-
 				if ((nmix == 0) && (stag_data->count_stag > 0)) {
 					mix_stag(i, stagkin_time, TRUE, step_fraction);
 				}
@@ -580,18 +590,25 @@ int transport(void)
 				if (i > 1)
 					solution_duplicate(-2, i - 1);
 				saver();
+
+				/* maybe sorb a surface component... */
 				if ((j == nmix) && ((stag_data->count_stag == 0) ||
 					 (solution_bsearch(i + 1 + count_cells, &use.n_solution, FALSE) == 0))) {
-					if (change_surf_flag && i == change_surf->cell_no) {
-						reformat_surf(change_surf->comp_name, change_surf->fraction, change_surf->new_comp_name, change_surf->new_Dw, change_surf->cell_no);
-						change_surf_flag = FALSE;
+					if (change_surf_count > 0) {
+						for (k = 0; k < change_surf_count; k++) {
+							if (change_surf[k].cell_no != i)
+								break;
+							reformat_surf(change_surf[k].comp_name, change_surf[k].fraction, change_surf[k].new_comp_name, change_surf[k].new_Dw, change_surf[k].cell_no);
+							change_surf[k].cell_no = -99;
+						}
+						change_surf_count = 0;
 					}
 				}
 			}
 			solution_duplicate(-2, count_cells);
+
 			/* Stagnant zone mixing after completion of each
 			   diffusive/dispersive step ... */
-
 			rate_sim_time_start = (transport_step - 1) * timest + (j - 1) * stagkin_time;
 			rate_sim_time = rate_sim_time_start + stagkin_time;
 
@@ -811,7 +828,7 @@ int init_mix(void)
 int mix_stag(int i, LDBLE kin_time, int punch, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
-	int n, k, l;
+	int j, n, k, l;
 	LDBLE t_imm;
 	struct solution *ptr_imm, *ptr_m;
 /*
@@ -856,34 +873,49 @@ int mix_stag(int i, LDBLE kin_time, int punch, LDBLE step_fraction)
 					use.n_kinetics_user = i;
 					use.kinetics_in = TRUE;
 				}
-				if ((punch == TRUE) && (cell_data[i - 1].punch == TRUE) &&
-					(transport_step % punch_modulus == 0))
-					punch_all();
-				if ((punch == TRUE) && (cell_data[i - 1].print == TRUE) &&
+
+				if (punch && (cell_data[i - 1].print == TRUE) &&
 					(transport_step % print_modulus == 0))
 					print_all();
+				if (punch && (cell_data[i - 1].punch == TRUE) &&
+					(transport_step % punch_modulus == 0))
+					punch_all();
 				saver();
 
-				if (change_surf_flag && i == change_surf->cell_no) {
-					reformat_surf(change_surf->comp_name, change_surf->fraction, change_surf->new_comp_name, change_surf->new_Dw, change_surf->cell_no);
-					change_surf_flag = FALSE;
+				/* maybe sorb a surface component... */
+				if (punch && change_surf_count) {
+					for (j = 0; j < change_surf_count; j++) {
+						if (change_surf[j].cell_no != i)
+							break;
+						reformat_surf(change_surf[j].comp_name, change_surf[j].fraction, change_surf[j].new_comp_name, change_surf[j].new_Dw, change_surf[j].cell_no);
+						change_surf[j].cell_no = -99;
+					}
+					change_surf_count = 0;
 				}
 			}
+
 			cell_no = k;
 			run_reactions(k, kin_time, STAG, step_fraction);
 			if (multi_Dflag == TRUE)
 				fill_spec(cell_no);
-			if ((cell_data[k - 1].punch == TRUE) && (punch == TRUE) &&
-				(transport_step % punch_modulus == 0))
-				punch_all();
+
 			if ((cell_data[k - 1].print == TRUE) && (punch == TRUE) &&
 				(transport_step % print_modulus == 0))
 				print_all();
+			if ((cell_data[k - 1].punch == TRUE) && (punch == TRUE) &&
+				(transport_step % punch_modulus == 0))
+				punch_all();
 			saver();
 
-			if (change_surf_flag && k == change_surf->cell_no) {
-				reformat_surf(change_surf->comp_name, change_surf->fraction, change_surf->new_comp_name, change_surf->new_Dw, change_surf->cell_no);
-				change_surf_flag = FALSE;
+			/* maybe sorb a surface component... */
+			if (punch && change_surf_count) {
+				for (j = 0; j < change_surf_count; j++) {
+					if (change_surf[j].cell_no != k)
+						break;
+					reformat_surf(change_surf[j].comp_name, change_surf[j].fraction, change_surf[j].new_comp_name, change_surf[j].new_Dw, change_surf[j].cell_no);
+					change_surf[j].cell_no = -99;
+				}
+				change_surf_count = 0;
 			}
 		}
 	}
@@ -1084,6 +1116,7 @@ int multi_D(LDBLE DDt)
  * 3. add moles of master_species to solutions for mixing timestep DDt
  */
 	int i, j, k, l, length;
+	int first_c, last_c;
 	char *ptr;
 	char token[MAX_LENGTH];
 	struct m_s {
@@ -1096,7 +1129,15 @@ int multi_D(LDBLE DDt)
 	m_s = (struct m_s *) PHRQ_malloc((size_t) count_elements * sizeof(struct m_s));
 	if (m_s == NULL) malloc_error();
 
-	for (i = 0; i <= count_cells; i++) {
+	if (bcon_first == 1)
+		first_c = 0;
+	else
+		first_c = 1;
+	if (bcon_last == 1)
+		last_c = count_cells;
+	else
+		last_c = count_cells - 1;
+	for (i = first_c; i <= last_c; i++) {
 /*
  * 1. obtain J_ij in mol/s...
  */
@@ -1144,8 +1185,6 @@ int multi_D(LDBLE DDt)
  * 3. find the solutions and add or subtract mol/L...
  */
 		if (i > 0) {
-			if (i == count_cells && bcon_last != 1)
-				continue;
 			use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
 			use.solution_ptr->total_h -= tot_h;
 			use.solution_ptr->total_o -= tot_o;
@@ -1199,8 +1238,6 @@ int multi_D(LDBLE DDt)
 			}
 		}
 		if (i < count_cells) {
-			if (i == 0 && bcon_first != 1)
-				continue;
 			use.solution_ptr = solution_bsearch(i + 1, &use.n_solution, FALSE);
 			use.solution_ptr->total_h += tot_h;
 			use.solution_ptr->total_o += tot_o;
@@ -1269,9 +1306,11 @@ int find_J(int cell_no)
 	int i, i_max, j, j_max, k, l, n;
 	LDBLE lav, ddlm, aq1, aq2;
 	LDBLE *grad, *D, *z, *Dz, *Dzc, *Dzc_dl, Dz2c, Dz2c_dl, c, A_ij;
+	int *o_c, only_counter;
 	struct surface *s_ptr1, *s_ptr2;
-	struct surface_charge *s_charge_ptr1, *s_charge_ptr2;
+	struct surface_charge *s_charge_ptr, *s_charge_ptr1, *s_charge_ptr2;
 	LDBLE dl_s, dl_aq1, dl_aq2, visc1, visc2, c_dl, temp;
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
 
 	if (cell_no == 0) {
 		lav = cell_data[0].length / 2;
@@ -1300,16 +1339,30 @@ int find_J(int cell_no)
 	s_charge_ptr1 = s_charge_ptr2 = NULL;
 	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
 	visc1 = visc2 = 1.0;
+	only_counter = FALSE;
 
 	s_ptr1 = surface_bsearch(cell_no, &i);
 	if (s_ptr1 != NULL ) {
 		if (s_ptr1->diffuse_layer == TRUE) {
+			if (s_ptr1->only_counter_ions)
+				only_counter = TRUE;
 			/* find the one (and only one...) immobile surface comp with DL... */
 			for (i = 0; i < s_ptr1->count_comps; i++) {
 				if (s_ptr1->comps[i].Dw == 0) {
 					s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
 					dl_aq1 = s_charge_ptr1->mass_water;
 					visc1 = s_ptr1->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr1->count_comps; j++) {
+						if (s_ptr1->comps[j].Dw == 0 && s_ptr1->comps[j].charge != s_ptr1->comps[i].charge) {
+							k = (size_t) strcspn(s_ptr1->comps[i].formula, "_");
+							strncpy(token1, s_ptr1->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
+							warning_msg(token);
+							break;
+						}
+					}
 					break;
 				}
 			}
@@ -1318,11 +1371,24 @@ int find_J(int cell_no)
 	s_ptr2 = surface_bsearch(cell_no + 1, &i);
 	if (s_ptr2 != NULL ) {
 		if (s_ptr2->diffuse_layer == TRUE) {
+			if (s_ptr2->only_counter_ions)
+				only_counter = TRUE;
 			for (i = 0; i < s_ptr2->count_comps; i++) {
 				if (s_ptr2->comps[i].Dw == 0) {
 					s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
 					dl_aq2 = s_charge_ptr2->mass_water;
 					visc2 = s_ptr2->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr2->count_comps; j++) {
+						if (s_ptr2->comps[j].Dw == 0 && s_ptr2->comps[j].charge != s_ptr2->comps[i].charge) {
+							k = (size_t) strcspn(s_ptr2->comps[i].formula, "_");
+							strncpy(token1, s_ptr2->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
+							warning_msg(token);
+							break;
+						}
+					}
 					break;
 				}
 			}
@@ -1347,8 +1413,19 @@ int find_J(int cell_no)
 		/* there is one DL surface... */
 		dl_s = temp;
 	/* total pore surface becomes... */
-	if (dl_s > 0)
-		A_ij /= dl_s;
+	if (dl_s > 0) {
+		if (cell_no == 0)
+			A_ij += 0.5 * (dl_aq1 + dl_aq2) / cell_data[0].length;
+		else if (cell_no == count_cells)
+			A_ij += 0.5 * (dl_aq1 + dl_aq2) / cell_data[count_cells - 1].length;
+		else {
+			temp = dl_aq1 / (cell_data[cell_no - 1].length * cell_data[cell_no - 1].por);
+			temp += dl_aq2 / (cell_data[cell_no].length * cell_data[cell_no].por);
+			temp *= 0.5 * (cell_data[cell_no - 1].por < cell_data[cell_no].por ? cell_data[cell_no - 1].por : cell_data[cell_no].por);
+			A_ij += temp;
+		}
+	}
+
 /*
  * malloc sufficient space...
  */
@@ -1376,6 +1453,9 @@ int find_J(int cell_no)
 	Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 	if (Dzc_dl == NULL) malloc_error();
 
+	o_c = (int *) PHRQ_malloc((size_t) k * sizeof(int));
+	if (o_c == NULL) malloc_error();
+
 	Dz2c = Dz2c_dl = 0.0;
 
 /*
@@ -1394,10 +1474,18 @@ int find_J(int cell_no)
 			z[k] = sol_D[cell_no].spec[i].z;
 			Dz[k] = D[k] * z[k];
 			Dzc[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2;
-			if (dl_s > 0 && dl_aq1 > 0) {
-				for (l = 0; l < s_charge_ptr1->count_g; l++) {
-					if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
+			if (dl_s > 0) {
+				o_c[k] = 1;
+				s_charge_ptr = (dl_aq1 > 0) ? s_charge_ptr1 : s_charge_ptr2;
+				for (l = 0; l < s_charge_ptr->count_g; l++) {
+					if (equal(s_charge_ptr->g[l].charge, z[k], G_TOL) == TRUE) {
+						if (only_counter &&
+							((s_charge_ptr->la_psi < 0 && z[k] < 0) || (s_charge_ptr->la_psi > 0 && z[k] > 0))) {
+							o_c[k] = 0;
+							Dzc_dl[k] = 0;
+						}
+						else
+							Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr->g[l].g * aq1 / s_charge_ptr->mass_water);
 						break;
 					}
 				}
@@ -1415,10 +1503,18 @@ int find_J(int cell_no)
 			z[k] = sol_D[cell_no + 1].spec[j].z;
 			Dz[k] = D[k] * z[k];
 			Dzc[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2;
-			if (dl_s > 0 && dl_aq2 > 0) {
-				for (l = 0; l < s_charge_ptr2->count_g; l++) {
-					if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
+			if (dl_s > 0) {
+				o_c[k] = 1;
+				s_charge_ptr = (dl_aq2 > 0) ? s_charge_ptr2 : s_charge_ptr1;
+				for (l = 0; l < s_charge_ptr->count_g; l++) {
+					if (equal(s_charge_ptr->g[l].charge, z[k], G_TOL) == TRUE) {
+						if (only_counter &&
+							((s_charge_ptr->la_psi < 0 && z[k] < 0) || (s_charge_ptr->la_psi > 0 && z[k] > 0))) {
+							o_c[k] = 0;
+							Dzc_dl[k] = 0;
+						}
+						else
+							Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr->g[l].g * aq2 / s_charge_ptr->mass_water);
 						break;
 					}
 				}
@@ -1442,10 +1538,17 @@ int find_J(int cell_no)
  */
 			if (dl_s > 0) {
 				c_dl = 0.0;
+				o_c[k] = 1;
 				if (dl_aq1 > 0) {
 					for (l = 0; l < s_charge_ptr1->count_g; l++) {
 						if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl = sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
+							if (only_counter &&
+								((s_charge_ptr1->la_psi < 0 && z[k] < 0) || (s_charge_ptr1->la_psi > 0 && z[k] > 0))) {
+								o_c[k] = 0;
+								c_dl = 0;
+							}
+							else
+								c_dl = sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 							break;
 						}
 					}
@@ -1455,12 +1558,19 @@ int find_J(int cell_no)
 				if (dl_aq2 > 0) {
 					for (l = 0; l < s_charge_ptr2->count_g; l++) {
 						if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl += sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
+							if (only_counter &&
+								((s_charge_ptr2->la_psi < 0 && z[k] < 0) || (s_charge_ptr2->la_psi > 0 && z[k] > 0))) {
+								o_c[k] = 0;
+								c_dl = 0;
+							}
+							if (o_c[k] == 1)
+								c_dl += sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 							break;
 						}
 					}
 				}
-				else c_dl += sol_D[cell_no + 1].spec[j].c / 2;
+				else if (o_c[k] == 1)
+					c_dl += sol_D[cell_no + 1].spec[j].c / 2;
 
 				Dzc_dl[k] = Dz[k] * c_dl;
 				Dz2c_dl += Dzc_dl[k] * z[k];
@@ -1487,9 +1597,13 @@ int find_J(int cell_no)
 		c += Dz[j] * grad[j];
 	for (i = 0; i < k; i++) {
 		J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
-		if (Dz2c_dl > 0)
-			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) +
-				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * (2 / (visc1 + visc2));
+		J_ij[i].tot *= (1 - dl_s);
+		if (Dz2c_dl > 0) {
+			temp = (-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
+			if ((J_ij[i].tot <= 0 && temp <= 0) || (J_ij[i].tot > 0 && temp > 0)) {
+				J_ij[i].tot += o_c[i] * temp * dl_s;
+			}
+		}
 		J_ij[i].tot *= A_ij;
 		J_ij_sum += z[i] * J_ij[i].tot;
 	}
@@ -1500,6 +1614,7 @@ int find_J(int cell_no)
 	Dzc = (LDBLE *) free_check_null(Dzc);
 	Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
 	grad = (LDBLE *) free_check_null(grad);
+	o_c = (int *) free_check_null(o_c);
 
 	return(OK);
 }
@@ -1801,10 +1916,11 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	int i, i_max, j, j_max, k, l;
 	LDBLE ddlm, aq1, aq2;
 	LDBLE *grad, *D, *z, *Dz, *Dzc, *Dzc_dl, Dz2c, Dz2c_dl, c;
+	int *o_c, only_counter;
 	struct surface *s_ptr1, *s_ptr2;
-	struct surface_charge *s_charge_ptr1, *s_charge_ptr2;
+	struct surface_charge *s_charge_ptr, *s_charge_ptr1, *s_charge_ptr2;
 	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, temp;
-	char token[MAX_LENGTH];
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
 
 	if (cell_data[icell - 1].por < multi_Dpor_lim || cell_data[jcell - 1].por < multi_Dpor_lim) {
 		J_ij_count_spec = 0;
@@ -1824,10 +1940,13 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	s_ptr1 = s_ptr2 = NULL;
 	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
 	visc1 = visc2 = 1.0;
+	only_counter = FALSE;
 
 	s_ptr1 = surface_bsearch(icell, &i);
 	if (s_ptr1 != NULL ) {
 		if (s_ptr1->diffuse_layer == TRUE) {
+			if (s_ptr1->only_counter_ions)
+				only_counter = TRUE;
 			/* find the one (and only one...) immobile surface comp with DL... */
 			for (i = 0; i < s_ptr1->count_comps; i++) {
 				if (s_ptr1->comps[i].Dw == 0) {
@@ -1836,12 +1955,13 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 					visc1 = s_ptr1->DDL_viscosity;
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr1->count_comps; j++) {
-						if (s_ptr1->comps[j].Dw == 0) {
-							if (s_ptr1->comps[j].charge == s_ptr1->comps[i].charge) {
-								sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", s_ptr1->comps[i].formula);
-								warning_msg(token);
-								break;
-							}
+						if (s_ptr1->comps[j].Dw == 0 && s_ptr1->comps[j].charge != s_ptr1->comps[i].charge) {
+							k = (size_t) strcspn(s_ptr1->comps[i].formula, "_");
+							strncpy(token1, s_ptr1->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
+							warning_msg(token);
+							break;
 						}
 					}
 					break;
@@ -1852,6 +1972,8 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	s_ptr2 = surface_bsearch(jcell, &i);
 	if (s_ptr2 != NULL ) {
 		if (s_ptr2->diffuse_layer == TRUE) {
+			if (s_ptr2->only_counter_ions)
+				only_counter = TRUE;
 			for (i = 0; i < s_ptr2->count_comps; i++) {
 				if (s_ptr2->comps[i].Dw == 0) {
 					s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
@@ -1859,12 +1981,13 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 					visc2 = s_ptr2->DDL_viscosity;
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr2->count_comps; j++) {
-						if (s_ptr2->comps[j].Dw == 0) {
-							if (s_ptr2->comps[j].charge == s_ptr2->comps[i].charge) {
-								sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", s_ptr2->comps[i].formula);
-								warning_msg(token);
-								break;
-							}
+						if (s_ptr2->comps[j].Dw == 0 && s_ptr2->comps[j].charge != s_ptr2->comps[i].charge) {
+							k = (size_t) strcspn(s_ptr2->comps[i].formula, "_");
+							strncpy(token1, s_ptr2->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
+							warning_msg(token);
+							break;
 						}
 					}
 					break;
@@ -1913,6 +2036,8 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	Dzc_dl = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 	if (Dzc_dl == NULL) malloc_error();
 
+	o_c = (int *) PHRQ_malloc((size_t) k * sizeof(int));
+	if (o_c == NULL) malloc_error();
 	Dz2c = Dz2c_dl = 0.0;
 
 /*
@@ -1925,15 +2050,24 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	while (i < i_max || j < j_max) {
 		if (j == j_max || (strcmp(sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) < 0 &&
 				i < i_max)) {
+			/* species 'name' is only in icell */
 			J_ij[k].name = string_hsave(sol_D[icell].spec[i].name);
 			D[k] = sol_D[icell].spec[i].Dp;
 			z[k] = sol_D[icell].spec[i].z;
 			Dz[k] = D[k] * z[k];
 			Dzc[k] = Dz[k] * sol_D[icell].spec[i].c / 2;
-			if (dl_s > 0 && dl_aq1 > 0) {
-				for (l = 0; l < s_charge_ptr1->count_g; l++) {
-					if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[icell].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
+			if (dl_s > 0) {
+				o_c[k] = 1;
+				s_charge_ptr = (dl_aq1 > 0) ? s_charge_ptr1 : s_charge_ptr2;
+				for (l = 0; l < s_charge_ptr->count_g; l++) {
+					if (equal(s_charge_ptr->g[l].charge, z[k], G_TOL) == TRUE) {
+						if (only_counter &&
+							((s_charge_ptr->la_psi < 0 && z[k] < 0) || (s_charge_ptr->la_psi > 0 && z[k] > 0))) {
+							o_c[k] = 0;
+							Dzc_dl[k] = 0;
+						}
+						else
+							Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2 * (1 + s_charge_ptr->g[l].g * aq1 / s_charge_ptr->mass_water);
 						break;
 					}
 				}
@@ -1945,15 +2079,24 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 		}
 		else if (i == i_max || (strcmp(sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) > 0 &&
 				j < j_max)) {
+			/* species 'name' is only in jcell */
 			J_ij[k].name = string_hsave(sol_D[jcell].spec[j].name);
 			D[k] = sol_D[jcell].spec[j].Dp;
 			z[k] = sol_D[jcell].spec[j].z;
 			Dz[k] = D[k] * z[k];
 			Dzc[k] = Dz[k] * sol_D[jcell].spec[j].c / 2;
-			if (dl_s > 0 && dl_aq2 > 0) {
-				for (l = 0; l < s_charge_ptr2->count_g; l++) {
-					if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-						Dzc_dl[k] = Dz[k] * sol_D[jcell].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
+			if (dl_s > 0) {
+				o_c[k] = 1;
+				s_charge_ptr = (dl_aq2 > 0) ? s_charge_ptr2 : s_charge_ptr1;
+				for (l = 0; l < s_charge_ptr->count_g; l++) {
+					if (equal(s_charge_ptr->g[l].charge, z[k], G_TOL) == TRUE) {
+						if (only_counter &&
+							((s_charge_ptr->la_psi < 0 && z[k] < 0) || (s_charge_ptr->la_psi > 0 && z[k] > 0))) {
+							o_c[k] = 0;
+							Dzc_dl[k] = 0;
+						}
+						else
+							Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (1 + s_charge_ptr->g[l].g * aq2 / s_charge_ptr->mass_water);
 						break;
 					}
 				}
@@ -1964,6 +2107,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 			if (j < j_max) j++;
 		}
 		else if (strcmp(sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) == 0) {
+			/* species 'name' is in both cells */
 			J_ij[k].name = string_hsave(sol_D[icell].spec[i].name);
 			if (sol_D[icell].spec[i].Dp == 0 || sol_D[jcell].spec[j].Dp == 0)
 				D[k] = 0.0;
@@ -1976,10 +2120,17 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
  */
 			if (dl_s > 0) {
 				c_dl = 0.0;
+				o_c[k] = 1;
 				if (dl_aq1 > 0) {
 					for (l = 0; l < s_charge_ptr1->count_g; l++) {
 						if (equal(s_charge_ptr1->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl = sol_D[icell].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
+							if (only_counter &&
+								((s_charge_ptr1->la_psi < 0 && z[k] < 0) || (s_charge_ptr1->la_psi > 0 && z[k] > 0))) {
+								o_c[k] = 0;
+								c_dl = 0;
+							}
+							else
+								c_dl = sol_D[icell].spec[i].c / 2 * (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1);
 							break;
 						}
 					}
@@ -1989,12 +2140,19 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 				if (dl_aq2 > 0) {
 					for (l = 0; l < s_charge_ptr2->count_g; l++) {
 						if (equal(s_charge_ptr2->g[l].charge, z[k], G_TOL) == TRUE) {
-							c_dl += sol_D[jcell].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
+							if (only_counter &&
+								((s_charge_ptr2->la_psi < 0 && z[k] < 0) || (s_charge_ptr2->la_psi > 0 && z[k] > 0))) {
+								o_c[k] = 0;
+								c_dl = 0;
+							}
+							if (o_c[k] == 1)
+								c_dl += sol_D[jcell].spec[j].c / 2 * (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2);
 							break;
 						}
 					}
 				}
-				else c_dl += sol_D[jcell].spec[j].c / 2;
+				else if (o_c[k] == 1)
+					c_dl += sol_D[jcell].spec[j].c / 2;
 
 				Dzc_dl[k] = Dz[k] * c_dl;
 				Dz2c_dl += Dzc_dl[k] * z[k];
@@ -2021,9 +2179,13 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 		c += Dz[j] * grad[j];
 	for (i = 0; i < k; i++) {
 		J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
-		if (Dz2c_dl > 0)
-			J_ij[i].tot = J_ij[i].tot * (1 - dl_s) +
-				(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * dl_s * 2 / (visc1 + visc2);
+		J_ij[i].tot *= (1 - dl_s);
+		if (Dz2c_dl > 0) {
+			temp = (-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
+			if ((J_ij[i].tot <= 0 && temp <= 0) || (J_ij[i].tot > 0 && temp > 0)) {
+				J_ij[i].tot += o_c[i] * temp * dl_s;
+			}
+		}
 		J_ij[i].tot *= mixf;
 		J_ij_sum += z[i] * J_ij[i].tot;
 	}
@@ -2034,6 +2196,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 	Dzc = (LDBLE *) free_check_null(Dzc);
 	Dzc_dl = (LDBLE *) free_check_null(Dzc_dl);
 	grad = (LDBLE *) free_check_null(grad);
+	o_c = (int *) free_check_null(o_c);
 
 	return(OK);
 }
@@ -2134,6 +2297,11 @@ int disp_surf(LDBLE DDt)
 			/* step 1b. If cell i1 has no surface, get the mobile comps from surface i2... */
 			if (surface[n1].n_user == -99) {
 				mobile_surface_copy(surface_ptr2, &surface[n1], i1, FALSE);
+				/* limit charges to 1... */
+				if (surface[n1].count_charge > 1) {
+					if (sum_surface_comp(&surface[n1], 0, &surface[n1], 0, 1, &surface[n1], surface[n1].comps[0].Dw) == ERROR)
+						return(ERROR);
+				}						
 				f1 = 0;
 			} else
 				f1 = 1;
@@ -2155,6 +2323,11 @@ int disp_surf(LDBLE DDt)
 					else {
 					/* or make it a mobile copy of the surface in cell i1... */
 						mobile_surface_copy(surface_ptr1, &surface[n2], i2, FALSE);
+						/* limit charges to 1... */
+						if (surface[n2].count_charge > 1) {
+							if (sum_surface_comp(&surface[n2], 0, &surface[n2], 0, 1, &surface[n2], surface[n2].comps[0].Dw) == ERROR)
+								return(ERROR);
+						}						
 						f2 = 0;
 					}
 				}
@@ -2218,8 +2391,10 @@ int disp_surf(LDBLE DDt)
 					}
 					mixf = mixf_store + mcd_mixf;
 
-					if (mixf < 1e-4)
+					if (mixf < 1e-8)
 						mixf = 0;
+					if (mixf > 0.99999999)
+						mixf = 0.99999999;
 					if (i1 <= count_cells) {
 						if (sum_surface_comp(&surface[n1], f1, surface_ptr2, k, mixf, &surface[n1], surface_ptr2->comps[k].Dw) == ERROR)
 							return(ERROR);
@@ -2271,8 +2446,10 @@ int disp_surf(LDBLE DDt)
 					}
 					mixf = mixf_store + mcd_mixf;
 
-					if (mixf < 1e-4)
+					if (mixf < 1e-8)
 						mixf = 0;
+					if (mixf > 0.99999999)
+						mixf = 0.99999999;
 					if (i2 > 0) {
 						if (sum_surface_comp(&surface[n2], f2, surface_ptr1, k, mixf, &surface[n2], surface_ptr1->comps[k].Dw) == ERROR)
 							return(ERROR);
@@ -2471,6 +2648,11 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 				count_elts = 0;
 				add_elt_list(temp_surface.comps[i1].totals, 1.0);
 				add_elt_list(surface_ptr2->comps[i2].totals, f2);
+				if (count_elts > 0 ) {
+					qsort (elt_list, (size_t) count_elts,
+						(size_t) sizeof(struct elt_list), elt_list_compare);
+					elt_list_combine();
+				}
 				free_check_null(temp_surface.comps[i1].totals);
 				temp_surface.comps[i1].totals = elt_list_save();
 				temp_surface.comps[i1].Dw = new_Dw;
@@ -2486,6 +2668,11 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 			count_elts = 0;
 			add_elt_list(temp_surface.charge[charge1].diffuse_layer_totals, 1.0);
 			add_elt_list(surface_ptr2->charge[charge2].diffuse_layer_totals, f2);
+			if (count_elts > 0 ) {
+				qsort (elt_list, (size_t) count_elts,
+					(size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+			}
 			free_check_null(temp_surface.charge[charge1].diffuse_layer_totals);
 			temp_surface.charge[charge1].diffuse_layer_totals = elt_list_save();
 			charge_in = TRUE;
@@ -2712,9 +2899,9 @@ int mobile_surface_copy(struct surface *surface_old_ptr, struct surface *surf_pt
 			temp_surface.n_user = temp_surface.n_user_end = n_user_old;
 			temp_surface.transport = FALSE;
 
-			for (i = 0; i < i1; i++)
+			for (i = 0; i < temp_surface.count_comps; i++)
 				temp_surface.comps[i].totals = (struct elt_list *) free_check_null(temp_surface.comps[i].totals);
-			for (i = 0; i < i2; i++) {
+			for (i = 0; i < temp_surface.count_charge; i++) {
 				temp_surface.charge[i].diffuse_layer_totals = (struct elt_list *) free_check_null(temp_surface.charge[i].diffuse_layer_totals);
 				temp_surface.charge[i].g = (struct surface_diff_layer *) free_check_null(temp_surface.charge[i].g);
 			}
@@ -2776,6 +2963,7 @@ int mobile_surface_copy(struct surface *surface_old_ptr, struct surface *surf_pt
 			surface_delete(n_user_old);
 		}
 	}
+
 	surface_free(&temp_surface);
 	return(OK);
 }
@@ -2788,7 +2976,7 @@ int diff_stag_surf(int mobile_cell)
  *  when not already done.
  *  If mixing factors among the cells are defined expicitly, it is assumed that
  *  mixing with a lower numbered cell was done when that cell was processed:
- *  for any cell in MCD, include mixing factors for all the higher numbered cells.
+ *  for any cell in MCD, need only include the mixing factors for higher numbered cells.
  */
 {
 	int i, i1, i2, j, k, k1, n, n1, n2, ns, temp_count_surface;
@@ -2814,7 +3002,7 @@ int diff_stag_surf(int mobile_cell)
 
 		i1 = mobile_cell + 1 + ns * count_cells;
 		if (ns == 0)
-			i1 -= 1;
+			i1--;
 
 		if (cell_data[i1 - 1].por < multi_Dpor_lim)
 			continue;
@@ -2867,6 +3055,11 @@ int diff_stag_surf(int mobile_cell)
 				else {
 				/* or make it a mobile copy of the surface in cell i2... */
 					mobile_surface_copy(surface_ptr2, &surface[n1], i1, FALSE);
+					/* limit comps to 1... */
+					if (surface[n1].count_comps > 1) {
+						if (sum_surface_comp(&surface[n1], 0, &surface[n1], 0, 1, &surface[n1], surface[n1].comps[0].Dw) == ERROR)
+							return(ERROR);
+					}						
 					f1 = 0;
 				}
 			}
@@ -2887,6 +3080,11 @@ int diff_stag_surf(int mobile_cell)
 				else {
 				/* or make it a mobile copy of the surface in cell i1... */
 					mobile_surface_copy(surface_ptr1, &surface[n2], i2, FALSE);
+					/* limit comps to 1... */
+					if (surface[n2].count_comps > 1) {
+						if (sum_surface_comp(&surface[n2], 0, &surface[n2], 0, 1, &surface[n2], surface[n2].comps[0].Dw) == ERROR)
+							return(ERROR);
+					}						
 					f2 = 0;
 				}
 			}
@@ -2920,7 +3118,7 @@ int diff_stag_surf(int mobile_cell)
 							for (k1 = 0; k1 < surface_ptr1->count_comps; k1++) {
 								if (elt_list_compare(surface_ptr1->comps[k1].totals, surface_ptr2->comps[k].totals) != NULL)
 									continue;
-								Dp1 = surface_ptr1->comps[k].Dw * pow(cell_data[i1 - 1].por, multi_Dn) * viscos_f;
+								Dp1 = surface_ptr1->comps[k1].Dw * pow(cell_data[i1 - 1].por, multi_Dn) * viscos_f;
 								break;
 							}
 						}
@@ -2932,8 +3130,10 @@ int diff_stag_surf(int mobile_cell)
 						mixf /= solution_bsearch(i2, &n, FALSE)->mass_water;
 					}
 
-					if (mixf < 1e-4)
+					if (mixf < 1e-8)
 						mixf = 0;
+					if (mixf > 0.99999999)
+						mixf = 0.99999999;
 					if (sum_surface_comp(&surface[n1], f1, surface_ptr2, k, mixf, &surface[n1], surface_ptr2->comps[k].Dw) == ERROR)
 						return(ERROR);
 					f1 = 1;
@@ -2966,7 +3166,7 @@ int diff_stag_surf(int mobile_cell)
 							for (k1 = 0; k1 < surface_ptr2->count_comps; k1++) {
 								if (elt_list_compare(surface_ptr2->comps[k1].totals, surface_ptr1->comps[k].totals) != NULL)
 									continue;
-								Dp2 = surface_ptr2->comps[k].Dw * pow(cell_data[i2 - 1].por, multi_Dn) * viscos_f;
+								Dp2 = surface_ptr2->comps[k1].Dw * pow(cell_data[i2 - 1].por, multi_Dn) * viscos_f;
 								break;
 							}
 						}
@@ -2978,8 +3178,10 @@ int diff_stag_surf(int mobile_cell)
 						mixf /= solution_bsearch(i1, &n, FALSE)->mass_water;
 					}
 
-					if (mixf < 1e-4)
+					if (mixf < 1e-8)
 						mixf = 0;
+					if (mixf > 0.99999999)
+						mixf = 0.99999999;
 					if (sum_surface_comp(&surface[n2], f2, surface_ptr1, k, mixf, &surface[n2], surface_ptr1->comps[k].Dw) == ERROR)
 						return(ERROR);
 					f2 = 1;
@@ -3055,143 +3257,176 @@ int diff_stag_surf(int mobile_cell)
 }
 
 /* ---------------------------------------------------------------------- */
-int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell_no)
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell)
 /* ---------------------------------------------------------------------- */
 {
-	int i, i1, j, k, n, length;
+	int i, i1, j, k, k1, n, length, length1, cn, cn1, charge_in;
 	char string[MAX_LENGTH];
 	struct surface temp_surface, *surf_ptr;
 
-	if ((surf_ptr = surface_bsearch(cell_no, &n)) == ERROR) {
-/*		sprintf(error_string, "No surface for change_surf in cell %d.", cell_no);
-		warning_msg(error_string); */
+	if ((surf_ptr = surface_bsearch(cell, &n)) == ERROR)
 		return(OK);
-	}
+
+	if (fraction > 0.99999999)
+		fraction = 0.99999999;
 	length = strlen(comp_name);
+	length1 = strlen(new_comp_name);
 	for (k = 0; k < surf_ptr->count_comps; k++) {
 		if (strncmp(comp_name, surf_ptr->comps[k].formula, length) == NULL)
 			break;
 	}
-	if (k == surf_ptr->count_comps) {
-/*		sprintf(error_string, "Surface component %s not found for change_surf in cell %d.", comp_name, cell_no);
-		warning_msg(error_string, CONTINUE); */
+	if (k == surf_ptr->count_comps)
 		return(OK);
+
+	surface_copy(surf_ptr, &temp_surface, cell);
+
+	for (k1 = 0; k1 < temp_surface.count_comps; k1++) {
+		if (strncmp(new_comp_name, temp_surface.comps[k1].formula, length1) == NULL)
+			break;
 	}
-	temp_surface.n_user = temp_surface.n_user_end = cell_no;
-	temp_surface.new_def = surf_ptr->new_def;
-	sprintf(string, "Surface reformatted by 'change_surf' in simulation %d.", simulation);
-	temp_surface.description = string_duplicate(string);
-	temp_surface.diffuse_layer = surf_ptr->diffuse_layer;
-	temp_surface.edl = surf_ptr->edl;
-	temp_surface.only_counter_ions = surf_ptr->only_counter_ions;
-	temp_surface.donnan = surf_ptr->donnan;
-	temp_surface.thickness = surf_ptr->thickness;
-	temp_surface.debye_lengths = surf_ptr->debye_lengths;
-	temp_surface.DDL_viscosity = surf_ptr->DDL_viscosity;
-	temp_surface.DDL_limit = surf_ptr->DDL_limit;
-	temp_surface.solution_equilibria = FALSE;
-	temp_surface.n_solution = -99;
-	temp_surface.related_phases = surf_ptr->related_phases;
-	temp_surface.related_rate = surf_ptr->related_rate;
-	if (new_Dw == 0)
-		temp_surface.transport = FALSE;
-	else
-		temp_surface.transport = TRUE;
 
-	temp_surface.comps = (struct surface_comp *) PHRQ_malloc(sizeof (struct surface_comp));
-	if (temp_surface.comps == NULL) malloc_error();
-	temp_surface.charge = (struct surface_charge *) PHRQ_malloc(sizeof (struct surface_charge));
-	if (temp_surface.charge == NULL) malloc_error();
+	charge_in = FALSE;
+	if (k1 == temp_surface.count_comps) {
+		/* new_comp_name absent */
+		/* rename the comps... */
+		for (i = 0; i < temp_surface.count_comps; i++) {
+			if (temp_surface.comps[i].charge != temp_surface.comps[k].charge)
+				continue;
 
-	/* add in requested comp's and the charge... */
-	i1 = 0;
-	for (i = 0; i < surf_ptr->count_comps; i++) {
-		if (surf_ptr->comps[i].charge != surf_ptr->comps[k].charge)
-			continue;
-		i1++;
-		if (i1 > 1) {
-			temp_surface.comps = (struct surface_comp *) PHRQ_realloc(temp_surface.comps, (size_t) i1 * sizeof (struct surface_comp));
-			if (temp_surface.comps == NULL) malloc_error();
-		}
-		memcpy(&temp_surface.comps[i1 - 1], &surf_ptr->comps[i], sizeof (struct surface_comp));
+			strcpy(string, temp_surface.comps[i].formula);
+			replace(comp_name, new_comp_name, string);
+			temp_surface.comps[i].formula = string_hsave(string);
 
-		/* rename the comps and copy in totals... */
-		strcpy(string, temp_surface.comps[i1 - 1].formula);
-		replace(comp_name, new_comp_name, string);
-		temp_surface.comps[i1 - 1].formula = string_hsave(string);
+			temp_surface.comps[i].moles *= fraction;
 
-		count_elts = 0;
-		add_elt_list(surf_ptr->comps[i].totals, fraction);
+			count_elts = 0;
+			add_elt_list(temp_surface.comps[i].totals, fraction);
+			free_check_null(temp_surface.comps[i].totals);
+			temp_surface.comps[i].totals = elt_list_save();
 
-		/* rename surface comp in element list */
-		for (j = 0; elt_list[j].elt != NULL; j++) {
-			if (strncmp(comp_name, elt_list[j].elt->name, length) == NULL) {
-				strcpy(string, elt_list[j].elt->name);
+			/* rename surface comp in element list */
+			for (j = 0; temp_surface.comps[i].totals[j].elt != NULL; j++) {
+				if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == NULL) {
+					strcpy(string, temp_surface.comps[i].totals[j].elt->name);
+					replace(comp_name, new_comp_name, string);
+					temp_surface.comps[i].totals[j].elt = element_store(string);
+				}
+			}
+			/* add charge */
+			if (!charge_in) {
+				cn = temp_surface.comps[i].charge;
+
+				temp_surface.charge[cn].grams *= fraction;
+				temp_surface.charge[cn].charge_balance *= fraction;
+				temp_surface.charge[cn].mass_water *= fraction;
+
+				count_elts = 0;
+				add_elt_list(temp_surface.charge[cn].diffuse_layer_totals, fraction);
+				free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
+				temp_surface.charge[cn].diffuse_layer_totals = elt_list_save();
+
+				strcpy(string, temp_surface.charge[cn].name);
 				replace(comp_name, new_comp_name, string);
-				elt_list[j].elt = element_store(string);
+				temp_surface.charge[cn].name = string_hsave(string);
+				/*  renaming charge psi_master seems unnecessary... */
+#ifdef SKIP
+				strcpy(string, temp_surface.charge[cn].psi_master[0].elt->name);
+				replace(comp_name, new_comp_name, string);
+				temp_surface.charge[cn].psi_master[0].elt->name = string_hsave(string);
+#endif
+
+				charge_in = TRUE;
+			}
+			temp_surface.comps[i].Dw = new_Dw;
+		}
+
+		/* add remainder of old comp and charge */
+		if (fraction < 1)
+			sum_surface_comp(&temp_surface, 1, surf_ptr, k, 1 - fraction, &temp_surface, surf_ptr->comps[k].Dw);
+	}
+	else {
+		/* new_comp_name is already in surface */
+		cn = surf_ptr->comps[k].charge;
+		for (i = 0; i < surf_ptr->count_comps; i++) {
+
+			if (surf_ptr->comps[i].charge != cn)
+				continue;
+
+			strcpy(string, surf_ptr->comps[i].formula);
+			replace(comp_name, new_comp_name, string);
+
+			/* add comps to new_comps */
+			for (i1 = 0; i1 < temp_surface.count_comps; i1++) {
+
+				if (strcmp(string, temp_surface.comps[i1].formula) != NULL)
+					continue;
+
+				temp_surface.comps[i1].moles += surf_ptr->comps[i].moles * fraction;
+				temp_surface.comps[i].moles -= surf_ptr->comps[i].moles * fraction;
+
+				/* rename surface comp in element list */
+				for (j = 0; temp_surface.comps[i].totals[j].elt != NULL; j++) {
+					if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == NULL) {
+						strcpy(string, temp_surface.comps[i].totals[j].elt->name);
+						replace(comp_name, new_comp_name, string);
+						temp_surface.comps[i].totals[j].elt = element_store(string);
+					}
+				}
+				count_elts = 0;
+				add_elt_list(temp_surface.comps[i1].totals, 1.0);
+				add_elt_list(temp_surface.comps[i].totals, fraction);
+				if (count_elts > 0 ) {
+					qsort (elt_list, (size_t) count_elts, (size_t) sizeof(struct elt_list), elt_list_compare);
+					elt_list_combine();
+				}
+				free_check_null(temp_surface.comps[i1].totals);
+				temp_surface.comps[i1].totals = elt_list_save();
+				temp_surface.comps[i1].Dw = new_Dw;
+
+				count_elts = 0;
+				add_elt_list(surf_ptr->comps[i].totals, 1.0 - fraction);
+				free_check_null(temp_surface.comps[i].totals);
+				temp_surface.comps[i].totals = elt_list_save();
+
+				/* add charge */
+				if (!charge_in) {
+					cn1 = temp_surface.comps[i1].charge;
+					temp_surface.charge[cn1].grams += surf_ptr->charge[cn].grams * fraction;
+					temp_surface.charge[cn1].charge_balance += surf_ptr->charge[cn].charge_balance * fraction;
+					temp_surface.charge[cn1].mass_water += surf_ptr->charge[cn].mass_water * fraction;
+
+					temp_surface.charge[cn].grams -= surf_ptr->charge[cn].grams * fraction;
+					temp_surface.charge[cn].charge_balance -= surf_ptr->charge[cn].charge_balance * fraction;
+					temp_surface.charge[cn].mass_water -= surf_ptr->charge[cn].mass_water * fraction;
+
+					count_elts = 0;
+					add_elt_list(temp_surface.charge[cn1].diffuse_layer_totals, 1.0);
+					add_elt_list(surf_ptr->charge[cn].diffuse_layer_totals, fraction);
+					if (count_elts > 0 ) {
+						qsort (elt_list, (size_t) count_elts, (size_t) sizeof(struct elt_list), elt_list_compare);
+						elt_list_combine();
+					}
+					free_check_null(temp_surface.charge[cn1].diffuse_layer_totals);
+					temp_surface.charge[cn1].diffuse_layer_totals = elt_list_save();
+
+					count_elts = 0;
+					add_elt_list(surf_ptr->charge[cn].diffuse_layer_totals, 1.0 - fraction);
+					free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
+					temp_surface.charge[cn].diffuse_layer_totals = elt_list_save();
+
+					charge_in = TRUE;
+				}
 			}
 		}
-		temp_surface.comps[i1 - 1].totals = elt_list_save();
-		temp_surface.comps[i1 - 1].charge = 0;
-		temp_surface.comps[i1 - 1].Dw = new_Dw;
-	}
-	temp_surface.count_comps = i1;
-
-	if (temp_surface.edl == TRUE) {
-		memcpy(&temp_surface.charge[0], &surf_ptr->charge[surf_ptr->comps[k].charge], (size_t) sizeof (struct surface_charge));
-		temp_surface.charge[0].grams *= fraction;
-		temp_surface.charge[0].charge_balance *= fraction;
-		temp_surface.charge[0].mass_water *= fraction;
-		temp_surface.charge[0].g = NULL;
-		temp_surface.charge[0].count_g = 0;
-
-		count_elts = 0;
-		if (surf_ptr->charge[surf_ptr->comps[k].charge].diffuse_layer_totals != NULL) {
-			add_elt_list(surf_ptr->charge[surf_ptr->comps[k].charge].diffuse_layer_totals, fraction);
-			temp_surface.charge[0].diffuse_layer_totals = elt_list_save();
-		}
-		else
-			temp_surface.charge[0].diffuse_layer_totals = NULL;
 	}
 
-	/* rename the charge is not necessary ?? */
-/*	strcpy(string, temp_surface.charge[0].name);
-	replace(comp_name, new_comp_name, string);
-	temp_surface.charge[0].name = string_hsave(string);
- */
-/*	strcpy(string, temp_surface.charge[0].psi_master[0].elt->name);
-	replace(comp_name, new_comp_name, string);
-	temp_surface.charge[0].psi_master[0].elt = element_store(string);
-	temp_surface.charge[0].psi_master[0].elt->name = string_hsave(string);
- */
-	temp_surface.count_charge = 1;
-
-	/* see if new_comp_name is already in surface */
-	for (i1 = 0; i1 < surf_ptr->count_comps; i1++) {
-		if (strncmp(new_comp_name, surf_ptr->comps[i1].formula, strlen(new_comp_name)) == NULL) {
-			/* add the new_comp */
-			if (sum_surface_comp(&temp_surface, 1, surf_ptr, i1, 1, &temp_surface, new_Dw) == ERROR)
-				return(ERROR);
-			break;
-		}
-	}
-	/* add old comp and charge */
-	if (fraction < 1)
-		sum_surface_comp(&temp_surface, 1, surf_ptr, k, 1 - fraction, &temp_surface, surf_ptr->comps[k].Dw);
-
-	/* add other comp's and charge */
-	for (i = 0; i < surf_ptr->count_comps; i++) {
-		if (surf_ptr->comps[i].charge == surf_ptr->comps[i1].charge || surf_ptr->comps[i].charge == surf_ptr->comps[k].charge)
-			continue;
-		for (j = 0; j < i; j++) {
-			if (surf_ptr->comps[j].charge == surf_ptr->comps[i].charge)
-				break;
-		}
-		if (j == i)
-			sum_surface_comp(&temp_surface, 1, surf_ptr, i, 1, &temp_surface, surf_ptr->comps[i].Dw);
+	temp_surface.transport = FALSE;
+	for (i = 0; i < temp_surface.count_comps; i++) {
+		if (temp_surface.comps[i].Dw > 0)
+			temp_surface.transport = TRUE;
 	}
 	surface_free(surf_ptr);
-	surface_copy(&temp_surface, surf_ptr, cell_no);
+	surface_copy(&temp_surface, surf_ptr, cell);
 	surface_free(&temp_surface);
 
 	return(OK);

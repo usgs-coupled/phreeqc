@@ -197,6 +197,7 @@ int print_master_reactions(void);
 int print_reaction(struct reaction *rxn_ptr);
 int print_species(void);
 int print_surface(void);
+int print_user_print(void);
 int punch_all(void);
 
 /* read.c */
@@ -419,6 +420,7 @@ int species_list_compare_alk (const void *ptr1, const void *ptr2);
 int species_list_compare_master (const void *ptr1, const void *ptr2);
 int species_list_sort(void);
 
+struct change_surf *change_surf_alloc (int count);
 struct surface *surface_alloc (void);
 struct surface *surface_bsearch (int k, int *n);
 int surface_comp_compare(const void *ptr1, const void *ptr2);
@@ -482,7 +484,8 @@ int tidy_model(void);
 int transport(void);
 int set_initial_moles(int i);
 int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2, int k, LDBLE f2, struct surface *target, LDBLE new_Dw);
-int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell_no);
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell);
+int transport_substeps;
 
 /* utilities.c */
 int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef);

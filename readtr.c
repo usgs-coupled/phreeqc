@@ -623,12 +623,14 @@ int read_transport (void)
 			bcon_last = 3;
 	}
 /*
- *  Warn for multicomponent diffusion...
+ *  Warn for multicomponent diffusion (the effect is small)...
  */
+#ifdef SKIP
 	if (multi_Dflag == TRUE && count_disp > 0) {
 		sprintf(error_string,"A model with multicomponent diffusion and dispersivity > 0\n\t may show ill-defined, too high dispersion...");
 		warning_msg(error_string);
 	}
+#endif
 /*
  *  Retain data from previous run
  */

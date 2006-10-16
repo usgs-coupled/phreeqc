@@ -352,9 +352,7 @@ int clean_up(void)
 
 /* basic commands hash table */
         cmd_free();
-		if (change_surf != NULL) {
-			free_check_null(change_surf);
-		}
+		free_check_null(change_surf);
 
 /* miscellaneous work space */
 
@@ -4775,6 +4773,18 @@ int species_list_sort(void)
  *   Routines related to structure "surface"
  *
  * ********************************************************************** */
+/* ---------------------------------------------------------------------- */
+struct change_surf *change_surf_alloc(int count)
+/* ---------------------------------------------------------------------- */
+{
+	change_surf = (struct change_surf *) PHRQ_realloc(change_surf, (size_t) count * sizeof(struct change_surf));
+	if (change_surf == NULL) malloc_error();
+	change_surf[count - 1].cell_no = -99;
+	change_surf[count - 1].next = FALSE;
+	change_surf[count - 2].next = TRUE;
+
+	return(change_surf);
+}
 /* ---------------------------------------------------------------------- */
 struct surface *surface_alloc (void)
 /* ---------------------------------------------------------------------- */

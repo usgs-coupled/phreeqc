@@ -485,6 +485,7 @@ int initial_surface_water(void)
 	int i;
 	LDBLE debye_length, r, rd, ddl_limit, rd_limit, fraction, sum_fracs, sum_surfs, s;
 	LDBLE mass_water_surface;
+	double damp_aq;
 
 /*
  *   Debye  length = 1/k = sqrt[eta*eta_zero*R*T/(2*F**2*mu_x*1000)], Dzombak and Morel, p 36
@@ -530,6 +531,12 @@ int initial_surface_water(void)
 					fraction = ddl_limit;
 				} else
 					fraction = 1 - pow(r - rd, 2) / (r * r);
+				damp_aq = 1.0;
+				if (g_iterations > 10)
+					damp_aq = 0.2;
+				else if (g_iterations > 5)
+					damp_aq = 0.5;
+				fraction = damp_aq * fraction + (1 - damp_aq) * x[i]->surface_charge->mass_water / mass_water_bulk_x;
 				mass_water_surface = fraction * mass_water_bulk_x;
 				sum_fracs += fraction;
 			}
@@ -692,9 +699,15 @@ int calc_all_donnan(void)
 			if (new_g2 < - ratio_aq) new_g2 = -ratio_aq + G_TOL * 1e-5;
 #endif
 			new_g = ratio_aq * (exp(-charge_group[k].z * psi_avg) - 1);
-			if (new_g < - ratio_aq) new_g = -ratio_aq + G_TOL * 1e-5;
+			if (use.surface_ptr->only_counter_ions &&
+				((surf_chrg_eq < 0 && charge_group[k].z < 0) || (surf_chrg_eq > 0 && charge_group[k].z > 0)))
+				new_g = -ratio_aq;
+			if (new_g <= - ratio_aq) new_g = -ratio_aq + G_TOL * 1e-3;
 			new_g2 = ratio_aq * (exp(-charge_group[k].z * psi_avg2) - 1);
-			if (new_g2 < - ratio_aq) new_g2 = -ratio_aq + G_TOL * 1e-5;
+			if (use.surface_ptr->only_counter_ions &&
+				((surf_chrg_eq < 0 && charge_group[k].z < 0) || (surf_chrg_eq > 0 && charge_group[k].z > 0)))
+				new_g2 = -ratio_aq;
+			if (new_g2 <= - ratio_aq) new_g2 = -ratio_aq + G_TOL * 1e-3;
 			if (fabs(new_g) >= 1) {
 				if (fabs((new_g - x[j]->surface_charge->g[k].g) / new_g) > convergence_tolerance) {
 					converge = FALSE;
@@ -805,7 +818,10 @@ int calc_init_donnan(void)
 
 		for (k = 0; k < count_g; k++) {
 			x[j]->surface_charge->g[k].charge = charge_group[k].z;
-			x[j]->surface_charge->g[k].g = exp(-charge_group[k].z * psi_avg) - 1;
+			x[j]->surface_charge->g[k].g = ratio_aq * (exp(-charge_group[k].z * psi_avg) - 1);
+			if (use.surface_ptr->only_counter_ions &&
+				((surf_chrg_eq < 0 && charge_group[i].z < 0) || (surf_chrg_eq > 0 && charge_group[i].z > 0)))
+				x[j]->surface_charge->g[k].g = -ratio_aq;
 			if (x[j]->surface_charge->g[k].g != 0) {
 				x[j]->surface_charge->g[k].dg = - A_surf * f_sinh * cosh(f_psi) /
 					(charge_group[k].eq * F_C_MOL);
@@ -870,6 +886,9 @@ LDBLE calc_psi_avg(LDBLE surf_chrg_eq)
 		fd1 = 0.0;
 		for (i = 1; i < count_g; i++) {
 			temp = exp(-charge_group[i].z * p) * ratio_aq;
+			if (use.surface_ptr->only_counter_ions &&
+				((surf_chrg_eq < 0 && charge_group[i].z < 0) || (surf_chrg_eq > 0 && charge_group[i].z > 0)))
+				temp = 0.0;
 			fd += charge_group[i].eq * temp;
 			fd1 -= charge_group[i].z * charge_group[i].eq * temp;
 		}
@@ -881,7 +900,7 @@ LDBLE calc_psi_avg(LDBLE surf_chrg_eq)
 			sprintf(error_string, "\nToo many iterations for surface in subroutine calc_psi_avg.\n");
 			error_msg(error_string, STOP);
 		}
-	} while (fabs(fd) > G_TOL && p != 0.0);
+	} while (fabs(fd) > 1e-12 && p != 0.0);
 	if (debug_diffuse_layer == TRUE)
 		output_msg(OUTPUT_MESSAGE, "iter in calc_psi_avg = %d. g(+1) = %8f. surface charge = %8f.\n",
 		iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);

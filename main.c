@@ -136,7 +136,7 @@ int write_banner(void)
 
 	/* date */
 #ifdef DOS
-	len = sprintf(buffer, "%s", "10 august 2006");
+	len = sprintf(buffer, "%s", "5 october 2006");
 #else
 	len = sprintf(buffer, "%s", "@VER_DATE@");
 #endif

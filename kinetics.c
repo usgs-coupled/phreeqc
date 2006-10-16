@@ -55,7 +55,10 @@ LDBLE *m_temp;
 
 extern LDBLE min_value;
 extern int count_total_steps;
-
+#ifdef SKIP
+/* appt */
+static int change_surf_flag;
+#endif
 /* ---------------------------------------------------------------------- */
 int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 /* ---------------------------------------------------------------------- */
@@ -263,6 +266,10 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 			 dc5 = -277./14336.;
 	 LDBLE		dc1 = c1 - 2825./27648.,  dc3 = c3 - 18575./48384.,
 			 dc4 = c4 - 13525./55296., dc6 = c6 - 0.25;
+#ifdef SKIP
+/* appt */
+	change_surf_flag = FALSE;
+#endif
 /*
  *  Save kinetics i and solution i, if necessary
  */
@@ -429,9 +436,6 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 				}
 			}
 			if (zero_rate || equal_rate) {
-/* appt
-				save.surface = FALSE;
- */				saver();
 				/*  Free space */
 				if (pp_assemblage_save != NULL) {
 					pp_assemblage_free(pp_assemblage_save);
@@ -861,6 +865,11 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
  *   Run one more time to get distribution of species
  */
 	if (state >= REACTION || nsaver != i) {
+#ifdef SKIP
+/* appt */
+		saver();
+		change_surf_flag = TRUE;
+#endif
 		set_and_run_wrapper(i, NOMIX, FALSE, nsaver, 0.);
 		run_reactions_iterations += iterations;
 	}
@@ -1323,6 +1332,18 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		save.surface = TRUE;
 		save.n_surface_user = i;
 		save.n_surface_user_end = i;
+#ifdef SKIP
+/* appt */
+		if (change_surf_flag) {
+			for (n = 0; n < change_surf_count; n++) {
+				if (change_surf[n].cell_no != i)
+					break;
+				reformat_surf(change_surf[n].comp_name, change_surf[n].fraction, change_surf[n].new_comp_name, change_surf[n].new_Dw, change_surf[n].cell_no);
+			}
+			change_surf_count = 0;
+			change_surf_flag = FALSE;
+		}
+#endif
 	} else {
 		use.surface_in = FALSE;
 		save.surface = FALSE;
@@ -1575,10 +1596,11 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
  */
 		store_get_equi_reactants(i, FALSE);
 		if (kinetics_ptr->use_cvode == FALSE) {
+/* in case dispersivity is not wanted..
 			if (multi_Dflag)
 				rk_kinetics(i, kin_time, NOMIX, nsaver, step_fraction);
 			else
-				rk_kinetics(i, kin_time, use_mix, nsaver, step_fraction);
+ */				rk_kinetics(i, kin_time, use_mix, nsaver, step_fraction);
 		}  else {
 			save_old = -2 - (count_cells * (1 + stag_data->count_stag) + 2);
 			if (nsaver != i) {

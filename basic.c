@@ -398,6 +398,7 @@ void cmd_free(void)
 /*
  *   destroy hash table
  */
+
 	hdestroy_multi(command_hash_table);
         command_hash_table = NULL;
 	return;
@@ -3348,36 +3349,36 @@ Local void cmdchange_surf(struct LOC_exec *LINK)
                (old_name, fraction, new_name, new_Dw, cell_no)
  */
 	char *c1;
+	int count;
 
-	change_surf_flag = FALSE;
-	if (change_surf == NULL) {
-		change_surf = (struct change_surf *) PHRQ_malloc(sizeof(struct change_surf));
-		if (change_surf == NULL) malloc_error();
-	}
+	change_surf_count += 1;
+	count = change_surf_count;
+	if (count > 1 && change_surf[count - 1].next == FALSE)
+		change_surf = change_surf_alloc(count);
 
 	require(toklp, LINK);
 		/* get surface component name (change affects all comps of the same charge structure) */
 		c1 = strexpr(LINK);
-		change_surf->comp_name = string_hsave(c1);
+		change_surf[count - 1].comp_name = string_hsave(c1);
 		free(c1);
 	require(tokcomma, LINK);
 		/* get fraction of comp to change */
-		change_surf->fraction = realexpr(LINK);
+		change_surf[count - 1].fraction = realexpr(LINK);
 	require(tokcomma, LINK);
 		/* get new surface component name */
 		c1 = strexpr(LINK);
-		change_surf->new_comp_name = string_hsave(c1);
+		change_surf[count - 1].new_comp_name = string_hsave(c1);
 		free(c1);
 	require(tokcomma, LINK);
 		/* get new Dw (no transport if 0) */
-		change_surf->new_Dw = realexpr(LINK);
+		change_surf[count - 1].new_Dw = realexpr(LINK);
 	require(tokcomma, LINK);
 		/* get cell_no */
-		change_surf->cell_no = intexpr(LINK);
+		change_surf[count - 1].cell_no = intexpr(LINK);
 	require(tokrp, LINK);
 
-	if (change_surf->cell_no != 0 && change_surf->cell_no != count_cells + 1)
-		change_surf_flag = TRUE;
+	if (change_surf->cell_no == 0 || change_surf->cell_no == count_cells + 1)
+		change_surf[count - 1].cell_no = -99;
 }
 
 #ifdef SKIP
