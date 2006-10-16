@@ -69,12 +69,12 @@ Anyptr my_memmove(Anyptr d, Const Anyptr s, size_t n)
 {
     register char *dd = (char *)d, *ss = (char *)s;
     if (dd < ss || (unsigned int) (dd - ss) >= n) {
-	memcpy(dd, ss, n);
+        memcpy(dd, ss, n);
     } else if (n > 0) {
-	dd += n;
-	ss += n;
-	while (n-- > 0)
-	    *--dd = *--ss;
+        dd += n;
+        ss += n;
+        while (n-- > 0)
+            *--dd = *--ss;
     }
     return d;
 }
@@ -85,7 +85,7 @@ Anyptr my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 {
     register char *ss = (char *)s, *dd = (char *)d;
     while (n-- > 0)
-	*dd++ = *ss++;
+        *dd++ = *ss++;
     return d;
 }
 
@@ -94,8 +94,8 @@ int my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
     register char *a = (char *)s1, *b = (char *)s2;
     register int i;
     while (n-- > 0)
-	if ((i = (*a++) - (*b++)) != 0)
-	    return i;
+        if ((i = (*a++) - (*b++)) != 0)
+            return i;
     return 0;
 }
 
@@ -103,16 +103,16 @@ Anyptr my_memset(Anyptr d, int c, size_t n)
 {
     register char *dd = (char *)d;
     while (n-- > 0)
-	*dd++ = (char) c;
+        *dd++ = (char) c;
     return d;
 }
 
 int my_toupper(int c)
 {
     if (islower(c))
-	return _toupper(c);
+        return _toupper(c);
     else
-	return c;
+        return c;
 }
 
 
@@ -120,9 +120,9 @@ int my_tolower(int c)
 
 {
     if (isupper(c))
-	return _tolower(c);
+        return _tolower(c);
     else
-	return c;
+        return c;
 }
 
 
@@ -133,18 +133,18 @@ long ipow(long a, long b)
     long v;
 
     if (a == 0 || a == 1)
-	return a;
+        return a;
     if (a == -1)
-	return (b & 1) ? -1 : 1;
+        return (b & 1) ? -1 : 1;
     if (b < 0)
-	return 0;
+        return 0;
     if (a == 2)
-	return 1L << b;
+        return 1L << b;
     v = (b & 1) ? a : 1;
     while ((b >>= 1) > 0) {
-	a *= a;
-	if (b & 1)
-	    v *= a;
+        a *= a;
+        if (b & 1)
+            v *= a;
     }
     return v;
 }
@@ -211,17 +211,17 @@ int strcicmp(register char *s1, register char *s2)
     register unsigned char c1, c2;
 
     while (*s1) {
-	if (*s1++ != *s2++) {
-	    if (!s2[-1])
-		return 1;
-	    c1 = (unsigned char) toupper(s1[-1]);
-	    c2 = (unsigned char) toupper(s2[-1]);
-	    if (c1 != c2)
-		return c1 - c2;
-	}
+        if (*s1++ != *s2++) {
+            if (!s2[-1])
+                return 1;
+            c1 = (unsigned char) toupper(s1[-1]);
+            c2 = (unsigned char) toupper(s2[-1]);
+            if (c1 != c2)
+                return c1 - c2;
+        }
     }
     if (*s2)
-	return -1;
+        return -1;
     return 0;
 }
 
@@ -244,7 +244,7 @@ char *strrtrim(register char *s)
     register char *s2 = s;
 
     if (!*s)
-	return s;
+        return s;
     while (*++s2) ;
     while (s2 > s && Isspace((int) *--s2))
         *s2 = 0;
@@ -283,13 +283,13 @@ register int padchar, num;
     register char *d = ret;
 
     if (s == d) {
-	while (*d++) ;
+        while (*d++) ;
     } else {
-	while ((*d++ = *s++)) ;
+        while ((*d++ = *s++)) ;
     }
     num -= (--d - ret);
     while (--num >= 0)
-	*d++ = (char) padchar;
+        *d++ = (char) padchar;
     *d = 0;
     return ret;
 }
@@ -303,11 +303,11 @@ void strmove(register int len, register char *s, register int spos, register cha
     s += spos - 1;
     d += dpos - 1;
     while (*d && --len >= 0)
-	*d++ = *s++;
+        *d++ = *s++;
     if (len > 0) {
-	while (--len >= 0)
-	    *d++ = *s++;
-	*d = 0;
+        while (--len >= 0)
+            *d++ = *s++;
+        *d = 0;
     }
 }
 
@@ -371,7 +371,7 @@ int P_peek(FILE *f)
 
     ch = getc(f);
     if (ch == EOF)
-	return EOF;
+        return EOF;
     ungetc(ch, f);
     return (ch == '\n') ? ' ' : ch;
 }
@@ -386,12 +386,12 @@ int P_eof(void)
 #ifdef SKIP
     register int ch;
     if (feof(f))
-	return 1;
+        return 1;
     if (f == stdin)
-	return 0;    /* not safe to look-ahead on the keyboard! */
+        return 0;    /* not safe to look-ahead on the keyboard! */
     ch = getc(f);
     if (ch == EOF)
-	return 1;
+        return 1;
     ungetc(ch, f);
 #endif
     return 0;
@@ -417,34 +417,34 @@ Void P_readpaoc(FILE *f, char *s, int len)
     int ch;
 
     for (;;) {
-	if (len <= 0)
-	    return;
-	ch = getc(f);
-	if (ch == EOF || ch == '\n')
-	    break;
-	*s++ = (char) ch;
-	--len;
+        if (len <= 0)
+            return;
+        ch = getc(f);
+        if (ch == EOF || ch == '\n')
+            break;
+        *s++ = (char) ch;
+        --len;
     }
     while (--len >= 0)
-	*s++ = ' ';
+        *s++ = ' ';
     if (ch != EOF)
-	ungetc(ch, f);
+        ungetc(ch, f);
 }
 Void P_readlnpaoc(FILE *f, char *s, int len)
 {
     int ch;
 
     for (;;) {
-	ch = getc(f);
-	if (ch == EOF || ch == '\n')
-	    break;
-	if (len > 0) {
-	    *s++ = (char) ch;
-	    --len;
-	}
+        ch = getc(f);
+        if (ch == EOF || ch == '\n')
+            break;
+        if (len > 0) {
+            *s++ = (char) ch;
+            --len;
+        }
     }
     while (--len >= 0)
-	*s++ = ' ';
+        *s++ = ' ';
 }
 
 
@@ -470,7 +470,7 @@ Char *P_trimname(register Char *fn, register int len)
     register Char *cp = fnbuf;
     
     while (--len >= 0 && *fn && !isspace((int) *fn))
-	*cp++ = *fn++;
+        *cp++ = *fn++;
     *cp = 0;
     return fnbuf;
 }
@@ -508,12 +508,12 @@ long *P_setunion(register long *d, register long *s1, register long *s2)        
     register int sz1 = *s1++, sz2 = *s2++;
     while (sz1 > 0 && sz2 > 0) {
         *d++ = *s1++ | *s2++;
-	sz1--, sz2--;
+        sz1--, sz2--;
     }
     while (--sz1 >= 0)
-	*d++ = *s1++;
+        *d++ = *s1++;
     while (--sz2 >= 0)
-	*d++ = *s2++;
+        *d++ = *s2++;
     *dbase = d - dbase - 1;
     return dbase;
 }
@@ -550,12 +550,12 @@ long *P_setxor(register long *d, register long *s1, register long *s2)         /
     register int sz1 = *s1++, sz2 = *s2++;
     while (sz1 > 0 && sz2 > 0) {
         *d++ = *s1++ ^ *s2++;
-	sz1--, sz2--;
+        sz1--, sz2--;
     }
     while (--sz1 >= 0)
-	*d++ = *s1++;
+        *d++ = *s1++;
     while (--sz2 >= 0)
-	*d++ = *s2++;
+        *d++ = *s2++;
     while (--d > dbase && !*d) ;
     *dbase = d - dbase;
     return dbase;
@@ -567,7 +567,7 @@ int P_inset(register unsigned val, register long *s)                 /* val IN s
     bit = val % SETBITS;
     val /= SETBITS;
     if ((long) val < (*s++ && ((1L<<bit) & s[val])))
-	return 1;
+        return 1;
     return 0;
 }
 
@@ -594,7 +594,7 @@ long *P_addsetr(register long *s, register unsigned v1, register unsigned v2)   
     register long *sbase = s;
     register int b1, b2, size;
     if ((int)v1 > (int)v2)
-	return sbase;
+        return sbase;
     b1 = v1 % SETBITS;
     v1 /= SETBITS;
     b2 = v2 % SETBITS;
@@ -625,9 +625,9 @@ long *P_remset(register long *s, register unsigned val)              /* s := s -
     bit = val % SETBITS;
     val /= SETBITS;
     if ((long) ++val <= *s) {
-	if (!(s[val] &= ~(1L<<bit)))
-	    while (*s && !s[*s])
-		(*s)--;
+        if (!(s[val] &= ~(1L<<bit)))
+            while (*s && !s[*s])
+                (*s)--;
     }
     return s;
 }
@@ -676,8 +676,8 @@ long *P_setcpy(register long *d, register long *s)                /* d := s */
 long *P_expset(register long *d, register long s)                /* d := s */
 {
     if (s) {
-	d[1] = s;
-	*d = 1;
+        d[1] = s;
+        *d = 1;
     } else
         *d = 0;
     return d;
@@ -704,13 +704,13 @@ int P_getcmdline(int l, int h, Char *line)
     h = h - l + 1;
     len = 0;
     for(i = 1; i < P_argc; i++) {
-	s = P_argv[i];
-	while (*s) {
-	    if (len >= h) return len;
-	    line[len++] = *s++;
-	}
-	if (len >= h) return len;
-	line[len++] = ' ';
+        s = P_argv[i];
+        while (*s) {
+            if (len >= h) return len;
+            line[len++] = *s++;
+        }
+        if (len >= h) return len;
+        line[len++] = ' ';
     }
     return len;
 }
@@ -725,10 +725,10 @@ int *Day, *Month, *Year, *Hour, *Min, *Sec;
     time(&clock);
     tm = localtime(&clock);
     *Day = tm->tm_mday;
-    *Month = tm->tm_mon + 1;		/* Jan = 0 */
+    *Month = tm->tm_mon + 1;            /* Jan = 0 */
     *Year = tm->tm_year;
     if (*Year < 1900)
-	*Year += 1900;     /* year since 1900 */
+        *Year += 1900;     /* year since 1900 */
     *Hour = tm->tm_hour;
     *Min = tm->tm_min;
     *Sec = tm->tm_sec;
@@ -745,7 +745,7 @@ char *s;
     time(&clock);
     c = ctime(&clock);
     for (i = 0; i < 11; i++)
-	s[i] = my_toupper(c[where[i]]);
+        s[i] = my_toupper(c[where[i]]);
     s[2] = '-';
     s[6] = '-';
 }
@@ -760,7 +760,7 @@ char *s;
     time(&clock);
     c = ctime(&clock);
     for (i = 0; i < 8; i++)
-	s[i] = c[i+11];
+        s[i] = c[i+11];
     s[8] = '.';
     s[9] = '0';
     s[10] = '0';
@@ -776,13 +776,13 @@ Void P_sun_argv(register char *s, register int len, register int n)
     register char *cp;
 
     if (n < P_argc)
-	cp = P_argv[n];
+        cp = P_argv[n];
     else
-	cp = "";
+        cp = "";
     while (*cp && --len >= 0)
-	*s++ = *cp++;
+        *s++ = *cp++;
     while (--len >= 0)
-	*s++ = ' ';
+        *s++ = ' ';
 }
 
 
@@ -821,7 +821,7 @@ static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
 
     if (prefix && *prefix) {
         strcpy(buf, prefix);
-	strcat(buf, ": ");
+        strcat(buf, ": ");
         bufp = buf + strlen(buf);
     } else {
         bufp = buf;
@@ -860,8 +860,8 @@ static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
                 strcat(buf, " (end-of-file)");
                 break;
             case FileWriteError: /*38*/
-		strcat(buf, " (file write error)");
-		break;
+                strcat(buf, " (file write error)");
+                break;
         }
     } else {
         sprintf(bufp, "Pascal system error %d", code);
@@ -904,18 +904,18 @@ int _Escape(int code)
 
     P_escapecode = code;
     if (__top_jb) {
-	__p2c_jmp_buf *jb = __top_jb;
-	__top_jb = jb->next;
-	longjmp(jb->jbuf, 1);
+        __p2c_jmp_buf *jb = __top_jb;
+        __top_jb = jb->next;
+        longjmp(jb->jbuf, 1);
     }
     if (code == 0)
-	    /*        exit(EXIT_SUCCESS); */
-	    error_msg("Exit success in Basic", STOP);
+            /*        exit(EXIT_SUCCESS); */
+            error_msg("Exit success in Basic", STOP);
     if (code == -1) {
-	    error_msg("Fatal error in Basic interpreter.", CONTINUE);
-	    sprintf(token, "%s", _ShowEscape(buf, P_escapecode, P_ioresult, ""));
-	    error_msg(token, STOP);
-	    exit(EXIT_FAILURE);
+            error_msg("Fatal error in Basic interpreter.", CONTINUE);
+            sprintf(token, "%s", _ShowEscape(buf, P_escapecode, P_ioresult, ""));
+            error_msg(token, STOP);
+            exit(EXIT_FAILURE);
     }
     /* fprintf(stderr, "%s\n", _ShowEscape(buf, P_escapecode, P_ioresult, "")); */
     /* exit(EXIT_FAILURE); */
