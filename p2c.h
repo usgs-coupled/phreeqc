@@ -41,7 +41,7 @@ static char const svnidp2c[] = "$Id$";
 #endif
 
 #ifdef FILE       /* a #define in BSD, a typedef in SYSV (hp-ux, at least) */
-# ifndef BSD      /*  (a convenient, but horrible kludge!) */
+# ifndef BSD	  /*  (a convenient, but horrible kludge!) */
 #  define BSD 1
 # endif
 #endif
@@ -131,15 +131,15 @@ typedef struct __p2c_jmp_buf {
 
 #ifndef FAKE_TRY
 # define TRY(x)         do { __p2c_jmp_buf __try_jb;  \
-                             __try_jb.next = __top_jb;  \
-                             if (!setjmp((__top_jb = &__try_jb)->jbuf)) {
-# define RECOVER(x)     __top_jb = __try_jb.next; } else {
+			     __try_jb.next = __top_jb;  \
+			     if (!setjmp((__top_jb = &__try_jb)->jbuf)) {
+# define RECOVER(x)	__top_jb = __try_jb.next; } else {
 #ifdef SKIP
 # define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
-                             if (0) { L: __top_jb = __try_jb.next; }
+			     if (0) { L: __top_jb = __try_jb.next; }
 #endif
 # define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
-                             { L: __top_jb = __try_jb.next; }
+			     { L: __top_jb = __try_jb.next; }
 # define ENDTRY(x)      } } while (0) 
 #else
 # define TRY(x)         if (1) {
@@ -207,7 +207,7 @@ typedef struct __p2c_jmp_buf {
 # endif
 # ifdef M_LINT
 #  define P2PP(x)     ()
-#  define PV()      ()
+#  define PV()	    ()
 typedef char *Anyptr;
 # else
 #  define P2PP(x)     x         /* function prototype */
@@ -331,9 +331,9 @@ extern Void     free        P2PP( (Anyptr) );
 extern int      _OutMem     PV();
 extern int      _CaseCheck  PV();
 extern int      _NilCheck   PV();
-/*extern int    _Escape     P2PP( (int) );*/
+/*extern int	_Escape     P2PP( (int) );*/
 extern int _Escape(int);
-/*extern int    _EscIO      P2PP( (int) );*/
+/*extern int	_EscIO      P2PP( (int) );*/
 extern int _EscIO (int);
 extern long     ipow        P2PP( (long, long) );
 extern Char    *strsub      P2PP( (Char *, Char *, int, int) );
@@ -365,13 +365,13 @@ extern long    *P_expset    P2PP( (long *, long) );
 extern long     P_packset   P2PP( (long *) );
 extern int      P_getcmdline P2PP( (int, int, Char *) );
 extern Void     TimeStamp   P2PP( (int *, int *, int *,
-                                 int *, int *, int *) );
-extern Void     P_sun_argv  P2PP( (char *, int, int) );
+				 int *, int *, int *) );
+extern Void	P_sun_argv  P2PP( (char *, int, int) );
 
 
 /* I/O error handling */
 #define _CHKIO(cond,ior,val,def)  ((cond) ? P_ioresult=0,(val)  \
-                                          : P_ioresult=(ior),(def))
+					  : P_ioresult=(ior),(def))
 #define _SETIO(cond,ior)          (P_ioresult = (cond) ? 0 : (ior))
 
 /* Following defines are suitable for the HP Pascal operating system */
@@ -394,39 +394,39 @@ extern Void     P_sun_argv  P2PP( (char *, int, int) );
 
 /* File buffers */
 #define FILEBUF(f,sc,type) sc int __CAT__(f,_BFLAGS);   \
-                           sc type __CAT__(f,_BUFFER)
+			   sc type __CAT__(f,_BUFFER)
 #define FILEBUFNC(f,type)  int __CAT__(f,_BFLAGS);   \
-                           type __CAT__(f,_BUFFER)
+			   type __CAT__(f,_BUFFER)
 
 #define RESETBUF(f,type)   (__CAT__(f,_BFLAGS) = 1)
 #define SETUPBUF(f,type)   (__CAT__(f,_BFLAGS) = 0)
 
 #define GETFBUF(f,type)    (*((__CAT__(f,_BFLAGS) == 1 &&   \
-                               ((__CAT__(f,_BFLAGS) = 2),   \
-                                fread(&__CAT__(f,_BUFFER),  \
-                                      sizeof(type),1,(f)))),\
-                              &__CAT__(f,_BUFFER)))
+			       ((__CAT__(f,_BFLAGS) = 2),   \
+				fread(&__CAT__(f,_BUFFER),  \
+				      sizeof(type),1,(f)))),\
+			      &__CAT__(f,_BUFFER)))
 #define AGETFBUF(f,type)   ((__CAT__(f,_BFLAGS) == 1 &&   \
-                             ((__CAT__(f,_BFLAGS) = 2),   \
-                              fread(__CAT__(f,_BUFFER),  \
-                                    sizeof(type),1,(f)))),\
-                            __CAT__(f,_BUFFER))
+			     ((__CAT__(f,_BFLAGS) = 2),   \
+			      fread(__CAT__(f,_BUFFER),  \
+				    sizeof(type),1,(f)))),\
+			    __CAT__(f,_BUFFER))
 
 #define PUTFBUF(f,type,v)  (GETFBUF(f,type) = (v))
 #define CPUTFBUF(f,v)      (PUTFBUF(f,char,v))
 #define APUTFBUF(f,type,v) (memcpy(AGETFBUF(f,type), (v),  \
-                                   sizeof(__CAT__(f,_BUFFER))))
+				   sizeof(__CAT__(f,_BUFFER))))
 
 #define GET(f,type)        (__CAT__(f,_BFLAGS) == 1 ?   \
-                            fread(&__CAT__(f,_BUFFER),sizeof(type),1,(f)) :  \
-                            (__CAT__(f,_BFLAGS) = 1))
+			    fread(&__CAT__(f,_BUFFER),sizeof(type),1,(f)) :  \
+			    (__CAT__(f,_BFLAGS) = 1))
 
 #define PUT(f,type)        (fwrite(&__CAT__(f,_BUFFER),sizeof(type),1,(f)),  \
-                            (__CAT__(f,_BFLAGS) = 0))
+			    (__CAT__(f,_BFLAGS) = 0))
 #define CPUT(f)            (PUT(f,char))
 
-#define BUFEOF(f)          (__CAT__(f,_BFLAGS) != 2 && P_eof(f))
-#define BUFFPOS(f)         (ftell(f) - (__CAT__(f,_BFLAGS) == 2))
+#define BUFEOF(f)	   (__CAT__(f,_BFLAGS) != 2 && P_eof(f))
+#define BUFFPOS(f)	   (ftell(f) - (__CAT__(f,_BFLAGS) == 2))
 
 #ifdef SKIP
 typedef struct {
@@ -451,23 +451,23 @@ extern Anyptr __MallocTemp__;
 
 /* packed arrays */   /* BEWARE: these are untested! */
 #define P_getbits_UB(a,i,n,L)   ((int)((a)[(i)>>(L)-(n)] >>   \
-                                       (((~(i))&((1<<(L)-(n))-1)) << (n)) &  \
-                                       (1<<(1<<(n)))-1))
+				       (((~(i))&((1<<(L)-(n))-1)) << (n)) &  \
+				       (1<<(1<<(n)))-1))
 
 #define P_getbits_SB(a,i,n,L)   ((int)((a)[(i)>>(L)-(n)] <<   \
-                                       (16 - ((((~(i))&((1<<(L)-(n))-1))+1) <<\
-                                              (n)) >> (16-(1<<(n))))))
+				       (16 - ((((~(i))&((1<<(L)-(n))-1))+1) <<\
+					      (n)) >> (16-(1<<(n))))))
 
 #define P_putbits_UB(a,i,x,n,L) ((a)[(i)>>(L)-(n)] |=   \
-                                 (x) << (((~(i))&((1<<(L)-(n))-1)) << (n)))
+				 (x) << (((~(i))&((1<<(L)-(n))-1)) << (n)))
 
 #define P_putbits_SB(a,i,x,n,L) ((a)[(i)>>(L)-(n)] |=   \
-                                 ((x) & (1<<(1<<(n)))-1) <<   \
-                                 (((~(i))&((1<<(L)-(n))-1)) << (n)))
+				 ((x) & (1<<(1<<(n)))-1) <<   \
+				 (((~(i))&((1<<(L)-(n))-1)) << (n)))
 
 #define P_clrbits_B(a,i,n,L)    ((a)[(i)>>(L)-(n)] &=   \
-                                 ~( ((1<<(1<<(n)))-1) <<   \
-                                   (((~(i))&((1<<(L)-(n))-1)) << (n))) )
+				 ~( ((1<<(1<<(n)))-1) <<   \
+				   (((~(i))&((1<<(L)-(n))-1)) << (n))) )
 
 /* small packed arrays */
 #define P_getbits_US(v,i,n)     ((int)((v) >> ((i)<<(n)) & (1<<(1<<(n)))-1))
