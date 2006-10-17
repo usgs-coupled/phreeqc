@@ -425,6 +425,12 @@ void initialize(void)
  *
  */
 	cmd_initialize();
+	change_surf = (struct change_surf *) PHRQ_malloc(sizeof(struct change_surf));
+	if (change_surf == NULL) malloc_error();
+	change_surf[0].cell_no = -99;
+	change_surf[0].next = FALSE;
+	change_surf_count = 0;
+
 #if defined(WINDOWS) || defined(_WINDOWS)
 	/* SRC pr.status = FALSE; */
 #endif
@@ -1803,12 +1809,12 @@ static int xsurface_save(int n_user)
 			temp_surface.comps[count_comps].la = x[i]->master[0]->s->la;
 			/* temp_surface.comps[count_comps].formula = NULL; */
 			temp_surface.comps[count_comps].moles = 0.;
- 			if (x[i]->surface_comp->charge == last_charge) {
- 				temp_surface.comps[count_comps].charge = count_charge - 1;
- 			} else {
- 				temp_surface.comps[count_comps].charge = count_charge;
- 			}
- 			last_charge = x[i]->surface_comp->charge;
+			if (x[i]->surface_comp->charge == last_charge) {
+				temp_surface.comps[count_comps].charge = count_charge - 1;
+			} else {
+				temp_surface.comps[count_comps].charge = count_charge;
+			}
+			last_charge = x[i]->surface_comp->charge;
 /*
  *   Save element concentrations on surface
  */
@@ -1846,9 +1852,10 @@ static int xsurface_save(int n_user)
 				if (temp_surface.charge[count_charge].g == NULL) malloc_error();
 				memcpy(temp_surface.charge[count_charge].g, x[i]->surface_charge->g, (size_t) x[i]->surface_charge->count_g * sizeof(struct surface_diff_layer));
 			}
-*/
+
 			/*temp_surface.charge[count_charge].psi_master = x[i]->master[0]; */
 			temp_surface.charge[count_charge].la_psi = x[i]->master[0]->s->la;
+*/
 /*
  *   Store moles from diffuse_layer
  */

@@ -5299,13 +5299,12 @@ int read_surf(void)
 		"no_electrostatic",    /* 5 */
 		"only_counter_ions",   /* 6 */
 		"donnan",              /* 7 */
-		"transport",           /* 8 */
-		"cd_music",            /* 9 */
-		"capacitances",         /* 10 */
-		"sites",                /* 11 */
-		"sites_units"           /* 12 */
+		"cd_music",            /* 8 */
+		"capacitances",         /* 9 */
+		"sites",                /* 10 */
+		"sites_units"           /* 11 */
 	};
-	int count_opt_list = 13;
+	int count_opt_list = 12;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -5395,8 +5394,6 @@ int read_surf(void)
 		case 7:			/* donnan for DL conc's */
 			surface[n].dl_type = DONNAN_DL;
 			/*surface[n].diffuse_layer = TRUE;*/
-			surface[n].debye_units = 0.0;
-			surface[n].DDL_viscosity = 1.0;
 			thickness = 0.0;
 			for (;;) {
 				i = copy_token(token, &next_char, &l);
@@ -5407,18 +5404,18 @@ int read_surf(void)
 				} else if (i != EMPTY) {
 					if (token[0] == 'D' || token[0] == 'd') {
 						if (thickness != 0) {
-							error_msg("You must enter EITHER thickness OR Debye units (1/k),\n       and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n\t\t\t  -donnan debye_units 1.5 viscosity 0.5", CONTINUE);
+							error_msg("You must enter EITHER thickness OR Debye lengths (1/k),\n	   and relative DDL viscosity, DDL limit.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n or (default values):     -donnan debye_lengths 1 viscosity 1 limit 0.8", CONTINUE);
 							error_msg(line_save, CONTINUE);
 							input_error++;
 							break;
 						}
 						j = copy_token(token1, &next_char, &l);
 						if (j == DIGIT) {
-							sscanf(token1, SCANFORMAT, &surface[n].debye_units);
+							sscanf(token1, SCANFORMAT, &surface[n].debye_lengths);
 							continue;
 						}
 						else if (j != EMPTY) {
-							error_msg("Expected number of Debye units (1/k).", CONTINUE);
+							error_msg("Expected number of Debye lengths (1/k).", CONTINUE);
 							error_msg(line_save, CONTINUE);
 							input_error++;
 							break;
@@ -5437,8 +5434,21 @@ int read_surf(void)
 							break;
 						}
 					}
+					else if (token[0] == 'L' || token[0] == 'l') {
+						j = copy_token(token1, &next_char, &l);
+						if (j == DIGIT) {
+							sscanf(token1, SCANFORMAT, &surface[n].DDL_limit);
+							continue;
+						}
+						else if (j != EMPTY) {
+							error_msg("Expected number for maximum of DDL water as fraction of bulk water.", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
 					else {
-						error_msg("Expected diffuse layer thickness (m) or Debye_units (1/k) for calculating the thickness, and relative DDL viscosity.\nCorrect is (for example): -donnan 1e-8 visc 0.5  or   -donnan debye_units 1.5 visc 0.5", CONTINUE);
+						error_msg("Expected diffuse layer thickness (m) or Debye lengths (1/k) for \n\tcalculating the thickness, and relative DDL viscosity and DDL limit.\nCorrect is (for example): -donnan 1e-8 visc 0.5\n or (default values):     -donnan debye_lengths 1 visc 1 lim 0.8", CONTINUE);
 						error_msg(line_save, CONTINUE);
 						input_error++;
 						break;
@@ -5447,14 +5457,11 @@ int read_surf(void)
 				else break;
 			}
 			break;
-		case 8:			/* transport */
-			surface[n].transport = TRUE;
-			break;
-		case 9:			/* cd_music */
+		case 8:			/* cd_music */
 			/*surface[n].edl = FALSE;*/
 			surface[n].type = CD_MUSIC;
 			break;
-		case 10:                        /* capacitances */
+		case 9:                        /* capacitances */
 			/*
 			 *   Read capacitance for CD_MUSIC
 			 */
@@ -5473,8 +5480,8 @@ int read_surf(void)
 				charge_ptr->capacitance[1] = grams;
 			} 
 			break;
-		case 11:			/* sites */
-		case 12:			/* sites_units */
+		case 10:			/* sites */
+		case 11:			/* sites_units */
 			j = copy_token(token1, &next_char, &l);
 			if (token1[0] == 'A' || token1[0] == 'a') {
 				surface[n].sites_units = SITES_ABSOLUTE;
@@ -5514,6 +5521,7 @@ int read_surf(void)
 			surface[n].comps[count_comps].phase_proportion = 0;
 			surface[n].comps[count_comps].rate_name = NULL;
 			comp_ptr = &(surface[n].comps[count_comps]);
+			surface[n].comps[count_comps].Dw = 0;
 			i = copy_token(token1, &ptr, &l);
 			if (i == DIGIT) {
 				/*
@@ -5537,9 +5545,9 @@ int read_surf(void)
 				j = copy_token(token1, &ptr, &l);
 
 				/* read optional 'equilibrium_phases' or 'kinetics' */
-                                if (j == DIGIT) {
+				if (j == DIGIT) {
 					surface[n].related_phases = TRUE;
-                                } else {
+				} else {
 					if (token1[0] == 'K' || token1[0] == 'k') {
 						surface[n].comps[count_comps].rate_name = surface[n].comps[count_comps].phase_name;
 						surface[n].comps[count_comps].phase_name = NULL;
@@ -5556,15 +5564,15 @@ int read_surf(void)
 				}
 
 				/* read proportion */
-                                if (j != DIGIT) {
-                                        error_msg("Expected a coefficient to relate surface to mineral or kinetic reaction.\n", CONTINUE);
+				if (j != DIGIT) {
+					error_msg("Expected a coefficient to relate surface to mineral or kinetic reaction.\n", CONTINUE);
 					input_error++;
 					break;
-                                }             
+				}
 				sscanf(token1, SCANFORMAT, &surface[n].comps[count_comps].phase_proportion);
-                                /* real conc must be defined in tidy_model */
-                                conc = 1.0;
-                        } else {
+				/* real conc must be defined in tidy_model */
+				conc = 1.0;
+			} else {
 				error_msg("Expected concentration of surface, mineral name, or kinetic reaction name.", CONTINUE);
 				error_msg(line_save, CONTINUE);
 				input_error++;
@@ -5645,19 +5653,23 @@ int read_surf(void)
 			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
 				surface[n].charge[i].grams = grams;
 			} 
-#ifdef SKIP
-			/*
-			 *   Read capacitance for CD_MUSIC
-			 */
+			/* read Dw */
 			copy_token(token1, &ptr, &l);
-			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
-				surface[n].charge[i].capacitance[0] = grams;
-			} 
-			copy_token(token1, &ptr, &l);
-			if (sscanf(token1, SCANFORMAT, &grams) == 1 ) {
-				surface[n].charge[i].capacitance[1] = grams;
-			} 
-#endif
+			str_tolower(token1);
+			if (strcmp(token1, "dw") == 0) {
+				j = copy_token(token1, &ptr, &l);
+				if (j != DIGIT) {
+					error_msg("Expected surface diffusion coefficient (m2/s).\n", CONTINUE);
+					input_error++;
+					break;
+				}
+				else {
+					sscanf(token1, SCANFORMAT, &surface[n].comps[count_comps - 1].Dw);
+					if (surface[n].comps[count_comps - 1].Dw > 0)
+						surface[n].transport = TRUE;
+					break;
+				}
+			}
 			break;
 
 		}
@@ -5666,8 +5678,37 @@ int read_surf(void)
 	surface[n].count_comps = count_comps;
 	surface[n].count_charge = count_charge;
 	/*
+	 * copy Dw > 0 to all comps with the same charge structure, check edl & dif for surface transport
+	 */
+	if (surface[n].transport == TRUE) {
+		/*
+		if (surface[n].edl == FALSE || surface[n].diffuse_layer == FALSE) {
+			surface[n].edl = TRUE;
+			surface[n].diffuse_layer = TRUE;
+			warning_msg("Can't transport without edl and diffuse layer, set to true");
+		}
+		*/
+		if (surface[n].type <= NO_EDL) {
+			input_error++;
+			warning_msg("Must use default Dzombak and Morel or -cd_music for surface transport.");
+		}
+		if (surface[n].type <= NO_DL) {
+			input_error++;
+			warning_msg("Must use -donnan or -diffuse_layer for surface transport.");
+		}
+		for (i = 0; i < count_comps; i++) {
+			if (surface[n].comps[i].Dw > 0) {
+				for (j = 0; j < count_comps; j++) {
+					if (surface[n].comps[j].charge == surface[n].comps[i].charge)
+						surface[n].comps[j].Dw = surface[n].comps[i].Dw;
+				}
+			}
+		}
+	}
+	/*
 	 *   Make sure surface area is defined
 	 */
+	/*if (surface[n].edl == TRUE) {*/
 	if (surface[n].type == DDL || surface[n].type == CD_MUSIC) {
 		for (i = 0; i < count_charge; i++) {
 			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <= 0) {
@@ -5699,6 +5740,7 @@ int read_surf(void)
 			surface[n].dl_type = DONNAN_DL;
 		}
 	}
+
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
