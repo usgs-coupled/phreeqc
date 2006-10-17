@@ -5395,7 +5395,7 @@ int read_surf(void)
 		case 7:			/* donnan for DL conc's */
 			surface[n].dl_type = DONNAN_DL;
 			/*surface[n].diffuse_layer = TRUE;*/
-			surface[n].debye_units = 0.0;
+			surface[n].debye_lengths = 0.0;
 			surface[n].DDL_viscosity = 1.0;
 			thickness = 0.0;
 			for (;;) {
@@ -5414,7 +5414,7 @@ int read_surf(void)
 						}
 						j = copy_token(token1, &next_char, &l);
 						if (j == DIGIT) {
-							sscanf(token1, SCANFORMAT, &surface[n].debye_units);
+							sscanf(token1, SCANFORMAT, &surface[n].debye_lengths);
 							continue;
 						}
 						else if (j != EMPTY) {

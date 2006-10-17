@@ -299,7 +299,7 @@ struct surface {
         enum SURFACE_TYPE type;
         enum SITES_UNITS sites_units;
         LDBLE thickness;
-        LDBLE debye_units;
+        LDBLE debye_lengths;
         LDBLE DDL_viscosity;
         char *description;
         int solution_equilibria;

@@ -488,7 +488,7 @@ int initial_surface_water(void)
 	LDBLE mass_water_surface;
 
 	debye_length = 0.0;
-	if (use.surface_ptr->debye_units > 0) {
+	if (use.surface_ptr->debye_lengths > 0) {
 /*
  *   Debye  length = 1/k = sqrt[eta*eta_zero*R*T/(2*F**2*mu_x*1000)], Dzombak and Morel, p 36
  *
@@ -505,8 +505,8 @@ int initial_surface_water(void)
 	mass_water_surfaces_x = 0.0;
 	for (i = 0; i < count_unknowns; i++) {
 		if (x[i]->type != SURFACE_CB) continue;
-		if (use.surface_ptr->debye_units > 0) {
-			rd = debye_length * use.surface_ptr->debye_units;
+		if (use.surface_ptr->debye_lengths > 0) {
+			rd = debye_length * use.surface_ptr->debye_lengths;
 			use.surface_ptr->thickness = rd;
 			if (state == INITIAL_SURFACE) {
 				/* distribute water over DDL (rd) and free pore (r - rd) */
