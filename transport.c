@@ -2378,7 +2378,7 @@ int disp_surf(LDBLE DDt)
 						Dp1 = 0;
 						if (surface_ptr1 != NULL && surface_ptr1->transport) {
 							for (k1 = 0; k1 < surface_ptr1->count_comps; k1++) {
-								if (elt_list_compare(surface_ptr1->comps[k1].totals, surface_ptr2->comps[k].totals) != NULL)
+								if (elt_list_compare(surface_ptr1->comps[k1].totals, surface_ptr2->comps[k].totals) != 0)
 									continue;
 								Dp1 = surface_ptr1->comps[k].Dw * pow(cell_data[i1 - 1].por, multi_Dn);
 								break;
@@ -2433,7 +2433,7 @@ int disp_surf(LDBLE DDt)
 						Dp2 = 0;
 						if (surface_ptr2 != NULL && surface_ptr2->transport) {
 							for (k1 = 0; k1 < surface_ptr2->count_comps; k1++) {
-								if (elt_list_compare(surface_ptr2->comps[k1].totals, surface_ptr1->comps[k].totals) != NULL)
+								if (elt_list_compare(surface_ptr2->comps[k1].totals, surface_ptr1->comps[k].totals) != 0)
 									continue;
 								Dp2 = surface_ptr2->comps[k].Dw * pow(por, multi_Dn);
 								break;
@@ -2578,7 +2578,8 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 		free_check_null(temp_surface.comps[i].totals);
 		temp_surface.comps[i].totals = elt_list_save();
 	}
-	if (temp_surface.edl == TRUE) {
+	/*if (temp_surface.edl == TRUE) {*/
+	if (temp_surface.type != NO_EDL) {
 		for (i = 0; i < surface_ptr1->count_charge; i++) {
 			temp_surface.charge[i].grams *= f1;
 			temp_surface.charge[i].charge_balance *= f1;
@@ -2662,7 +2663,8 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 			}
 		}
 		/* sum charge structures if not yet done... */
-		if (found && temp_surface.edl && !charge_in) {
+		/*if (found && temp_surface.edl && !charge_in) {*/
+		if (found && temp_surface.type != NO_EDL && !charge_in) {
 			temp_surface.charge[charge1].grams += surface_ptr2->charge[charge2].grams * f2;
 			temp_surface.charge[charge1].charge_balance += surface_ptr2->charge[charge2].charge_balance * f2;
 			temp_surface.charge[charge1].mass_water += surface_ptr2->charge[charge2].mass_water * f2;
@@ -2694,7 +2696,8 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 			count_comps++;
 
 			/* sum charge structures if not yet done... */
-			if (temp_surface.edl && !charge_in) {
+			/*if (temp_surface.edl && !charge_in) {*/
+			if (temp_surface.type != NO_EDL && !charge_in) {
 
 				temp_surface.charge = (struct surface_charge *) PHRQ_realloc (temp_surface.charge, (size_t) (count_charge + 1) * sizeof(struct surface_charge));
 				if (temp_surface.charge == NULL) malloc_error();
@@ -2752,13 +2755,15 @@ int check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	n_user1 = surface_ptr1->n_user;
 	n_user2 = surface_ptr2->n_user;
 
-	if (surface_ptr1->diffuse_layer != surface_ptr2->diffuse_layer) {
+	/*if (surface_ptr1->diffuse_layer != surface_ptr2->diffuse_layer) {*/
+	if (surface_ptr1->dl_type != surface_ptr2->dl_type) {
 		sprintf(error_string, "Surfaces %d and %d differ in definition of diffuse layer. Can not mix.", n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
 		return_code = ERROR;
 		input_error++;
 	}
-	if (surface_ptr1->edl != surface_ptr2->edl) {
+	/*if (surface_ptr1->edl != surface_ptr2->edl) {*/
+	if (surface_ptr1->type != surface_ptr2->type) {
 		sprintf(error_string, "Surfaces %d and %d differ in use of electrical double layer. Can not mix.", n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
 		return_code = ERROR;
@@ -2807,10 +2812,12 @@ int mobile_surface_copy(struct surface *surface_old_ptr, struct surface *surf_pt
 	temp_surface.new_def = surface_old_ptr->new_def;
 	sprintf(token, "Surface defined in simulation %d.", simulation);
 	temp_surface.description = string_duplicate(token);
-	temp_surface.diffuse_layer = surface_old_ptr->diffuse_layer;
-	temp_surface.edl = surface_old_ptr->edl;
+	/*temp_surface.diffuse_layer = surface_old_ptr->diffuse_layer;*/
+	temp_surface.dl_type = surface_old_ptr->dl_type;
+	/*temp_surface.edl = surface_old_ptr->edl;*/
+	temp_surface.type = surface_old_ptr->type;
 	temp_surface.only_counter_ions = surface_old_ptr->only_counter_ions;
-	temp_surface.donnan = surface_old_ptr->donnan;
+	/*temp_surface.donnan = surface_old_ptr->donnan;*/
 	temp_surface.thickness = surface_old_ptr->thickness;
 	temp_surface.debye_lengths = surface_old_ptr->debye_lengths;
 	temp_surface.DDL_viscosity = surface_old_ptr->DDL_viscosity;
@@ -3117,7 +3124,7 @@ int diff_stag_surf(int mobile_cell)
 						Dp1 = 0;
 						if (surf1) {
 							for (k1 = 0; k1 < surface_ptr1->count_comps; k1++) {
-								if (elt_list_compare(surface_ptr1->comps[k1].totals, surface_ptr2->comps[k].totals) != NULL)
+								if (elt_list_compare(surface_ptr1->comps[k1].totals, surface_ptr2->comps[k].totals) != 0)
 									continue;
 								Dp1 = surface_ptr1->comps[k1].Dw * pow(cell_data[i1 - 1].por, multi_Dn) * viscos_f;
 								break;
@@ -3165,7 +3172,7 @@ int diff_stag_surf(int mobile_cell)
 						Dp2 = 0;
 						if (surf2) {
 							for (k1 = 0; k1 < surface_ptr2->count_comps; k1++) {
-								if (elt_list_compare(surface_ptr2->comps[k1].totals, surface_ptr1->comps[k].totals) != NULL)
+								if (elt_list_compare(surface_ptr2->comps[k1].totals, surface_ptr1->comps[k].totals) != 0)
 									continue;
 								Dp2 = surface_ptr2->comps[k1].Dw * pow(cell_data[i2 - 1].por, multi_Dn) * viscos_f;
 								break;
@@ -3273,7 +3280,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 	length = strlen(comp_name);
 	length1 = strlen(new_comp_name);
 	for (k = 0; k < surf_ptr->count_comps; k++) {
-		if (strncmp(comp_name, surf_ptr->comps[k].formula, length) == NULL)
+		if (strncmp(comp_name, surf_ptr->comps[k].formula, length) == 0)
 			break;
 	}
 	if (k == surf_ptr->count_comps)
@@ -3282,7 +3289,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 	surface_copy(surf_ptr, &temp_surface, cell);
 
 	for (k1 = 0; k1 < temp_surface.count_comps; k1++) {
-		if (strncmp(new_comp_name, temp_surface.comps[k1].formula, length1) == NULL)
+		if (strncmp(new_comp_name, temp_surface.comps[k1].formula, length1) == 0)
 			break;
 	}
 
@@ -3307,7 +3314,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 
 			/* rename surface comp in element list */
 			for (j = 0; temp_surface.comps[i].totals[j].elt != NULL; j++) {
-				if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == NULL) {
+				if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == 0) {
 					strcpy(string, temp_surface.comps[i].totals[j].elt->name);
 					replace(comp_name, new_comp_name, string);
 					temp_surface.comps[i].totals[j].elt = element_store(string);
@@ -3359,7 +3366,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 			/* add comps to new_comps */
 			for (i1 = 0; i1 < temp_surface.count_comps; i1++) {
 
-				if (strcmp(string, temp_surface.comps[i1].formula) != NULL)
+				if (strcmp(string, temp_surface.comps[i1].formula) != 0)
 					continue;
 
 				temp_surface.comps[i1].moles += surf_ptr->comps[i].moles * fraction;
@@ -3367,7 +3374,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 
 				/* rename surface comp in element list */
 				for (j = 0; temp_surface.comps[i].totals[j].elt != NULL; j++) {
-					if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == NULL) {
+					if (strncmp(comp_name, temp_surface.comps[i].totals[j].elt->name, length) == 0) {
 						strcpy(string, temp_surface.comps[i].totals[j].elt->name);
 						replace(comp_name, new_comp_name, string);
 						temp_surface.comps[i].totals[j].elt = element_store(string);

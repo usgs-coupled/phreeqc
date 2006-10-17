@@ -3106,7 +3106,8 @@ int surface_model(void)
 		}
 	}
 /* appt */
-	if (state >= REACTION && diffuse_layer_x == TRUE /**/) {
+	/*if (state >= REACTION && diffuse_layer_x == TRUE) {*/
+	if (state >= REACTION && dl_type_x != NO_DL) {
 		if (use.mix_ptr != NULL) {
 			mass_water_bulk_x = 0.0;
 			for (i = 0; i < use.mix_ptr->count_comps; i++) {
