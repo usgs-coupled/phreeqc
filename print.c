@@ -21,7 +21,7 @@ static int print_saturation_indices(void);
 static int print_surface_cd_music(void);
 static int print_totals(void);
 static int print_using(void);
-static int print_user_print(void);
+/*static int print_user_print(void);*/
 static int punch_gas_phase(void);
 static int punch_identifiers(void);
 static int punch_kinetics(void);
@@ -203,7 +203,7 @@ int print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 
         output_msg(OUTPUT_MESSAGE,"\tWater in diffuse layer: %e kg.   Thickness: %e m.\n",
 				(double) surface_charge_ptr1->mass_water, (double) use.surface_ptr->thickness);
-		if (use.surface_ptr->debye_units > 0) {
+		if (use.surface_ptr->debye_lengths > 0) {
 			r = 0.002 * mass_water_bulk_x / (surface_charge_ptr1->specific_area * surface_charge_ptr1->grams);
 			output_msg(OUTPUT_MESSAGE,"\tRadius of total pore:   %e m; of free pore: %e m.\n",
 				(double) r, (double) r - use.surface_ptr->thickness);

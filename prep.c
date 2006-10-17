@@ -4131,7 +4131,6 @@ int check_same_model(void)
 		if (last_model.surface_type != use.surface_ptr->type) return(FALSE);
 		/*
 		if (last_model.only_counter_ions != use.surface_ptr->only_counter_ions) return(FALSE);
-		if (last_model.donnan != use.surface_ptr->donnan) return(FALSE);
 		*/
 		for (i = 0; i < use.surface_ptr->count_comps; i++) {
 			if (last_model.surface_comp[i] != use.surface_ptr->comps[i].formula) return(FALSE);
