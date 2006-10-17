@@ -299,8 +299,9 @@ struct surface {
         enum SURFACE_TYPE type;
         enum SITES_UNITS sites_units;
         LDBLE thickness;
-        LDBLE debye_units;
-        LDBLE DDL_viscosity;
+	LDBLE debye_lengths;
+	LDBLE DDL_viscosity;            /* viscosity relative to pure water */
+	LDBLE DDL_limit;	       /* limits DDL water to this fraction of bulk water */
         char *description;
         int solution_equilibria;
         int n_solution;
@@ -310,7 +311,7 @@ struct surface {
         struct surface_charge *charge;
         int related_phases;
         int related_rate;
-        int transport;
+	int transport;			/* transports comp's and charges if true */
 };
 struct surface_comp {
         char *formula;
@@ -325,6 +326,7 @@ struct surface_comp {
         char *phase_name;
         LDBLE phase_proportion;
         char *rate_name;
+		LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
 };
 struct surface_charge {
         char *name;
@@ -355,6 +357,15 @@ EXTERNAL struct charge_group {
         LDBLE z;
         LDBLE eq;
 } *charge_group;
+EXTERNAL int change_surf_count;
+EXTERNAL struct change_surf {
+		char *comp_name;
+		LDBLE fraction;
+		char *new_comp_name;
+		LDBLE new_Dw;
+		int cell_no;
+		int next;
+} *change_surf;
 /* ----------------------------------------------------------------------
  *   Exchange
  * ---------------------------------------------------------------------- */
