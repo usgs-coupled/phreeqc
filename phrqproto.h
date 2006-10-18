@@ -27,6 +27,7 @@ LDBLE kinetics_moles (char *kinetics_name);
 LDBLE log_activity (char *species_name);
 LDBLE log_molality (char *species_name);
 LDBLE molality (char *species_name);
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell_no);
 LDBLE saturation_ratio (char *phase_name);
 int saturation_index (char *phase_name, LDBLE *iap, LDBLE *si);
 LDBLE solution_sum_secondary(char *total_name);
@@ -151,6 +152,7 @@ int residuals(void);
 int set(int initial);
 int sum_species(void);
 int surface_model(void);
+int g_iterations;
 
 /* p2clib.c */
 
@@ -195,6 +197,7 @@ int print_master_reactions(void);
 int print_reaction(struct reaction *rxn_ptr);
 int print_species(void);
 int print_surface(void);
+int print_user_print(void);
 int punch_all(void);
 
 /* read.c */
@@ -418,6 +421,7 @@ int species_list_compare_alk (const void *ptr1, const void *ptr2);
 int species_list_compare_master (const void *ptr1, const void *ptr2);
 int species_list_sort(void);
 
+struct change_surf *change_surf_alloc (int count);
 struct surface *surface_alloc (void);
 struct surface *surface_bsearch (int k, int *n);
 struct master *surface_get_psi_master (char *name, int plane);
@@ -482,6 +486,9 @@ int tidy_model(void);
 /* transport.c */
 int transport(void);
 int set_initial_moles(int i);
+int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2, int k, LDBLE f2, struct surface *target, LDBLE new_Dw);
+int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell);
+int transport_substeps;
 
 /* utilities.c */
 int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef);
