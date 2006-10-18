@@ -1074,16 +1074,22 @@ ISOTOPE_ALPHAS
         Alpha_T_H2(aq)/H2O(l)                   Log_alpha_T_H2(aq)/H2O(l)
 # CO2(aq)
         Alpha_18O_CO2(aq)/H2O(l)                Log_alpha_18O_CO2(aq)/H2O(l)
+        Alpha_13C_CO2(aq)/CO2(g)                Log_alpha_13C_CO2(aq)/CO2(g)
+        Alpha_14C_CO2(aq)/CO2(g)                Log_alpha_14C_CO2(aq)/CO2(g)
 # HCO3-
         Alpha_D_HCO3-/H2O(l)                    Log_alpha_D_HCO3-/H2O(l)
         Alpha_T_HCO3-/H2O(l)                    Log_alpha_T_HCO3-/H2O(l)
         Alpha_18O_HCO3-/H2O(l)                  Log_alpha_18O_HCO3-/H2O(l)
         Alpha_13C_HCO3-/CO2(aq)                 Log_alpha_13C_HCO3-/CO2(aq)
         Alpha_14C_HCO3-/CO2(aq)                 Log_alpha_14C_HCO3-/CO2(aq)
+        Alpha_13C_HCO3-/CO2(g)                  Log_alpha_13C_HCO3-/CO2(g)
+        Alpha_14C_HCO3-/CO2(g)                  Log_alpha_14C_HCO3-/CO2(g)
 # CO3-2
         Alpha_18O_CO3-2/H2O(l)                  Log_alpha_18O_CO3-2/H2O(l)
         Alpha_13C_CO3-2/CO2(aq)                 Log_alpha_13C_CO3-2/CO2(aq)
         Alpha_14C_CO3-2/CO2(aq)                 Log_alpha_14C_CO3-2/CO2(aq)
+        Alpha_13C_CO3-2/CO2(g)                  Log_alpha_13C_CO3-2/CO2(g)
+        Alpha_14C_CO3-2/CO2(g)                  Log_alpha_14C_CO3-2/CO2(g)
 # CH4(aq)
         Alpha_D_CH4(aq)/H2O(l)                  Log_alpha_D_CH4(aq)/H2O(l)
         Alpha_T_CH4(aq)/H2O(l)                  Log_alpha_T_CH4(aq)/H2O(l)
@@ -1130,8 +1136,10 @@ ISOTOPE_ALPHAS
         Alpha_14C_CO2(g)/CO2(aq)                Log_alpha_14C_CO2(g)/CO2(aq)
 # Calcite
         Alpha_18O_Calcite/H2O(l)                Log_alpha_18O_Calcite/H2O(l)
-        Alpha_13C_Calcite/CO3-2                 Log_alpha_13C_Calcite/CO3-2
-        Alpha_14C_Calcite/CO3-2                 Log_alpha_14C_Calcite/CO3-2
+        Alpha_13C_Calcite/CO2(aq)               Log_alpha_13C_Calcite/CO2(aq)
+        Alpha_13C_Calcite/CO2(g)                Log_alpha_13C_Calcite/CO2(g)
+        Alpha_14C_Calcite/CO2(aq)               Log_alpha_14C_Calcite/CO2(aq)
+        Alpha_14C_Calcite/CO2(g)                Log_alpha_14C_Calcite/CO2(g)
 # Pyrite
         Alpha_34S_Pyrite/HS-                    Log_alpha_34S_Pyrite/HS-
 # CH4(g)
@@ -1202,6 +1210,13 @@ Log_alpha_T_H2(aq)/H2O(l)
 Log_alpha_18O_CO2(aq)/H2O(l)            # 1000ln(alpha(25C)) = 41.2
      # 0-100 C
      -ln_alpha1000   -21.9285        0.0     19.43596e3      0.0     -0.181115e6
+
+Log_alpha_13C_CO2(aq)/CO2(g)             # 1000ln(alpha(25C))  -0.84
+     # Deines and others (1974)
+     -ln_alpha1000   -0.91           0.0     0.0             0.0     .0063e6
+
+Log_alpha_14C_CO2(aq)/CO2(g)             # 1000ln(alpha(25C))  -0.84
+     -add_logk       Log_alpha_13C_CO2(aq)/CO2(g)            2
 #
 # HCO3- fractionation factors
 #
@@ -1214,26 +1229,50 @@ Log_alpha_D_HCO3-/H2O(l)
 Log_alpha_T_HCO3-/H2O(l)                    
      -ln_alpha1000   0.0
 
+Log_alpha_13C_HCO3-/CO2(g)              # 1000ln(alpha(25C)) = 7.82
+     # Deines and others (1974)
+     -ln_alpha1000   -4.54   0.0     0.0     0.0     1.099e6
+
 Log_alpha_13C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 8.7
      # 0-100 C
-     -ln_alpha1000   -3.63   0.0     0.0     0.0     1.0927e6
+#     -ln_alpha1000   -3.63   0.0     0.0     0.0     1.0927e6
+      -add_logk       Log_alpha_13C_HCO3-/CO2(g)      1
+      -add_logk       Log_alpha_13C_CO2(aq)/CO2(g)   -1
+
+Log_alpha_14C_HCO3-/CO2(g)              # 1000ln(alpha(25C)) = 7.82
+     # Deines and others (1974)
+     -add_logk        Log_alpha_14C_HCO3-/CO2(g)      2
 
 Log_alpha_14C_HCO3-/CO2(aq)             # 1000ln(alpha(25C)) = 17.3
      # 0-100 C
-     -ln_alpha1000   -7.26   0.0     0.0     0.0     2.1854e6
+#     -ln_alpha1000   -7.26   0.0     0.0     0.0     2.1854e6
+      -add_logk       Log_alpha_14C_HCO3-/CO2(g)      1
+      -add_logk       Log_alpha_14C_CO2(aq)/CO2(g)   -1
 #
 # CO3-2 fractionation factors
 #
 Log_alpha_18O_CO3-2/H2O(l)
      -ln_alpha1000   0.0
      
-Log_alpha_13C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 7.2
+Log_alpha_13C_CO3-2/CO2(g)             # 1000ln(alpha(25C)) 
+     # Deines and others (1974)
+     -ln_alpha1000   -3.4    0.0     0.0     0.0     0.870e6
+
+Log_alpha_13C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) 
      # 0-100 C
-     -ln_alpha1000   -2.49   0.0     0.0     0.0     0.8637e6
-     
-Log_alpha_14C_CO3-2/CO2(aq)             # 1000ln(alpha(25C)) = 14.5
-     # 0-100 C
-     -ln_alpha1000   -4.98   0.0     0.0     0.0     1.7274e6
+#     -ln_alpha1000   -2.49   0.0     0.0     0.0     0.8637e6
+      -add_logk       Log_alpha_13C_CO3-2/CO2(g)      1
+      -add_logk       Log_alpha_13C_CO2(aq)/CO2(g)   -1
+
+Log_alpha_14C_CO3-2/CO2(g)             # 1000ln(alpha(25C)) 
+     # Deines and others (1974)
+     -add_logk        Log_alpha_13C_CO3-2/CO2(g)      2
+
+Log_alpha_14C_CO3-2/CO2(aq)             # 1000ln(alpha(25C))
+     # 
+#     -ln_alpha1000   -2.49   0.0     0.0     0.0     0.8637e6
+      -add_logk       Log_alpha_14C_CO3-2/CO2(g)      1
+      -add_logk       Log_alpha_14C_CO2(aq)/CO2(g)   -1
 #
 # CH4(aq) fractionation factors
 #
@@ -1369,19 +1408,22 @@ Log_alpha_14C_CO2(g)/CO2(aq)            # 1000ln(alpha(25C)) = 1.7
 Log_alpha_18O_Calcite/H2O(l)
      -ln_alpha1000   0 #?
      
-#Log_alpha_13C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -10.6
-#     # 0-100 C
-#     -ln_alpha1000   2.72    0.0     0.0     0.0     -1.1877e6
+Log_alpha_13C_Calcite/CO2(g)           # 1000ln(alpha(25C)) 
+     # Deines and others (1974)
+     -ln_alpha1000   -3.63    0.0     0.0     0.0     1.194e6
 
-Log_alpha_13C_Calcite/CO3-2
-     -ln_alpha1000   0 #?
-     
-#Log_alpha_14C_CO2(aq)/Calcite           # 1000ln(alpha(25C)) = -21.3
-#     # 0-100 C
-#     -ln_alpha1000   5.44    0.0     0.0     0.0     -2.3754e6
+Log_alpha_13C_Calcite/CO2(aq)          # 1000ln(alpha(25C)) 
+     # Deines and others (1974)
+     -add_logk       Log_alpha_13C_Calcite/CO2(g)     1
+     -add_logk       Log_alpha_13C_CO2(aq)/CO2(g)    -1     
 
-Log_alpha_14C_Calcite/CO3-2
-     -ln_alpha1000   0 #?
+Log_alpha_14C_Calcite/CO2(g)           # 1000ln(alpha(25C)) 
+     -add_logk       Log_alpha_13C_Calcite/CO2(g)     2
+
+Log_alpha_14C_Calcite/CO2(aq)          # 1000ln(alpha(25C)) 
+     # Deines and others (1974)
+     -add_logk       Log_alpha_14C_Calcite/CO2(g)     1
+     -add_logk       Log_alpha_14C_CO2(aq)/CO2(g)    -1     
 #
 # Pyrite fractionation factors
 #     
@@ -1821,6 +1863,32 @@ Alpha_18O_CO2(aq)/H2O(l)
 90 alpha = r1/r2
 1000 save alpha
      -end
+
+Alpha_13C_CO2(aq)/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_CO2(aq)")
+50 r2 = CALC_VALUE("R(13C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+      -end
+
+Alpha_14C_CO2(aq)/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (TOT("C") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_CO2(aq)")
+50 r2 = CALC_VALUE("R(14C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+      -end
 #
 # HCO3- ratios
 #
@@ -1934,6 +2002,19 @@ Alpha_18O_HCO3-/CO2(aq)
 1000 save alpha
      -end
 
+Alpha_13C_HCO3-/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_HCO3-")
+50 r2 = CALC_VALUE("R(13C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
 Alpha_13C_HCO3-/CO2(aq)
      -start
 10 alpha = -9999.999
@@ -1941,6 +2022,19 @@ Alpha_13C_HCO3-/CO2(aq)
 30 if (TOT("C") <= 0) THEN GOTO 1000
 40 r1 = CALC_VALUE("R(13C)_HCO3-")
 50 r2 = CALC_VALUE("R(13C)_CO2(aq)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_HCO3-/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_HCO3-")
+50 r2 = CALC_VALUE("R(14C)_CO2(g)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -2022,6 +2116,19 @@ Alpha_18O_CO3-2/CO2(aq)
 1000 save alpha
      -end
 
+Alpha_13C_CO3-2/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_CO3-2")
+50 r2 = CALC_VALUE("R(13C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
 Alpha_13C_CO3-2/CO2(aq) #?
      -start
 10 alpha = -9999.999
@@ -2029,6 +2136,19 @@ Alpha_13C_CO3-2/CO2(aq) #?
 30 if (TOT("C") <= 0) THEN GOTO 1000
 40 r1 = CALC_VALUE("R(13C)_CO3-2")
 50 r2 = CALC_VALUE("R(13C)_CO2(aq)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_CO3-2/CO2(g)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_CO3-2")
+50 r2 = CALC_VALUE("R(14C)_CO2(g)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -3028,13 +3148,27 @@ Alpha_18O_Calcite/CO3-2
 1000 save alpha
      -end
 
-Alpha_18O_CO2(aq)/Calcite
+Alpha_13C_Calcite/CO2(g)
      -start
 10 alpha = -9999.999
-20 if (TOT("[18O]") <= 0) THEN GOTO 1000
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
 30 if (S_S("Calcite") <= 0) THEN GOTO 1000
-40 r1 = CALC_VALUE("R(18O)_CO2(aq)")
-50 r2 = CALC_VALUE("R(18O)_Calcite")
+35 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_Calcite")
+50 r2 = CALC_VALUE("R(13C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_13C_Calcite/CO2(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(13C)_Calcite")
+50 r2 = CALC_VALUE("R(13C)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -3054,13 +3188,27 @@ Alpha_13C_Calcite/CO3-2
 1000 save alpha
      -end
 
-Alpha_13C_CO2(aq)/Calcite
+Alpha_14C_Calcite/CO2(g)
      -start
 10 alpha = -9999.999
-20 if (TOT("[13C]") <= 0) THEN GOTO 1000
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
 30 if (S_S("Calcite") <= 0) THEN GOTO 1000
-40 r1 = CALC_VALUE("R(13C)_CO2(aq)")
-50 r2 = CALC_VALUE("R(13C)_Calcite")
+35 if (GAS("CO2(g)") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_Calcite")
+50 r2 = CALC_VALUE("R(14C)_CO2(g)")
+60 if (r2 <= 0) THEN GOTO 1000
+80 if (r1 <= -9999) THEN GOTO 1000
+90 alpha = r1/r2
+1000 save alpha
+     -end
+
+Alpha_14C_Calcite/CO2(aq)
+     -start
+10 alpha = -9999.999
+20 if (TOT("[14C]") <= 0) THEN GOTO 1000
+30 if (S_S("Calcite") <= 0) THEN GOTO 1000
+40 r1 = CALC_VALUE("R(14C)_Calcite")
+50 r2 = CALC_VALUE("R(14C)_CO2(aq)")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -3074,19 +3222,6 @@ Alpha_14C_Calcite/CO3-2
 30 if (S_S("Calcite") <= 0) THEN GOTO 1000
 40 r1 = CALC_VALUE("R(14C)_Calcite")
 50 r2 = CALC_VALUE("R(14C)_CO3-2")
-60 if (r2 <= 0) THEN GOTO 1000
-80 if (r1 <= -9999) THEN GOTO 1000
-90 alpha = r1/r2
-1000 save alpha
-     -end
-
-Alpha_14C_CO2(aq)/Calcite
-     -start
-10 alpha = -9999.999
-20 if (TOT("[14C]") <= 0) THEN GOTO 1000
-30 if (S_S("Calcite") <= 0) THEN GOTO 1000
-40 r1 = CALC_VALUE("R(14C)_CO2(aq)")
-50 r2 = CALC_VALUE("R(14C)_Calcite")
 60 if (r2 <= 0) THEN GOTO 1000
 80 if (r1 <= -9999) THEN GOTO 1000
 90 alpha = r1/r2
@@ -5016,8 +5151,8 @@ CaC[18O]3(s)
      log_k           1.431363764158                         # log10(27)
 
 Ca[13C]O3(s)
-     Ca[13C]O3(s) + CO3-2 = [13C]O3-2 + Calcite(s)
-     -add_logk       Log_alpha_13C_Calcite/CO3-2             -1.0
+     Ca[13C]O3(s) + CO2 = [13C]O2 + Calcite(s)
+     -add_logk       Log_alpha_13C_Calcite/CO2(aq)           -1.0
 
 Ca[13C]O2[18O](s)
      Ca[13C]O2[18O](s) + Calcite(s) = Ca[13C]O3(s) + CaCO2[18O](s)
@@ -5032,8 +5167,8 @@ Ca[13C][18O]3(s)
      log_k           0
 
 Ca[14C]O3(s)
-     Ca[14C]O3(s) + CO3-2 = Calcite(s) + [14C]O3-2 
-     -add_logk       Log_alpha_14C_Calcite/CO3-2             -1.0
+     Ca[14C]O3(s) + CO2 = Calcite(s) + [14C]O2
+     -add_logk       Log_alpha_14C_Calcite/CO2(aq)           -1.0
 
 Ca[14C]O2[18O](s)
      Ca[14C]O2[18O](s) + Calcite(s) = Ca[14C]O3(s) + CaCO2[18O](s)

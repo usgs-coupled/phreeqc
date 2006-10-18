@@ -55,7 +55,10 @@ LDBLE *m_temp;
 
 extern LDBLE min_value;
 extern int count_total_steps;
-
+#ifdef SKIP
+/* appt */
+static int change_surf_flag;
+#endif
 /* ---------------------------------------------------------------------- */
 int calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 /* ---------------------------------------------------------------------- */
@@ -263,10 +266,14 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 			 dc5 = -277./14336.;
 	 LDBLE		dc1 = c1 - 2825./27648.,  dc3 = c3 - 18575./48384.,
 			 dc4 = c4 - 13525./55296., dc6 = c6 - 0.25;
+#ifdef SKIP
+/* appt */
+	change_surf_flag = FALSE;
+#endif
 /*
  *  Save kinetics i and solution i, if necessary
  */
-	save_old = -2 - (count_cells + 1);
+	save_old = -2 - (count_cells * (1 + stag_data->count_stag) + 2);
 	kinetics_duplicate(i, save_old);
 	if (nsaver != i) {
 		solution_duplicate(i, save_old);
@@ -283,8 +290,8 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 	/*if (use_mix != NOMIX) last_model.force_prep = TRUE;*/
 	set_and_run_wrapper(i, use_mix, FALSE, i, step_fraction);
 	run_reactions_iterations += iterations;
-	saver();
 
+	saver();
 	if (state == TRANSPORT || state == PHAST) {
 		set_transport(i, NOMIX, TRUE, i);
 	} else if (state == ADVECTION) {
@@ -310,35 +317,33 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 	moles_max = 0.1;
 	moles_reduction = 1.0;
 	safety = 0.7;
-	if (kinetics_ptr->rk < 1) {
+	if (kinetics_ptr->rk < 1)
 		kinetics_ptr->rk = 1;
-	} else if (kinetics_ptr->rk > 3 && kinetics_ptr->rk < 6) {
+	else if (kinetics_ptr->rk > 3)
 		kinetics_ptr->rk = 6;
-	} else if (kinetics_ptr->rk > 6) {
-		kinetics_ptr->rk = 6;
-	}
+
 	if (kinetics_ptr->rk == 6) equal_rate = FALSE; else equal_rate = TRUE;
 /*
  * if step_divide > 1, initial timestep is divided
  * if			 < 1, step_divide indicates maximal reaction...
  */
 	if (kinetics_ptr->step_divide > 1.0) {
-		 h = h_old = kin_time / kinetics_ptr->step_divide;
+		h = h_old = kin_time / kinetics_ptr->step_divide;
 		equal_rate = FALSE;
-	} else if (kinetics_ptr->step_divide < 1.0) {
-		moles_max = kinetics_ptr->step_divide;
 	}
+	else if (kinetics_ptr->step_divide < 1.0)
+		moles_max = kinetics_ptr->step_divide;
 
 	rate_sim_time = rate_sim_time_start + h_sum;
 
 	status(0, NULL);
-	 while (h_sum < kin_time) {
+	while (h_sum < kin_time) {
 
-	 if (step_bad > kinetics_ptr->bad_step_max) {
-		 sprintf(error_string,"Bad RK steps > %d. Please decrease (time)step or increase -bad_step_max.",
-		 kinetics_ptr->bad_step_max);
-		 error_msg(error_string, STOP);
-	 }
+		if (step_bad > kinetics_ptr->bad_step_max) {
+			sprintf(error_string,"Bad RK steps > %d. Please decrease (time)step or increase -bad_step_max.",
+			kinetics_ptr->bad_step_max);
+			error_msg(error_string, STOP);
+		}
 
 	MOLES_TOO_LARGE:
 		if (moles_reduction > 1.0) {
@@ -354,7 +359,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 		if (bad == TRUE) {
 			for (j=0; j < n_reactions; j++) {
 				rk_moles[j] *= (h / h_old);
-				 kinetics_ptr->comps[j].moles = rk_moles[j] * 0.2;
+				kinetics_ptr->comps[j].moles = rk_moles[j] * 0.2;
 				kinetics_ptr->comps[j].m = m_temp[j];
 			}
 			bad = FALSE;
@@ -395,7 +400,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 				}
 				/*  define reaction for calculating k2 ... */
 				rk_moles[j] = kinetics_ptr->comps[j].moles;
-				 kinetics_ptr->comps[j].moles *= 0.2;
+				kinetics_ptr->comps[j].moles *= 0.2;
 			}
 			if (moles_reduction > 1.0) goto MOLES_TOO_LARGE;
 		}
@@ -431,6 +436,8 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 				}
 			}
 			if (zero_rate || equal_rate) {
+				/* removing the following line causes different results for 
+				   example 6 distributed with the program */
 				saver();
 
 				/*  Free space */
@@ -467,7 +474,7 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
 			kinetics_ptr->comps[j].m = m_temp[j] - kinetics_ptr->comps[j].moles;
 			kinetics_ptr->comps[j].moles = 0.;
 		}
-		 rate_sim_time = rate_sim_time_start + h_sum + 0.2 * h;
+		rate_sim_time = rate_sim_time_start + h_sum + 0.2 * h;
 		calc_kinetic_reaction(kinetics_ptr, h);
 
 		/*   Reset to values of last saver() */
@@ -863,15 +870,21 @@ int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver, LDBLE step_fract
  *   Run one more time to get distribution of species
  */
 	if (state >= REACTION || nsaver != i) {
+#ifdef SKIP
+/* appt */
+		saver();
+		change_surf_flag = TRUE;
+#endif
 		set_and_run_wrapper(i, NOMIX, FALSE, nsaver, 0.);
 		run_reactions_iterations += iterations;
 	}
-	/* reset for printing */
+/*	saver();
+ */	/* reset for printing */
 	if (use_mix == DISP) {
 		use.mix_ptr = &mix[count_mix - count_cells + i - 1];
 		use.mix_in = TRUE;
 		use.n_mix_user = i;
-	} else if (((use_mix == STAG && multi_Dflag != TRUE) || use_mix == TRUE) && state == TRANSPORT) {
+	} else if ((use_mix == STAG || use_mix == TRUE) && state == TRANSPORT) {
 		use.mix_ptr = mix_search (i, &use.n_mix, FALSE);
 		if (use.mix_ptr != NULL) {
 			use.mix_in = TRUE;
@@ -1157,7 +1170,7 @@ int set_and_run(int i, int use_mix, int use_kinetics, int nsaver, LDBLE step_fra
 {
 /*
  *   i			--user number for soln, reaction, etc.
- *   use_mix	  --integer flag
+ *   use_mix	--integer flag
 					state == TRANSPORT: DISP, STAG, NOMIX
 					state == REACTION: TRUE, FALSE
  *   use_kinetics --true or false flag to calculate kinetic reactions
@@ -1230,19 +1243,19 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
  */
 	int n;
 
-		cell = i;
+	cell = i;
 	reaction_step = 1;
 #ifdef SKIP
-		if (pr.use == TRUE && pr.all == TRUE) {
-				output_msg(OUTPUT_MESSAGE, "\nCell %d\n", i);
-		}
+	if (pr.use == TRUE && pr.all == TRUE) {
+			output_msg(OUTPUT_MESSAGE, "\nCell %d\n", i);
+	}
 #endif
 /*
  *   Find mixture or solution
  */
 
-		use.mix_ptr = NULL;
-		use.mix_in = FALSE;
+	use.mix_ptr = NULL;
+	use.mix_in = FALSE;
 	if (use_mix == DISP) {
 		use.mix_ptr = &mix[count_mix - count_cells + i - 1];
 		use.mix_in = TRUE;
@@ -1279,24 +1292,24 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
  *   Find pure phase assemblage
  */
 
-		use.pp_assemblage_ptr = pp_assemblage_bsearch (i, &use.n_pp_assemblage);
-		if (use.pp_assemblage_ptr != NULL) {
-				use.pp_assemblage_in = TRUE;
-				use.n_pp_assemblage_user = i;
-				save.pp_assemblage = TRUE;
-				save.n_pp_assemblage_user = i;
-				save.n_pp_assemblage_user_end = i;
-		} else {
-				use.pp_assemblage_in = FALSE;
-				save.pp_assemblage = FALSE;
-		}
+	use.pp_assemblage_ptr = pp_assemblage_bsearch (i, &use.n_pp_assemblage);
+	if (use.pp_assemblage_ptr != NULL) {
+		use.pp_assemblage_in = TRUE;
+		use.n_pp_assemblage_user = i;
+		save.pp_assemblage = TRUE;
+		save.n_pp_assemblage_user = i;
+		save.n_pp_assemblage_user_end = i;
+	} else {
+		use.pp_assemblage_in = FALSE;
+		save.pp_assemblage = FALSE;
+	}
 /*
  *   Find irreversible reaction
  */
 	use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
 	if (use.irrev_ptr != NULL) {
 		use.irrev_in = TRUE;
-				use.n_irrev_user = i;
+		use.n_irrev_user = i;
 	} else {
 		use.irrev_in = FALSE;
 	}
@@ -1306,13 +1319,13 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
 	if (use.exchange_ptr != NULL) {
 		use.exchange_in = TRUE;
-				use.n_exchange_user = i;
-				save.exchange = TRUE;
-				save.n_exchange_user = i;
-				save.n_exchange_user_end = i;
+		use.n_exchange_user = i;
+		save.exchange = TRUE;
+		save.n_exchange_user = i;
+		save.n_exchange_user_end = i;
 	} else {
 		use.exchange_in = FALSE;
-				save.exchange = FALSE;
+		save.exchange = FALSE;
 	}
 
 /*
@@ -1321,13 +1334,25 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.surface_ptr = surface_bsearch(i, &use.n_surface);
 	if (use.surface_ptr != NULL) {
 		use.surface_in = TRUE;
-				use.n_surface_user = i;
-				save.surface = TRUE;
-				save.n_surface_user = i;
-				save.n_surface_user_end = i;
+		use.n_surface_user = i;
+		save.surface = TRUE;
+		save.n_surface_user = i;
+		save.n_surface_user_end = i;
+#ifdef SKIP
+/* appt */
+		if (change_surf_flag) {
+			for (n = 0; n < change_surf_count; n++) {
+				if (change_surf[n].cell_no != i)
+					break;
+				reformat_surf(change_surf[n].comp_name, change_surf[n].fraction, change_surf[n].new_comp_name, change_surf[n].new_Dw, change_surf[n].cell_no);
+			}
+			change_surf_count = 0;
+			change_surf_flag = FALSE;
+		}
+#endif
 	} else {
 		use.surface_in = FALSE;
-				save.surface = FALSE;
+		save.surface = FALSE;
 		dl_type_x = NO_DL;
 	}
 /*
@@ -1336,7 +1361,7 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.temperature_ptr = temperature_bsearch(i, &use.n_temperature);
 	if (use.temperature_ptr != NULL) {
 		use.temperature_in = TRUE;
-				use.n_temperature_user = i;
+		use.n_temperature_user = i;
 	} else {
 		use.temperature_in = FALSE;
 	}
@@ -1346,13 +1371,13 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
 	if (use.gas_phase_ptr != NULL) {
 		use.gas_phase_in = TRUE;
-				use.n_gas_phase_user = i;
-				save.gas_phase = TRUE;
-				save.n_gas_phase_user = i;
-				save.n_gas_phase_user_end = i;
+		use.n_gas_phase_user = i;
+		save.gas_phase = TRUE;
+		save.n_gas_phase_user = i;
+		save.n_gas_phase_user_end = i;
 	} else {
 		use.gas_phase_in = FALSE;
-				save.gas_phase = FALSE;
+		save.gas_phase = FALSE;
 	}
 /*
  *   Find s_s_assemblage
@@ -1360,29 +1385,29 @@ int set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &use.n_s_s_assemblage);
 	if (use.s_s_assemblage_ptr != NULL) {
 		use.s_s_assemblage_in = TRUE;
-				use.n_s_s_assemblage_user = i;
-				save.s_s_assemblage = TRUE;
-				save.n_s_s_assemblage_user = i;
-				save.n_s_s_assemblage_user_end = i;
+		use.n_s_s_assemblage_user = i;
+		save.s_s_assemblage = TRUE;
+		save.n_s_s_assemblage_user = i;
+		save.n_s_s_assemblage_user_end = i;
 	} else {
 		use.s_s_assemblage_in = FALSE;
-				save.s_s_assemblage = FALSE;
+		save.s_s_assemblage = FALSE;
 	}
 /*
  *   Find kinetics
  */
 	if (use_kinetics == TRUE && (use.kinetics_ptr = kinetics_bsearch(i, &n)) != NULL) {
-				use.n_kinetics_user = i;
-				use.n_kinetics = n;
-				use.kinetics_in = TRUE;
-				save.kinetics = TRUE;
-				save.n_kinetics_user = i;
-				save.n_kinetics_user_end = i;
-		} else {
+		use.n_kinetics_user = i;
+		use.n_kinetics = n;
+		use.kinetics_in = TRUE;
+		save.kinetics = TRUE;
+		save.n_kinetics_user = i;
+		save.n_kinetics_user_end = i;
+	} else {
 		use.kinetics_ptr = NULL;
-				use.kinetics_in = FALSE;
-				save.kinetics = FALSE;
-		}
+		use.kinetics_in = FALSE;
+		save.kinetics = FALSE;
+	}
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -1399,7 +1424,7 @@ int set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find mixture or solution
  */
-		use.mix_ptr = NULL;
+	use.mix_ptr = NULL;
 	use.solution_ptr = NULL;
 	if (use_mix == TRUE && use.mix_in == TRUE) {
 		use.mix_ptr = mix_bsearch (i, &use.n_mix);
@@ -1575,11 +1600,15 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
  *   This condition makes output equal for incremental_reactions TRUE/FALSE...
  *		(if (incremental_reactions == FALSE || reaction_step == 1)
  */
-			store_get_equi_reactants(i, FALSE);
+		store_get_equi_reactants(i, FALSE);
 		if (kinetics_ptr->use_cvode == FALSE) {
-			rk_kinetics(i, kin_time, use_mix, nsaver, step_fraction);
+/* in case dispersivity is not wanted..
+			if (multi_Dflag)
+				rk_kinetics(i, kin_time, NOMIX, nsaver, step_fraction);
+			else
+ */				rk_kinetics(i, kin_time, use_mix, nsaver, step_fraction);
 		}  else {
-			save_old = -2 - (count_cells + 1);
+			save_old = -2 - (count_cells * (1 + stag_data->count_stag) + 2);
 			if (nsaver != i) {
 				solution_duplicate(i, save_old);
 			}
@@ -1599,7 +1628,10 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			cvode_rate_sim_time_start = rate_sim_time_start;
 			cvode_rate_sim_time = rate_sim_time;
 
-			converge = set_and_run_wrapper(i, use_mix, FALSE, i, 0.0);
+			if (multi_Dflag)
+				converge = set_and_run_wrapper(i, NOMIX, FALSE, i, 0.0);
+			else
+				converge = set_and_run_wrapper(i, use_mix, FALSE, i, 0.0);
 			if (converge == MASS_BALANCE) error_msg("Negative concentration in system. Stopping calculation.",STOP);
 			saver();
 			pp_assemblage_ptr = pp_assemblage_bsearch(i, &n);

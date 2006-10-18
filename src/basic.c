@@ -162,6 +162,7 @@ typedef Char string255[256];
 #define tokchange_por   131
 #define tokget_por    	132
 #define tokosmotic    	133
+#define tokchange_surf  134
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -363,7 +364,8 @@ static const struct key command[] = {
 	{"exists", tokexists},
 	{"rem", tokrem},
 	{"change_por", tokchange_por},
-	{"get_por", tokget_por}
+	{"get_por", tokget_por},
+	{"change_surf", tokchange_surf},
 };
 static int NCMDS = (sizeof(command) / sizeof(struct key));
 
@@ -398,6 +400,7 @@ void cmd_free(void)
 /*
  *   destroy hash table
  */
+
 	hdestroy_multi(command_hash_table);
         command_hash_table = NULL;
 	return;
@@ -1090,6 +1093,8 @@ Static void parse(Char *inbuf, tokenrec **buf)
 	    t->kind = tokchange_por;
 	  else if (!strcmp(token, "get_por"))
 	    t->kind = tokget_por;
+	  else if (!strcmp(token, "change_surf"))
+	    t->kind = tokchange_surf;
 	  else if (!strcmp(token, "edl"))
 	    t->kind = tokedl;
 	  else if (!strcmp(token, "surf"))
@@ -1599,6 +1604,10 @@ Static void listtokens(FILE *f, tokenrec *buf)
 
     case tokget_por:
 	    output_msg(OUTPUT_BASIC, "GET_POR");
+	    break;
+
+    case tokchange_surf:
+	    output_msg(OUTPUT_BASIC, "CHANGE_SURF");
 	    break;
 
     case tokmol:
@@ -3349,6 +3358,45 @@ Local void cmdchange_por(struct LOC_exec *LINK)
 		cell_data[j - 1].por = TEMP;
 }
 
+Local void cmdchange_surf(struct LOC_exec *LINK)
+{
+/*
+    change_surf("Hfo",    0.3,      "Sfo",      0,      5      )
+               (old_name, fraction, new_name, new_Dw, cell_no)
+ */
+	char *c1;
+	int count;
+
+	change_surf_count += 1;
+	count = change_surf_count;
+	if (count > 1 && change_surf[count - 1].next == FALSE)
+		change_surf = change_surf_alloc(count);
+
+	require(toklp, LINK);
+		/* get surface component name (change affects all comps of the same charge structure) */
+		c1 = strexpr(LINK);
+		change_surf[count - 1].comp_name = string_hsave(c1);
+		free(c1);
+	require(tokcomma, LINK);
+		/* get fraction of comp to change */
+		change_surf[count - 1].fraction = realexpr(LINK);
+	require(tokcomma, LINK);
+		/* get new surface component name */
+		c1 = strexpr(LINK);
+		change_surf[count - 1].new_comp_name = string_hsave(c1);
+		free(c1);
+	require(tokcomma, LINK);
+		/* get new Dw (no transport if 0) */
+		change_surf[count - 1].new_Dw = realexpr(LINK);
+	require(tokcomma, LINK);
+		/* get cell_no */
+		change_surf[count - 1].cell_no = intexpr(LINK);
+	require(tokrp, LINK);
+
+	if (change_surf->cell_no == 0 || change_surf->cell_no == count_cells + 1)
+		change_surf[count - 1].cell_no = -99;
+}
+
 #ifdef SKIP
 /* LINK not used */
 Local void cmdbye(struct LOC_exec *LINK)
@@ -4274,6 +4322,10 @@ Static void exec(void)
 
 	  case tokchange_por:
 	    cmdchange_por(&V);
+	    break;
+
+	  case tokchange_surf:
+	    cmdchange_surf(&V);
 	    break;
 
 #ifdef PHREEQ98
