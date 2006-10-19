@@ -8273,9 +8273,11 @@ int read_named_logk(void)
                 "analytical_expression", /* 4 */
 		"a_e",                /* 5 */
                 "ae",                 /* 6 */
-                "ln_alpha1000"        /* 7 */
+                "ln_alpha1000",       /* 7 */
+		"add_logk",           /* 8 */
+		"add_log_k"           /* 9 */
 	};
-	int count_opt_list = 8;
+	int count_opt_list = 10;
 	logk_ptr = NULL;
 /*
  *   Read name followed by options
@@ -8308,6 +8310,7 @@ int read_named_logk(void)
 				break;
 			}
 			read_log_k_only(next_char, &logk_ptr->log_k[0]);
+			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
 		    case 2:                 /* delta_h */
@@ -8319,6 +8322,7 @@ int read_named_logk(void)
 				break;
 			}
 			read_delta_h_only(next_char, &logk_ptr->log_k[1], &logk_ptr->original_units);
+			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
 		    case 4:                 /* analytical_expression */
@@ -8331,6 +8335,7 @@ int read_named_logk(void)
 				break;
 			}
 			read_analytical_expression_only(next_char, &(logk_ptr->log_k[2]));
+			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
 		    case 7:                /* ln_alpha1000 */
@@ -8355,8 +8360,40 @@ int read_named_logk(void)
 			for (i = 2; i < 7; i++) {
 				logk_ptr->log_k[i] /= 1000.*LOG_10;
 			}
+			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
+		case 8:                 /* add_logk */
+		case 9:                 /* add_log_k */
+			if (logk_ptr == NULL) {
+				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			if (logk_ptr->count_add_logk == 0) {
+				logk_ptr->add_logk = (struct name_coef *) PHRQ_malloc(sizeof(struct name_coef));
+				if (logk_ptr->add_logk == NULL) malloc_error();
+			} else {
+				logk_ptr->add_logk = (struct name_coef *) PHRQ_realloc(logk_ptr->add_logk, (size_t) ((logk_ptr->count_add_logk + 1)* sizeof(struct name_coef)));
+				if (logk_ptr->add_logk == NULL) malloc_error();
+			}
+			/* read name */
+			if (copy_token(token, &next_char, &i) == EMPTY) {
+				input_error++;
+				sprintf(error_string, "Expected the name of a NAMED_EXPRESSION.");
+				error_msg(error_string, CONTINUE);
+				break;
+			}
+			logk_ptr->add_logk[logk_ptr->count_add_logk].name = string_hsave(token);
+			/* read coef */
+			i = sscanf(next_char,SCANFORMAT, &logk_ptr->add_logk[logk_ptr->count_add_logk].coef);
+			if (i <= 0) {
+				logk_ptr->add_logk[logk_ptr->count_add_logk].coef = 1;
+			}
+			logk_ptr->count_add_logk++;
+ 			opt_save = OPTION_DEFAULT;
+ 			break;
 		    case OPTION_DEFAULT:
 /*
  *   Get space for logk information

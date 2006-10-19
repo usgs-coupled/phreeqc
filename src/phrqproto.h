@@ -322,6 +322,7 @@ struct kinetics *kinetics_search(int n_user, int *n, int print);
 int kinetics_sort(void);
 
 struct logk *logk_alloc(void);
+int logk_copy2orig(struct logk *logk_ptr);
 struct logk  *logk_store (char *name, int replace_if_found);
 struct logk  *logk_search (char *name);
 
@@ -478,6 +479,7 @@ int zero_tally_table(void);
 
 /* tidy.c */
 int add_other_logk(LDBLE *source_k, int count_add_logk, struct name_coef *add_logk);
+int add_logks(struct logk *logk_ptr, int repeats);
 int select_log_k_expression(LDBLE *source_k, LDBLE *target_k);
 int s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print);
 int tidy_punch(void);
