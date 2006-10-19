@@ -13,6 +13,7 @@ static int reset_last_model(void);
 static int rewrite_eqn_to_primary(void);
 static int rewrite_eqn_to_secondary(void);
 static int species_rxn_to_trxn(struct species *s_ptr);
+static int tidy_logk(void);
 static int tidy_min_exchange(void);
 static int tidy_kin_exchange(void);
 static int tidy_gas_phase(void);
@@ -44,6 +45,7 @@ int tidy_model(void)
 {
 	int i, j;
 	int n_user, last;
+	int new_named_logk;
 	if (svnid == NULL) fprintf(stderr," ");
 	/*
 	 * Determine if any new elements, species, phases have been read
@@ -63,6 +65,7 @@ int tidy_model(void)
 	new_s_s_assemblage = FALSE;
 	new_kinetics = FALSE;
 	new_pitzer = FALSE;
+	new_named_logk = FALSE;
 	if (keyword[2].keycount > 0 ||   /*"species"*/
 	    keyword[3].keycount > 0 ||   /*"master"*/
 	    keyword[5].keycount > 0 ||   /*"phases"*/
@@ -101,6 +104,10 @@ int tidy_model(void)
 	if (keyword[33].keycount > 0) new_kinetics = TRUE;      /*"kinetics"*/
 	if (keyword[58].keycount > 0) new_copy = TRUE;          /*"copy"*/
 	if (keyword[59].keycount > 0) new_pitzer = TRUE;        /*"pitzer"*/
+	if (keyword[50].keycount > 0 ||
+	    keyword[51].keycount > 0 ||
+	    keyword[52].keycount > 0 ||
+	    keyword[53].keycount > 0 ) new_named_logk = TRUE;   /*"named_log_k"*/
 
 	/*
 	  0	  "eof"
@@ -228,6 +235,9 @@ int tidy_model(void)
 
 /* kinetics */
 	if (new_kinetics) kinetics_sort();
+
+	/* named_log_k */
+	if (new_named_logk) tidy_logk();
 /*
  *   Check pointers, write reactions for species
  */
@@ -465,6 +475,25 @@ int select_log_k_expression(LDBLE *source_k, LDBLE *target_k)
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
+int tidy_logk(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  Picks log k expression
+ */
+{ 
+	int i;
+	for (i = 0; i < count_logk; i++) {
+		select_log_k_expression(logk[i]->log_k_original, logk[i]->log_k);
+		logk[i]->done = FALSE;
+	}
+	for (i = 0; i < count_logk; i++) {
+		if (logk[i]->done == FALSE) {
+			add_logks(logk[i], 0);
+		} 
+	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
 int add_other_logk(LDBLE *source_k, int count_add_logk, struct name_coef *add_logk)
 /* ---------------------------------------------------------------------- */
 {
@@ -505,6 +534,52 @@ int add_other_logk(LDBLE *source_k, int count_add_logk, struct name_coef *add_lo
 			source_k[1] += logk_ptr->log_k[1]*coef;
 		}
 	}
+	return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int add_logks(struct logk *logk_ptr, int repeats)
+/* ---------------------------------------------------------------------- */
+{
+	int i, j;
+	struct logk *next_logk_ptr;
+	char token[MAX_LENGTH];
+	LDBLE coef;
+	ENTRY item, *found_item;
+	/*
+	 *  Adds in other named_expressions to get complete log K
+	 *  Evaluates others recursively if necessary
+	*/
+	if (repeats > 15) {
+		input_error++;
+		sprintf(error_string,"Circular definition of named_logk? %s\n", logk_ptr->name);
+		error_msg(error_string, CONTINUE);
+		return(ERROR);
+	}
+	for (i = 0; i < logk_ptr->count_add_logk; i++) {
+		coef = logk_ptr->add_logk[i].coef;
+		strcpy(token, logk_ptr->add_logk[i].name);
+		str_tolower(token);
+		item.key = token;
+		item.data = NULL;
+		found_item = hsearch_multi(logk_hash_table, item, FIND); 
+		if (found_item == NULL) {
+			input_error++;
+			sprintf(error_string,"Could not find named temperature expression, %s\n", token);
+			error_msg(error_string, CONTINUE);
+			return(ERROR);
+		}
+		next_logk_ptr = (struct logk *) found_item->data;
+		if (next_logk_ptr->done == FALSE) {
+			/*output_msg(OUTPUT_MESSAGE, "Done == FALSE\n", token);*/
+			if (add_logks(next_logk_ptr, repeats+1) == ERROR) {
+				return(ERROR);
+			}
+		}			
+		for (j=0; j < 7; j++) {
+			logk_ptr->log_k[j] += next_logk_ptr->log_k[j]*coef;
+		}
+	}
+	logk_ptr->done = TRUE;
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -632,7 +707,10 @@ int replace_solids_gases(void)
 				}
 				coef=token_ptr->coef;
 				/* add reaction for solid/gas */
-
+				/* debug
+				output_msg(OUTPUT_MESSAGE, "Reaction to add.\n");
+				rxn_print(phase_ptr->rxn);
+				*/
 				trxn_add_phase(phase_ptr->rxn, coef, FALSE);
 				
 				/* remove solid/gas from trxn list */
@@ -641,9 +719,16 @@ int replace_solids_gases(void)
 				trxn.token[i].coef = -coef*phase_ptr->rxn->token[0].coef;
 				repeat=TRUE;
 				replaced = TRUE;
-
+				/* debug
+				output_msg(OUTPUT_MESSAGE, "Before combined.\n");
+				trxn_print();
+				*/
 				/* combine */
 				trxn_combine();
+				/* debug
+				output_msg(OUTPUT_MESSAGE, "Combined.\n");
+				trxn_print();
+				*/
 				break;
 			}
 		}
@@ -1073,6 +1158,10 @@ int tidy_phases(void)
 		count_trxn=0;
 		trxn_add_phase (phases[i]->rxn, 1.0, FALSE);
 		trxn.token[0].name = phases[i]->name;
+		/* debug 
+		output_msg(OUTPUT_MESSAGE, "%s PHASE.\n", phases[i]->name);
+		trxn_print();
+		*/
 		replaced = replace_solids_gases();
 		/*  save rxn */
 		rxn_free (phases[i]->rxn);
