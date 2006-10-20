@@ -27,6 +27,21 @@ int main(int argc, char *argv[])
 	int errors;
 	void *db_cookie = NULL;
 	void *input_cookie = NULL;
+#if defined(WIN32_MEMORY_DEBUG)
+	int tmpDbgFlag;
+
+	/*
+	* Set the debug-heap flag to keep freed blocks in the
+	* heap's linked list - This will allow us to catch any
+	* inadvertent use of freed memory
+	*/
+	tmpDbgFlag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+	tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;
+	tmpDbgFlag |= _CRTDBG_LEAK_CHECK_DF;
+	///tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
+	_CrtSetDbgFlag(tmpDbgFlag);
+#endif
+
 	if (svnid == NULL) fprintf(stderr," ");
 	phast = FALSE;
 /*
