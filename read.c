@@ -5692,7 +5692,7 @@ int read_surf(void)
 			input_error++;
 			warning_msg("Must use default Dzombak and Morel or -cd_music for surface transport.");
 		}
-		if (surface[n].type <= NO_DL) {
+		if (surface[n].dl_type <= NO_DL) {
 			input_error++;
 			warning_msg("Must use -donnan or -diffuse_layer for surface transport.");
 		}
