@@ -2,6 +2,18 @@
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
         --------
+        svn 1337
+        --------
+	Added -add_logk to NAMED_EXPRESSIONS keyword.
+
+	NAMED_EXPRESSIONS
+	Log_alpha_14C_CO3-2/CO2(aq)
+	-add_logk       Log_alpha_14C_CO3-2/CO2(g)      1
+	-add_logk       Log_alpha_14C_CO2(aq)/CO2(g)   -1
+
+
+
+        --------
         svn 1281
         --------
         Added new option to PITZER data block to allow definition of
