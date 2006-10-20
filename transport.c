@@ -93,9 +93,14 @@ int transport(void)
 			cell_data[i - 1].temp = use.solution_ptr->tc;
 	}
 
-	if (multi_Dflag == TRUE)
+	if (multi_Dflag == TRUE) {
 		sol_D = (struct sol_D *) PHRQ_malloc((size_t) (count_cells + 2 + stag_data->count_stag * count_cells) * sizeof(struct sol_D));
-
+        if (sol_D == NULL) malloc_error();
+		for (i = 0; i < count_cells + 2 + stag_data->count_stag * count_cells; i++) {
+			sol_D[i].count_spec = 0;
+			sol_D[i].spec = NULL;
+		}
+	}
 	/* check solution 0 */
 	if (solution_bsearch(0, &n, FALSE) == NULL) {
 		if (ishift == 1) {
@@ -649,14 +654,14 @@ int transport(void)
 		}
 	}
 	if (heat_nmix > 0) {
-		free_check_null(heat_mix_array);
-		free_check_null(temp1);
-				free_check_null(temp2);
+		heat_mix_array = free_check_null(heat_mix_array);
+		temp1 = free_check_null(temp1);
+		temp2 = free_check_null(temp2);
 	}
 	if (multi_Dflag == TRUE) {
-		free_check_null(sol_D);
 		for (i = 0; i < count_cells + 2 + stag_data->count_stag * count_cells; i++)
-			free_check_null(sol_D[i].spec);
+			sol_D[i].spec = (struct spec *) free_check_null(sol_D[i].spec);
+		sol_D = free_check_null(sol_D);
 	}
 
 	initial_total_time += rate_sim_time;
@@ -2563,7 +2568,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 	new_n_user = surface_ptr1->n_user;
 	surface_copy(surface_ptr1, &temp_surface, new_n_user);
 	sprintf(token, "Copy");
-	free_check_null(temp_surface.description);
+	temp_surface.description = free_check_null(temp_surface.description);
 	temp_surface.description = string_duplicate(token);
 	temp_surface.solution_equilibria = FALSE;
 	temp_surface.n_solution = -99;
@@ -2575,7 +2580,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 		temp_surface.comps[i].cb *= f1;
 		count_elts = 0;
 		add_elt_list(surface_ptr1->comps[i].totals, f1);
-		free_check_null(temp_surface.comps[i].totals);
+		temp_surface.comps[i].totals = free_check_null(temp_surface.comps[i].totals);
 		temp_surface.comps[i].totals = elt_list_save();
 	}
 	/*if (temp_surface.edl == TRUE) {*/
@@ -2589,7 +2594,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 			count_elts = 0;
 			if (surface_ptr1->charge[i].diffuse_layer_totals != NULL) {
 				add_elt_list(surface_ptr1->charge[i].diffuse_layer_totals, f1);
-				free_check_null(temp_surface.charge[i].diffuse_layer_totals);
+				temp_surface.charge[i].diffuse_layer_totals = free_check_null(temp_surface.charge[i].diffuse_layer_totals);
 				temp_surface.charge[i].g = (struct surface_diff_layer *) free_check_null(temp_surface.charge[i].g);
 				temp_surface.charge[i].diffuse_layer_totals = elt_list_save();
 			}
@@ -2655,7 +2660,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 						(size_t) sizeof(struct elt_list), elt_list_compare);
 					elt_list_combine();
 				}
-				free_check_null(temp_surface.comps[i1].totals);
+				temp_surface.comps[i1].totals = free_check_null(temp_surface.comps[i1].totals);
 				temp_surface.comps[i1].totals = elt_list_save();
 				temp_surface.comps[i1].Dw = new_Dw;
 				charge1 = temp_surface.comps[i1].charge;
@@ -2676,7 +2681,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 					(size_t) sizeof(struct elt_list), elt_list_compare);
 				elt_list_combine();
 			}
-			free_check_null(temp_surface.charge[charge1].diffuse_layer_totals);
+			temp_surface.charge[charge1].diffuse_layer_totals = free_check_null(temp_surface.charge[charge1].diffuse_layer_totals);
 			temp_surface.charge[charge1].diffuse_layer_totals = elt_list_save();
 			charge_in = TRUE;
 		}
@@ -3309,7 +3314,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 
 			count_elts = 0;
 			add_elt_list(temp_surface.comps[i].totals, fraction);
-			free_check_null(temp_surface.comps[i].totals);
+			temp_surface.comps[i].totals = free_check_null(temp_surface.comps[i].totals);
 			temp_surface.comps[i].totals = elt_list_save();
 
 			/* rename surface comp in element list */
@@ -3330,7 +3335,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 
 				count_elts = 0;
 				add_elt_list(temp_surface.charge[cn].diffuse_layer_totals, fraction);
-				free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
+				temp_surface.charge[cn].diffuse_layer_totals = free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
 				temp_surface.charge[cn].diffuse_layer_totals = elt_list_save();
 
 				strcpy(string, temp_surface.charge[cn].name);
@@ -3387,13 +3392,13 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 					qsort (elt_list, (size_t) count_elts, (size_t) sizeof(struct elt_list), elt_list_compare);
 					elt_list_combine();
 				}
-				free_check_null(temp_surface.comps[i1].totals);
+				temp_surface.comps[i1].totals = free_check_null(temp_surface.comps[i1].totals);
 				temp_surface.comps[i1].totals = elt_list_save();
 				temp_surface.comps[i1].Dw = new_Dw;
 
 				count_elts = 0;
 				add_elt_list(surf_ptr->comps[i].totals, 1.0 - fraction);
-				free_check_null(temp_surface.comps[i].totals);
+				temp_surface.comps[i].totals = free_check_null(temp_surface.comps[i].totals);
 				temp_surface.comps[i].totals = elt_list_save();
 
 				/* add charge */
@@ -3414,12 +3419,12 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 						qsort (elt_list, (size_t) count_elts, (size_t) sizeof(struct elt_list), elt_list_compare);
 						elt_list_combine();
 					}
-					free_check_null(temp_surface.charge[cn1].diffuse_layer_totals);
+					temp_surface.charge[cn1].diffuse_layer_totals = free_check_null(temp_surface.charge[cn1].diffuse_layer_totals);
 					temp_surface.charge[cn1].diffuse_layer_totals = elt_list_save();
 
 					count_elts = 0;
 					add_elt_list(surf_ptr->charge[cn].diffuse_layer_totals, 1.0 - fraction);
-					free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
+					temp_surface.charge[cn].diffuse_layer_totals = free_check_null(temp_surface.charge[cn].diffuse_layer_totals);
 					temp_surface.charge[cn].diffuse_layer_totals = elt_list_save();
 
 					charge_in = TRUE;
