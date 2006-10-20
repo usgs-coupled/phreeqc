@@ -559,10 +559,13 @@ int initial_surface_water(void)
 			x[i]->surface_charge->mass_water = mass_water_bulk_x * ddl_limit * s / sum_surfs;
 		}
 	}
+	mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
+	/*  the above statement works, this block breaks cdmusic calculation
 	if (state > INITIAL_SURFACE)
 		mass_water_aq_x = mass_water_bulk_x - mass_water_surfaces_x;
 	else
 		mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
+	*/
 	return(OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -890,7 +893,10 @@ LDBLE calc_psi_avg(LDBLE surf_chrg_eq)
 		fd = surf_chrg_eq;
 		fd1 = 0.0;
 		for (i = 1; i < count_g; i++) {
+			temp = exp(-charge_group[i].z * p);
+			/*  the above statement works, this block breaks cdmusic calculation
 			temp = exp(-charge_group[i].z * p) * ratio_aq;
+			*/
 			if (use.surface_ptr->only_counter_ions &&
 				((surf_chrg_eq < 0 && charge_group[i].z < 0) || (surf_chrg_eq > 0 && charge_group[i].z > 0)))
 				temp = 0.0;
