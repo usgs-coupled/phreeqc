@@ -326,7 +326,7 @@ struct surface_comp {
         char *phase_name;
         LDBLE phase_proportion;
         char *rate_name;
-		LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
+	LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
 };
 struct surface_charge {
         char *name;
@@ -348,6 +348,7 @@ struct surface_diff_layer {
         LDBLE dg;
         LDBLE psi_to_z;
 };
+EXTERNAL int g_iterations;
 EXTERNAL LDBLE G_TOL;
 EXTERNAL struct surface *surface;
 EXTERNAL struct surface *dbg_surface;
@@ -980,6 +981,7 @@ EXTERNAL int simul_tr;
 EXTERNAL LDBLE diffc;
 EXTERNAL LDBLE heat_diffc;
 EXTERNAL int cell;
+EXTERNAL int transport_substeps;
 EXTERNAL struct stag_data {
         int count_stag;
         LDBLE exch_f;

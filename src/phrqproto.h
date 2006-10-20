@@ -152,7 +152,6 @@ int residuals(void);
 int set(int initial);
 int sum_species(void);
 int surface_model(void);
-int g_iterations;
 
 /* p2clib.c */
 
@@ -490,7 +489,6 @@ int transport(void);
 int set_initial_moles(int i);
 int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2, int k, LDBLE f2, struct surface *target, LDBLE new_Dw);
 int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE new_Dw, int cell);
-int transport_substeps;
 
 /* utilities.c */
 int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef);
