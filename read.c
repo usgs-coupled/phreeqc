@@ -4984,9 +4984,9 @@ int read_surface_species (void)
 		"logk",               /* 5 */
 		"delta_h",            /* 6 */
 		"deltah",             /* 7 */
-                "analytical_expression", /* 8 */
+		"analytical_expression", /* 8 */
 		"a_e",                /* 9 */
-                "ae",                 /* 10 */
+		"ae",                 /* 10 */
 		"mole_balance",       /* 11 */
 		"offset",             /* 12 */
 		"add_logk",           /* 13 */
@@ -4997,7 +4997,7 @@ int read_surface_species (void)
 	};
 	int count_opt_list = 18;
 
-        association=TRUE;
+	association=TRUE;
 	/*
 	 *   Read eqn from file and call parser
 	 */
@@ -5140,8 +5140,8 @@ int read_surface_species (void)
 				s_ptr->add_logk[s_ptr->count_add_logk].coef = 1;
 			}
 			s_ptr->count_add_logk++;
- 			opt_save = OPTION_DEFAULT;
- 			break;
+			opt_save = OPTION_DEFAULT;
+			break;
 		case 15:                 /* add_constant */
 			if (s_ptr == NULL) {
 				sprintf(error_string, "No reaction defined before option, %s.", opt_list[opt]);
@@ -5167,8 +5167,8 @@ int read_surface_species (void)
 			s_ptr->add_logk[s_ptr->count_add_logk].name = string_hsave("XconstantX");
 			/* read coef */
 			s_ptr->count_add_logk++;
- 			opt_save = OPTION_DEFAULT;
- 			break;
+			opt_save = OPTION_DEFAULT;
+			break;
 		case 16:                /* cd_music */
 		case 17:                /* music */
 			if (s_ptr == NULL) {
