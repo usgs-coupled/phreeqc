@@ -1473,7 +1473,7 @@ int find_J(int cell_no)
 		o_c[i] = 0;
 	}
 
-	//Dz2c = Dz2c_dl = 0.0;
+	Dz2c = Dz2c_dl = 0.0;
 
 /*
  * coefficients in Eqn (1)...
