@@ -215,7 +215,7 @@ int transport(void)
 	nmix = init_mix();
 	heat_nmix = init_heat_mix(nmix);
 /* appt */
-	transport_substeps = nmix + (int) fabs(ishift);
+	transport_substeps = nmix + abs(ishift);
 	if (nmix < 2)
 		stagkin_time = timest;
 	else
