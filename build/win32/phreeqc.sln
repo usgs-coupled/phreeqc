@@ -6,12 +6,15 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		DebugMem|Win32 = DebugMem|Win32
 		Release|Win32 = Release|Win32
 		Test|Win32 = Test|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Debug|Win32.Build.0 = Debug|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.DebugMem|Win32.ActiveCfg = DebugMem|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.DebugMem|Win32.Build.0 = DebugMem|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Release|Win32.ActiveCfg = Release|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Release|Win32.Build.0 = Release|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Test|Win32.ActiveCfg = Test|Win32

@@ -96,3 +96,6 @@ diff:
 
 clean:
 	rm -f *.out *.log *.sel
+
+revert:
+	svn st | egrep ^! | cut -b 2- | xargs svn revert
