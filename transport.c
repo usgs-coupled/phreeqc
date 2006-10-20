@@ -1462,7 +1462,18 @@ int find_J(int cell_no)
 	o_c = (int *) PHRQ_malloc((size_t) k * sizeof(int));
 	if (o_c == NULL) malloc_error();
 
-	Dz2c = Dz2c_dl = 0.0;
+	for (i = 0; i < k; i++) {
+		J_ij[i].name = NULL;
+		J_ij[i].tot = 0.0;
+		grad[i] = 0.0;
+	    D[i] = 0.0;
+		z[i] = 0.0;
+		Dz[i] = 0.0;
+		Dzc[i] = 0.0;
+		o_c[i] = 0;
+	}
+
+	//Dz2c = Dz2c_dl = 0.0;
 
 /*
  * coefficients in Eqn (1)...
