@@ -1,6 +1,7 @@
 INPUT=../examples
 PHREEQCDAT=../database/phreeqc.dat
 WATEQ4FDAT=../database/wateq4f.dat
+PHREEQC=/cygdrive/c/Programs/phreeqc/build/win32/Debug/phreeqc
 PHREEQC=../bin/phreeqc
 
 all: ex1.out ex2.out ex3.out ex4.out ex5.out ex6.out ex7.out ex8.out ex9.out \

@@ -2,7 +2,7 @@
 #             $(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 PROGRAM=../bin/phreeqc
 
-%.out : % ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
+%.out : % $(PROGRAM) ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
 	$(PROGRAM) $< 
 	mv phreeqc.log $<.log
 

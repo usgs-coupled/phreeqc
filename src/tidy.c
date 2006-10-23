@@ -1403,6 +1403,7 @@ int tidy_punch(void)
 /* ---------------------------------------------------------------------- */
 {
   int i, j, l;
+  int punch_save;
   char token[MAX_LENGTH];
 /*
  *   tidy punch information
@@ -1412,7 +1413,7 @@ int tidy_punch(void)
   } else {
 	  l = 20;
   }
-  if (punch.in == TRUE && pr.punch == TRUE) {
+  if (punch.in == TRUE) {
     /* totals */
 
     for (i = 0; i < punch.count_totals; i++) {
@@ -1449,7 +1450,12 @@ int tidy_punch(void)
       punch.gases[i].phase = phase_bsearch(punch.gases[i].name, &j, FALSE);
     }
   }
-  if (punch.new_def == TRUE && punch.in == TRUE && pr.punch == TRUE) {
+  /*
+   *  Always write new headings when SELECTED_OUTPUT is read
+   */
+  if (punch.new_def == TRUE && punch.in == TRUE) {
+	  punch_save = pr.punch;
+	  pr.punch = TRUE;
 
     /* constant stuff, sim, pH, etc. */
 
@@ -1630,6 +1636,7 @@ int tidy_punch(void)
     }
     output_msg(OUTPUT_PUNCH,"\n");
     punch.new_def = FALSE;
+    pr.punch = punch_save;
   }
   return(OK);
 }
