@@ -24,11 +24,11 @@ LDBLE activity (char *species_name)
 	if (svnid == NULL) fprintf(stderr," ");
 
 	s_ptr = s_search(species_name);
- 	if (s_ptr == s_h2o) {
- 		a = pow(10., s_h2o->la);
+	 if (s_ptr == s_h2o) {
+		 a = pow(10., s_h2o->la);
 	} else if (s_ptr == s_eminus) {
 		a = pow(10.,s_eminus->la);
- 	} else if (s_ptr == NULL || s_ptr->in == FALSE) {
+	 } else if (s_ptr == NULL || s_ptr->in == FALSE) {
 		a = 1e-99;
 	} else {
 		a = pow(10., s_ptr->lm + s_ptr->lg);
@@ -147,7 +147,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Provides total moles in LDBLE layer
+ *   Provides total moles in DDL layer
  */
 	int i, j, k, count_g;
 	struct surface_charge *surface_charge_ptr1;
@@ -159,7 +159,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	LDBLE mass_water_surface;
 	LDBLE molality, moles_excess, moles_surface, charge;
 
-	if (use.surface_ptr == NULL || (dl_type_x != NO_DL &&
+	if (use.surface_ptr == NULL || (dl_type_x == NO_DL &&
 					strcmp_nocase("psi", total_name) != 0 &&
 					strcmp_nocase("psi1", total_name) != 0 &&
 					strcmp_nocase("psi2", total_name) != 0 &&
@@ -169,7 +169,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 					strcmp_nocase("sigma", total_name) != 0  &&
 					strcmp_nocase("sigma1", total_name) != 0  &&
 					strcmp_nocase("sigma2", total_name) != 0 )
-	    ) return(0);
+		) return(0);
 
 /*
  *   Find surface...
@@ -186,7 +186,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 			strcpy(name, x[j]->master[0]->elt->name);
 			replace ("_psi", "", name);
 		} else {
-   			if (x[j]->type != SURFACE) continue;
+			   if (x[j]->type != SURFACE) continue;
 			strcpy(token, x[j]->master[0]->elt->name);
 			replace ("_", " ", token);
 			ptr = token;
@@ -206,7 +206,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	if (strcmp_nocase("psi", total_name) == 0) {
 		/*if (use.surface_ptr->edl == TRUE) {*/
 		if (use.surface_ptr->type == DDL) {
-			return((LDBLE) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL * 
+			return((LDBLE) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL *
 					 tk_x * LOG_10 / F_KJ_V_EQ));
 		} else if (use.surface_ptr->type == CD_MUSIC) {
 			master_ptr = surface_get_psi_master(surface_name, SURF_PSI);
@@ -299,9 +299,9 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	for (j = 0; j < count_s_x; j++) {
 		if (s_x[j]->type > HPLUS) continue;
 		molality = under(s_x[j]->lm);
-		count_g = s_x[j]->diff_layer[i].count_g; 
+		count_g = s_x[j]->diff_layer[i].count_g;
 
-		moles_excess = mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g; 
+		moles_excess = mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g;
 		moles_surface = mass_water_surface * molality + moles_excess;
 /*
  *   Accumulate elements in diffuse layer
@@ -310,7 +310,7 @@ LDBLE diff_layer_total(char *total_name, char *surface_name)
 	}
 	if (count_elts > 0 ) {
 		qsort (elt_list, (size_t) count_elts,
-		       (size_t) sizeof(struct elt_list), elt_list_compare);
+			   (size_t) sizeof(struct elt_list), elt_list_compare);
 		elt_list_combine();
 	}
 /*
@@ -428,8 +428,8 @@ LDBLE get_calculate_value(char *name)
 /* ---------------------------------------------------------------------- */
 /*
  *   Gets value from a calclate_value structure
- *      arguments: name
- *      return: LDBLE of value
+ *	  arguments: name
+ *	  return: LDBLE of value
  */
 {
 	struct calculate_value *calculate_value_ptr;
@@ -484,8 +484,8 @@ LDBLE log_activity (char *species_name)
 		la = s_eminus->la;
 	} else if (s_ptr == NULL || s_ptr->in == FALSE) {
 		la = -99.99;
- 	} else if (s_ptr == s_h2o) {
- 		la = s_h2o->la;
+	 } else if (s_ptr == s_h2o) {
+		 la = s_h2o->la;
 	} else {
 		la = s_ptr->lm + s_ptr->lg;
 	}
@@ -522,8 +522,8 @@ LDBLE molality (char *species_name)
 	if (s_ptr == NULL || s_ptr == s_eminus || s_ptr->in == FALSE) {
 		m = 1e-99;
 	} else {
- 		/* m = pow(10., s_ptr->lm); */
- 		m = s_ptr->moles/mass_water_aq_x;
+		 /* m = pow(10., s_ptr->lm); */
+		 m = s_ptr->moles/mass_water_aq_x;
 	}
 	return(m);
 }
@@ -536,7 +536,7 @@ LDBLE saturation_ratio (char *phase_name)
 	int l;
 	LDBLE si, iap;
 
-	iap = 0.0;   
+	iap = 0.0;
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL) {
 		sprintf(error_string, "Mineral %s, not found.", phase_name);
@@ -548,7 +548,7 @@ LDBLE saturation_ratio (char *phase_name)
 		}
 		si = iap - phase_ptr->lk;
 		return(pow(10.0, si));
-	} 
+	}
 	return(0.0);
 
 }
@@ -560,8 +560,8 @@ int saturation_index (char *phase_name, LDBLE *iap, LDBLE *si)
 	struct phase *phase_ptr;
 	int l;
 
-	*si = -99.99; 
-	*iap = 0.0;   
+	*si = -99.99;
+	*iap = 0.0;
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL) {
 		sprintf(error_string, "Mineral %s, not found.", phase_name);
@@ -698,15 +698,15 @@ int match_elts_in_species (char *name, char *mytemplate)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *    Makes a list of elements with their coefficients, stores elements
- *    in elt_list at position count_elts.  Global variable count_elts is
- *    updated with each stored element.  Also uses static global variable
- *    paren_count.
+ *	Makes a list of elements with their coefficients, stores elements
+ *	in elt_list at position count_elts.  Global variable count_elts is
+ *	updated with each stored element.  Also uses static global variable
+ *	paren_count.
  *
- *    Arguments:
- *       **t_ptr    input, point in token string to start looking
- *                  output, is next position to start looking
- *         coef     input, coefficient to multiply subscripts by
+ *	Arguments:
+ *	   **t_ptr	input, point in token string to start looking
+ *				  output, is next position to start looking
+ *		 coef	 input, coefficient to multiply subscripts by
  */
 	int i, i1, l, case_no, match;
 	char c, c1;
@@ -737,8 +737,8 @@ int match_elts_in_species (char *name, char *mytemplate)
 		c1=*(ptr+1);
 		str[0] = c;
 		str[1] = '\0';
-/* 
- * New element 
+/*
+ * New element
  */
 		if (isupper((int) c) || (c == 'e' && c1 == '-') || (c == '[')) {
 			/*
@@ -843,12 +843,12 @@ int match_elts_in_species (char *name, char *mytemplate)
 	/*
 	 *   Compare string
 	 */
-	/* Cases: 0 exact match 
-	 *        1 leading wild card
-	 *        2 trailing wild card
-	 *        3 leading and trailing wild card
+	/* Cases: 0 exact match
+	 *		1 leading wild card
+	 *		2 trailing wild card
+	 *		3 leading and trailing wild card
 	 */
-	case_no = 0; 
+	case_no = 0;
 	if (template1[0] == '*') case_no = 1;
 	l = (int) strlen(template1);
 	if (template1[l - 1] == '*') {
@@ -861,26 +861,26 @@ int match_elts_in_species (char *name, char *mytemplate)
 	while (replace("*","",template1));
 	match = FALSE;
 	switch (case_no) {
-	    case 0:
-		    /* exact match */
-		    if (strcmp(token, template1) == 0) match = TRUE;
-		    break;
-	    case 1:
-		    /* leading wild card */
-		    if ((ptr = strstr(token, template1)) == NULL) {
-			    match = FALSE;
-		    } else {
-			    if (strcmp(ptr, template1) == 0) match = TRUE;
-		    }
-		    break;
-	    case 2:
-		    /* trailing wild card */
-		    if (strstr(token, template1) == token) match = TRUE;
-		    break;
-	    case 3:
-		    /* trailing wild card */
-		    if (strstr(token, template1) != NULL) match = TRUE;
-		    break;
+		case 0:
+			/* exact match */
+			if (strcmp(token, template1) == 0) match = TRUE;
+			break;
+		case 1:
+			/* leading wild card */
+			if ((ptr = strstr(token, template1)) == NULL) {
+				match = FALSE;
+			} else {
+				if (strcmp(ptr, template1) == 0) match = TRUE;
+			}
+			break;
+		case 2:
+			/* trailing wild card */
+			if (strstr(token, template1) == token) match = TRUE;
+			break;
+		case 3:
+			/* trailing wild card */
+			if (strstr(token, template1) != NULL) match = TRUE;
+			break;
 	}
 	return (match);
 }
@@ -957,7 +957,7 @@ LDBLE surf_total(char *total_name, char *surface_name)
 	}
 	if (count_elts > 0 ) {
 		qsort (elt_list, (size_t) count_elts,
-		       (size_t) sizeof(struct elt_list), elt_list_compare);
+			   (size_t) sizeof(struct elt_list), elt_list_compare);
 		elt_list_combine();
 	}
 /*
@@ -980,7 +980,7 @@ LDBLE total (char *total_name)
 
 	if (strcmp_nocase(total_name,"water") == 0) {
 		return(mass_water_aq_x);
-	} 
+	}
 	if (strcmp(total_name,"H") == 0) {
 		return(total_h_x/mass_water_aq_x);
 	}
@@ -996,12 +996,12 @@ LDBLE total (char *total_name)
  *  Primary master species
  */
 	} else if (master_ptr->primary == TRUE) {
-		/* 
+		/*
 		 *  Not a redox element
 		 */
 		if (master_ptr->s->secondary == NULL) {
 			t = master_ptr->total/mass_water_aq_x;
-		/* 
+		/*
 		 * Redox element, need to sum totals of all redox states
 		 */
 		} else {
@@ -1057,7 +1057,7 @@ LDBLE system_total(char *total_name, LDBLE *count, char ***names, char ***types,
 	 */
 	if (count_sys > 1 ) {
 		qsort (sys, (size_t) count_sys,
-		       (size_t) sizeof(struct system_species), system_species_compare);
+			   (size_t) sizeof(struct system_species), system_species_compare);
 	}
 	/*
 	 * malloc space
@@ -1083,10 +1083,10 @@ LDBLE system_total(char *total_name, LDBLE *count, char ***names, char ***types,
 	if (strcmp_nocase(total_name,"elements") == 0) {
 		sys_tot = 0;;
 		for (i = 0; i < count_sys; i++) {
-			if (strcmp(sys[i].type,"dis") == 0 && 
-			    strstr(sys[i].name,"(") == NULL &&
-			    strcmp(sys[i].name,"H") != 0 &&
-			    strcmp(sys[i].name,"O") != 0) {
+			if (strcmp(sys[i].type,"dis") == 0 &&
+				strstr(sys[i].name,"(") == NULL &&
+				strcmp(sys[i].name,"H") != 0 &&
+				strcmp(sys[i].name,"O") != 0) {
 				sys_tot += sys[i].moles;
 			}
 		}
@@ -1097,9 +1097,9 @@ LDBLE system_total(char *total_name, LDBLE *count, char ***names, char ***types,
 int system_total_elements(void)
 /* ---------------------------------------------------------------------- */
 {
-        int i, j;
+		int i, j;
 	LDBLE t;
-        char name[MAX_LENGTH];
+		char name[MAX_LENGTH];
 	struct master *master_ptr;
 
 	/*
@@ -1135,8 +1135,8 @@ int system_total_elements(void)
 
 	for (i = 0; i < count_master; i++) {
 		master_ptr=master[i];
- 		if (master_ptr->primary == TRUE && master_ptr->total_primary <= 0) continue;
- 		if (master_ptr->in == FALSE && (master_ptr->primary == FALSE || master_ptr->total_primary == 0)) continue;
+		 if (master_ptr->primary == TRUE && master_ptr->total_primary <= 0) continue;
+		 if (master_ptr->in == FALSE && (master_ptr->primary == FALSE || master_ptr->total_primary == 0)) continue;
 		/*
 		 *  H and O
 		 */
@@ -1148,12 +1148,12 @@ int system_total_elements(void)
 		if (master_ptr->primary == TRUE) {
 			if (master_ptr->total_primary > 0) {
 				t = master_ptr->total_primary;
-				/* 
+				/*
 				 *  Not a redox element
 				 */
 			} else if (master_ptr->s->secondary == NULL) {
 				t = master_ptr->total;
-				/* 
+				/*
 				 * Redox element, need to sum totals of all redox states
 				 */
 			} else {
@@ -1183,28 +1183,28 @@ int system_total_elements(void)
 		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 
 	}
-        return(OK);
+		return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int system_total_si(void)
 /* ---------------------------------------------------------------------- */
 {
-        int i;
-        LDBLE si, iap;
-        struct rxn_token *rxn_ptr;
-        char name[MAX_LENGTH];
+		int i;
+		LDBLE si, iap;
+		struct rxn_token *rxn_ptr;
+		char name[MAX_LENGTH];
 
-        for (i=0; i < count_phases; i++) {
-                if (phases[i]->in == FALSE || phases[i]->type != SOLID) continue;
+		for (i=0; i < count_phases; i++) {
+				if (phases[i]->in == FALSE || phases[i]->type != SOLID) continue;
 /*
  *   Print saturation index
  */
-                iap = 0.0;
-                for (rxn_ptr = phases[i]->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
-                        iap += rxn_ptr->s->la * rxn_ptr->coef;
-                }
-                si=-phases[i]->lk + iap;
-                /* output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f  %s\n",phases[i]->name, si, iap, (LDBLE) phases[i]->lk, phases[i]->formula); */
+				iap = 0.0;
+				for (rxn_ptr = phases[i]->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
+						iap += rxn_ptr->s->la * rxn_ptr->coef;
+				}
+				si=-phases[i]->lk + iap;
+				/* output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f  %s\n",phases[i]->name, si, iap, (LDBLE) phases[i]->lk, phases[i]->formula); */
 		strcpy(name, phases[i]->name);
 		sys[count_sys].name = string_duplicate(name);
 		sys[count_sys].moles = si;
@@ -1213,7 +1213,7 @@ int system_total_si(void)
 		count_sys++;
 		space ((void **) ((void *) &sys), count_sys, &max_sys, sizeof(struct system_species));
 	}
-        return(OK);
+		return(OK);
 }
 /* ---------------------------------------------------------------------- */
 int system_total_aq(void)
@@ -1294,7 +1294,7 @@ int system_total_gas(void)
 /*
  *   find total in gas phase
  */
-        if (use.gas_phase_ptr == NULL) return(OK);
+		if (use.gas_phase_ptr == NULL) return(OK);
 	for( i = 0; i < use.gas_phase_ptr->count_comps; i++) {
 		sys[count_sys].name = string_duplicate(use.gas_phase_ptr->comps[i].phase->name);
 		sys[count_sys].moles = use.gas_phase_ptr->comps[i].phase->moles_x;
@@ -1317,7 +1317,7 @@ int system_total_s_s(void)
 /*
  *  Solid solutions
  */
-        if (use.s_s_assemblage_ptr == NULL) return(OK);
+		if (use.s_s_assemblage_ptr == NULL) return(OK);
 	for( k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++) {
 		for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps; i++) {
 			sys[count_sys].name = string_duplicate(use.s_s_assemblage_ptr->s_s[k].comps[i].phase->name);
@@ -1339,7 +1339,7 @@ int system_total_elt(char *total_name)
  */
 	int i, j, k, count_g;
 	LDBLE molality, moles_excess, moles_surface, mass_water_surface;
-        char name[MAX_LENGTH];
+		char name[MAX_LENGTH];
 
 /*
  *   find total moles in aq, surface, and exchange
@@ -1351,7 +1351,7 @@ int system_total_elt(char *total_name)
 
 		if (count_elts > 0 ) {
 			qsort (elt_list, (size_t) count_elts,
-			       (size_t) sizeof(struct elt_list), elt_list_compare);
+				   (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
 		}
 		/*
@@ -1383,10 +1383,10 @@ int system_total_elt(char *total_name)
 			}
 		}
 	}
-        if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
+		if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
 		/*
 		 *   Find position of component in surface charge data
-		 */     
+		 */
 		i = -1;
 		for (k = 0; k < count_unknowns; k++) {
 			if (x[k]->type != SURFACE_CB) continue;
@@ -1401,8 +1401,8 @@ int system_total_elt(char *total_name)
 			for (j = 0; j < count_s_x; j++) {
 				if (s_x[j]->type > HPLUS) continue;
 				molality = under(s_x[j]->lm);
-				count_g = s_x[j]->diff_layer[i].count_g; 
-				moles_excess = mass_water_aq_x * molality * x[k]->surface_charge->g[count_g].g; 
+				count_g = s_x[j]->diff_layer[i].count_g;
+				moles_excess = mass_water_aq_x * molality * x[k]->surface_charge->g[count_g].g;
 				moles_surface = mass_water_surface * molality + moles_excess;
 				/*
 				 *   Accumulate elements in diffuse layer
@@ -1411,7 +1411,7 @@ int system_total_elt(char *total_name)
 			}
 			if (count_elts > 0 ) {
 				qsort (elt_list, (size_t) count_elts,
-				       (size_t) sizeof(struct elt_list), elt_list_compare);
+					   (size_t) sizeof(struct elt_list), elt_list_compare);
 				elt_list_combine();
 			}
 			/*
@@ -1444,7 +1444,7 @@ int system_total_elt(char *total_name)
 			add_elt_list(x[i]->pure_phase->phase->next_elt, x[i]->moles);
 			if (count_elts > 0 ) {
 				qsort (elt_list, (size_t) count_elts,
-				       (size_t) sizeof(struct elt_list), elt_list_compare);
+					   (size_t) sizeof(struct elt_list), elt_list_compare);
 				elt_list_combine();
 			}
 			for ( j=0; j < count_elts; j++ ) {
@@ -1463,7 +1463,7 @@ int system_total_elt(char *total_name)
 /*
  *  Solid solutions
  */
-        if (use.s_s_assemblage_ptr != NULL) {
+		if (use.s_s_assemblage_ptr != NULL) {
 		for( k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++) {
 			if (use.s_s_assemblage_ptr->s_s[k].s_s_in == TRUE) {
 				for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps; i++) {
@@ -1472,7 +1472,7 @@ int system_total_elt(char *total_name)
 					add_elt_list(use.s_s_assemblage_ptr->s_s[k].comps[i].phase->next_elt, use.s_s_assemblage_ptr->s_s[k].comps[i].moles);
 					if (count_elts > 0 ) {
 						qsort (elt_list, (size_t) count_elts,
-						       (size_t) sizeof(struct elt_list), elt_list_compare);
+							   (size_t) sizeof(struct elt_list), elt_list_compare);
 						elt_list_combine();
 					}
 					for ( j=0; j < count_elts; j++ ) {
@@ -1493,7 +1493,7 @@ int system_total_elt(char *total_name)
 /*
  *   find total in gas phase
  */
-        if (use.gas_phase_ptr != NULL) {
+		if (use.gas_phase_ptr != NULL) {
 		for( i = 0; i < use.gas_phase_ptr->count_comps; i++) {
 			if (use.gas_phase_ptr->comps[i].phase->in == TRUE) {
 				count_elts = 0;
@@ -1502,7 +1502,7 @@ int system_total_elt(char *total_name)
 
 				if (count_elts > 0 ) {
 					qsort (elt_list, (size_t) count_elts,
-					       (size_t) sizeof(struct elt_list), elt_list_compare);
+						   (size_t) sizeof(struct elt_list), elt_list_compare);
 					elt_list_combine();
 				}
 				/*
@@ -1533,7 +1533,7 @@ int system_total_elt_secondary(char *total_name)
  */
 	int i, j, k, l, count_g;
 	LDBLE molality, moles_excess, moles_surface, mass_water_surface, sum, coef;
-        char name[MAX_LENGTH];
+		char name[MAX_LENGTH];
 /*
  *   find total moles in aq, surface, and exchange
  */
@@ -1547,10 +1547,10 @@ int system_total_elt_secondary(char *total_name)
 		}
 		if (count_elts > 0 ) {
 			qsort (elt_list, (size_t) count_elts,
-			       (size_t) sizeof(struct elt_list), elt_list_compare);
+				   (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
 		}
-		/* debug 
+		/* debug
 		output_msg(OUTPUT_MESSAGE, "%s\n", s_x[i]->name);
 		for ( j=0; j < count_elts; j++ ) {
 			output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
@@ -1585,10 +1585,10 @@ int system_total_elt_secondary(char *total_name)
 			}
 		}
 	}
-        if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
+		if (use.surface_ptr != NULL && dl_type_x != NO_DL) {
 		/*
 		 *   Find position of component in surface charge data
-		 */     
+		 */
 		i = -1;
 		for (k = 0; k < count_unknowns; k++) {
 			if (x[k]->type != SURFACE_CB) continue;
@@ -1612,8 +1612,8 @@ int system_total_elt_secondary(char *total_name)
 						coef = elt_list[l].coef;
 						if (s_x[j]->type > H2O) continue;
 						molality = under(s_x[j]->lm);
-						count_g = s_x[j]->diff_layer[i].count_g; 
-						moles_excess = mass_water_aq_x * molality * x[k]->surface_charge->g[count_g].g; 
+						count_g = s_x[j]->diff_layer[i].count_g;
+						moles_excess = mass_water_aq_x * molality * x[k]->surface_charge->g[count_g].g;
 						moles_surface = mass_water_surface * molality + moles_excess;
 						sum += moles_surface * coef;
 						break;
@@ -1644,10 +1644,10 @@ int system_total_elt_secondary(char *total_name)
 			add_elt_list(x[i]->pure_phase->phase->next_sys_total, x[i]->moles);
 			if (count_elts > 0 ) {
 				qsort (elt_list, (size_t) count_elts,
-				       (size_t) sizeof(struct elt_list), elt_list_compare);
+					   (size_t) sizeof(struct elt_list), elt_list_compare);
 				elt_list_combine();
 			}
-			/* debug 
+			/* debug
 			output_msg(OUTPUT_MESSAGE, "%s\n", x[i]->pure_phase->phase->name);
 			for ( j=0; j < count_elts; j++ ) {
 				output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
@@ -1669,7 +1669,7 @@ int system_total_elt_secondary(char *total_name)
 /*
  *  Solid solutions
  */
-        if (use.s_s_assemblage_ptr != NULL) {
+		if (use.s_s_assemblage_ptr != NULL) {
 		for( k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++) {
 			if (use.s_s_assemblage_ptr->s_s[k].s_s_in == TRUE) {
 				for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps; i++) {
@@ -1678,7 +1678,7 @@ int system_total_elt_secondary(char *total_name)
 					add_elt_list(use.s_s_assemblage_ptr->s_s[k].comps[i].phase->next_sys_total, use.s_s_assemblage_ptr->s_s[k].comps[i].moles);
 					if (count_elts > 0 ) {
 						qsort (elt_list, (size_t) count_elts,
-						       (size_t) sizeof(struct elt_list), elt_list_compare);
+							   (size_t) sizeof(struct elt_list), elt_list_compare);
 						elt_list_combine();
 					}
 					for ( j=0; j < count_elts; j++ ) {
@@ -1699,7 +1699,7 @@ int system_total_elt_secondary(char *total_name)
 /*
  *   find total in gas phase
  */
-        if (use.gas_phase_ptr != NULL) {
+		if (use.gas_phase_ptr != NULL) {
 		for( i = 0; i < use.gas_phase_ptr->count_comps; i++) {
 			if (use.gas_phase_ptr->comps[i].phase->in == TRUE) {
 				count_elts = 0;
@@ -1708,7 +1708,7 @@ int system_total_elt_secondary(char *total_name)
 
 				if (count_elts > 0 ) {
 					qsort (elt_list, (size_t) count_elts,
-					       (size_t) sizeof(struct elt_list), elt_list_compare);
+						   (size_t) sizeof(struct elt_list), elt_list_compare);
 					elt_list_combine();
 				}
 				/*
@@ -1754,7 +1754,7 @@ LDBLE solution_sum_secondary(char *total_name)
 		}
 		if (count_elts > 0 ) {
 			qsort (elt_list, (size_t) count_elts,
-			       (size_t) sizeof(struct elt_list), elt_list_compare);
+				   (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
 		}
 		/*
@@ -1817,7 +1817,7 @@ int system_total_solids(struct exchange *exchange_ptr,
 			}
 		}
 	}
-        if (gas_phase_ptr != NULL) {
+		if (gas_phase_ptr != NULL) {
 		for( i = 0; i < gas_phase_ptr->count_comps; i++) {
 			add_elt_list(gas_phase_ptr->comps[i].phase->next_elt, gas_phase_ptr->comps[i].moles);
 		}
@@ -1830,8 +1830,9 @@ int system_total_solids(struct exchange *exchange_ptr,
 
 	if (count_elts > 0 ) {
 		qsort (elt_list, (size_t) count_elts,
-		       (size_t) sizeof(struct elt_list), elt_list_compare);
+			   (size_t) sizeof(struct elt_list), elt_list_compare);
 		elt_list_combine();
 	}
 	return(OK);
 }
+

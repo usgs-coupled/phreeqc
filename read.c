@@ -5665,8 +5665,13 @@ int read_surf(void)
 				}
 				else {
 					sscanf(token1, SCANFORMAT, &surface[n].comps[count_comps - 1].Dw);
-					if (surface[n].comps[count_comps - 1].Dw > 0)
+					if (surface[n].comps[count_comps - 1].Dw > 0) {
 						surface[n].transport = TRUE;
+						if (surface[n].related_rate == TRUE || surface[n].related_phases == TRUE) {
+							error_msg("Can't transport surfaces related to phases or rates (yet).", CONTINUE);
+							input_error++;
+						}
+					}
 					break;
 				}
 			}
@@ -5690,11 +5695,11 @@ int read_surf(void)
 		*/
 		if (surface[n].type <= NO_EDL) {
 			input_error++;
-			warning_msg("Must use default Dzombak and Morel or -cd_music for surface transport.");
+			error_msg("Must use default Dzombak and Morel or -cd_music for surface transport.", CONTINUE);
 		}
-		if (surface[n].type <= NO_DL) {
+		if (surface[n].dl_type <= NO_DL) {
 			input_error++;
-			warning_msg("Must use -donnan or -diffuse_layer for surface transport.");
+			error_msg("Must use -donnan or -diffuse_layer for surface transport.", CONTINUE);
 		}
 		for (i = 0; i < count_comps; i++) {
 			if (surface[n].comps[i].Dw > 0) {
@@ -5739,8 +5744,11 @@ int read_surf(void)
 			warning_msg(error_string);
 			surface[n].dl_type = DONNAN_DL;
 		}
+		if (surface[n].debye_lengths > 0) {
+			error_msg("Variable DDL thickness is not permitted in CD_MUSIC. Fix DDL thickness\n\tfor example (default value): -donnan 1e-8", CONTINUE);
+			input_error++;
+		}
 	}
-
 	return(return_value);
 }
 /* ---------------------------------------------------------------------- */
