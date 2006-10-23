@@ -1164,7 +1164,7 @@ int multi_D(LDBLE DDt)
 					tot_o += elt_list[k].coef * J_ij[j].tot;
 				else {
 					for (l = 0; l < count_m_s; l++) {
-						length = strlen(elt_list[k].elt->name);
+						length = (int) strlen(elt_list[k].elt->name);
 						if (strncmp(m_s[l].name, elt_list[k].elt->name, length) == 0) {
 							m_s[l].tot += elt_list[k].coef * J_ij[j].tot;
 							break;
@@ -1196,7 +1196,7 @@ int multi_D(LDBLE DDt)
 			use.solution_ptr->cb -= J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
-				length = strlen(m_s[l].name);
+				length = (int) strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == 0) {
 						if (use.solution_ptr->totals[j].moles < m_s[l].tot) {
@@ -1249,7 +1249,7 @@ int multi_D(LDBLE DDt)
 			use.solution_ptr->cb += J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
-				length = strlen(m_s[l].name);
+				length = (int) strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == 0) {
 						if (use.solution_ptr->totals[j].moles < -m_s[l].tot) {
@@ -1786,7 +1786,7 @@ int multi_Dstag(int mobile_cell)
 						tot_o += elt_list[k].coef * J_ij[j].tot;
 					else {
 						for (l = 0; l < count_m_s; l++) {
-							length = strlen(elt_list[k].elt->name);
+							length = (int) strlen(elt_list[k].elt->name);
 							if (strncmp(m_s[l].name, elt_list[k].elt->name, length) == 0) {
 								m_s[l].tot += elt_list[k].coef * J_ij[j].tot;
 								break;
@@ -1816,7 +1816,7 @@ int multi_Dstag(int mobile_cell)
 			use.solution_ptr->cb -= J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
-				length = strlen(m_s[l].name);
+				length = (int) strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == 0) {
 						if (use.solution_ptr->totals[j].moles < m_s[l].tot) {
@@ -1867,7 +1867,7 @@ int multi_Dstag(int mobile_cell)
 			use.solution_ptr->cb += J_ij_sum;
 			for (l = 0; l < count_m_s; l++) {
 				temp = 0.0;
-				length = strlen(m_s[l].name);
+				length = (int) strlen(m_s[l].name);
 				for (j = 0; use.solution_ptr->totals[j].description != NULL; j++) {
 					if (strncmp(m_s[l].name, use.solution_ptr->totals[j].description, length) == 0) {
 						if (use.solution_ptr->totals[j].moles < -m_s[l].tot) {
