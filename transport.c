@@ -1496,7 +1496,7 @@ int find_J(int cell_no)
 	j_max = sol_D[cell_no + 1].count_spec;
 
 	while (i < i_max || j < j_max) {
-		if (j == j_max || (i < i_max && strcmp(sol_D[cell_no].spec[i].name, sol_D[cell_no + 1].spec[j].name) < 0)) {
+		if (j == j_max || (i < i_max && strcmp(sol_D[cell_no].spec[i].name, sol_D[cell_no + 1].spec[j].name) < 0 )) {
 			/* species 'name' is only in cell_no */
 			J_ij[k].name = string_hsave(sol_D[cell_no].spec[i].name);
 			D[k] = sol_D[cell_no].spec[i].Dp;
@@ -2700,7 +2700,7 @@ int sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 				}
 				temp_surface.comps[i1].totals = (struct elt_list *) free_check_null(temp_surface.comps[i1].totals);
 				temp_surface.comps[i1].totals = elt_list_save();
-				free_check_null(temp_surface.comps[i1].formula_totals);
+				temp_surface.comps[i1].formula_totals = (struct elt_list *) free_check_null(temp_surface.comps[i1].formula_totals);
 				temp_surface.comps[i1].formula_totals = elt_list_save();
 				temp_surface.comps[i1].Dw = new_Dw;
 				charge1 = temp_surface.comps[i1].charge;
@@ -3450,7 +3450,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 				}
 				temp_surface.comps[i1].totals = (struct elt_list *) free_check_null(temp_surface.comps[i1].totals);
 				temp_surface.comps[i1].totals = elt_list_save();
-				free_check_null(temp_surface.comps[i1].formula_totals);
+				temp_surface.comps[i1].formula_totals = (struct elt_list *) free_check_null(temp_surface.comps[i1].formula_totals);
 				temp_surface.comps[i1].formula_totals = elt_list_save();
 				temp_surface.comps[i1].Dw = new_Dw;
 
@@ -3458,7 +3458,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 				add_elt_list(surf_ptr->comps[i].totals, 1.0 - fraction);
 				temp_surface.comps[i].totals = (struct elt_list *) free_check_null(temp_surface.comps[i].totals);
 				temp_surface.comps[i].totals = elt_list_save();
-				free_check_null(temp_surface.comps[i].formula_totals);
+				temp_surface.comps[i].formula_totals = (struct elt_list *) free_check_null(temp_surface.comps[i].formula_totals);
 				temp_surface.comps[i].formula_totals = elt_list_save();
 
 				/* add charge */
