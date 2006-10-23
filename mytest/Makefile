@@ -14,11 +14,15 @@ all: alkalinity.out \
 	brown.out \
 	cdmusic_related.out \
 	co2.out \
+	colloid_U.out \
 	comments.out \
 	desc.out \
 	dissolve_only.out \
 	eco.out \
 	evap.out \
+	deb1.out \
+	deb2.out \
+	debye1.out \
 	exch_related.out \
 	exch_related_pz.out \
 	exch_kin_related.out \
@@ -36,6 +40,8 @@ all: alkalinity.out \
 	i5.out \
 	i6.out \
 	i7.out \
+	Int_vs_Don.out \
+	iso_example.out \
 	jgb2col.out \
 	jgbcol.out \
 	joe.out \
@@ -48,6 +54,7 @@ all: alkalinity.out \
 	mahoney.out \
 	mu.out \
 	np.test.out \
+	opa_col2.out \
 	org_gas.out \
 	oxygen.out \
 	phantom_surface.out \
@@ -55,13 +62,20 @@ all: alkalinity.out \
 	phrqpitz.tst.out \
 	pitzalphas.out \
 	prob8.out \
+	s1.out \
 	saver.out \
 	saunders.out \
 	solid_solution.out \
 	solid_solution_pz.out \
 	solution_s.out \
 	spread_solution.out \
-	iso_example.out \
+	sc1.out \
+	sc2.out \
+	sc3.out \
+	sc4.out \
+	sc5.out \
+	sc6.out \
+	sc7.out \
 	surf3.out \
 	surf3_density.out \
 	surf_related.out \

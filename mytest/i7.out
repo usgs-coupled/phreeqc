@@ -295,12 +295,12 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Su            
-	 -7.513e-09  Surface + diffuse layer charge, eq
+	  1.332e-15  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -1.149e+00  psi, V
-	  4.474e+01  -F*psi/RT
-	  2.702e+19  exp(-F*psi/RT)
+	 -3.213e-01  psi, V
+	  1.251e+01  -F*psi/RT
+	  2.702e+05  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -324,12 +324,12 @@ Su
 Surface 4.	
 
 Su            
-	 -2.914e-13  Surface + diffuse layer charge, eq
+	 -3.331e-16  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -1.185e+00  psi, V
-	  4.613e+01  -F*psi/RT
-	  1.081e+20  exp(-F*psi/RT)
+	 -3.213e-01  psi, V
+	  1.251e+01  -F*psi/RT
+	  2.702e+05  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -353,12 +353,12 @@ Su
 Surface 8.	
 
 Su            
-	 -1.177e-14  Surface + diffuse layer charge, eq
+	 -1.998e-15  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -1.221e+00  psi, V
-	  4.752e+01  -F*psi/RT
-	  4.323e+20  exp(-F*psi/RT)
+	 -3.213e-01  psi, V
+	  1.251e+01  -F*psi/RT
+	  2.702e+05  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -391,12 +391,12 @@ Using surface 1.	Surface assemblage after simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.763e-09  Surface + diffuse layer charge, eq
+	  1.557e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -1.090e+00  psi, V
-	  4.244e+01  -F*psi/RT
-	  2.702e+18  exp(-F*psi/RT)
+	 -2.622e-01  psi, V
+	  1.020e+01  -F*psi/RT
+	  2.702e+04  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -418,7 +418,7 @@ Su
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Su-               1.000e+00       1.000   1.000e+00       0.000
+	Su-               1.000e+00       1.000   1.000e-00      -0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -441,8 +441,8 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.467e-09
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   4.593e-11
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -463,13 +463,13 @@ Ap               9.901e-05
    Ap+                    9.901e-05   9.901e-05    -4.004    -4.004    -0.000
 Cl               1.000e-20
    Cl-                    1.000e-20   9.006e-21   -20.000   -20.045    -0.046
-H(0)             2.968e-39
-   H2                     1.484e-39   1.487e-39   -38.829   -38.828     0.001
+H(0)             2.961e-39
+   H2                     1.481e-39   1.484e-39   -38.830   -38.829     0.001
 Na               9.900e-03
    Na+                    9.900e-03   8.941e-03    -2.004    -2.049    -0.044
    NaOH                   6.286e-11   6.300e-11   -10.202   -10.201     0.001
-O(0)             3.757e-15
-   O2                     1.878e-15   1.883e-15   -14.726   -14.725     0.001
+O(0)             3.774e-15
+   O2                     1.887e-15   1.891e-15   -14.724   -14.723     0.001
 
 ------------------------------Saturation indices-------------------------------
 
@@ -478,7 +478,7 @@ O(0)             3.757e-15
 	H2(g)           -35.68  -38.83   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -23.68  -22.09    1.58  NaCl
-	O2(g)           -11.83  -14.73   -2.89  O2
+	O2(g)           -11.83  -14.72   -2.89  O2
 
 ------------------
 End of simulation.

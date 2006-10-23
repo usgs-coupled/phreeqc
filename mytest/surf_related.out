@@ -955,12 +955,12 @@ Goethite            -0.21   -1.21   -1.00    1.000e-02           0  -1.000e-02
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  2.819e-25  Surface + diffuse layer charge, eq
-	  2.819e-25  Surface charge, eq
+	  1.350e-24  Surface + diffuse layer charge, eq
+	  1.350e-24  Surface charge, eq
 	undefined  sigma, C/m**2
-	  6.563e-02  psi, V
+	  6.565e-02  psi, V
 	 -2.555e+00  -F*psi/RT
-	  7.772e-02  exp(-F*psi/RT)
+	  7.767e-02  exp(-F*psi/RT)
 	  5.000e+04  specific area, m**2/mol Goethite
 	  0.000e+00  m**2 for   0.000e+00 moles of Goethite
 
@@ -979,21 +979,21 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         1.462e-25       0.000   1.461e-25     -24.835
-	Hfo_sOH           5.561e-31       0.000   5.559e-31     -30.255
-	Hfo_sO-           4.847e-38       0.000   4.845e-38     -37.315
-	Hfo_sOFe+         2.314e-41       0.000   2.313e-41     -40.636
+	Hfo_sOH2+         6.752e-25       0.000   6.750e-25     -24.171
+	Hfo_sOH           2.571e-30       0.000   2.570e-30     -29.590
+	Hfo_sO-           2.242e-37       0.000   2.241e-37     -36.649
+	Hfo_sOFe+         1.319e-40       0.000   1.318e-40     -39.880
 
 Hfo_w         
 	  0.000e+00  moles	[0.1 mol/(mol Goethite)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+         1.357e-25       0.000   1.357e-25     -24.868
-	Hfo_wOH           5.163e-31       0.000   5.161e-31     -30.287
-	Hfo_wO-           4.500e-38       0.000   4.498e-38     -37.347
-	Hfo_wOFe+         2.005e-43       0.000   2.004e-43     -42.698
-	Hfo_wOFeOH        3.971e-50       0.000   3.970e-50     -49.401
+	Hfo_wOH2+         6.752e-25       0.000   6.750e-25     -24.171
+	Hfo_wOH           2.571e-30       0.000   2.570e-30     -29.590
+	Hfo_wO-           2.242e-37       0.000   2.241e-37     -36.649
+	Hfo_wOFe+         1.231e-42       0.000   1.230e-42     -41.910
+	Hfo_wOFeOH        2.439e-49       0.000   2.438e-49     -48.613
 
 -----------------------------Solution composition------------------------------
 
@@ -1005,7 +1005,7 @@ Hfo_w
 ----------------------------Description of solution----------------------------
 
                                        pH  =   0.761      Charge balance
-                                       pe  =  18.614      Adjusted to redox equilibrium
+                                       pe  =  18.522      Adjusted to redox equilibrium
                         Activity of water  =   0.992
                            Ionic strength  =   2.548e-01
                        Mass of water (kg)  =   1.000e+00
@@ -1013,9 +1013,9 @@ Hfo_w
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.469e-12
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =   4
+                  Electrical balance (eq)  =  -6.915e-11
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  12
                                   Total H  = 1.112724e+02
                                   Total O  = 5.552622e+01
 
@@ -1032,11 +1032,11 @@ Cl               2.499e-01
    FeCl+2                 5.523e-03   1.639e-03    -2.258    -2.785    -0.528
    FeCl2+                 1.658e-03   1.224e-03    -2.780    -2.912    -0.132
    FeCl3                  1.929e-05   2.046e-05    -4.715    -4.689     0.025
-   FeCl+                  2.587e-10   1.910e-10    -9.587    -9.719    -0.132
-Fe(2)            2.972e-09
-   Fe+2                   2.713e-09   8.276e-10    -8.567    -9.082    -0.516
-   FeCl+                  2.587e-10   1.910e-10    -9.587    -9.719    -0.132
-   FeOH+                  2.028e-18   1.497e-18   -17.693   -17.825    -0.132
+   FeCl+                  3.192e-10   2.356e-10    -9.496    -9.628    -0.132
+Fe(2)            3.666e-09
+   Fe+2                   3.347e-09   1.021e-09    -8.475    -8.991    -0.516
+   FeCl+                  3.192e-10   2.356e-10    -9.496    -9.628    -0.132
+   FeOH+                  2.502e-18   1.846e-18   -17.602   -17.734    -0.132
 Fe(3)            9.996e-03
    FeCl+2                 5.523e-03   1.639e-03    -2.258    -2.785    -0.528
    Fe+3                   2.755e-03   3.246e-04    -2.560    -3.489    -0.929
@@ -1049,9 +1049,9 @@ Fe(3)            9.996e-03
    Fe(OH)3                1.577e-14   1.673e-14   -13.802   -13.777     0.025
    Fe(OH)4-               1.182e-22   8.725e-23   -21.927   -22.059    -0.132
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -41.924   -41.899     0.025
-O(0)             4.854e-09
-   O2                     2.427e-09   2.574e-09    -8.615    -8.589     0.025
+   H2                     0.000e+00   0.000e+00   -41.742   -41.717     0.025
+O(0)             2.097e-09
+   O2                     1.048e-09   1.112e-09    -8.979    -8.954     0.025
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1059,10 +1059,10 @@ O(0)             4.854e-09
 
 	Fe(OH)3(a)       -6.11   -1.22    4.89  Fe(OH)3
 	Goethite         -0.21   -1.21   -1.00  FeOOH
-	H2(g)           -38.75  -41.90   -3.15  H2
+	H2(g)           -38.57  -41.72   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Hematite          1.59   -2.42   -4.01  Fe2O3
-	O2(g)            -5.70   -8.59   -2.89  O2
+	O2(g)            -6.06   -8.95   -2.89  O2
 
 ------------------
 End of simulation.
@@ -1096,12 +1096,12 @@ Goethite            -0.21   -1.21   -1.00    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  1.331e-19  Surface + diffuse layer charge, eq
-	  1.331e-19  Surface charge, eq
+	  1.733e-19  Surface + diffuse layer charge, eq
+	  1.733e-19  Surface charge, eq
 	undefined  sigma, C/m**2
-	  6.563e-02  psi, V
+	  6.565e-02  psi, V
 	 -2.555e+00  -F*psi/RT
-	  7.772e-02  exp(-F*psi/RT)
+	  7.767e-02  exp(-F*psi/RT)
 	  5.000e+04  specific area, m**2/mol Goethite
 	  0.000e+00  m**2 for   0.000e+00 moles of Goethite
 
@@ -1120,21 +1120,21 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         6.698e-20       0.000   6.696e-20     -19.174
-	Hfo_sOH           2.548e-25       0.000   2.547e-25     -24.594
-	Hfo_sO-           2.221e-32       0.000   2.220e-32     -31.654
-	Hfo_sOFe+         1.060e-35       0.000   1.060e-35     -34.975
+	Hfo_sOH2+         8.663e-20       0.000   8.660e-20     -19.062
+	Hfo_sOH           3.298e-25       0.000   3.297e-25     -24.482
+	Hfo_sO-           2.876e-32       0.000   2.875e-32     -31.541
+	Hfo_sOFe+         1.692e-35       0.000   1.691e-35     -34.772
 
 Hfo_w         
 	  0.000e+00  moles	[0.1 mol/(mol Goethite)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+         6.615e-20       0.000   6.613e-20     -19.180
-	Hfo_wOH           2.517e-25       0.000   2.516e-25     -24.599
-	Hfo_wO-           2.193e-32       0.000   2.193e-32     -31.659
-	Hfo_wOFe+         9.773e-38       0.000   9.770e-38     -37.010
-	Hfo_wOFeOH        1.936e-44       0.000   1.935e-44     -43.713
+	Hfo_wOH2+         8.663e-20       0.000   8.660e-20     -19.062
+	Hfo_wOH           3.298e-25       0.000   3.297e-25     -24.482
+	Hfo_wO-           2.876e-32       0.000   2.875e-32     -31.541
+	Hfo_wOFe+         1.579e-37       0.000   1.578e-37     -36.802
+	Hfo_wOFeOH        3.129e-44       0.000   3.128e-44     -43.505
 
 -----------------------------Solution composition------------------------------
 
@@ -1146,7 +1146,7 @@ Hfo_w
 ----------------------------Description of solution----------------------------
 
                                        pH  =   0.761      Charge balance
-                                       pe  =  18.614      Adjusted to redox equilibrium
+                                       pe  =  18.522      Adjusted to redox equilibrium
                         Activity of water  =   0.992
                            Ionic strength  =   2.548e-01
                        Mass of water (kg)  =   1.000e+00
@@ -1154,8 +1154,8 @@ Hfo_w
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.469e-12
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -6.914e-11
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.112724e+02
                                   Total O  = 5.552622e+01
@@ -1173,11 +1173,11 @@ Cl               2.499e-01
    FeCl+2                 5.523e-03   1.639e-03    -2.258    -2.785    -0.528
    FeCl2+                 1.658e-03   1.224e-03    -2.780    -2.912    -0.132
    FeCl3                  1.929e-05   2.046e-05    -4.715    -4.689     0.025
-   FeCl+                  2.587e-10   1.910e-10    -9.587    -9.719    -0.132
-Fe(2)            2.972e-09
-   Fe+2                   2.713e-09   8.276e-10    -8.567    -9.082    -0.516
-   FeCl+                  2.587e-10   1.910e-10    -9.587    -9.719    -0.132
-   FeOH+                  2.028e-18   1.497e-18   -17.693   -17.825    -0.132
+   FeCl+                  3.192e-10   2.356e-10    -9.496    -9.628    -0.132
+Fe(2)            3.666e-09
+   Fe+2                   3.347e-09   1.021e-09    -8.475    -8.991    -0.516
+   FeCl+                  3.192e-10   2.356e-10    -9.496    -9.628    -0.132
+   FeOH+                  2.502e-18   1.846e-18   -17.602   -17.734    -0.132
 Fe(3)            9.996e-03
    FeCl+2                 5.523e-03   1.639e-03    -2.258    -2.785    -0.528
    Fe+3                   2.755e-03   3.246e-04    -2.560    -3.489    -0.929
@@ -1190,9 +1190,9 @@ Fe(3)            9.996e-03
    Fe(OH)3                1.577e-14   1.673e-14   -13.802   -13.777     0.025
    Fe(OH)4-               1.182e-22   8.725e-23   -21.927   -22.059    -0.132
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -41.924   -41.899     0.025
-O(0)             4.854e-09
-   O2                     2.427e-09   2.574e-09    -8.615    -8.589     0.025
+   H2                     0.000e+00   0.000e+00   -41.742   -41.717     0.025
+O(0)             2.097e-09
+   O2                     1.048e-09   1.112e-09    -8.979    -8.954     0.025
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1200,10 +1200,10 @@ O(0)             4.854e-09
 
 	Fe(OH)3(a)       -6.11   -1.22    4.89  Fe(OH)3
 	Goethite         -0.21   -1.21   -1.00  FeOOH
-	H2(g)           -38.75  -41.90   -3.15  H2
+	H2(g)           -38.57  -41.72   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Hematite          1.59   -2.42   -4.01  Fe2O3
-	O2(g)            -5.70   -8.59   -2.89  O2
+	O2(g)            -6.06   -8.95   -2.89  O2
 
 ------------------
 End of simulation.
@@ -1347,12 +1347,12 @@ Reaction 1.	Irreversible reaction defined in simulation 8.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Goethite             0.00   -1.00   -1.00    0.000e+00   1.237e-01   1.237e-01
+Goethite            -0.00   -1.00   -1.00    0.000e+00   1.237e-01   1.237e-01
 
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  8.254e-15  Surface + diffuse layer charge, eq
+	  6.981e-12  Surface + diffuse layer charge, eq
 	  1.361e-02  Surface charge, eq
 	  2.123e-01  sigma, C/m**2
 	  8.278e-02  psi, V
@@ -1412,7 +1412,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
+                               Iterations  =   3
                                   Total H  = 1.108554e+02
                                   Total O  = 5.525872e+01
 
@@ -1455,7 +1455,7 @@ O(0)             6.722e-09
 	Phase               SI log IAP  log KT
 
 	Fe(OH)3(a)       -5.90   -1.01    4.89  Fe(OH)3
-	Goethite          0.00   -1.00   -1.00  FeOOH
+	Goethite         -0.00   -1.00   -1.00  FeOOH
 	H2(g)           -38.85  -42.00   -3.15  H2
 	H2O(g)           -1.52   -0.01    1.51  H2O
 	Hematite          2.02   -1.99   -4.01  Fe2O3
