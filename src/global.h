@@ -5,7 +5,7 @@ static char const svnidglobal[] = "$Id$";
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 
-/*#define NO_DOS*/
+#define NO_DOS
 /* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
 #ifdef PHREEQ98
 /*#define fprintf fprintf98*/
