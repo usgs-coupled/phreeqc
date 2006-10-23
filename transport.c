@@ -3357,6 +3357,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 			temp_surface.comps[i].totals = (struct elt_list *) free_check_null(temp_surface.comps[i].totals);
 			temp_surface.comps[i].totals = elt_list_save();
 /* appt, is this correct ? */
+			temp_surface.comps[i].formula_totals = (struct elt_list *) free_check_null(temp_surface.comps[i].formula_totals);
 			temp_surface.comps[i].formula_totals = elt_list_save();
 
 			/* rename surface comp in element list */
