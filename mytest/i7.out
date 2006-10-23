@@ -104,22 +104,22 @@ Initial solution 0.
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	OH-               1.112e-07   1.001e-07    -6.954    -7.000    -0.046
-	H+                1.095e-07   1.000e-07    -6.961    -7.000    -0.039
-	H2O               5.551e+01   9.996e-01     1.744    -0.000     0.000
+   OH-                    1.112e-07   1.001e-07    -6.954    -7.000    -0.046
+   H+                     1.095e-07   1.000e-07    -6.961    -7.000    -0.039
+   H2O                    5.551e+01   9.996e-01     1.744    -0.000     0.000
 A                1.000e-03
-	A                 1.000e-03   1.000e-03    -3.000    -3.000     0.000
+   A                      1.000e-03   1.000e-03    -3.000    -3.000     0.000
 Am               1.000e-02
-	Am-               1.000e-02   1.000e-02    -2.000    -2.000    -0.000
+   Am-                    1.000e-02   1.000e-02    -2.000    -2.000    -0.000
 Ap               1.000e-02
-	Ap+               1.000e-02   1.000e-02    -2.000    -2.000    -0.000
+   Ap+                    1.000e-02   1.000e-02    -2.000    -2.000    -0.000
 H(0)             1.413e-25
-	H2                7.063e-26   7.079e-26   -25.151   -25.150     0.001
+   H2                     7.063e-26   7.079e-26   -25.151   -25.150     0.001
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -42.081   -42.080     0.001
+   O2                     0.000e+00   0.000e+00   -42.081   -42.080     0.001
 
 ------------------------------Saturation indices-------------------------------
 
@@ -145,7 +145,7 @@ Initial solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -4.414e-21
+                 Total alkalinity (eq/kg)  =  -4.407e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -157,21 +157,21 @@ Initial solution 1.
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.036e-07   1.002e-07    -6.985    -6.999    -0.015
-	OH-               1.036e-07   9.993e-08    -6.985    -7.000    -0.016
-	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
+   H+                     1.036e-07   1.002e-07    -6.985    -6.999    -0.015
+   OH-                    1.036e-07   9.993e-08    -6.985    -7.000    -0.016
+   H2O                    5.551e+01   1.000e-00     1.744    -0.000     0.000
 Cl               1.000e-03
-	Cl-               1.000e-03   9.649e-04    -3.000    -3.016    -0.016
+   Cl-                    1.000e-03   9.649e-04    -3.000    -3.016    -0.016
 H(0)             1.421e-25
-	H2                7.103e-26   7.104e-26   -25.149   -25.148     0.000
+   H2                     7.103e-26   7.104e-26   -25.149   -25.148     0.000
 Na               1.000e-03
-	Na+               1.000e-03   9.652e-04    -3.000    -3.015    -0.015
-	NaOH              6.364e-11   6.365e-11   -10.196   -10.196     0.000
+   Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
+   NaOH                   6.364e-11   6.365e-11   -10.196   -10.196     0.000
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -42.083   -42.083     0.000
+   O2                     0.000e+00   0.000e+00   -42.083   -42.083     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -198,7 +198,7 @@ Initial solution 4.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   5.000e-01
-                 Total alkalinity (eq/kg)  =  -4.414e-21
+                 Total alkalinity (eq/kg)  =  -4.407e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -210,21 +210,21 @@ Initial solution 4.
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.036e-07   1.002e-07    -6.985    -6.999    -0.015
-	OH-               1.036e-07   9.993e-08    -6.985    -7.000    -0.016
-	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
+   H+                     1.036e-07   1.002e-07    -6.985    -6.999    -0.015
+   OH-                    1.036e-07   9.993e-08    -6.985    -7.000    -0.016
+   H2O                    5.551e+01   1.000e-00     1.744    -0.000     0.000
 Cl               1.000e-03
-	Cl-               1.000e-03   9.649e-04    -3.000    -3.016    -0.016
+   Cl-                    1.000e-03   9.649e-04    -3.000    -3.016    -0.016
 H(0)             1.421e-25
-	H2                7.103e-26   7.104e-26   -25.149   -25.148     0.000
+   H2                     7.103e-26   7.104e-26   -25.149   -25.148     0.000
 Na               1.000e-03
-	Na+               1.000e-03   9.652e-04    -3.000    -3.015    -0.015
-	NaOH              6.364e-11   6.365e-11   -10.196   -10.196     0.000
+   Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
+   NaOH                   6.364e-11   6.365e-11   -10.196   -10.196     0.000
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -42.083   -42.083     0.000
+   O2                     0.000e+00   0.000e+00   -42.083   -42.083     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -251,7 +251,7 @@ Initial solution 8.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   2.500e-01
-                 Total alkalinity (eq/kg)  =  -4.414e-21
+                 Total alkalinity (eq/kg)  =  -4.407e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -263,21 +263,21 @@ Initial solution 8.
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.036e-07   1.002e-07    -6.985    -6.999    -0.015
-	OH-               1.036e-07   9.993e-08    -6.985    -7.000    -0.016
-	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
+   H+                     1.036e-07   1.002e-07    -6.985    -6.999    -0.015
+   OH-                    1.036e-07   9.993e-08    -6.985    -7.000    -0.016
+   H2O                    5.551e+01   1.000e-00     1.744    -0.000     0.000
 Cl               1.000e-03
-	Cl-               1.000e-03   9.649e-04    -3.000    -3.016    -0.016
+   Cl-                    1.000e-03   9.649e-04    -3.000    -3.016    -0.016
 H(0)             1.421e-25
-	H2                7.103e-26   7.104e-26   -25.149   -25.148     0.000
+   H2                     7.103e-26   7.104e-26   -25.149   -25.148     0.000
 Na               1.000e-03
-	Na+               1.000e-03   9.652e-04    -3.000    -3.015    -0.015
-	NaOH              6.364e-11   6.365e-11   -10.196   -10.196     0.000
+   Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
+   NaOH                   6.364e-11   6.365e-11   -10.196   -10.196     0.000
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -42.083   -42.083     0.000
+   O2                     0.000e+00   0.000e+00   -42.083   -42.083     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -295,12 +295,12 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Su            
-	  0.000e+00  Surface + diffuse layer charge, eq
+	 -7.513e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -3.214e-01  psi, V
-	  1.251e+01  -F*psi/RT
-	  2.707e+05  exp(-F*psi/RT)
+	 -1.149e+00  psi, V
+	  4.474e+01  -F*psi/RT
+	  2.702e+19  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -309,10 +309,10 @@ Su
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Cl            	  1.0000e-17
+	Cl            	  1.0001e-20
 	H             	  1.0362e-04
 	Na            	  9.9990e-01
-	O             	  6.3650e-18
+	O             	  6.3640e-18
 
 Su            
 	  1.000e+00  moles
@@ -324,12 +324,12 @@ Su
 Surface 4.	
 
 Su            
-	 -4.441e-16  Surface + diffuse layer charge, eq
+	 -2.914e-13  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -3.214e-01  psi, V
-	  1.251e+01  -F*psi/RT
-	  2.707e+05  exp(-F*psi/RT)
+	 -1.185e+00  psi, V
+	  4.613e+01  -F*psi/RT
+	  1.081e+20  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -338,10 +338,10 @@ Su
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Cl            	  1.0000e-17
+	Cl            	  2.5003e-21
 	H             	  1.0362e-04
 	Na            	  9.9990e-01
-	O             	  3.1830e-18
+	O             	  3.1820e-18
 
 Su            
 	  1.000e+00  moles
@@ -353,12 +353,12 @@ Su
 Surface 8.	
 
 Su            
-	 -6.661e-16  Surface + diffuse layer charge, eq
+	 -1.177e-14  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -3.214e-01  psi, V
-	  1.251e+01  -F*psi/RT
-	  2.707e+05  exp(-F*psi/RT)
+	 -1.221e+00  psi, V
+	  4.752e+01  -F*psi/RT
+	  4.323e+20  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -367,10 +367,10 @@ Su
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Cl            	  1.0000e-17
+	Cl            	  6.2506e-22
 	H             	  1.0362e-04
 	Na            	  9.9990e-01
-	O             	  1.5920e-18
+	O             	  1.5910e-18
 
 Su            
 	  1.000e+00  moles
@@ -391,12 +391,12 @@ Using surface 1.	Surface assemblage after simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.087e-09  Surface + diffuse layer charge, eq
+	  1.763e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
-	 -2.627e-01  psi, V
-	  1.022e+01  -F*psi/RT
-	  2.756e+04  exp(-F*psi/RT)
+	 -1.090e+00  psi, V
+	  4.244e+01  -F*psi/RT
+	  2.702e+18  exp(-F*psi/RT)
 	  1.000e+05  specific area, m**2/g
 	  1.000e+05  m**2 for   1.000e+00 g
 
@@ -406,19 +406,19 @@ Su
 
 	Element       	     Moles
 	A             	  1.0000e-10
-	Am            	  1.0000e-16
+	Am            	  1.0000e-18
 	Ap            	  9.9010e-03
-	Cl            	  1.0000e-31
+	Cl            	  1.0001e-36
 	H             	  1.0261e-04
 	Na            	  9.9000e-01
-	O             	  6.2862e-18
+	O             	  6.2860e-18
 
 Su            
 	  1.000e+00  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Su-               1.000e+00       1.000   1.000e-00      -0.000
+	Su-               1.000e+00       1.000   1.000e+00       0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -427,13 +427,13 @@ Su
 	A                 1.000e-03   1.000e-03
 	Am                1.000e-02   1.000e-02
 	Ap                9.901e-05   9.901e-05
-	Cl                1.000e-17   1.000e-17
+	Cl                1.000e-20   1.000e-20
 	Na                9.900e-03   9.900e-03
 
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.028      Charge balance
-                                       pe  =  11.809      Adjusted to redox equilibrium
+                                       pe  =  11.811      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-02
                        Mass of water (kg)  =   1.000e+00
@@ -441,44 +441,44 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.592e-11
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -7.467e-09
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.026e-06   9.373e-07    -5.989    -6.028    -0.039
-	OH-               1.186e-08   1.068e-08    -7.926    -7.972    -0.046
-	H2O               5.551e+01   9.996e-01     1.744    -0.000     0.000
+   H+                     1.026e-06   9.373e-07    -5.989    -6.028    -0.039
+   OH-                    1.186e-08   1.068e-08    -7.926    -7.972    -0.046
+   H2O                    5.551e+01   9.996e-01     1.744    -0.000     0.000
 A                1.000e-03
-	A                 1.000e-03   1.000e-03    -3.000    -3.000     0.000
+   A                      1.000e-03   1.000e-03    -3.000    -3.000     0.000
 Am               1.000e-02
-	Am-               1.000e-02   1.000e-02    -2.000    -2.000    -0.000
+   Am-                    1.000e-02   1.000e-02    -2.000    -2.000    -0.000
 Ap               9.901e-05
-	Ap+               9.901e-05   9.901e-05    -4.004    -4.004    -0.000
-Cl               1.000e-17
-	Cl-               1.000e-17   9.005e-18   -17.000   -17.046    -0.046
-H(0)             2.988e-39
-	H2                1.494e-39   1.498e-39   -38.826   -38.825     0.001
+   Ap+                    9.901e-05   9.901e-05    -4.004    -4.004    -0.000
+Cl               1.000e-20
+   Cl-                    1.000e-20   9.006e-21   -20.000   -20.045    -0.046
+H(0)             2.968e-39
+   H2                     1.484e-39   1.487e-39   -38.829   -38.828     0.001
 Na               9.900e-03
-	Na+               9.900e-03   8.941e-03    -2.004    -2.049    -0.044
-	NaOH              6.286e-11   6.300e-11   -10.202   -10.201     0.001
-O(0)             3.706e-15
-	O2                1.853e-15   1.857e-15   -14.732   -14.731     0.001
+   Na+                    9.900e-03   8.941e-03    -2.004    -2.049    -0.044
+   NaOH                   6.286e-11   6.300e-11   -10.202   -10.201     0.001
+O(0)             3.757e-15
+   O2                     1.878e-15   1.883e-15   -14.726   -14.725     0.001
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -35.67  -38.82   -3.15  H2
+	H2(g)           -35.68  -38.83   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	Halite          -20.68  -19.09    1.58  NaCl
-	O2(g)           -11.84  -14.73   -2.89  O2
+	Halite          -23.68  -22.09    1.58  NaCl
+	O2(g)           -11.83  -14.73   -2.89  O2
 
 ------------------
 End of simulation.
@@ -522,7 +522,7 @@ Mixture 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   1.500e-02
-                 Total alkalinity (eq/kg)  =  -4.418e-21
+                 Total alkalinity (eq/kg)  =  -4.412e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -534,21 +534,21 @@ Mixture 1.
 
 ----------------------------Distribution of species----------------------------
 
-	                                           Log       Log         Log 
-	Species            Molality    Activity  Molality  Activity     Gamma
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
 
-	H+                1.036e-07   1.002e-07    -6.985    -6.999    -0.015
-	OH-               1.036e-07   9.993e-08    -6.985    -7.000    -0.016
-	H2O               5.551e+01   1.000e-00     1.744    -0.000     0.000
+   H+                     1.036e-07   1.002e-07    -6.985    -6.999    -0.015
+   OH-                    1.036e-07   9.993e-08    -6.985    -7.000    -0.016
+   H2O                    5.551e+01   1.000e-00     1.744    -0.000     0.000
 Cl               1.000e-03
-	Cl-               1.000e-03   9.649e-04    -3.000    -3.016    -0.016
+   Cl-                    1.000e-03   9.649e-04    -3.000    -3.016    -0.016
 H(0)             1.421e-25
-	H2                7.103e-26   7.104e-26   -25.149   -25.148     0.000
+   H2                     7.103e-26   7.104e-26   -25.149   -25.148     0.000
 Na               1.000e-03
-	Na+               1.000e-03   9.652e-04    -3.000    -3.015    -0.015
-	NaOH              6.364e-11   6.365e-11   -10.196   -10.196     0.000
+   Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
+   NaOH                   6.364e-11   6.365e-11   -10.196   -10.196     0.000
 O(0)             0.000e+00
-	O2                0.000e+00   0.000e+00   -42.083   -42.083     0.000
+   O2                     0.000e+00   0.000e+00   -42.083   -42.083     0.000
 
 ------------------------------Saturation indices-------------------------------
 

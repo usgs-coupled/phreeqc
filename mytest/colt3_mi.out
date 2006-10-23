@@ -387,7 +387,7 @@ Reading input data for simulation 3.
 		20 .20886
 		41 .79114
 	SELECTED_OUTPUT
-		file  colt3.prn
+		file  colt3_mi.prn
 		totals Cl Na K N
 	TRANSPORT
 		cells  20

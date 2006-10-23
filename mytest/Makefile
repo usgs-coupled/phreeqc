@@ -35,6 +35,7 @@ all: alkalinity.out \
 	i4.out \
 	i5.out \
 	i6.out \
+	i7.out \
 	jgb2col.out \
 	jgbcol.out \
 	joe.out \
@@ -84,6 +85,7 @@ all: alkalinity.out \
 	ex8.out \
 	ex9.out \
 	ex10.out \
+	ex10_pz.out \
 	ex11.out \
 	ex12.out \
 	ex6.cvode.out ex9.cvode.out ex15.cvode.out \
