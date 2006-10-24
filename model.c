@@ -2025,8 +2025,8 @@ int reset(void)
 				if (x[i]->dissolve_only == TRUE) {
 #ifdef SKIP
 					if (x[i]->moles > x[i]->pure_phase->initial_moles) {
-							output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitated dissolve_only mineral!*\tDiff %e\n", 
-                              x[i]->description, x[i]->moles - x[i]->pure_phase->initial_moles);
+						output_msg(OUTPUT_MESSAGE,"%-10.10s, Precipitated dissolve_only mineral!*\tDiff %e\n", 
+							   x[i]->description, x[i]->moles - x[i]->pure_phase->initial_moles);
 					}
 #endif
 					if ((delta[i] < 0.0) && (-delta[i] > (x[i]->pure_phase->initial_moles - x[i]->moles))) {
@@ -2063,7 +2063,7 @@ int reset(void)
 							x[i]->description, (double) delta[i], (double) x[i]->moles);
 					}
 					delta[i] = 0.0 ;
-				} else if (delta[i] < 0.0 && x[i]->moles > 0.0 && delta[i] < -100.0 )  {
+				} else if (delta[i] < 0.0 /*&& x[i]->moles > 0.0*/ && delta[i] < -100.0 )  {
 					f0 = -delta[i] / 100.0 ;
 					if (f0 > factor) {
 						if (debug_model == TRUE) {

@@ -21,7 +21,7 @@ CC=gcc
 
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
-CCFLAGS_MODEL=-O2 -Wall -ansi -pedantic -std=c99 # -pg
+CCFLAGS_MODEL=-O3 -Wall -ansi -pedantic -std=c99 # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
