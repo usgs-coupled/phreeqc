@@ -4824,12 +4824,12 @@ int species_list_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct change_surf *change_surf_alloc(int count)
+struct Change_Surf *change_surf_alloc(int count)
 /* ---------------------------------------------------------------------- */
 {
         if (count == 1)
         	return(change_surf);
-        change_surf = (struct change_surf *) PHRQ_realloc(change_surf, (size_t) count * sizeof(struct change_surf));
+        change_surf = (struct Change_Surf *) PHRQ_realloc(change_surf, (size_t) count * sizeof(struct Change_Surf));
         if (change_surf == NULL) malloc_error();
         change_surf[count - 1].cell_no = -99;
         change_surf[count - 1].next = FALSE;

@@ -354,12 +354,12 @@ EXTERNAL struct surface *surface;
 EXTERNAL struct surface *dbg_surface;
 EXTERNAL int count_surface;
 EXTERNAL int max_surface;
-EXTERNAL struct charge_group {
+EXTERNAL struct Charge_Group {
         LDBLE z;
         LDBLE eq;
 } *charge_group;
 EXTERNAL int change_surf_count;
-EXTERNAL struct change_surf {
+EXTERNAL struct Change_Surf {
 		char *comp_name;
 		LDBLE fraction;
 		char *new_comp_name;

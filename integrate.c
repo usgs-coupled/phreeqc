@@ -779,8 +779,8 @@ int calc_init_donnan(void)
 /*
  *  sum eq of each charge number in solution...
  */
-	charge_group = (struct charge_group *) free_check_null(charge_group);
-	charge_group = (struct charge_group *) PHRQ_malloc((size_t) sizeof(struct charge_group));
+	charge_group = (struct Charge_Group *) free_check_null(charge_group);
+	charge_group = (struct Charge_Group *) PHRQ_malloc((size_t) sizeof(struct Charge_Group));
 	if (charge_group == NULL) malloc_error();
 	charge_group[0].z = 0.0;
 	charge_group[0].eq = 0.0;
@@ -795,8 +795,8 @@ int calc_init_donnan(void)
 			}
 		}
 		if (k >= count_g) {
-			charge_group = (struct charge_group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
-							 sizeof(struct charge_group));
+			charge_group = (struct Charge_Group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
+							 sizeof(struct Charge_Group));
 			if (charge_group == NULL) malloc_error();
 			charge_group[count_g].z = s_x[i]->z;
 			charge_group[count_g].eq = s_x[i]->z * s_x[i]->moles;
@@ -1035,8 +1035,8 @@ int calc_init_donnan_music(void)
 /*
  *  sum eq of each charge number in solution...
  */
-	charge_group = (struct charge_group *) free_check_null(charge_group);
-	charge_group = (struct charge_group *) PHRQ_malloc((size_t) sizeof(struct charge_group));
+	charge_group = (struct Charge_Group *) free_check_null(charge_group);
+	charge_group = (struct Charge_Group *) PHRQ_malloc((size_t) sizeof(struct Charge_Group));
 	if (charge_group == NULL) malloc_error();
 	charge_group[0].z = 0.0;
 	charge_group[0].eq = 0.0;
@@ -1051,8 +1051,8 @@ int calc_init_donnan_music(void)
 			}
 		}
 		if (k >= count_g) {
-			charge_group = (struct charge_group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
-							 sizeof(struct charge_group));
+			charge_group = (struct Charge_Group *) PHRQ_realloc(charge_group, (size_t) (count_g + 1) *
+							 sizeof(struct Charge_Group));
 			if (charge_group == NULL) malloc_error();
 			charge_group[count_g].z = s_x[i]->z;
 			charge_group[count_g].eq = s_x[i]->z * s_x[i]->moles;

@@ -3213,7 +3213,7 @@ int free_model_allocs(void)
 	sum_jacob1 = (struct list1 *) free_check_null(sum_jacob1);
 	sum_jacob2 = (struct list2 *) free_check_null(sum_jacob2);
 	sum_delta = (struct list2 *) free_check_null(sum_delta);
-	 charge_group = (struct charge_group *) free_check_null(charge_group);
+        charge_group = (struct Charge_Group *) free_check_null(charge_group);
 	return(OK);
 }
 #ifdef SLNQ
