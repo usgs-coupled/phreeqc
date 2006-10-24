@@ -213,6 +213,7 @@ int clean_up(void)
 
 /* logk hash table */
         for (j = 0; j < count_logk; j++) {
+		free_check_null(logk[j]->add_logk);
                 logk[j] = (struct logk *) free_check_null(logk[j]);
         }
         logk = (struct logk **) free_check_null(logk);
@@ -352,7 +353,7 @@ int clean_up(void)
 
 /* basic commands hash table */
         cmd_free();
-                free_check_null(change_surf);
+        free_check_null(change_surf);
 
 /* miscellaneous work space */
 
@@ -4826,6 +4827,8 @@ int species_list_sort(void)
 struct change_surf *change_surf_alloc(int count)
 /* ---------------------------------------------------------------------- */
 {
+        if (count == 1)
+        	return(change_surf);
         change_surf = (struct change_surf *) PHRQ_realloc(change_surf, (size_t) count * sizeof(struct change_surf));
         if (change_surf == NULL) malloc_error();
         change_surf[count - 1].cell_no = -99;
@@ -5976,6 +5979,7 @@ int unknown_free(struct unknown *unknown_ptr)
                 unknown_ptr->surface_charge = (struct surface_charge *) free_check_null(unknown_ptr->surface_charge);
                 */
         }
+	/*unknown_ptr->comp_unknowns = (struct unknown **) free_check_null(unknown_ptr->comp_unknowns);*/
         unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
         return(OK);
 }
@@ -6097,7 +6101,23 @@ static int logk_init(struct logk *logk_ptr)
         logk_ptr->lk = 0.0;
         for (i =0; i < 8; i++) {
                 logk_ptr->log_k[i] = 0.0;
+                logk_ptr->log_k_original[i] = 0.0;
         }
+	logk_ptr->count_add_logk = 0;
+	logk_ptr->add_logk = NULL;
+        return(OK);
+}
+/* ---------------------------------------------------------------------- */
+int logk_copy2orig(struct logk *logk_ptr)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Copies log k data to logk_original
+ */
+{
+	int i;
+	for (i = 0; i < 7; i++) {
+		logk_ptr->log_k_original[i] = logk_ptr->log_k[i];
+	}
         return(OK);
 }
 /* ---------------------------------------------------------------------- */

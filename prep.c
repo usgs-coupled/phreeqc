@@ -4070,7 +4070,7 @@ int check_same_model(void)
 			master[i]->total, master[i]->last_model);
  */
 		if (master[i]->s == s_hplus || master[i]->s == s_h2o) continue;
-		if (master[i]->total > MIN_TOTAL && master[i]->last_model == TRUE) continue;
+		if (master[i]->total > MIN_TOTAL && master[i]->last_model == TRUE && master[i]->unknown != NULL) continue;
 		if (master[i]->total <= MIN_TOTAL && master[i]->last_model == FALSE) continue;
 		return(FALSE);
 	}

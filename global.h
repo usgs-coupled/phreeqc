@@ -326,7 +326,7 @@ struct surface_comp {
         char *phase_name;
         LDBLE phase_proportion;
         char *rate_name;
-		LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
+	LDBLE Dw;				/* diffusion coefficient in water, used in MCD. No transport if 0 */
 };
 struct surface_charge {
         char *name;
@@ -348,6 +348,7 @@ struct surface_diff_layer {
         LDBLE dg;
         LDBLE psi_to_z;
 };
+EXTERNAL int g_iterations;
 EXTERNAL LDBLE G_TOL;
 EXTERNAL struct surface *surface;
 EXTERNAL struct surface *dbg_surface;
@@ -980,6 +981,7 @@ EXTERNAL int simul_tr;
 EXTERNAL LDBLE diffc;
 EXTERNAL LDBLE heat_diffc;
 EXTERNAL int cell;
+EXTERNAL int transport_substeps;
 EXTERNAL struct stag_data {
         int count_stag;
         LDBLE exch_f;
@@ -1203,8 +1205,12 @@ struct species {                                          /* all data pertinent 
 struct logk {                                    /* Named log K's */
         char *name;                              /* name of species */
 	LDBLE lk;				 /* log10 k at working temperature */
-        LDBLE log_k[8];                   /* log kt0, delh, 6 coefficients analalytical expression */
-        DELTA_H_UNIT original_units;  /* enum with original delta H units */
+        LDBLE log_k[8];                          /* log kt0, delh, 6 coefficients analalytical expression */
+        DELTA_H_UNIT original_units;             /* enum with original delta H units */
+        int count_add_logk;
+	int done;
+        struct name_coef *add_logk;
+        LDBLE log_k_original[8];                 /* log kt0, delh, 5 coefficients analalytical expression */
 };
 EXTERNAL struct logk **logk;
 EXTERNAL int count_logk;

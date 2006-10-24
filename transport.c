@@ -1480,8 +1480,8 @@ int find_J(int cell_no)
 	j_max = sol_D[cell_no + 1].count_spec;
 
 	while (i < i_max || j < j_max) {
-		if (j == j_max || (strcmp(sol_D[cell_no].spec[i].name, sol_D[cell_no + 1].spec[j].name) < 0 &&
-				i < i_max)) {
+		if (j == j_max || (i < i_max && strcmp(sol_D[cell_no].spec[i].name, sol_D[cell_no + 1].spec[j].name) < 0 
+				)) {
 			/* species 'name' is only in cell_no */
 			J_ij[k].name = string_hsave(sol_D[cell_no].spec[i].name);
 			D[k] = sol_D[cell_no].spec[i].Dp;
