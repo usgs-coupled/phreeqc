@@ -421,7 +421,7 @@ int species_list_compare_alk (const void *ptr1, const void *ptr2);
 int species_list_compare_master (const void *ptr1, const void *ptr2);
 int species_list_sort(void);
 
-struct change_surf *change_surf_alloc (int count);
+struct Change_Surf *change_surf_alloc (int count);
 struct surface *surface_alloc (void);
 struct surface *surface_bsearch (int k, int *n);
 struct master *surface_get_psi_master (char *name, int plane);
