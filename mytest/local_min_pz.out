@@ -269,7 +269,7 @@ Sylvite             -0.10    0.80    0.90
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.524e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  45
+                               Iterations  =  60
                          Gamma iterations  =   1
                       Osmotic coefficient  =   2.10701
                          Density of water  =   0.99706

@@ -843,7 +843,7 @@ Fix_pH             -10.00  -10.00    0.00
 ------------------------------Surface composition------------------------------
 
 Goe           
-	 -4.720e-18  Surface + diffuse layer charge, eq
+	  1.277e-17  Surface + diffuse layer charge, eq
 
 	 -7.039e-06  Surface charge, plane 0, eq
 	 -4.441e-06  Surface charge, plane 1, eq
@@ -924,7 +924,7 @@ Goe_uni
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.013e-18
+                  Electrical balance (eq)  =   9.334e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110126e+02
@@ -947,7 +947,7 @@ Cl               9.995e-03
    Cl-                    9.914e-03   8.942e-03    -2.004    -2.049    -0.045
    NaCl                   8.067e-05   8.086e-05    -4.093    -4.092     0.001
 H(0)             1.256e-14
-   H2                     6.279e-15   6.294e-15   -14.202   -14.201     0.001
+   H2                     6.279e-15   6.293e-15   -14.202   -14.201     0.001
 Na               1.011e-02
    Na+                    1.003e-02   9.042e-03    -1.999    -2.044    -0.045
    NaCl                   8.067e-05   8.086e-05    -4.093    -4.092     0.001
@@ -1368,7 +1368,7 @@ Fix_pH              -4.00   -4.00    0.00
 ------------------------------Surface composition------------------------------
 
 Goe           
-	 -1.897e-18  Surface + diffuse layer charge, eq
+	 -1.336e-18  Surface + diffuse layer charge, eq
 
 	  1.072e-04  Surface charge, plane 0, eq
 	 -3.798e-06  Surface charge, plane 1, eq
@@ -1402,7 +1402,7 @@ Goe
 	Cl            	  1.0353e-04
 	H             	  1.1439e-12
 	Na            	  7.7827e-08
-	O             	  1.1441e-12
+	O             	  1.1447e-12
 	P             	  5.6477e-17
 
 Goe_tri       
@@ -1441,7 +1441,7 @@ Goe_uni
 ----------------------------Description of solution----------------------------
 
                                        pH  =   4.000      Charge balance
-                                       pe  =   3.780      Adjusted to redox equilibrium
+                                       pe  =  14.398      Adjusted to redox equilibrium
                         Activity of water  =   1.000
                            Ionic strength  =   1.003e-02
                        Mass of water (kg)  =   1.000e+00
@@ -1449,7 +1449,7 @@ Goe_uni
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.278e-18
+                  Electrical balance (eq)  =  -5.585e-18
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.110126e+02
@@ -1471,14 +1471,14 @@ As               3.328e-15
 Cl               1.011e-02
    Cl-                    1.003e-02   9.046e-03    -1.999    -2.044    -0.045
    NaCl                   8.074e-05   8.093e-05    -4.093    -4.092     0.001
-H(0)             3.887e-19
-   H2                     1.944e-19   1.948e-19   -18.711   -18.710     0.001
+H(0)             2.261e-40
+   H2                     1.131e-40   1.133e-40   -39.947   -39.946     0.001
 Na               1.000e-02
    Na+                    9.919e-03   8.946e-03    -2.004    -2.048    -0.045
    NaCl                   8.074e-05   8.093e-05    -4.093    -4.092     0.001
    NaOH                   5.630e-13   5.643e-13   -12.250   -12.249     0.001
-O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -54.961   -54.960     0.001
+O(0)             6.474e-13
+   O2                     3.237e-13   3.245e-13   -12.490   -12.489     0.001
 P                5.534e-15
    H2PO4-                 5.460e-15   4.925e-15   -14.263   -14.308    -0.045
    H3PO4                  6.940e-17   6.956e-17   -16.159   -16.158     0.001

@@ -699,7 +699,7 @@ WARNING: Equivalent wt for alkalinity should be Ca.5(CO3).5. Using 50.0455 g/eq.
                     Total carbon (mol/kg)  =   1.577e-01
                        Total CO2 (mol/kg)  =   1.577e-01
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.866e-16
+                  Electrical balance (eq)  =  -2.762e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  12
                                   Total H  = 1.111270e+02
@@ -1296,7 +1296,7 @@ Montmorillonite-Ca   0.00  -45.03  -45.03    1.000e+01   9.961e+00  -3.894e-02
                  Total alkalinity (eq/kg)  =   1.918e-01
                        Total CO2 (mol/kg)  =   1.577e-01
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.411e-16
+                  Electrical balance (eq)  =  -1.046e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  20
                                   Total H  = 1.111350e+02
@@ -2787,10 +2787,6 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying diagonal scaling ...
-
 Using solution 2.	Average Leachate concentrations from Lambton
 Using exchange 1.	Exchange assemblage after simulation 1.
 Using surface 1.	Surface assemblage after simulation 1.
@@ -2932,7 +2928,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.010e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.02
-                               Iterations  =  65
+                               Iterations  =  86
                                   Total H  = 9.821431e+01
                                   Total O  = 4.938242e+01
 
@@ -3144,7 +3140,7 @@ Fe(3)            4.917e-11
    Fe2(OH)2+4             0.000e+00   0.000e+00   -53.446   -54.071    -0.625
    Fe3(OH)4+5             0.000e+00   0.000e+00   -69.733   -70.710    -0.977
 H(0)             2.734e-23
-   H2                     1.367e-23   1.979e-23   -22.864   -22.703     0.161
+   H2                     1.367e-23   1.979e-23   -22.864   -22.704     0.161
 K                1.463e-05
    K+                     1.460e-05   8.428e-06    -4.836    -5.074    -0.239
    KSO4-                  2.902e-08   2.652e-08    -7.537    -7.576    -0.039

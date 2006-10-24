@@ -4,6 +4,7 @@ PROGRAM=../bin/phreeqc
 
 %.out : % $(PROGRAM) ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
 	$(PROGRAM) $< 
+	./zero.sed $<.out
 	mv phreeqc.log $<.log
 
 all: alkalinity.out \
@@ -127,7 +128,5 @@ clean:
 revert:
 	svn st | egrep ^! | cut -b 2- | xargs svn revert
 
-zero:
-	foreach i (*.out)
-	./zero.sed $i 
-	end
+diff:
+	svn diff --diff-cmd diff -x -bw 

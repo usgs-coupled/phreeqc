@@ -866,7 +866,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -8.721e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.44
-                               Iterations  =  13
+                               Iterations  =  24
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552983e+01
 
@@ -1088,7 +1088,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.232e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.34
-                               Iterations  =  14
+                               Iterations  =  11
                                   Total H  = 1.110124e+02
                                   Total O  = 5.552861e+01
 
@@ -1532,7 +1532,7 @@ X                1.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -6.390e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  13
+                               Iterations  =  12
                                   Total H  = 1.110123e+02
                                   Total O  = 5.552664e+01
 
