@@ -126,3 +126,8 @@ clean:
 
 revert:
 	svn st | egrep ^! | cut -b 2- | xargs svn revert
+
+zero:
+	foreach i (*.out)
+	./zero.sed $i 
+	end
