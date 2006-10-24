@@ -425,11 +425,18 @@ void initialize(void)
  *
  */
         cmd_initialize();
-        change_surf = (struct change_surf *) PHRQ_malloc((size_t) (2*sizeof(struct change_surf)));
+        change_surf = (struct change_surf *) PHRQ_malloc((size_t) (1*sizeof(struct change_surf)));
         if (change_surf == NULL) malloc_error();
         change_surf[0].cell_no = -99;
         change_surf[0].next = FALSE;
         change_surf_count = 0;
+        /* if 2 structures are mallocated..
+        change_surf[0].cell_no = -99;
+        change_surf[0].next = TRUE;
+        change_surf[0].cell_no = -99;
+        change_surf[0].next = FALSE;
+        change_surf_count = 0; */
+        
 
 #if defined(WINDOWS) || defined(_WINDOWS)
         /* SRC pr.status = FALSE; */
