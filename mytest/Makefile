@@ -75,6 +75,8 @@ all: alkalinity.out \
 	sc4.out \
 	sc5.out \
 	sc6.out \
+	sc6a.out \
+	sc6b.out \
 	sc7.out \
 	surf3.out \
 	surf3_density.out \
