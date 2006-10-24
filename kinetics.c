@@ -1541,7 +1541,7 @@ int run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	struct kinetics *kinetics_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
-	struct use use_save;
+	struct Use use_save;
 	int save_old, m, n_reactions /*, nok, nbad */;
 
 	/* CVODE definitions */

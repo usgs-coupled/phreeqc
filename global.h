@@ -501,7 +501,7 @@ EXTERNAL struct save save;
 /*----------------------------------------------------------------------
  *   Use
  *---------------------------------------------------------------------- */
-struct use {
+struct Use {
         int solution_in;
         int n_solution_user;
         int n_solution;
@@ -561,8 +561,8 @@ struct use {
         int trans_in;
         int advect_in;
 };
-EXTERNAL struct use use;
-EXTERNAL struct use *dbg_use;
+EXTERNAL struct Use use;
+EXTERNAL struct Use *dbg_use;
 /*----------------------------------------------------------------------
  *   Copy
  *---------------------------------------------------------------------- */
