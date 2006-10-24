@@ -2270,7 +2270,8 @@ Local valrec factor(struct LOC_exec *LINK)
 
   case tokget_por:
     i = intfactor(LINK);
-    if (i == 0 || i == count_cells + 1) {
+    if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
+	    || i == count_cells + 1) {
 /*		warning_msg("Note... no porosity for boundary solutions.");
  */		break;
     }
@@ -3354,7 +3355,8 @@ Local void cmdchange_por(struct LOC_exec *LINK)
 	/* get cell_no */
 	j = intexpr(LINK);
 	require(tokrp, LINK);
-	if (j != 0 && j != count_cells + 1)
+	if (j > 0 && j <= count_cells * (1 + stag_data->count_stag) + 1
+		&& j != count_cells + 1)
 		cell_data[j - 1].por = TEMP;
 }
 
@@ -3369,7 +3371,7 @@ Local void cmdchange_surf(struct LOC_exec *LINK)
 
 	change_surf_count += 1;
 	count = change_surf_count;
-	if (count > 1 && change_surf[count - 1].next == FALSE)
+	if (count > 1 /*&& change_surf[count - 1].next == FALSE*/)
 		change_surf = change_surf_alloc(count);
 
 	require(toklp, LINK);
