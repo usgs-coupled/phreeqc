@@ -97,7 +97,7 @@ Reading input data for simulation 2.
 		As(3)   1.e-4
 		As(5)   1.e-4
 		Cl      .001   charge
-		Fe(3)   1.00000e+001
+		Fe(3)   1.00000e-01
 		Na      .001
 	EQUILIBRIUM_PHASES 1
 		Goethite	0.0	0.01
@@ -332,9 +332,9 @@ Reading input data for simulation 3.
 	USE equilibrium_phases 1
 	SURFACE 1
 		cd_music
-		Goe_triOH0.5  	Goethite       equi   1.50000e+001  53300
+		Goe_triOH0.5  	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uniOHH0.5  	Goethite       equi   2.00000e+001  53300
+		Goe_uniOHH0.5  	Goethite       equi   2.00000e-01  53300
 	END
 -----
 TITLE
@@ -518,9 +518,9 @@ Reading input data for simulation 4.
 	Title initial surface calculation
 	SURFACE 1
 		cd_music
-		Goe_tri      	Goethite       equi   1.50000e+001  53300
+		Goe_tri      	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uni      	Goethite       equi   2.00000e+001  53300
+		Goe_uni      	Goethite       equi   2.00000e-01  53300
 	        equilibrate solution 1
 	END
 -----
@@ -1160,9 +1160,9 @@ Reading input data for simulation 8.
 	USE solution 1
 	SURFACE 1
 		cd_music
-		Goe_tri      	Goethite       equi   1.50000e+001  53300
+		Goe_tri      	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uni      	Goethite       equi   2.00000e+001  53300
+		Goe_uni      	Goethite       equi   2.00000e-01  53300
 	        equilibrate solution 1
 	EQUILIBRIUM_PHASES 1
 		Goethite	0.0	0.0
@@ -1423,7 +1423,7 @@ Reading input data for simulation 9.
 		As(3)   1.e-4
 		As(5)   1.e-4
 		Cl      .001   charge
-		Fe(3)   1.00000e+001
+		Fe(3)   1.00000e-01
 		Na      .001
 	EQUILIBRIUM_PHASES 1
 		Goethite	0.0	0.01
@@ -1659,9 +1659,9 @@ Reading input data for simulation 10.
 	SURFACE 1
 		donnan
 		cd_music
-		Goe_triOH0.5  	Goethite       equi   1.50000e+001  53300
+		Goe_triOH0.5  	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uniOHH0.5  	Goethite       equi   2.00000e+001  53300
+		Goe_uniOHH0.5  	Goethite       equi   2.00000e-01  53300
 	END
 -----
 TITLE
@@ -1859,9 +1859,9 @@ Reading input data for simulation 11.
 	SURFACE 1
 		donnan
 		cd_music
-		Goe_tri      	Goethite       equi   1.50000e+001  53300
+		Goe_tri      	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uni      	Goethite       equi   2.00000e+001  53300
+		Goe_uni      	Goethite       equi   2.00000e-01  53300
 	        equilibrate solution 1
 	END
 -----
@@ -2554,9 +2554,9 @@ Reading input data for simulation 15.
 	SURFACE 1
 		donnan
 		cd_music
-		Goe_tri      	Goethite       equi   1.50000e+001  53300
+		Goe_tri      	Goethite       equi   1.50000e-01  53300
 		capacitances           .85   .75
-		Goe_uni      	Goethite       equi   2.00000e+001  53300
+		Goe_uni      	Goethite       equi   2.00000e-01  53300
 	        equilibrate solution 1
 	EQUILIBRIUM_PHASES 1
 		Goethite	0.0	0.0
