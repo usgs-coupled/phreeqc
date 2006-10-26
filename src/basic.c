@@ -3371,8 +3371,8 @@ Local void cmdchange_surf(struct LOC_exec *LINK)
 
 	change_surf_count += 1;
 	count = change_surf_count;
-	if (count > 1 /*&& change_surf[count - 1].next == FALSE*/)
-		change_surf = change_surf_alloc(count);
+	if (change_surf[count - 1].next == FALSE)
+		change_surf = change_surf_alloc(count + 1);
 
 	require(toklp, LINK);
 		/* get surface component name (change affects all comps of the same charge structure) */

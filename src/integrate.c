@@ -831,7 +831,6 @@ int calc_init_donnan(void)
 			x[j]->surface_charge->g[k].charge = charge_group[k].z;
 			x[j]->surface_charge->g[k].g = ratio_aq * (exp(-charge_group[k].z * psi_avg) - 1);
 			if (use.surface_ptr->only_counter_ions &&
-				/*((surf_chrg_eq < 0 && charge_group[i].z < 0) || (surf_chrg_eq > 0 && charge_group[i].z > 0)))*/
 				((surf_chrg_eq < 0 && charge_group[k].z < 0) || (surf_chrg_eq > 0 && charge_group[k].z > 0)))
 				x[j]->surface_charge->g[k].g = -ratio_aq;
 			if (x[j]->surface_charge->g[k].g != 0) {

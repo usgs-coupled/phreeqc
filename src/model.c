@@ -2063,7 +2063,7 @@ int reset(void)
 							x[i]->description, (double) delta[i], (double) x[i]->moles);
 					}
 					delta[i] = 0.0 ;
-				} else if (delta[i] < 0.0 /*&& x[i]->moles > 0.0*/ && delta[i] < -100.0 )  {
+				} else if (delta[i] < -100.0 )  {
 					f0 = -delta[i] / 100.0 ;
 					if (f0 > factor) {
 						if (debug_model == TRUE) {

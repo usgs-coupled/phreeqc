@@ -19,6 +19,7 @@ Reading data base.
 	ISOTOPE_ALPHAS
 	NAMED_EXPRESSIONS
 	CALCULATE_VALUES
+	CALCULATE_VALUES
 	SOLUTION_SPECIES
 	PHASES
 ------------------------------------
