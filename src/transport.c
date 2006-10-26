@@ -1360,7 +1360,7 @@ int find_J(int cell_no)
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr1->count_comps; j++) {
 						if (s_ptr1->comps[j].Dw == 0 && s_ptr1->comps[j].charge != s_ptr1->comps[i].charge) {
-							k = (size_t) strcspn(s_ptr1->comps[i].formula, "_");
+							k = (int) strcspn(s_ptr1->comps[i].formula, "_");
 							strncpy(token1, s_ptr1->comps[i].formula, k);
 							token1[k] = '\0';
 							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
@@ -1386,7 +1386,7 @@ int find_J(int cell_no)
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr2->count_comps; j++) {
 						if (s_ptr2->comps[j].Dw == 0 && s_ptr2->comps[j].charge != s_ptr2->comps[i].charge) {
-							k = (size_t) strcspn(s_ptr2->comps[i].formula, "_");
+							k = (int) strcspn(s_ptr2->comps[i].formula, "_");
 							strncpy(token1, s_ptr2->comps[i].formula, k);
 							token1[k] = '\0';
 							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
@@ -1994,7 +1994,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr1->count_comps; j++) {
 						if (s_ptr1->comps[j].Dw == 0 && s_ptr1->comps[j].charge != s_ptr1->comps[i].charge) {
-							k = (size_t) strcspn(s_ptr1->comps[i].formula, "_");
+							k = (int) strcspn(s_ptr1->comps[i].formula, "_");
 							strncpy(token1, s_ptr1->comps[i].formula, k);
 							token1[k] = '\0';
 							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
@@ -2020,7 +2020,7 @@ int find_Jstag(int icell, int jcell, LDBLE mixf)
 					/* check for more comps with Dw = 0 */
 					for (j = i + 1; j < s_ptr2->count_comps; j++) {
 						if (s_ptr2->comps[j].Dw == 0 && s_ptr2->comps[j].charge != s_ptr2->comps[i].charge) {
-							k = (size_t) strcspn(s_ptr2->comps[i].formula, "_");
+							k = (int) strcspn(s_ptr2->comps[i].formula, "_");
 							strncpy(token1, s_ptr2->comps[i].formula, k);
 							token1[k] = '\0';
 							sprintf(token, "MCD found more than 1 fixed surface with a DDL, used %s.", token1);
@@ -3323,8 +3323,8 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name, LDBLE ne
 
 	if (fraction > 0.99999999)
 		fraction = 0.99999999;
-	length = strlen(comp_name);
-	length1 = strlen(new_comp_name);
+	length = (int) strlen(comp_name);
+	length1 = (int) strlen(new_comp_name);
 	for (k = 0; k < surf_ptr->count_comps; k++) {
 		if (strncmp(comp_name, surf_ptr->comps[k].formula, length) == 0)
 			break;
