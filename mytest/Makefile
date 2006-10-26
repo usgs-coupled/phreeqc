@@ -1,10 +1,10 @@
 # %.o : %.c
 #             $(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+PROGRAM=/cygdrive/c/Programs/phreeqc/build/win32/Release/phreeqc
 PROGRAM=../bin/phreeqc
 
-%.out : % $(PROGRAM) ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
+%.out : %  ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat
 	$(PROGRAM) $< 
-	./zero.sed $<.out
 	mv phreeqc.log $<.log
 
 all: alkalinity.out \
@@ -120,7 +120,6 @@ all: alkalinity.out \
 	np.testmp.out \
 	oxygenmp.out \
 	spread_redox.out 
-#	svn diff .
 
 clean:
 	rm -f *.out *.log *.pun *.prn *.flat *.sel *.dmp
@@ -129,4 +128,13 @@ revert:
 	svn st | egrep ^! | cut -b 2- | xargs svn revert
 
 diff:
-	svn diff --diff-cmd diff -x -bw 
+	svn diff --diff-cmd diff -x -bw	
+
+zero:
+	for FILE in *.out *.sel *.pun *.prn *.flat *.sel *.dmp; \
+		do \
+			if [ $$FILE != make.out ]; then \
+				echo $$FILE; \
+				./zero.sed $$FILE; \
+			fi \
+		done; 
