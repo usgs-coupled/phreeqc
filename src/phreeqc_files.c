@@ -174,7 +174,7 @@ int process_file_names(int argc, char *argv[], void **db_cookie, void **input_co
  */
 	strcpy(query,"Name of output file?");
 #ifdef DOS
-	replace("."," ",default_name);
+	/*replace("."," ",default_name);*/
 #endif
 	ptr = default_name;
 	copy_token(token, &ptr, &l);
