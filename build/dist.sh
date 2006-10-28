@@ -103,7 +103,7 @@ elif [ -n "$RC" ] ; then
   VER_NUMTAG="-rc$RC"
 else
   VER_TAG="r$REVISION_SVN"
-  VER_NUMTAG=""
+  VER_NUMTAG="-$REVISION"
 fi
   
 if [ -n "$ZIP" ] ; then
@@ -193,10 +193,6 @@ if [ -z "$ZIP" ]; then
   echo "Rolling $DISTNAME.tar ..."
   (cd "$DIST_SANDBOX" > /dev/null && tar c "$DISTNAME") > \
     "$DISTNAME.tar"
-
-  echo "Compressing to $DISTNAME.tar.bz2 ..."
-  bzip2 -9fk "$DISTNAME.tar"
-
   echo "Compressing to $DISTNAME.tar.gz ..."
   gzip -9f "$DISTNAME.tar"
 else
@@ -213,12 +209,12 @@ if [ -z "$ZIP" ]; then
   ls -l "$DISTNAME.tar.gz" "$DISTNAME.tar.bz2"
   echo ""
   echo "md5sums:"
-  md5sum "$DISTNAME.tar.gz" "$DISTNAME.tar.bz2"
+  md5sum "$DISTNAME.tar.gz"
   type sha1sum > /dev/null 2>&1
   if [ $? -eq 0 ]; then
     echo ""
     echo "sha1sums:"
-    sha1sum "$DISTNAME.tar.gz" "$DISTNAME.tar.bz2"
+    sha1sum "$DISTNAME.tar.gz"
   fi
 else
   ls -l "$DISTNAME.zip"

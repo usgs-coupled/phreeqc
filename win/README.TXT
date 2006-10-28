@@ -52,7 +52,7 @@ For installation of PHREEQC, 10 megabytes of free disk space is needed.
 
 To run PHREEQC, the following are necessary:
 
-  - Windows 9x/Me, Windows NT 4.0, Windows 2000, Windows XP
+  - Windows 9x/Me, Windows NT 4.0, Windows 2000, Windows XP, Windows Vista
   - processor running at 100 megahertz or faster
   - 8 megabytes RAM
   - 20 megabytes free disk space
@@ -63,7 +63,7 @@ B. DISTRIBUTION FILE
 The following distribution file (containing the software, test data sets,
 and information files) is currently available.
 
-  phreeqc-@VERSION@-@REVISION@.exe - Compiled using Microsoft Visual C++ 6.0, includes source code
+  phreeqc-@VERSION@-@REVISION@.exe - Compiled using Microsoft Visual C++ 2005, includes source code
 
 
 C. DOCUMENTATION

@@ -12,8 +12,9 @@
 #define HKEY_2_9          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{0CBA4A5F-79DE-49B6-842E-5F214672C32D}"
 #define HKEY_2_10         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{DE153F45-7BD3-4F26-9EEB-45AA8022086A}"
 #define HKEY_2_11         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_11 + "}"
-////ADD_NEW_VERSION_HERE
 #define HKEY_2_12         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_12 + "}"
+#define HKEY_2_13         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13 + "}"
+////ADD_NEW_VERSION_HERE
 
 #define HVALUE_2_XX       "InstallLocation"
 
@@ -120,9 +121,11 @@ function AddMEPath(szPathToAdd)
     string svPath2_10;      //    
     BOOL   bFound2_11;      //
     string svPath2_11;      //    
+    BOOL   bFound2_12;      //
+    string svPath2_12;      //    
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_12;      //
-////    string svPath2_12;      //    
+////    BOOL   bFound2_13;      //
+////    string svPath2_13;      //    
 //}}    
 begin    
     if (!SYSINFO.WIN9X.bWinMe) then
@@ -200,14 +203,25 @@ begin
 		endif;
 	endif;
 
+	// check for 2.12
+	bFound2_12 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_12, nvType, svPath2_12, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_12) == 0) then
+				bFound2_12 = TRUE;
+			endif;
+		endif;
+	endif;
+
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.12
-////	bFound2_12 = FALSE;
+////	// check for 2.13
+////	bFound2_13 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_12, nvType, svPath2_12, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_13, nvType, svPath2_13, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_12) == 0) then
-////				bFound2_12 = TRUE;
+////			if (LongPathToShortPath(svPath2_13) == 0) then
+////				bFound2_13 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
@@ -284,15 +298,24 @@ begin
 			        endif;	            
 		        endif;
 	        endif;
+			if ( bFound2_12 ) then
+				nPos = StrFind(svCurrentPath, svPath2_12);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////            if ( bFound2_12 ) then
-////	            nPos = StrFind(svCurrentPath, svPath2_12);
-////	            if (nPos > 0) then
-////			        if (nPos < nPosFirst) then
-////			        	nPosFirst = nPos;
-////			        endif;	            
-////		        endif;
-////	        endif;
+////			if ( bFound2_13 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_13);
+////				if (nPos > 0) then
+////					if (nPos < nPosFirst) then
+////						nPosFirst = nPos;
+////					endif;
+////				endif;
+////			endif;
+
 	        if ( StrLength( svCurrentPath ) > 0) then
         		szNewPath = svCurrentPath + ";" + svPathToAdd;
     		else
@@ -360,9 +383,11 @@ function AddNTPath(szPathToAdd)
     string svPath2_10;      //
     BOOL   bFound2_11;      //
     string svPath2_11;      //
+    BOOL   bFound2_12;      //
+    string svPath2_12;      //
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_12;      //
-////    string svPath2_12;      //
+////    BOOL   bFound2_13;      //
+////    string svPath2_13;      //
 begin
     if (!SYSINFO.WINNT.bWinNT) then
         // wrong OS
@@ -436,15 +461,26 @@ begin
 			endif;
 		endif;
 	endif;	
+	
+	// check for 2.12
+	bFound2_12 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_XX, nvType, svPath2_12, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_12) == 0) then
+				bFound2_12 = TRUE;
+			endif;
+		endif;
+	endif;	
 
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.12
-////	bFound2_12 = FALSE;
+////	// check for 2.13
+////	bFound2_13 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_XX, nvType, svPath2_12, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_XX, nvType, svPath2_13, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_12) == 0) then
-////				bFound2_12 = TRUE;
+////			if (LongPathToShortPath(svPath2_13) == 0) then
+////				bFound2_13 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
@@ -542,17 +578,25 @@ begin
 					endif;
 				endif;
 			endif;
+			if ( bFound2_12 ) then
+				nPos = StrFind(svCurrentPath, svPath2_12);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_12 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_12);
+////			if ( bFound2_13 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_13);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;
 ////					endif;
 ////				endif;
 ////			endif;
-	        
-	        
+
+
 	        if ( StrLength( svCurrentPath ) > 0) then
         		szNewPath = svCurrentPath + ";" + svPathToAdd;
     		else

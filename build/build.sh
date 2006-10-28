@@ -37,8 +37,8 @@ tscriptname=`basename $0 .sh`
 export PKG=`echo $tscriptname | sed -e 's/\-[^\-]*\-[^\-]*$//'`
 export VER=`echo $tscriptname | sed -e "s/${PKG}\-//" -e 's/\-[^\-]*$//'`
 export REL=`echo $tscriptname | sed -e "s/${PKG}\-${VER}\-//"`
-export BASEPKG=${PKG}-${VER}
-export FULLPKG=${BASEPKG}-${REL}
+export BASEPKG=${PKG}-${VER}-${REL}
+export FULLPKG=${BASEPKG}
 
 # determine correct decompression option and tarball filename
 export src_orig_pkg_name=
@@ -77,7 +77,10 @@ export instdir=${srcdir}/.inst
 export srcinstdir=${srcdir}/.sinst
 export checkfile=${topdir}/${FULLPKG}.check
 
-##{{
+# use Visual Studio 2005 to compile
+DEVENV="/cygdrive/c/Program Files/Microsoft Visual Studio 8/Common7/IDE/devenv.exe"
+SLN=`cygpath -w "${objdir}/build/win32/phreeqc.sln"`
+
 # InstallShield settings (based on exported build file
 # IS_COMPILER=`locate Compile.exe | grep InstallShield`
 # IS_BUILDER="`locate ISBuild.exe | grep InstallShield`"
@@ -100,8 +103,6 @@ IS_LIBRARIES="isrt.obl ifx.obl"
 IS_DEFINITIONS=""
 IS_SWITCHES="-w50 -e50 -v3 -g"
 export PHREEQCTOPDIR="`cygpath -w "${instdir}/${PKG}-${VER}"`"
-##}}
-
 
 prefix=/usr
 sysconfdir=/etc
@@ -197,7 +198,8 @@ reconf() {
 }
 build() {
   (cd ${objdir} && \
-  msdev `cygpath -w ./build/win32/phreeqc_console.dsw` /MAKE "phreeqc_console - Win32 Release" )
+  "${DEVENV}" "${SLN}" /out Release.log /build Release && \
+  cat Release.log )
 }
 check() {
   (cd ${objdir} && \
@@ -209,7 +211,7 @@ clean() {
 }
 install() {
   (cd ${objdir}/src && \
-  make win_dist REVISION="${REL}" TEXTCP="cp" && \
+  make win_dist REVISION="${REL}" TEXTCP="cp" CURSRC="src"&& \
   mkdir -p ${instdir}/${PKG}-${VER} && \
   cd ${instdir}/${PKG}-${VER} && \
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
@@ -355,6 +357,15 @@ while test -n "$1" ; do
     finish)		finish ; STATUS=$? ;;
     checksig)		checksig ; STATUS=$? ;;
     first)		mkdirs && spkg && finish ; STATUS=$? ;;
+    upto-conf)  checksig && prep && conf; STATUS=$? ;;
+    upto-build)  checksig && prep && conf && build; STATUS=$? ;;
+    upto-install)  checksig && prep && conf && build && install; STATUS=$? ;;
+    upto-pkg)  checksig && prep && conf && build && install && \
+			strip && pkg ; \
+			STATUS=$? ;;    
+    upto-spkg)  checksig && prep && conf && build && install && \
+			strip && pkg && spkg ; \
+			STATUS=$? ;;    
     all)		checksig && prep && conf && build && install && \
 			strip && pkg && spkg && finish ; \
 			STATUS=$? ;;
