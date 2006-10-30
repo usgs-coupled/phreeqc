@@ -206,7 +206,7 @@ begin
 	// check for 2.12
 	bFound2_12 = FALSE;
 	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_12, nvType, svPath2_12, nvSize );
+		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_XX, nvType, svPath2_12, nvSize );
 		if ( nResult == 0 ) then
 			if (LongPathToShortPath(svPath2_12) == 0) then
 				bFound2_12 = TRUE;
@@ -218,7 +218,7 @@ begin
 ////	// check for 2.13
 ////	bFound2_13 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_13, nvType, svPath2_13, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_XX, nvType, svPath2_13, nvSize );
 ////		if ( nResult == 0 ) then
 ////			if (LongPathToShortPath(svPath2_13) == 0) then
 ////				bFound2_13 = TRUE;
