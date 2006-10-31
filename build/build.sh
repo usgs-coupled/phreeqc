@@ -241,7 +241,7 @@ install() {
 }
 strip() {
   (cd ${instdir} && \
-  echo SKIP find . -name "*.dll" -or -name "*.exe" | xargs strip 2>&1 ; \
+  echo SKIP find . -name "*.dll" -or -name "*.exe" | echo SKIP xargs strip 2>&1 ; \
   true )
 }
 list() {
