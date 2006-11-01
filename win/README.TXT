@@ -52,7 +52,7 @@ For installation of PHREEQC, 10 megabytes of free disk space is needed.
 
 To run PHREEQC, the following are necessary:
 
-  - Windows 9x/Me, Windows NT 4.0, Windows 2000, Windows XP, Windows Vista
+  - Windows 98/Me, Windows NT 4.0, Windows 2000, Windows XP, Windows Vista
   - processor running at 100 megahertz or faster
   - 8 megabytes RAM
   - 20 megabytes free disk space

@@ -149,7 +149,7 @@ RELATED DOCUMENTATION
         computer program PHREEQC: U.S. Geological Survey Water-
         Resources Investigations Report 97-4222, 9 p.
 
-    Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
+     Charlton, S.R., and Parkhurst, D.L., 2002, PhreeqcI--A graphical user
         interface to the geochemical model PHREEQC: U.S. Geological Survey 
         Fact Sheet FS-031-02, 2 p.
 
