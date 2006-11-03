@@ -14,7 +14,7 @@ Department=
 Password=
 
 [Project:Properties:Product]
-GUID=1BEE3120-F41A-41BE-988A-2662CEAF0F83
+GUID=6628CC55-68CC-4150-B5EA-616CCB1C33E7
 CompanyName=USGS WRD
 URL=http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/index.html
 EmailAddress=dlpark@usgs.gov
@@ -23,7 +23,7 @@ Summary=PHREEQC
 Name=PHREEQC
 Version=@VER_UC@
 ExeFile=phreeqc.bat
-Comments=A hydrogeochemical transport model
+Comments=A computer program for speciation, batch-reaction, one-dimensional transport, and inverse geochemical calculations
 
 [Project:Properties:CompileLink]
 WaringLevel=3
