@@ -18,11 +18,13 @@
  *                                                                 *
  *******************************************************************/
 #ifdef PHREEQC_IDENT
-static char const svnidcvdense[] = "$Id$";
+static char const svnidcvdense[] =
+  "$Id$";
 #endif
 
-#ifdef __cplusplus     /* wrapper to enable C++ usage */
-extern "C" {
+#ifdef __cplusplus		/* wrapper to enable C++ usage */
+extern "C"
+{
 #endif
 
 #ifndef _cvdense_h
@@ -35,7 +37,7 @@ extern "C" {
 #include "dense.h"
 #include "nvector.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * CVDENSE solver statistics indices                              *
@@ -56,8 +58,9 @@ extern "C" {
  *                   workspace vectors used by this solver.       *
  *                                                                *
  ******************************************************************/
- 
-enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
+
+  enum
+  { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
 
 /******************************************************************
@@ -72,11 +75,11 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  *                                                                *
  ******************************************************************/
 
-#define CVD_MSBJ  50   
+#define CVD_MSBJ  50
 
-#define CVD_DGMAX RCONST(0.2)  
+#define CVD_DGMAX RCONST(0.2)
 
- 
+
 /******************************************************************
  *                                                                *           
  * Type : CVDenseJacFn                                            *
@@ -146,14 +149,15 @@ enum { DENSE_NJE=CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
  * as temporary storage or work space.                            *
  *                                                                *
  ******************************************************************/
-  
-typedef void (*CVDenseJacFn)(integertype N, DenseMat J, RhsFn f, void *f_data,
-                             realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
-                             realtype h, realtype uround, void *jac_data,
-                             long int *nfePtr, N_Vector vtemp1,
-                             N_Vector vtemp2, N_Vector vtemp3);
- 
- 
+
+  typedef void (*CVDenseJacFn) (integertype N, DenseMat J, RhsFn f,
+				void *f_data, realtype t, N_Vector y,
+				N_Vector fy, N_Vector ewt, realtype h,
+				realtype uround, void *jac_data,
+				long int *nfePtr, N_Vector vtemp1,
+				N_Vector vtemp2, N_Vector vtemp3);
+
+
 /******************************************************************
  *                                                                *
  * Function : CVDense                                             *
@@ -185,8 +189,8 @@ typedef void (*CVDenseJacFn)(integertype N, DenseMat J, RhsFn f, void *f_data,
  *       and N_VSetData are implemented.                          *
  *                                                                *
  ******************************************************************/
-  
-int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+
+  int CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 /******************************************************************
@@ -213,8 +217,8 @@ int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
  *       CVDense.                                                 *
  *                                                                *
  ******************************************************************/
-  
-int CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+
+  int CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 #endif
