@@ -944,250 +944,251 @@ Static void parse(Char *inbuf, tokenrec **buf)
 		  }
 #endif
 #ifdef LONG
-	  if (!strcmp(token, "and"))
-	    t->kind = tokand;
-	  else if (!strcmp(token, "or"))
-	    t->kind = tokor;
-	  else if (!strcmp(token, "xor"))
-	    t->kind = tokxor;
-	  else if (!strcmp(token, "not"))
-	    t->kind = toknot;
-	  else if (!strcmp(token, "mod"))
-	    t->kind = tokmod;
-	  else if (!strcmp(token, "sqr"))
-	    t->kind = toksqr;
-	  else if (!strcmp(token, "sqrt"))
-	    t->kind = toksqrt;
-	  else if (!strcmp(token, "sin"))
-	    t->kind = toksin;
-	  else if (!strcmp(token, "cos"))
-	    t->kind = tokcos;
-	  else if (!strcmp(token, "tan"))
-	    t->kind = toktan;
-	  else if (!strcmp(token, "arctan"))
-	    t->kind = tokarctan;
-	  else if (!strcmp(token, "log"))
-	    t->kind = toklog;
-	  else if (!strcmp(token, "exp"))
-	    t->kind = tokexp;
-	  else if (!strcmp(token, "abs"))
-	    t->kind = tokabs;
-	  else if (!strcmp(token, "sgn"))
-	    t->kind = toksgn;
-	  else if (!strcmp(token, "str$"))
-	    t->kind = tokstr_;
-	  else if (!strcmp(token, "val"))
-	    t->kind = tokval;
-	  else if (!strcmp(token, "chr$"))
-	    t->kind = tokchr_;
-	  else if (!strcmp(token, "asc"))
-	    t->kind = tokasc;
-	  else if (!strcmp(token, "len"))
-	    t->kind = toklen;
-	  else if (!strcmp(token, "mid$"))
-	    t->kind = tokmid_;
-	  else if (!strcmp(token, "peek"))
-	    t->kind = tokpeek;
-	  else if (!strcmp(token, "let"))
-	    t->kind = toklet;
-	  else if (!strcmp(token, "print"))
-	    t->kind = tokprint;
-	  else if (!strcmp(token, "punch"))
-	    t->kind = tokpunch;
+		  if (!strcmp(token, "and"))
+		    t->kind = tokand;
+		  else if (!strcmp(token, "or"))
+		    t->kind = tokor;
+		  else if (!strcmp(token, "xor"))
+		    t->kind = tokxor;
+		  else if (!strcmp(token, "not"))
+		    t->kind = toknot;
+		  else if (!strcmp(token, "mod"))
+		    t->kind = tokmod;
+		  else if (!strcmp(token, "sqr"))
+		    t->kind = toksqr;
+		  else if (!strcmp(token, "sqrt"))
+		    t->kind = toksqrt;
+		  else if (!strcmp(token, "sin"))
+		    t->kind = toksin;
+		  else if (!strcmp(token, "cos"))
+		    t->kind = tokcos;
+		  else if (!strcmp(token, "tan"))
+		    t->kind = toktan;
+		  else if (!strcmp(token, "arctan"))
+		    t->kind = tokarctan;
+		  else if (!strcmp(token, "log"))
+		    t->kind = toklog;
+		  else if (!strcmp(token, "exp"))
+		    t->kind = tokexp;
+		  else if (!strcmp(token, "abs"))
+		    t->kind = tokabs;
+		  else if (!strcmp(token, "sgn"))
+		    t->kind = toksgn;
+		  else if (!strcmp(token, "str$"))
+		    t->kind = tokstr_;
+		  else if (!strcmp(token, "val"))
+		    t->kind = tokval;
+		  else if (!strcmp(token, "chr$"))
+		    t->kind = tokchr_;
+		  else if (!strcmp(token, "asc"))
+		    t->kind = tokasc;
+		  else if (!strcmp(token, "len"))
+		    t->kind = toklen;
+		  else if (!strcmp(token, "mid$"))
+		    t->kind = tokmid_;
+		  else if (!strcmp(token, "peek"))
+		    t->kind = tokpeek;
+		  else if (!strcmp(token, "let"))
+		    t->kind = toklet;
+		  else if (!strcmp(token, "print"))
+		    t->kind = tokprint;
+		  else if (!strcmp(token, "punch"))
+		    t->kind = tokpunch;
 #ifdef PHREEQ98
-	  else if (!strcmp(token, "graph_x"))
-	    t->kind = tokgraph_x;
-	  else if (!strcmp(token, "graph_y"))
-	    t->kind = tokgraph_y;
-	  else if (!strcmp(token, "graph_sy"))
-	    t->kind = tokgraph_sy;
+		  else if (!strcmp(token, "graph_x"))
+		    t->kind = tokgraph_x;
+		  else if (!strcmp(token, "graph_y"))
+		    t->kind = tokgraph_y;
+		  else if (!strcmp(token, "graph_sy"))
+		    t->kind = tokgraph_sy;
 #endif
-	  else if (!strcmp(token, "input"))
-	    t->kind = tokinput;
-	  else if (!strcmp(token, "goto"))
-	    t->kind = tokgoto;
-	  else if (!strcmp(token, "go to"))
-	    t->kind = tokgoto;
-	  else if (!strcmp(token, "if"))
-	    t->kind = tokif;
-	  else if (!strcmp(token, "end"))
-	    t->kind = tokend;
-	  else if (!strcmp(token, "stop"))
-	    t->kind = tokstop;
-	  else if (!strcmp(token, "for"))
-	    t->kind = tokfor;
-	  else if (!strcmp(token, "next"))
-	    t->kind = toknext;
-	  else if (!strcmp(token, "while"))
-	    t->kind = tokwhile;
-	  else if (!strcmp(token, "wend"))
-	    t->kind = tokwend;
-	  else if (!strcmp(token, "gosub"))
-	    t->kind = tokgosub;
-	  else if (!strcmp(token, "return"))
-	    t->kind = tokreturn;
-	  else if (!strcmp(token, "read"))
-	    t->kind = tokread;
-	  else if (!strcmp(token, "data"))
-	    t->kind = tokdata;
-	  else if (!strcmp(token, "restore"))
-	    t->kind = tokrestore;
-	  else if (!strcmp(token, "gotoxy"))
-	    t->kind = tokgotoxy;
-	  else if (!strcmp(token, "on"))
-	    t->kind = tokon;
-	  else if (!strcmp(token, "dim"))
-	    t->kind = tokdim;
-	  else if (!strcmp(token, "poke"))
-	    t->kind = tokpoke;
-	  else if (!strcmp(token, "list"))
-	    t->kind = toklist;
-	  else if (!strcmp(token, "run"))
-	    t->kind = tokrun;
-	  else if (!strcmp(token, "new"))
-	    t->kind = toknew;
-	  else if (!strcmp(token, "load"))
-	    t->kind = tokload;
-	  else if (!strcmp(token, "merge"))
-	    t->kind = tokmerge;
-	  else if (!strcmp(token, "save"))
-	    t->kind = toksave;
-	  else if (!strcmp(token, "bye"))
-	    t->kind = tokbye;
-	  else if (!strcmp(token, "quit"))
-	    t->kind = tokbye;
-	  else if (!strcmp(token, "del"))
-	    t->kind = tokdel;
-	  else if (!strcmp(token, "renum"))
-	    t->kind = tokrenum;
-	  else if (!strcmp(token, "then"))
-	    t->kind = tokthen;
-	  else if (!strcmp(token, "else"))
-	    t->kind = tokelse;
-	  else if (!strcmp(token, "to"))
-	    t->kind = tokto;
-	  else if (!strcmp(token, "step"))
-	    t->kind = tokstep;
-/*
- *   dlp: added functions
- */
-	  else if (!strcmp(token, "tc"))
-	    t->kind = toktc;
-	  else if (!strcmp(token, "tk"))
-	    t->kind = toktk;
-	  else if (!strcmp(token, "time"))
-	    t->kind = toktime;
-	  else if (!strcmp(token, "sim_time"))
-	    t->kind = toksim_time;
-	  else if (!strcmp(token, "total_time"))
-	    t->kind = toktotal_time;
-	  else if (!strcmp(token, "m0"))
-	    t->kind = tokm0;
-	  else if (!strcmp(token, "m"))
-	    t->kind = tokm;
-	  else if (!strcmp(token, "parm"))
-	    t->kind = tokparm;
-	  else if (!strcmp(token, "act"))
-	    t->kind = tokact;
-	  else if (!strcmp(token, "change_por"))
-	    t->kind = tokchange_por;
-	  else if (!strcmp(token, "get_por"))
-	    t->kind = tokget_por;
-	  else if (!strcmp(token, "change_surf"))
-	    t->kind = tokchange_surf;
-	  else if (!strcmp(token, "edl"))
-	    t->kind = tokedl;
-	  else if (!strcmp(token, "surf"))
-	    t->kind = toksurf;
-	  else if (!strcmp(token, "equi"))
-	    t->kind = tokequi;
-	  else if (!strcmp(token, "kin"))
-	    t->kind = tokkin;
-	  else if (!strcmp(token, "gas"))
-	    t->kind = tokgas;
-	  else if (!strcmp(token, "s_s"))
-	    t->kind = toks_s;
-	  else if (!strcmp(token, "misc1"))
-	    t->kind = tokmisc1;
-	  else if (!strcmp(token, "misc2"))
-	    t->kind = tokmisc2;
-	  else if (!strcmp(token, "mu"))
-	    t->kind = tokmu;
-	  else if (!strcmp(token, "osmotic"))
-	    t->kind = tokosmotic;
-	  else if (!strcmp(token, "alk"))
-	    t->kind = tokalk;
-	  else if (!strcmp(token, "lk_species"))
-	    t->kind = toklk_species;
-	  else if (!strcmp(token, "lk_named"))
-	    t->kind = toklk_named;
-	  else if (!strcmp(token, "lk_phase"))
-	    t->kind = toklk_phase;
-	  else if (!strcmp(token, "sum_species"))
-	    t->kind = toksum_species;
-	  else if (!strcmp(token, "sum_gas"))
-	    t->kind = toksum_gas;
-	  else if (!strcmp(token, "sum_s_s"))
-	    t->kind = toksum_s_s;
-	  else if (!strcmp(token, "calc_value"))
-	    t->kind = tokcalc_value;
-	  else if (!strcmp(token, "description"))
-	    t->kind = tokdescription;
-	  else if (!strcmp(token, "sys"))
-	    t->kind = toksys;
-	  else if (!strcmp(token, "instr"))
-	    t->kind = tokinstr;
-	  else if (!strcmp(token, "ltrim"))
-	    t->kind = tokltrim;
-	  else if (!strcmp(token, "rtrim"))
-	    t->kind = tokrtrim;
-	  else if (!strcmp(token, "trim"))
-	    t->kind = toktrim;
-	  else if (!strcmp(token, "pad"))
-	    t->kind = tokpad;
-	  else if (!strcmp(token, "rxn"))
-	    t->kind = tokrxn;
-	  else if (!strcmp(token, "dist"))
-	    t->kind = tokdist;
-	  else if (!strcmp(token, "mol"))
-	    t->kind = tokmol;
-	  else if (!strcmp(token, "la"))
-	    t->kind = tokla;
-	  else if (!strcmp(token, "lm"))
-	    t->kind = toklm;
-	  else if (!strcmp(token, "sr"))
-	    t->kind = toksr;
-	  else if (!strcmp(token, "step_no"))
-	    t->kind = tokstep_no;
-	  else if (!strcmp(token, "cell_no"))
-	    t->kind = tokcell_no;
-	  else if (!strcmp(token, "sim_no"))
-	    t->kind = toksim_no;
-	  else if (!strcmp(token, "si"))
-	    t->kind = toksi;
-	  else if (!strcmp(token, "tot"))
-	    t->kind = toktot;
-	  else if (!strcmp(token, "log10"))
-	    t->kind = toklog10;
-	  else if (!strcmp(token, "put"))
-	    t->kind = tokput;
-	  else if (!strcmp(token, "get"))
-	    t->kind = tokget;
-	  else if (!strcmp(token, "exists"))
-	    t->kind = tokexists;
-	  else if (!strcmp(token, "charge_balance"))
-	    t->kind = tokcharge_balance;
-	  else if (!strcmp(token, "percent_error"))
-	    t->kind = tokpercent_error;
-	  else if (!strcmp(token, "rem")) {
-	    t->kind = tokrem;
-	    m = strlen(inbuf) + 1;
-	    if (m < 256) m = 256;
-	    t->UU.sp = (char *) PHRQ_malloc(m));
-	    if ( t->UU.sp == NULL) malloc_error();
-	    sprintf(t->UU.sp, "%.*s",
-		    (int)(strlen(inbuf) - i + 1), inbuf + i - 1);
-	    i = strlen(inbuf) + 1;
+		  else if (!strcmp(token, "input"))
+		    t->kind = tokinput;
+		  else if (!strcmp(token, "goto"))
+		    t->kind = tokgoto;
+		  else if (!strcmp(token, "go to"))
+		    t->kind = tokgoto;
+		  else if (!strcmp(token, "if"))
+		    t->kind = tokif;
+		  else if (!strcmp(token, "end"))
+		    t->kind = tokend;
+		  else if (!strcmp(token, "stop"))
+		    t->kind = tokstop;
+		  else if (!strcmp(token, "for"))
+		    t->kind = tokfor;
+		  else if (!strcmp(token, "next"))
+		    t->kind = toknext;
+		  else if (!strcmp(token, "while"))
+		    t->kind = tokwhile;
+		  else if (!strcmp(token, "wend"))
+		    t->kind = tokwend;
+		  else if (!strcmp(token, "gosub"))
+		    t->kind = tokgosub;
+		  else if (!strcmp(token, "return"))
+		    t->kind = tokreturn;
+		  else if (!strcmp(token, "read"))
+		    t->kind = tokread;
+		  else if (!strcmp(token, "data"))
+		    t->kind = tokdata;
+		  else if (!strcmp(token, "restore"))
+		    t->kind = tokrestore;
+		  else if (!strcmp(token, "gotoxy"))
+		    t->kind = tokgotoxy;
+		  else if (!strcmp(token, "on"))
+		    t->kind = tokon;
+		  else if (!strcmp(token, "dim"))
+		    t->kind = tokdim;
+		  else if (!strcmp(token, "poke"))
+		    t->kind = tokpoke;
+		  else if (!strcmp(token, "list"))
+		    t->kind = toklist;
+		  else if (!strcmp(token, "run"))
+		    t->kind = tokrun;
+		  else if (!strcmp(token, "new"))
+		    t->kind = toknew;
+		  else if (!strcmp(token, "load"))
+		    t->kind = tokload;
+		  else if (!strcmp(token, "merge"))
+		    t->kind = tokmerge;
+		  else if (!strcmp(token, "save"))
+		    t->kind = toksave;
+		  else if (!strcmp(token, "bye"))
+		    t->kind = tokbye;
+		  else if (!strcmp(token, "quit"))
+		    t->kind = tokbye;
+		  else if (!strcmp(token, "del"))
+		    t->kind = tokdel;
+		  else if (!strcmp(token, "renum"))
+		    t->kind = tokrenum;
+		  else if (!strcmp(token, "then"))
+		    t->kind = tokthen;
+		  else if (!strcmp(token, "else"))
+		    t->kind = tokelse;
+		  else if (!strcmp(token, "to"))
+		    t->kind = tokto;
+		  else if (!strcmp(token, "step"))
+		    t->kind = tokstep;
+		  /*
+		   *   dlp: added functions
+		   */
+		  else if (!strcmp(token, "tc"))
+		    t->kind = toktc;
+		  else if (!strcmp(token, "tk"))
+		    t->kind = toktk;
+		  else if (!strcmp(token, "time"))
+		    t->kind = toktime;
+		  else if (!strcmp(token, "sim_time"))
+		    t->kind = toksim_time;
+		  else if (!strcmp(token, "total_time"))
+		    t->kind = toktotal_time;
+		  else if (!strcmp(token, "m0"))
+		    t->kind = tokm0;
+		  else if (!strcmp(token, "m"))
+		    t->kind = tokm;
+		  else if (!strcmp(token, "parm"))
+		    t->kind = tokparm;
+		  else if (!strcmp(token, "act"))
+		    t->kind = tokact;
+		  else if (!strcmp(token, "change_por"))
+		    t->kind = tokchange_por;
+		  else if (!strcmp(token, "get_por"))
+		    t->kind = tokget_por;
+		  else if (!strcmp(token, "change_surf"))
+		    t->kind = tokchange_surf;
+		  else if (!strcmp(token, "edl"))
+		    t->kind = tokedl;
+		  else if (!strcmp(token, "surf"))
+		    t->kind = toksurf;
+		  else if (!strcmp(token, "equi"))
+		    t->kind = tokequi;
+		  else if (!strcmp(token, "kin"))
+		    t->kind = tokkin;
+		  else if (!strcmp(token, "gas"))
+		    t->kind = tokgas;
+		  else if (!strcmp(token, "s_s"))
+		    t->kind = toks_s;
+		  else if (!strcmp(token, "misc1"))
+		    t->kind = tokmisc1;
+		  else if (!strcmp(token, "misc2"))
+		    t->kind = tokmisc2;
+		  else if (!strcmp(token, "mu"))
+		    t->kind = tokmu;
+		  else if (!strcmp(token, "osmotic"))
+		    t->kind = tokosmotic;
+		  else if (!strcmp(token, "alk"))
+		    t->kind = tokalk;
+		  else if (!strcmp(token, "lk_species"))
+		    t->kind = toklk_species;
+		  else if (!strcmp(token, "lk_named"))
+		    t->kind = toklk_named;
+		  else if (!strcmp(token, "lk_phase"))
+		    t->kind = toklk_phase;
+		  else if (!strcmp(token, "sum_species"))
+		    t->kind = toksum_species;
+		  else if (!strcmp(token, "sum_gas"))
+		    t->kind = toksum_gas;
+		  else if (!strcmp(token, "sum_s_s"))
+		    t->kind = toksum_s_s;
+		  else if (!strcmp(token, "calc_value"))
+		    t->kind = tokcalc_value;
+		  else if (!strcmp(token, "description"))
+		    t->kind = tokdescription;
+		  else if (!strcmp(token, "sys"))
+		    t->kind = toksys;
+		  else if (!strcmp(token, "instr"))
+		    t->kind = tokinstr;
+		  else if (!strcmp(token, "ltrim"))
+		    t->kind = tokltrim;
+		  else if (!strcmp(token, "rtrim"))
+		    t->kind = tokrtrim;
+		  else if (!strcmp(token, "trim"))
+		    t->kind = toktrim;
+		  else if (!strcmp(token, "pad"))
+		    t->kind = tokpad;
+		  else if (!strcmp(token, "rxn"))
+		    t->kind = tokrxn;
+		  else if (!strcmp(token, "dist"))
+		    t->kind = tokdist;
+		  else if (!strcmp(token, "mol"))
+		    t->kind = tokmol;
+		  else if (!strcmp(token, "la"))
+		    t->kind = tokla;
+		  else if (!strcmp(token, "lm"))
+		    t->kind = toklm;
+		  else if (!strcmp(token, "sr"))
+		    t->kind = toksr;
+		  else if (!strcmp(token, "step_no"))
+		    t->kind = tokstep_no;
+		  else if (!strcmp(token, "cell_no"))
+		    t->kind = tokcell_no;
+		  else if (!strcmp(token, "sim_no"))
+		    t->kind = toksim_no;
+		  else if (!strcmp(token, "si"))
+		    t->kind = toksi;
+		  else if (!strcmp(token, "tot"))
+		    t->kind = toktot;
+		  else if (!strcmp(token, "log10"))
+		    t->kind = toklog10;
+		  else if (!strcmp(token, "put"))
+		    t->kind = tokput;
+		  else if (!strcmp(token, "get"))
+		    t->kind = tokget;
+		  else if (!strcmp(token, "exists"))
+		    t->kind = tokexists;
+		  else if (!strcmp(token, "charge_balance"))
+		    t->kind = tokcharge_balance;
+		  else if (!strcmp(token, "percent_error"))
+		    t->kind = tokpercent_error;
+		  else if (!strcmp(token, "rem")) {
+		    t->kind = tokrem;
+		    m = strlen(inbuf) + 1;
+		    if (m < 256) m = 256;
+		    t->UU.sp = (char *) PHRQ_malloc(m);
+		  if ( t->UU.sp == NULL) malloc_error();
+		  sprintf(t->UU.sp, "%.*s",
+			  (int)(strlen(inbuf) - i + 1), inbuf + i - 1);
+		  i = strlen(inbuf) + 1;
+		}	
 #endif
 	  } else {
 	    t->kind = tokvar;
@@ -3220,9 +3221,7 @@ Local void cmdrun(struct LOC_exec *LINK)
   l = linebase;
   if (!iseos(LINK)) {
     if (LINK->t->kind == toknum)
-#ifdef SKIP
-      l = mustfindline(intexpr(LINK), LINK);
-#endif
+      /*l = mustfindline(intexpr(LINK), LINK);*/
       l = mustfindline(intexpr(LINK));
     else {
       stringexpr(s, LINK);
@@ -4441,10 +4440,8 @@ Static void exec(void)
     } while (stmtline != NULL);
   RECOVER2(try1,_Ltry1);
     if (P_escapecode == -20)
-	    error_msg("Break", CONTINUE);
-#ifdef SKIP
-      printf("Break");
-#endif
+      error_msg("Break", CONTINUE);
+    /* printf("Break");*/
     else if (P_escapecode != 42) {
       switch (P_escapecode) {
 
