@@ -8,7 +8,19 @@ Version 2.13: November 3, 2006
         --------
         svn 1368
         --------
-        (1) Added multicomponent diffusion in transport.
+(1)     Added multicomponent diffusion (MCD) to transport
+        capabilities. MCD allows different tracer diffusion
+        coefficients for species, but calculates charge balanced
+        transport. In the example, MCD is specified to be true,
+        default tracer diffusion coefficient for species (Dw) is 1e-9,
+        porosity is set to 0.3, porosity limit is set to 0.05, and an
+        exponent of porosity (n) is set to 1.0. Effective diffusion
+        coefficient is defined by the equation: De = Dw * porosity^n.
+        Diffusion stops when the porosity falls below the porosity
+        limit.
+
+        TRANSPORT
+                -multi_d true 1e-9 0.3 0.05 1.0
 
         Added tracer diffusion coefficient to SOLUTION_SPECIES
         definitions, -dw identifier.
@@ -20,26 +32,30 @@ Version 2.13: November 3, 2006
                 -dw     9.31e-9
 
 
-        Added multicomponent diffusion (MCD) to transport
-        capabilities. MCD allows different tracer diffusion
-        coefficients for species, but calculates charge balanced
-        transport. In the example, MCD is specified to be true,
-        default diffusion coefficient for species (Dw) is 1e-9,
-        porosity is set to 0.3, porosity limit is set to 0, and an
-        exponent of porosity (n) is set to 1. Effective diffusion
-        coefficient is defined by the equation, De = Dw * porosity^n.
+(2)     Added BASIC functions to obtain and modify the porosity
+        in a cell. The functions can be used in BASIC programs
+        defined with keyword RATES, USER_PRINT, USER_PUNCH and
+        USER_GRAPH.
 
-        TRANSPORT
-                -multi_d true 1e-9 0.3 0 1
+          get_por(cell_no)		# returns the porosity in cell
+                                        # 'cell_no'
 
-        (2) Added mobile surface and Donnan option in SURFACE.
+          change_por(0.21, cell_no)	# porosity of cell 'cell_no'
+                                        # becomes 0.21
+
+(3)     Mobile surface and Donnan option in SURFACE. Mobile surfaces
+        are meant for modeling transport of colloids. Only surfaces with
+        a diffuse double layer can be transported (the ensemble must be
+        electrically neutral). Surfaces related to equilibrium-phases
+        and kinetics cannot be transported.
 
         Example 1: Use donnan assumption to calculate the explicit
         composition of the diffuse layer of surfaces. Thickness of the
         diffuse layer is defined to be 1e-7 meters. (Default thickness
         is 1e-8 meters.) Hfo (both sites Hfo_w and Hfo_s) is a surface
-        that is transported with a diffusion coefficient of 1e-13
-        m^2/s; Sfo is an immobile surface (Dw = 0).
+        that is transported with advection and dispersion. The diffusion
+        coefficient of 1e-13 m^2/s is used with option -multi_d true in
+        TRANSPORT. Sfo is an immobile surface (Dw = 0).
 
         SURFACE
                 -donnan 1e-7
@@ -48,23 +64,54 @@ Version 2.13: November 3, 2006
 		Sfo_w 97.5e-5 600 88e-3 Dw 0
 		Sfo_s 2.5e-5
 
+
         Example 2: Define Donnan calculation information. Thickness
-        of the diffuse layer is 1e-8 meters, maximum fraction of water 
-        that can be in the diffuse layer is 0.8, and relative
-        viscosity is 0.5. Viscosity only applies to transport of surfaces.
+        of the diffuse layer is 1e-8 meters, and relative viscosity is
+        0.5. Relative viscosity only applies to multicomponent diffusion
+        of solutes in the diffuse layer. (Default viscosity is 1.0.)
 
         SURFACE
-                -donnan 1e-8 limit_ddl 0.8 viscosity 0.5)
+                -donnan 1e-8 viscosity 0.5
 
         Example 3: Define Donnan calculation information. Thickness
         of the diffuse layer is 1.5 Debye lengths, maximum fraction of
-        water that can be in the diffuse layer is 0.5, and relative
-        viscosity is 1.0. Viscosity only applies to transport of
-        surfaces.
+        water that can be in the diffuse layer is 0.9. (Default
+        thickness in Debye lengths is 1, default limit is 0.8.)
 
         SURFACE
-                -donnan debye_lengths 1.5 limit_ddl 0.5 viscosity 1.0 
+                -donnan debye_lengths 1.5 limit_ddl 0.9
 
+        When option '-only_counter_ions' is used in conjunction with
+        with '-donnan', all the co-ions (with the same sign of charge as
+        the surface) will be excluded from the DDL, and will be given a
+        concentration of (near) zero in the DDL.
+
+(4)     Added special BASIC function to change the diffusion
+	coefficient of (part of) a SURFACE, and hence to change the
+	status from mobile to immobile or immobile to mobile.
+
+	Example 1: take a fraction 0.2 of 'Hfo', rename it to
+	'Sorbedhfo', with a diffusion coefficient of 0, in cell 'cell_no'
+
+	USER_PRINT
+		10 print 'Changing surface in cell ', cell_no
+		20  change_surf("Hfo", 0.2, "Sorbedhfo", 0, cell_no)
+
+
+	Example 2: change the diffusion coefficient of 'Hfo' to  1e-12
+	m2/s in cell 'cell_no'
+
+		10 change_surf("Hfo", 1, "Hfo", 1e-12, cell_no)
+
+	This function can be used in BASIC programs defined with keywords
+	RATES, USER_PRINT, USER_PUNCH and USER_GRAPH. For correct
+	operation of 'change_surf', the surface components must have
+	been defined with the same surface species (the association
+	constants may differ) and the same diffuse layer thickness or
+	Debye length. The surfaces will be adapted at the end of a
+	calculation step. The result of change_surf does not show up in
+	print or punch results of that step, but the reformatting is
+	effective in the next timestep calculations.
 
         --------
         svn 1337
@@ -135,7 +182,7 @@ Version 2.13: November 3, 2006
         --------
         Added option to force an equilibrium phase to be 
         included in the equality constraints. Normally, the SIs of 
-        equilibrium phases are optimized to be negative and a the
+        equilibrium phases are optimized to be negative and the
         sum of SIs is minimized. If -force_equality is used, then
         the phase must reach its target SI or the calculation fails
         with an error.
@@ -167,7 +214,7 @@ Version 2.13: November 3, 2006
         Example:
 
         SURFACE 1
-        -sites     DENSITY
+        -sites_units     DENSITY
         SurfOH  2.6    600.    1.0
         SurfaOH 2.6    30.     2.0
 
@@ -189,7 +236,7 @@ Version 2.13: November 3, 2006
         isotopic components. Solids must be identified with "(s)" and
         gases with "(g)". The first entity on the left- hand-side of
         the equation must be the stoichiometric formula of the solid
-        of gas component being defined, optionally with (g) or (s). In
+        or gas component being defined, optionally with (g) or (s). In
         turn gases and solids included in the equation must be defined
         with reactions that ultimately allow the defined species
         (C[18O]2(g) in this case) in terms of aqueous species.
@@ -804,8 +851,13 @@ End of Features not documented in WRIR 99-4259.
 Revisions and bug fixes
 ------------------------------------------------------------
 
-        svn 1368:  (1) Added multicomponent diffusion in transport.
-        (2) Added mobile surface and Donnan option in SURFACE.
+        svn 1368: (1) Added multicomponent diffusion in transport and
+	SOLUTION_SPECIES. (2) Added BASIC functions to obtain and
+	modify the porosity in a cell. (3) Aded mobile surface and Donnan
+	option in SURFACE.  (4) Added special BASIC function to change
+	the diffusion coefficient of a SURFACE, and hence to
+	change the status from mobile to immobile or immobile to
+	mobile.
 
         svn 1337: Added -add_logk to NAMED_EXPRESSIONS keyword.
 
