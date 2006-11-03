@@ -36,11 +36,13 @@
  *                                                                 *
  *******************************************************************/
 #ifdef PHREEQC_IDENT
-static char const svniddense[] = "$Id$";
+static char const svniddense[] =
+  "$Id$";
 #endif
- 
-#ifdef __cplusplus     /* wrapper to enable C++ usage */
-extern "C" {
+
+#ifdef __cplusplus		/* wrapper to enable C++ usage */
+extern "C"
+{
 #endif
 #ifndef _dense_h
 #define _dense_h
@@ -49,7 +51,7 @@ extern "C" {
 #include "sundialstypes.h"
 #include "smalldense.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * Type: DenseMat                                                 *
@@ -73,15 +75,16 @@ extern "C" {
  *                                                                *
  ******************************************************************/
 
-typedef struct _DenseMat {
-  integertype size;
-  realtype  **data;
-} *DenseMat;
- 
+  typedef struct _DenseMat
+  {
+    integertype size;
+    realtype **data;
+  } *DenseMat;
+
 
 /* DenseMat accessor macros */
 
- 
+
 /******************************************************************
  *                                                                *
  * Macro : DENSE_ELEM                                             *
@@ -110,11 +113,11 @@ typedef struct _DenseMat {
  ******************************************************************/
 
 #define DENSE_COL(A,j) ((A->data)[j])
- 
+
 
 /* Functions that use the DenseMat representation for a dense matrix */
 
- 
+
 /******************************************************************
  *                                                                *
  * Function : DenseAllocMat                                       *
@@ -129,7 +132,7 @@ typedef struct _DenseMat {
  *                                                                * 
  ******************************************************************/
 
-DenseMat DenseAllocMat(integertype N);
+  DenseMat DenseAllocMat (integertype N);
 
 
 /******************************************************************
@@ -147,7 +150,7 @@ DenseMat DenseAllocMat(integertype N);
  *                                                                * 
  ******************************************************************/
 
-integertype *DenseAllocPiv(integertype N);
+  integertype *DenseAllocPiv (integertype N);
 
 
 /******************************************************************
@@ -180,7 +183,7 @@ integertype *DenseAllocPiv(integertype N);
  *                                                                *
  ******************************************************************/
 
-integertype DenseFactor(DenseMat A, integertype *p);
+  integertype DenseFactor (DenseMat A, integertype * p);
 
 
 /******************************************************************
@@ -196,7 +199,7 @@ integertype DenseFactor(DenseMat A, integertype *p);
  *                                                                *
  ******************************************************************/
 
-void DenseBacksolve(DenseMat A, integertype *p, realtype *b);
+  void DenseBacksolve (DenseMat A, integertype * p, realtype * b);
 
 
 /******************************************************************
@@ -208,7 +211,7 @@ void DenseBacksolve(DenseMat A, integertype *p, realtype *b);
  *                                                                *
  ******************************************************************/
 
-void DenseZero(DenseMat A);
+  void DenseZero (DenseMat A);
 
 
 /******************************************************************
@@ -221,7 +224,7 @@ void DenseZero(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-void DenseCopy(DenseMat A, DenseMat B);
+  void DenseCopy (DenseMat A, DenseMat B);
 
 
 /******************************************************************
@@ -234,7 +237,7 @@ void DenseCopy(DenseMat A, DenseMat B);
  *                                                                *
  ******************************************************************/
 
-void DenseScale(realtype c, DenseMat A);
+  void DenseScale (realtype c, DenseMat A);
 
 
 /******************************************************************
@@ -247,7 +250,7 @@ void DenseScale(realtype c, DenseMat A);
  *                                                                *
  ******************************************************************/
 
-void DenseAddI(DenseMat A);
+  void DenseAddI (DenseMat A);
 
 
 /******************************************************************
@@ -260,7 +263,7 @@ void DenseAddI(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-void DenseFreeMat(DenseMat A);
+  void DenseFreeMat (DenseMat A);
 
 
 /******************************************************************
@@ -273,7 +276,7 @@ void DenseFreeMat(DenseMat A);
  *                                                                *
  ******************************************************************/
 
-void DenseFreePiv(integertype *p);
+  void DenseFreePiv (integertype * p);
 
 
 /******************************************************************
@@ -289,8 +292,8 @@ void DenseFreePiv(integertype *p);
  *                                                                *
  ******************************************************************/
 
-void DensePrint(DenseMat A);
- 
+  void DensePrint (DenseMat A);
+
 
 #endif
 #ifdef __cplusplus

@@ -13,7 +13,7 @@
  * This is the implementation file for a generic DENSE linear      *
  * solver package.                                                 *
  *                                                                 *
- *******************************************************************/ 
+ *******************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,81 +34,96 @@ static char const svnid[] = "$Id$";
 /* Implementation */
 
 
-DenseMat DenseAllocMat(integertype N)
+DenseMat
+DenseAllocMat (integertype N)
 {
   DenseMat A;
 
-  if (svnid == NULL) fprintf(stderr," ");
-  if (N <= 0) return(NULL);
+  if (svnid == NULL)
+    fprintf (stderr, " ");
+  if (N <= 0)
+    return (NULL);
 
-  A = (DenseMat) malloc(sizeof *A);
-  if (A==NULL) return (NULL);
-  
-  A->data = denalloc(N);
-  if (A->data == NULL) {
-    free(A);
-    return(NULL);
+  A = (DenseMat) malloc (sizeof *A);
+  if (A == NULL)
+    return (NULL);
+
+  A->data = denalloc (N);
+  if (A->data == NULL)
+  {
+    free (A);
+    return (NULL);
   }
 
   A->size = N;
 
-  return(A);
+  return (A);
 }
 
 
-integertype *DenseAllocPiv(integertype N)
+integertype *
+DenseAllocPiv (integertype N)
 {
-  if (N <= 0) return(NULL);
+  if (N <= 0)
+    return (NULL);
 
-  return((integertype *) malloc(N * sizeof(integertype)));
+  return ((integertype *) malloc (N * sizeof (integertype)));
 }
 
 
-integertype DenseFactor(DenseMat A, integertype *p)
+integertype
+DenseFactor (DenseMat A, integertype * p)
 {
-  return(gefa(A->data, A->size, p));
+  return (gefa (A->data, A->size, p));
 }
 
 
-void DenseBacksolve(DenseMat A, integertype *p, realtype *b)
+void
+DenseBacksolve (DenseMat A, integertype * p, realtype * b)
 {
-  gesl(A->data, A->size, p, b);
+  gesl (A->data, A->size, p, b);
 }
 
 
-void DenseZero(DenseMat A)
+void
+DenseZero (DenseMat A)
 {
-  denzero(A->data, A->size);
+  denzero (A->data, A->size);
 }
 
-void DenseCopy(DenseMat A, DenseMat B)
+void
+DenseCopy (DenseMat A, DenseMat B)
 {
-  dencopy(A->data, B->data, A->size);
+  dencopy (A->data, B->data, A->size);
 }
 
-void DenseScale(realtype c, DenseMat A)
+void
+DenseScale (realtype c, DenseMat A)
 {
-  denscale(c, A->data, A->size);
+  denscale (c, A->data, A->size);
 }
 
-void DenseAddI(DenseMat A)
+void
+DenseAddI (DenseMat A)
 {
-  denaddI(A->data, A->size);
+  denaddI (A->data, A->size);
 }
 
-void DenseFreeMat(DenseMat A)
+void
+DenseFreeMat (DenseMat A)
 {
-  denfree(A->data);
-  free(A);
+  denfree (A->data);
+  free (A);
 }
 
-void DenseFreePiv(integertype *p)
-{  
-  free(p);
-}
-
-void DensePrint(DenseMat A)
+void
+DenseFreePiv (integertype * p)
 {
-  denprint(A->data, A->size);
+  free (p);
 }
 
+void
+DensePrint (DenseMat A)
+{
+  denprint (A->data, A->size);
+}

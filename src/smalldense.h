@@ -20,11 +20,13 @@
  *                                                                 *
  *******************************************************************/
 #ifdef PHREEQC_IDENT
-static char const svnidsmalldense[] = "$Id$";
+static char const svnidsmalldense[] =
+  "$Id$";
 #endif
 
-#ifdef __cplusplus     /* wrapper to enable C++ usage */
-extern "C" {
+#ifdef __cplusplus		/* wrapper to enable C++ usage */
+extern "C"
+{
 #endif
 
 #ifndef _smalldense_h
@@ -32,7 +34,7 @@ extern "C" {
 
 #include "sundialstypes.h"
 
- 
+
 /******************************************************************
  *                                                                *
  * Function : denalloc                                            *
@@ -53,7 +55,7 @@ extern "C" {
  *                                                                *
  ******************************************************************/
 
-realtype **denalloc(integertype n);
+  realtype **denalloc (integertype n);
 
 
 /******************************************************************
@@ -69,7 +71,7 @@ realtype **denalloc(integertype n);
  *                                                                *
  ******************************************************************/
 
-integertype *denallocpiv(integertype n);
+  integertype *denallocpiv (integertype n);
 
 
 /******************************************************************
@@ -104,7 +106,7 @@ integertype *denallocpiv(integertype n);
  *                                                                *
  ******************************************************************/
 
-integertype gefa(realtype **a, integertype n, integertype *p);
+  integertype gefa (realtype ** a, integertype n, integertype * p);
 
 
 /******************************************************************
@@ -121,7 +123,7 @@ integertype gefa(realtype **a, integertype n, integertype *p);
  *                                                                *
  ******************************************************************/
 
-void gesl(realtype **a, integertype n, integertype *p, realtype *b);
+  void gesl (realtype ** a, integertype n, integertype * p, realtype * b);
 
 
 /******************************************************************
@@ -134,7 +136,7 @@ void gesl(realtype **a, integertype n, integertype *p, realtype *b);
  *                                                                *
  ******************************************************************/
 
-void denzero(realtype **a, integertype n);
+  void denzero (realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -147,7 +149,7 @@ void denzero(realtype **a, integertype n);
  *                                                                *
  ******************************************************************/
 
-void dencopy(realtype **a, realtype **b, integertype n);
+  void dencopy (realtype ** a, realtype ** b, integertype n);
 
 
 /******************************************************************
@@ -160,7 +162,7 @@ void dencopy(realtype **a, realtype **b, integertype n);
  *                                                                *
  ******************************************************************/
 
-void denscale(realtype c, realtype **a, integertype n);
+  void denscale (realtype c, realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -173,7 +175,7 @@ void denscale(realtype c, realtype **a, integertype n);
  *                                                                *
  ******************************************************************/
 
-void denaddI(realtype **a, integertype n);
+  void denaddI (realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -186,7 +188,7 @@ void denaddI(realtype **a, integertype n);
  *                                                                *
  ******************************************************************/
 
-void denfreepiv(integertype *p);
+  void denfreepiv (integertype * p);
 
 
 /******************************************************************
@@ -198,7 +200,7 @@ void denfreepiv(integertype *p);
  *                                                                *
  ******************************************************************/
 
-void denfree(realtype **a);
+  void denfree (realtype ** a);
 
 
 /******************************************************************
@@ -214,8 +216,8 @@ void denfree(realtype **a);
  *                                                                *
  ******************************************************************/
 
-void denprint(realtype **a, integertype n);
- 
+  void denprint (realtype ** a, integertype n);
+
 
 #endif
 
