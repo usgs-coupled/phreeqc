@@ -265,9 +265,6 @@ int check_residuals(void)
 	for (i=0; i < count_unknowns; i++) {
 		if (x[i]->type == MB || x[i]->type == ALK) {
 			if ( fabs(residual[i]) >= epsilon*x[i]->moles && x[i]->moles > MIN_TOTAL /* || stop_program == TRUE */) {
-#ifdef SKIP
-				if ( fabs(residual[i]) >= epsilon*x[i]->moles /* || stop_program == TRUE */) {
-#endif
 				sprintf(error_string,"%20s has not converged. Total: %e\tCalculated: "
 					"%e\tResidual: %e\n", x[i]->description, (double) x[i]->moles,
 					(double) x[i]->f, (double) residual[i]);
