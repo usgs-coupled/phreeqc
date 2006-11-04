@@ -105,9 +105,9 @@ FILES=  \
 	examples/ex16 examples/ex16.out \
 	examples/ex17 examples/ex17.out \
 	examples/ex18 examples/ex18.out \
-	doc/NOTICE.TXT \
-	doc/README.TXT \
-	doc/RELEASE.TXT \
+	NOTICE.TXT \
+	README.TXT \
+	RELEASE.TXT \
 	doc/manual.pdf \
 	doc/wrir02-4172.pdf \
 	doc/phreeqc.txt \
@@ -170,9 +170,11 @@ linux_sed_list= \
 	$(EXPORT_DIR)/Linux/src/main.c"
 
 linux_sed_files:
-	sed $(SED_ARGS) < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/doc/RELEASE.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Linux/src/revisions > $(EXPORT_DIR)/Linux/RELEASE.TXT
 	for FILE in "$(linux_sed_list)"; do \
 		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done
+	mv $(EXPORT_DIR)/Linux/doc/README.TXT $(EXPORT_DIR)/Linux/README.TXT
+	mv $(EXPORT_DIR)/Linux/doc/NOTICE.TXT $(EXPORT_DIR)/Linux/NOTICE.TXT
 
 linux_compile:
 	make -C $(EXPORT_DIR)/Linux/src
@@ -182,6 +184,7 @@ linux_output:
 
 linux_dist: 
 	cd $(EXPORT_DIR)/Linux; rm -f $(PROGRAM).tar
+
 	cd $(EXPORT_DIR)/Linux; for FILE in $(FILES); do tar -rf $(PROGRAM).tar $$FILE; done
 	cd $(EXPORT_DIR)/Linux; tar -rf $(PROGRAM).tar bin/$(PROGRAM)
 	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
@@ -206,9 +209,11 @@ source_sed_list= \
 	$(EXPORT_DIR)/Source/src/main.c"
 
 source_sed_files:
-	sed $(SED_ARGS) < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/doc/RELEASE.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/RELEASE.TXT
 	for FILE in "$(source_sed_list)"; do \
-		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done	
+		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done
+	mv $(EXPORT_DIR)/Source/doc/README.TXT $(EXPORT_DIR)/Source/README.TXT
+	mv $(EXPORT_DIR)/Source/doc/NOTICE.TXT $(EXPORT_DIR)/Source/NOTICE.TXT
 
 source_dist:
 	cd $(EXPORT_DIR)/Source; rm -f $(PROGRAM).tar
@@ -305,10 +310,10 @@ win_sed_list= \
 	"$(EXPORT_DIR)/Win/src/main.c"
 
 win_sed_files:
-	sed $(SED_ARGS) < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/doc/RELEASE.TXT
-	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/RELEASE.TXT
-	sed $(SED_ARGS) < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/doc/README.TXT
-	$(UNIX2DOS) $(EXPORT_DIR)/Win/doc/README.TXT
+	sed $(SED_ARGS) < $(EXPORT_DIR)/Win/src/revisions > $(EXPORT_DIR)/Win/RELEASE.TXT
+	$(UNIX2DOS) $(EXPORT_DIR)/Win/RELEASE.TXT
+	sed $(SED_ARGS) < $(WIN_DIR)/README.TXT > $(EXPORT_DIR)/Win/README.TXT
+	$(UNIX2DOS) $(EXPORT_DIR)/Win/README.TXT
 	for FILE in "$(win_sed_list)"; do \
 		sed $(SED_ARGS) < $$FILE > t; \
 		mv t $$FILE; \
@@ -347,7 +352,7 @@ win_echo_files:
 	@echo $(FILES)
 
 debug: 
-	mkdir -p $(DEBUG_DIR)
+	mkdir -p $(DEBUG_DI
 	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
@@ -356,11 +361,11 @@ debug_nomp:
 
 web:
 	cp $(DIST_DIR)/phreeqc-$(VERSION)*.tar.gz /var/anonymous/ftp/dlpark/geochem/unix/phreeqc
-	cp $(EXPORT_DIR)/Linux/doc/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
-	cp $(EXPORT_DIR)/Linux/doc/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
+	cp $(EXPORT_DIR)/Linux/README.TXT /var/anonymous/ftp/dlpark/geochem/unix/phreeqc/README.TXT 
+	cp $(EXPORT_DIR)/Linux/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Unix.TXT
 	cp ~/programs/phreeqc/win/README.TXT /var/anonymous/ftp/dlpark/geochem/pc/phreeqc/README.TXT 
 	cp ~/programs/phreeqc/win/README.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/README.Win.TXT
 	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
-	cp $(EXPORT_DIR)/Linux/doc/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
+	cp $(EXPORT_DIR)/Linux/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
 
