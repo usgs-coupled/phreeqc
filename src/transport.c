@@ -1839,6 +1839,7 @@ find_J (int cell_no)
     z[i] = 0.0;
     Dz[i] = 0.0;
     Dzc[i] = 0.0;
+    Dzc_dl[i] = 0.0;
     o_c[i] = 0;
   }
 
