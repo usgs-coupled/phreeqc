@@ -146,7 +146,7 @@ echo "Removed and recreated $DIST_SANDBOX"
 
 echo "Exporting revision $REVISION of PHREEQC into sandbox..."
 (cd "$DIST_SANDBOX" && \
- 	${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS -r "$REVISION" \
+ 	${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS --ignore-externals -r "$REVISION" \
 	     "http://internalbrr/svn_GW/phreeqc/$REPOS_PATH" \
 	     "$DISTNAME")
 	     
@@ -189,6 +189,10 @@ do
   cp "$vsn_file" "$vsn_file.dist"
 done
 
+mv $DISTPATH/src/revisions $DISTPATH/RELEASE.TXT
+mv $DISTPATH/win/README.TXT $DISTPATH/README.TXT
+mv $DISTPATH/doc/NOTICE.TXT $DISTPATH/NOTICE.TXT
+
 if [ -z "$ZIP" ]; then
   echo "Rolling $DISTNAME.tar ..."
   (cd "$DIST_SANDBOX" > /dev/null && tar c "$DISTNAME") > \
@@ -206,7 +210,7 @@ rm -rf "$DIST_SANDBOX"
 echo ""
 echo "Done:"
 if [ -z "$ZIP" ]; then
-  ls -l "$DISTNAME.tar.gz" "$DISTNAME.tar.bz2"
+  ls -l "$DISTNAME.tar.gz"
   echo ""
   echo "md5sums:"
   md5sum "$DISTNAME.tar.gz"

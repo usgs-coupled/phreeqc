@@ -182,13 +182,13 @@ conf() {
 # this is the equivalent of make win_export
   mkdir -p ${objdir}/src/phreeqc_export/Win && \
   cd ${objdir}/src/phreeqc_export/Win && \
-  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; && \
+  find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; )
 # rearrange files for windows distribution
 # this is the equivalent of make win_sed_files except that the text
 # replacemnts were already made by dist.sh
-  cp -al ${objdir}/src/phreeqc_export/Win/src/revisions ${objdir}/src/phreeqc_export/Win/doc/RELEASE.TXT && \
-  rm -f ${objdir}/src/phreeqc_export/Win/doc/README.TXT && \
-  cp -al ${objdir}/src/phreeqc_export/Win/win/README.TXT ${objdir}/src/phreeqc_export/Win/doc/README.TXT )
+#SRC  cp -al ${objdir}/src/phreeqc_export/Win/src/revisions ${objdir}/src/phreeqc_export/Win/RELEASE.TXT && \
+#SRC  rm -f ${objdir}/src/phreeqc_export/Win/doc/README.TXT && \
+#SRC  cp -al ${objdir}/src/phreeqc_export/Win/win/README.TXT ${objdir}/src/phreeqc_export/Win/README.TXT )
 }
 reconf() {
   (cd ${topdir} && \
@@ -217,7 +217,7 @@ install() {
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
   mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
   rmdir ${instdir}/${PKG}-${VER}/database && \
-  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir}/${PKG}-${VER} && \
+#SRC  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir}/${PKG}-${VER} && \
   mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
   cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
   if [ "${SKIP_TEST}" -eq 0 ] ; then \
