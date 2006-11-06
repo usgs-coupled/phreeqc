@@ -352,7 +352,7 @@ win_echo_files:
 	@echo $(FILES)
 
 debug: 
-	mkdir -p $(DEBUG_DI
+	mkdir -p $(DEBUG_DIR)
 	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
