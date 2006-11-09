@@ -304,7 +304,7 @@ win: win_export win_sed_files win_dist
 win_export:
 	mkdir -p $(EXPORT_DIR)
 	rm -rf $(EXPORT_DIR)/Win
-	svn export .. $(EXPORT_DIR)/Win
+	svn export -r $(REVISION) http://internalbrr/svn_GW/phreeqc/trunk $(EXPORT_DIR)/Win
 
 win_sed_list= \
 	"$(EXPORT_DIR)/Win/src/main.c"
