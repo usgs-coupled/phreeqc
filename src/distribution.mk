@@ -319,6 +319,8 @@ win_sed_files:
 		mv t $$FILE; \
 		$(UNIX2DOS) $$FILE; \
 	done
+	mv $(EXPORT_DIR)/Win/doc/NOTICE.TXT $(EXPORT_DIR)/Win/NOTICE.TXT
+	
 
 win_dist: 
 	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM).tar
