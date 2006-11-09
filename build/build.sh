@@ -217,7 +217,6 @@ install() {
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
   mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
   rmdir ${instdir}/${PKG}-${VER}/database && \
-#SRC  mv ${instdir}/${PKG}-${VER}/doc/*.TXT ${instdir}/${PKG}-${VER} && \
   mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
   cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
   if [ "${SKIP_TEST}" -eq 0 ] ; then \

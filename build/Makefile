@@ -44,6 +44,9 @@ prep : check_args source script
 
 conf : check_args source script
 	time ./$(BUILD_SCRIPT) conf 2>&1 | tee conf-$(RELEASE).log
+	
+reconf : check_args source script
+	time ./$(BUILD_SCRIPT) reconf 2>&1 | tee reconf-$(RELEASE).log	
 
 build : check_args source script
 	time ./$(BUILD_SCRIPT) build 2>&1 | tee build-$(RELEASE).log
