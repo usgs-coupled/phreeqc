@@ -31,8 +31,10 @@ Version 2.13: November 3, 2006
                 -gamma  9.0     0.0
                 -dw     9.31e-9
 
+(2)     Added phreeqd.dat database with diffusion coefficients (-dw)
+        defined for aqueous species in database directory.
 
-(2)     Added BASIC functions to obtain and modify the porosity
+(3)     Added BASIC functions to obtain and modify the porosity
         in a cell. The functions can be used in BASIC programs
         defined with keyword RATES, USER_PRINT, USER_PUNCH and
         USER_GRAPH.
@@ -43,7 +45,7 @@ Version 2.13: November 3, 2006
           change_por(0.21, cell_no)	# porosity of cell 'cell_no'
                                         # becomes 0.21
 
-(3)     Mobile surface and Donnan option in SURFACE. Mobile surfaces
+(4)     Mobile surface and Donnan option in SURFACE. Mobile surfaces
         are meant for modeling transport of colloids. Only surfaces with
         a diffuse double layer can be transported (the ensemble must be
         electrically neutral). Surfaces related to equilibrium-phases
@@ -86,7 +88,7 @@ Version 2.13: November 3, 2006
         the surface) will be excluded from the DDL, and will be given a
         concentration of (near) zero in the DDL.
 
-(4)     Added special BASIC function to change the diffusion
+(5)     Added special BASIC function to change the diffusion
 	coefficient of (part of) a SURFACE, and hence to change the
 	status from mobile to immobile or immobile to mobile.
 
@@ -112,6 +114,7 @@ Version 2.13: November 3, 2006
 	calculation step. The result of change_surf does not show up in
 	print or punch results of that step, but the reformatting is
 	effective in the next timestep calculations.
+
 
         --------
         svn 1337
