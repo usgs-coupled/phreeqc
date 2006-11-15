@@ -159,7 +159,7 @@ typedef enum
 #define MAX_ADD_EQUATIONS 20	/* maximum number of equations added together to reduce eqn to
 				   master species */
 #define MAX_ELEMENTS 50		/* default estimate of the number of elements */
-#define MAX_LENGTH 200		/* maximum number of characters component name */
+#define MAX_LENGTH 256		/* maximum number of characters component name */
 #define MAX_LINE 80		/* estimate of maximum line length */
 #define MAX_LM 3.0		/* maximum log molality allowed in intermediate iterations */
 #define MIN_LM -30.0		/* minimum log molality allowed before molality set to zero */
