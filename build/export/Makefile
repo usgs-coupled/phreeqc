@@ -7,6 +7,7 @@ FTP_GEOCHEM:=ftp://brrcrftp.cr.usgs.gov/geochem
 HTML_HOME:=/z/linarcolkr/home/www/projects/GWC_coupled
 HTML_PHREEQC:=$(HTML_HOME)/phreeqc
 HTML_PHREEQCI:=$(HTML_HOME)/phreeqci
+HTML_PHAST:=$(HTML_HOME)/phast
 
 #PhreeqcI version
 
@@ -70,6 +71,51 @@ PHREEQC_MAC_VERSION:=$(shell echo $(PHREEQC_MAC_FILE) | sed "s/phreeqc-//" | sed
 PHREEQC_MAC_SIZE:=$(shell ls -s -h "$(PHREEQC_MAC_DIR)/$(PHREEQC_MAC_FILE)" | awk '{print $$1}')
 PHREEQC_MAC_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_MAC_DIR)/$(PHREEQC_MAC_FILE)" | awk '{print $$6,$$7,$$8}')
 
+# Batch PHAST
+
+#Batch Windows
+
+PHAST_WIN_DIR:=$(CHARLTON)/phast
+PHAST_WIN_TARGET_DIR:=$(GEOCHEM)/pc/phast
+PHAST_WIN_PUB_DIR:=$(FTP_CHARLTON)/phast
+PHAST_WIN_FILE:=$(shell cd "$(PHAST_WIN_DIR)"; ls -t phast*.exe | awk '{if (NR == 1) {print}}')
+PHAST_WIN_VERSION:=$(shell echo $(PHAST_WIN_FILE) | sed "s/phast-//" | sed "s/.exe//" )
+PHAST_WIN_SIZE:=$(shell ls -s -h "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$1}')
+PHAST_WIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$6,$$7,$$8}')
+PHAST_WIN_MD5:=$(shell md5sum "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$1}')
+
+#Batch Linux
+
+PHAST_LINUX_DIR:=$(CHARLTON)/phast
+PHAST_LINUX_TARGET_DIR:=$(GEOCHEM)/unix/phast
+PHAST_LINUX_PUB_DIR:=$(FTP_CHARLTON)/phast
+PHAST_LINUX_FILE:=$(shell cd "$(PHAST_LINUX_DIR)"; ls -t phast-*Linux.tar.gz | awk '{if (NR == 1) {print}}')
+PHAST_LINUX_VERSION:=$(shell echo $(PHAST_LINUX_FILE) | sed "s/phast-//" | sed "s/.Linux.tar.gz//" )
+PHAST_LINUX_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$1}')
+PHAST_LINUX_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$6,$$7,$$8}')
+PHAST_LINUX_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$1}')
+
+#RPM Linux
+
+PHAST_LINUX_RPM_DIR:=$(CHARLTON)/phast
+PHAST_LINUX_TARGET_RPM_DIR:=$(GEOCHEM)/unix/phast
+PHAST_LINUX_PUB_RPM_DIR:=$(FTP_CHARLTON)/phast
+PHAST_LINUX_RPM_FILE:=$(shell cd "$(PHAST_LINUX_RPM_DIR)"; ls -t phast-*i586.rpm | awk '{if (NR == 1) {print}}')
+PHAST_LINUX_RPM_VERSION:=$(shell echo $(PHAST_LINUX_RPM_FILE) | sed "s/phast-//" | sed "s/.i586.rpm//" )
+PHAST_LINUX_RPM_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$1}')
+PHAST_LINUX_RPM_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$6,$$7,$$8}')
+PHAST_LINUX_RPM_MD5:=$(shell md5sum "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$1}')
+
+#WPHAST version
+
+WPHAST_DIR:=$(CHARLTON)/wphast
+WPHAST_TARGET_DIR:=$(GEOCHEM)/pc/wphast
+WPHAST_PUB_DIR:=$(FTP_CHARLTON)/wphast
+WPHAST_FILE:=$(shell cd "$(WPHAST_DIR)"; ls -t wphast*.msi | awk '{if (NR == 1) {print}}')
+WPHAST_VERSION:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" )
+WPHAST_SIZE:=$(shell ls -s -h "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$1}')
+WPHAST_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$6,$$7,$$8}')
+
 SED_ARGS= \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
 	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^" \
@@ -100,9 +146,39 @@ SED_ARGS= \
 	-e "s^@PHREEQC_MAC_FILE@^$(PHREEQC_MAC_FILE)^" \
 	-e "s^@PHREEQC_MAC_VERSION@^$(PHREEQC_MAC_VERSION)^" \
 	-e "s^@PHREEQC_MAC_DATE@^$(PHREEQC_MAC_DATE)^" \
-	-e "s^@PHREEQC_MAC_SIZE@^$(PHREEQC_MAC_SIZE)^"
+	-e "s^@PHREEQC_MAC_SIZE@^$(PHREEQC_MAC_SIZE)^" \
+	-e "s^@PHAST_WIN_DIR@^$(PHAST_WIN_DIR)^g" \
+	-e "s^@PHAST_WIN_PUB_DIR@^$(PHAST_WIN_PUB_DIR)^g" \
+	-e "s^@PHAST_WIN_FILE@^$(PHAST_WIN_FILE)^g" \
+	-e "s^@PHAST_WIN_VERSION@^$(PHAST_WIN_VERSION)^g" \
+	-e "s^@PHAST_WIN_DATE@^$(PHAST_WIN_DATE)^g" \
+	-e "s^@PHAST_WIN_SIZE@^$(PHAST_WIN_SIZE)^g" \
+	-e "s^@PHAST_WIN_MD5@^$(PHAST_WIN_MD5)^g" \
+	-e "s^@PHAST_LINUX_DIR@^$(PHAST_LINUX_DIR)^g" \
+	-e "s^@PHAST_LINUX_PUB_DIR@^$(PHAST_LINUX_PUB_DIR)^g" \
+	-e "s^@PHAST_LINUX_FILE@^$(PHAST_LINUX_FILE)^g" \
+	-e "s^@PHAST_LINUX_VERSION@^$(PHAST_LINUX_VERSION)^g" \
+	-e "s^@PHAST_LINUX_DATE@^$(PHAST_LINUX_DATE)^g" \
+	-e "s^@PHAST_LINUX_SIZE@^$(PHAST_LINUX_SIZE)^g" \
+	-e "s^@PHAST_LINUX_MD5@^$(PHAST_LINUX_MD5)^g" \
+	-e "s^@PHAST_LINUX_RPM_DIR@^$(PHAST_LINUX_RPM_DIR)^g" \
+	-e "s^@PHAST_LINUX_PUB_RPM_DIR@^$(PHAST_LINUX_PUB_RPM_DIR)^g" \
+	-e "s^@PHAST_LINUX_RPM_FILE@^$(PHAST_LINUX_RPM_FILE)^g" \
+	-e "s^@PHAST_LINUX_RPM_VERSION@^$(PHAST_LINUX_RPM_VERSION)^g" \
+	-e "s^@PHAST_LINUX_RPM_DATE@^$(PHAST_LINUX_RPM_DATE)^g" \
+	-e "s^@PHAST_LINUX_RPM_SIZE@^$(PHAST_LINUX_RPM_SIZE)^g" \
+	-e "s^@PHAST_LINUX_RPM_MD5@^$(PHAST_LINUX_RPM_MD5)^g" \
+	-e "s^@WPHAST_PUB_DIR@^$(WPHAST_PUB_DIR)^"  \
+	-e "s^@WPHAST_FILE@^$(WPHAST_FILE)^" \
+	-e "s^@WPHAST_VERSION@^$(WPHAST_VERSION)^" \
+	-e "s^@WPHAST_DATE@^$(WPHAST_DATE)^" \
+	-e "s^@WPHAST_SIZE@^$(WPHAST_SIZE)^" 
 
 
+trial:
+	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
+	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
+	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
 
 web: 
 	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
