@@ -62,6 +62,7 @@ all: alkalinity.out \
 	phreeqc.test.out \
 	phrqpitz.tst.out \
 	pitzalphas.out \
+	pitzgas.out \
 	prob8.out \
 	s1.out \
 	saver.out \
