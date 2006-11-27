@@ -1493,6 +1493,8 @@ jacobian_pz (void)
     case EXCH:
     case SURFACE:
     case SURFACE_CB:
+    case SURFACE_CB1:
+    case SURFACE_CB2:
       x[i]->master[0]->s->la += d;
       d2 = d1;
       break;
@@ -1522,6 +1524,7 @@ jacobian_pz (void)
       }
     case MU:
     case PP:
+    case GAS_MOLES:
     case S_S_MOLES:
       continue;
       break;
@@ -1544,6 +1547,8 @@ jacobian_pz (void)
     case EXCH:
     case SURFACE:
     case SURFACE_CB:
+    case SURFACE_CB1:
+    case SURFACE_CB2:
     case AH2O:
       x[i]->master[0]->s->la -= d;
       break;
