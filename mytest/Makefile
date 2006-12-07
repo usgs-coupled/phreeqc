@@ -46,6 +46,7 @@ all: alkalinity.out \
 	jgb2col.out \
 	jgbcol.out \
 	joe.out \
+	kinsurf.out \
 	krest.out \
 	lam7.out \
 	lam10.out \
