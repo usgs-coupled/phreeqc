@@ -1,8 +1,15 @@
 ------------------------------------------------------------
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
+
+        --------
+	svn 1485
+        --------
+	Pitzer version with gas_phase did not work. Added
+	gas_phase and cd_music to numerical derivative routine.
+
 ------------------------------------------------------------
-Version 2.13: November 3, 2006
+Version 2.13.0: November 3, 2006
 ------------------------------------------------------------
 
         --------
