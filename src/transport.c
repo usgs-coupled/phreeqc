@@ -391,6 +391,21 @@ transport (void)
      */
     for (i = 1; i <= count_cells; i++)
       set_initial_moles (i);
+    /*
+     * Also stagnant cells
+     */
+    for (n = 1; n <= stag_data->count_stag; n++)
+    {
+      for (i = 1; i <= count_cells; i++)
+      {
+	k = i + 1 + n * count_cells;
+	cell_no = k;
+	if (solution_bsearch (k, &use.n_solution, FALSE) != 0)
+	{
+	  set_initial_moles (k);
+	}
+      }
+    }
 /*
  * Start diffusing if boundary cond = 1, (fixed c, or closed)
  */
