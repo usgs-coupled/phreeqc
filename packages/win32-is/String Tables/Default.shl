@@ -28,6 +28,7 @@ ENTRY18=GUID_2_11
 ENTRY19=GUID_2_12
 ENTRY20=GUID_2_13
 ENTRY21=GUID_2_6
+ENTRY22=GUID_2_13_1
 
 [TITLE_CAPTIONBAR]
 Comment=Do not delete. Setup requires this Identifier even if your script doesn't use it.
@@ -87,10 +88,13 @@ Comment=
 Comment=
 
 [GUID_2_13]
-Comment=Latest
+Comment=
 
 [GUID_2_6]
 Comment=
+
+[GUID_2_13_1]
+Comment=Latest
 
 [LANGUAGE]
 CURRENTLANG=0
