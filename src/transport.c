@@ -88,7 +88,7 @@ transport (void)
   cb_tol = 1e-9;
   transp_surf = 0;
 
-/*	  mass_water_switch = TRUE; */
+/*        mass_water_switch = TRUE; */
 /*
  *   Check existence of solutions
  */
@@ -240,10 +240,10 @@ transport (void)
   if ((stag_data->exch_f > 0) && (stag_data->count_stag == 1))
   {
     /* multi_D calc's are OK if all cells have the same amount of water */
-/*		if (multi_Dflag == TRUE) {
-			sprintf(token, "multi_D calc's and stagnant: define MIXing factors explicitly, or \n\t give all cells the same amount of water.");
-			warning_msg(token);
-		}
+/*              if (multi_Dflag == TRUE) {
+                        sprintf(token, "multi_D calc's and stagnant: define MIXing factors explicitly, or \n\t give all cells the same amount of water.");
+                        warning_msg(token);
+                }
  */ mix_ptr = &mix[0];
     for (i = 0; i < count_mix; i++)
       mix_free (mix_ptr++);
@@ -1424,7 +1424,7 @@ multi_D (LDBLE DDt)
     find_J (i);
 /*
  * 2. sum up the primary or secondary master_species from all the solute species
- *	H and O go in total_h and total_o
+ *      H and O go in total_h and total_o
  */
     tot_h = tot_o = 0.0;
     count_m_s = 0;
@@ -1979,7 +1979,7 @@ find_J (int cell_no)
       Dz[k] = D[k] * z[k];
       Dzc[k] =
 	Dz[k] * (sol_D[cell_no].spec[i].c + sol_D[cell_no + 1].spec[j].c) / 2;
-/*			Dzc[k] = Dz[k] * (sol_D[cell_no].spec[i].c > sol_D[cell_no + 1].spec[j].c ? sol_D[cell_no].spec[i].c : sol_D[cell_no + 1].spec[j].c);
+/*                      Dzc[k] = Dz[k] * (sol_D[cell_no].spec[i].c > sol_D[cell_no + 1].spec[j].c ? sol_D[cell_no].spec[i].c : sol_D[cell_no + 1].spec[j].c);
  */
       if (dl_s > 0)
       {
@@ -2155,8 +2155,8 @@ fill_spec (int cell_no)
       continue;
     if (species_list[i].s == s_h2o)
       continue;
-/* appt			lm = s_h2o->la - species_list[i].s->lg;
-		else
+/* appt                 lm = s_h2o->la - species_list[i].s->lg;
+                else
  */ lm = species_list[i].s->lm;
 
     if (lm > -20)
@@ -2176,7 +2176,9 @@ fill_spec (int cell_no)
 	  species_list[i].s->dw * por_factor;
       if (			/*strcmp(species_list[i].s->name, "H+") != NULL &&
 				   strcmp(species_list[i].s->name, "OH-") != NULL && */
-	   por * sol_D[cell_no].spec[count_spec].Dp > diffc_max)
+/* appt 8/1/7
+           por * sol_D[cell_no].spec[count_spec].Dp > diffc_max) */
+	   sol_D[cell_no].spec[count_spec].Dp > diffc_max)
 	diffc_max = sol_D[cell_no].spec[count_spec].Dp;
       count_spec++;
     }
@@ -2212,12 +2214,12 @@ multi_Dstag (int mobile_cell)
 {
 /* basic scheme follows multi_D, but uses the mix factors predefined with MIX
  * 1. determine mole transfer (mol/s) of all solute species > 1e-20 mol/L
-		for the interface between 2 cells.
+                for the interface between 2 cells.
  * 2. sum up as mole transfer of master_species
  * 3. add moles of master_species to the 2 cells
- *	NOTE. Define the water content of stagnant cells relative to the
- *	mobile cell (with, for example, 1 kg water)
- *	Define properties of each interface only 1 time with MIX.
+ *      NOTE. Define the water content of stagnant cells relative to the
+ *      mobile cell (with, for example, 1 kg water)
+ *      Define properties of each interface only 1 time with MIX.
  */
   int icell, jcell, i, j, k, l, n, length;
   char *ptr;
@@ -2242,7 +2244,7 @@ multi_Dstag (int mobile_cell)
     if (n == 0)
       icell -= 1;
 /*
- *	find the mix ptr for icell and go along the cells that mix with it
+ *      find the mix ptr for icell and go along the cells that mix with it
  */
     use.mix_ptr = mix_search (icell, &use.n_mix, FALSE);
     if (use.mix_ptr == NULL)
@@ -2258,7 +2260,7 @@ multi_Dstag (int mobile_cell)
       find_Jstag (icell, jcell, mixf);
 /*
  * 2. sum up the primary or secondary master_species from all the solute species
- *	H and O go in total_h and total_o
+ *      H and O go in total_h and total_o
  */
       tot_h = tot_o = 0.0;
       count_m_s = 0;
@@ -2296,9 +2298,9 @@ multi_Dstag (int mobile_cell)
 /*
  * timestep is in mixf.
  * NOTE. The timestep calculated in init_mix for MCD (by PHREEQC) must be equal or smaller than
- *	  the timestep taken (by the user) for calculating mixf in MIX.
- *	  Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
- *	  Dw used for calculating mixf must be given as default_Dw in the input file.
+ *        the timestep taken (by the user) for calculating mixf in MIX.
+ *        Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
+ *        Dw used for calculating mixf must be given as default_Dw in the input file.
  */
 /*
  * 3. find the solutions, add or subtract the moles...
@@ -2464,9 +2466,9 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
 /* mole transfer (mol/s) of the individual master_species:
  * Eqn 1:
  * J_ij = mixf_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
- *		mixf_ij = mixf / (Dw * init_pf) * new_por / init_por
- *		mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
- *		init_pf equals multi_Dpor^multi_Dn;
+ *              mixf_ij = mixf / (Dw * init_pf) * new_por / init_por
+ *              mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
+ *              init_pf equals multi_Dpor^multi_Dn;
  */
   int i, i_max, j, j_max, k, l;
   LDBLE ddlm, aq1, aq2;
@@ -2738,7 +2740,7 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
       z[k] = sol_D[icell].spec[i].z;
       Dz[k] = D[k] * z[k];
       Dzc[k] = Dz[k] * (sol_D[icell].spec[i].c + sol_D[jcell].spec[j].c) / 2;
-/*			Dzc[k] = Dz[k] * (sol_D[icell].spec[i].c > sol_D[jcell].spec[j].c ? sol_D[icell].spec[i].c : sol_D[jcell].spec[j].c);
+/*                      Dzc[k] = Dz[k] * (sol_D[icell].spec[i].c > sol_D[jcell].spec[j].c ? sol_D[icell].spec[i].c : sol_D[jcell].spec[j].c);
  */
       if (dl_s > 0)
       {
@@ -2854,19 +2856,19 @@ disp_surf (LDBLE DDt)
 /* ---------------------------------------------------------------------- */
 /*
  *  Disperse/diffuse surfaces:
- *	 surface[n1] = SS(mixf * surface[n2]) + (1 - SS(mixf) * surface[i1])
+ *       surface[n1] = SS(mixf * surface[n2]) + (1 - SS(mixf) * surface[i1])
  *  where SS is Sum of, f2 is a mixing factor.
  *  Implementation:
  *  Mobile surface comps and charges are mixed face by face and 1 by 1 in surface[n1]:
   Step (from cell 1 to count_cells + 1):
  *  1. Surface n1 is made a copy of cell[i1]'s surface, if it exists, or else
- *	 b. a copy of the first encountered mobile surface[n2] from cell i2 = i1 - 1.
+ *       b. a copy of the first encountered mobile surface[n2] from cell i2 = i1 - 1.
  *  2  a. Column surfaces are mixed by dispersion/diffusion
- *	 b. Column surfaces are mixed by MCD (if multi_Dflag is true)
+ *       b. Column surfaces are mixed by MCD (if multi_Dflag is true)
  *  3. Surfaces n1 and n2 are stored in a temporary surface, with n_user = i1 or i2.
  *  4. When done for all cells, new surfaces are copied into the cells.
- *	 NOTE... The surfaces' diffuse_layer, edl and phases/kinetics relations must be identical,
- *			 but only mobile surface_comp's (Dw > 0) and their surface_charge's are transported.
+ *       NOTE... The surfaces' diffuse_layer, edl and phases/kinetics relations must be identical,
+ *                       but only mobile surface_comp's (Dw > 0) and their surface_charge's are transported.
  */
 {
   int i, i1, i2, j, k, k1, n, n1, n2, temp_count_surface;
@@ -3621,7 +3623,7 @@ mobile_surface_copy (struct surface *surface_old_ptr,
  *   Copies mobile comps from surface_old_ptr to surf_ptr1,
  *   comps and charges with Dw > 0 are moved if move_old == TRUE, else copied.
  *   NOTE... when all comps are moved, the old surface is deleted and surfaces are sorted again,
- *		   which will modify pointers and surface numbers.
+ *                 which will modify pointers and surface numbers.
  *   User number of new surface structure is n_user_new, structure is freed when n_user_new is already defined
  */
   int count_comps, count_charge, new_charge, n_user_old, charge_done;

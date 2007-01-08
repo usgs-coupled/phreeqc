@@ -193,7 +193,7 @@ Initial solution 1.
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.165e-16
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   7
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -229,7 +229,7 @@ O(0)             1.628e-18
 
 	Brucite          -5.21   11.63   16.84  Mg(OH)2
 	H2(g)           -34.00  -37.15   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -5.01   -3.43    1.58  NaCl
 	O2(g)           -15.19  -18.08   -2.89  O2
 	Portlandite     -11.18   11.62   22.80  Ca(OH)2
@@ -287,13 +287,13 @@ X                1.000e-03 mol
                                        pe  =  -1.395      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.960e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.157e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.118e-16
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  23
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -329,7 +329,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.20   11.64   16.84  Mg(OH)2
 	H2(g)           -11.22  -14.37   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.97   -3.39    1.58  NaCl
 	O2(g)           -60.74  -63.63   -2.89  O2
 	Portlandite     -11.18   11.62   22.80  Ca(OH)2
@@ -434,7 +434,7 @@ equiv frac HX:                8.6820e-05
                                        pe  =  -1.643      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.995e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   3.022e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -476,7 +476,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.04   11.80   16.84  Mg(OH)2
 	H2(g)           -10.88  -14.03   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -5.01   -3.42    1.58  NaCl
 	O2(g)           -61.43  -64.32   -2.89  O2
 	Portlandite     -11.02   11.78   22.80  Ca(OH)2
@@ -523,7 +523,7 @@ equiv frac HX:                7.4666e-05
                                        pe  =  -1.617      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.991e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.910e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -565,7 +565,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.06   11.78   16.84  Mg(OH)2
 	H2(g)           -10.91  -14.06   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -5.00   -3.42    1.58  NaCl
 	O2(g)           -61.36  -64.25   -2.89  O2
 	Portlandite     -11.04   11.76   22.80  Ca(OH)2
@@ -612,7 +612,7 @@ equiv frac HX:                6.7025e-05
                                        pe  =  -1.640      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.986e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.798e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -654,7 +654,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.08   11.76   16.84  Mg(OH)2
 	H2(g)           -10.85  -14.00   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -5.00   -3.41    1.58  NaCl
 	O2(g)           -61.49  -64.38   -2.89  O2
 	Portlandite     -11.05   11.75   22.80  Ca(OH)2
@@ -701,7 +701,7 @@ equiv frac HX:                5.4328e-05
                                        pe  =  -1.681      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.981e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.685e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -743,7 +743,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.10   11.74   16.84  Mg(OH)2
 	H2(g)           -10.75  -13.90   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.99   -3.41    1.58  NaCl
 	O2(g)           -61.69  -64.59   -2.89  O2
 	Portlandite     -11.08   11.72   22.80  Ca(OH)2
@@ -790,7 +790,7 @@ equiv frac HX:                4.2632e-05
                                        pe  =  -1.704      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.977e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.569e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -832,7 +832,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.12   11.72   16.84  Mg(OH)2
 	H2(g)           -10.68  -13.83   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.99   -3.40    1.58  NaCl
 	O2(g)           -61.83  -64.72   -2.89  O2
 	Portlandite     -11.10   11.70   22.80  Ca(OH)2
@@ -879,7 +879,7 @@ equiv frac HX:                3.1356e-05
                                        pe  =  -1.690      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.972e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.452e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -921,7 +921,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.14   11.70   16.84  Mg(OH)2
 	H2(g)           -10.69  -13.84   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.98   -3.40    1.58  NaCl
 	O2(g)           -61.81  -64.70   -2.89  O2
 	Portlandite     -11.12   11.68   22.80  Ca(OH)2
@@ -968,7 +968,7 @@ equiv frac HX:                2.0353e-05
                                        pe  =  -1.745      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.968e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.335e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1010,7 +1010,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.17   11.67   16.84  Mg(OH)2
 	H2(g)           -10.56  -13.71   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.98   -3.39    1.58  NaCl
 	O2(g)           -62.07  -64.96   -2.89  O2
 	Portlandite     -11.14   11.66   22.80  Ca(OH)2
@@ -1057,7 +1057,7 @@ equiv frac HX:                9.6989e-06
                                        pe  =  -1.752      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.963e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.222e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1099,7 +1099,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.19   11.65   16.84  Mg(OH)2
 	H2(g)           -10.52  -13.67   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.97   -3.39    1.58  NaCl
 	O2(g)           -62.14  -65.03   -2.89  O2
 	Portlandite     -11.16   11.64   22.80  Ca(OH)2
@@ -1146,7 +1146,7 @@ equiv frac HX:                6.0316e-06
                                        pe  =  -1.755      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.961e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.164e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1188,7 +1188,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.20   11.64   16.84  Mg(OH)2
 	H2(g)           -10.51  -13.66   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.97   -3.39    1.58  NaCl
 	O2(g)           -62.18  -65.07   -2.89  O2
 	Portlandite     -11.17   11.63   22.80  Ca(OH)2
@@ -1235,7 +1235,7 @@ equiv frac HX:                4.3200e-06
                                        pe  =  -1.762      Adjusted to redox equilibrium
                         Activity of water  =   0.998
                            Ionic strength  =   7.961e-02
-                       Mass of water (kg)  =   1.000e-00
+                       Mass of water (kg)  =   1.000e+00
                  Total alkalinity (eq/kg)  =   2.158e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1277,7 +1277,7 @@ O(0)             0.000e+00
 
 	Brucite          -5.20   11.64   16.84  Mg(OH)2
 	H2(g)           -10.49  -13.64   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.97   -3.39    1.58  NaCl
 	O2(g)           -62.20  -65.10   -2.89  O2
 	Portlandite     -11.17   11.63   22.80  Ca(OH)2
