@@ -1,6 +1,26 @@
 ------------------------------------------------------------
 Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
+------------------------------------------------------------
+Version 2.13.1: January 16, 2007
+------------------------------------------------------------
+        --------
+	svn 1590
+        --------
+	Removed porosity from one statement to eliminate oscillations
+	in multicomponent diffusion calculation.
+
+        --------
+	svn 1558
+        --------
+	Dissolve-only option did not work correctly for stagnant cells
+        in TRANSPORT calculations. The moles of equilibrium phases,
+	kinetics, gas_phase, and solid solutions were not initialized
+	at the beginning of each transport step. Thus, the printed values
+	for delta moles for the step in the output and punch file were 
+	incorrect for stagnant-zone cells. "Dissolve only" was
+	always tested relative to the number of moles initially in the
+	cells, not the amount remaining at a given time step.
 
         --------
 	svn 1485
