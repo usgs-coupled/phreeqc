@@ -5107,9 +5107,15 @@ check_same_model (void)
  */
     if (master[i]->s == s_hplus || master[i]->s == s_h2o)
       continue;
-    if (master[i]->total > MIN_TOTAL && master[i]->last_model == TRUE
-	&& master[i]->unknown != NULL)
-      continue;
+    if (master[i]->total > MIN_TOTAL && master[i]->last_model == TRUE)
+    {
+      if (master[i]->s->secondary != NULL) 
+      {
+	if (master[i]->s->secondary->unknown != NULL) continue;
+      } else {
+	if (master[i]->unknown != NULL) continue;
+      }
+    }
     if (master[i]->total <= MIN_TOTAL && master[i]->last_model == FALSE)
       continue;
     return (FALSE);

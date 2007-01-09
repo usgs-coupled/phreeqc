@@ -866,7 +866,7 @@ Goe_uni
 	Goe_uniOH-0.5          2.000e-24       0.000   2.004e-24     -23.698
 	Goe_uniOHNa+0.5        1.140e-28       0.000   1.143e-28     -27.942
 	Goe_uni2O2AsOOH-       2.665e-41       0.000   2.670e-41     -40.573
-	Goe_uni2O2AsO2-2       5.760e-44       0.000   5.772e-44     -43.239
+	Goe_uni2O2AsO2-2       5.761e-44       0.000   5.772e-44     -43.239
 	Goe_uniOAs(OH)2-0.5    2.227e-45       0.000   2.231e-45     -44.651
 	Goe_uni2O2AsOH-        1.586e-67       0.000   1.589e-67     -66.799
 
@@ -1046,7 +1046,7 @@ Goe_uni
 	Goe_uniOH-0.5          2.000e-24       0.000   2.004e-24     -23.698
 	Goe_uniOHNa+0.5        1.140e-28       0.000   1.143e-28     -27.942
 	Goe_uni2O2AsOOH-       2.665e-41       0.000   2.670e-41     -40.573
-	Goe_uni2O2AsO2-2       5.760e-44       0.000   5.772e-44     -43.239
+	Goe_uni2O2AsO2-2       5.761e-44       0.000   5.772e-44     -43.239
 	Goe_uniOAs(OH)2-0.5    2.227e-45       0.000   2.231e-45     -44.651
 	Goe_uni2O2AsOH-        1.586e-67       0.000   1.589e-67     -66.799
 
@@ -1072,7 +1072,7 @@ Goe_uni
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   2.968e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =   1
+                               Iterations  =   2
                                   Total H  = 1.112346e+02
                                   Total O  = 5.539899e+01
 
@@ -1183,7 +1183,7 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Goe           
-	  5.936e-27  Surface charge, plane 0, eq
+	  5.935e-27  Surface charge, plane 0, eq
 	 -1.313e-29  Surface charge, plane 1, eq
 	  0.000e+00  Surface charge, plane 2, eq
 	  5.922e-27  Sum of surface charge, all planes, eq
@@ -2196,18 +2196,18 @@ Goethite            -0.92   -1.92   -1.00    1.000e-02           0  -1.000e-02
 Goe           
 	  0.000e+00  Surface + diffuse layer charge, eq
 
-	  2.307e-20  Surface charge, plane 0, eq
+	  2.306e-20  Surface charge, plane 0, eq
 	 -5.056e-23  Surface charge, plane 1, eq
 	  0.000e+00  Surface charge, plane 2, eq
-	  2.302e-20  Sum of surface charge, all planes, eq
+	  2.301e-20  Sum of surface charge, all planes, eq
 
 	undefined  sigma, C/m**2
 	  2.906e-01  psi, plane 0, V
 	  2.299e-02  psi, plane 1, V
-	 -3.085e-04  psi, plane 2, V
+	 -3.078e-04  psi, plane 2, V
 
-	  1.224e-05  exp(-F*psi/RT), plane 0
-	  4.087e-01  exp(-F*psi/RT), plane 1
+	  1.223e-05  exp(-F*psi/RT), plane 0
+	  4.086e-01  exp(-F*psi/RT), plane 1
 	  1.012e+00  exp(-F*psi/RT), plane 2
 
 	  8.500e-01  capacitance 0-1, F/m^2
@@ -2232,21 +2232,21 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          9.882e-21       0.000   9.902e-21     -20.004
+	Goe_triOH+0.5          9.880e-21       0.000   9.900e-21     -20.004
 	Goe_triO-0.5           1.500e-24       0.000   1.503e-24     -23.823
-	Goe_triONa+0.5         1.097e-28       0.000   1.100e-28     -27.959
+	Goe_triONa+0.5         1.097e-28       0.000   1.099e-28     -27.959
 
 Goe_uni       
 	  0.000e+00  moles	[0.2 mol/(mol Goethite)]
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         1.318e-20       0.000   1.320e-20     -19.879
-	Goe_uniOAsO2OH-1.5     3.889e-23       0.000   3.897e-23     -22.409
+	Goe_uniOH2+0.5         1.317e-20       0.000   1.320e-20     -19.879
+	Goe_uniOAsO2OH-1.5     3.890e-23       0.000   3.898e-23     -22.409
 	Goe_uniOH-0.5          2.000e-24       0.000   2.004e-24     -23.698
 	Goe_uniOHNa+0.5        1.463e-28       0.000   1.466e-28     -27.834
 	Goe_uni2O2AsOOH-       2.502e-41       0.000   2.507e-41     -40.601
-	Goe_uni2O2AsO2-2       4.275e-44       0.000   4.284e-44     -43.368
+	Goe_uni2O2AsO2-2       4.276e-44       0.000   4.285e-44     -43.368
 	Goe_uniOAs(OH)2-0.5    2.187e-45       0.000   2.192e-45     -44.659
 	Goe_uni2O2AsOH-        1.528e-67       0.000   1.531e-67     -66.815
 
@@ -2389,18 +2389,18 @@ Goethite            -0.92   -1.92   -1.00    0.000e+00           0   0.000e+00
 Goe           
 	  0.000e+00  Surface + diffuse layer charge, eq
 
-	  2.307e-20  Surface charge, plane 0, eq
+	  2.306e-20  Surface charge, plane 0, eq
 	 -5.056e-23  Surface charge, plane 1, eq
 	  0.000e+00  Surface charge, plane 2, eq
-	  2.302e-20  Sum of surface charge, all planes, eq
+	  2.301e-20  Sum of surface charge, all planes, eq
 
 	undefined  sigma, C/m**2
 	  2.906e-01  psi, plane 0, V
 	  2.299e-02  psi, plane 1, V
-	 -3.085e-04  psi, plane 2, V
+	 -3.078e-04  psi, plane 2, V
 
-	  1.224e-05  exp(-F*psi/RT), plane 0
-	  4.087e-01  exp(-F*psi/RT), plane 1
+	  1.223e-05  exp(-F*psi/RT), plane 0
+	  4.086e-01  exp(-F*psi/RT), plane 1
 	  1.012e+00  exp(-F*psi/RT), plane 2
 
 	  8.500e-01  capacitance 0-1, F/m^2
@@ -2425,21 +2425,21 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          9.882e-21       0.000   9.902e-21     -20.004
+	Goe_triOH+0.5          9.880e-21       0.000   9.900e-21     -20.004
 	Goe_triO-0.5           1.500e-24       0.000   1.503e-24     -23.823
-	Goe_triONa+0.5         1.097e-28       0.000   1.100e-28     -27.959
+	Goe_triONa+0.5         1.097e-28       0.000   1.099e-28     -27.959
 
 Goe_uni       
 	  0.000e+00  moles	[0.2 mol/(mol Goethite)]
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         1.318e-20       0.000   1.320e-20     -19.879
-	Goe_uniOAsO2OH-1.5     3.889e-23       0.000   3.897e-23     -22.409
+	Goe_uniOH2+0.5         1.317e-20       0.000   1.320e-20     -19.879
+	Goe_uniOAsO2OH-1.5     3.890e-23       0.000   3.898e-23     -22.409
 	Goe_uniOH-0.5          2.000e-24       0.000   2.004e-24     -23.698
 	Goe_uniOHNa+0.5        1.463e-28       0.000   1.466e-28     -27.834
 	Goe_uni2O2AsOOH-       2.502e-41       0.000   2.507e-41     -40.601
-	Goe_uni2O2AsO2-2       4.275e-44       0.000   4.284e-44     -43.368
+	Goe_uni2O2AsO2-2       4.276e-44       0.000   4.285e-44     -43.368
 	Goe_uniOAs(OH)2-0.5    2.187e-45       0.000   2.192e-45     -44.659
 	Goe_uni2O2AsOH-        1.528e-67       0.000   1.531e-67     -66.815
 
@@ -2580,17 +2580,17 @@ Goe
 	  0.000e+00  Surface + diffuse layer charge, eq
 
 	  5.559e-22  Surface charge, plane 0, eq
-	 -2.962e-28  Surface charge, plane 1, eq
+	 -2.963e-28  Surface charge, plane 1, eq
 	  0.000e+00  Surface charge, plane 2, eq
 	  5.559e-22  Sum of surface charge, all planes, eq
 
 	undefined  sigma, C/m**2
 	 -0.000e+00  psi, plane 0, V
 	  2.299e-02  psi, plane 1, V
-	 -3.085e-04  psi, plane 2, V
+	 -3.078e-04  psi, plane 2, V
 
 	  1.000e+00  exp(-F*psi/RT), plane 0
-	  4.087e-01  exp(-F*psi/RT), plane 1
+	  4.086e-01  exp(-F*psi/RT), plane 1
 	  1.012e+00  exp(-F*psi/RT), plane 2
 
 	  8.500e-01  capacitance 0-1, F/m^2
@@ -2617,7 +2617,7 @@ Goe_tri
 
 	Goe_triOH+0.5          2.779e-22       0.000   2.786e-22     -21.555
 	Goe_triO-0.5           1.000e-30       0.000   1.002e-30     -29.999
-	Goe_triONa+0.5         7.437e-35       0.000   7.455e-35     -34.128
+	Goe_triONa+0.5         7.435e-35       0.000   7.453e-35     -34.128
 
 Goe_uni       
 	  0.000e+00  moles	[0.2 mol/(mol Goethite)]
@@ -2625,13 +2625,13 @@ Goe_uni
 	Species                    Moles    Fraction    Molality    Molality
 
 	Goe_uniOH2+0.5         2.779e-22       0.000   2.786e-22     -21.555
-	Goe_uniOAsO2OH-1.5     2.279e-28       0.000   2.284e-28     -27.641
+	Goe_uniOAsO2OH-1.5     2.279e-28       0.000   2.285e-28     -27.641
 	Goe_uniOH-0.5          1.000e-30       0.000   1.002e-30     -29.999
-	Goe_uniOHNa+0.5        7.437e-35       0.000   7.455e-35     -34.128
+	Goe_uniOHNa+0.5        7.435e-35       0.000   7.453e-35     -34.128
 	Goe_uniOAs(OH)2-0.5    1.132e-39       0.000   1.134e-39     -38.945
-	Goe_uni2O2AsOOH-       8.910e-52       0.000   8.932e-52     -51.049
-	Goe_uni2O2AsO2-2       8.500e-55       0.000   8.520e-55     -54.070
-	Goe_uni2O2AsOH-        3.003e-67       0.000   3.010e-67     -66.521
+	Goe_uni2O2AsOOH-       8.911e-52       0.000   8.933e-52     -51.049
+	Goe_uni2O2AsO2-2       8.502e-55       0.000   8.523e-55     -54.069
+	Goe_uni2O2AsOH-        3.003e-67       0.000   3.011e-67     -66.521
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
