@@ -5,6 +5,13 @@ Features not documented in WRIR 99-4259.
 Version 2.13.1: January 16, 2007
 ------------------------------------------------------------
         --------
+	svn 1600
+        --------
+	Fixed logic error that required rebuilding aqueous model
+	when not necessary. Now runs faster (sometimes 3X) than
+	version 2.13.0.
+
+        --------
 	svn 1590
         --------
 	Removed porosity from one statement to eliminate oscillations
