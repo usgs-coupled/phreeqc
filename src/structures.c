@@ -15,7 +15,6 @@ static int inverse_free (struct inverse *inverse_ptr);
 
 static int irrev_compare (const void *ptr1, const void *ptr2);
 static int irrev_compare_int (const void *ptr1, const void *ptr2);
-static int irrev_sort (void);
 
 static int kinetics_compare_int (const void *ptr1, const void *ptr2);
 

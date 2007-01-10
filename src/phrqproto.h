@@ -329,6 +329,7 @@ int irrev_copy (struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
 int irrev_duplicate (int n_user_old, int n_user_new);
 int irrev_free (struct irrev *irrev_ptr);
 struct irrev *irrev_search (int n_user, int *n);
+int irrev_sort (void);
 
 struct kinetics *kinetics_alloc (void);
 struct kinetics *kinetics_bsearch (int k, int *n);
