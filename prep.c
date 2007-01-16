@@ -5320,17 +5320,18 @@ build_min_exch (void)
       {
 	if (equal
 	    (x[j]->moles,
-	     x[k]->moles * comp_ptr->formula_totals[jj].coef *
-	     comp_ptr->phase_proportion, 1.e-8) == FALSE)
+	     x[k]->moles * comp_ptr->formula_totals[jj].coef * comp_ptr->phase_proportion, 
+	     5.0*convergence_tolerance) == FALSE)
 	{
-	  input_error++;
 	  sprintf (error_string,
-		   "Number of sites in exchanger %s (=%e) not consistent with moles calculated from phase %s (%e).",
+		   "Resetting number of sites in exchanger %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
 		   master_ptr->s->name, (double) x[j]->moles,
 		   comp_ptr->phase_name,
 		   (double) (x[k]->moles * comp_ptr->formula_totals[jj].coef *
-			     comp_ptr->phase_proportion));
-	  error_msg (error_string, CONTINUE);
+			     comp_ptr->phase_proportion),
+		   "\tHas equilibrium_phase assemblage been redefined?\n");
+	  warning_msg (error_string);
+	  x[j]->moles = x[k]->moles * comp_ptr->formula_totals[jj].coef * comp_ptr->phase_proportion;
 	}
       }
       coef = comp_ptr->formula_totals[jj].coef;
@@ -5470,17 +5471,17 @@ build_min_surface (void)
 	if (equal
 	    (x[j]->moles,
 	     x[k]->moles * next_elt[jj].coef * comp_ptr->phase_proportion,
-	     1.e-8) == FALSE)
+	     5.0*convergence_tolerance) == FALSE)
 	{
-	  input_error++;
 	  sprintf (error_string,
-		   "Number of sites in surface %s (=%e) not consistent with moles of phase %s (=%e).\n%s",
+		   "Resetting number of sites in surface %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
 		   master_ptr->s->name, (double) x[j]->moles,
 		   comp_ptr->phase_name,
 		   (double) (x[k]->moles * next_elt[jj].coef *
 			     comp_ptr->phase_proportion),
 		   "\tHas equilibrium_phase assemblage been redefined?\n");
-	  error_msg (error_string, CONTINUE);
+	  warning_msg (error_string);
+	  x[j]->moles = x[k]->moles * next_elt[jj].coef * comp_ptr->phase_proportion;
 	}
       }
       coef = next_elt[jj].coef;
