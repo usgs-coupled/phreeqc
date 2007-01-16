@@ -1,39 +1,21 @@
+************************************************************
+************************************************************
+*        Features not documented in WRIR 99-4259.          *
+************************************************************
+************************************************************
+
+
 ------------------------------------------------------------
-Features not documented in WRIR 99-4259.
+Version 2.13.2: January 18, 2007
 ------------------------------------------------------------
+
+        No new features.
+
 ------------------------------------------------------------
 Version 2.13.1: January 16, 2007
 ------------------------------------------------------------
-        --------
-	svn 1600
-        --------
-	Fixed logic error that required rebuilding aqueous model
-	when not necessary. Now runs faster (sometimes 3X) than
-	version 2.13.0.
 
-        --------
-	svn 1590
-        --------
-	Removed porosity from one statement to eliminate oscillations
-	in multicomponent diffusion calculation.
-
-        --------
-	svn 1558
-        --------
-	Dissolve-only option did not work correctly for stagnant cells
-        in TRANSPORT calculations. The moles of equilibrium phases,
-	kinetics, gas_phase, and solid solutions were not initialized
-	at the beginning of each transport step. Thus, the printed values
-	for delta moles for the step in the output and punch file were 
-	incorrect for stagnant-zone cells. "Dissolve only" was
-	always tested relative to the number of moles initially in the
-	cells, not the amount remaining at a given time step.
-
-        --------
-	svn 1485
-        --------
-	Pitzer version with gas_phase did not work. Added
-	gas_phase and cd_music to numerical derivative routine.
+        No new features.
 
 ------------------------------------------------------------
 Version 2.13.0: November 3, 2006
@@ -73,10 +55,10 @@ Version 2.13.0: November 3, 2006
         defined with keyword RATES, USER_PRINT, USER_PUNCH and
         USER_GRAPH.
 
-          get_por(cell_no)		# returns the porosity in cell
+          get_por(cell_no)              # returns the porosity in cell
                                         # 'cell_no'
 
-          change_por(0.21, cell_no)	# porosity of cell 'cell_no'
+          change_por(0.21, cell_no)     # porosity of cell 'cell_no'
                                         # becomes 0.21
 
 (4)     Mobile surface and Donnan option in SURFACE. Mobile surfaces
@@ -95,10 +77,10 @@ Version 2.13.0: November 3, 2006
 
         SURFACE
                 -donnan 1e-7
-		Hfo_w 97.5e-5 600 88e-3 Dw 1e-13
-		Hfo_s 2.5e-5
-		Sfo_w 97.5e-5 600 88e-3 Dw 0
-		Sfo_s 2.5e-5
+                Hfo_w 97.5e-5 600 88e-3 Dw 1e-13
+                Hfo_s 2.5e-5
+                Sfo_w 97.5e-5 600 88e-3 Dw 0
+                Sfo_s 2.5e-5
 
 
         Example 2: Define Donnan calculation information. Thickness
@@ -123,31 +105,31 @@ Version 2.13.0: November 3, 2006
         concentration of (near) zero in the DDL.
 
 (5)     Added special BASIC function to change the diffusion
-	coefficient of (part of) a SURFACE, and hence to change the
-	status from mobile to immobile or immobile to mobile.
+        coefficient of (part of) a SURFACE, and hence to change the
+        status from mobile to immobile or immobile to mobile.
 
-	Example 1: take a fraction 0.2 of 'Hfo', rename it to
-	'Sorbedhfo', with a diffusion coefficient of 0, in cell 'cell_no'
+        Example 1: take a fraction 0.2 of 'Hfo', rename it to
+        'Sorbedhfo', with a diffusion coefficient of 0, in cell 'cell_no'
 
-	USER_PRINT
-		10 print 'Changing surface in cell ', cell_no
-		20  change_surf("Hfo", 0.2, "Sorbedhfo", 0, cell_no)
+        USER_PRINT
+                10 print 'Changing surface in cell ', cell_no
+                20  change_surf("Hfo", 0.2, "Sorbedhfo", 0, cell_no)
 
 
-	Example 2: change the diffusion coefficient of 'Hfo' to  1e-12
-	m2/s in cell 'cell_no'
+        Example 2: change the diffusion coefficient of 'Hfo' to  1e-12
+        m2/s in cell 'cell_no'
 
-		10 change_surf("Hfo", 1, "Hfo", 1e-12, cell_no)
+                10 change_surf("Hfo", 1, "Hfo", 1e-12, cell_no)
 
-	This function can be used in BASIC programs defined with keywords
-	RATES, USER_PRINT, USER_PUNCH and USER_GRAPH. For correct
-	operation of 'change_surf', the surface components must have
-	been defined with the same surface species (the association
-	constants may differ) and the same diffuse layer thickness or
-	Debye length. The surfaces will be adapted at the end of a
-	calculation step. The result of change_surf does not show up in
-	print or punch results of that step, but the reformatting is
-	effective in the next timestep calculations.
+        This function can be used in BASIC programs defined with keywords
+        RATES, USER_PRINT, USER_PUNCH and USER_GRAPH. For correct
+        operation of 'change_surf', the surface components must have
+        been defined with the same surface species (the association
+        constants may differ) and the same diffuse layer thickness or
+        Debye length. The surfaces will be adapted at the end of a
+        calculation step. The result of change_surf does not show up in
+        print or punch results of that step, but the reformatting is
+        effective in the next timestep calculations.
 
 
         --------
@@ -884,17 +866,67 @@ Added function EDL to Basic.
 End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 
+
+
+************************************************************
+************************************************************
+*               Revisions and bug fixes                    *
+************************************************************
+************************************************************
+
+
 ------------------------------------------------------------
-Revisions and bug fixes
+Version 2.13.2: January 18, 2007
 ------------------------------------------------------------
+        --------
+        svn 1629
+        --------
+        Fixed bug with redox elements in multi_diffusions. Added
+        Phreeqc For Windows changes from 2.13.1.
+
+------------------------------------------------------------
+Version 2.13.1: January 16, 2007
+------------------------------------------------------------
+        --------
+        svn 1600
+        --------
+        Fixed logic error that required rebuilding aqueous model
+        when not necessary. Now runs faster (sometimes 3X) than
+        version 2.13.0.
+
+        --------
+        svn 1590
+        --------
+        Removed porosity from one statement to eliminate oscillations
+        in multicomponent diffusion calculation.
+
+        --------
+        svn 1558
+        --------
+        Dissolve-only option did not work correctly for stagnant cells
+        in TRANSPORT calculations. The moles of equilibrium phases,
+        kinetics, gas_phase, and solid solutions were not initialized
+        at the beginning of each transport step. Thus, the printed values
+        for delta moles for the step in the output and punch file were 
+        incorrect for stagnant-zone cells. "Dissolve only" was
+        always tested relative to the number of moles initially in the
+        cells, not the amount remaining at a given time step.
+
+        --------
+        svn 1485
+        --------
+        Pitzer version with gas_phase did not work. Added
+        gas_phase and cd_music to numerical derivative routine.
+
+
 
         svn 1368: (1) Added multicomponent diffusion in transport and
-	SOLUTION_SPECIES. (2) Added BASIC functions to obtain and
-	modify the porosity in a cell. (3) Aded mobile surface and Donnan
-	option in SURFACE.  (4) Added special BASIC function to change
-	the diffusion coefficient of a SURFACE, and hence to
-	change the status from mobile to immobile or immobile to
-	mobile.
+        SOLUTION_SPECIES. (2) Added BASIC functions to obtain and
+        modify the porosity in a cell. (3) Aded mobile surface and Donnan
+        option in SURFACE.  (4) Added special BASIC function to change
+        the diffusion coefficient of a SURFACE, and hence to
+        change the status from mobile to immobile or immobile to
+        mobile.
 
         svn 1337: Added -add_logk to NAMED_EXPRESSIONS keyword.
 
@@ -1066,7 +1098,9 @@ SURFACE_SPECIES
         Modified Makefile to use specified version. Split
         Linux and source distribution procedure.
 
+------------------------------------------------------------
 Version 2.12 Date: Wed September 28, 2005
+------------------------------------------------------------
 
         Executables and output files for Sun operating systems
         are no longer provided.
@@ -1161,7 +1195,9 @@ Version 2.12 Date: Wed September 28, 2005
                         is 1e-20. A value of 0.0 causes no
                         censoring to occur.
 
+------------------------------------------------------------
 Version 2.11 Date: Mon February 7, 2005
+------------------------------------------------------------
 
         Fixed error in selected output file with mixing reaction. 
         MIX number was written to two columns, should be one.
@@ -1194,7 +1230,9 @@ Version 2.11 Date: Mon February 7, 2005
         Made printing of parameter combination message a warning
         message so that it could be turned off.
 
+------------------------------------------------------------
 Version 2.10 Date: Tue November 2, 2004
+------------------------------------------------------------
 
         Rearranged i/o for PHREEQC and reorganized driver
         subroutine. The object of these changes is to make 
@@ -1216,7 +1254,9 @@ Version 2.10 Date: Tue November 2, 2004
         phase names. Generalized to allow multiple phase
         names in the -formula definition.
 
+------------------------------------------------------------
 Version 2.9 Date: Wed September 15, 2004
+------------------------------------------------------------
 
         In inverse modeling, program terminates if sum of initial
         solutions and phases is > 32.
@@ -1392,7 +1432,9 @@ Version 2.9 Date: Wed September 15, 2004
         species. In this case, the surface master species
         had been redefined to be an aqueous species (SOLUTION_SPECIES).
 
+------------------------------------------------------------
 Version 2.8 Date: Tue April 15, 2003
+------------------------------------------------------------
 
         Updated arsenic data in wateq4f.dat to be consistent with
         Archer and Nordstrom (2002).
@@ -1430,7 +1472,9 @@ Version 2.8 Date: Tue April 15, 2003
         opening error. Fixed logic so now can open a file
         and the name can include blanks.
 
+------------------------------------------------------------
 Version 2.7 Date: Fri February 14, 2003
+------------------------------------------------------------
 
         Initialized gfw in elements structure.
 
@@ -1571,7 +1615,9 @@ Version 2.7 Date: Fri February 14, 2003
                 EXCHANGE_SPECIES, SURFACE_SPECIES, or PHASES data
                 block.
 
+------------------------------------------------------------
 Version 2.6 Date: Mon April 22, 2002
+------------------------------------------------------------
 
         PhreeqcI  released.
 
@@ -1599,7 +1645,10 @@ Version 2.6 Date: Mon April 22, 2002
                 of activity of water.
         
 
+------------------------------------------------------------
 Version 2.5  Date: Mon October 1, 2001
+------------------------------------------------------------
+
         In llnl.dat, fixed sign errors in RRE (rare earth elements) 
                 for some redox reactions and removed some redundant 
                 species, generally ReeO2- was retained and Ree(OH)4- 
@@ -1651,17 +1700,25 @@ Version 2.5  Date: Mon October 1, 2001
                 of times a rate integration may fail before execution of the
                 program is terminated. Default is 500.
 
+------------------------------------------------------------
 Version 2.4.2: Date: Fri June 15, 2001
+------------------------------------------------------------
+
         Fixed spreadsheet bug. Program was not ignoring columns
                 that could not be identified as either element 
                 names or allowed data (ph, pe, number, description, 
                 etc). Also, the program failed if a spreadsheet solution
                 number was negative.
 
+------------------------------------------------------------
 Version 2.4.1: Date: Mon June 4, 2001
+------------------------------------------------------------
+
         Fixed spreadsheet bugs with isotopes.
 
+------------------------------------------------------------
 Version 2.4: Date: Fri June 1, 2001
+------------------------------------------------------------
 
         Added structure for spreadsheet for use by PhreeqcI.
 
@@ -1730,7 +1787,9 @@ Version 2.4: Date: Fri June 1, 2001
                 to run. Now PHREEQC runs, but warns that this is not
                 allowed.
 
+------------------------------------------------------------
 Version 2.3: Date: Tue January 2, 2001
+------------------------------------------------------------
 
         Added new keyword DATABASE. It must be the first keyword in
                 the input file. The character string following the
@@ -1824,7 +1883,9 @@ LLNL_AQUEOUS_MODEL_PARAMETERS
                 and off. Default is on.
         
 
+------------------------------------------------------------
 Release 2.2: Date: Wed March 1, 2000
+------------------------------------------------------------
 
         Fixed bug in MIX if no solutions are defined.
         Changed printout for surface.
@@ -1849,7 +1910,9 @@ Release 2.2: Date: Wed March 1, 2000
         Changed distribution to be more consistent with other USGS 
                 water-resources applications.
 
+------------------------------------------------------------
 Release 2.1: Date: Wed January 19, 2000
+------------------------------------------------------------
 
         Added additional #ifdef's for PhreeqcI.
         Fixed problem with formats for USER_PUNCH and
