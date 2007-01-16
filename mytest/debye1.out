@@ -1,6 +1,6 @@
    Input file: debye1
   Output file: debye1.out
-Database file: phreeqd.dat
+Database file: ../database/phreeqd.dat
 
 ------------------
 Reading data base.
@@ -14,11 +14,12 @@ Reading data base.
 	SURFACE_MASTER_SPECIES
 	SURFACE_SPECIES
 	RATES
+	END
 ------------------------------------
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE phreeqd.dat
+	DATABASE ../database/phreeqd.dat
 	SOLUTION 0
 	 Na 100
 	 Cl 100 charge

@@ -1,6 +1,6 @@
    Input file: opa_col2
   Output file: opa_col2.out
-Database file: phreeqd.dat
+Database file: ../database/phreeqd.dat
 
 ------------------
 Reading data base.
@@ -14,11 +14,12 @@ Reading data base.
 	SURFACE_MASTER_SPECIES
 	SURFACE_SPECIES
 	RATES
+	END
 ------------------------------------
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE phreeqd.dat
+	DATABASE ../database/phreeqd.dat
 	SOLUTION_MASTER_SPECIES
 	 Hto Hto 0 Hto 1
 	 Nat Nat+ 0 Nat 23
