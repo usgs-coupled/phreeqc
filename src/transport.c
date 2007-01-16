@@ -1390,7 +1390,7 @@ multi_D (LDBLE DDt)
  * 2. sum up as mole transfer of master_species
  * 3. add moles of master_species to solutions for mixing timestep DDt
  */
-  int i, j, k, l, length;
+  int i, j, k, l, length, length2;
   int first_c, last_c;
   char *ptr;
   char token[MAX_LENGTH];
@@ -1482,9 +1482,10 @@ multi_D (LDBLE DDt)
 	length = (int) strlen (m_s[l].name);
 	for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
 	{
-	  if (strncmp
+          length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
+          if (strncmp
 	      (m_s[l].name, use.solution_ptr->totals[j].description,
-	       length) == 0)
+	       length) == 0 && length == length2)
 	  {
 	    if (use.solution_ptr->totals[j].moles < m_s[l].tot)
 	    {
@@ -1494,9 +1495,10 @@ multi_D (LDBLE DDt)
 	      for (k = 1; use.solution_ptr->totals[j + k].description != NULL;
 		   k++)
 	      {
+                length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
 		if (strncmp
 		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0)
+		     length) == 0 && length == length2)
 		{
 		  temp += use.solution_ptr->totals[j + k].moles;
 		  if (temp < m_s[l].tot)
@@ -1558,9 +1560,10 @@ multi_D (LDBLE DDt)
 	length = (int) strlen (m_s[l].name);
 	for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
 	{
+          length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
 	  if (strncmp
 	      (m_s[l].name, use.solution_ptr->totals[j].description,
-	       length) == 0)
+	       length) == 0 && length == length2)
 	  {
 	    if (use.solution_ptr->totals[j].moles < -m_s[l].tot)
 	    {
@@ -1570,9 +1573,10 @@ multi_D (LDBLE DDt)
 	      for (k = 1; use.solution_ptr->totals[j + k].description != NULL;
 		   k++)
 	      {
+                length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
 		if (strncmp
 		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0)
+		     length) == 0 && length == length2)
 		{
 		  temp += use.solution_ptr->totals[j + k].moles;
 		  if (temp < -m_s[l].tot)

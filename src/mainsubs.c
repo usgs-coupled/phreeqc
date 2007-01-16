@@ -2407,6 +2407,21 @@ file_open (char *query, char *default_name, const char *status, int batch)
   FILE *new_file;
   int l;
 
+#ifdef PHREEQ98
+    strcpy (name, default_name);
+    if (status[0] == 'r') {
+        new_file = fopen(name, "r");
+    } else if (status[0] == 'w') {
+        new_file = fopen(name, "w");
+    }
+    if (new_file == NULL) {
+        	sprintf (error_string, "Can't open file, %s.", name);
+            error_msg (error_string, STOP);
+    }
+
+    return (new_file);
+#endif
+
   for (;;)
   {
 /*
@@ -3186,3 +3201,4 @@ do_status (void)
 
   return 0;
 }
+

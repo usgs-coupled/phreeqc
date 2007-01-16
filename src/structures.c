@@ -397,7 +397,7 @@ clean_up (void)
 
 /* basic commands hash table */
   cmd_free ();
-  free_check_null (change_surf);
+  change_surf = (struct Change_Surf *) free_check_null (change_surf);
 
 /* miscellaneous work space */
 

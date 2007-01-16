@@ -16,6 +16,15 @@ static FILE *punch_file = NULL;	/* OUTPUT_PUNCH */
 static FILE *error_file = NULL;	/* OUTPUT_ERROR */
 static FILE *dump_file = NULL;	/* OUTPUT_DUMP */
 
+#ifdef PHREEQ98
+extern int outputlinenr;
+void check_line_breaks (char *s);
+extern char *prefix_database_dir(char *s);
+extern char *LogFileNameC;
+extern void show_progress (const int type, char *s);
+char progress_str[512];
+#endif
+
 static int fileop_handler (const int type, int (*PFN) (FILE *));
 static int open_handler (const int type, const char *file_name);
 static int output_handler (const int type, const char *err_str,
@@ -167,14 +176,22 @@ process_file_names (int argc, char *argv[], void **db_cookie,
     error_file = fopen (argv[4], "w");
     if (error_file == NULL)
     {
+#ifdef PHREEQ98
+      error_file = NULL; /* We can not use stderr in BCB: this causes unexpected behaviour when reopening the input_file... */
+#else
       error_file = stderr;
+#endif
       sprintf (error_string, "Error opening file, %s.", argv[4]);
       warning_msg (error_string);
     }
   }
   else
   {
-    error_file = stderr;
+#ifdef PHREEQ98
+      error_file = NULL; /* We can not use stderr in BCB: this causes unexpected behaviour when reopening the input_file... */
+#else
+      error_file = stderr;
+#endif
   }
 
 /*
@@ -225,8 +242,13 @@ process_file_names (int argc, char *argv[], void **db_cookie,
  */
   if (log == TRUE)
   {
+#ifdef PHREEQ98
+    if ((log_file = fopen (LogFileNameC, "w")) == NULL)
+    {
+#else /* PHREEQ98 */
     if ((log_file = fopen ("phreeqc.log", "w")) == NULL)
     {
+#endif /* PHREEQ98 */
       error_msg ("Can't open log file, phreeqc.log.", STOP);
     }
   }
@@ -239,7 +261,11 @@ process_file_names (int argc, char *argv[], void **db_cookie,
     copy_token (token, &ptr, &l);
     if (strcmp_nocase (token, "database") == 0)
     {
+#ifdef PHREEQ98
+      user_database = string_duplicate (prefix_database_dir(ptr));
+#else
       user_database = string_duplicate (ptr);
+#endif
       if (string_trim (user_database) == EMPTY)
       {
 	warning_msg
@@ -331,10 +357,7 @@ getc_callback (void *cookie)
   int i;
   assert (cookie);
   i = getc ((FILE *) cookie);
-#ifdef PHREEQ98
-  if (i == '\n')
-    ++inputlinenr;
-#endif
+
   return i;
 }
 
@@ -375,9 +398,16 @@ output_handler (const int type, const char *err_str, const int stop,
       if (flush)
 	fflush (error_file);
     }
+#ifdef PHREEQ98
+    sprintf (progress_str, "ERROR: %s\n", err_str);
+    show_progress (type, progress_str);
+#endif /* PHREEQ98 */
     if (output != NULL)
     {
       fprintf (output, "ERROR: %s\n", err_str);
+#ifdef PHREEQ98
+      outputlinenr++;
+#endif
       if (flush)
 	fflush (output);
     }
@@ -388,9 +418,16 @@ output_handler (const int type, const char *err_str, const int stop,
 	fprintf (error_file, "Stopping.\n");
 	fflush (error_file);
       }
+#ifdef PHREEQ98
+      sprintf (progress_str, "Stopping.\n");
+      show_progress (type, progress_str);
+#endif /* PHREEQ98 */
       if (output != NULL)
       {
 	fprintf (output, "Stopping.\n");
+#ifdef PHREEQ98
+	outputlinenr++;
+#endif
 	fflush (output);
       }
     }
@@ -428,9 +465,16 @@ output_handler (const int type, const char *err_str, const int stop,
       if (flush)
 	fflush (error_file);
     }
+#ifdef PHREEQ98
+    sprintf (progress_str, "WARNING: %s\n", err_str);
+    show_progress (type, progress_str);
+#endif /* PHREEQ98 */
     if (output != NULL)
     {
       fprintf (output, "WARNING: %s\n", err_str);
+#ifdef PHREEQ98
+      outputlinenr++;
+#endif
       if (flush)
 	fflush (output);
     }
@@ -441,6 +485,9 @@ output_handler (const int type, const char *err_str, const int stop,
       if (output != NULL)
       {
 	vfprintf (output, format, args);
+#ifdef PHREEQ98
+	check_line_breaks (format);
+#endif
 	if (flush)
 	  fflush (output);
       }
@@ -451,6 +498,9 @@ output_handler (const int type, const char *err_str, const int stop,
     if (output != NULL)
     {
       vfprintf (output, format, args);
+#ifdef PHREEQ98
+      check_line_breaks (format);
+#endif
       if (flush)
 	fflush (output);
     }
@@ -481,6 +531,10 @@ output_handler (const int type, const char *err_str, const int stop,
       if (flush)
 	fflush (error_file);
     }
+#ifdef PHREEQ98
+    vsprintf (progress_str, format, args);
+    show_progress (type, progress_str);
+#endif /* PHREEQ98 */
     break;
   case OUTPUT_STDERR:
   case OUTPUT_CVODE:

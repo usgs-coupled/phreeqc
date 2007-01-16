@@ -56,6 +56,7 @@ all: alkalinity.out \
 	local_min_pz.out \
 	mahoney.out \
 	mu.out \
+	n3.out \
 	np.test.out \
 	opa_col2.out \
 	org_gas.out \
