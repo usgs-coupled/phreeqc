@@ -92,7 +92,7 @@ advection (void)
  */
     for (i = 1; i <= count_ad_cells; i++)
     {
-
+      set_initial_moles (i); 
       cell_no = i;
       set_advection (i, TRUE, TRUE, i);
       run_reactions (i, kin_time, TRUE, 1.0);
