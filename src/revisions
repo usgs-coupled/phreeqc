@@ -614,11 +614,12 @@ Basic functions:
         lk_named("name")                        log10(K) of definition in NAMED_EXPRESSIONS
         lk_phase("name")                        log10(K) of definition in PHASES
         lk_species("name")                      log10(K) of definition in (SOLUTION, EXCHANGE, SURFACE)_SPECIES
-        sum_gas("template","element")           Sum of element in gases with specified template
+        sum_gas("template","element")           Sum of element in gases with specified template, moles.
+						Example:
                                                 template="{C,[13C],[14C]}{O,[18O]}2" includes all CO2 gases
         sum_species("template","element")       Sum of element in aqueous, exchange, and surface species with
-                                                specified template
-        sum_s_s("s_s_name","element")           Sum of element in a specified solid solution
+                                                specified template (moles)
+        sum_s_s("s_s_name","element")           Sum of element in a specified solid solution (moles)
 
 PRINT keyword:
         -initial_isotopes  T/F
@@ -878,6 +879,11 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Version 2.13.2: January 18, 2007
 ------------------------------------------------------------
+        --------
+        svn 1637
+        --------
+        Fixed bug with dissolve only in ADVECTION calculations.
+
         --------
         svn 1629
         --------

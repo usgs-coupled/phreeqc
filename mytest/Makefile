@@ -24,6 +24,7 @@ all: alkalinity.out \
 	deb1.out \
 	deb2.out \
 	debye1.out \
+	donly.out \
 	exch_related.out \
 	exch_related_pz.out \
 	exch_kin_related.out \
