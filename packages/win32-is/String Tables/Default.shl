@@ -29,6 +29,7 @@ ENTRY19=GUID_2_12
 ENTRY20=GUID_2_13
 ENTRY21=GUID_2_6
 ENTRY22=GUID_2_13_1
+ENTRY23=GUID_2_13_2
 
 [TITLE_CAPTIONBAR]
 Comment=Do not delete. Setup requires this Identifier even if your script doesn't use it.
@@ -94,6 +95,9 @@ Comment=
 Comment=
 
 [GUID_2_13_1]
+Comment=this was not in the first version of 1611 see phreeqc-2.13.1-1611.patch
+
+[GUID_2_13_2]
 Comment=Latest
 
 [LANGUAGE]
