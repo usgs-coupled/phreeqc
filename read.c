@@ -4552,7 +4552,7 @@ read_save (void)
   case 39:
     input_error++;
     error_msg
-      ("Expecting keyword solution, equilibrium_phases, exchange, surface, kinetics, gas_phase, or solid_solutions.",
+      ("Expecting keyword solution, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.",
        CONTINUE);
     error_msg (line_save, CONTINUE);
     check_line ("End of save", FALSE, TRUE, TRUE, TRUE);
