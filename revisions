@@ -880,6 +880,12 @@ End of Features not documented in WRIR 99-4259.
 Version 2.13.2: January 18, 2007
 ------------------------------------------------------------
         --------
+        svn 1683
+        --------
+        Worked on convergence problems when optimizer fails to
+	find a solution. Censored values greater than 1e8.
+
+        --------
         svn 1637
         --------
         Fixed bug with dissolve only in ADVECTION calculations.
