@@ -2642,6 +2642,12 @@ reset (void)
     {
       if (x[i]->type == PP || x[i]->type == S_S_MOLES)
       {
+	if (delta[i] < -1e8) {
+	  delta[i] = -10.;
+	} else if (delta[i] > 1e8)
+	{
+	  delta[i] = 10;
+	}
 	if (x[i]->dissolve_only == TRUE)
 	{
 #ifdef SKIP
