@@ -2225,7 +2225,7 @@ multi_Dstag (int mobile_cell)
  *      mobile cell (with, for example, 1 kg water)
  *      Define properties of each interface only 1 time with MIX.
  */
-  int icell, jcell, i, j, k, l, n, length;
+  int icell, jcell, i, j, k, l, n, length, length2;
   char *ptr;
   char token[MAX_LENGTH];
   struct m_s
@@ -2319,9 +2319,10 @@ multi_Dstag (int mobile_cell)
 	length = (int) strlen (m_s[l].name);
 	for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
 	{
-	  if (strncmp
+          length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
+          if (strncmp
 	      (m_s[l].name, use.solution_ptr->totals[j].description,
-	       length) == 0)
+	       length) == 0 && length == length2)
 	  {
 	    if (use.solution_ptr->totals[j].moles < m_s[l].tot)
 	    {
@@ -2331,9 +2332,10 @@ multi_Dstag (int mobile_cell)
 	      for (k = 1; use.solution_ptr->totals[j + k].description != NULL;
 		   k++)
 	      {
+                length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
 		if (strncmp
 		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0)
+		     length) == 0 && length == length2)
 		{
 		  temp += use.solution_ptr->totals[j + k].moles;
 		  if (temp < m_s[l].tot)
@@ -2392,9 +2394,10 @@ multi_Dstag (int mobile_cell)
 	length = (int) strlen (m_s[l].name);
 	for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
 	{
+          length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
 	  if (strncmp
 	      (m_s[l].name, use.solution_ptr->totals[j].description,
-	       length) == 0)
+	       length) == 0 && length == length2)
 	  {
 	    if (use.solution_ptr->totals[j].moles < -m_s[l].tot)
 	    {
@@ -2404,9 +2407,10 @@ multi_Dstag (int mobile_cell)
 	      for (k = 1; use.solution_ptr->totals[j + k].description != NULL;
 		   k++)
 	      {
+                length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
 		if (strncmp
 		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0)
+		     length) == 0 && length == length2)
 		{
 		  temp += use.solution_ptr->totals[j + k].moles;
 		  if (temp < -m_s[l].tot)

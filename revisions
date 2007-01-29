@@ -877,8 +877,14 @@ End of Features not documented in WRIR 99-4259.
 
 
 ------------------------------------------------------------
-Version 2.13.2: January 18, 2007
+Version 2.13.2: February 1, 2007
 ------------------------------------------------------------
+        --------
+        svn 1700
+        --------
+        Fixed bug with redox elements in multi_diffusion
+	stagnant zones.
+
         --------
         svn 1683
         --------
