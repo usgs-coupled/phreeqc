@@ -39,6 +39,7 @@ export VER=`echo $tscriptname | sed -e "s/${PKG}\-//" -e 's/\-[^\-]*$//'`
 export REL=`echo $tscriptname | sed -e "s/${PKG}\-${VER}\-//"`
 export BASEPKG=${PKG}-${VER}-${REL}
 export FULLPKG=${BASEPKG}
+export TOUCH_STAMP=`date -d ${DATE} "+%Y%m%d0000"`
 
 # determine correct decompression option and tarball filename
 export src_orig_pkg_name=
@@ -225,6 +226,7 @@ install() {
     mv *.out *.sel ../examples/. && \
     cmd /c clean.bat; \
   fi && \
+  find ${instdir} | xargs touch -t "${TOUCH_STAMP}" && \
 # InstallShield compile
   "${IS_COMPILER}" "${IS_RULFILES}" -I"${IS_INCLUDEIFX}" -I"${IS_INCLUDEISRT}" \
     -I"${IS_INCLUDESCRIPT}" "${IS_LINKPATH1}" "${IS_LINKPATH2}" ${IS_LIBRARIES} \
