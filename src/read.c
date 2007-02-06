@@ -9674,12 +9674,16 @@ read_solid_solutions (void)
       if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
 	malloc_error ();
       count_comps = 0;
+      s_s_assemblage[n].s_s[number_s_s].a0 = 0.0;
+      s_s_assemblage[n].s_s[number_s_s].a1 = 0.0;
       s_s_assemblage[n].s_s[number_s_s].count_comps = 0;
       s_s_assemblage[n].s_s[number_s_s].input_case = 0;
       s_s_assemblage[n].s_s[number_s_s].miscibility = FALSE;
       s_s_assemblage[n].s_s[number_s_s].p[0] = 0.0;
       s_s_assemblage[n].s_s[number_s_s].p[1] = 0.0;
       s_s_assemblage[n].s_s[number_s_s].tk = 298.15;
+      s_s_assemblage[n].s_s[number_s_s].comps->name = NULL;
+      s_s_assemblage[n].s_s[number_s_s].comps->phase = NULL;
       /*
        *   Read solid solution name
        */
