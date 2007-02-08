@@ -320,7 +320,6 @@ win_sed_files:
 		$(UNIX2DOS) $$FILE; \
 	done
 	mv $(EXPORT_DIR)/Win/doc/NOTICE.TXT $(EXPORT_DIR)/Win/NOTICE.TXT
-	
 
 win_dist: 
 	cd $(EXPORT_DIR)/Win; rm -f $(PROGRAM).tar
@@ -369,4 +368,8 @@ web:
 	cp $(EXPORT_DIR)/Linux/doc/phreeqc.txt /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/phreeqc.txt
 	cp $(EXPORT_DIR)/Linux/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
-
+tester:
+	cd ../mytest; make clean; make >& make.out; make zero; make diff >& diff.out
+	cd ../examples; make clean; make >& make.out; make zero; make diff >& diff.out
+	svn status -q ../mytest 
+	svn status -q ../examples
