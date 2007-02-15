@@ -77,13 +77,7 @@ FILES=  \
 	$(CURSRC)/smalldense.h \
 	$(CURSRC)/sundialsmath.h \
 	$(CURSRC)/sundialstypes.h \
-	database/llnl.dat \
-	database/minteq.dat \
-	database/minteq.v4.dat \
-	database/phreeqc.dat \
-	database/wateq4f.dat \
-	database/iso.dat \
-	database/pitzer.dat \
+	database/*.dat \
 	examples/ex1 examples/ex1.out \
 	examples/ex2 examples/ex2.out examples/ex2.sel \
 	examples/ex3 examples/ex3.out \
