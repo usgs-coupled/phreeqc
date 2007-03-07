@@ -151,6 +151,7 @@ initialize (void)
   tempr = 2.0;
   heat_diffc = -0.1;
   timest = 0.0;
+  multi_Dflag = FALSE;
 /* !!!!        count_stag = 0; */
 
   print_modulus = 1;
