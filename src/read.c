@@ -4698,7 +4698,6 @@ read_selected_output (void)
 
   int i, l;
   char file_name[MAX_LENGTH], token[MAX_LENGTH];
-  static int have_punch_name = FALSE;
 
   punch.in = TRUE;
   punch.new_def = TRUE;

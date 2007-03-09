@@ -551,6 +551,7 @@ initialize (void)
 
   user_database = NULL;
   first_read_input = TRUE;
+  have_punch_name = FALSE;
   selected_output_file_name = NULL;
   dump_file_name = NULL;
 
