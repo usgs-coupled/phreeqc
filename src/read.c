@@ -4739,15 +4739,17 @@ read_selected_output (void)
       break;
     case 0:			/* file name */
       /* copy_token(file_name, &next_char, &l); */
-      string_trim (next_char);
-      strcpy (file_name, next_char);
-      have_punch_name = TRUE;
-      if (output_open (OUTPUT_PUNCH, file_name) != OK)
-      {
-	sprintf (error_string, "Can't open file, %s.", file_name);
-	input_error++;
-	error_msg (error_string, CONTINUE);
-      }
+      if (string_trim (next_char) != EMPTY) 
+	  {
+		strcpy (file_name, next_char);
+		have_punch_name = TRUE;
+		if (output_open (OUTPUT_PUNCH, file_name) != OK)
+		{
+			sprintf (error_string, "Can't open file, %s.", file_name);
+			input_error++;
+			error_msg (error_string, CONTINUE);
+		}
+	  } 
       opt_save = OPTION_ERROR;
       break;
     case 1:			/* totals */
