@@ -1769,6 +1769,7 @@ EXTERNAL int pitzer_model, pitzer_pe;
 EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
 EXTERNAL double COSMOT;
 EXTERNAL double AW;
+EXTERNAL int have_punch_name;
 
 EXTERNAL jmp_buf mark;
 
