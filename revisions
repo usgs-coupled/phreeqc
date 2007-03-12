@@ -881,6 +881,18 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 
+        --------
+	svn 1852
+        --------
+	Fixed error in CDMUSIC surface related to a phase.
+	Stoichiometry of H was calculated incorrectly.
+
+        --------
+	svn 1837
+        --------
+	Initialize flag for MCD calculation. PhreeqcI would
+	do MCD calculation after TRANSPORT was redefined not
+	to do MCD calculation.
 
 ------------------------------------------------------------
 Version 2.13.2: February 1, 2007
