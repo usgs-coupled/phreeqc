@@ -5301,6 +5301,7 @@ build_min_exch (void)
 
 
     /* mole balance balance */
+#ifdef SKIP
     for (jj = 0; comp_ptr->formula_totals[jj].elt != NULL; jj++)
     {
       master_ptr = comp_ptr->formula_totals[jj].elt->primary;
@@ -5348,6 +5349,66 @@ build_min_exch (void)
 	  x[j]->master[0]->s->z;
 #endif
 #endif
+      }
+      else if (master_ptr->s == s_h2o)
+      {
+	row = mass_oxygen_unknown->number;
+	unknown_ptr = mass_oxygen_unknown;
+      }
+      else
+      {
+	row = master_ptr->unknown->number;
+	unknown_ptr = master_ptr->unknown;
+      }
+      store_jacob0 (row, x[k]->number, coef * comp_ptr->phase_proportion);
+      store_sum_deltas (&delta[k], &unknown_ptr->delta,
+			-coef * comp_ptr->phase_proportion);
+    }
+#endif
+    count_elts = 0;
+    paren_count = 0;
+    add_elt_list (comp_ptr->formula_totals, 1.0);
+#ifdef COMBINE
+    change_hydrogen_in_elt_list (0);
+#endif
+    for (jj = 0; jj < count_elts; jj++)
+    {
+      master_ptr = elt_list[jj].elt->primary;
+      if (master_ptr->in == FALSE)
+      {
+	master_ptr = master_ptr->s->secondary;
+      }
+      if (master_ptr == NULL)
+      {
+	input_error++;
+	sprintf (error_string,
+		 "Did not find unknown for exchange related to mineral %s",
+		 exchange[n].comps[i].phase_name);
+	error_msg (error_string, STOP);
+      }
+      if (master_ptr->s->type == EX)
+      {
+	if (equal
+	    (x[j]->moles,
+	     x[k]->moles * elt_list[jj].coef * comp_ptr->phase_proportion, 
+	     5.0*convergence_tolerance) == FALSE)
+	{
+	  sprintf (error_string,
+		   "Resetting number of sites in exchanger %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
+		   master_ptr->s->name, (double) x[j]->moles,
+		   comp_ptr->phase_name,
+		   (double) (x[k]->moles * elt_list[jj].coef *
+			     comp_ptr->phase_proportion),
+		   "\tHas equilibrium_phase assemblage been redefined?\n");
+	  warning_msg (error_string);
+	  x[j]->moles = x[k]->moles * elt_list[jj].coef * comp_ptr->phase_proportion;
+	}
+      }
+      coef = elt_list[jj].coef;
+      if (master_ptr->s == s_hplus)
+      {
+	row = mass_hydrogen_unknown->number;
+	unknown_ptr = mass_hydrogen_unknown;
       }
       else if (master_ptr->s == s_h2o)
       {
@@ -5451,6 +5512,7 @@ build_min_surface (void)
 		      -comp_ptr->formula_z * comp_ptr->phase_proportion);
 
 
+#ifdef SKIP
     for (jj = 0; next_elt[jj].elt != NULL; jj++)
     {
       master_ptr = next_elt[jj].elt->primary;
@@ -5513,6 +5575,69 @@ build_min_surface (void)
       store_sum_deltas (&delta[k], &unknown_ptr->delta,
 			-coef * comp_ptr->phase_proportion);
     }
+#endif
+
+
+    count_elts = 0;
+    paren_count = 0;
+    add_elt_list (next_elt, 1.0);
+#ifdef COMBINE
+    change_hydrogen_in_elt_list (0);
+#endif
+    for (jj = 0; jj < count_elts; jj++)
+    {
+      master_ptr = elt_list[jj].elt->primary;
+      if (master_ptr->in == FALSE)
+      {
+	master_ptr = master_ptr->s->secondary;
+      }
+      if (master_ptr == NULL)
+      {
+	input_error++;
+	sprintf (error_string,
+		 "Did not find unknown for surface related to mineral %s",
+		 surface[n].comps[i].phase_name);
+	error_msg (error_string, STOP);
+      }
+      if (master_ptr->s->type == SURF)
+      {
+	if (equal
+	    (x[j]->moles,
+	     x[k]->moles * elt_list[jj].coef * comp_ptr->phase_proportion,
+	     5.0*convergence_tolerance) == FALSE)
+	{
+	  sprintf (error_string,
+		   "Resetting number of sites in surface %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
+		   master_ptr->s->name, (double) x[j]->moles,
+		   comp_ptr->phase_name,
+		   (double) (x[k]->moles * elt_list[jj].coef *
+			     comp_ptr->phase_proportion),
+		   "\tHas equilibrium_phase assemblage been redefined?\n");
+	  warning_msg (error_string);
+	  x[j]->moles = x[k]->moles * elt_list[jj].coef * comp_ptr->phase_proportion;
+	}
+      }
+      coef = elt_list[jj].coef;
+      if (master_ptr->s == s_hplus)
+      {
+	row = mass_hydrogen_unknown->number;
+	unknown_ptr = mass_hydrogen_unknown;
+      }
+      else if (master_ptr->s == s_h2o)
+      {
+	row = mass_oxygen_unknown->number;
+	unknown_ptr = mass_oxygen_unknown;
+      }
+      else
+      {
+	row = master_ptr->unknown->number;
+	unknown_ptr = master_ptr->unknown;
+      }
+      store_jacob0 (row, x[k]->number, coef * comp_ptr->phase_proportion);
+      store_sum_deltas (&delta[k], &unknown_ptr->delta,
+			-coef * comp_ptr->phase_proportion);
+    }
+
   }
   return (OK);
 }
