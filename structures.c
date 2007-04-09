@@ -556,7 +556,7 @@ element_compare (const void *ptr1, const void *ptr2)
 
 /* ---------------------------------------------------------------------- */
 struct element *
-element_store ( char *element)
+element_store (char *element)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -622,6 +622,7 @@ element_store ( char *element)
   }
   return (elements[n]);
 }
+
 /* **********************************************************************
  *
  *   Routines related to structure "elt_list"
@@ -3385,7 +3386,7 @@ phase_free (struct phase *phase_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct phase *
-phase_bsearch (const char *ptr, int *j, int print)
+phase_bsearch (char *ptr, int *j, int print)
 /* ---------------------------------------------------------------------- */
 {
 /*   Binary search the structure array "phases" for a name that is equal to

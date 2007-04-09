@@ -1653,7 +1653,7 @@ tidy_s_s_assemblage (void)
 	  }
 	  n_tot += moles;
 	}
-
+	s_s_assemblage[i].s_s[j].total_moles = n_tot;
 	for (k = 0; k < s_s_ptr->count_comps; k++)
 	{
 	  moles = s_s_assemblage[i].s_s[j].comps[k].moles;

@@ -1328,9 +1328,11 @@ struct phase
   LDBLE p_soln_x;
   LDBLE fraction_x;
   LDBLE log10_lambda, log10_fraction_x;
+/*
   LDBLE dn, dnb, dnc;
   LDBLE gn, gntot;
   LDBLE gn_n, gntot_n;
+*/
 
   int type;			/* flag indicating presence in model and types of equations */
   struct elt_list *next_elt;	/* pointer to list of elements in phase */
@@ -1769,7 +1771,6 @@ EXTERNAL int pitzer_model, pitzer_pe;
 EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
 EXTERNAL double COSMOT;
 EXTERNAL double AW;
-EXTERNAL int have_punch_name;
 
 EXTERNAL jmp_buf mark;
 
