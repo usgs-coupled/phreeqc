@@ -199,10 +199,13 @@ transport (void)
 #endif
       fill_spec (cell_no);
     }
-    if ((cell_data[i - 1].punch == TRUE) && (cell_no != count_cells + 1))
-      punch_all ();
-    if ((cell_data[i - 1].print == TRUE) && (cell_no != count_cells + 1))
-      print_all ();
+    if (cell_no > 0 && cell_no <= count_cells) 
+    {
+      if ((cell_data[i - 1].punch == TRUE) && (cell_no != count_cells + 1))
+	punch_all ();
+      if ((cell_data[i - 1].print == TRUE) && (cell_no != count_cells + 1))
+	print_all ();
+    }
     saver ();
   }
 /*
