@@ -1661,6 +1661,7 @@ tidy_s_s_assemblage (void)
 	  {
 	    moles = MIN_TOTAL_SS;
 	  }
+	  s_s_assemblage[i].s_s[j].comps[k].log10_lambda = 0.0;
 	  s_s_assemblage[i].s_s[j].comps[k].fraction_x = moles / n_tot;
 	  s_s_assemblage[i].s_s[j].comps[k].log10_fraction_x =
 	    log10 (moles / n_tot);

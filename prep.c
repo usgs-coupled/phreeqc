@@ -266,17 +266,13 @@ quick_setup (void)
     {
       if (x[i]->type != S_S_MOLES)
 	continue;
-      for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++) 
+      x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j++]);
+      for (k = 0; k < x[i]->s_s->count_comps; k++)
       {
-	if (use.s_s_assemblage_ptr->s_s[j].name != x[i]->s_s->name) continue;
-	x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
-	for (k = 0; k < x[i]->s_s->count_comps; k++)
-	{
-	  x[i]->s_s->comps[k].phase->moles_x = x[i]->s_s->comps[k].moles;
-	  x[i]->s_s->comps[k].phase->fraction_x = x[i]->s_s->comps[k].fraction_x;
-	  x[i]->s_s->comps[k].phase->log10_fraction_x = x[i]->s_s->comps[k].log10_fraction_x;
-	  x[i]->s_s->comps[k].phase->log10_lambda = x[i]->s_s->comps[k].log10_lambda;
-	}
+	x[i]->s_s->comps[k].phase->moles_x = x[i]->s_s->comps[k].moles;
+	x[i]->s_s->comps[k].phase->fraction_x = x[i]->s_s->comps[k].fraction_x;
+	x[i]->s_s->comps[k].phase->log10_fraction_x = x[i]->s_s->comps[k].log10_fraction_x;
+	x[i]->s_s->comps[k].phase->log10_lambda = x[i]->s_s->comps[k].log10_lambda;
       }
     }
   }
