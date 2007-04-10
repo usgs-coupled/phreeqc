@@ -1966,7 +1966,6 @@ mb_s_s (void)
       if (sum_x >= 1)
       {
 	s_s_ptr->s_s_in = TRUE;
-	fprintf(stderr, "s_s %s, s_s_in = %d, sum_x = %e\n", s_s_ptr->name, s_s_ptr->s_s_in, sum_x);
       } 
     }
   }      
@@ -1975,7 +1974,6 @@ mb_s_s (void)
     if (x[i]->type == S_S_MOLES) 
     {
       x[i]->s_s_in = x[i]->s_s->s_s_in;
-      fprintf(stderr, "\t %e\n", x[i]->f);
     }
   }
   return (OK);
@@ -2437,14 +2435,14 @@ calc_s_s_fractions (void)
      */
     for (k = 0; k < s_s_ptr->count_comps; k++)
     {
-      iap = -s_s_ptr->comps[k].phase->lk - -s_s_ptr->comps[k].log10_lambda;
+      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
       for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
       {
 	iap += rxn_ptr->s->la * rxn_ptr->coef;
       }
       s_s_ptr->comps[k].log10_fraction_x = iap;
       s_s_ptr->comps[k].fraction_x = pow(10., iap);
-      s_s_ptr->comps[k].phase->fraction_x = pow(10., iap);
+      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
 
       s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
       s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
@@ -2460,67 +2458,6 @@ calc_s_s_fractions (void)
   }
   return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int
-calc_s_s_fractions (void)
-/* ---------------------------------------------------------------------- */
-{
-  int i, k;
-  LDBLE moles, n_tot;
-  struct s_s *s_s_ptr;
-
-/*
- *   moles and lambdas for solid solutions
- */
-  if (s_s_unknown == NULL)
-    return (OK);
-/*
- *  Calculate mole fractions and log lambda and derivative factors
- */
-  if (use.s_s_assemblage_ptr == NULL)
-    return (OK);
-  for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
-  {
-    s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
-    n_tot = 0;
-    for (k = 0; k < s_s_ptr->count_comps; k++)
-    {
-      moles = s_s_ptr->comps[k].moles;
-      if (s_s_ptr->comps[k].moles < 0)
-      {
-	moles = MIN_TOTAL_SS;
-	s_s_ptr->comps[k].initial_moles = moles;
-      }
-      n_tot += moles;
-    }
-    s_s_ptr->total_moles = n_tot;
-    for (k = 0; k < s_s_ptr->count_comps; k++)
-    {
-      moles = s_s_ptr->comps[k].moles;
-      if (s_s_ptr->comps[k].moles < 0)
-      {
-	moles = MIN_TOTAL_SS;
-      }
-      s_s_ptr->comps[k].fraction_x = moles / n_tot;
-      s_s_ptr->comps[k].log10_fraction_x = log10 (moles / n_tot);
-
-      /* all mb and jacobian items must be in x or phase to be static between models */
-      s_s_ptr->comps[k].phase->log10_fraction_x =
-	s_s_ptr->comps[k].log10_fraction_x;
-    }
-    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
-    {
-      s_s_binary (s_s_ptr);
-    }
-    else
-    {
-      s_s_ideal (s_s_ptr);
-    }
-  }
-  return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int
 s_s_binary (struct s_s *s_s_ptr)
@@ -2539,11 +2476,13 @@ s_s_binary (struct s_s *s_s_ptr)
  *  Calculate mole fractions and log lambda and derivative factors
  */
   n_tot = s_s_ptr->total_moles;
+  n_tot = s_s_ptr->comps[0].moles + s_s_ptr->comps[1].moles;
 
   nc = s_s_ptr->comps[0].moles;
   xc = nc / n_tot;
   nb = s_s_ptr->comps[1].moles;
   xb = nb / n_tot;
+
 /*
  *   In miscibility gap
  */
@@ -2553,16 +2492,6 @@ s_s_binary (struct s_s *s_s_ptr)
   {
     xb1 = s_s_ptr->xb1;
     xc1 = 1.0 - xb1;
-    s_s_ptr->comps[0].fraction_x = xc1;
-    s_s_ptr->comps[0].log10_fraction_x = log10 (xc1);
-    s_s_ptr->comps[0].phase->log10_fraction_x =
-      s_s_ptr->comps[0].log10_fraction_x;
-
-    s_s_ptr->comps[1].fraction_x = xb1;
-    s_s_ptr->comps[1].log10_fraction_x = log10 (xb1);
-    s_s_ptr->comps[1].phase->log10_fraction_x =
-      s_s_ptr->comps[1].log10_fraction_x;
-
     s_s_ptr->comps[0].log10_lambda =
       xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)) / LOG_10;
     s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
@@ -2577,16 +2506,6 @@ s_s_binary (struct s_s *s_s_ptr)
 /*
  *   Not in miscibility gap
  */
-    s_s_ptr->comps[0].fraction_x = xc;
-    s_s_ptr->comps[0].log10_fraction_x = log10 (xc);
-    s_s_ptr->comps[0].phase->log10_fraction_x =
-      s_s_ptr->comps[0].log10_fraction_x;
-
-    s_s_ptr->comps[1].fraction_x = xb;
-    s_s_ptr->comps[1].log10_fraction_x = log10 (xb);
-    s_s_ptr->comps[1].phase->log10_fraction_x =
-      s_s_ptr->comps[1].log10_fraction_x;
-
     s_s_ptr->comps[0].log10_lambda =
       xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
     s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
@@ -2595,12 +2514,12 @@ s_s_binary (struct s_s *s_s_ptr)
       xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
     s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
 
+#ifdef SKIP
     xc2 = xc * xc;
     xc3 = xc2 * xc;
     xb2 = xb * xb;
     xb3 = xb2 * xb;
     xb4 = xb3 * xb;
-#ifdef SKIP
     /* first component */
     dnb =
       -2 * a0 * xb * xc2 - 8 * a1 * xb2 * xc2 + 6 * a1 * xb * xc2 -
@@ -2667,32 +2586,14 @@ s_s_ideal (struct s_s *s_s_ptr)
 /*
  *  Calculate mole fractions and log lambda and derivative factors
  */
-  n_tot = s_s_ptr->total_moles;
 
 /*
  *   Ideal solid solution
  */
-  s_s_ptr->dn = 1.0 / n_tot;
   for (k = 0; k < s_s_ptr->count_comps; k++)
   {
-    n_tot1 = 0;
-    for (j = 0; j < s_s_ptr->count_comps; j++)
-    {
-      if (j != k)
-      {
-	n_tot1 += s_s_ptr->comps[j].moles;
-      }
-    }
     s_s_ptr->comps[k].log10_lambda = 0;
     s_s_ptr->comps[k].phase->log10_lambda = 0;
-#ifdef SKIP
-
-    s_s_ptr->comps[k].dnb = -(n_tot1) / (s_s_ptr->comps[k].moles * n_tot);
-    s_s_ptr->comps[k].phase->dnb = s_s_ptr->comps[k].dnb;
-
-    s_s_ptr->comps[k].dn = s_s_ptr->dn;
-    s_s_ptr->comps[k].phase->dn = s_s_ptr->dn;
-#endif
   }
   return (OK);
 }
@@ -2724,7 +2625,7 @@ reset (void)
   factor = 1.;
 
   if ((pure_phase_unknown != NULL /*|| s_s_unknown != NULL */)
-      && calculating_deriv == FALSE)
+       && calculating_deriv == FALSE )
   {
 /*
  *   Don't take out more mineral than is present
@@ -2834,8 +2735,8 @@ reset (void)
       delta[i] = 0;
     }
   }
-  if (pure_phase_unknown != NULL || gas_unknown != NULL
-      /*|| s_s_unknown != NULL*/)
+  if (pure_phase_unknown != NULL /*|| gas_unknown != NULL
+				   || s_s_unknown != NULL*/)
   {
     for (i = 0; i < count_unknowns; i++)
     {
@@ -2929,7 +2830,16 @@ reset (void)
       }
       else if (x[i]->type == S_S_MOLES)
       {
-	continue;
+	up = step_up;
+	down = 1.3 * up;
+/*
+	up = 10. * x[i]->moles;
+	if (up <= 0.0)
+	  up = 1e-1;
+	if (up >= 1.0)
+	  up = 1.;
+	down = x[i]->moles;
+*/
       }
       else if (x[i]->type == EXCH)
       {
@@ -3328,7 +3238,7 @@ reset (void)
 		    "new mol", (double) (x[i]->moles - delta[i]), "delta",
 		    (double) delta[i]);
       }
-      x[i]->moles -= delta[i];
+      x[i]->moles += delta[i];
       if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE)
 	x[i]->moles = MIN_TOTAL_SS;
       /*x[i]->s_s_comp->moles = x[i]->moles;*/
@@ -3355,7 +3265,7 @@ reset (void)
  *   Reset total molalities in mass balance equations
  */
   if (pure_phase_unknown != NULL || gas_unknown != NULL
-      || s_s_unknown != NULL)
+      /*|| s_s_unknown != NULL */)
   {
     for (i = 0; i < count_unknowns; i++)
     {
@@ -4231,7 +4141,7 @@ residuals (void)
     else if (x[i]->type == S_S_MOLES)
     {
       /*residual[i] = x[i]->f * LOG_10;*/
-      residual[i] = x[i]->f - 1.0;
+      residual[i] = 1. - x[i]->f;
       if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
 	continue;
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
@@ -5300,6 +5210,8 @@ numerical_jacobian (void)
   gammas (mu_x);
   molalities (TRUE);
   mb_sums ();
+  mb_s_s ();
+  mb_gases ();
   residuals ();
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
@@ -5376,6 +5288,7 @@ numerical_jacobian (void)
     case S_S_MOLES:
       if (x[i]->s_s_in == FALSE)
 	continue;
+#ifdef SKIP
       for (j = 0; j < count_unknowns; j++)
       {
 	delta[j] = 0.0;
@@ -5392,6 +5305,12 @@ numerical_jacobian (void)
       reset ();
       d2 = delta[i];
       /*fprintf (stderr, "delta after reset %e\n", delta[i]); */
+#endif
+      d2 = d * x[i]->moles;
+      if (d2 < 1e-14)
+	d2 = 1e-14;
+      x[i]->moles += d2;
+      x[i]->s_s->total_moles += d2;
       break;
     case GAS_MOLES:
       if (gas_in == FALSE)
@@ -5406,6 +5325,7 @@ numerical_jacobian (void)
     molalities (TRUE);
     mb_sums ();
     mb_s_s();
+    mb_gases();
     /*
        mb_gases();
      */
@@ -5455,8 +5375,12 @@ numerical_jacobian (void)
       reset ();
       break;
     case S_S_MOLES:
+/*
       delta[i] = -d2;
       reset ();
+*/
+      x[i]->moles -= d2;
+      x[i]->s_s->total_moles -= d2;
       break;
     case GAS_MOLES:
       x[i]->moles -= d2;
