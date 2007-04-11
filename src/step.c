@@ -977,7 +977,69 @@ add_gas_phase (struct gas_phase *gas_phase_ptr)
   }
   return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int
+add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Accumulate solid_solution data in master->totals and _x variables.
+ */
+  int i, j, k;
+  LDBLE amount_to_add, total;
+  struct s_s *s_s_ptr;
+  struct master *master_ptr;
+  char token[MAX_LENGTH];
+  char *ptr;
 
+  if (s_s_assemblage_ptr == NULL)
+    return (OK);
+  count_elts = 0;
+  paren_count = 0;
+/*
+ *   Check that all elements are in solution for phases with greater than zero mass
+ */
+  for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
+  {
+    count_elts = 0;
+    paren_count = 0;
+    s_s_ptr = &(s_s_assemblage_ptr->s_s[i]);
+    for (j = 0; j < s_s_ptr->count_comps; j++)
+    {
+      add_elt_list (s_s_ptr->comps[j].phase->next_elt, s_s_ptr->comps[j].moles);
+    }
+  }
+/*
+ *   Sort elements in reaction and combine
+ */
+  if (count_elts > 0)
+  {
+    qsort (elt_list, (size_t) count_elts,
+	   (size_t) sizeof (struct elt_list), elt_list_compare);
+    elt_list_combine ();
+  }
+/*
+ *   Add gas elements to totals
+ */
+  for (i = 0; i < count_elts; i++)
+  {
+    master_ptr = elt_list[i].elt->primary;
+    if (master_ptr->s == s_hplus)
+    {
+      total_h_x += elt_list[i].coef;
+    }
+    else if (master_ptr->s == s_h2o)
+    {
+      total_o_x += elt_list[i].coef;
+    }
+    else
+    {
+      master_ptr->total += elt_list[i].coef;
+    }
+  }
+  return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr)
@@ -1071,7 +1133,7 @@ add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr)
   }
   return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int
 add_kinetics (struct kinetics *kinetics_ptr)

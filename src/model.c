@@ -96,6 +96,8 @@ model (void)
   remove_unstable_phases = FALSE;
   for (;;)
   {
+    molalities (TRUE);
+    mb_sums ();
     mb_gases ();
     mb_s_s ();
     kode = 1;
@@ -1481,7 +1483,7 @@ ineq (int in_kode)
     {
       if (x[i]->type != S_S_MOLES)
 	break;
-      if (x[i]->phase->in == TRUE && x[i]->s_s_in == TRUE)
+      if (/*x[i]->phase->in == TRUE &&*/ x[i]->s_s_in == TRUE)
       {
 	memcpy ((void *) &(ineq_array[count_rows * max_column_count]),
 		(void *) &(zero[0]),
@@ -1939,6 +1941,50 @@ mb_s_s (void)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;
+  LDBLE sum_x;
+  struct s_s *s_s_ptr;
+/*
+ *   Determines whether solid solution equation is needed
+ */
+  if (s_s_unknown == NULL || use.s_s_assemblage_ptr == NULL)
+    return (OK);
+  for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+  {
+    s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+    s_s_ptr->s_s_in = FALSE;
+    if (s_s_ptr->total_moles > 10*MIN_TOTAL_SS) 
+    {
+      s_s_ptr->s_s_in = TRUE;
+    } 
+    else
+    {
+      sum_x = 0;
+      for (j = 0; j < s_s_ptr->count_comps; j++)
+      {
+	sum_x += s_s_ptr->comps[j].phase->fraction_x;
+      }
+      if (sum_x >= 1)
+      {
+	s_s_ptr->s_s_in = TRUE;
+      } 
+    }
+  }      
+  for (i = 0; i < count_unknowns; i++) 
+  {
+    if (x[i]->type == S_S_MOLES) 
+    {
+      x[i]->s_s_in = x[i]->s_s->s_s_in;
+    }
+  }
+  return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int
+mb_s_s (void)
+/* ---------------------------------------------------------------------- */
+{
+  int i, j;
   LDBLE lp, log10_iap, total_moles;
   LDBLE iapc, iapb, kc, kb, lc, lb, xcaq, xbaq, xb, xc;
   LDBLE sigmapi_aq, sigmapi_solid;
@@ -2072,9 +2118,13 @@ mb_s_s (void)
       break;
     x[i]->s_s_in = x[i]->s_s->s_s_in;
   }
+/*
+    x[i]->s_s->s_s_in = TRUE;
+    x[i]->s_s_in = TRUE;
+*/
   return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int
 molalities (int allow_overflow)
@@ -2362,8 +2412,9 @@ calc_s_s_fractions (void)
 /* ---------------------------------------------------------------------- */
 {
   int i, k;
-  LDBLE moles, n_tot;
+  LDBLE n_tot, iap;
   struct s_s *s_s_ptr;
+  struct rxn_token *rxn_ptr;
 
 /*
  *   moles and lambdas for solid solutions
@@ -2378,31 +2429,23 @@ calc_s_s_fractions (void)
   for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
   {
     s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
-    n_tot = 0;
+    n_tot = s_s_ptr->total_moles;
+    /*
+     * Calculate mole fractions
+     */
     for (k = 0; k < s_s_ptr->count_comps; k++)
     {
-      moles = s_s_ptr->comps[k].moles;
-      if (s_s_ptr->comps[k].moles < 0)
+      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+      for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
       {
-	moles = MIN_TOTAL_SS;
-	s_s_ptr->comps[k].initial_moles = moles;
+	iap += rxn_ptr->s->la * rxn_ptr->coef;
       }
-      n_tot += moles;
-    }
-    s_s_ptr->total_moles = n_tot;
-    for (k = 0; k < s_s_ptr->count_comps; k++)
-    {
-      moles = s_s_ptr->comps[k].moles;
-      if (s_s_ptr->comps[k].moles < 0)
-      {
-	moles = MIN_TOTAL_SS;
-      }
-      s_s_ptr->comps[k].fraction_x = moles / n_tot;
-      s_s_ptr->comps[k].log10_fraction_x = log10 (moles / n_tot);
+      s_s_ptr->comps[k].log10_fraction_x = iap;
+      s_s_ptr->comps[k].fraction_x = pow(10., iap);
+      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
 
-      /* all mb and jacobian items must be in x or phase to be static between models */
-      s_s_ptr->comps[k].phase->log10_fraction_x =
-	s_s_ptr->comps[k].log10_fraction_x;
+      s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
+      s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
     }
     if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
     {
@@ -2415,13 +2458,12 @@ calc_s_s_fractions (void)
   }
   return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int
 s_s_binary (struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE nb, nc, n_tot, xb, xc, dnb, dnc, a0, a1;
+  LDBLE nb, nc, n_tot, xb, xc, a0, a1;
   LDBLE xb2, xb3, xb4, xc2, xc3;
   LDBLE xb1, xc1;
 /*
@@ -2434,11 +2476,13 @@ s_s_binary (struct s_s *s_s_ptr)
  *  Calculate mole fractions and log lambda and derivative factors
  */
   n_tot = s_s_ptr->total_moles;
+  n_tot = s_s_ptr->comps[0].moles + s_s_ptr->comps[1].moles;
 
   nc = s_s_ptr->comps[0].moles;
   xc = nc / n_tot;
   nb = s_s_ptr->comps[1].moles;
   xb = nb / n_tot;
+
 /*
  *   In miscibility gap
  */
@@ -2448,16 +2492,6 @@ s_s_binary (struct s_s *s_s_ptr)
   {
     xb1 = s_s_ptr->xb1;
     xc1 = 1.0 - xb1;
-    s_s_ptr->comps[0].fraction_x = xc1;
-    s_s_ptr->comps[0].log10_fraction_x = log10 (xc1);
-    s_s_ptr->comps[0].phase->log10_fraction_x =
-      s_s_ptr->comps[0].log10_fraction_x;
-
-    s_s_ptr->comps[1].fraction_x = xb1;
-    s_s_ptr->comps[1].log10_fraction_x = log10 (xb1);
-    s_s_ptr->comps[1].phase->log10_fraction_x =
-      s_s_ptr->comps[1].log10_fraction_x;
-
     s_s_ptr->comps[0].log10_lambda =
       xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)) / LOG_10;
     s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
@@ -2466,30 +2500,12 @@ s_s_binary (struct s_s *s_s_ptr)
       xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)) / LOG_10;
     s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
 
-    s_s_ptr->comps[0].dnb = 0;
-    s_s_ptr->comps[0].dnc = 0;
-    s_s_ptr->comps[1].dnb = 0;
-    s_s_ptr->comps[1].dnc = 0;
-    s_s_ptr->comps[0].phase->dnb = 0;
-    s_s_ptr->comps[0].phase->dnc = 0;
-    s_s_ptr->comps[1].phase->dnb = 0;
-    s_s_ptr->comps[1].phase->dnc = 0;
   }
   else
   {
 /*
  *   Not in miscibility gap
  */
-    s_s_ptr->comps[0].fraction_x = xc;
-    s_s_ptr->comps[0].log10_fraction_x = log10 (xc);
-    s_s_ptr->comps[0].phase->log10_fraction_x =
-      s_s_ptr->comps[0].log10_fraction_x;
-
-    s_s_ptr->comps[1].fraction_x = xb;
-    s_s_ptr->comps[1].log10_fraction_x = log10 (xb);
-    s_s_ptr->comps[1].phase->log10_fraction_x =
-      s_s_ptr->comps[1].log10_fraction_x;
-
     s_s_ptr->comps[0].log10_lambda =
       xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
     s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
@@ -2498,12 +2514,12 @@ s_s_binary (struct s_s *s_s_ptr)
       xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
     s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
 
+#ifdef SKIP
     xc2 = xc * xc;
     xc3 = xc2 * xc;
     xb2 = xb * xb;
     xb3 = xb2 * xb;
     xb4 = xb3 * xb;
-#ifdef SKIP
     /* first component */
     dnb =
       -2 * a0 * xb * xc2 - 8 * a1 * xb2 * xc2 + 6 * a1 * xb * xc2 -
@@ -2527,6 +2543,7 @@ s_s_binary (struct s_s *s_s_ptr)
 #endif
     /* used derivation that did not substitute x2 = 1-x1 */
 
+#ifdef SKIP
     /* first component, df1/dn1 */
     dnc = 2 * a0 * xb2 + 12 * a1 * xc * xb2 + 6 * a1 * xb2;
     s_s_ptr->comps[0].phase->dnc = -xb / nc + dnc / n_tot;
@@ -2547,7 +2564,7 @@ s_s_binary (struct s_s *s_s_ptr)
     /* second component, df2/dn2 */
     dnb = 2 * a0 * xc2 + 12 * a1 * xb * xc2 - 6 * a1 * xc2;
     s_s_ptr->comps[1].phase->dnb = -xc / nb + dnb / n_tot;
-
+#endif
   }
   return (OK);
 }
@@ -2569,30 +2586,14 @@ s_s_ideal (struct s_s *s_s_ptr)
 /*
  *  Calculate mole fractions and log lambda and derivative factors
  */
-  n_tot = s_s_ptr->total_moles;
 
 /*
  *   Ideal solid solution
  */
-  s_s_ptr->dn = 1.0 / n_tot;
   for (k = 0; k < s_s_ptr->count_comps; k++)
   {
-    n_tot1 = 0;
-    for (j = 0; j < s_s_ptr->count_comps; j++)
-    {
-      if (j != k)
-      {
-	n_tot1 += s_s_ptr->comps[j].moles;
-      }
-    }
     s_s_ptr->comps[k].log10_lambda = 0;
     s_s_ptr->comps[k].phase->log10_lambda = 0;
-
-    s_s_ptr->comps[k].dnb = -(n_tot1) / (s_s_ptr->comps[k].moles * n_tot);
-    s_s_ptr->comps[k].phase->dnb = s_s_ptr->comps[k].dnb;
-
-    s_s_ptr->comps[k].dn = s_s_ptr->dn;
-    s_s_ptr->comps[k].phase->dn = s_s_ptr->dn;
   }
   return (OK);
 }
@@ -2615,32 +2616,23 @@ reset (void)
   LDBLE factor, f0;
   LDBLE sum_deltas;
   LDBLE step_up;
-#ifdef SKIP
-  LDBLE epsilon;
-#endif
   LDBLE mu_calc;
   LDBLE old_moles;
 /*
  *   Calculate interphase mass transfers
  */
-#ifdef SKIP
-  if (punch.high_precision == FALSE)
-    epsilon = 1e-9;
-  else
-    epsilon = 1.e-12;
-#endif
   step_up = log (step_size_now);
   factor = 1.;
 
-  if ((pure_phase_unknown != NULL || s_s_unknown != NULL)
-      && calculating_deriv == FALSE)
+  if ((pure_phase_unknown != NULL /*|| s_s_unknown != NULL */)
+       && calculating_deriv == FALSE )
   {
 /*
  *   Don't take out more mineral than is present
  */
     for (i = 0; i < count_unknowns; i++)
     {
-      if (x[i]->type == PP || x[i]->type == S_S_MOLES)
+      if (x[i]->type == PP /*|| x[i]->type == S_S_MOLES*/)
       {
 	if (delta[i] < -1e8) {
 	  delta[i] = -10.;
@@ -2650,15 +2642,6 @@ reset (void)
 	}
 	if (x[i]->dissolve_only == TRUE)
 	{
-#ifdef SKIP
-	  if (x[i]->moles > x[i]->pure_phase->initial_moles)
-	  {
-	    output_msg (OUTPUT_MESSAGE,
-			"%-10.10s, Precipitated dissolve_only mineral!*\tDiff %e\n",
-			x[i]->description,
-			x[i]->moles - x[i]->pure_phase->initial_moles);
-	  }
-#endif
 	  if ((delta[i] < 0.0)
 	      && (-delta[i] >
 		  (x[i]->pure_phase->initial_moles - x[i]->moles)))
@@ -2743,11 +2726,704 @@ reset (void)
   {
 #ifdef _MSC_VER
     if (_isnan (delta[i]))
-    {
 #else
     if (isnan (delta[i]))
-    {
 #endif
+    {
+      sprintf (error_string, "Delta %d equals NaN\n", i);
+      warning_msg (error_string);
+      delta[i] = 0;
+    }
+  }
+  if (pure_phase_unknown != NULL /*|| gas_unknown != NULL
+				   || s_s_unknown != NULL*/)
+  {
+    for (i = 0; i < count_unknowns; i++)
+    {
+      x[i]->delta = 0.0;
+    }
+
+    for (i = 0; i < count_sum_delta; i++)
+    {
+      *sum_delta[i].target += *sum_delta[i].source * sum_delta[i].coef;
+    }
+
+/*
+ *   Apply factor from minerals to deltas
+ */
+
+
+    for (i = 0; i < count_unknowns; i++)
+    {
+      x[i]->delta /= factor;
+      if (x[i]->type == PP /*|| x[i]->type == S_S_MOLES*/)
+	delta[i] /= factor;
+    }
+
+  }
+
+
+/*
+ *   Calc factor for mass balance equations for aqueous unknowns
+ */
+  factor = 1.0;
+  sum_deltas = 0.0;
+  for (i = 0; i < count_unknowns; i++)
+  {
+    /* fixes underflow problem on Windows */
+    if (delta[i] > 0)
+    {
+      sum_deltas += delta[i];
+    }
+    else
+    {
+      sum_deltas -= delta[i];
+
+    }
+    /*sum_deltas += fabs(delta[i]); */
+    if (calculating_deriv == FALSE)
+    {
+      up = step_up;
+      down = up;
+      if (x[i]->type <= SOLUTION_PHASE_BOUNDARY)
+      {
+	up = step_up;
+	down = 1.3 * up;
+      }
+      else if (x[i]->type == MU)
+      {
+	up = 100 * mu_x;
+	down = mu_x;
+      }
+      else if (x[i]->type == AH2O)
+      {
+	down = up;
+      }
+      else if (x[i]->type == MH)
+      {
+	up = log (pe_step_size_now);
+	down = 1.3 * up;
+      }
+      else if (x[i]->type == MH2O)
+      {
+	/* ln gH2O + delta; ln(gH2O*delta); */
+	/*
+	   up = log(10.);
+	   down = log(4.);
+	 */
+	up = log (1.3);
+	down = log (1.2);
+
+      }
+      else if (x[i]->type == PP)
+      {
+	continue;
+      }
+      else if (x[i]->type == GAS_MOLES)
+      {
+	up = 1000. * x[i]->moles;
+	if (up <= 0.0)
+	  up = 1e-1;
+	if (up >= 1.0)
+	  up = 1.;
+	down = x[i]->moles;
+      }
+      else if (x[i]->type == S_S_MOLES)
+      {
+	up = step_up;
+	down = 1.3 * up;
+/*
+	up = 10. * x[i]->moles;
+	if (up <= 0.0)
+	  up = 1e-1;
+	if (up >= 1.0)
+	  up = 1.;
+	down = x[i]->moles;
+*/
+      }
+      else if (x[i]->type == EXCH)
+      {
+	up = step_up;
+	down = 1.3 * up;
+      }
+      else if (x[i]->type == SURFACE)
+      {
+	up = step_up;
+	down = 1.3 * up;
+      }
+      else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
+	       || x[i]->type == SURFACE_CB2)
+      {
+	up = step_up;
+	down = 1.3 * up;
+	/*
+	   up = 1.3;
+	   down = 1.2;
+	 */
+      }
+
+      if (delta[i] > 0.0)
+      {
+	f0 = delta[i] / up;
+	if (f0 > factor)
+	{
+	  if (debug_model == TRUE)
+	  {
+	    output_msg (OUTPUT_MESSAGE, "%-10.10s\t%f\n", x[i]->description,
+			(double) f0);
+	  }
+	  factor = f0;
+	}
+      }
+      else
+      {
+	f0 = delta[i] / (-down);
+	if (f0 > factor)
+	{
+	  if (debug_model == TRUE)
+	  {
+	    output_msg (OUTPUT_MESSAGE, "%-10.10s\t%f\n", x[i]->description,
+			(double) f0);
+	  }
+	  factor = f0;
+	}
+      }
+    }
+  }
+
+  /*converge=TRUE; */
+
+  if (debug_model == TRUE)
+  {
+    output_msg (OUTPUT_MESSAGE, "\nSum of deltas: %12.6f\n",
+		(double) sum_deltas);
+    output_msg (OUTPUT_MESSAGE, "Factor: %12.4e\n", (double) factor);
+  }
+  factor = 1.0 / factor;
+
+  for (i = 0; i < count_unknowns; i++)
+  {
+    if (x[i]->type != PP /*&& x[i]->type != S_S_MOLES */)
+      delta[i] *= factor;
+  }
+/*
+ *   Solution mass balances: MB, ALK, CB, SOLUTION_PHASE_BOUNDARY
+ */
+  for (i = 0; i < count_unknowns; i++)
+  {
+    if (x[i]->type == MB || x[i]->type == ALK || x[i]->type == EXCH
+	|| x[i]->type == SURFACE)
+    {
+      /*if ( fabs(delta[i]) >= epsilon ) converge = FALSE; */
+      d = delta[i] / LOG_10;
+      /* surface */
+      if (x[i]->type == SURFACE)
+      {
+	old_moles = x[i]->moles;
+	if (x[i]->phase_unknown != NULL)
+	{
+	  x[i]->moles = x[i]->surface_comp->phase_proportion *
+	    (x[i]->phase_unknown->moles - delta[x[i]->phase_unknown->number]);
+	  if (x[i]->phase_unknown->moles -
+	      delta[x[i]->phase_unknown->number] <= MIN_RELATED_SURFACE)
+	  {
+	    x[i]->moles = 0.0;
+	    if (fabs (x[i]->f) > MIN_RELATED_SURFACE)
+	    {
+	      x[i]->master[0]->s->la -= 5.;
+	    }
+	  }
+	  if (old_moles <= 0 && x[i]->moles > 0)
+	  {
+	    x[i]->master[0]->s->la = log10 (x[i]->moles) - 5.;
+	  }
+	}
+      }
+      /* exch */
+      if (x[i]->type == EXCH && x[i]->moles <= MIN_RELATED_SURFACE)
+      {
+	x[i]->moles = 0.0;
+	if (fabs (x[i]->f) > MIN_RELATED_SURFACE)
+	{
+	  x[i]->master[0]->s->la -= 5.;
+	}
+      }
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   "
+		    "%-8s%10.2e\n", x[i]->description, "old la",
+		    (double) x[i]->master[0]->s->la, "new la",
+		    (double) x[i]->master[0]->s->la + (double) d, "delta",
+		    (double) delta[i], "delta/c", (double) d);
+      }
+      x[i]->master[0]->s->la += d;
+      if (x[i]->master[0]->s->la < (double) (DBL_MIN_10_EXP + 10))
+	x[i]->master[0]->s->la = (double) (DBL_MIN_10_EXP + 10);
+
+/*
+ * Surface charge balance
+ */
+
+    }
+    else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
+	     || x[i]->type == SURFACE_CB2)
+    {
+      d = delta[i] / LOG_10;
+      if (x[i]->phase_unknown != NULL)
+      {
+	x[i]->surface_charge->grams =	/* !!!! x[i]->surface_comp->phase_proportion * */
+	  (x[i]->phase_unknown->moles - delta[x[i]->phase_unknown->number]);
+	if (x[i]->surface_charge->grams <= MIN_RELATED_SURFACE)
+	{
+	  x[i]->surface_charge->grams = 0.0;
+	}
+      }
+      if (x[i]->surface_charge->grams <= MIN_RELATED_SURFACE)
+      {
+	x[i]->surface_charge->grams = 0.0;
+      }
+      x[i]->related_moles = x[i]->surface_charge->grams;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e\n",
+		    x[i]->description, "old f*psi",
+		    (double) x[i]->master[0]->s->la, "new f*psi",
+		    (double) x[i]->master[0]->s->la + (double) d, "delta",
+		    (double) d);
+      }
+
+      x[i]->master[0]->s->la += d;
+
+      /* recalculate g's for component */
+      if (dl_type_x != NO_DL
+	  && (use.surface_ptr->type == DDL
+	      || (use.surface_ptr->type == CD_MUSIC
+		  && x[i]->type == SURFACE_CB2)))
+      {
+	if (debug_diffuse_layer == TRUE)
+	{
+	  output_msg (OUTPUT_MESSAGE, "\ncharge, old g, new g, dg*delta,"
+		      " dg, delta\n");
+	}
+	for (j = 0; j < x[i]->surface_charge->count_g; j++)
+	{
+	  if (debug_diffuse_layer == TRUE)
+	  {
+	    output_msg (OUTPUT_MESSAGE,
+			"%12f\t%12.4e\t%12.4e\t%12.4e\t%12.4e\t%12.4e\n",
+			(double) x[i]->surface_charge->g[j].charge,
+			(double) x[i]->surface_charge->g[j].g,
+			(double) x[i]->surface_charge->g[j].g +
+			(double) (x[i]->surface_charge->g[j].dg * delta[i]),
+			(double) (x[i]->surface_charge->g[j].dg * delta[i]),
+			(double) x[i]->surface_charge->g[j].dg,
+			(double) delta[i]);
+	  }
+/*appt*/ if (use.surface_ptr->dl_type != DONNAN_DL)
+	  {
+	    x[i]->surface_charge->g[j].g +=
+	      x[i]->surface_charge->g[j].dg * delta[i];
+	  }
+	}
+/*appt*/ if (use.surface_ptr->dl_type == DONNAN_DL)
+	{
+	  calc_all_donnan ();
+	}
+      }
+
+/*   Solution phase boundary */
+    }
+    else if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
+    {
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      d = delta[i] / LOG_10;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old la",
+		    (double) x[i]->master[0]->s->la, "new la",
+		    (double) (x[i]->master[0]->s->la + d), "delta",
+		    (double) delta[i], "delta/c", (double) d);
+      }
+      x[i]->master[0]->s->la += d;
+/*   Charge balance */
+    }
+    else if (x[i]->type == CB)
+    {
+      /*if (fabs(delta[i]) > epsilon * mu_x * mass_water_aq_x ) converge=FALSE; */
+      d = delta[i] / LOG_10;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old la",
+		    (double) x[i]->master[0]->s->la, "new la",
+		    (double) (x[i]->master[0]->s->la + d), "delta",
+		    (double) delta[i], "delta/c", (double) d);
+      }
+      x[i]->master[0]->s->la += d;
+/*   Ionic strength */
+    }
+    else if (x[i]->type == MU)
+    {
+
+      /*if (fabs(delta[i]) > epsilon * mu_x ) converge=FALSE; */
+      mu_calc = 0.5 * mu_unknown->f / mass_water_aq_x;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE, "Calculated mu: %e\n", (double) mu_calc);
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e\n",
+		    x[i]->description, "old mu", (double) mu_x, "new mu",
+		    (double) (mu_x + delta[i]), "delta", (double) delta[i]);
+      }
+      d = mu_x + delta[i];
+      if (d < 1e-7)
+      {
+	delta[i] = sqrt (mu_calc * mu_x) - mu_x;
+	mu_x = sqrt (mu_calc * mu_x);
+      }
+      else
+      {
+	mu_x += delta[i];
+      }
+      if (mu_x <= 1e-8)
+      {
+	mu_x = 1e-8;
+      }
+/*   Activity of water */
+    }
+    else if (x[i]->type == AH2O)
+    {
+      /*if (pitzer_model == TRUE && full_pitzer == FALSE) continue; */
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      d = delta[i] / LOG_10;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old la",
+		    (double) x[i]->master[0]->s->la, "new la",
+		    (double) (x[i]->master[0]->s->la + d), "delta",
+		    (double) delta[i], "delta/c", (double) d);
+      }
+      s_h2o->la += d;
+      if (pitzer_model == FALSE)
+      {
+	if (s_h2o->la < -1.0)
+	{
+	  d = -1.0 - s_h2o->la;
+	  delta[i] = d * LOG_10;
+	  s_h2o->la = -1.0;
+	}
+      }
+/*   pe */
+    }
+    else if (x[i]->type == MH)
+    {
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      d = delta[i] / LOG_10;
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old pe",
+		    (double) x[i]->master[0]->s->la, "new pe",
+		    (double) (x[i]->master[0]->s->la + d), "delta",
+		    (double) delta[i], "delta/c", (double) d);
+      }
+      s_eminus->la += d;
+/*   Mass of water */
+    }
+    else if (x[i]->type == MH2O)
+    {
+      if (mass_water_switch == TRUE)
+	continue;
+      /*if (fabs(delta[i]) > epsilon * mass_water_aq_x) converge=FALSE; */
+      /* ln(gh2o) + delta, log(gh2o) + d, gh2o * 10**d */
+      d = exp (delta[i]);
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old MH2O", (double) mass_water_aq_x,
+		    "new MH2O", (double) (mass_water_aq_x * d), "delta",
+		    (double) delta[i], "10**d/c", (double) d);
+      }
+      mass_water_aq_x *= d;
+
+      mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
+      if (debug_model == TRUE && dl_type_x != NO_DL)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "mass_water bulk: %e\taq: %e\tsurfaces: %e\n",
+		    (double) mass_water_bulk_x, (double) mass_water_aq_x,
+		    (double) mass_water_surfaces_x);
+      }
+      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+/*appt */
+      if (use.surface_ptr != NULL)
+      {
+	if (use.surface_ptr->debye_lengths > 0)
+	  x[i]->master[0]->s->moles = mass_water_bulk_x / gfw_water;
+      }
+
+      if (mass_water_aq_x < 1e-10)
+      {
+	sprintf (error_string, "Mass of water is less than 1e-10 kilogram.\n"
+		 "The aqueous phase may not be stable relative to given masses of minerals.");
+	warning_msg (error_string);
+	stop_program = TRUE;
+	return (TRUE);
+      }
+/*   Pure phases */
+    }
+    else if (x[i]->type == PP)
+    {
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+		    x[i]->description, "old mass", (double) x[i]->moles,
+		    "new mass", (double) (x[i]->moles - delta[i]), "delta",
+		    (double) delta[i]);
+      }
+      if (equal (x[i]->moles, -delta[i], ineq_tol))
+      {
+	x[i]->moles = 0.0;
+      }
+      else
+      {
+	x[i]->moles -= delta[i];
+      }
+
+      if (x[i]->dissolve_only == TRUE)
+      {
+	if (equal (x[i]->moles, x[i]->pure_phase->initial_moles, ineq_tol))
+	  x[i]->moles = x[i]->pure_phase->initial_moles;
+      }
+      /*if (fabs(x[i]->moles) < MIN_RELATED_SURFACE) x[i]->moles = 0.0; */
+    }
+    else if (x[i]->type == GAS_MOLES)
+    {
+
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      /*if (gas_in == TRUE && fabs(residual[i]) > epsilon) converge=FALSE; */
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+		    x[i]->description, "old mol", (double) x[i]->moles,
+		    "new mol", (double) (x[i]->moles + delta[i]), "delta",
+		    (double) delta[i]);
+      }
+      x[i]->moles += delta[i];
+      if (x[i]->moles < MIN_TOTAL)
+	x[i]->moles = MIN_TOTAL;
+    }
+    else if (x[i]->type == S_S_MOLES)
+    {
+
+      /*if (fabs(delta[i]) > epsilon) converge=FALSE; */
+      /*if (x[i]->s_s_in == TRUE && fabs(residual[i]) > epsilon) converge=FALSE; */
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+		    x[i]->description, "old mol", (double) x[i]->moles,
+		    "new mol", (double) (x[i]->moles - delta[i]), "delta",
+		    (double) delta[i]);
+      }
+      x[i]->moles += delta[i];
+      if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE)
+	x[i]->moles = MIN_TOTAL_SS;
+      /*x[i]->s_s_comp->moles = x[i]->moles;*/
+      x[i]->s_s->total_moles = x[i]->moles;
+/*   Pitzer gamma */
+    }
+    else if (x[i]->type == PITZER_GAMMA)
+    {
+      if (full_pitzer == FALSE)
+	continue;
+      d = delta[i];
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.5f   %-9s%10.5f   %-6s%10.2e   %-8s%10.2e\n",
+		    x[i]->description, "old lg", (double) x[i]->s->lg,
+		    "new lg", (double) (x[i]->s->lg + d), "delta",
+		    (double) delta[i], "delta", (double) d);
+      }
+      x[i]->s->lg += d;
+    }
+  }
+/*
+ *   Reset total molalities in mass balance equations
+ */
+  if (pure_phase_unknown != NULL || gas_unknown != NULL
+      /*|| s_s_unknown != NULL */)
+  {
+    for (i = 0; i < count_unknowns; i++)
+    {
+      if (x[i]->type == MB || x[i]->type == MH ||
+	  x[i]->type == MH2O ||
+	  x[i]->type == CB || x[i]->type == EXCH || x[i]->type == SURFACE)
+      {
+	/*if (fabs(x[i]->delta) > epsilon*x[i]->moles) converge = FALSE; */
+	if (x[i]->type == SURFACE)
+	  x[i]->delta = 0.0;
+	if (debug_model == TRUE)
+	{
+	  output_msg (OUTPUT_MESSAGE,
+		      "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+		      x[i]->description, "old mole", (double) x[i]->moles,
+		      "new mole", (double) (x[i]->moles + x[i]->delta),
+		      "delta", (double) x[i]->delta);
+	}
+	x[i]->moles += x[i]->delta;
+      }
+    }
+  }
+  converge = FALSE;
+  return (converge);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int
+reset (void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks deltas (changes to unknowns) to make sure they are reasonable
+ *   Scales deltas if necessary
+ *   Updates unknowns with deltas
+ */
+
+  int i, j;
+  int converge;
+  LDBLE up, down;
+  LDBLE d;
+  LDBLE factor, f0;
+  LDBLE sum_deltas;
+  LDBLE step_up;
+  LDBLE mu_calc;
+  LDBLE old_moles;
+/*
+ *   Calculate interphase mass transfers
+ */
+  step_up = log (step_size_now);
+  factor = 1.;
+
+  if ((pure_phase_unknown != NULL || s_s_unknown != NULL)
+      && calculating_deriv == FALSE)
+  {
+/*
+ *   Don't take out more mineral than is present
+ */
+    for (i = 0; i < count_unknowns; i++)
+    {
+      if (x[i]->type == PP || x[i]->type == S_S_MOLES)
+      {
+	if (delta[i] < -1e8) {
+	  delta[i] = -10.;
+	} else if (delta[i] > 1e8)
+	{
+	  delta[i] = 10;
+	}
+	if (x[i]->dissolve_only == TRUE)
+	{
+	  if ((delta[i] < 0.0)
+	      && (-delta[i] >
+		  (x[i]->pure_phase->initial_moles - x[i]->moles)))
+	  {
+	    if ((x[i]->pure_phase->initial_moles - x[i]->moles) != 0.0)
+	    {
+	      f0 =
+		fabs (delta[i] /
+		      (x[i]->pure_phase->initial_moles - x[i]->moles));
+	      if (f0 > factor)
+	      {
+		if (debug_model == TRUE)
+		{
+		  output_msg (OUTPUT_MESSAGE,
+			      "%-10.10s, Precipitating too much dissolve_only mineral.\tDelta %e\tCurrent %e\tInitial %e\n",
+			      x[i]->description, (double) delta[i],
+			      (double) x[i]->moles,
+			      (double) x[i]->pure_phase->initial_moles);
+		}
+		factor = f0;
+	      }
+	    }
+	    else
+	    {
+	      if (debug_model == TRUE)
+	      {
+		output_msg (OUTPUT_MESSAGE,
+			    "%-10.10s, Precipitating dissolve_only mineral.\tDelta %e\n",
+			    x[i]->description, (double) delta[i]);
+	      }
+	      delta[i] = 0;
+	    }
+	  }
+	}
+	if ( /* delta[i] > 0.0 && */ x[i]->moles > 0.0
+	    && delta[i] > x[i]->moles)
+	{
+	  f0 = delta[i] / x[i]->moles;
+	  if (f0 > factor)
+	  {
+	    if (debug_model == TRUE)
+	    {
+	      output_msg (OUTPUT_MESSAGE,
+			  "%-10.10s, Removing more than total mineral.\t%f\n",
+			  x[i]->description, (double) f0);
+	    }
+	    factor = f0;
+	  }
+	}
+	else if (delta[i] > 0.0 && x[i]->moles <= 0.0)
+	{
+	  if (debug_model == TRUE)
+	  {
+	    output_msg (OUTPUT_MESSAGE, "%-10.10s\tDelta: %e\tMass: %e   "
+			"Dissolving mineral with 0.0 mass.\n ",
+			x[i]->description, (double) delta[i],
+			(double) x[i]->moles);
+	  }
+	  delta[i] = 0.0;
+	}
+	else if (delta[i] < -100.0)
+	{
+	  f0 = -delta[i] / 100.0;
+	  if (f0 > factor)
+	  {
+	    if (debug_model == TRUE)
+	    {
+	      output_msg (OUTPUT_MESSAGE,
+			  "%-10.10s, Precipitating too much mineral.\t%f\n",
+			  x[i]->description, (double) f0);
+	    }
+	    factor = f0;
+	  }
+	}
+      }
+    }
+  }
+/*
+ *   Calculate change in element concentrations due to pure phases and gases
+ */
+  for (i = 0; i < count_unknowns; i++)
+  {
+#ifdef _MSC_VER
+    if (_isnan (delta[i]))
+#else
+    if (isnan (delta[i]))
+#endif
+    {
       sprintf (error_string, "Delta %d equals NaN\n", i);
       warning_msg (error_string);
       delta[i] = 0;
@@ -2811,18 +3487,6 @@ reset (void)
       else if (x[i]->type == MU)
       {
 	up = 100 * mu_x;
-#ifdef SKIP
-	if (up > 0.1)
-	{
-	  up = 2 * mu_x;
-	  up = 0.1;
-	}
-#endif
-#ifdef SKIP
-	down = 0.7 * mu_x;
-	if (down < 0.1)
-	  down = 0.1;
-#endif
 	down = mu_x;
       }
       else if (x[i]->type == AH2O)
@@ -3004,12 +3668,6 @@ reset (void)
       {
 	x[i]->surface_charge->grams = 0.0;
       }
-#ifdef SKIP
-      else if (fabs (delta[i]) > epsilon)
-      {
-	converge = FALSE;
-      }
-#endif
       x[i]->related_moles = x[i]->surface_charge->grams;
       if (debug_model == TRUE)
       {
@@ -3317,7 +3975,7 @@ reset (void)
   converge = FALSE;
   return (converge);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int
 residuals (void)
@@ -3343,12 +4001,6 @@ residuals (void)
  *   Calculate residuals
  */
   converge = TRUE;
-#ifdef SKIP
-  if (punch.high_precision == FALSE)
-    toler = 1e-8;
-  else
-    toler = 1.e-12;
-#endif
   toler = convergence_tolerance;
 
   for (i = 0; i < count_unknowns; i++)
@@ -3488,7 +4140,8 @@ residuals (void)
     }
     else if (x[i]->type == S_S_MOLES)
     {
-      residual[i] = x[i]->f * LOG_10;
+      /*residual[i] = x[i]->f * LOG_10;*/
+      residual[i] = 1. - x[i]->f;
       if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
 	continue;
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
@@ -4549,12 +5202,16 @@ numerical_jacobian (void)
   double d, d1, d2;
   int i, j;
 
+#ifdef SKIP
   if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC)
     return (OK);
+#endif
   calculating_deriv = TRUE;
   gammas (mu_x);
   molalities (TRUE);
   mb_sums ();
+  mb_s_s ();
+  mb_gases ();
   residuals ();
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
@@ -4631,6 +5288,7 @@ numerical_jacobian (void)
     case S_S_MOLES:
       if (x[i]->s_s_in == FALSE)
 	continue;
+#ifdef SKIP
       for (j = 0; j < count_unknowns; j++)
       {
 	delta[j] = 0.0;
@@ -4647,6 +5305,12 @@ numerical_jacobian (void)
       reset ();
       d2 = delta[i];
       /*fprintf (stderr, "delta after reset %e\n", delta[i]); */
+#endif
+      d2 = d * x[i]->moles;
+      if (d2 < 1e-14)
+	d2 = 1e-14;
+      x[i]->moles += d2;
+      x[i]->s_s->total_moles += d2;
       break;
     case GAS_MOLES:
       if (gas_in == FALSE)
@@ -4660,8 +5324,9 @@ numerical_jacobian (void)
     }
     molalities (TRUE);
     mb_sums ();
+    mb_s_s();
+    mb_gases();
     /*
-       mb_s_s();
        mb_gases();
      */
     residuals ();
@@ -4710,8 +5375,12 @@ numerical_jacobian (void)
       reset ();
       break;
     case S_S_MOLES:
+/*
       delta[i] = -d2;
       reset ();
+*/
+      x[i]->moles -= d2;
+      x[i]->s_s->total_moles -= d2;
       break;
     case GAS_MOLES:
       x[i]->moles -= d2;

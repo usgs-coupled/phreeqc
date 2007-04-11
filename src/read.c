@@ -4698,6 +4698,7 @@ read_selected_output (void)
 
   int i, l;
   char file_name[MAX_LENGTH], token[MAX_LENGTH];
+  static int have_punch_name = FALSE;
 
   punch.in = TRUE;
   punch.new_def = TRUE;
@@ -4738,17 +4739,15 @@ read_selected_output (void)
       break;
     case 0:			/* file name */
       /* copy_token(file_name, &next_char, &l); */
-      if (string_trim (next_char) != EMPTY) 
-	  {
-		strcpy (file_name, next_char);
-		have_punch_name = TRUE;
-		if (output_open (OUTPUT_PUNCH, file_name) != OK)
-		{
-			sprintf (error_string, "Can't open file, %s.", file_name);
-			input_error++;
-			error_msg (error_string, CONTINUE);
-		}
-	  } 
+      string_trim (next_char);
+      strcpy (file_name, next_char);
+      have_punch_name = TRUE;
+      if (output_open (OUTPUT_PUNCH, file_name) != OK)
+      {
+	sprintf (error_string, "Can't open file, %s.", file_name);
+	input_error++;
+	error_msg (error_string, CONTINUE);
+      }
       opt_save = OPTION_ERROR;
       break;
     case 1:			/* totals */

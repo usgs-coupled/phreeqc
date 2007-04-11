@@ -261,33 +261,18 @@ quick_setup (void)
  */
   if (s_s_unknown != NULL)
   {
+    j = 0;
     for (i = 0; i < count_unknowns; i++)
     {
-      if (x[i]->type == S_S_MOLES)
-	break;
-    }
-    for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
-    {
-      for (k = 0; k < use.s_s_assemblage_ptr->s_s[j].count_comps; k++)
+      if (x[i]->type != S_S_MOLES)
+	continue;
+      x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j++]);
+      for (k = 0; k < x[i]->s_s->count_comps; k++)
       {
-	x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
-	x[i]->s_s_comp = &(use.s_s_assemblage_ptr->s_s[j].comps[k]);
-	x[i]->s_s_comp_number = j;
-	x[i]->moles = x[i]->s_s_comp->moles;
-	if (x[i]->moles <= 0)
-	{
-	  x[i]->moles = MIN_TOTAL_SS;
-	  x[i]->s_s_comp->moles = MIN_TOTAL_SS;
-	}
-	x[i]->s_s_comp->initial_moles = x[i]->moles;
-	x[i]->ln_moles = log (x[i]->moles);
-
-	x[i]->phase->dn = x[i]->s_s_comp->dn;
-	x[i]->phase->dnb = x[i]->s_s_comp->dnb;
-	x[i]->phase->dnc = x[i]->s_s_comp->dnc;
-	x[i]->phase->log10_fraction_x = x[i]->s_s_comp->log10_fraction_x;
-	x[i]->phase->log10_lambda = x[i]->s_s_comp->log10_lambda;
-	i++;
+	x[i]->s_s->comps[k].phase->moles_x = x[i]->s_s->comps[k].moles;
+	x[i]->s_s->comps[k].phase->fraction_x = x[i]->s_s->comps[k].fraction_x;
+	x[i]->s_s->comps[k].phase->log10_fraction_x = x[i]->s_s->comps[k].log10_fraction_x;
+	x[i]->s_s->comps[k].phase->log10_lambda = x[i]->s_s->comps[k].log10_lambda;
       }
     }
   }
@@ -671,7 +656,6 @@ build_gas_phase (void)
   }
   return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int
 build_s_s_assemblage (void)
@@ -680,199 +664,86 @@ build_s_s_assemblage (void)
 /*
  *   Put coefficients into lists to sum iaps to test for equilibrium
  *   Put coefficients into lists to build jacobian for 
- *      mass action equation for component
- *      mass balance equations for elements contained in solid solutions
+ *      sum of partial pressures equation and
+ *      mass balance equations for elements contained in gases
  */
-  int i, j, k, l, stop;
+  int i, j, k;
   int row, col;
   struct master *master_ptr;
   struct rxn_token *rxn_ptr;
+  struct s_s_comp *s_s_comp_ptr;
+  struct phase *phase_ptr;
+  struct unknown *unknown_ptr;
   struct s_s *s_s_ptr, *s_s_ptr_old;
-  char token[MAX_LENGTH];
-  char *ptr;
+  LDBLE coef, coef_elt;
 
   if (s_s_unknown == NULL)
     return (OK);
-  s_s_ptr_old = NULL;
-  col = 0;
-  for (i = 0; i < count_unknowns; i++)
+  for (k = 0; k < count_unknowns; k++)
   {
-    if (x[i]->type != S_S_MOLES)
+    if (x[k]->type != S_S_MOLES)
       continue;
-    s_s_ptr = x[i]->s_s;
-    if (s_s_ptr != s_s_ptr_old)
+    s_s_ptr = x[k]->s_s;
+    for (i = 0; i < s_s_ptr->count_comps; i++)
     {
-      col = x[i]->number;
-      s_s_ptr_old = s_s_ptr;
-    }
 /*
- *   Calculate function value (inverse saturation index)
+ *   Determine elements in s_s component
  */
-    if (x[i]->phase->rxn_x == NULL)
-      continue;
-    store_mb (&(x[i]->phase->lk), &(x[i]->f), 1.0);
-    for (rxn_ptr = x[i]->phase->rxn_x->token + 1; rxn_ptr->s != NULL;
-	 rxn_ptr++)
-    {
-      store_mb (&(rxn_ptr->s->la), &(x[i]->f), -rxn_ptr->coef);
-    }
-    /* include mole fraction */
-    store_mb (&(x[i]->phase->log10_fraction_x), &(x[i]->f), 1.0);
-
-    /* include activity coeficient */
-    store_mb (&(x[i]->phase->log10_lambda), &(x[i]->f), 1.0);
-/*
- *   Put coefficients into mass action equations
- */
-    /* first IAP terms */
-    for (rxn_ptr = x[i]->phase->rxn_x->token + 1; rxn_ptr->s != NULL;
-	 rxn_ptr++)
-    {
-      if (rxn_ptr->s->secondary != NULL && rxn_ptr->s->secondary->in == TRUE)
-      {
-	master_ptr = rxn_ptr->s->secondary;
-      }
-      else
-      {
-	master_ptr = rxn_ptr->s->primary;
-      }
-      if (master_ptr == NULL || master_ptr->unknown == NULL)
+      count_elts = 0;
+      paren_count = 0;
+      s_s_comp_ptr = &(s_s_ptr->comps[i]);
+      phase_ptr = s_s_comp_ptr->phase;
+      if (phase_ptr->rxn_x == NULL)
 	continue;
-      store_jacob0 (x[i]->number, master_ptr->unknown->number, rxn_ptr->coef);
-    }
-
-    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0.0)
-    {
+      add_elt_list (phase_ptr->next_elt, 1.0);
+#ifdef COMBINE
+      change_hydrogen_in_elt_list (0);
+#endif
 /*
- *   For binary solid solution
+ *   Build mass balance sums for each element in s_s
  */
-      /* next dnc terms */
-      row = x[i]->number * (count_unknowns + 1);
-      if (x[i]->s_s_comp_number == 0)
+      if (debug_prep == TRUE)
       {
-	col = x[i]->number;
+	output_msg (OUTPUT_MESSAGE, "\n\tMass balance summations %s.\n\n",
+		    s_s_comp_ptr->phase->name);
       }
-      else
-      {
-	col = x[i]->number - 1;
-      }
-      store_jacob (&(x[i]->phase->dnc), &(array[row + col]), -1);
 
-      /* next dnb terms */
-      col++;
-      store_jacob (&(x[i]->phase->dnb), &(array[row + col]), -1);
-    }
-    else
-    {
-/*
- *   For ideal solid solution
- */
-      row = x[i]->number * (count_unknowns + 1);
-      for (j = 0; j < s_s_ptr->count_comps; j++)
+      /* All elements in s_s */
+      for (j = 0; j < count_elts; j++)
       {
-	if (j != x[i]->s_s_comp_number)
+	unknown_ptr = NULL;
+	if (strcmp (elt_list[j].elt->name, "H") == 0)
 	{
-/*					store_jacob (&(s_s_ptr->dn), &(array[row + col + j]), -1.0); */
-	  store_jacob (&(x[i]->phase->dn), &(array[row + col + j]), -1.0);
+	  unknown_ptr = mass_hydrogen_unknown;
+	}
+	else if (strcmp (elt_list[j].elt->name, "O") == 0)
+	{
+	  unknown_ptr = mass_oxygen_unknown;
 	}
 	else
 	{
-	  store_jacob (&(x[i]->phase->dnb), &(array[row + col + j]), -1.0);
-	}
-      }
-    }
-/*
- *   Put coefficients into mass balance equations
- */
-    count_elts = 0;
-    paren_count = 0;
-    strcpy (token, x[i]->phase->formula);
-    ptr = token;
-    get_elts_in_species (&ptr, 1.0);
-/*
- *   Go through elements in phase
- */
-#ifdef COMBINE
-    change_hydrogen_in_elt_list (0);
-#endif
-    for (j = 0; j < count_elts; j++)
-    {
-
-      if (strcmp (elt_list[j].elt->name, "H") == 0
-	  && mass_hydrogen_unknown != NULL)
-      {
-	store_jacob0 (mass_hydrogen_unknown->number, x[i]->number,
-		      -elt_list[j].coef);
-	store_sum_deltas (&(delta[i]), &mass_hydrogen_unknown->delta,
-			  elt_list[j].coef);
-
-      }
-      else if (strcmp (elt_list[j].elt->name, "O") == 0
-	       && mass_oxygen_unknown != NULL)
-      {
-	store_jacob0 (mass_oxygen_unknown->number, x[i]->number,
-		      -elt_list[j].coef);
-	store_sum_deltas (&(delta[i]), &mass_oxygen_unknown->delta,
-			  elt_list[j].coef);
-
-      }
-      else
-      {
-	master_ptr = elt_list[j].elt->primary;
-	if (master_ptr->in == FALSE)
-	{
-	  master_ptr = master_ptr->s->secondary;
-	}
-	if (master_ptr == NULL || master_ptr->in == FALSE)
-	{
-	  if (state != ADVECTION && state != TRANSPORT && state != PHAST)
+	  if (elt_list[j].elt->primary->in == TRUE)
 	  {
-	    sprintf (error_string, "Element in phase, %s, is not in model.",
-		     x[i]->phase->name);
-	    warning_msg (error_string);
+	    unknown_ptr = elt_list[j].elt->primary->unknown;
 	  }
-	  if (master_ptr != NULL)
+	  else if (elt_list[j].elt->primary->s->secondary != NULL)
 	  {
-	    master_ptr->s->la = -999.9;
+	    unknown_ptr = elt_list[j].elt->primary->s->secondary->unknown;
 	  }
-/*
- *   Master species is in model
- */
 	}
-	else if (master_ptr->in == TRUE)
+	if (unknown_ptr != NULL)
 	{
-	  store_jacob0 (master_ptr->unknown->number, x[i]->number,
-			-elt_list[j].coef);
-	  store_sum_deltas (&delta[i], &master_ptr->unknown->delta,
-			    elt_list[j].coef);
-/*
- *   Master species in equation needs to be rewritten
- */
-	}
-	else if (master_ptr->in == REWRITE)
-	{
-	  stop = FALSE;
-	  for (k = 0; k < count_unknowns; k++)
+	  coef = elt_list[j].coef;
+	  store_mb (&(s_s_comp_ptr->phase->moles_x), &(unknown_ptr->f), coef);
+	  if (debug_prep == TRUE)
 	  {
-	    if (x[k]->type != MB)
-	      continue;
-	    for (l = 0; x[k]->master[l] != NULL; l++)
-	    {
-	      if (x[k]->master[l] == master_ptr)
-	      {
-		store_jacob0 (x[k]->master[0]->unknown->number, x[i]->number,
-			      -elt_list[j].coef);
-		store_sum_deltas (&delta[i], &x[k]->master[0]->unknown->delta,
-				  elt_list[j].coef);
-		stop = TRUE;
-		break;
-	      }
-	    }
-	    if (stop == TRUE)
-	      break;
+	    output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
+			unknown_ptr->description, (double) coef);
 	  }
 	}
       }
+	/* Sum of mole fraction gases */
+      store_mb (&(s_s_comp_ptr->phase->fraction_x), &(x[k]->f), 1.0);
     }
   }
   return (OK);
@@ -3189,61 +3060,41 @@ setup_gas_phase (void)
   count_unknowns++;
   return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int
 setup_s_s_assemblage (void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Fill in data for solid solution unknowns (sum of partial pressures)
+ *   Fill in data for solid solution unknowns 
  *   in unknown structure
  */
   int i, j;
   if (use.s_s_assemblage_ptr == NULL)
     return (OK);
 /*
- *   One for each component in each solid solution
+ *   One unknonw for each solid solution, moles of solid solution
  */
   s_s_unknown = NULL;
   for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
   {
+    x[count_unknowns]->type = S_S_MOLES;
+    x[count_unknowns]->description = string_hsave (use.s_s_assemblage_ptr->s_s[j].name);
+    x[count_unknowns]->moles = 0.0;
     for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
     {
-      x[count_unknowns]->type = S_S_MOLES;
-      x[count_unknowns]->description =
-	string_hsave (use.s_s_assemblage_ptr->s_s[j].comps[i].name);
-      x[count_unknowns]->moles = 0.0;
       if (use.s_s_assemblage_ptr->s_s[j].comps[i].moles <= 0)
       {
 	use.s_s_assemblage_ptr->s_s[j].comps[i].moles = MIN_TOTAL_SS;
       }
-      x[count_unknowns]->moles =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
-      use.s_s_assemblage_ptr->s_s[j].comps[i].initial_moles =
-	x[count_unknowns]->moles;
-      x[count_unknowns]->ln_moles = log (x[count_unknowns]->moles);
-      x[count_unknowns]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
-      x[count_unknowns]->s_s_comp =
-	&(use.s_s_assemblage_ptr->s_s[j].comps[i]);
-      x[count_unknowns]->s_s_comp_number = i;
-      x[count_unknowns]->phase =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].phase;
-      x[count_unknowns]->number = count_unknowns;
-      x[count_unknowns]->phase->dn =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].dn;
-      x[count_unknowns]->phase->dnb =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].dnb;
-      x[count_unknowns]->phase->dnc =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].dnc;
-      x[count_unknowns]->phase->log10_fraction_x =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].log10_fraction_x;
-      x[count_unknowns]->phase->log10_lambda =
-	use.s_s_assemblage_ptr->s_s[j].comps[i].log10_lambda;
-      if (s_s_unknown == NULL)
-	s_s_unknown = x[count_unknowns];
-      count_unknowns++;
+      x[count_unknowns]->moles += use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
     }
+    if (x[count_unknowns]->moles <= 0) x[count_unknowns]->moles = MIN_TOTAL_SS;
+    use.s_s_assemblage_ptr->s_s[j].total_moles = x[count_unknowns]->moles;
+    x[count_unknowns]->ln_moles = log (x[count_unknowns]->moles);
+    x[count_unknowns]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
+    if (s_s_unknown == NULL) s_s_unknown =  x[count_unknowns];
+    count_unknowns++;
   }
   return (OK);
 }
