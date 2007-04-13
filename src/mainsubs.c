@@ -628,6 +628,7 @@ initialize (void)
   dbg_master = master;
   calculating_deriv = FALSE;
   numerical_deriv = FALSE;
+  numerical_deriv = TRUE;
   return;
 }
 
@@ -862,6 +863,7 @@ initial_solutions (int print)
   int i, converge, converge1;
   int n, last, n_user, print1;
   char token[2 * MAX_LENGTH];
+  LDBLE save_step_size;
 
   state = INITIAL_SOLUTION;
   set_use ();
@@ -891,9 +893,12 @@ initial_solutions (int print)
       if (converge == ERROR && diagonal_scale == FALSE)
       {
 	diagonal_scale = TRUE;
+	save_step_size = step_size;
+	step_size = 10;
 	set (TRUE);
 	converge = model ();
 	diagonal_scale = FALSE;
+	step_size = save_step_size;
       }
       converge1 = check_residuals ();
       sum_species ();

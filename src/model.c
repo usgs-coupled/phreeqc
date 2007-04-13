@@ -143,7 +143,7 @@ model (void)
       }
       else
       {
-	jacobian_sums ();
+	/*jacobian_sums ();*/
 	numerical_jacobian ();
       }
 /*
@@ -677,6 +677,7 @@ gammas (LDBLE mu)
 							 s_x[i]->dha * b *
 							 muhalf)) +
 		    s_x[i]->dhb) * LOG_10 * s_x[i]->moles;
+      /*output_msg(OUTPUT_MESSAGE, "lg %e la %e m %e  %s\n", s_x[i]->lg, s_x[i]->la, pow(10, s_x[i]->la - s_x[i]->lg), s_x[i]->name);*/
 /*			if (mu_x < 1e-6) s_x[i]->dg = 0.0; */
       break;
     case 3:			/* Always 1.0 */
@@ -2344,8 +2345,9 @@ molalities (int allow_overflow)
   if (use.gas_phase_ptr != NULL)
     calc_gas_pressures ();
   if (use.s_s_assemblage_ptr != NULL)
+  {
     calc_s_s_fractions ();
-
+  }
   return (OK);
 }
 
@@ -2411,10 +2413,11 @@ int
 calc_s_s_fractions (void)
 /* ---------------------------------------------------------------------- */
 {
-  int i, k;
+  int i, k, j;
   LDBLE n_tot, iap;
   struct s_s *s_s_ptr;
   struct rxn_token *rxn_ptr;
+  int repeat;
 
 /*
  *   moles and lambdas for solid solutions
@@ -2426,36 +2429,54 @@ calc_s_s_fractions (void)
  */
   if (use.s_s_assemblage_ptr == NULL)
     return (OK);
-  for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+  repeat = TRUE;
+  j = 0;
+  while (repeat == TRUE) 
   {
-    s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
-    n_tot = s_s_ptr->total_moles;
-    /*
-     * Calculate mole fractions
-     */
-    for (k = 0; k < s_s_ptr->count_comps; k++)
+    repeat = FALSE;
+    for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
     {
-      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
-      for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+      s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+      n_tot = s_s_ptr->total_moles;
+      /*
+       * Calculate mole fractions
+       */
+      for (k = 0; k < s_s_ptr->count_comps; k++)
       {
-	iap += rxn_ptr->s->la * rxn_ptr->coef;
+	iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+	for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+	{
+	  iap += rxn_ptr->s->la * rxn_ptr->coef;
+	}
+	s_s_ptr->comps[k].log10_fraction_x = iap;
+	s_s_ptr->comps[k].fraction_x = pow(10., iap);
+	if (s_s_ptr->comps[k].fraction_x < 1e-50) s_s_ptr->comps[k].fraction_x = 1e-50;
+	s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
+	
+	s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
+	s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
       }
-      s_s_ptr->comps[k].log10_fraction_x = iap;
-      s_s_ptr->comps[k].fraction_x = pow(10., iap);
-      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
-
-      s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
-      s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
-    }
-    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
-    {
-      s_s_binary (s_s_ptr);
-    }
-    else
-    {
-      s_s_ideal (s_s_ptr);
+      if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
+      {
+	s_s_binary (s_s_ptr);
+	for (k = 0; k < s_s_ptr->count_comps; k++)
+	{
+	  if (equal(s_s_ptr->comps[k].phase->log10_lambda, s_s_ptr->comps[k].log10_lambda, convergence_tolerance) != TRUE)
+	  {
+	    repeat = TRUE;
+	    j++;
+	    if (j > 50) repeat = FALSE;
+	  }
+	  s_s_ptr->comps[k].phase->log10_lambda = s_s_ptr->comps[k].log10_lambda;
+	}
+      }
+      else
+      {
+	s_s_ideal (s_s_ptr);
+      }
     }
   }
+  /*if (j > 0) fprintf(stderr, "Repeated %d times.\n", j);*/
   return (OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2490,15 +2511,16 @@ s_s_binary (struct s_s *s_s_ptr)
   a1 = s_s_ptr->a1;
   if (s_s_ptr->miscibility == TRUE && xb > s_s_ptr->xb1 && xb < s_s_ptr->xb2)
   {
+    /*output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");*/
     xb1 = s_s_ptr->xb1;
     xc1 = 1.0 - xb1;
     s_s_ptr->comps[0].log10_lambda =
       xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)) / LOG_10;
-    s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
+    /*s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;*/
 
     s_s_ptr->comps[1].log10_lambda =
       xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)) / LOG_10;
-    s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
+    /*s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;*/
 
   }
   else
@@ -2506,13 +2528,14 @@ s_s_binary (struct s_s *s_s_ptr)
 /*
  *   Not in miscibility gap
  */
+    /*output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");*/
     s_s_ptr->comps[0].log10_lambda =
       xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
-    s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
+    /*s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;*/
 
     s_s_ptr->comps[1].log10_lambda =
       xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
-    s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
+    /*s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;*/
 
 #ifdef SKIP
     xc2 = xc * xc;
@@ -2799,7 +2822,7 @@ reset (void)
       {
 	down = up;
       }
-      else if (x[i]->type == MH)
+      else if (x[i]->type == MH || x[i]->type == CB)
       {
 	up = log (pe_step_size_now);
 	down = 1.3 * up;
@@ -3241,6 +3264,8 @@ reset (void)
       x[i]->moles += delta[i];
       if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE)
 	x[i]->moles = MIN_TOTAL_SS;
+      if (x[i]->f < .001) 	x[i]->moles = MIN_TOTAL_SS;
+
       /*x[i]->s_s_comp->moles = x[i]->moles;*/
       x[i]->s_s->total_moles = x[i]->moles;
 /*   Pitzer gamma */
@@ -5201,11 +5226,13 @@ numerical_jacobian (void)
   double *base;
   double d, d1, d2;
   int i, j;
+  int count_g;
 
 #ifdef SKIP
   if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC)
     return (OK);
 #endif
+  count_g = 0;
   calculating_deriv = TRUE;
   gammas (mu_x);
   molalities (TRUE);
@@ -5272,7 +5299,9 @@ numerical_jacobian (void)
       break;
     case MU:
       d2 = d * mu_x;
+      d2 = .1 * mu_x;
       mu_x += d2;
+      /*output_msg(OUTPUT_MESSAGE, "MU derivative base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       gammas (mu_x);
       break;
     case PP:
@@ -5306,7 +5335,17 @@ numerical_jacobian (void)
       d2 = delta[i];
       /*fprintf (stderr, "delta after reset %e\n", delta[i]); */
 #endif
-      d2 = d * x[i]->moles;
+
+      if (x[i]->moles < 1e-14)
+      {
+	d2 = 10.;
+      }
+      else
+      {
+	d2 = 1e-2;
+      }
+
+      d2 = d2 * x[i]->moles;
       if (d2 < 1e-14)
 	d2 = 1e-14;
       x[i]->moles += d2;
@@ -5333,9 +5372,7 @@ numerical_jacobian (void)
     for (j = 0; j < count_unknowns; j++)
     {
       array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
-      /*
-         output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
-       */
+      /*output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], residual[j] - base[j], d2);*/
     }
     switch (x[i]->type)
     {
@@ -5345,11 +5382,18 @@ numerical_jacobian (void)
     case SOLUTION_PHASE_BOUNDARY:
     case EXCH:
     case SURFACE:
-    case SURFACE_CB:
     case SURFACE_CB1:
     case SURFACE_CB2:
     case AH2O:
       x[i]->master[0]->s->la -= d;
+      break;
+    case SURFACE_CB:
+      for (j = 0; j < count_s_x; j++) 
+      {
+	array[i * (count_unknowns + 1) + i] += s_x[j]->z * s_x[j]->diff_layer[count_g].dx_moles;
+      }
+      x[i]->master[0]->s->la -= d;
+      count_g++;
       break;
     case MH:
       s_eminus->la -= d;
@@ -5368,7 +5412,9 @@ numerical_jacobian (void)
       break;
     case MU:
       mu_x -= d2;
+      /*output_msg(OUTPUT_MESSAGE, "After MU calc base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       gammas (mu_x);
+      /*output_msg(OUTPUT_MESSAGE, "After MU derivative %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       break;
     case PP:
       delta[i] = -d2;
@@ -5380,7 +5426,7 @@ numerical_jacobian (void)
       reset ();
 */
       x[i]->moles -= d2;
-      x[i]->s_s->total_moles -= d2;
+      x[i]->s_s->total_moles = x[i]->moles;
       break;
     case GAS_MOLES:
       x[i]->moles -= d2;
