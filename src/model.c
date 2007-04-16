@@ -12,7 +12,7 @@ static LDBLE s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
 			LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
 		    LDBLE xcaq, LDBLE xbaq);
-static int numerical_jacobian (void);
+int numerical_jacobian (void);
 
 #ifdef SKIP
 static int adjust_step_size (void);
@@ -34,7 +34,7 @@ static int s_s_binary (struct s_s *s_s_ptr);
 static int s_s_ideal (struct s_s *s_s_ptr);
 
 static int remove_unstable_phases;
-static int gas_in;
+int gas_in;
 
 LDBLE min_value = 1e-10;
 
@@ -139,11 +139,12 @@ model (void)
  */
       if (state >= REACTION && numerical_deriv)
       {
+	jacobian_sums ();
 	numerical_jacobian ();
       }
       else
       {
-	/*jacobian_sums ();*/
+	jacobian_sums ();
 	numerical_jacobian ();
       }
 /*
@@ -1802,6 +1803,7 @@ jacobian_sums (void)
 /*
  *   Ionic strength
  */
+#ifdef SKIP
   if (mu_unknown != NULL)
   {
     for (i = 0; i < count_unknowns; i++)
@@ -1866,6 +1868,7 @@ jacobian_sums (void)
       }
     }
   }
+#endif
   return (OK);
 }
 
@@ -2793,6 +2796,14 @@ reset (void)
   sum_deltas = 0.0;
   for (i = 0; i < count_unknowns; i++)
   {
+    if (delta[i] > 1000) 
+    {
+      delta[i] = 1000;
+    }
+    else if (delta[i] < -1000) 
+    {
+      delta[i] = -1000;
+    }
     /* fixes underflow problem on Windows */
     if (delta[i] > 0)
     {
@@ -2820,9 +2831,14 @@ reset (void)
       }
       else if (x[i]->type == AH2O)
       {
-	down = up;
+	if (x[i]->f > 100) continue;
+	up = .1;
+	down = .07;
+	  
+	/*down = up;*/
       }
       else if (x[i]->type == MH || x[i]->type == CB)
+	/*else if (x[i]->type == MH)*/
       {
 	up = log (pe_step_size_now);
 	down = 1.3 * up;
@@ -3133,7 +3149,9 @@ reset (void)
 		    (double) (x[i]->master[0]->s->la + d), "delta",
 		    (double) delta[i], "delta/c", (double) d);
       }
-      s_h2o->la += d;
+      if (x[i]->f < 100) {
+	s_h2o->la += d;
+      }
       if (pitzer_model == FALSE)
       {
 	if (s_h2o->la < -1.0)
@@ -5244,6 +5262,7 @@ numerical_jacobian (void)
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
 
+/*
   for (i = 0; i < count_unknowns; i++)
   {
     array[i] = 0.0;
@@ -5253,7 +5272,7 @@ numerical_jacobian (void)
     memcpy ((void *) &(array[i * (count_unknowns + 1)]), (void *) &(array[0]),
 	    (size_t) count_unknowns * sizeof (LDBLE));
   }
-
+*/
   base = (LDBLE *) PHRQ_malloc ((size_t) count_unknowns * sizeof (LDBLE));
   if (base == NULL)
     malloc_error ();
@@ -5299,7 +5318,6 @@ numerical_jacobian (void)
       break;
     case MU:
       d2 = d * mu_x;
-      d2 = .1 * mu_x;
       mu_x += d2;
       /*output_msg(OUTPUT_MESSAGE, "MU derivative base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       gammas (mu_x);
@@ -5371,7 +5389,7 @@ numerical_jacobian (void)
     residuals ();
     for (j = 0; j < count_unknowns; j++)
     {
-      array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
+      array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
       /*output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], residual[j] - base[j], d2);*/
     }
     switch (x[i]->type)
@@ -5388,10 +5406,12 @@ numerical_jacobian (void)
       x[i]->master[0]->s->la -= d;
       break;
     case SURFACE_CB:
+/*
       for (j = 0; j < count_s_x; j++) 
       {
 	array[i * (count_unknowns + 1) + i] += s_x[j]->z * s_x[j]->diff_layer[count_g].dx_moles;
       }
+*/
       x[i]->master[0]->s->la -= d;
       count_g++;
       break;

@@ -580,8 +580,10 @@ build_gas_phase (void)
 	}
 	col = master_ptr->unknown->number;
 	coef = coef_elt * rxn_ptr->coef;
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob (&(gas_comp_ptr->phase->moles_x), &(array[row + col]),
 		     coef);
+#endif
 	if (debug_prep == TRUE)
 	{
 	  output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -592,8 +594,10 @@ build_gas_phase (void)
       if (use.gas_phase_ptr->type == PRESSURE)
       {
 	/* derivative wrt total moles of gas */
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob (&(gas_comp_ptr->phase->fraction_x),
 		     &(array[row + gas_unknown->number]), coef_elt);
+#endif
 	if (debug_prep == TRUE)
 	{
 	  output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -644,8 +648,10 @@ build_gas_phase (void)
       }
       col = master_ptr->unknown->number;
       coef = rxn_ptr->coef;
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob (&(gas_comp_ptr->phase->p_soln_x), &(array[row + col]),
 		   coef);
+#endif
       if (debug_prep == TRUE)
       {
 	output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -803,7 +809,9 @@ build_jacobian_sums (int k)
 	  &(array
 	    [mb_unknowns[i].unknown->number * (count_unknowns + 1) +
 	     mass_oxygen_unknown->number]);
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob (source, target, coef);
+#endif
 	if (debug_prep == TRUE)
 	{
 	  output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -861,7 +869,9 @@ build_jacobian_sums (int k)
 	  source = &s[k]->diff_layer[count_g].drelated_moles;
 	  target = &(array[mb_unknowns[i].unknown->number *
 			   (count_unknowns + 1) + x[kk]->number]);
+#ifdef NO_NUMERICAL_DERIVATIVE
 	  store_jacob (source, target, coef);
+#endif
 	  if (debug_prep == TRUE)
 	  {
 	    output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -913,7 +923,9 @@ build_jacobian_sums (int k)
 	      source = &s[k]->diff_layer[count_g].drelated_moles;
 	      target = &(array[mb_unknowns[i].unknown->number *
 			       (count_unknowns + 1) + x[kk]->number]);
+#ifdef NO_NUMERICAL_DERIVATIVE
 	      store_jacob (source, target, coef);
+#endif
 	      if (debug_prep == TRUE)
 	      {
 		output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -930,7 +942,9 @@ build_jacobian_sums (int k)
 	    target = &(array[mb_unknowns[i].unknown->number *
 			     (count_unknowns + 1) +
 			     mass_oxygen_unknown->number]);
+#ifdef NO_NUMERICAL_DERIVATIVE
 	    store_jacob (source, target, coef);
+#endif
 	    if (debug_prep == TRUE)
 	    {
 	      output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -1361,7 +1375,9 @@ build_pure_phases (void)
       }
       if (master_ptr == NULL || master_ptr->unknown == NULL)
 	continue;
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob0 (x[i]->number, master_ptr->unknown->number, rxn_ptr->coef);
+#endif
     }
 /*
  *   Put coefficients into mass balance equations
@@ -1393,8 +1409,10 @@ build_pure_phases (void)
       if (strcmp (elt_list[j].elt->name, "H") == 0
 	  && mass_hydrogen_unknown != NULL)
       {
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob0 (mass_hydrogen_unknown->number, x[i]->number,
 		      -elt_list[j].coef);
+#endif
 	store_sum_deltas (&(delta[i]), &mass_hydrogen_unknown->delta,
 			  elt_list[j].coef);
 
@@ -1402,8 +1420,10 @@ build_pure_phases (void)
       else if (strcmp (elt_list[j].elt->name, "O") == 0
 	       && mass_oxygen_unknown != NULL)
       {
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob0 (mass_oxygen_unknown->number, x[i]->number,
 		      -elt_list[j].coef);
+#endif
 	store_sum_deltas (&(delta[i]), &mass_oxygen_unknown->delta,
 			  elt_list[j].coef);
 
@@ -1433,8 +1453,10 @@ build_pure_phases (void)
 	}
 	else if (master_ptr->in == TRUE)
 	{
+#ifdef NO_NUMERICAL_DERIVATIVE
 	  store_jacob0 (master_ptr->unknown->number, x[i]->number,
 			-elt_list[j].coef);
+#endif
 	  store_sum_deltas (&delta[i], &master_ptr->unknown->delta,
 			    elt_list[j].coef);
 /*
@@ -1452,8 +1474,10 @@ build_pure_phases (void)
 	    {
 	      if (x[k]->master[l] == master_ptr)
 	      {
+#ifdef NO_NUMERICAL_DERIVATIVE
 		store_jacob0 (x[k]->master[0]->unknown->number, x[i]->number,
 			      -elt_list[j].coef);
+#endif
 		store_sum_deltas (&delta[i], &x[k]->master[0]->unknown->delta,
 				  elt_list[j].coef);
 		stop = TRUE;
@@ -1531,7 +1555,9 @@ build_solution_phase_boundaries (void)
       }
       if (master_ptr->unknown == NULL)
 	continue;
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob0 (x[i]->number, master_ptr->unknown->number, rxn_ptr->coef);
+#endif
     }
   }
   return (OK);
@@ -4093,18 +4119,24 @@ store_dn (int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
     /* mu term */
     if (gamma_source != NULL)
     {
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob (gamma_source, &array[row + mu_unknown->number],
 		   -1.0 * coef_in);
+#endif
 #ifdef SKIP
       if (use_tot_g == 0)
       {
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob (&(s[k]->dg_total_g), &array[row + mu_unknown->number],
 		     -1.0 * coef_in);
+#endif
       }
       else if (use_tot_g == 1)
       {
+#ifdef NO_NUMERICAL_DERIVATIVE
 	store_jacob (&(s[k]->dg), &array[row + mu_unknown->number],
 		     -1.0 * coef_in);
+#endif
       }
 #endif
     }
@@ -4120,8 +4152,10 @@ store_dn (int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 		  mass_oxygen_unknown->master[0]->s->name, (double) coef_in,
 		  row / (count_unknowns + 1), mass_oxygen_unknown->number);
     }
+#ifdef NO_NUMERICAL_DERIVATIVE
     store_jacob (source, &(array[row + mass_oxygen_unknown->number]),
 		 coef_in);
+#endif
   }
   if (s[k] == s_h2o)
     return (OK);
@@ -4143,7 +4177,9 @@ store_dn (int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
       continue;
     col = master_ptr->unknown->number;
     coef = coef_in * rxn_ptr->coef;
+#ifdef NO_NUMERICAL_DERIVATIVE
     store_jacob (source, &(array[row + col]), coef);
+#endif
     if (debug_prep == TRUE)
     {
       output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
@@ -5114,8 +5150,10 @@ build_min_exch (void)
     comp_ptr = &exchange[n].comps[i];
 
     /* charge balance */
+#ifdef NO_NUMERICAL_DERIVATIVE
     store_jacob0 (charge_balance_unknown->number, x[k]->number,
 		  comp_ptr->formula_z * comp_ptr->phase_proportion);
+#endif
     store_sum_deltas (&delta[k], &charge_balance_unknown->delta,
 		      -comp_ptr->formula_z * comp_ptr->phase_proportion);
 
@@ -5176,7 +5214,9 @@ build_min_exch (void)
 	row = master_ptr->unknown->number;
 	unknown_ptr = master_ptr->unknown;
       }
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob0 (row, x[k]->number, coef * comp_ptr->phase_proportion);
+#endif
       store_sum_deltas (&delta[k], &unknown_ptr->delta,
 			-coef * comp_ptr->phase_proportion);
     }
@@ -5262,8 +5302,10 @@ build_min_surface (void)
     }
 
     /* charge balance */
+#ifdef NO_NUMERICAL_DERIVATIVE
     store_jacob0 (charge_balance_unknown->number, x[k]->number,
 		  comp_ptr->formula_z * comp_ptr->phase_proportion);
+#endif
     store_sum_deltas (&delta[k], &charge_balance_unknown->delta,
 		      -comp_ptr->formula_z * comp_ptr->phase_proportion);
 
@@ -5323,7 +5365,9 @@ build_min_surface (void)
 	row = master_ptr->unknown->number;
 	unknown_ptr = master_ptr->unknown;
       }
+#ifdef NO_NUMERICAL_DERIVATIVE
       store_jacob0 (row, x[k]->number, coef * comp_ptr->phase_proportion);
+#endif
       store_sum_deltas (&delta[k], &unknown_ptr->delta,
 			-coef * comp_ptr->phase_proportion);
     }

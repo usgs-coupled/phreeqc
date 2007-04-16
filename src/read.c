@@ -5009,6 +5009,10 @@ read_selected_output (void)
       if (punch.high_precision == TRUE && convergence_tolerance > 1e-12)
       {
 	convergence_tolerance = 1e-12;
+      } 
+      else
+      {
+	convergence_tolerance = 1e-8;
       }
       break;
     case 39:			/* user_punch */

@@ -36,7 +36,6 @@ static int initial_guesses (void);
 static int revise_guesses (void);
 static int remove_unstable_phases;
 
-
 /* ---------------------------------------------------------------------- */
 int
 pitzer_init (void)
@@ -1462,6 +1461,7 @@ int
 jacobian_pz (void)
 /* ---------------------------------------------------------------------- */
 {
+  extern int gas_in;
   double *base;
   double d, d1, d2;
   int i, j;
@@ -1470,6 +1470,9 @@ jacobian_pz (void)
   {
     molalities (TRUE);
     pitzer ();
+    mb_sums ();
+    mb_s_s ();
+    mb_gases ();
     residuals ();
   }
   base = (LDBLE *) PHRQ_malloc ((size_t) count_unknowns * sizeof (LDBLE));
@@ -1523,16 +1526,53 @@ jacobian_pz (void)
 	continue;
       }
     case MU:
-    case PP:
-    case GAS_MOLES:
-    case S_S_MOLES:
       continue;
+      break;
+    case PP:
+      for (j = 0; j < count_unknowns; j++)
+      {
+	delta[j] = 0.0;
+      }
+      d2 = -1e-8;
+      delta[i] = d2;
+      reset ();
+      d2 = delta[i];
+      break;
+    case S_S_MOLES:
+      d2 = -d * x[i]->moles;
+      delta[i] = d2;
+      reset ();
+      d2 = delta[i];
+      if (x[i]->moles < 1e-14)
+      {
+	d2 = 10.;
+      }
+      else
+      {
+	d2 = 1e-2;
+      }
+      d2 = d2 * x[i]->moles;
+      if (d2 < 1e-14)
+	d2 = 1e-14;
+      x[i]->moles += d2;
+      x[i]->s_s->total_moles += d2;
+      break;
+    case GAS_MOLES:
+      if (gas_in == FALSE)
+	continue;
+
+      d2 = d * x[i]->moles;
+      if (d2 < 1e-14)
+	d2 = 1e-14;
+      x[i]->moles += d2;
       break;
     }
     molalities (TRUE);
     if (full_pitzer == TRUE)
       pitzer ();
     mb_sums ();
+    mb_s_s ();
+    mb_gases ();
     residuals ();
     for (j = 0; j < count_unknowns; j++)
     {
@@ -1565,6 +1605,17 @@ jacobian_pz (void)
     case MH2O:
       mass_water_aq_x /= (1 + d);
       x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+      break;
+    case PP:
+      delta[i] = -d2;
+      reset ();
+      break;
+    case S_S_MOLES:
+      x[i]->moles -= d2;
+      x[i]->s_s->total_moles = x[i]->moles;
+      break;
+    case GAS_MOLES:
+      x[i]->moles -= d2;
       break;
     }
   }
