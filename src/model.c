@@ -137,16 +137,8 @@ model (void)
 /*
  *   Calculate jacobian
  */
-      if (state >= REACTION && numerical_deriv)
-      {
-	jacobian_sums ();
-	numerical_jacobian ();
-      }
-      else
-      {
-	jacobian_sums ();
-	numerical_jacobian ();
-      }
+      jacobian_sums ();
+      numerical_jacobian ();
 /*
  *   Full matrix with pure phases
  */
@@ -1762,8 +1754,7 @@ jacobian_sums (void)
  *   Fills in jacobian array, uses arrays sum_jacob0, sum_jacob1, and
  *   sum_jacob2.
  */
-  int i, j, k;
-  LDBLE sinh_constant;
+  int i, k;
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
@@ -2488,7 +2479,6 @@ s_s_binary (struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
   LDBLE nb, nc, n_tot, xb, xc, a0, a1;
-  LDBLE xb2, xb3, xb4, xc2, xc3;
   LDBLE xb1, xc1;
 /*
  * component 0 is major component
@@ -2600,8 +2590,7 @@ int
 s_s_ideal (struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
-  int k, j;
-  LDBLE n_tot, n_tot1;
+  int k;
 
 /*
  * component 0 is major component
@@ -5244,15 +5233,12 @@ numerical_jacobian (void)
   double *base;
   double d, d1, d2;
   int i, j;
-  int count_g;
 
-#ifdef SKIP
-  if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC)
-    return (OK);
-#endif
-  count_g = 0;
   calculating_deriv = TRUE;
 
+/*
+ *  Calculate base residuals
+ */
   gammas (mu_x);
   molalities (TRUE);
   mb_sums ();
@@ -5261,20 +5247,8 @@ numerical_jacobian (void)
   residuals ();
 
 /*
- *   Clear array, note residuals are in array[i, count_unknowns+1]
+ *  Malloc space, zero arrays
  */
-
-/*
-  for (i = 0; i < count_unknowns; i++)
-  {
-    array[i] = 0.0;
-  }
-  for (i = 1; i < count_unknowns; i++)
-  {
-    memcpy ((void *) &(array[i * (count_unknowns + 1)]), (void *) &(array[0]),
-	    (size_t) count_unknowns * sizeof (LDBLE));
-  }
-*/
   base = (LDBLE *) PHRQ_malloc ((size_t) count_unknowns * sizeof (LDBLE));
   if (base == NULL)
     malloc_error ();
@@ -5282,6 +5256,14 @@ numerical_jacobian (void)
   {
     base[i] = residual[i];
   }
+  for (j = 0; j < count_unknowns; j++)
+  {
+    delta[j] = 0.0;
+  }
+
+/*
+ *  Calculate derivatives
+ */
   d = 1e-6;
   d1 = d * log (10.0);
   d2 = 0;
@@ -5298,6 +5280,7 @@ numerical_jacobian (void)
     case SURFACE_CB:
     case SURFACE_CB1:
     case SURFACE_CB2:
+    case AH2O:
       x[i]->master[0]->s->la += d;
       d2 = d1;
       break;
@@ -5305,66 +5288,37 @@ numerical_jacobian (void)
       s_eminus->la += d;
       d2 = d1;
       break;
-    case AH2O:
-      x[i]->master[0]->s->la += d;
-      d2 = d1;
-      break;
     case PITZER_GAMMA:
       x[i]->s->lg += d;
       d2 = d;
       break;
     case MH2O:
-      for (j = 0; j < count_unknowns; j++)
-      {
-	delta[j] = 0.0;
-      }
       delta[i] = log(1.0 + d);
       d2 = d;
       reset();
       break;
     case MU:
-      residuals();
-      for (j = 0; j < count_unknowns; j++)
-      {
-	delta[j] = 0.0;
-      }
-      delta[i] = d*mu_x;
+      /*residuals();*/
+      delta[i] = d * mu_x;
       reset();
       d2 = delta[i];
       gammas (mu_x);
       break;
     case PP:
-      for (j = 0; j < count_unknowns; j++)
-      {
-	delta[j] = 0.0;
-      }
-      d2 = -1e-8;
+      d2 = -1e-7;
       delta[i] = d2;
+      /*delta[i] = -d;*/
       reset ();
       d2 = delta[i];
       break;
     case S_S_MOLES:
-      if (x[i]->s_s_in == FALSE)
-	continue;
-      if (x[i]->moles < 1e-14)
-      {
-	d2 = 10.;
-      }
-      else
-      {
-	d2 = 1e-2;
-      }
-
-      d2 = d2 * x[i]->moles;
+      d2 = d * x[i]->moles;
       if (d2 < 1e-14)
 	d2 = 1e-14;
       x[i]->moles += d2;
       x[i]->s_s->total_moles += d2;
       break;
     case GAS_MOLES:
-      if (gas_in == FALSE)
-	continue;
-
       d2 = d * x[i]->moles;
       if (d2 < 1e-14)
 	d2 = 1e-14;
@@ -5379,7 +5333,6 @@ numerical_jacobian (void)
     for (j = 0; j < count_unknowns; j++)
     {
       array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
-      /*output_msg(OUTPUT_MESSAGE, "Deriv %d %d %e %e %e %e %e\n", j, i, array[j*(count_unknowns + 1) + i] , residual[j], base[j], residual[j] - base[j], d2);*/
     }
     switch (x[i]->type)
     {
@@ -5389,20 +5342,11 @@ numerical_jacobian (void)
     case SOLUTION_PHASE_BOUNDARY:
     case EXCH:
     case SURFACE:
+    case SURFACE_CB:
     case SURFACE_CB1:
     case SURFACE_CB2:
     case AH2O:
       x[i]->master[0]->s->la -= d;
-      break;
-    case SURFACE_CB:
-/*
-      for (j = 0; j < count_s_x; j++) 
-      {
-	array[i * (count_unknowns + 1) + i] += s_x[j]->z * s_x[j]->diff_layer[count_g].dx_moles;
-      }
-*/
-      x[i]->master[0]->s->la -= d;
-      count_g++;
       break;
     case MH:
       s_eminus->la -= d;
@@ -5418,24 +5362,20 @@ numerical_jacobian (void)
     case MH2O:
       delta[i] = -log(1.0 + d);
       reset ();
+      delta[i] = 0;
       break;
     case MU:
-      /*mu_x -= d2;*/
-      /*output_msg(OUTPUT_MESSAGE, "After MU calc base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       delta[i] = -d2;
       reset ();
       gammas (mu_x);
-      /*output_msg(OUTPUT_MESSAGE, "After MU derivative %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
+      delta[i] = 0;
       break;
     case PP:
       delta[i] = -d2;
       reset ();
+      delta[i] = 0;
       break;
     case S_S_MOLES:
-/*
-      delta[i] = -d2;
-      reset ();
-*/
       x[i]->moles -= d2;
       x[i]->s_s->total_moles = x[i]->moles;
       break;
