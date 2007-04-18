@@ -5312,14 +5312,23 @@ numerical_jacobian (void)
       d2 = d;
       break;
     case MH2O:
-      mass_water_aq_x *= (1.0 + d);
-      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
-      d2 = log (1.0 + d);
+      for (j = 0; j < count_unknowns; j++)
+      {
+	delta[j] = 0.0;
+      }
+      delta[i] = log(1.0 + d);
+      d2 = d;
+      reset();
       break;
     case MU:
-      d2 = d * mu_x;
-      mu_x += d2;
-      /*output_msg(OUTPUT_MESSAGE, "MU derivative base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
+      residuals();
+      for (j = 0; j < count_unknowns; j++)
+      {
+	delta[j] = 0.0;
+      }
+      delta[i] = d*mu_x;
+      reset();
+      d2 = delta[i];
       gammas (mu_x);
       break;
     case PP:
@@ -5390,7 +5399,7 @@ numerical_jacobian (void)
     for (j = 0; j < count_unknowns; j++)
     {
       array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
-      /*output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], residual[j] - base[j], d2);*/
+      /*output_msg(OUTPUT_MESSAGE, "Deriv %d %d %e %e %e %e %e\n", j, i, array[j*(count_unknowns + 1) + i] , residual[j], base[j], residual[j] - base[j], d2);*/
     }
     switch (x[i]->type)
     {
@@ -5427,12 +5436,14 @@ numerical_jacobian (void)
       x[i]->s->lg -= d;
       break;
     case MH2O:
-      mass_water_aq_x /= (1 + d);
-      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+      delta[i] = -log(1.0 + d);
+      reset ();
       break;
     case MU:
-      mu_x -= d2;
+      /*mu_x -= d2;*/
       /*output_msg(OUTPUT_MESSAGE, "After MU calc base %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
+      delta[i] = -d2;
+      reset ();
       gammas (mu_x);
       /*output_msg(OUTPUT_MESSAGE, "After MU derivative %e residual %e diff %e\n", base[i], residual[i], residual[i] - base[i]);*/
       break;

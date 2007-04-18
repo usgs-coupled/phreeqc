@@ -830,6 +830,7 @@ calc_all_donnan (void)
     return (OK);
   if (use.surface_ptr->type == CD_MUSIC)
     return (calc_all_donnan_music ());
+  if (calculating_deriv == TRUE) return(OK);
   f_sinh =
     sqrt (8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * tk_x *
 	  mu_x);
