@@ -5264,11 +5264,11 @@ numerical_jacobian (void)
 /*
  *  Calculate derivatives
  */
-  d = 1e-6;
-  d1 = d * log (10.0);
-  d2 = 0;
   for (i = 0; i < count_unknowns; i++)
   {
+    d = 1e-6;
+    d1 = d * log (10.0);
+    d2 = 0;
     switch (x[i]->type)
     {
     case MB:
@@ -5285,6 +5285,8 @@ numerical_jacobian (void)
       d2 = d1;
       break;
     case MH:
+      d = 1e-7;
+      d1 = d * log (10.0);
       s_eminus->la += d;
       d2 = d1;
       break;
