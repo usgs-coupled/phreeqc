@@ -1466,6 +1466,7 @@ jacobian_pz (void)
   double d, d1, d2;
   int i, j;
 
+  calculating_deriv = TRUE;
   if (full_pitzer == TRUE)
   {
     molalities (TRUE);
@@ -1510,10 +1511,20 @@ jacobian_pz (void)
       d2 = d;
       break;
     case MH2O:
+      for (j = 0; j < count_unknowns; j++)
+      {
+	delta[j] = 0.0;
+      }
+      delta[i] = log(1.0 + d);
+      d2 = d;
+      reset();
+      break;
+/*
       mass_water_aq_x *= (1.0 + d);
       x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
       d2 = log (1.0 + d);
       break;
+*/
     case MH:
       if (pitzer_pe == TRUE)
       {
@@ -1539,6 +1550,22 @@ jacobian_pz (void)
       d2 = delta[i];
       break;
     case S_S_MOLES:
+      if (x[i]->moles < 1e-14)
+      {
+	d2 = 10.;
+      }
+      else
+      {
+	d2 = 1e-2;
+      }
+
+      d2 = d2 * x[i]->moles;
+      if (d2 < 1e-14)
+	d2 = 1e-14;
+      x[i]->moles += d2;
+      x[i]->s_s->total_moles += d2;
+      break;
+/*
       d2 = -d * x[i]->moles;
       delta[i] = d2;
       reset ();
@@ -1557,6 +1584,7 @@ jacobian_pz (void)
       x[i]->moles += d2;
       x[i]->s_s->total_moles += d2;
       break;
+*/
     case GAS_MOLES:
       if (gas_in == FALSE)
 	continue;
@@ -1576,7 +1604,7 @@ jacobian_pz (void)
     residuals ();
     for (j = 0; j < count_unknowns; j++)
     {
-      array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
+      array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
     }
     switch (x[i]->type)
     {
@@ -1603,8 +1631,8 @@ jacobian_pz (void)
       x[i]->s->lg -= d;
       break;
     case MH2O:
-      mass_water_aq_x /= (1 + d);
-      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+      delta[i] = -log(1.0 + d);
+      reset ();
       break;
     case PP:
       delta[i] = -d2;
@@ -1624,7 +1652,12 @@ jacobian_pz (void)
     pitzer ();
   mb_sums ();
   residuals ();
+  mb_sums ();
+  mb_gases ();
+  mb_s_s ();
+  residuals ();
   free_check_null (base);
+  calculating_deriv = FALSE;
   return OK;
 }
 

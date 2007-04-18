@@ -5252,12 +5252,14 @@ numerical_jacobian (void)
 #endif
   count_g = 0;
   calculating_deriv = TRUE;
+
   gammas (mu_x);
   molalities (TRUE);
   mb_sums ();
   mb_s_s ();
   mb_gases ();
   residuals ();
+
 /*
  *   Clear array, note residuals are in array[i, count_unknowns+1]
  */
@@ -5344,25 +5346,6 @@ numerical_jacobian (void)
     case S_S_MOLES:
       if (x[i]->s_s_in == FALSE)
 	continue;
-#ifdef SKIP
-      for (j = 0; j < count_unknowns; j++)
-      {
-	delta[j] = 0.0;
-      }
-      /*d2 = -1e-8; */
-      d2 = -d * x[i]->moles;
-      d2 = -.1 * x[i]->moles;
-      /*
-         if (d2 > -1e-10) d2 = -1e-10;
-         calculating_deriv = FALSE;
-       */
-      delta[i] = d2;
-      /*fprintf (stderr, "delta before reset %e\n", delta[i]); */
-      reset ();
-      d2 = delta[i];
-      /*fprintf (stderr, "delta after reset %e\n", delta[i]); */
-#endif
-
       if (x[i]->moles < 1e-14)
       {
 	d2 = 10.;
@@ -5392,9 +5375,6 @@ numerical_jacobian (void)
     mb_sums ();
     mb_s_s();
     mb_gases();
-    /*
-       mb_gases();
-     */
     residuals ();
     for (j = 0; j < count_unknowns; j++)
     {
