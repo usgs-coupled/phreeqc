@@ -951,7 +951,7 @@ string_to_spread_row (char *string)
 /* ---------------------------------------------------------------------- */
 {
   int j, l;
-  int length = 10;
+  static int length = 10; /* possible memory error if length of line is smaller than previous line */
   char token[MAX_LENGTH];
   char *ptr;
   struct spread_row *spread_row_ptr;
@@ -1044,6 +1044,8 @@ string_to_spread_row (char *string)
   }
   else
   {
+/*  Do not realloc to smaller size, memory error */
+/*
     spread_row_ptr->char_vector =
       (char **) PHRQ_realloc (spread_row_ptr->char_vector,
 			      (size_t) spread_row_ptr->count *
@@ -1061,7 +1063,7 @@ string_to_spread_row (char *string)
 			    (size_t) spread_row_ptr->count * sizeof (int));
     if (spread_row_ptr->type_vector == NULL)
       malloc_error ();
-
+*/
   }
   return (spread_row_ptr);
 }
