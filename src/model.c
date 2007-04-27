@@ -12,6 +12,7 @@ static LDBLE s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
 			LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
 		    LDBLE xcaq, LDBLE xbaq);
+int calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0);
 int numerical_jacobian (void);
 
 #ifdef SKIP
@@ -2582,6 +2583,63 @@ s_s_binary (struct s_s *s_s_ptr)
     s_s_ptr->comps[1].phase->dnb = -xc / nb + dnb / n_tot;
 #endif
   }
+  return (OK);
+}
+/* ---------------------------------------------------------------------- */
+int
+calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
+/* ---------------------------------------------------------------------- */
+{
+  LDBLE nb, nc, n_tot, xb, xc, a0, a1;
+  LDBLE xb1, xc1;
+  LDBLE lamdab, lamdac, activityb, activityc;
+/*
+ * component 0 is major component
+ * component 1 is minor component
+ * xb is the mole fraction of second component (formerly trace)
+ * xc is the mole fraction of first component (formerly major)
+*/
+/*
+ *  Calculate mole fractions and log lambda and derivative factors
+ */
+  xc = x_comp0;
+  xb = 1.0 - xc;
+
+/*
+ *   In miscibility gap
+ */
+  a0 = s_s_ptr->a0;
+  a1 = s_s_ptr->a1;
+  if (s_s_ptr->miscibility == TRUE && xb > s_s_ptr->xb1 && xb < s_s_ptr->xb2)
+  {
+    /*output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");*/
+    xb1 = s_s_ptr->xb1;
+    xc1 = 1.0 - xb1;
+
+    lamdac = exp (xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)));
+    activityc = xc1*lamdac;
+    lamdac = activityc/xc;
+    s_s_ptr->comps[0].log10_lambda = log10(lamdac);
+
+    lamdab = exp (xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)));
+    activityb = xb1*lamdab;
+    lamdab = activityb/xb;
+    s_s_ptr->comps[1].log10_lambda = log10(lamdab);
+  }
+  else
+  {
+/*
+ *   Not in miscibility gap
+ */
+    /*output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");*/
+    s_s_ptr->comps[0].log10_lambda =
+      xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
+
+    s_s_ptr->comps[1].log10_lambda =
+      xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
+  }
+  s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
+  s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
   return (OK);
 }
 
