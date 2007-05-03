@@ -31,7 +31,9 @@ static int calc_s_s_fractions (void);
 static int gammas (LDBLE mu);
 static int initial_guesses (void);
 static int revise_guesses (void);
+#ifdef SKIP
 static int s_s_binary (struct s_s *s_s_ptr);
+#endif
 static int s_s_ideal (struct s_s *s_s_ptr);
 
 static int remove_unstable_phases;
@@ -519,6 +521,16 @@ check_residuals (void)
       {
 	sprintf (error_string,
 		 "%20s Total moles in solid solution has not converged. "
+		 "\tResidual: %e\n", x[i]->description, (double) residual[i]);
+	error_msg (error_string, CONTINUE);
+      }
+    }
+    else if (x[i]->type == S_S_FRACTION)
+    {
+      if (fabs (fabs(residual[i])) > epsilon && x[i]->s_s->s_s_in == TRUE)
+      {
+	sprintf (error_string,
+		 "%20s Mole fraction of first component has not converged. "
 		 "\tResidual: %e\n", x[i]->description, (double) residual[i]);
 	error_msg (error_string, CONTINUE);
       }
@@ -1169,7 +1181,8 @@ ineq (int in_kode)
  *   Solid solution
  */
     }
-    else if (x[i]->type == S_S_MOLES && x[i]->s_s_in == TRUE)
+    /*else if (x[i]->type == S_S_MOLES && x[i]->s_s_in == TRUE)*/
+    else if ((x[i]->type == S_S_MOLES || x[i]->type == S_S_FRACTION) && x[i]->s_s->s_s_in == TRUE)
     {
       memcpy ((void *) &(ineq_array[count_rows * max_column_count]),
 	      (void *) &(array[i * (count_unknowns + 1)]),
@@ -1192,6 +1205,7 @@ ineq (int in_kode)
     if (x[i]->type != SOLUTION_PHASE_BOUNDARY &&
 	x[i]->type != ALK &&
 	x[i]->type != GAS_MOLES && x[i]->type != S_S_MOLES
+	&& x[i]->type != S_S_FRACTION
 	/* && x[i]->type != PP */
       )
     {
@@ -1476,14 +1490,16 @@ ineq (int in_kode)
   {
     for (i = s_s_unknown->number; i < count_unknowns; i++)
     {
-      if (x[i]->type != S_S_MOLES)
+      if (x[i]->type != S_S_MOLES && x[i]->type != S_S_FRACTION)
 	break;
+      if (x[i]->type != S_S_MOLES)
+	continue;
       if (/*x[i]->phase->in == TRUE &&*/ x[i]->s_s_in == TRUE)
       {
 	memcpy ((void *) &(ineq_array[count_rows * max_column_count]),
 		(void *) &(zero[0]),
 		(size_t) (count_unknowns + 1) * sizeof (LDBLE));
-	ineq_array[count_rows * max_column_count + i] = 1.0;
+	ineq_array[count_rows * max_column_count + i] = -1.0;
 	ineq_array[count_rows * max_column_count + count_unknowns] =
 	  0.99 * x[i]->moles - MIN_TOTAL_SS;
 	back[count_rows] = i;
@@ -1930,7 +1946,6 @@ mb_gases (void)
   }
   return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int
 mb_s_s (void)
@@ -1947,6 +1962,12 @@ mb_s_s (void)
   for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
   {
     s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
+    {
+      /*calc_lamdas (s_s_ptr, s_s_ptr->comps[0].phase->fraction_x);*/
+      calc_lamdas (s_s_ptr, x[s_s_ptr->fraction_unknown]->fraction);
+    } 
+
     s_s_ptr->s_s_in = FALSE;
     if (s_s_ptr->total_moles > 10*MIN_TOTAL_SS) 
     {
@@ -2121,6 +2142,7 @@ mb_s_s (void)
   return (OK);
 }
 #endif
+
 /* ---------------------------------------------------------------------- */
 int
 molalities (int allow_overflow)
@@ -2402,7 +2424,7 @@ calc_gas_pressures (void)
   }
   return (OK);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 calc_s_s_fractions (void)
@@ -2474,6 +2496,61 @@ calc_s_s_fractions (void)
   /*if (j > 0) fprintf(stderr, "Repeated %d times.\n", j);*/
   return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int
+calc_s_s_fractions (void)
+/* ---------------------------------------------------------------------- */
+{
+  int i, k;
+  LDBLE n_tot, iap;
+  struct s_s *s_s_ptr;
+  struct rxn_token *rxn_ptr;
+
+/*
+ *   moles and lambdas for solid solutions
+ */
+  if (s_s_unknown == NULL)
+    return (OK);
+/*
+ *  Calculate mole fractions and log lambda and derivative factors
+ */
+  if (use.s_s_assemblage_ptr == NULL)
+    return (OK);
+  for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+  {
+    s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+    n_tot = s_s_ptr->total_moles;
+    /*
+     * Calculate mole fractions
+     */
+    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
+    {
+      calc_lamdas (s_s_ptr, x[s_s_ptr->fraction_unknown]->fraction);
+    } 
+    else
+    {
+      s_s_ideal (s_s_ptr);
+    }
+    for (k = 0; k < s_s_ptr->count_comps; k++)
+    {
+      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+      for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+      {
+	iap += rxn_ptr->s->la * rxn_ptr->coef;
+      }
+      s_s_ptr->comps[k].log10_fraction_x = iap;
+      s_s_ptr->comps[k].fraction_x = pow(10., iap);
+      if (s_s_ptr->comps[k].fraction_x < 1e-50) s_s_ptr->comps[k].fraction_x = 1e-50;
+      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
+      
+      s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
+      s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
+    }
+  }
+  return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 s_s_binary (struct s_s *s_s_ptr)
@@ -2585,12 +2662,13 @@ s_s_binary (struct s_s *s_s_ptr)
   }
   return (OK);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int
 calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE nb, nc, n_tot, xb, xc, a0, a1;
+  LDBLE xb, xc, a0, a1;
   LDBLE xb1, xc1;
   LDBLE lamdab, lamdac, activityb, activityc;
 /*
@@ -2612,7 +2690,7 @@ calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
   a1 = s_s_ptr->a1;
   if (s_s_ptr->miscibility == TRUE && xb > s_s_ptr->xb1 && xb < s_s_ptr->xb2)
   {
-    /*output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");*/
+    output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");
     xb1 = s_s_ptr->xb1;
     xc1 = 1.0 - xb1;
 
@@ -2631,7 +2709,7 @@ calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
 /*
  *   Not in miscibility gap
  */
-    /*output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");*/
+    output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");
     s_s_ptr->comps[0].log10_lambda =
       xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
 
@@ -3323,16 +3401,39 @@ reset (void)
 	output_msg (OUTPUT_MESSAGE,
 		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
 		    x[i]->description, "old mol", (double) x[i]->moles,
-		    "new mol", (double) (x[i]->moles - delta[i]), "delta",
+		    "new mol", (double) (x[i]->moles + delta[i]), "delta",
 		    (double) delta[i]);
       }
       x[i]->moles += delta[i];
       if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE)
 	x[i]->moles = MIN_TOTAL_SS;
-      if (x[i]->f < .001) 	x[i]->moles = MIN_TOTAL_SS;
+      if (x[i]->f < .001) x[i]->moles = MIN_TOTAL_SS;
 
       /*x[i]->s_s_comp->moles = x[i]->moles;*/
       x[i]->s_s->total_moles = x[i]->moles;
+/*   Pitzer gamma */
+    }
+    else if (x[i]->type == S_S_FRACTION)
+    {
+      if (delta[i] > 0.1) delta[i] = 0.1;
+      if (delta[i] < -0.1) delta[i] = -0.1;
+      if (x[i]->fraction + delta[i] > 1.0) 
+      {
+	delta[i] = 1 - x[i]->fraction;
+      }
+      if (x[i]->fraction + delta[i] < 0.0) 
+      {
+	delta[i] = 0. - x[i]->fraction;
+      }
+      if (debug_model == TRUE)
+      {
+	output_msg (OUTPUT_MESSAGE,
+		    "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+		    x[i]->description, "old frac", (double) x[i]->fraction,
+		    "new frac", (double) (x[i]->fraction + delta[i]), "delta",
+		    (double) delta[i]);
+      }
+      x[i]->fraction += delta[i];
 /*   Pitzer gamma */
     }
     else if (x[i]->type == PITZER_GAMMA)
@@ -4235,6 +4336,12 @@ residuals (void)
       if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
 	continue;
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
+	converge = FALSE;
+    }
+    else if (x[i]->type == S_S_FRACTION)
+    {
+      residual[i] = x[i]->fraction - x[i]->f;
+      if (fabs (residual[i]) > toler && x[i]->s_s->s_s_in == TRUE)
 	converge = FALSE;
     }
     else if (x[i]->type == EXCH)
@@ -5260,7 +5367,7 @@ s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
   }
   return (x0 + dx);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
@@ -5282,7 +5389,28 @@ s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
   f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
   return (f);
 }
-
+#endif
+/* ---------------------------------------------------------------------- */
+LDBLE
+s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
+       LDBLE xbaq)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Need root of this function to determine xb
+ */
+  LDBLE lb, lc, f, xc, r;
+  xc = 1 - xb;
+  if (xb == 0)
+    xb = 1e-20;
+  if (xc == 0)
+    xc = 1e-20;
+  lc = exp ((a0 - a1 * (-4 * xb + 3)) * xb * xb);
+  lb = exp ((a0 + a1 * (4 * xb - 1)) * xc * xc);
+  r = lc * kc / (lb * kb);
+  f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
+  return (f);
+}
 /* ---------------------------------------------------------------------- */
 int
 numerical_jacobian (void)
@@ -5376,7 +5504,15 @@ numerical_jacobian (void)
       if (d2 < 1e-14)
 	d2 = 1e-14;
       x[i]->moles += d2;
-      x[i]->s_s->total_moles += d2;
+      x[i]->s_s->total_moles = x[i]->moles;
+      break;
+    case S_S_FRACTION:
+      d2 = 1e-4;
+      if (x[i]->fraction + d2 > 1.0)
+      {
+	d2 = -1e-4;
+      }
+      x[i]->fraction += d2;
       break;
     case GAS_MOLES:
       d2 = d * x[i]->moles;
@@ -5393,6 +5529,12 @@ numerical_jacobian (void)
     for (j = 0; j < count_unknowns; j++)
     {
       array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
+/*
+      if (i == 9) 
+      {
+	output_msg(OUTPUT_MESSAGE, "%d resid %e base %e diff %e\n", j, residual[j], base[j], residual[j] - base[j]);
+      }
+*/
     }
     switch (x[i]->type)
     {
@@ -5438,6 +5580,9 @@ numerical_jacobian (void)
     case S_S_MOLES:
       x[i]->moles -= d2;
       x[i]->s_s->total_moles = x[i]->moles;
+      break;
+    case S_S_FRACTION:
+      x[i]->fraction -= d2;
       break;
     case GAS_MOLES:
       x[i]->moles -= d2;

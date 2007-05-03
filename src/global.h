@@ -134,6 +134,7 @@ typedef enum
 #define GAS_MOLES 24
 #define S_S_MOLES 25
 #define PITZER_GAMMA 26
+#define S_S_FRACTION 27
 /* state */
 #define INITIALIZE               0
 #define INITIAL_SOLUTION   1
@@ -794,6 +795,7 @@ struct s_s
   LDBLE tk, xb1, xb2;
   int input_case;
   LDBLE p[4];
+  int fraction_unknown;
 };
 struct s_s_comp
 {
@@ -1394,6 +1396,7 @@ struct unknown
   LDBLE sum;
   LDBLE delta;
   LDBLE la;
+  LDBLE fraction;
   int number;
   char *description;
   struct master **master;

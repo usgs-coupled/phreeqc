@@ -264,15 +264,22 @@ quick_setup (void)
     j = 0;
     for (i = 0; i < count_unknowns; i++)
     {
-      if (x[i]->type != S_S_MOLES)
-	continue;
-      x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j++]);
-      for (k = 0; k < x[i]->s_s->count_comps; k++)
+      if (x[i]->type == S_S_MOLES)
       {
-	x[i]->s_s->comps[k].phase->moles_x = x[i]->s_s->comps[k].moles;
-	x[i]->s_s->comps[k].phase->fraction_x = x[i]->s_s->comps[k].fraction_x;
-	x[i]->s_s->comps[k].phase->log10_fraction_x = x[i]->s_s->comps[k].log10_fraction_x;
-	x[i]->s_s->comps[k].phase->log10_lambda = x[i]->s_s->comps[k].log10_lambda;
+	x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j++]);
+	for (k = 0; k < x[i]->s_s->count_comps; k++)
+	{
+	  x[i]->s_s->comps[k].phase->moles_x = x[i]->s_s->comps[k].moles;
+	  x[i]->s_s->comps[k].phase->fraction_x = x[i]->s_s->comps[k].fraction_x;
+	  x[i]->s_s->comps[k].phase->log10_fraction_x = x[i]->s_s->comps[k].log10_fraction_x;
+	  x[i]->s_s->comps[k].phase->log10_lambda = x[i]->s_s->comps[k].log10_lambda;
+	}
+      }
+      if (x[i]->type == S_S_FRACTION)
+      {
+	x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j - 1]);
+	x[i]->fraction = 0.5;
+	x[i]->s_s->fraction_unknown = i;
       }
     }
   }
@@ -687,69 +694,74 @@ build_s_s_assemblage (void)
     return (OK);
   for (k = 0; k < count_unknowns; k++)
   {
-    if (x[k]->type != S_S_MOLES)
-      continue;
-    s_s_ptr = x[k]->s_s;
-    for (i = 0; i < s_s_ptr->count_comps; i++)
+    if (x[k]->type == S_S_MOLES)
     {
+      s_s_ptr = x[k]->s_s;
+      for (i = 0; i < s_s_ptr->count_comps; i++)
+      {
 /*
  *   Determine elements in s_s component
  */
-      count_elts = 0;
-      paren_count = 0;
-      s_s_comp_ptr = &(s_s_ptr->comps[i]);
-      phase_ptr = s_s_comp_ptr->phase;
-      if (phase_ptr->rxn_x == NULL)
-	continue;
-      add_elt_list (phase_ptr->next_elt, 1.0);
+	count_elts = 0;
+	paren_count = 0;
+	s_s_comp_ptr = &(s_s_ptr->comps[i]);
+	phase_ptr = s_s_comp_ptr->phase;
+	if (phase_ptr->rxn_x == NULL)
+	  continue;
+	add_elt_list (phase_ptr->next_elt, 1.0);
 #ifdef COMBINE
-      change_hydrogen_in_elt_list (0);
+	change_hydrogen_in_elt_list (0);
 #endif
 /*
  *   Build mass balance sums for each element in s_s
  */
-      if (debug_prep == TRUE)
-      {
-	output_msg (OUTPUT_MESSAGE, "\n\tMass balance summations %s.\n\n",
-		    s_s_comp_ptr->phase->name);
-      }
+	if (debug_prep == TRUE)
+	{
+	  output_msg (OUTPUT_MESSAGE, "\n\tMass balance summations %s.\n\n",
+		      s_s_comp_ptr->phase->name);
+	}
 
-      /* All elements in s_s */
-      for (j = 0; j < count_elts; j++)
-      {
-	unknown_ptr = NULL;
-	if (strcmp (elt_list[j].elt->name, "H") == 0)
+	/* All elements in s_s */
+	for (j = 0; j < count_elts; j++)
 	{
-	  unknown_ptr = mass_hydrogen_unknown;
-	}
-	else if (strcmp (elt_list[j].elt->name, "O") == 0)
-	{
-	  unknown_ptr = mass_oxygen_unknown;
-	}
-	else
-	{
-	  if (elt_list[j].elt->primary->in == TRUE)
+	  unknown_ptr = NULL;
+	  if (strcmp (elt_list[j].elt->name, "H") == 0)
 	  {
-	    unknown_ptr = elt_list[j].elt->primary->unknown;
+	    unknown_ptr = mass_hydrogen_unknown;
 	  }
-	  else if (elt_list[j].elt->primary->s->secondary != NULL)
+	  else if (strcmp (elt_list[j].elt->name, "O") == 0)
 	  {
-	    unknown_ptr = elt_list[j].elt->primary->s->secondary->unknown;
+	    unknown_ptr = mass_oxygen_unknown;
+	  }
+	  else
+	  {
+	    if (elt_list[j].elt->primary->in == TRUE)
+	    {
+	      unknown_ptr = elt_list[j].elt->primary->unknown;
+	    }
+	    else if (elt_list[j].elt->primary->s->secondary != NULL)
+	    {
+	      unknown_ptr = elt_list[j].elt->primary->s->secondary->unknown;
+	    }
+	  }
+	  if (unknown_ptr != NULL)
+	  {
+	    coef = elt_list[j].coef;
+	    store_mb (&(s_s_comp_ptr->phase->moles_x), &(unknown_ptr->f), coef);
+	    if (debug_prep == TRUE)
+	    {
+	      output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
+			  unknown_ptr->description, (double) coef);
+	    }
 	  }
 	}
-	if (unknown_ptr != NULL)
-	{
-	  coef = elt_list[j].coef;
-	  store_mb (&(s_s_comp_ptr->phase->moles_x), &(unknown_ptr->f), coef);
-	  if (debug_prep == TRUE)
-	  {
-	    output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
-			unknown_ptr->description, (double) coef);
-	  }
-	}
-      }
 	/* Sum of mole fraction gases */
-      store_mb (&(s_s_comp_ptr->phase->fraction_x), &(x[k]->f), 1.0);
+	store_mb (&(s_s_comp_ptr->phase->fraction_x), &(x[k]->f), 1.0);
+      }
+    }
+    if (x[k]->type == S_S_FRACTION)
+    {
+      store_mb (&(x[k]->s_s->comps[0].phase->fraction_x), &(x[k]->f), 1.0);
     }
   }
   return (OK);
@@ -3121,6 +3133,16 @@ setup_s_s_assemblage (void)
     x[count_unknowns]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
     if (s_s_unknown == NULL) s_s_unknown =  x[count_unknowns];
     count_unknowns++;
+    if (use.s_s_assemblage_ptr->s_s[j].a0 != 0 || use.s_s_assemblage_ptr->s_s[j].a0 != 0)
+    {
+      x[count_unknowns]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
+      x[count_unknowns]->type = S_S_FRACTION;
+      x[count_unknowns]->description = string_hsave (use.s_s_assemblage_ptr->s_s[j].name);
+      x[count_unknowns]->moles = 0.0;
+      x[count_unknowns]->fraction = 0.5;
+      x[count_unknowns]->s_s->fraction_unknown = count_unknowns;
+      count_unknowns++;
+    }
   }
   return (OK);
 }
