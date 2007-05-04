@@ -810,6 +810,7 @@ struct s_s_comp
   LDBLE log10_fraction_x;
   LDBLE dn, dnc, dnb;
 };
+EXTERNAL int use_s_s_root;
 EXTERNAL int count_s_s_assemblage;
 EXTERNAL int max_s_s_assemblage;
 EXTERNAL struct s_s_assemblage *s_s_assemblage;

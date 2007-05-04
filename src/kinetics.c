@@ -1231,6 +1231,7 @@ set_and_run_wrapper (int i, int use_mix, int use_kinetics, int nsaver,
   {
     if (j == 1)
     {
+      use_s_s_root = TRUE;
       always_full_pitzer = TRUE;
       if (pe_step_size <= small_pe_step && step_size <= small_step)
 	continue;

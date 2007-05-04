@@ -6,12 +6,19 @@
 
 static char const svnid[] = "$Id$";
 
+/*
 static LDBLE s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 		       LDBLE xbaq);
 static LDBLE s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
 			LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
 		    LDBLE xcaq, LDBLE xbaq);
+*/
+static LDBLE s_s_root (struct s_s *s_s_ptr);
+static LDBLE s_s_halve (struct s_s *s_s_ptr, LDBLE x0, LDBLE x1);
+static LDBLE s_s_f (struct s_s *s_s_ptr, LDBLE xc);
+
+
 int calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0);
 int numerical_jacobian (void);
 
@@ -2497,6 +2504,7 @@ calc_s_s_fractions (void)
   return (OK);
 }
 #endif
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 calc_s_s_fractions (void)
@@ -2550,6 +2558,95 @@ calc_s_s_fractions (void)
   }
   return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int
+calc_s_s_fractions (void)
+/* ---------------------------------------------------------------------- */
+{
+  int i, k;
+  LDBLE n_tot, iap;
+  struct s_s *s_s_ptr;
+  struct rxn_token *rxn_ptr;
+
+/*
+ *   moles and lambdas for solid solutions
+ */
+  if (s_s_unknown == NULL)
+    return (OK);
+/*
+ *  Calculate mole fractions and log lambda and derivative factors
+ */
+  if (use.s_s_assemblage_ptr == NULL)
+    return (OK);
+  for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+  {
+    s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+    n_tot = s_s_ptr->total_moles;
+    if (!calculating_deriv && use_s_s_root == TRUE) x[s_s_ptr->fraction_unknown]->fraction = s_s_root(s_s_ptr);
+    /*
+     * Calculate mole fractions
+     */
+    if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0)
+    {
+      calc_lamdas (s_s_ptr, x[s_s_ptr->fraction_unknown]->fraction);
+    } 
+    else
+    {
+      s_s_ideal (s_s_ptr);
+    }
+    for (k = 0; k < s_s_ptr->count_comps; k++)
+    {
+      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+      for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+      {
+	iap += rxn_ptr->s->la * rxn_ptr->coef;
+      }
+      s_s_ptr->comps[k].log10_fraction_x = iap;
+      s_s_ptr->comps[k].fraction_x = pow(10., iap);
+      if (s_s_ptr->comps[k].fraction_x < 1e-50) s_s_ptr->comps[k].fraction_x = 1e-50;
+      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
+      
+      s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
+      s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
+    }
+  }
+  return (OK);
+}
+/* ---------------------------------------------------------------------- */
+LDBLE
+s_s_f (struct s_s *s_s_ptr, LDBLE xc)
+
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Need root of this function to determine xb
+ */
+  LDBLE  f;
+  int k;
+  LDBLE n_tot, iap;
+  struct rxn_token *rxn_ptr;
+  calc_lamdas (s_s_ptr, xc);
+  for (k = 0; k < s_s_ptr->count_comps; k++)
+  {
+    iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+    for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+    {
+      iap += rxn_ptr->s->la * rxn_ptr->coef;
+    }
+    s_s_ptr->comps[k].log10_fraction_x = iap;
+    s_s_ptr->comps[k].fraction_x = pow(10., iap);
+    if (s_s_ptr->comps[k].fraction_x < 1e-50) s_s_ptr->comps[k].fraction_x = 1e-50;
+    s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
+    
+    s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
+    s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
+  }
+  f = s_s_ptr->comps[0].moles/(s_s_ptr->comps[0].moles + s_s_ptr->comps[1].moles);
+  f = xc - f;
+  return (f);
+}
+
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
@@ -5278,6 +5375,7 @@ add_trivial_eqns (int rows, int cols, LDBLE * matrix)
 }
 #endif
 #define ZERO_TOL 1.0e-30
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
@@ -5324,7 +5422,54 @@ s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
   }
   return (xb);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+LDBLE
+s_s_root (struct s_s * s_s_ptr)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+  LDBLE x0, y0, x1, y1, xb, miny;
 
+/*
+ *  Bracket answer
+ */
+  x0 = 0.0;
+  x1 = 0.0;
+  y0 = s_s_f (s_s_ptr, x0);
+  miny = fabs (y0);
+  for (i = 1; i <= 10; i++)
+  {
+    x1 = (LDBLE) i / 10;
+    y1 = s_s_f (s_s_ptr, x1);
+    if (fabs (y1) < miny)
+    {
+      miny = fabs (y1);
+    }
+    if (y0 * y1 < 0)
+    {
+      break;
+    }
+    else
+    {
+      x0 = x1;
+      y0 = y1;
+    }
+  }
+/*
+ *  Interval halve
+ */
+  if (i > 10)
+  {
+    xb = 0.0;
+  }
+  else
+  {
+    xb = s_s_halve (s_s_ptr, x0, x1);
+  }
+  return (xb);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
@@ -5367,6 +5512,38 @@ s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
   }
   return (x0 + dx);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+LDBLE
+s_s_halve (struct s_s *s_s_ptr, LDBLE x0, LDBLE x1)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+  LDBLE x, y0, dx, y;
+
+  y0 = s_s_f (s_s_ptr, x0);
+  dx = (x1 - x0);
+/*
+ *  Loop for interval halving
+ */
+  for (i = 0; i < 100; i++)
+  {
+    dx *= 0.5;
+    x = x0 + dx;
+    y = s_s_f (s_s_ptr, x);
+    if (dx < 1e-8 || y == 0)
+    {
+      break;
+    }
+    if (y0 * y >= 0)
+    {
+      x0 = x;
+      y0 = y;
+    }
+  }
+  return (x0 + dx);
+}
+
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
@@ -5390,6 +5567,7 @@ s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
   return (f);
 }
 #endif
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
@@ -5411,6 +5589,7 @@ s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
   f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
   return (f);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int
 numerical_jacobian (void)
@@ -5452,7 +5631,7 @@ numerical_jacobian (void)
  */
   for (i = 0; i < count_unknowns; i++)
   {
-    d = 1e-6;
+    d = 1e-7;
     d1 = d * log (10.0);
     d2 = 0;
     switch (x[i]->type)

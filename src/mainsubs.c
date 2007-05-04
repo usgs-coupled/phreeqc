@@ -629,6 +629,7 @@ initialize (void)
   calculating_deriv = FALSE;
   numerical_deriv = FALSE;
   numerical_deriv = TRUE;
+  use_s_s_root = FALSE;
   return;
 }
 
