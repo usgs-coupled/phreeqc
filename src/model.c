@@ -6,17 +6,17 @@
 
 static char const svnid[] = "$Id$";
 
-/*
 static LDBLE s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 		       LDBLE xbaq);
 static LDBLE s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
 			LDBLE kb, LDBLE xcaq, LDBLE xbaq);
 static LDBLE s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
 		    LDBLE xcaq, LDBLE xbaq);
-*/
+/*
 static LDBLE s_s_root (struct s_s *s_s_ptr);
 static LDBLE s_s_halve (struct s_s *s_s_ptr, LDBLE x0, LDBLE x1);
 static LDBLE s_s_f (struct s_s *s_s_ptr, LDBLE xc);
+*/
 
 
 int calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0);
@@ -1501,7 +1501,7 @@ ineq (int in_kode)
 	break;
       if (x[i]->type != S_S_MOLES)
 	continue;
-      if (/*x[i]->phase->in == TRUE &&*/ x[i]->s_s_in == TRUE)
+      if (/*x[i]->phase->in == TRUE &&*/ x[i]->s_s->s_s_in == TRUE)
       {
 	memcpy ((void *) &(ineq_array[count_rows * max_column_count]),
 		(void *) &(zero[0]),
@@ -1953,6 +1953,7 @@ mb_gases (void)
   }
   return (OK);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 mb_s_s (void)
@@ -2002,7 +2003,8 @@ mb_s_s (void)
   }
   return (OK);
 }
-#ifdef SKIP
+#endif
+
 /* ---------------------------------------------------------------------- */
 int
 mb_s_s (void)
@@ -2142,13 +2144,10 @@ mb_s_s (void)
       break;
     x[i]->s_s_in = x[i]->s_s->s_s_in;
   }
-/*
     x[i]->s_s->s_s_in = TRUE;
     x[i]->s_s_in = TRUE;
-*/
   return (OK);
 }
-#endif
 
 /* ---------------------------------------------------------------------- */
 int
@@ -2583,7 +2582,7 @@ calc_s_s_fractions (void)
   {
     s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
     n_tot = s_s_ptr->total_moles;
-    if (!calculating_deriv && use_s_s_root == TRUE) x[s_s_ptr->fraction_unknown]->fraction = s_s_root(s_s_ptr);
+    /*if (!calculating_deriv && use_s_s_root == TRUE) x[s_s_ptr->fraction_unknown]->fraction = s_s_root(s_s_ptr);*/
     /*
      * Calculate mole fractions
      */
@@ -2597,22 +2596,20 @@ calc_s_s_fractions (void)
     }
     for (k = 0; k < s_s_ptr->count_comps; k++)
     {
-      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda;
+/*
+      iap = -s_s_ptr->comps[k].phase->lk - s_s_ptr->comps[k].phase->log10_lambda - s_s_ptr->comps[k].phase->log10_fraction_x;
       for (rxn_ptr = s_s_ptr->comps[k].phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
       {
 	iap += rxn_ptr->s->la * rxn_ptr->coef;
       }
-      s_s_ptr->comps[k].log10_fraction_x = iap;
-      s_s_ptr->comps[k].fraction_x = pow(10., iap);
-      if (s_s_ptr->comps[k].fraction_x < 1e-50) s_s_ptr->comps[k].fraction_x = 1e-50;
-      s_s_ptr->comps[k].phase->fraction_x = s_s_ptr->comps[k].fraction_x;
-      
+*/
       s_s_ptr->comps[k].moles = s_s_ptr->comps[k].fraction_x * n_tot;
       s_s_ptr->comps[k].phase->moles_x = s_s_ptr->comps[k].moles;
     }
   }
   return (OK);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_f (struct s_s *s_s_ptr, LDBLE xc)
@@ -2646,7 +2643,7 @@ s_s_f (struct s_s *s_s_ptr, LDBLE xc)
   f = xc - f;
   return (f);
 }
-
+#endif
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
@@ -2779,7 +2776,8 @@ calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
  */
   xc = x_comp0;
   xb = 1.0 - xc;
-
+  s_s_ptr->comps[0].fraction_x = xc;
+  s_s_ptr->comps[1].fraction_x = 1. - xc;
 /*
  *   In miscibility gap
  */
@@ -2787,7 +2785,7 @@ calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
   a1 = s_s_ptr->a1;
   if (s_s_ptr->miscibility == TRUE && xb > s_s_ptr->xb1 && xb < s_s_ptr->xb2)
   {
-    output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");
+    /*output_msg(OUTPUT_MESSAGE, "In miscibility gap.\n");*/
     xb1 = s_s_ptr->xb1;
     xc1 = 1.0 - xb1;
 
@@ -2806,13 +2804,20 @@ calc_lamdas (struct s_s *s_s_ptr, LDBLE x_comp0)
 /*
  *   Not in miscibility gap
  */
-    output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");
+    /*output_msg(OUTPUT_MESSAGE, "Not in miscibility gap.\n");*/
     s_s_ptr->comps[0].log10_lambda =
       xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
 
     s_s_ptr->comps[1].log10_lambda =
       xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
   }
+  s_s_ptr->comps[0].log10_fraction_x = log10(xc);
+  s_s_ptr->comps[1].log10_fraction_x = log10(xb);
+  if (s_s_ptr->comps[0].fraction_x < 1e-25) s_s_ptr->comps[0].fraction_x = 1e-25;
+  if (s_s_ptr->comps[1].fraction_x < 1e-25) s_s_ptr->comps[1].fraction_x = 1e-25;
+  s_s_ptr->comps[0].phase->log10_fraction_x = s_s_ptr->comps[0].log10_fraction_x;
+  s_s_ptr->comps[1].phase->log10_fraction_x = s_s_ptr->comps[1].log10_fraction_x;
+
   s_s_ptr->comps[0].phase->log10_lambda = s_s_ptr->comps[0].log10_lambda;
   s_s_ptr->comps[1].phase->log10_lambda = s_s_ptr->comps[1].log10_lambda;
   return (OK);
@@ -3504,8 +3509,9 @@ reset (void)
       x[i]->moles += delta[i];
       if (x[i]->moles < MIN_TOTAL_SS && calculating_deriv == FALSE)
 	x[i]->moles = MIN_TOTAL_SS;
+/*
       if (x[i]->f < .001) x[i]->moles = MIN_TOTAL_SS;
-
+*/
       /*x[i]->s_s_comp->moles = x[i]->moles;*/
       x[i]->s_s->total_moles = x[i]->moles;
 /*   Pitzer gamma */
@@ -3516,11 +3522,11 @@ reset (void)
       if (delta[i] < -0.1) delta[i] = -0.1;
       if (x[i]->fraction + delta[i] > 1.0) 
       {
-	delta[i] = 1 - x[i]->fraction;
+	delta[i] = (1 - x[i]->fraction)/2.0;
       }
       if (x[i]->fraction + delta[i] < 0.0) 
       {
-	delta[i] = 0. - x[i]->fraction;
+	delta[i] =  - x[i]->fraction/2.0;
       }
       if (debug_model == TRUE)
       {
@@ -4426,6 +4432,7 @@ residuals (void)
       if (fabs (residual[i]) > toler && gas_in == TRUE)
 	converge = FALSE;
     }
+#ifdef SKIP
     else if (x[i]->type == S_S_MOLES)
     {
       /*residual[i] = x[i]->f * LOG_10;*/
@@ -4435,12 +4442,25 @@ residuals (void)
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
 	converge = FALSE;
     }
+#endif
+    else if (x[i]->type == S_S_MOLES || x[i]->type == S_S_FRACTION)
+    {
+      residual[i] = x[i]->f * LOG_10;
+/*
+      if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
+	continue;
+*/
+      if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
+	converge = FALSE;
+    }
+#ifdef SKIP
     else if (x[i]->type == S_S_FRACTION)
     {
       residual[i] = x[i]->fraction - x[i]->f;
       if (fabs (residual[i]) > toler && x[i]->s_s->s_s_in == TRUE)
 	converge = FALSE;
     }
+#endif
     else if (x[i]->type == EXCH)
     {
       residual[i] = x[i]->moles - x[i]->f;
@@ -5375,7 +5395,7 @@ add_trivial_eqns (int rows, int cols, LDBLE * matrix)
 }
 #endif
 #define ZERO_TOL 1.0e-30
-#ifdef SKIP
+
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
@@ -5422,7 +5442,7 @@ s_s_root (LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
   }
   return (xb);
 }
-#endif
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_root (struct s_s * s_s_ptr)
@@ -5469,7 +5489,7 @@ s_s_root (struct s_s * s_s_ptr)
   }
   return (xb);
 }
-#ifdef SKIP
+#endif
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
@@ -5512,7 +5532,7 @@ s_s_halve (LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
   }
   return (x0 + dx);
 }
-#endif
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 LDBLE
 s_s_halve (struct s_s *s_s_ptr, LDBLE x0, LDBLE x1)
@@ -5543,29 +5563,6 @@ s_s_halve (struct s_s *s_s_ptr, LDBLE x0, LDBLE x1)
   }
   return (x0 + dx);
 }
-
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE
-s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
-       LDBLE xbaq)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *  Need root of this function to determine xb
- */
-  LDBLE lb, lc, f, xc, r;
-  xc = 1 - xb;
-  if (xb == 0)
-    xb = 1e-20;
-  if (xc == 0)
-    xc = 1e-20;
-  lc = exp ((a0 - a1 * (-4 * xb + 3)) * xb * xb);
-  lb = exp ((a0 + a1 * (4 * xb - 1)) * xc * xc);
-  r = lc * kc / (lb * kb);
-  f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
-  return (f);
-}
 #endif
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
@@ -5590,6 +5587,27 @@ s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
   return (f);
 }
 #endif
+/* ---------------------------------------------------------------------- */
+LDBLE
+s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
+       LDBLE xbaq)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Need root of this function to determine xb
+ */
+  LDBLE lb, lc, f, xc, r;
+  xc = 1 - xb;
+  if (xb == 0)
+    xb = 1e-20;
+  if (xc == 0)
+    xc = 1e-20;
+  lc = exp ((a0 - a1 * (-4 * xb + 3)) * xb * xb);
+  lb = exp ((a0 + a1 * (4 * xb - 1)) * xc * xc);
+  r = lc * kc / (lb * kb);
+  f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
+  return (f);
+}
 /* ---------------------------------------------------------------------- */
 int
 numerical_jacobian (void)
@@ -5680,23 +5698,23 @@ numerical_jacobian (void)
       break;
     case S_S_MOLES:
       d2 = d * x[i]->moles;
-      if (d2 < 1e-14)
-	d2 = 1e-14;
+      if (d2 < 1e-10)
+	d2 = 1e-10;
       x[i]->moles += d2;
       x[i]->s_s->total_moles = x[i]->moles;
       break;
     case S_S_FRACTION:
-      d2 = 1e-4;
+      d2 = 1e-6;
       if (x[i]->fraction + d2 > 1.0)
       {
-	d2 = -1e-4;
+	d2 = -1e-6;
       }
       x[i]->fraction += d2;
       break;
     case GAS_MOLES:
       d2 = d * x[i]->moles;
-      if (d2 < 1e-14)
-	d2 = 1e-14;
+      if (d2 < 1e-10)
+	d2 = 1e-10;
       x[i]->moles += d2;
       break;
     }
@@ -5709,9 +5727,10 @@ numerical_jacobian (void)
     {
       array[j * (count_unknowns + 1) + i] -= (residual[j] - base[j]) / d2;
 /*
-      if (i == 9) 
+      if (i == 8) 
       {
 	output_msg(OUTPUT_MESSAGE, "%d resid %e base %e diff %e\n", j, residual[j], base[j], residual[j] - base[j]);
+	output_msg(OUTPUT_MESSAGE, "\t %e\n", array[j * (count_unknowns + 1) + i]);
       }
 */
     }

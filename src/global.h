@@ -796,6 +796,7 @@ struct s_s
   int input_case;
   LDBLE p[4];
   int fraction_unknown;
+  int binary;
 };
 struct s_s_comp
 {

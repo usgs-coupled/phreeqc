@@ -1641,6 +1641,8 @@ tidy_s_s_assemblage (void)
 	 */
 	s_s_calc_a0_a1 (&(s_s_assemblage[i].s_s[j]));
 	s_s_ptr = &(s_s_assemblage[i].s_s[j]);
+	s_s_ptr->binary = FALSE;
+	if (s_s_ptr->a0 != 0.0 || s_s_ptr->a1 != 0) s_s_ptr->binary = TRUE;
 
 	n_tot = 0;
 	for (k = 0; k < s_s_ptr->count_comps; k++)
