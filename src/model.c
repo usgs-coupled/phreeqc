@@ -2144,8 +2144,6 @@ mb_s_s (void)
       break;
     x[i]->s_s_in = x[i]->s_s->s_s_in;
   }
-    x[i]->s_s->s_s_in = TRUE;
-    x[i]->s_s_in = TRUE;
   return (OK);
 }
 
@@ -4432,8 +4430,7 @@ residuals (void)
       if (fabs (residual[i]) > toler && gas_in == TRUE)
 	converge = FALSE;
     }
-#ifdef SKIP
-    else if (x[i]->type == S_S_MOLES)
+    else if (x[i]->type == S_S_MOLES && x[i]->s_s->binary == FALSE)
     {
       /*residual[i] = x[i]->f * LOG_10;*/
       residual[i] = 1. - x[i]->f;
@@ -4442,25 +4439,12 @@ residuals (void)
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
 	converge = FALSE;
     }
-#endif
-    else if (x[i]->type == S_S_MOLES || x[i]->type == S_S_FRACTION)
+    else if ((x[i]->type == S_S_MOLES && x[i]->s_s->binary == TRUE) || x[i]->type == S_S_FRACTION)
     {
       residual[i] = x[i]->f * LOG_10;
-/*
-      if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
-	continue;
-*/
-      if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
-	converge = FALSE;
-    }
-#ifdef SKIP
-    else if (x[i]->type == S_S_FRACTION)
-    {
-      residual[i] = x[i]->fraction - x[i]->f;
       if (fabs (residual[i]) > toler && x[i]->s_s->s_s_in == TRUE)
 	converge = FALSE;
     }
-#endif
     else if (x[i]->type == EXCH)
     {
       residual[i] = x[i]->moles - x[i]->f;
@@ -5649,7 +5633,7 @@ numerical_jacobian (void)
  */
   for (i = 0; i < count_unknowns; i++)
   {
-    d = 1e-7;
+    d = 1e-6;
     d1 = d * log (10.0);
     d2 = 0;
     switch (x[i]->type)

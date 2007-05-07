@@ -3271,7 +3271,8 @@ term (struct LOC_exec * LINK)
     }
     else
     {
-      error_msg ("Zero divide in Basic. Value set to zero.", CONTINUE);
+      /*error_msg ("Zero divide in Basic. Value set to zero.", CONTINUE);*/
+      warning_msg ("Zero divide in Basic. Value set to zero.");
       n.UU.val = 0;
     }
   }
