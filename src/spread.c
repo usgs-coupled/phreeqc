@@ -882,7 +882,7 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
     }
     if (count_mass_balance + 1 >= max_mass_balance)
     {
-      space ((void **) &(solution[n]->totals), count_mass_balance + 1,
+      space ((void **) ((void *) &(solution[n]->totals)), count_mass_balance + 1,
 	     &max_mass_balance, sizeof (struct conc));
     }
     if (return_value == EOF || return_value == KEYWORD)

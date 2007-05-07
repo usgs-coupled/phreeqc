@@ -5228,11 +5228,11 @@ solution_alloc (void)
  *   Initial allocation of space for totals and activities
  */
   max_mass_balance = MAX_MASS_BALANCE;
-  space ((void **) &(solution_ptr->totals), INIT, &max_mass_balance,
+  space ((void **) ((void *) &(solution_ptr->totals)), INIT, &max_mass_balance,
 	 sizeof (struct conc));
   max_mass_balance = MAX_MASS_BALANCE;
   solution_ptr->totals[0].description = NULL;
-  space ((void **) &(solution_ptr->master_activity), INIT, &max_mass_balance,
+  space ((void **) ((void *) &(solution_ptr->master_activity)), INIT, &max_mass_balance,
 	 sizeof (struct master_activity));
   solution_ptr->master_activity[0].description = NULL;
   solution_ptr->species_gamma = NULL;
@@ -6767,7 +6767,7 @@ trxn_add (struct reaction *r_ptr, LDBLE coef, int combine)
   {
     if (count_trxn + 1 >= max_trxn)
     {
-      space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+      space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	     sizeof (struct rxn_token_temp));
     }
     trxn.token[count_trxn].name = next_token->s->name;
@@ -6825,7 +6825,7 @@ trxn_add_phase (struct reaction *r_ptr, LDBLE coef, int combine)
   {
     if (count_trxn + 1 >= max_trxn)
     {
-      space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+      space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	     sizeof (struct rxn_token_temp));
     }
     if (next_token->s != NULL)

@@ -17,6 +17,7 @@ static int build_min_exch (void);
 static int build_model (void);
 static int build_pure_phases (void);
 static int build_s_s_assemblage (void);
+static int build_s_s_assemblage_binary (void);
 static int build_solution_phase_boundaries (void);
 static int build_species_list (int n);
 static int build_min_surface (void);
@@ -47,7 +48,9 @@ static int setup_unknowns (void);
 static int store_dn (int k, LDBLE * source, int row, LDBLE coef_in,
 		     LDBLE * gamma_source);
 static int store_jacob (LDBLE * source, LDBLE * target, LDBLE coef);
+#ifdef SKIP
 static int store_jacob0 (int row, int column, LDBLE coef);
+#endif
 int store_mb (LDBLE * source, LDBLE * target, LDBLE coef);
 static int store_mb_unknowns (struct unknown *unknown_ptr, LDBLE * LDBLE_ptr,
 			      LDBLE coef, LDBLE * gamma_ptr);
@@ -669,7 +672,6 @@ build_gas_phase (void)
   }
   return (OK);
 }
-#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 build_s_s_assemblage (void)
@@ -682,112 +684,11 @@ build_s_s_assemblage (void)
  *      mass balance equations for elements contained in gases
  */
   int i, j, k;
-  int row, col;
-  struct master *master_ptr;
-  struct rxn_token *rxn_ptr;
   struct s_s_comp *s_s_comp_ptr;
   struct phase *phase_ptr;
   struct unknown *unknown_ptr;
-  struct s_s *s_s_ptr, *s_s_ptr_old;
-  LDBLE coef, coef_elt;
-
-  if (s_s_unknown == NULL)
-    return (OK);
-  for (k = 0; k < count_unknowns; k++)
-  {
-    if (x[k]->type == S_S_MOLES)
-    {
-      s_s_ptr = x[k]->s_s;
-      for (i = 0; i < s_s_ptr->count_comps; i++)
-      {
-/*
- *   Determine elements in s_s component
- */
-	count_elts = 0;
-	paren_count = 0;
-	s_s_comp_ptr = &(s_s_ptr->comps[i]);
-	phase_ptr = s_s_comp_ptr->phase;
-	if (phase_ptr->rxn_x == NULL)
-	  continue;
-	add_elt_list (phase_ptr->next_elt, 1.0);
-#ifdef COMBINE
-	change_hydrogen_in_elt_list (0);
-#endif
-/*
- *   Build mass balance sums for each element in s_s
- */
-	if (debug_prep == TRUE)
-	{
-	  output_msg (OUTPUT_MESSAGE, "\n\tMass balance summations %s.\n\n",
-		      s_s_comp_ptr->phase->name);
-	}
-
-	/* All elements in s_s */
-	for (j = 0; j < count_elts; j++)
-	{
-	  unknown_ptr = NULL;
-	  if (strcmp (elt_list[j].elt->name, "H") == 0)
-	  {
-	    unknown_ptr = mass_hydrogen_unknown;
-	  }
-	  else if (strcmp (elt_list[j].elt->name, "O") == 0)
-	  {
-	    unknown_ptr = mass_oxygen_unknown;
-	  }
-	  else
-	  {
-	    if (elt_list[j].elt->primary->in == TRUE)
-	    {
-	      unknown_ptr = elt_list[j].elt->primary->unknown;
-	    }
-	    else if (elt_list[j].elt->primary->s->secondary != NULL)
-	    {
-	      unknown_ptr = elt_list[j].elt->primary->s->secondary->unknown;
-	    }
-	  }
-	  if (unknown_ptr != NULL)
-	  {
-	    coef = elt_list[j].coef;
-	    store_mb (&(s_s_comp_ptr->phase->moles_x), &(unknown_ptr->f), coef);
-	    if (debug_prep == TRUE)
-	    {
-	      output_msg (OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
-			  unknown_ptr->description, (double) coef);
-	    }
-	  }
-	}
-	/* Sum of mole fraction gases */
-	store_mb (&(s_s_comp_ptr->phase->fraction_x), &(x[k]->f), 1.0);
-      }
-    }
-    if (x[k]->type == S_S_FRACTION)
-    {
-      store_mb (&(x[k]->s_s->comps[0].phase->fraction_x), &(x[k]->f), 1.0);
-    }
-  }
-  return (OK);
-}
-#endif
-/* ---------------------------------------------------------------------- */
-int
-build_s_s_assemblage (void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Put coefficients into lists to sum iaps to test for equilibrium
- *   Put coefficients into lists to build jacobian for 
- *      sum of partial pressures equation and
- *      mass balance equations for elements contained in gases
- */
-  int i, j, k;
-  int row, col;
-  struct master *master_ptr;
-  struct rxn_token *rxn_ptr;
-  struct s_s_comp *s_s_comp_ptr;
-  struct phase *phase_ptr;
-  struct unknown *unknown_ptr;
-  struct s_s *s_s_ptr, *s_s_ptr_old;
-  LDBLE coef, coef_elt;
+  struct s_s *s_s_ptr;
+  LDBLE coef;
 
   if (s_s_unknown == NULL)
     return (OK);
@@ -861,11 +762,12 @@ build_s_s_assemblage (void)
     }
     if (x[k]->type == S_S_FRACTION)
     {
+      s_s_ptr = x[k]->s_s;
       if (s_s_ptr->binary == FALSE)
 	store_mb (&(x[k]->s_s->comps[0].phase->fraction_x), &(x[k]->f), 1.0);
     }
   }
-  if (s_s_ptr->binary == TRUE) build_s_s_assemblage_binary();
+  build_s_s_assemblage_binary();
   return (OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -879,13 +781,9 @@ build_s_s_assemblage_binary (void)
  *      mass action equation for component
  *      mass balance equations for elements contained in solid solutions
  */
-  int i, j, k, l, stop;
-  int row, col;
-  struct master *master_ptr;
+  int i;
   struct rxn_token *rxn_ptr;
-  struct s_s *s_s_ptr, *s_s_ptr_old;
-  char token[MAX_LENGTH];
-  char *ptr;
+  struct s_s *s_s_ptr;
   struct phase *phase_ptr;
   if (s_s_unknown == NULL)
     return (OK);
@@ -894,6 +792,7 @@ build_s_s_assemblage_binary (void)
     if (x[i]->type != S_S_MOLES && x[i]->type != S_S_FRACTION)
       continue;
     s_s_ptr = x[i]->s_s;
+    if (s_s_ptr->binary == FALSE) continue;
 /*
  *   Calculate function value (inverse saturation index)
  */
@@ -2838,7 +2737,7 @@ add_potential_factor (void)
  */
   if (count_trxn + 1 >= max_trxn)
   {
-    space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+    space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	   sizeof (struct rxn_token_temp));
   }
 /*
@@ -2927,7 +2826,7 @@ add_cd_music_factors (int n)
    */
   if (count_trxn + 3 >= max_trxn)
   {
-    space ((void **) &(trxn.token), count_trxn + 3, &max_trxn,
+    space ((void **) ((void *) &(trxn.token)), count_trxn + 3, &max_trxn,
 	   sizeof (struct rxn_token_temp));
   }
   /*
@@ -3650,36 +3549,6 @@ find_surface_charge_unknown (char *str_ptr, int plane)
   return (NULL);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-struct unknown *
-find_surface_charge_unknown (char *str_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *    Makes name for the potential unknown and returns in str_ptr
- *    Returns NULL if this unknown not in unknown list else
- *    returns a pointer to the potential unknown
- */
-  int i;
-  char *ptr;
-  char token[MAX_LENGTH];
-
-  replace ("_", " ", str_ptr);
-  ptr = str_ptr;
-  copy_token (token, &ptr, &i);
-  strcat (token, "_CB");
-  strcpy (str_ptr, token);
-  for (i = 0; i < count_unknowns; i++)
-  {
-    if (strcmp (token, x[i]->description) == 0)
-    {
-      return (x[i]);
-    }
-  }
-  return (NULL);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int
 setup_master_rxn (struct master **master_ptr_list, struct reaction **pe_rxn)
@@ -4412,7 +4281,7 @@ store_jacob (LDBLE * source, LDBLE * target, LDBLE coef)
   }
   return (OK);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
 store_jacob0 (int row, int column, LDBLE coef)
@@ -4432,7 +4301,7 @@ store_jacob0 (int row, int column, LDBLE coef)
   }
   return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int
 store_mb (LDBLE * source, LDBLE * target, LDBLE coef)

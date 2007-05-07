@@ -225,7 +225,7 @@ initialize (void)
   space ((void **) ((void *) &phases), INIT, &max_phases,
 	 sizeof (struct phase *));
 
-  space ((void **) &trxn.token, INIT, &max_trxn,
+  space ((void **) ((void *) &trxn.token), INIT, &max_trxn,
 	 sizeof (struct rxn_token_temp));
 
   space ((void **) ((void *) &s), INIT, &max_s, sizeof (struct species *));
@@ -2033,7 +2033,7 @@ xsolution_save (int n_user)
  */
     if (count_mass_balance + 2 >= max_mass_balance)
     {
-      space ((void **) &(solution_ptr->totals), count_mass_balance + 2,
+      space ((void **) ((void *) &(solution_ptr->totals)), count_mass_balance + 2,
 	     &max_mass_balance, sizeof (struct conc));
     }
   }

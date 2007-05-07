@@ -985,12 +985,9 @@ add_s_s_assemblage (struct s_s_assemblage *s_s_assemblage_ptr)
 /*
  *   Accumulate solid_solution data in master->totals and _x variables.
  */
-  int i, j, k;
-  LDBLE amount_to_add, total;
+  int i, j;
   struct s_s *s_s_ptr;
   struct master *master_ptr;
-  char token[MAX_LENGTH];
-  char *ptr;
 
   if (s_s_assemblage_ptr == NULL)
     return (OK);
