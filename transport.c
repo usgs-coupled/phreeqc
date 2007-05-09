@@ -562,11 +562,12 @@ transport (void)
       /* for each cell in column */
       for (i = last_c; i != (first_c - ishift); i -= ishift)
 	solution_duplicate (i - ishift, i);
+/* if boundary_solutions must be flushed by the flux from the column...
       if (ishift == 1 && bcon_last == 3)
 	solution_duplicate (last_c, last_c + 1);
       else if (ishift == -1 && bcon_first == 3)
 	solution_duplicate (last_c, last_c - 1);
-
+ */
       if (transp_surf)
       {
 	for (i = last_c + ishift; i != (first_c - ishift); i -= ishift)

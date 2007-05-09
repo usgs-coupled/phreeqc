@@ -880,6 +880,16 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and bug fixes                    *
 ************************************************************
 ************************************************************
+        --------
+	svn 2040
+        --------
+	Fixed warnings for type-punned with new gcc. 
+
+	Reverted to 2.12 for infilling solutions for transport. 
+	Only solutions are used, not additional reactants for solution
+	0 and n+1.
+
+	Added digits to printout of REACTION stoichiometry.
 
         --------
 	svn 1852

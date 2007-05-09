@@ -2019,7 +2019,7 @@ mb_s_s (void)
        */
       xc = 1 - xb;
       lc = exp ((s_s_ptr->a0 - s_s_ptr->a1 * (-4 * xb + 3)) * xb * xb);
-      lb = exp ((s_s_ptr->a0 + s_s_ptr->a1 * (4 * xb - 3)) * xc * xc);
+      lb = exp ((s_s_ptr->a0 + s_s_ptr->a1 * (4 * xb - 1)) * xc * xc);
       /*
        *  Calculate sigma pi, solid
        */
@@ -4534,7 +4534,7 @@ s_s_f (LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
   if (xc == 0)
     xc = 1e-20;
   lc = exp ((a0 - a1 * (-4 * xb + 3)) * xb * xb);
-  lb = exp ((a0 + a1 * (4 * xb - 3)) * xc * xc);
+  lb = exp ((a0 + a1 * (4 * xb - 1)) * xc * xc);
   r = lc * kc / (lb * kb);
   f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
   return (f);

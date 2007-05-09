@@ -2772,7 +2772,7 @@ add_potential_factor (void)
  */
   if (count_trxn + 1 >= max_trxn)
   {
-    space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+    space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	   sizeof (struct rxn_token_temp));
   }
 /*
@@ -2861,7 +2861,7 @@ add_cd_music_factors (int n)
    */
   if (count_trxn + 3 >= max_trxn)
   {
-    space ((void **) &(trxn.token), count_trxn + 3, &max_trxn,
+    space ((void **) ((void *) &(trxn.token)), count_trxn + 3, &max_trxn,
 	   sizeof (struct rxn_token_temp));
   }
   /*

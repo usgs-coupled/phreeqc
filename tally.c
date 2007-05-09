@@ -310,7 +310,7 @@ free_tally_table (void)
   for (i = 0; i < count_tally_table_columns; i++)
   {
     if (tally_table[i].formula != NULL)
-      (struct elt_list *) free_check_null (tally_table[i].formula);
+      tally_table[i].formula = (struct elt_list *) free_check_null (tally_table[i].formula);
     for (k = 0; k < 3; k++)
     {
       tally_table[i].total[k] =
