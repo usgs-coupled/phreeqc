@@ -2541,7 +2541,7 @@ species_rxn_to_trxn (struct species *s_ptr)
     count_trxn = i + 1;
     if (count_trxn + 1 >= max_trxn)
     {
-      space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+      space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	     sizeof (struct rxn_token_temp));
     }
   }
@@ -2582,7 +2582,7 @@ phase_rxn_to_trxn (struct phase *phase_ptr, struct reaction *rxn_ptr)
     count_trxn = i + 1;
     if (count_trxn + 1 >= max_trxn)
     {
-      space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+      space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	     sizeof (struct rxn_token_temp));
     }
   }

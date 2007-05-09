@@ -1046,7 +1046,7 @@ get_species (char **ptr)
 
   if (count_trxn + 1 >= max_trxn)
   {
-    space ((void **) &(trxn.token), count_trxn + 1, &max_trxn,
+    space ((void **) ((void *) &(trxn.token)), count_trxn + 1, &max_trxn,
 	   sizeof (struct rxn_token_temp));
   }
   /* coefficient */

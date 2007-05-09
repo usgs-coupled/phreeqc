@@ -751,7 +751,7 @@ print_irrev (void)
   output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n\n", "Reactant", "moles");
   for (i = 0; i < irrev_ptr->count_list; i++)
   {
-    output_msg (OUTPUT_MESSAGE, "\t%-15s%10.2f\n", irrev_ptr->list[i].name,
+    output_msg (OUTPUT_MESSAGE, "\t%-15s%13.5f\n", irrev_ptr->list[i].name,
 		(double) irrev_ptr->list[i].coef);
   }
   output_msg (OUTPUT_MESSAGE, "\n");
@@ -763,7 +763,7 @@ print_irrev (void)
   output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n", "Element", "moles");
   for (i = 0; irrev_ptr->elts[i].elt != NULL; i++)
   {
-    output_msg (OUTPUT_MESSAGE, "\t%-15s%10.2f\n",
+    output_msg (OUTPUT_MESSAGE, "\t%-15s%13.5f\n",
 		irrev_ptr->elts[i].elt->name,
 		(double) irrev_ptr->elts[i].coef);
   }
