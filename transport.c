@@ -1618,12 +1618,15 @@ multi_D (LDBLE DDt)
 	  use.solution_ptr->totals[j].description =
 	    string_hsave (m_s[l].name);
 	  use.solution_ptr->totals[j].moles = m_s[l].tot;
-	  if (use.solution_ptr->totals[j].moles < -1e-12)
+	  if (use.solution_ptr->totals[j].moles < 0)
 	  {
-	    sprintf (token,
+	    if (use.solution_ptr->totals[j].moles < -1e-12)
+            {
+	      sprintf (token,
 		     "Negative concentration in MCD: added %.4e moles %s in cell %d.",
 		     -use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
-	    warning_msg (token);
+	      warning_msg (token);
+            }
 	    use.solution_ptr->totals[j].moles = 0;
 	  }
 	  use.solution_ptr->totals[j + 1].description = NULL;
@@ -2452,12 +2455,15 @@ multi_Dstag (int mobile_cell)
 	  use.solution_ptr->totals[j].description =
 	    string_hsave (m_s[l].name);
 	  use.solution_ptr->totals[j].moles = m_s[l].tot;
-	  if (use.solution_ptr->totals[j].moles < -1e-12)
+	  if (use.solution_ptr->totals[j].moles < 0)
 	  {
-	    sprintf (token,
-		     "Negative concentration in MCD: added %.4e moles %s in cell %d",
-		     -use.solution_ptr->totals[j].moles, m_s[l].name, jcell);
-	    warning_msg (token);
+	    if (use.solution_ptr->totals[j].moles < -1e-12)
+	    {
+	      sprintf (token,
+		"Negative concentration in MCD: added %.4e moles %s in cell %d",
+		-use.solution_ptr->totals[j].moles, m_s[l].name, jcell);
+	      warning_msg (token);
+	    }
 	    use.solution_ptr->totals[j].moles = 0;
 	  }
 	  use.solution_ptr->totals[j + 1].description = NULL;
