@@ -67,7 +67,9 @@ extern void free_spread (void);
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
 extern void MergeFinalize (void);
 #endif
-
+extern LDBLE *scratch, *x_arg, *res_arg;
+extern LDBLE *normal, *ineq_array, *back_eq, *zero, *res, *delta1, *cu;
+extern int *iu, *is;
 /* ---------------------------------------------------------------------- */
 int
 clean_up (void)
@@ -406,6 +408,21 @@ clean_up (void)
   mb_unknowns = (struct unknown_list *) free_check_null (mb_unknowns);
   line = (char *) free_check_null (line);
   line_save = (char *) free_check_null (line_save);
+
+  zeros = (LDBLE *) free_check_null (zeros);
+  scratch = (LDBLE *) free_check_null (scratch);
+  x_arg = (LDBLE *) free_check_null (x_arg);
+  res_arg = (LDBLE *) free_check_null (res_arg);
+
+  normal = (LDBLE *) free_check_null (normal);
+  ineq_array = (LDBLE *) free_check_null (ineq_array);
+  back_eq = (LDBLE *) free_check_null (back_eq);
+  zero = (LDBLE *) free_check_null (zero);
+  res = (LDBLE *) free_check_null (res);
+  delta1 = (LDBLE *) free_check_null (delta1);
+  cu = (LDBLE *) free_check_null (cu);
+  iu = (int *) free_check_null (iu);
+  is = (int *) free_check_null (is);
 
 /* free user database name if defined */
   user_database = (char *) free_check_null (user_database);

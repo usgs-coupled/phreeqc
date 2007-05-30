@@ -1329,10 +1329,6 @@ total (char *total_name)
   LDBLE t;
   int i;
 
-  if (strcmp_nocase (total_name, "water") == 0)
-  {
-    return (mass_water_aq_x);
-  }
   if (strcmp (total_name, "H") == 0)
   {
     return (total_h_x / mass_water_aq_x);
@@ -1345,6 +1341,10 @@ total (char *total_name)
   t = 0.0;
   if (master_ptr == NULL)
   {
+    if (strcmp_nocase (total_name, "water") == 0)
+    {
+      return (mass_water_aq_x);
+    }
     sprintf (error_string, "Can not find definition for master species, %s.",
 	     total_name);
     warning_msg (error_string);
