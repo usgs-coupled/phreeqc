@@ -1711,3 +1711,23 @@ string_pad (char *str, int i)
   }
   return (str_ptr);
 }
+/* ---------------------------------------------------------------------- */
+void 
+zero_double (LDBLE *target, int n)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+
+  if (n > zeros_max)
+  {
+    zeros = (LDBLE *) PHRQ_realloc(zeros, (size_t) (n * sizeof(LDBLE)));
+    if (zeros == NULL) malloc_error();
+    for (i = zeros_max; i < n; i++)
+    {
+      zeros[i] = 0.0;
+    }
+    zeros_max = n;
+  }
+  memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
+  return;
+}

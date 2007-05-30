@@ -2309,7 +2309,7 @@ factor (struct LOC_exec * LINK)
   struct save_values s_v, *s_v_ptr;
   int k;
   LDBLE TEMP;
-  Char *STR1, *STR2;
+  Char STR1[256], STR2[256];
   char *elt_name, *surface_name, *mytemplate, *name;
   struct varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
     NULL, *moles_varrec = NULL;
@@ -2319,20 +2319,14 @@ factor (struct LOC_exec * LINK)
   LDBLE count_species;
   char *ptr, *string1, *string2;
 
-  STR1 = (char *) PHRQ_calloc (max_line, sizeof (char));
-  if (STR1 == NULL)
-    malloc_error ();
-  STR2 = (char *) PHRQ_calloc (max_line, sizeof (char));
-  if (STR2 == NULL)
-    malloc_error ();
-
   if (LINK->t == NULL)
     snerr ();
   facttok = LINK->t;
   LINK->t = LINK->t->next;
   n.stringval = false;
   s_v.count_subscripts = 0;
-  s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));
+  /*s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));*/
+  s_v.subscripts = NULL;
   switch (facttok->kind)
   {
 
@@ -2954,6 +2948,10 @@ factor (struct LOC_exec * LINK)
     if (LINK->t != NULL && LINK->t->kind != tokrp)
     {
       i = intexpr (LINK);
+      if (s_v.subscripts == NULL) {
+	s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));
+	if (s_v.subscripts == NULL) malloc_error();
+      }
       s_v.subscripts =
 	(int *) PHRQ_realloc (s_v.subscripts,
 			      (size_t) (s_v.count_subscripts +
@@ -2971,6 +2969,10 @@ factor (struct LOC_exec * LINK)
       {
 	LINK->t = LINK->t->next;
 	j = intexpr (LINK);
+	if (s_v.subscripts == NULL) {
+	  s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));
+	  if (s_v.subscripts == NULL) malloc_error();
+	}
 	s_v.subscripts =
 	  (int *) PHRQ_realloc (s_v.subscripts,
 				(size_t) (s_v.count_subscripts +
@@ -3006,6 +3008,10 @@ factor (struct LOC_exec * LINK)
     if (LINK->t != NULL && LINK->t->kind != tokrp)
     {
       i = intexpr (LINK);
+      if (s_v.subscripts == NULL) {
+	s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));
+	if (s_v.subscripts == NULL) malloc_error();
+      }
       s_v.subscripts =
 	(int *) PHRQ_realloc (s_v.subscripts,
 			      (size_t) (s_v.count_subscripts +
@@ -3023,6 +3029,10 @@ factor (struct LOC_exec * LINK)
       {
 	LINK->t = LINK->t->next;
 	j = intexpr (LINK);
+	if (s_v.subscripts == NULL) {
+	  s_v.subscripts = (int *) PHRQ_malloc (sizeof (int));
+	  if (s_v.subscripts == NULL) malloc_error();
+	}
 	s_v.subscripts =
 	  (int *) PHRQ_realloc (s_v.subscripts,
 				(size_t) (s_v.count_subscripts +
@@ -3165,9 +3175,15 @@ factor (struct LOC_exec * LINK)
       *n.UU.sval = '\0';
     else
     {
+      if (j+1 > 256) 
+      {
+	error_msg("String too long in factor\n", CONTINUE);
+/*
       STR1 = (char *) PHRQ_realloc (STR1, j + 1);
       if (STR1 == NULL)
 	malloc_error ();
+*/
+      }
       sprintf (STR1, "%.*s", (int) j, n.UU.sval + i - 1);
       strcpy (n.UU.sval, STR1);
     }
@@ -3192,8 +3208,6 @@ factor (struct LOC_exec * LINK)
     break;
   }
   s_v.subscripts = (int *) free_check_null (s_v.subscripts);
-  free_check_null (STR1);
-  free_check_null (STR2);
   return n;
 }
 

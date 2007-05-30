@@ -575,3 +575,4 @@ int string_trim_right (char *str);
 int string_trim_left (char *str);
 LDBLE under (LDBLE xval);
 int get_elts_in_species (char **t_ptr, LDBLE coef);
+void zero_double (LDBLE *target, int n);

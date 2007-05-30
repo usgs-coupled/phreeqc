@@ -10,6 +10,11 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"
+void 
+cl1_space (int check, int n2d, int klm, int nklmd);
+extern void zero_double(LDBLE *target, int n);
+LDBLE *x_arg = NULL, *res_arg = NULL, *scratch = NULL;
+int    x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
 
 int cl1 (int k, int l, int m, int n,
 	 int nklmd, int n2d,
@@ -36,7 +41,6 @@ cl1 (int k, int l, int m, int n,
      LDBLE * cu, int *iu, int *s, int check)
 {
   /* System generated locals */
-  LDBLE *scratch;
   union double_or_int
   {
     int ival;
@@ -60,7 +64,7 @@ cl1 (int k, int l, int m, int n,
   static int klm1;
   int q_dim, cu_dim;
   int kode_arg;
-  LDBLE *x_arg, *res_arg, check_toler;
+  LDBLE check_toler;
 #ifdef CHECK_ERRORS
   extern char **col_name, **row_name;
   extern int *row_back, *col_back;
@@ -158,33 +162,8 @@ cl1 (int k, int l, int m, int n,
 
   zv = 0;
   kode_arg = *kode;
-  x_arg = NULL;
-  res_arg = NULL;
-  if (check == 1)
-  {
-    /*
-       q_arg = PHRQ_malloc((size_t) (max_row_count * max_column_count * sizeof(LDBLE)));
-       if (q_arg == NULL) malloc_error();
-       for (i = 0; i < max_row_count*max_column_count; i++) {
-       q_arg[i] = q[i];
-       }
-     */
-    x_arg = (double *) PHRQ_malloc ((size_t) (n2d * sizeof (LDBLE)));
-    if (x_arg == NULL)
-      malloc_error ();
-    for (i = 0; i < n2d; i++)
-    {
-      x_arg[i] = x[i];
-    }
-    res_arg =
-      (double *) PHRQ_malloc ((size_t) ((k + l + m) * sizeof (LDBLE)));
-    if (res_arg == NULL)
-      malloc_error ();
-    for (i = 0; i < k + l + m; i++)
-    {
-      res_arg[i] = res[i];
-    }
-  }
+  cl1_space(check, n2d, k+l+m, nklmd);
+
 /* Parameter adjustments */
   q_dim = n2d;
   q2 = (union double_or_int *) q;
@@ -203,14 +182,7 @@ cl1 (int k, int l, int m, int n,
   *iter = 0;
   js = 0;
   ia = -1;
-/* Make scratch space */
-  scratch = (LDBLE *) PHRQ_malloc ((size_t) nklmd * sizeof (LDBLE));
-  if (scratch == NULL)
-    malloc_error ();
-  for (i = 0; i < nklmd; i++)
-  {
-    scratch[i] = 0.0;
-  }
+
 /* SET UP LABELS IN Q. */
   for (j = 0; j < n; ++j)
   {
@@ -776,7 +748,6 @@ L590:
   output_msg (OUTPUT_MESSAGE, "L640\n");
 #endif
   *error = sum;
-  scratch = (double *) free_check_null (scratch);
   /*
    *  Check calculation
    */
@@ -885,10 +856,52 @@ L590:
 		  "\n\tCL1: Roundoff errors in optimization.\n\t     Try using -multiple_precision in INVERSE_MODELING\n");
     }
   }
+  return 0;
+}
+
+void 
+cl1_space (int check, int n2d, int klm, int nklmd)
+{
   if (check == 1)
   {
-    x_arg = (double *) free_check_null (x_arg);
-    res_arg = (double *) free_check_null (res_arg);
+    if (x_arg == NULL) 
+    {
+      x_arg = (double *) PHRQ_malloc ((size_t) (n2d * sizeof (LDBLE)));
+    }
+    else if (n2d > x_arg_max)
+    {
+      x_arg = (double *) PHRQ_realloc (x_arg, (size_t) (n2d * sizeof (LDBLE)));
+      x_arg_max = n2d;
+    }
+    if (x_arg == NULL)
+      malloc_error ();
+    zero_double(x_arg, n2d);
+
+    if (res_arg == NULL) 
+    {
+      res_arg = (double *) PHRQ_malloc ((size_t) ((klm) * sizeof (LDBLE)));
+    }
+    else if (klm > res_arg_max)
+    {
+      res_arg = (double *) PHRQ_realloc (res_arg, (size_t) ((klm) * sizeof (LDBLE)));
+      res_arg_max = klm;
+    }
+    if (res_arg == NULL)
+      malloc_error ();
+    zero_double(res_arg, klm);
   }
-  return 0;
+
+/* Make scratch space */
+  if (scratch == NULL) 
+  {
+    scratch = (LDBLE *) PHRQ_malloc ((size_t) nklmd * sizeof (LDBLE));
+  }
+  else if (nklmd > scratch_max)
+  {
+    scratch = (LDBLE *) PHRQ_realloc (scratch, (size_t) nklmd * sizeof (LDBLE));
+    scratch_max = nklmd;
+  }
+  if (scratch == NULL)
+    malloc_error ();
+  zero_double(scratch, nklmd);
 }

@@ -1772,7 +1772,8 @@ EXTERNAL double AW;
 EXTERNAL int have_punch_name;
 
 EXTERNAL jmp_buf mark;
-
+EXTERNAL LDBLE *zeros;
+EXTERNAL int zeros_max;
 #if defined(WIN32)
 #include <windows.h>
 #endif

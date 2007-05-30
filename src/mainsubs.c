@@ -629,6 +629,12 @@ initialize (void)
   dbg_master = master;
   calculating_deriv = FALSE;
   numerical_deriv = FALSE;
+
+  zeros = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
+  if (zeros == NULL) malloc_error();
+  zeros[0] = 0.0;
+  zeros_max = 1;
+
   return;
 }
 
@@ -1952,14 +1958,12 @@ xsolution_save (int n_user)
   count_master_activity = 0;
   for (i = 0; i < count_master; i++)
   {
+    if (master[i]->in == FALSE) continue;
     if (master[i]->s->type == EX ||
 	master[i]->s->type == SURF || master[i]->s->type == SURF_PSI)
       continue;
-    if (strcmp (master[i]->elt->name, "H") == 0 ||
-	strcmp (master[i]->elt->name, "H(1)") == 0 ||
-	strcmp (master[i]->elt->name, "O") == 0 ||
-	strcmp (master[i]->elt->name, "O(-2)") == 0)
-      continue;
+    if (master[i]->s == s_hplus) continue;
+    if (master[i]->s == s_h2o) continue;
 /*
  *   Save list of log activities
  */
@@ -1980,11 +1984,8 @@ xsolution_save (int n_user)
     if (master[i]->s->type == EX ||
 	master[i]->s->type == SURF || master[i]->s->type == SURF_PSI)
       continue;
-    if (strcmp (master[i]->elt->name, "H") == 0 ||
-	strcmp (master[i]->elt->name, "H(1)") == 0 ||
-	strcmp (master[i]->elt->name, "O") == 0 ||
-	strcmp (master[i]->elt->name, "O(-2)") == 0)
-      continue;
+    if (master[i]->s == s_hplus) continue;
+    if (master[i]->s == s_h2o) continue;
 /*
  *   Save list of log activities
  */
