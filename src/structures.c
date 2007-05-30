@@ -68,8 +68,8 @@ extern void free_spread (void);
 extern void MergeFinalize (void);
 #endif
 extern LDBLE *scratch, *x_arg, *res_arg;
-extern LDBLE *normal, *ineq_array, *back_eq, *zero, *res, *delta1, *cu;
-extern int *iu, *is;
+extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
+extern int *iu, *is, *back_eq;
 /* ---------------------------------------------------------------------- */
 int
 clean_up (void)
@@ -416,7 +416,7 @@ clean_up (void)
 
   normal = (LDBLE *) free_check_null (normal);
   ineq_array = (LDBLE *) free_check_null (ineq_array);
-  back_eq = (LDBLE *) free_check_null (back_eq);
+  back_eq = (int *) free_check_null (back_eq);
   zero = (LDBLE *) free_check_null (zero);
   res = (LDBLE *) free_check_null (res);
   delta1 = (LDBLE *) free_check_null (delta1);
