@@ -163,6 +163,7 @@ typedef Char string255[256];
 #define tokget_por    	132
 #define tokosmotic    	133
 #define tokchange_surf  134
+#define tokporevolume   135
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -378,6 +379,7 @@ static const struct key command[] = {
   {"change_por", tokchange_por},
   {"get_por", tokget_por},
   {"change_surf", tokchange_surf},
+  {"porevolume", tokporevolume}
 };
 static int NCMDS = (sizeof (command) / sizeof (struct key));
 
@@ -1223,6 +1225,8 @@ parse (Char * inbuf, tokenrec ** buf)
 	      t->kind = tokget_por;
 	    else if (!strcmp (token, "change_surf"))
 	      t->kind = tokchange_surf;
+	    else if (!strcmp (token, "porevolume"))
+	      t->kind = tokporevolume;
 	    else if (!strcmp (token, "edl"))
 	      t->kind = tokedl;
 	    else if (!strcmp (token, "surf"))
@@ -1758,6 +1762,10 @@ listtokens (FILE * f, tokenrec * buf)
 
     case tokchange_surf:
       output_msg (OUTPUT_BASIC, "CHANGE_SURF");
+      break;
+
+    case tokporevolume:
+      output_msg (OUTPUT_BASIC, "POREVOLUME");
       break;
 
     case tokmol:
@@ -3074,6 +3082,10 @@ factor (struct LOC_exec * LINK)
 
   case toktot:
     n.UU.val = total (stringfactor (STR1, LINK));
+    break;
+
+  case tokporevolume:
+    n.UU.val = pore_volume;
     break;
 
   case toklog10:
