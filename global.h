@@ -1794,4 +1794,5 @@ struct system
   struct surface *surface;
 };
 
+EXTERNAL double pore_volume;
 #endif /* _INC_GLOBAL_H */

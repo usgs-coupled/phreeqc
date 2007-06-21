@@ -635,6 +635,7 @@ initialize (void)
   zeros[0] = 0.0;
   zeros_max = 1;
 
+  pore_volume = 0;
   return;
 }
 
