@@ -201,7 +201,7 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
  *   Remove comment to print total moles of each species
  */
   int i, j, count_g;
-  LDBLE mass_water_surface, r;
+  LDBLE mass_water_surface, r, sum_surfs;
   LDBLE molality, moles_excess, moles_surface;
 
   if (use.surface_ptr == NULL)
@@ -232,16 +232,21 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
  */
 
   output_msg (OUTPUT_MESSAGE,
-	      "\tWater in diffuse layer: %e kg.   Thickness: %e m.\n",
+	      "\tWater in diffuse layer: %8.3e kg, %4.1f%% of total DDL-water.\n",
 	      (double) surface_charge_ptr1->mass_water,
-	      (double) use.surface_ptr->thickness);
+	      (double) 100 * surface_charge_ptr1->mass_water / mass_water_surfaces_x);
   if (use.surface_ptr->debye_lengths > 0)
   {
-    r =
-      0.002 * mass_water_bulk_x / (surface_charge_ptr1->specific_area *
-				   surface_charge_ptr1->grams);
+    sum_surfs = 0.0;
+    for (j = 0; j < count_unknowns; j++)
+    {
+      if (x[j]->type != SURFACE_CB)
+        continue;
+      sum_surfs += x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
+    }
+    r = 0.002 * mass_water_bulk_x / sum_surfs;
     output_msg (OUTPUT_MESSAGE,
-		"\tRadius of total pore:   %e m; of free pore: %e m.\n",
+		"\tRadius of total pore:   %8.3e m; of free pore: %8.3e m.\n",
 		(double) r, (double) r - use.surface_ptr->thickness);
   }
 
