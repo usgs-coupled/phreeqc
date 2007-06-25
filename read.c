@@ -7812,6 +7812,13 @@ read_advection (void)
     case 12:			/* punch_frequency */
       sscanf (next_char, "%d", &punch_ad_modulus);
       opt_save = OPTION_DEFAULT;
+      if (punch_ad_modulus <= 0) 
+      {
+	sprintf (error_string,
+		 "Punch frequency must be greater than 0. Frequency set to 1000.");
+	warning_msg (error_string);
+	punch_ad_modulus = 1000;
+      }
       break;
     case 4:			/* punch */
     case 14:			/* punch_cells */
@@ -7844,6 +7851,13 @@ read_advection (void)
     case 13:			/* print_frequency */
       sscanf (next_char, "%d", &print_ad_modulus);
       opt_save = OPTION_DEFAULT;
+      if (print_ad_modulus <= 0) 
+      {
+	sprintf (error_string,
+		 "Print frequency must be greater than 0. Frequency set to 1000.");
+	warning_msg (error_string);
+	print_ad_modulus = 1000;
+      }
       break;
     case 15:			/* initial_time */
       sscanf (next_char, SCANFORMAT, &initial_total_time);

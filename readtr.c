@@ -213,6 +213,14 @@ read_transport (void)
     case 33:			/* punch_frequency */
       sscanf (next_char, "%d", &punch_modulus);
       opt_save = OPTION_DEFAULT;
+      if (punch_modulus <= 0) 
+      {
+	sprintf (error_string,
+		 "Punch frequency must be greater than 0. Frequency set to 1000.");
+	warning_msg (error_string);
+	punch_modulus = 1000;
+      }
+
       break;
     case 4:			/* bcond */
     case 12:			/* bc */
@@ -442,6 +450,13 @@ read_transport (void)
     case 34:			/* print_frequency */
       sscanf (next_char, "%d", &print_modulus);
       opt_save = OPTION_DEFAULT;
+      if (print_modulus <= 0) 
+      {
+	sprintf (error_string,
+		 "Print frequency must be greater than 0. Frequency set to 1000.");
+	warning_msg (error_string);
+	print_modulus = 1000;
+      }
       break;
     case 31:			/* dump_frequency */
       dump_in = TRUE;
