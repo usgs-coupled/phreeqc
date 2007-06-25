@@ -56,6 +56,7 @@ all: alkalinity.out \
 	llnl.out \
 	local_min_pz.out \
 	mahoney.out \
+	mcd.out \
 	mu.out \
 	n3.out \
 	np.test.out \

@@ -636,9 +636,7 @@ initial_surface_water (void)
  *   Ionic strength is fixed, so diffuse-layer water will not change
  */
   int i;
-  LDBLE debye_length, r, rd, ddl_limit, rd_limit, fraction, sum_fracs,
-    sum_surfs, s;
-  LDBLE mass_water_surface;
+  LDBLE debye_length, b, r, rd, ddl_limit, rd_limit, fraction, sum_surfs, s;
   double damp_aq;
 
 /*
@@ -652,86 +650,94 @@ initial_surface_water (void)
 
   /*  ddl is at most the fraction ddl_limit of bulk water */
   ddl_limit = use.surface_ptr->DDL_limit;
+
 /*
  *   Loop through all surface components, calculate each H2O surface (diffuse layer),
  *   H2O aq, and H2O bulk (diffuse layers plus aqueous).
  */
-  sum_fracs = sum_surfs = mass_water_surfaces_x = 0.0;
 
-  for (i = 0; i < count_unknowns; i++)
+  if (use.surface_ptr->debye_lengths > 0)
   {
-    if (x[i]->type != SURFACE_CB)
-      continue;
-    if (use.surface_ptr->debye_lengths > 0)
+    sum_surfs = 0.0;
+    for (i = 0; i < count_unknowns; i++)
     {
-      rd = debye_length * use.surface_ptr->debye_lengths;
-      use.surface_ptr->thickness = rd;
-      if (state == INITIAL_SURFACE)
+      if (x[i]->type != SURFACE_CB)
+        continue;
+      sum_surfs += x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+    }
+
+    rd = debye_length * use.surface_ptr->debye_lengths;
+    use.surface_ptr->thickness = rd;
+
+    if (state == INITIAL_SURFACE)
+    {
+      /* distribute water over DDL (rd) and free pore (r - rd) */
+      /* find r: free pore (m3) = pi * (r - rd)^2 * L, where L = A / (2*pi*r),
+         A = sum_surfs = sum of the surface areas */
+      b = -2 * (rd + use.solution_ptr->mass_water / (1000 * sum_surfs));
+      r = 0.5 * (-b + sqrt (b * b - 4 * rd * rd));
+      /* DDL (m3) = pi * (r^2 - (r - rd)^2) * L */
+      rd_limit = (1 - sqrt (1 - ddl_limit)) * r;
+      /* rd should be smaller than r and the ddl limit */
+      if (rd > rd_limit)
       {
-	/* distribute water over DDL (rd) and free pore (r - rd) */
-	/* find r: free pore (m3) = pi * (r - rd)^2 * L, where L = A / (2*pi*r) */
-	r =
-	  2 * (rd +
-	       use.solution_ptr->mass_water / (1000 *
-					       x[i]->surface_charge->
-					       specific_area *
-					       x[i]->surface_charge->grams));
-	r = 0.5 * (r + sqrt (r * r - 4 * rd * rd));
-	/* DDL (m3) = pi * (r^2 - (r - rd)^2) * L */
+	mass_water_surfaces_x = use.solution_ptr->mass_water * ddl_limit / (1 - ddl_limit);
+	r = 0.002 * (mass_water_surfaces_x + use.solution_ptr->mass_water) / sum_surfs;
 	rd_limit = (1 - sqrt (1 - ddl_limit)) * r;
-	if (rd > rd_limit)
-	  use.surface_ptr->thickness = rd = rd_limit;
-	mass_water_surface =
-	  (r * r / pow (r - rd, 2) - 1) * use.solution_ptr->mass_water;
+	use.surface_ptr->thickness = rd = rd_limit;
       }
       else
+	mass_water_surfaces_x =
+	  (r * r / pow (r - rd, 2) - 1) * use.solution_ptr->mass_water;
+      for (i = 0; i < count_unknowns; i++)
       {
-	s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
-	sum_surfs += s;
-	r = 0.002 * mass_water_bulk_x / s;
-	/* rd should be smaller than r */
-	rd_limit = (1 - sqrt (1 - ddl_limit)) * r;
-	if (rd > rd_limit)
-	{
-	  use.surface_ptr->thickness = rd = rd_limit;
-	  fraction = ddl_limit;
-	}
-	else
-	  fraction = 1 - pow (r - rd, 2) / (r * r);
-	damp_aq = 1.0;
-	if (g_iterations > 10)
-	  damp_aq = 0.2;
-	else if (g_iterations > 5)
-	  damp_aq = 0.5;
-	fraction =
-	  damp_aq * fraction + (1 -
-				damp_aq) * x[i]->surface_charge->mass_water /
-	  mass_water_bulk_x;
-	mass_water_surface = fraction * mass_water_bulk_x;
-	sum_fracs += fraction;
+	if (x[i]->type != SURFACE_CB)
+	  continue;
+        s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+	x[i]->surface_charge->mass_water = mass_water_surfaces_x * s / sum_surfs;
       }
     }
     else
-      /* make constant thickness of, default 1e-8 m (100 Angstroms) */
-      mass_water_surface = x[i]->surface_charge->specific_area *
-	x[i]->surface_charge->grams * use.surface_ptr->thickness * 1000;
-
-    x[i]->surface_charge->mass_water = mass_water_surface;
-    mass_water_surfaces_x += mass_water_surface;
+    {
+      r = 0.002 * mass_water_bulk_x / sum_surfs;
+      rd_limit = (1 - sqrt (1 - ddl_limit)) * r;
+      if (rd > rd_limit)
+      {
+	use.surface_ptr->thickness = rd = rd_limit;
+	fraction = ddl_limit;
+      }
+      else
+	fraction = 1 - pow (r - rd, 2) / (r * r);
+      damp_aq = 1.0;
+      if (g_iterations > 10)
+	damp_aq = 0.2;
+      else if (g_iterations > 5)
+	damp_aq = 0.5;
+      mass_water_surfaces_x = damp_aq * fraction * mass_water_bulk_x +
+	(1 - damp_aq) * mass_water_surfaces_x;
+      for (i = 0; i < count_unknowns; i++)
+      {
+	if (x[i]->type != SURFACE_CB)
+	  continue;
+        s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+	x[i]->surface_charge->mass_water = mass_water_surfaces_x * s / sum_surfs;
+      }
+    }
   }
-  if (use.surface_ptr->debye_lengths > 0 && sum_fracs > ddl_limit)
+  else
   {
-    mass_water_surfaces_x *= ddl_limit / sum_fracs;
-    /* distribute water according to surface area */
+    /* take constant thickness of, default 1e-8 m (100 Angstroms) */
+    mass_water_surfaces_x = 0.0;
     for (i = 0; i < count_unknowns; i++)
     {
       if (x[i]->type != SURFACE_CB)
 	continue;
-      s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
-      x[i]->surface_charge->mass_water =
-	mass_water_bulk_x * ddl_limit * s / sum_surfs;
+      x[i]->surface_charge->mass_water = x[i]->surface_charge->specific_area *
+	x[i]->surface_charge->grams * use.surface_ptr->thickness * 1000;
+      mass_water_surfaces_x += x[i]->surface_charge->mass_water;
     }
   }
+
   if (use.surface_ptr->type == CD_MUSIC)
     mass_water_bulk_x = mass_water_aq_x + mass_water_surfaces_x;
   else
