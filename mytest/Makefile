@@ -17,6 +17,7 @@ all: alkalinity.out \
 	co2.out \
 	colloid_U.out \
 	comments.out \
+	ddlsurf.out \
 	desc.out \
 	dissolve_only.out \
 	eco.out \
@@ -56,7 +57,6 @@ all: alkalinity.out \
 	llnl.out \
 	local_min_pz.out \
 	mahoney.out \
-	mcdsurf.out \
 	mu.out \
 	n3.out \
 	np.test.out \

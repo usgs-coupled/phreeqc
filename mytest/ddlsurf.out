@@ -1,5 +1,5 @@
-   Input file: mcdsurf
-  Output file: mcdsurf.out
+   Input file: ddlsurf
+  Output file: ddlsurf.out
 Database file: phreeqc.dat
 
 ------------------
@@ -95,7 +95,7 @@ Reading input data for simulation 1.
 	10 save edl("water", "Bfa") + edl("water", "Hfw")  + edl("water", "Hfo")+ tot("water")
 	 end
 	SELECTED_OUTPUT
-	        file            mcdsurf.sel
+	        file            ddlsurf.sel
 	        reset           false
 	        step
 	        time

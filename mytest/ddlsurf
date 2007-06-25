@@ -46,7 +46,7 @@ wBfa; -start;10 save edl("water", "Bfa"); -end
 wHfo; -start;10 save edl("water", "Hfo"); -end
 H2O; -start;10 save edl("water", "Bfa") + edl("water", "Hfw")  + edl("water", "Hfo")+ tot("water"); -end
 SELECTED_OUTPUT
-        -file            mcdsurf.sel
+        -file            ddlsurf.sel
         -reset           false
         -step
         -time
