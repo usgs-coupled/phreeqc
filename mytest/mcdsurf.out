@@ -95,7 +95,7 @@ Reading input data for simulation 1.
 	10 save edl("water", "Bfa") + edl("water", "Hfw")  + edl("water", "Hfo")+ tot("water")
 	 end
 	SELECTED_OUTPUT
-	        file            c:\dos\p\test.prn
+	        file            mcdsurf.sel
 	        reset           false
 	        step
 	        time
@@ -135,7 +135,7 @@ Initial solution 1.
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -7.694e-17
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   8
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -147,7 +147,7 @@ Initial solution 1.
 
    OH-                    3.829e-07   3.162e-07    -6.417    -6.500    -0.083
    H+                     3.666e-08   3.162e-08    -7.436    -7.500    -0.064
-   H2O                    5.551e+01   9.989e-01     1.744    -0.000     0.000
+   H2O                    5.551e+01   9.989e-01     1.744     0.000     0.000
 Ca               4.800e-03
    Ca+2                   4.800e-03   2.399e-03    -2.319    -2.620    -0.301
    CaOH+                  1.509e-08   1.258e-08    -7.821    -7.900    -0.079
@@ -166,7 +166,7 @@ O(0)             2.173e-13
 	Phase               SI log IAP  log KT
 
 	H2(g)           -36.56  -39.71   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
 	O2(g)           -10.00  -12.96   -2.96  O2
 
@@ -258,7 +258,7 @@ Hfw
 	  0.000e+00  sigma, C/m**2
 	  3.401e-14  psi, V
 	 -1.324e-12  -F*psi/RT
-	  1.000e-00  exp(-F*psi/RT)
+	  1.000e+00  exp(-F*psi/RT)
 	  3.000e+01  specific area, m**2/g
 	  3.000e+07  m**2 for   1.000e+06 g
 
@@ -393,8 +393,8 @@ X                6.000e+01 mol
 	                               Equiv-    Equivalent      Log 
 	Species             Moles      alents      Fraction     Gamma
 
-	CaX2              2.339e+01   4.678e+01   7.797e-01    -0.000
-	NaX               1.322e+01   1.322e+01   2.203e-01    -0.000
+	CaX2              2.339e+01   4.678e+01   7.797e-01     0.000
+	NaX               1.322e+01   1.322e+01   2.203e-01     0.000
 
 -----------------------------Solution composition------------------------------
 
@@ -416,7 +416,7 @@ X                6.000e+01 mol
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -2.268e-15
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -428,7 +428,7 @@ X                6.000e+01 mol
 
    OH-                    3.829e-07   3.162e-07    -6.417    -6.500    -0.083
    H+                     3.666e-08   3.162e-08    -7.436    -7.500    -0.064
-   H2O                    4.280e+03   9.989e-01     3.631    -0.000     0.000
+   H2O                    4.280e+03   9.989e-01     3.631     0.000     0.000
 Ca               4.800e-03
    Ca+2                   4.800e-03   2.399e-03    -2.319    -2.620    -0.301
    CaOH+                  1.509e-08   1.258e-08    -7.821    -7.900    -0.079
@@ -447,7 +447,7 @@ O(0)             2.150e-13
 	Phase               SI log IAP  log KT
 
 	H2(g)           -36.56  -39.71   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
 	O2(g)           -10.00  -12.96   -2.96  O2
 
@@ -585,7 +585,7 @@ Hfw
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -2.310e-15
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -597,7 +597,7 @@ Hfw
 
    OH-                    3.829e-07   3.162e-07    -6.417    -6.500    -0.083
    H+                     3.666e-08   3.162e-08    -7.436    -7.500    -0.064
-   H2O                    4.280e+03   9.989e-01     3.631    -0.000     0.000
+   H2O                    4.280e+03   9.989e-01     3.631     0.000     0.000
 Ca               4.800e-03
    Ca+2                   4.800e-03   2.399e-03    -2.319    -2.620    -0.301
    CaOH+                  1.509e-08   1.258e-08    -7.821    -7.900    -0.079
@@ -616,7 +616,7 @@ O(0)             2.149e-13
 	Phase               SI log IAP  log KT
 
 	H2(g)           -36.56  -39.71   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
+	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
 	O2(g)           -10.00  -12.96   -2.96  O2
 
