@@ -1,10 +1,11 @@
 #ifdef PHREEQC_IDENT
-static char const svnidkinetics[] = "$Id$";
+static char const svnidkinetics[] =
+  "$Id$";
 #endif
 KINETICS_EXTERNAL void *cvode_kinetics_ptr;
-KINETICS_EXTERNAL int  cvode_test;
-KINETICS_EXTERNAL int  cvode_error;
-KINETICS_EXTERNAL int  cvode_n_user;
+KINETICS_EXTERNAL int cvode_test;
+KINETICS_EXTERNAL int cvode_error;
+KINETICS_EXTERNAL int cvode_n_user;
 KINETICS_EXTERNAL int cvode_n_reactions;
 KINETICS_EXTERNAL realtype cvode_step_fraction;
 KINETICS_EXTERNAL realtype cvode_rate_sim_time;
@@ -18,4 +19,3 @@ KINETICS_EXTERNAL N_Vector kinetics_y, kinetics_abstol;
 KINETICS_EXTERNAL void *kinetics_cvode_mem;
 KINETICS_EXTERNAL struct pp_assemblage *cvode_pp_assemblage_save;
 KINETICS_EXTERNAL struct s_s_assemblage *cvode_s_s_assemblage_save;
-

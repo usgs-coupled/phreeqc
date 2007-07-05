@@ -5,15 +5,15 @@
  *   Need to define here and in cl1.c
  */
 #ifdef PHREEQC_IDENT
-static char const svnidphrqtype[] = "$Id$";
+static char const svnidphrqtype[] =
+  "$Id$";
 #endif
 
 /*#define USE_LONG_DOUBLE*/
 #ifdef USE_LONG_DOUBLE
-   #define LDBLE long double
-   #define SCANFORMAT "%Lf"
+#define LDBLE long double
+#define SCANFORMAT "%Lf"
 #else
-   #define LDBLE double
-   #define SCANFORMAT "%lf"
+#define LDBLE double
+#define SCANFORMAT "%lf"
 #endif
-
