@@ -58,7 +58,7 @@ static int mix_stag (int i, LDBLE stagkin_time, int punch,
 
 LDBLE *heat_mix_array;
 LDBLE *temp1, *temp2;
-int heat_nmix;
+int nmix, heat_nmix;
 LDBLE heat_mix_f_imm, heat_mix_f_m;
 
 /* ---------------------------------------------------------------------- */
@@ -71,7 +71,6 @@ transport (void)
   LDBLE b, f, mix_f_m, mix_f_imm;
   LDBLE water_m, water_imm;
   int first_c, last_c, b_c;
-  int nmix;
   int max_iter;
   char token[MAX_LENGTH];
   LDBLE kin_time, stagkin_time, kin_time_save;
@@ -206,7 +205,8 @@ transport (void)
       if ((cell_data[i - 1].print == TRUE) && (cell_no != count_cells + 1))
 	print_all ();
     }
-    saver ();
+/*    if (i > 0 && i <= count_cells)*/
+      saver ();
   }
 /*
  * Also stagnant cells
@@ -266,8 +266,6 @@ transport (void)
  */
   nmix = init_mix ();
   heat_nmix = init_heat_mix (nmix);
-/* appt */
-  transport_substeps = nmix + abs (ishift);
   if (nmix < 2)
     stagkin_time = timest;
   else
@@ -562,6 +560,7 @@ transport (void)
       /* for each cell in column */
       for (i = last_c; i != (first_c - ishift); i -= ishift)
 	solution_duplicate (i - ishift, i);
+
 /* if boundary_solutions must be flushed by the flux from the column...
       if (ishift == 1 && bcon_last == 3)
 	solution_duplicate (last_c, last_c + 1);
@@ -959,7 +958,11 @@ init_mix (void)
  * Find number of mixes
  */
   if (maxmix == 0)
+  {
     nmix = 0;
+    if (multi_Dflag == TRUE && mcd_substeps > 1 && stag_data->count_stag > 0)
+      nmix = (int) ceil (mcd_substeps);
+  }
   else
   {
     if ((bcon_first == 1) || (bcon_last == 1))
@@ -972,6 +975,9 @@ init_mix (void)
       if (nmix < 2)
 	nmix = 2;
     }
+    if (multi_Dflag == TRUE && mcd_substeps > 1)
+      nmix = (int) ceil (nmix * mcd_substeps);
+
     for (i = 0; i <= count_cells; i++)
       m[i] /= nmix;
   }
@@ -1390,7 +1396,8 @@ multi_D (LDBLE DDt)
 /* ---------------------------------------------------------------------- */
 {
 /* basic scheme:
- * 1. determine mole transfer (mol/s) of all solute species > 1e-20 mol/L
+ * 1. determine mole transfer (mol/s) of solute species with concentrations above
+      the limit set in routine fill_spec.
  * 2. sum up as mole transfer of master_species
  * 3. add moles of master_species to solutions for mixing timestep DDt
  */
@@ -1540,12 +1547,15 @@ multi_D (LDBLE DDt)
 	  use.solution_ptr->totals[j].description =
 	    string_hsave (m_s[l].name);
 	  use.solution_ptr->totals[j].moles = -m_s[l].tot;
-	  if (use.solution_ptr->totals[j].moles < -1e-12)
+	  if (use.solution_ptr->totals[j].moles < 0)
 	  {
-	    sprintf (token,
+	    if (use.solution_ptr->totals[j].moles < -1e-12)
+	    {
+	      sprintf (token,
 		     "Negative concentration in MCD: added %.2e moles %s in cell %d.",
 		     -use.solution_ptr->totals[j].moles, m_s[l].name, i);
-	    warning_msg (token);
+	      warning_msg (token);
+	    }
 	    use.solution_ptr->totals[j].moles = 0;
 	  }
 	  use.solution_ptr->totals[j + 1].description = NULL;
@@ -2185,11 +2195,7 @@ fill_spec (int cell_no)
       else
 	sol_D[cell_no].spec[count_spec].Dp =
 	  species_list[i].s->dw * por_factor;
-      if (			/*strcmp(species_list[i].s->name, "H+") != NULL &&
-				   strcmp(species_list[i].s->name, "OH-") != NULL && */
-/* appt 8/1/7
-           por * sol_D[cell_no].spec[count_spec].Dp > diffc_max) */
-	   sol_D[cell_no].spec[count_spec].Dp > diffc_max)
+      if (sol_D[cell_no].spec[count_spec].Dp > diffc_max)
 	diffc_max = sol_D[cell_no].spec[count_spec].Dp;
       count_spec++;
     }
@@ -2224,8 +2230,7 @@ multi_Dstag (int mobile_cell)
 /* ---------------------------------------------------------------------- */
 {
 /* basic scheme follows multi_D, but uses the mix factors predefined with MIX
- * 1. determine mole transfer (mol/s) of all solute species > 1e-20 mol/L
-                for the interface between 2 cells.
+ * 1. determine mole transfer (mol/s) of solute species for the interface between 2 cells.
  * 2. sum up as mole transfer of master_species
  * 3. add moles of master_species to the 2 cells
  *      NOTE. Define the water content of stagnant cells relative to the
@@ -2265,6 +2270,8 @@ multi_Dstag (int mobile_cell)
       if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
 	continue;
       mixf = use.mix_ptr->comps[i].fraction;
+      if (mcd_substeps > 1)
+	mixf /= nmix;
 /*
  * 1. obtain J_ij...
  */
@@ -2380,12 +2387,15 @@ multi_Dstag (int mobile_cell)
 	  use.solution_ptr->totals[j].description =
 	    string_hsave (m_s[l].name);
 	  use.solution_ptr->totals[j].moles = -m_s[l].tot;
-	  if (use.solution_ptr->totals[j].moles < -1e-12)
+	  if (use.solution_ptr->totals[j].moles < 0)
 	  {
-	    sprintf (token,
+	    if (use.solution_ptr->totals[j].moles < -1e-12)
+	    {
+	      sprintf (token,
 		     "Negative concentration in MCD: added %.2e moles %s in cell %d",
 		     -use.solution_ptr->totals[j].moles, m_s[l].name, icell);
-	    warning_msg (token);
+	      warning_msg (token);
+	    }
 	    use.solution_ptr->totals[j].moles = 0;
 	  }
 	  use.solution_ptr->totals[j + 1].description = NULL;

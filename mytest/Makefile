@@ -22,6 +22,7 @@ all: alkalinity.out \
 	dissolve_only.out \
 	eco.out \
 	evap.out \
+	de.out \
 	deb1.out \
 	deb2.out \
 	debye1.out \
@@ -119,6 +120,7 @@ all: alkalinity.out \
 	colt3_mi.out \
 	colt4.out \
 	colt5.out \
+	membrane.out \
 	minteq.out \
 	minteqv4.out \
 	ex16mp.out ex17mp.out ex18mp.out \
