@@ -288,7 +288,16 @@ read_transport (void)
       break;
     case 5:			/* timest */
     case 14:			/* time_step */
-      sscanf (next_char, SCANFORMAT, &timest);
+      if (copy_token (token, &next_char, &l) == DIGIT)
+	sscanf (token, SCANFORMAT, &timest);
+      if (copy_token (token, &next_char, &l) == DIGIT)
+	sscanf (token, SCANFORMAT, &mcd_substeps);
+      if (mcd_substeps < 1)
+      {
+	mcd_substeps = 1.0;
+	warning_msg ("Substep factor in MCD must be >= 1.0\n"
+		     "mcd_substeps = 1.0 assumed.");
+      }
       opt_save = OPTION_DEFAULT;
       break;
     case 6:			/* diffc */

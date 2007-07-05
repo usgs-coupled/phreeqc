@@ -154,6 +154,7 @@ initialize (void)
   multi_Dflag = FALSE;
 /* !!!!        count_stag = 0; */
 
+  mcd_substeps = 1.0;
   print_modulus = 1;
   punch_modulus = 1;
   dump_modulus = 0;

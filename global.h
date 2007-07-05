@@ -1039,7 +1039,7 @@ EXTERNAL int simul_tr;
 EXTERNAL LDBLE diffc;
 EXTERNAL LDBLE heat_diffc;
 EXTERNAL int cell;
-EXTERNAL int transport_substeps;
+EXTERNAL LDBLE mcd_substeps;
 EXTERNAL struct stag_data
 {
   int count_stag;
