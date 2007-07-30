@@ -43,22 +43,9 @@ LDBLE *normal=NULL, *ineq_array=NULL, *res=NULL, *cu=NULL, *zero=NULL, *delta1=N
 int *iu=NULL, *is=NULL, *back_eq=NULL;
 int normal_max=0, ineq_array_max=0, res_max=0, cu_max=0, zero_max=0, delta1_max=0, iu_max=0, is_max=0, back_eq_max=0;
 #ifdef ORCHESTRA
-extern void ORCH_write_initial_solution(void);
-extern void ORCH_read_output(void);
-int model()
-{
-  ORCH_write_initial_solution();
-  // open socket
-  // send data
-  // figure out when it's done
-  // read results
-  // determine server has closed socket
-  //ORCH_read_output();
+extern void model_orchestra(void);
+#endif
 
-  clean_up();
-  exit(0);
-}
-#else
 /* ---------------------------------------------------------------------- */
 int
 model (void)
@@ -95,7 +82,10 @@ model (void)
   int mass_water_switch_save;
   if (svnid == NULL)
     fprintf (stderr, " ");
-
+#ifdef ORCHESTRA
+  model_orchestra();
+  return(OK);
+#endif
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
@@ -277,7 +267,6 @@ model (void)
   }
   return (OK);
 }
-#endif /* ifdef PH2ORCH */
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int
