@@ -43,7 +43,7 @@ LDBLE *normal=NULL, *ineq_array=NULL, *res=NULL, *cu=NULL, *zero=NULL, *delta1=N
 int *iu=NULL, *is=NULL, *back_eq=NULL;
 int normal_max=0, ineq_array_max=0, res_max=0, cu_max=0, zero_max=0, delta1_max=0, iu_max=0, is_max=0, back_eq_max=0;
 #ifdef ORCHESTRA
-extern void model_orchestra(void);
+extern void ORCH_model(void);
 #endif
 
 /* ---------------------------------------------------------------------- */
@@ -83,7 +83,7 @@ model (void)
   if (svnid == NULL)
     fprintf (stderr, " ");
 #ifdef ORCHESTRA
-  model_orchestra();
+  ORCH_model();
   return(OK);
 #endif
 /*	debug_model = TRUE; */
