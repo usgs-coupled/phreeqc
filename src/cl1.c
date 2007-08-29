@@ -859,18 +859,18 @@ L590:
   return 0;
 }
 
-void 
+void
 cl1_space (int check, int n2d, int klm, int nklmd)
 {
   if (check == 1)
   {
-    if (x_arg == NULL) 
+    if (x_arg == NULL)
     {
-      x_arg = (double *) PHRQ_malloc ((size_t) (n2d * sizeof (LDBLE)));
+      x_arg = (LDBLE *) PHRQ_malloc ((size_t) (n2d * sizeof (LDBLE)));
     }
     else if (n2d > x_arg_max)
     {
-      x_arg = (double *) PHRQ_realloc (x_arg, (size_t) (n2d * sizeof (LDBLE)));
+      x_arg = (LDBLE *) PHRQ_realloc (x_arg, (size_t) (n2d * sizeof (LDBLE)));
       x_arg_max = n2d;
     }
     if (x_arg == NULL)
@@ -879,11 +879,11 @@ cl1_space (int check, int n2d, int klm, int nklmd)
 
     if (res_arg == NULL) 
     {
-      res_arg = (double *) PHRQ_malloc ((size_t) ((klm) * sizeof (LDBLE)));
+      res_arg = (LDBLE *) PHRQ_malloc ((size_t) ((klm) * sizeof (LDBLE)));
     }
     else if (klm > res_arg_max)
     {
-      res_arg = (double *) PHRQ_realloc (res_arg, (size_t) ((klm) * sizeof (LDBLE)));
+      res_arg = (LDBLE *) PHRQ_realloc (res_arg, (size_t) ((klm) * sizeof (LDBLE)));
       res_arg_max = klm;
     }
     if (res_arg == NULL)

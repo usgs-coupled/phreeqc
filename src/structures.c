@@ -70,6 +70,8 @@ extern void MergeFinalize (void);
 extern LDBLE *scratch, *x_arg, *res_arg;
 extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
 extern int *iu, *is, *back_eq;
+extern int x_arg_max, res_arg_max, scratch_max;
+
 /* ---------------------------------------------------------------------- */
 int
 clean_up (void)
@@ -423,6 +425,10 @@ clean_up (void)
   cu = (LDBLE *) free_check_null (cu);
   iu = (int *) free_check_null (iu);
   is = (int *) free_check_null (is);
+
+  //x_arg = res_arg = scratch = NULL;
+  x_arg_max = res_arg_max = scratch_max = 0;
+
 
 /* free user database name if defined */
   user_database = (char *) free_check_null (user_database);
@@ -824,9 +830,19 @@ exchange_alloc (void)
   exchange_ptr = (struct exchange *) PHRQ_malloc (sizeof (struct exchange));
   if (exchange_ptr == NULL)
     malloc_error ();
+
+  exchange_ptr->n_user = -1;
+  exchange_ptr->n_user_end = -1;
+  exchange_ptr->new_def = 0;
   exchange_ptr->description = NULL;
+  exchange_ptr->solution_equilibria = 0;
+  exchange_ptr->n_solution = 0;
   exchange_ptr->count_comps = 0;
   exchange_ptr->comps = NULL;
+  exchange_ptr->related_phases = 0;
+  exchange_ptr->related_rate = 0;
+  exchange_ptr->pitzer_exchange_gammas = 0;
+
   return (exchange_ptr);
 }
 
@@ -1256,7 +1272,17 @@ gas_phase_alloc (void)
     (struct gas_phase *) PHRQ_malloc (sizeof (struct gas_phase));
   if (gas_phase_ptr == NULL)
     malloc_error ();
+  gas_phase_ptr->n_user = -1;
+  gas_phase_ptr->n_user_end = -1;
   gas_phase_ptr->description = NULL;
+  gas_phase_ptr->new_def = 0;
+  gas_phase_ptr->solution_equilibria = 0;
+  gas_phase_ptr->n_solution = 0;
+  gas_phase_ptr->type = 0;
+  gas_phase_ptr->total_p = 0;
+  gas_phase_ptr->total_moles = 0;
+  gas_phase_ptr->volume = 0;
+  gas_phase_ptr->temperature = 0;
   gas_phase_ptr->count_comps = 0;
   gas_phase_ptr->comps = NULL;
   return (gas_phase_ptr);
@@ -2214,13 +2240,18 @@ kinetics_alloc (void)
   kinetics_ptr = (struct kinetics *) PHRQ_malloc (sizeof (struct kinetics));
   if (kinetics_ptr == NULL)
     malloc_error ();
+  kinetics_ptr->n_user = -1;
+  kinetics_ptr->n_user_end = -1;
   kinetics_ptr->description = NULL;
   kinetics_ptr->count_comps = 0;
   kinetics_ptr->comps = NULL;
   kinetics_ptr->count_steps = 0;
   kinetics_ptr->steps = NULL;
-  /*kinetics_ptr->units = NULL; */
   kinetics_ptr->totals = NULL;
+  kinetics_ptr->rk = 0;
+  kinetics_ptr->bad_step_max = 0;
+  kinetics_ptr->use_cvode = FALSE;
+
   return (kinetics_ptr);
 }
 
@@ -3643,7 +3674,10 @@ pp_assemblage_alloc (void)
     (struct pp_assemblage *) PHRQ_malloc (sizeof (struct pp_assemblage));
   if (pp_assemblage_ptr == NULL)
     malloc_error ();
+  pp_assemblage_ptr->n_user = -1;
+  pp_assemblage_ptr->n_user_end = -1;
   pp_assemblage_ptr->description = NULL;
+  pp_assemblage_ptr->new_def = 0;
   pp_assemblage_ptr->next_elt = NULL;
   pp_assemblage_ptr->count_comps = 0;
   pp_assemblage_ptr->pure_phases = NULL;
@@ -4622,7 +4656,10 @@ s_s_assemblage_alloc (void)
     (struct s_s_assemblage *) PHRQ_malloc (sizeof (struct s_s_assemblage));
   if (s_s_assemblage_ptr == NULL)
     malloc_error ();
+  s_s_assemblage_ptr->n_user = -1;
+  s_s_assemblage_ptr->n_user_end = -1;
   s_s_assemblage_ptr->description = NULL;
+  s_s_assemblage_ptr->new_def = 0;
   s_s_assemblage_ptr->count_s_s = 0;
   s_s_assemblage_ptr->s_s = NULL;
   return (s_s_assemblage_ptr);
@@ -5238,33 +5275,51 @@ solution_alloc (void)
 /*
  *   set pointers in structure to NULL
  */
+  solution_ptr->new_def = TRUE;
+  solution_ptr->n_user = -1;
+  solution_ptr->n_user_end = -1;
   solution_ptr->description = NULL;
+  solution_ptr->tc = 0;
+  solution_ptr->ph = 0;
+  solution_ptr->solution_pe = 0;
+  solution_ptr->mu = 0;
+  solution_ptr->ah2o = 0;
+  solution_ptr->density = 0;
+  solution_ptr->total_h = 0;
+  solution_ptr->total_o = 0;
+  solution_ptr->cb = 0;
+  solution_ptr->mass_water = 0;
+  solution_ptr->total_alkalinity = 0;
   solution_ptr->units = NULL;
-/*
- *   Initial allocation of space for totals and activities
- */
-  max_mass_balance = MAX_MASS_BALANCE;
-  space ((void **) ((void *) &(solution_ptr->totals)), INIT, &max_mass_balance,
-	 sizeof (struct conc));
-  max_mass_balance = MAX_MASS_BALANCE;
-  solution_ptr->totals[0].description = NULL;
-  space ((void **) ((void *) &(solution_ptr->master_activity)), INIT, &max_mass_balance,
-	 sizeof (struct master_activity));
-  solution_ptr->master_activity[0].description = NULL;
-  solution_ptr->species_gamma = NULL;
-  solution_ptr->count_species_gamma = 0;
 /*
  *   Initial allocation of space for pe's
  */
   solution_ptr->pe = pe_data_alloc ();
+  solution_ptr->default_pe = 0;
+/*
+ *   Initial allocation of space for totals
+ */
+  max_mass_balance = MAX_MASS_BALANCE;
+  space ((void **) ((void *) &(solution_ptr->totals)), INIT, &max_mass_balance,
+	 sizeof (struct conc));
+  solution_ptr->totals[0].description = NULL;
+/*
+ *   Master activities
+ */
+  space ((void **) ((void *) &(solution_ptr->master_activity)), INIT, &max_mass_balance,
+	 sizeof (struct master_activity));
+  solution_ptr->master_activity[0].description = NULL;
 /*
  *   Initial allocation of space for isotopes
  */
-  solution_ptr->isotopes =
-    (struct isotope *) PHRQ_malloc (sizeof (struct isotope));
-  if (solution_ptr->isotopes == NULL)
-    malloc_error ();
-  solution_ptr->new_def = TRUE;
+  solution_ptr->isotopes = (struct isotope *) PHRQ_malloc (sizeof (struct isotope));
+  if (solution_ptr->isotopes == NULL) malloc_error ();
+  solution_ptr->count_isotopes = 0;
+/*
+ *   Initial allocation of space for species_gamma
+ */
+  solution_ptr->species_gamma = NULL;
+  solution_ptr->count_species_gamma = 0;
 
   return (solution_ptr);
 }
@@ -5903,11 +5958,27 @@ surface_alloc (void)
   surface_ptr = (struct surface *) PHRQ_malloc (sizeof (struct surface));
   if (surface_ptr == NULL)
     malloc_error ();
+  surface_ptr->n_user = -1;
+  surface_ptr->n_user_end = -1;
+  surface_ptr->new_def = 0;
+  surface_ptr->only_counter_ions = 0;
+  surface_ptr->dl_type = BORKOVEK_DL;
+  surface_ptr->type = UNKNOWN_DL;
+  surface_ptr->sites_units = SITES_ABSOLUTE;
+  surface_ptr->thickness = 0;
+  surface_ptr->debye_lengths = 0;
+  surface_ptr->DDL_viscosity = 0;		/* viscosity relative to pure water */
+  surface_ptr->DDL_limit = 0;		/* limits DDL water to this fraction of bulk water */
   surface_ptr->description = NULL;
+  surface_ptr->solution_equilibria = 0;
+  surface_ptr->n_solution = 0;
   surface_ptr->count_comps = 0;
   surface_ptr->comps = NULL;
   surface_ptr->count_charge = 0;
   surface_ptr->charge = NULL;
+  surface_ptr->related_phases = 0;
+  surface_ptr->related_rate = 0;
+  surface_ptr->transport = 0;		/* transports comp's and charges if true */
   return (surface_ptr);
 }
 
