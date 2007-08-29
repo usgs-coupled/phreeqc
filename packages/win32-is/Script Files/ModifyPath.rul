@@ -16,6 +16,7 @@
 #define HKEY_2_13         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13 + "}"
 #define HKEY_2_13_1       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_1 + "}"
 #define HKEY_2_13_2       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_2 + "}"
+#define HKEY_2_14_0       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_14_0 + "}"
 ////ADD_NEW_VERSION_HERE
 
 #define HVALUE_2_XX       "InstallLocation"
@@ -129,10 +130,12 @@ function AddMEPath(szPathToAdd)
     string svPath2_13;      //
     BOOL   bFound2_13_1;    //
     string svPath2_13_1;    //
+    BOOL   bFound2_13_2;      //
+    string svPath2_13_2;      //
 //}}    
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_13_2;      //
-////    string svPath2_13_2;      //
+////    BOOL   bFound2_14_0;      //
+////    string svPath2_14_0;      //
 //}}    
 begin    
     if (!SYSINFO.WIN9X.bWinMe) then
@@ -243,14 +246,24 @@ begin
 		endif;
 	endif;
 
+	bFound2_13_2 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_13_2) == 0) then
+				bFound2_13_2 = TRUE;
+			endif;
+		endif;
+	endif;
+
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.13.2
-////	bFound2_13_2 = FALSE;
+////	// check for 2.14.0
+////	bFound2_14_0 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_14_0, HVALUE_2_XX, nvType, svPath2_14_0, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_13_2) == 0) then
-////				bFound2_13_2 = TRUE;
+////			if (LongPathToShortPath(svPath2_14_0) == 0) then
+////				bFound2_14_0 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
@@ -351,9 +364,17 @@ begin
 					endif;
 				endif;
 			endif;
+			if ( bFound2_13_2 ) then
+				nPos = StrFind(svCurrentPath, svPath2_13_2);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_13_2 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_13_2);
+////			if ( bFound2_14_0 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_14_0);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;
@@ -434,9 +455,11 @@ function AddNTPath(szPathToAdd)
     string svPath2_13;      //
     BOOL   bFound2_13_1;    //
     string svPath2_13_1;    //
+    BOOL   bFound2_13_2;    //
+    string svPath2_13_2;    //
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_13_2;    //
-////    string svPath2_13_2;    //
+////    BOOL   bFound2_14_0;    //
+////    string svPath2_14_0;    //
 begin
     if (!SYSINFO.WINNT.bWinNT) then
         // wrong OS
@@ -544,14 +567,25 @@ begin
 		endif;
 	endif;
 
+	// check for 2.13.2
+	bFound2_13_2 = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath2_13_2) == 0) then
+				bFound2_13_2 = TRUE;
+			endif;
+		endif;
+	endif;
+
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.13.2
-////	bFound2_13_2 = FALSE;
+////	// check for 2.14.0
+////	bFound2_14_0 = FALSE;
 ////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
+////		nResult = RegDBGetKeyValueEx( HKEY_2_14_0, HVALUE_2_XX, nvType, svPath2_14_0, nvSize );
 ////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_13_2) == 0) then
-////				bFound2_13_2 = TRUE;
+////			if (LongPathToShortPath(svPath2_14_0) == 0) then
+////				bFound2_14_0 = TRUE;
 ////			endif;
 ////		endif;
 ////	endif;
@@ -673,9 +707,17 @@ begin
 					endif;
 				endif;
 			endif;
+			if ( bFound2_13_2 ) then
+				nPos = StrFind(svCurrentPath, svPath2_13_2);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_13_2 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_13_2);
+////			if ( bFound2_14_0 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_14_0);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;

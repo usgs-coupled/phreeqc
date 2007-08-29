@@ -14,7 +14,7 @@ Department=
 Password=
 
 [Project:Properties:Product]
-GUID=60AD221F-7BD2-43D5-A908-4EAD483076A1
+GUID=1B1674DF-34DC-485E-89B1-C5403B35C562
 CompanyName=USGS WRD
 URL=http://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc/index.html
 EmailAddress=dlpark@usgs.gov
