@@ -886,6 +886,34 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and bug fixes                    *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.14.0: August 30, 2007
+------------------------------------------------------------
+        --------
+	svn 2199
+        --------
+	Initialized variables that caused problems when rerunning
+	simulations in PfW and PhreeqcI.
+
+        --------
+	svn 2138
+        --------
+	Fixed bugs in MCD calculation related to saving solutions
+	after initialization.
+
+        --------
+	svn 2055
+        --------
+	Profiled and optimized of code. Automatic string in Basic
+	factor saves many mallocs. Reordered to minimize call to
+	strcmp_nocase in basicsubs.c and xsolution_save. Minimized
+	mallocs for solver.
+
+        --------
+	svn 2051
+        --------
+	Fixed bugs in MCD calculation.
+
         --------
 	svn 2040
         --------
