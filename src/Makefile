@@ -21,7 +21,6 @@ CC=gcc
 
 # Change to C compiler options on your system
 CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
-CCFLAGS_MODEL=-O3 -Wall -ansi -pedantic -std=c99 # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -174,7 +173,6 @@ main.o: $(SRC)/main.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/p
 mainsubs.o: $(SRC)/mainsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
 model.o: $(SRC)/model.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
-	${CC} $(SRC)/model.c ${CCFLAGS_MODEL} -c -o model.o #-ffloat-store 
 
 nvector.o: $(SRC)/nvector.c $(SRC)/nvector.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/output.h
 

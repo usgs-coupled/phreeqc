@@ -16,7 +16,7 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
-CCFLAGS_DBG=-Wall -ansi -g -std=c99
+CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
 # list of files for distribution
 FILES=  \
 	$(CURSRC)/Makefile \
@@ -347,7 +347,7 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" CCFLAGS_MODEL="$(CCFLAGS_DBG)" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)
