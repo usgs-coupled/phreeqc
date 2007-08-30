@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(DEV_GMP_INC_MT)"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;_DEBUG;WIN32;_CONSOLE;DOS"
+				PreprocessorDefinitions="USE_PHRQ_ALLOC;_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;_DEBUG;WIN32;_CONSOLE;DOS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

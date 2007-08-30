@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-/* must be defined here and in global.h */
-#if !defined(WIN32_MEMORY_DEBUG)
-#define USE_PHRQ_ALLOC
-#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"

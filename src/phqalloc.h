@@ -1,10 +1,6 @@
 #if !defined (INCLUDE_PHRQALLOC_H)
 #define INCLUDE_PHRQALLOC_H
 
-#if !defined(WIN32_MEMORY_DEBUG)
-#define USE_PHRQ_ALLOC
-#endif
-
 #if defined (USE_PHRQ_ALLOC)
 
 #ifdef PHREEQC_IDENT
