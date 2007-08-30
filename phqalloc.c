@@ -17,8 +17,8 @@ typedef struct PHRQMemHeader
 {
   struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
   struct PHRQMemHeader *pPrev;	/* memory allocated just prior to this one */
-#if !defined(NDEBUG)
   size_t size;			/* memory request + sizeof(PHRQMemHeader) */
+#if !defined(NDEBUG)
   char *szFileName;		/* file name */
   int nLine;			/* line number */
   int dummy;			/* alignment */
@@ -53,9 +53,7 @@ PHRQ_malloc (size_t size)
   if (p == NULL)
     return NULL;
 
-#if !defined(NDEBUG)
   memset (p, 0, sizeof (PHRQMemHeader) + size);
-#endif
   p->pNext = NULL;
 
   if ((p->pPrev = s_pTail) != NULL)
@@ -204,10 +202,7 @@ PHRQ_realloc (void *ptr, size_t size
 {
   PHRQMemHeader *p;
   size_t new_size;
-
-#if !defined(NDEBUG)
   size_t old_size;
-#endif
 
   if (ptr == NULL)
   {
@@ -224,9 +219,6 @@ PHRQ_realloc (void *ptr, size_t size
 
   new_size = sizeof (PHRQMemHeader) + size;
 
-#if defined(NDEBUG)
-  p = (PHRQMemHeader *) realloc (p, new_size);
-#else
   old_size = p->size;
   p = (PHRQMemHeader *) realloc (p, new_size);
   if (p != NULL)
@@ -237,7 +229,6 @@ PHRQ_realloc (void *ptr, size_t size
       memset ((char *) p + old_size, 0, new_size - old_size);
     }
   }
-#endif
 
   if (p == NULL)
     return NULL;
