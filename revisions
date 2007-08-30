@@ -889,6 +889,15 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Version 2.14.0: August 30, 2007
 ------------------------------------------------------------
+        -------------
+	svn 2203-2204
+        -------------
+	Revised logic for using phqalloc memory checker. Compiler
+	option USE_PHRQ_ALLOC now turns on memory checker. If
+	USE_PHRQ_ALLOC is defined and NDEBUG is not defined, file name
+	and line number are also used in memory checking. Model.c
+	now uses same compile options as all other files.
+
         --------
 	svn 2199
         --------
