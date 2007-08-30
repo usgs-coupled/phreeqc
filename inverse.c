@@ -1131,6 +1131,7 @@ solve_inverse (struct inverse *inv_ptr)
   cu = (LDBLE *) PHRQ_malloc ((size_t) 2 * nklmd * sizeof (LDBLE));
   if (cu == NULL)
     malloc_error ();
+  memset(cu, 0, ((size_t) (2 * nklmd * sizeof(LDBLE))));
   iu = (int *) PHRQ_malloc ((size_t) 2 * nklmd * sizeof (int));
   if (iu == NULL)
     malloc_error ();
