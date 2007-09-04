@@ -2082,9 +2082,12 @@ find_J (int cell_no)
     k = 0;
   J_ij_count_spec = k;
   J_ij_sum = 0;
-  c = 0.0;
+  c = c_dl = 0.0;
   for (j = 0; j < k; j++)
+  {
     c += Dz[j] * grad[j];
+    c_dl += o_c[j] * Dz[j] * grad[j];
+  }
   for (i = 0; i < k; i++)
   {
     J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
@@ -2092,7 +2095,7 @@ find_J (int cell_no)
     if (Dz2c_dl > 0)
     {
       temp =
-	(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
+	(-D[i] * grad[i] + c_dl * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
       if ((J_ij[i].tot <= 0 && temp <= 0) || (J_ij[i].tot > 0 && temp > 0))
       {
 	J_ij[i].tot += o_c[i] * temp * dl_s;
@@ -2101,7 +2104,8 @@ find_J (int cell_no)
     J_ij[i].tot *= A_ij;
     J_ij_sum += z[i] * J_ij[i].tot;
   }
-
+/* appt 3 July 07, improved convergence without transporting charge imbalance */
+  J_ij_sum = 0;
   D = (LDBLE *) free_check_null (D);
   z = (LDBLE *) free_check_null (z);
   Dz = (LDBLE *) free_check_null (Dz);
@@ -2847,9 +2851,12 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
     k = 0;
   J_ij_count_spec = k;
   J_ij_sum = 0;
-  c = 0.0;
+  c = c_dl = 0.0;
   for (j = 0; j < k; j++)
+  {
     c += Dz[j] * grad[j];
+    c_dl += o_c[j] * Dz[j] * grad[j];
+  }
   for (i = 0; i < k; i++)
   {
     J_ij[i].tot = -D[i] * grad[i] + c * Dzc[i] / Dz2c;
@@ -2857,7 +2864,7 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
     if (Dz2c_dl > 0)
     {
       temp =
-	(-D[i] * grad[i] + c * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
+	(-D[i] * grad[i] + c_dl * Dzc_dl[i] / Dz2c_dl) * (2 / (visc1 + visc2));
       if ((J_ij[i].tot <= 0 && temp <= 0) || (J_ij[i].tot > 0 && temp > 0))
       {
 	J_ij[i].tot += o_c[i] * temp * dl_s;
@@ -2867,6 +2874,8 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
     J_ij_sum += z[i] * J_ij[i].tot;
   }
 
+/* appt 3 July 07, improved convergence without transporting charge imbalance */
+  J_ij_sum = 0;
   D = (LDBLE *) free_check_null (D);
   z = (LDBLE *) free_check_null (z);
   Dz = (LDBLE *) free_check_null (Dz);
