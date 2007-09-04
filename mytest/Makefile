@@ -58,6 +58,8 @@ all: alkalinity.out \
 	llnl.out \
 	local_min_pz.out \
 	mahoney.out \
+	mmb.out \
+	mmb2.out \
 	mu.out \
 	n3.out \
 	np.test.out \
