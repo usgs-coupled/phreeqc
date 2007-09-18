@@ -952,12 +952,16 @@ string_to_spread_row (char *string)
 {
   int j, l;
   static int length = 10; /* possible memory error if length of line is smaller than previous line */
-  char token[MAX_LENGTH];
+  char *token;
   char *ptr;
   struct spread_row *spread_row_ptr;
 /*
  *   Allocate space
  */
+  token =
+    (char *) PHRQ_malloc (strlen(line)+1);
+  if (token == NULL)
+    malloc_error ();
   spread_row_ptr =
     (struct spread_row *) PHRQ_malloc ((size_t) sizeof (struct spread_row));
   if (spread_row_ptr == NULL)
@@ -1065,6 +1069,7 @@ string_to_spread_row (char *string)
       malloc_error ();
 */
   }
+  token = (char *) free_check_null (token);
   return (spread_row_ptr);
 }
 
