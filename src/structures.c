@@ -7352,7 +7352,7 @@ unknown_free (struct unknown *unknown_ptr)
        unknown_ptr->surface_charge = (struct surface_charge *) free_check_null(unknown_ptr->surface_charge);
      */
   }
-  /*unknown_ptr->comp_unknowns = (struct unknown **) free_check_null(unknown_ptr->comp_unknowns); */
+  unknown_ptr->comp_unknowns = (struct unknown **) free_check_null(unknown_ptr->comp_unknowns); 
   unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
   return (OK);
 }
