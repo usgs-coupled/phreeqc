@@ -3451,7 +3451,7 @@ setup_surface (void)
 	/* Add SURFACE unknown to a list for SURF_PSI */
 	unknown_ptr = find_surface_charge_unknown (token, SURF_PSI);
 	unknown_ptr->comp_unknowns =
-	  (struct unknown **) realloc (unknown_ptr->comp_unknowns,
+	  (struct unknown **) PHRQ_realloc (unknown_ptr->comp_unknowns,
 				       (size_t) ((unknown_ptr->
 						  count_comp_unknowns +
 						  1) *
