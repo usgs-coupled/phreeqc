@@ -61,8 +61,8 @@ PHRQ_malloc (size_t size)
     s_pTail->pNext = p;
   }
 
-#if !defined(NDEBUG)
   p->size = sizeof (PHRQMemHeader) + size;
+#if !defined(NDEBUG)
   p->szFileName = (char *) malloc (strlen (szFileName) + 1);
   if (p->szFileName)
     strcpy (p->szFileName, szFileName);
