@@ -78,6 +78,8 @@ pitzer_tidy (void)
  */
   char *string1, *string2;
   int i, j, order;
+  int i0, i1, i2;
+  int count_pos, count_neg, count_neut, count[3], jj;
   double z0, z1;
   struct pitz_param *pzp_ptr;
   struct theta_param *theta_param_ptr;
@@ -247,6 +249,8 @@ pitzer_tidy (void)
       case TYPE_PSI:
       case TYPE_ETHETA:
       case TYPE_ALPHAS:
+      case TYPE_MU:
+      case TYPE_ETA:
       case TYPE_Other:
 	break;
       }
@@ -369,6 +373,150 @@ pitzer_tidy (void)
       pitz_params[i]->thetas = theta_param_ptr;
     }
   }
+/*
+ *  Tidy TYPE_MU
+ */
+
+/* Coef for Osmotic coefficient for TYPE_MU */
+
+  for (i = 0; i < count_pitz_param; i++)
+  {
+    if (pitz_params[i]->type == TYPE_MU)
+    {
+      i0 = pitz_params[i]->ispec[0];
+      i1 = pitz_params[i]->ispec[1];
+      i2 = pitz_params[i]->ispec[2];
+      count_pos = count_neg = count_neut = 0;
+      for (j = 0; j <=2; j++) {
+	if (spec[pitz_params[i]->ispec[j]]->z > 0) {
+	  count_pos++;
+	}
+	if (spec[pitz_params[i]->ispec[j]]->z == 0) {
+	  count_neut++;
+	}
+	if (spec[pitz_params[i]->ispec[j]]->z < 0) {
+	  count_neg++;
+	}
+      }
+      /* All neutral */
+      if (count_neut == 3) {
+	if (i0 == i1 && i1 == i2) {
+	  /* type n, n, n */
+	  pitz_params[i]->os_coef = 1;
+	  continue;
+	} else if (i0 == i1 || i1 == i2 || i0 == i2) {
+	  /* type n, n, n' */
+	  pitz_params[i]->os_coef = 3;
+	  continue;
+	} else {
+	  /* type n, n', n'' */
+	  pitz_params[i]->os_coef = 6;
+	  continue;
+	}
+      }
+      /* Two neutral, one anion or cation*/
+      if (i0 == i1 || i1 == i2 || i0 == i2) {
+	/* type n, n, a|c */
+	pitz_params[i]->os_coef = 3;
+	continue;
+      } else {
+	  /* type n, n', a|c */
+	pitz_params[i]->os_coef = 6;
+	continue;
+      }
+    }
+  }
+
+/* Coef for gammas for TYPE_MU */
+
+  for (i = 0; i < count_pitz_param; i++)
+  {
+    if (pitz_params[i]->type == TYPE_MU)
+    {
+      for (j = 0; j <= 2; j++) {
+	count[j] = 0;
+	for (jj = 0; jj <= 2; jj++) {
+	  if (pitz_params[i]->ispec[j] == pitz_params[i]->ispec[jj]) {
+	    count[j]++;
+	  }
+	}
+      }
+      for (j = 0;  j <= 2; j++) {
+	/* cation or anion */
+	if (spec[pitz_params[i]->ispec[j]]->z < 0 || spec[pitz_params[i]->ispec[j]]->z > 0) {
+	  if (count[0] > 1 || count[1] > 1) {
+	    pitz_params[i]->ln_coef[j] = 3;
+	  } else {
+	    pitz_params[i]->ln_coef[j] = 6;
+	  }
+	  continue;
+	}
+	/* Neutral */
+	if (count[j] == 3) {
+	  pitz_params[i]->ln_coef[j] = 1;
+	} else if (count[j] == 2) {
+	  pitz_params[i]->ln_coef[j] = 3;
+	} else if (count[j] == 1) {
+	  if (count[0] > 1 || count[1] > 1) {
+	    pitz_params[i]->ln_coef[j] = 3;
+	  } else {
+	    pitz_params[i]->ln_coef[j] = 6;
+	  }
+	}	  
+      }
+    }
+  }
+/*  Debug TYPE_MU coefficients */
+/*
+  for (i = 0; i < count_pitz_param; i++)
+  {
+    if (pitz_params[i]->type == TYPE_MU)
+    {
+      fprintf(stderr, "%s\t%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1], pitz_params[i]->species[2]);
+      fprintf(stderr, "%f\t%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1], pitz_params[i]->ln_coef[2]);
+      fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+    }
+  }
+*/
+/*
+ *  Tidy TYPE_LAMDA
+ */
+
+/* Coef for Osmotic coefficient for TYPE_LAMDA */
+
+  for (i = 0; i < count_pitz_param; i++)
+  {
+    if (pitz_params[i]->type == TYPE_LAMDA)
+    {
+      i0 = pitz_params[i]->ispec[0];
+      i1 = pitz_params[i]->ispec[1];
+      /* All neutral */
+      if (i0 == i1) 
+      {
+	/* type n, n */
+	pitz_params[i]->os_coef = 0.5;
+	pitz_params[i]->ln_coef[0] = 1;
+	pitz_params[i]->ln_coef[1] = 1;
+      } else {
+	  /* type nn', na, nc */
+	pitz_params[i]->os_coef = 1;
+	pitz_params[i]->ln_coef[0] = 2;
+	pitz_params[i]->ln_coef[1] = 2;
+      }
+    }
+  }
+/*  Debug TYPE_LAMDA coefficients */
+/*
+  for (i = 0; i < count_pitz_param; i++)
+  {
+    if (pitz_params[i]->type == TYPE_LAMDA)
+    {
+      fprintf(stderr, "%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1]);
+      fprintf(stderr, "%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1]);
+      fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+    }
+  }
+*/
   return OK;
 }
 
@@ -436,9 +584,11 @@ read_pitzer (void)
     "mac",			/* 10 */
     "redox",			/* 11 */
     "pe",			/* 12 */
-    "alphas"			/* 13 */
+    "alphas",			/* 13 */
+    "mu",                       /* 14 */
+    "eta"                       /* 15 */
   };
-  int count_opt_list = 14;
+  int count_opt_list = 16;
 /*
  *   Read lines
  */
@@ -547,6 +697,16 @@ read_pitzer (void)
       opt_save = OPTION_ERROR;
       pitzer_pe = get_true_false (next_char, TRUE);
       break;
+    case 14:			/* mu */
+      pzp_type = TYPE_MU;
+      n = 3;
+      opt_save = OPTION_DEFAULT;
+      break;
+    case 15:			/* eta */
+      pzp_type = TYPE_ETA;
+      n = 3;
+      opt_save = OPTION_DEFAULT;
+      break;
     }
     if (return_value == EOF || return_value == KEYWORD)
       break;
@@ -645,6 +805,12 @@ calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
     pz_ptr->U.psi = param;
     break;
   case TYPE_ALPHAS:
+    break;
+  case TYPE_MU:
+    pz_ptr->U.mu = param;
+    break;
+  case TYPE_ETA:
+    pz_ptr->U.eta = param;
     break;
   case TYPE_Other:
     error_msg ("Should not be TYPE_Other in function calc_pitz_param", STOP);
@@ -848,11 +1014,30 @@ C
       OSMOT += M[i0] * M[i1] * M[i2] * param;
       break;
     case TYPE_LAMDA:
-      LGAMMA[i0] += 2.0 * M[i1] * param;
-      LGAMMA[i1] += 2.0 * M[i0] * param;
-      OSMOT += M[i0] * M[i1] * param;
+      LGAMMA[i0] += M[i1] * param * pitz_params[i]->ln_coef[0];
+      LGAMMA[i1] += M[i0] * param * pitz_params[i]->ln_coef[1];
+      OSMOT += M[i0] * M[i1] * param * pitz_params[i]->os_coef;
       break;
     case TYPE_ZETA:
+      i2 = pitz_params[i]->ispec[2];
+      if (IPRSNT[i2] == FALSE)
+	continue;
+      LGAMMA[i0] += M[i1] * M[i2] * param;
+      LGAMMA[i1] += M[i0] * M[i2] * param;
+      LGAMMA[i2] += M[i0] * M[i1] * param;
+      OSMOT += M[i0] * M[i1] * M[i2] * param;
+      break;
+    case TYPE_MU:
+      i2 = pitz_params[i]->ispec[2];
+      if (IPRSNT[i2] == FALSE)
+	continue;
+
+      LGAMMA[i0] += M[i1] * M[i2] * param * pitz_params[i]->ln_coef[0];
+      LGAMMA[i1] += M[i0] * M[i2] * param * pitz_params[i]->ln_coef[1];
+      LGAMMA[i2] += M[i0] * M[i1] * param * pitz_params[i]->ln_coef[2];
+      OSMOT += M[i0] * M[i1] * M[i2] * param * pitz_params[i]->os_coef;
+      break;
+    case TYPE_ETA:
       i2 = pitz_params[i]->ispec[2];
       if (IPRSNT[i2] == FALSE)
 	continue;

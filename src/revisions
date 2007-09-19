@@ -4,6 +4,56 @@
 ************************************************************
 ************************************************************
 
+------------------------------------------------------------
+Version 2.14.3: 
+------------------------------------------------------------
+
+        Added additional parameters Pitzer activity formulation for
+	neutral species, MU and ETA. MU applies to nnn, nnn', nn'n'',
+	nna, nn'a, nnc, nn'c interactions, where n, n', and n'' are
+	neutral species, a is an anion and c is a cation. ETA applies
+	to ncc' and naa' interactions. Also modified LAMDA for the
+	special case of nn interactions (coefficients in osmotic and
+	ln equations are different than other interaction types).
+	Source of equations is Clegg and Whitfield, 1991, Activity
+	coefficients in natural waters, Chapter 6, in Pitzer, K.S.
+	(Ed.) Activity Coefficients in Electrolyte Solutions, 2nd
+	Ed. CRC Press, Boca Raton. Removal of the 6 coefficient in
+	last two terms of eq 35 and 36 (p. 2404) per Cleg and
+	Whitfield, 1995, Geochimica et Cosmochemica Acta, v. 59,
+	no. 12, pp 2403-2421.  Order of species in definitions should
+	not matter.
+
+        PITZER
+	-MU
+		CO2	CO2	CO2	?     # nnn
+		CO2     CO2     NH3     ?     # nnn'
+		CO2     B(OH)3  NH3     ?     # nn'n''
+		CO2     CO2     Ca+2    ?     # nnc
+		CO2     CO2     Cl-     ?     # nna
+		CO2     NH3     Ca+2    ?     # nn'c
+		CO2     NH3     Cl-     ?     # nn'a
+        -ETA
+		CO2     Ca+2    Mg+2    ?     # ncc'
+		CO2     Cl-     SO4-2   ?     # naa'
+
+        As with all other Pitzer parameters, a five-term expression 
+	for temperature dependence is available:
+            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+                A4*(TK*TK - TR*TR),
+        where TK is Kelvin and TR is 298.15. A0 through A4 are
+	defined in order. Any undefined values are assumed to 
+	be zero.
+
+	-MU
+		CO2	CO2	CO2	? ? ? ? ? # nnn
+
+------------------------------------------------------------
+Version 2.14.2: 
+------------------------------------------------------------
+
+	Fixed logic of memory checking for PhreeqcI. This serious
+	bug makes versions 2.14.0 and 2.14.1 unusable.
 
 ------------------------------------------------------------
 Version 2.14.1: September 5, 2007
@@ -892,6 +942,34 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and bug fixes                    *
 ************************************************************
 ************************************************************
+
+        --------
+	svn 2270
+        --------
+        Added additional parameters Pitzer activity formulation for
+	neutral species, MU and ETA. 
+
+        --------
+	svn 2269
+        --------
+	Fixed buffer overrun in SOLUTION_SPREAD when pasting.
+
+        --------
+	svn 2268
+        --------
+	Fixed error in prep.c where realloc was called instead
+	of PHRQ_realloc, which eliminated a memory leak.
+
+------------------------------------------------------------
+Version 2.14.2: 
+------------------------------------------------------------
+	
+        --------
+	svn 2267
+        --------
+	Fixed logic of memory checking for PhreeqcI. This serious
+	bug makes versions 2.14.0 and 2.14.1 unusable.
+
 ------------------------------------------------------------
 Version 2.14.1: September 5, 2007
 ------------------------------------------------------------
