@@ -3204,7 +3204,7 @@ reset (void)
 		    "new mass", (double) (x[i]->moles - delta[i]), "delta",
 		    (double) delta[i]);
       }
-      if (equal (x[i]->moles, -delta[i], ineq_tol))
+      if (equal (x[i]->moles, delta[i], ineq_tol))
       {
 	x[i]->moles = 0.0;
       }
