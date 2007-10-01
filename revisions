@@ -5,7 +5,7 @@
 ************************************************************
 
 ------------------------------------------------------------
-Version 2.14.3: 
+Version 2.14.3: ??
 ------------------------------------------------------------
 
         Added additional parameters Pitzer activity formulation for
@@ -49,7 +49,7 @@ Version 2.14.3:
 		CO2	CO2	CO2	? ? ? ? ? # nnn
 
 ------------------------------------------------------------
-Version 2.14.2: 
+Version 2.14.2: September 17, 2007
 ------------------------------------------------------------
 
 	Fixed logic of memory checking for PhreeqcI. This serious
@@ -942,6 +942,15 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and bug fixes                    *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.14.3: ??
+------------------------------------------------------------
+
+        --------
+	svn 2279
+        --------
+        Error lost 200 moles of mineral. Should only be a problem
+	in some cases where moles of mineral is greater than 200.
 
         --------
 	svn 2270
@@ -961,7 +970,7 @@ End of Features not documented in WRIR 99-4259.
 	of PHRQ_realloc, which eliminated a memory leak.
 
 ------------------------------------------------------------
-Version 2.14.2: 
+Version 2.14.2: September 17, 2007
 ------------------------------------------------------------
 	
         --------
