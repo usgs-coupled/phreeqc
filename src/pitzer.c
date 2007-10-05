@@ -1357,12 +1357,14 @@ pitzer_clean_up (void)
   {
     pitz_params[i] = (struct pitz_param *) free_check_null (pitz_params[i]);
   }
+  count_pitz_param = 0;       
   pitz_params = (struct pitz_param **) free_check_null (pitz_params);
   for (i = 0; i < count_theta_param; i++)
   {
     theta_params[i] =
       (struct theta_param *) free_check_null (theta_params[i]);
   }
+  count_theta_param = 0;
   theta_params = (struct theta_param **) free_check_null (theta_params);
   LGAMMA = (double *) free_check_null (LGAMMA);
   IPRSNT = (int *) free_check_null (IPRSNT);
