@@ -7,7 +7,21 @@
 ------------------------------------------------------------
 Version 2.14.3: ??
 ------------------------------------------------------------
+        --------
+        svn 2312
+        --------
+	Added new option to PITZER datablock, use_etheta t/f.
+	If true, the nonsymmetric mixing terms--cation/cation and
+	anion/anion of different charge--are included; if false
+	these terms are excluded from all equations. Default is true.
 
+	PITZER
+		-use_etheta true
+
+
+        --------
+        svn 2270
+        --------
         Added additional parameters Pitzer activity formulation for
 	neutral species, MU and ETA. MU applies to nnn, nnn', nn'n'',
 	nna, nn'a, nnc, nn'c interactions, where n, n', and n'' are

@@ -59,4 +59,5 @@ struct theta_param
 };
 PITZER_EXTERNAL struct theta_param **theta_params;
 PITZER_EXTERNAL int count_theta_param, max_theta_param;
+PITZER_EXTERNAL int use_etheta;
 PITZER_EXTERNAL double OTEMP;
