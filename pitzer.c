@@ -256,6 +256,12 @@ pitzer_tidy (void)
       }
     }
   }
+  if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE) 
+  {
+    sprintf (error_string, "No KCl interaction parameters, turning off MacInnis scaling.");
+    warning_msg (error_string);
+    ICON = FALSE;
+  }
   /*
    * Set alpha values
    */
@@ -711,8 +717,7 @@ read_pitzer (void)
     if (return_value == EOF || return_value == KEYWORD)
       break;
   }
-  if (count_pitz_param > 0)
-    pitzer_model = TRUE;
+  pitzer_model = TRUE;
   return (return_value);
 }
 
@@ -926,8 +931,11 @@ C
     (1.0e0 - (1.0e0 + XXX - XXX * XXX * 0.5e0) * exp (-XXX)) / (XXX * XXX);
   /*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I; */
   /*GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I; */
-  GAMCLM =
-    F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I;
+  /*GAMCLM = F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I;*/
+  GAMCLM = F;
+  if (mcb0 != NULL) GAMCLM += I * 2.0e0 * mcb0->p;
+  if (mcb1 != NULL) GAMCLM += I * 2.0e0 * mcb1->p * XXX;
+  if (mcc0 != NULL) GAMCLM += 1.5e0 * mcc0->p * I * I;
   CSUM = 0.0e0;
   OSMOT = -(A0) * pow (I, 1.5e0) / (1.0e0 + B * DI);
 /*
