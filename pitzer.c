@@ -49,6 +49,7 @@ pitzer_init (void)
   pitzer_model = FALSE;
   max_pitz_param = 100;
   count_pitz_param = 0;
+  use_etheta = TRUE;
   space ((void **) ((void *) &pitz_params), INIT, &max_pitz_param,
 	 sizeof (struct pitz_param *));
 
@@ -592,9 +593,11 @@ read_pitzer (void)
     "pe",			/* 12 */
     "alphas",			/* 13 */
     "mu",                       /* 14 */
-    "eta"                       /* 15 */
+    "eta",                      /* 15 */
+    "etheta",                   /* 16 */
+    "use_etheta"                /* 17 */
   };
-  int count_opt_list = 16;
+  int count_opt_list = 18;
 /*
  *   Read lines
  */
@@ -712,6 +715,11 @@ read_pitzer (void)
       pzp_type = TYPE_ETA;
       n = 3;
       opt_save = OPTION_DEFAULT;
+      break;
+    case 16:			/* etheta */
+    case 17:			/* use_etheta */
+      opt_save = OPTION_ERROR;
+      use_etheta = get_true_false (next_char, TRUE);
       break;
     }
     if (return_value == EOF || return_value == KEYWORD)
@@ -998,18 +1006,21 @@ C
       /*
          ETHETAS(z0, z1, I, &etheta, &ethetap);
        */
-      etheta = pitz_params[i]->thetas->etheta;
-      ethetap = pitz_params[i]->thetas->ethetap;
-      F += M[i0] * M[i1] * ethetap;
-      LGAMMA[i0] += 2.0 * M[i1] * etheta;
-      LGAMMA[i1] += 2.0 * M[i0] * etheta;
-      OSMOT += M[i0] * M[i1] * (etheta + I * ethetap);
-      /*
-         F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
-         LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
-         LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
-         OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
-       */
+      if (use_etheta == TRUE)
+      {
+	etheta = pitz_params[i]->thetas->etheta;
+	ethetap = pitz_params[i]->thetas->ethetap;
+	F += M[i0] * M[i1] * ethetap;
+	LGAMMA[i0] += 2.0 * M[i1] * etheta;
+	LGAMMA[i1] += 2.0 * M[i0] * etheta;
+	OSMOT += M[i0] * M[i1] * (etheta + I * ethetap);
+	/*
+	  F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
+	  LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
+	  LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
+	  OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+	*/
+      }
       break;
     case TYPE_PSI:
       i2 = pitz_params[i]->ispec[2];
