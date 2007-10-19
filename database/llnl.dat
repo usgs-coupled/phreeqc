@@ -12721,7 +12721,7 @@ Hexahydrite
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Hexahydrite
 #	Enthalpy of formation:	0 kcal/mol
 
-Hf
+Hf(s)
        Hf +4.0000 H+ +1.0000 O2  =  + 1.0000 Hf++++ + 2.0000 H2O
         log_k           189.9795
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Hf
