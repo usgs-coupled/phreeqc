@@ -117,6 +117,11 @@ SED_ARGS= \
 	-e "s^@GCC_VER@^$(GCC_VER)^" \
 	-e "s^@KERNEL_VER@^$(KERNEL_VER)^" \
 	-e "s/@REVISION@/$(REVISION)/"
+	
+SED_ARGS2=\
+	-e "s/^\# Remove the following definition if you do not have /\# Add the following definition if you have/" \
+	-e "s/^INVERSE_CL1MP=TRUE/\#INVERSE_CL1MP=TRUE/"
+	
 
 remake_output_files: clean_linux_output_files linux_output_files # clean_sun_output_files sun_output_files
 
@@ -196,7 +201,7 @@ source_export:
 	svn export -r $(REVISION) http://internalbrr/svn_GW/phreeqc/trunk $(EXPORT_DIR)/Source
 
 source_clean:
-	rm -f $(EXPORT_DIR/Source/bin/$(PROGRAM) $(EXPORT_DIR/Source/src/*.o 
+	rm -f $(EXPORT_DIR)/Source/bin/$(PROGRAM) $(EXPORT_DIR)/Source/src/*.o 
 
 source_sed_list= \
 	"$(EXPORT_DIR)/Source/doc/README.TXT \
@@ -204,6 +209,7 @@ source_sed_list= \
 
 source_sed_files:
 	sed $(SED_ARGS) < $(EXPORT_DIR)/Source/src/revisions > $(EXPORT_DIR)/Source/RELEASE.TXT
+	sed $(SED_ARGS2) < $(EXPORT_DIR)/Source/src/Makefile > t; mv t $(EXPORT_DIR)/Source/src/Makefile
 	for FILE in "$(source_sed_list)"; do \
 		sed $(SED_ARGS) < $$FILE > t; mv t $$FILE; done
 	mv $(EXPORT_DIR)/Source/doc/README.TXT $(EXPORT_DIR)/Source/README.TXT
