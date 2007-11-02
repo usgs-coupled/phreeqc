@@ -189,7 +189,8 @@ linux_dist:
 	cd $(EXPORT_DIR)/Linux; rm -rf $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; mkdir $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).tar $(PROGRAM)-$(VERSION)
-	cd $(EXPORT_DIR)/Linux; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar
+	cd $(EXPORT_DIR)/Linux; cd $(PROGRAM)-$(VERSION); tar -xf $(PROGRAM).tar; rm -f $(PROGRAM).tar	
+	cd $(EXPORT_DIR)/Linux; sed $(SED_ARGS2) < $(PROGRAM)-$(VERSION)/src/Makefile > t; mv t $(PROGRAM)-$(VERSION)/src/Makefile	
 	cd $(EXPORT_DIR)/Linux; tar -czf $(PROGRAM).Linux.tar.gz $(PROGRAM)-$(VERSION)
 	cd $(EXPORT_DIR)/Linux; mv $(PROGRAM).Linux.tar.gz $(DIST_DIR)/$(ROOTNAME).Linux.tar.gz
 	cd $(EXPORT_DIR)/Linux; echo $(ROOTNAME).Linux.tar.gz saved in $(DIST_DIR).
