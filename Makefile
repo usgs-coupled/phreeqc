@@ -139,7 +139,7 @@ clean:
 
 $(EXE): $(OBJECTS) 
 	echo $(TOPDIR)
-	$(CC) -o $(EXE) $(OBJECTS) $(LOADFLAGS) # -L/z/estespark/home/dlpark/packages/efence -lefence
+	$(CC) -o $(EXE) $(OBJECTS) $(LOADFLAGS) # -L/z/parkplace/home/dlpark/packages/efence -lefence
 	echo Compilation complete, $(EXE).
 
 advection.o: $(SRC)/advection.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
