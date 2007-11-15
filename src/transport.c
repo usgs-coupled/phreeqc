@@ -2698,11 +2698,11 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
 	    {
 	      if (dl_aq1 > 0)
 		Dzc_dl[k] =
-		  Dz[k] * sol_D[cell_no].spec[i].c / 2 * (1 +
+		  Dz[k] * sol_D[icell].spec[i].c / 2 * (1 +
 							  s_charge_ptr->g[l].
 							  g * aq1 / dl_aq1);
 	      else
-		Dzc_dl[k] = Dz[k] * sol_D[cell_no].spec[i].c / 2;
+		Dzc_dl[k] = Dz[k] * sol_D[icell].spec[i].c / 2;
 	    }
 	    break;
 	  }
@@ -2743,12 +2743,12 @@ find_Jstag (int icell, int jcell, LDBLE mixf)
 	    {
 	      if (dl_aq2 > 0)
 		Dzc_dl[k] =
-		  Dz[k] * sol_D[cell_no + 1].spec[j].c / 2 * (1 +
+		  Dz[k] * sol_D[jcell].spec[j].c / 2 * (1 +
 							      s_charge_ptr->
 							      g[l].g * aq2 /
 							      dl_aq2);
 	      else
-		Dzc_dl[k] = Dz[k] * sol_D[cell_no + 1].spec[j].c / 2;
+		Dzc_dl[k] = Dz[k] * sol_D[jcell].spec[j].c / 2;
 	    }
 	    break;
 	  }
