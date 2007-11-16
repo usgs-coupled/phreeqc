@@ -6,21 +6,8 @@
 #define WIN_ME_PATH       "PATH"
 #define WIN_NT_PATH       "Path"
 #define WM_SETTINGCHANGE  0x001A
-#define HKEY_2_6          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_6 + "}"
-#define HKEY_2_7          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_7 + "}"
-#define HKEY_2_8          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_8 + "}"
-#define HKEY_2_9          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_9 + "}"
-#define HKEY_2_10         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_10 + "}"
-#define HKEY_2_11         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_11 + "}"
-#define HKEY_2_12         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_12 + "}"
-#define HKEY_2_13         "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13 + "}"
-#define HKEY_2_13_1       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_1 + "}"
-#define HKEY_2_13_2       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_2 + "}"
-#define HKEY_2_14_0       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_14_0 + "}"
-#define HKEY_2_14_3       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_14_3 + "}"
-////ADD_NEW_VERSION_HERE
-
-#define HVALUE_2_XX       "InstallLocation"
+#define HKEY_UNINSTALL    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall"
+#define INSTALLLOCATION   "InstallLocation"
 
 prototype AddAutoExecPath(string);
 prototype AddMEPath(string);
@@ -31,7 +18,8 @@ prototype RemoveAutoExecPath(string);
 prototype RemoveMEPath(string);
 prototype RemoveNTPath(string);
 prototype RemovePath(string);
-prototype CheckForVersion(string, byref string);
+prototype CheckForPreviousGUID(string, BYREF string);
+prototype FindFirstPosition(string, BYREF number, BOOL, string);
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -152,41 +140,41 @@ begin
     // check for previous versions
     
 	// check for 2.6
-	bFound2_6 = CheckForVersion(HKEY_2_6, svPath2_6);
+	bFound2_6 = CheckForPreviousGUID(@GUID_2_6, svPath2_6);	
     
 	// check for 2.7
-	bFound2_7 = CheckForVersion(HKEY_2_7, svPath2_7);
+	bFound2_7 = CheckForPreviousGUID(@GUID_2_7, svPath2_7);
 
 	// check for 2.8
-	bFound2_8 = CheckForVersion(HKEY_2_8, svPath2_8);
+	bFound2_8 = CheckForPreviousGUID(@GUID_2_8, svPath2_8);
 
 	// check for 2.9
-	bFound2_9 = CheckForVersion(HKEY_2_9, svPath2_9);
+	bFound2_9 = CheckForPreviousGUID(@GUID_2_9, svPath2_9);
 
 	// check for 2.10
-	bFound2_10 = CheckForVersion(HKEY_2_10, svPath2_10);
+	bFound2_10 = CheckForPreviousGUID(@GUID_2_10, svPath2_10);
 
 	// check for 2.11
-	bFound2_11 = CheckForVersion(HKEY_2_11, svPath2_11);
+	bFound2_11 = CheckForPreviousGUID(@GUID_2_11, svPath2_11);
 
 	// check for 2.12
-	bFound2_12 = CheckForVersion(HKEY_2_12, svPath2_12);
+	bFound2_12 = CheckForPreviousGUID(@GUID_2_12, svPath2_12);
 
 	// check for 2.13
-	bFound2_13 = CheckForVersion(HKEY_2_13, svPath2_13);
+	bFound2_13 = CheckForPreviousGUID(@GUID_2_13, svPath2_13);
 
 	// check for 2.13.1
-	bFound2_13_1 = CheckForVersion(HKEY_2_13_1, svPath2_13_1);
+	bFound2_13_1 = CheckForPreviousGUID(@GUID_2_13_1, svPath2_13_1);
 
 	// check for 2.13.2
-	bFound2_13_2 = CheckForVersion(HKEY_2_13_2, svPath2_13_2);
+	bFound2_13_2 = CheckForPreviousGUID(@GUID_2_13_2, svPath2_13_2);
 
 	// check for 2.14.0
-	bFound2_14_0 = CheckForVersion(HKEY_2_14_0, svPath2_14_0);
+	bFound2_14_0 = CheckForPreviousGUID(@GUID_2_14_0, svPath2_14_0);
 	
 ////ADD_NEW_VERSION_HERE
 ////	// check for 2.14.3
-////	bFound2_14_3 = CheckForVersion(HKEY_2_14_3, svPath2_14_3);
+////	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -212,103 +200,42 @@ begin
             // check if previous versions are in path
             nPosFirst = StrLength( svCurrentPath ); 
             
-            if ( bFound2_6 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_6);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_7 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_7);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_8 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_8);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_9 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_9);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_10 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_10);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_11 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_11);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-			if ( bFound2_12 ) then
-				nPos = StrFind(svCurrentPath, svPath2_12);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13_1 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13_1);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13_2 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13_2);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_14_0 ) then
-				nPos = StrFind(svCurrentPath, svPath2_14_0);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
+            // 2.6
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_6, svPath2_6);
+            
+            // 2.7
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_7, svPath2_7);
+
+            // 2.8
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_8, svPath2_8);
+            
+            // 2.9
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_9, svPath2_9);
+            
+            // 2.10
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_10, svPath2_10);
+            
+            // 2.11
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_11, svPath2_11);
+            
+            // 2.12
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_12, svPath2_12);
+            
+            // 2.13
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13, svPath2_13);
+            
+            // 2.13.1
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13_1, svPath2_13_1);
+            
+            // 2.13.2
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13_2, svPath2_13_2);
+            
+            // 2.14.0
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_0, svPath2_14_0);
+
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_14_3 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_14_3);
-////				if (nPos > 0) then
-////					if (nPos < nPosFirst) then
-////						nPosFirst = nPos;
-////					endif;
-////				endif;
-////			endif;
+////            // 2.14.3
+////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
 
 	        if ( StrLength( svCurrentPath ) > 0) then
         		szNewPath = svCurrentPath + ";" + svPathToAdd;
@@ -399,41 +326,41 @@ begin
     // check for previous versions
     
 	// check for 2.6
-	bFound2_6 = CheckForVersion(HKEY_2_6, svPath2_6);
+	bFound2_6 = CheckForPreviousGUID(@GUID_2_6, svPath2_6);	
     
 	// check for 2.7
-	bFound2_7 = CheckForVersion(HKEY_2_7, svPath2_7);
-    
+	bFound2_7 = CheckForPreviousGUID(@GUID_2_7, svPath2_7);
+
 	// check for 2.8
-	bFound2_8 = CheckForVersion(HKEY_2_8, svPath2_8);
-    
+	bFound2_8 = CheckForPreviousGUID(@GUID_2_8, svPath2_8);
+
 	// check for 2.9
-	bFound2_9 = CheckForVersion(HKEY_2_9, svPath2_9);
+	bFound2_9 = CheckForPreviousGUID(@GUID_2_9, svPath2_9);
 
 	// check for 2.10
-	bFound2_10 = CheckForVersion(HKEY_2_10, svPath2_10);
-	
+	bFound2_10 = CheckForPreviousGUID(@GUID_2_10, svPath2_10);
+
 	// check for 2.11
-	bFound2_11 = CheckForVersion(HKEY_2_11, svPath2_11);
-	
+	bFound2_11 = CheckForPreviousGUID(@GUID_2_11, svPath2_11);
+
 	// check for 2.12
-	bFound2_12 = CheckForVersion(HKEY_2_12, svPath2_12);
+	bFound2_12 = CheckForPreviousGUID(@GUID_2_12, svPath2_12);
 
 	// check for 2.13
-	bFound2_13 = CheckForVersion(HKEY_2_13, svPath2_13);
+	bFound2_13 = CheckForPreviousGUID(@GUID_2_13, svPath2_13);
 
 	// check for 2.13.1
-	bFound2_13_1 = CheckForVersion(HKEY_2_13_1, svPath2_13_1);
+	bFound2_13_1 = CheckForPreviousGUID(@GUID_2_13_1, svPath2_13_1);
 
 	// check for 2.13.2
-	bFound2_13_2 = CheckForVersion(HKEY_2_13_2, svPath2_13_2);
+	bFound2_13_2 = CheckForPreviousGUID(@GUID_2_13_2, svPath2_13_2);
 
 	// check for 2.14.0
-	bFound2_14_0 = CheckForVersion(HKEY_2_14_0, svPath2_14_0);
+	bFound2_14_0 = CheckForPreviousGUID(@GUID_2_14_0, svPath2_14_0);
 	
 ////ADD_NEW_VERSION_HERE
 ////	// check for 2.14.3
-////	bFound2_14_3 = CheckForVersion(HKEY_2_14_3, svPath2_14_3);
+////	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -480,103 +407,42 @@ begin
             // check if previous versions are in path
             nPosFirst = StrLength( svCurrentPath ); 
             
-            if ( bFound2_6 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_6);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_7 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_7);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-            if ( bFound2_8 ) then
-	            nPos = StrFind(svCurrentPath, svPath2_8);
-	            if (nPos > 0) then
-			        if (nPos < nPosFirst) then
-			        	nPosFirst = nPos;
-			        endif;	            
-		        endif;
-	        endif;
-			if ( bFound2_9 ) then
-				nPos = StrFind(svCurrentPath, svPath2_9);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_10 ) then
-				nPos = StrFind(svCurrentPath, svPath2_10);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_11 ) then
-				nPos = StrFind(svCurrentPath, svPath2_11);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_12 ) then
-				nPos = StrFind(svCurrentPath, svPath2_12);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13_1 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13_1);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_13_2 ) then
-				nPos = StrFind(svCurrentPath, svPath2_13_2);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
-			if ( bFound2_14_0 ) then
-				nPos = StrFind(svCurrentPath, svPath2_14_0);
-				if (nPos > 0) then
-					if (nPos < nPosFirst) then
-						nPosFirst = nPos;
-					endif;
-				endif;
-			endif;
+            // 2.6
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_6, svPath2_6);
+            
+            // 2.7
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_7, svPath2_7);
+            
+            // 2.8
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_8, svPath2_8);
+            
+            // 2.9
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_9, svPath2_9);
+            
+            // 2.10
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_10, svPath2_10);
+            
+            // 2.11
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_11, svPath2_11);
+            
+            // 2.12
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_12, svPath2_12);
+            
+            // 2.13
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13, svPath2_13);
+            
+            // 2.13.1
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13_1, svPath2_13_1);
+            
+            // 2.13.2
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_13_2, svPath2_13_2);
+            
+            // 2.14.0
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_0, svPath2_14_0);
+            
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_14_3 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_14_3);
-////				if (nPos > 0) then
-////					if (nPos < nPosFirst) then
-////						nPosFirst = nPos;
-////					endif;
-////				endif;
-////			endif;
+////            // 2.14.3
+////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
 
 
 	        if ( StrLength( svCurrentPath ) > 0) then
@@ -965,28 +831,53 @@ end;
 
 //////////////////////////////////////////////////////////////////////////////
 //
-//  Function: CheckForVersion
+//  Function: CheckForPreviousGUID
 //
-//  Purpose: Checks if a known previous version is currently installed
-//
-//  Note: svPath contains the short path name if found
+//  Purpose: check to see if a previous installation is already installed and
+//  if so return the installation path in svPath in short form (8.3) 
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-function CheckForVersion(szHKEY_VER, svPath)
-    BOOL bFound;       // previous version found
-    number nResult;    // return value
-    number nvType;     // registry key type
-    number nvSize;     // size in bytes
+function CheckForPreviousGUID(szGUID, svPath)
+    BOOL bFound;
+    string szKey;
+    number nvType;
+    number nvSize;
+    number nResult;
+    string svResult;
 begin
 	bFound = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( szHKEY_VER, HVALUE_2_XX, nvType, svPath, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath) == 0) then
-				bFound = TRUE;
-			endif;
-		endif;
-	endif;
-    return bFound;
+    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+        szKey = HKEY_UNINSTALL ^ "{" + szGUID + "}";
+        nResult = RegDBGetKeyValueEx( szKey, INSTALLLOCATION, nvType, svPath, nvSize );
+        if ( nResult == 0 ) then
+            if (LongPathToShortPath(svPath) == 0) then
+                bFound = TRUE;
+            endif;
+        endif;
+    endif;
+	return bFound;
+end;
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  Function: FindFirstPosition
+//
+//  Purpose: check if szPath is in szCurrentPath and if so return the
+//  position if earlier than nvPosFirst
+//
+//  Note: szPath should be short form (8.3) => call LongPathToShortPath first
+//
+///////////////////////////////////////////////////////////////////////////////
+function FindFirstPosition(szCurrentPath, nvPosFirst, bFound, szPath)
+    number nPos;
+begin
+    if ( bFound ) then
+        nPos = StrFind(szCurrentPath, szPath);
+        if (nPos > 0) then
+            if (nPos < nvPosFirst) then
+                nvPosFirst = nPos;
+            endif;
+        endif;
+    endif;
+	return nvPosFirst;
 end;
