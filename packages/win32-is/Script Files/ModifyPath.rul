@@ -17,6 +17,7 @@
 #define HKEY_2_13_1       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_1 + "}"
 #define HKEY_2_13_2       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_13_2 + "}"
 #define HKEY_2_14_0       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_14_0 + "}"
+#define HKEY_2_14_3       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{" + @GUID_2_14_3 + "}"
 ////ADD_NEW_VERSION_HERE
 
 #define HVALUE_2_XX       "InstallLocation"
@@ -30,6 +31,8 @@ prototype RemoveAutoExecPath(string);
 prototype RemoveMEPath(string);
 prototype RemoveNTPath(string);
 prototype RemovePath(string);
+prototype CheckForVersion(string, byref string);
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -130,12 +133,14 @@ function AddMEPath(szPathToAdd)
     string svPath2_13;      //
     BOOL   bFound2_13_1;    //
     string svPath2_13_1;    //
-    BOOL   bFound2_13_2;      //
-    string svPath2_13_2;      //
+    BOOL   bFound2_13_2;    //
+    string svPath2_13_2;    //
+    BOOL   bFound2_14_0;    //
+    string svPath2_14_0;    //
 //}}    
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_14_0;      //
-////    string svPath2_14_0;      //
+////    BOOL   bFound2_14_3;      //
+////    string svPath2_14_3;      //
 //}}    
 begin    
     if (!SYSINFO.WIN9X.bWinMe) then
@@ -147,127 +152,42 @@ begin
     // check for previous versions
     
 	// check for 2.6
-	bFound2_6 = FALSE;
-    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_6, HVALUE_2_XX, nvType, svPath2_6, nvSize );
-	    if ( nResult == 0 ) then
-		    if (LongPathToShortPath(svPath2_6) == 0) then
-		    	bFound2_6 = TRUE;
-		    endif;    
-	    endif;		
-    endif;
+	bFound2_6 = CheckForVersion(HKEY_2_6, svPath2_6);
     
 	// check for 2.7
-	bFound2_7 = FALSE;
-    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_7, HVALUE_2_XX, nvType, svPath2_7, nvSize );
-	    if ( nResult == 0 ) then
-		    if (LongPathToShortPath(svPath2_7) == 0) then
-		    	bFound2_7 = TRUE;
-		    endif;    
-	    endif;		
-    endif;
-    
+	bFound2_7 = CheckForVersion(HKEY_2_7, svPath2_7);
+
 	// check for 2.8
-	bFound2_8 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_8, HVALUE_2_XX, nvType, svPath2_8, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_8) == 0) then
-				bFound2_8 = TRUE;
-			endif;
-		endif;		
-	endif;
+	bFound2_8 = CheckForVersion(HKEY_2_8, svPath2_8);
 
 	// check for 2.9
-	bFound2_9 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_9, HVALUE_2_XX, nvType, svPath2_9, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_9) == 0) then
-				bFound2_9 = TRUE;
-			endif;
-		endif;
-	endif;
-
+	bFound2_9 = CheckForVersion(HKEY_2_9, svPath2_9);
 
 	// check for 2.10
-	bFound2_10 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_XX, nvType, svPath2_10, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_10) == 0) then
-				bFound2_10 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_10 = CheckForVersion(HKEY_2_10, svPath2_10);
 
 	// check for 2.11
-	bFound2_11 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_11, HVALUE_2_XX, nvType, svPath2_11, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_11) == 0) then
-				bFound2_11 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_11 = CheckForVersion(HKEY_2_11, svPath2_11);
 
 	// check for 2.12
-	bFound2_12 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_XX, nvType, svPath2_12, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_12) == 0) then
-				bFound2_12 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_12 = CheckForVersion(HKEY_2_12, svPath2_12);
 
 	// check for 2.13
-	bFound2_13 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_XX, nvType, svPath2_13, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13) == 0) then
-				bFound2_13 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_13 = CheckForVersion(HKEY_2_13, svPath2_13);
 
 	// check for 2.13.1
-	bFound2_13_1 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13_1, HVALUE_2_XX, nvType, svPath2_13_1, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13_1) == 0) then
-				bFound2_13_1 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_13_1 = CheckForVersion(HKEY_2_13_1, svPath2_13_1);
 
-	bFound2_13_2 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13_2) == 0) then
-				bFound2_13_2 = TRUE;
-			endif;
-		endif;
-	endif;
+	// check for 2.13.2
+	bFound2_13_2 = CheckForVersion(HKEY_2_13_2, svPath2_13_2);
 
+	// check for 2.14.0
+	bFound2_14_0 = CheckForVersion(HKEY_2_14_0, svPath2_14_0);
+	
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.14.0
-////	bFound2_14_0 = FALSE;
-////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_14_0, HVALUE_2_XX, nvType, svPath2_14_0, nvSize );
-////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_14_0) == 0) then
-////				bFound2_14_0 = TRUE;
-////			endif;
-////		endif;
-////	endif;
-    
+////	// check for 2.14.3
+////	bFound2_14_3 = CheckForVersion(HKEY_2_14_3, svPath2_14_3);
+
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
         // bad path
@@ -372,9 +292,17 @@ begin
 					endif;
 				endif;
 			endif;
+			if ( bFound2_14_0 ) then
+				nPos = StrFind(svCurrentPath, svPath2_14_0);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_14_0 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_14_0);
+////			if ( bFound2_14_3 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_14_3);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;
@@ -457,9 +385,11 @@ function AddNTPath(szPathToAdd)
     string svPath2_13_1;    //
     BOOL   bFound2_13_2;    //
     string svPath2_13_2;    //
+    BOOL   bFound2_14_0;    //
+    string svPath2_14_0;    //
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_14_0;    //
-////    string svPath2_14_0;    //
+////    BOOL   bFound2_14_3;    //
+////    string svPath2_14_3;    //
 begin
     if (!SYSINFO.WINNT.bWinNT) then
         // wrong OS
@@ -469,126 +399,41 @@ begin
     // check for previous versions
     
 	// check for 2.6
-	bFound2_6 = FALSE;
-    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_6, HVALUE_2_XX, nvType, svPath2_6, nvSize );
-	    if ( nResult == 0 ) then
-		    if (LongPathToShortPath(svPath2_6) == 0) then
-		    	bFound2_6 = TRUE;
-		    endif;    
-	    endif;		
-    endif;
+	bFound2_6 = CheckForVersion(HKEY_2_6, svPath2_6);
     
 	// check for 2.7
-	bFound2_7 = FALSE;
-    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_7, HVALUE_2_XX, nvType, svPath2_7, nvSize );
-	    if ( nResult == 0 ) then
-		    if (LongPathToShortPath(svPath2_7) == 0) then
-		    	bFound2_7 = TRUE;
-		    endif;    
-	    endif;		
-    endif;
+	bFound2_7 = CheckForVersion(HKEY_2_7, svPath2_7);
     
 	// check for 2.8
-	bFound2_8 = FALSE;
-    if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_8, HVALUE_2_XX, nvType, svPath2_8, nvSize );
-	    if ( nResult == 0 ) then
-		    if (LongPathToShortPath(svPath2_8) == 0) then
-		    	bFound2_8 = TRUE;
-		    endif;    
-	    endif;		
-    endif;
+	bFound2_8 = CheckForVersion(HKEY_2_8, svPath2_8);
     
 	// check for 2.9
-	bFound2_9 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_9, HVALUE_2_XX, nvType, svPath2_9, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_9) == 0) then
-				bFound2_9 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_9 = CheckForVersion(HKEY_2_9, svPath2_9);
 
 	// check for 2.10
-	bFound2_10 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_10, HVALUE_2_XX, nvType, svPath2_10, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_10) == 0) then
-				bFound2_10 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_10 = CheckForVersion(HKEY_2_10, svPath2_10);
 	
 	// check for 2.11
-	bFound2_11 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_11, HVALUE_2_XX, nvType, svPath2_11, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_11) == 0) then
-				bFound2_11 = TRUE;
-			endif;
-		endif;
-	endif;	
+	bFound2_11 = CheckForVersion(HKEY_2_11, svPath2_11);
 	
 	// check for 2.12
-	bFound2_12 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_12, HVALUE_2_XX, nvType, svPath2_12, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_12) == 0) then
-				bFound2_12 = TRUE;
-			endif;
-		endif;
-	endif;	
+	bFound2_12 = CheckForVersion(HKEY_2_12, svPath2_12);
 
 	// check for 2.13
-	bFound2_13 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13, HVALUE_2_XX, nvType, svPath2_13, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13) == 0) then
-				bFound2_13 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_13 = CheckForVersion(HKEY_2_13, svPath2_13);
 
 	// check for 2.13.1
-	bFound2_13_1 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13_1, HVALUE_2_XX, nvType, svPath2_13_1, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13_1) == 0) then
-				bFound2_13_1 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_13_1 = CheckForVersion(HKEY_2_13_1, svPath2_13_1);
 
 	// check for 2.13.2
-	bFound2_13_2 = FALSE;
-	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-		nResult = RegDBGetKeyValueEx( HKEY_2_13_2, HVALUE_2_XX, nvType, svPath2_13_2, nvSize );
-		if ( nResult == 0 ) then
-			if (LongPathToShortPath(svPath2_13_2) == 0) then
-				bFound2_13_2 = TRUE;
-			endif;
-		endif;
-	endif;
+	bFound2_13_2 = CheckForVersion(HKEY_2_13_2, svPath2_13_2);
 
+	// check for 2.14.0
+	bFound2_14_0 = CheckForVersion(HKEY_2_14_0, svPath2_14_0);
+	
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.14.0
-////	bFound2_14_0 = FALSE;
-////	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
-////		nResult = RegDBGetKeyValueEx( HKEY_2_14_0, HVALUE_2_XX, nvType, svPath2_14_0, nvSize );
-////		if ( nResult == 0 ) then
-////			if (LongPathToShortPath(svPath2_14_0) == 0) then
-////				bFound2_14_0 = TRUE;
-////			endif;
-////		endif;
-////	endif;
+////	// check for 2.14.3
+////	bFound2_14_3 = CheckForVersion(HKEY_2_14_3, svPath2_14_3);
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -715,9 +560,17 @@ begin
 					endif;
 				endif;
 			endif;
+			if ( bFound2_14_0 ) then
+				nPos = StrFind(svCurrentPath, svPath2_14_0);
+				if (nPos > 0) then
+					if (nPos < nPosFirst) then
+						nPosFirst = nPos;
+					endif;
+				endif;
+			endif;
 ////ADD_NEW_VERSION_HERE
-////			if ( bFound2_14_0 ) then
-////				nPos = StrFind(svCurrentPath, svPath2_14_0);
+////			if ( bFound2_14_3 ) then
+////				nPos = StrFind(svCurrentPath, svPath2_14_3);
 ////				if (nPos > 0) then
 ////					if (nPos < nPosFirst) then
 ////						nPosFirst = nPos;
@@ -1108,4 +961,32 @@ begin
         endif;
     endif;
     return bPathRemoved;
+end;
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  Function: CheckForVersion
+//
+//  Purpose: Checks if a known previous version is currently installed
+//
+//  Note: svPath contains the short path name if found
+//
+///////////////////////////////////////////////////////////////////////////////
+
+function CheckForVersion(szHKEY_VER, svPath)
+    BOOL bFound;       // previous version found
+    number nResult;    // return value
+    number nvType;     // registry key type
+    number nvSize;     // size in bytes
+begin
+	bFound = FALSE;
+	if (RegDBSetDefaultRoot( HKEY_LOCAL_MACHINE ) >= 0) then
+		nResult = RegDBGetKeyValueEx( szHKEY_VER, HVALUE_2_XX, nvType, svPath, nvSize );
+		if ( nResult == 0 ) then
+			if (LongPathToShortPath(svPath) == 0) then
+				bFound = TRUE;
+			endif;
+		endif;
+	endif;
+    return bFound;
 end;
