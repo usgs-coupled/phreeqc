@@ -961,6 +961,12 @@ Version 2.14.3: November 17, 2007
 ------------------------------------------------------------
 
         --------
+        svn 2386
+        --------
+	Fixed bug in routine find_Jstag. Incorrect index (cell_no)
+	caused segmentation violation in rare instances.
+
+        --------
         svn 2312
         --------
 	Added new option to PITZER datablock, use_etheta t/f.
