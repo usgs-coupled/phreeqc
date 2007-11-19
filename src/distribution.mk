@@ -117,11 +117,10 @@ SED_ARGS= \
 	-e "s^@GCC_VER@^$(GCC_VER)^" \
 	-e "s^@KERNEL_VER@^$(KERNEL_VER)^" \
 	-e "s/@REVISION@/$(REVISION)/"
-	
+
 SED_ARGS2=\
 	-e "s/^\# Remove the following definition if you do not have /\# Add the following definition if you have/" \
 	-e "s/^INVERSE_CL1MP=TRUE/\#INVERSE_CL1MP=TRUE/"
-	
 
 remake_output_files: clean_linux_output_files linux_output_files # clean_sun_output_files sun_output_files
 
