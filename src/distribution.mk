@@ -21,9 +21,11 @@ CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
 CFG1 :=`uname`
 CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
 ifeq ($(CFG), CYGWIN)
-	SPOOL=2>&1 >
+	SPOOL=>
+	SPOOL2=2>&1
 else
 	SPOOL=>&
+	SPOOL2=
 endif
 
 # list of files for distribution
@@ -378,7 +380,7 @@ web:
 	cp $(EXPORT_DIR)/Linux/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
 tester:
-	cd ../mytest; make clean; make $(SPOOL) make.out; make zero; make diff $(SPOOL) diff.out
-	cd ../examples; make clean; make $(SPOOL) make.out; make zero; make diff $(SPOOL) diff.out
+	cd ../mytest; make clean; make $(SPOOL) make.out $(SPOOL2); make zero; make diff $(SPOOL) diff.out $(SPOOL2)
+	cd ../examples; make clean; make $(SPOOL) make.out $(SPOOL2); make zero; make diff $(SPOOL) diff.out $(SPOOL2)
 	svn status -q ../mytest 
 	svn status -q ../examples
