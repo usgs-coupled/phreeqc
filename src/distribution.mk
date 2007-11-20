@@ -17,6 +17,15 @@ TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
 CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
+
+CFG1 :=`uname`
+CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
+ifeq ($(CFG), CYGWIN)
+	SPOOL=2>&1 >
+else
+	SPOOL=>&
+endif
+
 # list of files for distribution
 FILES=  \
 	$(CURSRC)/Makefile \
@@ -369,7 +378,7 @@ web:
 	cp $(EXPORT_DIR)/Linux/RELEASE.TXT /z/linarcolkr/home/www/projects/GWC_coupled/phreeqc/RELEASE.TXT
 
 tester:
-	cd ../mytest; make clean; make >& make.out; make zero; make diff >& diff.out
-	cd ../examples; make clean; make >& make.out; make zero; make diff >& diff.out
+	cd ../mytest; make clean; make $(SPOOL) make.out; make zero; make diff $(SPOOL) diff.out
+	cd ../examples; make clean; make $(SPOOL) make.out; make zero; make diff $(SPOOL) diff.out
 	svn status -q ../mytest 
 	svn status -q ../examples
