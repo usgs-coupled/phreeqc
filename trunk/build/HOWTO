@@ -1,0 +1,200 @@
+/////////////////////////////////////////////////////////////////////////
+//
+// Steps to build phreeqc distribution
+//
+// Created:          2006-10-31 15:57:09 -0700 (Tue, 31 Oct 2006)
+//
+// $LastChangedDate$
+//
+// Time: approx 6 minutes on Pentium 4 3.8 GHz
+//
+/////////////////////////////////////////////////////////////////////////
+1. Update installshield GUID
+  ie
+    $ cd phreeqc/packages/win32-is
+    $ cygstart phreeqc.ipr
+    Project->Settings...->Application->Change (Copy GUID to clipboard)
+    Resources->'phreeqc' Resources->String Table->English
+      and create a new GUID_2_13 pasting the String Value
+
+2. In ModifyPath.rul search for ADD_NEW_VERSION_HERE and make the 
+   necessary modifications.
+  ie
+    Edit->Find->What: ADD_NEW_VERSION_HERE
+    
+3. Add any files that have been added to the appropriate file group
+  ie
+    File Groups->
+
+4. Sync with subversion
+  ie
+    $ cd phreeqc/build
+    $ svn st            # make sure everything's been checked in
+    $ svn up
+    
+5. Get subversion revision number for use in the following steps
+  ie
+    $ svnversion .
+
+6. Run dist.sh to get phreeqc-X.X.X.tar.gz
+  ie
+    time ./dist.sh -v 2.13.0 -r 1416 -d 10/31/06 -pr trunk 2>&1 | tee dist-1416.log
+  or
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 source
+  	
+7. link build.sh to latest version
+  ie
+    ln -f build.sh phreeqc-2.13.0-1416.sh
+  or   
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 script
+  	
+8. Run build.sh to create phreeqc-X.X.X-YYYY-src.tar.bz2 and phreeqc-X.X.X-YYYY.tar.bz2
+  ie 
+    time ./phreeqc-2.13.0-1416.sh all 2>&1 | tee all-1416.log
+  or  
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 build_all
+  or
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 prep
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 conf
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 build
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 install
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 pkg
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 spkg
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416 finish
+  	
+
+Note: Steps 6-8 can be combined using the makefile
+  ie
+  	make VERSION=2.13.0 DATE=10/31/06 RELEASE=1416
+
+/////////////////////////////////////////////////////////////////////////
+// Done
+/////////////////////////////////////////////////////////////////////////
+
+
+
+./dist.sh -v 2.12.1 -r 672 -d 11/16/05 -pr trunk
+ln build.sh phreeqc-2.12.1-672.sh
+
+
+=======================================
+Creating a phreeqc_console distribution
+=======================================
+###1. Get phreeqc.Windows.tar.gz from David
+a. sync with subversion
+    ./svn up
+
+b. get build number
+    ./svnversion .
+    
+1. Create source tarball phreeqc/build/dist.sh
+	time ./dist.sh -v $(VERSION) -r $(RELEASE) -d $(DATE) [-pr trunk] 2>&1 | tee dist-$(RELEASE).log
+	ie
+	time ./dist.sh -v 2.12 -r 651 -d 11/10/05 -pr trunk 2>&1 | tee dist-651.log
+	
+###2. Extract using WinZip to phreeqc.win
+###  tar xvzf phreeqc.Windows.tar.gz
+###3. Rename phreeqc.win to appropriate version (ie ren phreeqc.win phreeqc.win.2.4.1)
+  ###mv phreeqc.win phreeqc.win.2.7
+  ###cd phreeqc.win.2.7
+  ###find -type f -exec chmod 644 {} \;
+  ###find -type f ! -name "*.pdf" -exec unix2dos {} \;
+  ###unix2dos *.TXT *.dat *.bat
+  ###cd examples
+  ###unix2dos *
+  ###cd ..
+  ###cd src
+  ###unix2dos *
+  ###cd ..
+  ###cd test
+  ###unix2dos *
+  ###cd ..
+###4. Check which files have changed using windiff (ie windiff \phreeqc_console\ phreeqc.win.2.4.1\src)
+###5. Copy differing files into phreeqc_console
+###6. Start Microsoft Visual Studio and open phreeqc_console workspace
+	###i)  Update resource file:
+	###	FILEVERSION
+	###	PRODUCTVERSION
+	###	Comments
+	###	FileVersion
+	###	ProductName
+	###	ProductVersion		
+7. Build Win32 Release
+8. Create src\Release directory (ie cd  \phreeqc.win.2.4.1\src md Release)
+9. Copy phreeqc.exe into Release directory from phreeqc_console\Release
+10. Run test.bat to create output and selected output files (ie cd \phreeqc.win.2.4.1\test test)
+11. Move output and sel_out files to examples directory (ie move *.out ..\examples move *.sel ..\examples)
+12. Run clean.bat
+13. Run test.bat and verify that check.log shows no differences
+
+###14.a Fix file group lists
+###	(ie 
+###	cd DEV\phreeqc_console\setup\File Groups
+###	for %i in (*.fgl) do perl -pi.bak -e "s/2.5/2.6/g" %i
+###	)
+###	or
+###	cd "/home/charlton/programs/phreeqc_console/setup/File Groups"	
+###	perl -pi.bak -e "s/2.9/2.10/g" *.fgl
+14.b Add any necessary files using Installshield (ie iso.dat)
+    (ie windiff phreeqc.win.2.7 phreeqc.win.2.8)
+	
+14.c Change GUID (Project->Settings...  Application->Change) and update Version
+14.d Make necessary changes to AddNTPath and AddMEPath
+###14.e Update Resources->String Table English
+###     FOLDER_NAME
+###     INSTALL_DIR
+###     PRODUCT_VERSION
+###     TITLE_CAPTIONBAR
+###     TITLE_MAIN
+
+**OLD**14a. Bug fix versions (ie 2.4 to 2.4.1)
+**OLD**    i. Use windiff to compare previous to newer (ie windiff \phreeqc.win.2.4 \phreeqc.win.2.4.1)
+**OLD**    ii. Make changes to InstallShield File Groups for each file that differs
+**OLD**        (ie for Exe Static File Links
+**OLD**            remove \phreeqc.win.2.4\src\Release\phreeqc.exe
+**OLD**            add \phreeqc.win.2.4.1\src\Release\phreeqc.exe
+**OLD**14b. Major(ie 2.0 to 3.0) and Minor(ie 2.1 to 2.2) versions
+**OLD**	i. {TODO} Create new InstallShield Setup 
+**OLD**	   ie
+**OLD**	   cd My Installations
+**OLD**	   md "PHREEQC 2.5"
+**OLD**	   cd "PHREEQC 2.5"
+**OLD**	   xcopy /e "..\PHREEQC 2.4\*.*"
+**OLD**	   ren "PHREEQC 2.4.ipr" "PHREEQC2.5.ipr"
+**OLD**	ii. use findstr to find files that contain references to phreeqc.win.2.4 and change to phreeqc.win.2.5
+**OLD**	   ie findstr /S /M /C:2.4 *.*
+**OLD**	iii. remove report files
+**OLD**	   ie cd "E:\My Installations\PHREEQC 2.4.2\Media\Default\Report Files"
+**OLD**	      del *.rpt
+**OLD**	iv. remove old distribution
+**OLD**	   ie cd "E:\My Installations\PHREEQC 2.4.2\Media\Default\Report Files"
+**OLD**	      del *.*
+**OLD**	v. remove log files
+**OLD**	   ie cd "E:\My Installations\PHREEQC 2.4.2\Media\Default\Log Files"
+**OLD**	      del *.log
+**OLD**	vi. copy Notice.txt and Readme.txt to "E:\My Installations\PHREEQC 2.4.2\Setup Files\Compressed Files\Language Independent\OS Independent"
+	
+###15. In InstallShield Update Media->SingleDisk->Package File Name (ie phrqc27.exe -> phrqc28.exe)
+###    and build new setup (ie Build Current Media)
+###    
+
+**OLD**16. Use PackageForTheWeb to create self-extracting executable
+17. ftp/scp self-extracting exe to brrcrftp
+	ie
+	cd "Program Files\InstallShield\PackageForTheWeb 2\Output"
+	ftp brrcrftp
+	cd /var/ftp/pub/charlton
+	binary
+	put phrqc241.exe
+	quit
+	  --or--
+	cd '/home/charlton/programs/phreeqc_console/setup/Media/SingleDisk/Disk Images/Disk1'
+	scp phrqc27.exe srv2rcolkr:/var/anonymous/ftp/charlton/.
+18. Email notice to David
+	ie
+	To:David L Parkhurst/WRD/USGS/DOI@USGS
+	Subject:Version 2.4.1 ready
+	Message:ftp://brrcrftp.cr.usgs.gov/pub/charlton/phrqc241.exe
+19. cvs commit -m"2.7"
+    cvs tag R_2_7
+    cvs rtag R_2_7 phreeqc_console
