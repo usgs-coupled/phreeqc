@@ -1,0 +1,113 @@
+SURFACE_MASTER_SPECIES
+	Goe_uni    Goe_uniOH-0.5
+#		   -cd_music_capacitance  0.9   5
+	Goe_tri    Goe_triO-0.5
+SURFACE_SPECIES
+	Goe_uniOH-0.5 = Goe_uniOH-0.5
+	     log_k 0
+
+	#uni protonation
+	Goe_uniOH-0.5 + H+ = Goe_uniOH2+0.5
+	     -cd_music  1 0 0 0 0
+	     log_k    9.2                   # eq 18  K1,2
+
+	Goe_uniOH-0.5 + Na+ = Goe_uniOHNa+0.5
+	     -cd_music  0 0 1 0 0
+	     log_k    -1                    # Kc
+
+	Goe_uniOH-0.5 + H+ + NO3- = Goe_uniOH2NO3-0.5
+	     -cd_music  1 0 -1 0 0 
+	     log_k    -1                    # Ka
+
+	Goe_uniOH-0.5 + H+ + PO4-3 = Goe_uniOPO3-2.5 + H2O
+	     log_k     20.8                 # eq 7   K1, Kin1
+	     -cd_music  -1 -6 0 0.25 5
+
+	2Goe_uniOH-0.5 + 2H+ + PO4-3 = Goe_uni2O2PO2-2 + 2H2O
+	     log_k     29.2                 # eq 10  K2, Kin2 
+	     -cd_music  -2 -4 0 0.5 5
+
+	2Goe_uniOH-0.5 + 2H+ + PO4-3 + H+ = Goe_uni2O2POOH- + 2H2O
+	     log_k     35.4                 # eq 12  K3, Kin3
+	     -cd_music  -2 -3 0 0.6 5
+
+	Goe_triO-0.5  = Goe_triO-0.5
+	     log_k 0
+	
+	#tri protonation
+	Goe_triO-0.5 + H+ = Goe_triOH+0.5
+	     -cd_music  1 0 0 0 0
+	     log_k    9.2                   # eq 19  K3,1
+
+	Goe_triO-0.5 + Na+ = Goe_triONa+0.5
+	     -cd_music  0 0 1 0 0
+	     log_k    -1                    # Kc
+
+	Goe_triO-0.5 + H+ + NO3- = Goe_triOHNO3-0.5
+	     -cd_music  1 0 -1 0 0 
+	     log_k    -1                    # Ka
+
+END
+SOLUTION 1
+	 pH	7	charge
+	 P	1 umol/kgw
+END
+SURFACE
+	Goe_uniOH 1 15 600 0.9   5
+#	Goe_triO .1
+	-cd_music
+	-equil 1
+USER_PRINT
+2 print  "Total Goe_uni          ",  TOT("Goe_uni")
+10 print "la H2O                 ", la("H2O")
+20 print "la Goe_uniOH-0.5       ", la("Goe_uniOH-0.5")
+30 print "la H+                  ", la("H+")
+40 print "la PO4-3               ", la("PO4-3")
+50 print "la Goe_uniOPO3-2.5     ", la("Goe_uniOPO3-2.5")
+
+90 sum = la("H2O") + la("Goe_uniOPO3-2.5") - la("Goe_uniOH-0.5") - la("H+") - la("PO4-3")
+95 sum = sum - 0.25*log10(4.535290e+01) + 2.25*log10(4.770837e-02)
+100 print "Activity sum          ", sum
+112 F_KJ_V_EQ  = 96.4935
+114 R_KJ_DEG_MOL  = 0.00831470
+120 log10_psi0 = log10(exp(-F_KJ_V_EQ*EDL("psi", "Goe")/(R_KJ_DEG_MOL*TK)))
+130 log10_psi1 = log10(exp(-F_KJ_V_EQ*EDL("psi1", "Goe")/(R_KJ_DEG_MOL*TK)))
+140 log10_psi2 = log10(exp(-F_KJ_V_EQ*EDL("psi2", "Goe")/(R_KJ_DEG_MOL*TK)))
+160 print "log10(exp(-FPsi0/RT)) ", log10_psi0
+170 print "log10(exp(-FPsi1/RT)) ", log10_psi1
+180 print "log10(exp(-FPsi2/RT)) ", log10_psi2
+190 print "exp(-Fpsi0/RT)        ", exp(-F_KJ_V_EQ*EDL("psi", "Goe")/(R_KJ_DEG_MOL*TK))
+200 print "exp(-Fpsi1/RT)        ", exp(-F_KJ_V_EQ*EDL("psi1", "Goe")/(R_KJ_DEG_MOL*TK))
+210 print "exp(-Fpsi2/RT)        ", exp(-F_KJ_V_EQ*EDL("psi2", "Goe")/(R_KJ_DEG_MOL*TK))
+
+290 REM Goe_uniOH-0.5
+290 REM Goe_triO-0.5
+290 REM Goe_uniOH2+0.5       1 0 0 0 0
+290 REM Goe_triOH+0.5        1 0 0 0 0
+290 REM Goe_uniOPO3-2.5     -1 -6 0 0.25 5
+290 REM Goe_uni2O2PO2-2     -2 -4 0 0.5 5
+290 REM Goe_uni2O2POOH-     -2 -3 0 0.6 5
+290 REM Goe_uniOHNa+0.5      0 0 1 0 0
+290 REM Goe_uniOH2NO3-0.5    1 0 -1 0 0 
+
+300 sum0 = MOL("Goe_uniOH2+0.5") + MOL("Goe_triOH+0.5") 
+320 sum0 = sum0 + (-1 + 0.25*5)*MOL("Goe_uniOPO3-2.5")
+330 sum0 = sum0 + (-2 + 0.5*5)*MOL("Goe_uni2O2PO2-2")
+340 sum0 = sum0 + (-2 + 0.6*5)*MOL("Goe_uni2O2POOH-")
+350 print "Sum for 0-plane, eq   ", sum0
+
+400 sum1 = (-6 + (1-0.25)*5)*MOL("Goe_uniOPO3-2.5")
+410 sum1 = sum1 + (-4 + (1-0.5)*5)*MOL("Goe_uni2O2PO2-2")
+420 sum1 = sum1 + (-3 + (1-0.6)*5)*MOL("Goe_uni2O2POOH-")
+450 print "Sum for 1-plane, eq   ", sum1
+
+500 sum2 = MOL("Goe_uniOHNa+0.5") - MOL("Goe_uniOH2NO3-0.5")
+550 print "Sum for 2-plane, eq   ", sum2
+
+
+
+KNOBS
+	-conv	1e-10	
+	-debug_model
+#	-debug_prep
+END
