@@ -3,6 +3,29 @@
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+        --------
+        svn 2448
+        --------
+	Added calculation of specific conductance. Requires the
+	use of phreeqd.dat, which contains the diffusion coefficients
+	of aqueous species. If phreeqd.dat is used, the specific 
+	conductance (uS/cm at 25 C) is printed in the 
+	"Description of solution". 
+
+	The Basic function EC returns the value of the specific
+	conductance for the solution at 25 C. The following example 
+	would print to the selected output file the Equivalent Conductance 
+	in mmho/cm at at 20 degrees C for a 1:1 chloride salt solution:
+
+	USER_PUNCH
+		-head conc eq_EC_20
+		-start
+	10 punch tot("Cl"), EC / tot("Cl") / 1e3 * .89 * 298 / 293
+		-end
+
+	where 1e-3 converts from microSiemens/cm to mmho/cm, .89 
+	accounts for the viscosity at 20 C, and 298/293 
+	accounts for the temperature of 20 C.
 
 ------------------------------------------------------------
 Version 2.14.3: November 17, 2007
@@ -384,9 +407,35 @@ Version 2.13.0: November 3, 2006
 
         Explanation:
 
-        -cd_music gives the charge contribution of the surface species
-        to the three planes. Plane 0 is -1 + 0.25*5; Plane 1 is -6 +
-        (1-0.25)*5; Plane 2 (or d) is 0.
+        -cd_music--this option is used to specify the change in charge
+	for the reaction for three planes, 0 (at the surface), 1
+	(specifically adsorbed layer), and 2 (or d, the diffuse
+	layer). The five numbers in the form above are (1) the change
+	in charge for plane 0 due to loss or gain of hydrogen and
+	oxygen at plane 0, (2) the change in charge for plane 1 due to
+	the hydrogen and oxygen in the ligand that are located at
+	plane 1, (3) the change in charge in diffuse layer, plane 2,
+	(4) the fraction of the central ion charge that is
+	associated with plane 0, and (5) the charge on the central
+	ion.
+
+	In this example the net change in charge at plane 0 is is -1
+	(loss of one hydrogen) + 0.25*5 (contribution from As+5) =
+	-0.25. The net change in charge at plane 1 is -6 (3 oxygens of
+	the ligand are located at plane 1) + (1-0.25)*5 (contribution
+	from As+5) = -2.25. There is no change in charge associated
+	with plane 2.
+
+	Alternatively to the form above, the net change in charge 
+	on the three planes can be calculated and entered directly as
+	the first two or three numbers in the option followed by
+	zeros. The following is equivalent to the -cd_music definition
+	above, and is consistent with more recent papers on CD MUSIC:
+
+        SURFACE_SPECIES
+        Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
+             log_k     20.1                 # eq 7   K1, Kin1
+	     -cd_music .25  -2.25  0  0  0
 
         --------
         svn 675:

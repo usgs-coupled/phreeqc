@@ -49,6 +49,51 @@ activity (char *species_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
+calc_EC (void)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+  LDBLE lm, a, z, Dw, EC, ff;
+
+  EC = 0;
+  for (i = 0; i < count_species_list; i++)
+  {
+    if (species_list[i].s->type == EX)
+      continue;
+    if (species_list[i].s->type == SURF)
+      continue;
+    if (i > 0
+	&& strcmp (species_list[i].s->name, species_list[i - 1].s->name) == 0)
+      continue;
+    if (species_list[i].s == s_h2o)
+      continue;
+    if ((Dw = species_list[i].s->dw) == 0)
+      continue;
+    if ((z = fabs(species_list[i].s->z)) == 0)
+      continue;
+
+    lm = species_list[i].s->lm;
+    if (lm > -9)
+    {
+      if (z < 1.5) {
+        ff = (mu_x < 0.36 ? 0.6 :
+        sqrt(mu_x));
+      }
+      else {
+        ff = (mu_x < pow(0.4*z, 2.0) ? 0.4 :
+        sqrt(mu_x) / z);
+      }
+
+      a = under (lm + ff * species_list[i].s->lg);
+      EC += a * z * z * Dw;
+    }
+  }
+  EC *= 1e7 * F_C_MOL * F_C_MOL / (R_KJ_DEG_MOL * 298160.0);
+  return (EC);
+}
+
+/* ---------------------------------------------------------------------- */
+LDBLE
 calc_logk_n (char *name)
 /* ---------------------------------------------------------------------- */
 {

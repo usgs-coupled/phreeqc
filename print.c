@@ -1866,6 +1866,7 @@ print_totals (void)
  *   Print total concentrations of elements, molality and moles.
  */
   int i, pure_water;
+  LDBLE EC;
 
   if (pr.totals == FALSE || pr.all == FALSE)
     return (OK);
@@ -1967,6 +1968,11 @@ print_totals (void)
 /*
  *   Others
  */
+  EC = calc_EC ();
+  if (EC > 0) {
+  output_msg (OUTPUT_MESSAGE, "%45s%i\n", "Specific Conductance (uS/cm, 25 oC) = ",
+	      (int) EC);
+  }
   output_msg (OUTPUT_MESSAGE, "%45s%7.3f\n", "Activity of water  = ",
 	      exp (s_h2o->la * LOG_10));
   output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n", "Ionic strength  = ",
