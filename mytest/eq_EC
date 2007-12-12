@@ -5,7 +5,7 @@ SELECTED_OUTPUT
 USER_PUNCH
  -head conc eq_EC_25
  -start
- 10 punch tot("Cl"), EC / tot("Cl") /1e3
+ 10 punch tot("Cl"), SC / tot("Cl") /1e3
  -end
 SOLUTION_SPREAD
  -units mol/kgw
@@ -65,7 +65,7 @@ END
 USER_PUNCH		
  -head conc eq_EC_25		
  -start		
- 10 punch tot("S(6)") / 2, EC / tot("S(6)")/2e3
+ 10 punch tot("S(6)") * 2, SC / tot("S(6)")/2e3
  -end		
 SOLUTION_SPREAD		
  -units mol/kgw		
@@ -88,4 +88,23 @@ Zn	S(6)	HB Chem Phys
 1.00E-02	0.01 charge	74.2
 2.50E-02	0.01 charge	61.2
 5.00E-02	0.01 charge	52.6
+END
+USER_PUNCH		
+ -head conc eq_EC_25		
+ -start		
+ 10 if step_no > 0 then punch tot("Cl"), SC / tot("Cl") / 1e3
+ -end		
+SOLUTION_MASTER_SPECIES
+La	La+3	0.0	La	138.9055
+SOLUTION_SPECIES
+La+3 = La+3; log_k 0.0; -gamma 9.0 0.0
+ -dw 6.36e-10
+NO3- + La+3  =  LaNO3+2; -gamma 4.5 0.0; log_k 0.58
+ -dw 3e-10 # a rough estimate
+La+3 + Cl-  =  LaCl+2; -gamma 4.5 0.0; log_k 0.31
+ -dw 3e-10 # a rough estimate
+SOLUTION 1
+reaction 1
+ LaCl3 0.3333; 0.0005 0.001 0.005 0.01 0.02 0.05 0.1
+#HB_EC: 139.6	137	127.5	121.8	115.3	106.2	99.1
 END

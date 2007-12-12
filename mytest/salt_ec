@@ -1,11 +1,11 @@
 DATABASE ../database/phreeqd.dat
-PRINT; -warn 0
+PRINT; -warn 0; #-reset false
 SELECTED_OUTPUT
  -file salt_ec.prn; -reset false
 USER_PUNCH
  -head conc_Cl EC_20 I
  -start
- 10 punch tot("Cl"), EC * 0.89 * 298 / 293, mu
+ 10 punch tot("Cl"), SC * 0.89 * 298 / 293, mu
  -end
 SOLUTION_SPREAD
  -temp 20
@@ -76,7 +76,7 @@ END
 USER_PUNCH
  -head conc EC_20 I
  -start
- 10 punch tot("Mg"), EC * 0.89 * 298 / 293, mu
+ 10 punch tot("Mg"), SC * 0.89 * 298 / 293, mu
  -end
 SOLUTION_SPREAD
  -temp 20
@@ -95,21 +95,21 @@ Mg	S(6)	HB_EC
 END
 USER_PUNCH
  -head conc EC_20 I
- -start
- 10 punch tot("K"), EC * 0.89 * 298 / 293, mu
- -end
-SOLUTION_SPREAD
- -temp 20
- -units mol/L
-K	C(4)	HB_EC
-0.041538589	 1 charge	41000
-0.08390795	 1 charge	76000
-0.169477445	 1 charge	13300
-0.256708482	 1 charge	18400
-0.345601063	 1 charge	23100
-0.436155188	 1 charge	27400
-0.528370857	 1 charge	31100
-0.62307884	 1 charge	34400
-0.718617596	 1 charge	37300
-0.916341281	 1 charge	42700
+ -start		
+ 10 if step_no > 0 then punch tot("N(5)"), SC * 0.89 * 298 / 293, mu
+ -end		
+SOLUTION_MASTER_SPECIES
+La	La+3	0.0	La	138.9055
+SOLUTION_SPECIES
+La+3 = La+3; log_k 0.0; -gamma 9.0 0.0
+ -dw 6.36e-10
+NO3- + La+3  =  LaNO3+2; -gamma 4.5 0.0; log_k 0.58
+ -dw 3e-10 # a rough estimate
+La+3 + Cl-  =  LaCl+2; -gamma 4.5 0.0; log_k 0.31
+ -dw 3e-10 # a rough estimate
+SOLUTION 1; temp 20
+reaction 1
+ La(NO3)3 1; 0.0311	0.0625	0.0945	0.1268	0.1600	0.1936	0.2277	0.2625	0.2979
+#HB_EC: 7800	14200	20100	25600	31100	36000	40600	45000	49500
 END
+

@@ -12,15 +12,16 @@
 	conductance (uS/cm at 25 C) is printed in the 
 	"Description of solution". 
 
-	The Basic function EC returns the value of the specific
+	The Basic function SC returns the value of the specific
 	conductance for the solution at 25 C. The following example 
-	would print to the selected output file the Equivalent Conductance 
-	in mmho/cm at at 20 degrees C for a 1:1 chloride salt solution:
+	would print to the selected output file the equivalent conductance 
+	in (mmho/cm / eq/L) at at 20 degrees C for a 1:1 chloride salt
+	solution:
 
 	USER_PUNCH
 		-head conc eq_EC_20
 		-start
-	10 punch tot("Cl"), EC / tot("Cl") / 1e3 * .89 * 298 / 293
+	10 punch tot("Cl"), SC / tot("Cl") / 1e3 * .89 * 298 / 293
 		-end
 
 	where 1e-3 converts from microSiemens/cm to mmho/cm, .89 

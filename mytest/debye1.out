@@ -1932,7 +1932,7 @@ Su
 
                                        pH  =   5.895      Charge balance
                                        pe  =   0.002      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 7393
+       Specific Conductance (uS/cm, 25 oC) = 7368
                         Activity of water  =   0.998
                            Ionic strength  =   8.266e-02
                        Mass of water (kg)  =   1.465e+00
@@ -3064,7 +3064,7 @@ Su
 
                                        pH  =   4.858      Charge balance
                                        pe  =  15.540      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 7841
+       Specific Conductance (uS/cm, 25 oC) = 7815
                         Activity of water  =   0.998
                            Ionic strength  =   8.735e-02
                        Mass of water (kg)  =   9.660e-01
@@ -3179,7 +3179,7 @@ Su
 
                                        pH  =   4.430      Charge balance
                                        pe  =  16.014      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 2533
+       Specific Conductance (uS/cm, 25 oC) = 2522
                         Activity of water  =   0.999
                            Ionic strength  =   3.013e-02
                        Mass of water (kg)  =   9.424e-01
@@ -3294,7 +3294,7 @@ Su
 
                                        pH  =   4.825      Charge balance
                                        pe  =  15.560      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 603
+       Specific Conductance (uS/cm, 25 oC) = 601
                         Activity of water  =   1.000
                            Ionic strength  =   7.147e-03
                        Mass of water (kg)  =   8.836e-01
@@ -3409,7 +3409,7 @@ Su
 
                                        pH  =   6.272      Charge balance
                                        pe  =  14.002      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 134
+       Specific Conductance (uS/cm, 25 oC) = 133
                         Activity of water  =   1.000
                            Ionic strength  =   1.576e-03
                        Mass of water (kg)  =   7.609e-01
@@ -3524,7 +3524,7 @@ Su
 
                                        pH  =   6.765      Charge balance
                                        pe  =  13.361      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 43
+       Specific Conductance (uS/cm, 25 oC) = 42
                         Activity of water  =   1.000
                            Ionic strength  =   5.377e-04
                        Mass of water (kg)  =   6.105e-01

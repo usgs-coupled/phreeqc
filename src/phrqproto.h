@@ -15,7 +15,7 @@ int basic_compile (char *commands, void **lnbase, void **vbase,
 int basic_run (char *commands, void *lnbase, void *vbase, void *lpbase);
 /* basicsubs.c */
 LDBLE activity (char *species_name);
-LDBLE calc_EC (void);
+LDBLE calc_SC (void);
 LDBLE calc_logk_n (char *name);
 LDBLE calc_logk_p (char *name);
 LDBLE calc_logk_s (char *name);
