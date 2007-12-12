@@ -49,13 +49,13 @@ activity (char *species_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_EC (void)
+calc_SC (void)
 /* ---------------------------------------------------------------------- */
 {
   int i;
-  LDBLE lm, a, z, Dw, EC, ff;
+  LDBLE lm, a, z, Dw, SC, ff;
 
-  EC = 0;
+  SC = 0;
   for (i = 0; i < count_species_list; i++)
   {
     if (species_list[i].s->type == EX)
@@ -75,6 +75,7 @@ calc_EC (void)
     lm = species_list[i].s->lm;
     if (lm > -9)
     {
+/*
       if (z < 1.5) {
         ff = (mu_x < 0.36 ? 0.6 :
         sqrt(mu_x));
@@ -83,13 +84,16 @@ calc_EC (void)
         ff = (mu_x < pow(0.4*z, 2.0) ? 0.4 :
         sqrt(mu_x) / z);
       }
-
+*/
+      ff = (mu_x < .36 * z ? 0.6 / sqrt(z) :
+	    sqrt(mu_x) / z);
+	  
       a = under (lm + ff * species_list[i].s->lg);
-      EC += a * z * z * Dw;
+      SC += a * z * z * Dw;
     }
   }
-  EC *= 1e7 * F_C_MOL * F_C_MOL / (R_KJ_DEG_MOL * 298160.0);
-  return (EC);
+  SC *= 1e7 * F_C_MOL * F_C_MOL / (R_KJ_DEG_MOL * 298160.0);
+  return (SC);
 }
 
 /* ---------------------------------------------------------------------- */

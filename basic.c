@@ -164,7 +164,7 @@ typedef Char string255[256];
 #define tokosmotic    	133
 #define tokchange_surf  134
 #define tokporevolume   135
-#define tokec      136
+#define toksc        136
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -381,7 +381,7 @@ static const struct key command[] = {
   {"get_por", tokget_por},
   {"change_surf", tokchange_surf},
   {"porevolume", tokporevolume},
-  {"ec", tokec}
+  {"sc", toksc}
 };
 static int NCMDS = (sizeof (command) / sizeof (struct key));
 
@@ -1313,8 +1313,8 @@ parse (Char * inbuf, tokenrec ** buf)
 	      t->kind = tokcharge_balance;
 	    else if (!strcmp (token, "percent_error"))
 	      t->kind = tokpercent_error;
-	    else if (!strcmp (token, "EC"))
-	      t->kind = tokec;
+	    else if (!strcmp (token, "SC"))
+	      t->kind = tokspcond;
 	    else if (!strcmp (token, "rem"))
 	    {
 	      t->kind = tokrem;
@@ -1974,8 +1974,8 @@ listtokens (FILE * f, tokenrec * buf)
       output_msg (OUTPUT_BASIC, "EXISTS");
       break;
 
-    case tokec:
-      output_msg (OUTPUT_BASIC, "EC");
+    case toksc:
+      output_msg (OUTPUT_BASIC, "SC");
       break;
 
     }
@@ -3096,8 +3096,8 @@ factor (struct LOC_exec * LINK)
     n.UU.val = pore_volume;
     break;
 
-  case tokec:
-    n.UU.val = calc_EC ();
+  case toksc:
+    n.UU.val = calc_SC ();
     break;
 
   case toklog10:

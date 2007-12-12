@@ -1968,7 +1968,7 @@ print_totals (void)
 /*
  *   Others
  */
-  EC = calc_EC ();
+  EC = calc_SC ();
   if (EC > 0) {
   output_msg (OUTPUT_MESSAGE, "%45s%i\n", "Specific Conductance (uS/cm, 25 oC) = ",
 	      (int) EC);
