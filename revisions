@@ -4,6 +4,20 @@
 ************************************************************
 ************************************************************
         --------
+        svn 2457
+        --------
+	Added option to inverse modeling to translate current
+	solution definitions in PHREEQC to a Netpath .lon file.
+
+	INVERSE_MODELING
+	   -lon_netpath  prefix
+
+	At the beginning of the inverse modeling calculation, each
+	solution that has been defined (or saved) is written to the
+	file prefix.lon in a format readable by DB (Netpath
+	distribution) or DBXL (NetpathXL distribution).
+
+        --------
         svn 2448
         --------
 	Added calculation of specific conductance. Requires the
@@ -409,9 +423,9 @@ Version 2.13.0: November 3, 2006
         Explanation:
 
         -cd_music--this option is used to specify the change in charge
-	for the reaction for three planes, 0 (at the surface), 1
-	(specifically adsorbed layer), and 2 (or d, the diffuse
-	layer). The five numbers in the form above are (1) the change
+	by the reaction for three planes, 0 (specific sorption at the
+	surface), 1 (Stern layer), and 2 (or d, the diffuse layer).
+	The five numbers in the form above are (1) the change
 	in charge for plane 0 due to loss or gain of hydrogen and
 	oxygen at plane 0, (2) the change in charge for plane 1 due to
 	the hydrogen and oxygen in the ligand that are located at
@@ -420,23 +434,27 @@ Version 2.13.0: November 3, 2006
 	associated with plane 0, and (5) the charge on the central
 	ion.
 
-	In this example the net change in charge at plane 0 is is -1
-	(loss of one hydrogen) + 0.25*5 (contribution from As+5) =
-	-0.25. The net change in charge at plane 1 is -6 (3 oxygens of
+	In this example the change in charge at plane 0 is (delta z0) =
+	-1 (loss of one hydrogen) + 0.25*5 (contribution from As+5) =
+	0.25. The charge at plane 0 becomes -0.5 + 0.25 = -0.25.
+	The change in charge at plane 1 is (delta z1) = -6 (3 oxygens of
 	the ligand are located at plane 1) + (1-0.25)*5 (contribution
-	from As+5) = -2.25. There is no change in charge associated
-	with plane 2.
+	from As+5) = -2.25. The charge at plane 1 becomes 0 + (-2.25) =
+	-2.25. There is no change in charge associated with plane 2.
+	The total charge of the species is -0.25 (plane 0) + -2.25
+	(plane 1) + 0 (plane 2) = -2.5.
 
-	Alternatively to the form above, the net change in charge 
-	on the three planes can be calculated and entered directly as
-	the first two or three numbers in the option followed by
-	zeros. The following is equivalent to the -cd_music definition
-	above, and is consistent with more recent papers on CD MUSIC:
+	Alternatively to the form above, the changes in charge 
+	on the three planes can be entered directly as the first 
+	three numbers in the option, followed by two zeros. Thus, the
+	following is equivalent to the -cd_music definition above, and
+	consistent with more recent papers which would list
+	delta z0 = 0.25, delta z1 = -2.25 and delta z2 = 0:
 
         SURFACE_SPECIES
         Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
              log_k     20.1                 # eq 7   K1, Kin1
-	     -cd_music .25  -2.25  0  0  0
+	     -cd_music 0.25  -2.25  0  0  0
 
         --------
         svn 675:

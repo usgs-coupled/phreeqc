@@ -53,17 +53,23 @@ static int check_isotopes (struct inverse *inv_ptr);
 static int check_solns (struct inverse *inv_ptr);
 static int count_isotope_unknowns (struct inverse *inv_ptr,
 				   struct isotope **isotope_unknowns);
+struct isotope *get_isotope (struct solution *solution_ptr, char *elt);
+static struct conc *get_total (struct solution *solution_ptr, char *elt);
 static int isotope_balance_equation (struct inverse *inv_ptr, int row, int n);
 static int post_mortem (void);
 static unsigned long get_bits (unsigned long bits, int position, int number);
 static unsigned long minimal_solve (struct inverse *inv_ptr,
 				    unsigned long minimal_bits);
+static void dump_netpath(struct inverse *inv_ptr);
 static int next_set_phases (struct inverse *inv_ptr, int first_of_model_size,
 			    int model_size);
 static int phase_isotope_inequalities (struct inverse *inv_ptr);
 static int print_model (struct inverse *inv_ptr);
 static int punch_model_heading (struct inverse *inv_ptr);
 static int punch_model (struct inverse *inv_ptr);
+void print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
+void print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
+void print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *string, char *elt0, char *elt1, char *elt2, char *elt3, char *elt4 );
 static int range (struct inverse *inv_ptr, unsigned long cur_bits);
 static int save_bad (unsigned long bits);
 static int save_good (unsigned long bits);
@@ -129,10 +135,17 @@ inverse_models (void)
   print1 = TRUE;
   state = INVERSE;
   dl_type_x = NO_DL;
+
   for (n = 0; n < count_inverse; n++)
   {
     if (inverse[n].new_def == TRUE)
     {
+/*
+ * dump netpath file
+ */
+      if (inverse[n].netpath != NULL) dump_netpath(&inverse[n]);
+
+
 /*
  *  Fill in stucture "use".  
  */
@@ -3722,3 +3735,287 @@ write_optimize_names (struct inverse *inv_ptr)
   }
   return OK;
 }
+/* ---------------------------------------------------------------------- */
+void
+dump_netpath (struct inverse *inverse_ptr)
+/* ---------------------------------------------------------------------- */
+{
+  FILE *netpath_file;
+  int i, j, l;
+  char string[MAX_LENGTH];
+  char *ptr;
+
+  /*if (netpath_dumped) return;*/
+  if (inverse_ptr->netpath == NULL) return;
+
+  /* open file */
+  strcpy(string, inverse_ptr->netpath);
+  if (replace(".lon", ".lon", string) != TRUE)
+  {
+    strcat(string, ".lon");
+  }
+  netpath_file = fopen(string, "w");
+  if (netpath_file == NULL) {
+    sprintf (error_string, "Can't open file, %s.", inverse_ptr->netpath);
+    error_msg (error_string, STOP);
+  }
+
+  /* Header */
+  fprintf(netpath_file, "2.14                                                       # File format\n");
+
+  /* write out each solution */
+  for (i = 0; i < count_solution; i++) {
+    if (solution[i]->n_user < 0) continue;
+
+    /* flags and description */
+    ptr = solution[i]->description;
+    j = copy_token(string, &ptr, &l);
+    if (j != EMPTY) 
+    {
+      sprintf(string, "%s", solution[i]->description);
+    } else {
+      sprintf(string, "Solution %d", solution[i]->n_user);
+    }
+    fprintf(netpath_file, "4020%s\n", string);
+
+    /* lat/lon */
+    fprintf(netpath_file, "                                                           # Lat/lon\n");
+    
+    /* well number */
+    fprintf(netpath_file, "%15d                                            # Well number\n", solution[i]->n_user);
+
+    /* total number of wells */
+    fprintf(netpath_file, "%15d                                            # Total wells\n", count_solution);
+
+    /* address */
+    fprintf(netpath_file, "                                                           # Address1\n");
+    fprintf(netpath_file, "                                                           # Address2\n");
+    fprintf(netpath_file, "                                                           # Address3\n");
+    fprintf(netpath_file, "                                                           # Address4\n");
+    fprintf(netpath_file, "                                                           # Address5\n");
+
+    /* temperature */
+    fprintf(netpath_file, "%15g                                            # Temperature\n", solution[i]->tc);
+
+    /* pH */
+    fprintf(netpath_file, "%15g                                            # pH\n", solution[i]->ph);
+
+    /* DO */
+    print_total(netpath_file, solution[i], "O(0)", "Dissolved Oxygen");
+
+    /* TDIC */
+    print_total(netpath_file, solution[i], "C(4)", "TDIC");
+
+    /* Tritium */
+    print_isotope(netpath_file, solution[i], "3H(1)", "Tritium");
+
+    /* H2S */
+    print_total(netpath_file, solution[i], "S(-2)", "H2S");
+
+    /* Calcium */
+    print_total(netpath_file, solution[i], "Ca", "Calcium");
+
+    /* Eh */
+    fprintf(netpath_file, "%15g                                            # Eh\n", 0.059 * solution[i]->solution_pe);
+
+    /* Magnesium */
+    print_total(netpath_file, solution[i], "Mg", "Magnesium");
+
+    /* Sodium */
+    print_total(netpath_file, solution[i], "Na", "Sodium");
+
+    /* Potassium */
+    print_total(netpath_file, solution[i], "K", "Potassium");
+
+    /* Chloride */
+    print_total(netpath_file, solution[i], "Cl", "Chloride");
+
+    /* Sulfate */
+    print_total(netpath_file, solution[i], "S(6)", "Sulfate");
+
+    /* Fluoride */
+    print_total(netpath_file, solution[i], "F", "Fluoride");
+
+    /* Silica */
+    print_total(netpath_file, solution[i], "Si", "Silica");
+
+    /* Bromide */
+    print_total(netpath_file, solution[i], "Br", "Bromide");
+
+    /* Boron */
+    print_total(netpath_file, solution[i], "B", "Boron");
+
+    /* Barium */
+    print_total(netpath_file, solution[i], "Ba", "Barium");
+
+    /* Lithium */
+    print_total(netpath_file, solution[i], "Li", "Lithium");
+
+    /* Strontium */
+    print_total(netpath_file, solution[i], "Sr", "Strontium");
+
+    /* Iron */
+    print_total_multi(netpath_file, solution[i], "Iron", "Fe", "Fe(2)", "Fe(3)", "", "");
+
+
+    /* Manganese */
+    print_total_multi(netpath_file, solution[i], "Manganese", "Mn", "Mn(2)", "Mn(3)", "Mn(6)", "Mn(7)");
+
+    /* Nitrate */
+    print_total(netpath_file, solution[i], "N(5)", "Nitrate");
+
+    /* Ammonium */
+    print_total_multi(netpath_file, solution[i], "Ammonium", "N(-3)", "Amm", "", "", "");
+
+    /* Phosphate */
+    print_total(netpath_file, solution[i], "P", "Phosphate");
+
+    /* DOC */
+    print_total_multi(netpath_file, solution[i], "DOC", "Fulvate", "Humate", "", "", "");
+
+    /* Sp. Cond. */
+    fprintf(netpath_file, "                                                           # Sp. Cond.\n");
+
+    /* Density */
+    fprintf(netpath_file, "                                                           # Density\n");
+
+    /* Delta C-13 TDIC */
+    print_isotope(netpath_file, solution[i], "13C(4)", "Delta C-13 TDIC");
+
+    /* C-14 TDIC */
+    print_isotope(netpath_file, solution[i], "14C(4)", "C-14 TDIC");
+
+    /* Delta S-34 (SO4) */
+    print_isotope(netpath_file, solution[i], "34S(6)", "Delta S-34 (SO4)");
+
+    /* Delta S-34 (H2S) */
+    print_isotope(netpath_file, solution[i], "34S(-2)", "Delta S-34 (H2S)");
+
+    /* Delta Deuterium */
+    print_isotope(netpath_file, solution[i], "2H(1)", "Delta Deuterium");
+
+    /* Delta O-18 */
+    print_isotope(netpath_file, solution[i], "18O(-2)", "Delta O-18");
+
+    /* CH4 (aq) */
+    print_total(netpath_file, solution[i], "C(-4)", "CH4 (aq)");
+
+    /* Sr 87/86 */
+    print_isotope(netpath_file, solution[i], "87Sr", "Sr 87/86");
+
+    /* Al */
+    print_total(netpath_file, solution[i], "Al", "Alumninum");
+
+    /* N2 (aq) */
+    print_total(netpath_file, solution[i], "N(0)", "N2 (aq)");
+
+    /* N-15 of N2 (aq) */
+    print_isotope(netpath_file, solution[i], "15N(0)", "N-15 of N2 (aq)");
+
+    /* N-15 of Nitrate */
+    print_isotope(netpath_file, solution[i], "15N(5)", "N-15 of Nitrate");
+
+    /* N-15 of Ammonium */
+    print_isotope(netpath_file, solution[i], "15N(-3)", "N-15 of Ammonium");
+
+    /* Formation */
+    fprintf(netpath_file, "                                                           # Formation\n");
+
+  }
+  return;
+}
+/* ---------------------------------------------------------------------- */
+struct conc *
+get_total (struct solution *solution_ptr, char *elt)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+
+  for (i = 0; solution_ptr->totals[i].description != NULL; i++)
+  {
+    if (strcmp(elt, solution_ptr->totals[i].description) == 0) return(&solution_ptr->totals[i]);
+  }
+  return(NULL);
+
+}
+/* ---------------------------------------------------------------------- */
+struct isotope *
+get_isotope (struct solution *solution_ptr, char *elt)
+/* ---------------------------------------------------------------------- */
+{
+  int i;
+
+  for (i = 0; i < solution_ptr->count_isotopes; i++)
+  {
+    if (strcmp(elt, solution_ptr->isotopes[i].isotope_name) == 0) return(&solution_ptr->isotopes[i]);
+  }
+  return(NULL);
+}
+
+/* ---------------------------------------------------------------------- */
+void
+print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string)
+/* ---------------------------------------------------------------------- */
+{
+  struct conc *tot_ptr;
+  tot_ptr = get_total(solution_ptr, elt);
+  if (tot_ptr == NULL) {
+      fprintf(netpath_file, "                                                           # %s\n", string);
+    } else {
+      fprintf(netpath_file, "%15g                                            # %s\n", 
+	      1000 * tot_ptr->moles / solution_ptr->mass_water, string);
+    }
+}
+
+/* ---------------------------------------------------------------------- */
+void
+print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string)
+/* ---------------------------------------------------------------------- */
+{
+  struct isotope *iso_ptr;
+  iso_ptr = get_isotope(solution_ptr, elt);
+  if (iso_ptr == NULL) {
+      fprintf(netpath_file, "                                                           # %s\n", string);
+    } else {
+      fprintf(netpath_file, "%15g                                            # %s\n", 
+	      iso_ptr->ratio, string);
+    }
+}
+/* ---------------------------------------------------------------------- */
+void
+print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *string, char *elt0, char *elt1, char *elt2, char *elt3, char *elt4 )
+/* ---------------------------------------------------------------------- */
+{
+  char elts[5][MAX_LENGTH];
+  strcpy(elts[0], elt0);
+  strcpy(elts[1], elt1);
+  strcpy(elts[2], elt2);
+  strcpy(elts[3], elt3);
+  strcpy(elts[4], elt4);
+  struct conc *tot_ptr;
+  double sum;
+  int i, found;
+
+  sum = 0;
+  found = FALSE;
+  for (i = 0; i < 5; i++)
+  {
+    tot_ptr = get_total(solution_ptr, elts[i]);
+    if (tot_ptr == NULL) {
+      continue;
+    } else {
+      sum += tot_ptr->moles;
+      found = TRUE;
+    }
+  }
+  if (found != TRUE)
+  {
+    fprintf(netpath_file, "                                                           # %s\n", string);
+  } else 
+  {
+    fprintf(netpath_file, "%15g                                            # %s\n", 
+	    1000 * sum / solution_ptr->mass_water, string);
+  }
+  return;
+}
+
