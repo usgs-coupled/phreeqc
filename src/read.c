@@ -1781,9 +1781,10 @@ read_inverse (void)
     "phase",			/* 21 */
     "multiple_precision",	/* 22 */
     "mp_tolerance",		/* 23 */
-    "censor_mp"			/* 24 */
+    "censor_mp",		/* 24 */
+    "lon_netpath"	        /* 25 */
   };
-  int count_opt_list = 25;
+  int count_opt_list = 26;
 
   ptr = line;
 /*
@@ -1818,6 +1819,7 @@ read_inverse (void)
   inverse[n].mp = FALSE;
   inverse[n].mp_tolerance = 1e-12;
   inverse[n].mp_censor = 1e-20;
+  inverse[n].netpath = NULL;
 /*
  *   Read data for inverse modeling
  */
@@ -1932,6 +1934,16 @@ read_inverse (void)
       {
 	inverse[n].mp_censor = fabs (inv_tol);
       }
+      break;
+    case 25:			/* lon_netpath */
+      /*copy_token(file_name, &next_char, &l); */
+      if (string_trim (next_char) != EMPTY) 
+      {
+	inverse[n].netpath = string_hsave(next_char);
+      } else {
+	inverse[n].netpath = string_hsave("netpath");
+      }
+      opt_save = OPTION_ERROR;
       break;
     }
     if (return_value == EOF || return_value == KEYWORD)

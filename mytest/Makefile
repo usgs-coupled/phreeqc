@@ -24,6 +24,7 @@ all: alkalinity.out \
 	ddlsurf.out \
 	desc.out \
 	dissolve_only.out \
+	dumplon.out \
 	eco.out \
 	eq_EC.out \
 	evap.out \

@@ -1,0 +1,86 @@
+DATABASE ../database/wateq4f.dat
+PHASES
+Ca-Montmorillonite
+        Ca0.165Al2.33Si3.67O10(OH)2 + 12 H2O = 0.165Ca+2 + 2.33 Al(OH)4- + 3.67 H4SiO4 + 2 H+
+        log_k           -45.027
+        delta_h 58.373  kcal
+END
+TITLE Example 16.--Inverse modeling of Sierra springs
+SOLUTION_SPREAD
+        -units mmol/L
+Number	pH	Si	Ca	Mg	Na	K	Alkalinity	S(6)	Cl	3H	S(-2)	O(0)
+1	6.2	0.273	0.078	0.029	0.134	0.028	0.328      	0.01	0.014	10	1	.1
+2	6.8	0.41	0.26	0.071	0.259	0.04	0.895    	0.025	0.03	20	2	.2
+END
+SOLUTION 3
+	 temp	1
+	 pH	2
+	 O(0)   3
+	 C(4)   4
+	 3H	5
+	 S(-2)  6
+	 Ca	7
+	 pe	13.559322 
+	 Mg	9
+	 Na	10
+	 K	11
+	 Cl	12
+	 S(6)	13
+	 F	14
+	 Si	15
+	 Br	16
+	 B	17
+	 Ba	18
+	 Li     19
+	 Sr	20
+	 Fe	21
+	 Mn	22
+	 N(5)	23
+	 N(-3)	24
+	 P	25
+	 Fulvate 13
+	 Humate  13
+	 Density 27
+	 13C(4)  28
+	 14C(4)  29
+	 34S(6)  30
+	 34S(-2) 31
+	 2H      32
+	 18O     33
+	 C(-4)   34
+	 87Sr    35
+	 Al	 36
+	 N(0)    37
+	 15N(0)  38
+	 15N(5) 39
+	 15N(3)  40
+	 15N(-3) 41
+	 13C(-4) 42
+	 14C(-4) 43
+END
+INVERSE_MODELING 1
+	-lon_netpath   dumplon
+        -solutions 1 2
+        -uncertainty 0.025
+        -range
+        -phases
+                Halite
+                Gypsum
+                Kaolinite               precip
+                Ca-montmorillonite      precip
+                CO2(g)
+                Calcite
+                Chalcedony              precip
+                Biotite                 dissolve
+                Plagioclase             dissolve
+        -balances
+                Ca      0.05     0.025
+PHASES
+Biotite
+        KMg3AlSi3O10(OH)2 + 6H+ + 4H2O = K+ + 3Mg+2 + Al(OH)4- + 3H4SiO4 
+        log_k  0.0      # No log_k, Inverse modeling only
+Plagioclase
+        Na0.62Ca0.38Al1.38Si2.62O8 + 5.52 H+ + 2.48H2O = \
+                0.62Na+ + 0.38Ca+2 + 1.38Al+3 + 2.62H4SiO4
+        log_k  0.0      # No log_k, inverse modeling only
+END
