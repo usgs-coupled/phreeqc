@@ -1782,9 +1782,10 @@ read_inverse (void)
     "multiple_precision",	/* 22 */
     "mp_tolerance",		/* 23 */
     "censor_mp",		/* 24 */
-    "lon_netpath"	        /* 25 */
+    "lon_netpath",	        /* 25 */
+    "pat_netpath"	        /* 26 */
   };
-  int count_opt_list = 26;
+  int count_opt_list = 27;
 
   ptr = line;
 /*
@@ -1942,6 +1943,16 @@ read_inverse (void)
 	inverse[n].netpath = string_hsave(next_char);
       } else {
 	inverse[n].netpath = string_hsave("netpath");
+      }
+      opt_save = OPTION_ERROR;
+      break;
+    case 26:			/* pat_netpath */
+      /*copy_token(file_name, &next_char, &l); */
+      if (string_trim (next_char) != EMPTY) 
+      {
+	inverse[n].pat = string_hsave(next_char);
+      } else {
+	inverse[n].pat = string_hsave("netpath");
       }
       opt_save = OPTION_ERROR;
       break;

@@ -48,8 +48,6 @@ static int s_s_assemblage_compare_int (const void *ptr1, const void *ptr2);
 
 static int solution_compare (const void *ptr1, const void *ptr2);
 static int solution_compare_int (const void *ptr1, const void *ptr2);
-static struct solution *solution_copy (struct solution *solution_old_ptr,
-				       int n_user_new);
 
 static int species_list_compare (const void *ptr1, const void *ptr2);
 
@@ -5405,7 +5403,7 @@ solution_compare_int (const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-static struct solution *
+struct solution *
 solution_copy (struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
