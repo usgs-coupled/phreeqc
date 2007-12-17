@@ -61,6 +61,7 @@ static unsigned long get_bits (unsigned long bits, int position, int number);
 static unsigned long minimal_solve (struct inverse *inv_ptr,
 				    unsigned long minimal_bits);
 static void dump_netpath(struct inverse *inv_ptr);
+static int dump_netpath_pat (struct inverse *inv_ptr);
 static int next_set_phases (struct inverse *inv_ptr, int first_of_model_size,
 			    int model_size);
 static int phase_isotope_inequalities (struct inverse *inv_ptr);
@@ -70,12 +71,14 @@ static int punch_model (struct inverse *inv_ptr);
 void print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
 void print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
 void print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *string, char *elt0, char *elt1, char *elt2, char *elt3, char *elt4 );
+void print_total_pat (FILE *netpath_file, char *elt, char *string);
 static int range (struct inverse *inv_ptr, unsigned long cur_bits);
 static int save_bad (unsigned long bits);
 static int save_good (unsigned long bits);
 static int save_minimal (unsigned long bits);
 static unsigned long set_bit (unsigned long bits, int position, int value);
 static int setup_inverse (struct inverse *inv_ptr);
+int set_initial_solution (int n_user_old, int n_user_new);
 static int set_ph_c (struct inverse *inv_ptr,
 		     int i,
 		     struct solution *soln_ptr_orig,
@@ -100,6 +103,8 @@ static int write_optimize_names (struct inverse *inv_ptr);
 #define SCALE_EPSILON .0009765625
 #define SCALE_WATER   1.
 #define SCALE_ALL     1.
+
+static FILE *netpath_file;
 
 /* ---------------------------------------------------------------------- */
 int
@@ -1268,6 +1273,7 @@ solve_inverse (struct inverse *inv_ptr)
 	  }
 	  print_model (inv_ptr);
 	  punch_model (inv_ptr);
+	  dump_netpath_pat (inv_ptr);
 	}
 /*
  *   If superset of a minimal model continue
@@ -1323,6 +1329,7 @@ solve_inverse (struct inverse *inv_ptr)
 	    output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
 	  }
 	  punch_model (inv_ptr);
+	  /*dump_netpath_pat (inv_ptr);*/
 	}
 	save_minimal (minimal_bits);
       }
@@ -3740,7 +3747,6 @@ void
 dump_netpath (struct inverse *inverse_ptr)
 /* ---------------------------------------------------------------------- */
 {
-  FILE *netpath_file;
   int i, j, l;
   char string[MAX_LENGTH];
   char *ptr;
@@ -3922,6 +3928,7 @@ dump_netpath (struct inverse *inverse_ptr)
     fprintf(netpath_file, "                                                           # Formation\n");
 
   }
+  if (netpath_file != NULL) fclose(netpath_file);
   return;
 }
 /* ---------------------------------------------------------------------- */
@@ -4019,3 +4026,576 @@ print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *stri
   return;
 }
 
+/* ---------------------------------------------------------------------- */
+int
+dump_netpath_pat (struct inverse *inv_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Prints model
+ */
+  int i, j, k;
+  struct solution *solution_ptr, *solution_ptr_orig;
+  struct master *master_ptr;
+  LDBLE d1, d2, d3;
+  char string[MAX_LENGTH];
+  char *ptr;
+  int l;
+  double sum, sum1, sum_iso, d;
+
+/*
+ *   print solution data, epsilons, and revised data
+ */
+  if (inv_ptr->pat == NULL) return(OK);
+
+  /* open file */
+  strcpy(string, inv_ptr->pat);
+  if (replace(".pat", ".pat", string) != TRUE)
+  {
+    strcat(string, ".pat");
+  }
+  netpath_file = fopen(string, "w");
+  if (netpath_file == NULL) {
+    sprintf (error_string, "Can't open file, %s.", string);
+    error_msg (error_string, STOP);
+  }
+
+  /* Header */
+  fprintf(netpath_file, "2.14               # File format\n");
+
+  for (i = 0; i < inv_ptr->count_solns; i++)
+  {
+    if (equal (delta1[i], 0.0, toler) == TRUE)
+      continue;
+    solution_ptr_orig = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
+
+    solution_duplicate(solution_ptr_orig->n_user, -6);
+    solution_ptr = solution_bsearch (-6, &j, TRUE);
+    xsolution_zero ();
+
+    /* Adjust pH */
+    if (inv_ptr->carbon == TRUE)
+    {
+      d1 = solution_ptr->ph;
+      d2 = delta1[col_ph + i] / delta1[i];
+      d3 = d1 + d2;
+      solution_ptr->ph = d3;
+    }
+
+    /* put original totals in master */
+    for (j = 0; solution_ptr->totals[j].description != NULL; j++)
+    {
+      master_ptr = master_bsearch (solution_ptr->totals[j].description);
+      master_ptr->total = solution_ptr->totals[j].moles;
+    }
+
+    /* ignore alkalinity */
+    /*master_alk->total = solution_ptr->total_alkalinity;*/
+
+    /* update total in master */
+    for (j = 0; j < inv_ptr->count_elts; j++)
+    {
+      if (inv_ptr->elts[j].master->s == s_eminus)
+	continue;
+      d1 = inv_ptr->elts[j].master->total;
+      d2 = delta1[col_epsilon + j * inv_ptr->count_solns + i] / delta1[i];
+      d3 = d1 + d2;
+      inv_ptr->elts[j].master->total = d3;
+    }
+
+    /* put updated total back in solution */
+    for (j = 0; solution_ptr->totals[j].description != NULL; j++)
+    {
+      master_ptr = master_bsearch (solution_ptr->totals[j].description);
+      solution_ptr->totals[j].moles = master_ptr->total;
+    }
+
+
+    /* update isotopes in solution */
+    if (inv_ptr->count_isotopes > 0)
+    {
+      /* adjustments to solution isotope composition */
+      for (j = 0; j < inv_ptr->count_isotope_unknowns; j++)
+      {
+	for (k = 0; k < solution_ptr->count_isotopes; k++)
+	{
+	  if (inv_ptr->isotope_unknowns[j].elt_name !=
+	      solution_ptr->isotopes[k].elt_name ||
+	      inv_ptr->isotope_unknowns[j].isotope_number !=
+	      solution_ptr->isotopes[k].isotope_number)
+	    continue;
+	  d1 = solution_ptr->isotopes[k].ratio;
+	  d2 =
+	    delta1[col_isotopes + i * inv_ptr->count_isotope_unknowns +
+		   j] / delta1[i];
+	  d3 = d1 + d2;
+	  solution_ptr->isotopes[k].ratio = d3;
+	}
+      }
+    }
+
+    set_initial_solution(-6, -7);
+    /*set_ph_c (inv_ptr, i, solution_ptr, -5, 0.0, 0.0, 0.0);*/
+    initial_solutions(TRUE);
+    solution_ptr = solution_bsearch(-7, &j, TRUE);
+    /* Header */
+    ptr = solution_ptr_orig->description;
+    if (copy_token(string, &ptr, &l) != EMPTY)
+    { 
+      fprintf(netpath_file, "%s\n", solution_ptr_orig->description);
+    } else {
+      fprintf(netpath_file, "Solution %d\n", solution_ptr_orig->n_user);
+    }
+    /* Dump info to .pat file */
+    print_total_pat(netpath_file, "C", "C");
+    print_total_pat(netpath_file, "S", "S");
+    print_total_pat(netpath_file, "Ca", "CA");
+    print_total_pat(netpath_file, "Al", "AL");
+    print_total_pat(netpath_file, "Mg", "MG");
+    print_total_pat(netpath_file, "Na", "NA");
+    print_total_pat(netpath_file, "K", "K");
+    print_total_pat(netpath_file, "Cl", "CL");
+    print_total_pat(netpath_file, "F", "F");
+    print_total_pat(netpath_file, "Si", "SI");
+    print_total_pat(netpath_file, "Br", "BR");
+    print_total_pat(netpath_file, "B", "B");
+    print_total_pat(netpath_file, "Ba", "BA");
+    print_total_pat(netpath_file, "Li", "LI");
+    print_total_pat(netpath_file, "Sr", "SR");
+    print_total_pat(netpath_file, "Fe", "FE");
+    print_total_pat(netpath_file, "Mn", "MN");
+    print_total_pat(netpath_file, "N", "N");
+    print_total_pat(netpath_file, "P", "P");
+    fprintf(netpath_file, "%14g     # TEMP\n", solution_ptr->tc);
+    print_total_pat(netpath_file, "S(-2)", "H2S");
+    print_total_pat(netpath_file, "S(6)", "SO4");
+
+    /* N15 */
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "15N") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # N15\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # N15\n", sum_iso/sum);
+    }    
+
+    /* RS of N */
+    sum = 0;
+    sum = total("N(-3)")*-3 + total("N(0)")*0 + total("N(3)")*3 + total("N(5)")*5 ;
+    sum1 = total("N(-3)") + total("N(0)") + total("N(3)") + total("N(5)");
+    if (sum1 == 0) 
+    {
+      fprintf(netpath_file, "%14g*    # RS of N\n", sum1);
+    } else 
+    {
+      fprintf(netpath_file, "%14g     # RS of N\n", sum / sum1);
+    }
+
+    /* DOX */
+    print_total_pat(netpath_file, "O(0)", "DOX");
+
+    /*HCO3*/
+    d = 1000 * sum_match_species("*HCO3*", "C");
+    if (d == 0.0) {
+      fprintf(netpath_file, "%14g*    # HCO3\n", d);
+    } else 
+    {
+      fprintf(netpath_file, "%14g     # HCO3\n", d);
+    }
+
+    /* pH */
+    fprintf(netpath_file, "%14g     # PH\n", solution_ptr->ph);
+
+    /*H2CO3**/
+    d = 1000 * (molality("H2CO3") + molality("CO2"));
+    if (d == 0.0) {
+      fprintf(netpath_file, "%14g*    # H2CO3\n", d);
+    } else 
+    {
+      fprintf(netpath_file, "%14g     # H2CO3\n", d);
+    }
+
+    /*CO3*/
+    d = sum_match_species("*CO3*", "C");
+    d -= sum_match_species("*HCO3*", "C");
+    d *= 1000.0;
+    if (d == 0.0) {
+      fprintf(netpath_file, "%14g*     # CO3\n", d);
+    } else 
+    {
+      fprintf(netpath_file, "%14g     # CO3\n", d);
+    }
+
+    /* CARBONATES */
+    print_total_pat(netpath_file, "C(4)", "CARBONATES");
+    print_total_pat(netpath_file, "Fe(2)", "FE2+");
+    print_total_pat(netpath_file, "Fe(3)", "FE3+");
+    print_total_pat(netpath_file, "Mn(2)", "MN2+");
+    print_total_pat(netpath_file, "Mn(3)", "MN3+");
+    print_total_pat(netpath_file, "Mn(6)", "MN6+");
+    print_total_pat(netpath_file, "Mn(7)", "MN7+");
+    print_total_pat(netpath_file, "C(-4)", "CH4");
+    print_total_pat(netpath_file, "Doc", "DOC");
+
+    /*RS OF DOC*/
+    fprintf(netpath_file, "%14g*    # RS OF DOC\n", 0.0);
+
+    /* Blank */
+    print_total_pat(netpath_file, "Blank", "BLANK");
+
+    /*C13*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "13C") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # C13\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # C13\n", sum_iso/sum);
+    }    
+
+    /*C14*/    
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "14C") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # C14\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # C14\n", sum_iso/sum);
+    }    
+
+    /*SR87*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "87Sr") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # SR87\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # SR87\n", sum_iso/sum);
+    }    
+    
+    /*D*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "2H") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # D\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # D\n", sum_iso/sum);
+    }    
+
+    /*O-18*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "18O") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # O-18\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # O-18\n", sum_iso/sum);
+    }    
+
+    /*TRITIUM*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "3H") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # TRITIUM\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # TRITIUM\n", sum_iso/sum);
+    }    
+
+    /*34SSO4*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "34S(6)") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # 34SSO4\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # 34SSO4\n", sum_iso/sum);
+    }    
+
+    /*34SH2S*/
+    sum_iso = 0;
+    sum = 0;
+    for (k = 0; k < solution_ptr->count_isotopes; k++)
+    {
+      if (strstr(solution_ptr->isotopes[k].isotope_name, "34S(-2)") != NULL)
+      {
+	d = total(solution_ptr->isotopes[k].elt_name);
+	sum_iso += solution_ptr->isotopes[k].ratio * d;
+	sum += d;
+      }
+    }
+    if (sum == 0)
+    {
+      fprintf(netpath_file, "%14g*    # 34SH2S\n", sum);
+    } else
+    {
+      fprintf(netpath_file, "%14g     # 34SH2S\n", sum_iso/sum);
+    }    
+
+    /* Well number */
+    fprintf(netpath_file, "%14d     # Well number\n", solution_ptr_orig->n_user);
+  }
+
+#ifdef SKIP
+/*
+ *    Adjustments to phases
+ */
+  print_msg = FALSE;
+  if (inv_ptr->count_isotopes > 0)
+  {
+    output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");
+    for (i = 0; i < inv_ptr->count_phases; i++)
+    {
+      if (inv_ptr->phases[i].count_isotopes == 0)
+	continue;
+      j = col_phases + i;
+      if (equal (delta1[j], 0.0, toler) == TRUE &&
+	  equal (min_delta[j], 0.0, toler) == TRUE &&
+	  equal (max_delta[j], 0.0, toler) == TRUE)
+	continue;
+      isotope_ptr = inv_ptr->phases[i].isotopes;
+      for (j = 0; j < inv_ptr->count_isotopes; j++)
+      {
+	for (k = 0; k < inv_ptr->phases[i].count_isotopes; k++)
+	{
+	  if (inv_ptr->isotopes[j].elt_name !=
+	      isotope_ptr[k].elt_name ||
+	      inv_ptr->isotopes[j].isotope_number !=
+	      isotope_ptr[k].isotope_number)
+	    continue;
+	  d1 = isotope_ptr[k].ratio;
+	  column = col_phase_isotopes + i * inv_ptr->count_isotopes + j;
+	  if (delta1[col_phases + i] != 0.0)
+	  {
+	    d2 = delta1[column] / delta1[col_phases + i];
+	  }
+	  else
+	  {
+	    continue;
+	  }
+	  d3 = d1 + d2;
+	  if (equal (d1, 0.0, 1e-7) == TRUE)
+	    d1 = 0.0;
+	  if (equal (d2, 0.0, 1e-7) == TRUE)
+	    d2 = 0.0;
+	  if (equal (d3, 0.0, 1e-7) == TRUE)
+	    d3 = 0.0;
+	  sprintf (token, "%d%s %s",
+		   (int) inv_ptr->isotopes[j].isotope_number,
+		   inv_ptr->isotopes[j].elt_name,
+		   inv_ptr->phases[i].phase->name);
+	  output_msg (OUTPUT_MESSAGE, "%15.15s   %12g  +%12g  =%12g", token,
+		      (double) d1, (double) d2, (double) d3);
+	  if (fabs (d2) > (isotope_ptr[k].ratio_uncertainty + toler))
+	  {
+	    output_msg (OUTPUT_MESSAGE, " **");
+	    print_msg = TRUE;
+	  }
+	  output_msg (OUTPUT_MESSAGE, "\n");
+	  if (isotope_ptr[k].ratio_uncertainty > 0)
+	  {
+	    scaled_error += fabs (d2) / isotope_ptr[k].ratio_uncertainty;
+/* debug
+						output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / isotope_ptr[k].ratio_uncertainty, fabs(d2), isotope_ptr[k].ratio_uncertainty);
+ */
+	  }
+	  else if (d2 != 0.0)
+	  {
+	    error_msg ("Computing delta phase isotope/uncertainty", CONTINUE);
+	  }
+	}
+      }
+    }
+  }
+#endif
+#ifdef SKIP
+  if (print_msg == TRUE)
+  {
+    output_msg (OUTPUT_MESSAGE,
+		"\n**\tWARNING: The adjustment to at least one isotopic"
+		"\n\tcomposition of a phase exceeded the specified uncertainty"
+		"\n\tfor the phase.  If the phase is not constrained to dissolve"
+		"\n\tor precipitate, then the isotopic composition of the phase"
+		"\n\tis also unconstrained.\n");
+  }
+  output_msg (OUTPUT_MESSAGE, "\n%-20.20s   %7s   %12.12s   %12.12s\n",
+	      "Solution fractions:", " ", "Minimum", "Maximum");
+  for (i = 0; i < inv_ptr->count_solns; i++)
+  {
+    d1 = delta1[i];
+    d2 = min_delta[i];
+    d3 = max_delta[i];
+    if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d1 = 0.0;
+    if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d2 = 0.0;
+    if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d3 = 0.0;
+    output_msg (OUTPUT_MESSAGE, "%11s%4d   %12.3e   %12.3e   %12.3e\n",
+		"Solution", inv_ptr->solns[i], (double) d1, (double) d2,
+		(double) d3);
+  }
+
+  output_msg (OUTPUT_MESSAGE, "\n%-25.25s   %2s   %12.12s   %12.12s\n",
+	      "Phase mole transfers:", " ", "Minimum", "Maximum");
+  for (i = col_phases; i < col_redox; i++)
+  {
+    if (equal (delta1[i], 0.0, toler) == TRUE &&
+	equal (min_delta[i], 0.0, toler) == TRUE &&
+	equal (max_delta[i], 0.0, toler) == TRUE)
+      continue;
+    d1 = delta1[i];
+    d2 = min_delta[i];
+    d3 = max_delta[i];
+    if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d1 = 0.0;
+    if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d2 = 0.0;
+    if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+      d3 = 0.0;
+    output_msg (OUTPUT_MESSAGE, "%15.15s   %12.3e   %12.3e   %12.3e   %s\n",
+		col_name[i], (double) d1, (double) d2, (double) d3,
+		inv_ptr->phases[i - col_phases].phase->formula);
+  }
+
+  output_msg (OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
+  for (i = col_redox; i < col_epsilon; i++)
+  {
+    if (equal (delta1[i], 0.0, toler) == TRUE)
+      continue;
+    output_msg (OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
+		(double) delta1[i]);
+  }
+
+  output_msg (OUTPUT_MESSAGE,
+	      "\nSum of residuals (epsilons in documentation):      %12.3e\n",
+	      ((double) error / SCALE_EPSILON));
+  output_msg (OUTPUT_MESSAGE,
+	      "Sum of delta/uncertainty limit:                    %12.3e\n",
+	      (double) scaled_error);
+  output_msg (OUTPUT_MESSAGE,
+	      "Maximum fractional error in element concentration: %12.3e\n",
+	      (double) max_pct);
+/*
+ *   Flush buffer after each model
+ */
+  output_fflush (OUTPUT_MESSAGE);
+#endif
+  return (OK);
+}
+/* ---------------------------------------------------------------------- */
+void
+print_total_pat (FILE *netpath_file, char *elt, char *string)
+/* ---------------------------------------------------------------------- */
+{
+  double d;
+  d  = 1000.0 * total(elt);
+  if (d == 0) {
+    fprintf(netpath_file, "%14g%1s    # %s\n", d, "*", string);
+  } else {
+    fprintf(netpath_file, "%14g%1s    # %s\n", d, " ", string);
+  }
+}
+/* ---------------------------------------------------------------------- */
+int
+set_initial_solution (int n_user_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+  int j;
+  struct solution *solution_ptr;
+  struct conc *conc_ptr;
+
+  solution_duplicate (n_user_old, n_user_new);
+  solution_ptr = solution_bsearch (n_user_new, &j, TRUE);
+  solution_ptr->new_def = TRUE;
+  solution_ptr->n_user_end = n_user_new;
+  for (j = 0; solution_ptr->totals[j].description != NULL; j++)
+  {
+    conc_ptr = &solution_ptr->totals[j];
+    conc_ptr->input_conc = conc_ptr->moles / solution_ptr->mass_water;
+    conc_ptr->units = string_hsave ("Mol/kgw");
+  }
+  return (OK);
+}

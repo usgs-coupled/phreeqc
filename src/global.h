@@ -663,6 +663,7 @@ struct inverse
   int count_isotope_unknowns;
   struct isotope *isotope_unknowns;
   char *netpath;
+  char *pat;
 };
 struct inv_elts
 {

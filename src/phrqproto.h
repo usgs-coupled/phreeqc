@@ -451,6 +451,8 @@ int conc_init (struct conc *conc_ptr);
 int isotope_compare (const void *ptr1, const void *ptr2);
 struct solution *solution_alloc (void);
 struct solution *solution_bsearch (int k, int *n, int print);
+struct solution *solution_copy (struct solution *solution_old_ptr,
+				       int n_user_new);
 int solution_copy_to_last (int n, int n_user_new);
 int solution_duplicate (int n_user_old, int n_user_new);
 int solution_delete (int n_user_old);
