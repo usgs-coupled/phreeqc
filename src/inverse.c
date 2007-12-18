@@ -105,7 +105,7 @@ static int write_optimize_names (struct inverse *inv_ptr);
 #define SCALE_ALL     1.
 
 static FILE *netpath_file;
-
+static int count_inverse_models, count_pat_solutions;
 /* ---------------------------------------------------------------------- */
 int
 inverse_models (void)
@@ -116,6 +116,7 @@ inverse_models (void)
  *   for any marked "new".
  */
   int n, print1;
+  char string[MAX_LENGTH];
 
   if (svnid == NULL)
     fprintf (stderr, " ");
@@ -146,10 +147,30 @@ inverse_models (void)
     if (inverse[n].new_def == TRUE)
     {
 /*
- * dump netpath file
+ * dump .lon file
  */
       if (inverse[n].netpath != NULL) dump_netpath(&inverse[n]);
 
+/*
+ * open .pat file
+ */
+      if (inverse[n].pat != NULL) 
+      {
+	strcpy(string, inverse[n].pat);
+	if (replace(".pat", ".pat", string) != TRUE)
+	{
+	  strcat(string, ".pat");
+	}
+	netpath_file = fopen(string, "w");
+	if (netpath_file == NULL) {
+	  sprintf (error_string, "Can't open file, %s.", string);
+	  error_msg (error_string, STOP);
+	}
+	count_inverse_models = 0;
+	count_pat_solutions = 0;
+	/* Header */
+	fprintf(netpath_file, "2.14               # File format\n");
+      }
 
 /*
  *  Fill in stucture "use".  
@@ -190,6 +211,11 @@ inverse_models (void)
 	  (struct isotope *) free_check_null (inverse[n].isotope_unknowns);
       }
       inverse[n].new_def = FALSE;
+    }
+    if (inverse[n].pat != NULL) 
+    {
+      fclose(netpath_file);
+      netpath_file = NULL;
     }
   }
   return (OK);
@@ -1329,7 +1355,7 @@ solve_inverse (struct inverse *inv_ptr)
 	    output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
 	  }
 	  punch_model (inv_ptr);
-	  /*dump_netpath_pat (inv_ptr);*/
+	  dump_netpath_pat (inv_ptr);
 	}
 	save_minimal (minimal_bits);
       }
@@ -3928,7 +3954,11 @@ dump_netpath (struct inverse *inverse_ptr)
     fprintf(netpath_file, "                                                           # Formation\n");
 
   }
-  if (netpath_file != NULL) fclose(netpath_file);
+  if (netpath_file != NULL) 
+  {
+    fclose(netpath_file);
+    netpath_file = NULL;
+  }
   return;
 }
 /* ---------------------------------------------------------------------- */
@@ -4042,26 +4072,29 @@ dump_netpath_pat (struct inverse *inv_ptr)
   char *ptr;
   int l;
   double sum, sum1, sum_iso, d;
+  double *array_save, *delta_save;
+  int count_unknowns_save, max_row_count_save, max_column_count_save, temp, count_current_solutions;
+  int solnmap[10][2];
 
 /*
  *   print solution data, epsilons, and revised data
  */
   if (inv_ptr->pat == NULL) return(OK);
 
-  /* open file */
-  strcpy(string, inv_ptr->pat);
-  if (replace(".pat", ".pat", string) != TRUE)
-  {
-    strcat(string, ".pat");
-  }
-  netpath_file = fopen(string, "w");
-  if (netpath_file == NULL) {
-    sprintf (error_string, "Can't open file, %s.", string);
-    error_msg (error_string, STOP);
-  }
+  array_save = array;
+  delta_save = delta;
+  count_unknowns_save = count_unknowns;
+  max_row_count_save = max_row_count;
+  max_column_count_save = max_column_count;
 
-  /* Header */
-  fprintf(netpath_file, "2.14               # File format\n");
+  array = NULL;
+  delta = NULL;
+  count_unknowns = 0;
+  max_row_count = 0;
+  max_column_count = 0;
+
+  count_current_solutions = 0;
+  count_inverse_models++;
 
   for (i = 0; i < inv_ptr->count_solns; i++)
   {
@@ -4135,17 +4168,27 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
 
     set_initial_solution(-6, -7);
-    /*set_ph_c (inv_ptr, i, solution_ptr, -5, 0.0, 0.0, 0.0);*/
-    initial_solutions(TRUE);
+    temp = pr.all;
+    pr.all = FALSE;
+    initial_solutions(FALSE);
+    pr.all = temp;
     solution_ptr = solution_bsearch(-7, &j, TRUE);
+
     /* Header */
     ptr = solution_ptr_orig->description;
     if (copy_token(string, &ptr, &l) != EMPTY)
     { 
-      fprintf(netpath_file, "%s\n", solution_ptr_orig->description);
+      fprintf(netpath_file, "%d. %s\n", count_inverse_models, solution_ptr_orig->description);
     } else {
-      fprintf(netpath_file, "Solution %d\n", solution_ptr_orig->n_user);
+      fprintf(netpath_file, "%d. Solution %d\n", count_inverse_models, solution_ptr_orig->n_user);
     }
+
+    /* bookkeeping */
+    count_pat_solutions++;
+    solnmap[count_current_solutions][0] = solution_ptr_orig->n_user;
+    solnmap[count_current_solutions][1] = count_pat_solutions;
+    count_current_solutions++;
+
     /* Dump info to .pat file */
     print_total_pat(netpath_file, "C", "C");
     print_total_pat(netpath_file, "S", "S");
@@ -4415,8 +4458,14 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }    
 
     /* Well number */
-    fprintf(netpath_file, "%14d     # Well number\n", solution_ptr_orig->n_user);
+    fprintf(netpath_file, "%14d     # Well number\n", count_pat_solutions);
   }
+  free_model_allocs();
+  array = array_save;
+  delta = delta_save;
+  count_unknowns = count_unknowns_save;
+  max_row_count = max_row_count_save;
+  max_column_count = max_column_count_save;
 
 #ifdef SKIP
 /*
@@ -4425,9 +4474,12 @@ dump_netpath_pat (struct inverse *inv_ptr)
   print_msg = FALSE;
   if (inv_ptr->count_isotopes > 0)
   {
-    output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");
+    /*output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");*/
     for (i = 0; i < inv_ptr->count_phases; i++)
     {
+      if (equal (delta1[j], 0.0, toler) == TRUE) continue;
+
+
       if (inv_ptr->phases[i].count_isotopes == 0)
 	continue;
       j = col_phases + i;
