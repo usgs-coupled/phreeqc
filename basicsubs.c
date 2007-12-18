@@ -1394,9 +1394,11 @@ total (char *total_name)
     {
       return (mass_water_aq_x);
     }
+/*
     sprintf (error_string, "Can not find definition for master species, %s.",
 	     total_name);
     warning_msg (error_string);
+*/
 /*
  *  Primary master species
  */
