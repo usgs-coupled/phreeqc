@@ -2753,9 +2753,12 @@ tidy_isotopes (void)
 	{
 	  input_error++;
 	  sprintf (error_string,
-		   "Isotopic ratio not defined for element or valence state %g%s.",
+		   "Isotopic ratio not defined for element or valence state %g%s, using 0.",
 		   (double) isotope_number, master[k]->elt->name);
-	  error_msg (error_string, CONTINUE);
+	  warning_msg (error_string);
+	  master[k]->isotope = TRUE;
+	  master[k]->isotope_ratio = 0.0;
+	  master[k]->isotope_ratio_uncertainty = 0.001;
 	}
 	if (master[k]->isotope == FALSE)
 	  continue;
