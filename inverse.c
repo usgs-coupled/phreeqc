@@ -47,6 +47,7 @@ static unsigned long soln_bits, phase_bits, current_bits, temp_bits;
 
 /* subroutines */
 
+static int add_to_file(char *filename, char *string);
 static int bit_print (unsigned long bits, int l);
 static int carbon_derivs (struct inverse *inv_ptr);
 static int check_isotopes (struct inverse *inv_ptr);
@@ -171,7 +172,6 @@ inverse_models (void)
 	/* Header */
 	fprintf(netpath_file, "2.14               # File format\n");
       }
-
 /*
  *  Fill in stucture "use".  
  */
@@ -211,11 +211,11 @@ inverse_models (void)
 	  (struct isotope *) free_check_null (inverse[n].isotope_unknowns);
       }
       inverse[n].new_def = FALSE;
-    }
-    if (inverse[n].pat != NULL) 
-    {
-      fclose(netpath_file);
-      netpath_file = NULL;
+      if (inverse[n].pat != NULL) 
+      {
+	fclose(netpath_file);
+	netpath_file = NULL;
+      }
     }
   }
   return (OK);
@@ -3791,6 +3791,7 @@ dump_netpath (struct inverse *inverse_ptr)
     sprintf (error_string, "Can't open file, %s.", inverse_ptr->netpath);
     error_msg (error_string, STOP);
   }
+  add_to_file("netpath.fil", inverse_ptr->netpath);
 
   /* Header */
   fprintf(netpath_file, "2.14                                                       # File format\n");
@@ -4068,14 +4069,19 @@ dump_netpath_pat (struct inverse *inv_ptr)
   struct solution *solution_ptr, *solution_ptr_orig;
   struct master *master_ptr;
   LDBLE d1, d2, d3;
-  char string[MAX_LENGTH];
-  char *ptr;
+  char string[MAX_LENGTH], string1[MAX_LENGTH], token[MAX_LENGTH];
+  char *ptr, *str_ptr;
   int l;
   double sum, sum1, sum_iso, d;
   double *array_save, *delta_save;
   int count_unknowns_save, max_row_count_save, max_column_count_save, temp, count_current_solutions;
   int solnmap[10][2];
-
+  struct isotope *isotope_ptr;
+  FILE *model_file;
+  struct elt_list *next_elt;
+  int exch, column;
+  double f;
+  struct rxn_token *rxn_ptr;
 /*
  *   print solution data, epsilons, and revised data
  */
@@ -4384,7 +4390,16 @@ dump_netpath_pat (struct inverse *inv_ptr)
     {
       if (strstr(solution_ptr->isotopes[k].isotope_name, "18O") != NULL)
       {
-	d = total(solution_ptr->isotopes[k].elt_name);
+	if (strcmp(solution_ptr->isotopes[k].elt_name, "O(-2)") == 0) 
+	{
+	  d = solution_ptr->total_o - total("O(0)");
+	} else if (strcmp(solution_ptr->isotopes[k].elt_name, "H(1)") == 0) 
+	{
+	  d = solution_ptr->total_h - total("H(0)");
+	} else
+	{
+	  d = total(solution_ptr->isotopes[k].elt_name);
+	}
 	sum_iso += solution_ptr->isotopes[k].ratio * d;
 	sum += d;
       }
@@ -4467,11 +4482,285 @@ dump_netpath_pat (struct inverse *inv_ptr)
   max_row_count = max_row_count_save;
   max_column_count = max_column_count_save;
 
-#ifdef SKIP
+/*
+ * Open model file
+ */
+  strcpy(string, inv_ptr->pat);
+  replace(".pat","", string);
+  string_trim(string);
+  sprintf(string1, "%s-%d.mod",string, count_inverse_models);
+  model_file = fopen(string1, "w");
+  if (model_file == NULL) {
+    sprintf (error_string, "Can't open file, %s.", string);
+    error_msg (error_string, STOP);
+  }
+  add_to_file("model.fil", string1);
+
+
+/*
+ * Write header
+ */
+  fprintf(model_file,"%s\n", string);
+
+/*
+ * Write well numbers
+ */
+  for (i = 0; i < count_current_solutions; i++) 
+  {
+    fprintf(model_file,"%3d", solnmap[i][1]);
+  }
+  fprintf(model_file,"\n");
+/*
+ * Write elements
+ */
+  xsolution_zero();
+  for (j = 0; j < count_master; j++)
+  {
+    master[j]->in = FALSE;
+  }
+  for (j = 0; j < inv_ptr->count_elts; j++)
+  {
+    master_ptr = inv_ptr->elts[j].master;
+    master_ptr = master_ptr->elt->primary;
+    if (strcmp(master_ptr->elt->name, "Alkalinity") == 0) continue;
+    if (strcmp(master_ptr->elt->name, "H") == 0)  continue;
+    if (strcmp(master_ptr->elt->name, "O") == 0) continue;
+    if (strcmp(master_ptr->elt->name, "X") == 0) continue;
+    if (strcmp(master_ptr->elt->name, "E") == 0) continue;
+    master_ptr->in = TRUE;
+  }
+  for (j = 0; j < count_master; j++)
+  {
+    if (master[j]->in == TRUE) 
+    {
+      strcpy(string, master[j]->elt->name);
+      str_toupper(string);
+      fprintf(model_file," %-2s", string);
+    }
+  }
+  fprintf(model_file," %-2s", "RS");
+/*
+ * Add isotope mole balance
+ */
+  for (j = 0; j < inv_ptr->count_isotopes; j++)
+  {
+    sprintf(string, "%d%s", (int) inv_ptr->isotopes[j].isotope_number, inv_ptr->isotopes[j].elt_name);
+    if (strcmp(string,"13C") == 0) fprintf(model_file," %-2s", "I1");
+    if (strcmp(string,"14C") == 0) fprintf(model_file," %-2s", "I2");
+    if (strcmp(string,"34S") == 0) fprintf(model_file," %-2s", "I3");
+    if (strcmp(string,"87Sr") == 0) fprintf(model_file," %-2s", "I4");
+    if (strcmp(string,"15N") == 0) fprintf(model_file," %-2s", "I9");
+    if (strcmp(string,"2H") == 0) fprintf(model_file," %-2s", "D ");
+    if (strcmp(string,"3H") == 0) fprintf(model_file," %-2s", "TR");
+    if (strcmp(string,"18O") == 0) fprintf(model_file," %-2s", "18");
+  }    
+
+  /* end of element line */
+  fprintf(model_file,"\n");
+
+/*
+ * Write phase information
+ */
+  for (i = 0; i < inv_ptr->count_phases; i++)
+  {
+    j = col_phases + i;
+    /* skip if not in model */
+    if (equal (delta1[j], 0.0, toler) == TRUE) continue;
+
+    /* Do not include Na exchange phase */
+    if (strcmp_nocase(inv_ptr->phases[i].name, "NaX") == 0) continue;
+/*
+ * Determine if exchange reaction
+ */
+    exch = FALSE;
+    for (next_elt = inv_ptr->phases[i].phase->next_elt; next_elt->elt != NULL; next_elt++)
+    {
+      if (strcmp(next_elt->elt->name, "X") == 0) {
+	exch = TRUE;
+	break;
+      }
+    }
+/*
+ * Write phase name and constraints
+ */
+    strncpy(string, inv_ptr->phases[i].name, (size_t) 8);
+    str_ptr = string_pad(string, 10);
+    str_ptr[10] = '\0';
+    if (inv_ptr->phases[i].force == TRUE)
+    {
+      str_ptr[8] = 'F';
+    } else 
+    {
+      str_ptr[8] = ' ';
+    }
+    switch (inv_ptr->phases[i].constraint)
+    {
+    case EITHER:
+      str_ptr[9] = ' ';
+      break;
+    case PRECIPITATE:
+      if (exch == TRUE)
+      {
+	str_ptr[9] = '+';
+      } else
+      {
+	str_ptr[9] = '-';
+      }
+      break;
+    case DISSOLVE:
+      if (exch == TRUE)
+      {
+	str_ptr[9] = '-';
+      } else
+      {
+	str_ptr[9] = '+';
+      }
+      break;
+    }
+    fprintf(model_file,"%-10s", str_ptr);
+    str_ptr = (char *) free_check_null(str_ptr);
+/*
+ *  Write stoichiometry
+ */
+    for (next_elt = inv_ptr->phases[i].phase->next_elt; next_elt->elt != NULL; next_elt++)
+    {
+      f = 1.0;
+      if (exch == TRUE) f = -1.0;
+      master_ptr = next_elt->elt->primary;
+      if (strcmp(master_ptr->elt->name, "Alkalinity") == 0) continue;
+      if (strcmp(master_ptr->elt->name, "H") == 0)  continue;
+      if (strcmp(master_ptr->elt->name, "O") == 0) continue;
+      if (strcmp(master_ptr->elt->name, "E") == 0) continue;
+      strcpy(string, master_ptr->elt->name);
+      if (strcmp(master_ptr->elt->name, "X") == 0)
+      {
+	strcpy(string, "Na");
+	f  = 1.0;
+      }
+      str_toupper(string);
+      fprintf(model_file," %-2s%12.7f", string, next_elt->coef*f);
+    }
+/*
+ * Calculate RS
+ */
+    sum = 0;
+    for (rxn_ptr = inv_ptr->phases[i].phase->rxn_s->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
+    {
+      if (rxn_ptr->s == s_hplus) continue;
+      if (rxn_ptr->s == s_h2o) continue;
+      if (rxn_ptr->s->secondary == NULL && rxn_ptr->s != s_eminus) continue;
+      if (rxn_ptr->s == s_o2)
+      {
+	sum += 4*rxn_ptr->coef;
+      } else if (rxn_ptr->s == s_h2)
+      {
+	sum += -2*rxn_ptr->coef;
+      } else if (rxn_ptr->s == s_eminus)
+      {
+	sum += -1*rxn_ptr->coef;
+      } else
+      {
+	strcpy(string, rxn_ptr->s->secondary->elt->name);
+	replace("("," ", string);
+	replace(")"," ", string);
+	ptr = string;
+	copy_token(token, &ptr, &l);
+	copy_token(string1, &ptr, &l);
+	sscanf(string1,"%lf", &f);
+	sum += f*rxn_ptr->coef;
+      }
+    }
+    if (sum != 0.0) fprintf(model_file," %-2s%12.7f", "RS", sum);
+/*
+ * Add isotopes
+ */
+
+    for (k = 0; k < inv_ptr->phases[i].count_isotopes; k++)
+    {
+      isotope_ptr = inv_ptr->phases[i].isotopes;
+      d1 = isotope_ptr[k].ratio;
+      for (j = 0; j < inv_ptr->count_isotopes; j++)
+      {
+	if ((inv_ptr->isotopes[j].elt_name != isotope_ptr[k].elt_name) ||
+	    (inv_ptr->isotopes[j].isotope_number != isotope_ptr[k].isotope_number))
+	    continue;
+	break;
+      }
+      d2 = 0.0;
+      if (j < inv_ptr->count_isotopes) 
+      {
+	column = col_phase_isotopes + i * inv_ptr->count_isotopes + j;
+	if (delta1[col_phases + i] != 0.0)
+	{
+	  d2 = delta1[column] / delta1[col_phases + i];
+	}
+      }
+      d3 = d1 + d2;
+      sprintf(string, "%d%s", (int) isotope_ptr[k].isotope_number, isotope_ptr[k].elt_name);
+      if (strcmp(string,"13C") == 0) fprintf(model_file," %-2s%12.7f", "I1", d3);
+      if (strcmp(string,"14C") == 0) fprintf(model_file," %-2s%12.7f", "I2", d3);
+      if (strcmp(string,"34S") == 0) 
+      {
+	fprintf(model_file," %-2s%12.7f", "I3", d3);
+	fprintf(model_file," %-2s%12.7f", "I7", 0.0);
+      }
+      if (strcmp(string,"87Sr") == 0) fprintf(model_file," %-2s%12.7f", "I4", d3);
+      if (strcmp(string,"15N") == 0) fprintf(model_file," %-2s%12.7f", "I9", d3);
+      if (strcmp(string,"2H") == 0) fprintf(model_file," %-2s%12.7f", "D ", d3);
+      if (strcmp(string,"3H") == 0) fprintf(model_file," %-2s%12.7f", "TR", d3);
+      if (strcmp(string,"18O") == 0) fprintf(model_file," %-2s%12.7f", "18", d3);
+    }
+/*
+ *  Done with stoichiometry
+ */
+    fprintf(model_file,"\n");
+  }
+  fprintf(model_file,"\n");
+/*
+ * Write extra stuff at bottom
+ */
+  /* 
+     (Iflag(i),i=2,6), (P(i),i=1,2), (Isdocrs(i),i=0,5), Disalong, 
+     (C14dat(i),i=1,5), (Usera(i),i=1,2), 
+     (C14dat(i),i=8,9), i10, i11, (C14dat(i),i=12,13), 
+     (Dbdata(Well(0),i),i=44,47), Dbdata(Well(0),49),
+     ((Dbdata(Well(iwell),i),i=44,47),Dbdata(Well(iwell),49),Usera(iwell),iwell=1,Iflag(1)+1)
+9030 FORMAT (5(I2),2(F8.4),6(I1),F6.3,/,
+            7(F8.3),/,
+            2(F8.3),2(F8.0), 2(F8.3),/,
+            5(F8.3),/,
+	    7(6(F8.3),/))
+  */
+  /* iflags */
+  /*fprintf(model_file,"%2d", i);*/  /* not written, 1, mixing, number of mixing wells -1 */
+  fprintf(model_file,"%2d", 3);  /* 2, exchange */
+  i = 0;
+  if (inv_ptr->count_isotopes > 0) i = 1;
+  fprintf(model_file,"%2d", i);  /* 3, Rayleigh */
+  fprintf(model_file,"%2d", 1);  /* 4, A0 model */
+  fprintf(model_file,"%2d", 0);  /* 5, Mook/Deines */
+  fprintf(model_file,"%2d", 0);  /* 6, Evaporation/Dilution */
+  /* p */
+  fprintf(model_file,"%8.4f%8.4f", 1.0, 0.0);  /* P(1),(2) fraction of CO2, fraction of Ca in exch */
+  fprintf(model_file,"000000");  /* isdocrs(0,5) doc, rs? */
+  fprintf(model_file,"%6.3f\n", 1.0);  /* disalong */
+  fprintf(model_file, "   0.000 100.000   0.000   0.000 -25.000 100.000 100.000\n");
+  fprintf(model_file, "   0.000   0.000      0.      0.   0.000   0.000  \n");
+  /* Final well data */
+  fprintf(model_file, " -40.000 -25.000   0.000   0.000   0.000\n");
+  /* other wells */
+  for (i = 0; i < count_current_solutions - 1; i++)
+  {
+    fprintf(model_file, " -40.000 -25.000   0.000   0.000   0.000 100.000\n");
+  }
+  fprintf(model_file, "\n");
+  fclose (model_file);
+
 /*
  *    Adjustments to phases
  */
-  print_msg = FALSE;
+#ifdef SKIP
+
   if (inv_ptr->count_isotopes > 0)
   {
     /*output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");*/
@@ -4650,4 +4939,54 @@ set_initial_solution (int n_user_old, int n_user_new)
     conc_ptr->units = string_hsave ("Mol/kgw");
   }
   return (OK);
+}
+/* ---------------------------------------------------------------------- */
+int
+add_to_file(char *filename, char *string)
+/* ---------------------------------------------------------------------- */
+{
+  FILE *model_file;
+  char c;
+  int i; 
+  char string_line[MAX_LENGTH];
+
+  model_file = fopen(filename, "r");
+  if (model_file == NULL) {
+    model_file = fopen(filename, "w");
+    if (model_file == NULL)
+    {
+      sprintf (error_string, "Can't open file, %s.", filename);
+      error_msg (error_string, STOP);
+    }
+  }
+  i = 0;
+  for (;;)
+  {
+    c = getc(model_file);
+    if (c != EOF && c != '\n')
+    {
+      string_line[i] = c;
+      i++;
+      continue;
+    }
+    string_line[i] = '\0';
+    /* new line or eof */
+    string_trim(string_line);
+    if (strcmp(string_line, string) == 0)
+    {
+      fclose(model_file);
+      return(OK);
+    }
+    /* eof, add line */
+    if (c == EOF) 
+    {
+      fclose(model_file);
+      model_file = fopen(filename, "a");
+      fprintf(model_file, "%s\n", string);
+      fclose(model_file);
+      return(OK);
+    }
+    /* new line */
+    i = 0;
+  }
 }
