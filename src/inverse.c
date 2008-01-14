@@ -4565,7 +4565,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
   {
     j = col_phases + i;
     /* skip if not in model */
-    if (equal (delta1[j], 0.0, toler) == TRUE) continue;
+/*    if (equal (delta1[j], 0.0, toler) == TRUE) continue;*/
 
     /* Do not include Na exchange phase */
     if (strcmp_nocase(inv_ptr->phases[i].name, "NaX") == 0) continue;

@@ -2491,9 +2491,10 @@ file_open (char *query, char *default_name, const char *status, int batch)
 	  output_msg (OUTPUT_SCREEN, "Warning: File already exists, %s.\n"
 		      "Enter new file name or <Enter> to overwrite:", name);
 	  fgets (answer, MAX_LENGTH, stdin);
-	  l = (int) strlen (answer);
-	  answer[l - 1] = '\0';
-	  if (answer != '\0')
+/*	  l = (int) strlen (answer);*/
+	  replace("\n","\0", answer);
+/*	  answer[l - 1] = '\0';*/
+	  if (answer[0] != '\0')
 	  {
 	    strcpy (name, answer);
 	    continue;
