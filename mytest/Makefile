@@ -22,16 +22,16 @@ all: alkalinity.out \
 	colloid_U.out \
 	comments.out \
 	ddlsurf.out \
-	desc.out \
-	dissolve_only.out \
-	eco.out \
-	eq_EC.out \
-	evap.out \
 	de.out \
 	deb1.out \
 	deb2.out \
 	debye1.out \
+	desc.out \
+	dissolve_only.out \
 	donly.out \
+	eco.out \
+	eq_EC.out \
+	evap.out \
 	exch_related.out \
 	exch_related_pz.out \
 	exch_kin_related.out \
@@ -63,6 +63,7 @@ all: alkalinity.out \
 	llnl.out \
 	local_min_pz.out \
 	mahoney.out \
+	membrane.out \
 	mmb.out \
 	mmb2.out \
 	mu.out \
@@ -129,7 +130,6 @@ all: alkalinity.out \
 	colt3_mi.out \
 	colt4.out \
 	colt5.out \
-	membrane.out \
 	minteq.out \
 	minteqv4.out \
 	ex16mp.out ex17mp.out ex18mp.out \
