@@ -24,7 +24,6 @@ all: alkalinity.out \
 	ddlsurf.out \
 	desc.out \
 	dissolve_only.out \
-	dumplon.out \
 	eco.out \
 	eq_EC.out \
 	evap.out \
@@ -68,6 +67,7 @@ all: alkalinity.out \
 	mmb2.out \
 	mu.out \
 	n3.out \
+	netpathxl.out \
 	np.test.out \
 	opa_col2.out \
 	org_gas.out \
