@@ -225,10 +225,9 @@ utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqallo
 
 -include $(CURDIR)/distribution.mk
 
-comma=,
-
 #ld-option
 # Usage: ldflags += $(call ld-option, -Wl$(comma)--hash-style=sysv)
+comma=,
 ld-option = $(shell if $(CC) $(1) \
               -nostdlib -o /dev/null -xc /dev/null \
               > /dev/null 2>&1 ; then echo "$(1)" ; else echo "$(2)"; fi)
