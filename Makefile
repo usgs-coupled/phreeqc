@@ -26,7 +26,8 @@ CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
 # gmp (Gnu Multiple Precision) package on your system
 INVERSE_CL1MP=TRUE
 
-LOADFLAGS= -lm -Wl,--hash-style=sysv # -pg
+LOADFLAGS= -lm # -pg
+LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 
 #.c.o : 
 #	${CC} ${CCFLAGS} -c -o $@ $<
@@ -224,4 +225,10 @@ utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqallo
 
 -include $(CURDIR)/distribution.mk
 
+comma=,
 
+#ld-option
+# Usage: ldflags += $(call ld-option, -Wl$(comma)--hash-style=sysv)
+ld-option = $(shell if $(CC) $(1) \
+              -nostdlib -o /dev/null -xc /dev/null \
+              > /dev/null 2>&1 ; then echo "$(1)" ; else echo "$(2)"; fi)
