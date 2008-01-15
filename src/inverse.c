@@ -4025,14 +4025,16 @@ print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *stri
 /* ---------------------------------------------------------------------- */
 {
   char elts[5][MAX_LENGTH];
+  struct conc *tot_ptr;
+  double sum;
+  int i, found;
+
   strcpy(elts[0], elt0);
   strcpy(elts[1], elt1);
   strcpy(elts[2], elt2);
   strcpy(elts[3], elt3);
   strcpy(elts[4], elt4);
-  struct conc *tot_ptr;
-  double sum;
-  int i, found;
+
 
   sum = 0;
   found = FALSE;
