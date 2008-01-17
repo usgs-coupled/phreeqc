@@ -46,8 +46,16 @@ output_message (const int type, const char *err_str, const int stop,
 
   for (i = 0; i < count_output_callback; ++i)
   {
+#ifdef VACOPY
+    va_list args_copy;
+    va_copy(args_copy, args);
+    (output_callbacks[i].callback) (ACTION_OUTPUT, type, err_str, stop,
+				    output_callbacks[i].cookie, format, args_copy);
+    va_end(args_copy);
+#else
     (output_callbacks[i].callback) (ACTION_OUTPUT, type, err_str, stop,
 				    output_callbacks[i].cookie, format, args);
+#endif
   }
 
   if (stop == STOP)
