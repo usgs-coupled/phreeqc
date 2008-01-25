@@ -77,7 +77,7 @@ static char const svnid[] = "$Id$";
 #define HMIN_DEFAULT     ZERO	/* hmin default value     */
 #define HMAX_INV_DEFAULT ZERO	/* hmax_inv default value */
 #define MXHNIL_DEFAULT   10	/* mxhnil default value   */
-#define MXSTEP_DEFAULT   50	/* mxstep default value   */
+#define MXSTEP_DEFAULT   1000	/* mxstep default value   */
 
 
 /***************************************************************/

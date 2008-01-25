@@ -2140,6 +2140,7 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
          iopt[SLDET] = TRUE;
          cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, BDF, NEWTON, SV, &reltol, abstol, NULL, NULL, TRUE, iopt, ropt, machEnv);
          cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, ADAMS, FUNCTIONAL, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv);
+	 iopt[MXSTEP] is maximum number of steps that CVODE tries.
        */
       kinetics_cvode_mem =
 	CVodeMalloc (n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
@@ -2173,6 +2174,7 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
       while (flag != SUCCESS)
       {
 	sum_t += cvode_last_good_time;
+	fprintf(stderr, "mpi_myself: %d\tCell: %d\tThrough: %e\n", phreeqc_mpi_myself, cell_no, sum_t);
 	cvode_last_good_time = 0;
 	if (++iter >= 200)
 	{
