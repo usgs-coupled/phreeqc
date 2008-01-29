@@ -2176,7 +2176,7 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	sum_t += cvode_last_good_time;
 	fprintf(stderr, "mpi_myself: %d\tCell: %d\tThrough: %e\n", phreeqc_mpi_myself, cell_no, sum_t);
 	cvode_last_good_time = 0;
-	if (++iter >= 200)
+	if (++iter >= kinetics_ptr->bad_step_max)
 	{
 	  m_temp = (LDBLE *) free_check_null (m_temp);
 	  m_original = (LDBLE *) free_check_null (m_original);
@@ -2190,6 +2190,7 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	  iopt[j] = 0;
 	  ropt[j] = 0;
 	}
+	iopt[MXSTEP] = kinetics_ptr->bad_step_max;
 	CVodeFree (kinetics_cvode_mem);	/* Free the CVODE problem memory */
 	kinetics_cvode_mem =
 	  CVodeMalloc (n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
