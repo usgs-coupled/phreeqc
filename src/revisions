@@ -4,18 +4,45 @@
 ************************************************************
 ************************************************************
         --------
+        svn 2627
+        --------
+	In KINETICS, the option -max_bad_steps was used only
+	in the Runge-Kutta method. Now, the value of this option
+	is used for CVODE as well. The value entered is the number 
+	of steps that CVODE will attempt before exiting and the 
+	number of times that PHREEQC will reinvoke CVODE to 
+	try to integrate a set of rates. Default is 200. Thus,
+	by default, PHREEQC will invoke CVODE 200 times and CVODE 
+	will perform up to 200 steps at each invocation.
+
+        --------
         svn 2457
         --------
-	Added option to inverse modeling to translate current
-	solution definitions in PHREEQC to a Netpath .lon file.
+	Added options to inverse modeling to translate current
+	solution definitions in PHREEQC to a Netpath .lon file and
+	(or) to .pat and model files.
 
 	INVERSE_MODELING
 	   -lon_netpath  prefix
 
 	At the beginning of the inverse modeling calculation, each
-	solution that has been defined (or saved) is written to the
-	file prefix.lon in a format readable by DB (Netpath
-	distribution) or DBXL (NetpathXL distribution).
+	solution that has been defined (or saved) to PHREEQC, is
+	written to the file prefix.lon in a format readable by 
+	DBXL (NetpathXL distribution).
+
+	INVERSE_MODELING
+	   -pat_netpath  prefix
+
+	A NETPATH model file is written for each inverse model that is
+	found. The model files are named prefix-n.mod, where n refers
+	to the sequence number of the model. In addition, a file named
+	prefix.pat is written that contains the solutions associated
+	with each model. The solutions are adjusted in accordance with
+	the deltas calculated for the inverse model. Thus, a solution
+	could be used for model 1 and model 2, but the concentrations
+	could be slightly different for the two models. The solutions
+	are identified by an initial integer corresponding to the
+	sequence number of the model, followed by the solution description.
 
         --------
         svn 2448
