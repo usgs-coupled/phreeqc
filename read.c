@@ -1821,6 +1821,7 @@ read_inverse (void)
   inverse[n].mp_tolerance = 1e-12;
   inverse[n].mp_censor = 1e-20;
   inverse[n].netpath = NULL;
+  inverse[n].pat = NULL;
 /*
  *   Read data for inverse modeling
  */
