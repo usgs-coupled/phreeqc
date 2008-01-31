@@ -1,12 +1,19 @@
+File contains:
+      "Features not documented in WRIR 99-4295" 
+      "Revisions and Bug Fixes"
+
 ************************************************************
 ************************************************************
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.15.0: February 5, 2008
+------------------------------------------------------------
         --------
         svn 2627
         --------
-	In KINETICS, the option -max_bad_steps was used only
+	In KINETICS, the option -bad_step_max was used only
 	in the Runge-Kutta method. Now, the value of this option
 	is used for CVODE as well. The value entered is the number 
 	of steps that CVODE will attempt before exiting and the 
@@ -1048,9 +1055,20 @@ End of Features not documented in WRIR 99-4259.
 
 ************************************************************
 ************************************************************
-*               Revisions and bug fixes                    *
+*               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.15.0: February 5, 2008
+------------------------------------------------------------
+
+        --------
+        svn 2386
+        --------
+	Fixed bug for SELECTED_OUTPUT; -activities H2O. The
+	resulting value was -30; now produces the correct
+	result.
+
 ------------------------------------------------------------
 Version 2.14.3: November 17, 2007
 ------------------------------------------------------------

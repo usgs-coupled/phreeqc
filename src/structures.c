@@ -3489,6 +3489,7 @@ phase_init (struct phase *phase_ptr)
   phase_ptr->lk = 0.0;
   for (i = 0; i < 8; i++)
     phase_ptr->logk[i] = 0.0;
+  phase_ptr->original_units = kjoules;
   phase_ptr->type = SOLID;
   phase_ptr->check_equation = TRUE;
   phase_ptr->next_elt = NULL;
@@ -4505,6 +4506,7 @@ s_init (struct species *s_ptr)
   {
     s_ptr->logk[i] = 0.0;
   }
+  s_ptr->original_units = kjoules;
   s_ptr->count_add_logk = 0;
   s_ptr->add_logk = NULL;
   s_ptr->lg = 0.0;
