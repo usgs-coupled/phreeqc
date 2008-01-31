@@ -2425,7 +2425,8 @@ punch_activities (void)
     la = -999.999;
     if (punch.activities[j].s != NULL && punch.activities[j].s->in == TRUE)
     {
-      la = punch.activities[j].s->lm + punch.activities[j].s->lg;
+      /*la = punch.activities[j].s->lm + punch.activities[j].s->lg;*/
+      la = log_activity(punch.activities[j].s->name);
     }
     if (punch.high_precision == FALSE)
     {
