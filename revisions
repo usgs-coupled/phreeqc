@@ -11,16 +11,30 @@ File contains:
 Version 2.15.0: February 5, 2008
 ------------------------------------------------------------
         --------
-        svn 2627
+        svn 2680
         --------
-	In KINETICS, the option -bad_step_max was used only
-	in the Runge-Kutta method. Now, the value of this option
-	is used for CVODE as well. The value entered is the number 
-	of steps that CVODE will attempt before exiting and the 
-	number of times that PHREEQC will reinvoke CVODE to 
-	try to integrate a set of rates. Default is 200. Thus,
-	by default, PHREEQC will invoke CVODE 200 times and CVODE 
-	will perform up to 200 steps at each invocation.
+
+	Identifiers for paramaters controlling the integration by
+	CVODE have been added in the KINETICS data block. 
+	
+	-bad_step_max     bad_steps
+	-cvode_steps      steps
+	-cvode_order      order
+
+	-bad_step_max bad_steps--This option was used only in the
+	Runge-Kutta method. Now, the value of this option is used for
+	CVODE as well. The value entered is the number of times that
+	PHREEQC will invoke CVODE to try to integrate a set of
+	rates over a time interval. Default is 500.
+
+	-cvode_steps steps--The value given is the maximum number of
+	steps that will taken during one invocation of CVODE.	
+	Default is 100.
+
+	-cvode_order order--CVODE uses a specified number of terms in
+	an extrapolation of rates using the BFD method. Legal values
+	are 1 through 5. A smaller value (2) may be needed if the rate
+	equations equations are poorly behaved. The default is 5. 
 
         --------
         svn 2457
