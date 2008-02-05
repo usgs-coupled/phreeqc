@@ -125,11 +125,12 @@ function AddMEPath(szPathToAdd)
     string svPath2_13_2;    //
     BOOL   bFound2_14_0;    //
     string svPath2_14_0;    //
+    BOOL   bFound2_14_3;      //
+    string svPath2_14_3;      //
 //}}    
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_14_3;      //
-////    string svPath2_14_3;      //
-//}}    
+////    BOOL   bFound2_15_0;      //
+////    string svPath2_15_0;      //
 begin    
     if (!SYSINFO.WIN9X.bWinMe) then
         // bad OS
@@ -172,9 +173,12 @@ begin
 	// check for 2.14.0
 	bFound2_14_0 = CheckForPreviousGUID(@GUID_2_14_0, svPath2_14_0);
 	
+	// check for 2.14.3
+	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
+
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.14.3
-////	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
+////	// check for 2.15.0
+////	bFound2_15_0 = CheckForPreviousGUID(@GUID_2_15_0, svPath2_15_0);
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -233,9 +237,12 @@ begin
             // 2.14.0
             nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_0, svPath2_14_0);
 
+            // 2.14.3
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
+
 ////ADD_NEW_VERSION_HERE
-////            // 2.14.3
-////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
+////            // 2.15.0
+////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_15_0, svPath2_15_0);
 
 	        if ( StrLength( svCurrentPath ) > 0) then
         		szNewPath = svCurrentPath + ";" + svPathToAdd;
@@ -314,9 +321,11 @@ function AddNTPath(szPathToAdd)
     string svPath2_13_2;    //
     BOOL   bFound2_14_0;    //
     string svPath2_14_0;    //
+    BOOL   bFound2_14_3;    //
+    string svPath2_14_3;    //
 ////ADD_NEW_VERSION_HERE
-////    BOOL   bFound2_14_3;    //
-////    string svPath2_14_3;    //
+////    BOOL   bFound2_15_0;    //
+////    string svPath2_15_0;    //
 begin
     if (!SYSINFO.WINNT.bWinNT) then
         // wrong OS
@@ -358,9 +367,12 @@ begin
 	// check for 2.14.0
 	bFound2_14_0 = CheckForPreviousGUID(@GUID_2_14_0, svPath2_14_0);
 	
+	// check for 2.14.3
+	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
+
 ////ADD_NEW_VERSION_HERE
-////	// check for 2.14.3
-////	bFound2_14_3 = CheckForPreviousGUID(@GUID_2_14_3, svPath2_14_3);
+////	// check for 2.15.0
+////	bFound2_15_0 = CheckForPreviousGUID(@GUID_2_15_0, svPath2_15_0);
 
     svPathToAdd = szPathToAdd;
     if (LongPathToShortPath(svPathToAdd) < 0) then
@@ -440,9 +452,12 @@ begin
             // 2.14.0
             nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_0, svPath2_14_0);
             
+            // 2.14.3
+            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
+
 ////ADD_NEW_VERSION_HERE
-////            // 2.14.3
-////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_14_3, svPath2_14_3);
+////            // 2.15.0
+////            nPosFirst = FindFirstPosition(svCurrentPath, nPosFirst, bFound2_15_0, svPath2_15_0);
 
 
 	        if ( StrLength( svCurrentPath ) > 0) then
