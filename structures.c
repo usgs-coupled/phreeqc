@@ -2624,6 +2624,8 @@ kinetics_init (struct kinetics *kinetics_ptr, int n_user, int n_user_end,
   kinetics_ptr->rk = 3;
   kinetics_ptr->bad_step_max = 500;
   kinetics_ptr->use_cvode = FALSE;
+  kinetics_ptr->cvode_order = 5;
+  kinetics_ptr->cvode_steps = 100;
 
   return (OK);
 }

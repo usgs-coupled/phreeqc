@@ -2142,6 +2142,8 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
          cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, ADAMS, FUNCTIONAL, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv);
 	 iopt[MXSTEP] is maximum number of steps that CVODE tries.
        */
+      iopt[MXSTEP] = kinetics_ptr->cvode_steps;
+      iopt[MAXORD] = kinetics_ptr->cvode_order;
       kinetics_cvode_mem =
 	CVodeMalloc (n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
 		     &reltol, kinetics_abstol, NULL, NULL, TRUE, iopt, ropt,
@@ -2190,7 +2192,8 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	  iopt[j] = 0;
 	  ropt[j] = 0;
 	}
-	iopt[MXSTEP] = kinetics_ptr->bad_step_max;
+	iopt[MXSTEP] = kinetics_ptr->cvode_steps;
+	iopt[MAXORD] = kinetics_ptr->cvode_order;
 	CVodeFree (kinetics_cvode_mem);	/* Free the CVODE problem memory */
 	kinetics_cvode_mem =
 	  CVodeMalloc (n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,

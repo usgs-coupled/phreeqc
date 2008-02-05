@@ -443,6 +443,8 @@ struct kinetics
   int rk;
   int bad_step_max;
   int use_cvode;
+  int cvode_order;
+  int cvode_steps;
 };
 struct kinetics_comp
 {
