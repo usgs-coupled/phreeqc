@@ -2320,9 +2320,11 @@ read_kinetics (void)
     "runge_kutta",		/* 9 */
     "rk",			/* 10 */
     "bad_step_max",		/* 11 */
-    "cvode"			/* 12 */
+    "cvode",			/* 12 */
+    "cvode_steps",		/* 13 */
+    "cvode_order"		/* 14 */
   };
-  int count_opt_list = 13;
+  int count_opt_list = 15;
 
 /*
  *   Read kinetics number
@@ -2709,6 +2711,38 @@ read_kinetics (void)
       break;
     case 12:			/* cvode */
       kinetics[n].use_cvode = get_true_false (next_char, TRUE);
+      break;
+    case 13:			/* cvode_steps */
+      j = copy_token (token, &next_char, &l);
+      if (j == DIGIT)
+      {
+	kinetics_ptr->cvode_steps = (int) strtod (token, &ptr);
+      }
+      else if (j == EMPTY)
+      {
+      }
+      else
+      {
+	sprintf (error_string, "Expecting maximum number of steps for one call to cvode.");
+	error_msg (error_string, CONTINUE);
+	input_error++;
+      }
+      break;
+    case 14:			/* cvode_order */
+      j = copy_token (token, &next_char, &l);
+      if (j == DIGIT)
+      {
+	kinetics_ptr->cvode_order = (int) strtod (token, &ptr);
+      }
+      else if (j == EMPTY)
+      {
+      }
+      else
+      {
+	sprintf (error_string, "Expecting number of terms (order) used in cvode (1-5).");
+	error_msg (error_string, CONTINUE);
+	input_error++;
+      }
       break;
     }
     if (return_value == EOF || return_value == KEYWORD)
