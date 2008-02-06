@@ -34,7 +34,7 @@ Version 2.15.0: February 5, 2008
 	-cvode_order order--CVODE uses a specified number of terms in
 	an extrapolation of rates using the BFD method. Legal values
 	are 1 through 5. A smaller value (2) may be needed if the rate
-	equations equations are poorly behaved. The default is 5. 
+	equations are poorly behaved. The default is 5. 
 
         --------
         svn 2457
