@@ -1353,9 +1353,13 @@ solution_check (void)
       master_ptr->total = 0;
       continue;
     }
+    /*
     sprintf (error_string,
 	     "Element %s has negative moles in solution, %e. \n\tErroneous mole balance occurs as moles are added to produce zero moles.\n\tUsually caused by KINETICS, REACTION, or diffuse layer calculation.\n\tMay be due to large time steps in early part of KINETICS simulation or negative concentrations in the diffuse layer.",
 	     master_ptr->elt->name, (double) master_ptr->total);
+    */
+    sprintf (error_string,
+	     "Negative moles in solution for %s, %e. Recovering...", master_ptr->elt->name, (double) master_ptr->total);
     warning_msg (error_string);
     return (MASS_BALANCE);
   }

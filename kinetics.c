@@ -1933,6 +1933,126 @@ set_reaction (int i, int use_mix, int use_kinetics)
   return (OK);
 }
 
+#ifdef DEBUG_KINETICS
+/* ---------------------------------------------------------------------- */
+int
+dump_kinetics_stderr (int k)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Dumps kinetics data
+ */
+  int i, j, n;
+  struct kinetics *kinetics_ptr;
+  struct kinetics_comp *kinetics_comp_ptr;
+
+  if ((kinetics_ptr = kinetics_search (k, &n, FALSE)) == NULL)
+    return (OK);
+
+  output_msg (OUTPUT_MESSAGE, "KINETICS XXX %d\n", k);
+  output_msg (OUTPUT_MESSAGE, "\t-step_divide   %15.6e\n",
+	      (double) kinetics[n].step_divide);
+  output_msg (OUTPUT_MESSAGE, "\t-cvode_steps   %15.6e\n",
+	      (double) kinetics[n].cvode_steps);
+  output_msg (OUTPUT_MESSAGE, "\t-cvode_order   %15.6e\n",
+	      (double) kinetics[n].cvode_order);
+
+  output_msg (OUTPUT_MESSAGE, "totals\n");
+  for (i = 0; kinetics_ptr->totals[i].elt != NULL; i++)
+  {
+    output_msg (OUTPUT_MESSAGE, "\t%s\t%e\tSolution_total: %e\n", kinetics_ptr->totals[i].elt->name,
+		(double) kinetics_ptr->totals[i].coef, total(kinetics_ptr->totals[i].elt->name));
+  }
+
+  for (i = 0; i < kinetics[n].count_comps; i++)
+  {
+    output_msg (OUTPUT_MESSAGE, "%-15s\n", kinetics_ptr->comps[i].rate_name);
+
+    kinetics_comp_ptr = &kinetics_ptr->comps[i];
+    output_msg (OUTPUT_MESSAGE, "\t-formula ");
+    for (j = 0; j < kinetics_comp_ptr->count_list; j++)
+    {
+      output_msg (OUTPUT_MESSAGE, "   %s  %12.3e",
+		  kinetics_comp_ptr->list[j].name,
+		  (double) kinetics_comp_ptr->list[j].coef);
+    }
+    output_msg (OUTPUT_MESSAGE, "\n");
+
+    output_msg (OUTPUT_MESSAGE, "\t-tol %15.2e\n",
+		(double) kinetics_ptr->comps[i].tol);
+    output_msg (OUTPUT_MESSAGE, "\t-m0  %15.6e\n",
+		(double) kinetics_ptr->comps[i].m0);
+    output_msg (OUTPUT_MESSAGE, "\t-m   %15.6e\n",
+		(double) kinetics_ptr->comps[i].m);
+
+    if (kinetics_comp_ptr->count_d_params != 0)
+    {
+      output_msg (OUTPUT_MESSAGE, "\t-parm");
+      for (j = 0; j < kinetics_comp_ptr->count_d_params; j++)
+      {
+	output_msg (OUTPUT_MESSAGE, "%15.6e",
+		    (double) kinetics_comp_ptr->d_params[j]);
+      }
+      output_msg (OUTPUT_MESSAGE, "\n");
+    }
+
+/* not dumped:		kinetics_comp_ptr->count_c_params = 0 */
+  }
+  output_msg (OUTPUT_MESSAGE, "\n");
+
+  output_msg (OUTPUT_SCREEN, "KINETICS XXX %d\n", k);
+  output_msg (OUTPUT_SCREEN, "\t-step_divide   %15.6e\n",
+	      (double) kinetics[n].step_divide);
+  output_msg (OUTPUT_SCREEN, "\t-cvode_steps   %15.6e\n",
+	      (double) kinetics[n].cvode_steps);
+  output_msg (OUTPUT_SCREEN, "\t-cvode_order   %15.6e\n",
+	      (double) kinetics[n].cvode_order);
+
+  output_msg (OUTPUT_SCREEN, "totals\n");
+  for (i = 0; kinetics_ptr->totals[i].elt != NULL; i++)
+  {
+    output_msg (OUTPUT_SCREEN, "\t%s\t%e\tSolution_total: %e\n", kinetics_ptr->totals[i].elt->name,
+		(double) kinetics_ptr->totals[i].coef, total(kinetics_ptr->totals[i].elt->name));
+  }
+
+  for (i = 0; i < kinetics[n].count_comps; i++)
+  {
+    output_msg (OUTPUT_SCREEN, "%-15s\n", kinetics_ptr->comps[i].rate_name);
+
+    kinetics_comp_ptr = &kinetics_ptr->comps[i];
+    output_msg (OUTPUT_SCREEN, "\t-formula ");
+    for (j = 0; j < kinetics_comp_ptr->count_list; j++)
+    {
+      output_msg (OUTPUT_SCREEN, "   %s  %12.3e",
+		  kinetics_comp_ptr->list[j].name,
+		  (double) kinetics_comp_ptr->list[j].coef);
+    }
+    output_msg (OUTPUT_SCREEN, "\n");
+
+    output_msg (OUTPUT_SCREEN, "\t-tol %15.2e\n",
+		(double) kinetics_ptr->comps[i].tol);
+    output_msg (OUTPUT_SCREEN, "\t-m0  %15.6e\n",
+		(double) kinetics_ptr->comps[i].m0);
+    output_msg (OUTPUT_SCREEN, "\t-m   %15.6e\n",
+		(double) kinetics_ptr->comps[i].m);
+
+    if (kinetics_comp_ptr->count_d_params != 0)
+    {
+      output_msg (OUTPUT_SCREEN, "\t-parm");
+      for (j = 0; j < kinetics_comp_ptr->count_d_params; j++)
+      {
+	output_msg (OUTPUT_SCREEN, "%15.6e",
+		    (double) kinetics_comp_ptr->d_params[j]);
+      }
+      output_msg (OUTPUT_SCREEN, "\n");
+    }
+
+/* not dumped:		kinetics_comp_ptr->count_c_params = 0 */
+  }
+  output_msg (OUTPUT_SCREEN, "\n");
+  return (OK);
+}
+#endif
 /* ---------------------------------------------------------------------- */
 int
 run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
@@ -2176,7 +2296,14 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
       while (flag != SUCCESS)
       {
 	sum_t += cvode_last_good_time;
-	fprintf(stderr, "mpi_myself: %d\tCell: %d\tThrough: %e\n", phreeqc_mpi_myself, cell_no, sum_t);
+	sprintf(error_string, "CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...", (int) iopt[NST], cell_no, sum_t, iter + 1);
+	output_msg(OUTPUT_STDERR, "%s\n", error_string);
+	if (state == PHAST) output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
+
+#ifdef DEBUG_KINETICS
+	 if (iter > 5) dump_kinetics_stderr(cell_no);
+#endif
+
 	cvode_last_good_time = 0;
 	if (++iter >= kinetics_ptr->bad_step_max)
 	{
@@ -2192,12 +2319,12 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	  iopt[j] = 0;
 	  ropt[j] = 0;
 	}
+	CVodeFree (kinetics_cvode_mem);	/* Free the CVODE problem memory */
 	iopt[MXSTEP] = kinetics_ptr->cvode_steps;
 	iopt[MAXORD] = kinetics_ptr->cvode_order;
-	CVodeFree (kinetics_cvode_mem);	/* Free the CVODE problem memory */
 	kinetics_cvode_mem =
 	  CVodeMalloc (n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
-		       &reltol, kinetics_abstol, NULL, NULL, FALSE, iopt,
+		       &reltol, kinetics_abstol, NULL, NULL, TRUE, iopt,
 		       ropt, kinetics_machEnv);
 	if (kinetics_cvode_mem == NULL)
 	  malloc_error ();
