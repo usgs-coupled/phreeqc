@@ -8,6 +8,7 @@ HTML_HOME:=/z/linarcolkr/home/www/projects/GWC_coupled
 HTML_PHREEQC:=$(HTML_HOME)/phreeqc
 HTML_PHREEQCI:=$(HTML_HOME)/phreeqci
 HTML_PHAST:=$(HTML_HOME)/phast
+HTML_NETPATH:=$(HTML_HOME)/netpath
 
 #PhreeqcI version
 
@@ -126,6 +127,16 @@ WPHAST_SVN:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" | s
 WPHAST_SIZE:=$(shell ls -s -h "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$1}')
 WPHAST_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$6,$$7,$$8}')
 
+#Netpath version
+
+NETPATHXL_DIR:=$(CHARLTON)/netpathxl
+NETPATHXL_PUB_DIR:=$(FTP_CHARLTON)/netpathxl
+NETPATHXL_FILE:=$(shell cd "$(NETPATHXL_DIR)"; ls -t NetpathXL*.msi | awk '{if (NR == 1) {print}}')
+NETPATHXL_VERSION:=$(shell echo $(NETPATHXL_FILE) | sed "s/NetpathXL-//" | sed "s/.msi//" )
+NETPATHXL_SVN:=$(shell echo $(NETPATHXL_FILE) | sed "s/NetpathXL-//" | sed "s/.msi//" | sed "s/^.*-//")
+NETPATHXL_SIZE:=$(shell ls -s -h "$(NETPATHXL_DIR)/$(NETPATHXL_FILE)" | awk '{print $$1}')
+NETPATHXL_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(NETPATHXL_DIR)/$(NETPATHXL_FILE)" | awk '{print $$6,$$7,$$8}')
+
 SED_ARGS= \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
 	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^" \
@@ -191,13 +202,20 @@ SED_ARGS= \
 	-e "s^@WPHAST_VERSION@^$(WPHAST_VERSION)^" \
 	-e "s^@WPHAST_SVN@^$(WPHAST_SVN)^" \
 	-e "s^@WPHAST_DATE@^$(WPHAST_DATE)^" \
-	-e "s^@WPHAST_SIZE@^$(WPHAST_SIZE)^" 
+	-e "s^@WPHAST_SIZE@^$(WPHAST_SIZE)^" \
+	-e "s^@NETPATHXL_PUB_DIR@^$(NETPATHXL_PUB_DIR)^"  \
+	-e "s^@NETPATHXL_FILE@^$(NETPATHXL_FILE)^" \
+	-e "s^@NETPATHXL_VERSION@^$(NETPATHXL_VERSION)^" \
+	-e "s^@NETPATHXL_SVN@^$(NETPATHXL_SVN)^" \
+	-e "s^@NETPATHXL_DATE@^$(NETPATHXL_DATE)^" \
+	-e "s^@NETPATHXL_SIZE@^$(NETPATHXL_SIZE)^" 
 
 
 trial:
 	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
+	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
 
 web: 
 # PHREEQC
@@ -228,6 +246,10 @@ web:
 	cp -f $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
 	cp -f $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
 
+# NETPATH
+	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
+	cp -f web_netpath_index.html $(HTML_NETPATH)/index.html 
+	cp -f $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
 
 #	mkdir -p temp
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) temp
