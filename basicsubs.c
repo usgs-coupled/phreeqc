@@ -19,7 +19,7 @@ LDBLE sys_tot;
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-activity (char *species_name)
+activity (const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
   struct species *s_ptr;
@@ -98,7 +98,7 @@ calc_SC (void)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_logk_n (char *name)
+calc_logk_n (const char *name)
 /* ---------------------------------------------------------------------- */
 {
   char token[MAX_LENGTH];
@@ -127,7 +127,7 @@ calc_logk_n (char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_logk_p (char *name)
+calc_logk_p (const char *name)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;
@@ -154,7 +154,7 @@ calc_logk_p (char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_logk_s (char *name)
+calc_logk_s (const char *name)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -180,7 +180,7 @@ calc_logk_s (char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_surface_charge (char *surface_name)
+calc_surface_charge (const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
   char token[MAX_LENGTH], token1[MAX_LENGTH];
@@ -224,7 +224,7 @@ calc_surface_charge (char *surface_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-diff_layer_total (char *total_name, char *surface_name)
+diff_layer_total (const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -512,7 +512,7 @@ diff_layer_total (char *total_name, char *surface_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-equi_phase (char *phase_name)
+equi_phase (const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;
@@ -555,7 +555,7 @@ equi_phase (char *phase_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-find_gas_comp (char *gas_comp_name)
+find_gas_comp (const char *gas_comp_name)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -574,7 +574,7 @@ find_gas_comp (char *gas_comp_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-find_misc1 (char *s_s_name)
+find_misc1 (const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
   int j;
@@ -600,7 +600,7 @@ find_misc1 (char *s_s_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-find_misc2 (char *s_s_name)
+find_misc2 (const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
   int j;
@@ -626,7 +626,7 @@ find_misc2 (char *s_s_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-find_s_s_comp (char *s_s_comp_name)
+find_s_s_comp (const char *s_s_comp_name)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;
@@ -656,7 +656,7 @@ find_s_s_comp (char *s_s_comp_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-get_calculate_value (char *name)
+get_calculate_value (const char *name)
 /* ---------------------------------------------------------------------- */
 /*
  *   Gets value from a calclate_value structure
@@ -695,7 +695,7 @@ get_calculate_value (char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-kinetics_moles (char *kinetics_name)
+kinetics_moles (const char *kinetics_name)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -719,7 +719,7 @@ kinetics_moles (char *kinetics_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-log_activity (char *species_name)
+log_activity (const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
   struct species *s_ptr;
@@ -748,7 +748,7 @@ log_activity (char *species_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-log_molality (char *species_name)
+log_molality (const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
   struct species *s_ptr;
@@ -777,7 +777,7 @@ log_molality (char *species_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-molality (char *species_name)
+molality (const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
   struct species *s_ptr;
@@ -798,7 +798,7 @@ molality (char *species_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-saturation_ratio (char *phase_name)
+saturation_ratio (const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
   struct rxn_token *rxn_ptr;
@@ -829,7 +829,7 @@ saturation_ratio (char *phase_name)
 
 /* ---------------------------------------------------------------------- */
 int
-saturation_index (char *phase_name, LDBLE * iap, LDBLE * si)
+saturation_index (const char *phase_name, LDBLE * iap, LDBLE * si)
 /* ---------------------------------------------------------------------- */
 {
   struct rxn_token *rxn_ptr;
@@ -862,7 +862,7 @@ saturation_index (char *phase_name, LDBLE * iap, LDBLE * si)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-sum_match_gases (char *mytemplate, char *name)
+sum_match_gases (const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -901,7 +901,7 @@ sum_match_gases (char *mytemplate, char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-sum_match_species (char *mytemplate, char *name)
+sum_match_species (const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -937,7 +937,7 @@ sum_match_species (char *mytemplate, char *name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-sum_match_s_s (char *mytemplate, char *name)
+sum_match_s_s (const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;
@@ -984,55 +984,9 @@ sum_match_s_s (char *mytemplate, char *name)
   return (tot);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE
-sum_match_s_s (char *template, char *name)
-/* ---------------------------------------------------------------------- */
-{
-  int i, j;
-  LDBLE tot;
-  struct elt_list *next_elt;
-
-  if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
-    return (0);
-  tot = 0;
-  for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
-  {
-    for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
-    {
-      if (match_elts_in_species
-	  (use.s_s_assemblage_ptr->s_s[j].comps[i].phase->formula,
-	   template) == TRUE)
-      {
-	if (name == NULL)
-	{
-	  tot += use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
-	}
-	else
-	{
-	  for (next_elt =
-	       use.s_s_assemblage_ptr->s_s[j].comps[i].phase->next_elt;
-	       next_elt->elt != NULL; next_elt++)
-	  {
-	    if (strcmp (next_elt->elt->name, name) == 0)
-	    {
-	      tot +=
-		next_elt->coef *
-		use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
-	      break;
-	    }
-	  }
-	}
-      }
-    }
-  }
-  return (tot);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int
-match_elts_in_species (char *name, char *mytemplate)
+match_elts_in_species (const char *name, const char *mytemplate)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1287,7 +1241,7 @@ extract_bracket (char **string, char *bracket_string)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-surf_total (char *total_name, char *surface_name)
+surf_total (const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1371,7 +1325,7 @@ surf_total (char *total_name, char *surface_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-total (char *total_name)
+total (const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
   struct master *master_ptr;
@@ -1437,7 +1391,7 @@ total (char *total_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-system_total (char *total_name, LDBLE * count, char ***names, char ***types,
+system_total (const char *total_name, LDBLE * count, char ***names, char ***types,
 	      LDBLE ** moles)
 /* ---------------------------------------------------------------------- */
 {
@@ -1844,7 +1798,7 @@ system_total_s_s (void)
 
 /* ---------------------------------------------------------------------- */
 int
-system_total_elt (char *total_name)
+system_total_elt (const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2095,7 +2049,7 @@ system_total_elt (char *total_name)
 
 /* ---------------------------------------------------------------------- */
 int
-system_total_elt_secondary (char *total_name)
+system_total_elt_secondary (const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2364,7 +2318,7 @@ system_total_elt_secondary (char *total_name)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-solution_sum_secondary (char *total_name)
+solution_sum_secondary (const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
 /*

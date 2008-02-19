@@ -1233,7 +1233,7 @@ convert_isotope (struct master_isotope * master_isotope_ptr, LDBLE ratio)
 
 /* ---------------------------------------------------------------------- */
 struct master_isotope *
-master_isotope_store (char *name, int replace_if_found)
+master_isotope_store (const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1259,11 +1259,13 @@ master_isotope_store (char *name, int replace_if_found)
   int n;
   struct master_isotope *master_isotope_ptr;
   ENTRY item, *found_item;
+  char token[MAX_LENGTH];
 /*
  *   Search list
  */
+  strcpy(token, name);
 
-  item.key = name;
+  item.key = token;
   item.data = NULL;
   found_item = hsearch_multi (master_isotope_hash_table, item, FIND);
 
@@ -1291,7 +1293,7 @@ master_isotope_store (char *name, int replace_if_found)
     master_isotope_ptr = master_isotope[n];
   }
   /* set name and z in pointer in master_isotope structure */
-  master_isotope_ptr->name = string_hsave (name);
+  master_isotope_ptr->name = string_hsave (token);
 /*
  *   Update hash table
  */
@@ -1349,7 +1351,7 @@ master_isotope_init (struct master_isotope *master_isotope_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct master_isotope *
-master_isotope_search (char *name)
+master_isotope_search (const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1364,10 +1366,13 @@ master_isotope_search (char *name)
  */
   struct master_isotope *master_isotope_ptr;
   ENTRY item, *found_item;
+  char token[MAX_LENGTH];
 /*
  *   Search list
  */
-  item.key = name;
+  strcpy(token, name);
+
+  item.key = token;
   item.data = NULL;
   found_item = hsearch_multi (master_isotope_hash_table, item, FIND);
 
@@ -1385,7 +1390,7 @@ master_isotope_search (char *name)
 
 /* ---------------------------------------------------------------------- */
 struct calculate_value *
-calculate_value_store (char *name, int replace_if_found)
+calculate_value_store (const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1507,7 +1512,7 @@ calculate_value_init (struct calculate_value *calculate_value_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct calculate_value *
-calculate_value_search (char *name)
+calculate_value_search (const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1570,7 +1575,7 @@ calculate_value_free (struct calculate_value *calculate_value_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_ratio *
-isotope_ratio_store (char *name, int replace_if_found)
+isotope_ratio_store (const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1690,7 +1695,7 @@ isotope_ratio_init (struct isotope_ratio *isotope_ratio_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_ratio *
-isotope_ratio_search (char *name)
+isotope_ratio_search (const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1729,7 +1734,7 @@ isotope_ratio_search (char *name)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_alpha *
-isotope_alpha_store (char *name, int replace_if_found)
+isotope_alpha_store (const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1848,7 +1853,7 @@ isotope_alpha_init (struct isotope_alpha *isotope_alpha_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_alpha *
-isotope_alpha_search (char *name)
+isotope_alpha_search (const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*

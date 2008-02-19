@@ -401,6 +401,9 @@ clean_up (void)
   cmd_free ();
   change_surf = (struct Change_Surf *) free_check_null (change_surf);
 
+/* iso_defaults */
+  iso_defaults = (struct iso *) free_check_null(iso_defaults);
+
 /* miscellaneous work space */
 
   elt_list = (struct elt_list *) free_check_null (elt_list);
@@ -577,7 +580,7 @@ element_compare (const void *ptr1, const void *ptr2)
 
 /* ---------------------------------------------------------------------- */
 struct element *
-element_store ( char *element)
+element_store (const char *element)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -599,10 +602,13 @@ element_store ( char *element)
   int n;
   struct element *elts_ptr;
   ENTRY item, *found_item;
+  char token[MAX_LENGTH];
 /*
  *   Search list
  */
-  item.key = element;
+  strcpy(token, element);
+
+  item.key = token;
   item.data = NULL;
   found_item = hsearch_multi (elements_hash_table, item, FIND);
   if (found_item != NULL)
@@ -619,7 +625,7 @@ element_store ( char *element)
   if (elements[count_elements] == NULL)
     malloc_error ();
   /* set name pointer in elements structure */
-  elements[count_elements]->name = string_hsave (element);
+  elements[count_elements]->name = string_hsave (token);
   /* set return value */
   elements[count_elements]->master = NULL;
   elements[count_elements]->primary = NULL;
@@ -4535,7 +4541,7 @@ s_init (struct species *s_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct species *
-s_search (char *name)
+s_search (const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -4551,8 +4557,10 @@ s_search (char *name)
  */
   struct species *s_ptr;
   ENTRY item, *found_item;
-
-  item.key = name;
+  char safe_name[MAX_LENGTH];
+  
+  strcpy (safe_name, name);
+  item.key = safe_name;
   item.data = NULL;
   found_item = hsearch_multi (species_hash_table, item, FIND);
   if (found_item != NULL)
@@ -6020,7 +6028,7 @@ surface_bsearch (int k, int *n)
 
 /* ---------------------------------------------------------------------- */
 struct master *
-surface_get_psi_master (char *name, int plane)
+surface_get_psi_master (const char *name, int plane)
 /* ---------------------------------------------------------------------- */
 {
   struct master *master_ptr;

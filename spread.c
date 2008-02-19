@@ -61,17 +61,7 @@ read_solution_spread (void)
   int spread_lines;
   char token[MAX_LENGTH], token1[MAX_LENGTH];
   char *ptr;
-  struct defaults defaults = {
-    25,
-    1,
-    "mmol/kgw",
-    "pe",
-    7,
-    4,
-    1,
-    1,
-    iso_defaults,
-  };
+  struct defaults soln_defaults;
   int return_value, opt;
   char *next_char;
   const char *opt_list[] = {
@@ -93,17 +83,29 @@ read_solution_spread (void)
   int count_opt_list = 14;
   if (svnid == NULL)
     fprintf (stderr, " ");
+/*
+ * Initialize defaults
+ */
+  soln_defaults.temp = 25;
+  soln_defaults.density = 1.0;
+  soln_defaults.units = string_hsave("mmol/kgw");
+  soln_defaults.redox = string_hsave("pe");
+  soln_defaults.ph = 7.0;
+  soln_defaults.pe = 4.0;
+  soln_defaults.water = 1.0;
+
+  /* fill in soln_defaults.iso */
+  soln_defaults.count_iso = count_iso_defaults;
+  soln_defaults.iso = (struct iso *) PHRQ_malloc ((size_t) soln_defaults.count_iso *
+						  sizeof (struct iso));
+  if (soln_defaults.iso == NULL)
+    malloc_error ();
+  /* all iso[i].name is hsave'd, so no conflicts */
+  memcpy (soln_defaults.iso, iso_defaults,
+	  (size_t) soln_defaults.count_iso * sizeof (struct iso));
 
   heading = NULL;
   units = NULL;
-  defaults.count_iso = count_iso_defaults;
-  defaults.iso =
-    (struct iso *) PHRQ_malloc ((size_t) defaults.count_iso *
-				sizeof (struct iso));
-  if (defaults.iso == NULL)
-    malloc_error ();
-  memcpy (defaults.iso, iso_defaults,
-	  (size_t) defaults.count_iso * sizeof (struct iso));
   return_value = UNKNOWN;
   spread_lines = 0;
 /*
@@ -300,7 +302,7 @@ read_solution_spread (void)
 	  break;
 	}
       }
-      spread_row_to_solution (heading, units, row_ptr, defaults);
+      spread_row_to_solution (heading, units, row_ptr, soln_defaults);
 #ifdef PHREEQCI_GUI
       add_row (row_ptr);
 #endif
@@ -308,11 +310,11 @@ read_solution_spread (void)
       break;
     case 0:			/* temperature */
     case 1:
-      sscanf (next_char, SCANFORMAT, &(defaults.temp));
+      sscanf (next_char, SCANFORMAT, &(soln_defaults.temp));
       break;
     case 2:			/* density */
     case 3:
-      sscanf (next_char, SCANFORMAT, &(defaults.density));
+      sscanf (next_char, SCANFORMAT, &(soln_defaults.density));
       break;
     case 4:			/* units */
     case 8:			/* unit */
@@ -320,7 +322,7 @@ read_solution_spread (void)
 	break;
       if (check_units (token, FALSE, FALSE, NULL, TRUE) == OK)
       {
-	defaults.units = string_hsave (token);
+	soln_defaults.units = string_hsave (token);
       }
       else
       {
@@ -332,7 +334,7 @@ read_solution_spread (void)
 	break;
       if (parse_couple (token) == OK)
       {
-	defaults.redox = string_hsave (token);
+	soln_defaults.redox = string_hsave (token);
       }
       else
       {
@@ -341,7 +343,7 @@ read_solution_spread (void)
       break;
     case 6:			/* ph */
       copy_token (token, &next_char, &l);
-      sscanf (token, SCANFORMAT, &(defaults.ph));
+      sscanf (token, SCANFORMAT, &(soln_defaults.ph));
       if (copy_token (token, &next_char, &l) != EMPTY)
       {
 	warning_msg
@@ -350,7 +352,7 @@ read_solution_spread (void)
       break;
     case 7:			/* pe */
       copy_token (token, &next_char, &l);
-      sscanf (token, SCANFORMAT, &(defaults.pe));
+      sscanf (token, SCANFORMAT, &(soln_defaults.pe));
       if (copy_token (token, &next_char, &l) != EMPTY)
       {
 	warning_msg
@@ -368,25 +370,25 @@ read_solution_spread (void)
 	error_msg (error_string, CONTINUE);
 	continue;
       }
-      for (i = 0; i < defaults.count_iso; i++)
+      for (i = 0; i < soln_defaults.count_iso; i++)
       {
-	if (strcmp (token, defaults.iso[i].name) == 0)
+	if (strcmp (token, soln_defaults.iso[i].name) == 0)
 	{
 	  break;
 	}
       }
-      if (i == defaults.count_iso)
+      if (i == soln_defaults.count_iso)
       {
-	defaults.iso =
-	  (struct iso *) PHRQ_realloc (defaults.iso,
+	soln_defaults.iso =
+	  (struct iso *) PHRQ_realloc (soln_defaults.iso,
 				       (size_t) (i +
 						 1) * sizeof (struct iso));
-	if (defaults.iso == NULL)
+	if (soln_defaults.iso == NULL)
 	  malloc_error ();
-	defaults.iso[i].name = string_duplicate (token);
-	defaults.iso[i].value = NAN;
-	defaults.iso[i].uncertainty = NAN;
-	defaults.count_iso++;
+	soln_defaults.iso[i].name = string_hsave (token);
+	soln_defaults.iso[i].value = NAN;
+	soln_defaults.iso[i].uncertainty = NAN;
+	soln_defaults.count_iso++;
       }
 
       /* read and store isotope ratio uncertainty */
@@ -402,12 +404,12 @@ read_solution_spread (void)
 	}
 	else
 	{
-	  sscanf (token, SCANFORMAT, &(defaults.iso[i].uncertainty));
+	  sscanf (token, SCANFORMAT, &(soln_defaults.iso[i].uncertainty));
 	}
       }
       else
       {
-	defaults.iso[i].uncertainty = NAN;
+	soln_defaults.iso[i].uncertainty = NAN;
       }
       break;
     case 10:			/* water */
@@ -421,7 +423,7 @@ read_solution_spread (void)
       }
       else
       {
-	sscanf (token, SCANFORMAT, &(defaults.water));
+	sscanf (token, SCANFORMAT, &(soln_defaults.water));
       }
       break;
     case 9:			/* isotope */
@@ -433,25 +435,25 @@ read_solution_spread (void)
 	error_msg (error_string, CONTINUE);
 	continue;
       }
-      for (i = 0; i < defaults.count_iso; i++)
+      for (i = 0; i < soln_defaults.count_iso; i++)
       {
-	if (strcmp (token, defaults.iso[i].name) == 0)
+	if (strcmp (token, soln_defaults.iso[i].name) == 0)
 	{
 	  break;
 	}
       }
-      if (i == defaults.count_iso)
+      if (i == soln_defaults.count_iso)
       {
-	defaults.iso =
-	  (struct iso *) PHRQ_realloc (defaults.iso,
+	soln_defaults.iso =
+	  (struct iso *) PHRQ_realloc (soln_defaults.iso,
 				       (size_t) (i +
 						 1) * sizeof (struct iso));
-	if (defaults.iso == NULL)
+	if (soln_defaults.iso == NULL)
 	  malloc_error ();
-	defaults.iso[i].name = string_duplicate (token);
-	defaults.iso[i].value = NAN;
-	defaults.iso[i].uncertainty = NAN;
-	defaults.count_iso++;
+	soln_defaults.iso[i].name = string_hsave (token);
+	soln_defaults.iso[i].value = NAN;
+	soln_defaults.iso[i].uncertainty = NAN;
+	soln_defaults.count_iso++;
       }
       /* read and store isotope ratio */
       if (copy_token (token, &next_char, &l) != DIGIT)
@@ -462,7 +464,7 @@ read_solution_spread (void)
 	error_msg (error_string, CONTINUE);
 	break;
       }
-      sscanf (token, SCANFORMAT, &(defaults.iso[i].value));
+      sscanf (token, SCANFORMAT, &(soln_defaults.iso[i].value));
       /* read and store isotope ratio uncertainty */
       if ((j = copy_token (token, &next_char, &l)) != EMPTY)
       {
@@ -476,7 +478,7 @@ read_solution_spread (void)
 	}
 	else
 	{
-	  sscanf (token, SCANFORMAT, &(defaults.iso[i].uncertainty));
+	  sscanf (token, SCANFORMAT, &(soln_defaults.iso[i].uncertainty));
 	}
       }
       break;
@@ -498,16 +500,12 @@ read_solution_spread (void)
     g_spread_sheet.heading = copy_row (heading);
   if (units)
     g_spread_sheet.units = copy_row (units);
-  copy_defaults (&g_spread_sheet.defaults, &defaults);
+  copy_defaults (&g_spread_sheet.defaults, &soln_defaults);
 #endif
   spread_row_free (heading);
   spread_row_free (units);
-  /* free non-default iso names */
-  for (i = count_iso_defaults; i < defaults.count_iso; i++)
-  {
-    defaults.iso[i].name = (char *) free_check_null (defaults.iso[i].name);
-  }
-  defaults.iso = (struct iso *) free_check_null (defaults.iso);
+
+  soln_defaults.iso = (struct iso *) free_check_null (soln_defaults.iso);
   return (return_value);
 }
 

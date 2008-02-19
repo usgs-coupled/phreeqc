@@ -858,7 +858,7 @@ VAXtime (s)
 
 
 
-
+#ifdef SKIP
 /* SUN Berkeley Pascal extensions */
 Void
 P_sun_argv (register char *s, register int len, register int n)
@@ -874,7 +874,7 @@ P_sun_argv (register char *s, register int len, register int n)
   while (--len >= 0)
     *s++ = ' ';
 }
-
+#endif
 
 
 
@@ -1004,7 +1004,7 @@ int
 _Escape (int code)
 {
   char buf[100];
-  char token[200];
+  char token[200], empty[2] = {"\0"};
 
   P_escapecode = code;
   if (__top_jb)
@@ -1019,14 +1019,14 @@ _Escape (int code)
   if (code == -1)
   {
     error_msg ("Fatal error in Basic interpreter.", CONTINUE);
-    sprintf (token, "%s", _ShowEscape (buf, P_escapecode, P_ioresult, ""));
+    sprintf (token, "%s", _ShowEscape (buf, P_escapecode, P_ioresult, empty));
     error_msg (token, STOP);
     exit (EXIT_FAILURE);
   }
   /* fprintf(stderr, "%s\n", _ShowEscape(buf, P_escapecode, P_ioresult, "")); */
   /* exit(EXIT_FAILURE); */
   error_msg ("Fatal error in Basic interpreter.", CONTINUE);
-  sprintf (token, "%s", _ShowEscape (buf, P_escapecode, P_ioresult, ""));
+  sprintf (token, "%s", _ShowEscape (buf, P_escapecode, P_ioresult, empty));
   error_msg (token, STOP);
   return (1);
 }
