@@ -977,6 +977,7 @@ struct iso
   LDBLE value;
   LDBLE uncertainty;
 };
+#ifdef SKIP
 #ifdef MAINSUBS
 struct iso iso_defaults[] = {
   {"13C", -10, 1},
@@ -995,6 +996,10 @@ int count_iso_defaults = (sizeof (iso_defaults) / sizeof (struct iso));
 extern struct iso iso_defaults[];
 extern int count_iso_defaults;
 #endif
+#endif
+EXTERNAL struct iso *iso_defaults;
+EXTERNAL int count_iso_defaults;
+
 /*----------------------------------------------------------------------
  *   Global solution
  *---------------------------------------------------------------------- */
@@ -1093,9 +1098,14 @@ struct key
   char *name;
   int keycount;
 };
+struct const_key
+{
+  const char *name;
+  int keycount;
+};
 #ifdef MAINSUBS
 /* list of valid keywords */
-struct key keyword[] = {
+struct const_key keyword[] = {
   {"eof", 0},
   {"end", 0},
   {"solution_species", 0},
@@ -1170,9 +1180,9 @@ struct key keyword[] = {
   {"reaction_temperature_raw", 0}
 #endif /* PHREEQC_CPP */
 };
-int NKEYS = (sizeof (keyword) / sizeof (struct key));	/* Number of valid keywords */
+int NKEYS = (sizeof (keyword) / sizeof (struct const_key));	/* Number of valid keywords */
 #else
-extern struct key keyword[];
+extern struct const_key keyword[];
 extern int NKEYS;
 #endif
 EXTERNAL struct key *keyword_hash;

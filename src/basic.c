@@ -261,7 +261,8 @@ Static void disposetokens (tokenrec ** tok);
    $range off$
 $end$*/
 static HashTable *command_hash_table;
-static const struct key command[] = {
+
+static const struct const_key command[] = {
   {"and", tokand},
   {"or", tokor},
   {"xor", tokxor},
@@ -383,7 +384,7 @@ static const struct key command[] = {
   {"porevolume", tokporevolume},
   {"sc", toksc}
 };
-static int NCMDS = (sizeof (command) / sizeof (struct key));
+static int NCMDS = (sizeof (command) / sizeof (struct const_key));
 
 /* ---------------------------------------------------------------------- */
 void
@@ -392,6 +393,7 @@ cmd_initialize (void)
 {
   ENTRY item, *found_item;
   int i;
+  char *token;
 /*
  *   create hash table
  */
@@ -401,7 +403,8 @@ cmd_initialize (void)
  */
   for (i = 0; i < NCMDS; i++)
   {
-    item.key = command[i].name;
+    token = string_hsave(command[i].name);
+    item.key = token;
     item.data = (void *) &command[i];
     found_item = hsearch_multi (command_hash_table, item, ENTER);
     if (found_item == NULL)
@@ -2060,7 +2063,7 @@ parseinput (tokenrec ** buf)
 }
 
 Static void
-errormsg (Char * s)
+errormsg (const Char * s)
 {
 #ifdef SKIP
   printf ("\007%s", s);

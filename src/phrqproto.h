@@ -5,45 +5,43 @@ static char const svnidphrqproto[] =
 /* advection.c */
 int advection (void);
 /* basic.c */
-LDBLE system_total (char *total_name, LDBLE * count, char ***names,
-		    char ***types, LDBLE ** moles);
 int basic_main (char *commands);
 void cmd_initialize (void);
 void cmd_free (void);
 int basic_compile (char *commands, void **lnbase, void **vbase,
 		   void **lpbase);
 int basic_run (char *commands, void *lnbase, void *vbase, void *lpbase);
+int basic_init(void);
+
 /* basicsubs.c */
-LDBLE activity (char *species_name);
+LDBLE activity (const char *species_name);
 LDBLE calc_SC (void);
-LDBLE calc_logk_n (char *name);
-LDBLE calc_logk_p (char *name);
-LDBLE calc_logk_s (char *name);
-LDBLE calc_surface_charge (char *surface_name);
-LDBLE diff_layer_total (char *total_name, char *surface_name);
-LDBLE equi_phase (char *phase_name);
-LDBLE find_gas_comp (char *gas_comp_name);
-LDBLE find_misc1 (char *s_s_name);
-LDBLE find_misc2 (char *s_s_name);
-LDBLE find_s_s_comp (char *s_s_comp_name);
-LDBLE get_calculate_value (char *name);
-LDBLE kinetics_moles (char *kinetics_name);
-LDBLE log_activity (char *species_name);
-LDBLE log_molality (char *species_name);
-LDBLE molality (char *species_name);
-int reformat_surf (char *comp_name, LDBLE fraction, char *new_comp_name,
-		   LDBLE new_Dw, int cell_no);
-LDBLE saturation_ratio (char *phase_name);
-int saturation_index (char *phase_name, LDBLE * iap, LDBLE * si);
-LDBLE solution_sum_secondary (char *total_name);
-LDBLE sum_match_gases (char *stemplate, char *name);
-LDBLE sum_match_species (char *stemplate, char *name);
-LDBLE sum_match_s_s (char *stemplate, char *name);
-int match_elts_in_species (char *name, char *stemplate);
+LDBLE calc_logk_n (const char *name);
+LDBLE calc_logk_p (const char *name);
+LDBLE calc_logk_s (const char *name);
+LDBLE calc_surface_charge (const char *surface_name);
+LDBLE diff_layer_total (const char *total_name, const char *surface_name);
+LDBLE equi_phase (const char *phase_name);
+LDBLE find_gas_comp (const char *gas_comp_name);
+LDBLE find_misc1 (const char *s_s_name);
+LDBLE find_misc2 (const char *s_s_name);
+LDBLE find_s_s_comp (const char *s_s_comp_name);
+LDBLE get_calculate_value (const char *name);
+LDBLE kinetics_moles (const char *kinetics_name);
+LDBLE log_activity (const char *species_name);
+LDBLE log_molality (const char *species_name);
+LDBLE molality (const char *species_name);
+LDBLE saturation_ratio (const char *phase_name);
+int saturation_index (const char *phase_name, LDBLE * iap, LDBLE * si);
+LDBLE solution_sum_secondary (const char *total_name);
+LDBLE sum_match_gases (const char *stemplate, const char *name);
+LDBLE sum_match_species (const char *stemplate, const char *name);
+LDBLE sum_match_s_s (const char *stemplate, const char *name);
+int match_elts_in_species (const char *name, const char *stemplate);
 int extract_bracket (char **string, char *bracket_string);
-LDBLE surf_total (char *total_name, char *surface_name);
+LDBLE surf_total (const char *total_name, const char *surface_name);
 int system_species_compare (const void *ptr1, const void *ptr2);
-LDBLE system_total (char *total_name, LDBLE * count, char ***names,
+LDBLE system_total (const char *total_name, LDBLE * count, char ***names,
 		    char ***types, LDBLE ** moles);
 int system_total_elements (void);
 int system_total_si (void);
@@ -52,9 +50,9 @@ int system_total_ex (void);
 int system_total_surf (void);
 int system_total_gas (void);
 int system_total_s_s (void);
-int system_total_elt (char *total_name);
-int system_total_elt_secondary (char *total_name);
-LDBLE total (char *total_name);
+int system_total_elt (const char *total_name);
+int system_total_elt_secondary (const char *total_name);
+LDBLE total (const char *total_name);
 
 /* cl1.c */
 int cl1 (int k, int l, int m, int n,
@@ -97,19 +95,19 @@ int from_pct (struct master_isotope *master_isotope_ptr, LDBLE major_total);
 int from_tu (struct master_isotope *master_isotope_ptr);
 struct calculate_value *calculate_value_alloc (void);
 int calculate_value_free (struct calculate_value *calculate_value_ptr);
-struct calculate_value *calculate_value_search (char *name);
-struct calculate_value *calculate_value_store (char *name,
+struct calculate_value *calculate_value_search (const char *name);
+struct calculate_value *calculate_value_store (const char *name,
 					       int replace_if_found);
 struct isotope_alpha *isotope_alpha_alloc (void);
-struct isotope_alpha *isotope_alpha_search (char *name);
-struct isotope_alpha *isotope_alpha_store (char *name, int replace_if_found);
+struct isotope_alpha *isotope_alpha_search (const char *name);
+struct isotope_alpha *isotope_alpha_store (const char *name, int replace_if_found);
 struct isotope_ratio *isotope_ratio_alloc (void);
-struct isotope_ratio *isotope_ratio_search (char *name);
-struct isotope_ratio *isotope_ratio_store (char *name, int replace_if_found);
-struct master_isotope *master_isotope_store (char *name,
+struct isotope_ratio *isotope_ratio_search (const char *name);
+struct isotope_ratio *isotope_ratio_store (const char *name, int replace_if_found);
+struct master_isotope *master_isotope_store (const char *name,
 					     int replace_if_found);
 struct master_isotope *master_isotope_alloc (void);
-struct master_isotope *master_isotope_search (char *name);
+struct master_isotope *master_isotope_search (const char *name);
 int print_initial_solution_isotopes (void);
 int print_isotope_ratios (void);
 int print_isotope_alphas (void);
@@ -272,7 +270,7 @@ int copier_free (struct copier *copier_ptr);
 int copier_init (struct copier *copier_ptr);
 int copy_entities (void);
 int element_compare (const void *ptr1, const void *ptr2);
-struct element *element_store (char *element);
+struct element *element_store (const char *element);
 int elt_list_combine (void);
 int elt_list_compare (const void *ptr1, const void *ptr2);
 struct elt_list *elt_list_dup (struct elt_list *elt_list_ptr_old);
@@ -416,7 +414,7 @@ int rxn_print (struct reaction *rxn_ptr);
 
 int s_compare (const void *ptr1, const void *ptr2);
 int s_delete (int i);
-struct species *s_search (char *name);
+struct species *s_search (const char *name);
 struct species *s_store (char *name, LDBLE z, int replace_if_found);
 
 struct s_s_assemblage *s_s_assemblage_alloc (void);
@@ -469,7 +467,7 @@ int species_list_sort (void);
 struct Change_Surf *change_surf_alloc (int count);
 struct surface *surface_alloc (void);
 struct surface *surface_bsearch (int k, int *n);
-struct master *surface_get_psi_master (char *name, int plane);
+struct master *surface_get_psi_master (const char *name, int plane);
 int surface_comp_compare (const void *ptr1, const void *ptr2);
 int surface_compare (const void *ptr1, const void *ptr2);
 int surface_copy (struct surface *surface_old_ptr,

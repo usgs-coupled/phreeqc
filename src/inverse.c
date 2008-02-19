@@ -47,15 +47,15 @@ static unsigned long soln_bits, phase_bits, current_bits, temp_bits;
 
 /* subroutines */
 
-static int add_to_file(char *filename, char *string);
+static int add_to_file(const char *filename, char *string);
 static int bit_print (unsigned long bits, int l);
 static int carbon_derivs (struct inverse *inv_ptr);
 static int check_isotopes (struct inverse *inv_ptr);
 static int check_solns (struct inverse *inv_ptr);
 static int count_isotope_unknowns (struct inverse *inv_ptr,
 				   struct isotope **isotope_unknowns);
-struct isotope *get_isotope (struct solution *solution_ptr, char *elt);
-static struct conc *get_total (struct solution *solution_ptr, char *elt);
+struct isotope *get_isotope (struct solution *solution_ptr, const char *elt);
+static struct conc *get_total (struct solution *solution_ptr, const char *elt);
 static int isotope_balance_equation (struct inverse *inv_ptr, int row, int n);
 static int post_mortem (void);
 static unsigned long get_bits (unsigned long bits, int position, int number);
@@ -69,10 +69,10 @@ static int phase_isotope_inequalities (struct inverse *inv_ptr);
 static int print_model (struct inverse *inv_ptr);
 static int punch_model_heading (struct inverse *inv_ptr);
 static int punch_model (struct inverse *inv_ptr);
-void print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
-void print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string);
-void print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *string, char *elt0, char *elt1, char *elt2, char *elt3, char *elt4 );
-void print_total_pat (FILE *netpath_file, char *elt, char *string);
+void print_isotope (FILE *netpath_file, struct solution *solution_ptr, const char *elt, const char *string);
+void print_total (FILE *netpath_file, struct solution *solution_ptr, const char *elt, const char *string);
+void print_total_multi (FILE *netpath_file, struct solution *solution_ptr, const char *string, const char *elt0, const char *elt1, const char *elt2, const char *elt3, const char *elt4 );
+void print_total_pat (FILE *netpath_file, const char *elt, const char *string);
 static int range (struct inverse *inv_ptr, unsigned long cur_bits);
 static int save_bad (unsigned long bits);
 static int save_good (unsigned long bits);
@@ -3964,7 +3964,7 @@ dump_netpath (struct inverse *inverse_ptr)
 }
 /* ---------------------------------------------------------------------- */
 struct conc *
-get_total (struct solution *solution_ptr, char *elt)
+get_total (struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -3978,7 +3978,7 @@ get_total (struct solution *solution_ptr, char *elt)
 }
 /* ---------------------------------------------------------------------- */
 struct isotope *
-get_isotope (struct solution *solution_ptr, char *elt)
+get_isotope (struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
   int i;
@@ -3992,7 +3992,7 @@ get_isotope (struct solution *solution_ptr, char *elt)
 
 /* ---------------------------------------------------------------------- */
 void
-print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string)
+print_total (FILE *netpath_file, struct solution *solution_ptr, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
   struct conc *tot_ptr;
@@ -4007,7 +4007,7 @@ print_total (FILE *netpath_file, struct solution *solution_ptr, char *elt, char 
 
 /* ---------------------------------------------------------------------- */
 void
-print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, char *string)
+print_isotope (FILE *netpath_file, struct solution *solution_ptr, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
   struct isotope *iso_ptr;
@@ -4021,7 +4021,7 @@ print_isotope (FILE *netpath_file, struct solution *solution_ptr, char *elt, cha
 }
 /* ---------------------------------------------------------------------- */
 void
-print_total_multi (FILE *netpath_file, struct solution *solution_ptr, char *string, char *elt0, char *elt1, char *elt2, char *elt3, char *elt4 )
+print_total_multi (FILE *netpath_file, struct solution *solution_ptr, const char *string, const char *elt0, const char *elt1, const char *elt2, const char *elt3, const char *elt4 )
 /* ---------------------------------------------------------------------- */
 {
   char elts[5][MAX_LENGTH];
@@ -4910,7 +4910,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 }
 /* ---------------------------------------------------------------------- */
 void
-print_total_pat (FILE *netpath_file, char *elt, char *string)
+print_total_pat (FILE *netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
   double d;
@@ -4944,7 +4944,7 @@ set_initial_solution (int n_user_old, int n_user_new)
 }
 /* ---------------------------------------------------------------------- */
 int
-add_to_file(char *filename, char *string)
+add_to_file(const char *filename, char *string)
 /* ---------------------------------------------------------------------- */
 {
   FILE *model_file;
