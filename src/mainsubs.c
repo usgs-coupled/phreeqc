@@ -22,11 +22,6 @@ static char const svnid[] =
 
 static int copy_use (int i);
 static int set_use (void);
-static int xexchange_save (int n_user);
-static int xgas_save (int n_user);
-static int xpp_assemblage_save (int n_user);
-static int xs_s_assemblage_save (int n_user);
-static int xsurface_save (int n_user);
 
 #ifdef PHREEQ98
 extern int phreeq98_debug;
@@ -1499,7 +1494,7 @@ saver (void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 xexchange_save (int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1621,7 +1616,7 @@ xexchange_save (int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 xgas_save (int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1710,7 +1705,7 @@ xgas_save (int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 xs_s_assemblage_save (int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1804,7 +1799,7 @@ xs_s_assemblage_save (int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 xpp_assemblage_save (int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2173,7 +2168,7 @@ xsolution_save (int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 xsurface_save (int n_user)
 /* ---------------------------------------------------------------------- */
 {
