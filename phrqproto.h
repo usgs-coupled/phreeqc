@@ -147,6 +147,11 @@ int k_temp (LDBLE tempc);
 int reactions (void);
 int saver (void);
 int xsolution_save (int k_user);
+int xexchange_save (int n_user);
+int xgas_save (int n_user);
+int xpp_assemblage_save (int n_user);
+int xs_s_assemblage_save (int n_user);
+int xsurface_save (int n_user);
 int do_initialize (void);
 int do_status (void);
 
