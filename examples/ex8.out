@@ -87,7 +87,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.940e-16
+                  Electrical balance (eq)  =   6.936e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
@@ -123,7 +123,7 @@ Zn               1.000e-07
 
 	Fix_H+           -8.00   -8.00    0.00  H+
 	H2(g)           -24.00  -27.15   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	O2(g)           -35.19  -38.08   -2.89  O2
 	Zn(OH)2(e)       -2.97    8.53   11.50  Zn(OH)2
 
@@ -148,7 +148,7 @@ Initial solution 2.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   7.815e-16
+                  Electrical balance (eq)  =   7.849e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
@@ -184,7 +184,7 @@ Zn               1.000e-04
 
 	Fix_H+           -8.00   -8.00    0.00  H+
 	H2(g)           -24.00  -27.15   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	O2(g)           -35.19  -38.08   -2.89  O2
 	Zn(OH)2(e)        0.03   11.53   11.50  Zn(OH)2
 
@@ -268,7 +268,7 @@ Hfo_w
                                        pe  =  15.095      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.994e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -1.211e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -316,7 +316,7 @@ Zn               9.967e-08
 
 	Fix_H+           -5.00   -5.00    0.00  H+
 	H2(g)           -40.19  -43.34   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -2.84   -6.10   -3.26  N2
 	NH3(g)          -58.81  -57.04    1.77  NH3
 	O2(g)            -2.81   -5.70   -2.89  O2
@@ -399,7 +399,7 @@ Hfo_w
                                        pe  =  14.809      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.995e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -6.809e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -447,7 +447,7 @@ Zn               9.910e-08
 
 	Fix_H+           -5.25   -5.25    0.00  H+
 	H2(g)           -40.12  -43.27   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -2.99   -6.25   -3.26  N2
 	NH3(g)          -58.78  -57.01    1.77  NH3
 	O2(g)            -2.96   -5.85   -2.89  O2
@@ -530,7 +530,7 @@ Hfo_w
                                        pe  =  14.523      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.996e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -3.826e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -578,7 +578,7 @@ Zn               9.758e-08
 
 	Fix_H+           -5.50   -5.50    0.00  H+
 	H2(g)           -40.05  -43.20   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.13   -6.39   -3.26  N2
 	NH3(g)          -58.74  -56.97    1.77  NH3
 	O2(g)            -3.10   -5.99   -2.89  O2
@@ -661,7 +661,7 @@ Hfo_w
                                        pe  =  14.237      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.997e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -2.146e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -709,7 +709,7 @@ Zn               9.368e-08
 
 	Fix_H+           -5.75   -5.75    0.00  H+
 	H2(g)           -39.97  -43.12   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.27   -6.53   -3.26  N2
 	NH3(g)          -58.71  -56.94    1.77  NH3
 	O2(g)            -3.24   -6.13   -2.89  O2
@@ -792,7 +792,7 @@ Hfo_w
                                        pe  =  13.952      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.997e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -1.198e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -840,7 +840,7 @@ Zn               8.452e-08
 
 	Fix_H+           -6.00   -6.00    0.00  H+
 	H2(g)           -39.90  -43.05   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.41   -6.67   -3.26  N2
 	NH3(g)          -58.67  -56.90    1.77  NH3
 	O2(g)            -3.38   -6.28   -2.89  O2
@@ -923,7 +923,7 @@ Hfo_w
                                        pe  =  13.666      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.998e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -6.569e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -971,7 +971,7 @@ Zn               6.676e-08
 
 	Fix_H+           -6.25   -6.25    0.00  H+
 	H2(g)           -39.83  -42.98   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.56   -6.82   -3.26  N2
 	NH3(g)          -58.63  -56.86    1.77  NH3
 	O2(g)            -3.53   -6.42   -2.89  O2
@@ -1054,7 +1054,7 @@ Hfo_w
                                        pe  =  13.380      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.998e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -3.400e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1102,7 +1102,7 @@ Zn               4.239e-08
 
 	Fix_H+           -6.50   -6.50    0.00  H+
 	H2(g)           -39.76  -42.91   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.70   -6.96   -3.26  N2
 	NH3(g)          -58.60  -56.83    1.77  NH3
 	O2(g)            -3.67   -6.56   -2.89  O2
@@ -1185,7 +1185,7 @@ Hfo_w
                                        pe  =  13.095      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.999e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -1.389e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1233,7 +1233,7 @@ Zn               2.112e-08
 
 	Fix_H+           -6.75   -6.75    0.00  H+
 	H2(g)           -39.69  -42.84   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.84   -7.10   -3.26  N2
 	NH3(g)          -58.56  -56.79    1.77  NH3
 	O2(g)            -3.81   -6.70   -2.89  O2
@@ -1316,7 +1316,7 @@ Hfo_w
                                        pe  =  12.809      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.999e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =   1.491e-08
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1364,7 +1364,7 @@ Zn               8.799e-09
 
 	Fix_H+           -7.00   -7.00    0.00  H+
 	H2(g)           -39.62  -42.77   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.99   -7.25   -3.26  N2
 	NH3(g)          -58.53  -56.76    1.77  NH3
 	O2(g)            -3.96   -6.85   -2.89  O2
@@ -1447,7 +1447,7 @@ Hfo_w
                                        pe  =  12.523      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   9.999e-02
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =   1.738e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1495,7 +1495,7 @@ Zn               3.336e-09
 
 	Fix_H+           -7.25   -7.25    0.00  H+
 	H2(g)           -39.55  -42.70   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.13   -7.39   -3.26  N2
 	NH3(g)          -58.49  -56.72    1.77  NH3
 	O2(g)            -4.10   -6.99   -2.89  O2
@@ -1578,7 +1578,7 @@ Hfo_w
                                        pe  =  12.237      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =   3.918e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -1626,7 +1626,7 @@ Zn               1.216e-09
 
 	Fix_H+           -7.50   -7.50    0.00  H+
 	H2(g)           -39.47  -42.62   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.27   -7.53   -3.26  N2
 	NH3(g)          -58.46  -56.69    1.77  NH3
 	O2(g)            -4.24   -7.13   -2.89  O2
@@ -1709,13 +1709,13 @@ Hfo_w
                                        pe  =  11.952      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =   7.432e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.965e-06
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.580621e+01
@@ -1757,7 +1757,7 @@ Zn               4.397e-10
 
 	Fix_H+           -7.75   -7.75    0.00  H+
 	H2(g)           -39.40  -42.55   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.41   -7.67   -3.26  N2
 	NH3(g)          -58.42  -56.65    1.77  NH3
 	O2(g)            -4.38   -7.28   -2.89  O2
@@ -1846,7 +1846,7 @@ Hfo_w
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.788e-08
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.580622e+01
@@ -1888,7 +1888,7 @@ Zn               1.626e-10
 
 	Fix_H+           -8.00   -8.00    0.00  H+
 	H2(g)           -39.33  -42.48   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.56   -7.82   -3.26  N2
 	NH3(g)          -58.38  -56.61    1.77  NH3
 	O2(g)            -4.53   -7.42   -2.89  O2
@@ -1913,9 +1913,6 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
-WARNING: Fix_H+, Pure phase with add formula has not converged.
-	 SI may be a local minimum.	Residual: 3.626412e-04
-
 Using solution 2.	
 Using surface 1.	
 Using pure phase assemblage 1.	
@@ -1935,7 +1932,7 @@ Hfo
 	  2.008e-01  sigma, C/m**2
 	  1.228e-01  psi, V
 	 -4.779e+00  -F*psi/RT
-	  8.405e-03  exp(-F*psi/RT)
+	  8.404e-03  exp(-F*psi/RT)
 	  6.000e+02  specific area, m**2/g
 	  5.400e+01  m**2 for   9.000e-02 g
 
@@ -1945,9 +1942,9 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+         2.612e-06       0.522   2.612e-06      -5.583
+	Hfo_sOH2+         2.613e-06       0.523   2.613e-06      -5.583
 	Hfo_sOH           2.054e-06       0.411   2.054e-06      -5.687
-	Hfo_sOZn+         2.964e-07       0.059   2.964e-07      -6.528
+	Hfo_sOZn+         2.962e-07       0.059   2.962e-07      -6.528
 	Hfo_sO-           3.700e-08       0.007   3.700e-08      -7.432
 
 Hfo_w         
@@ -1956,9 +1953,9 @@ Hfo_w
 	Species               Moles    Fraction    Molality    Molality
 
 	Hfo_wOH2+         1.111e-04       0.555   1.111e-04      -3.954
-	Hfo_wOH           8.734e-05       0.437   8.734e-05      -4.059
+	Hfo_wOH           8.733e-05       0.437   8.733e-05      -4.059
 	Hfo_wO-           1.573e-06       0.008   1.573e-06      -5.803
-	Hfo_wOZn+         1.320e-08       0.000   1.320e-08      -7.880
+	Hfo_wOZn+         1.319e-08       0.000   1.319e-08      -7.880
 
 -----------------------------Solution composition------------------------------
 
@@ -1971,17 +1968,17 @@ Hfo_w
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.000      Charge balance
-                                       pe  =  15.094      Adjusted to redox equilibrium
+                                       pe  =  15.095      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
-                       Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -1.210e-05
+                       Mass of water (kg)  =   1.000e-00
+                 Total alkalinity (eq/kg)  =  -1.211e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.124e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.06
-                               Iterations  =  22
+                               Iterations  =  21
                                   Total H  = 1.110122e+02
                                   Total O  = 5.580609e+01
 
@@ -1990,8 +1987,8 @@ Hfo_w
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   H+                     1.211e-05   9.996e-06    -4.917    -5.000    -0.083
-   OH-                    1.310e-09   9.980e-10    -8.883    -9.001    -0.118
+   H+                     1.211e-05   1.000e-05    -4.917    -5.000    -0.083
+   OH-                    1.310e-09   9.977e-10    -8.883    -9.001    -0.118
    H2O                    5.551e+01   9.966e-01     1.744    -0.001     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -43.349   -43.339     0.010
@@ -1999,22 +1996,22 @@ N(-3)            0.000e+00
    NH4+                   0.000e+00   0.000e+00   -52.670   -52.798    -0.128
    NH3                    0.000e+00   0.000e+00   -57.052   -57.042     0.010
 N(0)             1.543e-06
-   N2                     7.715e-07   7.895e-07    -6.113    -6.103     0.010
+   N2                     7.716e-07   7.896e-07    -6.113    -6.103     0.010
 N(3)             2.412e-13
-   NO2-                   2.412e-13   1.818e-13   -12.618   -12.740    -0.123
+   NO2-                   2.412e-13   1.818e-13   -12.618   -12.741    -0.123
 N(5)             1.000e-01
    NO3-                   1.000e-01   7.536e-02    -1.000    -1.123    -0.123
 Na               9.967e-02
    Na+                    9.967e-02   7.803e-02    -1.001    -1.108    -0.106
-   NaOH                   5.023e-11   5.140e-11   -10.299   -10.289     0.010
-O(0)             3.857e-06
+   NaOH                   5.021e-11   5.138e-11   -10.299   -10.289     0.010
+O(0)             3.858e-06
    O2                     1.929e-06   1.974e-06    -5.715    -5.705     0.010
 Zn               9.969e-05
    Zn+2                   9.969e-05   3.754e-05    -4.001    -4.426    -0.424
-   ZnOH+                  5.251e-09   4.104e-09    -8.280    -8.387    -0.107
-   Zn(OH)2                4.590e-12   4.697e-12   -11.338   -11.328     0.010
-   Zn(OH)3-               1.895e-18   1.481e-18   -17.722   -17.829    -0.107
-   Zn(OH)4-2              6.275e-26   2.340e-26   -25.202   -25.631    -0.428
+   ZnOH+                  5.249e-09   4.102e-09    -8.280    -8.387    -0.107
+   Zn(OH)2                4.587e-12   4.694e-12   -11.338   -11.328     0.010
+   Zn(OH)3-               1.893e-18   1.479e-18   -17.723   -17.830    -0.107
+   Zn(OH)4-2              6.266e-26   2.337e-26   -25.203   -25.631    -0.428
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2022,7 +2019,7 @@ Zn               9.969e-05
 
 	Fix_H+           -5.00   -5.00    0.00  H+
 	H2(g)           -40.19  -43.34   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -2.84   -6.10   -3.26  N2
 	NH3(g)          -58.81  -57.04    1.77  NH3
 	O2(g)            -2.81   -5.70   -2.89  O2
@@ -2105,7 +2102,7 @@ Hfo_w
                                        pe  =  14.809      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -6.800e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2153,7 +2150,7 @@ Zn               9.923e-05
 
 	Fix_H+           -5.25   -5.25    0.00  H+
 	H2(g)           -40.12  -43.27   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -2.99   -6.25   -3.26  N2
 	NH3(g)          -58.78  -57.01    1.77  NH3
 	O2(g)            -2.96   -5.85   -2.89  O2
@@ -2236,7 +2233,7 @@ Hfo_w
                                        pe  =  14.523      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -3.810e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2284,7 +2281,7 @@ Zn               9.832e-05
 
 	Fix_H+           -5.50   -5.50    0.00  H+
 	H2(g)           -40.05  -43.20   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.13   -6.39   -3.26  N2
 	NH3(g)          -58.74  -56.97    1.77  NH3
 	O2(g)            -3.10   -5.99   -2.89  O2
@@ -2367,7 +2364,7 @@ Hfo_w
                                        pe  =  14.237      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -2.117e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2415,7 +2412,7 @@ Zn               9.698e-05
 
 	Fix_H+           -5.75   -5.75    0.00  H+
 	H2(g)           -39.97  -43.12   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.27   -6.53   -3.26  N2
 	NH3(g)          -58.71  -56.94    1.77  NH3
 	O2(g)            -3.24   -6.13   -2.89  O2
@@ -2498,14 +2495,14 @@ Hfo_w
                                        pe  =  13.952      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -1.147e-06
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.823e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.03
-                               Iterations  =  23
+                               Iterations  =  21
                                   Total H  = 1.110123e+02
                                   Total O  = 5.580617e+01
 
@@ -2522,17 +2519,17 @@ H(0)             0.000e+00
 N(-3)            0.000e+00
    NH4+                   0.000e+00   0.000e+00   -53.527   -53.655    -0.128
    NH3                    0.000e+00   0.000e+00   -56.909   -56.899     0.010
-N(0)             4.140e-07
-   N2                     2.070e-07   2.118e-07    -6.684    -6.674     0.010
-N(3)             4.656e-13
-   NO2-                   4.656e-13   3.509e-13   -12.332   -12.455    -0.123
+N(0)             4.143e-07
+   N2                     2.072e-07   2.120e-07    -6.684    -6.674     0.010
+N(3)             4.657e-13
+   NO2-                   4.657e-13   3.510e-13   -12.332   -12.455    -0.123
 N(5)             1.000e-01
    NO3-                   1.000e-01   7.536e-02    -1.000    -1.123    -0.123
 Na               9.975e-02
    Na+                    9.975e-02   7.809e-02    -1.001    -1.107    -0.106
    NaOH                   5.025e-10   5.142e-10    -9.299    -9.289     0.010
 O(0)             1.035e-06
-   O2                     5.175e-07   5.296e-07    -6.286    -6.276     0.010
+   O2                     5.173e-07   5.294e-07    -6.286    -6.276     0.010
 Zn               9.549e-05
    Zn+2                   9.544e-05   3.594e-05    -4.020    -4.444    -0.424
    ZnOH+                  5.025e-08   3.927e-08    -7.299    -7.406    -0.107
@@ -2546,7 +2543,7 @@ Zn               9.549e-05
 
 	Fix_H+           -6.00   -6.00    0.00  H+
 	H2(g)           -39.90  -43.05   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.41   -6.67   -3.26  N2
 	NH3(g)          -58.67  -56.90    1.77  NH3
 	O2(g)            -3.38   -6.28   -2.89  O2
@@ -2629,7 +2626,7 @@ Hfo_w
                                        pe  =  13.666      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -5.666e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2677,7 +2674,7 @@ Zn               9.374e-05
 
 	Fix_H+           -6.25   -6.25    0.00  H+
 	H2(g)           -39.83  -42.98   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.56   -6.82   -3.26  N2
 	NH3(g)          -58.63  -56.86    1.77  NH3
 	O2(g)            -3.53   -6.42   -2.89  O2
@@ -2760,7 +2757,7 @@ Hfo_w
                                        pe  =  13.380      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =  -1.809e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2808,7 +2805,7 @@ Zn               9.074e-05
 
 	Fix_H+           -6.50   -6.50    0.00  H+
 	H2(g)           -39.76  -42.91   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.70   -6.96   -3.26  N2
 	NH3(g)          -58.60  -56.83    1.77  NH3
 	O2(g)            -3.67   -6.56   -2.89  O2
@@ -2891,7 +2888,7 @@ Hfo_w
                                        pe  =  13.095      Adjusted to redox equilibrium
                         Activity of water  =   0.997
                            Ionic strength  =   1.001e-01
-                       Mass of water (kg)  =   1.000e+00
+                       Mass of water (kg)  =   1.000e-00
                  Total alkalinity (eq/kg)  =   1.361e-07
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
@@ -2939,7 +2936,7 @@ Zn               8.483e-05
 
 	Fix_H+           -6.75   -6.75    0.00  H+
 	H2(g)           -39.69  -42.84   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.84   -7.10   -3.26  N2
 	NH3(g)          -58.56  -56.79    1.77  NH3
 	O2(g)            -3.81   -6.70   -2.89  O2
@@ -3070,7 +3067,7 @@ Zn               7.501e-05
 
 	Fix_H+           -7.00   -7.00    0.00  H+
 	H2(g)           -39.62  -42.77   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -3.99   -7.25   -3.26  N2
 	NH3(g)          -58.53  -56.76    1.77  NH3
 	O2(g)            -3.96   -6.85   -2.89  O2
@@ -3160,7 +3157,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -2.514e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.01
-                               Iterations  =  24
+                               Iterations  =  22
                                   Total H  = 1.110125e+02
                                   Total O  = 5.580627e+01
 
@@ -3175,19 +3172,19 @@ Hfo_w
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -42.706   -42.696     0.010
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -54.599   -54.727    -0.128
-   NH3                    0.000e+00   0.000e+00   -56.731   -56.721     0.010
-N(0)             7.993e-08
-   N2                     3.997e-08   4.090e-08    -7.398    -7.388     0.010
+   NH4+                   0.000e+00   0.000e+00   -54.597   -54.725    -0.128
+   NH3                    0.000e+00   0.000e+00   -56.730   -56.720     0.010
+N(0)             8.022e-08
+   N2                     4.011e-08   4.104e-08    -7.397    -7.387     0.010
 N(3)             1.060e-12
-   NO2-                   1.060e-12   7.986e-13   -11.975   -12.098    -0.123
+   NO2-                   1.060e-12   7.992e-13   -11.975   -12.097    -0.123
 N(5)             1.000e-01
    NO3-                   1.000e-01   7.536e-02    -1.000    -1.123    -0.123
 Na               9.985e-02
    Na+                    9.985e-02   7.817e-02    -1.001    -1.107    -0.106
    NaOH                   8.944e-09   9.153e-09    -8.048    -8.038     0.010
-O(0)             1.998e-07
-   O2                     9.992e-08   1.022e-07    -7.000    -6.990     0.010
+O(0)             1.996e-07
+   O2                     9.978e-08   1.021e-07    -7.001    -6.991     0.010
 Zn               6.245e-05
    Zn+2                   6.179e-05   2.327e-05    -4.209    -4.633    -0.424
    ZnOH+                  5.786e-07   4.521e-07    -6.238    -6.345    -0.107
@@ -3201,7 +3198,7 @@ Zn               6.245e-05
 
 	Fix_H+           -7.25   -7.25    0.00  H+
 	H2(g)           -39.55  -42.70   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.13   -7.39   -3.26  N2
 	NH3(g)          -58.49  -56.72    1.77  NH3
 	O2(g)            -4.10   -6.99   -2.89  O2
@@ -3332,7 +3329,7 @@ Zn               4.942e-05
 
 	Fix_H+           -7.50   -7.50    0.00  H+
 	H2(g)           -39.47  -42.62   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.27   -7.53   -3.26  N2
 	NH3(g)          -58.46  -56.69    1.77  NH3
 	O2(g)            -4.24   -7.13   -2.89  O2
@@ -3439,8 +3436,8 @@ H(0)             0.000e+00
 N(-3)            0.000e+00
    NH4+                   0.000e+00   0.000e+00   -55.027   -55.155    -0.128
    NH3                    0.000e+00   0.000e+00   -56.659   -56.649     0.010
-N(0)             4.145e-08
-   N2                     2.072e-08   2.121e-08    -7.684    -7.674     0.010
+N(0)             4.142e-08
+   N2                     2.071e-08   2.119e-08    -7.684    -7.674     0.010
 N(3)             1.473e-12
    NO2-                   1.473e-12   1.110e-12   -11.832   -11.955    -0.123
 N(5)             1.000e-01
@@ -3449,7 +3446,7 @@ Na               9.991e-02
    Na+                    9.991e-02   7.821e-02    -1.000    -1.107    -0.106
    NaOH                   2.830e-08   2.896e-08    -7.548    -7.538     0.010
 O(0)             1.035e-07
-   O2                     5.173e-08   5.294e-08    -7.286    -7.276     0.010
+   O2                     5.174e-08   5.295e-08    -7.286    -7.276     0.010
 Zn               3.750e-05
    Zn+2                   3.592e-05   1.353e-05    -4.445    -4.869    -0.424
    ZnOH+                  1.064e-06   8.312e-07    -5.973    -6.080    -0.107
@@ -3463,7 +3460,7 @@ Zn               3.750e-05
 
 	Fix_H+           -7.75   -7.75    0.00  H+
 	H2(g)           -39.40  -42.55   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.41   -7.67   -3.26  N2
 	NH3(g)          -58.42  -56.65    1.77  NH3
 	O2(g)            -4.38   -7.28   -2.89  O2
@@ -3594,7 +3591,7 @@ Zn               2.761e-05
 
 	Fix_H+           -8.00   -8.00    0.00  H+
 	H2(g)           -39.33  -42.48   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	N2(g)            -4.56   -7.82   -3.26  N2
 	NH3(g)          -58.38  -56.61    1.77  NH3
 	O2(g)            -4.53   -7.42   -2.89  O2
