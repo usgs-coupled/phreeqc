@@ -24,8 +24,8 @@ CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
-#INVERSE_CL1MP=TRUE
-#
+INVERSE_CL1MP=TRUE
+
 LOADFLAGS= -lm # -pg
 LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 
