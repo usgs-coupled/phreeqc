@@ -3244,7 +3244,7 @@ print_alkalinity (void)
   int i, j;
   struct species_list *alk_list;
   int count_alk_list;
-  double min;
+  LDBLE min;
 
   if (pr.alkalinity == FALSE || pr.all == FALSE)
     return (OK);

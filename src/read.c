@@ -1858,7 +1858,7 @@ read_inverse (void)
     case 1:			/* uncertainty */
     case 2:			/* uncertainties */
       inverse[n].uncertainties =
-	(double *) free_check_null (inverse[n].uncertainties);
+	(LDBLE *) free_check_null (inverse[n].uncertainties);
       inverse[n].uncertainties =
 	read_list_doubles (&next_char, &inverse[n].count_uncertainties);
       opt_save = OPTION_ERROR;
@@ -2036,7 +2036,7 @@ read_inv_balances (struct inverse *inverse_ptr, char *ptr)
   else if (strcmp_nocase_arg1 (token, "ph") == 0)
   {
     inverse_ptr->ph_uncertainties =
-      (double *) free_check_null (inverse_ptr->ph_uncertainties);
+      (LDBLE *) free_check_null (inverse_ptr->ph_uncertainties);
     inverse_ptr->ph_uncertainties = read_list_doubles (&ptr, &count);
     inverse_ptr->count_ph_uncertainties = count;
   }
@@ -2118,7 +2118,7 @@ read_inv_isotopes (struct inverse *inverse_ptr, char *ptr)
     inverse_ptr->isotopes[inverse_ptr->count_isotopes].elt_name =
       element_name;
     inverse_ptr->isotopes[inverse_ptr->count_isotopes].uncertainties =
-      (double *) PHRQ_malloc ((size_t) sizeof (LDBLE));
+      (LDBLE *) PHRQ_malloc ((size_t) sizeof (LDBLE));
     if (inverse_ptr->isotopes[inverse_ptr->count_isotopes].uncertainties ==
 	NULL)
       malloc_error ();
@@ -2401,7 +2401,7 @@ read_kinetics (void)
       kinetics_ptr->comps[count_comps].count_c_params = 0;
 
       kinetics_comp_ptr = &kinetics_ptr->comps[count_comps];
-      kinetics_comp_ptr->d_params = (double *) PHRQ_malloc (sizeof (LDBLE));
+      kinetics_comp_ptr->d_params = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
       if (kinetics_comp_ptr->d_params == NULL)
 	malloc_error ();
       kinetics_comp_ptr->count_d_params = 0;
@@ -2505,7 +2505,7 @@ read_kinetics (void)
 	  if (j == DIGIT)
 	  {
 	    kinetics_comp_ptr->d_params =
-	      (double *) PHRQ_realloc (kinetics_comp_ptr->d_params,
+	      (LDBLE *) PHRQ_realloc (kinetics_comp_ptr->d_params,
 				       (size_t) (kinetics_comp_ptr->
 						 count_d_params +
 						 1) * sizeof (LDBLE));
@@ -2601,7 +2601,7 @@ read_kinetics (void)
 	    {
 	      count_steps++;
 	      kinetics_ptr->steps =
-		(double *) PHRQ_realloc (kinetics_ptr->steps,
+		(LDBLE *) PHRQ_realloc (kinetics_ptr->steps,
 					 (size_t) count_steps *
 					 sizeof (LDBLE));
 	      if (kinetics_ptr->steps == NULL)
@@ -2623,7 +2623,7 @@ read_kinetics (void)
 	  step = strtod (token, &ptr);
 	  count_steps++;
 	  kinetics_ptr->steps =
-	    (double *) PHRQ_realloc (kinetics_ptr->steps,
+	    (LDBLE *) PHRQ_realloc (kinetics_ptr->steps,
 				     (size_t) count_steps * sizeof (LDBLE));
 	  if (kinetics_ptr->steps == NULL)
 	    malloc_error ();
@@ -4302,7 +4302,7 @@ read_reaction (void)
   irrev[n].n_user = n_user;
   irrev[n].n_user_end = n_user_end;
   irrev[n].description = description;
-  irrev[n].steps = (double *) PHRQ_malloc ((size_t) sizeof (LDBLE));
+  irrev[n].steps = (LDBLE *) PHRQ_malloc ((size_t) sizeof (LDBLE));
   if (irrev[n].steps == NULL)
     malloc_error ();
   irrev[n].list =
@@ -4459,7 +4459,7 @@ read_reaction_steps (struct irrev *irrev_ptr)
 	{
 	  count_steps++;
 	  irrev_ptr->steps =
-	    (double *) PHRQ_realloc (irrev_ptr->steps,
+	    (LDBLE *) PHRQ_realloc (irrev_ptr->steps,
 				     (size_t) count_steps * sizeof (LDBLE));
 	  if (irrev_ptr->steps == NULL)
 	    malloc_error ();
@@ -4482,7 +4482,7 @@ read_reaction_steps (struct irrev *irrev_ptr)
       {
 	count_steps++;
 	irrev_ptr->steps =
-	  (double *) PHRQ_realloc (irrev_ptr->steps,
+	  (LDBLE *) PHRQ_realloc (irrev_ptr->steps,
 				   (size_t) count_steps * sizeof (LDBLE));
 	if (irrev_ptr->steps == NULL)
 	  malloc_error ();

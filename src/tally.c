@@ -162,8 +162,8 @@ get_all_components (void)
 
 /* ---------------------------------------------------------------------- */
 int
-store_tally_table (double *array, int row_dim, int col_dim,
-		   double fill_factor)
+store_tally_table (LDBLE *array, int row_dim, int col_dim,
+		   LDBLE fill_factor)
 /* ---------------------------------------------------------------------- */
 {
   int i, j;

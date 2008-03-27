@@ -3319,7 +3319,7 @@ residuals (void)
   LDBLE sinh_constant;
   LDBLE sum, sum1;
   struct master *master_ptr, *master_ptr1, *master_ptr2;
-  double sigmaddl, negfpsirt;
+  LDBLE sigmaddl, negfpsirt;
 
   sum_residual = 0.0;
   sigmaddl = 0;
@@ -4530,8 +4530,8 @@ int
 numerical_jacobian (void)
 /* ---------------------------------------------------------------------- */
 {
-  double *base;
-  double d, d1, d2;
+  LDBLE *base;
+  LDBLE d, d1, d2;
   int i, j;
 
   if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC)

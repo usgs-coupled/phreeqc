@@ -354,10 +354,10 @@ polint (LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv, LDBLE * dy)
 /*
  *   Malloc work space
  */
-  c = (double *) PHRQ_malloc ((size_t) (n + 1) * sizeof (LDBLE));
+  c = (LDBLE *) PHRQ_malloc ((size_t) (n + 1) * sizeof (LDBLE));
   if (c == NULL)
     malloc_error ();
-  d = (double *) PHRQ_malloc ((size_t) (n + 1) * sizeof (LDBLE));
+  d = (LDBLE *) PHRQ_malloc ((size_t) (n + 1) * sizeof (LDBLE));
   if (d == NULL)
     malloc_error ();
 
@@ -403,8 +403,8 @@ polint (LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv, LDBLE * dy)
 
 /*		*yv += (*dy = (2 * ns < (n-m) ? c[ns+1] : d[ns--])); */
   }
-  c = (double *) free_check_null (c);
-  d = (double *) free_check_null (d);
+  c = (LDBLE *) free_check_null (c);
+  d = (LDBLE *) free_check_null (d);
   return;
 }
 
@@ -637,7 +637,7 @@ initial_surface_water (void)
  */
   int i;
   LDBLE debye_length, b, r, rd, ddl_limit, rd_limit, fraction, sum_surfs, s;
-  double damp_aq;
+  LDBLE damp_aq;
 
 /*
  *   Debye  length = 1/k = sqrt[eta*eta_zero*R*T/(2*F**2*mu_x*1000)], Dzombak and Morel, p 36

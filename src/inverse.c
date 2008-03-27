@@ -3828,10 +3828,10 @@ dump_netpath (struct inverse *inverse_ptr)
     fprintf(netpath_file, "                                                           # Address5\n");
 
     /* temperature */
-    fprintf(netpath_file, "%15g                                            # Temperature\n", solution[i]->tc);
+    fprintf(netpath_file, "%15g                                            # Temperature\n", (double) solution[i]->tc);
 
     /* pH */
-    fprintf(netpath_file, "%15g                                            # pH\n", solution[i]->ph);
+    fprintf(netpath_file, "%15g                                            # pH\n", (double) solution[i]->ph);
 
     /* DO */
     print_total(netpath_file, solution[i], "O(0)", "Dissolved Oxygen");
@@ -3849,7 +3849,7 @@ dump_netpath (struct inverse *inverse_ptr)
     print_total(netpath_file, solution[i], "Ca", "Calcium");
 
     /* Eh */
-    fprintf(netpath_file, "%15g                                            # Eh\n", 0.059 * solution[i]->solution_pe);
+    fprintf(netpath_file, "%15g                                            # Eh\n", (double) (0.059 * solution[i]->solution_pe));
 
     /* Magnesium */
     print_total(netpath_file, solution[i], "Mg", "Magnesium");
@@ -4001,7 +4001,7 @@ print_total (FILE *netpath_file, struct solution *solution_ptr, const char *elt,
       fprintf(netpath_file, "                                                           # %s\n", string);
     } else {
       fprintf(netpath_file, "%15g                                            # %s\n", 
-	      1000 * tot_ptr->moles / solution_ptr->mass_water, string);
+	      (double) (1000 * tot_ptr->moles / solution_ptr->mass_water), string);
     }
 }
 
@@ -4016,7 +4016,7 @@ print_isotope (FILE *netpath_file, struct solution *solution_ptr, const char *el
       fprintf(netpath_file, "                                                           # %s\n", string);
     } else {
       fprintf(netpath_file, "%15g                                            # %s\n", 
-	      iso_ptr->ratio, string);
+	      (double) iso_ptr->ratio, string);
     }
 }
 /* ---------------------------------------------------------------------- */
@@ -4026,7 +4026,7 @@ print_total_multi (FILE *netpath_file, struct solution *solution_ptr, const char
 {
   char elts[5][MAX_LENGTH];
   struct conc *tot_ptr;
-  double sum;
+  LDBLE sum;
   int i, found;
 
   strcpy(elts[0], elt0);
@@ -4054,7 +4054,7 @@ print_total_multi (FILE *netpath_file, struct solution *solution_ptr, const char
   } else 
   {
     fprintf(netpath_file, "%15g                                            # %s\n", 
-	    1000 * sum / solution_ptr->mass_water, string);
+	    (double) (1000 * sum / solution_ptr->mass_water), string);
   }
   return;
 }
@@ -4074,15 +4074,15 @@ dump_netpath_pat (struct inverse *inv_ptr)
   char string[MAX_LENGTH], string1[MAX_LENGTH], token[MAX_LENGTH];
   char *ptr, *str_ptr;
   int l;
-  double sum, sum1, sum_iso, d;
-  double *array_save, *delta_save;
+  LDBLE sum, sum1, sum_iso, d;
+  LDBLE *array_save, *delta_save;
   int count_unknowns_save, max_row_count_save, max_column_count_save, temp, count_current_solutions;
   int solnmap[10][2];
   struct isotope *isotope_ptr;
   FILE *model_file;
   struct elt_list *next_elt;
   int exch, column;
-  double f;
+  LDBLE f;
   struct rxn_token *rxn_ptr;
 /*
  *   print solution data, epsilons, and revised data
@@ -4217,7 +4217,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
     print_total_pat(netpath_file, "Mn", "MN");
     print_total_pat(netpath_file, "N", "N");
     print_total_pat(netpath_file, "P", "P");
-    fprintf(netpath_file, "%14g     # TEMP\n", solution_ptr->tc);
+    fprintf(netpath_file, "%14g     # TEMP\n", (double) solution_ptr->tc);
     print_total_pat(netpath_file, "S(-2)", "H2S");
     print_total_pat(netpath_file, "S(6)", "SO4");
 
@@ -4235,10 +4235,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # N15\n", sum);
+      fprintf(netpath_file, "%14g*    # N15\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # N15\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # N15\n", (double) (sum_iso/sum));
     }    
 
     /* RS of N */
@@ -4247,10 +4247,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     sum1 = total("N(-3)") + total("N(0)") + total("N(3)") + total("N(5)");
     if (sum1 == 0) 
     {
-      fprintf(netpath_file, "%14g*    # RS of N\n", sum1);
+      fprintf(netpath_file, "%14g*    # RS of N\n", (double) sum1);
     } else 
     {
-      fprintf(netpath_file, "%14g     # RS of N\n", sum / sum1);
+      fprintf(netpath_file, "%14g     # RS of N\n", (double) (sum / sum1));
     }
 
     /* DOX */
@@ -4259,22 +4259,22 @@ dump_netpath_pat (struct inverse *inv_ptr)
     /*HCO3*/
     d = 1000 * sum_match_species("*HCO3*", "C");
     if (d == 0.0) {
-      fprintf(netpath_file, "%14g*    # HCO3\n", d);
+      fprintf(netpath_file, "%14g*    # HCO3\n", (double) d);
     } else 
     {
-      fprintf(netpath_file, "%14g     # HCO3\n", d);
+      fprintf(netpath_file, "%14g     # HCO3\n", (double) d);
     }
 
     /* pH */
-    fprintf(netpath_file, "%14g     # PH\n", solution_ptr->ph);
+    fprintf(netpath_file, "%14g     # PH\n", (double) solution_ptr->ph);
 
     /*H2CO3**/
     d = 1000 * (molality("H2CO3") + molality("CO2"));
     if (d == 0.0) {
-      fprintf(netpath_file, "%14g*    # H2CO3\n", d);
+      fprintf(netpath_file, "%14g*    # H2CO3\n", (double) d);
     } else 
     {
-      fprintf(netpath_file, "%14g     # H2CO3\n", d);
+      fprintf(netpath_file, "%14g     # H2CO3\n", (double) d);
     }
 
     /*CO3*/
@@ -4282,10 +4282,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     d -= sum_match_species("*HCO3*", "C");
     d *= 1000.0;
     if (d == 0.0) {
-      fprintf(netpath_file, "%14g*     # CO3\n", d);
+      fprintf(netpath_file, "%14g*     # CO3\n", (double) d);
     } else 
     {
-      fprintf(netpath_file, "%14g     # CO3\n", d);
+      fprintf(netpath_file, "%14g     # CO3\n", (double) d);
     }
 
     /* CARBONATES */
@@ -4319,10 +4319,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # C13\n", sum);
+      fprintf(netpath_file, "%14g*    # C13\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # C13\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # C13\n", (double) (sum_iso/sum));
     }    
 
     /*C14*/    
@@ -4339,10 +4339,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # C14\n", sum);
+      fprintf(netpath_file, "%14g*    # C14\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # C14\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # C14\n", (double) (sum_iso/sum));
     }    
 
     /*SR87*/
@@ -4359,10 +4359,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # SR87\n", sum);
+      fprintf(netpath_file, "%14g*    # SR87\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # SR87\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # SR87\n", (double) (sum_iso/sum));
     }    
     
     /*D*/
@@ -4379,10 +4379,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # D\n", sum);
+      fprintf(netpath_file, "%14g*    # D\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # D\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # D\n", (double) (sum_iso/sum));
     }    
 
     /*O-18*/
@@ -4408,10 +4408,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # O-18\n", sum);
+      fprintf(netpath_file, "%14g*    # O-18\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # O-18\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # O-18\n", (double) (sum_iso/sum));
     }    
 
     /*TRITIUM*/
@@ -4428,10 +4428,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # TRITIUM\n", sum);
+      fprintf(netpath_file, "%14g*    # TRITIUM\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # TRITIUM\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # TRITIUM\n", (double) (sum_iso/sum));
     }    
 
     /*34SSO4*/
@@ -4448,10 +4448,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # 34SSO4\n", sum);
+      fprintf(netpath_file, "%14g*    # 34SSO4\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # 34SSO4\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # 34SSO4\n", (double) (sum_iso/sum));
     }    
 
     /*34SH2S*/
@@ -4468,10 +4468,10 @@ dump_netpath_pat (struct inverse *inv_ptr)
     }
     if (sum == 0)
     {
-      fprintf(netpath_file, "%14g*    # 34SH2S\n", sum);
+      fprintf(netpath_file, "%14g*    # 34SH2S\n", (double) sum);
     } else
     {
-      fprintf(netpath_file, "%14g     # 34SH2S\n", sum_iso/sum);
+      fprintf(netpath_file, "%14g     # 34SH2S\n", (double) (sum_iso/sum));
     }    
 
     /* Well number */
@@ -4640,7 +4640,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 	f  = 1.0;
       }
       str_toupper(string);
-      fprintf(model_file," %-2s%12.7f", string, next_elt->coef*f);
+      fprintf(model_file," %-2s%12.7f", string, (double) (next_elt->coef*f));
     }
 /*
  * Calculate RS
@@ -4668,11 +4668,11 @@ dump_netpath_pat (struct inverse *inv_ptr)
 	ptr = string;
 	copy_token(token, &ptr, &l);
 	copy_token(string1, &ptr, &l);
-	sscanf(string1,"%lf", &f);
+	sscanf(string1,SCANFORMAT, &f);
 	sum += f*rxn_ptr->coef;
       }
     }
-    if (sum != 0.0) fprintf(model_file," %-2s%12.7f", "RS", sum);
+    if (sum != 0.0) fprintf(model_file," %-2s%12.7f", "RS", (double) sum);
 /*
  * Add isotopes
  */
@@ -4699,18 +4699,18 @@ dump_netpath_pat (struct inverse *inv_ptr)
       }
       d3 = d1 + d2;
       sprintf(string, "%d%s", (int) isotope_ptr[k].isotope_number, isotope_ptr[k].elt_name);
-      if (strcmp(string,"13C") == 0) fprintf(model_file," %-2s%12.7f", "I1", d3);
-      if (strcmp(string,"14C") == 0) fprintf(model_file," %-2s%12.7f", "I2", d3);
+      if (strcmp(string,"13C") == 0) fprintf(model_file," %-2s%12.7f", "I1", (double) d3);
+      if (strcmp(string,"14C") == 0) fprintf(model_file," %-2s%12.7f", "I2", (double) d3);
       if (strcmp(string,"34S") == 0) 
       {
-	fprintf(model_file," %-2s%12.7f", "I3", d3);
+	fprintf(model_file," %-2s%12.7f", "I3", (double) d3);
 	fprintf(model_file," %-2s%12.7f", "I7", 0.0);
       }
-      if (strcmp(string,"87Sr") == 0) fprintf(model_file," %-2s%12.7f", "I4", d3);
-      if (strcmp(string,"15N") == 0) fprintf(model_file," %-2s%12.7f", "I9", d3);
-      if (strcmp(string,"2H") == 0) fprintf(model_file," %-2s%12.7f", "D ", d3);
-      if (strcmp(string,"3H") == 0) fprintf(model_file," %-2s%12.7f", "TR", d3);
-      if (strcmp(string,"18O") == 0) fprintf(model_file," %-2s%12.7f", "18", d3);
+      if (strcmp(string,"87Sr") == 0) fprintf(model_file," %-2s%12.7f", "I4", (double) d3);
+      if (strcmp(string,"15N") == 0) fprintf(model_file," %-2s%12.7f", "I9", (double) d3);
+      if (strcmp(string,"2H") == 0) fprintf(model_file," %-2s%12.7f", "D ", (double) d3);
+      if (strcmp(string,"3H") == 0) fprintf(model_file," %-2s%12.7f", "TR", (double) d3);
+      if (strcmp(string,"18O") == 0) fprintf(model_file," %-2s%12.7f", "18", (double) d3);
     }
 /*
  *  Done with stoichiometry
@@ -4913,12 +4913,12 @@ void
 print_total_pat (FILE *netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
-  double d;
+  LDBLE d;
   d  = 1000.0 * total(elt);
   if (d == 0) {
-    fprintf(netpath_file, "%14g%1s    # %s\n", d, "*", string);
+    fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
   } else {
-    fprintf(netpath_file, "%14g%1s    # %s\n", d, " ", string);
+    fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, " ", string);
   }
 }
 /* ---------------------------------------------------------------------- */

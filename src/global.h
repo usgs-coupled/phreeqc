@@ -359,8 +359,8 @@ struct surface_charge
   struct surface_diff_layer *g;	/* stores g and dg/dXd for each ionic charge */
   LDBLE la_psi, la_psi1, la_psi2;
   LDBLE psi, psi1, psi2;
-  double capacitance[2];
-  double sigma0, sigma1, sigma2, sigmaddl;
+  LDBLE capacitance[2];
+  LDBLE sigma0, sigma1, sigma2, sigmaddl;
 };
 struct surface_diff_layer
 {
@@ -1280,8 +1280,8 @@ struct species
   LDBLE tot_dh2o_moles;		/* sum(moles*g*Ws/Waq) */
   struct species_diff_layer *diff_layer;	/* information related to diffuse layer factors for each
 						   surface */
-  double cd_music[5];
-  double dz[3];
+  LDBLE cd_music[5];
+  LDBLE dz[3];
 };
 struct logk
 {				/* Named log K's */
@@ -1781,8 +1781,8 @@ EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
 EXTERNAL int pitzer_model, pitzer_pe;
 EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
-EXTERNAL double COSMOT;
-EXTERNAL double AW;
+EXTERNAL LDBLE COSMOT;
+EXTERNAL LDBLE AW;
 EXTERNAL int have_punch_name;
 
 EXTERNAL jmp_buf mark;
@@ -1808,5 +1808,5 @@ struct system
   struct surface *surface;
 };
 
-EXTERNAL double pore_volume;
+EXTERNAL LDBLE pore_volume;
 #endif /* _INC_GLOBAL_H */

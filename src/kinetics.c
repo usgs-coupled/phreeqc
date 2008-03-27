@@ -2296,7 +2296,7 @@ run_reactions (int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
       while (flag != SUCCESS)
       {
 	sum_t += cvode_last_good_time;
-	sprintf(error_string, "CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...", (int) iopt[NST], cell_no, sum_t, iter + 1);
+	sprintf(error_string, "CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...", (int) iopt[NST], cell_no, (double) sum_t, iter + 1);
 	output_msg(OUTPUT_STDERR, "%s\n", error_string);
 	if (state == PHAST) output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
 

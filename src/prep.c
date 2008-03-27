@@ -4956,7 +4956,7 @@ save_model (void)
   last_model.pp_assemblage =
     (struct phase **) free_check_null (last_model.pp_assemblage);
   last_model.add_formula = (char **) free_check_null (last_model.add_formula);
-  last_model.si = (double *) free_check_null (last_model.si);
+  last_model.si = (LDBLE *) free_check_null (last_model.si);
   if (use.pp_assemblage_ptr != NULL)
   {
     last_model.count_pp_assemblage = use.pp_assemblage_ptr->count_comps;
@@ -4971,7 +4971,7 @@ save_model (void)
     if (last_model.add_formula == NULL)
       malloc_error ();
     last_model.si =
-      (double *) PHRQ_malloc ((size_t) use.pp_assemblage_ptr->count_comps *
+      (LDBLE *) PHRQ_malloc ((size_t) use.pp_assemblage_ptr->count_comps *
 			      sizeof (LDBLE));
     if (last_model.si == NULL)
       malloc_error ();

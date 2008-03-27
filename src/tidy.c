@@ -1121,7 +1121,7 @@ tidy_inverse (void)
 	continue;
       }
       inverse[i].elts[j].uncertainties =
-	(double *) PHRQ_realloc (inverse[i].elts[j].uncertainties,
+	(LDBLE *) PHRQ_realloc (inverse[i].elts[j].uncertainties,
 				 (size_t) inverse[i].count_solns *
 				 sizeof (LDBLE));
       if (inverse[i].elts[j].uncertainties == NULL)
@@ -1308,7 +1308,7 @@ tidy_inverse (void)
 	inv_elts[count_in].master = master[j];
 	/* alloc uncertainties and set default */
 	inv_elts[count_in].uncertainties =
-	  (double *) PHRQ_malloc ((size_t) inverse[i].count_solns *
+	  (LDBLE *) PHRQ_malloc ((size_t) inverse[i].count_solns *
 				  sizeof (LDBLE));
 	if (inv_elts[count_in].uncertainties == NULL)
 	  malloc_error ();
@@ -1356,7 +1356,7 @@ tidy_inverse (void)
 	}
       }
       inverse[i].elts[j].uncertainties =
-	(double *) free_check_null (inverse[i].elts[j].uncertainties);
+	(LDBLE *) free_check_null (inverse[i].elts[j].uncertainties);
     }
     /* copy masters that are not primary redox */
     for (j = 0; j < inverse[i].count_elts; j++)
@@ -1385,7 +1385,7 @@ tidy_inverse (void)
 	}
       }
       inverse[i].elts[j].uncertainties =
-	(double *) free_check_null (inverse[i].elts[j].uncertainties);
+	(LDBLE *) free_check_null (inverse[i].elts[j].uncertainties);
     }
 /*
  *   replace elts in inverse struct
@@ -3764,7 +3764,7 @@ scan (LDBLE f (LDBLE x), LDBLE * xx0, LDBLE * xx1)
   for (j = 0; j < 3; j++)
   {
     fx0 = f (x0);
-    divisions = (int) pow ((double) 10, (double) j);
+    divisions = (int) pow ((LDBLE) 10, (LDBLE) j);
     for (i = 1; i < divisions; i++)
     {
       x1 = *xx0 + diff * (LDBLE) i / divisions;

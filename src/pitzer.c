@@ -9,29 +9,29 @@
 
 static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
 /* variables */
-static double A0;
+static LDBLE A0;
 struct species **spec, **cations, **anions, **neutrals;
 static int count_cations, count_anions, count_neutrals;
 static int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
 struct pitz_param *mcb0, *mcb1, *mcc0;
 static int *IPRSNT;
-static double *M, *LGAMMA;
-static double BK[23], DK[23];
+static LDBLE *M, *LGAMMA;
+static LDBLE BK[23], DK[23];
 
 /* routines */
-static int calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR);
+static int calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR);
 static int check_gammas_pz (void);
 static int ISPEC (char *name);
-/*static int DH_AB (double TK, double *A, double *B);*/
-static double G (double Y);
-static double GP (double Y);
+/*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
+static LDBLE G (LDBLE Y);
+static LDBLE GP (LDBLE Y);
 #ifdef SKIP
-static double ETHETAP (double ZJ, double ZK, double I);
-static double ETHETA (double ZJ, double ZK, double I);
+static LDBLE ETHETAP (LDBLE ZJ, LDBLE ZK, LDBLE I);
+static LDBLE ETHETA (LDBLE ZJ, LDBLE ZK, LDBLE I);
 #endif
-static int ETHETAS (double ZJ, double ZK, double I, double *etheta,
-		    double *ethetap);
-static int BDK (double X);
+static int ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE *etheta,
+		    LDBLE *ethetap);
+static int BDK (LDBLE X);
 static int initial_guesses (void);
 static int revise_guesses (void);
 static int remove_unstable_phases;
@@ -81,7 +81,7 @@ pitzer_tidy (void)
   int i, j, order;
   int i0, i1, i2;
   int count_pos, count_neg, count_neut, count[3], jj;
-  double z0, z1;
+  LDBLE z0, z1;
   struct pitz_param *pzp_ptr;
   struct theta_param *theta_param_ptr;
   /*
@@ -116,13 +116,13 @@ pitzer_tidy (void)
   if (IPRSNT == NULL)
     malloc_error ();
   if (M != NULL)
-    M = (double *) free_check_null (M);
-  M = (double *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (double)));
+    M = (LDBLE *) free_check_null (M);
+  M = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
   if (M == NULL)
     malloc_error ();
   if (LGAMMA != NULL)
-    LGAMMA = (double *) free_check_null (LGAMMA);
-  LGAMMA = (double *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (double)));
+    LGAMMA = (LDBLE *) free_check_null (LGAMMA);
+  LGAMMA = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
   if (LGAMMA == NULL)
     malloc_error ();
 
@@ -731,7 +731,7 @@ read_pitzer (void)
 
 /* ---------------------------------------------------------------------- */
 int
-PTEMP (double TK)
+PTEMP (LDBLE TK)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -739,9 +739,9 @@ C
 C     SUBROUTINE TO CALUCLATE TEMPERATURE DEPENDENCE OF PITZER PARAMETER
 C
 */
-  double DC0;
+  LDBLE DC0;
   int i;
-  double TR = 298.15;
+  LDBLE TR = 298.15;
 
   if (fabs (TK - OTEMP) < 0.01e0)
     return OK;
@@ -770,10 +770,10 @@ C     Set DW0
 
 /* ---------------------------------------------------------------------- */
 int
-calc_pitz_param (struct pitz_param *pz_ptr, double TK, double TR)
+calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 /* ---------------------------------------------------------------------- */
 {
-  double param;
+  LDBLE param;
   /*
    */
 
@@ -838,16 +838,16 @@ pitzer (void)
 /* ---------------------------------------------------------------------- */
 {
   int i, i0, i1, i2;
-  double param, alpha, z0, z1, z2;
-  double etheta, ethetap;
-  double dummy;
+  LDBLE param, alpha, z0, z1, z2;
+  LDBLE etheta, ethetap;
+  LDBLE dummy;
   /*
-     double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+     LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
      CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
      BMXPHI, PHIPHI, AW, A, B;
    */
-  double CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT, B;
-  double I, TK;
+  LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT, B;
+  LDBLE I, TK;
   int LNEUT;
   /*
      C
@@ -1145,8 +1145,8 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-double
-JAY (double X)
+LDBLE
+JAY (LDBLE X)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -1156,18 +1156,18 @@ C     J0 AND J1, USED IN CALCULATION OF ETHETA AND ETHEAP
 C
 */
 {
-  double JAY;
+  LDBLE JAY;
   BDK (X);
   JAY = X / 4.0e0 - 1.0e0 + 0.5e0 * (BK[0] - BK[2]);
   return JAY;
 }
 
 /* ---------------------------------------------------------------------- */
-double
-JPRIME (double Y)
+LDBLE
+JPRIME (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
-  double DZ;
+  LDBLE DZ;
   BDK (Y);
   if (Y > 1.0e0)
   {
@@ -1183,7 +1183,7 @@ JPRIME (double Y)
 
 /* ---------------------------------------------------------------------- */
 int
-BDK (double X)
+BDK (LDBLE X)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -1199,7 +1199,7 @@ C     SUBROUTINE PITZER
 C
 */
 {
-  double AKX[42] = {
+  LDBLE AKX[42] = {
     1.925154014814667e0, -.060076477753119e0, -.029779077456514e0,
     -.007299499690937e0, 0.000388260636404e0, 0.000636874599598e0,
     0.000036583601823e0, -.000045036975204e0, -.000004537895710e0,
@@ -1216,11 +1216,11 @@ C
     -.000000006944757e0, -.000000002849257e0, 0.000000000237816e0
   };
 /*
-      DOUBLE PRECISION AK, BK, DK
+      LDBLE PRECISION AK, BK, DK
       COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
 */
-  double *AK;
-  double Z;
+  LDBLE *AK;
+  LDBLE Z;
   int II;
   int i;
 
@@ -1245,16 +1245,16 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-double
-G (double Y)
+LDBLE
+G (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
   return (2.0e0 * (1.0e0 - (1.0e0 + Y) * exp (-Y)) / (Y * Y));
 }
 
 /* ---------------------------------------------------------------------- */
-double
-GP (double Y)
+LDBLE
+GP (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
   return (-2.0e0 * (1.0e0 - (1.0e0 + Y + Y * Y / 2.0e0) * exp (-Y)) /
@@ -1263,12 +1263,12 @@ GP (double Y)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-double
-ETHETA (double ZJ, double ZK, double I)
+LDBLE
+ETHETA (LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
-  double XCON, ZZ;
-  double XJK, XJJ, XKK;
+  LDBLE XCON, ZZ;
+  LDBLE XJK, XJJ, XKK;
 
   if (ZJ == ZK)
     return (0.0);
@@ -1293,12 +1293,12 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-double
-ETHETAP (double ZJ, double ZK, double I)
+LDBLE
+ETHETAP (LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
-  double XCON, ZZ, ETHETA, ETHETAP;
-  double XJK, XJJ, XKK;
+  LDBLE XCON, ZZ, ETHETA, ETHETAP;
+  LDBLE XJK, XJJ, XKK;
 
   if (ZJ == ZK)
     return (0.0);
@@ -1327,11 +1327,11 @@ C
 #endif
 /* ---------------------------------------------------------------------- */
 int
-ETHETAS (double ZJ, double ZK, double I, double *etheta, double *ethetap)
+ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE *etheta, LDBLE *ethetap)
 /* ---------------------------------------------------------------------- */
 {
-  double XCON, ZZ;
-  double XJK, XJJ, XKK;
+  LDBLE XCON, ZZ;
+  LDBLE XJK, XJJ, XKK;
 
   *etheta = 0.0;
   *ethetap = 0.0;
@@ -1385,10 +1385,10 @@ pitzer_clean_up (void)
   }
   count_theta_param = 0;
   theta_params = (struct theta_param **) free_check_null (theta_params);
-  LGAMMA = (double *) free_check_null (LGAMMA);
+  LGAMMA = (LDBLE *) free_check_null (LGAMMA);
   IPRSNT = (int *) free_check_null (IPRSNT);
   spec = (struct species **) free_check_null (spec);
-  M = (double *) free_check_null (M);
+  M = (LDBLE *) free_check_null (M);
 
   return OK;
 }
@@ -1668,8 +1668,8 @@ int
 jacobian_pz (void)
 /* ---------------------------------------------------------------------- */
 {
-  double *base;
-  double d, d1, d2;
+  LDBLE *base;
+  LDBLE d, d1, d2;
   int i, j;
 
   if (full_pitzer == TRUE)
@@ -2009,7 +2009,7 @@ int
 check_gammas_pz (void)
 /* ---------------------------------------------------------------------- */
 {
-  double old_aw, old_mu, tol;
+  LDBLE old_aw, old_mu, tol;
   int converge, i;
 
   old_mu = mu_x;
@@ -2044,7 +2044,7 @@ gammas_pz ()
  *   Need exchange gammas for pitzer
  */
   int i, j;
-  double coef;
+  LDBLE coef;
   /* Initialize */
 /*
  *   Calculate activity coefficients
