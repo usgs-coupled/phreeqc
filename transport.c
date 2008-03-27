@@ -414,7 +414,7 @@ transport (void)
     {
 
       /* For half of mixing steps */
-      for (j = 1; j <= floor ((double) nmix / 2); j++)
+      for (j = 1; j <= floor ((LDBLE) nmix / 2); j++)
       {
 	rate_sim_time_start =
 	  (transport_step - 1) * timest + (j - 1) * kin_time;
@@ -841,9 +841,9 @@ transport (void)
   }
   if (heat_nmix > 0)
   {
-    heat_mix_array = (double *) free_check_null (heat_mix_array);
-    temp1 = (double *) free_check_null (temp1);
-    temp2 = (double *) free_check_null (temp2);
+    heat_mix_array = (LDBLE *) free_check_null (heat_mix_array);
+    temp1 = (LDBLE *) free_check_null (temp1);
+    temp2 = (LDBLE *) free_check_null (temp2);
   }
   if (multi_Dflag == TRUE)
   {

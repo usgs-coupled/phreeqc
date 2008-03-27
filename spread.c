@@ -1089,7 +1089,7 @@ spread_row_free (struct spread_row *spread_row_ptr)
   spread_row_ptr->char_vector =
     (char **) free_check_null (spread_row_ptr->char_vector);
   spread_row_ptr->d_vector =
-    (double *) free_check_null (spread_row_ptr->d_vector);
+    (LDBLE *) free_check_null (spread_row_ptr->d_vector);
   spread_row_ptr->type_vector =
     (int *) free_check_null (spread_row_ptr->type_vector);
   spread_row_ptr = (struct spread_row *) free_check_null (spread_row_ptr);

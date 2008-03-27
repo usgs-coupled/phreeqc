@@ -5,25 +5,25 @@
 #define PITZER_EXTERNAL extern
 #include "pitzer.h"
 
-static int BB (double T);
-static double PS (double T);
-static double VLEST (double T);
-static int DFIND (double *DOUT, double P, double D, double T);
-static int QQ (double T, double D);
-static double BASE (double D);
+static int BB (LDBLE T);
+static LDBLE PS (LDBLE T);
+static LDBLE VLEST (LDBLE T);
+static int DFIND (LDBLE *DOUT, LDBLE P, LDBLE D, LDBLE T);
+static int QQ (LDBLE T, LDBLE D);
+static LDBLE BASE (LDBLE D);
 
 /* COMMON /QQQQ/ */
-static double Q0, Q5;
+static LDBLE Q0, Q5;
 /* COMMON /ACONST/ */
-static double GASCON = 0.461522e0, TZ = 647.073e0, AA = 1.e0;
-static double Z, DZ, Y;
+static LDBLE GASCON = 0.461522e0, TZ = 647.073e0, AA = 1.e0;
+static LDBLE Z, DZ, Y;
 /* COMMON /ELLCON/ */
-static double G1 = 11.e0, G2 = 44.333333333333e0, GF = 3.5e0;
-static double B1, B2, B1T, B2T, B1TT, B2TT;
+static LDBLE G1 = 11.e0, G2 = 44.333333333333e0, GF = 3.5e0;
+static LDBLE B1, B2, B1T, B2T, B1TT, B2TT;
 
 /* ---------------------------------------------------------------------- */
 int
-DW (double T)
+DW (LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -34,7 +34,7 @@ C     FROM L. HAAR, J. S. GALLAGHER, AND G. S. KELL, (1984)
 C
 */
 {
-  double FP = 9.869232667e0, P, DGSS, D;
+  LDBLE FP = 9.869232667e0, P, DGSS, D;
 
   BB (T);
   P = 1.0e0 / FP;
@@ -53,7 +53,7 @@ C
 
 /* ---------------------------------------------------------------------- */
 static int
-BB (double T)
+BB (LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 
@@ -65,13 +65,13 @@ C     FROM L. HAAR, J. S. GALLAGHER, AND G. S. KELL, (1984)
 C
 */
 {
-  double V[11];
+  LDBLE V[11];
   int I;
   /* COMMON /BCONST/ */
-  double P[11] = { 0, 0.7478629e0, -.3540782e0, 0.e0, 0e0, .007159876e0, 0.e0,
+  LDBLE P[11] = { 0, 0.7478629e0, -.3540782e0, 0.e0, 0e0, .007159876e0, 0.e0,
     -.003528426e0, 0., 0., 0.
   };
-  double Q[11] =
+  LDBLE Q[11] =
     { 0, 1.1278334e0, 0.e0, -.5944001e0, -5.010996e0, 0.e0, .63684256e0,
     0., 0., 0., 0.
   };
@@ -102,8 +102,8 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-static double
-PS (double T)
+static LDBLE
+PS (LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -118,11 +118,11 @@ C     FROM L. HAAR, J. S. GALLAGHER, AND G. S. KELL, (1984)
 C
 */
 {
-  double A[9] = { 0, -7.8889166e0, 2.5514255e0, -6.716169e0,
+  LDBLE A[9] = { 0, -7.8889166e0, 2.5514255e0, -6.716169e0,
     33.239495e0, -105.38479e0, 174.35319e0, -148.39348e0,
     48.631602e0
   };
-  double PL, V, W, B, Z, Q;
+  LDBLE PL, V, W, B, Z, Q;
   int I;
   if (T <= 314.e0)
   {
@@ -142,8 +142,8 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-static double
-VLEST (double T)
+static LDBLE
+VLEST (LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -151,7 +151,7 @@ C     FROM L. HAAR, J. S. GALLAGHER, AND G. S. KELL, (1984)
 C
 */
 {
-  double A = -1.59259e1, B = 6.57886e-2, C = -1.12666e-4, D = 7.33191e-8,
+  LDBLE A = -1.59259e1, B = 6.57886e-2, C = -1.12666e-4, D = 7.33191e-8,
     E = 1.60229e3, F = 2.88572e0, G = 650.0e0;
 
   return (A + B * T + C * T * T + D * T * T * T + E / T + F / (G - T));
@@ -159,7 +159,7 @@ C
 
 /* ---------------------------------------------------------------------- */
 static int
-DFIND (double *DOUT, double P, double D, double T)
+DFIND (LDBLE *DOUT, LDBLE P, LDBLE D, LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -172,8 +172,8 @@ C
 */
 {
   int L;
-  double DD, RT, PP_dfind, DPD, DPDX, DP, X;
-  /*      double DD, RT, PP, DPD, DPDX, DP, X; */
+  LDBLE DD, RT, PP_dfind, DPD, DPDX, DP, X;
+  /*      LDBLE DD, RT, PP, DPD, DPDX, DP, X; */
 
   DD = D;
   RT = GASCON * T;
@@ -236,7 +236,7 @@ C
 
 /* ---------------------------------------------------------------------- */
 static int
-QQ (double T, double D)
+QQ (LDBLE T, LDBLE D)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -249,7 +249,7 @@ C
 */
 {
   /* COMMON /NCONST/ */
-  double G[41] =
+  LDBLE G[41] =
     { 0, -.53062968529023e3, .22744901424408e4, .78779333020687e3,
 -.69830527374994e2, .17863832875422e5, -.39514731563338e5, .33803884280753e5,
 -.13855050202703e5, -.25637436613260e6, .48212575981415e6, -.34183016969660e6,
@@ -271,18 +271,18 @@ C
 7, 2, 3, 5, 7, 2, 3, 5, 7, 1, 4, 4, 4, 0, 2, 0, 0 };
   int NC = 36;
   /* COMMON /ADDCON/ */
-  double ATZ[5] = { 0, 64.e1, 64.e1, 641.6e0, 27.e1 }, ADZ[5] =
+  LDBLE ATZ[5] = { 0, 64.e1, 64.e1, 641.6e0, 27.e1 }, ADZ[5] =
   {
   0, .319e0, .319e0, .319e0, 1.55e0}, AAT[5] =
   {
   0, 2.e4, 2.e4, 4.e4, 25.e0}, AAD[5] =
   {
   0, 34.e0, 4.e1, 3.e1, 1.05e3};
-  double *QZT;
-  double QR[12], QT[11] /*, QZT[10] */ ;
+  LDBLE *QZT;
+  LDBLE QR[12], QT[11] /*, QZT[10] */ ;
   /*EQUIVALENCE (QT(2),QZT(1)) */
 
-  double E, Q10, Q20, V, QP, DDZ, DEL, EX1, DEX, ATT, TX,
+  LDBLE E, Q10, Q20, V, QP, DDZ, DEL, EX1, DEX, ATT, TX,
     TAU, EX2, TEX, QM, FCT, Q5T;
   int I, K, L, J, KM;
   QZT = &(QT[1]);
@@ -364,8 +364,8 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-static double
-BASE (double D)
+static LDBLE
+BASE (LDBLE D)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -375,7 +375,7 @@ C     FROM L. HAAR, J. S. GALLAGHER, AND G. S. KELL, (1984)
 C
 */
 {
-  double X, Z0, DZ0;
+  LDBLE X, Z0, DZ0;
 /*
 C
 C     G1,G2 AND GF ARE THE ALPHA, BETA AND GAMMA FOR DENSITY OF WATER
@@ -397,8 +397,8 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-double
-DC (double T)
+LDBLE
+DC (LDBLE T)
 /* ---------------------------------------------------------------------- */
 /*
 C
@@ -408,8 +408,8 @@ C     ACCORDING TO D. J. BRADLEY AND K. S. PITZER, (1979)
 C
 */
 {
-  double D1000, C, B;
-  double U[10] = { 0, 3.4279e2, -5.0866e-3, 9.4690e-7, -2.0525e0, 3.1159e3,
+  LDBLE D1000, C, B;
+  LDBLE U[10] = { 0, 3.4279e2, -5.0866e-3, 9.4690e-7, -2.0525e0, 3.1159e3,
     -1.8289e2, -8.0325e3, 4.2142e6, 2.1417e0
   };
   D1000 = U[1] * exp (U[2] * T + U[3] * T * T);

@@ -97,7 +97,7 @@ clean_up (void)
   last_model.s_s_assemblage =
     (char **) free_check_null (last_model.s_s_assemblage);
   last_model.add_formula = (char **) free_check_null (last_model.add_formula);
-  last_model.si = (double *) free_check_null (last_model.si);
+  last_model.si = (LDBLE *) free_check_null (last_model.si);
   last_model.surface_comp =
     (char **) free_check_null (last_model.surface_comp);
   last_model.surface_charge =
@@ -1707,12 +1707,12 @@ inverse_alloc (void)
  */
 
   inverse_ptr->uncertainties =
-    (double *) PHRQ_malloc ((size_t) sizeof (LDBLE));
+    (LDBLE *) PHRQ_malloc ((size_t) sizeof (LDBLE));
   if (inverse_ptr->uncertainties == NULL)
     malloc_error ();
 
   inverse_ptr->ph_uncertainties =
-    (double *) PHRQ_malloc ((size_t) sizeof (LDBLE));
+    (LDBLE *) PHRQ_malloc ((size_t) sizeof (LDBLE));
   if (inverse_ptr->ph_uncertainties == NULL)
     malloc_error ();
 
@@ -1822,12 +1822,12 @@ inverse_free (struct inverse *inverse_ptr)
 
 /*   Free uncertainties */
   inverse_ptr->uncertainties =
-    (double *) free_check_null (inverse_ptr->uncertainties);
+    (LDBLE *) free_check_null (inverse_ptr->uncertainties);
   inverse_ptr->ph_uncertainties =
-    (double *) free_check_null (inverse_ptr->ph_uncertainties);
+    (LDBLE *) free_check_null (inverse_ptr->ph_uncertainties);
 #ifdef SKIP
   inverse_ptr->alk_uncertainties =
-    (double *) free_check_null (inverse_ptr->alk_uncertainties);
+    (LDBLE *) free_check_null (inverse_ptr->alk_uncertainties);
 #endif
 
 /*   Free force_solns */
@@ -1838,7 +1838,7 @@ inverse_free (struct inverse *inverse_ptr)
   for (i = 0; i < inverse_ptr->count_elts; i++)
   {
     inverse_ptr->elts[i].uncertainties =
-      (double *) free_check_null (inverse_ptr->elts[i].uncertainties);
+      (LDBLE *) free_check_null (inverse_ptr->elts[i].uncertainties);
   };
   inverse_ptr->elts = (struct inv_elts *) free_check_null (inverse_ptr->elts);
 
@@ -1846,7 +1846,7 @@ inverse_free (struct inverse *inverse_ptr)
   for (i = 0; i < inverse_ptr->count_isotopes; i++)
   {
     inverse_ptr->isotopes[i].uncertainties =
-      (double *) free_check_null (inverse_ptr->isotopes[i].uncertainties);
+      (LDBLE *) free_check_null (inverse_ptr->isotopes[i].uncertainties);
   };
   inverse_ptr->isotopes =
     (struct inv_isotope *) free_check_null (inverse_ptr->isotopes);
@@ -1854,7 +1854,7 @@ inverse_free (struct inverse *inverse_ptr)
   for (i = 0; i < inverse_ptr->count_i_u; i++)
   {
     inverse_ptr->i_u[i].uncertainties =
-      (double *) free_check_null (inverse_ptr->i_u[i].uncertainties);
+      (LDBLE *) free_check_null (inverse_ptr->i_u[i].uncertainties);
   };
   inverse_ptr->i_u =
     (struct inv_isotope *) free_check_null (inverse_ptr->i_u);
@@ -5847,7 +5847,7 @@ species_list_compare_alk (const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
   const struct species_list *nptr1, *nptr2;
-  double alk1, alk2;
+  LDBLE alk1, alk2;
 
   nptr1 = (const struct species_list *) ptr1;
   nptr2 = (const struct species_list *) ptr2;
@@ -6651,11 +6651,11 @@ temperature_copy (struct temperature *temperature_old_ptr,
     count = temperature_old_ptr->count_t;
   }
   temperature_new_ptr->t =
-    (double *) PHRQ_malloc ((size_t) (count) * sizeof (double));
+    (LDBLE *) PHRQ_malloc ((size_t) (count) * sizeof (LDBLE));
   if (temperature_new_ptr->t == NULL)
     malloc_error ();
   memcpy (temperature_new_ptr->t, temperature_old_ptr->t,
-	  (size_t) (count * sizeof (double)));
+	  (size_t) (count * sizeof (LDBLE)));
 
   return (OK);
 }

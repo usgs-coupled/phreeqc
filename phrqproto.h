@@ -525,8 +525,8 @@ int fill_tally_table (int *n_user, int index_conservative, int n_buffer);
 int get_tally_table_rows_columns (int *rows, int *columns);
 int get_tally_table_column_heading (int column, int *type, char *string);
 int get_tally_table_row_heading (int column, char *string);
-int store_tally_table (double *array, int row_dim, int col_dim,
-		       double fill_factor);
+int store_tally_table (LDBLE *array, int row_dim, int col_dim,
+		       LDBLE fill_factor);
 int zero_tally_table (void);
 
 /* tidy.c */

@@ -216,7 +216,7 @@ theta_param_init (struct theta_param *theta_param_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct theta_param *
-theta_param_search (double zj, double zk)
+theta_param_search (LDBLE zj, LDBLE zk)
 /* ---------------------------------------------------------------------- */
 {
 /*
