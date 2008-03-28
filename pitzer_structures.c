@@ -101,7 +101,7 @@ pitz_param_read (char *string, int n)
   {
     if (copy_token (token, &ptr, &l) == EMPTY)
       break;
-    j = sscanf (token, "%le", &pzp.a[i]);
+    j = sscanf (token, SCANFORMAT, &pzp.a[i]);
     if (j <= 0)
       break;
     k++;
