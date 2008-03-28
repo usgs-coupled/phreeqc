@@ -1528,7 +1528,7 @@ multi_D (LDBLE DDt)
 	      {
 		sprintf (token,
 			 "Negative concentration in MCD: added %.1e moles %s in cell %d.",
-			 m_s[l].tot - temp, m_s[l].name, i);
+			 (double) (m_s[l].tot - temp), m_s[l].name, i);
 		warning_msg (token);
 	      }
 	    }
@@ -1553,7 +1553,7 @@ multi_D (LDBLE DDt)
 	    {
 	      sprintf (token,
 		     "Negative concentration in MCD: added %.2e moles %s in cell %d.",
-		     -use.solution_ptr->totals[j].moles, m_s[l].name, i);
+		       (double) -use.solution_ptr->totals[j].moles, m_s[l].name, i);
 	      warning_msg (token);
 	    }
 	    use.solution_ptr->totals[j].moles = 0;
@@ -1609,7 +1609,7 @@ multi_D (LDBLE DDt)
 	      {
 		sprintf (token,
 			 "Negative concentration in MCD: added %.3e moles %s in cell %d",
-			 -m_s[l].tot - temp, m_s[l].name, i + 1);
+			 (double) (-m_s[l].tot - temp), m_s[l].name, i + 1);
 		warning_msg (token);
 	      }
 	    }
@@ -1634,7 +1634,7 @@ multi_D (LDBLE DDt)
             {
 	      sprintf (token,
 		     "Negative concentration in MCD: added %.4e moles %s in cell %d.",
-		     -use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
+		     (double) -use.solution_ptr->totals[j].moles, m_s[l].name, i + 1);
 	      warning_msg (token);
             }
 	    use.solution_ptr->totals[j].moles = 0;
@@ -2372,7 +2372,7 @@ multi_Dstag (int mobile_cell)
 	      {
 		sprintf (token,
 			 "Negative concentration in MCD: added %.1e moles %s in cell %d.",
-			 m_s[l].tot - temp, m_s[l].name, icell);
+			 (double) (m_s[l].tot - temp), m_s[l].name, icell);
 		warning_msg (token);
 	      }
 	    }
@@ -2397,7 +2397,7 @@ multi_Dstag (int mobile_cell)
 	    {
 	      sprintf (token,
 		     "Negative concentration in MCD: added %.2e moles %s in cell %d",
-		     -use.solution_ptr->totals[j].moles, m_s[l].name, icell);
+		       (double) -use.solution_ptr->totals[j].moles, m_s[l].name, icell);
 	      warning_msg (token);
 	    }
 	    use.solution_ptr->totals[j].moles = 0;
@@ -2450,7 +2450,7 @@ multi_Dstag (int mobile_cell)
 	      {
 		sprintf (token,
 			 "Negative concentration in MCD: added %.3e moles %s in cell %d",
-			 -m_s[l].tot - temp, m_s[l].name, jcell);
+			 (double) (-m_s[l].tot - temp), m_s[l].name, jcell);
 		warning_msg (token);
 	      }
 	    }
@@ -2475,7 +2475,7 @@ multi_Dstag (int mobile_cell)
 	    {
 	      sprintf (token,
 		"Negative concentration in MCD: added %.4e moles %s in cell %d",
-		-use.solution_ptr->totals[j].moles, m_s[l].name, jcell);
+		       (double) (-use.solution_ptr->totals[j].moles), m_s[l].name, jcell);
 	      warning_msg (token);
 	    }
 	    use.solution_ptr->totals[j].moles = 0;
