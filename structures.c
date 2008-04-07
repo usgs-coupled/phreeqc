@@ -438,8 +438,9 @@ clean_up (void)
   dump_file_name = (char *) free_check_null (dump_file_name);
 #ifdef PHREEQCI_GUI
   free_spread ();
-  title_x = free_check_null (title_x);
 #endif
+  title_x = free_check_null (title_x);
+
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
   MergeFinalize ();
 #endif

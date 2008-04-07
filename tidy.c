@@ -2398,6 +2398,19 @@ tidy_surface (void)
       }
 #endif
     }
+    /*
+    * Check that all surface comps have a corresponding master
+    */
+    for (i = 0; i < surface_ptr->count_comps; i++)
+    {
+      if (surface_ptr->comps[i].master == NULL)
+      {
+	input_error++;
+	sprintf (error_string, "No surface master species for surface component %s, ",
+		   surface_ptr->comps[i].formula);
+	error_msg (error_string, CONTINUE);
+      }
+    }
 /*
  *   Sort components
  */
