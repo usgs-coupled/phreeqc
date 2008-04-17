@@ -439,7 +439,7 @@ clean_up (void)
 #ifdef PHREEQCI_GUI
   free_spread ();
 #endif
-  title_x = free_check_null (title_x);
+  title_x = (char *) free_check_null (title_x);
 
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
   MergeFinalize ();
