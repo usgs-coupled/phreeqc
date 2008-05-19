@@ -212,33 +212,3 @@ CONTACTS
         Lakewood, CO  80225
 
         dlpark@usgs.gov
-
-
-     Official versions of U.S. Geological Survey water-resources
-     analysis software are available for electronic retrieval via
-     the World Wide Web (WWW) at:
-
-                http://water.usgs.gov/software/
-
-     and via anonymous File Transfer Protocol (FTP) from:
-
-                water.usgs.gov (path: /pub/software).
-
-     See
-     http://water.usgs.gov/software/ordering_documentation.html
-     for information on ordering printed copies of USGS
-     publications.
-
-SEE ALSO
-     netpath(1) - Interactive program for calculating NET
-                  geochemical reactions and radiocarbon dating
-                  along a flow PATH
-
-     phreeqci(1) - Graphical user interface for PHREEQC
-
-     phrqpitz(1) - A program for geochemical calculations in
-                   brines
-
-     wateq4f(1) - A program for calculating speciation of major,
-                  trace, and redox elements in natural waters
-
