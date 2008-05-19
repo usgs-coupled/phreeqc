@@ -2768,32 +2768,33 @@ factor (struct LOC_exec * LINK)
      */
     if (LINK->t != NULL && LINK->t->kind == tokcomma)
     {
+      int c;
       /*  struct varrec *count_varrec, *names_varrec, *types_varrec, *moles_varrec; */
       /* return number of species */
       LINK->t = LINK->t->next;
       count_varrec = LINK->t->UU.vp;
-      if (count_varrec->stringvar != 0)
+      if (LINK->t->kind != tokvar || count_varrec->stringvar != 0)
 	snerr ();
 
       /* return number of names of species */
       LINK->t = LINK->t->next;
       require (tokcomma, LINK);
       names_varrec = LINK->t->UU.vp;
-      if (names_varrec->stringvar != 1)
+      if (LINK->t->kind != tokvar || names_varrec->stringvar != 1)
 	snerr ();
 
       /* return number of types of species */
       LINK->t = LINK->t->next;
       require (tokcomma, LINK);
       types_varrec = LINK->t->UU.vp;
-      if (types_varrec->stringvar != 1)
+      if (LINK->t->kind != tokvar || types_varrec->stringvar != 1)
 	snerr ();
 
       /* return number of moles  of species */
       LINK->t = LINK->t->next;
       require (tokcomma, LINK);
       moles_varrec = LINK->t->UU.vp;
-      if (moles_varrec->stringvar != 0)
+      if (LINK->t->kind != tokvar || moles_varrec->stringvar != 0)
 	snerr ();
       LINK->t = LINK->t->next;
       arg_num = 4;
