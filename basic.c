@@ -386,7 +386,7 @@ static const struct const_key command[] = {
   {"porevolume", tokporevolume},
   {"sc", toksc},
   {"gamma", tokgamma},
-  {"gamma", toklg}
+  {"lg", toklg}
 };
 static int NCMDS = (sizeof (command) / sizeof (struct const_key));
 
