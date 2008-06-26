@@ -166,6 +166,7 @@ typedef Char string255[256];
 #define tokporevolume   135
 #define toksc        136
 #define tokgamma        137
+#define toklg           138
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -384,7 +385,8 @@ static const struct const_key command[] = {
   {"change_surf", tokchange_surf},
   {"porevolume", tokporevolume},
   {"sc", toksc},
-  {"gamma", tokgamma}
+  {"gamma", tokgamma},
+  {"gamma", toklg}
 };
 static int NCMDS = (sizeof (command) / sizeof (struct const_key));
 
@@ -1987,6 +1989,10 @@ listtokens (FILE * f, tokenrec * buf)
       output_msg (OUTPUT_BASIC, "GAMMA");
       break;
 
+    case toklg:
+      output_msg (OUTPUT_BASIC, "LG");
+      break;
+
     }
     buf = buf->next;
   }
@@ -2519,6 +2525,10 @@ factor (struct LOC_exec * LINK)
 
   case tokgamma:
     n.UU.val = activity_coefficient (stringfactor (STR1, LINK));
+    break;
+
+  case toklg:
+    n.UU.val = log_activity_coefficient (stringfactor (STR1, LINK));
     break;
 
   case tokget_por:

@@ -8,18 +8,21 @@ File contains:
 ************************************************************
 ************************************************************
         --------
-        svn 2968
+        svn 2969
         --------
-	Added basic function that returns the activity coefficient of
-	an aqueous species.
+        Added basic functions that return the activity coefficient of
+        an aqueous species (gamma) and the log base 10 of the activity
+        coefficient of an aqueous species (lg).
 
-	USER_PUNCH
-		-start
-	10 punch gamma("H+")
-		-end
+        USER_PUNCH
+                -start
+        10 punch gamma("H+")    # activity coefficient
+        20 punch lg("H+")       # log base 10 activity coefficient
+                -end
 
-	The function returns zero if the species is not defined for
-	the aqueous model or for exchange and surface species.
+        The functions return zero if the species is not defined for
+        the aqueous model or if the species is an exchange or surface
+        species.
 
 ------------------------------------------------------------
 Version 2.15.0: February 5, 2008
@@ -29,81 +32,81 @@ Version 2.15.0: February 5, 2008
         svn 2680
         --------
 
-	Identifiers for paramaters controlling the integration by
-	CVODE have been added in the KINETICS data block. 
-	
-	-bad_step_max     bad_steps
-	-cvode_steps      steps
-	-cvode_order      order
+        Identifiers for paramaters controlling the integration by
+        CVODE have been added in the KINETICS data block. 
+        
+        -bad_step_max     bad_steps
+        -cvode_steps      steps
+        -cvode_order      order
 
-	-bad_step_max bad_steps--This option was used only in the
-	Runge-Kutta method. Now, the value of this option is used for
-	CVODE as well. The value entered is the number of times that
-	PHREEQC will invoke CVODE to try to integrate a set of
-	rates over a time interval. Default is 500.
+        -bad_step_max bad_steps--This option was used only in the
+        Runge-Kutta method. Now, the value of this option is used for
+        CVODE as well. The value entered is the number of times that
+        PHREEQC will invoke CVODE to try to integrate a set of
+        rates over a time interval. Default is 500.
 
-	-cvode_steps steps--The value given is the maximum number of
-	steps that will taken during one invocation of CVODE.	
-	Default is 100.
+        -cvode_steps steps--The value given is the maximum number of
+        steps that will taken during one invocation of CVODE.   
+        Default is 100.
 
-	-cvode_order order--CVODE uses a specified number of terms in
-	an extrapolation of rates using the BFD method. Legal values
-	are 1 through 5. A smaller value (2) may be needed if the rate
-	equations are poorly behaved. The default is 5. 
+        -cvode_order order--CVODE uses a specified number of terms in
+        an extrapolation of rates using the BFD method. Legal values
+        are 1 through 5. A smaller value (2) may be needed if the rate
+        equations are poorly behaved. The default is 5. 
 
         --------
         svn 2457
         --------
-	Added options to inverse modeling to translate current
-	solution definitions in PHREEQC to a Netpath .lon file and
-	(or) to .pat and model files.
+        Added options to inverse modeling to translate current
+        solution definitions in PHREEQC to a Netpath .lon file and
+        (or) to .pat and model files.
 
-	INVERSE_MODELING
-	   -lon_netpath  prefix
+        INVERSE_MODELING
+           -lon_netpath  prefix
 
-	At the beginning of the inverse modeling calculation, each
-	solution that has been defined (or saved) to PHREEQC, is
-	written to the file prefix.lon in a format readable by 
-	DBXL (NetpathXL distribution).
+        At the beginning of the inverse modeling calculation, each
+        solution that has been defined (or saved) to PHREEQC, is
+        written to the file prefix.lon in a format readable by 
+        DBXL (NetpathXL distribution).
 
-	INVERSE_MODELING
-	   -pat_netpath  prefix
+        INVERSE_MODELING
+           -pat_netpath  prefix
 
-	A NETPATH model file is written for each inverse model that is
-	found. The model files are named prefix-n.mod, where n refers
-	to the sequence number of the model. In addition, a file named
-	prefix.pat is written that contains the solutions associated
-	with each model. The solutions are adjusted in accordance with
-	the deltas calculated for the inverse model. Thus, a solution
-	could be used for model 1 and model 2, but the concentrations
-	could be slightly different for the two models. The solutions
-	are identified by an initial integer corresponding to the
-	sequence number of the model, followed by the solution description.
+        A NETPATH model file is written for each inverse model that is
+        found. The model files are named prefix-n.mod, where n refers
+        to the sequence number of the model. In addition, a file named
+        prefix.pat is written that contains the solutions associated
+        with each model. The solutions are adjusted in accordance with
+        the deltas calculated for the inverse model. Thus, a solution
+        could be used for model 1 and model 2, but the concentrations
+        could be slightly different for the two models. The solutions
+        are identified by an initial integer corresponding to the
+        sequence number of the model, followed by the solution description.
 
         --------
         svn 2448
         --------
-	Added calculation of specific conductance. Requires the
-	use of phreeqd.dat, which contains the diffusion coefficients
-	of aqueous species. If phreeqd.dat is used, the specific 
-	conductance (uS/cm at 25 C) is printed in the 
-	"Description of solution". 
+        Added calculation of specific conductance. Requires the
+        use of phreeqd.dat, which contains the diffusion coefficients
+        of aqueous species. If phreeqd.dat is used, the specific 
+        conductance (uS/cm at 25 C) is printed in the 
+        "Description of solution". 
 
-	The Basic function SC returns the value of the specific
-	conductance for the solution at 25 C. The following example 
-	would print to the selected output file the equivalent conductance 
-	in (mmho/cm / eq/L) at at 20 degrees C for a 1:1 chloride salt
-	solution:
+        The Basic function SC returns the value of the specific
+        conductance for the solution at 25 C. The following example 
+        would print to the selected output file the equivalent conductance 
+        in (mmho/cm / eq/L) at at 20 degrees C for a 1:1 chloride salt
+        solution:
 
-	USER_PUNCH
-		-head conc eq_EC_20
-		-start
-	10 punch tot("Cl"), SC / tot("Cl") / 1e3 * .89 * 298 / 293
-		-end
+        USER_PUNCH
+                -head conc eq_EC_20
+                -start
+        10 punch tot("Cl"), SC / tot("Cl") / 1e3 * .89 * 298 / 293
+                -end
 
-	where 1e-3 converts from microSiemens/cm to mmho/cm, .89 
-	accounts for the viscosity at 20 C, and 298/293 
-	accounts for the temperature of 20 C.
+        where 1e-3 converts from microSiemens/cm to mmho/cm, .89 
+        accounts for the viscosity at 20 C, and 298/293 
+        accounts for the temperature of 20 C.
 
 ------------------------------------------------------------
 Version 2.14.3: November 17, 2007
@@ -111,64 +114,64 @@ Version 2.14.3: November 17, 2007
         --------
         svn 2312
         --------
-	Added new option to PITZER datablock, use_etheta t/f.
-	If true, the nonsymmetric mixing terms--cation/cation and
-	anion/anion of different charge--are included; if false
-	these terms are excluded from all equations. Default is true.
+        Added new option to PITZER datablock, use_etheta t/f.
+        If true, the nonsymmetric mixing terms--cation/cation and
+        anion/anion of different charge--are included; if false
+        these terms are excluded from all equations. Default is true.
 
-	PITZER
-		-use_etheta true
+        PITZER
+                -use_etheta true
 
 
         --------
         svn 2270
         --------
         Added additional parameters Pitzer activity formulation for
-	neutral species, MU and ETA. MU applies to nnn, nnn', nn'n'',
-	nna, nn'a, nnc, nn'c interactions, where n, n', and n'' are
-	neutral species, a is an anion and c is a cation. ETA applies
-	to ncc' and naa' interactions. Also modified LAMDA for the
-	special case of nn interactions (coefficients in osmotic and
-	ln equations are different than other interaction types).
-	Source of equations is Clegg and Whitfield, 1991, Activity
-	coefficients in natural waters, Chapter 6, in Pitzer, K.S.
-	(Ed.) Activity Coefficients in Electrolyte Solutions, 2nd
-	Ed. CRC Press, Boca Raton. Removal of the 6 coefficient in
-	last two terms of eq 35 and 36 (p. 2404) per Cleg and
-	Whitfield, 1995, Geochimica et Cosmochemica Acta, v. 59,
-	no. 12, pp 2403-2421.  Order of species in definitions should
-	not matter.
+        neutral species, MU and ETA. MU applies to nnn, nnn', nn'n'',
+        nna, nn'a, nnc, nn'c interactions, where n, n', and n'' are
+        neutral species, a is an anion and c is a cation. ETA applies
+        to ncc' and naa' interactions. Also modified LAMDA for the
+        special case of nn interactions (coefficients in osmotic and
+        ln equations are different than other interaction types).
+        Source of equations is Clegg and Whitfield, 1991, Activity
+        coefficients in natural waters, Chapter 6, in Pitzer, K.S.
+        (Ed.) Activity Coefficients in Electrolyte Solutions, 2nd
+        Ed. CRC Press, Boca Raton. Removal of the 6 coefficient in
+        last two terms of eq 35 and 36 (p. 2404) per Cleg and
+        Whitfield, 1995, Geochimica et Cosmochemica Acta, v. 59,
+        no. 12, pp 2403-2421.  Order of species in definitions should
+        not matter.
 
         PITZER
-	-MU
-		CO2	CO2	CO2	?     # nnn
-		CO2     CO2     NH3     ?     # nnn'
-		CO2     B(OH)3  NH3     ?     # nn'n''
-		CO2     CO2     Ca+2    ?     # nnc
-		CO2     CO2     Cl-     ?     # nna
-		CO2     NH3     Ca+2    ?     # nn'c
-		CO2     NH3     Cl-     ?     # nn'a
+        -MU
+                CO2     CO2     CO2     ?     # nnn
+                CO2     CO2     NH3     ?     # nnn'
+                CO2     B(OH)3  NH3     ?     # nn'n''
+                CO2     CO2     Ca+2    ?     # nnc
+                CO2     CO2     Cl-     ?     # nna
+                CO2     NH3     Ca+2    ?     # nn'c
+                CO2     NH3     Cl-     ?     # nn'a
         -ETA
-		CO2     Ca+2    Mg+2    ?     # ncc'
-		CO2     Cl-     SO4-2   ?     # naa'
+                CO2     Ca+2    Mg+2    ?     # ncc'
+                CO2     Cl-     SO4-2   ?     # naa'
 
         As with all other Pitzer parameters, a five-term expression 
-	for temperature dependence is available:
+        for temperature dependence is available:
             P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
         where TK is Kelvin and TR is 298.15. A0 through A4 are
-	defined in order. Any undefined values are assumed to 
-	be zero.
+        defined in order. Any undefined values are assumed to 
+        be zero.
 
-	-MU
-		CO2	CO2	CO2	? ? ? ? ? # nnn
+        -MU
+                CO2     CO2     CO2     ? ? ? ? ? # nnn
 
 ------------------------------------------------------------
 Version 2.14.2: September 17, 2007
 ------------------------------------------------------------
 
-	Fixed logic of memory checking for PhreeqcI. This serious
-	bug makes versions 2.14.0 and 2.14.1 unusable.
+        Fixed logic of memory checking for PhreeqcI. This serious
+        bug makes versions 2.14.0 and 2.14.1 unusable.
 
 ------------------------------------------------------------
 Version 2.14.1: September 5, 2007
@@ -486,38 +489,38 @@ Version 2.13.0: November 3, 2006
         Explanation:
 
         -cd_music--this option is used to specify the change in charge
-	by the reaction for three planes, 0 (specific sorption at the
-	surface), 1 (Stern layer), and 2 (or d, the diffuse layer).
-	The five numbers in the form above are (1) the change
-	in charge for plane 0 due to loss or gain of hydrogen and
-	oxygen at plane 0, (2) the change in charge for plane 1 due to
-	the hydrogen and oxygen in the ligand that are located at
-	plane 1, (3) the change in charge in diffuse layer, plane 2,
-	(4) the fraction of the central ion charge that is
-	associated with plane 0, and (5) the charge on the central
-	ion.
+        by the reaction for three planes, 0 (specific sorption at the
+        surface), 1 (Stern layer), and 2 (or d, the diffuse layer).
+        The five numbers in the form above are (1) the change
+        in charge for plane 0 due to loss or gain of hydrogen and
+        oxygen at plane 0, (2) the change in charge for plane 1 due to
+        the hydrogen and oxygen in the ligand that are located at
+        plane 1, (3) the change in charge in diffuse layer, plane 2,
+        (4) the fraction of the central ion charge that is
+        associated with plane 0, and (5) the charge on the central
+        ion.
 
-	In this example the change in charge at plane 0 is (delta z0) =
-	-1 (loss of one hydrogen) + 0.25*5 (contribution from As+5) =
-	0.25. The charge at plane 0 becomes -0.5 + 0.25 = -0.25.
-	The change in charge at plane 1 is (delta z1) = -6 (3 oxygens of
-	the ligand are located at plane 1) + (1-0.25)*5 (contribution
-	from As+5) = -2.25. The charge at plane 1 becomes 0 + (-2.25) =
-	-2.25. There is no change in charge associated with plane 2.
-	The total charge of the species is -0.25 (plane 0) + -2.25
-	(plane 1) + 0 (plane 2) = -2.5.
+        In this example the change in charge at plane 0 is (delta z0) =
+        -1 (loss of one hydrogen) + 0.25*5 (contribution from As+5) =
+        0.25. The charge at plane 0 becomes -0.5 + 0.25 = -0.25.
+        The change in charge at plane 1 is (delta z1) = -6 (3 oxygens of
+        the ligand are located at plane 1) + (1-0.25)*5 (contribution
+        from As+5) = -2.25. The charge at plane 1 becomes 0 + (-2.25) =
+        -2.25. There is no change in charge associated with plane 2.
+        The total charge of the species is -0.25 (plane 0) + -2.25
+        (plane 1) + 0 (plane 2) = -2.5.
 
-	Alternatively to the form above, the changes in charge 
-	on the three planes can be entered directly as the first 
-	three numbers in the option, followed by two zeros. Thus, the
-	following is equivalent to the -cd_music definition above, and
-	consistent with more recent papers which would list
-	delta z0 = 0.25, delta z1 = -2.25 and delta z2 = 0:
+        Alternatively to the form above, the changes in charge 
+        on the three planes can be entered directly as the first 
+        three numbers in the option, followed by two zeros. Thus, the
+        following is equivalent to the -cd_music definition above, and
+        consistent with more recent papers which would list
+        delta z0 = 0.25, delta z1 = -2.25 and delta z2 = 0:
 
         SURFACE_SPECIES
         Goe_uniOH-0.5 + H+ + AsO4-3 = Goe_uniOAsO3-2.5 + H2O
              log_k     20.1                 # eq 7   K1, Kin1
-	     -cd_music 0.25  -2.25  0  0  0
+             -cd_music 0.25  -2.25  0  0  0
 
         --------
         svn 675:
@@ -828,7 +831,7 @@ Basic functions:
         lk_phase("name")                        log10(K) of definition in PHASES
         lk_species("name")                      log10(K) of definition in (SOLUTION, EXCHANGE, SURFACE)_SPECIES
         sum_gas("template","element")           Sum of element in gases with specified template, moles.
-						Example:
+                                                Example:
                                                 template="{C,[13C],[14C]}{O,[18O]}2" includes all CO2 gases
         sum_species("template","element")       Sum of element in aqueous, exchange, and surface species with
                                                 specified template (moles)
@@ -1090,17 +1093,17 @@ End of Features not documented in WRIR 99-4259.
         --------
         svn 2711
         --------
-	Cleaned up compiler warnings for functions called 
-	with constant strings.
+        Cleaned up compiler warnings for functions called 
+        with constant strings.
 ------------------------------------------------------------
 Version 2.15.0: February 5, 2008
 ------------------------------------------------------------
         --------
         svn 2386
         --------
-	Fixed bug for SELECTED_OUTPUT; -activities H2O. The
-	resulting value was -30; now produces the correct
-	result.
+        Fixed bug for SELECTED_OUTPUT; -activities H2O. The
+        resulting value was -30; now produces the correct
+        result.
 
 ------------------------------------------------------------
 Version 2.14.3: November 17, 2007
@@ -1109,116 +1112,116 @@ Version 2.14.3: November 17, 2007
         --------
         svn 2386
         --------
-	Fixed bug in routine find_Jstag. Incorrect index (cell_no)
-	caused segmentation violation in rare instances.
+        Fixed bug in routine find_Jstag. Incorrect index (cell_no)
+        caused segmentation violation in rare instances.
 
         --------
         svn 2312
         --------
-	Added new option to PITZER datablock, use_etheta t/f.
+        Added new option to PITZER datablock, use_etheta t/f.
 
         --------
-	svn 2279
+        svn 2279
         --------
         Error lost 200 moles of mineral. Should only be a problem
-	in some cases where moles of mineral is greater than 200.
+        in some cases where moles of mineral is greater than 200.
 
         --------
-	svn 2270
+        svn 2270
         --------
         Added additional parameters Pitzer activity formulation for
-	neutral species, MU and ETA. 
+        neutral species, MU and ETA. 
 
         --------
-	svn 2269
+        svn 2269
         --------
-	Fixed buffer overrun in SOLUTION_SPREAD when pasting.
+        Fixed buffer overrun in SOLUTION_SPREAD when pasting.
 
         --------
-	svn 2268
+        svn 2268
         --------
-	Fixed error in prep.c where realloc was called instead
-	of PHRQ_realloc, which eliminated a memory leak.
+        Fixed error in prep.c where realloc was called instead
+        of PHRQ_realloc, which eliminated a memory leak.
 
 ------------------------------------------------------------
 Version 2.14.2: September 17, 2007
 ------------------------------------------------------------
-	
+        
         --------
-	svn 2267
+        svn 2267
         --------
-	Fixed logic of memory checking for PhreeqcI. This serious
-	bug makes versions 2.14.0 and 2.14.1 unusable.
+        Fixed logic of memory checking for PhreeqcI. This serious
+        bug makes versions 2.14.0 and 2.14.1 unusable.
 
 ------------------------------------------------------------
 Version 2.14.1: September 5, 2007
 ------------------------------------------------------------
         --------
-	svn 2219
+        svn 2219
         --------
-	Updated transport.c to adjust transport in diffuse 
-	layer to be charge balanced for MCD calculation.
+        Updated transport.c to adjust transport in diffuse 
+        layer to be charge balanced for MCD calculation.
 
 ------------------------------------------------------------
 Version 2.14.0: August 30, 2007
 ------------------------------------------------------------
         -------------
-	svn 2203-2204
+        svn 2203-2204
         -------------
-	Revised logic for using phqalloc memory checker. Compiler
-	option USE_PHRQ_ALLOC now turns on memory checker. If
-	USE_PHRQ_ALLOC is defined and NDEBUG is not defined, file name
-	and line number are also used in memory checking. Model.c
-	now uses same compile options as all other files.
+        Revised logic for using phqalloc memory checker. Compiler
+        option USE_PHRQ_ALLOC now turns on memory checker. If
+        USE_PHRQ_ALLOC is defined and NDEBUG is not defined, file name
+        and line number are also used in memory checking. Model.c
+        now uses same compile options as all other files.
 
         --------
-	svn 2199
+        svn 2199
         --------
-	Initialized variables that caused problems when rerunning
-	simulations in PfW and PhreeqcI.
+        Initialized variables that caused problems when rerunning
+        simulations in PfW and PhreeqcI.
 
         --------
-	svn 2138
+        svn 2138
         --------
-	Fixed bugs in MCD calculation related to saving solutions
-	after initialization.
+        Fixed bugs in MCD calculation related to saving solutions
+        after initialization.
 
         --------
-	svn 2055
+        svn 2055
         --------
-	Profiled and optimized of code. Automatic string in Basic
-	factor saves many mallocs. Reordered to minimize call to
-	strcmp_nocase in basicsubs.c and xsolution_save. Minimized
-	mallocs for solver.
+        Profiled and optimized of code. Automatic string in Basic
+        factor saves many mallocs. Reordered to minimize call to
+        strcmp_nocase in basicsubs.c and xsolution_save. Minimized
+        mallocs for solver.
 
         --------
-	svn 2051
+        svn 2051
         --------
-	Fixed bugs in MCD calculation.
+        Fixed bugs in MCD calculation.
 
         --------
-	svn 2040
+        svn 2040
         --------
-	Fixed warnings for type-punned with new gcc. 
+        Fixed warnings for type-punned with new gcc. 
 
-	Reverted to 2.12 for infilling solutions for transport. 
-	Only solutions are used, not additional reactants for solution
-	0 and n+1.
+        Reverted to 2.12 for infilling solutions for transport. 
+        Only solutions are used, not additional reactants for solution
+        0 and n+1.
 
-	Added digits to printout of REACTION stoichiometry.
-
-        --------
-	svn 1852
-        --------
-	Fixed error in CDMUSIC surface related to a phase.
-	Stoichiometry of H was calculated incorrectly.
+        Added digits to printout of REACTION stoichiometry.
 
         --------
-	svn 1837
+        svn 1852
         --------
-	Initialize flag for MCD calculation. PhreeqcI would
-	do MCD calculation after TRANSPORT was redefined not
-	to do MCD calculation.
+        Fixed error in CDMUSIC surface related to a phase.
+        Stoichiometry of H was calculated incorrectly.
+
+        --------
+        svn 1837
+        --------
+        Initialize flag for MCD calculation. PhreeqcI would
+        do MCD calculation after TRANSPORT was redefined not
+        to do MCD calculation.
 
 ------------------------------------------------------------
 Version 2.13.2: February 1, 2007
@@ -1227,13 +1230,13 @@ Version 2.13.2: February 1, 2007
         svn 1700
         --------
         Fixed bug with redox elements in multi_diffusion
-	stagnant zones.
+        stagnant zones.
 
         --------
         svn 1683
         --------
         Worked on convergence problems when optimizer fails to
-	find a solution. Censored values greater than 1e8.
+        find a solution. Censored values greater than 1e8.
 
         --------
         svn 1637

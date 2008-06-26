@@ -54,13 +54,30 @@ activity_coefficient (const char *species_name)
 {
   struct species *s_ptr;
   LDBLE g;
-  if (svnid == NULL)
-    fprintf (stderr, " ");
 
   s_ptr = s_search (species_name);
   if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type == AQ)
   {
     g = pow (10., s_ptr->lg);
+  }
+  else 
+  {
+    g = 0;
+  }
+  return (g);
+}
+/* ---------------------------------------------------------------------- */
+LDBLE
+log_activity_coefficient (const char *species_name)
+/* ---------------------------------------------------------------------- */
+{
+  struct species *s_ptr;
+  LDBLE g;
+
+  s_ptr = s_search (species_name);
+  if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type == AQ)
+  {
+    g = s_ptr->lg;
   }
   else 
   {
