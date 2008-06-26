@@ -7,9 +7,24 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+        --------
+        svn 2968
+        --------
+	Added basic function that returns the activity coefficient of
+	an aqueous species.
+
+	USER_PUNCH
+		-start
+	10 punch gamma("H+")
+		-end
+
+	The function returns zero if the species is not defined for
+	the aqueous model or for exchange and surface species.
+
 ------------------------------------------------------------
 Version 2.15.0: February 5, 2008
 ------------------------------------------------------------
+
         --------
         svn 2680
         --------

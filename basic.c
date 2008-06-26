@@ -165,6 +165,7 @@ typedef Char string255[256];
 #define tokchange_surf  134
 #define tokporevolume   135
 #define toksc        136
+#define tokgamma        137
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -382,7 +383,8 @@ static const struct const_key command[] = {
   {"get_por", tokget_por},
   {"change_surf", tokchange_surf},
   {"porevolume", tokporevolume},
-  {"sc", toksc}
+  {"sc", toksc},
+  {"gamma", tokgamma}
 };
 static int NCMDS = (sizeof (command) / sizeof (struct const_key));
 
@@ -1981,6 +1983,10 @@ listtokens (FILE * f, tokenrec * buf)
       output_msg (OUTPUT_BASIC, "SC");
       break;
 
+    case tokgamma:
+      output_msg (OUTPUT_BASIC, "GAMMA");
+      break;
+
     }
     buf = buf->next;
   }
@@ -2511,6 +2517,10 @@ factor (struct LOC_exec * LINK)
     n.UU.val = activity (stringfactor (STR1, LINK));
     break;
 
+  case tokgamma:
+    n.UU.val = activity_coefficient (stringfactor (STR1, LINK));
+    break;
+
   case tokget_por:
     i = intfactor (LINK);
     if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
@@ -2768,7 +2778,7 @@ factor (struct LOC_exec * LINK)
      */
     if (LINK->t != NULL && LINK->t->kind == tokcomma)
     {
-      int c;
+      /*int c;*/
       /*  struct varrec *count_varrec, *names_varrec, *types_varrec, *moles_varrec; */
       /* return number of species */
       LINK->t = LINK->t->next;
