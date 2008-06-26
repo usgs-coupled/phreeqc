@@ -16,6 +16,7 @@ int basic_init(void);
 /* basicsubs.c */
 LDBLE activity (const char *species_name);
 LDBLE activity_coefficient (const char *species_name);
+LDBLE log_activity_coefficient (const char *species_name);
 LDBLE calc_SC (void);
 LDBLE calc_logk_n (const char *name);
 LDBLE calc_logk_p (const char *name);
