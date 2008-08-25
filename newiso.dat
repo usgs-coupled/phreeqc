@@ -1166,44 +1166,57 @@ NAMED_EXPRESSIONS
 #
 # OH- fractionation factors
 #
-Log_alpha_D_OH-/H2O(l)                  # 1000ln(alpha(25C)) = -1435
+Log_alpha_D_OH-/H2O(l)                  # 1000ln(alpha(25C)) = -741.9
      # 13.5 C
-     -ln_alpha1000   -1435.0     
+     -ln_alpha1000   -741.9             # Heinzinger and Weston, J Phys Chem, 1964, p. 2179-2183
+     		     			# Modified August 22, 2008
 
-Log_alpha_T_OH-/H2O(l)                  # 1000ln(alpha(25C)) = -2870
+Log_alpha_T_OH-/H2O(l)                  # 1000ln(alpha(13.5C)) = -1483.8
      # 13.5 C
-     -ln_alpha1000   -2870.0
+     -add_logk  Log_alpha_D_OH-/H2O(l)  2          # Craig, J Geol, 1954, p 133.
+                                                   # Modified August 22, 2008
 
-Log_alpha_18O_OH-/H2O(l)                # 1000ln(alpha(25C)) = -37.8
+Log_alpha_18O_OH-/H2O(l)                # 
      # 25 C
-     -ln_alpha1000   -37.777
+     -ln_alpha1000   -39.221            # Green and Taube, J Phys Chem, 1963, v 67, p. 1565-1566.
+     # 15 C
+     # -ln_alpha1000   -44.017          # Green and Taube, J Phys Chem, 1963, v 67, p. 1565-1566.
+                                        # Modified August 22, 2008
 #
-# H3O- fractionation factors
+# H3O+ fractionation factors
 #
-Log_alpha_D_H3O+/H2O(l)                 # 1000ln(alpha(25C)) = 40.8
+Log_alpha_D_H3O+/H2O(l)                 # 
      # 13.5 C
-     -ln_alpha1000   40.82
+     -ln_alpha1000   -364.6431          # Heinzinger and Weston, J Phys Chem, 1964, p. 744-751.
+                                        # Modified August 22, 2008
      
-Log_alpha_T_H3O+/H2O(l)                 # 1000ln(alpha(25C)) = 81.6
+Log_alpha_T_H3O+/H2O(l)                 # 1000ln(alpha(13.5C)) = -799.286
      # 13.5 C
-     -ln_alpha1000   81.64
+     -add_logk  Log_alpha_D_H3O+/H2O(l)  2          # Craig, J Geol, 1954, p 133.
+                                                    # Modified August 22, 2008
      
 Log_alpha_18O_H3O+/H2O(l)               # 1000ln(alpha(25C)) = 22.9
      # 25 C
-     -ln_alpha1000   22.86   
+     -ln_alpha1000   22.86              # Thorton, 1962 Am Chem Soc J, 1962, v 84, p. 2474-2475.
+                                        # Checked August 22, 2008
 #
 # O2(aq) fractionation factors
 #
 Log_alpha_18O_O2(aq)/H2O(l)
-     -ln_alpha1000   0.0
+     -ln_alpha1000   0                  # Unknown
+
 #
 # H2(aq) fractionation factors
 #
-Log_alpha_D_H2(aq)/H2O(l)
-     -ln_alpha1000   0
+Log_alpha_D_H2(aq)/H2O(l)               # 1000ln(alpha(25C)) = ???
+     -add_logk       Log_alpha_D_H2(g)/H2(aq)   -1    
+     -add_logk       Log_alpha_D_H2(g)/H2O(l)    1    
+                                        # Added August 22, 2008
 
 Log_alpha_T_H2(aq)/H2O(l)
-     -ln_alpha1000   0
+     -add_logk       Log_alpha_T_H2(g)/H2(aq)   -1    
+     -add_logk       Log_alpha_T_H2(g)/H2O(l)    1    
+                                        # Added August 22, 2008
 #
 # CO2(aq) fractionation factors
 #
@@ -1363,34 +1376,69 @@ Log_alpha_15N_NH4+/NH3(aq)
 Log_alpha_D_H2O(g)/H2O(l)               # 1000ln(alpha(25C)) = -76.4
      # 0-100 C
      -ln_alpha1000   -52.612  0.0     76.248e3       0.0     -24.844e6
+     		     	      	        # Friedman and O'Neil: Majzoub, 1971, J Chim Phys, v 65, p. 563-568.
+                                        # Checked August 22, 2008
 
 Log_alpha_T_H2O(g)/H2O(l)               # 1000ln(alpha(25C)) = -152.7
      # 0-100 C
-     -ln_alpha1000   -105.224 0.0     152.496e3      0.0     -49.688e6
+      -add_logk       Log_alpha_D_H2O(g)/H2O(l)   2    # Craig, J Geol, 1954, p 133.
+                                                       # Modified August 22, 2008
 
 Log_alpha_18O_H2O(g)/H2O(l)             # 1000ln(alpha(25C)) = -9.3
      # 0-100 C
      -ln_alpha1000   2.0667   0.0     0.4156e3       0.0     -1.137e6
+                                        # Friedman and O'Neil: Majzoub, 1971, J Chim Phys, v 65, p. 563-568.
+                                        # Checked August 22, 2008
 #
 # O2(g) fractionaton factors
 #
-Log_alpha_18O_O2(g)/H2O(l)      
+
+Log_alpha_18O_O2(g)/H2O(l)              # Unknown
      -ln_alpha1000   0.0
+
+Log_alpha_18O_O2(g)/O2(aq)              # 1000ln(alpha(25C)) = 0.6
+					# 0.85 - 0.01TC  1-23C = 3.5815 - .01TK
+     -ln_alpha1000   3.5815   -.01   0   0   0  # Kroopnick and Craig, 1972, Science, v. 175, p. 54-55.
+     		     	      	                # Added August 22, 2008
 #
 # H2(g) fractionaton factors
 #
-Log_alpha_D_H2(g)/H2O(l)
-     -ln_alpha1000   0
+Log_alpha_D_H2O(g)/H2(g)                # 1000ln(alpha(25C)) = 266.
+     -ln_alpha1000   -303.9   0.0     467.6e3       0.0     0.0
+     		     	      	        # Friedman and O'Neil: Seuss, 1949, Zeitschrift Naturforschung
+					# Friedman and O'Neil: Battinga, 1969, Geochim Cosmochim Acta, v 33, p. 49-64.
+                                        # Added August 22, 2008
+
+Log_alpha_T_H2O(g)/H2(g)                # 1000ln(alpha(25C)) = 532.
+     -add_logk       Log_alpha_D_H2O(g)/H2(g)   2    # Craig, J Geol, 1954, p 133.
+                                                     # Added August 22, 2008
+
+Log_alpha_D_H2(g)/H2(aq)                # 1000ln(alpha(25C)) = 0
+     -ln_alpha1000   0                  # Assumed August 22, 2008
+
+Log_alpha_T_H2(g)/H2(aq)                # 1000ln(alpha(25C)) = 0
+     -add_logk       Log_alpha_T_H2(g)/H2(aq)   2    # Craig, J Geol, 1954, p 133.
+                                                     # Added August 22, 2008
+
+Log_alpha_D_H2(g)/H2O(l)                # 
+     -add_logk       Log_alpha_D_H2O(g)/H2(g)   -1    
+     -add_logk       Log_alpha_D_H2O(g)/H2O(l)   1    
+                                        # Added August 22, 2008
 
 Log_alpha_T_H2(g)/H2O(l)
-     -ln_alpha1000   0
+     -add_logk       Log_alpha_T_H2O(g)/H2(g)   -1    
+     -add_logk       Log_alpha_T_H2O(g)/H2O(l)   1    
+                                        # Added August 22, 2008
+
+
+
 #
 # CO2(g) fractionaton factors
 #     
 Log_alpha_18O_CO2(g)/H2O(l)             # 1000ln(alpha(25C)) = 40.151
      # 0-100 C
      -ln_alpha1000   -19.97  0.0     17.9942e3        0.0     -0.0206e6
-     # Battinga, written commun. 1973, cited in Friedman and O'Neill
+     # Battinga, written commun. 1973, cited in Friedman and O'Neil
 
 Log_alpha_13C_CO2(g)/CO2(aq)            # 1000ln(alpha(25C)) = 0.84
      # 0-100 C
