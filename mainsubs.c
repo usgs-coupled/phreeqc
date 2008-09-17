@@ -37,7 +37,8 @@ initialize (void)
  */
   ENTRY item, *found_item;
   int i;
-
+  struct logk *logk_ptr; 
+  char token[MAX_LENGTH];
   struct temp_iso
   {
     const char *name;
@@ -602,6 +603,13 @@ initialize (void)
   space ((void **) ((void *) &isotope_alpha), INIT, &max_isotope_alpha,
 	 sizeof (struct isotope_alpha *));
   hcreate_multi ((unsigned) max_isotope_alpha, &isotope_alpha_hash_table);
+
+  /* 
+  * define constant named log_k
+  */
+  strcpy (token, "XconstantX");
+  logk_ptr = logk_store (token, TRUE);
+  read_log_k_only ("1.0", &logk_ptr->log_k[0]);
 
   phreeqc_mpi_myself = 0;
 
@@ -2732,70 +2740,70 @@ int
 step_save_surf (int n_user)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *   Save surface for intermediate calculation
- *   Amt of surface may have changed due to reaction or surface related
- *   to kinetic reactant.
- *
- *   input:  n_user is user solution number of target
- */
-  int i, j, k, n, m;
-  struct surface *surface_ptr;
-/*
- *   Malloc space for solution data
- */
-  if (use.surface_ptr == NULL)
-    return (OK);
-  surface_duplicate (use.surface_ptr->n_user, n_user);
-  surface_ptr = surface_bsearch (n_user, &n);
-  for (i = 0; i < count_master; i++)
-  {
-    if (master[i]->s->type != SURF)
-      continue;
-    for (j = 0; j < surface_ptr->count_comps; j++)
-    {
-      for (k = 0; surface_ptr->comps[j].totals[k].elt != NULL; k++)
-      {
-	if (surface_ptr->comps[j].totals[k].elt == master[i]->elt)
+	/*
+	*   Save surface for intermediate calculation
+	*   Amt of surface may have changed due to reaction or surface related
+	*   to kinetic reactant.
+	*
+	*   input:  n_user is user solution number of target
+	*/
+	int i, j, k, n, m;
+	struct surface *surface_ptr;
+	/*
+	*   Malloc space for solution data
+	*/
+	if (use.surface_ptr == NULL)
+		return (OK);
+	surface_duplicate (use.surface_ptr->n_user, n_user);
+	surface_ptr = surface_bsearch (n_user, &n);
+	for (i = 0; i < count_master; i++)
 	{
-	  if (master[i]->total <= MIN_TOTAL)
-	  {
-	    surface_ptr->comps[j].totals[k].coef = MIN_TOTAL;
-	  }
-	  else
-	  {
-	    surface_ptr->comps[j].totals[k].coef = master[i]->total;
-	  }
-	  break;
+		if (master[i]->s->type != SURF)
+			continue;
+		for (j = 0; j < surface_ptr->count_comps; j++)
+		{
+			for (k = 0; surface_ptr->comps[j].totals[k].elt != NULL; k++)
+			{
+				if (surface_ptr->comps[j].totals[k].elt == master[i]->elt)
+				{
+					if (master[i]->total <= MIN_TOTAL)
+					{
+						surface_ptr->comps[j].totals[k].coef = MIN_TOTAL;
+					}
+					else
+					{
+						surface_ptr->comps[j].totals[k].coef = master[i]->total;
+					}
+					break;
+				}
+			}
+		}
 	}
-      }
-    }
-  }
   /*
    *   Update grams
    */
-  /*if (surface_ptr->edl == TRUE && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) { */
-  if ((surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC)
-      && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL)
-  {
-    for (j = 0; j < surface_ptr->count_comps; j++)
-    {
-      if (surface_ptr->comps[j].rate_name != NULL)
-      {
-	for (m = 0; m < use.kinetics_ptr->count_comps; m++)
+	/*if (surface_ptr->edl == TRUE && surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL) { */
+	if ((surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC)
+		&& surface_ptr->related_rate == TRUE && use.kinetics_ptr != NULL)
 	{
-	  if (strcmp_nocase
-	      (use.kinetics_ptr->comps[m].rate_name,
-	       surface_ptr->comps[j].rate_name) != 0)
-	    continue;
-	  surface_ptr->charge[surface_ptr->comps[j].charge].grams =
-	    use.kinetics_ptr->comps[m].m;
-	  break;
+		for (j = 0; j < surface_ptr->count_comps; j++)
+		{
+			if (surface_ptr->comps[j].rate_name != NULL)
+			{
+				for (m = 0; m < use.kinetics_ptr->count_comps; m++)
+				{
+					if (strcmp_nocase
+						(use.kinetics_ptr->comps[m].rate_name,
+						surface_ptr->comps[j].rate_name) != 0)
+						continue;
+					surface_ptr->charge[surface_ptr->comps[j].charge].grams =
+						use.kinetics_ptr->comps[m].m;
+					break;
+				}
+			}
+		}
 	}
-      }
-    }
-  }
-  return (OK);
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */

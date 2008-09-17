@@ -6119,380 +6119,380 @@ int
 read_surface_species (void)
 /* ---------------------------------------------------------------------- */
 {
-  /*
-   *   Read data for surface species, parse equations
-   */
-  int i, j;
-  int association;
-  char token[MAX_LENGTH];
-  char *ptr;
-  LDBLE offset;
+	/*
+	*   Read data for surface species, parse equations
+	*/
+	int i, j;
+	int association;
+	char token[MAX_LENGTH];
+	char *ptr;
+	LDBLE offset;
 
-  struct species *s_ptr;
-  struct elt_list *next_elt;
-  struct rxn_token *token_ptr;
+	struct species *s_ptr;
+	struct elt_list *next_elt;
+	struct rxn_token *token_ptr;
 
-  int return_value, opt, opt_save;
-  char *next_char;
-  const char *opt_list[] = {
-    "no_check",			/* 0 */
-    "check",			/* 1 */
-    "mb",			/* 2 */
-    "mass_balance",		/* 3 */
-    "log_k",			/* 4 */
-    "logk",			/* 5 */
-    "delta_h",			/* 6 */
-    "deltah",			/* 7 */
-    "analytical_expression",	/* 8 */
-    "a_e",			/* 9 */
-    "ae",			/* 10 */
-    "mole_balance",		/* 11 */
-    "offset",			/* 12 */
-    "add_logk",			/* 13 */
-    "add_log_k",		/* 14 */
-    "add_constant",		/* 15 */
-    "cd_music",			/* 16 */
-    "music"			/* 17 */
-  };
-  int count_opt_list = 18;
+	int return_value, opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"no_check",			/* 0 */
+		"check",			/* 1 */
+		"mb",			/* 2 */
+		"mass_balance",		/* 3 */
+		"log_k",			/* 4 */
+		"logk",			/* 5 */
+		"delta_h",			/* 6 */
+		"deltah",			/* 7 */
+		"analytical_expression",	/* 8 */
+		"a_e",			/* 9 */
+		"ae",			/* 10 */
+		"mole_balance",		/* 11 */
+		"offset",			/* 12 */
+		"add_logk",			/* 13 */
+		"add_log_k",		/* 14 */
+		"add_constant",		/* 15 */
+		"cd_music",			/* 16 */
+		"music"			/* 17 */
+	};
+	int count_opt_list = 18;
 
-  association = TRUE;
-  /*
-   *   Read eqn from file and call parser
-   */
-  opt_save = OPTION_DEFAULT;
-  return_value = UNKNOWN;
-  s_ptr = NULL;
-  for (;;)
-  {
-    opt = get_option (opt_list, count_opt_list, &next_char);
-    if (opt == OPTION_DEFAULT)
-    {
-      opt = opt_save;
-    }
-    switch (opt)
-    {
-    case OPTION_EOF:		/* end of file */
-      return_value = EOF;
-      break;
-    case OPTION_KEYWORD:	/* keyword */
-      return_value = KEYWORD;
-      break;
-    case OPTION_ERROR:
-      input_error++;
-      error_msg ("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
-      error_msg (line_save, CONTINUE);
-      break;
-    case 0:			/* no_check */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      s_ptr->check_equation = FALSE;
-      break;
-    case 1:			/* check */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      s_ptr->check_equation = TRUE;
-      break;
-    case 2:			/* mb */
-    case 3:			/* mass_balance */
-    case 11:			/* mole_balance */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      count_elts = 0;
-      paren_count = 0;
-      copy_token (token, &next_char, &i);
-      s_ptr->mole_balance = string_hsave (token);
-      ptr = token;
-      s_ptr->next_secondary =
-	(struct elt_list *) free_check_null (s_ptr->next_secondary);
-      get_secondary_in_species (&ptr, 1.0);
-      s_ptr->next_secondary = elt_list_save ();
-      /* debug
-         for (i = 0; i < count_elts; i++) {
-         output_msg(OUTPUT_MESSAGE,"%s\t%f\n", elt_list[i].elt->name,
-         elt_list[i].coef);
-         }
-       */
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 4:			/* log_k */
-    case 5:			/* logk */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      read_log_k_only (next_char, &s_ptr->logk[0]);
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 6:			/* delta_h */
-    case 7:			/* deltah */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      read_delta_h_only (next_char, &s_ptr->logk[1], &s_ptr->original_units);
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 8:			/* analytical_expression */
-    case 9:			/* a_e */
-    case 10:			/* ae */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      read_analytical_expression_only (next_char, &(s_ptr->logk[2]));
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 12:			/* offset */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      if (sscanf (next_char, SCANFORMAT, &offset) != 1)
-      {
-	error_msg ("No offset for log K given", STOP);
-      }
-      s_ptr->logk[0] += offset;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 13:			/* add_logk */
-    case 14:			/* add_log_k */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      if (s_ptr->count_add_logk == 0)
-      {
-	s_ptr->add_logk =
-	  (struct name_coef *) PHRQ_malloc (sizeof (struct name_coef));
-	if (s_ptr->add_logk == NULL)
-	  malloc_error ();
-      }
-      else
-      {
-	s_ptr->add_logk =
-	  (struct name_coef *) PHRQ_realloc (s_ptr->add_logk,
-					     (size_t) ((s_ptr->
-							count_add_logk +
-							1) *
-						       sizeof (struct
-							       name_coef)));
-	if (s_ptr->add_logk == NULL)
-	  malloc_error ();
-      }
-      /* read name */
-      if (copy_token (token, &next_char, &i) == EMPTY)
-      {
-	input_error++;
-	sprintf (error_string, "Expected the name of a NAMED_EXPRESSION.");
-	error_msg (error_string, CONTINUE);
-	break;
-      }
-      s_ptr->add_logk[s_ptr->count_add_logk].name = string_hsave (token);
-      /* read coef */
-      i =
-	sscanf (next_char, SCANFORMAT,
-		&s_ptr->add_logk[s_ptr->count_add_logk].coef);
-      if (i <= 0)
-      {
-	s_ptr->add_logk[s_ptr->count_add_logk].coef = 1;
-      }
-      s_ptr->count_add_logk++;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 15:			/* add_constant */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      if (s_ptr->count_add_logk == 0)
-      {
-	s_ptr->add_logk =
-	  (struct name_coef *) PHRQ_malloc (sizeof (struct name_coef));
-	if (s_ptr->add_logk == NULL)
-	  malloc_error ();
-      }
-      else
-      {
-	s_ptr->add_logk =
-	  (struct name_coef *) PHRQ_realloc (s_ptr->add_logk,
-					     (size_t) ((s_ptr->
-							count_add_logk +
-							1) *
-						       sizeof (struct
-							       name_coef)));
-	if (s_ptr->add_logk == NULL)
-	  malloc_error ();
-      }
-      i =
-	sscanf (next_char, SCANFORMAT,
-		&s_ptr->add_logk[s_ptr->count_add_logk].coef);
-      if (i <= 0)
-      {
-	input_error++;
-	sprintf (error_string,
-		 "Expected the constant to add for log_K definition.");
-	error_msg (error_string, CONTINUE);
-	break;
-      }
-      /* set name */
-      s_ptr->add_logk[s_ptr->count_add_logk].name =
-	string_hsave ("XconstantX");
-      /* read coef */
-      s_ptr->count_add_logk++;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 16:			/* cd_music */
-    case 17:			/* music */
-      if (s_ptr == NULL)
-      {
-	sprintf (error_string, "No reaction defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      for (j = 0; j < 5; j++)
-      {
-	if (copy_token (token, &next_char, &i) == EMPTY)
-	  break;
-	if (sscanf (token, SCANFORMAT, &s_ptr->cd_music[j]) != 1)
-	  break;
-      }
-      s_ptr->dz[0] =
-	s_ptr->cd_music[0] + s_ptr->cd_music[3] * s_ptr->cd_music[4];
-      s_ptr->dz[1] =
-	s_ptr->cd_music[1] + (1 - s_ptr->cd_music[3]) * s_ptr->cd_music[4];
-      s_ptr->dz[2] = s_ptr->cd_music[2];
-      opt_save = OPTION_DEFAULT;
-      break;
-    case OPTION_DEFAULT:
-      /*
-       *   Get surface species information and parse equation
-       */
-      s_ptr = NULL;
-      if (parse_eq (line, &next_elt, association) == ERROR)
-      {
-	parse_error++;
-	error_msg ("Parsing equation.", CONTINUE);
-	error_msg (line_save, CONTINUE);
-	break;
-      }
-      /*
-       *   Get pointer to each species in the reaction, store new species if necessary
-       */
-      trxn.token[0].s = s_store (trxn.token[0].name, trxn.token[0].z, TRUE);
-      for (i = 1; i < count_trxn; i++)
-      {
-	trxn.token[i].s =
-	  s_store (trxn.token[i].name, trxn.token[i].z, FALSE);
-      }
-      /*
-       *   Save element list and carbon, hydrogen, and oxygen in species
-       */
-      trxn.token[0].s->next_elt = next_elt;
-      for (; next_elt->elt != NULL; next_elt++)
-      {
-	if (strcmp (next_elt->elt->name, "C") == 0)
+	association = TRUE;
+	/*
+	*   Read eqn from file and call parser
+	*/
+	opt_save = OPTION_DEFAULT;
+	return_value = UNKNOWN;
+	s_ptr = NULL;
+	for (;;)
 	{
-	  trxn.token[0].s->carbon = next_elt->coef;
+		opt = get_option (opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT)
+		{
+			opt = opt_save;
+		}
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg ("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
+			error_msg (line_save, CONTINUE);
+			break;
+		case 0:			/* no_check */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			s_ptr->check_equation = FALSE;
+			break;
+		case 1:			/* check */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			s_ptr->check_equation = TRUE;
+			break;
+		case 2:			/* mb */
+		case 3:			/* mass_balance */
+		case 11:			/* mole_balance */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			count_elts = 0;
+			paren_count = 0;
+			copy_token (token, &next_char, &i);
+			s_ptr->mole_balance = string_hsave (token);
+			ptr = token;
+			s_ptr->next_secondary =
+				(struct elt_list *) free_check_null (s_ptr->next_secondary);
+			get_secondary_in_species (&ptr, 1.0);
+			s_ptr->next_secondary = elt_list_save ();
+			/* debug
+			for (i = 0; i < count_elts; i++) {
+			output_msg(OUTPUT_MESSAGE,"%s\t%f\n", elt_list[i].elt->name,
+			elt_list[i].coef);
+			}
+			*/
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 4:			/* log_k */
+		case 5:			/* logk */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_log_k_only (next_char, &s_ptr->logk[0]);
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 6:			/* delta_h */
+		case 7:			/* deltah */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_delta_h_only (next_char, &s_ptr->logk[1], &s_ptr->original_units);
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 8:			/* analytical_expression */
+		case 9:			/* a_e */
+		case 10:			/* ae */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_analytical_expression_only (next_char, &(s_ptr->logk[2]));
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 12:			/* offset */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			if (sscanf (next_char, SCANFORMAT, &offset) != 1)
+			{
+				error_msg ("No offset for log K given", STOP);
+			}
+			s_ptr->logk[0] += offset;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 13:			/* add_logk */
+		case 14:			/* add_log_k */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			if (s_ptr->count_add_logk == 0)
+			{
+				s_ptr->add_logk =
+					(struct name_coef *) PHRQ_malloc (sizeof (struct name_coef));
+				if (s_ptr->add_logk == NULL)
+					malloc_error ();
+			}
+			else
+			{
+				s_ptr->add_logk =
+					(struct name_coef *) PHRQ_realloc (s_ptr->add_logk,
+					(size_t) ((s_ptr->
+					count_add_logk +
+					1) *
+					sizeof (struct
+					name_coef)));
+				if (s_ptr->add_logk == NULL)
+					malloc_error ();
+			}
+			/* read name */
+			if (copy_token (token, &next_char, &i) == EMPTY)
+			{
+				input_error++;
+				sprintf (error_string, "Expected the name of a NAMED_EXPRESSION.");
+				error_msg (error_string, CONTINUE);
+				break;
+			}
+			s_ptr->add_logk[s_ptr->count_add_logk].name = string_hsave (token);
+			/* read coef */
+			i =
+				sscanf (next_char, SCANFORMAT,
+				&s_ptr->add_logk[s_ptr->count_add_logk].coef);
+			if (i <= 0)
+			{
+				s_ptr->add_logk[s_ptr->count_add_logk].coef = 1;
+			}
+			s_ptr->count_add_logk++;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 15:			/* add_constant */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			if (s_ptr->count_add_logk == 0)
+			{
+				s_ptr->add_logk =
+					(struct name_coef *) PHRQ_malloc (sizeof (struct name_coef));
+				if (s_ptr->add_logk == NULL)
+					malloc_error ();
+			}
+			else
+			{
+				s_ptr->add_logk =
+					(struct name_coef *) PHRQ_realloc (s_ptr->add_logk,
+					(size_t) ((s_ptr->
+					count_add_logk +
+					1) *
+					sizeof (struct
+					name_coef)));
+				if (s_ptr->add_logk == NULL)
+					malloc_error ();
+			}
+			i =
+				sscanf (next_char, SCANFORMAT,
+				&s_ptr->add_logk[s_ptr->count_add_logk].coef);
+			if (i <= 0)
+			{
+				input_error++;
+				sprintf (error_string,
+					"Expected the constant to add for log_K definition.");
+				error_msg (error_string, CONTINUE);
+				break;
+			}
+			/* set name */
+			s_ptr->add_logk[s_ptr->count_add_logk].name =
+				string_hsave ("XconstantX");
+			/* read coef */
+			s_ptr->count_add_logk++;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 16:			/* cd_music */
+		case 17:			/* music */
+			if (s_ptr == NULL)
+			{
+				sprintf (error_string, "No reaction defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			for (j = 0; j < 5; j++)
+			{
+				if (copy_token (token, &next_char, &i) == EMPTY)
+					break;
+				if (sscanf (token, SCANFORMAT, &s_ptr->cd_music[j]) != 1)
+					break;
+			}
+			s_ptr->dz[0] =
+				s_ptr->cd_music[0] + s_ptr->cd_music[3] * s_ptr->cd_music[4];
+			s_ptr->dz[1] =
+				s_ptr->cd_music[1] + (1 - s_ptr->cd_music[3]) * s_ptr->cd_music[4];
+			s_ptr->dz[2] = s_ptr->cd_music[2];
+			opt_save = OPTION_DEFAULT;
+			break;
+		case OPTION_DEFAULT:
+			/*
+			*   Get surface species information and parse equation
+			*/
+			s_ptr = NULL;
+			if (parse_eq (line, &next_elt, association) == ERROR)
+			{
+				parse_error++;
+				error_msg ("Parsing equation.", CONTINUE);
+				error_msg (line_save, CONTINUE);
+				break;
+			}
+			/*
+			*   Get pointer to each species in the reaction, store new species if necessary
+			*/
+			trxn.token[0].s = s_store (trxn.token[0].name, trxn.token[0].z, TRUE);
+			for (i = 1; i < count_trxn; i++)
+			{
+				trxn.token[i].s =
+					s_store (trxn.token[i].name, trxn.token[i].z, FALSE);
+			}
+			/*
+			*   Save element list and carbon, hydrogen, and oxygen in species
+			*/
+			trxn.token[0].s->next_elt = next_elt;
+			for (; next_elt->elt != NULL; next_elt++)
+			{
+				if (strcmp (next_elt->elt->name, "C") == 0)
+				{
+					trxn.token[0].s->carbon = next_elt->coef;
+				}
+				if (strcmp (next_elt->elt->name, "H") == 0)
+				{
+					trxn.token[0].s->h = next_elt->coef;
+				}
+				if (strcmp (next_elt->elt->name, "O") == 0)
+				{
+					trxn.token[0].s->o = next_elt->coef;
+				}
+			}
+			/*
+			*   Find coefficient of surface in rxn, store in equiv
+			*/
+			trxn.token[0].s->equiv = 0.0;
+			for (i = 1; i < count_trxn; i++)
+			{
+				if (trxn.token[i].s->type == SURF)
+				{
+					trxn.token[0].s->equiv = trxn.token[i].coef;
+				}
+			}
+			if (trxn.token[0].s->equiv == 0.0)
+				trxn.token[0].s->equiv = 1.0;
+			/*
+			*   Malloc space for species reaction
+			*/
+			trxn.token[0].s->rxn = rxn_alloc (count_trxn + 1);
+			/*
+			*   Copy reaction to reaction for species
+			*/
+			token_ptr = trxn.token[0].s->rxn->token;
+			for (i = 0; i < count_trxn; i++)
+			{
+				token_ptr[i].s = trxn.token[i].s;
+				token_ptr[i].coef = trxn.token[i].coef;
+			}
+			token_ptr[i].s = NULL;
+			/*
+			*   Set type for species
+			*/
+			trxn.token[0].s->type = SURF;
+			s_ptr = trxn.token[0].s;
+			/*
+			*   Read gamma data
+			*/
+			s_ptr->gflag = 6;
+			s_ptr->dha = 0.0;
+			s_ptr->dhb = 0.0;
+			opt_save = OPTION_DEFAULT;
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
 	}
-	if (strcmp (next_elt->elt->name, "H") == 0)
-	{
-	  trxn.token[0].s->h = next_elt->coef;
-	}
-	if (strcmp (next_elt->elt->name, "O") == 0)
-	{
-	  trxn.token[0].s->o = next_elt->coef;
-	}
-      }
-      /*
-       *   Find coefficient of surface in rxn, store in equiv
-       */
-      trxn.token[0].s->equiv = 0.0;
-      for (i = 1; i < count_trxn; i++)
-      {
-	if (trxn.token[i].s->type == SURF)
-	{
-	  trxn.token[0].s->equiv = trxn.token[i].coef;
-	}
-      }
-      if (trxn.token[0].s->equiv == 0.0)
-	trxn.token[0].s->equiv = 1.0;
-      /*
-       *   Malloc space for species reaction
-       */
-      trxn.token[0].s->rxn = rxn_alloc (count_trxn + 1);
-      /*
-       *   Copy reaction to reaction for species
-       */
-      token_ptr = trxn.token[0].s->rxn->token;
-      for (i = 0; i < count_trxn; i++)
-      {
-	token_ptr[i].s = trxn.token[i].s;
-	token_ptr[i].coef = trxn.token[i].coef;
-      }
-      token_ptr[i].s = NULL;
-      /*
-       *   Set type for species
-       */
-      trxn.token[0].s->type = SURF;
-      s_ptr = trxn.token[0].s;
-      /*
-       *   Read gamma data
-       */
-      s_ptr->gflag = 6;
-      s_ptr->dha = 0.0;
-      s_ptr->dhb = 0.0;
-      opt_save = OPTION_DEFAULT;
-      break;
-    }
-    if (return_value == EOF || return_value == KEYWORD)
-      break;
-  }
-  return (return_value);
+	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -6500,624 +6500,651 @@ int
 read_surf (void)
 /* ---------------------------------------------------------------------- */
 {
-  /*
-   *      Reads surface data
-   *
-   *      Arguments:
-   *         none
-   *
-   *      Returns:
-   *         KEYWORD if keyword encountered, input_error may be incremented if
-   *                    a keyword is encountered in an unexpected position
-   *         EOF     if eof encountered while reading mass balance concentrations
-   *         ERROR   if error occurred reading data
-   *
-   */
-  int i, j, n, l;
-  int count_comps, count_charge;
-  int n_user, n_user_end;
-  LDBLE conc, area, grams, thickness;
-  char *ptr, *ptr1;
-  char *description;
-  char token[MAX_LENGTH], token1[MAX_LENGTH], name[MAX_LENGTH];
-  struct surface *surface_ptr;
-  struct surface_charge *charge_ptr;
-  struct surface_comp *comp_ptr;
-
-  int return_value, opt;
-  char *next_char;
-  const char *opt_list[] = {
-    "equilibrate",		/* 0 */
-    "equil",			/* 1 */
-    "diff",			/* 2 */
-    "diffuse_layer",		/* 3 */
-    "no_edl",			/* 4 */
-    "no_electrostatic",		/* 5 */
-    "only_counter_ions",	/* 6 */
-    "donnan",			/* 7 */
-    "cd_music",			/* 8 */
-    "capacitances",		/* 9 */
-    "sites",			/* 10 */
-    "sites_units"		/* 11 */
-  };
-  int count_opt_list = 12;
-  /*
-   * kin_surf is for Surfaces, related to kinetically reacting minerals
-   *    they are defined if "sites" is followed by mineral name:
-   *    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25         4000
-   *    ^Name     mineral    ^switch                               ^prop.factor ^m2/mol 
-   */
-  /*
-   *   Read surface number and description
-   */
-  ptr = line;
-  read_number_description (ptr, &n_user, &n_user_end, &description);
-  /*
-   *   Find space for surface data
-   */
-  surface_ptr = surface_search (n_user, &n, FALSE);
-  if (surface_ptr != NULL)
-  {
-    surface_free (&surface[n]);
-  }
-  else
-  {
-    n = count_surface++;
-    space ((void **) ((void *) &surface), count_surface, &max_surface,
-	   sizeof (struct surface));
-  }
-  /*
-   *   Initialize
-   */
-  surface_init (&(surface[n]), n_user, n_user_end, description);
-  free_check_null (description);
-
-  if (use.surface_in == FALSE)
-  {
-    use.surface_in = TRUE;
-    use.n_surface_user = n_user;
-  }
-  /*
-   *   Read surface data
-   */
-  count_charge = 0;
-  count_comps = 0;
-  return_value = UNKNOWN;
-  comp_ptr = NULL;
-  charge_ptr = NULL;
-  for (;;)
-  {
-    opt = get_option (opt_list, count_opt_list, &next_char);
-    switch (opt)
-    {
-    case OPTION_EOF:		/* end of file */
-      return_value = EOF;
-      break;
-    case OPTION_KEYWORD:	/* keyword */
-      return_value = KEYWORD;
-      break;
-    case OPTION_ERROR:
-      input_error++;
-      error_msg ("Unknown input in SURFACE keyword.", CONTINUE);
-      error_msg (line_save, CONTINUE);
-      break;
-    case 0:			/* equilibrate */
-    case 1:
-      for (;;)
-      {
-	i = copy_token (token, &next_char, &l);
-	if (i == DIGIT)
-	{
-	  sscanf (token, "%d", &surface[n].n_solution);
-	  surface[n].solution_equilibria = TRUE;
-	  break;
-	}
-	if (i == EMPTY)
-	{
-	  error_msg
-	    ("Expected a solution number with which to equilibrate surface.",
-	     CONTINUE);
-	  error_msg (line_save, CONTINUE);
-	  input_error++;
-	  break;
-	}
-      }
-      break;
-    case 2:			/* diffuse_layer */
-    case 3:
-      surface[n].thickness = 1e-8;
-      surface[n].dl_type = BORKOVEK_DL;
-      sscanf (next_char, SCANFORMAT, &surface[n].thickness);
-      /*                              surface[n].thickness = thickness;
-         }
-       */ break;
-    case 4:			/* no electrostatic */
-    case 5:
-      /*surface[n].edl = FALSE; */
-      surface[n].type = NO_EDL;
-      break;
-    case 6:
-      surface[n].only_counter_ions = TRUE;
-      break;
-    case 7:			/* donnan for DL conc's */
-      surface[n].dl_type = DONNAN_DL;
-      /*surface[n].diffuse_layer = TRUE; */
-      thickness = 0.0;
-      for (;;)
-      {
-	i = copy_token (token, &next_char, &l);
-	if (i == DIGIT)
-	{
-	  sscanf (token, SCANFORMAT, &surface[n].thickness);
-	  thickness = 1;
-	  continue;
-	}
-	else if (i != EMPTY)
-	{
-	  if (token[0] == 'D' || token[0] == 'd')
-	  {
-	    if (thickness != 0)
-	    {
-	      error_msg
-		("You must enter EITHER thickness OR Debye lengths (1/k),\n	   and relative DDL viscosity, DDL limit.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n or (default values):     -donnan debye_lengths 1 viscosity 1 limit 0.8",
-		 CONTINUE);
-	      error_msg (line_save, CONTINUE);
-	      input_error++;
-	      break;
-	    }
-	    j = copy_token (token1, &next_char, &l);
-	    if (j == DIGIT)
-	    {
-	      sscanf (token1, SCANFORMAT, &surface[n].debye_lengths);
-	      continue;
-	    }
-	    else if (j != EMPTY)
-	    {
-	      error_msg ("Expected number of Debye lengths (1/k).", CONTINUE);
-	      error_msg (line_save, CONTINUE);
-	      input_error++;
-	      break;
-	    }
-	  }
-	  else if (token[0] == 'V' || token[0] == 'v')
-	  {
-	    j = copy_token (token1, &next_char, &l);
-	    if (j == DIGIT)
-	    {
-	      sscanf (token1, SCANFORMAT, &surface[n].DDL_viscosity);
-	      continue;
-	    }
-	    else if (j != EMPTY)
-	    {
-	      error_msg ("Expected number for relative DDL viscosity.",
-			 CONTINUE);
-	      error_msg (line_save, CONTINUE);
-	      input_error++;
-	      break;
-	    }
-	  }
-	  else if (token[0] == 'L' || token[0] == 'l')
-	  {
-	    j = copy_token (token1, &next_char, &l);
-	    if (j == DIGIT)
-	    {
-	      sscanf (token1, SCANFORMAT, &surface[n].DDL_limit);
-	      continue;
-	    }
-	    else if (j != EMPTY)
-	    {
-	      error_msg
-		("Expected number for maximum of DDL water as fraction of bulk water.",
-		 CONTINUE);
-	      error_msg (line_save, CONTINUE);
-	      input_error++;
-	      break;
-	    }
-	  }
-	  else
-	  {
-	    error_msg
-	      ("Expected diffuse layer thickness (m) or Debye lengths (1/k) for \n\tcalculating the thickness, and relative DDL viscosity and DDL limit.\nCorrect is (for example): -donnan 1e-8 visc 0.5\n or (default values):     -donnan debye_lengths 1 visc 1 lim 0.8",
-	       CONTINUE);
-	    error_msg (line_save, CONTINUE);
-	    input_error++;
-	    break;
-	  }
-	}
-	else
-	  break;
-      }
-      break;
-    case 8:			/* cd_music */
-      /*surface[n].edl = FALSE; */
-      surface[n].type = CD_MUSIC;
-      break;
-    case 9:			/* capacitances */
-      /*
-       *   Read capacitance for CD_MUSIC
-       */
-      if (charge_ptr == NULL)
-      {
-	error_msg ("Surface component has not been defined for capacitances.",
-		   CONTINUE);
-	error_msg (line_save, CONTINUE);
-	input_error++;
-	break;
-      }
-      copy_token (token1, &next_char, &l);
-      if (sscanf (token1, SCANFORMAT, &grams) == 1)
-      {
-	charge_ptr->capacitance[0] = grams;
-      }
-      copy_token (token1, &next_char, &l);
-      if (sscanf (token1, SCANFORMAT, &grams) == 1)
-      {
-	charge_ptr->capacitance[1] = grams;
-      }
-      break;
-    case 10:			/* sites */
-    case 11:			/* sites_units */
-      j = copy_token (token1, &next_char, &l);
-      if (token1[0] == 'A' || token1[0] == 'a')
-      {
-	surface[n].sites_units = SITES_ABSOLUTE;
-      }
-      else if (token1[0] == 'D' || token1[0] == 'd')
-      {
-	surface[n].sites_units = SITES_DENSITY;
-      }
-      else
-      {
-	error_msg
-	  ("Character string expected to be 'Absolute' or 'Density' to define the units of the first item in the definition of a surface component.\n",
-	   CONTINUE);
-	input_error++;
-	break;
-      }
-      break;
-    case OPTION_DEFAULT:
-      /*
-       *   Read surface component
-       */
-      ptr = line;
-      i = copy_token (token, &ptr, &l);
-      if (i != UPPER && token[0] != '[')
-      {
-	error_msg ("Expected surface name to begin with a capital letter.",
-		   CONTINUE);
-	error_msg (line_save, CONTINUE);
-	input_error++;
-	break;
-      }
-      /*
-       *   Realloc space for new surface component
-       */
-      surface[n].comps =
-	(struct surface_comp *) PHRQ_realloc (surface[n].comps,
-					      (size_t) (count_comps +
-							1) *
-					      sizeof (struct surface_comp));
-      if (surface[n].comps == NULL)
-	malloc_error ();
-      surface[n].comps[count_comps].formula = string_hsave (token);
-      surface[n].comps[count_comps].formula_totals = NULL;
-      surface[n].comps[count_comps].formula_z = 0.0;
-      surface[n].comps[count_comps].moles = 0;
-      surface[n].comps[count_comps].la = 0;
-      surface[n].comps[count_comps].charge = 0;
-      surface[n].comps[count_comps].cb = 0;
-      surface[n].comps[count_comps].phase_name = NULL;
-      surface[n].comps[count_comps].phase_proportion = 0;
-      surface[n].comps[count_comps].rate_name = NULL;
-      comp_ptr = &(surface[n].comps[count_comps]);
-      surface[n].comps[count_comps].Dw = 0;
-      i = copy_token (token1, &ptr, &l);
-      if (i == DIGIT)
-      {
 	/*
-	 *   Read surface concentration
-	 */
-	/* surface concentration is read directly */
-	if (sscanf (token1, SCANFORMAT, &conc) < 1)
-	{
-	  error_msg ("Expected number of surface sites in moles.", CONTINUE);
-	  error_msg (line_save, CONTINUE);
-	  input_error++;
-	  break;
-	}
-	surface[n].comps[count_comps].moles = conc;
+	*      Reads surface data
+	*
+	*      Arguments:
+	*         none
+	*
+	*      Returns:
+	*         KEYWORD if keyword encountered, input_error may be incremented if
+	*                    a keyword is encountered in an unexpected position
+	*         EOF     if eof encountered while reading mass balance concentrations
+	*         ERROR   if error occurred reading data
+	*
+	*/
+	int i, j, n, l;
+	int count_comps, count_charge;
+	int n_user, n_user_end;
+	LDBLE conc, area, grams, thickness;
+	char *ptr, *ptr1;
+	char *description;
+	char token[MAX_LENGTH], token1[MAX_LENGTH], name[MAX_LENGTH];
+	struct surface *surface_ptr;
+	struct surface_charge *charge_ptr;
+	struct surface_comp *comp_ptr;
+
+	int return_value, opt;
+	char *next_char;
+	const char *opt_list[] = {
+		"equilibrate",		/* 0 */
+		"equil",			/* 1 */
+		"diff",			/* 2 */
+		"diffuse_layer",		/* 3 */
+		"no_edl",			/* 4 */
+		"no_electrostatic",		/* 5 */
+		"only_counter_ions",	/* 6 */
+		"donnan",			/* 7 */
+		"cd_music",			/* 8 */
+		"capacitances",		/* 9 */
+		"sites",			/* 10 */
+		"sites_units"		/* 11 */
+	};
+	int count_opt_list = 12;
 	/*
-	 *   Read equilibrium phase name or kinetics rate name
-	 */
-      }
-      else if (i != EMPTY)
-      {
-
-	/* surface conc. is related to mineral or kinetics */
-	surface[n].comps[count_comps].phase_name = string_hsave (token1);
-	j = copy_token (token1, &ptr, &l);
-
-	/* read optional 'equilibrium_phases' or 'kinetics' */
-	if (j == DIGIT)
+	* kin_surf is for Surfaces, related to kinetically reacting minerals
+	*    they are defined if "sites" is followed by mineral name:
+	*    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25         4000
+	*    ^Name     mineral    ^switch                               ^prop.factor ^m2/mol 
+	*/
+	/*
+	*   Read surface number and description
+	*/
+	ptr = line;
+	read_number_description (ptr, &n_user, &n_user_end, &description);
+	/*
+	*   Find space for surface data
+	*/
+	surface_ptr = surface_search (n_user, &n, FALSE);
+	if (surface_ptr != NULL)
 	{
-	  surface[n].related_phases = TRUE;
+		surface_free (&surface[n]);
 	}
 	else
 	{
-	  if (token1[0] == 'K' || token1[0] == 'k')
-	  {
-	    surface[n].comps[count_comps].rate_name =
-	      surface[n].comps[count_comps].phase_name;
-	    surface[n].comps[count_comps].phase_name = NULL;
-	    surface[n].related_rate = TRUE;
-	  }
-	  else if (token1[0] == 'E' || token1[0] == 'e')
-	  {
-	    surface[n].related_phases = TRUE;
-	    surface[n].comps[count_comps].rate_name = NULL;
-	  }
-	  else
-	  {
-	    error_msg
-	      ("Character string expected to be 'equilibrium_phase' or 'kinetics' to relate surface to mineral or kinetic reaction.\n",
-	       CONTINUE);
-	    input_error++;
-	    break;
-	  }
-	  j = copy_token (token1, &ptr, &l);
+		n = count_surface++;
+		space ((void **) ((void *) &surface), count_surface, &max_surface,
+			sizeof (struct surface));
+	}
+	/*
+	*   Initialize
+	*/
+	surface_init (&(surface[n]), n_user, n_user_end, description);
+	free_check_null (description);
+
+	if (use.surface_in == FALSE)
+	{
+		use.surface_in = TRUE;
+		use.n_surface_user = n_user;
+	}
+	/*
+	*   Read surface data
+	*/
+	count_charge = 0;
+	count_comps = 0;
+	return_value = UNKNOWN;
+	comp_ptr = NULL;
+	charge_ptr = NULL;
+	for (;;)
+	{
+		opt = get_option (opt_list, count_opt_list, &next_char);
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg ("Unknown input in SURFACE keyword.", CONTINUE);
+			error_msg (line_save, CONTINUE);
+			break;
+		case 0:			/* equilibrate */
+		case 1:
+			for (;;)
+			{
+				i = copy_token (token, &next_char, &l);
+				if (i == DIGIT)
+				{
+					sscanf (token, "%d", &surface[n].n_solution);
+					surface[n].solution_equilibria = TRUE;
+					break;
+				}
+				if (i == EMPTY)
+				{
+					error_msg
+						("Expected a solution number with which to equilibrate surface.",
+						CONTINUE);
+					error_msg (line_save, CONTINUE);
+					input_error++;
+					break;
+				}
+			}
+			break;
+		case 2:			/* diffuse_layer */
+		case 3:
+			surface[n].thickness = 1e-8;
+			surface[n].dl_type = BORKOVEK_DL;
+			sscanf (next_char, SCANFORMAT, &surface[n].thickness);
+			/*                              surface[n].thickness = thickness;
+			}
+			*/ break;
+		case 4:			/* no electrostatic */
+		case 5:
+			/*surface[n].edl = FALSE; */
+			surface[n].type = NO_EDL;
+			break;
+		case 6:
+			surface[n].only_counter_ions = TRUE;
+			break;
+		case 7:			/* donnan for DL conc's */
+			surface[n].dl_type = DONNAN_DL;
+			/*surface[n].diffuse_layer = TRUE; */
+			thickness = 0.0;
+			for (;;)
+			{
+				i = copy_token (token, &next_char, &l);
+				if (i == DIGIT)
+				{
+					sscanf (token, SCANFORMAT, &surface[n].thickness);
+					thickness = 1;
+					continue;
+				}
+				else if (i != EMPTY)
+				{
+					if (token[0] == 'D' || token[0] == 'd')
+					{
+						if (thickness != 0)
+						{
+							error_msg
+								("You must enter EITHER thickness OR Debye lengths (1/k),\n	   and relative DDL viscosity, DDL limit.\nCorrect is (for example): -donnan 1e-8 viscosity 0.5\n or (default values):     -donnan debye_lengths 1 viscosity 1 limit 0.8",
+								CONTINUE);
+							error_msg (line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+						j = copy_token (token1, &next_char, &l);
+						if (j == DIGIT)
+						{
+							sscanf (token1, SCANFORMAT, &surface[n].debye_lengths);
+							continue;
+						}
+						else if (j != EMPTY)
+						{
+							error_msg ("Expected number of Debye lengths (1/k).", CONTINUE);
+							error_msg (line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
+					else if (token[0] == 'V' || token[0] == 'v')
+					{
+						j = copy_token (token1, &next_char, &l);
+						if (j == DIGIT)
+						{
+							sscanf (token1, SCANFORMAT, &surface[n].DDL_viscosity);
+							continue;
+						}
+						else if (j != EMPTY)
+						{
+							error_msg ("Expected number for relative DDL viscosity.",
+								CONTINUE);
+							error_msg (line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
+					else if (token[0] == 'L' || token[0] == 'l')
+					{
+						j = copy_token (token1, &next_char, &l);
+						if (j == DIGIT)
+						{
+							sscanf (token1, SCANFORMAT, &surface[n].DDL_limit);
+							continue;
+						}
+						else if (j != EMPTY)
+						{
+							error_msg
+								("Expected number for maximum of DDL water as fraction of bulk water.",
+								CONTINUE);
+							error_msg (line_save, CONTINUE);
+							input_error++;
+							break;
+						}
+					}
+					else
+					{
+						error_msg
+							("Expected diffuse layer thickness (m) or Debye lengths (1/k) for \n\tcalculating the thickness, and relative DDL viscosity and DDL limit.\nCorrect is (for example): -donnan 1e-8 visc 0.5\n or (default values):     -donnan debye_lengths 1 visc 1 lim 0.8",
+							CONTINUE);
+						error_msg (line_save, CONTINUE);
+						input_error++;
+						break;
+					}
+				}
+				else
+					break;
+			}
+			break;
+		case 8:			/* cd_music */
+			/*surface[n].edl = FALSE; */
+			surface[n].type = CD_MUSIC;
+			break;
+		case 9:			/* capacitances */
+			/*
+			*   Read capacitance for CD_MUSIC
+			*/
+			if (charge_ptr == NULL)
+			{
+				error_msg ("Surface component has not been defined for capacitances.",
+					CONTINUE);
+				error_msg (line_save, CONTINUE);
+				input_error++;
+				break;
+			}
+			copy_token (token1, &next_char, &l);
+			if (sscanf (token1, SCANFORMAT, &grams) == 1)
+			{
+				charge_ptr->capacitance[0] = grams;
+			}
+			copy_token (token1, &next_char, &l);
+			if (sscanf (token1, SCANFORMAT, &grams) == 1)
+			{
+				charge_ptr->capacitance[1] = grams;
+			}
+			break;
+		case 10:			/* sites */
+		case 11:			/* sites_units */
+			j = copy_token (token1, &next_char, &l);
+			if (token1[0] == 'A' || token1[0] == 'a')
+			{
+				surface[n].sites_units = SITES_ABSOLUTE;
+			}
+			else if (token1[0] == 'D' || token1[0] == 'd')
+			{
+				surface[n].sites_units = SITES_DENSITY;
+			}
+			else
+			{
+				error_msg
+					("Character string expected to be 'Absolute' or 'Density' to define the units of the first item in the definition of a surface component.\n",
+					CONTINUE);
+				input_error++;
+				break;
+			}
+			break;
+		case OPTION_DEFAULT:
+			/*
+			*   Read surface component
+			*/
+			ptr = line;
+			i = copy_token (token, &ptr, &l);
+			if (i != UPPER && token[0] != '[')
+			{
+				error_msg ("Expected surface name to begin with a capital letter.",
+					CONTINUE);
+				error_msg (line_save, CONTINUE);
+				input_error++;
+				break;
+			}
+			/*
+			*   Realloc space for new surface component
+			*/
+			surface[n].comps =
+				(struct surface_comp *) PHRQ_realloc (surface[n].comps,
+				(size_t) (count_comps +
+				1) *
+				sizeof (struct surface_comp));
+			if (surface[n].comps == NULL)
+				malloc_error ();
+			surface[n].comps[count_comps].formula = string_hsave (token);
+			surface[n].comps[count_comps].formula_totals = NULL;
+			surface[n].comps[count_comps].formula_z = 0.0;
+			surface[n].comps[count_comps].moles = 0;
+			surface[n].comps[count_comps].la = 0;
+			surface[n].comps[count_comps].charge = 0;
+			surface[n].comps[count_comps].cb = 0;
+			surface[n].comps[count_comps].phase_name = NULL;
+			surface[n].comps[count_comps].phase_proportion = 0;
+			surface[n].comps[count_comps].rate_name = NULL;
+			comp_ptr = &(surface[n].comps[count_comps]);
+			surface[n].comps[count_comps].Dw = 0;
+			i = copy_token (token1, &ptr, &l);
+			if (i == DIGIT)
+			{
+				/*
+				*   Read surface concentration
+				*/
+				/* surface concentration is read directly */
+				if (sscanf (token1, SCANFORMAT, &conc) < 1)
+				{
+					error_msg ("Expected number of surface sites in moles.", CONTINUE);
+					error_msg (line_save, CONTINUE);
+					input_error++;
+					break;
+				}
+				surface[n].comps[count_comps].moles = conc;
+				/*
+				*   Read equilibrium phase name or kinetics rate name
+				*/
+			}
+			else if (i != EMPTY)
+			{
+
+				/* surface conc. is related to mineral or kinetics */
+				surface[n].comps[count_comps].phase_name = string_hsave (token1);
+				j = copy_token (token1, &ptr, &l);
+
+				/* read optional 'equilibrium_phases' or 'kinetics' */
+				if (j == DIGIT)
+				{
+					surface[n].related_phases = TRUE;
+				}
+				else
+				{
+					if (token1[0] == 'K' || token1[0] == 'k')
+					{
+						surface[n].comps[count_comps].rate_name =
+							surface[n].comps[count_comps].phase_name;
+						surface[n].comps[count_comps].phase_name = NULL;
+						surface[n].related_rate = TRUE;
+					}
+					else if (token1[0] == 'E' || token1[0] == 'e')
+					{
+						surface[n].related_phases = TRUE;
+						surface[n].comps[count_comps].rate_name = NULL;
+					}
+					else
+					{
+						error_msg
+							("Character string expected to be 'equilibrium_phase' or 'kinetics' to relate surface to mineral or kinetic reaction.\n",
+							CONTINUE);
+						input_error++;
+						break;
+					}
+					j = copy_token (token1, &ptr, &l);
+				}
+
+				/* read proportion */
+				if (j != DIGIT)
+				{
+					error_msg
+						("Expected a coefficient to relate surface to mineral or kinetic reaction.\n",
+						CONTINUE);
+					input_error++;
+					break;
+				}
+				sscanf (token1, SCANFORMAT,
+					&surface[n].comps[count_comps].phase_proportion);
+				/* real conc must be defined in tidy_model */
+				conc = 1.0;
+			}
+			else
+			{
+				error_msg
+					("Expected concentration of surface, mineral name, or kinetic reaction name.",
+					CONTINUE);
+				error_msg (line_save, CONTINUE);
+				input_error++;
+				break;
+			}
+			/*
+			*   Accumulate elements in elt_list
+			*/
+			count_elts = 0;
+			paren_count = 0;
+			ptr1 = token;
+			get_elts_in_species (&ptr1, conc);
+
+			/*
+			*   save formula for adjusting number of exchange sites
+			*/
+
+			ptr1 = token;
+			get_token (&ptr1, token1, &surface[n].comps[count_comps].formula_z, &l);
+			surface[n].comps[count_comps].formula_totals = elt_list_save ();
+			surface[n].comps[count_comps].totals = elt_list_save ();
+			/*
+			*   Search for charge structure
+			*/
+			ptr1 = token;
+			get_elt (&ptr1, name, &l);
+			ptr1 = strchr (name, '_');
+			if (ptr1 != NULL)
+				ptr1[0] = '\0';
+			for (i = 0; i < count_charge; i++)
+			{
+				if (strcmp (surface[n].charge[i].name, name) == 0)
+					break;
+			}
+			if (i >= count_charge)
+			{
+				surface[n].charge =
+					(struct surface_charge *) PHRQ_realloc (surface[n].charge,
+					(size_t) (count_charge +
+					1) *
+					sizeof (struct
+					surface_charge));
+				if (surface[n].charge == NULL)
+					malloc_error ();
+				i = count_charge;
+				surface[n].charge[i].name = string_hsave (name);
+				if (surface[n].comps[count_comps].phase_name == NULL
+					&& surface[n].comps[count_comps].rate_name == NULL)
+				{
+					surface[n].charge[i].specific_area = 600.0;
+					surface[n].charge[i].grams = 0.0;
+				}
+				else
+				{
+					surface[n].charge[i].specific_area = 0.0;
+					surface[n].charge[i].grams = 1.0;
+				}
+				surface[n].charge[i].charge_balance = 0.0;
+				surface[n].charge[i].mass_water = 0.0;
+				surface[n].charge[i].diffuse_layer_totals = NULL;
+				surface[n].charge[i].count_g = 0;
+				surface[n].charge[i].g = NULL;
+				surface[n].charge[i].la_psi = 0;
+				surface[n].charge[i].la_psi1 = 0;
+				surface[n].charge[i].la_psi2 = 0;
+				surface[n].charge[i].psi = 0;
+				surface[n].charge[i].psi1 = 0;
+				surface[n].charge[i].psi2 = 0;
+				surface[n].charge[i].capacitance[0] = 1.0;
+				surface[n].charge[i].capacitance[1] = 5.0;
+				surface[n].charge[i].sigma0 = 0;
+				surface[n].charge[i].sigma1 = 0;
+				surface[n].charge[i].sigma2 = 0;
+				count_charge++;
+			}
+			charge_ptr = &(surface[n].charge[i]);
+			surface[n].comps[count_comps].charge = i;
+			count_comps++;
+			/*
+			*   Read surface area (m2/g)
+			*/
+			copy_token (token1, &ptr, &l);
+			if (sscanf (token1, SCANFORMAT, &area) == 1)
+			{
+				surface[n].charge[i].specific_area = area;
+			}
+			else
+			{
+				break;
+			}
+			/*
+			*   Read grams of solid (g)
+			*/
+			copy_token (token1, &ptr, &l);
+			if (sscanf (token1, SCANFORMAT, &grams) == 1)
+			{
+				surface[n].charge[i].grams = grams;
+			}
+			/* read Dw */
+			copy_token (token1, &ptr, &l);
+			str_tolower (token1);
+			if (strcmp (token1, "dw") == 0)
+			{
+				j = copy_token (token1, &ptr, &l);
+				if (j != DIGIT)
+				{
+					error_msg ("Expected surface diffusion coefficient (m2/s).\n",
+						CONTINUE);
+					input_error++;
+					break;
+				}
+				else
+				{
+					sscanf (token1, SCANFORMAT, &surface[n].comps[count_comps - 1].Dw);
+					if (surface[n].comps[count_comps - 1].Dw > 0)
+					{
+						surface[n].transport = TRUE;
+						if (surface[n].related_rate == TRUE
+							|| surface[n].related_phases == TRUE)
+						{
+							error_msg
+								("Can't transport surfaces related to phases or rates (yet).",
+								CONTINUE);
+							input_error++;
+						}
+					}
+					break;
+				}
+			}
+			break;
+
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+	surface[n].count_comps = count_comps;
+	surface[n].count_charge = count_charge;
+
+	/* sort charge */
+	qsort (surface[n].charge,
+	     (size_t) surface[n].count_charge,
+	     (size_t) sizeof (struct surface_charge), surface_charge_compare);
+
+	/* renumber charge variable in comps */
+	for (i = 0; i < surface[n].count_comps; i++)
+	{
+		ptr = surface[n].comps[i].formula;
+		copy_token(token, &ptr, &l);
+		ptr1 = token;
+		get_elt (&ptr1, name, &l);
+		ptr1 = strchr (name, '_');
+		if (ptr1 != NULL)
+			ptr1[0] = '\0';
+		for (j = 0; j < surface[n].count_charge; j++)
+		{
+			if (strcmp (surface[n].charge[j].name, name) == 0)
+			{
+				surface[n].comps[i].charge = j;
+				break;
+			}
+		}
+		assert (j < surface[n].count_charge);
 	}
 
-	/* read proportion */
-	if (j != DIGIT)
+	/*
+	* copy Dw > 0 to all comps with the same charge structure, check edl & dif for surface transport
+	*/
+	if (surface[n].transport == TRUE)
 	{
-	  error_msg
-	    ("Expected a coefficient to relate surface to mineral or kinetic reaction.\n",
-	     CONTINUE);
-	  input_error++;
-	  break;
+		/*
+		if (surface[n].edl == FALSE || surface[n].diffuse_layer == FALSE) {
+		surface[n].edl = TRUE;
+		surface[n].diffuse_layer = TRUE;
+		warning_msg("Can't transport without edl and diffuse layer, set to true");
+		}
+		*/
+		if (surface[n].type <= NO_EDL)
+		{
+			input_error++;
+			error_msg
+				("Must use default Dzombak and Morel or -cd_music for surface transport.",
+				CONTINUE);
+		}
+		if (surface[n].dl_type <= NO_DL)
+		{
+			input_error++;
+			error_msg ("Must use -donnan or -diffuse_layer for surface transport.",
+				CONTINUE);
+		}
+		for (i = 0; i < count_comps; i++)
+		{
+			if (surface[n].comps[i].Dw > 0)
+			{
+				for (j = 0; j < count_comps; j++)
+				{
+					if (surface[n].comps[j].charge == surface[n].comps[i].charge)
+						surface[n].comps[j].Dw = surface[n].comps[i].Dw;
+				}
+			}
+		}
 	}
-	sscanf (token1, SCANFORMAT,
-		&surface[n].comps[count_comps].phase_proportion);
-	/* real conc must be defined in tidy_model */
-	conc = 1.0;
-      }
-      else
-      {
-	error_msg
-	  ("Expected concentration of surface, mineral name, or kinetic reaction name.",
-	   CONTINUE);
-	error_msg (line_save, CONTINUE);
-	input_error++;
-	break;
-      }
-      /*
-       *   Accumulate elements in elt_list
-       */
-      count_elts = 0;
-      paren_count = 0;
-      ptr1 = token;
-      get_elts_in_species (&ptr1, conc);
-
-      /*
-       *   save formula for adjusting number of exchange sites
-       */
-
-      ptr1 = token;
-      get_token (&ptr1, token1, &surface[n].comps[count_comps].formula_z, &l);
-      surface[n].comps[count_comps].formula_totals = elt_list_save ();
-      surface[n].comps[count_comps].totals = elt_list_save ();
-      /*
-       *   Search for charge structure
-       */
-      ptr1 = token;
-      get_elt (&ptr1, name, &l);
-      ptr1 = strchr (name, '_');
-      if (ptr1 != NULL)
-	ptr1[0] = '\0';
-      for (i = 0; i < count_charge; i++)
-      {
-	if (strcmp (surface[n].charge[i].name, name) == 0)
-	  break;
-      }
-      if (i >= count_charge)
-      {
-	surface[n].charge =
-	  (struct surface_charge *) PHRQ_realloc (surface[n].charge,
-						  (size_t) (count_charge +
-							    1) *
-						  sizeof (struct
-							  surface_charge));
-	if (surface[n].charge == NULL)
-	  malloc_error ();
-	i = count_charge;
-	surface[n].charge[i].name = string_hsave (name);
-	if (surface[n].comps[count_comps].phase_name == NULL
-	    && surface[n].comps[count_comps].rate_name == NULL)
+	/*
+	*   Make sure surface area is defined
+	*/
+	/*if (surface[n].edl == TRUE) { */
+	if (surface[n].type == DDL || surface[n].type == CD_MUSIC)
 	{
-	  surface[n].charge[i].specific_area = 600.0;
-	  surface[n].charge[i].grams = 0.0;
+		for (i = 0; i < count_charge; i++)
+		{
+			if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <=
+				0)
+			{
+				sprintf (error_string, "Surface area not defined for %s.\n",
+					surface[n].charge[i].name);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+			}
+		}
 	}
-	else
+	/*
+	*  Logical checks
+	*/
+	if (surface[n].type == UNKNOWN_DL)
 	{
-	  surface[n].charge[i].specific_area = 0.0;
-	  surface[n].charge[i].grams = 1.0;
+		sprintf (error_string, "Unknown surface type.\n");
+		error_msg (error_string, CONTINUE);
+		input_error++;
 	}
-	surface[n].charge[i].charge_balance = 0.0;
-	surface[n].charge[i].mass_water = 0.0;
-	surface[n].charge[i].diffuse_layer_totals = NULL;
-	surface[n].charge[i].count_g = 0;
-	surface[n].charge[i].g = NULL;
-	surface[n].charge[i].la_psi = 0;
-	surface[n].charge[i].la_psi1 = 0;
-	surface[n].charge[i].la_psi2 = 0;
-	surface[n].charge[i].psi = 0;
-	surface[n].charge[i].psi1 = 0;
-	surface[n].charge[i].psi2 = 0;
-	surface[n].charge[i].capacitance[0] = 1.0;
-	surface[n].charge[i].capacitance[1] = 5.0;
-	surface[n].charge[i].sigma0 = 0;
-	surface[n].charge[i].sigma1 = 0;
-	surface[n].charge[i].sigma2 = 0;
-	count_charge++;
-      }
-      charge_ptr = &(surface[n].charge[i]);
-      surface[n].comps[count_comps].charge = i;
-      count_comps++;
-      /*
-       *   Read surface area (m2/g)
-       */
-      copy_token (token1, &ptr, &l);
-      if (sscanf (token1, SCANFORMAT, &area) == 1)
-      {
-	surface[n].charge[i].specific_area = area;
-      }
-      else
-      {
-	break;
-      }
-      /*
-       *   Read grams of solid (g)
-       */
-      copy_token (token1, &ptr, &l);
-      if (sscanf (token1, SCANFORMAT, &grams) == 1)
-      {
-	surface[n].charge[i].grams = grams;
-      }
-      /* read Dw */
-      copy_token (token1, &ptr, &l);
-      str_tolower (token1);
-      if (strcmp (token1, "dw") == 0)
-      {
-	j = copy_token (token1, &ptr, &l);
-	if (j != DIGIT)
+	else if (surface[n].type == NO_EDL)
 	{
-	  error_msg ("Expected surface diffusion coefficient (m2/s).\n",
-		     CONTINUE);
-	  input_error++;
-	  break;
+		if (surface[n].dl_type != NO_DL)
+		{
+			sprintf (error_string,
+				"No electrostatic term calculations do not allow calculation of the diffuse layer composition.\n");
+			warning_msg (error_string);
+			surface[n].dl_type = NO_DL;
+		}
 	}
-	else
+	else if (surface[n].type == DDL)
 	{
-	  sscanf (token1, SCANFORMAT, &surface[n].comps[count_comps - 1].Dw);
-	  if (surface[n].comps[count_comps - 1].Dw > 0)
-	  {
-	    surface[n].transport = TRUE;
-	    if (surface[n].related_rate == TRUE
-		|| surface[n].related_phases == TRUE)
-	    {
-	      error_msg
-		("Can't transport surfaces related to phases or rates (yet).",
-		 CONTINUE);
-	      input_error++;
-	    }
-	  }
-	  break;
+		/* all values of dl_type are valid */
 	}
-      }
-      break;
-
-    }
-    if (return_value == EOF || return_value == KEYWORD)
-      break;
-  }
-  surface[n].count_comps = count_comps;
-  surface[n].count_charge = count_charge;
-  /*
-   * copy Dw > 0 to all comps with the same charge structure, check edl & dif for surface transport
-   */
-  if (surface[n].transport == TRUE)
-  {
-    /*
-       if (surface[n].edl == FALSE || surface[n].diffuse_layer == FALSE) {
-       surface[n].edl = TRUE;
-       surface[n].diffuse_layer = TRUE;
-       warning_msg("Can't transport without edl and diffuse layer, set to true");
-       }
-     */
-    if (surface[n].type <= NO_EDL)
-    {
-      input_error++;
-      error_msg
-	("Must use default Dzombak and Morel or -cd_music for surface transport.",
-	 CONTINUE);
-    }
-    if (surface[n].dl_type <= NO_DL)
-    {
-      input_error++;
-      error_msg ("Must use -donnan or -diffuse_layer for surface transport.",
-		 CONTINUE);
-    }
-    for (i = 0; i < count_comps; i++)
-    {
-      if (surface[n].comps[i].Dw > 0)
-      {
-	for (j = 0; j < count_comps; j++)
+	else if (surface[n].type == CD_MUSIC)
 	{
-	  if (surface[n].comps[j].charge == surface[n].comps[i].charge)
-	    surface[n].comps[j].Dw = surface[n].comps[i].Dw;
+		if (surface[n].dl_type == BORKOVEK_DL)
+		{
+			sprintf (error_string,
+				"Borkovec and Westall diffuse layer calculation is not allowed with a CD_MUSIC surface.\n\tUsing Donnan diffuse layer calculation.");
+			warning_msg (error_string);
+			surface[n].dl_type = DONNAN_DL;
+		}
+		if (surface[n].debye_lengths > 0)
+		{
+			error_msg
+				("Variable DDL thickness is not permitted in CD_MUSIC. Fix DDL thickness\n\tfor example (default value): -donnan 1e-8",
+				CONTINUE);
+			input_error++;
+		}
 	}
-      }
-    }
-  }
-  /*
-   *   Make sure surface area is defined
-   */
-  /*if (surface[n].edl == TRUE) { */
-  if (surface[n].type == DDL || surface[n].type == CD_MUSIC)
-  {
-    for (i = 0; i < count_charge; i++)
-    {
-      if (surface[n].charge[i].grams * surface[n].charge[i].specific_area <=
-	  0)
-      {
-	sprintf (error_string, "Surface area not defined for %s.\n",
-		 surface[n].charge[i].name);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-      }
-    }
-  }
-  /*
-   *  Logical checks
-   */
-  if (surface[n].type == UNKNOWN_DL)
-  {
-    sprintf (error_string, "Unknown surface type.\n");
-    error_msg (error_string, CONTINUE);
-    input_error++;
-  }
-  else if (surface[n].type == NO_EDL)
-  {
-    if (surface[n].dl_type != NO_DL)
-    {
-      sprintf (error_string,
-	       "No electrostatic term calculations do not allow calculation of the diffuse layer composition.\n");
-      warning_msg (error_string);
-      surface[n].dl_type = NO_DL;
-    }
-  }
-  else if (surface[n].type == DDL)
-  {
-    /* all values of dl_type are valid */
-  }
-  else if (surface[n].type == CD_MUSIC)
-  {
-    if (surface[n].dl_type == BORKOVEK_DL)
-    {
-      sprintf (error_string,
-	       "Borkovec and Westall diffuse layer calculation is not allowed with a CD_MUSIC surface.\n\tUsing Donnan diffuse layer calculation.");
-      warning_msg (error_string);
-      surface[n].dl_type = DONNAN_DL;
-    }
-    if (surface[n].debye_lengths > 0)
-    {
-      error_msg
-	("Variable DDL thickness is not permitted in CD_MUSIC. Fix DDL thickness\n\tfor example (default value): -donnan 1e-8",
-	 CONTINUE);
-      input_error++;
-    }
-  }
-  return (return_value);
+	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -7125,178 +7152,178 @@ int
 read_surface_master_species (void)
 /* ---------------------------------------------------------------------- */
 {
-  /*
-   *   Reads master species data from data file or input file
-   */
-  int l, return_value;
-  char *ptr, *ptr1;
-  LDBLE z;
-  struct master *m_ptr;
-  struct species *s_ptr;
-  char token[MAX_LENGTH], token1[MAX_LENGTH];
-  int opt, opt_save;
-  char *next_char;
-  const char *opt_list[] = {
-    "capacitance",		/* 0 */
-    "cd_music_capacitance"	/* 1 */
-  };
-  int count_opt_list = 0;
-  opt_save = OPTION_DEFAULT;
-  return_value = UNKNOWN;
-  m_ptr = NULL;
-  for (;;)
-  {
-    opt = get_option (opt_list, count_opt_list, &next_char);
-    if (opt == OPTION_DEFAULT)
-    {
-      opt = opt_save;
-    }
-    switch (opt)
-    {
-    case OPTION_EOF:		/* end of file */
-      return_value = EOF;
-      break;
-    case OPTION_KEYWORD:	/* keyword */
-      return_value = KEYWORD;
-      break;
-    case OPTION_ERROR:
-      input_error++;
-      error_msg ("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
-      error_msg (line_save, CONTINUE);
-      break;
-#ifdef SKIP
-    case 0:			/* capacitance */
-    case 1:			/* cd_music_capacitance */
-      if (m_ptr == NULL)
-      {
-	sprintf (error_string, "No master_species defined before option, %s.",
-		 opt_list[opt]);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	break;
-      }
-      for (j = 0; j < 2; j++)
-      {
-	if (copy_token (token, &next_char, &l) == EMPTY)
-	  break;
-	if (sscanf (token, SCANFORMAT, &m_ptr->capacitance[j]) != 1)
-	  break;
-      }
-      m_ptr->capacitance_defined = TRUE;
-      opt_save = OPTION_DEFAULT;
-
-      break;
-#endif
-    case OPTION_DEFAULT:
-      /*
-       *   Get "element" name with valence, allocate space, store
-       */
-      ptr = line;
-      /*
-       *   Get element name and save pointer to character string
-       */
-      if (copy_token (token, &ptr, &l) != UPPER && token[0] != '[')
-      {
-	parse_error++;
-	error_msg ("Reading element for master species.", CONTINUE);
-	error_msg (line_save, CONTINUE);
-	continue;
-      }
-      replace ("(+", "(", token);
-      /*
-       *   Delete master if it exists
-       */
-      master_delete (token);
-      /*
-       *   Increase pointer array, if necessary,  and malloc space
-       */
-      if (count_master + 4 >= max_master)
-      {
-	space ((void **) ((void *) &master), count_master + 4, &max_master,
-	       sizeof (struct master *));
-      }
-      /*
-       *   Save values in master and species structure for surface sites
-       */
-      master[count_master] = master_alloc ();
-      master[count_master]->type = SURF;
-      master[count_master]->elt = element_store (token);
-      m_ptr = master[count_master];
-      if (copy_token (token, &ptr, &l) != UPPER && token[0] != '[')
-      {
-	parse_error++;
-	error_msg ("Reading surface master species name.", CONTINUE);
-	error_msg (line_save, CONTINUE);
-	continue;
-      }
-      s_ptr = s_search (token);
-      if (s_ptr != NULL)
-      {
-	master[count_master]->s = s_ptr;
-      }
-      else
-      {
-	ptr1 = token;
-	get_token (&ptr1, token1, &z, &l);
-	master[count_master]->s = s_store (token1, z, FALSE);
-      }
-      master[count_master]->primary = TRUE;
-      strcpy (token, master[count_master]->elt->name);
-      count_master++;
-      /*
-       *   Save values in master and species structure for surface psi
-       */
-      strcpy (token1, token);
-      replace ("_", " ", token1);
-      ptr1 = token1;
-      copy_token (token, &ptr1, &l);
-      strcat (token, "_psi");
-      add_psi_master_species (token);
-#ifdef SKIP
-      if (master_ptr == NULL)
-      {
-	master[count_master] = master_alloc ();
-	master[count_master]->type = SURF_PSI;
-	master[count_master]->elt = element_store (token);
-	s_ptr = s_search (token);
-	if (s_ptr != NULL)
-	{
-	  master[count_master]->s = s_ptr;
-	}
-	else
-	{
-	  master[count_master]->s = s_store (token, 0.0, FALSE);
-	}
-	count_elts = 0;
-	paren_count = 0;
-	ptr = token;
-	get_elts_in_species (&ptr, 1.0);
-	master[count_master]->s->next_elt = elt_list_save ();
-	master[count_master]->s->type = SURF_PSI;
-	master[count_master]->primary = TRUE;
-	master[count_master]->s->rxn = rxn_alloc (3);
 	/*
-	 *   Define reaction for psi
-	 */
-	for (i = 0; i < 8; i++)
+	*   Reads master species data from data file or input file
+	*/
+	int l, return_value;
+	char *ptr, *ptr1;
+	LDBLE z;
+	struct master *m_ptr;
+	struct species *s_ptr;
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
+	int opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"capacitance",		/* 0 */
+		"cd_music_capacitance"	/* 1 */
+	};
+	int count_opt_list = 0;
+	opt_save = OPTION_DEFAULT;
+	return_value = UNKNOWN;
+	m_ptr = NULL;
+	for (;;)
 	{
-	  master[count_master]->s->rxn->logk[i] = 0.0;
-	}
-	master[count_master]->s->rxn->token[0].s = master[count_master]->s;
-	master[count_master]->s->rxn->token[0].coef = -1.0;
-	master[count_master]->s->rxn->token[1].s = master[count_master]->s;
-	master[count_master]->s->rxn->token[1].coef = 1.0;
-	master[count_master]->s->rxn->token[2].s = NULL;
-	count_master++;
-      }
+		opt = get_option (opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT)
+		{
+			opt = opt_save;
+		}
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg ("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
+			error_msg (line_save, CONTINUE);
+			break;
+#ifdef SKIP
+		case 0:			/* capacitance */
+		case 1:			/* cd_music_capacitance */
+			if (m_ptr == NULL)
+			{
+				sprintf (error_string, "No master_species defined before option, %s.",
+					opt_list[opt]);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			for (j = 0; j < 2; j++)
+			{
+				if (copy_token (token, &next_char, &l) == EMPTY)
+					break;
+				if (sscanf (token, SCANFORMAT, &m_ptr->capacitance[j]) != 1)
+					break;
+			}
+			m_ptr->capacitance_defined = TRUE;
+			opt_save = OPTION_DEFAULT;
+
+			break;
 #endif
-      opt_save = OPTION_DEFAULT;
-      break;
-    }
-    if (return_value == EOF || return_value == KEYWORD)
-      break;
-  }
-  return (return_value);
+		case OPTION_DEFAULT:
+			/*
+			*   Get "element" name with valence, allocate space, store
+			*/
+			ptr = line;
+			/*
+			*   Get element name and save pointer to character string
+			*/
+			if (copy_token (token, &ptr, &l) != UPPER && token[0] != '[')
+			{
+				parse_error++;
+				error_msg ("Reading element for master species.", CONTINUE);
+				error_msg (line_save, CONTINUE);
+				continue;
+			}
+			replace ("(+", "(", token);
+			/*
+			*   Delete master if it exists
+			*/
+			master_delete (token);
+			/*
+			*   Increase pointer array, if necessary,  and malloc space
+			*/
+			if (count_master + 4 >= max_master)
+			{
+				space ((void **) ((void *) &master), count_master + 4, &max_master,
+					sizeof (struct master *));
+			}
+			/*
+			*   Save values in master and species structure for surface sites
+			*/
+			master[count_master] = master_alloc ();
+			master[count_master]->type = SURF;
+			master[count_master]->elt = element_store (token);
+			m_ptr = master[count_master];
+			if (copy_token (token, &ptr, &l) != UPPER && token[0] != '[')
+			{
+				parse_error++;
+				error_msg ("Reading surface master species name.", CONTINUE);
+				error_msg (line_save, CONTINUE);
+				continue;
+			}
+			s_ptr = s_search (token);
+			if (s_ptr != NULL)
+			{
+				master[count_master]->s = s_ptr;
+			}
+			else
+			{
+				ptr1 = token;
+				get_token (&ptr1, token1, &z, &l);
+				master[count_master]->s = s_store (token1, z, FALSE);
+			}
+			master[count_master]->primary = TRUE;
+			strcpy (token, master[count_master]->elt->name);
+			count_master++;
+			/*
+			*   Save values in master and species structure for surface psi
+			*/
+			strcpy (token1, token);
+			replace ("_", " ", token1);
+			ptr1 = token1;
+			copy_token (token, &ptr1, &l);
+			strcat (token, "_psi");
+			add_psi_master_species (token);
+#ifdef SKIP
+			if (master_ptr == NULL)
+			{
+				master[count_master] = master_alloc ();
+				master[count_master]->type = SURF_PSI;
+				master[count_master]->elt = element_store (token);
+				s_ptr = s_search (token);
+				if (s_ptr != NULL)
+				{
+					master[count_master]->s = s_ptr;
+				}
+				else
+				{
+					master[count_master]->s = s_store (token, 0.0, FALSE);
+				}
+				count_elts = 0;
+				paren_count = 0;
+				ptr = token;
+				get_elts_in_species (&ptr, 1.0);
+				master[count_master]->s->next_elt = elt_list_save ();
+				master[count_master]->s->type = SURF_PSI;
+				master[count_master]->primary = TRUE;
+				master[count_master]->s->rxn = rxn_alloc (3);
+				/*
+				*   Define reaction for psi
+				*/
+				for (i = 0; i < 8; i++)
+				{
+					master[count_master]->s->rxn->logk[i] = 0.0;
+				}
+				master[count_master]->s->rxn->token[0].s = master[count_master]->s;
+				master[count_master]->s->rxn->token[0].coef = -1.0;
+				master[count_master]->s->rxn->token[1].s = master[count_master]->s;
+				master[count_master]->s->rxn->token[1].coef = 1.0;
+				master[count_master]->s->rxn->token[2].s = NULL;
+				count_master++;
+			}
+#endif
+			opt_save = OPTION_DEFAULT;
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
