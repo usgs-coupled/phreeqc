@@ -344,55 +344,55 @@ quick_setup (void)
  */
   if (use.surface_ptr != NULL)
   {
-    for (i = 0; i < count_unknowns; i++)
-    {
-      if (x[i]->type == SURFACE)
-      {
-	break;
-      }
-    }
-    j = 0;
-    k = 0;
-    for (; i < count_unknowns; i++)
-    {
-      if (x[i]->type == SURFACE_CB)
-      {
-	x[i]->surface_charge = &(use.surface_ptr->charge[j]);
-	x[i]->related_moles = x[i]->surface_charge->grams;
-	x[i]->mass_water = use.surface_ptr->charge[j++].mass_water;
-	x[i]->surface_comp = x[i - 1]->surface_comp;
-	/* moles picked up from master->total */
-      }
-      else if (x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2)
-      {
-	/*
-	   charge = use.surface_ptr->comps[i].charge;
-	   x[count_unknowns]->surface_charge = &use.surface_ptr->charge[charge];
-	 */
-	x[i]->surface_charge = x[i - 1]->surface_charge;
-	x[i]->related_moles = x[i]->surface_charge->grams;
-	x[i]->mass_water = x[i]->surface_charge->mass_water;
-      }
-      else if (x[i]->type == SURFACE)
-      {
-	x[i]->surface_comp = &(use.surface_ptr->comps[k++]);
-	/* moles picked up from master->total
-	   except for surfaces related to kinetic minerals ... */
-	if (x[i]->surface_comp->rate_name != NULL)
-	{
-	  for (l = 0; x[i]->surface_comp->totals[l].elt != NULL; l++)
+	  for (i = 0; i < count_unknowns; i++)
 	  {
-	    if (x[i]->surface_comp->totals[l].elt->master->type != SURF)
-	      continue;
-	    if (strcmp_nocase
-		(x[i]->description,
-		 x[i]->surface_comp->totals[l].elt->name) == 0)
-	    {
-	      x[i]->moles = x[i]->surface_comp->totals[l].coef;
-	      /* printf("%s  moles %e\n", x[i]->description, x[i]->moles); */
-	    }
+		  if (x[i]->type == SURFACE)
+		  {
+			  break;
+		  }
 	  }
-	}
+	  j = 0;
+	  k = 0;
+	  for (; i < count_unknowns; i++)
+	  {
+		  if (x[i]->type == SURFACE_CB)
+		  {
+			  x[i]->surface_charge = &(use.surface_ptr->charge[j]);
+			  x[i]->related_moles = x[i]->surface_charge->grams;
+			  x[i]->mass_water = use.surface_ptr->charge[j++].mass_water;
+			  x[i]->surface_comp = x[i - 1]->surface_comp;
+			  /* moles picked up from master->total */
+		  }
+		  else if (x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2)
+		  {
+			  /*
+			  charge = use.surface_ptr->comps[i].charge;
+			  x[count_unknowns]->surface_charge = &use.surface_ptr->charge[charge];
+			  */
+			  x[i]->surface_charge = x[i - 1]->surface_charge;
+			  x[i]->related_moles = x[i]->surface_charge->grams;
+			  x[i]->mass_water = x[i]->surface_charge->mass_water;
+		  }
+		  else if (x[i]->type == SURFACE)
+		  {
+			  x[i]->surface_comp = &(use.surface_ptr->comps[k++]);
+			  /* moles picked up from master->total
+			  except for surfaces related to kinetic minerals ... */
+			  if (x[i]->surface_comp->rate_name != NULL)
+			  {
+				  for (l = 0; x[i]->surface_comp->totals[l].elt != NULL; l++)
+				  {
+					  if (x[i]->surface_comp->totals[l].elt->master->type != SURF)
+						  continue;
+					  if (strcmp_nocase
+						  (x[i]->description,
+						  x[i]->surface_comp->totals[l].elt->name) == 0)
+					  {
+						  x[i]->moles = x[i]->surface_comp->totals[l].coef;
+						  /* printf("%s  moles %e\n", x[i]->description, x[i]->moles); */
+					  }
+				  }
+			  }
 /* !!!! */
 #ifdef SKIP
 	if (count_kin_surf > 0)
@@ -3253,305 +3253,305 @@ int
 setup_surface (void)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *   Fill in data for surface assemblage in unknown structure
- */
-  int i, j, k, plane;
-  struct master *master_ptr;
-  struct master **master_ptr_list;
-  struct unknown *unknown_ptr, **unknown_target;
-  char token[MAX_LENGTH], cb_suffix[MAX_LENGTH], psi_suffix[MAX_LENGTH],
-    mass_balance_name[MAX_LENGTH];
-  char *name1, *name2;
-  int mb_unknown_number, type;
+	/*
+	*   Fill in data for surface assemblage in unknown structure
+	*/
+	int i, j, k, plane;
+	struct master *master_ptr;
+	struct master **master_ptr_list;
+	struct unknown *unknown_ptr, **unknown_target;
+	char token[MAX_LENGTH], cb_suffix[MAX_LENGTH], psi_suffix[MAX_LENGTH],
+		mass_balance_name[MAX_LENGTH];
+	char *name1, *name2;
+	int mb_unknown_number, type;
 
-  if (use.surface_ptr == NULL)
-    return (OK);
+	if (use.surface_ptr == NULL)
+		return (OK);
 
-  for (i = 0; i < use.surface_ptr->count_comps; i++)
-  {
-/*
- *   Find master species for each surface, setup unknown structure
- */
-    for (j = 0; use.surface_ptr->comps[i].totals[j].elt != NULL; j++)
-    {
-      master_ptr = use.surface_ptr->comps[i].totals[j].elt->master;
-      if (master_ptr == NULL)
-      {
-	sprintf (error_string,
-		 "Master species not in data base for %s, skipping element.",
-		 use.surface_ptr->comps[i].totals[j].elt->name);
-	warning_msg (error_string);
-	continue;
-      }
-      if (master_ptr->type != SURF)
-	continue;
-/*
- *   Check that data not already given
- */ if (master_ptr->in != FALSE)
-      {
-	sprintf (error_string, "Analytical data entered twice for %s.",
-		 master_ptr->s->name);
-	error_msg (error_string, CONTINUE);
-	input_error++;
-	continue;
-      }
-/*
- *   Set flags
- */
-      use.surface_ptr->comps[i].master = master_ptr;
-      master_ptr_list = unknown_alloc_master ();
-      master_ptr_list[0] = master_ptr;
-      master_ptr->in = TRUE;
-/*
- *   Setup mass balance unknown
- */
-      x[count_unknowns]->type = SURFACE;
-      x[count_unknowns]->description =
-	use.surface_ptr->comps[i].totals[j].elt->name;
-      x[count_unknowns]->number = count_unknowns;
-      x[count_unknowns]->surface_comp = &(use.surface_ptr->comps[i]);
-      x[count_unknowns]->master = master_ptr_list;
-      x[count_unknowns]->master[0]->unknown = x[count_unknowns];
-      x[count_unknowns]->moles = use.surface_ptr->comps[i].totals[j].coef;
-      if (surface_unknown == NULL)
-	surface_unknown = x[count_unknowns];
-      x[count_unknowns]->potential_unknown = NULL;
-      count_unknowns++;
-      /*if (use.surface_ptr->edl == FALSE) continue; */
-      if (use.surface_ptr->type == DDL)
-      {
-/*
- *   Setup surface-potential unknown
- */
-	strcpy (token, master_ptr->elt->name);
-	unknown_ptr = find_surface_charge_unknown (token, SURF_PSI);
-	if (unknown_ptr != NULL)
+	for (i = 0; i < use.surface_ptr->count_comps; i++)
 	{
-	  x[count_unknowns - 1]->potential_unknown = unknown_ptr;
+		/*
+		*   Find master species for each surface, setup unknown structure
+		*/
+		for (j = 0; use.surface_ptr->comps[i].totals[j].elt != NULL; j++)
+		{
+			master_ptr = use.surface_ptr->comps[i].totals[j].elt->master;
+			if (master_ptr == NULL)
+			{
+				sprintf (error_string,
+					"Master species not in data base for %s, skipping element.",
+					use.surface_ptr->comps[i].totals[j].elt->name);
+				warning_msg (error_string);
+				continue;
+			}
+			if (master_ptr->type != SURF)
+				continue;
+			/*
+			*   Check that data not already given
+			*/ if (master_ptr->in != FALSE)
+			{
+				sprintf (error_string, "Analytical data entered twice for %s.",
+					master_ptr->s->name);
+				error_msg (error_string, CONTINUE);
+				input_error++;
+				continue;
+			}
+			/*
+			*   Set flags
+			*/
+			use.surface_ptr->comps[i].master = master_ptr;
+			master_ptr_list = unknown_alloc_master ();
+			master_ptr_list[0] = master_ptr;
+			master_ptr->in = TRUE;
+			/*
+			*   Setup mass balance unknown
+			*/
+			x[count_unknowns]->type = SURFACE;
+			x[count_unknowns]->description =
+				use.surface_ptr->comps[i].totals[j].elt->name;
+			x[count_unknowns]->number = count_unknowns;
+			x[count_unknowns]->surface_comp = &(use.surface_ptr->comps[i]);
+			x[count_unknowns]->master = master_ptr_list;
+			x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+			x[count_unknowns]->moles = use.surface_ptr->comps[i].totals[j].coef;
+			if (surface_unknown == NULL)
+				surface_unknown = x[count_unknowns];
+			x[count_unknowns]->potential_unknown = NULL;
+			count_unknowns++;
+			/*if (use.surface_ptr->edl == FALSE) continue; */
+			if (use.surface_ptr->type == DDL)
+			{
+				/*
+				*   Setup surface-potential unknown
+				*/
+				strcpy (token, master_ptr->elt->name);
+				unknown_ptr = find_surface_charge_unknown (token, SURF_PSI);
+				if (unknown_ptr != NULL)
+				{
+					x[count_unknowns - 1]->potential_unknown = unknown_ptr;
+				}
+				else
+				{
+					/*
+					*   Find master species
+					*/
+					replace ("_CB", "_psi", token);
+					master_ptr = master_bsearch (token);
+					master_ptr_list = unknown_alloc_master ();
+					master_ptr_list[0] = master_ptr;
+					master_ptr->in = TRUE;
+					/*
+					*   Find surface charge structure
+					*/
+					x[count_unknowns]->type = SURFACE_CB;
+					k = use.surface_ptr->comps[i].charge;
+					x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
+					x[count_unknowns]->related_moles =
+						x[count_unknowns]->surface_charge->grams;
+					x[count_unknowns]->mass_water =
+						use.surface_ptr->charge[k].mass_water;
+					replace ("_psi", "_CB", token);
+					x[count_unknowns]->description = string_hsave (token);
+					x[count_unknowns]->master = master_ptr_list;
+					/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0]; */
+					x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+					x[count_unknowns]->moles = 0.0;
+					x[count_unknowns - 1]->potential_unknown = x[count_unknowns];
+					x[count_unknowns]->surface_comp =
+						x[count_unknowns - 1]->surface_comp;
+					count_unknowns++;
+				}
+			}
+			else if (use.surface_ptr->type == CD_MUSIC)
+			{
+				/*
+				*   Setup 3 surface-potential unknowns
+				*/
+				mb_unknown_number = count_unknowns - 1;
+				strcpy (token, master_ptr->elt->name);
+				strcpy (mass_balance_name, token);
+				for (plane = SURF_PSI; plane <= SURF_PSI2; plane++)
+				{
+					strcpy (cb_suffix, "_CB");
+					strcpy (psi_suffix, "_psi");
+					unknown_target = NULL;
+					type = SURFACE_CB;
+					switch (plane)
+					{
+					case SURF_PSI:
+						type = SURFACE_CB;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown);
+						break;
+					case SURF_PSI1:
+						strcat (cb_suffix, "b");
+						strcat (psi_suffix, "b");
+						type = SURFACE_CB1;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown1);
+						break;
+					case SURF_PSI2:
+						strcat (cb_suffix, "d");
+						strcat (psi_suffix, "d");
+						type = SURFACE_CB2;
+						unknown_target = &(x[mb_unknown_number]->potential_unknown2);
+						break;
+					}
+					unknown_ptr = find_surface_charge_unknown (token, plane);
+					if (unknown_ptr != NULL)
+					{
+						*unknown_target = unknown_ptr;
+					}
+					else
+					{
+						/*
+						*   Find master species
+						*/
+						replace (cb_suffix, psi_suffix, token);
+						master_ptr = master_bsearch (token);
+						master_ptr_list = unknown_alloc_master ();
+						master_ptr_list[0] = master_ptr;
+						master_ptr->in = TRUE;
+						/*
+						*   Find surface charge structure
+						*/
+						x[count_unknowns]->type = type;
+						k = use.surface_ptr->comps[i].charge;
+						x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
+						x[count_unknowns]->related_moles =
+							x[count_unknowns]->surface_charge->grams;
+						x[count_unknowns]->mass_water =
+							use.surface_ptr->charge[k].mass_water;
+						replace (psi_suffix, cb_suffix, token);
+						x[count_unknowns]->description = string_hsave (token);
+						x[count_unknowns]->master = master_ptr_list;
+						/*
+						*   Find surface charge structure
+						*/
+						if (plane == SURF_PSI)
+						{
+							/*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0]; */
+							x[mb_unknown_number]->potential_unknown = x[count_unknowns];
+						}
+						else if (plane == SURF_PSI1)
+						{
+							/*use.surface_ptr->charge[k].psi_master1 = x[count_unknowns]->master[0]; */
+							x[mb_unknown_number]->potential_unknown1 = x[count_unknowns];
+						}
+						else if (plane == SURF_PSI2)
+						{
+							/*use.surface_ptr->charge[k].psi_master2 = x[count_unknowns]->master[0]; */
+							x[mb_unknown_number]->potential_unknown2 = x[count_unknowns];
+						}
+						x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+						x[count_unknowns]->moles = 0.0;
+						x[count_unknowns]->surface_comp =
+							x[mb_unknown_number]->surface_comp;
+						count_unknowns++;
+					}
+				}
+				/* Add SURFACE unknown to a list for SURF_PSI */
+				unknown_ptr = find_surface_charge_unknown (token, SURF_PSI);
+				unknown_ptr->comp_unknowns =
+					(struct unknown **) PHRQ_realloc (unknown_ptr->comp_unknowns,
+					(size_t) ((unknown_ptr->
+					count_comp_unknowns +
+					1) *
+					sizeof (struct unknown *)));
+				if (unknown_ptr->comp_unknowns == NULL)
+					malloc_error ();
+				unknown_ptr->comp_unknowns[unknown_ptr->count_comp_unknowns++] =
+					x[mb_unknown_number];
+			}
+		}
 	}
-	else
+	/*
+	*   check related phases
+	*/
+	if (use.surface_ptr->related_phases == TRUE)
 	{
-/*
- *   Find master species
- */
-	  replace ("_CB", "_psi", token);
-	  master_ptr = master_bsearch (token);
-	  master_ptr_list = unknown_alloc_master ();
-	  master_ptr_list[0] = master_ptr;
-	  master_ptr->in = TRUE;
-	  /*
-	   *   Find surface charge structure
-	   */
-	  x[count_unknowns]->type = SURFACE_CB;
-	  k = use.surface_ptr->comps[i].charge;
-	  x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
-	  x[count_unknowns]->related_moles =
-	    x[count_unknowns]->surface_charge->grams;
-	  x[count_unknowns]->mass_water =
-	    use.surface_ptr->charge[k].mass_water;
-	  replace ("_psi", "_CB", token);
-	  x[count_unknowns]->description = string_hsave (token);
-	  x[count_unknowns]->master = master_ptr_list;
-	  /*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0]; */
-	  x[count_unknowns]->master[0]->unknown = x[count_unknowns];
-	  x[count_unknowns]->moles = 0.0;
-	  x[count_unknowns - 1]->potential_unknown = x[count_unknowns];
-	  x[count_unknowns]->surface_comp =
-	    x[count_unknowns - 1]->surface_comp;
-	  count_unknowns++;
-	}
-      }
-      else if (use.surface_ptr->type == CD_MUSIC)
-      {
-/*
- *   Setup 3 surface-potential unknowns
- */
-	mb_unknown_number = count_unknowns - 1;
-	strcpy (token, master_ptr->elt->name);
-	strcpy (mass_balance_name, token);
-	for (plane = SURF_PSI; plane <= SURF_PSI2; plane++)
-	{
-	  strcpy (cb_suffix, "_CB");
-	  strcpy (psi_suffix, "_psi");
-	  unknown_target = NULL;
-	  type = SURFACE_CB;
-	  switch (plane)
-	  {
-	  case SURF_PSI:
-	    type = SURFACE_CB;
-	    unknown_target = &(x[mb_unknown_number]->potential_unknown);
-	    break;
-	  case SURF_PSI1:
-	    strcat (cb_suffix, "b");
-	    strcat (psi_suffix, "b");
-	    type = SURFACE_CB1;
-	    unknown_target = &(x[mb_unknown_number]->potential_unknown1);
-	    break;
-	  case SURF_PSI2:
-	    strcat (cb_suffix, "d");
-	    strcat (psi_suffix, "d");
-	    type = SURFACE_CB2;
-	    unknown_target = &(x[mb_unknown_number]->potential_unknown2);
-	    break;
-	  }
-	  unknown_ptr = find_surface_charge_unknown (token, plane);
-	  if (unknown_ptr != NULL)
-	  {
-	    *unknown_target = unknown_ptr;
-	  }
-	  else
-	  {
-	    /*
-	     *   Find master species
-	     */
-	    replace (cb_suffix, psi_suffix, token);
-	    master_ptr = master_bsearch (token);
-	    master_ptr_list = unknown_alloc_master ();
-	    master_ptr_list[0] = master_ptr;
-	    master_ptr->in = TRUE;
-	    /*
-	     *   Find surface charge structure
-	     */
-	    x[count_unknowns]->type = type;
-	    k = use.surface_ptr->comps[i].charge;
-	    x[count_unknowns]->surface_charge = &use.surface_ptr->charge[k];
-	    x[count_unknowns]->related_moles =
-	      x[count_unknowns]->surface_charge->grams;
-	    x[count_unknowns]->mass_water =
-	      use.surface_ptr->charge[k].mass_water;
-	    replace (psi_suffix, cb_suffix, token);
-	    x[count_unknowns]->description = string_hsave (token);
-	    x[count_unknowns]->master = master_ptr_list;
-	    /*
-	     *   Find surface charge structure
-	     */
-	    if (plane == SURF_PSI)
-	    {
-	      /*use.surface_ptr->charge[k].psi_master = x[count_unknowns]->master[0]; */
-	      x[mb_unknown_number]->potential_unknown = x[count_unknowns];
-	    }
-	    else if (plane == SURF_PSI1)
-	    {
-	      /*use.surface_ptr->charge[k].psi_master1 = x[count_unknowns]->master[0]; */
-	      x[mb_unknown_number]->potential_unknown1 = x[count_unknowns];
-	    }
-	    else if (plane == SURF_PSI2)
-	    {
-	      /*use.surface_ptr->charge[k].psi_master2 = x[count_unknowns]->master[0]; */
-	      x[mb_unknown_number]->potential_unknown2 = x[count_unknowns];
-	    }
-	    x[count_unknowns]->master[0]->unknown = x[count_unknowns];
-	    x[count_unknowns]->moles = 0.0;
-	    x[count_unknowns]->surface_comp =
-	      x[mb_unknown_number]->surface_comp;
-	    count_unknowns++;
-	  }
-	}
-	/* Add SURFACE unknown to a list for SURF_PSI */
-	unknown_ptr = find_surface_charge_unknown (token, SURF_PSI);
-	unknown_ptr->comp_unknowns =
-	  (struct unknown **) PHRQ_realloc (unknown_ptr->comp_unknowns,
-				       (size_t) ((unknown_ptr->
-						  count_comp_unknowns +
-						  1) *
-						 sizeof (struct unknown *)));
-	if (unknown_ptr->comp_unknowns == NULL)
-	  malloc_error ();
-	unknown_ptr->comp_unknowns[unknown_ptr->count_comp_unknowns++] =
-	  x[mb_unknown_number];
-      }
-    }
-  }
-/*
- *   check related phases
- */
-  if (use.surface_ptr->related_phases == TRUE)
-  {
-    for (i = 0; i < count_unknowns; i++)
-    {
-      if (x[i]->type != SURFACE_CB)
-	continue;
-      for (j = 0; j < count_unknowns; j++)
-      {
-	if (x[j]->type != SURFACE)
-	  continue;
-	if (x[j]->potential_unknown != x[i])
-	  continue;
-	if (x[j]->surface_comp->phase_name != x[i]->surface_comp->phase_name)
-	{
-	  if (x[i]->surface_comp->phase_name == NULL)
-	  {
-	    name1 = string_hsave ("None");
-	  }
-	  else
-	  {
-	    name1 = x[i]->surface_comp->phase_name;
-	  }
-	  if (x[j]->surface_comp->phase_name == NULL)
-	  {
-	    name2 = string_hsave ("None");
-	  }
-	  else
-	  {
-	    name2 = x[j]->surface_comp->phase_name;
-	  }
-	  input_error++;
-	  sprintf (error_string,
-		   "All surface sites for a single component must be related to the same phase.\n\tSite: %s is related to %s, Site: %s is related to %s",
-		   x[i]->surface_comp->master->s->name, name1,
-		   x[j]->surface_comp->master->s->name, name2);
+		for (i = 0; i < count_unknowns; i++)
+		{
+			if (x[i]->type != SURFACE_CB)
+				continue;
+			for (j = 0; j < count_unknowns; j++)
+			{
+				if (x[j]->type != SURFACE)
+					continue;
+				if (x[j]->potential_unknown != x[i])
+					continue;
+				if (x[j]->surface_comp->phase_name != x[i]->surface_comp->phase_name)
+				{
+					if (x[i]->surface_comp->phase_name == NULL)
+					{
+						name1 = string_hsave ("None");
+					}
+					else
+					{
+						name1 = x[i]->surface_comp->phase_name;
+					}
+					if (x[j]->surface_comp->phase_name == NULL)
+					{
+						name2 = string_hsave ("None");
+					}
+					else
+					{
+						name2 = x[j]->surface_comp->phase_name;
+					}
+					input_error++;
+					sprintf (error_string,
+						"All surface sites for a single component must be related to the same phase.\n\tSite: %s is related to %s, Site: %s is related to %s",
+						x[i]->surface_comp->master->s->name, name1,
+						x[j]->surface_comp->master->s->name, name2);
 
-	  error_msg (error_string, CONTINUE);
+					error_msg (error_string, CONTINUE);
+				}
+			}
+		}
 	}
-      }
-    }
-  }
-/*
- *   check related kinetics
- */
-  if (use.surface_ptr->related_rate == TRUE)
-  {
-    for (i = 0; i < count_unknowns; i++)
-    {
-      if (x[i]->type != SURFACE_CB)
-	continue;
-      for (j = 0; j < count_unknowns; j++)
-      {
-	if (x[j]->type != SURFACE)
-	  continue;
-	if (x[j]->potential_unknown != x[i])
-	  continue;
-	if (x[j]->surface_comp->rate_name != x[i]->surface_comp->rate_name)
+	/*
+	*   check related kinetics
+	*/
+	if (use.surface_ptr->related_rate == TRUE)
 	{
-	  if (x[i]->surface_comp->rate_name == NULL)
-	  {
-	    name1 = string_hsave ("None");
-	  }
-	  else
-	  {
-	    name1 = x[i]->surface_comp->rate_name;
-	  }
-	  if (x[j]->surface_comp->rate_name == NULL)
-	  {
-	    name2 = string_hsave ("None");
-	  }
-	  else
-	  {
-	    name2 = x[j]->surface_comp->rate_name;
-	  }
-	  input_error++;
-	  sprintf (error_string,
-		   "All surface sites for a single component must be related to the same kinetic reaction.\n\tSite: %s is related to %s, Site: %s is related to %s",
-		   x[i]->surface_comp->master->s->name, name1,
-		   x[j]->surface_comp->master->s->name, name2);
+		for (i = 0; i < count_unknowns; i++)
+		{
+			if (x[i]->type != SURFACE_CB)
+				continue;
+			for (j = 0; j < count_unknowns; j++)
+			{
+				if (x[j]->type != SURFACE)
+					continue;
+				if (x[j]->potential_unknown != x[i])
+					continue;
+				if (x[j]->surface_comp->rate_name != x[i]->surface_comp->rate_name)
+				{
+					if (x[i]->surface_comp->rate_name == NULL)
+					{
+						name1 = string_hsave ("None");
+					}
+					else
+					{
+						name1 = x[i]->surface_comp->rate_name;
+					}
+					if (x[j]->surface_comp->rate_name == NULL)
+					{
+						name2 = string_hsave ("None");
+					}
+					else
+					{
+						name2 = x[j]->surface_comp->rate_name;
+					}
+					input_error++;
+					sprintf (error_string,
+						"All surface sites for a single component must be related to the same kinetic reaction.\n\tSite: %s is related to %s, Site: %s is related to %s",
+						x[i]->surface_comp->master->s->name, name1,
+						x[j]->surface_comp->master->s->name, name2);
 
-	  error_msg (error_string, CONTINUE);
+					error_msg (error_string, CONTINUE);
+				}
+			}
+		}
 	}
-      }
-    }
-  }
-  return (OK);
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */

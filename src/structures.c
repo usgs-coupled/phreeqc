@@ -6068,6 +6068,19 @@ surface_comp_compare (const void *ptr1, const void *ptr2)
 	  (surface_comp_ptr1->master->elt->name,
 	   surface_comp_ptr2->master->elt->name));
 }
+/* ---------------------------------------------------------------------- */
+int
+surface_charge_compare (const void *ptr1, const void *ptr2)
+/* ---------------------------------------------------------------------- */
+{
+  const struct surface_charge *surface_charge_ptr1, *surface_charge_ptr2;
+  surface_charge_ptr1 = (const struct surface_charge *) ptr1;
+  surface_charge_ptr2 = (const struct surface_charge *) ptr2;
+  return (strcmp_nocase
+	  (surface_charge_ptr1->name,
+	   surface_charge_ptr2->name));
+}
+
 
 /* ---------------------------------------------------------------------- */
 int
