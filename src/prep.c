@@ -177,6 +177,8 @@ quick_setup (void)
  *   Updates essential information for the model.
  */
   int i, j, k, l;
+  char token[MAX_LENGTH], name[MAX_LENGTH];
+  char *ptr, *ptr1;
 
   for (i = 0; i < count_master; i++)
   {
@@ -361,6 +363,23 @@ quick_setup (void)
 			  x[i]->related_moles = x[i]->surface_charge->grams;
 			  x[i]->mass_water = use.surface_ptr->charge[j++].mass_water;
 			  x[i]->surface_comp = x[i - 1]->surface_comp;
+
+			  /* test that charge and surface match*/
+			  ptr = x[i]->surface_comp->formula;
+			  copy_token(token, &ptr, &l);
+			  ptr1 = token;
+			  get_elt (&ptr1, name, &l);
+			  ptr1 = strchr (name, '_');
+			  if (ptr1 != NULL)	ptr1[0] = '\0';
+			  if (strcmp(name, x[i]->surface_charge->name) != 0)
+			  {
+				  sprintf (error_string,
+					  "Internal error: Surface charge name %s does not match surface component name %s\nTry alphabetical order for surfaces in SURFACE",
+					  x[i]->surface_charge->name, x[i]->surface_comp->formula);
+				  error_msg (error_string, STOP);
+			  }
+
+
 			  /* moles picked up from master->total */
 		  }
 		  else if (x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2)
