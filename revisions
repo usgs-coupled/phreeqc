@@ -1091,6 +1091,15 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3100
+        --------
+	Error when multiple surfaces were used. Sometimes the
+	surface area from one surface was used for another.
+	Results were probably incorrect if the surfaces were
+	not in alphabetical order in their definition in 
+	SURFACE.
+
+        --------
         svn 2711
         --------
         Cleaned up compiler warnings for functions called 
