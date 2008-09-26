@@ -609,7 +609,8 @@ initialize (void)
   */
   strcpy (token, "XconstantX");
   logk_ptr = logk_store (token, TRUE);
-  read_log_k_only ("1.0", &logk_ptr->log_k[0]);
+  strcpy(token,"1.0");
+  read_log_k_only (token, &logk_ptr->log_k[0]);
 
   phreeqc_mpi_myself = 0;
 
