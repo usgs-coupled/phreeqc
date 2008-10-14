@@ -74,457 +74,457 @@ int
 pitzer_tidy (void)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *      Make lists of species for cations, anions, neutral
- */
-  char *string1, *string2;
-  int i, j, order;
-  int i0, i1, i2;
-  int count_pos, count_neg, count_neut, count[3], jj;
-  LDBLE z0, z1;
-  struct pitz_param *pzp_ptr;
-  struct theta_param *theta_param_ptr;
-  /*
-   *  allocate pointers to species structures
-   */
-  if (spec != NULL)
-    spec = (struct species **) free_check_null (spec);
-  spec =
-    (struct species **)
-    PHRQ_malloc ((size_t) (3 * count_s * sizeof (struct species *)));
-  if (spec == NULL)
-    malloc_error ();
-  for (i = 0; i < 3 * count_s; i++)
-    spec[i] = NULL;
-  cations = spec;
-  neutrals = &(spec[count_s]);
-  anions = &(spec[2 * count_s]);
-  MAXCATIONS = count_s;
-  FIRSTANION = 2 * count_s;
-  MAXNEUTRAL = count_s;
-  count_cations = 0;
-  count_anions = 0;
-  count_neutrals = 0;
-  if (itmax < 200)
-    itmax = 200;
-  /*
-   *  allocate other arrays for Pitzer
-   */
-  if (IPRSNT != NULL)
-    IPRSNT = (int *) free_check_null (IPRSNT);
-  IPRSNT = (int *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (int)));
-  if (IPRSNT == NULL)
-    malloc_error ();
-  if (M != NULL)
-    M = (LDBLE *) free_check_null (M);
-  M = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
-  if (M == NULL)
-    malloc_error ();
-  if (LGAMMA != NULL)
-    LGAMMA = (LDBLE *) free_check_null (LGAMMA);
-  LGAMMA = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
-  if (LGAMMA == NULL)
-    malloc_error ();
+	/*
+	*      Make lists of species for cations, anions, neutral
+	*/
+	char *string1, *string2;
+	int i, j, order;
+	int i0, i1, i2;
+	int count_pos, count_neg, count_neut, count[3], jj;
+	LDBLE z0, z1;
+	struct pitz_param *pzp_ptr;
+	struct theta_param *theta_param_ptr;
+	/*
+	*  allocate pointers to species structures
+	*/
+	if (spec != NULL)
+		spec = (struct species **) free_check_null (spec);
+	spec =
+		(struct species **)
+		PHRQ_malloc ((size_t) (3 * count_s * sizeof (struct species *)));
+	if (spec == NULL)
+		malloc_error ();
+	for (i = 0; i < 3 * count_s; i++)
+		spec[i] = NULL;
+	cations = spec;
+	neutrals = &(spec[count_s]);
+	anions = &(spec[2 * count_s]);
+	MAXCATIONS = count_s;
+	FIRSTANION = 2 * count_s;
+	MAXNEUTRAL = count_s;
+	count_cations = 0;
+	count_anions = 0;
+	count_neutrals = 0;
+	if (itmax < 200)
+		itmax = 200;
+	/*
+	*  allocate other arrays for Pitzer
+	*/
+	if (IPRSNT != NULL)
+		IPRSNT = (int *) free_check_null (IPRSNT);
+	IPRSNT = (int *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (int)));
+	if (IPRSNT == NULL)
+		malloc_error ();
+	if (M != NULL)
+		M = (LDBLE *) free_check_null (M);
+	M = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
+	if (M == NULL)
+		malloc_error ();
+	if (LGAMMA != NULL)
+		LGAMMA = (LDBLE *) free_check_null (LGAMMA);
+	LGAMMA = (LDBLE *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (LDBLE)));
+	if (LGAMMA == NULL)
+		malloc_error ();
 
 
-  for (i = 0; i < count_s; i++)
-  {
-    if (s[i] == s_eminus)
-      continue;
-    if (s[i] == s_h2o)
-      continue;
-    if (s[i]->z < -.001)
-    {
-      anions[count_anions++] = s[i];
-    }
-    else if (s[i]->z > .001)
-    {
-      cations[count_cations++] = s[i];
-    }
-    else
-    {
-      neutrals[count_neutrals++] = s[i];
-    }
-  }
-  /*
-   *  Add etheta to parameter list in case theta not defined for 
-   *  cation-cation or anion-anion pair
-   *  Remove old TYPE_ETHETA definitions
-   */
-  j = 0;
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_ETHETA)
-    {
-      pitz_params[i] = (struct pitz_param *) free_check_null (pitz_params[i]);
-    }
-    else
-    {
-      pitz_params[j++] = pitz_params[i];
-    }
-  }
-  count_pitz_param = j;
-  for (i = 0; i < count_cations - 1; i++)
-  {
-    for (j = i + 1; j < count_cations; j++)
-    {
-      sprintf (line, "%s %s 1", spec[i]->name, spec[j]->name);
-      pzp_ptr = pitz_param_read (line, 2);
-      pzp_ptr->type = TYPE_ETHETA;
-      if (count_pitz_param >= max_pitz_param)
-      {
-	space ((void **) ((void *) &pitz_params), count_pitz_param,
-	       &max_pitz_param, sizeof (struct pitz_param *));
-      }
-      pitz_params[count_pitz_param++] = pzp_ptr;
-
-    }
-  }
-  for (i = 2 * count_s; i < 2 * count_s + count_anions - 1; i++)
-  {
-    for (j = i + 1; j < 2 * count_s + count_anions; j++)
-    {
-      sprintf (line, "%s %s 1", spec[i]->name, spec[j]->name);
-      pzp_ptr = pitz_param_read (line, 2);
-      pzp_ptr->type = TYPE_ETHETA;
-      if (count_pitz_param >= max_pitz_param)
-      {
-	space ((void **) ((void *) &pitz_params), count_pitz_param,
-	       &max_pitz_param, sizeof (struct pitz_param *));
-      }
-      pitz_params[count_pitz_param] = pzp_ptr;
-      count_pitz_param++;
-    }
-  }
-  /*
-   *  put species numbers in pitz_params
-   */
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    for (j = 0; j < 3; j++)
-    {
-      if (pitz_params[i]->species[j] == NULL)
-	continue;
-      pitz_params[i]->ispec[j] = ISPEC (pitz_params[i]->species[j]);
-      if ((j < 2 && pitz_params[i]->ispec[j] == -1) ||
-	  (j == 3
-	   && (pitz_params[i]->type == TYPE_PSI
-	       || pitz_params[i]->type == TYPE_ZETA)
-	   && pitz_params[i]->ispec[j] == -1))
-      {
-	input_error++;
-	sprintf (error_string,
-		 "Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
-		 pitz_params[i]->species[j]);
-	error_msg (error_string, CONTINUE);
-	return (ERROR);
-      }
-    }
-  }
-  /*
-   * McGinnis data
-   */
-  string1 = string_hsave ("K+");
-  string2 = string_hsave ("Cl-");
-  IC = ISPEC (string2);
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->species[0] == string1 &&
-	pitz_params[i]->species[1] == string2)
-    {
-      switch (pitz_params[i]->type)
-      {
-      case TYPE_B0:
-	mcb0 = pitz_params[i];
-	break;
-      case TYPE_B1:
-	mcb1 = pitz_params[i];
-	break;
-      case TYPE_C0:
-	mcc0 = pitz_params[i];
-	break;
-      case TYPE_B2:
-      case TYPE_THETA:
-      case TYPE_LAMDA:
-      case TYPE_ZETA:
-      case TYPE_PSI:
-      case TYPE_ETHETA:
-      case TYPE_ALPHAS:
-      case TYPE_MU:
-      case TYPE_ETA:
-      case TYPE_Other:
-	break;
-      }
-    }
-  }
-  if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE) 
-  {
-    sprintf (error_string, "No KCl interaction parameters, turning off MacInnis scaling.");
-    warning_msg (error_string);
-    ICON = FALSE;
-  }
-  /*
-   * Set alpha values
-   */
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    z0 = fabs (spec[pitz_params[i]->ispec[0]]->z);
-    z1 = fabs (spec[pitz_params[i]->ispec[1]]->z);
-    if (equal (z0, 1.0, 1e-8) || equal (z1, 1.0, 1e-8))
-    {
-      order = 1;
-    }
-    else if (equal (z0, 2.0, 1e-8) && equal (z1, 2.0, 1e-8))
-    {
-      order = 2;
-    }
-    else
-    {
-      order = 3;
-    }
-    if (pitz_params[i]->type == TYPE_B1)
-    {
-      switch (order)
-      {
-      case 1:
-      case 3:
-	pitz_params[i]->alpha = 2.0;
-	break;
-      case 2:
-	pitz_params[i]->alpha = 1.4;
-	break;
-      }
-    }
-    else if (pitz_params[i]->type == TYPE_B2)
-    {
-      switch (order)
-      {
-      case 1:
-	pitz_params[i]->alpha = 12.0;
-	break;
-      case 2:
-	pitz_params[i]->alpha = 12.0;
-	break;
-      case 3:
-	pitz_params[i]->alpha = 50.0;
-	break;
-      }
-    }
-  }
-  /*
-   * Add specific alphas
-   */
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_ALPHAS)
-    {
-      for (j = 0; j < count_pitz_param; j++)
-      {
-	if (pitz_params[j]->type != TYPE_B1)
-	  continue;
-	if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0])
-	  continue;
-	if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1])
-	  continue;
-	pitz_params[j]->alpha = pitz_params[i]->a[0];
-	break;
-      }
-      for (j = 0; j < count_pitz_param; j++)
-      {
-	if (pitz_params[j]->type != TYPE_B2)
-	  continue;
-	if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0])
-	  continue;
-	if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1])
-	  continue;
-	pitz_params[j]->alpha = pitz_params[i]->a[1];
-	break;
-      }
-    }
-  }
-
-  /*
-   *   Add thetas pointer to etheta pitzer parameters
-   */
-
-  if (count_theta_param > 0)
-  {
-    for (i = 0; i < count_theta_param; i++)
-    {
-      theta_params[i] =
-	(struct theta_param *) free_check_null (theta_params[i]);
-    }
-  }
-  count_theta_param = 0;
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_ETHETA)
-    {
-      z0 = spec[pitz_params[i]->ispec[0]]->z;
-      z1 = spec[pitz_params[i]->ispec[1]]->z;
-      theta_param_ptr = theta_param_search (z0, z1);
-      if (theta_param_ptr == NULL)
-      {
-	if (count_theta_param >= max_theta_param)
+	for (i = 0; i < count_s; i++)
 	{
-	  space ((void **) ((void *) &theta_params), count_theta_param,
-		 &max_theta_param, sizeof (struct theta_param *));
+		if (s[i] == s_eminus)
+			continue;
+		if (s[i] == s_h2o)
+			continue;
+		if (s[i]->z < -.001)
+		{
+			anions[count_anions++] = s[i];
+		}
+		else if (s[i]->z > .001)
+		{
+			cations[count_cations++] = s[i];
+		}
+		else
+		{
+			neutrals[count_neutrals++] = s[i];
+		}
 	}
-	theta_params[count_theta_param] = theta_param_alloc ();
-	theta_param_init (theta_params[count_theta_param]);
-	theta_params[count_theta_param]->zj = z0;
-	theta_params[count_theta_param]->zk = z1;
-	theta_param_ptr = theta_params[count_theta_param];
-	count_theta_param++;
-      }
-      pitz_params[i]->thetas = theta_param_ptr;
-    }
-  }
-/*
- *  Tidy TYPE_MU
- */
+	/*
+	*  Add etheta to parameter list in case theta not defined for 
+	*  cation-cation or anion-anion pair
+	*  Remove old TYPE_ETHETA definitions
+	*/
+	j = 0;
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_ETHETA)
+		{
+			pitz_params[i] = (struct pitz_param *) free_check_null (pitz_params[i]);
+		}
+		else
+		{
+			pitz_params[j++] = pitz_params[i];
+		}
+	}
+	count_pitz_param = j;
+	for (i = 0; i < count_cations - 1; i++)
+	{
+		for (j = i + 1; j < count_cations; j++)
+		{
+			sprintf (line, "%s %s 1", spec[i]->name, spec[j]->name);
+			pzp_ptr = pitz_param_read (line, 2);
+			pzp_ptr->type = TYPE_ETHETA;
+			if (count_pitz_param >= max_pitz_param)
+			{
+				space ((void **) ((void *) &pitz_params), count_pitz_param,
+					&max_pitz_param, sizeof (struct pitz_param *));
+			}
+			pitz_params[count_pitz_param++] = pzp_ptr;
 
-/* Coef for Osmotic coefficient for TYPE_MU */
+		}
+	}
+	for (i = 2 * count_s; i < 2 * count_s + count_anions - 1; i++)
+	{
+		for (j = i + 1; j < 2 * count_s + count_anions; j++)
+		{
+			sprintf (line, "%s %s 1", spec[i]->name, spec[j]->name);
+			pzp_ptr = pitz_param_read (line, 2);
+			pzp_ptr->type = TYPE_ETHETA;
+			if (count_pitz_param >= max_pitz_param)
+			{
+				space ((void **) ((void *) &pitz_params), count_pitz_param,
+					&max_pitz_param, sizeof (struct pitz_param *));
+			}
+			pitz_params[count_pitz_param] = pzp_ptr;
+			count_pitz_param++;
+		}
+	}
+	/*
+	*  put species numbers in pitz_params
+	*/
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (pitz_params[i]->species[j] == NULL)
+				continue;
+			pitz_params[i]->ispec[j] = ISPEC (pitz_params[i]->species[j]);
+			if ((j < 2 && pitz_params[i]->ispec[j] == -1) ||
+				(j == 3
+				&& (pitz_params[i]->type == TYPE_PSI
+				|| pitz_params[i]->type == TYPE_ZETA)
+				&& pitz_params[i]->ispec[j] == -1))
+			{
+				input_error++;
+				sprintf (error_string,
+					"Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
+					pitz_params[i]->species[j]);
+				error_msg (error_string, CONTINUE);
+				return (ERROR);
+			}
+		}
+	}
+	/*
+	* McGinnis data
+	*/
+	string1 = string_hsave ("K+");
+	string2 = string_hsave ("Cl-");
+	IC = ISPEC (string2);
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->species[0] == string1 &&
+			pitz_params[i]->species[1] == string2)
+		{
+			switch (pitz_params[i]->type)
+			{
+			case TYPE_B0:
+				mcb0 = pitz_params[i];
+				break;
+			case TYPE_B1:
+				mcb1 = pitz_params[i];
+				break;
+			case TYPE_C0:
+				mcc0 = pitz_params[i];
+				break;
+			case TYPE_B2:
+			case TYPE_THETA:
+			case TYPE_LAMDA:
+			case TYPE_ZETA:
+			case TYPE_PSI:
+			case TYPE_ETHETA:
+			case TYPE_ALPHAS:
+			case TYPE_MU:
+			case TYPE_ETA:
+			case TYPE_Other:
+				break;
+			}
+		}
+	}
+	if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE) 
+	{
+		sprintf (error_string, "No KCl interaction parameters, turning off MacInnis scaling.");
+		warning_msg (error_string);
+		ICON = FALSE;
+	}
+	/*
+	* Set alpha values
+	*/
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		z0 = fabs (spec[pitz_params[i]->ispec[0]]->z);
+		z1 = fabs (spec[pitz_params[i]->ispec[1]]->z);
+		if (equal (z0, 1.0, 1e-8) || equal (z1, 1.0, 1e-8))
+		{
+			order = 1;
+		}
+		else if (equal (z0, 2.0, 1e-8) && equal (z1, 2.0, 1e-8))
+		{
+			order = 2;
+		}
+		else
+		{
+			order = 3;
+		}
+		if (pitz_params[i]->type == TYPE_B1)
+		{
+			switch (order)
+			{
+			case 1:
+			case 3:
+				pitz_params[i]->alpha = 2.0;
+				break;
+			case 2:
+				pitz_params[i]->alpha = 1.4;
+				break;
+			}
+		}
+		else if (pitz_params[i]->type == TYPE_B2)
+		{
+			switch (order)
+			{
+			case 1:
+				pitz_params[i]->alpha = 12.0;
+				break;
+			case 2:
+				pitz_params[i]->alpha = 12.0;
+				break;
+			case 3:
+				pitz_params[i]->alpha = 50.0;
+				break;
+			}
+		}
+	}
+	/*
+	* Add specific alphas
+	*/
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_ALPHAS)
+		{
+			for (j = 0; j < count_pitz_param; j++)
+			{
+				if (pitz_params[j]->type != TYPE_B1)
+					continue;
+				if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0])
+					continue;
+				if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1])
+					continue;
+				pitz_params[j]->alpha = pitz_params[i]->a[0];
+				break;
+			}
+			for (j = 0; j < count_pitz_param; j++)
+			{
+				if (pitz_params[j]->type != TYPE_B2)
+					continue;
+				if (pitz_params[i]->ispec[0] != pitz_params[j]->ispec[0])
+					continue;
+				if (pitz_params[i]->ispec[1] != pitz_params[j]->ispec[1])
+					continue;
+				pitz_params[j]->alpha = pitz_params[i]->a[1];
+				break;
+			}
+		}
+	}
 
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_MU)
-    {
-      i0 = pitz_params[i]->ispec[0];
-      i1 = pitz_params[i]->ispec[1];
-      i2 = pitz_params[i]->ispec[2];
-      count_pos = count_neg = count_neut = 0;
-      for (j = 0; j <=2; j++) {
-	if (spec[pitz_params[i]->ispec[j]]->z > 0) {
-	  count_pos++;
-	}
-	if (spec[pitz_params[i]->ispec[j]]->z == 0) {
-	  count_neut++;
-	}
-	if (spec[pitz_params[i]->ispec[j]]->z < 0) {
-	  count_neg++;
-	}
-      }
-      /* All neutral */
-      if (count_neut == 3) {
-	if (i0 == i1 && i1 == i2) {
-	  /* type n, n, n */
-	  pitz_params[i]->os_coef = 1;
-	  continue;
-	} else if (i0 == i1 || i1 == i2 || i0 == i2) {
-	  /* type n, n, n' */
-	  pitz_params[i]->os_coef = 3;
-	  continue;
-	} else {
-	  /* type n, n', n'' */
-	  pitz_params[i]->os_coef = 6;
-	  continue;
-	}
-      }
-      /* Two neutral, one anion or cation*/
-      if (i0 == i1 || i1 == i2 || i0 == i2) {
-	/* type n, n, a|c */
-	pitz_params[i]->os_coef = 3;
-	continue;
-      } else {
-	  /* type n, n', a|c */
-	pitz_params[i]->os_coef = 6;
-	continue;
-      }
-    }
-  }
+	/*
+	*   Add thetas pointer to etheta pitzer parameters
+	*/
 
-/* Coef for gammas for TYPE_MU */
-
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_MU)
-    {
-      for (j = 0; j <= 2; j++) {
-	count[j] = 0;
-	for (jj = 0; jj <= 2; jj++) {
-	  if (pitz_params[i]->ispec[j] == pitz_params[i]->ispec[jj]) {
-	    count[j]++;
-	  }
+	if (count_theta_param > 0)
+	{
+		for (i = 0; i < count_theta_param; i++)
+		{
+			theta_params[i] =
+				(struct theta_param *) free_check_null (theta_params[i]);
+		}
 	}
-      }
-      for (j = 0;  j <= 2; j++) {
-	/* cation or anion */
-	if (spec[pitz_params[i]->ispec[j]]->z < 0 || spec[pitz_params[i]->ispec[j]]->z > 0) {
-	  if (count[0] > 1 || count[1] > 1) {
-	    pitz_params[i]->ln_coef[j] = 3;
-	  } else {
-	    pitz_params[i]->ln_coef[j] = 6;
-	  }
-	  continue;
+	count_theta_param = 0;
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_ETHETA)
+		{
+			z0 = spec[pitz_params[i]->ispec[0]]->z;
+			z1 = spec[pitz_params[i]->ispec[1]]->z;
+			theta_param_ptr = theta_param_search (z0, z1);
+			if (theta_param_ptr == NULL)
+			{
+				if (count_theta_param >= max_theta_param)
+				{
+					space ((void **) ((void *) &theta_params), count_theta_param,
+						&max_theta_param, sizeof (struct theta_param *));
+				}
+				theta_params[count_theta_param] = theta_param_alloc ();
+				theta_param_init (theta_params[count_theta_param]);
+				theta_params[count_theta_param]->zj = z0;
+				theta_params[count_theta_param]->zk = z1;
+				theta_param_ptr = theta_params[count_theta_param];
+				count_theta_param++;
+			}
+			pitz_params[i]->thetas = theta_param_ptr;
+		}
 	}
-	/* Neutral */
-	if (count[j] == 3) {
-	  pitz_params[i]->ln_coef[j] = 1;
-	} else if (count[j] == 2) {
-	  pitz_params[i]->ln_coef[j] = 3;
-	} else if (count[j] == 1) {
-	  if (count[0] > 1 || count[1] > 1) {
-	    pitz_params[i]->ln_coef[j] = 3;
-	  } else {
-	    pitz_params[i]->ln_coef[j] = 6;
-	  }
-	}	  
-      }
-    }
-  }
-/*  Debug TYPE_MU coefficients */
-/*
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_MU)
-    {
-      fprintf(stderr, "%s\t%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1], pitz_params[i]->species[2]);
-      fprintf(stderr, "%f\t%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1], pitz_params[i]->ln_coef[2]);
-      fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
-    }
-  }
-*/
-/*
- *  Tidy TYPE_LAMDA
- */
+	/*
+	*  Tidy TYPE_MU
+	*/
 
-/* Coef for Osmotic coefficient for TYPE_LAMDA */
+	/* Coef for Osmotic coefficient for TYPE_MU */
 
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_LAMDA)
-    {
-      i0 = pitz_params[i]->ispec[0];
-      i1 = pitz_params[i]->ispec[1];
-      /* All neutral */
-      if (i0 == i1) 
-      {
-	/* type n, n */
-	pitz_params[i]->os_coef = 0.5;
-	pitz_params[i]->ln_coef[0] = 1;
-	pitz_params[i]->ln_coef[1] = 1;
-      } else {
-	  /* type nn', na, nc */
-	pitz_params[i]->os_coef = 1;
-	pitz_params[i]->ln_coef[0] = 2;
-	pitz_params[i]->ln_coef[1] = 2;
-      }
-    }
-  }
-/*  Debug TYPE_LAMDA coefficients */
-/*
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    if (pitz_params[i]->type == TYPE_LAMDA)
-    {
-      fprintf(stderr, "%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1]);
-      fprintf(stderr, "%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1]);
-      fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
-    }
-  }
-*/
-  return OK;
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_MU)
+		{
+			i0 = pitz_params[i]->ispec[0];
+			i1 = pitz_params[i]->ispec[1];
+			i2 = pitz_params[i]->ispec[2];
+			count_pos = count_neg = count_neut = 0;
+			for (j = 0; j <=2; j++) {
+				if (spec[pitz_params[i]->ispec[j]]->z > 0) {
+					count_pos++;
+				}
+				if (spec[pitz_params[i]->ispec[j]]->z == 0) {
+					count_neut++;
+				}
+				if (spec[pitz_params[i]->ispec[j]]->z < 0) {
+					count_neg++;
+				}
+			}
+			/* All neutral */
+			if (count_neut == 3) {
+				if (i0 == i1 && i1 == i2) {
+					/* type n, n, n */
+					pitz_params[i]->os_coef = 1;
+					continue;
+				} else if (i0 == i1 || i1 == i2 || i0 == i2) {
+					/* type n, n, n' */
+					pitz_params[i]->os_coef = 3;
+					continue;
+				} else {
+					/* type n, n', n'' */
+					pitz_params[i]->os_coef = 6;
+					continue;
+				}
+			}
+			/* Two neutral, one anion or cation*/
+			if (i0 == i1 || i1 == i2 || i0 == i2) {
+				/* type n, n, a|c */
+				pitz_params[i]->os_coef = 3;
+				continue;
+			} else {
+				/* type n, n', a|c */
+				pitz_params[i]->os_coef = 6;
+				continue;
+			}
+		}
+	}
+
+	/* Coef for gammas for TYPE_MU */
+
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_MU)
+		{
+			for (j = 0; j <= 2; j++) {
+				count[j] = 0;
+				for (jj = 0; jj <= 2; jj++) {
+					if (pitz_params[i]->ispec[j] == pitz_params[i]->ispec[jj]) {
+						count[j]++;
+					}
+				}
+			}
+			for (j = 0;  j <= 2; j++) {
+				/* cation or anion */
+				if (spec[pitz_params[i]->ispec[j]]->z < 0 || spec[pitz_params[i]->ispec[j]]->z > 0) {
+					if (count[0] > 1 || count[1] > 1) {
+						pitz_params[i]->ln_coef[j] = 3;
+					} else {
+						pitz_params[i]->ln_coef[j] = 6;
+					}
+					continue;
+				}
+				/* Neutral */
+				if (count[j] == 3) {
+					pitz_params[i]->ln_coef[j] = 1;
+				} else if (count[j] == 2) {
+					pitz_params[i]->ln_coef[j] = 3;
+				} else if (count[j] == 1) {
+					if (count[0] > 1 || count[1] > 1) {
+						pitz_params[i]->ln_coef[j] = 3;
+					} else {
+						pitz_params[i]->ln_coef[j] = 6;
+					}
+				}	  
+			}
+		}
+	}
+	/*  Debug TYPE_MU coefficients */
+	/*
+	for (i = 0; i < count_pitz_param; i++)
+	{
+	if (pitz_params[i]->type == TYPE_MU)
+	{
+	fprintf(stderr, "%s\t%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1], pitz_params[i]->species[2]);
+	fprintf(stderr, "%f\t%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1], pitz_params[i]->ln_coef[2]);
+	fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+	}
+	}
+	*/
+	/*
+	*  Tidy TYPE_LAMDA
+	*/
+
+	/* Coef for Osmotic coefficient for TYPE_LAMDA */
+
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		if (pitz_params[i]->type == TYPE_LAMDA)
+		{
+			i0 = pitz_params[i]->ispec[0];
+			i1 = pitz_params[i]->ispec[1];
+			/* All neutral */
+			if (i0 == i1) 
+			{
+				/* type n, n */
+				pitz_params[i]->os_coef = 0.5;
+				pitz_params[i]->ln_coef[0] = 1;
+				pitz_params[i]->ln_coef[1] = 1;
+			} else {
+				/* type nn', na, nc */
+				pitz_params[i]->os_coef = 1;
+				pitz_params[i]->ln_coef[0] = 2;
+				pitz_params[i]->ln_coef[1] = 2;
+			}
+		}
+	}
+	/*  Debug TYPE_LAMDA coefficients */
+	/*
+	for (i = 0; i < count_pitz_param; i++)
+	{
+	if (pitz_params[i]->type == TYPE_LAMDA)
+	{
+	fprintf(stderr, "%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1]);
+	fprintf(stderr, "%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1]);
+	fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+	}
+	}
+	*/
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -553,180 +553,180 @@ int
 read_pitzer (void)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *      Reads advection information
- *
- *      Arguments:
- *         none
- *
- *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
- *
- */
-/*
- *   Read advection parameters: 
- *        number of cells;
- *        number of shifts;
- */
-  int n, j;
-  struct pitz_param *pzp_ptr;
-  pitz_param_type pzp_type;
+	/*
+	*      Reads advection information
+	*
+	*      Arguments:
+	*         none
+	*
+	*      Returns:
+	*         KEYWORD if keyword encountered, input_error may be incremented if
+	*                    a keyword is encountered in an unexpected position
+	*         EOF     if eof encountered while reading mass balance concentrations
+	*         ERROR   if error occurred reading data
+	*
+	*/
+	/*
+	*   Read advection parameters: 
+	*        number of cells;
+	*        number of shifts;
+	*/
+	int n, j;
+	struct pitz_param *pzp_ptr;
+	pitz_param_type pzp_type;
 
-  int return_value, opt, opt_save;
-  char *next_char;
-  const char *opt_list[] = {
-    "b0",			/* 0 */
-    "b1",			/* 1 */
-    "b2",			/* 2 */
-    "c0",			/* 3 */
-    "theta",			/* 4 */
-    "lamda",			/* 5 */
-    "zeta",			/* 6 */
-    "psi",			/* 7 */
-    "macinnes",			/* 8 */
-    "macinnis",			/* 9 */
-    "mac",			/* 10 */
-    "redox",			/* 11 */
-    "pe",			/* 12 */
-    "alphas",			/* 13 */
-    "mu",                       /* 14 */
-    "eta",                      /* 15 */
-    "etheta",                   /* 16 */
-    "use_etheta"                /* 17 */
-  };
-  int count_opt_list = 18;
-/*
- *   Read lines
- */
-  opt_save = OPTION_ERROR;
-  return_value = UNKNOWN;
-  n = -1;
-  pzp_type = TYPE_Other;
-  for (;;)
-  {
-    opt = get_option (opt_list, count_opt_list, &next_char);
-    if (opt == OPTION_DEFAULT)
-    {
-      opt = opt_save;
-    }
-    switch (opt)
-    {
-    case OPTION_EOF:		/* end of file */
-      return_value = EOF;
-      break;
-    case OPTION_KEYWORD:	/* keyword */
-      return_value = KEYWORD;
-      break;
-    case OPTION_DEFAULT:
-      pzp_ptr = pitz_param_read (line, n);
-      if (pzp_ptr != NULL)
-      {
-	pzp_ptr->type = pzp_type;
-	j = pitz_param_search (pzp_ptr);
-	if (j < 0)
+	int return_value, opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"b0",			/* 0 */
+		"b1",			/* 1 */
+		"b2",			/* 2 */
+		"c0",			/* 3 */
+		"theta",			/* 4 */
+		"lamda",			/* 5 */
+		"zeta",			/* 6 */
+		"psi",			/* 7 */
+		"macinnes",			/* 8 */
+		"macinnis",			/* 9 */
+		"mac",			/* 10 */
+		"redox",			/* 11 */
+		"pe",			/* 12 */
+		"alphas",			/* 13 */
+		"mu",                       /* 14 */
+		"eta",                      /* 15 */
+		"etheta",                   /* 16 */
+		"use_etheta"                /* 17 */
+	};
+	int count_opt_list = 18;
+	/*
+	*   Read lines
+	*/
+	opt_save = OPTION_ERROR;
+	return_value = UNKNOWN;
+	n = -1;
+	pzp_type = TYPE_Other;
+	for (;;)
 	{
-	  if (count_pitz_param >= max_pitz_param)
-	  {
-	    space ((void **) ((void *) &pitz_params), count_pitz_param,
-		   &max_pitz_param, sizeof (struct pitz_param *));
-	  }
+		opt = get_option (opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT)
+		{
+			opt = opt_save;
+		}
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_DEFAULT:
+			pzp_ptr = pitz_param_read (line, n);
+			if (pzp_ptr != NULL)
+			{
+				pzp_ptr->type = pzp_type;
+				j = pitz_param_search (pzp_ptr);
+				if (j < 0)
+				{
+					if (count_pitz_param >= max_pitz_param)
+					{
+						space ((void **) ((void *) &pitz_params), count_pitz_param,
+							&max_pitz_param, sizeof (struct pitz_param *));
+					}
 
-	  pitz_params[count_pitz_param] = pzp_ptr;
-	  count_pitz_param++;
+					pitz_params[count_pitz_param] = pzp_ptr;
+					count_pitz_param++;
+				}
+				else
+				{
+					pitz_params[j] =
+						(struct pitz_param *) free_check_null (pitz_params[j]);
+					pitz_params[j] = pzp_ptr;
+				}
+			}
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg ("Unknown input in PITZER keyword.", CONTINUE);
+			error_msg (line_save, CONTINUE);
+			break;
+		case 0:			/* b0 */
+			pzp_type = TYPE_B0;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 1:			/* b1 */
+			pzp_type = TYPE_B1;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 2:			/* b2 */
+			pzp_type = TYPE_B2;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 3:			/* c0 */
+			pzp_type = TYPE_C0;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 4:			/* theta */
+			pzp_type = TYPE_THETA;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 5:			/* lambda */
+			pzp_type = TYPE_LAMDA;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 6:			/* zeta */
+			pzp_type = TYPE_ZETA;
+			n = 3;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 7:			/* psi */
+			pzp_type = TYPE_PSI;
+			n = 3;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 13:			/* alphas */
+			pzp_type = TYPE_ALPHAS;
+			n = 2;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 8:			/* macinnes */
+		case 9:			/* macinnis */
+		case 10:			/* mac */
+			opt_save = OPTION_ERROR;
+			ICON = get_true_false (next_char, TRUE);
+			break;
+		case 11:			/* redox */
+		case 12:			/* pe */
+			opt_save = OPTION_ERROR;
+			pitzer_pe = get_true_false (next_char, TRUE);
+			break;
+		case 14:			/* mu */
+			pzp_type = TYPE_MU;
+			n = 3;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 15:			/* eta */
+			pzp_type = TYPE_ETA;
+			n = 3;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 16:			/* etheta */
+		case 17:			/* use_etheta */
+			opt_save = OPTION_ERROR;
+			use_etheta = get_true_false (next_char, TRUE);
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
 	}
-	else
-	{
-	  pitz_params[j] =
-	    (struct pitz_param *) free_check_null (pitz_params[j]);
-	  pitz_params[j] = pzp_ptr;
-	}
-      }
-      break;
-    case OPTION_ERROR:
-      input_error++;
-      error_msg ("Unknown input in PITZER keyword.", CONTINUE);
-      error_msg (line_save, CONTINUE);
-      break;
-    case 0:			/* b0 */
-      pzp_type = TYPE_B0;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 1:			/* b1 */
-      pzp_type = TYPE_B1;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 2:			/* b2 */
-      pzp_type = TYPE_B2;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 3:			/* c0 */
-      pzp_type = TYPE_C0;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 4:			/* theta */
-      pzp_type = TYPE_THETA;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 5:			/* lambda */
-      pzp_type = TYPE_LAMDA;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 6:			/* zeta */
-      pzp_type = TYPE_ZETA;
-      n = 3;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 7:			/* psi */
-      pzp_type = TYPE_PSI;
-      n = 3;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 13:			/* alphas */
-      pzp_type = TYPE_ALPHAS;
-      n = 2;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 8:			/* macinnes */
-    case 9:			/* macinnis */
-    case 10:			/* mac */
-      opt_save = OPTION_ERROR;
-      ICON = get_true_false (next_char, TRUE);
-      break;
-    case 11:			/* redox */
-    case 12:			/* pe */
-      opt_save = OPTION_ERROR;
-      pitzer_pe = get_true_false (next_char, TRUE);
-      break;
-    case 14:			/* mu */
-      pzp_type = TYPE_MU;
-      n = 3;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 15:			/* eta */
-      pzp_type = TYPE_ETA;
-      n = 3;
-      opt_save = OPTION_DEFAULT;
-      break;
-    case 16:			/* etheta */
-    case 17:			/* use_etheta */
-      opt_save = OPTION_ERROR;
-      use_etheta = get_true_false (next_char, TRUE);
-      break;
-    }
-    if (return_value == EOF || return_value == KEYWORD)
-      break;
-  }
-  pitzer_model = TRUE;
-  return (return_value);
+	pitzer_model = TRUE;
+	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -773,63 +773,63 @@ int
 calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE param;
-  /*
-   */
+	LDBLE param;
+	/*
+	*/
 
-  if (fabs (TK - TR) < 0.01)
-  {
-    param = pz_ptr->a[0];
-  }
-  else
-  {
-    param = (pz_ptr->a[0] +
-	     pz_ptr->a[1] * (1.e0 / TK - 1.e0 / TR) +
-	     pz_ptr->a[2] * log (TK / TR) +
-	     pz_ptr->a[3] * (TK - TR) + pz_ptr->a[4] * (TK * TK - TR * TR));
-  }
-  pz_ptr->p = param;
-  switch (pz_ptr->type)
-  {
-  case TYPE_B0:
-    pz_ptr->U.b0 = param;
-    break;
-  case TYPE_B1:
-    pz_ptr->U.b1 = param;
-    break;
-  case TYPE_B2:
-    pz_ptr->U.b2 = param;
-    break;
-  case TYPE_C0:
-    pz_ptr->U.c0 = param;
-    break;
-  case TYPE_THETA:
-    pz_ptr->U.theta = param;
-    break;
-  case TYPE_LAMDA:
-    pz_ptr->U.lamda = param;
-    break;
-  case TYPE_ZETA:
-    pz_ptr->U.zeta = param;
-    break;
-  case TYPE_ETHETA:
-    break;
-  case TYPE_PSI:
-    pz_ptr->U.psi = param;
-    break;
-  case TYPE_ALPHAS:
-    break;
-  case TYPE_MU:
-    pz_ptr->U.mu = param;
-    break;
-  case TYPE_ETA:
-    pz_ptr->U.eta = param;
-    break;
-  case TYPE_Other:
-    error_msg ("Should not be TYPE_Other in function calc_pitz_param", STOP);
-    break;
-  }
-  return OK;
+	if (fabs (TK - TR) < 0.01)
+	{
+		param = pz_ptr->a[0];
+	}
+	else
+	{
+		param = (pz_ptr->a[0] +
+			pz_ptr->a[1] * (1.e0 / TK - 1.e0 / TR) +
+			pz_ptr->a[2] * log (TK / TR) +
+			pz_ptr->a[3] * (TK - TR) + pz_ptr->a[4] * (TK * TK - TR * TR));
+	}
+	pz_ptr->p = param;
+	switch (pz_ptr->type)
+	{
+	case TYPE_B0:
+		pz_ptr->U.b0 = param;
+		break;
+	case TYPE_B1:
+		pz_ptr->U.b1 = param;
+		break;
+	case TYPE_B2:
+		pz_ptr->U.b2 = param;
+		break;
+	case TYPE_C0:
+		pz_ptr->U.c0 = param;
+		break;
+	case TYPE_THETA:
+		pz_ptr->U.theta = param;
+		break;
+	case TYPE_LAMDA:
+		pz_ptr->U.lamda = param;
+		break;
+	case TYPE_ZETA:
+		pz_ptr->U.zeta = param;
+		break;
+	case TYPE_ETHETA:
+		break;
+	case TYPE_PSI:
+		pz_ptr->U.psi = param;
+		break;
+	case TYPE_ALPHAS:
+		break;
+	case TYPE_MU:
+		pz_ptr->U.mu = param;
+		break;
+	case TYPE_ETA:
+		pz_ptr->U.eta = param;
+		break;
+	case TYPE_Other:
+		error_msg ("Should not be TYPE_Other in function calc_pitz_param", STOP);
+		break;
+	}
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -837,311 +837,311 @@ int
 pitzer (void)
 /* ---------------------------------------------------------------------- */
 {
-  int i, i0, i1, i2;
-  LDBLE param, alpha, z0, z1, z2;
-  LDBLE etheta, ethetap;
-  LDBLE dummy;
-  /*
-     LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
-     CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
-     BMXPHI, PHIPHI, AW, A, B;
-   */
-  LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT, B;
-  LDBLE I, TK;
-  int LNEUT;
-  /*
-     C
-     C     INITIALIZE
-     C
-   */
-  CONV = 1.0 / log (10.0);
-  XI = 0.0e0;
-  XX = 0.0e0;
-  OSUM = 0.0e0;
-  LNEUT = FALSE;
-  /*n
-     I = *I_X;
-     TK = *TK_X;
-   */
-  I = mu_x;
-  TK = tk_x;
-  /*      DH_AB(TK, &A, &B); */
-  /*
-     C
-     C     TRANSFER DATA FROM TO M
-     C
-   */
-  for (i = 0; i < 3 * count_s; i++)
-  {
-    IPRSNT[i] = FALSE;
-    M[i] = 0.0;
-    if (spec[i] != NULL && spec[i]->in == TRUE)
-    {
-      if (spec[i]->type == EX ||
-	  spec[i]->type == SURF || spec[i]->type == SURF_PSI)
-	continue;
-      M[i] = under (spec[i]->lm);
-      if (M[i] > MIN_TOTAL)
-	IPRSNT[i] = TRUE;
-    }
-  }
-  if (ICON == TRUE)
-  {
-    IPRSNT[IC] = TRUE;
-  }
-#ifdef SKIP
-  for (i = count_s; i < count_s + count_neutrals; i++)
-  {
-    if (M[i] > MIN_TOTAL)
-      LNEUT = TRUE;
-  }
-#endif
-  /*
-     ICON = 0;
-     M[1] = 1.40070736;
-     M[4] = 2.52131086E-05;
-     M[140] = 4.59985435E-09;
-   */
-
-/*
-C
-C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
-C
-*/
-  PTEMP (TK);
-  for (i = 0; i < 2 * count_s + count_anions; i++)
-  {
-    LGAMMA[i] = 0.0;
-    if (IPRSNT[i] == TRUE)
-    {
-      XX = XX + M[i] * fabs (spec[i]->z);
-      XI = XI + M[i] * spec[i]->z * spec[i]->z;
-      OSUM = OSUM + M[i];
-    }
-  }
-  I = XI / 2.0e0;
-/*
-C
-C     EQUATION (8)
-C
-*/
-  BIGZ = XX;
-  DI = sqrt (I);
-/*
-C
-C     CALCULATE F & GAMCLM
-C
-*/
-  B = 1.2;
-  F = -A0 * (DI / (1.0e0 + B * DI) + 2.0e0 * log (1.0e0 + B * DI) / B);
-  XXX = 2.0e0 * DI;
-  XXX =
-    (1.0e0 - (1.0e0 + XXX - XXX * XXX * 0.5e0) * exp (-XXX)) / (XXX * XXX);
-  /*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I; */
-  /*GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I; */
-  /*GAMCLM = F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I;*/
-  GAMCLM = F;
-  if (mcb0 != NULL) GAMCLM += I * 2.0e0 * mcb0->p;
-  if (mcb1 != NULL) GAMCLM += I * 2.0e0 * mcb1->p * XXX;
-  if (mcc0 != NULL) GAMCLM += 1.5e0 * mcc0->p * I * I;
-  CSUM = 0.0e0;
-  OSMOT = -(A0) * pow (I, 1.5e0) / (1.0e0 + B * DI);
-/*
- *  Calculate ethetas
- */
-  for (i = 0; i < count_theta_param; i++)
-  {
-    z0 = theta_params[i]->zj;
-    z1 = theta_params[i]->zk;
-    ETHETAS (z0, z1, I, &etheta, &ethetap);
-    theta_params[i]->etheta = etheta;
-    theta_params[i]->ethetap = ethetap;
-  }
-/*
- *  Sums for F, LGAMMA, and OSMOT
- */
-  dummy = LGAMMA[1];
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    i0 = pitz_params[i]->ispec[0];
-    i1 = pitz_params[i]->ispec[1];
-    if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE)
-      continue;
-    z0 = spec[i0]->z;
-    z1 = spec[i1]->z;
-    param = pitz_params[i]->p;
-    alpha = pitz_params[i]->alpha;
-    switch (pitz_params[i]->type)
-    {
-    case TYPE_B0:
-      LGAMMA[i0] += M[i1] * 2.0 * param;
-      LGAMMA[i1] += M[i0] * 2.0 * param;
-      OSMOT += M[i0] * M[i1] * param;
-      break;
-    case TYPE_B1:
-      F += M[i0] * M[i1] * param * GP (alpha * DI) / I;
-      LGAMMA[i0] += M[i1] * 2.0 * param * G (alpha * DI);
-      LGAMMA[i1] += M[i0] * 2.0 * param * G (alpha * DI);
-      OSMOT += M[i0] * M[i1] * param * exp (-alpha * DI);
-      break;
-    case TYPE_B2:
-      F += M[i0] * M[i1] * param * GP (alpha * DI) / I;
-      LGAMMA[i0] += M[i1] * 2.0 * param * G (alpha * DI);
-      LGAMMA[i1] += M[i0] * 2.0 * param * G (alpha * DI);
-      OSMOT += M[i0] * M[i1] * param * exp (-alpha * DI);
-      break;
-    case TYPE_C0:
-      CSUM +=
-	M[i0] * M[i1] * pitz_params[i]->p / (2.0e0 * sqrt (fabs (z0 * z1)));
-      LGAMMA[i0] += M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
-      LGAMMA[i1] += M[i0] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
-      OSMOT += M[i0] * M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
-      break;
-    case TYPE_THETA:
-      LGAMMA[i0] += 2.0 * M[i1] * (param /*+ ETHETA(z0, z1, I) */ );
-      LGAMMA[i1] += 2.0 * M[i0] * (param /*+ ETHETA(z0, z1, I) */ );
-      OSMOT += M[i0] * M[i1] * param;
-      break;
-    case TYPE_ETHETA:
-      /*
-         ETHETAS(z0, z1, I, &etheta, &ethetap);
-       */
-      if (use_etheta == TRUE)
-      {
-	etheta = pitz_params[i]->thetas->etheta;
-	ethetap = pitz_params[i]->thetas->ethetap;
-	F += M[i0] * M[i1] * ethetap;
-	LGAMMA[i0] += 2.0 * M[i1] * etheta;
-	LGAMMA[i1] += 2.0 * M[i0] * etheta;
-	OSMOT += M[i0] * M[i1] * (etheta + I * ethetap);
+	int i, i0, i1, i2;
+	LDBLE param, alpha, z0, z1, z2;
+	LDBLE etheta, ethetap;
+	LDBLE dummy;
 	/*
-	  F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
-	  LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
-	  LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
-	  OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+	LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+	CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
+	BMXPHI, PHIPHI, AW, A, B;
 	*/
-      }
-      break;
-    case TYPE_PSI:
-      i2 = pitz_params[i]->ispec[2];
-      if (IPRSNT[i2] == FALSE)
-	continue;
-      z2 = spec[i2]->z;
-      LGAMMA[i0] += M[i1] * M[i2] * param;
-      LGAMMA[i1] += M[i0] * M[i2] * param;
-      LGAMMA[i2] += M[i0] * M[i1] * param;
-      OSMOT += M[i0] * M[i1] * M[i2] * param;
-      break;
-    case TYPE_LAMDA:
-      LGAMMA[i0] += M[i1] * param * pitz_params[i]->ln_coef[0];
-      LGAMMA[i1] += M[i0] * param * pitz_params[i]->ln_coef[1];
-      OSMOT += M[i0] * M[i1] * param * pitz_params[i]->os_coef;
-      break;
-    case TYPE_ZETA:
-      i2 = pitz_params[i]->ispec[2];
-      if (IPRSNT[i2] == FALSE)
-	continue;
-      LGAMMA[i0] += M[i1] * M[i2] * param;
-      LGAMMA[i1] += M[i0] * M[i2] * param;
-      LGAMMA[i2] += M[i0] * M[i1] * param;
-      OSMOT += M[i0] * M[i1] * M[i2] * param;
-      break;
-    case TYPE_MU:
-      i2 = pitz_params[i]->ispec[2];
-      if (IPRSNT[i2] == FALSE)
-	continue;
+	LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT, B;
+	LDBLE I, TK;
+	int LNEUT;
+	/*
+	C
+	C     INITIALIZE
+	C
+	*/
+	CONV = 1.0 / log (10.0);
+	XI = 0.0e0;
+	XX = 0.0e0;
+	OSUM = 0.0e0;
+	LNEUT = FALSE;
+	/*n
+	I = *I_X;
+	TK = *TK_X;
+	*/
+	I = mu_x;
+	TK = tk_x;
+	/*      DH_AB(TK, &A, &B); */
+	/*
+	C
+	C     TRANSFER DATA FROM TO M
+	C
+	*/
+	for (i = 0; i < 3 * count_s; i++)
+	{
+		IPRSNT[i] = FALSE;
+		M[i] = 0.0;
+		if (spec[i] != NULL && spec[i]->in == TRUE)
+		{
+			if (spec[i]->type == EX ||
+				spec[i]->type == SURF || spec[i]->type == SURF_PSI)
+				continue;
+			M[i] = under (spec[i]->lm);
+			if (M[i] > MIN_TOTAL)
+				IPRSNT[i] = TRUE;
+		}
+	}
+	if (ICON == TRUE)
+	{
+		IPRSNT[IC] = TRUE;
+	}
+#ifdef SKIP
+	for (i = count_s; i < count_s + count_neutrals; i++)
+	{
+		if (M[i] > MIN_TOTAL)
+			LNEUT = TRUE;
+	}
+#endif
+	/*
+	ICON = 0;
+	M[1] = 1.40070736;
+	M[4] = 2.52131086E-05;
+	M[140] = 4.59985435E-09;
+	*/
 
-      LGAMMA[i0] += M[i1] * M[i2] * param * pitz_params[i]->ln_coef[0];
-      LGAMMA[i1] += M[i0] * M[i2] * param * pitz_params[i]->ln_coef[1];
-      LGAMMA[i2] += M[i0] * M[i1] * param * pitz_params[i]->ln_coef[2];
-      OSMOT += M[i0] * M[i1] * M[i2] * param * pitz_params[i]->os_coef;
-      break;
-    case TYPE_ETA:
-      i2 = pitz_params[i]->ispec[2];
-      if (IPRSNT[i2] == FALSE)
-	continue;
-      LGAMMA[i0] += M[i1] * M[i2] * param;
-      LGAMMA[i1] += M[i0] * M[i2] * param;
-      LGAMMA[i2] += M[i0] * M[i1] * param;
-      OSMOT += M[i0] * M[i1] * M[i2] * param;
-      break;
-    case TYPE_ALPHAS:
-      break;
-    case TYPE_Other:
-      error_msg ("TYPE_Other in pitz_param list.", STOP);
-      break;
-    }
-  }
+	/*
+	C
+	C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
+	C
+	*/
+	PTEMP (TK);
+	for (i = 0; i < 2 * count_s + count_anions; i++)
+	{
+		LGAMMA[i] = 0.0;
+		if (IPRSNT[i] == TRUE)
+		{
+			XX = XX + M[i] * fabs (spec[i]->z);
+			XI = XI + M[i] * spec[i]->z * spec[i]->z;
+			OSUM = OSUM + M[i];
+		}
+	}
+	I = XI / 2.0e0;
+	/*
+	C
+	C     EQUATION (8)
+	C
+	*/
+	BIGZ = XX;
+	DI = sqrt (I);
+	/*
+	C
+	C     CALCULATE F & GAMCLM
+	C
+	*/
+	B = 1.2;
+	F = -A0 * (DI / (1.0e0 + B * DI) + 2.0e0 * log (1.0e0 + B * DI) / B);
+	XXX = 2.0e0 * DI;
+	XXX =
+		(1.0e0 - (1.0e0 + XXX - XXX * XXX * 0.5e0) * exp (-XXX)) / (XXX * XXX);
+	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I; */
+	/*GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I; */
+	/*GAMCLM = F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I;*/
+	GAMCLM = F;
+	if (mcb0 != NULL) GAMCLM += I * 2.0e0 * mcb0->p;
+	if (mcb1 != NULL) GAMCLM += I * 2.0e0 * mcb1->p * XXX;
+	if (mcc0 != NULL) GAMCLM += 1.5e0 * mcc0->p * I * I;
+	CSUM = 0.0e0;
+	OSMOT = -(A0) * pow (I, 1.5e0) / (1.0e0 + B * DI);
+	/*
+	*  Calculate ethetas
+	*/
+	for (i = 0; i < count_theta_param; i++)
+	{
+		z0 = theta_params[i]->zj;
+		z1 = theta_params[i]->zk;
+		ETHETAS (z0, z1, I, &etheta, &ethetap);
+		theta_params[i]->etheta = etheta;
+		theta_params[i]->ethetap = ethetap;
+	}
+	/*
+	*  Sums for F, LGAMMA, and OSMOT
+	*/
+	dummy = LGAMMA[1];
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		i0 = pitz_params[i]->ispec[0];
+		i1 = pitz_params[i]->ispec[1];
+		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE)
+			continue;
+		z0 = spec[i0]->z;
+		z1 = spec[i1]->z;
+		param = pitz_params[i]->p;
+		alpha = pitz_params[i]->alpha;
+		switch (pitz_params[i]->type)
+		{
+		case TYPE_B0:
+			LGAMMA[i0] += M[i1] * 2.0 * param;
+			LGAMMA[i1] += M[i0] * 2.0 * param;
+			OSMOT += M[i0] * M[i1] * param;
+			break;
+		case TYPE_B1:
+			F += M[i0] * M[i1] * param * GP (alpha * DI) / I;
+			LGAMMA[i0] += M[i1] * 2.0 * param * G (alpha * DI);
+			LGAMMA[i1] += M[i0] * 2.0 * param * G (alpha * DI);
+			OSMOT += M[i0] * M[i1] * param * exp (-alpha * DI);
+			break;
+		case TYPE_B2:
+			F += M[i0] * M[i1] * param * GP (alpha * DI) / I;
+			LGAMMA[i0] += M[i1] * 2.0 * param * G (alpha * DI);
+			LGAMMA[i1] += M[i0] * 2.0 * param * G (alpha * DI);
+			OSMOT += M[i0] * M[i1] * param * exp (-alpha * DI);
+			break;
+		case TYPE_C0:
+			CSUM +=
+				M[i0] * M[i1] * pitz_params[i]->p / (2.0e0 * sqrt (fabs (z0 * z1)));
+			LGAMMA[i0] += M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+			LGAMMA[i1] += M[i0] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+			OSMOT += M[i0] * M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+			break;
+		case TYPE_THETA:
+			LGAMMA[i0] += 2.0 * M[i1] * (param /*+ ETHETA(z0, z1, I) */ );
+			LGAMMA[i1] += 2.0 * M[i0] * (param /*+ ETHETA(z0, z1, I) */ );
+			OSMOT += M[i0] * M[i1] * param;
+			break;
+		case TYPE_ETHETA:
+			/*
+			ETHETAS(z0, z1, I, &etheta, &ethetap);
+			*/
+			if (use_etheta == TRUE)
+			{
+				etheta = pitz_params[i]->thetas->etheta;
+				ethetap = pitz_params[i]->thetas->ethetap;
+				F += M[i0] * M[i1] * ethetap;
+				LGAMMA[i0] += 2.0 * M[i1] * etheta;
+				LGAMMA[i1] += 2.0 * M[i0] * etheta;
+				OSMOT += M[i0] * M[i1] * (etheta + I * ethetap);
+				/*
+				F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
+				LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
+				LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
+				OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+				*/
+			}
+			break;
+		case TYPE_PSI:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE)
+				continue;
+			z2 = spec[i2]->z;
+			LGAMMA[i0] += M[i1] * M[i2] * param;
+			LGAMMA[i1] += M[i0] * M[i2] * param;
+			LGAMMA[i2] += M[i0] * M[i1] * param;
+			OSMOT += M[i0] * M[i1] * M[i2] * param;
+			break;
+		case TYPE_LAMDA:
+			LGAMMA[i0] += M[i1] * param * pitz_params[i]->ln_coef[0];
+			LGAMMA[i1] += M[i0] * param * pitz_params[i]->ln_coef[1];
+			OSMOT += M[i0] * M[i1] * param * pitz_params[i]->os_coef;
+			break;
+		case TYPE_ZETA:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE)
+				continue;
+			LGAMMA[i0] += M[i1] * M[i2] * param;
+			LGAMMA[i1] += M[i0] * M[i2] * param;
+			LGAMMA[i2] += M[i0] * M[i1] * param;
+			OSMOT += M[i0] * M[i1] * M[i2] * param;
+			break;
+		case TYPE_MU:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE)
+				continue;
 
-  /*
-   *  Add F and CSUM terms to LGAMMA
-   */
+			LGAMMA[i0] += M[i1] * M[i2] * param * pitz_params[i]->ln_coef[0];
+			LGAMMA[i1] += M[i0] * M[i2] * param * pitz_params[i]->ln_coef[1];
+			LGAMMA[i2] += M[i0] * M[i1] * param * pitz_params[i]->ln_coef[2];
+			OSMOT += M[i0] * M[i1] * M[i2] * param * pitz_params[i]->os_coef;
+			break;
+		case TYPE_ETA:
+			i2 = pitz_params[i]->ispec[2];
+			if (IPRSNT[i2] == FALSE)
+				continue;
+			LGAMMA[i0] += M[i1] * M[i2] * param;
+			LGAMMA[i1] += M[i0] * M[i2] * param;
+			LGAMMA[i2] += M[i0] * M[i1] * param;
+			OSMOT += M[i0] * M[i1] * M[i2] * param;
+			break;
+		case TYPE_ALPHAS:
+			break;
+		case TYPE_Other:
+			error_msg ("TYPE_Other in pitz_param list.", STOP);
+			break;
+		}
+	}
 
-  for (i = 0; i < count_cations; i++)
-  {
-    z0 = spec[i]->z;
-    LGAMMA[i] += z0 * z0 * F + fabs (z0) * CSUM;
-  }
-  for (i = 2 * count_s; i < 2 * count_s + count_anions; i++)
-  {
-    z0 = spec[i]->z;
-    LGAMMA[i] += z0 * z0 * F + fabs (z0) * CSUM;
-  }
-/*
-C
-C     CONVERT TO MACINNES CONVENTION
-C
-*/
-  if (ICON == TRUE)
-  {
-    PHIMAC = LGAMMA[IC] - GAMCLM;
-/*
-C
-C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
-C
-*/
-    for (i = 0; i < 2 * count_s + count_anions; i++)
-    {
-      if (IPRSNT[i] == TRUE)
-      {
-	LGAMMA[i] = LGAMMA[i] + spec[i]->z * PHIMAC;
-      }
-    }
-  }
+	/*
+	*  Add F and CSUM terms to LGAMMA
+	*/
 
-  COSMOT = 1.0e0 + 2.0e0 * OSMOT / OSUM;
-/*
-C
-C     CALCULATE THE ACTIVITY OF WATER
-C
-*/
-  AW = exp (-OSUM * COSMOT / 55.50837e0);
-  if (AW > 1.0)
-    AW = 1.0;
-  /*s_h2o->la=log10(AW); */
-  mu_x = I;
-  for (i = 0; i < 2 * count_s + count_anions; i++)
-  {
-    if (IPRSNT[i] == FALSE)
-      continue;
-    /*spec[i]->lg=LGAMMA[i]*CONV; */
-    spec[i]->lg_pitzer = LGAMMA[i] * CONV;
-    /*
-       output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
-     */
-  }
-  /*
-     output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
-     output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
-     output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
-     output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
-     output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
-   */
-  /*
-   *I_X = I;
-   *COSMOT_X = COSMOT;
-   */
-  return (OK);
+	for (i = 0; i < count_cations; i++)
+	{
+		z0 = spec[i]->z;
+		LGAMMA[i] += z0 * z0 * F + fabs (z0) * CSUM;
+	}
+	for (i = 2 * count_s; i < 2 * count_s + count_anions; i++)
+	{
+		z0 = spec[i]->z;
+		LGAMMA[i] += z0 * z0 * F + fabs (z0) * CSUM;
+	}
+	/*
+	C
+	C     CONVERT TO MACINNES CONVENTION
+	C
+	*/
+	if (ICON == TRUE)
+	{
+		PHIMAC = LGAMMA[IC] - GAMCLM;
+		/*
+		C
+		C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
+		C
+		*/
+		for (i = 0; i < 2 * count_s + count_anions; i++)
+		{
+			if (IPRSNT[i] == TRUE)
+			{
+				LGAMMA[i] = LGAMMA[i] + spec[i]->z * PHIMAC;
+			}
+		}
+	}
+
+	COSMOT = 1.0e0 + 2.0e0 * OSMOT / OSUM;
+	/*
+	C
+	C     CALCULATE THE ACTIVITY OF WATER
+	C
+	*/
+	AW = exp (-OSUM * COSMOT / 55.50837e0);
+	if (AW > 1.0)
+		AW = 1.0;
+	/*s_h2o->la=log10(AW); */
+	mu_x = I;
+	for (i = 0; i < 2 * count_s + count_anions; i++)
+	{
+		if (IPRSNT[i] == FALSE)
+			continue;
+		/*spec[i]->lg=LGAMMA[i]*CONV; */
+		spec[i]->lg_pitzer = LGAMMA[i] * CONV;
+		/*
+		output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
+		*/
+	}
+	/*
+	output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
+	output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
+	output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
+	output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
+	output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
+	*/
+	/*
+	*I_X = I;
+	*COSMOT_X = COSMOT;
+	*/
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */

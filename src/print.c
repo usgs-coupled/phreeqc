@@ -202,7 +202,7 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
  */
   int i, j, count_g;
   LDBLE mass_water_surface, r, sum_surfs;
-  LDBLE molality, moles_excess, moles_surface;
+  LDBLE molality, moles_excess, moles_surface, d;
 
   if (use.surface_ptr == NULL)
     return (OK);
@@ -231,10 +231,18 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
  *   H2O aq, and H2O bulk (diffuse layers plus aqueous).
  */
 
+  if (mass_water_surfaces_x != 0)
+  {
+	  d = 100 * surface_charge_ptr1->mass_water / mass_water_surfaces_x;
+  } 
+  else
+  {
+	  d = 0.0;
+  }
   output_msg (OUTPUT_MESSAGE,
 	      "\tWater in diffuse layer: %8.3e kg, %4.1f%% of total DDL-water.\n",
 	      (double) surface_charge_ptr1->mass_water,
-	      (double) 100 * surface_charge_ptr1->mass_water / mass_water_surfaces_x);
+	      (double) d);
   if (use.surface_ptr->debye_lengths > 0)
   {
     sum_surfs = 0.0;
