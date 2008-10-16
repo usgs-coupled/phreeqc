@@ -3320,7 +3320,9 @@ residuals (void)
   LDBLE sum, sum1;
   struct master *master_ptr, *master_ptr1, *master_ptr2;
   LDBLE sigmaddl, negfpsirt;
+  int print_fail;
 
+  print_fail = FALSE;
   sum_residual = 0.0;
   sigmaddl = 0;
   sum = 0;
@@ -3343,9 +3345,8 @@ residuals (void)
       residual[i] = x[i]->moles - x[i]->f;
       if (fabs (residual[i]) > toler * x[i]->moles && x[i]->moles > MIN_TOTAL)
       {
-	/*
-	   fprintf(stderr,"Residuals %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
-	 */
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
       }
     }
@@ -3353,13 +3354,21 @@ residuals (void)
     {
       residual[i] = x[i]->moles - x[i]->f;
       if (fabs (residual[i]) > toler * x[i]->moles)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
     {
       residual[i] = x[i]->f * LOG_10;
       if (fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == CB)
     {
@@ -3369,13 +3378,21 @@ residuals (void)
 	residual[i] += x[i]->moles;
       }
       if (fabs (residual[i]) >= toler * mu_x * mass_water_aq_x)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == MU && pitzer_model == FALSE)
     {
       residual[i] = mass_water_aq_x * mu_x - 0.5 * x[i]->f;
       if (fabs (residual[i]) > toler * mu_x * mass_water_aq_x)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == AH2O /*&& pitzer_model == FALSE */ )
     {
@@ -3392,7 +3409,11 @@ residuals (void)
 	}
       }
       if (fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == MH && (pitzer_model == FALSE || pitzer_pe == TRUE))
     {
@@ -3411,16 +3432,28 @@ residuals (void)
 #ifndef COMBINE_CHARGE
       if (fabs (residual[i]) >
 	  toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles))
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
 #else
       if (fabs (residual[i]) >
 	  toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles +
 		   charge_balance_unknown->moles))
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
 #endif
 #else
       if (fabs (residual[i]) > toler * x[i]->moles)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
 #endif
     }
     else if (x[i]->type == MH2O)
@@ -3434,7 +3467,11 @@ residuals (void)
       x[i]->f += s_h2o->moles;
 #endif
       if (fabs (residual[i]) > 0.01 * toler * x[i]->moles)
+      {
+	if (print_fail)
+	  output_msg (OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == PP)
     {
@@ -3447,13 +3484,19 @@ residuals (void)
 	      || (residual[i] < -toler
 		  && (x[i]->pure_phase->initial_moles - x[i]->moles) > 0))
 	  {
+	    if (print_fail)
+	      output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	    converge = FALSE;
 	  }
 	}
 	else
 	{
 	  if (residual[i] < -toler || iterations < 1)
+	  {
+	    if (print_fail)
+	      output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	    converge = FALSE;
+	  }
 	}
       }
       else
@@ -3461,6 +3504,8 @@ residuals (void)
 	/* if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE; */
 	if (residual[i] < -toler || iterations < 1)
 	{
+	  if (print_fail)
+	    output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	  converge = FALSE;
 	}
       }
@@ -3469,7 +3514,11 @@ residuals (void)
     {
       residual[i] = x[i]->gas_phase->total_p - x[i]->f;
       if (fabs (residual[i]) > toler && gas_in == TRUE)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == S_S_MOLES)
     {
@@ -3477,7 +3526,11 @@ residuals (void)
       if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
 	continue;
       if (fabs (residual[i]) > toler && x[i]->s_s_in == TRUE)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == EXCH)
     {
@@ -3485,10 +3538,16 @@ residuals (void)
       if (x[i]->moles <= MIN_RELATED_SURFACE)
       {
 	if (fabs (residual[i]) > toler)
+	{
+	  if (print_fail)
+	    output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	  converge = FALSE;
+	}
       }
       else if (fabs (residual[i]) > toler * x[i]->moles)
       {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
       }
     }
@@ -3498,10 +3557,16 @@ residuals (void)
       if (x[i]->moles <= MIN_RELATED_SURFACE)
       {
 	if (fabs (residual[i]) > toler)
+	{
+	  if (print_fail)
+	    output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	  converge = FALSE;
+	}
       }
       else if (fabs (residual[i]) > toler * x[i]->moles)
       {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
       }
     }
@@ -3515,6 +3580,8 @@ residuals (void)
 	/*
 	   fprintf(stderr,"Residuals %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	 */
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
       }
     }
@@ -3579,7 +3646,11 @@ residuals (void)
       }
       if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
 	  && fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == CD_MUSIC)
     {
@@ -3623,7 +3694,11 @@ residuals (void)
       }
       if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
 	  && fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual A %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == SURFACE_CB1)
     {
@@ -3645,7 +3720,11 @@ residuals (void)
       }
       if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
 	  && fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual B %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
     else if (x[i]->type == SURFACE_CB2)
     {
@@ -3707,13 +3786,18 @@ residuals (void)
 	    sum1 += under (s_x[j]->lm) * s_x[j]->z;
 	  }
 	}
+
 	/* add fictitious monovalent ion that balances charge */
-	sum += sum1 * (exp (-sum1 / fabs (sum1) * negfpsirt) - 1);
+	sum += fabs(sum1) * (exp (-sum1 / fabs (sum1) * negfpsirt) - 1);
 
 	if (sum < 0)
 	{
 	  sum = -sum;
-	  converge = FALSE;
+	  {
+	    if (print_fail)
+	      output_msg(OUTPUT_MESSAGE,"Failed Residual C %d: %s %d %e %e\n", iterations, x[i]->description, i, sum, toler);
+	    converge = FALSE;
+	  }
 	  /*output_msg(OUTPUT_MESSAGE, "Negative sum, iteration %d\n", iterations); */
 	}
 	x[i]->surface_charge->sigma2 =
@@ -3786,7 +3870,11 @@ residuals (void)
       }
       if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
 	  && fabs (residual[i]) > toler)
+      {
+	if (print_fail)
+	  output_msg(OUTPUT_MESSAGE,"Failed Residual D %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
 	converge = FALSE;
+      }
     }
 /*
  *   Store residuals in array

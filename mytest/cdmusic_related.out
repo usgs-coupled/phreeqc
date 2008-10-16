@@ -365,7 +365,7 @@ Goe
 	  9.949e-04  Surface charge, plane 0, eq
 	 -2.826e-04  Surface charge, plane 1, eq
 	  0.000e+00  Surface charge, plane 2, eq
-	  7.124e-04  Sum of surface charge, all planes, eq
+	  7.123e-04  Sum of surface charge, all planes, eq
 
 	  1.781e-01  sigma, plane 0, C/m**2
 	 -5.059e-02  sigma, plane 1, C/m**2
@@ -374,11 +374,11 @@ Goe
 
 	  4.549e-01  psi, plane 0, V
 	  2.454e-01  psi, plane 1, V
-	  7.535e-02  psi, plane 2, V
+	  7.536e-02  psi, plane 2, V
 
 	  2.039e-08  exp(-F*psi/RT), plane 0
 	  7.108e-05  exp(-F*psi/RT), plane 1
-	  5.323e-02  exp(-F*psi/RT), plane 2
+	  5.322e-02  exp(-F*psi/RT), plane 2
 
 	  8.500e-01  capacitance 0-1, F/m^2
 	  7.500e-01  capacitance 1-2, F/m^2
@@ -393,7 +393,7 @@ Goe_tri
 
 	Goe_triOH+0.5          1.289e-03       0.850   1.292e-03      -2.889
 	Goe_triO-0.5           2.278e-04       0.150   2.283e-04      -3.641
-	Goe_triONa+0.5         2.947e-12       0.000   2.954e-12     -11.530
+	Goe_triONa+0.5         2.946e-12       0.000   2.953e-12     -11.530
 
 Goe_uni       
 	  2.022e-03  moles	[0.2 mol/(mol Goethite)]
@@ -405,15 +405,15 @@ Goe_uni
 	Goe_uni2O2AsO2-2       1.856e-04       0.184   1.860e-04      -3.730
 	Goe_uni2O2AsOOH-       1.248e-05       0.012   1.251e-05      -4.903
 	Goe_uniOAsO2OH-1.5     1.922e-06       0.001   1.926e-06      -5.715
-	Goe_uniOHNa+0.5        3.156e-12       0.000   3.163e-12     -11.500
+	Goe_uniOHNa+0.5        3.155e-12       0.000   3.163e-12     -11.500
 	Goe_uni2O2AsOH-        3.718e-20       0.000   3.727e-20     -19.429
-	Goe_uniOAs(OH)2-0.5    5.924e-21       0.000   5.938e-21     -20.226
+	Goe_uniOAs(OH)2-0.5    5.923e-21       0.000   5.938e-21     -20.226
 
 -----------------------------Solution composition------------------------------
 
 	Elements           Molality       Moles
 
-	As                1.819e-11   1.814e-11
+	As                1.818e-11   1.814e-11
 	Cl                2.967e-01   2.960e-01
 	Fe                2.366e-02   2.361e-02
 	Na                1.002e-03   1.000e-03
@@ -429,7 +429,7 @@ Goe_uni
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.124e-04
+                  Electrical balance (eq)  =  -7.123e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.13
                                Iterations  =  12
                                   Total H  = 1.109702e+02
@@ -444,16 +444,16 @@ Goe_uni
    H2O-0.01               7.173e-09   7.173e-09    -8.144    -8.144     0.000
    OH-                    7.732e-14   5.666e-14   -13.112   -13.247    -0.135
    H2O                    5.551e+01   9.910e-01     1.744    -0.004     0.000
-As(3)            1.145e-21
-   H3AsO3                 1.015e-21   1.092e-21   -20.993   -20.962     0.032
-   H4AsO3+                1.293e-22   9.472e-23   -21.889   -22.024    -0.135
-   H2AsO3-                6.025e-30   4.415e-30   -29.220   -29.355    -0.135
+As(3)            1.144e-21
+   H3AsO3                 1.015e-21   1.092e-21   -20.994   -20.962     0.032
+   H4AsO3+                1.292e-22   9.470e-23   -21.889   -22.024    -0.135
+   H2AsO3-                6.024e-30   4.414e-30   -29.220   -29.355    -0.135
    HAsO3-2                0.000e+00   0.000e+00   -42.758   -43.298    -0.540
    AsO3-3                 0.000e+00   0.000e+00   -57.027   -58.242    -1.215
-As(5)            1.819e-11
-   H3AsO4                 1.745e-11   1.877e-11   -10.758   -10.726     0.032
-   H2AsO4-                7.333e-13   5.374e-13   -12.135   -12.270    -0.135
-   HAsO4-2                7.363e-19   2.123e-19   -18.133   -18.673    -0.540
+As(5)            1.818e-11
+   H3AsO4                 1.745e-11   1.877e-11   -10.758   -10.727     0.032
+   H2AsO4-                7.332e-13   5.373e-13   -12.135   -12.270    -0.135
+   HAsO4-2                7.361e-19   2.123e-19   -18.133   -18.673    -0.540
    AsO4-3                 4.454e-29   2.715e-30   -28.351   -29.566    -1.215
 Cl               2.967e-01
    Cl-                    2.786e-01   1.887e-01    -0.555    -0.724    -0.169
@@ -617,7 +617,7 @@ Using pure phase assemblage 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Goethite             0.00   -1.00   -1.00    1.000e-02   1.000e-02   1.281e-12
+Goethite             0.00   -1.00   -1.00    1.000e-02   1.000e-02   1.284e-12
 
 ------------------------------Surface composition------------------------------
 
@@ -1272,12 +1272,12 @@ Goe
 	 -1.617e-01  sigma, diffuse layer, C/m**2
 
 	  4.799e-01  psi, plane 0, V
-	  2.788e-01  psi, plane 1, V
-	  6.329e-02  psi, plane 2, V
+	  2.789e-01  psi, plane 1, V
+	  6.331e-02  psi, plane 2, V
 
-	  7.717e-09  exp(-F*psi/RT), plane 0
-	  1.934e-05  exp(-F*psi/RT), plane 1
-	  8.514e-02  exp(-F*psi/RT), plane 2
+	  7.716e-09  exp(-F*psi/RT), plane 0
+	  1.933e-05  exp(-F*psi/RT), plane 1
+	  8.506e-02  exp(-F*psi/RT), plane 2
 
 	  8.500e-01  capacitance 0-1, F/m^2
 	  7.500e-01  capacitance 1-2, F/m^2
@@ -1291,28 +1291,28 @@ Goe_tri
 	Species                    Moles    Fraction    Molality    Molality
 
 	Goe_triOH+0.5          6.616e-03       0.781   6.645e-03      -2.177
-	Goe_triO-0.5           1.858e-03       0.219   1.867e-03      -2.729
-	Goe_triONa+0.5         6.462e-12       0.000   6.491e-12     -11.188
+	Goe_triO-0.5           1.859e-03       0.219   1.867e-03      -2.729
+	Goe_triONa+0.5         6.459e-12       0.000   6.488e-12     -11.188
 
 Goe_uni       
 	  1.130e-02  moles	[0.2 mol/(mol Goethite)]
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         8.510e-03       0.753   8.548e-03      -2.068
-	Goe_uniOH-0.5          2.390e-03       0.212   2.401e-03      -2.620
+	Goe_uniOH2+0.5         8.510e-03       0.753   8.547e-03      -2.068
+	Goe_uniOH-0.5          2.391e-03       0.212   2.401e-03      -2.620
 	Goe_uni2O2AsO2-2       1.929e-04       0.034   1.937e-04      -3.713
-	Goe_uni2O2AsOOH-       6.082e-06       0.001   6.109e-06      -5.214
-	Goe_uniOAsO2OH-1.5     1.061e-06       0.000   1.066e-06      -5.972
-	Goe_uniOHNa+0.5        8.312e-12       0.000   8.349e-12     -11.078
-	Goe_uni2O2AsOH-        2.481e-21       0.000   2.492e-21     -20.603
-	Goe_uniOAs(OH)2-0.5    2.093e-22       0.000   2.102e-22     -21.677
+	Goe_uni2O2AsOOH-       6.080e-06       0.001   6.107e-06      -5.214
+	Goe_uniOAsO2OH-1.5     1.061e-06       0.000   1.065e-06      -5.972
+	Goe_uniOHNa+0.5        8.308e-12       0.000   8.345e-12     -11.079
+	Goe_uni2O2AsOH-        2.480e-21       0.000   2.491e-21     -20.604
+	Goe_uniOAs(OH)2-0.5    2.092e-22       0.000   2.101e-22     -21.678
 
 -----------------------------Solution composition------------------------------
 
 	Elements           Molality       Moles
 
-	As                3.544e-13   3.528e-13
+	As                3.541e-13   3.525e-13
 	Cl                1.051e+00   1.046e+00
 	Fe                2.182e-01   2.172e-01
 	Na                1.004e-03   1.000e-03
@@ -1343,17 +1343,17 @@ Goe_uni
    H2O-0.01               6.967e-09   6.967e-09    -8.157    -8.157     0.000
    OH-                    4.311e-14   3.359e-14   -13.365   -13.474    -0.108
    H2O                    5.551e+01   9.768e-01     1.744    -0.010     0.000
-As(3)            3.655e-24
-   H3AsO3                 2.974e-24   3.681e-24   -23.527   -23.434     0.093
-   H4AsO3+                6.811e-25   5.308e-25   -24.167   -24.275    -0.108
-   H2AsO3-                1.149e-32   8.952e-33   -31.940   -32.048    -0.108
+As(3)            3.652e-24
+   H3AsO3                 2.972e-24   3.678e-24   -23.527   -23.434     0.093
+   H4AsO3+                6.806e-25   5.304e-25   -24.167   -24.275    -0.108
+   H2AsO3-                1.148e-32   8.945e-33   -31.940   -32.048    -0.108
    HAsO3-2                0.000e+00   0.000e+00   -45.779   -46.212    -0.433
-   AsO3-3                 0.000e+00   0.000e+00   -60.401   -61.376    -0.975
-As(5)            3.544e-13
-   H3AsO4                 3.449e-13   4.269e-13   -12.462   -12.370     0.093
-   H2AsO4-                9.432e-15   7.350e-15   -14.025   -14.134    -0.108
-   HAsO4-2                4.737e-21   1.747e-21   -20.325   -20.758    -0.433
-   AsO4-3                 1.267e-31   1.344e-32   -30.897   -31.872    -0.975
+   AsO3-3                 0.000e+00   0.000e+00   -60.402   -61.376    -0.975
+As(5)            3.541e-13
+   H3AsO4                 3.447e-13   4.266e-13   -12.463   -12.370     0.093
+   H2AsO4-                9.424e-15   7.345e-15   -14.026   -14.134    -0.108
+   HAsO4-2                4.733e-21   1.746e-21   -20.325   -20.758    -0.433
+   AsO4-3                 1.266e-31   1.343e-32   -30.897   -31.872    -0.975
 Cl               1.051e+00
    Cl-                    7.580e-01   4.579e-01    -0.120    -0.339    -0.219
    FeCl+2                 9.692e-02   3.575e-02    -1.014    -1.447    -0.433
@@ -2215,7 +2215,7 @@ Goe
 	  5.330e+04  specific area, m^2/mol Goethite
 	  0.000e+00  m^2 for   0.000e+00 moles of Goethite
 
-	Water in diffuse layer: 0.000e+00 kg,  nan% of total DDL-water.
+	Water in diffuse layer: 0.000e+00 kg,  0.0% of total DDL-water.
 
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
@@ -2408,7 +2408,7 @@ Goe
 	  5.330e+04  specific area, m^2/mol Goethite
 	  0.000e+00  m^2 for   0.000e+00 moles of Goethite
 
-	Water in diffuse layer: 0.000e+00 kg,  nan% of total DDL-water.
+	Water in diffuse layer: 0.000e+00 kg,  0.0% of total DDL-water.
 
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
@@ -2598,7 +2598,7 @@ Goe
 	  5.330e+04  specific area, m^2/mol Goethite
 	  0.000e+00  m^2 for   0.000e+00 moles of Goethite
 
-	Water in diffuse layer: 0.000e+00 kg,  nan% of total DDL-water.
+	Water in diffuse layer: 0.000e+00 kg,  0.0% of total DDL-water.
 
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 

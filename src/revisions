@@ -1091,6 +1091,21 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3136
+        --------
+	Error corrected in CD-Music model. A species added
+	to obtain charge balance could have had a negative
+	concentration. The error caused an incorrect sigma
+	ddl and occasional nonconvergence.
+
+        --------
+	svn 3135
+        --------
+	Check for zero divide in calculation of fraction of
+	water in diffuse double layer. Could be zero if
+	the surface is related to a mineral that is absent.
+
+        --------
 	svn 3100
         --------
 	Error when multiple surfaces were used. Sometimes the
