@@ -2185,7 +2185,7 @@ molalities (int allow_overflow)
  *   instead of moles_water_bulk.
  */
 	/* revised eq. 61 */
-	s_x[i]->diff_layer[j].g_moles = s_x[i]->moles *
+	s_x[i]->diff_layer[j].g_moles = s_x[i]->moles * s_x[i]->erm_ddl *
 	  (s_x[i]->diff_layer[j].charge->g[count_g].g +
 	   s_x[i]->diff_layer[j].charge->mass_water / mass_water_aq_x);
 	if (s_x[i]->moles > 1e-30)
@@ -2206,20 +2206,20 @@ molalities (int allow_overflow)
 	/* revised eq. 63, second term */
 	/* g.dg is dg/dx(-2y**2) or dg/d(ln y) */
 	s_x[i]->diff_layer[j].dx_moles =
-	  s_x[i]->moles * s_x[i]->diff_layer[j].charge->g[count_g].dg;
+	  s_x[i]->moles * s_x[i]->erm_ddl * s_x[i]->diff_layer[j].charge->g[count_g].dg;
 
 	/* revised eq. 63, third term */
 	s_x[i]->diff_layer[j].dh2o_moles =
-	  -s_x[i]->moles * s_x[i]->diff_layer[j].charge->mass_water /
+	  -s_x[i]->moles * s_x[i]->erm_ddl * s_x[i]->diff_layer[j].charge->mass_water /
 	  mass_water_aq_x;
 	s_x[i]->tot_dh2o_moles += s_x[i]->diff_layer[j].dh2o_moles;
 
 	/* surface related to phase */
-	s_x[i]->diff_layer[j].drelated_moles = s_x[i]->moles *
+	s_x[i]->diff_layer[j].drelated_moles = s_x[i]->moles * s_x[i]->erm_ddl *
 	  use.surface_ptr->charge[j].specific_area *
 	  use.surface_ptr->thickness / mass_water_aq_x;
       }
-      s_x[i]->tot_g_moles = s_x[i]->moles * (1 + total_g);
+      s_x[i]->tot_g_moles = s_x[i]->moles * (1 + total_g /* s_x[i]->erm_ddl */);
 
       /* note that dg is for cb, act water, mu eqns */
       /* dg_total_g for mole balance eqns */
@@ -2726,6 +2726,7 @@ reset (void)
  */
   for (i = 0; i < count_unknowns; i++)
   {
+#ifdef SKIP
 #ifdef _MSC_VER
     if (_isnan (delta[i]))
     {
@@ -2737,6 +2738,7 @@ reset (void)
       warning_msg (error_string);
       delta[i] = 0;
     }
+#endif
   }
   if (pure_phase_unknown != NULL || gas_unknown != NULL
       || s_s_unknown != NULL)
@@ -3691,8 +3693,8 @@ residuals (void)
 		1000);
 	/*
 	 *   sinh_constant is (8 e e0 R T 1000)**1/2
-	 *                 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
-	 *                 ~ 0.1174 at 25C
+	 *		 = sqrt(8*EPSILON*EPSILON_ZERO*(R_KJ_DEG_MOL*1000)*t_x*1000)
+	 *		 ~ 0.1174 at 25C
 	 */
 	master_ptr2 =
 	  surface_get_psi_master (x[i]->surface_charge->name, SURF_PSI2);
@@ -3741,46 +3743,46 @@ residuals (void)
 	master_ptr2 =
 	  surface_get_psi_master (x[i]->surface_charge->name, SURF_PSI2);
 	output_msg (OUTPUT_MESSAGE, "CD_music Charge/Potential 2\n");
-	output_msg (OUTPUT_MESSAGE, "\tgrams              %g\n",
+	output_msg (OUTPUT_MESSAGE, "\tgrams	      %g\n",
 		    (double) x[i]->surface_charge->grams);
 	output_msg (OUTPUT_MESSAGE, "\tCapacitances       %g\t%g\n",
 		    (double) x[i]->surface_charge->capacitance[0],
 		    x[i]->surface_charge->capacitance[1]);
-	output_msg (OUTPUT_MESSAGE, "\t-F/(RT)            %g\n",
+	output_msg (OUTPUT_MESSAGE, "\t-F/(RT)	    %g\n",
 		    (double) -F_KJ_V_EQ / (R_KJ_DEG_MOL * tk_x));
-	output_msg (OUTPUT_MESSAGE, "\tResidual 0         %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tResidual 0	 %14e\n",
 		    (double) residual[master_ptr->unknown->number]);
-	output_msg (OUTPUT_MESSAGE, "\tResidual 1         %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tResidual 1	 %14e\n",
 		    (double) residual[master_ptr1->unknown->number]);
-	output_msg (OUTPUT_MESSAGE, "\tResidual 2         %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tResidual 2	 %14e\n",
 		    (double) residual[master_ptr2->unknown->number]);
 	output_msg (OUTPUT_MESSAGE, "\texp(-FPsi0/RT)     %14e",
 		    (double) pow (10., master_ptr->s->la));
-	output_msg (OUTPUT_MESSAGE, "\tPsi0               %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tPsi0	       %14e\n",
 		    (double) x[i]->surface_charge->psi);
 	output_msg (OUTPUT_MESSAGE, "\texp(-FPsi1/RT)     %14e",
 		    (double) pow (10., master_ptr1->s->la));
-	output_msg (OUTPUT_MESSAGE, "\tPsi1               %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tPsi1	       %14e\n",
 		    (double) x[i]->surface_charge->psi1);
 	output_msg (OUTPUT_MESSAGE, "\texp(-FPsi2/RT)     %14e",
 		    (double) pow (10., master_ptr2->s->la));
-	output_msg (OUTPUT_MESSAGE, "\tPsi2               %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tPsi2	       %14e\n",
 		    (double) x[i]->surface_charge->psi2);
-	output_msg (OUTPUT_MESSAGE, "\tf 0                %14e",
+	output_msg (OUTPUT_MESSAGE, "\tf 0		%14e",
 		    (double) master_ptr->unknown->f);
-	output_msg (OUTPUT_MESSAGE, "\tsigma 0            %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tsigma 0	    %14e\n",
 		    (double) x[i]->surface_charge->sigma0);
-	output_msg (OUTPUT_MESSAGE, "\tf 1                %14e",
+	output_msg (OUTPUT_MESSAGE, "\tf 1		%14e",
 		    (double) master_ptr1->unknown->f);
-	output_msg (OUTPUT_MESSAGE, "\tsigma 1            %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tsigma 1	    %14e\n",
 		    (double) x[i]->surface_charge->sigma1);
-	output_msg (OUTPUT_MESSAGE, "\tf 2                %14e",
+	output_msg (OUTPUT_MESSAGE, "\tf 2		%14e",
 		    (double) master_ptr2->unknown->f);
-	output_msg (OUTPUT_MESSAGE, "\tsigma 2            %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tsigma 2	    %14e\n",
 		    (double) x[i]->surface_charge->sigma2);
-	output_msg (OUTPUT_MESSAGE, "\tsigma ddl          %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\tsigma ddl	  %14e\n",
 		    (double) sigmaddl);
-	output_msg (OUTPUT_MESSAGE, "\texp sum            %14e\n",
+	output_msg (OUTPUT_MESSAGE, "\texp sum	    %14e\n",
 		    (double) sum);
 
       }
@@ -4624,8 +4626,8 @@ numerical_jacobian (void)
       d2 = -d * x[i]->moles;
       d2 = -.1 * x[i]->moles;
       /*
-         if (d2 > -1e-10) d2 = -1e-10;
-         calculating_deriv = FALSE;
+	 if (d2 > -1e-10) d2 = -1e-10;
+	 calculating_deriv = FALSE;
        */
       delta[i] = d2;
       /*fprintf (stderr, "delta before reset %e\n", delta[i]); */
@@ -4654,7 +4656,7 @@ numerical_jacobian (void)
     {
       array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
       /*
-         output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
+	 output_msg(OUTPUT_MESSAGE, "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2);
        */
     }
     switch (x[i]->type)
@@ -4782,3 +4784,4 @@ ineq_init (int max_row_count, int max_column_count)
     is_max = 3 * max_row_count;
   }
 }
+

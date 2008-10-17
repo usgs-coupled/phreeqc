@@ -191,10 +191,10 @@ read_input (void)
 	  23      "select_output"
 	  24      "knobs"
 	  25      "print"
-	  26      "equilibrium_phases"  
+	  26      "equilibrium_phases"
 	  27      "equilibria"
-	  28      "equilibrium"         
-	  29      "pure"                
+	  28      "equilibrium"
+	  29      "pure"
 	  30      "title"
 	  31      "comment"
 	  32      "advection"
@@ -202,7 +202,7 @@ read_input (void)
 	  34      "incremental_reactions"
 	  35      "incremental"
 	  36      "rates"
-          37      "solution_s"
+	  37      "solution_s"
 	  38      "user_print"
 	  39      "user_punch"
 	  40      "solid_solutions"
@@ -211,14 +211,14 @@ read_input (void)
 	  43      "spread_solution"
 	  44      "selected_out"
 	  45      "select_out"
-          46      "user_graph"
-          47      "llnl_aqueous_model_parameters"
-          48      "llnl_aqueous_model"
-          49      "database"
-          50      "named_analytical_expression"
-          51      "named_analytical_expressions"
-          52      "named_expressions"
-          53      "named_log_k"
+	  46      "user_graph"
+	  47      "llnl_aqueous_model_parameters"
+	  48      "llnl_aqueous_model"
+	  49      "database"
+	  50      "named_analytical_expression"
+	  51      "named_analytical_expressions"
+	  52      "named_expressions"
+	  53      "named_log_k"
 	  54      "isotopes"
 	  55      "calculate_values"
 	  56      "isotopes_ratios",
@@ -1164,13 +1164,13 @@ read_exchange (void)
  *      Reads exchange data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int i, j, l, n, count_comps;
@@ -1194,8 +1194,8 @@ read_exchange (void)
 /*
  * kin_exch is for exchangers, related to kinetically reacting minerals
  *    they are defined if "sites" is followed by mineral name:
- *    Z         Manganite                ('equi' or 'kine')      0.25
- *    ^Name     ^equi or kinetic mineral ^switch                  ^prop.factor
+ *    Z	 Manganite		('equi' or 'kine')      0.25
+ *    ^Name     ^equi or kinetic mineral ^switch		  ^prop.factor
  */
 /*
  *   Read exchange number and description
@@ -1414,8 +1414,8 @@ read_exchange (void)
       ptr = token;
       get_token (&ptr, token1, &exchange[n].comps[count_comps].formula_z, &l);
       exchange[n].comps[count_comps].formula_totals = elt_list_save ();
-      /* 
-       *   Save elt_list 
+      /*
+       *   Save elt_list
        */
       exchange[n].comps[count_comps].moles = conc;
       exchange[n].comps[count_comps].totals = elt_list_save ();
@@ -1544,13 +1544,13 @@ read_gas_phase (void)
  *      Reads gas phase data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int i, j, n, l;
@@ -1739,13 +1739,13 @@ read_inverse (void)
  *      Reads data for mass_balance calculations
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int n, j;
@@ -1782,8 +1782,8 @@ read_inverse (void)
     "multiple_precision",	/* 22 */
     "mp_tolerance",		/* 23 */
     "censor_mp",		/* 24 */
-    "lon_netpath",	        /* 25 */
-    "pat_netpath"	        /* 26 */
+    "lon_netpath",		/* 25 */
+    "pat_netpath"		/* 26 */
   };
   int count_opt_list = 27;
 
@@ -1939,7 +1939,7 @@ read_inverse (void)
       break;
     case 25:			/* lon_netpath */
       /*copy_token(file_name, &next_char, &l); */
-      if (string_trim (next_char) != EMPTY) 
+      if (string_trim (next_char) != EMPTY)
       {
 	inverse[n].netpath = string_hsave(next_char);
       } else {
@@ -1949,7 +1949,7 @@ read_inverse (void)
       break;
     case 26:			/* pat_netpath */
       /*copy_token(file_name, &next_char, &l); */
-      if (string_trim (next_char) != EMPTY) 
+      if (string_trim (next_char) != EMPTY)
       {
 	inverse[n].pat = string_hsave(next_char);
       } else {
@@ -2201,7 +2201,7 @@ read_inv_phases (struct inverse *inverse_ptr, char *ptr)
     }
     else if (j == DIGIT)
     {
-/* 
+/*
  *   read isotope data
  */
       isotopes =
@@ -2283,13 +2283,13 @@ read_kinetics (void)
  *      Reads kinetics data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
 /*
@@ -2799,17 +2799,17 @@ read_list_doubles (char **ptr, int *count_doubles)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads a list of LDBLE numbers until end of line is reached or 
+ *   Reads a list of LDBLE numbers until end of line is reached or
  *   a LDBLE can not be read from a token.
  *
  *      Arguments:
- *         ptr    entry: points to line to read from
- *                exit:  points to next non-LDBLE token or end of line
+ *	 ptr    entry: points to line to read from
+ *		exit:  points to next non-LDBLE token or end of line
  *
- *         count_doubles exit: number of LDBLEs read
+ *	 count_doubles exit: number of LDBLEs read
  *
  *      Returns:
- *         pointer to a list of count_doubles LDBLEs.
+ *	 pointer to a list of count_doubles LDBLEs.
  */
 
   LDBLE *LDBLE_list;
@@ -2852,19 +2852,19 @@ read_list_ints (char **ptr, int *count_ints, int positive)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads a list of int numbers until end of line is reached or 
+ *   Reads a list of int numbers until end of line is reached or
  *   an int can not be read from a token.
  *
  *      Arguments:
- *         ptr    entry: points to line to read from
- *                exit:  points to next non-int token or end of line
+ *	 ptr    entry: points to line to read from
+ *		exit:  points to next non-int token or end of line
  *
- *         count_ints exit: number of LDBLEs read
+ *	 count_ints exit: number of LDBLEs read
  *
- *         positive  entry: if TRUE, expects to read only positive integers
+ *	 positive  entry: if TRUE, expects to read only positive integers
  *
  *      Returns:
- *         pointer to a list of count_ints ints.
+ *	 pointer to a list of count_ints ints.
  */
   int *int_list;
   char token[MAX_LENGTH];
@@ -2913,19 +2913,19 @@ read_list_ints_range (char **ptr, int *count_ints, int positive,
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads a list of int numbers until end of line is reached or 
+ *   Reads a list of int numbers until end of line is reached or
  *   an int can not be read from a token.
  *
  *      Arguments:
- *         ptr    entry: points to line to read from
- *                exit:  points to next non-int token or end of line
+ *	 ptr    entry: points to line to read from
+ *		exit:  points to next non-int token or end of line
  *
- *         count_ints entry: number of ints already in list
+ *	 count_ints entry: number of ints already in list
  *
- *         positive  entry: if TRUE, expects to read only positive integers
+ *	 positive  entry: if TRUE, expects to read only positive integers
  *
  *      Returns:
- *         pointer to a list of count_ints ints 
+ *	 pointer to a list of count_ints ints
  */
   char token[MAX_LENGTH];
   int value, value1, value2;
@@ -3010,19 +3010,19 @@ read_list_t_f (char **ptr, int *count_ints)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads a list of true and false until end of line is reached or 
+ *   Reads a list of true and false until end of line is reached or
  *   until non- t or f is found
  *
  *      Arguments:
- *         ptr    entry: points to line to read from
- *                exit:  points to next non-int token or end of line
+ *	 ptr    entry: points to line to read from
+ *		exit:  points to next non-int token or end of line
  *
- *         count_ints exit: number of LDBLEs read
+ *	 count_ints exit: number of LDBLEs read
  *
- *         positive  entry: if TRUE, expects to read only positive integers
+ *	 positive  entry: if TRUE, expects to read only positive integers
  *
  *      Returns:
- *         pointer to a list of count_ints ints.
+ *	 pointer to a list of count_ints ints.
  */
   int *int_list;
   char token[MAX_LENGTH];
@@ -3187,13 +3187,13 @@ read_incremental_reactions (void)
  *      Define flow only
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int j, l;
@@ -3861,8 +3861,8 @@ read_phases (void)
       }
       token_ptr[0].name = trxn.token[1].name;
       /*
-         token_ptr[0].name=phase_ptr->name;
-         token_ptr[0].s=NULL;
+	 token_ptr[0].name=phase_ptr->name;
+	 token_ptr[0].s=NULL;
        */
       token_ptr[i].s = NULL;
       token_ptr[i].name = NULL;
@@ -3889,13 +3889,13 @@ read_pure_phases (void)
  *      Reads pure phase data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int j, n, l, return_value;
@@ -4045,13 +4045,13 @@ read_pure_phases (void)
  *      Reads pure phase data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int j, n, l, return_value;
@@ -4245,13 +4245,13 @@ read_reaction (void)
  *      Reads reaction data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
 /*
@@ -4796,7 +4796,7 @@ read_selected_output (void)
       break;
     case 0:			/* file name */
       /* copy_token(file_name, &next_char, &l); */
-      if (string_trim (next_char) != EMPTY) 
+      if (string_trim (next_char) != EMPTY)
 	  {
 		strcpy (file_name, next_char);
 		have_punch_name = TRUE;
@@ -4806,7 +4806,7 @@ read_selected_output (void)
 			input_error++;
 			error_msg (error_string, CONTINUE);
 		}
-	  } 
+	  }
       opt_save = OPTION_ERROR;
       break;
     case 1:			/* totals */
@@ -5109,13 +5109,13 @@ read_solution (void)
  *      Reads solution data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int i, j, n, l;
@@ -5481,8 +5481,9 @@ read_species (void)
     "add_log_k",		/* 17 */
     "add_constant",		/* 18 */
     "dw",			/* 19 */
+    "erm_ddl"			/* 20 */
   };
-  int count_opt_list = 20;
+  int count_opt_list = 21;
 
   association = TRUE;
   s_ptr = NULL;
@@ -5768,6 +5769,25 @@ read_species (void)
 	break;
       }
       i = sscanf (next_char, SCANFORMAT, &s_ptr->dw);
+      opt_save = OPTION_DEFAULT;
+      break;
+    case 20:			/* enrichment factor in the DDL */
+      if (s_ptr == NULL)
+      {
+	sprintf (error_string, "No reaction defined before option, %s.",
+		 opt_list[opt]);
+	error_msg (error_string, CONTINUE);
+	input_error++;
+	break;
+      }
+      i = sscanf (next_char, SCANFORMAT, &s_ptr->erm_ddl);
+      if (s_ptr->erm_ddl < 0)
+      {
+	sprintf (error_string, "Expecting enrichment factor > 0, "
+		 "resetting to erm_ddl = 1.");
+	warning_msg (error_string);
+	s_ptr->erm_ddl = 1.0;
+      }
       opt_save = OPTION_DEFAULT;
       break;
 
@@ -6504,13 +6524,13 @@ read_surf (void)
 	*      Reads surface data
 	*
 	*      Arguments:
-	*         none
+	*	 none
 	*
 	*      Returns:
-	*         KEYWORD if keyword encountered, input_error may be incremented if
-	*                    a keyword is encountered in an unexpected position
-	*         EOF     if eof encountered while reading mass balance concentrations
-	*         ERROR   if error occurred reading data
+	*	 KEYWORD if keyword encountered, input_error may be incremented if
+	*		    a keyword is encountered in an unexpected position
+	*	 EOF     if eof encountered while reading mass balance concentrations
+	*	 ERROR   if error occurred reading data
 	*
 	*/
 	int i, j, n, l;
@@ -6544,8 +6564,8 @@ read_surf (void)
 	/*
 	* kin_surf is for Surfaces, related to kinetically reacting minerals
 	*    they are defined if "sites" is followed by mineral name:
-	*    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25         4000
-	*    ^Name     mineral    ^switch                               ^prop.factor ^m2/mol 
+	*    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25	 4000
+	*    ^Name     mineral    ^switch			       ^prop.factor ^m2/mol
 	*/
 	/*
 	*   Read surface number and description
@@ -6628,7 +6648,7 @@ read_surf (void)
 			surface[n].thickness = 1e-8;
 			surface[n].dl_type = BORKOVEK_DL;
 			sscanf (next_char, SCANFORMAT, &surface[n].thickness);
-			/*                              surface[n].thickness = thickness;
+			/*			      surface[n].thickness = thickness;
 			}
 			*/ break;
 		case 4:			/* no electrostatic */
@@ -7536,13 +7556,13 @@ read_temperature (void)
  *      Reads temperature data for reaction steps
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   char *ptr;
@@ -7703,13 +7723,13 @@ read_title (void)
  *      Reads title for simulation
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   char *ptr, *ptr1;
@@ -7774,19 +7794,19 @@ read_advection (void)
  *      Reads advection information
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
 /*
- *   Read advection parameters: 
- *        number of cells;
- *        number of shifts;
+ *   Read advection parameters:
+ *	number of cells;
+ *	number of shifts;
  */
   char *ptr;
   char *description;
@@ -7897,7 +7917,7 @@ read_advection (void)
     case 12:			/* punch_frequency */
       sscanf (next_char, "%d", &punch_ad_modulus);
       opt_save = OPTION_DEFAULT;
-      if (punch_ad_modulus <= 0) 
+      if (punch_ad_modulus <= 0)
       {
 	sprintf (error_string,
 		 "Punch frequency must be greater than 0. Frequency set to 1000.");
@@ -7936,7 +7956,7 @@ read_advection (void)
     case 13:			/* print_frequency */
       sscanf (next_char, "%d", &print_ad_modulus);
       opt_save = OPTION_DEFAULT;
-      if (print_ad_modulus <= 0) 
+      if (print_ad_modulus <= 0)
       {
 	sprintf (error_string,
 		 "Print frequency must be greater than 0. Frequency set to 1000.");
@@ -8034,13 +8054,13 @@ read_debug (void)
  *      Reads knobs and debugging info
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int return_value, opt;
@@ -8065,12 +8085,12 @@ read_debug (void)
   };
   int count_opt_list = 16;
 /*
- *   Read parameters: 
- *        ineq_tol;
- *        step_size;
- *        pe_step_size;
- *        pp_scale;
- *        diagonal_scale;
+ *   Read parameters:
+ *	ineq_tol;
+ *	step_size;
+ *	pe_step_size;
+ *	pp_scale;
+ *	diagonal_scale;
  */
   return_value = UNKNOWN;
   for (;;)
@@ -8157,13 +8177,13 @@ read_print (void)
  *      Reads printing info
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int return_value, opt, l;
@@ -8415,13 +8435,13 @@ check_units (char *tot_units, int alkalinity, int check_compatibility,
 /*
  *   Check if legitimate units
  *   Input:
- *           tot_units           character string to check,
- *           alkalinity          TRUE if alkalinity, FALSE if any other total,
- *           check_compatibility TRUE check alk and default units, FALSE otherwise
- *           default_units       character string of default units (check /L, /kg, etc)
- *           print               TRUE print warning messages
+ *	   tot_units	   character string to check,
+ *	   alkalinity	  TRUE if alkalinity, FALSE if any other total,
+ *	   check_compatibility TRUE check alk and default units, FALSE otherwise
+ *	   default_units       character string of default units (check /L, /kg, etc)
+ *	   print	       TRUE print warning messages
  *   Output:
- *           tot_units           standard form for unit
+ *	   tot_units	   standard form for unit
  */
   int i, found;
   char *end;
@@ -8572,17 +8592,17 @@ find_option (char *item, int *n, const char **list, int count_list, int exact)
  *   Compares a string value to match beginning letters of a list of options
  *
  *      Arguments:
- *         item    entry: pointer to string to compare
- *         n       exit:  item in list that was matched
- *         list    entry: pointer to list of character values, assumed to
- *                 be lower case
- *         count_list entry: number of character values in list
+ *	 item    entry: pointer to string to compare
+ *	 n       exit:  item in list that was matched
+ *	 list    entry: pointer to list of character values, assumed to
+ *		 be lower case
+ *	 count_list entry: number of character values in list
  *
  *      Returns:
- *         OK      item matched
- *         ERROR   item not matched
- *         n       -1      item not matched
- *                 i       position of match in list
+ *	 OK      item matched
+ *	 ERROR   item not matched
+ *	 n       -1      item not matched
+ *		 i       position of match in list
  */
   int i;
   char token[MAX_LENGTH];
@@ -8727,13 +8747,13 @@ read_rates (void)
  *      Reads basic code with which to calculate rates
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   char *ptr;
@@ -8857,13 +8877,13 @@ read_user_print (void)
  *      Reads basic code with which to calculate rates
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int length, line_length;
@@ -8948,13 +8968,13 @@ read_user_punch (void)
  *      Reads basic code with which to calculate rates
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int l, length, line_length;
@@ -9057,13 +9077,13 @@ read_user_graph (void)
  *      Reads basic code with which to calculate rates
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int l, length, line_length;
@@ -9286,13 +9306,13 @@ read_solid_solutions (void)
  *      Reads solid solution data
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   int i, j, n, l;
@@ -9381,7 +9401,7 @@ read_solid_solutions (void)
       error_msg (line_save, CONTINUE);
       break;
 
-/* 
+/*
  * New component
  */
     case 0:			/* component */
@@ -9751,7 +9771,7 @@ read_solid_solutions (void)
 	}
       }
       break;
-/* 
+/*
  * New solid solution
  */
     case OPTION_DEFAULT:
@@ -9830,13 +9850,13 @@ read_llnl_aqueous_model_parameters (void)
  *      Reads aqueous model parameters
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
   extern int check_line_return;	/* input.c */
@@ -9893,7 +9913,7 @@ read_llnl_aqueous_model_parameters (void)
       error_msg (line_save, CONTINUE);
       break;
 
-/* 
+/*
  * New component
  */
     case 0:			/* temperatures */
@@ -9905,9 +9925,9 @@ read_llnl_aqueous_model_parameters (void)
 	read_lines_doubles (next_char, &(llnl_temp), &(llnl_count_temp),
 			    &(count_alloc), opt_list, count_opt_list, &opt);
       /*
-         ptr = next_char;
-         llnl_temp = read_list_doubles(&ptr, &count);
-         llnl_count_temp = count;
+	 ptr = next_char;
+	 llnl_temp = read_list_doubles(&ptr, &count);
+	 llnl_count_temp = count;
        */
       break;
     case 3:			/* adh */
@@ -9919,9 +9939,9 @@ read_llnl_aqueous_model_parameters (void)
 	read_lines_doubles (next_char, &(llnl_adh), &(llnl_count_adh),
 			    &(count_alloc), opt_list, count_opt_list, &opt);
       /*
-         ptr = next_char;
-         llnl_adh = read_list_doubles(&ptr, &count);
-         llnl_count_adh = count;
+	 ptr = next_char;
+	 llnl_adh = read_list_doubles(&ptr, &count);
+	 llnl_count_adh = count;
        */
       break;
     case 6:			/* bdh */
@@ -9933,9 +9953,9 @@ read_llnl_aqueous_model_parameters (void)
 	read_lines_doubles (next_char, &(llnl_bdh), &(llnl_count_bdh),
 			    &(count_alloc), opt_list, count_opt_list, &opt);
       /*
-         ptr = next_char;
-         llnl_bdh = read_list_doubles(&ptr, &count);
-         llnl_count_bdh = count;
+	 ptr = next_char;
+	 llnl_bdh = read_list_doubles(&ptr, &count);
+	 llnl_count_bdh = count;
        */
       break;
     case 9:			/* bdot */
@@ -9946,9 +9966,9 @@ read_llnl_aqueous_model_parameters (void)
 	read_lines_doubles (next_char, &(llnl_bdot), &(llnl_count_bdot),
 			    &(count_alloc), opt_list, count_opt_list, &opt);
       /*
-         ptr = next_char;
-         llnl_bdot = read_list_doubles(&ptr, &count);
-         llnl_count_bdot = count;
+	 ptr = next_char;
+	 llnl_bdot = read_list_doubles(&ptr, &count);
+	 llnl_count_bdot = count;
        */
       break;
     case 11:			/* c_co2 */
@@ -9960,9 +9980,9 @@ read_llnl_aqueous_model_parameters (void)
 			    &(llnl_count_co2_coefs), &(count_alloc), opt_list,
 			    count_opt_list, &opt);
       /*
-         ptr = next_char;
-         llnl_co2_coefs = read_list_doubles(&ptr, &count);
-         llnl_count_co2_coefs = count;
+	 ptr = next_char;
+	 llnl_co2_coefs = read_list_doubles(&ptr, &count);
+	 llnl_count_co2_coefs = count;
        */
       break;
     }
@@ -10015,22 +10035,22 @@ read_lines_doubles (char *next_char, LDBLE ** d, int *count_d,
  *      Stops at KEYWORD, OPTION, and EOF
  *
  *      Input Arguments:
- *         next_char    points to line to read from
- *         d            points to array of LDBLEs, must be malloced
- *         count_d      number of elements in array
- *         count_alloc  number of elements malloced
+ *	 next_char    points to line to read from
+ *	 d	    points to array of LDBLEs, must be malloced
+ *	 count_d      number of elements in array
+ *	 count_alloc  number of elements malloced
  *
  *      Output Arguments:
- *         d            points to array of LDBLEs, may have been
- *                          realloced
- *         count_d      updated number of elements in array
- *         count_alloc  updated of elements malloced
+ *	 d	    points to array of LDBLEs, may have been
+ *			  realloced
+ *	 count_d      updated number of elements in array
+ *	 count_alloc  updated of elements malloced
  *
  *      Returns:
- *         KEYWORD
- *         OPTION
- *         EOF
- *         ERROR if any errors reading LDBLEs
+ *	 KEYWORD
+ *	 OPTION
+ *	 EOF
+ *	 ERROR if any errors reading LDBLEs
  */
 
   if (read_line_doubles (next_char, d, count_d, count_alloc) == ERROR)
@@ -10165,13 +10185,13 @@ read_named_logk (void)
  *      Reads K's that can be used to calculate K's for species
  *
  *      Arguments:
- *         none
+ *	 none
  *
  *      Returns:
- *         KEYWORD if keyword encountered, input_error may be incremented if
- *                    a keyword is encountered in an unexpected position
- *         EOF     if eof encountered while reading mass balance concentrations
- *         ERROR   if error occurred reading data
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
  *
  */
 
@@ -10374,16 +10394,16 @@ read_copy (void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads solution, 
- *         equilibrium_phases,
- *         exchange,
- *         surface,
- *         solid_solution,
- *         gas_phase,
- *         kinetics,
- *         mix, 
- *         reaction, 
- *         reaction_temperature
+ *   Reads solution,
+ *	 equilibrium_phases,
+ *	 exchange,
+ *	 surface,
+ *	 solid_solution,
+ *	 gas_phase,
+ *	 kinetics,
+ *	 mix,
+ *	 reaction,
+ *	 reaction_temperature
  *
  */
   int i, l, n, n_user, n_user_start, n_user_end, return_value;
@@ -10537,3 +10557,4 @@ read_copy (void)
   /* empty, eof, keyword, print */
   return (return_value);
 }
+

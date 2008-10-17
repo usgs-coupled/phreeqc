@@ -1,7 +1,7 @@
 #if !defined (INCLUDE_PHRQALLOC_H)
 #define INCLUDE_PHRQALLOC_H
 
-#if defined (USE_PHRQ_ALLOC)
+#if !defined (USE_PHRQ_ALLOC)
 
 #ifdef PHREEQC_IDENT
 static char const svnidphqalloc[] =

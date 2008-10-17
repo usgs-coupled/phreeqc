@@ -241,7 +241,7 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
     for (j = 0; j < count_unknowns; j++)
     {
       if (x[j]->type != SURFACE_CB)
-        continue;
+	continue;
       sum_surfs += x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
     }
     r = 0.002 * mass_water_bulk_x / sum_surfs;
@@ -268,11 +268,12 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
     count_g = s_x[j]->diff_layer[i].count_g;
 #ifdef SKIP
     moles_excess = mass_water_bulk_x *
-/*                      s_x[j]->diff_layer[i].charge->g[count_g].g * molality; */
+/*		      s_x[j]->diff_layer[i].charge->g[count_g].g * molality; */
       surface_charge_ptr1->g[count_g].g * molality;
 #endif
     moles_excess =
-      mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g;
+      mass_water_aq_x * molality * (surface_charge_ptr1->g[count_g].g * s_x[j]->erm_ddl +
+	mass_water_surface / mass_water_aq_x * (s_x[j]->erm_ddl - 1));
     moles_surface = mass_water_surface * molality + moles_excess;
     if (debug_diffuse_layer == TRUE)
     {
@@ -286,9 +287,9 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
     add_elt_list (s_x[j]->next_elt, moles_surface);
   }
 /*
-        strcpy(token, s_h2o->name);
-        ptr = &(token[0]);
-        get_elts_in_species (&ptr, mass_water_surface / gfw_water);
+	strcpy(token, s_h2o->name);
+	ptr = &(token[0]);
+	get_elts_in_species (&ptr, mass_water_surface / gfw_water);
  */
   if (count_elts > 0)
   {
@@ -363,7 +364,7 @@ print_eh (void)
       rewrite_master_to_secondary (master[k], master[i]);
       trxn_swap ("e-");
 /* debug
-                        trxn_print();
+			trxn_print();
  */
 /*
  *   Calculate pe, eh
@@ -582,7 +583,7 @@ print_gas_phase (void)
       use.gas_phase_ptr->comps[j].phase->p_soln_x = 0;
     }
 /*
- *   Print gas composition 
+ *   Print gas composition
  */
     if (state != TRANSPORT && state != PHAST)
     {
@@ -1232,11 +1233,11 @@ print_pp_assemblage (void)
       }
       si = -lk + iap;
       /*
-         for (rxn_ptr = x[j]->phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
-         iap += rxn_ptr->s->la * rxn_ptr->coef;
-         }
-         si = -x[j]->phase->lk + iap;
-         output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
+	 for (rxn_ptr = x[j]->phase->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++) {
+	 iap += rxn_ptr->s->la * rxn_ptr->coef;
+	 }
+	 si = -x[j]->phase->lk + iap;
+	 output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
        */
       output_msg (OUTPUT_MESSAGE, "%-18s%7.2f%8.2f%8.2f", x[j]->phase->name,
 		  (double) si, (double) iap, (double) lk);
@@ -1274,7 +1275,7 @@ print_pp_assemblage (void)
     }
     else
     {
-      output_msg (OUTPUT_MESSAGE, "\n         %-18s%-15s%36s\n",
+      output_msg (OUTPUT_MESSAGE, "\n	 %-18s%-15s%36s\n",
 		  x[j]->pure_phase->add_formula, " is reactant", token);
     }
   }
@@ -2048,7 +2049,7 @@ print_user_print (void)
   print_centered ("User print");
   if (user_print->new_def == TRUE)
   {
-    /*            basic_renumber(user_print->commands, &user_print->linebase, &user_print->varbase, &user_print->loopbase); */
+    /*	    basic_renumber(user_print->commands, &user_print->linebase, &user_print->varbase, &user_print->loopbase); */
     if (basic_compile
 	(user_print->commands, &user_print->linebase, &user_print->varbase,
 	 &user_print->loopbase) != 0)
@@ -2496,7 +2497,7 @@ punch_pp_assemblage (void)
   return (OK);
 }
 
-#define PHAST_NULL(x)          (phast ? NULL : x)
+#define PHAST_NULL(x)	  (phast ? NULL : x)
 /* ---------------------------------------------------------------------- */
 int
 punch_identifiers (void)
@@ -2530,7 +2531,7 @@ punch_identifiers (void)
     gformat = "%20g\t";
   }
 
-/* 
+/*
  *   simulation or simul_tr
  */
 
@@ -2580,7 +2581,7 @@ punch_identifiers (void)
     fpunchf (PHAST_NULL ("state"), sformat, token);
 
   }
-/* 
+/*
  *   solution number or cell number and time
  */
   if (punch.soln == TRUE)
@@ -2996,7 +2997,7 @@ punch_user_graph (void)
   colnr = 0;
 /*      //if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
 /*      //if (punch.user_punch == FALSE) return(OK); */
-/*          //if (punch.in == FALSE) return(OK); */
+/*	  //if (punch.in == FALSE) return(OK); */
   if (user_graph->commands == NULL)
     return (OK);
   if (((state == INITIAL_SOLUTION) || (state == INITIAL_EXCHANGE)
@@ -3293,3 +3294,4 @@ print_alkalinity (void)
   alk_list = (struct species_list *) free_check_null (alk_list);
   return (OK);
 }
+
