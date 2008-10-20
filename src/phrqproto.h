@@ -287,6 +287,7 @@ struct elt_list *elt_list_save (void);
 struct exchange *exchange_alloc (void);
 struct exchange *exchange_bsearch (int k, int *n);
 int exchange_comp_compare (const void *ptr1, const void *ptr2);
+void exchange_comp_init (struct exch_comp *exch_comp_ptr);
 int exchange_copy (struct exchange *exchange_old_ptr,
 		   struct exchange *exchange_new_ptr, int n_user_new);
 int exchange_compare (const void *ptr1, const void *ptr2);

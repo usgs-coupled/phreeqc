@@ -15,7 +15,7 @@ static char const svnidglobal[] =
  * uncomment following line, to use default DOS file name for
  * output file
  */
-#define DOS
+/*#define DOS*/
 /*
  *   BUG FIX FOR DGs
  */

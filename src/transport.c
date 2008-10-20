@@ -26,7 +26,7 @@ struct sol_D
   LDBLE exch_total;		/* total moles of X- */
   struct spec *spec;
 } *sol_D;
-
+struct sol_D *sol_D_dbg;
 struct J_ij
 {
   char *name;
@@ -34,7 +34,7 @@ struct J_ij
 } *J_ij, *J_ij_il;
 int J_ij_count_spec;
 
-struct m_s
+struct M_S
 {
   char *name;
   LDBLE tot1, tot2;
@@ -129,6 +129,14 @@ transport (void)
 		   sizeof (struct sol_D));
     if (sol_D == NULL)
       malloc_error ();
+	sol_D_dbg = sol_D;
+	for (i = 0; i < count_cells + 2 + stag_data->count_stag * count_cells; i++)
+	{
+		sol_D[i].count_spec = 0;
+		sol_D[i].count_exch_spec = 0;
+		sol_D[i].exch_total = 0;
+		sol_D[i].spec = NULL;
+	}
   }
   /* check solution 0 */
   if (solution_bsearch (0, &n, FALSE) == NULL)
@@ -1620,250 +1628,256 @@ int
 multi_D (LDBLE DDt, int mobile_cell, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
-/*
- * 1. determine mole transfer (mol/s) of solute species for the interface between 2 cells.
- * 2. sum up as mole transfer of master_species
- * 3. add moles of master_species to the 2 cells
- *      NOTE. Define the water content of stagnant cells relative to the
- *      mobile cell (with, for example, 1 kg water)
- *      Define properties of each interface only 1 time with MIX.
- */
-  int icell, jcell, i, j, k, l, n, length, length2, il_calcs;
-  int first_c, last_c;
-  char token[MAX_LENGTH];
-  LDBLE mixf, temp;
+	/*
+	* 1. determine mole transfer (mol/s) of solute species for the interface between 2 cells.
+	* 2. sum up as mole transfer of master_species
+	* 3. add moles of master_species to the 2 cells
+	*      NOTE. Define the water content of stagnant cells relative to the
+	*      mobile cell (with, for example, 1 kg water)
+	*      Define properties of each interface only 1 time with MIX.
+	*/
+	int icell, jcell, i, j, k, l, n, length, length2, il_calcs;
+	int i1;
+	int first_c, last_c;
+	char token[MAX_LENGTH];
+	LDBLE mixf, temp;
 
-  for (n = 0; n < (stagnant ? stag_data->count_stag : 1); n++)
-  {
-    icell = mobile_cell + 1 + n * count_cells;
-    if (stagnant)
-    {
-      if (n == 0)
-	icell -= 1;
-/*
- *    find the mix ptr for icell and go along the cells that mix with it
- */
-      use.mix_ptr = mix_search (icell, &use.n_mix, FALSE);
-      if (use.mix_ptr == NULL)
-	continue;
-      first_c = 0;
-      last_c = use.mix_ptr->count_comps - 1;
-    }
-    else
-    { /* regular column... */
-      if (bcon_first == 1)
-	first_c = 0;
-      else
-	first_c = 1;
-      if (bcon_last == 1)
-	last_c = count_cells;
-      else
-	last_c = count_cells - 1;
-    }
-
-    for (i = first_c; i <= last_c; i++)
-    {
-      if (stagnant)
-      {
-	if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
-	  continue;
-	mixf = use.mix_ptr->comps[i].fraction;
-	if (mcd_substeps > 1)
-	  mixf /= nmix;
-      }
-      else
-      { /* regular column... */
-	icell = i;
-	jcell = i + 1;
-	mixf = 1.0;
-      }
-/*
- * 1. obtain J_ij...
- */
-      il_calcs = find_J (icell, jcell, mixf, DDt, stagnant);
-/*
- * 2. sum up the primary or secondary master_species
- */
-      if (!il_calcs)
-      {
-	tot1_h = tot1_o = tot2_h = tot2_o = 0.0;
-	m_s = (struct m_s *) free_check_null (m_s);
-	m_s = (struct m_s *) PHRQ_malloc ((size_t) count_elements *
-			sizeof (struct m_s));
-	if (m_s == NULL)
-	  malloc_error ();
-
-	count_m_s = 0;
-      }
-      fill_m_s (J_ij, J_ij_count_spec);
-
-/*
- * 3. find the solutions, add or subtract the moles...
- */
-      if (i > 0 || stagnant)
-      {
-	use.solution_ptr = solution_bsearch (icell, &use.n_solution, FALSE);
-	use.solution_ptr->total_h -= tot1_h;
-	use.solution_ptr->total_o -= tot1_o;
-	use.solution_ptr->cb -= J_ij_sum;
-	for (l = 0; l < count_m_s; l++)
+	for (n = 0; n < (stagnant ? stag_data->count_stag : 1); n++)
 	{
-	  temp = 0.0;
-	  length = (int) strlen (m_s[l].name);
-	  for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
-	  {
-	    length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
-	    if (strncmp
-		(m_s[l].name, use.solution_ptr->totals[j].description,
-		 length) == 0 && length == length2)
-	    {
-	      if (use.solution_ptr->totals[j].moles < m_s[l].tot1)
-	      {
-		temp = use.solution_ptr->totals[j].moles;
-		use.solution_ptr->totals[j].moles = 0;
-		/* see if other redox states have more moles... */
-		for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++)
+		icell = mobile_cell + 1 + n * count_cells;
+		if (stagnant)
 		{
-		  length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
-		  if (strncmp
-		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0 && length == length2)
-		  {
-		    temp += use.solution_ptr->totals[j + k].moles;
-		    if (temp < m_s[l].tot1)
-		    {
-		      use.solution_ptr->totals[j + k].moles = 0;
-		    }
-		    else
-		    {
-		      use.solution_ptr->totals[j + k].moles = temp - m_s[l].tot1;
-		      temp = 0.0;
-		      break;
-		    }
-		  }
+			if (n == 0)
+				icell -= 1;
+			/*
+			*    find the mix ptr for icell and go along the cells that mix with it
+			*/
+			use.mix_ptr = mix_search (icell, &use.n_mix, FALSE);
+			if (use.mix_ptr == NULL)
+				continue;
+			first_c = 0;
+			last_c = use.mix_ptr->count_comps - 1;
 		}
-		if (temp != 0.0 && m_s[l].tot1 - temp > 1e-12)
+		else
+		{ /* regular column... */
+			if (bcon_first == 1)
+				first_c = 0;
+			else
+				first_c = 1;
+			if (bcon_last == 1)
+				last_c = count_cells;
+			else
+				last_c = count_cells - 1;
+		}
+
+		for (i = first_c; i <= last_c; i++)
 		{
-		  sprintf (token,
-			 "Negative concentration in MCD: added %.1e moles %s in cell %d.",
-			 (double) (-m_s[l].tot1 - temp), m_s[l].name, icell);
-		  warning_msg (token);
+			if (stagnant)
+			{
+				if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
+					continue;
+				mixf = use.mix_ptr->comps[i].fraction;
+				if (mcd_substeps > 1)
+					mixf /= nmix;
+			}
+			else
+			{ /* regular column... */
+				icell = i;
+				jcell = i + 1;
+				mixf = 1.0;
+			}
+			/*
+			* 1. obtain J_ij...
+			*/
+			il_calcs = find_J (icell, jcell, mixf, DDt, stagnant);
+			/*
+			* 2. sum up the primary or secondary master_species
+			*/
+			if (!il_calcs)
+			{
+				tot1_h = tot1_o = tot2_h = tot2_o = 0.0;
+				m_s = (struct M_S *) free_check_null (m_s);
+				m_s = (struct M_S *) PHRQ_malloc ((size_t) count_elements *
+					sizeof (struct M_S));
+				if (m_s == NULL)
+					malloc_error ();
+				for (i1 = 0; i1 < count_elements; i1++)
+				{
+					m_s[i1].name = NULL;
+					m_s[i1].tot1 = 0;
+					m_s[i1].tot2 = 0;
+				}
+				count_m_s = 0;
+			}
+			fill_m_s (J_ij, J_ij_count_spec);
+
+			/*
+			* 3. find the solutions, add or subtract the moles...
+			*/
+			if (i > 0 || stagnant)
+			{
+				use.solution_ptr = solution_bsearch (icell, &use.n_solution, FALSE);
+				use.solution_ptr->total_h -= tot1_h;
+				use.solution_ptr->total_o -= tot1_o;
+				use.solution_ptr->cb -= J_ij_sum;
+				for (l = 0; l < count_m_s; l++)
+				{
+					temp = 0.0;
+					length = (int) strlen (m_s[l].name);
+					for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
+					{
+						length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
+						if (strncmp
+							(m_s[l].name, use.solution_ptr->totals[j].description,
+							length) == 0 && length == length2)
+						{
+							if (use.solution_ptr->totals[j].moles < m_s[l].tot1)
+							{
+								temp = use.solution_ptr->totals[j].moles;
+								use.solution_ptr->totals[j].moles = 0;
+								/* see if other redox states have more moles... */
+								for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++)
+								{
+									length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
+									if (strncmp
+										(m_s[l].name, use.solution_ptr->totals[j + k].description,
+										length) == 0 && length == length2)
+									{
+										temp += use.solution_ptr->totals[j + k].moles;
+										if (temp < m_s[l].tot1)
+										{
+											use.solution_ptr->totals[j + k].moles = 0;
+										}
+										else
+										{
+											use.solution_ptr->totals[j + k].moles = temp - m_s[l].tot1;
+											temp = 0.0;
+											break;
+										}
+									}
+								}
+								if (temp != 0.0 && m_s[l].tot1 - temp > 1e-12)
+								{
+									sprintf (token,
+										"Negative concentration in MCD: added %.1e moles %s in cell %d.",
+										(double) (-m_s[l].tot1 - temp), m_s[l].name, icell);
+									warning_msg (token);
+								}
+							}
+							else
+								use.solution_ptr->totals[j].moles -= m_s[l].tot1;
+							break;
+						}
+					}
+					if (use.solution_ptr->totals[j].description == NULL)
+					{
+						use.solution_ptr->totals =
+							(struct conc *) PHRQ_realloc (use.solution_ptr->totals,
+							(size_t) (j + 2) *
+							sizeof (struct conc));
+						use.solution_ptr->totals[j].description =
+							string_hsave (m_s[l].name);
+						use.solution_ptr->totals[j].moles = -m_s[l].tot1;
+						if (use.solution_ptr->totals[j].moles < 0)
+						{
+							if (use.solution_ptr->totals[j].moles < -1e-12)
+							{
+								sprintf (token,
+									"Negative concentration in MCD: added %.2e moles %s in cell %d",
+									(double) -use.solution_ptr->totals[j].moles, m_s[l].name, icell);
+								warning_msg (token);
+							}
+							use.solution_ptr->totals[j].moles = 0;
+						}
+						use.solution_ptr->totals[j + 1].description = NULL;
+					}
+				}
+			}
+			if (i < count_cells || stagnant)
+			{
+				use.solution_ptr = solution_bsearch (jcell, &use.n_solution, FALSE);
+				use.solution_ptr->total_h += tot2_h;
+				use.solution_ptr->total_o += tot2_o;
+				use.solution_ptr->cb += J_ij_sum;
+				for (l = 0; l < count_m_s; l++)
+				{
+					temp = 0.0;
+					length = (int) strlen (m_s[l].name);
+					for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
+					{
+						length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
+						if (strncmp
+							(m_s[l].name, use.solution_ptr->totals[j].description,
+							length) == 0 && length == length2)
+						{
+							if (use.solution_ptr->totals[j].moles < -m_s[l].tot2)
+							{
+								temp = use.solution_ptr->totals[j].moles;
+								use.solution_ptr->totals[j].moles = 0;
+								/* see if other redox states have more moles... */
+								for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++)
+								{
+									length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
+									if (strncmp
+										(m_s[l].name, use.solution_ptr->totals[j + k].description,
+										length) == 0 && length == length2)
+									{
+										temp += use.solution_ptr->totals[j + k].moles;
+										if (temp < -m_s[l].tot2)
+										{
+											use.solution_ptr->totals[j + k].moles = 0;
+										}
+										else
+										{
+											use.solution_ptr->totals[j + k].moles = temp + m_s[l].tot2;
+											temp = 0.0;
+											break;
+										}
+									}
+								}
+								if (temp != 0.0 && -m_s[l].tot2 - temp > 1e-12)
+								{
+									sprintf (token,
+										"Negative concentration in MCD: added %.3e moles %s in cell %d",
+										(double) (-m_s[l].tot2 - temp), m_s[l].name, jcell);
+									warning_msg (token);
+								}
+							}
+							else
+								use.solution_ptr->totals[j].moles += m_s[l].tot2;
+							break;
+						}
+					}
+					if (use.solution_ptr->totals[j].description == NULL)
+					{
+						use.solution_ptr->totals =
+							(struct conc *) PHRQ_realloc (use.solution_ptr->totals,
+							(size_t) (j + 2) *
+							sizeof (struct conc));
+						use.solution_ptr->totals[j].description =
+							string_hsave (m_s[l].name);
+						use.solution_ptr->totals[j].moles = m_s[l].tot2;
+						if (use.solution_ptr->totals[j].moles < 0)
+						{
+							if (use.solution_ptr->totals[j].moles < -1e-12)
+							{
+								sprintf (token,
+									"Negative concentration in MCD: added %.4e moles %s in cell %d",
+									(double) -use.solution_ptr->totals[j].moles, m_s[l].name, jcell);
+								warning_msg (token);
+							}
+							use.solution_ptr->totals[j].moles = 0;
+						}
+						use.solution_ptr->totals[j + 1].description = NULL;
+					}
+				}
+			}
 		}
-	      }
-	      else
-		use.solution_ptr->totals[j].moles -= m_s[l].tot1;
-	      break;
-	    }
-	  }
-	  if (use.solution_ptr->totals[j].description == NULL)
-	  {
-	    use.solution_ptr->totals =
-	      (struct conc *) PHRQ_realloc (use.solution_ptr->totals,
-					  (size_t) (j + 2) *
-					  sizeof (struct conc));
-	    use.solution_ptr->totals[j].description =
-	      string_hsave (m_s[l].name);
-	    use.solution_ptr->totals[j].moles = -m_s[l].tot1;
-	    if (use.solution_ptr->totals[j].moles < 0)
-	    {
-	      if (use.solution_ptr->totals[j].moles < -1e-12)
-	      {
-		sprintf (token,
-		     "Negative concentration in MCD: added %.2e moles %s in cell %d",
-		     (double) -use.solution_ptr->totals[j].moles, m_s[l].name, icell);
-		warning_msg (token);
-	      }
-	      use.solution_ptr->totals[j].moles = 0;
-	    }
-	    use.solution_ptr->totals[j + 1].description = NULL;
-	  }
 	}
-      }
-      if (i < count_cells || stagnant)
-      {
-	use.solution_ptr = solution_bsearch (jcell, &use.n_solution, FALSE);
-	use.solution_ptr->total_h += tot2_h;
-	use.solution_ptr->total_o += tot2_o;
-	use.solution_ptr->cb += J_ij_sum;
-	for (l = 0; l < count_m_s; l++)
-	{
-	  temp = 0.0;
-	  length = (int) strlen (m_s[l].name);
-	  for (j = 0; use.solution_ptr->totals[j].description != NULL; j++)
-	  {
-	    length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j].description, "(");
-	    if (strncmp
-		(m_s[l].name, use.solution_ptr->totals[j].description,
-		 length) == 0 && length == length2)
-	    {
-	      if (use.solution_ptr->totals[j].moles < -m_s[l].tot2)
-	      {
-		temp = use.solution_ptr->totals[j].moles;
-		use.solution_ptr->totals[j].moles = 0;
-		/* see if other redox states have more moles... */
-		for (k = 1; use.solution_ptr->totals[j + k].description != NULL; k++)
-		{
-		  length2 = (int) (size_t) strcspn(use.solution_ptr->totals[j + k].description, "(");
-		  if (strncmp
-		    (m_s[l].name, use.solution_ptr->totals[j + k].description,
-		     length) == 0 && length == length2)
-		  {
-		    temp += use.solution_ptr->totals[j + k].moles;
-		    if (temp < -m_s[l].tot2)
-		    {
-		      use.solution_ptr->totals[j + k].moles = 0;
-		    }
-		    else
-		    {
-		      use.solution_ptr->totals[j + k].moles = temp + m_s[l].tot2;
-		      temp = 0.0;
-		      break;
-		    }
-		  }
-		}
-		if (temp != 0.0 && -m_s[l].tot2 - temp > 1e-12)
-		{
-		  sprintf (token,
-			 "Negative concentration in MCD: added %.3e moles %s in cell %d",
-			 (double) (-m_s[l].tot2 - temp), m_s[l].name, jcell);
-		  warning_msg (token);
-		}
-	      }
-	      else
-		use.solution_ptr->totals[j].moles += m_s[l].tot2;
-	      break;
-	    }
-	  }
-	  if (use.solution_ptr->totals[j].description == NULL)
-	  {
-	    use.solution_ptr->totals =
-	      (struct conc *) PHRQ_realloc (use.solution_ptr->totals,
-					  (size_t) (j + 2) *
-					  sizeof (struct conc));
-	    use.solution_ptr->totals[j].description =
-	    string_hsave (m_s[l].name);
-	    use.solution_ptr->totals[j].moles = m_s[l].tot2;
-	    if (use.solution_ptr->totals[j].moles < 0)
-	    {
-	      if (use.solution_ptr->totals[j].moles < -1e-12)
-	      {
-		sprintf (token,
-		"Negative concentration in MCD: added %.4e moles %s in cell %d",
-		 (double) -use.solution_ptr->totals[j].moles, m_s[l].name, jcell);
-		warning_msg (token);
-	      }
-	      use.solution_ptr->totals[j].moles = 0;
-	    }
-	    use.solution_ptr->totals[j + 1].description = NULL;
-	  }
-	}
-      }
-    }
-  }
-  m_s = (struct m_s *) free_check_null (m_s);
-  J_ij = (struct J_ij *) free_check_null (J_ij);
-  J_ij_il = (struct J_ij *) free_check_null (J_ij_il);
-  return (OK);
+	m_s = (struct M_S *) free_check_null (m_s);
+	J_ij = (struct J_ij *) free_check_null (J_ij);
+	J_ij_il = (struct J_ij *) free_check_null (J_ij_il);
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1926,880 +1940,889 @@ int
 find_J (int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
-/* mole transfer of the individual master_species:
- * Eqn 1:
- * J_ij = DDt * (A_ij / lav) * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
- * regular column, stagnant FALSE:
- *	      D_i = temperature-corrected Dw
- *	      A_ij = A_icell * A_jcell
- *	      A_icell = (L porewater in i_cell / length_icell) / tort_f_icell /
- *			 (length_icell / 2)
- *	      lav = A_icell + A_jcell
- *	      grad(a) is activity difference in icell and jcell
- *  stagnant TRUE:
- * J_ij = mixf_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
- *	      mixf_ij = mixf / (Dw / init_tort_f) / new_tort_f * new_por / init_por
- *	      mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
- *	      init_tort_f equals multi_Dpor^(-multi_Dn); new_pf = new tortuosity factor
- */
-  int i, i_max, j, j_max, k, k_il, l, only_counter, il_calcs;
-  LDBLE lav, A1, A2, A_ij, A_ij_il, ddlm, aq1, aq2, mixf_il;
-  LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, temp, temp2, tort1, tort2;
-  LDBLE c, Dz2c, Dz2c_dl, Dz2c_il, aq_il1, aq_il2;
-  LDBLE cec1, cec2, cec12, rc1, rc2;
-  struct V_M
-  {
-    LDBLE grad, D, z, Dz, Dzc, Dzc_dl, g_dl;
-    int o_c;
-  } *V_M, *V_M_il;
-  struct surface *s_ptr1, *s_ptr2;
-  struct surface_charge *s_charge_ptr, *s_charge_ptr1, *s_charge_ptr2;
-  struct exchange *ex_ptr1, *ex_ptr2;
-  char token[MAX_LENGTH], token1[MAX_LENGTH];
-
-  lav = A_ij = A_ij_il = 1.0;
-
-  aq1 = solution_bsearch (icell, &i, TRUE)->mass_water;
-  aq2 = solution_bsearch (jcell, &i, TRUE)->mass_water;
-
-  if (interlayer_Dflag)
-  {
-    il_calcs = 1;
-    if (icell == 0 && cell_data[0].por_il < interlayer_Dpor_lim)
-      il_calcs = 0;
-    else if (icell == count_cells &&
-	cell_data[count_cells - 1].por_il < interlayer_Dpor_lim)
-      il_calcs = 0;
-    else if (icell > 0 && (cell_data[icell - 1].por_il < interlayer_Dpor_lim ||
-	cell_data[jcell - 1].por_il < interlayer_Dpor_lim))
-      il_calcs = 0;
-  }
-  else il_calcs = 0;
-
-  J_ij_count_spec = J_ij_sum = 0;
-  if (stagnant)
-  {
-    if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
-      || cell_data[jcell - 1].por < multi_Dpor_lim))
-      return (OK);
-
-    mixf /= (default_Dw * pow (multi_Dpor, multi_Dn) * multi_Dpor);
-    temp = (cell_data[icell - 1].por_il <= cell_data[jcell - 1].por_il ?
-		cell_data[icell - 1].por_il : cell_data[jcell - 1].por_il);
-    mixf_il = mixf * temp / interlayer_tortf;
-    temp = (cell_data[icell - 1].por <= cell_data[jcell - 1].por ?
-		cell_data[icell - 1].por : cell_data[jcell - 1].por);
-    mixf *= temp * pow(temp, multi_Dn);
-  }
-  else
-  { /* regular column... */
-    if (icell == 0)
-    {
-      if (cell_data[0].por < multi_Dpor_lim
-	  && !il_calcs)
-	return (OK);
-
-      tort1 = tort2 = pow(cell_data[0].por, -multi_Dn);
-      lav = cell_data[0].length;
-      A_ij = aq2 /(lav * 0.5 * lav);
-      A_ij_il = A_ij * cell_data[0].por_il /
-		(cell_data[0].por * interlayer_tortf);
-      A_ij /= tort1;
-    }
-    else if (icell == count_cells)
-    {
-      if (cell_data[count_cells - 1].por < multi_Dpor_lim
-	  && !il_calcs)
-	return (OK);
-
-      tort1 = tort2 = pow(cell_data[count_cells - 1].por, -multi_Dn);
-      lav = cell_data[count_cells - 1].length;
-      A_ij = aq1 / (lav * 0.5 * lav);
-      A_ij_il = A_ij * cell_data[count_cells - 1].por_il /
-		(cell_data[count_cells - 1].por * interlayer_tortf);
-      A_ij /= tort2;
-    }
-    else
-    {
-      if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
-	|| cell_data[jcell - 1].por < multi_Dpor_lim))
-	return (OK);
-
-      tort1 = pow(cell_data[icell - 1].por, -multi_Dn);
-      tort2 = pow(cell_data[jcell - 1].por, -multi_Dn);
-      A1 = aq1 / (cell_data[icell - 1].length *
-		0.5 * cell_data[icell - 1].length);
-      A2 = aq2 / (cell_data[jcell - 1].length *
-		0.5 * cell_data[jcell - 1].length);
-      temp = A1 * cell_data[icell - 1].por_il /
-		(cell_data[icell - 1].por * interlayer_tortf);
-      temp2 = A2 * cell_data[jcell - 1].por_il /
-		(cell_data[jcell - 1].por * interlayer_tortf);
-      A_ij_il = temp * temp2 / (temp + temp2);
-      A1 /= tort1;
-      A2 /= tort2;
-      A_ij = A1 * A2 / (A1 + A2);
-    }
-  }
-/*
- * check if DL calculations must be made...
- */
-  s_charge_ptr1 = s_charge_ptr2 = NULL;
-  s_ptr1 = s_ptr2 = NULL;
-  dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
-  visc1 = visc2 = 1.0;
-  only_counter = FALSE;
-
-  s_ptr1 = surface_bsearch (icell, &i);
-  if (s_ptr1 != NULL)
-  {
-    if (s_ptr1->dl_type != NO_DL)
-    {
-      if (s_ptr1->only_counter_ions)
-	only_counter = TRUE;
-      /* find the one (and only one...) immobile surface comp with DL... */
-      for (i = 0; i < s_ptr1->count_comps; i++)
-      {
-	if (s_ptr1->comps[i].Dw == 0)
+	/* mole transfer of the individual master_species:
+	* Eqn 1:
+	* J_ij = DDt * (A_ij / lav) * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
+	* regular column, stagnant FALSE:
+	*	      D_i = temperature-corrected Dw
+	*	      A_ij = A_icell * A_jcell
+	*	      A_icell = (L porewater in i_cell / length_icell) / tort_f_icell /
+	*			 (length_icell / 2)
+	*	      lav = A_icell + A_jcell
+	*	      grad(a) is activity difference in icell and jcell
+	*  stagnant TRUE:
+	* J_ij = mixf_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
+	*	      mixf_ij = mixf / (Dw / init_tort_f) / new_tort_f * new_por / init_por
+	*	      mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
+	*	      init_tort_f equals multi_Dpor^(-multi_Dn); new_pf = new tortuosity factor
+	*/
+	int i, i_max, j, j_max, k, k_il, l, only_counter, il_calcs;
+	int i1;
+	LDBLE lav, A1, A2, A_ij, A_ij_il, ddlm, aq1, aq2, mixf_il;
+	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, temp, temp2, tort1, tort2;
+	LDBLE c, Dz2c, Dz2c_dl, Dz2c_il, aq_il1, aq_il2;
+	LDBLE cec1, cec2, cec12, rc1, rc2;
+	struct V_M
 	{
-	  s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
-	  dl_aq1 = s_charge_ptr1->mass_water;
-	  visc1 = s_ptr1->DDL_viscosity;
-	  /* check for more comps with Dw = 0 */
-	  for (j = i + 1; j < s_ptr1->count_comps; j++)
-	  {
-	    if (s_ptr1->comps[j].Dw == 0
-		&& s_ptr1->comps[j].charge != s_ptr1->comps[i].charge)
-	    {
-	      k = (int) strcspn (s_ptr1->comps[i].formula, "_");
-	      strncpy (token1, s_ptr1->comps[i].formula, k);
-	      token1[k] = '\0';
-	      sprintf (token,
-		       "MCD found more than 1 fixed surface with a DDL, used %s.",
-		       token1);
-	      warning_msg (token);
-	      break;
-	    }
-	  }
-	  break;
-	}
-      }
-    }
-  }
-  s_ptr2 = surface_bsearch (jcell, &i);
-  if (s_ptr2 != NULL)
-  {
-    if (s_ptr2->dl_type != NO_DL)
-    {
-      if (s_ptr2->only_counter_ions)
-	only_counter = TRUE;
-      for (i = 0; i < s_ptr2->count_comps; i++)
-      {
-	if (s_ptr2->comps[i].Dw == 0)
+		LDBLE grad, D, z, Dz, Dzc, Dzc_dl, g_dl;
+		int o_c;
+	} *V_M, *V_M_il;
+	struct surface *s_ptr1, *s_ptr2;
+	struct surface_charge *s_charge_ptr, *s_charge_ptr1, *s_charge_ptr2;
+	struct exchange *ex_ptr1, *ex_ptr2;
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
+
+	lav = A_ij = A_ij_il = 1.0;
+
+	aq1 = solution_bsearch (icell, &i, TRUE)->mass_water;
+	aq2 = solution_bsearch (jcell, &i, TRUE)->mass_water;
+
+	if (interlayer_Dflag)
 	{
-	  s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
-	  dl_aq2 = s_charge_ptr2->mass_water;
-	  visc2 = s_ptr2->DDL_viscosity;
-	  /* check for more comps with Dw = 0 */
-	  for (j = i + 1; j < s_ptr2->count_comps; j++)
-	  {
-	    if (s_ptr2->comps[j].Dw == 0
-		&& s_ptr2->comps[j].charge != s_ptr2->comps[i].charge)
-	    {
-	      k = (int) strcspn (s_ptr2->comps[i].formula, "_");
-	      strncpy (token1, s_ptr2->comps[i].formula, k);
-	      token1[k] = '\0';
-	      sprintf (token,
-		       "MCD found more than 1 fixed surface with a DDL, used %s.",
-		       token1);
-	      warning_msg (token);
-	      break;
-	    }
-	  }
-	  break;
+		il_calcs = 1;
+		if (icell == 0 && cell_data[0].por_il < interlayer_Dpor_lim)
+			il_calcs = 0;
+		else if (icell == count_cells &&
+			cell_data[count_cells - 1].por_il < interlayer_Dpor_lim)
+			il_calcs = 0;
+		else if (icell > 0 && (cell_data[icell - 1].por_il < interlayer_Dpor_lim ||
+			cell_data[jcell - 1].por_il < interlayer_Dpor_lim))
+			il_calcs = 0;
 	}
-      }
-    }
-  }
-  if (!stagnant)
-  {
-    if (icell == 0)
-      visc1 = visc2;
-    else if (icell == count_cells)
-      visc2 = visc1;
-  }
-  /* in each cell: DL surface = mass_water_DL / (cell_length)
-     free pore surface = mass_water_free / (cell_length)
-     determine DL surface as a fraction of the total pore surface... */
-  if (dl_aq1 > 0)
-    dl_s = dl_aq1 / (dl_aq1 + aq1);
-  if (dl_aq2 > 0)
-    temp = dl_aq2 / (dl_aq2 + aq2);
-  if (dl_aq1 > 0 && dl_aq2 > 0)
-    /* average the 2... */
-    dl_s = (dl_s + temp) / 2;
-  else if (dl_aq2 > 0)
-    /* there is one DL surface... */
-    dl_s = temp;
-  /* total surface becomes... */
-  if (dl_s > 0 && !stagnant)
-  {
-    if (icell == 0 || icell == count_cells)
-    {
-      if (dl_aq1 > 0 && dl_aq2 > 0)
-	temp = 0.5 * (dl_aq1 + dl_aq2);
-      else if (dl_aq2 > 0)
-	temp = dl_aq2;
-      else
-	temp = dl_aq1;
-      temp2 = temp / (lav * 0.5 * lav);
-      if (icell == 0)
-	A_ij_il += temp2 * cell_data[0].por_il /
-		(cell_data[0].por * interlayer_tortf);
-      else
-	A_ij_il += temp2 * cell_data[count_cells - 1].por_il /
-		(cell_data[count_cells - 1].por * interlayer_tortf);
+	else il_calcs = 0;
 
-      A_ij += temp2 / tort1;
-    }
-    else
-    {
-      A1 = dl_aq1 / (cell_data[icell - 1].length *
-		0.5 * cell_data[icell - 1].length);
-      A2 = dl_aq2 / (cell_data[jcell - 1].length *
-		0.5 * cell_data[jcell - 1].length);
-      temp = A1 * cell_data[icell - 1].por_il /
-		(cell_data[icell - 1].por * interlayer_tortf);
-      temp2 = A2 * cell_data[jcell - 1].por_il /
-		(cell_data[jcell - 1].por * interlayer_tortf);
-      A_ij_il += temp * temp2 / (temp + temp2);
-      A1 /= tort1;
-      A2 /= tort2;
-      A_ij += (A1 * A2  / (A1 + A2));
-    }
-  }
-/*
- * define interlayer water and cec (mol X-/L)
- */
-  if (il_calcs)
-  {
-    if (icell == 0)
-    {
-      aq_il2 = (aq2 + dl_aq2) * cell_data[0].por_il /
-		cell_data[0].por;
-/* Assume interlayer water is proportional with CEC... */
-      aq_il1 = aq_il2 * sol_D[0].exch_total /
-		sol_D[1].exch_total;
-      temp = sol_D[0].exch_total;
-      temp2 = sol_D[1].exch_total;
-    }
-    else if (icell == count_cells)
-    {
-      aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
-		cell_data[icell - 1].por;
-      aq_il2 = aq_il1 * sol_D[jcell].exch_total /
-		sol_D[icell].exch_total;
-      temp = sol_D[icell].exch_total;
-      temp2 = sol_D[jcell].exch_total;
-    }
-    else
-    {
-      aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
-		cell_data[icell - 1].por;
-      aq_il2 = (aq2 + dl_aq2) * cell_data[jcell - 1].por_il /
-		cell_data[jcell - 1].por;
-      temp = sol_D[icell].exch_total;
-      temp2 = sol_D[jcell].exch_total;
-    }
-/* interlayer cations diffuse over both interlayer and water porosities,
-   take fractions for distributing the mass transfer... */
-    rc1 = (temp2 > temp ? temp / temp2 : 1);
-    rc2 = (temp > temp2 ? temp2 / temp : 1);
-    cec1 = temp / aq_il1;
-    cec2 = temp2 / aq_il2;
-/* and the largest for calculating the mass transfer... */
-    cec12 = (cec1 > cec2 ? cec1 : cec2);
-  }
-/*
- * malloc sufficient space...
- */
-  k = sol_D[icell].count_spec + sol_D[jcell].count_spec;
-
-  J_ij = (struct J_ij *) free_check_null (J_ij);
-  J_ij = (struct J_ij *) PHRQ_malloc ((size_t) k * sizeof (struct J_ij));
-  if (J_ij == NULL)
-    malloc_error ();
-
-  V_M = (struct V_M *) PHRQ_malloc ((size_t) k * sizeof (struct V_M));
-  if (V_M == NULL)
-    malloc_error ();
-
-  for (i = 0; i < k; i++)
-  {
-    J_ij[i].tot1 = 0.0;
-    V_M[i].g_dl = 1.0;
-    V_M[i].o_c = 1;
-  }
-  Dz2c = Dz2c_dl = 0.0;
-
-/* also for interlayer cations */
-  k = sol_D[icell].count_exch_spec + sol_D[jcell].count_exch_spec;
-
-  J_ij_il = (struct J_ij *) free_check_null (J_ij_il);
-  J_ij_il = (struct J_ij *) PHRQ_malloc ((size_t) k * sizeof (struct J_ij));
-  if (J_ij_il == NULL)
-    malloc_error ();
-
-  V_M_il = (struct V_M *) PHRQ_malloc ((size_t) k * sizeof (struct V_M));
-  if (V_M_il == NULL)
-    malloc_error ();
-
-  for (i = 0; i < k; i++)
-    J_ij_il[i].tot1 = 0.0;
-  Dz2c_il = 0.0;
-
-/*
- * coefficients in Eqn (1)...
- */
-  i = j = k = k_il = 0;
-  i_max = sol_D[icell].count_spec;
-  j_max = sol_D[jcell].count_spec;
-
-  while (i < i_max || j < j_max)
-  {
-    if (j == j_max
-	|| ( i < i_max
-	    && strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) < 0))
-    {
-      /* species 'name' is only in icell */
-      if (sol_D[icell].spec[i].type == EX)
-      {
-	J_ij_il[k_il].name = string_hsave (sol_D[icell].spec[i].name);
-	V_M_il[k_il].D = sol_D[icell].spec[i].Dwt;
-	V_M_il[k_il].z = sol_D[icell].spec[i].z;
-	V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
-	V_M_il[k_il].Dzc = V_M_il[k_il].Dz * sol_D[icell].spec[i].c * cec12 /
-		(2 * V_M_il[k_il].z);
-	Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
-	V_M_il[k_il].grad = -sol_D[icell].spec[i].c * cec12 / V_M_il[k_il].z;  /* use equivalent fraction */
-	k_il++;
-      }
-      else
-      {
-	J_ij[k].name = string_hsave (sol_D[icell].spec[i].name);
-	V_M[k].D = sol_D[icell].spec[i].Dwt;
-	V_M[k].z = sol_D[icell].spec[i].z;
-	V_M[k].Dz = V_M[k].D * V_M[k].z;
-	V_M[k].Dzc = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
-	if (dl_s > 0)
+	J_ij_count_spec = 0;
+	J_ij_sum = 0.0;
+	if (stagnant)
 	{
-	  s_charge_ptr = (dl_aq1 > 0) ? s_charge_ptr1 : s_charge_ptr2;
-	  for (l = 0; l < s_charge_ptr->count_g; l++)
-	  {
-	    if (equal (s_charge_ptr->g[l].charge, V_M[k].z, G_TOL) == TRUE)
-	    {
-	      if (only_counter)
-	      {
-		if ((s_charge_ptr->la_psi < 0 && V_M[k].z < 0)
-		   || (s_charge_ptr->la_psi > 0 && V_M[k].z > 0))
-		{
-		  V_M[k].o_c = 0;
-		  V_M[k].Dzc_dl = 0;
-		}
-		else  /* assume for counter ions in the DDL the free pore space conc's... */
-		{
-		  V_M[k].g_dl = 1.0;
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
-		}
-	      }
-	      else
-	      {
-		if (dl_aq1 > 0)
-		{
-		  V_M[k].g_dl = (1 + s_charge_ptr->g[l].g * aq1 / dl_aq1) *
-			 sol_D[icell].spec[i].erm_ddl;
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2 *
-			 V_M[k].g_dl;
-		}
-		else
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
-	      }
-	      break;
-	    }
-	  }
-	  Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
+		if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
+			|| cell_data[jcell - 1].por < multi_Dpor_lim))
+			return (OK);
+
+		mixf /= (default_Dw * pow (multi_Dpor, multi_Dn) * multi_Dpor);
+		temp = (cell_data[icell - 1].por_il <= cell_data[jcell - 1].por_il ?
+			cell_data[icell - 1].por_il : cell_data[jcell - 1].por_il);
+		mixf_il = mixf * temp / interlayer_tortf;
+		temp = (cell_data[icell - 1].por <= cell_data[jcell - 1].por ?
+			cell_data[icell - 1].por : cell_data[jcell - 1].por);
+		mixf *= temp * pow(temp, multi_Dn);
 	}
-	Dz2c += V_M[k].Dzc * V_M[k].z;
-	V_M[k].grad = -sol_D[icell].spec[i].a;
-	k++;
-      }
-      if (i < i_max)
-	i++;
-    }
-    else if (i == i_max
-	     || (j < j_max
-		 && strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) > 0))
-    {
-      /* species 'name' is only in jcell */
-      if (sol_D[jcell].spec[j].type == EX)
-      {
-	J_ij_il[k_il].name = string_hsave (sol_D[jcell].spec[j].name);
-	V_M_il[k_il].D = sol_D[jcell].spec[j].Dwt;
-	V_M_il[k_il].z = sol_D[jcell].spec[j].z;
-	V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
-	V_M_il[k_il].Dzc = V_M_il[k_il].Dz * sol_D[jcell].spec[j].c * cec12 /
-		 (2 * V_M_il[k_il].z);
-	Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
-	V_M_il[k_il].grad = sol_D[jcell].spec[j].c * cec12 /
-		 V_M_il[k_il].z;  /* use equivalent fraction */
-	k_il++;
-      }
-      else
-      {
-	J_ij[k].name = string_hsave (sol_D[jcell].spec[j].name);
-	V_M[k].D = sol_D[jcell].spec[j].Dwt;
-	V_M[k].z = sol_D[jcell].spec[j].z;
-	V_M[k].Dz = V_M[k].D * V_M[k].z;
-	V_M[k].Dzc = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
-	if (dl_s > 0)
-	{
-	  s_charge_ptr = (dl_aq2 > 0) ? s_charge_ptr2 : s_charge_ptr1;
-	  for (l = 0; l < s_charge_ptr->count_g; l++)
-	  {
-	    if (equal (s_charge_ptr->g[l].charge, V_M[k].z, G_TOL) == TRUE)
-	    {
-	      if (only_counter)
-	      {
-		if ((s_charge_ptr->la_psi < 0 && V_M[k].z < 0)
-		   || (s_charge_ptr->la_psi > 0 && V_M[k].z > 0))
-		{
-		  V_M[k].o_c = 0;
-		  V_M[k].Dzc_dl = 0;
-		}
-		else  /* assume for counter ions in the DDL the free pore space conc's... */
-		{
-		  V_M[k].g_dl = 1.0;
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
-		}
-	      }
-	      else
-	      {
-		if (dl_aq2 > 0)
-		{
-		  V_M[k].g_dl = (1 + s_charge_ptr->g[l].g * aq2 / dl_aq2) *
-			 sol_D[jcell].spec[j].erm_ddl;
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2 *
-			 V_M[k].g_dl;
-		}
-		else
-		  V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
-	      }
-	      break;
-	    }
-	  }
-	  Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
-	}
-	Dz2c += V_M[k].Dzc * V_M[k].z;
-	V_M[k].grad = sol_D[jcell].spec[j].a;
-	k++;
-      }
-      if (j < j_max)
-	j++;
-    }
-    else if (strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) ==
-	     0)
-    {
-      /* species 'name' is in both cells */
-      if (sol_D[icell].spec[i].type == EX)
-      {
-	J_ij_il[k_il].name = string_hsave (sol_D[icell].spec[i].name);
-	if (sol_D[icell].spec[i].Dwt == 0 || sol_D[jcell].spec[j].Dwt == 0)
-	  V_M_il[k_il].D = 0.0;
 	else
-	  V_M_il[k_il].D = (sol_D[icell].spec[i].Dwt + sol_D[jcell].spec[j].Dwt) / 2;
-
-	V_M_il[k_il].z = sol_D[icell].spec[i].z;
-	V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
-	V_M_il[k_il].Dzc = V_M_il[k_il].Dz * (sol_D[icell].spec[i].c * cec1 +
-		sol_D[jcell].spec[j].c * cec2) / (2 * V_M_il[k_il].z);
-	Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
-	V_M_il[k_il].grad = (sol_D[jcell].spec[j].c - sol_D[icell].spec[i].c)
-	  * cec12 / V_M_il[k_il].z;  /* use equivalent fraction */
-	k_il++;
-      }
-      else
-      {
-	J_ij[k].name = string_hsave (sol_D[icell].spec[i].name);
-	if (sol_D[icell].spec[i].Dwt == 0 || sol_D[jcell].spec[j].Dwt == 0)
-	  V_M[k].D = 0.0;
-	else
-	  V_M[k].D = (sol_D[icell].spec[i].Dwt + sol_D[jcell].spec[j].Dwt) / 2;
-
-	V_M[k].z = sol_D[icell].spec[i].z;
-	V_M[k].Dz = V_M[k].D * V_M[k].z;
-	V_M[k].Dzc = V_M[k].Dz * (sol_D[icell].spec[i].c + sol_D[jcell].spec[j].c) / 2;
-/*		      Dzc[k] = Dz[k] * (sol_D[icell].spec[i].c > sol_D[jcell].spec[j].c ? sol_D[icell].spec[i].c : sol_D[jcell].spec[j].c);
- */
-	if (dl_s > 0)
-	{
-	  c_dl = 0.0;
-	  if (dl_aq1 > 0)
-	  {
-	    for (l = 0; l < s_charge_ptr1->count_g; l++)
-	    {
-	      if (equal (s_charge_ptr1->g[l].charge, V_M[k].z, G_TOL) == TRUE)
-	      {
-		if (only_counter)
+	{ /* regular column... */
+		if (icell == 0)
 		{
-		  if ((s_charge_ptr1->la_psi < 0 && V_M[k].z < 0)
-		    || (s_charge_ptr1->la_psi > 0 && V_M[k].z > 0))
-		  {
-		    V_M[k].o_c = 0;
-		    V_M[k].Dzc_dl = 0;
-		  }
-		  else  /* assume for counter ions in the DDL the free pore space conc's... */
-		  {
-		    V_M[k].g_dl = 1.0;
-		    c_dl = sol_D[icell].spec[i].c / 2;
-		  }
+			if (cell_data[0].por < multi_Dpor_lim
+				&& !il_calcs)
+				return (OK);
+
+			tort1 = tort2 = pow(cell_data[0].por, -multi_Dn);
+			lav = cell_data[0].length;
+			A_ij = aq2 /(lav * 0.5 * lav);
+			A_ij_il = A_ij * cell_data[0].por_il /
+				(cell_data[0].por * interlayer_tortf);
+			A_ij /= tort1;
+		}
+		else if (icell == count_cells)
+		{
+			if (cell_data[count_cells - 1].por < multi_Dpor_lim
+				&& !il_calcs)
+				return (OK);
+
+			tort1 = tort2 = pow(cell_data[count_cells - 1].por, -multi_Dn);
+			lav = cell_data[count_cells - 1].length;
+			A_ij = aq1 / (lav * 0.5 * lav);
+			A_ij_il = A_ij * cell_data[count_cells - 1].por_il /
+				(cell_data[count_cells - 1].por * interlayer_tortf);
+			A_ij /= tort2;
 		}
 		else
 		{
-		  V_M[k].g_dl = (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1) *
-			 sol_D[icell].spec[i].erm_ddl;
-		  c_dl = sol_D[icell].spec[i].c / 2 * V_M[k].g_dl;
-		}
-		break;
-	      }
-	    }
-	  }
-	  else
-	    c_dl = sol_D[icell].spec[i].c / 2;
+			if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
+				|| cell_data[jcell - 1].por < multi_Dpor_lim))
+				return (OK);
 
-	  if (dl_aq2 > 0)
-	  {
-	    for (l = 0; l < s_charge_ptr2->count_g; l++)
-	    {
-	      if (equal (s_charge_ptr2->g[l].charge, V_M[k].z, G_TOL) == TRUE)
-	      {
-		if (only_counter)
+			tort1 = pow(cell_data[icell - 1].por, -multi_Dn);
+			tort2 = pow(cell_data[jcell - 1].por, -multi_Dn);
+			A1 = aq1 / (cell_data[icell - 1].length *
+				0.5 * cell_data[icell - 1].length);
+			A2 = aq2 / (cell_data[jcell - 1].length *
+				0.5 * cell_data[jcell - 1].length);
+			temp = A1 * cell_data[icell - 1].por_il /
+				(cell_data[icell - 1].por * interlayer_tortf);
+			temp2 = A2 * cell_data[jcell - 1].por_il /
+				(cell_data[jcell - 1].por * interlayer_tortf);
+			A_ij_il = temp * temp2 / (temp + temp2);
+			A1 /= tort1;
+			A2 /= tort2;
+			A_ij = A1 * A2 / (A1 + A2);
+		}
+	}
+	/*
+	* check if DL calculations must be made...
+	*/
+	s_charge_ptr1 = s_charge_ptr2 = NULL;
+	s_ptr1 = s_ptr2 = NULL;
+	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
+	visc1 = visc2 = 1.0;
+	only_counter = FALSE;
+
+	s_ptr1 = surface_bsearch (icell, &i);
+	if (s_ptr1 != NULL)
+	{
+		if (s_ptr1->dl_type != NO_DL)
 		{
-		  if ((s_charge_ptr2->la_psi < 0 && V_M[k].z < 0)
-		    || (s_charge_ptr2->la_psi > 0 && V_M[k].z > 0))
-		  {
-		    V_M[k].o_c = 0;
-		    V_M[k].Dzc_dl = 0;
-		  }
-		  else  /* assume for counter ions in the DDL the free pore space conc's... */
-		  {
-		    temp = 1.0;
-		    c_dl += sol_D[jcell].spec[j].c / 2 * temp;
-		    V_M[k].g_dl = (V_M[k].g_dl + temp) / 2;
-		  }
+			if (s_ptr1->only_counter_ions)
+				only_counter = TRUE;
+			/* find the one (and only one...) immobile surface comp with DL... */
+			for (i = 0; i < s_ptr1->count_comps; i++)
+			{
+				if (s_ptr1->comps[i].Dw == 0)
+				{
+					s_charge_ptr1 = &s_ptr1->charge[s_ptr1->comps[i].charge];
+					dl_aq1 = s_charge_ptr1->mass_water;
+					visc1 = s_ptr1->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr1->count_comps; j++)
+					{
+						if (s_ptr1->comps[j].Dw == 0
+							&& s_ptr1->comps[j].charge != s_ptr1->comps[i].charge)
+						{
+							k = (int) strcspn (s_ptr1->comps[i].formula, "_");
+							strncpy (token1, s_ptr1->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf (token,
+								"MCD found more than 1 fixed surface with a DDL, used %s.",
+								token1);
+							warning_msg (token);
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	s_ptr2 = surface_bsearch (jcell, &i);
+	if (s_ptr2 != NULL)
+	{
+		if (s_ptr2->dl_type != NO_DL)
+		{
+			if (s_ptr2->only_counter_ions)
+				only_counter = TRUE;
+			for (i = 0; i < s_ptr2->count_comps; i++)
+			{
+				if (s_ptr2->comps[i].Dw == 0)
+				{
+					s_charge_ptr2 = &s_ptr2->charge[s_ptr2->comps[i].charge];
+					dl_aq2 = s_charge_ptr2->mass_water;
+					visc2 = s_ptr2->DDL_viscosity;
+					/* check for more comps with Dw = 0 */
+					for (j = i + 1; j < s_ptr2->count_comps; j++)
+					{
+						if (s_ptr2->comps[j].Dw == 0
+							&& s_ptr2->comps[j].charge != s_ptr2->comps[i].charge)
+						{
+							k = (int) strcspn (s_ptr2->comps[i].formula, "_");
+							strncpy (token1, s_ptr2->comps[i].formula, k);
+							token1[k] = '\0';
+							sprintf (token,
+								"MCD found more than 1 fixed surface with a DDL, used %s.",
+								token1);
+							warning_msg (token);
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	if (!stagnant)
+	{
+		if (icell == 0)
+			visc1 = visc2;
+		else if (icell == count_cells)
+			visc2 = visc1;
+	}
+	/* in each cell: DL surface = mass_water_DL / (cell_length)
+	free pore surface = mass_water_free / (cell_length)
+	determine DL surface as a fraction of the total pore surface... */
+	if (dl_aq1 > 0)
+		dl_s = dl_aq1 / (dl_aq1 + aq1);
+	if (dl_aq2 > 0)
+		temp = dl_aq2 / (dl_aq2 + aq2);
+	if (dl_aq1 > 0 && dl_aq2 > 0)
+		/* average the 2... */
+		dl_s = (dl_s + temp) / 2;
+	else if (dl_aq2 > 0)
+		/* there is one DL surface... */
+		dl_s = temp;
+	/* total surface becomes... */
+	if (dl_s > 0 && !stagnant)
+	{
+		if (icell == 0 || icell == count_cells)
+		{
+			if (dl_aq1 > 0 && dl_aq2 > 0)
+				temp = 0.5 * (dl_aq1 + dl_aq2);
+			else if (dl_aq2 > 0)
+				temp = dl_aq2;
+			else
+				temp = dl_aq1;
+			temp2 = temp / (lav * 0.5 * lav);
+			if (icell == 0)
+				A_ij_il += temp2 * cell_data[0].por_il /
+				(cell_data[0].por * interlayer_tortf);
+			else
+				A_ij_il += temp2 * cell_data[count_cells - 1].por_il /
+				(cell_data[count_cells - 1].por * interlayer_tortf);
+
+			A_ij += temp2 / tort1;
 		}
 		else
 		{
-		  temp = (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2) *
-			 sol_D[jcell].spec[j].erm_ddl;
-		  c_dl += sol_D[jcell].spec[j].c / 2 * temp;
-		  V_M[k].g_dl = (V_M[k].g_dl + temp) / 2;
+			A1 = dl_aq1 / (cell_data[icell - 1].length *
+				0.5 * cell_data[icell - 1].length);
+			A2 = dl_aq2 / (cell_data[jcell - 1].length *
+				0.5 * cell_data[jcell - 1].length);
+			temp = A1 * cell_data[icell - 1].por_il /
+				(cell_data[icell - 1].por * interlayer_tortf);
+			temp2 = A2 * cell_data[jcell - 1].por_il /
+				(cell_data[jcell - 1].por * interlayer_tortf);
+			A_ij_il += temp * temp2 / (temp + temp2);
+			A1 /= tort1;
+			A2 /= tort2;
+			A_ij += (A1 * A2  / (A1 + A2));
 		}
-		break;
-	      }
-	    }
-	  }
-	  else if (V_M[k].o_c == 1)
-	    c_dl += sol_D[jcell].spec[j].c / 2;
+	}
+	/*
+	* define interlayer water and cec (mol X-/L)
+	*/
+	if (il_calcs)
+	{
+		if (icell == 0)
+		{
+			aq_il2 = (aq2 + dl_aq2) * cell_data[0].por_il /
+				cell_data[0].por;
+			/* Assume interlayer water is proportional with CEC... */
+			aq_il1 = aq_il2 * sol_D[0].exch_total /
+				sol_D[1].exch_total;
+			temp = sol_D[0].exch_total;
+			temp2 = sol_D[1].exch_total;
+		}
+		else if (icell == count_cells)
+		{
+			aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
+				cell_data[icell - 1].por;
+			aq_il2 = aq_il1 * sol_D[jcell].exch_total /
+				sol_D[icell].exch_total;
+			temp = sol_D[icell].exch_total;
+			temp2 = sol_D[jcell].exch_total;
+		}
+		else
+		{
+			aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
+				cell_data[icell - 1].por;
+			aq_il2 = (aq2 + dl_aq2) * cell_data[jcell - 1].por_il /
+				cell_data[jcell - 1].por;
+			temp = sol_D[icell].exch_total;
+			temp2 = sol_D[jcell].exch_total;
+		}
+		/* interlayer cations diffuse over both interlayer and water porosities,
+		take fractions for distributing the mass transfer... */
+		rc1 = (temp2 > temp ? temp / temp2 : 1);
+		rc2 = (temp > temp2 ? temp2 / temp : 1);
+		cec1 = temp / aq_il1;
+		cec2 = temp2 / aq_il2;
+		/* and the largest for calculating the mass transfer... */
+		cec12 = (cec1 > cec2 ? cec1 : cec2);
+	}
+	/*
+	* malloc sufficient space...
+	*/
+	k = sol_D[icell].count_spec + sol_D[jcell].count_spec;
 
-	  V_M[k].Dzc_dl = V_M[k].Dz * c_dl;
-	  Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
-	}
-	Dz2c += V_M[k].Dzc * V_M[k].z;
-	V_M[k].grad = (sol_D[jcell].spec[j].c - sol_D[icell].spec[i].c);
-	ddlm = sol_D[jcell].spec[j].lm - sol_D[icell].spec[i].lm;
-	if (fabs (ddlm) > 1e-10)
-	  V_M[k].grad *=
-	    (1 + (sol_D[jcell].spec[j].lg - sol_D[icell].spec[i].lg) / ddlm);
-	k++;
-      }
-      if (i < i_max)
-	i++;
-      if (j < j_max)
-	j++;
-    }
-  }
-/*
- * fill in J_ij...
- */
-  if (Dz2c == 0)
-    k = 0;
-  J_ij_count_spec = i_max = k;
-  J_ij_sum = 0;
-  c = c_dl = 0.0;
-  for (i = 0; i < i_max; i++)
-  {
-    c += V_M[i].Dz * V_M[i].grad;
-    c_dl += V_M[i].o_c * V_M[i].Dz * V_M[i].g_dl * V_M[i].grad;
-  }
-  for (i = 0; i < i_max; i++)
-  {
-    J_ij[i].tot1 = -V_M[i].D * V_M[i].grad + c * V_M[i].Dzc / Dz2c;
-    J_ij[i].tot1 *= (1 - dl_s);
-    if (Dz2c_dl > 0)
-    {
-      temp =
-	(-V_M[i].D * V_M[i].g_dl * V_M[i].grad +
-	  c_dl * V_M[i].Dzc_dl / Dz2c_dl) * (2 / (visc1 + visc2));
-      if ((J_ij[i].tot1 <= 0 && temp <= 0) || (J_ij[i].tot1 > 0 && temp > 0))
-      {
-	J_ij[i].tot1 += V_M[i].o_c * temp * dl_s;
-      }
-    }
-/*
- * multiply with timestep...
- * for stagnant, DDt = 1, the timestep is in mixf.
- * NOTE (for stagnant). The timestep calculated in init_mix for MCD (by PHREEQC) must be equal
- *	or smaller than the timestep taken (by the user) for calculating mixf in MIX.
- *	Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
- *	Dw used for calculating mixf must be given as default_Dw in the input file.
- */
-    if (stagnant)
-      J_ij[i].tot1 *= mixf;
-    else
-      J_ij[i].tot1 *= A_ij * DDt;
-    J_ij_sum += V_M[i].z * J_ij[i].tot1;
-    J_ij[i].tot2 = J_ij[i].tot1;
-  }
-/*
- * calculate interlayer mass transfer...
- */
-  if (il_calcs && Dz2c_il != 0 && k_il > 0)
-  {
-    ex_ptr1 = exchange_bsearch (icell, &i);
-    ex_ptr2 = exchange_bsearch (jcell, &i);
-    c = 0.0;
-    i_max = k_il;
-    for (i = 0; i < i_max; i++)
-      c += V_M_il[i].Dz * V_M_il[i].grad;
-    for (i = 0; i < i_max; i++)
-    {
-      J_ij_il[i].tot1 = -V_M_il[i].D * V_M_il[i].grad +
-	c * V_M_il[i].Dzc / Dz2c_il;
-      if (stagnant)
-	J_ij_il[i].tot1 *= mixf_il;
-      else
-	J_ij_il[i].tot1 *= A_ij_il * DDt;
-      J_ij_sum += V_M_il[i].z * J_ij_il[i].tot1;
-      J_ij_il[i].tot2 = J_ij_il[i].tot1;
-    }
+	J_ij = (struct J_ij *) free_check_null (J_ij);
+	J_ij = (struct J_ij *) PHRQ_malloc ((size_t) k * sizeof (struct J_ij));
+	if (J_ij == NULL)
+		malloc_error ();
 
-/* express the transfer in elemental moles... */
-    tot1_h = tot1_o = tot2_h = tot2_o = 0.0;
-    m_s = (struct m_s *) free_check_null (m_s);
-    m_s = (struct m_s *) PHRQ_malloc ((size_t) count_elements *
-		sizeof (struct m_s));
-    if (m_s == NULL)
-      malloc_error ();
-    count_m_s = 0;
-    fill_m_s(J_ij_il, k_il);
+	V_M = (struct V_M *) PHRQ_malloc ((size_t) k * sizeof (struct V_M));
+	if (V_M == NULL)
+		malloc_error ();
 
-/* do the mass transfer... */
-    if (icell > 0 || stagnant)
-    {
-      for (k = 0; k < ex_ptr1->count_comps; k++)
-      {
-	i_max = 0;
-	for (i = 0; ; i++)
+	for (i = 0; i < k; i++)
 	{
-	  if (ex_ptr1->comps[k].totals[i].elt == NULL) break;
-	  if (strcmp("X", ex_ptr1->comps[k].totals[i].elt->name) == 0)
-	    i_max = 1;
+		J_ij[i].tot1 = 0.0;
+		V_M[i].g_dl = 1.0;
+		V_M[i].o_c = 1;
 	}
-	if (i_max) break;
-      }
-      if (k < ex_ptr1->count_comps)
-      {
-	/* transfer O and H... */
-	for (i = 0; ; i++)
-	{
-	  if (ex_ptr1->comps[k].totals[i].elt == NULL) break;
-	  if (strcmp("H", ex_ptr1->comps[k].totals[i].elt->name) == 0)
-	  {
-	    if (ex_ptr1->comps[k].totals[i].coef < rc1 * tot1_h)
-	    {
-	      tot1_h -= ex_ptr1->comps[k].totals[i].coef;
-	      ex_ptr1->comps[k].totals[i].coef = 0;
-	    }
-	    else
-	    {
-	      ex_ptr1->comps[k].totals[i].coef -= rc1 * tot1_h;
-	      tot1_h *= (1 - rc1);
-	    }
-	  }
-	  else if (strcmp("O", ex_ptr1->comps[k].totals[i].elt->name) == 0)
-	  {
-	    if (ex_ptr1->comps[k].totals[i].coef < rc1 * tot1_o)
-	    {
-	      tot1_o -= ex_ptr1->comps[k].totals[i].coef;
-	      ex_ptr1->comps[k].totals[i].coef = 0;
-	    }
-	    else
-	    {
-	      ex_ptr1->comps[k].totals[i].coef -= rc1 * tot1_o;
-	      tot1_o *= (1 - rc1);
-	    }
-	  }
-	}
-	/* transfer other elements... */
-	j_max = 0; /* if j_max turns true, reallocate the exchange structure */
-	for (j = 0; j < count_m_s; j++)
-	{
-	  i_max = 0;
-	  for (i = 0; ; i++)
-	  {
-	    if (ex_ptr1->comps[k].totals[i].elt == NULL)
-	    {
-	      i_max = i;
-	      break;
-	    }
-	    if (strcmp(m_s[j].name, ex_ptr1->comps[k].totals[i].elt->name) == 0)
-	      break;
-	    }
-	  if (i_max)
-	  {
-	  /* new exchange element must be added... */
-	    ex_ptr1->comps[k].totals = (struct elt_list *) PHRQ_realloc
-		(ex_ptr1->comps[k].totals, (size_t) (i + 2) *
-		   sizeof (struct elt_list));
-	    ex_ptr1->comps[k].formula_totals = (struct elt_list *) PHRQ_realloc
-		(ex_ptr1->comps[k].formula_totals, (size_t) (i + 2) *
-		   sizeof (struct elt_list));
-	    /* fill in new element, next = NULL */
-	    ex_ptr1->comps[k].totals[i].elt = element_store (m_s[j].name);
-	    ex_ptr1->comps[k].totals[i + 1].elt = NULL;
+	Dz2c = Dz2c_dl = 0.0;
 
-	    j_max = i_max;
-	  }
-	  /* rc1 part goes to exchange species... */
-	  if (ex_ptr1->comps[k].totals[i].coef < rc1 * m_s[j].tot1)
-	  {
-	    m_s[j].tot1 -= ex_ptr1->comps[k].totals[i].coef;
-	    ex_ptr1->comps[k].totals[i].coef = 0;
-	  }
-	  else
-	  {
-	    ex_ptr1->comps[k].totals[i].coef -= rc1 * m_s[j].tot1;
-	    m_s[j].tot1 *= (1 - rc1);
-	  }
-	}
-	if (j_max)
-	{
-	  qsort (ex_ptr1->comps[k].totals, (size_t) j_max + 1,
-	  (size_t) sizeof (struct elt_list), elt_list_compare);
-	}
-      }
-    }
-    if (icell < count_cells || stagnant)
-    {
-      for (k = 0; k < ex_ptr2->count_comps; k++)
-      {
-	i_max = 0;
-	for (i = 0; ; i++)
-	{
-	  if (ex_ptr2->comps[k].totals[i].elt == NULL) break;
-	  if (strcmp("X", ex_ptr2->comps[k].totals[i].elt->name) == 0)
-	    i_max = 1;
-	}
-	if (i_max) break;
-      }
-      if (k < ex_ptr2->count_comps)
-      {
-	/* transfer O and H... */
-	for (i = 0; ; i++)
-	{
-	  if (ex_ptr2->comps[k].totals[i].elt == NULL) break;
-	  if (strcmp("H", ex_ptr2->comps[k].totals[i].elt->name) == 0)
-	  {
-	    if (ex_ptr2->comps[k].totals[i].coef < -rc2 * tot2_h)
-	    {
-	      tot2_h += ex_ptr2->comps[k].totals[i].coef;
-	      ex_ptr2->comps[k].totals[i].coef = 0;
-	    }
-	    else
-	    {
-	      ex_ptr2->comps[k].totals[i].coef += rc2 * tot2_h;
-	      tot2_h *= (1 - rc2);
-	    }
-	  }
-	  else if (strcmp("O", ex_ptr2->comps[k].totals[i].elt->name) == 0)
-	  {
-	    if (ex_ptr2->comps[k].totals[i].coef < -rc2 * tot2_o)
-	    {
-	      tot2_o += ex_ptr2->comps[k].totals[i].coef;
-	      ex_ptr2->comps[k].totals[i].coef = 0;
-	    }
-	    else
-	    {
-	      ex_ptr2->comps[k].totals[i].coef += rc2 * tot2_o;
-	      tot2_o *= (1 - rc2);
-	    }
-	  }
-	}
-	/* transfer other elements... */
-	j_max = 0; /* if j_max turns true, reallocate the exchange structure */
-	for (j = 0; j < count_m_s; j++)
-	{
-	  i_max = 0;
-	  for (i = 0; ; i++)
-	  {
-	    if (ex_ptr2->comps[k].totals[i].elt == NULL)
-	    {
-	      i_max = i;
-	      break;
-	    }
-	    if (strcmp(m_s[j].name, ex_ptr2->comps[k].totals[i].elt->name) == 0)
-	      break;
-	  }
-	  if (i_max)
-	  {
-	  /* new exchange element must be added... */
-	    ex_ptr2->comps[k].totals = (struct elt_list *) PHRQ_realloc
-		(ex_ptr2->comps[k].totals, (size_t) (i + 2) *
-		   sizeof (struct elt_list));
-	    ex_ptr2->comps[k].formula_totals = (struct elt_list *) PHRQ_realloc
-		(ex_ptr2->comps[k].formula_totals, (size_t) (i + 2) *
-		   sizeof (struct elt_list));
-	    /* fill in new element, next = NULL */
-	    ex_ptr2->comps[k].totals[i].elt = element_store (m_s[j].name);
-	    ex_ptr2->comps[k].totals[i + 1].elt = NULL;
+	/* also for interlayer cations */
+	k = sol_D[icell].count_exch_spec + sol_D[jcell].count_exch_spec;
 
-	    j_max = i_max;
-	  }
-	  /* rc2 part goes to exchange species... */
-	  if (ex_ptr2->comps[k].totals[i].coef < -rc2 * m_s[j].tot2)
-	  {
-	    m_s[j].tot2 += ex_ptr2->comps[k].totals[i].coef;
-	    ex_ptr2->comps[k].totals[i].coef = 0;
-	  }
-	  else
-	  {
-	    ex_ptr2->comps[k].totals[i].coef += rc2 * m_s[j].tot2;
-	    m_s[j].tot2 *= (1 - rc2);
-	  }
-	}
-	if (j_max)
+	J_ij_il = (struct J_ij *) free_check_null (J_ij_il);
+	J_ij_il = (struct J_ij *) PHRQ_malloc ((size_t) k * sizeof (struct J_ij));
+	if (J_ij_il == NULL)
+		malloc_error ();
+
+	V_M_il = (struct V_M *) PHRQ_malloc ((size_t) k * sizeof (struct V_M));
+	if (V_M_il == NULL)
+		malloc_error ();
+
+	for (i = 0; i < k; i++)
+		J_ij_il[i].tot1 = 0.0;
+	Dz2c_il = 0.0;
+
+	/*
+	* coefficients in Eqn (1)...
+	*/
+	i = j = k = k_il = 0;
+	i_max = sol_D[icell].count_spec;
+	j_max = sol_D[jcell].count_spec;
+
+	while (i < i_max || j < j_max)
 	{
-	  qsort (ex_ptr2->comps[k].totals, (size_t) j_max + 1,
-	  (size_t) sizeof (struct elt_list), elt_list_compare);
+		if (j == j_max
+			|| ( i < i_max
+			&& strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) < 0))
+		{
+			/* species 'name' is only in icell */
+			if (sol_D[icell].spec[i].type == EX)
+			{
+				J_ij_il[k_il].name = string_hsave (sol_D[icell].spec[i].name);
+				V_M_il[k_il].D = sol_D[icell].spec[i].Dwt;
+				V_M_il[k_il].z = sol_D[icell].spec[i].z;
+				V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
+				V_M_il[k_il].Dzc = V_M_il[k_il].Dz * sol_D[icell].spec[i].c * cec12 /
+					(2 * V_M_il[k_il].z);
+				Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
+				V_M_il[k_il].grad = -sol_D[icell].spec[i].c * cec12 / V_M_il[k_il].z;  /* use equivalent fraction */
+				k_il++;
+			}
+			else
+			{
+				J_ij[k].name = string_hsave (sol_D[icell].spec[i].name);
+				V_M[k].D = sol_D[icell].spec[i].Dwt;
+				V_M[k].z = sol_D[icell].spec[i].z;
+				V_M[k].Dz = V_M[k].D * V_M[k].z;
+				V_M[k].Dzc = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
+				if (dl_s > 0)
+				{
+					s_charge_ptr = (dl_aq1 > 0) ? s_charge_ptr1 : s_charge_ptr2;
+					for (l = 0; l < s_charge_ptr->count_g; l++)
+					{
+						if (equal (s_charge_ptr->g[l].charge, V_M[k].z, G_TOL) == TRUE)
+						{
+							if (only_counter)
+							{
+								if ((s_charge_ptr->la_psi < 0 && V_M[k].z < 0)
+									|| (s_charge_ptr->la_psi > 0 && V_M[k].z > 0))
+								{
+									V_M[k].o_c = 0;
+									V_M[k].Dzc_dl = 0;
+								}
+								else  /* assume for counter ions in the DDL the free pore space conc's... */
+								{
+									V_M[k].g_dl = 1.0;
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
+								}
+							}
+							else
+							{
+								if (dl_aq1 > 0)
+								{
+									V_M[k].g_dl = (1 + s_charge_ptr->g[l].g * aq1 / dl_aq1) *
+										sol_D[icell].spec[i].erm_ddl;
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2 *
+										V_M[k].g_dl;
+								}
+								else
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[icell].spec[i].c / 2;
+							}
+							break;
+						}
+					}
+					Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
+				}
+				Dz2c += V_M[k].Dzc * V_M[k].z;
+				V_M[k].grad = -sol_D[icell].spec[i].a;
+				k++;
+			}
+			if (i < i_max)
+				i++;
+		}
+		else if (i == i_max
+			|| (j < j_max
+			&& strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) > 0))
+		{
+			/* species 'name' is only in jcell */
+			if (sol_D[jcell].spec[j].type == EX)
+			{
+				J_ij_il[k_il].name = string_hsave (sol_D[jcell].spec[j].name);
+				V_M_il[k_il].D = sol_D[jcell].spec[j].Dwt;
+				V_M_il[k_il].z = sol_D[jcell].spec[j].z;
+				V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
+				V_M_il[k_il].Dzc = V_M_il[k_il].Dz * sol_D[jcell].spec[j].c * cec12 /
+					(2 * V_M_il[k_il].z);
+				Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
+				V_M_il[k_il].grad = sol_D[jcell].spec[j].c * cec12 /
+					V_M_il[k_il].z;  /* use equivalent fraction */
+				k_il++;
+			}
+			else
+			{
+				J_ij[k].name = string_hsave (sol_D[jcell].spec[j].name);
+				V_M[k].D = sol_D[jcell].spec[j].Dwt;
+				V_M[k].z = sol_D[jcell].spec[j].z;
+				V_M[k].Dz = V_M[k].D * V_M[k].z;
+				V_M[k].Dzc = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
+				if (dl_s > 0)
+				{
+					s_charge_ptr = (dl_aq2 > 0) ? s_charge_ptr2 : s_charge_ptr1;
+					for (l = 0; l < s_charge_ptr->count_g; l++)
+					{
+						if (equal (s_charge_ptr->g[l].charge, V_M[k].z, G_TOL) == TRUE)
+						{
+							if (only_counter)
+							{
+								if ((s_charge_ptr->la_psi < 0 && V_M[k].z < 0)
+									|| (s_charge_ptr->la_psi > 0 && V_M[k].z > 0))
+								{
+									V_M[k].o_c = 0;
+									V_M[k].Dzc_dl = 0;
+								}
+								else  /* assume for counter ions in the DDL the free pore space conc's... */
+								{
+									V_M[k].g_dl = 1.0;
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
+								}
+							}
+							else
+							{
+								if (dl_aq2 > 0)
+								{
+									V_M[k].g_dl = (1 + s_charge_ptr->g[l].g * aq2 / dl_aq2) *
+										sol_D[jcell].spec[j].erm_ddl;
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2 *
+										V_M[k].g_dl;
+								}
+								else
+									V_M[k].Dzc_dl = V_M[k].Dz * sol_D[jcell].spec[j].c / 2;
+							}
+							break;
+						}
+					}
+					Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
+				}
+				Dz2c += V_M[k].Dzc * V_M[k].z;
+				V_M[k].grad = sol_D[jcell].spec[j].a;
+				k++;
+			}
+			if (j < j_max)
+				j++;
+		}
+		else if (strcmp (sol_D[icell].spec[i].name, sol_D[jcell].spec[j].name) ==
+			0)
+		{
+			/* species 'name' is in both cells */
+			if (sol_D[icell].spec[i].type == EX)
+			{
+				J_ij_il[k_il].name = string_hsave (sol_D[icell].spec[i].name);
+				if (sol_D[icell].spec[i].Dwt == 0 || sol_D[jcell].spec[j].Dwt == 0)
+					V_M_il[k_il].D = 0.0;
+				else
+					V_M_il[k_il].D = (sol_D[icell].spec[i].Dwt + sol_D[jcell].spec[j].Dwt) / 2;
+
+				V_M_il[k_il].z = sol_D[icell].spec[i].z;
+				V_M_il[k_il].Dz = V_M_il[k_il].D * V_M_il[k_il].z;
+				V_M_il[k_il].Dzc = V_M_il[k_il].Dz * (sol_D[icell].spec[i].c * cec1 +
+					sol_D[jcell].spec[j].c * cec2) / (2 * V_M_il[k_il].z);
+				Dz2c_il += V_M_il[k_il].Dzc * V_M_il[k_il].z;
+				V_M_il[k_il].grad = (sol_D[jcell].spec[j].c - sol_D[icell].spec[i].c)
+					* cec12 / V_M_il[k_il].z;  /* use equivalent fraction */
+				k_il++;
+			}
+			else
+			{
+				J_ij[k].name = string_hsave (sol_D[icell].spec[i].name);
+				if (sol_D[icell].spec[i].Dwt == 0 || sol_D[jcell].spec[j].Dwt == 0)
+					V_M[k].D = 0.0;
+				else
+					V_M[k].D = (sol_D[icell].spec[i].Dwt + sol_D[jcell].spec[j].Dwt) / 2;
+
+				V_M[k].z = sol_D[icell].spec[i].z;
+				V_M[k].Dz = V_M[k].D * V_M[k].z;
+				V_M[k].Dzc = V_M[k].Dz * (sol_D[icell].spec[i].c + sol_D[jcell].spec[j].c) / 2;
+				/*		      Dzc[k] = Dz[k] * (sol_D[icell].spec[i].c > sol_D[jcell].spec[j].c ? sol_D[icell].spec[i].c : sol_D[jcell].spec[j].c);
+				*/
+				if (dl_s > 0)
+				{
+					c_dl = 0.0;
+					if (dl_aq1 > 0)
+					{
+						for (l = 0; l < s_charge_ptr1->count_g; l++)
+						{
+							if (equal (s_charge_ptr1->g[l].charge, V_M[k].z, G_TOL) == TRUE)
+							{
+								if (only_counter)
+								{
+									if ((s_charge_ptr1->la_psi < 0 && V_M[k].z < 0)
+										|| (s_charge_ptr1->la_psi > 0 && V_M[k].z > 0))
+									{
+										V_M[k].o_c = 0;
+										V_M[k].Dzc_dl = 0;
+									}
+									else  /* assume for counter ions in the DDL the free pore space conc's... */
+									{
+										V_M[k].g_dl = 1.0;
+										c_dl = sol_D[icell].spec[i].c / 2;
+									}
+								}
+								else
+								{
+									V_M[k].g_dl = (1 + s_charge_ptr1->g[l].g * aq1 / dl_aq1) *
+										sol_D[icell].spec[i].erm_ddl;
+									c_dl = sol_D[icell].spec[i].c / 2 * V_M[k].g_dl;
+								}
+								break;
+							}
+						}
+					}
+					else
+						c_dl = sol_D[icell].spec[i].c / 2;
+
+					if (dl_aq2 > 0)
+					{
+						for (l = 0; l < s_charge_ptr2->count_g; l++)
+						{
+							if (equal (s_charge_ptr2->g[l].charge, V_M[k].z, G_TOL) == TRUE)
+							{
+								if (only_counter)
+								{
+									if ((s_charge_ptr2->la_psi < 0 && V_M[k].z < 0)
+										|| (s_charge_ptr2->la_psi > 0 && V_M[k].z > 0))
+									{
+										V_M[k].o_c = 0;
+										V_M[k].Dzc_dl = 0;
+									}
+									else  /* assume for counter ions in the DDL the free pore space conc's... */
+									{
+										temp = 1.0;
+										c_dl += sol_D[jcell].spec[j].c / 2 * temp;
+										V_M[k].g_dl = (V_M[k].g_dl + temp) / 2;
+									}
+								}
+								else
+								{
+									temp = (1 + s_charge_ptr2->g[l].g * aq2 / dl_aq2) *
+										sol_D[jcell].spec[j].erm_ddl;
+									c_dl += sol_D[jcell].spec[j].c / 2 * temp;
+									V_M[k].g_dl = (V_M[k].g_dl + temp) / 2;
+								}
+								break;
+							}
+						}
+					}
+					else if (V_M[k].o_c == 1)
+						c_dl += sol_D[jcell].spec[j].c / 2;
+
+					V_M[k].Dzc_dl = V_M[k].Dz * c_dl;
+					Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
+				}
+				Dz2c += V_M[k].Dzc * V_M[k].z;
+				V_M[k].grad = (sol_D[jcell].spec[j].c - sol_D[icell].spec[i].c);
+				ddlm = sol_D[jcell].spec[j].lm - sol_D[icell].spec[i].lm;
+				if (fabs (ddlm) > 1e-10)
+					V_M[k].grad *=
+					(1 + (sol_D[jcell].spec[j].lg - sol_D[icell].spec[i].lg) / ddlm);
+				k++;
+			}
+			if (i < i_max)
+				i++;
+			if (j < j_max)
+				j++;
+		}
 	}
-      }
-    }
-  }
-/* appt 3 July 07, improved convergence without transporting charge imbalance */
-  J_ij_sum = 0;
-  V_M = (struct V_M *) free_check_null (V_M);
-  V_M_il = (struct V_M *) free_check_null (V_M_il);
-  return (il_calcs);
+	/*
+	* fill in J_ij...
+	*/
+	if (Dz2c == 0)
+		k = 0;
+	J_ij_count_spec = i_max = k;
+	J_ij_sum = 0;
+	c = c_dl = 0.0;
+	for (i = 0; i < i_max; i++)
+	{
+		c += V_M[i].Dz * V_M[i].grad;
+		c_dl += V_M[i].o_c * V_M[i].Dz * V_M[i].g_dl * V_M[i].grad;
+	}
+	for (i = 0; i < i_max; i++)
+	{
+		J_ij[i].tot1 = -V_M[i].D * V_M[i].grad + c * V_M[i].Dzc / Dz2c;
+		J_ij[i].tot1 *= (1 - dl_s);
+		if (Dz2c_dl > 0)
+		{
+			temp =
+				(-V_M[i].D * V_M[i].g_dl * V_M[i].grad +
+				c_dl * V_M[i].Dzc_dl / Dz2c_dl) * (2 / (visc1 + visc2));
+			if ((J_ij[i].tot1 <= 0 && temp <= 0) || (J_ij[i].tot1 > 0 && temp > 0))
+			{
+				J_ij[i].tot1 += V_M[i].o_c * temp * dl_s;
+			}
+		}
+		/*
+		* multiply with timestep...
+		* for stagnant, DDt = 1, the timestep is in mixf.
+		* NOTE (for stagnant). The timestep calculated in init_mix for MCD (by PHREEQC) must be equal
+		*	or smaller than the timestep taken (by the user) for calculating mixf in MIX.
+		*	Make this timestep small enough, consider the largest Dw in phreeqd.dat (usually H+).
+		*	Dw used for calculating mixf must be given as default_Dw in the input file.
+		*/
+		if (stagnant)
+			J_ij[i].tot1 *= mixf;
+		else
+			J_ij[i].tot1 *= A_ij * DDt;
+		J_ij_sum += V_M[i].z * J_ij[i].tot1;
+		J_ij[i].tot2 = J_ij[i].tot1;
+	}
+	/*
+	* calculate interlayer mass transfer...
+	*/
+	if (il_calcs && Dz2c_il != 0 && k_il > 0)
+	{
+		ex_ptr1 = exchange_bsearch (icell, &i);
+		ex_ptr2 = exchange_bsearch (jcell, &i);
+		c = 0.0;
+		i_max = k_il;
+		for (i = 0; i < i_max; i++)
+			c += V_M_il[i].Dz * V_M_il[i].grad;
+		for (i = 0; i < i_max; i++)
+		{
+			J_ij_il[i].tot1 = -V_M_il[i].D * V_M_il[i].grad +
+				c * V_M_il[i].Dzc / Dz2c_il;
+			if (stagnant)
+				J_ij_il[i].tot1 *= mixf_il;
+			else
+				J_ij_il[i].tot1 *= A_ij_il * DDt;
+			J_ij_sum += V_M_il[i].z * J_ij_il[i].tot1;
+			J_ij_il[i].tot2 = J_ij_il[i].tot1;
+		}
+
+		/* express the transfer in elemental moles... */
+		tot1_h = tot1_o = tot2_h = tot2_o = 0.0;
+		m_s = (struct M_S *) free_check_null (m_s);
+		m_s = (struct M_S *) PHRQ_malloc ((size_t) count_elements *
+			sizeof (struct M_S));
+		if (m_s == NULL)
+			malloc_error ();
+		for (i1 = 0; i1 < count_elements; i1++)
+		{
+			m_s[i1].name = NULL;
+			m_s[i1].tot1 = 0;
+			m_s[i1].tot2 = 0;
+		}
+		count_m_s = 0;
+		fill_m_s(J_ij_il, k_il);
+
+		/* do the mass transfer... */
+		if (icell > 0 || stagnant)
+		{
+			for (k = 0; k < ex_ptr1->count_comps; k++)
+			{
+				i_max = 0;
+				for (i = 0; ; i++)
+				{
+					if (ex_ptr1->comps[k].totals[i].elt == NULL) break;
+					if (strcmp("X", ex_ptr1->comps[k].totals[i].elt->name) == 0)
+						i_max = 1;
+				}
+				if (i_max) break;
+			}
+			if (k < ex_ptr1->count_comps)
+			{
+				/* transfer O and H... */
+				for (i = 0; ; i++)
+				{
+					if (ex_ptr1->comps[k].totals[i].elt == NULL) break;
+					if (strcmp("H", ex_ptr1->comps[k].totals[i].elt->name) == 0)
+					{
+						if (ex_ptr1->comps[k].totals[i].coef < rc1 * tot1_h)
+						{
+							tot1_h -= ex_ptr1->comps[k].totals[i].coef;
+							ex_ptr1->comps[k].totals[i].coef = 0;
+						}
+						else
+						{
+							ex_ptr1->comps[k].totals[i].coef -= rc1 * tot1_h;
+							tot1_h *= (1 - rc1);
+						}
+					}
+					else if (strcmp("O", ex_ptr1->comps[k].totals[i].elt->name) == 0)
+					{
+						if (ex_ptr1->comps[k].totals[i].coef < rc1 * tot1_o)
+						{
+							tot1_o -= ex_ptr1->comps[k].totals[i].coef;
+							ex_ptr1->comps[k].totals[i].coef = 0;
+						}
+						else
+						{
+							ex_ptr1->comps[k].totals[i].coef -= rc1 * tot1_o;
+							tot1_o *= (1 - rc1);
+						}
+					}
+				}
+				/* transfer other elements... */
+				j_max = 0; /* if j_max turns true, reallocate the exchange structure */
+				for (j = 0; j < count_m_s; j++)
+				{
+					i_max = 0;
+					for (i = 0; ; i++)
+					{
+						if (ex_ptr1->comps[k].totals[i].elt == NULL)
+						{
+							i_max = i;
+							break;
+						}
+						if (strcmp(m_s[j].name, ex_ptr1->comps[k].totals[i].elt->name) == 0)
+							break;
+					}
+					if (i_max)
+					{
+						/* new exchange element must be added... */
+						ex_ptr1->comps[k].totals = (struct elt_list *) PHRQ_realloc
+							(ex_ptr1->comps[k].totals, (size_t) (i + 2) *
+							sizeof (struct elt_list));
+						ex_ptr1->comps[k].formula_totals = (struct elt_list *) PHRQ_realloc
+							(ex_ptr1->comps[k].formula_totals, (size_t) (i + 2) *
+							sizeof (struct elt_list));
+						/* fill in new element, next = NULL */
+						ex_ptr1->comps[k].totals[i].elt = element_store (m_s[j].name);
+						ex_ptr1->comps[k].totals[i + 1].elt = NULL;
+
+						j_max = i_max;
+					}
+					/* rc1 part goes to exchange species... */
+					if (ex_ptr1->comps[k].totals[i].coef < rc1 * m_s[j].tot1)
+					{
+						m_s[j].tot1 -= ex_ptr1->comps[k].totals[i].coef;
+						ex_ptr1->comps[k].totals[i].coef = 0;
+					}
+					else
+					{
+						ex_ptr1->comps[k].totals[i].coef -= rc1 * m_s[j].tot1;
+						m_s[j].tot1 *= (1 - rc1);
+					}
+				}
+				if (j_max)
+				{
+					qsort (ex_ptr1->comps[k].totals, (size_t) j_max + 1,
+						(size_t) sizeof (struct elt_list), elt_list_compare);
+				}
+			}
+		}
+		if (icell < count_cells || stagnant)
+		{
+			for (k = 0; k < ex_ptr2->count_comps; k++)
+			{
+				i_max = 0;
+				for (i = 0; ; i++)
+				{
+					if (ex_ptr2->comps[k].totals[i].elt == NULL) break;
+					if (strcmp("X", ex_ptr2->comps[k].totals[i].elt->name) == 0)
+						i_max = 1;
+				}
+				if (i_max) break;
+			}
+			if (k < ex_ptr2->count_comps)
+			{
+				/* transfer O and H... */
+				for (i = 0; ; i++)
+				{
+					if (ex_ptr2->comps[k].totals[i].elt == NULL) break;
+					if (strcmp("H", ex_ptr2->comps[k].totals[i].elt->name) == 0)
+					{
+						if (ex_ptr2->comps[k].totals[i].coef < -rc2 * tot2_h)
+						{
+							tot2_h += ex_ptr2->comps[k].totals[i].coef;
+							ex_ptr2->comps[k].totals[i].coef = 0;
+						}
+						else
+						{
+							ex_ptr2->comps[k].totals[i].coef += rc2 * tot2_h;
+							tot2_h *= (1 - rc2);
+						}
+					}
+					else if (strcmp("O", ex_ptr2->comps[k].totals[i].elt->name) == 0)
+					{
+						if (ex_ptr2->comps[k].totals[i].coef < -rc2 * tot2_o)
+						{
+							tot2_o += ex_ptr2->comps[k].totals[i].coef;
+							ex_ptr2->comps[k].totals[i].coef = 0;
+						}
+						else
+						{
+							ex_ptr2->comps[k].totals[i].coef += rc2 * tot2_o;
+							tot2_o *= (1 - rc2);
+						}
+					}
+				}
+				/* transfer other elements... */
+				j_max = 0; /* if j_max turns true, reallocate the exchange structure */
+				for (j = 0; j < count_m_s; j++)
+				{
+					i_max = 0;
+					for (i = 0; ; i++)
+					{
+						if (ex_ptr2->comps[k].totals[i].elt == NULL)
+						{
+							i_max = i;
+							break;
+						}
+						if (strcmp(m_s[j].name, ex_ptr2->comps[k].totals[i].elt->name) == 0)
+							break;
+					}
+					if (i_max)
+					{
+						/* new exchange element must be added... */
+						ex_ptr2->comps[k].totals = (struct elt_list *) PHRQ_realloc
+							(ex_ptr2->comps[k].totals, (size_t) (i + 2) *
+							sizeof (struct elt_list));
+						ex_ptr2->comps[k].formula_totals = (struct elt_list *) PHRQ_realloc
+							(ex_ptr2->comps[k].formula_totals, (size_t) (i + 2) *
+							sizeof (struct elt_list));
+						/* fill in new element, next = NULL */
+						ex_ptr2->comps[k].totals[i].elt = element_store (m_s[j].name);
+						ex_ptr2->comps[k].totals[i].coef = 0.0;
+						ex_ptr2->comps[k].totals[i + 1].elt = NULL;
+
+						j_max = i_max;
+					}
+					/* rc2 part goes to exchange species... */
+					if (ex_ptr2->comps[k].totals[i].coef < -rc2 * m_s[j].tot2)
+					{
+						m_s[j].tot2 += ex_ptr2->comps[k].totals[i].coef;
+						ex_ptr2->comps[k].totals[i].coef = 0;
+					}
+					else
+					{
+						ex_ptr2->comps[k].totals[i].coef += rc2 * m_s[j].tot2;
+						m_s[j].tot2 *= (1 - rc2);
+					}
+				}
+				if (j_max)
+				{
+					qsort (ex_ptr2->comps[k].totals, (size_t) j_max + 1,
+						(size_t) sizeof (struct elt_list), elt_list_compare);
+				}
+			}
+		}
+	}
+	/* appt 3 July 07, improved convergence without transporting charge imbalance */
+	J_ij_sum = 0;
+	V_M = (struct V_M *) free_check_null (V_M);
+	V_M_il = (struct V_M *) free_check_null (V_M_il);
+	return (il_calcs);
 }
 
 /* ---------------------------------------------------------------------- */

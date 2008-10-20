@@ -892,7 +892,22 @@ exchange_comp_compare (const void *ptr1, const void *ptr2)
 	  (exch_comp_ptr1->master->elt->name,
 	   exch_comp_ptr2->master->elt->name));
 }
-
+/* ---------------------------------------------------------------------- */
+void
+exchange_comp_init (struct exch_comp *exch_comp_ptr)
+/* ---------------------------------------------------------------------- */
+{
+      exch_comp_ptr->formula = NULL;
+      exch_comp_ptr->formula_z = 0.0;
+      exch_comp_ptr->formula_totals = NULL;
+      exch_comp_ptr->moles = 0.0;
+      exch_comp_ptr->la = 0.0;
+      exch_comp_ptr->charge_balance = 0.0;
+      exch_comp_ptr->phase_name = NULL;
+      exch_comp_ptr->phase_proportion = 0.0;
+      exch_comp_ptr->rate_name = NULL;
+	  return;
+}
 /* ---------------------------------------------------------------------- */
 int
 exchange_compare (const void *ptr1, const void *ptr2)
@@ -1132,6 +1147,7 @@ exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end,
     (struct exch_comp *) PHRQ_malloc (sizeof (struct exch_comp));
   if (exchange_ptr->comps == NULL)
     malloc_error ();
+  exchange_comp_init(&exchange_ptr->comps[0]);
   exchange_ptr->related_phases = FALSE;
   exchange_ptr->related_rate = FALSE;
   exchange_ptr->pitzer_exchange_gammas = TRUE;
