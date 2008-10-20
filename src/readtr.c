@@ -89,9 +89,10 @@ read_transport (void)
     "warning",			/* 37 */
     "warnings",			/* 38 */
     "thermal_diffusion",	/* 39 */
-    "multi_d"			/* 40 */
+    "multi_d",			/* 40 */
+    "interlayer_d"		/* 41 */
   };
-  int count_opt_list = 41;
+  int count_opt_list = 42;
   if (svnid == NULL)
     fprintf (stderr, " ");
 
@@ -577,6 +578,66 @@ read_transport (void)
       }
       opt_save = OPTION_DEFAULT;
       break;
+    case 41:			/* interlayer diffusion */
+      copy_token (token, &next_char, &l);
+      str_tolower (token);
+      if (strstr (token, "f") == token)
+	interlayer_Dflag = 0;
+      else if (strstr (token, "t") == token)
+	interlayer_Dflag = 1;
+      else
+      {
+	input_error++;
+	error_msg
+	  ("Expected interlayer diffusion flag: 'true' or 'false'.",
+	   CONTINUE);
+      }
+      interlayer_Dpor = 0.1;
+      interlayer_Dpor_lim = 0.0;
+      interlayer_tortf = 10.0;
+      if (copy_token (token, &next_char, &l) == EMPTY)
+	break;
+      else
+      {
+	/* porosity */
+	if (sscanf (token, SCANFORMAT, &interlayer_Dpor) != 1)
+	{
+	  input_error++;
+	  sprintf (error_string,
+		   "Expected interlayer porosity.");
+	  error_msg (error_string, CONTINUE);
+	  break;
+	}
+      }
+      if (copy_token (token, &next_char, &l) == EMPTY)
+	break;
+      else
+      {
+	/* porosity limit */
+	if (sscanf (token, SCANFORMAT, &interlayer_Dpor_lim) != 1)
+	{
+	  input_error++;
+	  sprintf (error_string,
+		   "Expected interlayer porosity limit for diffusive transport.");
+	  error_msg (error_string, CONTINUE);
+	  break;
+	}
+      }
+      if (copy_token (token, &next_char, &l) == EMPTY)
+	break;
+      else
+      {
+	if (sscanf (token, SCANFORMAT, &interlayer_tortf) != 1)
+	{
+	  input_error++;
+	  sprintf (error_string,
+		   "Expected interlayer tortuosity factor (Dp = Dw /t_f).");
+	  error_msg (error_string, CONTINUE);
+	  break;
+	}
+      }
+      opt_save = OPTION_DEFAULT;
+      break;
     }
     if (return_value == EOF || return_value == KEYWORD)
       break;
@@ -746,8 +807,21 @@ read_transport (void)
 /*
  *   Fill in porosities
  */
+  if (interlayer_Dflag && !multi_Dflag)
+  {
+    input_error++;
+    sprintf (error_string,
+	"-multi_D must be defined, when -interlayer_D true.");
+      error_msg (error_string, CONTINUE);
+
+  }
   for (i = 0; i < max; i++)
+  {
+    multi_Dpor = (multi_Dpor < 1e-10 ? 1e-10 : multi_Dpor);
+    interlayer_Dpor = (interlayer_Dpor < 1e-10 ? 1e-10 : interlayer_Dpor);
     cell_data[i].por = multi_Dpor;
+    cell_data[i].por_il = interlayer_Dpor;
+  }
 /*
  *   Calculate dump_modulus
  */

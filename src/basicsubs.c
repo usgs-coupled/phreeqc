@@ -60,7 +60,7 @@ activity_coefficient (const char *species_name)
   {
     g = pow (10., s_ptr->lg);
   }
-  else 
+  else
   {
     g = 0;
   }
@@ -79,7 +79,7 @@ log_activity_coefficient (const char *species_name)
   {
     g = s_ptr->lg;
   }
-  else 
+  else
   {
     g = 0;
   }
@@ -116,17 +116,17 @@ calc_SC (void)
     {
 /*
       if (z < 1.5) {
-        ff = (mu_x < 0.36 ? 0.6 :
-        sqrt(mu_x));
+	ff = (mu_x < 0.36 ? 0.6 :
+	sqrt(mu_x));
       }
       else {
-        ff = (mu_x < pow(0.4*z, 2.0) ? 0.4 :
-        sqrt(mu_x) / z);
+	ff = (mu_x < pow(0.4*z, 2.0) ? 0.4 :
+	sqrt(mu_x) / z);
       }
 */
       ff = (mu_x < .36 * z ? 0.6 / sqrt(z) :
 	    sqrt(mu_x) / z);
-	  
+
       a = under (lm + ff * species_list[i].s->lg);
       SC += a * z * z * Dw;
     }
@@ -523,7 +523,8 @@ diff_layer_total (const char *total_name, const char *surface_name)
     count_g = s_x[j]->diff_layer[i].count_g;
 
     moles_excess =
-      mass_water_aq_x * molality * surface_charge_ptr1->g[count_g].g;
+	mass_water_aq_x * molality * (surface_charge_ptr1->g[count_g].g * s_x[j]->erm_ddl +
+	  mass_water_surface / mass_water_aq_x * (s_x[j]->erm_ddl - 1));
     moles_surface = mass_water_surface * molality + moles_excess;
 /*
  *   Accumulate elements in diffuse layer
@@ -1199,9 +1200,9 @@ match_elts_in_species (const char *name, const char *mytemplate)
    *   Compare string
    */
   /* Cases: 0 exact match
-   *              1 leading wild card
-   *              2 trailing wild card
-   *              3 leading and trailing wild card
+   *	      1 leading wild card
+   *	      2 trailing wild card
+   *	      3 leading and trailing wild card
    */
   case_no = 0;
   if (template1[0] == '*')
@@ -1509,7 +1510,7 @@ system_total (const char *total_name, LDBLE * count, char ***names, char ***type
   (*moles)[0] = 0;
   for (i = 0; i < count_sys; i++)
   {
-    /*              output_msg(OUTPUT_MESSAGE, "%20s\t%10s\t%e\n", sys[i].name, sys[i].type, sys[i].moles); */
+    /*	      output_msg(OUTPUT_MESSAGE, "%20s\t%10s\t%e\n", sys[i].name, sys[i].type, sys[i].moles); */
     (*names)[i + 1] = sys[i].name;
     (*types)[i + 1] = sys[i].type;
     (*moles)[i + 1] = sys[i].moles;
@@ -1930,7 +1931,8 @@ system_total_elt (const char *total_name)
 	molality = under (s_x[j]->lm);
 	count_g = s_x[j]->diff_layer[i].count_g;
 	moles_excess =
-	  mass_water_aq_x * molality * x[k]->surface_charge->g[count_g].g;
+	  mass_water_aq_x * molality * (x[k]->surface_charge->g[count_g].g * s_x[j]->erm_ddl +
+	    mass_water_surface / mass_water_aq_x * (s_x[j]->erm_ddl - 1));
 	moles_surface = mass_water_surface * molality + moles_excess;
 	/*
 	 *   Accumulate elements in diffuse layer
@@ -2248,10 +2250,10 @@ system_total_elt_secondary (const char *total_name)
 	elt_list_combine ();
       }
       /* debug
-         output_msg(OUTPUT_MESSAGE, "%s\n", x[i]->pure_phase->phase->name);
-         for ( j=0; j < count_elts; j++ ) {
-         output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
-         }
+	 output_msg(OUTPUT_MESSAGE, "%s\n", x[i]->pure_phase->phase->name);
+	 for ( j=0; j < count_elts; j++ ) {
+	 output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
+	 }
        */
       for (j = 0; j < count_elts; j++)
       {
@@ -2489,3 +2491,4 @@ system_total_solids (struct exchange *exchange_ptr,
   }
   return (OK);
 }
+

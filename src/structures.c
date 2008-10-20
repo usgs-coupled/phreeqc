@@ -427,7 +427,7 @@ clean_up (void)
   iu = (int *) free_check_null (iu);
   is = (int *) free_check_null (is);
 
-  //x_arg = res_arg = scratch = NULL;
+/*  //x_arg = res_arg = scratch = NULL; */
   x_arg_max = res_arg_max = scratch_max = 0;
 
 
@@ -892,7 +892,22 @@ exchange_comp_compare (const void *ptr1, const void *ptr2)
 	  (exch_comp_ptr1->master->elt->name,
 	   exch_comp_ptr2->master->elt->name));
 }
-
+/* ---------------------------------------------------------------------- */
+void
+exchange_comp_init (struct exch_comp *exch_comp_ptr)
+/* ---------------------------------------------------------------------- */
+{
+      exch_comp_ptr->formula = NULL;
+      exch_comp_ptr->formula_z = 0.0;
+      exch_comp_ptr->formula_totals = NULL;
+      exch_comp_ptr->moles = 0.0;
+      exch_comp_ptr->la = 0.0;
+      exch_comp_ptr->charge_balance = 0.0;
+      exch_comp_ptr->phase_name = NULL;
+      exch_comp_ptr->phase_proportion = 0.0;
+      exch_comp_ptr->rate_name = NULL;
+	  return;
+}
 /* ---------------------------------------------------------------------- */
 int
 exchange_compare (const void *ptr1, const void *ptr2)
@@ -1132,6 +1147,7 @@ exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end,
     (struct exch_comp *) PHRQ_malloc (sizeof (struct exch_comp));
   if (exchange_ptr->comps == NULL)
     malloc_error ();
+  exchange_comp_init(&exchange_ptr->comps[0]);
   exchange_ptr->related_phases = FALSE;
   exchange_ptr->related_rate = FALSE;
   exchange_ptr->pitzer_exchange_gammas = TRUE;
@@ -2804,10 +2820,10 @@ master_delete (char *ptr)
  *   the structure, and remove from array master.
  *
  *   Input
- *        ptr  character string with name of element or valence state
+ *	ptr  character string with name of element or valence state
  *   Returns
- *        TRUE if master species was deleted.
- *        FALSE if master species was not found.
+ *	TRUE if master species was deleted.
+ *	FALSE if master species was not found.
  */
   int j, n;
 
@@ -3448,7 +3464,7 @@ phase_bsearch (const char *ptr, int *j, int print)
  *
  *   Arguments:
  *      name  input, a character string to be located in phases.
- *      j            index number in array phases.
+ *      j	    index number in array phases.
  *
  *   Returns:
  *      if found, pointer to phase structure.
@@ -3706,7 +3722,7 @@ pp_assemblage_bsearch (int k, int *n)
  *   Output: n, position in array pp_assemblage for user number k.
  *
  *   Return: pointer to pp_assemblage structure for user number k, if found.
- *           NULL if not found.
+ *	   NULL if not found.
  */
   void *void_ptr;
   if (count_pp_assemblage == 0)
@@ -3941,8 +3957,8 @@ pp_assemblage_init (struct pp_assemblage *pp_assemblage_ptr, int n_user,
 /*
  *   Provides initial values for a new pp_assemblage
  *      arguments:
- *            n position in array pp_assemblage
- *            n_user  user number for pp_assemblage
+ *	    n position in array pp_assemblage
+ *	    n_user  user number for pp_assemblage
  *      return: OK
  */
   pp_assemblage_ptr->n_user = n_user;
@@ -4098,7 +4114,7 @@ rate_bsearch (char *ptr, int *j)
  *
  *   Arguments:
  *      name  input, a character string to be located in rates.
- *      j            index number in array rates.
+ *      j	    index number in array rates.
  *
  *   Returns:
  *      if found, pointer to rate structure.
@@ -4310,10 +4326,10 @@ rxn_find_coef (struct reaction * r_ptr, const char *str)
 /*
  *   Finds coefficient of token in reaction.
  *   input: r_ptr, pointer to a reaction structure
- *          str, string to find as reaction token
+ *	  str, string to find as reaction token
  *
  *   Return: 0.0, if token not found
- *           coefficient of token, if found.
+ *	   coefficient of token, if found.
  */
   struct rxn_token *r_token;
   LDBLE coef;
@@ -4341,7 +4357,7 @@ rxn_free (struct reaction *rxn_ptr)
  *   Frees space allocated for a reaction structure
  *      input: rxn_ptr, pointer to reaction structure
  *      return: ERROR, if pointer is NULL
- *              OK, otherwise.
+ *	      OK, otherwise.
  */
   if (rxn_ptr == NULL)
     return (ERROR);
@@ -4359,7 +4375,7 @@ rxn_print (struct reaction *rxn_ptr)
  *   Frees space allocated for a reaction structure
  *      input: rxn_ptr, pointer to reaction structure
  *      return: ERROR, if pointer is NULL
- *              OK, otherwise.
+ *	      OK, otherwise.
  */
   struct rxn_token *next_token;
   int i;
@@ -4503,6 +4519,7 @@ s_init (struct species *s_ptr)
   s_ptr->gfw = 0.0;
   s_ptr->z = 0.0;
   s_ptr->dw = 0.0;
+  s_ptr->erm_ddl = 1.0;
   s_ptr->alk = 0.0;
   s_ptr->carbon = 0.0;
   s_ptr->co2 = 0.0;
@@ -4559,7 +4576,7 @@ s_search (const char *name)
   struct species *s_ptr;
   ENTRY item, *found_item;
   char safe_name[MAX_LENGTH];
-  
+
   strcpy (safe_name, name);
   item.key = safe_name;
   item.data = NULL;
@@ -4595,7 +4612,7 @@ s_store (char *name, LDBLE z, int replace_if_found)
  *      name    input, character string to be found in "species".
  *      z       input, charge on "name"
  *      replace_if_found input, TRUE means reinitialize species if found
- *                     FALSE means just return pointer if found.
+ *		     FALSE means just return pointer if found.
  *
  *   Returns:
  *      pointer to species structure "s" where "name" can be found.
@@ -4690,7 +4707,7 @@ s_s_assemblage_bsearch (int k, int *n)
  *   Output: n, position in array s_s_assemblage for user number k.
  *
  *   Return: pointer to s_s_assemblage structure for user number k, if found.
- *           NULL if not found.
+ *	   NULL if not found.
  */
   void *void_ptr;
   if (count_s_s_assemblage == 0)
@@ -5345,10 +5362,10 @@ solution_bsearch (int k, int *n, int print)
  *   Assumes array solution is in sort order.
  *
  *   Input: k user number to find.
- *          print, TRUE print warning if solution not found.
+ *	  print, TRUE print warning if solution not found.
  *   Output: n, position of solution ptr in solution array.
  *   Return: pointer to solution structure if found
- *           NULL if not found.
+ *	   NULL if not found.
  */
   void *void_ptr;
   void_ptr = NULL;
@@ -5425,7 +5442,7 @@ solution_copy (struct solution *solution_old_ptr, int n_user_new)
  *   Space for new structure is malloced here.
  *
  *   Input: solution_old_ptr, pointer to structure to be copied.
- *          n_user_new, user number to give to the new solution.
+ *	  n_user_new, user number to give to the new solution.
  *
  *   Return: pointer to new solution structure.
  */
@@ -6005,7 +6022,7 @@ surface_bsearch (int k, int *n)
  *   Input: k, user number to find.
  *   Output: n, position in array surface of user number k.
  *   Return: pointer to surface structure if found,
- *           NULL if not found.
+ *	   NULL if not found.
  */
   void *void_ptr;
   if (count_surface == 0)
@@ -6570,7 +6587,7 @@ temperature_bsearch (int k, int *n)
  *   Input: k, user number to find.
  *   Output: n, position in array temperature of user number k.
  *   Return: pointer to temperature structure if found,
- *           NULL if not found.
+ *	   NULL if not found.
  */
   void *void_ptr;
   if (count_temperature <= 0)
@@ -6847,11 +6864,11 @@ trxn_add (struct reaction *r_ptr, LDBLE coef, int combine)
  *      If count_trxn>0, then new equation is added to existing equation.
  *
  *   Arguments:
- *      *r_ptr         points to rxn structure to add.
+ *      *r_ptr	 points to rxn structure to add.
  *
- *       coef          added equation is multiplied by coef.
+ *       coef	  added equation is multiplied by coef.
  *       combine       if TRUE, reaction is reaction is sorted and
- *                     like terms combined.
+ *		     like terms combined.
  */
   int i;
   struct rxn_token *next_token;
@@ -6905,11 +6922,11 @@ trxn_add_phase (struct reaction *r_ptr, LDBLE coef, int combine)
  *      If count_trxn>0, then new equation is added to existing equation.
  *
  *   Arguments:
- *      *r_ptr         points to rxn structure to add.
+ *      *r_ptr	 points to rxn structure to add.
  *
- *       coef          added equation is multiplied by coef.
+ *       coef	  added equation is multiplied by coef.
  *       combine       if TRUE, reaction is reaction is sorted and
- *                     like terms combined.
+ *		     like terms combined.
  */
   int i;
   struct rxn_token *next_token;
@@ -7107,7 +7124,7 @@ trxn_find_coef (const char *str, int start)
  *   Input: str, token name in reaction.
  *
  *   Return: 0.0, if token not found.
- *           coefficient of token, if token found.
+ *	   coefficient of token, if token found.
  */
   int i;
   LDBLE coef;
@@ -7133,7 +7150,7 @@ trxn_multiply (LDBLE coef)
  *   Multiplies temporary reaction, trxn,  by a constant
  *
  *   Arguments:
- *       input: coef          multiplier.
+ *       input: coef	  multiplier.
  */
   int i;
 /*
@@ -7231,7 +7248,7 @@ trxn_swap (const char *token)
  *   Input: token, token name to move to initial position.
  *
  *   Return: ERROR, if token not found.
- *           OK, if token moved to initial position.
+ *	   OK, if token moved to initial position.
  */
   int i, j;
   LDBLE coef;
@@ -7376,7 +7393,7 @@ unknown_free (struct unknown *unknown_ptr)
        unknown_ptr->surface_charge = (struct surface_charge *) free_check_null(unknown_ptr->surface_charge);
      */
   }
-  unknown_ptr->comp_unknowns = (struct unknown **) free_check_null(unknown_ptr->comp_unknowns); 
+  unknown_ptr->comp_unknowns = (struct unknown **) free_check_null(unknown_ptr->comp_unknowns);
   unknown_ptr = (struct unknown *) free_check_null (unknown_ptr);
   return (OK);
 }
@@ -7425,7 +7442,7 @@ logk_store (char *name, int replace_if_found)
  *   Arguments:
  *      name    input, character string to be found in "logk".
  *      replace_if_found input, TRUE means reinitialize logk structure if found
- *                     FALSE means just return pointer if found.
+ *		     FALSE means just return pointer if found.
  *
  *   Returns:
  *      pointer to logk structure "logk" where "name" can be found.
@@ -7585,17 +7602,17 @@ entity_exists (char *name, int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads solution,                   0 Solution
- *         reaction,                   1 Reaction
- *         exchange,                   2 Exchange
- *         surface,                    3 Surface
- *         gas_phase,                  4 Gas_phase
- *         equilibrium_phases,         5 Pure_phase
- *         solid_solution,             6 Ss_phase
- *         kinetics,                   7 Kinetics
- *         mix,                        8 Mix
- *         reaction_temperature        9 Temperature
- *         unknown                     10 UnKnown
+ *   Reads solution,		   0 Solution
+ *	 reaction,		   1 Reaction
+ *	 exchange,		   2 Exchange
+ *	 surface,		    3 Surface
+ *	 gas_phase,		  4 Gas_phase
+ *	 equilibrium_phases,	 5 Pure_phase
+ *	 solid_solution,	     6 Ss_phase
+ *	 kinetics,		   7 Kinetics
+ *	 mix,			8 Mix
+ *	 reaction_temperature	9 Temperature
+ *	 unknown		     10 UnKnown
  */
   int i, return_value;
   char *ptr;
@@ -7685,17 +7702,17 @@ get_entity_enum (char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Reads solution,                   0 Solution
- *         reaction,                   1 Reaction
- *         exchange,                   2 Exchange
- *         surface,                    3 Surface
- *         gas_phase,                  4 Gas_phase
- *         equilibrium_phases,         5 Pure_phase
- *         solid_solution,             6 Ss_phase
- *         kinetics,                   7 Kinetics
- *         mix,                        8 Mix
- *         reaction_temperature        9 Temperature
- *         unknown                     10 UnKnown
+ *   Reads solution,		   0 Solution
+ *	 reaction,		   1 Reaction
+ *	 exchange,		   2 Exchange
+ *	 surface,		    3 Surface
+ *	 gas_phase,		  4 Gas_phase
+ *	 equilibrium_phases,	 5 Pure_phase
+ *	 solid_solution,	     6 Ss_phase
+ *	 kinetics,		   7 Kinetics
+ *	 mix,			8 Mix
+ *	 reaction_temperature	9 Temperature
+ *	 unknown		     10 UnKnown
  *
  */
   int i;
@@ -7850,3 +7867,4 @@ copier_init (struct copier *copier_ptr)
     (int *) PHRQ_malloc ((size_t) (copier_ptr->max * sizeof (int)));
   return (OK);
 }
+
