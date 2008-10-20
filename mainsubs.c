@@ -169,8 +169,10 @@ initialize (void)
   heat_diffc = -0.1;
   timest = 0.0;
   multi_Dflag = FALSE;
+  interlayer_Dflag = FALSE;
+  interlayer_tortf = 10.0;
+  interlayer_Dpor = 0.1;
 /* !!!!        count_stag = 0; */
-
   mcd_substeps = 1.0;
   print_modulus = 1;
   punch_modulus = 1;

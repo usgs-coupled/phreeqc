@@ -6,7 +6,7 @@ static char const svnidglobal[] =
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 
-#define NO_DOS
+/* #define NO_DOS */
 /* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
 #ifdef PHREEQ98
 #define isnan _isnan
@@ -135,16 +135,16 @@ typedef enum
 #define S_S_MOLES 25
 #define PITZER_GAMMA 26
 /* state */
-#define INITIALIZE               0
+#define INITIALIZE	       0
 #define INITIAL_SOLUTION   1
 #define INITIAL_EXCHANGE   2
 #define INITIAL_SURFACE 3
 #define INITIAL_GAS_PHASE  4
-#define REACTION                   5
-#define INVERSE                 6
-#define ADVECTION                 7
-#define TRANSPORT                 8
-#define PHAST                     9
+#define REACTION		   5
+#define INVERSE		 6
+#define ADVECTION		 7
+#define TRANSPORT		 8
+#define PHAST		     9
 
 /* constaints in mass balance */
 #define EITHER 0
@@ -454,7 +454,7 @@ struct kinetics_comp
 #endif
   struct name_coef *list;
   int count_list;
-  /*        struct phase *phase; */
+  /*	struct phase *phase; */
   LDBLE tol;
   LDBLE m;
   LDBLE initial_moles;
@@ -777,9 +777,9 @@ struct s_s_assemblage
   int n_user_end;
   char *description;
   int new_def;
-  /*        int type; */
-  /*        int solution_equilibria; */
-  /*        int n_solution; */
+  /*	int type; */
+  /*	int solution_equilibria; */
+  /*	int n_solution; */
   int count_s_s;
   struct s_s *s_s;
 };
@@ -1067,16 +1067,23 @@ EXTERNAL struct cell_data
   LDBLE mid_cell_x;
   LDBLE disp;
   LDBLE temp;
-  LDBLE por;			/* cell porosities */
+  LDBLE por;			/* free (uncharged) porewater porosities */
+  LDBLE por_il;			/* interlayer water porosities */
   int punch;
   int print;
 } *cell_data;
 EXTERNAL int multi_Dflag;	/* signals calc'n of multicomponent diffusion */
+EXTERNAL int interlayer_Dflag;	/* multicomponent diffusion and diffusion through interlayer porosity */
 EXTERNAL LDBLE default_Dw;	/* default species diffusion coefficient in water at 25oC, m2/s */
-EXTERNAL LDBLE multi_Dpor;	/* uniform porosity of solid medium */
-EXTERNAL LDBLE multi_Dpor_lim;	/* limiting porosity of solid medium where transport stops */
+EXTERNAL LDBLE multi_Dpor;	/* uniform porosity of free porewater in solid medium */
+EXTERNAL LDBLE interlayer_Dpor;	/* uniform porosity of interlayer space of montmorillonite in solid medium */
+EXTERNAL LDBLE multi_Dpor_lim;	/* limiting free porewater porosity where transport stops */
+EXTERNAL LDBLE interlayer_Dpor_lim;	/* limiting interlayer porosity where transport stops */
 EXTERNAL LDBLE multi_Dn;	/* exponent to calculate pore water diffusion coefficient,
-				   Dp = Dw * (multi_Dpor - multi_Dpor_lim)^multi_Dn */
+				   Dp = Dw * (multi_Dpor)^multi_Dn */
+EXTERNAL LDBLE interlayer_tortf;	/* tortuosity_factor in interlayer porosity,
+				   Dpil = Dw / interlayer_tortf */
+
 EXTERNAL int cell_no;
 /*----------------------------------------------------------------------
  *   Advection data
@@ -1196,7 +1203,7 @@ EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface,
 struct element
 {
   char *name;			/* element name */
-  /*        int in; */
+  /*	int in; */
   struct master *master;
   struct master *primary;
   LDBLE gfw;
@@ -1246,6 +1253,7 @@ struct species
   LDBLE gfw;			/* gram formula wt of species */
   LDBLE z;			/* charge of species */
   LDBLE dw;			/* tracer diffusion coefficient in water at 25oC, m2/s */
+  LDBLE erm_ddl;		/* enrichment factor in DDL */
   LDBLE equiv;			/* equivalents in exchange species */
   LDBLE alk;			/* alkalinity of species, used for cec in exchange */
   LDBLE carbon;			/* stoichiometric coefficient of carbon in species */
@@ -1375,7 +1383,7 @@ struct master
   LDBLE isotope_ratio_uncertainty;
   int isotope;
   LDBLE total_primary;
-  /*        LDBLE la;  *//* initial guess of master species log activity */
+  /*	LDBLE la;  *//* initial guess of master species log activity */
   struct element *elt;		/* element structure */
   LDBLE alk;			/* alkalinity of species */
   LDBLE gfw;			/* default gfw for species */
@@ -1475,8 +1483,8 @@ struct unknown_list
   struct unknown *unknown;
   LDBLE *source;
   LDBLE *gamma_source;
-  /*        int row; */
-  /*        int col; */
+  /*	int row; */
+  /*	int col; */
   LDBLE coef;
 };
 EXTERNAL struct unknown_list *mb_unknowns;
@@ -1662,12 +1670,12 @@ EXTERNAL struct spread_sheet g_spread_sheet;
 ** Constants
 */
 
-# define SegmentSize                    256
-# define SegmentSizeShift          8	/* log2(SegmentSize) */
-# define DirectorySize            256
+# define SegmentSize		    256
+# define SegmentSizeShift	  8	/* log2(SegmentSize) */
+# define DirectorySize	    256
 # define DirectorySizeShift      8	/* log2(DirectorySize)  */
-# define Prime1                          37
-# define Prime2                          1048583
+# define Prime1			  37
+# define Prime2			  1048583
 # define DefaultMaxLoadFactor   5
 
 
@@ -1810,3 +1818,4 @@ struct system
 
 EXTERNAL LDBLE pore_volume;
 #endif /* _INC_GLOBAL_H */
+

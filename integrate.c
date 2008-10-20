@@ -75,7 +75,7 @@ calc_all_g (void)
     x[j]->surface_charge->g[0].g = 0.0;
     x[j]->surface_charge->g[0].dg = 0.0;
     xd = exp (-2 * x[j]->master[0]->s->la * LOG_10);
-    /* alpha = 0.02935 @ 25;                (ee0RT/2)**1/2, (L/mol)**1/2 C / m**2 */
+    /* alpha = 0.02935 @ 25;		(ee0RT/2)**1/2, (L/mol)**1/2 C / m**2 */
     /* 1000 J/kJ and 1000 L/m**3 */
     alpha =
       sqrt (EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * 1000.0 * tk_x *
@@ -538,7 +538,7 @@ calc_init_g (void)
       x[j]->surface_charge->g[0].g = 0.0;
       x[j]->surface_charge->g[0].dg = 0.0;
       xd = exp (-2 * x[j]->master[0]->s->la * LOG_10);
-      /* alpha = 0.02935 @ 25;                (ee0RT/2)**1/2, (L/mol)**1/2 C / m**2 */
+      /* alpha = 0.02935 @ 25;		(ee0RT/2)**1/2, (L/mol)**1/2 C / m**2 */
       /*  second 1000 is liters/m**3 */
       alpha =
 	sqrt (EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) * 1000.0 *
@@ -662,7 +662,7 @@ initial_surface_water (void)
     for (i = 0; i < count_unknowns; i++)
     {
       if (x[i]->type != SURFACE_CB)
-        continue;
+	continue;
       sum_surfs += x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
     }
 
@@ -673,7 +673,7 @@ initial_surface_water (void)
     {
       /* distribute water over DDL (rd) and free pore (r - rd) */
       /* find r: free pore (m3) = pi * (r - rd)^2 * L, where L = A / (2*pi*r),
-         A = sum_surfs = sum of the surface areas */
+	 A = sum_surfs = sum of the surface areas */
       b = -2 * (rd + use.solution_ptr->mass_water / (1000 * sum_surfs));
       r = 0.5 * (-b + sqrt (b * b - 4 * rd * rd));
       /* DDL (m3) = pi * (r^2 - (r - rd)^2) * L */
@@ -693,7 +693,7 @@ initial_surface_water (void)
       {
 	if (x[i]->type != SURFACE_CB)
 	  continue;
-        s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+	s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
 	x[i]->surface_charge->mass_water = mass_water_surfaces_x * s / sum_surfs;
       }
     }
@@ -719,7 +719,7 @@ initial_surface_water (void)
       {
 	if (x[i]->type != SURFACE_CB)
 	  continue;
-        s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
+	s = x[i]->surface_charge->specific_area * x[i]->surface_charge->grams;
 	x[i]->surface_charge->mass_water = mass_water_surfaces_x * s / sum_surfs;
       }
     }
@@ -877,7 +877,7 @@ calc_all_donnan (void)
 	    cz = s_x[i]->z * pow (cm, -s_x[i]->z);
 	  charge_group[k].eq += cz * s_x[i]->moles;
 #endif
-	  charge_group[k].eq += s_x[i]->z * s_x[i]->moles;
+	  charge_group[k].eq += s_x[i]->z * s_x[i]->moles * s_x[i]->erm_ddl;
 	  break;
 	}
       }
@@ -1036,7 +1036,7 @@ calc_init_donnan (void)
     {
       if (equal (charge_group[k].z, s_x[i]->z, G_TOL) == TRUE)
       {
-	charge_group[k].eq += s_x[i]->z * s_x[i]->moles;
+	charge_group[k].eq += s_x[i]->z * s_x[i]->moles * s_x[i]->erm_ddl;
 	break;
       }
     }
@@ -1050,7 +1050,7 @@ calc_init_donnan (void)
       if (charge_group == NULL)
 	malloc_error ();
       charge_group[count_g].z = s_x[i]->z;
-      charge_group[count_g].eq = s_x[i]->z * s_x[i]->moles;
+      charge_group[count_g].eq = s_x[i]->z * s_x[i]->moles * s_x[i]->erm_ddl;
 
       count_g++;
     }
@@ -1080,7 +1080,9 @@ calc_init_donnan (void)
     surf_chrg_eq = A_surf * f_sinh * sinh (f_psi) / F_C_MOL;
 
     /* find psi_avg that matches surface charge... */
-    psi_avg = calc_psi_avg (0);	/*(surf_chrg_eq); */
+/*    psi_avg = calc_psi_avg (0);
+    appt 7/9/8... may have to change above one */
+    psi_avg = calc_psi_avg (0 * surf_chrg_eq);
 
     /* fill in g's */
     ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
@@ -1164,7 +1166,7 @@ calc_psi_avg (LDBLE surf_chrg_eq)
  * Optimize p in SS{s_x[i]->moles * z_i * g(p)} = -surf_chrg_eq
  *  g(p) = exp(-p * z_i) * ratio_aq
  * Elsewhere in PHREEQC, g is the excess, after subtraction of conc's for p = 0:
- *                      g(p) = (exp(-p *z_i) - 1) * ratio_aq
+ *		      g(p) = (exp(-p *z_i) - 1) * ratio_aq
  */
   iter = 0;
   do
@@ -1456,3 +1458,4 @@ calc_init_donnan_music (void)
   }
   return (OK);
 }
+
