@@ -295,7 +295,7 @@ int exchange_copy_to_last (int n, int n_user);
 int exchange_delete (int n_user_old);
 int exchange_duplicate (int n_user_old, int n_user_new);
 int exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end,
-		   char *description);
+		   const char *description);
 int exchange_free (struct exchange *exchange_ptr);
 int exchange_ptr_to_user (struct exchange *exchange_old_ptr, int n_user_new);
 struct exchange *exchange_replicate (struct exchange *exchange_old_ptr,

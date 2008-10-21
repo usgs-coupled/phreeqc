@@ -1127,7 +1127,7 @@ exchange_free (struct exchange *exchange_ptr)
 /* ---------------------------------------------------------------------- */
 int
 exchange_init (struct exchange *exchange_ptr, int n_user, int n_user_end,
-	       char *description)
+	       const char *description)
 /* ---------------------------------------------------------------------- */
 {
 /*
