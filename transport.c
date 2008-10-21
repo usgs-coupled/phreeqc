@@ -1462,6 +1462,7 @@ fill_spec (int cell_no)
   LDBLE lm;
   LDBLE por, por_il, temp_factor, temp_il_factor, viscos;
 
+  s_ptr2 = NULL;
   sol_D[cell_no].spec = (struct spec *) free_check_null (sol_D[cell_no].spec);
   sol_D[cell_no].spec =
     (struct spec *) PHRQ_malloc ((size_t) count_species_list *
@@ -1971,6 +1972,15 @@ find_J (int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	struct surface_charge *s_charge_ptr, *s_charge_ptr1, *s_charge_ptr2;
 	struct exchange *ex_ptr1, *ex_ptr2;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
+
+	rc2 = 0;
+	rc1 = 0;
+	cec12 = 0;
+	cec2 = 0;
+	cec1 = 0;
+	tort1 = 0;
+	tort2 = 0;
+	mixf_il = 0;
 
 	lav = A_ij = A_ij_il = 1.0;
 
