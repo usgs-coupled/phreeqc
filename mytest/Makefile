@@ -21,6 +21,7 @@ all: alkalinity.out \
 	co2.out \
 	colloid_U.out \
 	comments.out \
+	ddl_flux.out \
 	ddlsurf.out \
 	de.out \
 	deb1.out \
@@ -36,6 +37,7 @@ all: alkalinity.out \
 	exch_related_pz.out \
 	exch_kin_related.out \
 	exch_kin_related_pz.out \
+	ex_ild.out \
 	fiona.out \
 	fixed_volume_gas.out \
 	fixed_volume_gas_pz.out \

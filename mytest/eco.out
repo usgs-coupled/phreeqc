@@ -175,7 +175,7 @@ Psi, plane 2, V                         -3.8032e-02
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH             -10.00  -10.00    0.00
-         NaOH               is reactant      1.000e+01   1.000e+01  -1.229e-04
+	 NaOH               is reactant      1.000e+01   1.000e+01  -1.229e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -337,7 +337,7 @@ Psi, plane 2, V                          5.0310e-02
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -8.00   -8.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -1.220e-05
+	 HCl                is reactant      1.000e+01   1.000e+01  -1.220e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -499,7 +499,7 @@ Psi, plane 2, V                          1.1671e-01
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -6.00   -6.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -5.726e-05
+	 HCl                is reactant      1.000e+01   1.000e+01  -5.726e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -661,7 +661,7 @@ Psi, plane 2, V                          1.5559e-01
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -4.00   -4.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -2.327e-04
+	 HCl                is reactant      1.000e+01   1.000e+01  -2.327e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -838,7 +838,7 @@ Psi, plane 2, V                         -3.8040e-02
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH             -10.00  -10.00    0.00
-         NaOH               is reactant      1.000e+01   1.000e+01  -1.229e-04
+	 NaOH               is reactant      1.000e+01   1.000e+01  -1.229e-04
 
 ------------------------------Surface composition------------------------------
 
@@ -1013,7 +1013,7 @@ Psi, plane 2, V                          5.0319e-02
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -8.00   -8.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -1.219e-05
+	 HCl                is reactant      1.000e+01   1.000e+01  -1.219e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1188,7 +1188,7 @@ Psi, plane 2, V                          1.2943e-01
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -6.00   -6.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -4.675e-05
+	 HCl                is reactant      1.000e+01   1.000e+01  -4.675e-05
 
 ------------------------------Surface composition------------------------------
 
@@ -1363,7 +1363,7 @@ Psi, plane 2, V                          1.7779e-01
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pH              -4.00   -4.00    0.00
-         HCl                is reactant      1.000e+01   1.000e+01  -2.143e-04
+	 HCl                is reactant      1.000e+01   1.000e+01  -2.143e-04
 
 ------------------------------Surface composition------------------------------
 
