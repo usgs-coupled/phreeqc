@@ -8,6 +8,51 @@ File contains:
 ************************************************************
 ************************************************************
         --------
+        svn 3149
+        --------
+	Diffusion through DDL water is multiplied with c_DDL,i / c_i
+	with option -only_counter false. c_DDL,i is the concentration in
+	DDL water, c_i is the concentration in free porewater. (Previous
+	versions used a multiplier of 1).
+
+	Added -erm_ddl as parameter for aqueous species, to be defined
+	with keyword SOLUTION_SPECIES. erm_ddl (> 0) is an
+	enrichment factor in DDL water calculated with option -donnan:
+		c_DDL,i = c_i * Boltzmann_factor * erm_ddl
+	Example:
+	SOLUTION_SPECIES; Cs+ = Cs+; log_k 0; -erm_ddl 2.1
+	Default: erm_ddl = 1.0.
+
+	Added optional multicomponent diffusion of cations in interlayer
+	space of montmorillonite to keyword TRANSPORT.
+	In the example,
+		interlayer diffusion is true (default = false), 
+		interlayer porosity is 0.09 (default = 0.1),
+		the porosity where interlayer diffusion stops is 0.01
+		 (default is 0),
+		the tortuosity factor is 10 (default = 10).
+
+	        TRANSPORT
+		-interlayer_D true 0.09 0.01 10
+
+	With interlayer_D true, also -multi_D true (and other
+	parameters) must be set, for example:
+                 -multi_d true 1e-9 0.3 0.05 1.0
+	Interlayer diffusion is calculated for the cations associated with X-,
+	defined with keyword EXCHANGE.
+		Mass_transfer = -A * (Dw' / t_f) * c_CEC * grad(beta)
+	A is surface area, A_porewater * (interlayer porosity / free
+		porewater porosity),
+	Dw' is the temperature corrected diffusion coefficient of the
+		aqueous species (defined in SOLUTION_SPECIES),
+		corrected to zero charge transfer,
+	t_f is the interlayer tortuosity factor (-),
+	c_CEC is concentration of total X-, mol(X-) / (L interlayer
+		water). L interlayer water = (L porewater + L DDL-
+		water) * (interlayer porosity / free porewater porosity),
+	grad(beta) is the gradient of the equivalent fraction.
+	
+        --------
         svn 2969
         --------
         Added basic functions that return the activity coefficient of
