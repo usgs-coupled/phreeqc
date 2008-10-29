@@ -6,7 +6,7 @@
 
 #ifdef PHREEQC_IDENT
 static char const svnidphqalloc[] =
-  "$Id$";
+	"$Id$";
 #endif
 
 #if !defined(NDEBUG)

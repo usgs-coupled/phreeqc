@@ -6,7 +6,7 @@
  */
 #ifdef PHREEQC_IDENT
 static char const svnidphrqtype[] =
-  "$Id$";
+	"$Id$";
 #endif
 
 /*#define USE_LONG_DOUBLE*/

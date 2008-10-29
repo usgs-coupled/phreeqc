@@ -37,10 +37,10 @@
  *******************************************************************/
 #ifdef PHREEQC_IDENT
 static char const svniddense[] =
-  "$Id$";
+	"$Id$";
 #endif
 
-#ifdef __cplusplus		/* wrapper to enable C++ usage */
+#ifdef __cplusplus				/* wrapper to enable C++ usage */
 extern "C"
 {
 #endif
@@ -75,11 +75,11 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  typedef struct _DenseMat
-  {
-    integertype size;
-    realtype **data;
-  } *DenseMat;
+	typedef struct _DenseMat
+	{
+		integertype size;
+		realtype **data;
+	} *DenseMat;
 
 
 /* DenseMat accessor macros */
@@ -132,7 +132,7 @@ extern "C"
  *                                                                * 
  ******************************************************************/
 
-  DenseMat DenseAllocMat (integertype N);
+	DenseMat DenseAllocMat (integertype N);
 
 
 /******************************************************************
@@ -150,7 +150,7 @@ extern "C"
  *                                                                * 
  ******************************************************************/
 
-  integertype *DenseAllocPiv (integertype N);
+	integertype *DenseAllocPiv (integertype N);
 
 
 /******************************************************************
@@ -183,7 +183,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  integertype DenseFactor (DenseMat A, integertype * p);
+	integertype DenseFactor (DenseMat A, integertype * p);
 
 
 /******************************************************************
@@ -199,7 +199,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseBacksolve (DenseMat A, integertype * p, realtype * b);
+	void DenseBacksolve (DenseMat A, integertype * p, realtype * b);
 
 
 /******************************************************************
@@ -211,7 +211,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseZero (DenseMat A);
+	void DenseZero (DenseMat A);
 
 
 /******************************************************************
@@ -224,7 +224,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseCopy (DenseMat A, DenseMat B);
+	void DenseCopy (DenseMat A, DenseMat B);
 
 
 /******************************************************************
@@ -237,7 +237,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseScale (realtype c, DenseMat A);
+	void DenseScale (realtype c, DenseMat A);
 
 
 /******************************************************************
@@ -250,7 +250,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseAddI (DenseMat A);
+	void DenseAddI (DenseMat A);
 
 
 /******************************************************************
@@ -263,7 +263,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseFreeMat (DenseMat A);
+	void DenseFreeMat (DenseMat A);
 
 
 /******************************************************************
@@ -276,7 +276,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DenseFreePiv (integertype * p);
+	void DenseFreePiv (integertype * p);
 
 
 /******************************************************************
@@ -292,7 +292,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void DensePrint (DenseMat A);
+	void DensePrint (DenseMat A);
 
 
 #endif
