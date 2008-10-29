@@ -12,13 +12,13 @@ static char const svnid[] =
 
 #ifdef INVERSE_CL1MP
 /* cl1mp.c */
-extern int cl1mp (int k, int l, int m, int n,
-				  int nklmd, int n2d,
-				  LDBLE * q_arg,
-				  int *kode, LDBLE toler,
-				  int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
-				  LDBLE * cu_arg, int *iu, int *s, int check,
-				  LDBLE censor_arg);
+extern int cl1mp(int k, int l, int m, int n,
+				 int nklmd, int n2d,
+				 LDBLE * q_arg,
+				 int *kode, LDBLE toler,
+				 int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
+				 LDBLE * cu_arg, int *iu, int *s, int check,
+				 LDBLE censor_arg);
 #endif
 
 /* variables local to module */
@@ -47,61 +47,60 @@ static unsigned long soln_bits, phase_bits, current_bits, temp_bits;
 
 /* subroutines */
 
-static int add_to_file (const char *filename, char *string);
-static int bit_print (unsigned long bits, int l);
-static int carbon_derivs (struct inverse *inv_ptr);
-static int check_isotopes (struct inverse *inv_ptr);
-static int check_solns (struct inverse *inv_ptr);
-static int count_isotope_unknowns (struct inverse *inv_ptr,
-								   struct isotope **isotope_unknowns);
-struct isotope *get_isotope (struct solution *solution_ptr, const char *elt);
-static struct conc *get_total (struct solution *solution_ptr,
-							   const char *elt);
-static int isotope_balance_equation (struct inverse *inv_ptr, int row, int n);
-static int post_mortem (void);
-static unsigned long get_bits (unsigned long bits, int position, int number);
-static unsigned long minimal_solve (struct inverse *inv_ptr,
-									unsigned long minimal_bits);
-static void dump_netpath (struct inverse *inv_ptr);
-static int dump_netpath_pat (struct inverse *inv_ptr);
-static int next_set_phases (struct inverse *inv_ptr, int first_of_model_size,
-							int model_size);
-static int phase_isotope_inequalities (struct inverse *inv_ptr);
-static int print_model (struct inverse *inv_ptr);
-static int punch_model_heading (struct inverse *inv_ptr);
-static int punch_model (struct inverse *inv_ptr);
-void print_isotope (FILE * netpath_file, struct solution *solution_ptr,
-					const char *elt, const char *string);
-void print_total (FILE * netpath_file, struct solution *solution_ptr,
-				  const char *elt, const char *string);
-void print_total_multi (FILE * netpath_file, struct solution *solution_ptr,
-						const char *string, const char *elt0,
-						const char *elt1, const char *elt2, const char *elt3,
-						const char *elt4);
-void print_total_pat (FILE * netpath_file, const char *elt,
-					  const char *string);
-static int range (struct inverse *inv_ptr, unsigned long cur_bits);
-static int save_bad (unsigned long bits);
-static int save_good (unsigned long bits);
-static int save_minimal (unsigned long bits);
-static unsigned long set_bit (unsigned long bits, int position, int value);
-static int setup_inverse (struct inverse *inv_ptr);
-int set_initial_solution (int n_user_old, int n_user_new);
-static int set_ph_c (struct inverse *inv_ptr,
-					 int i,
-					 struct solution *soln_ptr_orig,
-					 int n_user_new,
-					 LDBLE d_alk, LDBLE ph_factor, LDBLE alk_factor);
-static int shrink (struct inverse *inv_ptr, LDBLE * array_in,
-				   LDBLE * array_out, int *k, int *l, int *m, int *n,
-				   unsigned long cur_bits, LDBLE * delta_l, int *col_back_l,
-				   int *row_back_l);
-static int solve_inverse (struct inverse *inv_ptr);
-static int solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits);
-static int subset_bad (unsigned long bits);
-static int subset_minimal (unsigned long bits);
-static int superset_minimal (unsigned long bits);
-static int write_optimize_names (struct inverse *inv_ptr);
+static int add_to_file(const char *filename, char *string);
+static int bit_print(unsigned long bits, int l);
+static int carbon_derivs(struct inverse *inv_ptr);
+static int check_isotopes(struct inverse *inv_ptr);
+static int check_solns(struct inverse *inv_ptr);
+static int count_isotope_unknowns(struct inverse *inv_ptr,
+								  struct isotope **isotope_unknowns);
+struct isotope *get_isotope(struct solution *solution_ptr, const char *elt);
+static struct conc *get_total(struct solution *solution_ptr, const char *elt);
+static int isotope_balance_equation(struct inverse *inv_ptr, int row, int n);
+static int post_mortem(void);
+static unsigned long get_bits(unsigned long bits, int position, int number);
+static unsigned long minimal_solve(struct inverse *inv_ptr,
+								   unsigned long minimal_bits);
+static void dump_netpath(struct inverse *inv_ptr);
+static int dump_netpath_pat(struct inverse *inv_ptr);
+static int next_set_phases(struct inverse *inv_ptr, int first_of_model_size,
+						   int model_size);
+static int phase_isotope_inequalities(struct inverse *inv_ptr);
+static int print_model(struct inverse *inv_ptr);
+static int punch_model_heading(struct inverse *inv_ptr);
+static int punch_model(struct inverse *inv_ptr);
+void print_isotope(FILE * netpath_file, struct solution *solution_ptr,
+				   const char *elt, const char *string);
+void print_total(FILE * netpath_file, struct solution *solution_ptr,
+				 const char *elt, const char *string);
+void print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
+					   const char *string, const char *elt0,
+					   const char *elt1, const char *elt2, const char *elt3,
+					   const char *elt4);
+void print_total_pat(FILE * netpath_file, const char *elt,
+					 const char *string);
+static int range(struct inverse *inv_ptr, unsigned long cur_bits);
+static int save_bad(unsigned long bits);
+static int save_good(unsigned long bits);
+static int save_minimal(unsigned long bits);
+static unsigned long set_bit(unsigned long bits, int position, int value);
+static int setup_inverse(struct inverse *inv_ptr);
+int set_initial_solution(int n_user_old, int n_user_new);
+static int set_ph_c(struct inverse *inv_ptr,
+					int i,
+					struct solution *soln_ptr_orig,
+					int n_user_new,
+					LDBLE d_alk, LDBLE ph_factor, LDBLE alk_factor);
+static int shrink(struct inverse *inv_ptr, LDBLE * array_in,
+				  LDBLE * array_out, int *k, int *l, int *m, int *n,
+				  unsigned long cur_bits, LDBLE * delta_l, int *col_back_l,
+				  int *row_back_l);
+static int solve_inverse(struct inverse *inv_ptr);
+static int solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits);
+static int subset_bad(unsigned long bits);
+static int subset_minimal(unsigned long bits);
+static int superset_minimal(unsigned long bits);
+static int write_optimize_names(struct inverse *inv_ptr);
 
 #ifdef SKIP
 #define SCALE_EPSILON .0009765625
@@ -116,7 +115,7 @@ static FILE *netpath_file;
 static int count_inverse_models, count_pat_solutions;
 /* ---------------------------------------------------------------------- */
 int
-inverse_models (void)
+inverse_models(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -127,7 +126,7 @@ inverse_models (void)
 	char string[MAX_LENGTH];
 
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	array1 = NULL;
 	zero = NULL;
 	res = NULL;
@@ -158,28 +157,28 @@ inverse_models (void)
  * dump .lon file
  */
 			if (inverse[n].netpath != NULL)
-				dump_netpath (&inverse[n]);
+				dump_netpath(&inverse[n]);
 
 /*
  * open .pat file
  */
 			if (inverse[n].pat != NULL)
 			{
-				strcpy (string, inverse[n].pat);
-				if (replace (".pat", ".pat", string) != TRUE)
+				strcpy(string, inverse[n].pat);
+				if (replace(".pat", ".pat", string) != TRUE)
 				{
-					strcat (string, ".pat");
+					strcat(string, ".pat");
 				}
-				netpath_file = fopen (string, "w");
+				netpath_file = fopen(string, "w");
 				if (netpath_file == NULL)
 				{
-					sprintf (error_string, "Can't open file, %s.", string);
-					error_msg (error_string, STOP);
+					sprintf(error_string, "Can't open file, %s.", string);
+					error_msg(error_string, STOP);
 				}
 				count_inverse_models = 0;
 				count_pat_solutions = 0;
 				/* Header */
-				fprintf (netpath_file, "2.14               # File format\n");
+				fprintf(netpath_file, "2.14               # File format\n");
 			}
 /*
  *  Fill in stucture "use".  
@@ -190,41 +189,41 @@ inverse_models (void)
 /*
  *  Initial prints
  */
-			sprintf (error_string,
-					 "Beginning of inverse modeling %d calculations.",
-					 inverse[n].n_user);
-			dup_print (error_string, TRUE);
+			sprintf(error_string,
+					"Beginning of inverse modeling %d calculations.",
+					inverse[n].n_user);
+			dup_print(error_string, TRUE);
 
 			if (inverse[n].mp == TRUE)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"Using Cl1MP multiprecision optimization routine.\n");
+				output_msg(OUTPUT_MESSAGE,
+						   "Using Cl1MP multiprecision optimization routine.\n");
 
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"Using Cl1 standard precision optimization routine.\n");
+				output_msg(OUTPUT_MESSAGE,
+						   "Using Cl1 standard precision optimization routine.\n");
 			}
-			status (0, NULL);
+			status(0, NULL);
 
 /*
  *  Setup and solve
  */
 			count_calls = 0;
-			setup_inverse (&(inverse[n]));
-			punch_model_heading (&inverse[n]);
-			solve_inverse (&(inverse[n]));
+			setup_inverse(&(inverse[n]));
+			punch_model_heading(&inverse[n]);
+			solve_inverse(&(inverse[n]));
 			if (inverse[n].count_isotope_unknowns > 0)
 			{
 				inverse[n].isotope_unknowns =
-					(struct isotope *) free_check_null (inverse[n].
-														isotope_unknowns);
+					(struct isotope *) free_check_null(inverse[n].
+													   isotope_unknowns);
 			}
 			inverse[n].new_def = FALSE;
 			if (inverse[n].pat != NULL)
 			{
-				fclose (netpath_file);
+				fclose(netpath_file);
 				netpath_file = NULL;
 			}
 		}
@@ -234,7 +233,7 @@ inverse_models (void)
 
 /* ---------------------------------------------------------------------- */
 int
-setup_inverse (struct inverse *inv_ptr)
+setup_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -268,7 +267,7 @@ setup_inverse (struct inverse *inv_ptr)
 	pr.status = FALSE;
 	temppun = punch.in;
 	punch.in = FALSE;
-	carbon_derivs (inv_ptr);
+	carbon_derivs(inv_ptr);
 	pr.status = temp;
 	punch.in = temppun;
 	state = INVERSE;
@@ -279,15 +278,15 @@ setup_inverse (struct inverse *inv_ptr)
 	if (inv_ptr->count_isotopes > 0)
 	{
 		inv_ptr->count_isotope_unknowns =
-			count_isotope_unknowns (inv_ptr, &inv_ptr->isotope_unknowns);
+			count_isotope_unknowns(inv_ptr, &inv_ptr->isotope_unknowns);
 		if (input_error > 0)
 		{
-			error_msg ("Stopping because of input errors.", STOP);
+			error_msg("Stopping because of input errors.", STOP);
 		}
-		check_isotopes (inv_ptr);
+		check_isotopes(inv_ptr);
 		if (input_error > 0)
 		{
-			error_msg ("Stopping because of input errors.", STOP);
+			error_msg("Stopping because of input errors.", STOP);
 		}
 	}
 
@@ -348,68 +347,63 @@ setup_inverse (struct inverse *inv_ptr)
 /*
  *   Malloc space for arrays
  */
-	array = (LDBLE *) free_check_null (array);
+	array = (LDBLE *) free_check_null(array);
 	array =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * max_row_count *
-							   sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) max_column_count * max_row_count *
+							  sizeof(LDBLE));
 	if (array == NULL)
-		malloc_error ();
+		malloc_error();
 
 	array1 =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * max_row_count *
-							   sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) max_column_count * max_row_count *
+							  sizeof(LDBLE));
 	if (array1 == NULL)
-		malloc_error ();
+		malloc_error();
 
 	col_name =
-		(char **) PHRQ_malloc ((size_t) max_column_count * sizeof (char *));
+		(char **) PHRQ_malloc((size_t) max_column_count * sizeof(char *));
 	if (col_name == NULL)
-		malloc_error ();
+		malloc_error();
 
-	row_name =
-		(char **) PHRQ_malloc ((size_t) max_row_count * sizeof (char *));
+	row_name = (char **) PHRQ_malloc((size_t) max_row_count * sizeof(char *));
 	if (row_name == NULL)
-		malloc_error ();
+		malloc_error();
 
-	delta = (LDBLE *) free_check_null (delta);
-	delta =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+	delta = (LDBLE *) free_check_null(delta);
+	delta = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (delta == NULL)
-		malloc_error ();
+		malloc_error();
 
-	delta1 =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+	delta1 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (delta1 == NULL)
-		malloc_error ();
+		malloc_error();
 
-	delta2 =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+	delta2 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (delta2 == NULL)
-		malloc_error ();
+		malloc_error();
 
-	delta3 =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+	delta3 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (delta3 == NULL)
-		malloc_error ();
+		malloc_error();
 
 	delta_save =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (delta_save == NULL)
-		malloc_error ();
+		malloc_error();
 
 	min_delta =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (min_delta == NULL)
-		malloc_error ();
+		malloc_error();
 
 	max_delta =
-		(LDBLE *) PHRQ_malloc ((size_t) max_column_count * sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
 	if (max_delta == NULL)
-		malloc_error ();
+		malloc_error();
 
-	res = (LDBLE *) PHRQ_malloc ((size_t) max_row_count * sizeof (LDBLE));
+	res = (LDBLE *) PHRQ_malloc((size_t) max_row_count * sizeof(LDBLE));
 	if (res == NULL)
-		malloc_error ();
+		malloc_error();
 
 	if (max_column_count < max_row_count)
 	{
@@ -419,25 +413,25 @@ setup_inverse (struct inverse *inv_ptr)
 	{
 		max = max_column_count;
 	}
-	zero = (LDBLE *) PHRQ_malloc ((size_t) max * sizeof (LDBLE));
+	zero = (LDBLE *) PHRQ_malloc((size_t) max * sizeof(LDBLE));
 	if (zero == NULL)
-		malloc_error ();
+		malloc_error();
 /*
  *   Define zero and zero array, delta
  */
 	for (i = 0; i < max; i++)
 		zero[i] = 0.0;
 
-	memcpy ((void *) &(delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
-	memcpy ((void *) &(min_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
-	memcpy ((void *) &(max_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
+	memcpy((void *) &(delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
+	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
+	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
 	for (i = 0; i < max_row_count; i++)
 	{
-		memcpy ((void *) &(array[i * max_column_count]), (void *) &(zero[0]),
-				(size_t) max_column_count * sizeof (LDBLE));
+		memcpy((void *) &(array[i * max_column_count]), (void *) &(zero[0]),
+			   (size_t) max_column_count * sizeof(LDBLE));
 	}
 /*
  *   begin filling array
@@ -454,10 +448,10 @@ setup_inverse (struct inverse *inv_ptr)
 
 	for (i = 0; i < count_optimize; i++)
 	{
-		row_name[count_rows] = string_hsave ("optimize");
+		row_name[count_rows] = string_hsave("optimize");
 		count_rows++;
 	}
-	write_optimize_names (inv_ptr);
+	write_optimize_names(inv_ptr);
 /*
  *   equalities
  */
@@ -470,7 +464,7 @@ setup_inverse (struct inverse *inv_ptr)
 	for (i = 0; i < count_master; i++)
 	{
 		master[i]->in = -1;
-		if (strstr (master[i]->elt->name, "Alk") == master[i]->elt->name)
+		if (strstr(master[i]->elt->name, "Alk") == master[i]->elt->name)
 		{
 			master_alk = master[i];
 		}
@@ -484,7 +478,7 @@ setup_inverse (struct inverse *inv_ptr)
 		master_ptr = inv_ptr->elts[i].master;
 		if (master_ptr == master_alk)
 			i_alk = i;
-		if (strcmp (master_ptr->elt->name, "C(4)") == 0)
+		if (strcmp(master_ptr->elt->name, "C(4)") == 0)
 			i_carb = i;
 		inv_ptr->elts[i].master->in = count_rows_t;
 		row_name[count_rows_t] = inv_ptr->elts[i].master->elt->name;
@@ -493,27 +487,27 @@ setup_inverse (struct inverse *inv_ptr)
 	/* put concentrations in array */
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		xsolution_zero ();
-		solution_ptr = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
+		xsolution_zero();
+		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 		if (solution_ptr == NULL)
 		{
-			sprintf (error_string, "Solution number %d not found.",
-					 inv_ptr->solns[i]);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Solution number %d not found.",
+					inv_ptr->solns[i]);
+			error_msg(error_string, STOP);
 		}
 		/* write master species concentrations */
 		for (j = 0; solution_ptr->totals[j].description != NULL; j++)
 		{
-			master_ptr = master_bsearch (solution_ptr->totals[j].description);
+			master_ptr = master_bsearch(solution_ptr->totals[j].description);
 			master_ptr->total += solution_ptr->totals[j].moles;
 			/*   List elements not included in model */
 			if (master_ptr->in < 0)
 			{
-				sprintf (error_string,
-						 "%s is included in solution %d, but is not included as a mass-balance constraint.",
-						 solution_ptr->totals[j].description,
-						 inv_ptr->solns[i]);
-				warning_msg (error_string);
+				sprintf(error_string,
+						"%s is included in solution %d, but is not included as a mass-balance constraint.",
+						solution_ptr->totals[j].description,
+						inv_ptr->solns[i]);
+				warning_msg(error_string);
 			}
 		}
 		master_alk->total = solution_ptr->total_alkalinity;
@@ -523,8 +517,8 @@ setup_inverse (struct inverse *inv_ptr)
 			f = -1.0;
 		}
 		column = i;
-		sprintf (token, "soln %d", i);
-		col_name[column] = string_hsave (token);
+		sprintf(token, "soln %d", i);
+		col_name[column] = string_hsave(token);
 		for (j = 0; j < count_master; j++)
 		{
 			if (master[j]->in >= 0)
@@ -558,7 +552,7 @@ setup_inverse (struct inverse *inv_ptr)
 				cb += coef * master[j]->total;
 			}
 		}
-		if (fabs (cb) < toler)
+		if (fabs(cb) < toler)
 			cb = 0.0;
 		array[(row_charge + i) * max_column_count + i] = cb;
 	}
@@ -583,10 +577,10 @@ setup_inverse (struct inverse *inv_ptr)
 			}
 			if (master_ptr == NULL)
 			{
-				sprintf (error_string,
-						 "Setup_inverse, reaction for phase, %s.",
-						 phase_ptr->name);
-				error_msg (error_string, STOP);
+				sprintf(error_string,
+						"Setup_inverse, reaction for phase, %s.",
+						phase_ptr->name);
+				error_msg(error_string, STOP);
 			}
 			if (master_ptr->s == s_hplus)
 				continue;
@@ -610,7 +604,7 @@ setup_inverse (struct inverse *inv_ptr)
 				rxn_ptr->token[j].coef * coef;
 		}
 		row = master_alk->in;	/* include alkalinity for phase */
-		array[row * max_column_count + column] = calc_alk (rxn_ptr);
+		array[row * max_column_count + column] = calc_alk(rxn_ptr);
 	}
 
 /*   mass balance: redox reaction data */
@@ -637,10 +631,10 @@ setup_inverse (struct inverse *inv_ptr)
 				}
 				if (master_ptr == NULL)
 				{
-					sprintf (error_string,
-							 "Subroutine setup_inverse, element not found, %s.",
-							 rxn_ptr->token[j].s->name);
-					error_msg (error_string, STOP);
+					sprintf(error_string,
+							"Subroutine setup_inverse, element not found, %s.",
+							rxn_ptr->token[j].s->name);
+					error_msg(error_string, STOP);
 				}
 				if (master_ptr->s == s_hplus)
 					continue;
@@ -663,7 +657,7 @@ setup_inverse (struct inverse *inv_ptr)
 			}
 			row = master_alk->in;	/* include alkalinity for redox reaction */
 			array[row * max_column_count + column] =
-				(calc_alk (rxn_ptr) - inv_ptr->elts[i].master->s->alk) / coef;
+				(calc_alk(rxn_ptr) - inv_ptr->elts[i].master->s->alk) / coef;
 		}
 	}
 
@@ -687,8 +681,8 @@ setup_inverse (struct inverse *inv_ptr)
 			{
 				array[row * max_column_count + column] = 0.0;
 			}
-			sprintf (token, "%s %d", row_name[row], j);
-			col_name[column] = string_hsave (token);
+			sprintf(token, "%s %d", row_name[row], j);
+			col_name[column] = string_hsave(token);
 			column++;
 		}
 	}
@@ -698,14 +692,14 @@ setup_inverse (struct inverse *inv_ptr)
 
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		sprintf (token, "ph %d", i);
-		col_name[column] = string_hsave (token);
+		sprintf(token, "ph %d", i);
+		col_name[column] = string_hsave(token);
 		column++;
 	}
 /*   put names in col_name for water */
 
-	sprintf (token, "water");
-	col_name[column] = string_hsave (token);
+	sprintf(token, "water");
+	col_name[column] = string_hsave(token);
 	column++;
 
 /*   put names of isotopes in col_name */
@@ -713,10 +707,10 @@ setup_inverse (struct inverse *inv_ptr)
 	{
 		for (j = 0; j < inv_ptr->count_isotope_unknowns; j++)
 		{
-			sprintf (token, "%d%s %d",
-					 (int) inv_ptr->isotope_unknowns[j].isotope_number,
-					 inv_ptr->isotope_unknowns[j].elt_name, i);
-			col_name[column] = string_hsave (token);
+			sprintf(token, "%d%s %d",
+					(int) inv_ptr->isotope_unknowns[j].isotope_number,
+					inv_ptr->isotope_unknowns[j].elt_name, i);
+			col_name[column] = string_hsave(token);
 			column++;
 		}
 	}
@@ -730,11 +724,11 @@ setup_inverse (struct inverse *inv_ptr)
 		{
 			for (j = 0; j < inv_ptr->count_isotopes; j++)
 			{
-				sprintf (token, "%d%s %s",
-						 (int) inv_ptr->isotopes[j].isotope_number,
-						 inv_ptr->isotopes[j].elt_name,
-						 inv_ptr->phases[i].phase->name);
-				col_name[column] = string_hsave (token);
+				sprintf(token, "%d%s %s",
+						(int) inv_ptr->isotopes[j].isotope_number,
+						inv_ptr->isotopes[j].elt_name,
+						inv_ptr->phases[i].phase->name);
+				col_name[column] = string_hsave(token);
 				column++;
 			}
 		}
@@ -744,7 +738,7 @@ setup_inverse (struct inverse *inv_ptr)
  */
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		solution_ptr = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
+		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 		if (i < inv_ptr->count_solns - 1)
 		{
 			array[count_rows * max_column_count + i] =
@@ -761,7 +755,7 @@ setup_inverse (struct inverse *inv_ptr)
 	{
 		array[count_rows * max_column_count + col_water] = 1.0;
 	}
-	row_name[count_rows] = string_hsave ("H2O");
+	row_name[count_rows] = string_hsave("H2O");
 	row_water = count_rows;
 	count_rows++;
 
@@ -771,7 +765,7 @@ setup_inverse (struct inverse *inv_ptr)
 
 	array[count_rows * max_column_count + inv_ptr->count_solns - 1] = 1.0;
 	array[count_rows * max_column_count + count_unknowns] = 1.0;
-	row_name[count_rows] = string_hsave ("fract, final");
+	row_name[count_rows] = string_hsave("fract, final");
 	count_rows++;
 
 /*
@@ -798,8 +792,8 @@ setup_inverse (struct inverse *inv_ptr)
 				array[count_rows * max_column_count + column] = 0.0;
 			}
 		}
-		sprintf (token, "%s %d", "charge", i);
-		row_name[count_rows] = string_hsave (token);
+		sprintf(token, "%s %d", "charge", i);
+		row_name[count_rows] = string_hsave(token);
 		count_rows++;
 	}
 /*
@@ -821,8 +815,8 @@ setup_inverse (struct inverse *inv_ptr)
 			array[count_rows * max_column_count + column] =
 				inv_ptr->dalk_dc[i];
 		}
-		sprintf (token, "%s %d", "dAlk", i);
-		row_name[count_rows] = string_hsave (token);
+		sprintf(token, "%s %d", "dAlk", i);
+		row_name[count_rows] = string_hsave(token);
 		count_rows++;
 	}
 /*
@@ -830,16 +824,16 @@ setup_inverse (struct inverse *inv_ptr)
  */
 	if (input_error > 0)
 	{
-		error_msg ("Stopping because of input errors.", STOP);
+		error_msg("Stopping because of input errors.", STOP);
 	}
 	if (inv_ptr->count_isotopes != 0)
 	{
 		for (j = 0; j < inv_ptr->count_isotopes; j++)
 		{
-			isotope_balance_equation (inv_ptr, count_rows, j);
-			sprintf (token, "%d%s", (int) inv_ptr->isotopes[j].isotope_number,
-					 inv_ptr->isotopes[j].elt_name);
-			row_name[count_rows] = string_hsave (token);
+			isotope_balance_equation(inv_ptr, count_rows, j);
+			sprintf(token, "%d%s", (int) inv_ptr->isotopes[j].isotope_number,
+					inv_ptr->isotopes[j].elt_name);
+			row_name[count_rows] = string_hsave(token);
 			count_rows++;
 		}
 	}
@@ -867,7 +861,7 @@ setup_inverse (struct inverse *inv_ptr)
 				coef =
 					array[inv_ptr->elts[j].master->in * max_column_count +
 						  i] * coef;
-				coef = fabs (coef);
+				coef = fabs(coef);
 			}
 
 			if (coef < toler)
@@ -911,9 +905,9 @@ setup_inverse (struct inverse *inv_ptr)
 			}
 			array[count_rows * max_column_count + column] = 1.0 * f;
 			array[count_rows * max_column_count + i] = -coef * f;
-			sprintf (token, "%s %s", inv_ptr->elts[j].master->elt->name,
-					 "eps+");
-			row_name[count_rows] = string_hsave (token);
+			sprintf(token, "%s %s", inv_ptr->elts[j].master->elt->name,
+					"eps+");
+			row_name[count_rows] = string_hsave(token);
 			count_rows++;
 
 /* set lower limit of change in negative direction */
@@ -939,16 +933,16 @@ setup_inverse (struct inverse *inv_ptr)
 			/* if uncertainty is greater than concentration,
 			   maximum negative is equal to concentrations,
 			   except alkalinity */
-			if (coef > fabs (conc) &&
-				(strstr (inv_ptr->elts[j].master->elt->name, "Alkalinity") !=
+			if (coef > fabs(conc) &&
+				(strstr(inv_ptr->elts[j].master->elt->name, "Alkalinity") !=
 				 inv_ptr->elts[j].master->elt->name))
-				coef = fabs (conc) + toler;
+				coef = fabs(conc) + toler;
 
 			array[count_rows * max_column_count + i] = -coef * f;
 			array[count_rows * max_column_count + column] = -1.0 * f;
-			sprintf (token, "%s %s", inv_ptr->elts[j].master->elt->name,
-					 "eps-");
-			row_name[count_rows] = string_hsave (token);
+			sprintf(token, "%s %s", inv_ptr->elts[j].master->elt->name,
+					"eps-");
+			row_name[count_rows] = string_hsave(token);
 			count_rows++;
 		}
 	}
@@ -972,16 +966,16 @@ setup_inverse (struct inverse *inv_ptr)
 
 			array[count_rows * max_column_count + column] = 1.0;
 			array[count_rows * max_column_count + i] = -coef;
-			sprintf (token, "%s %s", "pH", "eps+");
-			row_name[count_rows] = string_hsave (token);
+			sprintf(token, "%s %s", "pH", "eps+");
+			row_name[count_rows] = string_hsave(token);
 			count_rows++;
 
 /* set lower limit of change in negative direction */
 
 			array[count_rows * max_column_count + column] = -1.0;
 			array[count_rows * max_column_count + i] = -coef;
-			sprintf (token, "%s %s", "pH", "eps-");
-			row_name[count_rows] = string_hsave (token);
+			sprintf(token, "%s %s", "pH", "eps-");
+			row_name[count_rows] = string_hsave(token);
 			count_rows++;
 		}
 	}
@@ -996,16 +990,16 @@ setup_inverse (struct inverse *inv_ptr)
 /* set upper limit of change in positive direction */
 		array[count_rows * max_column_count + column] = 1.0;
 		array[count_rows * max_column_count + count_unknowns] = coef;
-		sprintf (token, "%s %s", "water", "eps+");
-		row_name[count_rows] = string_hsave (token);
+		sprintf(token, "%s %s", "water", "eps+");
+		row_name[count_rows] = string_hsave(token);
 		count_rows++;
 
 /* set lower limit of change in negative direction */
 
 		array[count_rows * max_column_count + column] = -1.0;
 		array[count_rows * max_column_count + count_unknowns] = coef;
-		sprintf (token, "%s %s", "water", "eps-");
-		row_name[count_rows] = string_hsave (token);
+		sprintf(token, "%s %s", "water", "eps-");
+		row_name[count_rows] = string_hsave(token);
 		count_rows++;
 	}
 /*
@@ -1016,7 +1010,7 @@ setup_inverse (struct inverse *inv_ptr)
 	{
 		for (i = 0; i < inv_ptr->count_solns; i++)
 		{
-			solution_ptr = solution_bsearch (inv_ptr->solns[i], &k, TRUE);
+			solution_ptr = solution_bsearch(inv_ptr->solns[i], &k, TRUE);
 			for (j = 0; j < inv_ptr->count_isotope_unknowns; j++)
 			{
 				column =
@@ -1039,22 +1033,22 @@ setup_inverse (struct inverse *inv_ptr)
 /* set upper limit of change in positive direction */
 						array[count_rows * max_column_count + column] = 1.0;
 						array[count_rows * max_column_count + i] = -coef;
-						sprintf (token, "%d%s %s",
-								 (int) solution_ptr->isotopes[k].
-								 isotope_number,
-								 solution_ptr->isotopes[k].elt_name, "eps+");
-						row_name[count_rows] = string_hsave (token);
+						sprintf(token, "%d%s %s",
+								(int) solution_ptr->isotopes[k].
+								isotope_number,
+								solution_ptr->isotopes[k].elt_name, "eps+");
+						row_name[count_rows] = string_hsave(token);
 						count_rows++;
 
 /* set lower limit of change in negative direction */
 
 						array[count_rows * max_column_count + column] = -1.0;
 						array[count_rows * max_column_count + i] = -coef;
-						sprintf (token, "%d%s %s",
-								 (int) solution_ptr->isotopes[k].
-								 isotope_number,
-								 solution_ptr->isotopes[k].elt_name, "eps-");
-						row_name[count_rows] = string_hsave (token);
+						sprintf(token, "%d%s %s",
+								(int) solution_ptr->isotopes[k].
+								isotope_number,
+								solution_ptr->isotopes[k].elt_name, "eps-");
+						row_name[count_rows] = string_hsave(token);
 						count_rows++;
 						break;
 					}
@@ -1066,10 +1060,10 @@ setup_inverse (struct inverse *inv_ptr)
  *   inequalities for isotopes in phases
  */
 	/*      row_isotope_phase_epsilon = count_rows; */
-	phase_isotope_inequalities (inv_ptr);
+	phase_isotope_inequalities(inv_ptr);
 	if (input_error > 0)
 	{
-		error_msg ("Stopping because of input errors.", STOP);
+		error_msg("Stopping because of input errors.", STOP);
 	}
 /*
  *   Set non-negativity constraints
@@ -1104,52 +1098,52 @@ setup_inverse (struct inverse *inv_ptr)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%d\t%s\n", i, col_name[i]);
+			output_msg(OUTPUT_MESSAGE, "%d\t%s\n", i, col_name[i]);
 		}
 		for (i = 0; i < count_rows; i++)
 		{
 			k = 0;
-			output_msg (OUTPUT_MESSAGE, "%d\t%s\n", i, row_name[i]);
+			output_msg(OUTPUT_MESSAGE, "%d\t%s\n", i, row_name[i]);
 			for (j = 0; j < count_unknowns + 1; j++)
 			{
 				if (k > 7)
 				{
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "\n");
 					k = 0;
 				}
-				output_msg (OUTPUT_MESSAGE, "%11.2e",
-							(double) array[i * max_column_count + j]);
+				output_msg(OUTPUT_MESSAGE, "%11.2e",
+						   (double) array[i * max_column_count + j]);
 				k++;
 			}
 			if (k != 0)
 			{
-				output_msg (OUTPUT_MESSAGE, "\n");
+				output_msg(OUTPUT_MESSAGE, "\n");
 			}
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
-		output_msg (OUTPUT_MESSAGE, "row_mb %d\n", row_mb);
-		output_msg (OUTPUT_MESSAGE, "row_fract %d\n", row_fract);
-		output_msg (OUTPUT_MESSAGE, "row_charge %d\n", row_charge);
-		output_msg (OUTPUT_MESSAGE, "row_carbon %d\n", row_carbon);
-		output_msg (OUTPUT_MESSAGE, "row_isotopes %d\n", row_isotopes);
-		output_msg (OUTPUT_MESSAGE, "row_epsilon %d\n", row_epsilon);
+		output_msg(OUTPUT_MESSAGE, "row_mb %d\n", row_mb);
+		output_msg(OUTPUT_MESSAGE, "row_fract %d\n", row_fract);
+		output_msg(OUTPUT_MESSAGE, "row_charge %d\n", row_charge);
+		output_msg(OUTPUT_MESSAGE, "row_carbon %d\n", row_carbon);
+		output_msg(OUTPUT_MESSAGE, "row_isotopes %d\n", row_isotopes);
+		output_msg(OUTPUT_MESSAGE, "row_epsilon %d\n", row_epsilon);
 
-		output_msg (OUTPUT_MESSAGE, "col_phases %d\n", col_phases);
-		output_msg (OUTPUT_MESSAGE, "col_redox %d\n", col_redox);
-		output_msg (OUTPUT_MESSAGE, "col_epsilon %d\n", col_epsilon);
-		output_msg (OUTPUT_MESSAGE, "col_ph %d\n", col_ph);
-		output_msg (OUTPUT_MESSAGE, "col_water %d\n", col_water);
-		output_msg (OUTPUT_MESSAGE, "col_isotopes %d\n", col_isotopes);
-		output_msg (OUTPUT_MESSAGE, "col_phase_isotopes %d\n",
-					col_phase_isotopes);
-		output_msg (OUTPUT_MESSAGE, "count_unknowns %d\n", count_unknowns);
+		output_msg(OUTPUT_MESSAGE, "col_phases %d\n", col_phases);
+		output_msg(OUTPUT_MESSAGE, "col_redox %d\n", col_redox);
+		output_msg(OUTPUT_MESSAGE, "col_epsilon %d\n", col_epsilon);
+		output_msg(OUTPUT_MESSAGE, "col_ph %d\n", col_ph);
+		output_msg(OUTPUT_MESSAGE, "col_water %d\n", col_water);
+		output_msg(OUTPUT_MESSAGE, "col_isotopes %d\n", col_isotopes);
+		output_msg(OUTPUT_MESSAGE, "col_phase_isotopes %d\n",
+				   col_phase_isotopes);
+		output_msg(OUTPUT_MESSAGE, "count_unknowns %d\n", count_unknowns);
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-solve_inverse (struct inverse *inv_ptr)
+solve_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1174,47 +1168,47 @@ solve_inverse (struct inverse *inv_ptr)
 	max_minimal = MAX_MODELS;
 
 	good =
-		(unsigned long *) PHRQ_malloc ((size_t) max_good *
-									   sizeof (unsigned long));
+		(unsigned long *) PHRQ_malloc((size_t) max_good *
+									  sizeof(unsigned long));
 	if (good == NULL)
-		malloc_error ();
+		malloc_error();
 	count_good = 0;
 
 	bad =
-		(unsigned long *) PHRQ_malloc ((size_t) max_bad *
-									   sizeof (unsigned long));
+		(unsigned long *) PHRQ_malloc((size_t) max_bad *
+									  sizeof(unsigned long));
 	if (bad == NULL)
-		malloc_error ();
+		malloc_error();
 	count_bad = 0;
 
 	minimal =
-		(unsigned long *) PHRQ_malloc ((size_t) max_minimal *
-									   sizeof (unsigned long));
+		(unsigned long *) PHRQ_malloc((size_t) max_minimal *
+									  sizeof(unsigned long));
 	if (minimal == NULL)
-		malloc_error ();
+		malloc_error();
 	count_minimal = 0;
 
-	col_back = (int *) PHRQ_malloc ((size_t) max_column_count * sizeof (int));
+	col_back = (int *) PHRQ_malloc((size_t) max_column_count * sizeof(int));
 	if (col_back == NULL)
-		malloc_error ();
+		malloc_error();
 
-	row_back = (int *) PHRQ_malloc ((size_t) max_row_count * sizeof (int));
+	row_back = (int *) PHRQ_malloc((size_t) max_row_count * sizeof(int));
 	if (row_back == NULL)
-		malloc_error ();
+		malloc_error();
 
 /*
  *   Allocate space for arrays
  */
-	cu = (LDBLE *) PHRQ_malloc ((size_t) 2 * nklmd * sizeof (LDBLE));
+	cu = (LDBLE *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(LDBLE));
 	if (cu == NULL)
-		malloc_error ();
-	memset (cu, 0, ((size_t) (2 * nklmd * sizeof (LDBLE))));
-	iu = (int *) PHRQ_malloc ((size_t) 2 * nklmd * sizeof (int));
+		malloc_error();
+	memset(cu, 0, ((size_t) (2 * nklmd * sizeof(LDBLE))));
+	iu = (int *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(int));
 	if (iu == NULL)
-		malloc_error ();
-	is = (int *) PHRQ_malloc ((size_t) klmd * sizeof (int));
+		malloc_error();
+	is = (int *) PHRQ_malloc((size_t) klmd * sizeof(int));
 	if (is == NULL)
-		malloc_error ();
+		malloc_error();
 
 	for (i = 0; i < 79; i++)
 		token[i] = '=';
@@ -1236,9 +1230,9 @@ solve_inverse (struct inverse *inv_ptr)
 		temp_bits = 1 << (i - 1);
 		soln_bits += temp_bits;
 	}
-	if (check_solns (inv_ptr) == ERROR)
+	if (check_solns(inv_ptr) == ERROR)
 	{
-		error_msg ("Calculations terminating.", STOP);
+		error_msg("Calculations terminating.", STOP);
 	}
 /*
  *   solutions are in highest bits, phases are in lower bits;
@@ -1248,8 +1242,8 @@ solve_inverse (struct inverse *inv_ptr)
  */
 	first = TRUE;
 	for (;
-		 get_bits (soln_bits, inv_ptr->count_solns - 2,
-				   inv_ptr->count_solns - 1) > 0; soln_bits--)
+		 get_bits(soln_bits, inv_ptr->count_solns - 2,
+				  inv_ptr->count_solns - 1) > 0; soln_bits--)
 	{
 /*
  *   Loop through all models of of descending size
@@ -1259,32 +1253,32 @@ solve_inverse (struct inverse *inv_ptr)
 		{
 			first_of_model_size = TRUE;
 			quit = TRUE;
-			while (next_set_phases (inv_ptr, first_of_model_size, model_size)
+			while (next_set_phases(inv_ptr, first_of_model_size, model_size)
 				   == TRUE)
 			{
 				first_of_model_size = FALSE;
 				current_bits =
 					(soln_bits << inv_ptr->count_phases) + phase_bits;
 
-				if (subset_bad (current_bits) == TRUE
-					|| subset_minimal (current_bits) == TRUE)
+				if (subset_bad(current_bits) == TRUE
+					|| subset_minimal(current_bits) == TRUE)
 					continue;
 				quit = FALSE;
 /*  
  *   Switch for finding minimal models only
  */
 				if (inv_ptr->minimal == TRUE
-					&& superset_minimal (current_bits) == TRUE)
+					&& superset_minimal(current_bits) == TRUE)
 					continue;
 /*
  *   Solve for minimum epsilons, continue if no solution found.  
  */
-				if (solve_with_mask (inv_ptr, current_bits) == ERROR)
+				if (solve_with_mask(inv_ptr, current_bits) == ERROR)
 				{
-					save_bad (current_bits);
+					save_bad(current_bits);
 					if (first == TRUE)
 					{
-						post_mortem ();
+						post_mortem();
 						quit = TRUE;
 						break;
 					}
@@ -1300,18 +1294,18 @@ solve_inverse (struct inverse *inv_ptr)
 				good_bits = current_bits;
 				for (i = 0; i < inv_ptr->count_phases; i++)
 				{
-					if (equal (delta1[i + inv_ptr->count_solns], 0.0, TOL) ==
+					if (equal(delta1[i + inv_ptr->count_solns], 0.0, TOL) ==
 						TRUE)
 					{
-						good_bits = set_bit (good_bits, i, 0);
+						good_bits = set_bit(good_bits, i, 0);
 					}
 				}
 				for (i = 0; i < inv_ptr->count_solns; i++)
 				{
-					if (equal (delta1[i], 0.0, TOL) == TRUE)
+					if (equal(delta1[i], 0.0, TOL) == TRUE)
 					{
 						good_bits =
-							set_bit (good_bits, i + inv_ptr->count_phases, 0);
+							set_bit(good_bits, i + inv_ptr->count_phases, 0);
 					}
 				}
 /*
@@ -1329,26 +1323,26 @@ solve_inverse (struct inverse *inv_ptr)
 				if (j >= count_good && inv_ptr->minimal == FALSE)
 				{
 					print = TRUE;
-					save_good (good_bits);
+					save_good(good_bits);
 					if (inv_ptr->range == TRUE)
 					{
-						range (inv_ptr, good_bits);
+						range(inv_ptr, good_bits);
 					}
-					print_model (inv_ptr);
-					punch_model (inv_ptr);
-					dump_netpath_pat (inv_ptr);
+					print_model(inv_ptr);
+					punch_model(inv_ptr);
+					dump_netpath_pat(inv_ptr);
 				}
 /*
  *   If superset of a minimal model continue
  */
 				minimal_bits = good_bits;
-				if (superset_minimal (minimal_bits) == TRUE)
+				if (superset_minimal(minimal_bits) == TRUE)
 				{
 					if (print == TRUE)
 					{
 						if (pr.inverse == TRUE && pr.all == TRUE)
 						{
-							output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
+							output_msg(OUTPUT_MESSAGE, "%s\n\n", token);
 						}
 					}
 					continue;
@@ -1356,20 +1350,20 @@ solve_inverse (struct inverse *inv_ptr)
 /*
  *   If not superset of minimal model, find minimal model
  */
-				minimal_bits = minimal_solve (inv_ptr, minimal_bits);
+				minimal_bits = minimal_solve(inv_ptr, minimal_bits);
 				if (minimal_bits == good_bits && print == TRUE)
 				{
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_msg (OUTPUT_MESSAGE,
-									"\nModel contains minimum number of phases.\n");
+						output_msg(OUTPUT_MESSAGE,
+								   "\nModel contains minimum number of phases.\n");
 					}
 				}
 				if (print == TRUE)
 				{
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
+						output_msg(OUTPUT_MESSAGE, "%s\n\n", token);
 					}
 				}
 				for (j = 0; j < count_good; j++)
@@ -1379,22 +1373,22 @@ solve_inverse (struct inverse *inv_ptr)
 				}
 				if (j >= count_good)
 				{
-					save_good (minimal_bits);
+					save_good(minimal_bits);
 					if (inv_ptr->range == TRUE)
 					{
-						range (inv_ptr, minimal_bits);
+						range(inv_ptr, minimal_bits);
 					}
-					print_model (inv_ptr);
+					print_model(inv_ptr);
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_msg (OUTPUT_MESSAGE,
-									"\nModel contains minimum number of phases.\n");
-						output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
+						output_msg(OUTPUT_MESSAGE,
+								   "\nModel contains minimum number of phases.\n");
+						output_msg(OUTPUT_MESSAGE, "%s\n\n", token);
 					}
-					punch_model (inv_ptr);
-					dump_netpath_pat (inv_ptr);
+					punch_model(inv_ptr);
+					dump_netpath_pat(inv_ptr);
 				}
-				save_minimal (minimal_bits);
+				save_minimal(minimal_bits);
 			}
 			if (quit == TRUE)
 				break;
@@ -1405,45 +1399,45 @@ solve_inverse (struct inverse *inv_ptr)
  */
 	if (pr.inverse == TRUE && pr.all == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\nSummary of inverse modeling:\n\n");
-		output_msg (OUTPUT_MESSAGE, "\tNumber of models found: %d\n",
-					count_good);
-		output_msg (OUTPUT_MESSAGE, "\tNumber of minimal models found: %d\n",
-					count_minimal);
-		output_msg (OUTPUT_MESSAGE,
-					"\tNumber of infeasible sets of phases saved: %d\n",
-					count_bad);
-		output_msg (OUTPUT_MESSAGE, "\tNumber of calls to cl1: %d\n",
-					count_calls);
+		output_msg(OUTPUT_MESSAGE, "\nSummary of inverse modeling:\n\n");
+		output_msg(OUTPUT_MESSAGE, "\tNumber of models found: %d\n",
+				   count_good);
+		output_msg(OUTPUT_MESSAGE, "\tNumber of minimal models found: %d\n",
+				   count_minimal);
+		output_msg(OUTPUT_MESSAGE,
+				   "\tNumber of infeasible sets of phases saved: %d\n",
+				   count_bad);
+		output_msg(OUTPUT_MESSAGE, "\tNumber of calls to cl1: %d\n",
+				   count_calls);
 	}
-	array = (LDBLE *) free_check_null (array);
-	delta = (LDBLE *) free_check_null (delta);
-	array1 = (LDBLE *) free_check_null (array1);
-	zero = (LDBLE *) free_check_null (zero);
-	res = (LDBLE *) free_check_null (res);
-	delta1 = (LDBLE *) free_check_null (delta1);
-	delta2 = (LDBLE *) free_check_null (delta2);
-	delta3 = (LDBLE *) free_check_null (delta3);
-	delta_save = (LDBLE *) free_check_null (delta_save);
-	cu = (LDBLE *) free_check_null (cu);
-	iu = (int *) free_check_null (iu);
-	is = (int *) free_check_null (is);
-	col_name = (char **) free_check_null (col_name);
-	row_name = (char **) free_check_null (row_name);
-	col_back = (int *) free_check_null (col_back);
-	row_back = (int *) free_check_null (row_back);
-	min_delta = (LDBLE *) free_check_null (min_delta);
-	max_delta = (LDBLE *) free_check_null (max_delta);
-	good = (unsigned long *) free_check_null (good);
-	bad = (unsigned long *) free_check_null (bad);
-	minimal = (unsigned long *) free_check_null (minimal);
+	array = (LDBLE *) free_check_null(array);
+	delta = (LDBLE *) free_check_null(delta);
+	array1 = (LDBLE *) free_check_null(array1);
+	zero = (LDBLE *) free_check_null(zero);
+	res = (LDBLE *) free_check_null(res);
+	delta1 = (LDBLE *) free_check_null(delta1);
+	delta2 = (LDBLE *) free_check_null(delta2);
+	delta3 = (LDBLE *) free_check_null(delta3);
+	delta_save = (LDBLE *) free_check_null(delta_save);
+	cu = (LDBLE *) free_check_null(cu);
+	iu = (int *) free_check_null(iu);
+	is = (int *) free_check_null(is);
+	col_name = (char **) free_check_null(col_name);
+	row_name = (char **) free_check_null(row_name);
+	col_back = (int *) free_check_null(col_back);
+	row_back = (int *) free_check_null(row_back);
+	min_delta = (LDBLE *) free_check_null(min_delta);
+	max_delta = (LDBLE *) free_check_null(max_delta);
+	good = (unsigned long *) free_check_null(good);
+	bad = (unsigned long *) free_check_null(bad);
+	minimal = (unsigned long *) free_check_null(minimal);
 
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 unsigned long
-minimal_solve (struct inverse *inv_ptr, unsigned long minimal_bits)
+minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1454,22 +1448,21 @@ minimal_solve (struct inverse *inv_ptr, unsigned long minimal_bits)
 	unsigned long temp_bits_l;
 	if (debug_inverse == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "Beginning minimal solve: \n");
-		bit_print (minimal_bits,
-				   inv_ptr->count_phases + inv_ptr->count_solns);
+		output_msg(OUTPUT_MESSAGE, "Beginning minimal solve: \n");
+		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
 	for (i = 0; i < inv_ptr->count_phases + inv_ptr->count_solns - 1; i++)
 	{
-		if (get_bits (minimal_bits, i, 1) == 0)
+		if (get_bits(minimal_bits, i, 1) == 0)
 			continue;
 		temp_bits_l = 1 << i;	/* 0's and one 1 */
 		temp_bits_l = ~temp_bits_l;	/* 1's and one 0 */
 		minimal_bits = minimal_bits & temp_bits_l;
 		if (debug_inverse == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE, "Solving for minimal\n");
-			bit_print (minimal_bits,
-					   inv_ptr->count_phases + inv_ptr->count_solns);
+			output_msg(OUTPUT_MESSAGE, "Solving for minimal\n");
+			bit_print(minimal_bits,
+					  inv_ptr->count_phases + inv_ptr->count_solns);
 		}
 
 /*
@@ -1477,15 +1470,15 @@ minimal_solve (struct inverse *inv_ptr, unsigned long minimal_bits)
  *   could be subset of one of the sets of minerals with no feasible solution
  *   If it is a subset, then replace mineral and go on to next 
  */
-		if (subset_bad (minimal_bits) == TRUE)
+		if (subset_bad(minimal_bits) == TRUE)
 		{
 			/* put bit back */
 			minimal_bits = minimal_bits | ~temp_bits_l;	/* 0's and one 1 */
 			continue;
 		}
-		if (solve_with_mask (inv_ptr, minimal_bits) == ERROR)
+		if (solve_with_mask(inv_ptr, minimal_bits) == ERROR)
 		{
-			save_bad (minimal_bits);
+			save_bad(minimal_bits);
 			/* put bit back */
 			minimal_bits = minimal_bits | ~temp_bits_l;	/* 0's and one 1 */
 		}
@@ -1493,17 +1486,16 @@ minimal_solve (struct inverse *inv_ptr, unsigned long minimal_bits)
 	}
 	if (debug_inverse == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\n\nMINIMAL MODEL\n\n");
-		bit_print (minimal_bits,
-				   inv_ptr->count_phases + inv_ptr->count_solns);
+		output_msg(OUTPUT_MESSAGE, "\n\nMINIMAL MODEL\n\n");
+		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
-	solve_with_mask (inv_ptr, minimal_bits);
+	solve_with_mask(inv_ptr, minimal_bits);
 	return (minimal_bits);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
+solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1521,15 +1513,15 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 
 
 
-	memcpy ((void *) &(res[0]), (void *) &(zero[0]),
-			(size_t) max_row_count * sizeof (LDBLE));
-	memcpy ((void *) &(delta2[0]), (void *) &(delta[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
-	memcpy ((void *) &(delta_save[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
+	memcpy((void *) &(res[0]), (void *) &(zero[0]),
+		   (size_t) max_row_count * sizeof(LDBLE));
+	memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
+	memcpy((void *) &(delta_save[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
 
-	shrink (inv_ptr, array, array1,
-			&k, &l, &m, &n, cur_bits, delta2, col_back, row_back);
+	shrink(inv_ptr, array, array1,
+		   &k, &l, &m, &n, cur_bits, delta2, col_back, row_back);
 	/*
 	 *  Save delta constraints
 	 */
@@ -1541,39 +1533,39 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\nColumns\n");
+		output_msg(OUTPUT_MESSAGE, "\nColumns\n");
 		for (i = 0; i < n; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%d\t%s\n", i,
-						col_name[col_back[i]]);
+			output_msg(OUTPUT_MESSAGE, "\t%d\t%s\n", i,
+					   col_name[col_back[i]]);
 		}
 
-		output_msg (OUTPUT_MESSAGE, "\nRows\n");
+		output_msg(OUTPUT_MESSAGE, "\nRows\n");
 		for (i = 0; i < k + l + m; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%d\t%s\n", i,
-						row_name[row_back[i]]);
+			output_msg(OUTPUT_MESSAGE, "\t%d\t%s\n", i,
+					   row_name[row_back[i]]);
 		}
 
-		output_msg (OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
-		array_print (array1, k + l + m, n + 1, max_column_count);
+		output_msg(OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
+		array_print(array1, k + l + m, n + 1, max_column_count);
 
-		output_msg (OUTPUT_MESSAGE, "\nInput delta vector:\n");
+		output_msg(OUTPUT_MESSAGE, "\nInput delta vector:\n");
 		for (i = 0; i < n; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
-						col_name[col_back[i]], (double) delta2[i]);
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
+					   col_name[col_back[i]], (double) delta2[i]);
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 
 		for (i = 0; i < k + l + m; i++)
 		{
 			if (res[i] == 0)
 				continue;
-			output_msg (OUTPUT_MESSAGE, "\nInput res is non zero:\n");
-			output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
-						row_name[row_back[i]], (double) res[i]);
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\nInput res is non zero:\n");
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
+					   row_name[row_back[i]], (double) res[i]);
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 	}
 /*
@@ -1582,9 +1574,9 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"k, l, m, n, max_col, max_row\t%d\t%d\t%d\t%d\t%d\t%d\n",
-					k, l, m, n, max_column_count, max_row_count);
+		output_msg(OUTPUT_MESSAGE,
+				   "k, l, m, n, max_col, max_row\t%d\t%d\t%d\t%d\t%d\t%d\n",
+				   k, l, m, n, max_column_count, max_row_count);
 	}
 
 	kode = 1;
@@ -1594,31 +1586,31 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 #ifdef INVERSE_CL1MP
 	if (inv_ptr->mp == TRUE)
 	{
-		cl1mp (k, l, m, n,
-			   nklmd, n2d, array1,
-			   &kode, inv_ptr->mp_tolerance, &iter,
-			   delta2, res, &error, cu, iu, is, TRUE, inv_ptr->mp_censor);
+		cl1mp(k, l, m, n,
+			  nklmd, n2d, array1,
+			  &kode, inv_ptr->mp_tolerance, &iter,
+			  delta2, res, &error, cu, iu, is, TRUE, inv_ptr->mp_censor);
 	}
 	else
 	{
-		cl1 (k, l, m, n,
-			 nklmd, n2d, array1,
-			 &kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
+		cl1(k, l, m, n,
+			nklmd, n2d, array1,
+			&kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
 	}
 #else
-	cl1 (k, l, m, n,
-		 nklmd, n2d, array1,
-		 &kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
+	cl1(k, l, m, n,
+		nklmd, n2d, array1,
+		&kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
 #endif
 	if (kode == 3)
 	{
-		sprintf (error_string,
-				 "Exceeded maximum iterations in inverse modeling: %d.\n"
-				 "Recompile program with larger limit.", iter);
-		error_msg (error_string, STOP);
+		sprintf(error_string,
+				"Exceeded maximum iterations in inverse modeling: %d.\n"
+				"Recompile program with larger limit.", iter);
+		error_msg(error_string, STOP);
 	}
-	memcpy ((void *) &(delta1[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
+	memcpy((void *) &(delta1[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
 	for (i = 0; i < n; i++)
 	{
 		delta1[col_back[i]] = delta2[i];
@@ -1630,21 +1622,21 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n", kode,
-					iter, (double) error);
-		output_msg (OUTPUT_MESSAGE, "\nsolution vector:\n");
+		output_msg(OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n", kode,
+				   iter, (double) error);
+		output_msg(OUTPUT_MESSAGE, "\nsolution vector:\n");
 		for (i = 0; i < n; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
-						col_name[col_back[i]], (double) delta2[i]);
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
+					   col_name[col_back[i]], (double) delta2[i]);
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 
-		output_msg (OUTPUT_MESSAGE, "\nresidual vector:\n");
+		output_msg(OUTPUT_MESSAGE, "\nresidual vector:\n");
 		for (i = 0; i < (k + l + m); i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
-						row_name[row_back[i]], (double) res[i]);
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
+					   row_name[row_back[i]], (double) res[i]);
 		}
 	}
 
@@ -1657,7 +1649,7 @@ solve_with_mask (struct inverse *inv_ptr, unsigned long cur_bits)
 
 /* ---------------------------------------------------------------------- */
 unsigned long
-get_bits (unsigned long bits, int position, int number)
+get_bits(unsigned long bits, int position, int number)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1669,7 +1661,7 @@ get_bits (unsigned long bits, int position, int number)
 
 /* ---------------------------------------------------------------------- */
 int
-save_minimal (unsigned long bits)
+save_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1681,18 +1673,18 @@ save_minimal (unsigned long bits)
 	{
 		max_minimal *= 2;
 		minimal =
-			(unsigned long *) PHRQ_realloc (minimal,
-											(size_t) max_minimal *
-											sizeof (unsigned long));
+			(unsigned long *) PHRQ_realloc(minimal,
+										   (size_t) max_minimal *
+										   sizeof(unsigned long));
 		if (minimal == NULL)
-			malloc_error ();
+			malloc_error();
 	}
 	return (TRUE);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-save_good (unsigned long bits)
+save_good(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1704,18 +1696,18 @@ save_good (unsigned long bits)
 	{
 		max_good *= 2;
 		good =
-			(unsigned long *) PHRQ_realloc (good,
-											(size_t) max_good *
-											sizeof (unsigned long));
+			(unsigned long *) PHRQ_realloc(good,
+										   (size_t) max_good *
+										   sizeof(unsigned long));
 		if (good == NULL)
-			malloc_error ();
+			malloc_error();
 	}
 	return (TRUE);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-save_bad (unsigned long bits)
+save_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1727,18 +1719,18 @@ save_bad (unsigned long bits)
 	{
 		max_bad *= 2;
 		bad =
-			(unsigned long *) PHRQ_realloc (bad,
-											(size_t) max_bad *
-											sizeof (unsigned long));
+			(unsigned long *) PHRQ_realloc(bad,
+										   (size_t) max_bad *
+										   sizeof(unsigned long));
 		if (bad == NULL)
-			malloc_error ();
+			malloc_error();
 	}
 	return (TRUE);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-superset_minimal (unsigned long bits)
+superset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1759,7 +1751,7 @@ superset_minimal (unsigned long bits)
 
 /* ---------------------------------------------------------------------- */
 int
-subset_bad (unsigned long bits)
+subset_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1780,7 +1772,7 @@ subset_bad (unsigned long bits)
 
 /* ---------------------------------------------------------------------- */
 int
-subset_minimal (unsigned long bits)
+subset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1801,7 +1793,7 @@ subset_minimal (unsigned long bits)
 
 /* ---------------------------------------------------------------------- */
 int
-bit_print (unsigned long bits, int l)
+bit_print(unsigned long bits, int l)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1811,15 +1803,15 @@ bit_print (unsigned long bits, int l)
 
 	for (i = l - 1; i >= 0; i--)
 	{
-		output_msg (OUTPUT_MESSAGE, "%lu  ", get_bits (bits, i, 1));
+		output_msg(OUTPUT_MESSAGE, "%lu  ", get_bits(bits, i, 1));
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_model (struct inverse *inv_ptr)
+print_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1836,7 +1828,7 @@ print_model (struct inverse *inv_ptr)
 /*
  *   Update screen
  */
-	status (count_good, NULL);
+	status(count_good, NULL);
 /*
  *   print solution data, epsilons, and revised data
  */
@@ -1846,46 +1838,46 @@ print_model (struct inverse *inv_ptr)
 	scaled_error = 0;
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE)
 			continue;
-		solution_ptr = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
-		xsolution_zero ();
+		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
+		xsolution_zero();
 		for (j = 0; solution_ptr->totals[j].description != NULL; j++)
 		{
-			master_ptr = master_bsearch (solution_ptr->totals[j].description);
+			master_ptr = master_bsearch(solution_ptr->totals[j].description);
 			master_ptr->total = solution_ptr->totals[j].moles;
 		}
 
-		output_msg (OUTPUT_MESSAGE, "\nSolution %d: %s\n", inv_ptr->solns[i],
-					solution_ptr->description);
-		output_msg (OUTPUT_MESSAGE,
-					"\n%15.15s   %12.12s   %12.12s   %12.12s\n", "  ",
-					"Input", "Delta", "Input+Delta");
+		output_msg(OUTPUT_MESSAGE, "\nSolution %d: %s\n", inv_ptr->solns[i],
+				   solution_ptr->description);
+		output_msg(OUTPUT_MESSAGE,
+				   "\n%15.15s   %12.12s   %12.12s   %12.12s\n", "  ",
+				   "Input", "Delta", "Input+Delta");
 		master_alk->total = solution_ptr->total_alkalinity;
 		if (inv_ptr->carbon == TRUE)
 		{
 			d1 = solution_ptr->ph;
 			d2 = delta1[col_ph + i] / delta1[i];
 			d3 = d1 + d2;
-			if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d1 = 0.0;
-			if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d2 = 0.0;
-			if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d3 = 0.0;
-			output_msg (OUTPUT_MESSAGE,
-						"%15.15s   %12.3e  +%12.3e  =%12.3e\n", "pH",
-						(double) d1, (double) d2, (double) d3);
+			output_msg(OUTPUT_MESSAGE,
+					   "%15.15s   %12.3e  +%12.3e  =%12.3e\n", "pH",
+					   (double) d1, (double) d2, (double) d3);
 			if (inv_ptr->ph_uncertainties[i] > 0)
 			{
-				scaled_error += fabs (d2) / inv_ptr->ph_uncertainties[i];
+				scaled_error += fabs(d2) / inv_ptr->ph_uncertainties[i];
 /* debug 
 				output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / inv_ptr->ph_uncertainties[i], fabs(d2), inv_ptr->ph_uncertainties[i]);
  */
 			}
 			else if (d2 != 0.0)
 			{
-				error_msg ("Computing delta pH/uncertainty", CONTINUE);
+				error_msg("Computing delta pH/uncertainty", CONTINUE);
 			}
 		}
 		for (j = 0; j < inv_ptr->count_elts; j++)
@@ -1897,27 +1889,27 @@ print_model (struct inverse *inv_ptr)
 						i] / delta1[i];
 			d3 = d1 + d2;
 
-			if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d1 = 0.0;
-			if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d2 = 0.0;
-			if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+			if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d3 = 0.0;
 
-			output_msg (OUTPUT_MESSAGE,
-						"%15.15s   %12.3e  +%12.3e  =%12.3e\n",
-						inv_ptr->elts[j].master->elt->name, (double) d1,
-						(double) d2, (double) d3);
-			if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == FALSE)
+			output_msg(OUTPUT_MESSAGE,
+					   "%15.15s   %12.3e  +%12.3e  =%12.3e\n",
+					   inv_ptr->elts[j].master->elt->name, (double) d1,
+					   (double) d2, (double) d3);
+			if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == FALSE)
 			{
-				d3 = fabs (d2 / d1);
+				d3 = fabs(d2 / d1);
 				if (d3 > max_pct)
 					max_pct = d3;
 			}
 			d4 = 0;
 			if (inv_ptr->elts[j].uncertainties[i] > 0)
 			{
-				d4 = fabs (inv_ptr->elts[j].uncertainties[i] * d1);
+				d4 = fabs(inv_ptr->elts[j].uncertainties[i] * d1);
 			}
 			else if (inv_ptr->elts[j].uncertainties[i] < 0)
 			{
@@ -1925,14 +1917,14 @@ print_model (struct inverse *inv_ptr)
 			}
 			if (d4 > 0)
 			{
-				scaled_error += fabs (d2) / d4;
+				scaled_error += fabs(d2) / d4;
 /* debug 
 				output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / d4, fabs(d2), d4);
  */
 			}
 			else if (d2 != 0.0)
 			{
-				error_msg ("Computing delta element/uncertainty", CONTINUE);
+				error_msg("Computing delta element/uncertainty", CONTINUE);
 			}
 		}
 		if (inv_ptr->count_isotopes > 0)
@@ -1953,19 +1945,19 @@ print_model (struct inverse *inv_ptr)
 								j] / delta1[i];
 					d3 = d1 + d2;
 
-					if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+					if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 						d1 = 0.0;
-					if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+					if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 						d2 = 0.0;
-					if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+					if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 						d3 = 0.0;
-					sprintf (token, "%d%s",
-							 (int) inv_ptr->isotope_unknowns[j].
-							 isotope_number,
-							 inv_ptr->isotope_unknowns[j].elt_name);
-					output_msg (OUTPUT_MESSAGE,
-								"%15.15s   %12g  +%12g  =%12g\n", token,
-								(double) d1, (double) d2, (double) d3);
+					sprintf(token, "%d%s",
+							(int) inv_ptr->isotope_unknowns[j].
+							isotope_number,
+							inv_ptr->isotope_unknowns[j].elt_name);
+					output_msg(OUTPUT_MESSAGE,
+							   "%15.15s   %12g  +%12g  =%12g\n", token,
+							   (double) d1, (double) d2, (double) d3);
 /*
 					if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == FALSE ) {
 						d3 = fabs(d2/d1);
@@ -1975,7 +1967,7 @@ print_model (struct inverse *inv_ptr)
 					if (solution_ptr->isotopes[k].x_ratio_uncertainty > 0)
 					{
 						scaled_error +=
-							fabs (d2) /
+							fabs(d2) /
 							solution_ptr->isotopes[k].x_ratio_uncertainty;
 /* debug
 						output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / solution_ptr->isotopes[k].x_ratio_uncertainty , fabs(d2), solution_ptr->isotopes[k].x_ratio_uncertainty);
@@ -1998,15 +1990,15 @@ print_model (struct inverse *inv_ptr)
 	print_msg = FALSE;
 	if (inv_ptr->count_isotopes > 0)
 	{
-		output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");
+		output_msg(OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n");
 		for (i = 0; i < inv_ptr->count_phases; i++)
 		{
 			if (inv_ptr->phases[i].count_isotopes == 0)
 				continue;
 			j = col_phases + i;
-			if (equal (delta1[j], 0.0, toler) == TRUE &&
-				equal (min_delta[j], 0.0, toler) == TRUE &&
-				equal (max_delta[j], 0.0, toler) == TRUE)
+			if (equal(delta1[j], 0.0, toler) == TRUE &&
+				equal(min_delta[j], 0.0, toler) == TRUE &&
+				equal(max_delta[j], 0.0, toler) == TRUE)
 				continue;
 			isotope_ptr = inv_ptr->phases[i].isotopes;
 			for (j = 0; j < inv_ptr->count_isotopes; j++)
@@ -2030,30 +2022,29 @@ print_model (struct inverse *inv_ptr)
 						continue;
 					}
 					d3 = d1 + d2;
-					if (equal (d1, 0.0, 1e-7) == TRUE)
+					if (equal(d1, 0.0, 1e-7) == TRUE)
 						d1 = 0.0;
-					if (equal (d2, 0.0, 1e-7) == TRUE)
+					if (equal(d2, 0.0, 1e-7) == TRUE)
 						d2 = 0.0;
-					if (equal (d3, 0.0, 1e-7) == TRUE)
+					if (equal(d3, 0.0, 1e-7) == TRUE)
 						d3 = 0.0;
-					sprintf (token, "%d%s %s",
-							 (int) inv_ptr->isotopes[j].isotope_number,
-							 inv_ptr->isotopes[j].elt_name,
-							 inv_ptr->phases[i].phase->name);
-					output_msg (OUTPUT_MESSAGE,
-								"%15.15s   %12g  +%12g  =%12g", token,
-								(double) d1, (double) d2, (double) d3);
-					if (fabs (d2) >
-						(isotope_ptr[k].ratio_uncertainty + toler))
+					sprintf(token, "%d%s %s",
+							(int) inv_ptr->isotopes[j].isotope_number,
+							inv_ptr->isotopes[j].elt_name,
+							inv_ptr->phases[i].phase->name);
+					output_msg(OUTPUT_MESSAGE,
+							   "%15.15s   %12g  +%12g  =%12g", token,
+							   (double) d1, (double) d2, (double) d3);
+					if (fabs(d2) > (isotope_ptr[k].ratio_uncertainty + toler))
 					{
-						output_msg (OUTPUT_MESSAGE, " **");
+						output_msg(OUTPUT_MESSAGE, " **");
 						print_msg = TRUE;
 					}
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "\n");
 					if (isotope_ptr[k].ratio_uncertainty > 0)
 					{
 						scaled_error +=
-							fabs (d2) / isotope_ptr[k].ratio_uncertainty;
+							fabs(d2) / isotope_ptr[k].ratio_uncertainty;
 /* debug
 						output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / isotope_ptr[k].ratio_uncertainty, fabs(d2), isotope_ptr[k].ratio_uncertainty);
  */
@@ -2070,82 +2061,82 @@ print_model (struct inverse *inv_ptr)
 	}
 	if (print_msg == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"\n**\tWARNING: The adjustment to at least one isotopic"
-					"\n\tcomposition of a phase exceeded the specified uncertainty"
-					"\n\tfor the phase.  If the phase is not constrained to dissolve"
-					"\n\tor precipitate, then the isotopic composition of the phase"
-					"\n\tis also unconstrained.\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n**\tWARNING: The adjustment to at least one isotopic"
+				   "\n\tcomposition of a phase exceeded the specified uncertainty"
+				   "\n\tfor the phase.  If the phase is not constrained to dissolve"
+				   "\n\tor precipitate, then the isotopic composition of the phase"
+				   "\n\tis also unconstrained.\n");
 	}
-	output_msg (OUTPUT_MESSAGE, "\n%-20.20s   %7s   %12.12s   %12.12s\n",
-				"Solution fractions:", " ", "Minimum", "Maximum");
+	output_msg(OUTPUT_MESSAGE, "\n%-20.20s   %7s   %12.12s   %12.12s\n",
+			   "Solution fractions:", " ", "Minimum", "Maximum");
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_msg (OUTPUT_MESSAGE, "%11s%4d   %12.3e   %12.3e   %12.3e\n",
-					"Solution", inv_ptr->solns[i], (double) d1, (double) d2,
-					(double) d3);
+		output_msg(OUTPUT_MESSAGE, "%11s%4d   %12.3e   %12.3e   %12.3e\n",
+				   "Solution", inv_ptr->solns[i], (double) d1, (double) d2,
+				   (double) d3);
 	}
 
-	output_msg (OUTPUT_MESSAGE, "\n%-25.25s   %2s   %12.12s   %12.12s\n",
-				"Phase mole transfers:", " ", "Minimum", "Maximum");
+	output_msg(OUTPUT_MESSAGE, "\n%-25.25s   %2s   %12.12s   %12.12s\n",
+			   "Phase mole transfers:", " ", "Minimum", "Maximum");
 	for (i = col_phases; i < col_redox; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE &&
-			equal (min_delta[i], 0.0, toler) == TRUE &&
-			equal (max_delta[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE &&
+			equal(min_delta[i], 0.0, toler) == TRUE &&
+			equal(max_delta[i], 0.0, toler) == TRUE)
 			continue;
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_msg (OUTPUT_MESSAGE,
-					"%15.15s   %12.3e   %12.3e   %12.3e   %s\n", col_name[i],
-					(double) d1, (double) d2, (double) d3,
-					inv_ptr->phases[i - col_phases].phase->formula);
+		output_msg(OUTPUT_MESSAGE,
+				   "%15.15s   %12.3e   %12.3e   %12.3e   %s\n", col_name[i],
+				   (double) d1, (double) d2, (double) d3,
+				   inv_ptr->phases[i - col_phases].phase->formula);
 	}
 
-	output_msg (OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
+	output_msg(OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
 	for (i = col_redox; i < col_epsilon; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE)
 			continue;
-		output_msg (OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
-					(double) delta1[i]);
+		output_msg(OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
+				   (double) delta1[i]);
 	}
 
-	output_msg (OUTPUT_MESSAGE,
-				"\nSum of residuals (epsilons in documentation):      %12.3e\n",
-				((double) error / SCALE_EPSILON));
-	output_msg (OUTPUT_MESSAGE,
-				"Sum of delta/uncertainty limit:                    %12.3e\n",
-				(double) scaled_error);
-	output_msg (OUTPUT_MESSAGE,
-				"Maximum fractional error in element concentration: %12.3e\n",
-				(double) max_pct);
+	output_msg(OUTPUT_MESSAGE,
+			   "\nSum of residuals (epsilons in documentation):      %12.3e\n",
+			   ((double) error / SCALE_EPSILON));
+	output_msg(OUTPUT_MESSAGE,
+			   "Sum of delta/uncertainty limit:                    %12.3e\n",
+			   (double) scaled_error);
+	output_msg(OUTPUT_MESSAGE,
+			   "Maximum fractional error in element concentration: %12.3e\n",
+			   (double) max_pct);
 /*
  *   Flush buffer after each model
  */
-	output_fflush (OUTPUT_MESSAGE);
+	output_fflush(OUTPUT_MESSAGE);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-punch_model_heading (struct inverse *inv_ptr)
+punch_model_heading(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2160,29 +2151,29 @@ punch_model_heading (struct inverse *inv_ptr)
  */
 	if (punch.high_precision == FALSE)
 	{
-		output_msg (OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", "Sum_resid",
-					"Sum_Delta/U", "MaxFracErr");
+		output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", "Sum_resid",
+				   "Sum_Delta/U", "MaxFracErr");
 	}
 	else
 	{
-		output_msg (OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", "Sum_resid",
-					"Sum_Delta/U", "MaxFracErr");
+		output_msg(OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", "Sum_resid",
+				   "Sum_Delta/U", "MaxFracErr");
 	}
 /*
  *   Print solution numbers
  */
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		sprintf (token, "Soln %d", inv_ptr->solns[i]);
+		sprintf(token, "Soln %d", inv_ptr->solns[i]);
 		if (punch.high_precision == FALSE)
 		{
-			output_msg (OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", token, "min",
-						"max");
+			output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", token, "min",
+					   "max");
 		}
 		else
 		{
-			output_msg (OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", token, "min",
-						"max");
+			output_msg(OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", token, "min",
+					   "max");
 		}
 	}
 /*
@@ -2192,26 +2183,26 @@ punch_model_heading (struct inverse *inv_ptr)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			output_msg (OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", col_name[i],
-						"     min", "     max");
+			output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", col_name[i],
+					   "     min", "     max");
 		}
 		else
 		{
-			output_msg (OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", col_name[i],
-						"     min", "     max");
+			output_msg(OUTPUT_PUNCH, "%20s\t%20s\t%20s\t", col_name[i],
+					   "     min", "     max");
 		}
 	}
-	output_msg (OUTPUT_PUNCH, "\n");
+	output_msg(OUTPUT_PUNCH, "\n");
 /*
  *   Flush buffer after each model
  */
-	output_fflush (OUTPUT_PUNCH);
+	output_fflush(OUTPUT_PUNCH);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-punch_model (struct inverse *inv_ptr)
+punch_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2226,17 +2217,17 @@ punch_model (struct inverse *inv_ptr)
  */
 	if (punch.high_precision == FALSE)
 	{
-		output_msg (OUTPUT_PUNCH, "%12.4e\t",
-					((double) error / SCALE_EPSILON));
-		output_msg (OUTPUT_PUNCH, "%12.4e\t", (double) scaled_error);
-		output_msg (OUTPUT_PUNCH, "%12.4e\t", (double) max_pct);
+		output_msg(OUTPUT_PUNCH, "%12.4e\t",
+				   ((double) error / SCALE_EPSILON));
+		output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) scaled_error);
+		output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) max_pct);
 	}
 	else
 	{
-		output_msg (OUTPUT_PUNCH, "%20.12e\t",
-					((double) error / SCALE_EPSILON));
-		output_msg (OUTPUT_PUNCH, "%20.12e\t", (double) scaled_error);
-		output_msg (OUTPUT_PUNCH, "%20.12e\t", (double) max_pct);
+		output_msg(OUTPUT_PUNCH, "%20.12e\t",
+				   ((double) error / SCALE_EPSILON));
+		output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) scaled_error);
+		output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) max_pct);
 	}
 /*
  *   write solution fractions
@@ -2246,21 +2237,21 @@ punch_model (struct inverse *inv_ptr)
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
 		if (punch.high_precision == FALSE)
 		{
-			output_msg (OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
-						(double) d2, (double) d3);
+			output_msg(OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
+					   (double) d2, (double) d3);
 		}
 		else
 		{
-			output_msg (OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
-						(double) d1, (double) d2, (double) d3);
+			output_msg(OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
+					   (double) d1, (double) d2, (double) d3);
 		}
 	}
 /*
@@ -2271,34 +2262,34 @@ punch_model (struct inverse *inv_ptr)
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
 		if (punch.high_precision == FALSE)
 		{
-			output_msg (OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
-						(double) d2, (double) d3);
+			output_msg(OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
+					   (double) d2, (double) d3);
 		}
 		else
 		{
-			output_msg (OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
-						(double) d1, (double) d2, (double) d3);
+			output_msg(OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
+					   (double) d1, (double) d2, (double) d3);
 		}
 	}
-	output_msg (OUTPUT_PUNCH, "\n");
+	output_msg(OUTPUT_PUNCH, "\n");
 /*
  *   Flush buffer after each model
  */
-	output_fflush (OUTPUT_PUNCH);
+	output_fflush(OUTPUT_PUNCH);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 unsigned long
-set_bit (unsigned long bits, int position, int value)
+set_bit(unsigned long bits, int position, int value)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2321,8 +2312,8 @@ set_bit (unsigned long bits, int position, int value)
 
 /* ---------------------------------------------------------------------- */
 int
-next_set_phases (struct inverse *inv_ptr,
-				 int first_of_model_size, int model_size)
+next_set_phases(struct inverse *inv_ptr,
+				int first_of_model_size, int model_size)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
@@ -2389,7 +2380,7 @@ next_set_phases (struct inverse *inv_ptr,
 
 /* ---------------------------------------------------------------------- */
 int
-range (struct inverse *inv_ptr, unsigned long cur_bits)
+range(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2411,30 +2402,30 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 		{
 			if (inv_ptr->phases[i].force == TRUE)
 			{
-				cur_bits = set_bit (cur_bits, i, 1);
+				cur_bits = set_bit(cur_bits, i, 1);
 			}
 		}
 		else
 		{
 			if (inv_ptr->force_solns[i - inv_ptr->count_phases] == TRUE)
 			{
-				cur_bits = set_bit (cur_bits, i, 1);
+				cur_bits = set_bit(cur_bits, i, 1);
 			}
 		}
 	}
 
-	memcpy ((void *) &(min_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
-	memcpy ((void *) &(max_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
+	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
+	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
 /*
  *   Switch bits so that phases are high and solutions are low
  */
 	bits =
-		get_bits (cur_bits, inv_ptr->count_phases + inv_ptr->count_solns - 1,
-				  inv_ptr->count_solns);
+		get_bits(cur_bits, inv_ptr->count_phases + inv_ptr->count_solns - 1,
+				 inv_ptr->count_solns);
 	bits +=
-		(get_bits (cur_bits, inv_ptr->count_phases - 1, inv_ptr->count_phases)
+		(get_bits(cur_bits, inv_ptr->count_phases - 1, inv_ptr->count_phases)
 		 << inv_ptr->count_solns);
 /*
  *   Do range calculation
@@ -2447,7 +2438,7 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 			max_delta[i] = 1.0;
 			continue;
 		}
-		if (get_bits (bits, i, 1) == 0)
+		if (get_bits(bits, i, 1) == 0)
 			continue;
 /*
  *   Calculate min and max
@@ -2461,38 +2452,37 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 /*
  *   Copy equations
  */
-			memcpy ((void *) &(array1[0]), (void *) &(array[0]),
-					(size_t) max_column_count * max_row_count *
-					sizeof (LDBLE));
-			memcpy ((void *) &(delta2[0]), (void *) &(delta[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
-			memcpy ((void *) &(delta3[0]), (void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
-			memcpy ((void *) &(delta_save[0]), (void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
-			memcpy ((void *) &(res[0]), (void *) &(zero[0]),
-					(size_t) max_row_count * sizeof (LDBLE));
+			memcpy((void *) &(array1[0]), (void *) &(array[0]),
+				   (size_t) max_column_count * max_row_count * sizeof(LDBLE));
+			memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
+			memcpy((void *) &(delta3[0]), (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
+			memcpy((void *) &(delta_save[0]), (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
+			memcpy((void *) &(res[0]), (void *) &(zero[0]),
+				   (size_t) max_row_count * sizeof(LDBLE));
 
 /*
  *   Change optimization
  */
 			for (j = 0; j < k; j++)
 			{
-				memcpy ((void *) &(array1[j * max_column_count]),
-						(void *) &(zero[0]),
-						(size_t) max_column_count * sizeof (LDBLE));
+				memcpy((void *) &(array1[j * max_column_count]),
+					   (void *) &(zero[0]),
+					   (size_t) max_column_count * sizeof(LDBLE));
 			}
 			array1[i] = 1.0;
 			if (f < 1)
 			{
-				array1[n] = -fabs (inv_ptr->range_max);
+				array1[n] = -fabs(inv_ptr->range_max);
 			}
 			else
 			{
-				array1[n] = fabs (inv_ptr->range_max);
+				array1[n] = fabs(inv_ptr->range_max);
 			}
-			shrink (inv_ptr, array1, array1,
-					&k, &l, &m, &n, cur_bits, delta2, col_back, row_back);
+			shrink(inv_ptr, array1, array1,
+				   &k, &l, &m, &n, cur_bits, delta2, col_back, row_back);
 			/*
 			 *  Save delta constraints
 			 */
@@ -2502,14 +2492,14 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 			}
 			if (debug_inverse == TRUE)
 			{
-				output_msg (OUTPUT_MESSAGE, "\nInput delta:\n\n");
+				output_msg(OUTPUT_MESSAGE, "\nInput delta:\n\n");
 				for (j = 0; j < n; j++)
 				{
-					output_msg (OUTPUT_MESSAGE, "\t%d %s\t%g\n", j,
-								col_name[col_back[j]], (double) delta2[j]);
+					output_msg(OUTPUT_MESSAGE, "\t%d %s\t%g\n", j,
+							   col_name[col_back[j]], (double) delta2[j]);
 				}
-				output_msg (OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
-				array_print (array1, k + l + m, n + 1, max_column_count);
+				output_msg(OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
+				array_print(array1, k + l + m, n + 1, max_column_count);
 			}
 			kode = 1;
 			iter = 200;
@@ -2517,50 +2507,50 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 #ifdef INVERSE_CL1MP
 			if (inv_ptr->mp == TRUE)
 			{
-				cl1mp (k, l, m, n,
-					   nklmd, n2d, array1,
-					   &kode, inv_ptr->mp_tolerance, &iter,
-					   delta2, res, &error2, cu, iu, is, TRUE,
-					   inv_ptr->mp_censor);
+				cl1mp(k, l, m, n,
+					  nklmd, n2d, array1,
+					  &kode, inv_ptr->mp_tolerance, &iter,
+					  delta2, res, &error2, cu, iu, is, TRUE,
+					  inv_ptr->mp_censor);
 			}
 			else
 			{
-				cl1 (k, l, m, n,
-					 nklmd, n2d, array1,
-					 &kode, toler, &iter, delta2, res, &error2, cu, iu, is,
-					 TRUE);
+				cl1(k, l, m, n,
+					nklmd, n2d, array1,
+					&kode, toler, &iter, delta2, res, &error2, cu, iu, is,
+					TRUE);
 			}
 #else
-			cl1 (k, l, m, n,
-				 nklmd, n2d, array1,
-				 &kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
+			cl1(k, l, m, n,
+				nklmd, n2d, array1,
+				&kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
 #endif
 			if (kode != 0)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"Error in subroutine range. Kode = %d\n", kode);
+				output_msg(OUTPUT_MESSAGE,
+						   "Error in subroutine range. Kode = %d\n", kode);
 			}
 
 			if (debug_inverse == TRUE)
 			{
-				output_msg (OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n",
-							kode, iter, (double) error2);
-				output_msg (OUTPUT_MESSAGE, "k, l, m, n: %d\t%d\t%d\t%d\n", k,
-							l, m, n);
-				output_msg (OUTPUT_MESSAGE, "\nsolution vector %s\n",
-							col_name[i]);
+				output_msg(OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n",
+						   kode, iter, (double) error2);
+				output_msg(OUTPUT_MESSAGE, "k, l, m, n: %d\t%d\t%d\t%d\n", k,
+						   l, m, n);
+				output_msg(OUTPUT_MESSAGE, "\nsolution vector %s\n",
+						   col_name[i]);
 				for (j = 0; j < n; j++)
 				{
-					output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", j,
-								col_name[col_back[j]], (double) delta2[j]);
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", j,
+							   col_name[col_back[j]], (double) delta2[j]);
+					output_msg(OUTPUT_MESSAGE, "\n");
 				}
 
-				output_msg (OUTPUT_MESSAGE, "\nresidual vector:\n");
+				output_msg(OUTPUT_MESSAGE, "\nresidual vector:\n");
 				for (j = 0; j < (k + l + m); j++)
 				{
-					output_msg (OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", j,
-								row_name[row_back[j]], (double) res[j]);
+					output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", j,
+							   row_name[row_back[j]], (double) res[j]);
 				}
 			}
 			for (j = 0; j < n; j++)
@@ -2587,10 +2577,10 @@ range (struct inverse *inv_ptr, unsigned long cur_bits)
 
 /* ---------------------------------------------------------------------- */
 int
-shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
-		int *k, int *l, int *m, int *n,
-		unsigned long cur_bits,
-		LDBLE * delta_l, int *col_back_l, int *row_back_l)
+shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
+	   int *k, int *l, int *m, int *n,
+	   unsigned long cur_bits,
+	   LDBLE * delta_l, int *col_back_l, int *row_back_l)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2613,9 +2603,9 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 	{
 		for (i = 0; i < (*k + *l + *m); i++)
 		{
-			memcpy (&(array_out[i * max_column_count]),
-					&(array_in[i * max_column_count]),
-					(size_t) max_column_count * sizeof (LDBLE));
+			memcpy(&(array_out[i * max_column_count]),
+				   &(array_in[i * max_column_count]),
+				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 	}
 /*
@@ -2629,7 +2619,7 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
  */
 	for (i = 0; i < inv_ptr->count_phases; i++)
 	{
-		if (get_bits (cur_bits, i, 1) == 0)
+		if (get_bits(cur_bits, i, 1) == 0)
 		{
 			col_back_l[col_phases + i] = -1;
 			/* drop isotopes */
@@ -2649,7 +2639,7 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
  */
 	for (i = 0; i < (inv_ptr->count_solns - 1); i++)
 	{
-		if (get_bits (cur_bits, inv_ptr->count_phases + i, 1) == 0)
+		if (get_bits(cur_bits, inv_ptr->count_phases + i, 1) == 0)
 		{
 			col_back_l[i] = -1;
 			/* drop all epsilons for the solution */
@@ -2725,8 +2715,8 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 	k1 = 0;
 	for (i = 0; i < *k; i++)
 	{
-		if (memcmp (&(array_out[i * max_column_count]), &(zero[0]),
-					(size_t) (*n) * sizeof (LDBLE)) == 0)
+		if (memcmp(&(array_out[i * max_column_count]), &(zero[0]),
+				   (size_t) (*n) * sizeof(LDBLE)) == 0)
 		{
 			continue;
 		}
@@ -2734,9 +2724,9 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 		memcpy(&(array_out[row * max_column_count]), &(array_out[i * max_column_count]),
 		       (size_t) max_column_count * sizeof(LDBLE));
  */
-		memcpy (&(array_out[row * max_column_count]),
-				&(array_out[i * max_column_count]),
-				(size_t) (*n + 1) * sizeof (LDBLE));
+		memcpy(&(array_out[row * max_column_count]),
+			   &(array_out[i * max_column_count]),
+			   (size_t) (*n + 1) * sizeof(LDBLE));
 		row_back_l[row] = i;
 		row++;
 		k1++;
@@ -2751,7 +2741,7 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 		nonzero = FALSE;
 		for (j = 0; j < *n; j++)
 		{
-			if (equal (array_out[i * max_column_count + j], 0.0, toler) ==
+			if (equal(array_out[i * max_column_count + j], 0.0, toler) ==
 				FALSE)
 			{
 				nonzero = TRUE;
@@ -2770,9 +2760,9 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 		memcpy(&(array_out[row * max_column_count]), &(array_out[i * max_column_count]),
 		       (size_t) max_column_count * sizeof(LDBLE));
  */
-		memcpy (&(array_out[row * max_column_count]),
-				&(array_out[i * max_column_count]),
-				(size_t) (*n + 1) * sizeof (LDBLE));
+		memcpy(&(array_out[row * max_column_count]),
+			   &(array_out[i * max_column_count]),
+			   (size_t) (*n + 1) * sizeof(LDBLE));
 		row_back_l[row] = i;
 		row++;
 		l1++;
@@ -2786,7 +2776,7 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 		nonzero = FALSE;
 		for (j = 0; j < *n; j++)
 		{
-			if (equal (array_out[i * max_column_count + j], 0.0, toler) ==
+			if (equal(array_out[i * max_column_count + j], 0.0, toler) ==
 				FALSE)
 			{
 				nonzero = TRUE;
@@ -2805,9 +2795,9 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 		memcpy(&(array_out[row * max_column_count]), &(array_out[i * max_column_count]),
 		       (size_t) max_column_count * sizeof(LDBLE));
  */
-		memcpy (&(array_out[row * max_column_count]),
-				&(array_out[i * max_column_count]),
-				(size_t) (*n + 1) * sizeof (LDBLE));
+		memcpy(&(array_out[row * max_column_count]),
+			   &(array_out[i * max_column_count]),
+			   (size_t) (*n + 1) * sizeof(LDBLE));
 		row_back_l[row] = i;
 		row++;
 		m1++;
@@ -2833,7 +2823,7 @@ shrink (struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 
 /* ---------------------------------------------------------------------- */
 int
-check_solns (struct inverse *inv_ptr)
+check_solns(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2847,10 +2837,10 @@ check_solns (struct inverse *inv_ptr)
 	unsigned long bits;
 	LDBLE error2;
 
-	memcpy ((void *) &(min_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
-	memcpy ((void *) &(max_delta[0]), (void *) &(zero[0]),
-			(size_t) max_column_count * sizeof (LDBLE));
+	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
+	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+		   (size_t) max_column_count * sizeof(LDBLE));
 
 /*
  *   Switch bits so that phases are high and solutions are low
@@ -2885,12 +2875,12 @@ check_solns (struct inverse *inv_ptr)
 /*
  *   Copy equations
  */
-		memcpy ((void *) &(array1[0]), (void *) &(array[0]),
-				(size_t) max_column_count * max_row_count * sizeof (LDBLE));
-		memcpy ((void *) &(delta2[0]), (void *) &(delta[0]),
-				(size_t) max_column_count * sizeof (LDBLE));
-		memcpy ((void *) &(res[0]), (void *) &(zero[0]),
-				(size_t) max_row_count * sizeof (LDBLE));
+		memcpy((void *) &(array1[0]), (void *) &(array[0]),
+			   (size_t) max_column_count * max_row_count * sizeof(LDBLE));
+		memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
+			   (size_t) max_column_count * sizeof(LDBLE));
+		memcpy((void *) &(res[0]), (void *) &(zero[0]),
+			   (size_t) max_row_count * sizeof(LDBLE));
 
 /*
  *   Keep optimization
@@ -2900,9 +2890,9 @@ check_solns (struct inverse *inv_ptr)
  */
 		for (j = row_mb; j < row_charge; j++)
 		{
-			memcpy ((void *) &(array1[j * max_column_count]),
-					(void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
+			memcpy((void *) &(array1[j * max_column_count]),
+				   (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 /*
  *   Set fraction of solution to 1.0
@@ -2917,9 +2907,9 @@ check_solns (struct inverse *inv_ptr)
 		{
 			if (j == i)
 				continue;
-			memcpy ((void *) &(array1[(row_charge + j) * max_column_count]),
-					(void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
+			memcpy((void *) &(array1[(row_charge + j) * max_column_count]),
+				   (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 
 /*
@@ -2927,9 +2917,9 @@ check_solns (struct inverse *inv_ptr)
  */
 		for (j = row_isotopes; j < row_epsilon; j++)
 		{
-			memcpy ((void *) &(array1[j * max_column_count]),
-					(void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
+			memcpy((void *) &(array1[j * max_column_count]),
+				   (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 
 /*
@@ -2937,17 +2927,17 @@ check_solns (struct inverse *inv_ptr)
  */
 		for (j = row_isotope_epsilon; j < count_rows; j++)
 		{
-			memcpy ((void *) &(array1[j * max_column_count]),
-					(void *) &(zero[0]),
-					(size_t) max_column_count * sizeof (LDBLE));
+			memcpy((void *) &(array1[j * max_column_count]),
+				   (void *) &(zero[0]),
+				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 /*
  *   Can't Zero out epsilon constraint rows for other solutions because not sure which
  *   are which
  */
 
-		shrink (inv_ptr, array1, array1,
-				&k, &l, &m, &n, bits, delta2, col_back, row_back);
+		shrink(inv_ptr, array1, array1,
+			   &k, &l, &m, &n, bits, delta2, col_back, row_back);
 /* Debug
 
 		output_msg(OUTPUT_MESSAGE, "\nColumns\n");
@@ -2974,16 +2964,16 @@ check_solns (struct inverse *inv_ptr)
 		kode = 1;
 		iter = 200;
 		count_calls++;
-		cl1 (k, l, m, n,
-			 nklmd, n2d, array1,
-			 &kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
+		cl1(k, l, m, n,
+			nklmd, n2d, array1,
+			&kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
 
 		if (kode != 0)
 		{
-			sprintf (error_string,
-					 "Not possible to balance solution %d with input uncertainties.",
-					 inv_ptr->solns[i]);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Not possible to balance solution %d with input uncertainties.",
+					inv_ptr->solns[i]);
+			error_msg(error_string, CONTINUE);
 			return_value = ERROR;
 		}
 
@@ -3008,7 +2998,7 @@ check_solns (struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-post_mortem (void)
+post_mortem(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3021,8 +3011,8 @@ post_mortem (void)
 /*
  *   Check equalities
  */
-	output_msg (OUTPUT_MESSAGE,
-				"\nPost_mortem examination of inverse modeling:\n\n");
+	output_msg(OUTPUT_MESSAGE,
+			   "\nPost_mortem examination of inverse modeling:\n\n");
 	for (i = row_mb; i < row_epsilon; i++)
 	{
 		sum = 0;
@@ -3031,13 +3021,13 @@ post_mortem (void)
 			sum += delta1[j] * array[i * max_column_count + j];
 		}
 
-		if (equal (sum, array[(i * max_column_count) + count_unknowns], toler)
+		if (equal(sum, array[(i * max_column_count) + count_unknowns], toler)
 			== FALSE)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\tERROR: equality not satisfied for %s, %e.\n",
-						row_name[i],
-						sum - array[(i * max_column_count) + count_unknowns]);
+			output_msg(OUTPUT_MESSAGE,
+					   "\tERROR: equality not satisfied for %s, %e.\n",
+					   row_name[i],
+					   sum - array[(i * max_column_count) + count_unknowns]);
 		}
 	}
 /*
@@ -3053,10 +3043,10 @@ post_mortem (void)
 
 		if (sum > array[(i * max_column_count) + count_unknowns] + toler)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\tERROR: inequality not satisfied for %s, %e\n",
-						row_name[i],
-						sum - array[(i * max_column_count) + count_unknowns]);
+			output_msg(OUTPUT_MESSAGE,
+					   "\tERROR: inequality not satisfied for %s, %e\n",
+					   row_name[i],
+					   sum - array[(i * max_column_count) + count_unknowns]);
 		}
 	}
 /*
@@ -3066,15 +3056,15 @@ post_mortem (void)
 	{
 		if (delta_save[i] > 0.5 && delta1[i] < -toler)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-						i, col_name[i], delta1[i]);
+			output_msg(OUTPUT_MESSAGE,
+					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
+					   i, col_name[i], delta1[i]);
 		}
 		else if (delta_save[i] < -0.5 && delta1[i] > toler)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-						i, col_name[i], delta1[i]);
+			output_msg(OUTPUT_MESSAGE,
+					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
+					   i, col_name[i], delta1[i]);
 		}
 	}
 
@@ -3083,35 +3073,33 @@ post_mortem (void)
 
 /* ---------------------------------------------------------------------- */
 int
-carbon_derivs (struct inverse *inv_ptr)
+carbon_derivs(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, n, temp;
 	LDBLE c_uncertainty, d_carbon, alk_plus, alk_minus;
 	struct solution *solution_ptr_orig, *solution_ptr;
 
-	inv_ptr->dalk_dph = (LDBLE *) free_check_null (inv_ptr->dalk_dph);
+	inv_ptr->dalk_dph = (LDBLE *) free_check_null(inv_ptr->dalk_dph);
 	inv_ptr->dalk_dph =
-		(LDBLE *) PHRQ_malloc ((size_t) inv_ptr->count_solns *
-							   sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) inv_ptr->count_solns * sizeof(LDBLE));
 	if (inv_ptr->dalk_dph == NULL)
-		malloc_error ();
+		malloc_error();
 
-	inv_ptr->dalk_dc = (LDBLE *) free_check_null (inv_ptr->dalk_dc);
+	inv_ptr->dalk_dc = (LDBLE *) free_check_null(inv_ptr->dalk_dc);
 	inv_ptr->dalk_dc =
-		(LDBLE *) PHRQ_malloc ((size_t) inv_ptr->count_solns *
-							   sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) inv_ptr->count_solns * sizeof(LDBLE));
 	if (inv_ptr->dalk_dc == NULL)
-		malloc_error ();
+		malloc_error();
 
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		solution_ptr_orig = solution_bsearch (inv_ptr->solns[i], &n, TRUE);
+		solution_ptr_orig = solution_bsearch(inv_ptr->solns[i], &n, TRUE);
 		if (solution_ptr_orig == NULL)
 		{
-			sprintf (error_string, "Solution %d for inverse "
-					 "modeling not found.", inv_ptr->solns[i]);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Solution %d for inverse "
+					"modeling not found.", inv_ptr->solns[i]);
+			error_msg(error_string, STOP);
 		}
 /* 
  *   Find carbon uncertainty
@@ -3134,7 +3122,7 @@ carbon_derivs (struct inverse *inv_ptr)
 		{
 			for (k = 0; solution_ptr_orig->totals[k].description != NULL; k++)
 			{
-				if (strcmp (solution_ptr_orig->totals[k].description, "C(4)")
+				if (strcmp(solution_ptr_orig->totals[k].description, "C(4)")
 					== 0)
 				{
 					d_carbon = solution_ptr_orig->totals[k].moles /
@@ -3149,24 +3137,24 @@ carbon_derivs (struct inverse *inv_ptr)
  *   Make four copies of solution
  *   Modify ph and carbon in solutions
  */
-		set_ph_c (inv_ptr, i, solution_ptr_orig, -5, 0.0, 1.0, 0.0);
-		set_ph_c (inv_ptr, i, solution_ptr_orig, -4, 0.0, -1.0, 0.0);
+		set_ph_c(inv_ptr, i, solution_ptr_orig, -5, 0.0, 1.0, 0.0);
+		set_ph_c(inv_ptr, i, solution_ptr_orig, -4, 0.0, -1.0, 0.0);
 		if (c_uncertainty != 0)
 		{
-			set_ph_c (inv_ptr, i, solution_ptr_orig, -3, d_carbon, 0.0, 1.0);
-			set_ph_c (inv_ptr, i, solution_ptr_orig, -2, d_carbon, 0.0, -1.0);
+			set_ph_c(inv_ptr, i, solution_ptr_orig, -3, d_carbon, 0.0, 1.0);
+			set_ph_c(inv_ptr, i, solution_ptr_orig, -2, d_carbon, 0.0, -1.0);
 		}
 /* */
 		temp = pr.all;
 		pr.all = FALSE;
-		initial_solutions (FALSE);
+		initial_solutions(FALSE);
 		pr.all = temp;
 /*
  *   dAlk/dpH
  */
-		solution_ptr = solution_bsearch (-5, &n, TRUE);
+		solution_ptr = solution_bsearch(-5, &n, TRUE);
 		alk_plus = solution_ptr->total_alkalinity;
-		solution_ptr = solution_bsearch (-4, &n, TRUE);
+		solution_ptr = solution_bsearch(-4, &n, TRUE);
 		alk_minus = solution_ptr->total_alkalinity;
 		inv_ptr->dalk_dph[i] = (alk_plus - alk_minus) /
 			(2.0 * inv_ptr->ph_uncertainties[i]);
@@ -3175,9 +3163,9 @@ carbon_derivs (struct inverse *inv_ptr)
  */
 		if (d_carbon != 0)
 		{
-			solution_ptr = solution_bsearch (-3, &n, TRUE);
+			solution_ptr = solution_bsearch(-3, &n, TRUE);
 			alk_plus = solution_ptr->total_alkalinity;
-			solution_ptr = solution_bsearch (-2, &n, TRUE);
+			solution_ptr = solution_bsearch(-2, &n, TRUE);
 			alk_minus = solution_ptr->total_alkalinity;
 			inv_ptr->dalk_dc[i] = (alk_plus - alk_minus) / (2.0 * d_carbon);
 		}
@@ -3187,9 +3175,9 @@ carbon_derivs (struct inverse *inv_ptr)
 		}
 		if (debug_inverse == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE, "dAlk/dph = %e\tdAlk/dC = %e\n",
-						(double) inv_ptr->dalk_dph[i],
-						(double) inv_ptr->dalk_dc[i]);
+			output_msg(OUTPUT_MESSAGE, "dAlk/dph = %e\tdAlk/dC = %e\n",
+					   (double) inv_ptr->dalk_dph[i],
+					   (double) inv_ptr->dalk_dc[i]);
 		}
 	}
 	return (OK);
@@ -3197,10 +3185,10 @@ carbon_derivs (struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-set_ph_c (struct inverse *inv_ptr,
-		  int i,
-		  struct solution *solution_ptr_orig,
-		  int n_user_new, LDBLE d_carbon, LDBLE ph_factor, LDBLE c_factor)
+set_ph_c(struct inverse *inv_ptr,
+		 int i,
+		 struct solution *solution_ptr_orig,
+		 int n_user_new, LDBLE d_carbon, LDBLE ph_factor, LDBLE c_factor)
 /* ---------------------------------------------------------------------- */
 {
 	int j, n_user_orig;
@@ -3208,8 +3196,8 @@ set_ph_c (struct inverse *inv_ptr,
 	struct conc *conc_ptr;
 
 	n_user_orig = inv_ptr->solns[i];
-	solution_duplicate (n_user_orig, n_user_new);
-	solution_ptr = solution_bsearch (n_user_new, &j, TRUE);
+	solution_duplicate(n_user_orig, n_user_new);
+	solution_ptr = solution_bsearch(n_user_new, &j, TRUE);
 	solution_ptr->new_def = TRUE;
 	solution_ptr->n_user_end = n_user_new;
 	solution_ptr->ph += inv_ptr->ph_uncertainties[i] * ph_factor;
@@ -3218,8 +3206,8 @@ set_ph_c (struct inverse *inv_ptr,
 		conc_ptr = &solution_ptr->totals[j];
 		conc_ptr->input_conc =
 			conc_ptr->moles / solution_ptr_orig->mass_water;
-		conc_ptr->units = string_hsave ("Mol/kgw");
-		if (strcmp (conc_ptr->description, "C(4)") == 0)
+		conc_ptr->units = string_hsave("Mol/kgw");
+		if (strcmp(conc_ptr->description, "C(4)") == 0)
 		{
 			conc_ptr->input_conc += d_carbon * c_factor;
 		}
@@ -3229,7 +3217,7 @@ set_ph_c (struct inverse *inv_ptr,
 
 /* ---------------------------------------------------------------------- */
 int
-isotope_balance_equation (struct inverse *inv_ptr, int row, int n)
+isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 /* ---------------------------------------------------------------------- */
 /*
  *   routine fills in an isotope balance equation
@@ -3250,26 +3238,26 @@ isotope_balance_equation (struct inverse *inv_ptr, int row, int n)
  *   isotope mass-balance equation
  */
 	column = 0;
-	primary_ptr = master_bsearch_primary (inv_ptr->isotopes[n].elt_name);
+	primary_ptr = master_bsearch_primary(inv_ptr->isotopes[n].elt_name);
 	isotope_number = inv_ptr->isotopes[n].isotope_number;
 	/* isotope element must be defined */
 	if (primary_ptr == NULL)
 	{
-		sprintf (error_string,
-				 "In isotope calculation: element not defined: %s.",
-				 inv_ptr->isotopes[n].elt_name);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string,
+				"In isotope calculation: element not defined: %s.",
+				inv_ptr->isotopes[n].elt_name);
+		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
 
 	/* isotope element must be primary */
 	if (primary_ptr->primary != TRUE)
 	{
-		sprintf (error_string, "Isotope mass-balance may only be used"
-				 " for total element concentrations.\n"
-				 "Secondary species not allowed: %s.",
-				 inv_ptr->isotopes[n].elt_name);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Isotope mass-balance may only be used"
+				" for total element concentrations.\n"
+				"Secondary species not allowed: %s.",
+				inv_ptr->isotopes[n].elt_name);
+		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
 
@@ -3288,7 +3276,7 @@ isotope_balance_equation (struct inverse *inv_ptr, int row, int n)
 		}
 
 		/* mixing fraction term */
-		solution_ptr = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
+		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 		isotope_ptr = solution_ptr->isotopes;
 		for (j = 0; j < solution_ptr->count_isotopes; j++)
 		{
@@ -3381,8 +3369,8 @@ isotope_balance_equation (struct inverse *inv_ptr, int row, int n)
 
 /* ---------------------------------------------------------------------- */
 int
-count_isotope_unknowns (struct inverse *inv_ptr,
-						struct isotope **isotope_unknowns)
+count_isotope_unknowns(struct inverse *inv_ptr,
+					   struct isotope **isotope_unknowns)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3402,31 +3390,31 @@ count_isotope_unknowns (struct inverse *inv_ptr,
 		return (0);
 	}
 	isotopes =
-		(struct isotope *) PHRQ_malloc ((size_t) sizeof (struct isotope));
+		(struct isotope *) PHRQ_malloc((size_t) sizeof(struct isotope));
 	if (isotopes == NULL)
-		malloc_error ();
+		malloc_error();
 	count_isotopes = 0;
 
 	for (i = 0; i < inv_ptr->count_isotopes; i++)
 	{
-		primary_ptr = master_bsearch (inv_ptr->isotopes[i].elt_name);
+		primary_ptr = master_bsearch(inv_ptr->isotopes[i].elt_name);
 		isotope_number = inv_ptr->isotopes[i].isotope_number;
 		if (primary_ptr == NULL)
 		{
-			sprintf (error_string,
-					 "Element not found for isotope calculation: %s.",
-					 inv_ptr->isotopes[i].elt_name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Element not found for isotope calculation: %s.",
+					inv_ptr->isotopes[i].elt_name);
+			error_msg(error_string, CONTINUE);
 			input_error++;
 			break;
 		}
 		if (primary_ptr->primary != TRUE)
 		{
-			sprintf (error_string, "Isotope mass-balance may only be used"
-					 " for total element concentrations.\n"
-					 "Secondary species not allowed: %s.",
-					 inv_ptr->isotopes[i].elt_name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string, "Isotope mass-balance may only be used"
+					" for total element concentrations.\n"
+					"Secondary species not allowed: %s.",
+					inv_ptr->isotopes[i].elt_name);
+			error_msg(error_string, CONTINUE);
 			input_error++;
 			break;
 		}
@@ -3435,12 +3423,12 @@ count_isotope_unknowns (struct inverse *inv_ptr,
 		if (primary_ptr->s->secondary == NULL)
 		{
 			isotopes =
-				(struct isotope *) PHRQ_realloc (isotopes,
-												 (size_t) (count_isotopes +
-														   1) *
-												 sizeof (struct isotope));
+				(struct isotope *) PHRQ_realloc(isotopes,
+												(size_t) (count_isotopes +
+														  1) *
+												sizeof(struct isotope));
 			if (isotopes == NULL)
-				malloc_error ();
+				malloc_error();
 			isotopes[count_isotopes].primary = primary_ptr;
 			isotopes[count_isotopes].master = primary_ptr;
 			isotopes[count_isotopes].isotope_number = isotope_number;
@@ -3466,13 +3454,13 @@ count_isotope_unknowns (struct inverse *inv_ptr,
 				if (master[k]->elt->primary != primary_ptr)
 					break;
 				isotopes =
-					(struct isotope *) PHRQ_realloc (isotopes,
-													 (size_t) (count_isotopes
-															   +
-															   1) *
-													 sizeof (struct isotope));
+					(struct isotope *) PHRQ_realloc(isotopes,
+													(size_t) (count_isotopes
+															  +
+															  1) *
+													sizeof(struct isotope));
 				if (isotopes == NULL)
-					malloc_error ();
+					malloc_error();
 				isotopes[count_isotopes].primary = primary_ptr;
 				isotopes[count_isotopes].master = master[k];
 				isotopes[count_isotopes].isotope_number = isotope_number;
@@ -3487,7 +3475,7 @@ count_isotope_unknowns (struct inverse *inv_ptr,
 
 /* ---------------------------------------------------------------------- */
 int
-check_isotopes (struct inverse *inv_ptr)
+check_isotopes(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3507,9 +3495,9 @@ check_isotopes (struct inverse *inv_ptr)
  */
 	for (j = 0; j < inv_ptr->count_solns; j++)
 	{
-		solution_ptr = solution_bsearch (inv_ptr->solns[j], &i, TRUE);
-		xsolution_zero ();
-		add_solution (solution_ptr, 1.0, 1.0);
+		solution_ptr = solution_bsearch(inv_ptr->solns[j], &i, TRUE);
+		xsolution_zero();
+		add_solution(solution_ptr, 1.0, 1.0);
 /*
  *   Go through inverse isotopes and make sure isotope data for each solution
  *   inv_ptr->isotopes has elements; inv_ptr->i_u has redox states and uncertainties
@@ -3517,7 +3505,7 @@ check_isotopes (struct inverse *inv_ptr)
 		for (i = 0; i < inv_ptr->count_isotopes; i++)
 		{
 			err = FALSE;
-			primary_ptr = master_bsearch (inv_ptr->isotopes[i].elt_name);
+			primary_ptr = master_bsearch(inv_ptr->isotopes[i].elt_name);
 			isotope_number = inv_ptr->isotopes[i].isotope_number;
 			found_isotope = FALSE;
 			for (k = 0; k < solution_ptr->count_isotopes; k++)
@@ -3545,11 +3533,11 @@ check_isotopes (struct inverse *inv_ptr)
 			}
 			if (err == TRUE)
 			{
-				sprintf (error_string,
-						 "In solution %d, isotope ratio(s) are needed for element: %g%s.",
-						 solution_ptr->n_user, (double) isotope_number,
-						 primary_ptr->elt->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"In solution %d, isotope ratio(s) are needed for element: %g%s.",
+						solution_ptr->n_user, (double) isotope_number,
+						primary_ptr->elt->name);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				continue;
 			}
@@ -3566,7 +3554,7 @@ check_isotopes (struct inverse *inv_ptr)
 			ii = -1;
 			for (i = 0; i < inv_ptr->count_i_u; i++)
 			{
-				master_ptr = master_bsearch (inv_ptr->i_u[i].elt_name);
+				master_ptr = master_bsearch(inv_ptr->i_u[i].elt_name);
 				if (master_ptr == solution_ptr->isotopes[k].master)
 				{
 					ii = i;
@@ -3599,36 +3587,36 @@ check_isotopes (struct inverse *inv_ptr)
 			}
 			else
 			{
-				sprintf (token, "%g%s",
-						 (double) solution_ptr->isotopes[k].isotope_number,
-						 solution_ptr->isotopes[k].elt_name);
+				sprintf(token, "%g%s",
+						(double) solution_ptr->isotopes[k].isotope_number,
+						solution_ptr->isotopes[k].elt_name);
 				for (l = 0; l < count_iso_defaults; l++)
 				{
-					if (strcmp (token, iso_defaults[l].name) == 0)
+					if (strcmp(token, iso_defaults[l].name) == 0)
 					{
 						solution_ptr->isotopes[k].x_ratio_uncertainty =
 							iso_defaults[l].uncertainty;
-						sprintf (error_string,
-								 "Solution %d,  element %g%s: default isotope ratio uncertainty is used, %g.",
-								 solution_ptr->n_user,
-								 (double) solution_ptr->isotopes[k].
-								 isotope_number,
-								 solution_ptr->isotopes[k].elt_name,
-								 (double) solution_ptr->isotopes[k].
-								 x_ratio_uncertainty);
-						warning_msg (error_string);
+						sprintf(error_string,
+								"Solution %d,  element %g%s: default isotope ratio uncertainty is used, %g.",
+								solution_ptr->n_user,
+								(double) solution_ptr->isotopes[k].
+								isotope_number,
+								solution_ptr->isotopes[k].elt_name,
+								(double) solution_ptr->isotopes[k].
+								x_ratio_uncertainty);
+						warning_msg(error_string);
 						break;
 					}
 				}
 			}
 			if (solution_ptr->isotopes[k].x_ratio_uncertainty == NAN)
 			{
-				sprintf (error_string,
-						 "In solution %d, isotope ratio uncertainty is needed for element: %g%s.",
-						 solution_ptr->n_user,
-						 (double) solution_ptr->isotopes[k].isotope_number,
-						 solution_ptr->isotopes[k].elt_name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"In solution %d, isotope ratio uncertainty is needed for element: %g%s.",
+						solution_ptr->n_user,
+						(double) solution_ptr->isotopes[k].isotope_number,
+						solution_ptr->isotopes[k].elt_name);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
 		}
@@ -3640,7 +3628,7 @@ check_isotopes (struct inverse *inv_ptr)
 	{
 		for (i = 0; i < inv_ptr->count_isotopes; i++)
 		{
-			primary_ptr = master_bsearch (inv_ptr->isotopes[i].elt_name);
+			primary_ptr = master_bsearch(inv_ptr->isotopes[i].elt_name);
 			isotope_number = inv_ptr->isotopes[i].isotope_number;
 			found_isotope = FALSE;
 			for (k = 0; k < inv_ptr->phases[j].count_isotopes; k++)
@@ -3671,11 +3659,11 @@ check_isotopes (struct inverse *inv_ptr)
 					}
 					else
 					{
-						sprintf (error_string,
-								 "In phase %s, isotope ratio(s) are needed for element: %g%s.",
-								 phase_ptr->name, (double) isotope_number,
-								 primary_ptr->elt->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"In phase %s, isotope ratio(s) are needed for element: %g%s.",
+								phase_ptr->name, (double) isotope_number,
+								primary_ptr->elt->name);
+						error_msg(error_string, CONTINUE);
 						input_error++;
 						break;
 					}
@@ -3689,7 +3677,7 @@ check_isotopes (struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-phase_isotope_inequalities (struct inverse *inv_ptr)
+phase_isotope_inequalities(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
@@ -3745,17 +3733,17 @@ phase_isotope_inequalities (struct inverse *inv_ptr)
 				array[count_rows * max_column_count + col_phases + i] =
 					inv_ptr->phases[i].isotopes[j].ratio_uncertainty;
 				array[count_rows * max_column_count + column] = 1.0;
-				sprintf (token, "%s %s", inv_ptr->phases[i].phase->name,
-						 "iso pos");
-				row_name[count_rows] = string_hsave (token);
+				sprintf(token, "%s %s", inv_ptr->phases[i].phase->name,
+						"iso pos");
+				row_name[count_rows] = string_hsave(token);
 				count_rows++;
 
 				array[count_rows * max_column_count + col_phases + i] =
 					inv_ptr->phases[i].isotopes[j].ratio_uncertainty;
 				array[count_rows * max_column_count + column] = -1.0;
-				sprintf (token, "%s %s", inv_ptr->phases[i].phase->name,
-						 "iso neg");
-				row_name[count_rows] = string_hsave (token);
+				sprintf(token, "%s %s", inv_ptr->phases[i].phase->name,
+						"iso neg");
+				row_name[count_rows] = string_hsave(token);
 				count_rows++;
 
 				/* for phases constrained to dissolve */
@@ -3765,28 +3753,28 @@ phase_isotope_inequalities (struct inverse *inv_ptr)
 				array[count_rows * max_column_count + col_phases + i] =
 					-inv_ptr->phases[i].isotopes[j].ratio_uncertainty;
 				array[count_rows * max_column_count + column] = -1.0;
-				sprintf (token, "%s %s", inv_ptr->phases[i].phase->name,
-						 "iso pos");
-				row_name[count_rows] = string_hsave (token);
+				sprintf(token, "%s %s", inv_ptr->phases[i].phase->name,
+						"iso pos");
+				row_name[count_rows] = string_hsave(token);
 				count_rows++;
 
 				array[count_rows * max_column_count + col_phases + i] =
 					-inv_ptr->phases[i].isotopes[j].ratio_uncertainty;
 				array[count_rows * max_column_count + column] = 1.0;
-				sprintf (token, "%s %s", inv_ptr->phases[i].phase->name,
-						 "iso neg");
-				row_name[count_rows] = string_hsave (token);
+				sprintf(token, "%s %s", inv_ptr->phases[i].phase->name,
+						"iso neg");
+				row_name[count_rows] = string_hsave(token);
 				count_rows++;
 
 				/* Error if phase is not constrained */
 			}
 			else
 			{
-				sprintf (error_string,
-						 "In isotope calculations, all phases containing isotopes must be"
-						 " constrained.\nPhase %s is not constrained.\n",
-						 inv_ptr->phases[i].phase->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"In isotope calculations, all phases containing isotopes must be"
+						" constrained.\nPhase %s is not constrained.\n",
+						inv_ptr->phases[i].phase->name);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				continue;
 			}
@@ -3797,7 +3785,7 @@ phase_isotope_inequalities (struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-write_optimize_names (struct inverse *inv_ptr)
+write_optimize_names(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, row;
@@ -3810,9 +3798,9 @@ write_optimize_names (struct inverse *inv_ptr)
 	{
 		for (i = 0; i < inv_ptr->count_solns; i++)
 		{
-			sprintf (token, "%s %s %d", "optimize",
-					 inv_ptr->elts[j].master->elt->name, inv_ptr->solns[i]);
-			row_name[row] = string_hsave (token);
+			sprintf(token, "%s %s %d", "optimize",
+					inv_ptr->elts[j].master->elt->name, inv_ptr->solns[i]);
+			row_name[row] = string_hsave(token);
 			row++;
 		}
 	}
@@ -3823,16 +3811,16 @@ write_optimize_names (struct inverse *inv_ptr)
 	{
 		for (i = 0; i < inv_ptr->count_solns; i++)
 		{
-			sprintf (token, "%s %s %d", "optimize", "pH", inv_ptr->solns[i]);
-			row_name[row] = string_hsave (token);
+			sprintf(token, "%s %s %d", "optimize", "pH", inv_ptr->solns[i]);
+			row_name[row] = string_hsave(token);
 			row++;
 		}
 	}
 /*
  *   water
  */
-	sprintf (token, "%s %s", "optimize", "water");
-	row_name[row] = string_hsave (token);
+	sprintf(token, "%s %s", "optimize", "water");
+	row_name[row] = string_hsave(token);
 	row++;
 /*
  *   solution isotopes
@@ -3841,11 +3829,10 @@ write_optimize_names (struct inverse *inv_ptr)
 	{
 		for (j = 0; j < inv_ptr->count_isotope_unknowns; j++)
 		{
-			sprintf (token, "%s %d%s %d", "optimize",
-					 (int) inv_ptr->isotope_unknowns[j].isotope_number,
-					 inv_ptr->isotope_unknowns[j].elt_name,
-					 inv_ptr->solns[i]);
-			row_name[row] = string_hsave (token);
+			sprintf(token, "%s %d%s %d", "optimize",
+					(int) inv_ptr->isotope_unknowns[j].isotope_number,
+					inv_ptr->isotope_unknowns[j].elt_name, inv_ptr->solns[i]);
+			row_name[row] = string_hsave(token);
 			row++;
 		}
 	}
@@ -3857,11 +3844,11 @@ write_optimize_names (struct inverse *inv_ptr)
 	{
 		for (j = 0; j < inv_ptr->count_isotopes; j++)
 		{
-			sprintf (token, "%s %s %d%s", "optimize",
-					 inv_ptr->phases[i].phase->name,
-					 (int) inv_ptr->isotopes[j].isotope_number,
-					 inv_ptr->isotopes[j].elt_name);
-			row_name[row] = string_hsave (token);
+			sprintf(token, "%s %s %d%s", "optimize",
+					inv_ptr->phases[i].phase->name,
+					(int) inv_ptr->isotopes[j].isotope_number,
+					inv_ptr->isotopes[j].elt_name);
+			row_name[row] = string_hsave(token);
 			row++;
 		}
 	}
@@ -3870,7 +3857,7 @@ write_optimize_names (struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 void
-dump_netpath (struct inverse *inverse_ptr)
+dump_netpath(struct inverse *inverse_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, l;
@@ -3882,22 +3869,22 @@ dump_netpath (struct inverse *inverse_ptr)
 		return;
 
 	/* open file */
-	strcpy (string, inverse_ptr->netpath);
-	if (replace (".lon", ".lon", string) != TRUE)
+	strcpy(string, inverse_ptr->netpath);
+	if (replace(".lon", ".lon", string) != TRUE)
 	{
-		strcat (string, ".lon");
+		strcat(string, ".lon");
 	}
-	netpath_file = fopen (string, "w");
+	netpath_file = fopen(string, "w");
 	if (netpath_file == NULL)
 	{
-		sprintf (error_string, "Can't open file, %s.", inverse_ptr->netpath);
-		error_msg (error_string, STOP);
+		sprintf(error_string, "Can't open file, %s.", inverse_ptr->netpath);
+		error_msg(error_string, STOP);
 	}
-	add_to_file ("netpath.fil", inverse_ptr->netpath);
+	add_to_file("netpath.fil", inverse_ptr->netpath);
 
 	/* Header */
-	fprintf (netpath_file,
-			 "2.14                                                       # File format\n");
+	fprintf(netpath_file,
+			"2.14                                                       # File format\n");
 
 	/* write out each solution */
 	for (i = 0; i < count_solution; i++)
@@ -3907,193 +3894,190 @@ dump_netpath (struct inverse *inverse_ptr)
 
 		/* flags and description */
 		ptr = solution[i]->description;
-		j = copy_token (string, &ptr, &l);
+		j = copy_token(string, &ptr, &l);
 		if (j != EMPTY)
 		{
-			sprintf (string, "%s", solution[i]->description);
+			sprintf(string, "%s", solution[i]->description);
 		}
 		else
 		{
-			sprintf (string, "Solution %d", solution[i]->n_user);
+			sprintf(string, "Solution %d", solution[i]->n_user);
 		}
-		fprintf (netpath_file, "4020%s\n", string);
+		fprintf(netpath_file, "4020%s\n", string);
 
 		/* lat/lon */
-		fprintf (netpath_file,
-				 "                                                           # Lat/lon\n");
+		fprintf(netpath_file,
+				"                                                           # Lat/lon\n");
 
 		/* well number */
-		fprintf (netpath_file,
-				 "%15d                                            # Well number\n",
-				 solution[i]->n_user);
+		fprintf(netpath_file,
+				"%15d                                            # Well number\n",
+				solution[i]->n_user);
 
 		/* total number of wells */
-		fprintf (netpath_file,
-				 "%15d                                            # Total wells\n",
-				 count_solution);
+		fprintf(netpath_file,
+				"%15d                                            # Total wells\n",
+				count_solution);
 
 		/* address */
-		fprintf (netpath_file,
-				 "                                                           # Address1\n");
-		fprintf (netpath_file,
-				 "                                                           # Address2\n");
-		fprintf (netpath_file,
-				 "                                                           # Address3\n");
-		fprintf (netpath_file,
-				 "                                                           # Address4\n");
-		fprintf (netpath_file,
-				 "                                                           # Address5\n");
+		fprintf(netpath_file,
+				"                                                           # Address1\n");
+		fprintf(netpath_file,
+				"                                                           # Address2\n");
+		fprintf(netpath_file,
+				"                                                           # Address3\n");
+		fprintf(netpath_file,
+				"                                                           # Address4\n");
+		fprintf(netpath_file,
+				"                                                           # Address5\n");
 
 		/* temperature */
-		fprintf (netpath_file,
-				 "%15g                                            # Temperature\n",
-				 (double) solution[i]->tc);
+		fprintf(netpath_file,
+				"%15g                                            # Temperature\n",
+				(double) solution[i]->tc);
 
 		/* pH */
-		fprintf (netpath_file,
-				 "%15g                                            # pH\n",
-				 (double) solution[i]->ph);
+		fprintf(netpath_file,
+				"%15g                                            # pH\n",
+				(double) solution[i]->ph);
 
 		/* DO */
-		print_total (netpath_file, solution[i], "O(0)", "Dissolved Oxygen");
+		print_total(netpath_file, solution[i], "O(0)", "Dissolved Oxygen");
 
 		/* TDIC */
-		print_total (netpath_file, solution[i], "C(4)", "TDIC");
+		print_total(netpath_file, solution[i], "C(4)", "TDIC");
 
 		/* Tritium */
-		print_isotope (netpath_file, solution[i], "3H(1)", "Tritium");
+		print_isotope(netpath_file, solution[i], "3H(1)", "Tritium");
 
 		/* H2S */
-		print_total (netpath_file, solution[i], "S(-2)", "H2S");
+		print_total(netpath_file, solution[i], "S(-2)", "H2S");
 
 		/* Calcium */
-		print_total (netpath_file, solution[i], "Ca", "Calcium");
+		print_total(netpath_file, solution[i], "Ca", "Calcium");
 
 		/* Eh */
-		fprintf (netpath_file,
-				 "%15g                                            # Eh\n",
-				 (double) (0.059 * solution[i]->solution_pe));
+		fprintf(netpath_file,
+				"%15g                                            # Eh\n",
+				(double) (0.059 * solution[i]->solution_pe));
 
 		/* Magnesium */
-		print_total (netpath_file, solution[i], "Mg", "Magnesium");
+		print_total(netpath_file, solution[i], "Mg", "Magnesium");
 
 		/* Sodium */
-		print_total (netpath_file, solution[i], "Na", "Sodium");
+		print_total(netpath_file, solution[i], "Na", "Sodium");
 
 		/* Potassium */
-		print_total (netpath_file, solution[i], "K", "Potassium");
+		print_total(netpath_file, solution[i], "K", "Potassium");
 
 		/* Chloride */
-		print_total (netpath_file, solution[i], "Cl", "Chloride");
+		print_total(netpath_file, solution[i], "Cl", "Chloride");
 
 		/* Sulfate */
-		print_total (netpath_file, solution[i], "S(6)", "Sulfate");
+		print_total(netpath_file, solution[i], "S(6)", "Sulfate");
 
 		/* Fluoride */
-		print_total (netpath_file, solution[i], "F", "Fluoride");
+		print_total(netpath_file, solution[i], "F", "Fluoride");
 
 		/* Silica */
-		print_total (netpath_file, solution[i], "Si", "Silica");
+		print_total(netpath_file, solution[i], "Si", "Silica");
 
 		/* Bromide */
-		print_total (netpath_file, solution[i], "Br", "Bromide");
+		print_total(netpath_file, solution[i], "Br", "Bromide");
 
 		/* Boron */
-		print_total (netpath_file, solution[i], "B", "Boron");
+		print_total(netpath_file, solution[i], "B", "Boron");
 
 		/* Barium */
-		print_total (netpath_file, solution[i], "Ba", "Barium");
+		print_total(netpath_file, solution[i], "Ba", "Barium");
 
 		/* Lithium */
-		print_total (netpath_file, solution[i], "Li", "Lithium");
+		print_total(netpath_file, solution[i], "Li", "Lithium");
 
 		/* Strontium */
-		print_total (netpath_file, solution[i], "Sr", "Strontium");
+		print_total(netpath_file, solution[i], "Sr", "Strontium");
 
 		/* Iron */
-		print_total_multi (netpath_file, solution[i], "Iron", "Fe", "Fe(2)",
-						   "Fe(3)", "", "");
+		print_total_multi(netpath_file, solution[i], "Iron", "Fe", "Fe(2)",
+						  "Fe(3)", "", "");
 
 
 		/* Manganese */
-		print_total_multi (netpath_file, solution[i], "Manganese", "Mn",
-						   "Mn(2)", "Mn(3)", "Mn(6)", "Mn(7)");
+		print_total_multi(netpath_file, solution[i], "Manganese", "Mn",
+						  "Mn(2)", "Mn(3)", "Mn(6)", "Mn(7)");
 
 		/* Nitrate */
-		print_total (netpath_file, solution[i], "N(5)", "Nitrate");
+		print_total(netpath_file, solution[i], "N(5)", "Nitrate");
 
 		/* Ammonium */
-		print_total_multi (netpath_file, solution[i], "Ammonium", "N(-3)",
-						   "Amm", "", "", "");
+		print_total_multi(netpath_file, solution[i], "Ammonium", "N(-3)",
+						  "Amm", "", "", "");
 
 		/* Phosphate */
-		print_total (netpath_file, solution[i], "P", "Phosphate");
+		print_total(netpath_file, solution[i], "P", "Phosphate");
 
 		/* DOC */
-		print_total_multi (netpath_file, solution[i], "DOC", "Fulvate",
-						   "Humate", "", "", "");
+		print_total_multi(netpath_file, solution[i], "DOC", "Fulvate",
+						  "Humate", "", "", "");
 
 		/* Sp. Cond. */
-		fprintf (netpath_file,
-				 "                                                           # Sp. Cond.\n");
+		fprintf(netpath_file,
+				"                                                           # Sp. Cond.\n");
 
 		/* Density */
-		fprintf (netpath_file,
-				 "                                                           # Density\n");
+		fprintf(netpath_file,
+				"                                                           # Density\n");
 
 		/* Delta C-13 TDIC */
-		print_isotope (netpath_file, solution[i], "13C(4)",
-					   "Delta C-13 TDIC");
+		print_isotope(netpath_file, solution[i], "13C(4)", "Delta C-13 TDIC");
 
 		/* C-14 TDIC */
-		print_isotope (netpath_file, solution[i], "14C(4)", "C-14 TDIC");
+		print_isotope(netpath_file, solution[i], "14C(4)", "C-14 TDIC");
 
 		/* Delta S-34 (SO4) */
-		print_isotope (netpath_file, solution[i], "34S(6)",
-					   "Delta S-34 (SO4)");
+		print_isotope(netpath_file, solution[i], "34S(6)",
+					  "Delta S-34 (SO4)");
 
 		/* Delta S-34 (H2S) */
-		print_isotope (netpath_file, solution[i], "34S(-2)",
-					   "Delta S-34 (H2S)");
+		print_isotope(netpath_file, solution[i], "34S(-2)",
+					  "Delta S-34 (H2S)");
 
 		/* Delta Deuterium */
-		print_isotope (netpath_file, solution[i], "2H(1)", "Delta Deuterium");
+		print_isotope(netpath_file, solution[i], "2H(1)", "Delta Deuterium");
 
 		/* Delta O-18 */
-		print_isotope (netpath_file, solution[i], "18O(-2)", "Delta O-18");
+		print_isotope(netpath_file, solution[i], "18O(-2)", "Delta O-18");
 
 		/* CH4 (aq) */
-		print_total (netpath_file, solution[i], "C(-4)", "CH4 (aq)");
+		print_total(netpath_file, solution[i], "C(-4)", "CH4 (aq)");
 
 		/* Sr 87/86 */
-		print_isotope (netpath_file, solution[i], "87Sr", "Sr 87/86");
+		print_isotope(netpath_file, solution[i], "87Sr", "Sr 87/86");
 
 		/* Al */
-		print_total (netpath_file, solution[i], "Al", "Alumninum");
+		print_total(netpath_file, solution[i], "Al", "Alumninum");
 
 		/* N2 (aq) */
-		print_total (netpath_file, solution[i], "N(0)", "N2 (aq)");
+		print_total(netpath_file, solution[i], "N(0)", "N2 (aq)");
 
 		/* N-15 of N2 (aq) */
-		print_isotope (netpath_file, solution[i], "15N(0)",
-					   "N-15 of N2 (aq)");
+		print_isotope(netpath_file, solution[i], "15N(0)", "N-15 of N2 (aq)");
 
 		/* N-15 of Nitrate */
-		print_isotope (netpath_file, solution[i], "15N(5)",
-					   "N-15 of Nitrate");
+		print_isotope(netpath_file, solution[i], "15N(5)", "N-15 of Nitrate");
 
 		/* N-15 of Ammonium */
-		print_isotope (netpath_file, solution[i], "15N(-3)",
-					   "N-15 of Ammonium");
+		print_isotope(netpath_file, solution[i], "15N(-3)",
+					  "N-15 of Ammonium");
 
 		/* Formation */
-		fprintf (netpath_file,
-				 "                                                           # Formation\n");
+		fprintf(netpath_file,
+				"                                                           # Formation\n");
 
 	}
 	if (netpath_file != NULL)
 	{
-		fclose (netpath_file);
+		fclose(netpath_file);
 		netpath_file = NULL;
 	}
 	return;
@@ -4101,14 +4085,14 @@ dump_netpath (struct inverse *inverse_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct conc *
-get_total (struct solution *solution_ptr, const char *elt)
+get_total(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
 
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 	{
-		if (strcmp (elt, solution_ptr->totals[i].description) == 0)
+		if (strcmp(elt, solution_ptr->totals[i].description) == 0)
 			return (&solution_ptr->totals[i]);
 	}
 	return (NULL);
@@ -4117,14 +4101,14 @@ get_total (struct solution *solution_ptr, const char *elt)
 
 /* ---------------------------------------------------------------------- */
 struct isotope *
-get_isotope (struct solution *solution_ptr, const char *elt)
+get_isotope(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
 
 	for (i = 0; i < solution_ptr->count_isotopes; i++)
 	{
-		if (strcmp (elt, solution_ptr->isotopes[i].isotope_name) == 0)
+		if (strcmp(elt, solution_ptr->isotopes[i].isotope_name) == 0)
 			return (&solution_ptr->isotopes[i]);
 	}
 	return (NULL);
@@ -4132,54 +4116,54 @@ get_isotope (struct solution *solution_ptr, const char *elt)
 
 /* ---------------------------------------------------------------------- */
 void
-print_total (FILE * netpath_file, struct solution *solution_ptr,
-			 const char *elt, const char *string)
+print_total(FILE * netpath_file, struct solution *solution_ptr,
+			const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	struct conc *tot_ptr;
-	tot_ptr = get_total (solution_ptr, elt);
+	tot_ptr = get_total(solution_ptr, elt);
 	if (tot_ptr == NULL)
 	{
-		fprintf (netpath_file,
-				 "                                                           # %s\n",
-				 string);
+		fprintf(netpath_file,
+				"                                                           # %s\n",
+				string);
 	}
 	else
 	{
-		fprintf (netpath_file,
-				 "%15g                                            # %s\n",
-				 (double) (1000 * tot_ptr->moles / solution_ptr->mass_water),
-				 string);
+		fprintf(netpath_file,
+				"%15g                                            # %s\n",
+				(double) (1000 * tot_ptr->moles / solution_ptr->mass_water),
+				string);
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 void
-print_isotope (FILE * netpath_file, struct solution *solution_ptr,
-			   const char *elt, const char *string)
+print_isotope(FILE * netpath_file, struct solution *solution_ptr,
+			  const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	struct isotope *iso_ptr;
-	iso_ptr = get_isotope (solution_ptr, elt);
+	iso_ptr = get_isotope(solution_ptr, elt);
 	if (iso_ptr == NULL)
 	{
-		fprintf (netpath_file,
-				 "                                                           # %s\n",
-				 string);
+		fprintf(netpath_file,
+				"                                                           # %s\n",
+				string);
 	}
 	else
 	{
-		fprintf (netpath_file,
-				 "%15g                                            # %s\n",
-				 (double) iso_ptr->ratio, string);
+		fprintf(netpath_file,
+				"%15g                                            # %s\n",
+				(double) iso_ptr->ratio, string);
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 void
-print_total_multi (FILE * netpath_file, struct solution *solution_ptr,
-				   const char *string, const char *elt0, const char *elt1,
-				   const char *elt2, const char *elt3, const char *elt4)
+print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
+				  const char *string, const char *elt0, const char *elt1,
+				  const char *elt2, const char *elt3, const char *elt4)
 /* ---------------------------------------------------------------------- */
 {
 	char elts[5][MAX_LENGTH];
@@ -4187,18 +4171,18 @@ print_total_multi (FILE * netpath_file, struct solution *solution_ptr,
 	LDBLE sum;
 	int i, found;
 
-	strcpy (elts[0], elt0);
-	strcpy (elts[1], elt1);
-	strcpy (elts[2], elt2);
-	strcpy (elts[3], elt3);
-	strcpy (elts[4], elt4);
+	strcpy(elts[0], elt0);
+	strcpy(elts[1], elt1);
+	strcpy(elts[2], elt2);
+	strcpy(elts[3], elt3);
+	strcpy(elts[4], elt4);
 
 
 	sum = 0;
 	found = FALSE;
 	for (i = 0; i < 5; i++)
 	{
-		tot_ptr = get_total (solution_ptr, elts[i]);
+		tot_ptr = get_total(solution_ptr, elts[i]);
 		if (tot_ptr == NULL)
 		{
 			continue;
@@ -4211,22 +4195,22 @@ print_total_multi (FILE * netpath_file, struct solution *solution_ptr,
 	}
 	if (found != TRUE)
 	{
-		fprintf (netpath_file,
-				 "                                                           # %s\n",
-				 string);
+		fprintf(netpath_file,
+				"                                                           # %s\n",
+				string);
 	}
 	else
 	{
-		fprintf (netpath_file,
-				 "%15g                                            # %s\n",
-				 (double) (1000 * sum / solution_ptr->mass_water), string);
+		fprintf(netpath_file,
+				"%15g                                            # %s\n",
+				(double) (1000 * sum / solution_ptr->mass_water), string);
 	}
 	return;
 }
 
 /* ---------------------------------------------------------------------- */
 int
-dump_netpath_pat (struct inverse *inv_ptr)
+dump_netpath_pat(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -4273,13 +4257,13 @@ dump_netpath_pat (struct inverse *inv_ptr)
 
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE)
 			continue;
-		solution_ptr_orig = solution_bsearch (inv_ptr->solns[i], &j, TRUE);
+		solution_ptr_orig = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 
-		solution_duplicate (solution_ptr_orig->n_user, -6);
-		solution_ptr = solution_bsearch (-6, &j, TRUE);
-		xsolution_zero ();
+		solution_duplicate(solution_ptr_orig->n_user, -6);
+		solution_ptr = solution_bsearch(-6, &j, TRUE);
+		xsolution_zero();
 
 		/* Adjust pH */
 		if (inv_ptr->carbon == TRUE)
@@ -4293,7 +4277,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		/* put original totals in master */
 		for (j = 0; solution_ptr->totals[j].description != NULL; j++)
 		{
-			master_ptr = master_bsearch (solution_ptr->totals[j].description);
+			master_ptr = master_bsearch(solution_ptr->totals[j].description);
 			master_ptr->total = solution_ptr->totals[j].moles;
 		}
 
@@ -4315,7 +4299,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		/* put updated total back in solution */
 		for (j = 0; solution_ptr->totals[j].description != NULL; j++)
 		{
-			master_ptr = master_bsearch (solution_ptr->totals[j].description);
+			master_ptr = master_bsearch(solution_ptr->totals[j].description);
 			solution_ptr->totals[j].moles = master_ptr->total;
 		}
 
@@ -4343,24 +4327,24 @@ dump_netpath_pat (struct inverse *inv_ptr)
 			}
 		}
 
-		set_initial_solution (-6, -7);
+		set_initial_solution(-6, -7);
 		temp = pr.all;
 		pr.all = FALSE;
-		initial_solutions (FALSE);
+		initial_solutions(FALSE);
 		pr.all = temp;
-		solution_ptr = solution_bsearch (-7, &j, TRUE);
+		solution_ptr = solution_bsearch(-7, &j, TRUE);
 
 		/* Header */
 		ptr = solution_ptr_orig->description;
-		if (copy_token (string, &ptr, &l) != EMPTY)
+		if (copy_token(string, &ptr, &l) != EMPTY)
 		{
-			fprintf (netpath_file, "%d. %s\n", count_inverse_models,
-					 solution_ptr_orig->description);
+			fprintf(netpath_file, "%d. %s\n", count_inverse_models,
+					solution_ptr_orig->description);
 		}
 		else
 		{
-			fprintf (netpath_file, "%d. Solution %d\n", count_inverse_models,
-					 solution_ptr_orig->n_user);
+			fprintf(netpath_file, "%d. Solution %d\n", count_inverse_models,
+					solution_ptr_orig->n_user);
 		}
 
 		/* bookkeeping */
@@ -4370,150 +4354,145 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		count_current_solutions++;
 
 		/* Dump info to .pat file */
-		print_total_pat (netpath_file, "C", "C");
-		print_total_pat (netpath_file, "S", "S");
-		print_total_pat (netpath_file, "Ca", "CA");
-		print_total_pat (netpath_file, "Al", "AL");
-		print_total_pat (netpath_file, "Mg", "MG");
-		print_total_pat (netpath_file, "Na", "NA");
-		print_total_pat (netpath_file, "K", "K");
-		print_total_pat (netpath_file, "Cl", "CL");
-		print_total_pat (netpath_file, "F", "F");
-		print_total_pat (netpath_file, "Si", "SI");
-		print_total_pat (netpath_file, "Br", "BR");
-		print_total_pat (netpath_file, "B", "B");
-		print_total_pat (netpath_file, "Ba", "BA");
-		print_total_pat (netpath_file, "Li", "LI");
-		print_total_pat (netpath_file, "Sr", "SR");
-		print_total_pat (netpath_file, "Fe", "FE");
-		print_total_pat (netpath_file, "Mn", "MN");
-		print_total_pat (netpath_file, "N", "N");
-		print_total_pat (netpath_file, "P", "P");
-		fprintf (netpath_file, "%14g     # TEMP\n",
-				 (double) solution_ptr->tc);
-		print_total_pat (netpath_file, "S(-2)", "H2S");
-		print_total_pat (netpath_file, "S(6)", "SO4");
+		print_total_pat(netpath_file, "C", "C");
+		print_total_pat(netpath_file, "S", "S");
+		print_total_pat(netpath_file, "Ca", "CA");
+		print_total_pat(netpath_file, "Al", "AL");
+		print_total_pat(netpath_file, "Mg", "MG");
+		print_total_pat(netpath_file, "Na", "NA");
+		print_total_pat(netpath_file, "K", "K");
+		print_total_pat(netpath_file, "Cl", "CL");
+		print_total_pat(netpath_file, "F", "F");
+		print_total_pat(netpath_file, "Si", "SI");
+		print_total_pat(netpath_file, "Br", "BR");
+		print_total_pat(netpath_file, "B", "B");
+		print_total_pat(netpath_file, "Ba", "BA");
+		print_total_pat(netpath_file, "Li", "LI");
+		print_total_pat(netpath_file, "Sr", "SR");
+		print_total_pat(netpath_file, "Fe", "FE");
+		print_total_pat(netpath_file, "Mn", "MN");
+		print_total_pat(netpath_file, "N", "N");
+		print_total_pat(netpath_file, "P", "P");
+		fprintf(netpath_file, "%14g     # TEMP\n", (double) solution_ptr->tc);
+		print_total_pat(netpath_file, "S(-2)", "H2S");
+		print_total_pat(netpath_file, "S(6)", "SO4");
 
 		/* N15 */
 		sum_iso = 0;
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "15N") !=
-				NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "15N") != NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # N15\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # N15\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # N15\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # N15\n",
+					(double) (sum_iso / sum));
 		}
 
 		/* RS of N */
 		sum = 0;
 		sum =
-			total ("N(-3)") * -3 + total ("N(0)") * 0 + total ("N(3)") * 3 +
-			total ("N(5)") * 5;
-		sum1 =
-			total ("N(-3)") + total ("N(0)") + total ("N(3)") +
-			total ("N(5)");
+			total("N(-3)") * -3 + total("N(0)") * 0 + total("N(3)") * 3 +
+			total("N(5)") * 5;
+		sum1 = total("N(-3)") + total("N(0)") + total("N(3)") + total("N(5)");
 		if (sum1 == 0)
 		{
-			fprintf (netpath_file, "%14g*    # RS of N\n", (double) sum1);
+			fprintf(netpath_file, "%14g*    # RS of N\n", (double) sum1);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # RS of N\n",
-					 (double) (sum / sum1));
+			fprintf(netpath_file, "%14g     # RS of N\n",
+					(double) (sum / sum1));
 		}
 
 		/* DOX */
-		print_total_pat (netpath_file, "O(0)", "DOX");
+		print_total_pat(netpath_file, "O(0)", "DOX");
 
 		/*HCO3 */
-		d = 1000 * sum_match_species ("*HCO3*", "C");
+		d = 1000 * sum_match_species("*HCO3*", "C");
 		if (d == 0.0)
 		{
-			fprintf (netpath_file, "%14g*    # HCO3\n", (double) d);
+			fprintf(netpath_file, "%14g*    # HCO3\n", (double) d);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # HCO3\n", (double) d);
+			fprintf(netpath_file, "%14g     # HCO3\n", (double) d);
 		}
 
 		/* pH */
-		fprintf (netpath_file, "%14g     # PH\n", (double) solution_ptr->ph);
+		fprintf(netpath_file, "%14g     # PH\n", (double) solution_ptr->ph);
 
 		/*H2CO3* */
-		d = 1000 * (molality ("H2CO3") + molality ("CO2"));
+		d = 1000 * (molality("H2CO3") + molality("CO2"));
 		if (d == 0.0)
 		{
-			fprintf (netpath_file, "%14g*    # H2CO3\n", (double) d);
+			fprintf(netpath_file, "%14g*    # H2CO3\n", (double) d);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # H2CO3\n", (double) d);
+			fprintf(netpath_file, "%14g     # H2CO3\n", (double) d);
 		}
 
 		/*CO3 */
-		d = sum_match_species ("*CO3*", "C");
-		d -= sum_match_species ("*HCO3*", "C");
+		d = sum_match_species("*CO3*", "C");
+		d -= sum_match_species("*HCO3*", "C");
 		d *= 1000.0;
 		if (d == 0.0)
 		{
-			fprintf (netpath_file, "%14g*     # CO3\n", (double) d);
+			fprintf(netpath_file, "%14g*     # CO3\n", (double) d);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # CO3\n", (double) d);
+			fprintf(netpath_file, "%14g     # CO3\n", (double) d);
 		}
 
 		/* CARBONATES */
-		print_total_pat (netpath_file, "C(4)", "CARBONATES");
-		print_total_pat (netpath_file, "Fe(2)", "FE2+");
-		print_total_pat (netpath_file, "Fe(3)", "FE3+");
-		print_total_pat (netpath_file, "Mn(2)", "MN2+");
-		print_total_pat (netpath_file, "Mn(3)", "MN3+");
-		print_total_pat (netpath_file, "Mn(6)", "MN6+");
-		print_total_pat (netpath_file, "Mn(7)", "MN7+");
-		print_total_pat (netpath_file, "C(-4)", "CH4");
-		print_total_pat (netpath_file, "Doc", "DOC");
+		print_total_pat(netpath_file, "C(4)", "CARBONATES");
+		print_total_pat(netpath_file, "Fe(2)", "FE2+");
+		print_total_pat(netpath_file, "Fe(3)", "FE3+");
+		print_total_pat(netpath_file, "Mn(2)", "MN2+");
+		print_total_pat(netpath_file, "Mn(3)", "MN3+");
+		print_total_pat(netpath_file, "Mn(6)", "MN6+");
+		print_total_pat(netpath_file, "Mn(7)", "MN7+");
+		print_total_pat(netpath_file, "C(-4)", "CH4");
+		print_total_pat(netpath_file, "Doc", "DOC");
 
 		/*RS OF DOC */
-		fprintf (netpath_file, "%14g*    # RS OF DOC\n", 0.0);
+		fprintf(netpath_file, "%14g*    # RS OF DOC\n", 0.0);
 
 		/* Blank */
-		print_total_pat (netpath_file, "Blank", "BLANK");
+		print_total_pat(netpath_file, "Blank", "BLANK");
 
 		/*C13 */
 		sum_iso = 0;
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "13C") !=
-				NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "13C") != NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # C13\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # C13\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # C13\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # C13\n",
+					(double) (sum_iso / sum));
 		}
 
 		/*C14 */
@@ -4521,22 +4500,21 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "14C") !=
-				NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "14C") != NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # C14\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # C14\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # C14\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # C14\n",
+					(double) (sum_iso / sum));
 		}
 
 		/*SR87 */
@@ -4544,43 +4522,42 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "87Sr") !=
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "87Sr") !=
 				NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # SR87\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # SR87\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # SR87\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # SR87\n",
+					(double) (sum_iso / sum));
 		}
 
 		 /*D*/ sum_iso = 0;
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "2H") != NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "2H") != NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # D\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # D\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # D\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # D\n", (double) (sum_iso / sum));
 		}
 
 		/*O-18 */
@@ -4588,21 +4565,20 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "18O") !=
-				NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "18O") != NULL)
 			{
-				if (strcmp (solution_ptr->isotopes[k].elt_name, "O(-2)") == 0)
+				if (strcmp(solution_ptr->isotopes[k].elt_name, "O(-2)") == 0)
 				{
-					d = solution_ptr->total_o - total ("O(0)");
+					d = solution_ptr->total_o - total("O(0)");
 				}
-				else if (strcmp (solution_ptr->isotopes[k].elt_name, "H(1)")
+				else if (strcmp(solution_ptr->isotopes[k].elt_name, "H(1)")
 						 == 0)
 				{
-					d = solution_ptr->total_h - total ("H(0)");
+					d = solution_ptr->total_h - total("H(0)");
 				}
 				else
 				{
-					d = total (solution_ptr->isotopes[k].elt_name);
+					d = total(solution_ptr->isotopes[k].elt_name);
 				}
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
@@ -4610,33 +4586,33 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # O-18\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # O-18\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # O-18\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # O-18\n",
+					(double) (sum_iso / sum));
 		}
 
 		 /*TRITIUM*/ sum_iso = 0;
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "3H") != NULL)
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "3H") != NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # TRITIUM\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # TRITIUM\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # TRITIUM\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # TRITIUM\n",
+					(double) (sum_iso / sum));
 		}
 
 		/*34SSO4 */
@@ -4644,22 +4620,22 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "34S(6)") !=
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "34S(6)") !=
 				NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # 34SSO4\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # 34SSO4\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # 34SSO4\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # 34SSO4\n",
+					(double) (sum_iso / sum));
 		}
 
 		/*34SH2S */
@@ -4667,29 +4643,29 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		sum = 0;
 		for (k = 0; k < solution_ptr->count_isotopes; k++)
 		{
-			if (strstr (solution_ptr->isotopes[k].isotope_name, "34S(-2)") !=
+			if (strstr(solution_ptr->isotopes[k].isotope_name, "34S(-2)") !=
 				NULL)
 			{
-				d = total (solution_ptr->isotopes[k].elt_name);
+				d = total(solution_ptr->isotopes[k].elt_name);
 				sum_iso += solution_ptr->isotopes[k].ratio * d;
 				sum += d;
 			}
 		}
 		if (sum == 0)
 		{
-			fprintf (netpath_file, "%14g*    # 34SH2S\n", (double) sum);
+			fprintf(netpath_file, "%14g*    # 34SH2S\n", (double) sum);
 		}
 		else
 		{
-			fprintf (netpath_file, "%14g     # 34SH2S\n",
-					 (double) (sum_iso / sum));
+			fprintf(netpath_file, "%14g     # 34SH2S\n",
+					(double) (sum_iso / sum));
 		}
 
 		/* Well number */
-		fprintf (netpath_file, "%14d     # Well number\n",
-				 count_pat_solutions);
+		fprintf(netpath_file, "%14d     # Well number\n",
+				count_pat_solutions);
 	}
-	free_model_allocs ();
+	free_model_allocs();
 	array = array_save;
 	delta = delta_save;
 	count_unknowns = count_unknowns_save;
@@ -4699,36 +4675,36 @@ dump_netpath_pat (struct inverse *inv_ptr)
 /*
  * Open model file
  */
-	strcpy (string, inv_ptr->pat);
-	replace (".pat", "", string);
-	string_trim (string);
-	sprintf (string1, "%s-%d.mod", string, count_inverse_models);
-	model_file = fopen (string1, "w");
+	strcpy(string, inv_ptr->pat);
+	replace(".pat", "", string);
+	string_trim(string);
+	sprintf(string1, "%s-%d.mod", string, count_inverse_models);
+	model_file = fopen(string1, "w");
 	if (model_file == NULL)
 	{
-		sprintf (error_string, "Can't open file, %s.", string);
-		error_msg (error_string, STOP);
+		sprintf(error_string, "Can't open file, %s.", string);
+		error_msg(error_string, STOP);
 	}
-	add_to_file ("model.fil", string1);
+	add_to_file("model.fil", string1);
 
 
 /*
  * Write header
  */
-	fprintf (model_file, "%s\n", string);
+	fprintf(model_file, "%s\n", string);
 
 /*
  * Write well numbers
  */
 	for (i = 0; i < count_current_solutions; i++)
 	{
-		fprintf (model_file, "%3d", solnmap[i][1]);
+		fprintf(model_file, "%3d", solnmap[i][1]);
 	}
-	fprintf (model_file, "\n");
+	fprintf(model_file, "\n");
 /*
  * Write elements
  */
-	xsolution_zero ();
+	xsolution_zero();
 	for (j = 0; j < count_master; j++)
 	{
 		master[j]->in = FALSE;
@@ -4737,15 +4713,15 @@ dump_netpath_pat (struct inverse *inv_ptr)
 	{
 		master_ptr = inv_ptr->elts[j].master;
 		master_ptr = master_ptr->elt->primary;
-		if (strcmp (master_ptr->elt->name, "Alkalinity") == 0)
+		if (strcmp(master_ptr->elt->name, "Alkalinity") == 0)
 			continue;
-		if (strcmp (master_ptr->elt->name, "H") == 0)
+		if (strcmp(master_ptr->elt->name, "H") == 0)
 			continue;
-		if (strcmp (master_ptr->elt->name, "O") == 0)
+		if (strcmp(master_ptr->elt->name, "O") == 0)
 			continue;
-		if (strcmp (master_ptr->elt->name, "X") == 0)
+		if (strcmp(master_ptr->elt->name, "X") == 0)
 			continue;
-		if (strcmp (master_ptr->elt->name, "E") == 0)
+		if (strcmp(master_ptr->elt->name, "E") == 0)
 			continue;
 		master_ptr->in = TRUE;
 	}
@@ -4753,39 +4729,39 @@ dump_netpath_pat (struct inverse *inv_ptr)
 	{
 		if (master[j]->in == TRUE)
 		{
-			strcpy (string, master[j]->elt->name);
-			str_toupper (string);
-			fprintf (model_file, " %-2s", string);
+			strcpy(string, master[j]->elt->name);
+			str_toupper(string);
+			fprintf(model_file, " %-2s", string);
 		}
 	}
-	fprintf (model_file, " %-2s", "RS");
+	fprintf(model_file, " %-2s", "RS");
 /*
  * Add isotope mole balance
  */
 	for (j = 0; j < inv_ptr->count_isotopes; j++)
 	{
-		sprintf (string, "%d%s", (int) inv_ptr->isotopes[j].isotope_number,
-				 inv_ptr->isotopes[j].elt_name);
-		if (strcmp (string, "13C") == 0)
-			fprintf (model_file, " %-2s", "I1");
-		if (strcmp (string, "14C") == 0)
-			fprintf (model_file, " %-2s", "I2");
-		if (strcmp (string, "34S") == 0)
-			fprintf (model_file, " %-2s", "I3");
-		if (strcmp (string, "87Sr") == 0)
-			fprintf (model_file, " %-2s", "I4");
-		if (strcmp (string, "15N") == 0)
-			fprintf (model_file, " %-2s", "I9");
-		if (strcmp (string, "2H") == 0)
-			fprintf (model_file, " %-2s", "D ");
-		if (strcmp (string, "3H") == 0)
-			fprintf (model_file, " %-2s", "TR");
-		if (strcmp (string, "18O") == 0)
-			fprintf (model_file, " %-2s", "18");
+		sprintf(string, "%d%s", (int) inv_ptr->isotopes[j].isotope_number,
+				inv_ptr->isotopes[j].elt_name);
+		if (strcmp(string, "13C") == 0)
+			fprintf(model_file, " %-2s", "I1");
+		if (strcmp(string, "14C") == 0)
+			fprintf(model_file, " %-2s", "I2");
+		if (strcmp(string, "34S") == 0)
+			fprintf(model_file, " %-2s", "I3");
+		if (strcmp(string, "87Sr") == 0)
+			fprintf(model_file, " %-2s", "I4");
+		if (strcmp(string, "15N") == 0)
+			fprintf(model_file, " %-2s", "I9");
+		if (strcmp(string, "2H") == 0)
+			fprintf(model_file, " %-2s", "D ");
+		if (strcmp(string, "3H") == 0)
+			fprintf(model_file, " %-2s", "TR");
+		if (strcmp(string, "18O") == 0)
+			fprintf(model_file, " %-2s", "18");
 	}
 
 	/* end of element line */
-	fprintf (model_file, "\n");
+	fprintf(model_file, "\n");
 
 /*
  * Write phase information
@@ -4797,7 +4773,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 /*    if (equal (delta1[j], 0.0, toler) == TRUE) continue;*/
 
 		/* Do not include Na exchange phase */
-		if (strcmp_nocase (inv_ptr->phases[i].name, "NaX") == 0)
+		if (strcmp_nocase(inv_ptr->phases[i].name, "NaX") == 0)
 			continue;
 /*
  * Determine if exchange reaction
@@ -4806,7 +4782,7 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		for (next_elt = inv_ptr->phases[i].phase->next_elt;
 			 next_elt->elt != NULL; next_elt++)
 		{
-			if (strcmp (next_elt->elt->name, "X") == 0)
+			if (strcmp(next_elt->elt->name, "X") == 0)
 			{
 				exch = TRUE;
 				break;
@@ -4815,8 +4791,8 @@ dump_netpath_pat (struct inverse *inv_ptr)
 /*
  * Write phase name and constraints
  */
-		strncpy (string, inv_ptr->phases[i].name, (size_t) 8);
-		str_ptr = string_pad (string, 10);
+		strncpy(string, inv_ptr->phases[i].name, (size_t) 8);
+		str_ptr = string_pad(string, 10);
 		str_ptr[10] = '\0';
 		if (inv_ptr->phases[i].force == TRUE)
 		{
@@ -4852,8 +4828,8 @@ dump_netpath_pat (struct inverse *inv_ptr)
 			}
 			break;
 		}
-		fprintf (model_file, "%-10s", str_ptr);
-		str_ptr = (char *) free_check_null (str_ptr);
+		fprintf(model_file, "%-10s", str_ptr);
+		str_ptr = (char *) free_check_null(str_ptr);
 /*
  *  Write stoichiometry
  */
@@ -4864,23 +4840,23 @@ dump_netpath_pat (struct inverse *inv_ptr)
 			if (exch == TRUE)
 				f = -1.0;
 			master_ptr = next_elt->elt->primary;
-			if (strcmp (master_ptr->elt->name, "Alkalinity") == 0)
+			if (strcmp(master_ptr->elt->name, "Alkalinity") == 0)
 				continue;
-			if (strcmp (master_ptr->elt->name, "H") == 0)
+			if (strcmp(master_ptr->elt->name, "H") == 0)
 				continue;
-			if (strcmp (master_ptr->elt->name, "O") == 0)
+			if (strcmp(master_ptr->elt->name, "O") == 0)
 				continue;
-			if (strcmp (master_ptr->elt->name, "E") == 0)
+			if (strcmp(master_ptr->elt->name, "E") == 0)
 				continue;
-			strcpy (string, master_ptr->elt->name);
-			if (strcmp (master_ptr->elt->name, "X") == 0)
+			strcpy(string, master_ptr->elt->name);
+			if (strcmp(master_ptr->elt->name, "X") == 0)
 			{
-				strcpy (string, "Na");
+				strcpy(string, "Na");
 				f = 1.0;
 			}
-			str_toupper (string);
-			fprintf (model_file, " %-2s%12.7f", string,
-					 (double) (next_elt->coef * f));
+			str_toupper(string);
+			fprintf(model_file, " %-2s%12.7f", string,
+					(double) (next_elt->coef * f));
 		}
 /*
  * Calculate RS
@@ -4909,18 +4885,18 @@ dump_netpath_pat (struct inverse *inv_ptr)
 			}
 			else
 			{
-				strcpy (string, rxn_ptr->s->secondary->elt->name);
-				replace ("(", " ", string);
-				replace (")", " ", string);
+				strcpy(string, rxn_ptr->s->secondary->elt->name);
+				replace("(", " ", string);
+				replace(")", " ", string);
 				ptr = string;
-				copy_token (token, &ptr, &l);
-				copy_token (string1, &ptr, &l);
-				sscanf (string1, SCANFORMAT, &f);
+				copy_token(token, &ptr, &l);
+				copy_token(string1, &ptr, &l);
+				sscanf(string1, SCANFORMAT, &f);
 				sum += f * rxn_ptr->coef;
 			}
 		}
 		if (sum != 0.0)
-			fprintf (model_file, " %-2s%12.7f", "RS", (double) sum);
+			fprintf(model_file, " %-2s%12.7f", "RS", (double) sum);
 /*
  * Add isotopes
  */
@@ -4947,34 +4923,34 @@ dump_netpath_pat (struct inverse *inv_ptr)
 				}
 			}
 			d3 = d1 + d2;
-			sprintf (string, "%d%s", (int) isotope_ptr[k].isotope_number,
-					 isotope_ptr[k].elt_name);
-			if (strcmp (string, "13C") == 0)
-				fprintf (model_file, " %-2s%12.7f", "I1", (double) d3);
-			if (strcmp (string, "14C") == 0)
-				fprintf (model_file, " %-2s%12.7f", "I2", (double) d3);
-			if (strcmp (string, "34S") == 0)
+			sprintf(string, "%d%s", (int) isotope_ptr[k].isotope_number,
+					isotope_ptr[k].elt_name);
+			if (strcmp(string, "13C") == 0)
+				fprintf(model_file, " %-2s%12.7f", "I1", (double) d3);
+			if (strcmp(string, "14C") == 0)
+				fprintf(model_file, " %-2s%12.7f", "I2", (double) d3);
+			if (strcmp(string, "34S") == 0)
 			{
-				fprintf (model_file, " %-2s%12.7f", "I3", (double) d3);
-				fprintf (model_file, " %-2s%12.7f", "I7", 0.0);
+				fprintf(model_file, " %-2s%12.7f", "I3", (double) d3);
+				fprintf(model_file, " %-2s%12.7f", "I7", 0.0);
 			}
-			if (strcmp (string, "87Sr") == 0)
-				fprintf (model_file, " %-2s%12.7f", "I4", (double) d3);
-			if (strcmp (string, "15N") == 0)
-				fprintf (model_file, " %-2s%12.7f", "I9", (double) d3);
-			if (strcmp (string, "2H") == 0)
-				fprintf (model_file, " %-2s%12.7f", "D ", (double) d3);
-			if (strcmp (string, "3H") == 0)
-				fprintf (model_file, " %-2s%12.7f", "TR", (double) d3);
-			if (strcmp (string, "18O") == 0)
-				fprintf (model_file, " %-2s%12.7f", "18", (double) d3);
+			if (strcmp(string, "87Sr") == 0)
+				fprintf(model_file, " %-2s%12.7f", "I4", (double) d3);
+			if (strcmp(string, "15N") == 0)
+				fprintf(model_file, " %-2s%12.7f", "I9", (double) d3);
+			if (strcmp(string, "2H") == 0)
+				fprintf(model_file, " %-2s%12.7f", "D ", (double) d3);
+			if (strcmp(string, "3H") == 0)
+				fprintf(model_file, " %-2s%12.7f", "TR", (double) d3);
+			if (strcmp(string, "18O") == 0)
+				fprintf(model_file, " %-2s%12.7f", "18", (double) d3);
 		}
 /*
  *  Done with stoichiometry
  */
-		fprintf (model_file, "\n");
+		fprintf(model_file, "\n");
 	}
-	fprintf (model_file, "\n");
+	fprintf(model_file, "\n");
 /*
  * Write extra stuff at bottom
  */
@@ -4992,32 +4968,32 @@ dump_netpath_pat (struct inverse *inv_ptr)
 	 */
 	/* iflags */
 	/*fprintf(model_file,"%2d", i); *//* not written, 1, mixing, number of mixing wells -1 */
-	fprintf (model_file, "%2d", 3);	/* 2, exchange */
+	fprintf(model_file, "%2d", 3);	/* 2, exchange */
 	i = 0;
 	if (inv_ptr->count_isotopes > 0)
 		i = 1;
-	fprintf (model_file, "%2d", i);	/* 3, Rayleigh */
-	fprintf (model_file, "%2d", 1);	/* 4, A0 model */
-	fprintf (model_file, "%2d", 0);	/* 5, Mook/Deines */
-	fprintf (model_file, "%2d", 0);	/* 6, Evaporation/Dilution */
+	fprintf(model_file, "%2d", i);	/* 3, Rayleigh */
+	fprintf(model_file, "%2d", 1);	/* 4, A0 model */
+	fprintf(model_file, "%2d", 0);	/* 5, Mook/Deines */
+	fprintf(model_file, "%2d", 0);	/* 6, Evaporation/Dilution */
 	/* p */
-	fprintf (model_file, "%8.4f%8.4f", 1.0, 0.0);	/* P(1),(2) fraction of CO2, fraction of Ca in exch */
-	fprintf (model_file, "000000");	/* isdocrs(0,5) doc, rs? */
-	fprintf (model_file, "%6.3f\n", 1.0);	/* disalong */
-	fprintf (model_file,
-			 "   0.000 100.000   0.000   0.000 -25.000 100.000 100.000\n");
-	fprintf (model_file,
-			 "   0.000   0.000      0.      0.   0.000   0.000  \n");
+	fprintf(model_file, "%8.4f%8.4f", 1.0, 0.0);	/* P(1),(2) fraction of CO2, fraction of Ca in exch */
+	fprintf(model_file, "000000");	/* isdocrs(0,5) doc, rs? */
+	fprintf(model_file, "%6.3f\n", 1.0);	/* disalong */
+	fprintf(model_file,
+			"   0.000 100.000   0.000   0.000 -25.000 100.000 100.000\n");
+	fprintf(model_file,
+			"   0.000   0.000      0.      0.   0.000   0.000  \n");
 	/* Final well data */
-	fprintf (model_file, " -40.000 -25.000   0.000   0.000   0.000\n");
+	fprintf(model_file, " -40.000 -25.000   0.000   0.000   0.000\n");
 	/* other wells */
 	for (i = 0; i < count_current_solutions - 1; i++)
 	{
-		fprintf (model_file,
-				 " -40.000 -25.000   0.000   0.000   0.000 100.000\n");
+		fprintf(model_file,
+				" -40.000 -25.000   0.000   0.000   0.000 100.000\n");
 	}
-	fprintf (model_file, "\n");
-	fclose (model_file);
+	fprintf(model_file, "\n");
+	fclose(model_file);
 
 /*
  *    Adjustments to phases
@@ -5029,16 +5005,16 @@ dump_netpath_pat (struct inverse *inv_ptr)
 		/*output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n"); */
 		for (i = 0; i < inv_ptr->count_phases; i++)
 		{
-			if (equal (delta1[j], 0.0, toler) == TRUE)
+			if (equal(delta1[j], 0.0, toler) == TRUE)
 				continue;
 
 
 			if (inv_ptr->phases[i].count_isotopes == 0)
 				continue;
 			j = col_phases + i;
-			if (equal (delta1[j], 0.0, toler) == TRUE &&
-				equal (min_delta[j], 0.0, toler) == TRUE &&
-				equal (max_delta[j], 0.0, toler) == TRUE)
+			if (equal(delta1[j], 0.0, toler) == TRUE &&
+				equal(min_delta[j], 0.0, toler) == TRUE &&
+				equal(max_delta[j], 0.0, toler) == TRUE)
 				continue;
 			isotope_ptr = inv_ptr->phases[i].isotopes;
 			for (j = 0; j < inv_ptr->count_isotopes; j++)
@@ -5062,30 +5038,29 @@ dump_netpath_pat (struct inverse *inv_ptr)
 						continue;
 					}
 					d3 = d1 + d2;
-					if (equal (d1, 0.0, 1e-7) == TRUE)
+					if (equal(d1, 0.0, 1e-7) == TRUE)
 						d1 = 0.0;
-					if (equal (d2, 0.0, 1e-7) == TRUE)
+					if (equal(d2, 0.0, 1e-7) == TRUE)
 						d2 = 0.0;
-					if (equal (d3, 0.0, 1e-7) == TRUE)
+					if (equal(d3, 0.0, 1e-7) == TRUE)
 						d3 = 0.0;
-					sprintf (token, "%d%s %s",
-							 (int) inv_ptr->isotopes[j].isotope_number,
-							 inv_ptr->isotopes[j].elt_name,
-							 inv_ptr->phases[i].phase->name);
-					output_msg (OUTPUT_MESSAGE,
-								"%15.15s   %12g  +%12g  =%12g", token,
-								(double) d1, (double) d2, (double) d3);
-					if (fabs (d2) >
-						(isotope_ptr[k].ratio_uncertainty + toler))
+					sprintf(token, "%d%s %s",
+							(int) inv_ptr->isotopes[j].isotope_number,
+							inv_ptr->isotopes[j].elt_name,
+							inv_ptr->phases[i].phase->name);
+					output_msg(OUTPUT_MESSAGE,
+							   "%15.15s   %12g  +%12g  =%12g", token,
+							   (double) d1, (double) d2, (double) d3);
+					if (fabs(d2) > (isotope_ptr[k].ratio_uncertainty + toler))
 					{
-						output_msg (OUTPUT_MESSAGE, " **");
+						output_msg(OUTPUT_MESSAGE, " **");
 						print_msg = TRUE;
 					}
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "\n");
 					if (isotope_ptr[k].ratio_uncertainty > 0)
 					{
 						scaled_error +=
-							fabs (d2) / isotope_ptr[k].ratio_uncertainty;
+							fabs(d2) / isotope_ptr[k].ratio_uncertainty;
 /* debug
 						output_msg(OUTPUT_MESSAGE, "%e\t%e\t%e\n", fabs(d2) / isotope_ptr[k].ratio_uncertainty, fabs(d2), isotope_ptr[k].ratio_uncertainty);
  */
@@ -5104,122 +5079,122 @@ dump_netpath_pat (struct inverse *inv_ptr)
 #ifdef SKIP
 	if (print_msg == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"\n**\tWARNING: The adjustment to at least one isotopic"
-					"\n\tcomposition of a phase exceeded the specified uncertainty"
-					"\n\tfor the phase.  If the phase is not constrained to dissolve"
-					"\n\tor precipitate, then the isotopic composition of the phase"
-					"\n\tis also unconstrained.\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n**\tWARNING: The adjustment to at least one isotopic"
+				   "\n\tcomposition of a phase exceeded the specified uncertainty"
+				   "\n\tfor the phase.  If the phase is not constrained to dissolve"
+				   "\n\tor precipitate, then the isotopic composition of the phase"
+				   "\n\tis also unconstrained.\n");
 	}
-	output_msg (OUTPUT_MESSAGE, "\n%-20.20s   %7s   %12.12s   %12.12s\n",
-				"Solution fractions:", " ", "Minimum", "Maximum");
+	output_msg(OUTPUT_MESSAGE, "\n%-20.20s   %7s   %12.12s   %12.12s\n",
+			   "Solution fractions:", " ", "Minimum", "Maximum");
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_msg (OUTPUT_MESSAGE, "%11s%4d   %12.3e   %12.3e   %12.3e\n",
-					"Solution", inv_ptr->solns[i], (double) d1, (double) d2,
-					(double) d3);
+		output_msg(OUTPUT_MESSAGE, "%11s%4d   %12.3e   %12.3e   %12.3e\n",
+				   "Solution", inv_ptr->solns[i], (double) d1, (double) d2,
+				   (double) d3);
 	}
 
-	output_msg (OUTPUT_MESSAGE, "\n%-25.25s   %2s   %12.12s   %12.12s\n",
-				"Phase mole transfers:", " ", "Minimum", "Maximum");
+	output_msg(OUTPUT_MESSAGE, "\n%-25.25s   %2s   %12.12s   %12.12s\n",
+			   "Phase mole transfers:", " ", "Minimum", "Maximum");
 	for (i = col_phases; i < col_redox; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE &&
-			equal (min_delta[i], 0.0, toler) == TRUE &&
-			equal (max_delta[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE &&
+			equal(min_delta[i], 0.0, toler) == TRUE &&
+			equal(max_delta[i], 0.0, toler) == TRUE)
 			continue;
 		d1 = delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
-		if (equal (d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d1 = 0.0;
-		if (equal (d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d2, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d2 = 0.0;
-		if (equal (d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
+		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_msg (OUTPUT_MESSAGE,
-					"%15.15s   %12.3e   %12.3e   %12.3e   %s\n", col_name[i],
-					(double) d1, (double) d2, (double) d3,
-					inv_ptr->phases[i - col_phases].phase->formula);
+		output_msg(OUTPUT_MESSAGE,
+				   "%15.15s   %12.3e   %12.3e   %12.3e   %s\n", col_name[i],
+				   (double) d1, (double) d2, (double) d3,
+				   inv_ptr->phases[i - col_phases].phase->formula);
 	}
 
-	output_msg (OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
+	output_msg(OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
 	for (i = col_redox; i < col_epsilon; i++)
 	{
-		if (equal (delta1[i], 0.0, toler) == TRUE)
+		if (equal(delta1[i], 0.0, toler) == TRUE)
 			continue;
-		output_msg (OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
-					(double) delta1[i]);
+		output_msg(OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
+				   (double) delta1[i]);
 	}
 
-	output_msg (OUTPUT_MESSAGE,
-				"\nSum of residuals (epsilons in documentation):      %12.3e\n",
-				((double) error / SCALE_EPSILON));
-	output_msg (OUTPUT_MESSAGE,
-				"Sum of delta/uncertainty limit:                    %12.3e\n",
-				(double) scaled_error);
-	output_msg (OUTPUT_MESSAGE,
-				"Maximum fractional error in element concentration: %12.3e\n",
-				(double) max_pct);
+	output_msg(OUTPUT_MESSAGE,
+			   "\nSum of residuals (epsilons in documentation):      %12.3e\n",
+			   ((double) error / SCALE_EPSILON));
+	output_msg(OUTPUT_MESSAGE,
+			   "Sum of delta/uncertainty limit:                    %12.3e\n",
+			   (double) scaled_error);
+	output_msg(OUTPUT_MESSAGE,
+			   "Maximum fractional error in element concentration: %12.3e\n",
+			   (double) max_pct);
 /*
  *   Flush buffer after each model
  */
-	output_fflush (OUTPUT_MESSAGE);
+	output_fflush(OUTPUT_MESSAGE);
 #endif
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 void
-print_total_pat (FILE * netpath_file, const char *elt, const char *string)
+print_total_pat(FILE * netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	LDBLE d;
-	d = 1000.0 * total (elt);
+	d = 1000.0 * total(elt);
 	if (d == 0)
 	{
-		fprintf (netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
+		fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
 	}
 	else
 	{
-		fprintf (netpath_file, "%14g%1s    # %s\n", (double) d, " ", string);
+		fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, " ", string);
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 int
-set_initial_solution (int n_user_old, int n_user_new)
+set_initial_solution(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
 	int j;
 	struct solution *solution_ptr;
 	struct conc *conc_ptr;
 
-	solution_duplicate (n_user_old, n_user_new);
-	solution_ptr = solution_bsearch (n_user_new, &j, TRUE);
+	solution_duplicate(n_user_old, n_user_new);
+	solution_ptr = solution_bsearch(n_user_new, &j, TRUE);
 	solution_ptr->new_def = TRUE;
 	solution_ptr->n_user_end = n_user_new;
 	for (j = 0; solution_ptr->totals[j].description != NULL; j++)
 	{
 		conc_ptr = &solution_ptr->totals[j];
 		conc_ptr->input_conc = conc_ptr->moles / solution_ptr->mass_water;
-		conc_ptr->units = string_hsave ("Mol/kgw");
+		conc_ptr->units = string_hsave("Mol/kgw");
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-add_to_file (const char *filename, char *string)
+add_to_file(const char *filename, char *string)
 /* ---------------------------------------------------------------------- */
 {
 	FILE *model_file;
@@ -5227,20 +5202,20 @@ add_to_file (const char *filename, char *string)
 	int i;
 	char string_line[MAX_LENGTH];
 
-	model_file = fopen (filename, "r");
+	model_file = fopen(filename, "r");
 	if (model_file == NULL)
 	{
-		model_file = fopen (filename, "w");
+		model_file = fopen(filename, "w");
 		if (model_file == NULL)
 		{
-			sprintf (error_string, "Can't open file, %s.", filename);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Can't open file, %s.", filename);
+			error_msg(error_string, STOP);
 		}
 	}
 	i = 0;
 	for (;;)
 	{
-		c = getc (model_file);
+		c = getc(model_file);
 		if (c != EOF && c != '\n')
 		{
 			string_line[i] = c;
@@ -5249,19 +5224,19 @@ add_to_file (const char *filename, char *string)
 		}
 		string_line[i] = '\0';
 		/* new line or eof */
-		string_trim (string_line);
-		if (strcmp (string_line, string) == 0)
+		string_trim(string_line);
+		if (strcmp(string_line, string) == 0)
 		{
-			fclose (model_file);
+			fclose(model_file);
 			return (OK);
 		}
 		/* eof, add line */
 		if (c == EOF)
 		{
-			fclose (model_file);
-			model_file = fopen (filename, "a");
-			fprintf (model_file, "%s\n", string);
-			fclose (model_file);
+			fclose(model_file);
+			model_file = fopen(filename, "a");
+			fprintf(model_file, "%s\n", string);
+			fclose(model_file);
 			return (OK);
 		}
 		/* new line */

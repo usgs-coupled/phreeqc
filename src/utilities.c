@@ -12,24 +12,24 @@ extern int AutoLoadOutputFile, CreateToC;
 extern int ProcessMessages, ShowProgress, ShowProgressWindow, ShowChart;
 extern int outputlinenr;
 extern int stop_calculations;
-void AddToCEntry (char *a, int l, int i);
-void ApplicationProcessMessages (void);
+void AddToCEntry(char *a, int l, int i);
+void ApplicationProcessMessages(void);
 /* void check_line_breaks(char *s); */
 char err_str98[80];
-int copy_title (char *token_ptr, char **ptr, int *length);
-extern int clean_up_null (void);
+int copy_title(char *token_ptr, char **ptr, int *length);
+extern int clean_up_null(void);
 #endif
 
-static int isamong (char c, const char *s_l);
+static int isamong(char c, const char *s_l);
 
 /* ---------------------------------------------------------------------- */
 int
-add_elt_list (struct elt_list *elt_list_ptr, LDBLE coef)
+add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
 	struct elt_list *elt_list_ptr1;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
 	if (elt_list_ptr == NULL)
 		return (OK);
@@ -39,8 +39,8 @@ add_elt_list (struct elt_list *elt_list_ptr, LDBLE coef)
 	{
 		if (count_elts >= max_elts)
 		{
-			space ((void **) ((void *) &elt_list), count_elts, &max_elts,
-				   sizeof (struct elt_list));
+			space((void **) ((void *) &elt_list), count_elts, &max_elts,
+				  sizeof(struct elt_list));
 		}
 		elt_list[count_elts].elt = elt_list_ptr1->elt;
 		elt_list[count_elts].coef = elt_list_ptr1->coef * coef;
@@ -51,7 +51,7 @@ add_elt_list (struct elt_list *elt_list_ptr, LDBLE coef)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-calc_alk (struct reaction * rxn_ptr)
+calc_alk(struct reaction * rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -68,10 +68,10 @@ calc_alk (struct reaction * rxn_ptr)
 		}
 		if (master_ptr == NULL)
 		{
-			sprintf (error_string,
-					 "Non-master species in secondary reaction, %s.",
-					 rxn_ptr->token[0].s->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Non-master species in secondary reaction, %s.",
+					rxn_ptr->token[0].s->name);
+			error_msg(error_string, CONTINUE);
 			input_error++;
 			break;
 		}
@@ -82,7 +82,7 @@ calc_alk (struct reaction * rxn_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-compute_gfw (const char *string, LDBLE * gfw)
+compute_gfw(const char *string, LDBLE * gfw)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -95,9 +95,9 @@ compute_gfw (const char *string, LDBLE * gfw)
 
 	count_elts = 0;
 	paren_count = 0;
-	strcpy (token, string);
+	strcpy(token, string);
 	ptr = token;
-	if (get_elts_in_species (&ptr, 1.0) == ERROR)
+	if (get_elts_in_species(&ptr, 1.0) == ERROR)
 	{
 		return (ERROR);
 	}
@@ -115,7 +115,7 @@ compute_gfw (const char *string, LDBLE * gfw)
 
 /* ---------------------------------------------------------------------- */
 int
-copy_token (char *token_ptr, char **ptr, int *length)
+copy_token(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -142,20 +142,20 @@ copy_token (char *token_ptr, char **ptr, int *length)
 /*
  *   Read to end of whitespace
  */
-	while (isspace ((int) (c = **ptr)))
+	while (isspace((int) (c = **ptr)))
 		(*ptr)++;
 /*
  *   Check what we have
  */
-	if (isupper ((int) c) || c == '[')
+	if (isupper((int) c) || c == '[')
 	{
 		return_value = UPPER;
 	}
-	else if (islower ((int) c))
+	else if (islower((int) c))
 	{
 		return_value = LOWER;
 	}
-	else if (isdigit ((int) c) || c == '.' || c == '-')
+	else if (isdigit((int) c) || c == '.' || c == '-')
 	{
 		return_value = DIGIT;
 	}
@@ -171,7 +171,7 @@ copy_token (char *token_ptr, char **ptr, int *length)
  *   Begin copying to token
  */
 	i = 0;
-	while ((!isspace ((int) (c = **ptr))) &&
+	while ((!isspace((int) (c = **ptr))) &&
 		   /*              c != ',' && */
 		   c != ';' && c != '\0')
 	{
@@ -182,12 +182,12 @@ copy_token (char *token_ptr, char **ptr, int *length)
 	token_ptr[i] = '\0';
 	*length = i;
 #ifdef PHREEQ98
-	if ((return_value == DIGIT) && (strstr (token_ptr, ",") != NULL))
+	if ((return_value == DIGIT) && (strstr(token_ptr, ",") != NULL))
 	{
-		sprintf (error_string,
-				 "Commas are not allowed as decimal separator: %s.",
-				 token_ptr);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string,
+				"Commas are not allowed as decimal separator: %s.",
+				token_ptr);
+		error_msg(error_string, CONTINUE);
 	}
 #endif
 	return (return_value);
@@ -196,7 +196,7 @@ copy_token (char *token_ptr, char **ptr, int *length)
 #ifdef PHREEQ98
 /* ---------------------------------------------------------------------- */
 int
-copy_title (char *token_ptr, char **ptr, int *length)
+copy_title(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -224,7 +224,7 @@ copy_title (char *token_ptr, char **ptr, int *length)
 /*
  *   Read to end of whitespace
  */
-	while (isspace ((int) (c = **ptr)) || (c == ',') || (c == '"'))
+	while (isspace((int) (c = **ptr)) || (c == ',') || (c == '"'))
 	{
 		if (c == '"')
 			Quote = TRUE;
@@ -233,15 +233,15 @@ copy_title (char *token_ptr, char **ptr, int *length)
 /*
  *   Check what we have
  */
-	if (isupper ((int) c))
+	if (isupper((int) c))
 	{
 		return_value = UPPER;
 	}
-	else if (islower ((int) c))
+	else if (islower((int) c))
 	{
 		return_value = LOWER;
 	}
-	else if (isdigit ((int) c) || c == '.' || c == '-')
+	else if (isdigit((int) c) || c == '.' || c == '-')
 	{
 		return_value = DIGIT;
 	}
@@ -268,7 +268,7 @@ copy_title (char *token_ptr, char **ptr, int *length)
 	}
 	else
 	{
-		while ((!isspace ((int) (c = **ptr))) &&
+		while ((!isspace((int) (c = **ptr))) &&
 			   c != ',' && c != ';' && c != '\0')
 		{
 			token_ptr[i] = c;
@@ -283,7 +283,7 @@ copy_title (char *token_ptr, char **ptr, int *length)
 #endif
 /* ---------------------------------------------------------------------- */
 int
-dup_print (const char *ptr, int emphasis)
+dup_print(const char *ptr, int emphasis)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -300,65 +300,64 @@ dup_print (const char *ptr, int emphasis)
 #ifdef PHREEQ98
 	if ((CreateToC == TRUE) && (AutoLoadOutputFile == TRUE))
 	{
-		if (strstr (ptr, "Reading") == ptr)
-			AddToCEntry ((char *) ptr, 1, outputlinenr);
-		else if (strstr (ptr, "Beginning") == ptr)
-			AddToCEntry ((char *) ptr, 2, outputlinenr);
-		else if ((strstr (ptr, "TITLE") != ptr)
-				 && (strstr (ptr, "End") != ptr))
-			AddToCEntry ((char *) ptr, 3, outputlinenr);
+		if (strstr(ptr, "Reading") == ptr)
+			AddToCEntry((char *) ptr, 1, outputlinenr);
+		else if (strstr(ptr, "Beginning") == ptr)
+			AddToCEntry((char *) ptr, 2, outputlinenr);
+		else if ((strstr(ptr, "TITLE") != ptr) && (strstr(ptr, "End") != ptr))
+			AddToCEntry((char *) ptr, 3, outputlinenr);
 	}
 #endif
-	l = (int) strlen (ptr);
-	dash = (char *) PHRQ_malloc ((size_t) (l + 2) * sizeof (char));
+	l = (int) strlen(ptr);
+	dash = (char *) PHRQ_malloc((size_t) (l + 2) * sizeof(char));
 	if (dash == NULL)
-		malloc_error ();
+		malloc_error();
 	if (emphasis == TRUE)
 	{
 		for (i = 0; i < l; i++)
 			dash[i] = '-';
 		dash[i] = '\0';
-		output_msg (OUTPUT_MESSAGE, "%s\n%s\n%s\n\n", dash, ptr, dash);
-		output_msg (OUTPUT_LOG, "%s\n%s\n%s\n\n", dash, ptr, dash);
+		output_msg(OUTPUT_MESSAGE, "%s\n%s\n%s\n\n", dash, ptr, dash);
+		output_msg(OUTPUT_LOG, "%s\n%s\n%s\n\n", dash, ptr, dash);
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE, "%s\n\n", ptr);
-		output_msg (OUTPUT_LOG, "%s\n\n", ptr);
+		output_msg(OUTPUT_MESSAGE, "%s\n\n", ptr);
+		output_msg(OUTPUT_LOG, "%s\n\n", ptr);
 	}
-	dash = (char *) free_check_null (dash);
+	dash = (char *) free_check_null(dash);
 
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-equal (LDBLE a, LDBLE b, LDBLE eps)
+equal(LDBLE a, LDBLE b, LDBLE eps)
 /* ---------------------------------------------------------------------- */
 {
 /*
  *   Checks equality between two LDBLE precision numbers
  */
-	if (fabs (a - b) <= eps)
+	if (fabs(a - b) <= eps)
 		return (TRUE);
 	return (FALSE);
 }
 
 /* ---------------------------------------------------------------------- */
 void *
-free_check_null (void *ptr)
+free_check_null(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
 	if (ptr != NULL)
 	{
-		free (ptr);
+		free(ptr);
 	}
 	return (NULL);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
+get_token(char **eqnaddr, char *string, LDBLE * z, int *l)
 /* ---------------------------------------------------------------------- */
 /*
  *   Function finds next species in equation, coefficient has already
@@ -399,18 +398,18 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
 			{
 				if (c == '\0')
 				{
-					sprintf (error_string,
-							 "No final bracket \"]\" for element name, %s.",
-							 string);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"No final bracket \"]\" for element name, %s.",
+							string);
+					error_msg(error_string, CONTINUE);
 					return (ERROR);
 				}
 				string[i++] = c;
 				if (i >= MAX_LENGTH)
 				{
-					output_msg (OUTPUT_MESSAGE,
-								"Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
-								MAX_LENGTH, string);
+					output_msg(OUTPUT_MESSAGE,
+							   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
+							   MAX_LENGTH, string);
 					return (ERROR);
 				}
 				ptr++;
@@ -421,9 +420,9 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
 		/* check for overflow of space */
 		if (i >= MAX_LENGTH)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
-						MAX_LENGTH, string);
+			output_msg(OUTPUT_MESSAGE,
+					   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
+					   MAX_LENGTH, string);
 			return (ERROR);
 		}
 		ptr++;
@@ -435,9 +434,8 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
  */
 	if (i == 0)
 	{
-		sprintf (error_string, "NULL string detected in get_token, %s.",
-				 rest);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "NULL string detected in get_token, %s.", rest);
+		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
 /*
@@ -456,7 +454,7 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
  */
 		j = 0;
 		ptr1 = ptr;
-		while ((isalpha ((int) (c = *ptr1)) == FALSE) &&
+		while ((isalpha((int) (c = *ptr1)) == FALSE) &&
 			   (c != '(') &&
 			   (c != ')') &&
 			   (c != ']') && (c != '[') && (c != '=') && (c != '\0'))
@@ -490,9 +488,9 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
 /*
  *   Charge has been written, now need to check if charge has legal format
  */
-		if (get_charge (charge, z) == OK)
+		if (get_charge(charge, z) == OK)
 		{
-			strcat (string, charge);
+			strcat(string, charge);
 		}
 		else
 		{
@@ -505,7 +503,7 @@ get_token (char **eqnaddr, char *string, LDBLE * z, int *l)
 
 /* ---------------------------------------------------------------------- */
 int
-isamong (char c, const char *s_l)
+isamong(char c, const char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
  *   Function checks if c is among the characters in the string s
@@ -533,7 +531,7 @@ isamong (char c, const char *s_l)
 
 /* ---------------------------------------------------------------------- */
 int
-islegit (const char c)
+islegit(const char c)
 /* ---------------------------------------------------------------------- */
 /*
  *   Function checks for legal characters for chemical equations
@@ -546,7 +544,7 @@ islegit (const char c)
  *      FALSE if c in not in set.
  */
 {
-	if (isalpha ((int) c) || isdigit ((int) c) || isamong (c, "+-=().:_[]"))
+	if (isalpha((int) c) || isdigit((int) c) || isamong(c, "+-=().:_[]"))
 	{
 		return (TRUE);
 	}
@@ -555,17 +553,17 @@ islegit (const char c)
 
 /* ---------------------------------------------------------------------- */
 void
-malloc_error (void)
+malloc_error(void)
 /* ---------------------------------------------------------------------- */
 {
-	error_msg ("NULL pointer returned from malloc or realloc.", CONTINUE);
-	error_msg ("Program terminating.", STOP);
+	error_msg("NULL pointer returned from malloc or realloc.", CONTINUE);
+	error_msg("Program terminating.", STOP);
 	return;
 }
 
 /* ---------------------------------------------------------------------- */
 int
-parse_couple (char *token)
+parse_couple(char *token)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -578,19 +576,19 @@ parse_couple (char *token)
 	char elt1[MAX_LENGTH], elt2[MAX_LENGTH], paren1[MAX_LENGTH],
 		paren2[MAX_LENGTH];
 
-	if (strcmp_nocase_arg1 (token, "pe") == 0)
+	if (strcmp_nocase_arg1(token, "pe") == 0)
 	{
-		str_tolower (token);
+		str_tolower(token);
 		return (OK);
 	}
-	while (replace ("+", "", token) == TRUE);
+	while (replace("+", "", token) == TRUE);
 	ptr = token;
-	get_elt (&ptr, elt1, &e1);
+	get_elt(&ptr, elt1, &e1);
 	if (*ptr != '(')
 	{
-		sprintf (error_string, "Element name must be followed by "
-				 "parentheses in redox couple, %s.", token);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Element name must be followed by "
+				"parentheses in redox couple, %s.", token);
+		error_msg(error_string, CONTINUE);
 		parse_error++;
 		return (ERROR);
 	}
@@ -602,10 +600,10 @@ parse_couple (char *token)
 		ptr++;
 		if (*ptr == '/' || *ptr == '\0')
 		{
-			sprintf (error_string,
-					 "End of line or  " "/"
-					 " encountered before end of parentheses, %s.", token);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"End of line or  " "/"
+					" encountered before end of parentheses, %s.", token);
+			error_msg(error_string, CONTINUE);
 			return (ERROR);
 		}
 		paren1[p1++] = *ptr;
@@ -620,26 +618,26 @@ parse_couple (char *token)
 	ptr++;
 	if (*ptr != '/')
 	{
-		sprintf (error_string, " " "/" " must follow parentheses "
-				 "ending first half of redox couple, %s.", token);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, " " "/" " must follow parentheses "
+				"ending first half of redox couple, %s.", token);
+		error_msg(error_string, CONTINUE);
 		parse_error++;
 		return (ERROR);
 	}
 	ptr++;
-	get_elt (&ptr, elt2, &e2);
-	if (strcmp (elt1, elt2) != 0)
+	get_elt(&ptr, elt2, &e2);
+	if (strcmp(elt1, elt2) != 0)
 	{
-		sprintf (error_string, "Redox couple must be two redox states "
-				 "of the same element, %s.", token);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Redox couple must be two redox states "
+				"of the same element, %s.", token);
+		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
 	if (*ptr != '(')
 	{
-		sprintf (error_string, "Element name must be followed by "
-				 "parentheses in redox couple, %s.", token);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Element name must be followed by "
+				"parentheses in redox couple, %s.", token);
+		error_msg(error_string, CONTINUE);
 		parse_error++;
 		return (ERROR);
 	}
@@ -651,9 +649,9 @@ parse_couple (char *token)
 		ptr++;
 		if (*ptr == '/' || *ptr == '\0')
 		{
-			sprintf (error_string, "End of line or " "/" " encountered"
-					 " before end of parentheses, %s.", token);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string, "End of line or " "/" " encountered"
+					" before end of parentheses, %s.", token);
+			error_msg(error_string, CONTINUE);
 			return (ERROR);
 		}
 
@@ -666,27 +664,27 @@ parse_couple (char *token)
 			break;
 	}
 	paren2[p2] = '\0';
-	if (strcmp (paren1, paren2) < 0)
+	if (strcmp(paren1, paren2) < 0)
 	{
-		strcpy (token, elt1);
-		strcat (token, paren1);
-		strcat (token, "/");
-		strcat (token, elt2);
-		strcat (token, paren2);
+		strcpy(token, elt1);
+		strcat(token, paren1);
+		strcat(token, "/");
+		strcat(token, elt2);
+		strcat(token, paren2);
 	}
-	else if (strcmp (paren1, paren2) > 0)
+	else if (strcmp(paren1, paren2) > 0)
 	{
-		strcpy (token, elt2);
-		strcat (token, paren2);
-		strcat (token, "/");
-		strcat (token, elt1);
-		strcat (token, paren1);
+		strcpy(token, elt2);
+		strcat(token, paren2);
+		strcat(token, "/");
+		strcat(token, elt1);
+		strcat(token, paren1);
 	}
 	else
 	{
-		sprintf (error_string, "Both parts of redox couple are the same, %s.",
-				 token);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Both parts of redox couple are the same, %s.",
+				token);
+		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
 	return (OK);
@@ -694,7 +692,7 @@ parse_couple (char *token)
 
 /* ---------------------------------------------------------------------- */
 int
-print_centered (const char *string)
+print_centered(const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	int i, l, l1, l2;
@@ -702,25 +700,25 @@ print_centered (const char *string)
 
 #ifdef PHREEQ98
 	if ((CreateToC == TRUE) && (AutoLoadOutputFile == TRUE))
-		AddToCEntry ((char *) string, 4, outputlinenr);
+		AddToCEntry((char *) string, 4, outputlinenr);
 #endif
-	l = (int) strlen (string);
+	l = (int) strlen(string);
 	l1 = (79 - l) / 2;
 	l2 = 79 - l - l1;
 	for (i = 0; i < l1; i++)
 		token[i] = '-';
 	token[i] = '\0';
-	strcat (token, string);
+	strcat(token, string);
 	for (i = 0; i < l2; i++)
 		token[i + l1 + l] = '-';
 	token[79] = '\0';
-	output_msg (OUTPUT_MESSAGE, "%s\n\n", token);
+	output_msg(OUTPUT_MESSAGE, "%s\n\n", token);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-replace (const char *str1, const char *str2, char *str)
+replace(const char *str1, const char *str2, char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -738,7 +736,7 @@ replace (const char *str1, const char *str2, char *str)
 	int l, l1, l2;
 	char *ptr_start;
 
-	ptr_start = strstr (str, str1);
+	ptr_start = strstr(str, str1);
 /*
  *   Str1 not found, return
  */
@@ -747,9 +745,9 @@ replace (const char *str1, const char *str2, char *str)
 /*
  *   Str1 found, replace Str1 with Str2
  */
-	l = (int) strlen (str);
-	l1 = (int) strlen (str1);
-	l2 = (int) strlen (str2);
+	l = (int) strlen(str);
+	l1 = (int) strlen(str1);
+	l2 = (int) strlen(str2);
 /*
  *   Make gap in str long enough for str2
  */
@@ -774,7 +772,7 @@ replace (const char *str1, const char *str2, char *str)
 	}
 #endif
 	/* The plus one includes the terminating NULL */
-	memmove (ptr_start + l2, ptr_start + l1, l - (ptr_start - str + l1) + 1);
+	memmove(ptr_start + l2, ptr_start + l1, l - (ptr_start - str + l1) + 1);
 /*
  *   Copy str2 into str
  */
@@ -786,13 +784,13 @@ replace (const char *str1, const char *str2, char *str)
 		ptr1++;
 	}
 #endif
-	memcpy (ptr_start, str2, l2);
+	memcpy(ptr_start, str2, l2);
 	return (TRUE);
 }
 
 /* ---------------------------------------------------------------------- */
 void
-space (void **ptr, int i, int *max, int struct_size)
+space(void **ptr, int i, int *max, int struct_size)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -831,9 +829,9 @@ space (void **ptr, int i, int *max, int struct_size)
 		}
 		if (i + 1 > *max)
 			*max = i + 1;
-		*ptr = PHRQ_realloc (*ptr, (size_t) (*max) * struct_size);
+		*ptr = PHRQ_realloc(*ptr, (size_t) (*max) * struct_size);
 		if (*ptr == NULL)
-			malloc_error ();
+			malloc_error();
 		return;
 	}
 /*
@@ -842,9 +840,9 @@ space (void **ptr, int i, int *max, int struct_size)
 	if (i == INIT)
 	{
 /*		free(*ptr); */
-		*ptr = PHRQ_malloc ((size_t) (*max) * struct_size);
+		*ptr = PHRQ_malloc((size_t) (*max) * struct_size);
 		if (*ptr == NULL)
-			malloc_error ();
+			malloc_error();
 		return;
 	}
 /*
@@ -859,14 +857,14 @@ space (void **ptr, int i, int *max, int struct_size)
 /*
  *   Error
  */
-	error_msg ("Illegal argument to function space.", CONTINUE);
-	error_msg ("Program terminating.", STOP);
+	error_msg("Illegal argument to function space.", CONTINUE);
+	error_msg("Program terminating.", STOP);
 	return;
 }
 
 /* ---------------------------------------------------------------------- */
 void
-squeeze_white (char *s_l)
+squeeze_white(char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
  *   Delete all white space from string s
@@ -882,7 +880,7 @@ squeeze_white (char *s_l)
 
 	for (i = j = 0; s_l[i] != '\0'; i++)
 	{
-		if (!isspace ((int) s_l[i]))
+		if (!isspace((int) s_l[i]))
 			s_l[j++] = s_l[i];
 	}
 	s_l[j] = '\0';
@@ -890,7 +888,7 @@ squeeze_white (char *s_l)
 
 /* ---------------------------------------------------------------------- */
 void
-str_tolower (char *str)
+str_tolower(char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -900,14 +898,14 @@ str_tolower (char *str)
 	ptr = str;
 	while (*ptr != '\0')
 	{
-		*ptr = (char) tolower (*ptr);
+		*ptr = (char) tolower(*ptr);
 		ptr++;
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 void
-str_toupper (char *str)
+str_toupper(char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -917,21 +915,21 @@ str_toupper (char *str)
 	ptr = str;
 	while (*ptr != '\0')
 	{
-		*ptr = (char) toupper (*ptr);
+		*ptr = (char) toupper(*ptr);
 		ptr++;
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 int
-strcmp_nocase (const char *str1, const char *str2)
+strcmp_nocase(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
 /*
  *   Compare two strings disregarding case
  */
 	int c1, c2;
-	while ((c1 = tolower (*str1++)) == (c2 = tolower (*str2++)))
+	while ((c1 = tolower(*str1++)) == (c2 = tolower(*str2++)))
 	{
 		if (c1 == '\0')
 			return (0);
@@ -943,14 +941,14 @@ strcmp_nocase (const char *str1, const char *str2)
 
 /* ---------------------------------------------------------------------- */
 int
-strcmp_nocase_arg1 (const char *str1, const char *str2)
+strcmp_nocase_arg1(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
 /*
  *   Compare two strings disregarding case
  */
 	int c1, c2;
-	while ((c1 = tolower (*str1++)) == (c2 = *str2++))
+	while ((c1 = tolower(*str1++)) == (c2 = *str2++))
 	{
 		if (c1 == '\0')
 			return (0);
@@ -962,7 +960,7 @@ strcmp_nocase_arg1 (const char *str1, const char *str2)
 
 /* ---------------------------------------------------------------------- */
 char *
-string_duplicate (const char *token)
+string_duplicate(const char *token)
 /* ---------------------------------------------------------------------- */
 {
 	int l;
@@ -970,17 +968,17 @@ string_duplicate (const char *token)
 
 	if (token == NULL)
 		return NULL;
-	l = (int) strlen (token);
-	str = (char *) PHRQ_malloc ((size_t) (l + 1) * sizeof (char));
+	l = (int) strlen(token);
+	str = (char *) PHRQ_malloc((size_t) (l + 1) * sizeof(char));
 	if (str == NULL)
-		malloc_error ();
-	strcpy (str, token);
+		malloc_error();
+	strcpy(str, token);
 	return (str);
 }
 
 /* ---------------------------------------------------------------------- */
 char *
-string_hsave (const char *str)
+string_hsave(const char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -996,22 +994,22 @@ string_hsave (const char *str)
 	char *new_string;
 	ENTRY item, *found_item;
 
-	new_string = string_duplicate (str);
+	new_string = string_duplicate(str);
 	item.key = new_string;
 	item.data = new_string;
-	found_item = hsearch_multi (strings_hash_table, item, ENTER);
+	found_item = hsearch_multi(strings_hash_table, item, ENTER);
 	if (found_item->key == new_string)
 	{
 		count_strings++;
 		return (new_string);
 	}
-	new_string = (char *) free_check_null (new_string);
+	new_string = (char *) free_check_null(new_string);
 	return (found_item->key);
 }
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-under (LDBLE xval)
+under(LDBLE xval)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1031,12 +1029,12 @@ under (LDBLE xval)
 /*		return ( pow (10.0, MAX_LM));*/
 	}
 /*	return (pow (10.0, xval)); */
-	return (exp (xval * LOG_10));
+	return (exp(xval * LOG_10));
 }
 
 /* ---------------------------------------------------------------------- */
 int
-backspace_screen (int spaces)
+backspace_screen(int spaces)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -1046,14 +1044,14 @@ backspace_screen (int spaces)
 		token[i] = '\b';
 	}
 	token[i] = '\0';
-	output_msg (OUTPUT_SCREEN, "%s", token);
+	output_msg(OUTPUT_SCREEN, "%s", token);
 	return (OK);
 }
 
 #ifndef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
 int
-status (int count, const char *str)
+status(int count, const char *str)
 /* ---------------------------------------------------------------------- */
 {
 	static int spinner;
@@ -1063,20 +1061,20 @@ status (int count, const char *str)
 /*	char all[MAX_LENGTH]; */
 #ifdef PHREEQ98
 	if (ProcessMessages)
-		ApplicationProcessMessages ();
+		ApplicationProcessMessages();
 	if (stop_calculations == TRUE)
-		error_msg ("Execution canceled by user.", STOP);
+		error_msg("Execution canceled by user.", STOP);
 #endif
 
 	if (pr.status == FALSE || phast == TRUE)
 		return (OK);
-	sprintf (sim_str, "Simulation %d.", simulation);
-	sprintf (state_str, " ");
-	sprintf (spin_str, " ");
+	sprintf(sim_str, "Simulation %d.", simulation);
+	sprintf(state_str, " ");
+	sprintf(spin_str, " ");
 
 	if (state == INITIALIZE)
 	{
-		output_msg (OUTPUT_SCREEN, "\n%-80s", "Initializing...");
+		output_msg(OUTPUT_SCREEN, "\n%-80s", "Initializing...");
 
 		status_on = TRUE;
 		return (OK);
@@ -1088,62 +1086,62 @@ status (int count, const char *str)
 	{
 		if (status_on == TRUE)
 		{
-			backspace_screen (80);
+			backspace_screen(80);
 		}
 		else
 		{
 			status_on = TRUE;
 		}
 #ifdef DOS
-		backspace_screen (80);
+		backspace_screen(80);
 		/* if (state == TRANSPORT ) backspace_screen(80); */
-		output_msg (OUTPUT_SCREEN, "%-79s", str);
+		output_msg(OUTPUT_SCREEN, "%-79s", str);
 #else
-		output_msg (OUTPUT_SCREEN, "%-80s", str);
+		output_msg(OUTPUT_SCREEN, "%-80s", str);
 #endif
 	}
 	else if (state != TRANSPORT && state != PHAST)
 	{
 		if (state == INITIAL_SOLUTION)
 		{
-			sprintf (state_str, "Initial solution %d.",
-					 use.solution_ptr->n_user);
+			sprintf(state_str, "Initial solution %d.",
+					use.solution_ptr->n_user);
 		}
 		else if (state == INITIAL_EXCHANGE)
 		{
-			sprintf (state_str, "Initial exchange %d.",
-					 use.exchange_ptr->n_user);
+			sprintf(state_str, "Initial exchange %d.",
+					use.exchange_ptr->n_user);
 		}
 		else if (state == INITIAL_SURFACE)
 		{
-			sprintf (state_str, "Initial surface %d.",
-					 use.surface_ptr->n_user);
+			sprintf(state_str, "Initial surface %d.",
+					use.surface_ptr->n_user);
 		}
 		else if (state == INVERSE)
 		{
-			sprintf (state_str, "Inverse %d. Models = %d.",
-					 use.inverse_ptr->n_user, count);
+			sprintf(state_str, "Inverse %d. Models = %d.",
+					use.inverse_ptr->n_user, count);
 		}
 		else if (state == REACTION)
 		{
 			if (use.kinetics_in == TRUE)
 			{
-				sprintf (state_str, "Kinetic step %d.", reaction_step);
+				sprintf(state_str, "Kinetic step %d.", reaction_step);
 			}
 			else
 			{
-				sprintf (state_str, "Reaction step %d.", reaction_step);
+				sprintf(state_str, "Reaction step %d.", reaction_step);
 			}
 		}
 		else if (state == ADVECTION || state == TRANSPORT)
 		{
 			if (state == ADVECTION)
 			{
-				sprintf (state_str, "Advection, shift %d.", advection_step);
+				sprintf(state_str, "Advection, shift %d.", advection_step);
 			}
 			else if (state == TRANSPORT)
 			{
-				sprintf (state_str, "Transport, shift %d.", transport_step);
+				sprintf(state_str, "Transport, shift %d.", transport_step);
 			}
 			spinner++;
 			if (spinner == 1)
@@ -1162,7 +1160,7 @@ status (int count, const char *str)
 		}
 		if (status_on == TRUE)
 		{
-			backspace_screen (80);
+			backspace_screen(80);
 		}
 		else
 		{
@@ -1171,24 +1169,24 @@ status (int count, const char *str)
 		if (use.kinetics_in == TRUE)
 		{
 #ifdef DOS
-			backspace_screen (80);
-			output_msg (OUTPUT_SCREEN, "%-15s%-27s%37s", sim_str, state_str,
-						" ");
+			backspace_screen(80);
+			output_msg(OUTPUT_SCREEN, "%-15s%-27s%37s", sim_str, state_str,
+					   " ");
 #else
-			output_msg (OUTPUT_SCREEN, "%-15s%-27s%38s", sim_str, state_str,
-						" ");
+			output_msg(OUTPUT_SCREEN, "%-15s%-27s%38s", sim_str, state_str,
+					   " ");
 #endif
 
 		}
 		else
 		{
 #ifdef DOS
-			backspace_screen (80);
-			output_msg (OUTPUT_SCREEN, "%-15s%-27s%1s%36s", sim_str,
-						state_str, spin_str, " ");
+			backspace_screen(80);
+			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%36s", sim_str,
+					   state_str, spin_str, " ");
 #else
-			output_msg (OUTPUT_SCREEN, "%-15s%-27s%1s%37s", sim_str,
-						state_str, spin_str, " ");
+			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%37s", sim_str,
+					   state_str, spin_str, " ");
 #endif
 		}
 	}
@@ -1256,8 +1254,8 @@ extern int	free();
 ** Internal routines
 */
 
-static Address Hash_multi (HashTable * Table, char *Key);
-static void ExpandTable_multi (HashTable * Table);
+static Address Hash_multi(HashTable * Table, char *Key);
+static void ExpandTable_multi(HashTable * Table);
 
 /*
 ** Local data
@@ -1272,7 +1270,7 @@ static long HashAccesses, HashCollisions;
 */
 
 int
-hcreate_multi (unsigned Count, HashTable ** HashTable_ptr)
+hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 {
 	int i;
 	HashTable *Table;
@@ -1286,7 +1284,7 @@ hcreate_multi (unsigned Count, HashTable ** HashTable_ptr)
 /*    Count = DIV(i,SegmentSize); */
 	Count = ((i) >> (SegmentSizeShift));
 
-	Table = (HashTable *) PHRQ_calloc (sizeof (HashTable), 1);
+	Table = (HashTable *) PHRQ_calloc(sizeof(HashTable), 1);
 	*HashTable_ptr = Table;
 
 	if (Table == NULL)
@@ -1302,10 +1300,10 @@ hcreate_multi (unsigned Count, HashTable ** HashTable_ptr)
 	for (i = 0; i < (int) Count; i++)
 	{
 		Table->Directory[i] =
-			(Segment *) PHRQ_calloc (sizeof (Segment), SegmentSize);
+			(Segment *) PHRQ_calloc(sizeof(Segment), SegmentSize);
 		if (Table->Directory[i] == NULL)
 		{
-			hdestroy_multi (Table);
+			hdestroy_multi(Table);
 			return (0);
 		}
 		Table->SegmentCount++;
@@ -1315,9 +1313,9 @@ hcreate_multi (unsigned Count, HashTable ** HashTable_ptr)
 	Table->MinLoadFactor = 1;
 	Table->MaxLoadFactor = DefaultMaxLoadFactor;
 #ifdef DEBUG
-	output_msg (OUTPUT_STDERR,
-				"[hcreate] Table %x Count %d maxp %d SegmentCount %d\n",
-				Table, Count, Table->maxp, Table->SegmentCount);
+	output_msg(OUTPUT_STDERR,
+			   "[hcreate] Table %x Count %d maxp %d SegmentCount %d\n",
+			   Table, Count, Table->maxp, Table->SegmentCount);
 #endif
 #ifdef HASH_STATISTICS
 	HashAccesses = HashCollisions = 0;
@@ -1326,7 +1324,7 @@ hcreate_multi (unsigned Count, HashTable ** HashTable_ptr)
 }
 
 void
-hdestroy_multi (HashTable * Table)
+hdestroy_multi(HashTable * Table)
 {
 	int i, j;
 	Segment *seg;
@@ -1345,25 +1343,25 @@ hdestroy_multi (HashTable * Table)
 					while (p != NULL)
 					{
 						q = p->Next;
-						free ((void *) p);
+						free((void *) p);
 						p = q;
 					}
 				}
-				free (Table->Directory[i]);
+				free(Table->Directory[i]);
 			}
 		}
-		free (Table);
+		free(Table);
 		/*      Table = NULL; */
 #if defined(HASH_STATISTICS) && defined(DEBUG)
-		output_msg (OUTPUT_STDERR,
-					"[hdestroy] Accesses %ld Collisions %ld\n",
-					HashAccesses, HashCollisions);
+		output_msg(OUTPUT_STDERR,
+				   "[hdestroy] Accesses %ld Collisions %ld\n",
+				   HashAccesses, HashCollisions);
 #endif
 	}
 }
 
 ENTRY *
-hsearch_multi (HashTable * Table, ENTRY item, ACTION action)
+hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 /* ACTION       FIND/ENTER	*/
 {
 	Address h;
@@ -1372,25 +1370,25 @@ hsearch_multi (HashTable * Table, ENTRY item, ACTION action)
 	int SegmentDir;
 	Segment *p, q;
 
-	assert (Table != NULL);		/* Kinder really than return(NULL);     */
+	assert(Table != NULL);		/* Kinder really than return(NULL);     */
 #ifdef HASH_STATISTICS
 	HashAccesses++;
 #endif
-	h = Hash_multi (Table, item.key);
+	h = Hash_multi(Table, item.key);
 /*    SegmentDir = DIV(h,SegmentSize); */
 	SegmentDir = ((h) >> (SegmentSizeShift));
-	SegmentIndex = MOD (h, SegmentSize);
+	SegmentIndex = MOD(h, SegmentSize);
 	/*
 	 ** valid segment ensured by Hash()
 	 */
 	CurrentSegment = Table->Directory[SegmentDir];
-	assert (CurrentSegment != NULL);	/* bad failure if tripped       */
+	assert(CurrentSegment != NULL);	/* bad failure if tripped       */
 	p = &CurrentSegment[SegmentIndex];
 	q = *p;
 	/*
 	 ** Follow collision chain
 	 */
-	while (q != NULL && strcmp (q->Key, item.key))
+	while (q != NULL && strcmp(q->Key, item.key))
 	{
 		p = &q->Next;
 		q = *p;
@@ -1400,7 +1398,7 @@ hsearch_multi (HashTable * Table, ENTRY item, ACTION action)
 	}
 	if (q != NULL				/* found        */
 		|| action == FIND		/* not found, search only       */
-		|| (q = (Element *) PHRQ_calloc (sizeof (Element), 1)) == NULL	/* not found, no room   */
+		|| (q = (Element *) PHRQ_calloc(sizeof(Element), 1)) == NULL	/* not found, no room   */
 		)
 		return ((ENTRY *) q);
 	*p = q;						/* link into chain      */
@@ -1419,7 +1417,7 @@ hsearch_multi (HashTable * Table, ENTRY item, ACTION action)
 /*    if (++Table->KeyCount / MUL(Table->SegmentCount,SegmentSize) > Table->MaxLoadFactor) */
 	if (++Table->KeyCount / ((Table->SegmentCount) << (SegmentSizeShift)) >
 		Table->MaxLoadFactor)
-		ExpandTable_multi (Table);	/* doesn't affect q     */
+		ExpandTable_multi(Table);	/* doesn't affect q     */
 	return ((ENTRY *) q);
 }
 
@@ -1428,7 +1426,7 @@ hsearch_multi (HashTable * Table, ENTRY item, ACTION action)
 */
 
 static Address
-Hash_multi (HashTable * Table, char *Key)
+Hash_multi(HashTable * Table, char *Key)
 {
 	Address h, address;
 	register unsigned char *k = (unsigned char *) Key;
@@ -1440,14 +1438,14 @@ Hash_multi (HashTable * Table, char *Key)
 	while (*k)
 		h = h * Prime1 ^ (*k++ - ' ');
 	h %= Prime2;
-	address = MOD (h, Table->maxp);
+	address = MOD(h, Table->maxp);
 	if (address < (unsigned long) Table->p)
-		address = MOD (h, (Table->maxp << 1));	/* h % (2*Table->maxp)  */
+		address = MOD(h, (Table->maxp << 1));	/* h % (2*Table->maxp)  */
 	return (address);
 }
 
 void
-ExpandTable_multi (HashTable * Table)
+ExpandTable_multi(HashTable * Table)
 {
 	Address NewAddress;
 	int OldSegmentIndex, NewSegmentIndex;
@@ -1464,17 +1462,17 @@ ExpandTable_multi (HashTable * Table)
 /*	OldSegmentDir = DIV(Table->p,SegmentSize); */
 		OldSegmentDir = ((Table->p) >> (SegmentSizeShift));
 		OldSegment = Table->Directory[OldSegmentDir];
-		OldSegmentIndex = MOD (Table->p, SegmentSize);
+		OldSegmentIndex = MOD(Table->p, SegmentSize);
 		/*
 		 ** Expand address space; if necessary create a new segment
 		 */
 		NewAddress = Table->maxp + Table->p;
 /*	NewSegmentDir = DIV(NewAddress,SegmentSize); */
 		NewSegmentDir = ((NewAddress) >> (SegmentSizeShift));
-		NewSegmentIndex = MOD (NewAddress, SegmentSize);
+		NewSegmentIndex = MOD(NewAddress, SegmentSize);
 		if (NewSegmentIndex == 0)
 			Table->Directory[NewSegmentDir] =
-				(Segment *) PHRQ_calloc (sizeof (Segment), SegmentSize);
+				(Segment *) PHRQ_calloc(sizeof(Segment), SegmentSize);
 		NewSegment = Table->Directory[NewSegmentDir];
 		/*
 		 ** Adjust state variables
@@ -1495,7 +1493,7 @@ ExpandTable_multi (HashTable * Table)
 		*LastOfNew = NULL;
 		while (Current != NULL)
 		{
-			if (Hash_multi (Table, Current->Key) == NewAddress)
+			if (Hash_multi(Table, Current->Key) == NewAddress)
 			{
 				/*
 				 ** Attach it to the end of the new chain
@@ -1523,7 +1521,7 @@ ExpandTable_multi (HashTable * Table)
 
 
 void
-free_hash_strings (HashTable * Table)
+free_hash_strings(HashTable * Table)
 {
 	int i, j;
 	Segment *seg;
@@ -1542,23 +1540,23 @@ free_hash_strings (HashTable * Table)
 					while (p != NULL)
 					{
 						q = p->Next;
-						p->Data = (char *) free_check_null ((void *) p->Data);
+						p->Data = (char *) free_check_null((void *) p->Data);
 						p = q;
 					}
 				}
 			}
 		}
 #if defined(HASH_STATISTICS) && defined(DEBUG)
-		output_msg (OUTPUT_STDERR,
-					"[hdestroy] Accesses %ld Collisions %ld\n",
-					HashAccesses, HashCollisions);
+		output_msg(OUTPUT_STDERR,
+				   "[hdestroy] Accesses %ld Collisions %ld\n",
+				   HashAccesses, HashCollisions);
 #endif
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 int
-string_trim (char *str)
+string_trim(char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1575,13 +1573,13 @@ string_trim (char *str)
 	int i, l, start, end, length;
 	char *ptr_start;
 
-	l = (int) strlen (str);
+	l = (int) strlen(str);
 	/*
 	 *   leading whitespace
 	 */
 	for (i = 0; i < l; i++)
 	{
-		if (isspace ((int) str[i]))
+		if (isspace((int) str[i]))
 			continue;
 		break;
 	}
@@ -1594,7 +1592,7 @@ string_trim (char *str)
 	 */
 	for (i = l - 1; i >= 0; i--)
 	{
-		if (isspace ((int) str[i]))
+		if (isspace((int) str[i]))
 			continue;
 		break;
 	}
@@ -1602,7 +1600,7 @@ string_trim (char *str)
 	if (start == 0 && end == l)
 		return (FALSE);
 	length = end - start + 1;
-	memmove ((void *) str, (void *) ptr_start, (size_t) length);
+	memmove((void *) str, (void *) ptr_start, (size_t) length);
 	str[length] = '\0';
 
 	return (TRUE);
@@ -1610,7 +1608,7 @@ string_trim (char *str)
 
 /* ---------------------------------------------------------------------- */
 int
-string_trim_right (char *str)
+string_trim_right(char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1626,10 +1624,10 @@ string_trim_right (char *str)
  */
 	int i, l, end, length;
 
-	l = (int) strlen (str);
+	l = (int) strlen(str);
 	for (i = l - 1; i >= 0; i--)
 	{
-		if (isspace ((int) str[i]))
+		if (isspace((int) str[i]))
 			continue;
 		break;
 	}
@@ -1645,7 +1643,7 @@ string_trim_right (char *str)
 
 /* ---------------------------------------------------------------------- */
 int
-string_trim_left (char *str)
+string_trim_left(char *str)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1662,13 +1660,13 @@ string_trim_left (char *str)
 	int i, l, start, end, length;
 	char *ptr_start;
 
-	l = (int) strlen (str);
+	l = (int) strlen(str);
 	/*
 	 *   leading whitespace
 	 */
 	for (i = 0; i < l; i++)
 	{
-		if (isspace ((int) str[i]))
+		if (isspace((int) str[i]))
 			continue;
 		break;
 	}
@@ -1680,7 +1678,7 @@ string_trim_left (char *str)
 	if (start == 0 && end == l)
 		return (FALSE);
 	length = end - start + 1;
-	memmove ((void *) str, (void *) ptr_start, (size_t) length);
+	memmove((void *) str, (void *) ptr_start, (size_t) length);
 	str[length] = '\0';
 
 	return (TRUE);
@@ -1688,7 +1686,7 @@ string_trim_left (char *str)
 
 /* ---------------------------------------------------------------------- */
 char *
-string_pad (char *str, int i)
+string_pad(char *str, int i)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1703,14 +1701,14 @@ string_pad (char *str, int i)
 	int j, l, max;
 	char *str_ptr;
 
-	l = (int) strlen (str);
+	l = (int) strlen(str);
 	max = l;
 	if (l < i)
 		max = i;
-	str_ptr = (char *) PHRQ_malloc ((size_t) ((max + 1) * sizeof (char)));
+	str_ptr = (char *) PHRQ_malloc((size_t) ((max + 1) * sizeof(char)));
 	if (str_ptr == NULL)
-		malloc_error ();
-	strcpy (str_ptr, str);
+		malloc_error();
+	strcpy(str_ptr, str);
 	if (i > l)
 	{
 		for (j = l; j < i; j++)
@@ -1724,22 +1722,22 @@ string_pad (char *str, int i)
 
 /* ---------------------------------------------------------------------- */
 void
-zero_double (LDBLE * target, int n)
+zero_double(LDBLE * target, int n)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
 
 	if (n > zeros_max)
 	{
-		zeros = (LDBLE *) PHRQ_realloc (zeros, (size_t) (n * sizeof (LDBLE)));
+		zeros = (LDBLE *) PHRQ_realloc(zeros, (size_t) (n * sizeof(LDBLE)));
 		if (zeros == NULL)
-			malloc_error ();
+			malloc_error();
 		for (i = zeros_max; i < n; i++)
 		{
 			zeros[i] = 0.0;
 		}
 		zeros_max = n;
 	}
-	memcpy ((void *) target, (void *) zeros, (size_t) (n * sizeof (LDBLE)));
+	memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
 	return;
 }

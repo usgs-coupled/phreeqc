@@ -29,7 +29,7 @@ static char const svnid[] =
 
 
 realtype
-UnitRoundoff (void)
+UnitRoundoff(void)
 {
 	realtype u;
 	volatile realtype one_plus_u;
@@ -48,13 +48,13 @@ UnitRoundoff (void)
 
 
 realtype
-RPowerI (realtype base, int exponent)
+RPowerI(realtype base, int exponent)
 {
 	int i, expt;
 	realtype prod;
 
 	prod = ONE;
-	expt = ABS (exponent);
+	expt = ABS(exponent);
 	for (i = 1; i <= expt; i++)
 		prod *= base;
 	if (exponent < 0)
@@ -64,23 +64,23 @@ RPowerI (realtype base, int exponent)
 
 
 realtype
-RPowerR (realtype base, realtype exponent)
+RPowerR(realtype base, realtype exponent)
 {
 
 	if (base <= ZERO)
 		return (ZERO);
 
 	/*  return((realtype)pow((double)base,(double)exponent)); */
-	return ((realtype) pow (base, exponent));
+	return ((realtype) pow(base, exponent));
 }
 
 
 realtype
-RSqrt (realtype x)
+RSqrt(realtype x)
 {
 	if (x <= ZERO)
 		return (ZERO);
 
 	/*  return((realtype) sqrt((double) x)); */
-	return ((realtype) sqrt (x));
+	return ((realtype) sqrt(x));
 }

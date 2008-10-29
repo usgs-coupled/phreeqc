@@ -211,11 +211,11 @@ extern "C"
  ******************************************************************/
 
 
-	void *CVodeMalloc (integertype N, RhsFn f, realtype t0, N_Vector y0,
-					   int lmm, int iter, int itol, realtype * reltol,
-					   void *abstol, void *f_data, FILE * errfp,
-					   booleantype optIn, long int iopt[], realtype ropt[],
-					   M_Env machEnv);
+	void *CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
+					  int lmm, int iter, int itol, realtype * reltol,
+					  void *abstol, void *f_data, FILE * errfp,
+					  booleantype optIn, long int iopt[], realtype ropt[],
+					  M_Env machEnv);
 
 
 /******************************************************************
@@ -271,11 +271,11 @@ extern "C"
  * so may be larger than would be computed for the new problem.   *
  ******************************************************************/
 
-	int CVReInit (void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
-				  int lmm, int iter, int itol, realtype * reltol,
-				  void *abstol, void *f_data, FILE * errfp,
-				  booleantype optIn, long int iopt[],
-				  realtype ropt[], M_Env machEnv);
+	int CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
+				 int lmm, int iter, int itol, realtype * reltol,
+				 void *abstol, void *f_data, FILE * errfp,
+				 booleantype optIn, long int iopt[],
+				 realtype ropt[], M_Env machEnv);
 
 
 /* CVReInit return values: */
@@ -359,8 +359,8 @@ extern "C"
  ******************************************************************/
 
 
-	int CVode (void *cvode_mem, realtype tout, N_Vector yout,
-			   realtype * t, int itask);
+	int CVode(void *cvode_mem, realtype tout, N_Vector yout,
+			  realtype * t, int itask);
 
 
 /* CVode return values */
@@ -412,7 +412,7 @@ extern "C"
  ******************************************************************/
 
 
-	int CVodeDky (void *cvode_mem, realtype t, int k, N_Vector dky);
+	int CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky);
 
 
 /* CVodeDky return values */
@@ -431,7 +431,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-	void CVodeFree (void *cvode_mem);
+	void CVodeFree(void *cvode_mem);
 
 
 /******************************************************************

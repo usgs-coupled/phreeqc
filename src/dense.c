@@ -35,23 +35,23 @@ static char const svnid[] = "$Id$";
 
 
 DenseMat
-DenseAllocMat (integertype N)
+DenseAllocMat(integertype N)
 {
 	DenseMat A;
 
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	if (N <= 0)
 		return (NULL);
 
-	A = (DenseMat) malloc (sizeof *A);
+	A = (DenseMat) malloc(sizeof *A);
 	if (A == NULL)
 		return (NULL);
 
-	A->data = denalloc (N);
+	A->data = denalloc(N);
 	if (A->data == NULL)
 	{
-		free (A);
+		free(A);
 		return (NULL);
 	}
 
@@ -62,68 +62,68 @@ DenseAllocMat (integertype N)
 
 
 integertype *
-DenseAllocPiv (integertype N)
+DenseAllocPiv(integertype N)
 {
 	if (N <= 0)
 		return (NULL);
 
-	return ((integertype *) malloc (N * sizeof (integertype)));
+	return ((integertype *) malloc(N * sizeof(integertype)));
 }
 
 
 integertype
-DenseFactor (DenseMat A, integertype * p)
+DenseFactor(DenseMat A, integertype * p)
 {
-	return (gefa (A->data, A->size, p));
+	return (gefa(A->data, A->size, p));
 }
 
 
 void
-DenseBacksolve (DenseMat A, integertype * p, realtype * b)
+DenseBacksolve(DenseMat A, integertype * p, realtype * b)
 {
-	gesl (A->data, A->size, p, b);
+	gesl(A->data, A->size, p, b);
 }
 
 
 void
-DenseZero (DenseMat A)
+DenseZero(DenseMat A)
 {
-	denzero (A->data, A->size);
+	denzero(A->data, A->size);
 }
 
 void
-DenseCopy (DenseMat A, DenseMat B)
+DenseCopy(DenseMat A, DenseMat B)
 {
-	dencopy (A->data, B->data, A->size);
+	dencopy(A->data, B->data, A->size);
 }
 
 void
-DenseScale (realtype c, DenseMat A)
+DenseScale(realtype c, DenseMat A)
 {
-	denscale (c, A->data, A->size);
+	denscale(c, A->data, A->size);
 }
 
 void
-DenseAddI (DenseMat A)
+DenseAddI(DenseMat A)
 {
-	denaddI (A->data, A->size);
+	denaddI(A->data, A->size);
 }
 
 void
-DenseFreeMat (DenseMat A)
+DenseFreeMat(DenseMat A)
 {
-	denfree (A->data);
-	free (A);
+	denfree(A->data);
+	free(A);
 }
 
 void
-DenseFreePiv (integertype * p)
+DenseFreePiv(integertype * p)
 {
-	free (p);
+	free(p);
 }
 
 void
-DensePrint (DenseMat A)
+DensePrint(DenseMat A)
 {
-	denprint (A->data, A->size);
+	denprint(A->data, A->size);
 }

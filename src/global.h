@@ -7,7 +7,7 @@ static char const svnidglobal[] =
 #define _INC_GLOBAL_H
 
 /* #define NO_DOS */
-					   /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
+											 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
 #ifdef PHREEQ98
 #define isnan _isnan
 #endif
@@ -991,7 +991,7 @@ struct iso iso_defaults[] = {
 	{"87Sr", .71, .01},
 	{"11B", 20, 5}
 };
-int count_iso_defaults = (sizeof (iso_defaults) / sizeof (struct iso));
+int count_iso_defaults = (sizeof(iso_defaults) / sizeof(struct iso));
 #else
 extern struct iso iso_defaults[];
 extern int count_iso_defaults;
@@ -1187,7 +1187,7 @@ struct const_key keyword[] = {
 	{"reaction_temperature_raw", 0}
 #endif /* PHREEQC_CPP */
 };
-int NKEYS = (sizeof (keyword) / sizeof (struct const_key));	/* Number of valid keywords */
+int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid keywords */
 #else
 extern struct const_key keyword[];
 extern int NKEYS;

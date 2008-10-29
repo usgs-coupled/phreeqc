@@ -6,50 +6,50 @@
 
 static char const svnid[] = "$Id$";
 
-static int check_species_input (void);
-static LDBLE coef_in_master (struct master *master_ptr);
-static int phase_rxn_to_trxn (struct phase *phase_ptr,
-							  struct reaction *rxn_ptr);
-static int reset_last_model (void);
-static int rewrite_eqn_to_primary (void);
-static int rewrite_eqn_to_secondary (void);
-static int species_rxn_to_trxn (struct species *s_ptr);
-static int tidy_logk (void);
-static int tidy_min_exchange (void);
-static int tidy_kin_exchange (void);
-static int tidy_gas_phase (void);
-static int tidy_inverse (void);
-static int tidy_isotopes (void);
-static int tidy_isotope_ratios (void);
-static int tidy_isotope_alphas (void);
-static int tidy_kin_surface (void);
-static int tidy_master_isotope (void);
-static int tidy_min_surface (void);
-static int tidy_phases (void);
-static int tidy_pp_assemblage (void);
-static int tidy_solutions (void);
-static int tidy_s_s_assemblage (void);
-static int tidy_species (void);
-static int tidy_surface (void);
+static int check_species_input(void);
+static LDBLE coef_in_master(struct master *master_ptr);
+static int phase_rxn_to_trxn(struct phase *phase_ptr,
+							 struct reaction *rxn_ptr);
+static int reset_last_model(void);
+static int rewrite_eqn_to_primary(void);
+static int rewrite_eqn_to_secondary(void);
+static int species_rxn_to_trxn(struct species *s_ptr);
+static int tidy_logk(void);
+static int tidy_min_exchange(void);
+static int tidy_kin_exchange(void);
+static int tidy_gas_phase(void);
+static int tidy_inverse(void);
+static int tidy_isotopes(void);
+static int tidy_isotope_ratios(void);
+static int tidy_isotope_alphas(void);
+static int tidy_kin_surface(void);
+static int tidy_master_isotope(void);
+static int tidy_min_surface(void);
+static int tidy_phases(void);
+static int tidy_pp_assemblage(void);
+static int tidy_solutions(void);
+static int tidy_s_s_assemblage(void);
+static int tidy_species(void);
+static int tidy_surface(void);
 
 static LDBLE a0, a1, kc, kb;
-static int scan (LDBLE f (LDBLE x), LDBLE * xx0, LDBLE * xx1);
-static LDBLE halve (LDBLE f (LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
-static LDBLE f_spinodal (LDBLE x);
-static int solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
-static int s_s_calc_a0_a1 (struct s_s *s_s_ptr);
+static int scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1);
+static LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+static LDBLE f_spinodal(LDBLE x);
+static int solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
+static int s_s_calc_a0_a1(struct s_s *s_s_ptr);
 #define ZERO_TOL 1.0e-30
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_model (void)
+tidy_model(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
 	int n_user, last;
 	int new_named_logk;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	/*
 	 * Determine if any new elements, species, phases have been read
 	 */
@@ -197,43 +197,41 @@ tidy_model (void)
 /* species */
 	if (new_model == TRUE)
 	{
-		qsort (s,
-			   (size_t) count_s, (size_t) sizeof (struct species *),
-			   s_compare);
+		qsort(s,
+			  (size_t) count_s, (size_t) sizeof(struct species *), s_compare);
 
 /* master species */
-		qsort (master,
-			   (unsigned) count_master, sizeof (struct master *),
-			   master_compare);
+		qsort(master,
+			  (unsigned) count_master, sizeof(struct master *),
+			  master_compare);
 
 /* elements */
-		qsort (elements,
-			   (size_t) count_elements,
-			   (size_t) sizeof (struct element *), element_compare);
+		qsort(elements,
+			  (size_t) count_elements,
+			  (size_t) sizeof(struct element *), element_compare);
 /* phases */
-		qsort (phases,
-			   (size_t) count_phases,
-			   (size_t) sizeof (struct phase *), phase_compare);
+		qsort(phases,
+			  (size_t) count_phases,
+			  (size_t) sizeof(struct phase *), phase_compare);
 
 	}
 /* pure_phases */
 	if (new_pp_assemblage)
-		pp_assemblage_sort ();
+		pp_assemblage_sort();
 
 /* solid solutions */
 	if (new_s_s_assemblage)
-		s_s_assemblage_sort ();
+		s_s_assemblage_sort();
 
 /* exchangers */
 	if (new_exchange)
-		exchange_sort ();
+		exchange_sort();
 /* surfaces */
 	if (new_surface)
-		surface_sort ();
+		surface_sort();
 #ifdef SKIP
 /* mixtures */
-	qsort (mix, (size_t) count_mix, (size_t) sizeof (struct mix),
-		   mix_compare);
+	qsort(mix, (size_t) count_mix, (size_t) sizeof(struct mix), mix_compare);
 #endif
 
 /* mixtures */
@@ -246,84 +244,84 @@ tidy_model (void)
 	if ((state != TRANSPORT) || (simul_tr < 2)
 		|| (stag_data->count_stag == 0))
 	{
-		mix_sort ();
+		mix_sort();
 	}
 
 /* gas_phase */
 	if (new_gas_phase)
-		gas_phase_sort ();
+		gas_phase_sort();
 
 /* kinetics */
 	if (new_kinetics)
-		kinetics_sort ();
+		kinetics_sort();
 
 	/* named_log_k */
 	if (new_named_logk)
-		tidy_logk ();
+		tidy_logk();
 /*
  *   Check pointers, write reactions for species
  */
 	if (new_model)
 	{
-		tidy_species ();
+		tidy_species();
 
-		tidy_phases ();
+		tidy_phases();
 
-		tidy_master_isotope ();
+		tidy_master_isotope();
 /*
  *   calculate gfw of water, kg/mole
  */
-		compute_gfw ("H2O", &gfw_water);
+		compute_gfw("H2O", &gfw_water);
 		gfw_water *= 0.001;
 	}
 /*
  *   tidy surface data
  */
 	if (new_model || new_surface)
-		tidy_surface ();
+		tidy_surface();
 /*
  *   tidy inverse data
  */
 	if (new_inverse)
-		tidy_inverse ();
+		tidy_inverse();
 /*
  *   tidy gas phase data
  */
 	if (new_gas_phase)
-		tidy_gas_phase ();
+		tidy_gas_phase();
 /*
  *   tidy pp_assemblage data
  */
 	if (new_model || new_pp_assemblage)
-		tidy_pp_assemblage ();
+		tidy_pp_assemblage();
 /*
  *   tidy s_s_assemblage data
  */
 	if (new_model || new_s_s_assemblage)
-		tidy_s_s_assemblage ();
+		tidy_s_s_assemblage();
 /*
  *   tidy exchange data, after pp_assemblages
  */
 	if (new_exchange)
-		tidy_min_exchange ();
+		tidy_min_exchange();
 	if (new_exchange)
-		tidy_kin_exchange ();
+		tidy_kin_exchange();
 /*
  *   tidy surface data
  */
 	if (new_surface)
-		tidy_min_surface ();
+		tidy_min_surface();
 	if (new_surface)
-		tidy_kin_surface ();
+		tidy_kin_surface();
 /*
  *   tidy solution isotope data
  */
 	if (new_solution)
-		tidy_isotopes ();
+		tidy_isotopes();
 	if (new_model)
-		tidy_isotope_ratios ();
+		tidy_isotope_ratios();
 	if (new_model)
-		tidy_isotope_alphas ();
+		tidy_isotope_alphas();
 /*
  *   Duplicate reaction
  */
@@ -338,7 +336,7 @@ tidy_model (void)
 				irrev[i].n_user_end = irrev[i].n_user;
 				for (j = n_user + 1; j <= last; j++)
 				{
-					irrev_duplicate (n_user, j);
+					irrev_duplicate(n_user, j);
 				}
 			}
 		}
@@ -357,7 +355,7 @@ tidy_model (void)
 				kinetics[i].n_user_end = kinetics[i].n_user;
 				for (j = n_user + 1; j <= last; j++)
 				{
-					kinetics_duplicate (n_user, j);
+					kinetics_duplicate(n_user, j);
 				}
 			}
 		}
@@ -367,7 +365,7 @@ tidy_model (void)
  */
 	if (new_temperature)
 	{
-		temperature_sort ();
+		temperature_sort();
 		for (i = 0; i < count_temperature; i++)
 		{
 			if (temperature[i].n_user_end > temperature[i].n_user)
@@ -377,7 +375,7 @@ tidy_model (void)
 				temperature[i].n_user_end = temperature[i].n_user;
 				for (j = n_user + 1; j <= last; j++)
 				{
-					temperature_duplicate (n_user, j);
+					temperature_duplicate(n_user, j);
 				}
 			}
 		}
@@ -386,46 +384,46 @@ tidy_model (void)
  *   Tidy pitzer information
  */
 	if (pitzer_model && new_model)
-		pitzer_tidy ();
+		pitzer_tidy();
 /*
  *   Tidy punch information
  */
 	if (input_error == 0 && (new_punch || new_model))
-		tidy_punch ();
+		tidy_punch();
 /*
  *   Tidy solution information
  */
 	if (new_solution)
-		tidy_solutions ();
+		tidy_solutions();
 
 	/*      if (new_model || new_exchange || new_pp_assemblage || new_surface || new_gas_phase || new_kinetics) reset_last_model(); */
 	if (new_model)
-		reset_last_model ();
+		reset_last_model();
 /*
  *   make sure essential species are defined
  */
 	if (s_h2o == NULL)
 	{
 		input_error++;
-		error_msg ("H2O not defined.", STOP);
+		error_msg("H2O not defined.", STOP);
 	}
 	if (s_h2o->primary == NULL)
 	{
 		input_error++;
-		error_msg ("H2O, primary master species for O, not defined.",
-				   CONTINUE);
+		error_msg("H2O, primary master species for O, not defined.",
+				  CONTINUE);
 	}
 	if (s_h2o->secondary == NULL)
 	{
 		input_error++;
-		error_msg ("H2O, secondary master species for O(-2), not defined.",
-				   CONTINUE);
+		error_msg("H2O, secondary master species for O(-2), not defined.",
+				  CONTINUE);
 	}
 	if (s_hplus == NULL && s_h3oplus == NULL)
 	{
 		input_error++;
-		error_msg ("Neither H+ nor H3O+ are defined in solution_species.",
-				   STOP);
+		error_msg("Neither H+ nor H3O+ are defined in solution_species.",
+				  STOP);
 	}
 	else if (s_hplus == NULL && s_h3oplus != NULL)
 	{
@@ -438,57 +436,57 @@ tidy_model (void)
 	else if (s_hplus != NULL && s_h3oplus != NULL)
 	{
 		input_error++;
-		error_msg ("Can not define both H+ and H3O+ in solution_species.",
-				   STOP);
+		error_msg("Can not define both H+ and H3O+ in solution_species.",
+				  STOP);
 	}
 	if (s_hplus->primary == NULL)
 	{
 		input_error++;
-		error_msg ("H3O+, primary master species for H, not defined.",
-				   CONTINUE);
+		error_msg("H3O+, primary master species for H, not defined.",
+				  CONTINUE);
 	}
 	if (s_hplus->secondary == NULL)
 	{
 		input_error++;
-		error_msg ("H3O+, secondary master species for H(1), not defined.",
-				   CONTINUE);
+		error_msg("H3O+, secondary master species for H(1), not defined.",
+				  CONTINUE);
 	}
 	if (s_eminus == NULL)
 	{
 		input_error++;
-		error_msg ("e- not defined in solution_species.", CONTINUE);
+		error_msg("e- not defined in solution_species.", CONTINUE);
 	}
 	if (s_eminus->primary == NULL)
 	{
 		input_error++;
-		error_msg ("e-, primary master species for E-, not defined.",
-				   CONTINUE);
+		error_msg("e-, primary master species for E-, not defined.",
+				  CONTINUE);
 	}
 	if (pitzer_model == FALSE || pitzer_pe == TRUE)
 	{
 		if (s_h2 == NULL)
 		{
 			input_error++;
-			error_msg ("H2(aq) not defined in solution_species.", CONTINUE);
+			error_msg("H2(aq) not defined in solution_species.", CONTINUE);
 		}
 		if (s_o2 == NULL)
 		{
 			input_error++;
-			error_msg ("O2(aq) not defined in solution_species.", CONTINUE);
+			error_msg("O2(aq) not defined in solution_species.", CONTINUE);
 		}
 	}
-	element_h_one = element_store ("H(1)");
+	element_h_one = element_store("H(1)");
 	if (element_h_one == NULL)
 	{
 		input_error++;
-		error_msg ("H(1) not defined in solution_master_species.", CONTINUE);
+		error_msg("H(1) not defined in solution_master_species.", CONTINUE);
 	}
 /*
  *   Error check, program termination
  */
 	if (input_error > 0 || parse_error > 0)
 	{
-		error_msg ("Calculations terminating due to input errors.", STOP);
+		error_msg("Calculations terminating due to input errors.", STOP);
 	}
 
 	return (OK);
@@ -496,7 +494,7 @@ tidy_model (void)
 
 /* ---------------------------------------------------------------------- */
 int
-check_species_input (void)
+check_species_input(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -512,25 +510,25 @@ check_species_input (void)
 		{
 			input_error++;
 			return_value = ERROR;
-			sprintf (error_string,
-					 "Elements in species have not been tabulated, %s.",
-					 s[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Elements in species have not been tabulated, %s.",
+					s[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
 		if (s[i]->rxn == NULL)
 		{
 			input_error++;
 			return_value = ERROR;
-			sprintf (error_string,
-					 "Reaction for species has not been defined, %s.",
-					 s[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Reaction for species has not been defined, %s.",
+					s[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
 		else
 		{
-			select_log_k_expression (s[i]->logk, s[i]->rxn->logk);
-			add_other_logk (s[i]->rxn->logk, s[i]->count_add_logk,
-							s[i]->add_logk);
+			select_log_k_expression(s[i]->logk, s[i]->rxn->logk);
+			add_other_logk(s[i]->rxn->logk, s[i]->count_add_logk,
+						   s[i]->add_logk);
 		}
 	}
 	return (return_value);
@@ -538,7 +536,7 @@ check_species_input (void)
 
 /* ---------------------------------------------------------------------- */
 int
-select_log_k_expression (LDBLE * source_k, LDBLE * target_k)
+select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 /* ---------------------------------------------------------------------- */
 {
 	int j, analytic;
@@ -575,7 +573,7 @@ select_log_k_expression (LDBLE * source_k, LDBLE * target_k)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_logk (void)
+tidy_logk(void)
 /* ---------------------------------------------------------------------- */
 /*
  *  Picks log k expression
@@ -584,14 +582,14 @@ tidy_logk (void)
 	int i;
 	for (i = 0; i < count_logk; i++)
 	{
-		select_log_k_expression (logk[i]->log_k_original, logk[i]->log_k);
+		select_log_k_expression(logk[i]->log_k_original, logk[i]->log_k);
 		logk[i]->done = FALSE;
 	}
 	for (i = 0; i < count_logk; i++)
 	{
 		if (logk[i]->done == FALSE)
 		{
-			add_logks (logk[i], 0);
+			add_logks(logk[i], 0);
 		}
 	}
 	return (OK);
@@ -599,8 +597,8 @@ tidy_logk (void)
 
 /* ---------------------------------------------------------------------- */
 int
-add_other_logk (LDBLE * source_k, int count_add_logk,
-				struct name_coef *add_logk)
+add_other_logk(LDBLE * source_k, int count_add_logk,
+			   struct name_coef *add_logk)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, analytic;
@@ -614,18 +612,18 @@ add_other_logk (LDBLE * source_k, int count_add_logk,
 	for (i = 0; i < count_add_logk; i++)
 	{
 		coef = add_logk[i].coef;
-		strcpy (token, add_logk[i].name);
-		str_tolower (token);
+		strcpy(token, add_logk[i].name);
+		str_tolower(token);
 		item.key = token;
 		item.data = NULL;
-		found_item = hsearch_multi (logk_hash_table, item, FIND);
+		found_item = hsearch_multi(logk_hash_table, item, FIND);
 		if (found_item == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "Could not find named temperature expression, %s\n",
-					 token);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Could not find named temperature expression, %s\n",
+					token);
+			error_msg(error_string, CONTINUE);
 			return (ERROR);
 		}
 		logk_ptr = (struct logk *) found_item->data;
@@ -656,7 +654,7 @@ add_other_logk (LDBLE * source_k, int count_add_logk,
 
 /* ---------------------------------------------------------------------- */
 int
-add_logks (struct logk *logk_ptr, int repeats)
+add_logks(struct logk *logk_ptr, int repeats)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -671,33 +669,33 @@ add_logks (struct logk *logk_ptr, int repeats)
 	if (repeats > 15)
 	{
 		input_error++;
-		sprintf (error_string, "Circular definition of named_logk? %s\n",
-				 logk_ptr->name);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Circular definition of named_logk? %s\n",
+				logk_ptr->name);
+		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
 	for (i = 0; i < logk_ptr->count_add_logk; i++)
 	{
 		coef = logk_ptr->add_logk[i].coef;
-		strcpy (token, logk_ptr->add_logk[i].name);
-		str_tolower (token);
+		strcpy(token, logk_ptr->add_logk[i].name);
+		str_tolower(token);
 		item.key = token;
 		item.data = NULL;
-		found_item = hsearch_multi (logk_hash_table, item, FIND);
+		found_item = hsearch_multi(logk_hash_table, item, FIND);
 		if (found_item == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "Could not find named temperature expression, %s\n",
-					 token);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Could not find named temperature expression, %s\n",
+					token);
+			error_msg(error_string, CONTINUE);
 			return (ERROR);
 		}
 		next_logk_ptr = (struct logk *) found_item->data;
 		if (next_logk_ptr->done == FALSE)
 		{
 			/*output_msg(OUTPUT_MESSAGE, "Done == FALSE\n", token); */
-			if (add_logks (next_logk_ptr, repeats + 1) == ERROR)
+			if (add_logks(next_logk_ptr, repeats + 1) == ERROR)
 			{
 				return (ERROR);
 			}
@@ -713,7 +711,7 @@ add_logks (struct logk *logk_ptr, int repeats)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-coef_in_master (struct master * master_ptr)
+coef_in_master(struct master * master_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int l;
@@ -724,11 +722,11 @@ coef_in_master (struct master * master_ptr)
 
 	coef = 0.0;
 	ptr = master_ptr->elt->name;
-	get_elt (&ptr, elt_name, &l);
+	get_elt(&ptr, elt_name, &l);
 	for (next_elt = master_ptr->s->next_elt; next_elt->elt != NULL;
 		 next_elt++)
 	{
-		if (strcmp (elt_name, next_elt->elt->name) == 0)
+		if (strcmp(elt_name, next_elt->elt->name) == 0)
 		{
 			coef = next_elt->coef;
 			break;
@@ -739,7 +737,7 @@ coef_in_master (struct master * master_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-rewrite_eqn_to_secondary (void)
+rewrite_eqn_to_secondary(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -764,10 +762,10 @@ rewrite_eqn_to_secondary (void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf (error_string,
-					 "Could not reduce equation to secondary master species, %s.",
-					 trxn.token[0].name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Could not reduce equation to secondary master species, %s.",
+					trxn.token[0].name);
+			error_msg(error_string, CONTINUE);
 			break;
 		}
 
@@ -776,10 +774,10 @@ rewrite_eqn_to_secondary (void)
 			token_ptr = &(trxn.token[i]);
 			if (token_ptr->s == NULL)
 			{
-				sprintf (error_string,
-						 "NULL species pointer for species, %s.",
-						 token_ptr->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"NULL species pointer for species, %s.",
+						token_ptr->name);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
@@ -787,19 +785,19 @@ rewrite_eqn_to_secondary (void)
 				&& token_ptr->s->primary == NULL)
 			{
 				coef = token_ptr->coef;
-				trxn_add (token_ptr->s->rxn, coef, TRUE);
+				trxn_add(token_ptr->s->rxn, coef, TRUE);
 				repeat = TRUE;
 				break;
 			}
 		}
 	}
-	trxn_combine ();
+	trxn_combine();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-replace_solids_gases (void)
+replace_solids_gases(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -829,10 +827,10 @@ replace_solids_gases (void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf (error_string,
-					 "Could not remove all solids and gases from equation, %s.",
-					 trxn.token[0].name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Could not remove all solids and gases from equation, %s.",
+					trxn.token[0].name);
+			error_msg(error_string, CONTINUE);
 			break;
 		}
 
@@ -841,23 +839,23 @@ replace_solids_gases (void)
 			token_ptr = &(trxn.token[i]);
 			if (token_ptr->s == NULL)
 			{
-				phase_ptr = phase_bsearch (token_ptr->name, &n, FALSE);
+				phase_ptr = phase_bsearch(token_ptr->name, &n, FALSE);
 				/* try phase name without (g) or  (s) */
 				if (phase_ptr == NULL)
 				{
-					strcpy (token, token_ptr->name);
-					replace ("(g)", "", token);
-					replace ("(s)", "", token);
-					replace ("(G)", "", token);
-					replace ("(S)", "", token);
-					phase_ptr = phase_bsearch (token, &n, FALSE);
+					strcpy(token, token_ptr->name);
+					replace("(g)", "", token);
+					replace("(s)", "", token);
+					replace("(G)", "", token);
+					replace("(S)", "", token);
+					phase_ptr = phase_bsearch(token, &n, FALSE);
 				}
 				if (phase_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string, "Phase not found, %s.",
-							 token_ptr->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string, "Phase not found, %s.",
+							token_ptr->name);
+					error_msg(error_string, CONTINUE);
 					break;
 				}
 				coef = token_ptr->coef;
@@ -866,7 +864,7 @@ replace_solids_gases (void)
 				   output_msg(OUTPUT_MESSAGE, "Reaction to add.\n");
 				   rxn_print(phase_ptr->rxn);
 				 */
-				trxn_add_phase (phase_ptr->rxn, coef, FALSE);
+				trxn_add_phase(phase_ptr->rxn, coef, FALSE);
 
 				/* remove solid/gas from trxn list */
 				trxn.token[i].name = phase_ptr->rxn->token[0].name;
@@ -879,7 +877,7 @@ replace_solids_gases (void)
 				   trxn_print();
 				 */
 				/* combine */
-				trxn_combine ();
+				trxn_combine();
 				/* debug
 				   output_msg(OUTPUT_MESSAGE, "Combined.\n");
 				   trxn_print();
@@ -888,13 +886,13 @@ replace_solids_gases (void)
 			}
 		}
 	}
-	trxn_combine ();
+	trxn_combine();
 	return (replaced);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-rewrite_eqn_to_primary (void)
+rewrite_eqn_to_primary(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -922,10 +920,10 @@ rewrite_eqn_to_primary (void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf (error_string,
-					 "Could not reduce equation to primary master species, %s.",
-					 trxn.token[0].s->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"Could not reduce equation to primary master species, %s.",
+					trxn.token[0].s->name);
+			error_msg(error_string, CONTINUE);
 			break;
 		}
 /*
@@ -936,19 +934,19 @@ rewrite_eqn_to_primary (void)
 		{
 			if (trxn.token[j].s->primary == NULL)
 			{
-				trxn_add (trxn.token[j].s->rxn, trxn.token[j].coef, TRUE);
+				trxn_add(trxn.token[j].s->rxn, trxn.token[j].coef, TRUE);
 				repeat = TRUE;
 				break;
 			}
 		}
 	}
-	trxn_combine ();
+	trxn_combine();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_gas_phase (void)
+tidy_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, n_user, last;
@@ -963,14 +961,14 @@ tidy_gas_phase (void)
 		gas_phase[i].new_def = FALSE;
 		for (j = 0; j < gas_phase[i].count_comps; j++)
 		{
-			phase_ptr = phase_bsearch (gas_phase[i].comps[j].name, &k, FALSE);
+			phase_ptr = phase_bsearch(gas_phase[i].comps[j].name, &k, FALSE);
 			if (phase_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Gas not found in PHASES data base, %s.",
-						 gas_phase[i].comps[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Gas not found in PHASES data base, %s.",
+						gas_phase[i].comps[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			else
@@ -985,10 +983,10 @@ tidy_gas_phase (void)
 				if (gas_phase[i].solution_equilibria == TRUE)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Gas phase %d: can not use '-equilibrium' option with fixed pressure gas phase.",
-							 gas_phase[i].n_user);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Gas phase %d: can not use '-equilibrium' option with fixed pressure gas phase.",
+							gas_phase[i].n_user);
+					error_msg(error_string, CONTINUE);
 				}
 				/* calculate moles */
 				if (gas_phase[i].comps[j].p_read != NAN)
@@ -1000,10 +998,10 @@ tidy_gas_phase (void)
 				else
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Gas phase %d: partial pressure of gas component %s not defined.",
-							 gas_phase[i].n_user, gas_phase[i].comps[j].name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Gas phase %d: partial pressure of gas component %s not defined.",
+							gas_phase[i].n_user, gas_phase[i].comps[j].name);
+					error_msg(error_string, CONTINUE);
 				}
 			}
 			else
@@ -1023,11 +1021,11 @@ tidy_gas_phase (void)
 					else
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Gas phase %d: moles of gas component %s not defined.",
-								 gas_phase[i].n_user,
-								 gas_phase[i].comps[j].name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Gas phase %d: moles of gas component %s not defined.",
+								gas_phase[i].n_user,
+								gas_phase[i].comps[j].name);
+						error_msg(error_string, CONTINUE);
 					}
 				}
 			}
@@ -1042,7 +1040,7 @@ tidy_gas_phase (void)
 			gas_phase[i].n_user_end = gas_phase[i].n_user;
 			for (j = n_user + 1; j <= last; j++)
 			{
-				gas_phase_duplicate (n_user, j);
+				gas_phase_duplicate(n_user, j);
 			}
 		}
 		else
@@ -1055,7 +1053,7 @@ tidy_gas_phase (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_inverse (void)
+tidy_inverse(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1070,7 +1068,7 @@ tidy_inverse (void)
 	struct master *master_ptr;
 	struct master *master_alk_ptr;
 	struct elt_list *elt_list_ptr;
-	master_alk_ptr = master_bsearch ("Alkalinity");
+	master_alk_ptr = master_bsearch("Alkalinity");
 	for (i = 0; i < count_inverse; i++)
 	{
 		if (inverse[i].new_def != TRUE)
@@ -1081,11 +1079,11 @@ tidy_inverse (void)
 		if (inverse[i].count_uncertainties < inverse[i].count_solns)
 		{
 			inverse[i].uncertainties =
-				(LDBLE *) PHRQ_realloc (inverse[i].uncertainties,
-										(size_t) inverse[i].count_solns *
-										sizeof (LDBLE));
+				(LDBLE *) PHRQ_realloc(inverse[i].uncertainties,
+									   (size_t) inverse[i].count_solns *
+									   sizeof(LDBLE));
 			if (inverse[i].uncertainties == NULL)
-				malloc_error ();
+				malloc_error();
 			for (j = inverse[i].count_uncertainties;
 				 j < inverse[i].count_solns; j++)
 			{
@@ -1100,11 +1098,11 @@ tidy_inverse (void)
 		if (inverse[i].count_ph_uncertainties < inverse[i].count_solns)
 		{
 			inverse[i].ph_uncertainties =
-				(LDBLE *) PHRQ_realloc (inverse[i].ph_uncertainties,
-										(size_t) inverse[i].count_solns *
-										sizeof (LDBLE));
+				(LDBLE *) PHRQ_realloc(inverse[i].ph_uncertainties,
+									   (size_t) inverse[i].count_solns *
+									   sizeof(LDBLE));
 			if (inverse[i].ph_uncertainties == NULL)
-				malloc_error ();
+				malloc_error();
 			for (j = inverse[i].count_ph_uncertainties;
 				 j < inverse[i].count_solns; j++)
 			{
@@ -1119,11 +1117,11 @@ tidy_inverse (void)
 		if (inverse[i].count_force_solns < inverse[i].count_solns)
 		{
 			inverse[i].force_solns =
-				(int *) PHRQ_realloc (inverse[i].force_solns,
-									  (size_t) inverse[i].count_solns *
-									  sizeof (int));
+				(int *) PHRQ_realloc(inverse[i].force_solns,
+									 (size_t) inverse[i].count_solns *
+									 sizeof(int));
 			if (inverse[i].force_solns == NULL)
-				malloc_error ();
+				malloc_error();
 			for (j = inverse[i].count_force_solns; j < inverse[i].count_solns;
 				 j++)
 			{
@@ -1136,21 +1134,21 @@ tidy_inverse (void)
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
 			inverse[i].elts[j].master =
-				master_bsearch_primary (inverse[i].elts[j].name);
+				master_bsearch_primary(inverse[i].elts[j].name);
 			if (inverse[i].elts[j].master == NULL)
 			{
 				input_error++;
-				sprintf (error_string, "No master species for element, %s.",
-						 inverse[i].elts[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "No master species for element, %s.",
+						inverse[i].elts[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			inverse[i].elts[j].uncertainties =
-				(LDBLE *) PHRQ_realloc (inverse[i].elts[j].uncertainties,
-										(size_t) inverse[i].count_solns *
-										sizeof (LDBLE));
+				(LDBLE *) PHRQ_realloc(inverse[i].elts[j].uncertainties,
+									   (size_t) inverse[i].count_solns *
+									   sizeof(LDBLE));
 			if (inverse[i].elts[j].uncertainties == NULL)
-				malloc_error ();
+				malloc_error();
 			if (inverse[i].elts[j].count_uncertainties == 0)
 			{
 /* use default uncertainties for element */
@@ -1182,13 +1180,13 @@ tidy_inverse (void)
 		for (j = 0; j < inverse[i].count_phases; j++)
 		{
 			inverse[i].phases[j].phase =
-				phase_bsearch (inverse[i].phases[j].name, &k, FALSE);
+				phase_bsearch(inverse[i].phases[j].name, &k, FALSE);
 			if (inverse[i].phases[j].phase == NULL)
 			{
 				input_error++;
-				sprintf (error_string, "Could not find phase, %s.",
-						 inverse[i].phases[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Could not find phase, %s.",
+						inverse[i].phases[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 /*
@@ -1201,26 +1199,26 @@ tidy_inverse (void)
 					inverse[i].phases[j].isotopes[k].primary = NULL;
 					inverse[i].phases[j].isotopes[k].master = NULL;
 					master_ptr =
-						master_bsearch (inverse[i].phases[j].isotopes[k].
-										elt_name);
+						master_bsearch(inverse[i].phases[j].isotopes[k].
+									   elt_name);
 					if (master_ptr == NULL)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Element not found for isotope calculation: %s.",
-								 inverse[i].phases[j].isotopes[k].elt_name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Element not found for isotope calculation: %s.",
+								inverse[i].phases[j].isotopes[k].elt_name);
+						error_msg(error_string, CONTINUE);
 						continue;
 					}
 					if (master_ptr->primary != TRUE)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Isotope ratio may only be used"
-								 " for total element in phase.\n"
-								 "Secondary species not allowed: %s.",
-								 master_ptr->elt->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Isotope ratio may only be used"
+								" for total element in phase.\n"
+								"Secondary species not allowed: %s.",
+								master_ptr->elt->name);
+						error_msg(error_string, CONTINUE);
 						continue;
 					}
 					inverse[i].phases[j].isotopes[k].primary = master_ptr;
@@ -1239,19 +1237,19 @@ tidy_inverse (void)
 					if (elt_list_ptr == NULL)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Element, %s,for which isotope ratio was defined is not found in phase, %s",
-								 master_ptr->elt->name,
-								 inverse[i].phases[j].phase->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Element, %s,for which isotope ratio was defined is not found in phase, %s",
+								master_ptr->elt->name,
+								inverse[i].phases[j].phase->name);
+						error_msg(error_string, CONTINUE);
 						continue;
 					}
 				}
-				qsort (inverse[i].phases[j].isotopes,
-					   (size_t) inverse[i].phases[j].count_isotopes,
-					   (size_t) sizeof (struct isotope), isotope_compare);
+				qsort(inverse[i].phases[j].isotopes,
+					  (size_t) inverse[i].phases[j].count_isotopes,
+					  (size_t) sizeof(struct isotope), isotope_compare);
 			}
-			add_elt_list (inverse[i].phases[j].phase->next_elt, 1.0);
+			add_elt_list(inverse[i].phases[j].phase->next_elt, 1.0);
 
 		}
 		if (input_error > 0)
@@ -1261,9 +1259,9 @@ tidy_inverse (void)
  */
 		if (count_elts > 0)
 		{
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
 		}
 /*
  *   Mark master species list
@@ -1322,10 +1320,10 @@ tidy_inverse (void)
  *   Save list of master species in inv_elts structure
  */
 		inv_elts =
-			(struct inv_elts *) PHRQ_malloc ((size_t) (count_in) *
-											 sizeof (struct inv_elts));
+			(struct inv_elts *) PHRQ_malloc((size_t) (count_in) *
+											sizeof(struct inv_elts));
 		if (inv_elts == NULL)
-			malloc_error ();
+			malloc_error();
 		count_in = 0;
 		for (j = 0; j < count_master; j++)
 		{
@@ -1338,10 +1336,10 @@ tidy_inverse (void)
 				inv_elts[count_in].master = master[j];
 				/* alloc uncertainties and set default */
 				inv_elts[count_in].uncertainties =
-					(LDBLE *) PHRQ_malloc ((size_t) inverse[i].count_solns *
-										   sizeof (LDBLE));
+					(LDBLE *) PHRQ_malloc((size_t) inverse[i].count_solns *
+										  sizeof(LDBLE));
 				if (inv_elts[count_in].uncertainties == NULL)
-					malloc_error ();
+					malloc_error();
 				for (k = 0; k < inverse[i].count_solns; k++)
 				{
 					inv_elts[count_in].uncertainties[k] =
@@ -1364,13 +1362,13 @@ tidy_inverse (void)
 		/* copy primary redox to all secondary redox */
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
-			master_ptr = master_bsearch (inverse[i].elts[j].name);
+			master_ptr = master_bsearch(inverse[i].elts[j].name);
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string, "Element not found, %s.",
-						 inverse[i].elts[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Element not found, %s.",
+						inverse[i].elts[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			if (master_ptr->primary == FALSE
@@ -1388,18 +1386,18 @@ tidy_inverse (void)
 				}
 			}
 			inverse[i].elts[j].uncertainties =
-				(LDBLE *) free_check_null (inverse[i].elts[j].uncertainties);
+				(LDBLE *) free_check_null(inverse[i].elts[j].uncertainties);
 		}
 		/* copy masters that are not primary redox */
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
-			master_ptr = master_bsearch (inverse[i].elts[j].name);
+			master_ptr = master_bsearch(inverse[i].elts[j].name);
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string, "Element not found, %s.",
-						 inverse[i].elts[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Element not found, %s.",
+						inverse[i].elts[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			if (master_ptr->primary == TRUE
@@ -1418,13 +1416,13 @@ tidy_inverse (void)
 				}
 			}
 			inverse[i].elts[j].uncertainties =
-				(LDBLE *) free_check_null (inverse[i].elts[j].uncertainties);
+				(LDBLE *) free_check_null(inverse[i].elts[j].uncertainties);
 		}
 /*
  *   replace elts in inverse struct
  */
 		inverse[i].elts =
-			(struct inv_elts *) free_check_null (inverse[i].elts);
+			(struct inv_elts *) free_check_null(inverse[i].elts);
 		inverse[i].elts = inv_elts;
 		inverse[i].count_elts = count_in;
 		for (j = 0; j < inverse[i].count_elts; j++)
@@ -1434,7 +1432,7 @@ tidy_inverse (void)
 			if (inverse[i].elts[j].master == master_alk_ptr)
 			{
 				inverse[i].alk_uncertainties =
-					free_check_null (inverse[i].alk_uncertainties);
+					free_check_null(inverse[i].alk_uncertainties);
 				inverse[i].alk_uncertainties =
 					inverse[i].elts[j].uncertainties;
 			}
@@ -1453,7 +1451,7 @@ tidy_inverse (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_phases (void)
+tidy_phases(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -1463,9 +1461,9 @@ tidy_phases (void)
 	 */
 	for (i = 0; i < count_phases; i++)
 	{
-		select_log_k_expression (phases[i]->logk, phases[i]->rxn->logk);
-		add_other_logk (phases[i]->rxn->logk, phases[i]->count_add_logk,
-						phases[i]->add_logk);
+		select_log_k_expression(phases[i]->logk, phases[i]->rxn->logk);
+		add_other_logk(phases[i]->rxn->logk, phases[i]->count_add_logk,
+					   phases[i]->add_logk);
 		phases[i]->rxn->token[0].name = phases[i]->name;
 		phases[i]->rxn->token[0].s = NULL;
 	}
@@ -1478,24 +1476,24 @@ tidy_phases (void)
 		 *   Rewrite equation
 		 */
 		count_trxn = 0;
-		trxn_add_phase (phases[i]->rxn, 1.0, FALSE);
+		trxn_add_phase(phases[i]->rxn, 1.0, FALSE);
 		trxn.token[0].name = phases[i]->name;
 		/* debug 
 		   output_msg(OUTPUT_MESSAGE, "%s PHASE.\n", phases[i]->name);
 		   trxn_print();
 		 */
-		replaced = replace_solids_gases ();
+		replaced = replace_solids_gases();
 		/*  save rxn */
-		rxn_free (phases[i]->rxn);
-		phases[i]->rxn = rxn_alloc (count_trxn + 1);
-		trxn_copy (phases[i]->rxn);
+		rxn_free(phases[i]->rxn);
+		phases[i]->rxn = rxn_alloc(count_trxn + 1);
+		trxn_copy(phases[i]->rxn);
 		/*  save rxn_s */
-		trxn_reverse_k ();
-		rewrite_eqn_to_secondary ();
-		trxn_reverse_k ();
-		rxn_free (phases[i]->rxn_s);
-		phases[i]->rxn_s = rxn_alloc (count_trxn + 1);
-		trxn_copy (phases[i]->rxn_s);
+		trxn_reverse_k();
+		rewrite_eqn_to_secondary();
+		trxn_reverse_k();
+		rxn_free(phases[i]->rxn_s);
+		phases[i]->rxn_s = rxn_alloc(count_trxn + 1);
+		trxn_copy(phases[i]->rxn_s);
 		/*
 		 *   Check equation
 		 */
@@ -1503,19 +1501,19 @@ tidy_phases (void)
 		{
 			if (replaced == FALSE)
 			{
-				phase_rxn_to_trxn (phases[i], phases[i]->rxn);
+				phase_rxn_to_trxn(phases[i], phases[i]->rxn);
 			}
 			else
 			{
-				phase_rxn_to_trxn (phases[i], phases[i]->rxn_s);
+				phase_rxn_to_trxn(phases[i], phases[i]->rxn_s);
 			}
-			if (check_eqn (FALSE) == ERROR)
+			if (check_eqn(FALSE) == ERROR)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Equation for phase %s does not balance.",
-						 phases[i]->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Equation for phase %s does not balance.",
+						phases[i]->name);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 	}
@@ -1525,7 +1523,7 @@ tidy_phases (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_pp_assemblage (void)
+tidy_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, l, n_user, first, last;
@@ -1544,59 +1542,59 @@ tidy_pp_assemblage (void)
 		for (j = 0; j < pp_assemblage[i].count_comps; j++)
 		{
 			phase_ptr =
-				phase_bsearch (pp_assemblage[i].pure_phases[j].name, &k,
-							   FALSE);
+				phase_bsearch(pp_assemblage[i].pure_phases[j].name, &k,
+							  FALSE);
 			if (phase_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string, "Phase not found in data base, %s.",
-						 pp_assemblage[i].pure_phases[j].name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Phase not found in data base, %s.",
+						pp_assemblage[i].pure_phases[j].name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			else
 			{
 				pp_assemblage[i].pure_phases[j].phase = phase_ptr;
-				add_elt_list (phase_ptr->next_elt, coef);
+				add_elt_list(phase_ptr->next_elt, coef);
 
 			}
 			if (pp_assemblage[i].pure_phases[j].add_formula != NULL)
 			{
 				first = count_elts;
 				phase_ptr =
-					phase_bsearch (pp_assemblage[i].pure_phases[j].
-								   add_formula, &k, FALSE);
+					phase_bsearch(pp_assemblage[i].pure_phases[j].
+								  add_formula, &k, FALSE);
 				if (phase_ptr != NULL)
 				{
 					pp_assemblage[i].pure_phases[j].add_formula =
 						phase_ptr->formula;
 				}
 				ptr = pp_assemblage[i].pure_phases[j].add_formula;
-				get_elts_in_species (&ptr, coef);
+				get_elts_in_species(&ptr, coef);
 				/* check that all elements are in the database */
 				for (l = first; l < count_elts; l++)
 				{
 					if (elt_list[l].elt->master == NULL)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Element \"%s\" in alternative phase for \"%s\" in EQUILIBRIUM_PHASES not found in database.",
-								 elt_list[l].elt->name,
-								 pp_assemblage[i].pure_phases[j].name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Element \"%s\" in alternative phase for \"%s\" in EQUILIBRIUM_PHASES not found in database.",
+								elt_list[l].elt->name,
+								pp_assemblage[i].pure_phases[j].name);
+						error_msg(error_string, CONTINUE);
 					}
 				}
 			}
 		}
 		if (count_elts > 0)
 		{
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
 		}
 		pp_assemblage[i].next_elt =
-			(struct elt_list *) free_check_null (pp_assemblage[i].next_elt);
-		pp_assemblage[i].next_elt = elt_list_save ();
+			(struct elt_list *) free_check_null(pp_assemblage[i].next_elt);
+		pp_assemblage[i].next_elt = elt_list_save();
 
 /*
  *   Store list with all elements in phases and add formulae
@@ -1612,7 +1610,7 @@ tidy_pp_assemblage (void)
 			pp_assemblage[i].n_user_end = pp_assemblage[i].n_user;
 			for (j = n_user + 1; j <= last; j++)
 			{
-				pp_assemblage_duplicate (n_user, j);
+				pp_assemblage_duplicate(n_user, j);
 			}
 		}
 	}
@@ -1621,7 +1619,7 @@ tidy_pp_assemblage (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_s_s_assemblage (void)
+tidy_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, k1, n_user, last;
@@ -1642,16 +1640,16 @@ tidy_s_s_assemblage (void)
 			for (k = 0; k < s_s_assemblage[i].s_s[j].count_comps; k++)
 			{
 				phase_ptr =
-					phase_bsearch (s_s_assemblage[i].s_s[j].comps[k].name,
-								   &k1, FALSE);
+					phase_bsearch(s_s_assemblage[i].s_s[j].comps[k].name,
+								  &k1, FALSE);
 				if (phase_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Phase not found in data base, %s, assemblage %d.",
-							 s_s_assemblage[i].s_s[j].comps[k].name,
-							 s_s_assemblage[i].n_user);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Phase not found in data base, %s, assemblage %d.",
+							s_s_assemblage[i].s_s[j].comps[k].name,
+							s_s_assemblage[i].n_user);
+					error_msg(error_string, CONTINUE);
 					s_s_assemblage[i].s_s[j].comps[k].phase = NULL;
 					continue;
 				}
@@ -1664,11 +1662,11 @@ tidy_s_s_assemblage (void)
 				if (s_s_assemblage[i].s_s[j].comps[k].moles == NAN)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Moles of solid solution component not defined, %s, assemblage %d.",
-							 s_s_assemblage[i].s_s[j].comps[k].name,
-							 s_s_assemblage[i].n_user);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Moles of solid solution component not defined, %s, assemblage %d.",
+							s_s_assemblage[i].s_s[j].comps[k].name,
+							s_s_assemblage[i].n_user);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 			}
@@ -1678,7 +1676,7 @@ tidy_s_s_assemblage (void)
 				/*
 				 *  Calculate a0 and a1 first
 				 */
-				s_s_calc_a0_a1 (&(s_s_assemblage[i].s_s[j]));
+				s_s_calc_a0_a1(&(s_s_assemblage[i].s_s[j]));
 				s_s_ptr = &(s_s_assemblage[i].s_s[j]);
 
 				n_tot = 0;
@@ -1704,7 +1702,7 @@ tidy_s_s_assemblage (void)
 					s_s_assemblage[i].s_s[j].comps[k].fraction_x =
 						moles / n_tot;
 					s_s_assemblage[i].s_s[j].comps[k].log10_fraction_x =
-						log10 (moles / n_tot);
+						log10(moles / n_tot);
 				}
 				a0 = s_s_assemblage[i].s_s[j].a0;
 				a1 = s_s_assemblage[i].s_s[j].a1;
@@ -1764,8 +1762,8 @@ tidy_s_s_assemblage (void)
 						2 * a1 * xc * xb2 - 2 * a0 * xb * xc2 -
 						8 * a1 * xb2 * xc2 + 6 * a1 * xb * xc2 + 1;
 					s_s_assemblage[i].s_s[j].comps[1].dnc = dnc / n_tot;
-					s_s_prep (s_s_assemblage[i].s_s[j].tk,
-							  &(s_s_assemblage[i].s_s[j]), TRUE);
+					s_s_prep(s_s_assemblage[i].s_s[j].tk,
+							 &(s_s_assemblage[i].s_s[j]), TRUE);
 					s_s_assemblage[i].s_s[j].comps[1].dn = 1.0 / n_tot;
 /*
  *   Ideal solid solution
@@ -1797,7 +1795,7 @@ tidy_s_s_assemblage (void)
 		s_s_assemblage[i].n_user_end = s_s_assemblage[i].n_user;
 		for (j = n_user + 1; j <= last; j++)
 		{
-			s_s_assemblage_duplicate (n_user, j);
+			s_s_assemblage_duplicate(n_user, j);
 		}
 	}
 	return (OK);
@@ -1805,7 +1803,7 @@ tidy_s_s_assemblage (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_punch (void)
+tidy_punch(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, l;
@@ -1828,21 +1826,21 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_totals; i++)
 		{
-			punch.totals[i].master = master_bsearch (punch.totals[i].name);
+			punch.totals[i].master = master_bsearch(punch.totals[i].name);
 		}
 
 		/* molalities */
 
 		for (i = 0; i < punch.count_molalities; i++)
 		{
-			punch.molalities[i].s = s_search (punch.molalities[i].name);
+			punch.molalities[i].s = s_search(punch.molalities[i].name);
 		}
 
 		/* log activities */
 
 		for (i = 0; i < punch.count_activities; i++)
 		{
-			punch.activities[i].s = s_search (punch.activities[i].name);
+			punch.activities[i].s = s_search(punch.activities[i].name);
 		}
 
 		/* equilibrium phases */
@@ -1850,14 +1848,14 @@ tidy_punch (void)
 		for (i = 0; i < punch.count_pure_phases; i++)
 		{
 			punch.pure_phases[i].phase =
-				phase_bsearch (punch.pure_phases[i].name, &j, FALSE);
+				phase_bsearch(punch.pure_phases[i].name, &j, FALSE);
 		}
 
 		/* saturation indices */
 
 		for (i = 0; i < punch.count_si; i++)
 		{
-			punch.si[i].phase = phase_bsearch (punch.si[i].name, &j, FALSE);
+			punch.si[i].phase = phase_bsearch(punch.si[i].name, &j, FALSE);
 		}
 
 		/* gases */
@@ -1865,7 +1863,7 @@ tidy_punch (void)
 		for (i = 0; i < punch.count_gases; i++)
 		{
 			punch.gases[i].phase =
-				phase_bsearch (punch.gases[i].name, &j, FALSE);
+				phase_bsearch(punch.gases[i].name, &j, FALSE);
 		}
 	}
 	/*
@@ -1880,74 +1878,74 @@ tidy_punch (void)
 
 		if (punch.sim == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "sim");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "sim");
 		}
 		if (punch.state == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "state");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "state");
 		}
 		if (punch.soln == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "soln");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "soln");
 		}
 		if (punch.dist == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "dist_x");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "dist_x");
 		}
 		if (punch.time == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "time");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "time");
 		}
 		if (punch.step == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "step");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "step");
 		}
 		if (punch.ph == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "pH");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pH");
 		}
 		if (punch.pe == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "pe");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pe");
 		}
 		if (punch.rxn == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "reaction");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "reaction");
 		}
 		if (punch.temp == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "temp");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "temp");
 		}
 		if (punch.alk == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "Alk");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "Alk");
 		}
 		if (punch.mu == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "mu");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "mu");
 		}
 		if (punch.water == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "mass_H2O");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "mass_H2O");
 		}
 		if (punch.charge_balance == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "charge");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "charge");
 		}
 		if (punch.percent_error == TRUE)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, "pct_err");
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pct_err");
 		}
 		/* totals */
 
 		for (i = 0; i < punch.count_totals; i++)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, punch.totals[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, punch.totals[i].name);
 			if (punch.totals[i].master == NULL)
 			{
-				sprintf (error_string, "Did not find master species,"
-						 " %s.", punch.totals[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find master species,"
+						" %s.", punch.totals[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -1955,14 +1953,14 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_molalities; i++)
 		{
-			strcpy (token, "m_");
-			strcat (token, punch.molalities[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "m_");
+			strcat(token, punch.molalities[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			if (punch.molalities[i].s == NULL)
 			{
-				sprintf (error_string, "Did not find species,"
-						 " %s.", punch.molalities[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find species,"
+						" %s.", punch.molalities[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -1970,14 +1968,14 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_activities; i++)
 		{
-			strcpy (token, "la_");
-			strcat (token, punch.activities[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "la_");
+			strcat(token, punch.activities[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			if (punch.activities[i].s == NULL)
 			{
-				sprintf (error_string, "Did not find species, "
-						 "%s.", punch.activities[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find species, "
+						"%s.", punch.activities[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -1985,15 +1983,15 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_pure_phases; i++)
 		{
-			strcpy (token, "d_");
-			strcat (token, punch.pure_phases[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t%*s\t", l,
-						punch.pure_phases[i].name, l, token);
+			strcpy(token, "d_");
+			strcat(token, punch.pure_phases[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t%*s\t", l,
+					   punch.pure_phases[i].name, l, token);
 			if (punch.pure_phases[i].phase == NULL)
 			{
-				sprintf (error_string, "Did not find phase, "
-						 "%s.", punch.pure_phases[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find phase, "
+						"%s.", punch.pure_phases[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -2001,14 +1999,14 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_si; i++)
 		{
-			strcpy (token, "si_");
-			strcat (token, punch.si[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "si_");
+			strcat(token, punch.si[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			if (punch.si[i].phase == NULL)
 			{
-				sprintf (error_string, "Did not find phase, "
-						 "%s.", punch.si[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find phase, "
+						"%s.", punch.si[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -2016,19 +2014,19 @@ tidy_punch (void)
 
 		if (punch.count_gases > 0)
 		{
-			output_msg (OUTPUT_PUNCH, "%*s\t%*s\t%*s\t", l, "pressure", l,
-						"total mol", l, "volume");
+			output_msg(OUTPUT_PUNCH, "%*s\t%*s\t%*s\t", l, "pressure", l,
+					   "total mol", l, "volume");
 		}
 		for (i = 0; i < punch.count_gases; i++)
 		{
-			strcpy (token, "g_");
-			strcat (token, punch.gases[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "g_");
+			strcat(token, punch.gases[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			if (punch.gases[i].phase == NULL)
 			{
-				sprintf (error_string, "Did not find phase, "
-						 "%s.", punch.gases[i].name);
-				warning_msg (error_string);
+				sprintf(error_string, "Did not find phase, "
+						"%s.", punch.gases[i].name);
+				warning_msg(error_string);
 			}
 		}
 
@@ -2036,57 +2034,57 @@ tidy_punch (void)
 
 		for (i = 0; i < punch.count_kinetics; i++)
 		{
-			strcpy (token, "k_");
-			strcat (token, punch.kinetics[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
-			strcpy (token, "dk_");
-			strcat (token, punch.kinetics[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "k_");
+			strcat(token, punch.kinetics[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "dk_");
+			strcat(token, punch.kinetics[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 		}
 
 		/* solid solutions */
 
 		for (i = 0; i < punch.count_s_s; i++)
 		{
-			strcpy (token, "s_");
-			strcat (token, punch.s_s[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "s_");
+			strcat(token, punch.s_s[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 		}
 
 		/* isotopes */
 
 		for (i = 0; i < punch.count_isotopes; i++)
 		{
-			if (isotope_ratio_search (punch.isotopes[i].name) == NULL)
+			if (isotope_ratio_search(punch.isotopes[i].name) == NULL)
 			{
-				sprintf (error_string,
-						 "Did not find isotope_ratio definition for "
-						 "%s in -isotopes of SELECTED_OUTPUT.\n%s must be defined in ISOTOPE_RATIO data block.",
-						 punch.isotopes[i].name, punch.isotopes[i].name);
-				warning_msg (error_string);
+				sprintf(error_string,
+						"Did not find isotope_ratio definition for "
+						"%s in -isotopes of SELECTED_OUTPUT.\n%s must be defined in ISOTOPE_RATIO data block.",
+						punch.isotopes[i].name, punch.isotopes[i].name);
+				warning_msg(error_string);
 			}
-			strcpy (token, "I_");
-			strcat (token, punch.isotopes[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "I_");
+			strcat(token, punch.isotopes[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 		}
 
 		/* calculate_values */
 
 		for (i = 0; i < punch.count_calculate_values; i++)
 		{
-			if (calculate_value_search (punch.calculate_values[i].name) ==
+			if (calculate_value_search(punch.calculate_values[i].name) ==
 				NULL)
 			{
-				sprintf (error_string,
-						 "Did not find calculate_values definition for "
-						 "%s in -calculate_values of SELECTED_OUTPUT.\n%s must be defined in CALCULATE_VALUES data block.",
-						 punch.calculate_values[i].name,
-						 punch.calculate_values[i].name);
-				warning_msg (error_string);
+				sprintf(error_string,
+						"Did not find calculate_values definition for "
+						"%s in -calculate_values of SELECTED_OUTPUT.\n%s must be defined in CALCULATE_VALUES data block.",
+						punch.calculate_values[i].name,
+						punch.calculate_values[i].name);
+				warning_msg(error_string);
 			}
-			strcpy (token, "V_");
-			strcat (token, punch.calculate_values[i].name);
-			output_msg (OUTPUT_PUNCH, "%*s\t", l, token);
+			strcpy(token, "V_");
+			strcat(token, punch.calculate_values[i].name);
+			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 		}
 
 		/* user_punch */
@@ -2094,10 +2092,10 @@ tidy_punch (void)
 		{
 			for (i = 0; i < user_punch_count_headings; i++)
 			{
-				output_msg (OUTPUT_PUNCH, "%*s\t", l, user_punch_headings[i]);
+				output_msg(OUTPUT_PUNCH, "%*s\t", l, user_punch_headings[i]);
 			}
 		}
-		output_msg (OUTPUT_PUNCH, "\n");
+		output_msg(OUTPUT_PUNCH, "\n");
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
 	}
@@ -2106,7 +2104,7 @@ tidy_punch (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_species (void)
+tidy_species(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -2115,9 +2113,9 @@ tidy_species (void)
 /*
  *   Make sure species pointers are ok
  */
-	if (check_species_input () == ERROR)
+	if (check_species_input() == ERROR)
 	{
-		error_msg ("Calculations terminating due to input errors.", STOP);
+		error_msg("Calculations terminating due to input errors.", STOP);
 	}
 /*
  *   Set secondary and primary pointers in species structures
@@ -2129,14 +2127,14 @@ tidy_species (void)
 		s[i]->secondary = NULL;
 		if (s[i]->check_equation == TRUE)
 		{
-			species_rxn_to_trxn (s[i]);
-			if (check_eqn (TRUE) == ERROR)
+			species_rxn_to_trxn(s[i]);
+			if (check_eqn(TRUE) == ERROR)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Equation for species %s does not balance.",
-						 s[i]->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Equation for species %s does not balance.",
+						s[i]->name);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 	}
@@ -2147,13 +2145,13 @@ tidy_species (void)
 		{
 			while ((c = (int) *(++ptr)) != '\0')
 			{
-				if (isupper ((int) c))
+				if (isupper((int) c))
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Element or valence name in SOLUTION_MASTER_SPECIES should include only one element, %s.",
-							 master[i]->elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Element or valence name in SOLUTION_MASTER_SPECIES should include only one element, %s.",
+							master[i]->elt->name);
+					error_msg(error_string, CONTINUE);
 					break;
 				}
 			}
@@ -2168,20 +2166,19 @@ tidy_species (void)
 		{
 			master[i]->s->secondary = master[i];
 		}
-		if (strcmp (master[i]->elt->name, "C") == 0)
+		if (strcmp(master[i]->elt->name, "C") == 0)
 		{
 			s_co3 = master[i]->s;
 		}
 		if (master[i]->gfw_formula != NULL)
 		{
-			if (compute_gfw (master[i]->gfw_formula, &master[i]->gfw) ==
-				ERROR)
+			if (compute_gfw(master[i]->gfw_formula, &master[i]->gfw) == ERROR)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Calculating gfw for master species, %s, formula %s.",
-						 master[i]->elt->name, master[i]->gfw_formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Calculating gfw for master species, %s, formula %s.",
+						master[i]->elt->name, master[i]->gfw_formula);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 	}
@@ -2194,18 +2191,18 @@ tidy_species (void)
 		count_trxn = 0;
 		if (master[i]->s->primary != NULL)
 		{
-			trxn_add (master[i]->s->rxn, 1.0, FALSE);
-			trxn_add (master[i]->s->rxn, -1.0, TRUE);
+			trxn_add(master[i]->s->rxn, 1.0, FALSE);
+			trxn_add(master[i]->s->rxn, -1.0, TRUE);
 		}
 		else
 		{
-			trxn_add (master[i]->s->rxn, 1.0, FALSE);
-			rewrite_eqn_to_primary ();
+			trxn_add(master[i]->s->rxn, 1.0, FALSE);
+			rewrite_eqn_to_primary();
 		}
-		rxn_free (master[i]->rxn_primary);
-		master[i]->rxn_primary = rxn_alloc (count_trxn + 1);
-		trxn_copy (master[i]->rxn_primary);
-		master[i]->coef = coef_in_master (master[i]);
+		rxn_free(master[i]->rxn_primary);
+		master[i]->rxn_primary = rxn_alloc(count_trxn + 1);
+		trxn_copy(master[i]->rxn_primary);
+		master[i]->coef = coef_in_master(master[i]);
 	}
 /*
  *   Rewrite all species to secondary species
@@ -2215,19 +2212,19 @@ tidy_species (void)
 		count_trxn = 0;
 		if (s[i]->primary != NULL || s[i]->secondary != NULL)
 		{
-			trxn_add (s[i]->rxn, 1.0, FALSE);
-			trxn_add (s[i]->rxn, -1.0, TRUE);
+			trxn_add(s[i]->rxn, 1.0, FALSE);
+			trxn_add(s[i]->rxn, -1.0, TRUE);
 		}
 		else
 		{
-			trxn_add (s[i]->rxn, 1.0, FALSE);
-			rewrite_eqn_to_secondary ();
+			trxn_add(s[i]->rxn, 1.0, FALSE);
+			rewrite_eqn_to_secondary();
 		}
-		rxn_free (s[i]->rxn_s);
-		s[i]->rxn_s = rxn_alloc (count_trxn + 1);
-		trxn_copy (s[i]->rxn_s);
+		rxn_free(s[i]->rxn_s);
+		s[i]->rxn_s = rxn_alloc(count_trxn + 1);
+		trxn_copy(s[i]->rxn_s);
 		/* calculate alkalinity */
-		s[i]->alk = calc_alk (s[i]->rxn_s);
+		s[i]->alk = calc_alk(s[i]->rxn_s);
 		/* set co2 coefficient */
 		s[i]->co2 = 0.0;
 		for (j = 1; j < count_trxn; j++)
@@ -2244,21 +2241,21 @@ tidy_species (void)
  */
 	for (i = 0; i < count_elements; i++)
 	{
-		elements[i]->master = master_bsearch (elements[i]->name);
+		elements[i]->master = master_bsearch(elements[i]->name);
 		if (elements[i]->master == NULL)
 		{
 			input_error++;
-			sprintf (error_string, "No master species for element %s.",
-					 elements[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string, "No master species for element %s.",
+					elements[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
-		elements[i]->primary = master_bsearch_primary (elements[i]->name);
+		elements[i]->primary = master_bsearch_primary(elements[i]->name);
 		if (elements[i]->primary == NULL)
 		{
 			input_error++;
-			sprintf (error_string, "No master species for element %s.",
-					 elements[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string, "No master species for element %s.",
+					elements[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
 	}
 /*
@@ -2273,28 +2270,28 @@ tidy_species (void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Every primary master species for a redox element\n"
-						 "\tmust also be a secondary master species.\n"
-						 "\tError in definitions related to %s .\n",
-						 master[i]->s->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Every primary master species for a redox element\n"
+						"\tmust also be a secondary master species.\n"
+						"\tError in definitions related to %s .\n",
+						master[i]->s->name);
+				error_msg(error_string, CONTINUE);
 
 			}
 			else if (master_ptr->s->secondary == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Every primary master species for a redox element\n"
-						 "\tmust also be a secondary master species.\n"
-						 "\t%s is the primary master species for element %s.\n"
-						 "\tAnother entry in SOLUTION_MASTER_SPECIES is needed.\n"
-						 "\tDefine species %s as a secondary master species for a valence state.\n"
-						 "\tFor example: \n" "\t%s(0)\t%s alk gfw",
-						 master_ptr->s->name, master_ptr->elt->name,
-						 master_ptr->s->name, master_ptr->elt->name,
-						 master_ptr->s->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Every primary master species for a redox element\n"
+						"\tmust also be a secondary master species.\n"
+						"\t%s is the primary master species for element %s.\n"
+						"\tAnother entry in SOLUTION_MASTER_SPECIES is needed.\n"
+						"\tDefine species %s as a secondary master species for a valence state.\n"
+						"\tFor example: \n" "\t%s(0)\t%s alk gfw",
+						master_ptr->s->name, master_ptr->elt->name,
+						master_ptr->s->name, master_ptr->elt->name,
+						master_ptr->s->name);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 	}
@@ -2351,10 +2348,10 @@ tidy_species (void)
 #ifdef SKIP
 	for (i = 0; i < count_s; i++)
 	{
-		if (match_elts_in_species (s[i]->name, "*{C,[13C]}{O,[18O]}3*") ==
+		if (match_elts_in_species(s[i]->name, "*{C,[13C]}{O,[18O]}3*") ==
 			TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE, "Match: %s\n", s[i]->name);
+			output_msg(OUTPUT_MESSAGE, "Match: %s\n", s[i]->name);
 		}
 	}
 #endif
@@ -2363,7 +2360,7 @@ tidy_species (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_surface (void)
+tidy_surface(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2390,11 +2387,11 @@ tidy_surface (void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Master species not in data base for %s, "
-							 "skipping element.",
-							 surface_ptr->comps[i].totals[j].elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Master species not in data base for %s, "
+							"skipping element.",
+							surface_ptr->comps[i].totals[j].elt->name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				if (master_ptr->type != SURF)
@@ -2422,16 +2419,16 @@ tidy_surface (void)
 					count_elts = 0;
 					paren_count = 0;
 					ptr1 = surface_ptr->comps[i].formula;
-					get_elts_in_species (&ptr1, surface_ptr->comps[i].moles);
+					get_elts_in_species(&ptr1, surface_ptr->comps[i].moles);
 					surface_ptr->comps[i].formula_totals =
-						(struct elt_list *) free_check_null (surface_ptr->
-															 comps[i].
-															 formula_totals);
-					surface_ptr->comps[i].formula_totals = elt_list_save ();
+						(struct elt_list *) free_check_null(surface_ptr->
+															comps[i].
+															formula_totals);
+					surface_ptr->comps[i].formula_totals = elt_list_save();
 					surface_ptr->comps[i].totals =
-						(struct elt_list *) free_check_null (surface_ptr->
-															 comps[i].totals);
-					surface_ptr->comps[i].totals = elt_list_save ();
+						(struct elt_list *) free_check_null(surface_ptr->
+															comps[i].totals);
+					surface_ptr->comps[i].totals = elt_list_save();
 				}
 				if (surface_ptr->type == CD_MUSIC)
 				{
@@ -2466,10 +2463,10 @@ tidy_surface (void)
 			if (surface_ptr->comps[i].master == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "No surface master species for surface component %s, ",
-						 surface_ptr->comps[i].formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"No surface master species for surface component %s, ",
+						surface_ptr->comps[i].formula);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 /*
@@ -2477,10 +2474,9 @@ tidy_surface (void)
  */
 		if (input_error == 0)
 		{
-			qsort (surface[k].comps,
-				   (size_t) surface_ptr->count_comps,
-				   (size_t) sizeof (struct surface_comp),
-				   surface_comp_compare);
+			qsort(surface[k].comps,
+				  (size_t) surface_ptr->count_comps,
+				  (size_t) sizeof(struct surface_comp), surface_comp_compare);
 		}
 	}
 	return (OK);
@@ -2488,7 +2484,7 @@ tidy_surface (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_solutions (void)
+tidy_solutions(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2513,41 +2509,40 @@ tidy_solutions (void)
 			i = 0;
 			while (solution[n]->totals[i].description != NULL)
 				i++;
-			qsort (solution[n]->totals,
-				   (size_t) i, (size_t) sizeof (struct conc), conc_compare);
+			qsort(solution[n]->totals,
+				  (size_t) i, (size_t) sizeof(struct conc), conc_compare);
 			/*
 			 *  sort isotopes
 			 */
 			if (solution[n]->count_isotopes > 0)
 			{
-				qsort (solution[n]->isotopes,
-					   (size_t) solution[n]->count_isotopes,
-					   (size_t) sizeof (struct isotope), isotope_compare);
+				qsort(solution[n]->isotopes,
+					  (size_t) solution[n]->count_isotopes,
+					  (size_t) sizeof(struct isotope), isotope_compare);
 			}
 			else
 			{
 				solution[n]->isotopes =
-					(struct isotope *) free_check_null (solution[n]->
-														isotopes);
+					(struct isotope *) free_check_null(solution[n]->isotopes);
 			}
 			for (i = 0; solution[n]->totals[i].description != NULL; i++)
 			{
 				tot_ptr = &(solution[n]->totals[i]);
-				if (strcmp (tot_ptr->description, "H(1)") == 0 ||
-					strcmp (tot_ptr->description, "E") == 0)
+				if (strcmp(tot_ptr->description, "H(1)") == 0 ||
+					strcmp(tot_ptr->description, "E") == 0)
 				{
 					tot_ptr->moles = 0.0;
 					continue;
 				}
 				ptr = tot_ptr->description;
-				copy_token (token, &ptr, &l);
-				master_ptr = master_bsearch (token);
+				copy_token(token, &ptr, &l);
+				master_ptr = master_bsearch(token);
 				if (master_ptr == NULL)
 				{
-					sprintf (error_string,
-							 "Could not find element in database, %s.\n\tConcentration is set to zero.",
-							 tot_ptr->description);
-					warning_msg (error_string);
+					sprintf(error_string,
+							"Could not find element in database, %s.\n\tConcentration is set to zero.",
+							tot_ptr->description);
+					warning_msg(error_string);
 					tot_ptr->input_conc = 0.0;
 					continue;
 				}
@@ -2592,13 +2587,13 @@ tidy_solutions (void)
 			break;
 		}
 	}
-	solution_sort ();
+	solution_sort();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-species_rxn_to_trxn (struct species *s_ptr)
+species_rxn_to_trxn(struct species *s_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2617,8 +2612,8 @@ species_rxn_to_trxn (struct species *s_ptr)
 		count_trxn = i + 1;
 		if (count_trxn + 1 >= max_trxn)
 		{
-			space ((void **) ((void *) &(trxn.token)), count_trxn + 1,
-				   &max_trxn, sizeof (struct rxn_token_temp));
+			space((void **) ((void *) &(trxn.token)), count_trxn + 1,
+				  &max_trxn, sizeof(struct rxn_token_temp));
 		}
 	}
 	return (OK);
@@ -2626,7 +2621,7 @@ species_rxn_to_trxn (struct species *s_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-phase_rxn_to_trxn (struct phase *phase_ptr, struct reaction *rxn_ptr)
+phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2641,7 +2636,7 @@ phase_rxn_to_trxn (struct phase *phase_ptr, struct reaction *rxn_ptr)
 	trxn.token[0].name = phase_ptr->formula;
 	/* charge */
 	ptr = phase_ptr->formula;
-	get_token (&ptr, token, &z, &l);
+	get_token(&ptr, token, &z, &l);
 	trxn.token[0].z = z;
 	trxn.token[0].s = NULL;
 	trxn.token[0].unknown = NULL;
@@ -2658,8 +2653,8 @@ phase_rxn_to_trxn (struct phase *phase_ptr, struct reaction *rxn_ptr)
 		count_trxn = i + 1;
 		if (count_trxn + 1 >= max_trxn)
 		{
-			space ((void **) ((void *) &(trxn.token)), count_trxn + 1,
-				   &max_trxn, sizeof (struct rxn_token_temp));
+			space((void **) ((void *) &(trxn.token)), count_trxn + 1,
+				  &max_trxn, sizeof(struct rxn_token_temp));
 		}
 	}
 	return (OK);
@@ -2667,7 +2662,7 @@ phase_rxn_to_trxn (struct phase *phase_ptr, struct reaction *rxn_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_isotopes (void)
+tidy_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2692,16 +2687,14 @@ tidy_isotopes (void)
 			continue;
 		solution_ptr = solution[n];
 		primary_isotopes =
-			(struct isotope *)
-			PHRQ_malloc ((size_t) (sizeof (struct isotope)));
+			(struct isotope *) PHRQ_malloc((size_t) (sizeof(struct isotope)));
 		if (primary_isotopes == NULL)
-			malloc_error ();
+			malloc_error();
 		count_primary = 0;
 		new_isotopes =
-			(struct isotope *)
-			PHRQ_malloc ((size_t) (sizeof (struct isotope)));
+			(struct isotope *) PHRQ_malloc((size_t) (sizeof(struct isotope)));
 		if (new_isotopes == NULL)
-			malloc_error ();
+			malloc_error();
 		count_isotopes = 0;
 /*
  *   Make list of primary master species for isotopes
@@ -2709,15 +2702,15 @@ tidy_isotopes (void)
 		for (i = 0; i < solution_ptr->count_isotopes; i++)
 		{
 			master_ptr =
-				master_bsearch_primary (solution_ptr->isotopes[i].elt_name);
+				master_bsearch_primary(solution_ptr->isotopes[i].elt_name);
 			isotope_number = solution_ptr->isotopes[i].isotope_number;
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "In isotope calculation: element not defined: %s.",
-						 solution_ptr->isotopes[i].elt_name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"In isotope calculation: element not defined: %s.",
+						solution_ptr->isotopes[i].elt_name);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (j = 0; j < count_primary; j++)
@@ -2729,12 +2722,12 @@ tidy_isotopes (void)
 			if (j == count_primary)
 			{
 				primary_isotopes =
-					(struct isotope *) PHRQ_realloc (primary_isotopes,
-													 (size_t) (count_primary +
-															   1) *
-													 sizeof (struct isotope));
+					(struct isotope *) PHRQ_realloc(primary_isotopes,
+													(size_t) (count_primary +
+															  1) *
+													sizeof(struct isotope));
 				if (primary_isotopes == NULL)
-					malloc_error ();
+					malloc_error();
 				primary_isotopes[count_primary].master = master_ptr;
 				primary_isotopes[count_primary].isotope_number =
 					isotope_number;
@@ -2766,14 +2759,14 @@ tidy_isotopes (void)
 			for (l = 0; l < solution_ptr->count_isotopes; l++)
 			{
 				master_ptr =
-					master_bsearch (solution_ptr->isotopes[l].elt_name);
+					master_bsearch(solution_ptr->isotopes[l].elt_name);
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "In isotope calculation: element not defined: %s.",
-							 solution_ptr->isotopes[l].elt_name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"In isotope calculation: element not defined: %s.",
+							solution_ptr->isotopes[l].elt_name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 
@@ -2798,10 +2791,10 @@ tidy_isotopes (void)
 							solution_ptr->isotopes[l].ratio_uncertainty;
 						if (master[k]->isotope == TRUE)
 						{
-							sprintf (error_string,
-									 "In isotope calculation: redefinition of isotope ratio for %s.",
-									 solution_ptr->isotopes[l].elt_name);
-							error_msg (error_string, CONTINUE);
+							sprintf(error_string,
+									"In isotope calculation: redefinition of isotope ratio for %s.",
+									solution_ptr->isotopes[l].elt_name);
+							error_msg(error_string, CONTINUE);
 						}
 						master[k]->isotope = TRUE;
 					}
@@ -2816,10 +2809,10 @@ tidy_isotopes (void)
 						solution_ptr->isotopes[l].ratio_uncertainty;
 					if (master_ptr->isotope == TRUE)
 					{
-						sprintf (error_string,
-								 "In isotope calculation: redefinition of isotope ratio for %s.",
-								 solution_ptr->isotopes[l].elt_name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"In isotope calculation: redefinition of isotope ratio for %s.",
+								solution_ptr->isotopes[l].elt_name);
+						error_msg(error_string, CONTINUE);
 					}
 					master_ptr->isotope = TRUE;
 				}
@@ -2837,10 +2830,10 @@ tidy_isotopes (void)
 					&& master[k]->isotope == FALSE)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Isotopic ratio not defined for element or valence state %g%s, using 0.",
-							 (double) isotope_number, master[k]->elt->name);
-					warning_msg (error_string);
+					sprintf(error_string,
+							"Isotopic ratio not defined for element or valence state %g%s, using 0.",
+							(double) isotope_number, master[k]->elt->name);
+					warning_msg(error_string);
 					master[k]->isotope = TRUE;
 					master[k]->isotope_ratio = 0.0;
 					master[k]->isotope_ratio_uncertainty = 0.001;
@@ -2848,13 +2841,13 @@ tidy_isotopes (void)
 				if (master[k]->isotope == FALSE)
 					continue;
 				new_isotopes =
-					(struct isotope *) PHRQ_realloc (new_isotopes,
-													 (size_t) (count_isotopes
-															   +
-															   1) *
-													 sizeof (struct isotope));
+					(struct isotope *) PHRQ_realloc(new_isotopes,
+													(size_t) (count_isotopes
+															  +
+															  1) *
+													sizeof(struct isotope));
 				if (new_isotopes == NULL)
-					malloc_error ();
+					malloc_error();
 				new_isotopes[count_isotopes].master = master[k];
 				new_isotopes[count_isotopes].primary = primary_ptr;
 				new_isotopes[count_isotopes].isotope_number = isotope_number;
@@ -2863,22 +2856,22 @@ tidy_isotopes (void)
 				new_isotopes[count_isotopes].ratio = master[k]->isotope_ratio;
 				new_isotopes[count_isotopes].ratio_uncertainty =
 					master[k]->isotope_ratio_uncertainty;
-				sprintf (token, "%d%s", (int) isotope_number,
-						 master[k]->elt->name);
+				sprintf(token, "%d%s", (int) isotope_number,
+						master[k]->elt->name);
 				new_isotopes[count_isotopes].isotope_name =
-					string_hsave (token);
+					string_hsave(token);
 				count_isotopes++;
 			}
 		}
 		primary_isotopes =
-			(struct isotope *) free_check_null (primary_isotopes);
+			(struct isotope *) free_check_null(primary_isotopes);
 		solution_ptr->isotopes =
-			(struct isotope *) free_check_null (solution_ptr->isotopes);
+			(struct isotope *) free_check_null(solution_ptr->isotopes);
 		solution_ptr->isotopes = new_isotopes;
 		solution_ptr->count_isotopes = count_isotopes;
-		qsort (solution_ptr->isotopes,
-			   (size_t) count_isotopes,
-			   (size_t) sizeof (struct isotope), isotope_compare);
+		qsort(solution_ptr->isotopes,
+			  (size_t) count_isotopes,
+			  (size_t) sizeof(struct isotope), isotope_compare);
 	}
 
 	return (OK);
@@ -2886,7 +2879,7 @@ tidy_isotopes (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_kin_exchange (void)
+tidy_kin_exchange(void)
 /* ---------------------------------------------------------------------- */
 /*
  *  If exchanger is related to mineral, exchanger amount is 
@@ -2923,10 +2916,10 @@ tidy_kin_exchange (void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string, "Master species not in data "
-							 "base for %s, skipping element.",
-							 comp_ptr->totals[k].elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string, "Master species not in data "
+							"base for %s, skipping element.",
+							comp_ptr->totals[k].elt->name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				if (master_ptr->type != EX)
@@ -2937,21 +2930,21 @@ tidy_kin_exchange (void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Exchange formula does not contain an exchange master species, %s",
-						 comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Exchange formula does not contain an exchange master species, %s",
+						comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
 			/* Now find associated kinetic reaction ...  */
-			if ((kinetics_ptr = kinetics_bsearch (n, &k)) == NULL)
+			if ((kinetics_ptr = kinetics_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Kinetics %d must be defined to use exchange related to kinetic reaction, %s",
-						 n, comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Kinetics %d must be defined to use exchange related to kinetic reaction, %s",
+						n, comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (k = 0; k < kinetics_ptr->count_comps; k++)
@@ -2966,10 +2959,10 @@ tidy_kin_exchange (void)
 			if (k == kinetics_ptr->count_comps)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Kinetic reaction, %s, related to exchanger, %s, not found in KINETICS %d",
-						 comp_ptr->rate_name, comp_ptr->formula, n);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Kinetic reaction, %s, related to exchanger, %s, not found in KINETICS %d",
+						comp_ptr->rate_name, comp_ptr->formula, n);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
@@ -2982,10 +2975,10 @@ tidy_kin_exchange (void)
 			count_elts = 0;
 			paren_count = 0;
 			ptr = comp_ptr->formula;
-			get_elts_in_species (&ptr, conc);
+			get_elts_in_species(&ptr, conc);
 			comp_ptr->totals =
-				(struct elt_list *) free_check_null (comp_ptr->totals);
-			comp_ptr->totals = elt_list_save ();
+				(struct elt_list *) free_check_null(comp_ptr->totals);
+			comp_ptr->totals = elt_list_save();
 /*
  *   No check on availability of exchange elements 
  */
@@ -2996,7 +2989,7 @@ tidy_kin_exchange (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_min_exchange (void)
+tidy_min_exchange(void)
 /* ---------------------------------------------------------------------- */
 /*
  *  If exchanger is related to mineral, exchanger amount is 
@@ -3033,10 +3026,10 @@ tidy_min_exchange (void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string, "Master species not in data "
-							 "base for %s, skipping element.",
-							 comp_ptr->totals[k].elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string, "Master species not in data "
+							"base for %s, skipping element.",
+							comp_ptr->totals[k].elt->name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				if (master_ptr->type != EX)
@@ -3047,21 +3040,21 @@ tidy_min_exchange (void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Exchange formula does not contain an exchange master species, %s",
-						 comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Exchange formula does not contain an exchange master species, %s",
+						comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
 			/* Now find the mineral on which exchanger depends...  */
-			if ((pp_a_ptr = pp_assemblage_bsearch (n, &k)) == NULL)
+			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
-						 n, comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
+						n, comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (k = 0; k < pp_a_ptr->count_comps; k++)
@@ -3076,10 +3069,10 @@ tidy_min_exchange (void)
 			if (k == pp_a_ptr->count_comps)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Mineral, %s, related to exchanger, %s, not found in Equilibrium_Phases %d",
-						 comp_ptr->phase_name, comp_ptr->formula, n);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Mineral, %s, related to exchanger, %s, not found in Equilibrium_Phases %d",
+						comp_ptr->phase_name, comp_ptr->formula, n);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			/* use database name for phase */
@@ -3090,35 +3083,35 @@ tidy_min_exchange (void)
 			count_elts = 0;
 			paren_count = 0;
 			ptr = comp_ptr->formula;
-			get_elts_in_species (&ptr, conc);
+			get_elts_in_species(&ptr, conc);
 			comp_ptr->totals =
-				(struct elt_list *) free_check_null (comp_ptr->totals);
-			comp_ptr->totals = elt_list_save ();
+				(struct elt_list *) free_check_null(comp_ptr->totals);
+			comp_ptr->totals = elt_list_save();
 /*
  *   make sure exchange elements are in phase
  */
 			count_elts = 0;
 			paren_count = 0;
 			ptr = comp_ptr->formula;
-			get_elts_in_species (&ptr, -comp_ptr->phase_proportion);
+			get_elts_in_species(&ptr, -comp_ptr->phase_proportion);
 			ptr = pp_a_ptr->pure_phases[k].phase->formula;
-			get_elts_in_species (&ptr, 1.0);
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
+			get_elts_in_species(&ptr, 1.0);
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
 			for (jj = 0; jj < count_elts; jj++)
 			{
 				if (elt_list[jj].elt->primary->s->type != EX
 					&& elt_list[jj].coef < 0)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Stoichiometry of exchanger, %s * %g mol sites/mol phase,\n\tmust be a subset of the related phase %s, %s.",
-							 comp_ptr->formula,
-							 (double) comp_ptr->phase_proportion,
-							 pp_a_ptr->pure_phases[k].phase->name,
-							 pp_a_ptr->pure_phases[k].phase->formula);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Stoichiometry of exchanger, %s * %g mol sites/mol phase,\n\tmust be a subset of the related phase %s, %s.",
+							comp_ptr->formula,
+							(double) comp_ptr->phase_proportion,
+							pp_a_ptr->pure_phases[k].phase->name,
+							pp_a_ptr->pure_phases[k].phase->formula);
+					error_msg(error_string, CONTINUE);
 					break;
 				}
 			}
@@ -3129,7 +3122,7 @@ tidy_min_exchange (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_min_surface (void)
+tidy_min_surface(void)
 /* ---------------------------------------------------------------------- */
 /*
  *  If surface is related to mineral, surface amount is 
@@ -3166,10 +3159,10 @@ tidy_min_surface (void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string, "Master species not in data "
-							 "base for %s, skipping element.",
-							 comp_ptr->totals[k].elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string, "Master species not in data "
+							"base for %s, skipping element.",
+							comp_ptr->totals[k].elt->name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				if (master_ptr->type != SURF)
@@ -3180,21 +3173,21 @@ tidy_min_surface (void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Surface formula does not contain a surface master species, %s",
-						 comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Surface formula does not contain a surface master species, %s",
+						comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
 			/* Now find the mineral on which surface depends...  */
-			if ((pp_a_ptr = pp_assemblage_bsearch (n, &k)) == NULL)
+			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Equilibrium_phases %d must be defined to use surface related to mineral phase, %s",
-						 n, comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Equilibrium_phases %d must be defined to use surface related to mineral phase, %s",
+						n, comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (k = 0; k < pp_a_ptr->count_comps; k++)
@@ -3209,19 +3202,19 @@ tidy_min_surface (void)
 			if (k == pp_a_ptr->count_comps)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Mineral, %s, related to surface, %s, not found in Equilibrium_Phases %d",
-						 comp_ptr->phase_name, comp_ptr->formula, n);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Mineral, %s, related to surface, %s, not found in Equilibrium_Phases %d",
+						comp_ptr->phase_name, comp_ptr->formula, n);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			if (pp_a_ptr->pure_phases[k].phase == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Mineral, %s, related to surface, %s, not found in database.",
-						 pp_a_ptr->pure_phases[k].name, comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Mineral, %s, related to surface, %s, not found in database.",
+						pp_a_ptr->pure_phases[k].name, comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			/* use database name for phase */
@@ -3236,10 +3229,10 @@ tidy_min_surface (void)
 			ptr = comp_ptr->formula;
 			count_elts = 0;
 			paren_count = 0;
-			get_elts_in_species (&ptr, conc);
+			get_elts_in_species(&ptr, conc);
 			comp_ptr->totals =
-				(struct elt_list *) free_check_null (comp_ptr->totals);
-			comp_ptr->totals = elt_list_save ();
+				(struct elt_list *) free_check_null(comp_ptr->totals);
+			comp_ptr->totals = elt_list_save();
 
 			/* area */
 			surface[i].charge[comp_ptr->charge].grams =
@@ -3251,7 +3244,7 @@ tidy_min_surface (void)
 			count_elts = 0;
 			paren_count = 0;
 			ptr = pp_a_ptr->pure_phases[k].phase->formula;
-			get_elts_in_species (&ptr, 1.0);
+			get_elts_in_species(&ptr, 1.0);
 			for (jj = 0; jj < surface[i].count_comps; jj++)
 			{
 				if (comp_ptr->charge != surface[i].comps[jj].charge)
@@ -3259,29 +3252,29 @@ tidy_min_surface (void)
 				if (surface[i].type == CD_MUSIC)
 				{
 					ptr = surface[i].comps[jj].formula;
-					get_elts_in_species (&ptr,
-										 -surface[i].comps[jj].
-										 phase_proportion);
+					get_elts_in_species(&ptr,
+										-surface[i].comps[jj].
+										phase_proportion);
 				}
 				else
 				{
 					if (surface[i].comps[jj].master->s->z != 0.0)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Master species of surface, %s, must be uncharged if the number of sites is related to a phase.",
-								 surface[i].comps[jj].master->s->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Master species of surface, %s, must be uncharged if the number of sites is related to a phase.",
+								surface[i].comps[jj].master->s->name);
+						error_msg(error_string, CONTINUE);
 					}
 					ptr = surface[i].comps[jj].master->s->name;
-					get_elts_in_species (&ptr,
-										 -surface[i].comps[jj].
-										 phase_proportion);
+					get_elts_in_species(&ptr,
+										-surface[i].comps[jj].
+										phase_proportion);
 				}
 			}
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
 			/* Makes no sense: sorbed species need not be in mineral structure... */
 			/* But elements that can desorb into solution must be in mineral */
 			/* If you precipitate Ca-Mont, and make SurfMg (assuming this is the 
@@ -3297,16 +3290,16 @@ tidy_min_surface (void)
 					&& elt_list[jj].elt->primary->s != s_h2o)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Element %s in sum of surface sites,\n"
-							 "\tincluding %s * %g mol sites/mol phase,\n"
-							 "\texceeds stoichiometry in the related phase %s, %s.",
-							 elt_list[jj].elt->name,
-							 comp_ptr->master->s->name,
-							 (double) comp_ptr->phase_proportion,
-							 pp_a_ptr->pure_phases[k].phase->name,
-							 pp_a_ptr->pure_phases[k].phase->formula);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Element %s in sum of surface sites,\n"
+							"\tincluding %s * %g mol sites/mol phase,\n"
+							"\texceeds stoichiometry in the related phase %s, %s.",
+							elt_list[jj].elt->name,
+							comp_ptr->master->s->name,
+							(double) comp_ptr->phase_proportion,
+							pp_a_ptr->pure_phases[k].phase->name,
+							pp_a_ptr->pure_phases[k].phase->formula);
+					error_msg(error_string, CONTINUE);
 					break;
 				}
 			}
@@ -3317,7 +3310,7 @@ tidy_min_surface (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_kin_surface (void)
+tidy_kin_surface(void)
 /* ---------------------------------------------------------------------- */
 /*
  *  If surface is related to mineral, surface amount is 
@@ -3360,10 +3353,10 @@ tidy_kin_surface (void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf (error_string, "Master species not in data "
-							 "base for %s, skipping element.",
-							 comp_ptr->totals[k].elt->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string, "Master species not in data "
+							"base for %s, skipping element.",
+							comp_ptr->totals[k].elt->name);
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				if (master_ptr->type != SURF)
@@ -3374,21 +3367,21 @@ tidy_kin_surface (void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Surface formula does not contain a surface master species, %s",
-						 comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Surface formula does not contain a surface master species, %s",
+						comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
 			/* Now find the kinetic reaction on which surface depends...  */
-			if ((kinetics_ptr = kinetics_bsearch (n, &k)) == NULL)
+			if ((kinetics_ptr = kinetics_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Kinetics %d must be defined to use surface related to kinetic reaction, %s",
-						 n, comp_ptr->formula);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Kinetics %d must be defined to use surface related to kinetic reaction, %s",
+						n, comp_ptr->formula);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (k = 0; k < kinetics_ptr->count_comps; k++)
@@ -3403,10 +3396,10 @@ tidy_kin_surface (void)
 			if (k == kinetics_ptr->count_comps)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Kinetic reaction, %s, related to surface, %s, not found in Kinetics %d",
-						 comp_ptr->rate_name, comp_ptr->formula, n);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Kinetic reaction, %s, related to surface, %s, not found in Kinetics %d",
+						comp_ptr->rate_name, comp_ptr->formula, n);
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 
@@ -3420,10 +3413,10 @@ tidy_kin_surface (void)
 			ptr = comp_ptr->formula;
 			count_elts = 0;
 			paren_count = 0;
-			get_elts_in_species (&ptr, conc);
+			get_elts_in_species(&ptr, conc);
 			comp_ptr->totals =
-				(struct elt_list *) free_check_null (comp_ptr->totals);
-			comp_ptr->totals = elt_list_save ();
+				(struct elt_list *) free_check_null(comp_ptr->totals);
+			comp_ptr->totals = elt_list_save();
 
 			/* area */
 			surface[i].charge[comp_ptr->charge].grams =
@@ -3437,7 +3430,7 @@ tidy_kin_surface (void)
 		 */
 		if (surface[i].related_rate == FALSE)
 			continue;
-		kinetics_ptr = kinetics_bsearch (n, &k);
+		kinetics_ptr = kinetics_bsearch(n, &k);
 		for (k = 0; k < kinetics_ptr->count_comps; k++)
 		{
 			count_elts = 0;
@@ -3447,27 +3440,27 @@ tidy_kin_surface (void)
 			for (j = 0; j < kinetics_ptr->comps[k].count_list; j++)
 			{
 				phase_ptr = NULL;
-				strcpy (token, kinetics_ptr->comps[k].list[j].name);
-				phase_ptr = phase_bsearch (token, &jj, FALSE);
+				strcpy(token, kinetics_ptr->comps[k].list[j].name);
+				phase_ptr = phase_bsearch(token, &jj, FALSE);
 				if (phase_ptr != NULL)
 				{
-					add_elt_list (phase_ptr->next_elt, 1.0);
+					add_elt_list(phase_ptr->next_elt, 1.0);
 				}
 				else
 				{
 					ptr = kinetics_ptr->comps[k].list[j].name;
-					get_elts_in_species (&ptr,
-										 kinetics_ptr->comps[k].list[j].coef);
+					get_elts_in_species(&ptr,
+										kinetics_ptr->comps[k].list[j].coef);
 				}
 			}
 			/* save kinetics formula */
 			if (count_elts > 0)
 			{
-				qsort (elt_list, (size_t) count_elts,
-					   (size_t) sizeof (struct elt_list), elt_list_compare);
-				elt_list_combine ();
+				qsort(elt_list, (size_t) count_elts,
+					  (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
 			}
-			elt_list_kinetics = elt_list_save ();
+			elt_list_kinetics = elt_list_save();
 			count_elts_kinetics = count_elts;
 
 			/* get surface formulas */
@@ -3483,15 +3476,15 @@ tidy_kin_surface (void)
 					 kinetics_ptr->comps[k].rate_name) == 0)
 				{
 					ptr = comp_ptr->formula;
-					get_elts_in_species (&ptr,
-										 -1 * comp_ptr->phase_proportion);
+					get_elts_in_species(&ptr,
+										-1 * comp_ptr->phase_proportion);
 				}
 			}
 			if (count_elts > 0)
 			{
-				qsort (elt_list, (size_t) count_elts,
-					   (size_t) sizeof (struct elt_list), elt_list_compare);
-				elt_list_combine ();
+				qsort(elt_list, (size_t) count_elts,
+					  (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
 			}
 			for (j = 0; j < count_elts; j++)
 			{
@@ -3507,28 +3500,28 @@ tidy_kin_surface (void)
 					if (l == count_elts_kinetics)
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tElement %s is not present in reactant formula.",
-								 comp_ptr->formula,
-								 (double) comp_ptr->phase_proportion,
-								 comp_ptr->rate_name, elt_list[j].elt->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tElement %s is not present in reactant formula.",
+								comp_ptr->formula,
+								(double) comp_ptr->phase_proportion,
+								comp_ptr->rate_name, elt_list[j].elt->name);
+						error_msg(error_string, CONTINUE);
 					}
-					else if (fabs (elt_list[j].coef) >
-							 fabs (elt_list_kinetics[l].coef))
+					else if (fabs(elt_list[j].coef) >
+							 fabs(elt_list_kinetics[l].coef))
 					{
 						input_error++;
-						sprintf (error_string,
-								 "Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tCoefficient of element %s in surface exceeds amount present in reactant formula.",
-								 comp_ptr->formula,
-								 (double) comp_ptr->phase_proportion,
-								 comp_ptr->rate_name, elt_list[j].elt->name);
-						error_msg (error_string, CONTINUE);
+						sprintf(error_string,
+								"Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tCoefficient of element %s in surface exceeds amount present in reactant formula.",
+								comp_ptr->formula,
+								(double) comp_ptr->phase_proportion,
+								comp_ptr->rate_name, elt_list[j].elt->name);
+						error_msg(error_string, CONTINUE);
 					}
 				}
 			}
 			elt_list_kinetics =
-				(struct elt_list *) free_check_null (elt_list_kinetics);
+				(struct elt_list *) free_check_null(elt_list_kinetics);
 		}
 	}
 	return (OK);
@@ -3536,7 +3529,7 @@ tidy_kin_surface (void)
 
 /* ---------------------------------------------------------------------- */
 int
-s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
+s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, converged, divisions;
@@ -3560,9 +3553,9 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 	s_s_ptr->a1 = a1;
 	ag0 = a0 * rt;
 	ag1 = a1 * rt;
-	kc = exp (k_calc (s_s_ptr->comps[0].phase->rxn->logk, t) * LOG_10);
-	kb = exp (k_calc (s_s_ptr->comps[1].phase->rxn->logk, t) * LOG_10);
-	crit_pt = fabs (a0) + fabs (a1);
+	kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, t) * LOG_10);
+	kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, t) * LOG_10);
+	crit_pt = fabs(a0) + fabs(a1);
 /*
  *   Default, no miscibility or spinodal gaps
  */
@@ -3580,60 +3573,60 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 /*
  *   Miscibility gap information
  */
-		if (fabs (a1) < tol)
+		if (fabs(a1) < tol)
 		{
 			xc = 0.5;
 			tc = ag0 / (2 * r);
 		}
 		else
 		{
-			xc = 0.5 + (pow ((ag0 * ag0 + 27 * ag1 * ag1), 0.5) -
+			xc = 0.5 + (pow((ag0 * ag0 + 27 * ag1 * ag1), 0.5) -
 						ag0) / (18 * ag1);
 			tc = (12 * ag1 * xc - 6 * ag1 + 2 * ag0) * (xc - xc * xc) / r;
 		}
 		if (print == TRUE)
 		{
-			sprintf (error_string, "Description of Solid Solution %s",
-					 s_s_ptr->name);
-			dup_print (error_string, TRUE);
+			sprintf(error_string, "Description of Solid Solution %s",
+					s_s_ptr->name);
+			dup_print(error_string, TRUE);
 		}
 		if (print == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\t                              Temperature: %g kelvin\n",
-						(double) t);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                       A0 (dimensionless): %g\n",
-						(double) a0);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                       A1 (dimensionless): %g\n",
-						(double) a1);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                              A0 (kJ/mol): %g\n",
-						(double) ag0);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                              A1 (kJ/mol): %g\n\n",
-						(double) ag1);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                              Temperature: %g kelvin\n",
+					   (double) t);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                       A0 (dimensionless): %g\n",
+					   (double) a0);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                       A1 (dimensionless): %g\n",
+					   (double) a1);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                              A0 (kJ/mol): %g\n",
+					   (double) ag0);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                              A1 (kJ/mol): %g\n\n",
+					   (double) ag1);
 		}
 		if (xc < 0 || xc > 1)
 		{
 			if (print == TRUE)
-				output_msg (OUTPUT_MESSAGE,
-							"No miscibility gap above 0 degrees kelvin.\n");
+				output_msg(OUTPUT_MESSAGE,
+						   "No miscibility gap above 0 degrees kelvin.\n");
 		}
 		else
 		{
 			if (print == TRUE)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t    Critical mole-fraction of component 2: %g\n",
-							(double) xc);
-				output_msg (OUTPUT_MESSAGE,
-							"\t                     Critical temperature: %g kelvin\n",
-							(double) tc);
-				output_msg (OUTPUT_MESSAGE,
-							"\n(The critical temperature calculation assumes that the Guggenheim model\ndefined at %g kelvin is valid at the critical temperature.)\n\n\n",
-							(double) t);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t    Critical mole-fraction of component 2: %g\n",
+						   (double) xc);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t                     Critical temperature: %g kelvin\n",
+						   (double) tc);
+				output_msg(OUTPUT_MESSAGE,
+						   "\n(The critical temperature calculation assumes that the Guggenheim model\ndefined at %g kelvin is valid at the critical temperature.)\n\n\n",
+						   (double) t);
 			}
 		}
 /*
@@ -3645,23 +3638,23 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 			/* search for sign changes */
 			x0 = 0;
 			x1 = 1;
-			if (scan (f_spinodal, &x0, &x1) == TRUE)
+			if (scan(f_spinodal, &x0, &x1) == TRUE)
 			{
 
 				/* find first spinodal pt */
-				xsm1 = halve (f_spinodal, x0, x1, tol);
+				xsm1 = halve(f_spinodal, x0, x1, tol);
 				s_s_ptr->spinodal = TRUE;
 
 				/* find second spinodal pt */
 				x0 = x1;
 				x1 = 1;
-				if (scan (f_spinodal, &x0, &x1) == TRUE)
+				if (scan(f_spinodal, &x0, &x1) == TRUE)
 				{
-					xsm2 = halve (f_spinodal, x0, x1, tol);
+					xsm2 = halve(f_spinodal, x0, x1, tol);
 				}
 				else
 				{
-					error_msg ("Failed to find second spinodal point.", STOP);
+					error_msg("Failed to find second spinodal point.", STOP);
 				}
 			}
 		}
@@ -3672,22 +3665,22 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 	if (s_s_ptr->spinodal == TRUE)
 	{
 		if (print == TRUE)
-			output_msg (OUTPUT_MESSAGE,
-						"\t Spinodal-gap mole fractions, component 2: %g\t%g\n",
-						(double) xsm1, (double) xsm2);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t Spinodal-gap mole fractions, component 2: %g\t%g\n",
+					   (double) xsm1, (double) xsm2);
 		converged = FALSE;
 		if (converged == FALSE)
 		{
 			for (i = 1; i < 3; i++)
 			{
-				divisions = (int) pow (10., i);
+				divisions = (int) pow(10., i);
 				for (j = 0; j < divisions; j++)
 				{
 					for (k = divisions; k > 0; k--)
 					{
 						xc1 = (LDBLE) j / divisions + 0.001;
 						xc2 = (LDBLE) k / divisions;
-						converged = solve_misc (&xc1, &xc2, tol);
+						converged = solve_misc(&xc1, &xc2, tol);
 						if (converged == TRUE)
 							break;
 					}
@@ -3700,7 +3693,7 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		if (converged == FALSE)
 		{
-			error_msg ("Failed to find miscibility gap.", STOP);
+			error_msg("Failed to find miscibility gap.", STOP);
 		}
 		s_s_ptr->miscibility = TRUE;
 		if (xc1 < xc2)
@@ -3715,40 +3708,40 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 			xb1 = 1 - xc1;
 			xb2 = 1 - xc2;
 		}
-		facb1 = kb * xb1 * exp (xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)));
-		faca1 = kc * xc1 * exp (xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)));
-		spim1 = log10 (faca1 + facb1);
+		facb1 = kb * xb1 * exp(xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)));
+		faca1 = kc * xc1 * exp(xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)));
+		spim1 = log10(faca1 + facb1);
 		xblm1 = 1. / (1. + faca1 / facb1);
 		acrae = facb1 / faca1;
-		acrael = log10 (acrae);
-		xliapt = log10 (facb1);
-		xliapm = log10 (faca1);
+		acrael = log10(acrae);
+		xliapt = log10(facb1);
+		xliapm = log10(faca1);
 
 		if (print == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\t   Miscibility-gap fractions, component 2: %g\t%g\n",
-						(double) xb1, (double) xb2);
-			output_msg (OUTPUT_MESSAGE,
-						"\n\t\t\tEutectic Point Calculations\n\n");
-			output_msg (OUTPUT_MESSAGE,
-						"\t     Aqueous activity ratio (comp2/comp1): %g\n",
-						(double) acrae);
-			output_msg (OUTPUT_MESSAGE,
-						"\t Log aqueous activity ratio (comp2/comp1): %g\n",
-						(double) acrael);
-			output_msg (OUTPUT_MESSAGE,
-						"\t Aqueous activity fraction of component 2: %g\n",
-						(double) xblm1);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                    Log IAP (component 2): %g\n",
-						(double) xliapt);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                    Log IAP (component 1): %g\n",
-						(double) xliapm);
-			output_msg (OUTPUT_MESSAGE,
-						"\t                               Log Sum Pi: %g\n",
-						(double) spim1);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t   Miscibility-gap fractions, component 2: %g\t%g\n",
+					   (double) xb1, (double) xb2);
+			output_msg(OUTPUT_MESSAGE,
+					   "\n\t\t\tEutectic Point Calculations\n\n");
+			output_msg(OUTPUT_MESSAGE,
+					   "\t     Aqueous activity ratio (comp2/comp1): %g\n",
+					   (double) acrae);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t Log aqueous activity ratio (comp2/comp1): %g\n",
+					   (double) acrael);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t Aqueous activity fraction of component 2: %g\n",
+					   (double) xblm1);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                    Log IAP (component 2): %g\n",
+					   (double) xliapt);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                    Log IAP (component 1): %g\n",
+					   (double) xliapm);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t                               Log Sum Pi: %g\n",
+					   (double) spim1);
 		}
 		s_s_ptr->tk = t;
 		s_s_ptr->xb1 = xb1;
@@ -3758,13 +3751,13 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
  *   Alyotropic point calculation
  */
 	xaly = -1.0;
-	x = a0 * a0 + 3 * a1 * a1 + 6 * a1 * log (kb / kc);
+	x = a0 * a0 + 3 * a1 * a1 + 6 * a1 * log(kb / kc);
 	if (x > 0)
 	{
-		if (fabs (x - a0 * a0) >= tol)
+		if (fabs(x - a0 * a0) >= tol)
 		{
-			xaly1 = (-(a0 - 3 * a1) + pow (x, 0.5)) / (6 * a1);
-			xaly2 = (-(a0 - 3 * a1) - pow (x, 0.5)) / (6 * a1);
+			xaly1 = (-(a0 - 3 * a1) + pow(x, 0.5)) / (6 * a1);
+			xaly2 = (-(a0 - 3 * a1) - pow(x, 0.5)) / (6 * a1);
 			if (xaly1 >= 0 && xaly1 <= 1)
 			{
 				xaly = xaly1;
@@ -3776,45 +3769,45 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		else
 		{
-			xaly = 0.5 + log (kb / kc) / (2 * a0);
+			xaly = 0.5 + log(kb / kc) / (2 * a0);
 		}
 		if (xaly > 0 && xaly < 1)
 		{
 			faca =
 				kc * (1 -
-					  xaly) * exp (xaly * xaly * (a0 - a1 * (3 - 4 * xaly)));
+					  xaly) * exp(xaly * xaly * (a0 - a1 * (3 - 4 * xaly)));
 			facb =
-				kb * xaly * exp ((1 - xaly) * (1 - xaly) *
-								 (a0 + a1 * (4 * xaly - 1.0)));
-			spialy = log10 (faca + facb);
-			facal = log10 (faca);
-			facbl = log10 (facb);
+				kb * xaly * exp((1 - xaly) * (1 - xaly) *
+								(a0 + a1 * (4 * xaly - 1.0)));
+			spialy = log10(faca + facb);
+			facal = log10(faca);
+			facbl = log10(facb);
 			if (xaly > xb1 && xaly < xb2)
 			{
 				if (print == TRUE)
-					output_msg (OUTPUT_MESSAGE,
-								"\nLocal minimum in the solidus curve coresponding to a maximum\nin the minimum stoichiometric saturation curve.\n\n");
+					output_msg(OUTPUT_MESSAGE,
+							   "\nLocal minimum in the solidus curve coresponding to a maximum\nin the minimum stoichiometric saturation curve.\n\n");
 			}
 			else
 			{
 				if (print == TRUE)
-					output_msg (OUTPUT_MESSAGE,
-								"\n\t\t\tAlyotropic Point\n\n");
+					output_msg(OUTPUT_MESSAGE,
+							   "\n\t\t\tAlyotropic Point\n\n");
 			}
 			if (print == TRUE)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t       Solid mole fraction of component 2: %g\n",
-							(double) xaly);
-				output_msg (OUTPUT_MESSAGE,
-							"\t                    Log IAP (component 2): %g\n",
-							(double) facbl);
-				output_msg (OUTPUT_MESSAGE,
-							"\t                    Log IAP (component 1): %g\n",
-							(double) facal);
-				output_msg (OUTPUT_MESSAGE,
-							"\t                               Log Sum Pi: %g\n",
-							(double) spialy);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t       Solid mole fraction of component 2: %g\n",
+						   (double) xaly);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t                    Log IAP (component 2): %g\n",
+						   (double) facbl);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t                    Log IAP (component 1): %g\n",
+						   (double) facal);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t                               Log Sum Pi: %g\n",
+						   (double) spialy);
 			}
 		}
 	}
@@ -3823,13 +3816,13 @@ s_s_prep (LDBLE t, struct s_s *s_s_ptr, int print)
 
 /* ---------------------------------------------------------------------- */
 static LDBLE
-halve (LDBLE f (LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
+halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
 	LDBLE x, y, y0, dx;
 
-	y0 = f (x0);
+	y0 = f(x0);
 	dx = (x1 - x0);
 /*
  *  Loop for interval halving
@@ -3838,7 +3831,7 @@ halve (LDBLE f (LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 	{
 		dx *= 0.5;
 		x = x0 + dx;
-		y = f (x);
+		y = f(x);
 		if (dx < tol || y == 0)
 		{
 			break;
@@ -3865,7 +3858,7 @@ halve (LDBLE f (LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 
 /* ---------------------------------------------------------------------- */
 static int
-scan (LDBLE f (LDBLE x), LDBLE * xx0, LDBLE * xx1)
+scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -3877,12 +3870,12 @@ scan (LDBLE f (LDBLE x), LDBLE * xx0, LDBLE * xx1)
 	diff = x1 - x0;
 	for (j = 0; j < 3; j++)
 	{
-		fx0 = f (x0);
-		divisions = (int) pow ((LDBLE) 10, (LDBLE) j);
+		fx0 = f(x0);
+		divisions = (int) pow((LDBLE) 10, (LDBLE) j);
 		for (i = 1; i < divisions; i++)
 		{
 			x1 = *xx0 + diff * (LDBLE) i / divisions;
-			fx1 = f (x1);
+			fx1 = f(x1);
 			if (fx0 * fx1 <= 0)
 			{
 				*xx0 = x0;
@@ -3898,7 +3891,7 @@ scan (LDBLE f (LDBLE x), LDBLE * xx0, LDBLE * xx1)
 
 /* ---------------------------------------------------------------------- */
 static LDBLE
-f_spinodal (LDBLE x)
+f_spinodal(LDBLE x)
 /* ---------------------------------------------------------------------- */
 {
 	LDBLE fx;
@@ -3910,7 +3903,7 @@ f_spinodal (LDBLE x)
 
 /* ---------------------------------------------------------------------- */
 int
-slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
+slnq(int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, m;
@@ -3923,17 +3916,17 @@ slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 */
 	if (print == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\nArray in slnq: \n\n");
+		output_msg(OUTPUT_MESSAGE, "\nArray in slnq: \n\n");
 		for (i = 0; i < ncols - 1; i++)
 		{
 			row = i * (n + 1);
 			for (j = 0; j < ncols; j++)
 			{
-				output_msg (OUTPUT_MESSAGE, "%10.2e", (double) a[row + j]);
+				output_msg(OUTPUT_MESSAGE, "%10.2e", (double) a[row + j]);
 			}
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 
 	if (n == 0)
@@ -3941,7 +3934,7 @@ slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 /*   Trivial case */
 	if (n == 1)
 	{
-		if (fabs (a[0]) < ZERO_TOL)
+		if (fabs(a[0]) < ZERO_TOL)
 			goto slnq_error;
 		delta[0] = a[1] / a[0];
 		return (OK);
@@ -3950,15 +3943,15 @@ slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 /*   Reduction loop */
 	for (i = 0; i < n - 1; i++)
 	{
-		b = fabs (a[i * ncols + i]);
+		b = fabs(a[i * ncols + i]);
 		m = i;
 
 /*   Find maximum value in column */
 		for (j = i + 1; j < n; j++)
 		{
-			if (fabs (a[j * ncols + i]) > b)
+			if (fabs(a[j * ncols + i]) > b)
 			{
-				b = fabs (a[j * ncols + i]);
+				b = fabs(a[j * ncols + i]);
 				m = j;
 			}
 		}
@@ -3998,13 +3991,13 @@ slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 	}
 
 /*   Calculation of delta[n] */
-	if (fabs (a[(n - 1) * ncols + n - 1]) > ZERO_TOL)
+	if (fabs(a[(n - 1) * ncols + n - 1]) > ZERO_TOL)
 	{
 		delta[n - 1] = a[(n - 1) * ncols + n] / a[(n - 1) * ncols + n - 1];
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE, "Error: Divide by zero in slnq.\n");
+		output_msg(OUTPUT_MESSAGE, "Error: Divide by zero in slnq.\n");
 		delta[n] = 0.0;
 		goto slnq_error;
 	}
@@ -4020,26 +4013,26 @@ slnq (int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 	}
 	if (print == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\nResults from slnq: \n\n");
+		output_msg(OUTPUT_MESSAGE, "\nResults from slnq: \n\n");
 		for (i = 0; i < n; i++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%10.2e", (double) delta[i]);
+			output_msg(OUTPUT_MESSAGE, "%10.2e", (double) delta[i]);
 		}
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 	return (OK);
 
   slnq_error:{
-		sprintf (error_string,
-				 "Error: Singular matrix in subroutine slnq. \n");
-		warning_msg (error_string);
+		sprintf(error_string,
+				"Error: Singular matrix in subroutine slnq. \n");
+		warning_msg(error_string);
 	}
 	return (ERROR);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
+solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
 	int i, repeat, converged, max_iter;
@@ -4067,10 +4060,10 @@ solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 		xc2_2 = xc2 * xc2;
 		xc2_3 = xc2_2 * xc2;
 
-		lc1 = exp (xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)));
-		lb1 = exp (xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)));
-		lc2 = exp (xb2 * xb2 * (a0 - a1 * (3 - 4 * xb2)));
-		lb2 = exp (xc2 * xc2 * (a0 + a1 * (4 * xb2 - 1)));
+		lc1 = exp(xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)));
+		lb1 = exp(xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)));
+		lc2 = exp(xb2 * xb2 * (a0 - a1 * (3 - 4 * xb2)));
+		lb2 = exp(xc2 * xc2 * (a0 + a1 * (4 * xb2 - 1)));
 
 		/* -fb */
 		a[2] = -(xb1 * lb1 - xb2 * lb2);
@@ -4078,39 +4071,39 @@ solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 		/* -fc */
 		a[5] = -(xc1 * lc1 - xc2 * lc2);
 
-		if (fabs (a[2]) < tol && fabs (a[5]) < tol)
+		if (fabs(a[2]) < tol && fabs(a[5]) < tol)
 			break;
 
 		/* dfb/dxc1 */
-		t = exp (a0 * xc1_2 - 4 * a1 * xc1_3 + 3 * a1 * xc1_2);
+		t = exp(a0 * xc1_2 - 4 * a1 * xc1_3 + 3 * a1 * xc1_2);
 		a[0] =
 			(2 * a0 * xc1 + 6 * a1 * xc1 - 2 * a0 * xc1_2 + 12 * a1 * xc1_3 -
 			 18 * a1 * xc1_2 - 1) * t;
 
 		/* dfb/dxc2 */
-		t = exp (a0 * xc2_2 - 4 * a1 * xc2_3 + 3 * a1 * xc2_2);
+		t = exp(a0 * xc2_2 - 4 * a1 * xc2_3 + 3 * a1 * xc2_2);
 		a[1] =
 			(2 * a0 * xc2_2 - 12 * a1 * xc2_3 - 2 * a0 * xc2 +
 			 18 * a1 * xc2_2 - 6 * a1 * xc2 + 1) * t;
 
 
 		/* dfc/dxc1 */
-		t = exp (a0 * xc1_2 - 2 * a0 * xc1 + a0 - 4 * a1 * xc1_3 +
-				 9 * a1 * xc1_2 - 6 * a1 * xc1 + a1);
+		t = exp(a0 * xc1_2 - 2 * a0 * xc1 + a0 - 4 * a1 * xc1_3 +
+				9 * a1 * xc1_2 - 6 * a1 * xc1 + a1);
 		a[3] =
 			(2 * a0 * xc1_2 - 2 * a0 * xc1 - 12 * a1 * xc1_3 +
 			 18 * a1 * xc1_2 - 6 * a1 * xc1 + 1) * t;
 
 		/* dfc/dxc2 */
-		t = exp (a0 * xc2_2 - 2 * a0 * xc2 + a0 - 4 * a1 * xc2_3 +
-				 9 * a1 * xc2_2 - 6 * a1 * xc2 + a1);
+		t = exp(a0 * xc2_2 - 2 * a0 * xc2 + a0 - 4 * a1 * xc2_3 +
+				9 * a1 * xc2_2 - 6 * a1 * xc2 + a1);
 		a[4] =
 			(-2 * a0 * xc2_2 + 2 * a0 * xc2 + 12 * a1 * xc2_3 -
 			 18 * a1 * xc2_2 + 6 * a1 * xc2 - 1) * t;
 
 
 		/* solve for dxc1 and dxc2 */
-		slnq (2, a, d, 3, FALSE);
+		slnq(2, a, d, 3, FALSE);
 
 		repeat = TRUE;
 		while (repeat == TRUE)
@@ -4130,7 +4123,7 @@ solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 		xc1 = x1;
 		xc2 = x2;
 
-		if (fabs (xc1 - xc2) < .01)
+		if (fabs(xc1 - xc2) < .01)
 		{
 			converged = FALSE;
 			break;
@@ -4145,7 +4138,7 @@ solve_misc (LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 
 /* ---------------------------------------------------------------------- */
 static int
-s_s_calc_a0_a1 (struct s_s *s_s_ptr)
+s_s_calc_a0_a1(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, done;
@@ -4167,16 +4160,16 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 	if (s_s_ptr->comps[0].phase == NULL || s_s_ptr->comps[1].phase == NULL)
 	{
 		input_error++;
-		sprintf (error_string,
-				 "Two components were not defined for %s solid solution",
-				 s_s_ptr->name);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string,
+				"Two components were not defined for %s solid solution",
+				s_s_ptr->name);
+		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
-	kc = exp (k_calc (s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk) *
-			  LOG_10);
-	kb = exp (k_calc (s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk) *
-			  LOG_10);
+	kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk) *
+			 LOG_10);
+	kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk) *
+			 LOG_10);
 
 	p = s_s_ptr->p;
 
@@ -4206,9 +4199,9 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		xbq1 = p[2];
 		xbq2 = p[3];
 		done = FALSE;
-		if (fabs (1 - xbq1) > 0 && q1 > 0)
+		if (fabs(1 - xbq1) > 0 && q1 > 0)
 		{
-			dq1 = log (q1) / ((1 - xbq1) * (1 - xbq1));
+			dq1 = log(q1) / ((1 - xbq1) * (1 - xbq1));
 			if (xbq2 <= 0 || xbq2 > 1)
 			{
 				a0 = dq1;
@@ -4218,19 +4211,19 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		}
 		if (done == FALSE)
 		{
-			if (fabs (xbq2) < 0 || q2 <= 0)
+			if (fabs(xbq2) < 0 || q2 <= 0)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
-						 s_s_ptr->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
+						s_s_ptr->name);
+				error_msg(error_string, CONTINUE);
 				done = TRUE;
 			}
 		}
 		if (done == FALSE)
 		{
-			dq2 = log (q2) / (xbq2 * xbq2);
+			dq2 = log(q2) / (xbq2 * xbq2);
 			if (xbq1 < 0. || xbq2 > 1.)
 			{
 				a0 = dq2;
@@ -4241,11 +4234,11 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		if (done == FALSE)
 		{
 			denom = 4 * (xbq1 - xbq2) + 2;
-			if (fabs (denom) >= tol)
+			if (fabs(denom) >= tol)
 			{
-				if (fabs (1 - xbq1) > 0 && q1 > 0)
+				if (fabs(1 - xbq1) > 0 && q1 > 0)
 				{
-					dq1 = log (q1) / ((1 - xbq1) * (1 - xbq1));
+					dq1 = log(q1) / ((1 - xbq1) * (1 - xbq1));
 					a0 = (dq1 * (3 - 4 * xbq2) +
 						  dq2 * (4 * xbq1 - 1)) / denom;
 					a1 = (dq1 - dq2) / denom;
@@ -4256,10 +4249,10 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		if (done == FALSE)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
-					 s_s_ptr->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
+					s_s_ptr->name);
+			error_msg(error_string, CONTINUE);
 		}
 		/* io = 1 */
 		ag0 = a0 * rt;
@@ -4275,16 +4268,16 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		xbq1 = p[2];
 		xbq2 = p[3];
 		ratio = kc / kb;
-		dr1 = log (q1 / ratio);
+		dr1 = log(q1 / ratio);
 		x21 = 2 * xbq1 - 1;
-		if (fabs (xbq1 - xbq2) < tol || xbq2 < 0)
+		if (fabs(xbq1 - xbq2) < tol || xbq2 < 0)
 		{
 			a0 = dr1 / x21;
 			a1 = 0;
 		}
 		else
 		{
-			dr2 = log (q2 / ratio);
+			dr2 = log(q2 / ratio);
 			x22 = 2 * xbq2 - 1;
 			if (xbq1 < 0.)
 			{
@@ -4295,13 +4288,13 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 			{
 				x61 = 6 * xbq1 * xbq1 - 6 * xbq1 + 1;
 				x62 = 6 * xbq2 * xbq2 - 6 * xbq2 + 1;
-				if (fabs (x22 * x61 - x21 * x62) < tol)
+				if (fabs(x22 * x61 - x21 * x62) < tol)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "No solution possible for A0 and A1 calculation from two distribution coefficients, %s.\n",
-							 s_s_ptr->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"No solution possible for A0 and A1 calculation from two distribution coefficients, %s.\n",
+							s_s_ptr->name);
+					error_msg(error_string, CONTINUE);
 				}
 				a0 = (x61 * dr2 - x62 * dr1) / (x22 * x61 - x21 * x62);
 				a1 = (x21 * dr2 - x22 * dr1) / (x21 * x62 - x22 * x61);
@@ -4323,8 +4316,8 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		xb2 = q2;
 		xc1 = 1 - xb1;
 		xc2 = 1 - xb2;
-		r1 = log (xb1 / xb2);
-		r2 = log (xc1 / xc2);
+		r1 = log(xb1 / xb2);
+		r2 = log(xc1 / xc2);
 		pa1 = xc2 * xc2 - xc1 * xc1;
 		pb1 =
 			3 * (xc2 * xc2 - xc1 * xc1) - 4 * (xc2 * xc2 * xc2 -
@@ -4387,24 +4380,24 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 		q1 = p[0];
 		q2 = p[1];
 		xaly = q1;
-		r = log (kb / kc);
+		r = log(kb / kc);
 		alpha0 = 2 * xaly - 1;
 		alpha1 = 6 * xaly * (xaly - 1) + 1;
-		spialy = pow (10., q2);
+		spialy = pow(10., q2);
 		a0 = -999.;
 		a1 = -999.;
-		if (fabs (alpha0) < tol)
+		if (fabs(alpha0) < tol)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "No solution possible for A0 and A1 calculation from alyotropic point, %s.\n",
-					 s_s_ptr->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"No solution possible for A0 and A1 calculation from alyotropic point, %s.\n",
+					s_s_ptr->name);
+			error_msg(error_string, CONTINUE);
 		}
 		else
 		{
 			azero = 1;
-			if (fabs (alpha0) > tol)
+			if (fabs(alpha0) > tol)
 				azero = r / alpha0;
 			xcaly = 1 - xaly;
 /*
@@ -4420,8 +4413,8 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 					xaly * xaly * (azero +
 								   (3 - 4 * xaly) * (azero * alpha0 -
 													 r) / alpha1);
-				phi1 = xaly * kb * exp (phi1);
-				phi2 = xcaly * kc * exp (phi2);
+				phi1 = xaly * kb * exp(phi1);
+				phi2 = xcaly * kc * exp(phi2);
 				fx = phi1 + phi2 - spialy;
 				fx1 =
 					xcaly * xcaly * (1 -
@@ -4429,17 +4422,17 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 											   1) / alpha1) * phi1 +
 					xaly * xaly * (1 +
 								   alpha0 * (3 - 4 * xaly) / alpha1) * phi2;
-				if (fabs (fx1) < 1e-10)
+				if (fabs(fx1) < 1e-10)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Could not find A0 and A1 calculation from alyotropic point, %s.\n",
-							 s_s_ptr->name);
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Could not find A0 and A1 calculation from alyotropic point, %s.\n",
+							s_s_ptr->name);
+					error_msg(error_string, CONTINUE);
 					break;
 				}
 				a0 = azero - fx / fx1;
-				test = fabs (a0 - azero) + fabs (fx);
+				test = fabs(a0 - azero) + fabs(fx);
 				azero = a0;
 				if (test < tol)
 					break;
@@ -4447,10 +4440,10 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 			if (i == 50)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Too many iterations, could not find A0 and A1 calculation from alyotropic point, %s.\n",
-						 s_s_ptr->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Too many iterations, could not find A0 and A1 calculation from alyotropic point, %s.\n",
+						s_s_ptr->name);
+				error_msg(error_string, CONTINUE);
 			}
 			else
 			{
@@ -4508,7 +4501,7 @@ s_s_calc_a0_a1 (struct s_s *s_s_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_master_isotope (void)
+tidy_master_isotope(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -4521,14 +4514,14 @@ tidy_master_isotope (void)
 		 */
 		if (master_isotope[i]->minor_isotope == TRUE)
 		{
-			master_ptr = master_bsearch (master_isotope[i]->name);
+			master_ptr = master_bsearch(master_isotope[i]->name);
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Did not find master species for isotope, %s",
-						 master_isotope[i]->name);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Did not find master species for isotope, %s",
+						master_isotope[i]->name);
+				error_msg(error_string, CONTINUE);
 				master_isotope[i]->master = NULL;
 				continue;
 			}
@@ -4544,7 +4537,7 @@ tidy_master_isotope (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_isotope_ratios (void)
+tidy_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -4558,32 +4551,32 @@ tidy_isotope_ratios (void)
 		 * Mark master species list as minor isotope
 		 */
 		master_isotope_ptr =
-			master_isotope_search (isotope_ratio[i]->isotope_name);
+			master_isotope_search(isotope_ratio[i]->isotope_name);
 		if (master_isotope_ptr == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "For ISOTOPE_RATIO %s, did not find ISOTOPE definition for this isotope, %s",
-					 isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"For ISOTOPE_RATIO %s, did not find ISOTOPE definition for this isotope, %s",
+					isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
+			error_msg(error_string, CONTINUE);
 		}
-		master_ptr = master_bsearch (isotope_ratio[i]->isotope_name);
+		master_ptr = master_bsearch(isotope_ratio[i]->isotope_name);
 		if (master_ptr == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "For ISOTOPE_RATIO %s, did not find SOLUTION_MASTER_SPECIES for isotope, %s",
-					 isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"For ISOTOPE_RATIO %s, did not find SOLUTION_MASTER_SPECIES for isotope, %s",
+					isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
+			error_msg(error_string, CONTINUE);
 		}
-		calculate_value_ptr = calculate_value_search (isotope_ratio[i]->name);
+		calculate_value_ptr = calculate_value_search(isotope_ratio[i]->name);
 		if (calculate_value_ptr == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "For ISOTOPE_RATIOS %s, did not find corresponding CALCULATE_VALUE definition",
-					 isotope_ratio[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"For ISOTOPE_RATIOS %s, did not find corresponding CALCULATE_VALUE definition",
+					isotope_ratio[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
 	}
 	return (OK);
@@ -4591,7 +4584,7 @@ tidy_isotope_ratios (void)
 
 /* ---------------------------------------------------------------------- */
 int
-tidy_isotope_alphas (void)
+tidy_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -4603,26 +4596,25 @@ tidy_isotope_alphas (void)
 		/*
 		 * Mark master species list as minor isotope
 		 */
-		calculate_value_ptr = calculate_value_search (isotope_alpha[i]->name);
+		calculate_value_ptr = calculate_value_search(isotope_alpha[i]->name);
 		if (calculate_value_ptr == NULL)
 		{
 			input_error++;
-			sprintf (error_string,
-					 "For ISOTOPE_ALPHAS %s, did not find corresponding CALCULATE_VALUE definition",
-					 isotope_alpha[i]->name);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string,
+					"For ISOTOPE_ALPHAS %s, did not find corresponding CALCULATE_VALUE definition",
+					isotope_alpha[i]->name);
+			error_msg(error_string, CONTINUE);
 		}
 		if (isotope_alpha[i]->named_logk != NULL)
 		{
-			logk_ptr = logk_search (isotope_alpha[i]->named_logk);
+			logk_ptr = logk_search(isotope_alpha[i]->named_logk);
 			if (logk_ptr == NULL)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "For ISOTOPE_ALPHAS %s, did not find corresponding NAMED_EXPRESSION definition %s.",
-						 isotope_alpha[i]->name,
-						 isotope_alpha[i]->named_logk);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"For ISOTOPE_ALPHAS %s, did not find corresponding NAMED_EXPRESSION definition %s.",
+						isotope_alpha[i]->name, isotope_alpha[i]->named_logk);
+				error_msg(error_string, CONTINUE);
 			}
 		}
 	}
@@ -4631,7 +4623,7 @@ tidy_isotope_alphas (void)
 
 /* ---------------------------------------------------------------------- */
 int
-reset_last_model (void)
+reset_last_model(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -4640,25 +4632,25 @@ reset_last_model (void)
 	last_model.force_prep = TRUE;
 	last_model.count_exchange = 0;
 	last_model.exchange =
-		(struct master **) free_check_null (last_model.exchange);
+		(struct master **) free_check_null(last_model.exchange);
 	last_model.count_gas_phase = 0;
 	last_model.gas_phase =
-		(struct phase **) free_check_null (last_model.gas_phase);
+		(struct phase **) free_check_null(last_model.gas_phase);
 	last_model.count_s_s_assemblage = 0;
 	last_model.s_s_assemblage =
-		(char **) free_check_null (last_model.s_s_assemblage);
+		(char **) free_check_null(last_model.s_s_assemblage);
 	last_model.count_pp_assemblage = 0;
 	last_model.pp_assemblage =
-		(struct phase **) free_check_null (last_model.pp_assemblage);
+		(struct phase **) free_check_null(last_model.pp_assemblage);
 	last_model.add_formula =
-		(char **) free_check_null (last_model.add_formula);
-	last_model.si = (LDBLE *) free_check_null (last_model.si);
+		(char **) free_check_null(last_model.add_formula);
+	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	last_model.dl_type = NO_DL;
 	last_model.count_surface_comp = 0;
 	last_model.surface_comp =
-		(char **) free_check_null (last_model.surface_comp);
+		(char **) free_check_null(last_model.surface_comp);
 	last_model.count_surface_charge = 0;
 	last_model.surface_charge =
-		(char **) free_check_null (last_model.surface_charge);
+		(char **) free_check_null(last_model.surface_charge);
 	return (OK);
 }

@@ -15,11 +15,11 @@ static struct read_callback s_read_callback;
 
 /* ---------------------------------------------------------------------- */
 int
-set_read_callback (PFN_READ_CALLBACK pfn, void *cookie, int database)
+set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 /* ---------------------------------------------------------------------- */
 {
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	s_read_callback.callback = pfn;
 	s_read_callback.cookie = cookie;
 	s_read_callback.database = database;
@@ -28,7 +28,7 @@ set_read_callback (PFN_READ_CALLBACK pfn, void *cookie, int database)
 
 /* ---------------------------------------------------------------------- */
 int
-reading_database (void)
+reading_database(void)
 /* ---------------------------------------------------------------------- */
 {
 	return s_read_callback.database;
@@ -36,24 +36,24 @@ reading_database (void)
 
 /* ---------------------------------------------------------------------- */
 int
-check_line (const char *string, int allow_empty, int allow_eof,
-			int allow_keyword, int print)
+check_line(const char *string, int allow_empty, int allow_eof,
+		   int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
 {
-	assert (s_read_callback.callback != NULL);
+	assert(s_read_callback.callback != NULL);
 	if (s_read_callback.callback == NULL)
 		return EOF;
-	if (reading_database ())
+	if (reading_database())
 		print = FALSE;
-	return check_line_impl (s_read_callback.callback, s_read_callback.cookie,
-							string, allow_empty, allow_eof, allow_keyword,
-							print);
+	return check_line_impl(s_read_callback.callback, s_read_callback.cookie,
+						   string, allow_empty, allow_eof, allow_keyword,
+						   print);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-check_line_impl (PFN_READ_CALLBACK pfn, void *cookie, const char *string,
-				 int allow_empty, int allow_eof, int allow_keyword, int print)
+check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
+				int allow_empty, int allow_eof, int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -81,28 +81,28 @@ check_line_impl (PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 /* Get line */
 	do
 	{
-		i = get_line (pfn, cookie);
+		i = get_line(pfn, cookie);
 		if ((print == TRUE && i != EOF) || i == KEYWORD)
 		{
-			output_msg (OUTPUT_CHECKLINE, "\t%s\n", line_save);
+			output_msg(OUTPUT_CHECKLINE, "\t%s\n", line_save);
 		}
 	}
 	while (i == EMPTY && allow_empty == FALSE);
 /* Check eof */
 	if (i == EOF && allow_eof == FALSE)
 	{
-		sprintf (error_string,
-				 "Unexpected eof while reading %s\nExecution terminated.\n",
-				 string);
-		error_msg (error_string, STOP);
+		sprintf(error_string,
+				"Unexpected eof while reading %s\nExecution terminated.\n",
+				string);
+		error_msg(error_string, STOP);
 	}
 /* Check keyword */
 	if (i == KEYWORD && allow_keyword == FALSE)
 	{
-		sprintf (error_string,
-				 "Expected data for %s, but got a keyword ending data block.",
-				 string);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string,
+				"Expected data for %s, but got a keyword ending data block.",
+				string);
+		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
 	check_line_return = i;
@@ -111,7 +111,7 @@ check_line_impl (PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 
 /* ---------------------------------------------------------------------- */
 int
-get_line (PFN_READ_CALLBACK pfn, void *cookie)
+get_line(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -143,7 +143,7 @@ get_line (PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Get line, check for eof
  */
-		if (get_logical_line (pfn, cookie, &l) == EOF)
+		if (get_logical_line(pfn, cookie, &l) == EOF)
 		{
 			next_keyword = 0;
 			return (EOF);
@@ -152,16 +152,16 @@ get_line (PFN_READ_CALLBACK pfn, void *cookie)
  *   Get long lines
  */
 		j = l;
-		ptr = strchr (line_save, '#');
+		ptr = strchr(line_save, '#');
 		if (ptr != NULL)
 		{
 			j = (int) (ptr - line_save);
 		}
-		strncpy (line, line_save, (unsigned) j);
+		strncpy(line, line_save, (unsigned) j);
 		line[j] = '\0';
 		for (i = 0; i < j; i++)
 		{
-			if (!isspace ((int) line[i]))
+			if (!isspace((int) line[i]))
 			{
 				empty = FALSE;
 				break;
@@ -185,15 +185,15 @@ get_line (PFN_READ_CALLBACK pfn, void *cookie)
  */
 	if (return_value == OK)
 	{
-		if (check_key (line) == TRUE)
+		if (check_key(line) == TRUE)
 		{
 			return_value = KEYWORD;
 		}
 		else
 		{
 			ptr = line;
-			copy_token (token, &ptr, &i);
-			if (token[0] == '-' && isalpha ((int) token[1]))
+			copy_token(token, &ptr, &i);
+			if (token[0] == '-' && isalpha((int) token[1]))
 			{
 				return_value = OPTION;
 			}
@@ -204,7 +204,7 @@ get_line (PFN_READ_CALLBACK pfn, void *cookie)
 
 /* ---------------------------------------------------------------------- */
 int
-get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
+get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -223,7 +223,7 @@ get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
 	i = 0;
 	if (!pfn)
 		return EOF;
-	while ((j = pfn (cookie)) != EOF)
+	while ((j = pfn(cookie)) != EOF)
 	{
 		c = (char) j;
 		if (c == '#')
@@ -236,9 +236,9 @@ get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
 				{
 					break;
 				}
-				add_char_to_line (&i, c);
+				add_char_to_line(&i, c);
 			}
-			while ((j = pfn (cookie)) != EOF);
+			while ((j = pfn(cookie)) != EOF);
 		}
 		if (c == ';')
 			break;
@@ -249,14 +249,14 @@ get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
 		if (c == '\\')
 		{
 			pos = i;
-			add_char_to_line (&i, c);
-			while ((j = pfn (cookie)) != EOF)
+			add_char_to_line(&i, c);
+			while ((j = pfn(cookie)) != EOF)
 			{
 				c = (char) j;
 				if (c == '\\')
 				{
 					pos = i;
-					add_char_to_line (&i, c);
+					add_char_to_line(&i, c);
 					continue;
 				}
 				if (c == '\n')
@@ -269,14 +269,14 @@ get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
 					i--;
 					break;
 				}
-				add_char_to_line (&i, c);
-				if (!isspace (j))
+				add_char_to_line(&i, c);
+				if (!isspace(j))
 					break;
 			}
 		}
 		else
 		{
-			add_char_to_line (&i, c);
+			add_char_to_line(&i, c);
 		}
 	}
 	if (j == EOF && i == 0)
@@ -292,21 +292,20 @@ get_logical_line (PFN_READ_CALLBACK pfn, void *cookie, int *l)
 
 /* ---------------------------------------------------------------------- */
 int
-add_char_to_line (int *i, char c)
+add_char_to_line(int *i, char c)
 /* ---------------------------------------------------------------------- */
 {
 	if (*i + 20 >= max_line)
 	{
 		max_line *= 2;
 		line_save =
-			(char *) PHRQ_realloc (line_save,
-								   (size_t) max_line * sizeof (char));
+			(char *) PHRQ_realloc(line_save,
+								  (size_t) max_line * sizeof(char));
 		if (line_save == NULL)
-			malloc_error ();
-		line =
-			(char *) PHRQ_realloc (line, (size_t) max_line * sizeof (char));
+			malloc_error();
+		line = (char *) PHRQ_realloc(line, (size_t) max_line * sizeof(char));
 		if (line == NULL)
-			malloc_error ();
+			malloc_error();
 	}
 	line_save[*i] = c;
 	*i += 1;

@@ -20,26 +20,26 @@ static char const svnid[] =
 #define OPTION_DEFAULT -4
 #define OPT_1 -5
 
-static int copy_token_tab (char *token_ptr, char **ptr, int *length);
-static int get_option_string (const char **opt_list, int count_opt_list,
-							  char **next_char);
-static int spread_row_free (struct spread_row *spread_row_ptr);
-static int spread_row_to_solution (struct spread_row *heading,
-								   struct spread_row *units,
-								   struct spread_row *data,
-								   struct defaults defaults);
-static struct spread_row *string_to_spread_row (char *string);
+static int copy_token_tab(char *token_ptr, char **ptr, int *length);
+static int get_option_string(const char **opt_list, int count_opt_list,
+							 char **next_char);
+static int spread_row_free(struct spread_row *spread_row_ptr);
+static int spread_row_to_solution(struct spread_row *heading,
+								  struct spread_row *units,
+								  struct spread_row *data,
+								  struct defaults defaults);
+static struct spread_row *string_to_spread_row(char *string);
 #ifdef PHREEQCI_GUI
-static void add_row (struct spread_row *spread_row_ptr);
-static void copy_defaults (struct defaults *dest_ptr,
-						   struct defaults *src_ptr);
-void free_spread (void);
-static struct spread_row *copy_row (struct spread_row *spread_row_ptr);
+static void add_row(struct spread_row *spread_row_ptr);
+static void copy_defaults(struct defaults *dest_ptr,
+						  struct defaults *src_ptr);
+void free_spread(void);
+static struct spread_row *copy_row(struct spread_row *spread_row_ptr);
 #endif
 
 /* ---------------------------------------------------------------------- */
 int
-read_solution_spread (void)
+read_solution_spread(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -82,14 +82,14 @@ read_solution_spread (void)
 	};
 	int count_opt_list = 14;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 /*
  * Initialize defaults
  */
 	soln_defaults.temp = 25;
 	soln_defaults.density = 1.0;
-	soln_defaults.units = string_hsave ("mmol/kgw");
-	soln_defaults.redox = string_hsave ("pe");
+	soln_defaults.units = string_hsave("mmol/kgw");
+	soln_defaults.redox = string_hsave("pe");
 	soln_defaults.ph = 7.0;
 	soln_defaults.pe = 4.0;
 	soln_defaults.water = 1.0;
@@ -97,13 +97,13 @@ read_solution_spread (void)
 	/* fill in soln_defaults.iso */
 	soln_defaults.count_iso = count_iso_defaults;
 	soln_defaults.iso =
-		(struct iso *) PHRQ_malloc ((size_t) soln_defaults.count_iso *
-									sizeof (struct iso));
+		(struct iso *) PHRQ_malloc((size_t) soln_defaults.count_iso *
+								   sizeof(struct iso));
 	if (soln_defaults.iso == NULL)
-		malloc_error ();
+		malloc_error();
 	/* all iso[i].name is hsave'd, so no conflicts */
-	memcpy (soln_defaults.iso, iso_defaults,
-			(size_t) soln_defaults.count_iso * sizeof (struct iso));
+	memcpy(soln_defaults.iso, iso_defaults,
+		   (size_t) soln_defaults.count_iso * sizeof(struct iso));
 
 	heading = NULL;
 	units = NULL;
@@ -114,15 +114,15 @@ read_solution_spread (void)
  */
 	for (;;)
 	{
-		opt = get_option (opt_list, count_opt_list, &next_char);
+		opt = get_option(opt_list, count_opt_list, &next_char);
 		if (spread_lines == 0 && opt != OPTION_DEFAULT)
 		{
-			row_ptr = string_to_spread_row (line);
+			row_ptr = string_to_spread_row(line);
 			count = 0;
 			ptr = line;
 			numbers = 0;
 			strings = 0;
-			while (((j = copy_token (token, &ptr, &l)) != EMPTY))
+			while (((j = copy_token(token, &ptr, &l)) != EMPTY))
 			{
 				count++;
 				if (j == UPPER || j == LOWER)
@@ -147,13 +147,13 @@ read_solution_spread (void)
 			 * Is 2nd token all number
 			 */
 			ptr = line;
-			copy_token (token, &ptr, &l);
-			j = copy_token (token, &ptr, &l);
+			copy_token(token, &ptr, &l);
+			j = copy_token(token, &ptr, &l);
 			num = FALSE;
 			if (j == DIGIT)
 			{
-				strtod (token, &ptr);
-				j1 = copy_token (token1, &ptr, &l);
+				strtod(token, &ptr);
+				j1 = copy_token(token1, &ptr, &l);
 				if (j1 != EMPTY)
 				{
 					num = FALSE;
@@ -168,7 +168,7 @@ read_solution_spread (void)
 			 *   Starts with hyphen
 			 */
 			ptr = line;
-			copy_token (token, &ptr, &l);
+			copy_token(token, &ptr, &l);
 			if (token[0] == '-')
 			{
 				opt = opt;
@@ -239,7 +239,7 @@ read_solution_spread (void)
 					break;
 				}
 			}
-			spread_row_free (row_ptr);
+			spread_row_free(row_ptr);
 		}
 		if (opt == OPTION_DEFAULT)
 		{
@@ -259,11 +259,11 @@ read_solution_spread (void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in SOLUTION keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in SOLUTION keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case OPTION_DEFAULT:	/* solution definition */
-			row_ptr = string_to_spread_row (line);
+			row_ptr = string_to_spread_row(line);
 			if (spread_lines == 2)
 			{
 				numbers = 0;
@@ -280,19 +280,19 @@ read_solution_spread (void)
 					}
 #ifdef SKIP
 					if (row_ptr->type_vector[i] == STRING &&
-						(strcmp_nocase (heading->char_vector[i], "units") !=
+						(strcmp_nocase(heading->char_vector[i], "units") !=
 						 0)
-						&& (strcmp_nocase (heading->char_vector[i], "unit") !=
+						&& (strcmp_nocase(heading->char_vector[i], "unit") !=
 							0)
 						&&
 						(strcmp_nocase
 						 (heading->char_vector[i], "description") != 0)
-						&& (strcmp_nocase (heading->char_vector[i], "desc") !=
+						&& (strcmp_nocase(heading->char_vector[i], "desc") !=
 							0)
 						&&
-						(strcmp_nocase (heading->char_vector[i], "descriptor")
+						(strcmp_nocase(heading->char_vector[i], "descriptor")
 						 != 0)
-						&& (strcmp_nocase (heading->char_vector[i], "redox")
+						&& (strcmp_nocase(heading->char_vector[i], "redox")
 							!= 0))
 					{
 						break;
@@ -312,27 +312,27 @@ read_solution_spread (void)
 					break;
 				}
 			}
-			spread_row_to_solution (heading, units, row_ptr, soln_defaults);
+			spread_row_to_solution(heading, units, row_ptr, soln_defaults);
 #ifdef PHREEQCI_GUI
-			add_row (row_ptr);
+			add_row(row_ptr);
 #endif
-			spread_row_free (row_ptr);
+			spread_row_free(row_ptr);
 			break;
 		case 0:				/* temperature */
 		case 1:
-			sscanf (next_char, SCANFORMAT, &(soln_defaults.temp));
+			sscanf(next_char, SCANFORMAT, &(soln_defaults.temp));
 			break;
 		case 2:				/* density */
 		case 3:
-			sscanf (next_char, SCANFORMAT, &(soln_defaults.density));
+			sscanf(next_char, SCANFORMAT, &(soln_defaults.density));
 			break;
 		case 4:				/* units */
 		case 8:				/* unit */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (check_units (token, FALSE, FALSE, NULL, TRUE) == OK)
+			if (check_units(token, FALSE, FALSE, NULL, TRUE) == OK)
 			{
-				soln_defaults.units = string_hsave (token);
+				soln_defaults.units = string_hsave(token);
 			}
 			else
 			{
@@ -340,11 +340,11 @@ read_solution_spread (void)
 			}
 			break;
 		case 5:				/* redox */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (parse_couple (token) == OK)
+			if (parse_couple(token) == OK)
 			{
-				soln_defaults.redox = string_hsave (token);
+				soln_defaults.redox = string_hsave(token);
 			}
 			else
 			{
@@ -352,18 +352,18 @@ read_solution_spread (void)
 			}
 			break;
 		case 6:				/* ph */
-			copy_token (token, &next_char, &l);
-			sscanf (token, SCANFORMAT, &(soln_defaults.ph));
-			if (copy_token (token, &next_char, &l) != EMPTY)
+			copy_token(token, &next_char, &l);
+			sscanf(token, SCANFORMAT, &(soln_defaults.ph));
+			if (copy_token(token, &next_char, &l) != EMPTY)
 			{
 				warning_msg
 					("Not possible to use phase name or saturation index in definition of default pH in SOLUTION_SPREAD.");
 			}
 			break;
 		case 7:				/* pe */
-			copy_token (token, &next_char, &l);
-			sscanf (token, SCANFORMAT, &(soln_defaults.pe));
-			if (copy_token (token, &next_char, &l) != EMPTY)
+			copy_token(token, &next_char, &l);
+			sscanf(token, SCANFORMAT, &(soln_defaults.pe));
+			if (copy_token(token, &next_char, &l) != EMPTY)
 			{
 				warning_msg
 					("Not possible to use phase name or saturation index in definition of default pe in SOLUTION_SPREAD.");
@@ -372,17 +372,17 @@ read_solution_spread (void)
 		case 11:				/* isotope_uncertainty */
 		case 12:				/* uncertainty */
 		case 13:				/* uncertainties */
-			if (copy_token (token, &next_char, &l) != DIGIT)
+			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string, "Expected isotope name to"
-						 " begin with an isotopic number.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Expected isotope name to"
+						" begin with an isotopic number.");
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (i = 0; i < soln_defaults.count_iso; i++)
 			{
-				if (strcmp (token, soln_defaults.iso[i].name) == 0)
+				if (strcmp(token, soln_defaults.iso[i].name) == 0)
 				{
 					break;
 				}
@@ -390,33 +390,33 @@ read_solution_spread (void)
 			if (i == soln_defaults.count_iso)
 			{
 				soln_defaults.iso =
-					(struct iso *) PHRQ_realloc (soln_defaults.iso,
-												 (size_t) (i +
-														   1) *
-												 sizeof (struct iso));
+					(struct iso *) PHRQ_realloc(soln_defaults.iso,
+												(size_t) (i +
+														  1) *
+												sizeof(struct iso));
 				if (soln_defaults.iso == NULL)
-					malloc_error ();
-				soln_defaults.iso[i].name = string_hsave (token);
+					malloc_error();
+				soln_defaults.iso[i].name = string_hsave(token);
 				soln_defaults.iso[i].value = NAN;
 				soln_defaults.iso[i].uncertainty = NAN;
 				soln_defaults.count_iso++;
 			}
 
 			/* read and store isotope ratio uncertainty */
-			if ((j = copy_token (token, &next_char, &l)) != EMPTY)
+			if ((j = copy_token(token, &next_char, &l)) != EMPTY)
 			{
 				if (j != DIGIT)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Expected numeric value for uncertainty in isotope ratio.");
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Expected numeric value for uncertainty in isotope ratio.");
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				else
 				{
-					sscanf (token, SCANFORMAT,
-							&(soln_defaults.iso[i].uncertainty));
+					sscanf(token, SCANFORMAT,
+						   &(soln_defaults.iso[i].uncertainty));
 				}
 			}
 			else
@@ -425,31 +425,31 @@ read_solution_spread (void)
 			}
 			break;
 		case 10:				/* water */
-			j = copy_token (token, &next_char, &l);
+			j = copy_token(token, &next_char, &l);
 			if (j != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Expected numeric value for mass of water in solution.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expected numeric value for mass of water in solution.");
+				error_msg(error_string, CONTINUE);
 			}
 			else
 			{
-				sscanf (token, SCANFORMAT, &(soln_defaults.water));
+				sscanf(token, SCANFORMAT, &(soln_defaults.water));
 			}
 			break;
 		case 9:				/* isotope */
-			if (copy_token (token, &next_char, &l) != DIGIT)
+			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string, "Expected isotope name to"
-						 " begin with an isotopic number.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Expected isotope name to"
+						" begin with an isotopic number.");
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			for (i = 0; i < soln_defaults.count_iso; i++)
 			{
-				if (strcmp (token, soln_defaults.iso[i].name) == 0)
+				if (strcmp(token, soln_defaults.iso[i].name) == 0)
 				{
 					break;
 				}
@@ -457,51 +457,51 @@ read_solution_spread (void)
 			if (i == soln_defaults.count_iso)
 			{
 				soln_defaults.iso =
-					(struct iso *) PHRQ_realloc (soln_defaults.iso,
-												 (size_t) (i +
-														   1) *
-												 sizeof (struct iso));
+					(struct iso *) PHRQ_realloc(soln_defaults.iso,
+												(size_t) (i +
+														  1) *
+												sizeof(struct iso));
 				if (soln_defaults.iso == NULL)
-					malloc_error ();
-				soln_defaults.iso[i].name = string_hsave (token);
+					malloc_error();
+				soln_defaults.iso[i].name = string_hsave(token);
 				soln_defaults.iso[i].value = NAN;
 				soln_defaults.iso[i].uncertainty = NAN;
 				soln_defaults.count_iso++;
 			}
 			/* read and store isotope ratio */
-			if (copy_token (token, &next_char, &l) != DIGIT)
+			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Expected numeric value for default isotope ratio.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expected numeric value for default isotope ratio.");
+				error_msg(error_string, CONTINUE);
 				break;
 			}
-			sscanf (token, SCANFORMAT, &(soln_defaults.iso[i].value));
+			sscanf(token, SCANFORMAT, &(soln_defaults.iso[i].value));
 			/* read and store isotope ratio uncertainty */
-			if ((j = copy_token (token, &next_char, &l)) != EMPTY)
+			if ((j = copy_token(token, &next_char, &l)) != EMPTY)
 			{
 				if (j != DIGIT)
 				{
 					input_error++;
-					sprintf (error_string,
-							 "Expected numeric value for uncertainty in isotope ratio.");
-					error_msg (error_string, CONTINUE);
+					sprintf(error_string,
+							"Expected numeric value for uncertainty in isotope ratio.");
+					error_msg(error_string, CONTINUE);
 					continue;
 				}
 				else
 				{
-					sscanf (token, SCANFORMAT,
-							&(soln_defaults.iso[i].uncertainty));
+					sscanf(token, SCANFORMAT,
+						   &(soln_defaults.iso[i].uncertainty));
 				}
 			}
 			break;
 		case 100:				/* read headings */
-			heading = string_to_spread_row (line);
+			heading = string_to_spread_row(line);
 			for (i = 0; i < heading->count; i++)
 			{
-				while (replace (" ", "", heading->char_vector[i]) == TRUE);
-				while (replace (",", "_", heading->char_vector[i]) == TRUE);
+				while (replace(" ", "", heading->char_vector[i]) == TRUE);
+				while (replace(",", "_", heading->char_vector[i]) == TRUE);
 			}
 
 			break;
@@ -511,22 +511,22 @@ read_solution_spread (void)
 	}
 #ifdef PHREEQCI_GUI
 	if (heading)
-		g_spread_sheet.heading = copy_row (heading);
+		g_spread_sheet.heading = copy_row(heading);
 	if (units)
-		g_spread_sheet.units = copy_row (units);
-	copy_defaults (&g_spread_sheet.defaults, &soln_defaults);
+		g_spread_sheet.units = copy_row(units);
+	copy_defaults(&g_spread_sheet.defaults, &soln_defaults);
 #endif
-	spread_row_free (heading);
-	spread_row_free (units);
+	spread_row_free(heading);
+	spread_row_free(units);
 
-	soln_defaults.iso = (struct iso *) free_check_null (soln_defaults.iso);
+	soln_defaults.iso = (struct iso *) free_check_null(soln_defaults.iso);
 	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
-						struct spread_row *data, struct defaults defaults)
+spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
+					   struct spread_row *data, struct defaults defaults)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, n, l, next_keyword_save;
@@ -565,10 +565,10 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
  */
 	n_user = -1;
 	n_user_end = -1;
-	description = string_duplicate ("");
+	description = string_duplicate("");
 	for (i = 0; i < heading->count; i++)
 	{
-		if (strcmp_nocase (heading->char_vector[i], "number") == 0)
+		if (strcmp_nocase(heading->char_vector[i], "number") == 0)
 		{
 			break;
 		}
@@ -590,40 +590,40 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 	else if (data->type_vector[i] == STRING)
 	{
 		input_error++;
-		sprintf (error_string,
-				 "Expected solution number or number range in 'number' column, found:  %s.",
-				 data->char_vector[i]);
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string,
+				"Expected solution number or number range in 'number' column, found:  %s.",
+				data->char_vector[i]);
+		error_msg(error_string, CONTINUE);
 	}
 	else
 	{
-		strcpy (string, "solution_s ");
-		strcat (string, data->char_vector[i]);
+		strcpy(string, "solution_s ");
+		strcat(string, data->char_vector[i]);
 		ptr = string;
-		description = (char *) free_check_null (description);
+		description = (char *) free_check_null(description);
 		next_keyword_save = next_keyword;
 		next_keyword = 42;
-		read_number_description (ptr, &n_user, &n_user_end, &description);
+		read_number_description(ptr, &n_user, &n_user_end, &description);
 		next_keyword = next_keyword_save;
 	}
 /*
  *   set up solution
  */
 
-	if (n_user >= 0 && solution_bsearch (n_user, &n, FALSE) != NULL)
+	if (n_user >= 0 && solution_bsearch(n_user, &n, FALSE) != NULL)
 	{
-		solution_free (solution[n]);
+		solution_free(solution[n]);
 	}
 	else
 	{
 		n = count_solution++;
 		if (count_solution >= max_solution)
 		{
-			space ((void **) ((void *) &(solution)), count_solution,
-				   &max_solution, sizeof (struct solution *));
+			space((void **) ((void *) &(solution)), count_solution,
+				  &max_solution, sizeof(struct solution *));
 		}
 	}
-	solution[n] = solution_alloc ();
+	solution[n] = solution_alloc();
 
 	solution[n]->n_user = n_user;
 	solution[n]->n_user_end = n_user_end;
@@ -650,20 +650,20 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 	solution[n]->totals[0].description = NULL;
 	count_mass_balance = 0;
 	count_isotopes = 0;
-	default_pe = pe_data_store (&(solution[n]->pe), defaults.redox);
+	default_pe = pe_data_store(&(solution[n]->pe), defaults.redox);
 /*
  *   Read concentration data
  */
 	return_value = UNKNOWN;
 	for (i = 0; i < heading->count; i++)
 	{
-		if (strcmp_nocase (heading->char_vector[i], "number") == 0)
+		if (strcmp_nocase(heading->char_vector[i], "number") == 0)
 			continue;
-		if (strcmp_nocase (heading->char_vector[i], "uncertainty") == 0)
+		if (strcmp_nocase(heading->char_vector[i], "uncertainty") == 0)
 			continue;
-		if (strcmp_nocase (heading->char_vector[i], "uncertainties") == 0)
+		if (strcmp_nocase(heading->char_vector[i], "uncertainties") == 0)
 			continue;
-		if (strcmp_nocase (heading->char_vector[i], "isotope_uncertainty") ==
+		if (strcmp_nocase(heading->char_vector[i], "isotope_uncertainty") ==
 			0)
 			continue;
 		/*
@@ -671,28 +671,28 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 		 */
 		if (heading->type_vector[i] == EMPTY)
 			continue;
-		strcpy (string, heading->char_vector[i]);
-		strcat (string, " ");
+		strcpy(string, heading->char_vector[i]);
+		strcat(string, " ");
 		/*
 		 *  Copy in concentration data
 		 */
 		if (i >= data->count || data->type_vector[i] == EMPTY)
 			continue;
-		strcat (string, data->char_vector[i]);
-		strcat (string, " ");
+		strcat(string, data->char_vector[i]);
+		strcat(string, " ");
 		/*
 		 *  Copy in concentration data
 		 */
 		if (units != NULL && i < units->count
 			&& units->type_vector[i] != EMPTY)
 		{
-			strcat (string, units->char_vector[i]);
+			strcat(string, units->char_vector[i]);
 		}
 /*
  *   Parse string just like read_solution input 
  */
 		next_char = string;
-		opt = get_option_string (opt_list, count_opt_list, &next_char);
+		opt = get_option_string(opt_list, count_opt_list, &next_char);
 		if (opt == OPTION_DEFAULT && heading->type_vector[i] == NUMBER)
 		{
 			opt = 9;
@@ -707,25 +707,25 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in SOLUTION keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in SOLUTION keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* temperature */
 		case 1:
-			sscanf (next_char, SCANFORMAT, &(solution[n]->tc));
+			sscanf(next_char, SCANFORMAT, &(solution[n]->tc));
 			break;
 		case 2:				/* density */
 		case 3:
-			sscanf (next_char, SCANFORMAT, &(solution[n]->density));
+			sscanf(next_char, SCANFORMAT, &(solution[n]->density));
 			break;
 		case 4:				/* units */
 		case 8:				/* unit */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (check_units (token, FALSE, FALSE, solution[n]->units, TRUE) ==
+			if (check_units(token, FALSE, FALSE, solution[n]->units, TRUE) ==
 				OK)
 			{
-				solution[n]->units = string_hsave (token);
+				solution[n]->units = string_hsave(token);
 			}
 			else
 			{
@@ -733,11 +733,11 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			}
 			break;
 		case 5:				/* redox */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (parse_couple (token) == OK)
+			if (parse_couple(token) == OK)
 			{
-				default_pe = pe_data_store (&(solution[n]->pe), token);
+				default_pe = pe_data_store(&(solution[n]->pe), token);
 			}
 			else
 			{
@@ -746,7 +746,7 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			break;
 		case 6:				/* ph */
 			next_char = string;
-			if (read_conc (n, count_mass_balance, next_char) == ERROR)
+			if (read_conc(n, count_mass_balance, next_char) == ERROR)
 			{
 				input_error++;
 				break;
@@ -758,12 +758,12 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 				break;
 			}
 			solution[n]->totals[count_mass_balance].description =
-				string_hsave ("H(1)");
+				string_hsave("H(1)");
 			count_mass_balance++;
 			break;
 		case 7:				/* pe */
 			next_char = string;
-			if (read_conc (n, count_mass_balance, next_char) == ERROR)
+			if (read_conc(n, count_mass_balance, next_char) == ERROR)
 			{
 				input_error++;
 				break;
@@ -775,61 +775,61 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 				break;
 			}
 			solution[n]->totals[count_mass_balance].description =
-				string_hsave ("E");
+				string_hsave("E");
 			count_mass_balance++;
 			break;
 		case 9:				/* isotope */
 			next_char = string;
-			if (copy_token (token, &next_char, &l) != DIGIT)
+			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string, "Expected isotope name to"
-						 " begin with an isotopic number.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string, "Expected isotope name to"
+						" begin with an isotopic number.");
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			solution[n]->isotopes =
-				(struct isotope *) PHRQ_realloc (solution[n]->isotopes,
-												 (size_t) (count_isotopes +
-														   1) *
-												 sizeof (struct isotope));
+				(struct isotope *) PHRQ_realloc(solution[n]->isotopes,
+												(size_t) (count_isotopes +
+														  1) *
+												sizeof(struct isotope));
 			if (solution[n]->isotopes == NULL)
-				malloc_error ();
+				malloc_error();
 			/* read and save element name */
 			ptr1 = token;
-			get_num (&ptr1,
-					 &(solution[n]->isotopes[count_isotopes].isotope_number));
-			if (ptr1[0] == '\0' || isupper ((int) ptr1[0]) == FALSE)
+			get_num(&ptr1,
+					&(solution[n]->isotopes[count_isotopes].isotope_number));
+			if (ptr1[0] == '\0' || isupper((int) ptr1[0]) == FALSE)
 			{
-				error_msg ("Expecting element name.", CONTINUE);
-				error_msg (line_save, CONTINUE);
+				error_msg("Expecting element name.", CONTINUE);
+				error_msg(line_save, CONTINUE);
 				input_error++;
 				return (ERROR);
 			}
 			solution[n]->isotopes[count_isotopes].elt_name =
-				string_hsave (ptr1);
+				string_hsave(ptr1);
 
 			/* read and store isotope ratio */
-			if (copy_token (token, &next_char, &l) != DIGIT)
+			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Expected numeric value for isotope ratio.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expected numeric value for isotope ratio.");
+				error_msg(error_string, CONTINUE);
 				continue;
 			}
-			sscanf (token, SCANFORMAT,
-					&(solution[n]->isotopes[count_isotopes].ratio));
+			sscanf(token, SCANFORMAT,
+				   &(solution[n]->isotopes[count_isotopes].ratio));
 
 			/* read and store isotope ratio uncertainty */
 			/* first choice is next column */
 			if ((i + 1) < heading->count &&
-				(strcmp_nocase (heading->char_vector[i + 1], "uncertainty") ==
+				(strcmp_nocase(heading->char_vector[i + 1], "uncertainty") ==
 				 0
-				 || strcmp_nocase (heading->char_vector[i + 1],
-								   "isotope_uncertainty") == 0
-				 || strcmp_nocase (heading->char_vector[i + 1],
-								   "uncertainties") == 0)
+				 || strcmp_nocase(heading->char_vector[i + 1],
+								  "isotope_uncertainty") == 0
+				 || strcmp_nocase(heading->char_vector[i + 1],
+								  "uncertainties") == 0)
 				&& (i + 1) < data->count
 				&& data->type_vector[i + 1] == NUMBER)
 			{
@@ -839,10 +839,10 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			else
 			{
 				next_char = string;
-				copy_token (token, &next_char, &l);
+				copy_token(token, &next_char, &l);
 				for (j = 0; j < defaults.count_iso; j++)
 				{
-					if (strcmp (token, defaults.iso[j].name) == 0)
+					if (strcmp(token, defaults.iso[j].name) == 0)
 					{
 						solution[n]->isotopes[count_isotopes].
 							ratio_uncertainty = defaults.iso[j].uncertainty;
@@ -858,7 +858,7 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			count_isotopes++;
 			break;
 		case 10:				/* water */
-			j = copy_token (token, &next_char, &l);
+			j = copy_token(token, &next_char, &l);
 			if (j == EMPTY)
 			{
 				solution[n]->mass_water = 1.0;
@@ -866,13 +866,13 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 			else if (j != DIGIT)
 			{
 				input_error++;
-				sprintf (error_string,
-						 "Expected numeric value for mass of water in solution.");
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expected numeric value for mass of water in solution.");
+				error_msg(error_string, CONTINUE);
 			}
 			else
 			{
-				sscanf (token, SCANFORMAT, &dummy);
+				sscanf(token, SCANFORMAT, &dummy);
 				solution[n]->mass_water = (LDBLE) dummy;
 			}
 			break;
@@ -880,18 +880,18 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 		case 12:				/* desc */
 		case 13:				/* descriptor */
 			solution[n]->description =
-				(char *) free_check_null (solution[n]->description);
-			solution[n]->description = string_duplicate (next_char);
+				(char *) free_check_null(solution[n]->description);
+			solution[n]->description = string_duplicate(next_char);
 			break;
 		case OPTION_DEFAULT:
 /*
  *   Read concentration
  */
 			next_char = string;
-			if (copy_token (token, &next_char, &l) == LOWER)
+			if (copy_token(token, &next_char, &l) == LOWER)
 				continue;
 			next_char = string;
-			if (read_conc (n, count_mass_balance, next_char) == ERROR)
+			if (read_conc(n, count_mass_balance, next_char) == ERROR)
 			{
 #ifdef SKIP
 				input_error++;
@@ -903,9 +903,9 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 		}
 		if (count_mass_balance + 1 >= max_mass_balance)
 		{
-			space ((void **) ((void *) &(solution[n]->totals)),
-				   count_mass_balance + 1, &max_mass_balance,
-				   sizeof (struct conc));
+			space((void **) ((void *) &(solution[n]->totals)),
+				  count_mass_balance + 1, &max_mass_balance,
+				  sizeof(struct conc));
 		}
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
@@ -913,16 +913,16 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 /*
  *   Sort totals by description
  */
-	qsort (solution[n]->totals,
-		   (size_t) count_mass_balance,
-		   (size_t) sizeof (struct conc), conc_compare);
+	qsort(solution[n]->totals,
+		  (size_t) count_mass_balance,
+		  (size_t) sizeof(struct conc), conc_compare);
 /*
  *   fix up default units and default pe
  */
 	for (i = 0; i < count_mass_balance; i++)
 	{
-		strcpy (token, solution[n]->totals[i].description);
-		str_tolower (token);
+		strcpy(token, solution[n]->totals[i].description);
+		str_tolower(token);
 		if (solution[n]->totals[i].units == NULL)
 		{
 			solution[n]->totals[i].units = solution[n]->units;
@@ -930,17 +930,17 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 		else
 		{
 			alk = FALSE;
-			if (strstr (token, "alk") == token)
+			if (strstr(token, "alk") == token)
 				alk = TRUE;
-			strcpy (token1, solution[n]->totals[i].units);
-			if (check_units (token1, alk, TRUE, solution[n]->units, TRUE) ==
+			strcpy(token1, solution[n]->totals[i].units);
+			if (check_units(token1, alk, TRUE, solution[n]->units, TRUE) ==
 				ERROR)
 			{
 				input_error++;
 			}
 			else
 			{
-				solution[n]->totals[i].units = string_hsave (token1);
+				solution[n]->totals[i].units = string_hsave(token1);
 			}
 		}
 		if (solution[n]->totals[i].n_pe < 0)
@@ -956,21 +956,21 @@ spread_row_to_solution (struct spread_row *heading, struct spread_row *units,
 	solution[n]->count_isotopes = count_isotopes;
 	if (count_isotopes > 0)
 	{
-		qsort (solution[n]->isotopes,
-			   (size_t) count_isotopes,
-			   (size_t) sizeof (struct isotope), isotope_compare);
+		qsort(solution[n]->isotopes,
+			  (size_t) count_isotopes,
+			  (size_t) sizeof(struct isotope), isotope_compare);
 	}
 	else
 	{
 		solution[n]->isotopes =
-			(struct isotope *) free_check_null (solution[n]->isotopes);
+			(struct isotope *) free_check_null(solution[n]->isotopes);
 	}
 	return (return_value);
 }
 
 /* ---------------------------------------------------------------------- */
 struct spread_row *
-string_to_spread_row (char *string)
+string_to_spread_row(char *string)
 /* ---------------------------------------------------------------------- */
 {
 	int j, l;
@@ -981,26 +981,25 @@ string_to_spread_row (char *string)
 /*
  *   Allocate space
  */
-	token = (char *) PHRQ_malloc (strlen (line) + 1);
+	token = (char *) PHRQ_malloc(strlen(line) + 1);
 	if (token == NULL)
-		malloc_error ();
+		malloc_error();
 	spread_row_ptr =
-		(struct spread_row *) PHRQ_malloc ((size_t)
-										   sizeof (struct spread_row));
+		(struct spread_row *) PHRQ_malloc((size_t) sizeof(struct spread_row));
 	if (spread_row_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 	spread_row_ptr->char_vector =
-		(char **) PHRQ_malloc ((size_t) length * sizeof (char *));
+		(char **) PHRQ_malloc((size_t) length * sizeof(char *));
 	if (spread_row_ptr->char_vector == NULL)
-		malloc_error ();
+		malloc_error();
 	spread_row_ptr->d_vector =
-		(LDBLE *) PHRQ_malloc ((size_t) length * sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) length * sizeof(LDBLE));
 	if (spread_row_ptr->d_vector == NULL)
-		malloc_error ();
+		malloc_error();
 	spread_row_ptr->type_vector =
-		(int *) PHRQ_malloc ((size_t) length * sizeof (int));
+		(int *) PHRQ_malloc((size_t) length * sizeof(int));
 	if (spread_row_ptr->type_vector == NULL)
-		malloc_error ();
+		malloc_error();
 	spread_row_ptr->count = 0;
 	spread_row_ptr->empty = 0;
 	spread_row_ptr->string = 0;
@@ -1016,28 +1015,28 @@ string_to_spread_row (char *string)
 			length *= 2;
 
 			spread_row_ptr->char_vector =
-				(char **) PHRQ_realloc (spread_row_ptr->char_vector,
-										(size_t) length * sizeof (char *));
+				(char **) PHRQ_realloc(spread_row_ptr->char_vector,
+									   (size_t) length * sizeof(char *));
 			if (spread_row_ptr->char_vector == NULL)
-				malloc_error ();
+				malloc_error();
 
 			spread_row_ptr->d_vector =
-				(LDBLE *) PHRQ_realloc (spread_row_ptr->d_vector,
-										(size_t) length * sizeof (LDBLE));
+				(LDBLE *) PHRQ_realloc(spread_row_ptr->d_vector,
+									   (size_t) length * sizeof(LDBLE));
 			if (spread_row_ptr->d_vector == NULL)
-				malloc_error ();
+				malloc_error();
 
 			spread_row_ptr->type_vector =
-				(int *) PHRQ_realloc (spread_row_ptr->type_vector,
-									  (size_t) length * sizeof (int));
+				(int *) PHRQ_realloc(spread_row_ptr->type_vector,
+									 (size_t) length * sizeof(int));
 			if (spread_row_ptr->type_vector == NULL)
-				malloc_error ();
+				malloc_error();
 		}
-		j = copy_token_tab (token, &ptr, &l);
+		j = copy_token_tab(token, &ptr, &l);
 		if (j == EOL)
 			break;
 		spread_row_ptr->char_vector[spread_row_ptr->count] =
-			string_duplicate (token);
+			string_duplicate(token);
 		spread_row_ptr->d_vector[spread_row_ptr->count] = NAN;
 		if (j == EMPTY || l == 0)
 		{
@@ -1053,7 +1052,7 @@ string_to_spread_row (char *string)
 		{
 			spread_row_ptr->number++;
 			spread_row_ptr->d_vector[spread_row_ptr->count] =
-				strtod (token, NULL);
+				strtod(token, NULL);
 			spread_row_ptr->type_vector[spread_row_ptr->count] = NUMBER;
 		}
 		spread_row_ptr->count++;
@@ -1064,11 +1063,11 @@ string_to_spread_row (char *string)
 	if (spread_row_ptr->count == 0)
 	{
 		spread_row_ptr->char_vector =
-			(char **) free_check_null (spread_row_ptr->char_vector);
+			(char **) free_check_null(spread_row_ptr->char_vector);
 		spread_row_ptr->d_vector =
-			(LDBLE *) free_check_null (spread_row_ptr->d_vector);
+			(LDBLE *) free_check_null(spread_row_ptr->d_vector);
 		spread_row_ptr->type_vector =
-			(int *) free_check_null (spread_row_ptr->type_vector);
+			(int *) free_check_null(spread_row_ptr->type_vector);
 	}
 	else
 	{
@@ -1093,13 +1092,13 @@ string_to_spread_row (char *string)
       malloc_error ();
 */
 	}
-	token = (char *) free_check_null (token);
+	token = (char *) free_check_null(token);
 	return (spread_row_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-spread_row_free (struct spread_row *spread_row_ptr)
+spread_row_free(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -1109,22 +1108,22 @@ spread_row_free (struct spread_row *spread_row_ptr)
 	for (i = 0; i < spread_row_ptr->count; i++)
 	{
 		spread_row_ptr->char_vector[i] =
-			(char *) free_check_null (spread_row_ptr->char_vector[i]);
+			(char *) free_check_null(spread_row_ptr->char_vector[i]);
 	}
 
 	spread_row_ptr->char_vector =
-		(char **) free_check_null (spread_row_ptr->char_vector);
+		(char **) free_check_null(spread_row_ptr->char_vector);
 	spread_row_ptr->d_vector =
-		(LDBLE *) free_check_null (spread_row_ptr->d_vector);
+		(LDBLE *) free_check_null(spread_row_ptr->d_vector);
 	spread_row_ptr->type_vector =
-		(int *) free_check_null (spread_row_ptr->type_vector);
-	spread_row_ptr = (struct spread_row *) free_check_null (spread_row_ptr);
+		(int *) free_check_null(spread_row_ptr->type_vector);
+	spread_row_ptr = (struct spread_row *) free_check_null(spread_row_ptr);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-copy_token_tab (char *token_ptr, char **ptr, int *length)
+copy_token_tab(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1156,15 +1155,15 @@ copy_token_tab (char *token_ptr, char **ptr, int *length)
 /*
  *   Check what we have
  */
-	if (isupper ((int) c))
+	if (isupper((int) c))
 	{
 		return_value = UPPER;
 	}
-	else if (islower ((int) c))
+	else if (islower((int) c))
 	{
 		return_value = LOWER;
 	}
-	else if (isdigit ((int) c) || c == '.' || c == '-')
+	else if (isdigit((int) c) || c == '.' || c == '-')
 	{
 		return_value = DIGIT;
 	}
@@ -1232,8 +1231,7 @@ copy_token_tab (char *token_ptr, char **ptr, int *length)
 
 /* ---------------------------------------------------------------------- */
 static int
-get_option_string (const char **opt_list, int count_opt_list,
-				   char **next_char)
+get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1248,8 +1246,8 @@ get_option_string (const char **opt_list, int count_opt_list,
 	if (opt_ptr[0] == '-')
 	{
 		opt_ptr++;
-		copy_token (option, &opt_ptr, &opt_l);
-		if (find_option (&(option[1]), &opt, opt_list, count_opt_list, FALSE)
+		copy_token(option, &opt_ptr, &opt_l);
+		if (find_option(&(option[1]), &opt, opt_list, count_opt_list, FALSE)
 			== OK)
 		{
 			j = opt;
@@ -1257,16 +1255,16 @@ get_option_string (const char **opt_list, int count_opt_list,
 		}
 		else
 		{
-			error_msg ("Unknown option.", CONTINUE);
-			error_msg (*next_char, CONTINUE);
+			error_msg("Unknown option.", CONTINUE);
+			error_msg(*next_char, CONTINUE);
 			input_error++;
 			j = OPTION_ERROR;
 		}
 	}
 	else
 	{
-		copy_token (option, &opt_ptr, &opt_l);
-		if (find_option (&(option[0]), &opt, opt_list, count_opt_list, TRUE)
+		copy_token(option, &opt_ptr, &opt_l);
+		if (find_option(&(option[0]), &opt, opt_list, count_opt_list, TRUE)
 			== OK)
 		{
 			j = opt;
@@ -1283,55 +1281,55 @@ get_option_string (const char **opt_list, int count_opt_list,
 #ifdef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
 void
-free_spread (void)
+free_spread(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	spread_row_free (g_spread_sheet.heading);
-	spread_row_free (g_spread_sheet.units);
+	spread_row_free(g_spread_sheet.heading);
+	spread_row_free(g_spread_sheet.units);
 	for (i = 0; i < g_spread_sheet.count_rows; i++)
 	{
-		spread_row_free (g_spread_sheet.rows[i]);
+		spread_row_free(g_spread_sheet.rows[i]);
 	}
-	g_spread_sheet.rows = free_check_null (g_spread_sheet.rows);
+	g_spread_sheet.rows = free_check_null(g_spread_sheet.rows);
 
 	for (i = 0; i < g_spread_sheet.defaults.count_iso; i++)
 	{
 		g_spread_sheet.defaults.iso[i].name =
-			free_check_null (g_spread_sheet.defaults.iso[i].name);
+			free_check_null(g_spread_sheet.defaults.iso[i].name);
 	}
 	g_spread_sheet.defaults.iso =
-		free_check_null (g_spread_sheet.defaults.iso);
+		free_check_null(g_spread_sheet.defaults.iso);
 
 	g_spread_sheet.defaults.redox =
-		free_check_null (g_spread_sheet.defaults.redox);
+		free_check_null(g_spread_sheet.defaults.redox);
 	g_spread_sheet.defaults.units =
-		free_check_null (g_spread_sheet.defaults.units);
+		free_check_null(g_spread_sheet.defaults.units);
 }
 
 /* ---------------------------------------------------------------------- */
 void
-add_row (struct spread_row *spread_row_ptr)
+add_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	g_spread_sheet.rows =
-		(struct spread_row **) PHRQ_realloc (g_spread_sheet.rows,
-											 sizeof (struct spread_row *) *
-											 (g_spread_sheet.count_rows + 1));
+		(struct spread_row **) PHRQ_realloc(g_spread_sheet.rows,
+											sizeof(struct spread_row *) *
+											(g_spread_sheet.count_rows + 1));
 	if (g_spread_sheet.rows == NULL)
 	{
-		malloc_error ();
+		malloc_error();
 	}
 	else
 	{
 		g_spread_sheet.rows[g_spread_sheet.count_rows++] =
-			copy_row (spread_row_ptr);
+			copy_row(spread_row_ptr);
 	}
 }
 
 /* ---------------------------------------------------------------------- */
 struct spread_row *
-copy_row (struct spread_row *spread_row_ptr)
+copy_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -1340,29 +1338,27 @@ copy_row (struct spread_row *spread_row_ptr)
  *   Allocate space
  */
 	new_spread_row_ptr =
-		(struct spread_row *) PHRQ_malloc ((size_t)
-										   sizeof (struct spread_row));
+		(struct spread_row *) PHRQ_malloc((size_t) sizeof(struct spread_row));
 	if (new_spread_row_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 	new_spread_row_ptr->char_vector =
-		(char **) PHRQ_malloc ((size_t) spread_row_ptr->count *
-							   sizeof (char *));
+		(char **) PHRQ_malloc((size_t) spread_row_ptr->count *
+							  sizeof(char *));
 	if (new_spread_row_ptr->char_vector == NULL)
-		malloc_error ();
+		malloc_error();
 	new_spread_row_ptr->d_vector =
-		(LDBLE *) PHRQ_malloc ((size_t) spread_row_ptr->count *
-							   sizeof (LDBLE));
+		(LDBLE *) PHRQ_malloc((size_t) spread_row_ptr->count * sizeof(LDBLE));
 	if (new_spread_row_ptr->d_vector == NULL)
-		malloc_error ();
+		malloc_error();
 	new_spread_row_ptr->type_vector =
-		(int *) PHRQ_malloc ((size_t) spread_row_ptr->count * sizeof (int));
+		(int *) PHRQ_malloc((size_t) spread_row_ptr->count * sizeof(int));
 	if (new_spread_row_ptr->type_vector == NULL)
-		malloc_error ();
+		malloc_error();
 
 	for (i = 0; i < spread_row_ptr->count; i++)
 	{
 		new_spread_row_ptr->char_vector[i] =
-			string_duplicate (spread_row_ptr->char_vector[i]);
+			string_duplicate(spread_row_ptr->char_vector[i]);
 		new_spread_row_ptr->d_vector[i] = spread_row_ptr->d_vector[i];
 		new_spread_row_ptr->type_vector[i] = spread_row_ptr->type_vector[i];
 	}
@@ -1376,32 +1372,32 @@ copy_row (struct spread_row *spread_row_ptr)
 
 /* ---------------------------------------------------------------------- */
 void
-copy_defaults (struct defaults *dest_ptr, struct defaults *src_ptr)
+copy_defaults(struct defaults *dest_ptr, struct defaults *src_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
 	dest_ptr->count_iso = src_ptr->count_iso;
 	dest_ptr->density = src_ptr->density;
 	dest_ptr->iso =
-		(struct iso *) PHRQ_malloc (sizeof (struct iso) * src_ptr->count_iso);
+		(struct iso *) PHRQ_malloc(sizeof(struct iso) * src_ptr->count_iso);
 	if (dest_ptr->iso == NULL)
 	{
-		malloc_error ();
+		malloc_error();
 	}
 	else
 	{
 		for (i = 0; i < src_ptr->count_iso; i++)
 		{
 			dest_ptr->iso[i] = src_ptr->iso[i];
-			dest_ptr->iso[i].name = string_duplicate (src_ptr->iso[i].name);
+			dest_ptr->iso[i].name = string_duplicate(src_ptr->iso[i].name);
 		}
 	}
 
 	dest_ptr->pe = src_ptr->pe;
 	dest_ptr->ph = src_ptr->ph;
-	dest_ptr->redox = string_duplicate (src_ptr->redox);
+	dest_ptr->redox = string_duplicate(src_ptr->redox);
 	dest_ptr->temp = src_ptr->temp;
-	dest_ptr->units = string_duplicate (src_ptr->units);
+	dest_ptr->units = string_duplicate(src_ptr->units);
 	dest_ptr->water = src_ptr->water;
 }
 

@@ -6,21 +6,21 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"
-void cl1_space (int check, int n2d, int klm, int nklmd);
-extern void zero_double (LDBLE * target, int n);
+void cl1_space(int check, int n2d, int klm, int nklmd);
+extern void zero_double(LDBLE * target, int n);
 LDBLE *x_arg = NULL, *res_arg = NULL, *scratch = NULL;
 int x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
 
-int cl1 (int k, int l, int m, int n,
-		 int nklmd, int n2d,
-		 LDBLE * q,
-		 int *kode, LDBLE toler,
-		 int *iter, LDBLE * x, LDBLE * res, LDBLE * error,
-		 LDBLE * cu, int *iu, int *s, int check);
+int cl1(int k, int l, int m, int n,
+		int nklmd, int n2d,
+		LDBLE * q,
+		int *kode, LDBLE toler,
+		int *iter, LDBLE * x, LDBLE * res, LDBLE * error,
+		LDBLE * cu, int *iu, int *s, int check);
 static char const svnid[] = "$Id$";
 
-extern void *free_check_null (void *ptr);
-extern void malloc_error (void);
+extern void *free_check_null(void *ptr);
+extern void malloc_error(void);
 
 /* debug
 #define DEBUG_CL1
@@ -28,12 +28,12 @@ extern void malloc_error (void);
  */
 
 int
-cl1 (int k, int l, int m, int n,
-	 int nklmd, int n2d,
-	 LDBLE * q,
-	 int *kode, LDBLE toler,
-	 int *iter, LDBLE * x, LDBLE * res, LDBLE * error,
-	 LDBLE * cu, int *iu, int *s, int check)
+cl1(int k, int l, int m, int n,
+	int nklmd, int n2d,
+	LDBLE * q,
+	int *kode, LDBLE toler,
+	int *iter, LDBLE * x, LDBLE * res, LDBLE * error,
+	LDBLE * cu, int *iu, int *s, int check)
 {
 	/* System generated locals */
 	union double_or_int
@@ -152,12 +152,12 @@ cl1 (int k, int l, int m, int n,
 
 /* INITIALIZATION. */
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
 
 	zv = 0;
 	kode_arg = *kode;
-	cl1_space (check, n2d, k + l + m, nklmd);
+	cl1_space(check, n2d, k + l + m, nklmd);
 
 /* Parameter adjustments */
 	q_dim = n2d;
@@ -201,18 +201,18 @@ cl1 (int k, int l, int m, int n,
 /* SET UP PHASE 1 COSTS. */
 	iphase = 2;
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "Set up phase 1 costs\n");
+	output_msg(OUTPUT_MESSAGE, "Set up phase 1 costs\n");
 #endif
 /* Zero first row of cu and iu */
-	memcpy ((void *) &(cu[0]), (void *) &(scratch[0]),
-			(size_t) nklm * sizeof (LDBLE));
+	memcpy((void *) &(cu[0]), (void *) &(scratch[0]),
+		   (size_t) nklm * sizeof(LDBLE));
 	for (j = 0; j < nklm; ++j)
 	{
 		iu[j] = 0;
 	}
 /* L40: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L40\n");
+	output_msg(OUTPUT_MESSAGE, "L40\n");
 #endif
 	if (l != 0)
 	{
@@ -226,14 +226,14 @@ cl1 (int k, int l, int m, int n,
 	}
 
 /* Copy first row of cu and iu to second row */
-	memcpy ((void *) &(cu[cu_dim]), (void *) &(cu[0]),
-			(size_t) nklm * sizeof (LDBLE));
-	memcpy ((void *) &(iu[cu_dim]), (void *) &(iu[0]),
-			(size_t) nklm * sizeof (int));
+	memcpy((void *) &(cu[cu_dim]), (void *) &(cu[0]),
+		   (size_t) nklm * sizeof(LDBLE));
+	memcpy((void *) &(iu[cu_dim]), (void *) &(iu[0]),
+		   (size_t) nklm * sizeof(int));
 
 /* L60: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L60\n");
+	output_msg(OUTPUT_MESSAGE, "L60\n");
 #endif
 	if (m != 0)
 	{
@@ -251,7 +251,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L80: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L80\n");
+	output_msg(OUTPUT_MESSAGE, "L80\n");
 #endif
 	if (*kode != 0)
 	{
@@ -271,7 +271,7 @@ cl1 (int k, int l, int m, int n,
 		}
 /* L110: */
 #ifdef DEBUG_CL1
-		output_msg (OUTPUT_MESSAGE, "L110\n");
+		output_msg(OUTPUT_MESSAGE, "L110\n");
 #endif
 		for (j = 0; j < k; ++j)
 		{
@@ -301,7 +301,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L150: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L150\n");
+	output_msg(OUTPUT_MESSAGE, "L150\n");
 #endif
 	if (iphase == 2)
 	{
@@ -310,7 +310,7 @@ cl1 (int k, int l, int m, int n,
 /* COMPUTE THE MARGINAL COSTS. */
   L160:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L160\n");
+	output_msg(OUTPUT_MESSAGE, "L160\n");
 #endif
 	for (j = js; j < n1; ++j)
 	{
@@ -346,7 +346,7 @@ cl1 (int k, int l, int m, int n,
 /* DETERMINE THE VECTOR TO ENTER THE BASIS. */
   L240:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L240, xmax %e\n", xmax);
+	output_msg(OUTPUT_MESSAGE, "L240, xmax %e\n", xmax);
 #endif
 	xmax = 0.;
 	if (js >= n)
@@ -386,12 +386,12 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L280 */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", xmax, toler);
+	output_msg(OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", xmax, toler);
 #endif
 	if (xmax <= toler)
 	{
 #ifdef DEBUG_CL1
-		output_msg (OUTPUT_MESSAGE, "xmax before optimality test %e\n", xmax);
+		output_msg(OUTPUT_MESSAGE, "xmax before optimality test %e\n", xmax);
 #endif
 		goto L490;				/* test for optimality */
 	}
@@ -412,7 +412,7 @@ cl1 (int k, int l, int m, int n,
 /* find maximum absolute value in column "in" */
 		for (i = 0; i <= ia; ++i)
 		{
-			z = fabs (q2[i * q_dim + in].dval);
+			z = fabs(q2[i * q_dim + in].dval);
 			if (z > xmax)
 			{
 				xmax = z;
@@ -421,17 +421,17 @@ cl1 (int k, int l, int m, int n,
 		}
 /* L310: */
 #ifdef DEBUG_CL1
-		output_msg (OUTPUT_MESSAGE, "L310, xmax %e\n", xmax);
+		output_msg(OUTPUT_MESSAGE, "L310, xmax %e\n", xmax);
 #endif
 /* switch row ia with row iout, use memcpy */
 		if (xmax > toler)
 		{
-			memcpy ((void *) &(scratch[0]), (void *) &(q2[ia * q_dim]),
-					(size_t) n2 * sizeof (LDBLE));
-			memcpy ((void *) &(q2[ia * q_dim]), (void *) &(q2[iout * q_dim]),
-					(size_t) n2 * sizeof (LDBLE));
-			memcpy ((void *) &(q2[iout * q_dim]), (void *) &(scratch[0]),
-					(size_t) n2 * sizeof (LDBLE));
+			memcpy((void *) &(scratch[0]), (void *) &(q2[ia * q_dim]),
+				   (size_t) n2 * sizeof(LDBLE));
+			memcpy((void *) &(q2[ia * q_dim]), (void *) &(q2[iout * q_dim]),
+				   (size_t) n2 * sizeof(LDBLE));
+			memcpy((void *) &(q2[iout * q_dim]), (void *) &(scratch[0]),
+				   (size_t) n2 * sizeof(LDBLE));
 /* L320: */
 /* set pivot to row ia, column in */
 			iout = ia;
@@ -442,7 +442,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L330: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L330, xmax %e\n", xmax);
+	output_msg(OUTPUT_MESSAGE, "L330, xmax %e\n", xmax);
 #endif
 	kk = -1;
 /* divide column n1 by positive value in column "in" greater than toler */
@@ -460,12 +460,12 @@ cl1 (int k, int l, int m, int n,
 #ifdef DEBUG_CL1
 	if (kk < 0)
 	{
-		output_msg (OUTPUT_MESSAGE, "kode = 2 in loop 340.\n");
+		output_msg(OUTPUT_MESSAGE, "kode = 2 in loop 340.\n");
 	}
 #endif
   L350:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L350, xmax %e\n", xmax);
+	output_msg(OUTPUT_MESSAGE, "L350, xmax %e\n", xmax);
 #endif
 	if (kk < 0)
 	{
@@ -475,7 +475,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L360: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L360, xmax %e\n", xmax);
+	output_msg(OUTPUT_MESSAGE, "L360, xmax %e\n", xmax);
 #endif
 /* find minimum residual */
 	xmin = res[0];
@@ -499,8 +499,8 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L380: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L380 iout %d, xmin %e, xmax %e\n", iout,
-				xmin, xmax);
+	output_msg(OUTPUT_MESSAGE, "L380 iout %d, xmin %e, xmax %e\n", iout,
+			   xmin, xmax);
 #endif
 	--kk;
 	pivot = q2[iout * q_dim + in].dval;
@@ -525,9 +525,9 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L400: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L400\n");
+	output_msg(OUTPUT_MESSAGE, "L400\n");
 #endif
-	ii = abs (ii);
+	ii = abs(ii);
 	cuv = cu[ii - 1] + cu[cu_dim + ii - 1];
 	if (q2[klm * q_dim + in].dval - pivot * cuv > toler)
 	{
@@ -546,7 +546,7 @@ cl1 (int k, int l, int m, int n,
 /* GAUSS-JORDAN ELIMINATION. */
   L420:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "Gauss Jordon %d\n", *iter);
+	output_msg(OUTPUT_MESSAGE, "Gauss Jordon %d\n", *iter);
 #endif
 	if (*iter >= maxit)
 	{
@@ -555,7 +555,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L430: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L430\n");
+	output_msg(OUTPUT_MESSAGE, "L430\n");
 #endif
 	++(*iter);
 	for (j = js; j < n1; ++j)
@@ -583,7 +583,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L460: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L460\n");
+	output_msg(OUTPUT_MESSAGE, "L460\n");
 #endif
 	tpivot = -pivot;
 	for (i = 0; i < klm1; ++i)
@@ -598,7 +598,7 @@ cl1 (int k, int l, int m, int n,
 	ii = q2[iout * q_dim + n1].ival;
 	q2[iout * q_dim + n1].ival = q2[klm1 * q_dim + in].ival;
 	q2[klm1 * q_dim + in].ival = ii;
-	ii = abs (ii);
+	ii = abs(ii);
 	if (iu[ii - 1] == 0 || iu[cu_dim + ii - 1] == 0)
 	{
 		goto L240;
@@ -619,7 +619,7 @@ cl1 (int k, int l, int m, int n,
 /* TEST FOR OPTIMALITY. */
   L490:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L490\n");
+	output_msg(OUTPUT_MESSAGE, "L490\n");
 #endif
 	if (kforce == 0)
 	{
@@ -630,8 +630,8 @@ cl1 (int k, int l, int m, int n,
 				goto L500;
 			}
 #ifdef DEBUG_CL1
-			output_msg (OUTPUT_MESSAGE, "q2[klm1-1, n1-1] > *toler. %e\n",
-						q2[(klm1 - 1) * q_dim + n1 - 1].dval);
+			output_msg(OUTPUT_MESSAGE, "q2[klm1-1, n1-1] > *toler. %e\n",
+					   q2[(klm1 - 1) * q_dim + n1 - 1].dval);
 #endif
 			*kode = 1;
 			goto L590;
@@ -647,7 +647,7 @@ cl1 (int k, int l, int m, int n,
 /* SET UP PHASE 2 COSTS. */
   L500:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "Set up phase 2 costs %d\n", *iter);
+	output_msg(OUTPUT_MESSAGE, "Set up phase 2 costs %d\n", *iter);
 #endif
 	iphase = 2;
 	for (j = 0; j < nklm; ++j)
@@ -659,8 +659,8 @@ cl1 (int k, int l, int m, int n,
 	{
 		cu[j] = 1.;
 	}
-	memcpy ((void *) &(cu[cu_dim]), (void *) &(cu[0]),
-			(size_t) nklm * sizeof (LDBLE));
+	memcpy((void *) &(cu[cu_dim]), (void *) &(cu[0]),
+		   (size_t) nklm * sizeof(LDBLE));
 /* L520: */
 	for (i = 0; i < klm; ++i)
 	{
@@ -685,12 +685,12 @@ cl1 (int k, int l, int m, int n,
 /* L540: */
 		++ia;
 /* switch row */
-		memcpy ((void *) &(scratch[0]), (void *) &(q2[ia * q_dim]),
-				(size_t) n2 * sizeof (LDBLE));
-		memcpy ((void *) &(q2[ia * q_dim]), (void *) &(q2[i * q_dim]),
-				(size_t) n2 * sizeof (LDBLE));
-		memcpy ((void *) &(q2[i * q_dim]), (void *) &(scratch[0]),
-				(size_t) n2 * sizeof (LDBLE));
+		memcpy((void *) &(scratch[0]), (void *) &(q2[ia * q_dim]),
+			   (size_t) n2 * sizeof(LDBLE));
+		memcpy((void *) &(q2[ia * q_dim]), (void *) &(q2[i * q_dim]),
+			   (size_t) n2 * sizeof(LDBLE));
+		memcpy((void *) &(q2[i * q_dim]), (void *) &(scratch[0]),
+			   (size_t) n2 * sizeof(LDBLE));
 /* L550: */
 	}
 /* L560: */
@@ -700,7 +700,7 @@ cl1 (int k, int l, int m, int n,
 /* PREPARE OUTPUT. */
   L590:
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L590\n");
+	output_msg(OUTPUT_MESSAGE, "L590\n");
 #endif
 	sum = 0.;
 	for (j = 0; j < n; ++j)
@@ -740,7 +740,7 @@ cl1 (int k, int l, int m, int n,
 	}
 /* L640: */
 #ifdef DEBUG_CL1
-	output_msg (OUTPUT_MESSAGE, "L640\n");
+	output_msg(OUTPUT_MESSAGE, "L640\n");
 #endif
 	*error = sum;
 	/*
@@ -761,10 +761,9 @@ cl1 (int k, int l, int m, int n,
 					if (res[i] > check_toler)
 					{
 #ifdef CHECK_ERRORS
-						output_msg (OUTPUT_MESSAGE,
-									"\tCL1: optimization constraint not satisfied row %d, res %s, constraint %f.\n",
-									row_name[row_back[i]], res[i],
-									res_arg[i]);
+						output_msg(OUTPUT_MESSAGE,
+								   "\tCL1: optimization constraint not satisfied row %d, res %s, constraint %f.\n",
+								   row_name[row_back[i]], res[i], res_arg[i]);
 #endif
 						*kode = 1;
 					}
@@ -774,10 +773,9 @@ cl1 (int k, int l, int m, int n,
 					if (res[i] < -check_toler)
 					{
 #ifdef CHECK_ERRORS
-						output_msg (OUTPUT_MESSAGE,
-									"\tCL1: optimization constraint not satisfied row %s, res %e, constraint %f.\n",
-									row_name[row_back[i]], res[i],
-									res_arg[i]);
+						output_msg(OUTPUT_MESSAGE,
+								   "\tCL1: optimization constraint not satisfied row %s, res %e, constraint %f.\n",
+								   row_name[row_back[i]], res[i], res_arg[i]);
 #endif
 						*kode = 1;
 					}
@@ -789,12 +787,12 @@ cl1 (int k, int l, int m, int n,
 		 */
 		for (i = k; i < k + l; i++)
 		{
-			if (fabs (res[i]) > check_toler)
+			if (fabs(res[i]) > check_toler)
 			{
 #ifdef CHECK_ERRORS
-				output_msg (OUTPUT_MESSAGE,
-							"\tCL1: equality constraint not satisfied row %s, res %e, tolerance %e.\n",
-							row_name[row_back[i]], res[i], check_toler);
+				output_msg(OUTPUT_MESSAGE,
+						   "\tCL1: equality constraint not satisfied row %s, res %e, tolerance %e.\n",
+						   row_name[row_back[i]], res[i], check_toler);
 #endif
 				*kode = 1;
 			}
@@ -807,9 +805,9 @@ cl1 (int k, int l, int m, int n,
 			if (res[i] < -check_toler)
 			{
 #ifdef CHECK_ERRORS
-				output_msg (OUTPUT_MESSAGE,
-							"\tCL1: inequality constraint not satisfied row %s, res %e, tolerance %e.\n",
-							row_name[row_back[i]], res[i], check_toler);
+				output_msg(OUTPUT_MESSAGE,
+						   "\tCL1: inequality constraint not satisfied row %s, res %e, tolerance %e.\n",
+						   row_name[row_back[i]], res[i], check_toler);
 #endif
 				*kode = 1;
 			}
@@ -826,9 +824,9 @@ cl1 (int k, int l, int m, int n,
 					if (x[i] > check_toler)
 					{
 #ifdef CHECK_ERRORS
-						output_msg (OUTPUT_MESSAGE,
-									"\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
-									col_name[col_back[i]], x[i], x_arg[i]);
+						output_msg(OUTPUT_MESSAGE,
+								   "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
+								   col_name[col_back[i]], x[i], x_arg[i]);
 #endif
 						*kode = 1;
 					}
@@ -838,9 +836,9 @@ cl1 (int k, int l, int m, int n,
 					if (x[i] < -check_toler)
 					{
 #ifdef CHECK_ERRORS
-						output_msg (OUTPUT_MESSAGE,
-									"\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
-									col_name[col_back[i]], x[i], x_arg[i]);
+						output_msg(OUTPUT_MESSAGE,
+								   "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
+								   col_name[col_back[i]], x[i], x_arg[i]);
 #endif
 						*kode = 1;
 					}
@@ -849,62 +847,60 @@ cl1 (int k, int l, int m, int n,
 		}
 		if (*kode == 1)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\n\tCL1: Roundoff errors in optimization.\n\t     Try using -multiple_precision in INVERSE_MODELING\n");
+			output_msg(OUTPUT_MESSAGE,
+					   "\n\tCL1: Roundoff errors in optimization.\n\t     Try using -multiple_precision in INVERSE_MODELING\n");
 		}
 	}
 	return 0;
 }
 
 void
-cl1_space (int check, int n2d, int klm, int nklmd)
+cl1_space(int check, int n2d, int klm, int nklmd)
 {
 	if (check == 1)
 	{
 		if (x_arg == NULL)
 		{
-			x_arg = (LDBLE *) PHRQ_malloc ((size_t) (n2d * sizeof (LDBLE)));
+			x_arg = (LDBLE *) PHRQ_malloc((size_t) (n2d * sizeof(LDBLE)));
 		}
 		else if (n2d > x_arg_max)
 		{
 			x_arg =
-				(LDBLE *) PHRQ_realloc (x_arg,
-										(size_t) (n2d * sizeof (LDBLE)));
+				(LDBLE *) PHRQ_realloc(x_arg, (size_t) (n2d * sizeof(LDBLE)));
 			x_arg_max = n2d;
 		}
 		if (x_arg == NULL)
-			malloc_error ();
-		zero_double (x_arg, n2d);
+			malloc_error();
+		zero_double(x_arg, n2d);
 
 		if (res_arg == NULL)
 		{
-			res_arg =
-				(LDBLE *) PHRQ_malloc ((size_t) ((klm) * sizeof (LDBLE)));
+			res_arg = (LDBLE *) PHRQ_malloc((size_t) ((klm) * sizeof(LDBLE)));
 		}
 		else if (klm > res_arg_max)
 		{
 			res_arg =
-				(LDBLE *) PHRQ_realloc (res_arg,
-										(size_t) ((klm) * sizeof (LDBLE)));
+				(LDBLE *) PHRQ_realloc(res_arg,
+									   (size_t) ((klm) * sizeof(LDBLE)));
 			res_arg_max = klm;
 		}
 		if (res_arg == NULL)
-			malloc_error ();
-		zero_double (res_arg, klm);
+			malloc_error();
+		zero_double(res_arg, klm);
 	}
 
 /* Make scratch space */
 	if (scratch == NULL)
 	{
-		scratch = (LDBLE *) PHRQ_malloc ((size_t) nklmd * sizeof (LDBLE));
+		scratch = (LDBLE *) PHRQ_malloc((size_t) nklmd * sizeof(LDBLE));
 	}
 	else if (nklmd > scratch_max)
 	{
 		scratch =
-			(LDBLE *) PHRQ_realloc (scratch, (size_t) nklmd * sizeof (LDBLE));
+			(LDBLE *) PHRQ_realloc(scratch, (size_t) nklmd * sizeof(LDBLE));
 		scratch_max = nklmd;
 	}
 	if (scratch == NULL)
-		malloc_error ();
-	zero_double (scratch, nklmd);
+		malloc_error();
+	zero_double(scratch, nklmd);
 }
