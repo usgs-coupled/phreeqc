@@ -1620,7 +1620,7 @@ Using mix 10.
 Mixture 10.	 
 
 	  0.000e+00 Solution 9	Solution after simulation 2.                           
-	  0.000e+00 Solution 11	Solution after simulation 2.                           
+	  0.000e+00 Solution 11	                                                       
 	  1.000e+00 Solution 10	Solution after simulation 2.                           
 
 -----------------------------Solution composition------------------------------
@@ -3248,7 +3248,7 @@ Mixture 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  3.464e-14  Surface + diffuse layer charge, eq
+	  5.440e-14  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.090e-01  psi, V
@@ -3297,7 +3297,7 @@ Su
                  Total alkalinity (eq/kg)  =   5.240e-03
                        Total CO2 (mol/kg)  =   1.282e-23
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.735e-09
+                  Electrical balance (eq)  =  -6.734e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 1.018679e+02
@@ -3363,7 +3363,7 @@ Mixture 4.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.743e-13  Surface + diffuse layer charge, eq
+	  2.522e-13  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.383e-01  psi, V
@@ -3412,7 +3412,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.485e-03
                        Total CO2 (mol/kg)  =   2.701e-23
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.304e-08
+                  Electrical balance (eq)  =  -2.305e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 9.509981e+01
@@ -3527,7 +3527,7 @@ Su
                  Total alkalinity (eq/kg)  =   8.054e-04
                        Total CO2 (mol/kg)  =   3.891e-21
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.337e-08
+                  Electrical balance (eq)  =  -5.336e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 8.184418e+01
@@ -3593,7 +3593,7 @@ Mixture 6.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -8.572e-09  Surface + diffuse layer charge, eq
+	 -8.573e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.958e-01  psi, V
@@ -3642,7 +3642,7 @@ Su
                  Total alkalinity (eq/kg)  =   3.161e-04
                        Total CO2 (mol/kg)  =   1.812e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.090e-10
+                  Electrical balance (eq)  =  -4.341e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 6.622952e+01
@@ -3708,7 +3708,7 @@ Mixture 7.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  5.207e-09  Surface + diffuse layer charge, eq
+	  5.206e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.075e-01  psi, V
@@ -3872,7 +3872,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.012e-04
                        Total CO2 (mol/kg)  =   2.428e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.173e-09
+                  Electrical balance (eq)  =   3.183e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 5.564436e+01
@@ -3938,7 +3938,7 @@ Mixture 9.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  5.004e-09  Surface + diffuse layer charge, eq
+	 -5.751e-14  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -3953,7 +3953,7 @@ Su
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	C             	  3.4637e-05
+	C             	  3.4636e-05
 	Ca            	  5.0000e-01
 	Cl            	  1.1461e-11
 	H             	  1.7860e-05
@@ -3989,9 +3989,9 @@ Su
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   5.463e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =   0
+                               Iterations  =   3
                                   Total H  = 5.552574e+01
-                                  Total O  = 2.776316e+01
+                                  Total O  = 2.776317e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -4001,8 +4001,8 @@ Su
    OH-                    1.027e-07   1.007e-07    -6.988    -6.997    -0.009
    H+                     1.014e-07   9.942e-08    -6.994    -7.003    -0.008
    H2O                    1.110e+02   1.000e+00     2.045     0.000     0.000
-C(-4)            1.277e-08
-   CH4                    1.277e-08   1.277e-08    -7.894    -7.894     0.000
+C(-4)            1.278e-08
+   CH4                    1.278e-08   1.278e-08    -7.894    -7.893     0.000
 C(4)             2.437e-04
    HCO3-                  1.996e-04   1.957e-04    -3.700    -3.708    -0.009
    CO2                    4.375e-05   4.375e-05    -4.359    -4.359     0.000
@@ -4019,7 +4019,7 @@ Ca               1.001e-04
 Cl               2.295e-09
    Cl-                    2.295e-09   2.250e-09    -8.639    -8.648    -0.009
 H(0)             1.478e-10
-   H2                     7.391e-11   7.392e-11   -10.131   -10.131     0.000
+   H2                     7.392e-11   7.393e-11   -10.131   -10.131     0.000
 Na               8.137e-11
    Na+                    8.136e-11   7.976e-11   -10.090   -10.098    -0.009
    NaHCO3                 8.779e-15   8.779e-15   -14.057   -14.057     0.000
@@ -4047,13 +4047,13 @@ Using surface 10.	Surface assemblage after simulation 4.
 Mixture 10.	 
 
 	  0.000e+00 Solution 9	Solution after simulation 4.                           
-	  0.000e+00 Solution 11	Solution after simulation 4.                           
+	  0.000e+00 Solution 11	                                                       
 	  1.000e+00 Solution 10	Solution after simulation 4.                           
 
 ------------------------------Surface composition------------------------------
 
 Su            
-	  8.221e-09  Surface + diffuse layer charge, eq
+	  8.220e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -4102,10 +4102,10 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.438e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.374e-08
+                  Electrical balance (eq)  =   4.362e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.02
                                Iterations  =   2
-                                  Total H  = 5.551348e+01
+                                  Total H  = 5.551349e+01
                                   Total O  = 2.775704e+01
 
 ----------------------------Distribution of species----------------------------
@@ -4116,8 +4116,8 @@ Su
    OH-                    1.022e-07   1.002e-07    -6.991    -6.999    -0.009
    H+                     1.019e-07   9.994e-08    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045     0.000     0.000
-C(-4)            1.667e-09
-   CH4                    1.667e-09   1.667e-09    -8.778    -8.778     0.000
+C(-4)            1.684e-09
+   CH4                    1.684e-09   1.684e-09    -8.774    -8.774     0.000
 C(4)             2.438e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.396e-05   4.396e-05    -4.357    -4.357     0.000
@@ -4133,15 +4133,15 @@ Ca               1.000e-04
    CaOH+                  1.562e-10   1.532e-10    -9.806    -9.815    -0.009
 Cl               1.562e-10
    Cl-                    1.562e-10   1.531e-10    -9.806    -9.815    -0.009
-H(0)             8.874e-11
-   H2                     4.437e-11   4.437e-11   -10.353   -10.353     0.000
+H(0)             8.898e-11
+   H2                     4.449e-11   4.449e-11   -10.352   -10.352     0.000
 Na               3.111e-12
    Na+                    3.110e-12   3.049e-12   -11.507   -11.516    -0.009
    NaHCO3                 3.355e-16   3.355e-16   -15.474   -15.474     0.000
    NaCO3-                 5.318e-18   5.213e-18   -17.274   -17.283    -0.009
    NaOH                   2.016e-19   2.016e-19   -18.696   -18.696     0.000
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -71.674   -71.674     0.000
+   O2                     0.000e+00   0.000e+00   -71.677   -71.677     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -4149,12 +4149,12 @@ O(0)             0.000e+00
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)           -5.94   -8.78   -2.84  CH4
+	CH4(g)           -5.93   -8.77   -2.84  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)            -7.16   35.84   43.00  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite          -22.91  -21.33    1.58  NaCl
-	O2(g)           -68.78  -71.67   -2.89  O2
+	O2(g)           -68.78  -71.68   -2.89  O2
 
 ------------------
 End of simulation.

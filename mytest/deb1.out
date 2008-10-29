@@ -1256,7 +1256,7 @@ Mixture 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -6.700e-17  Surface + diffuse layer charge, eq
+	 -6.570e-17  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.187e-01  psi, V
@@ -1620,7 +1620,7 @@ Mixture 5.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -6.501e-16  Surface + diffuse layer charge, eq
+	 -6.505e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.671e-02  psi, V
@@ -1711,7 +1711,7 @@ Mixture 6.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -1.635e-16  Surface + diffuse layer charge, eq
+	 -1.648e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.654e-02  psi, V
@@ -1802,7 +1802,7 @@ Mixture 7.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  3.194e-16  Surface + diffuse layer charge, eq
+	  3.205e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.650e-02  psi, V
@@ -1911,7 +1911,7 @@ Su
 	Cl            	  8.0821e-06
 	H             	  1.5496e-07
 	Na            	  1.0079e-03
-	O             	  7.1875e-10
+	O             	  7.1874e-10
 
 Su            
 	  1.000e-03  moles
@@ -2052,7 +2052,7 @@ Na               1.000e-03
    Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
    NaOH                   5.167e-11   5.168e-11   -10.287   -10.287     0.000
 O(0)             2.898e-10
-   O2                     1.449e-10   1.450e-10    -9.839    -9.839     0.000
+   O2                     1.449e-10   1.449e-10    -9.839    -9.839     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2069,7 +2069,7 @@ Using surface 10.	Surface assemblage after simulation 2.
 Mixture 10.	 
 
 	  0.000e+00 Solution 9	Solution after simulation 2.                           
-	  0.000e+00 Solution 11	Solution after simulation 2.                           
+	  0.000e+00 Solution 11	                                                       
 	  1.000e+00 Solution 10	Solution after simulation 2.                           
 
 ------------------------------Surface composition------------------------------
@@ -2142,8 +2142,8 @@ H(0)             0.000e+00
 Na               1.000e-03
    Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
    NaOH                   5.605e-11   5.606e-11   -10.251   -10.251     0.000
-O(0)             3.122e-11
-   O2                     1.561e-11   1.561e-11   -10.807   -10.807     0.000
+O(0)             3.123e-11
+   O2                     1.561e-11   1.562e-11   -10.806   -10.806     0.000
 
 ------------------------------Saturation indices-------------------------------
 
