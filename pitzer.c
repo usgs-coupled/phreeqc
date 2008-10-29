@@ -29,8 +29,8 @@ static LDBLE GP (LDBLE Y);
 static LDBLE ETHETAP (LDBLE ZJ, LDBLE ZK, LDBLE I);
 static LDBLE ETHETA (LDBLE ZJ, LDBLE ZK, LDBLE I);
 #endif
-static int ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE *etheta,
-		    LDBLE *ethetap);
+static int ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta,
+					LDBLE * ethetap);
 static int BDK (LDBLE X);
 static int initial_guesses (void);
 static int revise_guesses (void);
@@ -42,31 +42,31 @@ int
 pitzer_init (void)
 /* ---------------------------------------------------------------------- */
 {
-  int i;
+	int i;
 /*
  *      Initialization for pitzer
  */
-  pitzer_model = FALSE;
-  max_pitz_param = 100;
-  count_pitz_param = 0;
-  use_etheta = TRUE;
-  space ((void **) ((void *) &pitz_params), INIT, &max_pitz_param,
-	 sizeof (struct pitz_param *));
+	pitzer_model = FALSE;
+	max_pitz_param = 100;
+	count_pitz_param = 0;
+	use_etheta = TRUE;
+	space ((void **) ((void *) &pitz_params), INIT, &max_pitz_param,
+		   sizeof (struct pitz_param *));
 
-  max_theta_param = 100;
-  count_theta_param = 0;
-  space ((void **) ((void *) &theta_params), INIT, &max_theta_param,
-	 sizeof (struct theta_param *));
+	max_theta_param = 100;
+	count_theta_param = 0;
+	space ((void **) ((void *) &theta_params), INIT, &max_theta_param,
+		   sizeof (struct theta_param *));
 
-  ICON = TRUE;
-  OTEMP = 0.0;
-  for (i = 0; i < 23; i++)
-  {
-    BK[i] = 0.0;
-    DK[i] = 0.0;
-  }
-  pitzer_pe = FALSE;
-  return OK;
+	ICON = TRUE;
+	OTEMP = 0.0;
+	for (i = 0; i < 23; i++)
+	{
+		BK[i] = 0.0;
+		DK[i] = 0.0;
+	}
+	pitzer_pe = FALSE;
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -75,8 +75,8 @@ pitzer_tidy (void)
 /* ---------------------------------------------------------------------- */
 {
 	/*
-	*      Make lists of species for cations, anions, neutral
-	*/
+	 *      Make lists of species for cations, anions, neutral
+	 */
 	char *string1, *string2;
 	int i, j, order;
 	int i0, i1, i2;
@@ -85,8 +85,8 @@ pitzer_tidy (void)
 	struct pitz_param *pzp_ptr;
 	struct theta_param *theta_param_ptr;
 	/*
-	*  allocate pointers to species structures
-	*/
+	 *  allocate pointers to species structures
+	 */
 	if (spec != NULL)
 		spec = (struct species **) free_check_null (spec);
 	spec =
@@ -108,8 +108,8 @@ pitzer_tidy (void)
 	if (itmax < 200)
 		itmax = 200;
 	/*
-	*  allocate other arrays for Pitzer
-	*/
+	 *  allocate other arrays for Pitzer
+	 */
 	if (IPRSNT != NULL)
 		IPRSNT = (int *) free_check_null (IPRSNT);
 	IPRSNT = (int *) PHRQ_malloc ((size_t) (3 * count_s * sizeof (int)));
@@ -147,16 +147,17 @@ pitzer_tidy (void)
 		}
 	}
 	/*
-	*  Add etheta to parameter list in case theta not defined for 
-	*  cation-cation or anion-anion pair
-	*  Remove old TYPE_ETHETA definitions
-	*/
+	 *  Add etheta to parameter list in case theta not defined for 
+	 *  cation-cation or anion-anion pair
+	 *  Remove old TYPE_ETHETA definitions
+	 */
 	j = 0;
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		if (pitz_params[i]->type == TYPE_ETHETA)
 		{
-			pitz_params[i] = (struct pitz_param *) free_check_null (pitz_params[i]);
+			pitz_params[i] =
+				(struct pitz_param *) free_check_null (pitz_params[i]);
 		}
 		else
 		{
@@ -174,7 +175,7 @@ pitzer_tidy (void)
 			if (count_pitz_param >= max_pitz_param)
 			{
 				space ((void **) ((void *) &pitz_params), count_pitz_param,
-					&max_pitz_param, sizeof (struct pitz_param *));
+					   &max_pitz_param, sizeof (struct pitz_param *));
 			}
 			pitz_params[count_pitz_param++] = pzp_ptr;
 
@@ -190,15 +191,15 @@ pitzer_tidy (void)
 			if (count_pitz_param >= max_pitz_param)
 			{
 				space ((void **) ((void *) &pitz_params), count_pitz_param,
-					&max_pitz_param, sizeof (struct pitz_param *));
+					   &max_pitz_param, sizeof (struct pitz_param *));
 			}
 			pitz_params[count_pitz_param] = pzp_ptr;
 			count_pitz_param++;
 		}
 	}
 	/*
-	*  put species numbers in pitz_params
-	*/
+	 *  put species numbers in pitz_params
+	 */
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -208,22 +209,22 @@ pitzer_tidy (void)
 			pitz_params[i]->ispec[j] = ISPEC (pitz_params[i]->species[j]);
 			if ((j < 2 && pitz_params[i]->ispec[j] == -1) ||
 				(j == 3
-				&& (pitz_params[i]->type == TYPE_PSI
-				|| pitz_params[i]->type == TYPE_ZETA)
-				&& pitz_params[i]->ispec[j] == -1))
+				 && (pitz_params[i]->type == TYPE_PSI
+					 || pitz_params[i]->type == TYPE_ZETA)
+				 && pitz_params[i]->ispec[j] == -1))
 			{
 				input_error++;
 				sprintf (error_string,
-					"Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
-					pitz_params[i]->species[j]);
+						 "Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
+						 pitz_params[i]->species[j]);
 				error_msg (error_string, CONTINUE);
 				return (ERROR);
 			}
 		}
 	}
 	/*
-	* McGinnis data
-	*/
+	 * McGinnis data
+	 */
 	string1 = string_hsave ("K+");
 	string2 = string_hsave ("Cl-");
 	IC = ISPEC (string2);
@@ -257,15 +258,16 @@ pitzer_tidy (void)
 			}
 		}
 	}
-	if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE) 
+	if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE)
 	{
-		sprintf (error_string, "No KCl interaction parameters, turning off MacInnis scaling.");
+		sprintf (error_string,
+				 "No KCl interaction parameters, turning off MacInnis scaling.");
 		warning_msg (error_string);
 		ICON = FALSE;
 	}
 	/*
-	* Set alpha values
-	*/
+	 * Set alpha values
+	 */
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		z0 = fabs (spec[pitz_params[i]->ispec[0]]->z);
@@ -312,8 +314,8 @@ pitzer_tidy (void)
 		}
 	}
 	/*
-	* Add specific alphas
-	*/
+	 * Add specific alphas
+	 */
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		if (pitz_params[i]->type == TYPE_ALPHAS)
@@ -344,8 +346,8 @@ pitzer_tidy (void)
 	}
 
 	/*
-	*   Add thetas pointer to etheta pitzer parameters
-	*/
+	 *   Add thetas pointer to etheta pitzer parameters
+	 */
 
 	if (count_theta_param > 0)
 	{
@@ -367,8 +369,9 @@ pitzer_tidy (void)
 			{
 				if (count_theta_param >= max_theta_param)
 				{
-					space ((void **) ((void *) &theta_params), count_theta_param,
-						&max_theta_param, sizeof (struct theta_param *));
+					space ((void **) ((void *) &theta_params),
+						   count_theta_param, &max_theta_param,
+						   sizeof (struct theta_param *));
 				}
 				theta_params[count_theta_param] = theta_param_alloc ();
 				theta_param_init (theta_params[count_theta_param]);
@@ -381,8 +384,8 @@ pitzer_tidy (void)
 		}
 	}
 	/*
-	*  Tidy TYPE_MU
-	*/
+	 *  Tidy TYPE_MU
+	 */
 
 	/* Coef for Osmotic coefficient for TYPE_MU */
 
@@ -394,39 +397,52 @@ pitzer_tidy (void)
 			i1 = pitz_params[i]->ispec[1];
 			i2 = pitz_params[i]->ispec[2];
 			count_pos = count_neg = count_neut = 0;
-			for (j = 0; j <=2; j++) {
-				if (spec[pitz_params[i]->ispec[j]]->z > 0) {
+			for (j = 0; j <= 2; j++)
+			{
+				if (spec[pitz_params[i]->ispec[j]]->z > 0)
+				{
 					count_pos++;
 				}
-				if (spec[pitz_params[i]->ispec[j]]->z == 0) {
+				if (spec[pitz_params[i]->ispec[j]]->z == 0)
+				{
 					count_neut++;
 				}
-				if (spec[pitz_params[i]->ispec[j]]->z < 0) {
+				if (spec[pitz_params[i]->ispec[j]]->z < 0)
+				{
 					count_neg++;
 				}
 			}
 			/* All neutral */
-			if (count_neut == 3) {
-				if (i0 == i1 && i1 == i2) {
+			if (count_neut == 3)
+			{
+				if (i0 == i1 && i1 == i2)
+				{
 					/* type n, n, n */
 					pitz_params[i]->os_coef = 1;
 					continue;
-				} else if (i0 == i1 || i1 == i2 || i0 == i2) {
+				}
+				else if (i0 == i1 || i1 == i2 || i0 == i2)
+				{
 					/* type n, n, n' */
 					pitz_params[i]->os_coef = 3;
 					continue;
-				} else {
+				}
+				else
+				{
 					/* type n, n', n'' */
 					pitz_params[i]->os_coef = 6;
 					continue;
 				}
 			}
-			/* Two neutral, one anion or cation*/
-			if (i0 == i1 || i1 == i2 || i0 == i2) {
+			/* Two neutral, one anion or cation */
+			if (i0 == i1 || i1 == i2 || i0 == i2)
+			{
 				/* type n, n, a|c */
 				pitz_params[i]->os_coef = 3;
 				continue;
-			} else {
+			}
+			else
+			{
 				/* type n, n', a|c */
 				pitz_params[i]->os_coef = 6;
 				continue;
@@ -440,54 +456,71 @@ pitzer_tidy (void)
 	{
 		if (pitz_params[i]->type == TYPE_MU)
 		{
-			for (j = 0; j <= 2; j++) {
+			for (j = 0; j <= 2; j++)
+			{
 				count[j] = 0;
-				for (jj = 0; jj <= 2; jj++) {
-					if (pitz_params[i]->ispec[j] == pitz_params[i]->ispec[jj]) {
+				for (jj = 0; jj <= 2; jj++)
+				{
+					if (pitz_params[i]->ispec[j] == pitz_params[i]->ispec[jj])
+					{
 						count[j]++;
 					}
 				}
 			}
-			for (j = 0;  j <= 2; j++) {
+			for (j = 0; j <= 2; j++)
+			{
 				/* cation or anion */
-				if (spec[pitz_params[i]->ispec[j]]->z < 0 || spec[pitz_params[i]->ispec[j]]->z > 0) {
-					if (count[0] > 1 || count[1] > 1) {
+				if (spec[pitz_params[i]->ispec[j]]->z < 0
+					|| spec[pitz_params[i]->ispec[j]]->z > 0)
+				{
+					if (count[0] > 1 || count[1] > 1)
+					{
 						pitz_params[i]->ln_coef[j] = 3;
-					} else {
+					}
+					else
+					{
 						pitz_params[i]->ln_coef[j] = 6;
 					}
 					continue;
 				}
 				/* Neutral */
-				if (count[j] == 3) {
+				if (count[j] == 3)
+				{
 					pitz_params[i]->ln_coef[j] = 1;
-				} else if (count[j] == 2) {
+				}
+				else if (count[j] == 2)
+				{
 					pitz_params[i]->ln_coef[j] = 3;
-				} else if (count[j] == 1) {
-					if (count[0] > 1 || count[1] > 1) {
+				}
+				else if (count[j] == 1)
+				{
+					if (count[0] > 1 || count[1] > 1)
+					{
 						pitz_params[i]->ln_coef[j] = 3;
-					} else {
+					}
+					else
+					{
 						pitz_params[i]->ln_coef[j] = 6;
 					}
-				}	  
+				}
 			}
 		}
 	}
 	/*  Debug TYPE_MU coefficients */
 	/*
-	for (i = 0; i < count_pitz_param; i++)
-	{
-	if (pitz_params[i]->type == TYPE_MU)
-	{
-	fprintf(stderr, "%s\t%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1], pitz_params[i]->species[2]);
-	fprintf(stderr, "%f\t%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1], pitz_params[i]->ln_coef[2]);
-	fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
-	}
-	}
-	*/
+	   for (i = 0; i < count_pitz_param; i++)
+	   {
+	   if (pitz_params[i]->type == TYPE_MU)
+	   {
+	   fprintf(stderr, "%s\t%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1], pitz_params[i]->species[2]);
+	   fprintf(stderr, "%f\t%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1], pitz_params[i]->ln_coef[2]);
+	   fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+	   }
+	   }
+	 */
 	/*
-	*  Tidy TYPE_LAMDA
-	*/
+	 *  Tidy TYPE_LAMDA
+	 */
 
 	/* Coef for Osmotic coefficient for TYPE_LAMDA */
 
@@ -498,13 +531,15 @@ pitzer_tidy (void)
 			i0 = pitz_params[i]->ispec[0];
 			i1 = pitz_params[i]->ispec[1];
 			/* All neutral */
-			if (i0 == i1) 
+			if (i0 == i1)
 			{
 				/* type n, n */
 				pitz_params[i]->os_coef = 0.5;
 				pitz_params[i]->ln_coef[0] = 1;
 				pitz_params[i]->ln_coef[1] = 1;
-			} else {
+			}
+			else
+			{
 				/* type nn', na, nc */
 				pitz_params[i]->os_coef = 1;
 				pitz_params[i]->ln_coef[0] = 2;
@@ -514,16 +549,16 @@ pitzer_tidy (void)
 	}
 	/*  Debug TYPE_LAMDA coefficients */
 	/*
-	for (i = 0; i < count_pitz_param; i++)
-	{
-	if (pitz_params[i]->type == TYPE_LAMDA)
-	{
-	fprintf(stderr, "%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1]);
-	fprintf(stderr, "%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1]);
-	fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
-	}
-	}
-	*/
+	   for (i = 0; i < count_pitz_param; i++)
+	   {
+	   if (pitz_params[i]->type == TYPE_LAMDA)
+	   {
+	   fprintf(stderr, "%s\t%s\n", pitz_params[i]->species[0], pitz_params[i]->species[1]);
+	   fprintf(stderr, "%f\t%f\n", pitz_params[i]->ln_coef[0], pitz_params[i]->ln_coef[1]);
+	   fprintf(stderr, "%f\n\n", pitz_params[i]->os_coef);
+	   }
+	   }
+	 */
 	return OK;
 }
 
@@ -535,17 +570,17 @@ ISPEC (char *name)
  *      Find species number in spec for character string species name
  */
 {
-  int i;
-  for (i = 0; i < 3 * count_s; i++)
-  {
-    if (spec[i] == NULL)
-      continue;
-    if (name == spec[i]->name)
-    {
-      return (i);
-    }
-  }
-  return (-1);
+	int i;
+	for (i = 0; i < 3 * count_s; i++)
+	{
+		if (spec[i] == NULL)
+			continue;
+		if (name == spec[i]->name)
+		{
+			return (i);
+		}
+	}
+	return (-1);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -554,23 +589,23 @@ read_pitzer (void)
 /* ---------------------------------------------------------------------- */
 {
 	/*
-	*      Reads advection information
-	*
-	*      Arguments:
-	*         none
-	*
-	*      Returns:
-	*         KEYWORD if keyword encountered, input_error may be incremented if
-	*                    a keyword is encountered in an unexpected position
-	*         EOF     if eof encountered while reading mass balance concentrations
-	*         ERROR   if error occurred reading data
-	*
-	*/
+	 *      Reads advection information
+	 *
+	 *      Arguments:
+	 *         none
+	 *
+	 *      Returns:
+	 *         KEYWORD if keyword encountered, input_error may be incremented if
+	 *                    a keyword is encountered in an unexpected position
+	 *         EOF     if eof encountered while reading mass balance concentrations
+	 *         ERROR   if error occurred reading data
+	 *
+	 */
 	/*
-	*   Read advection parameters: 
-	*        number of cells;
-	*        number of shifts;
-	*/
+	 *   Read advection parameters: 
+	 *        number of cells;
+	 *        number of shifts;
+	 */
 	int n, j;
 	struct pitz_param *pzp_ptr;
 	pitz_param_type pzp_type;
@@ -578,29 +613,29 @@ read_pitzer (void)
 	int return_value, opt, opt_save;
 	char *next_char;
 	const char *opt_list[] = {
-		"b0",			/* 0 */
-		"b1",			/* 1 */
-		"b2",			/* 2 */
-		"c0",			/* 3 */
-		"theta",			/* 4 */
-		"lamda",			/* 5 */
-		"zeta",			/* 6 */
-		"psi",			/* 7 */
-		"macinnes",			/* 8 */
-		"macinnis",			/* 9 */
-		"mac",			/* 10 */
-		"redox",			/* 11 */
-		"pe",			/* 12 */
-		"alphas",			/* 13 */
-		"mu",                       /* 14 */
-		"eta",                      /* 15 */
-		"etheta",                   /* 16 */
-		"use_etheta"                /* 17 */
+		"b0",					/* 0 */
+		"b1",					/* 1 */
+		"b2",					/* 2 */
+		"c0",					/* 3 */
+		"theta",				/* 4 */
+		"lamda",				/* 5 */
+		"zeta",					/* 6 */
+		"psi",					/* 7 */
+		"macinnes",				/* 8 */
+		"macinnis",				/* 9 */
+		"mac",					/* 10 */
+		"redox",				/* 11 */
+		"pe",					/* 12 */
+		"alphas",				/* 13 */
+		"mu",					/* 14 */
+		"eta",					/* 15 */
+		"etheta",				/* 16 */
+		"use_etheta"			/* 17 */
 	};
 	int count_opt_list = 18;
 	/*
-	*   Read lines
-	*/
+	 *   Read lines
+	 */
 	opt_save = OPTION_ERROR;
 	return_value = UNKNOWN;
 	n = -1;
@@ -630,8 +665,9 @@ read_pitzer (void)
 				{
 					if (count_pitz_param >= max_pitz_param)
 					{
-						space ((void **) ((void *) &pitz_params), count_pitz_param,
-							&max_pitz_param, sizeof (struct pitz_param *));
+						space ((void **) ((void *) &pitz_params),
+							   count_pitz_param, &max_pitz_param,
+							   sizeof (struct pitz_param *));
 					}
 
 					pitz_params[count_pitz_param] = pzp_ptr;
@@ -640,7 +676,8 @@ read_pitzer (void)
 				else
 				{
 					pitz_params[j] =
-						(struct pitz_param *) free_check_null (pitz_params[j]);
+						(struct pitz_param *)
+						free_check_null (pitz_params[j]);
 					pitz_params[j] = pzp_ptr;
 				}
 			}
@@ -650,74 +687,74 @@ read_pitzer (void)
 			error_msg ("Unknown input in PITZER keyword.", CONTINUE);
 			error_msg (line_save, CONTINUE);
 			break;
-		case 0:			/* b0 */
+		case 0:				/* b0 */
 			pzp_type = TYPE_B0;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 1:			/* b1 */
+		case 1:				/* b1 */
 			pzp_type = TYPE_B1;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 2:			/* b2 */
+		case 2:				/* b2 */
 			pzp_type = TYPE_B2;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 3:			/* c0 */
+		case 3:				/* c0 */
 			pzp_type = TYPE_C0;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 4:			/* theta */
+		case 4:				/* theta */
 			pzp_type = TYPE_THETA;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 5:			/* lambda */
+		case 5:				/* lambda */
 			pzp_type = TYPE_LAMDA;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 6:			/* zeta */
+		case 6:				/* zeta */
 			pzp_type = TYPE_ZETA;
 			n = 3;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 7:			/* psi */
+		case 7:				/* psi */
 			pzp_type = TYPE_PSI;
 			n = 3;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 13:			/* alphas */
+		case 13:				/* alphas */
 			pzp_type = TYPE_ALPHAS;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 8:			/* macinnes */
-		case 9:			/* macinnis */
-		case 10:			/* mac */
+		case 8:				/* macinnes */
+		case 9:				/* macinnis */
+		case 10:				/* mac */
 			opt_save = OPTION_ERROR;
 			ICON = get_true_false (next_char, TRUE);
 			break;
-		case 11:			/* redox */
-		case 12:			/* pe */
+		case 11:				/* redox */
+		case 12:				/* pe */
 			opt_save = OPTION_ERROR;
 			pitzer_pe = get_true_false (next_char, TRUE);
 			break;
-		case 14:			/* mu */
+		case 14:				/* mu */
 			pzp_type = TYPE_MU;
 			n = 3;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 15:			/* eta */
+		case 15:				/* eta */
 			pzp_type = TYPE_ETA;
 			n = 3;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 16:			/* etheta */
-		case 17:			/* use_etheta */
+		case 16:				/* etheta */
+		case 17:				/* use_etheta */
 			opt_save = OPTION_ERROR;
 			use_etheta = get_true_false (next_char, TRUE);
 			break;
@@ -739,33 +776,33 @@ C
 C     SUBROUTINE TO CALUCLATE TEMPERATURE DEPENDENCE OF PITZER PARAMETER
 C
 */
-  LDBLE DC0;
-  int i;
-  LDBLE TR = 298.15;
+	LDBLE DC0;
+	int i;
+	LDBLE TR = 298.15;
 
-  if (fabs (TK - OTEMP) < 0.01e0)
-    return OK;
-  OTEMP = TK;
+	if (fabs (TK - OTEMP) < 0.01e0)
+		return OK;
+	OTEMP = TK;
 /*
 C     Set DW0
 */
-  DW (TK);
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    calc_pitz_param (pitz_params[i], TK, TR);
-  }
-  DC0 = DC (TK);
-  if (fabs (TK - TR) < 0.01e0)
-  {
-    A0 = 0.392e0;
-  }
-  else
-  {
-    DC0 = DC (TK);
-    A0 = 1.400684e6 * sqrt (DW0 / (pow ((DC0 * TK), 3.0e0)));
-    /*A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
-  }
-  return OK;
+	DW (TK);
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		calc_pitz_param (pitz_params[i], TK, TR);
+	}
+	DC0 = DC (TK);
+	if (fabs (TK - TR) < 0.01e0)
+	{
+		A0 = 0.392e0;
+	}
+	else
+	{
+		DC0 = DC (TK);
+		A0 = 1.400684e6 * sqrt (DW0 / (pow ((DC0 * TK), 3.0e0)));
+		/*A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
+	}
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -775,7 +812,7 @@ calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 {
 	LDBLE param;
 	/*
-	*/
+	 */
 
 	if (fabs (TK - TR) < 0.01)
 	{
@@ -784,9 +821,10 @@ calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 	else
 	{
 		param = (pz_ptr->a[0] +
-			pz_ptr->a[1] * (1.e0 / TK - 1.e0 / TR) +
-			pz_ptr->a[2] * log (TK / TR) +
-			pz_ptr->a[3] * (TK - TR) + pz_ptr->a[4] * (TK * TK - TR * TR));
+				 pz_ptr->a[1] * (1.e0 / TK - 1.e0 / TR) +
+				 pz_ptr->a[2] * log (TK / TR) +
+				 pz_ptr->a[3] * (TK - TR) + pz_ptr->a[4] * (TK * TK -
+															TR * TR));
 	}
 	pz_ptr->p = param;
 	switch (pz_ptr->type)
@@ -826,7 +864,8 @@ calc_pitz_param (struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 		pz_ptr->U.eta = param;
 		break;
 	case TYPE_Other:
-		error_msg ("Should not be TYPE_Other in function calc_pitz_param", STOP);
+		error_msg ("Should not be TYPE_Other in function calc_pitz_param",
+				   STOP);
 		break;
 	}
 	return OK;
@@ -842,35 +881,36 @@ pitzer (void)
 	LDBLE etheta, ethetap;
 	LDBLE dummy;
 	/*
-	LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
-	CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
-	BMXPHI, PHIPHI, AW, A, B;
-	*/
-	LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT, B;
+	   LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
+	   CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
+	   BMXPHI, PHIPHI, AW, A, B;
+	 */
+	LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, CSUM, PHIMAC, OSMOT,
+		B;
 	LDBLE I, TK;
 	int LNEUT;
 	/*
-	C
-	C     INITIALIZE
-	C
-	*/
+	   C
+	   C     INITIALIZE
+	   C
+	 */
 	CONV = 1.0 / log (10.0);
 	XI = 0.0e0;
 	XX = 0.0e0;
 	OSUM = 0.0e0;
 	LNEUT = FALSE;
 	/*n
-	I = *I_X;
-	TK = *TK_X;
-	*/
+	   I = *I_X;
+	   TK = *TK_X;
+	 */
 	I = mu_x;
 	TK = tk_x;
 	/*      DH_AB(TK, &A, &B); */
 	/*
-	C
-	C     TRANSFER DATA FROM TO M
-	C
-	*/
+	   C
+	   C     TRANSFER DATA FROM TO M
+	   C
+	 */
 	for (i = 0; i < 3 * count_s; i++)
 	{
 		IPRSNT[i] = FALSE;
@@ -897,17 +937,17 @@ pitzer (void)
 	}
 #endif
 	/*
-	ICON = 0;
-	M[1] = 1.40070736;
-	M[4] = 2.52131086E-05;
-	M[140] = 4.59985435E-09;
-	*/
+	   ICON = 0;
+	   M[1] = 1.40070736;
+	   M[4] = 2.52131086E-05;
+	   M[140] = 4.59985435E-09;
+	 */
 
 	/*
-	C
-	C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
-	C
-	*/
+	   C
+	   C     COMPUTE PITZER COEFFICIENTS' TEMPERATURE DEPENDENCE
+	   C
+	 */
 	PTEMP (TK);
 	for (i = 0; i < 2 * count_s + count_anions; i++)
 	{
@@ -921,34 +961,38 @@ pitzer (void)
 	}
 	I = XI / 2.0e0;
 	/*
-	C
-	C     EQUATION (8)
-	C
-	*/
+	   C
+	   C     EQUATION (8)
+	   C
+	 */
 	BIGZ = XX;
 	DI = sqrt (I);
 	/*
-	C
-	C     CALCULATE F & GAMCLM
-	C
-	*/
+	   C
+	   C     CALCULATE F & GAMCLM
+	   C
+	 */
 	B = 1.2;
 	F = -A0 * (DI / (1.0e0 + B * DI) + 2.0e0 * log (1.0e0 + B * DI) / B);
 	XXX = 2.0e0 * DI;
 	XXX =
-		(1.0e0 - (1.0e0 + XXX - XXX * XXX * 0.5e0) * exp (-XXX)) / (XXX * XXX);
+		(1.0e0 -
+		 (1.0e0 + XXX - XXX * XXX * 0.5e0) * exp (-XXX)) / (XXX * XXX);
 	/*GAMCLM=F+I*2.0e0*(BCX(1,IK,IC)+BCX(2,IK,IC)*XXX)+1.5e0*BCX(4,IK,IC)*I*I; */
 	/*GAMCLM=F+I*2.0e0*(mcb0->U.b0 + mcb1->U.b1*XXX) + 1.5e0*mcc0->U.c0*I*I; */
-	/*GAMCLM = F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I;*/
+	/*GAMCLM = F + I * 2.0e0 * (mcb0->p + mcb1->p * XXX) + 1.5e0 * mcc0->p * I * I; */
 	GAMCLM = F;
-	if (mcb0 != NULL) GAMCLM += I * 2.0e0 * mcb0->p;
-	if (mcb1 != NULL) GAMCLM += I * 2.0e0 * mcb1->p * XXX;
-	if (mcc0 != NULL) GAMCLM += 1.5e0 * mcc0->p * I * I;
+	if (mcb0 != NULL)
+		GAMCLM += I * 2.0e0 * mcb0->p;
+	if (mcb1 != NULL)
+		GAMCLM += I * 2.0e0 * mcb1->p * XXX;
+	if (mcc0 != NULL)
+		GAMCLM += 1.5e0 * mcc0->p * I * I;
 	CSUM = 0.0e0;
 	OSMOT = -(A0) * pow (I, 1.5e0) / (1.0e0 + B * DI);
 	/*
-	*  Calculate ethetas
-	*/
+	 *  Calculate ethetas
+	 */
 	for (i = 0; i < count_theta_param; i++)
 	{
 		z0 = theta_params[i]->zj;
@@ -958,8 +1002,8 @@ pitzer (void)
 		theta_params[i]->ethetap = ethetap;
 	}
 	/*
-	*  Sums for F, LGAMMA, and OSMOT
-	*/
+	 *  Sums for F, LGAMMA, and OSMOT
+	 */
 	dummy = LGAMMA[1];
 	for (i = 0; i < count_pitz_param; i++)
 	{
@@ -992,10 +1036,14 @@ pitzer (void)
 			break;
 		case TYPE_C0:
 			CSUM +=
-				M[i0] * M[i1] * pitz_params[i]->p / (2.0e0 * sqrt (fabs (z0 * z1)));
-			LGAMMA[i0] += M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
-			LGAMMA[i1] += M[i0] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
-			OSMOT += M[i0] * M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+				M[i0] * M[i1] * pitz_params[i]->p / (2.0e0 *
+													 sqrt (fabs (z0 * z1)));
+			LGAMMA[i0] +=
+				M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+			LGAMMA[i1] +=
+				M[i0] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
+			OSMOT +=
+				M[i0] * M[i1] * BIGZ * param / (2.0 * sqrt (fabs (z0 * z1)));
 			break;
 		case TYPE_THETA:
 			LGAMMA[i0] += 2.0 * M[i1] * (param /*+ ETHETA(z0, z1, I) */ );
@@ -1004,8 +1052,8 @@ pitzer (void)
 			break;
 		case TYPE_ETHETA:
 			/*
-			ETHETAS(z0, z1, I, &etheta, &ethetap);
-			*/
+			   ETHETAS(z0, z1, I, &etheta, &ethetap);
+			 */
 			if (use_etheta == TRUE)
 			{
 				etheta = pitz_params[i]->thetas->etheta;
@@ -1015,11 +1063,11 @@ pitzer (void)
 				LGAMMA[i1] += 2.0 * M[i0] * etheta;
 				OSMOT += M[i0] * M[i1] * (etheta + I * ethetap);
 				/*
-				F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
-				LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
-				LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
-				OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
-				*/
+				   F += M[i0]*M[i1]*ETHETAP(z0, z1, I);
+				   LGAMMA[i0] += 2.0*M[i1]*(ETHETA(z0, z1, I) ); 
+				   LGAMMA[i1] += 2.0*M[i0]*(ETHETA(z0, z1, I) ); 
+				   OSMOT += M[i0]*M[i1]*(ETHETA(z0, z1, I) + I*ETHETAP(z0, z1, I) ); 
+				 */
 			}
 			break;
 		case TYPE_PSI:
@@ -1074,8 +1122,8 @@ pitzer (void)
 	}
 
 	/*
-	*  Add F and CSUM terms to LGAMMA
-	*/
+	 *  Add F and CSUM terms to LGAMMA
+	 */
 
 	for (i = 0; i < count_cations; i++)
 	{
@@ -1088,18 +1136,18 @@ pitzer (void)
 		LGAMMA[i] += z0 * z0 * F + fabs (z0) * CSUM;
 	}
 	/*
-	C
-	C     CONVERT TO MACINNES CONVENTION
-	C
-	*/
+	   C
+	   C     CONVERT TO MACINNES CONVENTION
+	   C
+	 */
 	if (ICON == TRUE)
 	{
 		PHIMAC = LGAMMA[IC] - GAMCLM;
 		/*
-		C
-		C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
-		C
-		*/
+		   C
+		   C     CORRECTED ERROR IN PHIMAC, NOVEMBER, 1989
+		   C
+		 */
 		for (i = 0; i < 2 * count_s + count_anions; i++)
 		{
 			if (IPRSNT[i] == TRUE)
@@ -1111,10 +1159,10 @@ pitzer (void)
 
 	COSMOT = 1.0e0 + 2.0e0 * OSMOT / OSUM;
 	/*
-	C
-	C     CALCULATE THE ACTIVITY OF WATER
-	C
-	*/
+	   C
+	   C     CALCULATE THE ACTIVITY OF WATER
+	   C
+	 */
 	AW = exp (-OSUM * COSMOT / 55.50837e0);
 	if (AW > 1.0)
 		AW = 1.0;
@@ -1127,20 +1175,20 @@ pitzer (void)
 		/*spec[i]->lg=LGAMMA[i]*CONV; */
 		spec[i]->lg_pitzer = LGAMMA[i] * CONV;
 		/*
-		output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
-		*/
+		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
+		 */
 	}
 	/*
-	output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
-	output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
-	output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
-	output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
-	output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
-	*/
+	   output_msg(OUTPUT_MESSAGE, "OSUM: %e\n", OSUM);
+	   output_msg(OUTPUT_MESSAGE, "OSMOT: %e\n", OSMOT);
+	   output_msg(OUTPUT_MESSAGE, "COSMOT: %e\n", COSMOT);
+	   output_msg(OUTPUT_MESSAGE, "F: %e\n", F);
+	   output_msg(OUTPUT_MESSAGE, "AW: %e\n", AW);
+	 */
 	/*
-	*I_X = I;
-	*COSMOT_X = COSMOT;
-	*/
+	 *I_X = I;
+	 *COSMOT_X = COSMOT;
+	 */
 	return (OK);
 }
 
@@ -1156,10 +1204,10 @@ C     J0 AND J1, USED IN CALCULATION OF ETHETA AND ETHEAP
 C
 */
 {
-  LDBLE JAY;
-  BDK (X);
-  JAY = X / 4.0e0 - 1.0e0 + 0.5e0 * (BK[0] - BK[2]);
-  return JAY;
+	LDBLE JAY;
+	BDK (X);
+	JAY = X / 4.0e0 - 1.0e0 + 0.5e0 * (BK[0] - BK[2]);
+	return JAY;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1167,17 +1215,17 @@ LDBLE
 JPRIME (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE DZ;
-  BDK (Y);
-  if (Y > 1.0e0)
-  {
-    DZ = -4.0e0 * pow (Y, -1.1e0) / 9.0e0;
-  }
-  else
-  {
-    DZ = 0.8e0 * pow (Y, -0.8e0);
-  }
-  return (Y * (.25e0 + DZ * (DK[0] - DK[2]) / 2.0e0));
+	LDBLE DZ;
+	BDK (Y);
+	if (Y > 1.0e0)
+	{
+		DZ = -4.0e0 * pow (Y, -1.1e0) / 9.0e0;
+	}
+	else
+	{
+		DZ = 0.8e0 * pow (Y, -0.8e0);
+	}
+	return (Y * (.25e0 + DZ * (DK[0] - DK[2]) / 2.0e0));
 }
 
 
@@ -1199,49 +1247,49 @@ C     SUBROUTINE PITZER
 C
 */
 {
-  LDBLE AKX[42] = {
-    1.925154014814667e0, -.060076477753119e0, -.029779077456514e0,
-    -.007299499690937e0, 0.000388260636404e0, 0.000636874599598e0,
-    0.000036583601823e0, -.000045036975204e0, -.000004537895710e0,
-    0.000002937706971e0, 0.000000396566462e0, -.000000202099617e0,
-    -.000000025267769e0, 0.000000013522610e0, 0.000000001229405e0,
-    -.000000000821969e0, -.000000000050847e0, 0.000000000046333e0,
-    0.000000000001943e0, -.000000000002563e0, -.000000000010991e0,
-    0.628023320520852e0, 0.462762985338493e0, 0.150044637187895e0,
-    -.028796057604906e0, -.036552745910311e0, -.001668087945272e0,
-    0.006519840398744e0, 0.001130378079086e0, -.000887171310131e0,
-    -.000242107641309e0, 0.000087294451594e0, 0.000034682122751e0,
-    -.000004583768938e0, -.000003548684306e0, -.000000250453880e0,
-    0.000000216991779e0, 0.000000080779570e0, 0.000000004558555e0,
-    -.000000006944757e0, -.000000002849257e0, 0.000000000237816e0
-  };
+	LDBLE AKX[42] = {
+		1.925154014814667e0, -.060076477753119e0, -.029779077456514e0,
+		-.007299499690937e0, 0.000388260636404e0, 0.000636874599598e0,
+		0.000036583601823e0, -.000045036975204e0, -.000004537895710e0,
+		0.000002937706971e0, 0.000000396566462e0, -.000000202099617e0,
+		-.000000025267769e0, 0.000000013522610e0, 0.000000001229405e0,
+		-.000000000821969e0, -.000000000050847e0, 0.000000000046333e0,
+		0.000000000001943e0, -.000000000002563e0, -.000000000010991e0,
+		0.628023320520852e0, 0.462762985338493e0, 0.150044637187895e0,
+		-.028796057604906e0, -.036552745910311e0, -.001668087945272e0,
+		0.006519840398744e0, 0.001130378079086e0, -.000887171310131e0,
+		-.000242107641309e0, 0.000087294451594e0, 0.000034682122751e0,
+		-.000004583768938e0, -.000003548684306e0, -.000000250453880e0,
+		0.000000216991779e0, 0.000000080779570e0, 0.000000004558555e0,
+		-.000000006944757e0, -.000000002849257e0, 0.000000000237816e0
+	};
 /*
       LDBLE PRECISION AK, BK, DK
       COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
 */
-  LDBLE *AK;
-  LDBLE Z;
-  int II;
-  int i;
+	LDBLE *AK;
+	LDBLE Z;
+	int II;
+	int i;
 
-  if (X <= 1.0e0)
-  {
-    II = 1;
-    Z = 4.0e0 * pow (X, 0.2e0) - 2.0e0;
-    AK = &AKX[0];
-  }
-  else
-  {
-    II = 2;
-    Z = 40.0e0 * pow (X, -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
-    AK = &AKX[21];
-  }
-  for (i = 20; i >= 0; i--)
-  {
-    BK[i] = Z * BK[i + 1] - BK[i + 2] + AK[i];
-    DK[i] = BK[i + 1] + Z * DK[i + 1] - DK[i + 2];
-  }
-  return OK;
+	if (X <= 1.0e0)
+	{
+		II = 1;
+		Z = 4.0e0 * pow (X, 0.2e0) - 2.0e0;
+		AK = &AKX[0];
+	}
+	else
+	{
+		II = 2;
+		Z = 40.0e0 * pow (X, -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
+		AK = &AKX[21];
+	}
+	for (i = 20; i >= 0; i--)
+	{
+		BK[i] = Z * BK[i + 1] - BK[i + 2] + AK[i];
+		DK[i] = BK[i + 1] + Z * DK[i + 1] - DK[i + 2];
+	}
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1249,7 +1297,7 @@ LDBLE
 G (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
-  return (2.0e0 * (1.0e0 - (1.0e0 + Y) * exp (-Y)) / (Y * Y));
+	return (2.0e0 * (1.0e0 - (1.0e0 + Y) * exp (-Y)) / (Y * Y));
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1257,8 +1305,8 @@ LDBLE
 GP (LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
-  return (-2.0e0 * (1.0e0 - (1.0e0 + Y + Y * Y / 2.0e0) * exp (-Y)) /
-	  (Y * Y));
+	return (-2.0e0 * (1.0e0 - (1.0e0 + Y + Y * Y / 2.0e0) * exp (-Y)) /
+			(Y * Y));
 }
 
 #ifdef SKIP
@@ -1267,29 +1315,29 @@ LDBLE
 ETHETA (LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE XCON, ZZ;
-  LDBLE XJK, XJJ, XKK;
+	LDBLE XCON, ZZ;
+	LDBLE XJK, XJJ, XKK;
 
-  if (ZJ == ZK)
-    return (0.0);
-  XCON = 6.0e0 * A0 * sqrt (I);
-  ZZ = ZJ * ZK;
+	if (ZJ == ZK)
+		return (0.0);
+	XCON = 6.0e0 * A0 * sqrt (I);
+	ZZ = ZJ * ZK;
 /*
 C
 C     NEXT 3 ARE EQUATION (A1)
 C
 */
-  XJK = XCON * ZZ;
-  XJJ = XCON * ZJ * ZJ;
-  XKK = XCON * ZK * ZK;
+	XJK = XCON * ZZ;
+	XJJ = XCON * ZJ * ZJ;
+	XKK = XCON * ZK * ZK;
 /*
 C
 C     EQUATION (A2)
 C
 */
 
-  return (ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 - JAY (XKK) / 2.0e0) /
-	  (4.0e0 * I));
+	return (ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 - JAY (XKK) / 2.0e0) /
+			(4.0e0 * I));
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1297,67 +1345,69 @@ LDBLE
 ETHETAP (LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE XCON, ZZ, ETHETA, ETHETAP;
-  LDBLE XJK, XJJ, XKK;
+	LDBLE XCON, ZZ, ETHETA, ETHETAP;
+	LDBLE XJK, XJJ, XKK;
 
-  if (ZJ == ZK)
-    return (0.0);
-  XCON = 6.0e0 * A0 * sqrt (I);
-  ZZ = ZJ * ZK;
+	if (ZJ == ZK)
+		return (0.0);
+	XCON = 6.0e0 * A0 * sqrt (I);
+	ZZ = ZJ * ZK;
 /*
 C
 C     NEXT 3 ARE EQUATION (A1)
 C
 */
-  XJK = XCON * ZZ;
-  XJJ = XCON * ZJ * ZJ;
-  XKK = XCON * ZK * ZK;
+	XJK = XCON * ZZ;
+	XJJ = XCON * ZJ * ZJ;
+	XKK = XCON * ZK * ZK;
 /*
 C
 C     EQUATION (A3)
 C
 */
-  ETHETA =
-    ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 - JAY (XKK) / 2.0e0) / (4.0e0 * I);
-  ETHETAP =
-    ZZ * (JPRIME (XJK) - JPRIME (XJJ) / 2.0e0 -
-	  JPRIME (XKK) / 2.0e0) / (8.0e0 * I * I) - ETHETA / I;
-  return (ETHETAP);
+	ETHETA =
+		ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 -
+			  JAY (XKK) / 2.0e0) / (4.0e0 * I);
+	ETHETAP =
+		ZZ * (JPRIME (XJK) - JPRIME (XJJ) / 2.0e0 -
+			  JPRIME (XKK) / 2.0e0) / (8.0e0 * I * I) - ETHETA / I;
+	return (ETHETAP);
 }
 #endif
 /* ---------------------------------------------------------------------- */
 int
-ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE *etheta, LDBLE *ethetap)
+ETHETAS (LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta, LDBLE * ethetap)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE XCON, ZZ;
-  LDBLE XJK, XJJ, XKK;
+	LDBLE XCON, ZZ;
+	LDBLE XJK, XJJ, XKK;
 
-  *etheta = 0.0;
-  *ethetap = 0.0;
-  if (ZJ == ZK)
-    return (OK);
-  XCON = 6.0e0 * A0 * sqrt (I);
-  ZZ = ZJ * ZK;
+	*etheta = 0.0;
+	*ethetap = 0.0;
+	if (ZJ == ZK)
+		return (OK);
+	XCON = 6.0e0 * A0 * sqrt (I);
+	ZZ = ZJ * ZK;
 /*
 C
 C     NEXT 3 ARE EQUATION (A1)
 C
 */
-  XJK = XCON * ZZ;
-  XJJ = XCON * ZJ * ZJ;
-  XKK = XCON * ZK * ZK;
+	XJK = XCON * ZZ;
+	XJJ = XCON * ZJ * ZJ;
+	XKK = XCON * ZK * ZK;
 /*
 C
 C     EQUATION (A3)
 C
 */
-  *etheta =
-    ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 - JAY (XKK) / 2.0e0) / (4.0e0 * I);
-  *ethetap =
-    ZZ * (JPRIME (XJK) - JPRIME (XJJ) / 2.0e0 -
-	  JPRIME (XKK) / 2.0e0) / (8.0e0 * I * I) - *etheta / I;
-  return (OK);
+	*etheta =
+		ZZ * (JAY (XJK) - JAY (XJJ) / 2.0e0 -
+			  JAY (XKK) / 2.0e0) / (4.0e0 * I);
+	*ethetap =
+		ZZ * (JPRIME (XJK) - JPRIME (XJJ) / 2.0e0 -
+			  JPRIME (XKK) / 2.0e0) / (8.0e0 * I * I) - *etheta / I;
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1368,29 +1418,30 @@ pitzer_clean_up (void)
 /*
  *   Free all allocated memory, except strings
  */
-  int i;
+	int i;
 
-  if (svnid == NULL)
-    fprintf (stderr, " ");
-  for (i = 0; i < count_pitz_param; i++)
-  {
-    pitz_params[i] = (struct pitz_param *) free_check_null (pitz_params[i]);
-  }
-  count_pitz_param = 0;       
-  pitz_params = (struct pitz_param **) free_check_null (pitz_params);
-  for (i = 0; i < count_theta_param; i++)
-  {
-    theta_params[i] =
-      (struct theta_param *) free_check_null (theta_params[i]);
-  }
-  count_theta_param = 0;
-  theta_params = (struct theta_param **) free_check_null (theta_params);
-  LGAMMA = (LDBLE *) free_check_null (LGAMMA);
-  IPRSNT = (int *) free_check_null (IPRSNT);
-  spec = (struct species **) free_check_null (spec);
-  M = (LDBLE *) free_check_null (M);
+	if (svnid == NULL)
+		fprintf (stderr, " ");
+	for (i = 0; i < count_pitz_param; i++)
+	{
+		pitz_params[i] =
+			(struct pitz_param *) free_check_null (pitz_params[i]);
+	}
+	count_pitz_param = 0;
+	pitz_params = (struct pitz_param **) free_check_null (pitz_params);
+	for (i = 0; i < count_theta_param; i++)
+	{
+		theta_params[i] =
+			(struct theta_param *) free_check_null (theta_params[i]);
+	}
+	count_theta_param = 0;
+	theta_params = (struct theta_param **) free_check_null (theta_params);
+	LGAMMA = (LDBLE *) free_check_null (LGAMMA);
+	IPRSNT = (int *) free_check_null (IPRSNT);
+	spec = (struct species **) free_check_null (spec);
+	M = (LDBLE *) free_check_null (M);
 
-  return OK;
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1402,43 +1453,43 @@ set_pz (int initial)
  *   Sets initial guesses for unknowns if initial == TRUE
  *   Revises guesses whether initial is true or not
  */
-  int i;
-  struct solution *solution_ptr;
+	int i;
+	struct solution *solution_ptr;
 /*
  *   Set initial log concentrations to zero
  */
-  iterations = -1;
-  solution_ptr = use.solution_ptr;
-  for (i = 0; i < count_s_x; i++)
-  {
-    s_x[i]->lm = LOG_ZERO_MOLALITY;
-    /*s_x[i]->lg = 0.0; */
-    s_x[i]->lg_pitzer = 0.0;
-  }
+	iterations = -1;
+	solution_ptr = use.solution_ptr;
+	for (i = 0; i < count_s_x; i++)
+	{
+		s_x[i]->lm = LOG_ZERO_MOLALITY;
+		/*s_x[i]->lg = 0.0; */
+		s_x[i]->lg_pitzer = 0.0;
+	}
 /*
  *   Set master species activities
  */
 
-  tc_x = solution_ptr->tc;
-  tk_x = tc_x + 273.15;
+	tc_x = solution_ptr->tc;
+	tk_x = tc_x + 273.15;
 /*
  *   H+, e-, H2O
  */
-  mass_water_aq_x = solution_ptr->mass_water;
-  mu_x = solution_ptr->mu;
-  s_h2o->moles = mass_water_aq_x / gfw_water;
-  s_h2o->la = log10 (solution_ptr->ah2o);
-  AW = pow (10.0, s_h2o->la);
-  s_hplus->la = -solution_ptr->ph;
-  s_hplus->lm = s_hplus->la;
-  s_hplus->moles = exp (s_hplus->lm * LOG_10) * mass_water_aq_x;
-  s_eminus->la = -solution_ptr->solution_pe;
-  if (initial == TRUE)
-    initial_guesses ();
-  if (dl_type_x != NO_DL)
-    initial_surface_water ();
-  revise_guesses ();
-  return (OK);
+	mass_water_aq_x = solution_ptr->mass_water;
+	mu_x = solution_ptr->mu;
+	s_h2o->moles = mass_water_aq_x / gfw_water;
+	s_h2o->la = log10 (solution_ptr->ah2o);
+	AW = pow (10.0, s_h2o->la);
+	s_hplus->la = -solution_ptr->ph;
+	s_hplus->lm = s_hplus->la;
+	s_hplus->moles = exp (s_hplus->lm * LOG_10) * mass_water_aq_x;
+	s_eminus->la = -solution_ptr->solution_pe;
+	if (initial == TRUE)
+		initial_guesses ();
+	if (dl_type_x != NO_DL)
+		initial_surface_water ();
+	revise_guesses ();
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1450,61 +1501,64 @@ initial_guesses (void)
  *   Make initial guesses for activities of master species and
  *   ionic strength
  */
-  int i;
-  struct solution *solution_ptr;
+	int i;
+	struct solution *solution_ptr;
 
-  solution_ptr = use.solution_ptr;
-  mu_x =
-    s_hplus->moles +
-    exp ((solution_ptr->ph - 14.) * LOG_10) * mass_water_aq_x;
-  mu_x /= mass_water_aq_x;
-  s_h2o->la = 0.0;
-  for (i = 0; i < count_unknowns; i++)
-  {
-    if (x[i] == ph_unknown || x[i] == pe_unknown)
-      continue;
-    if (x[i]->type < CB)
-    {
-      mu_x += x[i]->moles / mass_water_aq_x * 0.5 * x[i]->master[0]->s->z *
-	x[i]->master[0]->s->z;
-      x[i]->master[0]->s->la = log10 (x[i]->moles / mass_water_aq_x);
-    }
-    else if (x[i]->type == CB)
-    {
-      x[i]->master[0]->s->la = log10 (0.001 * x[i]->moles / mass_water_aq_x);
-    }
-    else if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
-    {
-      x[i]->master[0]->s->la = log10 (0.001 * x[i]->moles / mass_water_aq_x);
-    }
-    else if (x[i]->type == EXCH)
-    {
-      if (x[i]->moles <= 0)
-      {
-	x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
-      }
-      else
-      {
-	x[i]->master[0]->s->la = log10 (x[i]->moles);
-      }
-    }
-    else if (x[i]->type == SURFACE)
-    {
-      if (x[i]->moles <= 0)
-      {
-	x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
-      }
-      else
-      {
-	x[i]->master[0]->s->la = log10 (0.1 * x[i]->moles);
-      }
-    }
-    else if (x[i]->type == SURFACE_CB)
-    {
-      x[i]->master[0]->s->la = 0.0;
-    }
-  }
-  return (OK);
+	solution_ptr = use.solution_ptr;
+	mu_x =
+		s_hplus->moles +
+		exp ((solution_ptr->ph - 14.) * LOG_10) * mass_water_aq_x;
+	mu_x /= mass_water_aq_x;
+	s_h2o->la = 0.0;
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (x[i] == ph_unknown || x[i] == pe_unknown)
+			continue;
+		if (x[i]->type < CB)
+		{
+			mu_x +=
+				x[i]->moles / mass_water_aq_x * 0.5 * x[i]->master[0]->s->z *
+				x[i]->master[0]->s->z;
+			x[i]->master[0]->s->la = log10 (x[i]->moles / mass_water_aq_x);
+		}
+		else if (x[i]->type == CB)
+		{
+			x[i]->master[0]->s->la =
+				log10 (0.001 * x[i]->moles / mass_water_aq_x);
+		}
+		else if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
+		{
+			x[i]->master[0]->s->la =
+				log10 (0.001 * x[i]->moles / mass_water_aq_x);
+		}
+		else if (x[i]->type == EXCH)
+		{
+			if (x[i]->moles <= 0)
+			{
+				x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+			}
+			else
+			{
+				x[i]->master[0]->s->la = log10 (x[i]->moles);
+			}
+		}
+		else if (x[i]->type == SURFACE)
+		{
+			if (x[i]->moles <= 0)
+			{
+				x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+			}
+			else
+			{
+				x[i]->master[0]->s->la = log10 (0.1 * x[i]->moles);
+			}
+		}
+		else if (x[i]->type == SURFACE_CB)
+		{
+			x[i]->master[0]->s->la = 0.0;
+		}
+	}
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1515,152 +1569,156 @@ revise_guesses (void)
 /*
  *   Revise molalities species
  */
-  int i;
-  int iter, max_iter, repeat, fail;
-  LDBLE weight, f;
+	int i;
+	int iter, max_iter, repeat, fail;
+	LDBLE weight, f;
 
-  max_iter = 10;
-  /* gammas(mu_x); */
-  iter = 0;
-  repeat = TRUE;
-  fail = FALSE;;
-  while (repeat == TRUE)
-  {
-    iter++;
-    if (debug_set == TRUE)
-    {
-      output_msg (OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n", iter);
-    }
-    if (iter == max_iter + 1)
-    {
-      output_msg (OUTPUT_LOG, "Did not converge in set, iteration %d.\n",
-		  iterations);
-      fail = TRUE;
-    }
-    if (iter > 2 * max_iter)
-    {
-      output_msg (OUTPUT_LOG,
-		  "Did not converge with relaxed criteria in set.\n");
-      return (OK);
-    }
-    molalities (TRUE);
-    /*pitzer(); */
-    /*s_h2o->la = 0.0; */
-    /*molalities(TRUE); */
-    mb_sums ();
-    if (state < REACTION)
-    {
-      sum_species ();
-    }
-    else
-    {
-      for (i = 0; i < count_unknowns; i++)
-      {
-	x[i]->sum = x[i]->f;
-      }
-    }
-    /*n
-       if (debug_set == TRUE) {
-       pr.species = TRUE;
-       pr.all = TRUE;
-       print_species();
-       }
-     */
-    repeat = FALSE;
-    for (i = 0; i < count_unknowns; i++)
-    {
-      if (x[i] == ph_unknown || x[i] == pe_unknown)
-	continue;
-      if (x[i]->type == MB ||
+	max_iter = 10;
+	/* gammas(mu_x); */
+	iter = 0;
+	repeat = TRUE;
+	fail = FALSE;;
+	while (repeat == TRUE)
+	{
+		iter++;
+		if (debug_set == TRUE)
+		{
+			output_msg (OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
+						iter);
+		}
+		if (iter == max_iter + 1)
+		{
+			output_msg (OUTPUT_LOG,
+						"Did not converge in set, iteration %d.\n",
+						iterations);
+			fail = TRUE;
+		}
+		if (iter > 2 * max_iter)
+		{
+			output_msg (OUTPUT_LOG,
+						"Did not converge with relaxed criteria in set.\n");
+			return (OK);
+		}
+		molalities (TRUE);
+		/*pitzer(); */
+		/*s_h2o->la = 0.0; */
+		/*molalities(TRUE); */
+		mb_sums ();
+		if (state < REACTION)
+		{
+			sum_species ();
+		}
+		else
+		{
+			for (i = 0; i < count_unknowns; i++)
+			{
+				x[i]->sum = x[i]->f;
+			}
+		}
+		/*n
+		   if (debug_set == TRUE) {
+		   pr.species = TRUE;
+		   pr.all = TRUE;
+		   print_species();
+		   }
+		 */
+		repeat = FALSE;
+		for (i = 0; i < count_unknowns; i++)
+		{
+			if (x[i] == ph_unknown || x[i] == pe_unknown)
+				continue;
+			if (x[i]->type == MB ||
 /*			    x[i]->type == ALK || */
-	  x[i]->type == CB ||
-	  x[i]->type == SOLUTION_PHASE_BOUNDARY ||
-	  x[i]->type == EXCH || x[i]->type == SURFACE)
-      {
+				x[i]->type == CB ||
+				x[i]->type == SOLUTION_PHASE_BOUNDARY ||
+				x[i]->type == EXCH || x[i]->type == SURFACE)
+			{
 
-	if (debug_set == TRUE)
-	{
-	  output_msg (OUTPUT_MESSAGE,
-		      "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
-		      x[i]->description, iter, (double) x[i]->sum,
-		      (double) x[i]->moles, (double) x[i]->master[0]->s->la);
-	}
-	if (fabs (x[i]->moles) < 1e-30)
-	  x[i]->moles = 0;
-	f = fabs (x[i]->sum);
-	if (f == 0 && x[i]->moles == 0)
-	{
-	  x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
-	  continue;
-	}
-	else if (f == 0)
-	{
-	  repeat = TRUE;
-	  x[i]->master[0]->s->la += 5;
+				if (debug_set == TRUE)
+				{
+					output_msg (OUTPUT_MESSAGE,
+								"\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
+								x[i]->description, iter, (double) x[i]->sum,
+								(double) x[i]->moles,
+								(double) x[i]->master[0]->s->la);
+				}
+				if (fabs (x[i]->moles) < 1e-30)
+					x[i]->moles = 0;
+				f = fabs (x[i]->sum);
+				if (f == 0 && x[i]->moles == 0)
+				{
+					x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+					continue;
+				}
+				else if (f == 0)
+				{
+					repeat = TRUE;
+					x[i]->master[0]->s->la += 5;
 /*!!!!*/ if (x[i]->master[0]->s->la < -999.)
-	    x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+						x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+				}
+				else if (fail == TRUE && f < 1.5 * fabs (x[i]->moles))
+				{
+					continue;
+				}
+				else if (f > 1.5 * fabs (x[i]->moles)
+						 || f < 1e-5 * fabs (x[i]->moles))
+				{
+					weight = (f < 1e-5 * fabs (x[i]->moles)) ? 0.3 : 1.0;
+					if (x[i]->moles <= 0)
+					{
+						x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
+					}
+					else
+					{
+						repeat = TRUE;
+						x[i]->master[0]->s->la +=
+							weight * log10 (fabs (x[i]->moles / x[i]->sum));
+					}
+					if (debug_set == TRUE)
+					{
+						output_msg (OUTPUT_MESSAGE,
+									"\t%5s not converged in set %d: %e\t%e\t%e\n",
+									x[i]->description, iter,
+									(double) x[i]->sum, (double) x[i]->moles,
+									(double) x[i]->master[0]->s->la);
+					}
+				}
+			}
+			else if (x[i]->type == ALK)
+			{
+				f = total_co2;
+				if (fail == TRUE && f < 1.5 * fabs (x[i]->moles))
+				{
+					continue;
+				}
+				if (f > 1.5 * fabs (x[i]->moles)
+					|| f < 1e-5 * fabs (x[i]->moles))
+				{
+					repeat = TRUE;
+					weight = (f < 1e-5 * fabs (x[i]->moles)) ? 0.3 : 1.0;
+					x[i]->master[0]->s->la += weight *
+						log10 (fabs (x[i]->moles / x[i]->sum));
+					if (debug_set == TRUE)
+					{
+						output_msg (OUTPUT_MESSAGE,
+									"%s not converged in set. %e\t%e\t%e\n",
+									x[i]->description, (double) x[i]->sum,
+									(double) x[i]->moles,
+									(double) x[i]->master[0]->s->la);
+					}
+				}
+			}
+		}
 	}
-	else if (fail == TRUE && f < 1.5 * fabs (x[i]->moles))
+	output_msg (OUTPUT_LOG, "Iterations in revise_guesses: %d\n", iter);
+	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
+	if (mu_x <= 1e-8)
 	{
-	  continue;
+		mu_x = 1e-8;
 	}
-	else if (f > 1.5 * fabs (x[i]->moles)
-		 || f < 1e-5 * fabs (x[i]->moles))
-	{
-	  weight = (f < 1e-5 * fabs (x[i]->moles)) ? 0.3 : 1.0;
-	  if (x[i]->moles <= 0)
-	  {
-	    x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
-	  }
-	  else
-	  {
-	    repeat = TRUE;
-	    x[i]->master[0]->s->la +=
-	      weight * log10 (fabs (x[i]->moles / x[i]->sum));
-	  }
-	  if (debug_set == TRUE)
-	  {
-	    output_msg (OUTPUT_MESSAGE,
-			"\t%5s not converged in set %d: %e\t%e\t%e\n",
-			x[i]->description, iter, (double) x[i]->sum,
-			(double) x[i]->moles,
-			(double) x[i]->master[0]->s->la);
-	  }
-	}
-      }
-      else if (x[i]->type == ALK)
-      {
-	f = total_co2;
-	if (fail == TRUE && f < 1.5 * fabs (x[i]->moles))
-	{
-	  continue;
-	}
-	if (f > 1.5 * fabs (x[i]->moles) || f < 1e-5 * fabs (x[i]->moles))
-	{
-	  repeat = TRUE;
-	  weight = (f < 1e-5 * fabs (x[i]->moles)) ? 0.3 : 1.0;
-	  x[i]->master[0]->s->la += weight *
-	    log10 (fabs (x[i]->moles / x[i]->sum));
-	  if (debug_set == TRUE)
-	  {
-	    output_msg (OUTPUT_MESSAGE,
-			"%s not converged in set. %e\t%e\t%e\n",
-			x[i]->description, (double) x[i]->sum,
-			(double) x[i]->moles,
-			(double) x[i]->master[0]->s->la);
-	  }
-	}
-      }
-    }
-  }
-  output_msg (OUTPUT_LOG, "Iterations in revise_guesses: %d\n", iter);
-  /*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
-  if (mu_x <= 1e-8)
-  {
-    mu_x = 1e-8;
-  }
-  /*gammas(mu_x); */
-  return (OK);
+	/*gammas(mu_x); */
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1668,119 +1726,121 @@ int
 jacobian_pz (void)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE *base;
-  LDBLE d, d1, d2;
-  int i, j;
+	LDBLE *base;
+	LDBLE d, d1, d2;
+	int i, j;
 
-  if (full_pitzer == TRUE)
-  {
-    molalities (TRUE);
-    pitzer ();
-    residuals ();
-  }
-  base = (LDBLE *) PHRQ_malloc ((size_t) count_unknowns * sizeof (LDBLE));
-  if (base == NULL)
-    malloc_error ();
-  for (i = 0; i < count_unknowns; i++)
-  {
-    base[i] = residual[i];
-  }
-  d = 0.0001;
-  d1 = d * log (10.0);
-  d2 = 0;
-  for (i = 0; i < count_unknowns; i++)
-  {
-    switch (x[i]->type)
-    {
-    case MB:
-    case ALK:
-    case CB:
-    case SOLUTION_PHASE_BOUNDARY:
-    case EXCH:
-    case SURFACE:
-    case SURFACE_CB:
-    case SURFACE_CB1:
-    case SURFACE_CB2:
-      x[i]->master[0]->s->la += d;
-      d2 = d1;
-      break;
-    case AH2O:
-      x[i]->master[0]->s->la += d;
-      d2 = d1;
-      break;
-    case PITZER_GAMMA:
-      x[i]->s->lg += d;
-      d2 = d;
-      break;
-    case MH2O:
-      mass_water_aq_x *= (1.0 + d);
-      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
-      d2 = log (1.0 + d);
-      break;
-    case MH:
-      if (pitzer_pe == TRUE)
-      {
-	s_eminus->la += d;
-	d2 = d1;
-	break;
-      }
-      else
-      {
-	continue;
-      }
-    case MU:
-    case PP:
-    case GAS_MOLES:
-    case S_S_MOLES:
-      continue;
-      break;
-    }
-    molalities (TRUE);
-    if (full_pitzer == TRUE)
-      pitzer ();
-    mb_sums ();
-    residuals ();
-    for (j = 0; j < count_unknowns; j++)
-    {
-      array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
-    }
-    switch (x[i]->type)
-    {
-    case MB:
-    case ALK:
-    case CB:
-    case SOLUTION_PHASE_BOUNDARY:
-    case EXCH:
-    case SURFACE:
-    case SURFACE_CB:
-    case SURFACE_CB1:
-    case SURFACE_CB2:
-    case AH2O:
-      x[i]->master[0]->s->la -= d;
-      break;
-    case MH:
-      s_eminus->la -= d;
-      if (array[i * (count_unknowns + 1) + i] == 0)
-      {
-	array[i * (count_unknowns + 1) + i] = exp (s_h2->lm * LOG_10) * 2;
-      }
-      break;
-    case PITZER_GAMMA:
-      x[i]->s->lg -= d;
-      break;
-    case MH2O:
-      mass_water_aq_x /= (1 + d);
-      x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
-      break;
-    }
-  }
-  molalities (TRUE);
-  if (full_pitzer == TRUE)
-    pitzer ();
-  mb_sums ();
-  residuals ();
-  free_check_null (base);
-  return OK;
+	if (full_pitzer == TRUE)
+	{
+		molalities (TRUE);
+		pitzer ();
+		residuals ();
+	}
+	base = (LDBLE *) PHRQ_malloc ((size_t) count_unknowns * sizeof (LDBLE));
+	if (base == NULL)
+		malloc_error ();
+	for (i = 0; i < count_unknowns; i++)
+	{
+		base[i] = residual[i];
+	}
+	d = 0.0001;
+	d1 = d * log (10.0);
+	d2 = 0;
+	for (i = 0; i < count_unknowns; i++)
+	{
+		switch (x[i]->type)
+		{
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+		case SURFACE_CB1:
+		case SURFACE_CB2:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case AH2O:
+			x[i]->master[0]->s->la += d;
+			d2 = d1;
+			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg += d;
+			d2 = d;
+			break;
+		case MH2O:
+			mass_water_aq_x *= (1.0 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+			d2 = log (1.0 + d);
+			break;
+		case MH:
+			if (pitzer_pe == TRUE)
+			{
+				s_eminus->la += d;
+				d2 = d1;
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		case MU:
+		case PP:
+		case GAS_MOLES:
+		case S_S_MOLES:
+			continue;
+			break;
+		}
+		molalities (TRUE);
+		if (full_pitzer == TRUE)
+			pitzer ();
+		mb_sums ();
+		residuals ();
+		for (j = 0; j < count_unknowns; j++)
+		{
+			array[j * (count_unknowns + 1) + i] =
+				-(residual[j] - base[j]) / d2;
+		}
+		switch (x[i]->type)
+		{
+		case MB:
+		case ALK:
+		case CB:
+		case SOLUTION_PHASE_BOUNDARY:
+		case EXCH:
+		case SURFACE:
+		case SURFACE_CB:
+		case SURFACE_CB1:
+		case SURFACE_CB2:
+		case AH2O:
+			x[i]->master[0]->s->la -= d;
+			break;
+		case MH:
+			s_eminus->la -= d;
+			if (array[i * (count_unknowns + 1) + i] == 0)
+			{
+				array[i * (count_unknowns + 1) + i] =
+					exp (s_h2->lm * LOG_10) * 2;
+			}
+			break;
+		case PITZER_GAMMA:
+			x[i]->s->lg -= d;
+			break;
+		case MH2O:
+			mass_water_aq_x /= (1 + d);
+			x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
+			break;
+		}
+	}
+	molalities (TRUE);
+	if (full_pitzer == TRUE)
+		pitzer ();
+	mb_sums ();
+	residuals ();
+	free_check_null (base);
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1812,196 +1872,204 @@ model_pz (void)
  *      An additional pass through may be needed if unstable phases still exist
  *         in the phase assemblage. 
  */
-  int kode, return_kode;
-  int r;
-  int count_infeasible, count_basis_change;
-  int debug_model_save;
-  int mass_water_switch_save;
-  if (svnid == NULL)
-    fprintf (stderr, " ");
+	int kode, return_kode;
+	int r;
+	int count_infeasible, count_basis_change;
+	int debug_model_save;
+	int mass_water_switch_save;
+	if (svnid == NULL)
+		fprintf (stderr, " ");
 
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
-  /* mass_water_switch == TRUE, mass of water is constant */
-  mass_water_switch_save = mass_water_switch;
-  if (mass_water_switch_save == FALSE && delay_mass_water == TRUE)
-  {
-    mass_water_switch = TRUE;
-  }
-  debug_model_save = debug_model;
-  pe_step_size_now = pe_step_size;
-  step_size_now = step_size;
-  status (0, NULL);
-  iterations = 0;
-  gamma_iterations = 0;
-  count_basis_change = count_infeasible = 0;
-  stop_program = FALSE;
-  remove_unstable_phases = FALSE;
-  if (always_full_pitzer == TRUE)
-  {
-    full_pitzer = TRUE;
-  }
-  else
-  {
-    full_pitzer = FALSE;
-  }
-  for (;;)
-  {
-    mb_gases ();
-    mb_s_s ();
-    kode = 1;
-    while ((r = residuals ()) != CONVERGED || remove_unstable_phases == TRUE)
-    {
+	/* mass_water_switch == TRUE, mass of water is constant */
+	mass_water_switch_save = mass_water_switch;
+	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE)
+	{
+		mass_water_switch = TRUE;
+	}
+	debug_model_save = debug_model;
+	pe_step_size_now = pe_step_size;
+	step_size_now = step_size;
+	status (0, NULL);
+	iterations = 0;
+	gamma_iterations = 0;
+	count_basis_change = count_infeasible = 0;
+	stop_program = FALSE;
+	remove_unstable_phases = FALSE;
+	if (always_full_pitzer == TRUE)
+	{
+		full_pitzer = TRUE;
+	}
+	else
+	{
+		full_pitzer = FALSE;
+	}
+	for (;;)
+	{
+		mb_gases ();
+		mb_s_s ();
+		kode = 1;
+		while ((r = residuals ()) != CONVERGED
+			   || remove_unstable_phases == TRUE)
+		{
 #if defined(PHREEQCI_GUI)
-      if (WaitForSingleObject (g_hKill /*g_eventKill */ , 0) == WAIT_OBJECT_0)
-      {
-	error_msg ("Execution canceled by user.", CONTINUE);
-	RaiseException (USER_CANCELED_RUN, 0, 0, NULL);
-      }
+			if (WaitForSingleObject (g_hKill /*g_eventKill */ , 0) ==
+				WAIT_OBJECT_0)
+			{
+				error_msg ("Execution canceled by user.", CONTINUE);
+				RaiseException (USER_CANCELED_RUN, 0, 0, NULL);
+			}
 #endif
-      iterations++;
-      if (iterations > itmax - 1 && debug_model == FALSE
-	  && pr.logfile == TRUE)
-      {
-	set_forward_output_to_log (TRUE);
-	debug_model = TRUE;
-      }
-      if (debug_model == TRUE)
-      {
-	output_msg (OUTPUT_MESSAGE, "\nIteration %d\tStep_size = %f\n",
-		    iterations, (double) step_size_now);
-	output_msg (OUTPUT_MESSAGE, "\t\tPe_step_size = %f\n\n",
-		    (double) pe_step_size_now);
-      }
-      /*
-       *   Iterations exceeded
-       */
-      if (iterations > itmax)
-      {
-	sprintf (error_string, "Maximum iterations exceeded, %d\n", itmax);
-	warning_msg (error_string);
-	stop_program = TRUE;
-	break;
-      }
-      /*
-       *   Calculate jacobian
-       */
-      gammas_pz ();
-      jacobian_sums ();
-      jacobian_pz ();
-      /*
-       *   Full matrix with pure phases
-       */
-      if (r == OK || remove_unstable_phases == TRUE)
-      {
-	return_kode = ineq (kode);
-	if (return_kode != OK)
-	{
-	  if (debug_model == TRUE)
-	  {
-	    output_msg (OUTPUT_MESSAGE, "Ineq had infeasible solution, "
-			"kode %d, iteration %d\n", return_kode, iterations);
-	  }
-	  output_msg (OUTPUT_LOG, "Ineq had infeasible solution, "
-		      "kode %d, iteration %d\n", return_kode, iterations);
-	  count_infeasible++;
-	}
-	if (return_kode == 2)
-	{
-	  ineq (0);
-	}
-	reset ();
-      }
-      gammas_pz ();
-      if (full_pitzer == TRUE)
-	pitzer ();
-      if (always_full_pitzer == TRUE)
-      {
-	full_pitzer = TRUE;
-      }
-      else
-      {
-	full_pitzer = FALSE;
-      }
-      molalities (TRUE);
-      if (use.surface_ptr != NULL &&
-	  use.surface_ptr->dl_type != NO_DL &&
-	  use.surface_ptr->related_phases == TRUE)
-	initial_surface_water ();
-      mb_sums ();
-      mb_gases ();
-      mb_s_s ();
-      /* debug
-         species_list_sort();
-         sum_species();
-         print_species();
-         print_exchange();
-         print_surface();
-       */
-      if (stop_program == TRUE)
-      {
-	break;
-      }
-    }
+			iterations++;
+			if (iterations > itmax - 1 && debug_model == FALSE
+				&& pr.logfile == TRUE)
+			{
+				set_forward_output_to_log (TRUE);
+				debug_model = TRUE;
+			}
+			if (debug_model == TRUE)
+			{
+				output_msg (OUTPUT_MESSAGE,
+							"\nIteration %d\tStep_size = %f\n", iterations,
+							(double) step_size_now);
+				output_msg (OUTPUT_MESSAGE, "\t\tPe_step_size = %f\n\n",
+							(double) pe_step_size_now);
+			}
+			/*
+			 *   Iterations exceeded
+			 */
+			if (iterations > itmax)
+			{
+				sprintf (error_string, "Maximum iterations exceeded, %d\n",
+						 itmax);
+				warning_msg (error_string);
+				stop_program = TRUE;
+				break;
+			}
+			/*
+			 *   Calculate jacobian
+			 */
+			gammas_pz ();
+			jacobian_sums ();
+			jacobian_pz ();
+			/*
+			 *   Full matrix with pure phases
+			 */
+			if (r == OK || remove_unstable_phases == TRUE)
+			{
+				return_kode = ineq (kode);
+				if (return_kode != OK)
+				{
+					if (debug_model == TRUE)
+					{
+						output_msg (OUTPUT_MESSAGE,
+									"Ineq had infeasible solution, "
+									"kode %d, iteration %d\n", return_kode,
+									iterations);
+					}
+					output_msg (OUTPUT_LOG, "Ineq had infeasible solution, "
+								"kode %d, iteration %d\n", return_kode,
+								iterations);
+					count_infeasible++;
+				}
+				if (return_kode == 2)
+				{
+					ineq (0);
+				}
+				reset ();
+			}
+			gammas_pz ();
+			if (full_pitzer == TRUE)
+				pitzer ();
+			if (always_full_pitzer == TRUE)
+			{
+				full_pitzer = TRUE;
+			}
+			else
+			{
+				full_pitzer = FALSE;
+			}
+			molalities (TRUE);
+			if (use.surface_ptr != NULL &&
+				use.surface_ptr->dl_type != NO_DL &&
+				use.surface_ptr->related_phases == TRUE)
+				initial_surface_water ();
+			mb_sums ();
+			mb_gases ();
+			mb_s_s ();
+			/* debug
+			   species_list_sort();
+			   sum_species();
+			   print_species();
+			   print_exchange();
+			   print_surface();
+			 */
+			if (stop_program == TRUE)
+			{
+				break;
+			}
+		}
 /*
  *   Check for stop_program
  */
 
-    if (stop_program == TRUE)
-    {
-      break;
-    }
-    if (check_residuals () == ERROR)
-    {
-      stop_program = TRUE;
-      break;
-    }
-    if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE &&
-	mass_water_switch == TRUE)
-    {
-      output_msg (OUTPUT_LOG,
-		  "\nChanging water switch to FALSE. Iteration %d.\n",
-		  iterations);
-      mass_water_switch = FALSE;
-      continue;
-    }
-    gamma_iterations++;
-    if (gamma_iterations > itmax)
-    {
-      sprintf (error_string, "Maximum gamma iterations exceeded, %d\n",
-	       itmax);
-      warning_msg (error_string);
-      stop_program = TRUE;
-      break;
-    }
-    if (check_gammas_pz () != TRUE)
-    {
-      full_pitzer = TRUE;
-      continue;
-    }
-    if (remove_unstable_phases == FALSE)
-      break;
-    if (debug_model == TRUE)
-    {
-      output_msg (OUTPUT_MESSAGE,
-		  "\nRemoving unstable phases. Iteration %d.\n", iterations);
-    }
-    output_msg (OUTPUT_LOG, "\nRemoving unstable phases. Iteration %d.\n",
-		iterations);
-  }
-  output_msg (OUTPUT_LOG, "\nNumber of infeasible solutions: %d\n",
-	      count_infeasible);
-  output_msg (OUTPUT_LOG, "Number of basis changes: %d\n\n",
-	      count_basis_change);
-  output_msg (OUTPUT_LOG, "Number of iterations: %d\n\n", iterations);
-  debug_model = debug_model_save;
-  set_forward_output_to_log (FALSE);
-  if (stop_program == TRUE)
-  {
-    return (ERROR);
-  }
-  return (OK);
+		if (stop_program == TRUE)
+		{
+			break;
+		}
+		if (check_residuals () == ERROR)
+		{
+			stop_program = TRUE;
+			break;
+		}
+		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
+			&& mass_water_switch == TRUE)
+		{
+			output_msg (OUTPUT_LOG,
+						"\nChanging water switch to FALSE. Iteration %d.\n",
+						iterations);
+			mass_water_switch = FALSE;
+			continue;
+		}
+		gamma_iterations++;
+		if (gamma_iterations > itmax)
+		{
+			sprintf (error_string, "Maximum gamma iterations exceeded, %d\n",
+					 itmax);
+			warning_msg (error_string);
+			stop_program = TRUE;
+			break;
+		}
+		if (check_gammas_pz () != TRUE)
+		{
+			full_pitzer = TRUE;
+			continue;
+		}
+		if (remove_unstable_phases == FALSE)
+			break;
+		if (debug_model == TRUE)
+		{
+			output_msg (OUTPUT_MESSAGE,
+						"\nRemoving unstable phases. Iteration %d.\n",
+						iterations);
+		}
+		output_msg (OUTPUT_LOG, "\nRemoving unstable phases. Iteration %d.\n",
+					iterations);
+	}
+	output_msg (OUTPUT_LOG, "\nNumber of infeasible solutions: %d\n",
+				count_infeasible);
+	output_msg (OUTPUT_LOG, "Number of basis changes: %d\n\n",
+				count_basis_change);
+	output_msg (OUTPUT_LOG, "Number of iterations: %d\n\n", iterations);
+	debug_model = debug_model_save;
+	set_forward_output_to_log (FALSE);
+	if (stop_program == TRUE)
+	{
+		return (ERROR);
+	}
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -2009,30 +2077,30 @@ int
 check_gammas_pz (void)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE old_aw, old_mu, tol;
-  int converge, i;
+	LDBLE old_aw, old_mu, tol;
+	int converge, i;
 
-  old_mu = mu_x;
-  old_aw = s_h2o->la;
-  pitzer ();
-  molalities (TRUE);
-  mb_sums ();
-  converge = TRUE;
-  tol = convergence_tolerance * 10.;
-  for (i = 0; i < count_unknowns; i++)
-  {
-    if (x[i]->type != PITZER_GAMMA)
-      continue;
-    if (fabs (x[i]->s->lg - x[i]->s->lg_pitzer) > tol)
-    {
-      converge = FALSE;
-    }
-  }
-  if (fabs (old_mu - mu_x) > tol)
-    converge = FALSE;
-  if ((pow (10.0, s_h2o->la) - AW) > tol)
-    converge = FALSE;
-  return converge;
+	old_mu = mu_x;
+	old_aw = s_h2o->la;
+	pitzer ();
+	molalities (TRUE);
+	mb_sums ();
+	converge = TRUE;
+	tol = convergence_tolerance * 10.;
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (x[i]->type != PITZER_GAMMA)
+			continue;
+		if (fabs (x[i]->s->lg - x[i]->s->lg_pitzer) > tol)
+		{
+			converge = FALSE;
+		}
+	}
+	if (fabs (old_mu - mu_x) > tol)
+		converge = FALSE;
+	if ((pow (10.0, s_h2o->la) - AW) > tol)
+		converge = FALSE;
+	return converge;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -2043,59 +2111,60 @@ gammas_pz ()
 /*
  *   Need exchange gammas for pitzer
  */
-  int i, j;
-  LDBLE coef;
-  /* Initialize */
+	int i, j;
+	LDBLE coef;
+	/* Initialize */
 /*
  *   Calculate activity coefficients
  */
-  for (i = 0; i < count_s_x; i++)
-  {
-    switch (s_x[i]->gflag)
-    {
-    case 0:			/* uncharged */
-    case 1:			/* Davies */
-    case 2:			/* Extended D-H, WATEQ D-H */
-    case 3:			/* Always 1.0 */
-      break;
-    case 4:			/* Exchange */
-      /* Now calculated in next loop */
-      break;
-    case 5:			/* Always 1.0 */
-      break;
-    case 6:			/* Surface */
+	for (i = 0; i < count_s_x; i++)
+	{
+		switch (s_x[i]->gflag)
+		{
+		case 0:				/* uncharged */
+		case 1:				/* Davies */
+		case 2:				/* Extended D-H, WATEQ D-H */
+		case 3:				/* Always 1.0 */
+			break;
+		case 4:				/* Exchange */
+			/* Now calculated in next loop */
+			break;
+		case 5:				/* Always 1.0 */
+			break;
+		case 6:				/* Surface */
 /*
  *   Find moles of sites. 
  *   s_x[i]->equiv is stoichiometric coefficient of sites in species
  */
-      for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
-      {
-	if (s_x[i]->rxn_x->token[j].s->type == SURF)
-	{
-	  s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
-	  break;
-	}
-      }
-      if (s_x[i]->alk > 0)
-      {
-	s_x[i]->lg = log10 (s_x[i]->equiv / s_x[i]->alk);
-	s_x[i]->dg = 0.0;
-      }
-      else
-      {
-	s_x[i]->lg = 0.0;
-	s_x[i]->dg = 0.0;
-      }
-      break;
-    case 7:			/* LLNL */
-      break;
-    case 8:			/* LLNL CO2 */
-      break;
-    case 9:			/* activity water */
-      s_x[i]->lg = log10 (exp (s_h2o->la * LOG_10) * gfw_water);
-      s_x[i]->dg = 0.0;
-      break;
-    }
+			for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
+			{
+				if (s_x[i]->rxn_x->token[j].s->type == SURF)
+				{
+					s_x[i]->alk =
+						s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
+					break;
+				}
+			}
+			if (s_x[i]->alk > 0)
+			{
+				s_x[i]->lg = log10 (s_x[i]->equiv / s_x[i]->alk);
+				s_x[i]->dg = 0.0;
+			}
+			else
+			{
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+			}
+			break;
+		case 7:				/* LLNL */
+			break;
+		case 8:				/* LLNL CO2 */
+			break;
+		case 9:				/* activity water */
+			s_x[i]->lg = log10 (exp (s_h2o->la * LOG_10) * gfw_water);
+			s_x[i]->dg = 0.0;
+			break;
+		}
 /*
 		if (mu_unknown != NULL) {
 			if (fabs(residual[mu_unknown->number]) > 0.1 &&
@@ -2104,76 +2173,78 @@ gammas_pz ()
 			}
 		}
  */
-  }
-  /*
-   *  calculate exchange gammas 
-   */
-
-  if (use.exchange_ptr != NULL)
-  {
-    for (i = 0; i < count_s_x; i++)
-    {
-      switch (s_x[i]->gflag)
-      {
-      case 0:			/* uncharged */
-      case 1:			/* Davies */
-      case 2:			/* Extended D-H, WATEQ D-H */
-      case 3:			/* Always 1.0 */
-      case 5:			/* Always 1.0 */
-      case 6:			/* Surface */
-      case 7:			/* LLNL */
-      case 8:			/* LLNL CO2 */
-      case 9:			/* activity water */
-	break;
-      case 4:			/* Exchange */
-
-	/*
-	 *   Find CEC
-	 *   z contains valence of cation for exchange species, alk contains cec
-	 */
-	/* !!!!! */
-	for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
-	{
-	  if (s_x[i]->rxn_x->token[j].s->type == EX)
-	  {
-	    s_x[i]->alk = s_x[i]->rxn_x->token[j].s->primary->unknown->moles;
-	    break;
-	  }
 	}
 	/*
-	 *   Master species is a dummy variable with meaningless activity and mass
-	 */
-	s_x[i]->lg = 0.0;
-	s_x[i]->dg = 0.0;
-	if (s_x[i]->primary != NULL)
-	{
-	  break;
-	}
-	/*
-	 *   All other species
+	 *  calculate exchange gammas 
 	 */
 
-	/* modific 29 july 2005... */
-	if (s_x[i]->equiv != 0 && s_x[i]->alk > 0)
+	if (use.exchange_ptr != NULL)
 	{
-	  s_x[i]->lg = log10 (fabs (s_x[i]->equiv) / s_x[i]->alk);
+		for (i = 0; i < count_s_x; i++)
+		{
+			switch (s_x[i]->gflag)
+			{
+			case 0:			/* uncharged */
+			case 1:			/* Davies */
+			case 2:			/* Extended D-H, WATEQ D-H */
+			case 3:			/* Always 1.0 */
+			case 5:			/* Always 1.0 */
+			case 6:			/* Surface */
+			case 7:			/* LLNL */
+			case 8:			/* LLNL CO2 */
+			case 9:			/* activity water */
+				break;
+			case 4:			/* Exchange */
+
+				/*
+				 *   Find CEC
+				 *   z contains valence of cation for exchange species, alk contains cec
+				 */
+				/* !!!!! */
+				for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
+				{
+					if (s_x[i]->rxn_x->token[j].s->type == EX)
+					{
+						s_x[i]->alk =
+							s_x[i]->rxn_x->token[j].s->primary->unknown->
+							moles;
+						break;
+					}
+				}
+				/*
+				 *   Master species is a dummy variable with meaningless activity and mass
+				 */
+				s_x[i]->lg = 0.0;
+				s_x[i]->dg = 0.0;
+				if (s_x[i]->primary != NULL)
+				{
+					break;
+				}
+				/*
+				 *   All other species
+				 */
+
+				/* modific 29 july 2005... */
+				if (s_x[i]->equiv != 0 && s_x[i]->alk > 0)
+				{
+					s_x[i]->lg = log10 (fabs (s_x[i]->equiv) / s_x[i]->alk);
+				}
+				if (use.exchange_ptr->pitzer_exchange_gammas == TRUE)
+				{
+					/* Assume equal gamma's of solute and exchangeable species...  */
+					for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
+					{
+						if (s_x[i]->rxn_x->token[j].s->type == EX)
+							continue;
+						coef = s_x[i]->rxn_x->token[j].coef;
+						s_x[i]->lg += coef * s_x[i]->rxn_x->token[j].s->lg;
+						s_x[i]->dg += coef * s_x[i]->rxn_x->token[j].s->dg;
+					}
+				}
+			}
+		}
 	}
-	if (use.exchange_ptr->pitzer_exchange_gammas == TRUE)
-	{
-	  /* Assume equal gamma's of solute and exchangeable species...  */
-	  for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)
-	  {
-	    if (s_x[i]->rxn_x->token[j].s->type == EX)
-	      continue;
-	    coef = s_x[i]->rxn_x->token[j].coef;
-	    s_x[i]->lg += coef * s_x[i]->rxn_x->token[j].s->lg;
-	    s_x[i]->dg += coef * s_x[i]->rxn_x->token[j].s->dg;
-	  }
-	}
-      }
-    }
-  }
 /* ...end modific 29 july 2005 */
 
-  return (OK);
+	return (OK);
 }

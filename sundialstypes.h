@@ -64,10 +64,10 @@
  *******************************************************************/
 #ifdef PHREEQC_IDENT
 static char const svnidsundialstypes[] =
-  "$Id$";
+	"$Id$";
 #endif
 
-#ifdef __cplusplus		/* wrapper to enable C++ usage */
+#ifdef __cplusplus				/* wrapper to enable C++ usage */
 extern "C"
 {
 #endif
@@ -88,11 +88,11 @@ extern "C"
  ******************************************************************/
 
 #ifdef USE_LONG_DOUBLE
-  typedef long double realtype;
+	typedef long double realtype;
 #else
-  typedef double realtype;
+	typedef double realtype;
 #endif
-  typedef long int integertype;
+	typedef long int integertype;
 
 #define SUNDIALS_FLOAT  0
 #define SUNDIALS_DOUBLE 1

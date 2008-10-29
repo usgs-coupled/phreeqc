@@ -21,10 +21,10 @@
  *******************************************************************/
 #ifdef PHREEQC_IDENT
 static char const svnidsmalldense[] =
-  "$Id$";
+	"$Id$";
 #endif
 
-#ifdef __cplusplus		/* wrapper to enable C++ usage */
+#ifdef __cplusplus				/* wrapper to enable C++ usage */
 extern "C"
 {
 #endif
@@ -55,7 +55,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  realtype **denalloc (integertype n);
+	realtype **denalloc (integertype n);
 
 
 /******************************************************************
@@ -71,7 +71,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  integertype *denallocpiv (integertype n);
+	integertype *denallocpiv (integertype n);
 
 
 /******************************************************************
@@ -106,7 +106,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  integertype gefa (realtype ** a, integertype n, integertype * p);
+	integertype gefa (realtype ** a, integertype n, integertype * p);
 
 
 /******************************************************************
@@ -123,7 +123,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void gesl (realtype ** a, integertype n, integertype * p, realtype * b);
+	void gesl (realtype ** a, integertype n, integertype * p, realtype * b);
 
 
 /******************************************************************
@@ -136,7 +136,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denzero (realtype ** a, integertype n);
+	void denzero (realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -149,7 +149,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void dencopy (realtype ** a, realtype ** b, integertype n);
+	void dencopy (realtype ** a, realtype ** b, integertype n);
 
 
 /******************************************************************
@@ -162,7 +162,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denscale (realtype c, realtype ** a, integertype n);
+	void denscale (realtype c, realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -175,7 +175,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denaddI (realtype ** a, integertype n);
+	void denaddI (realtype ** a, integertype n);
 
 
 /******************************************************************
@@ -188,7 +188,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denfreepiv (integertype * p);
+	void denfreepiv (integertype * p);
 
 
 /******************************************************************
@@ -200,7 +200,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denfree (realtype ** a);
+	void denfree (realtype ** a);
 
 
 /******************************************************************
@@ -216,7 +216,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  void denprint (realtype ** a, integertype n);
+	void denprint (realtype ** a, integertype n);
 
 
 #endif

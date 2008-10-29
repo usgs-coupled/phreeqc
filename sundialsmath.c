@@ -21,7 +21,7 @@
 #include "output.h"
 
 static char const svnid[] =
-  "$Id$";
+	"$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
@@ -31,35 +31,35 @@ static char const svnid[] =
 realtype
 UnitRoundoff (void)
 {
-  realtype u;
-  volatile realtype one_plus_u;
+	realtype u;
+	volatile realtype one_plus_u;
 
-  u = ONE;
-  one_plus_u = ONE + u;
-  while (one_plus_u != ONE)
-  {
-    u /= TWO;
-    one_plus_u = ONE + u;
-  }
-  u *= TWO;
+	u = ONE;
+	one_plus_u = ONE + u;
+	while (one_plus_u != ONE)
+	{
+		u /= TWO;
+		one_plus_u = ONE + u;
+	}
+	u *= TWO;
 
-  return (u);
+	return (u);
 }
 
 
 realtype
 RPowerI (realtype base, int exponent)
 {
-  int i, expt;
-  realtype prod;
+	int i, expt;
+	realtype prod;
 
-  prod = ONE;
-  expt = ABS (exponent);
-  for (i = 1; i <= expt; i++)
-    prod *= base;
-  if (exponent < 0)
-    prod = ONE / prod;
-  return (prod);
+	prod = ONE;
+	expt = ABS (exponent);
+	for (i = 1; i <= expt; i++)
+		prod *= base;
+	if (exponent < 0)
+		prod = ONE / prod;
+	return (prod);
 }
 
 
@@ -67,20 +67,20 @@ realtype
 RPowerR (realtype base, realtype exponent)
 {
 
-  if (base <= ZERO)
-    return (ZERO);
+	if (base <= ZERO)
+		return (ZERO);
 
-  /*  return((realtype)pow((double)base,(double)exponent)); */
-  return ((realtype) pow (base, exponent));
+	/*  return((realtype)pow((double)base,(double)exponent)); */
+	return ((realtype) pow (base, exponent));
 }
 
 
 realtype
 RSqrt (realtype x)
 {
-  if (x <= ZERO)
-    return (ZERO);
+	if (x <= ZERO)
+		return (ZERO);
 
-  /*  return((realtype) sqrt((double) x)); */
-  return ((realtype) sqrt (x));
+	/*  return((realtype) sqrt((double) x)); */
+	return ((realtype) sqrt (x));
 }

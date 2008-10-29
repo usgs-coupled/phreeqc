@@ -24,10 +24,10 @@
  *******************************************************************/
 #ifdef PHREEQC_IDENT
 static char const svnidsundialsmath[] =
-  "$Id$";
+	"$Id$";
 #endif
 
-#ifdef __cplusplus		/* wrapper to enable C++ usage */
+#ifdef __cplusplus				/* wrapper to enable C++ usage */
 extern "C"
 {
 #endif
@@ -79,7 +79,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  realtype UnitRoundoff (void);
+	realtype UnitRoundoff (void);
 
 
 /******************************************************************
@@ -94,7 +94,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  realtype RPowerI (realtype base, int exponent);
+	realtype RPowerI (realtype base, int exponent);
 
 
 /******************************************************************
@@ -108,7 +108,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  realtype RPowerR (realtype base, realtype exponent);
+	realtype RPowerR (realtype base, realtype exponent);
 
 
 /******************************************************************
@@ -122,7 +122,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  realtype RSqrt (realtype x);
+	realtype RSqrt (realtype x);
 
 
 #endif

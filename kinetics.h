@@ -1,6 +1,6 @@
 #ifdef PHREEQC_IDENT
 static char const svnidkinetics[] =
-  "$Id$";
+	"$Id$";
 #endif
 KINETICS_EXTERNAL void *cvode_kinetics_ptr;
 KINETICS_EXTERNAL int cvode_test;

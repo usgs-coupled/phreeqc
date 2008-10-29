@@ -19,10 +19,10 @@
  *******************************************************************/
 #ifdef PHREEQC_IDENT
 static char const svnidcvdense[] =
-  "$Id$";
+	"$Id$";
 #endif
 
-#ifdef __cplusplus		/* wrapper to enable C++ usage */
+#ifdef __cplusplus				/* wrapper to enable C++ usage */
 extern "C"
 {
 #endif
@@ -59,8 +59,8 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  enum
-  { DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
+	enum
+	{ DENSE_NJE = CVODE_IOPT_SIZE, DENSE_LRW, DENSE_LIW };
 
 
 /******************************************************************
@@ -150,12 +150,12 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  typedef void (*CVDenseJacFn) (integertype N, DenseMat J, RhsFn f,
-				void *f_data, realtype t, N_Vector y,
-				N_Vector fy, N_Vector ewt, realtype h,
-				realtype uround, void *jac_data,
-				long int *nfePtr, N_Vector vtemp1,
-				N_Vector vtemp2, N_Vector vtemp3);
+	typedef void (*CVDenseJacFn) (integertype N, DenseMat J, RhsFn f,
+								  void *f_data, realtype t, N_Vector y,
+								  N_Vector fy, N_Vector ewt, realtype h,
+								  realtype uround, void *jac_data,
+								  long int *nfePtr, N_Vector vtemp1,
+								  N_Vector vtemp2, N_Vector vtemp3);
 
 
 /******************************************************************
@@ -190,7 +190,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  int CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+	int CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 /******************************************************************
@@ -218,7 +218,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-  int CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+	int CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 #endif
