@@ -594,7 +594,7 @@ read_transport (void)
       }
       interlayer_Dpor = 0.1;
       interlayer_Dpor_lim = 0.0;
-      interlayer_tortf = 10.0;
+      interlayer_tortf = 100.0;
       if (copy_token (token, &next_char, &l) == EMPTY)
 	break;
       else
@@ -914,7 +914,7 @@ read_transport (void)
   {
     input_error++;
     sprintf (error_string,
-	     "Only one stagant layer permitted (-stag) when modeling thermal diffusion.");
+	     "Only one stagnant layer permitted (-stag) when modeling thermal diffusion.");
     error_msg (error_string, CONTINUE);
   }
 /*

@@ -8,8 +8,17 @@ File contains:
 ************************************************************
 ************************************************************
         --------
+        svn 3160
+        --------	
+
+	Surface charge must be higher than -3000 equivalents,
+	when the diffuse double layer composition is
+	calculated with option -donnan.
+
+        --------
         svn 3149
         --------
+        
 	Diffusion through DDL water is multiplied with c_DDL,i / c_i
 	with option -only_counter false. c_DDL,i is the concentration in
 	DDL water, c_i is the concentration in free porewater. (Previous
@@ -30,10 +39,10 @@ File contains:
 		interlayer porosity is 0.09 (default = 0.1),
 		the porosity where interlayer diffusion stops is 0.01
 		 (default is 0),
-		the tortuosity factor is 10 (default = 10).
+		the tortuosity factor is 150 (default = 100).
 
 	        TRANSPORT
-		-interlayer_D true 0.09 0.01 10
+		-interlayer_D true 0.09 0.01 150
 
 	With interlayer_D true, also -multi_D true (and other
 	parameters) must be set, for example:
@@ -51,7 +60,7 @@ File contains:
 		water). L interlayer water = (L porewater + L DDL-
 		water) * (interlayer porosity / free porewater porosity),
 	grad(beta) is the gradient of the equivalent fraction.
-	
+
         --------
         svn 2969
         --------
@@ -1135,21 +1144,6 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
-        --------
-	svn 3136
-        --------
-	Error corrected in CD-Music model. A species added
-	to obtain charge balance could have had a negative
-	concentration. The error caused an incorrect sigma
-	ddl and occasional nonconvergence.
-
-        --------
-	svn 3135
-        --------
-	Check for zero divide in calculation of fraction of
-	water in diffuse double layer. Could be zero if
-	the surface is related to a mineral that is absent.
-
         --------
 	svn 3100
         --------

@@ -829,7 +829,7 @@ calc_all_donnan (void)
   int count_g, count_charge, converge;
   char name[MAX_LENGTH];
   LDBLE new_g, f_psi, surf_chrg_eq, psi_avg, f_sinh, A_surf, ratio_aq;
-  LDBLE new_g2, f_psi2, surf_chrg_eq2, psi_avg2, dif;
+  LDBLE new_g2, f_psi2, surf_chrg_eq2, psi_avg2, dif, var1;
   LDBLE cz, cm, cp;
 
   if (use.surface_ptr == NULL)
@@ -887,6 +887,14 @@ calc_all_donnan (void)
       x[j]->surface_charge->specific_area * x[j]->surface_charge->grams;
     f_psi = x[j]->master[0]->s->la * LOG_10;
     surf_chrg_eq = A_surf * f_sinh * sinh (f_psi) / F_C_MOL;
+    if (surf_chrg_eq < -5e3) {
+      surf_chrg_eq = -5e3;
+      var1 = surf_chrg_eq / (A_surf * f_sinh / F_C_MOL);
+      var1 = (var1 + sqrt(var1 * var1 + 1));
+      f_psi = (var1 > 1e-8 ? log(var1) : -18.4);
+      surf_chrg_eq = A_surf * f_sinh * sinh (f_psi) / F_C_MOL;
+      x[j]->master[0]->s->la = f_psi / LOG_10;
+    }
     /* also for the derivative... */
     dif = 1e-5;
     f_psi2 = f_psi + dif;

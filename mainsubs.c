@@ -170,7 +170,7 @@ initialize (void)
   timest = 0.0;
   multi_Dflag = FALSE;
   interlayer_Dflag = FALSE;
-  interlayer_tortf = 10.0;
+  interlayer_tortf = 100.0;
   interlayer_Dpor = 0.1;
 /* !!!!        count_stag = 0; */
   mcd_substeps = 1.0;
