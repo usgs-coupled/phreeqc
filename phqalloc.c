@@ -35,25 +35,25 @@ static PHRQMemHeader *s_pTail = NULL;
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
 void *
-PHRQ_malloc (size_t size, const char *szFileName, int nLine)
+PHRQ_malloc(size_t size, const char *szFileName, int nLine)
 #else
 void *
-PHRQ_malloc (size_t size)
+PHRQ_malloc(size_t size)
 #endif
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
-	assert ((s_pTail == NULL) || (s_pTail->pNext == NULL));
+	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
-	p = (PHRQMemHeader *) malloc (sizeof (PHRQMemHeader) + size);
+	p = (PHRQMemHeader *) malloc(sizeof(PHRQMemHeader) + size);
 
 	if (p == NULL)
 		return NULL;
 
-	memset (p, 0, sizeof (PHRQMemHeader) + size);
+	memset(p, 0, sizeof(PHRQMemHeader) + size);
 	p->pNext = NULL;
 
 	if ((p->pPrev = s_pTail) != NULL)
@@ -61,11 +61,11 @@ PHRQ_malloc (size_t size)
 		s_pTail->pNext = p;
 	}
 
-	p->size = sizeof (PHRQMemHeader) + size;
+	p->size = sizeof(PHRQMemHeader) + size;
 #if !defined(NDEBUG)
-	p->szFileName = (char *) malloc (strlen (szFileName) + 1);
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName)
-		strcpy (p->szFileName, szFileName);
+		strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif
 
@@ -76,12 +76,12 @@ PHRQ_malloc (size_t size)
 
 /* ---------------------------------------------------------------------- */
 void
-PHRQ_free (void *ptr)
+PHRQ_free(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
 
-	assert ((s_pTail == NULL) || (s_pTail->pNext == NULL));
+	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
 	if (ptr == NULL)
 		return;
@@ -95,8 +95,8 @@ PHRQ_free (void *ptr)
 	else
 	{
 		/* Handle special case when (p == s_pTail) */
-		assert (s_pTail != NULL);
-		assert (p == s_pTail);
+		assert(s_pTail != NULL);
+		assert(p == s_pTail);
 		s_pTail = p->pPrev;
 	}
 
@@ -106,23 +106,23 @@ PHRQ_free (void *ptr)
 	}
 
 #if !defined(NDEBUG)
-	free (p->szFileName);
+	free(p->szFileName);
 #endif
 
-	free (p);
+	free(p);
 }
 
 /* ---------------------------------------------------------------------- */
 void
-PHRQ_free_all (void)
+PHRQ_free_all(void)
 /* ---------------------------------------------------------------------- */
 {
-	assert ((s_pTail == NULL) || (s_pTail->pNext == NULL));
+	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
 	if (s_pTail == NULL)
 	{
 #if !defined(NDEBUG)
-		output_msg (OUTPUT_MESSAGE, "No memory leaks\n");
+		output_msg(OUTPUT_MESSAGE, "No memory leaks\n");
 #endif
 		return;
 	}
@@ -130,43 +130,43 @@ PHRQ_free_all (void)
 	{
 		s_pTail = s_pTail->pPrev;
 #if !defined(NDEBUG)
-		output_msg (OUTPUT_MESSAGE, "%s(%d) %p: freed in PHRQ_free_all\n",
-					s_pTail->pNext->szFileName, s_pTail->pNext->nLine,
-					(void *) (s_pTail->pNext + 1));
-		free (s_pTail->pNext->szFileName);
+		output_msg(OUTPUT_MESSAGE, "%s(%d) %p: freed in PHRQ_free_all\n",
+				   s_pTail->pNext->szFileName, s_pTail->pNext->nLine,
+				   (void *) (s_pTail->pNext + 1));
+		free(s_pTail->pNext->szFileName);
 #endif
-		free (s_pTail->pNext);
+		free(s_pTail->pNext);
 	}
 
 #if !defined(NDEBUG)
-	output_msg (OUTPUT_MESSAGE, "%s(%d) %p: freed in PHRQ_free_all\n",
-				s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1));
+	output_msg(OUTPUT_MESSAGE, "%s(%d) %p: freed in PHRQ_free_all\n",
+			   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1));
 	if (phast == TRUE)
 	{
-		output_msg (OUTPUT_STDERR, "%s(%d) %p: freed in PHRQ_free_all, %d\n",
-					s_pTail->szFileName, s_pTail->nLine,
-					(void *) (s_pTail + 1), phreeqc_mpi_myself);
+		output_msg(OUTPUT_STDERR, "%s(%d) %p: freed in PHRQ_free_all, %d\n",
+				   s_pTail->szFileName, s_pTail->nLine,
+				   (void *) (s_pTail + 1), phreeqc_mpi_myself);
 	}
-	free (s_pTail->szFileName);
+	free(s_pTail->szFileName);
 #endif
-	free (s_pTail);
+	free(s_pTail);
 	s_pTail = NULL;
 }
 
 /* ---------------------------------------------------------------------- */
 void *
-PHRQ_calloc (size_t num, size_t size
+PHRQ_calloc(size_t num, size_t size
 #if !defined(NDEBUG)
-			 , const char *szFileName, int nLine
+			, const char *szFileName, int nLine
 #endif
 	)
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
 
-	assert ((s_pTail == NULL) || (s_pTail->pNext == NULL));
+	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
-	p = (PHRQMemHeader *) malloc (sizeof (PHRQMemHeader) + size * num);
+	p = (PHRQMemHeader *) malloc(sizeof(PHRQMemHeader) + size * num);
 
 	if (p == NULL)
 		return NULL;
@@ -179,23 +179,23 @@ PHRQ_calloc (size_t num, size_t size
 	}
 
 #if !defined(NDEBUG)
-	p->size = sizeof (PHRQMemHeader) + size * num;
-	p->szFileName = (char *) malloc (strlen (szFileName) + 1);
+	p->size = sizeof(PHRQMemHeader) + size * num;
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName)
-		strcpy (p->szFileName, szFileName);
+		strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif
 
 	s_pTail = p;
 	p++;
-	return memset (p, 0, size * num);
+	return memset(p, 0, size * num);
 }
 
 /* ---------------------------------------------------------------------- */
 void *
-PHRQ_realloc (void *ptr, size_t size
+PHRQ_realloc(void *ptr, size_t size
 #if !defined(NDEBUG)
-			  , const char *szFileName, int nLine
+			 , const char *szFileName, int nLine
 #endif
 	)
 /* ---------------------------------------------------------------------- */
@@ -206,27 +206,27 @@ PHRQ_realloc (void *ptr, size_t size
 
 	if (ptr == NULL)
 	{
-		return PHRQ_malloc (size
+		return PHRQ_malloc(size
 #if !defined(NDEBUG)
-							, szFileName, nLine
+						   , szFileName, nLine
 #endif
 			);
 	}
 
-	assert ((s_pTail == NULL) || (s_pTail->pNext == NULL));
+	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
 	p = (PHRQMemHeader *) ptr - 1;
 
-	new_size = sizeof (PHRQMemHeader) + size;
+	new_size = sizeof(PHRQMemHeader) + size;
 
 	old_size = p->size;
-	p = (PHRQMemHeader *) realloc (p, new_size);
+	p = (PHRQMemHeader *) realloc(p, new_size);
 	if (p != NULL)
 	{
 		p->size = new_size;
 		if (new_size > old_size)
 		{
-			memset ((char *) p + old_size, 0, new_size - old_size);
+			memset((char *) p + old_size, 0, new_size - old_size);
 		}
 	}
 
@@ -248,10 +248,10 @@ PHRQ_realloc (void *ptr, size_t size
 	}
 
 #if !defined(NDEBUG)
-	free (p->szFileName);
-	p->szFileName = (char *) malloc (strlen (szFileName) + 1);
+	free(p->szFileName);
+	p->szFileName = (char *) malloc(strlen(szFileName) + 1);
 	if (p->szFileName)
-		strcpy (p->szFileName, szFileName);
+		strcpy(p->szFileName, szFileName);
 	p->nLine = nLine;
 #endif
 

@@ -35,7 +35,7 @@ struct tally *tally_table;
 int count_tally_table_columns;
 int count_tally_table_rows;
 
-static int elt_list_to_tally_table (struct tally_buffer *buffer_ptr);
+static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
 
 /*   
      Calling sequence 
@@ -94,7 +94,7 @@ int free_tally_table(void);       Frees space
 
 /* ---------------------------------------------------------------------- */
 int
-get_all_components (void)
+get_all_components(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -108,7 +108,7 @@ get_all_components (void)
 /*
  *   Accumulate all aqueous components
  */
-	add_all_components_tally ();
+	add_all_components_tally();
 /*
  *   Count components, 2 for hydrogen, oxygen,  + others,
  */
@@ -127,8 +127,8 @@ get_all_components (void)
  *   Each entry in buffer is sent to HST for transort.
  */
 	t_buffer =
-		(struct tally_buffer *) PHRQ_malloc ((size_t) tally_count_component *
-											 sizeof (struct tally_buffer));
+		(struct tally_buffer *) PHRQ_malloc((size_t) tally_count_component *
+											sizeof(struct tally_buffer));
 	j = 0;
 	for (i = 0; i < count_master; i++)
 	{
@@ -141,10 +141,10 @@ get_all_components (void)
 		}
 	}
 #ifdef SKIP
-	output_msg (OUTPUT_MESSAGE, "List of Components:\n");
+	output_msg(OUTPUT_MESSAGE, "List of Components:\n");
 	for (i = 0; i < tally_count_component; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%d\t%s\n", i + 1, buffer[i].name);
+		output_msg(OUTPUT_MESSAGE, "\t%d\t%s\n", i + 1, buffer[i].name);
 		/*
 		   for (j=0; buffer[i].name[j] != '\0'; j++) {
 		   names[i * length + j] = buffer[i].name[j];
@@ -162,15 +162,15 @@ get_all_components (void)
 
 /* ---------------------------------------------------------------------- */
 int
-store_tally_table (LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
+store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
 	if (tally_table == NULL)
 	{
 		input_error++;
-		error_msg ("Tally table not defined, get_tally_table_rows_columns",
-				   CONTINUE);
+		error_msg("Tally table not defined, get_tally_table_rows_columns",
+				  CONTINUE);
 		return (ERROR);
 	}
 	if (count_tally_table_rows > row_dim)
@@ -207,7 +207,7 @@ store_tally_table (LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 	 *   Calculate deltas
 	 */
 
-	diff_tally_table ();
+	diff_tally_table();
 
 	/*
 	 * store deltas for all other columns
@@ -225,7 +225,7 @@ store_tally_table (LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 
 /* ---------------------------------------------------------------------- */
 int
-get_tally_table_rows_columns (int *rows, int *columns)
+get_tally_table_rows_columns(int *rows, int *columns)
 /* ---------------------------------------------------------------------- */
 {
 	*rows = 0;
@@ -233,8 +233,8 @@ get_tally_table_rows_columns (int *rows, int *columns)
 	if (tally_table == NULL)
 	{
 		input_error++;
-		error_msg ("tally table not defined, get_tally_table_rows_columns",
-				   CONTINUE);
+		error_msg("tally table not defined, get_tally_table_rows_columns",
+				  CONTINUE);
 		return (ERROR);
 	}
 	*rows = count_tally_table_rows;
@@ -244,18 +244,18 @@ get_tally_table_rows_columns (int *rows, int *columns)
 
 /* ---------------------------------------------------------------------- */
 int
-get_tally_table_row_heading (int row, char *string)
+get_tally_table_row_heading(int row, char *string)
 /* ---------------------------------------------------------------------- */
 {
 	/*
 	 *  row is C row number
 	 */
-	strcpy (string, "");
+	strcpy(string, "");
 	if (tally_table == NULL)
 	{
 		input_error++;
-		error_msg ("Tally table not defined, get_tally_table row_heading",
-				   CONTINUE);
+		error_msg("Tally table not defined, get_tally_table row_heading",
+				  CONTINUE);
 		return (ERROR);
 	}
 	if (row >= count_tally_table_rows)
@@ -266,25 +266,25 @@ get_tally_table_row_heading (int row, char *string)
 			 CONTINUE);
 		return (ERROR);
 	}
-	strcpy (string, t_buffer[row].name);
+	strcpy(string, t_buffer[row].name);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-get_tally_table_column_heading (int column, int *type, char *string)
+get_tally_table_column_heading(int column, int *type, char *string)
 /* ---------------------------------------------------------------------- */
 {
 	/*
 	 *  column is C column number
 	 */
 	*type = -1;
-	strcpy (string, "");
+	strcpy(string, "");
 	if (tally_table == NULL)
 	{
 		input_error++;
-		error_msg ("tally table not defined, get_tally_table_column_heading",
-				   CONTINUE);
+		error_msg("tally table not defined, get_tally_table_column_heading",
+				  CONTINUE);
 		return (ERROR);
 	}
 	if (column >= count_tally_table_columns)
@@ -295,14 +295,14 @@ get_tally_table_column_heading (int column, int *type, char *string)
 			 CONTINUE);
 		return (ERROR);
 	}
-	strcpy (string, tally_table[column].name);
+	strcpy(string, tally_table[column].name);
 	*type = tally_table[column].type;
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-free_tally_table (void)
+free_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, k;
@@ -312,22 +312,22 @@ free_tally_table (void)
 	{
 		if (tally_table[i].formula != NULL)
 			tally_table[i].formula =
-				(struct elt_list *) free_check_null (tally_table[i].formula);
+				(struct elt_list *) free_check_null(tally_table[i].formula);
 		for (k = 0; k < 3; k++)
 		{
 			tally_table[i].total[k] =
-				(struct tally_buffer *) free_check_null (tally_table[i].
-														 total[k]);
+				(struct tally_buffer *) free_check_null(tally_table[i].
+														total[k]);
 		}
 	}
-	tally_table = (struct tally *) free_check_null (tally_table);
-	t_buffer = (struct tally_buffer *) free_check_null (t_buffer);
+	tally_table = (struct tally *) free_check_null(tally_table);
+	t_buffer = (struct tally_buffer *) free_check_null(t_buffer);
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-zero_tally_table (void)
+zero_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
@@ -346,7 +346,7 @@ zero_tally_table (void)
 
 /* ---------------------------------------------------------------------- */
 int
-diff_tally_table (void)
+diff_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -374,33 +374,33 @@ diff_tally_table (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_tally_table (void)
+print_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
-	output_msg (OUTPUT_MESSAGE, "Tally_table\n\n");
+	output_msg(OUTPUT_MESSAGE, "Tally_table\n\n");
 	for (i = 0; i < count_tally_table_columns; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "%s\tType: %d\n", tally_table[i].name,
-					tally_table[i].type);
-		output_msg (OUTPUT_MESSAGE, "\n");
-		output_msg (OUTPUT_MESSAGE, "\t%15s\t%15s\t%15s\n", "Initial",
-					"Final", "Difference");
+		output_msg(OUTPUT_MESSAGE, "%s\tType: %d\n", tally_table[i].name,
+				   tally_table[i].type);
+		output_msg(OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\t%15s\t%15s\t%15s\n", "Initial",
+				   "Final", "Difference");
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
-			output_msg (OUTPUT_MESSAGE, "%5s\t%15g\t%15g\t%15g\n",
-						t_buffer[j].name, tally_table[i].total[0][j].moles,
-						tally_table[i].total[1][j].moles,
-						tally_table[i].total[2][j].moles);
+			output_msg(OUTPUT_MESSAGE, "%5s\t%15g\t%15g\t%15g\n",
+					   t_buffer[j].name, tally_table[i].total[0][j].moles,
+					   tally_table[i].total[1][j].moles,
+					   tally_table[i].total[2][j].moles);
 		}
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-fill_tally_table (int *n_user, int index_conservative, int n_buffer)
+fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -435,12 +435,11 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 				break;
 			if (i == 0)
 			{
-				solution_ptr =
-					solution_bsearch (index_conservative, &n, TRUE);
+				solution_ptr = solution_bsearch(index_conservative, &n, TRUE);
 			}
 			else if (i == 1)
 			{
-				solution_ptr = solution_bsearch (n_user[Solution], &n, TRUE);
+				solution_ptr = solution_bsearch(n_user[Solution], &n, TRUE);
 			}
 			else
 			{
@@ -451,8 +450,8 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			}
 			if (solution_ptr == NULL)
 				break;
-			xsolution_zero ();
-			add_solution (solution_ptr, 1.0, 1.0);
+			xsolution_zero();
+			add_solution(solution_ptr, 1.0, 1.0);
 			count_elts = 0;
 			paren_count = 0;
 			for (j = 0; j < count_master; j++)
@@ -460,13 +459,13 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 				if (master[j]->total > 0.0)
 				{
 					ptr = master[j]->elt->primary->elt->name;
-					get_elts_in_species (&ptr, master[j]->total);
+					get_elts_in_species(&ptr, master[j]->total);
 				}
 			}
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Reaction:
 			/*
@@ -474,7 +473,7 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Reaction] < 0)
 				break;
-			irrev_ptr = irrev_bsearch (n_user[Reaction], &n);
+			irrev_ptr = irrev_bsearch(n_user[Reaction], &n);
 			if (irrev_ptr == NULL)
 				break;
 			count_elts = 0;
@@ -487,8 +486,8 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			{
 				moles = 0.0;
 			}
-			add_elt_list (irrev_ptr->elts, moles);
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			add_elt_list(irrev_ptr->elts, moles);
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Pure_phase:
 			/*
@@ -496,8 +495,7 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Pure_phase] < 0)
 				break;
-			pp_assemblage_ptr =
-				pp_assemblage_bsearch (n_user[Pure_phase], &n);
+			pp_assemblage_ptr = pp_assemblage_bsearch(n_user[Pure_phase], &n);
 			if (pp_assemblage_ptr == NULL)
 				break;
 			for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
@@ -515,8 +513,8 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			count_elts = 0;
 			paren_count = 0;
 			moles = pp_assemblage_ptr->pure_phases[j].moles;
-			add_elt_list (tally_table[i].formula, moles);
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			add_elt_list(tally_table[i].formula, moles);
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Exchange:
 			/*
@@ -524,19 +522,19 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Exchange] < 0)
 				break;
-			exchange_ptr = exchange_bsearch (n_user[Exchange], &n);
+			exchange_ptr = exchange_bsearch(n_user[Exchange], &n);
 			if (exchange_ptr == NULL)
 				break;
 			count_elts = 0;
 			paren_count = 0;
 			for (j = 0; j < exchange_ptr->count_comps; j++)
 			{
-				add_elt_list (exchange_ptr->comps[j].totals, 1.0);
+				add_elt_list(exchange_ptr->comps[j].totals, 1.0);
 			}
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Surface:
 			/*
@@ -544,19 +542,19 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Surface] < 0)
 				break;
-			surface_ptr = surface_bsearch (n_user[Surface], &n);
+			surface_ptr = surface_bsearch(n_user[Surface], &n);
 			if (surface_ptr == NULL)
 				break;
 			count_elts = 0;
 			paren_count = 0;
 			for (j = 0; j < surface_ptr->count_comps; j++)
 			{
-				add_elt_list (surface_ptr->comps[j].totals, 1.0);
+				add_elt_list(surface_ptr->comps[j].totals, 1.0);
 			}
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Ss_phase:
 			/*
@@ -564,8 +562,7 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Ss_phase] < 0)
 				break;
-			s_s_assemblage_ptr =
-				s_s_assemblage_bsearch (n_user[Ss_phase], &n);
+			s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user[Ss_phase], &n);
 			if (s_s_assemblage_ptr == NULL)
 				break;
 			found = FALSE;
@@ -593,8 +590,8 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 				break;
 			count_elts = 0;
 			paren_count = 0;
-			add_elt_list (tally_table[i].formula, moles);
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			add_elt_list(tally_table[i].formula, moles);
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Gas_phase:
 			/*
@@ -602,20 +599,20 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Gas_phase] < 0)
 				break;
-			gas_phase_ptr = gas_phase_bsearch (n_user[Gas_phase], &n);
+			gas_phase_ptr = gas_phase_bsearch(n_user[Gas_phase], &n);
 			if (gas_phase_ptr == NULL)
 				break;
 			count_elts = 0;
 			paren_count = 0;
 			for (j = 0; j < gas_phase_ptr->count_comps; j++)
 			{
-				add_elt_list (gas_phase_ptr->comps[j].phase->next_elt,
-							  gas_phase_ptr->comps[j].moles);
+				add_elt_list(gas_phase_ptr->comps[j].phase->next_elt,
+							 gas_phase_ptr->comps[j].moles);
 			}
-			qsort (elt_list, (size_t) count_elts,
-				   (size_t) sizeof (struct elt_list), elt_list_compare);
-			elt_list_combine ();
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Kinetics:
 			/*
@@ -623,7 +620,7 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Kinetics] < 0)
 				break;
-			kinetics_ptr = kinetics_bsearch (n_user[Kinetics], &n);
+			kinetics_ptr = kinetics_bsearch(n_user[Kinetics], &n);
 			if (kinetics_ptr == NULL)
 				break;
 			kinetics_comp_ptr = NULL;
@@ -641,8 +638,8 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			moles = kinetics_comp_ptr->m;
 			count_elts = 0;
 			paren_count = 0;
-			add_elt_list (tally_table[i].formula, moles);
-			elt_list_to_tally_table (tally_table[i].total[n_buffer]);
+			add_elt_list(tally_table[i].formula, moles);
+			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Mix:
 			break;
@@ -652,13 +649,13 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 			break;
 		}
 #ifdef SKIP
-		output_msg (OUTPUT_MESSAGE, "Column %d\t%s\tType: %d\n", i,
-					tally_table[i].name, tally_table[i].type);
+		output_msg(OUTPUT_MESSAGE, "Column %d\t%s\tType: %d\n", i,
+				   tally_table[i].name, tally_table[i].type);
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%d\t%s\t%e\n", j,
-						tally_table[i].total[n_buffer][j].name,
-						(double) tally_table[i].total[n_buffer][j].moles);
+			output_msg(OUTPUT_MESSAGE, "\t%d\t%s\t%e\n", j,
+					   tally_table[i].total[n_buffer][j].name,
+					   (double) tally_table[i].total[n_buffer][j].moles);
 		}
 #endif
 	}
@@ -668,7 +665,7 @@ fill_tally_table (int *n_user, int index_conservative, int n_buffer)
 
 /* ---------------------------------------------------------------------- */
 int
-elt_list_to_tally_table (struct tally_buffer *buffer_ptr)
+elt_list_to_tally_table(struct tally_buffer *buffer_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -702,7 +699,7 @@ elt_list_to_tally_table (struct tally_buffer *buffer_ptr)
 		}
 		if (i >= count_tally_table_rows)
 		{
-			error_msg ("Should not be here in elt_list_to_tally_table", STOP);
+			error_msg("Should not be here in elt_list_to_tally_table", STOP);
 		}
 	}
 	return (OK);
@@ -710,7 +707,7 @@ elt_list_to_tally_table (struct tally_buffer *buffer_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-build_tally_table (void)
+build_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -738,12 +735,12 @@ build_tally_table (void)
 	char *ptr;
 
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 /*
  *  make list of all elements in all entitites
  *  defines the number of rows in the table
  */
-	get_all_components ();
+	get_all_components();
 
 	save_print_use = pr.use;
 	pr.use = FALSE;
@@ -755,15 +752,15 @@ build_tally_table (void)
  *   add one for conservative mixing
  */
 	n = count_tally_table_columns;
-	extend_tally_table ();
-	tally_table[n].name = string_hsave ("Solution_conservative");
+	extend_tally_table();
+	tally_table[n].name = string_hsave("Solution_conservative");
 	tally_table[n].type = Solution;
 /*
  *   add one for mixing plus reaction
  */
 	n = count_tally_table_columns;
-	extend_tally_table ();
-	tally_table[n].name = string_hsave ("Solution_reaction");
+	extend_tally_table();
+	tally_table[n].name = string_hsave("Solution_reaction");
 	tally_table[n].type = Solution;
 /*
  *   add one for reactions
@@ -772,8 +769,8 @@ build_tally_table (void)
 	{
 		count_tt_reaction = 1;
 		n = count_tally_table_columns;
-		extend_tally_table ();
-		tally_table[n].name = string_hsave ("Reaction");
+		extend_tally_table();
+		tally_table[n].name = string_hsave("Reaction");
 		tally_table[n].type = Reaction;
 	}
 	else
@@ -787,8 +784,8 @@ build_tally_table (void)
 	{
 		count_tt_exchange = 1;
 		n = count_tally_table_columns;
-		extend_tally_table ();
-		tally_table[n].name = string_hsave ("Exchange");
+		extend_tally_table();
+		tally_table[n].name = string_hsave("Exchange");
 		tally_table[n].type = Exchange;
 	}
 	else
@@ -802,8 +799,8 @@ build_tally_table (void)
 	{
 		count_tt_surface = 1;
 		n = count_tally_table_columns;
-		extend_tally_table ();
-		tally_table[n].name = string_hsave ("Surface");
+		extend_tally_table();
+		tally_table[n].name = string_hsave("Surface");
 		tally_table[n].type = Surface;
 	}
 	else
@@ -817,8 +814,8 @@ build_tally_table (void)
 	{
 		count_tt_gas_phase = 1;
 		n = count_tally_table_columns;
-		extend_tally_table ();
-		tally_table[n].name = string_hsave ("Gas_phase");
+		extend_tally_table();
+		tally_table[n].name = string_hsave("Gas_phase");
 		tally_table[n].type = Gas_phase;
 	}
 	else
@@ -858,7 +855,7 @@ build_tally_table (void)
 				 */
 				count_tt_pure_phase++;
 				n = count_tally_table_columns;
-				extend_tally_table ();
+				extend_tally_table();
 				tally_table[n].name = pure_phase_ptr->phase->name;
 				tally_table[n].type = Pure_phase;
 				tally_table[n].add_formula = pure_phase_ptr->add_formula;
@@ -866,19 +863,19 @@ build_tally_table (void)
 				paren_count = 0;
 				if (pure_phase_ptr->add_formula != NULL)
 				{
-					strcpy (token, pure_phase_ptr->add_formula);
+					strcpy(token, pure_phase_ptr->add_formula);
 					ptr = &(token[0]);
-					get_elts_in_species (&ptr, 1.0);
+					get_elts_in_species(&ptr, 1.0);
 				}
 				else
 				{
-					strcpy (token, pure_phase_ptr->phase->formula);
-					add_elt_list (pure_phase_ptr->phase->next_elt, 1.0);
+					strcpy(token, pure_phase_ptr->phase->formula);
+					add_elt_list(pure_phase_ptr->phase->next_elt, 1.0);
 				}
-				qsort (elt_list, (size_t) count_elts,
-					   (size_t) sizeof (struct elt_list), elt_list_compare);
-				elt_list_combine ();
-				tally_table[n].formula = elt_list_save ();
+				qsort(elt_list, (size_t) count_elts,
+					  (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				tally_table[n].formula = elt_list_save();
 			}
 		}
 	}
@@ -916,18 +913,17 @@ build_tally_table (void)
 					 */
 					count_tt_ss_phase++;
 					n = count_tally_table_columns;
-					extend_tally_table ();
+					extend_tally_table();
 					tally_table[n].name = s_s_comp_ptr->phase->name;
 					tally_table[n].type = Ss_phase;
 					count_elts = 0;
 					paren_count = 0;
-					strcpy (token, s_s_comp_ptr->phase->formula);
-					add_elt_list (s_s_comp_ptr->phase->next_elt, 1.0);
-					qsort (elt_list, (size_t) count_elts,
-						   (size_t) sizeof (struct elt_list),
-						   elt_list_compare);
-					elt_list_combine ();
-					tally_table[n].formula = elt_list_save ();
+					strcpy(token, s_s_comp_ptr->phase->formula);
+					add_elt_list(s_s_comp_ptr->phase->next_elt, 1.0);
+					qsort(elt_list, (size_t) count_elts,
+						  (size_t) sizeof(struct elt_list), elt_list_compare);
+					elt_list_combine();
+					tally_table[n].formula = elt_list_save();
 				}
 			}
 		}
@@ -960,7 +956,7 @@ build_tally_table (void)
 				 */
 				count_tt_kinetics++;
 				n = count_tally_table_columns;
-				extend_tally_table ();
+				extend_tally_table();
 				tally_table[n].name = kinetics_comp_ptr->rate_name;
 				tally_table[n].type = Kinetics;
 				/*
@@ -971,28 +967,28 @@ build_tally_table (void)
 				phase_ptr = NULL;
 				if (kinetics_ptr->comps[j].count_list == 1)
 				{
-					strcpy (token, kinetics_ptr->comps[j].list[0].name);
-					phase_ptr = phase_bsearch (token, &p, FALSE);
+					strcpy(token, kinetics_ptr->comps[j].list[0].name);
+					phase_ptr = phase_bsearch(token, &p, FALSE);
 				}
 				if (phase_ptr != NULL)
 				{
-					add_elt_list (phase_ptr->next_elt, 1.0);
+					add_elt_list(phase_ptr->next_elt, 1.0);
 				}
 				else
 				{
 					for (k = 0; k < kinetics_ptr->comps[j].count_list; k++)
 					{
 						ptr = kinetics_ptr->comps[j].list[k].name;
-						get_elts_in_species (&ptr,
-											 1.0 *
-											 kinetics_ptr->comps[j].list[k].
-											 coef);
+						get_elts_in_species(&ptr,
+											1.0 *
+											kinetics_ptr->comps[j].list[k].
+											coef);
 					}
 				}
-				qsort (elt_list, (size_t) count_elts,
-					   (size_t) sizeof (struct elt_list), elt_list_compare);
-				elt_list_combine ();
-				tally_table[n].formula = elt_list_save ();
+				qsort(elt_list, (size_t) count_elts,
+					  (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				tally_table[n].formula = elt_list_save();
 			}
 		}
 	}
@@ -1000,23 +996,23 @@ build_tally_table (void)
 	/*
 	 *  Debug print for table definition
 	 */
-	output_msg (OUTPUT_MESSAGE, "List of rows for tally table\n");
+	output_msg(OUTPUT_MESSAGE, "List of rows for tally table\n");
 	for (i = 0; i < count_tally_table_rows; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-s\n", buffer[i].name);
+		output_msg(OUTPUT_MESSAGE, "\t%-s\n", buffer[i].name);
 	}
-	output_msg (OUTPUT_MESSAGE, "\nList of columns for tally table\n");
+	output_msg(OUTPUT_MESSAGE, "\nList of columns for tally table\n");
 	for (i = 0; i < count_tally_table_columns; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-20s\tType: %d\n",
-					tally_table[i].name, tally_table[i].type);
+		output_msg(OUTPUT_MESSAGE, "\t%-20s\tType: %d\n",
+				   tally_table[i].name, tally_table[i].type);
 		if (tally_table[i].formula != NULL)
 		{
 			for (j = 0; tally_table[i].formula[j].elt != NULL; j++)
 			{
-				output_msg (OUTPUT_MESSAGE, "\t\t%-10s\t%f\n",
-							tally_table[i].formula[j].elt->name,
-							(double) tally_table[i].formula[j].coef);
+				output_msg(OUTPUT_MESSAGE, "\t\t%-10s\t%f\n",
+						   tally_table[i].formula[j].elt->name,
+						   (double) tally_table[i].formula[j].coef);
 			}
 		}
 	}
@@ -1027,7 +1023,7 @@ build_tally_table (void)
 
 /* ---------------------------------------------------------------------- */
 void
-add_all_components_tally (void)
+add_all_components_tally(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1047,65 +1043,65 @@ add_all_components_tally (void)
 	while (count_solution > 0 && solution[0]->n_user < -1)
 	{
 		i = solution[0]->n_user;
-		solution_delete (i);
+		solution_delete(i);
 	}
 /*
  *   add all solutions
  */
-	xsolution_zero ();
+	xsolution_zero();
 	for (i = 0; i < count_solution; i++)
 	{
-		add_solution (solution[i], 1.0 / solution[i]->mass_water, 1.0);
+		add_solution(solution[i], 1.0 / solution[i]->mass_water, 1.0);
 	}
 /*
  *   add all irrev reactions
  */
 	for (i = 0; i < count_irrev; i++)
 	{
-		add_reaction (&irrev[i], 1, 1.0);
+		add_reaction(&irrev[i], 1, 1.0);
 	}
 /*
  *   Add pure phases
  */
 	for (i = 0; i < count_pp_assemblage; i++)
 	{
-		add_pp_assemblage (&pp_assemblage[i]);
+		add_pp_assemblage(&pp_assemblage[i]);
 	}
 /*
  *   Exchangers
  */
 	for (i = 0; i < count_exchange; i++)
 	{
-		add_exchange (&exchange[i]);
+		add_exchange(&exchange[i]);
 	}
 /*
  *   Surfaces
  */
 	for (i = 0; i < count_surface; i++)
 	{
-		add_surface (&surface[i]);
+		add_surface(&surface[i]);
 	}
 /*
  *   Gases
  */
 	for (i = 0; i < count_gas_phase; i++)
 	{
-		add_gas_phase (&gas_phase[i]);
+		add_gas_phase(&gas_phase[i]);
 	}
 /*
  *   Add solid-solution pure phases
  */
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
-		add_s_s_assemblage (&s_s_assemblage[i]);
+		add_s_s_assemblage(&s_s_assemblage[i]);
 	}
 /*
  *   Add elements in kinetic reactions
  */
 	for (i = 0; i < count_kinetics; i++)
 	{
-		calc_dummy_kinetic_reaction_tally (&kinetics[i]);
-		add_kinetics (&kinetics[i]);
+		calc_dummy_kinetic_reaction_tally(&kinetics[i]);
+		add_kinetics(&kinetics[i]);
 	}
 /*
  *   reset pr.use
@@ -1116,7 +1112,7 @@ add_all_components_tally (void)
 
 /* ---------------------------------------------------------------------- */
 int
-calc_dummy_kinetic_reaction_tally (struct kinetics *kinetics_ptr)
+calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1131,7 +1127,7 @@ calc_dummy_kinetic_reaction_tally (struct kinetics *kinetics_ptr)
  *   Go through list and generate list of elements and
  *   coefficient of elements in reaction
  */
-	free_check_null (kinetics_ptr->totals);
+	free_check_null(kinetics_ptr->totals);
 	count_elts = 0;
 	paren_count = 0;
 	for (i = 0; i < kinetics_ptr->count_comps; i++)
@@ -1143,31 +1139,31 @@ calc_dummy_kinetic_reaction_tally (struct kinetics *kinetics_ptr)
 		phase_ptr = NULL;
 		if (kinetics_ptr->comps[i].count_list == 1)
 		{
-			strcpy (token, kinetics_ptr->comps[i].list[0].name);
-			phase_ptr = phase_bsearch (token, &j, FALSE);
+			strcpy(token, kinetics_ptr->comps[i].list[0].name);
+			phase_ptr = phase_bsearch(token, &j, FALSE);
 		}
 		if (phase_ptr != NULL)
 		{
-			add_elt_list (phase_ptr->next_elt, coef);
+			add_elt_list(phase_ptr->next_elt, coef);
 		}
 		else
 		{
 			for (j = 0; j < kinetics_ptr->comps[i].count_list; j++)
 			{
 				ptr = kinetics_ptr->comps[i].list[j].name;
-				get_elts_in_species (&ptr, coef);
+				get_elts_in_species(&ptr, coef);
 			}
 		}
 
 	}
-	kinetics_ptr->totals = elt_list_save ();
+	kinetics_ptr->totals = elt_list_save();
 
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-extend_tally_table (void)
+extend_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -1176,19 +1172,19 @@ extend_tally_table (void)
 	 * increments number of columns
 	 */
 	tally_table =
-		(struct tally *) PHRQ_realloc ((void *) tally_table,
-									   (size_t) (count_tally_table_columns +
-												 1) * sizeof (struct tally));
+		(struct tally *) PHRQ_realloc((void *) tally_table,
+									  (size_t) (count_tally_table_columns +
+												1) * sizeof(struct tally));
 	if (tally_table == NULL)
-		malloc_error ();
+		malloc_error();
 	for (i = 0; i < 3; i++)
 	{
 		tally_table[count_tally_table_columns].total[i] =
 			(struct tally_buffer *)
-			PHRQ_malloc ((size_t) (count_tally_table_rows) *
-						 sizeof (struct tally_buffer));
+			PHRQ_malloc((size_t) (count_tally_table_rows) *
+						sizeof(struct tally_buffer));
 		if (tally_table[count_tally_table_columns].total[i] == NULL)
-			malloc_error ();
+			malloc_error();
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
 			tally_table[count_tally_table_columns].total[i][j].name =
@@ -1208,13 +1204,13 @@ extend_tally_table (void)
 
 /* ---------------------------------------------------------------------- */
 int
-set_reaction_moles (int n_user, LDBLE moles)
+set_reaction_moles(int n_user, LDBLE moles)
 /* ---------------------------------------------------------------------- */
 {
 	int n;
 	struct irrev *irrev_ptr;
 
-	irrev_ptr = irrev_bsearch (n_user, &n);
+	irrev_ptr = irrev_bsearch(n_user, &n);
 	if (irrev_ptr == NULL)
 		return (ERROR);
 	irrev_ptr->steps[0] = moles;
@@ -1224,13 +1220,13 @@ set_reaction_moles (int n_user, LDBLE moles)
 
 /* ---------------------------------------------------------------------- */
 int
-set_reaction_temperature (int n_user, LDBLE tc)
+set_reaction_temperature(int n_user, LDBLE tc)
 /* ---------------------------------------------------------------------- */
 {
 	int n;
 	struct temperature *temperature_ptr;
 
-	temperature_ptr = temperature_bsearch (n_user, &n);
+	temperature_ptr = temperature_bsearch(n_user, &n);
 	if (temperature_ptr == NULL)
 		return (ERROR);
 	temperature_ptr->t[0] = tc;
@@ -1240,13 +1236,13 @@ set_reaction_temperature (int n_user, LDBLE tc)
 
 /* ---------------------------------------------------------------------- */
 int
-set_kinetics_time (int n_user, LDBLE step)
+set_kinetics_time(int n_user, LDBLE step)
 /* ---------------------------------------------------------------------- */
 {
 	int n;
 	struct kinetics *kinetics_ptr;
 
-	kinetics_ptr = kinetics_bsearch (n_user, &n);
+	kinetics_ptr = kinetics_bsearch(n_user, &n);
 	if (kinetics_ptr == NULL)
 		return (ERROR);
 	kinetics_ptr->steps[0] = step;

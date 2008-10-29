@@ -82,22 +82,22 @@ typedef struct
 
 /* CVDENSE linit, lsetup, lsolve, lfree, and DQJac routines */
 
-static int CVDenseInit (CVodeMem cv_mem);
+static int CVDenseInit(CVodeMem cv_mem);
 
-static int CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
-						 N_Vector fpred, booleantype * jcurPtr,
-						 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
+static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+						N_Vector fpred, booleantype * jcurPtr,
+						N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 
-static int CVDenseSolve (CVodeMem cv_mem, N_Vector b, N_Vector ycur,
-						 N_Vector fcur);
+static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+						N_Vector fcur);
 
-static void CVDenseFree (CVodeMem cv_mem);
+static void CVDenseFree(CVodeMem cv_mem);
 
-static void CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
-						  realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
-						  realtype h, realtype uround, void *jac_data,
-						  long int *nfePtr, N_Vector vtemp1,
-						  N_Vector vtemp2, N_Vector vtemp3);
+static void CVDenseDQJac(integertype N, DenseMat J, RhsFn f, void *f_data,
+						 realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
+						 realtype h, realtype uround, void *jac_data,
+						 long int *nfePtr, N_Vector vtemp1,
+						 N_Vector vtemp2, N_Vector vtemp3);
 
 
 /*************** CVDenseDQJac ****************************************
@@ -114,11 +114,11 @@ static void CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
 **********************************************************************/
 
 static void
-CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
-			  realtype tn, N_Vector y, N_Vector fy, N_Vector ewt,
-			  realtype h, realtype uround, void *jac_data,
-			  long int *nfePtr, N_Vector vtemp1,
-			  N_Vector vtemp2, N_Vector vtemp3)
+CVDenseDQJac(integertype N, DenseMat J, RhsFn f, void *f_data,
+			 realtype tn, N_Vector y, N_Vector fy, N_Vector ewt,
+			 realtype h, realtype uround, void *jac_data,
+			 long int *nfePtr, N_Vector vtemp1,
+			 N_Vector vtemp2, N_Vector vtemp3)
 {
 	realtype fnorm, minInc, inc, inc_inv, yjsaved, srur;
 	realtype *y_data, *ewt_data;
@@ -127,22 +127,22 @@ CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
 	integertype j;
 
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	machEnv = y->menv;			/* Get machine environment */
 
 	ftemp = vtemp1;				/* Rename work vector for use as f vector value */
 
 	/* Obtain pointers to the data for ewt, y */
-	ewt_data = N_VGetData (ewt);
-	y_data = N_VGetData (y);
+	ewt_data = N_VGetData(ewt);
+	y_data = N_VGetData(y);
 
 	/* Set minimum increment based on uround and norm of f */
-	srur = RSqrt (uround);
-	fnorm = N_VWrmsNorm (fy, ewt);
+	srur = RSqrt(uround);
+	fnorm = N_VWrmsNorm(fy, ewt);
 	minInc = (fnorm != ZERO) ?
-		(MIN_INC_MULT * ABS (h) * uround * N * fnorm) : ONE;
+		(MIN_INC_MULT * ABS(h) * uround * N * fnorm) : ONE;
 
-	jthCol = N_VMake (N, y_data, machEnv);	/* j loop overwrites this data address */
+	jthCol = N_VMake(N, y_data, machEnv);	/* j loop overwrites this data address */
 
 	/* This is the only for loop for 0..N-1 in CVODE */
 	for (j = 0; j < N; j++)
@@ -150,17 +150,17 @@ CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
 
 		/* Generate the jth col of J(tn,y) */
 
-		N_VSetData (DENSE_COL (J, j), jthCol);
+		N_VSetData(DENSE_COL(J, j), jthCol);
 		yjsaved = y_data[j];
-		inc = MAX (srur * ABS (yjsaved), minInc / ewt_data[j]);
+		inc = MAX(srur * ABS(yjsaved), minInc / ewt_data[j]);
 		y_data[j] += inc;
-		f (N, tn, y, ftemp, f_data);
+		f(N, tn, y, ftemp, f_data);
 		inc_inv = ONE / inc;
-		N_VLinearSum (inc_inv, ftemp, -inc_inv, fy, jthCol);
+		N_VLinearSum(inc_inv, ftemp, -inc_inv, fy, jthCol);
 		y_data[j] = yjsaved;
 	}
 
-	N_VDispose (jthCol);
+	N_VDispose(jthCol);
 
 	/* Increment counter nfe = *nfePtr */
 	*nfePtr += N;
@@ -228,7 +228,7 @@ CVDenseDQJac (integertype N, DenseMat J, RhsFn f, void *f_data,
 **********************************************************************/
 
 int
-CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
+CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 {
 	CVodeMem cv_mem;
 	CVDenseMem cvdense_mem;
@@ -237,22 +237,22 @@ CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		output_msg (OUTPUT_CVODE, MSG_CVMEM_NULL);
+		output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
 		return (LMEM_FAIL);
 	}
 
 	/* Test if the NVECTOR package is compatible with the DENSE solver */
-	if ((strcmp (machenv->tag, "serial")) ||
+	if ((strcmp(machenv->tag, "serial")) ||
 		machenv->ops->nvmake == NULL ||
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_WRONG_NVEC);
+		output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 
 	if (lfree != NULL)
-		lfree (cv_mem);
+		lfree(cv_mem);
 
 	/* Set four main function fields in cv_mem */
 	linit = CVDenseInit;
@@ -261,10 +261,10 @@ CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	lfree = CVDenseFree;
 
 	/* Get memory for CVDenseMemRec */
-	lmem = cvdense_mem = (CVDenseMem) malloc (sizeof (CVDenseMemRec));
+	lmem = cvdense_mem = (CVDenseMem) malloc(sizeof(CVDenseMemRec));
 	if (cvdense_mem == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_MEM_FAIL);
+		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
 
@@ -282,25 +282,25 @@ CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 
 	/* Allocate memory for M, savedJ, and pivot array */
 
-	M = DenseAllocMat (N);
+	M = DenseAllocMat(N);
 	if (M == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_MEM_FAIL);
+		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
-	savedJ = DenseAllocMat (N);
+	savedJ = DenseAllocMat(N);
 	if (savedJ == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_MEM_FAIL);
-		DenseFreeMat (M);
+		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		DenseFreeMat(M);
 		return (LMEM_FAIL);
 	}
-	pivots = DenseAllocPiv (N);
+	pivots = DenseAllocPiv(N);
 	if (pivots == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_MEM_FAIL);
-		DenseFreeMat (M);
-		DenseFreeMat (savedJ);
+		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		DenseFreeMat(M);
+		DenseFreeMat(savedJ);
 		return (LMEM_FAIL);
 	}
 
@@ -318,7 +318,7 @@ CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 **********************************************************************/
 
 int
-CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
+CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 {
 	CVodeMem cv_mem;
 	CVDenseMem cvdense_mem;
@@ -327,17 +327,17 @@ CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		output_msg (OUTPUT_CVODE, MSG_CVMEM_NULL);
+		output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
 		return (LMEM_FAIL);
 	}
 
 	/* Test if the NVECTOR package is compatible with the DENSE solver */
-	if ((strcmp (machenv->tag, "serial")) ||
+	if ((strcmp(machenv->tag, "serial")) ||
 		machenv->ops->nvmake == NULL ||
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		output_msg (OUTPUT_CVODE, MSG_WRONG_NVEC);
+		output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 
@@ -372,7 +372,7 @@ CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 **********************************************************************/
 
 static int
-CVDenseInit (CVodeMem cv_mem)
+CVDenseInit(CVodeMem cv_mem)
 {
 	CVDenseMem cvdense_mem;
 	cvdense_mem = (CVDenseMem) lmem;
@@ -403,9 +403,9 @@ CVDenseInit (CVodeMem cv_mem)
 **********************************************************************/
 
 static int
-CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
-			  N_Vector fpred, booleantype * jcurPtr,
-			  N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3)
+CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+			 N_Vector fpred, booleantype * jcurPtr,
+			 N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3)
 {
 	booleantype jbad, jok;
 	realtype dgamma;
@@ -416,7 +416,7 @@ CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
 
 	/* Use nst, gamma/gammap, and convfail to set J eval. flag jok */
 
-	dgamma = ABS ((gamma / gammap) - ONE);
+	dgamma = ABS((gamma / gammap) - ONE);
 	jbad = (nst == 0) || (nst > nstlj + CVD_MSBJ) ||
 		((convfail == FAIL_BAD_J) && (dgamma < CVD_DGMAX)) ||
 		(convfail == FAIL_OTHER);
@@ -426,7 +426,7 @@ CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
 	{
 		/* If jok = TRUE, use saved copy of J */
 		*jcurPtr = FALSE;
-		DenseCopy (savedJ, M);
+		DenseCopy(savedJ, M);
 	}
 	else
 	{
@@ -436,18 +436,18 @@ CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
 			iopt[DENSE_NJE] = nje;
 		nstlj = nst;
 		*jcurPtr = TRUE;
-		DenseZero (M);
-		jac (N, M, f, f_data, tn, ypred, fpred, ewt, h,
-			 uround, J_data, &nfe, vtemp1, vtemp2, vtemp3);
-		DenseCopy (M, savedJ);
+		DenseZero(M);
+		jac(N, M, f, f_data, tn, ypred, fpred, ewt, h,
+			uround, J_data, &nfe, vtemp1, vtemp2, vtemp3);
+		DenseCopy(M, savedJ);
 	}
 
 	/* Scale and add I to get M = I - gamma*J */
-	DenseScale (-gamma, M);
-	DenseAddI (M);
+	DenseScale(-gamma, M);
+	DenseAddI(M);
 
 	/* Do LU factorization of M */
-	ier = DenseFactor (M, pivots);
+	ier = DenseFactor(M, pivots);
 
 	/* Return 0 if the LU was complete; otherwise return 1 */
 	if (ier > 0)
@@ -463,21 +463,21 @@ CVDenseSetup (CVodeMem cv_mem, int convfail, N_Vector ypred,
 **********************************************************************/
 
 static int
-CVDenseSolve (CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur)
+CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur)
 {
 	CVDenseMem cvdense_mem;
 	realtype *bd;
 
 	cvdense_mem = (CVDenseMem) lmem;
 
-	bd = N_VGetData (b);
-	DenseBacksolve (M, pivots, bd);
-	N_VSetData (bd, b);
+	bd = N_VGetData(b);
+	DenseBacksolve(M, pivots, bd);
+	N_VSetData(bd, b);
 
 	/* If BDF, scale the correction to account for change in gamma */
 	if ((lmm == BDF) && (gamrat != ONE))
 	{
-		N_VScale (TWO / (ONE + gamrat), b, b);
+		N_VScale(TWO / (ONE + gamrat), b, b);
 	}
 
 	return (0);
@@ -490,14 +490,14 @@ CVDenseSolve (CVodeMem cv_mem, N_Vector b, N_Vector ycur, N_Vector fcur)
 **********************************************************************/
 
 static void
-CVDenseFree (CVodeMem cv_mem)
+CVDenseFree(CVodeMem cv_mem)
 {
 	CVDenseMem cvdense_mem;
 
 	cvdense_mem = (CVDenseMem) lmem;
 
-	DenseFreeMat (M);
-	DenseFreeMat (savedJ);
-	DenseFreePiv (pivots);
-	free (cvdense_mem);
+	DenseFreeMat(M);
+	DenseFreeMat(savedJ);
+	DenseFreePiv(pivots);
+	free(cvdense_mem);
 }

@@ -190,7 +190,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-	int CVDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+	int CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 /******************************************************************
@@ -218,7 +218,7 @@ extern "C"
  *                                                                *
  ******************************************************************/
 
-	int CVReInitDense (void *cvode_mem, CVDenseJacFn djac, void *jac_data);
+	int CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data);
 
 
 #endif

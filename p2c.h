@@ -289,7 +289,7 @@ typedef struct
 
 
 /*extern Void    PASCAL_MAIN  P2PP( (int, Char **) );*/
-extern Void PASCAL_MAIN (int, Char **);
+extern Void PASCAL_MAIN(int, Char **);
 /*
 extern Char    **P_argv;
 extern int     P_argc;
@@ -300,76 +300,76 @@ extern __p2c_jmp_buf *__top_jb;
 
 
 #ifdef P2C_H_PROTO				/* if you have Ansi C but non-prototyped header files */
-extern Char *strcat P2PP ((Char *, Const Char *));
-extern Char *strchr P2PP ((Const Char *, int));
-extern int strcmp P2PP ((Const Char *, Const Char *));
-extern Char *strcpy P2PP ((Char *, Const Char *));
-extern size_t strlen P2PP ((Const Char *));
-extern Char *strncat P2PP ((Char *, Const Char *, size_t));
-extern int strncmp P2PP ((Const Char *, Const Char *, size_t));
-extern Char *strncpy P2PP ((Char *, Const Char *, size_t));
-extern Char *strrchr P2PP ((Const Char *, int));
+extern Char *strcat P2PP((Char *, Const Char *));
+extern Char *strchr P2PP((Const Char *, int));
+extern int strcmp P2PP((Const Char *, Const Char *));
+extern Char *strcpy P2PP((Char *, Const Char *));
+extern size_t strlen P2PP((Const Char *));
+extern Char *strncat P2PP((Char *, Const Char *, size_t));
+extern int strncmp P2PP((Const Char *, Const Char *, size_t));
+extern Char *strncpy P2PP((Char *, Const Char *, size_t));
+extern Char *strrchr P2PP((Const Char *, int));
 
-extern Anyptr memchr P2PP ((Const Anyptr, int, size_t));
-extern Anyptr memmove P2PP ((Anyptr, Const Anyptr, size_t));
-extern Anyptr memset P2PP ((Anyptr, int, size_t));
+extern Anyptr memchr P2PP((Const Anyptr, int, size_t));
+extern Anyptr memmove P2PP((Anyptr, Const Anyptr, size_t));
+extern Anyptr memset P2PP((Anyptr, int, size_t));
 #ifndef memcpy
-extern Anyptr memcpy P2PP ((Anyptr, Const Anyptr, size_t));
-extern int memcmp P2PP ((Const Anyptr, Const Anyptr, size_t));
+extern Anyptr memcpy P2PP((Anyptr, Const Anyptr, size_t));
+extern int memcmp P2PP((Const Anyptr, Const Anyptr, size_t));
 #endif
 
-extern int atoi P2PP ((Const Char *));
-extern LDBLE atof P2PP ((Const Char *));
-extern long atol P2PP ((Const Char *));
-extern LDBLE strtod P2PP ((Const Char *, Char **));
-extern long strtol P2PP ((Const Char *, Char **, int));
+extern int atoi P2PP((Const Char *));
+extern LDBLE atof P2PP((Const Char *));
+extern long atol P2PP((Const Char *));
+extern LDBLE strtod P2PP((Const Char *, Char **));
+extern long strtol P2PP((Const Char *, Char **, int));
 #endif /*P2C_H_PROTO */
 
 /* force stdlib for DEC */
 #define HAS_STDLIB
 #ifndef HAS_STDLIB
-extern Anyptr malloc P2PP ((size_t));
-extern Void free P2PP ((Anyptr));
+extern Anyptr malloc P2PP((size_t));
+extern Void free P2PP((Anyptr));
 #endif
 
-extern int _OutMem PV ();
-extern int _CaseCheck PV ();
-extern int _NilCheck PV ();
+extern int _OutMem PV();
+extern int _CaseCheck PV();
+extern int _NilCheck PV();
 /*extern int	_Escape     P2PP( (int) );*/
-extern int _Escape (int);
+extern int _Escape(int);
 /*extern int	_EscIO      P2PP( (int) );*/
-extern int _EscIO (int);
-extern long ipow P2PP ((long, long));
-extern Char *strsub P2PP ((Char *, Char *, int, int));
-extern Char *strltrim P2PP ((Char *));
-extern Char *strrtrim P2PP ((Char *));
-extern Char *strrpt P2PP ((Char *, Char *, int));
-extern Char *strpad P2PP ((Char *, Char *, int, int));
-extern int strpos2 P2PP ((Char *, Char *, int));
-extern long memavail PV ();
-extern int P_peek P2PP ((FILE *));
-extern int P_eof P2PP ((FILE *));
-extern int P_eoln P2PP ((FILE *));
-extern Void P_readpaoc P2PP ((FILE *, Char *, int));
-extern Void P_readlnpaoc P2PP ((FILE *, Char *, int));
-extern long P_maxpos P2PP ((FILE *));
-extern Char *P_trimname P2PP ((Char *, int));
-extern long *P_setunion P2PP ((long *, long *, long *));
-extern long *P_setint P2PP ((long *, long *, long *));
-extern long *P_setdiff P2PP ((long *, long *, long *));
-extern long *P_setxor P2PP ((long *, long *, long *));
-extern int P_inset P2PP ((unsigned, long *));
-extern int P_setequal P2PP ((long *, long *));
-extern int P_subset P2PP ((long *, long *));
-extern long *P_addset P2PP ((long *, unsigned));
-extern long *P_addsetr P2PP ((long *, unsigned, unsigned));
-extern long *P_remset P2PP ((long *, unsigned));
-extern long *P_setcpy P2PP ((long *, long *));
-extern long *P_expset P2PP ((long *, long));
-extern long P_packset P2PP ((long *));
-extern int P_getcmdline P2PP ((int, int, Char *));
-extern Void TimeStamp P2PP ((int *, int *, int *, int *, int *, int *));
-extern Void P_sun_argv P2PP ((char *, int, int));
+extern int _EscIO(int);
+extern long ipow P2PP((long, long));
+extern Char *strsub P2PP((Char *, Char *, int, int));
+extern Char *strltrim P2PP((Char *));
+extern Char *strrtrim P2PP((Char *));
+extern Char *strrpt P2PP((Char *, Char *, int));
+extern Char *strpad P2PP((Char *, Char *, int, int));
+extern int strpos2 P2PP((Char *, Char *, int));
+extern long memavail PV();
+extern int P_peek P2PP((FILE *));
+extern int P_eof P2PP((FILE *));
+extern int P_eoln P2PP((FILE *));
+extern Void P_readpaoc P2PP((FILE *, Char *, int));
+extern Void P_readlnpaoc P2PP((FILE *, Char *, int));
+extern long P_maxpos P2PP((FILE *));
+extern Char *P_trimname P2PP((Char *, int));
+extern long *P_setunion P2PP((long *, long *, long *));
+extern long *P_setint P2PP((long *, long *, long *));
+extern long *P_setdiff P2PP((long *, long *, long *));
+extern long *P_setxor P2PP((long *, long *, long *));
+extern int P_inset P2PP((unsigned, long *));
+extern int P_setequal P2PP((long *, long *));
+extern int P_subset P2PP((long *, long *));
+extern long *P_addset P2PP((long *, unsigned));
+extern long *P_addsetr P2PP((long *, unsigned, unsigned));
+extern long *P_remset P2PP((long *, unsigned));
+extern long *P_setcpy P2PP((long *, long *));
+extern long *P_expset P2PP((long *, long));
+extern long P_packset P2PP((long *));
+extern int P_getcmdline P2PP((int, int, Char *));
+extern Void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
+extern Void P_sun_argv P2PP((char *, int, int));
 
 
 /* I/O error handling */
@@ -435,7 +435,7 @@ extern Void P_sun_argv P2PP ((char *, int, int));
 typedef struct
 {
 	FILE *f;
-	  FILEBUFNC (f, Char);
+	  FILEBUFNC(f, Char);
 	Char name[_FNSIZE];
 } _TEXT;
 #endif
@@ -453,7 +453,7 @@ extern Anyptr __MallocTemp__;
 /* sign extension */
 #define SEXT(x,n)   ((x) | -(((x) & (1L<<((n)-1))) << 1))
 
-								 /* packed arrays *//* BEWARE: these are untested! */
+													/* packed arrays *//* BEWARE: these are untested! */
 #define P_getbits_UB(a,i,n,L)   ((int)((a)[(i)>>(L)-(n)] >>   \
 				       (((~(i))&((1<<(L)-(n))-1)) << (n)) &  \
 				       (1<<(1<<(n)))-1))
@@ -489,29 +489,29 @@ extern Anyptr __MallocTemp__;
 #ifdef LACK_LABS
 # ifndef labs
 #  define labs  my_labs
-extern long my_labs P2PP ((long));
+extern long my_labs P2PP((long));
 # endif
 #endif
 
 #ifdef LACK_MEMMOVE
 # ifndef memmove
 #  define memmove  my_memmove
-extern Anyptr my_memmove P2PP ((Anyptr, Const Anyptr, size_t));
+extern Anyptr my_memmove P2PP((Anyptr, Const Anyptr, size_t));
 # endif
 #endif
 
 #ifdef LACK_MEMCPY
 # ifndef memcpy
 #  define memcpy  my_memcpy
-extern Anyptr my_memcpy P2PP ((Anyptr, Const Anyptr, size_t));
+extern Anyptr my_memcpy P2PP((Anyptr, Const Anyptr, size_t));
 # endif
 # ifndef memcmp
 #  define memcmp  my_memcmp
-extern int my_memcmp P2PP ((Const Anyptr, Const Anyptr, size_t));
+extern int my_memcmp P2PP((Const Anyptr, Const Anyptr, size_t));
 # endif
 # ifndef memset
 #  define memset  my_memset
-extern Anyptr my_memset P2PP ((Anyptr, int, size_t));
+extern Anyptr my_memset P2PP((Anyptr, int, size_t));
 # endif
 #endif
 

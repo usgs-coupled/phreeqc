@@ -9,32 +9,32 @@
 
 static char const svnid[] = "$Id$";
 
-static int print_alkalinity (void);
-static int print_diffuse_layer (struct surface_charge *surface_charge_ptr);
-static int print_eh (void);
-static int print_irrev (void);
-static int print_kinetics (void);
-static int print_mix (void);
-static int print_pp_assemblage (void);
-static int print_s_s_assemblage (void);
-static int print_saturation_indices (void);
-static int print_surface_cd_music (void);
-static int print_totals (void);
-static int print_using (void);
+static int print_alkalinity(void);
+static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
+static int print_eh(void);
+static int print_irrev(void);
+static int print_kinetics(void);
+static int print_mix(void);
+static int print_pp_assemblage(void);
+static int print_s_s_assemblage(void);
+static int print_saturation_indices(void);
+static int print_surface_cd_music(void);
+static int print_totals(void);
+static int print_using(void);
 /*static int print_user_print(void);*/
-static int punch_gas_phase (void);
-static int punch_identifiers (void);
-static int punch_kinetics (void);
-static int punch_molalities (void);
-static int punch_activities (void);
-static int punch_pp_assemblage (void);
-static int punch_s_s_assemblage (void);
-static int punch_saturation_indices (void);
-static int punch_totals (void);
-static int punch_user_punch (void);
+static int punch_gas_phase(void);
+static int punch_identifiers(void);
+static int punch_kinetics(void);
+static int punch_molalities(void);
+static int punch_activities(void);
+static int punch_pp_assemblage(void);
+static int punch_s_s_assemblage(void);
+static int punch_saturation_indices(void);
+static int punch_totals(void);
+static int punch_user_punch(void);
 
 #ifdef PHREEQ98
-static int punch_user_graph (void);
+static int punch_user_graph(void);
 extern int colnr, rownr;
 extern int graph_initial_solutions;
 extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
@@ -45,50 +45,50 @@ extern int FirstCallToUSER_GRAPH;
 #endif
 
 #if defined(SWIG_SHARED_OBJ)
-extern int EndRow (void);
-extern void AddSelectedOutput (const char *name, const char *format,
-							   va_list argptr);
+extern int EndRow(void);
+extern void AddSelectedOutput(const char *name, const char *format,
+							  va_list argptr);
 #endif
 
 /* ---------------------------------------------------------------------- */
 int
-array_print (LDBLE * array_l, int row_count, int column_count,
-			 int max_column_count)
+array_print(LDBLE * array_l, int row_count, int column_count,
+			int max_column_count)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
 
 	for (i = 0; i < row_count; i++)
 	{
 		k = 0;
-		output_msg (OUTPUT_MESSAGE, "%d\n", i);
+		output_msg(OUTPUT_MESSAGE, "%d\n", i);
 		for (j = 0; j < column_count; j++)
 		{
 			if (k > 7)
 			{
-				output_msg (OUTPUT_MESSAGE, "\n");
+				output_msg(OUTPUT_MESSAGE, "\n");
 				k = 0;
 			}
-			output_msg (OUTPUT_MESSAGE, "%11.2e",
-						(double) array_l[i * max_column_count + j]);
+			output_msg(OUTPUT_MESSAGE, "%11.2e",
+					   (double) array_l[i * max_column_count + j]);
 			k++;
 		}
 		if (k != 0)
 		{
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_all (void)
+print_all(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -104,36 +104,36 @@ print_all (void)
 		return (OK);
 	if (pr.surface == TRUE || pr.exchange == TRUE || pr.species == TRUE)
 	{
-		species_list_sort ();
+		species_list_sort();
 	}
 /*
  *   Print results
  */
 	s_h2o->lm = s_h2o->la;
-	print_using ();
-	print_mix ();
-	print_irrev ();
-	print_kinetics ();
-	print_user_print ();
-	print_gas_phase ();
-	print_pp_assemblage ();
-	print_s_s_assemblage ();
-	print_surface ();
-	print_exchange ();
-	print_initial_solution_isotopes ();
-	print_isotope_ratios ();
-	print_isotope_alphas ();
-	print_totals ();
-	print_eh ();
-	print_species ();
-	print_alkalinity ();
-	print_saturation_indices ();
+	print_using();
+	print_mix();
+	print_irrev();
+	print_kinetics();
+	print_user_print();
+	print_gas_phase();
+	print_pp_assemblage();
+	print_s_s_assemblage();
+	print_surface();
+	print_exchange();
+	print_initial_solution_isotopes();
+	print_isotope_ratios();
+	print_isotope_alphas();
+	print_totals();
+	print_eh();
+	print_species();
+	print_alkalinity();
+	print_saturation_indices();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-punch_all (void)
+punch_all(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -146,46 +146,46 @@ punch_all (void)
  */
 	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 	{
-		use.kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &i);
+		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
 	}
 	else if (use.kinetics_in != FALSE)
 	{
-		use.kinetics_ptr = kinetics_bsearch (-2, &i);
+		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
 #else /* if PHREEQ98 execute punch_user_graph first, that is, before punch.in and pr.punch is checked */
 	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 	{
-		use.kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &i);
+		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
 	}
 	else if (use.kinetics_in != FALSE)
 	{
-		use.kinetics_ptr = kinetics_bsearch (-2, &i);
+		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
 	if (pr.user_graph == TRUE)
-		punch_user_graph ();
+		punch_user_graph();
 
 	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE))
 		return (OK);
 #endif
-	punch_identifiers ();
-	punch_totals ();
-	punch_molalities ();
-	punch_activities ();
-	punch_pp_assemblage ();
-	punch_saturation_indices ();
-	punch_gas_phase ();
-	punch_kinetics ();
-	punch_s_s_assemblage ();
-	punch_isotopes ();
-	punch_calculate_values ();
-	punch_user_punch ();
+	punch_identifiers();
+	punch_totals();
+	punch_molalities();
+	punch_activities();
+	punch_pp_assemblage();
+	punch_saturation_indices();
+	punch_gas_phase();
+	punch_kinetics();
+	punch_s_s_assemblage();
+	punch_isotopes();
+	punch_calculate_values();
+	punch_user_punch();
 /*
  *   new line for punch_file
  */
-	fpunchf (NULL, "\n");
+	fpunchf(NULL, "\n");
 
 #if defined(SWIG_SHARED_OBJ)
-	EndRow ();
+	EndRow();
 #endif
 
 	return (OK);
@@ -193,7 +193,7 @@ punch_all (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
+print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -222,10 +222,10 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
 	}
 	if (j >= count_unknowns)
 	{
-		sprintf (error_string,
-				 "In print_diffuse_layer: component not found, %s.",
-				 surface_charge_ptr1->name);
-		error_msg (error_string, STOP);
+		sprintf(error_string,
+				"In print_diffuse_layer: component not found, %s.",
+				surface_charge_ptr1->name);
+		error_msg(error_string, STOP);
 	}
 /*
  *   Loop through all surface components, calculate each H2O surface (diffuse layer),
@@ -240,9 +240,9 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
 	{
 		d = 0.0;
 	}
-	output_msg (OUTPUT_MESSAGE,
-				"\tWater in diffuse layer: %8.3e kg, %4.1f%% of total DDL-water.\n",
-				(double) surface_charge_ptr1->mass_water, (double) d);
+	output_msg(OUTPUT_MESSAGE,
+			   "\tWater in diffuse layer: %8.3e kg, %4.1f%% of total DDL-water.\n",
+			   (double) surface_charge_ptr1->mass_water, (double) d);
 	if (use.surface_ptr->debye_lengths > 0)
 	{
 		sum_surfs = 0.0;
@@ -255,17 +255,17 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
 				x[j]->surface_charge->grams;
 		}
 		r = 0.002 * mass_water_bulk_x / sum_surfs;
-		output_msg (OUTPUT_MESSAGE,
-					"\tRadius of total pore:   %8.3e m; of free pore: %8.3e m.\n",
-					(double) r, (double) r - use.surface_ptr->thickness);
+		output_msg(OUTPUT_MESSAGE,
+				   "\tRadius of total pore:   %8.3e m; of free pore: %8.3e m.\n",
+				   (double) r, (double) r - use.surface_ptr->thickness);
 	}
 
 	if (debug_diffuse_layer == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"\n\t\tDistribution of species in diffuse layer\n\n");
-		output_msg (OUTPUT_MESSAGE,
-					"\n\tSpecies     \t    Moles   \tMoles excess\t      g\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n\t\tDistribution of species in diffuse layer\n\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n\tSpecies     \t    Moles   \tMoles excess\t      g\n");
 	}
 	mass_water_surface = surface_charge_ptr1->mass_water;
 	count_elts = 0;
@@ -274,7 +274,7 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
 	{
 		if (s_x[j]->type > HPLUS)
 			continue;
-		molality = under (s_x[j]->lm);
+		molality = under(s_x[j]->lm);
 		count_g = s_x[j]->diff_layer[i].count_g;
 #ifdef SKIP
 		moles_excess = mass_water_bulk_x *
@@ -290,14 +290,14 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
 		moles_surface = mass_water_surface * molality + moles_excess;
 		if (debug_diffuse_layer == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-12s\t%12.3e\t%12.3e\t%12.3e\n",
-						s_x[j]->name, moles_surface, moles_excess,
-						s_x[j]->diff_layer[i].charge->g[count_g].g);
+			output_msg(OUTPUT_MESSAGE, "\t%-12s\t%12.3e\t%12.3e\t%12.3e\n",
+					   s_x[j]->name, moles_surface, moles_excess,
+					   s_x[j]->diff_layer[i].charge->g[count_g].g);
 		}
 /*
  *   Accumulate elements in diffuse layer
  */
-		add_elt_list (s_x[j]->next_elt, moles_surface);
+		add_elt_list(s_x[j]->next_elt, moles_surface);
 	}
 /*
 	strcpy(token, s_h2o->name);
@@ -306,35 +306,35 @@ print_diffuse_layer (struct surface_charge *surface_charge_ptr1)
  */
 	if (count_elts > 0)
 	{
-		qsort (elt_list, (size_t) count_elts,
-			   (size_t) sizeof (struct elt_list), elt_list_compare);
-		elt_list_combine ();
+		qsort(elt_list, (size_t) count_elts,
+			  (size_t) sizeof(struct elt_list), elt_list_compare);
+		elt_list_combine();
 	}
 /*
  *   Print totals
  */
 	if (use.surface_ptr->dl_type != DONNAN_DL)
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"\n\tTotal moles in diffuse layer (excluding water)\n\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n\tTotal moles in diffuse layer (excluding water)\n\n");
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE,
-					"\n\tTotal moles in diffuse layer (excluding water), Donnan calculation \n\n");
+		output_msg(OUTPUT_MESSAGE,
+				   "\n\tTotal moles in diffuse layer (excluding water), Donnan calculation \n\n");
 	}
-	output_msg (OUTPUT_MESSAGE, "\tElement       \t     Moles\n");
+	output_msg(OUTPUT_MESSAGE, "\tElement       \t     Moles\n");
 	for (j = 0; j < count_elts; j++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-14s\t%12.4e\n",
-					elt_list[j].elt->name, (double) elt_list[j].coef);
+		output_msg(OUTPUT_MESSAGE, "\t%-14s\t%12.4e\n",
+				   elt_list[j].elt->name, (double) elt_list[j].coef);
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_eh (void)
+print_eh(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -374,15 +374,15 @@ print_eh (void)
  *  Another secondary master species of same element has mass balance equation
  *  Rewrite equations to calculate pe
  */
-			rewrite_master_to_secondary (master[k], master[i]);
-			trxn_swap ("e-");
+			rewrite_master_to_secondary(master[k], master[i]);
+			trxn_swap("e-");
 /* debug
 			trxn_print();
  */
 /*
  *   Calculate pe, eh
  */
-			pe = -k_calc (trxn.logk, tk_x);
+			pe = -k_calc(trxn.logk, tk_x);
 			for (j = 1; j < count_trxn; j++)
 			{
 				pe -= trxn.token[j].s->la * trxn.token[j].coef;
@@ -393,29 +393,29 @@ print_eh (void)
  */
 			if (first == TRUE)
 			{
-				print_centered ("Redox couples");
-				output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s\n\n",
-							"Redox couple", "pe", "Eh (volts)");
+				print_centered("Redox couples");
+				output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s\n\n",
+						   "Redox couple", "pe", "Eh (volts)");
 				first = FALSE;
 			}
 /*
  *   Print result
  */
-			strcpy (token, master[i]->elt->name);
-			strcat (token, "/");
-			strcat (token, master[k]->elt->name);
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.4f%12.4f\n", token,
-						(double) pe, (double) eh);
+			strcpy(token, master[i]->elt->name);
+			strcat(token, "/");
+			strcat(token, master[k]->elt->name);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.4f%12.4f\n", token,
+					   (double) pe, (double) eh);
 		}
 	}
 	if (first == FALSE)
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_exchange (void)
+print_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -435,7 +435,7 @@ print_exchange (void)
 
 	if (state >= REACTION)
 	{
-		print_centered ("Exchange composition");
+		print_centered("Exchange composition");
 	}
 /*
  *   Print list of species
@@ -466,32 +466,31 @@ print_exchange (void)
 		if (name1 != name)
 		{
 			name = name1;
-			output_msg (OUTPUT_MESSAGE, "%-14s%12.3e mol", name,
-						(double) master_ptr->unknown->moles);
+			output_msg(OUTPUT_MESSAGE, "%-14s%12.3e mol", name,
+					   (double) master_ptr->unknown->moles);
 			if (master_ptr->unknown->exch_comp->phase_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE, "\t[%g (mol %s)/(mol %s)]",
-							(double) master_ptr->unknown->exch_comp->
-							phase_proportion,
-							master_ptr->unknown->exch_comp->formula,
-							master_ptr->unknown->exch_comp->phase_name);
+				output_msg(OUTPUT_MESSAGE, "\t[%g (mol %s)/(mol %s)]",
+						   (double) master_ptr->unknown->exch_comp->
+						   phase_proportion,
+						   master_ptr->unknown->exch_comp->formula,
+						   master_ptr->unknown->exch_comp->phase_name);
 			}
 			else if (master_ptr->unknown->exch_comp->rate_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t[%g (mol %s)/(mol kinetic reactant %s)]",
-							(double) master_ptr->unknown->exch_comp->
-							phase_proportion,
-							master_ptr->unknown->exch_comp->formula,
-							master_ptr->unknown->exch_comp->rate_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t[%g (mol %s)/(mol kinetic reactant %s)]",
+						   (double) master_ptr->unknown->exch_comp->
+						   phase_proportion,
+						   master_ptr->unknown->exch_comp->formula,
+						   master_ptr->unknown->exch_comp->rate_name);
 			}
-			output_msg (OUTPUT_MESSAGE, "\n\n");
+			output_msg(OUTPUT_MESSAGE, "\n\n");
 			/* Heading for species */
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%10s\n", " ", " ",
-						"Equiv-  ", "Equivalent", "Log ");
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%10s\n\n",
-						"Species", "Moles  ", "alents  ", "Fraction",
-						"Gamma");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%10s\n", " ", " ",
+					   "Equiv-  ", "Equivalent", "Log ");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%10s\n\n",
+					   "Species", "Moles  ", "alents  ", "Fraction", "Gamma");
 		}
 /*
  *   Print species data
@@ -501,7 +500,7 @@ print_exchange (void)
 		{
 			if (species_list[i].s->equiv != 0.0)
 			{
-				dum = fabs (species_list[i].s->equiv) / master_ptr->total;
+				dum = fabs(species_list[i].s->equiv) / master_ptr->total;
 			}
 			else
 			{
@@ -516,29 +515,29 @@ print_exchange (void)
 			}
 			if (species_list[i].master_s->z != 0.0)
 			{
-				dum2 = fabs (species_list[i].master_s->z);
+				dum2 = fabs(species_list[i].master_s->z);
 			}
 			else
 			{
 				dum2 = 1;
 			}
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e%12.3e%10.3f\n",
-						species_list[i].s->name,
-						(double) species_list[i].s->moles,
-						(double) (species_list[i].s->moles * dum2 *
-								  species_list[i].s->equiv),
-						(double) (species_list[i].s->moles *
-								  dum /* / dum2 */ ),
-						(double) (species_list[i].s->lg - log10 (dum)));
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e%12.3e%10.3f\n",
+					   species_list[i].s->name,
+					   (double) species_list[i].s->moles,
+					   (double) (species_list[i].s->moles * dum2 *
+								 species_list[i].s->equiv),
+					   (double) (species_list[i].s->moles *
+								 dum /* / dum2 */ ),
+					   (double) (species_list[i].s->lg - log10(dum)));
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_gas_phase (void)
+print_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -566,17 +565,17 @@ print_gas_phase (void)
 /*
  *   Print heading
  */
-	print_centered ("Gas phase");
-	output_msg (OUTPUT_MESSAGE, "\n");
-	output_msg (OUTPUT_MESSAGE, "Total pressure: %8.4f   atmospheres\n",
-				(double) use.gas_phase_ptr->total_p);
-	output_msg (OUTPUT_MESSAGE, "    Gas volume: %10.2e liters\n",
-				(double) use.gas_phase_ptr->volume);
+	print_centered("Gas phase");
+	output_msg(OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "Total pressure: %8.4f   atmospheres\n",
+			   (double) use.gas_phase_ptr->total_p);
+	output_msg(OUTPUT_MESSAGE, "    Gas volume: %10.2e liters\n",
+			   (double) use.gas_phase_ptr->volume);
 
-	output_msg (OUTPUT_MESSAGE, "\n%68s\n%78s\n", "Moles in gas",
-				"----------------------------------");
-	output_msg (OUTPUT_MESSAGE, "%-18s%12s%12s%12s%12s%12s\n\n", "Component",
-				"log P", "P", "Initial", "Final", "Delta");
+	output_msg(OUTPUT_MESSAGE, "\n%68s\n%78s\n", "Moles in gas",
+			   "----------------------------------");
+	output_msg(OUTPUT_MESSAGE, "%-18s%12s%12s%12s%12s%12s\n\n", "Component",
+			   "log P", "P", "Initial", "Final", "Delta");
 
 	for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
 	{
@@ -617,22 +616,22 @@ print_gas_phase (void)
 		}
 		if (moles <= MIN_TOTAL)
 			moles = 0.0;
-		if (fabs (delta_moles) <= MIN_TOTAL)
+		if (fabs(delta_moles) <= MIN_TOTAL)
 			delta_moles = 0.0;
-		output_msg (OUTPUT_MESSAGE, "%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n",
-					use.gas_phase_ptr->comps[j].phase->name,
-					(double) lp,
-					(double) use.gas_phase_ptr->comps[j].phase->p_soln_x,
-					(double) initial_moles, (double) moles,
-					(double) delta_moles);
+		output_msg(OUTPUT_MESSAGE, "%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n",
+				   use.gas_phase_ptr->comps[j].phase->name,
+				   (double) lp,
+				   (double) use.gas_phase_ptr->comps[j].phase->p_soln_x,
+				   (double) initial_moles, (double) moles,
+				   (double) delta_moles);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_s_s_assemblage (void)
+print_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 	/*
@@ -650,11 +649,11 @@ print_s_s_assemblage (void)
 	/*
 	 *   Print heading
 	 */
-	print_centered ("Solid solutions");
-	output_msg (OUTPUT_MESSAGE, "\n");
-	output_msg (OUTPUT_MESSAGE, "%-15s  %22s  %11s  %11s  %11s\n\n",
-				"Solid solution", "Component", "Moles", "Delta moles",
-				"Mole fract");
+	print_centered("Solid solutions");
+	output_msg(OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "%-15s  %22s  %11s  %11s  %11s\n\n",
+			   "Solid solution", "Component", "Moles", "Delta moles",
+			   "Mole fract");
 	/*
 	 *   Print solid solutions
 	 */
@@ -663,9 +662,9 @@ print_s_s_assemblage (void)
 		if (use.s_s_assemblage_ptr->s_s[j].s_s_in == TRUE)
 		{
 			/* solid solution name, moles */
-			output_msg (OUTPUT_MESSAGE, "%-15s  %22s  %11.2e\n",
-						use.s_s_assemblage_ptr->s_s[j].name, "  ",
-						(double) use.s_s_assemblage_ptr->s_s[j].total_moles);
+			output_msg(OUTPUT_MESSAGE, "%-15s  %22s  %11.2e\n",
+					   use.s_s_assemblage_ptr->s_s[j].name, "  ",
+					   (double) use.s_s_assemblage_ptr->s_s[j].total_moles);
 			/* component name, moles, delta moles, mole fraction */
 			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
 			{
@@ -683,15 +682,15 @@ print_s_s_assemblage (void)
 						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
 						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
-				output_msg (OUTPUT_MESSAGE,
-							"%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-							use.s_s_assemblage_ptr->s_s[j].comps[i].name,
-							(double) use.s_s_assemblage_ptr->s_s[j].comps[i].
-							moles, (double) delta_moles,
-							(double) (use.s_s_assemblage_ptr->s_s[j].comps[i].
-									  moles /
-									  use.s_s_assemblage_ptr->s_s[j].
-									  total_moles));
+				output_msg(OUTPUT_MESSAGE,
+						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
+						   use.s_s_assemblage_ptr->s_s[j].comps[i].name,
+						   (double) use.s_s_assemblage_ptr->s_s[j].comps[i].
+						   moles, (double) delta_moles,
+						   (double) (use.s_s_assemblage_ptr->s_s[j].comps[i].
+									 moles /
+									 use.s_s_assemblage_ptr->s_s[j].
+									 total_moles));
 			}
 			s_s_ptr = &(use.s_s_assemblage_ptr->s_s[j]);
 			if (s_s_ptr->miscibility == TRUE)
@@ -707,25 +706,25 @@ print_s_s_assemblage (void)
 					xb2moles = (xb1 - 1) / xb1 * nb + nc;
 					xb2moles = xb2moles / ((xb1 - 1) / xb1 * xb2 + (1 - xb2));
 					xb1moles = (nb - xb2moles * xb2) / xb1;
-					output_msg (OUTPUT_MESSAGE,
-								"\n%14s  Solid solution is in miscibility gap\n",
-								" ");
-					output_msg (OUTPUT_MESSAGE,
-								"%14s  End members in pct of %s\n\n", " ",
-								s_s_ptr->comps[1].name);
-					output_msg (OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n",
-								" ", (double) xb1, (double) xb1moles);
-					output_msg (OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n",
-								" ", (double) xb2, (double) xb2moles);
+					output_msg(OUTPUT_MESSAGE,
+							   "\n%14s  Solid solution is in miscibility gap\n",
+							   " ");
+					output_msg(OUTPUT_MESSAGE,
+							   "%14s  End members in pct of %s\n\n", " ",
+							   s_s_ptr->comps[1].name);
+					output_msg(OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n",
+							   " ", (double) xb1, (double) xb1moles);
+					output_msg(OUTPUT_MESSAGE, "%22s  %11g pct  %11.2e\n",
+							   " ", (double) xb2, (double) xb2moles);
 				}
 			}
 		}
 		else
 		{
 			/* solid solution name, moles */
-			output_msg (OUTPUT_MESSAGE, "%-15s  %22s  %11.2e\n",
-						use.s_s_assemblage_ptr->s_s[j].name, "  ",
-						(double) 0.0);
+			output_msg(OUTPUT_MESSAGE, "%-15s  %22s  %11.2e\n",
+					   use.s_s_assemblage_ptr->s_s[j].name, "  ",
+					   (double) 0.0);
 			/* component name, moles, delta moles, mole fraction */
 			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
 			{
@@ -743,20 +742,20 @@ print_s_s_assemblage (void)
 						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
 						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
-				output_msg (OUTPUT_MESSAGE,
-							"%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-							use.s_s_assemblage_ptr->s_s[j].comps[i].name,
-							(double) 0, (double) delta_moles, (double) 0);
+				output_msg(OUTPUT_MESSAGE,
+						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
+						   use.s_s_assemblage_ptr->s_s[j].comps[i].name,
+						   (double) 0, (double) delta_moles, (double) 0);
 			}
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-print_irrev (void)
+print_irrev(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -777,42 +776,41 @@ print_irrev (void)
 /*
  *  Print amount of reaction
  */
-	output_msg (OUTPUT_MESSAGE, "Reaction %d.\t%s\n\n", use.n_irrev_user,
-				irrev_ptr->description);
-	output_msg (OUTPUT_MESSAGE,
-				"\t%11.3e moles of the following reaction have been added:\n\n",
-				(double) step_x);
+	output_msg(OUTPUT_MESSAGE, "Reaction %d.\t%s\n\n", use.n_irrev_user,
+			   irrev_ptr->description);
+	output_msg(OUTPUT_MESSAGE,
+			   "\t%11.3e moles of the following reaction have been added:\n\n",
+			   (double) step_x);
 /*
  *  Print reaction
  */
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n", " ", "Relative");
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n\n", "Reactant", "moles");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%10s\n", " ", "Relative");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%10s\n\n", "Reactant", "moles");
 	for (i = 0; i < irrev_ptr->count_list; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-15s%13.5f\n",
-					irrev_ptr->list[i].name,
-					(double) irrev_ptr->list[i].coef);
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%13.5f\n",
+				   irrev_ptr->list[i].name, (double) irrev_ptr->list[i].coef);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 /*
  *   Debug
  */
 
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n", " ", "Relative");
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%10s\n", "Element", "moles");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%10s\n", " ", "Relative");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%10s\n", "Element", "moles");
 	for (i = 0; irrev_ptr->elts[i].elt != NULL; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-15s%13.5f\n",
-					irrev_ptr->elts[i].elt->name,
-					(double) irrev_ptr->elts[i].coef);
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%13.5f\n",
+				   irrev_ptr->elts[i].elt->name,
+				   (double) irrev_ptr->elts[i].coef);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-print_kinetics (void)
+print_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -831,11 +829,11 @@ print_kinetics (void)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &i);
+			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
 		}
 		else
 		{
-			kinetics_ptr = kinetics_bsearch (-2, &i);
+			kinetics_ptr = kinetics_bsearch(-2, &i);
 		}
 	}
 	if (kinetics_ptr == NULL)
@@ -888,95 +886,95 @@ print_kinetics (void)
  */
 	if (phast == FALSE)
 	{
-		output_msg (OUTPUT_MESSAGE, "Kinetics %d.\t%s\n\n",
-					use.n_kinetics_user, kinetics_ptr->description);
+		output_msg(OUTPUT_MESSAGE, "Kinetics %d.\t%s\n\n",
+				   use.n_kinetics_user, kinetics_ptr->description);
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE, "Kinetics.\n\n");
+		output_msg(OUTPUT_MESSAGE, "Kinetics.\n\n");
 	}
 /*
  *  Print reaction
  */
 	if (state == TRANSPORT)
 	{
-		output_msg (OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
-					(double) (initial_total_time + transport_step * timest));
-		output_msg (OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
-					(double) kin_time_x);
+		output_msg(OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
+				   (double) (initial_total_time + transport_step * timest));
+		output_msg(OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
+				   (double) kin_time_x);
 	}
 	else if (state == ADVECTION)
 	{
-		output_msg (OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
-					(double) (initial_total_time +
-							  advection_step * advection_kin_time));
-		output_msg (OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
-					(double) kin_time_x);
+		output_msg(OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
+				   (double) (initial_total_time +
+							 advection_step * advection_kin_time));
+		output_msg(OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
+				   (double) kin_time_x);
 	}
 	else if (state == PHAST)
 	{
-		output_msg (OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
-					(double) rate_sim_time_end);
-		output_msg (OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
-					(double) kin_time_x);
+		output_msg(OUTPUT_MESSAGE, "\tTime:      %g seconds\n",
+				   (double) rate_sim_time_end);
+		output_msg(OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
+				   (double) kin_time_x);
 	}
 	else if (state == REACTION)
 	{
 		if (incremental_reactions == FALSE)
 		{
-			output_msg (OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
-						(double) kin_time_x);
+			output_msg(OUTPUT_MESSAGE, "\tTime step: %g seconds\n\n",
+					   (double) kin_time_x);
 		}
 		else
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\tTime step: %g seconds  (Incremented time: %g seconds)\n\n",
-						(double) kin_time_x, (double) sim_time);
+			output_msg(OUTPUT_MESSAGE,
+					   "\tTime step: %g seconds  (Incremented time: %g seconds)\n\n",
+					   (double) kin_time_x, (double) sim_time);
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s   %-15s%12s\n\n",
-				"Rate name", "Delta Moles", "Total Moles", "Reactant",
-				"Coefficient");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s   %-15s%12s\n\n",
+			   "Rate name", "Delta Moles", "Total Moles", "Reactant",
+			   "Coefficient");
 	for (i = 0; i < kinetics_ptr->count_comps; i++)
 	{
 		if (state != TRANSPORT && state != PHAST)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
-						kinetics_ptr->comps[i].rate_name,
-						(double) -kinetics_ptr->comps[i].moles,
-						(double) kinetics_ptr->comps[i].m);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
+					   kinetics_ptr->comps[i].rate_name,
+					   (double) -kinetics_ptr->comps[i].moles,
+					   (double) kinetics_ptr->comps[i].m);
 		}
 		else
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
-						kinetics_ptr->comps[i].rate_name,
-						(double) (kinetics_ptr->comps[i].m -
-								  kinetics_ptr->comps[i].initial_moles),
-						(double) kinetics_ptr->comps[i].m);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
+					   kinetics_ptr->comps[i].rate_name,
+					   (double) (kinetics_ptr->comps[i].m -
+								 kinetics_ptr->comps[i].initial_moles),
+					   (double) kinetics_ptr->comps[i].m);
 		}
 		for (j = 0; j < kinetics_ptr->comps[i].count_list; j++)
 		{
 			if (j == 0)
 			{
-				output_msg (OUTPUT_MESSAGE, "   %-15s%12g\n",
-							kinetics_ptr->comps[i].list[j].name,
-							(double) kinetics_ptr->comps[i].list[j].coef);
+				output_msg(OUTPUT_MESSAGE, "   %-15s%12g\n",
+						   kinetics_ptr->comps[i].list[j].name,
+						   (double) kinetics_ptr->comps[i].list[j].coef);
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE, "\t%39s   %-15s%12g\n", " ",
-							kinetics_ptr->comps[i].list[j].name,
-							(double) kinetics_ptr->comps[i].list[j].coef);
+				output_msg(OUTPUT_MESSAGE, "\t%39s   %-15s%12g\n", " ",
+						   kinetics_ptr->comps[i].list[j].name,
+						   (double) kinetics_ptr->comps[i].list[j].coef);
 			}
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_master_reactions (void)
+print_master_reactions(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -987,42 +985,42 @@ print_master_reactions (void)
 
 	for (i = 0; i < count_master; i++)
 	{
-		output_msg (OUTPUT_MESSAGE, "%s\t%s\n\tPrimary reaction\n",
-					master[i]->elt->name, master[i]->s->name);
+		output_msg(OUTPUT_MESSAGE, "%s\t%s\n\tPrimary reaction\n",
+				   master[i]->elt->name, master[i]->s->name);
 		next_token = master[i]->rxn_primary->token;
 		for (; next_token->s != NULL; next_token++)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t\t%s\t%f\n", next_token->s->name,
-						(double) next_token->coef);
+			output_msg(OUTPUT_MESSAGE, "\t\t%s\t%f\n", next_token->s->name,
+					   (double) next_token->coef);
 		}
-		output_msg (OUTPUT_MESSAGE, "\n\tSecondary reaction:\n");
+		output_msg(OUTPUT_MESSAGE, "\n\tSecondary reaction:\n");
 		if (master[i]->rxn_secondary != NULL)
 		{
 			next_token = master[i]->rxn_secondary->token;
 			for (; next_token->s != NULL; next_token++)
 			{
-				output_msg (OUTPUT_MESSAGE, "\t\t%s\t%f\n",
-							next_token->s->name, (double) next_token->coef);
+				output_msg(OUTPUT_MESSAGE, "\t\t%s\t%f\n",
+						   next_token->s->name, (double) next_token->coef);
 			}
 		}
-		output_msg (OUTPUT_MESSAGE, "\n\tRedox reaction:\n");
+		output_msg(OUTPUT_MESSAGE, "\n\tRedox reaction:\n");
 		if (*(master[i]->pe_rxn) != NULL)
 		{
 			next_token = (*(master[i]->pe_rxn))->token;
 			for (; next_token->s != NULL; next_token++)
 			{
-				output_msg (OUTPUT_MESSAGE, "\t\t%s\t%f\n",
-							next_token->s->name, (double) next_token->coef);
+				output_msg(OUTPUT_MESSAGE, "\t\t%s\t%f\n",
+						   next_token->s->name, (double) next_token->coef);
 			}
 		}
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-print_mix (void)
+print_mix(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1038,11 +1036,11 @@ print_mix (void)
 		return (OK);
 	if (state == TRANSPORT)
 	{
-		mix_ptr = mix_bsearch (use.n_mix_user, &i);
+		mix_ptr = mix_bsearch(use.n_mix_user, &i);
 	}
 	else
 	{
-		mix_ptr = mix_bsearch (use.n_mix_user_orig, &i);
+		mix_ptr = mix_bsearch(use.n_mix_user_orig, &i);
 	}
 	if (mix_ptr == NULL)
 	{
@@ -1058,34 +1056,34 @@ print_mix (void)
 	}
 	if (state == TRANSPORT)
 	{
-		output_msg (OUTPUT_MESSAGE, "Mixture %d.\t%s\n\n", use.n_mix_user,
-					mix_ptr->description);
+		output_msg(OUTPUT_MESSAGE, "Mixture %d.\t%s\n\n", use.n_mix_user,
+				   mix_ptr->description);
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE, "Mixture %d.\t%s\n\n", mix_ptr->n_user,
-					mix_ptr->description);
+		output_msg(OUTPUT_MESSAGE, "Mixture %d.\t%s\n\n", mix_ptr->n_user,
+				   mix_ptr->description);
 	}
 	for (i = 0; i < mix_ptr->count_comps; i++)
 	{
 		solution_ptr =
-			solution_bsearch (mix_ptr->comps[i].n_solution, &n, TRUE);
+			solution_bsearch(mix_ptr->comps[i].n_solution, &n, TRUE);
 		if (solution_ptr == NULL)
 		{
 			input_error++;
 			return (ERROR);
 		}
-		output_msg (OUTPUT_MESSAGE, "\t%11.3e Solution %d\t%-55s\n",
-					(double) mix_ptr->comps[i].fraction,
-					mix_ptr->comps[i].n_solution, solution[n]->description);
+		output_msg(OUTPUT_MESSAGE, "\t%11.3e Solution %d\t%-55s\n",
+				   (double) mix_ptr->comps[i].fraction,
+				   mix_ptr->comps[i].n_solution, solution[n]->description);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_reaction (struct reaction *rxn_ptr)
+print_reaction(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1098,25 +1096,25 @@ print_reaction (struct reaction *rxn_ptr)
 	if (pr.use == FALSE || pr.all == FALSE)
 		return (OK);
 
-	output_msg (OUTPUT_MESSAGE, "%s\t\n", rxn_ptr->token[0].s->name);
-	output_msg (OUTPUT_MESSAGE, "\n\tlog k:\n");
+	output_msg(OUTPUT_MESSAGE, "%s\t\n", rxn_ptr->token[0].s->name);
+	output_msg(OUTPUT_MESSAGE, "\n\tlog k:\n");
 	for (j = 0; j < 7; j++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%f", (double) rxn_ptr->logk[j]);
+		output_msg(OUTPUT_MESSAGE, "\t%f", (double) rxn_ptr->logk[j]);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n\nReaction:\n");
+	output_msg(OUTPUT_MESSAGE, "\n\nReaction:\n");
 	for (next_token = rxn_ptr->token; next_token->s != NULL; next_token++)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t\t%s\t%f\n", next_token->s->name,
-					(double) next_token->coef);
+		output_msg(OUTPUT_MESSAGE, "\t\t%s\t%f\n", next_token->s->name,
+				   (double) next_token->coef);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_saturation_indices (void)
+print_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1139,7 +1137,7 @@ print_saturation_indices (void)
 			iap += rxn_ptr->coef * rxn_ptr->s->la;
 			/* fprintf(output,"\t%s\t%f\t%f\n", rxn_ptr->s->name, rxn_ptr->coef, rxn_ptr->s->la ); */
 		}
-		lk = k_calc (pe_x[default_pe_x].rxn->logk, tk_x);
+		lk = k_calc(pe_x[default_pe_x].rxn->logk, tk_x);
 		la_eminus = lk + iap;
 		/* fprintf(output,"\t%s\t%f\n", "pe", si ); */
 	}
@@ -1150,9 +1148,9 @@ print_saturation_indices (void)
 /*
  *   Print heading
  */
-	print_centered ("Saturation indices");
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%7s%8s%8s\n\n", "Phase", "SI",
-				"log IAP", "log KT");
+	print_centered("Saturation indices");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%7s%8s%8s\n\n", "Phase", "SI",
+			   "log IAP", "log KT");
 
 	for (i = 0; i < count_phases; i++)
 	{
@@ -1170,14 +1168,14 @@ print_saturation_indices (void)
 			/* fprintf(output,"\t%s\t%f\t%e\n", rxn_ptr->s->name, rxn_ptr->s->la, rxn_ptr->coef); */
 		}
 		si = -phases[i]->lk + iap;
-		output_msg (OUTPUT_MESSAGE, "\t%-15s%7.2f%8.2f%8.2f  %s\n",
-					phases[i]->name, (double) si, (double) iap,
-					(double) phases[i]->lk, phases[i]->formula);
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%7.2f%8.2f%8.2f  %s\n",
+				   phases[i]->name, (double) si, (double) iap,
+				   (double) phases[i]->lk, phases[i]->formula);
 		si1 = si;
 #endif
 
 		/* pe_value_x = pe_x[default_pe_x].rxn; */
-		lk = k_calc (phases[i]->rxn->logk, tk_x);
+		lk = k_calc(phases[i]->rxn->logk, tk_x);
 		iap = 0.0;
 		for (rxn_ptr = phases[i]->rxn->token + 1; rxn_ptr->s != NULL;
 			 rxn_ptr++)
@@ -1194,26 +1192,26 @@ print_saturation_indices (void)
 			/* output_msg(OUTPUT_MESSAGE,"\t%s\t%f\t%e\t%e\t%e\n", rxn_ptr->s->name, rxn_ptr->s->la, rxn_ptr->coef, rxn_ptr->s->lm, rxn_ptr->s->lg ); */
 		}
 		si = -lk + iap;
-		output_msg (OUTPUT_MESSAGE, "\t%-15s%7.2f%8.2f%8.2f  %s\n",
-					phases[i]->name, (double) si, (double) iap, (double) lk,
-					phases[i]->formula);
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%7.2f%8.2f%8.2f  %s\n",
+				   phases[i]->name, (double) si, (double) iap, (double) lk,
+				   phases[i]->formula);
 
 #ifdef SKIP
-		if (fabs (si1 - si) > convergence_tolerance)
+		if (fabs(si1 - si) > convergence_tolerance)
 		{
-			sprintf (error_string, "SI1 != SI, %s SI1 %e, SI %e, diff %e\n",
-					 phases[i]->name, si1, si, si1 - si);
-			error_msg (error_string, CONTINUE);
+			sprintf(error_string, "SI1 != SI, %s SI1 %e, SI %e, diff %e\n",
+					phases[i]->name, si1, si, si1 - si);
+			error_msg(error_string, CONTINUE);
 		}
 #endif
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_pp_assemblage (void)
+print_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1232,13 +1230,13 @@ print_pp_assemblage (void)
 /*
  *   Print heading
  */
-	print_centered ("Phase assemblage");
-	output_msg (OUTPUT_MESSAGE, "%73s\n", "Moles in assemblage");
-	output_msg (OUTPUT_MESSAGE, "%-18s%7s%8s%8s", "Phase", "SI", "log IAP",
-				"log KT");
-	output_msg (OUTPUT_MESSAGE, " %12s%12s%12s", " Initial", " Final",
-				" Delta");
-	output_msg (OUTPUT_MESSAGE, "\n\n");
+	print_centered("Phase assemblage");
+	output_msg(OUTPUT_MESSAGE, "%73s\n", "Moles in assemblage");
+	output_msg(OUTPUT_MESSAGE, "%-18s%7s%8s%8s", "Phase", "SI", "log IAP",
+			   "log KT");
+	output_msg(OUTPUT_MESSAGE, " %12s%12s%12s", " Initial", " Final",
+			   " Delta");
+	output_msg(OUTPUT_MESSAGE, "\n\n");
 
 	for (j = 0; j < count_unknowns; j++)
 	{
@@ -1251,13 +1249,13 @@ print_pp_assemblage (void)
 		phase_ptr = x[j]->phase;
 		if (x[j]->phase->rxn_x == NULL || phase_ptr->in == FALSE)
 		{
-			output_msg (OUTPUT_MESSAGE, "%-18s%23s", x[j]->phase->name,
-						"Element not present.");
+			output_msg(OUTPUT_MESSAGE, "%-18s%23s", x[j]->phase->name,
+					   "Element not present.");
 		}
 		else
 		{
 			phase_ptr = x[j]->phase;
-			lk = k_calc (phase_ptr->rxn->logk, tk_x);
+			lk = k_calc(phase_ptr->rxn->logk, tk_x);
 			for (rxn_ptr = phase_ptr->rxn->token + 1; rxn_ptr->s != NULL;
 				 rxn_ptr++)
 			{
@@ -1278,9 +1276,9 @@ print_pp_assemblage (void)
 			   si = -x[j]->phase->lk + iap;
 			   output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
 			 */
-			output_msg (OUTPUT_MESSAGE, "%-18s%7.2f%8.2f%8.2f",
-						x[j]->phase->name, (double) si, (double) iap,
-						(double) lk);
+			output_msg(OUTPUT_MESSAGE, "%-18s%7.2f%8.2f%8.2f",
+					   x[j]->phase->name, (double) si, (double) iap,
+					   (double) lk);
 		}
 /*
  *   Print pure phase assemblage data
@@ -1289,19 +1287,18 @@ print_pp_assemblage (void)
 			x[j]->moles = 0.0;
 		if (state != TRANSPORT && state != PHAST)
 		{
-			sprintf (token, " %11.3e %11.3e %11.3e",
-					 (double) (x[j]->pure_phase->moles +
-							   x[j]->pure_phase->delta), (double) x[j]->moles,
-					 (double) (x[j]->moles - x[j]->pure_phase->moles -
-							   x[j]->pure_phase->delta));
+			sprintf(token, " %11.3e %11.3e %11.3e",
+					(double) (x[j]->pure_phase->moles +
+							  x[j]->pure_phase->delta), (double) x[j]->moles,
+					(double) (x[j]->moles - x[j]->pure_phase->moles -
+							  x[j]->pure_phase->delta));
 		}
 		else
 		{
-			sprintf (token, " %11.3e %11.3e %11.3e",
-					 (double) x[j]->pure_phase->initial_moles,
-					 (double) x[j]->moles,
-					 (double) (x[j]->moles -
-							   x[j]->pure_phase->initial_moles));
+			sprintf(token, " %11.3e %11.3e %11.3e",
+					(double) x[j]->pure_phase->initial_moles,
+					(double) x[j]->moles,
+					(double) (x[j]->moles - x[j]->pure_phase->initial_moles));
 		}
 		if (x[j]->moles <= 0.0)
 		{
@@ -1312,21 +1309,21 @@ print_pp_assemblage (void)
 		}
 		if (x[j]->pure_phase->add_formula == NULL)
 		{
-			output_msg (OUTPUT_MESSAGE, "%37s\n", token);
+			output_msg(OUTPUT_MESSAGE, "%37s\n", token);
 		}
 		else
 		{
-			output_msg (OUTPUT_MESSAGE, "\n	 %-18s%-15s%36s\n",
-						x[j]->pure_phase->add_formula, " is reactant", token);
+			output_msg(OUTPUT_MESSAGE, "\n	 %-18s%-15s%36s\n",
+					   x[j]->pure_phase->add_formula, " is reactant", token);
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_species (void)
+print_species(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1342,7 +1339,7 @@ print_species (void)
 	if (pr.species == FALSE || pr.all == FALSE)
 		return (OK);
 	min = -1000;
-	print_centered ("Distribution of species");
+	print_centered("Distribution of species");
 /*
  *   Heading for species
  */
@@ -1350,24 +1347,24 @@ print_species (void)
 	{
 		if (ICON == TRUE)
 		{
-			output_msg (OUTPUT_MESSAGE, "%67s%11s\n", "MacInnes", "MacInnes");
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s%10s%10s\n", " ",
-						" ", "MacInnes", "Log   ", "Log   ", "Log ");
+			output_msg(OUTPUT_MESSAGE, "%67s%11s\n", "MacInnes", "MacInnes");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s%10s%10s\n", " ",
+					   " ", "MacInnes", "Log   ", "Log   ", "Log ");
 		}
 		else
 		{
-			output_msg (OUTPUT_MESSAGE, "%67s%11s\n", "Unscaled", "Unscaled");
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s%10s%10s\n", " ",
-						" ", "Unscaled", "Log   ", "Log   ", "Log ");
+			output_msg(OUTPUT_MESSAGE, "%67s%11s\n", "Unscaled", "Unscaled");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s%10s%10s\n", " ",
+					   " ", "Unscaled", "Log   ", "Log   ", "Log ");
 		}
 	}
 	else
 	{
-		output_msg (OUTPUT_MESSAGE, "   %-20s%12s%12s%10s%10s%10s\n", " ",
-					" ", " ", "Log   ", "Log   ", "Log ");
+		output_msg(OUTPUT_MESSAGE, "   %-20s%12s%12s%10s%10s%10s\n", " ",
+				   " ", " ", "Log   ", "Log   ", "Log ");
 	}
-	output_msg (OUTPUT_MESSAGE, "   %-20s%12s%12s%10s%10s%10s\n\n", "Species",
-				"Molality", "Activity", "Molality", "Activity", "Gamma");
+	output_msg(OUTPUT_MESSAGE, "   %-20s%12s%12s%10s%10s%10s\n\n", "Species",
+			   "Molality", "Activity", "Molality", "Activity", "Gamma");
 /*
  *   Print list of species
  */
@@ -1398,12 +1395,12 @@ print_species (void)
 		if (name1 != name)
 		{
 			name = name1;
-			output_msg (OUTPUT_MESSAGE, "%-14s%12.3e\n", name,
-						(double) (master_ptr->total / mass_water_aq_x));
+			output_msg(OUTPUT_MESSAGE, "%-14s%12.3e\n", name,
+					   (double) (master_ptr->total / mass_water_aq_x));
 			min = censor * master_ptr->total / mass_water_aq_x;
 			if (min > 0)
 			{
-				min = log10 (min);
+				min = log10(min);
 			}
 			else
 			{
@@ -1417,31 +1414,31 @@ print_species (void)
 		{
 			if (species_list[i].s == s_h2o)
 			{
-				lm = log10 (s_h2o->moles / mass_water_aq_x);
+				lm = log10(s_h2o->moles / mass_water_aq_x);
 			}
 			else
 			{
 				lm = species_list[i].s->lm;
 			}
-			output_msg (OUTPUT_MESSAGE,
-						"   %-20s%12.3e%12.3e%10.3f%10.3f%10.3f\n",
-						species_list[i].s->name,
-						(double) ((species_list[i].s->moles) /
-								  mass_water_aq_x),
-						(double) under (species_list[i].s->lm +
-										species_list[i].s->lg), (double) lm,
-						(double) (species_list[i].s->lm +
-								  species_list[i].s->lg),
-						(double) species_list[i].s->lg);
+			output_msg(OUTPUT_MESSAGE,
+					   "   %-20s%12.3e%12.3e%10.3f%10.3f%10.3f\n",
+					   species_list[i].s->name,
+					   (double) ((species_list[i].s->moles) /
+								 mass_water_aq_x),
+					   (double) under(species_list[i].s->lm +
+									  species_list[i].s->lg), (double) lm,
+					   (double) (species_list[i].s->lm +
+								 species_list[i].s->lg),
+					   (double) species_list[i].s->lg);
 		}
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_surface (void)
+print_surface(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1462,11 +1459,11 @@ print_surface (void)
 	if (surface_ptr == NULL || pr.surface == FALSE || pr.all == FALSE)
 		return (OK);
 	if (surface_ptr->type == CD_MUSIC)
-		return (print_surface_cd_music ());
+		return (print_surface_cd_music());
 
 	if (state >= REACTION)
 	{
-		print_centered ("Surface composition");
+		print_centered("Surface composition");
 	}
 /*
  *   Print list of species
@@ -1480,27 +1477,27 @@ print_surface (void)
 		{
 			if (x[j]->type != SURFACE_CB)
 				continue;
-			strcpy (name, x[j]->master[0]->elt->name);
-			replace ("_psi", "", name);
+			strcpy(name, x[j]->master[0]->elt->name);
+			replace("_psi", "", name);
 		}
 		else
 		{
 			if (x[j]->type != SURFACE)
 				continue;
-			strcpy (token, x[j]->master[0]->elt->name);
-			replace ("_", " ", token);
+			strcpy(token, x[j]->master[0]->elt->name);
+			replace("_", " ", token);
 			ptr = token;
-			copy_token (name, &ptr, &k);
+			copy_token(name, &ptr, &k);
 		}
-		output_msg (OUTPUT_MESSAGE, "%-14s\n", name);
+		output_msg(OUTPUT_MESSAGE, "%-14s\n", name);
 /*
  *   Description of surface
  */
 		if (dl_type_x != NO_DL)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\t%11.3e  Surface + diffuse layer charge, eq\n",
-						(double) x[j]->f);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t%11.3e  Surface + diffuse layer charge, eq\n",
+					   (double) x[j]->f);
 		}
 		/*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) { */
 		if (use.surface_ptr->type == DDL && dl_type_x == NO_DL)
@@ -1509,70 +1506,70 @@ print_surface (void)
 		}
 		else
 		{
-			charge = calc_surface_charge (name);
+			charge = calc_surface_charge(name);
 		}
-		output_msg (OUTPUT_MESSAGE, "\t%11.3e  Surface charge, eq\n",
-					(double) charge);
+		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, eq\n",
+				   (double) charge);
 		if (x[j]->type == SURFACE_CB)
 		{
 			if ((x[j]->surface_charge->specific_area *
 				 x[j]->surface_charge->grams) > 0)
 			{
-				output_msg (OUTPUT_MESSAGE, "\t%11.3e  sigma, C/m**2\n",
-							(double) (charge * F_C_MOL /
-									  (x[j]->surface_charge->specific_area *
-									   x[j]->surface_charge->grams)));
+				output_msg(OUTPUT_MESSAGE, "\t%11.3e  sigma, C/m**2\n",
+						   (double) (charge * F_C_MOL /
+									 (x[j]->surface_charge->specific_area *
+									  x[j]->surface_charge->grams)));
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE, "\tundefined  sigma, C/m**2\n");
+				output_msg(OUTPUT_MESSAGE, "\tundefined  sigma, C/m**2\n");
 			}
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  psi, V\n",
-						(double) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL *
-								  tk_x * LOG_10 / F_KJ_V_EQ));
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  -F*psi/RT\n",
-						(double) (x[j]->master[0]->s->la * (-2) * LOG_10));
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT)\n",
-						exp (x[j]->master[0]->s->la * (-2) * LOG_10));
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, V\n",
+					   (double) (x[j]->master[0]->s->la * 2 * R_KJ_DEG_MOL *
+								 tk_x * LOG_10 / F_KJ_V_EQ));
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  -F*psi/RT\n",
+					   (double) (x[j]->master[0]->s->la * (-2) * LOG_10));
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT)\n",
+					   exp(x[j]->master[0]->s->la * (-2) * LOG_10));
 			if (x[j]->surface_comp->phase_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m**2/mol %s\n",
-							(double) x[j]->surface_charge->specific_area,
-							x[j]->surface_comp->phase_name);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  m**2 for %11.3e moles of %s\n\n",
-							(double) (x[j]->surface_charge->grams *
-									  x[j]->surface_charge->specific_area),
-							(double) x[j]->surface_charge->grams,
-							x[j]->surface_comp->phase_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m**2/mol %s\n",
+						   (double) x[j]->surface_charge->specific_area,
+						   x[j]->surface_comp->phase_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  m**2 for %11.3e moles of %s\n\n",
+						   (double) (x[j]->surface_charge->grams *
+									 x[j]->surface_charge->specific_area),
+						   (double) x[j]->surface_charge->grams,
+						   x[j]->surface_comp->phase_name);
 			}
 			else if (x[j]->surface_comp->rate_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m**2/mol %s\n",
-							(double) x[j]->surface_charge->specific_area,
-							x[j]->surface_comp->rate_name);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  m**2 for %11.3e moles of %s\n\n",
-							(double) (x[j]->surface_charge->grams *
-									  x[j]->surface_charge->specific_area),
-							(double) x[j]->surface_charge->grams,
-							x[j]->surface_comp->rate_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m**2/mol %s\n",
+						   (double) x[j]->surface_charge->specific_area,
+						   x[j]->surface_comp->rate_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  m**2 for %11.3e moles of %s\n\n",
+						   (double) (x[j]->surface_charge->grams *
+									 x[j]->surface_charge->specific_area),
+						   (double) x[j]->surface_charge->grams,
+						   x[j]->surface_comp->rate_name);
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m**2/g\n",
-							(double) x[j]->surface_charge->specific_area);
-				output_msg (OUTPUT_MESSAGE, "\t%11.3e  m**2 for %11.3e g\n\n",
-							(double) (x[j]->surface_charge->specific_area *
-									  x[j]->surface_charge->grams),
-							(double) x[j]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m**2/g\n",
+						   (double) x[j]->surface_charge->specific_area);
+				output_msg(OUTPUT_MESSAGE, "\t%11.3e  m**2 for %11.3e g\n\n",
+						   (double) (x[j]->surface_charge->specific_area *
+									 x[j]->surface_charge->grams),
+						   (double) x[j]->surface_charge->grams);
 			}
 			if (dl_type_x != NO_DL)
-				print_diffuse_layer (x[j]->surface_charge);
-			output_msg (OUTPUT_MESSAGE, "\n");
+				print_diffuse_layer(x[j]->surface_charge);
+			output_msg(OUTPUT_MESSAGE, "\n");
 /*
  *   Heading for species
  */
@@ -1583,32 +1580,32 @@ print_surface (void)
 				if (x[j] != x[k]->potential_unknown)
 					continue;
 				master_ptr = x[k]->master[0];
-				output_msg (OUTPUT_MESSAGE, "%-14s\n",
-							x[k]->master[0]->elt->name);
-				output_msg (OUTPUT_MESSAGE, "\t%11.3e  moles",
-							(double) x[k]->moles);
+				output_msg(OUTPUT_MESSAGE, "%-14s\n",
+						   x[k]->master[0]->elt->name);
+				output_msg(OUTPUT_MESSAGE, "\t%11.3e  moles",
+						   (double) x[k]->moles);
 				if (x[k]->surface_comp->phase_name != NULL)
 				{
-					output_msg (OUTPUT_MESSAGE, "\t[%g mol/(mol %s)]\n",
-								(double) x[k]->surface_comp->phase_proportion,
-								x[k]->surface_comp->phase_name);
+					output_msg(OUTPUT_MESSAGE, "\t[%g mol/(mol %s)]\n",
+							   (double) x[k]->surface_comp->phase_proportion,
+							   x[k]->surface_comp->phase_name);
 				}
 				else if (x[k]->surface_comp->rate_name != NULL)
 				{
-					output_msg (OUTPUT_MESSAGE,
-								"\t[%g mol/(mol kinetic reactant %s)]\n",
-								(double) x[k]->surface_comp->phase_proportion,
-								x[k]->surface_comp->rate_name);
+					output_msg(OUTPUT_MESSAGE,
+							   "\t[%g mol/(mol kinetic reactant %s)]\n",
+							   (double) x[k]->surface_comp->phase_proportion,
+							   x[k]->surface_comp->rate_name);
 				}
 				else
 				{
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "\n");
 				}
-				output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n", " ",
-							" ", "Mole", " ", "Log");
-				output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n\n",
-							"Species", "Moles", "Fraction", "Molality",
-							"Molality");
+				output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n", " ",
+						   " ", "Mole", " ", "Log");
+				output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n\n",
+						   "Species", "Moles", "Fraction", "Molality",
+						   "Molality");
 				for (i = 0; i < count_species_list; i++)
 				{
 					if (species_list[i].master_s != master_ptr->s)
@@ -1626,32 +1623,31 @@ print_surface (void)
 					{
 						molfrac = 0.0;
 					}
-					output_msg (OUTPUT_MESSAGE,
-								"\t%-15s%12.3e%12.3f%12.3e%12.3f\n",
-								species_list[i].s->name,
-								(double) species_list[i].s->moles,
-								(double) molfrac,
-								(double) (species_list[i].s->moles /
-										  mass_water_aq_x),
-								log10 (species_list[i].s->moles /
-									   mass_water_aq_x));
+					output_msg(OUTPUT_MESSAGE,
+							   "\t%-15s%12.3e%12.3f%12.3e%12.3f\n",
+							   species_list[i].s->name,
+							   (double) species_list[i].s->moles,
+							   (double) molfrac,
+							   (double) (species_list[i].s->moles /
+										 mass_water_aq_x),
+							   log10(species_list[i].s->moles /
+									 mass_water_aq_x));
 				}
-				output_msg (OUTPUT_MESSAGE, "\n");
+				output_msg(OUTPUT_MESSAGE, "\n");
 			}
 		}
 		else
 		{
 			k = j;
 			master_ptr = x[k]->master[0];
-			output_msg (OUTPUT_MESSAGE, "%-14s\n",
-						x[k]->master[0]->elt->name);
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  moles\n",
-						(double) x[k]->moles);
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n", " ", " ",
-						"Mole", " ", "Log");
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n\n",
-						"Species", "Moles", "Fraction", "Molality",
-						"Molality");
+			output_msg(OUTPUT_MESSAGE, "%-14s\n", x[k]->master[0]->elt->name);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  moles\n",
+					   (double) x[k]->moles);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n", " ", " ",
+					   "Mole", " ", "Log");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%12s%12s\n\n",
+					   "Species", "Moles", "Fraction", "Molality",
+					   "Molality");
 			for (i = 0; i < count_species_list; i++)
 			{
 				if (species_list[i].master_s != master_ptr->s)
@@ -1669,17 +1665,16 @@ print_surface (void)
 				{
 					molfrac = 0.0;
 				}
-				output_msg (OUTPUT_MESSAGE,
-							"\t%-15s%12.3e%12.3f%12.3e%12.3f\n",
-							species_list[i].s->name,
-							(double) species_list[i].s->moles,
-							(double) molfrac,
-							(double) (species_list[i].s->moles /
-									  mass_water_aq_x),
-							log10 (species_list[i].s->moles /
-								   mass_water_aq_x));
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%-15s%12.3e%12.3f%12.3e%12.3f\n",
+						   species_list[i].s->name,
+						   (double) species_list[i].s->moles,
+						   (double) molfrac,
+						   (double) (species_list[i].s->moles /
+									 mass_water_aq_x),
+						   log10(species_list[i].s->moles / mass_water_aq_x));
 			}
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 	}
 	return (OK);
@@ -1687,7 +1682,7 @@ print_surface (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_surface_cd_music (void)
+print_surface_cd_music(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1712,7 +1707,7 @@ print_surface_cd_music (void)
 
 	if (state >= REACTION)
 	{
-		print_centered ("Surface composition");
+		print_centered("Surface composition");
 	}
 /*
  *   Print list of species
@@ -1723,28 +1718,28 @@ print_surface_cd_music (void)
 	{
 		if (x[j]->type != SURFACE_CB)
 			continue;
-		strcpy (name, x[j]->master[0]->elt->name);
-		replace ("_psi", "", name);
-		output_msg (OUTPUT_MESSAGE, "%-14s\n", name);
+		strcpy(name, x[j]->master[0]->elt->name);
+		replace("_psi", "", name);
+		output_msg(OUTPUT_MESSAGE, "%-14s\n", name);
 /*
  *   Description of surface
  */
 		if (dl_type_x != NO_DL)
 		{
-			output_msg (OUTPUT_MESSAGE,
-						"\t%11.3e  Surface + diffuse layer charge, eq\n\n",
-						(double) x[j + 2]->f + (x[j]->surface_charge->sigma0 +
-												x[j]->surface_charge->
-												sigma1) *
-						(x[j]->surface_charge->specific_area *
-						 x[j]->surface_charge->grams) / F_C_MOL);
+			output_msg(OUTPUT_MESSAGE,
+					   "\t%11.3e  Surface + diffuse layer charge, eq\n\n",
+					   (double) x[j + 2]->f + (x[j]->surface_charge->sigma0 +
+											   x[j]->surface_charge->
+											   sigma1) *
+					   (x[j]->surface_charge->specific_area *
+						x[j]->surface_charge->grams) / F_C_MOL);
 		}
 		master_ptr0 =
-			surface_get_psi_master (x[j]->surface_charge->name, SURF_PSI);
+			surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI);
 		master_ptr1 =
-			surface_get_psi_master (x[j]->surface_charge->name, SURF_PSI1);
+			surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI1);
 		master_ptr2 =
-			surface_get_psi_master (x[j]->surface_charge->name, SURF_PSI2);
+			surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI2);
 		unknown_ptr0 = x[master_ptr0->unknown->number];
 		unknown_ptr1 = x[master_ptr1->unknown->number];
 		unknown_ptr2 = x[master_ptr2->unknown->number];
@@ -1769,98 +1764,98 @@ print_surface_cd_music (void)
 				x[j]->comp_unknowns[k]->moles *
 				x[j]->comp_unknowns[k]->master[0]->s->z;
 		}
-		output_msg (OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 0, eq\n",
-					(double) charge0 + sum);
-		output_msg (OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 1, eq\n",
-					(double) charge1);
-		output_msg (OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 2, eq\n",
-					(double) charge2);
-		output_msg (OUTPUT_MESSAGE,
-					"\t%11.3e  Sum of surface charge, all planes, eq\n\n",
-					(double) (charge0 + sum + charge1 + charge2));
+		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 0, eq\n",
+				   (double) charge0 + sum);
+		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 1, eq\n",
+				   (double) charge1);
+		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 2, eq\n",
+				   (double) charge2);
+		output_msg(OUTPUT_MESSAGE,
+				   "\t%11.3e  Sum of surface charge, all planes, eq\n\n",
+				   (double) (charge0 + sum + charge1 + charge2));
 		if (x[j]->type == SURFACE_CB)
 		{
 			if ((x[j]->surface_charge->specific_area *
 				 x[j]->surface_charge->grams) > 0)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  sigma, plane 0, C/m**2\n",
-							x[j]->surface_charge->sigma0);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  sigma, plane 1, C/m**2\n",
-							x[j]->surface_charge->sigma1);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  sigma, plane 2, C/m**2\n",
-							x[j]->surface_charge->sigma2);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  sigma, diffuse layer, C/m**2\n\n",
-							x[j]->surface_charge->sigmaddl);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  sigma, plane 0, C/m**2\n",
+						   x[j]->surface_charge->sigma0);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  sigma, plane 1, C/m**2\n",
+						   x[j]->surface_charge->sigma1);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  sigma, plane 2, C/m**2\n",
+						   x[j]->surface_charge->sigma2);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  sigma, diffuse layer, C/m**2\n\n",
+						   x[j]->surface_charge->sigmaddl);
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE, "\tundefined  sigma, C/m**2\n");
+				output_msg(OUTPUT_MESSAGE, "\tundefined  sigma, C/m**2\n");
 			}
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  psi, plane 0, V\n",
-						-master_ptr0->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-						F_KJ_V_EQ);
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  psi, plane 1, V\n",
-						-master_ptr1->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-						F_KJ_V_EQ);
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  psi, plane 2, V\n\n",
-						-master_ptr2->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-						F_KJ_V_EQ);
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 0\n",
-						exp (master_ptr0->s->la * LOG_10));
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 1\n",
-						exp (master_ptr1->s->la * LOG_10));
-			output_msg (OUTPUT_MESSAGE,
-						"\t%11.3e  exp(-F*psi/RT), plane 2\n\n",
-						exp (master_ptr2->s->la * LOG_10));
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 0, V\n",
+					   -master_ptr0->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
+					   F_KJ_V_EQ);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 1, V\n",
+					   -master_ptr1->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
+					   F_KJ_V_EQ);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 2, V\n\n",
+					   -master_ptr2->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
+					   F_KJ_V_EQ);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 0\n",
+					   exp(master_ptr0->s->la * LOG_10));
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 1\n",
+					   exp(master_ptr1->s->la * LOG_10));
+			output_msg(OUTPUT_MESSAGE,
+					   "\t%11.3e  exp(-F*psi/RT), plane 2\n\n",
+					   exp(master_ptr2->s->la * LOG_10));
 
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  capacitance 0-1, F/m^2\n",
-						x[j]->surface_charge->capacitance[0]);
-			output_msg (OUTPUT_MESSAGE, "\t%11.3e  capacitance 1-2, F/m^2\n",
-						x[j]->surface_charge->capacitance[1]);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  capacitance 0-1, F/m^2\n",
+					   x[j]->surface_charge->capacitance[0]);
+			output_msg(OUTPUT_MESSAGE, "\t%11.3e  capacitance 1-2, F/m^2\n",
+					   x[j]->surface_charge->capacitance[1]);
 
 			if (x[j]->surface_comp->phase_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m^2/mol %s\n",
-							(double) x[j]->surface_charge->specific_area,
-							x[j]->surface_comp->phase_name);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  m^2 for %11.3e moles of %s\n\n",
-							(double) (x[j]->surface_charge->grams *
-									  x[j]->surface_charge->specific_area),
-							(double) x[j]->surface_charge->grams,
-							x[j]->surface_comp->phase_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m^2/mol %s\n",
+						   (double) x[j]->surface_charge->specific_area,
+						   x[j]->surface_comp->phase_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  m^2 for %11.3e moles of %s\n\n",
+						   (double) (x[j]->surface_charge->grams *
+									 x[j]->surface_charge->specific_area),
+						   (double) x[j]->surface_charge->grams,
+						   x[j]->surface_comp->phase_name);
 			}
 			else if (x[j]->surface_comp->rate_name != NULL)
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m^2/mol %s\n",
-							(double) x[j]->surface_charge->specific_area,
-							x[j]->surface_comp->rate_name);
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  m^2 for %11.3e moles of %s\n\n",
-							(double) (x[j]->surface_charge->grams *
-									  x[j]->surface_charge->specific_area),
-							(double) x[j]->surface_charge->grams,
-							x[j]->surface_comp->rate_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m^2/mol %s\n",
+						   (double) x[j]->surface_charge->specific_area,
+						   x[j]->surface_comp->rate_name);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  m^2 for %11.3e moles of %s\n\n",
+						   (double) (x[j]->surface_charge->grams *
+									 x[j]->surface_charge->specific_area),
+						   (double) x[j]->surface_charge->grams,
+						   x[j]->surface_comp->rate_name);
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE,
-							"\t%11.3e  specific area, m^2/g\n",
-							(double) x[j]->surface_charge->specific_area);
-				output_msg (OUTPUT_MESSAGE, "\t%11.3e  m^2 for %11.3e g\n\n",
-							(double) (x[j]->surface_charge->specific_area *
-									  x[j]->surface_charge->grams),
-							(double) x[j]->surface_charge->grams);
+				output_msg(OUTPUT_MESSAGE,
+						   "\t%11.3e  specific area, m^2/g\n",
+						   (double) x[j]->surface_charge->specific_area);
+				output_msg(OUTPUT_MESSAGE, "\t%11.3e  m^2 for %11.3e g\n\n",
+						   (double) (x[j]->surface_charge->specific_area *
+									 x[j]->surface_charge->grams),
+						   (double) x[j]->surface_charge->grams);
 			}
 			if (dl_type_x != NO_DL)
-				print_diffuse_layer (x[j]->surface_charge);
-			output_msg (OUTPUT_MESSAGE, "\n");
+				print_diffuse_layer(x[j]->surface_charge);
+			output_msg(OUTPUT_MESSAGE, "\n");
 /*
  *   Heading for species
  */
@@ -1871,32 +1866,32 @@ print_surface_cd_music (void)
 				if (x[j] != x[k]->potential_unknown)
 					continue;
 				master_ptr = x[k]->master[0];
-				output_msg (OUTPUT_MESSAGE, "%-14s\n",
-							x[k]->master[0]->elt->name);
-				output_msg (OUTPUT_MESSAGE, "\t%11.3e  moles",
-							(double) x[k]->moles);
+				output_msg(OUTPUT_MESSAGE, "%-14s\n",
+						   x[k]->master[0]->elt->name);
+				output_msg(OUTPUT_MESSAGE, "\t%11.3e  moles",
+						   (double) x[k]->moles);
 				if (x[k]->surface_comp->phase_name != NULL)
 				{
-					output_msg (OUTPUT_MESSAGE, "\t[%g mol/(mol %s)]\n",
-								(double) x[k]->surface_comp->phase_proportion,
-								x[k]->surface_comp->phase_name);
+					output_msg(OUTPUT_MESSAGE, "\t[%g mol/(mol %s)]\n",
+							   (double) x[k]->surface_comp->phase_proportion,
+							   x[k]->surface_comp->phase_name);
 				}
 				else if (x[k]->surface_comp->rate_name != NULL)
 				{
-					output_msg (OUTPUT_MESSAGE,
-								"\t[%g mol/(mol kinetic reactant %s)]\n",
-								(double) x[k]->surface_comp->phase_proportion,
-								x[k]->surface_comp->rate_name);
+					output_msg(OUTPUT_MESSAGE,
+							   "\t[%g mol/(mol kinetic reactant %s)]\n",
+							   (double) x[k]->surface_comp->phase_proportion,
+							   x[k]->surface_comp->rate_name);
 				}
 				else
 				{
-					output_msg (OUTPUT_MESSAGE, "\n");
+					output_msg(OUTPUT_MESSAGE, "\n");
 				}
-				output_msg (OUTPUT_MESSAGE, "\t%-20s%12s%12s%12s%12s\n", " ",
-							" ", "Mole", " ", "Log");
-				output_msg (OUTPUT_MESSAGE, "\t%-20s%12s%12s%12s%12s\n\n",
-							"Species", "Moles", "Fraction", "Molality",
-							"Molality");
+				output_msg(OUTPUT_MESSAGE, "\t%-20s%12s%12s%12s%12s\n", " ",
+						   " ", "Mole", " ", "Log");
+				output_msg(OUTPUT_MESSAGE, "\t%-20s%12s%12s%12s%12s\n\n",
+						   "Species", "Moles", "Fraction", "Molality",
+						   "Molality");
 				for (i = 0; i < count_species_list; i++)
 				{
 					if (species_list[i].master_s != master_ptr->s)
@@ -1914,17 +1909,17 @@ print_surface_cd_music (void)
 					{
 						molfrac = 0.0;
 					}
-					output_msg (OUTPUT_MESSAGE,
-								"\t%-20s%12.3e%12.3f%12.3e%12.3f\n",
-								species_list[i].s->name,
-								(double) species_list[i].s->moles,
-								(double) molfrac,
-								(double) (species_list[i].s->moles /
-										  mass_water_aq_x),
-								log10 (species_list[i].s->moles /
-									   mass_water_aq_x));
+					output_msg(OUTPUT_MESSAGE,
+							   "\t%-20s%12.3e%12.3f%12.3e%12.3f\n",
+							   species_list[i].s->name,
+							   (double) species_list[i].s->moles,
+							   (double) molfrac,
+							   (double) (species_list[i].s->moles /
+										 mass_water_aq_x),
+							   log10(species_list[i].s->moles /
+									 mass_water_aq_x));
 				}
-				output_msg (OUTPUT_MESSAGE, "\n");
+				output_msg(OUTPUT_MESSAGE, "\n");
 			}
 		}
 	}
@@ -1933,7 +1928,7 @@ print_surface_cd_music (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_totals (void)
+print_totals(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1944,18 +1939,18 @@ print_totals (void)
 
 	if (pr.totals == FALSE || pr.all == FALSE)
 		return (OK);
-	print_centered ("Solution composition");
+	print_centered("Solution composition");
 	pure_water = TRUE;
-	output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s\n\n", "Elements", "Molality",
-				"Moles");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s\n\n", "Elements", "Molality",
+			   "Moles");
 	for (i = 0; i < count_unknowns; i++)
 	{
 		if (x[i] == alkalinity_unknown)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e\n",
-						x[i]->total->description,
-						(double) (x[i]->f / mass_water_aq_x),
-						(double) x[i]->f);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e\n",
+					   x[i]->total->description,
+					   (double) (x[i]->f / mass_water_aq_x),
+					   (double) x[i]->f);
 			pure_water = FALSE;
 		}
 		if (x[i] == ph_unknown)
@@ -1964,146 +1959,144 @@ print_totals (void)
 			continue;
 		if (x[i] == charge_balance_unknown)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
-						x[i]->description,
-						(double) (x[i]->sum / mass_water_aq_x),
-						(double) x[i]->sum);
-			output_msg (OUTPUT_MESSAGE, "  Charge balance\n");
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
+					   x[i]->description,
+					   (double) (x[i]->sum / mass_water_aq_x),
+					   (double) x[i]->sum);
+			output_msg(OUTPUT_MESSAGE, "  Charge balance\n");
 			pure_water = FALSE;
 			continue;
 		}
 		if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
-						x[i]->description,
-						(double) (x[i]->sum / mass_water_aq_x),
-						(double) x[i]->sum);
-			output_msg (OUTPUT_MESSAGE, "  Equilibrium with %s\n",
-						x[i]->phase->name);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e",
+					   x[i]->description,
+					   (double) (x[i]->sum / mass_water_aq_x),
+					   (double) x[i]->sum);
+			output_msg(OUTPUT_MESSAGE, "  Equilibrium with %s\n",
+					   x[i]->phase->name);
 			pure_water = FALSE;
 			continue;
 		}
 		if (x[i]->type == MB)
 		{
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e\n",
-						x[i]->description,
-						(double) (x[i]->sum / mass_water_aq_x),
-						(double) x[i]->sum);
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e\n",
+					   x[i]->description,
+					   (double) (x[i]->sum / mass_water_aq_x),
+					   (double) x[i]->sum);
 			pure_water = FALSE;
 		}
 	}
 
 	if (pure_water == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%-15s\n", "Pure water");
+		output_msg(OUTPUT_MESSAGE, "\t%-15s\n", "Pure water");
 	}
 /*
  *   Description of solution
  */
-	output_msg (OUTPUT_MESSAGE, "\n");
-	print_centered ("Description of solution");
+	output_msg(OUTPUT_MESSAGE, "\n");
+	print_centered("Description of solution");
 /*
  *   pH
  */
-	output_msg (OUTPUT_MESSAGE, "%45s%7.3f    ", "pH  = ",
-				(double) (-(s_hplus->la)));
+	output_msg(OUTPUT_MESSAGE, "%45s%7.3f    ", "pH  = ",
+			   (double) (-(s_hplus->la)));
 	if (ph_unknown == NULL)
 	{
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 	else if (ph_unknown == charge_balance_unknown)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Charge balance\n");
+		output_msg(OUTPUT_MESSAGE, "  Charge balance\n");
 	}
 	else if (ph_unknown->type == SOLUTION_PHASE_BOUNDARY)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Equilibrium with %s\n",
-					ph_unknown->phase->name);
+		output_msg(OUTPUT_MESSAGE, "  Equilibrium with %s\n",
+				   ph_unknown->phase->name);
 	}
 	else if (ph_unknown->type == ALK)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Adjust alkalinity\n");
+		output_msg(OUTPUT_MESSAGE, "  Adjust alkalinity\n");
 	}
 /*
  *    pe
  */
-	output_msg (OUTPUT_MESSAGE, "%45s%7.3f    ", "pe  = ",
-				(double) (-(s_eminus->la)));
+	output_msg(OUTPUT_MESSAGE, "%45s%7.3f    ", "pe  = ",
+			   (double) (-(s_eminus->la)));
 	if (pe_unknown == NULL)
 	{
-		output_msg (OUTPUT_MESSAGE, "\n");
+		output_msg(OUTPUT_MESSAGE, "\n");
 	}
 	else if (pe_unknown == charge_balance_unknown)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Charge balance\n");
+		output_msg(OUTPUT_MESSAGE, "  Charge balance\n");
 	}
 	else if (pe_unknown->type == SOLUTION_PHASE_BOUNDARY)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Equilibrium with %s\n",
-					pe_unknown->phase->name);
+		output_msg(OUTPUT_MESSAGE, "  Equilibrium with %s\n",
+				   pe_unknown->phase->name);
 	}
 	else if (pe_unknown->type == MH)
 	{
-		output_msg (OUTPUT_MESSAGE, "  Adjusted to redox equilibrium\n");
+		output_msg(OUTPUT_MESSAGE, "  Adjusted to redox equilibrium\n");
 	}
 /*
  *   Others
  */
-	EC = calc_SC ();
+	EC = calc_SC();
 	if (EC > 0)
 	{
-		output_msg (OUTPUT_MESSAGE, "%45s%i\n",
-					"Specific Conductance (uS/cm, 25 oC) = ", (int) EC);
+		output_msg(OUTPUT_MESSAGE, "%45s%i\n",
+				   "Specific Conductance (uS/cm, 25 oC) = ", (int) EC);
 	}
-	output_msg (OUTPUT_MESSAGE, "%45s%7.3f\n", "Activity of water  = ",
-				exp (s_h2o->la * LOG_10));
-	output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n", "Ionic strength  = ",
-				(double) mu_x);
-	output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n", "Mass of water (kg)  = ",
-				(double) mass_water_aq_x);
+	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Activity of water  = ",
+			   exp(s_h2o->la * LOG_10));
+	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Ionic strength  = ",
+			   (double) mu_x);
+	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Mass of water (kg)  = ",
+			   (double) mass_water_aq_x);
 	if (alkalinity_unknown == NULL)
 	{
-		output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n",
-					"Total alkalinity (eq/kg)  = ",
-					(double) (total_alkalinity / mass_water_aq_x));
+		output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n",
+				   "Total alkalinity (eq/kg)  = ",
+				   (double) (total_alkalinity / mass_water_aq_x));
 	}
 	if (carbon_unknown == NULL)
 	{
-		output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n",
-					"Total carbon (mol/kg)  = ",
-					(double) (total_carbon / mass_water_aq_x));
+		output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n",
+				   "Total carbon (mol/kg)  = ",
+				   (double) (total_carbon / mass_water_aq_x));
 	}
-	output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n", "Total CO2 (mol/kg)  = ",
-				(double) (total_co2 / mass_water_aq_x));
-	output_msg (OUTPUT_MESSAGE, "%45s%7.3f\n", "Temperature (deg C)  = ",
-				(double) tc_x);
-	output_msg (OUTPUT_MESSAGE, "%45s%11.3e\n", "Electrical balance (eq)  = ",
-				(double) cb_x);
-	output_msg (OUTPUT_MESSAGE, "%45s%6.2f\n",
-				"Percent error, 100*(Cat-|An|)/(Cat+|An|)  = ",
-				(double) (100 * cb_x / total_ions_x));
-	output_msg (OUTPUT_MESSAGE, "%45s%3d\n", "Iterations  = ", iterations);
+	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Total CO2 (mol/kg)  = ",
+			   (double) (total_co2 / mass_water_aq_x));
+	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Temperature (deg C)  = ",
+			   (double) tc_x);
+	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Electrical balance (eq)  = ",
+			   (double) cb_x);
+	output_msg(OUTPUT_MESSAGE, "%45s%6.2f\n",
+			   "Percent error, 100*(Cat-|An|)/(Cat+|An|)  = ",
+			   (double) (100 * cb_x / total_ions_x));
+	output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Iterations  = ", iterations);
 	if (pitzer_model == TRUE)
 	{
-		output_msg (OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
-					gamma_iterations);
-		output_msg (OUTPUT_MESSAGE, "%45s%9.5f\n", "Osmotic coefficient  = ",
-					COSMOT);
-		output_msg (OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",
-					DW0);
+		output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
+				   gamma_iterations);
+		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Osmotic coefficient  = ",
+				   COSMOT);
+		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",
+				   DW0);
 	}
-	output_msg (OUTPUT_MESSAGE, "%45s%e\n", "Total H  = ",
-				(double) total_h_x);
-	output_msg (OUTPUT_MESSAGE, "%45s%e\n", "Total O  = ",
-				(double) total_o_x);
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "%45s%e\n", "Total H  = ", (double) total_h_x);
+	output_msg(OUTPUT_MESSAGE, "%45s%e\n", "Total O  = ", (double) total_o_x);
+	output_msg(OUTPUT_MESSAGE, "\n");
 
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_user_print (void)
+print_user_print(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2124,14 +2117,14 @@ print_user_print (void)
 		kinetics_ptr = use.kinetics_ptr;
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			use.kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &i);
+			use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
 		}
 		else
 		{
-			use.kinetics_ptr = kinetics_bsearch (-2, &i);
+			use.kinetics_ptr = kinetics_bsearch(-2, &i);
 		}
 	}
-	print_centered ("User print");
+	print_centered("User print");
 	if (user_print->new_def == TRUE)
 	{
 		/*      basic_renumber(user_print->commands, &user_print->linebase, &user_print->varbase, &user_print->loopbase); */
@@ -2139,7 +2132,7 @@ print_user_print (void)
 			(user_print->commands, &user_print->linebase,
 			 &user_print->varbase, &user_print->loopbase) != 0)
 		{
-			error_msg ("Fatal Basic error in USER_PRINT.", STOP);
+			error_msg("Fatal Basic error in USER_PRINT.", STOP);
 		}
 		user_print->new_def = FALSE;
 	}
@@ -2147,9 +2140,9 @@ print_user_print (void)
 		(command, user_print->linebase, user_print->varbase,
 		 user_print->loopbase) != 0)
 	{
-		error_msg ("Fatal Basic error in USER_PRINT.", STOP);
+		error_msg("Fatal Basic error in USER_PRINT.", STOP);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	if (use.kinetics_in == TRUE)
 	{
 		use.kinetics_ptr = kinetics_ptr;
@@ -2159,7 +2152,7 @@ print_user_print (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_using (void)
+print_using(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2188,11 +2181,11 @@ print_using (void)
 	{
 		if (state == TRANSPORT)
 		{
-			mix_ptr = mix_bsearch (use.n_mix_user, &n);
+			mix_ptr = mix_bsearch(use.n_mix_user, &n);
 		}
 		else
 		{
-			mix_ptr = mix_bsearch (use.n_mix_user_orig, &n);
+			mix_ptr = mix_bsearch(use.n_mix_user_orig, &n);
 		}
 		if (mix_ptr == NULL)
 		{
@@ -2202,95 +2195,95 @@ print_using (void)
 		{
 			if (state == TRANSPORT)
 			{
-				output_msg (OUTPUT_MESSAGE, "Using mix %d.\t%s\n",
-							use.n_mix_user, mix_ptr->description);
+				output_msg(OUTPUT_MESSAGE, "Using mix %d.\t%s\n",
+						   use.n_mix_user, mix_ptr->description);
 			}
 			else
 			{
-				output_msg (OUTPUT_MESSAGE, "Using mix %d.\t%s\n",
-							use.n_mix_user_orig, mix_ptr->description);
+				output_msg(OUTPUT_MESSAGE, "Using mix %d.\t%s\n",
+						   use.n_mix_user_orig, mix_ptr->description);
 			}
 
 		}
 	}
 	else
 	{
-		solution_ptr = solution_bsearch (use.n_solution_user, &n, TRUE);
-		output_msg (OUTPUT_MESSAGE, "Using solution %d.\t%s\n",
-					use.n_solution_user, solution_ptr->description);
+		solution_ptr = solution_bsearch(use.n_solution_user, &n, TRUE);
+		output_msg(OUTPUT_MESSAGE, "Using solution %d.\t%s\n",
+				   use.n_solution_user, solution_ptr->description);
 	}
 /*
  *   Exchange and surface
  */
 	if (use.exchange_in == TRUE)
 	{
-		exchange_ptr = exchange_bsearch (use.n_exchange_user, &n);
-		output_msg (OUTPUT_MESSAGE, "Using exchange %d.\t%s\n",
-					use.n_exchange_user, exchange_ptr->description);
+		exchange_ptr = exchange_bsearch(use.n_exchange_user, &n);
+		output_msg(OUTPUT_MESSAGE, "Using exchange %d.\t%s\n",
+				   use.n_exchange_user, exchange_ptr->description);
 	}
 	if (use.surface_in == TRUE)
 	{
-		surface_ptr = surface_bsearch (use.n_surface_user, &n);
-		output_msg (OUTPUT_MESSAGE, "Using surface %d.\t%s\n",
-					use.n_surface_user, surface_ptr->description);
+		surface_ptr = surface_bsearch(use.n_surface_user, &n);
+		output_msg(OUTPUT_MESSAGE, "Using surface %d.\t%s\n",
+				   use.n_surface_user, surface_ptr->description);
 	}
 	if (use.pp_assemblage_in == TRUE)
 	{
 		pp_assemblage_ptr =
-			pp_assemblage_bsearch (use.n_pp_assemblage_user, &n);
-		output_msg (OUTPUT_MESSAGE, "Using pure phase assemblage %d.\t%s\n",
-					use.n_pp_assemblage_user, pp_assemblage_ptr->description);
+			pp_assemblage_bsearch(use.n_pp_assemblage_user, &n);
+		output_msg(OUTPUT_MESSAGE, "Using pure phase assemblage %d.\t%s\n",
+				   use.n_pp_assemblage_user, pp_assemblage_ptr->description);
 	}
 	if (use.s_s_assemblage_in == TRUE)
 	{
 		s_s_assemblage_ptr =
-			s_s_assemblage_bsearch (use.n_s_s_assemblage_user, &n);
-		output_msg (OUTPUT_MESSAGE,
-					"Using solid solution assemblage %d.\t%s\n",
-					use.n_s_s_assemblage_user,
-					s_s_assemblage_ptr->description);
+			s_s_assemblage_bsearch(use.n_s_s_assemblage_user, &n);
+		output_msg(OUTPUT_MESSAGE,
+				   "Using solid solution assemblage %d.\t%s\n",
+				   use.n_s_s_assemblage_user,
+				   s_s_assemblage_ptr->description);
 	}
 	if (use.gas_phase_in == TRUE)
 	{
-		gas_phase_ptr = gas_phase_bsearch (use.n_gas_phase_user, &n);
-		output_msg (OUTPUT_MESSAGE, "Using gas phase %d.\t%s\n",
-					use.n_gas_phase_user, gas_phase_ptr->description);
+		gas_phase_ptr = gas_phase_bsearch(use.n_gas_phase_user, &n);
+		output_msg(OUTPUT_MESSAGE, "Using gas phase %d.\t%s\n",
+				   use.n_gas_phase_user, gas_phase_ptr->description);
 	}
 	if (use.temperature_in == TRUE)
 	{
-		temperature_ptr = temperature_bsearch (use.n_temperature_user, &n);
-		output_msg (OUTPUT_MESSAGE, "Using temperature %d.\t%s\n",
-					use.n_temperature_user, temperature_ptr->description);
+		temperature_ptr = temperature_bsearch(use.n_temperature_user, &n);
+		output_msg(OUTPUT_MESSAGE, "Using temperature %d.\t%s\n",
+				   use.n_temperature_user, temperature_ptr->description);
 	}
 	if (use.irrev_in == TRUE)
 	{
 		if (state != TRANSPORT || transport_step > 0)
 		{
-			irrev_ptr = irrev_bsearch (use.n_irrev_user, &n);
-			output_msg (OUTPUT_MESSAGE, "Using reaction %d.\t%s\n",
-						use.n_irrev_user, irrev_ptr->description);
+			irrev_ptr = irrev_bsearch(use.n_irrev_user, &n);
+			output_msg(OUTPUT_MESSAGE, "Using reaction %d.\t%s\n",
+					   use.n_irrev_user, irrev_ptr->description);
 		}
 	}
 	if (use.kinetics_in == TRUE)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &n);
+			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &n);
 		}
 		else
 		{
-			kinetics_ptr = kinetics_bsearch (-2, &n);
+			kinetics_ptr = kinetics_bsearch(-2, &n);
 		}
-		output_msg (OUTPUT_MESSAGE, "Using kinetics %d.\t%s\n",
-					use.n_kinetics_user, kinetics_ptr->description);
+		output_msg(OUTPUT_MESSAGE, "Using kinetics %d.\t%s\n",
+				   use.n_kinetics_user, kinetics_ptr->description);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-punch_gas_phase (void)
+punch_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2321,15 +2314,15 @@ punch_gas_phase (void)
 	}
 	if (punch.high_precision == FALSE)
 	{
-		fpunchf ("pressure", "%12.4e\t", p);
-		fpunchf ("total mol", "%12.4e\t", total_moles);
-		fpunchf ("volume", "%12.4e\t", volume);
+		fpunchf("pressure", "%12.4e\t", p);
+		fpunchf("total mol", "%12.4e\t", total_moles);
+		fpunchf("volume", "%12.4e\t", volume);
 	}
 	else
 	{
-		fpunchf ("pressure", "%20.12e\t", p);
-		fpunchf ("total mol", "%20.12e\t", total_moles);
-		fpunchf ("volume", "%20.12e\t", volume);
+		fpunchf("pressure", "%20.12e\t", p);
+		fpunchf("total mol", "%20.12e\t", total_moles);
+		fpunchf("volume", "%20.12e\t", volume);
 	}
 	for (i = 0; i < punch.count_gases; i++)
 	{
@@ -2349,13 +2342,12 @@ punch_gas_phase (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("g_%s", punch.gases[i].name), "%12.4e\t",
-					 moles);
+			fpunchf(sformatf("g_%s", punch.gases[i].name), "%12.4e\t", moles);
 		}
 		else
 		{
-			fpunchf (sformatf ("g_%s", punch.gases[i].name), "%20.12e\t",
-					 moles);
+			fpunchf(sformatf("g_%s", punch.gases[i].name), "%20.12e\t",
+					moles);
 		}
 	}
 	return (OK);
@@ -2363,7 +2355,7 @@ punch_gas_phase (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_s_s_assemblage (void)
+punch_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2401,13 +2393,13 @@ punch_s_s_assemblage (void)
 						}
 						if (punch.high_precision == FALSE)
 						{
-							fpunchf (sformatf ("s_%s", punch.s_s[k].name),
-									 "%12.4e\t", (double) moles);
+							fpunchf(sformatf("s_%s", punch.s_s[k].name),
+									"%12.4e\t", (double) moles);
 						}
 						else
 						{
-							fpunchf (sformatf ("s_%s", punch.s_s[k].name),
-									 "%20.12e\t", (double) moles);
+							fpunchf(sformatf("s_%s", punch.s_s[k].name),
+									"%20.12e\t", (double) moles);
 						}
 						found = TRUE;
 						break;
@@ -2421,13 +2413,12 @@ punch_s_s_assemblage (void)
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf (sformatf ("s_%s", punch.s_s[k].name), "%12.4e\t",
-						 0.0);
+				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%12.4e\t", 0.0);
 			}
 			else
 			{
-				fpunchf (sformatf ("s_%s", punch.s_s[k].name), "%20.12e\t",
-						 0.0);
+				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%20.12e\t",
+						0.0);
 			}
 		}
 	}
@@ -2436,7 +2427,7 @@ punch_s_s_assemblage (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_totals (void)
+punch_totals(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2462,13 +2453,13 @@ punch_totals (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("%s(mol/kgw)", punch.totals[j].name),
-					 "%12.4e\t", molality);
+			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
+					"%12.4e\t", molality);
 		}
 		else
 		{
-			fpunchf (sformatf ("%s(mol/kgw)", punch.totals[j].name),
-					 "%20.12e\t", molality);
+			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
+					"%20.12e\t", molality);
 		}
 	}
 	return (OK);
@@ -2476,7 +2467,7 @@ punch_totals (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_molalities (void)
+punch_molalities(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2495,13 +2486,13 @@ punch_molalities (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("m_%s(mol/kgw)", punch.molalities[j].name),
-					 "%12.4e\t", molality);
+			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
+					"%12.4e\t", molality);
 		}
 		else
 		{
-			fpunchf (sformatf ("m_%s(mol/kgw)", punch.molalities[j].name),
-					 "%20.12e\t", molality);
+			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
+					"%20.12e\t", molality);
 		}
 	}
 	return (OK);
@@ -2509,7 +2500,7 @@ punch_molalities (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_activities (void)
+punch_activities(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2525,17 +2516,17 @@ punch_activities (void)
 			&& punch.activities[j].s->in == TRUE)
 		{
 			/*la = punch.activities[j].s->lm + punch.activities[j].s->lg; */
-			la = log_activity (punch.activities[j].s->name);
+			la = log_activity(punch.activities[j].s->name);
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("la_%s", punch.activities[j].name), "%12.4e\t",
-					 la);
+			fpunchf(sformatf("la_%s", punch.activities[j].name), "%12.4e\t",
+					la);
 		}
 		else
 		{
-			fpunchf (sformatf ("la_%s", punch.activities[j].name),
-					 "%20.12e\t", la);
+			fpunchf(sformatf("la_%s", punch.activities[j].name),
+					"%20.12e\t", la);
 		}
 	}
 	return (OK);
@@ -2543,7 +2534,7 @@ punch_activities (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_pp_assemblage (void)
+punch_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2585,15 +2576,15 @@ punch_pp_assemblage (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (punch.pure_phases[i].name, "%12.4e\t", moles);
-			fpunchf (sformatf ("d_%s", punch.pure_phases[i].name), "%12.4e\t",
-					 delta_moles);
+			fpunchf(punch.pure_phases[i].name, "%12.4e\t", moles);
+			fpunchf(sformatf("d_%s", punch.pure_phases[i].name), "%12.4e\t",
+					delta_moles);
 		}
 		else
 		{
-			fpunchf (punch.pure_phases[i].name, "%20.12e\t", moles);
-			fpunchf (sformatf ("d_%s", punch.pure_phases[i].name),
-					 "%20.12e\t", delta_moles);
+			fpunchf(punch.pure_phases[i].name, "%20.12e\t", moles);
+			fpunchf(sformatf("d_%s", punch.pure_phases[i].name),
+					"%20.12e\t", delta_moles);
 		}
 	}
 	return (OK);
@@ -2602,7 +2593,7 @@ punch_pp_assemblage (void)
 #define PHAST_NULL(x)	  (phast ? NULL : x)
 /* ---------------------------------------------------------------------- */
 int
-punch_identifiers (void)
+punch_identifiers(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2641,11 +2632,11 @@ punch_identifiers (void)
 	{
 		if (state != TRANSPORT && state != PHAST)
 		{
-			fpunchf (PHAST_NULL ("sim"), dformat, simulation);
+			fpunchf(PHAST_NULL("sim"), dformat, simulation);
 		}
 		else
 		{
-			fpunchf (PHAST_NULL ("sim"), dformat, simul_tr);
+			fpunchf(PHAST_NULL("sim"), dformat, simul_tr);
 		}
 	}
 	if (punch.state == TRUE)
@@ -2653,34 +2644,34 @@ punch_identifiers (void)
 		switch (state)
 		{
 		case 0:
-			strcpy (token, "init");
+			strcpy(token, "init");
 			break;
 		case 1:
-			strcpy (token, "i_soln");
+			strcpy(token, "i_soln");
 			break;
 		case 2:
-			strcpy (token, "i_exch");
+			strcpy(token, "i_exch");
 			break;
 		case 3:
-			strcpy (token, "i_surf");
+			strcpy(token, "i_surf");
 			break;
 		case 4:
-			strcpy (token, "i_gas");
+			strcpy(token, "i_gas");
 			break;
 		case 5:
-			strcpy (token, "react");
+			strcpy(token, "react");
 			break;
 		case 6:
-			strcpy (token, "inverse");
+			strcpy(token, "inverse");
 			break;
 		case 7:
-			strcpy (token, "advect");
+			strcpy(token, "advect");
 			break;
 		case 8:
-			strcpy (token, "transp");
+			strcpy(token, "transp");
 			break;
 		}
-		fpunchf (PHAST_NULL ("state"), sformat, token);
+		fpunchf(PHAST_NULL("state"), sformat, token);
 
 	}
 /*
@@ -2690,15 +2681,15 @@ punch_identifiers (void)
 	{
 		if (state == TRANSPORT || state == PHAST)
 		{
-			fpunchf (PHAST_NULL ("soln"), dformat, cell);
+			fpunchf(PHAST_NULL("soln"), dformat, cell);
 		}
 		else if (state == ADVECTION)
 		{
-			fpunchf (PHAST_NULL ("soln"), dformat, use.n_solution_user);
+			fpunchf(PHAST_NULL("soln"), dformat, use.n_solution_user);
 		}
 		else if (state < REACTION)
 		{
-			fpunchf (PHAST_NULL ("soln"), dformat, use.solution_ptr->n_user);
+			fpunchf(PHAST_NULL("soln"), dformat, use.solution_ptr->n_user);
 		}
 		else
 		{
@@ -2706,18 +2697,17 @@ punch_identifiers (void)
 			{
 				if (state != TRANSPORT)
 				{
-					fpunchf (PHAST_NULL ("soln"), dformat,
-							 use.n_mix_user_orig);
+					fpunchf(PHAST_NULL("soln"), dformat, use.n_mix_user_orig);
 				}
 				else
 				{
-					fpunchf (PHAST_NULL ("soln"), dformat, use.n_mix_user);
+					fpunchf(PHAST_NULL("soln"), dformat, use.n_mix_user);
 				}
 
 			}
 			else
 			{
-				fpunchf (PHAST_NULL ("soln"), dformat, use.n_solution_user);
+				fpunchf(PHAST_NULL("soln"), dformat, use.n_solution_user);
 			}
 		}
 	}
@@ -2725,16 +2715,16 @@ punch_identifiers (void)
 	{
 		if (state == ADVECTION)
 		{
-			fpunchf (PHAST_NULL ("dist_x"), dformat, use.n_solution_user);
+			fpunchf(PHAST_NULL("dist_x"), dformat, use.n_solution_user);
 		}
 		else if (state == TRANSPORT)
 		{
-			fpunchf (PHAST_NULL ("dist_x"), gformat,
-					 cell_data[cell - 1].mid_cell_x);
+			fpunchf(PHAST_NULL("dist_x"), gformat,
+					cell_data[cell - 1].mid_cell_x);
 		}
 		else
 		{
-			fpunchf (PHAST_NULL ("dist_x"), dformat, -99);
+			fpunchf(PHAST_NULL("dist_x"), dformat, -99);
 		}
 	}
 	if (punch.time == TRUE)
@@ -2775,28 +2765,28 @@ punch_identifiers (void)
 		}
 		if (state == REACTION)
 		{
-			fpunchf (PHAST_NULL ("time"), gformat, kin_time_x);
+			fpunchf(PHAST_NULL("time"), gformat, kin_time_x);
 		}
 		else if (state == TRANSPORT || state == PHAST)
 		{
-			fpunchf (PHAST_NULL ("time"), gformat,
-					 initial_total_time + rate_sim_time);
+			fpunchf(PHAST_NULL("time"), gformat,
+					initial_total_time + rate_sim_time);
 		}
 		else if (state == ADVECTION)
 		{
 			if (advection_kin_time_defined == TRUE)
 			{
-				fpunchf (PHAST_NULL ("time"), gformat,
-						 initial_total_time + rate_sim_time);
+				fpunchf(PHAST_NULL("time"), gformat,
+						initial_total_time + rate_sim_time);
 			}
 			else
 			{
-				fpunchf (PHAST_NULL ("time"), dformat, advection_step);
+				fpunchf(PHAST_NULL("time"), dformat, advection_step);
 			}
 		}
 		else
 		{
-			fpunchf (PHAST_NULL ("time"), dformat, -99);
+			fpunchf(PHAST_NULL("time"), dformat, -99);
 		}
 	}
 
@@ -2807,41 +2797,41 @@ punch_identifiers (void)
 	{
 		if (state == REACTION)
 		{
-			fpunchf (PHAST_NULL ("step"), dformat, reaction_step);
+			fpunchf(PHAST_NULL("step"), dformat, reaction_step);
 		}
 		else if (state == ADVECTION)
 		{
-			fpunchf (PHAST_NULL ("step"), dformat, advection_step);
+			fpunchf(PHAST_NULL("step"), dformat, advection_step);
 		}
 		else if (state == TRANSPORT)
 		{
-			fpunchf (PHAST_NULL ("step"), dformat, transport_step);
+			fpunchf(PHAST_NULL("step"), dformat, transport_step);
 		}
 		else
 		{
-			fpunchf (PHAST_NULL ("step"), dformat, -99);
+			fpunchf(PHAST_NULL("step"), dformat, -99);
 		}
 	}
 	if (punch.ph == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("pH", "%12g\t", (double) (-s_hplus->la));
+			fpunchf("pH", "%12g\t", (double) (-s_hplus->la));
 		}
 		else
 		{
-			fpunchf ("pH", "%20.12e\t", (double) (-s_hplus->la));
+			fpunchf("pH", "%20.12e\t", (double) (-s_hplus->la));
 		}
 	}
 	if (punch.pe == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("pe", "%12g\t", (double) (-s_eminus->la));
+			fpunchf("pe", "%12g\t", (double) (-s_eminus->la));
 		}
 		else
 		{
-			fpunchf ("pe", "%20.12e\t", (double) (-s_eminus->la));
+			fpunchf("pe", "%20.12e\t", (double) (-s_eminus->la));
 		}
 	}
 	if (punch.rxn == TRUE)
@@ -2850,22 +2840,22 @@ punch_identifiers (void)
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf ("reaction", "%12.4e\t", step_x);
+				fpunchf("reaction", "%12.4e\t", step_x);
 			}
 			else
 			{
-				fpunchf ("reaction", "%20.12e\t", step_x);
+				fpunchf("reaction", "%20.12e\t", step_x);
 			}
 		}
 		else
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf ("reaction", "%12d\t", -99);
+				fpunchf("reaction", "%12d\t", -99);
 			}
 			else
 			{
-				fpunchf ("reaction", "%20d\t", -99);
+				fpunchf("reaction", "%20d\t", -99);
 			}
 		}
 	}
@@ -2873,70 +2863,70 @@ punch_identifiers (void)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("temp(C)", "%12.3f\t", tc_x);
+			fpunchf("temp(C)", "%12.3f\t", tc_x);
 		}
 		else
 		{
-			fpunchf ("temp(C)", "%20.12e\t", tc_x);
+			fpunchf("temp(C)", "%20.12e\t", tc_x);
 		}
 	}
 	if (punch.alk == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("Alk(eq/kgw)", "%12g\t",
-					 (double) (total_alkalinity / mass_water_aq_x));
+			fpunchf("Alk(eq/kgw)", "%12g\t",
+					(double) (total_alkalinity / mass_water_aq_x));
 		}
 		else
 		{
-			fpunchf ("Alk(eq/kgw)", "%20.12e\t",
-					 (double) (total_alkalinity / mass_water_aq_x));
+			fpunchf("Alk(eq/kgw)", "%20.12e\t",
+					(double) (total_alkalinity / mass_water_aq_x));
 		}
 	}
 	if (punch.mu == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("mu", "%12g\t", (double) mu_x);
+			fpunchf("mu", "%12g\t", (double) mu_x);
 		}
 		else
 		{
-			fpunchf ("mu", "%20.12e\t", (double) mu_x);
+			fpunchf("mu", "%20.12e\t", (double) mu_x);
 		}
 	}
 	if (punch.water == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("mass_H2O", "%12g\t", (double) mass_water_aq_x);
+			fpunchf("mass_H2O", "%12g\t", (double) mass_water_aq_x);
 		}
 		else
 		{
-			fpunchf ("mass_H2O", "%20.12e\t", (double) mass_water_aq_x);
+			fpunchf("mass_H2O", "%20.12e\t", (double) mass_water_aq_x);
 		}
 	}
 	if (punch.charge_balance == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("charge(eq)", "%12g\t", (double) cb_x);
+			fpunchf("charge(eq)", "%12g\t", (double) cb_x);
 		}
 		else
 		{
-			fpunchf ("charge(eq)", "%20.12e\t", (double) cb_x);
+			fpunchf("charge(eq)", "%20.12e\t", (double) cb_x);
 		}
 	}
 	if (punch.percent_error == TRUE)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf ("pct_err", "%12g\t",
-					 (double) (100 * cb_x / total_ions_x));
+			fpunchf("pct_err", "%12g\t",
+					(double) (100 * cb_x / total_ions_x));
 		}
 		else
 		{
-			fpunchf ("pct_err", "%20.12e\t",
-					 (double) (100 * cb_x / total_ions_x));
+			fpunchf("pct_err", "%20.12e\t",
+					(double) (100 * cb_x / total_ions_x));
 		}
 	}
 
@@ -2946,7 +2936,7 @@ punch_identifiers (void)
 #undef PHAST_NULL
 /* ---------------------------------------------------------------------- */
 int
-punch_saturation_indices (void)
+punch_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2977,11 +2967,11 @@ punch_saturation_indices (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("si_%s", punch.si[i].name), "%12.4f\t", si);
+			fpunchf(sformatf("si_%s", punch.si[i].name), "%12.4f\t", si);
 		}
 		else
 		{
-			fpunchf (sformatf ("si_%s", punch.si[i].name), "%20.12e\t", si);
+			fpunchf(sformatf("si_%s", punch.si[i].name), "%20.12e\t", si);
 		}
 	}
 	return (OK);
@@ -2989,7 +2979,7 @@ punch_saturation_indices (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_kinetics (void)
+punch_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3005,11 +2995,11 @@ punch_kinetics (void)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch (use.n_kinetics_user, &i);
+			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
 		}
 		else
 		{
-			kinetics_ptr = kinetics_bsearch (-2, &i);
+			kinetics_ptr = kinetics_bsearch(-2, &i);
 		}
 	}
 	for (i = 0; i < punch.count_kinetics; i++)
@@ -3042,17 +3032,17 @@ punch_kinetics (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("k_%s", punch.kinetics[i].name), "%12.4e\t",
-					 moles);
-			fpunchf (sformatf ("dk_%s", punch.kinetics[i].name), "%12.4e\t",
-					 -delta_moles);
+			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%12.4e\t",
+					moles);
+			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%12.4e\t",
+					-delta_moles);
 		}
 		else
 		{
-			fpunchf (sformatf ("k_%s", punch.kinetics[i].name), "%20.12e\t",
-					 moles);
-			fpunchf (sformatf ("dk_%s", punch.kinetics[i].name), "%20.12e\t",
-					 -delta_moles);
+			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%20.12e\t",
+					moles);
+			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%20.12e\t",
+					-delta_moles);
 		}
 	}
 	return (OK);
@@ -3060,7 +3050,7 @@ punch_kinetics (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_user_punch (void)
+punch_user_punch(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3080,7 +3070,7 @@ punch_user_punch (void)
 			(user_punch->commands, &user_punch->linebase,
 			 &user_punch->varbase, &user_punch->loopbase) != 0)
 		{
-			error_msg ("Fatal Basic error in USER_PUNCH.", STOP);
+			error_msg("Fatal Basic error in USER_PUNCH.", STOP);
 		}
 		user_punch->new_def = FALSE;
 	}
@@ -3088,7 +3078,7 @@ punch_user_punch (void)
 		(command, user_punch->linebase, user_punch->varbase,
 		 user_punch->loopbase) != 0)
 	{
-		error_msg ("Fatal Basic error in USER_PUNCH.", STOP);
+		error_msg("Fatal Basic error in USER_PUNCH.", STOP);
 	}
 	return (OK);
 }
@@ -3096,7 +3086,7 @@ punch_user_punch (void)
 #ifdef PHREEQ98
 /* ---------------------------------------------------------------------- */
 int
-punch_user_graph (void)
+punch_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3149,7 +3139,7 @@ punch_user_graph (void)
 			(user_graph->commands, &user_graph->linebase,
 			 &user_graph->varbase, &user_graph->loopbase) != 0)
 		{
-			error_msg ("Fatal Basic error in USER_GRAPH.", STOP);
+			error_msg("Fatal Basic error in USER_GRAPH.", STOP);
 		}
 		user_graph->new_def = FALSE;
 	}
@@ -3157,7 +3147,7 @@ punch_user_graph (void)
 		(command, user_graph->linebase, user_graph->varbase,
 		 user_graph->loopbase) != 0)
 	{
-		error_msg ("Fatal Basic error in USER_GRAPH.", STOP);
+		error_msg("Fatal Basic error in USER_GRAPH.", STOP);
 	}
 	if (state == ADVECTION)
 		prev_advection_step = advection_step;
@@ -3172,33 +3162,33 @@ punch_user_graph (void)
 #endif
 
 #if defined(HDF5_CREATE)
-extern void HDFWriteHyperSlabV (const char *name, const char *format,
-								va_list argptr);
+extern void HDFWriteHyperSlabV(const char *name, const char *format,
+							   va_list argptr);
 #endif
 
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-extern int Merge_fpunchf (const int length, const char *format,
-						  va_list argptr);
+extern int Merge_fpunchf(const int length, const char *format,
+						 va_list argptr);
 #endif
 
-int output_message (const int type, const char *err_str, const int stop,
-					const char *format, va_list args);
+int output_message(const int type, const char *err_str, const int stop,
+				   const char *format, va_list args);
 
 int
-fpunchf (const char *name, const char *format, ...)
+fpunchf(const char *name, const char *format, ...)
 {
 	int retval = 0;
 	va_list args;
 
-	va_start (args, format);
-	retval = output_message (OUTPUT_PUNCH, name, CONTINUE, format, args);
-	va_end (args);
+	va_start(args, format);
+	retval = output_message(OUTPUT_PUNCH, name, CONTINUE, format, args);
+	va_end(args);
 
 	return retval;
 }
 
 int
-fpunchf_user (int user_index, const char *format, ...)
+fpunchf_user(int user_index, const char *format, ...)
 {
 	static int s_warning = 0;
 	int retval = 0;
@@ -3214,26 +3204,26 @@ fpunchf_user (int user_index, const char *format, ...)
 	{
 		if (s_warning == 0)
 		{
-			sprintf (error_string,
-					 "USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
-			warning_msg (error_string);
+			sprintf(error_string,
+					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
+			warning_msg(error_string);
 			s_warning = 1;
 		}
-		sprintf (buffer, "no_heading_%d",
-				 (user_index - user_punch_count_headings) + 1);
+		sprintf(buffer, "no_heading_%d",
+				(user_index - user_punch_count_headings) + 1);
 		name = buffer;
 	}
 
-	va_start (args, format);
-	retval = output_message (OUTPUT_PUNCH, name, CONTINUE, format, args);
-	va_end (args);
+	va_start(args, format);
+	retval = output_message(OUTPUT_PUNCH, name, CONTINUE, format, args);
+	va_end(args);
 
 	return retval;
 }
 
 #ifdef SAVE
 int
-fpunchf (const char *name, const char *format, ...)
+fpunchf(const char *name, const char *format, ...)
 {
 	int retval = 0;
 	va_list args;
@@ -3242,35 +3232,35 @@ fpunchf (const char *name, const char *format, ...)
 #if defined(HDF5_CREATE)
 	if (pr.hdf == TRUE)
 	{
-		va_start (args, format);
-		HDFWriteHyperSlabV (name, format, args);
-		va_end (args);
+		va_start(args, format);
+		HDFWriteHyperSlabV(name, format, args);
+		va_end(args);
 	}
 #endif
 	if (pr.punch == TRUE && punch.in == TRUE)
 	{
-		va_start (args, format);
-		retval = output_message (OUTPUT_PUNCH, NULL, CONTINUE, format, args);
-		va_end (args);
+		va_start(args, format);
+		retval = output_message(OUTPUT_PUNCH, NULL, CONTINUE, format, args);
+		va_end(args);
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-		va_start (args, format);
-		retval = vsprintf (big_buffer, format, args);
-		Merge_fpunchf (retval, format, args);
-		va_end (args);
+		va_start(args, format);
+		retval = vsprintf(big_buffer, format, args);
+		Merge_fpunchf(retval, format, args);
+		va_end(args);
 #endif
 #if defined(SWIG_SHARED_OBJ)
-		va_start (args, format);
-		AddSelectedOutput (name, format, args);
-		va_end (args);
+		va_start(args, format);
+		AddSelectedOutput(name, format, args);
+		va_end(args);
 #endif
 	}
 	return retval;
 }
 
 int
-fpunchf_user (int user_index, const char *format, ...)
+fpunchf_user(int user_index, const char *format, ...)
 {
-	extern int warning_msg (const char *err_str);
+	extern int warning_msg(const char *err_str);
 	static int s_warning = 0;
 	int retval = 0;
 	va_list args;
@@ -3285,39 +3275,39 @@ fpunchf_user (int user_index, const char *format, ...)
 	{
 		if (s_warning == 0)
 		{
-			sprintf (error_string,
-					 "USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
-			warning_msg (error_string);
+			sprintf(error_string,
+					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
+			warning_msg(error_string);
 			s_warning = 1;
 		}
-		sprintf (buffer, "no_heading_%d",
-				 (user_index - user_punch_count_headings) + 1);
+		sprintf(buffer, "no_heading_%d",
+				(user_index - user_punch_count_headings) + 1);
 		name = buffer;
 	}
 
 #if defined(HDF5_CREATE)
 	if (pr.hdf == TRUE)
 	{
-		va_start (args, format);
-		HDFWriteHyperSlabV (name, format, args);
-		va_end (args);
+		va_start(args, format);
+		HDFWriteHyperSlabV(name, format, args);
+		va_end(args);
 	}
 #endif
 
 	if (punch.in == TRUE && pr.punch == TRUE)
 	{
-		va_start (args, format);
-		retval = output_message (OUTPUT_PUNCH, NULL, CONTINUE, format, args);
-		va_end (args);
+		va_start(args, format);
+		retval = output_message(OUTPUT_PUNCH, NULL, CONTINUE, format, args);
+		va_end(args);
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-		va_start (args, format);
-		Merge_fpunchf (retval, format, args);
-		va_end (args);
+		va_start(args, format);
+		Merge_fpunchf(retval, format, args);
+		va_end(args);
 #endif
 #if defined(SWIG_SHARED_OBJ)
-		va_start (args, format);
-		AddSelectedOutput (name, format, args);
-		va_end (args);
+		va_start(args, format);
+		AddSelectedOutput(name, format, args);
+		va_end(args);
 #endif
 	}
 	return retval;
@@ -3325,18 +3315,18 @@ fpunchf_user (int user_index, const char *format, ...)
 #endif
 
 char *
-sformatf (const char *format, ...)
+sformatf(const char *format, ...)
 {
 #if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
 	static char scratch[240];
 	va_list args;
 
-	va_start (args, format);
-	if (vsprintf (scratch, format, args) > 239)
+	va_start(args, format);
+	if (vsprintf(scratch, format, args) > 239)
 	{
-		error_msg ("buffer overwrite in sformatf", STOP);
+		error_msg("buffer overwrite in sformatf", STOP);
 	}
-	va_end (args);
+	va_end(args);
 	return scratch;
 #else
 	return NULL;
@@ -3345,7 +3335,7 @@ sformatf (const char *format, ...)
 
 /* ---------------------------------------------------------------------- */
 int
-print_alkalinity (void)
+print_alkalinity(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3359,12 +3349,12 @@ print_alkalinity (void)
 
 	if (pr.alkalinity == FALSE || pr.all == FALSE)
 		return (OK);
-	print_centered ("Distribution of alkalinity");
+	print_centered("Distribution of alkalinity");
 	alk_list =
 		(struct species_list *)
-		PHRQ_malloc ((size_t) (count_s_x * sizeof (struct species_list)));
+		PHRQ_malloc((size_t) (count_s_x * sizeof(struct species_list)));
 	if (alk_list == NULL)
-		malloc_error ();
+		malloc_error();
 	j = 0;
 	for (i = 0; i < count_s_x; i++)
 	{
@@ -3376,33 +3366,32 @@ print_alkalinity (void)
 		j++;
 	}
 	count_alk_list = j;
-	min = fabs (censor * total_alkalinity / mass_water_aq_x);
+	min = fabs(censor * total_alkalinity / mass_water_aq_x);
 	if (count_alk_list > 0)
 	{
-		output_msg (OUTPUT_MESSAGE, "\t%26s%11.3e\n\n",
-					"Total alkalinity (eq/kgw)  = ",
-					(double) (total_alkalinity / mass_water_aq_x));
-		output_msg (OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s\n\n", "Species",
-					"Alkalinity", "Molality", "Alk/Mol");
-		qsort (&alk_list[0], (size_t) count_alk_list,
-			   (size_t) sizeof (struct species_list),
-			   species_list_compare_alk);
+		output_msg(OUTPUT_MESSAGE, "\t%26s%11.3e\n\n",
+				   "Total alkalinity (eq/kgw)  = ",
+				   (double) (total_alkalinity / mass_water_aq_x));
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%12s%12s%10s\n\n", "Species",
+				   "Alkalinity", "Molality", "Alk/Mol");
+		qsort(&alk_list[0], (size_t) count_alk_list,
+			  (size_t) sizeof(struct species_list), species_list_compare_alk);
 		for (i = 0; i < count_alk_list; i++)
 		{
 			if (fabs
 				(alk_list[i].s->alk * (alk_list[i].s->moles) /
 				 mass_water_aq_x) < min)
 				continue;
-			output_msg (OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e%10.2f\n",
-						alk_list[i].s->name,
-						(double) (alk_list[i].s->alk *
-								  (alk_list[i].s->moles) / mass_water_aq_x),
-						(double) ((alk_list[i].s->moles) / mass_water_aq_x),
-						(double) (alk_list[i].s->alk));
+			output_msg(OUTPUT_MESSAGE, "\t%-15s%12.3e%12.3e%10.2f\n",
+					   alk_list[i].s->name,
+					   (double) (alk_list[i].s->alk *
+								 (alk_list[i].s->moles) / mass_water_aq_x),
+					   (double) ((alk_list[i].s->moles) / mass_water_aq_x),
+					   (double) (alk_list[i].s->alk));
 		}
 	}
 
-	output_msg (OUTPUT_MESSAGE, "\n");
-	alk_list = (struct species_list *) free_check_null (alk_list);
+	output_msg(OUTPUT_MESSAGE, "\n");
+	alk_list = (struct species_list *) free_check_null(alk_list);
 	return (OK);
 }

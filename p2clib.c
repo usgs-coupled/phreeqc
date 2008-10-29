@@ -28,7 +28,7 @@ static char const svnid[] =
 
 static int P_argc;
 static char **P_argv;
-static char *_ShowEscape (char *buf, int code, int ior, char *prefix);
+static char *_ShowEscape(char *buf, int code, int ior, char *prefix);
 
 int P_escapecode;
 int P_ioresult;
@@ -40,17 +40,17 @@ Anyptr __MallocTemp__;
 __p2c_jmp_buf *__top_jb;
 
 void
-PASCAL_MAIN (int argc, char **argv)
+PASCAL_MAIN(int argc, char **argv)
 {
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 	P_argc = argc;
 	P_argv = argv;
 	__top_jb = NULL;
 	P_escapecode = 0;
 	P_ioresult = 0;
 #ifdef LOCAL_INIT
-	LOCAL_INIT ();
+	LOCAL_INIT();
 #endif
 }
 
@@ -61,21 +61,21 @@ PASCAL_MAIN (int argc, char **argv)
 /* In case your system lacks these... */
 
 long
-my_labs (long x)
+my_labs(long x)
 {
 	return ((x > 0) ? x : -x);
 }
 
 
-								   /* #define __STDC__  *//* PHREEQ98 */
+														  /* #define __STDC__  *//* PHREEQ98 */
 
 Anyptr
-my_memmove (Anyptr d, Const Anyptr s, size_t n)
+my_memmove(Anyptr d, Const Anyptr s, size_t n)
 {
 	register char *dd = (char *) d, *ss = (char *) s;
 	if (dd < ss || (unsigned int) (dd - ss) >= n)
 	{
-		memcpy (dd, ss, n);
+		memcpy(dd, ss, n);
 	}
 	else if (n > 0)
 	{
@@ -89,7 +89,7 @@ my_memmove (Anyptr d, Const Anyptr s, size_t n)
 
 
 Anyptr
-my_memcpy (Anyptr d, Const Anyptr s, size_t n)
+my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 {
 	register char *ss = (char *) s, *dd = (char *) d;
 	while (n-- > 0)
@@ -98,7 +98,7 @@ my_memcpy (Anyptr d, Const Anyptr s, size_t n)
 }
 
 int
-my_memcmp (Const Anyptr s1, Const Anyptr s2, size_t n)
+my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 {
 	register char *a = (char *) s1, *b = (char *) s2;
 	register int i;
@@ -109,7 +109,7 @@ my_memcmp (Const Anyptr s1, Const Anyptr s2, size_t n)
 }
 
 Anyptr
-my_memset (Anyptr d, int c, size_t n)
+my_memset(Anyptr d, int c, size_t n)
 {
 	register char *dd = (char *) d;
 	while (n-- > 0)
@@ -118,20 +118,20 @@ my_memset (Anyptr d, int c, size_t n)
 }
 
 int
-my_toupper (int c)
+my_toupper(int c)
 {
-	if (islower (c))
-		return _toupper (c);
+	if (islower(c))
+		return _toupper(c);
 	else
 		return c;
 }
 
 
 int
-my_tolower (int c)
+my_tolower(int c)
 {
-	if (isupper (c))
-		return _tolower (c);
+	if (isupper(c))
+		return _tolower(c);
 	else
 		return c;
 }
@@ -140,7 +140,7 @@ my_tolower (int c)
 
 
 long
-ipow (long a, long b)
+ipow(long a, long b)
 {
 	long v;
 
@@ -170,8 +170,8 @@ ipow (long a, long b)
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
 char *
-strsub (register char *ret, register char *s, register int pos,
-		register int len)
+strsub(register char *ret, register char *s, register int pos,
+	   register int len)
 {
 	register char *s2;
 
@@ -204,22 +204,22 @@ strsub (register char *ret, register char *s, register int pos,
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
 int
-strpos2 (char *s, register char *pat, register int pos)
+strpos2(char *s, register char *pat, register int pos)
 {
 	register char *cp, ch;
 	register int slen;
 
 	if (--pos < 0)
 		return 0;
-	slen = (int) strlen (s) - pos;
+	slen = (int) strlen(s) - pos;
 	cp = s + pos;
 	if (!(ch = *pat++))
 		return 0;
-	pos = (int) strlen (pat);
+	pos = (int) strlen(pat);
 	slen -= pos;
 	while (--slen >= 0)
 	{
-		if (*cp++ == ch && !strncmp (cp, pat, pos))
+		if (*cp++ == ch && !strncmp(cp, pat, pos))
 			return (int) (cp - s);
 	}
 	return 0;
@@ -228,7 +228,7 @@ strpos2 (char *s, register char *pat, register int pos)
 
 /* Case-insensitive version of strcmp. */
 int
-strcicmp (register char *s1, register char *s2)
+strcicmp(register char *s1, register char *s2)
 {
 	register unsigned char c1, c2;
 
@@ -238,8 +238,8 @@ strcicmp (register char *s1, register char *s2)
 		{
 			if (!s2[-1])
 				return 1;
-			c1 = (unsigned char) toupper (s1[-1]);
-			c2 = (unsigned char) toupper (s2[-1]);
+			c1 = (unsigned char) toupper(s1[-1]);
+			c2 = (unsigned char) toupper(s2[-1]);
 			if (c1 != c2)
 				return c1 - c2;
 		}
@@ -256,23 +256,23 @@ strcicmp (register char *s1, register char *s2)
 
 /* Trim blanks at left end of string. */
 char *
-strltrim (register char *s)
+strltrim(register char *s)
 {
-	while (Isspace ((int) *s++));
+	while (Isspace((int) *s++));
 	return s - 1;
 }
 
 
 /* Trim blanks at right end of string. */
 char *
-strrtrim (register char *s)
+strrtrim(register char *s)
 {
 	register char *s2 = s;
 
 	if (!*s)
 		return s;
 	while (*++s2);
-	while (s2 > s && Isspace ((int) *--s2))
+	while (s2 > s && Isspace((int) *--s2))
 		*s2 = 0;
 	return s;
 }
@@ -281,7 +281,7 @@ strrtrim (register char *s)
 /* Store in "ret" "num" copies of string "s".  Return "ret". */
 #ifdef SKIP
 char *
-strrpt (ret, s, num)
+strrpt(ret, s, num)
 	 char *ret;
 	 register char *s;
 	 register int num;
@@ -303,7 +303,7 @@ strrpt (ret, s, num)
 
 #ifdef SKIP
 char *
-strpad (ret, s, padchar, num)
+strpad(ret, s, padchar, num)
 	 char *ret;
 	 register char *s;
 	 register int padchar, num;
@@ -330,8 +330,8 @@ strpad (ret, s, padchar, num)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
 void
-strmove (register int len, register char *s, register int spos,
-		 register char *d, register int dpos)
+strmove(register int len, register char *s, register int spos,
+		register char *d, register int dpos)
 {
 	s += spos - 1;
 	d += dpos - 1;
@@ -350,7 +350,7 @@ strmove (register int len, register char *s, register int spos,
    Delete less if out-of-range. */
 #ifdef SKIP
 void
-strdelete (s, pos, len)
+strdelete(s, pos, len)
 	 register char *s;
 	 register int pos, len;
 {
@@ -358,7 +358,7 @@ strdelete (s, pos, len)
 
 	if (--pos < 0)
 		return;
-	slen = strlen (s) - pos;
+	slen = strlen(s) - pos;
 	if (slen <= 0)
 		return;
 	s += pos;
@@ -374,21 +374,21 @@ strdelete (s, pos, len)
 
 /* Insert string "src" at index "pos" of "dst". */
 void
-strinsert (register char *src, register char *dst, register int pos)
+strinsert(register char *src, register char *dst, register int pos)
 {
 	register int slen, dlen;
 
 	if (--pos < 0)
 		return;
-	dlen = (int) strlen (dst);
+	dlen = (int) strlen(dst);
 	dst += dlen;
 	dlen -= pos;
 	if (dlen <= 0)
 	{
-		strcpy (dst, src);
+		strcpy(dst, src);
 		return;
 	}
-	slen = (int) strlen (src);
+	slen = (int) strlen(src);
 	do
 	{
 		dst[slen] = *dst;
@@ -407,14 +407,14 @@ strinsert (register char *src, register char *dst, register int pos)
 
 /* Peek at next character of input stream; return EOF at end-of-file. */
 int
-P_peek (FILE * f)
+P_peek(FILE * f)
 {
 	int ch;
 
-	ch = getc (f);
+	ch = getc(f);
 	if (ch == EOF)
 		return EOF;
-	ungetc (ch, f);
+	ungetc(ch, f);
 	return (ch == '\n') ? ' ' : ch;
 }
 
@@ -424,18 +424,18 @@ P_peek (FILE * f)
    different way. */
 /*int P_eof(FILE *f)*/
 int
-P_eof (void)
+P_eof(void)
 {
 #ifdef SKIP
 	register int ch;
-	if (feof (f))
+	if (feof(f))
 		return 1;
 	if (f == stdin)
 		return 0;				/* not safe to look-ahead on the keyboard! */
-	ch = getc (f);
+	ch = getc(f);
 	if (ch == EOF)
 		return 1;
-	ungetc (ch, f);
+	ungetc(ch, f);
 #endif
 	return 0;
 }
@@ -443,21 +443,21 @@ P_eof (void)
 
 /* Check if at end of line (or end of entire file). */
 int
-P_eoln (FILE * f)
+P_eoln(FILE * f)
 {
 	register int ch;
 
-	ch = getc (f);
+	ch = getc(f);
 	if (ch == EOF)
 		return 1;
-	ungetc (ch, f);
+	ungetc(ch, f);
 	return (ch == '\n');
 }
 
 
 /* Read a packed array of characters from a file. */
 Void
-P_readpaoc (FILE * f, char *s, int len)
+P_readpaoc(FILE * f, char *s, int len)
 {
 	int ch;
 
@@ -465,7 +465,7 @@ P_readpaoc (FILE * f, char *s, int len)
 	{
 		if (len <= 0)
 			return;
-		ch = getc (f);
+		ch = getc(f);
 		if (ch == EOF || ch == '\n')
 			break;
 		*s++ = (char) ch;
@@ -474,17 +474,17 @@ P_readpaoc (FILE * f, char *s, int len)
 	while (--len >= 0)
 		*s++ = ' ';
 	if (ch != EOF)
-		ungetc (ch, f);
+		ungetc(ch, f);
 }
 
 Void
-P_readlnpaoc (FILE * f, char *s, int len)
+P_readlnpaoc(FILE * f, char *s, int len)
 {
 	int ch;
 
 	for (;;)
 	{
-		ch = getc (f);
+		ch = getc(f);
 		if (ch == EOF || ch == '\n')
 			break;
 		if (len > 0)
@@ -500,15 +500,15 @@ P_readlnpaoc (FILE * f, char *s, int len)
 
 /* Compute maximum legal "seek" index in file (0-based). */
 long
-P_maxpos (FILE * f)
+P_maxpos(FILE * f)
 {
-	long savepos = ftell (f);
+	long savepos = ftell(f);
 	long val;
 
-	if (fseek (f, 0L, SEEK_END))
+	if (fseek(f, 0L, SEEK_END))
 		return -1;
-	val = ftell (f);
-	if (fseek (f, savepos, SEEK_SET))
+	val = ftell(f);
+	if (fseek(f, savepos, SEEK_SET))
 		return -1;
 	return val;
 }
@@ -516,12 +516,12 @@ P_maxpos (FILE * f)
 
 /* Use packed array of char for a file name. */
 Char *
-P_trimname (register Char * fn, register int len)
+P_trimname(register Char * fn, register int len)
 {
 	static Char fnbuf[256];
 	register Char *cp = fnbuf;
 
-	while (--len >= 0 && *fn && !isspace ((int) *fn))
+	while (--len >= 0 && *fn && !isspace((int) *fn))
 		*cp++ = *fn++;
 	*cp = 0;
 	return fnbuf;
@@ -534,15 +534,15 @@ P_trimname (register Char * fn, register int len)
    We fix memory size as 10Meg as a reasonable compromise. */
 
 long
-memavail (void)
+memavail(void)
 {
 	return 10000000;			/* worry about this later! */
 }
 
 long
-maxavail (void)
+maxavail(void)
 {
-	return memavail ();
+	return memavail();
 }
 
 
@@ -557,7 +557,7 @@ maxavail (void)
 
 /* (Sets with 32 or fewer elements are normally stored as plain longs.) */
 long *
-P_setunion (register long *d, register long *s1, register long *s2)	/* d := s1 + s2 */
+P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + s2 */
 {
 	long *dbase = d++;
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -575,7 +575,7 @@ P_setunion (register long *d, register long *s1, register long *s2)	/* d := s1 +
 }
 
 long *
-P_setint (register long *d, register long *s1, register long *s2)	/* d := s1 * s2 */
+P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2 */
 {
 	long *dbase = d++;
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -587,7 +587,7 @@ P_setint (register long *d, register long *s1, register long *s2)	/* d := s1 * s
 }
 
 long *
-P_setdiff (register long *d, register long *s1, register long *s2)	/* d := s1 - s2 */
+P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s2 */
 {
 	long *dbase = d++;
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -604,7 +604,7 @@ P_setdiff (register long *d, register long *s1, register long *s2)	/* d := s1 - 
 }
 
 long *
-P_setxor (register long *d, register long *s1, register long *s2)	/* d := s1 / s2 */
+P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2 */
 {
 	long *dbase = d++;
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -624,7 +624,7 @@ P_setxor (register long *d, register long *s1, register long *s2)	/* d := s1 / s
 
 #ifdef SKIP
 int
-P_inset (register unsigned val, register long *s)	/* val IN s */
+P_inset(register unsigned val, register long *s)	/* val IN s */
 {
 	register int bit;
 	bit = val % SETBITS;
@@ -635,7 +635,7 @@ P_inset (register unsigned val, register long *s)	/* val IN s */
 }
 #endif
 long *
-P_addset (register long *s, register unsigned val)	/* s := s + [val] */
+P_addset(register long *s, register unsigned val)	/* s := s + [val] */
 {
 	register long *sbase = s;
 	register int bit, size;
@@ -656,7 +656,7 @@ P_addset (register long *s, register unsigned val)	/* s := s + [val] */
 }
 
 long *
-P_addsetr (register long *s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
+P_addsetr(register long *s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
 {
 	register long *sbase = s;
 	register int b1, b2, size;
@@ -691,7 +691,7 @@ P_addsetr (register long *s, register unsigned v1, register unsigned v2)	/* s :=
 }
 
 long *
-P_remset (register long *s, register unsigned val)	/* s := s - [val] */
+P_remset(register long *s, register unsigned val)	/* s := s - [val] */
 {
 	register int bit;
 	bit = val % SETBITS;
@@ -706,7 +706,7 @@ P_remset (register long *s, register unsigned val)	/* s := s - [val] */
 }
 
 int
-P_setequal (register long *s1, register long *s2)	/* s1 = s2 */
+P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 {
 	register int size = *s1++;
 	if (*s2++ != size)
@@ -720,7 +720,7 @@ P_setequal (register long *s1, register long *s2)	/* s1 = s2 */
 }
 
 int
-P_subset (register long *s1, register long *s2)	/* s1 <= s2 */
+P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 {
 	register int sz1 = *s1++, sz2 = *s2++;
 	if (sz1 > sz2)
@@ -734,12 +734,12 @@ P_subset (register long *s1, register long *s2)	/* s1 <= s2 */
 }
 
 long *
-P_setcpy (register long *d, register long *s)	/* d := s */
+P_setcpy(register long *d, register long *s)	/* d := s */
 {
 	register long *save_d = d;
 
 #ifdef SETCPY_MEMCPY
-	memcpy (d, s, (*s + 1) * sizeof (long));
+	memcpy(d, s, (*s + 1) * sizeof(long));
 #else
 	register int i = *s + 1;
 	while (--i >= 0)
@@ -752,7 +752,7 @@ P_setcpy (register long *d, register long *s)	/* d := s */
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
 long *
-P_expset (register long *d, register long s)	/* d := s */
+P_expset(register long *d, register long s)	/* d := s */
 {
 	if (s)
 	{
@@ -765,7 +765,7 @@ P_expset (register long *d, register long s)	/* d := s */
 }
 
 long
-P_packset (register long *s)	/* convert s to a small-set */
+P_packset(register long *s)		/* convert s to a small-set */
 {
 	if (*s++)
 		return *s;
@@ -779,7 +779,7 @@ P_packset (register long *s)	/* convert s to a small-set */
 
 /* Oregon Software Pascal extensions, courtesy of William Bader */
 int
-P_getcmdline (int l, int h, Char * line)
+P_getcmdline(int l, int h, Char * line)
 {
 	int i, len;
 	char *s;
@@ -804,14 +804,14 @@ P_getcmdline (int l, int h, Char * line)
 
 #ifndef NO_TIME
 Void
-TimeStamp (Day, Month, Year, Hour, Min, Sec)
+TimeStamp(Day, Month, Year, Hour, Min, Sec)
 	 int *Day, *Month, *Year, *Hour, *Min, *Sec;
 {
 	struct tm *tm;
 	long clock;
 
-	time (&clock);
-	tm = localtime (&clock);
+	time(&clock);
+	tm = localtime(&clock);
 	*Day = tm->tm_mday;
 	*Month = tm->tm_mon + 1;	/* Jan = 0 */
 	*Year = tm->tm_year;
@@ -823,7 +823,7 @@ TimeStamp (Day, Month, Year, Hour, Min, Sec)
 }
 
 Void
-VAXdate (s)
+VAXdate(s)
 	 char *s;
 {
 	long clock;
@@ -831,24 +831,24 @@ VAXdate (s)
 	int i;
 	static int where[] = { 8, 9, 0, 4, 5, 6, 0, 20, 21, 22, 23 };
 
-	time (&clock);
-	c = ctime (&clock);
+	time(&clock);
+	c = ctime(&clock);
 	for (i = 0; i < 11; i++)
-		s[i] = my_toupper (c[where[i]]);
+		s[i] = my_toupper(c[where[i]]);
 	s[2] = '-';
 	s[6] = '-';
 }
 
 Void
-VAXtime (s)
+VAXtime(s)
 	 char *s;
 {
 	long clock;
 	char *c;
 	int i;
 
-	time (&clock);
-	c = ctime (&clock);
+	time(&clock);
+	c = ctime(&clock);
 	for (i = 0; i < 8; i++)
 		s[i] = c[i + 11];
 	s[8] = '.';
@@ -862,7 +862,7 @@ VAXtime (s)
 #ifdef SKIP
 /* SUN Berkeley Pascal extensions */
 Void
-P_sun_argv (register char *s, register int len, register int n)
+P_sun_argv(register char *s, register int len, register int n)
 {
 	register char *cp;
 
@@ -880,21 +880,21 @@ P_sun_argv (register char *s, register int len, register int n)
 
 
 int
-_OutMem (void)
+_OutMem(void)
 {
-	return _Escape (-2);
+	return _Escape(-2);
 }
 
 int
-_CaseCheck (void)
+_CaseCheck(void)
 {
-	return _Escape (-9);
+	return _Escape(-9);
 }
 
 int
-_NilCheck (void)
+_NilCheck(void)
 {
-	return _Escape (-3);
+	return _Escape(-3);
 }
 
 
@@ -906,19 +906,19 @@ _NilCheck (void)
 
 #ifdef SKIP
 static char *
-_ShowEscape (buf, code, ior, prefix)
+_ShowEscape(buf, code, ior, prefix)
 	 char *buf, *prefix;
 	 int code, ior;
 #endif
-	 static char *_ShowEscape (char *buf, int code, int ior, char *prefix)
+	 static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
 {
 	char *bufp;
 
 	if (prefix && *prefix)
 	{
-		strcpy (buf, prefix);
-		strcat (buf, ": ");
-		bufp = buf + strlen (buf);
+		strcpy(buf, prefix);
+		strcat(buf, ": ");
+		bufp = buf + strlen(buf);
 	}
 	else
 	{
@@ -926,75 +926,75 @@ _ShowEscape (buf, code, ior, prefix)
 	}
 	if (code == -10)
 	{
-		sprintf (bufp, "Pascal system I/O error %d", ior);
+		sprintf(bufp, "Pascal system I/O error %d", ior);
 		switch (ior)
 		{
 		case 3:
-			strcat (buf, " (illegal I/O request)");
+			strcat(buf, " (illegal I/O request)");
 			break;
 		case 7:
-			strcat (buf, " (bad file name)");
+			strcat(buf, " (bad file name)");
 			break;
 		case FileNotFound:		/*10 */
-			strcat (buf, " (file not found)");
+			strcat(buf, " (file not found)");
 			break;
 		case FileNotOpen:		/*13 */
-			strcat (buf, " (file not open)");
+			strcat(buf, " (file not open)");
 			break;
 		case BadInputFormat:	/*14 */
-			strcat (buf, " (bad input format)");
+			strcat(buf, " (bad input format)");
 			break;
 		case 24:
-			strcat (buf, " (not open for reading)");
+			strcat(buf, " (not open for reading)");
 			break;
 		case 25:
-			strcat (buf, " (not open for writing)");
+			strcat(buf, " (not open for writing)");
 			break;
 		case 26:
-			strcat (buf, " (not open for direct access)");
+			strcat(buf, " (not open for direct access)");
 			break;
 		case 28:
-			strcat (buf, " (string subscript out of range)");
+			strcat(buf, " (string subscript out of range)");
 			break;
 		case EndOfFile:		/*30 */
-			strcat (buf, " (end-of-file)");
+			strcat(buf, " (end-of-file)");
 			break;
 		case FileWriteError:	/*38 */
-			strcat (buf, " (file write error)");
+			strcat(buf, " (file write error)");
 			break;
 		}
 	}
 	else
 	{
-		sprintf (bufp, "Pascal system error %d", code);
+		sprintf(bufp, "Pascal system error %d", code);
 		switch (code)
 		{
 		case -2:
-			strcat (buf, " (out of memory)");
+			strcat(buf, " (out of memory)");
 			break;
 		case -3:
-			strcat (buf, " (reference to NIL pointer)");
+			strcat(buf, " (reference to NIL pointer)");
 			break;
 		case -4:
-			strcat (buf, " (integer overflow)");
+			strcat(buf, " (integer overflow)");
 			break;
 		case -5:
-			strcat (buf, " (divide by zero)");
+			strcat(buf, " (divide by zero)");
 			break;
 		case -6:
-			strcat (buf, " (real math overflow)");
+			strcat(buf, " (real math overflow)");
 			break;
 		case -8:
-			strcat (buf, " (value range error)");
+			strcat(buf, " (value range error)");
 			break;
 		case -9:
-			strcat (buf, " (CASE value range error)");
+			strcat(buf, " (CASE value range error)");
 			break;
 		case -12:
-			strcat (buf, " (bus error)");
+			strcat(buf, " (bus error)");
 			break;
 		case -20:
-			strcat (buf, " (stopped by user)");
+			strcat(buf, " (stopped by user)");
 			break;
 		}
 	}
@@ -1002,7 +1002,7 @@ _ShowEscape (buf, code, ior, prefix)
 }
 
 int
-_Escape (int code)
+_Escape(int code)
 {
 	char buf[100];
 	char token[200], empty[2] = { "\0" };
@@ -1012,32 +1012,32 @@ _Escape (int code)
 	{
 		__p2c_jmp_buf *jb = __top_jb;
 		__top_jb = jb->next;
-		longjmp (jb->jbuf, 1);
+		longjmp(jb->jbuf, 1);
 	}
 	if (code == 0)
 		/*        exit(EXIT_SUCCESS); */
-		error_msg ("Exit success in Basic", STOP);
+		error_msg("Exit success in Basic", STOP);
 	if (code == -1)
 	{
-		error_msg ("Fatal error in Basic interpreter.", CONTINUE);
-		sprintf (token, "%s",
-				 _ShowEscape (buf, P_escapecode, P_ioresult, empty));
-		error_msg (token, STOP);
-		exit (EXIT_FAILURE);
+		error_msg("Fatal error in Basic interpreter.", CONTINUE);
+		sprintf(token, "%s",
+				_ShowEscape(buf, P_escapecode, P_ioresult, empty));
+		error_msg(token, STOP);
+		exit(EXIT_FAILURE);
 	}
 	/* fprintf(stderr, "%s\n", _ShowEscape(buf, P_escapecode, P_ioresult, "")); */
 	/* exit(EXIT_FAILURE); */
-	error_msg ("Fatal error in Basic interpreter.", CONTINUE);
-	sprintf (token, "%s", _ShowEscape (buf, P_escapecode, P_ioresult, empty));
-	error_msg (token, STOP);
+	error_msg("Fatal error in Basic interpreter.", CONTINUE);
+	sprintf(token, "%s", _ShowEscape(buf, P_escapecode, P_ioresult, empty));
+	error_msg(token, STOP);
 	return (1);
 }
 
 int
-_EscIO (int code)
+_EscIO(int code)
 {
 	P_ioresult = code;
-	return _Escape (-10);
+	return _Escape(-10);
 }
 
 

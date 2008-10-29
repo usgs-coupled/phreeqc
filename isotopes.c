@@ -7,14 +7,14 @@
 static char const svnid[] =
 	"$Id$";
 
-static int calculate_value_init (struct calculate_value *calculate_value_ptr);
-static int isotope_alpha_init (struct isotope_alpha *isotope_alpha_ptr);
-static int isotope_ratio_init (struct isotope_ratio *isotope_ratio_ptr);
-static int master_isotope_init (struct master_isotope *master_isotope_ptr);
+static int calculate_value_init(struct calculate_value *calculate_value_ptr);
+static int isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr);
+static int isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr);
+static int master_isotope_init(struct master_isotope *master_isotope_ptr);
 
 /* ---------------------------------------------------------------------- */
 int
-read_isotopes (void)
+read_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -44,7 +44,7 @@ read_isotopes (void)
 	};
 	int count_opt_list = 2;
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
 	master_isotope_ptr = NULL;
 	elt_ptr = NULL;
@@ -55,7 +55,7 @@ read_isotopes (void)
 	return_value = UNKNOWN;
 	for (;;)
 	{
-		opt = get_option (opt_list, count_opt_list, &next_char);
+		opt = get_option(opt_list, count_opt_list, &next_char);
 		if (opt == OPTION_DEFAULT)
 		{
 			opt = opt_save;
@@ -70,16 +70,16 @@ read_isotopes (void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in SPECIES keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in SPECIES keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* isotope */
 			if (elt_ptr == NULL)
 			{
-				sprintf (error_string,
-						 "The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
@@ -87,73 +87,73 @@ read_isotopes (void)
 			 *  Save an isotope
 			 */
 			master_isotope_ptr = NULL;
-			j = copy_token (token, &next_char, &l);
-			master_isotope_ptr = master_isotope_store (token, TRUE);
+			j = copy_token(token, &next_char, &l);
+			master_isotope_ptr = master_isotope_store(token, TRUE);
 			master_isotope_ptr->elt = elt_ptr;
 			master_isotope_ptr->minor_isotope = TRUE;
 			master_isotope_ptr->total_is_major = FALSE;
 			/*
 			 *  Read units
 			 */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting units for isotopic values, %s. ISOTOPES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting units for isotopic values, %s. ISOTOPES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			master_isotope_ptr->units = string_hsave (token);
+			master_isotope_ptr->units = string_hsave(token);
 			/*
 			 *  Read standard 
 			 */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting isotope ratio of standard, %s. ISOTOPES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting isotope ratio of standard, %s. ISOTOPES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			sscanf (token, SCANFORMAT, &(master_isotope_ptr->standard));
+			sscanf(token, SCANFORMAT, &(master_isotope_ptr->standard));
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 1:				/* total_is_major_isotope */
 #ifdef SKIP
 			if (elt_ptr == NULL)
 			{
-				sprintf (error_string,
-						 "The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
 			master_isotope_ptr_major->total_is_major =
-				get_true_false (next_char, TRUE);
+				get_true_false(next_char, TRUE);
 #endif
-			sprintf (error_string,
-					 "Obsolete identifier. The total of the element must be the sum of all isotopes. ISOTOPES data block.\n%s",
-					 line);
-			warning_msg (error_string);
+			sprintf(error_string,
+					"Obsolete identifier. The total of the element must be the sum of all isotopes. ISOTOPES data block.\n%s",
+					line);
+			warning_msg(error_string);
 			break;
 		case OPTION_DEFAULT:
 /*
  *   Read and element name
  */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting an element name for isotope definition, %s. ISOTOPES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting an element name for isotope definition, %s. ISOTOPES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			elt_ptr = element_store (token);
-			master_isotope_ptr = master_isotope_store (token, TRUE);
+			elt_ptr = element_store(token);
+			master_isotope_ptr = master_isotope_store(token, TRUE);
 			master_isotope_ptr_major = master_isotope_ptr;
 			master_isotope_ptr->elt = elt_ptr;
 			master_isotope_ptr->minor_isotope = FALSE;
@@ -169,7 +169,7 @@ read_isotopes (void)
 
 /* ---------------------------------------------------------------------- */
 int
-read_calculate_values (void)
+read_calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -203,8 +203,8 @@ read_calculate_values (void)
  */
 	n = -1;
 	ptr = line;
-	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = (char *) free_check_null (description);
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -213,7 +213,7 @@ read_calculate_values (void)
 	calculate_value_ptr = NULL;
 	for (;;)
 	{
-		opt = get_option (opt_list, count_opt_list, &next_char);
+		opt = get_option(opt_list, count_opt_list, &next_char);
 		if (opt == OPTION_DEFAULT)
 		{
 			opt = opt_save;
@@ -228,8 +228,8 @@ read_calculate_values (void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in CALCULATE_VALUE keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in CALCULATE_VALUE keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* start */
 			opt_save = OPT_1;
@@ -241,21 +241,21 @@ read_calculate_values (void)
 /*
  *   Read calculate_value name
  */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting a name for calculate_value definition, %s. CALCULATE_VALUES data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting a name for calculate_value definition, %s. CALCULATE_VALUES data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			calculate_value_ptr = calculate_value_store (token, TRUE);
+			calculate_value_ptr = calculate_value_store(token, TRUE);
 			calculate_value_ptr->new_def = TRUE;
 			calculate_value_ptr->commands =
-				(char *) PHRQ_malloc (sizeof (char));
+				(char *) PHRQ_malloc(sizeof(char));
 			if (calculate_value_ptr->commands == NULL)
-				malloc_error ();
+				malloc_error();
 			calculate_value_ptr->commands[0] = '\0';
 			calculate_value_ptr->linebase = NULL;
 			calculate_value_ptr->varbase = NULL;
@@ -264,17 +264,17 @@ read_calculate_values (void)
 			break;
 
 		case OPT_1:			/* read command */
-			length = (int) strlen (calculate_value_ptr->commands);
-			line_length = (int) strlen (line);
+			length = (int) strlen(calculate_value_ptr->commands);
+			line_length = (int) strlen(line);
 			calculate_value_ptr->commands =
-				(char *) PHRQ_realloc (calculate_value_ptr->commands,
-									   (size_t) (length + line_length +
-												 2) * sizeof (char));
+				(char *) PHRQ_realloc(calculate_value_ptr->commands,
+									  (size_t) (length + line_length +
+												2) * sizeof(char));
 			if (calculate_value_ptr->commands == NULL)
-				malloc_error ();
+				malloc_error();
 			calculate_value_ptr->commands[length] = ';';
 			calculate_value_ptr->commands[length + 1] = '\0';
-			strcat ((calculate_value_ptr->commands), line);
+			strcat((calculate_value_ptr->commands), line);
 			opt_save = OPT_1;
 			break;
 		}
@@ -287,7 +287,7 @@ read_calculate_values (void)
 
 /* ---------------------------------------------------------------------- */
 int
-read_isotope_ratios (void)
+read_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -321,8 +321,8 @@ read_isotope_ratios (void)
  */
 	n = -1;
 	ptr = line;
-	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = (char *) free_check_null (description);
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -331,7 +331,7 @@ read_isotope_ratios (void)
 	isotope_ratio_ptr = NULL;
 	for (;;)
 	{
-		opt = get_option (opt_list, count_opt_list, &next_char);
+		opt = get_option(opt_list, count_opt_list, &next_char);
 		if (opt == OPTION_DEFAULT)
 		{
 			opt = opt_save;
@@ -346,36 +346,36 @@ read_isotope_ratios (void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in ISOTOPE_RATIOS keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in ISOTOPE_RATIOS keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case OPTION_DEFAULT:	/* read isotope_ratio name */
 /*
  *   Read isotope_ratio name
  */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting a name for isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting a name for isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			isotope_ratio_ptr = isotope_ratio_store (token, TRUE);
+			isotope_ratio_ptr = isotope_ratio_store(token, TRUE);
 			/*
 			 *  Read isotope
 			 */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting a name of isotope for an isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting a name of isotope for an isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			isotope_ratio_ptr->isotope_name = string_hsave (token);
+			isotope_ratio_ptr->isotope_name = string_hsave(token);
 			opt_save = OPTION_DEFAULT;
 			break;
 		}
@@ -387,7 +387,7 @@ read_isotope_ratios (void)
 
 /* ---------------------------------------------------------------------- */
 int
-read_isotope_alphas (void)
+read_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -421,8 +421,8 @@ read_isotope_alphas (void)
  */
 	n = -1;
 	ptr = line;
-	read_number_description (ptr, &n_user, &n_user_end, &description);
-	description = (char *) free_check_null (description);
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	description = (char *) free_check_null(description);
 	opt_save = OPTION_DEFAULT;
 /*
  *   Read lines
@@ -431,7 +431,7 @@ read_isotope_alphas (void)
 	isotope_alpha_ptr = NULL;
 	for (;;)
 	{
-		opt = get_option (opt_list, count_opt_list, &next_char);
+		opt = get_option(opt_list, count_opt_list, &next_char);
 		if (opt == OPTION_DEFAULT)
 		{
 			opt = opt_save;
@@ -446,27 +446,27 @@ read_isotope_alphas (void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg ("Unknown input in ISOTOPE_ALPHAS keyword.", CONTINUE);
-			error_msg (line_save, CONTINUE);
+			error_msg("Unknown input in ISOTOPE_ALPHAS keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
 			break;
 		case OPTION_DEFAULT:	/* read isotope_alpha name */
 /*
  *   Read isotope_alpha name
  */
-			if (copy_token (token, &next_char, &l) == EMPTY)
+			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf (error_string,
-						 "Expecting a name for isotope_alpha definition, %s. ISOTOPE_ALPHAS data block.",
-						 line);
-				error_msg (error_string, CONTINUE);
+				sprintf(error_string,
+						"Expecting a name for isotope_alpha definition, %s. ISOTOPE_ALPHAS data block.",
+						line);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
-			isotope_alpha_ptr = isotope_alpha_store (token, TRUE);
-			isotope_alpha_ptr->name = string_hsave (token);
-			if (copy_token (token, &next_char, &l) != EMPTY)
+			isotope_alpha_ptr = isotope_alpha_store(token, TRUE);
+			isotope_alpha_ptr->name = string_hsave(token);
+			if (copy_token(token, &next_char, &l) != EMPTY)
 			{
-				isotope_alpha_ptr->named_logk = string_hsave (token);
+				isotope_alpha_ptr->named_logk = string_hsave(token);
 			}
 
 
@@ -481,7 +481,7 @@ read_isotope_alphas (void)
 
 /* ---------------------------------------------------------------------- */
 int
-add_isotopes (struct solution *solution_ptr)
+add_isotopes(struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -495,31 +495,31 @@ add_isotopes (struct solution *solution_ptr)
 	{
 		master_isotope[i]->moles = 0;
 	}
-	master_isotope_ptr = master_isotope_search ("H");
+	master_isotope_ptr = master_isotope_search("H");
 	if (master_isotope_ptr != NULL)
 	{
 		total_moles = total_h_x;
-		calculate_isotope_moles (master_isotope_ptr->elt, solution_ptr,
-								 total_moles);
+		calculate_isotope_moles(master_isotope_ptr->elt, solution_ptr,
+								total_moles);
 	}
-	master_isotope_ptr = master_isotope_search ("O");
+	master_isotope_ptr = master_isotope_search("O");
 	if (master_isotope_ptr != NULL)
 	{
 		total_moles = total_o_x;
-		calculate_isotope_moles (master_isotope_ptr->elt, solution_ptr,
-								 total_moles);
+		calculate_isotope_moles(master_isotope_ptr->elt, solution_ptr,
+								total_moles);
 	}
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 	{
 		ptr = solution_ptr->totals[i].description;
-		master_isotope_ptr = master_isotope_search (ptr);
+		master_isotope_ptr = master_isotope_search(ptr);
 		if (master_isotope_ptr == NULL)
 			continue;
 		if (master_isotope_ptr->minor_isotope == FALSE)
 		{
-			total_moles = total (master_isotope_ptr->name);
-			calculate_isotope_moles (master_isotope_ptr->elt, solution_ptr,
-									 total_moles);
+			total_moles = total(master_isotope_ptr->name);
+			calculate_isotope_moles(master_isotope_ptr->elt, solution_ptr,
+									total_moles);
 		}
 	}
 	/*
@@ -539,8 +539,8 @@ add_isotopes (struct solution *solution_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-calculate_isotope_moles (struct element *elt_ptr,
-						 struct solution *solution_ptr, LDBLE total_moles)
+calculate_isotope_moles(struct element *elt_ptr,
+						struct solution *solution_ptr, LDBLE total_moles)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, iter;
@@ -558,10 +558,10 @@ calculate_isotope_moles (struct element *elt_ptr,
 	 */
 	if (total_moles <= 0)
 	{
-		sprintf (error_string,
-				 "Can not calculate molality of isotopes, molality of element is zero, %s",
-				 elt_ptr->name);
-		warning_msg (error_string);
+		sprintf(error_string,
+				"Can not calculate molality of isotopes, molality of element is zero, %s",
+				elt_ptr->name);
+		warning_msg(error_string);
 		return (ERROR);
 	}
 	m_major = total_moles;
@@ -570,11 +570,11 @@ calculate_isotope_moles (struct element *elt_ptr,
 	 */
 	count_isotopes = 0;
 	total_is_major = FALSE;
-	master_isotope_ptr = master_isotope_search ("H");
+	master_isotope_ptr = master_isotope_search("H");
 	if ((master_isotope_ptr != NULL) && (master_isotope_ptr->elt == elt_ptr))
 	{
-		memcpy (&(list[count_isotopes]), master_isotope_ptr,
-				sizeof (struct master_isotope));
+		memcpy(&(list[count_isotopes]), master_isotope_ptr,
+			   sizeof(struct master_isotope));
 		list[count_isotopes].ratio = 1.0;
 		if (list[count_isotopes].minor_isotope == FALSE)
 		{
@@ -582,11 +582,11 @@ calculate_isotope_moles (struct element *elt_ptr,
 		}
 		count_isotopes++;
 	}
-	master_isotope_ptr = master_isotope_search ("O");
+	master_isotope_ptr = master_isotope_search("O");
 	if ((master_isotope_ptr != NULL) && (master_isotope_ptr->elt == elt_ptr))
 	{
-		memcpy (&(list[count_isotopes]), master_isotope_ptr,
-				sizeof (struct master_isotope));
+		memcpy(&(list[count_isotopes]), master_isotope_ptr,
+			   sizeof(struct master_isotope));
 		list[count_isotopes].ratio = 1.0;
 		if (list[count_isotopes].minor_isotope == FALSE)
 		{
@@ -597,13 +597,13 @@ calculate_isotope_moles (struct element *elt_ptr,
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 	{
 		ptr = solution_ptr->totals[i].description;
-		master_isotope_ptr = master_isotope_search (ptr);
+		master_isotope_ptr = master_isotope_search(ptr);
 		if (master_isotope_ptr == NULL)
 			continue;
 		if (master_isotope_ptr->elt != elt_ptr)
 			continue;
-		memcpy (&(list[count_isotopes]), master_isotope_ptr,
-				sizeof (struct master_isotope));
+		memcpy(&(list[count_isotopes]), master_isotope_ptr,
+			   sizeof(struct master_isotope));
 		if (list[count_isotopes].minor_isotope == FALSE)
 		{
 			total_is_major = list[count_isotopes].total_is_major;
@@ -624,44 +624,44 @@ calculate_isotope_moles (struct element *elt_ptr,
 				tot += m_major;
 				continue;
 			}
-			if (strcmp_nocase (list[i].units, "permil") == 0)
+			if (strcmp_nocase(list[i].units, "permil") == 0)
 			{
-				from_permil (&(list[i]), m_major);
+				from_permil(&(list[i]), m_major);
 				tot += list[i].moles;
 				continue;
 			}
-			if (strcmp_nocase (list[i].units, "pct") == 0)
+			if (strcmp_nocase(list[i].units, "pct") == 0)
 			{
-				from_pct (&(list[i]), total_moles);
+				from_pct(&(list[i]), total_moles);
 				tot += list[i].moles;
 				continue;
 			}
-			if (strcmp_nocase (list[i].units, "pmc") == 0)
+			if (strcmp_nocase(list[i].units, "pmc") == 0)
 			{
-				from_pct (&(list[i]), total_moles);
+				from_pct(&(list[i]), total_moles);
 				tot += list[i].moles;
 				continue;
 			}
-			if (strcmp_nocase (list[i].units, "tu") == 0)
+			if (strcmp_nocase(list[i].units, "tu") == 0)
 			{
-				from_tu (&(list[i]));
+				from_tu(&(list[i]));
 				tot += list[i].moles;
 				continue;
 			}
-			if (strcmp_nocase (list[i].units, "pci/l") == 0)
+			if (strcmp_nocase(list[i].units, "pci/l") == 0)
 			{
-				from_pcil (&(list[i]));
+				from_pcil(&(list[i]));
 				tot += list[i].moles;
 				continue;
 			}
-			sprintf (error_string, "Isotope units not recognized, %s",
-					 list[i].units);
+			sprintf(error_string, "Isotope units not recognized, %s",
+					list[i].units);
 			input_error++;
-			error_msg (error_string, CONTINUE);
+			error_msg(error_string, CONTINUE);
 		}
 		if (total_is_major == TRUE)
 			break;
-		if (fabs (total_moles - tot) < convergence_tolerance * total_moles)
+		if (fabs(total_moles - tot) < convergence_tolerance * total_moles)
 		{
 			break;
 		}
@@ -672,7 +672,7 @@ calculate_isotope_moles (struct element *elt_ptr,
 	}
 	if (iter >= itmax)
 	{
-		error_msg ("Failed to converge in CALCULATE_ISOTOPE_MOLES.", STOP);
+		error_msg("Failed to converge in CALCULATE_ISOTOPE_MOLES.", STOP);
 	}
 	/*
 	 *  Update master_isotope
@@ -683,20 +683,20 @@ calculate_isotope_moles (struct element *elt_ptr,
 		{
 			if (list[i].name == master_isotope[j]->name)
 			{
-				memcpy (master_isotope[j], &(list[i]),
-						sizeof (struct master_isotope));
+				memcpy(master_isotope[j], &(list[i]),
+					   sizeof(struct master_isotope));
 			}
 		}
 	}
 	/*
 	 * Update solution
 	 */
-	master_isotope_ptr1 = master_isotope_search ("H");
+	master_isotope_ptr1 = master_isotope_search("H");
 	if (master_isotope_ptr1 != NULL && master_isotope_ptr1->elt == elt_ptr)
 	{
 		total_h_x = m_major;
 	}
-	master_isotope_ptr1 = master_isotope_search ("O");
+	master_isotope_ptr1 = master_isotope_search("O");
 	if (master_isotope_ptr1 != NULL && master_isotope_ptr1->elt == elt_ptr)
 	{
 		total_o_x = m_major;
@@ -704,7 +704,7 @@ calculate_isotope_moles (struct element *elt_ptr,
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 	{
 		ptr = solution_ptr->totals[i].description;
-		master_isotope_ptr = master_isotope_search (ptr);
+		master_isotope_ptr = master_isotope_search(ptr);
 		if (master_isotope_ptr == NULL)
 			continue;
 		if (master_isotope_ptr->elt != elt_ptr)
@@ -718,19 +718,18 @@ calculate_isotope_moles (struct element *elt_ptr,
 	 *  make elt list
 	 */
 	iso_elt_list =
-		PHRQ_malloc ((size_t) (count_isotopes + 1) *
-					 sizeof (struct elt_list));
+		PHRQ_malloc((size_t) (count_isotopes + 1) * sizeof(struct elt_list));
 	if (iso_elt_list == NULL)
-		malloc_error ();
+		malloc_error();
 	for (i = 0; i < count_isotopes; i++)
 	{
-		master_ptr = master_bsearch (list[i].name);
+		master_ptr = master_bsearch(list[i].name);
 		if (master_ptr == NULL)
 		{
-			sprintf (error_string,
-					 "Did not find element in CALCULATE_ISOTOPES, %s.",
-					 list[i].name);
-			error_msg (error_string, STOP);
+			sprintf(error_string,
+					"Did not find element in CALCULATE_ISOTOPES, %s.",
+					list[i].name);
+			error_msg(error_string, STOP);
 		}
 		iso_elt_list[i].elt = master_ptr->elt;
 		iso_elt_list[i].coef = list[i].moles;
@@ -742,7 +741,7 @@ calculate_isotope_moles (struct element *elt_ptr,
 
 /* ---------------------------------------------------------------------- */
 int
-from_permil (struct master_isotope *master_isotope_ptr, LDBLE major_total)
+from_permil(struct master_isotope *master_isotope_ptr, LDBLE major_total)
 /* ---------------------------------------------------------------------- */
 {
 	LDBLE r;
@@ -755,7 +754,7 @@ from_permil (struct master_isotope *master_isotope_ptr, LDBLE major_total)
 
 /* ---------------------------------------------------------------------- */
 int
-from_pct (struct master_isotope *master_isotope_ptr, LDBLE total_moles)
+from_pct(struct master_isotope *master_isotope_ptr, LDBLE total_moles)
 /* ---------------------------------------------------------------------- */
 {
 	master_isotope_ptr->moles =
@@ -766,7 +765,7 @@ from_pct (struct master_isotope *master_isotope_ptr, LDBLE total_moles)
 
 /* ---------------------------------------------------------------------- */
 int
-from_tu (struct master_isotope *master_isotope_ptr)
+from_tu(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	master_isotope_ptr->moles =
@@ -777,7 +776,7 @@ from_tu (struct master_isotope *master_isotope_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-from_pcil (struct master_isotope *master_isotope_ptr)
+from_pcil(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	master_isotope_ptr->moles =
@@ -788,7 +787,7 @@ from_pcil (struct master_isotope *master_isotope_ptr)
 
 /* ---------------------------------------------------------------------- */
 int
-print_initial_solution_isotopes (void)
+print_initial_solution_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -806,9 +805,9 @@ print_initial_solution_isotopes (void)
 /*
  *   Print heading
  */
-	print_centered ("Isotopes");
-	output_msg (OUTPUT_MESSAGE, "%10s\t%12s\t%12s\t%12s\t%12s\n\n", "Isotope",
-				"Molality", "Moles", "Ratio", "Units");
+	print_centered("Isotopes");
+	output_msg(OUTPUT_MESSAGE, "%10s\t%12s\t%12s\t%12s\t%12s\n\n", "Isotope",
+			   "Molality", "Moles", "Ratio", "Units");
 	for (i = 0; i < count_master_isotope; i++)
 	{
 		if (master_isotope[i]->minor_isotope == FALSE)
@@ -829,10 +828,10 @@ print_initial_solution_isotopes (void)
 			/*
 			 *  Print isotope values
 			 */
-			output_msg (OUTPUT_MESSAGE, "%10s\t%12.5e\t%12.5e\n",
-						master_isotope[i]->name,
-						(double) (master_isotope[i]->moles / mass_water_aq_x),
-						(double) master_isotope[i]->moles);
+			output_msg(OUTPUT_MESSAGE, "%10s\t%12.5e\t%12.5e\n",
+					   master_isotope[i]->name,
+					   (double) (master_isotope[i]->moles / mass_water_aq_x),
+					   (double) master_isotope[i]->moles);
 			for (j = 0; j < count_master_isotope; j++)
 			{
 				if (i == j)
@@ -840,17 +839,17 @@ print_initial_solution_isotopes (void)
 				if ((master_isotope[j]->elt == master_isotope[i]->elt) &&
 					(master_isotope[j]->minor_isotope == TRUE))
 				{
-					output_msg (OUTPUT_MESSAGE,
-								"%10s\t%12.5e\t%12.5e\t%12.5e\t%12s\n",
-								master_isotope[j]->name,
-								(double) (master_isotope[j]->moles /
-										  mass_water_aq_x),
-								(double) master_isotope[j]->moles,
-								(double) master_isotope[j]->ratio,
-								master_isotope[j]->units);
+					output_msg(OUTPUT_MESSAGE,
+							   "%10s\t%12.5e\t%12.5e\t%12.5e\t%12s\n",
+							   master_isotope[j]->name,
+							   (double) (master_isotope[j]->moles /
+										 mass_water_aq_x),
+							   (double) master_isotope[j]->moles,
+							   (double) master_isotope[j]->ratio,
+							   master_isotope[j]->units);
 				}
 			}
-			output_msg (OUTPUT_MESSAGE, "\n");
+			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 	}
 	return (OK);
@@ -858,7 +857,7 @@ print_initial_solution_isotopes (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_isotopes (void)
+punch_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -878,11 +877,11 @@ punch_isotopes (void)
 		iso = MISSING;
 		if (state == INITIAL_SOLUTION)
 		{
-			isotope_ratio_ptr = isotope_ratio_search (punch.isotopes[i].name);
+			isotope_ratio_ptr = isotope_ratio_search(punch.isotopes[i].name);
 			if (isotope_ratio_ptr != NULL)
 			{
 				master_isotope_ptr =
-					master_isotope_search (isotope_ratio_ptr->isotope_name);
+					master_isotope_search(isotope_ratio_ptr->isotope_name);
 				if (master_isotope_ptr != NULL
 					&& master_isotope_ptr->minor_isotope == TRUE)
 				{
@@ -892,7 +891,7 @@ punch_isotopes (void)
 		}
 		else
 		{
-			isotope_ratio_ptr = isotope_ratio_search (punch.isotopes[i].name);
+			isotope_ratio_ptr = isotope_ratio_search(punch.isotopes[i].name);
 			if (isotope_ratio_ptr != NULL)
 			{
 				iso = isotope_ratio_ptr->converted_ratio;
@@ -900,13 +899,13 @@ punch_isotopes (void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("I_%s", punch.isotopes[i].name), "%12.4e\t",
-					 iso);
+			fpunchf(sformatf("I_%s", punch.isotopes[i].name), "%12.4e\t",
+					iso);
 		}
 		else
 		{
-			fpunchf (sformatf ("I_%s", punch.isotopes[i].name), "%20.12e\t",
-					 iso);
+			fpunchf(sformatf("I_%s", punch.isotopes[i].name), "%20.12e\t",
+					iso);
 		}
 
 	}
@@ -915,7 +914,7 @@ punch_isotopes (void)
 
 /* ---------------------------------------------------------------------- */
 int
-punch_calculate_values (void)
+punch_calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -933,20 +932,20 @@ punch_calculate_values (void)
 	{
 		result = MISSING;
 		calculate_value_ptr =
-			calculate_value_search (punch.calculate_values[i].name);
+			calculate_value_search(punch.calculate_values[i].name);
 		if (calculate_value_ptr != NULL)
 		{
 			result = calculate_value_ptr->value;
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf (sformatf ("V_%s", punch.calculate_values[i].name),
-					 "%12.4e\t", result);
+			fpunchf(sformatf("V_%s", punch.calculate_values[i].name),
+					"%12.4e\t", result);
 		}
 		else
 		{
-			fpunchf (sformatf ("V_%s", punch.calculate_values[i].name),
-					 "%20.12e\t", result);
+			fpunchf(sformatf("V_%s", punch.calculate_values[i].name),
+					"%20.12e\t", result);
 		}
 	}
 	return (OK);
@@ -954,7 +953,7 @@ punch_calculate_values (void)
 
 /* ---------------------------------------------------------------------- */
 int
-print_isotope_ratios (void)
+print_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -980,7 +979,7 @@ print_isotope_ratios (void)
 	{
 		if (master_isotope[i]->minor_isotope == FALSE)
 			continue;
-		master_ptr = master_bsearch (master_isotope[i]->name);
+		master_ptr = master_bsearch(master_isotope[i]->name);
 		if (master_ptr == NULL)
 			continue;
 		if (master_ptr->total > 0 || master_ptr->s->moles > 0)
@@ -992,9 +991,9 @@ print_isotope_ratios (void)
 	if (print_isotope == FALSE)
 		return (OK);
 
-	print_centered ("Isotope Ratios");
-	output_msg (OUTPUT_MESSAGE, "%25s\t%12s\t%15s\n\n", "Isotope Ratio",
-				"Ratio", "Input Units");
+	print_centered("Isotope Ratios");
+	output_msg(OUTPUT_MESSAGE, "%25s\t%12s\t%15s\n\n", "Isotope Ratio",
+			   "Ratio", "Input Units");
 
 	for (j = 0; j < count_isotope_ratio; j++)
 	{
@@ -1002,24 +1001,24 @@ print_isotope_ratios (void)
 			continue;
 		isotope_ratio_ptr = isotope_ratio[j];
 		master_isotope_ptr =
-			master_isotope_search (isotope_ratio[j]->isotope_name);
+			master_isotope_search(isotope_ratio[j]->isotope_name);
 		/*
 		 *  Print isotope ratio
 		 */
-		strcpy (token, isotope_ratio[j]->name);
-		while (replace ("_", " ", token) == TRUE);
-		output_msg (OUTPUT_MESSAGE, "     %-20s\t%12.5e\t%15.5g  %-10s\n",
-					token, (double) isotope_ratio[j]->ratio,
-					(double) isotope_ratio[j]->converted_ratio,
-					master_isotope_ptr->units);
+		strcpy(token, isotope_ratio[j]->name);
+		while (replace("_", " ", token) == TRUE);
+		output_msg(OUTPUT_MESSAGE, "     %-20s\t%12.5e\t%15.5g  %-10s\n",
+				   token, (double) isotope_ratio[j]->ratio,
+				   (double) isotope_ratio[j]->converted_ratio,
+				   master_isotope_ptr->units);
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-print_isotope_alphas (void)
+print_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1044,7 +1043,7 @@ print_isotope_alphas (void)
 	{
 		if (master_isotope[i]->minor_isotope == FALSE)
 			continue;
-		master_ptr = master_bsearch (master_isotope[i]->name);
+		master_ptr = master_bsearch(master_isotope[i]->name);
 		if (master_ptr == NULL)
 			continue;
 		if (master_ptr->total > 0 || master_ptr->s->moles > 0)
@@ -1056,12 +1055,12 @@ print_isotope_alphas (void)
 	if (print_isotope == FALSE)
 		return (OK);
 
-	print_centered ("Isotope Alphas");
-	output_msg (OUTPUT_MESSAGE, "%75s\n", "1000ln(Alpha)");
-	output_msg (OUTPUT_MESSAGE, "%79s\n", "----------------------");
-	output_msg (OUTPUT_MESSAGE, "%-37s%14s%14s%12.1f C\n\n",
-				"     Isotope Ratio", "Solution alpha", "Solution",
-				(double) tc_x);
+	print_centered("Isotope Alphas");
+	output_msg(OUTPUT_MESSAGE, "%75s\n", "1000ln(Alpha)");
+	output_msg(OUTPUT_MESSAGE, "%79s\n", "----------------------");
+	output_msg(OUTPUT_MESSAGE, "%-37s%14s%14s%12.1f C\n\n",
+			   "     Isotope Ratio", "Solution alpha", "Solution",
+			   (double) tc_x);
 
 	for (j = 0; j < count_isotope_alpha; j++)
 	{
@@ -1071,8 +1070,8 @@ print_isotope_alphas (void)
 		/*
 		 *  Print isotope ratio
 		 */
-		strcpy (token, isotope_alpha[j]->name);
-		while (replace ("_", " ", token) == TRUE);
+		strcpy(token, isotope_alpha[j]->name);
+		while (replace("_", " ", token) == TRUE);
 		if (isotope_alpha[j]->named_logk != NULL)
 		{
 			if (isotope_alpha[j]->value <= 0)
@@ -1081,29 +1080,29 @@ print_isotope_alphas (void)
 			}
 			else
 			{
-				log_alpha = 1000 * log (isotope_alpha[j]->value);
+				log_alpha = 1000 * log(isotope_alpha[j]->value);
 			}
-			output_msg (OUTPUT_MESSAGE, "%-37s%14.5g%14.5g%14.5g\n", token,
-						(double) isotope_alpha[j]->value, (double) log_alpha,
-						(double) (1000 *
-								  calc_logk_n (isotope_alpha[j]->named_logk) *
-								  LOG_10));
+			output_msg(OUTPUT_MESSAGE, "%-37s%14.5g%14.5g%14.5g\n", token,
+					   (double) isotope_alpha[j]->value, (double) log_alpha,
+					   (double) (1000 *
+								 calc_logk_n(isotope_alpha[j]->named_logk) *
+								 LOG_10));
 		}
 		else
 		{
-			output_msg (OUTPUT_MESSAGE, "%-37s%14.5g%14.5g\n", token,
-						(double) isotope_alpha[j]->value,
-						(double) (1000 * log (isotope_alpha[j]->value)));
+			output_msg(OUTPUT_MESSAGE, "%-37s%14.5g%14.5g\n", token,
+					   (double) isotope_alpha[j]->value,
+					   (double) (1000 * log(isotope_alpha[j]->value)));
 		}
 
 	}
-	output_msg (OUTPUT_MESSAGE, "\n");
+	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-calculate_values (void)
+calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
 	int j;
@@ -1134,10 +1133,10 @@ calculate_values (void)
 				 &calculate_value[j]->varbase,
 				 &calculate_value[j]->loopbase) != 0)
 			{
-				sprintf (error_string,
-						 "Fatal Basic error in CALCULATE_VALUES %s.",
-						 calculate_value[j]->name);
-				error_msg (error_string, STOP);
+				sprintf(error_string,
+						"Fatal Basic error in CALCULATE_VALUES %s.",
+						calculate_value[j]->name);
+				error_msg(error_string, STOP);
 			}
 			calculate_value_ptr->new_def = FALSE;
 		}
@@ -1145,15 +1144,15 @@ calculate_values (void)
 			(command, calculate_value[j]->linebase,
 			 calculate_value[j]->varbase, calculate_value[j]->loopbase) != 0)
 		{
-			sprintf (error_string, "Fatal Basic error in calculate_value %s.",
-					 calculate_value[j]->name);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Fatal Basic error in calculate_value %s.",
+					calculate_value[j]->name);
+			error_msg(error_string, STOP);
 		}
 		if (rate_moles == NAN)
 		{
-			sprintf (error_string, "Calculated value not SAVE'd for %s.",
-					 calculate_value[j]->name);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Calculated value not SAVE'd for %s.",
+					calculate_value[j]->name);
+			error_msg(error_string, STOP);
 		}
 		else
 		{
@@ -1165,9 +1164,8 @@ calculate_values (void)
 	{
 		isotope_ratio_ptr = isotope_ratio[j];
 		master_isotope_ptr =
-			master_isotope_search (isotope_ratio_ptr->isotope_name);
-		calculate_value_ptr =
-			calculate_value_search (isotope_ratio_ptr->name);
+			master_isotope_search(isotope_ratio_ptr->isotope_name);
+		calculate_value_ptr = calculate_value_search(isotope_ratio_ptr->name);
 		/*
 		 *  Calculate converted isotope ratio
 		 */
@@ -1180,15 +1178,14 @@ calculate_values (void)
 		{
 			isotope_ratio_ptr->ratio = calculate_value_ptr->value;
 			isotope_ratio_ptr->converted_ratio =
-				convert_isotope (master_isotope_ptr,
-								 calculate_value_ptr->value);
+				convert_isotope(master_isotope_ptr,
+								calculate_value_ptr->value);
 		}
 	}
 	for (j = 0; j < count_isotope_alpha; j++)
 	{
 		isotope_alpha_ptr = isotope_alpha[j];
-		calculate_value_ptr =
-			calculate_value_search (isotope_alpha_ptr->name);
+		calculate_value_ptr = calculate_value_search(isotope_alpha_ptr->name);
 		/*
 		 *  Calculate converted isotope ratio
 		 */
@@ -1206,35 +1203,35 @@ calculate_values (void)
 
 /* ---------------------------------------------------------------------- */
 LDBLE
-convert_isotope (struct master_isotope * master_isotope_ptr, LDBLE ratio)
+convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
 /* ---------------------------------------------------------------------- */
 {
 	char *units;
 	units = master_isotope_ptr->units;
 
-	if (strcmp_nocase (units, "permil") == 0)
+	if (strcmp_nocase(units, "permil") == 0)
 	{
 		return ((ratio / master_isotope_ptr->standard - 1) * 1000);
 	}
-	if (strcmp_nocase (units, "pct") == 0)
+	if (strcmp_nocase(units, "pct") == 0)
 	{
 		return (ratio / master_isotope_ptr->standard * 100.);
 	}
-	if (strcmp_nocase (units, "pmc") == 0)
+	if (strcmp_nocase(units, "pmc") == 0)
 	{
 		return (ratio / master_isotope_ptr->standard * 100.);
 	}
-	if (strcmp_nocase (units, "tu") == 0)
+	if (strcmp_nocase(units, "tu") == 0)
 	{
 		return (ratio / master_isotope_ptr->standard);
 	}
-	if (strcmp_nocase (units, "pci/l") == 0)
+	if (strcmp_nocase(units, "pci/l") == 0)
 	{
 		return (ratio / master_isotope_ptr->standard);
 	}
-	sprintf (error_string,
-			 "Did not recognize isotope units in convert_isotope, %s", units);
-	error_msg (error_string, STOP);
+	sprintf(error_string,
+			"Did not recognize isotope units in convert_isotope, %s", units);
+	error_msg(error_string, STOP);
 	return (-99.0);
 }
 
@@ -1244,7 +1241,7 @@ convert_isotope (struct master_isotope * master_isotope_ptr, LDBLE ratio)
 
 /* ---------------------------------------------------------------------- */
 struct master_isotope *
-master_isotope_store (const char *name, int replace_if_found)
+master_isotope_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1274,11 +1271,11 @@ master_isotope_store (const char *name, int replace_if_found)
 /*
  *   Search list
  */
-	strcpy (token, name);
+	strcpy(token, name);
 
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (master_isotope_hash_table, item, FIND);
+	found_item = hsearch_multi(master_isotope_hash_table, item, FIND);
 
 	if (found_item != NULL && replace_if_found == FALSE)
 	{
@@ -1288,7 +1285,7 @@ master_isotope_store (const char *name, int replace_if_found)
 	else if (found_item != NULL && replace_if_found == TRUE)
 	{
 		master_isotope_ptr = (struct master_isotope *) (found_item->data);
-		master_isotope_init (master_isotope_ptr);
+		master_isotope_init(master_isotope_ptr);
 	}
 	else
 	{
@@ -1296,25 +1293,25 @@ master_isotope_store (const char *name, int replace_if_found)
 		/* make sure there is space in s */
 		if (count_master_isotope >= max_master_isotope)
 		{
-			space ((void **) ((void *) &master_isotope), count_master_isotope,
-				   &max_master_isotope, sizeof (struct master_isotope *));
+			space((void **) ((void *) &master_isotope), count_master_isotope,
+				  &max_master_isotope, sizeof(struct master_isotope *));
 		}
 		/* Make new master_isotope structure */
-		master_isotope[n] = master_isotope_alloc ();
+		master_isotope[n] = master_isotope_alloc();
 		master_isotope_ptr = master_isotope[n];
 	}
 	/* set name and z in pointer in master_isotope structure */
-	master_isotope_ptr->name = string_hsave (token);
+	master_isotope_ptr->name = string_hsave(token);
 /*
  *   Update hash table
  */
 	item.key = master_isotope_ptr->name;
 	item.data = (void *) master_isotope_ptr;
-	found_item = hsearch_multi (master_isotope_hash_table, item, ENTER);
+	found_item = hsearch_multi(master_isotope_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf (error_string, "Hash table error in master_isotope_store.");
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Hash table error in master_isotope_store.");
+		error_msg(error_string, CONTINUE);
 	}
 
 	return (master_isotope_ptr);
@@ -1322,7 +1319,7 @@ master_isotope_store (const char *name, int replace_if_found)
 
 /* ---------------------------------------------------------------------- */
 struct master_isotope *
-master_isotope_alloc (void)
+master_isotope_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
  *   Allocates space to a master_isotope structure, initializes
@@ -1332,21 +1329,20 @@ master_isotope_alloc (void)
 {
 	struct master_isotope *master_isotope_ptr;
 	master_isotope_ptr =
-		(struct master_isotope *)
-		PHRQ_malloc (sizeof (struct master_isotope));
+		(struct master_isotope *) PHRQ_malloc(sizeof(struct master_isotope));
 	if (master_isotope_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 /*
  *   set pointers in structure to NULL, variables to zero
  */
-	master_isotope_init (master_isotope_ptr);
+	master_isotope_init(master_isotope_ptr);
 
 	return (master_isotope_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-master_isotope_init (struct master_isotope *master_isotope_ptr)
+master_isotope_init(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 /*
  *      return: pointer to a master_isotope structure
@@ -1363,7 +1359,7 @@ master_isotope_init (struct master_isotope *master_isotope_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct master_isotope *
-master_isotope_search (const char *name)
+master_isotope_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1382,11 +1378,11 @@ master_isotope_search (const char *name)
 /*
  *   Search list
  */
-	strcpy (token, name);
+	strcpy(token, name);
 
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (master_isotope_hash_table, item, FIND);
+	found_item = hsearch_multi(master_isotope_hash_table, item, FIND);
 
 	if (found_item != NULL)
 	{
@@ -1402,7 +1398,7 @@ master_isotope_search (const char *name)
 
 /* ---------------------------------------------------------------------- */
 struct calculate_value *
-calculate_value_store (const char *name, int replace_if_found)
+calculate_value_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1432,11 +1428,11 @@ calculate_value_store (const char *name, int replace_if_found)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (calculate_value_hash_table, item, FIND);
+	found_item = hsearch_multi(calculate_value_hash_table, item, FIND);
 
 	if (found_item != NULL && replace_if_found == FALSE)
 	{
@@ -1446,8 +1442,8 @@ calculate_value_store (const char *name, int replace_if_found)
 	else if (found_item != NULL && replace_if_found == TRUE)
 	{
 		calculate_value_ptr = (struct calculate_value *) (found_item->data);
-		calculate_value_free (calculate_value_ptr);
-		calculate_value_init (calculate_value_ptr);
+		calculate_value_free(calculate_value_ptr);
+		calculate_value_init(calculate_value_ptr);
 	}
 	else
 	{
@@ -1455,26 +1451,26 @@ calculate_value_store (const char *name, int replace_if_found)
 		/* make sure there is space in s */
 		if (count_calculate_value >= max_calculate_value)
 		{
-			space ((void **) ((void *) &calculate_value),
-				   count_calculate_value, &max_calculate_value,
-				   sizeof (struct calculate_value *));
+			space((void **) ((void *) &calculate_value),
+				  count_calculate_value, &max_calculate_value,
+				  sizeof(struct calculate_value *));
 		}
 		/* Make new calculate_value structure */
-		calculate_value[n] = calculate_value_alloc ();
+		calculate_value[n] = calculate_value_alloc();
 		calculate_value_ptr = calculate_value[n];
 	}
 	/* set name and z in pointer in calculate_value structure */
-	calculate_value_ptr->name = string_hsave (name);
+	calculate_value_ptr->name = string_hsave(name);
 /*
  *   Update hash table
  */
-	item.key = string_hsave (token);
+	item.key = string_hsave(token);
 	item.data = (void *) calculate_value_ptr;
-	found_item = hsearch_multi (calculate_value_hash_table, item, ENTER);
+	found_item = hsearch_multi(calculate_value_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf (error_string, "Hash table error in calculate_value_store.");
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Hash table error in calculate_value_store.");
+		error_msg(error_string, CONTINUE);
 	}
 
 	return (calculate_value_ptr);
@@ -1482,7 +1478,7 @@ calculate_value_store (const char *name, int replace_if_found)
 
 /* ---------------------------------------------------------------------- */
 struct calculate_value *
-calculate_value_alloc (void)
+calculate_value_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
  *   Allocates space to a calculate_value structure, initializes
@@ -1493,20 +1489,20 @@ calculate_value_alloc (void)
 	struct calculate_value *calculate_value_ptr;
 	calculate_value_ptr =
 		(struct calculate_value *)
-		PHRQ_malloc (sizeof (struct calculate_value));
+		PHRQ_malloc(sizeof(struct calculate_value));
 	if (calculate_value_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 /*
  *   set pointers in structure to NULL, variables to zero
  */
-	calculate_value_init (calculate_value_ptr);
+	calculate_value_init(calculate_value_ptr);
 
 	return (calculate_value_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-calculate_value_init (struct calculate_value *calculate_value_ptr)
+calculate_value_init(struct calculate_value *calculate_value_ptr)
 /* ---------------------------------------------------------------------- */
 /*
  *      return: pointer to a calculate_value structure
@@ -1526,7 +1522,7 @@ calculate_value_init (struct calculate_value *calculate_value_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct calculate_value *
-calculate_value_search (const char *name)
+calculate_value_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1545,11 +1541,11 @@ calculate_value_search (const char *name)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (calculate_value_hash_table, item, FIND);
+	found_item = hsearch_multi(calculate_value_hash_table, item, FIND);
 
 	if (found_item != NULL)
 	{
@@ -1561,7 +1557,7 @@ calculate_value_search (const char *name)
 
 /* ---------------------------------------------------------------------- */
 int
-calculate_value_free (struct calculate_value *calculate_value_ptr)
+calculate_value_free(struct calculate_value *calculate_value_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1574,9 +1570,9 @@ calculate_value_free (struct calculate_value *calculate_value_ptr)
 	if (calculate_value_ptr == NULL)
 		return (ERROR);
 	calculate_value_ptr->commands =
-		(char *) free_check_null (calculate_value_ptr->commands);
-	basic_run (cmd, calculate_value_ptr->linebase,
-			   calculate_value_ptr->varbase, calculate_value_ptr->loopbase);
+		(char *) free_check_null(calculate_value_ptr->commands);
+	basic_run(cmd, calculate_value_ptr->linebase,
+			  calculate_value_ptr->varbase, calculate_value_ptr->loopbase);
 	calculate_value_ptr->linebase = NULL;
 	calculate_value_ptr->varbase = NULL;
 	calculate_value_ptr->loopbase = NULL;
@@ -1589,7 +1585,7 @@ calculate_value_free (struct calculate_value *calculate_value_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_ratio *
-isotope_ratio_store (const char *name, int replace_if_found)
+isotope_ratio_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1619,11 +1615,11 @@ isotope_ratio_store (const char *name, int replace_if_found)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (isotope_ratio_hash_table, item, FIND);
+	found_item = hsearch_multi(isotope_ratio_hash_table, item, FIND);
 
 	if (found_item != NULL && replace_if_found == FALSE)
 	{
@@ -1633,7 +1629,7 @@ isotope_ratio_store (const char *name, int replace_if_found)
 	else if (found_item != NULL && replace_if_found == TRUE)
 	{
 		isotope_ratio_ptr = (struct isotope_ratio *) (found_item->data);
-		isotope_ratio_init (isotope_ratio_ptr);
+		isotope_ratio_init(isotope_ratio_ptr);
 	}
 	else
 	{
@@ -1641,25 +1637,25 @@ isotope_ratio_store (const char *name, int replace_if_found)
 		/* make sure there is space in s */
 		if (count_isotope_ratio >= max_isotope_ratio)
 		{
-			space ((void **) ((void *) &isotope_ratio), count_isotope_ratio,
-				   &max_isotope_ratio, sizeof (struct isotope_ratio *));
+			space((void **) ((void *) &isotope_ratio), count_isotope_ratio,
+				  &max_isotope_ratio, sizeof(struct isotope_ratio *));
 		}
 		/* Make new isotope_ratio structure */
-		isotope_ratio[n] = isotope_ratio_alloc ();
+		isotope_ratio[n] = isotope_ratio_alloc();
 		isotope_ratio_ptr = isotope_ratio[n];
 	}
 	/* set name and z in pointer in isotope_ratio structure */
-	isotope_ratio_ptr->name = string_hsave (name);
+	isotope_ratio_ptr->name = string_hsave(name);
 /*
  *   Update hash table
  */
-	item.key = string_hsave (token);
+	item.key = string_hsave(token);
 	item.data = (void *) isotope_ratio_ptr;
-	found_item = hsearch_multi (isotope_ratio_hash_table, item, ENTER);
+	found_item = hsearch_multi(isotope_ratio_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf (error_string, "Hash table error in isotope_ratio_store.");
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Hash table error in isotope_ratio_store.");
+		error_msg(error_string, CONTINUE);
 	}
 
 	return (isotope_ratio_ptr);
@@ -1667,7 +1663,7 @@ isotope_ratio_store (const char *name, int replace_if_found)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_ratio *
-isotope_ratio_alloc (void)
+isotope_ratio_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
  *   Allocates space to a isotope_ratio structure, initializes
@@ -1677,20 +1673,20 @@ isotope_ratio_alloc (void)
 {
 	struct isotope_ratio *isotope_ratio_ptr;
 	isotope_ratio_ptr =
-		(struct isotope_ratio *) PHRQ_malloc (sizeof (struct isotope_ratio));
+		(struct isotope_ratio *) PHRQ_malloc(sizeof(struct isotope_ratio));
 	if (isotope_ratio_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 /*
  *   set pointers in structure to NULL, variables to zero
  */
-	isotope_ratio_init (isotope_ratio_ptr);
+	isotope_ratio_init(isotope_ratio_ptr);
 
 	return (isotope_ratio_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-isotope_ratio_init (struct isotope_ratio *isotope_ratio_ptr)
+isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr)
 /* ---------------------------------------------------------------------- */
 /*
  *      return: pointer to a isotope_ratio structure
@@ -1709,7 +1705,7 @@ isotope_ratio_init (struct isotope_ratio *isotope_ratio_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_ratio *
-isotope_ratio_search (const char *name)
+isotope_ratio_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1728,11 +1724,11 @@ isotope_ratio_search (const char *name)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (isotope_ratio_hash_table, item, FIND);
+	found_item = hsearch_multi(isotope_ratio_hash_table, item, FIND);
 
 	if (found_item != NULL)
 	{
@@ -1748,7 +1744,7 @@ isotope_ratio_search (const char *name)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_alpha *
-isotope_alpha_store (const char *name, int replace_if_found)
+isotope_alpha_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1778,11 +1774,11 @@ isotope_alpha_store (const char *name, int replace_if_found)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (isotope_alpha_hash_table, item, FIND);
+	found_item = hsearch_multi(isotope_alpha_hash_table, item, FIND);
 
 	if (found_item != NULL && replace_if_found == FALSE)
 	{
@@ -1792,7 +1788,7 @@ isotope_alpha_store (const char *name, int replace_if_found)
 	else if (found_item != NULL && replace_if_found == TRUE)
 	{
 		isotope_alpha_ptr = (struct isotope_alpha *) (found_item->data);
-		isotope_alpha_init (isotope_alpha_ptr);
+		isotope_alpha_init(isotope_alpha_ptr);
 	}
 	else
 	{
@@ -1800,25 +1796,25 @@ isotope_alpha_store (const char *name, int replace_if_found)
 		/* make sure there is space in s */
 		if (count_isotope_alpha >= max_isotope_alpha)
 		{
-			space ((void **) ((void *) &isotope_alpha), count_isotope_alpha,
-				   &max_isotope_alpha, sizeof (struct isotope_alpha *));
+			space((void **) ((void *) &isotope_alpha), count_isotope_alpha,
+				  &max_isotope_alpha, sizeof(struct isotope_alpha *));
 		}
 		/* Make new isotope_alpha structure */
-		isotope_alpha[n] = isotope_alpha_alloc ();
+		isotope_alpha[n] = isotope_alpha_alloc();
 		isotope_alpha_ptr = isotope_alpha[n];
 	}
 	/* set name and z in pointer in isotope_alpha structure */
-	isotope_alpha_ptr->name = string_hsave (name);
+	isotope_alpha_ptr->name = string_hsave(name);
 /*
  *   Update hash table
  */
-	item.key = string_hsave (token);
+	item.key = string_hsave(token);
 	item.data = (void *) isotope_alpha_ptr;
-	found_item = hsearch_multi (isotope_alpha_hash_table, item, ENTER);
+	found_item = hsearch_multi(isotope_alpha_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf (error_string, "Hash table error in isotope_alpha_store.");
-		error_msg (error_string, CONTINUE);
+		sprintf(error_string, "Hash table error in isotope_alpha_store.");
+		error_msg(error_string, CONTINUE);
 	}
 
 	return (isotope_alpha_ptr);
@@ -1826,7 +1822,7 @@ isotope_alpha_store (const char *name, int replace_if_found)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_alpha *
-isotope_alpha_alloc (void)
+isotope_alpha_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
  *   Allocates space to a isotope_alpha structure, initializes
@@ -1836,20 +1832,20 @@ isotope_alpha_alloc (void)
 {
 	struct isotope_alpha *isotope_alpha_ptr;
 	isotope_alpha_ptr =
-		(struct isotope_alpha *) PHRQ_malloc (sizeof (struct isotope_alpha));
+		(struct isotope_alpha *) PHRQ_malloc(sizeof(struct isotope_alpha));
 	if (isotope_alpha_ptr == NULL)
-		malloc_error ();
+		malloc_error();
 /*
  *   set pointers in structure to NULL, variables to zero
  */
-	isotope_alpha_init (isotope_alpha_ptr);
+	isotope_alpha_init(isotope_alpha_ptr);
 
 	return (isotope_alpha_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
 static int
-isotope_alpha_init (struct isotope_alpha *isotope_alpha_ptr)
+isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr)
 /* ---------------------------------------------------------------------- */
 /*
  *      return: pointer to a isotope_alpha structure
@@ -1867,7 +1863,7 @@ isotope_alpha_init (struct isotope_alpha *isotope_alpha_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct isotope_alpha *
-isotope_alpha_search (const char *name)
+isotope_alpha_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1886,11 +1882,11 @@ isotope_alpha_search (const char *name)
 /*
  *   Search list
  */
-	strcpy (token, name);
-	str_tolower (token);
+	strcpy(token, name);
+	str_tolower(token);
 	item.key = token;
 	item.data = NULL;
-	found_item = hsearch_multi (isotope_alpha_hash_table, item, FIND);
+	found_item = hsearch_multi(isotope_alpha_hash_table, item, FIND);
 
 	if (found_item != NULL)
 	{

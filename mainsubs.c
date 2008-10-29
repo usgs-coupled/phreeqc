@@ -6,11 +6,11 @@
 #include "phrqproto.h"
 #include "input.h"
 
-extern void test_classes (void);
+extern void test_classes(void);
 /*#define PHREEQC_XML*/
 #ifdef PHREEQC_XML
 #include "SAXPhreeqc.h"
-extern void SAX_cleanup (void);
+extern void SAX_cleanup(void);
 #endif
 
 static char const svnid[] =
@@ -20,8 +20,8 @@ static char const svnid[] =
 #include <windows.h>
 #endif
 
-static int copy_use (int i);
-static int set_use (void);
+static int copy_use(int i);
+static int set_use(void);
 
 #ifdef PHREEQ98
 extern int phreeq98_debug;
@@ -29,7 +29,7 @@ extern int AddSeries, connect_simulations;
 #endif
 /* ---------------------------------------------------------------------- */
 void
-initialize (void)
+initialize(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -60,13 +60,13 @@ initialize (void)
 	};
 	int temp_count_iso_defaults;
 	temp_count_iso_defaults =
-		(sizeof (temp_iso_defaults) / sizeof (struct temp_iso));
+		(sizeof(temp_iso_defaults) / sizeof(struct temp_iso));
 
 	if (svnid == NULL)
-		fprintf (stderr, " ");
+		fprintf(stderr, " ");
 
-	moles_per_kilogram_string = string_duplicate ("Mol/kgw");
-	pe_string = string_duplicate ("pe");
+	moles_per_kilogram_string = string_duplicate("Mol/kgw");
+	pe_string = string_duplicate("pe");
 
 	debug_model = FALSE;
 	debug_prep = FALSE;
@@ -76,16 +76,16 @@ initialize (void)
 	itmax = 100;
 #ifdef USE_LONG_LDBLE
 	/* from float.h, sets tolerance for cl1 routine */
-	ineq_tol = pow ((long double) 10, (long double) -LDBL_DIG);
+	ineq_tol = pow((long double) 10, (long double) -LDBL_DIG);
 #else
-	ineq_tol = pow ((double) 10, (double) -DBL_DIG);
+	ineq_tol = pow((double) 10, (double) -DBL_DIG);
 #endif
 	convergence_tolerance = 1e-8;
 #ifdef USE_LONG_LDBLE
 	/* from float.h, sets tolerance for cl1 routine */
-	inv_tol_default = pow ((long double) 10, (long double) -LDBL_DIG + 5);
+	inv_tol_default = pow((long double) 10, (long double) -LDBL_DIG + 5);
 #else
-	inv_tol_default = pow ((double) 10, (double) -DBL_DIG + 5);
+	inv_tol_default = pow((double) 10, (double) -DBL_DIG + 5);
 #endif
 	step_size = 100.;
 	pe_step_size = 10.;
@@ -100,7 +100,7 @@ initialize (void)
 	aqueous_only = 0;
 	negative_concentrations = FALSE;
 
-	LOG_10 = log (10.0);
+	LOG_10 = log(10.0);
 	/* Use space for all memory allocation */
 	max_solution = MAX_SOLUTION;
 	max_pp_assemblage = MAX_PP_ASSEMBLAGE;
@@ -146,15 +146,15 @@ initialize (void)
 	count_ad_shifts = 1;
 	print_ad_modulus = 1;
 	punch_ad_modulus = 1;
-	advection_punch = (int *) PHRQ_malloc (sizeof (int));
+	advection_punch = (int *) PHRQ_malloc(sizeof(int));
 	if (advection_punch == NULL)
-		malloc_error ();
+		malloc_error();
 	advection_punch[0] = TRUE;
 	advection_kin_time = 0.0;
 	advection_kin_time_defined = FALSE;
-	advection_print = (int *) PHRQ_malloc (sizeof (int));
+	advection_print = (int *) PHRQ_malloc(sizeof(int));
 	if (advection_print == NULL)
-		malloc_error ();
+		malloc_error();
 	advection_print[0] = TRUE;
 	advection_warnings = TRUE;
 /*
@@ -183,93 +183,90 @@ initialize (void)
 /*
  *   Allocate space
  */
-	space ((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage,
-		   sizeof (struct pp_assemblage));
+	space((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage,
+		  sizeof(struct pp_assemblage));
 
-	space ((void **) ((void *) &exchange), INIT, &max_exchange,
-		   sizeof (struct exchange));
+	space((void **) ((void *) &exchange), INIT, &max_exchange,
+		  sizeof(struct exchange));
 
-	space ((void **) ((void *) &surface), INIT, &max_surface,
-		   sizeof (struct surface));
+	space((void **) ((void *) &surface), INIT, &max_surface,
+		  sizeof(struct surface));
 
-	space ((void **) ((void *) &gas_phase), INIT, &max_gas_phase,
-		   sizeof (struct gas_phase));
+	space((void **) ((void *) &gas_phase), INIT, &max_gas_phase,
+		  sizeof(struct gas_phase));
 
-	space ((void **) ((void *) &kinetics), INIT, &max_kinetics,
-		   sizeof (struct kinetics));
+	space((void **) ((void *) &kinetics), INIT, &max_kinetics,
+		  sizeof(struct kinetics));
 
-	space ((void **) ((void *) &s_s_assemblage), INIT, &max_s_s_assemblage,
-		   sizeof (struct s_s_assemblage));
+	space((void **) ((void *) &s_s_assemblage), INIT, &max_s_s_assemblage,
+		  sizeof(struct s_s_assemblage));
 
-	space ((void **) ((void *) &cell_data), INIT, &count_cells,
-		   sizeof (struct cell_data));
+	space((void **) ((void *) &cell_data), INIT, &count_cells,
+		  sizeof(struct cell_data));
 
-	space ((void **) ((void *) &elements), INIT, &max_elements,
-		   sizeof (struct element *));
+	space((void **) ((void *) &elements), INIT, &max_elements,
+		  sizeof(struct element *));
 
-	space ((void **) ((void *) &elt_list), INIT, &max_elts,
-		   sizeof (struct elt_list));
+	space((void **) ((void *) &elt_list), INIT, &max_elts,
+		  sizeof(struct elt_list));
 
 
-	inverse =
-		(struct inverse *) PHRQ_malloc ((size_t) sizeof (struct inverse));
+	inverse = (struct inverse *) PHRQ_malloc((size_t) sizeof(struct inverse));
 	if (inverse == NULL)
-		malloc_error ();
+		malloc_error();
 	count_inverse = 0;
 
-	irrev = (struct irrev *) PHRQ_malloc ((size_t) sizeof (struct irrev));
+	irrev = (struct irrev *) PHRQ_malloc((size_t) sizeof(struct irrev));
 	if (irrev == NULL)
-		malloc_error ();
+		malloc_error();
 
-	space ((void **) ((void *) &line), INIT, &max_line, sizeof (char));
+	space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 
-	space ((void **) ((void *) &line_save), INIT, &max_line, sizeof (char));
+	space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 
-	space ((void **) ((void *) &master), INIT, &max_master,
-		   sizeof (struct master *));
+	space((void **) ((void *) &master), INIT, &max_master,
+		  sizeof(struct master *));
 
-	space ((void **) ((void *) &mb_unknowns), INIT, &max_mb_unknowns,
-		   sizeof (struct unknown_list));
+	space((void **) ((void *) &mb_unknowns), INIT, &max_mb_unknowns,
+		  sizeof(struct unknown_list));
 
-	mix = (struct mix *) PHRQ_malloc ((size_t) sizeof (struct mix));
+	mix = (struct mix *) PHRQ_malloc((size_t) sizeof(struct mix));
 	if (mix == NULL)
-		malloc_error ();
+		malloc_error();
 	count_mix = 0;
 /* !!!! */
-	stag_data =
-		(struct stag_data *) PHRQ_calloc (1, sizeof (struct stag_data));
+	stag_data = (struct stag_data *) PHRQ_calloc(1, sizeof(struct stag_data));
 	if (stag_data == NULL)
-		malloc_error ();
+		malloc_error();
 	stag_data->count_stag = 0;
 	stag_data->exch_f = 0;
 	stag_data->th_m = 0;
 	stag_data->th_im = 0;
 
-	space ((void **) ((void *) &phases), INIT, &max_phases,
-		   sizeof (struct phase *));
+	space((void **) ((void *) &phases), INIT, &max_phases,
+		  sizeof(struct phase *));
 
-	space ((void **) ((void *) &trxn.token), INIT, &max_trxn,
-		   sizeof (struct rxn_token_temp));
+	space((void **) ((void *) &trxn.token), INIT, &max_trxn,
+		  sizeof(struct rxn_token_temp));
 
-	space ((void **) ((void *) &s), INIT, &max_s, sizeof (struct species *));
+	space((void **) ((void *) &s), INIT, &max_s, sizeof(struct species *));
 
-	space ((void **) ((void *) &logk), INIT, &max_logk,
-		   sizeof (struct logk *));
+	space((void **) ((void *) &logk), INIT, &max_logk, sizeof(struct logk *));
 
-	space ((void **) ((void *) &master_isotope), INIT, &max_master_isotope,
-		   sizeof (struct master_isotope *));
+	space((void **) ((void *) &master_isotope), INIT, &max_master_isotope,
+		  sizeof(struct master_isotope *));
 
 	solution =
-		(struct solution **) PHRQ_malloc ((size_t) MAX_SOLUTION *
-										  sizeof (struct solution *));
+		(struct solution **) PHRQ_malloc((size_t) MAX_SOLUTION *
+										 sizeof(struct solution *));
 	if (solution == NULL)
-		malloc_error ();
+		malloc_error();
 
 	temperature =
-		(struct temperature *) PHRQ_malloc ((size_t)
-											sizeof (struct temperature));
+		(struct temperature *) PHRQ_malloc((size_t)
+										   sizeof(struct temperature));
 	if (temperature == NULL)
-		malloc_error ();
+		malloc_error();
 
 	title_x = NULL;
 	pe_x = NULL;
@@ -285,9 +282,9 @@ initialize (void)
 	sum_delta = NULL;
 /* SRC ADDED */
 	isotopes_x =
-		(struct isotope *) PHRQ_malloc ((size_t) sizeof (struct isotope));
+		(struct isotope *) PHRQ_malloc((size_t) sizeof(struct isotope));
 	if (isotopes_x == NULL)
-		malloc_error ();
+		malloc_error();
 	x = NULL;
 	max_unknowns = 0;
 
@@ -302,16 +299,16 @@ initialize (void)
 	s_h2 = NULL;
 	s_o2 = NULL;
 
-	hcreate_multi ((unsigned) max_logk, &logk_hash_table);
-	hcreate_multi ((unsigned) max_master_isotope, &master_isotope_hash_table);
+	hcreate_multi((unsigned) max_logk, &logk_hash_table);
+	hcreate_multi((unsigned) max_master_isotope, &master_isotope_hash_table);
 /*
  *   Create hash table for strings
  */
-	hcreate_multi ((unsigned) max_strings, &strings_hash_table);
-	hcreate_multi ((unsigned) max_elements, &elements_hash_table);
-	hcreate_multi ((unsigned) max_s, &species_hash_table);
-	hcreate_multi ((unsigned) max_phases, &phases_hash_table);
-	hcreate_multi ((unsigned) 2 * NKEYS, &keyword_hash_table);
+	hcreate_multi((unsigned) max_strings, &strings_hash_table);
+	hcreate_multi((unsigned) max_elements, &elements_hash_table);
+	hcreate_multi((unsigned) max_s, &species_hash_table);
+	hcreate_multi((unsigned) max_phases, &phases_hash_table);
+	hcreate_multi((unsigned) 2 * NKEYS, &keyword_hash_table);
 /*
  *  Initialize use pointers
  */
@@ -325,62 +322,61 @@ initialize (void)
 	punch.in = FALSE;
 	punch.count_totals = 0;
 	punch.totals =
-		(struct name_master *) PHRQ_malloc (sizeof (struct name_master));
+		(struct name_master *) PHRQ_malloc(sizeof(struct name_master));
 	if (punch.totals == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_molalities = 0;
 	punch.molalities =
-		(struct name_species *) PHRQ_malloc (sizeof (struct name_species));
+		(struct name_species *) PHRQ_malloc(sizeof(struct name_species));
 	if (punch.molalities == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_activities = 0;
 	punch.activities =
-		(struct name_species *) PHRQ_malloc (sizeof (struct name_species));
+		(struct name_species *) PHRQ_malloc(sizeof(struct name_species));
 	if (punch.activities == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_pure_phases = 0;
 	punch.pure_phases =
-		(struct name_phase *) PHRQ_malloc (sizeof (struct name_phase));
+		(struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.pure_phases == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_si = 0;
-	punch.si = (struct name_phase *) PHRQ_malloc (sizeof (struct name_phase));
+	punch.si = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.si == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_gases = 0;
 	punch.gases =
-		(struct name_phase *) PHRQ_malloc (sizeof (struct name_phase));
+		(struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.gases == NULL)
-		malloc_error ();
+		malloc_error();
 	punch.count_s_s = 0;
-	punch.s_s =
-		(struct name_phase *) PHRQ_malloc (sizeof (struct name_phase));
+	punch.s_s = (struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.s_s == NULL)
-		malloc_error ();
+		malloc_error();
 
 	punch.count_kinetics = 0;
 	punch.kinetics =
-		(struct name_phase *) PHRQ_malloc (sizeof (struct name_phase));
+		(struct name_phase *) PHRQ_malloc(sizeof(struct name_phase));
 	if (punch.kinetics == NULL)
-		malloc_error ();
+		malloc_error();
 
 	punch.count_isotopes = 0;
 	punch.isotopes =
-		(struct name_master *) PHRQ_malloc (sizeof (struct name_master));
+		(struct name_master *) PHRQ_malloc(sizeof(struct name_master));
 	if (punch.isotopes == NULL)
-		malloc_error ();
+		malloc_error();
 
 	punch.count_calculate_values = 0;
 	punch.calculate_values =
-		(struct name_master *) PHRQ_malloc (sizeof (struct name_master));
+		(struct name_master *) PHRQ_malloc(sizeof(struct name_master));
 	if (punch.calculate_values == NULL)
-		malloc_error ();
+		malloc_error();
 
 	count_save_values = 0;
 	save_values =
-		(struct save_values *) PHRQ_malloc (sizeof (struct save_values));
+		(struct save_values *) PHRQ_malloc(sizeof(struct save_values));
 	if (save_values == NULL)
-		malloc_error ();
+		malloc_error();
 
 	punch.inverse = TRUE;
 
@@ -417,29 +413,29 @@ initialize (void)
  *   Update hash table
  */
 	keyword_hash =
-		(struct key *) PHRQ_malloc ((size_t) NKEYS * sizeof (struct key));
+		(struct key *) PHRQ_malloc((size_t) NKEYS * sizeof(struct key));
 	if (keyword_hash == NULL)
-		malloc_error ();
+		malloc_error();
 	for (i = 0; i < NKEYS; i++)
 	{
-		keyword_hash[i].name = string_hsave (keyword[i].name);
+		keyword_hash[i].name = string_hsave(keyword[i].name);
 		keyword_hash[i].keycount = i;
 		item.key = keyword_hash[i].name;
 		item.data = (void *) &keyword_hash[i];
-		found_item = hsearch_multi (keyword_hash_table, item, ENTER);
+		found_item = hsearch_multi(keyword_hash_table, item, ENTER);
 		if (found_item == NULL)
 		{
-			sprintf (error_string,
-					 "Hash table error in keyword initialization.");
-			error_msg (error_string, STOP);
+			sprintf(error_string,
+					"Hash table error in keyword initialization.");
+			error_msg(error_string, STOP);
 		}
 	}
 /*
  *   rates
  */
-	rates = (struct rate *) PHRQ_malloc (sizeof (struct rate));
+	rates = (struct rate *) PHRQ_malloc(sizeof(struct rate));
 	if (rates == NULL)
-		malloc_error ();
+		malloc_error();
 	count_rates = 0;
 	initial_total_time = 0;
 	rate_m = 0;
@@ -455,73 +451,73 @@ initialize (void)
 /*
  *   user_print, user_punch
  */
-	user_print = (struct rate *) PHRQ_malloc ((size_t) sizeof (struct rate));
+	user_print = (struct rate *) PHRQ_malloc((size_t) sizeof(struct rate));
 	if (user_print == NULL)
-		malloc_error ();
+		malloc_error();
 	user_print->commands = NULL;
 	user_print->linebase = NULL;
 	user_print->varbase = NULL;
 	user_print->loopbase = NULL;
-	user_punch = (struct rate *) PHRQ_malloc ((size_t) sizeof (struct rate));
+	user_punch = (struct rate *) PHRQ_malloc((size_t) sizeof(struct rate));
 	if (user_punch == NULL)
-		malloc_error ();
+		malloc_error();
 	user_punch->commands = NULL;
 	user_punch->linebase = NULL;
 	user_punch->varbase = NULL;
 	user_punch->loopbase = NULL;
-	user_punch_headings = (char **) PHRQ_malloc (sizeof (char *));
+	user_punch_headings = (char **) PHRQ_malloc(sizeof(char *));
 	if (user_punch_headings == NULL)
-		malloc_error ();
+		malloc_error();
 	user_punch_count_headings = 0;
 #ifdef PHREEQ98
 /*
  *   user_graph
  */
-	user_graph = PHRQ_malloc ((size_t) sizeof (struct rate));
+	user_graph = PHRQ_malloc((size_t) sizeof(struct rate));
 	if (user_graph == NULL)
-		malloc_error ();
+		malloc_error();
 	user_graph->commands = NULL;
 	user_graph->linebase = NULL;
 	user_graph->varbase = NULL;
 	user_graph->loopbase = NULL;
-	user_graph_headings = (char **) PHRQ_malloc (sizeof (char *));
+	user_graph_headings = (char **) PHRQ_malloc(sizeof(char *));
 	if (user_graph_headings == NULL)
-		malloc_error ();
+		malloc_error();
 	user_graph_count_headings = 0;
 #endif
 	/*
 	   Initialize llnl aqueous model parameters
 	 */
-	llnl_temp = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	llnl_temp = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_temp == NULL)
-		malloc_error ();
+		malloc_error();
 	llnl_count_temp = 0;
-	llnl_adh = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	llnl_adh = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_adh == NULL)
-		malloc_error ();
+		malloc_error();
 	llnl_count_adh = 0;
-	llnl_bdh = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	llnl_bdh = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_bdh == NULL)
-		malloc_error ();
+		malloc_error();
 	llnl_count_bdh = 0;
-	llnl_bdot = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	llnl_bdot = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_bdot == NULL)
-		malloc_error ();
+		malloc_error();
 	llnl_count_bdot = 0;
-	llnl_co2_coefs = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	llnl_co2_coefs = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (llnl_co2_coefs == NULL)
-		malloc_error ();
+		malloc_error();
 	llnl_count_co2_coefs = 0;
 /*
  *
  */
-	cmd_initialize ();
+	cmd_initialize();
 
 	change_surf =
 		(struct Change_Surf *)
-		PHRQ_malloc ((size_t) (2 * sizeof (struct Change_Surf)));
+		PHRQ_malloc((size_t) (2 * sizeof(struct Change_Surf)));
 	if (change_surf == NULL)
-		malloc_error ();
+		malloc_error();
 	change_surf[0].cell_no = -99;
 	change_surf[0].next = TRUE;
 	change_surf[1].cell_no = -99;
@@ -595,56 +591,56 @@ initialize (void)
 	/* calculate_value */
 	max_calculate_value = MAX_ELTS;
 	count_calculate_value = 0;
-	space ((void **) ((void *) &calculate_value), INIT, &max_calculate_value,
-		   sizeof (struct calculate_value *));
-	hcreate_multi ((unsigned) max_calculate_value,
-				   &calculate_value_hash_table);
+	space((void **) ((void *) &calculate_value), INIT, &max_calculate_value,
+		  sizeof(struct calculate_value *));
+	hcreate_multi((unsigned) max_calculate_value,
+				  &calculate_value_hash_table);
 
 	/* isotope_ratio */
 	max_isotope_ratio = MAX_ELTS;
 	count_isotope_ratio = 0;
-	space ((void **) ((void *) &isotope_ratio), INIT, &max_isotope_ratio,
-		   sizeof (struct isotope_ratio *));
-	hcreate_multi ((unsigned) max_isotope_ratio, &isotope_ratio_hash_table);
+	space((void **) ((void *) &isotope_ratio), INIT, &max_isotope_ratio,
+		  sizeof(struct isotope_ratio *));
+	hcreate_multi((unsigned) max_isotope_ratio, &isotope_ratio_hash_table);
 
 	/* isotope_value */
 	max_isotope_alpha = MAX_ELTS;
 	count_isotope_alpha = 0;
-	space ((void **) ((void *) &isotope_alpha), INIT, &max_isotope_alpha,
-		   sizeof (struct isotope_alpha *));
-	hcreate_multi ((unsigned) max_isotope_alpha, &isotope_alpha_hash_table);
+	space((void **) ((void *) &isotope_alpha), INIT, &max_isotope_alpha,
+		  sizeof(struct isotope_alpha *));
+	hcreate_multi((unsigned) max_isotope_alpha, &isotope_alpha_hash_table);
 
 	/* 
 	 * define constant named log_k
 	 */
-	strcpy (token, "XconstantX");
-	logk_ptr = logk_store (token, TRUE);
-	strcpy (token, "1.0");
-	read_log_k_only (token, &logk_ptr->log_k[0]);
+	strcpy(token, "XconstantX");
+	logk_ptr = logk_store(token, TRUE);
+	strcpy(token, "1.0");
+	read_log_k_only(token, &logk_ptr->log_k[0]);
 
 	phreeqc_mpi_myself = 0;
 
-	copier_init (&copy_solution);
-	copier_init (&copy_pp_assemblage);
-	copier_init (&copy_exchange);
-	copier_init (&copy_surface);
-	copier_init (&copy_s_s_assemblage);
-	copier_init (&copy_gas_phase);
-	copier_init (&copy_kinetics);
-	copier_init (&copy_mix);
-	copier_init (&copy_irrev);
-	copier_init (&copy_temperature);
+	copier_init(&copy_solution);
+	copier_init(&copy_pp_assemblage);
+	copier_init(&copy_exchange);
+	copier_init(&copy_surface);
+	copier_init(&copy_s_s_assemblage);
+	copier_init(&copy_gas_phase);
+	copier_init(&copy_kinetics);
+	copier_init(&copy_mix);
+	copier_init(&copy_irrev);
+	copier_init(&copy_temperature);
 
-	set_forward_output_to_log (FALSE);
+	set_forward_output_to_log(FALSE);
 	simulation = 0;
 	/*
 	 *  cvode
 	 */
-	cvode_init ();
+	cvode_init();
 	/*
 	 *  Pitzer
 	 */
-	pitzer_init ();
+	pitzer_init();
 	/*
 	 * to facilitate debuging
 	 */
@@ -660,9 +656,9 @@ initialize (void)
 	calculating_deriv = FALSE;
 	numerical_deriv = FALSE;
 
-	zeros = (LDBLE *) PHRQ_malloc (sizeof (LDBLE));
+	zeros = (LDBLE *) PHRQ_malloc(sizeof(LDBLE));
 	if (zeros == NULL)
-		malloc_error ();
+		malloc_error();
 	zeros[0] = 0.0;
 	zeros_max = 1;
 
@@ -670,13 +666,12 @@ initialize (void)
 
 	iso_defaults =
 		(struct iso *)
-		PHRQ_malloc ((size_t)
-					 (temp_count_iso_defaults * sizeof (struct iso)));
+		PHRQ_malloc((size_t) (temp_count_iso_defaults * sizeof(struct iso)));
 	if (iso_defaults == NULL)
-		malloc_error ();
+		malloc_error();
 	for (i = 0; i < temp_count_iso_defaults; i++)
 	{
-		iso_defaults[i].name = string_hsave (temp_iso_defaults[i].name);
+		iso_defaults[i].name = string_hsave(temp_iso_defaults[i].name);
 		iso_defaults[i].value = temp_iso_defaults[i].value;
 		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
 	}
@@ -686,7 +681,7 @@ initialize (void)
 
 /* ---------------------------------------------------------------------- */
 static int
-set_use (void)
+set_use(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -736,12 +731,12 @@ set_use (void)
 	if (use.solution_in == TRUE)
 	{
 		use.solution_ptr =
-			solution_bsearch (use.n_solution_user, &use.n_solution, FALSE);
+			solution_bsearch(use.n_solution_user, &use.n_solution, FALSE);
 		if (use.solution_ptr == NULL)
 		{
-			sprintf (error_string, "Solution %d not found.",
-					 use.n_solution_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Solution %d not found.",
+					use.n_solution_user);
+			error_msg(error_string, STOP);
 		}
 	}
 /*
@@ -749,12 +744,12 @@ set_use (void)
  */
 	if (use.mix_in == TRUE)
 	{
-		use.mix_ptr = mix_bsearch (use.n_mix_user, &use.n_mix);
+		use.mix_ptr = mix_bsearch(use.n_mix_user, &use.n_mix);
 		use.n_mix_user_orig = use.n_mix_user;
 		if (use.mix_ptr == NULL)
 		{
-			sprintf (error_string, "Mixture %d not found.", use.n_mix_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Mixture %d not found.", use.n_mix_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -767,13 +762,13 @@ set_use (void)
 	if (use.pp_assemblage_in == TRUE)
 	{
 		use.pp_assemblage_ptr =
-			pp_assemblage_bsearch (use.n_pp_assemblage_user,
-								   &use.n_pp_assemblage);
+			pp_assemblage_bsearch(use.n_pp_assemblage_user,
+								  &use.n_pp_assemblage);
 		if (use.pp_assemblage_ptr == NULL)
 		{
-			sprintf (error_string, "Pure phase assemblage %d not found.",
-					 use.n_pp_assemblage_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Pure phase assemblage %d not found.",
+					use.n_pp_assemblage_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -785,12 +780,12 @@ set_use (void)
  */
 	if (use.irrev_in == TRUE)
 	{
-		use.irrev_ptr = irrev_bsearch (use.n_irrev_user, &use.n_irrev);
+		use.irrev_ptr = irrev_bsearch(use.n_irrev_user, &use.n_irrev);
 		if (use.irrev_ptr == NULL)
 		{
-			sprintf (error_string, "Irreversible reaction %d not found.",
-					 use.n_irrev_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Irreversible reaction %d not found.",
+					use.n_irrev_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -803,12 +798,12 @@ set_use (void)
 	if (use.exchange_in == TRUE)
 	{
 		use.exchange_ptr =
-			exchange_bsearch (use.n_exchange_user, &use.n_exchange);
+			exchange_bsearch(use.n_exchange_user, &use.n_exchange);
 		if (use.exchange_ptr == NULL)
 		{
-			sprintf (error_string, "Exchange %d not found.",
-					 use.n_exchange_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Exchange %d not found.",
+					use.n_exchange_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -821,12 +816,12 @@ set_use (void)
 	if (use.kinetics_in == TRUE)
 	{
 		use.kinetics_ptr =
-			kinetics_bsearch (use.n_kinetics_user, &use.n_kinetics);
+			kinetics_bsearch(use.n_kinetics_user, &use.n_kinetics);
 		if (use.kinetics_ptr == NULL)
 		{
-			sprintf (error_string, "Kinetics %d not found.",
-					 use.n_kinetics_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Kinetics %d not found.",
+					use.n_kinetics_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -839,13 +834,12 @@ set_use (void)
 	dl_type_x = NO_DL;
 	if (use.surface_in == TRUE)
 	{
-		use.surface_ptr =
-			surface_bsearch (use.n_surface_user, &use.n_surface);
+		use.surface_ptr = surface_bsearch(use.n_surface_user, &use.n_surface);
 		if (use.surface_ptr == NULL)
 		{
-			sprintf (error_string, "Surface %d not found.",
-					 use.n_surface_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Surface %d not found.",
+					use.n_surface_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -858,12 +852,12 @@ set_use (void)
 	if (use.temperature_in == TRUE)
 	{
 		use.temperature_ptr =
-			temperature_bsearch (use.n_temperature_user, &use.n_temperature);
+			temperature_bsearch(use.n_temperature_user, &use.n_temperature);
 		if (use.temperature_ptr == NULL)
 		{
-			sprintf (error_string, "Temperature %d not found.",
-					 use.n_temperature_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Temperature %d not found.",
+					use.n_temperature_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -876,12 +870,12 @@ set_use (void)
 	if (use.gas_phase_in == TRUE)
 	{
 		use.gas_phase_ptr =
-			gas_phase_bsearch (use.n_gas_phase_user, &use.n_gas_phase);
+			gas_phase_bsearch(use.n_gas_phase_user, &use.n_gas_phase);
 		if (use.gas_phase_ptr == NULL)
 		{
-			sprintf (error_string, "Gas_phase %d not found.",
-					 use.n_gas_phase_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "Gas_phase %d not found.",
+					use.n_gas_phase_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -894,13 +888,13 @@ set_use (void)
 	if (use.s_s_assemblage_in == TRUE)
 	{
 		use.s_s_assemblage_ptr =
-			s_s_assemblage_bsearch (use.n_s_s_assemblage_user,
-									&use.n_s_s_assemblage);
+			s_s_assemblage_bsearch(use.n_s_s_assemblage_user,
+								   &use.n_s_s_assemblage);
 		if (use.s_s_assemblage_ptr == NULL)
 		{
-			sprintf (error_string, "s_s_assemblage %d not found.",
-					 use.n_s_s_assemblage_user);
-			error_msg (error_string, STOP);
+			sprintf(error_string, "s_s_assemblage %d not found.",
+					use.n_s_s_assemblage_user);
+			error_msg(error_string, STOP);
 		}
 	}
 	else
@@ -912,7 +906,7 @@ set_use (void)
 
 /* ---------------------------------------------------------------------- */
 int
-initial_solutions (int print)
+initial_solutions(int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -924,7 +918,7 @@ initial_solutions (int print)
 	char token[2 * MAX_LENGTH];
 
 	state = INITIAL_SOLUTION;
-	set_use ();
+	set_use();
 	print1 = TRUE;
 	dl_type_x = NO_DL;
 	for (n = 0; n < count_solution; n++)
@@ -934,38 +928,38 @@ initial_solutions (int print)
 		{
 			if (print1 == TRUE && print == TRUE)
 			{
-				dup_print ("Beginning of initial solution calculations.",
-						   TRUE);
+				dup_print("Beginning of initial solution calculations.",
+						  TRUE);
 				print1 = FALSE;
 			}
 			if (print == TRUE)
 			{
-				sprintf (token, "Initial solution %d.\t%.350s",
-						 solution[n]->n_user, solution[n]->description);
-				dup_print (token, FALSE);
+				sprintf(token, "Initial solution %d.\t%.350s",
+						solution[n]->n_user, solution[n]->description);
+				dup_print(token, FALSE);
 			}
 			use.solution_ptr = solution[n];
-			prep ();
-			k_temp (solution[n]->tc);
-			set (TRUE);
-			converge = model ();
+			prep();
+			k_temp(solution[n]->tc);
+			set(TRUE);
+			converge = model();
 			if (converge == ERROR && diagonal_scale == FALSE)
 			{
 				diagonal_scale = TRUE;
-				set (TRUE);
-				converge = model ();
+				set(TRUE);
+				converge = model();
 				diagonal_scale = FALSE;
 			}
-			converge1 = check_residuals ();
-			sum_species ();
-			add_isotopes (solution[n]);
-			punch_all ();
-			print_all ();
+			converge1 = check_residuals();
+			sum_species();
+			add_isotopes(solution[n]);
+			punch_all();
+			print_all();
 			/* free_model_allocs(); */
 			if (converge == ERROR || converge1 == ERROR)
 			{
-				error_msg ("Model failed to converge for initial solution.",
-						   STOP);
+				error_msg("Model failed to converge for initial solution.",
+						  STOP);
 			}
 			n_user = solution[n]->n_user;
 			last = solution[n]->n_user_end;
@@ -974,23 +968,22 @@ initial_solutions (int print)
 			{
 				count_isotopes_x = solution[n]->count_isotopes;
 				isotopes_x =
-					(struct isotope *) PHRQ_realloc (isotopes_x,
-													 (size_t) count_isotopes_x
-													 *
-													 sizeof (struct isotope));
+					(struct isotope *) PHRQ_realloc(isotopes_x,
+													(size_t) count_isotopes_x
+													* sizeof(struct isotope));
 				if (isotopes_x == NULL)
-					malloc_error ();
-				memcpy (isotopes_x, solution[n]->isotopes,
-						(size_t) count_isotopes_x * sizeof (struct isotope));
+					malloc_error();
+				memcpy(isotopes_x, solution[n]->isotopes,
+					   (size_t) count_isotopes_x * sizeof(struct isotope));
 			}
 			else
 			{
 				count_isotopes_x = 0;
 			}
-			xsolution_save (n_user);
+			xsolution_save(n_user);
 			for (i = n_user + 1; i <= last; i++)
 			{
-				solution_duplicate (n_user, i);
+				solution_duplicate(n_user, i);
 			}
 		}
 	}
@@ -1000,7 +993,7 @@ initial_solutions (int print)
 
 /* ---------------------------------------------------------------------- */
 int
-initial_exchangers (int print)
+initial_exchangers(int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1013,7 +1006,7 @@ initial_exchangers (int print)
 	char token[2 * MAX_LENGTH];
 
 	state = INITIAL_EXCHANGE;
-	set_use ();
+	set_use();
 	print1 = TRUE;
 	dl_type_x = NO_DL;
 	for (n = 0; n < count_exchange; n++)
@@ -1027,19 +1020,19 @@ initial_exchangers (int print)
 		{
 			if (print1 == TRUE && print == TRUE)
 			{
-				dup_print ("Beginning of initial exchange"
-						   "-composition calculations.", TRUE);
+				dup_print("Beginning of initial exchange"
+						  "-composition calculations.", TRUE);
 				print1 = FALSE;
 			}
 			if (print == TRUE)
 			{
-				sprintf (token, "Exchange %d.\t%.350s",
-						 exchange[n].n_user, exchange[n].description);
-				dup_print (token, FALSE);
+				sprintf(token, "Exchange %d.\t%.350s",
+						exchange[n].n_user, exchange[n].description);
+				dup_print(token, FALSE);
 			}
 			use.exchange_ptr = &(exchange[n]);
 			use.solution_ptr =
-				solution_bsearch (exchange[n].n_solution, &i, TRUE);
+				solution_bsearch(exchange[n].n_solution, &i, TRUE);
 			if (use.solution_ptr == NULL)
 			{
 				error_msg
@@ -1058,16 +1051,16 @@ initial_exchangers (int print)
 				 */
 			}
 #endif
-			prep ();
-			k_temp (use.solution_ptr->tc);
-			set (TRUE);
-			converge = model ();
-			converge1 = check_residuals ();
-			sum_species ();
-			species_list_sort ();
-			print_exchange ();
-			xexchange_save (n_user);
-			punch_all ();
+			prep();
+			k_temp(use.solution_ptr->tc);
+			set(TRUE);
+			converge = model();
+			converge1 = check_residuals();
+			sum_species();
+			species_list_sort();
+			print_exchange();
+			xexchange_save(n_user);
+			punch_all();
 			/* free_model_allocs(); */
 			if (converge == ERROR || converge1 == ERROR)
 			{
@@ -1078,7 +1071,7 @@ initial_exchangers (int print)
 		}
 		for (i = n_user + 1; i <= last; i++)
 		{
-			exchange_duplicate (n_user, i);
+			exchange_duplicate(n_user, i);
 		}
 	}
 	return (OK);
@@ -1086,7 +1079,7 @@ initial_exchangers (int print)
 
 /* ---------------------------------------------------------------------- */
 int
-initial_gas_phases (int print)
+initial_gas_phases(int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1103,7 +1096,7 @@ initial_gas_phases (int print)
 	LDBLE lp;
 
 	state = INITIAL_GAS_PHASE;
-	set_use ();
+	set_use();
 	print1 = TRUE;
 	dl_type_x = NO_DL;
 	for (n = 0; n < count_gas_phase; n++)
@@ -1117,23 +1110,23 @@ initial_gas_phases (int print)
 		{
 			if (print1 == TRUE && print == TRUE)
 			{
-				dup_print ("Beginning of initial gas_phase"
-						   "-composition calculations.", TRUE);
+				dup_print("Beginning of initial gas_phase"
+						  "-composition calculations.", TRUE);
 				print1 = FALSE;
 			}
 			if (print == TRUE)
 			{
-				sprintf (token, "Gas_Phase %d.\t%.350s",
-						 gas_phase[n].n_user, gas_phase[n].description);
-				dup_print (token, FALSE);
+				sprintf(token, "Gas_Phase %d.\t%.350s",
+						gas_phase[n].n_user, gas_phase[n].description);
+				dup_print(token, FALSE);
 			}
 			use.solution_ptr =
-				solution_bsearch (gas_phase[n].n_solution, &i, TRUE);
-			prep ();
-			k_temp (use.solution_ptr->tc);
-			set (TRUE);
-			converge = model ();
-			converge1 = check_residuals ();
+				solution_bsearch(gas_phase[n].n_solution, &i, TRUE);
+			prep();
+			k_temp(use.solution_ptr->tc);
+			set(TRUE);
+			converge = model();
+			converge1 = check_residuals();
 			if (converge == ERROR || converge1 == ERROR)
 			{
 				/* free_model_allocs(); */
@@ -1156,7 +1149,7 @@ initial_gas_phases (int print)
 					{
 						lp += rxn_ptr->s->la * rxn_ptr->coef;
 					}
-					gas_comp_ptr->phase->p_soln_x = exp (lp * LOG_10);
+					gas_comp_ptr->phase->p_soln_x = exp(lp * LOG_10);
 					use.gas_phase_ptr->total_p +=
 						gas_comp_ptr->phase->p_soln_x;
 					gas_comp_ptr->phase->moles_x =
@@ -1170,14 +1163,14 @@ initial_gas_phases (int print)
 					gas_comp_ptr->phase->moles_x = 0;
 				}
 			}
-			print_gas_phase ();
-			xgas_save (n_user);
-			punch_all ();
+			print_gas_phase();
+			xgas_save(n_user);
+			punch_all();
 			/* free_model_allocs(); */
 		}
 		for (i = n_user + 1; i <= last; i++)
 		{
-			gas_phase_duplicate (n_user, i);
+			gas_phase_duplicate(n_user, i);
 		}
 	}
 	return (OK);
@@ -1185,7 +1178,7 @@ initial_gas_phases (int print)
 
 /* ---------------------------------------------------------------------- */
 int
-initial_surfaces (int print)
+initial_surfaces(int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1198,7 +1191,7 @@ initial_surfaces (int print)
 	char token[2 * MAX_LENGTH];
 
 	state = INITIAL_SURFACE;
-	set_use ();
+	set_use();
 	print1 = TRUE;
 	for (n = 0; n < count_surface; n++)
 	{
@@ -1218,14 +1211,14 @@ initial_surfaces (int print)
 			}
 			if (print == TRUE)
 			{
-				sprintf (token, "Surface %d.\t%.350s",
-						 surface[n].n_user, surface[n].description);
-				dup_print (token, FALSE);
+				sprintf(token, "Surface %d.\t%.350s",
+						surface[n].n_user, surface[n].description);
+				dup_print(token, FALSE);
 			}
 			use.surface_ptr = &(surface[n]);
 			dl_type_x = use.surface_ptr->dl_type;
 			use.solution_ptr =
-				solution_bsearch (surface[n].n_solution, &i, TRUE);
+				solution_bsearch(surface[n].n_solution, &i, TRUE);
 			if (use.solution_ptr == NULL)
 			{
 				error_msg
@@ -1235,23 +1228,23 @@ initial_surfaces (int print)
 #ifdef SKIP
 			if (diffuse_layer_x == TRUE)
 			{
-				converge = surface_model ();
+				converge = surface_model();
 			}
 			else
 			{
-				prep ();
-				k_temp (use.solution_ptr->tc);
-				set (TRUE);
-				converge = model ();
+				prep();
+				k_temp(use.solution_ptr->tc);
+				set(TRUE);
+				converge = model();
 			}
-			converge1 = check_residuals ();
-			sum_species ();
+			converge1 = check_residuals();
+			sum_species();
 #endif
-			set_and_run_wrapper (-1, FALSE, FALSE, -1, 0.0);
-			species_list_sort ();
-			print_surface ();
+			set_and_run_wrapper(-1, FALSE, FALSE, -1, 0.0);
+			species_list_sort();
+			print_surface();
 			/*print_all(); */
-			punch_all ();
+			punch_all();
 #ifdef SKIP
 			if (converge == ERROR || converge1 == ERROR)
 			{
@@ -1261,12 +1254,12 @@ initial_surfaces (int print)
 					 STOP);
 			}
 #endif
-			xsurface_save (n_user);
+			xsurface_save(n_user);
 			/* free_model_allocs(); */
 		}
 		for (i = n_user + 1; i <= last; i++)
 		{
-			surface_duplicate (n_user, i);
+			surface_duplicate(n_user, i);
 		}
 	}
 	return (OK);
@@ -1274,7 +1267,7 @@ initial_surfaces (int print)
 
 /* ---------------------------------------------------------------------- */
 int
-reactions (void)
+reactions(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1297,55 +1290,55 @@ reactions (void)
 
 	state = REACTION;
 	/* last_model.force_prep = TRUE; */
-	if (set_use () == FALSE)
+	if (set_use() == FALSE)
 		return (OK);
 /*
  *   Find maximum number of steps
  */
-	dup_print ("Beginning of batch-reaction calculations.", TRUE);
+	dup_print("Beginning of batch-reaction calculations.", TRUE);
 	count_steps = 1;
 	if (use.irrev_in == TRUE && use.irrev_ptr != NULL)
 	{
-		if (abs (use.irrev_ptr->count_steps) > count_steps)
-			count_steps = abs (use.irrev_ptr->count_steps);
+		if (abs(use.irrev_ptr->count_steps) > count_steps)
+			count_steps = abs(use.irrev_ptr->count_steps);
 	}
 	if (use.kinetics_in == TRUE && use.kinetics_ptr != NULL)
 	{
-		if (abs (use.kinetics_ptr->count_steps) > count_steps)
-			count_steps = abs (use.kinetics_ptr->count_steps);
+		if (abs(use.kinetics_ptr->count_steps) > count_steps)
+			count_steps = abs(use.kinetics_ptr->count_steps);
 	}
 	if (use.temperature_in == TRUE && use.temperature_ptr != NULL)
 	{
-		if (abs (use.temperature_ptr->count_t) > count_steps)
-			count_steps = abs (use.temperature_ptr->count_t);
+		if (abs(use.temperature_ptr->count_t) > count_steps)
+			count_steps = abs(use.temperature_ptr->count_t);
 	}
 	count_total_steps = count_steps;
 /*
  *  save data for saving solutions
  */
-	memcpy (&save_data, &save, sizeof (struct save));
+	memcpy(&save_data, &save, sizeof(struct save));
 	/* 
 	 *Copy everything to -2
 	 */
-	copy_use (-2);
+	copy_use(-2);
 	rate_sim_time_start = 0;
 	rate_sim_time = 0;
 	for (reaction_step = 1; reaction_step <= count_steps; reaction_step++)
 	{
-		sprintf (token, "Reaction step %d.", reaction_step);
+		sprintf(token, "Reaction step %d.", reaction_step);
 		if (reaction_step > 1 && incremental_reactions == FALSE)
 		{
-			copy_use (-2);
+			copy_use(-2);
 		}
-		set_initial_moles (-2);
-		dup_print (token, FALSE);
+		set_initial_moles(-2);
+		dup_print(token, FALSE);
 /*
  *  Determine time step for kinetics
  */
 		kin_time = 0.0;
 		if (use.kinetics_in == TRUE)
 		{
-			kinetics_ptr = kinetics_bsearch (-2, &m);
+			kinetics_ptr = kinetics_bsearch(-2, &m);
 			if (incremental_reactions == FALSE)
 			{
 				if (kinetics_ptr->count_steps > 0)
@@ -1418,7 +1411,7 @@ reactions (void)
 /*
  *   Run reaction step
  */
-		run_reactions (-2, kin_time, use_mix, 1.0);
+		run_reactions(-2, kin_time, use_mix, 1.0);
 		if (incremental_reactions == TRUE)
 		{
 			rate_sim_time_start += kin_time;
@@ -1430,24 +1423,24 @@ reactions (void)
 		}
 		if (state != ADVECTION)
 		{
-			punch_all ();
-			print_all ();
+			punch_all();
+			print_all();
 		}
 		/* saves back into -2 */
 		if (reaction_step < count_steps)
 		{
-			saver ();
+			saver();
 		}
 	}
 /*
  *   save end of reaction
  */
-	memcpy (&save, &save_data, sizeof (struct save));
+	memcpy(&save, &save_data, sizeof(struct save));
 	if (use.kinetics_in == TRUE)
 	{
-		kinetics_duplicate (-2, use.n_kinetics_user);
+		kinetics_duplicate(-2, use.n_kinetics_user);
 	}
-	saver ();
+	saver();
 
 	/* free_model_allocs(); */
 	/* last_model.force_prep = TRUE; */
@@ -1456,7 +1449,7 @@ reactions (void)
 
 /* ---------------------------------------------------------------------- */
 int
-saver (void)
+saver(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1472,62 +1465,62 @@ saver (void)
 
 	if (save.solution == TRUE)
 	{
-		sprintf (token, "Solution after simulation %d.", simulation);
-		description_x = (char *) free_check_null (description_x);
-		description_x = string_duplicate (token);
+		sprintf(token, "Solution after simulation %d.", simulation);
+		description_x = (char *) free_check_null(description_x);
+		description_x = string_duplicate(token);
 		n = save.n_solution_user;
-		xsolution_save (n);
+		xsolution_save(n);
 		for (i = save.n_solution_user + 1; i <= save.n_solution_user_end; i++)
 		{
-			solution_duplicate (n, i);
+			solution_duplicate(n, i);
 		}
 	}
 	if (save.pp_assemblage == TRUE)
 	{
 		n = save.n_pp_assemblage_user;
-		xpp_assemblage_save (n);
+		xpp_assemblage_save(n);
 		for (i = save.n_pp_assemblage_user + 1;
 			 i <= save.n_pp_assemblage_user_end; i++)
 		{
-			pp_assemblage_duplicate (n, i);
+			pp_assemblage_duplicate(n, i);
 		}
 	}
 	if (save.exchange == TRUE)
 	{
 		n = save.n_exchange_user;
-		xexchange_save (n);
+		xexchange_save(n);
 		for (i = save.n_exchange_user + 1; i <= save.n_exchange_user_end; i++)
 		{
-			exchange_duplicate (n, i);
+			exchange_duplicate(n, i);
 		}
 	}
 	if (save.surface == TRUE)
 	{
 		n = save.n_surface_user;
-		xsurface_save (n);
+		xsurface_save(n);
 		for (i = save.n_surface_user + 1; i <= save.n_surface_user_end; i++)
 		{
-			surface_duplicate (n, i);
+			surface_duplicate(n, i);
 		}
 	}
 	if (save.gas_phase == TRUE)
 	{
 		n = save.n_gas_phase_user;
-		xgas_save (n);
+		xgas_save(n);
 		for (i = save.n_gas_phase_user + 1; i <= save.n_gas_phase_user_end;
 			 i++)
 		{
-			gas_phase_duplicate (n, i);
+			gas_phase_duplicate(n, i);
 		}
 	}
 	if (save.s_s_assemblage == TRUE)
 	{
 		n = save.n_s_s_assemblage_user;
-		xs_s_assemblage_save (n);
+		xs_s_assemblage_save(n);
 		for (i = save.n_s_s_assemblage_user + 1;
 			 i <= save.n_s_s_assemblage_user_end; i++)
 		{
-			s_s_assemblage_duplicate (n, i);
+			s_s_assemblage_duplicate(n, i);
 		}
 	}
 	if (save.kinetics == TRUE && use.kinetics_in == TRUE
@@ -1536,7 +1529,7 @@ saver (void)
 		n = use.kinetics_ptr->n_user;
 		for (i = save.n_kinetics_user; i <= save.n_kinetics_user_end; i++)
 		{
-			kinetics_duplicate (n, i);
+			kinetics_duplicate(n, i);
 		}
 	}
 	return (OK);
@@ -1544,7 +1537,7 @@ saver (void)
 
 /* ---------------------------------------------------------------------- */
 int
-xexchange_save (int n_user)
+xexchange_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1561,12 +1554,12 @@ xexchange_save (int n_user)
 /*
  *   Store data for structure exchange
  */
-	memcpy (&temp_exchange, use.exchange_ptr, sizeof (struct exchange));
+	memcpy(&temp_exchange, use.exchange_ptr, sizeof(struct exchange));
 	temp_exchange.n_user = n_user;
 	temp_exchange.n_user_end = n_user;
 	temp_exchange.new_def = FALSE;
-	sprintf (token, "Exchange assemblage after simulation %d.", simulation);
-	temp_exchange.description = string_duplicate (token);
+	sprintf(token, "Exchange assemblage after simulation %d.", simulation);
+	temp_exchange.description = string_duplicate(token);
 	temp_exchange.solution_equilibria = FALSE;
 	temp_exchange.n_solution = -2;
 	temp_exchange.count_comps = 0;
@@ -1580,10 +1573,10 @@ xexchange_save (int n_user)
 			count_comps++;
 	}
 	temp_exchange.comps =
-		(struct exch_comp *) PHRQ_malloc ((size_t) (count_comps) *
-										  sizeof (struct exch_comp));
+		(struct exch_comp *) PHRQ_malloc((size_t) (count_comps) *
+										 sizeof(struct exch_comp));
 	if (temp_exchange.comps == NULL)
-		malloc_error ();
+		malloc_error();
 	temp_exchange.count_comps = count_comps;
 /*
  *   Write exch_comp structure for each exchange component
@@ -1593,12 +1586,12 @@ xexchange_save (int n_user)
 	{
 		if (x[i]->type == EXCH)
 		{
-			memcpy (&temp_exchange.comps[count_comps], x[i]->exch_comp,
-					sizeof (struct exch_comp));
+			memcpy(&temp_exchange.comps[count_comps], x[i]->exch_comp,
+				   sizeof(struct exch_comp));
 			temp_exchange.comps[count_comps].master = x[i]->master[0];
 			temp_exchange.comps[count_comps].la = x[i]->master[0]->s->la;
 			temp_exchange.comps[count_comps].formula_totals =
-				elt_list_dup (x[i]->exch_comp->formula_totals);
+				elt_list_dup(x[i]->exch_comp->formula_totals);
 			temp_exchange.comps[count_comps].moles = 0.;
 /*
  *   Save element concentrations on exchanger
@@ -1610,8 +1603,8 @@ xexchange_save (int n_user)
 			{
 				if (species_list[j].master_s == x[i]->master[0]->s)
 				{
-					add_elt_list (species_list[j].s->next_elt,
-								  species_list[j].s->moles);
+					add_elt_list(species_list[j].s->next_elt,
+								 species_list[j].s->moles);
 					charge += species_list[j].s->moles * species_list[j].s->z;
 				}
 			}
@@ -1620,13 +1613,13 @@ xexchange_save (int n_user)
  */
 			if (x[i]->exch_comp->phase_name != NULL && count_elts == 0)
 			{
-				add_elt_list (x[i]->master[0]->s->next_elt, 1e-20);
+				add_elt_list(x[i]->master[0]->s->next_elt, 1e-20);
 			}
 /*
  *   Store list
  */
 			temp_exchange.comps[count_comps].charge_balance = charge;
-			temp_exchange.comps[count_comps].totals = elt_list_save ();
+			temp_exchange.comps[count_comps].totals = elt_list_save();
 /* debug
                         output_msg(OUTPUT_MESSAGE, "Exchange charge_balance: %e\n", charge);
  */
@@ -1638,26 +1631,26 @@ xexchange_save (int n_user)
 /*
  *   Finish up
  */
-	exchange_ptr = exchange_bsearch (n_user, &n);
+	exchange_ptr = exchange_bsearch(n_user, &n);
 	if (exchange_ptr == NULL)
 	{
 		n = count_exchange++;
-		space ((void **) ((void *) &exchange), count_exchange, &max_exchange,
-			   sizeof (struct exchange));
+		space((void **) ((void *) &exchange), count_exchange, &max_exchange,
+			  sizeof(struct exchange));
 	}
 	else
 	{
-		exchange_free (&exchange[n]);
+		exchange_free(&exchange[n]);
 	}
-	memcpy (&exchange[n], &temp_exchange, sizeof (struct exchange));
+	memcpy(&exchange[n], &temp_exchange, sizeof(struct exchange));
 	/* sort only if necessary */
 	if (n == count_exchange - 1 && count_exchange > 1)
 	{
 		if (exchange[n].n_user < exchange[n - 1].n_user)
 		{
-			qsort (exchange,
-				   (size_t) count_exchange,
-				   (size_t) sizeof (struct exchange), exchange_compare);
+			qsort(exchange,
+				  (size_t) count_exchange,
+				  (size_t) sizeof(struct exchange), exchange_compare);
 		}
 	}
 	use.exchange_ptr = NULL;
@@ -1666,7 +1659,7 @@ xexchange_save (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-xgas_save (int n_user)
+xgas_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1687,20 +1680,20 @@ xgas_save (int n_user)
  *   Malloc space and copy
  */
 	temp_gas_phase.comps =
-		(struct gas_comp *) PHRQ_malloc ((size_t) count_comps *
-										 sizeof (struct gas_comp));
+		(struct gas_comp *) PHRQ_malloc((size_t) count_comps *
+										sizeof(struct gas_comp));
 	if (temp_gas_phase.comps == NULL)
-		malloc_error ();
-	memcpy ((void *) temp_gas_phase.comps, (void *) use.gas_phase_ptr->comps,
-			(size_t) count_comps * sizeof (struct gas_comp));
+		malloc_error();
+	memcpy((void *) temp_gas_phase.comps, (void *) use.gas_phase_ptr->comps,
+		   (size_t) count_comps * sizeof(struct gas_comp));
 /*
  *   Store in gas_phase
  */
 
 	temp_gas_phase.n_user = n_user;
 	temp_gas_phase.n_user_end = n_user;
-	sprintf (token, "Gas phase after simulation %d.", simulation);
-	temp_gas_phase.description = string_duplicate (token);
+	sprintf(token, "Gas phase after simulation %d.", simulation);
+	temp_gas_phase.description = string_duplicate(token);
 	temp_gas_phase.new_def = FALSE;
 	temp_gas_phase.solution_equilibria = FALSE;
 	temp_gas_phase.n_solution = -99;
@@ -1721,18 +1714,18 @@ xgas_save (int n_user)
 /*
  *   Finish up
  */
-	gas_phase_ptr = gas_phase_bsearch (n_user, &n);
+	gas_phase_ptr = gas_phase_bsearch(n_user, &n);
 	if (gas_phase_ptr == NULL)
 	{
 		n = count_gas_phase++;
-		space ((void **) ((void *) &gas_phase), count_gas_phase,
-			   &max_gas_phase, sizeof (struct gas_phase));
+		space((void **) ((void *) &gas_phase), count_gas_phase,
+			  &max_gas_phase, sizeof(struct gas_phase));
 	}
 	else
 	{
-		gas_phase_free (&gas_phase[n]);
+		gas_phase_free(&gas_phase[n]);
 	}
-	memcpy (&gas_phase[n], &temp_gas_phase, sizeof (struct gas_phase));
+	memcpy(&gas_phase[n], &temp_gas_phase, sizeof(struct gas_phase));
 
 	/* update unknown pointer */
 	if (gas_unknown != NULL)
@@ -1744,9 +1737,9 @@ xgas_save (int n_user)
 	{
 		if (gas_phase[n].n_user < gas_phase[n - 1].n_user)
 		{
-			qsort (gas_phase,
-				   (size_t) count_gas_phase,
-				   (size_t) sizeof (struct gas_phase), gas_phase_compare);
+			qsort(gas_phase,
+				  (size_t) count_gas_phase,
+				  (size_t) sizeof(struct gas_phase), gas_phase_compare);
 		}
 	}
 	use.gas_phase_ptr = NULL;
@@ -1755,7 +1748,7 @@ xgas_save (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-xs_s_assemblage_save (int n_user)
+xs_s_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1774,9 +1767,9 @@ xs_s_assemblage_save (int n_user)
  */
 	temp_s_s_assemblage.n_user = n_user;
 	temp_s_s_assemblage.n_user_end = n_user;
-	sprintf (token, "Solid solution assemblage after simulation %d.",
-			 simulation);
-	temp_s_s_assemblage.description = string_duplicate (token);
+	sprintf(token, "Solid solution assemblage after simulation %d.",
+			simulation);
+	temp_s_s_assemblage.description = string_duplicate(token);
 	temp_s_s_assemblage.new_def = FALSE;
 #ifdef SKIP
 	temp_s_s_assemblage.type = use.s_s_assemblage_ptr->type;
@@ -1790,25 +1783,25 @@ xs_s_assemblage_save (int n_user)
  */
 	/* s_s_assemblage->s_s */
 	temp_s_s_assemblage.s_s =
-		(struct s_s *) PHRQ_malloc ((size_t) count_s_s * sizeof (struct s_s));
+		(struct s_s *) PHRQ_malloc((size_t) count_s_s * sizeof(struct s_s));
 	if (temp_s_s_assemblage.s_s == NULL)
-		malloc_error ();
+		malloc_error();
 	for (i = 0; i < count_s_s; i++)
 	{
-		memcpy (&(temp_s_s_assemblage.s_s[i]),
-				&(use.s_s_assemblage_ptr->s_s[i]), sizeof (struct s_s));
+		memcpy(&(temp_s_s_assemblage.s_s[i]),
+			   &(use.s_s_assemblage_ptr->s_s[i]), sizeof(struct s_s));
 		/* 
 		 * Malloc space for solid soution components
 		 */
 		count_comps = use.s_s_assemblage_ptr->s_s[i].count_comps;
 		temp_s_s_assemblage.s_s[i].comps =
-			(struct s_s_comp *) PHRQ_malloc ((size_t) count_comps *
-											 sizeof (struct s_s_comp));
+			(struct s_s_comp *) PHRQ_malloc((size_t) count_comps *
+											sizeof(struct s_s_comp));
 		if (temp_s_s_assemblage.s_s[i].comps == NULL)
-			malloc_error ();
-		memcpy ((void *) temp_s_s_assemblage.s_s[i].comps,
-				(void *) use.s_s_assemblage_ptr->s_s[i].comps,
-				(size_t) count_comps * sizeof (struct s_s_comp));
+			malloc_error();
+		memcpy((void *) temp_s_s_assemblage.s_s[i].comps,
+			   (void *) use.s_s_assemblage_ptr->s_s[i].comps,
+			   (size_t) count_comps * sizeof(struct s_s_comp));
 
 		/* set initial moles for quick setup */
 		for (j = 0; j < count_comps; j++)
@@ -1820,28 +1813,28 @@ xs_s_assemblage_save (int n_user)
 /*
  *   Finish up
  */
-	s_s_assemblage_ptr = s_s_assemblage_bsearch (n_user, &n);
+	s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user, &n);
 	if (s_s_assemblage_ptr == NULL)
 	{
-		space ((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-			   &max_s_s_assemblage, sizeof (struct s_s_assemblage));
+		space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
+			  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
 		n = count_s_s_assemblage++;
 	}
 	else
 	{
-		s_s_assemblage_free (&s_s_assemblage[n]);
+		s_s_assemblage_free(&s_s_assemblage[n]);
 	}
-	memcpy (&s_s_assemblage[n], &temp_s_s_assemblage,
-			sizeof (struct s_s_assemblage));
+	memcpy(&s_s_assemblage[n], &temp_s_s_assemblage,
+		   sizeof(struct s_s_assemblage));
 	/* sort only if necessary */
 	if (n == count_s_s_assemblage - 1 && count_s_s_assemblage > 1)
 	{
 		if (s_s_assemblage[n].n_user < s_s_assemblage[n - 1].n_user)
 		{
-			qsort (s_s_assemblage,
-				   (size_t) count_s_s_assemblage,
-				   (size_t) sizeof (struct s_s_assemblage),
-				   s_s_assemblage_compare);
+			qsort(s_s_assemblage,
+				  (size_t) count_s_s_assemblage,
+				  (size_t) sizeof(struct s_s_assemblage),
+				  s_s_assemblage_compare);
 		}
 	}
 	use.s_s_assemblage_ptr = NULL;
@@ -1850,7 +1843,7 @@ xs_s_assemblage_save (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-xpp_assemblage_save (int n_user)
+xpp_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1870,23 +1863,23 @@ xpp_assemblage_save (int n_user)
 
 	temp_pp_assemblage.n_user = n_user;
 	temp_pp_assemblage.n_user_end = n_user;
-	sprintf (token, "Pure-phase assemblage after simulation %d.", simulation);
-	temp_pp_assemblage.description = string_duplicate (token);
+	sprintf(token, "Pure-phase assemblage after simulation %d.", simulation);
+	temp_pp_assemblage.description = string_duplicate(token);
 	temp_pp_assemblage.new_def = FALSE;
 	temp_pp_assemblage.count_comps = count_comps;
 	temp_pp_assemblage.next_elt =
-		elt_list_dup (use.pp_assemblage_ptr->next_elt);
+		elt_list_dup(use.pp_assemblage_ptr->next_elt);
 /*
  *   Malloc space and copy pure phase data
  */
 	temp_pp_assemblage.pure_phases =
-		(struct pure_phase *) PHRQ_malloc ((size_t) count_comps *
-										   sizeof (struct pure_phase));
+		(struct pure_phase *) PHRQ_malloc((size_t) count_comps *
+										  sizeof(struct pure_phase));
 	if (temp_pp_assemblage.pure_phases == NULL)
-		malloc_error ();
-	memcpy ((void *) temp_pp_assemblage.pure_phases,
-			(void *) use.pp_assemblage_ptr->pure_phases,
-			(size_t) count_comps * sizeof (struct pure_phase));
+		malloc_error();
+	memcpy((void *) temp_pp_assemblage.pure_phases,
+		   (void *) use.pp_assemblage_ptr->pure_phases,
+		   (size_t) count_comps * sizeof(struct pure_phase));
 /*
  *   Update amounts
  */
@@ -1905,28 +1898,28 @@ xpp_assemblage_save (int n_user)
 /*
  *   Finish up
  */
-	pp_assemblage_ptr = pp_assemblage_bsearch (n_user, &n);
+	pp_assemblage_ptr = pp_assemblage_bsearch(n_user, &n);
 	if (pp_assemblage_ptr == NULL)
 	{
-		space ((void **) ((void *) &pp_assemblage), count_pp_assemblage,
-			   &max_pp_assemblage, sizeof (struct pp_assemblage));
+		space((void **) ((void *) &pp_assemblage), count_pp_assemblage,
+			  &max_pp_assemblage, sizeof(struct pp_assemblage));
 		n = count_pp_assemblage++;
 	}
 	else
 	{
-		pp_assemblage_free (&pp_assemblage[n]);
+		pp_assemblage_free(&pp_assemblage[n]);
 	}
-	memcpy (&pp_assemblage[n], &temp_pp_assemblage,
-			sizeof (struct pp_assemblage));
+	memcpy(&pp_assemblage[n], &temp_pp_assemblage,
+		   sizeof(struct pp_assemblage));
 	/* sort only if necessary */
 	if (n == count_pp_assemblage - 1 && count_pp_assemblage > 1)
 	{
 		if (pp_assemblage[n].n_user < pp_assemblage[n - 1].n_user)
 		{
-			qsort (pp_assemblage,
-				   (size_t) count_pp_assemblage,
-				   (size_t) sizeof (struct pp_assemblage),
-				   pp_assemblage_compare);
+			qsort(pp_assemblage,
+				  (size_t) count_pp_assemblage,
+				  (size_t) sizeof(struct pp_assemblage),
+				  pp_assemblage_compare);
 		}
 	}
 	use.pp_assemblage_ptr = NULL;
@@ -1935,7 +1928,7 @@ xpp_assemblage_save (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-xsolution_save (int n_user)
+xsolution_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1952,7 +1945,7 @@ xsolution_save (int n_user)
 /*
  *   Malloc space for solution data
  */
-	solution_ptr = solution_alloc ();
+	solution_ptr = solution_alloc();
 
 	max_mass_balance = MAX_MASS_BALANCE;
 	max_master_activity = MAX_MASS_BALANCE;
@@ -1960,7 +1953,7 @@ xsolution_save (int n_user)
 	solution_ptr->n_user = n_user;
 	solution_ptr->n_user_end = n_user;
 	solution_ptr->new_def = FALSE;
-	solution_ptr->description = string_duplicate (description_x);
+	solution_ptr->description = string_duplicate(description_x);
 	solution_ptr->tc = tc_x;
 	solution_ptr->ph = ph_x;
 	solution_ptr->solution_pe = solution_pe_x;
@@ -1980,9 +1973,9 @@ xsolution_save (int n_user)
  *   Copy pe data
  */
 
-	pe_data_free (solution_ptr->pe);
+	pe_data_free(solution_ptr->pe);
 	/*solution_ptr->pe = pe_data_dup(pe_x); */
-	solution_ptr->pe = pe_data_alloc ();
+	solution_ptr->pe = pe_data_alloc();
 	solution_ptr->default_pe = 0;
 	/*
 	 * Add in minor isotopes if initial solution calculation
@@ -1993,7 +1986,7 @@ xsolution_save (int n_user)
 		{
 			if (master_isotope[i]->moles > 0)
 			{
-				master_i_ptr = master_bsearch (master_isotope[i]->name);
+				master_i_ptr = master_bsearch(master_isotope[i]->name);
 				master_ptr = master_isotope[i]->elt->master;
 				if (master_isotope[i]->minor_isotope == TRUE)
 				{
@@ -2002,7 +1995,7 @@ xsolution_save (int n_user)
 					{
 						master_i_ptr->s->la =
 							master_ptr->s->la +
-							log10 (master_i_ptr->total / master_ptr->total);
+							log10(master_i_ptr->total / master_ptr->total);
 					}
 					else
 					{
@@ -2052,13 +2045,13 @@ xsolution_save (int n_user)
 		}
 	}
 	solution_ptr->master_activity =
-		(struct master_activity *) PHRQ_realloc (solution_ptr->
-												 master_activity,
-												 (size_t)
-												 (count_master_activity +
-												  1) *
-												 sizeof (struct
-														 master_activity));
+		(struct master_activity *) PHRQ_realloc(solution_ptr->
+												master_activity,
+												(size_t)
+												(count_master_activity +
+												 1) *
+												sizeof(struct
+													   master_activity));
 	solution_ptr->count_master_activity = count_master_activity;
 	count_master_activity = 0;
 	for (i = 0; i < count_master; i++)
@@ -2114,9 +2107,9 @@ xsolution_save (int n_user)
  */
 		if (count_mass_balance + 2 >= max_mass_balance)
 		{
-			space ((void **) ((void *) &(solution_ptr->totals)),
-				   count_mass_balance + 2, &max_mass_balance,
-				   sizeof (struct conc));
+			space((void **) ((void *) &(solution_ptr->totals)),
+				  count_mass_balance + 2, &max_mass_balance,
+				  sizeof(struct conc));
 		}
 	}
 	if (pitzer_model == TRUE)
@@ -2128,11 +2121,11 @@ xsolution_save (int n_user)
 				i++;
 		}
 		solution_ptr->species_gamma =
-			(struct master_activity *) PHRQ_realloc (solution_ptr->
-													 species_gamma,
-													 (size_t) (i *
-															   sizeof (struct
-																	   master_activity)));
+			(struct master_activity *) PHRQ_realloc(solution_ptr->
+													species_gamma,
+													(size_t) (i *
+															  sizeof(struct
+																	 master_activity)));
 		i = 0;
 		for (j = 0; j < count_s; j++)
 		{
@@ -2158,20 +2151,20 @@ xsolution_save (int n_user)
 	solution_ptr->master_activity[count_master_activity].description = NULL;
 	count_master_activity++;
 	solution_ptr->totals =
-		(struct conc *) PHRQ_realloc (solution_ptr->totals,
-									  (size_t) count_mass_balance *
-									  sizeof (struct conc));
+		(struct conc *) PHRQ_realloc(solution_ptr->totals,
+									 (size_t) count_mass_balance *
+									 sizeof(struct conc));
 	if (solution_ptr->totals == NULL)
-		malloc_error ();
+		malloc_error();
 	solution_ptr->master_activity =
-		(struct master_activity *) PHRQ_realloc (solution_ptr->
-												 master_activity,
-												 (size_t)
-												 count_master_activity *
-												 sizeof (struct
-														 master_activity));
+		(struct master_activity *) PHRQ_realloc(solution_ptr->
+												master_activity,
+												(size_t)
+												count_master_activity *
+												sizeof(struct
+													   master_activity));
 	if (solution_ptr->master_activity == NULL)
-		malloc_error ();
+		malloc_error();
 	solution_ptr->count_master_activity = count_master_activity;
 /*
  *   Save isotope data
@@ -2180,13 +2173,13 @@ xsolution_save (int n_user)
 	{
 		solution_ptr->count_isotopes = count_isotopes_x;
 		solution_ptr->isotopes =
-			(struct isotope *) PHRQ_realloc (solution_ptr->isotopes,
-											 (size_t) count_isotopes_x *
-											 sizeof (struct isotope));
+			(struct isotope *) PHRQ_realloc(solution_ptr->isotopes,
+											(size_t) count_isotopes_x *
+											sizeof(struct isotope));
 		if (solution_ptr->isotopes == NULL)
-			malloc_error ();
-		memcpy (solution_ptr->isotopes, isotopes_x,
-				(size_t) count_isotopes_x * sizeof (struct isotope));
+			malloc_error();
+		memcpy(solution_ptr->isotopes, isotopes_x,
+			   (size_t) count_isotopes_x * sizeof(struct isotope));
 		for (i = 0; i < count_isotopes_x; i++)
 		{
 			solution_ptr->isotopes[i].total =
@@ -2206,23 +2199,23 @@ xsolution_save (int n_user)
 	{
 		solution_ptr->count_isotopes = 0;
 		solution_ptr->isotopes =
-			(struct isotope *) free_check_null (solution_ptr->isotopes);
+			(struct isotope *) free_check_null(solution_ptr->isotopes);
 		solution_ptr->isotopes = NULL;
 	}
 /*
  *   Save solution in solution
  */
-	if (solution_bsearch (n_user, &n, FALSE) != NULL)
+	if (solution_bsearch(n_user, &n, FALSE) != NULL)
 	{
-		solution_free (solution[n]);
+		solution_free(solution[n]);
 	}
 	else
 	{
 		n = count_solution++;
 		if (count_solution >= max_solution)
 		{
-			space ((void **) ((void *) &(solution)), count_solution,
-				   &max_solution, sizeof (struct solution *));
+			space((void **) ((void *) &(solution)), count_solution,
+				  &max_solution, sizeof(struct solution *));
 		}
 	}
 	solution[n] = solution_ptr;
@@ -2231,14 +2224,14 @@ xsolution_save (int n_user)
 		&& (solution[count_solution - 1]->n_user <
 			solution[count_solution - 2]->n_user))
 	{
-		solution_sort ();
+		solution_sort();
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-xsurface_save (int n_user)
+xsurface_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2255,13 +2248,13 @@ xsurface_save (int n_user)
 /*
  *   Store data for structure surface
  */
-	memcpy (&temp_surface, use.surface_ptr, sizeof (struct surface));
+	memcpy(&temp_surface, use.surface_ptr, sizeof(struct surface));
 	temp_surface.n_user = n_user;
 	temp_surface.n_user_end = n_user;
 	temp_surface.new_def = FALSE;
 	temp_surface.dl_type = dl_type_x;
-	sprintf (token, "Surface assemblage after simulation %d.", simulation);
-	temp_surface.description = string_duplicate (token);
+	sprintf(token, "Surface assemblage after simulation %d.", simulation);
+	temp_surface.description = string_duplicate(token);
 	temp_surface.solution_equilibria = FALSE;
 	temp_surface.n_solution = -10;
 /*
@@ -2272,10 +2265,10 @@ xsurface_save (int n_user)
 	count_charge = use.surface_ptr->count_charge;
 	temp_surface.count_comps = count_comps;
 	temp_surface.comps =
-		(struct surface_comp *) PHRQ_malloc ((size_t) (count_comps) *
-											 sizeof (struct surface_comp));
+		(struct surface_comp *) PHRQ_malloc((size_t) (count_comps) *
+											sizeof(struct surface_comp));
 	if (temp_surface.comps == NULL)
-		malloc_error ();
+		malloc_error();
 	/*if (temp_surface.edl == FALSE) { */
 	if (temp_surface.type == NO_EDL)
 	{
@@ -2286,11 +2279,11 @@ xsurface_save (int n_user)
 	{
 		temp_surface.count_charge = count_charge;
 		temp_surface.charge =
-			(struct surface_charge *) PHRQ_malloc ((size_t) (count_charge) *
-												   sizeof (struct
-														   surface_charge));
+			(struct surface_charge *) PHRQ_malloc((size_t) (count_charge) *
+												  sizeof(struct
+														 surface_charge));
 		if (temp_surface.charge == NULL)
-			malloc_error ();
+			malloc_error();
 	}
 /*
  *   Write surface_comp structure for each surf component into comps_ptr
@@ -2309,8 +2302,8 @@ xsurface_save (int n_user)
 	{
 		if (x[i]->type == SURFACE)
 		{
-			memcpy (&temp_surface.comps[count_comps], x[i]->surface_comp,
-					sizeof (struct surface_comp));
+			memcpy(&temp_surface.comps[count_comps], x[i]->surface_comp,
+				   sizeof(struct surface_comp));
 
 			temp_surface.comps[count_comps].master = x[i]->master[0];
 			temp_surface.comps[count_comps].la = x[i]->master[0]->s->la;
@@ -2335,14 +2328,14 @@ xsurface_save (int n_user)
 			{
 				if (species_list[j].master_s == x[i]->master[0]->s)
 				{
-					add_elt_list (species_list[j].s->next_elt,
-								  species_list[j].s->moles);
+					add_elt_list(species_list[j].s->next_elt,
+								 species_list[j].s->moles);
 					charge += species_list[j].s->moles * species_list[j].s->z;
 				}
 			}
-			temp_surface.comps[count_comps].totals = elt_list_save ();
+			temp_surface.comps[count_comps].totals = elt_list_save();
 			temp_surface.comps[count_comps].formula_totals =
-				elt_list_dup (x[i]->surface_comp->formula_totals);
+				elt_list_dup(x[i]->surface_comp->formula_totals);
 			temp_surface.comps[count_comps].cb = charge;
 
 			/* update unknown pointer */
@@ -2351,8 +2344,8 @@ xsurface_save (int n_user)
 		}
 		else if (x[i]->type == SURFACE_CB && use.surface_ptr->type == DDL)
 		{
-			memcpy (&temp_surface.charge[count_charge], x[i]->surface_charge,
-					sizeof (struct surface_charge));
+			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge,
+				   sizeof(struct surface_charge));
 			temp_surface.charge[count_charge].charge_balance = x[i]->f;
 			temp_surface.charge[count_charge].mass_water =
 				x[i]->surface_charge->mass_water;
@@ -2369,17 +2362,17 @@ xsurface_save (int n_user)
 				temp_surface.charge[count_charge].count_g =
 					x[i]->surface_charge->count_g;
 				temp_surface.charge[count_charge].g =
-					(struct surface_diff_layer *) PHRQ_malloc ((size_t) x[i]->
-															   surface_charge->
-															   count_g *
-															   sizeof (struct
-																	   surface_diff_layer));
+					(struct surface_diff_layer *) PHRQ_malloc((size_t) x[i]->
+															  surface_charge->
+															  count_g *
+															  sizeof(struct
+																	 surface_diff_layer));
 				if (temp_surface.charge[count_charge].g == NULL)
-					malloc_error ();
-				memcpy (temp_surface.charge[count_charge].g,
-						x[i]->surface_charge->g,
-						(size_t) x[i]->surface_charge->count_g *
-						sizeof (struct surface_diff_layer));
+					malloc_error();
+				memcpy(temp_surface.charge[count_charge].g,
+					   x[i]->surface_charge->g,
+					   (size_t) x[i]->surface_charge->count_g *
+					   sizeof(struct surface_diff_layer));
 			}
 
 			/*temp_surface.charge[count_charge].psi_master = x[i]->master[0]; */
@@ -2389,9 +2382,9 @@ xsurface_save (int n_user)
  */
 			if (dl_type_x != NO_DL)
 			{
-				sum_diffuse_layer (x[i]->surface_charge);
+				sum_diffuse_layer(x[i]->surface_charge);
 				temp_surface.charge[count_charge].diffuse_layer_totals =
-					elt_list_save ();
+					elt_list_save();
 			}
 
 			/* update unknown pointer */
@@ -2403,8 +2396,8 @@ xsurface_save (int n_user)
 		else if (x[i]->type == SURFACE_CB
 				 && use.surface_ptr->type == CD_MUSIC)
 		{
-			memcpy (&temp_surface.charge[count_charge], x[i]->surface_charge,
-					sizeof (struct surface_charge));
+			memcpy(&temp_surface.charge[count_charge], x[i]->surface_charge,
+				   sizeof(struct surface_charge));
 			if (dl_type_x != NO_DL)
 			{
 				temp_surface.charge[count_charge].charge_balance =
@@ -2438,17 +2431,17 @@ xsurface_save (int n_user)
 				temp_surface.charge[count_charge].count_g =
 					x[i]->surface_charge->count_g;
 				temp_surface.charge[count_charge].g =
-					(struct surface_diff_layer *) PHRQ_malloc ((size_t) x[i]->
-															   surface_charge->
-															   count_g *
-															   sizeof (struct
-																	   surface_diff_layer));
+					(struct surface_diff_layer *) PHRQ_malloc((size_t) x[i]->
+															  surface_charge->
+															  count_g *
+															  sizeof(struct
+																	 surface_diff_layer));
 				if (temp_surface.charge[count_charge].g == NULL)
-					malloc_error ();
-				memcpy (temp_surface.charge[count_charge].g,
-						x[i]->surface_charge->g,
-						(size_t) x[i]->surface_charge->count_g *
-						sizeof (struct surface_diff_layer));
+					malloc_error();
+				memcpy(temp_surface.charge[count_charge].g,
+					   x[i]->surface_charge->g,
+					   (size_t) x[i]->surface_charge->count_g *
+					   sizeof(struct surface_diff_layer));
 			}
 
 			/*temp_surface.charge[count_charge].psi_master = x[i]->master[0]; */
@@ -2458,9 +2451,9 @@ xsurface_save (int n_user)
  */
 			if (dl_type_x != NO_DL)
 			{
-				sum_diffuse_layer (x[i]->surface_charge);
+				sum_diffuse_layer(x[i]->surface_charge);
 				temp_surface.charge[count_charge].diffuse_layer_totals =
-					elt_list_save ();
+					elt_list_save();
 			}
 
 			/* update unknown pointer */
@@ -2473,25 +2466,25 @@ xsurface_save (int n_user)
 /*
  *   Finish up
  */
-	surface_ptr = surface_bsearch (n_user, &n);
+	surface_ptr = surface_bsearch(n_user, &n);
 	if (surface_ptr == NULL)
 	{
 		n = count_surface++;
-		space ((void **) ((void *) &surface), count_surface, &max_surface,
-			   sizeof (struct surface));
+		space((void **) ((void *) &surface), count_surface, &max_surface,
+			  sizeof(struct surface));
 	}
 	else
 	{
-		surface_free (&surface[n]);
+		surface_free(&surface[n]);
 	}
-	memcpy (&surface[n], &temp_surface, sizeof (struct surface));
+	memcpy(&surface[n], &temp_surface, sizeof(struct surface));
 	if (n == count_surface - 1 && count_surface > 1)
 	{
 		if (surface[n].n_user < surface[n - 1].n_user)
 		{
-			qsort (surface,
-				   (size_t) count_surface,
-				   (size_t) sizeof (struct surface), surface_compare);
+			qsort(surface,
+				  (size_t) count_surface,
+				  (size_t) sizeof(struct surface), surface_compare);
 		}
 	}
 	use.surface_ptr = NULL;
@@ -2500,7 +2493,7 @@ xsurface_save (int n_user)
 
 /* ---------------------------------------------------------------------- */
 FILE *
-file_open (char *query, char *default_name, const char *status, int batch)
+file_open(char *query, char *default_name, const char *status, int batch)
 /* ---------------------------------------------------------------------- */
 {
 	char name[MAX_LENGTH], answer[MAX_LENGTH];
@@ -2508,19 +2501,19 @@ file_open (char *query, char *default_name, const char *status, int batch)
 	int l;
 
 #ifdef PHREEQ98
-	strcpy (name, default_name);
+	strcpy(name, default_name);
 	if (status[0] == 'r')
 	{
-		new_file = fopen (name, "r");
+		new_file = fopen(name, "r");
 	}
 	else if (status[0] == 'w')
 	{
-		new_file = fopen (name, "w");
+		new_file = fopen(name, "w");
 	}
 	if (new_file == NULL)
 	{
-		sprintf (error_string, "Can't open file, %s.", name);
-		error_msg (error_string, STOP);
+		sprintf(error_string, "Can't open file, %s.", name);
+		error_msg(error_string, STOP);
 	}
 
 	return (new_file);
@@ -2531,20 +2524,20 @@ file_open (char *query, char *default_name, const char *status, int batch)
 /*
  *   Get file name
  */
-		strcpy (name, default_name);
+		strcpy(name, default_name);
 		if (batch == FALSE)
 		{
-			output_msg (OUTPUT_SCREEN, "%s\n", query);
+			output_msg(OUTPUT_SCREEN, "%s\n", query);
 			if (default_name[0] != '\0')
 			{
-				output_msg (OUTPUT_SCREEN, "Default: %s\n", default_name);
+				output_msg(OUTPUT_SCREEN, "Default: %s\n", default_name);
 			}
-			fgets (name, MAX_LENGTH, stdin);
-			l = (int) strlen (name);
+			fgets(name, MAX_LENGTH, stdin);
+			l = (int) strlen(name);
 			name[l - 1] = '\0';
 			if (name[0] == '\0')
 			{
-				strcpy (name, default_name);
+				strcpy(name, default_name);
 			}
 		}
 /*
@@ -2552,11 +2545,11 @@ file_open (char *query, char *default_name, const char *status, int batch)
  */
 		if (status[0] == 'r')
 		{
-			if ((new_file = fopen (name, "r")) == NULL)
+			if ((new_file = fopen(name, "r")) == NULL)
 			{
-				sprintf (error_string, "Can't open file, %s.", name);
-				output_msg (OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush (OUTPUT_SCREEN);
+				sprintf(error_string, "Can't open file, %s.", name);
+				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
+				output_fflush(OUTPUT_SCREEN);
 				batch = FALSE;
 				continue;
 			}
@@ -2567,11 +2560,11 @@ file_open (char *query, char *default_name, const char *status, int batch)
 		}
 		else if (status[0] == 'w')
 		{
-			if ((new_file = fopen (name, "w")) == NULL)
+			if ((new_file = fopen(name, "w")) == NULL)
 			{
-				sprintf (error_string, "Error opening file, %s.", name);
-				output_msg (OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush (OUTPUT_SCREEN);
+				sprintf(error_string, "Error opening file, %s.", name);
+				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
+				output_fflush(OUTPUT_SCREEN);
 				batch = FALSE;
 				continue;
 			}
@@ -2584,43 +2577,43 @@ file_open (char *query, char *default_name, const char *status, int batch)
 		{
 			for (;;)
 			{
-				if ((new_file = fopen (name, "r")) != NULL)
+				if ((new_file = fopen(name, "r")) != NULL)
 				{
-					fclose (new_file);
-					output_msg (OUTPUT_SCREEN,
-								"Warning: File already exists, %s.\n"
-								"Enter new file name or <Enter> to overwrite:",
-								name);
-					fgets (answer, MAX_LENGTH, stdin);
+					fclose(new_file);
+					output_msg(OUTPUT_SCREEN,
+							   "Warning: File already exists, %s.\n"
+							   "Enter new file name or <Enter> to overwrite:",
+							   name);
+					fgets(answer, MAX_LENGTH, stdin);
 /*	  l = (int) strlen (answer);*/
-					replace ("\n", "\0", answer);
+					replace("\n", "\0", answer);
 /*	  answer[l - 1] = '\0';*/
 					if (answer[0] != '\0')
 					{
-						strcpy (name, answer);
+						strcpy(name, answer);
 						continue;
 					}
 				}
 				break;
 			}
-			if ((new_file = fopen (name, "w")) == NULL)
+			if ((new_file = fopen(name, "w")) == NULL)
 			{
-				sprintf (error_string, "Error opening file, %s.", name);
-				output_msg (OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush (OUTPUT_SCREEN);
+				sprintf(error_string, "Error opening file, %s.", name);
+				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
+				output_fflush(OUTPUT_SCREEN);
 				batch = FALSE;
 				continue;
 			}
 			break;
 		}
 	}
-	strncpy (default_name, name, MAX_LENGTH);
+	strncpy(default_name, name, MAX_LENGTH);
 	return (new_file);
 }
 
 /* ---------------------------------------------------------------------- */
 int
-copy_use (int i)
+copy_use(int i)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2628,14 +2621,14 @@ copy_use (int i)
  */
 	if (use.mix_in == TRUE)
 	{
-		mix_duplicate (use.n_mix_user, i);
+		mix_duplicate(use.n_mix_user, i);
 	}
 /*
  *   Find solution
  */
 	if (use.solution_in == TRUE)
 	{
-		solution_duplicate (use.n_solution_user, i);
+		solution_duplicate(use.n_solution_user, i);
 	}
 /*
  *   Always save solution to i, mixing or not
@@ -2648,7 +2641,7 @@ copy_use (int i)
  */
 	if (use.pp_assemblage_in == TRUE)
 	{
-		pp_assemblage_duplicate (use.n_pp_assemblage_user, i);
+		pp_assemblage_duplicate(use.n_pp_assemblage_user, i);
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = i;
 		save.n_pp_assemblage_user_end = i;
@@ -2662,7 +2655,7 @@ copy_use (int i)
  */
 	if (use.irrev_in == TRUE)
 	{
-		irrev_duplicate (use.n_irrev_user, i);
+		irrev_duplicate(use.n_irrev_user, i);
 		save.irrev = TRUE;
 		save.n_irrev_user = i;
 		save.n_irrev_user_end = i;
@@ -2676,7 +2669,7 @@ copy_use (int i)
  */
 	if (use.exchange_in == TRUE)
 	{
-		exchange_duplicate (use.n_exchange_user, i);
+		exchange_duplicate(use.n_exchange_user, i);
 		save.exchange = TRUE;
 		save.n_exchange_user = i;
 		save.n_exchange_user_end = i;
@@ -2690,7 +2683,7 @@ copy_use (int i)
  */
 	if (use.kinetics_in == TRUE)
 	{
-		kinetics_duplicate (use.n_kinetics_user, i);
+		kinetics_duplicate(use.n_kinetics_user, i);
 		save.kinetics = TRUE;
 		save.n_kinetics_user = i;
 		save.n_kinetics_user_end = i;
@@ -2705,7 +2698,7 @@ copy_use (int i)
 	dl_type_x = NO_DL;
 	if (use.surface_in == TRUE)
 	{
-		surface_duplicate (use.n_surface_user, i);
+		surface_duplicate(use.n_surface_user, i);
 		save.surface = TRUE;
 		save.n_surface_user = i;
 		save.n_surface_user_end = i;
@@ -2719,14 +2712,14 @@ copy_use (int i)
  */
 	if (use.temperature_in == TRUE)
 	{
-		temperature_duplicate (use.n_temperature_user, i);
+		temperature_duplicate(use.n_temperature_user, i);
 	}
 /*
  *   Find gas
  */
 	if (use.gas_phase_in == TRUE)
 	{
-		gas_phase_duplicate (use.n_gas_phase_user, i);
+		gas_phase_duplicate(use.n_gas_phase_user, i);
 		save.gas_phase = TRUE;
 		save.n_gas_phase_user = i;
 		save.n_gas_phase_user_end = i;
@@ -2740,7 +2733,7 @@ copy_use (int i)
  */
 	if (use.s_s_assemblage_in == TRUE)
 	{
-		s_s_assemblage_duplicate (use.n_s_s_assemblage_user, i);
+		s_s_assemblage_duplicate(use.n_s_s_assemblage_user, i);
 		save.s_s_assemblage = TRUE;
 		save.n_s_s_assemblage_user = i;
 		save.n_s_s_assemblage_user_end = i;
@@ -2754,7 +2747,7 @@ copy_use (int i)
 
 /* ---------------------------------------------------------------------- */
 int
-step_save_exch (int n_user)
+step_save_exch(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2771,8 +2764,8 @@ step_save_exch (int n_user)
  */
 	if (use.exchange_ptr == NULL)
 		return (OK);
-	exchange_duplicate (use.exchange_ptr->n_user, n_user);
-	exchange_ptr = exchange_bsearch (n_user, &n);
+	exchange_duplicate(use.exchange_ptr->n_user, n_user);
+	exchange_ptr = exchange_bsearch(n_user, &n);
 	for (i = 0; i < count_master; i++)
 	{
 		if (master[i]->s->type != EX)
@@ -2811,7 +2804,7 @@ step_save_exch (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-step_save_surf (int n_user)
+step_save_surf(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 	/*
@@ -2828,8 +2821,8 @@ step_save_surf (int n_user)
 	 */
 	if (use.surface_ptr == NULL)
 		return (OK);
-	surface_duplicate (use.surface_ptr->n_user, n_user);
-	surface_ptr = surface_bsearch (n_user, &n);
+	surface_duplicate(use.surface_ptr->n_user, n_user);
+	surface_ptr = surface_bsearch(n_user, &n);
 	for (i = 0; i < count_master; i++)
 	{
 		if (master[i]->s->type != SURF)
@@ -2883,7 +2876,7 @@ step_save_surf (int n_user)
 
 /* ---------------------------------------------------------------------- */
 int
-copy_entities (void)
+copy_entities(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, n, return_value;
@@ -2892,19 +2885,19 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_solution.count; j++)
 		{
-			if (solution_bsearch (copy_solution.n_user[j], &n, FALSE) != NULL)
+			if (solution_bsearch(copy_solution.n_user[j], &n, FALSE) != NULL)
 			{
 				for (i = copy_solution.start[j]; i <= copy_solution.end[j];
 					 i++)
 				{
 					if (i == copy_solution.n_user[j])
 						continue;
-					solution_duplicate (copy_solution.n_user[j], i);
+					solution_duplicate(copy_solution.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("SOLUTION to copy not found.");
+				warning_msg("SOLUTION to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -2913,7 +2906,7 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_pp_assemblage.count; j++)
 		{
-			if (pp_assemblage_bsearch (copy_pp_assemblage.n_user[j], &n) !=
+			if (pp_assemblage_bsearch(copy_pp_assemblage.n_user[j], &n) !=
 				NULL)
 			{
 				for (i = copy_pp_assemblage.start[j];
@@ -2921,12 +2914,12 @@ copy_entities (void)
 				{
 					if (i == copy_pp_assemblage.n_user[j])
 						continue;
-					pp_assemblage_duplicate (copy_pp_assemblage.n_user[j], i);
+					pp_assemblage_duplicate(copy_pp_assemblage.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("EQUILIBRIUM_PHASES to copy not found.");
+				warning_msg("EQUILIBRIUM_PHASES to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -2935,18 +2928,18 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_irrev.count; j++)
 		{
-			if (irrev_bsearch (copy_irrev.n_user[j], &n) != NULL)
+			if (irrev_bsearch(copy_irrev.n_user[j], &n) != NULL)
 			{
 				for (i = copy_irrev.start[j]; i <= copy_irrev.end[j]; i++)
 				{
 					if (i == copy_irrev.n_user[j])
 						continue;
-					irrev_duplicate (copy_irrev.n_user[j], i);
+					irrev_duplicate(copy_irrev.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("REACTION to copy not found.");
+				warning_msg("REACTION to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -2955,18 +2948,18 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_mix.count; j++)
 		{
-			if (mix_bsearch (copy_mix.n_user[j], &n) != NULL)
+			if (mix_bsearch(copy_mix.n_user[j], &n) != NULL)
 			{
 				for (i = copy_mix.start[j]; i <= copy_mix.end[j]; i++)
 				{
 					if (i == copy_mix.n_user[j])
 						continue;
-					mix_duplicate (copy_mix.n_user[j], i);
+					mix_duplicate(copy_mix.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("MIX to copy not found.");
+				warning_msg("MIX to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -2975,19 +2968,19 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_exchange.count; j++)
 		{
-			if (exchange_bsearch (copy_exchange.n_user[j], &n) != NULL)
+			if (exchange_bsearch(copy_exchange.n_user[j], &n) != NULL)
 			{
 				for (i = copy_exchange.start[j]; i <= copy_exchange.end[j];
 					 i++)
 				{
 					if (i == copy_exchange.n_user[j])
 						continue;
-					exchange_duplicate (copy_exchange.n_user[j], i);
+					exchange_duplicate(copy_exchange.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("EXCHANGE to copy not found.");
+				warning_msg("EXCHANGE to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -2996,18 +2989,18 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_surface.count; j++)
 		{
-			if (surface_bsearch (copy_surface.n_user[j], &n) != NULL)
+			if (surface_bsearch(copy_surface.n_user[j], &n) != NULL)
 			{
 				for (i = copy_surface.start[j]; i <= copy_surface.end[j]; i++)
 				{
 					if (i == copy_surface.n_user[j])
 						continue;
-					surface_duplicate (copy_surface.n_user[j], i);
+					surface_duplicate(copy_surface.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("SURFACE to copy not found.");
+				warning_msg("SURFACE to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -3016,19 +3009,19 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_temperature.count; j++)
 		{
-			if (temperature_bsearch (copy_temperature.n_user[j], &n) != NULL)
+			if (temperature_bsearch(copy_temperature.n_user[j], &n) != NULL)
 			{
 				for (i = copy_temperature.start[j];
 					 i <= copy_temperature.end[j]; i++)
 				{
 					if (i == copy_temperature.n_user[j])
 						continue;
-					temperature_duplicate (copy_temperature.n_user[j], i);
+					temperature_duplicate(copy_temperature.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("TEMPERATURE to copy not found.");
+				warning_msg("TEMPERATURE to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -3037,19 +3030,19 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_gas_phase.count; j++)
 		{
-			if (gas_phase_bsearch (copy_gas_phase.n_user[j], &n) != NULL)
+			if (gas_phase_bsearch(copy_gas_phase.n_user[j], &n) != NULL)
 			{
 				for (i = copy_gas_phase.start[j]; i <= copy_gas_phase.end[j];
 					 i++)
 				{
 					if (i == copy_gas_phase.n_user[j])
 						continue;
-					gas_phase_duplicate (copy_gas_phase.n_user[j], i);
+					gas_phase_duplicate(copy_gas_phase.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("GAS_PHASE to copy not found.");
+				warning_msg("GAS_PHASE to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -3058,19 +3051,19 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_kinetics.count; j++)
 		{
-			if (kinetics_bsearch (copy_kinetics.n_user[j], &n) != NULL)
+			if (kinetics_bsearch(copy_kinetics.n_user[j], &n) != NULL)
 			{
 				for (i = copy_kinetics.start[j]; i <= copy_kinetics.end[j];
 					 i++)
 				{
 					if (i == copy_kinetics.n_user[j])
 						continue;
-					kinetics_duplicate (copy_kinetics.n_user[j], i);
+					kinetics_duplicate(copy_kinetics.n_user[j], i);
 				}
 			}
 			else
 			{
-				warning_msg ("KINETICS to copy not found.");
+				warning_msg("KINETICS to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -3079,7 +3072,7 @@ copy_entities (void)
 	{
 		for (j = 0; j < copy_s_s_assemblage.count; j++)
 		{
-			if (s_s_assemblage_bsearch (copy_s_s_assemblage.n_user[j], &n) !=
+			if (s_s_assemblage_bsearch(copy_s_s_assemblage.n_user[j], &n) !=
 				NULL)
 			{
 				for (i = copy_s_s_assemblage.start[j];
@@ -3087,13 +3080,13 @@ copy_entities (void)
 				{
 					if (i == copy_s_s_assemblage.n_user[j])
 						continue;
-					s_s_assemblage_duplicate (copy_s_s_assemblage.n_user[j],
-											  i);
+					s_s_assemblage_duplicate(copy_s_s_assemblage.n_user[j],
+											 i);
 				}
 			}
 			else
 			{
-				warning_msg ("SOLID_SOLUTIONS to copy not found.");
+				warning_msg("SOLID_SOLUTIONS to copy not found.");
 				return_value = ERROR;
 			}
 		}
@@ -3114,7 +3107,7 @@ copy_entities (void)
 
 /* ---------------------------------------------------------------------- */
 int
-read_database (PFN_READ_CALLBACK pfn, void *cookie)
+read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
 	int errors;
@@ -3123,23 +3116,23 @@ read_database (PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-	errors = setjmp (mark);
+	errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
 
-	set_read_callback (pfn, cookie, TRUE);
-	dup_print ("Reading data base.", TRUE);
-	read_input ();
-	tidy_model ();
-	status (0, NULL);
+	set_read_callback(pfn, cookie, TRUE);
+	dup_print("Reading data base.", TRUE);
+	read_input();
+	tidy_model();
+	status(0, NULL);
 	return 0;
 }
 
 /* ---------------------------------------------------------------------- */
 int
-run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
+run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
 	int errors;
@@ -3148,13 +3141,13 @@ run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-	errors = setjmp (mark);
+	errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
 
-	set_read_callback (pfn, cookie, FALSE);
+	set_read_callback(pfn, cookie, FALSE);
 
 /*
  *   Read input data for simulation
@@ -3165,22 +3158,22 @@ run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
 #ifdef PHREEQ98
 		AddSeries = !connect_simulations;
 #endif
-		sprintf (token, "Reading input data for simulation %d.", simulation);
+		sprintf(token, "Reading input data for simulation %d.", simulation);
 
-		output_msg (OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
+		output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
 
-		dup_print (token, TRUE);
-		if (read_input () == EOF)
+		dup_print(token, TRUE);
+		if (read_input() == EOF)
 			break;
 
 		if (title_x != NULL)
 		{
-			sprintf (token, "TITLE");
-			dup_print (token, TRUE);
+			sprintf(token, "TITLE");
+			dup_print(token, TRUE);
 			if (pr.headings == TRUE)
-				output_msg (OUTPUT_MESSAGE, "%s\n\n", title_x);
+				output_msg(OUTPUT_MESSAGE, "%s\n\n", title_x);
 		}
-		tidy_model ();
+		tidy_model();
 #ifdef PHREEQC_CPP
 		/*test_classes(); */
 #endif
@@ -3193,55 +3186,55 @@ run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
  *   Calculate distribution of species for initial solutions
  */
 			if (new_solution)
-				initial_solutions (TRUE);
+				initial_solutions(TRUE);
 /*
  *   Calculate distribution for exchangers
  */
 			if (new_exchange)
-				initial_exchangers (TRUE);
+				initial_exchangers(TRUE);
 /*
  *   Calculate distribution for surfaces
  */
 			if (new_surface)
-				initial_surfaces (TRUE);
+				initial_surfaces(TRUE);
 /*
  *   Calculate initial gas composition
  */
 			if (new_gas_phase)
-				initial_gas_phases (TRUE);
+				initial_gas_phases(TRUE);
 /*
  *   Calculate reactions
  */
-			reactions ();
+			reactions();
 /*
  *   Calculate inverse models
  */
-			inverse_models ();
+			inverse_models();
 /*
  *   Calculate advection
  */
 			if (use.advect_in == TRUE)
 			{
-				dup_print ("Beginning of advection calculations.", TRUE);
-				advection ();
+				dup_print("Beginning of advection calculations.", TRUE);
+				advection();
 			}
 /*
  *   Calculate transport
  */
 			if (use.trans_in == TRUE)
 			{
-				dup_print ("Beginning of transport calculations.", TRUE);
-				transport ();
+				dup_print("Beginning of transport calculations.", TRUE);
+				transport();
 			}
 /*
  *   Copy
  */
 			if (new_copy)
-				copy_entities ();
+				copy_entities();
 /*
  *   End of simulation
  */
-			dup_print ("End of simulation.", TRUE);
+			dup_print("End of simulation.", TRUE);
 #ifdef PHREEQ98
 		}						/* if (!phreeq98_debug) */
 #endif
@@ -3249,13 +3242,13 @@ run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
 
 		{
 			int n;
-			SAX_StartSystem ();
+			SAX_StartSystem();
 			for (n = 0; n < count_solution; ++n)
 			{
-				SAX_AddSolution (solution[n]);
+				SAX_AddSolution(solution[n]);
 			}
-			SAX_EndSystem ();
-			SAX_UnpackSolutions (SAX_GetXMLStr (), SAX_GetXMLLength ());
+			SAX_EndSystem();
+			SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
 		}
 #endif
 
@@ -3267,35 +3260,35 @@ run_simulations (PFN_READ_CALLBACK pfn, void *cookie)
 
 /* ---------------------------------------------------------------------- */
 int
-do_initialize (void)
+do_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
 	int errors;
 /*
  *   Prepare error handling
  */
-	errors = setjmp (mark);
+	errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
 
 	state = INITIALIZE;
-	initialize ();
+	initialize();
 
 	return 0;
 }
 
 /* ---------------------------------------------------------------------- */
 int
-do_status (void)
+do_status(void)
 /* ---------------------------------------------------------------------- */
 {
 	int errors;
 /*
  *   Prepare error handling
  */
-	errors = setjmp (mark);
+	errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
@@ -3305,16 +3298,16 @@ do_status (void)
 	{
 #if defined(PHREEQCI_GUI)
 		state = -1;
-		status (0, "\r\nDone.");
+		status(0, "\r\nDone.");
 #else
-		status (0, "\nDone.");
+		status(0, "\nDone.");
 #endif
-		output_msg (OUTPUT_SCREEN, "\n");
-		output_msg (OUTPUT_SEND_MESSAGE, "\r\n");
+		output_msg(OUTPUT_SCREEN, "\n");
+		output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
 	}
-	dup_print ("End of run.", TRUE);
-	output_msg (OUTPUT_SCREEN, "\nEnd of Run.\n");
-	output_msg (OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
+	dup_print("End of run.", TRUE);
+	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
+	output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 
 	return 0;
 }

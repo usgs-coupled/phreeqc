@@ -270,7 +270,7 @@ extern "C"
  *                                                              *
  *--------------------------------------------------------------*/
 
-	M_Env M_EnvInit_Serial (integertype vec_length);
+	M_Env M_EnvInit_Serial(integertype vec_length);
 
 /*--------------------------------------------------------------*
  * Function M_EnvFree_Serial                                    *
@@ -282,7 +282,7 @@ extern "C"
  *                                                              *
  *--------------------------------------------------------------*/
 
-	void M_EnvFree_Serial (M_Env machenv);
+	void M_EnvFree_Serial(M_Env machenv);
 
 /*--------------------------------------------------------------*
  * Serial implementations of the vector operations              * 
@@ -291,36 +291,36 @@ extern "C"
  * see the header file nvector.h                                *
  *--------------------------------------------------------------*/
 
-	N_Vector N_VNew_Serial (integertype n, M_Env machEnv);
-	N_Vector_S N_VNew_S_Serial (integertype ns, integertype n, M_Env machEnv);
-	void N_VFree_Serial (N_Vector v);
-	void N_VFree_S_Serial (integertype ns, N_Vector_S vs);
-	N_Vector N_VMake_Serial (integertype n, realtype * v_data, M_Env machEnv);
-	void N_VDispose_Serial (N_Vector v);
-	realtype *N_VGetData_Serial (N_Vector v);
-	void N_VSetData_Serial (realtype * v_data, N_Vector v);
-	void N_VLinearSum_Serial (realtype a, N_Vector x, realtype b, N_Vector y,
-							  N_Vector z);
-	void N_VConst_Serial (realtype c, N_Vector z);
-	void N_VProd_Serial (N_Vector x, N_Vector y, N_Vector z);
-	void N_VDiv_Serial (N_Vector x, N_Vector y, N_Vector z);
-	void N_VScale_Serial (realtype c, N_Vector x, N_Vector z);
-	void N_VAbs_Serial (N_Vector x, N_Vector z);
-	void N_VInv_Serial (N_Vector x, N_Vector z);
-	void N_VAddConst_Serial (N_Vector x, realtype b, N_Vector z);
-	realtype N_VDotProd_Serial (N_Vector x, N_Vector y);
-	realtype N_VMaxNorm_Serial (N_Vector x);
-	realtype N_VWrmsNorm_Serial (N_Vector x, N_Vector w);
-	realtype N_VMin_Serial (N_Vector x);
-	realtype N_VWL2Norm_Serial (N_Vector x, N_Vector w);
-	realtype N_VL1Norm_Serial (N_Vector x);
-	void N_VOneMask_Serial (N_Vector x);
-	void N_VCompare_Serial (realtype c, N_Vector x, N_Vector z);
-	booleantype N_VInvTest_Serial (N_Vector x, N_Vector z);
-	booleantype N_VConstrProdPos_Serial (N_Vector c, N_Vector x);
-	booleantype N_VConstrMask_Serial (N_Vector c, N_Vector x, N_Vector m);
-	realtype N_VMinQuotient_Serial (N_Vector num, N_Vector denom);
-	void N_VPrint_Serial (N_Vector x);
+	N_Vector N_VNew_Serial(integertype n, M_Env machEnv);
+	N_Vector_S N_VNew_S_Serial(integertype ns, integertype n, M_Env machEnv);
+	void N_VFree_Serial(N_Vector v);
+	void N_VFree_S_Serial(integertype ns, N_Vector_S vs);
+	N_Vector N_VMake_Serial(integertype n, realtype * v_data, M_Env machEnv);
+	void N_VDispose_Serial(N_Vector v);
+	realtype *N_VGetData_Serial(N_Vector v);
+	void N_VSetData_Serial(realtype * v_data, N_Vector v);
+	void N_VLinearSum_Serial(realtype a, N_Vector x, realtype b, N_Vector y,
+							 N_Vector z);
+	void N_VConst_Serial(realtype c, N_Vector z);
+	void N_VProd_Serial(N_Vector x, N_Vector y, N_Vector z);
+	void N_VDiv_Serial(N_Vector x, N_Vector y, N_Vector z);
+	void N_VScale_Serial(realtype c, N_Vector x, N_Vector z);
+	void N_VAbs_Serial(N_Vector x, N_Vector z);
+	void N_VInv_Serial(N_Vector x, N_Vector z);
+	void N_VAddConst_Serial(N_Vector x, realtype b, N_Vector z);
+	realtype N_VDotProd_Serial(N_Vector x, N_Vector y);
+	realtype N_VMaxNorm_Serial(N_Vector x);
+	realtype N_VWrmsNorm_Serial(N_Vector x, N_Vector w);
+	realtype N_VMin_Serial(N_Vector x);
+	realtype N_VWL2Norm_Serial(N_Vector x, N_Vector w);
+	realtype N_VL1Norm_Serial(N_Vector x);
+	void N_VOneMask_Serial(N_Vector x);
+	void N_VCompare_Serial(realtype c, N_Vector x, N_Vector z);
+	booleantype N_VInvTest_Serial(N_Vector x, N_Vector z);
+	booleantype N_VConstrProdPos_Serial(N_Vector c, N_Vector x);
+	booleantype N_VConstrMask_Serial(N_Vector c, N_Vector x, N_Vector m);
+	realtype N_VMinQuotient_Serial(N_Vector num, N_Vector denom);
+	void N_VPrint_Serial(N_Vector x);
 
 
 
