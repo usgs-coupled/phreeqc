@@ -740,7 +740,7 @@ Version 2.9:
 
         10 t = SYS("As", count_species, names$, types$, moles)
 
-        will return the total arsenic in the system to tot; count_species--
+        will return the total arsenic in the system to t; count_species--
         the number of species that contain arsenic, including
         solution, equilibrium_phases, surfaces, exchangers, solid solutions, 
         and gas phase species; names$--a character array that has the
