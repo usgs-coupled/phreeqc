@@ -839,6 +839,7 @@ struct pure_phase
 	LDBLE initial_moles;
 	int force_equality;
 	int dissolve_only;
+	int precipitate_only;
 };
 EXTERNAL int count_pp_assemblage;
 EXTERNAL int max_pp_assemblage;
@@ -1438,6 +1439,7 @@ struct unknown
 	struct surface_charge *surface_charge;
 	LDBLE mass_water;
 	int dissolve_only;
+	LDBLE inert_moles;
 };
 EXTERNAL struct unknown **x;
 EXTERNAL int count_unknowns;

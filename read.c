@@ -4245,6 +4245,8 @@ read_pure_phases(void)
 										 1].force_equality = FALSE;
 			pp_assemblage[n].pure_phases[count_pure_phases -
 										 1].dissolve_only = FALSE;
+			pp_assemblage[n].pure_phases[count_pure_phases -
+										 1].precipitate_only = FALSE;
 			/*
 			 *   Read name
 			 */
@@ -4301,6 +4303,15 @@ read_pure_phases(void)
 			{
 				pp_assemblage[n].pure_phases[count_pure_phases -
 											 1].dissolve_only = TRUE;
+				pp_assemblage[n].pure_phases[count_pure_phases -
+											 1].precipitate_only = FALSE;
+			}
+			if (strstr(token, "p") == token)
+			{
+				pp_assemblage[n].pure_phases[count_pure_phases -
+											 1].precipitate_only = TRUE;
+				pp_assemblage[n].pure_phases[count_pure_phases -
+											 1].dissolve_only = FALSE;
 			}
 			else
 			{

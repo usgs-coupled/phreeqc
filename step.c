@@ -594,6 +594,7 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 	pure_phase_ptr = pp_assemblage_ptr->pure_phases;
 	for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
 	{
+		if (pure_phase_ptr[j].precipitate_only) continue;
 		count_elts = 0;
 		paren_count = 0;
 		amount_to_add = 0.0;
