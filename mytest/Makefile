@@ -80,6 +80,7 @@ all: alkalinity.out \
 	phrqpitz.tst.out \
 	pitzalphas.out \
 	pitzgas.out \
+	precipitate_only.out \
 	prob8.out \
 	s1.out \
 	salt_ec.out \

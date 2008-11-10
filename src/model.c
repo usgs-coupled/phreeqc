@@ -13,7 +13,8 @@ static LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
 static LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
 				   LDBLE xcaq, LDBLE xbaq);
 static int numerical_jacobian(void);
-
+static void set_inert_moles(void);
+static void unset_inert_moles(void);
 #ifdef SKIP
 static int adjust_step_size(void);
 #endif
@@ -84,8 +85,10 @@ model(void)
 	int mass_water_switch_save;
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	set_inert_moles();
 #ifdef ORCHESTRA
 	ORCH_model();
+	unset_inert_moles();
 	return (OK);
 #endif
 /*	debug_model = TRUE; */
@@ -93,7 +96,12 @@ model(void)
 /*	debug_set = TRUE; */
 	/* mass_water_switch == TRUE, mass of water is constant */
 	if (pitzer_model == TRUE)
-		return model_pz();
+	{
+		
+		kode = model_pz();
+		unset_inert_moles();
+		return kode;
+	}
 	mass_water_switch_save = mass_water_switch;
 	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE)
 	{
@@ -271,6 +279,7 @@ model(void)
 	output_msg(OUTPUT_LOG, "Number of iterations: %d\n\n", iterations);
 	debug_model = debug_model_save;
 	set_forward_output_to_log(FALSE);
+	unset_inert_moles();
 	if (stop_program == TRUE)
 	{
 		return (ERROR);
@@ -5078,5 +5087,39 @@ ineq_init(int max_row_count, int max_column_count)
 		if (is == NULL)
 			malloc_error();
 		is_max = 3 * max_row_count;
+	}
+}
+/* ---------------------------------------------------------------------- */
+void
+set_inert_moles(void)
+/* ---------------------------------------------------------------------- */
+{
+	int j;
+	if (use.pp_assemblage_ptr == NULL) return;
+	for (j = 0; j < count_unknowns; j++)
+	{
+		if (x[j]->type != PP) continue;
+		if (x[j]->pure_phase->precipitate_only)
+		{
+			x[j]->inert_moles = x[j]->moles;
+			x[j]->moles = 0;
+		}
+	}
+}
+/* ---------------------------------------------------------------------- */
+void
+unset_inert_moles()
+/* ---------------------------------------------------------------------- */
+{
+	int j;
+	if (use.pp_assemblage_ptr == NULL) return;
+	for (j = 0; j < count_unknowns; j++)
+	{
+		if (x[j]->type != PP) continue;
+		if (x[j]->pure_phase->precipitate_only)
+		{
+			x[j]->moles += x[j]->inert_moles;
+			x[j]->inert_moles = 0;
+		}
 	}
 }

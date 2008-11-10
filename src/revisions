@@ -7,6 +7,20 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+	
+        --------
+        svn 3183
+        --------
+        Added option for an equilibrium-phase to precipitate only,
+        parallel to dissolve_only option.
+        "pre" is added at the end of a line defining an equilibrium-
+                phase. No data fields may be omitted. Should not
+                be used when adding an alternative reaction.        
+        Example:
+                EQUILIBRIUM_PHASES
+                Dolomite 0  0.1   dissolve_only
+                Quartz   0  1.5   precipitate_only 
+        
         --------
         svn 3160
         --------	
