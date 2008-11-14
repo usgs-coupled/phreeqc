@@ -17,6 +17,9 @@ LDBLE activity(const char *species_name);
 LDBLE activity_coefficient(const char *species_name);
 LDBLE log_activity_coefficient(const char *species_name);
 LDBLE calc_SC(void);
+// VP: Density Start
+LDBLE calc_dens(void);
+// VP: Density End
 LDBLE calc_logk_n(const char *name);
 LDBLE calc_logk_p(const char *name);
 LDBLE calc_logk_s(const char *name);

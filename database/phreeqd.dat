@@ -64,18 +64,22 @@ Ca+2 = Ca+2
 	log_k	0.0
 	-gamma	5.0 	0.1650
 	-dw 	0.793e-9
+        -millero -19.69 0.1058 -0.001256 1.617 -0.075 0.0008262
 Mg+2 = Mg+2
 	log_k	0.0
 	-gamma	5.5 	0.20
 	-dw 	0.705e-9
+        -millero -22.32 0.0868 -0.0016 2.017 -0.125 0.001457
 Na+ = Na+
 	log_k	0.0
 	-gamma	4.0 	0.075
 	-dw 	1.33e-9
+	-millero -3.46 0.1092 -0.000768 2.698 -0.106 0.001651
 K+ = K+
 	log_k	0.0
 	-gamma	3.5 	0.015
 	-dw 	1.96e-9
+        -millero 7.26 0.0892 -0.000736 2.722 -0.101 0.00151
 Fe+2 = Fe+2
 	log_k	0.0
 	-gamma	6.0 	0.0
@@ -96,33 +100,40 @@ Sr+2 = Sr+2
 	log_k	0.0
 	-gamma	5.260	0.121
 	-dw 	0.794e-9
+        -millero -18.44 0.0082 -0.0006 1.727 -0.067 0.00084
 H4SiO4 = H4SiO4
 	log_k	0.0
 	-dw 	1.10e-9
+        -millero 56.0 # b, c, d, e and f not reported by Millero, 2000
 Cl- = Cl-
 	log_k	0.0
 	-gamma	3.5 	0.015
 	-dw 	2.03e-9
+        -millero 16.37 0.0896 -0.001264 -1.494 0.034 -0.000621
 CO3-2 = CO3-2
 	log_k	0.0
 	-gamma	5.4 	0.0
 	-dw 	0.955e-9
+        -millero -8.74 0.300 -0.004064 5.65;  # d is value for 25 oC, e and f not reported by Millero, 2000
 SO4-2 = SO4-2
 	log_k	0.0
 	-gamma	5.0 	-0.04
 	-dw 	1.07e-9
+        -millero 9.26 0.284 -0.003808 0.4348 -0.0099143 -8.4762e-05
 NO3- = NO3-
 	log_k	0.0
 	-gamma	3.0 	0.0
 	-dw 	1.9e-9
+        -millero 25.51 0.1888 -0.001984 -0.654; # d is value for 25 oC, e and f not reported by Millero, 2000
 AmmH+ = AmmH+
 	log_k	0.0
 	-gamma	2.5 	0.0
 	-dw 	1.98e-9
+        -millero 17.47 -3.400e-3 7.600e-4 # From Millero, 1971, d, e and f not reported
 H3BO3 = H3BO3
 	log_k	0.0
 	-dw	1.1e-9
-
+        -millero 36.56 0.130 -0.00081 # d, e and f not reported by Millero, 2000
 PO4-3 = PO4-3
 	log_k	0.0
 	-gamma	4.0 	0.0
@@ -131,6 +142,7 @@ F- = F-
 	log_k	0.0
 	-gamma	3.5 	0.0
 	-dw 	1.46e-9
+        -millero -3.05 0.3276 -0.00352 1.271 -0.074 8.857e-05
 Li+ = Li+
 	log_k	0.0
 	-gamma	6.0 	0.0
@@ -139,6 +151,7 @@ Br- = Br-
 	log_k	0.0
 	-gamma	3.0 	0.0
 	-dw 	2.01e-9
+        -millero 22.98 0.0934 -0.000968 -1.675 0.05 -0.001105
 Zn+2 = Zn+2
 	log_k	0.0
 	-gamma	5.0 	0.0
@@ -173,6 +186,7 @@ CO3-2 + H+ = HCO3-
 	-analytic	107.8871	0.03252849	-5151.79	-38.92561	563713.9
 	-gamma	5.4 	0.0
 	-dw 	1.18e-9
+        -millero 21.07 0.185 -0.002248 2.29 -0.006644 -3.667E-06
 CO3-2 + 2 H+ = CO2 + H2O
 	log_k	16.681
 	delta_h -5.738	kcal
@@ -254,6 +268,7 @@ PO4-3 + 2 H+ = H2PO4-
 	delta_h -4.520	kcal
 	-gamma	4.5 	0.0
 	-dw 	0.846e-9
+        -millero 33.6 # b, c, d, e and f not reported by Millero, 2000
 H+ + F- = HF
 	log_k	3.18
 	delta_h 3.18	kcal
@@ -1390,7 +1405,7 @@ K-feldspar
 50	  pk_CO2 = 14.6 + 1677 * dif_temp
 #60   pk_org = 13.9 + 1254 * dif_temp  # rate increase with DOC
 70	  rate = 10^-pk_H * ACT("H+")^0.5 + 10^-pk_w + 10^-pk_OH * ACT("OH-")^0.3
-71	  rate = rate + 10^-pk_CO2 * (10^SI("CO2(g)"))^0.6 
+71	  rate = rate + 10^-pk_CO2 * (10^SI("CO2(g)"))^0.6
 #72   rate = rate + 10^-pk_org * TOT("DOC")^0.4
 80	  moles = parm(1) * parm(2) * rate * (1 - SR("K-feldspar")) * time
 81 rem decrease rate on precipitation
@@ -1545,4 +1560,4 @@ Pyrolusite
    120	if moles <= -Mn_t then moles = -Mn_t
    200	save moles
   -end
-END
+END
