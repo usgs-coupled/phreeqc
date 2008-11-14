@@ -199,7 +199,7 @@ calc_dens (void)
        }
     }
 
-    z = abs(s_ptr->z);
+    z = abs((int) s_ptr->z);
     a = s_ptr->millero[0];
     b = s_ptr->millero[1];
     c = s_ptr->millero[2];
