@@ -25,6 +25,9 @@ static char const svnid[] = "$Id$";
 STATIC int add_psi_master_species(char *token);
 STATIC int read_advection(void);
 STATIC int read_analytical_expression_only(char *ptr, LDBLE * log_k);
+// VP: Density Start
+STATIC int read_millero_abcdef (char *ptr, LDBLE * abcdef);
+// VP: Density End
 STATIC int read_copy(void);
 STATIC int read_debug(void);
 STATIC int read_delta_h_only(char *ptr, LDBLE * delta_h,
@@ -3246,6 +3249,34 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 	return (OK);
 }
 
+// VP: Density Start
+/* ---------------------------------------------------------------------- */
+int
+read_millero_abcdef (char *ptr, LDBLE * abcdef)
+/* ---------------------------------------------------------------------- */
+{
+  int j;
+/*
+ *   Read a, b, c, d, e and f parameters for Millero density model.
+ */
+  for (j = 0; j < 6; j++)
+  {
+    abcdef[j] = 0.0;
+  }
+  j =
+    sscanf (ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
+	    &(abcdef[0]), &(abcdef[1]), &(abcdef[2]), &(abcdef[3]), &(abcdef[4]), &(abcdef[5]));
+  if (j < 1)
+  {
+    input_error++;
+    error_msg ("Expecting numeric values for analytical expression.",
+	       CONTINUE);
+    return (ERROR);
+  }
+  return (OK);
+}
+// VP: Density End
+
 /* ---------------------------------------------------------------------- */
 int
 read_incremental_reactions(void)
@@ -5602,9 +5633,15 @@ read_species(void)
 		"add_log_k",			/* 17 */
 		"add_constant",			/* 18 */
 		"dw",					/* 19 */
-		"erm_ddl"				/* 20 */
+// VP: Density Start
+//		"erm_ddl"				/* 20 */
+//	};
+//	int count_opt_list = 21;
+		"erm_ddl",				/* 20 */
+		"millero"				/* 21 */
 	};
-	int count_opt_list = 21;
+	int count_opt_list = 22;
+// VP: Density End         
 
 	association = TRUE;
 	s_ptr = NULL;
@@ -5932,6 +5969,21 @@ read_species(void)
 			}
 			opt_save = OPTION_DEFAULT;
 			break;
+// VP: Density Start
+		case 21:			/* Millero a, b, c, d, e and f coefficients */
+			if (s_ptr == NULL)
+			{
+				sprintf(error_string,
+						"No reaction defined before option, %s.",
+						opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			print_density = read_millero_abcdef (next_char, &(s_ptr->millero[0]));
+			opt_save = OPTION_DEFAULT;
+			break;
+// VP: Density End
 
 		case OPTION_DEFAULT:
 /*

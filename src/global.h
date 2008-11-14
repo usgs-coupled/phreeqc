@@ -1263,6 +1263,9 @@ struct species
 	LDBLE dha, dhb;				/* WATEQ Debye Huckel a and b-dot */
 	LDBLE lk;					/* log10 k at working temperature */
 	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analalytical expression */
+// VP: Density Start
+	LDBLE millero[6];		    /* regression coefficients to calculate temperature dependent phi_0 and b_v of Millero density model */
+// VP: Density End
 	DELTA_H_UNIT original_units;	/* enum with original delta H units */
 	int count_add_logk;
 	struct name_coef *add_logk;
@@ -1794,6 +1797,9 @@ EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
 EXTERNAL LDBLE COSMOT;
 EXTERNAL LDBLE AW;
 EXTERNAL int have_punch_name;
+// VP: Density Start
+EXTERNAL int print_density;
+// VP: Density End
 
 EXTERNAL jmp_buf mark;
 EXTERNAL LDBLE *zeros;
