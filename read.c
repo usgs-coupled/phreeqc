@@ -4336,8 +4336,7 @@ read_pure_phases(void)
 											 1].dissolve_only = TRUE;
 				pp_assemblage[n].pure_phases[count_pure_phases -
 											 1].precipitate_only = FALSE;
-			}
-			if (strstr(token, "p") == token)
+			} else if (strstr(token, "p") == token)
 			{
 				pp_assemblage[n].pure_phases[count_pure_phases -
 											 1].precipitate_only = TRUE;
