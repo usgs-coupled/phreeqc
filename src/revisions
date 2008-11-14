@@ -7,7 +7,57 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+        --------
+        svn 3189
+        --------
+        Density of solutions is now calculated from the concentrations
+        of dissolved species. The algorithm has been described by Millero 
+        (1974), Millero (2000), Millero (2001) and has been used 
+        successfully by Millero and Lepple (1973), Millero et al (1976), 
+        Fernendez et al. (1982) and Millero (2000) to calculate the 
+        density of seawater, estuaries, lagoons and lakes. 
+        
+        The calculation relies on apparent molar volumes phi(i),
+        for individual aqueous species according to the following formula:
+        
+        phi(i) = phi(i,inf) + s(t)I^0.5 + beta(i)I
+        
+        where phi(i,inf) is the apparent molar volume of species i at 
+        infinite dilution, s(t) is the Debije-Huckel limiting slope, beta(i)
+        is an empirical constant, and I is the ionic strength.
+        
+        s(t) is calculated as a function of temperature. Parameterizations of
+        phi(i,inf) and beta(i) use the following formulas:
+        
+        phi(i,inf) = a + bt +ct^2
+        beta(i) = d + et + ft^2
+        
+        where a, b, c, d, e, and f are empirical constants and t in Celcius.
+        Data input of the constants are in the keyword data block SOLUTION_SPECIES
+        using the new identifier -millero.
+        
+        Example:
+        
+        SOLUTION_SPECIES
+        Na+ = Na+
+	log k 0.0
+	-gamma 4.0 0.075
+	-dw 1.33e-9
+	-millero -3.46 0.1092 -0.000768 2.698 -0.106 0.001651
 	
+	Apparent molar volume parameters have been included in the database
+	phreeqd.dat. Calculations made with this database will include
+	the calculated density in the "Description of solution".
+	
+	A new basic function, RHO, can be used to obtain the density in 
+	USER_PRINT, USER_PUNCH, and RATES data blocks.
+	
+	Example:
+	
+	USER_PUNCH
+	-heading density
+	10 PUNCH RHO
+        
         --------
         svn 3183
         --------
