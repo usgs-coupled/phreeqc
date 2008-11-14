@@ -14,7 +14,6 @@ Reading data base.
 	SURFACE_MASTER_SPECIES
 	SURFACE_SPECIES
 	RATES
-	END
 ------------------------------------
 Reading input data for simulation 1.
 ------------------------------------
@@ -51,6 +50,7 @@ Initial solution 0.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 10802
+                          Density (g/cm3)  =   1.00116
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
                        Mass of water (kg)  =   1.000e+00
@@ -105,6 +105,7 @@ Initial solution 1.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -209,6 +210,7 @@ Using solution 1.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -273,6 +275,7 @@ Using solution 2.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -337,6 +340,7 @@ Using solution 3.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -401,6 +405,7 @@ Using solution 4.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -465,6 +470,7 @@ Using solution 5.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -529,6 +535,7 @@ Using solution 6.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -593,6 +600,7 @@ Using solution 7.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -657,6 +665,7 @@ Using solution 8.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -721,6 +730,7 @@ Using solution 9.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -785,6 +795,7 @@ Using solution 10.
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -899,6 +910,7 @@ Mixture 1.
                                        pH  =   7.132      Charge balance
                                        pe  =  11.287      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7021
+                          Density (g/cm3)  =   0.99967
                         Activity of water  =   0.998
                            Ionic strength  =   6.362e-02
                        Mass of water (kg)  =   1.000e+00
@@ -981,6 +993,7 @@ Mixture 2.
                                        pH  =   7.015      Charge balance
                                        pe  =  11.519      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 2264
+                          Density (g/cm3)  =   0.99786
                         Activity of water  =   0.999
                            Ionic strength  =   1.963e-02
                        Mass of water (kg)  =   1.000e+00
@@ -1063,6 +1076,7 @@ Mixture 3.
                                        pH  =   6.978      Charge balance
                                        pe  =  11.607      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 534
+                          Density (g/cm3)  =   0.99724
                         Activity of water  =   1.000
                            Ionic strength  =   4.563e-03
                        Mass of water (kg)  =   1.000e+00
@@ -1145,6 +1159,7 @@ Mixture 4.
                                        pH  =   6.971      Charge balance
                                        pe  =  11.654      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 109
+                          Density (g/cm3)  =   0.99709
                         Activity of water  =   1.000
                            Ionic strength  =   1.025e-03
                        Mass of water (kg)  =   1.000e+00
@@ -1227,6 +1242,7 @@ Mixture 5.
                                        pH  =   6.980      Charge balance
                                        pe  =  11.678      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 32
+                          Density (g/cm3)  =   0.99707
                         Activity of water  =   1.000
                            Ionic strength  =   4.024e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1309,6 +1325,7 @@ Mixture 6.
                                        pH  =   6.994      Charge balance
                                        pe  =  11.673      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 21
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   3.124e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1391,6 +1408,7 @@ Mixture 7.
                                        pH  =   6.999      Charge balance
                                        pe  =  11.643      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   3.010e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1473,6 +1491,7 @@ Mixture 8.
                                        pH  =   7.000      Charge balance
                                        pe  =  11.564      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.998e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1555,6 +1574,7 @@ Mixture 9.
                                        pH  =   7.000      Charge balance
                                        pe  =  11.449      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1637,6 +1657,7 @@ Mixture 10.
                                        pH  =   7.000      Charge balance
                                        pe  =  11.374      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1737,6 +1758,7 @@ Initial solution 0.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 10802
+                          Density (g/cm3)  =   1.00116
                         Activity of water  =   0.997
                            Ionic strength  =   1.000e-01
                        Mass of water (kg)  =   1.000e+00
@@ -1791,6 +1813,7 @@ Initial solution 1.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -1927,6 +1950,7 @@ Su
                                        pH  =   5.895      Charge balance
                                        pe  =  -0.006      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7368
+                          Density (g/cm3)  =   0.99999
                         Activity of water  =   0.998
                            Ionic strength  =   8.266e-02
                        Mass of water (kg)  =   1.465e+00
@@ -2057,6 +2081,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.507      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2152,6 +2177,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.523      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2247,6 +2273,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2342,6 +2369,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2437,6 +2465,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2532,6 +2561,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2627,6 +2657,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2722,6 +2753,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2817,6 +2849,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -2912,6 +2945,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  10.568      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.997e-04
                        Mass of water (kg)  =   5.000e-01
@@ -3061,6 +3095,7 @@ Su
                                        pH  =   3.660      Charge balance
                                        pe  =  17.095      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7158
+                          Density (g/cm3)  =   0.99978
                         Activity of water  =   0.998
                            Ionic strength  =   7.068e-02
                        Mass of water (kg)  =   9.622e-01
@@ -3176,6 +3211,7 @@ Su
                                        pH  =  11.327      Charge balance
                                        pe  = -11.444      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 3153
+                          Density (g/cm3)  =   0.99811
                         Activity of water  =   0.999
                            Ionic strength  =   3.112e-02
                        Mass of water (kg)  =   9.432e-01
@@ -3291,6 +3327,7 @@ Su
                                        pH  =  11.647      Charge balance
                                        pe  = -11.905      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 1809
+                          Density (g/cm3)  =   0.99744
                         Activity of water  =   1.000
                            Ionic strength  =   1.453e-02
                        Mass of water (kg)  =   9.175e-01
@@ -3406,6 +3443,7 @@ Su
                                        pH  =  11.355      Charge balance
                                        pe  = -11.470      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 680
+                          Density (g/cm3)  =   0.99716
                         Activity of water  =   1.000
                            Ionic strength  =   4.638e-03
                        Mass of water (kg)  =   8.566e-01
@@ -3521,6 +3559,7 @@ Su
                                        pH  =  10.885      Charge balance
                                        pe  = -10.590      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 207
+                          Density (g/cm3)  =   0.99708
                         Activity of water  =   1.000
                            Ionic strength  =   1.286e-03
                        Mass of water (kg)  =   7.372e-01
@@ -3636,6 +3675,7 @@ Su
                                        pH  =   9.878      Charge balance
                                        pe  =  -7.197      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 44
+                          Density (g/cm3)  =   0.99707
                         Activity of water  =   1.000
                            Ionic strength  =   4.963e-04
                        Mass of water (kg)  =   5.966e-01
@@ -3751,6 +3791,7 @@ Su
                                        pH  =   7.234      Charge balance
                                        pe  =  -4.063      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 21
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   3.146e-04
                        Mass of water (kg)  =   5.100e-01
@@ -3866,6 +3907,7 @@ Su
                                        pH  =   7.025      Charge balance
                                        pe  =  -3.690      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   3.015e-04
                        Mass of water (kg)  =   5.012e-01
@@ -3981,6 +4023,7 @@ Su
                                        pH  =   7.003      Charge balance
                                        pe  =  -3.512      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.999e-04
                        Mass of water (kg)  =   5.002e-01
@@ -4096,6 +4139,7 @@ Su
                                        pH  =   7.000      Charge balance
                                        pe  =  -3.399      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   2.998e-04
                        Mass of water (kg)  =   5.001e-01
