@@ -167,6 +167,9 @@ typedef Char string255[256];
 #define toksc        136
 #define tokgamma        137
 #define toklg           138
+// VP: Density Start
+#define tokrho           139
+// VP: Density End
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -386,7 +389,11 @@ static const struct const_key command[] = {
 	{"porevolume", tokporevolume},
 	{"sc", toksc},
 	{"gamma", tokgamma},
-	{"lg", toklg}
+// VP: Density Start
+//	{"lg", toklg}
+	{"lg", toklg},
+	{"rho", tokrho}	
+// VP: Density End
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
@@ -2001,6 +2008,11 @@ listtokens(FILE * f, tokenrec * buf)
 			output_msg(OUTPUT_BASIC, "LG");
 			break;
 
+// VP: Density Start
+		case tokrho:
+			output_msg(OUTPUT_BASIC, "RHO");
+			break;
+// VP: Density End
 		}
 		buf = buf->next;
 	}
@@ -3136,6 +3148,12 @@ factor(struct LOC_exec * LINK)
 	case tokporevolume:
 		n.UU.val = pore_volume;
 		break;
+
+// VP : Density Start
+	case tokrho:
+		n.UU.val = calc_dens();
+		break;
+// VP: Density End
 
 	case toksc:
 		n.UU.val = calc_SC();

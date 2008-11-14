@@ -2050,6 +2050,13 @@ print_totals(void)
 		output_msg(OUTPUT_MESSAGE, "%45s%i\n",
 				   "Specific Conductance (uS/cm, 25 oC) = ", (int) EC);
 	}
+// VP: Density Start
+	if (print_density)
+	{
+	output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density (g/cm3)  = ",
+			   (double) calc_dens());
+	}
+// VP: Density End
 	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Activity of water  = ",
 			   exp(s_h2o->la * LOG_10));
 	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Ionic strength  = ",
