@@ -136,7 +136,7 @@ calc_SC(void)
 	return (SC);
 }
 
-// VP: Density Start
+/* VP: Density Start */
 /* ---------------------------------------------------------------------- */
 LDBLE
 calc_dens (void)
@@ -162,7 +162,7 @@ calc_dens (void)
   int z;
   struct species *s_ptr;
 
-  // Density of V-SMOW (UNESCO, 1983)
+  /* Density of V-SMOW (UNESCO, 1983) */
   rho_0 = 999.842594 + (6.793952e-2 + (-9.095290e-3 + (1.001685e-4 + (-1.120083e-6 + 6.536332e-9 * tc_x) * tc_x) * tc_x) * tc_x) * tc_x;
   rho_0 /= 1000;
   s_v_i = 1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc_x) * tc_x) * tc_x;
@@ -176,8 +176,8 @@ calc_dens (void)
   B_v = 0.0;
   S_v = 0.0;
   for (i = 0; i < count_species_list; i++) {
-    a = 0.0; b = 0.0; c = 0.0; d = 0.0; e = 0.0; f = 0.0; // Just to be sure
-    phi_0_i = 0.0; b_v_i = 0.0; // Just to be sure
+    a = 0.0; b = 0.0; c = 0.0; d = 0.0; e = 0.0; f = 0.0; /* Just to be sure */
+    phi_0_i = 0.0; b_v_i = 0.0; /* Just to be sure */
 
     if (species_list[i].s->type != AQ)
       continue;
@@ -190,12 +190,12 @@ calc_dens (void)
     if (species_list[i].s->millero[0] == 0) s_ptr = species_list[i].master_s;
       else s_ptr = species_list[i].s;
 
-    // Special case: CO3-2 species
+    /* Special case: CO3-2 species */
     if (strcmp(s_ptr->name, "CO3-2") == 0) {
        if (strstr(species_list[i].s->name, "HCO3") != NULL) {
-          s_ptr = s_search("HCO3-");
+	  s_ptr = s_search("HCO3-");
        } else if (strstr(species_list[i].s->name, "CO3") != NULL) {
-          compute_gfw("CO3-2", &gfw);
+	  compute_gfw("CO3-2", &gfw);
        }
     }
 
@@ -213,13 +213,13 @@ calc_dens (void)
     B_v += (species_list[i].s->moles * b_v_i);
     S_v += (species_list[i].s->moles * z * (s_v_i * z / 2));
 
-    if (z == 0) e_T += (species_list[i].s->moles * 2); // For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on)
+    if (z == 0) e_T += (species_list[i].s->moles * 2); /* For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on) */
        else e_T += (species_list[i].s->moles * z);
     M_T += (species_list[i].s->moles * gfw);
     I_m += (species_list[i].s->moles * (z * z));
   }
 
-  // If pure water then return rho_0
+  /* If pure water then return rho_0 */
   if (PHI_v == 0)
      return rho_0;
 
@@ -240,13 +240,13 @@ calc_dens (void)
     rho_old = rho_new;
     solution_volume = solution_mass / rho_new / 1000;
     I_v = I_m / solution_volume;
-    rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); // exp/log is used for exponentiation
+    rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
     rho_new = rho_new / 1000 + rho_0;
   } while (fabs(rho_new - rho_old) > 1.0e-6);
 
-  return rho_new; //(rho_new - rho_0) * 1e3;
+  return rho_new; /*(rho_new - rho_0) * 1e3; */
 }
-// VP: Density End
+/* VP: Density End */
 
 /* ---------------------------------------------------------------------- */
 LDBLE
@@ -1327,9 +1327,9 @@ match_elts_in_species(const char *name, const char *mytemplate)
 	 *   Compare string
 	 */
 	/* Cases: 0 exact match
-	 *          1 leading wild card
-	 *          2 trailing wild card
-	 *          3 leading and trailing wild card
+	 *	  1 leading wild card
+	 *	  2 trailing wild card
+	 *	  3 leading and trailing wild card
 	 */
 	case_no = 0;
 	if (template1[0] == '*')
@@ -1638,7 +1638,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 	(*moles)[0] = 0;
 	for (i = 0; i < count_sys; i++)
 	{
-		/*        output_msg(OUTPUT_MESSAGE, "%20s\t%10s\t%e\n", sys[i].name, sys[i].type, sys[i].moles); */
+		/*	output_msg(OUTPUT_MESSAGE, "%20s\t%10s\t%e\n", sys[i].name, sys[i].type, sys[i].moles); */
 		(*names)[i + 1] = sys[i].name;
 		(*types)[i + 1] = sys[i].type;
 		(*moles)[i + 1] = sys[i].moles;
@@ -2641,3 +2641,4 @@ system_total_solids(struct exchange *exchange_ptr,
 	}
 	return (OK);
 }
+
