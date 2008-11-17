@@ -4552,12 +4552,12 @@ s_init(struct species *s_ptr)
 	{
 		s_ptr->logk[i] = 0.0;
 	}
-// VP: Density Start
+/* VP: Density Start */
 	for (i = 0; i < 6; i++)
 	{
 		s_ptr->millero[i] = 0.0;
 	}
-// VP: Density End
+/* VP: Density End */
 	s_ptr->original_units = kjoules;
 	s_ptr->count_add_logk = 0;
 	s_ptr->add_logk = NULL;
@@ -7907,3 +7907,4 @@ copier_init(struct copier *copier_ptr)
 		(int *) PHRQ_malloc((size_t) (copier_ptr->max * sizeof(int)));
 	return (OK);
 }
+

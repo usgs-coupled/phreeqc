@@ -25,9 +25,9 @@ static char const svnid[] = "$Id$";
 STATIC int add_psi_master_species(char *token);
 STATIC int read_advection(void);
 STATIC int read_analytical_expression_only(char *ptr, LDBLE * log_k);
-// VP: Density Start
+/* VP: Density Start */
 STATIC int read_millero_abcdef (char *ptr, LDBLE * abcdef);
-// VP: Density End
+/* VP: Density End */
 STATIC int read_copy(void);
 STATIC int read_debug(void);
 STATIC int read_delta_h_only(char *ptr, LDBLE * delta_h,
@@ -3249,7 +3249,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 	return (OK);
 }
 
-// VP: Density Start
+/* VP: Density Start */
 /* ---------------------------------------------------------------------- */
 int
 read_millero_abcdef (char *ptr, LDBLE * abcdef)
@@ -3275,7 +3275,7 @@ read_millero_abcdef (char *ptr, LDBLE * abcdef)
   }
   return (OK);
 }
-// VP: Density End
+/* VP: Density End */
 
 /* ---------------------------------------------------------------------- */
 int
@@ -5643,15 +5643,12 @@ read_species(void)
 		"add_log_k",			/* 17 */
 		"add_constant",			/* 18 */
 		"dw",					/* 19 */
-// VP: Density Start
-//		"erm_ddl"				/* 20 */
-//	};
-//	int count_opt_list = 21;
+/* VP: Density Start */
 		"erm_ddl",				/* 20 */
 		"millero"				/* 21 */
 	};
 	int count_opt_list = 22;
-// VP: Density End         
+/* VP: Density End */
 
 	association = TRUE;
 	s_ptr = NULL;
@@ -5979,7 +5976,7 @@ read_species(void)
 			}
 			opt_save = OPTION_DEFAULT;
 			break;
-// VP: Density Start
+/* VP: Density Start */
 		case 21:			/* Millero a, b, c, d, e and f coefficients */
 			if (s_ptr == NULL)
 			{
@@ -5993,7 +5990,7 @@ read_species(void)
 			print_density = read_millero_abcdef (next_char, &(s_ptr->millero[0]));
 			opt_save = OPTION_DEFAULT;
 			break;
-// VP: Density End
+/* VP: Density End */
 
 		case OPTION_DEFAULT:
 /*
@@ -6752,7 +6749,7 @@ read_surf(void)
 	 *
 	 *      Returns:
 	 *   KEYWORD if keyword encountered, input_error may be incremented if
-	 *          a keyword is encountered in an unexpected position
+	 *	  a keyword is encountered in an unexpected position
 	 *   EOF     if eof encountered while reading mass balance concentrations
 	 *   ERROR   if error occurred reading data
 	 *
@@ -6789,7 +6786,7 @@ read_surf(void)
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
 	 *    Surf_wOH  Manganite  [equilibrium_phases or kinetics]      0.25    4000
-	 *    ^Name     mineral    ^switch                 ^prop.factor ^m2/mol
+	 *    ^Name     mineral    ^switch		 ^prop.factor ^m2/mol
 	 */
 	/*
 	 *   Read surface number and description
@@ -6872,7 +6869,7 @@ read_surf(void)
 			surface[n].thickness = 1e-8;
 			surface[n].dl_type = BORKOVEK_DL;
 			sscanf(next_char, SCANFORMAT, &surface[n].thickness);
-			/*                surface[n].thickness = thickness;
+			/*		surface[n].thickness = thickness;
 			   }
 			 */ break;
 		case 4:				/* no electrostatic */
@@ -10836,3 +10833,4 @@ read_copy(void)
 	/* empty, eof, keyword, print */
 	return (return_value);
 }
+
