@@ -1209,6 +1209,13 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3207
+        --------
+	Modifications to convergence criteria for surfaces
+	related to minerals, when moles of mineral is near
+	zero (<= 1e-14).
+
+        --------
 	svn 3100
         --------
 	Error when multiple surfaces were used. Sometimes the
