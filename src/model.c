@@ -513,6 +513,7 @@ check_residuals(void)
 		}
 		else if (x[i]->type == SURFACE)
 		{
+			if (fabs(residual[i]) < ineq_tol && fabs(residual[i]) < 1e-2*x[i]->moles) continue;
 			if (				/* stop_program == TRUE || */
 				   (x[i]->moles <= MIN_RELATED_SURFACE
 					&& fabs(residual[i]) > epsilon)
@@ -3733,6 +3734,9 @@ residuals(void)
 								   residual[i]);
 					converge = FALSE;
 				}
+			}
+			else if (fabs(residual[i]) < ineq_tol && fabs(residual[i]) < 1e-2*x[i]->moles)
+			{
 			}
 			else if (fabs(residual[i]) > toler * x[i]->moles)
 			{
