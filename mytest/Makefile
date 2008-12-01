@@ -38,6 +38,7 @@ all: alkalinity.out \
 	exch_kin_related.out \
 	exch_kin_related_pz.out \
 	ex_ild.out \
+	ferri_surface.out \
 	fiona.out \
 	fixed_volume_gas.out \
 	fixed_volume_gas_pz.out \

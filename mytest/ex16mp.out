@@ -47,8 +47,7 @@ Reading input data for simulation 1.
 	        KMg3AlSi3O10(OH)2 + 6H+ + 4H2O = K+ + 3Mg+2 + Al(OH)4- + 3H4SiO4 
 	        log_k  0.0      # No log_k, Inverse modeling only
 	Plagioclase
-	        Na0.62Ca0.38Al1.38Si2.62O8 + 5.52 H+ + 2.48H2O = 
-                0.62Na+ + 0.38Ca+2 + 1.38Al+3 + 2.62H4SiO4
+	        Na0.62Ca0.38Al1.38Si2.62O8 + 5.52 H+ + 2.48H2O =                 0.62Na+ + 0.38Ca+2 + 1.38Al+3 + 2.62H4SiO4
 	        log_k  0.0      # No log_k, inverse modeling only
 	END
 -----
