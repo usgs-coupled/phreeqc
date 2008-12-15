@@ -871,9 +871,9 @@ calc_all_donnan(void)
 
 	if (use.surface_ptr == NULL)
 		return (OK);
-	if (use.surface_ptr->type == CD_MUSIC)
+/*	if (use.surface_ptr->type == CD_MUSIC)
 		return (calc_all_donnan_music());
-	f_sinh =
+ */	f_sinh =
 		sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) *
 			 tk_x * mu_x);
 	cz = cm = 1.0;
@@ -1050,9 +1050,9 @@ calc_init_donnan(void)
 
 	if (use.surface_ptr == NULL)
 		return (OK);
-	if (use.surface_ptr->type == CD_MUSIC)
+/*	if (use.surface_ptr->type == CD_MUSIC)
 		return (calc_init_donnan_music());
-	f_sinh =
+ */	f_sinh =
 		sqrt(8000.0 * EPSILON * EPSILON_ZERO * (R_KJ_DEG_MOL * 1000.0) *
 			 tk_x * mu_x);
 	if (convergence_tolerance >= 1e-8)
@@ -1228,10 +1228,10 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 		fd1 = 0.0;
 		for (i = 1; i < count_g; i++)
 		{
-			if (use.surface_ptr->type == CD_MUSIC)
+/*			if (use.surface_ptr->type == CD_MUSIC)
 				temp = exp(-charge_group[i].z * p);
-			else
-				/*  multiply with ratio_aq for multiplier options cp and cm
+ 			else
+ */				/*  multiply with ratio_aq for multiplier options cp and cm
 				   in calc_all_donnan (not used now)...  */
 				temp = exp(-charge_group[i].z * p) * ratio_aq;
 
