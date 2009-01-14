@@ -1209,6 +1209,14 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3247
+        --------
+	Revised donnan layer calculation with CD_MUSIC. Fixed
+	a bug related to moles versus concentration and stream
+	lined calculation. Minor differences in relevant test
+	cases.
+	
+	--------
 	svn 3207
         --------
 	Modifications to convergence criteria for surfaces
