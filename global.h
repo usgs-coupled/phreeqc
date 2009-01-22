@@ -1232,6 +1232,7 @@ EXTERNAL int max_elts;
 struct reaction
 {
 	LDBLE logk[8];
+	LDBLE dz[3];
 	struct rxn_token *token;
 };
 struct rxn_token
@@ -1470,6 +1471,7 @@ EXTERNAL struct unknown *s_s_unknown;
 struct reaction_temp
 {
 	LDBLE logk[8];
+	LDBLE dz[3];
 	struct rxn_token_temp *token;
 };
 struct rxn_token_temp

@@ -6646,6 +6646,10 @@ read_surface_species(void)
 									  s_ptr->cd_music[3]) *
 				s_ptr->cd_music[4];
 			s_ptr->dz[2] = s_ptr->cd_music[2];
+			for (j = 0; j < 3; j++)
+			{
+				s_ptr->rxn->dz[j] = s_ptr->dz[j];
+			}
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:

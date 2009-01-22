@@ -1293,6 +1293,10 @@ build_model(void)
 			rxn_free(s[i]->rxn_x);
 			s[i]->rxn_x = rxn_alloc(count_trxn + 1);
 			trxn_copy(s[i]->rxn_x);
+			for (j = 0; j < 3; j++)
+			{
+				s[i]->dz[j] = s[i]->rxn_x->dz[j];
+			}
 			if (debug_prep == TRUE)
 			{
 				output_msg(OUTPUT_MESSAGE, "\n%s\n\tMass-action equation\n",

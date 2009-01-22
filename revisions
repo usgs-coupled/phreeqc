@@ -1209,6 +1209,16 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3275
+        --------
+        Fixed error in CD_MUSIC surface complexation model. 
+        If reaction equation for a surface species was not
+        written with the primary surface species, the calculation
+        was incorrect. The logic to accumulate the change in
+        charges on the planes was erroneously not included when
+        rewriting the equations to the master species. 
+        
+        --------
 	svn 3247
         --------
 	Revised donnan layer calculation with CD_MUSIC. Fixed
