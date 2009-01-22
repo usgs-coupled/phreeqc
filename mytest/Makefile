@@ -85,6 +85,7 @@ all: alkalinity.out \
 	pitzgas.out \
 	precipitate_only.out \
 	prob8.out \
+	rahn.out \
 	s1.out \
 	salt_ec.out \
 	saver.out \
