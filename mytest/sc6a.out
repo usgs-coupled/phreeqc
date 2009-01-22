@@ -1291,7 +1291,7 @@ Hfo_w
 	Hfo_wOCa+         1.538e-11       0.000   1.538e-11     -10.813
 
 Sorbedhfo     
-	  9.898e-21  Surface + diffuse layer charge, eq
+	  9.899e-21  Surface + diffuse layer charge, eq
 	  4.285e-13  Surface charge, eq
 	  5.223e-03  sigma, C/m**2
 	  9.024e-02  psi, V
@@ -2100,7 +2100,7 @@ Adapting surface in            6
 ------------------------------Surface composition------------------------------
 
 Sorbedhfo     
-	 -3.063e-16  Surface + diffuse layer charge, eq
+	 -3.064e-16  Surface + diffuse layer charge, eq
 	  3.334e-10  Surface charge, eq
 	  4.876e-03  sigma, C/m**2
 	  7.076e-02  psi, V
@@ -2197,7 +2197,7 @@ Sub
 	Sub               2.251e-07       1.000   2.251e-07      -6.648
 
 Hfo           
-	 -9.185e-16  Surface + diffuse layer charge, eq
+	 -9.186e-16  Surface + diffuse layer charge, eq
 	  9.998e-10  Surface charge, eq
 	  4.876e-03  sigma, C/m**2
 	  7.076e-02  psi, V
