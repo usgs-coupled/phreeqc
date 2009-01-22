@@ -4552,6 +4552,10 @@ s_init(struct species *s_ptr)
 	{
 		s_ptr->logk[i] = 0.0;
 	}
+	for (i = 0; i < 3; i++)
+	{
+		s_ptr->dz[i] = 0.0;
+	}
 /* VP: Density Start */
 	for (i = 0; i < 6; i++)
 	{
@@ -6918,12 +6922,20 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 	{
 		memcpy((void *) trxn.logk, (void *) r_ptr->logk,
 			   (size_t) 7 * sizeof(LDBLE));
+		for (i = 0; i < 3; i++)
+		{
+			trxn.dz[i] = r_ptr->dz[i];
+		}
 	}
 	else
 	{
 		for (i = 0; i < 7; i++)
 		{
 			trxn.logk[i] += coef * (r_ptr->logk[i]);
+		}
+		for (i = 0; i < 3; i++)
+		{
+			trxn.dz[i] += coef * r_ptr->dz[i];
 		}
 	}
 /*
@@ -7140,6 +7152,13 @@ trxn_copy(struct reaction *rxn_ptr)
 		rxn_ptr->logk[i] = trxn.logk[i];
 	}
 /*
+ *   Copy dz data
+ */
+	for (i = 0; i < 3; i++)
+	{
+		rxn_ptr->dz[i] = trxn.dz[i];
+	}
+/*
  *   Copy tokens
  */
 	for (i = 0; i < count_trxn; i++)
@@ -7200,6 +7219,13 @@ trxn_multiply(LDBLE coef)
 		trxn.logk[i] *= coef;
 	}
 /*
+ *   Multiply dz for reaction
+ */
+	for (i = 0; i < 3; i++)
+	{
+		trxn.dz[i] *= coef;
+	}
+/*
  *   Multiply coefficients of reaction
  */
 	for (i = 0; i < count_trxn; i++)
@@ -7229,6 +7255,14 @@ trxn_print(void)
 	}
 
 /*
+ *   Print dz for reaction
+ */
+	output_msg(OUTPUT_MESSAGE, "\tdz data:\n");
+	for (i = 0; i < 3; i++)
+	{
+		output_msg(OUTPUT_MESSAGE, "\t\t%f\n", (double) trxn.dz[i]);
+	}
+/*
  *   Print stoichiometry
  */
 	output_msg(OUTPUT_MESSAGE, "\tReaction stoichiometry\n");
@@ -7256,6 +7290,10 @@ trxn_reverse_k(void)
 	for (i = 0; i < 7; i++)
 	{
 		trxn.logk[i] = -trxn.logk[i];
+	}
+	for (i = 0; i < 3; i++)
+	{
+		trxn.dz[i] = -trxn.dz[i];
 	}
 	return (OK);
 }
