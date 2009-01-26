@@ -6639,12 +6639,8 @@ read_surface_species(void)
 				if (sscanf(token, SCANFORMAT, &s_ptr->cd_music[j]) != 1)
 					break;
 			}
-			s_ptr->dz[0] =
-				s_ptr->cd_music[0] + s_ptr->cd_music[3] * s_ptr->cd_music[4];
-			s_ptr->dz[1] =
-				s_ptr->cd_music[1] + (1 -
-									  s_ptr->cd_music[3]) *
-				s_ptr->cd_music[4];
+			s_ptr->dz[0] = s_ptr->cd_music[0] + s_ptr->cd_music[3] * s_ptr->cd_music[4];
+			s_ptr->dz[1] = s_ptr->cd_music[1] + (1 - s_ptr->cd_music[3]) *	s_ptr->cd_music[4];
 			s_ptr->dz[2] = s_ptr->cd_music[2];
 			for (j = 0; j < 3; j++)
 			{
