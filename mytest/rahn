@@ -58,6 +58,24 @@ SAVE surface 1
 SAVE solution 1
 END
 
+USER_PRINT
+10 PRINT "Plane 0"
+20 PRINT "   Charge: ", EDL("charge", "Goe")
+30 PRINT "   Sigma:  ", EDL("sigma", "Goe")
+40 PRINT "   Psi:    ", EDL("psi", "Goe")
+50 PRINT
+
+110 PRINT "Plane 1"
+120 PRINT "   Charge: ", EDL("charge1", "Goe")
+130 PRINT "   Sigma:  ", EDL("sigma1", "Goe")
+140 PRINT "   Psi:    ", EDL("psi1", "Goe")
+150 PRINT
+
+210 PRINT "Plane 2"
+220 PRINT "   Charge: ", EDL("charge2", "Goe")
+230 PRINT "   Sigma:  ", EDL("sigma2", "Goe")
+240 PRINT "   Psi:    ", EDL("psi2", "Goe")
+250 PRINT
 
 SELECTED_OUTPUT; -file rahn.txt; -reset false;#  -high_pr
 USER_PUNCH; -headings type pH s_H+/(umol/m2) Goe_charge/(eq/L) Na/M Mg/M sim_no

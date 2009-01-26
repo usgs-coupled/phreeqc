@@ -8,6 +8,40 @@ File contains:
 ************************************************************
 ************************************************************
         --------
+        svn 3288
+        --------
+
+        Additional arguments for the EDL function for the CD_MUSIC 
+        surface complexation model. The values of charge, sigma, and psi 
+        for the 0, 1, and 2 planes can be obtained from the EDL function.
+
+                EDL("element", "surface") gives the amount of 
+                        element in the diffuse layer for "surface".
+                        not including sorbed species. "surface" should 
+                        be the surface name, not the surface-site name 
+                        (that is, no underscore).
+
+                Special values for "element" include:
+                        "charge" - surface charge, equivalents. 
+                                   For CD_MUSIC "charge" refers to plane 0.
+                        "charge1"- surface charge on plane 1, equivalents
+                        	   (CD_MUSIC only).
+                        "charge2"- surface charge on plane 2, equivalents
+                        	   (CD_MUSIC only).                        	    
+                        "sigma"  - surface charge density, C/m**2.
+                                   For CD_MUSIC "sigma" refers to plane 0.                       
+                        "sigma1" - surface charge density on plane 1, 
+                                   equivalents (CD_MUSIC only).
+                        "sigma2" - surface charge density on plane 2, 
+                                   equivalents (CD_MUSIC only).  
+                        "psi"    - potential at the surface, Volts.
+                                    For CD_MUSIC "psi" refers to plane 0. 
+                        "psi1"   - surface charge density on plane 1, 
+                                   equivalents (CD_MUSIC only). 
+                        "psi2"   - surface charge density on plane 2, 
+                                   equivalents (CD_MUSIC only).
+                        "water"  - mass of water in the diffuse layer, kg.	
+        --------
         svn 3189
         --------
         Density of solutions is now calculated from the concentrations
