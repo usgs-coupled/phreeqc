@@ -18,7 +18,7 @@ all: alkalinity.out \
 	ball.out \
 	brown.out \
 	cdmusic_related.out \
-	cd_dll.out \
+	cd_ddl.out \
 	co2.out \
 	colloid_U.out \
 	comments.out \

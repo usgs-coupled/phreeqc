@@ -166,23 +166,23 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Goe           
-	  2.242e-06  Surface charge, plane 0, eq
-	 -2.929e-05  Surface charge, plane 1, eq
-	  6.057e-05  Surface charge, plane 2, eq
-	  3.352e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.353e-04  sigma, plane 0, C/m**2
-	 -1.768e-03  sigma, plane 1, C/m**2
-	  3.655e-03  sigma, plane 2, C/m**2
-	 -2.023e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.191e-04  psi, plane 0, V
-	 -2.572e-04  psi, plane 1, V
-	  1.979e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
 	  1.005e+00  exp(-F*psi/RT), plane 0
-	  1.010e+00  exp(-F*psi/RT), plane 1
-	  9.259e-01  exp(-F*psi/RT), plane 2
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -197,8 +197,8 @@ Goe_tri
 
 	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.043e-04       0.028   2.043e-04      -3.690
-	Goe_triOHNO3-0.5       1.906e-04       0.027   1.906e-04      -3.720
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
@@ -206,9 +206,9 @@ Goe_uni
 	Species                    Moles    Fraction    Molality    Molality
 
 	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.610e-04       0.028   2.610e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.435e-04       0.027   2.435e-04      -3.614
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -222,23 +222,23 @@ Using surface 1.	Surface assemblage after simulation 3.
 ------------------------------Surface composition------------------------------
 
 Goe           
-	  2.271e-06  Surface charge, plane 0, eq
-	 -2.969e-05  Surface charge, plane 1, eq
-	  6.051e-05  Surface charge, plane 2, eq
-	  3.310e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.370e-04  sigma, plane 0, C/m**2
-	 -1.791e-03  sigma, plane 1, C/m**2
-	  3.651e-03  sigma, plane 2, C/m**2
-	 -1.997e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.723e-04  psi, plane 0, V
-	 -3.121e-04  psi, plane 1, V
-	  1.954e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
-	  1.007e+00  exp(-F*psi/RT), plane 0
-	  1.012e+00  exp(-F*psi/RT), plane 1
-	  9.268e-01  exp(-F*psi/RT), plane 2
+	  1.005e+00  exp(-F*psi/RT), plane 0
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -251,20 +251,20 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          3.395e-03       0.473   3.395e-03      -2.469
+	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.046e-04       0.029   2.046e-04      -3.689
-	Goe_triOHNO3-0.5       1.911e-04       0.027   1.911e-04      -3.719
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         4.337e-03       0.473   4.337e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.614e-04       0.029   2.614e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.441e-04       0.027   2.441e-04      -3.612
+	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------Solution composition------------------------------
 
@@ -275,16 +275,16 @@ Goe_uni
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   9.001      Charge balance
-                                       pe  =  11.627      Adjusted to redox equilibrium
+                                       pH  =   9.000      Charge balance
+                                       pe  =  11.628      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.334e-05
+                 Total alkalinity (eq/kg)  =   1.331e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.196e-07
+                  Electrical balance (eq)  =   4.818e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   2
                                   Total H  = 1.110124e+02
@@ -295,16 +295,16 @@ Goe_uni
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.334e-05   9.964e-06    -4.875    -5.002    -0.127
-   H+                     1.251e-09   9.979e-10    -8.903    -9.001    -0.098
+   OH-                    1.331e-05   9.943e-06    -4.876    -5.002    -0.127
+   H+                     1.253e-09   1.000e-09    -8.902    -9.000    -0.098
    H2O                    5.551e+01   9.932e-01     1.744    -0.003     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -44.427   -44.407     0.020
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -64.642   -64.769    -0.127
-   NH3                    0.000e+00   0.000e+00   -65.032   -65.012     0.020
-N(0)             2.763e-19
-   N2                     1.382e-19   1.447e-19   -18.860   -18.840     0.020
+   NH4+                   0.000e+00   0.000e+00   -64.640   -64.767    -0.127
+   NH3                    0.000e+00   0.000e+00   -65.031   -65.011     0.020
+N(0)             2.775e-19
+   N2                     1.388e-19   1.453e-19   -18.858   -18.838     0.020
 N(3)             4.142e-14
    NO2-                   4.142e-14   3.093e-14   -13.383   -13.510    -0.127
 N(5)             2.000e-01
@@ -333,6 +333,22 @@ End of simulation.
 Reading input data for simulation 4.
 ------------------------------------
 
+	USER_PRINT
+	10 PRINT "Plane 0"
+	20 PRINT "   Charge: ", EDL("charge", "Goe")
+	30 PRINT "   Sigma:  ", EDL("sigma", "Goe")
+	40 PRINT "   Psi:    ", EDL("psi", "Goe")
+	50 PRINT
+	110 PRINT "Plane 1"
+	120 PRINT "   Charge: ", EDL("charge1", "Goe")
+	130 PRINT "   Sigma:  ", EDL("sigma1", "Goe")
+	140 PRINT "   Psi:    ", EDL("psi1", "Goe")
+	150 PRINT
+	210 PRINT "Plane 2"
+	220 PRINT "   Charge: ", EDL("charge2", "Goe")
+	230 PRINT "   Sigma:  ", EDL("sigma2", "Goe")
+	240 PRINT "   Psi:    ", EDL("psi2", "Goe")
+	250 PRINT
 	SELECTED_OUTPUT
 	 file rahn.txt
 	 reset false
@@ -380,26 +396,44 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 	N                    0.00100
 	O                    0.00300
 
+----------------------------------User print-----------------------------------
+
+Plane 0 
+   Charge:    2.8068e-06 
+   Sigma:     1.6937e-04 
+   Psi:      -1.1970e-04 
+
+Plane 1 
+   Charge:   -3.0010e-05 
+   Sigma:    -1.8108e-03 
+   Psi:      -2.9252e-04 
+
+Plane 2 
+   Charge:    6.0337e-05 
+   Sigma:     3.6408e-03 
+   Psi:       1.9560e-03 
+
+
 ------------------------------Surface composition------------------------------
 
 Goe           
-	  2.271e-06  Surface charge, plane 0, eq
-	 -2.969e-05  Surface charge, plane 1, eq
-	  6.051e-05  Surface charge, plane 2, eq
-	  3.310e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.370e-04  sigma, plane 0, C/m**2
-	 -1.791e-03  sigma, plane 1, C/m**2
-	  3.651e-03  sigma, plane 2, C/m**2
-	 -1.997e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.723e-04  psi, plane 0, V
-	 -3.121e-04  psi, plane 1, V
-	  1.954e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
-	  1.007e+00  exp(-F*psi/RT), plane 0
-	  1.012e+00  exp(-F*psi/RT), plane 1
-	  9.268e-01  exp(-F*psi/RT), plane 2
+	  1.005e+00  exp(-F*psi/RT), plane 0
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -412,20 +446,20 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          3.395e-03       0.473   3.395e-03      -2.469
+	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.046e-04       0.029   2.046e-04      -3.689
-	Goe_triOHNO3-0.5       1.911e-04       0.027   1.911e-04      -3.719
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         4.337e-03       0.473   4.337e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.614e-04       0.029   2.614e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.441e-04       0.027   2.441e-04      -3.612
+	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------Solution composition------------------------------
 
@@ -436,16 +470,16 @@ Goe_uni
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   9.001      Charge balance
-                                       pe  =  11.627      Adjusted to redox equilibrium
+                                       pH  =   9.000      Charge balance
+                                       pe  =  11.628      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.334e-05
+                 Total alkalinity (eq/kg)  =   1.331e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.196e-07
+                  Electrical balance (eq)  =   4.818e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -456,16 +490,16 @@ Goe_uni
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.334e-05   9.964e-06    -4.875    -5.002    -0.127
-   H+                     1.251e-09   9.979e-10    -8.903    -9.001    -0.098
+   OH-                    1.331e-05   9.943e-06    -4.876    -5.002    -0.127
+   H+                     1.253e-09   1.000e-09    -8.902    -9.000    -0.098
    H2O                    5.551e+01   9.932e-01     1.744    -0.003     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -44.427   -44.407     0.020
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -64.642   -64.769    -0.127
-   NH3                    0.000e+00   0.000e+00   -65.032   -65.012     0.020
-N(0)             2.763e-19
-   N2                     1.382e-19   1.447e-19   -18.860   -18.840     0.020
+   NH4+                   0.000e+00   0.000e+00   -64.640   -64.767    -0.127
+   NH3                    0.000e+00   0.000e+00   -65.031   -65.011     0.020
+N(0)             2.775e-19
+   N2                     1.388e-19   1.453e-19   -18.858   -18.838     0.020
 N(3)             4.142e-14
    NO2-                   4.142e-14   3.093e-14   -13.383   -13.510    -0.127
 N(5)             2.000e-01
@@ -507,26 +541,44 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 	N                    0.00100
 	O                    0.00300
 
+----------------------------------User print-----------------------------------
+
+Plane 0 
+   Charge:    2.8068e-06 
+   Sigma:     1.6937e-04 
+   Psi:      -1.1970e-04 
+
+Plane 1 
+   Charge:   -3.0010e-05 
+   Sigma:    -1.8108e-03 
+   Psi:      -2.9252e-04 
+
+Plane 2 
+   Charge:    6.0337e-05 
+   Sigma:     3.6408e-03 
+   Psi:       1.9560e-03 
+
+
 ------------------------------Surface composition------------------------------
 
 Goe           
-	  2.271e-06  Surface charge, plane 0, eq
-	 -2.969e-05  Surface charge, plane 1, eq
-	  6.051e-05  Surface charge, plane 2, eq
-	  3.310e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.370e-04  sigma, plane 0, C/m**2
-	 -1.791e-03  sigma, plane 1, C/m**2
-	  3.651e-03  sigma, plane 2, C/m**2
-	 -1.997e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.723e-04  psi, plane 0, V
-	 -3.121e-04  psi, plane 1, V
-	  1.954e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
-	  1.007e+00  exp(-F*psi/RT), plane 0
-	  1.012e+00  exp(-F*psi/RT), plane 1
-	  9.268e-01  exp(-F*psi/RT), plane 2
+	  1.005e+00  exp(-F*psi/RT), plane 0
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -539,20 +591,20 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          3.395e-03       0.473   3.395e-03      -2.469
+	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.046e-04       0.029   2.046e-04      -3.689
-	Goe_triOHNO3-0.5       1.911e-04       0.027   1.911e-04      -3.719
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         4.337e-03       0.473   4.337e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.614e-04       0.029   2.614e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.441e-04       0.027   2.441e-04      -3.612
+	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------Solution composition------------------------------
 
@@ -563,16 +615,16 @@ Goe_uni
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   9.001      Charge balance
-                                       pe  =  11.627      Adjusted to redox equilibrium
+                                       pH  =   9.000      Charge balance
+                                       pe  =  11.628      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.334e-05
+                 Total alkalinity (eq/kg)  =   1.331e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.196e-07
+                  Electrical balance (eq)  =   4.820e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -583,16 +635,16 @@ Goe_uni
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.334e-05   9.964e-06    -4.875    -5.002    -0.127
-   H+                     1.251e-09   9.979e-10    -8.903    -9.001    -0.098
+   OH-                    1.331e-05   9.943e-06    -4.876    -5.002    -0.127
+   H+                     1.253e-09   1.000e-09    -8.902    -9.000    -0.098
    H2O                    5.551e+01   9.932e-01     1.744    -0.003     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -44.427   -44.407     0.020
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -64.642   -64.769    -0.127
-   NH3                    0.000e+00   0.000e+00   -65.032   -65.012     0.020
-N(0)             2.763e-19
-   N2                     1.382e-19   1.447e-19   -18.860   -18.840     0.020
+   NH4+                   0.000e+00   0.000e+00   -64.640   -64.767    -0.127
+   NH3                    0.000e+00   0.000e+00   -65.031   -65.011     0.020
+N(0)             2.775e-19
+   N2                     1.388e-19   1.453e-19   -18.858   -18.838     0.020
 N(3)             4.142e-14
    NO2-                   4.142e-14   3.093e-14   -13.383   -13.510    -0.127
 N(5)             2.000e-01
@@ -634,26 +686,44 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 	N                    0.00100
 	O                    0.00300
 
+----------------------------------User print-----------------------------------
+
+Plane 0 
+   Charge:    2.8068e-06 
+   Sigma:     1.6937e-04 
+   Psi:      -1.1970e-04 
+
+Plane 1 
+   Charge:   -3.0010e-05 
+   Sigma:    -1.8108e-03 
+   Psi:      -2.9252e-04 
+
+Plane 2 
+   Charge:    6.0337e-05 
+   Sigma:     3.6408e-03 
+   Psi:       1.9560e-03 
+
+
 ------------------------------Surface composition------------------------------
 
 Goe           
-	  2.271e-06  Surface charge, plane 0, eq
-	 -2.969e-05  Surface charge, plane 1, eq
-	  6.051e-05  Surface charge, plane 2, eq
-	  3.310e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.370e-04  sigma, plane 0, C/m**2
-	 -1.791e-03  sigma, plane 1, C/m**2
-	  3.651e-03  sigma, plane 2, C/m**2
-	 -1.997e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.723e-04  psi, plane 0, V
-	 -3.121e-04  psi, plane 1, V
-	  1.954e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
-	  1.007e+00  exp(-F*psi/RT), plane 0
-	  1.012e+00  exp(-F*psi/RT), plane 1
-	  9.268e-01  exp(-F*psi/RT), plane 2
+	  1.005e+00  exp(-F*psi/RT), plane 0
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -666,20 +736,20 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          3.395e-03       0.473   3.395e-03      -2.469
+	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.046e-04       0.029   2.046e-04      -3.689
-	Goe_triOHNO3-0.5       1.911e-04       0.027   1.911e-04      -3.719
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         4.337e-03       0.473   4.337e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.614e-04       0.029   2.614e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.441e-04       0.027   2.441e-04      -3.612
+	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------Solution composition------------------------------
 
@@ -690,16 +760,16 @@ Goe_uni
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   9.001      Charge balance
-                                       pe  =  11.627      Adjusted to redox equilibrium
+                                       pH  =   9.000      Charge balance
+                                       pe  =  11.628      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.334e-05
+                 Total alkalinity (eq/kg)  =   1.331e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.196e-07
+                  Electrical balance (eq)  =   4.820e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -710,16 +780,16 @@ Goe_uni
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.334e-05   9.964e-06    -4.875    -5.002    -0.127
-   H+                     1.251e-09   9.979e-10    -8.903    -9.001    -0.098
+   OH-                    1.331e-05   9.943e-06    -4.876    -5.002    -0.127
+   H+                     1.253e-09   1.000e-09    -8.902    -9.000    -0.098
    H2O                    5.551e+01   9.932e-01     1.744    -0.003     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -44.427   -44.407     0.020
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -64.642   -64.769    -0.127
-   NH3                    0.000e+00   0.000e+00   -65.032   -65.012     0.020
-N(0)             2.763e-19
-   N2                     1.382e-19   1.447e-19   -18.860   -18.840     0.020
+   NH4+                   0.000e+00   0.000e+00   -64.640   -64.767    -0.127
+   NH3                    0.000e+00   0.000e+00   -65.031   -65.011     0.020
+N(0)             2.775e-19
+   N2                     1.388e-19   1.453e-19   -18.858   -18.838     0.020
 N(3)             4.142e-14
    NO2-                   4.142e-14   3.093e-14   -13.383   -13.510    -0.127
 N(5)             2.000e-01
@@ -761,26 +831,44 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
 	N                    0.00100
 	O                    0.00300
 
+----------------------------------User print-----------------------------------
+
+Plane 0 
+   Charge:    2.8068e-06 
+   Sigma:     1.6937e-04 
+   Psi:      -1.1970e-04 
+
+Plane 1 
+   Charge:   -3.0010e-05 
+   Sigma:    -1.8108e-03 
+   Psi:      -2.9252e-04 
+
+Plane 2 
+   Charge:    6.0337e-05 
+   Sigma:     3.6408e-03 
+   Psi:       1.9560e-03 
+
+
 ------------------------------Surface composition------------------------------
 
 Goe           
-	  2.271e-06  Surface charge, plane 0, eq
-	 -2.969e-05  Surface charge, plane 1, eq
-	  6.051e-05  Surface charge, plane 2, eq
-	  3.310e-05  Sum of surface charge, all planes, eq
+	  2.807e-06  Surface charge, plane 0, eq
+	 -3.001e-05  Surface charge, plane 1, eq
+	  6.034e-05  Surface charge, plane 2, eq
+	  3.313e-05  Sum of surface charge, all planes, eq
 
-	  1.370e-04  sigma, plane 0, C/m**2
-	 -1.791e-03  sigma, plane 1, C/m**2
-	  3.651e-03  sigma, plane 2, C/m**2
-	 -1.997e-03  sigma, diffuse layer, C/m**2
+	  1.694e-04  sigma, plane 0, C/m**2
+	 -1.811e-03  sigma, plane 1, C/m**2
+	  3.641e-03  sigma, plane 2, C/m**2
+	 -1.999e-03  sigma, diffuse layer, C/m**2
 
-	 -1.723e-04  psi, plane 0, V
-	 -3.121e-04  psi, plane 1, V
-	  1.954e-03  psi, plane 2, V
+	 -1.197e-04  psi, plane 0, V
+	 -2.925e-04  psi, plane 1, V
+	  1.956e-03  psi, plane 2, V
 
-	  1.007e+00  exp(-F*psi/RT), plane 0
-	  1.012e+00  exp(-F*psi/RT), plane 1
-	  9.268e-01  exp(-F*psi/RT), plane 2
+	  1.005e+00  exp(-F*psi/RT), plane 0
+	  1.011e+00  exp(-F*psi/RT), plane 1
+	  9.267e-01  exp(-F*psi/RT), plane 2
 
 	  9.800e-01  capacitance 0-1, F/m^2
 	  7.300e-01  capacitance 1-2, F/m^2
@@ -793,20 +881,20 @@ Goe_tri
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_triOH+0.5          3.395e-03       0.473   3.395e-03      -2.469
+	Goe_triOH+0.5          3.395e-03       0.474   3.395e-03      -2.469
 	Goe_triO-0.5           3.379e-03       0.471   3.379e-03      -2.471
-	Goe_triONa+0.5         2.046e-04       0.029   2.046e-04      -3.689
-	Goe_triOHNO3-0.5       1.911e-04       0.027   1.911e-04      -3.719
+	Goe_triONa+0.5         2.045e-04       0.029   2.045e-04      -3.689
+	Goe_triOHNO3-0.5       1.912e-04       0.027   1.912e-04      -3.719
 
 Goe_uni       
 	  9.161e-03  moles
 	                                        Mole                     Log
 	Species                    Moles    Fraction    Molality    Molality
 
-	Goe_uniOH2+0.5         4.337e-03       0.473   4.337e-03      -2.363
-	Goe_uniOH-0.5          4.318e-03       0.471   4.318e-03      -2.365
-	Goe_uniOHNa+0.5        2.614e-04       0.029   2.614e-04      -3.583
-	Goe_uniOH2NO3-0.5      2.441e-04       0.027   2.441e-04      -3.612
+	Goe_uniOH2+0.5         4.338e-03       0.474   4.338e-03      -2.363
+	Goe_uniOH-0.5          4.317e-03       0.471   4.317e-03      -2.365
+	Goe_uniOHNa+0.5        2.613e-04       0.029   2.613e-04      -3.583
+	Goe_uniOH2NO3-0.5      2.443e-04       0.027   2.443e-04      -3.612
 
 -----------------------------Solution composition------------------------------
 
@@ -817,16 +905,16 @@ Goe_uni
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =   9.001      Charge balance
-                                       pe  =  11.627      Adjusted to redox equilibrium
+                                       pH  =   9.000      Charge balance
+                                       pe  =  11.628      Adjusted to redox equilibrium
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   1.334e-05
+                 Total alkalinity (eq/kg)  =   1.331e-05
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   4.196e-07
+                  Electrical balance (eq)  =   4.820e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -837,16 +925,16 @@ Goe_uni
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.334e-05   9.964e-06    -4.875    -5.002    -0.127
-   H+                     1.251e-09   9.979e-10    -8.903    -9.001    -0.098
+   OH-                    1.331e-05   9.943e-06    -4.876    -5.002    -0.127
+   H+                     1.253e-09   1.000e-09    -8.902    -9.000    -0.098
    H2O                    5.551e+01   9.932e-01     1.744    -0.003     0.000
 H(0)             0.000e+00
    H2                     0.000e+00   0.000e+00   -44.427   -44.407     0.020
 N(-3)            0.000e+00
-   NH4+                   0.000e+00   0.000e+00   -64.642   -64.769    -0.127
-   NH3                    0.000e+00   0.000e+00   -65.032   -65.012     0.020
-N(0)             2.763e-19
-   N2                     1.382e-19   1.447e-19   -18.860   -18.840     0.020
+   NH4+                   0.000e+00   0.000e+00   -64.640   -64.767    -0.127
+   NH3                    0.000e+00   0.000e+00   -65.031   -65.011     0.020
+N(0)             2.775e-19
+   N2                     1.388e-19   1.453e-19   -18.858   -18.838     0.020
 N(3)             4.142e-14
    NO2-                   4.142e-14   3.093e-14   -13.383   -13.510    -0.127
 N(5)             2.000e-01
