@@ -4552,10 +4552,6 @@ s_init(struct species *s_ptr)
 	{
 		s_ptr->logk[i] = 0.0;
 	}
-	for (i = 0; i < 3; i++)
-	{
-		s_ptr->dz[i] = 0.0;
-	}
 /* VP: Density Start */
 	for (i = 0; i < 6; i++)
 	{

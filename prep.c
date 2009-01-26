@@ -2960,7 +2960,9 @@ add_cd_music_factors(int n)
 	 */
 	trxn.token[count_trxn].name = master_ptr->s->name;
 	trxn.token[count_trxn].s = master_ptr->s;
-	trxn.token[count_trxn].coef = s[n]->dz[0];
+	/*trxn.token[count_trxn].coef = s[n]->dz[0];*/
+	trxn.token[count_trxn].coef = trxn.dz[0];
+
 	count_trxn++;
 
 	/*
@@ -2979,7 +2981,8 @@ add_cd_music_factors(int n)
 	 */
 	trxn.token[count_trxn].name = master_ptr->s->name;
 	trxn.token[count_trxn].s = master_ptr->s;
-	trxn.token[count_trxn].coef = s[n]->dz[1];
+	/*trxn.token[count_trxn].coef = s[n]->dz[1];*/
+	trxn.token[count_trxn].coef = trxn.dz[1];
 	count_trxn++;
 	/*
 	 *  Plane 2
@@ -2997,7 +3000,8 @@ add_cd_music_factors(int n)
 	 */
 	trxn.token[count_trxn].name = master_ptr->s->name;
 	trxn.token[count_trxn].s = master_ptr->s;
-	trxn.token[count_trxn].coef = s[n]->dz[2];
+	/*trxn.token[count_trxn].coef = s[n]->dz[2];*/
+	trxn.token[count_trxn].coef = trxn.dz[2];
 	count_trxn++;
 
 	return (OK);
