@@ -147,7 +147,7 @@ all: alkalinity.out \
 	spread_redox.out 
 
 clean:
-	rm -f *.out *.log *.pun *.prn *.flat *.sel *.dmp
+	rm -f *.out *.log *.pun *.prn *.flat *.sel *.dmp *.lon *.pat *.mod *.txt
 
 revert:
 	svn st | egrep ^! | cut -b 2- | xargs svn revert
