@@ -920,11 +920,8 @@ Adapting surface in            3
 
 Adapting surface in            7 
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
+WARNING: MCD found more than 1 fixed surface with a DDL,
+	 uses the 1st in alphabetical order: Sub.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            1 
@@ -1213,8 +1210,6 @@ Hfo_w
 	Hfo_wO-           8.389e-08       0.115   8.389e-08      -7.076
 	Hfo_wOCa+         4.727e-13       0.000   4.727e-13     -12.325
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            2 
@@ -1653,12 +1648,6 @@ Hfo_w
 	Hfo_wO-           1.698e-14       0.116   1.698e-14     -13.770
 	Hfo_wOCa+         1.859e-23       0.000   1.859e-23     -22.731
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            1 
@@ -1947,8 +1936,6 @@ Hfo_w
 	Hfo_wO-           9.778e-08       0.115   9.778e-08      -7.010
 	Hfo_wOCa+         6.487e-13       0.000   6.487e-13     -12.188
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            2 
@@ -2237,8 +2224,6 @@ Hfo_w
 	Hfo_wO-           4.196e-08       0.115   4.196e-08      -7.377
 	Hfo_wOCa+         1.030e-13       0.000   1.030e-13     -12.987
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            3 
@@ -2527,12 +2512,6 @@ Sua
 
 	Sua               7.506e-16       1.000   7.506e-16     -15.125
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            1 
@@ -2821,8 +2800,6 @@ Hfo_w
 	Hfo_wO-           1.047e-07       0.115   1.047e-07      -6.980
 	Hfo_wOCa+         7.457e-13       0.000   7.457e-13     -12.127
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sorbedhfo.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            2 
@@ -3111,8 +3088,6 @@ Hfo_w
 	Hfo_wO-           4.889e-08       0.115   4.889e-08      -7.311
 	Hfo_wOCa+         1.951e-13       0.000   1.951e-13     -12.710
 
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
-WARNING: MCD found more than 1 fixed surface with a DDL, used Sub.
 ----------------------------------User print-----------------------------------
 
 Adapting surface in            3 
