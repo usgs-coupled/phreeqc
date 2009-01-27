@@ -69,6 +69,7 @@ LDBLE *heat_mix_array;
 LDBLE *temp1, *temp2;
 int nmix, heat_nmix;
 LDBLE heat_mix_f_imm, heat_mix_f_m;
+int warn_MCD_X, warn_fixed_Surf;
 
 /* ---------------------------------------------------------------------- */
 int
@@ -95,7 +96,7 @@ transport(void)
 	diffc_tr = diffc;
 	diffc_max = 0.0;
 	cb_tol = 1e-9;
-	transp_surf = 0;
+	transp_surf = warn_fixed_Surf = warn_MCD_X = 0;
 
 /*	mass_water_switch = TRUE; */
 /*
@@ -1586,9 +1587,13 @@ fill_spec(int cell_no)
 				name = master_ptr->elt->name;
 				if (strcmp(name, "X") != 0)
 				{
-					sprintf(token,
+					if (!warn_MCD_X)
+					{
+						sprintf(token,
 							"MCD found more than 1 exchanger, uses X for interlayer diffusion.");
-					warning_msg(token);
+						warning_msg(token);
+						warn_MCD_X = 1;
+					}
 					continue;
 				}
 				dum2 = s_ptr->moles * dum;	/* equivalent fraction */
@@ -2209,13 +2214,17 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 							&& s_ptr1->comps[j].charge !=
 							s_ptr1->comps[i].charge)
 						{
-							k = (int) strcspn(s_ptr1->comps[i].formula, "_");
-							strncpy(token1, s_ptr1->comps[i].formula, k);
-							token1[k] = '\0';
-							sprintf(token,
-									"MCD found more than 1 fixed surface with a DDL, used %s.",
+							if (!warn_fixed_Surf)
+							{
+								k = (int) strcspn(s_ptr1->comps[i].formula, "_");
+								strncpy(token1, s_ptr1->comps[i].formula, k);
+								token1[k] = '\0';
+								sprintf(token,
+									"MCD found more than 1 fixed surface with a DDL,\n\t uses the 1st in alphabetical order: %s.",
 									token1);
-							warning_msg(token);
+								warning_msg(token);
+								warn_fixed_Surf = 1;
+							}
 							break;
 						}
 					}
@@ -2245,13 +2254,17 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 							&& s_ptr2->comps[j].charge !=
 							s_ptr2->comps[i].charge)
 						{
-							k = (int) strcspn(s_ptr2->comps[i].formula, "_");
-							strncpy(token1, s_ptr2->comps[i].formula, k);
-							token1[k] = '\0';
-							sprintf(token,
-									"MCD found more than 1 fixed surface with a DDL, used %s.",
+							if (!warn_fixed_Surf)
+							{
+								k = (int) strcspn(s_ptr2->comps[i].formula, "_");
+								strncpy(token1, s_ptr2->comps[i].formula, k);
+								token1[k] = '\0';
+								sprintf(token,
+									"MCD found more than 1 fixed surface with a DDL,\n\t uses the 1st in alphabetical order: %s.",
 									token1);
-							warning_msg(token);
+								warning_msg(token);
+								warn_fixed_Surf = 1;
+							}
 							break;
 						}
 					}
