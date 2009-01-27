@@ -7,7 +7,7 @@ WATEQ4FDAT=../database/wateq4f.dat
 PHREEQC=../bin/phreeqc
 
 ifeq ($(CFG), CYGWIN)
-  PHREEQC=/cygdrive/c/Programs/phreeqc/build/win32/Release/phreeqc
+  PHREEQC=/cygdrive/c/Programs/phreeqc-trunk/build/win32/Release/phreeqc
 endif
 
 all: ex1.out ex2.out ex3.out ex4.out ex5.out ex6.out ex7.out ex8.out ex9.out \
