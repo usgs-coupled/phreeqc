@@ -15,6 +15,7 @@ static int rewrite_eqn_to_primary(void);
 static int rewrite_eqn_to_secondary(void);
 static int species_rxn_to_trxn(struct species *s_ptr);
 static int tidy_logk(void);
+int tidy_exchange(void);
 static int tidy_min_exchange(void);
 static int tidy_kin_exchange(void);
 static int tidy_gas_phase(void);
@@ -302,6 +303,8 @@ tidy_model(void)
 /*
  *   tidy exchange data, after pp_assemblages
  */
+	if (new_exchange)
+		tidy_exchange();
 	if (new_exchange)
 		tidy_min_exchange();
 	if (new_exchange)
@@ -4652,5 +4655,52 @@ reset_last_model(void)
 	last_model.count_surface_charge = 0;
 	last_model.surface_charge =
 		(char **) free_check_null(last_model.surface_charge);
+	return (OK);
+}
+/* ---------------------------------------------------------------------- */
+int
+tidy_exchange(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  If exchanger is related to mineral, exchanger amount is 
+ *  set in proportion
+ */
+{
+	int i, j, k;
+	struct exch_comp *comp_ptr;
+	struct master *master_ptr;
+
+	for (i = 0; i < count_exchange; i++)
+	{
+		if (exchange[i].new_def == FALSE)
+			continue;
+		if (exchange[i].n_user < 0)
+			continue;
+		for (j = 0; j < exchange[i].count_comps; j++)
+		{
+			if (exchange[i].comps[j].phase_name != NULL)
+				continue;
+			if (exchange[i].comps[j].rate_name != NULL)
+				continue;
+			comp_ptr = &exchange[i].comps[j];
+
+			/* Check elements */
+
+			for (k = 0; comp_ptr->totals[k].elt != NULL; k++)
+			{
+				/* Find master species */
+				master_ptr = comp_ptr->totals[k].elt->primary;
+				if (master_ptr == NULL)
+				{
+					input_error++;
+					sprintf(error_string, "Master species not in data "
+							"base for %s, skipping element.",
+							comp_ptr->totals[k].elt->name);
+					error_msg(error_string, CONTINUE);
+					break;
+				}
+			}
+		}
+	}
 	return (OK);
 }
