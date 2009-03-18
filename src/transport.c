@@ -194,6 +194,12 @@ transport(void)
 		set_and_run_wrapper(i, NOMIX, FALSE, i, 0.0);
 		if (use.surface_ptr != NULL && use.surface_ptr->transport == TRUE)
 			transp_surf = TRUE;
+		if (transp_surf && !multi_Dflag)
+		{
+			sprintf(error_string,
+					"-multi_d must be defined for surface transport");
+			error_msg(error_string, CONTINUE);
+		}
 		if (multi_Dflag == TRUE)
 		{
 #ifdef SKIP
