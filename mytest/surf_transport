@@ -1,4 +1,4 @@
-DATABASE C:\Programs\phreeqc-trunk\mytest\Tipping&Hurley.dat
+DATABASE Tipping&Hurley.dat
 SOLUTION 0-1
 -units mol/kgw
 #-water 0.15
