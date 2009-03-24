@@ -1,0 +1,6 @@
+DATABASE ../database/sit.dat
+KNOBS
+	-debug_model
+SOLUTION
+	Na	1
+	Cl	1
