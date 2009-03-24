@@ -642,6 +642,10 @@ initialize(void)
 	 */
 	pitzer_init();
 	/*
+	 *  SIT
+	 */
+	sit_init();
+	/*
 	 * to facilitate debuging
 	 */
 	dbg_use = &use;

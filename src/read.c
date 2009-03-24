@@ -240,6 +240,7 @@ read_input(void)
 	  67      "reaction_raw"
 	  68      "mix_raw"
 	  69      "reaction_temperature_raw"
+	  70      "reaction_temperature_raw"
   */
 	for (;;)
 	{
@@ -502,45 +503,49 @@ read_input(void)
 			keyword[59].keycount++;
 			read_pitzer();
 			break;
-#ifdef PHREEQC_CPP
 		case 60:
 			keyword[60].keycount++;
-			read_solution_raw();
+			read_sit();
 			break;
+#ifdef PHREEQC_CPP
 		case 61:
 			keyword[61].keycount++;
-			read_exchange_raw();
+			read_solution_raw();
 			break;
 		case 62:
 			keyword[62].keycount++;
-			read_surface_raw();
+			read_exchange_raw();
 			break;
 		case 63:
 			keyword[63].keycount++;
-			read_equilibrium_phases_raw();
+			read_surface_raw();
 			break;
 		case 64:
 			keyword[64].keycount++;
-			read_kinetics_raw();
+			read_equilibrium_phases_raw();
 			break;
 		case 65:
 			keyword[65].keycount++;
-			read_solid_solutions_raw();
+			read_kinetics_raw();
 			break;
 		case 66:
 			keyword[66].keycount++;
-			read_gas_phase_raw();
+			read_solid_solutions_raw();
 			break;
 		case 67:
 			keyword[67].keycount++;
-			read_reaction_raw();
+			read_gas_phase_raw();
 			break;
 		case 68:
 			keyword[68].keycount++;
-			read_mix_raw();
+			read_reaction_raw();
 			break;
 		case 69:
 			keyword[69].keycount++;
+			read_mix_raw();
+			break;
+		case 70:
+			keyword[70].keycount++;
 			read_temperature_raw();
 			break;
 #endif

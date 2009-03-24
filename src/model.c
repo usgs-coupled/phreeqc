@@ -95,10 +95,22 @@ model(void)
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
 	/* mass_water_switch == TRUE, mass of water is constant */
+	if (pitzer_model == TRUE && sit_model == TRUE)
+	{
+	  input_error++;
+	  error_msg("Cannot use PITZER and SIT data blocks in same run (database + input file).", STOP);
+	}
 	if (pitzer_model == TRUE)
 	{
 		
 		kode = model_pz();
+		unset_inert_moles();
+		return kode;
+	}
+	if (sit_model == TRUE)
+	{
+		
+		kode = model_sit();
 		unset_inert_moles();
 		return kode;
 	}
