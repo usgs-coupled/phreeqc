@@ -415,12 +415,27 @@ sit(void)
 		case TYPE_SIT_EPSILON:
 			LGAMMA[i0] += M[i1] * param;
 			LGAMMA[i1] += M[i0] * param;
-			OSMOT += M[i0] * M[i1] * param;
+			if (z0 == 0.0 && z1 == 0.0)
+			{
+				OSMOT += M[i0] * M[i1] * param / 2.0;
+			}
+			else
+			{
+				OSMOT += M[i0] * M[i1] * param;
+			}
 			break;
 		case TYPE_SIT_EPSILON_MU:
 			LGAMMA[i0] += M[i1] * I * param;
 			LGAMMA[i1] += M[i0] * I * param;
 			OSMOT += M[i0] * M[i1] * param;
+			if (z0 == 0.0 && z1 == 0.0)
+			{
+				OSMOT += M[i0] * M[i1] * param * I / 2.0;
+			}
+			else
+			{
+				OSMOT += M[i0] * M[i1] * param * I;
+			}
 			break;
 		default:
 		case TYPE_Other:
