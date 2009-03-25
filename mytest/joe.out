@@ -87,6 +87,8 @@ Initial solution 1.	WLB ms APW04
 
                                        pH  =   6.673      Charge balance
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 21494
+                          Density (g/cm3)  =   1.00604
                         Activity of water  =   0.993
                            Ionic strength  =   2.228e-01
                        Mass of water (kg)  =   1.000e+00
@@ -259,6 +261,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.673      Charge balance
                                        pe  =  11.487      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 21462
+                          Density (g/cm3)  =   1.00601
                         Activity of water  =   0.993
                            Ionic strength  =   2.222e-01
                        Mass of water (kg)  =   1.000e+00
@@ -400,6 +404,8 @@ Initial solution 2.
 
                                        pH  =   0.797      Charge balance
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 73505
+                          Density (g/cm3)  =   1.00052
                         Activity of water  =   0.993
                            Ionic strength  =   2.000e-01
                        Mass of water (kg)  =   1.000e+00
@@ -489,6 +495,8 @@ X                1.065e+00 mol
 
                                        pH  =   5.938      Charge balance
                                        pe  =  -1.131      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 23592
+                          Density (g/cm3)  =   1.00808
                         Activity of water  =   0.991
                            Ionic strength  =   2.575e-01
                        Mass of water (kg)  =   1.001e-01
@@ -645,6 +653,8 @@ X                1.065e+00 mol
 
                                        pH  =   5.972      Charge balance
                                        pe  =  -1.178      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 23743
+                          Density (g/cm3)  =   1.00818
                         Activity of water  =   0.991
                            Ionic strength  =   2.584e-01
                        Mass of water (kg)  =   1.001e-02
@@ -801,6 +811,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.023      Charge balance
                                        pe  =  -1.367      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 23507
+                          Density (g/cm3)  =   1.00795
                         Activity of water  =   0.991
                            Ionic strength  =   2.544e-01
                        Mass of water (kg)  =   1.001e-03
@@ -957,6 +969,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.308      Charge balance
                                        pe  =  -1.875      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 22327
+                          Density (g/cm3)  =   1.00682
                         Activity of water  =   0.992
                            Ionic strength  =   2.358e-01
                        Mass of water (kg)  =   1.000e-04
@@ -1113,6 +1127,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.607      Charge balance
                                        pe  =  -2.390      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 21575
+                          Density (g/cm3)  =   1.00611
                         Activity of water  =   0.993
                            Ionic strength  =   2.240e-01
                        Mass of water (kg)  =   1.000e-05
@@ -1269,6 +1285,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.666      Charge balance
                                        pe  =  -2.696      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 21472
+                          Density (g/cm3)  =   1.00602
                         Activity of water  =   0.993
                            Ionic strength  =   2.224e-01
                        Mass of water (kg)  =   1.000e-06
@@ -1425,6 +1443,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.672      Charge balance
                                        pe  =  -2.768      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 21462
+                          Density (g/cm3)  =   1.00601
                         Activity of water  =   0.993
                            Ionic strength  =   2.222e-01
                        Mass of water (kg)  =   1.000e-07
@@ -1581,6 +1601,8 @@ X                1.065e+00 mol
 
                                        pH  =   6.673      Charge balance
                                        pe  =  -2.887      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 21460
+                          Density (g/cm3)  =   1.00600
                         Activity of water  =   0.993
                            Ionic strength  =   2.222e-01
                        Mass of water (kg)  =   1.000e-08

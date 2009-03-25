@@ -42,6 +42,8 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 43
+                          Density (g/cm3)  =   0.99707
                         Activity of water  =   1.000
                            Ionic strength  =   6.427e-04
                        Mass of water (kg)  =   1.000e+00
@@ -188,6 +190,8 @@ Fluorite             0.00  -10.60  -10.60
 
                                        pH  =   7.001      Charge balance
                                        pe  =  10.881      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 77
+                          Density (g/cm3)  =   0.99709
                         Activity of water  =   1.000
                            Ionic strength  =   1.164e-03
                        Mass of water (kg)  =   1.000e+00
