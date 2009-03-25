@@ -128,7 +128,9 @@ calc_SC(void)
 */
 			ff = (mu_x < .36 * z ? 0.6 / sqrt(z) : sqrt(mu_x) / z);
 
-			a = under(lm + ff * species_list[i].s->lg);
+			ff *= species_list[i].s->lg;
+			if (ff > 0) ff = 0;
+			a = under(lm + ff);
 			SC += a * z * z * Dw;
 		}
 	}
