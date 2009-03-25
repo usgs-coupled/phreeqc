@@ -1,6 +1,9 @@
 DATABASE ../database/sit.dat
-KNOBS
-	-debug_model
+#KNOBS
+#	-debug_model
 SOLUTION
-	Na	1
-	Cl	1
+	-units mol/kgw
+	pH	0   charge
+	Cl	3
+	K       .001
+	N(5)    .001

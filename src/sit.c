@@ -306,6 +306,7 @@ sit(void)
   int i, i0, i1;
   LDBLE param, alpha, z0, z1;
   LDBLE dummy;
+  LDBLE A, AGAMMA, T;
 	/*
 	   LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
 	   CSUM, PHIMAC, OSMOT, BMXP, ETHEAP, CMX, BMX, PHI,
@@ -382,13 +383,23 @@ sit(void)
 	   C     CALCULATE F & GAMCLM
 	   C
 	 */
+	AGAMMA = 3*A0; /* Grenthe p 379 */
+	A = AGAMMA / log(10.0);
+	/*
+	*  F is now for log10 gamma
+	*/
+
 	B = 1.5;
-	F = -A0 * (DI / (1.0e0 + B * DI));
+	F = -A * (DI / (1.0e0 + B * DI));
+
 
 	CSUM = 0.0e0;
-	OSMOT = -(A0) * pow(I, 1.5e0) / (1.0e0 + B * DI);
+	/*OSMOT = -(A0) * pow(I, 1.5e0) / (1.0e0 + B * DI);*/
+	T = 1.0 + B*DI;
+	OSMOT = -2.0*A/(B*B*B)*(T - 2.0*log(T) - 1.0/T);
 	/*
 	 *  Sums for LGAMMA, and OSMOT
+	 *  epsilons are tabulated for log10 gamma (not ln gamma)
 	 */
 	dummy = LGAMMA[1];
 	for (i = 0; i < count_sit_param; i++)
@@ -438,7 +449,8 @@ sit(void)
 	   C     CONVERT TO MACINNES CONVENTION
 	   C
 	 */
-	COSMOT = 1.0e0 + 2.0e0 * OSMOT / OSUM;
+	/*COSMOT = 1.0e0 + 2.0e0 * OSMOT / OSUM;*/
+	COSMOT = 1.0e0 + OSMOT*log(10.0) / OSUM;
 	/*
 	   C
 	   C     CALCULATE THE ACTIVITY OF WATER
@@ -451,10 +463,10 @@ sit(void)
 	for (i = 0; i < 2 * count_s + count_anions; i++)
 	{
 		if (IPRSNT[i] == FALSE)	continue;
-		spec[i]->lg_pitzer = LGAMMA[i] * CONV;
-		/*
+		spec[i]->lg_pitzer = LGAMMA[i];
+
 		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
-		 */
+
 	}
 	return (OK);
 }
@@ -1112,7 +1124,7 @@ int
 check_gammas_sit(void)
 /* ---------------------------------------------------------------------- */
 {
-	LDBLE old_aw, old_mu, tol;
+	LDBLE old_aw, old_mu, tol, t;
 	int converge, i;
 
 	old_mu = mu_x;
@@ -1132,9 +1144,14 @@ check_gammas_sit(void)
 		}
 	}
 	if (fabs(old_mu - mu_x) > tol)
+	{
 		converge = FALSE;
+	}
+	t = pow(10.0, s_h2o->la);
 	if ((pow(10.0, s_h2o->la) - AW) > tol)
+	{
 		converge = FALSE;
+	}
 	return converge;
 }
 
@@ -1297,16 +1314,15 @@ C
 	int i;
 	LDBLE TR = 298.15;
 
-	if (fabs(TK - OTEMP) < 0.01e0)
-		return OK;
+	/* if (fabs(TK - OTEMP) < 0.01e0)	return OK; */
 	OTEMP = TK;
 /*
 C     Set DW0
 */
 	DW(TK);
-	for (i = 0; i < count_pitz_param; i++)
+	for (i = 0; i < count_sit_param; i++)
 	{
-		calc_sit_param(pitz_params[i], TK, TR);
+		calc_sit_param(sit_params[i], TK, TR);
 	}
 	DC0 = DC(TK);
 	if (fabs(TK - TR) < 0.01e0)

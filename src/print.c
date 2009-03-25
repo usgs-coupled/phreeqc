@@ -2085,7 +2085,7 @@ print_totals(void)
 			   "Percent error, 100*(Cat-|An|)/(Cat+|An|)  = ",
 			   (double) (100 * cb_x / total_ions_x));
 	output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Iterations  = ", iterations);
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
 				   gamma_iterations);

@@ -2624,7 +2624,7 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokosmotic:
-		if (pitzer_model == TRUE)
+		if (pitzer_model == TRUE || sit_model == TRUE)
 		{
 			n.UU.val = COSMOT;
 		}
