@@ -37,7 +37,6 @@ sit_init(void)
 	sit_model = FALSE;
 	max_sit_param = 100;
 	count_sit_param = 0;
-	pitzer_pe = TRUE;
 	space((void **) ((void *) &sit_params), INIT, &max_sit_param,
 		  sizeof(struct pitz_param *));
 	return OK;
@@ -825,6 +824,10 @@ jacobian_sit(void)
 			d2 = log(1.0 + d);
 			break;
 		case MH:
+			s_eminus->la += d;
+			d2 = d1;
+			break;
+			/*
 			if (pitzer_pe == TRUE)
 			{
 				s_eminus->la += d;
@@ -835,6 +838,7 @@ jacobian_sit(void)
 			{
 				continue;
 			}
+			*/
 		case MU:
 		case PP:
 		case GAS_MOLES:

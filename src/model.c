@@ -416,7 +416,7 @@ check_residuals(void)
 			}
 		}
 		else if ((x[i]->type == MH
-				  && ((pitzer_model == FALSE && sit_model == FALSE) || pitzer_pe == TRUE)))
+				  && (pitzer_model == FALSE || pitzer_pe == TRUE)))
 		{
 #define COMBINE
 			/*#define COMBINE_CHARGE */
@@ -1078,7 +1078,7 @@ ineq(int in_kode)
 			}
 		}
 
-		if (x[i]->type == MH && ((pitzer_model == FALSE && sit_model == FALSE) || pitzer_pe == TRUE))
+		if (x[i]->type == MH && (pitzer_model == FALSE || pitzer_pe == TRUE))
 		{
 			/* make absolute value of diagonal at least 1e-12 */
 
@@ -1270,8 +1270,7 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE)
 				continue;
-			if (x[i]->type == MH && (pitzer_model == TRUE || sit_model == TRUE)
-				&& pitzer_pe == FALSE)
+			if (x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE)
 				continue;
 			if (mass_water_switch == TRUE && x[i] == mass_oxygen_unknown)
 				continue;
@@ -3571,7 +3570,7 @@ residuals(void)
 			}
 		}
 		else if (x[i]->type == MH
-				 && ((pitzer_model == FALSE && sit_model == FALSE) || pitzer_pe == TRUE))
+				 && (pitzer_model == FALSE || pitzer_pe == TRUE))
 		{
 #ifdef COMBINE
 			residual[i] = x[i]->moles - x[i]->f;

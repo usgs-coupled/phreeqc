@@ -470,7 +470,7 @@ tidy_model(void)
 		error_msg("e-, primary master species for E-, not defined.",
 				  CONTINUE);
 	}
-	if ((pitzer_model == FALSE && sit_model == FALSE) || pitzer_pe == TRUE)
+	if (pitzer_model == FALSE || pitzer_pe == TRUE)
 	{
 		if (s_h2 == NULL)
 		{
