@@ -74,14 +74,14 @@ initialize(void)
 	debug_diffuse_layer = FALSE;
 	debug_inverse = FALSE;
 	itmax = 100;
-#ifdef USE_LONG_LDBLE
+#ifdef USE_LONG_DOUBLE
 	/* from float.h, sets tolerance for cl1 routine */
 	ineq_tol = pow((long double) 10, (long double) -LDBL_DIG);
 #else
 	ineq_tol = pow((double) 10, (double) -DBL_DIG);
 #endif
 	convergence_tolerance = 1e-8;
-#ifdef USE_LONG_LDBLE
+#ifdef USE_LONG_DOUBLE
 	/* from float.h, sets tolerance for cl1 routine */
 	inv_tol_default = pow((long double) 10, (long double) -LDBL_DIG + 5);
 #else
