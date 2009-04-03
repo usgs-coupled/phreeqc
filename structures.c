@@ -3272,6 +3272,9 @@ pe_data_alloc(void)
 		pe_data_ptr[0].rxn->token[1].s = s_eminus;
 		pe_data_ptr[0].rxn->token[1].coef = -1.0;
 		pe_data_ptr[0].rxn->token[2].s = NULL;
+		pe_data_ptr[0].rxn->dz[0] = 0.0;
+		pe_data_ptr[0].rxn->dz[1] = 0.0;
+		pe_data_ptr[0].rxn->dz[2] = 0.0;
 	}
 	pe_data_ptr[1].name = NULL;
 	pe_data_ptr[1].rxn = NULL;
@@ -4290,6 +4293,13 @@ rxn_alloc(int ntokens)
 		rxn_ptr->logk[i] = 0.0;
 	}
 /*
+ *   zero dz data
+ */
+	for (i = 0; i < 3; i++)
+	{
+		rxn_ptr->dz[i] = 0.0;
+	}
+/*
  *   Malloc rxn_token structure
  */
 	rxn_ptr->token =
@@ -4301,6 +4311,7 @@ rxn_alloc(int ntokens)
 		rxn_ptr->token[i].name = NULL;
 		rxn_ptr->token[i].coef = 0.0;
 	}
+
 	if (rxn_ptr->token == NULL)
 		malloc_error();
 	return (rxn_ptr);
@@ -4329,6 +4340,10 @@ rxn_dup(struct reaction *rxn_ptr_old)
  *   Copy logk data
  */
 	memcpy(rxn_ptr_new->logk, rxn_ptr_old->logk, (size_t) 7 * sizeof(LDBLE));
+/*
+ *   Copy dz data
+ */
+	memcpy(rxn_ptr_new->dz, rxn_ptr_old->dz, (size_t) (3 * sizeof(LDBLE)));
 /*
  *   Copy tokens
  */
@@ -4423,6 +4438,12 @@ rxn_print(struct reaction *rxn_ptr)
 		output_msg(OUTPUT_MESSAGE, "\n");
 		next_token++;
 	}
+	output_msg(OUTPUT_MESSAGE, "dz data\n");
+	for (i = 0; i < 3; i++)
+	  {
+	    output_msg(OUTPUT_MESSAGE, "\t%d %e\n", i, (double) rxn_ptr->dz[i]);
+	    
+	  }
 	return (OK);
 }
 

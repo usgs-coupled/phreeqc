@@ -2120,7 +2120,7 @@ print_model(struct inverse *inv_ptr)
 
 	output_msg(OUTPUT_MESSAGE,
 			   "\nSum of residuals (epsilons in documentation):      %12.3e\n",
-			   ((double) error / SCALE_EPSILON));
+		   ((double) (error / SCALE_EPSILON)));
 	output_msg(OUTPUT_MESSAGE,
 			   "Sum of delta/uncertainty limit:                    %12.3e\n",
 			   (double) scaled_error);
@@ -2218,14 +2218,14 @@ punch_model(struct inverse *inv_ptr)
 	if (punch.high_precision == FALSE)
 	{
 		output_msg(OUTPUT_PUNCH, "%12.4e\t",
-				   ((double) error / SCALE_EPSILON));
+			   ((double) (error / SCALE_EPSILON)));
 		output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) scaled_error);
 		output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) max_pct);
 	}
 	else
 	{
 		output_msg(OUTPUT_PUNCH, "%20.12e\t",
-				   ((double) error / SCALE_EPSILON));
+			   ((double) (error / SCALE_EPSILON)));
 		output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) scaled_error);
 		output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) max_pct);
 	}
@@ -3027,7 +3027,7 @@ post_mortem(void)
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: equality not satisfied for %s, %e.\n",
 					   row_name[i],
-					   sum - array[(i * max_column_count) + count_unknowns]);
+				   (double) (sum - array[(i * max_column_count) + count_unknowns]));
 		}
 	}
 /*
@@ -3046,7 +3046,7 @@ post_mortem(void)
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: inequality not satisfied for %s, %e\n",
 					   row_name[i],
-					   sum - array[(i * max_column_count) + count_unknowns]);
+				   (double) (sum - array[(i * max_column_count) + count_unknowns]));
 		}
 	}
 /*
@@ -3058,13 +3058,13 @@ post_mortem(void)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-					   i, col_name[i], delta1[i]);
+				   i, col_name[i], (double) delta1[i]);
 		}
 		else if (delta_save[i] < -0.5 && delta1[i] > toler)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-					   i, col_name[i], delta1[i]);
+				   i, col_name[i], (double) delta1[i]);
 		}
 	}
 
@@ -5138,7 +5138,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 
 	output_msg(OUTPUT_MESSAGE,
 			   "\nSum of residuals (epsilons in documentation):      %12.3e\n",
-			   ((double) error / SCALE_EPSILON));
+		   ((double) (error / SCALE_EPSILON)));
 	output_msg(OUTPUT_MESSAGE,
 			   "Sum of delta/uncertainty limit:                    %12.3e\n",
 			   (double) scaled_error);

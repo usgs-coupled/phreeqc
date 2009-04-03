@@ -257,7 +257,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 		r = 0.002 * mass_water_bulk_x / sum_surfs;
 		output_msg(OUTPUT_MESSAGE,
 				   "\tRadius of total pore:   %8.3e m; of free pore: %8.3e m.\n",
-				   (double) r, (double) r - use.surface_ptr->thickness);
+				   (double) r, (double) (r - use.surface_ptr->thickness));
 	}
 
 	if (debug_diffuse_layer == TRUE)
@@ -1728,11 +1728,7 @@ print_surface_cd_music(void)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\t%11.3e  Surface + diffuse layer charge, eq\n\n",
-					   (double) x[j + 2]->f + (x[j]->surface_charge->sigma0 +
-											   x[j]->surface_charge->
-											   sigma1) *
-					   (x[j]->surface_charge->specific_area *
-						x[j]->surface_charge->grams) / F_C_MOL);
+					   (double) (x[j + 2]->f + (x[j]->surface_charge->sigma0 + x[j]->surface_charge->sigma1) * (x[j]->surface_charge->specific_area * x[j]->surface_charge->grams) / F_C_MOL));
 		}
 		master_ptr0 =
 			surface_get_psi_master(x[j]->surface_charge->name, SURF_PSI);
@@ -1765,7 +1761,7 @@ print_surface_cd_music(void)
 				x[j]->comp_unknowns[k]->master[0]->s->z;
 		}
 		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 0, eq\n",
-				   (double) charge0 + sum);
+				   (double) (charge0 + sum));
 		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 1, eq\n",
 				   (double) charge1);
 		output_msg(OUTPUT_MESSAGE, "\t%11.3e  Surface charge, plane 2, eq\n",
@@ -1780,42 +1776,39 @@ print_surface_cd_music(void)
 			{
 				output_msg(OUTPUT_MESSAGE,
 						   "\t%11.3e  sigma, plane 0, C/m**2\n",
-						   x[j]->surface_charge->sigma0);
+						   (double) x[j]->surface_charge->sigma0);
 				output_msg(OUTPUT_MESSAGE,
 						   "\t%11.3e  sigma, plane 1, C/m**2\n",
-						   x[j]->surface_charge->sigma1);
+						   (double) x[j]->surface_charge->sigma1);
 				output_msg(OUTPUT_MESSAGE,
 						   "\t%11.3e  sigma, plane 2, C/m**2\n",
-						   x[j]->surface_charge->sigma2);
+						   (double) x[j]->surface_charge->sigma2);
 				output_msg(OUTPUT_MESSAGE,
 						   "\t%11.3e  sigma, diffuse layer, C/m**2\n\n",
-						   x[j]->surface_charge->sigmaddl);
+						   (double) x[j]->surface_charge->sigmaddl);
 			}
 			else
 			{
 				output_msg(OUTPUT_MESSAGE, "\tundefined  sigma, C/m**2\n");
 			}
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 0, V\n",
-					   -master_ptr0->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-					   F_KJ_V_EQ);
+					   (double) (-master_ptr0->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ));
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 1, V\n",
-					   -master_ptr1->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-					   F_KJ_V_EQ);
+					   (double) (-master_ptr1->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ));
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  psi, plane 2, V\n\n",
-					   -master_ptr2->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x /
-					   F_KJ_V_EQ);
+					   (double) (-master_ptr2->s->la * LOG_10 * R_KJ_DEG_MOL * tk_x / F_KJ_V_EQ));
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 0\n",
-					   exp(master_ptr0->s->la * LOG_10));
+					   (double) (exp(master_ptr0->s->la * LOG_10)));
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  exp(-F*psi/RT), plane 1\n",
-					   exp(master_ptr1->s->la * LOG_10));
+					   (double) (exp(master_ptr1->s->la * LOG_10)));
 			output_msg(OUTPUT_MESSAGE,
 					   "\t%11.3e  exp(-F*psi/RT), plane 2\n\n",
-					   exp(master_ptr2->s->la * LOG_10));
+					   (double) (exp(master_ptr2->s->la * LOG_10)));
 
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  capacitance 0-1, F/m^2\n",
-					   x[j]->surface_charge->capacitance[0]);
+					   (double) (x[j]->surface_charge->capacitance[0]));
 			output_msg(OUTPUT_MESSAGE, "\t%11.3e  capacitance 1-2, F/m^2\n",
-					   x[j]->surface_charge->capacitance[1]);
+					   (double) (x[j]->surface_charge->capacitance[1]));
 
 			if (x[j]->surface_comp->phase_name != NULL)
 			{
@@ -2321,15 +2314,15 @@ punch_gas_phase(void)
 	}
 	if (punch.high_precision == FALSE)
 	{
-		fpunchf("pressure", "%12.4e\t", p);
-		fpunchf("total mol", "%12.4e\t", total_moles);
-		fpunchf("volume", "%12.4e\t", volume);
+		fpunchf("pressure", "%12.4e\t", (double) p);
+		fpunchf("total mol", "%12.4e\t", (double) total_moles);
+		fpunchf("volume", "%12.4e\t", (double) volume);
 	}
 	else
 	{
-		fpunchf("pressure", "%20.12e\t", p);
-		fpunchf("total mol", "%20.12e\t", total_moles);
-		fpunchf("volume", "%20.12e\t", volume);
+		fpunchf("pressure", "%20.12e\t", (double) p);
+		fpunchf("total mol", "%20.12e\t", (double) total_moles);
+		fpunchf("volume", "%20.12e\t", (double) volume);
 	}
 	for (i = 0; i < punch.count_gases; i++)
 	{
@@ -2349,12 +2342,12 @@ punch_gas_phase(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("g_%s", punch.gases[i].name), "%12.4e\t", moles);
+			fpunchf(sformatf("g_%s", punch.gases[i].name), "%12.4e\t", (double) moles);
 		}
 		else
 		{
 			fpunchf(sformatf("g_%s", punch.gases[i].name), "%20.12e\t",
-					moles);
+					(double) moles);
 		}
 	}
 	return (OK);
@@ -2420,12 +2413,12 @@ punch_s_s_assemblage(void)
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%12.4e\t", 0.0);
+				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%12.4e\t", (double) 0.0);
 			}
 			else
 			{
 				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%20.12e\t",
-						0.0);
+						(double) 0.0);
 			}
 		}
 	}
@@ -2461,12 +2454,12 @@ punch_totals(void)
 		if (punch.high_precision == FALSE)
 		{
 			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
-					"%12.4e\t", molality);
+					"%12.4e\t", (double) molality);
 		}
 		else
 		{
 			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
-					"%20.12e\t", molality);
+					"%20.12e\t", (double) molality);
 		}
 	}
 	return (OK);
@@ -2494,12 +2487,12 @@ punch_molalities(void)
 		if (punch.high_precision == FALSE)
 		{
 			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
-					"%12.4e\t", molality);
+					"%12.4e\t", (double) molality);
 		}
 		else
 		{
 			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
-					"%20.12e\t", molality);
+					"%20.12e\t", (double) molality);
 		}
 	}
 	return (OK);
@@ -2528,12 +2521,12 @@ punch_activities(void)
 		if (punch.high_precision == FALSE)
 		{
 			fpunchf(sformatf("la_%s", punch.activities[j].name), "%12.4e\t",
-					la);
+					(double) la);
 		}
 		else
 		{
 			fpunchf(sformatf("la_%s", punch.activities[j].name),
-					"%20.12e\t", la);
+					"%20.12e\t", (double) la);
 		}
 	}
 	return (OK);
@@ -2583,15 +2576,15 @@ punch_pp_assemblage(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(punch.pure_phases[i].name, "%12.4e\t", moles);
+			fpunchf(punch.pure_phases[i].name, "%12.4e\t", (double) moles);
 			fpunchf(sformatf("d_%s", punch.pure_phases[i].name), "%12.4e\t",
-					delta_moles);
+					(double) delta_moles);
 		}
 		else
 		{
-			fpunchf(punch.pure_phases[i].name, "%20.12e\t", moles);
+			fpunchf(punch.pure_phases[i].name, "%20.12e\t", (double) moles);
 			fpunchf(sformatf("d_%s", punch.pure_phases[i].name),
-					"%20.12e\t", delta_moles);
+					"%20.12e\t", (double) delta_moles);
 		}
 	}
 	return (OK);
@@ -2727,7 +2720,7 @@ punch_identifiers(void)
 		else if (state == TRANSPORT)
 		{
 			fpunchf(PHAST_NULL("dist_x"), gformat,
-					cell_data[cell - 1].mid_cell_x);
+					(double) cell_data[cell - 1].mid_cell_x);
 		}
 		else
 		{
@@ -2772,19 +2765,19 @@ punch_identifiers(void)
 		}
 		if (state == REACTION)
 		{
-			fpunchf(PHAST_NULL("time"), gformat, kin_time_x);
+			fpunchf(PHAST_NULL("time"), gformat, (double) kin_time_x);
 		}
 		else if (state == TRANSPORT || state == PHAST)
 		{
 			fpunchf(PHAST_NULL("time"), gformat,
-					initial_total_time + rate_sim_time);
+					(double) (initial_total_time + rate_sim_time));
 		}
 		else if (state == ADVECTION)
 		{
 			if (advection_kin_time_defined == TRUE)
 			{
 				fpunchf(PHAST_NULL("time"), gformat,
-						initial_total_time + rate_sim_time);
+						(double) (initial_total_time + rate_sim_time));
 			}
 			else
 			{
@@ -2847,11 +2840,11 @@ punch_identifiers(void)
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf("reaction", "%12.4e\t", step_x);
+				fpunchf("reaction", "%12.4e\t", (double) step_x);
 			}
 			else
 			{
-				fpunchf("reaction", "%20.12e\t", step_x);
+				fpunchf("reaction", "%20.12e\t", (double) step_x);
 			}
 		}
 		else
@@ -2870,11 +2863,11 @@ punch_identifiers(void)
 	{
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf("temp(C)", "%12.3f\t", tc_x);
+			fpunchf("temp(C)", "%12.3f\t", (double) tc_x);
 		}
 		else
 		{
-			fpunchf("temp(C)", "%20.12e\t", tc_x);
+			fpunchf("temp(C)", "%20.12e\t", (double) tc_x);
 		}
 	}
 	if (punch.alk == TRUE)
@@ -2974,11 +2967,11 @@ punch_saturation_indices(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("si_%s", punch.si[i].name), "%12.4f\t", si);
+			fpunchf(sformatf("si_%s", punch.si[i].name), "%12.4f\t", (double) si);
 		}
 		else
 		{
-			fpunchf(sformatf("si_%s", punch.si[i].name), "%20.12e\t", si);
+			fpunchf(sformatf("si_%s", punch.si[i].name), "%20.12e\t", (double) si);
 		}
 	}
 	return (OK);
@@ -3040,16 +3033,16 @@ punch_kinetics(void)
 		if (punch.high_precision == FALSE)
 		{
 			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%12.4e\t",
-					moles);
+					(double) moles);
 			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%12.4e\t",
-					-delta_moles);
+					(double) -delta_moles);
 		}
 		else
 		{
 			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%20.12e\t",
-					moles);
+					(double) moles);
 			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%20.12e\t",
-					-delta_moles);
+					(double) -delta_moles);
 		}
 	}
 	return (OK);

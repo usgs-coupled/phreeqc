@@ -1252,7 +1252,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		diagonal_scale = TRUE;
 		always_full_pitzer = FALSE;
-		max_try = 2;
+		max_try = 6;
 	}
 	else
 	{
@@ -1277,6 +1277,22 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		else if (j == 2)
 		{
 			itmax *= 2;
+			ineq_tol /= 10.;
+			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+					(double) ineq_tol);
+			warning_msg(error_string);
+		}
+		else if (j == 3)
+		{
+			itmax *= 2;
+			ineq_tol *= 10.;
+			sprintf(error_string, "Trying increased tolerance %g ...\n",
+					(double) ineq_tol);
+			warning_msg(error_string);
+		}
+		else if (j == 4)
+		{
+			itmax *= 2;
 			if (diagonal_scale == TRUE)
 			{
 				diagonal_scale = FALSE;
@@ -1286,22 +1302,6 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 				diagonal_scale = TRUE;
 			}
 			sprintf(error_string, "Trying diagonal scaling ...\n");
-			warning_msg(error_string);
-		}
-		else if (j == 3)
-		{
-			itmax *= 2;
-			ineq_tol /= 10.;
-			sprintf(error_string, "Trying reduced tolerance %g ...\n",
-					(double) ineq_tol);
-			warning_msg(error_string);
-		}
-		else if (j == 4)
-		{
-			itmax *= 2;
-			ineq_tol *= 10.;
-			sprintf(error_string, "Trying increased tolerance %g ...\n",
-					(double) ineq_tol);
 			warning_msg(error_string);
 		}
 		else if (j == 5)
