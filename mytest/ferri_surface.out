@@ -413,12 +413,6 @@ WARNING: Maximum iterations exceeded, 200
 
 WARNING: Numerical method failed with this set of convergence parameters.
 
-WARNING: Trying diagonal scaling ...
-
-WARNING: Maximum iterations exceeded, 200
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
 WARNING: Trying reduced tolerance 1e-16 ...
 
 ----------------------------------User print-----------------------------------

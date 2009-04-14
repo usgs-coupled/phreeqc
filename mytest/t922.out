@@ -838,6 +838,14 @@ WARNING: Trying smaller step size, pe step size 10, 5 ...
 
 WARNING: Numerical method failed with this set of convergence parameters.
 
+WARNING: Trying reduced tolerance 1e-16 ...
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying increased tolerance 1e-14 ...
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
 WARNING: Trying diagonal scaling ...
 
 Using mix 2.	

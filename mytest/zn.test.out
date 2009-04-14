@@ -2827,7 +2827,7 @@ WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
 WARNING: Numerical method failed with this set of convergence parameters.
 
-WARNING: Trying diagonal scaling ...
+WARNING: Trying reduced tolerance 1e-16 ...
 
 Using solution 1.	Pure water
 Using pure phase assemblage 3.	
@@ -2887,9 +2887,9 @@ ZnSO4:H2O           -2.52   -3.09   -0.57    9.000e+00           0  -9.000e+00
                  Total alkalinity (eq/kg)  =   7.040e-04
                        Total CO2 (mol/kg)  =   7.120e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.089e-10
+                  Electrical balance (eq)  =  -4.356e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  61
+                               Iterations  =  42
                                   Total H  = 6.602070e+01
                                   Total O  = 6.918589e+01
 
@@ -3172,6 +3172,18 @@ WARNING: Trying smaller step size, pe step size 10, 5 ...
 
 WARNING: Mass of water is less than 1e-10 kilogram.
 The aqueous phase may not be stable relative to given masses of minerals.
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying reduced tolerance 1e-16 ...
+
+WARNING: Maximum iterations exceeded, 400
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying increased tolerance 1e-14 ...
+
+WARNING: Maximum iterations exceeded, 400
+
 WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying diagonal scaling ...
