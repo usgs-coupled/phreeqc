@@ -254,6 +254,7 @@ pitzer_tidy(void)
 			case TYPE_MU:
 			case TYPE_ETA:
 			case TYPE_Other:
+			default:
 				break;
 			}
 		}
@@ -863,6 +864,7 @@ calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 		pz_ptr->U.eta = param;
 		break;
 	case TYPE_Other:
+	default:
 		error_msg("Should not be TYPE_Other in function calc_pitz_param",
 				  STOP);
 		break;
@@ -1112,6 +1114,7 @@ pitzer(void)
 		case TYPE_ALPHAS:
 			break;
 		case TYPE_Other:
+		default:
 			error_msg("TYPE_Other in pitz_param list.", STOP);
 			break;
 		}

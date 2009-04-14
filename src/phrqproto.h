@@ -195,6 +195,16 @@ int pitzer_tidy(void);
 int read_pitzer(void);
 int set_pz(int initial);
 
+/* sit.c */
+int gammas_sit(void);
+int model_sit(void);
+int sit(void);
+int sit_clean_up(void);
+int sit_init(void);
+int sit_tidy(void);
+int read_sit(void);
+int set_sit(int initial);
+
 /* prep.c */
 int check_same_model(void);
 int k_temp(LDBLE tc);

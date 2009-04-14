@@ -1599,6 +1599,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\sit.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\smalldense.c"
 				>
 				<FileConfiguration

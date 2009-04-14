@@ -1,6 +1,7 @@
 typedef enum
 { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA,
-	TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other
+  TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other, 
+  TYPE_SIT_EPSILON, TYPE_SIT_EPSILON_MU
 } pitz_param_type;
 
 
@@ -25,6 +26,8 @@ struct pitz_param
 		LDBLE alphas;
 		LDBLE mu;
 		LDBLE eta;
+	  LDBLE eps;
+	  LDBLE eps1;
 	} U;
 	LDBLE a[5];
 	LDBLE alpha;
@@ -35,6 +38,8 @@ struct pitz_param
 
 PITZER_EXTERNAL struct pitz_param **pitz_params;
 PITZER_EXTERNAL int count_pitz_param, max_pitz_param;
+PITZER_EXTERNAL struct pitz_param **sit_params;
+PITZER_EXTERNAL int count_sit_param, max_sit_param;
 
 
 

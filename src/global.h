@@ -1173,7 +1173,8 @@ struct const_key keyword[] = {
 	{"isotope_ratios", 0},
 	{"isotope_alphas", 0},
 	{"copy", 0},
-	{"pitzer", 0}
+	{"pitzer", 0},
+	{"sit", 0}
 #ifdef PHREEQC_CPP
 	,
 	{"solution_raw", 0},
@@ -1187,6 +1188,7 @@ struct const_key keyword[] = {
 	{"mix_raw", 0},
 	{"reaction_temperature_raw", 0}
 #endif /* PHREEQC_CPP */
+	
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid keywords */
 #else
@@ -1796,7 +1798,7 @@ enum entity_type
 
 EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
-EXTERNAL int pitzer_model, pitzer_pe;
+EXTERNAL int pitzer_model, sit_model, pitzer_pe;
 EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
 EXTERNAL LDBLE COSMOT;
 EXTERNAL LDBLE AW;

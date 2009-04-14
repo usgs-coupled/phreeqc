@@ -1248,7 +1248,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 					  use.kinetics_ptr->n_user);
 	}
 
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		diagonal_scale = TRUE;
 		always_full_pitzer = FALSE;
