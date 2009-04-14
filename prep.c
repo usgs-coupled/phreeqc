@@ -1273,7 +1273,7 @@ build_model(void)
 			{
 				gfw_water = 18.0 / 1000.0;
 			}
-			if (pitzer_model == FALSE)
+			if (pitzer_model == FALSE && sit_model == FALSE)
 				s[i]->lg = 0.0;
 			if (count_s_x + 1 >= max_s_x)
 			{
@@ -1361,7 +1361,7 @@ build_model(void)
 				build_mb_sums();
 			}
 #endif
-			if (!pitzer_model)
+			if (!pitzer_model && !sit_model)
 				build_jacobian_sums(i);
 /*
  *    Build list of species for summing and printing
@@ -1378,9 +1378,9 @@ build_model(void)
 			build_species_list(i);
 		}
 	}
-	if (dl_type_x != NO_DL && pitzer_model == TRUE)
+	if (dl_type_x != NO_DL && (pitzer_model == TRUE || sit_model == TRUE))
 	{
-		error_msg("-diffuse_layer option not available for Pizer model",
+		error_msg("-diffuse_layer option not available for Pizer or SIT model",
 				  STOP);
 	}
 /*
@@ -1408,7 +1408,7 @@ build_model(void)
  *   For Pizer model add lg unknown for each aqueous species
  */
 
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		j0 = count_unknowns;
 		j = count_unknowns + count_s_x;
@@ -4103,7 +4103,7 @@ setup_solution(void)
 			}
 		}
 	}
-	if (pitzer_model == FALSE)
+	if (pitzer_model == FALSE && sit_model == FALSE)
 	{
 		/*
 		 *   Ionic strength
@@ -4317,7 +4317,7 @@ setup_unknowns(void)
  *   One for luck
  */
 	max_unknowns++;
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		max_unknowns += count_s;
 	}

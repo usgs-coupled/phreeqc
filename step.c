@@ -247,7 +247,7 @@ xsolution_zero(void)
 		master[i]->total_primary = 0.0;
 		master[i]->s->la = 0.0;
 	}
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		for (i = 0; i < count_s; i++)
 		{
@@ -321,7 +321,7 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 /*
  *   Accumulate initial guesses for log gamma
  */
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		for (i = 0; i < solution_ptr->count_species_gamma; i++)
 		{

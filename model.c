@@ -95,10 +95,22 @@ model(void)
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
 	/* mass_water_switch == TRUE, mass of water is constant */
+	if (pitzer_model == TRUE && sit_model == TRUE)
+	{
+	  input_error++;
+	  error_msg("Cannot use PITZER and SIT data blocks in same run (database + input file).", STOP);
+	}
 	if (pitzer_model == TRUE)
 	{
 		
 		kode = model_pz();
+		unset_inert_moles();
+		return kode;
+	}
+	if (sit_model == TRUE)
+	{
+		
+		kode = model_sit();
 		unset_inert_moles();
 		return kode;
 	}
@@ -379,7 +391,7 @@ check_residuals(void)
 				error_msg(error_string, CONTINUE);
 			}
 		}
-		else if (x[i]->type == MU && pitzer_model == FALSE)
+		else if (x[i]->type == MU && pitzer_model == FALSE && sit_model == FALSE)
 		{
 			if (fabs(residual[i]) >=
 				epsilon * mu_x *
@@ -392,7 +404,7 @@ check_residuals(void)
 				error_msg(error_string, CONTINUE);
 			}
 		}
-		else if (x[i]->type == AH2O && pitzer_model == FALSE)
+		else if (x[i]->type == AH2O && pitzer_model == FALSE && sit_model == FALSE)
 		{
 			if (fabs(residual[i]) >= epsilon /* || stop_program == TRUE */ )
 			{
@@ -607,6 +619,8 @@ gammas(LDBLE mu)
 	/* Initialize */
 	if (pitzer_model == TRUE)
 		return gammas_pz();
+	if (sit_model == TRUE)
+		return gammas_sit();
 	a_llnl = b_llnl = bdot_llnl = log_g_co2 = dln_g_co2 = c2_llnl = 0;
 /*
  *   compute temperature dependence of a and b for debye-huckel
@@ -990,7 +1004,7 @@ ineq(int in_kode)
 /*
  *   Pitzer model does not have activity of water or mu
  */
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
@@ -1256,8 +1270,7 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE)
 				continue;
-			if (x[i]->type == MH && pitzer_model == TRUE
-				&& pitzer_pe == FALSE)
+			if (x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE)
 				continue;
 			if (mass_water_switch == TRUE && x[i] == mass_oxygen_unknown)
 				continue;
@@ -1378,7 +1391,7 @@ ineq(int in_kode)
  */
 #ifdef SKIP
 #endif
-	if (pitzer_model)
+	if (pitzer_model || sit_model)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
@@ -3242,7 +3255,7 @@ reset(void)
 						   (double) delta[i], "delta/c", (double) d);
 			}
 			s_h2o->la += d;
-			if (pitzer_model == FALSE)
+			if (pitzer_model == FALSE && sit_model == FALSE)
 			{
 				if (s_h2o->la < -1.0)
 				{
@@ -3521,7 +3534,7 @@ residuals(void)
 				converge = FALSE;
 			}
 		}
-		else if (x[i]->type == MU && pitzer_model == FALSE)
+		else if (x[i]->type == MU && pitzer_model == FALSE && sit_model == FALSE)
 		{
 			residual[i] = mass_water_aq_x * mu_x - 0.5 * x[i]->f;
 			if (fabs(residual[i]) > toler * mu_x * mass_water_aq_x)
@@ -3539,7 +3552,7 @@ residuals(void)
 			residual[i] =
 				mass_water_aq_x * exp(s_h2o->la * LOG_10) - mass_water_aq_x +
 				0.017 * x[i]->f;
-			if (pitzer_model)
+			if (pitzer_model || sit_model)
 			{
 				residual[i] = pow(10.0, s_h2o->la) - AW;
 				if (full_pitzer == FALSE)
@@ -4091,7 +4104,7 @@ residuals(void)
 /*
  *   Return
  */
-	if (pitzer_model == TRUE && iterations < 1)
+	if ((pitzer_model == TRUE || sit_model == TRUE) && iterations < 1)
 		return (OK);
 	if (converge == TRUE)
 	{
@@ -4116,6 +4129,8 @@ set(int initial)
  */
 	if (pitzer_model == TRUE)
 		return (set_pz(initial));
+	if (sit_model == TRUE)
+		return (set_sit(initial));
 	iterations = -1;
 	solution_ptr = use.solution_ptr;
 	for (i = 0; i < count_s_x; i++)

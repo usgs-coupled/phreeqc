@@ -378,6 +378,8 @@ clean_up(void)
 
 	pitzer_clean_up();
 
+	sit_clean_up();
+
 
 /* hash tables */
 

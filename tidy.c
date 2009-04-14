@@ -389,6 +389,11 @@ tidy_model(void)
 	if (pitzer_model && new_model)
 		pitzer_tidy();
 /*
+ *   Tidy SIT information
+ */
+	if (sit_model && new_model)
+		sit_tidy();
+/*
  *   Tidy punch information
  */
 	if (input_error == 0 && (new_punch || new_model))

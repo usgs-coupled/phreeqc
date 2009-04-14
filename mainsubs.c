@@ -642,6 +642,10 @@ initialize(void)
 	 */
 	pitzer_init();
 	/*
+	 *  SIT
+	 */
+	sit_init();
+	/*
 	 * to facilitate debuging
 	 */
 	dbg_use = &use;
@@ -2112,7 +2116,7 @@ xsolution_save(int n_user)
 				  sizeof(struct conc));
 		}
 	}
-	if (pitzer_model == TRUE)
+	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		i = 0;
 		for (j = 0; j < count_s; j++)
