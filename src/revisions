@@ -7,6 +7,43 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+
+	--------
+	svn 3453
+	--------
+	Added Specific Interaction Theory (SIT) activity coefficient
+	model as described in Grenthe, Ingmar, Plyasunov, A.V., and
+	Spahiu, Kastriot, 1997, Estimations of medium effects on
+	thermodynamic data, in Modelling in Aquatic Chemistry,
+	Grenthe, Ingmar, and Puigdomenech, Inasi, eds, OECD
+	Publications, ISBN 92-64-15569-4, 724 p. 
+
+	Implementation is similar to the PITZER implementation, a
+	database with the SIT keyword invokes the SIT activity
+	coefficient model. Currently, No database is provided.
+
+	The SIT keyword has two identifiers,
+	-epsilon and -epsilon1, where -epsilon gives the pairwise
+	interaction parameters and -epsilon1 gives the linear ionic
+	strength dependency of epsilon, if available. Both parameters
+	allow for temperature dependence with the same expression used
+	in PITZER. The five-term expression for temperature dependence is 
+        as follows:
+
+            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+                A4*(TK*TK - TR*TR),
+
+        where TK is Kelvin and TR is 298.15.
+
+	Example:
+SIT
+-epsilon
+        Na+             Br-             0.05    #   0.01
+        Na+             Cl-             0.03    #   0.01
+
+-epsilon1 # not currently used
+
+
         --------
         svn 3288
         --------
@@ -1243,7 +1280,50 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
-	svn 3275
+	svn 3446
+        --------
+	Fixed errors in casting for long double version.
+
+        --------
+	svn 3440
+        --------
+	Adjusted numerical calculation to avoid extremely large
+	calculated specific conductances in high ionic strength
+	waters.
+
+        --------
+	svn 3433
+        --------
+	-dw and -millero added to phreeqc.dat, which allows
+	calculation of specific conductance and density.
+	phreeqd.dat is now redundant and removed from distribution.
+
+        --------
+	svn 3425
+        --------
+	Added error message to require -multi_d for transport of
+	surfaces.
+
+        --------
+	svn 3424
+        --------
+	Checked for misspellings in EXCHANGE definitions, which
+	previously caused crash.
+
+        --------
+	svn 3423
+        --------
+	-dw and -millero added to pitzer.dat, which allows
+	calculation of specific conductance and density.
+
+        --------
+	svn 3292
+        --------
+	Removed redundant warnings related to transport of exchanger
+	and surface.
+
+        --------
+	svn 3287
         --------
         Fixed error in CD_MUSIC surface complexation model. 
         If reaction equation for a surface species was not
@@ -1251,8 +1331,7 @@ End of Features not documented in WRIR 99-4259.
         was incorrect. The logic to accumulate the change in
         charges on the planes was erroneously not included when
         rewriting the equations to the master species. 
-        
-        --------
+
 	svn 3247
         --------
 	Revised donnan layer calculation with CD_MUSIC. Fixed

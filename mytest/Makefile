@@ -113,6 +113,7 @@ all: alkalinity.out \
 	surf_transport.out \
 	ss_r.out \
 	t922.out \
+	test_sit.out \
 	transport.out \
 	transport.dl.out \
 	user_print.out \

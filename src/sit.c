@@ -478,9 +478,9 @@ sit(void)
 	{
 		if (IPRSNT[i] == FALSE)	continue;
 		spec[i]->lg_pitzer = LGAMMA[i];
-
+/*
 		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
-
+*/
 	}
 	return (OK);
 }
