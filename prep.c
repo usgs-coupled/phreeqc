@@ -4578,7 +4578,7 @@ switch_bases(void)
 		for (j = 1; x[i]->master[j] != NULL; j++)
 		{
 			la1 = x[i]->master[j]->s->lm + x[i]->master[j]->s->lg;
-			if (first == 0 && la1 > la + 10.)
+			if (first == 0 && la1 > la + 30.)
 			{
 				la = la1;
 				first = j;

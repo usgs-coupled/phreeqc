@@ -2718,6 +2718,7 @@ reset(void)
 #endif
 	LDBLE mu_calc;
 	LDBLE old_moles;
+	int warning;
 /*
  *   Calculate interphase mass transfers
  */
@@ -2845,9 +2846,10 @@ reset(void)
 /*
  *   Calculate change in element concentrations due to pure phases and gases
  */
+	warning = FALSE;
 	for (i = 0; i < count_unknowns; i++)
 	{
-#ifdef SKIP
+
 #ifdef _MSC_VER
 		if (_isnan(delta[i]))
 		{
@@ -2855,11 +2857,15 @@ reset(void)
 		if (isnan(delta[i]))
 		{
 #endif
-			sprintf(error_string, "Delta %d equals NaN\n", i);
-			warning_msg(error_string);
+			warning = TRUE;
 			delta[i] = 0;
 		}
-#endif
+
+	}
+	if (warning == TRUE)
+	{
+		sprintf(error_string, "At least one delta equals NaN\n");
+		warning_msg(error_string);
 	}
 	if (pure_phase_unknown != NULL || gas_unknown != NULL
 		|| s_s_unknown != NULL)
@@ -3034,6 +3040,28 @@ reset(void)
 	{
 		if (x[i]->type != PP && x[i]->type != S_S_MOLES)
 			delta[i] *= factor;
+	}
+
+	warning = FALSE;
+	for (i = 0; i < count_unknowns; i++)
+	{
+
+#ifdef _MSC_VER
+		if (_isnan(delta[i]))
+		{
+#else
+		if (isnan(delta[i]))
+		{
+#endif
+			warning = TRUE;
+			delta[i] = 0;
+		}
+
+	}
+	if (warning == TRUE)
+	{
+		sprintf(error_string, "At least one delta equals NaN\n");
+		warning_msg(error_string);
 	}
 /*
  *   Solution mass balances: MB, ALK, CB, SOLUTION_PHASE_BOUNDARY
