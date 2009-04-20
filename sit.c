@@ -3,16 +3,16 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-#define PITZER
-#define PITZER_EXTERNAL
+/*#define PITZER*/
+#define PITZER_EXTERNAL extern
 #include "pitzer.h"
 
 /* variables */
 static LDBLE A0;
-struct species **spec, **cations, **anions, **neutrals;
+extern struct species **spec, **cations, **anions, **neutrals;
 static int count_cations, count_anions, count_neutrals;
 static int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
-struct pitz_param *mcb0, *mcb1, *mcc0;
+extern struct pitz_param *mcb0, *mcb1, *mcc0;
 static int *IPRSNT;
 static LDBLE *M, *LGAMMA;
 

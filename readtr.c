@@ -1,3 +1,9 @@
+#ifdef PHREEQC_CPP
+#include "..\StorageBin.h"
+#include <iostream>				// std::cout std::cerr
+#include <sstream>
+#include <fstream>
+#endif
 #define EXTERNAL extern
 #include "global.h"
 #include "phqalloc.h"
@@ -1005,6 +1011,18 @@ dump(void)
 
 	if (dump_in == FALSE || pr.dump == FALSE)
 		return (OK);
+#ifdef PHREEQC_CPP
+	{
+		cxxStorageBin phreeqcBin;
+		phreeqcBin.import_phreeqc();
+
+		//std::ostringstream oss; 
+		std::ofstream fs("phreeqc_dump");
+		fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;
+		phreeqcBin.dump_raw(fs, 0);
+	}
+	return OK;
+#endif
 	output_rewind(OUTPUT_DUMP);
 	output_msg(OUTPUT_DUMP,
 			   "# Dumpfile\n# Transport simulation %d.  Shift %d.\n#\n",
