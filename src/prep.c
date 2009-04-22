@@ -4596,6 +4596,12 @@ switch_bases(void)
 			x[i]->master[0]->in = TRUE;
 			x[i]->master[first] = master_ptr;
 			x[i]->master[first]->in = REWRITE;
+/*
+			fprintf(stderr, "Switching bases to %s.\tIteration %d\n",
+					   x[i]->master[0]->s->name, iterations, la, x[i]->master[0]->s->la);
+ */
+			x[i]->master[0]->s->la = la;
+
 			output_msg(OUTPUT_LOG, "Switching bases to %s.\tIteration %d\n",
 					   x[i]->master[0]->s->name, iterations);
 			return_value = TRUE;

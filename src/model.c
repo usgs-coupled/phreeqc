@@ -2188,6 +2188,12 @@ molalities(int allow_overflow)
 			 rxn_ptr++)
 		{
 			s_x[i]->lm += rxn_ptr->s->la * rxn_ptr->coef;
+			/*
+			if (isnan(rxn_ptr->s->la))
+			{
+				fprintf(stderr,"molalities la %s %e\n", rxn_ptr->s->name, rxn_ptr->s->la);
+			}
+			*/
 		}
 		if (s_x[i]->type == EX)
 		{
@@ -2201,6 +2207,13 @@ molalities(int allow_overflow)
 		else
 		{
 			s_x[i]->moles = under(s_x[i]->lm) * mass_water_aq_x;
+			/*
+			if (isnan(s_x[i]->moles))
+			{
+				fprintf(stderr,"molalities moles %s %e\n", s_x[i]->name, s_x[i]->moles);
+				exit(4);
+			}
+			*/
 			if (s_x[i]->moles / mass_water_aq_x > 30)
 			{
 				output_msg(OUTPUT_LOG, "Overflow: %s\t%e\t%e\t%d\n",
@@ -2850,13 +2863,8 @@ reset(void)
 	for (i = 0; i < count_unknowns; i++)
 	{
 
-#ifdef _MSC_VER
-		if (_isnan(delta[i]))
-		{
-#else
 		if (isnan(delta[i]))
 		{
-#endif
 			warning = TRUE;
 			delta[i] = 0;
 		}
@@ -3046,13 +3054,8 @@ reset(void)
 	for (i = 0; i < count_unknowns; i++)
 	{
 
-#ifdef _MSC_VER
-		if (_isnan(delta[i]))
-		{
-#else
 		if (isnan(delta[i]))
 		{
-#endif
 			warning = TRUE;
 			delta[i] = 0;
 		}
@@ -4271,6 +4274,8 @@ revise_guesses(void)
 	int i;
 	int iter, max_iter, repeat, fail;
 	LDBLE weight, f;
+	LDBLE d;
+
 	max_iter = 10;
 	gammas(mu_x);
 	iter = 0;
@@ -4339,7 +4344,12 @@ revise_guesses(void)
 				}
 				if (fabs(x[i]->moles) < 1e-30)
 					x[i]->moles = 0;
+
 				f = fabs(x[i]->sum);
+				if (isnan(f) || !_finite(f))
+				{
+					f = 0;
+				}
 				if (f == 0 && x[i]->moles == 0)
 				{
 					x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
@@ -4349,7 +4359,7 @@ revise_guesses(void)
 				{
 					repeat = TRUE;
 					x[i]->master[0]->s->la += 5;
-/*!!!!*/ if (x[i]->master[0]->s->la < -999.)
+		  /*!!!!*/ if (x[i]->master[0]->s->la < -999.)
 						x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
 				}
 				else if (fail == TRUE && f < 1.5 * fabs(x[i]->moles))
@@ -4367,8 +4377,17 @@ revise_guesses(void)
 					else
 					{
 						repeat = TRUE;
-						x[i]->master[0]->s->la +=
-							weight * log10(fabs(x[i]->moles / x[i]->sum));
+						d = weight * log10(fabs(x[i]->moles / x[i]->sum));
+						if (!isnan(d) && _finite(d))
+						{
+							x[i]->master[0]->s->la += d;
+						} 
+						else
+						{
+							warning_msg("Adjustment to la in revise_guesses was NaN\n");
+							x[i]->master[0]->s->la += 5.0;
+						}
+
 					}
 					if (debug_set == TRUE)
 					{
