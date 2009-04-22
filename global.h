@@ -8,9 +8,14 @@ static char const svnidglobal[] =
 
 /* #define NO_DOS */
 											 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
-#ifdef PHREEQ98
+#if defined (PHREEQ98) || defined (_MSC_VER) 
 #define isnan _isnan
+#else 
+#if defined (DJPP)
+#define isnan(x) (x != x)
 #endif
+#endif
+
 /*
  * uncomment following line, to use default DOS file name for
  * output file
