@@ -4348,7 +4348,8 @@ revise_guesses(void)
 					x[i]->moles = 0;
 
 				f = fabs(x[i]->sum);
-				if (isnan(f) || !_finite(f))
+				/*if (isnan(f) || !_finite(f))*/
+				if (!isfinite(f))
 				{
 					f = 0;
 				}
