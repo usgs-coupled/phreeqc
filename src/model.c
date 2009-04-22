@@ -2863,7 +2863,8 @@ reset(void)
 	for (i = 0; i < count_unknowns; i++)
 	{
 
-		if (isnan(delta[i]))
+		/*if (isnan(delta[i]))*/
+		if (!isfinite(delta[i]))
 		{
 			warning = TRUE;
 			delta[i] = 0;
@@ -3054,7 +3055,8 @@ reset(void)
 	for (i = 0; i < count_unknowns; i++)
 	{
 
-		if (isnan(delta[i]))
+		/*if (isnan(delta[i]))*/
+		if (!isfinite(delta[i]))
 		{
 			warning = TRUE;
 			delta[i] = 0;
@@ -4378,7 +4380,8 @@ revise_guesses(void)
 					{
 						repeat = TRUE;
 						d = weight * log10(fabs(x[i]->moles / x[i]->sum));
-						if (!isnan(d) && _finite(d))
+						/*if (!isnan(d) && _finite(d))*/
+						if (isfinite(d))
 						{
 							x[i]->master[0]->s->la += d;
 						} 

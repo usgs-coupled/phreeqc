@@ -10,6 +10,7 @@ static char const svnidglobal[] =
 											 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
 #if defined (PHREEQ98) || defined (_MSC_VER) 
 #define isnan _isnan
+#define isfinite _finite
 #else 
 #if defined (DJPP)
 #define isnan(x) (x != x)
