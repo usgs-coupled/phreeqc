@@ -1279,6 +1279,19 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+
+        --------
+	svn 3463
+        --------
+	Modified handling of not-a-number in places that 
+	affected the adjustment of log activities (reset and 
+	revise guesses). Uses isfinite function that is available 
+	on Linux and is ifdef'd in global.h for Visual Studio. 
+	The NaN problem occurred rarely and was related to 
+	bad results from the solver and when poor estimates were
+	available in revise_guesses. Also insured that log activity
+	for new master species was well defined in switch_bases.
+
         --------
 	svn 3446
         --------
