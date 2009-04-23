@@ -453,7 +453,7 @@ Initial solution 1.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   5.158e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  53.49
-                               Iterations  =  14
+                               Iterations  =  11
                                   Total H  = 1.110125e+02
                                   Total O  = 5.550625e+01
 

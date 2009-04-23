@@ -201,7 +201,7 @@ Fluorite             0.00  -10.60  -10.60
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   2.095e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  16.02
-                               Iterations  =  25
+                               Iterations  =  26
                                   Total H  = 1.110130e+02
                                   Total O  = 5.550704e+01
 

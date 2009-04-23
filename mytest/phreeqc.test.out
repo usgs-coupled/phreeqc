@@ -9365,7 +9365,7 @@ Calcite              0.00   -8.48   -8.48    1.000e+00   3.570e+00   2.570e+00
 Chalcedony           0.00   -3.55   -3.55    2.100e+00   9.989e-02  -2.000e+00
 CO2(g)              -3.00   -4.47   -1.47    0.000e+00   1.584e+00   1.584e+00
 Dolomite             0.00  -17.09  -17.09    1.000e+00   6.740e-01  -3.260e-01
-FeS(ppt)             0.00   -3.91   -3.92    1.000e+00   6.664e-01  -3.336e-01
+FeS(ppt)             0.00   -3.92   -3.92    1.000e+00   6.664e-01  -3.336e-01
 Gibbsite            -1.65    6.40    8.05    2.000e+00           0  -2.000e+00
 Goethite             0.00   -1.00   -1.00    1.000e+00   2.334e+00   1.334e+00
 Gypsum               0.00   -4.58   -4.58    1.000e+00   2.350e+00   1.350e+00
@@ -9456,7 +9456,7 @@ X                3.000e+00 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -3.219e-04
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.01
-                               Iterations  =  20
+                               Iterations  =  29
                                   Total H  = 1.067848e+02
                                   Total O  = 5.344789e+01
 
@@ -9732,7 +9732,7 @@ Sr               1.652e-05
 	CO2(g)           -3.00   -4.47   -1.47  CO2
 	Dolomite          0.00  -17.09  -17.09  CaMg(CO3)2
 	Fe(OH)3(a)       -5.91   -1.01    4.89  Fe(OH)3
-	FeS(ppt)          0.00   -3.91   -3.92  FeS
+	FeS(ppt)          0.00   -3.92   -3.92  FeS
 	Fluorite         -0.35  -10.95  -10.60  CaF2
 	Gibbsite         -1.65    6.40    8.05  Al(OH)3
 	Goethite          0.00   -1.00   -1.00  FeOOH
@@ -9749,7 +9749,7 @@ Sr               1.652e-05
 	K-feldspar       -2.57  -23.14  -20.57  KAlSi3O8
 	K-mica           -0.36   12.35   12.70  KAl3Si3O10(OH)2
 	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
-	Mackinawite       0.73   -3.91   -4.65  FeS
+	Mackinawite       0.73   -3.92   -4.65  FeS
 	Manganite       -17.49    7.85   25.34  MnOOH
 	Melanterite      -6.68   -8.89   -2.21  FeSO4:7H2O
 	Microcline       -1.35   -0.48    0.88  KAlSi3O8

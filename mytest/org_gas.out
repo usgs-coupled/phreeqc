@@ -244,9 +244,9 @@ Reaction 1.	Irreversible reaction defined in simulation 3.
                  Total alkalinity (eq/kg)  =   1.000e-04
                        Total CO2 (mol/kg)  =   7.875e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.082e-10
+                  Electrical balance (eq)  =  -1.081e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  33
+                               Iterations  =  15
                                   Total H  = 1.110154e+02
                                   Total O  = 5.550772e+01
 
@@ -1454,9 +1454,9 @@ Reaction 1.	Irreversible reaction defined in simulation 4.
                  Total alkalinity (eq/kg)  =   1.000e-04
                        Total CO2 (mol/kg)  =   7.875e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.082e-10
+                  Electrical balance (eq)  =  -1.084e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  22
+                               Iterations  =  14
                                   Total H  = 1.110154e+02
                                   Total O  = 5.550772e+01
 
@@ -2657,7 +2657,7 @@ Reaction 1.	Irreversible reaction defined in simulation 5.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  48
+                               Iterations  =  23
                                   Total H  = 1.110154e+02
                                   Total O  = 5.552236e+01
 
@@ -5345,7 +5345,7 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -6.768e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.082e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  32
+                               Iterations  =  19
                                   Total H  = 1.110154e+02
                                   Total O  = 5.550975e+01
 
@@ -6774,9 +6774,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -6.768e-04
                  Total alkalinity (eq/kg)  =   1.451e-03
                        Total CO2 (mol/kg)  =   1.463e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.082e-10
+                  Electrical balance (eq)  =  -1.081e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  28
+                               Iterations  =  19
                                   Total H  = 1.110154e+02
                                   Total O  = 5.550975e+01
 
@@ -8193,7 +8193,7 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   1.000e+01  -2.813e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  22
+                               Iterations  =  14
                                   Total H  = 1.110154e+02
                                   Total O  = 5.552320e+01
 
@@ -9618,9 +9618,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   1.000e+01  -2.813e-04
                  Total alkalinity (eq/kg)  =   5.667e-03
                        Total CO2 (mol/kg)  =   7.140e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.072e-10
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  28
+                               Iterations  =  15
                                   Total H  = 1.110154e+02
                                   Total O  = 5.552320e+01
 
@@ -9723,9 +9723,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -5.319e-04
                  Total alkalinity (eq/kg)  =   6.268e-03
                        Total CO2 (mol/kg)  =   8.178e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.073e-10
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  20
+                               Iterations  =  23
                                   Total H  = 1.110184e+02
                                   Total O  = 5.552546e+01
 
@@ -9842,9 +9842,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -9.279e-04
                  Total alkalinity (eq/kg)  =   7.259e-03
                        Total CO2 (mol/kg)  =   1.003e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.147e-10
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  51
+                               Iterations  =  18
                                   Total H  = 1.110186e+02
                                   Total O  = 5.552941e+01
 
@@ -9961,9 +9961,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -1.500e-03
                  Total alkalinity (eq/kg)  =   8.799e-03
                        Total CO2 (mol/kg)  =   1.327e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.178e-11
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  20
                                   Total H  = 1.110190e+02
                                   Total O  = 5.553617e+01
 
@@ -10080,9 +10080,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.998e+00  -1.710e-03
                  Total alkalinity (eq/kg)  =   9.417e-03
                        Total CO2 (mol/kg)  =   1.469e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.063e-10
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  19
+                               Iterations  =  17
                                   Total H  = 1.110191e+02
                                   Total O  = 5.553907e+01
 
@@ -10199,7 +10199,7 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.998e+00  -2.325e-03
                  Total alkalinity (eq/kg)  =   1.163e-02
                        Total CO2 (mol/kg)  =   2.022e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.076e-10
+                  Electrical balance (eq)  =  -1.081e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  19
                                   Total H  = 1.110200e+02
@@ -10318,9 +10318,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.997e+00  -2.565e-03
                  Total alkalinity (eq/kg)  =   1.402e-02
                        Total CO2 (mol/kg)  =   2.640e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.077e-10
+                  Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  19
+                               Iterations  =  20
                                   Total H  = 1.110223e+02
                                   Total O  = 5.556116e+01
 
@@ -10437,9 +10437,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.998e+00  -2.093e-03
                  Total alkalinity (eq/kg)  =   1.670e-02
                        Total CO2 (mol/kg)  =   3.195e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.075e-10
+                  Electrical balance (eq)  =  -1.077e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  20
+                               Iterations  =  26
                                   Total H  = 1.110273e+02
                                   Total O  = 5.556906e+01
 
@@ -10556,9 +10556,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   9.999e+00  -9.916e-04
                  Total alkalinity (eq/kg)  =   2.067e-02
                        Total CO2 (mol/kg)  =   3.754e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.075e-10
+                  Electrical balance (eq)  =  -1.019e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  27
                                   Total H  = 1.110362e+02
                                   Total O  = 5.557450e+01
 
@@ -10675,7 +10675,7 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   1.000e+01   1.510e-04
                  Total alkalinity (eq/kg)  =   2.695e-02
                        Total CO2 (mol/kg)  =   4.461e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.922e-11
+                  Electrical balance (eq)  =  -1.034e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  23
                                   Total H  = 1.110489e+02
@@ -10794,9 +10794,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   1.000e+01   9.201e-04
                  Total alkalinity (eq/kg)  =   3.515e-02
                        Total CO2 (mol/kg)  =   5.318e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.079e-10
+                  Electrical balance (eq)  =  -1.051e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  24
+                               Iterations  =  23
                                   Total H  = 1.110634e+02
                                   Total O  = 5.559008e+01
 
@@ -10913,9 +10913,9 @@ Calcite              0.00   -8.48   -8.48    1.000e+01   1.000e+01   1.389e-03
                  Total alkalinity (eq/kg)  =   4.475e-02
                        Total CO2 (mol/kg)  =   6.291e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.075e-10
+                  Electrical balance (eq)  =  -1.074e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  22
+                               Iterations  =  23
                                   Total H  = 1.110792e+02
                                   Total O  = 5.560114e+01
 

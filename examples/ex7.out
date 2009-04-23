@@ -242,7 +242,7 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.075e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  18
+                               Iterations  =  27
                                   Total H  = 1.110146e+02
                                   Total O  = 5.552186e+01
 
@@ -2599,7 +2599,7 @@ NH3(g)                   -7.77   1.683e-08   0.000e+00   1.547e-08   1.547e-08
                  Total alkalinity (eq/kg)  =   5.714e-03
                        Total CO2 (mol/kg)  =   9.953e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.073e-10
+                  Electrical balance (eq)  =  -1.072e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  17
                                   Total H  = 1.110405e+02
@@ -2823,9 +2823,9 @@ NH3(g)                   -7.47   3.351e-08   0.000e+00   3.081e-08   3.081e-08
                  Total alkalinity (eq/kg)  =   8.756e-03
                        Total CO2 (mol/kg)  =   2.558e-02
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.075e-10
+                  Electrical balance (eq)  =  -1.001e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  17
+                               Iterations  =  14
                                   Total H  = 1.111262e+02
                                   Total O  = 5.560960e+01
 
