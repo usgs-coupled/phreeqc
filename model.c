@@ -2859,21 +2859,21 @@ reset(void)
 /*
  *   Calculate change in element concentrations due to pure phases and gases
  */
-	warning = FALSE;
+	warning = 0;
 	for (i = 0; i < count_unknowns; i++)
 	{
 
 		/*if (isnan(delta[i]))*/
-		if (!isfinite(delta[i]))
+		if (!isfinite((double) delta[i]))
 		{
-			warning = TRUE;
+			warning ++;
 			delta[i] = 0;
 		}
 
 	}
-	if (warning == TRUE)
+	if (warning > 0)
 	{
-		sprintf(error_string, "At least one delta equals NaN\n");
+		sprintf(error_string, "%d delta equal NaN\n", warning);
 		warning_msg(error_string);
 	}
 	if (pure_phase_unknown != NULL || gas_unknown != NULL
@@ -3051,21 +3051,21 @@ reset(void)
 			delta[i] *= factor;
 	}
 
-	warning = FALSE;
+	warning = 0;
 	for (i = 0; i < count_unknowns; i++)
 	{
 
 		/*if (isnan(delta[i]))*/
-		if (!isfinite(delta[i]))
+		if (!isfinite((double) delta[i]))
 		{
-			warning = TRUE;
+			warning ++;
 			delta[i] = 0;
 		}
 
 	}
-	if (warning == TRUE)
+	if (warning > 0)
 	{
-		sprintf(error_string, "At least one delta equals NaN\n");
+		sprintf(error_string, "%d delta equal NaN after scaling\n", warning);
 		warning_msg(error_string);
 	}
 /*
@@ -4349,7 +4349,7 @@ revise_guesses(void)
 
 				f = fabs(x[i]->sum);
 				/*if (isnan(f) || !_finite(f))*/
-				if (!isfinite(f))
+				if (!isfinite((double) f))
 				{
 					f = 0;
 				}
@@ -4382,7 +4382,7 @@ revise_guesses(void)
 						repeat = TRUE;
 						d = weight * log10(fabs(x[i]->moles / x[i]->sum));
 						/*if (!isnan(d) && _finite(d))*/
-						if (isfinite(d))
+						if (isfinite((double) d))
 						{
 							x[i]->master[0]->s->la += d;
 						} 

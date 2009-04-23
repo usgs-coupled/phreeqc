@@ -12,8 +12,9 @@ static char const svnidglobal[] =
 #define isnan _isnan
 #define isfinite _finite
 #else 
-#if defined (DJPP)
+#if defined (DJGPP)
 #define isnan(x) (x != x)
+#define isfinite(x) (!(x != x))
 #endif
 #endif
 
