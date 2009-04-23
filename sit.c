@@ -24,7 +24,7 @@ static int ISPEC(char *name);
 static int initial_guesses(void);
 static int revise_guesses(void);
 static int remove_unstable_phases;
-static int PTEMP_SIT(double tk);
+static int PTEMP_SIT(LDBLE tk);
 
 /* ---------------------------------------------------------------------- */
 int
