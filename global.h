@@ -7,14 +7,15 @@ static char const svnidglobal[] =
 #define _INC_GLOBAL_H
 
 /* #define NO_DOS */
-											 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
+/* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
 #if defined (PHREEQ98) || defined (_MSC_VER) 
 #define isnan _isnan
 #define isfinite _finite
 #else 
 #if defined (DJGPP)
-#define isnan(x) (x != x)
-#define isfinite(x) (!(x != x))
+/* #define isnan(x) (x != x) */
+/* #define isfinite(x) (!(x != x)) */
+#define isfinite(x) finite(x)
 #endif
 #endif
 
@@ -22,7 +23,7 @@ static char const svnidglobal[] =
  * uncomment following line, to use default DOS file name for
  * output file
  */
-/*#define DOS*/
+/* #define DOS */
 /*
  *   BUG FIX FOR DGs
  */
