@@ -1928,7 +1928,7 @@ print_totals(void)
  *   Print total concentrations of elements, molality and moles.
  */
 	int i, pure_water;
-	LDBLE EC;
+	LDBLE EC, dens;
 
 	if (pr.totals == FALSE || pr.all == FALSE)
 		return (OK);
@@ -2046,8 +2046,11 @@ print_totals(void)
 /* VP: Density Start */
 	if (print_density)
 	{
-	output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density (g/cm3)  = ",
-			   (double) calc_dens());
+		dens = calc_dens();
+		output_msg(OUTPUT_MESSAGE, "%45s%9.5f", "Density (g/cm3)  = ",
+			   (double) dens);
+		if (dens > 1.999) output_msg(OUTPUT_MESSAGE, "%18s\n", " (Program's limit)");
+		else output_msg(OUTPUT_MESSAGE, "\n");
 	}
 /* VP: Density End */
 	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Activity of water  = ",
@@ -2084,7 +2087,7 @@ print_totals(void)
 				   gamma_iterations);
 		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Osmotic coefficient  = ",
 				   COSMOT);
-		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",
+		if (print_density) output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",
 				   DW0);
 	}
 	output_msg(OUTPUT_MESSAGE, "%45s%e\n", "Total H  = ", (double) total_h_x);

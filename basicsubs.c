@@ -223,7 +223,7 @@ calc_dens (void)
 
   /* If pure water then return rho_0 */
   if (PHI_v == 0)
-     return rho_0;
+	 return rho_0;
 
   solution_mass =  mass_water_aq_x * 1000 + M_T;
   e_T /= 2;
@@ -239,12 +239,15 @@ calc_dens (void)
   CC = -k * rho_0 * B_v;
 
   do {
-    rho_old = rho_new;
-    solution_volume = solution_mass / rho_new / 1000;
-    I_v = I_m / solution_volume;
-    rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
-    rho_new = rho_new / 1000 + rho_0;
-  } while (fabs(rho_new - rho_old) > 1.0e-6);
+	rho_old = rho_new;
+	solution_volume = solution_mass / rho_new / 1000;
+	if (solution_volume != 0) I_v = I_m / solution_volume;
+	rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
+	rho_new = rho_new / 1000 + rho_0;
+  } while ((fabs(rho_new - rho_old) > 1.0e-6) && (rho_new < 1.99999));
+
+  /*if (isnan(rho_new) || rho_new > 1.99999) rho_new = 1.99999;*/
+  if (!isfinite(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
 
   return rho_new; /*(rho_new - rho_0) * 1e3; */
 }

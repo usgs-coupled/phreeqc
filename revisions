@@ -596,14 +596,18 @@ Version 2.13.0: November 3, 2006
         --------
         svn 1179 
         --------
-        New option (-sites_units density) allows alternative
+        New option (-sites_units or -sites) allows alternative
         units (sites/nm^2) for definition of number of sites for a
         surface. This approach requires better consistency among the
         parameters as both the number of sites and the surface area
         are based on the mass. It makes more sense than the default,
         which requires the number of sites (first numeric item in a
         line) to be defined in units of moles, independently of the
-        number of grams of sorbent.
+        number of grams of sorbent. Units descriptor is either DENSITY, 
+        for defining number sites/nm^2, or ABSOLUTE, for defining 
+        number of sites in moles. Optionally, sites, sites_units, or 
+        -s[ites_units]. ABSOLUTE is the default for backward 
+        compatibility with input files.
 
         Example:
 
