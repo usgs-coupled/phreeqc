@@ -1272,7 +1272,7 @@ struct species
 	LDBLE co2;					/* stoichiometric coefficient of C(4) in species */
 	LDBLE h;					/* stoichiometric coefficient of H in species */
 	LDBLE o;					/* stoichiometric coefficient of O in species */
-	LDBLE dha, dhb;				/* WATEQ Debye Huckel a and b-dot */
+	LDBLE dha, dhb, a_f;		/* WATEQ Debye Huckel a and b-dot; active_fraction coef for exchange species */
 	LDBLE lk;					/* log10 k at working temperature */
 	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analalytical expression */
 /* VP: Density Start */

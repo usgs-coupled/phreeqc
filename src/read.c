@@ -915,8 +915,9 @@ read_exchange_species(void)
 				break;
 			}
 			s_ptr->exch_gflag = 2;
-			i = sscanf(next_char, SCANFORMAT SCANFORMAT, &s_ptr->dha,
-					   &s_ptr->dhb);
+			s_ptr->a_f = 0;
+			i = sscanf(next_char, SCANFORMAT SCANFORMAT SCANFORMAT, &s_ptr->dha,
+					   &s_ptr->dhb, &s_ptr->a_f);
 			if (i < 2)
 			{
 				sprintf(error_string, "Expecting 2 activity-"

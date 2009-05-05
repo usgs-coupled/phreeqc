@@ -4570,6 +4570,7 @@ s_init(struct species *s_ptr)
 	s_ptr->o = 0.0;
 	s_ptr->dha = 0.0;
 	s_ptr->dhb = 0.0;
+	s_ptr->a_f = 0.0;
 	s_ptr->lk = 0.0;
 	for (i = 0; i < 8; i++)
 	{

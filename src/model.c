@@ -612,7 +612,7 @@ gammas(LDBLE mu)
  */
 	int i, j;
 	int ifirst, ilast;
-	LDBLE f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
+	LDBLE d1, d2, f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
 	LDBLE s1, s2, s3;
 	LDBLE c1, c2, a, b;
 	LDBLE muhalf, equiv;
@@ -766,18 +766,30 @@ gammas(LDBLE mu)
 			if (s_x[i]->exch_gflag == 1 && s_x[i]->alk > 0)
 			{
 				/* Davies */
+				d1 = s_x[i]->lg;
 				s_x[i]->lg = -s_x[i]->equiv * s_x[i]->equiv * a *
 					(muhalf / (1.0 + muhalf) - 0.3 * mu) +
 					log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
+				if ((s_x[i]->a_f != 0.0) && s_x[i]->primary == NULL)
+				{
+					d2 = s_x[i]->a_f * (1 - s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk);
+					s_x[i]->lg = 0.7 * d1 + 0.3 * (s_x[i]->lg - d2);
+				}
 				s_x[i]->dg =
 					c1 * s_x[i]->equiv * s_x[i]->equiv * s_x[i]->moles;
 			}
 			else if (s_x[i]->exch_gflag == 2 && s_x[i]->alk > 0)
 			{
 				/* Extended D-H, WATEQ D-H */
+				d1 = s_x[i]->lg;
 				s_x[i]->lg = -a * muhalf * s_x[i]->equiv * s_x[i]->equiv /
 					(1.0 + s_x[i]->dha * b * muhalf) + s_x[i]->dhb * mu +
 					log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
+				if ((s_x[i]->a_f != 0.0) && s_x[i]->primary == NULL)
+				{
+					d2 = s_x[i]->a_f * (1 - s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk);
+					s_x[i]->lg = 0.7 * d1 + 0.3 * (s_x[i]->lg - d2);
+				}
 				s_x[i]->dg = (c2 * s_x[i]->equiv * s_x[i]->equiv /
 							  ((1.0 + s_x[i]->dha * b * muhalf) * (1.0 +
 																   s_x[i]->
