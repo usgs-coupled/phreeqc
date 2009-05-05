@@ -14,6 +14,7 @@ endif
 all: alkalinity.out \
 	aj1.out \
 	all_llnl.out \
+	aquia.out \
 	as.ex.out \
 	ball.out \
 	brown.out \

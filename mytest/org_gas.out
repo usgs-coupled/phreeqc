@@ -528,7 +528,7 @@ NH3(g)                   -8.57   2.699e-09   0.000e+00   1.234e-11   1.234e-11
                                        pH  =   5.557      Charge balance
                                        pe  =  -2.438      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 94
-                          Density (g/cm3)  =   0.99710
+                          Density (g/cm3)  =   0.99709
                         Activity of water  =   1.000
                            Ionic strength  =   8.021e-04
                        Mass of water (kg)  =   1.000e+00
@@ -1736,7 +1736,7 @@ NH3(g)                   -8.57   2.703e-09   0.000e+00   1.236e-11   1.236e-11
                                        pH  =   5.557      Charge balance
                                        pe  =  -2.438      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 94
-                          Density (g/cm3)  =   0.99710
+                          Density (g/cm3)  =   0.99709
                         Activity of water  =   1.000
                            Ionic strength  =   8.027e-04
                        Mass of water (kg)  =   1.000e+00
@@ -2039,7 +2039,7 @@ NH3(g)                   -7.63   2.328e-08   0.000e+00   8.903e-10   8.903e-10
                                        pH  =   5.811      Charge balance
                                        pe  =  -2.623      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 454
-                          Density (g/cm3)  =   0.99719
+                          Density (g/cm3)  =   0.99720
                         Activity of water  =   1.000
                            Ionic strength  =   3.988e-03
                        Mass of water (kg)  =   9.999e-01

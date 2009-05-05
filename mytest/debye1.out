@@ -1243,7 +1243,7 @@ Mixture 5.
                                        pH  =   6.980      Charge balance
                                        pe  =  11.678      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 32
-                          Density (g/cm3)  =   0.99707
+                          Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
                            Ionic strength  =   4.024e-04
                        Mass of water (kg)  =   1.000e+00
@@ -3328,7 +3328,7 @@ Su
                                        pH  =  11.647      Charge balance
                                        pe  = -11.905      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 1809
-                          Density (g/cm3)  =   0.99744
+                          Density (g/cm3)  =   0.99745
                         Activity of water  =   1.000
                            Ionic strength  =   1.453e-02
                        Mass of water (kg)  =   9.175e-01
@@ -4097,7 +4097,7 @@ Mixture 10.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.895e-12  Surface + diffuse layer charge, eq
+	  1.860e-12  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V

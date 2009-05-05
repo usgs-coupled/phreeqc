@@ -1331,7 +1331,7 @@ Halite               0.00    1.50    1.50    1.000e+02   9.391e+01  -6.093e+00
                                        pH  =   7.032      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 639101
-                          Density (g/cm3)  =   1.19119
+                          Density (g/cm3)  =   1.19120
                         Activity of water  =   0.758
                            Ionic strength  =   6.093e+00
                        Mass of water (kg)  =   1.000e+00
@@ -1469,7 +1469,7 @@ Halite               0.00    1.56    1.56    1.000e+02   9.338e+01  -6.625e+00
                                        pH  =   5.615      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 656052
-                          Density (g/cm3)  =   1.05742
+                          Density (g/cm3)  =   1.05743
                         Activity of water  =   0.744
                            Ionic strength  =   6.625e+00
                        Mass of water (kg)  =   1.000e+00
@@ -1538,7 +1538,7 @@ Halite               0.00    1.20    1.20    1.000e+02   9.216e+01  -7.838e+00
                                        pH  =   4.678      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 150424
-                          Density (g/cm3)  =       nan
+                          Density (g/cm3)  =   0.91919
                         Activity of water  =   0.742
                            Ionic strength  =   7.838e+00
                        Mass of water (kg)  =   1.000e+00
@@ -1607,7 +1607,7 @@ Halite               0.00    0.29    0.29    1.000e+02   8.979e+01  -1.021e+01
                                        pH  =   3.616      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 2265
-                          Density (g/cm3)  =       nan
+                          Density (g/cm3)  =   0.64812
                         Activity of water  =   0.766
                            Ionic strength  =   1.021e+01
                        Mass of water (kg)  =   1.000e+00
@@ -1988,7 +1988,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -3.053e-04
                                        pH  =   7.863      Charge balance
                                        pe  =   4.000      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 56450
-                          Density (g/cm3)  =   1.02160
+                          Density (g/cm3)  =   1.02161
                         Activity of water  =   0.980
                            Ionic strength  =   6.163e-01
                        Mass of water (kg)  =   1.000e+00

@@ -2896,7 +2896,7 @@ Surf
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   1.226e-02
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   7.73
-                               Iterations  =   7
+                               Iterations  =   8
                                   Total H  = 1.107558e+02
                                   Total O  = 5.564955e+01
 
@@ -3120,7 +3120,7 @@ AlOHSO4             -1.36   -3.56   -2.20    0.000e+00           0   0.000e+00
 Calcite              0.00   -8.48   -8.48    1.443e-01   1.414e-01  -2.894e-03
 Fe(OH)3              0.00    4.89    4.89    7.300e-01   7.300e-01  -1.505e-08
 Gypsum               0.00   -4.58   -4.58    3.907e-03   6.310e-03   2.403e-03
-MnO2                 0.00   41.38   41.38    4.500e-02   4.500e-02  -3.813e-12
+MnO2                 0.00   41.38   41.38    4.500e-02   4.500e-02  -3.812e-12
 
 ------------------------------Surface composition------------------------------
 
@@ -4016,7 +4016,7 @@ Surf
                                        pH  =   7.350      Charge balance
                                        pe  =  -2.101      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 8577
-                          Density (g/cm3)  =   1.00859
+                          Density (g/cm3)  =   1.00858
                         Activity of water  =   0.997
                            Ionic strength  =   1.914e-01
                        Mass of water (kg)  =   9.996e-01
@@ -4578,7 +4578,7 @@ Surf
                                        pH  =   6.964      Charge balance
                                        pe  =  -0.957      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 8072
-                          Density (g/cm3)  =   1.00790
+                          Density (g/cm3)  =   1.00791
                         Activity of water  =   0.998
                            Ionic strength  =   1.817e-01
                        Mass of water (kg)  =   9.997e-01
@@ -6564,7 +6564,7 @@ Surf
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.934e-03
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.96
-                               Iterations  =  10
+                               Iterations  =  12
                                   Total H  = 1.110170e+02
                                   Total O  = 5.584271e+01
 

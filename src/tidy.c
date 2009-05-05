@@ -35,7 +35,7 @@ static int tidy_surface(void);
 
 static LDBLE a0, a1, kc, kb;
 static int scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1);
-static LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
 static LDBLE f_spinodal(LDBLE x);
 static int solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
 static int s_s_calc_a0_a1(struct s_s *s_s_ptr);
@@ -3823,7 +3823,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-static LDBLE
+LDBLE
 halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
