@@ -15,7 +15,12 @@ struct system_species
 };
 struct system_species *sys;
 int count_sys, max_sys;
+
 LDBLE sys_tot;
+LDBLE AA, BB, CC, I_m, rho_0;
+LDBLE solution_mass, solution_volume;
+LDBLE f_rho(LDBLE rho_old);
+extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
 
 /* ---------------------------------------------------------------------- */
 LDBLE
@@ -152,14 +157,19 @@ calc_dens (void)
  *   volume 6, pages 1-17
  */
   int i;
+  /*
   LDBLE rho_0;
   LDBLE solution_mass, solution_volume;
+  */
   LDBLE rho_new, rho_old;
   LDBLE e_T, M_T;
   LDBLE a, b, c, d, e, f;
   LDBLE phi_0_i, b_v_i, s_v_i, PHI_v, B_v, S_v;
+/*
   LDBLE k, I_m, I_v;
   LDBLE AA, BB, CC;
+*/
+  LDBLE k;
   LDBLE gfw;
   int z;
   struct species *s_ptr;
@@ -238,6 +248,8 @@ calc_dens (void)
   BB = -k * rho_0 * S_v;
   CC = -k * rho_0 * B_v;
 
+/* DP: Replace Pickard iteration with interval halving */
+#ifdef SKIP
   do {
 	rho_old = rho_new;
 	solution_volume = solution_mass / rho_new / 1000;
@@ -245,6 +257,10 @@ calc_dens (void)
 	rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
 	rho_new = rho_new / 1000 + rho_0;
   } while ((fabs(rho_new - rho_old) > 1.0e-6) && (rho_new < 1.99999));
+#endif
+
+  rho_new = halve(f_rho, 0.5, 2.0, 1e-7);
+/* DP: End Replace Pickard iteration with interval halving */
 
   /*if (isnan(rho_new) || rho_new > 1.99999) rho_new = 1.99999;*/
   if (!isfinite(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
@@ -252,6 +268,20 @@ calc_dens (void)
   return rho_new; /*(rho_new - rho_0) * 1e3; */
 }
 /* VP: Density End */
+/* DP: Function for interval halving */
+LDBLE
+f_rho(LDBLE rho_old)
+/* ---------------------------------------------------------------------- */
+{
+  LDBLE rho, I_v;
+  solution_volume = solution_mass / rho_old / 1000;
+  I_v = 1.0;
+  if (solution_volume != 0) I_v = I_m / solution_volume;
+  rho = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
+  rho = rho / 1000 + rho_0;
+  return (rho - rho_old);
+}
+/* DP: End function for interval halving */
 
 /* ---------------------------------------------------------------------- */
 LDBLE
