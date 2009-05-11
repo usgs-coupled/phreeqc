@@ -2447,8 +2447,13 @@ punch_totals(void)
 		}
 		else if (punch.totals[j].master->primary == TRUE)
 		{
-			molality =
-				punch.totals[j].master->total_primary / mass_water_aq_x;
+			if (strncmp(punch.totals[j].name, "Alkalinity", 20) == 0)
+			{
+				molality = total_alkalinity / mass_water_aq_x;
+			} else 
+			{
+				molality = punch.totals[j].master->total_primary / mass_water_aq_x;
+			}
 		}
 		else
 		{
