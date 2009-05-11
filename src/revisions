@@ -1283,6 +1283,22 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+        --------
+	svn 3483
+        --------
+	Alkalinity is now printed to the selected output file 
+	when the Alkalinity is used with -totals.
+	
+	SELECTED_OUTPUT; -totals Alkalinity 
+	
+	Modified numerical method to attempt to produce a numerical 
+	solution when complexes are extremely strong. llnl.dat As and F
+	complexes caused PHREEQC to fail on an initial solution 
+	calculation. The terms of the As and F mass balance equations
+	were identical to machine precision. One unknown log activity
+	was adjusted but the other was not. Now attempts an adjustment 
+	for the unadjusted log activity.
+	
 
         --------
 	svn 3463
