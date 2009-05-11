@@ -283,7 +283,7 @@ Initial solution 5.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 42211
-                          Density (g/cm3)  =   1.01486
+                          Density (g/cm3)  =   1.01487
                         Activity of water  =   0.988
                            Ionic strength  =   3.582e-01
                        Mass of water (kg)  =   1.000e+00
@@ -2222,7 +2222,7 @@ Initial solution 39.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 37095
-                          Density (g/cm3)  =   1.01548
+                          Density (g/cm3)  =   1.01547
                         Activity of water  =   0.989
                            Ionic strength  =   6.666e-01
                        Mass of water (kg)  =   1.000e+00
@@ -2916,7 +2916,7 @@ Initial solution 51.
                                        pH  =   7.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 21757
-                          Density (g/cm3)  =   1.04398
+                          Density (g/cm3)  =   1.04397
                         Activity of water  =   0.991
                            Ionic strength  =   6.099e-01
                        Mass of water (kg)  =   1.000e+00

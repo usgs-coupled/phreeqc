@@ -16,6 +16,7 @@ all: alkalinity.out \
 	all_llnl.out \
 	aquia.out \
 	as.ex.out \
+	asf.out \
 	ball.out \
 	brown.out \
 	cdmusic_related.out \

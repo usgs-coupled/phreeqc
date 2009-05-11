@@ -169,7 +169,7 @@ Initial solution 2.	Fixed Carbon, Fixed Na, Adj. pH
                                        pH  =   8.267      Charge balance
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 92
-                          Density (g/cm3)  =   0.99711
+                          Density (g/cm3)  =   0.99712
                         Activity of water  =   1.000
                            Ionic strength  =   1.009e-03
                        Mass of water (kg)  =   1.000e+00
@@ -404,7 +404,7 @@ Initial solution 4.	Adj. Carbon, Fixed Na, Fixed pH
                                        pH  =   8.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 92
-                          Density (g/cm3)  =   0.99711
+                          Density (g/cm3)  =   0.99712
                         Activity of water  =   1.000
                            Ionic strength  =   1.005e-03
                        Mass of water (kg)  =   1.000e+00
@@ -519,7 +519,7 @@ Initial solution 5.	Fixed Alkalinity, Fixed Na, Fixed pH
                                        pH  =   8.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 92
-                          Density (g/cm3)  =   0.99711
+                          Density (g/cm3)  =   0.99712
                         Activity of water  =   1.000
                            Ionic strength  =   1.005e-03
                        Mass of water (kg)  =   1.000e+00
@@ -631,7 +631,7 @@ Initial solution 6.	Fixed Alkalinity, Adj. Na, Fixed pH
                                        pH  =   8.000    
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 92
-                          Density (g/cm3)  =   0.99711
+                          Density (g/cm3)  =   0.99712
                         Activity of water  =   1.000
                            Ionic strength  =   1.005e-03
                        Mass of water (kg)  =   1.000e+00
@@ -748,7 +748,7 @@ pH will be adjusted to obtain desired alkalinity.
                                        pH  =   8.267      Adjust alkalinity
                                        pe  =   4.000    
        Specific Conductance (uS/cm, 25 oC) = 92
-                          Density (g/cm3)  =   0.99711
+                          Density (g/cm3)  =   0.99712
                         Activity of water  =   1.000
                            Ionic strength  =   1.009e-03
                        Mass of water (kg)  =   1.000e+00
