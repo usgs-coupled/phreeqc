@@ -1791,6 +1791,20 @@ ineq(int in_kode)
 		}
 	}
 
+	/* adjust unkowns where cl1 failed */
+	if (kode != 0)
+	{
+		for (i = 0; i < count_rows; i++)
+		{
+			//output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
+			//		   x[back_eq[i]]->description, (double) res[i]);
+			j = back_eq[i];
+			if (x[j]->type == MB && delta[i] == 0.0 && fabs(res[i]) > ineq_tol)
+			{
+				delta[i] = res[i]/fabs(res[i]) * 1;
+			}
+		}
+	}
 /*
  *   Debug, write results of ineq
  */
@@ -1823,6 +1837,7 @@ ineq(int in_kode)
 					   x[back_eq[i]]->description, (double) res[i]);
 		}
 	}
+
 #ifdef SLNQ
 	slnq_array = free_check_null(slnq_array);
 	slnq_delta1 = free_check_null(slnq_delta1);
@@ -2868,6 +2883,7 @@ reset(void)
 			}
 		}
 	}
+
 /*
  *   Calculate change in element concentrations due to pure phases and gases
  */
