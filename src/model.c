@@ -612,7 +612,7 @@ gammas(LDBLE mu)
  */
 	int i, j;
 	int ifirst, ilast;
-	LDBLE d1, d2, f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
+	LDBLE d1, d2, d3, f, a_llnl, b_llnl, bdot_llnl, log_g_co2, dln_g_co2, c2_llnl;
 	LDBLE s1, s2, s3;
 	LDBLE c1, c2, a, b;
 	LDBLE muhalf, equiv;
@@ -770,10 +770,14 @@ gammas(LDBLE mu)
 				s_x[i]->lg = -s_x[i]->equiv * s_x[i]->equiv * a *
 					(muhalf / (1.0 + muhalf) - 0.3 * mu) +
 					log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
-				if ((s_x[i]->a_f != 0.0) && s_x[i]->primary == NULL)
+				if (s_x[i]->a_f && s_x[i]->primary == NULL)
 				{
-					d2 = s_x[i]->a_f * (1 - s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk);
-					s_x[i]->lg = 0.7 * d1 + 0.3 * (s_x[i]->lg - d2);
+					d2 = s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk;
+					if (d2 > 1) d2 = 1;
+					d2 = s_x[i]->lg - s_x[i]->a_f * (1 - d2);
+					d3 = 0.89;
+					if (iterations < 10) d3 = 0.7; else d3 = 0.89;
+					s_x[i]->lg = d3 * d1 + (1 - d3) * d2;
 				}
 				s_x[i]->dg =
 					c1 * s_x[i]->equiv * s_x[i]->equiv * s_x[i]->moles;
@@ -785,10 +789,14 @@ gammas(LDBLE mu)
 				s_x[i]->lg = -a * muhalf * s_x[i]->equiv * s_x[i]->equiv /
 					(1.0 + s_x[i]->dha * b * muhalf) + s_x[i]->dhb * mu +
 					log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
-				if ((s_x[i]->a_f != 0.0) && s_x[i]->primary == NULL)
+				if (s_x[i]->a_f && s_x[i]->primary == NULL)
 				{
-					d2 = s_x[i]->a_f * (1 - s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk);
-					s_x[i]->lg = 0.7 * d1 + 0.3 * (s_x[i]->lg - d2);
+					d2 = s_x[i]->moles * s_x[i]->equiv / s_x[i]->alk;
+					if (d2 > 1) d2 = 1;
+					d2 = s_x[i]->lg - s_x[i]->a_f * (1 - d2);
+					d3 = 0.89;
+					if (iterations < 10) d3 = 0.7; else d3 = 0.89;
+					s_x[i]->lg = d3 * d1 + (1 - d3) * d2;
 				}
 				s_x[i]->dg = (c2 * s_x[i]->equiv * s_x[i]->equiv /
 							  ((1.0 + s_x[i]->dha * b * muhalf) * (1.0 +
@@ -1805,6 +1813,7 @@ ineq(int in_kode)
 			}
 		}
 	}
+
 /*
  *   Debug, write results of ineq
  */
@@ -1837,7 +1846,6 @@ ineq(int in_kode)
 					   x[back_eq[i]]->description, (double) res[i]);
 		}
 	}
-
 #ifdef SLNQ
 	slnq_array = free_check_null(slnq_array);
 	slnq_delta1 = free_check_null(slnq_delta1);
@@ -2883,7 +2891,6 @@ reset(void)
 			}
 		}
 	}
-
 /*
  *   Calculate change in element concentrations due to pure phases and gases
  */
@@ -4932,7 +4939,7 @@ numerical_jacobian(void)
 	LDBLE d, d1, d2;
 	int i, j;
 
-	if (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC)
+	if (/*!numerical_deriv && */(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))
 		return (OK);
 	calculating_deriv = TRUE;
 	gammas(mu_x);
