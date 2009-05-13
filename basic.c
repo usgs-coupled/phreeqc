@@ -3274,7 +3274,7 @@ factor(struct LOC_exec * LINK)
 
 	case toklen:
 		s = strfactor(LINK);
-		n.UU.val = strlen(s);
+		n.UU.val = (double) strlen(s);
 		free(s);
 		break;
 
