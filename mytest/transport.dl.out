@@ -3644,7 +3644,7 @@ MnO2               -14.53   26.85   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  1.025e-16  Surface + diffuse layer charge, eq
+	  2.005e-16  Surface + diffuse layer charge, eq
 	  1.421e-01  Surface charge, eq
 	  3.515e-01  sigma, C/m**2
 	  8.537e-02  psi, V
@@ -3945,7 +3945,7 @@ MnO2               -20.42   20.96   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  2.811e-17  Surface + diffuse layer charge, eq
+	 -2.535e-17  Surface + diffuse layer charge, eq
 	  4.436e-02  Surface charge, eq
 	  1.097e-01  sigma, C/m**2
 	  5.642e-02  psi, V
@@ -4246,7 +4246,7 @@ MnO2               -20.35   21.03   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  3.418e-15  Surface + diffuse layer charge, eq
+	  3.425e-15  Surface + diffuse layer charge, eq
 	  3.366e-02  Surface charge, eq
 	  8.327e-02  sigma, C/m**2
 	  4.959e-02  psi, V
@@ -4547,7 +4547,7 @@ MnO2               -19.70   21.68   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  3.231e-17  Surface + diffuse layer charge, eq
+	 -3.709e-17  Surface + diffuse layer charge, eq
 	  3.953e-02  Surface charge, eq
 	  9.781e-02  sigma, C/m**2
 	  5.371e-02  psi, V
@@ -4848,7 +4848,7 @@ MnO2               -18.68   22.70   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  1.845e-17  Surface + diffuse layer charge, eq
+	 -1.366e-17  Surface + diffuse layer charge, eq
 	  5.127e-02  Surface charge, eq
 	  1.268e-01  sigma, C/m**2
 	  6.047e-02  psi, V
@@ -5154,7 +5154,7 @@ MnO2               -13.57   27.81   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	 -9.510e-18  Surface + diffuse layer charge, eq
+	  4.716e-17  Surface + diffuse layer charge, eq
 	  1.467e-01  Surface charge, eq
 	  3.630e-01  sigma, C/m**2
 	  8.564e-02  psi, V
@@ -5455,7 +5455,7 @@ MnO2               -17.11   24.27   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	 -1.792e-11  Surface + diffuse layer charge, eq
+	 -5.556e-17  Surface + diffuse layer charge, eq
 	  9.078e-02  Surface charge, eq
 	  2.246e-01  sigma, C/m**2
 	  7.328e-02  psi, V
@@ -5525,7 +5525,7 @@ Surf
                  Total alkalinity (eq/kg)  =   4.485e-05
                        Total CO2 (mol/kg)  =   1.052e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.314e-11
+                  Electrical balance (eq)  =  -5.741e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.109785e+02
@@ -5756,7 +5756,7 @@ MnO2               -19.77   21.61   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  3.131e-17  Surface + diffuse layer charge, eq
+	  5.708e-17  Surface + diffuse layer charge, eq
 	  4.663e-02  Surface charge, eq
 	  1.154e-01  sigma, C/m**2
 	  5.775e-02  psi, V
@@ -6057,7 +6057,7 @@ MnO2               -20.37   21.01   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  3.003e-15  Surface + diffuse layer charge, eq
+	  3.014e-15  Surface + diffuse layer charge, eq
 	  3.279e-02  Surface charge, eq
 	  8.112e-02  sigma, C/m**2
 	  4.894e-02  psi, V
@@ -6358,7 +6358,7 @@ MnO2               -19.99   21.39   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  2.817e-17  Surface + diffuse layer charge, eq
+	 -6.518e-18  Surface + diffuse layer charge, eq
 	  3.673e-02  Surface charge, eq
 	  9.087e-02  sigma, C/m**2
 	  5.181e-02  psi, V
@@ -6664,7 +6664,7 @@ MnO2               -12.38   29.00   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  6.698e-17  Surface + diffuse layer charge, eq
+	  3.917e-17  Surface + diffuse layer charge, eq
 	  1.491e-01  Surface charge, eq
 	  3.689e-01  sigma, C/m**2
 	  8.598e-02  psi, V
@@ -6965,7 +6965,7 @@ MnO2               -15.96   25.42   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  2.210e-16  Surface + diffuse layer charge, eq
+	  2.150e-16  Surface + diffuse layer charge, eq
 	  1.206e-01  Surface charge, eq
 	  2.985e-01  sigma, C/m**2
 	  8.130e-02  psi, V
@@ -7266,7 +7266,7 @@ MnO2               -18.71   22.67   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	 -6.738e-17  Surface + diffuse layer charge, eq
+	  5.614e-17  Surface + diffuse layer charge, eq
 	  8.112e-02  Surface charge, eq
 	  2.007e-01  sigma, C/m**2
 	  7.125e-02  psi, V
@@ -7567,7 +7567,7 @@ MnO2               -19.19   22.19   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  1.153e-17  Surface + diffuse layer charge, eq
+	  4.206e-17  Surface + diffuse layer charge, eq
 	  4.863e-02  Surface charge, eq
 	  1.203e-01  sigma, C/m**2
 	  5.893e-02  psi, V
@@ -7868,7 +7868,7 @@ MnO2               -19.77   21.61   41.38    0.000e+00           0   0.000e+00
 ------------------------------Surface composition------------------------------
 
 Surf          
-	  6.269e-18  Surface + diffuse layer charge, eq
+	 -1.113e-17  Surface + diffuse layer charge, eq
 	  3.922e-02  Surface charge, eq
 	  9.704e-02  sigma, C/m**2
 	  5.347e-02  psi, V

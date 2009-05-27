@@ -4097,7 +4097,7 @@ Mixture 10.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.860e-12  Surface + diffuse layer charge, eq
+	  1.895e-12  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
