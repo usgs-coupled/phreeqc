@@ -7,7 +7,35 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+	--------
+	svn 3485
+	--------	
+	Added the active fraction model for calculating exchanger
+	compositions described by Appelo (1994), Water Resour. Res. 30,
+	2793-2805. The active fraction model is useful for calculating
+	the decrease of selectivity when concentrations increase (more
+	specific sites being filled first). In the active fraction model,
+	log(K) of an exchange-half reaction depends on the equivalent
+	fraction on the exchanger:
 
+ 		log(K) = log_k + a_f * (1 - ß_i)
+
+	where log_k is the log of the equilibrium constant when all the 
+			sites are occupied by ion i,
+		a_f is an empirical coefficient, and
+		ß_i is the equivalent fraction of i.
+
+	a_f can be defined in EXCHANGE_SPECIES with -gamma after the WATEQ
+	Debye-Hueckel parameters.
+	Example:
+
+		EXCHANGE_SPECIES
+		 Na+ + X- = NaX; log_k -0.5
+		 -gamma 4.0 0.075 0.50
+
+	The association constant for NaX becomes:
+		  log(K) = -0.5 + 0.50 * (1 - ß_Na)
+		  
 	--------
 	svn 3453
 	--------
