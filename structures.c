@@ -4341,7 +4341,7 @@ rxn_dup(struct reaction *rxn_ptr_old)
 /*
  *   Copy logk data
  */
-	memcpy(rxn_ptr_new->logk, rxn_ptr_old->logk, (size_t) 7 * sizeof(LDBLE));
+	memcpy(rxn_ptr_new->logk, rxn_ptr_old->logk, (size_t) 8 * sizeof(LDBLE));
 /*
  *   Copy dz data
  */
