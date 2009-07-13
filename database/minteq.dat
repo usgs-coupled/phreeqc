@@ -3687,8 +3687,13 @@ Greigite
         delta_h -0      kcal
 Gypsum
         CaSO4:2H2O = Ca+2 + SO4-2 + 2H2O
-        log_k   -4.848
-        delta_h 0.261   kcal
+#	 	 	   # Log K gives too small a solubility < 10 mmol/L
+#			   # D. Parkhurst 7/13/09, Replacing log K with minteq version 4 log K
+#        log_k   -4.848    
+#        delta_h 0.261   kcal
+	log_k	-4.61
+	delta_h	1	kJ
+
 Halite
         NaCl = Na+ + Cl-
         log_k   1.582
