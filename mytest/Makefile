@@ -12,6 +12,7 @@ endif
 	mv phreeqc.log $<.log
 
 all: alkalinity.out \
+	a_e_t2.out \
 	aj1.out \
 	all_llnl.out \
 	aquia.out \
