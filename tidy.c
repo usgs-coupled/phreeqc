@@ -550,7 +550,7 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 	int j, analytic;
 
 	analytic = FALSE;
-	for (j = 2; j < 7; j++)
+	for (j = 2; j < 8; j++)
 	{
 		if (source_k[j] != 0.0)
 		{
@@ -562,7 +562,7 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 	{
 		target_k[0] = 0.0;
 		target_k[1] = 0.0;
-		for (j = 2; j < 7; j++)
+		for (j = 2; j < 8; j++)
 		{
 			target_k[j] = source_k[j];
 		}
@@ -571,7 +571,7 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 	{
 		target_k[0] = source_k[0];
 		target_k[1] = source_k[1];
-		for (j = 2; j < 7; j++)
+		for (j = 2; j < 8; j++)
 		{
 			target_k[j] = 0.0;
 		}
@@ -636,7 +636,7 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 		}
 		logk_ptr = (struct logk *) found_item->data;
 		analytic = FALSE;
-		for (j = 2; j < 7; j++)
+		for (j = 2; j < 8; j++)
 		{
 			if (logk_ptr->log_k[j] != 0.0)
 			{
@@ -646,7 +646,7 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 		}
 		if (analytic == TRUE)
 		{
-			for (j = 2; j < 7; j++)
+			for (j = 2; j < 8; j++)
 			{
 				source_k[j] += logk_ptr->log_k[j] * coef;
 			}
@@ -708,7 +708,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 				return (ERROR);
 			}
 		}
-		for (j = 0; j < 7; j++)
+		for (j = 0; j < 8; j++)
 		{
 			logk_ptr->log_k[j] += next_logk_ptr->log_k[j] * coef;
 		}

@@ -5008,7 +5008,8 @@ k_calc(LDBLE * logk, LDBLE tempk)
 			- logk[1] * (298.15 -
 						 tempk) / (298.15 * tempk * LOG_10 * R_KJ_DEG_MOL) +
 			logk[2] + logk[3] * tempk + logk[4] / tempk +
-			logk[5] * log10(tempk) + logk[6] / (tempk * tempk));
+			logk[5] * log10(tempk) + logk[6] / (tempk * tempk)) +
+			logk[7] * tempk * tempk;
 }
 
 /* ---------------------------------------------------------------------- */

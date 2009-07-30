@@ -8,6 +8,19 @@ File contains:
 ************************************************************
 ************************************************************
 	--------
+	svn 3591
+	--------	
+	Added T^2 term to analytical expressions for log k. A T^2 term
+	can now be used in all analytical expressions (except Pitzer 
+	and SIT parameters). The analytical expression is as follows:
+	
+	log10(K) = A1 + A2*T + A3/T + A4*log10(T) + A5/T^2 + A6*T^2,
+	
+	where T is in Kelvin. The A6 term is the new addition.
+	
+	
+	
+	--------
 	svn 3485
 	--------	
 	Added the active fraction model for calculating exchanger
