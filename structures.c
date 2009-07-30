@@ -6941,7 +6941,7 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 	if (count_trxn == 0)
 	{
 		memcpy((void *) trxn.logk, (void *) r_ptr->logk,
-			   (size_t) 7 * sizeof(LDBLE));
+			   (size_t) 8 * sizeof(LDBLE));
 		for (i = 0; i < 3; i++)
 		{
 			trxn.dz[i] = r_ptr->dz[i];
@@ -7007,7 +7007,7 @@ trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 	if (count_trxn == 0)
 	{
 		memcpy((void *) trxn.logk, (void *) r_ptr->logk,
-			   (size_t) 7 * sizeof(LDBLE));
+			   (size_t) 8 * sizeof(LDBLE));
 	}
 	else
 	{
