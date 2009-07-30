@@ -3244,7 +3244,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 	}
 	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
 			   &(log_k[0]), &(log_k[1]), &(log_k[2]), &(log_k[3]),
-			   &(log_k[4]));
+			   &(log_k[4]), &(log_k[5]));
 	if (j < 1)
 	{
 		input_error++;
@@ -10568,7 +10568,7 @@ read_named_logk(void)
 				break;
 			}
 			empty = TRUE;
-			for (i = 2; i < 7; i++)
+			for (i = 2; i < 8; i++)
 			{
 				if (logk_ptr->log_k[i] != 0.0)
 				{
@@ -10584,7 +10584,7 @@ read_named_logk(void)
 				warning_msg(error_string);
 			}
 			read_analytical_expression_only(next_char, &(logk_ptr->log_k[2]));
-			for (i = 2; i < 7; i++)
+			for (i = 2; i < 8; i++)
 			{
 				logk_ptr->log_k[i] /= 1000. * LOG_10;
 			}

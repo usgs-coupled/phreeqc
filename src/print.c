@@ -1098,7 +1098,7 @@ print_reaction(struct reaction *rxn_ptr)
 
 	output_msg(OUTPUT_MESSAGE, "%s\t\n", rxn_ptr->token[0].s->name);
 	output_msg(OUTPUT_MESSAGE, "\n\tlog k:\n");
-	for (j = 0; j < 7; j++)
+	for (j = 0; j < 8; j++)
 	{
 		output_msg(OUTPUT_MESSAGE, "\t%f", (double) rxn_ptr->logk[j]);
 	}

@@ -4290,7 +4290,7 @@ rxn_alloc(int ntokens)
 /*
  *   zero log k data
  */
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		rxn_ptr->logk[i] = 0.0;
 	}
@@ -4420,7 +4420,7 @@ rxn_print(struct reaction *rxn_ptr)
 		return (ERROR);
 	next_token = rxn_ptr->token;
 	output_msg(OUTPUT_MESSAGE, "log k data:\n");
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		output_msg(OUTPUT_MESSAGE, "\t%f\n", (double) rxn_ptr->logk[i]);
 	}
@@ -6949,7 +6949,7 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 	}
 	else
 	{
-		for (i = 0; i < 7; i++)
+		for (i = 0; i < 8; i++)
 		{
 			trxn.logk[i] += coef * (r_ptr->logk[i]);
 		}
@@ -7011,7 +7011,7 @@ trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 	}
 	else
 	{
-		for (i = 0; i < 7; i++)
+		for (i = 0; i < 8; i++)
 		{
 			trxn.logk[i] += coef * (r_ptr->logk[i]);
 		}
@@ -7167,7 +7167,7 @@ trxn_copy(struct reaction *rxn_ptr)
 /*
  *   Copy logk data
  */
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		rxn_ptr->logk[i] = trxn.logk[i];
 	}
@@ -7234,7 +7234,7 @@ trxn_multiply(LDBLE coef)
 /*
  *   Multiply log k for reaction
  */
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		trxn.logk[i] *= coef;
 	}
@@ -7269,7 +7269,7 @@ trxn_print(void)
  */
 
 	output_msg(OUTPUT_MESSAGE, "\tlog k data:\n");
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		output_msg(OUTPUT_MESSAGE, "\t\t%f\n", (double) trxn.logk[i]);
 	}
@@ -7307,7 +7307,7 @@ trxn_reverse_k(void)
 /*
  *   Accumulate log k for reaction
  */
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		trxn.logk[i] = -trxn.logk[i];
 	}
@@ -7654,7 +7654,7 @@ logk_copy2orig(struct logk *logk_ptr)
  */
 {
 	int i;
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 	{
 		logk_ptr->log_k_original[i] = logk_ptr->log_k[i];
 	}
