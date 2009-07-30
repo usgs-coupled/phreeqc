@@ -3238,7 +3238,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 /*
  *   Read analytical expression
  */
-	for (j = 0; j < 5; j++)
+	for (j = 0; j < 6; j++)
 	{
 		log_k[j] = 0.0;
 	}
