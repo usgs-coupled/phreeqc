@@ -3242,7 +3242,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 	{
 		log_k[j] = 0.0;
 	}
-	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
+	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
 			   &(log_k[0]), &(log_k[1]), &(log_k[2]), &(log_k[3]),
 			   &(log_k[4]), &(log_k[5]));
 	if (j < 1)
