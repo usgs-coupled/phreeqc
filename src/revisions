@@ -1325,6 +1325,12 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+	svn 3568
+        --------
+	minteq.dat: Changing log K of gypsum to minteq version 
+	4 value (-4.61). Old value (-4.848) is too stable.
+
+        --------
 	svn 3483
         --------
 	Alkalinity is now printed to the selected output file 
