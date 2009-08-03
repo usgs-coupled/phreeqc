@@ -29,7 +29,7 @@ struct pitz_param
 	  LDBLE eps;
 	  LDBLE eps1;
 	} U;
-	LDBLE a[5];
+	LDBLE a[6];
 	LDBLE alpha;
 	LDBLE os_coef;
 	LDBLE ln_coef[3];

@@ -813,8 +813,11 @@ calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 	LDBLE param;
 	/*
 	 */
-
-	if (fabs(TK - TR) < 0.01)
+	if (pz_ptr->a[5] != 0)
+	{
+		fprintf(stderr,"%e\n", pz_ptr->a[5]);
+	}
+	if (fabs(TK - TR) < 0.001)
 	{
 		param = pz_ptr->a[0];
 	}
@@ -823,8 +826,9 @@ calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 		param = (pz_ptr->a[0] +
 				 pz_ptr->a[1] * (1.e0 / TK - 1.e0 / TR) +
 				 pz_ptr->a[2] * log(TK / TR) +
-				 pz_ptr->a[3] * (TK - TR) + pz_ptr->a[4] * (TK * TK -
-															TR * TR));
+				 pz_ptr->a[3] * (TK - TR) + 
+				 pz_ptr->a[4] * (TK * TK - TR * TR)) +
+				 pz_ptr->a[5] * (1.e0 / (TK * TK) - 1.e0 / (TR * TR));
 	}
 	pz_ptr->p = param;
 	switch (pz_ptr->type)

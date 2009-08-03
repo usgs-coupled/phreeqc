@@ -8,6 +8,19 @@ File contains:
 ************************************************************
 ************************************************************
 	--------
+	svn 3600
+	--------
+	A new 1/T^2 term (A5 coefficient) was added for all Pitzer-parameter 
+	temperature expressions.
+	
+	P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+                A4*(TK*TK - TR*TR) + A5*(1/(TK*TK) - 1/(TR*TR))
+        
+        where TK is temperature in Kelvin. The optional A5 parameter
+        is read following A4.
+        
+	
+	--------
 	svn 3591
 	--------	
 	Added T^2 term to analytical expressions for log k. A T^2 term
@@ -16,7 +29,8 @@ File contains:
 	
 	log10(K) = A1 + A2*T + A3/T + A4*log10(T) + A5/T^2 + A6*T^2,
 	
-	where T is in Kelvin. The A6 term is the new addition.
+	where T is in Kelvin. The A6 term is the new addition. The optional 
+	A6 parameter is read following A5.
 	
 	
 	
