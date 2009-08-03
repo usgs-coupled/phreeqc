@@ -56,7 +56,7 @@ pitz_param_init(struct pitz_param *pitz_param_ptr)
 	pitz_param_ptr->type = TYPE_Other;
 	pitz_param_ptr->p = 0.0;
 	pitz_param_ptr->U.b0 = 0.0;
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < 6; i++)
 	{
 		pitz_param_ptr->a[i] = 0.0;
 	}
@@ -97,7 +97,7 @@ pitz_param_read(char *string, int n)
 		pzp.species[i] = string_hsave(token);
 	}
 	k = 0;
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < 6; i++)
 	{
 		if (copy_token(token, &ptr, &l) == EMPTY)
 			break;
