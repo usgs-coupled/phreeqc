@@ -34,6 +34,7 @@ all: alkalinity.out \
 	desc.out \
 	dissolve_only.out \
 	donly.out \
+	dump.out \
 	eco.out \
 	eq_EC.out \
 	evap.out \
@@ -115,6 +116,7 @@ all: alkalinity.out \
 	surf_kin_related_pz.out \
 	surf_transport.out \
 	ss_r.out \
+	sys_ex.out \
 	t922.out \
 	test_sit.out \
 	transport.out \
