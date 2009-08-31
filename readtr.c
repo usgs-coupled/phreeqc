@@ -1,5 +1,5 @@
 #ifdef PHREEQC_CPP
-#include "../StorageBin.h"
+#include "..\StorageBin.h"
 #include <iostream>				// std::cout std::cerr
 #include <sstream>
 #include <fstream>
@@ -1450,6 +1450,11 @@ dump_gas_phase(int k)
 	LDBLE lp;
 	struct rxn_token *rxn_ptr;
 	struct gas_phase *gas_phase_ptr;
+	struct solution *solution_ptr;
+
+	;
+	if ((solution_ptr = solution_bsearch(k, &n, TRUE)) == NULL)
+		return (OK);
 
 	if ((gas_phase_ptr = gas_phase_bsearch(k, &n)) == NULL)
 		return (OK);
@@ -1460,17 +1465,17 @@ dump_gas_phase(int k)
 	output_msg(OUTPUT_DUMP, "\t-volume%15.6e\n",
 			   (double) gas_phase[n].volume);
 	output_msg(OUTPUT_DUMP, "\t-temperature%15.6e\n",
-			   (double) gas_phase[n].temperature);
+			   (double) solution_ptr->tc);
 	for (i = 0; i < gas_phase[n].count_comps; i++)
 	{
 /*
  *   Calculate partial pressure
  */
 		lp = -gas_phase_ptr->comps[i].phase->lk;
-		if (use.gas_phase_ptr->comps[i].phase->rxn_x != NULL)
+		if (gas_phase_ptr->comps[i].phase->rxn_x != NULL)
 		{
 			for (rxn_ptr =
-				 use.gas_phase_ptr->comps[i].phase->rxn_x->token + 1;
+				 gas_phase_ptr->comps[i].phase->rxn_x->token + 1;
 				 rxn_ptr->s != NULL; rxn_ptr++)
 			{
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
@@ -1481,7 +1486,7 @@ dump_gas_phase(int k)
 			lp = -99.9;
 		}
 		output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
-				   gas_phase[n].comps[i].name, (double) lp);
+				   gas_phase[n].comps[i].name, (double) pow(10., lp));
 	}
 	return (OK);
 }

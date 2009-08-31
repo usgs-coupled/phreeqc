@@ -2047,6 +2047,11 @@ system_total_elt(const char *total_name)
 				else if (s_x[i]->type == EX)
 				{
 					sys[count_sys].type = string_duplicate("ex");
+					/* subtract again the dummy moles of primary exchange species... */
+					if (s_x[i]->primary != NULL) 
+					{
+						sys_tot -= elt_list[j].coef;
+					}
 				}
 				else if (s_x[i]->type == SURF)
 				{
