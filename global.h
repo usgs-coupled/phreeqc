@@ -195,7 +195,7 @@ typedef enum
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
 enum SURFACE_TYPE
-{ UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC };
+{ UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC, CCM };
 enum DIFFUSE_LAYER_TYPE
 { NO_DL, BORKOVEK_DL, DONNAN_DL };
 enum SITES_UNITS
