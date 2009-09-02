@@ -6775,19 +6775,20 @@ read_surf(void)
 	char *next_char;
 	const char *opt_list[] = {
 		"equilibrate",			/* 0 */
-		"equil",				/* 1 */
-		"diff",					/* 2 */
+		"equil",			/* 1 */
+		"diff",				/* 2 */
 		"diffuse_layer",		/* 3 */
-		"no_edl",				/* 4 */
+		"no_edl",			/* 4 */
 		"no_electrostatic",		/* 5 */
-		"only_counter_ions",	/* 6 */
-		"donnan",				/* 7 */
-		"cd_music",				/* 8 */
+		"only_counter_ions",	        /* 6 */
+		"donnan",			/* 7 */
+		"cd_music",			/* 8 */
 		"capacitances",			/* 9 */
-		"sites",				/* 10 */
-		"sites_units"			/* 11 */
+		"sites",			/* 10 */
+		"sites_units",			/* 11 */
+		"constant_capacitance"          /* 12 */
 	};
-	int count_opt_list = 12;
+	int count_opt_list = 13;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -7023,6 +7024,18 @@ read_surf(void)
 			{
 				error_msg
 					("Character string expected to be 'Absolute' or 'Density' to define the units of the first item in the definition of a surface component.\n",
+					 CONTINUE);
+				input_error++;
+				break;
+			}
+			break;
+		case 12:			    /* constant_capacitance */
+		case 13:			    /* ccm */
+			surface[n].type = CCM;
+			copy_token(token1, &next_char, &l);
+			if (sscanf(token1, SCANFORMAT, &(charge_ptr->capacitance[0])) != 1)
+			{
+				error_msg("Expected capacitance for constant_capacitance model.\n",
 					 CONTINUE);
 				input_error++;
 				break;
