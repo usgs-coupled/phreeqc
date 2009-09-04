@@ -6774,21 +6774,22 @@ read_surf(void)
 	int return_value, opt;
 	char *next_char;
 	const char *opt_list[] = {
-		"equilibrate",			/* 0 */
-		"equil",			/* 1 */
-		"diff",				/* 2 */
-		"diffuse_layer",		/* 3 */
-		"no_edl",			/* 4 */
-		"no_electrostatic",		/* 5 */
-		"only_counter_ions",	        /* 6 */
-		"donnan",			/* 7 */
-		"cd_music",			/* 8 */
-		"capacitances",			/* 9 */
-		"sites",			/* 10 */
+		"equilibrate",          /* 0 */
+		"equil",                /* 1 */
+		"diff",                 /* 2 */
+		"diffuse_layer",        /* 3 */
+		"no_edl",               /* 4 */
+		"no_electrostatic",     /* 5 */
+		"only_counter_ions",    /* 6 */
+		"donnan",               /* 7 */
+		"cd_music",             /* 8 */
+		"capacitances",         /* 9 */
+		"sites",                /* 10 */
 		"sites_units",			/* 11 */
-		"constant_capacitance"          /* 12 */
+		"constant_capacitance", /* 12 */
+		"ccm"                   /* 13 */
 	};
-	int count_opt_list = 13;
+	int count_opt_list = 14;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -7040,6 +7041,11 @@ read_surf(void)
 				input_error++;
 				break;
 			}
+
+			/* constant capacitance model not implemented yet */
+			error_msg("Constant capacitance model not implemented.", CONTINUE);
+			input_error++;
+
 			break;
 		case OPTION_DEFAULT:
 			/*
