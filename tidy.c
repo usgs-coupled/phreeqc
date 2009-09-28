@@ -256,6 +256,9 @@ tidy_model(void)
 	if (new_kinetics)
 		kinetics_sort();
 
+	if (new_reaction)
+		irrev_sort();
+
 	/* named_log_k */
 	if (new_named_logk)
 		tidy_logk();

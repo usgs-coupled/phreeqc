@@ -1339,6 +1339,14 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 	--------
+	svn 3684
+	--------
+	Added more precision in writing dump file fields.
+	
+	Multiple REACTIONS were not sorted correctly. Added sort
+	routine to tidy.c.
+
+	--------
 	svn 3640
 	--------
 	Print correct temperature for gas phase dump.

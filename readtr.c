@@ -1119,7 +1119,14 @@ dump(void)
 			   punch_modulus);
 	output_msg(OUTPUT_DUMP, "\t-bcon  %6d%6d\n", bcon_first, bcon_last);
 	output_msg(OUTPUT_DUMP, "\t-timest %13.5e\n", (double) timest);
-	output_msg(OUTPUT_DUMP, "\t-diffc  %13.5e\n", (double) diffc);
+	if (punch.high_precision == FALSE)
+	{
+		output_msg(OUTPUT_DUMP, "\t-diffc  %13.5e\n", (double) diffc);
+	}
+	else
+	{
+		output_msg(OUTPUT_DUMP, "\t-diffc  %20.12e\n", (double) diffc);
+	}
 	output_msg(OUTPUT_DUMP, "\t-tempr  %13.5e\n", (double) tempr);
 	if (correct_disp == TRUE)
 		output_msg(OUTPUT_DUMP, "\t-correct_disp %s\n", "True");
@@ -1136,7 +1143,14 @@ dump(void)
 	output_msg(OUTPUT_DUMP, "\t-disp\n");
 	for (i = 0; i < count_cells; i++)
 	{
-		output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].disp);
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].disp);
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "%20.12e", (double) cell_data[i].disp);
+		}
 		if (i > 0 && (i % 8) == 0)
 			output_msg(OUTPUT_DUMP, "\n");
 	}
@@ -1238,9 +1252,16 @@ dump_exchange(int k)
 /*				if (exchange_ptr->comps[i].totals[j].elt->master->type != EX) continue; */
 				output_msg(OUTPUT_DUMP, "\t%-15s",
 						   exchange[n].comps[i].totals[j].elt->name);
-				output_msg(OUTPUT_DUMP, "%15.6e",
+				if (punch.high_precision == FALSE)
+				{
+				  output_msg(OUTPUT_DUMP, "%15.6e",
 						   (double) exchange[n].comps[i].totals[j].coef);
-
+				}
+				else
+				{
+				  output_msg(OUTPUT_DUMP, "%20.12e",
+						   (double) exchange[n].comps[i].totals[j].coef);
+				}
 				if (exchange[n].comps[i].rate_name != NULL)
 				{
 					output_msg(OUTPUT_DUMP, "\t%-15s%15.6e",
@@ -1290,14 +1311,31 @@ dump_pp_assemblage(int k)
 
 		if (pp_assemblage[n].pure_phases[j].add_formula == NULL)
 		{
-			output_msg(OUTPUT_DUMP, "%15.6e",
+			if (punch.high_precision == FALSE)
+			{
+			  output_msg(OUTPUT_DUMP, "%15.6e",
 					   (double) pp_assemblage[n].pure_phases[j].moles);
+			}
+			else
+			{
+			  output_msg(OUTPUT_DUMP, "%20.12e",
+					   (double) pp_assemblage[n].pure_phases[j].moles);
+			}
 		}
 		else
 		{
-			output_msg(OUTPUT_DUMP, "\t%-15s%15.6e",
+			if (punch.high_precision == FALSE)
+			{
+				output_msg(OUTPUT_DUMP, "\t%-15s%15.6e",
 					   pp_assemblage[n].pure_phases[j].add_formula,
 					   (double) pp_assemblage[n].pure_phases[j].moles);
+			}
+			else
+			{
+				output_msg(OUTPUT_DUMP, "\t%-15s%20.12e",
+					   pp_assemblage[n].pure_phases[j].add_formula,
+					   (double) pp_assemblage[n].pure_phases[j].moles);
+			}
 		}
 		output_msg(OUTPUT_DUMP, "\n");
 	}
@@ -1376,8 +1414,16 @@ dump_surface(int k)
 			}
 			else
 			{
-				output_msg(OUTPUT_DUMP, "\t%13.5e",
+				if (punch.high_precision == FALSE)
+				{
+					output_msg(OUTPUT_DUMP, "\t%13.5e",
 						   (double) surface[n].comps[i].totals[j].coef);
+				}
+				else
+				{
+					output_msg(OUTPUT_DUMP, "\t%20.12e",
+						   (double) surface[n].comps[i].totals[j].coef);
+				}
 #ifdef SKIP
 				for (l = 0; l < count_kin_surf; l++)
 				{
@@ -1460,10 +1506,26 @@ dump_gas_phase(int k)
 		return (OK);
 
 	output_msg(OUTPUT_DUMP, "GAS_PHASE  %d\n", k);
-	output_msg(OUTPUT_DUMP, "\t-pressure%15.6e\n",
+	if (punch.high_precision == FALSE)
+	{
+		output_msg(OUTPUT_DUMP, "\t-pressure%15.6e\n",
 			   (double) gas_phase[n].total_p);
-	output_msg(OUTPUT_DUMP, "\t-volume%15.6e\n",
+	}
+	else
+	{
+		output_msg(OUTPUT_DUMP, "\t-pressure%20.12e\n",
+			   (double) gas_phase[n].total_p);
+	}
+	if (punch.high_precision == FALSE)
+	{
+		output_msg(OUTPUT_DUMP, "\t-volume%15.6e\n",
 			   (double) gas_phase[n].volume);
+	}
+	else
+	{
+		output_msg(OUTPUT_DUMP, "\t-volume%20.12e\n",
+			   (double) gas_phase[n].volume);
+	}
 	output_msg(OUTPUT_DUMP, "\t-temperature%15.6e\n",
 			   (double) solution_ptr->tc);
 	for (i = 0; i < gas_phase[n].count_comps; i++)
@@ -1485,8 +1547,16 @@ dump_gas_phase(int k)
 		{
 			lp = -99.9;
 		}
-		output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
 				   gas_phase[n].comps[i].name, (double) pow(10., lp));
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "\t%-15s%20.12e\n",
+				   gas_phase[n].comps[i].name, (double) pow(10., lp));
+		}
 	}
 	return (OK);
 }
@@ -1512,9 +1582,18 @@ dump_s_s_assemblage(int k)
 		output_msg(OUTPUT_DUMP, "\t%-15s\n", s_s_assemblage[n].s_s[i].name);
 		for (j = 0; j < s_s_assemblage[n].s_s[i].count_comps; j++)
 		{
-			output_msg(OUTPUT_DUMP, "\t\t-comp\t%-15s%15.6e\n",
+			if (punch.high_precision == FALSE)
+			{
+				output_msg(OUTPUT_DUMP, "\t\t-comp\t%-15s%15.6e\n",
 					   s_s_assemblage[n].s_s[i].comps[j].name,
 					   (double) s_s_assemblage[n].s_s[i].comps[j].moles);
+			}
+			else
+			{
+				output_msg(OUTPUT_DUMP, "\t\t-comp\t%-15s%20.12e\n",
+					   s_s_assemblage[n].s_s[i].comps[j].name,
+					   (double) s_s_assemblage[n].s_s[i].comps[j].moles);
+			}
 		}
 	}
 	return (OK);
@@ -1551,18 +1630,41 @@ dump_kinetics(int k)
 
 		output_msg(OUTPUT_DUMP, "\t-tol %15.2e\n",
 				   (double) kinetics_ptr->comps[i].tol);
-		output_msg(OUTPUT_DUMP, "\t-m0  %15.6e\n",
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "\t-m0  %15.6e\n",
 				   (double) kinetics_ptr->comps[i].m0);
-		output_msg(OUTPUT_DUMP, "\t-m   %15.6e\n",
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "\t-m0  %20.12e\n",
+				   (double) kinetics_ptr->comps[i].m0);
+		}
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "\t-m   %15.6e\n",
 				   (double) kinetics_ptr->comps[i].m);
-
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "\t-m   %20.12e\n",
+				   (double) kinetics_ptr->comps[i].m);
+		}
 		if (kinetics_comp_ptr->count_d_params != 0)
 		{
 			output_msg(OUTPUT_DUMP, "\t-parm");
 			for (j = 0; j < kinetics_comp_ptr->count_d_params; j++)
 			{
-				output_msg(OUTPUT_DUMP, "%15.6e",
+				if (punch.high_precision == FALSE)
+				{
+					output_msg(OUTPUT_DUMP, "%15.6e",
 						   (double) kinetics_comp_ptr->d_params[j]);
+				}
+				else
+				{
+					output_msg(OUTPUT_DUMP, "%20.12e",
+						   (double) kinetics_comp_ptr->d_params[j]);
+				}
 			}
 			output_msg(OUTPUT_DUMP, "\n");
 		}
@@ -1594,8 +1696,16 @@ dump_solution(int k)
 		output_msg(OUTPUT_DUMP, "\tpH    %9.5f\n", (double) solution_ptr->ph);
 		output_msg(OUTPUT_DUMP, "\tpe    %9.5f\n",
 				   (double) solution_ptr->solution_pe);
-		output_msg(OUTPUT_DUMP, "\twater %9.5f\n",
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "\twater %9.5f\n",
 				   (double) solution_ptr->mass_water);
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "\twater %16.12f\n",
+				   (double) solution_ptr->mass_water);
+		}
 		for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 		{
 			/*
@@ -1603,9 +1713,18 @@ dump_solution(int k)
 			 */
 			output_msg(OUTPUT_DUMP, "\t%-6s",
 					   solution_ptr->totals[i].description);
-			output_msg(OUTPUT_DUMP, " %13.5e\n",
+			if (punch.high_precision == FALSE)
+			{
+				output_msg(OUTPUT_DUMP, " %13.5e\n",
 					   (double) (solution_ptr->totals[i].moles /
 								 solution_ptr->mass_water));
+			}
+			else
+			{
+				output_msg(OUTPUT_DUMP, " %20.12e\n",
+					   (double) (solution_ptr->totals[i].moles /
+								 solution_ptr->mass_water));
+			}
 		}
 	}
 	return (OK);
