@@ -1339,6 +1339,12 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 	--------
+	svn 3695
+	--------
+	For transport calculations, fixed step_fraction when 
+	nmix == 1 and ishift == 0.
+	
+	--------
 	svn 3684
 	--------
 	Added more precision in writing dump file fields.
