@@ -305,7 +305,10 @@ transport(void)
 	kin_time_save = kin_time;
 
 /* Reaction defined for a shift... */
-	step_fraction = 1.0 / (1.0 + nmix);
+	if (ishift == 0 && nmix == 1)
+		step_fraction = 1.0;
+	else
+		step_fraction = 1.0 / (1.0 + nmix);
 /*
  *   Set boundary conditions, transport direction
  */
