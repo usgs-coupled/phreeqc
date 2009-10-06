@@ -1194,7 +1194,8 @@ struct const_key keyword[] = {
 	{"gas_phase_raw", 0},
 	{"reaction_raw", 0},
 	{"mix_raw", 0},
-	{"reaction_temperature_raw", 0}
+	{"reaction_temperature_raw", 0},
+	{"dump", 0}
 #endif /* PHREEQC_CPP */
 	
 };
