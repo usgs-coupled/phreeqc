@@ -22,7 +22,9 @@ static char const svnid[] =
 
 static int copy_use(int i);
 static int set_use(void);
-
+#ifdef PHREEQC_CPP
+extern int dump_entities(void);
+#endif
 #ifdef PHREEQ98
 extern int phreeq98_debug;
 extern int AddSeries, connect_simulations;
@@ -3233,8 +3235,13 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Copy
  */
-			if (new_copy)
-				copy_entities();
+			if (new_copy) copy_entities();
+#ifdef PHREEQC_CPP
+/*
+ *   dump
+ */
+			dump_entities();
+#endif
 /*
  *   End of simulation
  */

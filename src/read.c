@@ -14,6 +14,7 @@ extern int read_gas_phase_raw(void);
 extern int read_reaction_raw(void);
 extern int read_mix_raw(void);
 extern int read_temperature_raw(void);
+extern int read_dump(void);
 #endif
 static char const svnid[] = "$Id$";
 
@@ -547,6 +548,10 @@ read_input(void)
 		case 70:
 			keyword[70].keycount++;
 			read_temperature_raw();
+			break;
+		case 71:
+			keyword[71].keycount++;
+			read_dump();
 			break;
 #endif
 		}
