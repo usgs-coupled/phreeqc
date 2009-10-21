@@ -15,6 +15,13 @@ extern int read_reaction_raw(void);
 extern int read_mix_raw(void);
 extern int read_temperature_raw(void);
 extern int read_dump(void);
+extern int read_solution_modify(void);
+extern int read_equilibrium_phases_modify(void);
+extern int read_exchange_modify(void);
+extern int read_surface_modify(void);
+extern int read_solid_solutions_modify(void);
+extern int read_gas_phase_modify(void);
+extern int read_kinetics_modify(void);
 #endif
 static char const svnid[] = "$Id$";
 
@@ -242,7 +249,15 @@ read_input(void)
 	  68      "reaction_raw"
 	  69      "mix_raw"
 	  70      "reaction_temperature_raw"
-  */
+	  71      "dump"
+	  72      "solution_modify"
+	  73      "equilibrium_phases_modify"
+	  74      "exchange_modify"
+	  75      "surface_modify"
+	  76      "solid_solutions_modify"
+	  77      "gas_phase_modify"
+	  78      "kinetics_modify"
+*/
 	for (;;)
 	{
 		if (next_keyword >= 0)
@@ -552,6 +567,34 @@ read_input(void)
 		case 71:
 			keyword[71].keycount++;
 			read_dump();
+			break;
+		case 72:
+			keyword[72].keycount++;
+			read_solution_modify();
+			break;
+		case 73:
+			keyword[73].keycount++;
+			read_equilibrium_phases_modify();
+			break;
+		case 74:
+			keyword[74].keycount++;
+			read_exchange_modify();
+			break;
+		case 75:
+			keyword[75].keycount++;
+			read_surface_modify();
+			break;
+		case 76:
+			keyword[76].keycount++;
+			read_solid_solutions_modify();
+			break;
+		case 77:
+			keyword[77].keycount++;
+			read_gas_phase_modify();
+			break;
+		case 78:
+			keyword[78].keycount++;
+			read_kinetics_modify();
 			break;
 #endif
 		}
