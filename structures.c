@@ -2098,7 +2098,39 @@ irrev_copy(struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int
+irrev_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array irrev.
+ */
+{
+	int i;
+	int n_old;
+	struct irrev *irrev_ptr_old;
+/*
+ *   Find n_user_old in structure array
+ */
+	irrev_ptr_old = irrev_bsearch(n_user_old, &n_old);
+	if (irrev_ptr_old != NULL)
+	{
+		/*
+		 *   Delete irrev
+		 */
+		irrev_free(&irrev[n_old]);
 
+		for (i = n_old + 1; i < count_irrev; i++)
+		{
+			memcpy((void *) &irrev[i - 1],
+				   (void *) &irrev[i],
+				   (size_t) sizeof(struct irrev));
+		}
+		count_irrev--;
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int
 irrev_duplicate(int n_user_old, int n_user_new)
@@ -3096,7 +3128,39 @@ mix_copy(struct mix *mix_old_ptr, struct mix *mix_new_ptr, int n_user_new)
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int
+mix_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array mix.
+ */
+{
+	int i;
+	int n_old;
+	struct mix *mix_ptr_old;
+/*
+ *   Find n_user_old in structure array
+ */
+	mix_ptr_old = mix_bsearch(n_user_old, &n_old);
+	if (mix_ptr_old != NULL)
+	{
+		/*
+		 *   Delete mix
+		 */
+		mix_free(&mix[n_old]);
 
+		for (i = n_old + 1; i < count_mix; i++)
+		{
+			memcpy((void *) &mix[i - 1],
+				   (void *) &mix[i],
+				   (size_t) sizeof(struct mix));
+		}
+		count_mix--;
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int
 mix_duplicate(int n_user_old, int n_user_new)
@@ -3952,7 +4016,6 @@ pp_assemblage_delete(int n_user_old)
 	}
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int
 pp_assemblage_free(struct pp_assemblage *pp_assemblage_ptr)
@@ -5722,7 +5785,26 @@ solution_delete(int n_user)
 	}
 	return (OK);
 }
-
+/* ---------------------------------------------------------------------- */
+int
+solution_delete_n(int n)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Delete a solution structure: free memory and renumber solution.
+ */
+	int j;
+	if (n >= 0 && n < count_solution)
+	{
+		solution_free(solution[n]);
+		for (j = n; j < (count_solution - 1); j++)
+		{
+			solution[j] = solution[j + 1];
+		}
+		count_solution--;
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int
 solution_free(struct solution *solution_ptr)
@@ -6752,7 +6834,39 @@ temperature_copy(struct temperature *temperature_old_ptr,
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int
+temperature_delete(int n_user_old)
+/* ---------------------------------------------------------------------- */
+/*
+ *   Frees space for user number n_user_old, removes structure from
+ *   array temperature.
+ */
+{
+	int i;
+	int n_old;
+	struct temperature *temperature_ptr_old;
+/*
+ *   Find n_user_old in structure array
+ */
+	temperature_ptr_old = temperature_bsearch(n_user_old, &n_old);
+	if (temperature_ptr_old != NULL)
+	{
+		/*
+		 *   Delete temperature
+		 */
+		temperature_free(&temperature[n_old]);
 
+		for (i = n_old + 1; i < count_temperature; i++)
+		{
+			memcpy((void *) &temperature[i - 1],
+				   (void *) &temperature[i],
+				   (size_t) sizeof(struct temperature));
+		}
+		count_temperature--;
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int
 temperature_duplicate(int n_user_old, int n_user_new)

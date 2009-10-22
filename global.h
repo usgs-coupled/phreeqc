@@ -1202,8 +1202,8 @@ struct const_key keyword[] = {
 	{"surface_modify", 0},
 	{"solid_solutions_modify", 0},
 	{"gas_phase_modify", 0},
-	{"kinetics_modify", 0}
-
+	{"kinetics_modify", 0},
+	{"delete", 0}
 #endif /* PHREEQC_CPP */
 	
 };

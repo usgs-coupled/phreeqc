@@ -344,6 +344,7 @@ int inverse_sort(void);
 struct irrev *irrev_bsearch(int k, int *n);
 int irrev_copy(struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
 			   int n_user_new);
+int irrev_delete(int n_user_old);
 int irrev_duplicate(int n_user_old, int n_user_new);
 int irrev_free(struct irrev *irrev_ptr);
 struct irrev *irrev_search(int n_user, int *n);
@@ -383,6 +384,7 @@ struct master *master_search(char *ptr, int *n);
 struct mix *mix_bsearch(int k, int *n);
 int mix_copy(struct mix *mix_old_ptr,
 			 struct mix *mix_new_ptr, int n_user_new);
+int mix_delete(int n_user_old);
 int mix_duplicate(int n_user_old, int n_user_new);
 int mix_free(struct mix *mix_ptr);
 struct mix *mix_search(int n_user, int *n, int print);
@@ -473,6 +475,7 @@ struct solution *solution_copy(struct solution *solution_old_ptr,
 int solution_copy_to_last(int n, int n_user_new);
 int solution_duplicate(int n_user_old, int n_user_new);
 int solution_delete(int n_user_old);
+int solution_delete_n(int n);
 int solution_free(struct solution *solution_ptr);
 int solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new);
 struct solution *solution_replicate(struct solution *solution_old_ptr,
@@ -509,6 +512,7 @@ int system_duplicate(int i, int save_old);
 struct temperature *temperature_bsearch(int k, int *n);
 int temperature_copy(struct temperature *temperature_old_ptr,
 					 struct temperature *temperature_new_ptr, int n_user_new);
+int temperature_delete(int n_user_old);
 int temperature_duplicate(int n_user_old, int n_user_new);
 int temperature_free(struct temperature *temperature_ptr);
 struct temperature *temperature_search(int n_user, int *n);
