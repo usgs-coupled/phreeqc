@@ -22,6 +22,7 @@ extern int read_surface_modify(void);
 extern int read_solid_solutions_modify(void);
 extern int read_gas_phase_modify(void);
 extern int read_kinetics_modify(void);
+extern int read_delete(void);
 #endif
 static char const svnid[] = "$Id$";
 
@@ -257,6 +258,7 @@ read_input(void)
 	  76      "solid_solutions_modify"
 	  77      "gas_phase_modify"
 	  78      "kinetics_modify"
+	  79      "delete"
 */
 	for (;;)
 	{
@@ -595,6 +597,10 @@ read_input(void)
 		case 78:
 			keyword[78].keycount++;
 			read_kinetics_modify();
+			break;
+		case 79:
+			keyword[71].keycount++;
+			read_delete();
 			break;
 #endif
 		}
