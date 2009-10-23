@@ -24,6 +24,7 @@ static int copy_use(int i);
 static int set_use(void);
 #ifdef PHREEQC_CPP
 extern int dump_entities(void);
+extern int delete_entities(void);
 #endif
 #ifdef PHREEQ98
 extern int phreeq98_debug;
@@ -3241,6 +3242,10 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
  *   dump
  */
 			dump_entities();
+/*
+ *   delete
+ */
+			delete_entities();
 #endif
 /*
  *   End of simulation
