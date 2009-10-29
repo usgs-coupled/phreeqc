@@ -3,6 +3,8 @@
 #include <iostream>				// std::cout std::cerr
 #include <sstream>
 #include <fstream>
+std::string dump_file_name_cpp;
+int dump_cpp(void);
 #endif
 #define EXTERNAL extern
 #include "global.h"
@@ -941,12 +943,17 @@ read_transport(void)
 
 	if (dump_in == TRUE)
 	{
+#ifdef PHREEQC_CPP
+		dump_file_name_cpp.clear();
+		dump_file_name_cpp.append(file_name);
+#else
 		if (output_open(OUTPUT_DUMP, file_name) != OK)
 		{
 			sprintf(error_string, "Can't open file, %s.", file_name);
 			error_msg(error_string, CONTINUE);
 			input_error++;
 		}
+#endif
 	}
 	return (return_value);
 }
@@ -1013,15 +1020,9 @@ dump(void)
 		return (OK);
 #ifdef PHREEQC_CPP
 	{
-		cxxStorageBin phreeqcBin;
-		phreeqcBin.import_phreeqc();
-
-		//std::ostringstream oss; 
-		std::ofstream fs("phreeqc_dump");
-		fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;
-		phreeqcBin.dump_raw(fs, 0);
+		dump_cpp();
+		return OK;
 	}
-	return OK;
 #endif
 	output_rewind(OUTPUT_DUMP);
 	output_msg(OUTPUT_DUMP,
@@ -1194,7 +1195,280 @@ dump(void)
 	output_msg(OUTPUT_DUMP, "END\n");
 	return (OK);
 }
+#ifdef PHREEQC_CPP
+/* ---------------------------------------------------------------------- */
+int
+dump_cpp(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ * dumps solution compositions to file
+ */
 
+	int i, j, l;
+
+	if (dump_in == FALSE || pr.dump == FALSE)
+		return (OK);
+
+	cxxStorageBin phreeqcBin;
+	phreeqcBin.import_phreeqc();
+
+	std::ofstream fs(dump_file_name_cpp.c_str());
+	fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;
+	phreeqcBin.dump_raw(fs, 0);
+	fs << "END" << std::endl;
+
+	char token[MAX_LENGTH];
+	sprintf(token, "KNOBS\n");
+	fs << token; 
+	sprintf(token, "\t-iter%15d\n", itmax);
+	fs << token; 
+	sprintf(token, "\t-tol %15.3e\n", (double) ineq_tol);
+	fs << token; 
+	sprintf(token, "\t-step%15.3e\n", (double) step_size);
+	fs << token;
+	sprintf(token, "\t-pe_s%15.3e\n", (double) pe_step_size);
+	fs << token;
+	sprintf(token, "\t-diag      ");
+	fs << token;
+	if (diagonal_scale == TRUE)
+	{
+		sprintf(token, "true\n");
+		fs << token;
+	}
+	else
+	{
+		sprintf(token, "false\n");
+		fs << token;
+	}
+
+	sprintf(token, "SELECTED_OUTPUT\n");
+	fs << token;
+	sprintf(token, "\t-file  %-15s\n", "sel_o$$$.prn");
+	fs << token;
+	if (punch.count_totals != 0)
+	{
+		sprintf(token, "\t-tot ");
+		fs << token;
+		for (i = 0; i < punch.count_totals; i++)
+		{
+			sprintf(token, "  %s", punch.totals[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_molalities != 0)
+	{
+		sprintf(token, "\t-mol ");
+		fs << token;
+		for (i = 0; i < punch.count_molalities; i++)
+		{
+			sprintf(token, "  %s", punch.molalities[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_activities != 0)
+	{
+		sprintf(token, "\t-act ");
+		fs << token;
+		for (i = 0; i < punch.count_activities; i++)
+		{
+			sprintf(token, "  %s", punch.activities[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_pure_phases != 0)
+	{
+		sprintf(token, "\t-equ ");
+		fs << token;
+		for (i = 0; i < punch.count_pure_phases; i++)
+		{
+			sprintf(token, "  %s", punch.pure_phases[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_si != 0)
+	{
+		sprintf(token, "\t-si ");
+		fs << token;
+		for (i = 0; i < punch.count_si; i++)
+		{
+			sprintf(token, "  %s", punch.si[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_gases != 0)
+	{
+		sprintf(token, "\t-gas ");
+		fs << token;
+		for (i = 0; i < punch.count_gases; i++)
+		{
+			sprintf(token, "  %s", punch.gases[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_s_s != 0)
+	{
+		sprintf(token, "\t-solid_solutions ");
+		fs << token;
+		for (i = 0; i < punch.count_s_s; i++)
+		{
+			sprintf(token, "  %s", punch.s_s[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	if (punch.count_kinetics != 0)
+	{
+		sprintf(token, "\t-kin ");
+		fs << token;
+		for (i = 0; i < punch.count_kinetics; i++)
+		{
+			sprintf(token, "  %s", punch.kinetics[i].name);
+			fs << token;
+		}
+		sprintf(token, "\n");
+		fs << token;
+	}
+	sprintf(token, "TRANSPORT\n");
+	fs << token;
+	sprintf(token, "\t-cells %6d\n", count_cells);
+	fs << token;
+	sprintf(token, "\t-shifts%6d%6d\n", count_shifts, ishift);
+	fs << token;
+	sprintf(token, "\t-output_frequency %6d\n", print_modulus);
+	fs << token;
+	sprintf(token, "\t-selected_output_frequency %6d\n",
+		punch_modulus);
+	fs << token;
+	sprintf(token, "\t-bcon  %6d%6d\n", bcon_first, bcon_last);
+	fs << token;
+	sprintf(token, "\t-timest %13.5e\n", (double) timest);
+	fs << token;
+	if (punch.high_precision == FALSE)
+	{
+		sprintf(token, "\t-diffc  %13.5e\n", (double) diffc);
+		fs << token;
+	}
+	else
+	{
+		sprintf(token, "\t-diffc  %20.12e\n", (double) diffc);
+		fs << token;
+	}
+	sprintf(token, "\t-tempr  %13.5e\n", (double) tempr);
+	fs << token;
+	if (correct_disp == TRUE)
+	{
+		sprintf(token, "\t-correct_disp %s\n", "True");
+		fs << token;
+	}
+	else
+	{
+		sprintf(token, "\t-correct_disp %s\n", "False");
+		fs << token;
+	}
+	sprintf(token, "\t-length\n");
+	fs << token;
+	for (i = 0; i < count_cells; i++)
+	{
+		sprintf(token, "%12.3e", (double) cell_data[i].length);
+		fs << token;
+		if (i > 0 && (i % 8) == 0)
+		{
+			sprintf(token, "\n");
+			fs << token;
+		}
+	}
+	sprintf(token, "\n");
+	fs << token;
+	sprintf(token, "\t-disp\n");
+	for (i = 0; i < count_cells; i++)
+	{
+		if (punch.high_precision == FALSE)
+		{
+			sprintf(token, "%12.3e", (double) cell_data[i].disp);
+			fs << token;
+		}
+		else
+		{
+			sprintf(token, "%20.12e", (double) cell_data[i].disp);
+			fs << token;
+		}
+		if (i > 0 && (i % 8) == 0)
+		{
+			sprintf(token, "\n");
+			fs << token;
+		}
+	}
+	sprintf(token, "\n");
+	fs << token;
+	sprintf(token, "\t-punch_cells");
+	fs << token;
+	if (stag_data->count_stag > 0)
+		j = 1 + (1 + stag_data->count_stag) * count_cells;
+	else
+		j = count_cells;
+	l = 0;
+	for (i = 0; i < j; i++)
+	{
+		if (cell_data[i].punch != TRUE)
+			continue;
+		sprintf(token, "  %d", i + 1);
+		fs << token;
+		l++;
+		if ((l % 20) == 0)
+		{
+			sprintf(token, "\n");
+			fs << token;
+		}
+	}
+	sprintf(token, "\n");
+	fs << token;
+	sprintf(token, "\t-print_cells");
+	fs << token;
+	if (stag_data->count_stag > 0)
+		j = 1 + (1 + stag_data->count_stag) * count_cells;
+	else
+		j = count_cells;
+	l = 0;
+	for (i = 0; i < j; i++)
+	{
+		if (cell_data[i].print != TRUE)
+			continue;
+		sprintf(token, "  %d", i + 1);
+		l++;
+		if ((l % 20) == 0)
+		{
+			sprintf(token, "\n");
+			fs << token;
+		}
+	}
+	sprintf(token, "\n");
+	fs << token;
+	sprintf(token, "\t-dump            $$$.dmp\n");
+	fs << token;
+	sprintf(token, "\t-dump_frequency  %d\n", dump_modulus);
+	fs << token;
+	sprintf(token, "\t-dump_restart    %d\n", transport_step + 1);
+	fs << token;
+
+	sprintf(token, "END\n");
+	fs << token;
+	return (OK);
+}
+#endif
 /* ---------------------------------------------------------------------- */
 int
 dump_exchange(int k)
