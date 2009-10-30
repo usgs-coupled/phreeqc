@@ -20,11 +20,12 @@ static char const svnid[] =
 #include <windows.h>
 #endif
 
-static int copy_use(int i);
-static int set_use(void);
+int copy_use(int i);
+int set_use(void);
 #ifdef PHREEQC_CPP
 extern int dump_entities(void);
 extern int delete_entities(void);
+extern int run_as_cells(void);
 #endif
 #ifdef PHREEQ98
 extern int phreeq98_debug;
@@ -687,7 +688,7 @@ initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+int
 set_use(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3233,6 +3234,12 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 				dup_print("Beginning of transport calculations.", TRUE);
 				transport();
 			}
+#ifdef PHREEQC_CPP
+/*
+ *   run
+ */
+			run_as_cells();
+#endif
 /*
  *   Copy
  */
