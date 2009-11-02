@@ -1,5 +1,5 @@
 #ifdef PHREEQC_CPP
-#include "..\StorageBin.h"
+#include "../StorageBin.h"
 #include <iostream>				// std::cout std::cerr
 #include <sstream>
 #include <fstream>
