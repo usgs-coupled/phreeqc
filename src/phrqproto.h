@@ -1,7 +1,7 @@
-#ifdef PHREEQC_IDENT
-static char const svnidphrqproto[] =
-	"$Id$";
-#endif
+#ifndef _INC_PHRQPROTO_H
+#define _INC_PHRQPROTO_H
+
+private:
 /* advection.c */
 int advection(void);
 /* basic.c */
@@ -601,3 +601,4 @@ LDBLE under(LDBLE xval);
 int get_elts_in_species(char **t_ptr, LDBLE coef);
 void zero_double(LDBLE * target, int n);
 
+#endif /* _INC_PHREEQC_H */
