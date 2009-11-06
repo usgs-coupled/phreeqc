@@ -44,10 +44,10 @@ static char const svnidnvector[] =
 	"$Id$";
 #endif
 
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 
 #ifndef included_nvector_h
 #define included_nvector_h
@@ -442,6 +442,6 @@ extern "C"
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif

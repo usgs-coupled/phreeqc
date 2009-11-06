@@ -7,23 +7,23 @@
 static char const svnid[] =
 	"$Id$";
 
-struct system_species
-{
-	char *name;
-	char *type;
-	LDBLE moles;
-};
-struct system_species *sys;
-int count_sys, max_sys;
-
-LDBLE sys_tot;
-LDBLE AA, BB, CC, I_m, rho_0;
-LDBLE solution_mass, solution_volume;
-LDBLE f_rho(LDBLE rho_old);
-extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+//struct system_species
+//{
+//	char *name;
+//	char *type;
+//	LDBLE moles;
+//};
+//struct system_species *sys;
+//int count_sys, max_sys;
+//
+//LDBLE sys_tot;
+//LDBLE AA, BB, CC, I_m, rho_0;
+//LDBLE solution_mass, solution_volume;
+//LDBLE f_rho(LDBLE rho_old);
+//extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 activity(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -53,7 +53,7 @@ activity(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 activity_coefficient(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -73,7 +73,7 @@ activity_coefficient(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 log_activity_coefficient(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -93,7 +93,7 @@ log_activity_coefficient(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_SC(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -145,7 +145,7 @@ calc_SC(void)
 
 /* VP: Density Start */
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_dens (void)
 /* ---------------------------------------------------------------------- */
 {
@@ -269,7 +269,7 @@ calc_dens (void)
 }
 /* VP: Density End */
 /* DP: Function for interval halving */
-LDBLE
+LDBLE CLASS_QUALIFIER
 f_rho(LDBLE rho_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -284,7 +284,7 @@ f_rho(LDBLE rho_old)
 /* DP: End function for interval halving */
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_logk_n(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -313,7 +313,7 @@ calc_logk_n(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_logk_p(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -340,7 +340,7 @@ calc_logk_p(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_logk_s(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -366,7 +366,7 @@ calc_logk_s(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_surface_charge(const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -410,7 +410,7 @@ calc_surface_charge(const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 diff_layer_total(const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -688,7 +688,7 @@ diff_layer_total(const char *total_name, const char *surface_name)
 	if (count_elts > 0)
 	{
 		qsort(elt_list, (size_t) count_elts,
-			  (size_t) sizeof(struct elt_list), elt_list_compare);
+			  (size_t) sizeof(struct elt_list), CLASS_QUALIFIER elt_list_compare);
 		elt_list_combine();
 	}
 /*
@@ -705,7 +705,7 @@ diff_layer_total(const char *total_name, const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 equi_phase(const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -748,7 +748,7 @@ equi_phase(const char *phase_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 find_gas_comp(const char *gas_comp_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -768,7 +768,7 @@ find_gas_comp(const char *gas_comp_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 find_misc1(const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -794,7 +794,7 @@ find_misc1(const char *s_s_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 find_misc2(const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -820,7 +820,7 @@ find_misc2(const char *s_s_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 find_s_s_comp(const char *s_s_comp_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -851,7 +851,7 @@ find_s_s_comp(const char *s_s_comp_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 get_calculate_value(const char *name)
 /* ---------------------------------------------------------------------- */
 /*
@@ -891,7 +891,7 @@ get_calculate_value(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 kinetics_moles(const char *kinetics_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -915,7 +915,7 @@ kinetics_moles(const char *kinetics_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 log_activity(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -944,7 +944,7 @@ log_activity(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 log_molality(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -973,7 +973,7 @@ log_molality(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 molality(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -994,7 +994,7 @@ molality(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 saturation_ratio(const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1026,7 +1026,7 @@ saturation_ratio(const char *phase_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 saturation_index(const char *phase_name, LDBLE * iap, LDBLE * si)
 /* ---------------------------------------------------------------------- */
 {
@@ -1060,7 +1060,7 @@ saturation_index(const char *phase_name, LDBLE * iap, LDBLE * si)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 sum_match_gases(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1100,7 +1100,7 @@ sum_match_gases(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 sum_match_species(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1137,7 +1137,7 @@ sum_match_species(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 sum_match_s_s(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1187,7 +1187,7 @@ sum_match_s_s(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 match_elts_in_species(const char *name, const char *mytemplate)
 /* ---------------------------------------------------------------------- */
 {
@@ -1417,7 +1417,7 @@ match_elts_in_species(const char *name, const char *mytemplate)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 extract_bracket(char **string, char *bracket_string)
 /* ---------------------------------------------------------------------- */
 {
@@ -1442,7 +1442,7 @@ extract_bracket(char **string, char *bracket_string)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 surf_total(const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1526,7 +1526,7 @@ surf_total(const char *total_name, const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 total(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1593,7 +1593,7 @@ total(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 system_total(const char *total_name, LDBLE * count, char ***names,
 			 char ***types, LDBLE ** moles)
 /* ---------------------------------------------------------------------- */
@@ -1698,7 +1698,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_elements(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1820,7 +1820,7 @@ system_total_elements(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_si(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1858,7 +1858,7 @@ system_total_si(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_aq(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1885,7 +1885,7 @@ system_total_aq(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_ex(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1914,7 +1914,7 @@ system_total_ex(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_surf(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1941,7 +1941,7 @@ system_total_surf(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_gas(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1970,7 +1970,7 @@ system_total_gas(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_s_s(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2004,7 +2004,7 @@ system_total_s_s(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_elt(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2027,7 +2027,7 @@ system_total_elt(const char *total_name)
 		if (count_elts > 0)
 		{
 			qsort(elt_list, (size_t) count_elts,
-				  (size_t) sizeof(struct elt_list), elt_list_compare);
+				(size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
 		}
 		/*
@@ -2268,7 +2268,7 @@ system_total_elt(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_elt_secondary(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2547,7 +2547,7 @@ system_total_elt_secondary(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 solution_sum_secondary(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2596,7 +2596,7 @@ solution_sum_secondary(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_species_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2612,7 +2612,7 @@ system_species_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 system_total_solids(struct exchange *exchange_ptr,
 					struct pp_assemblage *pp_assemblage_ptr,
 					struct gas_phase *gas_phase_ptr,

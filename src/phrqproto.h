@@ -1,7 +1,7 @@
 #ifndef _INC_PHRQPROTO_H
 #define _INC_PHRQPROTO_H
 
-private:
+
 /* advection.c */
 int advection(void);
 /* basic.c */
@@ -69,7 +69,7 @@ int cl1(int k, int l, int m, int n,
 /* default.c */
 int close_input_files(void);
 int close_output_files(void);
-int getc_callback(void *cookie);
+static int getc_callback(void *cookie);
 int process_file_names(int argc, char *argv[], void **db_cookie,
 					   void **input_cookie, int log);
 
@@ -146,7 +146,6 @@ int initial_solutions(int print);
 int step_save_exch(int n_user);
 int step_save_surf(int n_user);
 int initial_surfaces(int print);
-int k_temp(LDBLE tempc);
 int reactions(void);
 int saver(void);
 int xsolution_save(int k_user);
@@ -286,11 +285,10 @@ int reinitialize(void);
 int copier_add(struct copier *copier_ptr, int n_user, int start, int end);
 int copier_free(struct copier *copier_ptr);
 int copier_init(struct copier *copier_ptr);
-int copy_entities(void);
 int element_compare(const void *ptr1, const void *ptr2);
 struct element *element_store(const char *element);
 int elt_list_combine(void);
-int elt_list_compare(const void *ptr1, const void *ptr2);
+static int elt_list_compare(const void *ptr1, const void *ptr2);
 struct elt_list *elt_list_dup(struct elt_list *elt_list_ptr_old);
 int elt_list_print(struct elt_list *elt_list_ptr);
 struct elt_list *elt_list_save(void);
@@ -301,7 +299,7 @@ int exchange_comp_compare(const void *ptr1, const void *ptr2);
 void exchange_comp_init(struct exch_comp *exch_comp_ptr);
 int exchange_copy(struct exchange *exchange_old_ptr,
 				  struct exchange *exchange_new_ptr, int n_user_new);
-int exchange_compare(const void *ptr1, const void *ptr2);
+static int exchange_compare(const void *ptr1, const void *ptr2);
 int exchange_copy_to_last(int n, int n_user);
 int exchange_delete(int n_user_old);
 int exchange_duplicate(int n_user_old, int n_user_new);
@@ -314,10 +312,10 @@ struct exchange *exchange_replicate(struct exchange *exchange_old_ptr,
 struct exchange *exchange_search(int n_user, int *n, int print);
 int exchange_sort(void);
 
-int gas_comp_compare(const void *ptr1, const void *ptr2);
+static int gas_comp_compare(const void *ptr1, const void *ptr2);
 struct gas_phase *gas_phase_alloc(void);
 struct gas_phase *gas_phase_bsearch(int k, int *n);
-int gas_phase_compare(const void *ptr1, const void *ptr2);
+static int gas_phase_compare(const void *ptr1, const void *ptr2);
 int gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
 				   struct gas_phase *gas_phase_new_ptr, int n_user_new);
 int gas_phase_copy_to_last(int n, int n_user);
@@ -337,7 +335,7 @@ enum entity_type get_entity_enum(char *name);
 
 struct inverse *inverse_alloc(void);
 int inverse_delete(int i);
-int inverse_isotope_compare(const void *ptr1, const void *ptr2);
+static int inverse_isotope_compare(const void *ptr1, const void *ptr2);
 struct inverse *inverse_search(int n_user, int *n);
 int inverse_sort(void);
 
@@ -402,7 +400,7 @@ struct phase *phase_store(char *name);
 
 struct pp_assemblage *pp_assemblage_alloc(void);
 struct pp_assemblage *pp_assemblage_bsearch(int k, int *n);
-int pp_assemblage_compare(const void *ptr1, const void *ptr2);
+static int pp_assemblage_compare(const void *ptr1, const void *ptr2);
 int pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr,
 					   struct pp_assemblage *pp_assemblage_new_ptr,
 					   int n_user_new);
@@ -420,7 +418,7 @@ struct pp_assemblage *pp_assemblage_replicate(struct pp_assemblage
 struct pp_assemblage *pp_assemblage_search(int n_user, int *n);
 int pp_assemblage_sort(void);
 
-int pure_phase_compare(const void *ptr1, const void *ptr2);
+static int pure_phase_compare(const void *ptr1, const void *ptr2);
 
 struct rate *rate_bsearch(char *ptr, int *j);
 int rate_free(struct rate *rate_ptr);
@@ -440,7 +438,7 @@ struct species *s_store(char *name, LDBLE z, int replace_if_found);
 
 struct s_s_assemblage *s_s_assemblage_alloc(void);
 struct s_s_assemblage *s_s_assemblage_bsearch(int k, int *n);
-int s_s_assemblage_compare(const void *ptr1, const void *ptr2);
+static int s_s_assemblage_compare(const void *ptr1, const void *ptr2);
 
 int s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
 						struct s_s_assemblage *s_s_assemblage_new_ptr,
@@ -458,16 +456,16 @@ struct s_s_assemblage *s_s_assemblage_replicate(struct s_s_assemblage
 												int n_user_new);
 struct s_s_assemblage *s_s_assemblage_search(int n_user, int *n);
 int s_s_assemblage_sort(void);
-int s_s_compare(const void *ptr1, const void *ptr2);
+static int s_s_compare(const void *ptr1, const void *ptr2);
 
 struct save_values *save_values_bsearch(struct save_values *k, int *n);
 int save_values_compare(const void *ptr1, const void *ptr2);
 int save_values_sort(void);
 int save_values_store(struct save_values *s_v);
 
-int conc_compare(const void *ptr1, const void *ptr2);
+static int conc_compare(const void *ptr1, const void *ptr2);
 int conc_init(struct conc *conc_ptr);
-int isotope_compare(const void *ptr1, const void *ptr2);
+static int isotope_compare(const void *ptr1, const void *ptr2);
 struct solution *solution_alloc(void);
 struct solution *solution_bsearch(int k, int *n, int print);
 struct solution *solution_copy(struct solution *solution_old_ptr,
@@ -482,8 +480,8 @@ struct solution *solution_replicate(struct solution *solution_old_ptr,
 									int n_user_new);
 int solution_sort(void);
 
-int species_list_compare_alk(const void *ptr1, const void *ptr2);
-int species_list_compare_master(const void *ptr1, const void *ptr2);
+static int species_list_compare_alk(const void *ptr1, const void *ptr2);
+static int species_list_compare_master(const void *ptr1, const void *ptr2);
 int species_list_sort(void);
 
 struct Change_Surf *change_surf_alloc(int count);
@@ -491,8 +489,8 @@ struct surface *surface_alloc(void);
 struct surface *surface_bsearch(int k, int *n);
 struct master *surface_get_psi_master(const char *name, int plane);
 int surface_comp_compare(const void *ptr1, const void *ptr2);
-int surface_charge_compare(const void *ptr1, const void *ptr2);
-int surface_compare(const void *ptr1, const void *ptr2);
+static int surface_charge_compare(const void *ptr1, const void *ptr2);
+static int surface_compare(const void *ptr1, const void *ptr2);
 int surface_copy(struct surface *surface_old_ptr,
 				 struct surface *surface_new_ptr, int n_user_new);
 int surface_copy_to_last(int n, int n_user);
@@ -551,8 +549,11 @@ int zero_tally_table(void);
 int add_other_logk(LDBLE * source_k, int count_add_logk,
 				   struct name_coef *add_logk);
 int add_logks(struct logk *logk_ptr, int repeats);
-int select_log_k_expression(LDBLE * source_k, LDBLE * target_k);
+LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+int replace_solids_gases(void);
 int s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print);
+int select_log_k_expression(LDBLE * source_k, LDBLE * target_k);
+int slnq(int n, LDBLE * a, LDBLE * delta, int ncols, int print);
 int tidy_punch(void);
 int tidy_model(void);
 
@@ -598,7 +599,6 @@ int string_trim(char *str);
 int string_trim_right(char *str);
 int string_trim_left(char *str);
 LDBLE under(LDBLE xval);
-int get_elts_in_species(char **t_ptr, LDBLE coef);
 void zero_double(LDBLE * target, int n);
 
 #endif /* _INC_PHREEQC_H */

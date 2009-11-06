@@ -1,9 +1,15 @@
-
+#ifdef PHREEQC_CLASS
+#include "Phreeqc.h"
+#define _INC_GLOBAL_H
+#define CLASS_QUALIFIER Phreeqc::
+#endif
 #ifdef PHREEQC_IDENT
 static char const svnidglobal[] =
 	"$Id$";
 #endif
 #ifndef _INC_GLOBAL_H
+#define CLASS_QUALIFIER 
+#define STATIC static
 #define _INC_GLOBAL_H
 
 /* #define NO_DOS */
@@ -1849,5 +1855,18 @@ struct system
 };
 
 EXTERNAL LDBLE pore_volume;
+struct system_species
+{
+	char *name;
+	char *type;
+	LDBLE moles;
+};
+struct system_species *sys;
+int count_sys, max_sys;
+
+LDBLE sys_tot;
+LDBLE AA, BB, CC, I_m, rho_0;
+LDBLE solution_mass, solution_volume;
+LDBLE f_rho(LDBLE rho_old);
 #endif /* _INC_GLOBAL_H */
 

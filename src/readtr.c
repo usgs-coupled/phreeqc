@@ -6,17 +6,21 @@
 std::string dump_file_name_cpp;
 int dump_cpp(void);
 #endif
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] =
 	"$Id$";
 
 static int read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d,
 							int *count_alloc);
+#endif
 
 #define OPTION_EOF -1
 #define OPTION_KEYWORD -2
@@ -25,7 +29,7 @@ static int read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d,
 #define OPTION_DEFAULT2 -5
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_transport(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -101,8 +105,8 @@ read_transport(void)
 		"interlayer_d"			/* 41 */
 	};
 	int count_opt_list = 42;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	strcpy(file_name, "phreeqc.dmp");
 /*
@@ -959,7 +963,7 @@ read_transport(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 /* ---------------------------------------------------------------------- */
 {
@@ -1006,7 +1010,7 @@ read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1197,7 +1201,7 @@ dump(void)
 }
 #ifdef PHREEQC_CPP
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_cpp(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1470,7 +1474,7 @@ dump_cpp(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_exchange(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1564,7 +1568,7 @@ dump_exchange(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_pp_assemblage(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1617,7 +1621,7 @@ dump_pp_assemblage(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_reaction(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1651,7 +1655,7 @@ dump_reaction(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_surface(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1759,7 +1763,7 @@ dump_surface(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_gas_phase(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1836,7 +1840,7 @@ dump_gas_phase(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_s_s_assemblage(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1874,7 +1878,7 @@ dump_s_s_assemblage(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_kinetics(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1951,7 +1955,7 @@ dump_kinetics(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_solution(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -2005,7 +2009,7 @@ dump_solution(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_mix(int k)
 /* ---------------------------------------------------------------------- */
 {

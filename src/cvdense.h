@@ -1,3 +1,5 @@
+#ifndef _INC_CVDENSE_H
+#define _INC_CVDENSE_H
 /*******************************************************************
  *                                                                 *
  * File          : cvdense.h                                       *
@@ -22,10 +24,10 @@ static char const svnidcvdense[] =
 	"$Id$";
 #endif
 
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 
 #ifndef _cvdense_h
 #define _cvdense_h
@@ -223,6 +225,7 @@ extern "C"
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
+#endif /* _INC_CVDENSE_H */

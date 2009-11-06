@@ -1,17 +1,20 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
 static int get_coef(LDBLE * coef, char **eqnaddr);
 static int get_secondary(char **t_ptr, char *element, int *i);
 static int get_species(char **ptr);
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 /* ---------------------------------------------------------------------- */
 /*
@@ -37,8 +40,8 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	char *ptr, *char_ptr;
 	char token[MAX_LENGTH];
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	paren_count = 0;
 /*
@@ -177,7 +180,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_eqn(int association)
 /* ---------------------------------------------------------------------- */
 /*
@@ -271,7 +274,7 @@ check_eqn(int association)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_charge(char *charge, LDBLE * z)
 /* ---------------------------------------------------------------------- */
 /*
@@ -408,7 +411,7 @@ get_charge(char *charge, LDBLE * z)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_coef(LDBLE * coef, char **eqnaddr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -508,7 +511,7 @@ get_coef(LDBLE * coef, char **eqnaddr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_elt(char **t_ptr, char *element, int *i)
 /* ---------------------------------------------------------------------- */
 /*
@@ -580,7 +583,7 @@ get_elt(char **t_ptr, char *element, int *i)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_elts_in_species(char **t_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -717,7 +720,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 get_secondary(char **t_ptr, char *element, int *i)
 /* ---------------------------------------------------------------------- */
 /*
@@ -837,7 +840,7 @@ get_secondary(char **t_ptr, char *element, int *i)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_secondary_in_species(char **t_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -968,7 +971,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_num(char **t_ptr, LDBLE * num)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1031,7 +1034,7 @@ get_num(char **t_ptr, LDBLE * num)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_species(char **ptr)
 /* ---------------------------------------------------------------------- */
 {

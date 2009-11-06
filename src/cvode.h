@@ -1,3 +1,5 @@
+#ifndef _INC_CVODE_H
+#define _INC_CVODE_H
 /*******************************************************************
  *                                                                 *
  * File          : cvode.h                                         *
@@ -19,10 +21,10 @@ static char const svnidcvode[] =
 #endif
 
 
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 
 #ifndef _cvode_h
 #define _cvode_h
@@ -894,6 +896,7 @@ extern "C"
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
+#endif /* _INC_CVODE_H */

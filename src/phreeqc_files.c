@@ -1,11 +1,15 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
 
+
 /* following line defines path for default data base file */
+#if !defined(PHREEQC_CLASS)
 const char *default_data_base = "phreeqc.dat";
 
 static FILE *input_file = NULL;
@@ -34,9 +38,10 @@ static int rewind_wrapper(FILE * file_ptr);
 
 static char const svnid[] =
 	"$Id$";
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 phreeqc_handler(const int action, const int type, const char *err_str,
 				const int stop, void *cookie, const char *format,
 				va_list args)
@@ -101,7 +106,7 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 close_input_files(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -113,7 +118,7 @@ close_input_files(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 process_file_names(int argc, char *argv[], void **db_cookie,
 				   void **input_cookie, int log)
 /* ---------------------------------------------------------------------- */
@@ -351,7 +356,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 getc_callback(void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -363,7 +368,7 @@ getc_callback(void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 output_handler(const int type, const char *err_str, const int stop,
 			   void *cookie, const char *format, va_list args)
 /* ---------------------------------------------------------------------- */
@@ -563,7 +568,7 @@ output_handler(const int type, const char *err_str, const int stop,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 close_output_files(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -585,7 +590,7 @@ close_output_files(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 open_handler(const int type, const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -630,7 +635,7 @@ open_handler(const int type, const char *file_name)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 fileop_handler(const int type, int (*PFN) (FILE *))
 /* ---------------------------------------------------------------------- */
 {
@@ -699,7 +704,7 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 rewind_wrapper(FILE * file_ptr)
 /* ---------------------------------------------------------------------- */
 {

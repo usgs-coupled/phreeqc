@@ -1,5 +1,5 @@
 /*#define DEBUG_CVODE*/
-extern char *error_string;
+//extern char *error_string;
 /*******************************************************************
  *                                                                 *
  * File          : cvode.c                                         *
@@ -176,7 +176,7 @@ static char const svnid[] = "$Id$";
 #define RDIV      TWO			/* declare divergence if ratio del/delp > RDIV  */
 #define MSBP       20			/* max no. of steps between lsetup calls        */
 
-#define TRY_AGAIN  99			/* control constant for CVnlsNewton - should be */
+#define TRY_AGAIN_CVODE  99			/* control constant for CVnlsNewton - should be */
 			   /* distinct from CVnls return values            */
 
 
@@ -2772,7 +2772,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 		/* If there is a convergence failure and the Jacobian-related 
 		   data appears not to be current, loop again with a call to lsetup
 		   in which convfail=FAIL_BAD_J.  Otherwise return.                 */
-		if (ier != TRY_AGAIN)
+		if (ier != TRY_AGAIN_CVODE)
 			return (ier);
 		callSetup = TRUE;
 		convfail = FAIL_BAD_J;
@@ -2784,7 +2784,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
  This routine performs the Newton iteration. If the iteration succeeds,
  it returns the value SOLVED. If not, it may signal the CVnlsNewton 
  routine to call lsetup again and reattempt the iteration, by
- returning the value TRY_AGAIN. (In this case, CVnlsNewton must set 
+ returning the value TRY_AGAIN_CVODE. (In this case, CVnlsNewton must set 
  convfail to FAIL_BAD_J before calling setup again). 
  Otherwise, this routine returns one of the appropriate values 
  SOLVE_FAIL_UNREC or CONV_FAIL back to CVnlsNewton.
@@ -2823,7 +2823,7 @@ CVNewtonIteration(CVodeMem cv_mem)
 		if (ret > 0)
 		{
 			if ((!jcur) && (setupNonNull))
-				return (TRY_AGAIN);
+				return (TRY_AGAIN_CVODE);
 			return (CONV_FAIL);
 		}
 		/* Get WRMS norm of correction; add correction to acor and y */
@@ -2869,7 +2869,7 @@ CVNewtonIteration(CVodeMem cv_mem)
 		if ((m == maxcor) || ((m >= 2) && (del > RDIV * delp)))
 		{
 			if ((!jcur) && (setupNonNull))
-				return (TRY_AGAIN);
+				return (TRY_AGAIN_CVODE);
 			return (CONV_FAIL);
 		}
 
@@ -3422,7 +3422,7 @@ CVsldet(CVodeMem cv_mem)
 	realtype drr[4], rrc[4], sqmx[4], qjk[4][4], vrat[5], qc[6][4], qco[6][4];
 	realtype rr, rrcut, vrrtol, vrrt2, sqtol, rrtol;
 	realtype smink, smaxk, sumrat, sumrsq, vmin, vmax, drrmax, adrr;
-	realtype small, tem, sqmax, saqk, qp, s, sqmaxk, saqj, sqmin;
+	realtype small_cvode, tem, sqmax, saqk, qp, s, sqmaxk, saqj, sqmin;
 	realtype rsa, rsb, rsc, rsd, rse, rd1a, rd1b, rd1c, rd1d;
 	realtype rd2a, rd2b, rd2c, rd3a, rd3b, cest1, corr1;
 	realtype ratp, ratm, qfac1, qfac2, bb, rrb;
@@ -3532,7 +3532,7 @@ CVsldet(CVodeMem cv_mem)
 
 		if (ABS(qco[1][1]) < TINY * ssmax[1])
 		{
-			small = qco[1][1];
+			small_cvode = qco[1][1];
 			kflag = -4;
 			return (kflag);
 		}
@@ -3553,7 +3553,7 @@ CVsldet(CVodeMem cv_mem)
 
 		if (ABS(qco[2][2]) < TINY * ssmax[2])
 		{
-			small = qco[2][2];
+			small_cvode = qco[2][2];
 			kflag = -4;
 			return (kflag);
 		}
@@ -3566,7 +3566,7 @@ CVsldet(CVodeMem cv_mem)
 
 		if (ABS(qco[4][3]) < TINY * ssmax[3])
 		{
-			small = qco[4][3];
+			small_cvode = qco[4][3];
 			kflag = -4;
 			return (kflag);
 		}

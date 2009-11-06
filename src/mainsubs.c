@@ -1,10 +1,22 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #define MAINSUBS
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
+
+#if !defined(PHREEQC_CLASS)
+int copy_use(int i);
+int set_use(void);
+static char const svnid[] =
+	"$Id$";
+#define CLASS_QUALIFIER
+#else
+#define CLASS_QUALIFIER Phreeqc::
+#endif
 
 extern void test_classes(void);
 /*#define PHREEQC_XML*/
@@ -13,15 +25,10 @@ extern void test_classes(void);
 extern void SAX_cleanup(void);
 #endif
 
-static char const svnid[] =
-	"$Id$";
-
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif
 
-int copy_use(int i);
-int set_use(void);
 #ifdef PHREEQC_CPP
 extern int dump_entities(void);
 extern int delete_entities(void);
@@ -32,7 +39,7 @@ extern int phreeq98_debug;
 extern int AddSeries, connect_simulations;
 #endif
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -66,8 +73,8 @@ initialize(void)
 	temp_count_iso_defaults =
 		(sizeof(temp_iso_defaults) / sizeof(struct temp_iso));
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	moles_per_kilogram_string = string_duplicate("Mol/kgw");
 	pe_string = string_duplicate("pe");
@@ -688,7 +695,7 @@ initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_use(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -913,7 +920,7 @@ set_use(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_solutions(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1000,7 +1007,7 @@ initial_solutions(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_exchangers(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1086,7 +1093,7 @@ initial_exchangers(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_gas_phases(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1185,7 +1192,7 @@ initial_gas_phases(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_surfaces(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1274,7 +1281,7 @@ initial_surfaces(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1456,7 +1463,7 @@ reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 saver(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1544,7 +1551,7 @@ saver(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xexchange_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1666,7 +1673,7 @@ xexchange_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xgas_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1755,7 +1762,7 @@ xgas_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xs_s_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1850,7 +1857,7 @@ xs_s_assemblage_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xpp_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1935,7 +1942,7 @@ xpp_assemblage_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xsolution_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2238,7 +2245,7 @@ xsolution_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xsurface_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2500,7 +2507,7 @@ xsurface_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-FILE *
+FILE * CLASS_QUALIFIER
 file_open(char *query, char *default_name, const char *status, int batch)
 /* ---------------------------------------------------------------------- */
 {
@@ -2620,7 +2627,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 copy_use(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -2754,7 +2761,7 @@ copy_use(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 step_save_exch(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2811,7 +2818,7 @@ step_save_exch(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 step_save_surf(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2883,7 +2890,7 @@ step_save_surf(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 copy_entities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3114,7 +3121,7 @@ copy_entities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -3139,7 +3146,7 @@ read_database(PFN_READ_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -3282,7 +3289,7 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 do_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3303,7 +3310,7 @@ do_initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 do_status(void)
 /* ---------------------------------------------------------------------- */
 {

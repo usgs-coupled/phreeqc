@@ -1,9 +1,12 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
 static int add_potential_factor(void);
@@ -57,9 +60,10 @@ static struct master **unknown_alloc_master(void);
 static int write_mb_eqn_x(void);
 static int write_mb_for_species_list(int n);
 static int write_mass_action_eqn_x(int stop);
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 prep(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -74,8 +78,8 @@ prep(void)
  *      for building jacobian.
  */
 	struct solution *solution_ptr;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	if (state >= REACTION)
 	{
@@ -168,7 +172,7 @@ prep(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 quick_setup(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -456,7 +460,7 @@ quick_setup(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -715,7 +719,7 @@ build_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -929,7 +933,7 @@ build_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_jacobian_sums(int k)
 /* ---------------------------------------------------------------------- */
 {
@@ -1142,7 +1146,7 @@ build_jacobian_sums(int k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_mb_sums(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1188,7 +1192,7 @@ build_mb_sums(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1498,7 +1502,7 @@ build_model(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1676,7 +1680,7 @@ build_pure_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_solution_phase_boundaries(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1745,7 +1749,7 @@ build_solution_phase_boundaries(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_species_list(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1846,7 +1850,7 @@ build_species_list(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 clear(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1924,7 +1928,7 @@ clear(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 convert_units(struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2074,7 +2078,7 @@ convert_units(struct solution *solution_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master **
+struct CLASS_QUALIFIER master ** CLASS_QUALIFIER
 get_list_master_ptrs(char *ptr, struct master *master_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2172,7 +2176,7 @@ get_list_master_ptrs(char *ptr, struct master *master_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 inout(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2206,7 +2210,7 @@ inout(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 is_special(struct species *spec)
 /* ---------------------------------------------------------------------- */
 {
@@ -2233,7 +2237,7 @@ is_special(struct species *spec)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_mb_unknowns(struct unknown *unknown_ptr, LDBLE * LDBLE_ptr, LDBLE coef,
 				  LDBLE * gamma_ptr)
 /* ---------------------------------------------------------------------- */
@@ -2258,7 +2262,7 @@ store_mb_unknowns(struct unknown *unknown_ptr, LDBLE * LDBLE_ptr, LDBLE coef,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_for_species_aq(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2416,7 +2420,7 @@ mb_for_species_aq(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_for_species_ex(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2506,7 +2510,7 @@ mb_for_species_ex(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_for_species_surf(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2635,7 +2639,7 @@ mb_for_species_surf(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reprep(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2685,7 +2689,7 @@ reprep(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 resetup_master(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2732,7 +2736,7 @@ resetup_master(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 write_mass_action_eqn_x(int stop)
 /* ---------------------------------------------------------------------- */
 {
@@ -2794,7 +2798,7 @@ write_mass_action_eqn_x(int stop)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_potential_factor(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2886,7 +2890,7 @@ add_potential_factor(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_cd_music_factors(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3008,7 +3012,7 @@ add_cd_music_factors(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_surface_charge_balance(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3064,7 +3068,7 @@ add_surface_charge_balance(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_cd_music_charge_balances(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3138,7 +3142,7 @@ add_cd_music_charge_balances(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 rewrite_master_to_secondary(struct master *master_ptr1,
 							struct master *master_ptr2)
 /* ---------------------------------------------------------------------- */
@@ -3187,7 +3191,7 @@ rewrite_master_to_secondary(struct master *master_ptr1,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3256,7 +3260,7 @@ setup_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3287,7 +3291,7 @@ setup_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3345,7 +3349,7 @@ setup_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3670,7 +3674,7 @@ setup_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct unknown *
+struct CLASS_QUALIFIER unknown * CLASS_QUALIFIER
 find_surface_charge_unknown(char *str_ptr, int plane)
 /* ---------------------------------------------------------------------- */
 {
@@ -3711,7 +3715,7 @@ find_surface_charge_unknown(char *str_ptr, int plane)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-struct unknown *
+struct unknown * CLASS_QUALIFIER
 find_surface_charge_unknown(char *str_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3740,7 +3744,7 @@ find_surface_charge_unknown(char *str_ptr)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
 /* ---------------------------------------------------------------------- */
 {
@@ -3815,7 +3819,7 @@ setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3853,7 +3857,7 @@ setup_pure_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_solution(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4199,7 +4203,7 @@ setup_solution(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master **
+struct CLASS_QUALIFIER master ** CLASS_QUALIFIER
 unknown_alloc_master(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4217,7 +4221,7 @@ unknown_alloc_master(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_unknowns(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4336,7 +4340,7 @@ setup_unknowns(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 /* ---------------------------------------------------------------------- */
 {
@@ -4432,7 +4436,7 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_jacob(LDBLE * source, LDBLE * target, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -4476,7 +4480,7 @@ store_jacob(LDBLE * source, LDBLE * target, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_jacob0(int row, int column, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -4496,7 +4500,7 @@ store_jacob0(int row, int column, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_mb(LDBLE * source, LDBLE * target, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -4531,7 +4535,7 @@ store_mb(LDBLE * source, LDBLE * target, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_sum_deltas(LDBLE * source, LDBLE * target, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -4554,7 +4558,7 @@ store_sum_deltas(LDBLE * source, LDBLE * target, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 switch_bases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4611,7 +4615,7 @@ switch_bases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_redox(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4735,7 +4739,7 @@ tidy_redox(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 write_mb_eqn_x(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4823,7 +4827,7 @@ write_mb_eqn_x(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 write_mb_for_species_list(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4883,7 +4887,7 @@ write_mb_for_species_list(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 write_phase_sys_total(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4943,7 +4947,7 @@ write_phase_sys_total(int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 k_temp(LDBLE tempc)
 /* ---------------------------------------------------------------------- */
 {
@@ -4991,7 +4995,7 @@ k_temp(LDBLE tempc)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 k_calc(LDBLE * logk, LDBLE tempk)
 /* ---------------------------------------------------------------------- */
 {
@@ -5013,7 +5017,7 @@ k_calc(LDBLE * logk, LDBLE tempk)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 save_model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5181,7 +5185,7 @@ save_model(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_same_model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5351,7 +5355,7 @@ check_same_model(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_min_exch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5488,7 +5492,7 @@ build_min_exch(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_min_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5641,7 +5645,7 @@ build_min_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_related_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5699,7 +5703,7 @@ setup_related_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 change_hydrogen_in_elt_list(LDBLE charge)
 /* ---------------------------------------------------------------------- */
 {

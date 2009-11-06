@@ -1,4 +1,7 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#define CLASS_QUALIFIER
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -10,6 +13,8 @@ static char const svnid[] =
 #define MAX_MODELS 20
 #define MIN_TOTAL_INVERSE 1e-14
 
+/* variables local to module */
+#if !defined(PHREEQC_CLASS)
 #ifdef INVERSE_CL1MP
 /* cl1mp.c */
 extern int cl1mp(int k, int l, int m, int n,
@@ -17,12 +22,9 @@ extern int cl1mp(int k, int l, int m, int n,
 				 LDBLE * q_arg,
 				 int *kode, LDBLE toler,
 				 int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
-				 LDBLE * cu_arg, int *iu, int *s, int check,
+				 LDBLE * cu_arg, int *inv_iu, int *s, int check,
 				 LDBLE censor_arg);
 #endif
-
-/* variables local to module */
-
 int max_row_count, max_column_count;
 static int carbon;
 char **col_name, **row_name;
@@ -31,10 +33,10 @@ static int col_phases, col_redox, col_epsilon, col_ph, col_water,
 	col_isotopes, col_phase_isotopes;
 static int row_mb, row_fract, row_charge, row_carbon, row_isotopes,
 	row_epsilon, row_isotope_epsilon, row_water;
-static LDBLE *zero, *array1, *res, *delta1, *delta2, *delta3, *cu,
+static LDBLE *inv_zero, *array1, *inv_res, *inv_delta1, *delta2, *delta3, *inv_cu,
 	*delta_save;
 static LDBLE *min_delta, *max_delta;
-static int *iu, *is;
+static int *inv_iu, *inv_is;
 static int klmd, nklmd, n2d, kode, iter;
 static LDBLE toler, error, max_pct, scaled_error;
 static struct master *master_alk;
@@ -55,7 +57,7 @@ static int check_solns(struct inverse *inv_ptr);
 static int count_isotope_unknowns(struct inverse *inv_ptr,
 								  struct isotope **isotope_unknowns);
 struct isotope *get_isotope(struct solution *solution_ptr, const char *elt);
-static struct conc *get_total(struct solution *solution_ptr, const char *elt);
+static struct conc *get_inv_total(struct solution *solution_ptr, const char *elt);
 static int isotope_balance_equation(struct inverse *inv_ptr, int row, int n);
 static int post_mortem(void);
 static unsigned long get_bits(unsigned long bits, int position, int number);
@@ -101,6 +103,9 @@ static int subset_bad(unsigned long bits);
 static int subset_minimal(unsigned long bits);
 static int superset_minimal(unsigned long bits);
 static int write_optimize_names(struct inverse *inv_ptr);
+static FILE *netpath_file;
+static int count_inverse_models, count_pat_solutions;
+#endif
 
 #ifdef SKIP
 #define SCALE_EPSILON .0009765625
@@ -110,11 +115,8 @@ static int write_optimize_names(struct inverse *inv_ptr);
 #define SCALE_EPSILON .0009765625
 #define SCALE_WATER   1.
 #define SCALE_ALL     1.
-
-static FILE *netpath_file;
-static int count_inverse_models, count_pat_solutions;
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 inverse_models(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -128,15 +130,15 @@ inverse_models(void)
 	if (svnid == NULL)
 		fprintf(stderr, " ");
 	array1 = NULL;
-	zero = NULL;
-	res = NULL;
-	delta1 = NULL;
+	inv_zero = NULL;
+	inv_res = NULL;
+	inv_delta1 = NULL;
 	delta2 = NULL;
 	delta3 = NULL;
 	delta_save = NULL;
-	cu = NULL;
-	iu = NULL;
-	is = NULL;
+	inv_cu = NULL;
+	inv_iu = NULL;
+	inv_is = NULL;
 	col_name = NULL;
 	row_name = NULL;
 	min_delta = NULL;
@@ -232,7 +234,7 @@ inverse_models(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 setup_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -374,8 +376,8 @@ setup_inverse(struct inverse *inv_ptr)
 	if (delta == NULL)
 		malloc_error();
 
-	delta1 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
-	if (delta1 == NULL)
+	inv_delta1 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
+	if (inv_delta1 == NULL)
 		malloc_error();
 
 	delta2 = (LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
@@ -401,8 +403,8 @@ setup_inverse(struct inverse *inv_ptr)
 	if (max_delta == NULL)
 		malloc_error();
 
-	res = (LDBLE *) PHRQ_malloc((size_t) max_row_count * sizeof(LDBLE));
-	if (res == NULL)
+	inv_res = (LDBLE *) PHRQ_malloc((size_t) max_row_count * sizeof(LDBLE));
+	if (inv_res == NULL)
 		malloc_error();
 
 	if (max_column_count < max_row_count)
@@ -413,24 +415,24 @@ setup_inverse(struct inverse *inv_ptr)
 	{
 		max = max_column_count;
 	}
-	zero = (LDBLE *) PHRQ_malloc((size_t) max * sizeof(LDBLE));
-	if (zero == NULL)
+	inv_zero = (LDBLE *) PHRQ_malloc((size_t) max * sizeof(LDBLE));
+	if (inv_zero == NULL)
 		malloc_error();
 /*
- *   Define zero and zero array, delta
+ *   Define inv_zero and inv_zero array, delta
  */
 	for (i = 0; i < max; i++)
-		zero[i] = 0.0;
+		inv_zero[i] = 0.0;
 
-	memcpy((void *) &(delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
-	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(min_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
-	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(max_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
 	for (i = 0; i < max_row_count; i++)
 	{
-		memcpy((void *) &(array[i * max_column_count]), (void *) &(zero[0]),
+		memcpy((void *) &(array[i * max_column_count]), (void *) &(inv_zero[0]),
 			   (size_t) max_column_count * sizeof(LDBLE));
 	}
 /*
@@ -1142,7 +1144,7 @@ setup_inverse(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 solve_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1199,15 +1201,15 @@ solve_inverse(struct inverse *inv_ptr)
 /*
  *   Allocate space for arrays
  */
-	cu = (LDBLE *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(LDBLE));
-	if (cu == NULL)
+	inv_cu = (LDBLE *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(LDBLE));
+	if (inv_cu == NULL)
 		malloc_error();
-	memset(cu, 0, ((size_t) (2 * nklmd * sizeof(LDBLE))));
-	iu = (int *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(int));
-	if (iu == NULL)
+	memset(inv_cu, 0, ((size_t) (2 * nklmd * sizeof(LDBLE))));
+	inv_iu = (int *) PHRQ_malloc((size_t) 2 * nklmd * sizeof(int));
+	if (inv_iu == NULL)
 		malloc_error();
-	is = (int *) PHRQ_malloc((size_t) klmd * sizeof(int));
-	if (is == NULL)
+	inv_is = (int *) PHRQ_malloc((size_t) klmd * sizeof(int));
+	if (inv_is == NULL)
 		malloc_error();
 
 	for (i = 0; i < 79; i++)
@@ -1294,7 +1296,7 @@ solve_inverse(struct inverse *inv_ptr)
 				good_bits = current_bits;
 				for (i = 0; i < inv_ptr->count_phases; i++)
 				{
-					if (equal(delta1[i + inv_ptr->count_solns], 0.0, TOL) ==
+					if (equal(inv_delta1[i + inv_ptr->count_solns], 0.0, TOL) ==
 						TRUE)
 					{
 						good_bits = set_bit(good_bits, i, 0);
@@ -1302,7 +1304,7 @@ solve_inverse(struct inverse *inv_ptr)
 				}
 				for (i = 0; i < inv_ptr->count_solns; i++)
 				{
-					if (equal(delta1[i], 0.0, TOL) == TRUE)
+					if (equal(inv_delta1[i], 0.0, TOL) == TRUE)
 					{
 						good_bits =
 							set_bit(good_bits, i + inv_ptr->count_phases, 0);
@@ -1413,15 +1415,15 @@ solve_inverse(struct inverse *inv_ptr)
 	array = (LDBLE *) free_check_null(array);
 	delta = (LDBLE *) free_check_null(delta);
 	array1 = (LDBLE *) free_check_null(array1);
-	zero = (LDBLE *) free_check_null(zero);
-	res = (LDBLE *) free_check_null(res);
-	delta1 = (LDBLE *) free_check_null(delta1);
+	inv_zero = (LDBLE *) free_check_null(inv_zero);
+	inv_res = (LDBLE *) free_check_null(inv_res);
+	inv_delta1 = (LDBLE *) free_check_null(inv_delta1);
 	delta2 = (LDBLE *) free_check_null(delta2);
 	delta3 = (LDBLE *) free_check_null(delta3);
 	delta_save = (LDBLE *) free_check_null(delta_save);
-	cu = (LDBLE *) free_check_null(cu);
-	iu = (int *) free_check_null(iu);
-	is = (int *) free_check_null(is);
+	inv_cu = (LDBLE *) free_check_null(inv_cu);
+	inv_iu = (int *) free_check_null(inv_iu);
+	inv_is = (int *) free_check_null(inv_is);
 	col_name = (char **) free_check_null(col_name);
 	row_name = (char **) free_check_null(row_name);
 	col_back = (int *) free_check_null(col_back);
@@ -1436,7 +1438,7 @@ solve_inverse(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long
+unsigned long CLASS_QUALIFIER
 minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1494,7 +1496,7 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1513,11 +1515,11 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 
 
-	memcpy((void *) &(res[0]), (void *) &(zero[0]),
+	memcpy((void *) &(inv_res[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_row_count * sizeof(LDBLE));
 	memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
-	memcpy((void *) &(delta_save[0]), (void *) &(zero[0]),
+	memcpy((void *) &(delta_save[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
 
 	shrink(inv_ptr, array, array1,
@@ -1560,11 +1562,11 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 		for (i = 0; i < k + l + m; i++)
 		{
-			if (res[i] == 0)
+			if (inv_res[i] == 0)
 				continue;
-			output_msg(OUTPUT_MESSAGE, "\nInput res is non zero:\n");
+			output_msg(OUTPUT_MESSAGE, "\nInput inv_res is non zero:\n");
 			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e", i,
-					   row_name[row_back[i]], (double) res[i]);
+					   row_name[row_back[i]], (double) inv_res[i]);
 			output_msg(OUTPUT_MESSAGE, "\n");
 		}
 	}
@@ -1589,18 +1591,18 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 		cl1mp(k, l, m, n,
 			  nklmd, n2d, array1,
 			  &kode, inv_ptr->mp_tolerance, &iter,
-			  delta2, res, &error, cu, iu, is, TRUE, inv_ptr->mp_censor);
+			  delta2, inv_res, &error, inv_cu, inv_iu, inv_is, TRUE, inv_ptr->mp_censor);
 	}
 	else
 	{
 		cl1(k, l, m, n,
 			nklmd, n2d, array1,
-			&kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
+			&kode, toler, &iter, delta2, inv_res, &error, inv_cu, inv_iu, inv_is, TRUE);
 	}
 #else
 	cl1(k, l, m, n,
 		nklmd, n2d, array1,
-		&kode, toler, &iter, delta2, res, &error, cu, iu, is, TRUE);
+		&kode, toler, &iter, delta2, inv_res, &error, inv_cu, inv_iu, inv_is, TRUE);
 #endif
 	if (kode == 3)
 	{
@@ -1609,11 +1611,11 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 				"Recompile program with larger limit.", iter);
 		error_msg(error_string, STOP);
 	}
-	memcpy((void *) &(delta1[0]), (void *) &(zero[0]),
+	memcpy((void *) &(inv_delta1[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
 	for (i = 0; i < n; i++)
 	{
-		delta1[col_back[i]] = delta2[i];
+		inv_delta1[col_back[i]] = delta2[i];
 	}
 
 /*
@@ -1636,7 +1638,7 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 		for (i = 0; i < (k + l + m); i++)
 		{
 			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
-					   row_name[row_back[i]], (double) res[i]);
+					   row_name[row_back[i]], (double) inv_res[i]);
 		}
 	}
 
@@ -1648,7 +1650,7 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long
+unsigned long CLASS_QUALIFIER
 get_bits(unsigned long bits, int position, int number)
 /* ---------------------------------------------------------------------- */
 {
@@ -1660,7 +1662,7 @@ get_bits(unsigned long bits, int position, int number)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 save_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1683,7 +1685,7 @@ save_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 save_good(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1706,7 +1708,7 @@ save_good(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 save_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1729,7 +1731,7 @@ save_bad(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 superset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1750,7 +1752,7 @@ superset_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 subset_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1771,7 +1773,7 @@ subset_bad(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 subset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1792,7 +1794,7 @@ subset_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 bit_print(unsigned long bits, int l)
 /* ---------------------------------------------------------------------- */
 {
@@ -1810,7 +1812,7 @@ bit_print(unsigned long bits, int l)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1838,7 +1840,7 @@ print_model(struct inverse *inv_ptr)
 	scaled_error = 0;
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE)
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE)
 			continue;
 		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 		xsolution_zero();
@@ -1857,7 +1859,7 @@ print_model(struct inverse *inv_ptr)
 		if (inv_ptr->carbon == TRUE)
 		{
 			d1 = solution_ptr->ph;
-			d2 = delta1[col_ph + i] / delta1[i];
+			d2 = inv_delta1[col_ph + i] / inv_delta1[i];
 			d3 = d1 + d2;
 			if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d1 = 0.0;
@@ -1885,8 +1887,8 @@ print_model(struct inverse *inv_ptr)
 			if (inv_ptr->elts[j].master->s == s_eminus)
 				continue;
 			d1 = inv_ptr->elts[j].master->total;
-			d2 = delta1[col_epsilon + j * inv_ptr->count_solns +
-						i] / delta1[i];
+			d2 = inv_delta1[col_epsilon + j * inv_ptr->count_solns +
+						i] / inv_delta1[i];
 			d3 = d1 + d2;
 
 			if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -1940,9 +1942,9 @@ print_model(struct inverse *inv_ptr)
 						solution_ptr->isotopes[k].isotope_number)
 						continue;
 					d1 = solution_ptr->isotopes[k].ratio;
-					d2 = delta1[col_isotopes +
+					d2 = inv_delta1[col_isotopes +
 								i * inv_ptr->count_isotope_unknowns +
-								j] / delta1[i];
+								j] / inv_delta1[i];
 					d3 = d1 + d2;
 
 					if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -1996,7 +1998,7 @@ print_model(struct inverse *inv_ptr)
 			if (inv_ptr->phases[i].count_isotopes == 0)
 				continue;
 			j = col_phases + i;
-			if (equal(delta1[j], 0.0, toler) == TRUE &&
+			if (equal(inv_delta1[j], 0.0, toler) == TRUE &&
 				equal(min_delta[j], 0.0, toler) == TRUE &&
 				equal(max_delta[j], 0.0, toler) == TRUE)
 				continue;
@@ -2013,9 +2015,9 @@ print_model(struct inverse *inv_ptr)
 					d1 = isotope_ptr[k].ratio;
 					column =
 						col_phase_isotopes + i * inv_ptr->count_isotopes + j;
-					if (delta1[col_phases + i] != 0.0)
+					if (inv_delta1[col_phases + i] != 0.0)
 					{
-						d2 = delta1[column] / delta1[col_phases + i];
+						d2 = inv_delta1[column] / inv_delta1[col_phases + i];
 					}
 					else
 					{
@@ -2072,7 +2074,7 @@ print_model(struct inverse *inv_ptr)
 			   "Solution fractions:", " ", "Minimum", "Maximum");
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -2090,11 +2092,11 @@ print_model(struct inverse *inv_ptr)
 			   "Phase mole transfers:", " ", "Minimum", "Maximum");
 	for (i = col_phases; i < col_redox; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE &&
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE &&
 			equal(min_delta[i], 0.0, toler) == TRUE &&
 			equal(max_delta[i], 0.0, toler) == TRUE)
 			continue;
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -2112,10 +2114,10 @@ print_model(struct inverse *inv_ptr)
 	output_msg(OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
 	for (i = col_redox; i < col_epsilon; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE)
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE)
 			continue;
 		output_msg(OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
-				   (double) delta1[i]);
+				   (double) inv_delta1[i]);
 	}
 
 	output_msg(OUTPUT_MESSAGE,
@@ -2135,7 +2137,7 @@ print_model(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_model_heading(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2201,7 +2203,7 @@ punch_model_heading(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2234,7 +2236,7 @@ punch_model(struct inverse *inv_ptr)
  */
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -2259,7 +2261,7 @@ punch_model(struct inverse *inv_ptr)
  */
 	for (i = col_phases; i < col_redox; i++)
 	{
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -2288,7 +2290,7 @@ punch_model(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long
+unsigned long CLASS_QUALIFIER
 set_bit(unsigned long bits, int position, int value)
 /* ---------------------------------------------------------------------- */
 {
@@ -2311,7 +2313,7 @@ set_bit(unsigned long bits, int position, int value)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 next_set_phases(struct inverse *inv_ptr,
 				int first_of_model_size, int model_size)
 /* ---------------------------------------------------------------------- */
@@ -2379,7 +2381,7 @@ next_set_phases(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 range(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -2414,9 +2416,9 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 		}
 	}
 
-	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(min_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
-	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(max_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
 /*
  *   Switch bits so that phases are high and solutions are low
@@ -2456,11 +2458,11 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 				   (size_t) max_column_count * max_row_count * sizeof(LDBLE));
 			memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
-			memcpy((void *) &(delta3[0]), (void *) &(zero[0]),
+			memcpy((void *) &(delta3[0]), (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
-			memcpy((void *) &(delta_save[0]), (void *) &(zero[0]),
+			memcpy((void *) &(delta_save[0]), (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
-			memcpy((void *) &(res[0]), (void *) &(zero[0]),
+			memcpy((void *) &(inv_res[0]), (void *) &(inv_zero[0]),
 				   (size_t) max_row_count * sizeof(LDBLE));
 
 /*
@@ -2469,7 +2471,7 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 			for (j = 0; j < k; j++)
 			{
 				memcpy((void *) &(array1[j * max_column_count]),
-					   (void *) &(zero[0]),
+					   (void *) &(inv_zero[0]),
 					   (size_t) max_column_count * sizeof(LDBLE));
 			}
 			array1[i] = 1.0;
@@ -2510,20 +2512,20 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 				cl1mp(k, l, m, n,
 					  nklmd, n2d, array1,
 					  &kode, inv_ptr->mp_tolerance, &iter,
-					  delta2, res, &error2, cu, iu, is, TRUE,
+					  delta2, inv_res, &error2, inv_cu, inv_iu, inv_is, TRUE,
 					  inv_ptr->mp_censor);
 			}
 			else
 			{
 				cl1(k, l, m, n,
 					nklmd, n2d, array1,
-					&kode, toler, &iter, delta2, res, &error2, cu, iu, is,
+					&kode, toler, &iter, delta2, inv_res, &error2, inv_cu, inv_iu, inv_is,
 					TRUE);
 			}
 #else
 			cl1(k, l, m, n,
 				nklmd, n2d, array1,
-				&kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
+				&kode, toler, &iter, delta2, inv_res, &error2, inv_cu, inv_iu, inv_is, TRUE);
 #endif
 			if (kode != 0)
 			{
@@ -2550,7 +2552,7 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 				for (j = 0; j < (k + l + m); j++)
 				{
 					output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", j,
-							   row_name[row_back[j]], (double) res[j]);
+							   row_name[row_back[j]], (double) inv_res[j]);
 				}
 			}
 			for (j = 0; j < n; j++)
@@ -2576,7 +2578,7 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 	   int *k, int *l, int *m, int *n,
 	   unsigned long cur_bits,
@@ -2715,7 +2717,7 @@ shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 	k1 = 0;
 	for (i = 0; i < *k; i++)
 	{
-		if (memcmp(&(array_out[i * max_column_count]), &(zero[0]),
+		if (memcmp(&(array_out[i * max_column_count]), &(inv_zero[0]),
 				   (size_t) (*n) * sizeof(LDBLE)) == 0)
 		{
 			continue;
@@ -2822,7 +2824,7 @@ shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_solns(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2837,9 +2839,9 @@ check_solns(struct inverse *inv_ptr)
 	unsigned long bits;
 	LDBLE error2;
 
-	memcpy((void *) &(min_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(min_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
-	memcpy((void *) &(max_delta[0]), (void *) &(zero[0]),
+	memcpy((void *) &(max_delta[0]), (void *) &(inv_zero[0]),
 		   (size_t) max_column_count * sizeof(LDBLE));
 
 /*
@@ -2879,7 +2881,7 @@ check_solns(struct inverse *inv_ptr)
 			   (size_t) max_column_count * max_row_count * sizeof(LDBLE));
 		memcpy((void *) &(delta2[0]), (void *) &(delta[0]),
 			   (size_t) max_column_count * sizeof(LDBLE));
-		memcpy((void *) &(res[0]), (void *) &(zero[0]),
+		memcpy((void *) &(inv_res[0]), (void *) &(inv_zero[0]),
 			   (size_t) max_row_count * sizeof(LDBLE));
 
 /*
@@ -2891,7 +2893,7 @@ check_solns(struct inverse *inv_ptr)
 		for (j = row_mb; j < row_charge; j++)
 		{
 			memcpy((void *) &(array1[j * max_column_count]),
-				   (void *) &(zero[0]),
+				   (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 /*
@@ -2908,7 +2910,7 @@ check_solns(struct inverse *inv_ptr)
 			if (j == i)
 				continue;
 			memcpy((void *) &(array1[(row_charge + j) * max_column_count]),
-				   (void *) &(zero[0]),
+				   (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 
@@ -2918,7 +2920,7 @@ check_solns(struct inverse *inv_ptr)
 		for (j = row_isotopes; j < row_epsilon; j++)
 		{
 			memcpy((void *) &(array1[j * max_column_count]),
-				   (void *) &(zero[0]),
+				   (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 
@@ -2928,7 +2930,7 @@ check_solns(struct inverse *inv_ptr)
 		for (j = row_isotope_epsilon; j < count_rows; j++)
 		{
 			memcpy((void *) &(array1[j * max_column_count]),
-				   (void *) &(zero[0]),
+				   (void *) &(inv_zero[0]),
 				   (size_t) max_column_count * sizeof(LDBLE));
 		}
 /*
@@ -2966,7 +2968,7 @@ check_solns(struct inverse *inv_ptr)
 		count_calls++;
 		cl1(k, l, m, n,
 			nklmd, n2d, array1,
-			&kode, toler, &iter, delta2, res, &error2, cu, iu, is, TRUE);
+			&kode, toler, &iter, delta2, inv_res, &error2, inv_cu, inv_iu, inv_is, TRUE);
 
 		if (kode != 0)
 		{
@@ -2989,7 +2991,7 @@ check_solns(struct inverse *inv_ptr)
 
 		output_msg(OUTPUT_MESSAGE, "\nresidual vector:\n");
 		for (j = 0; j < (k + l + m); j++) {
-			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", j, row_name[row_back[j]], res[j]);
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", j, row_name[row_back[j]], inv_res[j]);
 		}
  */
 	}
@@ -2997,7 +2999,7 @@ check_solns(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 post_mortem(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3018,7 +3020,7 @@ post_mortem(void)
 		sum = 0;
 		for (j = 0; j < count_unknowns; j++)
 		{
-			sum += delta1[j] * array[i * max_column_count + j];
+			sum += inv_delta1[j] * array[i * max_column_count + j];
 		}
 
 		if (equal(sum, array[(i * max_column_count) + count_unknowns], toler)
@@ -3038,7 +3040,7 @@ post_mortem(void)
 		sum = 0;
 		for (j = 0; j < count_unknowns; j++)
 		{
-			sum += delta1[j] * array[i * max_column_count + j];
+			sum += inv_delta1[j] * array[i * max_column_count + j];
 		}
 
 		if (sum > array[(i * max_column_count) + count_unknowns] + toler)
@@ -3054,17 +3056,17 @@ post_mortem(void)
  */
 	for (i = 0; i < count_unknowns; i++)
 	{
-		if (delta_save[i] > 0.5 && delta1[i] < -toler)
+		if (delta_save[i] > 0.5 && inv_delta1[i] < -toler)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-				   i, col_name[i], (double) delta1[i]);
+				   i, col_name[i], (double) inv_delta1[i]);
 		}
-		else if (delta_save[i] < -0.5 && delta1[i] > toler)
+		else if (delta_save[i] < -0.5 && inv_delta1[i] > toler)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
-				   i, col_name[i], (double) delta1[i]);
+				   i, col_name[i], (double) inv_delta1[i]);
 		}
 	}
 
@@ -3072,7 +3074,7 @@ post_mortem(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 carbon_derivs(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3184,7 +3186,7 @@ carbon_derivs(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_ph_c(struct inverse *inv_ptr,
 		 int i,
 		 struct solution *solution_ptr_orig,
@@ -3216,7 +3218,7 @@ set_ph_c(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3368,7 +3370,7 @@ isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 count_isotope_unknowns(struct inverse *inv_ptr,
 					   struct isotope **isotope_unknowns)
 /* ---------------------------------------------------------------------- */
@@ -3474,7 +3476,7 @@ count_isotope_unknowns(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_isotopes(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3676,7 +3678,7 @@ check_isotopes(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 phase_isotope_inequalities(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3784,7 +3786,7 @@ phase_isotope_inequalities(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 write_optimize_names(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3856,7 +3858,7 @@ write_optimize_names(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 dump_netpath(struct inverse *inverse_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4084,8 +4086,8 @@ dump_netpath(struct inverse *inverse_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct conc *
-get_total(struct solution *solution_ptr, const char *elt)
+struct CLASS_QUALIFIER conc * CLASS_QUALIFIER
+get_inv_total(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -4100,7 +4102,7 @@ get_total(struct solution *solution_ptr, const char *elt)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope *
+struct CLASS_QUALIFIER isotope * CLASS_QUALIFIER
 get_isotope(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
@@ -4115,13 +4117,13 @@ get_isotope(struct solution *solution_ptr, const char *elt)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 print_total(FILE * netpath_file, struct solution *solution_ptr,
 			const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	struct conc *tot_ptr;
-	tot_ptr = get_total(solution_ptr, elt);
+	tot_ptr = get_inv_total(solution_ptr, elt);
 	if (tot_ptr == NULL)
 	{
 		fprintf(netpath_file,
@@ -4138,7 +4140,7 @@ print_total(FILE * netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 print_isotope(FILE * netpath_file, struct solution *solution_ptr,
 			  const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
@@ -4160,7 +4162,7 @@ print_isotope(FILE * netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
 				  const char *string, const char *elt0, const char *elt1,
 				  const char *elt2, const char *elt3, const char *elt4)
@@ -4182,7 +4184,7 @@ print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
 	found = FALSE;
 	for (i = 0; i < 5; i++)
 	{
-		tot_ptr = get_total(solution_ptr, elts[i]);
+		tot_ptr = get_inv_total(solution_ptr, elts[i]);
 		if (tot_ptr == NULL)
 		{
 			continue;
@@ -4209,7 +4211,7 @@ print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dump_netpath_pat(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4257,7 +4259,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE)
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE)
 			continue;
 		solution_ptr_orig = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 
@@ -4269,7 +4271,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		if (inv_ptr->carbon == TRUE)
 		{
 			d1 = solution_ptr->ph;
-			d2 = delta1[col_ph + i] / delta1[i];
+			d2 = inv_delta1[col_ph + i] / inv_delta1[i];
 			d3 = d1 + d2;
 			solution_ptr->ph = d3;
 		}
@@ -4290,8 +4292,8 @@ dump_netpath_pat(struct inverse *inv_ptr)
 			if (inv_ptr->elts[j].master->s == s_eminus)
 				continue;
 			d1 = inv_ptr->elts[j].master->total;
-			d2 = delta1[col_epsilon + j * inv_ptr->count_solns +
-						i] / delta1[i];
+			d2 = inv_delta1[col_epsilon + j * inv_ptr->count_solns +
+						i] / inv_delta1[i];
 			d3 = d1 + d2;
 			inv_ptr->elts[j].master->total = d3;
 		}
@@ -4318,9 +4320,9 @@ dump_netpath_pat(struct inverse *inv_ptr)
 						solution_ptr->isotopes[k].isotope_number)
 						continue;
 					d1 = solution_ptr->isotopes[k].ratio;
-					d2 = delta1[col_isotopes +
+					d2 = inv_delta1[col_isotopes +
 								i * inv_ptr->count_isotope_unknowns +
-								j] / delta1[i];
+								j] / inv_delta1[i];
 					d3 = d1 + d2;
 					solution_ptr->isotopes[k].ratio = d3;
 				}
@@ -4770,7 +4772,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	{
 		j = col_phases + i;
 		/* skip if not in model */
-/*    if (equal (delta1[j], 0.0, toler) == TRUE) continue;*/
+/*    if (equal (inv_delta1[j], 0.0, toler) == TRUE) continue;*/
 
 		/* Do not include Na exchange phase */
 		if (strcmp_nocase(inv_ptr->phases[i].name, "NaX") == 0)
@@ -4917,9 +4919,9 @@ dump_netpath_pat(struct inverse *inv_ptr)
 			if (j < inv_ptr->count_isotopes)
 			{
 				column = col_phase_isotopes + i * inv_ptr->count_isotopes + j;
-				if (delta1[col_phases + i] != 0.0)
+				if (inv_delta1[col_phases + i] != 0.0)
 				{
-					d2 = delta1[column] / delta1[col_phases + i];
+					d2 = inv_delta1[column] / inv_delta1[col_phases + i];
 				}
 			}
 			d3 = d1 + d2;
@@ -5005,14 +5007,14 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		/*output_msg (OUTPUT_MESSAGE, "\nIsotopic composition of phases:\n"); */
 		for (i = 0; i < inv_ptr->count_phases; i++)
 		{
-			if (equal(delta1[j], 0.0, toler) == TRUE)
+			if (equal(inv_delta1[j], 0.0, toler) == TRUE)
 				continue;
 
 
 			if (inv_ptr->phases[i].count_isotopes == 0)
 				continue;
 			j = col_phases + i;
-			if (equal(delta1[j], 0.0, toler) == TRUE &&
+			if (equal(inv_delta1[j], 0.0, toler) == TRUE &&
 				equal(min_delta[j], 0.0, toler) == TRUE &&
 				equal(max_delta[j], 0.0, toler) == TRUE)
 				continue;
@@ -5029,9 +5031,9 @@ dump_netpath_pat(struct inverse *inv_ptr)
 					d1 = isotope_ptr[k].ratio;
 					column =
 						col_phase_isotopes + i * inv_ptr->count_isotopes + j;
-					if (delta1[col_phases + i] != 0.0)
+					if (inv_delta1[col_phases + i] != 0.0)
 					{
-						d2 = delta1[column] / delta1[col_phases + i];
+						d2 = inv_delta1[column] / inv_delta1[col_phases + i];
 					}
 					else
 					{
@@ -5090,7 +5092,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 			   "Solution fractions:", " ", "Minimum", "Maximum");
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -5108,11 +5110,11 @@ dump_netpath_pat(struct inverse *inv_ptr)
 			   "Phase mole transfers:", " ", "Minimum", "Maximum");
 	for (i = col_phases; i < col_redox; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE &&
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE &&
 			equal(min_delta[i], 0.0, toler) == TRUE &&
 			equal(max_delta[i], 0.0, toler) == TRUE)
 			continue;
-		d1 = delta1[i];
+		d1 = inv_delta1[i];
 		d2 = min_delta[i];
 		d3 = max_delta[i];
 		if (equal(d1, 0.0, MIN_TOTAL_INVERSE) == TRUE)
@@ -5130,10 +5132,10 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	output_msg(OUTPUT_MESSAGE, "\n%-25.25s\n", "Redox mole transfers:");
 	for (i = col_redox; i < col_epsilon; i++)
 	{
-		if (equal(delta1[i], 0.0, toler) == TRUE)
+		if (equal(inv_delta1[i], 0.0, toler) == TRUE)
 			continue;
 		output_msg(OUTPUT_MESSAGE, "%15.15s   %12.3e\n", col_name[i],
-				   (double) delta1[i]);
+				   (double) inv_delta1[i]);
 	}
 
 	output_msg(OUTPUT_MESSAGE,
@@ -5154,7 +5156,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 print_total_pat(FILE * netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -5171,7 +5173,7 @@ print_total_pat(FILE * netpath_file, const char *elt, const char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_initial_solution(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5193,7 +5195,7 @@ set_initial_solution(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_to_file(const char *filename, char *string)
 /* ---------------------------------------------------------------------- */
 {

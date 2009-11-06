@@ -1,9 +1,13 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 #define PITZER
+
+#if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL
 #include "pitzer.h"
 
@@ -32,13 +36,13 @@ static LDBLE ETHETA(LDBLE ZJ, LDBLE ZK, LDBLE I);
 static int ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta,
 				   LDBLE * ethetap);
 static int BDK(LDBLE X);
-static int initial_guesses(void);
-static int revise_guesses(void);
-static int remove_unstable_phases;
-
+static int pitzer_initial_guesses(void);
+static int pitzer_revise_guesses(void);
+static int pitzer_remove_unstable_phases;
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 pitzer_init(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -70,7 +74,7 @@ pitzer_init(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 pitzer_tidy(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -564,7 +568,7 @@ pitzer_tidy(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 ISPEC(char *name)
 /* ---------------------------------------------------------------------- */
 /*
@@ -585,7 +589,7 @@ ISPEC(char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_pitzer(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -767,7 +771,7 @@ read_pitzer(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 PTEMP(LDBLE TK)
 /* ---------------------------------------------------------------------- */
 {
@@ -806,7 +810,7 @@ C     Set DW0
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 /* ---------------------------------------------------------------------- */
 {
@@ -877,7 +881,7 @@ calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 pitzer(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1196,7 +1200,7 @@ pitzer(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 JAY(LDBLE X)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1214,7 +1218,7 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 JPRIME(LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
@@ -1233,7 +1237,7 @@ JPRIME(LDBLE Y)
 
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 BDK(LDBLE X)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1296,7 +1300,7 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 G(LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
@@ -1304,7 +1308,7 @@ G(LDBLE Y)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 GP(LDBLE Y)
 /* ---------------------------------------------------------------------- */
 {
@@ -1314,7 +1318,7 @@ GP(LDBLE Y)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 ETHETA(LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
@@ -1344,7 +1348,7 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 ETHETAP(LDBLE ZJ, LDBLE ZK, LDBLE I)
 /* ---------------------------------------------------------------------- */
 {
@@ -1377,7 +1381,7 @@ C
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta, LDBLE * ethetap)
 /* ---------------------------------------------------------------------- */
 {
@@ -1412,7 +1416,7 @@ C
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 pitzer_clean_up(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1421,8 +1425,8 @@ pitzer_clean_up(void)
  */
 	int i;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		pitz_params[i] =
@@ -1446,7 +1450,7 @@ pitzer_clean_up(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_pz(int initial)
 /* ---------------------------------------------------------------------- */
 {
@@ -1486,16 +1490,16 @@ set_pz(int initial)
 	s_hplus->moles = exp(s_hplus->lm * LOG_10) * mass_water_aq_x;
 	s_eminus->la = -solution_ptr->solution_pe;
 	if (initial == TRUE)
-		initial_guesses();
+		pitzer_initial_guesses();
 	if (dl_type_x != NO_DL)
 		initial_surface_water();
-	revise_guesses();
+	pitzer_revise_guesses();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
-int
-initial_guesses(void)
+int CLASS_QUALIFIER
+pitzer_initial_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1563,8 +1567,8 @@ initial_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
-revise_guesses(void)
+int CLASS_QUALIFIER
+pitzer_revise_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1712,7 +1716,7 @@ revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in revise_guesses: %d\n", iter);
+	output_msg(OUTPUT_LOG, "Iterations in pitzer_revise_guesses: %d\n", iter);
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -1723,7 +1727,7 @@ revise_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 jacobian_pz(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1845,7 +1849,7 @@ jacobian_pz(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 model_pz(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1866,7 +1870,7 @@ model_pz(void)
  *      mb_s_s--decide if solid_solutions exists
  *      switch_bases--check to see if new basis species is needed
  *         reprep--rewrite equations with new basis species if needed
- *         revise_guesses--revise unknowns to get initial mole balance
+ *         pitzer_revise_guesses--revise unknowns to get initial mole balance
  *      check_residuals--check convergence one last time
  *         sum_species--calculate sums of elements from species concentrations
  *
@@ -1878,8 +1882,8 @@ model_pz(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */
@@ -1898,7 +1902,7 @@ model_pz(void)
 	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
-	remove_unstable_phases = FALSE;
+	pitzer_remove_unstable_phases = FALSE;
 	if (always_full_pitzer == TRUE)
 	{
 		full_pitzer = TRUE;
@@ -1913,7 +1917,7 @@ model_pz(void)
 		mb_s_s();
 		kode = 1;
 		while ((r = residuals()) != CONVERGED
-			   || remove_unstable_phases == TRUE)
+			   || pitzer_remove_unstable_phases == TRUE)
 		{
 #if defined(PHREEQCI_GUI)
 			if (WaitForSingleObject(g_hKill /*g_eventKill */ , 0) ==
@@ -1958,7 +1962,7 @@ model_pz(void)
 			/*
 			 *   Full matrix with pure phases
 			 */
-			if (r == OK || remove_unstable_phases == TRUE)
+			if (r == OK || pitzer_remove_unstable_phases == TRUE)
 			{
 				return_kode = ineq(kode);
 				if (return_kode != OK)
@@ -2025,7 +2029,7 @@ model_pz(void)
 			stop_program = TRUE;
 			break;
 		}
-		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
+		if (pitzer_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
 			output_msg(OUTPUT_LOG,
@@ -2048,7 +2052,7 @@ model_pz(void)
 			full_pitzer = TRUE;
 			continue;
 		}
-		if (remove_unstable_phases == FALSE)
+		if (pitzer_remove_unstable_phases == FALSE)
 			break;
 		if (debug_model == TRUE)
 		{
@@ -2074,7 +2078,7 @@ model_pz(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_gammas_pz(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2105,7 +2109,7 @@ check_gammas_pz(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 gammas_pz()
 /* ---------------------------------------------------------------------- */
 {

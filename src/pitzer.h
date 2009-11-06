@@ -1,3 +1,6 @@
+#ifndef _INC_PITZER_H
+#define _INC_PITZER_H
+
 typedef enum
 { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA,
   TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other, 
@@ -67,3 +70,4 @@ PITZER_EXTERNAL struct theta_param **theta_params;
 PITZER_EXTERNAL int count_theta_param, max_theta_param;
 PITZER_EXTERNAL int use_etheta;
 PITZER_EXTERNAL LDBLE OTEMP;
+#endif /* _INC_PITZER_H */

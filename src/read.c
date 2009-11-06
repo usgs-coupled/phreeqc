@@ -1,4 +1,6 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -25,6 +27,9 @@ extern int read_kinetics_modify(void);
 extern int read_delete(void);
 extern int read_run_cells(void);
 #endif
+
+#if !defined(PHREEQC_CLASS)
+
 static char const svnid[] = "$Id$";
 
 #if defined(SWIG_SHARED_OBJ)
@@ -108,17 +113,18 @@ void SetChartTitle(char *s);
 #endif
 
 static LDBLE dummy;
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_input(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, l;
 	char *ptr;
 	char token[2 * MAX_LENGTH];
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	parse_error = 0;
 	input_error = 0;
@@ -616,7 +622,7 @@ read_input(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_conc(int n, int count_mass_balance, char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -796,7 +802,7 @@ read_conc(int n, int count_mass_balance, char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_exchange_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1250,7 +1256,7 @@ read_exchange_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1530,7 +1536,7 @@ read_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_exchange_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1636,7 +1642,7 @@ read_exchange_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1830,7 +1836,7 @@ read_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_inverse(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2098,7 +2104,7 @@ read_inverse(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_inv_balances(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2150,7 +2156,7 @@ read_inv_balances(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_inv_isotopes(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2255,7 +2261,7 @@ read_inv_isotopes(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2387,7 +2393,7 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2927,7 +2933,7 @@ read_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE *
+LDBLE * CLASS_QUALIFIER
 read_list_doubles(char **ptr, int *count_doubles)
 /* ---------------------------------------------------------------------- */
 {
@@ -2981,7 +2987,7 @@ read_list_doubles(char **ptr, int *count_doubles)
 }
 
 /* ---------------------------------------------------------------------- */
-int *
+int * CLASS_QUALIFIER
 read_list_ints(char **ptr, int *count_ints, int positive)
 /* ---------------------------------------------------------------------- */
 {
@@ -3041,7 +3047,7 @@ read_list_ints(char **ptr, int *count_ints, int positive)
 }
 
 /* ---------------------------------------------------------------------- */
-int *
+int * CLASS_QUALIFIER
 read_list_ints_range(char **ptr, int *count_ints, int positive, int *int_list)
 /* ---------------------------------------------------------------------- */
 {
@@ -3141,7 +3147,7 @@ read_list_ints_range(char **ptr, int *count_ints, int positive, int *int_list)
 }
 
 /* ---------------------------------------------------------------------- */
-int *
+int * CLASS_QUALIFIER
 read_list_t_f(char **ptr, int *count_ints)
 /* ---------------------------------------------------------------------- */
 {
@@ -3200,7 +3206,7 @@ read_list_t_f(char **ptr, int *count_ints)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_log_k_only(char *ptr, LDBLE * log_k)
 /* ---------------------------------------------------------------------- */
 {
@@ -3219,7 +3225,7 @@ read_log_k_only(char *ptr, LDBLE * log_k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 /* ---------------------------------------------------------------------- */
 {
@@ -3290,7 +3296,7 @@ read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_analytical_expression_only(char *ptr, LDBLE * log_k)
 /* ---------------------------------------------------------------------- */
 {
@@ -3317,7 +3323,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 
 /* VP: Density Start */
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_millero_abcdef (char *ptr, LDBLE * abcdef)
 /* ---------------------------------------------------------------------- */
 {
@@ -3344,7 +3350,7 @@ read_millero_abcdef (char *ptr, LDBLE * abcdef)
 /* VP: Density End */
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_incremental_reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3389,7 +3395,7 @@ read_incremental_reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3580,7 +3586,7 @@ read_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3713,7 +3719,7 @@ read_mix(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_number_description(char *ptr, int *n_user,
 						int *n_user_end, char **description)
 /* ---------------------------------------------------------------------- */
@@ -3771,7 +3777,7 @@ read_number_description(char *ptr, int *n_user,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4054,7 +4060,7 @@ read_phases(void)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4216,7 +4222,7 @@ read_pure_phases(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4434,7 +4440,7 @@ read_pure_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_reaction(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4553,7 +4559,7 @@ read_reaction(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_reaction_reactants(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4614,7 +4620,7 @@ read_reaction_reactants(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_reaction_steps(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4754,7 +4760,7 @@ read_reaction_steps(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_save(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4892,7 +4898,7 @@ read_save(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_selected_output(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5322,7 +5328,7 @@ read_selected_output(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_solution(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5673,7 +5679,7 @@ read_solution(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6176,7 +6182,7 @@ read_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_use(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6403,7 +6409,7 @@ read_use(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_surface_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6803,7 +6809,7 @@ read_surface_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_surf(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7490,7 +7496,7 @@ read_surf(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_surface_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7672,7 +7678,7 @@ read_surface_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_psi_master_species(char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -7742,7 +7748,7 @@ add_psi_master_species(char *token)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_surface_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7877,7 +7883,7 @@ read_surface_master_species(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_temperature(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7960,7 +7966,7 @@ read_temperature(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_reaction_temps(struct temperature *temperature_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -8044,7 +8050,7 @@ read_reaction_temps(struct temperature *temperature_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_title(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8115,7 +8121,7 @@ read_title(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_advection(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8377,7 +8383,7 @@ read_advection(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_debug(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8500,7 +8506,7 @@ read_debug(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8722,7 +8728,7 @@ read_print(void)
 /* ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_key(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -8757,7 +8763,7 @@ check_key(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_units(char *tot_units, int alkalinity, int check_compatibility,
 			const char *default_units, int print)
 /* ---------------------------------------------------------------------- */
@@ -8916,7 +8922,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 find_option(char *item, int *n, const char **list, int count_list, int exact)
 /* ---------------------------------------------------------------------- */
 {
@@ -8965,7 +8971,7 @@ find_option(char *item, int *n, const char **list, int count_list, int exact)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_true_false(char *string, int default_value)
 /* ---------------------------------------------------------------------- */
 {
@@ -8993,7 +8999,7 @@ get_true_false(char *string, int default_value)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_option(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {
@@ -9071,7 +9077,7 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_rates(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9202,7 +9208,7 @@ read_rates(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_user_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9294,7 +9300,7 @@ read_user_print(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_user_punch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9406,7 +9412,7 @@ read_user_punch(void)
 
 #ifdef PHREEQ98
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9641,7 +9647,7 @@ read_user_graph(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_solid_solutions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10190,7 +10196,7 @@ read_solid_solutions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_llnl_aqueous_model_parameters(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10371,7 +10377,7 @@ read_llnl_aqueous_model_parameters(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
 				   int *count_alloc, const char **opt_list,
 				   int count_opt_list, int *opt)
@@ -10427,7 +10433,7 @@ read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_line_doubles(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 /* ---------------------------------------------------------------------- */
 {
@@ -10484,7 +10490,7 @@ read_line_doubles(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 next_keyword_or_option(const char **opt_list, int count_opt_list)
 /* ---------------------------------------------------------------------- */
 {
@@ -10525,7 +10531,7 @@ next_keyword_or_option(const char **opt_list, int count_opt_list)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_named_logk(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10745,7 +10751,7 @@ read_named_logk(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_copy(void)
 /* ---------------------------------------------------------------------- */
 {

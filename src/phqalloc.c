@@ -1,18 +1,23 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
+#define INCLUDE_PHRQALLOC_H
 #include "global.h"
 #include "output.h"
 /*#include <malloc.h>*/
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] =
 	"$Id$";
+#endif
 
 #if defined(PHREEQCI_GUI)
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #endif
-
+#if !defined(PHREEQC_CLASS)
 typedef struct PHRQMemHeader
 {
 	struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
@@ -30,11 +35,11 @@ typedef struct PHRQMemHeader
  * Note: s_pTail->pNext should always be NULL
  */
 static PHRQMemHeader *s_pTail = NULL;
-
+#endif
 
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
-void *
+void * CLASS_QUALIFIER
 PHRQ_malloc(size_t size, const char *szFileName, int nLine)
 #else
 void *
@@ -43,8 +48,8 @@ PHRQ_malloc(size_t size)
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
@@ -75,7 +80,7 @@ PHRQ_malloc(size_t size)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 PHRQ_free(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -113,7 +118,7 @@ PHRQ_free(void *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 PHRQ_free_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -154,7 +159,7 @@ PHRQ_free_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void *
+void * CLASS_QUALIFIER
 PHRQ_calloc(size_t num, size_t size
 #if !defined(NDEBUG)
 			, const char *szFileName, int nLine
@@ -192,7 +197,7 @@ PHRQ_calloc(size_t num, size_t size
 }
 
 /* ---------------------------------------------------------------------- */
-void *
+void * CLASS_QUALIFIER
 PHRQ_realloc(void *ptr, size_t size
 #if !defined(NDEBUG)
 			 , const char *szFileName, int nLine

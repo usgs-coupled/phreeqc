@@ -1,14 +1,10 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
-static char const svnid[] =
-	"$Id$";
-
-#define STATIC static
-
 #define STRING 11
 #define NUMBER 12
 #define MIXED 13
@@ -19,7 +15,11 @@ static char const svnid[] =
 #define OPTION_ERROR -3
 #define OPTION_DEFAULT -4
 #define OPT_1 -5
+#if !defined(PHREEQC_CLASS)
+static char const svnid[] =
+	"$Id$";
 
+#define STATIC static
 static int copy_token_tab(char *token_ptr, char **ptr, int *length);
 static int get_option_string(const char **opt_list, int count_opt_list,
 							 char **next_char);
@@ -36,9 +36,9 @@ static void copy_defaults(struct defaults *dest_ptr,
 void free_spread(void);
 static struct spread_row *copy_row(struct spread_row *spread_row_ptr);
 #endif
-
+#endif /* PHREEQC_CLASS */
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_solution_spread(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -81,8 +81,8 @@ read_solution_spread(void)
 		"uncertainties"			/* 13 */
 	};
 	int count_opt_list = 14;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 /*
  * Initialize defaults
  */
@@ -524,7 +524,7 @@ read_solution_spread(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 					   struct spread_row *data, struct defaults defaults)
 /* ---------------------------------------------------------------------- */
@@ -969,7 +969,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 }
 
 /* ---------------------------------------------------------------------- */
-struct spread_row *
+struct CLASS_QUALIFIER spread_row * CLASS_QUALIFIER
 string_to_spread_row(char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -1097,7 +1097,7 @@ string_to_spread_row(char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 spread_row_free(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1122,7 +1122,7 @@ spread_row_free(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 copy_token_tab(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -1230,7 +1230,7 @@ copy_token_tab(char *token_ptr, char **ptr, int *length)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {
@@ -1280,7 +1280,7 @@ get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 
 #ifdef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 free_spread(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1308,7 +1308,7 @@ free_spread(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 add_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1328,7 +1328,7 @@ add_row(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct spread_row *
+struct spread_row * CLASS_QUALIFIER
 copy_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1371,7 +1371,7 @@ copy_row(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 copy_defaults(struct defaults *dest_ptr, struct defaults *src_ptr)
 /* ---------------------------------------------------------------------- */
 {

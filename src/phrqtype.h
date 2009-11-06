@@ -1,3 +1,5 @@
+#ifndef _INC_PHRQTYPE_H
+#define _INC_PHRQTYPE_H
 /*
  *   The following implements long double
  *   Many machines long double = double so there is no advantage
@@ -17,3 +19,4 @@ static char const svnidphrqtype[] =
 #define LDBLE double
 #define SCANFORMAT "%lf"
 #endif
+#endif /* _INC_PHRQTYPE_H */

@@ -1,4 +1,7 @@
 
+#if defined(WIN32)
+#include <windows.h>
+#endif
 /* Run-time library for use with "p2c", the Pascal to C translator */
 
 /* "p2c"  Copyright (C) 1989, 1990, 1991 Free Software Foundation.
@@ -6,9 +9,6 @@
  * This file may be copied, modified, etc. in any way.  It is not restricted
  * by the licence agreement accompanying p2c itself.
  */
-
-static char const svnid[] =
-	"$Id$";
 
 #include "p2c.h"
 #include "output.h"
@@ -24,8 +24,9 @@ static char const svnid[] =
 #define Isspace(c)  isspace(c)	/* or "((c) == ' ')" if preferred */
 
 
-
-
+#if !defined(PHREEQC_CLASS)
+static char const svnid[] =
+	"$Id$";
 static int P_argc;
 static char **P_argv;
 static char *_ShowEscape(char *buf, int code, int ior, char *prefix);
@@ -38,12 +39,17 @@ long EXCP_LINE;					/* Used by Pascal workstation system */
 Anyptr __MallocTemp__;
 
 __p2c_jmp_buf *__top_jb;
+#define CLASS_QUALIFIER
+#else
+#include "Phreeqc.h"
+#define CLASS_QUALIFIER Phreeqc::
+#endif /* PHREEQC_CLASS */
 
-void
+Void CLASS_QUALIFIER
 PASCAL_MAIN(int argc, char **argv)
 {
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 	P_argc = argc;
 	P_argv = argv;
 	__top_jb = NULL;
@@ -60,7 +66,7 @@ PASCAL_MAIN(int argc, char **argv)
 
 /* In case your system lacks these... */
 
-long
+long 
 my_labs(long x)
 {
 	return ((x > 0) ? x : -x);
@@ -69,7 +75,7 @@ my_labs(long x)
 
 														  /* #define __STDC__  *//* PHREEQ98 */
 
-Anyptr
+Anyptr 
 my_memmove(Anyptr d, Const Anyptr s, size_t n)
 {
 	register char *dd = (char *) d, *ss = (char *) s;
@@ -88,7 +94,7 @@ my_memmove(Anyptr d, Const Anyptr s, size_t n)
 }
 
 
-Anyptr
+Anyptr 
 my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 {
 	register char *ss = (char *) s, *dd = (char *) d;
@@ -97,7 +103,7 @@ my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 	return d;
 }
 
-int
+int 
 my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 {
 	register char *a = (char *) s1, *b = (char *) s2;
@@ -108,7 +114,7 @@ my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 	return 0;
 }
 
-Anyptr
+Anyptr 
 my_memset(Anyptr d, int c, size_t n)
 {
 	register char *dd = (char *) d;
@@ -117,7 +123,7 @@ my_memset(Anyptr d, int c, size_t n)
 	return d;
 }
 
-int
+int 
 my_toupper(int c)
 {
 	if (islower(c))
@@ -127,7 +133,7 @@ my_toupper(int c)
 }
 
 
-int
+int 
 my_tolower(int c)
 {
 	if (isupper(c))
@@ -139,7 +145,7 @@ my_tolower(int c)
 
 
 
-long
+long 
 ipow(long a, long b)
 {
 	long v;
@@ -169,7 +175,7 @@ ipow(long a, long b)
 
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
-char *
+char * 
 strsub(register char *ret, register char *s, register int pos,
 	   register int len)
 {
@@ -203,7 +209,7 @@ strsub(register char *ret, register char *s, register int pos,
 /* Return the index of the first occurrence of "pat" as a substring of "s",
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
-int
+int 
 strpos2(char *s, register char *pat, register int pos)
 {
 	register char *cp, ch;
@@ -227,7 +233,7 @@ strpos2(char *s, register char *pat, register int pos)
 
 
 /* Case-insensitive version of strcmp. */
-int
+int 
 strcicmp(register char *s1, register char *s2)
 {
 	register unsigned char c1, c2;
@@ -255,7 +261,7 @@ strcicmp(register char *s1, register char *s2)
 /* HP and Turbo Pascal string functions: */
 
 /* Trim blanks at left end of string. */
-char *
+char * 
 strltrim(register char *s)
 {
 	while (Isspace((int) *s++));
@@ -264,7 +270,7 @@ strltrim(register char *s)
 
 
 /* Trim blanks at right end of string. */
-char *
+char * 
 strrtrim(register char *s)
 {
 	register char *s2 = s;
@@ -280,7 +286,7 @@ strrtrim(register char *s)
 
 /* Store in "ret" "num" copies of string "s".  Return "ret". */
 #ifdef SKIP
-char *
+char * CLASS_QUALIFIER
 strrpt(ret, s, num)
 	 char *ret;
 	 register char *s;
@@ -302,7 +308,7 @@ strrpt(ret, s, num)
 /* Store in "ret" string "s" with enough pad chars added to reach "size". */
 
 #ifdef SKIP
-char *
+char * CLASS_QUALIFIER
 strpad(ret, s, padchar, num)
 	 char *ret;
 	 register char *s;
@@ -329,7 +335,7 @@ strpad(ret, s, padchar, num)
 /* Copy the substring of length "len" from index "spos" of "s" (1-based)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
-void
+void 
 strmove(register int len, register char *s, register int spos,
 		register char *d, register int dpos)
 {
@@ -349,7 +355,7 @@ strmove(register int len, register char *s, register int spos,
 /* Delete the substring of length "len" at index "pos" from "s".
    Delete less if out-of-range. */
 #ifdef SKIP
-void
+void CLASS_QUALIFIER
 strdelete(s, pos, len)
 	 register char *s;
 	 register int pos, len;
@@ -373,7 +379,7 @@ strdelete(s, pos, len)
 #endif
 
 /* Insert string "src" at index "pos" of "dst". */
-void
+void 
 strinsert(register char *src, register char *dst, register int pos)
 {
 	register int slen, dlen;
@@ -406,7 +412,7 @@ strinsert(register char *src, register char *dst, register int pos)
 /* File functions */
 
 /* Peek at next character of input stream; return EOF at end-of-file. */
-int
+int 
 P_peek(FILE * f)
 {
 	int ch;
@@ -423,7 +429,7 @@ P_peek(FILE * f)
    stdin is broken; remove the special case for it to be broken in a
    different way. */
 /*int P_eof(FILE *f)*/
-int
+int 
 P_eof(void)
 {
 #ifdef SKIP
@@ -442,7 +448,7 @@ P_eof(void)
 
 
 /* Check if at end of line (or end of entire file). */
-int
+int 
 P_eoln(FILE * f)
 {
 	register int ch;
@@ -456,7 +462,7 @@ P_eoln(FILE * f)
 
 
 /* Read a packed array of characters from a file. */
-Void
+Void 
 P_readpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -477,7 +483,7 @@ P_readpaoc(FILE * f, char *s, int len)
 		ungetc(ch, f);
 }
 
-Void
+Void 
 P_readlnpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -499,7 +505,7 @@ P_readlnpaoc(FILE * f, char *s, int len)
 
 
 /* Compute maximum legal "seek" index in file (0-based). */
-long
+long 
 P_maxpos(FILE * f)
 {
 	long savepos = ftell(f);
@@ -515,7 +521,7 @@ P_maxpos(FILE * f)
 
 
 /* Use packed array of char for a file name. */
-Char *
+Char * 
 P_trimname(register Char * fn, register int len)
 {
 	static Char fnbuf[256];
@@ -533,13 +539,13 @@ P_trimname(register Char * fn, register int len)
 /* Pascal's "memavail" doesn't make much sense in Unix with virtual memory.
    We fix memory size as 10Meg as a reasonable compromise. */
 
-long
+long 
 memavail(void)
 {
 	return 10000000;			/* worry about this later! */
 }
 
-long
+long 
 maxavail(void)
 {
 	return memavail();
@@ -556,7 +562,7 @@ maxavail(void)
    the lowest five bits of the first long are unused and always zero.) */
 
 /* (Sets with 32 or fewer elements are normally stored as plain longs.) */
-long *
+long * 
 P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + s2 */
 {
 	long *dbase = d++;
@@ -574,7 +580,7 @@ P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + 
 	return dbase;
 }
 
-long *
+long * 
 P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2 */
 {
 	long *dbase = d++;
@@ -586,7 +592,7 @@ P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2
 	return dbase;
 }
 
-long *
+long * 
 P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s2 */
 {
 	long *dbase = d++;
@@ -603,7 +609,7 @@ P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s
 	return dbase;
 }
 
-long *
+long * 
 P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2 */
 {
 	long *dbase = d++;
@@ -623,7 +629,7 @@ P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2
 }
 
 #ifdef SKIP
-int
+int CLASS_QUALIFIER
 P_inset(register unsigned val, register long *s)	/* val IN s */
 {
 	register int bit;
@@ -634,7 +640,7 @@ P_inset(register unsigned val, register long *s)	/* val IN s */
 	return 0;
 }
 #endif
-long *
+long * 
 P_addset(register long *s, register unsigned val)	/* s := s + [val] */
 {
 	register long *sbase = s;
@@ -655,7 +661,7 @@ P_addset(register long *s, register unsigned val)	/* s := s + [val] */
 	return sbase;
 }
 
-long *
+long * 
 P_addsetr(register long *s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
 {
 	register long *sbase = s;
@@ -690,7 +696,7 @@ P_addsetr(register long *s, register unsigned v1, register unsigned v2)	/* s := 
 	return sbase;
 }
 
-long *
+long * 
 P_remset(register long *s, register unsigned val)	/* s := s - [val] */
 {
 	register int bit;
@@ -705,7 +711,7 @@ P_remset(register long *s, register unsigned val)	/* s := s - [val] */
 	return s;
 }
 
-int
+int 
 P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 {
 	register int size = *s1++;
@@ -719,7 +725,7 @@ P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 	return 1;
 }
 
-int
+int 
 P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 {
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -733,7 +739,7 @@ P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 	return 1;
 }
 
-long *
+long * 
 P_setcpy(register long *d, register long *s)	/* d := s */
 {
 	register long *save_d = d;
@@ -751,7 +757,7 @@ P_setcpy(register long *d, register long *s)	/* d := s */
 
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
-long *
+long * 
 P_expset(register long *d, register long s)	/* d := s */
 {
 	if (s)
@@ -764,7 +770,7 @@ P_expset(register long *d, register long s)	/* d := s */
 	return d;
 }
 
-long
+long 
 P_packset(register long *s)		/* convert s to a small-set */
 {
 	if (*s++)
@@ -775,10 +781,10 @@ P_packset(register long *s)		/* convert s to a small-set */
 
 
 
-
+#ifdef SKIP
 
 /* Oregon Software Pascal extensions, courtesy of William Bader */
-int
+int CLASS_QUALIFIER
 P_getcmdline(int l, int h, Char * line)
 {
 	int i, len;
@@ -801,9 +807,9 @@ P_getcmdline(int l, int h, Char * line)
 	}
 	return len;
 }
-
+#endif
 #ifndef NO_TIME
-Void
+Void CLASS_QUALIFIER
 TimeStamp(Day, Month, Year, Hour, Min, Sec)
 	 int *Day, *Month, *Year, *Hour, *Min, *Sec;
 {
@@ -822,7 +828,7 @@ TimeStamp(Day, Month, Year, Hour, Min, Sec)
 	*Sec = tm->tm_sec;
 }
 
-Void
+Void CLASS_QUALIFIER
 VAXdate(s)
 	 char *s;
 {
@@ -839,7 +845,7 @@ VAXdate(s)
 	s[6] = '-';
 }
 
-Void
+Void CLASS_QUALIFIER
 VAXtime(s)
 	 char *s;
 {
@@ -861,7 +867,7 @@ VAXtime(s)
 
 #ifdef SKIP
 /* SUN Berkeley Pascal extensions */
-Void
+Void CLASS_QUALIFIER
 P_sun_argv(register char *s, register int len, register int n)
 {
 	register char *cp;
@@ -879,19 +885,19 @@ P_sun_argv(register char *s, register int len, register int n)
 
 
 
-int
+int 
 _OutMem(void)
 {
 	return _Escape(-2);
 }
 
-int
+int 
 _CaseCheck(void)
 {
 	return _Escape(-9);
 }
 
-int
+int 
 _NilCheck(void)
 {
 	return _Escape(-3);
@@ -905,7 +911,7 @@ _NilCheck(void)
    It might want to be revised when emulating another system. */
 
 #ifdef SKIP
-static char *
+static char * CLASS_QUALIFIER
 _ShowEscape(buf, code, ior, prefix)
 	 char *buf, *prefix;
 	 int code, ior;
@@ -1001,7 +1007,7 @@ _ShowEscape(buf, code, ior, prefix)
 	return buf;
 }
 
-int
+int CLASS_QUALIFIER
 _Escape(int code)
 {
 	char buf[100];
@@ -1033,7 +1039,7 @@ _Escape(int code)
 	return (1);
 }
 
-int
+int CLASS_QUALIFIER
 _EscIO(int code)
 {
 	P_ioresult = code;
