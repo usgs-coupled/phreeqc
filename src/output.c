@@ -44,7 +44,9 @@ output_message(const int type, const char *err_str, const int stop,
 			   const char *format, va_list args)
 /* ---------------------------------------------------------------------- */
 {
+#if !defined(PHREEQC_CLASS)
 	extern jmp_buf mark;
+#endif
 	size_t i;
 
 	for (i = 0; i < count_output_callback; ++i)

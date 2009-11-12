@@ -39,7 +39,7 @@ static int rewind_wrapper(FILE * file_ptr);
 static char const svnid[] =
 	"$Id$";
 #endif
-
+#if !defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 phreeqc_handler(const int action, const int type, const char *err_str,
@@ -104,7 +104,74 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 	}
 	return ERROR;
 }
+#else
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+phreeqc_handler(const int action, const int type, const char *err_str,
+				const int stop, void *cookie, const char *format,
+				va_list args)
+/* ---------------------------------------------------------------------- */
+{
+	int i;
+	Phreeqc * pThis;
+	pThis = (Phreeqc *) cookie;
 
+	switch (action)
+	{
+	case ACTION_OPEN:
+		return pThis->open_handler(type, err_str);
+		break;
+	case ACTION_OUTPUT:
+		return pThis->output_handler(type, err_str, stop, cookie, format, args);
+		break;
+	case ACTION_FLUSH:
+		return pThis->fileop_handler(type, fflush);
+		break;
+	case ACTION_REWIND:
+		return pThis->fileop_handler(type, rewind_wrapper);
+		break;
+	case ACTION_CLOSE:
+
+		i = pThis->fileop_handler(type, fclose);
+		switch (type)
+		{
+		case OUTPUT_ERROR:
+			pThis->error_file = NULL;
+			break;
+
+		case OUTPUT_WARNING:
+			break;
+
+		case OUTPUT_MESSAGE:
+			pThis->output = NULL;
+			break;
+
+		case OUTPUT_PUNCH:
+			pThis->punch_file = NULL;
+			break;
+
+		case OUTPUT_SCREEN:
+			break;
+
+		case OUTPUT_LOG:
+			pThis->log_file = NULL;
+			break;
+
+		case OUTPUT_STDERR:
+			break;
+
+		case OUTPUT_DUMP:
+			pThis->dump_file = NULL;
+			break;
+		}
+
+
+		return (i);
+		break;
+	}
+	return ERROR;
+}
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 close_input_files(void)

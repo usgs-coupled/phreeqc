@@ -971,7 +971,9 @@ ineq(int in_kode)
 	int return_code;
 	int count_rows;
 	int count_optimize, count_equal;
+#if !defined(PHREEQC_CLASS)
 	extern int max_row_count, max_column_count;
+#endif
 	int k, l, m, n;
 	int klmd, nklmd, n2d;
 	int iter;
@@ -4893,17 +4895,6 @@ s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 		{
 			break;
 		}
-#ifdef SKIP
-		if (y0 * y < 0)
-		{
-			x1 = x;
-		}
-		else
-		{
-			x0 = x;
-			y0 = y;
-		}
-#endif
 		if (y0 * y >= 0)
 		{
 			x0 = x;

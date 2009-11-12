@@ -3,7 +3,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include <gmp.h>
-
+#if defined(PHREEQC_CLASS)
+#define CLASS_QUALIFIER Phreeqc::
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"
@@ -20,9 +23,6 @@ cl1mp(int k, int l, int m, int n,
 extern void *free_check_null(void *ptr);
 extern void malloc_error(void);
 #define CLASS_QUALIFIER
-#else
-#define CLASS_QUALIFIER Phreeqc::
-#include "Phreeqc.h"
 #endif
 
 int 

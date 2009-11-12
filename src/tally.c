@@ -1,9 +1,11 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 /*
  *  storage
@@ -36,7 +38,7 @@ int count_tally_table_columns;
 int count_tally_table_rows;
 
 static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
-
+#endif
 /*   
      Calling sequence 
 
@@ -93,7 +95,7 @@ int free_tally_table(void);       Frees space
 */
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_all_components(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -161,7 +163,7 @@ get_all_components(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 /* ---------------------------------------------------------------------- */
 {
@@ -224,7 +226,7 @@ store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_tally_table_rows_columns(int *rows, int *columns)
 /* ---------------------------------------------------------------------- */
 {
@@ -243,7 +245,7 @@ get_tally_table_rows_columns(int *rows, int *columns)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_tally_table_row_heading(int row, char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -271,7 +273,7 @@ get_tally_table_row_heading(int row, char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_tally_table_column_heading(int column, int *type, char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -301,7 +303,7 @@ get_tally_table_column_heading(int column, int *type, char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 free_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -326,7 +328,7 @@ free_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 zero_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -345,7 +347,7 @@ zero_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 diff_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -373,7 +375,7 @@ diff_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -399,7 +401,7 @@ print_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 /* ---------------------------------------------------------------------- */
 {
@@ -664,7 +666,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 elt_list_to_tally_table(struct tally_buffer *buffer_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -706,7 +708,7 @@ elt_list_to_tally_table(struct tally_buffer *buffer_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 build_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -733,9 +735,10 @@ build_tally_table(void)
 
 	char token[MAX_LENGTH];
 	char *ptr;
-
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 /*
  *  make list of all elements in all entitites
  *  defines the number of rows in the table
@@ -1022,7 +1025,7 @@ build_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 add_all_components_tally(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1111,7 +1114,7 @@ add_all_components_tally(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1162,7 +1165,7 @@ calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 extend_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1203,7 +1206,7 @@ extend_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_reaction_moles(int n_user, LDBLE moles)
 /* ---------------------------------------------------------------------- */
 {
@@ -1219,7 +1222,7 @@ set_reaction_moles(int n_user, LDBLE moles)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_reaction_temperature(int n_user, LDBLE tc)
 /* ---------------------------------------------------------------------- */
 {
@@ -1235,7 +1238,7 @@ set_reaction_temperature(int n_user, LDBLE tc)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_kinetics_time(int n_user, LDBLE step)
 /* ---------------------------------------------------------------------- */
 {

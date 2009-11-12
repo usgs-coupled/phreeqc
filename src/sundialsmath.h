@@ -27,12 +27,10 @@ static char const svnidsundialsmath[] =
 	"$Id$";
 #endif
 
-#ifdef SKIP
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 
 #ifndef _sundialsmath_h
 #define _sundialsmath_h

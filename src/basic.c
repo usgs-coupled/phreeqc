@@ -1,14 +1,17 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
 
-
-static char const svnid[] = "$Id$";
-
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "p2c.h"
+
+#if !defined(PHREEQC_CLASS)
+static char const svnid[] = "$Id$";
 
 int n_user_punch_index;
 #ifdef PHREEQ98
@@ -16,7 +19,6 @@ void GridChar(char *s, char *a);
 extern int colnr, rownr;
 #endif
 
-#include "p2c.h"
 
 static int sget_logical_line(char **ptr, int *l, char *return_line);
 
@@ -27,149 +29,7 @@ static int sget_logical_line(char **ptr, int *l, char *return_line);
 typedef Char varnamestring[varnamelen + 1];
 typedef Char string255[256];
 
-#define tokvar	  0
-#define toknum	  1
-#define tokstr	  2
-#define toksnerr	3
-#define tokplus	 4
-#define tokminus	5
-#define toktimes	6
-#define tokdiv	  7
-#define tokup	   8
-#define toklp	   9
-#define tokrp	   10
-#define tokcomma	11
-#define toksemi	 12
-#define tokcolon	13
-#define tokeq	   14
-#define toklt	   15
-#define tokgt	   16
-#define tokle	   17
-#define tokge	   18
-#define tokne	   19
-#define tokand	  20
-#define tokor	   21
-#define tokxor	  22
-#define tokmod	  23
-#define toknot	  24
-#define toksqr	  25
-#define toksqrt	 26
-#define toksin	  27
-#define tokcos	  28
-#define toktan	  29
-#define tokarctan       30
-#define toklog	  31
-#define tokexp	  32
-#define tokabs	  33
-#define toksgn	  34
-#define tokstr_	 35
-#define tokval	  36
-#define tokchr_	 37
-#define tokasc	  38
-#define toklen	  39
-#define tokmid_	 40
-#define tokpeek	 41
-#define tokrem	  42
-#define toklet	  43
-#define tokprint	44
-#define tokinput	45
-#define tokgoto	 46
-#define tokif	   47
-#define tokend	  48
-#define tokstop	 49
-#define tokfor	  50
-#define toknext	 51
-#define tokwhile	52
-#define tokwend	 53
-#define tokgosub	54
-#define tokreturn       55
-#define tokread	 56
-#define tokdata	 57
-#define tokrestore      58
-#define tokgotoxy       59
-#define tokon	   60
-#define tokdim	  61
-#define tokpoke	 62
-#define toklist	 63
-#define tokrun	  64
-#define toknew	  65
-#define tokload	 66
-#define tokmerge	67
-#define toksave	 68
-#define tokbye	  69
-#define tokdel	  70
-#define tokrenum	71
-#define tokthen	 72
-#define tokelse	 73
-#define tokto	   74
-#define tokstep	 75
-#define toktc	   76
-#define tokm0	   77
-#define tokm	    78
-#define tokparm	 79
-#define tokact	  80
-#define tokmol	  81
-#define tokla	   82
-#define toklm	   83
-#define toksr	   84
-#define toksi	   85
-#define toktot	  86
-#define toktk	   87
-#define toktime	 88
-#define toklog10	89
-#define toksim_time     90
-#define tokequi	 91
-#define tokgas	  92
-#define tokpunch	93
-#define tokkin	  94
-#define toks_s	  95
-#define tokmu	   96
-#define tokalk	  97
-#define tokrxn	  98
-#define tokdist	 99
-#define tokmisc1	100
-#define tokmisc2	101
-#define tokedl	  102
-#define tokstep_no      103
-#define toksim_no       104
-#define toktotal_time   105
-#define tokput	  106
-#define tokget	  107
-#define tokcharge_balance  109
-#define tokpercent_error   110
-#ifdef PHREEQ98
-#define tokgraph_x	111
-#define tokgraph_y	112
-#define tokgraph_sy       113
-#endif
-#define tokcell_no      114
-#define tokexists       115
-#define toksurf	 116
-#define toklk_species   117
-#define toklk_named     118
-#define toklk_phase     119
-#define toksum_species  120
-#define toksum_gas      121
-#define toksum_s_s      122
-#define tokcalc_value   123
-#define tokdescription  124
-#define toksys	  125
-#define tokinstr	126
-#define tokltrim	127
-#define tokrtrim	128
-#define toktrim	 129
-#define tokpad	  130
-#define tokchange_por   131
-#define tokget_por	    132
-#define tokosmotic	    133
-#define tokchange_surf  134
-#define tokporevolume   135
-#define toksc	136
-#define tokgamma	137
-#define toklg	   138
-/* VP: Density Start */
-#define tokrho	   139
-/* VP: Density End */
+
 
 typedef LDBLE numarray[];
 typedef Char *strarray[];
@@ -396,8 +256,166 @@ static const struct const_key command[] = {
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
+Local valrec factor(struct LOC_exec *LINK);
+Local valrec expr(struct LOC_exec *LINK);
+Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
+
+#define tokvar	  0
+#define toknum	  1
+#define tokstr	  2
+#define toksnerr	3
+#define tokplus	 4
+#define tokminus	5
+#define toktimes	6
+#define tokdiv	  7
+#define tokup	   8
+#define toklp	   9
+#define tokrp	   10
+#define tokcomma	11
+#define toksemi	 12
+#define tokcolon	13
+#define tokeq	   14
+#define toklt	   15
+#define tokgt	   16
+#define tokle	   17
+#define tokge	   18
+#define tokne	   19
+#define tokand	  20
+#define tokor	   21
+#define tokxor	  22
+#define tokmod	  23
+#define toknot	  24
+#define toksqr	  25
+#define toksqrt	 26
+#define toksin	  27
+#define tokcos	  28
+#define toktan	  29
+#define tokarctan       30
+#define toklog	  31
+#define tokexp	  32
+#define tokabs	  33
+#define toksgn	  34
+#define tokstr_	 35
+#define tokval	  36
+#define tokchr_	 37
+#define tokasc	  38
+#define toklen	  39
+#define tokmid_	 40
+#define tokpeek	 41
+#define tokrem	  42
+#define toklet	  43
+#define tokprint	44
+#define tokinput	45
+#define tokgoto	 46
+#define tokif	   47
+#define tokend	  48
+#define tokstop	 49
+#define tokfor	  50
+#define toknext	 51
+#define tokwhile	52
+#define tokwend	 53
+#define tokgosub	54
+#define tokreturn       55
+#define tokread	 56
+#define tokdata	 57
+#define tokrestore      58
+#define tokgotoxy       59
+#define tokon	   60
+#define tokdim	  61
+#define tokpoke	 62
+#define toklist	 63
+#define tokrun	  64
+#define toknew	  65
+#define tokload	 66
+#define tokmerge	67
+#define toksave	 68
+#define tokbye	  69
+#define tokdel	  70
+#define tokrenum	71
+#define tokthen	 72
+#define tokelse	 73
+#define tokto	   74
+#define tokstep	 75
+#define toktc	   76
+#define tokm0	   77
+#define tokm	    78
+#define tokparm	 79
+#define tokact	  80
+#define tokmol	  81
+#define tokla	   82
+#define toklm	   83
+#define toksr	   84
+#define toksi	   85
+#define toktot	  86
+#define toktk	   87
+#define toktime	 88
+#define toklog10	89
+#define toksim_time     90
+#define tokequi	 91
+#define tokgas	  92
+#define tokpunch	93
+#define tokkin	  94
+#define toks_s	  95
+#define tokmu	   96
+#define tokalk	  97
+#define tokrxn	  98
+#define tokdist	 99
+#define tokmisc1	100
+#define tokmisc2	101
+#define tokedl	  102
+#define tokstep_no      103
+#define toksim_no       104
+#define toktotal_time   105
+#define tokput	  106
+#define tokget	  107
+#define tokcharge_balance  109
+#define tokpercent_error   110
+#ifdef PHREEQ98
+#define tokgraph_x	111
+#define tokgraph_y	112
+#define tokgraph_sy       113
+#endif
+#define tokcell_no      114
+#define tokexists       115
+#define toksurf	 116
+#define toklk_species   117
+#define toklk_named     118
+#define toklk_phase     119
+#define toksum_species  120
+#define toksum_gas      121
+#define toksum_s_s      122
+#define tokcalc_value   123
+#define tokdescription  124
+#define toksys	  125
+#define tokinstr	126
+#define tokltrim	127
+#define tokrtrim	128
+#define toktrim	 129
+#define tokpad	  130
+#define tokchange_por   131
+#define tokget_por	    132
+#define tokosmotic	    133
+#define tokchange_surf  134
+#define tokporevolume   135
+#define toksc	136
+#define tokgamma	137
+#define toklg	   138
+/* VP: Density Start */
+#define tokrho	   139
+/* VP: Density End */
+
+/* Local variables for exec: */
+struct LOC_exec
+{
+	boolean gotoflag, elseflag;
+	tokenrec *t;
+};
+#endif
+
+
+
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 cmd_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -428,7 +446,7 @@ cmd_initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 cmd_free(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -442,7 +460,7 @@ cmd_free(void)
 }
 
 #ifdef SKIP
-int
+int CLASS_QUALIFIER
 main(int argc, Char * argv[])
 {								/*main */
 	char commands[] = "10a=1\n20a=a*2;30print a;40quit;run";
@@ -450,13 +468,15 @@ main(int argc, Char * argv[])
 	return 0;
 }
 #endif
-int
+int CLASS_QUALIFIER
 basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l;
 	char *ptr;
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 
 	PASCAL_MAIN(0, NULL);
 	inbuf = (char *) PHRQ_calloc(max_line, sizeof(char));
@@ -513,7 +533,7 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l, i;
@@ -591,7 +611,7 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 {								/*main */
 	int l;
@@ -651,7 +671,7 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_main(char *commands)
 {								/*main */
 	int l;
@@ -726,7 +746,7 @@ basic_main(char *commands)
 
 /* End. */
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sget_logical_line(char **ptr, int *l, char *return_line)
 /* ---------------------------------------------------------------------- */
 {
@@ -759,7 +779,7 @@ sget_logical_line(char **ptr, int *l, char *return_line)
 	*l = i;
 	return (1);
 }
-Static void
+Static void CLASS_QUALIFIER
 restoredata(void)
 {
 	dataline = NULL;
@@ -768,7 +788,7 @@ restoredata(void)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 clearloops(void)
 {
 	looprec *l;
@@ -784,7 +804,7 @@ clearloops(void)
 
 
 #ifdef SKIP
-Static long
+Static long CLASS_QUALIFIER
 arraysize(varrec * v)
 {
 	long i, j, FORLIM;
@@ -800,7 +820,7 @@ arraysize(varrec * v)
 }
 #endif
 
-Static void
+Static void CLASS_QUALIFIER
 clearvar(varrec * v)
 {
 	if (v->numdims != 0)
@@ -833,7 +853,7 @@ clearvar(varrec * v)
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 clearvars(void)
 {
 	varrec *v;
@@ -846,7 +866,7 @@ clearvars(void)
 	}
 }
 
-Static Char *
+Static Char * CLASS_QUALIFIER
 numtostr(Char * Result, LDBLE n)
 {
 	/*string255 s; */
@@ -912,8 +932,8 @@ typedef long chset[9];
 
 
 
-Static void
-parse(Char * inbuf, tokenrec ** buf)
+Static void CLASS_QUALIFIER
+parse(Char * inbuf, CLASS_QUALIFIER tokenrec ** buf)
 {
 	long i, j, begin, len, m;
 	Char token[toklength + 1];
@@ -1417,7 +1437,7 @@ parse(Char * inbuf, tokenrec ** buf)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 listtokens(FILE * f, tokenrec * buf)
 {
 	boolean ltr;
@@ -2019,7 +2039,7 @@ listtokens(FILE * f, tokenrec * buf)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 disposetokens(tokenrec ** tok)
 {
 	tokenrec *tok1;
@@ -2038,7 +2058,7 @@ disposetokens(tokenrec ** tok)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 parseinput(tokenrec ** buf)
 {
 	linerec *l, *l0, *l1;
@@ -2093,7 +2113,7 @@ parseinput(tokenrec ** buf)
 	restoredata();
 }
 
-Static void
+Static void CLASS_QUALIFIER
 errormsg(const Char * s)
 {
 #ifdef SKIP
@@ -2104,39 +2124,28 @@ errormsg(const Char * s)
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 snerr(void)
 {
 	errormsg("Syntax error");
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 tmerr(void)
 {
 	errormsg("Type mismatch error");
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 badsubscr(void)
 {
 	errormsg("Bad subscript");
 }
 
 
-/* Local variables for exec: */
-struct LOC_exec
-{
-	boolean gotoflag, elseflag;
-	tokenrec *t;
-};
-
-Local valrec factor(struct LOC_exec *LINK);
-Local valrec expr(struct LOC_exec *LINK);
-Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
-
-Local LDBLE
+Local LDBLE CLASS_QUALIFIER
 realfactor(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -2147,7 +2156,7 @@ realfactor(struct LOC_exec *LINK)
 	return (n.UU.val);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 strfactor(struct LOC_exec * LINK)
 {
 	valrec n;
@@ -2158,7 +2167,7 @@ strfactor(struct LOC_exec * LINK)
 	return (n.UU.sval);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 stringfactor(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
@@ -2171,13 +2180,13 @@ stringfactor(Char * Result, struct LOC_exec * LINK)
 	return Result;
 }
 
-Local long
+Local long CLASS_QUALIFIER
 intfactor(struct LOC_exec *LINK)
 {
 	return ((long) floor(realfactor(LINK) + 0.5));
 }
 
-Local LDBLE
+Local LDBLE CLASS_QUALIFIER
 realexpr(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -2188,7 +2197,7 @@ realexpr(struct LOC_exec *LINK)
 	return (n.UU.val);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 strexpr(struct LOC_exec * LINK)
 {
 	valrec n;
@@ -2199,7 +2208,7 @@ strexpr(struct LOC_exec * LINK)
 	return (n.UU.sval);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 stringexpr(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
@@ -2212,14 +2221,14 @@ stringexpr(Char * Result, struct LOC_exec * LINK)
 	return Result;
 }
 
-Local long
+Local long CLASS_QUALIFIER
 intexpr(struct LOC_exec *LINK)
 {
 	return ((long) floor(realexpr(LINK) + 0.5));
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 require(int k, struct LOC_exec *LINK)
 {
 	if (LINK->t == NULL || LINK->t->kind != k)
@@ -2228,7 +2237,7 @@ require(int k, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 skipparen(struct LOC_exec *LINK)
 {
 	do
@@ -2249,7 +2258,7 @@ skipparen(struct LOC_exec *LINK)
 }
 
 
-Local varrec *
+Local CLASS_QUALIFIER varrec * CLASS_QUALIFIER
 findvar(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -2337,7 +2346,7 @@ ixor(long a, long b, struct LOC_exec *LINK)
 }
 #endif
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 factor(struct LOC_exec * LINK)
 {
 	char string[MAX_LENGTH];
@@ -3293,7 +3302,7 @@ factor(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 upexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3324,7 +3333,7 @@ upexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 term(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3372,7 +3381,7 @@ term(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 sexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3416,7 +3425,7 @@ sexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 relexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3489,7 +3498,7 @@ relexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 andexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3506,7 +3515,7 @@ andexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 expr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3531,7 +3540,7 @@ expr(struct LOC_exec * LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 checkextra(struct LOC_exec *LINK)
 {
 	if (LINK->t != NULL)
@@ -3539,7 +3548,7 @@ checkextra(struct LOC_exec *LINK)
 }
 
 
-Local boolean
+Local boolean CLASS_QUALIFIER
 iseos(struct LOC_exec *LINK)
 {
 	return ((boolean) (LINK->t == NULL || LINK->t->kind == (long) tokelse ||
@@ -3547,7 +3556,7 @@ iseos(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 skiptoeos(struct LOC_exec *LINK)
 {
 	while (!iseos(LINK))
@@ -3557,10 +3566,11 @@ skiptoeos(struct LOC_exec *LINK)
 
 #ifdef SKIP
 /* LINK not used */
-Local linerec *
+Local linerec * CLASS_QUALIFIER
 findline(long n, struct LOC_exec *LINK)
 #endif
-	 Local linerec *findline(long n)
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
+findline(long n)
 {
 	linerec *l;
 
@@ -3572,10 +3582,11 @@ findline(long n, struct LOC_exec *LINK)
 
 
 #ifdef SKIP
-Local linerec *
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
 mustfindline(long n, struct LOC_exec * LINK)
 #endif
-	 Local linerec *mustfindline(long n)
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
+mustfindline(long n)
 {
 	linerec *l;
 
@@ -3589,7 +3600,7 @@ mustfindline(long n, struct LOC_exec * LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdend(struct LOC_exec *LINK)
 {
 	stmtline = NULL;
@@ -3597,7 +3608,7 @@ cmdend(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdnew(struct LOC_exec *LINK)
 {
 	void *p;
@@ -3649,7 +3660,7 @@ cmdnew(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdlist(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3698,7 +3709,7 @@ cmdlist(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 {
 	FILE *f;
@@ -3741,7 +3752,7 @@ cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrun(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3789,7 +3800,7 @@ cmdrun(struct LOC_exec *LINK)
 }
 
 #ifdef SKIP
-Local void
+Local void CLASS_QUALIFIER
 cmdsave(struct LOC_exec *LINK)
 {
 	FILE *f;
@@ -3826,7 +3837,7 @@ cmdsave(struct LOC_exec *LINK)
 #endif
 
 /* replace basic save command with transport of rate back to calc_kinetic_rate */
-Local void
+Local void CLASS_QUALIFIER
 cmdsave(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -3859,7 +3870,7 @@ cmdsave(struct LOC_exec *LINK)
 		}
 	}
 }
-Local void
+Local void CLASS_QUALIFIER
 cmdput(struct LOC_exec *LINK)
 {
 	int j;
@@ -3901,7 +3912,7 @@ cmdput(struct LOC_exec *LINK)
 	s_v.subscripts = (int *) free_check_null(s_v.subscripts);
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdchange_por(struct LOC_exec *LINK)
 {
 	int j;
@@ -3918,7 +3929,7 @@ cmdchange_por(struct LOC_exec *LINK)
 		cell_data[j - 1].por = TEMP;
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdchange_surf(struct LOC_exec *LINK)
 {
 /*
@@ -3960,15 +3971,16 @@ cmdchange_surf(struct LOC_exec *LINK)
 
 #ifdef SKIP
 /* LINK not used */
-Local void
+Local void CLASS_QUALIFIER
 cmdbye(struct LOC_exec *LINK)
 #endif
-	 Local void cmdbye(void)
+Local void CLASS_QUALIFIER
+cmdbye(void)
 {
 	exitflag = true;
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmddel(struct LOC_exec *LINK)
 {
 	linerec *l, *l0, *l1;
@@ -4029,7 +4041,7 @@ cmddel(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrenum(struct LOC_exec *LINK)
 {
 	linerec *l, *l1;
@@ -4099,7 +4111,7 @@ cmdrenum(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdprint(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4134,7 +4146,7 @@ cmdprint(struct LOC_exec *LINK)
 		output_msg(OUTPUT_MESSAGE, "\n");
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdpunch(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4202,7 +4214,7 @@ cmdpunch(struct LOC_exec *LINK)
 }
 
 #ifdef PHREEQ98
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_x(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4235,7 +4247,7 @@ cmdgraph_x(struct LOC_exec *LINK)
 	}
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_y(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4266,7 +4278,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 	}
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_sy(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4299,7 +4311,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 #endif
 
 #ifdef SKIP
-Local void
+Local void CLASS_QUALIFIER
 cmdinput(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4392,7 +4404,7 @@ cmdinput(struct LOC_exec *LINK)
 }
 #endif
 
-Local void
+Local void CLASS_QUALIFIER
 cmdlet(boolean implied, struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4432,7 +4444,7 @@ cmdlet(boolean implied, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgoto(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4444,7 +4456,7 @@ cmdgoto(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdif(struct LOC_exec *LINK)
 {
 	LDBLE n;
@@ -4475,14 +4487,14 @@ cmdif(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdelse(struct LOC_exec *LINK)
 {
 	LINK->t = NULL;
 }
 
 
-Local boolean
+Local boolean CLASS_QUALIFIER
 skiploop(int up, int dn, struct LOC_exec *LINK)
 {
 	boolean Result;
@@ -4517,7 +4529,7 @@ skiploop(int up, int dn, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdfor(struct LOC_exec *LINK)
 {
 	looprec *l, lr;
@@ -4590,7 +4602,7 @@ cmdfor(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdnext(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4632,7 +4644,7 @@ cmdnext(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdwhile(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4658,7 +4670,7 @@ cmdwhile(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdwend(struct LOC_exec *LINK)
 {
 	tokenrec *tok;
@@ -4706,7 +4718,7 @@ cmdwend(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgosub(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4723,7 +4735,7 @@ cmdgosub(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdreturn(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4751,7 +4763,7 @@ cmdreturn(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdread(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4803,14 +4815,14 @@ cmdread(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmddata(struct LOC_exec *LINK)
 {
 	skiptoeos(LINK);
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrestore(struct LOC_exec *LINK)
 {
 	if (iseos(LINK))
@@ -4826,7 +4838,7 @@ cmdrestore(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgotoxy(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4839,7 +4851,7 @@ cmdgotoxy(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdon(struct LOC_exec *LINK)
 {
 	long i;
@@ -4877,7 +4889,7 @@ cmdon(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmddim(struct LOC_exec *LINK)
 {
 	long i, j, k;
@@ -4935,7 +4947,7 @@ cmddim(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdpoke(struct LOC_exec *LINK)
 {
 	union
@@ -4959,7 +4971,7 @@ cmdpoke(struct LOC_exec *LINK)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 exec(void)
 {
 	struct LOC_exec V;
@@ -5254,7 +5266,7 @@ exec(void)
 	ENDTRY(try1);
 }								/*exec */
 
-int
+int CLASS_QUALIFIER
 free_dim_stringvar(struct varrec *varbase)
 {
 	int i, k;

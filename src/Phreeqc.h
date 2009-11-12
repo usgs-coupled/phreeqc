@@ -162,14 +162,15 @@ typedef enum
 #define MIN_TOTAL_SS MIN_TOTAL
 #define MIN_RELATED_SURFACE MIN_TOTAL*100
 #define MIN_RELATED_LOG_ACTIVITY -30
+//// Remove static
+#define STATIC
+#define EXTERNAL
 
 class Phreeqc
 {
+public:
 	Phreeqc(void);
 	~Phreeqc(void);
-
-private:
-
 
 
 private:
@@ -191,6 +192,7 @@ struct irrev;
 struct isotope;
 struct kinetics;
 struct kinetics_comp;
+struct LOC_exec;
 struct master;
 struct master_activity;
 struct master_isotope;
@@ -200,7 +202,7 @@ struct name_coef;
 struct output_callback;
 struct pe_data;
 struct phase;
-//struct PHRQMemHeader;
+struct PHRQMemHeader;
 struct pitz_param;
 struct pp_assemblage;
 struct pure_phase;
@@ -219,9 +221,27 @@ struct surface_comp;
 struct surface_charge;
 struct surface_diff_layer;
 struct theta_param;
+struct tokenrec;
+struct varrec;
 struct unknown;
 
-
+#define PITZER_EXTERNAL 
+#include "pitzer.h"
+#include "input.h"
+#define KINETICS_EXTERNAL 
+#include "sundialstypes.h"		/* definitions of types realtype and                        */
+							 /* integertype, and the constant FALSE            */
+#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
+							 /* CVodeFree, constants OPT_SIZE, BDF, NEWTON,   */
+							 /* SV, SUCCESS, NST,NFE,NSETUPS, NNI, NCFN, NETF */
+#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
+#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
+							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
+#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
+#include "nvector.h"
+#define extern
+#include "p2c.h"
+#undef extern 
 /* search.h -- declarations for POSIX/SVID-compatible search functions */
 
 /* HSEARCH(3C) */
@@ -1783,9 +1803,6 @@ int print_density;
 jmp_buf mark;
 LDBLE *zeros;
 int zeros_max;
-#if defined(WIN32)
-#include <windows.h>
-#endif
 
 #if defined(WIN32_MEMORY_DEBUG)
 #define _CRTDBG_MAP_ALLOC
@@ -1806,6 +1823,372 @@ struct system
 LDBLE pore_volume;
 
 //***************************** end of global.h *****************************
+
+// basic.c -------------------------------
+//static char const svnid[] = "$Id: basic.c 3490 2009-05-13 17:00:08Z dlpark $";
+
+
+#ifdef PHREEQ98
+void GridChar(char *s, char *a);
+extern int colnr, rownr;
+#endif
+
+int n_user_punch_index;
+int sget_logical_line(char **ptr, int *l, char *return_line);
+
+#define checking	true
+#define varnamelen      20
+#define maxdims	 4
+
+typedef Char varnamestring[varnamelen + 1];
+typedef Char string255[256];
+
+typedef LDBLE numarray[];
+typedef Char *strarray[];
+
+#define forloop	 0
+#define whileloop       1
+#define gosubloop       2
+#define tokvar	  0
+#define toknum	  1
+#define tokstr	  2
+#define toksnerr	3
+#define tokplus	 4
+#define tokminus	5
+#define toktimes	6
+#define tokdiv	  7
+#define tokup	   8
+#define toklp	   9
+#define tokrp	   10
+#define tokcomma	11
+#define toksemi	 12
+#define tokcolon	13
+#define tokeq	   14
+#define toklt	   15
+#define tokgt	   16
+#define tokle	   17
+#define tokge	   18
+#define tokne	   19
+#define tokand	  20
+#define tokor	   21
+#define tokxor	  22
+#define tokmod	  23
+#define toknot	  24
+#define toksqr	  25
+#define toksqrt	 26
+#define toksin	  27
+#define tokcos	  28
+#define toktan	  29
+#define tokarctan       30
+#define toklog	  31
+#define tokexp	  32
+#define tokabs	  33
+#define toksgn	  34
+#define tokstr_	 35
+#define tokval	  36
+#define tokchr_	 37
+#define tokasc	  38
+#define toklen	  39
+#define tokmid_	 40
+#define tokpeek	 41
+#define tokrem	  42
+#define toklet	  43
+#define tokprint	44
+#define tokinput	45
+#define tokgoto	 46
+#define tokif	   47
+#define tokend	  48
+#define tokstop	 49
+#define tokfor	  50
+#define toknext	 51
+#define tokwhile	52
+#define tokwend	 53
+#define tokgosub	54
+#define tokreturn       55
+#define tokread	 56
+#define tokdata	 57
+#define tokrestore      58
+#define tokgotoxy       59
+#define tokon	   60
+#define tokdim	  61
+#define tokpoke	 62
+#define toklist	 63
+#define tokrun	  64
+#define toknew	  65
+#define tokload	 66
+#define tokmerge	67
+#define toksave	 68
+#define tokbye	  69
+#define tokdel	  70
+#define tokrenum	71
+#define tokthen	 72
+#define tokelse	 73
+#define tokto	   74
+#define tokstep	 75
+#define toktc	   76
+#define tokm0	   77
+#define tokm	    78
+#define tokparm	 79
+#define tokact	  80
+#define tokmol	  81
+#define tokla	   82
+#define toklm	   83
+#define toksr	   84
+#define toksi	   85
+#define toktot	  86
+#define toktk	   87
+#define toktime	 88
+#define toklog10	89
+#define toksim_time     90
+#define tokequi	 91
+#define tokgas	  92
+#define tokpunch	93
+#define tokkin	  94
+#define toks_s	  95
+#define tokmu	   96
+#define tokalk	  97
+#define tokrxn	  98
+#define tokdist	 99
+#define tokmisc1	100
+#define tokmisc2	101
+#define tokedl	  102
+#define tokstep_no      103
+#define toksim_no       104
+#define toktotal_time   105
+#define tokput	  106
+#define tokget	  107
+#define tokcharge_balance  109
+#define tokpercent_error   110
+#ifdef PHREEQ98
+#define tokgraph_x	111
+#define tokgraph_y	112
+#define tokgraph_sy       113
+#endif
+#define tokcell_no      114
+#define tokexists       115
+#define toksurf	 116
+#define toklk_species   117
+#define toklk_named     118
+#define toklk_phase     119
+#define toksum_species  120
+#define toksum_gas      121
+#define toksum_s_s      122
+#define tokcalc_value   123
+#define tokdescription  124
+#define toksys	  125
+#define tokinstr	126
+#define tokltrim	127
+#define tokrtrim	128
+#define toktrim	 129
+#define tokpad	  130
+#define tokchange_por   131
+#define tokget_por	    132
+#define tokosmotic	    133
+#define tokchange_surf  134
+#define tokporevolume   135
+#define toksc	136
+#define tokgamma	137
+#define toklg	   138
+/* VP: Density Start */
+#define tokrho	   139
+/* VP: Density End */
+typedef struct tokenrec
+{
+	struct tokenrec *next;
+	int kind;
+	union
+	{
+		struct varrec *vp;
+		LDBLE num;
+		Char *sp;
+		Char snch;
+	} UU;
+} tokenrec;
+
+typedef struct linerec
+{
+	long num, num2;
+	tokenrec *txt;
+	struct linerec *next;
+} linerec;
+
+typedef struct varrec
+{
+	varnamestring name;
+	struct varrec *next;
+	long dims[maxdims];
+	char numdims;
+	boolean stringvar;
+	union
+	{
+		struct
+		{
+			LDBLE *arr;
+			LDBLE *val, rv;
+		} U0;
+		struct
+		{
+			Char **sarr;
+			Char **sval, *sv;
+		} U1;
+	} UU;
+} varrec;
+
+typedef struct valrec
+{
+	boolean stringval;
+	union
+	{
+		LDBLE val;
+		Char *sval;
+	} UU;
+} valrec;
+
+typedef struct looprec
+{
+	struct looprec *next;
+	linerec *homeline;
+	tokenrec *hometok;
+	int kind;
+	union
+	{
+		struct
+		{
+			varrec *vp;
+			LDBLE max, step;
+		} U0;
+	} UU;
+} looprec;
+
+/* Local variables for exec: */
+struct LOC_exec
+{
+	boolean gotoflag, elseflag;
+	tokenrec *t;
+};
+
+Char *inbuf;
+linerec *linebase;
+varrec *varbase;
+looprec *loopbase;
+long curline;
+linerec *stmtline, *dataline;
+tokenrec *stmttok, *datatok, *buf;
+boolean exitflag;
+
+int free_dim_stringvar(struct varrec *varbase);
+long EXCP_LINE;
+void exec(void);
+
+/*$if not checking$
+   $range off$
+$end$*/
+HashTable *command_hash_table;
+
+struct const_key *command;
+int NCMDS;
+
+
+
+int basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase);
+void restoredata(void);
+void clearloops(void);
+void clearvar(varrec * v);
+void clearvars(void);
+Char * numtostr(Char * Result, LDBLE n);
+void parse(Char * inbuf, tokenrec ** buf);
+
+void listtokens(FILE * f, tokenrec * buf);
+void disposetokens(tokenrec ** tok);
+void parseinput(tokenrec ** buf);
+void errormsg(const Char * s);
+void snerr(void);
+void tmerr(void);
+void badsubscr(void);
+LDBLE realfactor(struct LOC_exec *LINK);
+Char * strfactor(struct LOC_exec * LINK);
+Char *stringfactor(Char * Result, struct LOC_exec *LINK);
+long intfactor(struct LOC_exec *LINK);
+LDBLE realexpr(struct LOC_exec *LINK);
+Char * strexpr(struct LOC_exec * LINK);
+Char * stringexpr(Char * Result, struct LOC_exec * LINK);
+long intexpr(struct LOC_exec *LINK);
+void require(int k, struct LOC_exec *LINK);
+void skipparen(struct LOC_exec *LINK);
+varrec * findvar(struct LOC_exec *LINK);
+valrec factor(struct LOC_exec *LINK);
+valrec upexpr(struct LOC_exec * LINK);
+valrec term(struct LOC_exec * LINK);
+valrec sexpr(struct LOC_exec * LINK);
+valrec relexpr(struct LOC_exec * LINK);
+valrec andexpr(struct LOC_exec * LINK);
+valrec expr(struct LOC_exec *LINK);
+
+void checkextra(struct LOC_exec *LINK);
+boolean iseos(struct LOC_exec *LINK);
+void skiptoeos(struct LOC_exec *LINK);
+linerec * findline(long n);
+linerec * mustfindline(long n);
+void cmdend(struct LOC_exec *LINK);
+void cmdnew(struct LOC_exec *LINK);
+void cmdlist(struct LOC_exec *LINK);
+void cmdload(boolean merging, Char * name, struct LOC_exec *LINK);
+void cmdrun(struct LOC_exec *LINK);
+void cmdsave(struct LOC_exec *LINK);
+void cmdput(struct LOC_exec *LINK);
+void cmdchange_por(struct LOC_exec *LINK);
+void cmdchange_surf(struct LOC_exec *LINK);
+void cmdbye(void);
+void cmddel(struct LOC_exec *LINK);
+void cmdrenum(struct LOC_exec *LINK);
+void cmdprint(struct LOC_exec *LINK);
+void cmdpunch(struct LOC_exec *LINK);
+#ifdef PHREEQ98
+void cmdgraph_x(struct LOC_exec *LINK);
+void cmdgraph_y(struct LOC_exec *LINK);
+void cmdgraph_sy(struct LOC_exec *LINK);
+#endif
+void cmdlet(boolean implied, struct LOC_exec *LINK);
+void cmdgoto(struct LOC_exec *LINK);
+void cmdif(struct LOC_exec *LINK);
+void cmdelse(struct LOC_exec *LINK);
+boolean skiploop(int up, int dn, struct LOC_exec *LINK);
+void cmdfor(struct LOC_exec *LINK);
+void cmdnext(struct LOC_exec *LINK);
+void cmdwhile(struct LOC_exec *LINK);
+void cmdwend(struct LOC_exec *LINK);
+void cmdgosub(struct LOC_exec *LINK);
+void cmdreturn(struct LOC_exec *LINK);
+void cmdread(struct LOC_exec *LINK);
+void cmddata(struct LOC_exec *LINK);
+void cmdrestore(struct LOC_exec *LINK);
+void cmdgotoxy(struct LOC_exec *LINK);
+void cmdon(struct LOC_exec *LINK);
+void cmddim(struct LOC_exec *LINK);
+void cmdpoke(struct LOC_exec *LINK);
+
+
+// basicsubs.c -------------------------------
+struct system_species
+{
+	char *name;
+	char *type;
+	LDBLE moles;
+};
+struct system_species *sys;
+int count_sys, max_sys;
+
+int system_total_solids(struct exchange *exchange_ptr,
+					struct pp_assemblage *pp_assemblage_ptr,
+					struct gas_phase *gas_phase_ptr,
+					struct s_s_assemblage *s_s_assemblage_ptr,
+					struct surface *surface_ptr);
+
+LDBLE sys_tot;
+LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
+LDBLE solution_mass, solution_volume;
+static LDBLE f_rho(LDBLE rho_old, void *cookie);
+
 // cl1.c -------------------------------
 void cl1_space(int check, int n2d, int klm, int nklmd);
 //void zero_double(LDBLE * target, int n);
@@ -1822,9 +2205,12 @@ int cl1mp(int k, int l, int m, int n,
 		  int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
 		  LDBLE * cu_arg, int *iu, int *s, int check, LDBLE censor_arg);
 
+// class_main.c -------------------------------
+#ifdef DOS
+int write_banner(void);
+#endif
+
 // dw.c -------------------------------
-#define PITZER_EXTERNAL 
-#include "pitzer.h"
 int BB(LDBLE T);
 LDBLE PS(LDBLE T);
 LDBLE VLEST(LDBLE T);
@@ -1844,7 +2230,7 @@ LDBLE G1, G2, GF;
 LDBLE B1, B2, B1T, B2T, B1TT, B2TT;
 
 // input.c -------------------------------
-#include "input.h"
+
 int reading_database(void);
 struct read_callback s_read_callback;
 int check_line(const char *string, int allow_empty, int allow_eof,
@@ -1949,18 +2335,19 @@ int isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr);
 int isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr);
 int master_isotope_init(struct master_isotope *master_isotope_ptr);
 
+//#ifdef SKIP_SOME
 // kinetics.c -------------------------------
 //#define KINETICS_EXTERNAL 
-#include "sundialstypes.h"		/* definitions of types realtype and                        */
-							 /* integertype, and the constant FALSE            */
-#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
-							 /* CVodeFree, constants OPT_SIZE, BDF, NEWTON,   */
-							 /* SV, SUCCESS, NST,NFE,NSETUPS, NNI, NCFN, NETF */
-#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
-#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
-							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
-#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
-#include "nvector.h"
+//#include "sundialstypes.h"		/* definitions of types realtype and                        */
+//							 /* integertype, and the constant FALSE            */
+//#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
+//							 /* CVodeFree, constants OPT_SIZE, BDF, NEWTON,   */
+//							 /* SV, SUCCESS, NST,NFE,NSETUPS, NNI, NCFN, NETF */
+//#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
+//#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
+//							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
+//#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
+//#include "nvector.h"
 //#include "kinetics.h"
  void *cvode_kinetics_ptr;
  int cvode_test;
@@ -1979,10 +2366,10 @@ int master_isotope_init(struct master_isotope *master_isotope_ptr);
 void *kinetics_cvode_mem;
 struct pp_assemblage *cvode_pp_assemblage_save;
 struct s_s_assemblage *cvode_s_s_assemblage_save;
-void f(integertype N, realtype t, N_Vector y, N_Vector ydot,
+static void f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 			  void *f_data);
 
-void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
+static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 				N_Vector y, N_Vector fy, N_Vector ewt, realtype h,
 				realtype uround, void *jac_data, long int *nfePtr,
 				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
@@ -1999,14 +2386,14 @@ int store_get_equi_reactants(int k, int kin_end);
 LDBLE *m_original;
 LDBLE *m_temp;
 
-LDBLE min_value;
+//#endif /* SKIP_SOME */
 
 // mainsubs  -------------------------------
 int copy_use(int i);
 int set_use(void);
 
 // model.c -------------------------------
-
+LDBLE min_value;
 LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 					  LDBLE xbaq);
 LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
@@ -2127,27 +2514,35 @@ int open_handler(const int type, const char *file_name);
 int output_handler(const int type, const char *err_str,
 						  const int stop, void *cookie, const char *format,
 						  va_list args);
-int rewind_wrapper(FILE * file_ptr);
+static int rewind_wrapper(FILE * file_ptr);
 
+//#ifdef SKIP_SOME
 // p2clib.c
-#define extern
-#include "p2c.h"
-#undef extern 
-int P_argc;
-char **P_argv;
+//#define extern
+//#include "p2c.h"
+//#undef extern 
+//int P_argc;
+//char **P_argv;
 char *_ShowEscape(char *buf, int code, int ior, char *prefix);
 
-int P_escapecode;
-int P_ioresult;
+//int P_escapecode;
+//int P_ioresult;
 
-long EXCP_LINE;					/* Used by Pascal workstation system */
+//long EXCP_LINE;					/* Used by Pascal workstation system */
 
-Anyptr __MallocTemp__;
+//Anyptr __MallocTemp__;
 
-__p2c_jmp_buf *__top_jb;
+//__p2c_jmp_buf *__top_jb;
 Void PASCAL_MAIN(int argc, char **argv);
 int _Escape(int code);
 int _EscIO(int code);
+int  _OutMem(void);
+int  _CaseCheck(void);
+int  _NilCheck(void);
+int P_escapecode;
+int P_ioresult;
+__p2c_jmp_buf *__top_jb;
+//#endif /* SKIP_SOME */
 
 // pitzer.c -------------------------------
 #define PITZER_EXTERNAL
@@ -2398,17 +2793,249 @@ void free_spread(void);
 struct spread_row *copy_row(struct spread_row *spread_row_ptr);
 #endif
 
+// step.c -------------------------------
+//static char const svnid[] = "$Id: step.c 3453 2009-04-14 20:42:49Z dlpark $";
+
+int check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr);
+int gas_phase_check(struct gas_phase *gas_phase_ptr);
+int pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr);
+int reaction_calc(struct irrev *irrev_ptr);
+int solution_check(void);
+int s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr);
+// structures.c -------------------------------
+
+//static char const svnid[] =
+//	"$Id: structures.c 3716 2009-10-22 19:24:31Z dlpark $";
+
+static int exchange_compare_int(const void *ptr1, const void *ptr2);
+static int gas_phase_compare_int(const void *ptr1, const void *ptr2);
+
+static int inverse_compare(const void *ptr1, const void *ptr2);
+int inverse_free(struct inverse *inverse_ptr);
+
+static int irrev_compare(const void *ptr1, const void *ptr2);
+static int irrev_compare_int(const void *ptr1, const void *ptr2);
+
+static int kinetics_compare_int(const void *ptr1, const void *ptr2);
+
+int logk_init(struct logk *logk_ptr);
+
+static int master_compare_string(const void *ptr1, const void *ptr2);
+int master_free(struct master *master_ptr);
+
+#if defined(PHREEQCI_GUI)
+static int mix_compare(const void *ptr1, const void *ptr2);
+#else
+static int mix_compare(const void *ptr1, const void *ptr2);
+#endif
+static int mix_compare_int(const void *ptr1, const void *ptr2);
+
+struct phase *phase_alloc(void);
+static int phase_compare_string(const void *ptr1, const void *ptr2);
+int phase_free(struct phase *phase_ptr);
+int phase_init(struct phase *phase_ptr);
+
+static int pp_assemblage_compare_int(const void *ptr1, const void *ptr2);
+
+static int rate_compare(const void *ptr1, const void *ptr2);
+static int rate_compare_string(const void *ptr1, const void *ptr2);
+
+struct species *s_alloc(void);
+int s_free(struct species *s_ptr);
+int s_init(struct species *s_ptr);
+
+static int s_s_assemblage_compare_int(const void *ptr1, const void *ptr2);
+
+static int solution_compare(const void *ptr1, const void *ptr2);
+static int solution_compare_int(const void *ptr1, const void *ptr2);
+
+static int species_list_compare(const void *ptr1, const void *ptr2);
+
+static int surface_compare_int(const void *ptr1, const void *ptr2);
+
+static int temperature_compare(const void *ptr1, const void *ptr2);
+static int temperature_compare_int(const void *ptr1, const void *ptr2);
+
+static int rxn_token_temp_compare(const void *ptr1, const void *ptr2);
+int trxn_multiply(LDBLE coef);
+
+#ifdef PHREEQCI_GUI
+//extern void free_spread(void);
+#endif
+#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
+extern void MergeFinalize(void);
+#endif
+//extern LDBLE *scratch, *x_arg, *res_arg;
+//extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
+//extern int *iu, *is, *back_eq;
+//extern int x_arg_max, res_arg_max, scratch_max;
+
+// tidy.c -------------------------------
+
+//static char const svnid[] = "$Id: tidy.c 3684 2009-09-28 15:40:35Z dlpark $";
+
+int check_species_input(void);
+LDBLE coef_in_master(struct master *master_ptr);
+int phase_rxn_to_trxn(struct phase *phase_ptr,
+							 struct reaction *rxn_ptr);
+int reset_last_model(void);
+int rewrite_eqn_to_primary(void);
+int rewrite_eqn_to_secondary(void);
+int species_rxn_to_trxn(struct species *s_ptr);
+int tidy_logk(void);
+int tidy_exchange(void);
+int tidy_min_exchange(void);
+int tidy_kin_exchange(void);
+int tidy_gas_phase(void);
+int tidy_inverse(void);
+int tidy_isotopes(void);
+int tidy_isotope_ratios(void);
+int tidy_isotope_alphas(void);
+int tidy_kin_surface(void);
+int tidy_master_isotope(void);
+int tidy_min_surface(void);
+int tidy_phases(void);
+int tidy_pp_assemblage(void);
+int tidy_solutions(void);
+int tidy_s_s_assemblage(void);
+int tidy_species(void);
+int tidy_surface(void);
+
+LDBLE a0, a1, kc, kb;
+#if !defined(PHREEQC_CLASS)
+int scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1);
+static LDBLE f_spinodal(LDBLE x);
+#else
+int scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1);
+static LDBLE f_spinodal(LDBLE x, void *);
+#endif
+int solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
+int s_s_calc_a0_a1(struct s_s *s_s_ptr);
+
+// tally.c -------------------------------
+
+//static char const svnid[] = "$Id: tally.c 3164 2008-10-29 22:15:35Z dlpark $";
+/*
+ *  storage
+ */
+struct tally_buffer
+{
+	char *name;
+	struct master *master;
+	LDBLE moles;
+	LDBLE gfw;
+};
+struct tally_buffer *t_buffer;
+int tally_count_component;
+struct tally
+{
+	char *name;
+	enum entity_type type;
+	char *add_formula;
+	LDBLE moles;
+	struct elt_list *formula;
+	/*
+	 * first total is initial
+	 * second total is final
+	 * third total is difference (final - initial)
+	 */
+	struct tally_buffer *total[3];
+};
+struct tally *tally_table;
+int count_tally_table_columns;
+int count_tally_table_rows;
 
 
 
+// transport.c -------------------------------
 
+//static char const svnid[] =
+//	"$Id: transport.c 3694 2009-10-02 17:54:58Z dlpark $";
 
+struct spec
+{
+	char *name;					/* name of species */
+	char *aq_name;				/* name of aqueous species in EX species */
+	int type;					/* type: AQ or EX */
+	LDBLE a;					/* activity */
+	LDBLE lm;					/* log(concentration) */
+	LDBLE lg;					/* log(gamma) */
+	LDBLE c;					/* concentration for AQ, equivalent fraction for EX */
+	LDBLE z;					/* charge number */
+	LDBLE Dwt;					/* temperature corrected free water diffusion coefficient, m2/s */
+	LDBLE erm_ddl;				/* enrichment factor in ddl */
+};
+struct sol_D
+{
+	int count_spec;				/* number of aqueous + exchange species */
+	int count_exch_spec;		/* number of exchange species */
+	LDBLE exch_total;			/* total moles of X- */
+	struct spec *spec;
+} *sol_D;
+struct sol_D *sol_D_dbg;
+struct J_ij
+{
+	char *name;
+	LDBLE tot1, tot2;
+} *J_ij, *J_ij_il;
+int J_ij_count_spec;
 
+struct M_S
+{
+	char *name;
+	LDBLE tot1, tot2;
+} *m_s;
+int count_m_s;
+LDBLE tot1_h, tot1_o, tot2_h, tot2_o;
 
+int multi_D(LDBLE DDt, int mobile_cell, int stagnant);
+int find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant);
+int fill_spec(int cell_no);
+int fill_m_s(struct J_ij *J_ij, int J_ij_count_spec);
+static int sort_species_name(const void *ptr1, const void *ptr2);
 
+LDBLE diffc_max, diffc_tr, J_ij_sum;
+int transp_surf;
+int disp_surf(LDBLE stagkin_time);
+int diff_stag_surf(int mobile_cell);
+int check_surfaces(struct surface *surface_ptr1,
+						  struct surface *surface_ptr2);
+int mobile_surface_copy(struct surface *surface_old_ptr,
+							   struct surface *surf_ptr1, int n_user_new,
+							   int move_old);
+int init_mix(void);
+int init_heat_mix(int nmix);
+int heat_mix(int heat_nmix);
+int mix_stag(int i, LDBLE stagkin_time, int punch,
+					LDBLE step_fraction_kin);
+LDBLE *heat_mix_array;
+LDBLE *temp1, *temp2;
+int nmix, heat_nmix;
+LDBLE heat_mix_f_imm, heat_mix_f_m;
+int warn_MCD_X, warn_fixed_Surf;
 
+// utilities.c -------------------------------
 
+//static char const svnid[] =
+//	"$Id: utilities.c 3164 2008-10-29 22:15:35Z dlpark $";
 
+#ifdef PHREEQ98
+extern int AutoLoadOutputFile, CreateToC;
+extern int ProcessMessages, ShowProgress, ShowProgressWindow, ShowChart;
+extern int outputlinenr;
+extern int stop_calculations;
+void AddToCEntry(char *a, int l, int i);
+void ApplicationProcessMessages(void);
+/* void check_line_breaks(char *s); */
+char err_str98[80];
+int copy_title(char *token_ptr, char **ptr, int *length);
+extern int clean_up_null(void);
+#endif
+
+int isamong(char c, const char *s_l);
+
+Address Hash_multi(HashTable * Table, char *Key);
+void ExpandTable_multi(HashTable * Table);
 
 
 
@@ -2432,67 +3059,17 @@ void AddSelectedOutput(const char *name, const char *format,
 #endif
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // Remove static
 #define STATIC
 #define EXTERNAL
-//#include "basic.h"
-//int P_argc;
-//char **P_argv;
-//char *_ShowEscape(char *buf, int code, int ior, char *prefix);
-//
-//int P_escapecode;
-//int P_ioresult;
-//
-//long EXCP_LINE;					/* Used by Pascal workstation system */
-//
-//Anyptr __MallocTemp__;
 
-//__p2c_jmp_buf *__top_jb;
-
-struct system_species
-{
-	char *name;
-	char *type;
-	LDBLE moles;
-};
-struct system_species *sys;
-int count_sys, max_sys;
-
-//LDBLE sys_tot;
-//LDBLE AA, BB, CC, I_m, rho_0;
-//LDBLE solution_mass, solution_volume;
-//LDBLE f_rho(LDBLE rho_old);
-
-
-int system_total_solids(struct exchange *exchange_ptr,
-					struct pp_assemblage *pp_assemblage_ptr,
-					struct gas_phase *gas_phase_ptr,
-					struct s_s_assemblage *s_s_assemblage_ptr,
-					struct surface *surface_ptr);
 private:
   #include "phrqproto.h"
 
 
-
-
-
-//#define MAX_CALLBACKS 10
-//	struct output_callback output_callbacks[MAX_CALLBACKS];
-//int output_message(const int type, const char *err_str, const int stop,
-//				   const char *format, va_list args);
-
+public:
+	void set_phast(int);
+	int main_method(int argc, char *argv[]);
 
 };
 #endif /* _INC_PHREEQC_H */

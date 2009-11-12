@@ -14,19 +14,13 @@
  * kernels listed in nvector.h.                                    *
  *                                                                 *
  *******************************************************************/
-#if !defined(PHREEQC_CLASS)
-#define CLASS_QUALIFIER
-#else
-#include "Phreeqc.h"
-#define CLASS_QUALIFIER Pheeqc::
-#endif
+
 #include "nvector.h"			/* generic M_Env and N_Vector */
 #include "output.h"
-#if !defined(PHREEQC_CLASS)
 static char const svnid[] =
 	"$Id$";
-#endif
-N_Vector 
+
+N_Vector
 N_VNew(integertype n, M_Env machEnv)
 {
 	N_Vector v_new;
@@ -34,7 +28,7 @@ N_VNew(integertype n, M_Env machEnv)
 	return (v_new);
 }
 
-N_Vector_S CLASS_QUALIFIER
+N_Vector_S
 N_VNew_S(integertype ns, integertype n, M_Env machEnv)
 {
 	N_Vector_S vs_new;
@@ -42,19 +36,19 @@ N_VNew_S(integertype ns, integertype n, M_Env machEnv)
 	return (vs_new);
 }
 
-void CLASS_QUALIFIER
+void
 N_VFree(N_Vector v)
 {
 	v->menv->ops->nvfree(v);
 }
 
-void CLASS_QUALIFIER
+void
 N_VFree_S(integertype ns, N_Vector_S vs)
 {
 	(*vs)->menv->ops->nvfreeS(ns, vs);
 }
 
-N_Vector CLASS_QUALIFIER
+N_Vector
 N_VMake(integertype n, realtype * v_data, M_Env machEnv)
 {
 	N_Vector v_new;
@@ -62,13 +56,13 @@ N_VMake(integertype n, realtype * v_data, M_Env machEnv)
 	return (v_new);
 }
 
-void CLASS_QUALIFIER
+void
 N_VDispose(N_Vector v)
 {
 	v->menv->ops->nvdispose(v);
 }
 
-realtype * CLASS_QUALIFIER
+realtype *
 N_VGetData(N_Vector v)
 {
 	realtype *data;
@@ -76,61 +70,61 @@ N_VGetData(N_Vector v)
 	return (data);
 }
 
-void CLASS_QUALIFIER
+void
 N_VSetData(realtype * v_data, N_Vector v)
 {
 	v->menv->ops->nvsetdata(v_data, v);
 }
 
-void CLASS_QUALIFIER
+void
 N_VLinearSum(realtype a, N_Vector x, realtype b, N_Vector y, N_Vector z)
 {
 	z->menv->ops->nvlinearsum(a, x, b, y, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VConst(realtype c, N_Vector z)
 {
 	z->menv->ops->nvconst(c, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VProd(N_Vector x, N_Vector y, N_Vector z)
 {
 	z->menv->ops->nvprod(x, y, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VDiv(N_Vector x, N_Vector y, N_Vector z)
 {
 	z->menv->ops->nvdiv(x, y, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VScale(realtype c, N_Vector x, N_Vector z)
 {
 	z->menv->ops->nvscale(c, x, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VAbs(N_Vector x, N_Vector z)
 {
 	z->menv->ops->nvabs(x, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VInv(N_Vector x, N_Vector z)
 {
 	z->menv->ops->nvinv(x, z);
 }
 
-void CLASS_QUALIFIER
+void
 N_VAddConst(N_Vector x, realtype b, N_Vector z)
 {
 	z->menv->ops->nvaddconst(x, b, z);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VDotProd(N_Vector x, N_Vector y)
 {
 	realtype prod;
@@ -138,7 +132,7 @@ N_VDotProd(N_Vector x, N_Vector y)
 	return (prod);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VMaxNorm(N_Vector x)
 {
 	realtype norm;
@@ -146,7 +140,7 @@ N_VMaxNorm(N_Vector x)
 	return (norm);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VWrmsNorm(N_Vector x, N_Vector w)
 {
 	realtype norm;
@@ -154,7 +148,7 @@ N_VWrmsNorm(N_Vector x, N_Vector w)
 	return (norm);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VMin(N_Vector x)
 {
 	realtype minval;
@@ -162,7 +156,7 @@ N_VMin(N_Vector x)
 	return (minval);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VWL2Norm(N_Vector x, N_Vector w)
 {
 	realtype norm;
@@ -170,7 +164,7 @@ N_VWL2Norm(N_Vector x, N_Vector w)
 	return (norm);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VL1Norm(N_Vector x)
 {
 	realtype norm;
@@ -178,19 +172,19 @@ N_VL1Norm(N_Vector x)
 	return (norm);
 }
 
-void CLASS_QUALIFIER
+void
 N_VOneMask(N_Vector x)
 {
 	x->menv->ops->nvonemask(x);
 }
 
-void CLASS_QUALIFIER
+void
 N_VCompare(realtype c, N_Vector x, N_Vector z)
 {
 	z->menv->ops->nvcompare(c, x, z);
 }
 
-booleantype CLASS_QUALIFIER
+booleantype
 N_VInvTest(N_Vector x, N_Vector z)
 {
 	booleantype flag;
@@ -198,7 +192,7 @@ N_VInvTest(N_Vector x, N_Vector z)
 	return (flag);
 }
 
-booleantype CLASS_QUALIFIER
+booleantype
 N_VConstrProdPos(N_Vector c, N_Vector x)
 {
 	booleantype flag;
@@ -206,7 +200,7 @@ N_VConstrProdPos(N_Vector c, N_Vector x)
 	return (flag);
 }
 
-booleantype CLASS_QUALIFIER
+booleantype
 N_VConstrMask(N_Vector c, N_Vector x, N_Vector m)
 {
 	booleantype flag;
@@ -214,7 +208,7 @@ N_VConstrMask(N_Vector c, N_Vector x, N_Vector m)
 	return (flag);
 }
 
-realtype CLASS_QUALIFIER
+realtype
 N_VMinQuotient(N_Vector num, N_Vector denom)
 {
 	realtype quotient;
@@ -222,7 +216,7 @@ N_VMinQuotient(N_Vector num, N_Vector denom)
 	return (quotient);
 }
 
-void CLASS_QUALIFIER
+void
 N_VPrint(N_Vector x)
 {
 	x->menv->ops->nvprint(x);

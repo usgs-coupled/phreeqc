@@ -1,7 +1,5 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#define CLASS_QUALIFIER
-#define STATIC static
 #endif
 #include "global.h"
 #include "phqalloc.h"
@@ -3243,7 +3241,7 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	pThis->rate_sim_time = pThis->cvode_rate_sim_time;
 
 	initial_rates =
-		(LDBLE *) PHRQ_malloc((size_t) n_reactions * sizeof(LDBLE));
+		(LDBLE *) pThis->PHRQ_malloc((size_t) n_reactions * sizeof(LDBLE));
 	if (initial_rates == NULL)
 		pThis->malloc_error();
 

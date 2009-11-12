@@ -44,7 +44,7 @@ LDBLE sum_match_s_s(const char *stemplate, const char *name);
 int match_elts_in_species(const char *name, const char *stemplate);
 int extract_bracket(char **string, char *bracket_string);
 LDBLE surf_total(const char *total_name, const char *surface_name);
-int system_species_compare(const void *ptr1, const void *ptr2);
+static int system_species_compare(const void *ptr1, const void *ptr2);
 LDBLE system_total(const char *total_name, LDBLE * count, char ***names,
 				   char ***types, LDBLE ** moles);
 int system_total_elements(void);
@@ -285,7 +285,7 @@ int reinitialize(void);
 int copier_add(struct copier *copier_ptr, int n_user, int start, int end);
 int copier_free(struct copier *copier_ptr);
 int copier_init(struct copier *copier_ptr);
-int element_compare(const void *ptr1, const void *ptr2);
+static int element_compare(const void *ptr1, const void *ptr2);
 struct element *element_store(const char *element);
 int elt_list_combine(void);
 static int elt_list_compare(const void *ptr1, const void *ptr2);
@@ -353,7 +353,7 @@ struct kinetics *kinetics_bsearch(int k, int *n);
 int kinetics_delete(int n_user_old);
 int kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr,
 							struct kinetics_comp *kinetics_comp_old_ptr);
-int kinetics_compare(const void *ptr1, const void *ptr2);
+static int kinetics_compare(const void *ptr1, const void *ptr2);
 int kinetics_copy(struct kinetics *kinetics_old_ptr,
 				  struct kinetics *kinetics_new_ptr, int n_user_new);
 int kinetics_copy_to_last(int n, int n_user);
@@ -373,7 +373,7 @@ struct logk *logk_store(char *name, int replace_if_found);
 struct logk *logk_search(char *name);
 
 struct master *master_alloc(void);
-int master_compare(const void *ptr1, const void *ptr2);
+static int master_compare(const void *ptr1, const void *ptr2);
 int master_delete(char *ptr);
 struct master *master_bsearch(const char *ptr);
 struct master *master_bsearch_primary(char *ptr);
@@ -394,7 +394,7 @@ struct pe_data *pe_data_free(struct pe_data *pe_data_ptr);
 int pe_data_store(struct pe_data **pe, const char *token);
 
 struct phase *phase_bsearch(const char *ptr, int *j, int print);
-int phase_compare(const void *ptr1, const void *ptr2);
+static int phase_compare(const void *ptr1, const void *ptr2);
 int phase_delete(int i);
 struct phase *phase_store(char *name);
 
@@ -431,7 +431,7 @@ LDBLE rxn_find_coef(struct reaction *r_ptr, const char *str);
 int rxn_free(struct reaction *rxn_ptr);
 int rxn_print(struct reaction *rxn_ptr);
 
-int s_compare(const void *ptr1, const void *ptr2);
+static int s_compare(const void *ptr1, const void *ptr2);
 int s_delete(int i);
 struct species *s_search(const char *name);
 struct species *s_store(char *name, LDBLE z, int replace_if_found);
@@ -459,7 +459,7 @@ int s_s_assemblage_sort(void);
 static int s_s_compare(const void *ptr1, const void *ptr2);
 
 struct save_values *save_values_bsearch(struct save_values *k, int *n);
-int save_values_compare(const void *ptr1, const void *ptr2);
+static int save_values_compare(const void *ptr1, const void *ptr2);
 int save_values_sort(void);
 int save_values_store(struct save_values *s_v);
 
@@ -488,8 +488,10 @@ struct Change_Surf *change_surf_alloc(int count);
 struct surface *surface_alloc(void);
 struct surface *surface_bsearch(int k, int *n);
 struct master *surface_get_psi_master(const char *name, int plane);
-int surface_comp_compare(const void *ptr1, const void *ptr2);
+static int surface_comp_compare(const void *ptr1, const void *ptr2);
 static int surface_charge_compare(const void *ptr1, const void *ptr2);
+struct surface_charge * surface_charge_duplicate(struct surface_charge *charge_old_ptr);
+int surface_charge_free(struct surface_charge *charge);
 static int surface_compare(const void *ptr1, const void *ptr2);
 int surface_copy(struct surface *surface_old_ptr,
 				 struct surface *surface_new_ptr, int n_user_new);
@@ -530,17 +532,25 @@ struct unknown *unknown_alloc(void);
 int unknown_delete(int i);
 int unknown_free(struct unknown *unknown_ptr);
 
+int entity_exists(char *name, int n_user);
 /* tally.c */
+
 void add_all_components_tally(void);
 int build_tally_table(void);
 int calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr);
 int diff_tally_table(void);
+int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
 int extend_tally_table(void);
 int free_tally_table(void);
 int fill_tally_table(int *n_user, int index_conservative, int n_buffer);
+int get_all_components(void);
 int get_tally_table_rows_columns(int *rows, int *columns);
 int get_tally_table_column_heading(int column, int *type, char *string);
 int get_tally_table_row_heading(int column, char *string);
+int print_tally_table(void);
+int set_reaction_moles(int n_user, LDBLE moles);
+int set_reaction_temperature(int n_user, LDBLE tc);
+int set_kinetics_time(int n_user, LDBLE step);
 int store_tally_table(LDBLE * array, int row_dim, int col_dim,
 					  LDBLE fill_factor);
 int zero_tally_table(void);
@@ -549,7 +559,11 @@ int zero_tally_table(void);
 int add_other_logk(LDBLE * source_k, int count_add_logk,
 				   struct name_coef *add_logk);
 int add_logks(struct logk *logk_ptr, int repeats);
+#if !defined(PHREEQC_CLASS)
 LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+#else
+LDBLE halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol);
+#endif
 int replace_solids_gases(void);
 int s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print);
 int select_log_k_expression(LDBLE * source_k, LDBLE * target_k);
@@ -590,7 +604,7 @@ void squeeze_white(char *s_l);
 int status(int count, const char *str);
 void str_tolower(char *str);
 void str_toupper(char *str);
-int strcmp_nocase(const char *str1, const char *str2);
+static int strcmp_nocase(const char *str1, const char *str2);
 int strcmp_nocase_arg1(const char *str1, const char *str2);
 char *string_duplicate(const char *token);
 char *string_hsave(const char *str);
@@ -598,7 +612,7 @@ char *string_pad(char *str, int i);
 int string_trim(char *str);
 int string_trim_right(char *str);
 int string_trim_left(char *str);
-LDBLE under(LDBLE xval);
+static LDBLE under(LDBLE xval);
 void zero_double(LDBLE * target, int n);
 
 #endif /* _INC_PHREEQC_H */

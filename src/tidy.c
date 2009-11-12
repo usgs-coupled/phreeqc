@@ -1,9 +1,11 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
 static int check_species_input(void);
@@ -39,18 +41,21 @@ LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
 static LDBLE f_spinodal(LDBLE x);
 static int solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
 static int s_s_calc_a0_a1(struct s_s *s_s_ptr);
+#endif
 #define ZERO_TOL 1.0e-30
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_model(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
 	int n_user, last;
 	int new_named_logk;
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 	/*
 	 * Determine if any new elements, species, phases have been read
 	 */
@@ -504,7 +509,7 @@ tidy_model(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_species_input(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -546,7 +551,7 @@ check_species_input(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 /* ---------------------------------------------------------------------- */
 {
@@ -583,7 +588,7 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_logk(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -607,7 +612,7 @@ tidy_logk(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_other_logk(LDBLE * source_k, int count_add_logk,
 			   struct name_coef *add_logk)
 /* ---------------------------------------------------------------------- */
@@ -664,7 +669,7 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_logks(struct logk *logk_ptr, int repeats)
 /* ---------------------------------------------------------------------- */
 {
@@ -721,7 +726,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 coef_in_master(struct master * master_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -747,7 +752,7 @@ coef_in_master(struct master * master_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 rewrite_eqn_to_secondary(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -807,7 +812,7 @@ rewrite_eqn_to_secondary(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 replace_solids_gases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -902,7 +907,7 @@ replace_solids_gases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 rewrite_eqn_to_primary(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -956,7 +961,7 @@ rewrite_eqn_to_primary(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1063,7 +1068,7 @@ tidy_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_inverse(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1461,7 +1466,7 @@ tidy_inverse(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1533,7 +1538,7 @@ tidy_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1629,7 +1634,7 @@ tidy_pp_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1813,7 +1818,7 @@ tidy_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_punch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2114,7 +2119,7 @@ tidy_punch(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2370,7 +2375,7 @@ tidy_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2494,7 +2499,7 @@ tidy_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_solutions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2603,7 +2608,7 @@ tidy_solutions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 species_rxn_to_trxn(struct species *s_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2631,7 +2636,7 @@ species_rxn_to_trxn(struct species *s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2672,7 +2677,7 @@ phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2889,7 +2894,7 @@ tidy_isotopes(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_kin_exchange(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -2999,7 +3004,7 @@ tidy_kin_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_min_exchange(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3132,7 +3137,7 @@ tidy_min_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_min_surface(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3320,7 +3325,7 @@ tidy_min_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_kin_surface(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3539,7 +3544,7 @@ tidy_kin_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -3653,6 +3658,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 			{
 
 				/* find first spinodal pt */
+				xsm1 = halve(f_spinodal, x0, x1, tol);
 				xsm1 = halve(f_spinodal, x0, x1, tol);
 				s_s_ptr->spinodal = TRUE;
 
@@ -3824,9 +3830,9 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	}
 	return (OK);
 }
-
+#if !defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
@@ -3847,17 +3853,6 @@ halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 		{
 			break;
 		}
-#ifdef SKIP
-		if (y0 * y < 0)
-		{
-			x1 = x;
-		}
-		else
-		{
-			x0 = x;
-			y0 = y;
-		}
-#endif
 		if (y0 * y >= 0)
 		{
 			x0 = x;
@@ -3866,9 +3861,41 @@ halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
 	}
 	return (x0 + dx);
 }
-
+#else
 /* ---------------------------------------------------------------------- */
-static int
+LDBLE CLASS_QUALIFIER
+halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
+/* ---------------------------------------------------------------------- */
+{
+	int i;
+	LDBLE x, y, y0, dx;
+
+	y0 = f(x0, this);
+	dx = (x1 - x0);
+/*
+ *  Loop for interval halving
+ */
+	for (i = 0; i < 100; i++)
+	{
+		dx *= 0.5;
+		x = x0 + dx;
+		y = f(x, this);
+		if (dx < tol || y == 0)
+		{
+			break;
+		}
+		if (y0 * y >= 0)
+		{
+			x0 = x;
+			y0 = y;
+		}
+	}
+	return (x0 + dx);
+}
+#endif
+#if !defined(PHREEQC_CLASS)
+/* ---------------------------------------------------------------------- */
+STATIC int CLASS_QUALIFIER
 scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1)
 /* ---------------------------------------------------------------------- */
 {
@@ -3899,9 +3926,43 @@ scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1)
 	}
 	return (FALSE);
 }
-
+#else
 /* ---------------------------------------------------------------------- */
-static LDBLE
+STATIC int CLASS_QUALIFIER
+scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1)
+/* ---------------------------------------------------------------------- */
+{
+	int i, j;
+	LDBLE fx0, fx1, divisions;
+	LDBLE x0, x1, diff;
+
+	x0 = *xx0;
+	x1 = *xx1;
+	diff = x1 - x0;
+	for (j = 0; j < 3; j++)
+	{
+		fx0 = f(x0, this);
+		divisions = (int) pow((LDBLE) 10, (LDBLE) j);
+		for (i = 1; i < divisions; i++)
+		{
+			x1 = *xx0 + diff * (LDBLE) i / divisions;
+			fx1 = f(x1, this);
+			if (fx0 * fx1 <= 0)
+			{
+				*xx0 = x0;
+				*xx1 = x1;
+				return (TRUE);
+			}
+			x0 = x1;
+			fx0 = fx1;
+		}
+	}
+	return (FALSE);
+}
+#endif
+#if !defined(PHREEQC_CLASS)
+/* ---------------------------------------------------------------------- */
+STATIC LDBLE CLASS_QUALIFIER
 f_spinodal(LDBLE x)
 /* ---------------------------------------------------------------------- */
 {
@@ -3911,9 +3972,25 @@ f_spinodal(LDBLE x)
 		1.0;
 	return (fx);
 }
+#else
+/* ---------------------------------------------------------------------- */
+STATIC LDBLE CLASS_QUALIFIER
+f_spinodal(LDBLE x, void * cookie)
+/* ---------------------------------------------------------------------- */
+{
+	LDBLE fx;
+	Phreeqc * pThis;
+	pThis = (Phreeqc *) cookie;
+	fx = -12 * pThis->a1 * x * x * x + (18 * pThis->a1 - 
+		2 * pThis->a0) * x * x + (2 * pThis->a0 -
+		6 * pThis->a1) * x - 1.0;
+	return (fx);
+}
+#endif
+
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 slnq(int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -4042,7 +4119,7 @@ slnq(int n, LDBLE * a, LDBLE * delta, int ncols, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
@@ -4148,7 +4225,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 s_s_calc_a0_a1(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4511,7 +4588,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_master_isotope(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4547,7 +4624,7 @@ tidy_master_isotope(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4594,7 +4671,7 @@ tidy_isotope_ratios(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4633,7 +4710,7 @@ tidy_isotope_alphas(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reset_last_model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4666,7 +4743,7 @@ reset_last_model(void)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 tidy_exchange(void)
 /* ---------------------------------------------------------------------- */
 /*

@@ -1865,7 +1865,7 @@ struct system_species *sys;
 int count_sys, max_sys;
 
 LDBLE sys_tot;
-LDBLE AA, BB, CC, I_m, rho_0;
+LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
 LDBLE solution_mass, solution_volume;
 LDBLE f_rho(LDBLE rho_old);
 #endif /* _INC_GLOBAL_H */

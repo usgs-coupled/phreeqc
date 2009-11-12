@@ -1,7 +1,7 @@
-
 #if defined(WIN32)
 #include <windows.h>
 #endif
+
 /* Run-time library for use with "p2c", the Pascal to C translator */
 
 /* "p2c"  Copyright (C) 1989, 1990, 1991 Free Software Foundation.
@@ -23,6 +23,9 @@
 
 #define Isspace(c)  isspace(c)	/* or "((c) == ' ')" if preferred */
 
+#if !defined(PHREEQC_CLASS)
+#define EXTERNAL extern
+#endif
 
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] =
@@ -46,7 +49,8 @@ __p2c_jmp_buf *__top_jb;
 #endif /* PHREEQC_CLASS */
 
 Void CLASS_QUALIFIER
-PASCAL_MAIN(int argc, char **argv)
+//PASCAL_MAIN(int argc, char **argv)
+PASCAL_MAIN(int argc, Char **argv)
 {
 	//if (svnid == NULL)
 	//	fprintf(stderr, " ");
@@ -885,19 +889,19 @@ P_sun_argv(register char *s, register int len, register int n)
 
 
 
-int 
+int  CLASS_QUALIFIER
 _OutMem(void)
 {
 	return _Escape(-2);
 }
 
-int 
+int  CLASS_QUALIFIER
 _CaseCheck(void)
 {
 	return _Escape(-9);
 }
 
-int 
+int  CLASS_QUALIFIER
 _NilCheck(void)
 {
 	return _Escape(-3);
@@ -916,7 +920,7 @@ _ShowEscape(buf, code, ior, prefix)
 	 char *buf, *prefix;
 	 int code, ior;
 #endif
-	 static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
+static char *_ShowEscape(char *buf, int code, int ior, char *prefix)
 {
 	char *bufp;
 

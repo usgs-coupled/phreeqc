@@ -105,6 +105,145 @@ Phreeqc::Phreeqc(void)
 		keyword[i].name = string_duplicate(keyword_temp[i].name);
 		keyword[i].keycount = 0;
 	}
+
+
+
+	// basic.c
+	struct const_key command_temp[] = {
+		{"and", tokand},
+		{"or", tokor},
+		{"xor", tokxor},
+		{"not", toknot},
+		{"mod", tokmod},
+		{"sqr", toksqr},
+		{"sqrt", toksqrt},
+		{"sin", toksin},
+		{"cos", tokcos},
+		{"tan", toktan},
+		{"arctan", tokarctan},
+		{"log", toklog},
+		{"exp", tokexp},
+		{"abs", tokabs},
+		{"sgn", toksgn},
+		{"str$", tokstr_},
+		{"val", tokval},
+		{"chr$", tokchr_},
+		{"asc", tokasc},
+		{"len", toklen},
+		{"mid$", tokmid_},
+		{"peek", tokpeek},
+		{"let", toklet},
+		{"print", tokprint},
+		{"punch", tokpunch},
+#ifdef PHREEQ98
+		{"graph_x", tokgraph_x},
+		{"graph_y", tokgraph_y},
+		{"graph_sy", tokgraph_sy},
+#endif
+		{"input", tokinput},
+		{"goto", tokgoto},
+		{"go to", tokgoto},
+		{"if", tokif},
+		{"end", tokend},
+		{"stop", tokstop},
+		{"for", tokfor},
+		{"next", toknext},
+		{"while", tokwhile},
+		{"wend", tokwend},
+		{"gosub", tokgosub},
+		{"return", tokreturn},
+		{"read", tokread},
+		{"data", tokdata},
+		{"restore", tokrestore},
+		{"gotoxy", tokgotoxy},
+		{"on", tokon},
+		{"dim", tokdim},
+		{"poke", tokpoke},
+		{"list", toklist},
+		{"run", tokrun},
+		{"new", toknew},
+		{"load", tokload},
+		{"merge", tokmerge},
+		{"save", toksave},
+		{"bye", tokbye},
+		{"quit", tokbye},
+		{"del", tokdel},
+		{"renum", tokrenum},
+		{"then", tokthen},
+		{"else", tokelse},
+		{"to", tokto},
+		{"step", tokstep},
+		{"tc", toktc},
+		{"tk", toktk},
+		{"time", toktime},
+		{"sim_time", toksim_time},
+		{"total_time", toktotal_time},
+		{"m0", tokm0},
+		{"m", tokm},
+		{"parm", tokparm},
+		{"act", tokact},
+		{"edl", tokedl},
+		{"surf", toksurf},
+		{"equi", tokequi},
+		{"kin", tokkin},
+		{"gas", tokgas},
+		{"s_s", toks_s},
+		{"misc1", tokmisc1},
+		{"misc2", tokmisc2},
+		{"mu", tokmu},
+		{"osmotic", tokosmotic},
+		{"alk", tokalk},
+		{"lk_species", toklk_species},
+		{"lk_named", toklk_named},
+		{"lk_phase", toklk_phase},
+		{"sum_species", toksum_species},
+		{"sum_gas", toksum_gas},
+		{"sum_s_s", toksum_s_s},
+		{"calc_value", tokcalc_value},
+		{"description", tokdescription},
+		{"sys", toksys},
+		{"instr", tokinstr},
+		{"ltrim", tokltrim},
+		{"rtrim", tokrtrim},
+		{"trim", toktrim},
+		{"pad", tokpad},
+		{"rxn", tokrxn},
+		{"dist", tokdist},
+		{"mol", tokmol},
+		{"la", tokla},
+		{"lm", toklm},
+		{"sr", toksr},
+		{"si", toksi},
+		{"step_no", tokstep_no},
+		{"cell_no", tokcell_no},
+		{"sim_no", toksim_no},
+		{"tot", toktot},
+		{"log10", toklog10},
+		{"charge_balance", tokcharge_balance},
+		{"percent_error", tokpercent_error},
+		{"put", tokput},
+		{"get", tokget},
+		{"exists", tokexists},
+		{"rem", tokrem},
+		{"change_por", tokchange_por},
+		{"get_por", tokget_por},
+		{"change_surf", tokchange_surf},
+		{"porevolume", tokporevolume},
+		{"sc", toksc},
+		{"gamma", tokgamma},
+		/* VP: Density Start */
+		{"lg", toklg},
+		{"rho", tokrho}
+		/* VP: Density End */
+	};
+	NCMDS = (sizeof(command) / sizeof(struct const_key));
+	command = new const_key[NCMDS];
+	for (i = 0; i < NCMDS; i++)
+	{
+		command[i].name = string_duplicate(command_temp[i].name);
+		command[i].keycount = 0;
+	}
+
 	//cl1.c
 	x_arg = NULL, res_arg = NULL, scratch = NULL;
 	x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
@@ -168,8 +307,16 @@ Phreeqc::~Phreeqc(void)
 		keyword[i].name = (char *) free_check_null((void *) keyword[i].name);
 	}
 	delete[] keyword;
-
+	for (i = 0; i < NCMDS; i++)
+	{
+		command[i].name = (char *) free_check_null((void *) command[i].name);
+	}
+	delete[] command;
 	free_check_null(default_data_base);
 
-	//this->clean_up();
+	this->clean_up();
+}
+void Phreeqc::set_phast(int tf)
+{
+	this->phast = tf;
 }

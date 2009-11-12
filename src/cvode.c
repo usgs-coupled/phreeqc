@@ -1,4 +1,5 @@
 /*#define DEBUG_CVODE*/
+#include "Phreeqc.h"
 //extern char *error_string;
 /*******************************************************************
  *                                                                 *

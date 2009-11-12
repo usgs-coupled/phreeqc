@@ -1,9 +1,12 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] =
 	"$Id$";
 
@@ -21,15 +24,18 @@ extern int clean_up_null(void);
 #endif
 
 static int isamong(char c, const char *s_l);
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
 	struct elt_list *elt_list_ptr1;
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 
 	if (elt_list_ptr == NULL)
 		return (OK);
@@ -50,7 +56,7 @@ add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_alk(struct reaction * rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -81,7 +87,7 @@ calc_alk(struct reaction * rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 compute_gfw(const char *string, LDBLE * gfw)
 /* ---------------------------------------------------------------------- */
 {
@@ -114,7 +120,7 @@ compute_gfw(const char *string, LDBLE * gfw)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 copy_token(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -195,7 +201,7 @@ copy_token(char *token_ptr, char **ptr, int *length)
 
 #ifdef PHREEQ98
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 copy_title(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -282,7 +288,7 @@ copy_title(char *token_ptr, char **ptr, int *length)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 dup_print(const char *ptr, int emphasis)
 /* ---------------------------------------------------------------------- */
 {
@@ -331,7 +337,7 @@ dup_print(const char *ptr, int emphasis)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 equal(LDBLE a, LDBLE b, LDBLE eps)
 /* ---------------------------------------------------------------------- */
 {
@@ -344,7 +350,7 @@ equal(LDBLE a, LDBLE b, LDBLE eps)
 }
 
 /* ---------------------------------------------------------------------- */
-void *
+void * CLASS_QUALIFIER
 free_check_null(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -356,7 +362,7 @@ free_check_null(void *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_token(char **eqnaddr, char *string, LDBLE * z, int *l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -502,7 +508,7 @@ get_token(char **eqnaddr, char *string, LDBLE * z, int *l)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 isamong(char c, const char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -530,7 +536,7 @@ isamong(char c, const char *s_l)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 islegit(const char c)
 /* ---------------------------------------------------------------------- */
 /*
@@ -552,7 +558,7 @@ islegit(const char c)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 malloc_error(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -562,7 +568,7 @@ malloc_error(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 parse_couple(char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -691,7 +697,7 @@ parse_couple(char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_centered(const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -717,7 +723,7 @@ print_centered(const char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 replace(const char *str1, const char *str2, char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -789,7 +795,7 @@ replace(const char *str1, const char *str2, char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 space(void **ptr, int i, int *max, int struct_size)
 /* ---------------------------------------------------------------------- */
 {
@@ -863,7 +869,7 @@ space(void **ptr, int i, int *max, int struct_size)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 squeeze_white(char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -887,7 +893,7 @@ squeeze_white(char *s_l)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 str_tolower(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -904,7 +910,7 @@ str_tolower(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 str_toupper(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -921,7 +927,7 @@ str_toupper(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 strcmp_nocase(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
@@ -940,7 +946,7 @@ strcmp_nocase(const char *str1, const char *str2)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 strcmp_nocase_arg1(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
@@ -959,7 +965,7 @@ strcmp_nocase_arg1(const char *str1, const char *str2)
 }
 
 /* ---------------------------------------------------------------------- */
-char *
+char * CLASS_QUALIFIER
 string_duplicate(const char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -977,7 +983,7 @@ string_duplicate(const char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-char *
+char * CLASS_QUALIFIER
 string_hsave(const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1008,7 +1014,7 @@ string_hsave(const char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 under(LDBLE xval)
 /* ---------------------------------------------------------------------- */
 {
@@ -1028,12 +1034,12 @@ under(LDBLE xval)
 		return (1.0e3);
 /*		return ( pow (10.0, MAX_LM));*/
 	}
-/*	return (pow (10.0, xval)); */
-	return (exp(xval * LOG_10));
+	return (pow (10.0, xval));
+/*	return (exp(xval * LOG_10)) */;
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 backspace_screen(int spaces)
 /* ---------------------------------------------------------------------- */
 {
@@ -1050,7 +1056,7 @@ backspace_screen(int spaces)
 
 #ifndef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 status(int count, const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1253,23 +1259,24 @@ extern int	free();
 /*
 ** Internal routines
 */
-
-static Address Hash_multi(HashTable * Table, char *Key);
-static void ExpandTable_multi(HashTable * Table);
+#if !defined(PHREEQC_CLASS)
+STATIC Address Hash_multi(HashTable * Table, char *Key);
+STATIC void ExpandTable_multi(HashTable * Table);
+#endif
 
 /*
 ** Local data
 */
 
 #ifdef HASH_STATISTICS
-static long HashAccesses, HashCollisions;
+STATIC long HashAccesses, HashCollisions;
 #endif
 
 /*
 ** Code
 */
 
-int
+int CLASS_QUALIFIER
 hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 {
 	int i;
@@ -1323,7 +1330,7 @@ hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 	return (1);
 }
 
-void
+void CLASS_QUALIFIER
 hdestroy_multi(HashTable * Table)
 {
 	int i, j;
@@ -1360,7 +1367,7 @@ hdestroy_multi(HashTable * Table)
 	}
 }
 
-ENTRY *
+CLASS_QUALIFIER ENTRY * CLASS_QUALIFIER
 hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 /* ACTION       FIND/ENTER	*/
 {
@@ -1425,7 +1432,7 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 ** Internal routines
 */
 
-static Address
+STATIC CLASS_QUALIFIER Address CLASS_QUALIFIER
 Hash_multi(HashTable * Table, char *Key)
 {
 	Address h, address;
@@ -1444,7 +1451,7 @@ Hash_multi(HashTable * Table, char *Key)
 	return (address);
 }
 
-void
+void CLASS_QUALIFIER
 ExpandTable_multi(HashTable * Table)
 {
 	Address NewAddress;
@@ -1520,7 +1527,7 @@ ExpandTable_multi(HashTable * Table)
 }
 
 
-void
+void CLASS_QUALIFIER
 free_hash_strings(HashTable * Table)
 {
 	int i, j;
@@ -1555,7 +1562,7 @@ free_hash_strings(HashTable * Table)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 string_trim(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1607,7 +1614,7 @@ string_trim(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 string_trim_right(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1642,7 +1649,7 @@ string_trim_right(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 string_trim_left(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1685,7 +1692,7 @@ string_trim_left(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-char *
+char * CLASS_QUALIFIER
 string_pad(char *str, int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -1721,7 +1728,7 @@ string_pad(char *str, int i)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 zero_double(LDBLE * target, int n)
 /* ---------------------------------------------------------------------- */
 {

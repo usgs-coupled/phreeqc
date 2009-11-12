@@ -1,4 +1,6 @@
-#define  EXTERNAL extern
+#if !defined(PHREEQC_CLASS)
+#define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -17,7 +19,7 @@ static char const svnid[] =
 //int count_sys, max_sys;
 //
 //LDBLE sys_tot;
-//LDBLE AA, BB, CC, I_m, rho_0;
+//LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
 //LDBLE solution_mass, solution_volume;
 //LDBLE f_rho(LDBLE rho_old);
 //extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
@@ -167,7 +169,7 @@ calc_dens (void)
   LDBLE phi_0_i, b_v_i, s_v_i, PHI_v, B_v, S_v;
 /*
   LDBLE k, I_m, I_v;
-  LDBLE AA, BB, CC;
+  LDBLE AA_basic, BB, CC;
 */
   LDBLE k;
   LDBLE gfw;
@@ -244,8 +246,8 @@ calc_dens (void)
   S_v /= e_T;
 
   k = e_T / I_m;
-  AA = k * (M_T - rho_0 * PHI_v);
-  BB = -k * rho_0 * S_v;
+  AA_basic = k * (M_T - rho_0 * PHI_v);
+  BB_basic = -k * rho_0 * S_v;
   CC = -k * rho_0 * B_v;
 
 /* DP: Replace Pickard iteration with interval halving */
@@ -254,11 +256,10 @@ calc_dens (void)
 	rho_old = rho_new;
 	solution_volume = solution_mass / rho_new / 1000;
 	if (solution_volume != 0) I_v = I_m / solution_volume;
-	rho_new = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
+	rho_new = AA_basic * I_v + BB_basic * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
 	rho_new = rho_new / 1000 + rho_0;
   } while ((fabs(rho_new - rho_old) > 1.0e-6) && (rho_new < 1.99999));
 #endif
-
   rho_new = halve(f_rho, 0.5, 2.0, 1e-7);
 /* DP: End Replace Pickard iteration with interval halving */
 
@@ -269,18 +270,38 @@ calc_dens (void)
 }
 /* VP: Density End */
 /* DP: Function for interval halving */
+#if !defined(PHREEQC_CLASS)
 LDBLE CLASS_QUALIFIER
 f_rho(LDBLE rho_old)
 /* ---------------------------------------------------------------------- */
 {
   LDBLE rho, I_v;
+
   solution_volume = solution_mass / rho_old / 1000;
   I_v = 1.0;
   if (solution_volume != 0) I_v = I_m / solution_volume;
-  rho = AA * I_v + BB * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
+  rho = AA_basic * I_v + BB_basic * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
   rho = rho / 1000 + rho_0;
   return (rho - rho_old);
 }
+#else
+LDBLE CLASS_QUALIFIER
+f_rho(LDBLE rho_old, void *cookie)
+/* ---------------------------------------------------------------------- */
+{
+  LDBLE rho, I_v;
+  Phreeqc * pThis;
+
+  pThis = (Phreeqc *) cookie;
+
+  pThis->solution_volume = pThis->solution_mass / rho_old / 1000;
+  I_v = 1.0;
+  if (pThis->solution_volume != 0) I_v = pThis->I_m / pThis->solution_volume;
+  rho = pThis->AA_basic * I_v + pThis->BB_basic * exp(1.5 * log(I_v)) + pThis->CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
+  rho = rho / 1000 + pThis->rho_0;
+  return (rho - rho_old);
+}
+#endif /* PHREEQC_CLASS */
 /* DP: End function for interval halving */
 
 /* ---------------------------------------------------------------------- */

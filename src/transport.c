@@ -1,8 +1,12 @@
-#define  EXTERNAL extern
+#if !defined(PHREEQC_CLASS)
+#define EXTERNAL extern
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] =
 	"$Id$";
 
@@ -70,9 +74,9 @@ LDBLE *temp1, *temp2;
 int nmix, heat_nmix;
 LDBLE heat_mix_f_imm, heat_mix_f_m;
 int warn_MCD_X, warn_fixed_Surf;
-
+#endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 transport(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -89,8 +93,10 @@ transport(void)
 	int punch_boolean;
 	LDBLE step_fraction;
 	LDBLE cb_tol;
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 
 	state = TRANSPORT;
 	diffc_tr = diffc;
@@ -899,7 +905,7 @@ transport(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 init_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1092,7 +1098,7 @@ init_mix(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mix_stag(int i, LDBLE kin_time, int punch, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -1226,7 +1232,7 @@ mix_stag(int i, LDBLE kin_time, int punch, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 init_heat_mix(int nmix)
 /* ---------------------------------------------------------------------- */
 {
@@ -1356,7 +1362,7 @@ init_heat_mix(int nmix)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 heat_mix(int heat_nmix)
 /* ---------------------------------------------------------------------- */
 {
@@ -1390,7 +1396,7 @@ heat_mix(int heat_nmix)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_initial_moles(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -1493,7 +1499,7 @@ set_initial_moles(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 fill_spec(int cell_no)
 /* ---------------------------------------------------------------------- */
 {
@@ -1680,7 +1686,7 @@ fill_spec(int cell_no)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sort_species_name(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1693,7 +1699,7 @@ sort_species_name(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
@@ -2011,7 +2017,7 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 fill_m_s(struct J_ij *J_ij, int J_ij_count_spec)
 /* ---------------------------------------------------------------------- */
 {
@@ -2065,7 +2071,7 @@ fill_m_s(struct J_ij *J_ij, int J_ij_count_spec)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
@@ -3069,7 +3075,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 disp_surf(LDBLE DDt)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3502,7 +3508,7 @@ disp_surf(LDBLE DDt)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 				 int k, LDBLE f2, struct surface *target, LDBLE new_Dw)
 /* ---------------------------------------------------------------------- */
@@ -3802,7 +3808,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3866,7 +3872,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mobile_surface_copy(struct surface *surface_old_ptr,
 					struct surface *surf_ptr1, int n_user_new, int move_old)
 /* ---------------------------------------------------------------------- */
@@ -4150,7 +4156,7 @@ mobile_surface_copy(struct surface *surface_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 diff_stag_surf(int mobile_cell)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4520,7 +4526,7 @@ diff_stag_surf(int mobile_cell)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 			  LDBLE new_Dw, int cell)
 /* ---------------------------------------------------------------------- */
