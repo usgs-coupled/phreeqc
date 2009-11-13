@@ -43,6 +43,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(DEV_GMP_INC_MT)"
 				PreprocessorDefinitions="USE_PHRQ_ALLOC;_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;_DEBUG;WIN32;_CONSOLE;DOS;PHREEQC_CLASS"
@@ -142,7 +143,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(DEV_GMP_INC_MT)"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;NDEBUG;WIN32;_CONSOLE;DOS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;NDEBUG;WIN32;_CONSOLE;DOS;PHREEQC_CLASS"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"

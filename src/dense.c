@@ -22,9 +22,12 @@
 #include "dense.h"
 #include "smalldense.h"
 #include "output.h"
-#include "phqalloc.h"
+
 /* WARNING don't include any headers below here */
+#if !defined(PHREEQC_CLASS)
+#include "phqalloc.h"
 #define malloc PHRQ_malloc
+#endif
 static char const svnid[] = "$Id$";
 
 #define ZERO RCONST(0.0)

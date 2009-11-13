@@ -9,7 +9,6 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "p2c.h"
-
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 

@@ -8,6 +8,14 @@
 
 Phreeqc::Phreeqc(void)
 {
+	s_pTail = NULL;
+	user_database = NULL;
+	output = NULL;
+	log_file = NULL;
+	punch_file = NULL;
+	dump_file = NULL;
+	error_file = NULL;
+
 	struct const_key keyword_temp[] = {
 	{"eof", 0},
 	{"end", 0},
@@ -265,8 +273,8 @@ Phreeqc::Phreeqc(void)
 	zero =	NULL;
 	delta1 = NULL;
 	iu = NULL;
-	*is = NULL;
-	*back_eq = NULL;
+	is = NULL;
+	back_eq = NULL;
 	normal_max = 0;
 	ineq_array_max = 0;
 	res_max = 0;
@@ -283,7 +291,7 @@ Phreeqc::Phreeqc(void)
 	forward_output_to_log = 0;
 
 	// phqalloc.c
-	s_pTail = NULL;
+	//s_pTail = NULL;
 
 	// phreeqc_files.c
 
@@ -314,7 +322,7 @@ Phreeqc::~Phreeqc(void)
 	delete[] command;
 	free_check_null(default_data_base);
 
-	this->clean_up();
+	//this->clean_up();
 }
 void Phreeqc::set_phast(int tf)
 {

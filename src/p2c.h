@@ -833,13 +833,12 @@ typedef struct
 //extern Void PASCAL_MAIN(int, Char **);
 //Void PASCAL_MAIN(int, Char **);
 
-extern Char    **P_argv;
-extern int     P_argc;
+Char    **P_argv;
+int     P_argc;
 
-//extern int P_escapecode;
-//extern int P_ioresult;
-//extern __p2c_jmp_buf *__top_jb;
-
+int P_escapecode;
+int P_ioresult;
+__p2c_jmp_buf *__top_jb;
 
 #ifdef P2C_H_PROTO				/* if you have Ansi C but non-prototyped header files */
 extern Char *strcat P2PP((Char *, Const Char *));
@@ -873,14 +872,15 @@ extern long strtol P2PP((Const Char *, Char **, int));
 extern Anyptr malloc P2PP((size_t));
 extern Void free P2PP((Anyptr));
 #endif
+#ifdef SKIP
 
-//extern int _OutMem PV();
-//extern int _CaseCheck PV();
-//extern int _NilCheck PV();
-/*extern int	_Escape     P2PP( (int) );*/
-//extern int _Escape(int);
-/*extern int	_EscIO      P2PP( (int) );*/
-//extern int _EscIO(int);
+extern int _OutMem PV();
+extern int _CaseCheck PV();
+extern int _NilCheck PV();
+extern int	_Escape     P2PP( (int) );
+extern int _Escape(int);
+extern int	_EscIO      P2PP( (int) );
+extern int _EscIO(int);
 extern long ipow P2PP((long, long));
 extern Char *strsub P2PP((Char *, Char *, int, int));
 extern Char *strltrim P2PP((Char *));
@@ -912,7 +912,7 @@ extern long P_packset P2PP((long *));
 extern int P_getcmdline P2PP((int, int, Char *));
 extern Void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
 extern Void P_sun_argv P2PP((char *, int, int));
-
+#endif
 
 /* I/O error handling */
 #define _CHKIO(cond,ior,val,def)  ((cond) ? P_ioresult=0,(val)  \
@@ -1078,6 +1078,9 @@ extern Anyptr my_memset P2PP((Anyptr, int, size_t));
 #  define _tolower(c)  tolower(c)
 # endif
 #endif
+
+
+
 
 #endif /* PHREEQC_CLASS */
 #endif /* P2C_H */

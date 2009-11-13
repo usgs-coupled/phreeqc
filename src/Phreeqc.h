@@ -17,7 +17,13 @@
 #include <assert.h>
 #include <setjmp.h>
 #include "phrqtype.h"
-
+#include "sundialstypes.h"
+#include "nvector.h"
+#include "cvdense.h"	
+#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
+							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
+#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
+#include "nvector.h"
 /* #define NO_DOS */
 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
 #if defined (PHREEQ98) || defined (_MSC_VER) 
@@ -178,6 +184,7 @@ private:
 struct _generic_N_Vector;
 struct calculate_value;
 struct conc;
+struct CVodeMemRec;
 struct element;
 struct exchange;
 struct exch_comp;
@@ -199,7 +206,7 @@ struct master_isotope;
 struct mix;
 struct mix_comp;
 struct name_coef;
-struct output_callback;
+//struct output_callback;
 struct pe_data;
 struct phase;
 struct PHRQMemHeader;
@@ -231,14 +238,14 @@ struct unknown;
 #define KINETICS_EXTERNAL 
 #include "sundialstypes.h"		/* definitions of types realtype and                        */
 							 /* integertype, and the constant FALSE            */
-#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
+//#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
 							 /* CVodeFree, constants OPT_SIZE, BDF, NEWTON,   */
 							 /* SV, SUCCESS, NST,NFE,NSETUPS, NNI, NCFN, NETF */
-#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
-#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
-							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
-#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
-#include "nvector.h"
+//#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
+//#include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
+//							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
+//#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
+//#include "nvector.h"
 #define extern
 #include "p2c.h"
 #undef extern 
@@ -1823,6 +1830,8 @@ struct system
 LDBLE pore_volume;
 
 //***************************** end of global.h *****************************
+//#include "cvkinetics.h"
+//cvkinetics cvphreeqc;
 
 // basic.c -------------------------------
 //static char const svnid[] = "$Id: basic.c 3490 2009-05-13 17:00:08Z dlpark $";
@@ -2349,6 +2358,7 @@ int master_isotope_init(struct master_isotope *master_isotope_ptr);
 //#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
 //#include "nvector.h"
 //#include "kinetics.h"
+public:
  void *cvode_kinetics_ptr;
  int cvode_test;
  int cvode_error;
@@ -2373,7 +2383,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 				N_Vector y, N_Vector fy, N_Vector ewt, realtype h,
 				realtype uround, void *jac_data, long int *nfePtr,
 				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
-
+private:
 int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
 int calc_kinetic_reaction(struct kinetics *kinetics_ptr,
 								 LDBLE time_step);
@@ -2436,8 +2446,9 @@ int normal_max, ineq_array_max, res_max, cu_max, zero_max,
 	delta1_max, iu_max, is_max, back_eq_max;
 
 // output.c -------------------------------
-private:
+public:
   #include "output.h"
+private:
 #define MAX_CALLBACKS 10
 //struct output_callback output_callbacks[MAX_CALLBACKS];
 //size_t count_output_callback = 0;
@@ -2454,6 +2465,7 @@ int get_secondary(char **t_ptr, char *element, int *i);
 int get_species(char **ptr);
 
 // phqalloc.c -------------------------------
+public:
 #if !defined(NDEBUG)
 void *PHRQ_malloc(size_t, const char *, int);
 void *PHRQ_calloc(size_t, size_t, const char *, int);
@@ -2463,6 +2475,8 @@ void *PHRQ_malloc(size_t);
 void *PHRQ_calloc(size_t, size_t);
 void *PHRQ_realloc(void *, size_t);
 #endif
+void PHRQ_free(void *ptr);
+private:
 typedef struct PHRQMemHeader
 {
 	struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
@@ -2476,7 +2490,7 @@ typedef struct PHRQMemHeader
 } PHRQMemHeader;
 //PHRQMemHeader *s_pTail = NULL;
 PHRQMemHeader *s_pTail;
-void PHRQ_free(void *ptr);
+
 void PHRQ_free_all(void);
 
 
@@ -2523,7 +2537,7 @@ static int rewind_wrapper(FILE * file_ptr);
 //#undef extern 
 //int P_argc;
 //char **P_argv;
-char *_ShowEscape(char *buf, int code, int ior, char *prefix);
+//char *_ShowEscape(char *buf, int code, int ior, char *prefix);
 
 //int P_escapecode;
 //int P_ioresult;
@@ -2533,17 +2547,159 @@ char *_ShowEscape(char *buf, int code, int ior, char *prefix);
 //Anyptr __MallocTemp__;
 
 //__p2c_jmp_buf *__top_jb;
-Void PASCAL_MAIN(int argc, char **argv);
-int _Escape(int code);
-int _EscIO(int code);
-int  _OutMem(void);
-int  _CaseCheck(void);
-int  _NilCheck(void);
-int P_escapecode;
-int P_ioresult;
-__p2c_jmp_buf *__top_jb;
+//Void PASCAL_MAIN(int argc, char **argv);
+//int _Escape(int code);
+//int _EscIO(int code);
+//int  _OutMem(void);
+//int  _CaseCheck(void);
+//int  _NilCheck(void);
+//int P_escapecode;
+//int P_ioresult;
+//__p2c_jmp_buf *__top_jb;
 //#endif /* SKIP_SOME */
+Void 
+PASCAL_MAIN(int argc, Char **argv);
 
+long  
+my_labs(long x);
+
+Anyptr  
+my_memmove(Anyptr d, Const Anyptr s, size_t n);
+
+Anyptr  
+my_memcpy(Anyptr d, Const Anyptr s, size_t n);
+
+
+int 
+my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n);
+
+Anyptr 
+my_memset(Anyptr d, int c, size_t n);
+
+
+int 
+my_toupper(int c);
+
+
+int 
+my_tolower(int c);
+
+long 
+ipow(long a, long b);
+
+char * 
+strsub(register char *ret, register char *s, register int pos,
+	   register int len);
+
+int 
+strpos2(char *s, register char *pat, register int pos);
+
+int 
+strcicmp(register char *s1, register char *s2);
+
+char * 
+strltrim(register char *s);
+
+char * 
+strrtrim(register char *s);
+
+void 
+strmove(register int len, register char *s, register int spos,
+		register char *d, register int dpos);
+
+void 
+strinsert(register char *src, register char *dst, register int pos);
+
+
+int 
+P_peek(FILE * f);
+
+
+int  
+P_eof(void);
+
+
+int 
+P_eoln(FILE * f);
+
+Void 
+P_readpaoc(FILE * f, char *s, int len);
+
+Void 
+P_readlnpaoc(FILE * f, char *s, int len);
+
+long 
+P_maxpos(FILE * f);
+
+Char * 
+P_trimname(register Char * fn, register int len);
+
+
+long 
+memavail(void);
+
+long 
+maxavail(void);
+
+long * 
+P_setunion(register long *d, register long *s1, register long *s2);
+
+long * 
+P_setint(register long *d, register long *s1, register long *s2);
+
+long * 
+P_setdiff(register long *d, register long *s1, register long *s2);
+
+long * 
+P_setxor(register long *d, register long *s1, register long *s2);
+
+long * 
+P_addset(register long *s, register unsigned val);
+
+
+long * 
+P_addsetr(register long *s, register unsigned v1, register unsigned v2);
+
+long * 
+P_remset(register long *s, register unsigned val);
+
+int 
+P_setequal(register long *s1, register long *s2);
+
+
+int 
+P_subset(register long *s1, register long *s2);
+
+
+long * 
+P_setcpy(register long *d, register long *s);
+
+
+long * 
+P_expset(register long *d, register long s);
+
+
+long 
+P_packset(register long *s);	
+
+int  
+_OutMem(void);
+
+int  
+_CaseCheck(void);
+
+int  
+_NilCheck(void);
+
+static char *
+_ShowEscape(char *buf, int code, int ior, char *prefix);
+
+int 
+_Escape(int code);
+
+
+int 
+_EscIO(int code);
 // pitzer.c -------------------------------
 #define PITZER_EXTERNAL
 #include "pitzer.h"
@@ -3037,8 +3193,109 @@ int isamong(char c, const char *s_l);
 Address Hash_multi(HashTable * Table, char *Key);
 void ExpandTable_multi(HashTable * Table);
 
-
-
+//// cvdense.c -------------------------------
+//typedef struct
+//{
+//
+//	CVDenseJacFn d_jac;			/* jac = Jacobian routine to be called    */
+//
+//	DenseMat d_M;				/* M = I - gamma J, gamma = h / l1        */
+//
+//	integertype *d_pivots;		/* pivots = pivot array for PM = LU       */
+//
+//	DenseMat d_savedJ;			/* savedJ = old Jacobian                  */
+//
+//	long int d_nstlj;			/* nstlj = nst at last Jacobian eval.     */
+//
+//	long int d_nje;				/* nje = no. of calls to jac              */
+//
+//	void *d_J_data;				/* J_data is passed to jac                */
+//
+//} CVDenseMemRec, *CVDenseMem;
+//
+//
+///* CVDENSE linit, lsetup, lsolve, lfree, and DQJac routines */
+//
+//static int CVDenseInit(CVodeMem cv_mem);
+//
+//static int CVDenseSetup(CVodeMem cv_mem, int convfail, N_Vector ypred,
+//						N_Vector fpred, booleantype * jcurPtr,
+//						N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
+//
+//static int CVDenseSolve(CVodeMem cv_mem, N_Vector b, N_Vector ycur,
+//						N_Vector fcur);
+//
+//static void CVDenseFree(CVodeMem cv_mem);
+//
+//static void CVDenseDQJac(integertype N, DenseMat J, RhsFn f, void *f_data,
+//						 realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
+//						 realtype h, realtype uround, void *jac_data,
+//						 long int *nfePtr, N_Vector vtemp1,
+//						 N_Vector vtemp2, N_Vector vtemp3);
+//
+//// cvode.c -------------------------------
+//STATIC booleantype CVAllocVectors(CVodeMem cv_mem, integertype neq,
+//								  int maxord, M_Env machEnv);
+//STATIC void CVFreeVectors(CVodeMem cv_mem, int maxord);
+//
+//STATIC booleantype CVEwtSet(CVodeMem cv_mem, N_Vector ycur);
+//STATIC booleantype CVEwtSetSS(CVodeMem cv_mem, N_Vector ycur);
+//STATIC booleantype CVEwtSetSV(CVodeMem cv_mem, N_Vector ycur);
+//
+//STATIC booleantype CVHin(CVodeMem cv_mem, realtype tout);
+//STATIC realtype CVUpperBoundH0(CVodeMem cv_mem, realtype tdist);
+//STATIC realtype CVYddNorm(CVodeMem cv_mem, realtype hg);
+//
+//STATIC int CVStep(CVodeMem cv_mem);
+//
+//STATIC int CVsldet(CVodeMem cv_mem);
+//
+//STATIC void CVAdjustParams(CVodeMem cv_mem);
+//STATIC void CVAdjustOrder(CVodeMem cv_mem, int deltaq);
+//STATIC void CVAdjustAdams(CVodeMem cv_mem, int deltaq);
+//STATIC void CVAdjustBDF(CVodeMem cv_mem, int deltaq);
+//STATIC void CVIncreaseBDF(CVodeMem cv_mem);
+//STATIC void CVDecreaseBDF(CVodeMem cv_mem);
+//
+//STATIC void CVRescale(CVodeMem cv_mem);
+//
+//STATIC void CVPredict(CVodeMem cv_mem);
+//
+//STATIC void CVSet(CVodeMem cv_mem);
+//STATIC void CVSetAdams(CVodeMem cv_mem);
+//STATIC realtype CVAdamsStart(CVodeMem cv_mem, realtype m[]);
+//STATIC void CVAdamsFinish(CVodeMem cv_mem, realtype m[], realtype M[],
+//						  realtype hsum);
+//STATIC realtype CVAltSum(int iend, realtype a[], int k);
+//STATIC void CVSetBDF(CVodeMem cv_mem);
+//STATIC void CVSetTqBDF(CVodeMem cv_mem, realtype hsum, realtype alpha0,
+//					   realtype alpha0_hat, realtype xi_inv,
+//					   realtype xistar_inv);
+//
+//STATIC int CVnls(CVodeMem cv_mem, int nflag);
+//STATIC int CVnlsFunctional(CVodeMem cv_mem);
+//STATIC int CVnlsNewton(CVodeMem cv_mem, int nflag);
+//STATIC int CVNewtonIteration(CVodeMem cv_mem);
+//
+//STATIC int CVHandleNFlag(CVodeMem cv_mem, int *nflagPtr, realtype saved_t,
+//						 int *ncfPtr);
+//
+//STATIC void CVRestore(CVodeMem cv_mem, realtype saved_t);
+//
+//STATIC booleantype CVDoErrorTest(CVodeMem cv_mem, int *nflagPtr,
+//								 int *kflagPtr, realtype saved_t,
+//								 int *nefPtr, realtype * dsmPtr);
+//
+//STATIC void CVCompleteStep(CVodeMem cv_mem);
+//
+//STATIC void CVPrepareNextStep(CVodeMem cv_mem, realtype dsm);
+//STATIC void CVSetEta(CVodeMem cv_mem);
+//STATIC realtype CVComputeEtaqm1(CVodeMem cv_mem);
+//STATIC realtype CVComputeEtaqp1(CVodeMem cv_mem);
+//STATIC void CVChooseEta(CVodeMem cv_mem);
+//STATIC void CVBDFStab(CVodeMem cv_mem);
+//
+//STATIC int CVHandleFailure(CVodeMem cv_mem, int kflag);
 
 
 #ifdef PHREEQ98

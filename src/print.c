@@ -3070,8 +3070,9 @@ punch_user_punch(void)
  *   Punch with user defined BASIC print routine
  */
 	char command[] = "run";
-
+#if !defined(PHREEQC_CLASS)
 	extern int n_user_punch_index;
+#endif
 	n_user_punch_index = 0;
 	if (punch.user_punch == FALSE)
 		return (OK);

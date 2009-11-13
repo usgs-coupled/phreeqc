@@ -691,6 +691,8 @@ initialize(void)
 		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
 	}
 
+	charge_group = NULL;
+
 	return;
 }
 
