@@ -31,6 +31,8 @@
 #include "output.h"
 #define CVMEM
 #define MACHENV
+#define MACHENV_MALLOC
+#define CVMEM_MALLOC
 #define KINETICS_EXTERNAL
 #include "kinetics.h"
 #define malloc PHRQ_malloc

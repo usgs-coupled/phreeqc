@@ -30,7 +30,9 @@
 #if !defined(PHREEQC_CLASS)
 #include "output.h"
 #define CVMEM
+#define CVMEM_MALLOC
 #define MACHENV
+#define MACHENV_MALLOC
 #define malloc PHRQ_malloc
 #else
 #define malloc PHRQ_malloc

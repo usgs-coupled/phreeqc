@@ -2280,7 +2280,9 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 
 			/* allocate space for CVODE */
 			kinetics_machEnv = M_EnvInit_Serial(n_reactions);
+#if defined(PHREEQC_CLASS)
 			kinetics_machEnv->phreeqc_ptr = this;
+#endif
 			kinetics_y = N_VNew(n_reactions, kinetics_machEnv);	/* Allocate y, abstol vectors */
 			if (kinetics_y == NULL)
 				malloc_error();
