@@ -42,7 +42,7 @@ static PHRQMemHeader *s_pTail = NULL;
 void * CLASS_QUALIFIER
 PHRQ_malloc(size_t size, const char *szFileName, int nLine)
 #else
-void *
+void *CLASS_QUALIFIER
 PHRQ_malloc(size_t size)
 #endif
 /* ---------------------------------------------------------------------- */

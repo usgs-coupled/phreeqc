@@ -333,6 +333,10 @@ Phreeqc::Phreeqc(void)
 Phreeqc::~Phreeqc(void)
 {
 
+	clean_up();
+	close_input_files();
+	close_output_files();
+
 	int i;
 	for (i = 0; i < NKEYS; i++)
 	{
@@ -346,8 +350,8 @@ Phreeqc::~Phreeqc(void)
 	delete[] command;
 
 	free_check_null(default_data_base);
+
 	PHRQ_free_all();
-	//this->clean_up();
 }
 void Phreeqc::set_phast(int tf)
 {
