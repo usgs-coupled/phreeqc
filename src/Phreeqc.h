@@ -2537,8 +2537,8 @@ static int rewind_wrapper(FILE * file_ptr);
 //#undef extern 
 //int P_argc;
 //char **P_argv;
-//char *_ShowEscape(char *buf, int code, int ior, char *prefix);
-
+////char *_ShowEscape(char *buf, int code, int ior, char *prefix);
+//
 //int P_escapecode;
 //int P_ioresult;
 
@@ -2553,9 +2553,11 @@ static int rewind_wrapper(FILE * file_ptr);
 //int  _OutMem(void);
 //int  _CaseCheck(void);
 //int  _NilCheck(void);
-//int P_escapecode;
-//int P_ioresult;
-//__p2c_jmp_buf *__top_jb;
+int P_argc;
+char **P_argv;
+int P_escapecode;
+int P_ioresult;
+__p2c_jmp_buf *__top_jb;
 //#endif /* SKIP_SOME */
 Void 
 PASCAL_MAIN(int argc, Char **argv);

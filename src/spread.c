@@ -61,7 +61,7 @@ read_solution_spread(void)
 	int spread_lines;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 	char *ptr;
-	struct defaults soln_defaults;
+	struct CLASS_QUALIFIER defaults soln_defaults;
 	int return_value, opt;
 	char *next_char;
 	const char *opt_list[] = {

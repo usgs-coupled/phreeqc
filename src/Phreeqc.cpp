@@ -15,6 +15,19 @@ Phreeqc::Phreeqc(void)
 	punch_file = NULL;
 	dump_file = NULL;
 	error_file = NULL;
+	rates = NULL;
+	tally_table = NULL;
+	spec = NULL;
+	cations = NULL;
+	anions = NULL;
+	neutrals = NULL;
+	IPRSNT = NULL;
+	M = NULL;
+	LGAMMA = NULL;
+	sit_params = NULL;
+	sit_LGAMMA = NULL;
+	sit_IPRSNT = NULL;
+	sit_M = NULL;
 
 	struct const_key keyword_temp[] = {
 	{"eof", 0},
@@ -114,7 +127,18 @@ Phreeqc::Phreeqc(void)
 		keyword[i].keycount = 0;
 	}
 
-
+	struct iso iso_defaults_temp[] = {
+		{"13C", -10, 1},
+		{"13C(4)", -10, 1},
+		{"13C(-4)", -50, 5},
+		{"34S", 10, 1},
+		{"34S(6)", 10, 1},
+		{"34S(-2)", -30, 5},
+		{"2H", -28, 1},
+		{"18O", -5, .1},
+		{"87Sr", .71, .01},
+		{"11B", 20, 5}
+	};
 
 	// basic.c
 	struct const_key command_temp[] = {
@@ -244,12 +268,12 @@ Phreeqc::Phreeqc(void)
 		{"rho", tokrho}
 		/* VP: Density End */
 	};
-	NCMDS = (sizeof(command) / sizeof(struct const_key));
+	NCMDS = (sizeof(command_temp) / sizeof(struct const_key));
 	command = new const_key[NCMDS];
 	for (i = 0; i < NCMDS; i++)
 	{
 		command[i].name = string_duplicate(command_temp[i].name);
-		command[i].keycount = 0;
+		command[i].keycount = command_temp[i].keycount;
 	}
 
 	//cl1.c
@@ -320,8 +344,9 @@ Phreeqc::~Phreeqc(void)
 		command[i].name = (char *) free_check_null((void *) command[i].name);
 	}
 	delete[] command;
-	free_check_null(default_data_base);
 
+	free_check_null(default_data_base);
+	PHRQ_free_all();
 	//this->clean_up();
 }
 void Phreeqc::set_phast(int tf)

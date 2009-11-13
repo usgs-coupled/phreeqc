@@ -833,12 +833,12 @@ typedef struct
 //extern Void PASCAL_MAIN(int, Char **);
 //Void PASCAL_MAIN(int, Char **);
 
-Char    **P_argv;
-int     P_argc;
-
-int P_escapecode;
-int P_ioresult;
-__p2c_jmp_buf *__top_jb;
+//Char    **P_argv;
+//int     P_argc;
+//
+//int P_escapecode;
+//int P_ioresult;
+//__p2c_jmp_buf *__top_jb;
 
 #ifdef P2C_H_PROTO				/* if you have Ansi C but non-prototyped header files */
 extern Char *strcat P2PP((Char *, Const Char *));

@@ -411,7 +411,9 @@ clean_up(void)
 	change_surf = (struct Change_Surf *) free_check_null(change_surf);
 
 /* iso_defaults */
+#if !defined(PHREEQC_CLASS)
 	iso_defaults = (struct iso *) free_check_null(iso_defaults);
+#endif
 
 /* miscellaneous work space */
 
@@ -454,7 +456,9 @@ clean_up(void)
 	MergeFinalize();
 #endif
 
+#if !defined(PHREEQC_CLASS)
 	PHRQ_free_all();
+#endif
 
 	clean_up_output_callbacks();
 

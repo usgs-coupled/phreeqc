@@ -690,6 +690,7 @@ initialize(void)
 		iso_defaults[i].value = temp_iso_defaults[i].value;
 		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
 	}
+	count_iso_defaults = temp_count_iso_defaults;
 
 	charge_group = NULL;
 
