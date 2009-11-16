@@ -17,8 +17,6 @@ main(int argc, char *argv[])
 {
 
 	//int errors;
-	void *db_cookie = NULL;
-	void *input_cookie = NULL;
 #if defined(WIN32_MEMORY_DEBUG)
 	int tmpDbgFlag;
 

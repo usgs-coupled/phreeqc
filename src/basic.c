@@ -3,8 +3,9 @@
 
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#endif
+#else
 typedef unsigned char boolean;
+#endif
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -399,6 +400,11 @@ static const struct const_key command[] = {
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
+struct LOC_exec
+{
+	boolean gotoflag, elseflag;
+	tokenrec *t;
+};
 Local valrec factor(struct LOC_exec *LINK);
 Local valrec expr(struct LOC_exec *LINK);
 Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
@@ -406,11 +412,6 @@ Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
 
 
 /* Local variables for exec: */
-struct LOC_exec
-{
-	boolean gotoflag, elseflag;
-	tokenrec *t;
-};
 #endif
 
 

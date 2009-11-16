@@ -127,19 +127,6 @@ Phreeqc::Phreeqc(void)
 		keyword[i].keycount = 0;
 	}
 
-	struct iso iso_defaults_temp[] = {
-		{"13C", -10, 1},
-		{"13C(4)", -10, 1},
-		{"13C(-4)", -50, 5},
-		{"34S", 10, 1},
-		{"34S(6)", 10, 1},
-		{"34S(-2)", -30, 5},
-		{"2H", -28, 1},
-		{"18O", -5, .1},
-		{"87Sr", .71, .01},
-		{"11B", 20, 5}
-	};
-
 	// basic.c
 	struct const_key command_temp[] = {
 		{"and", tokand},
