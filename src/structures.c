@@ -5964,9 +5964,9 @@ species_list_compare(const void *ptr1, const void *ptr2)
 		if (nptr2->master_s == s_hplus)
 			return (1);
 		*/
-		if (strcmp(nptr1->master_s->name,"H+") || strcmp(nptr1->master_s->name,"H3O+"))
+		if ((strcmp(nptr1->master_s->name,"H+") == 0) || (strcmp(nptr1->master_s->name,"H3O+") == 0))
 			return (-1);
-		if (strcmp(nptr2->master_s->name,"H+") || strcmp(nptr2->master_s->name,"H3O+"))
+		if ((strcmp(nptr2->master_s->name,"H+") == 0) || (strcmp(nptr2->master_s->name,"H3O+") == 0))
 			return (1);
 	}
 /*
@@ -6068,9 +6068,9 @@ species_list_compare_master(const void *ptr1, const void *ptr2)
 		if (nptr2->master_s == s_hplus)
 			return (1);
 		*/
-		if (strcmp(nptr1->master_s->name,"H+") || strcmp(nptr1->master_s->name,"H3O+"))
+		if ((strcmp(nptr1->master_s->name,"H+") == 0) || (strcmp(nptr1->master_s->name,"H3O+") == 0))
 			return (-1);
-		if (strcmp(nptr2->master_s->name,"H+") || strcmp(nptr2->master_s->name,"H3O+"))
+		if ((strcmp(nptr2->master_s->name,"H+") == 0) || (strcmp(nptr2->master_s->name,"H3O+") == 0))
 			return (1);
 	}
 /*
