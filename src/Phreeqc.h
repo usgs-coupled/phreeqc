@@ -2085,7 +2085,8 @@ linerec *stmtline, *dataline;
 tokenrec *stmttok, *datatok, *buf;
 boolean exitflag;
 
-int free_dim_stringvar(struct varrec *varbase);
+//int free_dim_stringvar(struct varrec *varbase);
+int free_dim_stringvar(varrec *varbase);
 long EXCP_LINE;
 void exec(void);
 

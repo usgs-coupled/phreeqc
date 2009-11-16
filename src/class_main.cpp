@@ -107,7 +107,6 @@ main_method(int argc, char *argv[])
 		//clean_up();
 		return errors;
 	}
-
 /*
  *   Load database into memory
  */
@@ -148,7 +147,7 @@ main_method(int argc, char *argv[])
 }
 
 
-
+#ifdef DOS
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 write_banner(void)
@@ -192,3 +191,4 @@ write_banner(void)
 
 	return 0;
 }
+#endif

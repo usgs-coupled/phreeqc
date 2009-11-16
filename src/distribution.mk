@@ -16,7 +16,12 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
+PHREEQC_CLASS=TRUE
+ifdef PHREEQC_CLASS
+CCFLAGS_DBG=-Wall -ansi -g -DUSE_PHRQ_ALLOC
+else
 CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
+endif
 
 CFG1 :=`uname`
 CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
@@ -47,6 +52,7 @@ FILES=  \
 	$(CURSRC)/kinetics.c \
 	$(CURSRC)/main.c \
 	$(CURSRC)/mainsubs.c \
+	$(CURSRC)/class_main.cpp \
 	$(CURSRC)/model.c \
 	$(CURSRC)/nvector.c \
 	$(CURSRC)/nvector_serial.c \
@@ -364,7 +370,7 @@ win_echo_files:
 
 debug: 
 	mkdir -p $(DEBUG_DIR)
-	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP" EXE=$(DEBUG_EXE)
+	cd $(DEBUG_DIR); make -f $(CURSRC)/Makefile SRC=$(CURSRC) CCFLAGS="$(CCFLAGS_DBG) -DINVERSE_CL1MP -DPHREEQC_CLASS"  EXE=$(DEBUG_EXE)
 
 debug_nomp: 
 	mkdir -p $(DEBUG_DIR)

@@ -17,10 +17,20 @@ SRC=.
 PWD=pwd
 
 # Change to C compiler on your system
+PHREEQC_CLASS=TRUE
+ifdef PHREEQC_CLASS
+CC=g++
+CCFLAGS=-O3 -Wall -ansi -pedantic -DPHREEQC_CLASS -DNDEBUG # -frounding-math  # -pg
+MAIN=class_main
+else
 CC=gcc
+CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
+MAIN=main
+endif
+
 
 # Change to C compiler options on your system
-CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
+
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -33,11 +43,14 @@ LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 #	${CC} ${CCFLAGS} -c -o $@ $<
 %.o : $(SRC)/%.c
 	${CC} ${CCFLAGS} -c -o $@ $<
+%.o : $(SRC)/%.cpp
+	${CC} ${CCFLAGS} -c -o $@ $<
 
 # Location to copy scripts on installation
 BINDIR=$(HOME)/bin
 
-OBJECTS=	main.o \
+OBJECTS=	$(MAIN).o \
+		Phreeqc.o \
 		advection.o \
 		basic.o \
 		basicsubs.o \
@@ -171,6 +184,10 @@ isotopes.o: $(SRC)/isotopes.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.
 kinetics.o: $(SRC)/kinetics.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/sundialstypes.h $(SRC)/cvode.h $(SRC)/nvector.h $(SRC)/cvdense.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/nvector_serial.h $(SRC)/kinetics.h
 
 main.o: $(SRC)/main.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
+
+class_main.o: $(SRC)/class_main.cpp $(SRC)/Phreeqc.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
+
+Phreeqc.o: $(SRC)/Phreeqc.cpp $(SRC)/Phreeqc.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
 mainsubs.o: $(SRC)/mainsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 

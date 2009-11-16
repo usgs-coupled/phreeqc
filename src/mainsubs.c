@@ -647,6 +647,7 @@ initialize(void)
 	/*
 	 *  cvode
 	 */
+
 	cvode_init();
 	/*
 	 *  Pitzer
@@ -3307,6 +3308,7 @@ do_initialize(void)
 	}
 
 	state = INITIALIZE;
+
 	initialize();
 
 	return 0;

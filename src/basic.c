@@ -4,6 +4,7 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #endif
+typedef unsigned char boolean;
 #include "global.h"
 #include "phqalloc.h"
 #include "output.h"
@@ -2051,7 +2052,7 @@ disposetokens(tokenrec ** tok)
 		{
 			(*tok)->UU.sp = (char *) free_check_null((*tok)->UU.sp);
 		}
-		*tok = (struct tokenrec *) free_check_null(*tok);
+		*tok = (tokenrec *) free_check_null(*tok);
 		*tok = tok1;
 	}
 }
@@ -2370,7 +2371,7 @@ factor(struct LOC_exec * LINK)
 	LDBLE TEMP;
 	Char STR1[256], STR2[256];
 	char *elt_name, *surface_name, *mytemplate, *name;
-	struct varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
+	varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
 		NULL, *moles_varrec = NULL;
 	char **names_arg, **types_arg;
 	LDBLE *moles_arg;
@@ -3622,7 +3623,7 @@ cmdnew(struct LOC_exec *LINK)
 		p = linebase->next;
 		disposetokens(&linebase->txt);
 		free(linebase);
-		linebase = (struct linerec *) p;
+		linebase = (linerec *) p;
 	}
 	while (varbase != NULL)
 	{
@@ -3655,7 +3656,7 @@ cmdnew(struct LOC_exec *LINK)
 			varbase->UU.U0.arr = NULL;
 		}
 		free(varbase);
-		varbase = (struct varrec *) p;
+		varbase = (varrec *) p;
 	}
 }
 
@@ -5267,7 +5268,7 @@ exec(void)
 }								/*exec */
 
 int CLASS_QUALIFIER
-free_dim_stringvar(struct varrec *varbase)
+free_dim_stringvar(varrec *varbase)
 {
 	int i, k;
 	if (varbase->numdims > 0)

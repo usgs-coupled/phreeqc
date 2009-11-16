@@ -37,7 +37,7 @@ struct tally *tally_table;
 int count_tally_table_columns;
 int count_tally_table_rows;
 
-static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
+/*static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);*/
 #endif
 /*   
      Calling sequence 
