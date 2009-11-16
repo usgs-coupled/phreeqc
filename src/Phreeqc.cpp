@@ -317,7 +317,10 @@ Phreeqc::Phreeqc(void)
 	// phqalloc.c
 	//s_pTail = NULL;
 
-	// phreeqc_files.c
+	// transport.c
+	J_ij = NULL;
+	J_ij_il = NULL;
+	m_s = NULL;
 
 	default_data_base = string_duplicate("phreeqc.dat");
 
