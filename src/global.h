@@ -1215,8 +1215,8 @@ int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid key
 struct const_key *keyword;
 EXTERNAL int NKEYS;
 #else
-EXTERNAL struct const_key keyword[];
-EXTERNAL int NKEYS;
+extern struct const_key keyword[];
+extern int NKEYS;
 #endif
 #endif
 EXTERNAL struct key *keyword_hash;
