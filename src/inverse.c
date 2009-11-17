@@ -1,8 +1,9 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#define CLASS_QUALIFIER
-#endif
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"

@@ -2,8 +2,6 @@
 #define _INC_PHRQPROTO_H
 #if !defined(PHREEQC_CLASS)
 #define CLASS_STATIC
-#else
-#define CLASS_STATIC static
 #endif
 
 
@@ -591,6 +589,7 @@ int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 				  LDBLE new_Dw, int cell);
 
 /* utilities.c */
+
 int add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef);
 int backspace_screen(int spaces);
 LDBLE calc_alk(struct reaction *rxn_ptr);

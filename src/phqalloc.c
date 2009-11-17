@@ -1,8 +1,11 @@
+#define INCLUDE_PHRQALLOC_H
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#endif
-#define INCLUDE_PHRQALLOC_H
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
+
 #include "output.h"
 /*#include <malloc.h>*/
 #include <stdlib.h>

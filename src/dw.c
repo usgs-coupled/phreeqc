@@ -1,8 +1,9 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#define STATIC static
-#endif
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phrqproto.h"
 #include "output.h"
 #if !defined(PHREEQC_CLASS)

@@ -987,7 +987,9 @@ typedef struct
 #ifdef __GCC__
 # define Malloc(n)  (PHRQ_malloc(n) ?: (Anyptr)_OutMem())
 #else
+#if !defined(PHREEQC_CLASS)
 extern Anyptr __MallocTemp__;
+#endif
 # define Malloc(n)  ((__MallocTemp__ = PHRQ_malloc(n)) ? __MallocTemp__ : (Anyptr)_OutMem())
 #endif
 #define FreeR(p)    (free((Anyptr)(p)))	/* used if arg is an rvalue */

@@ -3,9 +3,7 @@
 #if !defined(PHREEQC_CLASS)
 #define CLASS_STATIC
 #else
-#if defined(_INC_PHREEQC_H)
-#define CLASS_STATIC static
-#else
+#if !defined(_INC_PHREEQC_H)
 #define CLASS_STATIC
 #endif
 #endif

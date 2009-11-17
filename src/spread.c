@@ -1,7 +1,10 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#endif
 #include "global.h"
+#else
+typedef unsigned char boolean;
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"

@@ -1,8 +1,10 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
+#include "global.h"
+#else
+#include "Phreeqc.h"
 #endif
 #include <setjmp.h>
-#include "global.h"
 #include "input.h"
 #include "output.h"
 #include "phrqproto.h"
