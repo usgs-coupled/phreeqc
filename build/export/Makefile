@@ -118,16 +118,16 @@ PHAST_LINUX_RPM_MD5:=$(shell md5sum "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FI
 
 #WPHAST version
 
-WPHAST_DIR:=$(CHARLTON)/wphast
-WPHAST_TARGET_DIR:=$(GEOCHEM)/pc/wphast
-WPHAST_PUB_DIR:=$(FTP_CHARLTON)/wphast
-WPHAST_FILE:=$(shell cd "$(WPHAST_DIR)"; ls -t wphast*.msi | awk '{if (NR == 1) {print}}')
-WPHAST_VERSION:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" )
-WPHAST_SVN:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" | sed "s/^.*-//")
-WPHAST_SIZE:=$(shell ls -s -h "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$1}')
-WPHAST_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$6,$$7,$$8}')
+#WPHAST_DIR:=$(CHARLTON)/wphast
+#WPHAST_TARGET_DIR:=$(GEOCHEM)/pc/wphast
+#WPHAST_PUB_DIR:=$(FTP_CHARLTON)/wphast
+#WPHAST_FILE:=$(shell cd "$(WPHAST_DIR)"; ls -t wphast*.msi | awk '{if (NR == 1) {print}}')
+#WPHAST_VERSION:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" )
+#WPHAST_SVN:=$(shell echo $(WPHAST_FILE) | sed "s/wphast-//" | sed "s/.msi//" | sed "s/^.*-//")
+#WPHAST_SIZE:=$(shell ls -s -h "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$1}')
+#WPHAST_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(WPHAST_DIR)/$(WPHAST_FILE)" | awk '{print $$6,$$7,$$8}')
 
-#Netpath version
+#NetpathXL version
 
 NETPATHXL_DIR:=$(CHARLTON)/netpathxl
 NETPATHXL_PUB_DIR:=$(FTP_CHARLTON)/netpathxl
@@ -136,6 +136,18 @@ NETPATHXL_VERSION:=$(shell echo $(NETPATHXL_FILE) | sed "s/NetpathXL-//" | sed "
 NETPATHXL_SVN:=$(shell echo $(NETPATHXL_FILE) | sed "s/NetpathXL-//" | sed "s/.msi//" | sed "s/^.*-//")
 NETPATHXL_SIZE:=$(shell ls -s -h "$(NETPATHXL_DIR)/$(NETPATHXL_FILE)" | awk '{print $$1}')
 NETPATHXL_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(NETPATHXL_DIR)/$(NETPATHXL_FILE)" | awk '{print $$6,$$7,$$8}')
+
+
+#Netpath-win version
+
+NETPATHWIN_DIR:=$(GEOCHEM)/pc/netpath
+NETPATHWIN_PUB_DIR:=$(FTP_GEOCHEM)/pc/netpath
+NETPATHWIN_FILE:=NPWsetup.zip
+#NETPATHWIN_FILE:=$(shell cd "$(NETPATHWIN_DIR)"; ls -t NPWsetup.zip | awk '{if (NR == 1) {print}}')
+#NETPATHWIN_VERSION:=$(shell echo $(NETPATHWIN_FILE) | sed "s/NetpathXL-//" | sed "s/.msi//" )
+#NETPATHWIN_SVN:=$(shell echo $(NETPATHWIN_FILE) | sed "s/NetpathXL-//" | sed "s/.msi//" | sed "s/^.*-//")
+NETPATHWIN_SIZE:=$(shell ls -s -h "$(NETPATHWIN_DIR)/$(NETPATHWIN_FILE)" | awk '{print $$1}')
+NETPATHWIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(NETPATHWIN_DIR)/$(NETPATHWIN_FILE)" | awk '{print $$6,$$7,$$8}')
 
 SED_ARGS= \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
@@ -208,7 +220,11 @@ SED_ARGS= \
 	-e "s^@NETPATHXL_VERSION@^$(NETPATHXL_VERSION)^" \
 	-e "s^@NETPATHXL_SVN@^$(NETPATHXL_SVN)^" \
 	-e "s^@NETPATHXL_DATE@^$(NETPATHXL_DATE)^" \
-	-e "s^@NETPATHXL_SIZE@^$(NETPATHXL_SIZE)^" 
+	-e "s^@NETPATHXL_SIZE@^$(NETPATHXL_SIZE)^" \
+	-e "s^@NETPATHWIN_PUB_DIR@^$(NETPATHWIN_PUB_DIR)^"  \
+	-e "s^@NETPATHWIN_FILE@^$(NETPATHWIN_FILE)^" \
+	-e "s^@NETPATHWIN_DATE@^$(NETPATHWIN_DATE)^" \
+	-e "s^@NETPATHWIN_SIZE@^$(NETPATHWIN_SIZE)^" 
 
 
 trial:
