@@ -2049,6 +2049,7 @@ typedef struct linerec
 {
 	long num, num2;
 	tokenrec *txt;
+	Char inbuf[MAX_LENGTH];
 	struct linerec *next;
 } linerec;
 
