@@ -1861,13 +1861,13 @@ struct system_species
 	char *type;
 	LDBLE moles;
 };
-struct system_species *sys;
-int count_sys, max_sys;
+EXTERNAL struct system_species *sys;
+EXTERNAL int count_sys, max_sys;
 
-LDBLE sys_tot;
-LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
-LDBLE solution_mass, solution_volume;
-LDBLE f_rho(LDBLE rho_old);
+EXTERNAL LDBLE sys_tot;
+EXTERNAL LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
+EXTERNAL LDBLE solution_mass, solution_volume;
+EXTERNAL LDBLE f_rho(LDBLE rho_old);
 
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)
