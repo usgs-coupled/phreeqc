@@ -2159,14 +2159,18 @@ errormsg(const Char * s)
 Static void CLASS_QUALIFIER
 snerr(const Char * s)
 {
-	errormsg(strcat("Syntax error", s));
+  char str[MAX_LENGTH];
+  strcpy(str, "Syntax_error ");
+  errormsg(strcat(str, s));
 }
 
 
 Static void CLASS_QUALIFIER
 tmerr(const Char * s)
 {
-	errormsg(strcat("Type mismatch error", s));
+  char str[MAX_LENGTH];
+  strcpy(str, "Type mismatch error");
+  errormsg(strcat(str, s));
 }
 
 
@@ -2263,6 +2267,7 @@ intexpr(struct LOC_exec *LINK)
 Local void CLASS_QUALIFIER
 require(int k, struct LOC_exec *LINK)
 {
+  char str[MAX_LENGTH];
 	int i;
 	if (LINK->t == NULL || LINK->t->kind != k)
 	{
@@ -2274,7 +2279,8 @@ require(int k, struct LOC_exec *LINK)
 		if (i == NCMDS)
 			snerr(": missing unknown command");
 		else {
-			snerr(strcat(": missing ", command[i].name));
+			strcpy(str, ": missing ");
+			snerr(strcat(str, command[i].name));
 		}
 	}
 	LINK->t = LINK->t->next;
