@@ -987,7 +987,7 @@ struct iso
 	LDBLE value;
 	LDBLE uncertainty;
 };
-#ifdef SKIP
+#if !defined(PHREEQC_CLASS)
 #ifdef MAINSUBS
 struct iso iso_defaults[] = {
 	{"13C", -10, 1},
@@ -1002,13 +1002,14 @@ struct iso iso_defaults[] = {
 	{"11B", 20, 5}
 };
 int count_iso_defaults = (sizeof(iso_defaults) / sizeof(struct iso));
-#else
-EXTERNAL struct iso iso_defaults[];
-EXTERNAL int count_iso_defaults;
-#endif
-#endif
-EXTERNAL struct iso *iso_defaults;
-EXTERNAL int count_iso_defaults;
+#else   /* MAINSUBS */
+extern struct iso *iso_defaults;
+extern int count_iso_defaults;
+#endif  /* MAINSUBS */
+#else   /* PHREEQC_CLASS */
+struct iso *iso_defaults;
+int count_iso_defaults;
+#endif  /* PHREEQC_CLASS */
 
 /*----------------------------------------------------------------------
  *   Global solution
@@ -1120,6 +1121,7 @@ struct const_key
 	const char *name;
 	int keycount;
 };
+#if !defined(PHREEQC_CLASS)
 #ifdef MAINSUBS
 /* list of valid keywords */
 struct const_key keyword[] = {
@@ -1210,15 +1212,15 @@ struct const_key keyword[] = {
 	
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid keywords */
-#else
-#if defined(_INC_PHREEQC_H)
-struct const_key *keyword;
-EXTERNAL int NKEYS;
-#else
-extern struct const_key keyword[];
+#else   /* MAINSUBS */
+extern struct const_key *keyword;
 extern int NKEYS;
-#endif
-#endif
+#endif  /* MAINSUBS */
+#else   /* PHREEQC_CLASS */
+struct const_key *keyword;
+int NKEYS;
+#endif  /* PHREEQC_CLASS */
+
 EXTERNAL struct key *keyword_hash;
 EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface,
 	new_reaction, new_temperature, new_mix, new_solution, new_gas_phase,

@@ -29,6 +29,33 @@ Phreeqc::Phreeqc(void)
 	sit_IPRSNT = NULL;
 	sit_M = NULL;
 
+	struct iso temp_iso_defaults[] = {
+		{"13C", -10, 1},
+		{"13C(4)", -10, 1},
+		{"13C(-4)", -50, 5},
+		{"34S", 10, 1},
+		{"34S(6)", 10, 1},
+		{"34S(-2)", -30, 5},
+		{"2H", -28, 1},
+		{"18O", -5, .1},
+		{"87Sr", .71, .01},
+		{"11B", 20, 5}
+	};
+	int temp_count_iso_defaults =
+		(sizeof(temp_iso_defaults) / sizeof(struct iso));
+
+	count_iso_defaults = temp_count_iso_defaults;
+	iso_defaults = new iso[count_iso_defaults];
+		
+	int i;
+	for (i = 0; i < temp_count_iso_defaults; i++)
+	{
+		iso_defaults[i].name = string_hsave(temp_iso_defaults[i].name);
+		iso_defaults[i].value = temp_iso_defaults[i].value;
+		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
+	}
+
+
 	struct const_key keyword_temp[] = {
 	{"eof", 0},
 	{"end", 0},
@@ -117,7 +144,6 @@ Phreeqc::Phreeqc(void)
 	};
 	NKEYS = (sizeof(keyword_temp) / sizeof(struct const_key));	/* Number of valid keywords */
 
-	int i;
 
 	//keyword = (struct const_key *) PHRQ_malloc((size_t) (NKEYS * sizeof(const_key)));
 	keyword = new const_key[NKEYS];

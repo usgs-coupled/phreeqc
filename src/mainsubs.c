@@ -53,28 +53,6 @@ initialize(void)
 	int i;
 	struct logk *logk_ptr;
 	char token[MAX_LENGTH];
-	struct temp_iso
-	{
-		const char *name;
-		LDBLE value;
-		LDBLE uncertainty;
-	};
-
-	struct temp_iso temp_iso_defaults[] = {
-		{"13C", -10, 1},
-		{"13C(4)", -10, 1},
-		{"13C(-4)", -50, 5},
-		{"34S", 10, 1},
-		{"34S(6)", 10, 1},
-		{"34S(-2)", -30, 5},
-		{"2H", -28, 1},
-		{"18O", -5, .1},
-		{"87Sr", .71, .01},
-		{"11B", 20, 5}
-	};
-	int temp_count_iso_defaults;
-	temp_count_iso_defaults =
-		(sizeof(temp_iso_defaults) / sizeof(struct temp_iso));
 
 	//if (svnid == NULL)
 	//	fprintf(stderr, " ");
@@ -682,19 +660,6 @@ initialize(void)
 	zeros_max = 1;
 
 	pore_volume = 0;
-
-	iso_defaults =
-		(struct iso *)
-		PHRQ_malloc((size_t) (temp_count_iso_defaults * sizeof(struct iso)));
-	if (iso_defaults == NULL)
-		malloc_error();
-	for (i = 0; i < temp_count_iso_defaults; i++)
-	{
-		iso_defaults[i].name = string_hsave(temp_iso_defaults[i].name);
-		iso_defaults[i].value = temp_iso_defaults[i].value;
-		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
-	}
-	count_iso_defaults = temp_count_iso_defaults;
 
 	charge_group = NULL;
 	print_density = 0;
