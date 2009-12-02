@@ -697,6 +697,7 @@ initialize(void)
 	count_iso_defaults = temp_count_iso_defaults;
 
 	charge_group = NULL;
+	print_density = 0;
 
 	return;
 }

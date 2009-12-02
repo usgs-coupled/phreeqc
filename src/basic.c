@@ -269,6 +269,12 @@ static HashTable *command_hash_table;
 #define tokporevolume   135
 #define toksc	136
 #define tokgamma	137
+#define toklg	   138
+/* VP: Density Start */
+#define tokrho	   139
+/* VP: Density End */
+
+static const struct const_key command[] = {
 	{"+", tokplus},
 	{"-", tokminus},
 	{"*", toktimes},
@@ -284,12 +290,6 @@ static HashTable *command_hash_table;
 	{"<=", tokle},
 	{">", tokgt},
 	{">=", tokge},
-#define toklg	   138
-/* VP: Density Start */
-#define tokrho	   139
-/* VP: Density End */
-
-static const struct const_key command[] = {
 	{"and", tokand},
 	{"or", tokor},
 	{"xor", tokxor},
