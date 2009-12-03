@@ -1,14 +1,19 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
-static char const svnid[] =
-	"$Id$";
+//static char const svnid[] =
+//	"$Id$";
 
 #define MAX_QUAD 20
 #define K_POLY 5
+#if !defined(PHREEQC_CLASS)
 static LDBLE g_function(LDBLE x_value);
 static LDBLE midpnt(LDBLE x1, LDBLE x2, int n);
 static void polint(LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv,
@@ -20,9 +25,10 @@ static struct surface_charge *surface_charge_ptr;
 static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
 static int calc_all_donnan_music(void);
 static int calc_init_donnan_music(void);
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_all_g(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -32,8 +38,8 @@ calc_all_g(void)
 	LDBLE new_g, xd1;
 	LDBLE epsilon;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 	if (use.surface_ptr == NULL)
 		return (OK);
 /*
@@ -287,7 +293,7 @@ calc_all_g(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 g_function(LDBLE x_value)
 /* ---------------------------------------------------------------------- */
 {
@@ -354,7 +360,7 @@ g_function(LDBLE x_value)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 polint(LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv, LDBLE * dy)
 /* ---------------------------------------------------------------------- */
 {
@@ -422,7 +428,7 @@ polint(LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv, LDBLE * dy)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 midpnt(LDBLE x1, LDBLE x2, int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -465,7 +471,7 @@ midpnt(LDBLE x1, LDBLE x2, int n)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 qromb_midpnt(LDBLE x1, LDBLE x2)
 /* ---------------------------------------------------------------------- */
 {
@@ -518,7 +524,7 @@ qromb_midpnt(LDBLE x1, LDBLE x2)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_init_g(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -649,7 +655,7 @@ calc_init_g(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_surface_water(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -789,7 +795,7 @@ initial_surface_water(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sum_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /* ---------------------------------------------------------------------- */
 {
@@ -858,7 +864,7 @@ sum_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_all_donnan(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1047,7 +1053,7 @@ calc_all_donnan(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_init_donnan(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1208,7 +1214,7 @@ calc_init_donnan(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 calc_psi_avg(LDBLE surf_chrg_eq)
 /* ---------------------------------------------------------------------- */
 {
@@ -1278,7 +1284,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_all_donnan_music(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1401,7 +1407,7 @@ calc_all_donnan_music(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_init_donnan_music(void)
 /* ---------------------------------------------------------------------- */
 {

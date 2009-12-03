@@ -3,14 +3,22 @@
 #include <math.h>
 #include <stdlib.h>
 
+#if defined(PHREEQC_CLASS)
+#define CLASS_QUALIFIER Phreeqc::
+#include "Phreeqc.h"
+#endif
+
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"
+
+#if !defined(PHREEQC_CLASS)
 void cl1_space(int check, int n2d, int klm, int nklmd);
 extern void zero_double(LDBLE * target, int n);
 LDBLE *x_arg = NULL, *res_arg = NULL, *scratch = NULL;
 int x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
-
+#define CLASS_QUALIFIER
+#endif
 int cl1(int k, int l, int m, int n,
 		int nklmd, int n2d,
 		LDBLE * q,
@@ -27,7 +35,7 @@ extern void malloc_error(void);
 #define CHECK_ERRORS
  */
 
-int
+int CLASS_QUALIFIER
 cl1(int k, int l, int m, int n,
 	int nklmd, int n2d,
 	LDBLE * q,
@@ -854,7 +862,7 @@ cl1(int k, int l, int m, int n,
 	return 0;
 }
 
-void
+void CLASS_QUALIFIER
 cl1_space(int check, int n2d, int klm, int nklmd)
 {
 	if (check == 1)

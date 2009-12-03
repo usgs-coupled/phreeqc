@@ -1,11 +1,17 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include <assert.h>
+
+#if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL extern
 #include "pitzer.h"
-#include <assert.h>
 
 static char const svnid[] = "$Id$";
 
@@ -49,16 +55,17 @@ extern int EndRow(void);
 extern void AddSelectedOutput(const char *name, const char *format,
 							  va_list argptr);
 #endif
+#endif /* PHREEQC_CLASS */
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 array_print(LDBLE * array_l, int row_count, int column_count,
 			int max_column_count)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 
 
 	for (i = 0; i < row_count; i++)
@@ -87,7 +94,7 @@ array_print(LDBLE * array_l, int row_count, int column_count,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -132,7 +139,7 @@ print_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -192,7 +199,7 @@ punch_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /* ---------------------------------------------------------------------- */
 {
@@ -333,7 +340,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_eh(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -414,7 +421,7 @@ print_eh(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -536,7 +543,7 @@ print_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -630,7 +637,7 @@ print_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -754,7 +761,7 @@ print_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 print_irrev(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -809,7 +816,7 @@ print_irrev(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 print_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -973,7 +980,7 @@ print_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_master_reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1019,7 +1026,7 @@ print_master_reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 print_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1082,7 +1089,7 @@ print_mix(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_reaction(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1113,7 +1120,7 @@ print_reaction(struct reaction *rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1210,7 +1217,7 @@ print_saturation_indices(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1322,7 +1329,7 @@ print_pp_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1437,7 +1444,7 @@ print_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1681,7 +1688,7 @@ print_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_surface_cd_music(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1920,7 +1927,7 @@ print_surface_cd_music(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_totals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2098,7 +2105,7 @@ print_totals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_user_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2154,7 +2161,7 @@ print_user_print(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_using(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2285,7 +2292,7 @@ print_using(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2357,7 +2364,7 @@ punch_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2429,7 +2436,7 @@ punch_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_totals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2474,7 +2481,7 @@ punch_totals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_molalities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2507,7 +2514,7 @@ punch_molalities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_activities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2541,7 +2548,7 @@ punch_activities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2600,7 +2607,7 @@ punch_pp_assemblage(void)
 
 #define PHAST_NULL(x)	  (phast ? NULL : x)
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_identifiers(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2943,7 +2950,7 @@ punch_identifiers(void)
 
 #undef PHAST_NULL
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2986,7 +2993,7 @@ punch_saturation_indices(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3057,7 +3064,7 @@ punch_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_user_punch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3065,8 +3072,9 @@ punch_user_punch(void)
  *   Punch with user defined BASIC print routine
  */
 	char command[] = "run";
-
+#if !defined(PHREEQC_CLASS)
 	extern int n_user_punch_index;
+#endif
 	n_user_punch_index = 0;
 	if (punch.user_punch == FALSE)
 		return (OK);
@@ -3093,7 +3101,7 @@ punch_user_punch(void)
 
 #ifdef PHREEQ98
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 punch_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3182,7 +3190,7 @@ extern int Merge_fpunchf(const int length, const char *format,
 int output_message(const int type, const char *err_str, const int stop,
 				   const char *format, va_list args);
 
-int
+int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
 {
 	int retval = 0;
@@ -3195,7 +3203,7 @@ fpunchf(const char *name, const char *format, ...)
 	return retval;
 }
 
-int
+int CLASS_QUALIFIER
 fpunchf_user(int user_index, const char *format, ...)
 {
 	static int s_warning = 0;
@@ -3230,7 +3238,7 @@ fpunchf_user(int user_index, const char *format, ...)
 }
 
 #ifdef SAVE
-int
+int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
 {
 	int retval = 0;
@@ -3265,7 +3273,7 @@ fpunchf(const char *name, const char *format, ...)
 	return retval;
 }
 
-int
+int CLASS_QUALIFIER
 fpunchf_user(int user_index, const char *format, ...)
 {
 	extern int warning_msg(const char *err_str);
@@ -3322,7 +3330,7 @@ fpunchf_user(int user_index, const char *format, ...)
 }
 #endif
 
-char *
+char * CLASS_QUALIFIER
 sformatf(const char *format, ...)
 {
 #if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
@@ -3342,7 +3350,7 @@ sformatf(const char *format, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 print_alkalinity(void)
 /* ---------------------------------------------------------------------- */
 {

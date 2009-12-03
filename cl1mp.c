@@ -3,15 +3,30 @@
 #include <math.h>
 #include <stdlib.h>
 #include <gmp.h>
-
+#if defined(PHREEQC_CLASS)
+#define CLASS_QUALIFIER Phreeqc::
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqtype.h"
-
+#if !defined(PHREEQC_CLASS)
 extern int max_row_count, max_column_count;
 static char const svnid[] = "$Id: cl1mp.c 78 2005-02-01 22:47:12Z dlpark $";
+int 
+cl1mp(int k, int l, int m, int n,
+		  int nklmd, int n2d,
+		  LDBLE * q_arg,
+		  int *kode, LDBLE toler,
+		  int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
+		  LDBLE * cu_arg, int *iu, int *s, int check, LDBLE censor_arg);
+extern void *free_check_null(void *ptr);
+extern void malloc_error(void);
+#define CLASS_QUALIFIER
+#endif
 
-int cl1mp(int k, int l, int m, int n,
+int 
+cl1mp(int k, int l, int m, int n,
 		  int nklmd, int n2d,
 		  LDBLE * q_arg,
 		  int *kode, LDBLE toler,
@@ -26,7 +41,7 @@ extern void malloc_error(void);
  */
 
 
-int
+int CLASS_QUALIFIER
 cl1mp(int k, int l, int m, int n,
 	  int nklmd, int n2d,
 	  LDBLE * q_arg,
@@ -150,8 +165,8 @@ cl1mp(int k, int l, int m, int n,
 /*      REAL */
 
 /* INITIALIZATION. */
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 	/*
 	 *  mp variables
 	 */

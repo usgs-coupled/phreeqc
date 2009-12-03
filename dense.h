@@ -1,3 +1,5 @@
+#ifndef _INC_DENSE_H
+#define _INC_DENSE_H
 /*******************************************************************
  *                                                                 *
  * File          : dense.h                                         *
@@ -40,10 +42,10 @@ static char const svniddense[] =
 	"$Id$";
 #endif
 
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 #ifndef _dense_h
 #define _dense_h
 
@@ -296,6 +298,7 @@ extern "C"
 
 
 #endif
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
+#endif /* _INC_DENSE_H */

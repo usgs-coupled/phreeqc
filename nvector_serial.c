@@ -25,9 +25,13 @@
 #include "sundialstypes.h"
 #include "sundialsmath.h"
 #include "output.h"
+
+#if !defined(PHREEQC_CLASS)
 #include "phqalloc.h"
-/* WARNING don't include any headers below here */
 #define malloc PHRQ_malloc
+#endif
+
+/* WARNING don't include any headers below here */
 static char const svnid[] =
 	"$Id$";
 

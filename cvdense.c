@@ -25,11 +25,32 @@
 #include "sundialstypes.h"
 #include "nvector.h"
 #include "sundialsmath.h"
-#include "output.h"
-#include "phqalloc.h"
-/* WARNING don't include any headers below here */
-#define malloc PHRQ_malloc
 
+/* WARNING don't include any headers below here */
+#if !defined(PHREEQC_CLASS)
+#include "output.h"
+#define CVMEM
+#define CVMEM_MALLOC
+#define MACHENV
+#define MACHENV_MALLOC
+#define malloc PHRQ_malloc
+#else
+#define malloc PHRQ_malloc
+#include "Phreeqc.h"
+
+#define MACHENV machEnv->phreeqc_ptr->
+#define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
+#if !defined(NDEBUG)
+#define MACHENV_MALLOC MACHENV
+#define CVMEM_MALLOC CVMEM 
+#else
+#define MACHENV_MALLOC
+#define CVMEM_MALLOC
+#endif
+#define OUTPUT_CVODE Phreeqc::OUTPUT_CVODE
+#endif
+
+#include "phqalloc.h"
 static char const svnid[] =
 	"$Id$";
 
@@ -237,7 +258,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+		//CVMEM output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
 		return (LMEM_FAIL);
 	}
 
@@ -247,7 +268,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 
@@ -261,10 +282,10 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	lfree = CVDenseFree;
 
 	/* Get memory for CVDenseMemRec */
-	lmem = cvdense_mem = (CVDenseMem) malloc(sizeof(CVDenseMemRec));
+	lmem = cvdense_mem = (CVDenseMem) CVMEM_MALLOC malloc(sizeof(CVDenseMemRec));
 	if (cvdense_mem == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
 
@@ -285,20 +306,20 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	M = DenseAllocMat(N);
 	if (M == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
 	savedJ = DenseAllocMat(N);
 	if (savedJ == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		DenseFreeMat(M);
 		return (LMEM_FAIL);
 	}
 	pivots = DenseAllocPiv(N);
 	if (pivots == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
 		DenseFreeMat(M);
 		DenseFreeMat(savedJ);
 		return (LMEM_FAIL);
@@ -327,7 +348,7 @@ CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
 		return (LMEM_FAIL);
 	}
 
@@ -337,7 +358,7 @@ CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
+		CVMEM output_msg(OUTPUT_CVODE, MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 
@@ -499,5 +520,5 @@ CVDenseFree(CVodeMem cv_mem)
 	DenseFreeMat(M);
 	DenseFreeMat(savedJ);
 	DenseFreePiv(pivots);
-	free(cvdense_mem);
+	CVMEM_MALLOC free(cvdense_mem);
 }

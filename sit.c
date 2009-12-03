@@ -1,33 +1,39 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 /*#define PITZER*/
+#if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL extern
 #include "pitzer.h"
 
 /* variables */
-static LDBLE A0;
+static LDBLE sit_A0;
 extern struct species **spec, **cations, **anions, **neutrals;
-static int count_cations, count_anions, count_neutrals;
-static int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
+static int sit_count_cations, sit_count_anions, sit_count_neutrals;
+static int sit_MAXCATIONS, sit_FIRSTANION, sit_MAXNEUTRAL;
 extern struct pitz_param *mcb0, *mcb1, *mcc0;
-static int *IPRSNT;
-static LDBLE *M, *LGAMMA;
+static int *sit_IPRSNT;
+static LDBLE *sit_M, *sit_LGAMMA;
 
 /* routines */
 static int calc_sit_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR);
 static int check_gammas_sit(void);
-static int ISPEC(char *name);
+static int sit_ISPEC(char *name);
 /*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
-static int initial_guesses(void);
-static int revise_guesses(void);
-static int remove_unstable_phases;
+static int sit_initial_guesses(void);
+static int sit_revise_guesses(void);
+static int sit_remove_unstable_phases;
 static int PTEMP_SIT(LDBLE tk);
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sit_init(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -43,7 +49,7 @@ sit_init(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sit_tidy(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -62,25 +68,25 @@ sit_tidy(void)
 	cations = spec;
 	neutrals = &(spec[count_s]);
 	anions = &(spec[2 * count_s]);
-	MAXCATIONS = count_s;
-	FIRSTANION = 2 * count_s;
-	MAXNEUTRAL = count_s;
-	count_cations = 0;
-	count_anions = 0;
-	count_neutrals = 0;
+	sit_MAXCATIONS = count_s;
+	sit_FIRSTANION = 2 * count_s;
+	sit_MAXNEUTRAL = count_s;
+	sit_count_cations = 0;
+	sit_count_anions = 0;
+	sit_count_neutrals = 0;
 	if (itmax < 200) itmax = 200;
 	/*
 	 *  allocate other arrays for SIT
 	 */
-	if (IPRSNT != NULL) IPRSNT = (int *) free_check_null(IPRSNT);
-	IPRSNT = (int *) PHRQ_malloc((size_t) (3 * count_s * sizeof(int)));
-	if (IPRSNT == NULL) malloc_error();
-	if (M != NULL) M = (LDBLE *) free_check_null(M);
-	M = (LDBLE *) PHRQ_malloc((size_t) (3 * count_s * sizeof(LDBLE)));
-	if (M == NULL) malloc_error();
-	if (LGAMMA != NULL) LGAMMA = (LDBLE *) free_check_null(LGAMMA);
-	LGAMMA = (LDBLE *) PHRQ_malloc((size_t) (3 * count_s * sizeof(LDBLE)));
-	if (LGAMMA == NULL) malloc_error();
+	if (sit_IPRSNT != NULL) sit_IPRSNT = (int *) free_check_null(sit_IPRSNT);
+	sit_IPRSNT = (int *) PHRQ_malloc((size_t) (3 * count_s * sizeof(int)));
+	if (sit_IPRSNT == NULL) malloc_error();
+	if (sit_M != NULL) sit_M = (LDBLE *) free_check_null(sit_M);
+	sit_M = (LDBLE *) PHRQ_malloc((size_t) (3 * count_s * sizeof(LDBLE)));
+	if (sit_M == NULL) malloc_error();
+	if (sit_LGAMMA != NULL) sit_LGAMMA = (LDBLE *) free_check_null(sit_LGAMMA);
+	sit_LGAMMA = (LDBLE *) PHRQ_malloc((size_t) (3 * count_s * sizeof(LDBLE)));
+	if (sit_LGAMMA == NULL) malloc_error();
 
 
 	for (i = 0; i < count_s; i++)
@@ -91,15 +97,15 @@ sit_tidy(void)
 			continue;
 		if (s[i]->z < -.001)
 		{
-			anions[count_anions++] = s[i];
+			anions[sit_count_anions++] = s[i];
 		}
 		else if (s[i]->z > .001)
 		{
-			cations[count_cations++] = s[i];
+			cations[sit_count_cations++] = s[i];
 		}
 		else
 		{
-			neutrals[count_neutrals++] = s[i];
+			neutrals[sit_count_neutrals++] = s[i];
 		}
 	}
 	/*
@@ -114,7 +120,7 @@ sit_tidy(void)
 		{
 			if (sit_params[i]->species[j] == NULL)
 				continue;
-			sit_params[i]->ispec[j] = ISPEC(sit_params[i]->species[j]);
+			sit_params[i]->ispec[j] = sit_ISPEC(sit_params[i]->species[j]);
 			if ((j < 2 && sit_params[i]->ispec[j] == -1) ||
 				(j == 3
 				 && (sit_params[i]->type == TYPE_PSI
@@ -134,8 +140,8 @@ sit_tidy(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
-ISPEC(char *name)
+int CLASS_QUALIFIER
+sit_ISPEC(char *name)
 /* ---------------------------------------------------------------------- */
 /*
  *      Find species number in spec for character string species name
@@ -155,7 +161,7 @@ ISPEC(char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 read_sit(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -259,7 +265,7 @@ read_sit(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_sit_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 /* ---------------------------------------------------------------------- */
 {
@@ -298,7 +304,7 @@ calc_sit_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sit(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -337,27 +343,29 @@ sit(void)
 	/*      DH_AB(TK, &A, &B); */
 	/*
 	   C
-	   C     TRANSFER DATA FROM TO M
+	   C     TRANSFER DATA FROM TO sit_M
 	   C
 	 */
 	for (i = 0; i < 3 * count_s; i++)
 	{
-		IPRSNT[i] = FALSE;
-		M[i] = 0.0;
+		sit_IPRSNT[i] = FALSE;
+		sit_M[i] = 0.0;
 		if (spec[i] != NULL && spec[i]->in == TRUE)
 		{
 			if (spec[i]->type == EX ||
 				spec[i]->type == SURF || spec[i]->type == SURF_PSI)
 				continue;
-			M[i] = under(spec[i]->lm);
-			if (M[i] > MIN_TOTAL)
-				IPRSNT[i] = TRUE;
+			sit_M[i] = under(spec[i]->lm);
+			if (sit_M[i] > MIN_TOTAL)
+				sit_IPRSNT[i] = TRUE;
 		}
 	}
+#ifdef SKIP
 	if (ICON == TRUE)
 	{
-		IPRSNT[IC] = TRUE;
+		sit_IPRSNT[IC] = TRUE;
 	}
+#endif
 
 	/*
 	   C
@@ -365,14 +373,14 @@ sit(void)
 	   C
 	 */
 	PTEMP_SIT(TK);
-	for (i = 0; i < 2 * count_s + count_anions; i++)
+	for (i = 0; i < 2 * count_s + sit_count_anions; i++)
 	{
-		LGAMMA[i] = 0.0;
-		if (IPRSNT[i] == TRUE)
+		sit_LGAMMA[i] = 0.0;
+		if (sit_IPRSNT[i] == TRUE)
 		{
-			XX = XX + M[i] * fabs(spec[i]->z);
-			XI = XI + M[i] * spec[i]->z * spec[i]->z;
-			OSUM = OSUM + M[i];
+			XX = XX + sit_M[i] * fabs(spec[i]->z);
+			XI = XI + sit_M[i] * spec[i]->z * spec[i]->z;
+			OSUM = OSUM + sit_M[i];
 		}
 	}
 	I = XI / 2.0e0;
@@ -382,7 +390,7 @@ sit(void)
 	   C     CALCULATE F & GAMCLM
 	   C
 	 */
-	AGAMMA = 3*A0; /* Grenthe p 379 */
+	AGAMMA = 3*sit_A0; /* Grenthe p 379 */
 	A = AGAMMA / log(10.0);
 	/*
 	*  F is now for log10 gamma
@@ -393,19 +401,19 @@ sit(void)
 
 
 	CSUM = 0.0e0;
-	/*OSMOT = -(A0) * pow(I, 1.5e0) / (1.0e0 + B * DI);*/
+	/*OSMOT = -(sit_A0) * pow(I, 1.5e0) / (1.0e0 + B * DI);*/
 	T = 1.0 + B*DI;
 	OSMOT = -2.0*A/(B*B*B)*(T - 2.0*log(T) - 1.0/T);
 	/*
-	 *  Sums for LGAMMA, and OSMOT
+	 *  Sums for sit_LGAMMA, and OSMOT
 	 *  epsilons are tabulated for log10 gamma (not ln gamma)
 	 */
-	dummy = LGAMMA[1];
+	dummy = sit_LGAMMA[1];
 	for (i = 0; i < count_sit_param; i++)
 	{
 		i0 = sit_params[i]->ispec[0];
 		i1 = sit_params[i]->ispec[1];
-		if (IPRSNT[i0] == FALSE || IPRSNT[i1] == FALSE) continue;
+		if (sit_IPRSNT[i0] == FALSE || sit_IPRSNT[i1] == FALSE) continue;
 		z0 = spec[i0]->z;
 		z1 = spec[i1]->z;
 		param = sit_params[i]->p;
@@ -413,28 +421,28 @@ sit(void)
 		switch (sit_params[i]->type)
 		{
 		case TYPE_SIT_EPSILON:
-			LGAMMA[i0] += M[i1] * param;
-			LGAMMA[i1] += M[i0] * param;
+			sit_LGAMMA[i0] += sit_M[i1] * param;
+			sit_LGAMMA[i1] += sit_M[i0] * param;
 			if (z0 == 0.0 && z1 == 0.0)
 			{
-				OSMOT += M[i0] * M[i1] * param / 2.0;
+				OSMOT += sit_M[i0] * sit_M[i1] * param / 2.0;
 			}
 			else
 			{
-				OSMOT += M[i0] * M[i1] * param;
+				OSMOT += sit_M[i0] * sit_M[i1] * param;
 			}
 			break;
 		case TYPE_SIT_EPSILON_MU:
-			LGAMMA[i0] += M[i1] * I * param;
-			LGAMMA[i1] += M[i0] * I * param;
-			OSMOT += M[i0] * M[i1] * param;
+			sit_LGAMMA[i0] += sit_M[i1] * I * param;
+			sit_LGAMMA[i1] += sit_M[i0] * I * param;
+			OSMOT += sit_M[i0] * sit_M[i1] * param;
 			if (z0 == 0.0 && z1 == 0.0)
 			{
-				OSMOT += M[i0] * M[i1] * param * I / 2.0;
+				OSMOT += sit_M[i0] * sit_M[i1] * param * I / 2.0;
 			}
 			else
 			{
-				OSMOT += M[i0] * M[i1] * param * I;
+				OSMOT += sit_M[i0] * sit_M[i1] * param * I;
 			}
 			break;
 		default:
@@ -445,18 +453,18 @@ sit(void)
 	}
 
 	/*
-	 *  Add F and CSUM terms to LGAMMA
+	 *  Add F and CSUM terms to sit_LGAMMA
 	 */
 
-	for (i = 0; i < count_cations; i++)
+	for (i = 0; i < sit_count_cations; i++)
 	{
 		z0 = spec[i]->z;
-		LGAMMA[i] += z0 * z0 * F;
+		sit_LGAMMA[i] += z0 * z0 * F;
 	}
-	for (i = 2 * count_s; i < 2 * count_s + count_anions; i++)
+	for (i = 2 * count_s; i < 2 * count_s + sit_count_anions; i++)
 	{
 		z0 = spec[i]->z;
-		LGAMMA[i] += z0 * z0 * F;
+		sit_LGAMMA[i] += z0 * z0 * F;
 	}
 	/*
 	   C
@@ -474,19 +482,19 @@ sit(void)
 	if (AW > 1.0) AW = 1.0;
 	/*s_h2o->la=log10(AW); */
 	mu_x = I;
-	for (i = 0; i < 2 * count_s + count_anions; i++)
+	for (i = 0; i < 2 * count_s + sit_count_anions; i++)
 	{
-		if (IPRSNT[i] == FALSE)	continue;
-		spec[i]->lg_pitzer = LGAMMA[i];
+		if (sit_IPRSNT[i] == FALSE)	continue;
+		spec[i]->lg_pitzer = sit_LGAMMA[i];
 /*
-		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
+		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, sit_M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
 */
 	}
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sit_clean_up(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -501,16 +509,16 @@ sit_clean_up(void)
 	}
 	count_sit_param = 0;
 	sit_params = (struct pitz_param **) free_check_null(sit_params);
-	LGAMMA = (LDBLE *) free_check_null(LGAMMA);
-	IPRSNT = (int *) free_check_null(IPRSNT);
+	sit_LGAMMA = (LDBLE *) free_check_null(sit_LGAMMA);
+	sit_IPRSNT = (int *) free_check_null(sit_IPRSNT);
 	spec = (struct species **) free_check_null(spec);
-	M = (LDBLE *) free_check_null(M);
+	sit_M = (LDBLE *) free_check_null(sit_M);
 
 	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_sit(int initial)
 /* ---------------------------------------------------------------------- */
 {
@@ -549,15 +557,15 @@ set_sit(int initial)
 	s_hplus->lm = s_hplus->la;
 	s_hplus->moles = exp(s_hplus->lm * LOG_10) * mass_water_aq_x;
 	s_eminus->la = -solution_ptr->solution_pe;
-	if (initial == TRUE) initial_guesses();
+	if (initial == TRUE) sit_initial_guesses();
 	if (dl_type_x != NO_DL)	initial_surface_water();
-	revise_guesses();
+	sit_revise_guesses();
 	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
-int
-initial_guesses(void)
+int CLASS_QUALIFIER
+sit_initial_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -625,8 +633,8 @@ initial_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
-revise_guesses(void)
+int CLASS_QUALIFIER
+sit_revise_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -774,7 +782,7 @@ revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in revise_guesses: %d\n", iter);
+	output_msg(OUTPUT_LOG, "Iterations in sit_revise_guesses: %d\n", iter);
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -785,7 +793,7 @@ revise_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 jacobian_sit(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -912,7 +920,7 @@ jacobian_sit(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 model_sit(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -933,7 +941,7 @@ model_sit(void)
  *      mb_s_s--decide if solid_solutions exists
  *      switch_bases--check to see if new basis species is needed
  *         reprep--rewrite equations with new basis species if needed
- *         revise_guesses--revise unknowns to get initial mole balance
+ *         sit_revise_guesses--revise unknowns to get initial mole balance
  *      check_residuals--check convergence one last time
  *         sum_species--calculate sums of elements from species concentrations
  *
@@ -963,7 +971,7 @@ model_sit(void)
 	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
-	remove_unstable_phases = FALSE;
+	sit_remove_unstable_phases = FALSE;
 	if (always_full_pitzer == TRUE)
 	{
 		full_pitzer = TRUE;
@@ -978,7 +986,7 @@ model_sit(void)
 		mb_s_s();
 		kode = 1;
 		while ((r = residuals()) != CONVERGED
-			   || remove_unstable_phases == TRUE)
+			   || sit_remove_unstable_phases == TRUE)
 		{
 #if defined(PHREEQCI_GUI)
 			if (WaitForSingleObject(g_hKill /*g_eventKill */ , 0) ==
@@ -1023,7 +1031,7 @@ model_sit(void)
 			/*
 			 *   Full matrix with pure phases
 			 */
-			if (r == OK || remove_unstable_phases == TRUE)
+			if (r == OK || sit_remove_unstable_phases == TRUE)
 			{
 				return_kode = ineq(kode);
 				if (return_kode != OK)
@@ -1090,7 +1098,7 @@ model_sit(void)
 			stop_program = TRUE;
 			break;
 		}
-		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
+		if (sit_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
 			output_msg(OUTPUT_LOG,
@@ -1113,7 +1121,7 @@ model_sit(void)
 			full_pitzer = TRUE;
 			continue;
 		}
-		if (remove_unstable_phases == FALSE)
+		if (sit_remove_unstable_phases == FALSE)
 			break;
 		if (debug_model == TRUE)
 		{
@@ -1139,7 +1147,7 @@ model_sit(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_gammas_sit(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1175,7 +1183,7 @@ check_gammas_sit(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 gammas_sit()
 /* ---------------------------------------------------------------------- */
 {
@@ -1320,7 +1328,7 @@ gammas_sit()
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 PTEMP_SIT(LDBLE TK)
 /* ---------------------------------------------------------------------- */
 {
@@ -1346,13 +1354,13 @@ C     Set DW0
 	DC0 = DC(TK);
 	if (fabs(TK - TR) < 0.01e0)
 	{
-		A0 = 0.392e0;
+		sit_A0 = 0.392e0;
 	}
 	else
 	{
 		DC0 = DC(TK);
-		A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), 3.0e0)));
-		/*A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
+		sit_A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), 3.0e0)));
+		/*sit_A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
 	}
 	return OK;
 }

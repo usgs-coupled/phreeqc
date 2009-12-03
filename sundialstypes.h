@@ -1,4 +1,9 @@
+#if defined(WIN32)
+#include <windows.h>
+#endif
 #include "phrqtype.h"
+#ifndef _INC_SUNDIALSTYPES_H
+#define _INC_SUNDIALSTYPES_H
 /*******************************************************************
  *                                                                 *
  * File          : sundialstypes.h                                 *
@@ -67,10 +72,9 @@ static char const svnidsundialstypes[] =
 	"$Id$";
 #endif
 
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
-#endif
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "c"  {
+//#endif
 
 #ifndef _sundialstypes_h
 #define _sundialstypes_h
@@ -141,6 +145,7 @@ extern "C"
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif
+#endif /* _INC_SUNDIALSTYPES_H */
