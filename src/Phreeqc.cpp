@@ -29,7 +29,15 @@ Phreeqc::Phreeqc(void)
 	sit_IPRSNT = NULL;
 	sit_M = NULL;
 
-	struct iso temp_iso_defaults[] = {
+	struct const_iso
+	{
+		const char *name;
+		LDBLE value;
+		LDBLE uncertainty;
+	};
+
+
+	struct const_iso temp_iso_defaults[] = {
 		{"13C", -10, 1},
 		{"13C(4)", -10, 1},
 		{"13C(-4)", -50, 5},
@@ -42,7 +50,7 @@ Phreeqc::Phreeqc(void)
 		{"11B", 20, 5}
 	};
 	int temp_count_iso_defaults =
-		(sizeof(temp_iso_defaults) / sizeof(struct iso));
+		(sizeof(temp_iso_defaults) / sizeof(struct const_iso));
 
 	count_iso_defaults = temp_count_iso_defaults;
 	iso_defaults = new iso[count_iso_defaults];
@@ -50,7 +58,7 @@ Phreeqc::Phreeqc(void)
 	int i;
 	for (i = 0; i < temp_count_iso_defaults; i++)
 	{
-		iso_defaults[i].name = string_hsave(temp_iso_defaults[i].name);
+		iso_defaults[i].name = string_duplicate(temp_iso_defaults[i].name);
 		iso_defaults[i].value = temp_iso_defaults[i].value;
 		iso_defaults[i].uncertainty = temp_iso_defaults[i].uncertainty;
 	}
@@ -354,6 +362,10 @@ Phreeqc::~Phreeqc(void)
 	close_output_files();
 
 	int i;
+	for (i = 0; i < count_iso_defaults; i++)
+	{
+		iso_defaults[i].name = (char *) free_check_null((void *) iso_defaults[i].name);
+	}
 	for (i = 0; i < NKEYS; i++)
 	{
 		keyword[i].name = (char *) free_check_null((void *) keyword[i].name);
