@@ -1003,7 +1003,7 @@ struct iso iso_defaults[] = {
 };
 int count_iso_defaults = (sizeof(iso_defaults) / sizeof(struct iso));
 #else   /* MAINSUBS */
-extern struct iso *iso_defaults;
+extern struct iso iso_defaults[];
 extern int count_iso_defaults;
 #endif  /* MAINSUBS */
 #else   /* PHREEQC_CLASS */
@@ -1213,7 +1213,7 @@ struct const_key keyword[] = {
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid keywords */
 #else   /* MAINSUBS */
-extern struct const_key *keyword;
+extern struct const_key keyword[];
 extern int NKEYS;
 #endif  /* MAINSUBS */
 #else   /* PHREEQC_CLASS */

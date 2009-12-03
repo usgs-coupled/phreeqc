@@ -412,11 +412,6 @@ clean_up(void)
 	cmd_free();
 	change_surf = (struct Change_Surf *) free_check_null(change_surf);
 
-/* iso_defaults */
-#if !defined(PHREEQC_CLASS)
-	iso_defaults = (struct iso *) free_check_null(iso_defaults);
-#endif
-
 /* miscellaneous work space */
 
 	elt_list = (struct elt_list *) free_check_null(elt_list);
