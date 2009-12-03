@@ -43,11 +43,15 @@
 static char const svnidnvector[] =
 	"$Id$";
 #endif
-
-#ifdef __cplusplus				/* wrapper to enable C++ usage */
-extern "C"
-{
+#if defined(PHREEQC_CLASS)
+class Phreeqc;
 #endif
+
+
+//#ifdef __cplusplus				/* wrapper to enable C++ usage */
+//extern "C"
+//{
+//#endif
 
 #ifndef included_nvector_h
 #define included_nvector_h
@@ -114,6 +118,9 @@ extern "C"
 		void *content;
 		struct _generic_N_Vector_Ops *ops;
 		char tag[8];
+#if defined(PHREEQC_CLASS)
+		Phreeqc * phreeqc_ptr;
+#endif
 	};
 
 /* A vector is a structure with an implementation dependent content
@@ -442,6 +449,6 @@ extern "C"
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//}
+//#endif

@@ -1,9 +1,14 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
 static LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
@@ -45,12 +50,14 @@ LDBLE *normal = NULL, *ineq_array = NULL, *res = NULL, *cu = NULL, *zero =
 int *iu = NULL, *is = NULL, *back_eq = NULL;
 int normal_max = 0, ineq_array_max = 0, res_max = 0, cu_max = 0, zero_max =
 	0, delta1_max = 0, iu_max = 0, is_max = 0, back_eq_max = 0;
+#endif
+
 #ifdef ORCHESTRA
 extern void ORCH_model(void);
 #endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -83,8 +90,8 @@ model(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
+	//if (svnid == NULL)
+	//	fprintf(stderr, " ");
 	set_inert_moles();
 #ifdef ORCHESTRA
 	ORCH_model();
@@ -301,7 +308,7 @@ model(void)
 
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 adjust_step_size(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -320,7 +327,7 @@ adjust_step_size(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_residuals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -602,7 +609,7 @@ check_residuals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 gammas(LDBLE mu)
 /* ---------------------------------------------------------------------- */
 {
@@ -949,7 +956,7 @@ gammas(LDBLE mu)
 }
 
 /* ------------------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 ineq(int in_kode)
 /* ------------------------------------------------------------------------------- */
 {
@@ -966,7 +973,9 @@ ineq(int in_kode)
 	int return_code;
 	int count_rows;
 	int count_optimize, count_equal;
+#if !defined(PHREEQC_CLASS)
 	extern int max_row_count, max_column_count;
+#endif
 	int k, l, m, n;
 	int klmd, nklmd, n2d;
 	int iter;
@@ -1854,7 +1863,7 @@ ineq(int in_kode)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 jacobian_sums(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1974,7 +1983,7 @@ jacobian_sums(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_sums(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2015,7 +2024,7 @@ mb_sums(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_gases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2041,7 +2050,7 @@ mb_gases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 mb_s_s(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2183,7 +2192,7 @@ mb_s_s(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 molalities(int allow_overflow)
 /* ---------------------------------------------------------------------- */
 {
@@ -2440,7 +2449,7 @@ molalities(int allow_overflow)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2498,7 +2507,7 @@ calc_gas_pressures(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 calc_s_s_fractions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2558,7 +2567,7 @@ calc_s_s_fractions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 s_s_binary(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2699,7 +2708,7 @@ s_s_binary(struct s_s *s_s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 s_s_ideal(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2744,7 +2753,7 @@ s_s_ideal(struct s_s *s_s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reset(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3513,7 +3522,7 @@ reset(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 residuals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4182,7 +4191,7 @@ residuals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set(int initial)
 /* ---------------------------------------------------------------------- */
 {
@@ -4232,7 +4241,7 @@ set(int initial)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 initial_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4301,7 +4310,7 @@ initial_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 revise_guesses(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4475,7 +4484,7 @@ revise_guesses(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sum_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4594,7 +4603,7 @@ sum_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 surface_model(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4755,7 +4764,7 @@ surface_model(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 free_model_allocs(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4788,7 +4797,7 @@ free_model_allocs(void)
 
 #ifdef SLNQ
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_trivial_eqns(int rows, int cols, LDBLE * matrix)
 /* ---------------------------------------------------------------------- */
 {
@@ -4819,7 +4828,7 @@ add_trivial_eqns(int rows, int cols, LDBLE * matrix)
 #endif
 #define ZERO_TOL 1.0e-30
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
 {
@@ -4866,7 +4875,7 @@ s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 		  LDBLE xcaq, LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
@@ -4888,17 +4897,6 @@ s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 		{
 			break;
 		}
-#ifdef SKIP
-		if (y0 * y < 0)
-		{
-			x1 = x;
-		}
-		else
-		{
-			x0 = x;
-			y0 = y;
-		}
-#endif
 		if (y0 * y >= 0)
 		{
 			x0 = x;
@@ -4909,7 +4907,7 @@ s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE
+LDBLE CLASS_QUALIFIER
 s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 	  LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
@@ -4931,7 +4929,7 @@ s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 numerical_jacobian(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5121,7 +5119,7 @@ numerical_jacobian(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 ineq_init(int max_row_count, int max_column_count)
 /* ---------------------------------------------------------------------- */
 {
@@ -5195,7 +5193,7 @@ ineq_init(int max_row_count, int max_column_count)
 	}
 }
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 set_inert_moles(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5212,7 +5210,7 @@ set_inert_moles(void)
 	}
 }
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 unset_inert_moles()
 /* ---------------------------------------------------------------------- */
 {

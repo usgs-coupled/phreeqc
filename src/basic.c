@@ -1,14 +1,20 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
 
-
-static char const svnid[] = "$Id$";
-
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+typedef unsigned char boolean;
+#include "Phreeqc.h"
+#endif
+
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "p2c.h"
+#if !defined(PHREEQC_CLASS)
+static char const svnid[] = "$Id$";
 
 int n_user_punch_index;
 #ifdef PHREEQ98
@@ -16,7 +22,6 @@ void GridChar(char *s, char *a);
 extern int colnr, rownr;
 #endif
 
-#include "p2c.h"
 
 static int sget_logical_line(char **ptr, int *l, char *return_line);
 
@@ -27,6 +32,104 @@ static int sget_logical_line(char **ptr, int *l, char *return_line);
 typedef Char varnamestring[varnamelen + 1];
 typedef Char string255[256];
 
+
+
+typedef LDBLE numarray[];
+typedef Char *strarray[];
+
+#define forloop	 0
+#define whileloop       1
+#define gosubloop       2
+
+typedef struct tokenrec
+{
+	struct tokenrec *next;
+	int kind;
+	union
+	{
+		struct varrec *vp;
+		LDBLE num;
+		Char *sp;
+		Char snch;
+	} UU;
+} tokenrec;
+
+typedef struct linerec
+{
+	long num, num2;
+	tokenrec *txt;
+	Char inbuf[MAX_LENGTH];
+	struct linerec *next;
+} linerec;
+
+typedef struct varrec
+{
+	varnamestring name;
+	struct varrec *next;
+	long dims[maxdims];
+	char numdims;
+	boolean stringvar;
+	union
+	{
+		struct
+		{
+			LDBLE *arr;
+			LDBLE *val, rv;
+		} U0;
+		struct
+		{
+			Char **sarr;
+			Char **sval, *sv;
+		} U1;
+	} UU;
+} varrec;
+
+typedef struct valrec
+{
+	boolean stringval;
+	union
+	{
+		LDBLE val;
+		Char *sval;
+	} UU;
+} valrec;
+
+typedef struct looprec
+{
+	struct looprec *next;
+	linerec *homeline;
+	tokenrec *hometok;
+	int kind;
+	union
+	{
+		struct
+		{
+			varrec *vp;
+			LDBLE max, step;
+		} U0;
+	} UU;
+} looprec;
+
+
+Static Char *inbuf;
+Static linerec *linebase;
+Static varrec *varbase;
+Static looprec *loopbase;
+Static long curline;
+Static linerec *stmtline, *dataline;
+Static tokenrec *stmttok, *datatok, *buf;
+Static boolean exitflag;
+
+Static int free_dim_stringvar(struct varrec *varbase);
+extern long EXCP_LINE;
+Static void parseinput(tokenrec ** buf);
+Static void exec(void);
+Static void disposetokens(tokenrec ** tok);
+
+/*$if not checking$
+   $range off$
+$end$*/
+static HashTable *command_hash_table;
 #define tokvar	  0
 #define toknum	  1
 #define tokstr	  2
@@ -171,103 +274,22 @@ typedef Char string255[256];
 #define tokrho	   139
 /* VP: Density End */
 
-typedef LDBLE numarray[];
-typedef Char *strarray[];
-
-#define forloop	 0
-#define whileloop       1
-#define gosubloop       2
-
-typedef struct tokenrec
-{
-	struct tokenrec *next;
-	int kind;
-	union
-	{
-		struct varrec *vp;
-		LDBLE num;
-		Char *sp;
-		Char snch;
-	} UU;
-} tokenrec;
-
-typedef struct linerec
-{
-	long num, num2;
-	tokenrec *txt;
-	struct linerec *next;
-} linerec;
-
-typedef struct varrec
-{
-	varnamestring name;
-	struct varrec *next;
-	long dims[maxdims];
-	char numdims;
-	boolean stringvar;
-	union
-	{
-		struct
-		{
-			LDBLE *arr;
-			LDBLE *val, rv;
-		} U0;
-		struct
-		{
-			Char **sarr;
-			Char **sval, *sv;
-		} U1;
-	} UU;
-} varrec;
-
-typedef struct valrec
-{
-	boolean stringval;
-	union
-	{
-		LDBLE val;
-		Char *sval;
-	} UU;
-} valrec;
-
-typedef struct looprec
-{
-	struct looprec *next;
-	linerec *homeline;
-	tokenrec *hometok;
-	int kind;
-	union
-	{
-		struct
-		{
-			varrec *vp;
-			LDBLE max, step;
-		} U0;
-	} UU;
-} looprec;
-
-
-Static Char *inbuf;
-Static linerec *linebase;
-Static varrec *varbase;
-Static looprec *loopbase;
-Static long curline;
-Static linerec *stmtline, *dataline;
-Static tokenrec *stmttok, *datatok, *buf;
-Static boolean exitflag;
-
-Static int free_dim_stringvar(struct varrec *varbase);
-extern long EXCP_LINE;
-Static void parseinput(tokenrec ** buf);
-Static void exec(void);
-Static void disposetokens(tokenrec ** tok);
-
-/*$if not checking$
-   $range off$
-$end$*/
-static HashTable *command_hash_table;
-
 static const struct const_key command[] = {
+	{"+", tokplus},
+	{"-", tokminus},
+	{"*", toktimes},
+	{"/", tokdiv},
+	{"^", tokup},
+	{"( or [", toklp},
+	{") or ]", tokrp},
+	{",", tokcomma},
+	{";", toksemi},
+	{":", tokcolon},
+	{"=", tokeq},
+	{"<", toklt},
+	{"<=", tokle},
+	{">", tokgt},
+	{">=", tokge},
 	{"and", tokand},
 	{"or", tokor},
 	{"xor", tokxor},
@@ -396,8 +418,24 @@ static const struct const_key command[] = {
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
+struct LOC_exec
+{
+	boolean gotoflag, elseflag;
+	tokenrec *t;
+};
+Local valrec factor(struct LOC_exec *LINK);
+Local valrec expr(struct LOC_exec *LINK);
+Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
+
+
+
+/* Local variables for exec: */
+#endif
+
+
+
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 cmd_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -428,7 +466,7 @@ cmd_initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 cmd_free(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -442,7 +480,7 @@ cmd_free(void)
 }
 
 #ifdef SKIP
-int
+int CLASS_QUALIFIER
 main(int argc, Char * argv[])
 {								/*main */
 	char commands[] = "10a=1\n20a=a*2;30print a;40quit;run";
@@ -450,13 +488,15 @@ main(int argc, Char * argv[])
 	return 0;
 }
 #endif
-int
+int CLASS_QUALIFIER
 basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l;
 	char *ptr;
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 
 	PASCAL_MAIN(0, NULL);
 	inbuf = (char *) PHRQ_calloc(max_line, sizeof(char));
@@ -496,7 +536,7 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 #endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			error_msg(error_string, CONTINUE);
+			warning_msg(error_string, CONTINUE);
 		}
 		else
 		{
@@ -513,7 +553,7 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l, i;
@@ -573,7 +613,7 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 #endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			error_msg(error_string, CONTINUE);
+			warning_msg(error_string, CONTINUE);
 		}
 		else
 		{
@@ -591,7 +631,7 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 {								/*main */
 	int l;
@@ -636,7 +676,7 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 #endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			error_msg(error_string, CONTINUE);
+			warning_msg(error_string, CONTINUE);
 		}
 		else
 		{
@@ -651,7 +691,7 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 	return (P_escapecode);
 }
 
-int
+int CLASS_QUALIFIER
 basic_main(char *commands)
 {								/*main */
 	int l;
@@ -705,7 +745,7 @@ basic_main(char *commands)
 #endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			error_msg(error_string, CONTINUE);
+			warning_msg(error_string, CONTINUE);
 		}
 		else
 		{
@@ -726,7 +766,7 @@ basic_main(char *commands)
 
 /* End. */
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 sget_logical_line(char **ptr, int *l, char *return_line)
 /* ---------------------------------------------------------------------- */
 {
@@ -759,7 +799,7 @@ sget_logical_line(char **ptr, int *l, char *return_line)
 	*l = i;
 	return (1);
 }
-Static void
+Static void CLASS_QUALIFIER
 restoredata(void)
 {
 	dataline = NULL;
@@ -768,7 +808,7 @@ restoredata(void)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 clearloops(void)
 {
 	looprec *l;
@@ -784,7 +824,7 @@ clearloops(void)
 
 
 #ifdef SKIP
-Static long
+Static long CLASS_QUALIFIER
 arraysize(varrec * v)
 {
 	long i, j, FORLIM;
@@ -800,7 +840,7 @@ arraysize(varrec * v)
 }
 #endif
 
-Static void
+Static void CLASS_QUALIFIER
 clearvar(varrec * v)
 {
 	if (v->numdims != 0)
@@ -833,7 +873,7 @@ clearvar(varrec * v)
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 clearvars(void)
 {
 	varrec *v;
@@ -846,7 +886,7 @@ clearvars(void)
 	}
 }
 
-Static Char *
+Static Char * CLASS_QUALIFIER
 numtostr(Char * Result, LDBLE n)
 {
 	/*string255 s; */
@@ -912,10 +952,10 @@ typedef long chset[9];
 
 
 
-Static void
-parse(Char * inbuf, tokenrec ** buf)
+Static void CLASS_QUALIFIER
+parse(Char * inbuf, CLASS_QUALIFIER tokenrec ** buf)
 {
-	long i, j, begin, len, m;
+	long i, j, begin, len, m, lp;
 	Char token[toklength + 1];
 	tokenrec *t, *tptr;
 	varrec *v;
@@ -926,6 +966,7 @@ parse(Char * inbuf, tokenrec ** buf)
 	tptr = NULL;
 	*buf = NULL;
 	i = 1;
+	lp = 0;
 	do
 	{
 		ch = ' ';
@@ -995,11 +1036,13 @@ parse(Char * inbuf, tokenrec ** buf)
 			case '(':
 			case '[':
 				t->kind = toklp;
+				lp += 1;
 				break;
 
 			case ')':
 			case ']':
 				t->kind = tokrp;
+				lp -= 1;
 				break;
 
 			case ',':
@@ -1411,13 +1454,21 @@ parse(Char * inbuf, tokenrec ** buf)
 		}
 	}
 	while (i <= (int) strlen(inbuf));
+	if (lp > 0) {
+		sprintf(error_string, " missing ) or ] in BASIC line\n %ld %s", curline, inbuf);
+		error_msg(error_string, STOP);
+	}
+	else if (lp < 0) {
+		sprintf(error_string, " missing ( or [ in BASIC line\n %ld %s", curline, inbuf);
+		error_msg(error_string, STOP);
+	}
 }
 
 #undef toklength
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 listtokens(FILE * f, tokenrec * buf)
 {
 	boolean ltr;
@@ -2019,7 +2070,7 @@ listtokens(FILE * f, tokenrec * buf)
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 disposetokens(tokenrec ** tok)
 {
 	tokenrec *tok1;
@@ -2031,14 +2082,14 @@ disposetokens(tokenrec ** tok)
 		{
 			(*tok)->UU.sp = (char *) free_check_null((*tok)->UU.sp);
 		}
-		*tok = (struct tokenrec *) free_check_null(*tok);
+		*tok = (tokenrec *) free_check_null(*tok);
 		*tok = tok1;
 	}
 }
 
 
 
-Static void
+Static void CLASS_QUALIFIER
 parseinput(tokenrec ** buf)
 {
 	linerec *l, *l0, *l1;
@@ -2088,12 +2139,13 @@ parseinput(tokenrec ** buf)
 			l0->next = l1;
 		l1->num = curline;
 		l1->txt = *buf;
+		strcpy(l1->inbuf, inbuf);
 	}
 	clearloops();
 	restoredata();
 }
 
-Static void
+Static void CLASS_QUALIFIER
 errormsg(const Char * s)
 {
 #ifdef SKIP
@@ -2104,137 +2156,144 @@ errormsg(const Char * s)
 }
 
 
-Static void
-snerr(void)
+Static void CLASS_QUALIFIER
+snerr(const Char * s)
 {
-	errormsg("Syntax error");
+  char str[MAX_LENGTH];
+  strcpy(str, "Syntax_error ");
+  errormsg(strcat(str, s));
 }
 
 
-Static void
-tmerr(void)
+Static void CLASS_QUALIFIER
+tmerr(const Char * s)
 {
-	errormsg("Type mismatch error");
+  char str[MAX_LENGTH];
+  strcpy(str, "Type mismatch error");
+  errormsg(strcat(str, s));
 }
 
 
-Static void
+Static void CLASS_QUALIFIER
 badsubscr(void)
 {
 	errormsg("Bad subscript");
 }
 
 
-/* Local variables for exec: */
-struct LOC_exec
-{
-	boolean gotoflag, elseflag;
-	tokenrec *t;
-};
-
-Local valrec factor(struct LOC_exec *LINK);
-Local valrec expr(struct LOC_exec *LINK);
-Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
-
-Local LDBLE
+Local LDBLE CLASS_QUALIFIER
 realfactor(struct LOC_exec *LINK)
 {
 	valrec n;
 
 	n = factor(LINK);
 	if (n.stringval)
-		tmerr();
+		tmerr(": found characters, not a number");
 	return (n.UU.val);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 strfactor(struct LOC_exec * LINK)
 {
 	valrec n;
 
 	n = factor(LINK);
 	if (!n.stringval)
-		tmerr();
+		tmerr(": chemical name is not enclosed in \"  \"" );
 	return (n.UU.sval);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 stringfactor(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
 
 	n = factor(LINK);
 	if (!n.stringval)
-		tmerr();
+		tmerr(": chemical name is not enclosed in \"  \"" );
 	strcpy(Result, n.UU.sval);
 	free(n.UU.sval);
 	return Result;
 }
 
-Local long
+Local long CLASS_QUALIFIER
 intfactor(struct LOC_exec *LINK)
 {
 	return ((long) floor(realfactor(LINK) + 0.5));
 }
 
-Local LDBLE
+Local LDBLE CLASS_QUALIFIER
 realexpr(struct LOC_exec *LINK)
 {
 	valrec n;
 
 	n = expr(LINK);
 	if (n.stringval)
-		tmerr();
+		tmerr(": found characters, not a number");
 	return (n.UU.val);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 strexpr(struct LOC_exec * LINK)
 {
 	valrec n;
 
 	n = expr(LINK);
 	if (!n.stringval)
-		tmerr();
+		tmerr(": chemical name is not enclosed in \"  \"" );
 	return (n.UU.sval);
 }
 
-Local Char *
+Local Char * CLASS_QUALIFIER
 stringexpr(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
 
 	n = expr(LINK);
 	if (!n.stringval)
-		tmerr();
+		tmerr(": chemical name is not enclosed in \"  \"" );
 	strcpy(Result, n.UU.sval);
 	free(n.UU.sval);
 	return Result;
 }
 
-Local long
+Local long CLASS_QUALIFIER
 intexpr(struct LOC_exec *LINK)
 {
 	return ((long) floor(realexpr(LINK) + 0.5));
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 require(int k, struct LOC_exec *LINK)
 {
+  char str[MAX_LENGTH];
+	int i;
 	if (LINK->t == NULL || LINK->t->kind != k)
-		snerr();
+	{
+		for (i = 0; i < NCMDS; i++)
+		{
+			if (command[i].keycount == k)
+				break;
+		}
+		if (i == NCMDS)
+			snerr(": missing unknown command");
+		else {
+			strcpy(str, ": missing ");
+			snerr(strcat(str, command[i].name));
+		}
+	}
 	LINK->t = LINK->t->next;
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 skipparen(struct LOC_exec *LINK)
 {
 	do
 	{
 		if (LINK->t == NULL)
-			snerr();
+			snerr(": parenthesis missing");
 		if (LINK->t->kind == tokrp || LINK->t->kind == tokcomma)
 			goto _L1;
 		if (LINK->t->kind == toklp)
@@ -2249,7 +2308,7 @@ skipparen(struct LOC_exec *LINK)
 }
 
 
-Local varrec *
+Local CLASS_QUALIFIER varrec * CLASS_QUALIFIER
 findvar(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -2258,7 +2317,7 @@ findvar(struct LOC_exec *LINK)
 	long FORLIM;
 
 	if (LINK->t == NULL || LINK->t->kind != tokvar)
-		snerr();
+		snerr(": can't find variable");
 	v = LINK->t->UU.vp;
 	LINK->t = LINK->t->next;
 	if (LINK->t == NULL || LINK->t->kind != toklp)
@@ -2337,7 +2396,7 @@ ixor(long a, long b, struct LOC_exec *LINK)
 }
 #endif
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 factor(struct LOC_exec * LINK)
 {
 	char string[MAX_LENGTH];
@@ -2361,7 +2420,7 @@ factor(struct LOC_exec * LINK)
 	LDBLE TEMP;
 	Char STR1[256], STR2[256];
 	char *elt_name, *surface_name, *mytemplate, *name;
-	struct varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
+	varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
 		NULL, *moles_varrec = NULL;
 	char **names_arg, **types_arg;
 	LDBLE *moles_arg;
@@ -2370,7 +2429,7 @@ factor(struct LOC_exec * LINK)
 	char *ptr, *string1, *string2;
 
 	if (LINK->t == NULL)
-		snerr();
+		snerr(": missing variable or command");
 	facttok = LINK->t;
 	LINK->t = LINK->t->next;
 	n.stringval = false;
@@ -2814,28 +2873,28 @@ factor(struct LOC_exec * LINK)
 			LINK->t = LINK->t->next;
 			count_varrec = LINK->t->UU.vp;
 			if (LINK->t->kind != tokvar || count_varrec->stringvar != 0)
-				snerr();
+				snerr(": can't find variable");
 
 			/* return number of names of species */
 			LINK->t = LINK->t->next;
 			require(tokcomma, LINK);
 			names_varrec = LINK->t->UU.vp;
 			if (LINK->t->kind != tokvar || names_varrec->stringvar != 1)
-				snerr();
+				snerr(": can't find name of species");
 
 			/* return number of types of species */
 			LINK->t = LINK->t->next;
 			require(tokcomma, LINK);
 			types_varrec = LINK->t->UU.vp;
 			if (LINK->t->kind != tokvar || types_varrec->stringvar != 1)
-				snerr();
+				snerr(": can't find type of species");
 
 			/* return number of moles  of species */
 			LINK->t = LINK->t->next;
 			require(tokcomma, LINK);
 			moles_varrec = LINK->t->UU.vp;
 			if (LINK->t->kind != tokvar || moles_varrec->stringvar != 0)
-				snerr();
+				snerr(": can't find moles of species");
 			LINK->t = LINK->t->next;
 			arg_num = 4;
 		}
@@ -3259,7 +3318,7 @@ factor(struct LOC_exec * LINK)
 		{
 			if (j + 1 > 256)
 			{
-				error_msg("String too long in factor\n", CONTINUE);
+				warning_msg("String too long in factor\n", CONTINUE);
 /*
       STR1 = (char *) PHRQ_realloc (STR1, j + 1);
       if (STR1 == NULL)
@@ -3286,14 +3345,14 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	default:
-		snerr();
+		snerr(": missing \" or (");
 		break;
 	}
 	s_v.subscripts = (int *) free_check_null(s_v.subscripts);
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 upexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3302,11 +3361,11 @@ upexpr(struct LOC_exec * LINK)
 	while (LINK->t != NULL && LINK->t->kind == tokup)
 	{
 		if (n.stringval)
-			tmerr();
+			tmerr(": not a number before ^");
 		LINK->t = LINK->t->next;
 		n2 = upexpr(LINK);
 		if (n2.stringval)
-			tmerr();
+			tmerr(": not a number after ^");
 		if (n.UU.val >= 0)
 		{
 			if (n.UU.val > 0)
@@ -3324,7 +3383,7 @@ upexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 term(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3340,7 +3399,7 @@ term(struct LOC_exec * LINK)
 		LINK->t = LINK->t->next;
 		n2 = upexpr(LINK);
 		if (n.stringval || n2.stringval)
-			tmerr();
+			tmerr(": found char, but need a number for * or /");
 		if (k == tokmod)
 		{
 			/*      n.UU.val = (long)floor(n.UU.val + 0.5) % (long)floor(n2.UU.val + 0.5); */
@@ -3365,14 +3424,15 @@ term(struct LOC_exec * LINK)
 		}
 		else
 		{
-			error_msg("Zero divide in Basic. Value set to zero.", CONTINUE);
+			sprintf(error_string, "Zero divide in BASIC line\n %ld %s.\nValue set to zero.", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			n.UU.val = 0;
 		}
 	}
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 sexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3387,7 +3447,7 @@ sexpr(struct LOC_exec * LINK)
 		LINK->t = LINK->t->next;
 		n2 = term(LINK);
 		if (n.stringval != n2.stringval)
-			tmerr();
+			tmerr(": found char, but need a number for + or - ");
 		if (k == tokplus)
 		{
 			if (n.stringval)
@@ -3408,7 +3468,7 @@ sexpr(struct LOC_exec * LINK)
 		else
 		{
 			if (n.stringval)
-				tmerr();
+				tmerr(": found char, but need a number for - ");
 			else
 				n.UU.val -= n2.UU.val;
 		}
@@ -3416,7 +3476,7 @@ sexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 relexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3432,7 +3492,7 @@ relexpr(struct LOC_exec * LINK)
 		LINK->t = LINK->t->next;
 		n2 = sexpr(LINK);
 		if (n.stringval != n2.stringval)
-			tmerr();
+			tmerr("");
 		if (n.stringval)
 		{
 			f = (boolean) ((!strcmp(n.UU.sval, n2.UU.sval)
@@ -3489,7 +3549,7 @@ relexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 andexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3500,13 +3560,13 @@ andexpr(struct LOC_exec * LINK)
 		LINK->t = LINK->t->next;
 		n2 = relexpr(LINK);
 		if (n.stringval || n2.stringval)
-			tmerr();
+			tmerr("");
 		n.UU.val = ((long) n.UU.val) & ((long) n2.UU.val);
 	}
 	return n;
 }
 
-Local valrec
+Local CLASS_QUALIFIER valrec CLASS_QUALIFIER
 expr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3521,7 +3581,7 @@ expr(struct LOC_exec * LINK)
 		LINK->t = LINK->t->next;
 		n2 = andexpr(LINK);
 		if (n.stringval || n2.stringval)
-			tmerr();
+			tmerr("");
 		if (k == tokor)
 			n.UU.val = ((long) n.UU.val) | ((long) n2.UU.val);
 		else
@@ -3531,7 +3591,7 @@ expr(struct LOC_exec * LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 checkextra(struct LOC_exec *LINK)
 {
 	if (LINK->t != NULL)
@@ -3539,7 +3599,7 @@ checkextra(struct LOC_exec *LINK)
 }
 
 
-Local boolean
+Local boolean CLASS_QUALIFIER
 iseos(struct LOC_exec *LINK)
 {
 	return ((boolean) (LINK->t == NULL || LINK->t->kind == (long) tokelse ||
@@ -3547,7 +3607,7 @@ iseos(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 skiptoeos(struct LOC_exec *LINK)
 {
 	while (!iseos(LINK))
@@ -3557,10 +3617,11 @@ skiptoeos(struct LOC_exec *LINK)
 
 #ifdef SKIP
 /* LINK not used */
-Local linerec *
+Local linerec * CLASS_QUALIFIER
 findline(long n, struct LOC_exec *LINK)
 #endif
-	 Local linerec *findline(long n)
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
+findline(long n)
 {
 	linerec *l;
 
@@ -3572,10 +3633,11 @@ findline(long n, struct LOC_exec *LINK)
 
 
 #ifdef SKIP
-Local linerec *
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
 mustfindline(long n, struct LOC_exec * LINK)
 #endif
-	 Local linerec *mustfindline(long n)
+Local CLASS_QUALIFIER linerec * CLASS_QUALIFIER
+mustfindline(long n)
 {
 	linerec *l;
 
@@ -3583,13 +3645,15 @@ mustfindline(long n, struct LOC_exec * LINK)
 	l = findline(n, LINK);
 #endif
 	l = findline(n);
-	if (l == NULL)
-		errormsg("Undefined line");
+	if (l == NULL) {
+		sprintf(error_string, "Undefined line %ld", n);
+		errormsg(error_string);
+	}
 	return l;
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdend(struct LOC_exec *LINK)
 {
 	stmtline = NULL;
@@ -3597,7 +3661,7 @@ cmdend(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdnew(struct LOC_exec *LINK)
 {
 	void *p;
@@ -3611,7 +3675,7 @@ cmdnew(struct LOC_exec *LINK)
 		p = linebase->next;
 		disposetokens(&linebase->txt);
 		free(linebase);
-		linebase = (struct linerec *) p;
+		linebase = (linerec *) p;
 	}
 	while (varbase != NULL)
 	{
@@ -3644,12 +3708,12 @@ cmdnew(struct LOC_exec *LINK)
 			varbase->UU.U0.arr = NULL;
 		}
 		free(varbase);
-		varbase = (struct varrec *) p;
+		varbase = (varrec *) p;
 	}
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdlist(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3698,7 +3762,7 @@ cmdlist(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 {
 	FILE *f;
@@ -3741,7 +3805,7 @@ cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrun(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3789,7 +3853,7 @@ cmdrun(struct LOC_exec *LINK)
 }
 
 #ifdef SKIP
-Local void
+Local void CLASS_QUALIFIER
 cmdsave(struct LOC_exec *LINK)
 {
 	FILE *f;
@@ -3826,7 +3890,7 @@ cmdsave(struct LOC_exec *LINK)
 #endif
 
 /* replace basic save command with transport of rate back to calc_kinetic_rate */
-Local void
+Local void CLASS_QUALIFIER
 cmdsave(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -3851,7 +3915,7 @@ cmdsave(struct LOC_exec *LINK)
 		n = expr(LINK);
 		if (n.stringval)
 		{
-			snerr();
+			snerr(": in SAVE command");
 		}
 		else
 		{
@@ -3859,7 +3923,7 @@ cmdsave(struct LOC_exec *LINK)
 		}
 	}
 }
-Local void
+Local void CLASS_QUALIFIER
 cmdput(struct LOC_exec *LINK)
 {
 	int j;
@@ -3901,7 +3965,7 @@ cmdput(struct LOC_exec *LINK)
 	s_v.subscripts = (int *) free_check_null(s_v.subscripts);
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdchange_por(struct LOC_exec *LINK)
 {
 	int j;
@@ -3918,7 +3982,7 @@ cmdchange_por(struct LOC_exec *LINK)
 		cell_data[j - 1].por = TEMP;
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdchange_surf(struct LOC_exec *LINK)
 {
 /*
@@ -3960,15 +4024,16 @@ cmdchange_surf(struct LOC_exec *LINK)
 
 #ifdef SKIP
 /* LINK not used */
-Local void
+Local void CLASS_QUALIFIER
 cmdbye(struct LOC_exec *LINK)
 #endif
-	 Local void cmdbye(void)
+Local void CLASS_QUALIFIER
+cmdbye(void)
 {
 	exitflag = true;
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmddel(struct LOC_exec *LINK)
 {
 	linerec *l, *l0, *l1;
@@ -3977,7 +4042,7 @@ cmddel(struct LOC_exec *LINK)
 	do
 	{
 		if (iseos(LINK))
-			snerr();
+			snerr(": no variable name after del");
 		n1 = 0;
 		n2 = LONG_MAX;
 		if (LINK->t != NULL && LINK->t->kind == toknum)
@@ -4029,7 +4094,7 @@ cmddel(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrenum(struct LOC_exec *LINK)
 {
 	linerec *l, *l1;
@@ -4099,7 +4164,7 @@ cmdrenum(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdprint(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4134,7 +4199,7 @@ cmdprint(struct LOC_exec *LINK)
 		output_msg(OUTPUT_MESSAGE, "\n");
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdpunch(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4202,7 +4267,7 @@ cmdpunch(struct LOC_exec *LINK)
 }
 
 #ifdef PHREEQ98
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_x(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4235,7 +4300,7 @@ cmdgraph_x(struct LOC_exec *LINK)
 	}
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_y(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4266,7 +4331,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 	}
 }
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgraph_sy(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4299,7 +4364,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 #endif
 
 #ifdef SKIP
-Local void
+Local void CLASS_QUALIFIER
 cmdinput(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4392,7 +4457,7 @@ cmdinput(struct LOC_exec *LINK)
 }
 #endif
 
-Local void
+Local void CLASS_QUALIFIER
 cmdlet(boolean implied, struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4432,7 +4497,7 @@ cmdlet(boolean implied, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgoto(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4444,7 +4509,7 @@ cmdgoto(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdif(struct LOC_exec *LINK)
 {
 	LDBLE n;
@@ -4475,14 +4540,14 @@ cmdif(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdelse(struct LOC_exec *LINK)
 {
 	LINK->t = NULL;
 }
 
 
-Local boolean
+Local boolean CLASS_QUALIFIER
 skiploop(int up, int dn, struct LOC_exec *LINK)
 {
 	boolean Result;
@@ -4517,7 +4582,7 @@ skiploop(int up, int dn, struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdfor(struct LOC_exec *LINK)
 {
 	looprec *l, lr;
@@ -4526,7 +4591,7 @@ cmdfor(struct LOC_exec *LINK)
 
 	lr.UU.U0.vp = findvar(LINK);
 	if (lr.UU.U0.vp->stringvar)
-		snerr();
+		snerr(": error in FOR command");
 	require(tokeq, LINK);
 	*lr.UU.U0.vp->UU.U0.val = realexpr(LINK);
 	require(tokto, LINK);
@@ -4590,7 +4655,7 @@ cmdfor(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdnext(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4632,7 +4697,7 @@ cmdnext(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdwhile(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4658,7 +4723,7 @@ cmdwhile(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdwend(struct LOC_exec *LINK)
 {
 	tokenrec *tok;
@@ -4706,7 +4771,7 @@ cmdwend(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgosub(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4723,7 +4788,7 @@ cmdgosub(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdreturn(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4751,7 +4816,7 @@ cmdreturn(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdread(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4803,14 +4868,14 @@ cmdread(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmddata(struct LOC_exec *LINK)
 {
 	skiptoeos(LINK);
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdrestore(struct LOC_exec *LINK)
 {
 	if (iseos(LINK))
@@ -4826,7 +4891,7 @@ cmdrestore(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdgotoxy(struct LOC_exec *LINK)
 {
 #ifdef SKIP
@@ -4839,7 +4904,7 @@ cmdgotoxy(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmdon(struct LOC_exec *LINK)
 {
 	long i;
@@ -4877,7 +4942,7 @@ cmdon(struct LOC_exec *LINK)
 }
 
 
-Local void
+Local void CLASS_QUALIFIER
 cmddim(struct LOC_exec *LINK)
 {
 	long i, j, k;
@@ -4887,11 +4952,11 @@ cmddim(struct LOC_exec *LINK)
 	do
 	{
 		if (LINK->t == NULL || LINK->t->kind != tokvar)
-			snerr();
+			snerr(": error in DIM command");
 		v = LINK->t->UU.vp;
 		LINK->t = LINK->t->next;
 		if (v->numdims != 0)
-			errormsg("Array already dimensioned");
+			errormsg("Array already dimensioned before");
 		j = 1;
 		i = 0;
 		require(toklp, LINK);
@@ -4934,8 +4999,7 @@ cmddim(struct LOC_exec *LINK)
 	while (!iseos(LINK));
 }
 
-
-Local void
+Local void CLASS_QUALIFIER
 cmdpoke(struct LOC_exec *LINK)
 {
 	union
@@ -4951,15 +5015,7 @@ cmdpoke(struct LOC_exec *LINK)
 /* p2c: basic.p, line 2077: Note: Range checking is ON [216] */
 }
 
-
-
-
-
-
-
-
-
-Static void
+Static void CLASS_QUALIFIER
 exec(void)
 {
 	struct LOC_exec V;
@@ -5170,7 +5226,7 @@ exec(void)
 	while (stmtline != NULL);
 	RECOVER2(try1, _Ltry1);
 	if (P_escapecode == -20)
-		error_msg("Break", CONTINUE);
+		warning_msg("Break", CONTINUE);
 	/* printf("Break"); */
 	else if (P_escapecode != 42)
 	{
@@ -5181,28 +5237,32 @@ exec(void)
 #ifdef SKIP
 			printf("\007Integer overflow");
 #endif
-			error_msg("Integer overflow", CONTINUE);
+			sprintf(error_string, "Integer overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -5:
 #ifdef SKIP
 			printf("\007Divide by zero");
 #endif
-			error_msg("Divide by zero", CONTINUE);
+			sprintf(error_string, "Divide by zero in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -6:
 #ifdef SKIP
 			printf("\007Real math overflow");
 #endif
-			error_msg("Real math overflow", CONTINUE);
+			sprintf(error_string, "Real math overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -7:
 #ifdef SKIP
 			printf("\007Real math underflow");
 #endif
-			error_msg("Real math underflow", CONTINUE);
+			sprintf(error_string, "Real math underflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -8:
@@ -5214,7 +5274,8 @@ exec(void)
 #ifdef SKIP
 			printf("\007Value range error");
 #endif
-			error_msg("Value range error", CONTINUE);
+			sprintf(error_string, "Value range error in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
+			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -10:
@@ -5225,7 +5286,7 @@ exec(void)
 #ifdef SKIP
 			printf("\007%s", ioerrmsg);
 #endif
-			error_msg(ioerrmsg, CONTINUE);
+			warning_msg(ioerrmsg, CONTINUE);
 			free(ioerrmsg);
 			break;
 
@@ -5233,7 +5294,7 @@ exec(void)
 			if (EXCP_LINE != -1)
 			{
 				sprintf(error_string, "%12ld\n", EXCP_LINE);
-				error_msg(error_string, CONTINUE);
+				warning_msg(error_string, CONTINUE);
 			}
 #ifdef SKIP
 			printf("%12ld\n", EXCP_LINE);
@@ -5244,7 +5305,7 @@ exec(void)
 	}
 	if (stmtline != NULL)
 	{
-		sprintf(error_string, " in line %ld", stmtline->num);
+		sprintf(error_string, " in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 		error_msg(error_string, CONTINUE);
 	}
 #ifdef SKIP
@@ -5253,9 +5314,8 @@ exec(void)
 #endif
 	ENDTRY(try1);
 }								/*exec */
-
-int
-free_dim_stringvar(struct varrec *varbase)
+int CLASS_QUALIFIER
+free_dim_stringvar(varrec *varbase)
 {
 	int i, k;
 	if (varbase->numdims > 0)

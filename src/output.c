@@ -1,19 +1,24 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#include <setjmp.h>
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
+#include <setjmp.h>
 #include "output.h"
 #include "phrqproto.h"
 #include "phqalloc.h"
 static char const svnid[] =
 	"$Id$";
-
+#if !defined(PHREEQC_CLASS)
 #define MAX_CALLBACKS 10
 static struct output_callback output_callbacks[MAX_CALLBACKS];
 static size_t count_output_callback = 0;
 static int forward_output_to_log = 0;
+#endif
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -36,12 +41,14 @@ add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_message(const int type, const char *err_str, const int stop,
 			   const char *format, va_list args)
 /* ---------------------------------------------------------------------- */
 {
+#if !defined(PHREEQC_CLASS)
 	extern jmp_buf mark;
+#endif
 	size_t i;
 
 	for (i = 0; i < count_output_callback; ++i)
@@ -68,7 +75,7 @@ output_message(const int type, const char *err_str, const int stop,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 clean_up_output_callbacks(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -77,7 +84,7 @@ clean_up_output_callbacks(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 error_msg(const char *err_str, const int stop, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -93,7 +100,7 @@ error_msg(const char *err_str, const int stop, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 warning_msg(const char *err_str, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -109,7 +116,7 @@ warning_msg(const char *err_str, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_msg(const int type, const char *format, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -124,7 +131,7 @@ output_msg(const int type, const char *format, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-void
+void CLASS_QUALIFIER
 set_forward_output_to_log(int value)
 /* ---------------------------------------------------------------------- */
 {
@@ -132,7 +139,7 @@ set_forward_output_to_log(int value)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_forward_output_to_log(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -140,7 +147,7 @@ get_forward_output_to_log(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_fflush(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -167,7 +174,7 @@ output_fflush(const int type, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_rewind(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -194,7 +201,7 @@ output_rewind(const int type, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_close(const int type, ...)
 /* ---------------------------------------------------------------------- */
 {
@@ -221,7 +228,7 @@ output_close(const int type, ...)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 output_open(const int type, const char *file_name, ...)
 /* ---------------------------------------------------------------------- */
 {

@@ -1,9 +1,14 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 
+#if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
 static int check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr);
@@ -12,9 +17,9 @@ static int pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr);
 static int reaction_calc(struct irrev *irrev_ptr);
 static int solution_check(void);
 static int s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr);
-
+#endif
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 step(LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -31,8 +36,10 @@ step(LDBLE step_fraction)
 	struct pp_assemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
 
+	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
+	*/
 
 /*
  *   Zero out global solution data
@@ -216,7 +223,7 @@ step(LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 xsolution_zero(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -265,7 +272,7 @@ xsolution_zero(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 /* ---------------------------------------------------------------------- */
 {
@@ -338,7 +345,7 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_exchange(struct exchange *exchange_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -394,7 +401,7 @@ add_exchange(struct exchange *exchange_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_surface(struct surface *surface_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -506,7 +513,7 @@ add_surface(struct surface *surface_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_mix(struct mix *mix_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -565,7 +572,7 @@ add_mix(struct mix *mix_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -670,7 +677,7 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -694,7 +701,7 @@ check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -822,7 +829,7 @@ add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 reaction_calc(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -883,7 +890,7 @@ reaction_calc(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_temperature(struct temperature *temperature_ptr, int step_number)
 /* ---------------------------------------------------------------------- */
 {
@@ -940,7 +947,7 @@ add_temperature(struct temperature *temperature_ptr, int step_number)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_gas_phase(struct gas_phase *gas_phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -996,7 +1003,7 @@ add_gas_phase(struct gas_phase *gas_phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1091,7 +1098,7 @@ add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_kinetics(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1133,7 +1140,7 @@ add_kinetics(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 gas_phase_check(struct gas_phase *gas_phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1192,7 +1199,7 @@ gas_phase_check(struct gas_phase *gas_phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1275,7 +1282,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1348,7 +1355,7 @@ s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 solution_check(void)
 /* ---------------------------------------------------------------------- */
 {

@@ -1,6 +1,10 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
-#include <setjmp.h>
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
+#include <setjmp.h>
 #include "input.h"
 #include "output.h"
 #include "phrqproto.h"
@@ -10,11 +14,13 @@ static char const svnid[] = "$Id$";
 
 int check_line_return;
 
+#if !defined(PHREEQC_CLASS)
 static struct read_callback s_read_callback;
+#endif
 
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 /* ---------------------------------------------------------------------- */
 {
@@ -27,7 +33,7 @@ set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 reading_database(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -35,7 +41,7 @@ reading_database(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_line(const char *string, int allow_empty, int allow_eof,
 		   int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
@@ -51,7 +57,7 @@ check_line(const char *string, int allow_empty, int allow_eof,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 				int allow_empty, int allow_eof, int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
@@ -110,7 +116,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_line(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -203,7 +209,7 @@ get_line(PFN_READ_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 /* ---------------------------------------------------------------------- */
 {
@@ -291,7 +297,7 @@ get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 add_char_to_line(int *i, char c)
 /* ---------------------------------------------------------------------- */
 {

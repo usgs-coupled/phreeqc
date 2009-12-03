@@ -1,11 +1,17 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
 
+
 /* following line defines path for default data base file */
+#if !defined(PHREEQC_CLASS)
 const char *default_data_base = "phreeqc.dat";
 
 static FILE *input_file = NULL;
@@ -34,9 +40,10 @@ static int rewind_wrapper(FILE * file_ptr);
 
 static char const svnid[] =
 	"$Id$";
-
+#endif
+#if !defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 phreeqc_handler(const int action, const int type, const char *err_str,
 				const int stop, void *cookie, const char *format,
 				va_list args)
@@ -99,9 +106,76 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 	}
 	return ERROR;
 }
-
+#else
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
+phreeqc_handler(const int action, const int type, const char *err_str,
+				const int stop, void *cookie, const char *format,
+				va_list args)
+/* ---------------------------------------------------------------------- */
+{
+	int i;
+	Phreeqc * pThis;
+	pThis = (Phreeqc *) cookie;
+
+	switch (action)
+	{
+	case ACTION_OPEN:
+		return pThis->open_handler(type, err_str);
+		break;
+	case ACTION_OUTPUT:
+		return pThis->output_handler(type, err_str, stop, cookie, format, args);
+		break;
+	case ACTION_FLUSH:
+		return pThis->fileop_handler(type, fflush);
+		break;
+	case ACTION_REWIND:
+		return pThis->fileop_handler(type, rewind_wrapper);
+		break;
+	case ACTION_CLOSE:
+
+		i = pThis->fileop_handler(type, fclose);
+		switch (type)
+		{
+		case OUTPUT_ERROR:
+			pThis->error_file = NULL;
+			break;
+
+		case OUTPUT_WARNING:
+			break;
+
+		case OUTPUT_MESSAGE:
+			pThis->output = NULL;
+			break;
+
+		case OUTPUT_PUNCH:
+			pThis->punch_file = NULL;
+			break;
+
+		case OUTPUT_SCREEN:
+			break;
+
+		case OUTPUT_LOG:
+			pThis->log_file = NULL;
+			break;
+
+		case OUTPUT_STDERR:
+			break;
+
+		case OUTPUT_DUMP:
+			pThis->dump_file = NULL;
+			break;
+		}
+
+
+		return (i);
+		break;
+	}
+	return ERROR;
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
 close_input_files(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -113,7 +187,7 @@ close_input_files(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 process_file_names(int argc, char *argv[], void **db_cookie,
 				   void **input_cookie, int log)
 /* ---------------------------------------------------------------------- */
@@ -351,7 +425,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 getc_callback(void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -363,7 +437,7 @@ getc_callback(void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 output_handler(const int type, const char *err_str, const int stop,
 			   void *cookie, const char *format, va_list args)
 /* ---------------------------------------------------------------------- */
@@ -563,7 +637,7 @@ output_handler(const int type, const char *err_str, const int stop,
 }
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 close_output_files(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -585,7 +659,7 @@ close_output_files(void)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 open_handler(const int type, const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -630,7 +704,7 @@ open_handler(const int type, const char *file_name)
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 fileop_handler(const int type, int (*PFN) (FILE *))
 /* ---------------------------------------------------------------------- */
 {
@@ -699,7 +773,7 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 }
 
 /* ---------------------------------------------------------------------- */
-static int
+STATIC int CLASS_QUALIFIER
 rewind_wrapper(FILE * file_ptr)
 /* ---------------------------------------------------------------------- */
 {

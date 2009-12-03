@@ -1,14 +1,18 @@
+#if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#else
+#include "Phreeqc.h"
+#endif
+
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-
 static char const svnid[] =
 	"$Id$";
 
 /* ---------------------------------------------------------------------- */
-int
+int CLASS_QUALIFIER
 advection(void)
 /* ---------------------------------------------------------------------- */
 {
