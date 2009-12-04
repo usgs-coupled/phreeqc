@@ -711,7 +711,7 @@ struct cell_data
 	LDBLE por_il;				/* interlayer water porosities */
 	int punch;
 	int print;
-} *cell_data;
+};
 
 /*----------------------------------------------------------------------
  *   Keywords
