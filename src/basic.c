@@ -22,11 +22,7 @@ void GridChar(char *s, char *a);
 extern int colnr, rownr;
 #endif
 
-
 static int sget_logical_line(char **ptr, int *l, char *return_line);
-
-typedef LDBLE numarray[];
-typedef Char *strarray[];
 
 #include "basic.h"
 
