@@ -47,150 +47,9 @@ static char const svnidglobal[] =
 #include <setjmp.h>
 
 
-/* must be defined here and in cl.c */
-/* #include <nan.h> */
-#ifndef NAN
-#   define NAN -99999999
-#endif
-#define MISSING -9999.999
-/* search.h -- declarations for POSIX/SVID-compatible search functions */
-
-
-
-/* ----------------------------------------------------------------------
- *   DEFINITIONS
- * ---------------------------------------------------------------------- */
-#define F_C_MOL 96493.5			/* C/mol or joule/volt-eq */
-#define F_KJ_V_EQ  96.4935		/* kJ/volt-eq */
-#define F_KCAL_V_EQ 23.0623		/* kcal/volt-eq */
-#define R_LITER_ATM 0.0820597	/* L-atm/deg-mol */
-#define R_KCAL_DEG_MOL 0.00198726	/* kcal/deg-mol */
-#define R_KJ_DEG_MOL 0.00831470	/* kJ/deg-mol */
-#define EPSILON 78.5			/* dialectric constant, dimensionless */
-#define EPSILON_ZERO 8.854e-12	/* permittivity of free space, C/V-m = C**2/m-J */
-#define JOULES_PER_CALORIE 4.1840
-#define AVOGADRO 6.02252e23		/* atoms / mole */
-
-
-#define TRUE 1
-#define FALSE 0
-#define OK 1
-#define ERROR 0
-#define STOP 1
-#define CONTINUE 0
-
-#define DISP 2
-#define STAG 3
-#define NOMIX 4
-
-#define CONVERGED 2
-#define MASS_BALANCE 3
-/*
-  #define OSCILLATE 4
-  #define H2O_LIMITS 5
-*/
-#define REWRITE 2
-#define INIT -1
-
-/* check_line values, plus EMPTY, EOF, OK */
-#define KEYWORD 3
-
-/* copy_token values */
-#define EMPTY 2
-#define UPPER 4
-#define LOWER 5
-#define DIGIT 6
-#define UNKNOWN 7
-#define OPTION 8
-
-/* species types */
-#define AQ 0
-#define HPLUS 1
-#define H2O 2
-#define EMINUS 3
-#define SOLID 4
-#define EX 5
-#define SURF 6
-#define SURF_PSI 7
-#define SURF_PSI1 8
-#define SURF_PSI2 9
-
-/* unknown types */
-#define MB 10
-#define ALK 11
-#define CB 12
-#define SOLUTION_PHASE_BOUNDARY 13
-#define MU 14
-#define AH2O 15
-#define MH 16
-#define MH2O 17
-#define PP 18
-#define EXCH 19
-#define SURFACE 20
-#define SURFACE_CB 21
-#define SURFACE_CB1 22
-#define SURFACE_CB2 23
-#define GAS_MOLES 24
-#define S_S_MOLES 25
-#define PITZER_GAMMA 26
-/* state */
-#define INITIALIZE	       0
-#define INITIAL_SOLUTION   1
-#define INITIAL_EXCHANGE   2
-#define INITIAL_SURFACE 3
-#define INITIAL_GAS_PHASE  4
-#define REACTION		   5
-#define INVERSE		 6
-#define ADVECTION		 7
-#define TRANSPORT		 8
-#define PHAST		     9
-
-/* constaints in mass balance */
-#define EITHER 0
-#define DISSOLVE 1
-#define PRECIPITATE -1
-
-/* gas phase type */
-#define PRESSURE 1
-#define VOLUME 2
-
-#define MAX_PP_ASSEMBLAGE 10	/* default estimate of the number of phase assemblages */
-#define MAX_ADD_EQUATIONS 20	/* maximum number of equations added together to reduce eqn to
-								   master species */
-#define MAX_ELEMENTS 50			/* default estimate of the number of elements */
-#define MAX_LENGTH 256			/* maximum number of characters component name */
-#define MAX_LINE 80				/* estimate of maximum line length */
-#define MAX_LM 3.0				/* maximum log molality allowed in intermediate iterations */
-#define MIN_LM -30.0			/* minimum log molality allowed before molality set to zero */
-#define MAX_MASS_BALANCE 10		/* initial guess of number mass balance equations for a solution */
-#define MAX_MASTER 50			/* default estimate of the number of master species */
-#define MAX_ELTS 15				/* default estimate for maximum number of times elements occur in
-								   an equation */
-#define MAX_PHASES 500			/* initial guess of number of phases defined */
-#define MAX_SOLUTION 10			/* The maximum number of solutions allowed */
-#define MAX_S 500				/* default estimate for maximum number of species in aqueous model */
-#define MAX_STRINGS 3000
-#define MAX_SUM_JACOB0 50		/* list used to calculate jacobian */
-#define MAX_SUM_JACOB1 500		/* list used to calculate jacobian */
-#define MAX_SUM_JACOB2 500		/* list used to calculate jacobian */
-#define MAX_SUM_MB 500			/* list used to calculate mass balance sums */
-#define MAX_TRXN 16				/* default estimate for maximum number of components in an eqn */
-#define MAX_UNKNOWNS 15			/* default estimate for maximum number of unknowns in model */
-#define TOL 1e-9				/* tolerance for comparisons of double numbers */
-#define LOG_ZERO_MOLALITY -30	/* molalities <= LOG_ZERO_MOLALITY are considered equal to zero */
-#define MIN_TOTAL 1e-25
-#define MIN_TOTAL_SS MIN_TOTAL
-#define MIN_RELATED_SURFACE MIN_TOTAL*100
-#define MIN_RELATED_LOG_ACTIVITY -30
 /* ----------------------------------------------------------------------
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
-enum SURFACE_TYPE
-{ UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC, CCM };
-enum DIFFUSE_LAYER_TYPE
-{ NO_DL, BORKOVEK_DL, DONNAN_DL };
-enum SITES_UNITS
-{ SITES_ABSOLUTE, SITES_DENSITY };
 
 EXTERNAL struct model last_model;
 EXTERNAL int same_model;
@@ -835,11 +694,6 @@ EXTERNAL int max_isotope_alpha;
 EXTERNAL HashTable *isotope_alpha_hash_table;
 
 EXTERNAL int phreeqc_mpi_myself;
-
-enum entity_type
-{ Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase, Ss_phase,
-	Kinetics, Mix, Temperature, UnKnown
-};
 
 EXTERNAL int first_read_input;
 EXTERNAL char *user_database;
