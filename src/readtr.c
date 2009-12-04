@@ -1,8 +1,10 @@
 #ifdef PHREEQC_CPP
-#include "../StorageBin.h"
+
 #include <iostream>				// std::cout std::cerr
 #include <sstream>
 #include <fstream>
+#include "../StorageBin.h"
+#include "../SSassemblageSS.h"
 std::string dump_file_name_cpp;
 int dump_cpp(void);
 #endif
