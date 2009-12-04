@@ -25,15 +25,6 @@ extern int colnr, rownr;
 
 static int sget_logical_line(char **ptr, int *l, char *return_line);
 
-// COMMENT: {12/3/2009 8:25:33 PM}#define checking	true
-// COMMENT: {12/3/2009 8:25:33 PM}#define varnamelen      20
-// COMMENT: {12/3/2009 8:25:33 PM}#define maxdims	 4
-
-// COMMENT: {12/3/2009 8:24:48 PM}typedef Char varnamestring[varnamelen + 1];
-// COMMENT: {12/3/2009 8:24:48 PM}typedef Char string255[256];
-
-
-
 typedef LDBLE numarray[];
 typedef Char *strarray[];
 
