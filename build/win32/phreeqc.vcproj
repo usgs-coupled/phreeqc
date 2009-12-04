@@ -2154,6 +2154,10 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\..\src\basic.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cvdense.h"
 				>
 			</File>
