@@ -5,6 +5,13 @@
 #define whileloop       1
 #define gosubloop       2
 
+#define checking	true
+#define varnamelen      20
+#define maxdims	 4
+
+typedef Char varnamestring[varnamelen + 1];
+typedef Char string255[256];
+
 typedef struct tokenrec
 {
 	struct tokenrec *next;
@@ -16,6 +23,10 @@ typedef struct tokenrec
 		Char *sp;
 		Char snch;
 	} UU;
+#ifdef PHREEQCI_GUI
+	size_t n_sz;
+	Char *sz_num;
+#endif
 } tokenrec;
 
 typedef struct linerec
