@@ -9,6 +9,18 @@ static char const svnidglobal[] =
 #endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <math.h>
+#include <errno.h>
+#include <float.h>
+
+#include <assert.h>
+
+#include <setjmp.h>
 #include "phrqtype.h"
 
 #include "global_structures.h"
@@ -34,17 +46,17 @@ static char const svnidglobal[] =
 /* ----------------------------------------------------------------------
  *   INCLUDE FILES
  * ---------------------------------------------------------------------- */
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include <errno.h>
-#include <float.h>
-#if !defined(_INC_PHREEQC_H)
-#include <assert.h>
-#endif
-#include <setjmp.h>
+//#include <stdio.h>
+//#include <string.h>
+//#include <stdlib.h>
+//#include <ctype.h>
+//#include <math.h>
+//#include <errno.h>
+//#include <float.h>
+//#if !defined(_INC_PHREEQC_H)
+//#include <assert.h>
+//#endif
+//#include <setjmp.h>
 
 
 /* ----------------------------------------------------------------------
