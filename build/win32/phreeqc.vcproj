@@ -2028,6 +2028,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\global_structures.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\input.h"
 				>
 			</File>
