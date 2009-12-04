@@ -173,7 +173,7 @@ struct surface_diff_layer
 	LDBLE psi_to_z;
 };
 
-EXTERNAL struct Change_Surf
+struct Change_Surf
 {
 	char *comp_name;
 	LDBLE fraction;
