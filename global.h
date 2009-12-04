@@ -10,7 +10,7 @@ static char const svnidglobal[] =
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 #include "phrqtype.h"
-typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
+
 #include "global_structures.h"
 /* #define NO_DOS */
 /* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
@@ -55,18 +55,7 @@ typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 #define MISSING -9999.999
 /* search.h -- declarations for POSIX/SVID-compatible search functions */
 
-/* HSEARCH(3C) */
-typedef struct entry
-{
-	char *key;
-	void *data;
-} ENTRY;
-typedef enum
-{ FIND, ENTER } ACTION;
 
-/* TSEARCH(3C) */
-typedef enum
-{ preorder, postorder, endorder, leaf } VISIT;
 
 /* ----------------------------------------------------------------------
  *   DEFINITIONS
@@ -799,43 +788,6 @@ EXTERNAL struct spread_sheet g_spread_sheet;
 /*
  *   Hash definitions
  */
-/*
-** Constants
-*/
-
-# define SegmentSize		    256
-# define SegmentSizeShift	  8	/* log2(SegmentSize) */
-# define DirectorySize	    256
-# define DirectorySizeShift      8	/* log2(DirectorySize)  */
-# define Prime1			  37
-# define Prime2			  1048583
-# define DefaultMaxLoadFactor   5
-
-
-typedef struct Element
-{
-	/*
-	 ** The user only sees the first two fields,
-	 ** as we pretend to pass back only a pointer to ENTRY.
-	 ** {S}he doesn't know what else is in here.
-	 */
-	char *Key;
-	char *Data;
-	struct Element *Next;		/* secret from user    */
-} Element, *Segment;
-
-typedef struct
-{
-	short p;					/* Next bucket to be split      */
-	short maxp;					/* upper bound on p during expansion */
-	long KeyCount;				/* current # keys       */
-	short SegmentCount;			/* current # segments   */
-	short MinLoadFactor;
-	short MaxLoadFactor;
-	Segment *Directory[DirectorySize];
-} HashTable;
-
-typedef unsigned long Address;
 
 EXTERNAL HashTable *strings_hash_table;
 EXTERNAL HashTable *elements_hash_table;
@@ -922,6 +874,10 @@ EXTERNAL LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
 EXTERNAL LDBLE solution_mass, solution_volume;
 EXTERNAL LDBLE f_rho(LDBLE rho_old);
 
+/* phqalloc.c ------------------------------- */
+
+EXTERNAL PHRQMemHeader *s_pTail;
+
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)
 /* basic.c ------------------------------- */
@@ -933,11 +889,8 @@ int n_user_punch_index;
 #define varnamelen  20
 #define maxdims	    4
 
-typedef Char varnamestring[varnamelen + 1];
-typedef Char string255[256];
-
-typedef LDBLE numarray[];
-typedef Char *strarray[];
+//typedef Char varnamestring[varnamelen + 1];
+//typedef Char string255[256];
 
 #include "basic.h"
 
@@ -1041,21 +994,6 @@ int normal_max, ineq_array_max, res_max, cu_max, zero_max,
 struct output_callback *output_callbacks;
 size_t count_output_callback;
 int forward_output_to_log;
-
-/* phqalloc.c ------------------------------- */
-
-typedef struct PHRQMemHeader
-{
-	struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
-	struct PHRQMemHeader *pPrev;	/* memory allocated just prior to this one */
-	size_t size;				/* memory request + sizeof(PHRQMemHeader) */
-#if !defined(NDEBUG)
-	char *szFileName;			/* file name */
-	int nLine;					/* line number */
-	int dummy;					/* alignment */
-#endif
-} PHRQMemHeader;
-PHRQMemHeader *s_pTail;
 
 /* phreeqc_files.c ------------------------------- */
 

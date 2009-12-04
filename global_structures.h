@@ -1,5 +1,71 @@
 #ifndef _INC_GLOBAL_STRUCTURES_H
 #define _INC_GLOBAL_STRUCTURES_H
+typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
+
+/*
+ *   Hash definitions
+ */
+/*
+** Constants
+*/
+
+# define SegmentSize		    256
+# define SegmentSizeShift	  8	/* log2(SegmentSize) */
+# define DirectorySize	    256
+# define DirectorySizeShift      8	/* log2(DirectorySize)  */
+# define Prime1			  37
+# define Prime2			  1048583
+# define DefaultMaxLoadFactor   5
+
+/* HSEARCH(3C) */
+typedef struct entry
+{
+	char *key;
+	void *data;
+} ENTRY;
+typedef enum
+{ FIND, ENTER } ACTION;
+
+/* TSEARCH(3C) */
+typedef enum
+{ preorder, postorder, endorder, leaf } VISIT;
+
+typedef struct Element
+{
+	/*
+	 ** The user only sees the first two fields,
+	 ** as we pretend to pass back only a pointer to ENTRY.
+	 ** {S}he doesn't know what else is in here.
+	 */
+	char *Key;
+	char *Data;
+	struct Element *Next;		/* secret from user    */
+} Element, *Segment;
+
+typedef struct
+{
+	short p;					/* Next bucket to be split      */
+	short maxp;					/* upper bound on p during expansion */
+	long KeyCount;				/* current # keys       */
+	short SegmentCount;			/* current # segments   */
+	short MinLoadFactor;
+	short MaxLoadFactor;
+	Segment *Directory[DirectorySize];
+} HashTable;
+
+typedef unsigned long Address;
+
+typedef struct PHRQMemHeader
+{
+	struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
+	struct PHRQMemHeader *pPrev;	/* memory allocated just prior to this one */
+	size_t size;				/* memory request + sizeof(PHRQMemHeader) */
+#if !defined(NDEBUG)
+	char *szFileName;			/* file name */
+	int nLine;					/* line number */
+	int dummy;					/* alignment */
+#endif
+} PHRQMemHeader;
 
 struct model
 {

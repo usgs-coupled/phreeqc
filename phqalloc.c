@@ -20,25 +20,6 @@ static char const svnid[] =
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #endif
-#if !defined(PHREEQC_CLASS)
-typedef struct PHRQMemHeader
-{
-	struct PHRQMemHeader *pNext;	/* memory allocated just after this one */
-	struct PHRQMemHeader *pPrev;	/* memory allocated just prior to this one */
-	size_t size;				/* memory request + sizeof(PHRQMemHeader) */
-#if !defined(NDEBUG)
-	char *szFileName;			/* file name */
-	int nLine;					/* line number */
-	int dummy;					/* alignment */
-#endif
-} PHRQMemHeader;
-
-/*
- * This pointer points to the last allocated block
- * Note: s_pTail->pNext should always be NULL
- */
-static PHRQMemHeader *s_pTail = NULL;
-#endif
 
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
