@@ -1369,7 +1369,7 @@ hdestroy_multi(HashTable * Table)
 	}
 }
 
-CLASS_QUALIFIER ENTRY * CLASS_QUALIFIER
+ENTRY * CLASS_QUALIFIER
 hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 /* ACTION       FIND/ENTER	*/
 {
@@ -1434,7 +1434,7 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 ** Internal routines
 */
 
-STATIC CLASS_QUALIFIER Address CLASS_QUALIFIER
+STATIC Address CLASS_QUALIFIER
 Hash_multi(HashTable * Table, char *Key)
 {
 	Address h, address;

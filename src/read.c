@@ -7,6 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#if !defined (PHREEQC_CLASS)
 #ifdef PHREEQC_CPP
 extern int read_solution_raw(void);
 extern int read_exchange_raw(void);
@@ -29,6 +30,7 @@ extern int read_kinetics_modify(void);
 extern int read_delete(void);
 extern int read_run_cells(void);
 #endif
+#endif /* !PHREEQC_CLASS */
 
 #if !defined(PHREEQC_CLASS)
 

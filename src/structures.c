@@ -590,7 +590,7 @@ element_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER element * CLASS_QUALIFIER
+struct element * CLASS_QUALIFIER
 element_store(const char *element)
 /* ---------------------------------------------------------------------- */
 {
@@ -722,7 +722,7 @@ elt_list_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER elt_list * CLASS_QUALIFIER
+struct elt_list * CLASS_QUALIFIER
 elt_list_dup(struct elt_list *elt_list_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -796,7 +796,7 @@ elt_list_print0(void)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER elt_list * CLASS_QUALIFIER
+struct elt_list * CLASS_QUALIFIER
 elt_list_save(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -839,7 +839,7 @@ elt_list_save(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER exchange * CLASS_QUALIFIER
+struct exchange * CLASS_QUALIFIER
 exchange_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -864,7 +864,7 @@ exchange_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER exchange * CLASS_QUALIFIER
+struct exchange * CLASS_QUALIFIER
 exchange_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1222,7 +1222,7 @@ exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER exchange * CLASS_QUALIFIER
+struct exchange * CLASS_QUALIFIER
 exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1233,7 +1233,7 @@ exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER exchange * CLASS_QUALIFIER
+struct exchange * CLASS_QUALIFIER
 exchange_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1299,7 +1299,7 @@ gas_comp_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER gas_phase * CLASS_QUALIFIER
+struct gas_phase * CLASS_QUALIFIER
 gas_phase_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1325,7 +1325,7 @@ gas_phase_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER gas_phase * CLASS_QUALIFIER
+struct gas_phase * CLASS_QUALIFIER
 gas_phase_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1638,7 +1638,7 @@ gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER gas_phase * CLASS_QUALIFIER
+struct gas_phase * CLASS_QUALIFIER
 gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1649,7 +1649,7 @@ gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER gas_phase * CLASS_QUALIFIER
+struct gas_phase * CLASS_QUALIFIER
 gas_phase_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1701,7 +1701,7 @@ gas_phase_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER inverse * CLASS_QUALIFIER
+struct inverse * CLASS_QUALIFIER
 inverse_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1936,7 +1936,7 @@ inverse_isotope_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER inverse * CLASS_QUALIFIER
+struct inverse * CLASS_QUALIFIER
 inverse_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1988,7 +1988,7 @@ inverse_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER irrev * CLASS_QUALIFIER
+struct irrev * CLASS_QUALIFIER
 irrev_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2257,7 +2257,7 @@ irrev_free(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER irrev * CLASS_QUALIFIER
+struct irrev * CLASS_QUALIFIER
 irrev_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2306,7 +2306,7 @@ irrev_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER kinetics * CLASS_QUALIFIER
+struct kinetics * CLASS_QUALIFIER
 kinetics_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2330,7 +2330,7 @@ kinetics_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER kinetics * CLASS_QUALIFIER
+struct kinetics * CLASS_QUALIFIER
 kinetics_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2763,7 +2763,7 @@ kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER kinetics * CLASS_QUALIFIER
+struct kinetics * CLASS_QUALIFIER
 kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2774,7 +2774,7 @@ kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER kinetics * CLASS_QUALIFIER
+struct kinetics * CLASS_QUALIFIER
 kinetics_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -2828,7 +2828,7 @@ kinetics_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master * CLASS_QUALIFIER
+struct master * CLASS_QUALIFIER
 master_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -2914,7 +2914,7 @@ master_free(struct master *master_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master * CLASS_QUALIFIER
+struct master * CLASS_QUALIFIER
 master_bsearch(const char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2970,7 +2970,7 @@ master_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master * CLASS_QUALIFIER
+struct master * CLASS_QUALIFIER
 master_bsearch_primary(char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3002,7 +3002,7 @@ master_bsearch_primary(char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master * CLASS_QUALIFIER
+struct master * CLASS_QUALIFIER
 master_search(char *ptr, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3035,7 +3035,7 @@ master_search(char *ptr, int *n)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER mix * CLASS_QUALIFIER
+struct mix * CLASS_QUALIFIER
 mix_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3260,7 +3260,7 @@ mix_free(struct mix *mix_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER mix * CLASS_QUALIFIER
+struct mix * CLASS_QUALIFIER
 mix_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -3313,7 +3313,7 @@ mix_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pe_data * CLASS_QUALIFIER
+struct pe_data * CLASS_QUALIFIER
 pe_data_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3355,7 +3355,7 @@ pe_data_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pe_data * CLASS_QUALIFIER
+struct pe_data * CLASS_QUALIFIER
 pe_data_dup(struct pe_data *pe_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -3388,7 +3388,7 @@ pe_data_dup(struct pe_data *pe_ptr_old)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pe_data * CLASS_QUALIFIER
+struct pe_data * CLASS_QUALIFIER
 pe_data_free(struct pe_data *pe_data_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3452,7 +3452,7 @@ pe_data_store(struct pe_data **pe, const char *token)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER phase * CLASS_QUALIFIER
+struct phase * CLASS_QUALIFIER
 phase_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3549,7 +3549,7 @@ phase_free(struct phase *phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER phase * CLASS_QUALIFIER
+struct phase * CLASS_QUALIFIER
 phase_bsearch(const char *ptr, int *j, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -3622,7 +3622,7 @@ phase_init(struct phase *phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER phase * CLASS_QUALIFIER
+struct phase * CLASS_QUALIFIER
 phase_store(char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -3783,7 +3783,7 @@ phase_store(char *name)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * CLASS_QUALIFIER
 pp_assemblage_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3803,7 +3803,7 @@ pp_assemblage_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * CLASS_QUALIFIER
 pp_assemblage_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4124,7 +4124,7 @@ pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * CLASS_QUALIFIER
 pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr,
 						int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -4136,7 +4136,7 @@ pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * CLASS_QUALIFIER
 pp_assemblage_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4199,7 +4199,7 @@ pure_phase_compare(const void *ptr1, const void *ptr2)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER rate * CLASS_QUALIFIER
+struct rate * CLASS_QUALIFIER
 rate_bsearch(char *ptr, int *j)
 /* ---------------------------------------------------------------------- */
 {
@@ -4287,7 +4287,7 @@ rate_free(struct rate *rate_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER rate * CLASS_QUALIFIER
+struct rate * CLASS_QUALIFIER
 rate_search(char *name, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4339,7 +4339,7 @@ rate_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER reaction * CLASS_QUALIFIER
+struct reaction * CLASS_QUALIFIER
 rxn_alloc(int ntokens)
 /* ---------------------------------------------------------------------- */
 {
@@ -4389,7 +4389,7 @@ rxn_alloc(int ntokens)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER reaction * CLASS_QUALIFIER
+struct reaction * CLASS_QUALIFIER
 rxn_dup(struct reaction *rxn_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -4524,7 +4524,7 @@ rxn_print(struct reaction *rxn_ptr)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER species * CLASS_QUALIFIER
+struct species * CLASS_QUALIFIER
 s_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4677,7 +4677,7 @@ s_init(struct species *s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER species * CLASS_QUALIFIER
+struct species * CLASS_QUALIFIER
 s_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -4709,7 +4709,7 @@ s_search(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER species * CLASS_QUALIFIER
+struct species * CLASS_QUALIFIER
 s_store(char *name, LDBLE z, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -4794,7 +4794,7 @@ s_store(char *name, LDBLE z, int replace_if_found)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * CLASS_QUALIFIER
 s_s_assemblage_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4813,7 +4813,7 @@ s_s_assemblage_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * CLASS_QUALIFIER
 s_s_assemblage_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5141,7 +5141,7 @@ s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * CLASS_QUALIFIER
 s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
 						 int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -5154,7 +5154,7 @@ s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * CLASS_QUALIFIER
 s_s_assemblage_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5217,7 +5217,7 @@ s_s_compare(const void *ptr1, const void *ptr2)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER save_values * CLASS_QUALIFIER
+struct save_values * CLASS_QUALIFIER
 save_values_bsearch(struct save_values *k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5409,7 +5409,7 @@ isotope_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER solution * CLASS_QUALIFIER
+struct solution * CLASS_QUALIFIER
 solution_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -5479,7 +5479,7 @@ solution_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER solution * CLASS_QUALIFIER
+struct solution * CLASS_QUALIFIER
 solution_bsearch(int k, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -5559,7 +5559,7 @@ solution_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER solution * CLASS_QUALIFIER
+struct solution * CLASS_QUALIFIER
 solution_copy(struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5909,7 +5909,7 @@ solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER solution * CLASS_QUALIFIER
+struct solution * CLASS_QUALIFIER
 solution_replicate(struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6119,7 +6119,7 @@ species_list_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER Change_Surf * CLASS_QUALIFIER
+struct Change_Surf * CLASS_QUALIFIER
 change_surf_alloc(int count)
 /* ---------------------------------------------------------------------- */
 {
@@ -6139,7 +6139,7 @@ change_surf_alloc(int count)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER surface * CLASS_QUALIFIER
+struct surface * CLASS_QUALIFIER
 surface_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6172,7 +6172,7 @@ surface_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER surface * CLASS_QUALIFIER
+struct surface * CLASS_QUALIFIER
 surface_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -6206,7 +6206,7 @@ surface_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master * CLASS_QUALIFIER
+struct master * CLASS_QUALIFIER
 surface_get_psi_master(const char *name, int plane)
 /* ---------------------------------------------------------------------- */
 {
@@ -6369,7 +6369,7 @@ surface_copy(struct surface *surface_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER surface_charge * CLASS_QUALIFIER
+struct surface_charge * CLASS_QUALIFIER
 surface_charge_duplicate(struct surface_charge *charge_old_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -6669,7 +6669,7 @@ surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER surface * CLASS_QUALIFIER
+struct surface * CLASS_QUALIFIER
 surface_replicate(struct surface *surface_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6680,7 +6680,7 @@ surface_replicate(struct surface *surface_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER surface * CLASS_QUALIFIER
+struct surface * CLASS_QUALIFIER
 surface_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -6738,7 +6738,7 @@ surface_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER temperature * CLASS_QUALIFIER
+struct temperature * CLASS_QUALIFIER
 temperature_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -6983,7 +6983,7 @@ temperature_free(struct temperature *temperature_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER temperature * CLASS_QUALIFIER
+struct temperature * CLASS_QUALIFIER
 temperature_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -7530,7 +7530,7 @@ trxn_swap(const char *token)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER unknown * CLASS_QUALIFIER
+struct unknown * CLASS_QUALIFIER
 unknown_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7653,7 +7653,7 @@ system_duplicate(int i, int save_old)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER logk * CLASS_QUALIFIER
+struct logk * CLASS_QUALIFIER
 logk_store(char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -7729,7 +7729,7 @@ logk_store(char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER logk * CLASS_QUALIFIER
+struct logk * CLASS_QUALIFIER
 logk_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -7794,7 +7794,7 @@ logk_copy2orig(struct logk *logk_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER logk * CLASS_QUALIFIER
+struct logk * CLASS_QUALIFIER
 logk_search(char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -7927,7 +7927,7 @@ entity_exists(char *name, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-enum CLASS_QUALIFIER entity_type CLASS_QUALIFIER
+enum entity_type CLASS_QUALIFIER
 get_entity_enum(char *name)
 /* ---------------------------------------------------------------------- */
 {

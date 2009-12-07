@@ -1374,6 +1374,21 @@ struct M_S
 	char *name;
 	LDBLE tot1, tot2;
 };
+/* basic.c ------------------------------- */
+#ifdef PHREEQ98
+int colnr, rownr;
+#endif
+int n_user_punch_index;
+#define checking	true
+#define varnamelen  20
+#define maxdims	    4
+
+//typedef Char varnamestring[varnamelen + 1];
+//typedef Char string255[256];
+
+#include "basic.h"
+
+
 #endif /* PHREEQC_CLASS) */
 #endif /* _INC_GLOBAL_STRUCTURES_H  */
 

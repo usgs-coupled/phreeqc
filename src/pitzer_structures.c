@@ -9,10 +9,11 @@
 #include "phrqproto.h"
 #if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL extern
+#include "pitzer_structures.h"
 #include "pitzer.h"
+
 static char const svnid[] =
 	"$Id: structures.c 269 2005-04-27 19:54:25Z dlpark $";
-
 
 static struct pitz_param *pitz_param_alloc(void);
 static int pitz_param_init(struct pitz_param *pitz_param_ptr);
@@ -28,7 +29,7 @@ static int pitz_param_copy(struct pitz_param *old_ptr,
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pitz_param * CLASS_QUALIFIER
+struct pitz_param * CLASS_QUALIFIER
 pitz_param_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -71,7 +72,7 @@ pitz_param_init(struct pitz_param *pitz_param_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pitz_param * CLASS_QUALIFIER
+struct pitz_param * CLASS_QUALIFIER
 pitz_param_read(char *string, int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -118,7 +119,7 @@ pitz_param_read(char *string, int n)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER pitz_param * CLASS_QUALIFIER
+struct pitz_param * CLASS_QUALIFIER
 pitz_param_duplicate(struct pitz_param *old_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -189,7 +190,7 @@ pitz_param_search(struct pitz_param *pzp_ptr)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER theta_param * CLASS_QUALIFIER
+struct theta_param * CLASS_QUALIFIER
 theta_param_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -220,7 +221,7 @@ theta_param_init(struct theta_param *theta_param_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER theta_param * CLASS_QUALIFIER
+struct theta_param * CLASS_QUALIFIER
 theta_param_search(LDBLE zj, LDBLE zk)
 /* ---------------------------------------------------------------------- */
 {

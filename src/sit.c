@@ -10,6 +10,7 @@
 /*#define PITZER*/
 #if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL extern
+#include "pitzer_structures.h"
 #include "pitzer.h"
 
 /* variables */
