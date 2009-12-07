@@ -747,18 +747,18 @@ EXTERNAL PHRQMemHeader *s_pTail;
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)
 /* basic.c ------------------------------- */
-#ifdef PHREEQ98
-int colnr, rownr;
-#endif
-int n_user_punch_index;
-#define checking	true
-#define varnamelen  20
-#define maxdims	    4
-
-//typedef Char varnamestring[varnamelen + 1];
-//typedef Char string255[256];
-
-#include "basic.h"
+//#ifdef PHREEQ98
+//int colnr, rownr;
+//#endif
+//int n_user_punch_index;
+//#define checking	true
+//#define varnamelen  20
+//#define maxdims	    4
+//
+////typedef Char varnamestring[varnamelen + 1];
+////typedef Char string255[256];
+//
+//#include "basic.h"
 
 Char *inbuf;
 linerec *linebase;

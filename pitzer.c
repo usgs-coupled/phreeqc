@@ -11,6 +11,7 @@
 
 #if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL
+#include "pitzer_structures.h"
 #include "pitzer.h"
 
 static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";

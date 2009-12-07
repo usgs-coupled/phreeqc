@@ -4087,7 +4087,7 @@ dump_netpath(struct inverse *inverse_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER conc * CLASS_QUALIFIER
+struct conc * CLASS_QUALIFIER
 get_inv_total(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
@@ -4103,7 +4103,7 @@ get_inv_total(struct solution *solution_ptr, const char *elt)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope * CLASS_QUALIFIER
+struct isotope * CLASS_QUALIFIER
 get_isotope(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {

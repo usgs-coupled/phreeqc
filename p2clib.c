@@ -105,7 +105,7 @@ my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 	return d;
 }
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 {
 	register char *a = (char *) s1, *b = (char *) s2;
@@ -116,7 +116,7 @@ my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 	return 0;
 }
 
-Anyptr CLASS_QUALIFIER 
+Anyptr CLASS_QUALIFIER
 my_memset(Anyptr d, int c, size_t n)
 {
 	register char *dd = (char *) d;
@@ -125,7 +125,7 @@ my_memset(Anyptr d, int c, size_t n)
 	return d;
 }
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 my_toupper(int c)
 {
 	if (islower(c))
@@ -135,7 +135,7 @@ my_toupper(int c)
 }
 
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 my_tolower(int c)
 {
 	if (isupper(c))
@@ -147,7 +147,7 @@ my_tolower(int c)
 
 
 
-long CLASS_QUALIFIER 
+long CLASS_QUALIFIER
 ipow(long a, long b)
 {
 	long v;
@@ -177,7 +177,7 @@ ipow(long a, long b)
 
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
-char * CLASS_QUALIFIER 
+char * CLASS_QUALIFIER
 strsub(register char *ret, register char *s, register int pos,
 	   register int len)
 {
@@ -211,7 +211,7 @@ strsub(register char *ret, register char *s, register int pos,
 /* Return the index of the first occurrence of "pat" as a substring of "s",
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 strpos2(char *s, register char *pat, register int pos)
 {
 	register char *cp, ch;
@@ -235,7 +235,7 @@ strpos2(char *s, register char *pat, register int pos)
 
 
 /* Case-insensitive version of strcmp. */
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 strcicmp(register char *s1, register char *s2)
 {
 	register unsigned char c1, c2;
@@ -272,7 +272,7 @@ strltrim(register char *s)
 
 
 /* Trim blanks at right end of string. */
-char * CLASS_QUALIFIER 
+char * CLASS_QUALIFIER
 strrtrim(register char *s)
 {
 	register char *s2 = s;
@@ -337,7 +337,7 @@ strpad(ret, s, padchar, num)
 /* Copy the substring of length "len" from index "spos" of "s" (1-based)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
-void CLASS_QUALIFIER 
+void CLASS_QUALIFIER
 strmove(register int len, register char *s, register int spos,
 		register char *d, register int dpos)
 {
@@ -381,7 +381,7 @@ strdelete(s, pos, len)
 #endif
 
 /* Insert string "src" at index "pos" of "dst". */
-void CLASS_QUALIFIER 
+void CLASS_QUALIFIER
 strinsert(register char *src, register char *dst, register int pos)
 {
 	register int slen, dlen;
@@ -414,7 +414,7 @@ strinsert(register char *src, register char *dst, register int pos)
 /* File functions */
 
 /* Peek at next character of input stream; return EOF at end-of-file. */
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 P_peek(FILE * f)
 {
 	int ch;
@@ -431,7 +431,7 @@ P_peek(FILE * f)
    stdin is broken; remove the special case for it to be broken in a
    different way. */
 /*int P_eof(FILE *f)*/
-int CLASS_QUALIFIER  
+int CLASS_QUALIFIER
 P_eof(void)
 {
 #ifdef SKIP
@@ -450,7 +450,7 @@ P_eof(void)
 
 
 /* Check if at end of line (or end of entire file). */
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 P_eoln(FILE * f)
 {
 	register int ch;
@@ -464,7 +464,7 @@ P_eoln(FILE * f)
 
 
 /* Read a packed array of characters from a file. */
-Void CLASS_QUALIFIER 
+Void CLASS_QUALIFIER
 P_readpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -485,7 +485,7 @@ P_readpaoc(FILE * f, char *s, int len)
 		ungetc(ch, f);
 }
 
-Void CLASS_QUALIFIER 
+Void CLASS_QUALIFIER
 P_readlnpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -507,7 +507,7 @@ P_readlnpaoc(FILE * f, char *s, int len)
 
 
 /* Compute maximum legal "seek" index in file (0-based). */
-long CLASS_QUALIFIER 
+long CLASS_QUALIFIER
 P_maxpos(FILE * f)
 {
 	long savepos = ftell(f);
@@ -523,7 +523,7 @@ P_maxpos(FILE * f)
 
 
 /* Use packed array of char for a file name. */
-Char * CLASS_QUALIFIER 
+Char * CLASS_QUALIFIER
 P_trimname(register Char * fn, register int len)
 {
 	static Char fnbuf[256];
@@ -541,7 +541,7 @@ P_trimname(register Char * fn, register int len)
 /* Pascal's "memavail" doesn't make much sense in Unix with virtual memory.
    We fix memory size as 10Meg as a reasonable compromise. */
 
-long CLASS_QUALIFIER 
+long CLASS_QUALIFIER
 memavail(void)
 {
 	return 10000000;			/* worry about this later! */
@@ -564,7 +564,7 @@ maxavail(void)
    the lowest five bits of the first long are unused and always zero.) */
 
 /* (Sets with 32 or fewer elements are normally stored as plain longs.) */
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + s2 */
 {
 	long *dbase = d++;
@@ -582,7 +582,7 @@ P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + 
 	return dbase;
 }
 
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2 */
 {
 	long *dbase = d++;
@@ -594,7 +594,7 @@ P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2
 	return dbase;
 }
 
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s2 */
 {
 	long *dbase = d++;
@@ -611,7 +611,7 @@ P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s
 	return dbase;
 }
 
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2 */
 {
 	long *dbase = d++;
@@ -642,7 +642,7 @@ P_inset(register unsigned val, register long *s)	/* val IN s */
 	return 0;
 }
 #endif
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_addset(register long *s, register unsigned val)	/* s := s + [val] */
 {
 	register long *sbase = s;
@@ -663,7 +663,7 @@ P_addset(register long *s, register unsigned val)	/* s := s + [val] */
 	return sbase;
 }
 
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_addsetr(register long *s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
 {
 	register long *sbase = s;
@@ -713,7 +713,7 @@ P_remset(register long *s, register unsigned val)	/* s := s - [val] */
 	return s;
 }
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 {
 	register int size = *s1++;
@@ -727,7 +727,7 @@ P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 	return 1;
 }
 
-int CLASS_QUALIFIER 
+int CLASS_QUALIFIER
 P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 {
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -741,7 +741,7 @@ P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 	return 1;
 }
 
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_setcpy(register long *d, register long *s)	/* d := s */
 {
 	register long *save_d = d;
@@ -759,7 +759,7 @@ P_setcpy(register long *d, register long *s)	/* d := s */
 
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
-long * CLASS_QUALIFIER 
+long * CLASS_QUALIFIER
 P_expset(register long *d, register long s)	/* d := s */
 {
 	if (s)
@@ -772,7 +772,7 @@ P_expset(register long *d, register long s)	/* d := s */
 	return d;
 }
 
-long CLASS_QUALIFIER 
+long CLASS_QUALIFIER
 P_packset(register long *s)		/* convert s to a small-set */
 {
 	if (*s++)

@@ -2080,7 +2080,7 @@ convert_units(struct solution *solution_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master ** CLASS_QUALIFIER
+struct master ** CLASS_QUALIFIER
 get_list_master_ptrs(char *ptr, struct master *master_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3676,7 +3676,7 @@ setup_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER unknown * CLASS_QUALIFIER
+struct unknown * CLASS_QUALIFIER
 find_surface_charge_unknown(char *str_ptr, int plane)
 /* ---------------------------------------------------------------------- */
 {
@@ -4205,7 +4205,7 @@ setup_solution(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master ** CLASS_QUALIFIER
+struct master ** CLASS_QUALIFIER
 unknown_alloc_master(void)
 /* ---------------------------------------------------------------------- */
 {

@@ -1245,7 +1245,7 @@ convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
  */
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master_isotope * CLASS_QUALIFIER
+struct master_isotope * CLASS_QUALIFIER
 master_isotope_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1323,7 +1323,7 @@ master_isotope_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master_isotope * CLASS_QUALIFIER
+struct master_isotope * CLASS_QUALIFIER
 master_isotope_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1363,7 +1363,7 @@ master_isotope_init(struct master_isotope *master_isotope_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER master_isotope * CLASS_QUALIFIER
+struct master_isotope * CLASS_QUALIFIER
 master_isotope_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1402,7 +1402,7 @@ master_isotope_search(const char *name)
  */
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER calculate_value * CLASS_QUALIFIER
+struct calculate_value * CLASS_QUALIFIER
 calculate_value_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1482,7 +1482,7 @@ calculate_value_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER calculate_value * CLASS_QUALIFIER
+struct calculate_value * CLASS_QUALIFIER
 calculate_value_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1526,7 +1526,7 @@ calculate_value_init(struct calculate_value *calculate_value_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER calculate_value * CLASS_QUALIFIER
+struct calculate_value * CLASS_QUALIFIER
 calculate_value_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1589,7 +1589,7 @@ calculate_value_free(struct calculate_value *calculate_value_ptr)
  */
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * CLASS_QUALIFIER
 isotope_ratio_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1667,7 +1667,7 @@ isotope_ratio_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * CLASS_QUALIFIER
 isotope_ratio_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1709,7 +1709,7 @@ isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * CLASS_QUALIFIER
 isotope_ratio_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1748,7 +1748,7 @@ isotope_ratio_search(const char *name)
  */
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * CLASS_QUALIFIER
 isotope_alpha_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1826,7 +1826,7 @@ isotope_alpha_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * CLASS_QUALIFIER
 isotope_alpha_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1867,7 +1867,7 @@ isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * CLASS_QUALIFIER
 isotope_alpha_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {

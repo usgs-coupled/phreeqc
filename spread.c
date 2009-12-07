@@ -64,7 +64,7 @@ read_solution_spread(void)
 	int spread_lines;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 	char *ptr;
-	struct CLASS_QUALIFIER defaults soln_defaults;
+	struct defaults soln_defaults;
 	int return_value, opt;
 	char *next_char;
 	const char *opt_list[] = {
@@ -972,7 +972,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 }
 
 /* ---------------------------------------------------------------------- */
-struct CLASS_QUALIFIER spread_row * CLASS_QUALIFIER
+struct spread_row * CLASS_QUALIFIER
 string_to_spread_row(char *string)
 /* ---------------------------------------------------------------------- */
 {
