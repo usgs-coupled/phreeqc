@@ -2012,6 +2012,10 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\..\src\basic.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cvdense.h"
 				>
 			</File>
@@ -2069,6 +2073,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\pitzer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pitzer_structures.h"
 				>
 			</File>
 			<File
