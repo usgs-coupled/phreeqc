@@ -17,7 +17,7 @@ SRC=.
 PWD=pwd
 
 # Change to C compiler on your system
-PHREEQC_CLASS=TRUE
+#PHREEQC_CLASS=TRUE
 ifdef PHREEQC_CLASS
 CC=g++
 CCFLAGS=-O3 -Wall -ansi -pedantic -DPHREEQC_CLASS -DNDEBUG # -frounding-math  # -pg
@@ -50,7 +50,6 @@ LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 BINDIR=$(HOME)/bin
 
 OBJECTS=	$(MAIN).o \
-		Phreeqc.o \
 		advection.o \
 		basic.o \
 		basicsubs.o \
@@ -207,11 +206,11 @@ phqalloc.o: $(SRC)/phqalloc.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h
 
 phreeqc_files.o: $(SRC)/phreeqc_files.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
-pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h $(SRC)/pitzer_structures.h
 
 dw.o: $(SRC)/dw.c $(SRC)/pitzer.h
 
-pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h $(SRC)/pitzer_structures.h
 
 prep.o: $(SRC)/prep.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
@@ -223,7 +222,7 @@ read.o: $(SRC)/read.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)
 
 readtr.o: $(SRC)/readtr.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-sit.o: $(SRC)/sit.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+sit.o: $(SRC)/sit.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h $(SRC)/pitzer_structures.h
 
 smalldense.o: $(SRC)/smalldense.c $(SRC)/smalldense.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 

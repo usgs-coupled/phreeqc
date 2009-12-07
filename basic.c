@@ -5098,4 +5098,3 @@ free_dim_stringvar(varrec *varbase)
 	}
 	return (OK);
 }
-
