@@ -1378,7 +1378,7 @@ struct M_S
 #ifdef PHREEQ98
 int colnr, rownr;
 #endif
-int n_user_punch_index;
+//int n_user_punch_index;
 #define checking	true
 #define varnamelen  20
 #define maxdims	    4
