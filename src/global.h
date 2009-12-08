@@ -17,9 +17,6 @@ static char const svnidglobal[] =
 #include <math.h>
 #include <errno.h>
 #include <float.h>
-
-#include <assert.h>
-
 #include <setjmp.h>
 #include "phrqtype.h"
 
@@ -54,7 +51,6 @@ static char const svnidglobal[] =
 //#include <errno.h>
 //#include <float.h>
 //#if !defined(_INC_PHREEQC_H)
-//#include <assert.h>
 //#endif
 //#include <setjmp.h>
 
@@ -604,6 +600,7 @@ EXTERNAL LDBLE *delta;
 EXTERNAL LDBLE *residual;
 
 EXTERNAL int input_error;
+
 EXTERNAL int next_keyword;
 EXTERNAL int parse_error;
 EXTERNAL int paren_count;

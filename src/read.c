@@ -1,3 +1,4 @@
+#include <assert.h>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"

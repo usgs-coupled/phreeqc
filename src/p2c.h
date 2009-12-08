@@ -102,7 +102,7 @@ typedef unsigned char boolean;
 #include <ctype.h>
 #include <math.h>
 #include <setjmp.h>
-#include <assert.h>
+//#include <assert.h>
 
 
 #ifndef NO_LACK
@@ -638,9 +638,6 @@ extern Anyptr my_memset P2PP((Anyptr, int, size_t));
 #include <ctype.h>
 #include <math.h>
 #include <setjmp.h>
-#ifdef SKIP_SOME
-#include <assert.h>
-#endif /* SKIP_SOME */
 
 #ifdef SKIP_SOME
 #ifndef NO_LACK
