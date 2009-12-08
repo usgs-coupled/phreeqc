@@ -37,8 +37,8 @@
 #include "kinetics.h"
 #define malloc PHRQ_malloc
 #else
-#define malloc MACHENV_MALLOC PHRQ_malloc
 #include "Phreeqc.h"
+#define malloc MACHENV_MALLOC PHRQ_malloc
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #if !defined(NDEBUG)

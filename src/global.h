@@ -756,7 +756,7 @@ EXTERNAL PHRQMemHeader *s_pTail;
 ////typedef Char string255[256];
 //
 //#include "basic.h"
-
+int n_user_punch_index;
 Char *inbuf;
 linerec *linebase;
 varrec *varbase;
