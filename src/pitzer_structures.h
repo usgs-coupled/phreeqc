@@ -1,8 +1,8 @@
-// Pitzer structures
-
+#ifndef _INC_PITZER_STRUCTURES_H
+#define _INC_PITZER_STRUCTURES_H
 typedef enum
 { TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA,
-  TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other, 
+  TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other,
   TYPE_SIT_EPSILON, TYPE_SIT_EPSILON_MU
 } pitz_param_type;
 
@@ -42,3 +42,4 @@ struct theta_param
 	LDBLE etheta;
 	LDBLE ethetap;
 };
+#endif /* _INC_PITZER_STRUCTURES_H */

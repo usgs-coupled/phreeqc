@@ -37,7 +37,6 @@
 #else
 #define malloc PHRQ_malloc
 #include "Phreeqc.h"
-
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #if !defined(NDEBUG)
