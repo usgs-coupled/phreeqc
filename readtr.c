@@ -5,8 +5,10 @@
 #include <fstream>
 #include "../StorageBin.h"
 #include "../SSassemblageSS.h"
+#if !defined(PHREEQC_CLASS)
 std::string dump_file_name_cpp;
 int dump_cpp(void);
+#endif
 #endif
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
@@ -1220,7 +1222,11 @@ dump_cpp(void)
 		return (OK);
 
 	cxxStorageBin phreeqcBin;
+#if !defined(PHREEQC_CLASS)
 	phreeqcBin.import_phreeqc();
+#else
+	phreeqcBin.import_phreeqc(this);
+#endif
 
 	std::ofstream fs(dump_file_name_cpp.c_str());
 	fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;

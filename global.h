@@ -911,6 +911,10 @@ int AddSeries;
 int FirstCallToUSER_GRAPH;
 #endif
 
+// readtr.c
+
+std::string dump_file_name_cpp;
+
 // sit.c -------------------------------
 
 LDBLE sit_A0;
