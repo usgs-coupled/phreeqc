@@ -911,6 +911,11 @@ int AddSeries;
 int FirstCallToUSER_GRAPH;
 #endif
 
+// read_class.cxx
+dumper dump_info;
+StorageBinList delete_info;
+runner run_info;
+
 // readtr.c
 
 std::string dump_file_name_cpp;
