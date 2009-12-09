@@ -1409,6 +1409,7 @@ dump_cpp(void)
 	sprintf(token, "\n");
 	fs << token;
 	sprintf(token, "\t-disp\n");
+	fs << token;
 	for (i = 0; i < count_cells; i++)
 	{
 		if (punch.high_precision == FALSE)
@@ -1463,6 +1464,7 @@ dump_cpp(void)
 		if (cell_data[i].print != TRUE)
 			continue;
 		sprintf(token, "  %d", i + 1);
+		fs << token;
 		l++;
 		if ((l % 20) == 0)
 		{
