@@ -2382,16 +2382,24 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokget_por:
-		i = intfactor(LINK);
-		if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
-			|| i == count_cells + 1)
+		if (phast != TRUE)
 		{
-/*		warning_msg("Note... no porosity for boundary solutions.");
- */ break;
+			i = intfactor(LINK);
+			if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
+				|| i == count_cells + 1)
+			{
+				/*		warning_msg("Note... no porosity for boundary solutions."); */ 
+				break;
+			}
+			else
+				n.UU.val = cell_data[i - 1].por;
+			break;
 		}
 		else
-			n.UU.val = cell_data[i - 1].por;
-		break;
+		{
+			n.UU.val = cell_porosity;
+			break;
+		}
 
 	case tokedl:
 		require(toklp, LINK);
@@ -2975,7 +2983,7 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokporevolume:
-		n.UU.val = pore_volume;
+		n.UU.val = cell_pore_volume;
 		break;
 
 /* VP : Density Start */

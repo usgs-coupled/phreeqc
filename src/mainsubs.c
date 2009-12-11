@@ -659,7 +659,10 @@ initialize(void)
 	zeros[0] = 0.0;
 	zeros_max = 1;
 
-	pore_volume = 0;
+	cell_pore_volume = 0;
+	cell_volume = 0;
+	cell_porosity = 0;
+	cell_saturation = 0;
 
 	charge_group = NULL;
 	print_density = 0;
