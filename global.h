@@ -727,7 +727,10 @@ EXTERNAL int zeros_max;
 #include <crtdbg.h>
 #endif
 
-EXTERNAL LDBLE pore_volume;
+EXTERNAL LDBLE cell_pore_volume;
+EXTERNAL LDBLE cell_porosity;
+EXTERNAL LDBLE cell_volume;
+EXTERNAL LDBLE cell_saturation;
 
 EXTERNAL struct system_species *sys;
 EXTERNAL int count_sys, max_sys;
