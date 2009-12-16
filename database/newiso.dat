@@ -4976,24 +4976,156 @@ KSO4- + [34S]O4-2 = K[34S]O4- + SO4-2
 #
 # Missing FeOH+ reactions
 #
+FeOH+ + OD- = FeOD+ + OH-
+FeOH+ + OT- = FeOT+ + OH-
+FeOH+ + [18O]H- = Fe[18O]H+ + OH-
+FeOH+ + [18O]D- = Fe[18O]D+ + OH-
+FeOH+ + [18O]T- = Fe[18O]T+ + OH-
 #
 # Missing FeCO3 reactions
 #
+FeCO3 + CO2[18O]-2 = FeCO2[18O] + CO3-2
+FeCO3 + CO[18O]2-2 = FeCO[18O]2 + CO3-2
+FeCO3 + C[18O]3-2 = FeC[18O]3 + CO3-2
+FeCO3 + [13C]O3-2 = Fe[13C]O3 + CO3-2
+FeCO3 + [13C]O2[18O]-2 = Fe[13C]O2[18O] + CO3-2
+FeCO3 + [13C]O[18O]2-2 = Fe[13C]O[18O]2 + CO3-2
+FeCO3 + [13C][18O]3-2 = Fe[13C][18O]3 + CO3-2
+FeCO3 + [14C]O3-2 = Fe[14C]O3 + CO3-2
+FeCO3 + [14C]O2[18O]-2 = Fe[14C]O2[18O] + CO3-2
+FeCO3 + [14C]O[18O]2-2 = Fe[14C]O[18O]2 + CO3-2
+FeCO3 + [14C][18O]3-2 = Fe[14C][18O]3 + CO3-2
 #
 # Missing FeHCO3+ reactions
 #
+FeHCO3+ + HCO2[18O]- = FeHCO2[18O]+ + HCO3-
+FeHCO3+ + HCO[18O]2- = FeHCO[18O]2+ + HCO3-
+FeHCO3+ + HC[18O]3- = FeHC[18O]3+ + HCO3-
+FeHCO3+ + H[13C]O3- = FeH[13C]O3+ + HCO3-
+FeHCO3+ + H[13C]O2[18O]- = FeH[13C]O2[18O]+ + HCO3-
+FeHCO3+ + H[13C]O[18O]2- = FeH[13C]O[18O]2+ + HCO3-
+FeHCO3+ + H[13C][18O]3- = FeH[13C][18O]3+ + HCO3-
+FeHCO3+ + H[14C]O3- = FeH[14C]O3+ + HCO3-
+FeHCO3+ + H[14C]O2[18O]- = FeH[14C]O2[18O]+ + HCO3-
+FeHCO3+ + H[14C]O[18O]2- = FeH[14C]O[18O]2+ + HCO3-
+FeHCO3+ + H[14C][18O]3- = FeH[14C][18O]3+ + HCO3-
+FeHCO3+ + DCO3- = FeDCO3+ + HCO3-
+FeHCO3+ + DCO2[18O]- = FeDCO2[18O]+ + HCO3-
+FeHCO3+ + DCO[18O]2- = FeDCO[18O]2+ + HCO3-
+FeHCO3+ + DC[18O]3- = FeDC[18O]3+ + HCO3-
+FeHCO3+ + D[13C]O3- = FeD[13C]O3+ + HCO3-
+FeHCO3+ + D[13C]O2[18O]- = FeD[13C]O2[18O]+ + HCO3-
+FeHCO3+ + D[13C]O[18O]2- = FeD[13C]O[18O]2+ + HCO3-
+FeHCO3+ + D[13C][18O]3- = FeD[13C][18O]3+ + HCO3-
+FeHCO3+ + D[14C]O3- = FeD[14C]O3+ + HCO3-
+FeHCO3+ + D[14C]O2[18O]- = FeD[14C]O2[18O]+ + HCO3-
+FeHCO3+ + D[14C]O[18O]2- = FeD[14C]O[18O]2+ + HCO3-
+FeHCO3+ + D[14C][18O]3- = FeD[14C][18O]3+ + HCO3-
+FeHCO3+ + TCO3- = FeTCO3+ + HCO3-
+FeHCO3+ + TCO2[18O]- = FeTCO2[18O]+ + HCO3-
+FeHCO3+ + TCO[18O]2- = FeTCO[18O]2+ + HCO3-
+FeHCO3+ + TC[18O]3- = FeTC[18O]3+ + HCO3-
+FeHCO3+ + T[13C]O3- = FeT[13C]O3+ + HCO3-
+FeHCO3+ + T[13C]O2[18O]- = FeT[13C]O2[18O]+ + HCO3-
+FeHCO3+ + T[13C]O[18O]2- = FeT[13C]O[18O]2+ + HCO3-
+FeHCO3+ + T[13C][18O]3- = FeT[13C][18O]3+ + HCO3-
+FeHCO3+ + T[14C]O3- = FeT[14C]O3+ + HCO3-
+FeHCO3+ + T[14C]O2[18O]- = FeT[14C]O2[18O]+ + HCO3-
+FeHCO3+ + T[14C]O[18O]2- = FeT[14C]O[18O]2+ + HCO3-
+FeHCO3+ + T[14C][18O]3- = FeT[14C][18O]3+ + HCO3-
 #
 # Missing FeSO4 reactions
 #
+FeSO4 + [34S]O4-2 = Fe[34S]O4 + SO4-2
 #
 # Missing FeHSO4+ reactions
 #
+FeHSO4+ + DSO4- = FeDSO4+ + HSO4-
+FeHSO4+ + TSO4- = FeTSO4+ + HSO4-
+FeHSO4+ + H[34S]O4- = FeH[34S]O4+ + HSO4-
+FeHSO4+ + D[34S]O4- = FeD[34S]O4+ + HSO4-
+FeHSO4+ + T[34S]O4- = FeT[34S]O4+ + HSO4-
 #
 # Missing Fe(HS)2 reactions
 #
+Fe(HS)2 + HS- + DS- = FeHSDS + 2HS-
+Fe(HS)2 + HS- + TS- = FeHSTS + 2HS-
+Fe(HS)2 + HS- + H[34S]- = FeHSH[34S] + 2HS-
+Fe(HS)2 + HS- + D[34S]- = FeHSD[34S] + 2HS-
+Fe(HS)2 + HS- + T[34S]- = FeHST[34S] + 2HS-
+Fe(HS)2 + 2DS- = Fe(DS)2 + 2HS-
+Fe(HS)2 + DS- + TS- = FeDSTS + 2HS-
+Fe(HS)2 + DS- + H[34S]- = FeDSH[34S] + 2HS-
+Fe(HS)2 + DS- + D[34S]- = FeDSD[34S] + 2HS-
+Fe(HS)2 + DS- + T[34S]- = FeDST[34S] + 2HS-
+Fe(HS)2 + 2TS- = Fe(TS)2 + 2HS-
+Fe(HS)2 + TS- + H[34S]- = FeTSH[34S] + 2HS-
+Fe(HS)2 + TS- + D[34S]- = FeTSD[34S] + 2HS-
+Fe(HS)2 + TS- + T[34S]- = FeTST[34S] + 2HS-
+Fe(HS)2 + 2H[34S]- = Fe(H[34S])2 + 2HS-
+Fe(HS)2 + H[34S]- + D[34S]- = FeH[34S]D[34S] + 2HS-
+Fe(HS)2 + H[34S]- + T[34S]- = FeH[34S]T[34S] + 2HS-
+Fe(HS)2 + 2D[34S]- = Fe(D[34S])2 + 2HS-
+Fe(HS)2 + D[34S]- + T[34S]- = FeD[34S]T[34S] + 2HS-
+Fe(HS)2 + 2T[34S]- = Fe(T[34S])2 + 2HS-
 #
 # Missing Fe(HS)3- reactions
 #
+Fe(HS)3- + 2HS- + DS- = Fe(HS)2DS- + 3HS-
+Fe(HS)3- + 2HS- + TS- = Fe(HS)2TS- + 3HS-
+Fe(HS)3- + 2HS- + H[34S]- = Fe(HS)2H[34S]- + 3HS-
+Fe(HS)3- + 2HS- + D[34S]- = Fe(HS)2D[34S]- + 3HS-
+Fe(HS)3- + 2HS- + T[34S]- = Fe(HS)2T[34S]- + 3HS-
+Fe(HS)3- + HS- + 2DS- = FeHS(DS)2- + 3HS-
+Fe(HS)3- + HS- + DS- + TS- = FeHSDSTS- + 3HS-
+Fe(HS)3- + HS- + DS- + H[34S]- = FeHSDSH[34S]- + 3HS-
+Fe(HS)3- + HS- + DS- + D[34S]- = FeHSDSD[34S]- + 3HS-
+Fe(HS)3- + HS- + DS- + T[34S]- = FeHSDST[34S]- + 3HS-
+Fe(HS)3- + HS- + 2TS- = FeHS(TS)2- + 3HS-
+Fe(HS)3- + HS- + TS- + H[34S]- = FeHSTSH[34S]- + 3HS-
+Fe(HS)3- + HS- + TS- + D[34S]- = FeHSTSD[34S]- + 3HS-
+Fe(HS)3- + HS- + TS- + T[34S]- = FeHSTST[34S]- + 3HS-
+Fe(HS)3- + HS- + 2H[34S]- = FeHS(H[34S])2- + 3HS-
+Fe(HS)3- + HS- + H[34S]- + D[34S]- = FeHSH[34S]D[34S]- + 3HS-
+Fe(HS)3- + HS- + H[34S]- + T[34S]- = FeHSH[34S]T[34S]- + 3HS-
+Fe(HS)3- + HS- + 2D[34S]- = FeHS(D[34S])2- + 3HS-
+Fe(HS)3- + HS- + D[34S]- + T[34S]- = FeHSD[34S]T[34S]- + 3HS-
+Fe(HS)3- + HS- + 2T[34S]- = FeHS(T[34S])2- + 3HS-
+Fe(HS)3- + 3DS- = Fe(DS)3- + 3HS-
+Fe(HS)3- + 2DS- + TS- = Fe(DS)2TS- + 3HS-
+Fe(HS)3- + 2DS- + H[34S]- = Fe(DS)2H[34S]- + 3HS-
+Fe(HS)3- + 2DS- + D[34S]- = Fe(DS)2D[34S]- + 3HS-
+Fe(HS)3- + 2DS- + T[34S]- = Fe(DS)2T[34S]- + 3HS-
+Fe(HS)3- + DS- + 2TS- = FeDS(TS)2- + 3HS-
+Fe(HS)3- + DS- + TS- + H[34S]- = FeDSTSH[34S]- + 3HS-
+Fe(HS)3- + DS- + TS- + D[34S]- = FeDSTSD[34S]- + 3HS-
+Fe(HS)3- + DS- + TS- + T[34S]- = FeDSTST[34S]- + 3HS-
+Fe(HS)3- + DS- + 2H[34S]- = FeDS(H[34S])2- + 3HS-
+Fe(HS)3- + DS- + H[34S]- + D[34S]- = FeDSH[34S]D[34S]- + 3HS-
+Fe(HS)3- + DS- + H[34S]- + T[34S]- = FeDSH[34S]T[34S]- + 3HS-
+Fe(HS)3- + DS- + 2D[34S]- = FeDS(D[34S])2- + 3HS-
+Fe(HS)3- + DS- + D[34S]- + T[34S]- = FeDSD[34S]T[34S]- + 3HS-
+Fe(HS)3- + DS- + 2T[34S]- = FeDS(T[34S])2- + 3HS-
+Fe(HS)3- + 3TS- = Fe(TS)3- + 3HS-
+Fe(HS)3- + 2TS- + H[34S]- = Fe(TS)2H[34S]- + 3HS-
+Fe(HS)3- + 2TS- + D[34S]- = Fe(TS)2D[34S]- + 3HS-
+Fe(HS)3- + 2TS- + T[34S]- = Fe(TS)2T[34S]- + 3HS-
+Fe(HS)3- + TS- + 2H[34S]- = FeTS(H[34S])2- + 3HS-
+Fe(HS)3- + TS- + H[34S]- + D[34S]- = FeTSH[34S]D[34S]- + 3HS-
+Fe(HS)3- + TS- + H[34S]- + T[34S]- = FeTSH[34S]T[34S]- + 3HS-
+Fe(HS)3- + TS- + 2D[34S]- = FeTS(D[34S])2- + 3HS-
+Fe(HS)3- + TS- + D[34S]- + T[34S]- = FeTSD[34S]T[34S]- + 3HS-
+Fe(HS)3- + TS- + 2T[34S]- = FeTS(T[34S])2- + 3HS-
+Fe(HS)3- + 3H[34S]- = Fe(H[34S])3- + 3HS-
+Fe(HS)3- + 2H[34S]- + D[34S]- = Fe(H[34S])2D[34S]- + 3HS-
+Fe(HS)3- + 2H[34S]- + T[34S]- = Fe(H[34S])2T[34S]- + 3HS-
+Fe(HS)3- + H[34S]- + 2D[34S]- = FeH[34S](D[34S])2- + 3HS-
+Fe(HS)3- + H[34S]- + D[34S]- + T[34S]- = FeH[34S]D[34S]T[34S]- + 3HS-
+Fe(HS)3- + H[34S]- + 2T[34S]- = FeH[34S](T[34S])2- + 3HS-
+Fe(HS)3- + 3D[34S]- = Fe(D[34S])3- + 3HS-
+Fe(HS)3- + 2D[34S]- + T[34S]- = Fe(D[34S])2T[34S]- + 3HS-
+Fe(HS)3- + D[34S]- + 2T[34S]- = FeD[34S](T[34S])2- + 3HS-
+Fe(HS)3- + 3T[34S]- = Fe(T[34S])3- + 3HS-
 #
 # Missing FeHPO4 reactions
 #
@@ -5003,30 +5135,388 @@ KSO4- + [34S]O4-2 = K[34S]O4- + SO4-2
 #
 # Missing FeOH+2 reactions
 #
+FeOH+2 + OD- = FeOD+2 + OH-
+FeOH+2 + OT- = FeOT+2 + OH-
+FeOH+2 + [18O]H- = Fe[18O]H+2 + OH-
+FeOH+2 + [18O]D- = Fe[18O]D+2 + OH-
+FeOH+2 + [18O]T- = Fe[18O]T+2 + OH-
 #
 # Missing Fe(OH)2+ reactions
 #
+Fe(OH)2+ + OH- + OD- = FeOHOD+ + 2OH-
+Fe(OH)2+ + OH- + OT- = FeOHOT+ + 2OH-
+Fe(OH)2+ + OH- + [18O]H- = FeOH[18O]H+ + 2OH-
+Fe(OH)2+ + OH- + [18O]D- = FeOH[18O]D+ + 2OH-
+Fe(OH)2+ + OH- + [18O]T- = FeOH[18O]T+ + 2OH-
+Fe(OH)2+ + 2OD- = Fe(OD)2+ + 2OH-
+Fe(OH)2+ + OD- + OT- = FeODOT+ + 2OH-
+Fe(OH)2+ + OD- + [18O]H- = FeOD[18O]H+ + 2OH-
+Fe(OH)2+ + OD- + [18O]D- = FeOD[18O]D+ + 2OH-
+Fe(OH)2+ + OD- + [18O]T- = FeOD[18O]T+ + 2OH-
+Fe(OH)2+ + 2OT- = Fe(OT)2+ + 2OH-
+Fe(OH)2+ + OT- + [18O]H- = FeOT[18O]H+ + 2OH-
+Fe(OH)2+ + OT- + [18O]D- = FeOT[18O]D+ + 2OH-
+Fe(OH)2+ + OT- + [18O]T- = FeOT[18O]T+ + 2OH-
+Fe(OH)2+ + 2[18O]H- = Fe([18O]H)2+ + 2OH-
+Fe(OH)2+ + [18O]H- + [18O]D- = Fe[18O]H[18O]D+ + 2OH-
+Fe(OH)2+ + [18O]H- + [18O]T- = Fe[18O]H[18O]T+ + 2OH-
+Fe(OH)2+ + 2[18O]D- = Fe([18O]D)2+ + 2OH-
+Fe(OH)2+ + [18O]D- + [18O]T- = Fe[18O]D[18O]T+ + 2OH-
+Fe(OH)2+ + 2[18O]T- = Fe([18O]T)2+ + 2OH-
 #
 # Missing Fe(OH)3 reactions
 #
+Fe(OH)3 + 2OH- + OD- = Fe(OH)2OD + 3OH-
+Fe(OH)3 + 2OH- + OT- = Fe(OH)2OT + 3OH-
+Fe(OH)3 + 2OH- + [18O]H- = Fe(OH)2[18O]H + 3OH-
+Fe(OH)3 + 2OH- + [18O]D- = Fe(OH)2[18O]D + 3OH-
+Fe(OH)3 + 2OH- + [18O]D- = Fe(OH)2[18O]D + 3OH-
+Fe(OH)3 + OH- + 2OD- = FeOH(OD)2 + 3OH-
+Fe(OH)3 + OH- + 2OD- = FeOH(OD)2 + 3OH-
+Fe(OH)3 + OH- + 2OD- = FeOH(OD)2 + 3OH-
+Fe(OH)3 + OH- + 2OD- = FeOH(OD)2 + 3OH-
+Fe(OH)3 + OH- + 2OD- = FeOH(OD)2 + 3OH-
+Fe(OH)3 + OH- + 2OT- = FeOH(OT)2 + 3OH-
+Fe(OH)3 + OH- + 2OT- = FeOH(OT)2 + 3OH-
+Fe(OH)3 + OH- + 2OT- = FeOH(OT)2 + 3OH-
+Fe(OH)3 + OH- + 2OT- = FeOH(OT)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]H- = FeOH([18O]H)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]H- = FeOH([18O]H)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]H- = FeOH([18O]H)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]D- = FeOH([18O]D)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]D- = FeOH([18O]D)2 + 3OH-
+Fe(OH)3 + OH- + 2[18O]D- = FeOH([18O]D)2 + 3OH-
+Fe(OH)3 + 3OD- = Fe(OD)3 + 3OH-
+Fe(OH)3 + 2OD- + OT- = Fe(OD)2OT + 3OH-
+Fe(OH)3 + 2OD- + [18O]H- = Fe(OD)2[18O]H + 3OH-
+Fe(OH)3 + 2OD- + [18O]D- = Fe(OD)2[18O]D + 3OH-
+Fe(OH)3 + 2OD- + [18O]D- = Fe(OD)2[18O]D + 3OH-
+Fe(OH)3 + OD- + 2OT- = FeOD(OT)2 + 3OH-
+Fe(OH)3 + OD- + 2OT- = FeOD(OT)2 + 3OH-
+Fe(OH)3 + OD- + 2OT- = FeOD(OT)2 + 3OH-
+Fe(OH)3 + OD- + 2OT- = FeOD(OT)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]H- = FeOD([18O]H)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]H- = FeOD([18O]H)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]H- = FeOD([18O]H)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]D- = FeOD([18O]D)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]D- = FeOD([18O]D)2 + 3OH-
+Fe(OH)3 + OD- + 2[18O]D- = FeOD([18O]D)2 + 3OH-
+Fe(OH)3 + 3OT- = Fe(OT)3 + 3OH-
+Fe(OH)3 + 2OT- + [18O]H- = Fe(OT)2[18O]H + 3OH-
+Fe(OH)3 + 2OT- + [18O]D- = Fe(OT)2[18O]D + 3OH-
+Fe(OH)3 + 2OT- + [18O]D- = Fe(OT)2[18O]D + 3OH-
+Fe(OH)3 + OT- + 2[18O]H- = FeOT([18O]H)2 + 3OH-
+Fe(OH)3 + OT- + 2[18O]H- = FeOT([18O]H)2 + 3OH-
+Fe(OH)3 + OT- + 2[18O]H- = FeOT([18O]H)2 + 3OH-
+Fe(OH)3 + OT- + 2[18O]D- = FeOT([18O]D)2 + 3OH-
+Fe(OH)3 + OT- + 2[18O]D- = FeOT([18O]D)2 + 3OH-
+Fe(OH)3 + OT- + 2[18O]D- = FeOT([18O]D)2 + 3OH-
+Fe(OH)3 + 3[18O]H- = Fe([18O]H)3 + 3OH-
+Fe(OH)3 + 2[18O]H- + [18O]D- = Fe([18O]H)2[18O]D + 3OH-
+Fe(OH)3 + 2[18O]H- + [18O]D- = Fe([18O]H)2[18O]D + 3OH-
+Fe(OH)3 + [18O]H- + 2[18O]D- = Fe[18O]H([18O]D)2 + 3OH-
+Fe(OH)3 + [18O]H- + 2[18O]D- = Fe[18O]H([18O]D)2 + 3OH-
+Fe(OH)3 + [18O]H- + 2[18O]D- = Fe[18O]H([18O]D)2 + 3OH-
+Fe(OH)3 + 3[18O]D- = Fe([18O]D)3 + 3OH-
+Fe(OH)3 + 2[18O]D- + [18O]D- = Fe([18O]D)2[18O]D + 3OH-
+Fe(OH)3 + [18O]D- + 2[18O]D- = Fe[18O]D([18O]D)2 + 3OH-
+Fe(OH)3 + 3[18O]D- = Fe([18O]D)3 + 3OH-
 #
 # Missing Fe(OH)4- reactions
 #
+Fe(OH)4- + 3OH- + OD- = Fe(OH)3OD- + 4OH-
+Fe(OH)4- + 3OH- + OT- = Fe(OH)3OT- + 4OH-
+Fe(OH)4- + 3OH- + [18O]H- = Fe(OH)3[18O]H- + 4OH-
+Fe(OH)4- + 3OH- + [18O]D- = Fe(OH)3[18O]D- + 4OH-
+Fe(OH)4- + 3OH- + [18O]T- = Fe(OH)3[18O]T- + 4OH-
+Fe(OH)4- + 2OH- + 2OD- = Fe(OH)2(OD)2- + 4OH-
+Fe(OH)4- + 2OH- + OD- + OT- = Fe(OH)2ODOT- + 4OH-
+Fe(OH)4- + 2OH- + OD- + [18O]H- = Fe(OH)2OD[18O]H- + 4OH-
+Fe(OH)4- + 2OH- + OD- + [18O]D- = Fe(OH)2OD[18O]D- + 4OH-
+Fe(OH)4- + 2OH- + OD- + [18O]T- = Fe(OH)2OD[18O]T- + 4OH-
+Fe(OH)4- + 2OH- + 2OT- = Fe(OH)2(OT)2- + 4OH-
+Fe(OH)4- + 2OH- + OT- + [18O]H- = Fe(OH)2OT[18O]H- + 4OH-
+Fe(OH)4- + 2OH- + OT- + [18O]D- = Fe(OH)2OT[18O]D- + 4OH-
+Fe(OH)4- + 2OH- + OT- + [18O]T- = Fe(OH)2OT[18O]T- + 4OH-
+Fe(OH)4- + 2OH- + 2[18O]H- = Fe(OH)2([18O]H)2- + 4OH-
+Fe(OH)4- + 2OH- + [18O]H- + [18O]D- = Fe(OH)2[18O]H[18O]D- + 4OH-
+Fe(OH)4- + 2OH- + [18O]H- + [18O]T- = Fe(OH)2[18O]H[18O]T- + 4OH-
+Fe(OH)4- + 2OH- + 2[18O]D- = Fe(OH)2([18O]D)2- + 4OH-
+Fe(OH)4- + 2OH- + [18O]D- + [18O]T- = Fe(OH)2[18O]D[18O]T- + 4OH-
+Fe(OH)4- + 2OH- + 2[18O]T- = Fe(OH)2([18O]T)2- + 4OH-
+Fe(OH)4- + OH- + 3OD- = FeOH(OD)3- + 4OH-
+Fe(OH)4- + OH- + 2OD- + OT- = FeOH(OD)2OT- + 4OH-
+Fe(OH)4- + OH- + 2OD- + [18O]H- = FeOH(OD)2[18O]H- + 4OH-
+Fe(OH)4- + OH- + 2OD- + [18O]D- = FeOH(OD)2[18O]D- + 4OH-
+Fe(OH)4- + OH- + 2OD- + [18O]T- = FeOH(OD)2[18O]T- + 4OH-
+Fe(OH)4- + OH- + OD- + 2OT- = FeOHOD(OT)2- + 4OH-
+Fe(OH)4- + OH- + OD- + OT- + [18O]H- = FeOHODOT[18O]H- + 4OH-
+Fe(OH)4- + OH- + OD- + OT- + [18O]D- = FeOHODOT[18O]D- + 4OH-
+Fe(OH)4- + OH- + OD- + OT- + [18O]T- = FeOHODOT[18O]T- + 4OH-
+Fe(OH)4- + OH- + OD- + 2[18O]H- = FeOHOD([18O]H)2- + 4OH-
+Fe(OH)4- + OH- + OD- + [18O]H- + [18O]D- = FeOHOD[18O]H[18O]D- + 4OH-
+Fe(OH)4- + OH- + OD- + [18O]H- + [18O]T- = FeOHOD[18O]H[18O]T- + 4OH-
+Fe(OH)4- + OH- + OD- + 2[18O]D- = FeOHOD([18O]D)2- + 4OH-
+Fe(OH)4- + OH- + OD- + [18O]D- + [18O]T- = FeOHOD[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OH- + OD- + 2[18O]T- = FeOHOD([18O]T)2- + 4OH-
+Fe(OH)4- + OH- + 3OT- = FeOH(OT)3- + 4OH-
+Fe(OH)4- + OH- + 2OT- + [18O]H- = FeOH(OT)2[18O]H- + 4OH-
+Fe(OH)4- + OH- + 2OT- + [18O]D- = FeOH(OT)2[18O]D- + 4OH-
+Fe(OH)4- + OH- + 2OT- + [18O]T- = FeOH(OT)2[18O]T- + 4OH-
+Fe(OH)4- + OH- + OT- + 2[18O]H- = FeOHOT([18O]H)2- + 4OH-
+Fe(OH)4- + OH- + OT- + [18O]H- + [18O]D- = FeOHOT[18O]H[18O]D- + 4OH-
+Fe(OH)4- + OH- + OT- + [18O]H- + [18O]T- = FeOHOT[18O]H[18O]T- + 4OH-
+Fe(OH)4- + OH- + OT- + 2[18O]D- = FeOHOT([18O]D)2- + 4OH-
+Fe(OH)4- + OH- + OT- + [18O]D- + [18O]T- = FeOHOT[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OH- + OT- + 2[18O]T- = FeOHOT([18O]T)2- + 4OH-
+Fe(OH)4- + OH- + 3[18O]H- = FeOH([18O]H)3- + 4OH-
+Fe(OH)4- + OH- + 2[18O]H- + [18O]D- = FeOH([18O]H)2[18O]D- + 4OH-
+Fe(OH)4- + OH- + 2[18O]H- + [18O]T- = FeOH([18O]H)2[18O]T- + 4OH-
+Fe(OH)4- + OH- + [18O]H- + 2[18O]D- = FeOH[18O]H([18O]D)2- + 4OH-
+Fe(OH)4- + OH- + [18O]H- + [18O]D- + [18O]T- = FeOH[18O]H[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OH- + [18O]H- + 2[18O]T- = FeOH[18O]H([18O]T)2- + 4OH-
+Fe(OH)4- + OH- + 3[18O]D- = FeOH([18O]D)3- + 4OH-
+Fe(OH)4- + OH- + 2[18O]D- + [18O]T- = FeOH([18O]D)2[18O]T- + 4OH-
+Fe(OH)4- + OH- + [18O]D- + 2[18O]T- = FeOH[18O]D([18O]T)2- + 4OH-
+Fe(OH)4- + OH- + 3[18O]T- = FeOH([18O]T)3- + 4OH-
+Fe(OH)4- + 4OD- = Fe(OD)4- + 4OH-
+Fe(OH)4- + 3OD- + OT- = Fe(OD)3OT- + 4OH-
+Fe(OH)4- + 3OD- + [18O]H- = Fe(OD)3[18O]H- + 4OH-
+Fe(OH)4- + 3OD- + [18O]D- = Fe(OD)3[18O]D- + 4OH-
+Fe(OH)4- + 3OD- + [18O]T- = Fe(OD)3[18O]T- + 4OH-
+Fe(OH)4- + 2OD- + 2OT- = Fe(OD)2(OT)2- + 4OH-
+Fe(OH)4- + 2OD- + OT- + [18O]H- = Fe(OD)2OT[18O]H- + 4OH-
+Fe(OH)4- + 2OD- + OT- + [18O]D- = Fe(OD)2OT[18O]D- + 4OH-
+Fe(OH)4- + 2OD- + OT- + [18O]T- = Fe(OD)2OT[18O]T- + 4OH-
+Fe(OH)4- + 2OD- + 2[18O]H- = Fe(OD)2([18O]H)2- + 4OH-
+Fe(OH)4- + 2OD- + [18O]H- + [18O]D- = Fe(OD)2[18O]H[18O]D- + 4OH-
+Fe(OH)4- + 2OD- + [18O]H- + [18O]T- = Fe(OD)2[18O]H[18O]T- + 4OH-
+Fe(OH)4- + 2OD- + 2[18O]D- = Fe(OD)2([18O]D)2- + 4OH-
+Fe(OH)4- + 2OD- + [18O]D- + [18O]T- = Fe(OD)2[18O]D[18O]T- + 4OH-
+Fe(OH)4- + 2OD- + 2[18O]T- = Fe(OD)2([18O]T)2- + 4OH-
+Fe(OH)4- + OD- + 3OT- = FeOD(OT)3- + 4OH-
+Fe(OH)4- + OD- + 2OT- + [18O]H- = FeOD(OT)2[18O]H- + 4OH-
+Fe(OH)4- + OD- + 2OT- + [18O]D- = FeOD(OT)2[18O]D- + 4OH-
+Fe(OH)4- + OD- + 2OT- + [18O]T- = FeOD(OT)2[18O]T- + 4OH-
+Fe(OH)4- + OD- + OT- + 2[18O]H- = FeODOT([18O]H)2- + 4OH-
+Fe(OH)4- + OD- + OT- + [18O]H- + [18O]D- = FeODOT[18O]H[18O]D- + 4OH-
+Fe(OH)4- + OD- + OT- + [18O]H- + [18O]T- = FeODOT[18O]H[18O]T- + 4OH-
+Fe(OH)4- + OD- + OT- + 2[18O]D- = FeODOT([18O]D)2- + 4OH-
+Fe(OH)4- + OD- + OT- + [18O]D- + [18O]T- = FeODOT[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OD- + OT- + 2[18O]T- = FeODOT([18O]T)2- + 4OH-
+Fe(OH)4- + OD- + 3[18O]H- = FeOD([18O]H)3- + 4OH-
+Fe(OH)4- + OD- + 2[18O]H- + [18O]D- = FeOD([18O]H)2[18O]D- + 4OH-
+Fe(OH)4- + OD- + 2[18O]H- + [18O]T- = FeOD([18O]H)2[18O]T- + 4OH-
+Fe(OH)4- + OD- + [18O]H- + 2[18O]D- = FeOD[18O]H([18O]D)2- + 4OH-
+Fe(OH)4- + OD- + [18O]H- + [18O]D- + [18O]T- = FeOD[18O]H[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OD- + [18O]H- + 2[18O]T- = FeOD[18O]H([18O]T)2- + 4OH-
+Fe(OH)4- + OD- + 3[18O]D- = FeOD([18O]D)3- + 4OH-
+Fe(OH)4- + OD- + 2[18O]D- + [18O]T- = FeOD([18O]D)2[18O]T- + 4OH-
+Fe(OH)4- + OD- + [18O]D- + 2[18O]T- = FeOD[18O]D([18O]T)2- + 4OH-
+Fe(OH)4- + OD- + 3[18O]T- = FeOD([18O]T)3- + 4OH-
+Fe(OH)4- + 4OT- = Fe(OT)4- + 4OH-
+Fe(OH)4- + 3OT- + [18O]H- = Fe(OT)3[18O]H- + 4OH-
+Fe(OH)4- + 3OT- + [18O]D- = Fe(OT)3[18O]D- + 4OH-
+Fe(OH)4- + 3OT- + [18O]T- = Fe(OT)3[18O]T- + 4OH-
+Fe(OH)4- + 2OT- + 2[18O]H- = Fe(OT)2([18O]H)2- + 4OH-
+Fe(OH)4- + 2OT- + [18O]H- + [18O]D- = Fe(OT)2[18O]H[18O]D- + 4OH-
+Fe(OH)4- + 2OT- + [18O]H- + [18O]T- = Fe(OT)2[18O]H[18O]T- + 4OH-
+Fe(OH)4- + 2OT- + 2[18O]D- = Fe(OT)2([18O]D)2- + 4OH-
+Fe(OH)4- + 2OT- + [18O]D- + [18O]T- = Fe(OT)2[18O]D[18O]T- + 4OH-
+Fe(OH)4- + 2OT- + 2[18O]T- = Fe(OT)2([18O]T)2- + 4OH-
+Fe(OH)4- + OT- + 3[18O]H- = FeOT([18O]H)3- + 4OH-
+Fe(OH)4- + OT- + 2[18O]H- + [18O]D- = FeOT([18O]H)2[18O]D- + 4OH-
+Fe(OH)4- + OT- + 2[18O]H- + [18O]T- = FeOT([18O]H)2[18O]T- + 4OH-
+Fe(OH)4- + OT- + [18O]H- + 2[18O]D- = FeOT[18O]H([18O]D)2- + 4OH-
+Fe(OH)4- + OT- + [18O]H- + [18O]D- + [18O]T- = FeOT[18O]H[18O]D[18O]T- + 4OH-
+Fe(OH)4- + OT- + [18O]H- + 2[18O]T- = FeOT[18O]H([18O]T)2- + 4OH-
+Fe(OH)4- + OT- + 3[18O]D- = FeOT([18O]D)3- + 4OH-
+Fe(OH)4- + OT- + 2[18O]D- + [18O]T- = FeOT([18O]D)2[18O]T- + 4OH-
+Fe(OH)4- + OT- + [18O]D- + 2[18O]T- = FeOT[18O]D([18O]T)2- + 4OH-
+Fe(OH)4- + OT- + 3[18O]T- = FeOT([18O]T)3- + 4OH-
+Fe(OH)4- + 4[18O]H- = Fe([18O]H)4- + 4OH-
+Fe(OH)4- + 3[18O]H- + [18O]D- = Fe([18O]H)3[18O]D- + 4OH-
+Fe(OH)4- + 3[18O]H- + [18O]T- = Fe([18O]H)3[18O]T- + 4OH-
+Fe(OH)4- + 2[18O]H- + 2[18O]D- = Fe([18O]H)2([18O]D)2- + 4OH-
+Fe(OH)4- + 2[18O]H- + [18O]D- + [18O]T- = Fe([18O]H)2[18O]D[18O]T- + 4OH-
+Fe(OH)4- + 2[18O]H- + 2[18O]T- = Fe([18O]H)2([18O]T)2- + 4OH-
+Fe(OH)4- + [18O]H- + 3[18O]D- = Fe[18O]H([18O]D)3- + 4OH-
+Fe(OH)4- + [18O]H- + 2[18O]D- + [18O]T- = Fe[18O]H([18O]D)2[18O]T- + 4OH-
+Fe(OH)4- + [18O]H- + [18O]D- + 2[18O]T- = Fe[18O]H[18O]D([18O]T)2- + 4OH-
+Fe(OH)4- + [18O]H- + 3[18O]T- = Fe[18O]H([18O]T)3- + 4OH-
+Fe(OH)4- + 4[18O]D- = Fe([18O]D)4- + 4OH-
+Fe(OH)4- + 3[18O]D- + [18O]T- = Fe([18O]D)3[18O]T- + 4OH-
+Fe(OH)4- + 2[18O]D- + 2[18O]T- = Fe([18O]D)2([18O]T)2- + 4OH-
+Fe(OH)4- + [18O]D- + 3[18O]T- = Fe[18O]D([18O]T)3- + 4OH-
+Fe(OH)4- + 4[18O]T- = Fe([18O]T)4- + 4OH-
 #
 # Missing Fe2(OH)2+4 reactions
 #
+Fe2(OH)2+4 + OH- + OD- = Fe2OHOD+4 + 2OH-
+Fe2(OH)2+4 + OH- + OT- = Fe2OHOT+4 + 2OH-
+Fe2(OH)2+4 + OH- + [18O]H- = Fe2OH[18O]H+4 + 2OH-
+Fe2(OH)2+4 + OH- + [18O]D- = Fe2OH[18O]D+4 + 2OH-
+Fe2(OH)2+4 + OH- + [18O]T- = Fe2OH[18O]T+4 + 2OH-
+Fe2(OH)2+4 + 2OD- = Fe2(OD)2+4 + 2OH-
+Fe2(OH)2+4 + OD- + OT- = Fe2ODOT+4 + 2OH-
+Fe2(OH)2+4 + OD- + [18O]H- = Fe2OD[18O]H+4 + 2OH-
+Fe2(OH)2+4 + OD- + [18O]D- = Fe2OD[18O]D+4 + 2OH-
+Fe2(OH)2+4 + OD- + [18O]T- = Fe2OD[18O]T+4 + 2OH-
+Fe2(OH)2+4 + 2OT- = Fe2(OT)2+4 + 2OH-
+Fe2(OH)2+4 + OT- + [18O]H- = Fe2OT[18O]H+4 + 2OH-
+Fe2(OH)2+4 + OT- + [18O]D- = Fe2OT[18O]D+4 + 2OH-
+Fe2(OH)2+4 + OT- + [18O]T- = Fe2OT[18O]T+4 + 2OH-
+Fe2(OH)2+4 + 2[18O]H- = Fe2([18O]H)2+4 + 2OH-
+Fe2(OH)2+4 + [18O]H- + [18O]D- = Fe2[18O]H[18O]D+4 + 2OH-
+Fe2(OH)2+4 + [18O]H- + [18O]T- = Fe2[18O]H[18O]T+4 + 2OH-
+Fe2(OH)2+4 + 2[18O]D- = Fe2([18O]D)2+4 + 2OH-
+Fe2(OH)2+4 + [18O]D- + [18O]T- = Fe2[18O]D[18O]T+4 + 2OH-
+Fe2(OH)2+4 + 2[18O]T- = Fe2([18O]T)2+4 + 2OH-
 #
 # Missing Fe3(OH)4+5 reactions
 #
+Fe3(OH)4+5 + 3OH- + OD- = Fe3(OH)3OD+5 + 4OH-
+Fe3(OH)4+5 + 3OH- + OT- = Fe3(OH)3OT+5 + 4OH-
+Fe3(OH)4+5 + 3OH- + [18O]H- = Fe3(OH)3[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 3OH- + [18O]D- = Fe3(OH)3[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 3OH- + [18O]T- = Fe3(OH)3[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + 2OD- = Fe3(OH)2(OD)2+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OD- + OT- = Fe3(OH)2ODOT+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OD- + [18O]H- = Fe3(OH)2OD[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OD- + [18O]D- = Fe3(OH)2OD[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OD- + [18O]T- = Fe3(OH)2OD[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + 2OT- = Fe3(OH)2(OT)2+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OT- + [18O]H- = Fe3(OH)2OT[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OT- + [18O]D- = Fe3(OH)2OT[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + OT- + [18O]T- = Fe3(OH)2OT[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + 2[18O]H- = Fe3(OH)2([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + [18O]H- + [18O]D- = Fe3(OH)2[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + [18O]H- + [18O]T- = Fe3(OH)2[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + 2[18O]D- = Fe3(OH)2([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + [18O]D- + [18O]T- = Fe3(OH)2[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OH- + 2[18O]T- = Fe3(OH)2([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + 3OD- = Fe3OH(OD)3+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OD- + OT- = Fe3OH(OD)2OT+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OD- + [18O]H- = Fe3OH(OD)2[18O]H+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OD- + [18O]D- = Fe3OH(OD)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OD- + [18O]T- = Fe3OH(OD)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + 2OT- = Fe3OHOD(OT)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + OT- + [18O]H- = Fe3OHODOT[18O]H+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + OT- + [18O]D- = Fe3OHODOT[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + OT- + [18O]T- = Fe3OHODOT[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + 2[18O]H- = Fe3OHOD([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + [18O]H- + [18O]D- = Fe3OHOD[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + [18O]H- + [18O]T- = Fe3OHOD[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + 2[18O]D- = Fe3OHOD([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + [18O]D- + [18O]T- = Fe3OHOD[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OD- + 2[18O]T- = Fe3OHOD([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + 3OT- = Fe3OH(OT)3+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OT- + [18O]H- = Fe3OH(OT)2[18O]H+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OT- + [18O]D- = Fe3OH(OT)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2OT- + [18O]T- = Fe3OH(OT)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + 2[18O]H- = Fe3OHOT([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + [18O]H- + [18O]D- = Fe3OHOT[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + [18O]H- + [18O]T- = Fe3OHOT[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + 2[18O]D- = Fe3OHOT([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + [18O]D- + [18O]T- = Fe3OHOT[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + OT- + 2[18O]T- = Fe3OHOT([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + 3[18O]H- = Fe3OH([18O]H)3+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2[18O]H- + [18O]D- = Fe3OH([18O]H)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2[18O]H- + [18O]T- = Fe3OH([18O]H)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + [18O]H- + 2[18O]D- = Fe3OH[18O]H([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + [18O]H- + [18O]D- + [18O]T- = Fe3OH[18O]H[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + [18O]H- + 2[18O]T- = Fe3OH[18O]H([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + 3[18O]D- = Fe3OH([18O]D)3+5 + 4OH-
+Fe3(OH)4+5 + OH- + 2[18O]D- + [18O]T- = Fe3OH([18O]D)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OH- + [18O]D- + 2[18O]T- = Fe3OH[18O]D([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OH- + 3[18O]T- = Fe3OH([18O]T)3+5 + 4OH-
+Fe3(OH)4+5 + 4OD- = Fe3(OD)4+5 + 4OH-
+Fe3(OH)4+5 + 3OD- + OT- = Fe3(OD)3OT+5 + 4OH-
+Fe3(OH)4+5 + 3OD- + [18O]H- = Fe3(OD)3[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 3OD- + [18O]D- = Fe3(OD)3[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 3OD- + [18O]T- = Fe3(OD)3[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + 2OT- = Fe3(OD)2(OT)2+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + OT- + [18O]H- = Fe3(OD)2OT[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + OT- + [18O]D- = Fe3(OD)2OT[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + OT- + [18O]T- = Fe3(OD)2OT[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + 2[18O]H- = Fe3(OD)2([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + [18O]H- + [18O]D- = Fe3(OD)2[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + [18O]H- + [18O]T- = Fe3(OD)2[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + 2[18O]D- = Fe3(OD)2([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + [18O]D- + [18O]T- = Fe3(OD)2[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OD- + 2[18O]T- = Fe3(OD)2([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + 3OT- = Fe3OD(OT)3+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2OT- + [18O]H- = Fe3OD(OT)2[18O]H+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2OT- + [18O]D- = Fe3OD(OT)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2OT- + [18O]T- = Fe3OD(OT)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + 2[18O]H- = Fe3ODOT([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + [18O]H- + [18O]D- = Fe3ODOT[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + [18O]H- + [18O]T- = Fe3ODOT[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + 2[18O]D- = Fe3ODOT([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + [18O]D- + [18O]T- = Fe3ODOT[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + OT- + 2[18O]T- = Fe3ODOT([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + 3[18O]H- = Fe3OD([18O]H)3+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2[18O]H- + [18O]D- = Fe3OD([18O]H)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2[18O]H- + [18O]T- = Fe3OD([18O]H)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + [18O]H- + 2[18O]D- = Fe3OD[18O]H([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + [18O]H- + [18O]D- + [18O]T- = Fe3OD[18O]H[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + [18O]H- + 2[18O]T- = Fe3OD[18O]H([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + 3[18O]D- = Fe3OD([18O]D)3+5 + 4OH-
+Fe3(OH)4+5 + OD- + 2[18O]D- + [18O]T- = Fe3OD([18O]D)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OD- + [18O]D- + 2[18O]T- = Fe3OD[18O]D([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OD- + 3[18O]T- = Fe3OD([18O]T)3+5 + 4OH-
+Fe3(OH)4+5 + 4OT- = Fe3(OT)4+5 + 4OH-
+Fe3(OH)4+5 + 3OT- + [18O]H- = Fe3(OT)3[18O]H+5 + 4OH-
+Fe3(OH)4+5 + 3OT- + [18O]D- = Fe3(OT)3[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 3OT- + [18O]T- = Fe3(OT)3[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + 2[18O]H- = Fe3(OT)2([18O]H)2+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + [18O]H- + [18O]D- = Fe3(OT)2[18O]H[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + [18O]H- + [18O]T- = Fe3(OT)2[18O]H[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + 2[18O]D- = Fe3(OT)2([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + [18O]D- + [18O]T- = Fe3(OT)2[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2OT- + 2[18O]T- = Fe3(OT)2([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OT- + 3[18O]H- = Fe3OT([18O]H)3+5 + 4OH-
+Fe3(OH)4+5 + OT- + 2[18O]H- + [18O]D- = Fe3OT([18O]H)2[18O]D+5 + 4OH-
+Fe3(OH)4+5 + OT- + 2[18O]H- + [18O]T- = Fe3OT([18O]H)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OT- + [18O]H- + 2[18O]D- = Fe3OT[18O]H([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + OT- + [18O]H- + [18O]D- + [18O]T- = Fe3OT[18O]H[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OT- + [18O]H- + 2[18O]T- = Fe3OT[18O]H([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OT- + 3[18O]D- = Fe3OT([18O]D)3+5 + 4OH-
+Fe3(OH)4+5 + OT- + 2[18O]D- + [18O]T- = Fe3OT([18O]D)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + OT- + [18O]D- + 2[18O]T- = Fe3OT[18O]D([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + OT- + 3[18O]T- = Fe3OT([18O]T)3+5 + 4OH-
+Fe3(OH)4+5 + 4[18O]H- = Fe3([18O]H)4+5 + 4OH-
+Fe3(OH)4+5 + 3[18O]H- + [18O]D- = Fe3([18O]H)3[18O]D+5 + 4OH-
+Fe3(OH)4+5 + 3[18O]H- + [18O]T- = Fe3([18O]H)3[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2[18O]H- + 2[18O]D- = Fe3([18O]H)2([18O]D)2+5 + 4OH-
+Fe3(OH)4+5 + 2[18O]H- + [18O]D- + [18O]T- = Fe3([18O]H)2[18O]D[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2[18O]H- + 2[18O]T- = Fe3([18O]H)2([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + [18O]H- + 3[18O]D- = Fe3[18O]H([18O]D)3+5 + 4OH-
+Fe3(OH)4+5 + [18O]H- + 2[18O]D- + [18O]T- = Fe3[18O]H([18O]D)2[18O]T+5 + 4OH-
+Fe3(OH)4+5 + [18O]H- + [18O]D- + 2[18O]T- = Fe3[18O]H[18O]D([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + [18O]H- + 3[18O]T- = Fe3[18O]H([18O]T)3+5 + 4OH-
+Fe3(OH)4+5 + 4[18O]D- = Fe3([18O]D)4+5 + 4OH-
+Fe3(OH)4+5 + 3[18O]D- + [18O]T- = Fe3([18O]D)3[18O]T+5 + 4OH-
+Fe3(OH)4+5 + 2[18O]D- + 2[18O]T- = Fe3([18O]D)2([18O]T)2+5 + 4OH-
+Fe3(OH)4+5 + [18O]D- + 3[18O]T- = Fe3[18O]D([18O]T)3+5 + 4OH-
+Fe3(OH)4+5 + 4[18O]T- = Fe3([18O]T)4+5 + 4OH-
 #
 # Missing FeSO4+ reactions
 #
+FeSO4+ + [34S]O4-2 = Fe[34S]O4+ + SO4-2
 #
 # Missing FeHSO4+2 reactions
 #
+FeHSO4+2 + DSO4- = FeDSO4+2 + HSO4-
+FeHSO4+2 + TSO4- = FeTSO4+2 + HSO4-
+FeHSO4+2 + H[34S]O4- = FeH[34S]O4+2 + HSO4-
+FeHSO4+2 + D[34S]O4- = FeD[34S]O4+2 + HSO4-
+FeHSO4+2 + T[34S]O4- = FeT[34S]O4+2 + HSO4-
 #
 # Missing Fe(SO4)2- reactions
 #
+Fe(SO4)2- + SO4-2 + [34S]O4-2 = FeSO4[34S]O4- + 2SO4-2
+Fe(SO4)2- + 2[34S]O4-2 = Fe([34S]O4)2- + 2SO4-2
 #
 # Missing FeHPO4+ reactions
 #
