@@ -1,8 +1,8 @@
-10 base_species$ = "Fe(OH)2"
-20 base_species_charge$ = ""
+10 base_species$ = "Al(OH)2+"
+20 base_species_charge$ = "+"
 30 base_ligand$ = "OH-"
 40 ligand_charge$ = "-"
-50 prefix$ = "Fe"
+50 prefix$ = "Al"
 60 n1 = 6
 70 dim ligand$(n1), lig$(4)
 80 data "OH","OD","OT","[18O]H","[18O]D","[18O]T"
@@ -80,6 +80,7 @@
 9370 if (n14c > 1) then printit = 0
 9380 if (n34S > 3) then printit = 0
 9385 if (sum_minor > 4) then printit = 0
+9387 printit = 1
 9390 if (printit = 1) then eqns = eqns + 1
 9400 total_eqns = total_eqns + 1
 9410 return

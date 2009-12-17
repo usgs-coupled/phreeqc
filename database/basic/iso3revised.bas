@@ -86,6 +86,7 @@
 9370 if (n14c > 1) then printit = 0
 9380 if (n34S > 3) then printit = 0
 9385 if (sum_minor > 4) then printit = 0
+9387 printit = 1
 9390 if (printit = 1) then eqns = eqns + 1
 9400 total_eqns = total_eqns + 1
 9410 return
