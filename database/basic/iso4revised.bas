@@ -47,6 +47,7 @@
 8200 return
 
 9000 REM Sum minor isotopes
+9010 sum_minor = 0
 9020 REM sum D
 9030 nd = 0
 9040 for ii = 1 to 4
@@ -78,12 +79,14 @@
 9300     if instr(lig$(ii),"[34S]") > 0 then n34s = n34s + 1
 9310 next ii
 9320 printit = 1
+9325 sum_minor = nd + nt + n18o + n13c + n14c + n34s
 9330 if (nd > 2) then printit = 0
 9340 if (nt > 1) then printit = 0
 9350 if (n18o > 2) then printit = 0
 9360 if (n13c > 2) then printit = 0
 9370 if (n14c > 1) then printit = 0
 9380 if (n34S > 2) then printit = 0
+9385 if (sum_minor > 4) then printit = 0
 9390 if (printit = 1) then eqns = eqns + 1
 9400 total_eqns = total_eqns + 1
 9410 return
