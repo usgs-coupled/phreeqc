@@ -4466,17 +4466,22 @@ NH3D+ + NHT3+ = NDT3+ + NH4+
 # Missing NH4SO4- reactions
 #     
 #
+# Missing PO4-2 reactions
+#
+#
 # Missing HPO4-2 reactions
 #
 #
 # Missing H2PO4- reactions
 #
 #
-# Missing HF reactions 
+# Added HF reactions 16Dec09
 #
+HF + HDO = DF + H2O
 #
-# Missing HF2- reactions 
+# Added HF2- reactions 16Dec09
 #
+HF2- + HDO = DF2- + H2O
 #
 # CaOH reactions 
 #
@@ -4974,7 +4979,7 @@ KOH + [18O]T- = K[18O]T + OH-
 #     
 KSO4- + [34S]O4-2 = K[34S]O4- + SO4-2
 #
-# Missing FeOH+ reactions
+# Added FeOH+ reactions16Dec09
 #
 FeOH+ + OD- = FeOD+ + OH-
 FeOH+ + OT- = FeOT+ + OH-
@@ -4982,7 +4987,7 @@ FeOH+ + [18O]H- = Fe[18O]H+ + OH-
 FeOH+ + [18O]D- = Fe[18O]D+ + OH-
 FeOH+ + [18O]T- = Fe[18O]T+ + OH-
 #
-# Missing FeCO3 reactions
+# Added FeCO3 reactions16Dec09
 #
 FeCO3 + CO2[18O]-2 = FeCO2[18O] + CO3-2
 FeCO3 + CO[18O]2-2 = FeCO[18O]2 + CO3-2
@@ -4996,7 +5001,7 @@ FeCO3 + [14C]O2[18O]-2 = Fe[14C]O2[18O] + CO3-2
 FeCO3 + [14C]O[18O]2-2 = Fe[14C]O[18O]2 + CO3-2
 FeCO3 + [14C][18O]3-2 = Fe[14C][18O]3 + CO3-2
 #
-# Missing FeHCO3+ reactions
+# Added FeHCO3+ reactions16Dec09
 #
 FeHCO3+ + HCO2[18O]- = FeHCO2[18O]+ + HCO3-
 FeHCO3+ + HCO[18O]2- = FeHCO[18O]2+ + HCO3-
@@ -5034,11 +5039,11 @@ FeHCO3+ + T[14C]O2[18O]- = FeT[14C]O2[18O]+ + HCO3-
 FeHCO3+ + T[14C]O[18O]2- = FeT[14C]O[18O]2+ + HCO3-
 FeHCO3+ + T[14C][18O]3- = FeT[14C][18O]3+ + HCO3-
 #
-# Missing FeSO4 reactions
+# Added FeSO4 reactions16Dec09
 #
 FeSO4 + [34S]O4-2 = Fe[34S]O4 + SO4-2
 #
-# Missing FeHSO4+ reactions
+# Added FeHSO4+ reactions16Dec09
 #
 FeHSO4+ + DSO4- = FeDSO4+ + HSO4-
 FeHSO4+ + TSO4- = FeTSO4+ + HSO4-
@@ -5046,7 +5051,7 @@ FeHSO4+ + H[34S]O4- = FeH[34S]O4+ + HSO4-
 FeHSO4+ + D[34S]O4- = FeD[34S]O4+ + HSO4-
 FeHSO4+ + T[34S]O4- = FeT[34S]O4+ + HSO4-
 #
-# Missing Fe(HS)2 reactions
+# Added Fe(HS)2 reactions16Dec09
 #
 Fe(HS)2 + HS- + DS- = FeHSDS + 2HS-
 Fe(HS)2 + HS- + TS- = FeHSTS + 2HS-
@@ -5069,7 +5074,7 @@ Fe(HS)2 + 2D[34S]- = Fe(D[34S])2 + 2HS-
 Fe(HS)2 + D[34S]- + T[34S]- = FeD[34S]T[34S] + 2HS-
 Fe(HS)2 + 2T[34S]- = Fe(T[34S])2 + 2HS-
 #
-# Missing Fe(HS)3- reactions
+# Added Fe(HS)3- reactions16Dec09
 #
 Fe(HS)3- + 2HS- + DS- = Fe(HS)2DS- + 3HS-
 Fe(HS)3- + 2HS- + TS- = Fe(HS)2TS- + 3HS-
@@ -5133,7 +5138,7 @@ Fe(HS)3- + 3T[34S]- = Fe(T[34S])3- + 3HS-
 # Missing FeH2PO4+ reactions
 #
 #
-# Missing FeOH+2 reactions
+# Added FeOH+2 reactions16Dec09
 #
 FeOH+2 + OD- = FeOD+2 + OH-
 FeOH+2 + OT- = FeOT+2 + OH-
@@ -5141,7 +5146,7 @@ FeOH+2 + [18O]H- = Fe[18O]H+2 + OH-
 FeOH+2 + [18O]D- = Fe[18O]D+2 + OH-
 FeOH+2 + [18O]T- = Fe[18O]T+2 + OH-
 #
-# Missing Fe(OH)2+ reactions
+# Added Fe(OH)2+ reactions16Dec09
 #
 Fe(OH)2+ + OH- + OD- = FeOHOD+ + 2OH-
 Fe(OH)2+ + OH- + OT- = FeOHOT+ + 2OH-
@@ -5164,7 +5169,7 @@ Fe(OH)2+ + 2[18O]D- = Fe([18O]D)2+ + 2OH-
 Fe(OH)2+ + [18O]D- + [18O]T- = Fe[18O]D[18O]T+ + 2OH-
 Fe(OH)2+ + 2[18O]T- = Fe([18O]T)2+ + 2OH-
 #
-# Missing Fe(OH)3 reactions
+# Added Fe(OH)3 reactions16Dec09
 #
 Fe(OH)3 + 2OH- + OD- = Fe(OH)2OD + 3OH-
 Fe(OH)3 + 2OH- + OT- = Fe(OH)2OT + 3OH-
@@ -5222,7 +5227,7 @@ Fe(OH)3 + 2[18O]D- + [18O]D- = Fe([18O]D)2[18O]D + 3OH-
 Fe(OH)3 + [18O]D- + 2[18O]D- = Fe[18O]D([18O]D)2 + 3OH-
 Fe(OH)3 + 3[18O]D- = Fe([18O]D)3 + 3OH-
 #
-# Missing Fe(OH)4- reactions
+# Added Fe(OH)4- reactions16Dec09
 #
 Fe(OH)4- + 3OH- + OD- = Fe(OH)3OD- + 4OH-
 Fe(OH)4- + 3OH- + OT- = Fe(OH)3OT- + 4OH-
@@ -5350,7 +5355,7 @@ Fe(OH)4- + 2[18O]D- + 2[18O]T- = Fe([18O]D)2([18O]T)2- + 4OH-
 Fe(OH)4- + [18O]D- + 3[18O]T- = Fe[18O]D([18O]T)3- + 4OH-
 Fe(OH)4- + 4[18O]T- = Fe([18O]T)4- + 4OH-
 #
-# Missing Fe2(OH)2+4 reactions
+# Added Fe2(OH)2+4 reactions16Dec09
 #
 Fe2(OH)2+4 + OH- + OD- = Fe2OHOD+4 + 2OH-
 Fe2(OH)2+4 + OH- + OT- = Fe2OHOT+4 + 2OH-
@@ -5373,7 +5378,7 @@ Fe2(OH)2+4 + 2[18O]D- = Fe2([18O]D)2+4 + 2OH-
 Fe2(OH)2+4 + [18O]D- + [18O]T- = Fe2[18O]D[18O]T+4 + 2OH-
 Fe2(OH)2+4 + 2[18O]T- = Fe2([18O]T)2+4 + 2OH-
 #
-# Missing Fe3(OH)4+5 reactions
+# Added Fe3(OH)4+5 reactions16Dec09
 #
 Fe3(OH)4+5 + 3OH- + OD- = Fe3(OH)3OD+5 + 4OH-
 Fe3(OH)4+5 + 3OH- + OT- = Fe3(OH)3OT+5 + 4OH-
@@ -5501,11 +5506,11 @@ Fe3(OH)4+5 + 2[18O]D- + 2[18O]T- = Fe3([18O]D)2([18O]T)2+5 + 4OH-
 Fe3(OH)4+5 + [18O]D- + 3[18O]T- = Fe3[18O]D([18O]T)3+5 + 4OH-
 Fe3(OH)4+5 + 4[18O]T- = Fe3([18O]T)4+5 + 4OH-
 #
-# Missing FeSO4+ reactions
+# Added FeSO4+ reactions16Dec09
 #
 FeSO4+ + [34S]O4-2 = Fe[34S]O4+ + SO4-2
 #
-# Missing FeHSO4+2 reactions
+# Added FeHSO4+2 reactions16Dec09
 #
 FeHSO4+2 + DSO4- = FeDSO4+2 + HSO4-
 FeHSO4+2 + TSO4- = FeTSO4+2 + HSO4-
@@ -5513,7 +5518,7 @@ FeHSO4+2 + H[34S]O4- = FeH[34S]O4+2 + HSO4-
 FeHSO4+2 + D[34S]O4- = FeD[34S]O4+2 + HSO4-
 FeHSO4+2 + T[34S]O4- = FeT[34S]O4+2 + HSO4-
 #
-# Missing Fe(SO4)2- reactions
+# Added Fe(SO4)2- reactions16Dec09
 #
 Fe(SO4)2- + SO4-2 + [34S]O4-2 = FeSO4[34S]O4- + 2SO4-2
 Fe(SO4)2- + 2[34S]O4-2 = Fe([34S]O4)2- + 2SO4-2
@@ -5524,26 +5529,239 @@ Fe(SO4)2- + 2[34S]O4-2 = Fe([34S]O4)2- + 2SO4-2
 # Missing FeH2PO4+2 reactions
 #
 #
-# Missing AlOH+2 reactions
+# Added AlOH+2 reactions16Dec09
 #
+AlOH+2 + OD- = AlOD+2 + OH-
+AlOH+2 + OT- = AlOT+2 + OH-
+AlOH+2 + [18O]H- = Al[18O]H+2 + OH-
+AlOH+2 + [18O]D- = Al[18O]D+2 + OH-
+AlOH+2 + [18O]T- = Al[18O]T+2 + OH-
 #
-# Missing Al(OH)2+ reactions
+# Added Al(OH)2+ reactions16Dec09
 #
+Al(OH)2+ + OH- + OD- = AlOHOD+ + 2OH-
+Al(OH)2+ + OH- + OT- = AlOHOT+ + 2OH-
+Al(OH)2+ + OH- + [18O]H- = AlOH[18O]H+ + 2OH-
+Al(OH)2+ + OH- + [18O]D- = AlOH[18O]D+ + 2OH-
+Al(OH)2+ + OH- + [18O]T- = AlOH[18O]T+ + 2OH-
+Al(OH)2+ + 2OD- = Al(OD)2+ + 2OH-
+Al(OH)2+ + OD- + OT- = AlODOT+ + 2OH-
+Al(OH)2+ + OD- + [18O]H- = AlOD[18O]H+ + 2OH-
+Al(OH)2+ + OD- + [18O]D- = AlOD[18O]D+ + 2OH-
+Al(OH)2+ + OD- + [18O]T- = AlOD[18O]T+ + 2OH-
+Al(OH)2+ + 2OT- = Al(OT)2+ + 2OH-
+Al(OH)2+ + OT- + [18O]H- = AlOT[18O]H+ + 2OH-
+Al(OH)2+ + OT- + [18O]D- = AlOT[18O]D+ + 2OH-
+Al(OH)2+ + OT- + [18O]T- = AlOT[18O]T+ + 2OH-
+Al(OH)2+ + 2[18O]H- = Al([18O]H)2+ + 2OH-
+Al(OH)2+ + [18O]H- + [18O]D- = Al[18O]H[18O]D+ + 2OH-
+Al(OH)2+ + [18O]H- + [18O]T- = Al[18O]H[18O]T+ + 2OH-
+Al(OH)2+ + 2[18O]D- = Al([18O]D)2+ + 2OH-
+Al(OH)2+ + [18O]D- + [18O]T- = Al[18O]D[18O]T+ + 2OH-
+Al(OH)2+ + 2[18O]T- = Al([18O]T)2+ + 2OH-
 #
-# Missing Al(OH)3 reactions
+# Added Al(OH)3 reactions16Dec09
 #
+Al(OH)3 + 2OH- + OD- = Al(OH)2OD + 3OH-
+Al(OH)3 + 2OH- + OT- = Al(OH)2OT + 3OH-
+Al(OH)3 + 2OH- + [18O]H- = Al(OH)2[18O]H + 3OH-
+Al(OH)3 + 2OH- + [18O]D- = Al(OH)2[18O]D + 3OH-
+Al(OH)3 + 2OH- + [18O]D- = Al(OH)2[18O]D + 3OH-
+Al(OH)3 + OH- + 2OD- = AlOH(OD)2 + 3OH-
+Al(OH)3 + OH- + 2OD- = AlOH(OD)2 + 3OH-
+Al(OH)3 + OH- + 2OD- = AlOH(OD)2 + 3OH-
+Al(OH)3 + OH- + 2OD- = AlOH(OD)2 + 3OH-
+Al(OH)3 + OH- + 2OD- = AlOH(OD)2 + 3OH-
+Al(OH)3 + OH- + 2OT- = AlOH(OT)2 + 3OH-
+Al(OH)3 + OH- + 2OT- = AlOH(OT)2 + 3OH-
+Al(OH)3 + OH- + 2OT- = AlOH(OT)2 + 3OH-
+Al(OH)3 + OH- + 2OT- = AlOH(OT)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]H- = AlOH([18O]H)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]H- = AlOH([18O]H)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]H- = AlOH([18O]H)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]D- = AlOH([18O]D)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]D- = AlOH([18O]D)2 + 3OH-
+Al(OH)3 + OH- + 2[18O]D- = AlOH([18O]D)2 + 3OH-
+Al(OH)3 + 3OD- = Al(OD)3 + 3OH-
+Al(OH)3 + 2OD- + OT- = Al(OD)2OT + 3OH-
+Al(OH)3 + 2OD- + [18O]H- = Al(OD)2[18O]H + 3OH-
+Al(OH)3 + 2OD- + [18O]D- = Al(OD)2[18O]D + 3OH-
+Al(OH)3 + 2OD- + [18O]D- = Al(OD)2[18O]D + 3OH-
+Al(OH)3 + OD- + 2OT- = AlOD(OT)2 + 3OH-
+Al(OH)3 + OD- + 2OT- = AlOD(OT)2 + 3OH-
+Al(OH)3 + OD- + 2OT- = AlOD(OT)2 + 3OH-
+Al(OH)3 + OD- + 2OT- = AlOD(OT)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]H- = AlOD([18O]H)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]H- = AlOD([18O]H)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]H- = AlOD([18O]H)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]D- = AlOD([18O]D)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]D- = AlOD([18O]D)2 + 3OH-
+Al(OH)3 + OD- + 2[18O]D- = AlOD([18O]D)2 + 3OH-
+Al(OH)3 + 3OT- = Al(OT)3 + 3OH-
+Al(OH)3 + 2OT- + [18O]H- = Al(OT)2[18O]H + 3OH-
+Al(OH)3 + 2OT- + [18O]D- = Al(OT)2[18O]D + 3OH-
+Al(OH)3 + 2OT- + [18O]D- = Al(OT)2[18O]D + 3OH-
+Al(OH)3 + OT- + 2[18O]H- = AlOT([18O]H)2 + 3OH-
+Al(OH)3 + OT- + 2[18O]H- = AlOT([18O]H)2 + 3OH-
+Al(OH)3 + OT- + 2[18O]H- = AlOT([18O]H)2 + 3OH-
+Al(OH)3 + OT- + 2[18O]D- = AlOT([18O]D)2 + 3OH-
+Al(OH)3 + OT- + 2[18O]D- = AlOT([18O]D)2 + 3OH-
+Al(OH)3 + OT- + 2[18O]D- = AlOT([18O]D)2 + 3OH-
+Al(OH)3 + 3[18O]H- = Al([18O]H)3 + 3OH-
+Al(OH)3 + 2[18O]H- + [18O]D- = Al([18O]H)2[18O]D + 3OH-
+Al(OH)3 + 2[18O]H- + [18O]D- = Al([18O]H)2[18O]D + 3OH-
+Al(OH)3 + [18O]H- + 2[18O]D- = Al[18O]H([18O]D)2 + 3OH-
+Al(OH)3 + [18O]H- + 2[18O]D- = Al[18O]H([18O]D)2 + 3OH-
+Al(OH)3 + [18O]H- + 2[18O]D- = Al[18O]H([18O]D)2 + 3OH-
+Al(OH)3 + 3[18O]D- = Al([18O]D)3 + 3OH-
+Al(OH)3 + 2[18O]D- + [18O]D- = Al([18O]D)2[18O]D + 3OH-
+Al(OH)3 + [18O]D- + 2[18O]D- = Al[18O]D([18O]D)2 + 3OH-
+Al(OH)3 + 3[18O]D- = Al([18O]D)3 + 3OH-
 #
-# Missing Al(OH)4- reactions
+# Added Al(OH)4- reactions16Dec09
 #
+Al(OH)4- + 3OH- + OD- = Al(OH)3OD- + 4OH-
+Al(OH)4- + 3OH- + OT- = Al(OH)3OT- + 4OH-
+Al(OH)4- + 3OH- + [18O]H- = Al(OH)3[18O]H- + 4OH-
+Al(OH)4- + 3OH- + [18O]D- = Al(OH)3[18O]D- + 4OH-
+Al(OH)4- + 3OH- + [18O]T- = Al(OH)3[18O]T- + 4OH-
+Al(OH)4- + 2OH- + 2OD- = Al(OH)2(OD)2- + 4OH-
+Al(OH)4- + 2OH- + OD- + OT- = Al(OH)2ODOT- + 4OH-
+Al(OH)4- + 2OH- + OD- + [18O]H- = Al(OH)2OD[18O]H- + 4OH-
+Al(OH)4- + 2OH- + OD- + [18O]D- = Al(OH)2OD[18O]D- + 4OH-
+Al(OH)4- + 2OH- + OD- + [18O]T- = Al(OH)2OD[18O]T- + 4OH-
+Al(OH)4- + 2OH- + 2OT- = Al(OH)2(OT)2- + 4OH-
+Al(OH)4- + 2OH- + OT- + [18O]H- = Al(OH)2OT[18O]H- + 4OH-
+Al(OH)4- + 2OH- + OT- + [18O]D- = Al(OH)2OT[18O]D- + 4OH-
+Al(OH)4- + 2OH- + OT- + [18O]T- = Al(OH)2OT[18O]T- + 4OH-
+Al(OH)4- + 2OH- + 2[18O]H- = Al(OH)2([18O]H)2- + 4OH-
+Al(OH)4- + 2OH- + [18O]H- + [18O]D- = Al(OH)2[18O]H[18O]D- + 4OH-
+Al(OH)4- + 2OH- + [18O]H- + [18O]T- = Al(OH)2[18O]H[18O]T- + 4OH-
+Al(OH)4- + 2OH- + 2[18O]D- = Al(OH)2([18O]D)2- + 4OH-
+Al(OH)4- + 2OH- + [18O]D- + [18O]T- = Al(OH)2[18O]D[18O]T- + 4OH-
+Al(OH)4- + 2OH- + 2[18O]T- = Al(OH)2([18O]T)2- + 4OH-
+Al(OH)4- + OH- + 3OD- = AlOH(OD)3- + 4OH-
+Al(OH)4- + OH- + 2OD- + OT- = AlOH(OD)2OT- + 4OH-
+Al(OH)4- + OH- + 2OD- + [18O]H- = AlOH(OD)2[18O]H- + 4OH-
+Al(OH)4- + OH- + 2OD- + [18O]D- = AlOH(OD)2[18O]D- + 4OH-
+Al(OH)4- + OH- + 2OD- + [18O]T- = AlOH(OD)2[18O]T- + 4OH-
+Al(OH)4- + OH- + OD- + 2OT- = AlOHOD(OT)2- + 4OH-
+Al(OH)4- + OH- + OD- + OT- + [18O]H- = AlOHODOT[18O]H- + 4OH-
+Al(OH)4- + OH- + OD- + OT- + [18O]D- = AlOHODOT[18O]D- + 4OH-
+Al(OH)4- + OH- + OD- + OT- + [18O]T- = AlOHODOT[18O]T- + 4OH-
+Al(OH)4- + OH- + OD- + 2[18O]H- = AlOHOD([18O]H)2- + 4OH-
+Al(OH)4- + OH- + OD- + [18O]H- + [18O]D- = AlOHOD[18O]H[18O]D- + 4OH-
+Al(OH)4- + OH- + OD- + [18O]H- + [18O]T- = AlOHOD[18O]H[18O]T- + 4OH-
+Al(OH)4- + OH- + OD- + 2[18O]D- = AlOHOD([18O]D)2- + 4OH-
+Al(OH)4- + OH- + OD- + [18O]D- + [18O]T- = AlOHOD[18O]D[18O]T- + 4OH-
+Al(OH)4- + OH- + OD- + 2[18O]T- = AlOHOD([18O]T)2- + 4OH-
+Al(OH)4- + OH- + 3OT- = AlOH(OT)3- + 4OH-
+Al(OH)4- + OH- + 2OT- + [18O]H- = AlOH(OT)2[18O]H- + 4OH-
+Al(OH)4- + OH- + 2OT- + [18O]D- = AlOH(OT)2[18O]D- + 4OH-
+Al(OH)4- + OH- + 2OT- + [18O]T- = AlOH(OT)2[18O]T- + 4OH-
+Al(OH)4- + OH- + OT- + 2[18O]H- = AlOHOT([18O]H)2- + 4OH-
+Al(OH)4- + OH- + OT- + [18O]H- + [18O]D- = AlOHOT[18O]H[18O]D- + 4OH-
+Al(OH)4- + OH- + OT- + [18O]H- + [18O]T- = AlOHOT[18O]H[18O]T- + 4OH-
+Al(OH)4- + OH- + OT- + 2[18O]D- = AlOHOT([18O]D)2- + 4OH-
+Al(OH)4- + OH- + OT- + [18O]D- + [18O]T- = AlOHOT[18O]D[18O]T- + 4OH-
+Al(OH)4- + OH- + OT- + 2[18O]T- = AlOHOT([18O]T)2- + 4OH-
+Al(OH)4- + OH- + 3[18O]H- = AlOH([18O]H)3- + 4OH-
+Al(OH)4- + OH- + 2[18O]H- + [18O]D- = AlOH([18O]H)2[18O]D- + 4OH-
+Al(OH)4- + OH- + 2[18O]H- + [18O]T- = AlOH([18O]H)2[18O]T- + 4OH-
+Al(OH)4- + OH- + [18O]H- + 2[18O]D- = AlOH[18O]H([18O]D)2- + 4OH-
+Al(OH)4- + OH- + [18O]H- + [18O]D- + [18O]T- = AlOH[18O]H[18O]D[18O]T- + 4OH-
+Al(OH)4- + OH- + [18O]H- + 2[18O]T- = AlOH[18O]H([18O]T)2- + 4OH-
+Al(OH)4- + OH- + 3[18O]D- = AlOH([18O]D)3- + 4OH-
+Al(OH)4- + OH- + 2[18O]D- + [18O]T- = AlOH([18O]D)2[18O]T- + 4OH-
+Al(OH)4- + OH- + [18O]D- + 2[18O]T- = AlOH[18O]D([18O]T)2- + 4OH-
+Al(OH)4- + OH- + 3[18O]T- = AlOH([18O]T)3- + 4OH-
+Al(OH)4- + 4OD- = Al(OD)4- + 4OH-
+Al(OH)4- + 3OD- + OT- = Al(OD)3OT- + 4OH-
+Al(OH)4- + 3OD- + [18O]H- = Al(OD)3[18O]H- + 4OH-
+Al(OH)4- + 3OD- + [18O]D- = Al(OD)3[18O]D- + 4OH-
+Al(OH)4- + 3OD- + [18O]T- = Al(OD)3[18O]T- + 4OH-
+Al(OH)4- + 2OD- + 2OT- = Al(OD)2(OT)2- + 4OH-
+Al(OH)4- + 2OD- + OT- + [18O]H- = Al(OD)2OT[18O]H- + 4OH-
+Al(OH)4- + 2OD- + OT- + [18O]D- = Al(OD)2OT[18O]D- + 4OH-
+Al(OH)4- + 2OD- + OT- + [18O]T- = Al(OD)2OT[18O]T- + 4OH-
+Al(OH)4- + 2OD- + 2[18O]H- = Al(OD)2([18O]H)2- + 4OH-
+Al(OH)4- + 2OD- + [18O]H- + [18O]D- = Al(OD)2[18O]H[18O]D- + 4OH-
+Al(OH)4- + 2OD- + [18O]H- + [18O]T- = Al(OD)2[18O]H[18O]T- + 4OH-
+Al(OH)4- + 2OD- + 2[18O]D- = Al(OD)2([18O]D)2- + 4OH-
+Al(OH)4- + 2OD- + [18O]D- + [18O]T- = Al(OD)2[18O]D[18O]T- + 4OH-
+Al(OH)4- + 2OD- + 2[18O]T- = Al(OD)2([18O]T)2- + 4OH-
+Al(OH)4- + OD- + 3OT- = AlOD(OT)3- + 4OH-
+Al(OH)4- + OD- + 2OT- + [18O]H- = AlOD(OT)2[18O]H- + 4OH-
+Al(OH)4- + OD- + 2OT- + [18O]D- = AlOD(OT)2[18O]D- + 4OH-
+Al(OH)4- + OD- + 2OT- + [18O]T- = AlOD(OT)2[18O]T- + 4OH-
+Al(OH)4- + OD- + OT- + 2[18O]H- = AlODOT([18O]H)2- + 4OH-
+Al(OH)4- + OD- + OT- + [18O]H- + [18O]D- = AlODOT[18O]H[18O]D- + 4OH-
+Al(OH)4- + OD- + OT- + [18O]H- + [18O]T- = AlODOT[18O]H[18O]T- + 4OH-
+Al(OH)4- + OD- + OT- + 2[18O]D- = AlODOT([18O]D)2- + 4OH-
+Al(OH)4- + OD- + OT- + [18O]D- + [18O]T- = AlODOT[18O]D[18O]T- + 4OH-
+Al(OH)4- + OD- + OT- + 2[18O]T- = AlODOT([18O]T)2- + 4OH-
+Al(OH)4- + OD- + 3[18O]H- = AlOD([18O]H)3- + 4OH-
+Al(OH)4- + OD- + 2[18O]H- + [18O]D- = AlOD([18O]H)2[18O]D- + 4OH-
+Al(OH)4- + OD- + 2[18O]H- + [18O]T- = AlOD([18O]H)2[18O]T- + 4OH-
+Al(OH)4- + OD- + [18O]H- + 2[18O]D- = AlOD[18O]H([18O]D)2- + 4OH-
+Al(OH)4- + OD- + [18O]H- + [18O]D- + [18O]T- = AlOD[18O]H[18O]D[18O]T- + 4OH-
+Al(OH)4- + OD- + [18O]H- + 2[18O]T- = AlOD[18O]H([18O]T)2- + 4OH-
+Al(OH)4- + OD- + 3[18O]D- = AlOD([18O]D)3- + 4OH-
+Al(OH)4- + OD- + 2[18O]D- + [18O]T- = AlOD([18O]D)2[18O]T- + 4OH-
+Al(OH)4- + OD- + [18O]D- + 2[18O]T- = AlOD[18O]D([18O]T)2- + 4OH-
+Al(OH)4- + OD- + 3[18O]T- = AlOD([18O]T)3- + 4OH-
+Al(OH)4- + 4OT- = Al(OT)4- + 4OH-
+Al(OH)4- + 3OT- + [18O]H- = Al(OT)3[18O]H- + 4OH-
+Al(OH)4- + 3OT- + [18O]D- = Al(OT)3[18O]D- + 4OH-
+Al(OH)4- + 3OT- + [18O]T- = Al(OT)3[18O]T- + 4OH-
+Al(OH)4- + 2OT- + 2[18O]H- = Al(OT)2([18O]H)2- + 4OH-
+Al(OH)4- + 2OT- + [18O]H- + [18O]D- = Al(OT)2[18O]H[18O]D- + 4OH-
+Al(OH)4- + 2OT- + [18O]H- + [18O]T- = Al(OT)2[18O]H[18O]T- + 4OH-
+Al(OH)4- + 2OT- + 2[18O]D- = Al(OT)2([18O]D)2- + 4OH-
+Al(OH)4- + 2OT- + [18O]D- + [18O]T- = Al(OT)2[18O]D[18O]T- + 4OH-
+Al(OH)4- + 2OT- + 2[18O]T- = Al(OT)2([18O]T)2- + 4OH-
+Al(OH)4- + OT- + 3[18O]H- = AlOT([18O]H)3- + 4OH-
+Al(OH)4- + OT- + 2[18O]H- + [18O]D- = AlOT([18O]H)2[18O]D- + 4OH-
+Al(OH)4- + OT- + 2[18O]H- + [18O]T- = AlOT([18O]H)2[18O]T- + 4OH-
+Al(OH)4- + OT- + [18O]H- + 2[18O]D- = AlOT[18O]H([18O]D)2- + 4OH-
+Al(OH)4- + OT- + [18O]H- + [18O]D- + [18O]T- = AlOT[18O]H[18O]D[18O]T- + 4OH-
+Al(OH)4- + OT- + [18O]H- + 2[18O]T- = AlOT[18O]H([18O]T)2- + 4OH-
+Al(OH)4- + OT- + 3[18O]D- = AlOT([18O]D)3- + 4OH-
+Al(OH)4- + OT- + 2[18O]D- + [18O]T- = AlOT([18O]D)2[18O]T- + 4OH-
+Al(OH)4- + OT- + [18O]D- + 2[18O]T- = AlOT[18O]D([18O]T)2- + 4OH-
+Al(OH)4- + OT- + 3[18O]T- = AlOT([18O]T)3- + 4OH-
+Al(OH)4- + 4[18O]H- = Al([18O]H)4- + 4OH-
+Al(OH)4- + 3[18O]H- + [18O]D- = Al([18O]H)3[18O]D- + 4OH-
+Al(OH)4- + 3[18O]H- + [18O]T- = Al([18O]H)3[18O]T- + 4OH-
+Al(OH)4- + 2[18O]H- + 2[18O]D- = Al([18O]H)2([18O]D)2- + 4OH-
+Al(OH)4- + 2[18O]H- + [18O]D- + [18O]T- = Al([18O]H)2[18O]D[18O]T- + 4OH-
+Al(OH)4- + 2[18O]H- + 2[18O]T- = Al([18O]H)2([18O]T)2- + 4OH-
+Al(OH)4- + [18O]H- + 3[18O]D- = Al[18O]H([18O]D)3- + 4OH-
+Al(OH)4- + [18O]H- + 2[18O]D- + [18O]T- = Al[18O]H([18O]D)2[18O]T- + 4OH-
+Al(OH)4- + [18O]H- + [18O]D- + 2[18O]T- = Al[18O]H[18O]D([18O]T)2- + 4OH-
+Al(OH)4- + [18O]H- + 3[18O]T- = Al[18O]H([18O]T)3- + 4OH-
+Al(OH)4- + 4[18O]D- = Al([18O]D)4- + 4OH-
+Al(OH)4- + 3[18O]D- + [18O]T- = Al([18O]D)3[18O]T- + 4OH-
+Al(OH)4- + 2[18O]D- + 2[18O]T- = Al([18O]D)2([18O]T)2- + 4OH-
+Al(OH)4- + [18O]D- + 3[18O]T- = Al[18O]D([18O]T)3- + 4OH-
+Al(OH)4- + 4[18O]T- = Al([18O]T)4- + 4OH-
 #
-# Missing AlSO4+ reactions
+# Added AlSO4+ reactions16Dec09
 #
+AlSO4+ + [34S]O4-2 = Al[34S]O4+ + SO4-2
 #
-# Missing Al(SO4)2- reactions
+# Added Al(SO4)2- reactions16Dec09
 #
+Al(SO4)2- + SO4-2 + [34S]O4-2 = AlSO4[34S]O4- + 2SO4-2
+Al(SO4)2- + 2[34S]O4-2 = Al([34S]O4)2- + 2SO4-2
 #
-# Missing AlHSO4+2 reactions
+# Added AlHSO4+2 reactions16Dec09
 #
+AlHSO4+2 + DSO4- = AlDSO4+2 + HSO4-
+AlHSO4+2 + TSO4- = AlTSO4+2 + HSO4-
+AlHSO4+2 + H[34S]O4- = AlH[34S]O4+2 + HSO4-
+AlHSO4+2 + D[34S]O4- = AlD[34S]O4+2 + HSO4-
+AlHSO4+2 + T[34S]O4- = AlT[34S]O4+2 + HSO4-
 #
 # Missing H4SiO4 reactions
 #
