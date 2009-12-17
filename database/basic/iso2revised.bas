@@ -1,12 +1,11 @@
-10 base_species$ = "Al(OH)2+"
-20 base_species_charge$ = "+"
-30 base_ligand$ = "OH-"
-40 ligand_charge$ = "-"
+10 base_species$ = "Al(SO4)2-"
+20 base_species_charge$ = "-"
+30 base_ligand$ = "SO4-2"
+40 ligand_charge$ = "-2"
 50 prefix$ = "Al"
-60 n1 = 6
+60 n1 = 2
 70 dim ligand$(n1), lig$(4)
-80 data "OH","OD","OT","[18O]H","[18O]D","[18O]T"
-81 data "HS","DS","TS","H[34S]","D[34S]","T[34S]"
+80 data "SO4","[34S]O4"
 90 restore 80
 100 for i = 1 to n1
 110  read ligand$(i)
@@ -41,7 +40,6 @@
 8200 return
 
 9000 REM Sum minor isotopes
-9010 sum_minor = 0
 9020 REM sum D
 9030 nd = 0
 9040 for ii = 1 to 4
@@ -78,9 +76,7 @@
 9350 if (n18o > 2) then printit = 0
 9360 if (n13c > 2) then printit = 0
 9370 if (n14c > 1) then printit = 0
-9380 if (n34S > 3) then printit = 0
-9385 if (sum_minor > 4) then printit = 0
-9387 printit = 1
+9380 if (n34S > 2) then printit = 0
 9390 if (printit = 1) then eqns = eqns + 1
 9400 total_eqns = total_eqns + 1
 9410 return
