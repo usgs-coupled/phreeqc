@@ -1118,7 +1118,7 @@ print_reaction(struct reaction *rxn_ptr)
 	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 print_saturation_indices(void)
@@ -1215,7 +1215,83 @@ print_saturation_indices(void)
 	output_msg(OUTPUT_MESSAGE, "\n");
 	return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+print_saturation_indices(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Prints saturation indices of all applicable pure_phases
+ */
+	int i;
+	LDBLE si, iap;
+	LDBLE lk;
+	LDBLE la_eminus;
+	struct rxn_token *rxn_ptr;
+	int replaced;
+	struct reaction *reaction_ptr;
 
+	if (pr.saturation_indices == FALSE || pr.all == FALSE)
+		return (OK);
+	if (state == INITIAL_SOLUTION)
+	{
+		iap = 0;
+		for (rxn_ptr = pe_x[default_pe_x].rxn->token + 1; rxn_ptr->s != NULL;
+			 rxn_ptr++)
+		{
+			iap += rxn_ptr->coef * rxn_ptr->s->la;
+			/* fprintf(output,"\t%s\t%f\t%f\n", rxn_ptr->s->name, rxn_ptr->coef, rxn_ptr->s->la ); */
+		}
+		lk = k_calc(pe_x[default_pe_x].rxn->logk, tk_x);
+		la_eminus = lk + iap;
+		/* fprintf(output,"\t%s\t%f\n", "pe", si ); */
+	}
+	else
+	{
+		la_eminus = s_eminus->la;
+	}
+/*
+ *   Print heading
+ */
+	print_centered("Saturation indices");
+	output_msg(OUTPUT_MESSAGE, "\t%-15s%7s%8s%8s\n\n", "Phase", "SI",
+			   "log IAP", "log KT");
+
+	for (i = 0; i < count_phases; i++)
+	{
+		if (phases[i]->in == FALSE || phases[i]->type != SOLID)
+			continue;
+		/* check for solids and gases in equation */
+		if (phases[i]->replaced)
+			reaction_ptr = phases[i]->rxn_s;
+		else
+			reaction_ptr = phases[i]->rxn;
+/*
+ *   Print saturation index
+ */
+		lk = k_calc(reaction_ptr->logk, tk_x);
+		iap = 0.0;
+		for (rxn_ptr = reaction_ptr->token + 1; rxn_ptr->s != NULL;
+			 rxn_ptr++)
+		{
+			if (rxn_ptr->s != s_eminus)
+			{
+				iap += (rxn_ptr->s->lm + rxn_ptr->s->lg) * rxn_ptr->coef;
+			}
+			else
+			{
+				iap += la_eminus * rxn_ptr->coef;
+			}
+		}
+		si = -lk + iap;
+		output_msg(OUTPUT_MESSAGE, "\t%-15s%7.2f%8.2f%8.2f  %s\n",
+				   phases[i]->name, (double) si, (double) iap, (double) lk,
+				   phases[i]->formula);
+	}
+	output_msg(OUTPUT_MESSAGE, "\n");
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 print_pp_assemblage(void)

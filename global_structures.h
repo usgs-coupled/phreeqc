@@ -1081,6 +1081,7 @@ struct phase
 	struct reaction *rxn_s;		/* pointer to reaction converted to secondary and primary
 								   master species */
 	struct reaction *rxn_x;		/* reaction to be used in model */
+	int replaced;               /* equation contains solids or gases */
 	int in_system;
 };
 /*----------------------------------------------------------------------
