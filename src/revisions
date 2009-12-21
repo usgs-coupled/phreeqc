@@ -7,6 +7,39 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+ 	--------
+ 	svn 3902
+ 	--------
+ 	Added four basic functions for use only with PHAST. The
+ 	functions are related to the volume, porosity, and 
+ 	water saturation of a PHAST finite-difference cell:
+ 	
+ 	CELL_VOLUME--The total volume of the cell in liters.
+ 	CELL_PORE_VOLUME--The void volume of the cell in liters.
+ 	CELL_SATURATION--The fraction of the void volume filled
+ 		with water, unitless.
+ 	CELL_POROSITY--The porosity of the cell, equal to 
+ 		CELL_PORE_VOLUME / CELL_VOLUME, unitless.
+ 		
+ 		
+ 	For example, in a USER_PUNCH program for a PHAST run,
+ 	the number of moles of dissolved chloride in a cell is
+ 	TOT("Cl")*CELL_PORE_VOLUME for confined flow simulations.
+ 	More generally, the number of moles of dissolved chloride
+ 	is TOT("Cl")*CELL_SATURATION*CELL_PORE_VOLUME, for confined
+ 	or unconfined flow.
+ 	
+ 	For solids, the number of moles of calcite in the 
+ 	saturated part of a cell is 
+ 	EQUI("Calcite")**CELL_SATURATION*CELL_PORE_VOLUME. For 
+ 	unconfined flow, the solid reactants are distributed 
+ 	between the saturated and unsaturated part of a water- 
+ 	table cell. It is a limitation of PHAST that it is not 
+ 	possible to determineIf the amounts of solid reactants 
+ 	in the unsaturated part of a cell. Note that for 
+ 	steady-state, unconfined flow, the unsaturated part of 
+ 	a water-table cell is never part of the active domain.
+	
 	--------
 	svn 3600
 	--------
