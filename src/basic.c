@@ -186,8 +186,12 @@ static const struct const_key command[] = {
 	{"gamma", tokgamma},
 /* VP: Density Start */
 	{"lg", toklg},
-	{"rho", tokrho}
+	{"rho", tokrho},
 /* VP: Density End */
+	{"cell_volume", tokcell_volume},
+	{"cell_pore_volume", tokcell_pore_volume},
+	{"cell_porosity", tokcell_porosity},
+	{"cell_saturation", tokcell_saturation}
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
@@ -1834,6 +1838,18 @@ listtokens(FILE * f, tokenrec * buf)
 			output_msg(OUTPUT_BASIC, "RHO");
 			break;
 /* VP: Density End */
+		case tokcell_volume:
+			output_msg(OUTPUT_BASIC, "CELL_VOLUME");
+			break;
+		case tokcell_pore_volume:
+			output_msg(OUTPUT_BASIC, "CELL_PORE_VOLUME");
+			break;
+		case tokcell_porosity:
+			output_msg(OUTPUT_BASIC, "CELL_POROSITY");
+			break;
+		case tokcell_saturation:
+			output_msg(OUTPUT_BASIC, "CELL_SATURATION");
+			break;
 		}
 		buf = buf->next;
 	}
@@ -2382,9 +2398,9 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokget_por:
+		i = intfactor(LINK);
 		if (phast != TRUE)
 		{
-			i = intfactor(LINK);
 			if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
 				|| i == count_cells + 1)
 			{
@@ -2982,6 +2998,7 @@ factor(struct LOC_exec * LINK)
 		n.UU.val = total(stringfactor(STR1, LINK));
 		break;
 
+	case tokcell_pore_volume:
 	case tokporevolume:
 		n.UU.val = cell_pore_volume;
 		break;
@@ -2991,7 +3008,15 @@ factor(struct LOC_exec * LINK)
 		n.UU.val = calc_dens();
 		break;
 /* VP: Density End */
-
+	case tokcell_volume:
+		n.UU.val = cell_volume;
+		break;
+	case tokcell_porosity:
+		n.UU.val = cell_porosity;
+		break;
+	case tokcell_saturation:
+		n.UU.val = cell_saturation;
+		break;
 	case toksc:
 		n.UU.val = calc_SC();
 		break;
