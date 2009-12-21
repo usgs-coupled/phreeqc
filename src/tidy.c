@@ -1501,10 +1501,13 @@ tidy_phases(void)
 		   trxn_print();
 		 */
 		replaced = replace_solids_gases();
+		phases[i]->replaced = replaced;
 		/*  save rxn */
+		/*
 		rxn_free(phases[i]->rxn);
 		phases[i]->rxn = rxn_alloc(count_trxn + 1);
 		trxn_copy(phases[i]->rxn);
+		*/
 		/*  save rxn_s */
 		trxn_reverse_k();
 		rewrite_eqn_to_secondary();

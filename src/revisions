@@ -1339,6 +1339,16 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 	--------
+	svn 3901
+	--------
+	Error with equations that included (s) or (g). The
+	equation and log K were correct only for the simulation
+	when initially read. Now equations an log Ks are correct
+	for all simulations. Calculates saturation index from
+	the equation after (s) and (g) are eliminated. 
+	
+	
+	--------
 	svn 3695
 	--------
 	For transport calculations, fixed step_fraction when 
