@@ -1229,7 +1229,6 @@ print_saturation_indices(void)
 	LDBLE lk;
 	LDBLE la_eminus;
 	struct rxn_token *rxn_ptr;
-	int replaced;
 	struct reaction *reaction_ptr;
 
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
