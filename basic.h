@@ -235,6 +235,10 @@ struct LOC_exec
 /* VP: Density Start */
 #define tokrho             139
 /* VP: Density End */
+#define tokcell_volume      140
+#define tokcell_pore_volume 141
+#define tokcell_porosity    142
+#define tokcell_saturation  143
 
 
 #endif /* _INC_BASIC_H */
