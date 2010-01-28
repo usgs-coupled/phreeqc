@@ -49,51 +49,41 @@ EB = -1.5946e-011 sys_Ca =            0 sol =            1 a_Na =  3.5460e-001
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.9000e-001 total water  1.0000e+000  7.1463e+000 Na =  2.3686e-002 Cl =  2.3692e-002 
-EB = -3.8748e-008 sys_Ca =  1.4330e-005 sol =            1 a_Na =  2.0468e-002 
-
-WARNING: Negative concentration in MCD: added 2.441e-007 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 3.338e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 6.022e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 7.670e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 8.640e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 9.146e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 9.386e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 9.490e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 9.528e-006 moles Na in cell 1
-WARNING: Negative concentration in MCD: added 9.537e-006 moles Na in cell 1
-----------------------------------User print-----------------------------------
-
-edl_H2O  9.8998e-001 total water  9.9998e-001  1.1046e+001 Na =  2.0397e-003 Cl =  8.7513e-004 
-EB = -4.1385e-008 sys_Ca =  2.3946e-003 sol =            1 a_Na =  1.9394e-003 
+edl_H2O  9.9000e-001 total water  1.0000e+000  7.3249e+000 Na =  1.0178e-003 Cl =  1.0297e-003 
+EB = -1.1425e-007 sys_Ca =  2.6120e-003 sol =            1 a_Na =  9.8201e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9996e-001  1.0211e+001 Na =  1.1533e-003 Cl =  9.9039e-004 
-EB = -4.9079e-008 sys_Ca =  4.5247e-003 sol =            1 a_Na =  1.1101e-003 
+edl_H2O  9.9000e-001 total water  1.0000e+000  7.2316e+000 Na =  9.9606e-004 Cl =  1.0074e-003 
+EB = -9.8215e-008 sys_Ca =  6.2171e-003 sol =            1 a_Na =  9.6132e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9996e-001  9.9476e+000 Na =  1.0723e-003 Cl =  9.8707e-004 
-EB = -5.0647e-008 sys_Ca =  6.1718e-003 sol =            1 a_Na =  1.0336e-003 
+edl_H2O  9.9000e-001 total water  1.0000e+000  7.0450e+000 Na =  9.9608e-004 Cl =  1.0062e-003 
+EB = -8.2535e-008 sys_Ca =  7.0609e-003 sol =            1 a_Na =  9.6135e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9995e-001  7.4482e+000 Na =  9.9841e-004 Cl =  1.0050e-003 
-EB = -4.9301e-008 sys_Ca =  7.0929e-003 sol =            1 a_Na =  9.6359e-004 
+edl_H2O  9.9000e-001 total water  1.0000e+000  7.0061e+000 Na =  9.9670e-004 Cl =  1.0054e-003 
+EB = -6.6921e-008 sys_Ca =  7.2747e-003 sol =            1 a_Na =  9.6195e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9995e-001  7.1514e+000 Na =  9.9786e-004 Cl =  1.0045e-003 
-EB = -4.7565e-008 sys_Ca =  7.2944e-003 sol =            1 a_Na =  9.6307e-004 
+edl_H2O  9.9001e-001 total water  1.0000e+000  6.9986e+000 Na =  9.9728e-004 Cl =  1.0047e-003 
+EB = -5.4795e-008 sys_Ca =  7.3302e-003 sol =            1 a_Na =  9.6251e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9995e-001  7.0397e+000 Na =  9.9774e-004 Cl =  1.0043e-003 
-EB = -4.5832e-008 sys_Ca =  7.3381e-003 sol =            1 a_Na =  9.6296e-004 
+edl_H2O  9.9001e-001 total water  1.0000e+000  6.9931e+000 Na =  9.9808e-004 Cl =  1.0040e-003 
+EB = -3.9201e-008 sys_Ca =  7.3448e-003 sol =            1 a_Na =  9.6329e-004 
 
 ----------------------------------User print-----------------------------------
 
-edl_H2O  9.8996e-001 total water  9.9995e-001  7.0057e+000 Na =  9.9781e-004 Cl =  1.0042e-003 
-EB = -4.4100e-008 sys_Ca =  7.3476e-003 sol =            1 a_Na =  9.6303e-004 
+edl_H2O  9.9001e-001 total water  1.0000e+000  6.9927e+000 Na =  9.9883e-004 Cl =  1.0032e-003 
+EB = -2.3608e-008 sys_Ca =  7.3486e-003 sol =            1 a_Na =  9.6401e-004 
+
+----------------------------------User print-----------------------------------
+
+edl_H2O  9.9001e-001 total water  1.0000e+000  6.9924e+000 Na =  9.9960e-004 Cl =  1.0024e-003 
+EB = -8.0152e-009 sys_Ca =  7.3495e-003 sol =            1 a_Na =  9.6475e-004 
 

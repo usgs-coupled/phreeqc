@@ -126,7 +126,9 @@ Initial solution 1.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.500    
-                                       pe  =  10.780      Equilibrium with O2(g)
+                                       pe  =  10.797      Equilibrium with O2(g)
+       Specific Conductance (uS/cm, 25 oC) = 4013
+                          Density (g/cm3)  =   0.99856
                         Activity of water  =   0.999
                            Ionic strength  =  4.040e-002
                        Mass of water (kg)  =  1.000e+000
@@ -153,22 +155,22 @@ Ca              4.800e-003
    CaOH+                 1.509e-008  1.258e-008    -7.821    -7.900    -0.079
 Cl              3.560e-002
    Cl-                   3.560e-002  2.944e-002    -1.449    -1.531    -0.083
-H(0)            3.859e-040
-   H2                    1.930e-040  1.948e-040   -39.715   -39.710     0.004
+H(0)            3.570e-040
+   H2                    1.785e-040  1.802e-040   -39.748   -39.744     0.004
 Na              2.600e-002
    Na+                   2.600e-002  2.173e-002    -1.585    -1.663    -0.078
    NaOH                  4.492e-009  4.534e-009    -8.348    -8.343     0.004
-O(0)            2.173e-013
-   O2                    1.086e-013  1.096e-013   -12.964   -12.960     0.004
+O(0)            2.539e-013
+   O2                    1.269e-013  1.281e-013   -12.896   -12.892     0.004
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -36.56  -39.71   -3.15  H2
+	H2(g)           -36.59  -39.74   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
-	O2(g)           -10.00  -12.96   -2.96  O2
+	O2(g)           -10.00  -12.89   -2.89  O2
 
 -------------------------------------------------------
 Beginning of initial exchange-composition calculations.
@@ -221,7 +223,7 @@ Bfa
 	BfaOH2+          2.629e-001       0.011  2.629e-001      -0.580
 
 Hfo           
-	-2.662e-017  Surface + diffuse layer charge, eq
+	-2.658e-017  Surface + diffuse layer charge, eq
 	 3.756e-001  Surface charge, eq
 	 6.040e-004  sigma, C/m**2
 	 1.315e-003  psi, V
@@ -325,7 +327,7 @@ Bfa
 	BfaOH2+          2.629e-001       0.011  2.629e-001      -0.580
 
 Hfo           
-	-3.826e-011  Surface + diffuse layer charge, eq
+	-3.825e-011  Surface + diffuse layer charge, eq
 	 3.756e-001  Surface charge, eq
 	 6.040e-004  sigma, C/m**2
 	 1.315e-003  psi, V
@@ -357,10 +359,10 @@ Hfo_w
 	Hfo_wO-          2.265e-002       0.023  2.265e-002      -1.645
 
 Hfw           
-	-5.337e-014  Surface + diffuse layer charge, eq
+	-5.371e-014  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
-	-4.413e-013  psi, V
+	-4.412e-013  psi, V
 	 1.718e-011  -F*psi/RT
 	 1.000e+000  exp(-F*psi/RT)
 	 3.000e+001  specific area, m**2/g
@@ -407,7 +409,9 @@ X               6.000e+001 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.500      Charge balance
-                                       pe  =  10.773      Adjusted to redox equilibrium
+                                       pe  =  10.796      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 4013
+                          Density (g/cm3)  =   0.99856
                         Activity of water  =   0.999
                            Ionic strength  =  4.040e-002
                        Mass of water (kg)  =  1.000e+000
@@ -415,7 +419,7 @@ X               6.000e+001 mol
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -2.112e-015
+                  Electrical balance (eq)  = -2.123e-015
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+002
@@ -434,22 +438,22 @@ Ca              4.800e-003
    CaOH+                 1.509e-008  1.258e-008    -7.821    -7.900    -0.079
 Cl              3.560e-002
    Cl-                   3.560e-002  2.944e-002    -1.449    -1.531    -0.083
-H(0)            3.991e-040
-   H2                    1.996e-040  2.014e-040   -39.700   -39.696     0.004
+H(0)            3.595e-040
+   H2                    1.798e-040  1.814e-040   -39.745   -39.741     0.004
 Na              2.600e-002
    Na+                   2.600e-002  2.173e-002    -1.585    -1.663    -0.078
    NaOH                  4.492e-009  4.534e-009    -8.348    -8.343     0.004
-O(0)            2.031e-013
-   O2                    1.016e-013  1.025e-013   -12.993   -12.989     0.004
+O(0)            2.503e-013
+   O2                    1.252e-013  1.263e-013   -12.902   -12.898     0.004
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -36.55  -39.70   -3.15  H2
+	H2(g)           -36.59  -39.74   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
-	O2(g)           -10.03  -12.99   -2.96  O2
+	O2(g)           -10.01  -12.90   -2.89  O2
 
 ------------------
 End of simulation.
@@ -536,11 +540,11 @@ Hfo_w
 	Hfo_wO-          2.265e-002       0.023  2.265e-002      -1.645
 
 Hfw           
-	-5.383e-014  Surface + diffuse layer charge, eq
+	-5.294e-014  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
 	-1.079e-011  psi, V
-	 4.201e-010  -F*psi/RT
+	 4.200e-010  -F*psi/RT
 	 1.000e+000  exp(-F*psi/RT)
 	 3.000e+001  specific area, m**2/g
 	 3.000e+007  m**2 for  1.000e+006 g
@@ -576,7 +580,9 @@ Hfw
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.500      Charge balance
-                                       pe  =  10.773      Adjusted to redox equilibrium
+                                       pe  =  10.796      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 4013
+                          Density (g/cm3)  =   0.99856
                         Activity of water  =   0.999
                            Ionic strength  =  4.040e-002
                        Mass of water (kg)  =  1.000e+000
@@ -584,7 +590,7 @@ Hfw
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -2.133e-015
+                  Electrical balance (eq)  = -2.091e-015
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+002
@@ -603,22 +609,22 @@ Ca              4.800e-003
    CaOH+                 1.509e-008  1.258e-008    -7.821    -7.900    -0.079
 Cl              3.560e-002
    Cl-                   3.560e-002  2.944e-002    -1.449    -1.531    -0.083
-H(0)            3.991e-040
-   H2                    1.996e-040  2.014e-040   -39.700   -39.696     0.004
+H(0)            3.596e-040
+   H2                    1.798e-040  1.815e-040   -39.745   -39.741     0.004
 Na              2.600e-002
    Na+                   2.600e-002  2.173e-002    -1.585    -1.663    -0.078
    NaOH                  4.492e-009  4.534e-009    -8.348    -8.343     0.004
-O(0)            2.031e-013
-   O2                    1.016e-013  1.025e-013   -12.993   -12.989     0.004
+O(0)            2.503e-013
+   O2                    1.251e-013  1.263e-013   -12.903   -12.899     0.004
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -36.55  -39.70   -3.15  H2
+	H2(g)           -36.59  -39.74   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.78   -3.19    1.58  NaCl
-	O2(g)           -10.03  -12.99   -2.96  O2
+	O2(g)           -10.01  -12.90   -2.89  O2
 
 ------------------
 End of simulation.

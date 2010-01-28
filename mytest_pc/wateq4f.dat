@@ -1,4 +1,4 @@
-#  $Revision: 2.6 $
+#  $Id: wateq4f.dat 431 2005-08-23 17:29:36Z dlpark $
 # Revised arsenic data from Archer and Nordstrom (2002)
 
 SOLUTION_MASTER_SPECIES
@@ -3069,7 +3069,7 @@ Scorodite           492
         FeAsO4:2H2O = Fe+3 + AsO4-3 + 2H2O 
         log_k           -20.249
 
-Mn3(AsO4):8H2O      493
+Mn3(AsO4)2:8H2O      493
         Mn3(AsO4)2:8H2O = 3Mn+2 + 2AsO4-3 + 8H2O 
         log_k           -28.707
 
@@ -3339,8 +3339,11 @@ CO2(g)
 
 O2(g)
         O2 = O2                                                                  
-        log_k           -2.960
-        delta_h -1.844 kcal
+#        log_k           -2.960
+#        delta_h -1.844 kcal
+	 # log K from llnl.dat  Aug 23, 2005
+        log_k           -2.8983
+        -analytic -7.5001e+000 7.8981e-003 0.0000e+000 0.0000e+000 2.0027e+005
 
 H2(g)
         H2 = H2                                                                  

@@ -52,6 +52,8 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =  -0.721      Equilibrium with Goethite
+       Specific Conductance (uS/cm, 25 oC) = 557
+                          Density (g/cm3)  =   1.00012
                         Activity of water  =   1.000
                            Ionic strength  =  9.001e-003
                        Mass of water (kg)  =  1.000e+000
@@ -126,7 +128,7 @@ O(0)            0.000e+000
 	H2(g)           -12.56  -15.64   -3.08  H2
 	H2O(g)           -1.92   -0.00    1.92  H2O
 	Hematite          7.93    5.12   -2.81  Fe2O3
-	O2(g)           -63.31  -66.20   -2.89  O2
+	O2(g)           -63.43  -66.20   -2.77  O2
 	Siderite          0.73  -10.07  -10.79  FeCO3
 
 -----------------------------------------
@@ -158,6 +160,8 @@ Goethite             3.00    2.56   -0.44   1.070e-002  1.070e-002 -5.940e-015
 
                                        pH  =   7.000      Charge balance
                                        pe  =  -0.721      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 557
+                          Density (g/cm3)  =   1.00012
                         Activity of water  =   1.000
                            Ionic strength  =  9.001e-003
                        Mass of water (kg)  =  1.000e+000
@@ -235,7 +239,7 @@ O(0)            0.000e+000
 	H2(g)           -12.56  -15.64   -3.08  H2
 	H2O(g)           -1.92   -0.00    1.92  H2O
 	Hematite          7.93    5.12   -2.81  Fe2O3
-	O2(g)           -63.31  -66.20   -2.89  O2
+	O2(g)           -63.43  -66.20   -2.77  O2
 	Siderite          0.73  -10.07  -10.79  FeCO3
 
 ------------------

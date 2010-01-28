@@ -68,6 +68,8 @@ Initial solution 1.	PURE WATER
 
                                        pH  =   7.000      Charge balance
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.001e-007
                        Mass of water (kg)  =  1.000e+000
@@ -100,7 +102,7 @@ O(0)            0.000e+000
 
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 ------------------
 End of simulation.
@@ -158,6 +160,8 @@ Kaolinite           -3.80    1.90    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.006      Charge balance
                                        pe  =  11.468      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.262e-007
                        Mass of water (kg)  =  1.000e+000
@@ -209,7 +213,7 @@ Si              8.013e-008
 	K-feldspar      -14.68  -13.81    0.88  KAlSi3O8
 	K-mica          -10.68    2.29   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -3.80    1.90    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.22  -12.18   -2.96  O2
+	O2(g)            -9.29  -12.18   -2.89  O2
 	Quartz           -3.12   -7.10   -3.98  SiO2
 	SiO2(a)          -4.39   -7.10   -2.71  SiO2
 
@@ -269,6 +273,8 @@ Kaolinite           -0.00    5.71    5.71
 
                                        pH  =   8.212      Charge balance
                                        pe  =   9.894      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.185e-006
                        Mass of water (kg)  =  1.000e+000
@@ -320,7 +326,7 @@ Si              6.536e-006
 	K-feldspar       -5.86   -4.99    0.88  KAlSi3O8
 	K-mica           -1.86   11.11   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.69  -13.65   -2.96  O2
+	O2(g)           -10.76  -13.65   -2.89  O2
 	Quartz           -1.21   -5.20   -3.98  SiO2
 	SiO2(a)          -2.48   -5.20   -2.71  SiO2
 
@@ -380,6 +386,8 @@ Kaolinite           -0.00    5.71    5.71   0.000e+000  9.715e-006  9.715e-006
 
                                        pH  =   9.109      Charge balance
                                        pe  =   9.063      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 4
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.002e-005
                        Mass of water (kg)  =  1.000e+000
@@ -431,7 +439,7 @@ Si              4.062e-005
 	K-feldspar       -2.55   -1.67    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.43  -13.39   -2.96  O2
+	O2(g)           -10.50  -13.39   -2.89  O2
 	Quartz           -0.49   -4.47   -3.98  SiO2
 	SiO2(a)          -1.76   -4.47   -2.71  SiO2
 
@@ -491,6 +499,8 @@ Kaolinite           -0.72    4.99    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   9.389      Charge balance
                                        pe  =   8.719      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 14
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.273e-004
                        Mass of water (kg)  =  1.000e+000
@@ -542,7 +552,7 @@ Si              3.818e-004
 	K-feldspar       -0.00    0.87    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.72    4.99    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.69  -13.65   -2.96  O2
+	O2(g)           -10.75  -13.65   -2.89  O2
 	Quartz            0.43   -3.55   -3.98  SiO2
 	SiO2(a)          -0.84   -3.55   -2.71  SiO2
 
@@ -598,6 +608,8 @@ Kaolinite           -0.00    5.71    5.71   1.000e+000  1.000e+000  1.237e-006
 
                                        pH  =   8.354      Charge balance
                                        pe  =   9.786      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  3.028e-006
                        Mass of water (kg)  =  1.000e+000
@@ -649,7 +661,7 @@ Si              6.596e-006
 	K-feldspar       -5.58   -4.70    0.88  KAlSi3O8
 	K-mica           -1.57   11.40   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.56  -13.52   -2.96  O2
+	O2(g)           -10.63  -13.52   -2.89  O2
 	Quartz           -1.21   -5.20   -3.98  SiO2
 	SiO2(a)          -2.48   -5.20   -2.71  SiO2
 
@@ -705,6 +717,8 @@ Kaolinite            0.00    5.71    5.71
 
                                        pH  =   9.070      Charge balance
                                        pe  =   8.836      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 3
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.190e-005
                        Mass of water (kg)  =  1.000e+000
@@ -756,7 +770,7 @@ Si              6.569e-005
 	K-feldspar       -2.12   -1.24    0.88  KAlSi3O8
 	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.49  -14.45   -2.96  O2
+	O2(g)           -11.56  -14.45   -2.89  O2
 	Quartz           -0.27   -4.25   -3.98  SiO2
 	SiO2(a)          -1.54   -4.25   -2.71  SiO2
 
@@ -834,6 +848,8 @@ Kaolinite           -3.45    2.25    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.031      Charge balance
                                        pe  =  11.457      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.339e-007
                        Mass of water (kg)  =  1.000e+000
@@ -885,7 +901,7 @@ Si              1.200e-007
 	K-feldspar      -13.96  -13.08    0.88  KAlSi3O8
 	K-mica           -9.95    3.02   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -3.45    2.25    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.17  -12.13   -2.96  O2
+	O2(g)            -9.23  -12.13   -2.89  O2
 	Quartz           -2.94   -6.92   -3.98  SiO2
 	SiO2(a)          -4.21   -6.92   -2.71  SiO2
 
@@ -933,6 +949,8 @@ Kaolinite           -2.85    2.86    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.106      Charge balance
                                        pe  =  11.288      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.591e-007
                        Mass of water (kg)  =  1.000e+000
@@ -984,7 +1002,7 @@ Si              2.400e-007
 	K-feldspar      -12.68  -11.80    0.88  KAlSi3O8
 	K-mica           -8.68    4.29   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -2.85    2.86    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.54  -12.50   -2.96  O2
+	O2(g)            -9.61  -12.50   -2.89  O2
 	Quartz           -2.64   -6.62   -3.98  SiO2
 	SiO2(a)          -3.91   -6.62   -2.71  SiO2
 
@@ -1032,6 +1050,8 @@ Kaolinite           -2.25    3.46    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.241      Charge balance
                                        pe  =  11.241      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.179e-007
                        Mass of water (kg)  =  1.000e+000
@@ -1083,7 +1103,7 @@ Si              4.800e-007
 	K-feldspar      -11.34  -10.47    0.88  KAlSi3O8
 	K-mica           -7.34    5.63   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -2.25    3.46    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.19  -12.15   -2.96  O2
+	O2(g)            -9.26  -12.15   -2.89  O2
 	Quartz           -2.34   -6.32   -3.98  SiO2
 	SiO2(a)          -3.61   -6.32   -2.71  SiO2
 
@@ -1131,6 +1151,8 @@ Kaolinite           -1.65    4.06    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.451      Charge balance
                                        pe  =  11.188      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  3.557e-007
                        Mass of water (kg)  =  1.000e+000
@@ -1182,7 +1204,7 @@ Si              9.600e-007
 	K-feldspar       -9.93   -9.05    0.88  KAlSi3O8
 	K-mica           -5.93    7.04   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -1.65    4.06    5.71  Al2Si2O5(OH)4
-	O2(g)            -8.56  -11.52   -2.96  O2
+	O2(g)            -8.63  -11.52   -2.89  O2
 	Quartz           -2.04   -6.02   -3.98  SiO2
 	SiO2(a)          -3.31   -6.02   -2.71  SiO2
 
@@ -1230,6 +1252,8 @@ Kaolinite           -1.05    4.66    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.715      Charge balance
                                        pe  =  10.994      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  6.595e-007
                        Mass of water (kg)  =  1.000e+000
@@ -1281,7 +1305,7 @@ Si              1.920e-006
 	K-feldspar       -8.47   -7.59    0.88  KAlSi3O8
 	K-mica           -4.46    8.51   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -1.05    4.66    5.71  Al2Si2O5(OH)4
-	O2(g)            -8.29  -11.25   -2.96  O2
+	O2(g)            -8.35  -11.25   -2.89  O2
 	Quartz           -1.74   -5.72   -3.98  SiO2
 	SiO2(a)          -3.01   -5.72   -2.71  SiO2
 
@@ -1329,6 +1353,8 @@ Kaolinite           -0.67    5.04    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.896      Charge balance
                                        pe  =  10.790      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.013e-006
                        Mass of water (kg)  =  1.000e+000
@@ -1380,7 +1406,7 @@ Si              3.000e-006
 	K-feldspar       -7.51   -6.64    0.88  KAlSi3O8
 	K-mica           -3.51    9.46   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.67    5.04    5.71  Al2Si2O5(OH)4
-	O2(g)            -8.38  -11.34   -2.96  O2
+	O2(g)            -8.45  -11.34   -2.89  O2
 	Quartz           -1.55   -5.53   -3.98  SiO2
 	SiO2(a)          -2.82   -5.53   -2.71  SiO2
 
@@ -1428,6 +1454,8 @@ Kaolinite           -0.07    5.64    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   8.178      Charge balance
                                        pe  =  10.425      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.007e-006
                        Mass of water (kg)  =  1.000e+000
@@ -1479,7 +1507,7 @@ Si              6.000e-006
 	K-feldspar       -6.04   -5.17    0.88  KAlSi3O8
 	K-mica           -2.04   10.93   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.07    5.64    5.71  Al2Si2O5(OH)4
-	O2(g)            -8.71  -11.67   -2.96  O2
+	O2(g)            -8.77  -11.67   -2.89  O2
 	Quartz           -1.25   -5.23   -3.98  SiO2
 	SiO2(a)          -2.52   -5.23   -2.71  SiO2
 
@@ -1527,6 +1555,8 @@ Kaolinite            0.00    5.71    5.71   0.000e+000  1.712e-006  1.712e-006
 
                                        pH  =   8.484      Charge balance
                                        pe  =   9.435      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  4.003e-006
                        Mass of water (kg)  =  1.000e+000
@@ -1578,7 +1608,7 @@ Si              8.576e-006
 	K-feldspar       -5.11   -4.23    0.88  KAlSi3O8
 	K-mica           -1.32   11.65   12.97  KAl3Si3O10(OH)2
 	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.44  -14.40   -2.96  O2
+	O2(g)           -11.51  -14.40   -2.89  O2
 	Quartz           -1.11   -5.09   -3.98  SiO2
 	SiO2(a)          -2.37   -5.09   -2.71  SiO2
 
@@ -1626,6 +1656,8 @@ Kaolinite            0.00    5.71    5.71   0.000e+000  3.695e-006  3.695e-006
 
                                        pH  =   8.779      Charge balance
                                        pe  =   9.596      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 1
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  8.002e-006
                        Mass of water (kg)  =  1.000e+000
@@ -1677,7 +1709,7 @@ Si              1.661e-005
 	K-feldspar       -3.97   -3.10    0.88  KAlSi3O8
 	K-mica           -0.73   12.24   12.97  KAl3Si3O10(OH)2
 	Kaolinite         0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.62  -12.58   -2.96  O2
+	O2(g)            -9.69  -12.58   -2.89  O2
 	Quartz           -0.84   -4.82   -3.98  SiO2
 	SiO2(a)          -2.10   -4.82   -2.71  SiO2
 
@@ -1725,6 +1757,8 @@ Kaolinite           -0.00    5.71    5.71   0.000e+000  7.701e-006  7.701e-006
 
                                        pH  =   9.035      Charge balance
                                        pe  =   8.801      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 3
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.600e-005
                        Mass of water (kg)  =  1.000e+000
@@ -1776,7 +1810,7 @@ Si              3.260e-005
 	K-feldspar       -2.89   -2.01    0.88  KAlSi3O8
 	K-mica           -0.17   12.80   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.78  -14.74   -2.96  O2
+	O2(g)           -11.84  -14.74   -2.89  O2
 	Quartz           -0.57   -4.55   -3.98  SiO2
 	SiO2(a)          -1.84   -4.55   -2.71  SiO2
 
@@ -1824,6 +1858,8 @@ Kaolinite           -0.00    5.71    5.71   0.000e+000  5.270e-007  5.270e-007
 
                                        pH  =   9.072      Charge balance
                                        pe  =   8.839      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 3
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.180e-005
                        Mass of water (kg)  =  1.000e+000
@@ -1875,7 +1911,7 @@ Si              6.434e-005
 	K-feldspar       -2.14   -1.26    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.47  -14.43   -2.96  O2
+	O2(g)           -11.54  -14.43   -2.89  O2
 	Quartz           -0.28   -4.26   -3.98  SiO2
 	SiO2(a)          -1.55   -4.26   -2.71  SiO2
 
@@ -1923,6 +1959,8 @@ Kaolinite           -0.30    5.41    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   9.225      Charge balance
                                        pe  =   8.692      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 6
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  4.273e-005
                        Mass of water (kg)  =  1.000e+000
@@ -1974,7 +2012,7 @@ Si              1.282e-004
 	K-feldspar       -1.29   -0.42    0.88  KAlSi3O8
 	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.30    5.41    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.45  -14.41   -2.96  O2
+	O2(g)           -11.52  -14.41   -2.89  O2
 	Quartz           -0.01   -3.99   -3.98  SiO2
 	SiO2(a)          -1.28   -3.99   -2.71  SiO2
 
@@ -2022,6 +2060,8 @@ Kaolinite           -0.48    5.23    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   9.305      Charge balance
                                        pe  =   8.570      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 8
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  6.671e-005
                        Mass of water (kg)  =  1.000e+000
@@ -2073,7 +2113,7 @@ Si              2.001e-004
 	K-feldspar       -0.76    0.11    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.48    5.23    5.71  Al2Si2O5(OH)4
-	O2(g)           -11.62  -14.58   -2.96  O2
+	O2(g)           -11.69  -14.58   -2.89  O2
 	Quartz            0.17   -3.81   -3.98  SiO2
 	SiO2(a)          -1.10   -3.81   -2.71  SiO2
 
@@ -2121,6 +2161,8 @@ Kaolinite           -0.72    4.99    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   9.389      Charge balance
                                        pe  =   8.905      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 14
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.273e-004
                        Mass of water (kg)  =  1.000e+000
@@ -2172,7 +2214,7 @@ Si              3.818e-004
 	K-feldspar       -0.00    0.87    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.72    4.99    5.71  Al2Si2O5(OH)4
-	O2(g)            -9.94  -12.90   -2.96  O2
+	O2(g)           -10.01  -12.90   -2.89  O2
 	Quartz            0.43   -3.55   -3.98  SiO2
 	SiO2(a)          -0.84   -3.55   -2.71  SiO2
 
@@ -2292,6 +2334,8 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.001e-007
                        Mass of water (kg)  =  1.000e+000
@@ -2343,7 +2387,7 @@ Si              3.000e-013
 	K-feldspar      -41.82  -40.94    0.88  KAlSi3O8
 	K-mica          -48.66  -35.69   12.97  KAl3Si3O10(OH)2
 	Kaolinite       -25.50  -19.79    5.71  Al2Si2O5(OH)4
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 	Quartz           -8.54  -12.52   -3.98  SiO2
 	SiO2(a)          -9.81  -12.52   -2.71  SiO2
 
@@ -2392,6 +2436,8 @@ Kaolinite           -9.09   -3.38    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.000      Charge balance
                                        pe  =  11.049      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.013e-007
                        Mass of water (kg)  =  1.000e+000
@@ -2443,7 +2489,7 @@ Si              3.797e-009
 	K-feldspar      -21.31  -20.43    0.88  KAlSi3O8
 	K-mica          -19.94   -6.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -9.09   -3.38    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.92  -13.88   -2.96  O2
+	O2(g)           -10.99  -13.88   -2.89  O2
 	Quartz           -4.44   -8.42   -3.98  SiO2
 	SiO2(a)          -5.71   -8.42   -2.71  SiO2
 
@@ -2489,6 +2535,8 @@ Kaolinite           -4.93    0.78    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.003      Charge balance
                                        pe  =  11.085      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.137e-007
                        Mass of water (kg)  =  1.000e+000
@@ -2540,7 +2588,7 @@ Si              4.176e-008
 	K-feldspar      -16.10  -15.22    0.88  KAlSi3O8
 	K-mica          -12.66    0.31   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -4.93    0.78    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.77  -13.73   -2.96  O2
+	O2(g)           -10.84  -13.73   -2.89  O2
 	Quartz           -3.40   -7.38   -3.98  SiO2
 	SiO2(a)          -4.67   -7.38   -2.71  SiO2
 
@@ -2586,6 +2634,8 @@ Kaolinite           -2.36    3.35    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   7.210      Charge balance
                                        pe  =  10.881      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  2.027e-007
                        Mass of water (kg)  =  1.000e+000
@@ -2637,7 +2687,7 @@ Si              4.214e-007
 	K-feldspar      -11.60  -10.72    0.88  KAlSi3O8
 	K-mica           -7.59    5.38   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -2.36    3.35    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.76  -13.72   -2.96  O2
+	O2(g)           -10.82  -13.72   -2.89  O2
 	Quartz           -2.40   -6.38   -3.98  SiO2
 	SiO2(a)          -3.66   -6.38   -2.71  SiO2
 
@@ -2685,6 +2735,8 @@ Kaolinite           -0.37    5.33    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   8.035      Charge balance
                                        pe  =  10.043      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.415e-006
                        Mass of water (kg)  =  1.000e+000
@@ -2736,7 +2788,7 @@ Si              4.218e-006
 	K-feldspar       -6.79   -5.91    0.88  KAlSi3O8
 	K-mica           -2.79   10.18   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.37    5.33    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.81  -13.77   -2.96  O2
+	O2(g)           -10.88  -13.77   -2.89  O2
 	Quartz           -1.40   -5.38   -3.98  SiO2
 	SiO2(a)          -2.67   -5.38   -2.71  SiO2
 
@@ -2784,6 +2836,8 @@ Kaolinite           -0.00    5.71    5.71   0.000e+000  6.724e-006  6.724e-006
 
                                        pH  =   8.990      Charge balance
                                        pe  =   9.109      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 2
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.405e-005
                        Mass of water (kg)  =  1.000e+000
@@ -2835,7 +2889,7 @@ Si              2.871e-005
 	K-feldspar       -3.09   -2.21    0.88  KAlSi3O8
 	K-mica           -0.27   12.70   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.00    5.71    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.72  -13.68   -2.96  O2
+	O2(g)           -10.79  -13.68   -2.89  O2
 	Quartz           -0.62   -4.60   -3.98  SiO2
 	SiO2(a)          -1.89   -4.60   -2.71  SiO2
 
@@ -2885,6 +2939,8 @@ Kaolinite           -0.57    5.14    5.71   6.724e-006           0 -6.724e-006
 
                                        pH  =   9.339      Charge balance
                                        pe  =   8.708      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 10
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  8.444e-005
                        Mass of water (kg)  =  1.000e+000
@@ -2936,7 +2992,7 @@ Si              2.533e-004
 	K-feldspar       -0.48    0.39    0.88  KAlSi3O8
 	K-mica            0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.57    5.14    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.93  -13.89   -2.96  O2
+	O2(g)           -11.00  -13.89   -2.89  O2
 	Quartz            0.26   -3.72   -3.98  SiO2
 	SiO2(a)          -1.01   -3.72   -2.71  SiO2
 
@@ -2987,6 +3043,8 @@ Kaolinite           -0.72    4.99    5.71   0.000e+000           0  0.000e+000
 
                                        pH  =   9.389      Charge balance
                                        pe  =   8.668      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 14
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =  1.273e-004
                        Mass of water (kg)  =  1.000e+000
@@ -3038,7 +3096,7 @@ Si              3.818e-004
 	K-feldspar       -0.00    0.87    0.88  KAlSi3O8
 	K-mica           -0.00   12.97   12.97  KAl3Si3O10(OH)2
 	Kaolinite        -0.72    4.99    5.71  Al2Si2O5(OH)4
-	O2(g)           -10.89  -13.85   -2.96  O2
+	O2(g)           -10.96  -13.85   -2.89  O2
 	Quartz            0.43   -3.55   -3.98  SiO2
 	SiO2(a)          -0.84   -3.55   -2.71  SiO2
 
