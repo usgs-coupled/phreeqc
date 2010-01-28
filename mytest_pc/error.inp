@@ -1,0 +1,9 @@
+END
+SOLUTION 11
+	units  mol/kgw
+	temp   25.0
+	pH      6.99977
+	pe      4.00000
+	water   1.00000
+	H(0)    1.41742e-025
+END

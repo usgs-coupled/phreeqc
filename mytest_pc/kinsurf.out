@@ -1,0 +1,562 @@
+   Input file: kinsurf
+  Output file: kinsurf.out
+Database file: ../database/wateq4f.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	DATABASE ../database/wateq4f.dat
+	SURFACE_SPECIES
+	        Hfo_wOH = Hfo_wOH
+	        log_k  0.0
+	        Hfo_wOH  + H+ = Hfo_wOH2+
+	        log_k  7.29    # = pKa1,int
+	        Hfo_wOH = Hfo_wO- + H+
+	        log_k  -8.93   # = -pKa2,int
+	        Hfo_wOH + PO4-3 + 3H+ = Hfo_wH2PO4 + H2O
+	        log_k   31.29
+	        Hfo_wOH + PO4-3 + 2H+ = Hfo_wHPO4- + H2O
+	        log_k   -25.39
+	        Hfo_wOH + PO4-3 + H+ = Hfo_wPO4-2 + H2O
+	        log_k   -17.72
+	        Hfo_wOH + AsO4-3 + 3H+ = Hfo_wH2AsO4 + H2O
+	        log_k   29.31
+	        Hfo_wOH + AsO4-3 + 2H+ = Hfo_wHAsO4- + H2O
+	        log_k   -23.51
+	        Hfo_wOH + AsO4-3 = Hfo_wOHAsO4-3
+	        log_k   -10.58
+	SOLUTION
+		pH  4
+		pe 10
+		As(5) 1
+		P  1
+		Na 10
+		Cl 10   charge
+	END
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	As(5)            1.000e-003  1.000e-003
+	Cl               8.125e-003  8.125e-003  Charge balance
+	Na               1.000e-002  1.000e-002
+	P                1.000e-003  1.000e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   4.000    
+                                       pe  =  10.000    
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.011e-002
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  = -1.253e-004
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.483e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   9
+                                  Total H  = 1.110166e+002
+                                  Total O  = 5.551422e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.095e-004  1.000e-004    -3.961    -4.000    -0.039
+   OH-                   1.110e-010  1.001e-010    -9.955   -10.000    -0.045
+   H2O                   5.551e+001  9.997e-001     1.744    -0.000     0.000
+As(5)           1.000e-003
+   H2AsO4-               9.815e-004  8.849e-004    -3.008    -3.053    -0.045
+   H3AsO4                1.761e-005  1.766e-005    -4.754    -4.753     0.001
+   HAsO4-2               9.265e-007  6.122e-007    -6.033    -6.213    -0.180
+   AsO4-3                3.482e-014  1.371e-014   -13.458   -13.863    -0.405
+Cl              8.125e-003
+   Cl-                   8.125e-003  7.313e-003    -2.090    -2.136    -0.046
+H(0)            1.413e-031
+   H2                    7.063e-032  7.079e-032   -31.151   -31.150     0.001
+Na              1.000e-002
+   Na+                   1.000e-002  9.026e-003    -2.000    -2.044    -0.044
+   NaHPO4-               1.092e-008  9.844e-009    -7.962    -8.007    -0.045
+O(0)            1.659e-030
+   O2                    8.293e-031  8.312e-031   -30.081   -30.080     0.001
+P               1.000e-003
+   H2PO4-                9.991e-004  9.008e-004    -3.000    -3.045    -0.045
+   HPO4-2                8.464e-007  5.593e-007    -6.072    -6.252    -0.180
+   NaHPO4-               1.092e-008  9.844e-009    -7.962    -8.007    -0.045
+   PO4-3                 6.405e-015  2.521e-015   -14.193   -14.598    -0.405
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	As2O5(cr)       -17.73   -9.51    8.23  As2O5
+	H2(g)           -28.00  -31.15   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -5.76   -4.18    1.58  NaCl
+	O2(g)           -27.19  -30.08   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+	PHASES
+	fix_pH
+		H+ = H+
+		log_k 0
+	USE solution 1
+	EQUILIBRIUM_PHASES
+	SURFACE
+	no_edl
+	Hfo_wOH   .001
+	RATES
+	HFO_OH2+       # species 2
+	start
+	10  k = 1/(24*3600) 
+	20 s$ = "HFO_OH2+"
+	30 sites = 1
+	30 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	40 species = KIN(s$)   # moles
+	50 log_master_frac = LOG10(KIN("HFO_OH")/sites)
+	60 if (species > 0) then log_species_frac = LOG10(species/sites) else log_species_frac = -100
+	70 q = log_species_frac - LA("H+") - log_master_frac
+	80 satrat = 10^(q - 7.29)
+	85 put (q - 7.29, 2, 1)
+	90 rate = k*(1-satrat)
+	95 if (species <= 0) then rate = k
+	100 moles = rate*TIME
+	110 SAVE -moles
+	120 PUT(moles, 2)
+	end
+	HFO_O-         # species 3
+	start
+	10  k = 1/(24*3600) 
+	20 s$ = "HFO_O-"
+	30 sites = 1
+	30 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	40 species = KIN(s$)   # moles
+	50 log_master_frac = LOG10(KIN("HFO_OH")/sites)
+	60 if (species > 0) then log_species_frac = LOG10(species/sites) else log_species_frac = -100
+	70 q = log_species_frac + LA("H+") - log_master_frac
+	80 satrat = 10^(q - -8.93)
+	85 put (q + 8.93, 3, 1)
+	90 rate = k*(1-satrat)
+	95 if (species <= 0) then rate = k
+	100 moles = rate*TIME
+	110 SAVE -moles
+	120 PUT(moles, 3)
+	end
+	HFO_H2PO4      # species 4
+	start
+	10  k = 1/(24*3600) 
+	20 s$ = "HFO_H2PO4"
+	30 sites = 1
+	30 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	40 species = KIN(s$)   # moles
+	50 log_master_frac = LOG10(KIN("HFO_OH")/sites)
+	60 if (species > 0) then log_species_frac = LOG10(species/sites) else log_species_frac = -100
+	70 q = log_species_frac + LA("H2O") -3*LA("H+") - LA("PO4-3") - log_master_frac
+	80 satrat = 10^(q - 31.29)
+	85 put (q - 31.29, 4, 1)
+	90 rate = k*(1-satrat)
+	95 if (species <= 0) then rate = k
+	100 moles = rate*TIME
+	110 SAVE -moles
+	120 PUT(moles, 4)
+	end
+	HFO_H2AsO4     # species 5
+	start
+	10  k = 1/(24*3600) 
+	20 s$ = "HFO_H2AsO4"
+	30 sites = 1
+	30 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	40 species = KIN(s$)   # moles
+	50 log_master_frac = LOG10(KIN("HFO_OH")/sites)
+	60 if (species > 0) then log_species_frac = LOG10(species/sites) else log_species_frac = -100
+	70 q = log_species_frac + LA("H2O") -3*LA("H+") - LA("AsO4-3") - log_master_frac
+	80 satrat = 10^(q - 29.31)
+	85 put (q - 29.31, 5, 1)
+	90 rate = k*(1-satrat)
+	95 if (species <= 0) then rate = k
+	100 moles = rate*TIME
+	110 SAVE -moles
+	120 PUT(moles, 5)
+	end
+	HFO_OH   # species 1
+	start
+	10 sites = 1
+	10 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	20 frac = KIN("HFO_OH")/sites
+	30 moles = (get(2) + get(3) + get(4) + get(5))
+	40 save moles
+	end
+	SOLUTION
+		pH  4
+		pe 10
+		As(5) 1
+		P  1
+		Na 10
+		Cl 10 charge
+	END
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	As(5)            1.000e-003  1.000e-003
+	Cl               8.125e-003  8.125e-003  Charge balance
+	Na               1.000e-002  1.000e-002
+	P                1.000e-003  1.000e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   4.000    
+                                       pe  =  10.000    
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.011e-002
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  = -1.253e-004
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.483e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   9
+                                  Total H  = 1.110166e+002
+                                  Total O  = 5.551422e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.095e-004  1.000e-004    -3.961    -4.000    -0.039
+   OH-                   1.110e-010  1.001e-010    -9.955   -10.000    -0.045
+   H2O                   5.551e+001  9.997e-001     1.744    -0.000     0.000
+As(5)           1.000e-003
+   H2AsO4-               9.815e-004  8.849e-004    -3.008    -3.053    -0.045
+   H3AsO4                1.761e-005  1.766e-005    -4.754    -4.753     0.001
+   HAsO4-2               9.265e-007  6.122e-007    -6.033    -6.213    -0.180
+   AsO4-3                3.482e-014  1.371e-014   -13.458   -13.863    -0.405
+Cl              8.125e-003
+   Cl-                   8.125e-003  7.313e-003    -2.090    -2.136    -0.046
+H(0)            1.413e-031
+   H2                    7.063e-032  7.079e-032   -31.151   -31.150     0.001
+Na              1.000e-002
+   Na+                   1.000e-002  9.026e-003    -2.000    -2.044    -0.044
+   NaHPO4-               1.092e-008  9.844e-009    -7.962    -8.007    -0.045
+O(0)            1.659e-030
+   O2                    8.293e-031  8.312e-031   -30.081   -30.080     0.001
+P               1.000e-003
+   H2PO4-                9.991e-004  9.008e-004    -3.000    -3.045    -0.045
+   HPO4-2                8.464e-007  5.593e-007    -6.072    -6.252    -0.180
+   NaHPO4-               1.092e-008  9.844e-009    -7.962    -8.007    -0.045
+   PO4-3                 6.405e-015  2.521e-015   -14.193   -14.598    -0.405
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	As2O5(cr)       -17.73   -9.51    8.23  As2O5
+	fix_pH           -4.00   -4.00    0.00  H+
+	H2(g)           -28.00  -31.15   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -5.76   -4.18    1.58  NaCl
+	O2(g)           -27.19  -30.08   -2.89  O2
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 1.	
+Using surface 1.	
+Using pure phase assemblage 1.	
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	 1.554e-004  Surface charge, eq
+Hfo_w         
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wH2PO4       6.320e-004       0.632  6.320e-004      -3.199
+	Hfo_wOH2+        1.576e-004       0.158  1.576e-004      -3.802
+	Hfo_wOH          1.222e-004       0.122  1.222e-004      -3.913
+	Hfo_wH2AsO4      8.606e-005       0.086  8.606e-005      -4.065
+	Hfo_wO-          2.170e-006       0.002  2.169e-006      -5.664
+	Hfo_wH2AsO3      1.265e-014       0.000  1.265e-014     -13.898
+	Hfo_wOHAsO4-3    3.828e-023       0.000  3.828e-023     -22.417
+	Hfo_wPO4-2       1.411e-038       0.000  1.411e-038     -37.850
+	Hfo_wHAsO4-      1.969e-050       0.000  1.969e-050     -49.706
+	Hfo_wHPO4-       1.996e-053       0.000  1.996e-053     -52.700
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	As               9.139e-004  9.139e-004
+	Cl               8.125e-003  8.125e-003
+	Na               1.000e-002  1.000e-002
+	P                3.680e-004  3.680e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.179      Charge balance
+                                       pe  =   6.017      Adjusted to redox equilibrium
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.082e-002
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  7.481e-004
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.554e-004
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.77
+                               Iterations  =  11
+                                  Total H  = 1.110157e+002
+                                  Total O  = 5.551206e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.683e-007  1.513e-007    -6.774    -6.820    -0.046
+   H+                    7.263e-008  6.616e-008    -7.139    -7.179    -0.041
+   H2O                   5.551e+001  9.997e-001     1.744    -0.000     0.000
+As(3)           4.065e-016
+   H3AsO3                4.017e-016  4.027e-016   -15.396   -15.395     0.001
+   H2AsO3-               4.795e-018  4.310e-018   -17.319   -17.366    -0.046
+   H4AsO3+               1.469e-023  1.320e-023   -22.833   -22.879    -0.046
+   HAsO3-2               1.992e-025  1.300e-025   -24.701   -24.886    -0.185
+   AsO3-3                1.024e-033  3.920e-034   -32.990   -33.407    -0.417
+As(5)           9.139e-004
+   HAsO4-2               5.394e-004  3.520e-004    -3.268    -3.453    -0.185
+   H2AsO4-               3.745e-004  3.366e-004    -3.427    -3.473    -0.046
+   AsO4-3                3.112e-008  1.191e-008    -7.507    -7.924    -0.417
+   H3AsO4                4.432e-009  4.443e-009    -8.353    -8.352     0.001
+Cl              8.125e-003
+   Cl-                   8.125e-003  7.289e-003    -2.090    -2.137    -0.047
+H(0)            5.716e-030
+   H2                    2.858e-030  2.865e-030   -29.544   -29.543     0.001
+Na              1.000e-002
+   Na+                   9.997e-003  8.997e-003    -2.000    -2.046    -0.046
+   NaHPO4-               2.624e-006  2.358e-006    -5.581    -5.627    -0.046
+O(0)            1.012e-033
+   O2                    5.062e-034  5.074e-034   -33.296   -33.295     0.001
+P               3.680e-004
+   HPO4-2                2.060e-004  1.344e-004    -3.686    -3.872    -0.185
+   H2PO4-                1.594e-004  1.432e-004    -3.798    -3.844    -0.046
+   NaHPO4-               2.624e-006  2.358e-006    -5.581    -5.627    -0.046
+   PO4-3                 2.393e-009  9.160e-010    -8.621    -9.038    -0.417
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Arsenolite      -29.41  -30.79   -1.38  As2O3
+	As2O5(cr)       -24.93  -16.70    8.23  As2O5
+	As_native       -42.45  -54.98  -12.53  As
+	Claudetite      -29.45  -30.79   -1.34  As2O3
+	fix_pH           -7.18   -7.18    0.00  H+
+	H2(g)           -26.39  -29.54   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -5.77   -4.18    1.58  NaCl
+	O2(g)           -30.40  -33.29   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+	PHASES
+	fix_pH
+		H+ = H+
+		log_k 0
+	USE solution 1
+	EQUILIBRIUM_PHASES
+	KINETICS
+		cvode
+		steps 10000 in 1 steps
+	     HFO_OH2+
+		  formula   OH2  1  
+	          m 1e-8
+	     HFO_O-
+		  formula   Na2O 1
+	          m 1e-8
+	     HFO_H2PO4
+	          formula   NaH2PO4  1
+	          m 1e-8
+	     HFO_H2AsO4
+		  formula   NaH2AsO4  1
+	          m 1e-8
+	     HFO_OH     
+		  formula   NaOH 1
+	          m .001
+	INCREMENTAL_REACTIONS
+	PRINT
+		warnings 1
+	USER_PRINT
+	10 sites = KIN("HFO_OH") + KIN("HFO_OH2+") + KIN("HFO_O-") + KIN("HFO_H2PO4") + KIN("HFO_H2AsO4")
+	20 print "Sum of species = sites:    ", sites
+	30 charge = KIN("HFO_OH2+") - KIN("HFO_O-") 
+	40 print "Charge on surface (eq):    ", charge
+	50 print "log Q/K HFO_OH2+:          ", get(2,1)
+	60 print "log Q/K HFO_O-:            ", get(3,1)
+	70 print "log Q/K HFO_H2PO4:         ", get(4,1)
+	80 print "log Q/K HFO_H2AsO4:        ", get(5,1)
+	END
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 1.	
+Using pure phase assemblage 1.	
+Using kinetics 1.	Kinetics defined in simulation 3.
+
+Kinetics 1.	Kinetics defined in simulation 3.
+
+	Time step: 10000 seconds  (Incremented time: 10000 seconds)
+
+	Rate name       Delta Moles Total Moles   Reactant        Coefficient
+
+	HFO_OH2+         1.577e-004  1.577e-004   OH2                       1
+	HFO_O-           2.157e-006  2.167e-006   Na2O                      1
+	HFO_H2PO4        6.320e-004  6.320e-004   NaH2PO4                   1
+	HFO_H2AsO4       8.606e-005  8.607e-005   NaH2AsO4                  1
+	HFO_OH          -8.779e-004  1.221e-004   NaOH                      1
+
+----------------------------------User print-----------------------------------
+
+Sum of species = sites:      1.0000e-003 
+Charge on surface (eq):      1.5550e-004 
+log Q/K HFO_OH2+:            4.5268e-009 
+log Q/K HFO_O-:              3.9168e-008 
+log Q/K HFO_H2PO4:          -2.0259e-007 
+log Q/K HFO_H2AsO4:         -5.4578e-008 
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	As               9.139e-004  9.139e-004
+	Cl               8.125e-003  8.125e-003
+	Na               1.016e-002  1.016e-002
+	P                3.680e-004  3.680e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.179      Charge balance
+                                       pe  =   5.028      Adjusted to redox equilibrium
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.090e-002
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  7.482e-004
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.310e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  = 1778
+                                  Total H  = 1.110157e+002
+                                  Total O  = 5.551206e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.682e-007  1.511e-007    -6.774    -6.821    -0.046
+   H+                    7.271e-008  6.621e-008    -7.138    -7.179    -0.041
+   H2O                   5.551e+001  9.997e-001     1.744    -0.000     0.000
+As(3)           3.870e-014
+   H3AsO3                3.824e-014  3.834e-014   -13.417   -13.416     0.001
+   H2AsO3-               4.562e-016  4.099e-016   -15.341   -15.387    -0.046
+   H4AsO3+               1.400e-021  1.258e-021   -20.854   -20.900    -0.046
+   HAsO3-2               1.895e-023  1.235e-023   -22.722   -22.908    -0.186
+   AsO3-3                9.752e-032  3.722e-032   -31.011   -31.429    -0.418
+As(5)           9.139e-004
+   HAsO4-2               5.394e-004  3.516e-004    -3.268    -3.454    -0.186
+   H2AsO4-               3.745e-004  3.365e-004    -3.427    -3.473    -0.046
+   AsO4-3                3.114e-008  1.189e-008    -7.507    -7.925    -0.418
+   H3AsO4                4.434e-009  4.445e-009    -8.353    -8.352     0.001
+Cl              8.125e-003
+   Cl-                   8.125e-003  7.287e-003    -2.090    -2.137    -0.047
+H(0)            5.439e-028
+   H2                    2.720e-028  2.726e-028   -27.565   -27.564     0.001
+Na              1.016e-002
+   Na+                   1.015e-002  9.134e-003    -1.993    -2.039    -0.046
+   NaHPO4-               2.661e-006  2.391e-006    -5.575    -5.621    -0.046
+O(0)            1.118e-037
+   O2                    5.590e-038  5.604e-038   -37.253   -37.251     0.001
+P               3.680e-004
+   HPO4-2                2.060e-004  1.342e-004    -3.686    -3.872    -0.186
+   H2PO4-                1.593e-004  1.432e-004    -3.798    -3.844    -0.046
+   NaHPO4-               2.661e-006  2.391e-006    -5.575    -5.621    -0.046
+   PO4-3                 2.395e-009  9.140e-010    -8.621    -9.039    -0.418
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Arsenolite      -25.45  -26.83   -1.38  As2O3
+	As2O5(cr)       -24.93  -16.70    8.23  As2O5
+	As_native       -37.51  -50.04  -12.53  As
+	Claudetite      -25.49  -26.83   -1.34  As2O3
+	fix_pH           -7.18   -7.18    0.00  H+
+	H2(g)           -24.41  -27.56   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -5.76   -4.18    1.58  NaCl
+	O2(g)           -34.36  -37.25   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

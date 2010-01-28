@@ -1,0 +1,105 @@
+   Input file: test_sit
+  Output file: test_sit.out
+Database file: ../database/sit.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	SIT
+	PHASES	
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	DATABASE ../database/sit.dat
+	SOLUTION
+		units mol/kgw
+		pH	0   charge
+		Cl	3
+		K       .001
+		N(5)    .001
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               3.000e+000  3.000e+000
+	K                1.000e-003  1.000e-003
+	N(5)             1.000e-003  1.000e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =  -0.591      Charge balance
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 1277805
+                          Density (g/cm3)  =   1.04834
+                        Activity of water  =   0.866
+                           Ionic strength  =  3.001e+000
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  = -3.000e+000
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -3.615e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  11
+                         Gamma iterations  =   4
+                      Osmotic coefficient  =   1.32621
+                         Density of water  =   0.99706
+                                  Total H  = 1.140124e+002
+                                  Total O  = 5.550922e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    3.000e+000  3.902e+000     0.477     0.591     0.114
+   OH-                   3.914e-015  2.223e-015   -14.407   -14.653    -0.246
+   H2O                   5.551e+001  8.664e-001     1.744    -0.062     0.000
+Cl              3.000e+000
+   Cl-                   3.000e+000  3.902e+000     0.477     0.591     0.114
+H(0)            2.156e-010
+   H2                    1.078e-010  1.078e-010    -9.967    -9.967     0.000
+K               1.000e-003
+   K+                    1.000e-003  5.676e-004    -3.000    -3.246    -0.246
+   KOH                   4.369e-019  4.369e-019   -18.360   -18.360     0.000
+N(5)            1.000e-003
+   NO3-                  1.000e-003  9.205e-004    -3.000    -3.036    -0.036
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -72.570   -72.570     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)            -6.82   -9.97   -3.15  H2
+	H2O(g)           -1.57   -0.06    1.51  H2O
+	O2(g)           -69.68  -72.57   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

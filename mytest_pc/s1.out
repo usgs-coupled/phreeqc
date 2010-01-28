@@ -1,0 +1,495 @@
+   Input file: s1
+  Output file: s1.out
+Database file: phreeqc.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	SURFACE_MASTER_SPECIES
+	 Su Su-
+	SURFACE_SPECIES
+	 Su- = Su-
+	 log_k 0
+	SOLUTION 0
+	 Na 1e-6
+	 Cl 2 charge
+	 water 1
+	SOLUTION 1-2
+	 Na 1e3
+	 Cl 1e3 charge
+	 water 1
+	SELECTED_OUTPUT
+	 high_precision
+	END
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               8.918e-010  8.918e-010  Charge balance
+	Na               1.000e-009  1.000e-009
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.010e-007
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  1.082e-010
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -6.485e-022
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  12
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.001e-007  1.001e-007    -6.999    -7.000    -0.000
+   H+                    1.000e-007  1.000e-007    -7.000    -7.000    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744    -0.000     0.000
+Cl              8.918e-010
+   Cl-                   8.918e-010  8.915e-010    -9.050    -9.050    -0.000
+H(0)            1.416e-025
+   H2                    7.079e-026  7.079e-026   -25.150   -25.150     0.000
+Na              1.000e-009
+   Na+                   1.000e-009  9.996e-010    -9.000    -9.000    -0.000
+   NaOH                  6.604e-017  6.604e-017   -16.180   -16.180     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.080   -42.080     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite          -19.63  -18.05    1.58  NaCl
+	O2(g)           -39.12  -42.08   -2.96  O2
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               1.000e+000  1.000e+000  Charge balance
+	Na               1.000e+000  1.000e+000
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+                        Activity of water  =   0.966
+                           Ionic strength  =  1.000e+000
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  6.866e-008
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  1.150e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =  10
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.669e-007  9.670e-008    -6.778    -7.015    -0.237
+   H+                    1.345e-007  1.000e-007    -6.871    -7.000    -0.129
+   H2O                   5.551e+001  9.660e-001     1.744    -0.015     0.000
+Cl              1.000e+000
+   Cl-                   1.000e+000  5.998e-001    -0.000    -0.222    -0.222
+H(0)            1.125e-025
+   H2                    5.623e-026  7.079e-026   -25.250   -25.150     0.100
+Na              1.000e+000
+   Na+                   1.000e+000  7.159e-001    -0.000    -0.145    -0.145
+   NaOH                  3.629e-008  4.569e-008    -7.440    -7.340     0.100
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.210   -42.110     0.100
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.53   -0.02    1.51  H2O
+	Halite           -1.95   -0.37    1.58  NaCl
+	O2(g)           -39.15  -42.11   -2.96  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+	USE solution 1
+	SURFACE 1
+	 Su 1e-0 1e4 1
+	 equilibrate 1
+	 donnan d 1
+	END
+------------------------------------------------------
+Beginning of initial surface-composition calculations.
+------------------------------------------------------
+
+Surface 1.	
+
+Su            
+	 2.220e-016  Surface + diffuse layer charge, eq
+	-1.000e+000  Surface charge, eq
+	-9.649e+000  sigma, C/m**2
+	-2.622e-001  psi, V
+	 1.020e+001  -F*psi/RT
+	 2.702e+004  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 3.040e-003 kg, 100.0% of total DDL-water.
+	Radius of total pore:   2.006e-007 m; of free pore: 2.003e-007 m.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Cl            	 9.2385e-006
+	H             	 1.3463e-007
+	Na            	 1.0000e+000
+	O             	 1.1185e-010
+
+Su            
+	 1.000e+000  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Su-              1.000e+000       1.000  1.000e+000       0.000
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 1.	
+Using surface 1.	Surface assemblage after simulation 2.
+
+------------------------------Surface composition------------------------------
+
+Su            
+	 1.554e-015  Surface + diffuse layer charge, eq
+	-1.000e+000  Surface charge, eq
+	-9.649e+000  sigma, C/m**2
+	-2.622e-001  psi, V
+	 1.020e+001  -F*psi/RT
+	 2.702e+004  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 3.040e-003 kg, 100.0% of total DDL-water.
+	Radius of total pore:   2.006e-007 m; of free pore: 2.003e-007 m.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Cl            	 9.2385e-006
+	H             	 1.3463e-007
+	Na            	 1.0000e+000
+	O             	 1.1185e-010
+
+Su            
+	 1.000e+000  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Su-              1.000e+000       1.000  1.000e+000       0.000
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               1.000e+000  1.000e+000
+	Na               1.000e+000  1.000e+000
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000      Charge balance
+                                       pe  =   3.000      Adjusted to redox equilibrium
+                        Activity of water  =   0.966
+                           Ionic strength  =  1.000e+000
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  6.866e-008
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  1.150e-016
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   0
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.669e-007  9.670e-008    -6.778    -7.015    -0.237
+   H+                    1.345e-007  1.000e-007    -6.871    -7.000    -0.129
+   H2O                   5.567e+001  9.660e-001     1.746    -0.015     0.000
+Cl              1.000e+000
+   Cl-                   1.000e+000  5.998e-001    -0.000    -0.222    -0.222
+H(0)            1.125e-023
+   H2                    5.623e-024  7.079e-024   -23.250   -23.150     0.100
+Na              1.000e+000
+   Na+                   1.000e+000  7.159e-001    -0.000    -0.145    -0.145
+   NaOH                  3.629e-008  4.569e-008    -7.440    -7.340     0.100
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -46.210   -46.110     0.100
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -20.00  -23.15   -3.15  H2
+	H2O(g)           -1.53   -0.02    1.51  H2O
+	Halite           -1.95   -0.37    1.58  NaCl
+	O2(g)           -43.15  -46.11   -2.96  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+	TRANSPORT
+	 cells 1
+	 shifts 1 1
+	END
+WARNING: No cell-lengths were read; length = 1 m assumed.
+WARNING: No dispersivities were read; disp = 0 assumed.
+------------------------------------
+Beginning of transport calculations.
+------------------------------------
+
+-------------------------------
+Equilibrating initial solutions
+-------------------------------
+
+Using solution 1.	
+Using surface 1.	Surface assemblage after simulation 2.
+
+------------------------------Surface composition------------------------------
+
+Su            
+	 0.000e+000  Surface + diffuse layer charge, eq
+	-1.000e+000  Surface charge, eq
+	-9.649e+000  sigma, C/m**2
+	-2.622e-001  psi, V
+	 1.020e+001  -F*psi/RT
+	 2.702e+004  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 3.040e-003 kg, 100.0% of total DDL-water.
+	Radius of total pore:   2.006e-007 m; of free pore: 2.003e-007 m.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Cl            	 9.2385e-006
+	H             	 1.3463e-007
+	Na            	 1.0000e+000
+	O             	 1.1185e-010
+
+Su            
+	 1.000e+000  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Su-              1.000e+000       1.000  1.000e+000       0.000
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               1.000e+000  1.000e+000
+	Na               1.000e+000  1.000e+000
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000      Charge balance
+                                       pe  =   5.300      Adjusted to redox equilibrium
+                        Activity of water  =   0.966
+                           Ionic strength  =  1.000e+000
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  6.866e-008
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  3.984e-018
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   0
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.669e-007  9.670e-008    -6.778    -7.015    -0.237
+   H+                    1.345e-007  1.000e-007    -6.871    -7.000    -0.129
+   H2O                   5.567e+001  9.660e-001     1.746    -0.015     0.000
+Cl              1.000e+000
+   Cl-                   1.000e+000  5.998e-001    -0.000    -0.222    -0.222
+H(0)            2.825e-028
+   H2                    1.413e-028  1.778e-028   -27.850   -27.750     0.100
+Na              1.000e+000
+   Na+                   1.000e+000  7.159e-001    -0.000    -0.145    -0.145
+   NaOH                  3.629e-008  4.569e-008    -7.440    -7.340     0.100
+O(0)            1.954e-037
+   O2                    9.771e-038  1.230e-037   -37.010   -36.910     0.100
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -24.60  -27.75   -3.15  H2
+	H2O(g)           -1.53   -0.02    1.51  H2O
+	Halite           -1.95   -0.37    1.58  NaCl
+	O2(g)           -33.95  -36.91   -2.96  O2
+
+Transport step   1.
+
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
+Using solution 1.	Solution after simulation 3.
+Using surface 1.	Surface assemblage after simulation 3.
+
+------------------------------Surface composition------------------------------
+
+Su            
+	 7.250e-013  Surface + diffuse layer charge, eq
+	-1.000e+000  Surface charge, eq
+	-9.649e+000  sigma, C/m**2
+	-5.238e-001  psi, V
+	 2.039e+001  -F*psi/RT
+	 7.144e+008  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 4.336e-001 kg, 100.0% of total DDL-water.
+	Radius of total pore:   2.006e-007 m; of free pore: 1.511e-007 m.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Cl            	 1.1540e-010
+	H             	 1.2432e-005
+	Na            	 9.9999e-001
+	O             	 3.8403e-010
+
+Su            
+	 1.000e+000  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Su-              1.000e+000       1.000  1.756e+000       0.245
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Cl               1.623e-005  9.239e-006
+	Na               3.782e-005  2.154e-005
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   9.331      Charge balance
+                                       pe  =  -3.881      Adjusted to redox equilibrium
+                        Activity of water  =   1.000
+                           Ionic strength  =  3.782e-005
+                       Mass of water (kg)  =  5.694e-001
+                 Total alkalinity (eq/kg)  =  2.160e-005
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -2.033e-020
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   1
+                                  Total H  = 6.321133e+001
+                                  Total O  = 3.160567e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   2.160e-005  2.144e-005    -4.666    -4.669    -0.003
+   H+                    4.702e-010  4.669e-010    -9.328    -9.331    -0.003
+   H2O                   9.778e+001  1.000e+000     1.990    -0.000     0.000
+Cl              1.623e-005
+   Cl-                   1.623e-005  1.611e-005    -4.790    -4.793    -0.003
+H(0)            1.781e-014
+   H2                    8.905e-015  8.905e-015   -14.050   -14.050     0.000
+Na              3.782e-005
+   Na+                   3.782e-005  3.755e-005    -4.422    -4.425    -0.003
+   NaOH                  5.314e-010  5.314e-010    -9.275    -9.275     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -64.279   -64.279     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -10.90  -14.05   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite          -10.80   -9.22    1.58  NaCl
+	O2(g)           -61.32  -64.28   -2.96  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 4.
+------------------------------------
+
+-----------
+End of run.
+-----------
+

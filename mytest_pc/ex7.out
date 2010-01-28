@@ -1,0 +1,1522 @@
+   Input file: ex7
+  Output file: ex7.out
+Database file: ../database/phreeqc.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	DATABASE ../database/phreeqc.dat
+	knobs
+		logfile
+	TITLE Example 7.--Organic decomposition and bubble formation
+	SOLUTION 1
+	EQUILIBRIUM_PHASES 1
+	        Calcite
+	        CO2(g)  -1.5
+	SAVE solution 1
+	SELECTED_OUTPUT
+	        file ex7.pun
+	        si CO2(g) CH4(g) N2(g) NH3(g)
+	        gases CO2(g) CH4(g) N2(g) NH3(g)
+	END
+-----
+TITLE
+-----
+
+ Example 7.--Organic decomposition and bubble formation
+
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Pure water     
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.001e-007
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  1.082e-010
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.082e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.05
+                               Iterations  =   0
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.002e-007  1.001e-007    -6.999    -6.999    -0.000
+   H+                    1.001e-007  1.000e-007    -7.000    -7.000    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744     0.000     0.000
+H(0)            1.416e-025
+   H2                    7.079e-026  7.079e-026   -25.150   -25.150     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.080   -42.080     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.51    0.00    1.51  H2O
+	O2(g)           -39.19  -42.08   -2.89  O2
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 1.	
+Using pure phase assemblage 1.	
+
+-------------------------------Phase assemblage--------------------------------
+
+                                                      Moles in assemblage
+Phase                  SI log IAP  log KT      Initial       Final       Delta
+
+Calcite              0.00   -8.48   -8.48   1.000e+001  9.997e+000 -2.502e-003
+CO2(g)              -1.50   -2.97   -1.47   1.000e+001  9.996e+000 -3.568e-003
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                6.071e-003  6.071e-003
+	Ca               2.502e-003  2.502e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.971      Charge balance
+                                       pe  =  -0.662      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 455
+                          Density (g/cm3)  =   0.99737
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.282e-003
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  5.004e-003
+                       Total CO2 (mol/kg)  =  6.071e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  16
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.552086e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.159e-007  1.070e-007    -6.936    -6.971    -0.035
+   OH-                   1.025e-007  9.358e-008    -6.989    -7.029    -0.040
+   H2O                   5.551e+001  9.999e-001     1.744    -0.000     0.000
+C(-4)           8.918e-030
+   CH4                   8.918e-030  8.933e-030   -29.050   -29.049     0.001
+C(4)            6.071e-003
+   HCO3-                 4.883e-003  4.476e-003    -2.311    -2.349    -0.038
+   CO2                   1.075e-003  1.077e-003    -2.969    -2.968     0.001
+   CaHCO3+               1.052e-004  9.640e-005    -3.978    -4.016    -0.038
+   CaCO3                 5.556e-006  5.565e-006    -5.255    -5.255     0.001
+   CO3-2                 2.778e-006  1.962e-006    -5.556    -5.707    -0.151
+Ca              2.502e-003
+   Ca+2                  2.391e-003  1.688e-003    -2.621    -2.773    -0.151
+   CaHCO3+               1.052e-004  9.640e-005    -3.978    -4.016    -0.038
+   CaCO3                 5.556e-006  5.565e-006    -5.255    -5.255     0.001
+   CaOH+                 2.864e-009  2.619e-009    -8.543    -8.582    -0.039
+H(0)            3.407e-016
+   H2                    1.704e-016  1.707e-016   -15.769   -15.768     0.001
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -60.845   -60.844     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.14   -8.48   -8.34  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
+	CH4(g)          -26.19  -29.05   -2.86  CH4
+	CO2(g)           -1.50   -2.97   -1.47  CO2
+	H2(g)           -12.62  -15.77   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	O2(g)           -57.95  -60.84   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+	USE solution 1
+	GAS_PHASE 1
+	        pressure       1.1
+	        CO2(g)          0.0
+	        CH4(g)          0.0
+	        N2(g)           0.0
+	        NH3(g)          0.0
+	REACTION 1
+	        (CH2O)N0.07     1.0
+	        1. 2. 3. 4. 8. 16. 32 64. 125. 250. 500. 1000. mmol
+	END
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 1.000e-003 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                7.071e-003  7.071e-003
+	Ca               2.502e-003  2.502e-003
+	N                7.000e-005  7.000e-005
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.824      Charge balance
+                                       pe  =  -3.712      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 463
+                          Density (g/cm3)  =   0.99738
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.353e-003
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  5.074e-003
+                       Total CO2 (mol/kg)  =  6.597e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  16
+                                  Total H  = 1.110144e+002
+                                  Total O  = 5.552186e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.625e-007  1.500e-007    -6.789    -6.824    -0.035
+   OH-                   7.313e-008  6.673e-008    -7.136    -7.176    -0.040
+   H2O                   5.551e+001  9.998e-001     1.744    -0.000     0.000
+C(-4)           4.738e-004
+   CH4                   4.738e-004  4.746e-004    -3.324    -3.324     0.001
+C(4)            6.597e-003
+   HCO3-                 4.955e-003  4.541e-003    -2.305    -2.343    -0.038
+   CO2                   1.529e-003  1.532e-003    -2.816    -2.815     0.001
+   CaHCO3+               1.066e-004  9.766e-005    -3.972    -4.010    -0.038
+   CaCO3                 4.014e-006  4.021e-006    -5.396    -5.396     0.001
+   CO3-2                 2.013e-006  1.420e-006    -5.696    -5.848    -0.152
+Ca              2.502e-003
+   Ca+2                  2.392e-003  1.686e-003    -2.621    -2.773    -0.152
+   CaHCO3+               1.066e-004  9.766e-005    -3.972    -4.010    -0.038
+   CaCO3                 4.014e-006  4.021e-006    -5.396    -5.396     0.001
+   CaOH+                 2.041e-009  1.865e-009    -8.690    -8.729    -0.039
+H(0)            8.423e-010
+   H2                    4.212e-010  4.219e-010    -9.376    -9.375     0.001
+N(-3)           6.986e-005
+   NH4+                  6.962e-005  6.338e-005    -4.157    -4.198    -0.041
+   NH3                   2.404e-007  2.408e-007    -6.619    -6.618     0.001
+N(0)            1.421e-007
+   N2                    7.103e-008  7.115e-008    -7.149    -7.148     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.343   -62.383    -0.040
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.688   -84.728    -0.040
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.631   -73.631     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.28   -8.62   -8.34  CaCO3
+	Calcite          -0.14   -8.62   -8.48  CaCO3
+	CH4(g)           -0.46   -3.32   -2.86  CH4
+	CO2(g)           -1.35   -2.81   -1.47  CO2
+	H2(g)            -6.22   -9.37   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -3.89   -7.15   -3.26  N2
+	NH3(g)           -8.39   -6.62    1.77  NH3
+	O2(g)           -70.74  -73.63   -2.89  O2
+
+Reaction step 2.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 2.000e-003 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                8.071e-003  8.071e-003
+	Ca               2.502e-003  2.502e-003
+	N                1.400e-004  1.400e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.717      Charge balance
+                                       pe  =  -3.628      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 470
+                          Density (g/cm3)  =   0.99739
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.422e-003
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  5.144e-003
+                       Total CO2 (mol/kg)  =  7.123e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  21
+                                  Total H  = 1.110164e+002
+                                  Total O  = 5.552286e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    2.080e-007  1.920e-007    -6.682    -6.717    -0.035
+   OH-                   5.716e-008  5.214e-008    -7.243    -7.283    -0.040
+   H2O                   5.551e+001  9.998e-001     1.744    -0.000     0.000
+C(-4)           9.476e-004
+   CH4                   9.476e-004  9.493e-004    -3.023    -3.023     0.001
+C(4)            7.123e-003
+   HCO3-                 5.026e-003  4.605e-003    -2.299    -2.337    -0.038
+   CO2                   1.984e-003  1.988e-003    -2.702    -2.702     0.001
+   CaHCO3+               1.079e-004  9.886e-005    -3.967    -4.005    -0.038
+   CaCO3                 3.175e-006  3.180e-006    -5.498    -5.498     0.001
+   CO3-2                 1.597e-006  1.125e-006    -5.797    -5.949    -0.152
+Ca              2.502e-003
+   Ca+2                  2.391e-003  1.683e-003    -2.621    -2.774    -0.153
+   CaHCO3+               1.079e-004  9.886e-005    -3.967    -4.005    -0.038
+   CaCO3                 3.175e-006  3.180e-006    -5.498    -5.498     0.001
+   CaOH+                 1.592e-009  1.455e-009    -8.798    -8.837    -0.039
+H(0)            9.385e-010
+   H2                    4.693e-010  4.701e-010    -9.329    -9.328     0.001
+N(-3)           1.398e-004
+   NH4+                  1.394e-004  1.268e-004    -3.856    -3.897    -0.041
+   NH3                   3.759e-007  3.765e-007    -6.425    -6.424     0.001
+N(0)            2.511e-007
+   N2                    1.256e-007  1.258e-007    -6.901    -6.900     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.396   -62.437    -0.040
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.789   -84.829    -0.040
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.725   -73.724     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.39   -8.72   -8.34  CaCO3
+	Calcite          -0.24   -8.72   -8.48  CaCO3
+	CH4(g)           -0.16   -3.02   -2.86  CH4
+	CO2(g)           -1.23   -2.70   -1.47  CO2
+	H2(g)            -6.18   -9.33   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -3.64   -6.90   -3.26  N2
+	NH3(g)           -8.19   -6.42    1.77  NH3
+	O2(g)           -70.83  -73.72   -2.89  O2
+
+Reaction step 3.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 3.000e-003 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  1.18e-004 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                    0.01  1.028e+000  0.000e+000  4.966e-006  4.966e-006
+CO2(g)                   -1.14  7.178e-002  0.000e+000  3.468e-007  3.468e-007
+N2(g)                    -3.52  3.025e-004  0.000e+000  1.461e-009  1.461e-009
+NH3(g)                   -8.10  7.910e-009  0.000e+000  3.822e-014  3.822e-014
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                9.066e-003  9.065e-003
+	Ca               2.502e-003  2.502e-003
+	N                2.100e-004  2.100e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.633      Charge balance
+                                       pe  =  -3.555      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 478
+                          Density (g/cm3)  =   0.99740
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.491e-003
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  5.214e-003
+                       Total CO2 (mol/kg)  =  7.649e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  24
+                                  Total H  = 1.110184e+002
+                                  Total O  = 5.552386e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    2.524e-007  2.328e-007    -6.598    -6.633    -0.035
+   OH-                   4.715e-008  4.299e-008    -7.327    -7.367    -0.040
+   H2O                   5.551e+001  9.998e-001     1.744    -0.000     0.000
+C(-4)           1.416e-003
+   CH4                   1.416e-003  1.419e-003    -2.849    -2.848     0.001
+C(4)            7.649e-003
+   HCO3-                 5.097e-003  4.667e-003    -2.293    -2.331    -0.038
+   CO2                   2.439e-003  2.444e-003    -2.613    -2.612     0.001
+   CaHCO3+               1.092e-004  1.000e-004    -3.962    -4.000    -0.038
+   CaCO3                 2.649e-006  2.653e-006    -5.577    -5.576     0.001
+   CO3-2                 1.337e-006  9.401e-007    -5.874    -6.027    -0.153
+Ca              2.502e-003
+   Ca+2                  2.390e-003  1.680e-003    -2.622    -2.775    -0.153
+   CaHCO3+               1.092e-004  1.000e-004    -3.962    -4.000    -0.038
+   CaCO3                 2.649e-006  2.653e-006    -5.577    -5.576     0.001
+   CaOH+                 1.311e-009  1.197e-009    -8.882    -8.922    -0.039
+H(0)            9.855e-010
+   H2                    4.927e-010  4.936e-010    -9.307    -9.307     0.001
+N(-3)           2.097e-004
+   NH4+                  2.092e-004  1.903e-004    -3.679    -3.721    -0.041
+   NH3                   4.650e-007  4.658e-007    -6.333    -6.332     0.001
+N(0)            3.319e-007
+   N2                    1.659e-007  1.662e-007    -6.780    -6.779     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.451   -62.492    -0.041
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.865   -84.905    -0.041
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.768   -73.767     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.47   -8.80   -8.34  CaCO3
+	Calcite          -0.32   -8.80   -8.48  CaCO3
+	CH4(g)            0.01   -2.85   -2.86  CH4
+	CO2(g)           -1.14   -2.61   -1.47  CO2
+	H2(g)            -6.16   -9.31   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -3.52   -6.78   -3.26  N2
+	NH3(g)           -8.10   -6.33    1.77  NH3
+	O2(g)           -70.87  -73.77   -2.89  O2
+
+Reaction step 4.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 4.000e-003 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  1.20e-002 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                    0.01  1.016e+000  0.000e+000  4.960e-004  4.960e-004
+CO2(g)                   -1.08  8.400e-002  0.000e+000  4.103e-005  4.103e-005
+N2(g)                    -3.34  4.559e-004  0.000e+000  2.227e-007  2.227e-007
+NH3(g)                   -8.04  9.114e-009  0.000e+000  4.451e-012  4.451e-012
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                9.534e-003  9.533e-003
+	Ca               2.502e-003  2.502e-003
+	N                2.796e-004  2.796e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.570      Charge balance
+                                       pe  =  -3.483      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 485
+                          Density (g/cm3)  =   0.99741
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.559e-003
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  5.283e-003
+                       Total CO2 (mol/kg)  =  8.135e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  22
+                                  Total H  = 1.110184e+002
+                                  Total O  = 5.552478e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    2.917e-007  2.689e-007    -6.535    -6.570    -0.035
+   OH-                   4.083e-008  3.722e-008    -7.389    -7.429    -0.040
+   H2O                   5.551e+001  9.998e-001     1.744    -0.000     0.000
+C(-4)           1.399e-003
+   CH4                   1.399e-003  1.402e-003    -2.854    -2.853     0.001
+C(4)            8.135e-003
+   HCO3-                 5.166e-003  4.729e-003    -2.287    -2.325    -0.038
+   CO2                   2.855e-003  2.860e-003    -2.544    -2.544     0.001
+   CaHCO3+               1.105e-004  1.012e-004    -3.957    -3.995    -0.038
+   CaCO3                 2.319e-006  2.323e-006    -5.635    -5.634     0.001
+   CO3-2                 1.174e-006  8.246e-007    -5.930    -6.084    -0.153
+Ca              2.502e-003
+   Ca+2                  2.389e-003  1.677e-003    -2.622    -2.775    -0.154
+   CaHCO3+               1.105e-004  1.012e-004    -3.957    -3.995    -0.038
+   CaCO3                 2.319e-006  2.323e-006    -5.635    -5.634     0.001
+   CaOH+                 1.133e-009  1.035e-009    -8.946    -8.985    -0.040
+H(0)            9.446e-010
+   H2                    4.723e-010  4.731e-010    -9.326    -9.325     0.001
+N(-3)           2.791e-004
+   NH4+                  2.785e-004  2.532e-004    -3.555    -3.596    -0.041
+   NH3                   5.357e-007  5.366e-007    -6.271    -6.270     0.001
+N(0)            5.002e-007
+   N2                    2.501e-007  2.506e-007    -6.602    -6.601     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.397   -62.438    -0.041
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.792   -84.833    -0.041
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.731   -73.730     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.52   -8.86   -8.34  CaCO3
+	Calcite          -0.38   -8.86   -8.48  CaCO3
+	CH4(g)            0.01   -2.85   -2.86  CH4
+	CO2(g)           -1.08   -2.54   -1.47  CO2
+	H2(g)            -6.18   -9.33   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -3.34   -6.60   -3.26  N2
+	NH3(g)           -8.04   -6.27    1.77  NH3
+	O2(g)           -70.84  -73.73   -2.89  O2
+
+Reaction step 5.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 8.000e-003 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  6.20e-002 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.01  9.694e-001  0.000e+000  2.457e-003  2.457e-003
+CO2(g)                   -0.89  1.294e-001  0.000e+000  3.279e-004  3.279e-004
+N2(g)                    -2.92  1.190e-003  0.000e+000  3.017e-006  3.017e-006
+NH3(g)                   -7.91  1.231e-008  0.000e+000  3.119e-011  3.119e-011
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                1.129e-002  1.129e-002
+	Ca               2.502e-003  2.502e-003
+	N                5.540e-004  5.540e-004
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.404      Charge balance
+                                       pe  =  -3.291      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 515
+                          Density (g/cm3)  =   0.99741
+                        Activity of water  =   1.000
+                           Ionic strength  =  7.824e-003
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  5.557e-003
+                       Total CO2 (mol/kg)  =  9.951e-003
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  22
+                                  Total H  = 1.110186e+002
+                                  Total O  = 5.552820e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    4.278e-007  3.940e-007    -6.369    -6.404    -0.036
+   OH-                   2.791e-008  2.540e-008    -7.554    -7.595    -0.041
+   H2O                   5.551e+001  9.998e-001     1.744    -0.000     0.000
+C(-4)           1.336e-003
+   CH4                   1.336e-003  1.338e-003    -2.874    -2.873     0.001
+C(4)            9.951e-003
+   HCO3-                 5.436e-003  4.970e-003    -2.265    -2.304    -0.039
+   CO2                   4.396e-003  4.404e-003    -2.357    -2.356     0.001
+   CaHCO3+               1.155e-004  1.056e-004    -3.937    -3.976    -0.039
+   CaCO3                 1.652e-006  1.655e-006    -5.782    -5.781     0.001
+   CO3-2                 8.467e-007  5.915e-007    -6.072    -6.228    -0.156
+Ca              2.502e-003
+   Ca+2                  2.385e-003  1.665e-003    -2.623    -2.779    -0.156
+   CaHCO3+               1.155e-004  1.056e-004    -3.937    -3.976    -0.039
+   CaCO3                 1.652e-006  1.655e-006    -5.782    -5.781     0.001
+   CaOH+                 7.691e-010  7.011e-010    -9.114    -9.154    -0.040
+H(0)            8.381e-010
+   H2                    4.190e-010  4.198e-010    -9.378    -9.377     0.001
+N(-3)           5.527e-004
+   NH4+                  5.520e-004  5.011e-004    -3.258    -3.300    -0.042
+   NH3                   7.234e-007  7.247e-007    -6.141    -6.140     0.001
+N(0)            1.306e-006
+   N2                    6.529e-007  6.541e-007    -6.185    -6.184     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.276   -62.317    -0.041
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.619   -84.661    -0.041
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.627   -73.626     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.67   -9.01   -8.34  CaCO3
+	Calcite          -0.53   -9.01   -8.48  CaCO3
+	CH4(g)           -0.01   -2.87   -2.86  CH4
+	CO2(g)           -0.89   -2.36   -1.47  CO2
+	H2(g)            -6.23   -9.38   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -2.92   -6.18   -3.26  N2
+	NH3(g)           -7.91   -6.14    1.77  NH3
+	O2(g)           -70.73  -73.63   -2.89  O2
+
+Reaction step 6.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 1.600e-002 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  1.75e-001 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.05  8.925e-001  0.000e+000  6.369e-003  6.369e-003
+CO2(g)                   -0.69  2.043e-001  0.000e+000  1.458e-003  1.458e-003
+N2(g)                    -2.50  3.185e-003  0.000e+000  2.272e-005  2.272e-005
+NH3(g)                   -7.78  1.644e-008  0.000e+000  1.173e-010  1.173e-010
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                1.425e-002  1.424e-002
+	Ca               2.502e-003  2.502e-003
+	N                1.075e-003  1.075e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.244      Charge balance
+                                       pe  =  -3.101      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 571
+                          Density (g/cm3)  =   0.99743
+                        Activity of water  =   1.000
+                           Ionic strength  =  8.325e-003
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  6.076e-003
+                       Total CO2 (mol/kg)  =  1.302e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.069e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  20
+                                  Total H  = 1.110190e+002
+                                  Total O  = 5.553394e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    6.204e-007  5.702e-007    -6.207    -6.244    -0.037
+   OH-                   1.934e-008  1.755e-008    -7.714    -7.756    -0.042
+   H2O                   5.551e+001  9.997e-001     1.744    -0.000     0.000
+C(-4)           1.230e-003
+   CH4                   1.230e-003  1.232e-003    -2.910    -2.909     0.001
+C(4)            1.302e-002
+   CO2                   6.942e-003  6.955e-003    -2.159    -2.158     0.001
+   HCO3-                 5.947e-003  5.424e-003    -2.226    -2.266    -0.040
+   CaHCO3+               1.247e-004  1.137e-004    -3.904    -3.944    -0.040
+   CaCO3                 1.229e-006  1.231e-006    -5.911    -5.910     0.001
+   CO3-2                 6.448e-007  4.461e-007    -6.191    -6.351    -0.160
+Ca              2.502e-003
+   Ca+2                  2.376e-003  1.643e-003    -2.624    -2.784    -0.160
+   CaHCO3+               1.247e-004  1.137e-004    -3.904    -3.944    -0.040
+   CaCO3                 1.229e-006  1.231e-006    -5.911    -5.910     0.001
+   CaOH+                 5.257e-010  4.780e-010    -9.279    -9.321    -0.041
+H(0)            7.322e-010
+   H2                    3.661e-010  3.668e-010    -9.436    -9.436     0.001
+N(-3)           1.071e-003
+   NH4+                  1.070e-003  9.688e-004    -2.971    -3.014    -0.043
+   NH3                   9.664e-007  9.682e-007    -6.015    -6.014     0.001
+N(0)            3.493e-006
+   N2                    1.747e-006  1.750e-006    -5.758    -5.757     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -62.134   -62.176    -0.043
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.418   -84.461    -0.043
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.510   -73.509     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.80   -9.13   -8.34  CaCO3
+	Calcite          -0.66   -9.13   -8.48  CaCO3
+	CH4(g)           -0.05   -2.91   -2.86  CH4
+	CO2(g)           -0.69   -2.16   -1.47  CO2
+	H2(g)            -6.29   -9.44   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -2.50   -5.76   -3.26  N2
+	NH3(g)           -7.78   -6.01    1.77  NH3
+	O2(g)           -70.62  -73.51   -2.89  O2
+
+Reaction step 7.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 3.200e-002 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  4.42e-001 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.10  7.863e-001  0.000e+000  1.420e-002  1.420e-002
+CO2(g)                   -0.52  3.050e-001  0.000e+000  5.508e-003  5.508e-003
+N2(g)                    -2.06  8.691e-003  0.000e+000  1.569e-004  1.569e-004
+NH3(g)                   -7.65  2.229e-008  0.000e+000  4.024e-010  4.024e-010
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                1.837e-002  1.836e-002
+	Ca               2.502e-003  2.502e-003
+	N                1.926e-003  1.926e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.125      Charge balance
+                                       pe  =  -2.954      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 661
+                          Density (g/cm3)  =   0.99745
+                        Activity of water  =   1.000
+                           Ionic strength  =  9.142e-003
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  6.921e-003
+                       Total CO2 (mol/kg)  =  1.728e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  19
+                                  Total H  = 1.110196e+002
+                                  Total O  = 5.554184e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    8.182e-007  7.497e-007    -6.087    -6.125    -0.038
+   OH-                   1.477e-008  1.335e-008    -7.831    -7.875    -0.044
+   H2O                   5.551e+001  9.996e-001     1.744    -0.000     0.000
+C(-4)           1.083e-003
+   CH4                   1.083e-003  1.085e-003    -2.965    -2.964     0.001
+C(4)            1.728e-002
+   CO2                   1.036e-002  1.039e-002    -1.984    -1.984     0.001
+   HCO3-                 6.779e-003  6.159e-003    -2.169    -2.211    -0.042
+   CaHCO3+               1.391e-004  1.264e-004    -3.857    -3.898    -0.042
+   CaCO3                 1.039e-006  1.041e-006    -5.983    -5.983     0.001
+   CO3-2                 5.653e-007  3.853e-007    -6.248    -6.414    -0.167
+Ca              2.502e-003
+   Ca+2                  2.362e-003  1.609e-003    -2.627    -2.794    -0.167
+   CaHCO3+               1.391e-004  1.264e-004    -3.857    -3.898    -0.042
+   CaCO3                 1.039e-006  1.041e-006    -5.983    -5.983     0.001
+   CaOH+                 3.931e-010  3.560e-010    -9.406    -9.449    -0.043
+H(0)            6.416e-010
+   H2                    3.208e-010  3.215e-010    -9.494    -9.493     0.001
+N(-3)           1.917e-003
+   NH4+                  1.915e-003  1.726e-003    -2.718    -2.763    -0.045
+   NH3                   1.309e-006  1.312e-006    -5.883    -5.882     0.001
+N(0)            9.532e-006
+   N2                    4.766e-006  4.776e-006    -5.322    -5.321     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.947   -61.991    -0.045
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -84.174   -84.219    -0.045
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.396   -73.395     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.87   -9.21   -8.34  CaCO3
+	Calcite          -0.73   -9.21   -8.48  CaCO3
+	CH4(g)           -0.10   -2.96   -2.86  CH4
+	CO2(g)           -0.52   -1.98   -1.47  CO2
+	H2(g)            -6.34   -9.49   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -2.06   -5.32   -3.26  N2
+	NH3(g)           -7.65   -5.88    1.77  NH3
+	O2(g)           -70.50  -73.39   -2.89  O2
+
+Reaction step 8.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 6.400e-002 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  1.08e+000 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.17  6.803e-001  0.000e+000  3.001e-002  3.001e-002
+CO2(g)                   -0.40  4.010e-001  0.000e+000  1.769e-002  1.769e-002
+N2(g)                    -1.73  1.865e-002  0.000e+000  8.227e-004  8.227e-004
+NH3(g)                   -7.55  2.791e-008  0.000e+000  1.231e-009  1.231e-009
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                2.238e-002  2.237e-002
+	Ca               2.502e-003  2.502e-003
+	N                2.835e-003  2.835e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.058      Charge balance
+                                       pe  =  -2.864      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 757
+                          Density (g/cm3)  =   0.99748
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.001e-002
+                       Mass of water (kg)  =  9.999e-001
+                 Total alkalinity (eq/kg)  =  7.819e-003
+                       Total CO2 (mol/kg)  =  2.144e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  19
+                                  Total H  = 1.110204e+002
+                                  Total O  = 5.554948e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    9.582e-007  8.753e-007    -6.019    -6.058    -0.039
+   OH-                   1.270e-008  1.143e-008    -7.896    -7.942    -0.046
+   H2O                   5.551e+001  9.995e-001     1.744    -0.000     0.000
+C(-4)           9.369e-004
+   CH4                   9.369e-004  9.391e-004    -3.028    -3.027     0.001
+C(4)            2.144e-002
+   CO2                   1.362e-002  1.365e-002    -1.866    -1.865     0.001
+   HCO3-                 7.662e-003  6.935e-003    -2.116    -2.159    -0.043
+   CaHCO3+               1.539e-004  1.393e-004    -3.813    -3.856    -0.043
+   CaCO3                 9.806e-007  9.829e-007    -6.009    -6.008     0.001
+   CO3-2                 5.536e-007  3.716e-007    -6.257    -6.430    -0.173
+Ca              2.502e-003
+   Ca+2                  2.347e-003  1.575e-003    -2.629    -2.803    -0.173
+   CaHCO3+               1.539e-004  1.393e-004    -3.813    -3.856    -0.043
+   CaCO3                 9.806e-007  9.829e-007    -6.009    -6.008     0.001
+   CaOH+                 3.308e-010  2.984e-010    -9.480    -9.525    -0.045
+H(0)            5.777e-010
+   H2                    2.889e-010  2.895e-010    -9.539    -9.538     0.001
+N(-3)           2.814e-003
+   NH4+                  2.813e-003  2.524e-003    -2.551    -2.598    -0.047
+   NH3                   1.639e-006  1.643e-006    -5.785    -5.784     0.001
+N(0)            2.045e-005
+   N2                    1.023e-005  1.025e-005    -4.990    -4.989     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.778   -61.825    -0.046
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -83.960   -84.007    -0.046
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.305   -73.304     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.90   -9.23   -8.34  CaCO3
+	Calcite          -0.75   -9.23   -8.48  CaCO3
+	CH4(g)           -0.17   -3.03   -2.86  CH4
+	CO2(g)           -0.40   -1.86   -1.47  CO2
+	H2(g)            -6.39   -9.54   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -1.73   -4.99   -3.26  N2
+	NH3(g)           -7.55   -5.78    1.77  NH3
+	O2(g)           -70.41  -73.30   -2.89  O2
+
+Reaction step 9.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 1.250e-001 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  2.42e+000 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.21  6.104e-001  0.000e+000  6.040e-002  6.040e-002
+CO2(g)                   -0.33  4.625e-001  0.000e+000  4.577e-002  4.577e-002
+N2(g)                    -1.57  2.714e-002  0.000e+000  2.686e-003  2.686e-003
+NH3(g)                   -7.51  3.063e-008  0.000e+000  3.032e-009  3.032e-009
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                2.490e-002  2.490e-002
+	Ca               2.502e-003  2.502e-003
+	N                3.379e-003  3.379e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.024      Charge balance
+                                       pe  =  -2.816      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 814
+                          Density (g/cm3)  =   0.99750
+                        Activity of water  =   0.999
+                           Ionic strength  =  1.053e-002
+                       Mass of water (kg)  =  9.998e-001
+                 Total alkalinity (eq/kg)  =  8.354e-003
+                       Total CO2 (mol/kg)  =  2.406e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  20
+                                  Total H  = 1.110208e+002
+                                  Total O  = 5.555432e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.038e-006  9.465e-007    -5.984    -6.024    -0.040
+   OH-                   1.177e-008  1.057e-008    -7.929    -7.976    -0.047
+   H2O                   5.551e+001  9.995e-001     1.744    -0.000     0.000
+C(-4)           8.405e-004
+   CH4                   8.405e-004  8.425e-004    -3.075    -3.074     0.001
+C(4)            2.406e-002
+   CO2                   1.571e-002  1.575e-002    -1.804    -1.803     0.001
+   HCO3-                 8.188e-003  7.395e-003    -2.087    -2.131    -0.044
+   CaHCO3+               1.625e-004  1.468e-004    -3.789    -3.833    -0.044
+   CaCO3                 9.552e-007  9.575e-007    -6.020    -6.019     0.001
+   CO3-2                 5.506e-007  3.664e-007    -6.259    -6.436    -0.177
+Ca              2.502e-003
+   Ca+2                  2.339e-003  1.555e-003    -2.631    -2.808    -0.177
+   CaHCO3+               1.625e-004  1.468e-004    -3.789    -3.833    -0.044
+   CaCO3                 9.552e-007  9.575e-007    -6.020    -6.019     0.001
+   CaOH+                 3.029e-010  2.726e-010    -9.519    -9.564    -0.046
+H(0)            5.425e-010
+   H2                    2.712e-010  2.719e-010    -9.567    -9.566     0.001
+N(-3)           3.349e-003
+   NH4+                  3.348e-003  2.996e-003    -2.475    -2.523    -0.048
+   NH3                   1.799e-006  1.804e-006    -5.745    -5.744     0.001
+N(0)            2.975e-005
+   N2                    1.488e-005  1.491e-005    -4.827    -4.826     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.689   -61.736    -0.047
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -83.844   -83.891    -0.047
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.250   -73.249     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.91   -9.24   -8.34  CaCO3
+	Calcite          -0.76   -9.24   -8.48  CaCO3
+	CH4(g)           -0.21   -3.07   -2.86  CH4
+	CO2(g)           -0.33   -1.80   -1.47  CO2
+	H2(g)            -6.42   -9.57   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -1.57   -4.83   -3.26  N2
+	NH3(g)           -7.51   -5.74    1.77  NH3
+	O2(g)           -70.36  -73.25   -2.89  O2
+
+Reaction step 10.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 2.500e-001 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  5.27e+000 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.24  5.709e-001  0.000e+000  1.229e-001  1.229e-001
+CO2(g)                   -0.30  4.969e-001  0.000e+000  1.069e-001  1.069e-001
+N2(g)                    -1.49  3.218e-002  0.000e+000  6.926e-003  6.926e-003
+NH3(g)                   -7.50  3.167e-008  0.000e+000  6.815e-009  6.815e-009
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                2.628e-002  2.627e-002
+	Ca               2.502e-003  2.502e-003
+	N                3.649e-003  3.648e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   6.006      Charge balance
+                                       pe  =  -2.791      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 843
+                          Density (g/cm3)  =   0.99751
+                        Activity of water  =   0.999
+                           Ionic strength  =  1.078e-002
+                       Mass of water (kg)  =  9.998e-001
+                 Total alkalinity (eq/kg)  =  8.619e-003
+                       Total CO2 (mol/kg)  =  2.549e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  21
+                                  Total H  = 1.110210e+002
+                                  Total O  = 5.555699e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.083e-006  9.866e-007    -5.965    -6.006    -0.040
+   OH-                   1.131e-008  1.014e-008    -7.947    -7.994    -0.047
+   H2O                   5.551e+001  9.995e-001     1.744    -0.000     0.000
+C(-4)           7.861e-004
+   CH4                   7.861e-004  7.881e-004    -3.105    -3.103     0.001
+C(4)            2.549e-002
+   CO2                   1.688e-002  1.692e-002    -1.773    -1.772     0.001
+   HCO3-                 8.448e-003  7.623e-003    -2.073    -2.118    -0.045
+   CaHCO3+               1.667e-004  1.504e-004    -3.778    -3.823    -0.045
+   CaCO3                 9.388e-007  9.412e-007    -6.027    -6.026     0.001
+   CO3-2                 5.467e-007  3.623e-007    -6.262    -6.441    -0.179
+Ca              2.502e-003
+   Ca+2                  2.335e-003  1.546e-003    -2.632    -2.811    -0.179
+   CaHCO3+               1.667e-004  1.504e-004    -3.778    -3.823    -0.045
+   CaCO3                 9.388e-007  9.412e-007    -6.027    -6.026     0.001
+   CaOH+                 2.892e-010  2.600e-010    -9.539    -9.585    -0.046
+H(0)            5.240e-010
+   H2                    2.620e-010  2.626e-010    -9.582    -9.581     0.001
+N(-3)           3.614e-003
+   NH4+                  3.612e-003  3.228e-003    -2.442    -2.491    -0.049
+   NH3                   1.860e-006  1.865e-006    -5.730    -5.729     0.001
+N(0)            3.528e-005
+   N2                    1.764e-005  1.769e-005    -4.753    -4.752     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.647   -61.695    -0.048
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -83.786   -83.834    -0.048
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.220   -73.219     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.92   -9.25   -8.34  CaCO3
+	Calcite          -0.77   -9.25   -8.48  CaCO3
+	CH4(g)           -0.24   -3.10   -2.86  CH4
+	CO2(g)           -0.30   -1.77   -1.47  CO2
+	H2(g)            -6.43   -9.58   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -1.49   -4.75   -3.26  N2
+	NH3(g)           -7.50   -5.73    1.77  NH3
+	O2(g)           -70.33  -73.22   -2.89  O2
+
+Reaction step 11.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 5.000e-001 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  1.10e+001 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.26  5.511e-001  0.000e+000  2.478e-001  2.478e-001
+CO2(g)                   -0.29  5.142e-001  0.000e+000  2.313e-001  2.313e-001
+N2(g)                    -1.46  3.472e-002  0.000e+000  1.561e-002  1.561e-002
+NH3(g)                   -7.49  3.204e-008  0.000e+000  1.441e-008  1.441e-008
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                2.696e-002  2.696e-002
+	Ca               2.502e-003  2.502e-003
+	N                3.773e-003  3.772e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   5.997      Charge balance
+                                       pe  =  -2.778      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 855
+                          Density (g/cm3)  =   0.99751
+                        Activity of water  =   0.999
+                           Ionic strength  =  1.090e-002
+                       Mass of water (kg)  =  9.998e-001
+                 Total alkalinity (eq/kg)  =  8.740e-003
+                       Total CO2 (mol/kg)  =  2.620e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.100e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  22
+                                  Total H  = 1.110211e+002
+                                  Total O  = 5.555831e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.106e-006  1.007e-006    -5.956    -5.997    -0.041
+   OH-                   1.108e-008  9.934e-009    -7.955    -8.003    -0.047
+   H2O                   5.551e+001  9.994e-001     1.744    -0.000     0.000
+C(-4)           7.588e-004
+   CH4                   7.588e-004  7.607e-004    -3.120    -3.119     0.001
+C(4)            2.620e-002
+   CO2                   1.746e-002  1.751e-002    -1.758    -1.757     0.001
+   HCO3-                 8.568e-003  7.727e-003    -2.067    -2.112    -0.045
+   CaHCO3+               1.686e-004  1.520e-004    -3.773    -3.818    -0.045
+   CaCO3                 9.297e-007  9.320e-007    -6.032    -6.031     0.001
+   CO3-2                 5.439e-007  3.598e-007    -6.264    -6.444    -0.179
+Ca              2.502e-003
+   Ca+2                  2.333e-003  1.542e-003    -2.632    -2.812    -0.180
+   CaHCO3+               1.686e-004  1.520e-004    -3.773    -3.818    -0.045
+   CaCO3                 9.297e-007  9.320e-007    -6.032    -6.031     0.001
+   CaOH+                 2.826e-010  2.540e-010    -9.549    -9.595    -0.046
+H(0)            5.149e-010
+   H2                    2.575e-010  2.581e-010    -9.589    -9.588     0.001
+N(-3)           3.735e-003
+   NH4+                  3.733e-003  3.335e-003    -2.428    -2.477    -0.049
+   NH3                   1.882e-006  1.887e-006    -5.725    -5.724     0.001
+N(0)            3.806e-005
+   N2                    1.903e-005  1.908e-005    -4.721    -4.719     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.628   -61.676    -0.048
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -83.760   -83.808    -0.048
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.205   -73.204     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.92   -9.26   -8.34  CaCO3
+	Calcite          -0.78   -9.26   -8.48  CaCO3
+	CH4(g)           -0.26   -3.12   -2.86  CH4
+	CO2(g)           -0.29   -1.76   -1.47  CO2
+	H2(g)            -6.44   -9.59   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -1.46   -4.72   -3.26  N2
+	NH3(g)           -7.49   -5.72    1.77  NH3
+	O2(g)           -70.31  -73.20   -2.89  O2
+
+Reaction step 12.
+
+Using solution 1.	Solution after simulation 1.
+Using gas phase 1.	
+Using reaction 1.	
+
+Reaction 1.	Irreversible reaction defined in simulation 2.
+
+	 1.000e+000 moles of the following reaction have been added:
+
+	                 Relative
+	Reactant            moles
+
+	(CH2O)N0.07          1.00000
+
+	                 Relative
+	Element             moles
+	C                    1.00000
+	H                    2.00000
+	N                    0.07000
+	O                    1.00000
+
+-----------------------------------Gas phase-----------------------------------
+
+
+Total pressure:   1.1000   atmospheres
+    Gas volume:  2.25e+001 liters
+
+                                                        Moles in gas
+                                            ----------------------------------
+Component                log P           P     Initial       Final       Delta
+
+CH4(g)                   -0.27  5.412e-001  0.000e+000  4.978e-001  4.978e-001
+CO2(g)                   -0.28  5.228e-001  0.000e+000  4.809e-001  4.809e-001
+N2(g)                    -1.44  3.597e-002  0.000e+000  3.308e-002  3.308e-002
+NH3(g)                   -7.49  3.219e-008  0.000e+000  2.962e-008  2.962e-008
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                2.730e-002  2.729e-002
+	Ca               2.502e-003  2.502e-003
+	N                3.832e-003  3.831e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   5.992      Charge balance
+                                       pe  =  -2.771      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 862
+                          Density (g/cm3)  =   0.99751
+                        Activity of water  =   0.999
+                           Ionic strength  =  1.096e-002
+                       Mass of water (kg)  =  9.998e-001
+                 Total alkalinity (eq/kg)  =  8.797e-003
+                       Total CO2 (mol/kg)  =  2.655e-002
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.075e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =  25
+                                  Total H  = 1.110211e+002
+                                  Total O  = 5.555897e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.118e-006  1.018e-006    -5.952    -5.992    -0.041
+   OH-                   1.097e-008  9.832e-009    -7.960    -8.007    -0.048
+   H2O                   5.551e+001  9.994e-001     1.744    -0.000     0.000
+C(-4)           7.452e-004
+   CH4                   7.452e-004  7.471e-004    -3.128    -3.127     0.001
+C(4)            2.655e-002
+   CO2                   1.776e-002  1.780e-002    -1.751    -1.750     0.001
+   HCO3-                 8.624e-003  7.776e-003    -2.064    -2.109    -0.045
+   CaHCO3+               1.695e-004  1.528e-004    -3.771    -3.816    -0.045
+   CaCO3                 9.248e-007  9.272e-007    -6.034    -6.033     0.001
+   CO3-2                 5.422e-007  3.583e-007    -6.266    -6.446    -0.180
+Ca              2.502e-003
+   Ca+2                  2.332e-003  1.540e-003    -2.632    -2.812    -0.180
+   CaHCO3+               1.695e-004  1.528e-004    -3.771    -3.816    -0.045
+   CaCO3                 9.248e-007  9.272e-007    -6.034    -6.033     0.001
+   CaOH+                 2.795e-010  2.510e-010    -9.554    -9.600    -0.047
+H(0)            5.105e-010
+   H2                    2.552e-010  2.559e-010    -9.593    -9.592     0.001
+N(-3)           3.792e-003
+   NH4+                  3.790e-003  3.385e-003    -2.421    -2.470    -0.049
+   NH3                   1.891e-006  1.896e-006    -5.723    -5.722     0.001
+N(0)            3.943e-005
+   N2                    1.972e-005  1.976e-005    -4.705    -4.704     0.001
+N(3)            0.000e+000
+   NO2-                  0.000e+000  0.000e+000   -61.619   -61.667    -0.048
+N(5)            0.000e+000
+   NO3-                  0.000e+000  0.000e+000   -83.747   -83.795    -0.048
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -73.198   -73.197     0.001
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -0.92   -9.26   -8.34  CaCO3
+	Calcite          -0.78   -9.26   -8.48  CaCO3
+	CH4(g)           -0.27   -3.13   -2.86  CH4
+	CO2(g)           -0.28   -1.75   -1.47  CO2
+	H2(g)            -6.44   -9.59   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	N2(g)            -1.44   -4.70   -3.26  N2
+	NH3(g)           -7.49   -5.72    1.77  NH3
+	O2(g)           -70.30  -73.20   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+-----------
+End of run.
+-----------
+
