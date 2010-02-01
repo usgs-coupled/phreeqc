@@ -1100,7 +1100,7 @@ struct phase
  	LDBLE isotope_ratio_uncertainty;
  	int isotope;
  	LDBLE total_primary;
- 	/*    LDBLE la;  *//* initial guess of master species log activity */
+ 	/*    LDBLE la;  */ /* initial guess of master species log activity */
  	struct element *elt;		/* element structure */
  	LDBLE alk;					/* alkalinity of species */
  	LDBLE gfw;					/* default gfw for species */
@@ -1379,13 +1379,11 @@ struct M_S
 #ifdef PHREEQ98
 int colnr, rownr;
 #endif
-//int n_user_punch_index;
+
 #define checking	true
 #define varnamelen  20
 #define maxdims	    4
 
-//typedef Char varnamestring[varnamelen + 1];
-//typedef Char string255[256];
 
 #include "basic.h"
 

@@ -41,10 +41,10 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	char c;
 	char *ptr, *char_ptr;
 	char token[MAX_LENGTH];
-
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
-
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 	paren_count = 0;
 /*
  *   Remove white space

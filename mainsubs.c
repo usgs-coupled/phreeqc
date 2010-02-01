@@ -53,9 +53,10 @@ initialize(void)
 	int i;
 	struct logk *logk_ptr;
 	char token[MAX_LENGTH];
-
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 
 	moles_per_kilogram_string = string_duplicate("Mol/kgw");
 	pe_string = string_duplicate("pe");

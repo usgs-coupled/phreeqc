@@ -23,12 +23,12 @@
 static char const svnidsmalldense[] =
 	"$Id$";
 #endif
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "C"
-//{
-//#endif
-
+/*
+#ifdef __cplusplus				
+extern "C"
+{
+#endif
+*/
 #ifndef _smalldense_h
 #define _smalldense_h
 
@@ -220,7 +220,8 @@ static char const svnidsmalldense[] =
 
 
 #endif
-
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/

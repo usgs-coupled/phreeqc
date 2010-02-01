@@ -80,8 +80,10 @@ prep(void)
  *      for building jacobian.
  */
 	struct solution *solution_ptr;
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 
 	if (state >= REACTION)
 	{

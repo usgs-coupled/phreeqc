@@ -4970,7 +4970,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	   7(6(F8.3),/))
 	 */
 	/* iflags */
-	/*fprintf(model_file,"%2d", i); *//* not written, 1, mixing, number of mixing wells -1 */
+	/*fprintf(model_file,"%2d", i); */ /* not written, 1, mixing, number of mixing wells -1 */
 	fprintf(model_file, "%2d", 3);	/* 2, exchange */
 	i = 0;
 	if (inv_ptr->count_isotopes > 0)

@@ -50,8 +50,10 @@ __p2c_jmp_buf *__top_jb;
 Void CLASS_QUALIFIER
 PASCAL_MAIN(int argc, Char **argv)
 {
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 	P_argc = argc;
 	P_argv = argv;
 	__top_jb = NULL;
@@ -75,7 +77,7 @@ my_labs(long x)
 }
 
 
-														  /* #define __STDC__  *//* PHREEQ98 */
+/* #define __STDC__  */ /* PHREEQ98 */
 
 Anyptr  CLASS_QUALIFIER
 my_memmove(Anyptr d, Const Anyptr s, size_t n)

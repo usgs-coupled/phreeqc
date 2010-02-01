@@ -258,7 +258,9 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		//CVMEM output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+		/*
+		CVMEM output_msg(OUTPUT_CVODE, MSG_CVMEM_NULL);
+		*/
 		return (LMEM_FAIL);
 	}
 

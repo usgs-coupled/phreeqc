@@ -38,21 +38,21 @@ main(int argc, char *argv[])
 	 * inadvertent use of freed memory
 	 */
 	tmpDbgFlag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
-	//tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;
+	/*tmpDbgFlag |= _CRTDBG_DELAY_FREE_MEM_DF;*/
 	tmpDbgFlag |= _CRTDBG_LEAK_CHECK_DF;
-	///tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;
+	/*tmpDbgFlag |= _CRTDBG_CHECK_ALWAYS_DF;*/
 	_CrtSetDbgFlag(tmpDbgFlag);
-	//_crtBreakAlloc = 9482;
+	/*_crtBreakAlloc = 9482;*/
 #endif
 #ifdef SKIP
-_clearfp(); //Always call _clearfp before setting the control
+_clearfp(); /*Always call _clearfp before setting the control */
 
-unsigned int cw = _controlfp(0, 0); //Get the default control
+unsigned int cw = _controlfp(0, 0); /*Get the default control*/
 
 cw &=~(EM_OVERFLOW|EM_UNDERFLOW|EM_ZERODIVIDE|
        EM_DENORMAL|EM_INVALID);
 
-unsigned int cwOriginal = _controlfp(cw, MCW_EM); //Set it.
+unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 
 #endif
 	if (svnid == NULL)

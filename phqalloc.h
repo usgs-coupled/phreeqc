@@ -10,9 +10,11 @@ static char const svnidphqalloc[] =
 #endif
 
 #if !defined(NDEBUG)
-//extern void *PHRQ_malloc(size_t, const char *, int);
-//extern void *PHRQ_calloc(size_t, size_t, const char *, int);
-//extern void *PHRQ_realloc(void *, size_t, const char *, int);
+/*
+extern void *PHRQ_malloc(size_t, const char *, int);
+extern void *PHRQ_calloc(size_t, size_t, const char *, int);
+extern void *PHRQ_realloc(void *, size_t, const char *, int);
+*/
 void *PHRQ_malloc(size_t, const char *, int);
 void *PHRQ_calloc(size_t, size_t, const char *, int);
 void *PHRQ_realloc(void *, size_t, const char *, int);

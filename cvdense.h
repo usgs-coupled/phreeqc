@@ -23,11 +23,12 @@
 static char const svnidcvdense[] =
 	"$Id$";
 #endif
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "C"
-//{
-//#endif
+/*
+#ifdef __cplusplus				
+extern "C"
+{
+#endif
+*/
 
 #ifndef _cvdense_h
 #define _cvdense_h
@@ -224,8 +225,9 @@ static char const svnidcvdense[] =
 
 
 #endif
-
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/
 #endif /* _INC_CVDENSE_H */

@@ -1427,9 +1427,10 @@ pitzer_clean_up(void)
  *   Free all allocated memory, except strings
  */
 	int i;
-
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 	for (i = 0; i < count_pitz_param; i++)
 	{
 		pitz_params[i] =
@@ -1885,8 +1886,10 @@ model_pz(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */

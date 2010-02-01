@@ -90,8 +90,10 @@ model(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 	set_inert_moles();
 #ifdef ORCHESTRA
 	ORCH_model();
@@ -1813,8 +1815,10 @@ ineq(int in_kode)
 	{
 		for (i = 0; i < count_rows; i++)
 		{
-			//output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
-			//		   x[back_eq[i]]->description, (double) res[i]);
+			/*
+			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
+					   x[back_eq[i]]->description, (double) res[i]);
+			*/
 			j = back_eq[i];
 			if (x[j]->type == MB && delta[i] == 0.0 && fabs(res[i]) > ineq_tol)
 			{
@@ -3934,7 +3938,7 @@ residuals(void)
 			else
 			{
 				/* sum is in moles of charge */
-				/*psi = pow(10, x[i]->surface_charge->psi_master->s->la); *//* = exp(-Fpsi/RT) */
+				/*psi = pow(10, x[i]->surface_charge->psi_master->s->la); */ /* = exp(-Fpsi/RT) */
 				master_ptr =
 					surface_get_psi_master(x[i]->surface_charge->name,
 										   SURF_PSI);
@@ -3990,7 +3994,7 @@ residuals(void)
 			else
 			{
 				/* eqns A-4 */
-				/*psi = pow(10, x[i]->surface_charge->psi_master1->s->la); *//* = exp(-Fpsi/RT) */
+				/*psi = pow(10, x[i]->surface_charge->psi_master1->s->la); */ /* = exp(-Fpsi/RT) */
 				x[i]->surface_charge->sigma1 =
 					x[i]->f * F_C_MOL / (x[i]->surface_charge->specific_area *
 										 x[i]->surface_charge->grams);

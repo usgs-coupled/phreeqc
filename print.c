@@ -64,8 +64,10 @@ array_print(LDBLE * array_l, int row_count, int column_count,
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 
 
 	for (i = 0; i < row_count; i++)
@@ -3186,9 +3188,9 @@ punch_user_graph(void)
 	char command[] = "run";
 
 	colnr = 0;
-/*      //if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
-/*      //if (punch.user_punch == FALSE) return(OK); */
-/*	  //if (punch.in == FALSE) return(OK); */
+/*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
+/*    if (punch.user_punch == FALSE) return(OK); */
+/*	  if (punch.in == FALSE) return(OK); */
 	if (user_graph->commands == NULL)
 		return (OK);
 	if (((state == INITIAL_SOLUTION) || (state == INITIAL_EXCHANGE)

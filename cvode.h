@@ -20,11 +20,12 @@ static char const svnidcvode[] =
 	"$Id$";
 #endif
 
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "C"
-//{
-//#endif
+/*
+#ifdef __cplusplus			
+extern "C"
+{
+#endif
+*/
 
 #ifndef _cvode_h
 #define _cvode_h
@@ -895,8 +896,9 @@ static char const svnidcvode[] =
 
 
 #endif
-
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/
 #endif /* _INC_CVODE_H */

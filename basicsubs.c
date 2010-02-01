@@ -10,22 +10,22 @@
 
 static char const svnid[] =
 	"$Id$";
+/*
+struct system_species
+{
+	char *name;
+	char *type;
+	LDBLE moles;
+};
+struct system_species *sys;
+int count_sys, max_sys;
 
-//struct system_species
-//{
-//	char *name;
-//	char *type;
-//	LDBLE moles;
-//};
-//struct system_species *sys;
-//int count_sys, max_sys;
-//
-//LDBLE sys_tot;
-//LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
-//LDBLE solution_mass, solution_volume;
-//LDBLE f_rho(LDBLE rho_old);
-//extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
-
+LDBLE sys_tot;
+LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
+LDBLE solution_mass, solution_volume;
+LDBLE f_rho(LDBLE rho_old);
+extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
+*/
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 activity(const char *species_name)

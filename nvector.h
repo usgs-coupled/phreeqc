@@ -47,12 +47,12 @@ static char const svnidnvector[] =
 class Phreeqc;
 #endif
 
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "C"
-//{
-//#endif
-
+/*
+#ifdef __cplusplus				
+extern "C"
+{
+#endif
+*/
 #ifndef included_nvector_h
 #define included_nvector_h
 
@@ -448,7 +448,8 @@ class Phreeqc;
 
 
 #endif
-
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/

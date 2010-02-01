@@ -71,11 +71,11 @@
 static char const svnidsundialstypes[] =
 	"$Id$";
 #endif
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "c"  {
-//#endif
-
+/*
+#ifdef __cplusplus			
+extern "c"  {
+#endif
+*/
 #ifndef _sundialstypes_h
 #define _sundialstypes_h
 
@@ -144,8 +144,9 @@ static char const svnidsundialstypes[] =
 #endif
 
 #endif
-
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/
 #endif /* _INC_SUNDIALSTYPES_H */

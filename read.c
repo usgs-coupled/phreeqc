@@ -128,8 +128,10 @@ read_input(void)
 	int i, j, l;
 	char *ptr;
 	char token[2 * MAX_LENGTH];
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 
 	parse_error = 0;
 	input_error = 0;
