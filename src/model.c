@@ -39,7 +39,7 @@ static int revise_guesses(void);
 static int s_s_binary(struct s_s *s_s_ptr);
 static int s_s_ideal(struct s_s *s_s_ptr);
 
-static int remove_unstable_phases;
+/*static int remove_unstable_phases;*/
 static int gas_in;
 static void ineq_init(int max_row_count, int max_column_count);
 
@@ -1075,7 +1075,7 @@ ineq(int in_kode)
 
 		if (x[i]->type == MB || x[i]->type == ALK || x[i]->type == EXCH
 			|| x[i]->type == SURFACE || x[i]->type == SURFACE_CB
-			|| SURFACE_CB1 || SURFACE_CB2)
+			|| x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2)
 		{
 /* !!!! */ if (x[i]->moles <= MIN_RELATED_SURFACE
 			   && (x[i]->type == EXCH || x[i]->type == SURFACE))
