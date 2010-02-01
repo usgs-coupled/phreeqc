@@ -8,6 +8,17 @@ File contains:
 ************************************************************
 ************************************************************
  	--------
+ 	svn 3986
+ 	--------
+ 	Added an option for time-substepping in multicomponent
+	diffusion (-multi_D true), keyword TRANSPORT:
+	
+	-time_step 3600 3.0  # 3 time-substeps of 1200 seconds
+	 
+	This option is useful to avoid a warning about negative 
+	concentrations that may occur in MCD simulations.
+	
+ 	--------
  	svn 3902
  	--------
  	Added four basic functions for use only with PHAST. The
@@ -31,14 +42,15 @@ File contains:
  	
  	For solids, the number of moles of calcite in the 
  	saturated part of a cell is 
- 	EQUI("Calcite")**CELL_SATURATION*CELL_PORE_VOLUME. For 
+ 	EQUI("Calcite")*CELL_SATURATION*CELL_PORE_VOLUME. For 
  	unconfined flow, the solid reactants are distributed 
  	between the saturated and unsaturated part of a water- 
  	table cell. It is a limitation of PHAST that it is not 
- 	possible to determineIf the amounts of solid reactants 
+ 	possible to determine the amounts of solid reactants 
  	in the unsaturated part of a cell. Note that for 
- 	steady-state, unconfined flow, the unsaturated part of 
- 	a water-table cell is never part of the active domain.
+ 	steady-state, unconfined flow, the saturation of cells is 
+ 	constant and the unsaturated part of a water-table cell 
+ 	is never part of the active domain.
 	
 	--------
 	svn 3600
