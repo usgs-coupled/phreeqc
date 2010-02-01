@@ -2035,6 +2035,7 @@ model_pz(void)
 			stop_program = TRUE;
 			break;
 		}
+		pitzer_remove_unstable_phases = remove_unstable_phases;
 		if (pitzer_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{

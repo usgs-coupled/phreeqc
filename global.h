@@ -648,6 +648,7 @@ EXTERNAL int llnl_count_temp, llnl_count_adh, llnl_count_bdh, llnl_count_bdot,
 
 EXTERNAL char *selected_output_file_name;
 EXTERNAL char *dump_file_name;
+EXTERNAL int remove_unstable_phases;
 
 #ifdef PHREEQCI_GUI
 EXTERNAL struct spread_sheet g_spread_sheet;
