@@ -80,11 +80,13 @@ extern int count_total_steps;
 /* appt */
 static int change_surf_flag;
 #endif
-//struct phreeqc_M_Env
-//{
-//	struct _generic_M_Env;
-//	Phreeqc * phreeqc_ptr;
-//};
+/*
+struct phreeqc_M_Env
+{
+	struct _generic_M_Env;
+	Phreeqc * phreeqc_ptr;
+};
+*/
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -105,8 +107,10 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
  */ char command[] = "run";
 	struct rate *rate_ptr;
 /*	LDBLE t1, t2; */
-	//if (svnid == NULL)
-	//	fprintf(stderr, " ");
+	/*
+	if (svnid == NULL)
+		fprintf(stderr, " ");
+	*/
 /*
  *   Go through list and generate list of elements and
  *   coefficient of elements in reaction
@@ -1145,8 +1149,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		set_and_run_wrapper(i, NOMIX, FALSE, nsaver, 0.);
 		run_reactions_iterations += iterations;
 	}
-/*	saver();
-		   *//* reset for printing */
+/*	saver();  */ /* reset for printing */
 	if (use_mix == DISP)
 	{
 		use.mix_ptr = &mix[count_mix - count_cells + i - 1];

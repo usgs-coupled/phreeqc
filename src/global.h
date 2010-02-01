@@ -22,7 +22,7 @@ static char const svnidglobal[] =
 
 #include "global_structures.h"
 /* #define NO_DOS */
-/* #define PHREEQ98 *//* PHREEQ98: code for graphical user interface */
+/* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
 #if defined (PHREEQ98) || defined (_MSC_VER) 
 #define isnan _isnan
 #define isfinite _finite
@@ -43,17 +43,18 @@ static char const svnidglobal[] =
 /* ----------------------------------------------------------------------
  *   INCLUDE FILES
  * ---------------------------------------------------------------------- */
-//#include <stdio.h>
-//#include <string.h>
-//#include <stdlib.h>
-//#include <ctype.h>
-//#include <math.h>
-//#include <errno.h>
-//#include <float.h>
-//#if !defined(_INC_PHREEQC_H)
-//#endif
-//#include <setjmp.h>
-
+/*
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <math.h>
+#include <errno.h>
+#include <float.h>
+#if !defined(_INC_PHREEQC_H)
+#endif
+#include <setjmp.h>
+*/
 
 /* ----------------------------------------------------------------------
  *   STRUCTURES
@@ -747,18 +748,17 @@ EXTERNAL PHRQMemHeader *s_pTail;
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)
 /* basic.c ------------------------------- */
-//#ifdef PHREEQ98
-//int colnr, rownr;
-//#endif
-//int n_user_punch_index;
-//#define checking	true
-//#define varnamelen  20
-//#define maxdims	    4
-//
-////typedef Char varnamestring[varnamelen + 1];
-////typedef Char string255[256];
-//
-//#include "basic.h"
+/*
+#ifdef PHREEQ98
+int colnr, rownr;
+#endif
+int n_user_punch_index;
+#define checking	true
+#define varnamelen  20
+#define maxdims	    4
+
+#include "basic.h"
+*/
 int n_user_punch_index;
 Char *inbuf;
 linerec *linebase;
@@ -914,16 +914,16 @@ int AddSeries;
 int FirstCallToUSER_GRAPH;
 #endif
 
-// read_class.cxx
+/* read_class.cxx */
 dumper dump_info;
 StorageBinList delete_info;
 runner run_info;
 
-// readtr.c
+/* readtr.c */
 
 std::string dump_file_name_cpp;
 
-// sit.c -------------------------------
+/* sit.c ------------------------------- */
 
 LDBLE sit_A0;
 int sit_count_cations, sit_count_anions, sit_count_neutrals;

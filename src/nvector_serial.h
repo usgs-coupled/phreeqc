@@ -58,12 +58,12 @@
 static char const svnidnvector_serial[] =
 	"$Id$";
 #endif
-
-//#ifdef __cplusplus				/* wrapper to enable C++ usage */
-//extern "C"
-//{
-//#endif
-
+/*
+#ifdef __cplusplus				
+extern "C"
+{
+#endif
+*/
 #ifndef included_nvector_serial_h
 #define included_nvector_serial_h
 
@@ -327,7 +327,9 @@ static char const svnidnvector_serial[] =
 
 
 #endif
-//#ifdef __cplusplus
-//}
-//#endif
+/*
+#ifdef __cplusplus
+}
+#endif
+*/
 #endif /* _INC_NVECTOR_SERIAL_H */

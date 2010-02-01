@@ -1,5 +1,4 @@
 /*#define DEBUG_CVODE*/
-//extern char *error_string;
 /*******************************************************************
  *                                                                 *
  * File          : cvode.c                                         *
@@ -1409,7 +1408,9 @@ CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky)
 
 	if (cvode_mem == NULL)
 	{
-		//CVMEM output_msg(OUTPUT_CVODE, MSG_DKY_NO_MEM);
+		/*
+		CVMEM output_msg(OUTPUT_CVODE, MSG_DKY_NO_MEM);
+		*/
 		return (DKY_NO_MEM);
 	}
 

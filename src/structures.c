@@ -435,7 +435,7 @@ clean_up(void)
 	iu = (int *) free_check_null(iu);
 	is = (int *) free_check_null(is);
 
-/*  //x_arg = res_arg = scratch = NULL; */
+/*  x_arg = res_arg = scratch = NULL; */
 	x_arg_max = res_arg_max = scratch_max = 0;
 
 
