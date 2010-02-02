@@ -1384,6 +1384,12 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 	--------
+	svn 3987
+	--------
+	Pitzer and SIT models did not remove unstable phases 
+	correctly.
+	
+	--------
 	svn 3901
 	--------
 	Error with equations that included (s) or (g). The
