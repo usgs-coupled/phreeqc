@@ -1,4 +1,140 @@
 #  $Id: phreeqc.dat 3428 2009-03-23 16:31:34Z dlpark $
+# 
+#  This database corresponds to the PHREEQCi version of the
+#  ThermoChimie v.7.b, developed by Amphos 21, BRGM and HydrAsa for
+#  ANDRA, the French National Radioactive Waste Management Agency.The
+#  data selection process includes a compilation of the thermodynamic
+#  data reported in previous databases such as SUPCRT92, NBS (Wagman,
+#  D.D., Evans, W.H., Parker, V.B., Schumm, R.H., Halow, I., Bailey,
+#  S.M.,Churney, K.L., Nuttall, R.L., (1982), The NBS tables of
+#  chemical thermodynamic properties, selected values for inorganic
+#  and c1 and c2 organic substances in SI units. J. Phys. Chem. Ref.
+#  Data, V. 11, supp. 2, 392p), USGS Database (Robie R.A., and
+#  Hemingway B.S., 1995. Thermodynamic properties of minerals and
+#  related substances at 298.15 K and 1 Bar (105 Pascals) pressure
+#  and at higher temperatures. U.S. Geol. Survey Bull., 2131, 461 p)
+#  for major elements and the IAEA (Fuger J., Oetting F.L. The
+#  Chemical thermodynamics of actinide elements and compounds: Part
+#  I. The actinide aqueous ions, IAEA Vienna, 1976, 65pp.). Special
+#  review efforts are focused on elements of interest for radioactive
+#  waste management: Rb; Cs; Ba; Ra; B; Sn; Pb; Sb; Se; Zr; Hf; Nb;
+#  Mo; Mn; Tc; Fe; Co; Ni; Pd; Ag; Cd; Sm; Eu; Ho; Th; Pa; U; Np; Pu;
+#  Am; Cm; (Main data sources for U, Np, Pu, Am, Se, Ni and Zr and
+#  auxiliary species are the OECD NEA TDB Project compilations. The
+#  specific ionic theory for activity corrections has been used in
+#  the derivation of the stability constants when possible.
+# 
+# Grenthe, I., Fuger, J., Konings, R.J.M., Lemire, R.J., Muller,
+# A.B., Nguyen-Trung, C., Wanner, H. (1992): Chemical Thermodynamics
+# 1; Chemical Thermodynamics of Uranium. NEA OECD, Elsevier;
+# 
+# Lemire, R.J., Fuger, J., Nitsche, H., Potter, P., Rand, M.H.,
+# Rydberg, J., Spahiu, K., Sullivan, J.C., Ullman, W.J., Vitorge, P.,
+# Wanner, H. (2001) Chemical Thermodynamics 4. Chemical
+# thermodynamics of neptunium and plutonium. NEA OECD, Elsevier;
+# 
+# Guillaumont, R., Fanghänel, J., Neck, V., Fuger, J., Palmer, D.A.,
+# Grenthe, I., Rand, M.H. (2003) Chemical Thermodynamics 5. Update on
+# the Chemical Thermodynamics of Uranium, Neptunium, Plutonium,
+# Americium and Technetium. NEA OECD, Elsevier;
+# 
+# Brown, P., Curti, E., Grambow, B. (with a collaboration from
+# Ekberg, C.) (2005) Chemical Thermodynamics 8. Chemical
+# Thermodynamics of Zirconium. NEA Data bank, OECD. North Holland
+# Elsevier Science Publishers B.V., Amsterdam, Netherlands;
+# 
+# Hummel, W., Anderegg, G., Rao, L., Puigdomènech, I., Tochiyama, O.,
+# (2005). Chemical Thermodynamics 9: Chemical Thermodynamics of
+# Compounds and Complexes of U, Np, Pu, Am, Tc, Se, Ni and Zr with
+# Selected Organic Ligands. NEA OECD. Elsevier.
+# 
+# Gamsjäger, H., Bugajski, J., Gajda, T., Lemire, R.J. and Preis, W.
+# (2005). Chemical Thermodynamics 6: Chemical Thermodynamics of
+# Nickel. NEA OECD, Elsevier
+# 
+# Olin, A., Noläng, B., Osadchii, E.G., Öhman, L.O. and Rosén, E.
+# (2005). Chemical Thermodynamics 7: Chemical Thermodynamics of
+# Selenium. NEA OECD, Elsevier
+# 
+# Rand, M. H., J. Fuger, I. Grenthe, V. Neck and D. Rai.  2009.
+# Chemical Thermodynamics of Thorium. Chemical Thermodynamics 11. NEA
+# OECD.  Issy-les- Moulineaux, France
+# 
+# SIT coefficients have been implemented in the Thermochimie data
+# base, following two purposes:
+# 
+# - Ensure and make comprehensive the data selection with
+# respect to species activity calculations, from the literature
+# survey up to the extrapolation at the standard state. NEA TDB
+# guidelines are currently applied here for consistency with the
+# recommended values from this project; 
+#
+# - Give relevant data sets for numerical applications under high
+# ionic strength conditions. Modelling exercises are addressed to
+# natural systems or material behaviour, which require large number of
+# chemical equilibria. It is then needed to complete thermodynamic
+# functions and SIT coefficients, in comparison to data sets available
+# in literature.
+#  
+# Data gaps for estabilty, entropy/enthalpy and SIT coefficients have
+# been filled in by estimations. More detailed information about some
+# of the methodologies used for data estimation can be found in the
+# following references. Three main estimation methods have been
+# followed for SIT interaction coefficients: a) by analogy to similar
+# compounds, b) by correlation with "epsilon" of the same complex but
+# with other ionic media (nitrate or perchlorate) and c) by using the
+# approach of (Ciavatta, L.. (1990) The specific interaction theory
+# in equilibrium analysis. Some empirical rules for estimating
+# interaction coefficients of metal ion complexes. Annali di Chimica,
+# 80, 255-263).
+# 
+# Bruno, J., Duro, L., Cera, E., Grivé, M., El Aamrani, F., Rovira,
+# M. (2001) Revision of the ThermoChimie Thermodynamic Database for
+# radioelements. Version A. ANDRA report C.RP. 0ENQ.01.002 211 pp.
+# 
+# Duro, L., Cera, E. And Bruno, J. (2002) Revision of the
+# thermodynamic database for radioelements. Version B. Final report.
+# ANDRA report C.RP.0ENQ.02-001. 352 pp.
+# 
+# Duro, L., Cera, E., Grivé, M., Domènech, C., Gaona, X. and Bruno,
+# J. (2006) Development of the ThermoChimie thermodynamic database.
+# Janvier 2006. ANDRA report C.RP.0ENQ.06.0001. 373 pp.
+# 
+# Colàs, E., Montoya, V., Gaona, X., Domènech, C., Grivé, M. and
+# Duro, L. (2007) Development of ThermoChimie data base. Version 6.
+# up-date. ANDRA report D.RP.0ENQ.07.0001. 362 pp.
+# 
+# Montoya, V., Tamayo, A, Gaona, X, Grivé, M and Duro, L. (2008)
+# Update of the ThermoChimie database. Reporting of new data
+# selection 2007 Project ANDRA-TDB6-Task 1. Amphos 21 Progress Report
+# vs.01.
+# 
+# Gaona X., Tamayo A., Grivé M., Duro L. Review and assessment of
+# enthalpy data: procedures for data estimation and final data
+# selection for aqueous species. June 2008. Project ANDRA-TDB6-
+# Task2.
+# 
+# Duro L, Grivé M., Gaona X., Tamayo A (2009). Review and assessment
+# of enthalpy data: procedures for data estimation and final data
+# selection for solid compounds. December 2009. Project ANDRA- TDB6-
+# Task2. v01. Amphos 21 internal report.
+# 
+# Grivé M., Riba O., Montoya V. and Duro L. (2009) Update of the
+# ThermoChimie database: Reporting of new data selection 2009.
+# November 2009 Project ANDRA-TDB6-Task1.
+# 
+# Gaona X., Montoya V., Colàs E., Grivé M., Duro L.. (2008) Review of
+# the complexation of tetravalent actinides by ISA and gluconate
+# under alkaline to hyperalkaline conditions. Journal of Contaminant
+# Hydrology 102 (2008) 217–227.
+# 
+# Blanc, P., Piantone, P., Lassin, A., Burnol, A. (2006) ThemoChimie:
+# Sélection de constantes thermodynamiques pour les éléments
+# majeours, le plom et le cadmium. ANDRA report C RP PSTR.07.0014
+# 
+# This version has to be periodically up-dated and tested. Kindly
+# send comments or corrections to thermochimie@amphos21.com
+#
 SOLUTION_MASTER_SPECIES
 #
 #element species	alk     gfw_formula     element_gfw
