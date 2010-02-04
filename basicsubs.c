@@ -144,6 +144,13 @@ calc_SC(void)
 		}
 	}
 	SC *= 1e7 * F_C_MOL * F_C_MOL / (R_KJ_DEG_MOL * 298160.0);
+/* correct for temperature dependency...
+       SC_T = SC_298 * (Dw_T / T) * (298 / Dw_298) and
+	     Dw_T = Dw_298 * (T / 298) * (viscos_298 / viscos_T) give:
+	 SC_T = SC_298 * (viscos_298 / viscos_T)
+ */
+	SC *= 0.88862 / viscosity();
+
 	return (SC);
 }
 

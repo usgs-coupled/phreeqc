@@ -1549,10 +1549,7 @@ fill_spec(int cell_no)
 /*
  * correct diffusion coefficient for temperature and viscosity, D_T = D_298 * Tk * viscos_298 / (298 * viscos)
  */
-	viscos =
-		pow(10.,
-			-(1.37023 * (tc_x - 20) +
-			  0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
+	viscos = viscosity();
 /*
  * put temperature factor in por_factor which corrects for porous medium...
  */
@@ -3107,10 +3104,7 @@ disp_surf(LDBLE DDt)
 /*
  * temperature and viscosity correction for MCD coefficient, D_T = D_298 * Tk * viscos_298 / (298 * viscos)
  */
-	viscos_f =
-		pow(10,
-			-(1.37023 * (tc_x - 20) +
-			  0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
+	viscos_f = viscosity();
 	viscos_f = tk_x * 0.88862 / (298.15 * viscos_f);
 
 	n1 = count_surface;
@@ -4180,10 +4174,7 @@ diff_stag_surf(int mobile_cell)
 /*
  * temperature and viscosity correction for MCD coefficient, D_T = D_298 * Tk * viscos_298 / (298 * viscos)
  */
-	viscos_f =
-		pow(10,
-			-(1.37023 * (tc_x - 20) +
-			  0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
+	viscos_f = viscosity();
 	viscos_f = tk_x * 0.88862 / (298.15 * viscos_f);
 
 	n1 = count_surface;
@@ -4809,4 +4800,17 @@ reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 	surface_free(&temp_surface);
 
 	return (OK);
+}
+/* ---------------------------------------------------------------------- */
+LDBLE CLASS_QUALIFIER
+viscosity(void)
+/* ---------------------------------------------------------------------- */
+{
+  LDBLE viscos;
+/* from Atkins, 1994. Physical Chemistry, 5th ed. */
+	viscos =
+		pow(10.,
+			-(1.37023 * (tc_x - 20) +
+			  0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
+  return viscos;
 }
