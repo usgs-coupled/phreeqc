@@ -2124,8 +2124,8 @@ print_totals(void)
 	EC = calc_SC();
 	if (EC > 0)
 	{
-		output_msg(OUTPUT_MESSAGE, "%45s%i\n",
-				   "Specific Conductance (uS/cm, 25 oC) = ", (int) EC);
+		output_msg(OUTPUT_MESSAGE, "%36s%i%7s%i\n",
+				   "Specific Conductance (uS/cm, ", (int) tc_x, " oC) = ", (int) EC);
 	}
 /* VP: Density Start */
 	if (print_density)

@@ -585,6 +585,7 @@ int set_initial_moles(int i);
 int sum_surface_comp(struct surface *source1, LDBLE f1,
 					 struct surface *source2, int k, LDBLE f2,
 					 struct surface *target, LDBLE new_Dw);
+LDBLE viscosity(void);
 int reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 				  LDBLE new_Dw, int cell);
 
