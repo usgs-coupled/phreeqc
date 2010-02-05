@@ -2329,7 +2329,7 @@ tidy_species(void)
 			{
 				if (s[i]->next_secondary[j].elt->primary == NULL)
 					continue;
-				if (s[i]->next_secondary[j].elt->primary->s == s_hplus)
+				if (s[i]->next_secondary[j].elt->primary->s == s_hplus || s[i]->next_secondary[j].elt->primary->s == s_h3oplus)
 				{
 					s[i]->h += s[i]->next_secondary[j].coef;
 				}
