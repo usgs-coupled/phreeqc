@@ -125,7 +125,7 @@ enum entity_type
 								   master species */
 #define MAX_ELEMENTS 50			/* default estimate of the number of elements */
 #define MAX_LENGTH 256			/* maximum number of characters component name */
-#define MAX_LINE 80				/* estimate of maximum line length */
+#define MAX_LINE 4096			/* estimate of maximum line length */
 #define MAX_LM 3.0				/* maximum log molality allowed in intermediate iterations */
 #define MIN_LM -30.0			/* minimum log molality allowed before molality set to zero */
 #define MAX_MASS_BALANCE 10		/* initial guess of number mass balance equations for a solution */
