@@ -49,45 +49,46 @@ LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 # Location to copy scripts on installation
 BINDIR=$(HOME)/bin
 
-OBJECTS=	$(MAIN).o \
+OBJECTS= \
+		$(MAIN).o \
 		advection.o \
 		basic.o \
 		basicsubs.o \
 		cl1.o \
+		cvdense.o \
+		cvode.o \
+		dense.o \
+		dw.o \
 		input.o \
 		integrate.o \
 		inverse.o \
 		isotopes.o \
 		kinetics.o \
 		mainsubs.o \
-		output.o \
 		model.o \
+		nvector.o \
+		nvector_serial.o \
+		output.o \
 		p2clib.o \
 		parse.o \
-		phreeqc_files.o \
 		phqalloc.o \
+		phreeqc_files.o \
+		pitzer.o \
+		pitzer_structures.o \
 		prep.o \
 		print.o \
 		read.o \
 		readtr.o \
+		sit.o \
+		smalldense.o \
 		spread.o \
 		step.o \
 		structures.o \
+		sundialsmath.o \
 		tally.o \
 		tidy.o \
 		transport.o \
-		utilities.o \
-		cvdense.o \
-		cvode.o \
-		dense.o \
-		nvector.o \
-		nvector_serial.o \
-		smalldense.o \
-		sundialsmath.o \
-		dw.o \
-		pitzer.o \
-		pitzer_structures.o \
-		sit.o \
+		utilities.o
 
 ifdef INVERSE_CL1MP
 	LOADFLAGS += /z/parkplace/usr/lib/libgmp.a 
