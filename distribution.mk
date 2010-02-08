@@ -16,12 +16,7 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
-#PHREEQC_CLASS=TRUE
-ifdef PHREEQC_CLASS
-CCFLAGS_DBG=-Wall -ansi -g -DUSE_PHRQ_ALLOC -DPHREEQC_CLASS
-else
 CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
-endif
 
 CFG1 :=`uname`
 CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
@@ -52,7 +47,6 @@ FILES=  \
 	$(CURSRC)/kinetics.c \
 	$(CURSRC)/main.c \
 	$(CURSRC)/mainsubs.c \
-	$(CURSRC)/class_main.cpp \
 	$(CURSRC)/model.c \
 	$(CURSRC)/nvector.c \
 	$(CURSRC)/nvector_serial.c \
@@ -61,13 +55,13 @@ FILES=  \
 	$(CURSRC)/parse.c \
 	$(CURSRC)/phqalloc.c \
 	$(CURSRC)/phreeqc_files.c \
-	$(CURSRC)/phreeqc_files.c \
 	$(CURSRC)/pitzer.c \
 	$(CURSRC)/pitzer_structures.c \
 	$(CURSRC)/prep.c \
 	$(CURSRC)/print.c \
 	$(CURSRC)/read.c \
 	$(CURSRC)/readtr.c \
+	$(CURSRC)/sit.c \
 	$(CURSRC)/smalldense.c \
 	$(CURSRC)/spread.c \
 	$(CURSRC)/step.c \
@@ -77,10 +71,12 @@ FILES=  \
 	$(CURSRC)/tidy.c \
 	$(CURSRC)/transport.c \
 	$(CURSRC)/utilities.c \
+	$(CURSRC)/basic.h \
 	$(CURSRC)/cvdense.h \
 	$(CURSRC)/cvode.h \
 	$(CURSRC)/dense.h \
 	$(CURSRC)/global.h \
+	$(CURSRC)/global_structures.h \
 	$(CURSRC)/input.h \
 	$(CURSRC)/kinetics.h \
 	$(CURSRC)/nvector.h \
@@ -91,6 +87,7 @@ FILES=  \
 	$(CURSRC)/phrqproto.h \
 	$(CURSRC)/phrqtype.h \
 	$(CURSRC)/pitzer.h \
+	$(CURSRC)/pitzer_structures.h \
 	$(CURSRC)/smalldense.h \
 	$(CURSRC)/sundialsmath.h \
 	$(CURSRC)/sundialstypes.h \
