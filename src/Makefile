@@ -17,20 +17,10 @@ SRC=.
 PWD=pwd
 
 # Change to C compiler on your system
-#PHREEQC_CLASS=TRUE
-ifdef PHREEQC_CLASS
-CC=g++
-CCFLAGS=-O3 -Wall -ansi -pedantic -DPHREEQC_CLASS -DNDEBUG # -frounding-math  # -pg
-MAIN=class_main
-else
 CC=gcc
-CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
-MAIN=main
-endif
-
 
 # Change to C compiler options on your system
-
+CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 # -frounding-math  # -pg
 
 # Remove the following definition if you do not have 
 # gmp (Gnu Multiple Precision) package on your system
@@ -50,7 +40,6 @@ LOADFLAGS+=$(call ld-option, -Wl$(comma)--hash-style=sysv)
 BINDIR=$(HOME)/bin
 
 OBJECTS= \
-		$(MAIN).o \
 		advection.o \
 		basic.o \
 		basicsubs.o \
@@ -64,6 +53,7 @@ OBJECTS= \
 		inverse.o \
 		isotopes.o \
 		kinetics.o \
+		main.o \
 		mainsubs.o \
 		model.o \
 		nvector.o \
@@ -173,6 +163,8 @@ cvode.o: $(SRC)/cvode.c $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h 
 
 dense.o: $(SRC)/dense.c $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/dense.h $(SRC)/ $(SRC)/ $(SRC)/smalldense.h $(SRC)/output.h $(SRC)/phqalloc.h
 
+dw.o: $(SRC)/dw.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phrqproto.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/pitzer.h
+
 input.o: $(SRC)/input.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/input.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/phqalloc.h
 
 integrate.o: $(SRC)/integrate.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
@@ -184,10 +176,6 @@ isotopes.o: $(SRC)/isotopes.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_st
 kinetics.o: $(SRC)/kinetics.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/sundialstypes.h $(SRC)/cvode.h $(SRC)/nvector.h $(SRC)/cvdense.h $(SRC)/ $(SRC)/ $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/nvector_serial.h $(SRC)/kinetics.h
 
 main.o: $(SRC)/main.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/input.h
-
-class_main.o: $(SRC)/class_main.cpp $(SRC)/Phreeqc.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
-
-Phreeqc.o: $(SRC)/Phreeqc.cpp $(SRC)/Phreeqc.h $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
 mainsubs.o: $(SRC)/mainsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
@@ -208,8 +196,6 @@ phqalloc.o: $(SRC)/phqalloc.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_st
 phreeqc_files.o: $(SRC)/phreeqc_files.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
 pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
-
-dw.o: $(SRC)/dw.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phrqproto.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/pitzer.h
 
 pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/ $(SRC)/ $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/ $(SRC)/ $(SRC)/pitzer.h
 
