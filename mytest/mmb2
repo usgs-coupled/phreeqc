@@ -1,3 +1,4 @@
+DATABASE ../database/phreeqc.dat
 #DATABASE phreeqd.dat
 # diffusion of NaCl in clay membrane.
 # Long-time test run, EB and a_Na goto steady values if

@@ -1,6 +1,6 @@
    Input file: aquia
   Output file: aquia.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	EXCHANGE_SPECIES
 	  H+ + X- = HX
 	 log_k 3.0
@@ -66,6 +67,8 @@ Initial solution 0.
 
                                        pH  =   7.570    
                                        pe  =   8.000    
+       Specific Conductance (uS/cm, 15 oC) = 218
+                          Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =   4.253e-03
                        Mass of water (kg)  =   1.000e+00
@@ -124,7 +127,7 @@ O(0)             1.180e-27
 	H2(g)           -31.14  -34.25   -3.11  H2
 	H2O(g)           -1.78    0.00    1.78  H2O
 	Halite           -9.62   -8.06    1.56  NaCl
-	O2(g)           -24.32  -27.23   -2.91  O2
+	O2(g)           -24.42  -27.23   -2.81  O2
 
 ------------------
 End of simulation.
@@ -168,6 +171,8 @@ Initial solution 1.
 
                                        pH  =   7.570    
                                        pe  =   8.000    
+       Specific Conductance (uS/cm, 15 oC) = 218
+                          Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =   4.253e-03
                        Mass of water (kg)  =   1.000e+00
@@ -226,7 +231,7 @@ O(0)             1.180e-27
 	H2(g)           -31.14  -34.25   -3.11  H2
 	H2O(g)           -1.78    0.00    1.78  H2O
 	Halite           -9.62   -8.06    1.56  NaCl
-	O2(g)           -24.32  -27.23   -2.91  O2
+	O2(g)           -24.42  -27.23   -2.81  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -258,6 +263,8 @@ Calcite              0.00   -8.43   -8.43    1.000e+01   1.000e+01  -2.576e-07
 
                                        pH  =   7.571      Charge balance
                                        pe  =  11.133      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 15 oC) = 218
+                          Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =   4.254e-03
                        Mass of water (kg)  =   1.000e+00
@@ -319,7 +326,7 @@ O(0)             4.046e-15
 	H2(g)           -37.41  -40.51   -3.11  H2
 	H2O(g)           -1.78    0.00    1.78  H2O
 	Halite           -9.62   -8.06    1.56  NaCl
-	O2(g)           -11.78  -14.69   -2.91  O2
+	O2(g)           -11.88  -14.69   -2.81  O2
 
 ------------------
 End of simulation.
@@ -368,6 +375,8 @@ Initial solution 4.
 
                                        pH  =   6.800    
                                        pe  =   8.000    
+       Specific Conductance (uS/cm, 15 oC) = 9319
+                          Density (g/cm3)  =   1.00439
                         Activity of water  =   0.996
                            Ionic strength  =   1.301e-01
                        Mass of water (kg)  =   1.000e+00
@@ -449,7 +458,7 @@ S(6)             2.670e-04
 	H2(g)           -29.60  -32.71   -3.11  H2
 	H2O(g)           -1.78    0.00    1.78  H2O
 	Halite           -3.85   -2.29    1.56  NaCl
-	O2(g)           -27.40  -30.31   -2.91  O2
+	O2(g)           -27.50  -30.31   -2.81  O2
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -483,6 +492,8 @@ Calcite              0.00   -8.43   -8.43    1.000e+01   1.000e+01   9.093e-05
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.762      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 15 oC) = 9310
+                          Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =   1.299e-01
                        Mass of water (kg)  =   1.000e+00
@@ -572,7 +583,7 @@ S(6)             2.670e-04
 	H2O(g)           -1.78    0.00    1.78  H2O
 	H2S(g)         -123.01 -123.89   -0.88  H2S
 	Halite           -3.85   -2.29    1.56  NaCl
-	O2(g)           -12.40  -15.32   -2.91  O2
+	O2(g)           -12.50  -15.32   -2.81  O2
 	Sulfur          -91.91  -86.79    5.12  S
 
 ------------------
@@ -669,6 +680,8 @@ Mixture 13.
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.762      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 15 oC) = 9310
+                          Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =   1.299e-01
                        Mass of water (kg)  =   1.000e+00
@@ -758,7 +771,7 @@ S(6)             2.670e-04
 	H2O(g)           -1.78    0.00    1.78  H2O
 	H2S(g)         -123.01 -123.89   -0.88  H2S
 	Halite           -3.85   -2.29    1.56  NaCl
-	O2(g)           -12.40  -15.32   -2.91  O2
+	O2(g)           -12.50  -15.32   -2.81  O2
 	Sulfur          -91.91  -86.79    5.12  S
 
 ------------------

@@ -1,6 +1,6 @@
    Input file: solution_s
   Output file: solution_s.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SOLUTION_S
 	temp	25
 	dens	1
@@ -55,6 +56,8 @@ Initial solution 1.	 soln 1
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 624
+                          Density (g/cm3)  =   0.99742
                         Activity of water  =   1.000
                            Ionic strength  =   8.776e-03
                        Mass of water (kg)  =   1.000e+00
@@ -136,7 +139,7 @@ S(6)             2.000e-03
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -7.67   -6.09    1.58  NaCl
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Initial solution 10.	 soln 10-11 
 
@@ -156,6 +159,8 @@ Initial solution 10.	 soln 10-11
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 624
+                          Density (g/cm3)  =   0.99742
                         Activity of water  =   1.000
                            Ionic strength  =   8.776e-03
                        Mass of water (kg)  =   1.000e+00
@@ -237,7 +242,7 @@ S(6)             2.000e-03
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -7.67   -6.09    1.58  NaCl
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 ------------------
 End of simulation.

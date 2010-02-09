@@ -7,7 +7,7 @@ ifeq ($(CFG), CYGWIN)
   PHREEQC=/cygdrive/c/Programs/phreeqc-trunk/build/win32/Release/phreeqc
 endif
 
-%.out : %  ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat tony.dat ../database/pitzer.dat 
+%.out : %  ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat ../database/pitzer.dat 
 	$(PHREEQC) $< 
 	mv phreeqc.log $<.log
 
@@ -20,6 +20,7 @@ all: alkalinity.out \
 	asf.out \
 	ball.out \
 	brown.out \
+	calc_SC.out \
 	cdmusic_related.out \
 	cd_ddl.out \
 	co2.out \

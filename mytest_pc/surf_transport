@@ -1,77 +1,51 @@
 DATABASE Tipping&Hurley.dat
 SOLUTION 0-1
-    temp      25
-    pH        7
-    pe        4
-    redox     pe
-    units     mol/kgw
-    density   1
-    Na        0
-    Cl        2e-006
-    Cd        1e-006
-    -water    1 # kg
+-units mol/kgw
+#-water 0.15
+pH  7
+Na  0
+Cl  2e-6
+Cd 1e-6
 SURFACE 0-1
+    -donnan 1e-12
     -equilibrate with solution 0
-    H_a        2e-006    46500     0.007         Dw 1e-005
-    H_b        4.97e-006
-    H_c        4.97e-006
-    H_d        4.97e-006
-    H_e        2.483e-006
-    H_f        2.483e-006
-    H_g        2.483e-006
-    H_h        2.483e-006
-    H_ab       8.278e-007
-    H_ad       8.278e-007
-    H_af       8.278e-007
-    H_ah       8.278e-007
-    H_bc       8.278e-007
-    H_be       8.278e-007
-    H_bg       8.278e-007
-    H_cd       8.278e-007
-    H_cf       8.278e-007
-    H_ch       8.278e-007
-    H_de       8.278e-007
-    H_dg       8.278e-007
-    -donnan 1e-012
-SOLUTION 2-10
-    temp      25
-    pH        7
-    pe        4
-    redox     pe
-    units     mmol/kgw
-    density   1
-    -water    1 # kg
-PRINT
-    -echo_input            false
-    -eh                    false
-    -equilibrium_phases    false
-    -exchange              false
-    -gas_phase             false
-    -headings              false
-    -inverse               false
-    -kinetics              false
-    -other                 false
-    -saturation_indices    false
-    -solid_solutions       false
-    -species               false
-    -surface               false
-    -totals                false
-    -user_print            false
-    -warnings              100
+    H_a     2e-006 46500  0.007 Dw 1e-5
+    H_b     4.97e-006
+    H_c     4.97e-006
+    H_d     4.97e-006
+    H_e     2.483e-006
+    H_f     2.483e-006
+    H_g     2.483e-006
+    H_h     2.483e-006
+    H_ab    8.278e-007
+    H_ad    8.278e-007
+    H_af    8.278e-007
+    H_ah    8.278e-007
+    H_bc    8.278e-007
+    H_be    8.278e-007
+    H_bg    8.278e-007
+    H_cd    8.278e-007
+    H_cf    8.278e-007
+    H_ch    8.278e-007
+    H_de    8.278e-007
+    H_dg    8.278e-007
+solution 2-10
+#-water 0.15
+PRINT; -reset false
 TRANSPORT
-    -cells                 10
+    -cells                 5
     -shifts                100
     -time_step             100 # seconds
     -flow_direction        diffusion_only
-    -boundary_conditions   constant flux
+    -boundary_conditions   constant
     -lengths               10*0.1
-    -diffusion_coefficient 1e-005
-    -thermal_diffusion     2   1e-005
-    -punch_frequency       50
+    -diffusion_coefficient 1e-5
     -warnings              true
-    -multi_d               true 1e-005 0.3 0 1
+    -multi_d true 1e-5
+    -punch_fr 50
+    -disp 0
 SELECTED_OUTPUT
     -file                 surf_transport.sel
-    -reset                false
-    -solution             true
+    -reset false
+    -solution true
     -totals               H_a  Cl

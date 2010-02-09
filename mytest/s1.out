@@ -1,6 +1,6 @@
    Input file: s1
   Output file: s1.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SURFACE_MASTER_SPECIES
 	 Su Su-
 	SURFACE_SPECIES
@@ -52,6 +53,8 @@ Initial solution 0.
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =   1.010e-07
                        Mass of water (kg)  =   1.000e+00
@@ -90,7 +93,7 @@ O(0)             0.000e+00
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite          -19.63  -18.05    1.58  NaCl
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 Initial solution 1.	
 
@@ -105,6 +108,8 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 81489
+                          Density (g/cm3)  =   1.03620
                         Activity of water  =   0.966
                            Ionic strength  =   1.000e+00
                        Mass of water (kg)  =   1.000e+00
@@ -143,7 +148,7 @@ O(0)             0.000e+00
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.53   -0.02    1.51  H2O
 	Halite           -1.95   -0.37    1.58  NaCl
-	O2(g)           -39.15  -42.11   -2.96  O2
+	O2(g)           -39.22  -42.11   -2.89  O2
 
 ------------------
 End of simulation.
@@ -243,6 +248,8 @@ Su
 
                                        pH  =   7.000      Charge balance
                                        pe  =   3.000      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 81489
+                          Density (g/cm3)  =   1.03620
                         Activity of water  =   0.966
                            Ionic strength  =   1.000e+00
                        Mass of water (kg)  =   1.000e+00
@@ -281,7 +288,7 @@ O(0)             0.000e+00
 	H2(g)           -20.00  -23.15   -3.15  H2
 	H2O(g)           -1.53   -0.02    1.51  H2O
 	Halite           -1.95   -0.37    1.58  NaCl
-	O2(g)           -43.15  -46.11   -2.96  O2
+	O2(g)           -43.22  -46.11   -2.89  O2
 
 ------------------
 End of simulation.
@@ -349,6 +356,8 @@ Su
 
                                        pH  =   7.000      Charge balance
                                        pe  =   5.300      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 81489
+                          Density (g/cm3)  =   1.03620
                         Activity of water  =   0.966
                            Ionic strength  =   1.000e+00
                        Mass of water (kg)  =   1.000e+00
@@ -387,7 +396,7 @@ O(0)             1.954e-37
 	H2(g)           -24.60  -27.75   -3.15  H2
 	H2O(g)           -1.53   -0.02    1.51  H2O
 	Halite           -1.95   -0.37    1.58  NaCl
-	O2(g)           -33.95  -36.91   -2.96  O2
+	O2(g)           -34.02  -36.91   -2.89  O2
 
 Transport step   1.
 
@@ -435,6 +444,8 @@ Su
 
                                        pH  =   9.331      Charge balance
                                        pe  =  -3.885      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 7
+                          Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
                            Ionic strength  =   3.782e-05
                        Mass of water (kg)  =   5.694e-01
@@ -473,7 +484,7 @@ O(0)             0.000e+00
 	H2(g)           -10.89  -14.04   -3.15  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite          -10.80   -9.22    1.58  NaCl
-	O2(g)           -61.34  -64.30   -2.96  O2
+	O2(g)           -61.40  -64.30   -2.89  O2
 
 ------------------
 End of simulation.

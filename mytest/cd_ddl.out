@@ -1,6 +1,6 @@
    Input file: cd_ddl
   Output file: cd_ddl.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SOLUTION 1
 	 Na 1
 	 Ca 0.1
@@ -61,6 +62,8 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 149
+                          Density (g/cm3)  =   0.99710
                         Activity of water  =   1.000
                            Ionic strength  =   1.300e-03
                        Mass of water (kg)  =   1.000e+00
@@ -102,7 +105,7 @@ O(0)             0.000e+00
 	H2(g)           -22.00  -25.15   -3.15  H2
 	H2O(g)           -1.51    0.00    1.51  H2O
 	Halite           -7.54   -5.96    1.58  NaCl
-	O2(g)           -39.12  -42.08   -2.96  O2
+	O2(g)           -39.19  -42.08   -2.89  O2
 
 ------------------------------------------------------
 Beginning of initial surface-composition calculations.
