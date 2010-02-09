@@ -91,15 +91,7 @@ FILES=  \
 	$(CURSRC)/smalldense.h \
 	$(CURSRC)/sundialsmath.h \
 	$(CURSRC)/sundialstypes.h \
-	database/iso.dat \
-	database/llnl.dat \
-	database/minteq.dat \
-	database/minteq.v4.dat \
-	database/phreeqc.dat \
-	database/pitzer.dat \
-	database/sit.dat \
-	database/tony.dat \
-	database/wateq4f.dat \
+	database/*.dat \
 	examples/ex1 examples/ex1.out \
 	examples/ex2 examples/ex2.out examples/ex2.sel \
 	examples/ex3 examples/ex3.out \
