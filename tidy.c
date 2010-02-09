@@ -2340,12 +2340,23 @@ tidy_species(void)
 				else if (s[i]->mole_balance != NULL)
 				{
 					master_ptr = s[i]->next_secondary[j].elt->master;
-					if (master_ptr->primary == TRUE)
+					if (master_ptr != NULL)
 					{
-						if (master_ptr->s->secondary != NULL)
+						if (master_ptr->primary == TRUE)
 						{
-							master_ptr = master_ptr->s->secondary;
+							if (master_ptr->s->secondary != NULL)
+							{
+								master_ptr = master_ptr->s->secondary;
+							}
 						}
+					}
+					else
+					{
+						input_error++;
+						sprintf(error_string,
+							"Element in -mole_balance %s not defined for species %s.\n", s[i]->mole_balance, s[i]->name);
+						error_msg(error_string, CONTINUE);
+						continue;
 					}
 					if (master_ptr->coef != 1)
 					{
