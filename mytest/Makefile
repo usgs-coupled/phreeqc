@@ -20,6 +20,7 @@ all: alkalinity.out \
 	asf.out \
 	ball.out \
 	brown.out \
+	calc_SC.out \
 	cdmusic_related.out \
 	cd_ddl.out \
 	co2.out \
