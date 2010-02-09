@@ -92,6 +92,7 @@ C        HCO3-          1.0     HCO3            12.0110
 C(+2)	 CO		0	C
 C(+4)    HCO3-          1.0     HCO3
 Ca       Ca+2           0.0     Ca              40.078
+Cyanide  Cyanide-	1.0     CN		26.
 Cd       Cd+2           0.0     Cd              112.411
 Ce	 Ce+3		0.0	Ce		140.115
 Ce(+2)	 Ce+2		0.0	Ce
@@ -169,7 +170,6 @@ Mn(+6)   MnO4-2		0	Mn
 Mn(+7)   MnO4-		0	Mn
 Mo	 MoO4-2		0.0	Mo		95.94
 N        NH3            1.0     N               14.0067
-N(-5)    CN-1           1.0     N         
 N(-3)    NH3            1.0     N
 N(-03)   N3-		0.0	N
 N(0)     N2             0.0     N
@@ -252,6 +252,7 @@ Tc(+4)	 TcO+2		0.0	Tc
 Tc(+5)	 TcO4-3		0.0	Tc
 Tc(+6)	 TcO4-2		0.0	Tc
 Tc(+7)	 TcO4-		0.0	Tc
+Thiocyanate Thiocyanate- 0.0    SCN             58.
 Th	 Th+4		0.0	Th		232.0381
 Ti	 Ti(OH)4	0.0	Ti		47.88
 Tl	 Tl+		0.0	Tl		204.3833
@@ -835,13 +836,16 @@ Zr(OH)2+2 =  Zr(OH)2+2
         -analytic 8.1393e+001 -2.3409e-003 -1.2290e+004 -2.9336e+001 -1.9180e+002
 #       -Range:  0-300
 
- 1.0000 NH3 + 1.0000 HCO3-  =  CN- +2.0000 H2O +0.5000 O2 
-        -llnl_gamma           3.0    
-        log_k           -56.0505
-	-delta_H	344.151	kJ/mol	# Calculated enthalpy of reaction	CN-
-#	Enthalpy of formation:	36 kcal/mol
-        -analytic -1.1174e+001 3.8167e-003 -1.7063e+004 4.5349e+000 -2.6625e+002
-#       -Range:  0-300
+#  1.0000 NH3 + 1.0000 HCO3-  =  CN- +2.0000 H2O +0.5000 O2 
+#         -llnl_gamma           3.0    
+#         log_k           -56.0505
+# 	-delta_H	344.151	kJ/mol	# Calculated enthalpy of reaction	CN-
+# #	Enthalpy of formation:	36 kcal/mol
+#         -analytic -1.1174e+001 3.8167e-003 -1.7063e+004 4.5349e+000 -2.6625e+002
+# #       -Range:  0-300
+
+Cyanide- = Cyanide-
+	log_k  0
 
  H+  + HCO3-  + H2O  = CH4 + 2.0000 O2
         -llnl_gamma           3.0    
@@ -1326,13 +1330,16 @@ O2 + H+ + 3.0000 HS-  = S3--  + 2.0000 H2O
 #       -Range:  0-300
 	-add_logk	Log_K_O2	-2.5
 
- 1.0000 H+  + HCO3-  + HS-  + NH3 = SCN-  + 3.0000 H2O
-        -llnl_gamma           3.5    
-        log_k            3.0070
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	SCN-
-#	Enthalpy of formation:	-0 kcal/mol
-        -analytic  0.16539E+03    0.49623E-01   -0.44624E+04   -0.65544E+02   -0.69680E+02
-#       -Range:  0-300
+# 1.0000 H+  + HCO3-  + HS-  + NH3 = SCN-  + 3.0000 H2O
+#        -llnl_gamma           3.5    
+#        log_k            3.0070
+#	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	SCN-
+##	Enthalpy of formation:	-0 kcal/mol
+#        -analytic  0.16539E+03    0.49623E-01   -0.44624E+04   -0.65544E+02   -0.69680E+02
+##       -Range:  0-300
+
+Thiocyanate- = Thiocyanate-
+	log_k  0.0
 
  1.0000 SO4--  =  SO3-- +0.5000 O2   
         -llnl_gamma           4.5    
@@ -2220,24 +2227,25 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Acetate)4-2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 CN- + 1.0000 Cd++  =  Cd(CN)2
-        -llnl_gamma           3.0    
-        log_k           +10.3551
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(CN)2
-#	Enthalpy of formation:	-0 kcal/mol
+ 2.0000 Cyanide- + 1.0000 Cd++  =  Cd(Cyanide)2
+         -llnl_gamma           3.0    
+         log_k           +10.3551
+ 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Cyanide)2
+ #	Enthalpy of formation:	-0 kcal/mol
+  
+ 3.0000 Cyanide- + 1.0000 Cd++  =  Cd(Cyanide)3-
+         -llnl_gamma           4.0    
+         log_k           +14.8191
+ 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Cyanide)3-
+ #	Enthalpy of formation:	-0 kcal/mol
+  
+ 4.0000 Cyanide- + 1.0000 Cd++  =  Cd(Cyanide)4--
+         -llnl_gamma           4.0    
+         log_k           +18.2670
+ 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Cyanide)4-2
+ #	Enthalpy of formation:	-0 kcal/mol
  
-3.0000 CN- + 1.0000 Cd++  =  Cd(CN)3-
-        -llnl_gamma           4.0    
-        log_k           +14.8191
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(CN)3-
-#	Enthalpy of formation:	-0 kcal/mol
- 
-4.0000 CN- + 1.0000 Cd++  =  Cd(CN)4--
-        -llnl_gamma           4.0    
-        log_k           +18.2670
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(CN)4-2
-#	Enthalpy of formation:	-0 kcal/mol
- 
+
 2.0000 HCO3- + 1.0000 Cd++  =  Cd(CO3)2-- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -14.2576
@@ -2308,16 +2316,16 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(OH)Cl
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 SCN- + 1.0000 Cd++  =  Cd(SCN)2
+2.0000 Thiocyanate- + 1.0000 Cd++  =  Cd(Thiocyanate)2
         -llnl_gamma           3.0    
         log_k           +1.8649
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(SCN)2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Thiocyanate)2
 #	Enthalpy of formation:	-0 kcal/mol
  
-3.0000 SCN- + 1.0000 Cd++  =  Cd(SCN)3-
+3.0000 Thiocyanate- + 1.0000 Cd++  =  Cd(Thiocyanate)3-
         -llnl_gamma           4.0    
         log_k           +1.9000
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(SCN)3-
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Thiocyanate)3-
 #	Enthalpy of formation:	-0 kcal/mol
  
 2.0000 Cd++ + 1.0000 H2O  =  Cd2OH+++ +1.0000 H+
@@ -2360,10 +2368,10 @@ HAcetate =  Acetate- + H+
         -analytic -8.8425e+000 1.7178e-003 -1.1758e+003 2.4435e+000 3.0321e+005
 #       -Range:  0-300
 
-1.0000 Cd++ + 1.0000 CN-  =  CdCN+
+1.0000 Cd++ + 1.0000 Cyanide-  =  CdCyanide+
         -llnl_gamma           4.0    
         log_k           +5.3129
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdCN+
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdCyanide+
 #	Enthalpy of formation:	-0 kcal/mol
  
 1.0000 HCO3- + 1.0000 Cd++  =  CdCO3 +1.0000 H+
@@ -2451,10 +2459,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdP2O7-2
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 SCN- + 1.0000 Cd++  =  CdSCN+
+1.0000 Thiocyanate- + 1.0000 Cd++  =  CdThiocyanate+
         -llnl_gamma           4.0    
         log_k           +1.3218
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdSCN+
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdThiocyanate+
 #	Enthalpy of formation:	-0 kcal/mol
  
 1.0000 SO4-- + 1.0000 Cd++  =  CdSO4
@@ -4462,10 +4470,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	HBrO
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 H+ + 1.0000 CN-  =  HCN
+1.0000 H+ + 1.0000 Cyanide-  =  HCyanide
         -llnl_gamma           3.0    
         log_k           +9.2359
-	-delta_H	-43.5136	kJ/mol	# Calculated enthalpy of reaction	HCN
+	-delta_H	-43.5136	kJ/mol	# Calculated enthalpy of reaction	HCyanide
 #	Enthalpy of formation:	25.6 kcal/mol
         -analytic 1.0536e+001 2.3105e-002 3.3038e+003 -7.7786e+000 5.1550e+001
 #       -Range:  0-300
@@ -6504,10 +6512,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(OH)3-
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 SCN- + 1.0000 Pb++  =  Pb(SCN)2
+2.0000 Thiocyanate- + 1.0000 Pb++  =  Pb(Thiocyanate)2
         -llnl_gamma           3.0    
         log_k           +1.2455
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(SCN)2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(Thiocyanate)2
 #	Enthalpy of formation:	-0 kcal/mol
  
 2.0000 Pb++ + 1.0000 H2O  =  Pb2OH+++ +1.0000 H+
@@ -6676,10 +6684,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	PbP2O7-2
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 SCN- + 1.0000 Pb++  =  PbSCN+
+1.0000 Thiocyanate- + 1.0000 Pb++  =  PbThiocyanate+
         -llnl_gamma           4.0    
         log_k           +0.9827
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	PbSCN+
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	PbThiocyanate+
 #	Enthalpy of formation:	-0 kcal/mol
  
 1.0000 Pd++ + 1.0000 Cl-  =  PdCl+
@@ -8542,10 +8550,10 @@ HAcetate =  Acetate- + H+
         -analytic 2.6685e+002 9.8204e-002 -9.4428e+003 -1.0871e+002 -1.6045e+002
 #       -Range:  0-200
 
-2.0000 SCN- + 1.0000 U++++  =  U(SCN)2++
+2.0000 Thiocyanate- + 1.0000 U++++  =  U(Thiocyanate)2++
         -llnl_gamma           4.5    
         log_k           +4.2600
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	U(SCN)2+2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	U(Thiocyanate)2+2
 #	Enthalpy of formation:	-456.4 kJ/mol
         -analytic 6.2193e+000 2.7673e-002 2.4326e+003 -7.4158e+000 3.7957e+001
 #       -Range:  0-300
@@ -8704,18 +8712,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2(OH)4-2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 SCN- + 1.0000 UO2++  =  UO2(SCN)2
+2.0000 Thiocyanate- + 1.0000 UO2++  =  UO2(Thiocyanate)2
         -llnl_gamma           3.0    
         log_k           +1.2401
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2(SCN)2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2(Thiocyanate)2
 #	Enthalpy of formation:	-857.3 kJ/mol
         -analytic 9.4216e+001 3.2840e-002 -2.4849e+003 -3.8162e+001 -4.2231e+001
 #       -Range:  0-200
 
-3.0000 SCN- + 1.0000 UO2++  =  UO2(SCN)3-
+3.0000 Thiocyanate- + 1.0000 UO2++  =  UO2(Thiocyanate)3-
         -llnl_gamma           4.0    
         log_k           +2.1001
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2(SCN)3-
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2(Thiocyanate)3-
 #	Enthalpy of formation:	-783.8 kJ/mol
         -analytic 1.6622e+001 2.2714e-002 4.9707e+002 -9.2785e+000 7.7512e+000
 #       -Range:  0-300
@@ -8873,10 +8881,10 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2S2O3
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 UO2++ + 1.0000 SCN-  =  UO2SCN+
+1.0000 UO2++ + 1.0000 Thiocyanate-  =  UO2Thiocyanate+
         -llnl_gamma           4.0    
         log_k           +1.4000
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2SCN+
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UO2Thiocyanate+
 #	Enthalpy of formation:	-939.38 kJ/mol
         -analytic 4.7033e+000 1.2562e-002 4.9095e+002 -3.5097e+000 7.6593e+000
 #       -Range:  0-300
@@ -8903,10 +8911,10 @@ S2O3-- + UO2++ = UO2S2O3
         -analytic 4.0793e+001 1.3563e-003 -3.8441e+003 -1.1659e+001 -5.9996e+001
 #       -Range:  0-300
 
-1.0000 U++++ + 1.0000 SCN-  =  USCN+++
+1.0000 U++++ + 1.0000 Thiocyanate-  =  UThiocyanate+++
         -llnl_gamma           5.0    
         log_k           +2.9700
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	USCN+3
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	UThiocyanate+3
 #	Enthalpy of formation:	-541.8 kJ/mol
         -analytic 4.0286e-001 1.5909e-002 2.3026e+003 -3.9973e+000 3.5929e+001
 #       -Range:  0-300
@@ -9384,10 +9392,10 @@ S2O3-- + UO2++ = UO2S2O3
         -analytic 3.5104e+001 -6.1568e-003 -1.3379e+004 -8.7697e+000 2.0670e+006
 #       -Range:  0-300
 
-4.0000 CN- + 1.0000 Zn++  =  Zn(CN)4--
+4.0000 Cyanide- + 1.0000 Zn++  =  Zn(Cyanide)4--
         -llnl_gamma           4.0    
         log_k           +16.7040
-	-delta_H	-107.305	kJ/mol	# Calculated enthalpy of reaction	Zn(CN)4-2
+	-delta_H	-107.305	kJ/mol	# Calculated enthalpy of reaction	Zn(Cyanide)4-2
 #	Enthalpy of formation:	341.806 kJ/mol
         -analytic 3.6586e+002 1.2655e-001 -2.9546e+003 -1.5232e+002 -4.6213e+001
 #       -Range:  0-300
@@ -9448,16 +9456,16 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Zn(OH)Cl
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 SCN- + 1.0000 Zn++  =  Zn(SCN)2
+2.0000 Thiocyanate- + 1.0000 Zn++  =  Zn(Thiocyanate)2
         -llnl_gamma           3.0    
         log_k           +0.8800
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Zn(SCN)2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Zn(Thiocyanate)2
 #	Enthalpy of formation:	-0 kcal/mol
  
-4.0000 SCN- + 1.0000 Zn++  =  Zn(SCN)4--
+4.0000 Thiocyanate- + 1.0000 Zn++  =  Zn(Thiocyanate)4--
         -llnl_gamma           4.0    
         log_k           +1.2479
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Zn(SCN)4-2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Zn(Thiocyanate)4-2
 #	Enthalpy of formation:	-0 kcal/mol
  
 1.0000 Zn++ + 1.0000 Br-  =  ZnBr+
@@ -14572,10 +14580,10 @@ Pb(N3)2(orth)
         -analytic 5.9779e+001 -1.1215e-002 -7.1081e+003 -1.6732e+001 -1.2073e+002
 #       -Range:  0-200
 
-Pb(SCN)2
-       Pb(SCN)2  =  + 1.0000 Pb++ + 2.0000 SCN-
+Pb(Thiocyanate)2
+       Pb(Thiocyanate)2  =  + 1.0000 Pb++ + 2.0000 Thiocyanate-
         log_k           -0.0910
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(SCN)2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(Thiocyanate)2
 #	Enthalpy of formation:	151.212 kJ/mol
         -analytic 7.4247e+000 -1.6226e-002 0.0000e+000 0.0000e+000 -2.3938e+005
 #       -Range:  0-200
