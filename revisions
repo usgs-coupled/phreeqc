@@ -7,6 +7,9 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.17.0: February 12, 2010
+------------------------------------------------------------
 
         --------
         svn 4006
@@ -157,18 +160,18 @@ File contains:
         in PITZER. The five-term expression for temperature dependence is 
         as follows:
 
-            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+        P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
 
         where TK is Kelvin and TR is 298.15.
 
         Example:
-SIT
--epsilon
-        Na+             Br-             0.05    #   0.01
-        Na+             Cl-             0.03    #   0.01
+        SIT
+                -epsilon
+                Na+             Br-             0.05    #   0.01
+                Na+             Cl-             0.03    #   0.01
 
--epsilon1 # not currently used
+                -epsilon1 # not currently used
 
 
         --------
@@ -473,8 +476,10 @@ Version 2.14.3: November 17, 2007
 
         As with all other Pitzer parameters, a five-term expression 
         for temperature dependence is available:
-            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+        
+        P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
+                
         where TK is Kelvin and TR is 298.15. A0 through A4 are
         defined in order. Any undefined values are assumed to 
         be zero.
@@ -1410,12 +1415,16 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+------------------------------------------------------------
+Version 2.17.0: February 12, 2010
+------------------------------------------------------------
 
         --------
         svn 4023
         --------
-        Trapped error when -mole_balance option was used, but
-        one of the stated elements was not defined. 
+        Trapped error when -mole_balance option was used in
+        SOLUTION_SPECIES and one of the stated elements was 
+        not defined. 
         
         --------
         svn 4022
