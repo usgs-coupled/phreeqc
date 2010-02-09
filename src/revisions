@@ -1410,6 +1410,23 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+
+        --------
+        svn 4023
+        --------
+        Trapped error when -mole_balance option was used, but
+        one of the stated elements was not defined. 
+        
+        --------
+        svn 4022
+        --------   
+        Redefined CN- and SCN- to be new elements Cyanide and
+        thiocyanate in llnl.dat. Former definitions were not 
+        useful because cyanide and thiocyanate were never
+        stable and defining a master species as CN- caused
+        problems with mole balances, appearing in solutions
+        without any carbon. 
+        
         --------
         svn 3901
         --------
