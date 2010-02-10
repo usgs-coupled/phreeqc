@@ -41,7 +41,6 @@ PHREEQC must be run by using an MS-DOS Command Prompt window.
                              o PHREEQC directory structure
                          E. COMPILING
                          F. RUNNING THE SOFTWARE
-                             o Out of environment space error
                          G. TESTING
                          H. CONTACTS
 
@@ -52,7 +51,7 @@ For installation of PHREEQC, 10 megabytes of free disk space is needed.
 
 To run PHREEQC, the following are necessary:
 
-  - Windows 98/Me, Windows NT 4.0, Windows 2000, Windows XP, Windows Vista
+  - Windows 2000 or higher
   - processor running at 100 megahertz or faster
   - 8 megabytes RAM
   - 20 megabytes free disk space
@@ -185,7 +184,7 @@ marks must be used to enter the full pathname.), or, (2) the
 executable (installed in phreeqc-@VERSION@\src\release\phreeqc.exe) may be
 copied to the current directory; further, the default database file
 must be in the current directory and named "phreeqc.dat". The default
-database file is installed in phreeqc-@VERSION@\database\phreeqc.dat.
+database file is installed in phreeqc-@VERSION@\phreeqc.dat.
 
 The environment variable PHREEQC_DATABASE can be used to specify the
 default database for a DOS window session.  This environment variable
@@ -199,32 +198,8 @@ arguments, the third argument is the database file and it takes
 precedence over the environment variable or the default database.
 
 
-Out of environment space error
-------------------------------
-
-This error can occur in earlier Windows operating systems when assigning 
-a value to the PHREEQC_DATABASE environment variable or running PHREEQC, 
-including when running the verification tests.  The error occurs when 
-there is insufficient space to hold a new environment variable definition.
-
-You can avoid this error by initiating a new command shell and specifying
-how much environment space you need.  For example, in an MS-DOS Command
-Prompt window, typing
-
-  command /e:1024
-
-will initiate a new command shell with 1024 bytes of environment space.
-Environment space can be between 256 and 32768 bytes.
-
-The above command will increase the environment space for only the
-current Command Prompt window.  To permanently increase your
-environment space, on Windows 9x/Me machines, click the MS-DOS
-icon in the upper-left corner of the Command Prompt window and select
-Properties.  Select the Memory tab and increase the value in the
-Initial environment field.
-
-
 G. TESTING
+
 
 Test data sets are provided to verify that the program is correctly installed
 and running on the system.  The tests execute the examples presented in
