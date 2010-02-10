@@ -72,7 +72,7 @@ Initial solution 1.
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.660e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   3
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -84,7 +84,7 @@ Initial solution 1.
 
    OH-                    1.043e-07   1.001e-07    -6.982    -7.000    -0.018
    H+                     1.039e-07   1.000e-07    -6.983    -7.000    -0.017
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 Ca               1.000e-04
    Ca+2                   1.000e-04   8.528e-05    -4.000    -4.069    -0.069
    CaOH+                  1.474e-10   1.415e-10    -9.832    -9.849    -0.018
@@ -103,7 +103,7 @@ O(0)             0.000e+00
 	Phase               SI log IAP  log KT
 
 	H2(g)           -22.00  -25.15   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.54   -5.96    1.58  NaCl
 	O2(g)           -39.19  -42.08   -2.89  O2
 

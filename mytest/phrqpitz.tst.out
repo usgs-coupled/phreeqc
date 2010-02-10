@@ -105,7 +105,7 @@ Ca               1.815e+00
 Cl               6.638e+00
    Cl-                    6.638e+00   4.403e+00     0.822     0.644    -0.178
 K                5.787e-03
-   K+                     5.787e-03   5.785e-03    -2.238    -2.238     0.000
+   K+                     5.787e-03   5.785e-03    -2.238    -2.238    -0.000
 Mg               2.386e-01
    Mg+2                   2.386e-01   3.846e+00    -0.622     0.585     1.207
    MgCO3                  3.066e-06   3.066e-06    -5.513    -5.513     0.000
@@ -403,7 +403,7 @@ Ca               1.815e+00
 Cl               6.638e+00
    Cl-                    6.638e+00   4.403e+00     0.822     0.644    -0.178
 K                5.787e-03
-   K+                     5.787e-03   5.785e-03    -2.238    -2.238     0.000
+   K+                     5.787e-03   5.785e-03    -2.238    -2.238    -0.000
 Mg               2.386e-01
    Mg+2                   2.386e-01   3.846e+00    -0.622     0.585     1.207
    MgCO3                  3.066e-06   3.066e-06    -5.513    -5.513     0.000
@@ -536,7 +536,7 @@ Ca               1.815e+00
 Cl               6.638e+00
    Cl-                    6.638e+00   4.403e+00     0.822     0.644    -0.178
 K                5.787e-03
-   K+                     5.787e-03   5.783e-03    -2.238    -2.238     0.000
+   K+                     5.787e-03   5.783e-03    -2.238    -2.238    -0.000
 Mg               2.386e-01
    Mg+2                   2.382e-01   3.835e+00    -0.623     0.584     1.207
    MgOH+                  3.240e-04   2.059e-04    -3.489    -3.686    -0.197
@@ -935,15 +935,15 @@ Initial solution 1.	Pure water
 	                               Unscaled    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.005e-07   1.005e-07    -6.998    -6.998     0.000
-   H+                     1.000e-07   1.000e-07    -7.000    -7.000     0.000
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   OH-                    1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+   H+                     1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -965,12 +965,12 @@ Using pure phase assemblage 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Anhydrite            0.00   -4.36   -4.36    1.000e+01   9.998e+00  -2.414e-03
-Bischofite           0.00    4.46    4.46    1.000e+02   8.535e+01  -1.465e+01
-Carnallite           0.00    4.33    4.33    1.000e+01   9.944e+00  -5.579e-02
+Anhydrite           -0.00   -4.36   -4.36    1.000e+01   9.998e+00  -2.414e-03
+Bischofite          -0.00    4.46    4.46    1.000e+02   8.535e+01  -1.465e+01
+Carnallite          -0.00    4.33    4.33    1.000e+01   9.944e+00  -5.579e-02
 CO2(g)              -3.50   -4.97   -1.47    1.000e+01   1.000e+01   3.910e-04
-Halite               0.00    1.57    1.57    1.000e+01   9.759e+00  -2.415e-01
-Kieserite            0.00   -0.12   -0.12    1.000e+01   9.838e+00  -1.620e-01
+Halite              -0.00    1.57    1.57    1.000e+01   9.759e+00  -2.415e-01
+Kieserite           -0.00   -0.12   -0.12    1.000e+01   9.838e+00  -1.620e-01
 Magnesite            0.00   -7.83   -7.83    1.000e+01   9.999e+00  -5.395e-04
 
 -----------------------------Solution composition------------------------------
@@ -998,7 +998,7 @@ Magnesite            0.00   -7.83   -7.83    1.000e+01   9.999e+00  -5.395e-04
                        Total CO2 (mol/kg)  =   5.724e-05
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  23
                          Gamma iterations  =   1
                       Osmotic coefficient  =   3.46328
@@ -1042,15 +1042,15 @@ S(6)             6.340e-02
 
 	Phase               SI log IAP  log KT
 
-	Anhydrite         0.00   -4.36   -4.36  CaSO4
+	Anhydrite        -0.00   -4.36   -4.36  CaSO4
 	Aragonite        -4.32  -12.54   -8.22  CaCO3
 	Arcanite         -5.41   -7.18   -1.78  K2SO4
-	Bischofite        0.00    4.46    4.46  MgCl2:6H2O
+	Bischofite       -0.00    4.46    4.46  MgCl2:6H2O
 	Bloedite         -2.98   -5.33   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -3.78  -14.66  -10.88  Mg(OH)2
 	Burkeite        -18.79  -19.56   -0.77  Na6CO3(SO4)2
 	Calcite          -4.14  -12.54   -8.41  CaCO3
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	Dolomite         -3.29  -20.38  -17.08  CaMg(CO3)2
 	Epsomite         -1.07   -2.95   -1.88  MgSO4:7H2O
@@ -1059,11 +1059,11 @@ S(6)             6.340e-02
 	Glauberite       -2.91   -8.15   -5.25  Na2Ca(SO4)2
 	Gypsum           -0.72   -5.30   -4.58  CaSO4:2H2O
 	H2O(g)           -1.98   -0.47    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.84   -2.48   -1.63  MgSO4:6H2O
 	Kainite          -1.00   -1.19   -0.19  KMgClSO4:3H2O
 	Kalicinite       -8.68  -18.74  -10.06  KHCO3
-	Kieserite         0.00   -0.12   -0.12  MgSO4:H2O
+	Kieserite        -0.00   -0.12   -0.12  MgSO4:H2O
 	Labile_S         -7.22  -12.89   -5.67  Na4Ca(SO4)3:2H2O
 	Leonhardite      -0.65   -1.54   -0.89  MgSO4:4H2O
 	Leonite          -4.74   -8.72   -3.98  K2Mg(SO4)2:4H2O
@@ -1135,15 +1135,15 @@ Initial solution 1.	Pure water
 	                               Unscaled    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.005e-07   1.005e-07    -6.998    -6.998     0.000
-   H+                     1.000e-07   1.000e-07    -7.000    -7.000     0.000
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   OH-                    1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+   H+                     1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -1183,7 +1183,7 @@ Using pure phase assemblage 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Anhydrite            0.00   -4.36   -4.36
+Anhydrite           -0.00   -4.36   -4.36
 	 NaCl               is reactant      1.000e+01   4.417e+00  -5.583e+00
 Gypsum               0.00   -4.58   -4.58    1.000e+01   9.952e+00  -4.810e-02
 
@@ -1210,7 +1210,7 @@ Gypsum               0.00   -4.58   -4.58    1.000e+01   9.952e+00  -4.810e-02
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.617e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  25
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.24365
@@ -1241,7 +1241,7 @@ S(6)             4.802e-02
 
 	Phase               SI log IAP  log KT
 
-	Anhydrite         0.00   -4.36   -4.36  CaSO4
+	Anhydrite        -0.00   -4.36   -4.36  CaSO4
 	Glauberite       -0.72   -5.97   -5.25  Na2Ca(SO4)2
 	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.62   -0.11    1.51  H2O
@@ -1304,15 +1304,15 @@ Initial solution 1.	Pure water
 	                               Unscaled    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.005e-07   1.005e-07    -6.998    -6.998     0.000
-   H+                     1.000e-07   1.000e-07    -7.000    -7.000     0.000
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   OH-                    1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+   H+                     1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -1358,7 +1358,7 @@ Halite               0.00    1.50    1.50    1.000e+02   9.391e+01  -6.093e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =   0.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  17
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.26409
@@ -1404,7 +1404,7 @@ Using temperature 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite               0.00    1.57    1.57    1.000e+02   9.390e+01  -6.100e+00
+Halite              -0.00    1.57    1.57    1.000e+02   9.390e+01  -6.100e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1427,7 +1427,7 @@ Halite               0.00    1.57    1.57    1.000e+02   9.390e+01  -6.100e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  16
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.28126
@@ -1445,16 +1445,16 @@ Halite               0.00    1.57    1.57    1.000e+02   9.390e+01  -6.100e+00
    H+                     5.469e-08   2.529e-07    -7.262    -6.597     0.665
    H2O                    5.551e+01   7.546e-01     1.744    -0.122     0.000
 Cl               6.100e+00
-   Cl-                    6.100e+00   6.095e+00     0.785     0.785     0.000
+   Cl-                    6.100e+00   6.095e+00     0.785     0.785    -0.000
 Na               6.100e+00
-   Na+                    6.100e+00   6.095e+00     0.785     0.785     0.000
+   Na+                    6.100e+00   6.095e+00     0.785     0.785    -0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
 	H2O(g)           -1.63   -0.12    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 
 Reaction step 3.
 
@@ -1496,7 +1496,7 @@ Halite               0.00    1.56    1.56    1.000e+02   9.338e+01  -6.625e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  = 100.000
                   Electrical balance (eq)  =  -4.617e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  16
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.23751
@@ -1542,7 +1542,7 @@ Using temperature 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite               0.00    1.20    1.20    1.000e+02   9.216e+01  -7.838e+00
+Halite              -0.00    1.20    1.20    1.000e+02   9.216e+01  -7.838e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1565,7 +1565,7 @@ Halite               0.00    1.20    1.20    1.000e+02   9.216e+01  -7.838e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  = 200.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  16
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.05894
@@ -1592,7 +1592,7 @@ Na               7.838e+00
 	Phase               SI log IAP  log KT
 
 	H2O(g)            1.21   -0.13   -1.34  H2O
-	Halite            0.00    1.20    1.20  NaCl
+	Halite           -0.00    1.20    1.20  NaCl
 
 Reaction step 5.
 
@@ -1611,7 +1611,7 @@ Using temperature 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite               0.00    0.29    0.29    1.000e+02   8.979e+01  -1.021e+01
+Halite              -0.00    0.29    0.29    1.000e+02   8.979e+01  -1.021e+01
 
 -----------------------------Solution composition------------------------------
 
@@ -1634,7 +1634,7 @@ Halite               0.00    0.29    0.29    1.000e+02   8.979e+01  -1.021e+01
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  = 300.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  15
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.72560
@@ -1661,7 +1661,7 @@ Na               1.021e+01
 	Phase               SI log IAP  log KT
 
 	H2O(g)            2.08   -0.12   -2.19  H2O
-	Halite            0.00    0.29    0.29  NaCl
+	Halite           -0.00    0.29    0.29  NaCl
 
 ------------------
 End of simulation.
@@ -1717,15 +1717,15 @@ Initial solution 1.	Pure water
 	                               Unscaled    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.005e-07   1.005e-07    -6.998    -6.998     0.000
-   H+                     1.000e-07   1.000e-07    -7.000    -7.000     0.000
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   OH-                    1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+   H+                     1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -1770,7 +1770,7 @@ CO2(g)              -2.00   -3.47   -1.47    1.000e+01   9.998e+00  -2.072e-03
                        Total CO2 (mol/kg)  =   3.813e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  16
                          Gamma iterations  =   1
                       Osmotic coefficient  =   0.95756
@@ -1786,7 +1786,7 @@ CO2(g)              -2.00   -3.47   -1.47    1.000e+01   9.998e+00  -2.072e-03
 
    OH-                    2.276e-07   2.073e-07    -6.643    -6.683    -0.040
    H+                     5.274e-08   4.845e-08    -7.278    -7.315    -0.037
-   H2O                    5.551e+01   9.999e-01     1.744     0.000     0.000
+   H2O                    5.551e+01   9.999e-01     1.744    -0.000     0.000
 C(4)             3.813e-03
    HCO3-                  3.463e-03   3.230e-03    -2.461    -2.491    -0.030
    CO2                    3.402e-04   3.405e-04    -3.468    -3.468     0.000
@@ -1803,7 +1803,7 @@ Ca               1.742e-03
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.00   -3.47   -1.47  CO2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	Portlandite     -11.07  -16.26   -5.19  Ca(OH)2
 
 ------------------
@@ -1861,15 +1861,15 @@ Initial solution 1.	Pure water
 	                               Unscaled    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.005e-07   1.005e-07    -6.998    -6.998     0.000
-   H+                     1.000e-07   1.000e-07    -7.000    -7.000     0.000
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   OH-                    1.005e-07   1.005e-07    -6.998    -6.998    -0.000
+   H+                     1.000e-07   1.000e-07    -7.000    -7.000    -0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -1893,7 +1893,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41    1.000e+01   9.997e+00  -2.544e-03
 CO2(g)              -2.00   -3.47   -1.47    1.000e+01   9.997e+00  -2.597e-03
-Halite               0.00    1.57    1.57    1.000e+01   3.902e+00  -6.098e+00
+Halite              -0.00    1.57    1.57    1.000e+01   3.902e+00  -6.098e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1917,7 +1917,7 @@ Halite               0.00    1.57    1.57    1.000e+01   3.902e+00  -6.098e+00
                        Total CO2 (mol/kg)  =   5.141e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  18
                          Gamma iterations  =   1
                       Osmotic coefficient  =   1.28131
@@ -1956,7 +1956,7 @@ Na               6.099e+00
 	CO2(g)           -2.00   -3.47   -1.47  CO2
 	Gaylussite       -3.96  -13.38   -9.42  CaNa2(CO3)2:5H2O
 	H2O(g)           -1.63   -0.12    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Nahcolite        -1.57  -12.31  -10.74  NaHCO3
 	Natron           -4.76   -5.58   -0.82  Na2CO3:10H2O
 	Pirssonite       -3.78  -13.01   -9.23  Na2Ca(CO3)2:2H2O
@@ -1996,7 +1996,7 @@ Mixture 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -3.053e-04
+Calcite             -0.00   -8.41   -8.41    1.000e+01   1.000e+01  -3.053e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2020,7 +2020,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -3.053e-04
                        Total CO2 (mol/kg)  =   4.251e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.612e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  11
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.92279
@@ -2055,7 +2055,7 @@ Na               6.099e-01
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
-	Calcite           0.00   -8.41   -8.41  CaCO3
+	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.66   -4.13   -1.47  CO2
 	Gaylussite       -4.90  -14.32   -9.42  CaNa2(CO3)2:5H2O
 	H2O(g)           -1.52   -0.01    1.51  H2O
@@ -2123,7 +2123,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -3.191e-04
                        Total CO2 (mol/kg)  =   4.531e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.593e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  11
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.97477
@@ -2202,7 +2202,7 @@ Mixture 1.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -2.585e-04
+Calcite             -0.00   -8.41   -8.41    1.000e+01   1.000e+01  -2.585e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2226,7 +2226,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -2.585e-04
                        Total CO2 (mol/kg)  =   4.736e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.595e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  10
                          Gamma iterations  =   4
                       Osmotic coefficient  =   1.04886
@@ -2261,7 +2261,7 @@ Na               3.049e+00
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.19   -8.41   -8.22  CaCO3
-	Calcite           0.00   -8.41   -8.41  CaCO3
+	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.51   -3.98   -1.47  CO2
 	Gaylussite       -3.90  -13.33   -9.42  CaNa2(CO3)2:5H2O
 	H2O(g)           -1.56   -0.05    1.51  H2O
@@ -2329,7 +2329,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -1.620e-04
                        Total CO2 (mol/kg)  =   4.905e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.650e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  11
                          Gamma iterations  =   4
                       Osmotic coefficient  =   1.13540
@@ -2432,7 +2432,7 @@ Calcite              0.00   -8.41   -8.41    1.000e+01   1.000e+01  -5.383e-05
                        Total CO2 (mol/kg)  =   5.062e-03
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.617e-10
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  11
                          Gamma iterations  =   4
                       Osmotic coefficient  =   1.23086
@@ -2782,8 +2782,8 @@ Using pure phase assemblage 1.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 CO2(g)              -3.50   -4.97   -1.47    1.000e+01   1.000e+01   1.855e-04
-Dolomite             0.00  -17.08  -17.08    1.000e+01   1.000e+01   9.455e-05
-Gypsum               0.00   -4.58   -4.58
+Dolomite            -0.00  -17.08  -17.08    1.000e+01   1.000e+01   9.455e-05
+Gypsum              -0.00   -4.58   -4.58
 	 H2O                is reactant      1.000e+02   1.396e+02   3.962e+01
 
 -----------------------------Solution composition------------------------------
@@ -2868,12 +2868,12 @@ S(6)             1.022e-01
 	Calcite          -0.55   -8.96   -8.41  CaCO3
 	Carnallite       -7.11   -2.78    4.33  KMgCl3:6H2O
 	CO2(g)           -3.50   -4.97   -1.47  CO2
-	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -2.02   -3.90   -1.88  MgSO4:7H2O
 	Gaylussite       -6.45  -15.87   -9.42  CaNa2(CO3)2:5H2O
 	Glaserite        -6.13   -9.93   -3.80  NaK3(SO4)2
 	Glauberite       -1.59   -6.83   -5.25  Na2Ca(SO4)2
-	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.54   -0.03    1.51  H2O
 	Halite           -1.39    0.18    1.57  NaCl
 	Hexahydrite      -2.24   -3.87   -1.63  MgSO4:6H2O
@@ -2929,9 +2929,9 @@ Using pure phase assemblage 1.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 CO2(g)              -3.50   -4.97   -1.47    1.000e+01   1.000e+01   3.146e-05
-Dolomite             0.00  -17.08  -17.08    1.000e+01   1.000e+01   1.371e-05
+Dolomite            -0.00  -17.08  -17.08    1.000e+01   1.000e+01   1.371e-05
 Gypsum               0.00   -4.58   -4.58    1.000e+01   1.001e+01   9.016e-03
-Halite               0.00    1.57    1.57
+Halite              -0.00    1.57    1.57
 	 H2O                is reactant      1.000e+02   1.107e+02   1.066e+01
 
 -----------------------------Solution composition------------------------------
@@ -3016,14 +3016,14 @@ S(6)             2.159e-01
 	Calcite          -1.13   -9.54   -8.41  CaCO3
 	Carnallite       -3.76    0.57    4.33  KMgCl3:6H2O
 	CO2(g)           -3.50   -4.97   -1.47  CO2
-	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -1.35   -3.23   -1.88  MgSO4:7H2O
 	Gaylussite       -6.96  -16.38   -9.42  CaNa2(CO3)2:5H2O
 	Glaserite        -4.13   -7.94   -3.80  NaK3(SO4)2
 	Glauberite       -0.04   -5.29   -5.25  Na2Ca(SO4)2
 	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
 	H2O(g)           -1.64   -0.13    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Hexahydrite      -1.47   -3.10   -1.63  MgSO4:6H2O
 	Kainite          -2.95   -3.14   -0.19  KMgClSO4:3H2O
 	Kalicinite       -5.92  -15.98  -10.06  KHCO3

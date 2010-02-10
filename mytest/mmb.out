@@ -76,7 +76,7 @@ sys_Ca =   1.0000e-06 a_Ca =   8.6862e-07 a_Na =   9.6514e-04
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.987e-13
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   6
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -88,7 +88,7 @@ sys_Ca =   1.0000e-06 a_Ca =   8.6862e-07 a_Na =   9.6514e-04
 
    OH-                    1.038e-07   1.001e-07    -6.984    -7.000    -0.016
    H+                     1.035e-07   1.000e-07    -6.985    -7.000    -0.015
-   H2O                    5.551e+01   1.000e+00     1.744     0.000     0.000
+   H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 Ca               1.000e-06
    Ca+2                   1.000e-06   8.686e-07    -6.000    -6.061    -0.061
    CaOH+                  1.494e-12   1.442e-12   -11.826   -11.841    -0.015
@@ -107,7 +107,7 @@ O(0)             0.000e+00
 	Phase               SI log IAP  log KT
 
 	H2(g)           -22.00  -25.15   -3.15  H2
-	H2O(g)           -1.51    0.00    1.51  H2O
+	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.61   -6.03    1.58  NaCl
 	O2(g)           -39.19  -42.08   -2.89  O2
 
@@ -162,7 +162,7 @@ sys_Ca =            0 a_Ca =   1.0000e-99 a_Na =   3.5460e-01
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.530e-11
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   7
                                   Total H  = 6.839365e+01
                                   Total O  = 3.419683e+01
@@ -292,7 +292,7 @@ Su
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -1.595e-11
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 6.839365e+01
                                   Total O  = 3.419683e+01
