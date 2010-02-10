@@ -1,6 +1,6 @@
    Input file: s1
   Output file: s1.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SURFACE_MASTER_SPECIES
 	 Su Su-
 	SURFACE_SPECIES

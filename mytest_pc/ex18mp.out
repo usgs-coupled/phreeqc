@@ -1,6 +1,6 @@
    Input file: ex18mp
   Output file: ex18mp.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	TITLE Example 18.--Inverse modeling of Madison aquifer
 	SOLUTION 1 Recharge number 3
 	        units   mmol/kgw
@@ -118,7 +119,7 @@ Initial solution 1.	Recharge number 3
 
                                        pH  =   7.550    
                                        pe  =   0.000    
-       Specific Conductance (uS/cm, 25 oC) = 399
+       Specific Conductance (uS/cm, 9 oC) = 271
                           Density (g/cm3)  =   1.00000
                         Activity of water  =   1.000
                            Ionic strength  =  6.543e-003
@@ -240,7 +241,7 @@ Initial solution 2.	Mysse
 
                                        pH  =   6.610    
                                        pe  =   0.000    
-       Specific Conductance (uS/cm, 25 oC) = 4993
+       Specific Conductance (uS/cm, 63 oC) = 9968
                           Density (g/cm3)  =   0.98563
                         Activity of water  =   0.999
                            Ionic strength  =  7.256e-002

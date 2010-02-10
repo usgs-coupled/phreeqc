@@ -1,6 +1,6 @@
    Input file: ex16mp
   Output file: ex16mp.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	TITLE Example 16.--Inverse modeling of Sierra springs
 	SOLUTION_SPREAD
 	        units mmol/L

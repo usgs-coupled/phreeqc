@@ -1,6 +1,6 @@
    Input file: netpathxl
   Output file: netpathxl.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SOLUTION_SPREAD
 	 Number	                                     Description	 Units	 Redox	   Temp	    pH	 pe	       Ca	       Mg	        Na	       K	        Cl	   S(6)	   Alkalinity	         C(4)	    Fe	    Mn	    Al	     F	      Si	      Br	     I	     Ba	    Li	      Sr	   N(5)	  N(-3)	    P	 O(0)	 S(-2)	 N(0)	  C(-4)	     13C	     14C	 34S(6)	 34S(-2)	      2H	 3H	    18O	 87Sr	 15N(0)	 15N(5)	 15N(-3)	 15N(3)	 Density
 	      	                                                	      	      	       	      	   	    as Ca	    as Mg	     as Na	    as K	     as Cl	 as SO4	 gfw 50.04289	 gfw 50.04289	 as Fe	 as Mn	 as Al	  as F	 as SiO2	   as Br	  as I	  as Ba	 as Li	   as Sr	   as N	   as N	 as P	 as O	  as S	 as N	 as CH4	        	        	       	        	        	   	       	     	       	       	        	       	        
@@ -109,7 +110,7 @@ Initial solution 1.	 02S-01E-22 ABB 1   Chapman Line Camp well
 
                                        pH  =   6.860    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 607
+       Specific Conductance (uS/cm, 18 oC) = 523
                           Density (g/cm3)  =   0.99890
                         Activity of water  =   1.000
                            Ionic strength  =  9.685e-003
@@ -277,7 +278,7 @@ Initial solution 2.	 01S-04E-03 ACA 1
 
                                        pH  =   6.900    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 873
+       Specific Conductance (uS/cm, 18 oC) = 746
                           Density (g/cm3)  =   0.99906
                         Activity of water  =   1.000
                            Ionic strength  =  1.364e-002
@@ -445,7 +446,7 @@ Initial solution 3.	 01S-05E-27 AAB 1
 
                                        pH  =   6.910    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 659
+       Specific Conductance (uS/cm, 18 oC) = 562
                           Density (g/cm3)  =   0.99899
                         Activity of water  =   1.000
                            Ionic strength  =  1.075e-002
@@ -613,7 +614,7 @@ Initial solution 4.	 01S-06E-22 BCC 1        Washington Spring
 
                                        pH  =   7.100    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 612
+       Specific Conductance (uS/cm, 17 oC) = 511
                           Density (g/cm3)  =   0.99913
                         Activity of water  =   1.000
                            Ionic strength  =  1.011e-002
@@ -781,7 +782,7 @@ Initial solution 5.	 01S-06E-26 ADD 1
 
                                        pH  =   6.700    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 849
+       Specific Conductance (uS/cm, 18 oC) = 725
                           Density (g/cm3)  =   0.99913
                         Activity of water  =   1.000
                            Ionic strength  =  1.417e-002
@@ -948,7 +949,7 @@ Initial solution 6.	 01S-07E-23 BCC 1  Wood well
 
                                        pH  =   7.200    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 1435
+       Specific Conductance (uS/cm, 18 oC) = 1225
                           Density (g/cm3)  =   0.99924
                         Activity of water  =   1.000
                            Ionic strength  =  1.744e-002
@@ -1108,7 +1109,7 @@ Initial solution 7.	 02S-05E-08 ABB 1  Johnston County RWD 3 Well 1
 
                                        pH  =   6.970    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 613
+       Specific Conductance (uS/cm, 16 oC) = 494
                           Density (g/cm3)  =   0.99937
                         Activity of water  =   1.000
                            Ionic strength  =  1.010e-002
@@ -1275,7 +1276,7 @@ Initial solution 8.	 02S-06E-11 DBC 1
 
                                        pH  =   7.050    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 645
+       Specific Conductance (uS/cm, 18 oC) = 552
                           Density (g/cm3)  =   0.99894
                         Activity of water  =   1.000
                            Ionic strength  =  1.040e-002
@@ -1438,7 +1439,7 @@ Initial solution 9.	 02S-06E-18 CAA 1        Unnamed Spring
 
                                        pH  =   7.020    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 643
+       Specific Conductance (uS/cm, 17 oC) = 535
                           Density (g/cm3)  =   0.99917
                         Activity of water  =   1.000
                            Ionic strength  =  1.069e-002
@@ -1606,7 +1607,7 @@ Initial solution 10.	 02S-07E-05 CBA 1
 
                                        pH  =   7.200    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 573
+       Specific Conductance (uS/cm, 18 oC) = 485
                           Density (g/cm3)  =   0.99899
                         Activity of water  =   1.000
                            Ionic strength  =  9.292e-003
@@ -1774,7 +1775,7 @@ Initial solution 11.	 02S-07E-17 BCB 1
 
                                        pH  =   6.800    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 615
+       Specific Conductance (uS/cm, 19 oC) = 540
                           Density (g/cm3)  =   0.99875
                         Activity of water  =   1.000
                            Ionic strength  =  1.025e-002
@@ -1942,7 +1943,7 @@ Initial solution 12.	 03S-04E-04 BCD 1
 
                                        pH  =   6.880    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 602
+       Specific Conductance (uS/cm, 19 oC) = 528
                           Density (g/cm3)  =   0.99874
                         Activity of water  =   1.000
                            Ionic strength  =  9.935e-003
@@ -2110,7 +2111,7 @@ Initial solution 13.	 01S-01E-21 CDD 1
 
                                        pH  =   6.740    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 604
+       Specific Conductance (uS/cm, 19 oC) = 534
                           Density (g/cm3)  =   0.99868
                         Activity of water  =   1.000
                            Ionic strength  =  9.961e-003
@@ -2278,7 +2279,7 @@ Initial solution 14.	 01S-03E-01 ABB 1 Antelope Spring at Sulphur, OK
 
                                        pH  =   7.090    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 606
+       Specific Conductance (uS/cm, 17 oC) = 510
                           Density (g/cm3)  =   0.99907
                         Activity of water  =   1.000
                            Ionic strength  =  1.004e-002
@@ -2445,7 +2446,7 @@ Initial solution 15.	 01S-03E-03 ABA 1        Vendome Well
 
                                        pH  =   7.140    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 2321
+       Specific Conductance (uS/cm, 19 oC) = 2043
                           Density (g/cm3)  =   0.99935
                         Activity of water  =   0.999
                            Ionic strength  =  2.543e-002
@@ -2605,7 +2606,7 @@ Initial solution 16.	 01S-03E-24 BAA 1
 
                                        pH  =   6.930    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 756
+       Specific Conductance (uS/cm, 18 oC) = 643
                           Density (g/cm3)  =   0.99909
                         Activity of water  =   1.000
                            Ionic strength  =  1.236e-002
@@ -2773,7 +2774,7 @@ Initial solution 17.	 01S-04E-05 DAD 1
 
                                        pH  =   6.700    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 731
+       Specific Conductance (uS/cm, 19 oC) = 635
                           Density (g/cm3)  =   0.99885
                         Activity of water  =   1.000
                            Ionic strength  =  1.145e-002
@@ -2941,7 +2942,7 @@ Initial solution 18.	 01S-04E-09 CCB 1
 
                                        pH  =   6.730    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 796
+       Specific Conductance (uS/cm, 18 oC) = 678
                           Density (g/cm3)  =   0.99908
                         Activity of water  =   1.000
                            Ionic strength  =  1.239e-002
@@ -3109,7 +3110,7 @@ Initial solution 19.	 02S-01E-02 CBA 1
 
                                        pH  =   6.750    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 625
+       Specific Conductance (uS/cm, 17 oC) = 527
                           Density (g/cm3)  =   0.99907
                         Activity of water  =   1.000
                            Ionic strength  =  1.020e-002
@@ -3277,7 +3278,7 @@ Initial solution 20.	 02S-01W-03 CCD 1
 
                                        pH  =   6.820    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 604
+       Specific Conductance (uS/cm, 18 oC) = 511
                           Density (g/cm3)  =   0.99904
                         Activity of water  =   1.000
                            Ionic strength  =  9.811e-003
@@ -3445,7 +3446,7 @@ Initial solution 21.	 02S-02E-18 BDB 1
 
                                        pH  =   6.950    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 592
+       Specific Conductance (uS/cm, 18 oC) = 509
                           Density (g/cm3)  =   0.99891
                         Activity of water  =   1.000
                            Ionic strength  =  9.597e-003
@@ -3613,7 +3614,7 @@ Initial solution 22.	 02S-03E-10 CDD 1
 
                                        pH  =   7.100    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 390
+       Specific Conductance (uS/cm, 18 oC) = 334
                           Density (g/cm3)  =   0.99875
                         Activity of water  =   1.000
                            Ionic strength  =  6.131e-003
@@ -3781,7 +3782,7 @@ Initial solution 23.	 02S-04E-09 DAB 1
 
                                        pH  =   6.780    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 640
+       Specific Conductance (uS/cm, 20 oC) = 577
                           Density (g/cm3)  =   0.99849
                         Activity of water  =   1.000
                            Ionic strength  =  1.010e-002
@@ -3949,7 +3950,7 @@ Initial solution 24.	 02S-04E-28 DCB 1
 
                                        pH  =   6.990    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 565
+       Specific Conductance (uS/cm, 18 oC) = 489
                           Density (g/cm3)  =   0.99881
                         Activity of water  =   1.000
                            Ionic strength  =  9.195e-003
@@ -4115,7 +4116,7 @@ Initial solution 25.	 01N-05E-22 CBB 1
 
                                        pH  =   6.990    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 494
+       Specific Conductance (uS/cm, 16 oC) = 404
                           Density (g/cm3)  =   0.99917
                         Activity of water  =   1.000
                            Ionic strength  =  7.981e-003
@@ -4275,7 +4276,7 @@ Initial solution 26.	 01N-06E-07 CDC 1
 
                                        pH  =   7.050    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 551
+       Specific Conductance (uS/cm, 19 oC) = 479
                           Density (g/cm3)  =   0.99877
                         Activity of water  =   1.000
                            Ionic strength  =  9.096e-003
@@ -4443,7 +4444,7 @@ Initial solution 27.	 01N-07E-30 DBB 1
 
                                        pH  =   6.750    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 638
+       Specific Conductance (uS/cm, 18 oC) = 550
                           Density (g/cm3)  =   0.99890
                         Activity of water  =   1.000
                            Ionic strength  =  1.035e-002
@@ -4611,7 +4612,7 @@ Initial solution 28.	 02N-05E-17 BDD 1
 
                                        pH  =   6.950    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 616
+       Specific Conductance (uS/cm, 18 oC) = 526
                           Density (g/cm3)  =   0.99895
                         Activity of water  =   1.000
                            Ionic strength  =  9.988e-003
@@ -4779,7 +4780,7 @@ Initial solution 29.	 02N-06E-32 CBC 1
 
                                        pH  =   6.700    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 1052
+       Specific Conductance (uS/cm, 17 oC) = 882
                           Density (g/cm3)  =   0.99943
                         Activity of water  =   1.000
                            Ionic strength  =  1.785e-002
@@ -4946,7 +4947,7 @@ Initial solution 30.	 02N-06E-34 CCD 1 Byrds Mill Spring
 
                                        pH  =   7.100    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 606
+       Specific Conductance (uS/cm, 18 oC) = 515
                           Density (g/cm3)  =   0.99899
                         Activity of water  =   1.000
                            Ionic strength  =  9.933e-003
@@ -5110,7 +5111,7 @@ Initial solution 31.	 01S-02E-01 DCB 1 Harrison, Nace
 
                                        pH  =   6.500    
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 113885
+       Specific Conductance (uS/cm, 33 oC) = 135679
                           Density (g/cm3)  =   1.05784
                         Activity of water  =   0.946
                            Ionic strength  =  1.810e+000
@@ -5261,7 +5262,7 @@ Initial solution 32.	 Precipitation
 
                                        pH  =   4.714      Charge balance
                                        pe  =   0.000    
-       Specific Conductance (uS/cm, 25 oC) = 48
+       Specific Conductance (uS/cm, 17 oC) = 39
                           Density (g/cm3)  =   0.99880
                         Activity of water  =   1.000
                            Ionic strength  =  5.705e-004
@@ -5452,7 +5453,7 @@ O2(g)              -15.00  -17.83   -2.83   1.000e+001  1.000e+001 -1.474e-013
 
                                        pH  =   7.105      Charge balance
                                        pe  =  10.638      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 472
+       Specific Conductance (uS/cm, 17 oC) = 389
                           Density (g/cm3)  =   0.99912
                         Activity of water  =   1.000
                            Ionic strength  =  7.512e-003

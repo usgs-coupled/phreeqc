@@ -1,6 +1,6 @@
    Input file: pyrite_34s
   Output file: pyrite_34s.out
-Database file: ../database/newiso.dat
+Database file: ../database/iso.dat
 
 ------------------
 Reading data base.
@@ -26,7 +26,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE ../database/newiso.dat
+	DATABASE ../database/iso.dat
 	NAMED_EXPRESSIONS
 	  Log_alpha_34S_HS-/SO4-2
 	  ln_alpha1000 -33
@@ -207,11 +207,11 @@ Pyrite                                     1.05e-002
                                                          ----------------------
      Isotope Ratio                   Solution alpha      Solution        25.0 C
 
-Alpha 34S HSO4-/SO4-2                             1  -3.6637e-012             0
+Alpha 34S HSO4-/SO4-2                             1   3.9968e-012             0
 Alpha 34S S-2/HS-                                 1   2.2204e-013             0
 Alpha 34S HS-/SO4-2                         0.96754           -33           -33
 Alpha 34S H2S(aq)/HS-                             1   2.2204e-013             0
-Alpha 34S Pyrite/HS-                              1   1.5543e-012             0
+Alpha 34S Pyrite/HS-                              1  -1.5987e-011             0
 
 -----------------------------Solution composition------------------------------
 

@@ -1,6 +1,6 @@
    Input file: aquia
   Output file: aquia.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	EXCHANGE_SPECIES
 	  H+ + X- = HX
 	 log_k 3.0
@@ -66,7 +67,7 @@ Initial solution 0.
 
                                        pH  =   7.570    
                                        pe  =   8.000    
-       Specific Conductance (uS/cm, 25 oC) = 279
+       Specific Conductance (uS/cm, 15 oC) = 218
                           Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =  4.253e-003
@@ -170,7 +171,7 @@ Initial solution 1.
 
                                        pH  =   7.570    
                                        pe  =   8.000    
-       Specific Conductance (uS/cm, 25 oC) = 279
+       Specific Conductance (uS/cm, 15 oC) = 218
                           Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =  4.253e-003
@@ -262,7 +263,7 @@ Calcite              0.00   -8.43   -8.43   1.000e+001  1.000e+001 -2.576e-007
 
                                        pH  =   7.571      Charge balance
                                        pe  =  11.133      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 279
+       Specific Conductance (uS/cm, 15 oC) = 218
                           Density (g/cm3)  =   0.99929
                         Activity of water  =   1.000
                            Ionic strength  =  4.254e-003
@@ -374,7 +375,7 @@ Initial solution 4.
 
                                        pH  =   6.800    
                                        pe  =   8.000    
-       Specific Conductance (uS/cm, 25 oC) = 11905
+       Specific Conductance (uS/cm, 15 oC) = 9319
                           Density (g/cm3)  =   1.00439
                         Activity of water  =   0.996
                            Ionic strength  =  1.301e-001
@@ -491,7 +492,7 @@ Calcite              0.00   -8.43   -8.43   1.000e+001  1.000e+001  9.093e-005
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.991      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 11894
+       Specific Conductance (uS/cm, 15 oC) = 9310
                           Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =  1.299e-001
@@ -679,7 +680,7 @@ Mixture 13.
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.991      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 11894
+       Specific Conductance (uS/cm, 15 oC) = 9310
                           Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =  1.299e-001

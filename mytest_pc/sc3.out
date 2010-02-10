@@ -1,6 +1,6 @@
    Input file: sc3
   Output file: sc3.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	SOLUTION_SPECIES
 	 Na+ = Na+
 	 log_k 0

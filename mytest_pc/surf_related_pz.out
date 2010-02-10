@@ -357,7 +357,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Gypsum               0.00   -4.58   -4.58   1.607e-001  1.607e-001  4.899e-014
+Gypsum               0.00   -4.58   -4.58   1.607e-001  1.607e-001  4.896e-014
 
 ------------------------------Surface composition------------------------------
 
@@ -1438,7 +1438,7 @@ Gypsum               0.00   -4.58   -4.58   2.000e-002  4.737e-003 -1.526e-002
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -4.618e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  12
+                               Iterations  =  13
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.69611
                          Density of water  =   0.99706
@@ -1560,30 +1560,30 @@ Gypsum              -0.38   -4.96   -4.58   2.000e-002           0 -2.000e-002
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 2.703e-026  Surface charge, eq
+	 2.708e-026  Surface charge, eq
 Hfo_s         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+        1.740e-026       0.000  1.738e-026     -25.760
-	Hfo_sOHCa+2      4.808e-030       0.000  4.802e-030     -29.319
-	Hfo_sOH          4.862e-033       0.000  4.855e-033     -32.314
-	Hfo_sO-          3.112e-041       0.000  3.108e-041     -40.508
+	Hfo_sOH2+        1.742e-026       0.000  1.740e-026     -25.759
+	Hfo_sOHCa+2      4.815e-030       0.000  4.809e-030     -29.318
+	Hfo_sOH          4.868e-033       0.000  4.862e-033     -32.313
+	Hfo_sO-          3.116e-041       0.000  3.112e-041     -40.507
 
 Hfo           
-	 2.703e-026  Surface charge, eq
+	 2.708e-026  Surface charge, eq
 Hfo_w         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+        9.647e-027       0.000  9.635e-027     -26.016
-	Hfo_wSO4-        3.139e-029       0.000  3.135e-029     -28.504
-	Hfo_wOH          2.695e-033       0.000  2.692e-033     -32.570
-	Hfo_wOHSO4-2     1.734e-035       0.000  1.732e-035     -34.761
-	Hfo_wOCa+        2.198e-040       0.000  2.195e-040     -39.659
-	Hfo_wO-          1.725e-041       0.000  1.723e-041     -40.764
+	Hfo_wOH2+        9.676e-027       0.000  9.664e-027     -26.015
+	Hfo_wSO4-        3.149e-029       0.000  3.145e-029     -28.502
+	Hfo_wOH          2.703e-033       0.000  2.700e-033     -32.569
+	Hfo_wOHSO4-2     1.739e-035       0.000  1.737e-035     -34.760
+	Hfo_wOCa+        2.205e-040       0.000  2.202e-040     -39.657
+	Hfo_wO-          1.730e-041       0.000  1.728e-041     -40.762
 
 -----------------------------Solution composition------------------------------
 

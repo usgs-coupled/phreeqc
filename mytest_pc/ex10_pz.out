@@ -275,7 +275,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  3.601e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  19
+                               Iterations  =  20
                          Gamma iterations  =   4
                       Osmotic coefficient  =   1.41467
                          Density of water  =   0.99706
@@ -625,7 +625,7 @@ Using pure phase assemblage 1.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.000e-001  7.124e-002 -2.876e-002
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.607e+000  6.964e-003
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.607e+000  6.964e-003
 
 ------------------------------Surface composition------------------------------
 
@@ -737,7 +737,7 @@ S(6)            2.456e-004
 	Burkeite        -18.60  -19.37   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -1.72   -3.19   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.41   -8.29   -1.88  MgSO4:7H2O
 	Gaylussite       -5.70  -15.12   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite       -9.10  -14.35   -5.25  Na2Ca(SO4)2
@@ -836,7 +836,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  4.738e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  13.14
-                               Iterations  =  29
+                               Iterations  =  28
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.95058
                          Density of water  =   0.99706
@@ -984,7 +984,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  1.377e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   5.09
-                               Iterations  =  27
+                               Iterations  =  36
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.95230
                          Density of water  =   0.99706
@@ -1132,7 +1132,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  4.119e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   1.66
-                               Iterations  =  43
+                               Iterations  =  27
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.95205
                          Density of water  =   0.99706
@@ -1280,7 +1280,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  6.529e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.27
-                               Iterations  =  25
+                               Iterations  =  23
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.95224
                          Density of water  =   0.99706
@@ -1428,7 +1428,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.763e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.29
-                               Iterations  =  39
+                               Iterations  =  23
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.95270
                          Density of water  =   0.99706
@@ -1661,7 +1661,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   5.573e-002  5.401e-002 -1.725e-003
-Dolomite            -0.00  -17.08  -17.08   1.604e+000  1.604e+000 -2.769e-004
+Dolomite             0.00  -17.08  -17.08   1.604e+000  1.604e+000 -2.769e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -1773,7 +1773,7 @@ S(6)            2.351e-004
 	Burkeite        -22.00  -22.77   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.74   -5.21   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.55   -9.43   -1.88  MgSO4:7H2O
 	Gaylussite       -6.08  -15.50   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.75  -17.00   -5.25  Na2Ca(SO4)2
@@ -1809,7 +1809,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   5.401e-002  5.232e-002 -1.689e-003
-Dolomite            -0.00  -17.08  -17.08   1.604e+000  1.604e+000 -2.603e-004
+Dolomite             0.00  -17.08  -17.08   1.604e+000  1.604e+000 -2.603e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -1872,7 +1872,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.360e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.61
-                               Iterations  =  22
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95436
                          Density of water  =   0.99706
@@ -1921,7 +1921,7 @@ S(6)            2.351e-004
 	Burkeite        -22.05  -22.82   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.72   -5.19   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.53   -9.41   -1.88  MgSO4:7H2O
 	Gaylussite       -6.11  -15.53   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.74  -16.99   -5.25  Na2Ca(SO4)2
@@ -1957,7 +1957,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   5.232e-002  5.066e-002 -1.657e-003
-Dolomite            -0.00  -17.08  -17.08   1.604e+000  1.603e+000 -2.449e-004
+Dolomite             0.00  -17.08  -17.08   1.604e+000  1.603e+000 -2.449e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2020,7 +2020,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.334e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.60
-                               Iterations  =  22
+                               Iterations  =  21
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95489
                          Density of water  =   0.99706
@@ -2069,7 +2069,7 @@ S(6)            2.351e-004
 	Burkeite        -22.10  -22.87   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.70   -5.16   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.50   -9.38   -1.88  MgSO4:7H2O
 	Gaylussite       -6.14  -15.56   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.73  -16.97   -5.25  Na2Ca(SO4)2
@@ -2105,7 +2105,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   5.066e-002  4.903e-002 -1.630e-003
-Dolomite            -0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.306e-004
+Dolomite             0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.306e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2217,7 +2217,7 @@ S(6)            2.351e-004
 	Burkeite        -22.14  -22.91   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.67   -5.14   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.48   -9.36   -1.88  MgSO4:7H2O
 	Gaylussite       -6.17  -15.59   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.71  -16.96   -5.25  Na2Ca(SO4)2
@@ -2253,7 +2253,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.903e-002  4.743e-002 -1.604e-003
-Dolomite            -0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.172e-004
+Dolomite             0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.172e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2316,7 +2316,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.241e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.57
-                               Iterations  =  39
+                               Iterations  =  22
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95586
                          Density of water  =   0.99706
@@ -2365,7 +2365,7 @@ S(6)            2.351e-004
 	Burkeite        -22.18  -22.96   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.65   -5.12   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.46   -9.34   -1.88  MgSO4:7H2O
 	Gaylussite       -6.20  -15.62   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.70  -16.94   -5.25  Na2Ca(SO4)2
@@ -2401,7 +2401,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.743e-002  4.585e-002 -1.580e-003
-Dolomite            -0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.045e-004
+Dolomite             0.00  -17.08  -17.08   1.603e+000  1.603e+000 -2.045e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2464,7 +2464,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.193e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.56
-                               Iterations  =  22
+                               Iterations  =  25
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95631
                          Density of water  =   0.99706
@@ -2513,7 +2513,7 @@ S(6)            2.351e-004
 	Burkeite        -22.23  -23.00   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.63   -5.10   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.44   -9.32   -1.88  MgSO4:7H2O
 	Gaylussite       -6.22  -15.65   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.68  -16.93   -5.25  Na2Ca(SO4)2
@@ -2549,7 +2549,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.585e-002  4.429e-002 -1.557e-003
-Dolomite            -0.00  -17.08  -17.08   1.603e+000  1.603e+000 -1.925e-004
+Dolomite             0.00  -17.08  -17.08   1.603e+000  1.603e+000 -1.925e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2661,7 +2661,7 @@ S(6)            2.351e-004
 	Burkeite        -22.27  -23.04   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.61   -5.08   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.42   -9.30   -1.88  MgSO4:7H2O
 	Gaylussite       -6.25  -15.67   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.67  -16.91   -5.25  Na2Ca(SO4)2
@@ -2697,7 +2697,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.429e-002  4.276e-002 -1.536e-003
-Dolomite            -0.00  -17.08  -17.08   1.603e+000  1.602e+000 -1.812e-004
+Dolomite             0.00  -17.08  -17.08   1.603e+000  1.602e+000 -1.812e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2760,7 +2760,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.107e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.53
-                               Iterations  =  25
+                               Iterations  =  22
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95714
                          Density of water  =   0.99706
@@ -2809,7 +2809,7 @@ S(6)            2.351e-004
 	Burkeite        -22.31  -23.08   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.59   -5.06   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.40   -9.28   -1.88  MgSO4:7H2O
 	Gaylussite       -6.28  -15.70   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.65  -16.90   -5.25  Na2Ca(SO4)2
@@ -2845,7 +2845,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.276e-002  4.124e-002 -1.516e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.704e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.704e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -2908,7 +2908,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.069e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.51
-                               Iterations  =  24
+                               Iterations  =  21
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95752
                          Density of water  =   0.99706
@@ -2957,7 +2957,7 @@ S(6)            2.351e-004
 	Burkeite        -22.34  -23.12   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.57   -5.03   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.37   -9.25   -1.88  MgSO4:7H2O
 	Gaylussite       -6.31  -15.73   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.64  -16.88   -5.25  Na2Ca(SO4)2
@@ -2993,7 +2993,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.124e-002  3.974e-002 -1.497e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.602e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.602e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3056,7 +3056,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.034e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.50
-                               Iterations  =  25
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95788
                          Density of water  =   0.99706
@@ -3105,7 +3105,7 @@ S(6)            2.351e-004
 	Burkeite        -22.38  -23.15   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.55   -5.01   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.35   -9.23   -1.88  MgSO4:7H2O
 	Gaylussite       -6.33  -15.75   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.62  -16.87   -5.25  Na2Ca(SO4)2
@@ -3141,7 +3141,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.974e-002  3.827e-002 -1.478e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.506e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.506e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3204,7 +3204,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.002e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.49
-                               Iterations  =  22
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95823
                          Density of water  =   0.99706
@@ -3253,7 +3253,7 @@ S(6)            2.351e-004
 	Burkeite        -22.42  -23.19   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.52   -4.99   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.33   -9.21   -1.88  MgSO4:7H2O
 	Gaylussite       -6.36  -15.78   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.61  -16.85   -5.25  Na2Ca(SO4)2
@@ -3289,7 +3289,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.827e-002  3.680e-002 -1.461e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.413e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.413e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3352,7 +3352,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -9.725e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.48
-                               Iterations  =  22
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95856
                          Density of water  =   0.99706
@@ -3401,7 +3401,7 @@ S(6)            2.351e-004
 	Burkeite        -22.46  -23.23   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.50   -4.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.31   -9.19   -1.88  MgSO4:7H2O
 	Gaylussite       -6.39  -15.81   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.59  -16.83   -5.25  Na2Ca(SO4)2
@@ -3437,7 +3437,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.680e-002  3.536e-002 -1.444e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.325e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.602e+000 -1.325e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3549,7 +3549,7 @@ S(6)            2.351e-004
 	Burkeite        -22.49  -23.26   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.48   -4.95   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.29   -9.17   -1.88  MgSO4:7H2O
 	Gaylussite       -6.41  -15.83   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.57  -16.82   -5.25  Na2Ca(SO4)2
@@ -3585,7 +3585,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.536e-002  3.393e-002 -1.428e-003
-Dolomite            -0.00  -17.08  -17.08   1.602e+000  1.601e+000 -1.242e-004
+Dolomite             0.00  -17.08  -17.08   1.602e+000  1.601e+000 -1.242e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3697,7 +3697,7 @@ S(6)            2.351e-004
 	Burkeite        -22.53  -23.30   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.46   -4.93   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.27   -9.15   -1.88  MgSO4:7H2O
 	Gaylussite       -6.44  -15.86   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.56  -16.80   -5.25  Na2Ca(SO4)2
@@ -3733,7 +3733,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.393e-002  3.252e-002 -1.413e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.161e-004
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.161e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3845,7 +3845,7 @@ S(6)            2.351e-004
 	Burkeite        -22.56  -23.33   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.44   -4.91   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.25   -9.13   -1.88  MgSO4:7H2O
 	Gaylussite       -6.46  -15.88   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.54  -16.79   -5.25  Na2Ca(SO4)2
@@ -3881,7 +3881,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.252e-002  3.112e-002 -1.399e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.085e-004
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.085e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -3993,7 +3993,7 @@ S(6)            2.350e-004
 	Burkeite        -22.59  -23.37   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.42   -4.89   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.23   -9.11   -1.88  MgSO4:7H2O
 	Gaylussite       -6.49  -15.91   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.53  -16.77   -5.25  Na2Ca(SO4)2
@@ -4029,7 +4029,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.112e-002  2.974e-002 -1.385e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.012e-004
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -1.012e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -4141,7 +4141,7 @@ S(6)            2.350e-004
 	Burkeite        -22.63  -23.40   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.40   -4.87   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.21   -9.09   -1.88  MgSO4:7H2O
 	Gaylussite       -6.51  -15.93   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.51  -16.75   -5.25  Na2Ca(SO4)2
@@ -4177,7 +4177,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.974e-002  2.836e-002 -1.371e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -9.418e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -9.418e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4240,7 +4240,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -8.346e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.42
-                               Iterations  =  22
+                               Iterations  =  36
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96027
                          Density of water  =   0.99706
@@ -4289,7 +4289,7 @@ S(6)            2.350e-004
 	Burkeite        -22.66  -23.43   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.38   -4.85   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.19   -9.07   -1.88  MgSO4:7H2O
 	Gaylussite       -6.54  -15.96   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.49  -16.74   -5.25  Na2Ca(SO4)2
@@ -4325,7 +4325,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.836e-002  2.701e-002 -1.359e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -8.748e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -8.748e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4437,7 +4437,7 @@ S(6)            2.350e-004
 	Burkeite        -22.69  -23.47   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.36   -4.83   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.17   -9.05   -1.88  MgSO4:7H2O
 	Gaylussite       -6.56  -15.98   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.48  -16.72   -5.25  Na2Ca(SO4)2
@@ -4473,7 +4473,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.701e-002  2.566e-002 -1.346e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -8.105e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -8.105e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4536,7 +4536,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -8.004e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  22
+                               Iterations  =  25
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96074
                          Density of water  =   0.99706
@@ -4585,7 +4585,7 @@ S(6)            2.350e-004
 	Burkeite        -22.73  -23.50   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.34   -4.81   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.15   -9.03   -1.88  MgSO4:7H2O
 	Gaylussite       -6.59  -16.01   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.46  -16.70   -5.25  Na2Ca(SO4)2
@@ -4621,7 +4621,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.566e-002  2.433e-002 -1.334e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -7.489e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -7.489e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4684,7 +4684,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.850e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  22
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96097
                          Density of water  =   0.99706
@@ -4733,7 +4733,7 @@ S(6)            2.350e-004
 	Burkeite        -22.76  -23.53   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.32   -4.79   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.12   -9.01   -1.88  MgSO4:7H2O
 	Gaylussite       -6.61  -16.03   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.44  -16.69   -5.25  Na2Ca(SO4)2
@@ -4769,7 +4769,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.433e-002  2.300e-002 -1.323e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -6.897e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -6.897e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4881,7 +4881,7 @@ S(6)            2.350e-004
 	Burkeite        -22.79  -23.56   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.30   -4.77   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.10   -8.98   -1.88  MgSO4:7H2O
 	Gaylussite       -6.64  -16.06   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.43  -16.67   -5.25  Na2Ca(SO4)2
@@ -4917,7 +4917,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.300e-002  2.169e-002 -1.312e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -6.329e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -6.329e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -4980,7 +4980,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.572e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.40
-                               Iterations  =  25
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96139
                          Density of water  =   0.99706
@@ -5029,7 +5029,7 @@ S(6)            2.350e-004
 	Burkeite        -22.82  -23.59   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.28   -4.75   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.08   -8.96   -1.88  MgSO4:7H2O
 	Gaylussite       -6.66  -16.08   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.41  -16.65   -5.25  Na2Ca(SO4)2
@@ -5065,7 +5065,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.169e-002  2.039e-002 -1.301e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -5.783e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -5.783e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5128,7 +5128,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.446e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  25
+                               Iterations  =  22
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96158
                          Density of water  =   0.99706
@@ -5177,7 +5177,7 @@ S(6)            2.350e-004
 	Burkeite        -22.85  -23.63   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.26   -4.73   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.06   -8.94   -1.88  MgSO4:7H2O
 	Gaylussite       -6.68  -16.11   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.39  -16.64   -5.25  Na2Ca(SO4)2
@@ -5213,7 +5213,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   2.039e-002  1.910e-002 -1.291e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -5.258e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -5.258e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5276,7 +5276,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.330e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  25
+                               Iterations  =  22
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96177
                          Density of water  =   0.99706
@@ -5325,7 +5325,7 @@ S(6)            2.350e-004
 	Burkeite        -22.89  -23.66   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.24   -4.70   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.04   -8.92   -1.88  MgSO4:7H2O
 	Gaylussite       -6.71  -16.13   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.37  -16.62   -5.25  Na2Ca(SO4)2
@@ -5361,7 +5361,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.910e-002  1.782e-002 -1.281e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.601e+000 -4.754e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.601e+000 -4.754e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5473,7 +5473,7 @@ S(6)            2.349e-004
 	Burkeite        -22.92  -23.69   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.22   -4.68   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.02   -8.90   -1.88  MgSO4:7H2O
 	Gaylussite       -6.73  -16.15   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.35  -16.60   -5.25  Na2Ca(SO4)2
@@ -5509,7 +5509,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.782e-002  1.655e-002 -1.272e-003
-Dolomite            -0.00  -17.08  -17.08   1.601e+000  1.600e+000 -4.268e-005
+Dolomite             0.00  -17.08  -17.08   1.601e+000  1.600e+000 -4.268e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5621,7 +5621,7 @@ S(6)            2.349e-004
 	Burkeite        -22.95  -23.72   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.19   -4.66   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -7.00   -8.88   -1.88  MgSO4:7H2O
 	Gaylussite       -6.76  -16.18   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.34  -16.58   -5.25  Na2Ca(SO4)2
@@ -5657,7 +5657,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.655e-002  1.528e-002 -1.262e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -3.800e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -3.800e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5720,7 +5720,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.025e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  26
+                               Iterations  =  31
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96229
                          Density of water  =   0.99706
@@ -5769,7 +5769,7 @@ S(6)            2.349e-004
 	Burkeite        -22.98  -23.75   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.17   -4.64   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.98   -8.86   -1.88  MgSO4:7H2O
 	Gaylussite       -6.78  -16.20   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.32  -16.56   -5.25  Na2Ca(SO4)2
@@ -5805,7 +5805,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.528e-002  1.403e-002 -1.254e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -3.349e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -3.349e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -5868,7 +5868,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.938e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  37
+                               Iterations  =  33
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96245
                          Density of water  =   0.99706
@@ -5917,7 +5917,7 @@ S(6)            2.349e-004
 	Burkeite        -23.01  -23.78   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.15   -4.62   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.96   -8.84   -1.88  MgSO4:7H2O
 	Gaylussite       -6.81  -16.23   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.30  -16.55   -5.25  Na2Ca(SO4)2
@@ -5953,7 +5953,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.403e-002  1.278e-002 -1.245e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.915e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.915e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -6016,7 +6016,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.857e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  24
+                               Iterations  =  20
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96260
                          Density of water  =   0.99706
@@ -6065,7 +6065,7 @@ S(6)            2.349e-004
 	Burkeite        -23.04  -23.81   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.13   -4.60   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.93   -8.81   -1.88  MgSO4:7H2O
 	Gaylussite       -6.83  -16.25   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.28  -16.53   -5.25  Na2Ca(SO4)2
@@ -6101,7 +6101,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.278e-002  1.155e-002 -1.236e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.496e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.496e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -6213,7 +6213,7 @@ S(6)            2.348e-004
 	Burkeite        -23.07  -23.85   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.11   -4.58   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.91   -8.79   -1.88  MgSO4:7H2O
 	Gaylussite       -6.86  -16.28   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.26  -16.51   -5.25  Na2Ca(SO4)2
@@ -6249,7 +6249,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.155e-002  1.032e-002 -1.228e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.091e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.091e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -6312,7 +6312,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.713e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  35
+                               Iterations  =  22
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96288
                          Density of water  =   0.99706
@@ -6361,7 +6361,7 @@ S(6)            2.348e-004
 	Burkeite        -23.11  -23.88   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.09   -4.55   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.89   -8.77   -1.88  MgSO4:7H2O
 	Gaylussite       -6.88  -16.30   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.24  -16.49   -5.25  Na2Ca(SO4)2
@@ -6397,7 +6397,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.032e-002  9.099e-003 -1.220e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.700e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.700e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -6460,7 +6460,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.651e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  20
+                               Iterations  =  21
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96302
                          Density of water  =   0.99706
@@ -6509,7 +6509,7 @@ S(6)            2.348e-004
 	Burkeite        -23.14  -23.91   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.06   -4.53   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.87   -8.75   -1.88  MgSO4:7H2O
 	Gaylussite       -6.91  -16.33   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.22  -16.47   -5.25  Na2Ca(SO4)2
@@ -6545,7 +6545,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   9.099e-003  7.887e-003 -1.213e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.322e-005
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.322e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -6608,7 +6608,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.593e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  20
+                               Iterations  =  39
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96314
                          Density of water  =   0.99706
@@ -6657,7 +6657,7 @@ S(6)            2.347e-004
 	Burkeite        -23.17  -23.94   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.04   -4.51   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.84   -8.72   -1.88  MgSO4:7H2O
 	Gaylussite       -6.93  -16.36   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.20  -16.45   -5.25  Na2Ca(SO4)2
@@ -6693,7 +6693,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   7.887e-003  6.682e-003 -1.205e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -9.568e-006
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -9.568e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -6756,7 +6756,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.542e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  26
+                               Iterations  =  33
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96326
                          Density of water  =   0.99706
@@ -6805,7 +6805,7 @@ S(6)            2.347e-004
 	Burkeite        -23.20  -23.97   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.02   -4.49   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.82   -8.70   -1.88  MgSO4:7H2O
 	Gaylussite       -6.96  -16.38   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.18  -16.43   -5.25  Na2Ca(SO4)2
@@ -6841,7 +6841,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   6.682e-003  5.484e-003 -1.198e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -6.029e-006
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -6.029e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -6904,7 +6904,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.496e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  21
+                               Iterations  =  20
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96338
                          Density of water  =   0.99706
@@ -6953,7 +6953,7 @@ S(6)            2.346e-004
 	Burkeite        -23.23  -24.01   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -3.00   -4.46   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.80   -8.68   -1.88  MgSO4:7H2O
 	Gaylussite       -6.99  -16.41   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.16  -16.41   -5.25  Na2Ca(SO4)2
@@ -6989,7 +6989,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   5.484e-003  4.294e-003 -1.190e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.600e-006
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -2.600e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -7052,7 +7052,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.455e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  19
+                               Iterations  =  22
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96349
                          Density of water  =   0.99706
@@ -7101,7 +7101,7 @@ S(6)            2.346e-004
 	Burkeite        -23.27  -24.04   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.97   -4.44   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.77   -8.66   -1.88  MgSO4:7H2O
 	Gaylussite       -7.01  -16.43   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.14  -16.39   -5.25  Na2Ca(SO4)2
@@ -7137,7 +7137,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   4.294e-003  3.111e-003 -1.183e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000  7.272e-007
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000  7.272e-007
 
 ------------------------------Surface composition------------------------------
 
@@ -7200,7 +7200,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.419e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  29
+                               Iterations  =  22
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96359
                          Density of water  =   0.99706
@@ -7249,7 +7249,7 @@ S(6)            2.345e-004
 	Burkeite        -23.30  -24.07   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.95   -4.42   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.75   -8.63   -1.88  MgSO4:7H2O
 	Gaylussite       -7.04  -16.46   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.12  -16.37   -5.25  Na2Ca(SO4)2
@@ -7285,7 +7285,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   3.111e-003  1.934e-003 -1.176e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000  3.959e-006
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000  3.959e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -7348,7 +7348,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.389e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  30
+                               Iterations  =  29
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96369
                          Density of water  =   0.99706
@@ -7397,7 +7397,7 @@ S(6)            2.345e-004
 	Burkeite        -23.33  -24.10   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.93   -4.40   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.73   -8.61   -1.88  MgSO4:7H2O
 	Gaylussite       -7.07  -16.49   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.10  -16.35   -5.25  Na2Ca(SO4)2
@@ -7433,7 +7433,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.41   -8.41   1.934e-003  7.650e-004 -1.169e-003
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000  7.101e-006
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000  7.101e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -7496,7 +7496,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.364e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.35
-                               Iterations  =  22
+                               Iterations  =  21
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96378
                          Density of water  =   0.99706
@@ -7545,7 +7545,7 @@ S(6)            2.344e-004
 	Burkeite        -23.37  -24.14   -0.77  Na6CO3(SO4)2
 	Calcite           0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.90   -4.37   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.70   -8.58   -1.88  MgSO4:7H2O
 	Gaylussite       -7.09  -16.52   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.08  -16.33   -5.25  Na2Ca(SO4)2
@@ -7581,7 +7581,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.00   -8.41   -8.41   7.650e-004           0 -7.650e-004
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.882e-004
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -1.882e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -7644,7 +7644,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.395e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  22
+                               Iterations  =  21
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96387
                          Density of water  =   0.99706
@@ -7693,7 +7693,7 @@ S(6)            2.343e-004
 	Burkeite        -23.40  -24.17   -0.77  Na6CO3(SO4)2
 	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.88   -4.35   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.68   -8.56   -1.88  MgSO4:7H2O
 	Gaylussite       -7.12  -16.54   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.06  -16.31   -5.25  Na2Ca(SO4)2
@@ -7729,7 +7729,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.00   -8.41   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.600e+000 -5.637e-004
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.600e+000 -5.637e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -7792,7 +7792,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.488e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  24
+                               Iterations  =  21
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96396
                          Density of water  =   0.99706
@@ -7841,7 +7841,7 @@ S(6)            2.342e-004
 	Burkeite        -23.44  -24.21   -0.77  Na6CO3(SO4)2
 	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.85   -4.32   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.65   -8.53   -1.88  MgSO4:7H2O
 	Gaylussite       -7.15  -16.57   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.04  -16.29   -5.25  Na2Ca(SO4)2
@@ -7877,7 +7877,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.00   -8.41   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.600e+000  1.599e+000 -5.571e-004
+Dolomite             0.00  -17.08  -17.08   1.600e+000  1.599e+000 -5.571e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -7940,7 +7940,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.502e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  22
+                               Iterations  =  21
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96404
                          Density of water  =   0.99706
@@ -7989,7 +7989,7 @@ S(6)            2.340e-004
 	Burkeite        -23.47  -24.25   -0.77  Na6CO3(SO4)2
 	Calcite          -0.00   -8.41   -8.41  CaCO3
 	CO2(g)           -2.83   -4.30   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.62   -8.50   -1.88  MgSO4:7H2O
 	Gaylussite       -7.18  -16.61   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.02  -16.27   -5.25  Na2Ca(SO4)2
@@ -8025,7 +8025,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.41   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.599e+000  1.598e+000 -5.507e-004
+Dolomite             0.00  -17.08  -17.08   1.599e+000  1.598e+000 -5.507e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8088,7 +8088,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.495e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.36
-                               Iterations  =  21
+                               Iterations  =  20
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96411
                          Density of water  =   0.99706
@@ -8137,7 +8137,7 @@ S(6)            2.339e-004
 	Burkeite        -23.51  -24.28   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.41   -8.41  CaCO3
 	CO2(g)           -2.80   -4.27   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.60   -8.48   -1.88  MgSO4:7H2O
 	Gaylussite       -7.22  -16.64   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.00  -16.25   -5.25  Na2Ca(SO4)2
@@ -8173,7 +8173,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.41   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.598e+000  1.598e+000 -5.445e-004
+Dolomite             0.00  -17.08  -17.08   1.598e+000  1.598e+000 -5.445e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8285,7 +8285,7 @@ S(6)            2.338e-004
 	Burkeite        -23.55  -24.32   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.41   -8.41  CaCO3
 	CO2(g)           -2.78   -4.25   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.57   -8.45   -1.88  MgSO4:7H2O
 	Gaylussite       -7.25  -16.67   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.98  -16.23   -5.25  Na2Ca(SO4)2
@@ -8321,7 +8321,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.598e+000  1.597e+000 -5.383e-004
+Dolomite             0.00  -17.08  -17.08   1.598e+000  1.597e+000 -5.383e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8433,7 +8433,7 @@ S(6)            2.336e-004
 	Burkeite        -23.59  -24.36   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.42   -8.41  CaCO3
 	CO2(g)           -2.75   -4.22   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.54   -8.42   -1.88  MgSO4:7H2O
 	Gaylussite       -7.28  -16.70   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.96  -16.20   -5.25  Na2Ca(SO4)2
@@ -8469,7 +8469,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.597e+000  1.597e+000 -5.321e-004
+Dolomite             0.00  -17.08  -17.08   1.597e+000  1.597e+000 -5.321e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8532,7 +8532,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.477e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  18
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96430
                          Density of water  =   0.99706
@@ -8581,7 +8581,7 @@ S(6)            2.334e-004
 	Burkeite        -23.62  -24.40   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.42   -8.41  CaCO3
 	CO2(g)           -2.73   -4.19   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.51   -8.39   -1.88  MgSO4:7H2O
 	Gaylussite       -7.31  -16.73   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.94  -16.18   -5.25  Na2Ca(SO4)2
@@ -8617,7 +8617,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.597e+000  1.596e+000 -5.259e-004
+Dolomite             0.00  -17.08  -17.08   1.597e+000  1.596e+000 -5.259e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8729,7 +8729,7 @@ S(6)            2.331e-004
 	Burkeite        -23.66  -24.44   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.42   -8.41  CaCO3
 	CO2(g)           -2.70   -4.17   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.48   -8.36   -1.88  MgSO4:7H2O
 	Gaylussite       -7.35  -16.77   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.92  -16.16   -5.25  Na2Ca(SO4)2
@@ -8765,7 +8765,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.01   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.596e+000  1.596e+000 -5.197e-004
+Dolomite             0.00  -17.08  -17.08   1.596e+000  1.596e+000 -5.197e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8828,7 +8828,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.491e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  18
+                               Iterations  =  17
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96439
                          Density of water  =   0.99706
@@ -8877,7 +8877,7 @@ S(6)            2.329e-004
 	Burkeite        -23.70  -24.48   -0.77  Na6CO3(SO4)2
 	Calcite          -0.01   -8.42   -8.41  CaCO3
 	CO2(g)           -2.67   -4.14   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.45   -8.33   -1.88  MgSO4:7H2O
 	Gaylussite       -7.38  -16.80   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.90  -16.14   -5.25  Na2Ca(SO4)2
@@ -8913,7 +8913,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.596e+000  1.595e+000 -5.135e-004
+Dolomite             0.00  -17.08  -17.08   1.596e+000  1.595e+000 -5.135e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -8976,7 +8976,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.506e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  =  20
+                               Iterations  =  17
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96444
                          Density of water  =   0.99706
@@ -9025,7 +9025,7 @@ S(6)            2.326e-004
 	Burkeite        -23.75  -24.52   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.42   -8.41  CaCO3
 	CO2(g)           -2.64   -4.11   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.42   -8.30   -1.88  MgSO4:7H2O
 	Gaylussite       -7.41  -16.83   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.87  -16.12   -5.25  Na2Ca(SO4)2
@@ -9061,7 +9061,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.42   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.595e+000  1.595e+000 -5.072e-004
+Dolomite             0.00  -17.08  -17.08   1.595e+000  1.595e+000 -5.072e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9173,7 +9173,7 @@ S(6)            2.322e-004
 	Burkeite        -23.79  -24.56   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.42   -8.41  CaCO3
 	CO2(g)           -2.62   -4.08   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.39   -8.28   -1.88  MgSO4:7H2O
 	Gaylussite       -7.45  -16.87   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.85  -16.10   -5.25  Na2Ca(SO4)2
@@ -9209,7 +9209,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.595e+000  1.594e+000 -5.008e-004
+Dolomite             0.00  -17.08  -17.08   1.595e+000  1.594e+000 -5.008e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9321,7 +9321,7 @@ S(6)            2.318e-004
 	Burkeite        -23.83  -24.61   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -2.59   -4.06   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.36   -8.25   -1.88  MgSO4:7H2O
 	Gaylussite       -7.48  -16.90   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.83  -16.08   -5.25  Na2Ca(SO4)2
@@ -9357,7 +9357,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.594e+000  1.594e+000 -4.942e-004
+Dolomite             0.00  -17.08  -17.08   1.594e+000  1.594e+000 -4.942e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9469,7 +9469,7 @@ S(6)            2.313e-004
 	Burkeite        -23.88  -24.65   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -2.56   -4.03   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.33   -8.22   -1.88  MgSO4:7H2O
 	Gaylussite       -7.52  -16.94   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.81  -16.05   -5.25  Na2Ca(SO4)2
@@ -9505,7 +9505,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.594e+000  1.593e+000 -4.875e-004
+Dolomite             0.00  -17.08  -17.08   1.594e+000  1.593e+000 -4.875e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9568,7 +9568,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.621e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.38
-                               Iterations  =  19
+                               Iterations  =  17
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96454
                          Density of water  =   0.99706
@@ -9617,7 +9617,7 @@ S(6)            2.308e-004
 	Burkeite        -23.93  -24.70   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -2.53   -4.00   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.30   -8.19   -1.88  MgSO4:7H2O
 	Gaylussite       -7.55  -16.98   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.79  -16.03   -5.25  Na2Ca(SO4)2
@@ -9653,7 +9653,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.593e+000  1.593e+000 -4.806e-004
+Dolomite             0.00  -17.08  -17.08   1.593e+000  1.593e+000 -4.806e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9716,7 +9716,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.662e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  17
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96455
                          Density of water  =   0.99706
@@ -9765,7 +9765,7 @@ S(6)            2.302e-004
 	Burkeite        -23.98  -24.75   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -2.50   -3.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.27   -8.16   -1.88  MgSO4:7H2O
 	Gaylussite       -7.59  -17.01   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.77  -16.01   -5.25  Na2Ca(SO4)2
@@ -9801,7 +9801,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.593e+000  1.592e+000 -4.735e-004
+Dolomite             0.00  -17.08  -17.08   1.593e+000  1.592e+000 -4.735e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -9864,7 +9864,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.708e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  18
+                               Iterations  =  23
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96455
                          Density of water  =   0.99706
@@ -9913,7 +9913,7 @@ S(6)            2.295e-004
 	Burkeite        -24.03  -24.80   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -2.47   -3.94   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.24   -8.12   -1.88  MgSO4:7H2O
 	Gaylussite       -7.63  -17.05   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.75  -15.99   -5.25  Na2Ca(SO4)2
@@ -9949,7 +9949,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.592e+000  1.592e+000 -4.661e-004
+Dolomite             0.00  -17.08  -17.08   1.592e+000  1.592e+000 -4.661e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10012,7 +10012,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.757e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.39
-                               Iterations  =  18
+                               Iterations  =  20
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96455
                          Density of water  =   0.99706
@@ -10061,7 +10061,7 @@ S(6)            2.287e-004
 	Burkeite        -24.08  -24.85   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.43   -8.41  CaCO3
 	CO2(g)           -2.45   -3.91   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.21   -8.09   -1.88  MgSO4:7H2O
 	Gaylussite       -7.67  -17.09   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.73  -15.97   -5.25  Na2Ca(SO4)2
@@ -10097,7 +10097,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.592e+000  1.591e+000 -4.583e-004
+Dolomite             0.00  -17.08  -17.08   1.592e+000  1.591e+000 -4.583e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10209,7 +10209,7 @@ S(6)            2.278e-004
 	Burkeite        -24.14  -24.91   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.43   -8.41  CaCO3
 	CO2(g)           -2.42   -3.88   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.18   -8.06   -1.88  MgSO4:7H2O
 	Gaylussite       -7.71  -17.13   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.71  -15.95   -5.25  Na2Ca(SO4)2
@@ -10245,7 +10245,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.591e+000  1.591e+000 -4.503e-004
+Dolomite             0.00  -17.08  -17.08   1.591e+000  1.591e+000 -4.503e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10308,7 +10308,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.866e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.40
-                               Iterations  =  18
+                               Iterations  =  17
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96452
                          Density of water  =   0.99706
@@ -10357,7 +10357,7 @@ S(6)            2.268e-004
 	Burkeite        -24.19  -24.97   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.43   -8.41  CaCO3
 	CO2(g)           -2.39   -3.85   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.15   -8.03   -1.88  MgSO4:7H2O
 	Gaylussite       -7.75  -17.17   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.69  -15.93   -5.25  Na2Ca(SO4)2
@@ -10393,7 +10393,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.591e+000  1.591e+000 -4.419e-004
+Dolomite             0.00  -17.08  -17.08   1.591e+000  1.591e+000 -4.419e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10456,7 +10456,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.924e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  17
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96449
                          Density of water  =   0.99706
@@ -10505,7 +10505,7 @@ S(6)            2.256e-004
 	Burkeite        -24.25  -25.03   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.43   -8.41  CaCO3
 	CO2(g)           -2.36   -3.82   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.12   -8.00   -1.88  MgSO4:7H2O
 	Gaylussite       -7.79  -17.21   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.67  -15.91   -5.25  Na2Ca(SO4)2
@@ -10541,7 +10541,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.591e+000  1.590e+000 -4.330e-004
+Dolomite             0.00  -17.08  -17.08   1.591e+000  1.590e+000 -4.330e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10604,7 +10604,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.983e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.41
-                               Iterations  =  19
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96446
                          Density of water  =   0.99706
@@ -10653,7 +10653,7 @@ S(6)            2.243e-004
 	Burkeite        -24.32  -25.09   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.33   -3.79   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.09   -7.97   -1.88  MgSO4:7H2O
 	Gaylussite       -7.83  -17.25   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.65  -15.89   -5.25  Na2Ca(SO4)2
@@ -10689,7 +10689,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.590e+000  1.590e+000 -4.237e-004
+Dolomite             0.00  -17.08  -17.08   1.590e+000  1.590e+000 -4.237e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10752,7 +10752,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.043e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.42
-                               Iterations  =  21
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96441
                          Density of water  =   0.99706
@@ -10801,7 +10801,7 @@ S(6)            2.228e-004
 	Burkeite        -24.38  -25.16   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.30   -3.76   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.06   -7.94   -1.88  MgSO4:7H2O
 	Gaylussite       -7.87  -17.29   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.63  -15.88   -5.25  Na2Ca(SO4)2
@@ -10837,7 +10837,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.590e+000  1.589e+000 -4.138e-004
+Dolomite             0.00  -17.08  -17.08   1.590e+000  1.589e+000 -4.138e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -10949,7 +10949,7 @@ S(6)            2.212e-004
 	Burkeite        -24.46  -25.23   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.27   -3.73   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.03   -7.91   -1.88  MgSO4:7H2O
 	Gaylussite       -7.92  -17.34   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.62  -15.86   -5.25  Na2Ca(SO4)2
@@ -10985,7 +10985,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.589e+000  1.589e+000 -4.035e-004
+Dolomite             0.00  -17.08  -17.08   1.589e+000  1.589e+000 -4.035e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -11097,7 +11097,7 @@ S(6)            2.194e-004
 	Burkeite        -24.53  -25.30   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.23   -3.70   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -6.00   -7.88   -1.88  MgSO4:7H2O
 	Gaylussite       -7.96  -17.39   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.60  -15.85   -5.25  Na2Ca(SO4)2
@@ -11133,7 +11133,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.589e+000  1.588e+000 -3.925e-004
+Dolomite             0.00  -17.08  -17.08   1.589e+000  1.588e+000 -3.925e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -11245,7 +11245,7 @@ S(6)            2.174e-004
 	Burkeite        -24.61  -25.38   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.20   -3.67   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.97   -7.85   -1.88  MgSO4:7H2O
 	Gaylussite       -8.01  -17.43   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.59  -15.84   -5.25  Na2Ca(SO4)2
@@ -11344,7 +11344,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.263e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.44
-                               Iterations  =  23
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96411
                          Density of water  =   0.99706
@@ -11429,7 +11429,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.588e+000  1.588e+000 -3.689e-004
+Dolomite             0.00  -17.08  -17.08   1.588e+000  1.588e+000 -3.689e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -11492,7 +11492,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.308e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.45
-                               Iterations  =  23
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96400
                          Density of water  =   0.99706
@@ -11541,7 +11541,7 @@ S(6)            2.128e-004
 	Burkeite        -24.78  -25.55   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -2.14   -3.61   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.91   -7.79   -1.88  MgSO4:7H2O
 	Gaylussite       -8.11  -17.53   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.57  -15.81   -5.25  Na2Ca(SO4)2
@@ -11788,7 +11788,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.374e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.46
-                               Iterations  =  23
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96372
                          Density of water  =   0.99706
@@ -11936,7 +11936,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.392e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.46
-                               Iterations  =  23
+                               Iterations  =  19
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96355
                          Density of water  =   0.99706
@@ -12232,7 +12232,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.393e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.47
-                               Iterations  =  16
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96313
                          Density of water  =   0.99706
@@ -12380,7 +12380,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.373e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.47
-                               Iterations  =  16
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96288
                          Density of water  =   0.99706
@@ -12676,7 +12676,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.282e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.47
-                               Iterations  =  20
+                               Iterations  =  16
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96228
                          Density of water  =   0.99706
@@ -12824,7 +12824,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -7.209e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.47
-                               Iterations  =  22
+                               Iterations  =  18
                          Gamma iterations  =   4
                       Osmotic coefficient  =   0.96192
                          Density of water  =   0.99706
@@ -13268,7 +13268,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.868e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.46
-                               Iterations  =  22
+                               Iterations  =  20
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96060
                          Density of water  =   0.99706
@@ -13416,7 +13416,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.711e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.45
-                               Iterations  =  19
+                               Iterations  =  20
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.96008
                          Density of water  =   0.99706
@@ -13501,7 +13501,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.536e-004
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.536e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -13564,7 +13564,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.532e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.45
-                               Iterations  =  18
+                               Iterations  =  19
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95951
                          Density of water  =   0.99706
@@ -13613,7 +13613,7 @@ S(6)            1.738e-004
 	Burkeite        -26.62  -27.39   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.76   -3.23   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.54   -7.42   -1.88  MgSO4:7H2O
 	Gaylussite       -8.97  -18.39   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.71  -15.95   -5.25  Na2Ca(SO4)2
@@ -13649,7 +13649,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.382e-004
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.382e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -13712,7 +13712,7 @@ X               1.000e+000 mol
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.332e-005
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.44
-                               Iterations  =  16
+                               Iterations  =  18
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.95890
                          Density of water  =   0.99706
@@ -13761,7 +13761,7 @@ S(6)            1.721e-004
 	Burkeite        -26.80  -27.57   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.74   -3.21   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.51   -7.39   -1.88  MgSO4:7H2O
 	Gaylussite       -9.05  -18.47   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.74  -15.98   -5.25  Na2Ca(SO4)2
@@ -13797,7 +13797,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.234e-004
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.234e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -13909,7 +13909,7 @@ S(6)            1.708e-004
 	Burkeite        -26.99  -27.76   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.72   -3.19   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.49   -7.37   -1.88  MgSO4:7H2O
 	Gaylussite       -9.12  -18.54   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.77  -16.02   -5.25  Na2Ca(SO4)2
@@ -13945,7 +13945,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.093e-004
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -1.093e-004
 
 ------------------------------Surface composition------------------------------
 
@@ -14057,7 +14057,7 @@ S(6)            1.698e-004
 	Burkeite        -27.18  -27.95   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.70   -3.17   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.47   -7.35   -1.88  MgSO4:7H2O
 	Gaylussite       -9.20  -18.62   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.81  -16.05   -5.25  Na2Ca(SO4)2
@@ -14093,7 +14093,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -9.588e-005
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -9.588e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14205,7 +14205,7 @@ S(6)            1.691e-004
 	Burkeite        -27.38  -28.15   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.69   -3.16   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.45   -7.33   -1.88  MgSO4:7H2O
 	Gaylussite       -9.28  -18.70   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.85  -16.09   -5.25  Na2Ca(SO4)2
@@ -14241,7 +14241,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000 -8.332e-005
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000 -8.332e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14353,7 +14353,7 @@ S(6)            1.688e-004
 	Burkeite        -27.58  -28.36   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.67   -3.14   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.43   -7.31   -1.88  MgSO4:7H2O
 	Gaylussite       -9.36  -18.78   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.89  -16.14   -5.25  Na2Ca(SO4)2
@@ -14389,7 +14389,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.583e+000 -7.162e-005
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.583e+000 -7.162e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14501,7 +14501,7 @@ S(6)            1.688e-004
 	Burkeite        -27.79  -28.56   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.66   -3.12   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.41   -7.29   -1.88  MgSO4:7H2O
 	Gaylussite       -9.45  -18.87   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.93  -16.18   -5.25  Na2Ca(SO4)2
@@ -14537,7 +14537,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000 -6.082e-005
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000 -6.082e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14649,7 +14649,7 @@ S(6)            1.691e-004
 	Burkeite        -28.01  -28.78   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.64   -3.11   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.39   -7.27   -1.88  MgSO4:7H2O
 	Gaylussite       -9.53  -18.95   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -10.98  -16.23   -5.25  Na2Ca(SO4)2
@@ -14685,7 +14685,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000 -5.092e-005
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000 -5.092e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14797,7 +14797,7 @@ S(6)            1.697e-004
 	Burkeite        -28.23  -29.00   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.63   -3.10   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.37   -7.25   -1.88  MgSO4:7H2O
 	Gaylussite       -9.62  -19.04   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.03  -16.27   -5.25  Na2Ca(SO4)2
@@ -14833,7 +14833,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000 -4.193e-005
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000 -4.193e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -14945,7 +14945,7 @@ S(6)            1.707e-004
 	Burkeite        -28.45  -29.22   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.62   -3.08   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.35   -7.23   -1.88  MgSO4:7H2O
 	Gaylussite       -9.70  -19.12   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.08  -16.32   -5.25  Na2Ca(SO4)2
@@ -14981,7 +14981,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000 -3.383e-005
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000 -3.383e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -15093,7 +15093,7 @@ S(6)            1.719e-004
 	Burkeite        -28.68  -29.45   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.61   -3.07   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.34   -7.22   -1.88  MgSO4:7H2O
 	Gaylussite       -9.79  -19.21   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.13  -16.38   -5.25  Na2Ca(SO4)2
@@ -15129,7 +15129,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000 -2.658e-005
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000 -2.658e-005
 
 ------------------------------Surface composition------------------------------
 
@@ -15241,7 +15241,7 @@ S(6)            1.733e-004
 	Burkeite        -28.91  -29.68   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.60   -3.06   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.32   -7.20   -1.88  MgSO4:7H2O
 	Gaylussite       -9.88  -19.30   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.19  -16.43   -5.25  Na2Ca(SO4)2
@@ -16017,7 +16017,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.45   -8.41   0.000e+000           0  0.000e+000
-Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  1.441e-006
+Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  1.441e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -16129,7 +16129,7 @@ S(6)            1.853e-004
 	Burkeite        -30.36  -31.13   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.45   -8.41  CaCO3
 	CO2(g)           -1.55   -3.02   -1.47  CO2
-	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.24   -7.12   -1.88  MgSO4:7H2O
 	Gaylussite      -10.42  -19.84   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -11.56  -16.80   -5.25  Na2Ca(SO4)2
@@ -19717,7 +19717,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.913e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.913e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -19829,7 +19829,7 @@ S(6)            2.276e-004
 	Burkeite        -35.28  -36.05   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.10   -6.98   -1.88  MgSO4:7H2O
 	Gaylussite      -12.15  -21.57   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.00  -18.24   -5.25  Na2Ca(SO4)2
@@ -19865,7 +19865,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.625e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.625e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -19977,7 +19977,7 @@ S(6)            2.283e-004
 	Burkeite        -35.38  -36.15   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.18  -21.60   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.03  -18.27   -5.25  Na2Ca(SO4)2
@@ -20013,7 +20013,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.349e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.349e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20125,7 +20125,7 @@ S(6)            2.289e-004
 	Burkeite        -35.47  -36.24   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.21  -21.64   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.05  -18.30   -5.25  Na2Ca(SO4)2
@@ -20161,7 +20161,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.085e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  8.085e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20273,7 +20273,7 @@ S(6)            2.295e-004
 	Burkeite        -35.56  -36.33   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.24  -21.66   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.08  -18.32   -5.25  Na2Ca(SO4)2
@@ -20309,7 +20309,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.04   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.583e+000  7.835e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.583e+000  7.835e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20421,7 +20421,7 @@ S(6)            2.300e-004
 	Burkeite        -35.63  -36.40   -0.77  Na6CO3(SO4)2
 	Calcite          -0.04   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.27  -21.69   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.10  -18.35   -5.25  Na2Ca(SO4)2
@@ -20457,7 +20457,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.583e+000  1.584e+000  7.599e-006
+Dolomite             0.00  -17.08  -17.08   1.583e+000  1.584e+000  7.599e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20569,7 +20569,7 @@ S(6)            2.305e-004
 	Burkeite        -35.70  -36.47   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.29  -21.71   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.12  -18.37   -5.25  Na2Ca(SO4)2
@@ -20605,7 +20605,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000  7.375e-006
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000  7.375e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20717,7 +20717,7 @@ S(6)            2.310e-004
 	Burkeite        -35.76  -36.54   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.31  -21.74   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.14  -18.39   -5.25  Na2Ca(SO4)2
@@ -20753,7 +20753,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000  7.165e-006
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000  7.165e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -20865,7 +20865,7 @@ S(6)            2.314e-004
 	Burkeite        -35.82  -36.59   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.33  -21.75   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.16  -18.41   -5.25  Na2Ca(SO4)2
@@ -21049,7 +21049,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.03   -8.44   -8.41   0.000e+000           0  0.000e+000
-Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000  6.781e-006
+Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000  6.781e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -21161,7 +21161,7 @@ S(6)            2.321e-004
 	Burkeite        -35.92  -36.69   -0.77  Na6CO3(SO4)2
 	Calcite          -0.03   -8.44   -8.41  CaCO3
 	CO2(g)           -1.50   -2.97   -1.47  CO2
-	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.37  -21.79   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.19  -18.44   -5.25  Na2Ca(SO4)2
@@ -27117,7 +27117,7 @@ Using pure phase assemblage 1.	Pure-phase assemblage after simulation 3.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite             -0.02   -8.43   -8.41   0.000e+000           0  0.000e+000
-Dolomite             0.00  -17.08  -17.08   1.584e+000  1.584e+000  3.935e-006
+Dolomite            -0.00  -17.08  -17.08   1.584e+000  1.584e+000  3.935e-006
 
 ------------------------------Surface composition------------------------------
 
@@ -27229,7 +27229,7 @@ S(6)            2.353e-004
 	Burkeite        -36.30  -37.07   -0.77  Na6CO3(SO4)2
 	Calcite          -0.02   -8.43   -8.41  CaCO3
 	CO2(g)           -1.50   -2.96   -1.47  CO2
-	Dolomite          0.00  -17.08  -17.08  CaMg(CO3)2
+	Dolomite         -0.00  -17.08  -17.08  CaMg(CO3)2
 	Epsomite         -5.09   -6.97   -1.88  MgSO4:7H2O
 	Gaylussite      -12.49  -21.91   -9.42  CaNa2(CO3)2:5H2O
 	Glauberite      -13.30  -18.55   -5.25  Na2Ca(SO4)2

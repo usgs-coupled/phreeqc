@@ -1,6 +1,6 @@
    Input file: sc7
   Output file: sc7.out
-Database file: wateq4f.dat
+Database file: ../database/wateq4f.dat
 
 ------------------
 Reading data base.
@@ -19,7 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE wateq4f.dat
+	DATABASE ../database/wateq4f.dat
 	KNOBS
 	 iterations 200
 	 convergence_tolerance 1e-8
@@ -30656,7 +30656,7 @@ Adapting surface in            8
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 4.011e-014  Surface + diffuse layer charge, eq
+	 4.010e-014  Surface + diffuse layer charge, eq
 	 3.898e-006  Surface charge, eq
 	 2.157e-002  sigma, C/m**2
 	 1.259e-001  psi, V
@@ -34742,7 +34742,7 @@ Sfo_w
 	Sfo_wOCa+        6.985e-041       0.000  6.985e-041     -40.156
 
 Hfo           
-	-1.373e-018  Surface + diffuse layer charge, eq
+	-1.372e-018  Surface + diffuse layer charge, eq
 	 4.179e-010  Surface charge, eq
 	 7.045e-003  sigma, C/m**2
 	 7.177e-002  psi, V

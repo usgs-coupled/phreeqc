@@ -1,6 +1,6 @@
    Input file: de
   Output file: de.out
-Database file: phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,6 +19,7 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
+	DATABASE ../database/phreeqc.dat
 	 SOLUTION_SPECIES
 	  H2O + 0.01e- = H2O-0.01  # For program convergence
 	  log_k  -9.0 
@@ -52,7 +53,7 @@ Initial solution 1.
 
                                        pH  =   7.000    
                                        pe  =  -0.721      Equilibrium with Goethite
-       Specific Conductance (uS/cm, 25 oC) = 557
+       Specific Conductance (uS/cm, 10 oC) = 380
                           Density (g/cm3)  =   1.00012
                         Activity of water  =   1.000
                            Ionic strength  =  9.001e-003
@@ -160,7 +161,7 @@ Goethite             3.00    2.56   -0.44   1.070e-002  1.070e-002 -5.940e-015
 
                                        pH  =   7.000      Charge balance
                                        pe  =  -0.721      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 557
+       Specific Conductance (uS/cm, 10 oC) = 380
                           Density (g/cm3)  =   1.00012
                         Activity of water  =   1.000
                            Ionic strength  =  9.001e-003

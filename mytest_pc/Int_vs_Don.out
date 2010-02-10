@@ -1,6 +1,6 @@
    Input file: Int_vs_Don
   Output file: Int_vs_Don.out
-Database file: C:\Program Files (x86)\Phreeqc Interactive 2.16.3926\bin\phreeqc.dat
+Database file: ../database/phreeqc.dat
 
 ------------------
 Reading data base.
@@ -19,74 +19,65 @@ Reading data base.
 Reading input data for simulation 1.
 ------------------------------------
 
-	DATABASE C:\Program Files (x86)\Phreeqc Interactive 2.16.3926\bin\phreeqc.dat
+	DATABASE ../database/phreeqc.dat
 	SOLUTION_SPECIES
 	Al+3 + H2O = AlOH+2 + H+
-	    log_k     -50
-	    delta_h   11.49 kcal
-	Al+3 + 2H2O = Al(OH)2+ + 2H+
-	    log_k     -100.1
-	    delta_h   26.9 kcal
-	Al+3 + 3H2O = Al(OH)3 + 3H+
-	    log_k     -160.9
-	    delta_h   39.89 kcal
-	Al+3 + 4H2O = Al(OH)4- + 4H+
-	    log_k     -220.7
-	    delta_h   42.3 kcal
+	        log_k   -50.0
+	        delta_h 11.49   kcal
+	Al+3 + 2 H2O = Al(OH)2+ + 2 H+
+	        log_k   -100.1
+	        delta_h 26.90   kcal
+	Al+3 + 3 H2O = Al(OH)3 + 3 H+
+	        log_k   -160.9
+	        delta_h 39.89   kcal
+	Al+3 + 4 H2O = Al(OH)4- + 4 H+
+	        log_k   -220.7
+	        delta_h 42.30   kcal
 	SURFACE_MASTER_SPECIES
-	    Su            Su-          
+	 Su Su-
 	SURFACE_SPECIES
-	Su- = Su-
-	    log_k     0
+	 Su- = Su-
+	 log_k 0
 	SOLUTION 1-2
-	    temp      25
-	    pH        6
-	    pe        4
-	    redox     pe
-	    units     mmol/kgw
-	    density   1
-	    Na        100
-	    Cl        1 charge
-	    water    1 # kg
+	 pH 6.0
+	 Na 1e2
+	 Cl 1 charge
 	SURFACE 1
-	    equilibrate with solution 1
-	    Su         0.01      100000    1
-	    donnan 1e-008
+	 Su 1e-2 1e5 1
+	 equilibrate 1
+	 donnan 1e-8
 	SELECTED_OUTPUT
-	    file                 Int_vs_Don.sel
-	    reset                false
+	 file Int_vs_Don.sel
+	 reset false
 	USER_PUNCH
-	headings reaction_step DL_type Na/mM dl_Na dl_Ca dl_Al edl_Cl edl_S K_Na\Ca K_Na_Al
-	start
-	10 dl_Ca = (edl("Ca", "Su") - tot("Ca") * edl("water", "Su")) * 2
-	12 dl_Al = (edl("Al", "Su") - tot("Al") * edl("water", "Su")) * 3
-	20 dl_Na = (edl("Na", "Su") - tot("Na") * edl("water", "Su"))
-	21 if (dl_Ca = 0 or tot("Na") = 0) then goto 60
-	22 bb_Ca = dl_Ca / (dl_Ca + dl_Na + dl_Al)
-	24 bb_Na = dl_Na / (dl_Ca + dl_Na + dl_Al)
-	25 bb_Al = dl_Al / (dl_Ca + dl_Na + dl_Al)
-	26 bb_Cl = 1 - (dl_Ca + dl_Na + dl_Al) / (mol("Su-") * tot("water"))
-	30 K_Na_Ca = bb_Na / bb_Ca^0.5 * tot("Ca")^0.5 / tot("Na")
-	40 print 'solution', cell_no, ' ( 1 is Donnan, 2 is integration)'
-	41 punch step_no
-	42 if cell_no = 1 then punch 'Donnan' else punch 'Integrated'
-	44 punch tot("Na")*1e3, dl_Na*1e3, dl_Ca*1e3, dl_Al*1e3, (edl("Cl", "Su")- tot("Cl")*edl("water", "Su"))*1e3, edl("S")
-	46 print '. CB =', dl_Ca + dl_Na + tot("Cl") * edl("water") - edl("Cl", "Su") - mol("Su-") * tot("water")
-	50 print 'K_Na\Ca (Su) =', K_Na_Ca, '. Na_DDl / Na0 =', edl("Na", "Su") / tot("Na"), 'f_Cl in DL charge =', bb_Cl
-	51 punch K_Na_Ca
-	52 if dl_Al = 0 then goto 60
-	54 K_Na_Al = bb_Na / bb_Al^(1/3) * tot("Al")^(1/3) / tot("Na")
-	56 print 'K_Na\Al (Su) =', K_Na_Al
-	58 punch K_Na_Al
-	60 end
-	end
+	 heading reaction_step DL_type Na/mM dl_Na dl_Ca dl_Al edl_Cl edl_S K_Na\Ca K_Na_Al
+	 start
+	 10 dl_Ca = (edl("Ca", "Su") - tot("Ca") * edl("water", "Su")) * 2
+	 12 dl_Al = (edl("Al", "Su") - tot("Al") * edl("water", "Su")) * 3
+	 20 dl_Na = (edl("Na", "Su") - tot("Na") * edl("water", "Su"))
+	 21 if (dl_Ca = 0 or tot("Na") = 0) then goto 60
+	 22 bb_Ca = dl_Ca / (dl_Ca + dl_Na + dl_Al)
+	 24 bb_Na = dl_Na / (dl_Ca + dl_Na + dl_Al)
+	 25 bb_Al = dl_Al / (dl_Ca + dl_Na + dl_Al)
+	 26 bb_Cl = 1 - (dl_Ca + dl_Na + dl_Al) / (mol("Su-") * tot("water"))
+	 30 K_Na_Ca = bb_Na / bb_Ca^0.5 * tot("Ca")^0.5 / tot("Na")
+	 40 print 'solution', cell_no, ' ( 1 is Donnan, 2 is integration)'
+	 41 punch step_no
+	 42 if cell_no = 1 then punch 'Donnan' else punch 'Integrated'
+	 44 punch tot("Na")*1e3, dl_Na*1e3, dl_Ca*1e3, dl_Al*1e3, (edl("Cl", "Su")- tot("Cl")*edl("water", "Su"))*1e3, edl("S")
+	 46 print '. CB =', dl_Ca + dl_Na + tot("Cl") * edl("water") - edl("Cl", "Su") - mol("Su-") * tot("water")
+	 50 print 'K_Na\Ca (Su) =', K_Na_Ca, '. Na_DDl / Na0 =', edl("Na", "Su") / tot("Na"), 'f_Cl in DL charge =', bb_Cl
+	 51 punch K_Na_Ca
+	 52 if dl_Al = 0 then goto 60
+	 54 K_Na_Al = bb_Na / bb_Al^(1/3) * tot("Al")^(1/3) / tot("Na")
+	 56 print 'K_Na\Al (Su) =', K_Na_Al
+	 58 punch K_Na_Al
+	 60 end
+	 end
 	REACTION 1-2
-	    Na         -10
-	    Ca         2
-	    Al         2
-	    1e-008  0.0020411  0.0020411  0.0020411  0.0020411  0.0020411  0.0020411  
-	    0.0020411  0.0020411  0.0020411  0.0020411 moles
-	INCREMENTAL_REACTIONS True
+	 Na -10 Ca 2 Al 2
+	 1e-8 10*0.0020411
+	INCREMENTAL_REACTIONS
 	END
 -------------------------------------------
 Beginning of initial solution calculations.
@@ -1557,11 +1548,11 @@ Reading input data for simulation 2.
 ------------------------------------
 
 	SURFACE 2
-	    equilibrate with solution 2
-	    Su         0.01      100000    1
-	    diffuse_layer 1e-008
-	USE reaction 2
+	 Su 1e-2 1e5 1
+	 equilibrate 2
+	 diff 1e-8
 	USE solution 2
+	USE reaction 2
 	END
 ------------------------------------------------------
 Beginning of initial surface-composition calculations.

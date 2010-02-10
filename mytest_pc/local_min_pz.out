@@ -209,6 +209,15 @@ Beginning of batch-reaction calculations.
 
 Reaction step 1.
 
+WARNING: Sylvite, Pure phase with add formula has not converged.
+	 SI may be a local minimum.	Residual: 4.983502e-002
+
+WARNING: Sylvite, Pure phase with add formula has not converged.
+	 SI may be a local minimum.	Residual: 2.014593e-001
+
+WARNING: Sylvite, Pure phase with add formula has not converged.
+	 SI may be a local minimum.	Residual: 3.514925e-001
+
 WARNING: Maximum iterations exceeded, 200
 
 WARNING: Numerical method failed with this set of convergence parameters.
