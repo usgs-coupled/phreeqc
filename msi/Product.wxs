@@ -152,6 +152,7 @@
       </Component>
     </DirectoryRef>
 
+    <!-- src -->
     <DirectoryRef Id="src">
       <Component Id="src" Guid="5CFB5531-2950-4b06-81F8-BA1F667E74AC">
         <File Id="filD8AD188464F7866DD028DB69F3E4D29D" Source="..\src\Makefile" KeyPath="yes" />
@@ -218,6 +219,7 @@
       </Component>
     </DirectoryRef>
 
+    <!-- test -->
     <DirectoryRef Id="test">
       <Component Id="test" Guid="F65BCF27-C9F9-49a2-A6BD-F63A887CB57C">
         <File Id="fil60A83EC251E6CBC641F4AD35F35044F1" Source="..\win\check.bat" />
@@ -256,8 +258,8 @@
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
     <Property Id="ALLUSERS" Value="1" />
 
+    <!-- override default install location -->
     <CustomAction Id="WixSetDefaultPerMachineFolderOverride" Property="WixPerMachineFolder" Value="[ProgramFilesFolder]USGS\[ApplicationFolderName]" Execute="immediate" />
-
     <InstallExecuteSequence>
       <Custom Action="WixSetDefaultPerMachineFolderOverride" After="WixSetDefaultPerMachineFolder" />
     </InstallExecuteSequence>
@@ -265,8 +267,15 @@
       <Custom Action="WixSetDefaultPerMachineFolderOverride" After="WixSetDefaultPerMachineFolder" />
     </InstallUISequence>
 
+    <!--
+    Disallow per-user installs
+    -->
     <WixVariable Id="WixUISupportPerUser" Value="0" Overridable="no" />
 
+    <!--
+    This overrides the default License agreement
+    -->
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
   </Product>
 </Wix>
