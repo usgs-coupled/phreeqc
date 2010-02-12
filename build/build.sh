@@ -82,29 +82,6 @@ export checkfile=${topdir}/${FULLPKG}.check
 DEVENV="/cygdrive/c/Program Files/Microsoft Visual Studio 8/Common7/IDE/devenv.exe"
 SLN=`cygpath -w "${objdir}/build/win32/phreeqc.sln"`
 
-# InstallShield settings (based on exported build file
-# IS_COMPILER=`locate Compile.exe | grep InstallShield`
-# IS_BUILDER="`locate ISBuild.exe | grep InstallShield`"
-IS_COMPILER="/cygdrive/c/Program Files/Common Files/InstallShield/IScript/Compile.exe"
-IS_BUILDER="/cygdrive/c/Program Files/InstallShield/Professional - Standard Edition/Program/ISBuild.exe"
-
-IS_INSTALLPROJECT=`cygpath -w "${objdir}/packages/win32-is/phreeqc.ipr"`
-IS_CURRENTBUILD=SingleDisk
-
-IS_HOME=`echo "${IS_BUILDER}" | sed -e 's^/Program/ISBuild.exe$^^'`
-IS_HOME=`cygpath -w "${IS_HOME}"`
-
-IS_INCLUDEIFX=${IS_HOME}\\Script\\IFX\\Include
-IS_INCLUDEISRT=${IS_HOME}\\Script\\ISRT\\Include
-IS_INCLUDESCRIPT=`cygpath -w "${objdir}/packages/win32-is/Script Files"`
-IS_LINKPATH1="-LibPath${IS_HOME}\\Script\\IFX\\Lib"
-IS_LINKPATH2="-LibPath${IS_HOME}\\Script\\ISRT\\Lib"
-IS_RULFILES=`cygpath -w "${objdir}/packages/win32-is/Script Files/Setup.rul"`
-IS_LIBRARIES="isrt.obl ifx.obl"
-IS_DEFINITIONS=""
-IS_SWITCHES="-w50 -e50 -v3 -g"
-export PHREEQCTOPDIR="`cygpath -w "${instdir}/${PKG}-${VER}"`"
-
 prefix=/usr
 sysconfdir=/etc
 localstatedir=/var
@@ -184,12 +161,6 @@ conf() {
   mkdir -p ${objdir}/src/phreeqc_export/Win && \
   cd ${objdir}/src/phreeqc_export/Win && \
   find ${srcdir} -mindepth 1 -maxdepth 1 ! -name .build ! -name .inst ! -name .sinst -exec cp -al {} . \; )
-# rearrange files for windows distribution
-# this is the equivalent of make win_sed_files except that the text
-# replacemnts were already made by dist.sh
-#SRC  cp -al ${objdir}/src/phreeqc_export/Win/src/revisions ${objdir}/src/phreeqc_export/Win/RELEASE.TXT && \
-#SRC  rm -f ${objdir}/src/phreeqc_export/Win/doc/README.TXT && \
-#SRC  cp -al ${objdir}/src/phreeqc_export/Win/win/README.TXT ${objdir}/src/phreeqc_export/Win/README.TXT )
 }
 reconf() {
   (cd ${topdir} && \
@@ -198,9 +169,11 @@ reconf() {
   conf )
 }
 build() {
-  (cd ${objdir} && \
-  "${DEVENV}" "${SLN}" /out Release.log /build Release && \
-  cat Release.log )
+  (rm -fr $instdir}* && \
+  cd ${objdir} && \
+  MSBuild.exe "${SLN} /t:phreeqc /p:Configuration=Release && \  
+  cd ${objdir} && \
+  MSBuild.exe "${SLN} /p:Configuration=Release /p:TargetNam=$(FULLPKG} )
 }
 check() {
   (cd ${objdir} && \
@@ -211,34 +184,12 @@ clean() {
   make clean )
 }
 install() {
-  (cd ${objdir}/src && \
-  make win_dist REVISION="${REL}" TEXTCP="cp" CURSRC="src"&& \
-  mkdir -p ${instdir}/${PKG}-${VER} && \
-  cd ${instdir}/${PKG}-${VER} && \
-  tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
-  mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
-  rmdir ${instdir}/${PKG}-${VER}/database && \
-  mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
-  cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
-  if [ "${SKIP_TEST}" -eq 0 ] ; then \
-    cd ${instdir}/${PKG}-${VER}/test && \
-    cmd /c test.bat && \
-    mv *.out *.sel ../examples/. && \
-    cmd /c clean.bat; \
-  fi && \
-  find ${instdir} | xargs touch -t "${TOUCH_STAMP}" && \
-# InstallShield compile
-  "${IS_COMPILER}" "${IS_RULFILES}" -I"${IS_INCLUDEIFX}" -I"${IS_INCLUDEISRT}" \
-    -I"${IS_INCLUDESCRIPT}" "${IS_LINKPATH1}" "${IS_LINKPATH2}" ${IS_LIBRARIES} \
-    ${IS_DEFINITIONS} ${IS_SWITCHES} && \
-# InstallShield build
-  "${IS_BUILDER}" -p"${IS_INSTALLPROJECT}" -m"${IS_CURRENTBUILD}" && \
-  /usr/bin/install -m 644 "${objdir}/packages/win32-is/Media/SingleDisk/Log Files/"* \
-  ${instdir}/. && \
-  /usr/bin/install -m 644 "${objdir}/packages/win32-is/Media/SingleDisk/Report Files/"* \
-  ${instdir}/. && \
-  /usr/bin/install -m 755 "${objdir}/packages/win32-is/Media/SingleDisk/Disk Images/Disk1/setup.exe" \
-    ${instdir}/${FULLPKG}.exe )
+  (rm -fr ${instdir}/${FULLPKG}.msi && \
+  /usr/bin/install -m 755 "${objdir}/msi/bin/Release/${FULLPKG}.msi" ${instdir}/${FULLPKG}.msi && \
+  if [ -x /usr/bin/md5sum ]; then \
+    cd ${instdir} && \
+    find . -type f ! -name md5sum | sed 's/^/\"/' | sed 's/$/\"/' | xargs md5sum > md5sum ; \
+  fi )
 }
 strip() {
   (cd ${instdir} && \
