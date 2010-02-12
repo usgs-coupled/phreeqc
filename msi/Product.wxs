@@ -103,6 +103,8 @@
         <File Id="fil835E30B4BA9E1AFBF2E520369EE6F888" Source="..\examples\ex12" />
         <File Id="filD699749C27E489A8A202F3B5A540A2C3" Source="..\examples\ex12.out" />
         <File Id="fil37642D6A43B902DE2F2C19057205E219" Source="..\examples\ex12.sel" />
+        <File Id="fil6FA9D3D6856AB9A45E399BF0AD0C6E5D" Source="..\examples\ex12a.out" />
+        <File Id="fil0C83258504C6081FDCE6AB964508C118" Source="..\examples\ex12a.sel" />
         <File Id="filD4FB8BC4A68DBA43CC35A8318721610E" Source="..\examples\ex12a" />
         <File Id="fil6D6A6123D0CEB008DD46C8B6EA288440" Source="..\examples\ex13a" />
         <File Id="filD86E3C15B0E663279B2724A1E2D3066A" Source="..\examples\ex13a.out" />
