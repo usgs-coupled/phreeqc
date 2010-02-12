@@ -80,7 +80,8 @@ export checkfile=${topdir}/${FULLPKG}.check
 
 # use Visual Studio 2005 to compile
 DEVENV="/cygdrive/c/Program Files/Microsoft Visual Studio 8/Common7/IDE/devenv.exe"
-SLN=`cygpath -w "${objdir}/build/win32/phreeqc.sln"`
+##SLN=`cygpath -w "${objdir}/build/win32/phreeqc.sln"`
+SLN="phreeqc.sln"
 
 prefix=/usr
 sysconfdir=/etc
@@ -170,10 +171,10 @@ reconf() {
 }
 build() {
   (rm -fr $instdir}* && \
-  cd ${objdir} && \
-  MSBuild.exe "${SLN} /t:phreeqc /p:Configuration=Release && \  
-  cd ${objdir} && \
-  MSBuild.exe "${SLN} /p:Configuration=Release /p:TargetNam=$(FULLPKG} )
+  cd ${objdir}/build/win32 && \
+  MSBuild.exe phreeqc.sln /t:phreeqc /p:Configuration=Release && \
+  cd ${objdir}/build/win32 && \
+  MSBuild.exe phreeqc.sln /p:Configuration=Release /p:TargetName=${FULLPKG} /p:Major=${MAJOR} /p:Minor=${MINOR} /p:Build=${REL} )
 }
 check() {
   (cd ${objdir} && \
