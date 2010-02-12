@@ -190,6 +190,7 @@ build() {
     mv *.out *.sel ../examples/. && \
     cmd /c clean.bat; \
   fi && \
+  find ${objdir} | xargs touch -t "${TOUCH_STAMP}" && \
   find ${instdir} | xargs touch -t "${TOUCH_STAMP}" && \
   cp ${instdir}/${PKG}-${VER}/examples/* ${objdir}/examples/. && \
   cd ${objdir}/build/win32 && \
