@@ -997,7 +997,7 @@ Version 2.9:
                 end of string a$ and stores result in b$.
 
 
-*       Added new Basic function SYS that calculates the to
+*       Added new Basic function SYS that calculates the
         total amount of an element in all phases (solution,
         equilibrium_phases, surfaces, exchangers, solid solutions, 
         and gas phase). KINETIC reactions are not included.
