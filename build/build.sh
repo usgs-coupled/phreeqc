@@ -175,6 +175,21 @@ build() {
   (rm -fr $instdir}* && \
   cd ${objdir}/build/win32 && \
   MSBuild.exe phreeqc.sln /t:phreeqc /p:Configuration=Release && \
+  cd ${objdir}/src && \
+  make win_dist REVISION="${REL}" TEXTCP="cp" CURSRC="src"&& \
+  mkdir -p ${instdir}/${PKG}-${VER} && \
+  tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
+  mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
+  rmdir ${instdir}/${PKG}-${VER}/database && \
+  mkdir -p ${instdir}/${PKG}-${VER}/src/Release && \
+  cp -al ${objdir}/build/win32/Release/phreeqc.exe ${instdir}/${PKG}-${VER}/src/Release/. && \
+  if [ "${SKIP_TEST}" -eq 0 ] ; then \
+    cd ${instdir}/${PKG}-${VER}/test && \
+    cmd /c test.bat && \
+    mv *.out *.sel ../examples/. && \
+    cmd /c clean.bat; \
+  fi && \
+  find ${instdir} | xargs touch -t "${TOUCH_STAMP}" && \
   cd ${objdir}/build/win32 && \
   MSBuild.exe phreeqc.sln /p:Configuration=Release /p:TargetName=${FULLPKG} /p:Major=${MAJOR} /p:Minor=${MINOR} /p:Build=${REL} )
 }

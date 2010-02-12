@@ -187,6 +187,10 @@ do
   cp "$vsn_file" "$vsn_file.dist"
 done
 
+mv $DISTPATH/src/revisions $DISTPATH/RELEASE.TXT
+mv $DISTPATH/win/README.TXT $DISTPATH/README.TXT
+mv $DISTPATH/doc/NOTICE.TXT $DISTPATH/NOTICE.TXT
+
 if [ -z "$ZIP" ]; then
   echo "Rolling $DISTNAME.tar ..."
   (cd "$DIST_SANDBOX" > /dev/null && tar c "$DISTNAME") > \
