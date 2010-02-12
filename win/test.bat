@@ -192,11 +192,14 @@ set infile=%data%\%name%
 set outfile=%name%.out
 if exist %outfile% del %outfile%
 if exist %name%.sel del %name%.sel 
+for %%s in (a) do if exist %name%%%s.out del %name%%%s.out
+for %%s in (a) do if exist %name%%%s.sel del %name%%%s.sel
 echo.
 echo.
 echo %divd%%divd%
 echo Test run number %n%
 %prog% %infile% %outfile% %topdir%\phreeqc.dat
+for %%s in (a) do %prog% %infile%%%s %name%%%s.out %topdir%\phreeqc.dat
 if "%stop%"=="%n%" goto end
 
 :test13

@@ -105,6 +105,8 @@ set n=12
 set name=ex%n%
 fc %data%\%name%.out %name%.out >> check.log
 fc %data%\%name%.sel %name%.sel >> check.log
+for %%s in (a) do fc %data%\%name%%%s.out %name%%%s.out >> check.log
+for %%s in (a) do fc %data%\%name%%%s.sel %name%%%s.sel >> check.log
 if "%stop%"=="%n%" goto end
 
 :test13

@@ -191,6 +191,7 @@ build() {
     cmd /c clean.bat; \
   fi && \
   find ${instdir} | xargs touch -t "${TOUCH_STAMP}" && \
+  cp ${instdir}/${PKG}-${VER}/examples/* ${objdir}/examples/. && \
   cd ${objdir}/build/win32 && \
   MSBuild.exe phreeqc.sln /p:Configuration=Release /p:TargetName=${FULLPKG} /p:Major=${MAJOR} /p:Minor=${MINOR} /p:Build=${REL} )
 }
