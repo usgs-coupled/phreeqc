@@ -172,12 +172,13 @@ reconf() {
   conf )
 }
 build() {
-  (rm -fr $instdir}* && \
+  (rm -fr ${instdir}/* && \
   cd ${objdir}/build/win32 && \
   MSBuild.exe phreeqc.sln /t:phreeqc /p:Configuration=Release && \
   cd ${objdir}/src && \
   make win_dist REVISION="${REL}" TEXTCP="cp" CURSRC="src"&& \
   mkdir -p ${instdir}/${PKG}-${VER} && \
+  cd ${instdir}/${PKG}-${VER} && \
   tar xvzf ${objdir}/src/phreeqc_export/*.Windows.tar.gz && \
   mv ${instdir}/${PKG}-${VER}/database/* ${instdir}/${PKG}-${VER} && \
   rmdir ${instdir}/${PKG}-${VER}/database && \
