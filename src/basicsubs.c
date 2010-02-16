@@ -1709,7 +1709,6 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 		(*moles)[i + 1] = sys[i].moles;
 	}
 	*count = (LDBLE) count_sys;
-	PHRQ_free(sys);
 	if (strcmp_nocase(total_name, "elements") == 0)
 	{
 		sys_tot = 0;;
@@ -1724,6 +1723,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 			}
 		}
 	}
+	PHRQ_free(sys);
 	return (sys_tot);
 }
 
