@@ -1744,6 +1744,7 @@ ineq(int in_kode)
 	}
 	else if (kode == 3)
 	{
+		return_code = ERROR;
 		error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
 	}
 	else
