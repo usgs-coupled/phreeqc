@@ -1696,7 +1696,7 @@ ineq(int in_kode)
 	{
 		kode = 1;
 	}
-	iter = 200;
+	iter = 2*count_unknowns;
 /*
  *   Allocate space for arrays
  */
@@ -1733,7 +1733,6 @@ ineq(int in_kode)
 	cl1(k, l, m, n,
 		nklmd, n2d, ineq_array,
 		&kode, ineq_tol, &iter, delta1, res, &error, cu, iu, is, FALSE);
-
 /*   Set return_kode */
 	if (kode == 1)
 	{
@@ -1742,6 +1741,10 @@ ineq(int in_kode)
 	else if (kode == 2)
 	{
 		return_code = 2;
+	}
+	else if (kode == 3)
+	{
+		error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
 	}
 	else
 	{
