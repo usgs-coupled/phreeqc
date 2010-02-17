@@ -288,6 +288,8 @@ AmO2+                   Cl-             0.09
 AmO2+2                  Cl-             0.39 
 Ba+2                    Cl-             0.07 
 Ca+2                    Cl-             0.14 
+Ca4Th(OH)8+4            Cl-            -0.01 
+Ca4Th(OH)8+4            ClO4-           0.21 
 Cd(HCO3)+               Cl-             0.2 
 Cd+2                    Cl-             0.16 
 CdCl+                   Cl-             0.127 
@@ -392,14 +394,39 @@ SmCl+2                  Cl-             0.191
 SmF+2                   Cl-             0.191 
 Sn(OH)+                 Cl-             0.2 
 Sn+2                    Cl-             0.26 
-Th(OH)+3                Cl-             0.2 
-Th(OH)2+2               Cl-             0.1 
-Th(OH)3+                Cl-             0.05 
+Th(H2PO4)+3             ClO4-           0.5 
+Th(H2PO4)2+2            ClO4-           0.4 
+Th(H3PO4)(H2PO4)+3      ClO4-           0.5 
+Th(H3PO4)+4             ClO4-           0.7 
+Th(NO3)+3               ClO4-           0.56 
+Th(NO3)2+2              ClO4-           0.43 
+Th(OH)+3                Cl-             0.19 
+Th(OH)+3                ClO4-           0.48 
+Th(OH)2+2               Cl-             0.13 
+Th(OH)2+2               ClO4-           0.33 
+Th(OH)3+                Cl-             0.06 
+Th(OH)3+                ClO4-           0.15 
+Th(SO4)+2               Cl-             0.14 
+Th(SO4)+2               ClO4-           0.3 
 Th+4                    Cl-             0.25 
-ThCl+3                  Cl-             0.1 
-ThF+3                   Cl-             0.1 
-ThF2+2                  Cl-             0.186 
-ThF3+                   Cl-             0.1 
+Th+4                    ClO4-           0.7 
+Th2(OH)2+6              Cl-             0.4 
+Th2(OH)2+6              ClO4-           1.22 
+Th2(OH)3+5              Cl-             0.29 
+Th2(OH)3+5              ClO4-           0.91 
+Th4(OH)12+4             Cl-             0.25 
+Th4(OH)12+4             ClO4-           0.56 
+Th4(OH)8+8              Cl-             0.7 
+Th4(OH)8+8              ClO4-           1.69 
+Th6(OH)14+10            Cl-             0.83 
+Th6(OH)14+10            ClO4-           2.2 
+Th6(OH)15+9             Cl-             0.72 
+Th6(OH)15+9             ClO4-           1.85 
+ThCl+3                  Cl-             0.62 
+ThCl+3                  ClO4-           0.62 
+ThF+3                   ClO4-           0.48 
+ThF2+2                  ClO4-           0.3 
+ThF3+                   ClO4-           0.1 
 U(NO3)2+2               Cl-             0.236 
 U(OH)+3                 Cl-             0.2 
 U(OH)2+2                Cl-             0.1 
@@ -522,10 +549,11 @@ SnCl3-                  Na+            -0.36
 SO3-2                   Na+            -0.08 
 SO4-2                   Na+            -0.12 
 Th(CO3)5-6              Na+            -0.3 
-Th(OH)(CO3)4-5          Na+            -0.25 
+Th(OH)(CO3)4-5          Na+            -0.22 
 Th(OH)2(CO3)2-2         Na+            -0.1 
 Th(OH)3(CO3)-           Na+            -0.05 
 Th(OH)4(CO3)-2          Na+            -0.1 
+Th(SO4)3-2              Na+            -0.091 
 U(CO3)4-4               Na+            -0.09 
 U(CO3)5-6               Na+            -0.3 
 UO2(CO3)2-2             Na+            -0.02 
@@ -612,7 +640,7 @@ SOLUTION_SPECIES
 +1.000Th+4          = Th+4
      log_k     0            #
      #delta_h               kJ/mol        #
-     # Enthalpy of formation:             -769.019      kJ/mol        76FUG/OET
+     # Enthalpy of formation:             -768.7        kJ/mol        09RAN/FUG
 
 
 +1.000PuO2+2          = PuO2+2
@@ -1354,13 +1382,13 @@ SOLUTION_SPECIES
 
 
 +1.000Pb+2     -1.000H+     +1.000H2(PO4)-          = PbHPO4
-     log_k     4.11         #74NRI
+     log_k    -4.11         #74NRI
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Pb+2     +1.000H2(PO4)-          = Pb(H2PO4)+
-     log_k    -1.5          #74NRI
+     log_k     1.5          #74NRI
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -1847,18 +1875,6 @@ SOLUTION_SPECIES
 
 +1.000Fe+2     +4.000NH3          = Fe(NH3)4+2
      log_k     3.6          #82SCH
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
-
-
-+1.000Fe+2     +2.000Cl-          = FeCl2
-     log_k    -0.52         #95CHI
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
-
-
-+1.000Fe+2     +3.000Cl-          = FeCl3-
-     log_k     1.02         #95CHI
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -3298,43 +3314,37 @@ SOLUTION_SPECIES
 
 
 +4.000Th+4     -12.000H+     +12.000H2O          = Th4(OH)12+4
-     log_k    -26.7         #02NEC/MUL
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
-
-
-+1.000Th+4     -6.000H+     +1.000H2(PO4)-     +4.000H2O          = Th(OH)4PO4-3
-     log_k    -34.45        #94ÖST
+     log_k    -26.6         #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     +3.000SO4-2          = Th(SO4)3-2
-     log_k     12.77        #
+     log_k     10.75        #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     -1.000H+     +4.000CO3-2     +1.000H2O          = Th(OH)(CO3)4-5
-     log_k     21.8         #06ALT/NEC
+     log_k     21.6         #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     -2.000H+     +1.000CO3-2     +2.000H2O          = Th(OH)2(CO3)
-     log_k     2.7          #06ALT/NEC
+     log_k     2.5          #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     -2.000H+     +2.000CO3-2     +2.000H2O          = Th(OH)2(CO3)2-2
-     log_k     9            #06ALT/NEC
+     log_k     8.8          #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     -4.000H+     +1.000CO3-2     +4.000H2O          = Th(OH)4(CO3)-2
-     log_k    -15.4         #06ALT/NEC
+     log_k    -15.6         #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -3817,12 +3827,6 @@ SOLUTION_SPECIES
      log_k    -4.7          #01NEC/KIM
      delta_h   82.944       kJ/mol        #
      # Enthalpy of formation:             -1365.746     kJ/mol        
-
-
-+6.000U+4     -15.000H+     +15.000H2O          = U6(OH)15+9
-     log_k    -16.9         #92GRE/FUG
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000U+4     +1.000Nta-3          = U(Nta)+
@@ -4609,6 +4613,12 @@ SOLUTION_SPECIES
      log_k    -0.71         #97TAG/ZOT
      delta_h  -12.298       kJ/mol        #
      # Enthalpy of formation:             -179.378      kJ/mol        
+
+
++1.000H4(SiO4)     -1.000H+     +1.000PuO2+2          = PuO2(OSi(OH)3)+
+     log_k    -3.64         #03YUS/FED
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
 
 
 +2.000H+     +2.000e-     +0.500O2          = H2O
@@ -6904,105 +6914,105 @@ SOLUTION_SPECIES
 
 
 +1.000Th+4     -1.000H+     +1.000H2O          = Th(OH)+3
-     log_k    -2.2          #05ALT/NEC
-     delta_h   53.64        kJ/mol        #
-     # Enthalpy of formation:             -1001.218     kJ/mol        
+     log_k    -2.5          #09RAN/FUG
+     delta_h   44.2         kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -1010.33      kJ/mol        
 
 
 +1.000Th+4     -2.000H+     +2.000H2O          = Th(OH)2+2
-     log_k    -6.6          #05ALT/NEC
-     delta_h   93.974       kJ/mol        #
-     # Enthalpy of formation:             -1246.714     kJ/mol        
+     log_k    -6.2          #09RAN/FUG
+     delta_h   85.7         kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -1254.66      kJ/mol        
 
 
 +1.000Th+4     -3.000H+     +3.000H2O          = Th(OH)3+
-     log_k    -11.4         #05ALT/NEC
-     delta_h   123.81       kJ/mol        #
-     # Enthalpy of formation:             -1502.707     kJ/mol        
+     log_k    -11           #09GRI/RIB
+     delta_h   125.623      kJ/mol        #
+     # Enthalpy of formation:             -1500.554     kJ/mol        
 
 
 +2.000Th+4     -2.000H+     +2.000H2O          = Th2(OH)2+6
-     log_k    -5.7          #02NEC/MUL
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
+     log_k    -5.9          #09RAN/FUG
+     delta_h   58.3         kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -2050.76      kJ/mol        
 
 
 +4.000Th+4     -8.000H+     +8.000H2O          = Th4(OH)8+8
-     log_k    -20.4         #02NEC/MUL
+     log_k    -20.4         #09RAN/FUG
+     delta_h   243          kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -5118.44      kJ/mol        
+
+
++1.000Th+4     +1.000F-          = ThF+3
+     log_k     8.87         #09RAN/FUG
+     delta_h  -0.4          kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -1104.45      kJ/mol        
+
+
++1.000Th+4     +2.000F-          = ThF2+2
+     log_k     15.63        #09RAN/FUG
+     delta_h  -3.3          kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -1442.7       kJ/mol        
+
+
++1.000Th+4     +3.000F-          = ThF3+
+     log_k     20.67        #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
-+1.000Th+4     +1.000F-          = ThF+3
-     log_k     7.64         #
-     delta_h  -1.999        kJ/mol        #
-     # Enthalpy of formation:             -1106.377     kJ/mol        
-
-
-+1.000Th+4     +2.000F-          = ThF2+2
-     log_k     13.36        #
-     delta_h  -2.237        kJ/mol        #
-     # Enthalpy of formation:             -1441.965     kJ/mol        
-
-
-+1.000Th+4     +3.000F-          = ThF3+
-     log_k     17.54        #
-     delta_h  -3.216        kJ/mol        #
-     # Enthalpy of formation:             -1778.294     kJ/mol        
-
-
 +1.000Th+4     +4.000F-          = ThF4
-     log_k     20.41        #
-     delta_h  -4.447        kJ/mol        #
-     # Enthalpy of formation:             -2114.874     kJ/mol        
+     log_k     25.58        #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     +1.000Cl-          = ThCl+3
-     log_k     1.21         #
-     delta_h   0.885        kJ/mol        #
-     # Enthalpy of formation:             -935.222      kJ/mol        
+     log_k     1.7          #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     +1.000SO4-2          = Th(SO4)+2
-     log_k     7.88         #Recalculated from 02HUM/BER
-     delta_h   2.814        kJ/mol        #
-     # Enthalpy of formation:             -1675.553     kJ/mol        
+     log_k     6.17         #09RAN/FUG
+     delta_h   20.92        kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -1657.12      kJ/mol        
 
 
 +1.000Th+4     +2.000SO4-2          = Th(SO4)2
-     log_k     11.82        #
-     delta_h   21.002       kJ/mol        #
-     # Enthalpy of formation:             -2566.705     kJ/mol        
+     log_k     9.69         #09RAN/FUG
+     delta_h   40.38        kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -2547         kJ/mol        
 
 
 +1.000Th+4     +1.000NO3-          = Th(NO3)+3
-     log_k     0.82         #Estimated from An(IV) correlations
+     log_k     1.3          #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     +5.000CO3-2          = Th(CO3)5-6
-     log_k     31.2         #06ALT/NEC
+     log_k     31           #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +6.000Th+4     -15.000H+     +15.000H2O          = Th6(OH)15+9
-     log_k    -34           #02NEC/MUL
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
+     log_k    -36.8         #09RAN/FUG
+     delta_h   472.8        kJ/mol        #09RAN/FUG
+     # Enthalpy of formation:             -8426.85      kJ/mol        
 
 
 +1.000Th+4     -3.000H+     +1.000CO3-2     +3.000H2O          = Th(OH)3(CO3)-
-     log_k    -3.5          #06ALT/NEC
+     log_k    -3.7          #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
 
 +1.000Th+4     -4.000H+     +4.000H2O          = Th(OH)4
-     log_k    -17           #05ALT/NEC
-     delta_h   150.897      kJ/mol        #
-     # Enthalpy of formation:             -1761.45      kJ/mol        
+     log_k    -17.4         #09RAN/FUG
+     delta_h   152.688      kJ/mol        #
+     # Enthalpy of formation:             -1759.319     kJ/mol        
 
 
 +1.000UO2+2     -1.000H+     +1.000H2O          = UO2(OH)+
@@ -7109,8 +7119,8 @@ SOLUTION_SPECIES
 
 +1.000UO2+2     +1.000NO3-          = UO2(NO3)+
      log_k     0.3          #92GRE/FUG
-     delta_h   993.035      kJ/mol        #89SMI/MAR
-     # Enthalpy of formation:             -232.815      kJ/mol        
+     delta_h   3.9          kJ/mol        #08RAO/TIA
+     # Enthalpy of formation:             -1221.95      kJ/mol        
 
 
 +1.000UO2+2     +2.000CO3-2          = UO2(CO3)2-2
@@ -8497,6 +8507,54 @@ SOLUTION_SPECIES
      log_k    -19.56        #89COX/WAG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:             -1284.4       kJ/mol        89COX/WAG
+
+
++1.000Th+4     +8.000H2O     -8.000H+     +4.000Ca+2          = Ca4Th(OH)8+4
+     log_k    -63.1         #08ALT/NEC
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++1.000Th+4     +2.000NO3-          = Th(NO3)2+2
+     log_k     2.3          #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++1.000Th+4     +2.000H2(PO4)-     +1.000H+          = Th(H3PO4)(H2PO4)+3
+     log_k     9.7          #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++1.000Th+4     +1.000H2(PO4)-          = Th(H2PO4)+3
+     log_k     5.59         #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++1.000Th+4     +2.000H2(PO4)-          = Th(H2PO4)2+2
+     log_k     10.48        #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++1.000Th+4     +1.000H2(PO4)-     +1.000H+          = Th(H3PO4)+4
+     log_k     4.03         #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++2.000Th+4     +3.000H2O     -3.000H+          = Th2(OH)3+5
+     log_k    -6.8          #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
++6.000Th+4     +14.000H2O     -14.000H+          = Th6(OH)14+10
+     log_k    -36.8         #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
 
 
 
@@ -10491,6 +10549,27 @@ Fe1.04Se = +1.040Fe+2     -1.000H+     +0.080e-     +1.000HSe-
      # Enthalpy of formation:             -69.6         kJ/mol        05OLI/NOL
 
 
+Compreignacite
+K2(UO2)6O4(OH)6:7H2O = +2.000K+     +17.000H2O     -14.000H+     +6.000UO2+2     
+     log_k     35.8         #08GOR/FEI
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+Sodium-compreignacite
+Na2(UO2)6O4(OH)6:7H2O = +2.000Na+     +6.000UO2+2     +17.000H2O     -14.000H+     
+     log_k     39.4         #08GOR/FEI
+     delta_h  -517.39       kJ/mol        #
+     # Enthalpy of formation:             -10936.4      kJ/mol        06KUB/HEL
+
+
+Clarkeite
+Na(UO2)O(OH) = +1.000UO2+2     -3.000H+     +1.000Na+     +2.000H2O     
+     log_k     9.4          #08GOR/FEI
+     delta_h  -106.3        kJ/mol        #
+     # Enthalpy of formation:             -1724.7       kJ/mol        06KUB/HEL
+
+
 Chromite
 FeCr2O4 = +1.000Fe+2     -8.000H+     +2.000Cr+3     +4.000H2O     
      log_k     15.12        #
@@ -11270,9 +11349,9 @@ Sr(SeO4) = +1.000Sr+2     +1.000SeO4-2
 
 Th(cr)
 Th = +1.000Th+4     +4.000e-     
-     log_k     123.44       #
-     delta_h  -769.019      kJ/mol        #
-     # Enthalpy of formation:              0            kJ/mol        03GUI/FAN
+     log_k     123.47       #
+     delta_h  -768.7        kJ/mol        #
+     # Enthalpy of formation:              0            kJ/mol        09RAN/FUG
 
 
 SrO(cr)
@@ -11326,7 +11405,7 @@ SrCl2:2H2O = +1.000Sr+2     +2.000Cl-     +2.000H2O
 
 ThO2(mcr)
 ThO2 = +1.000Th+4     -4.000H+     +2.000H2O     
-     log_k     2.8          #03NEC/ALT
+     log_k     3            #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -11354,9 +11433,9 @@ Soddyite(synt1)
 
 Soddyite(synt2)
 (UO2)2SiO4:2H2O = +2.000UO2+2     -4.000H+     +1.000H4(SiO4)     +2.000H2O     
-     log_k     6.2          #Estimated according NEA Guidelines
-     #delta_h               kJ/mol        #
-     # Enthalpy of formation:                           kJ/mol        
+     log_k     6.43         #07GOR/MAZ
+     delta_h  -25.454       kJ/mol        #
+     # Enthalpy of formation:             -4045.4       kJ/mol        07GOR/MAZ
 
 
 (UO2)3(PO4)2(cr)
@@ -11460,6 +11539,13 @@ UO2.67 = +1.000U+4     -5.340H+     -1.340e-     +2.670H2O
 Coffinite(am)
 U(SiO4)  = +1.000U+4     -4.000H+     +1.000H4(SiO4)     
      log_k    -1.5          #Estimation based on NEA Guidelines
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+PuO2(coll)
+PuO2 = +1.000Pu+4     +2.000H2O     -4.000H+     
+     log_k     0.2          #07NEC/ALT
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -13494,9 +13580,9 @@ Th(HPO4)2 = +1.000Th+4     -2.000H+     +2.000H2(PO4)-
      # Enthalpy of formation:                           kJ/mol        
 
 
-Th(OH)4(am)
-Th(OH)4 = +1.000Th+4     -4.000H+     +4.000H2O     
-     log_k     8.2          #05ALT/NEC
+ThO2(aged)
+ThO2 = +1.000Th+4     -4.000H+     +2.000H2O     
+     log_k     8.5          #09RAN/FUG
      #delta_h               kJ/mol        #
      # Enthalpy of formation:                           kJ/mol        
 
@@ -14026,6 +14112,48 @@ B(OH)3 = +1.000H+     +1.000B(OH)4-     -1.000H2O
      # Enthalpy of formation:             -1094.8       kJ/mol        01LEM/FUG
 
 
+Th(SO4)2:9H2O(cr)
+Th(SO4)2:9H2O = +1.000Th+4     +2.000SO4-2     +9.000H2O     
+     log_k    -11.25        #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+ThF4(cr)
+ThF4 = +1.000Th+4     +4.000F-     
+     log_k    -19.11        #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+ThO2(cr)
+ThO2 = +1.000Th+4     +2.000H2O     -4.000H+     
+     log_k     1.77         #
+     delta_h  -113.96       kJ/mol        #
+     # Enthalpy of formation:             -1226.4       kJ/mol        09RAN/FUG
+
+
+ThO2(fresh)
+ThO2 = +1.000Th+4     +2.000H2O     -4.000H+     
+     log_k     9.3          #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+ThO2(coll)
+ThO2 = +1.000Th+4     +2.000H2O     -4.000H+     
+     log_k     11.1         #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
+Na6Th(CO3)5:12H2O(cr)
+Na6Th(CO3)5:12H2O = +1.000Th+4     +5.000CO3-2     +12.000H2O     +6.000Na+     
+     log_k    -42.2         #09RAN/FUG
+     #delta_h               kJ/mol        #
+     # Enthalpy of formation:                           kJ/mol        
+
+
 # PMATCH GASES
 
 H2(g)
@@ -14096,5 +14224,7 @@ O2 = +1.000O2
      log_k    -2.9          #
      delta_h  -12.134       kJ/mol        #
      # Enthalpy of formation:              0            kJ/mol        
+
+
 
 
