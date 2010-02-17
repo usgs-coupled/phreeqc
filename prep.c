@@ -4861,7 +4861,12 @@ write_mb_for_species_list(int n)
 		else
 		{
 			ptr = trxn.token[i].s->secondary->elt->name;
-			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			if (get_secondary_in_species(&ptr, trxn.token[i].coef) == ERROR)
+			{
+				input_error++;
+				sprintf(error_string, "Error parsing %s.", trxn.token[i].s->secondary->elt->name);
+				error_msg(error_string, CONTINUE);
+			}
 		}
 	}
 	for (i = 0; i < count_elts; i++)
