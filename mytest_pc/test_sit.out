@@ -7,15 +7,9 @@ Reading data base.
 ------------------
 
 	SOLUTION_MASTER_SPECIES
-	SOLUTION_SPECIES
 	SIT
-	PHASES	
-	EXCHANGE_MASTER_SPECIES
-	EXCHANGE_SPECIES
-	SURFACE_MASTER_SPECIES
-	SURFACE_SPECIES
-	RATES
-	END
+	SOLUTION_SPECIES
+	PHASES
 ------------------------------------
 Reading input data for simulation 1.
 ------------------------------------
@@ -43,53 +37,64 @@ Initial solution 1.
 
 ----------------------------Description of solution----------------------------
 
-                                       pH  =  -0.591      Charge balance
+                                       pH  =  -0.336      Charge balance
                                        pe  =   4.000    
-       Specific Conductance (uS/cm, 25 oC) = 1277805
-                          Density (g/cm3)  =   1.04834
-                        Activity of water  =   0.866
-                           Ionic strength  =  3.001e+000
+                        Activity of water  =   0.899
+                           Ionic strength  =  2.085e+000
                        Mass of water (kg)  =  1.000e+000
                  Total alkalinity (eq/kg)  = -3.000e+000
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -3.615e-016
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =  1.262e-013
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  11
                          Gamma iterations  =   4
-                      Osmotic coefficient  =   1.32621
-                         Density of water  =   0.99706
-                                  Total H  = 1.140124e+002
-                                  Total O  = 5.550922e+001
+                      Osmotic coefficient  =   1.16122
+                                  Total H  = 1.140198e+002
+                                  Total O  = 5.551291e+001
 
 ----------------------------Distribution of species----------------------------
 
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   H+                    3.000e+000  3.902e+000     0.477     0.591     0.114
-   OH-                   3.914e-015  2.223e-015   -14.407   -14.653    -0.246
-   H2O                   5.551e+001  8.664e-001     1.744    -0.062     0.000
+   H+                    2.084e+000  2.168e+000     0.319     0.336     0.017
+   OH-                   7.092e-015  4.148e-015   -14.149   -14.382    -0.233
+   H2O                   5.551e+001  8.991e-001     1.744    -0.046     0.000
 Cl              3.000e+000
-   Cl-                   3.000e+000  3.902e+000     0.477     0.591     0.114
-H(0)            2.156e-010
-   H2                    1.078e-010  1.078e-010    -9.967    -9.967     0.000
+   Cl-                   2.084e+000  2.167e+000     0.319     0.336     0.017
+   HCl                   9.161e-001  9.161e-001    -0.038    -0.038     0.000
+   KCl                   2.861e-004  2.861e-004    -3.543    -3.543     0.000
+   Cl2                   2.897e-039  2.897e-039   -38.538   -38.538     0.000
+   ClO4-                 0.000e+000  0.000e+000  -158.627  -158.627     0.000
+H(0)            7.816e-011
+   H2                    3.908e-011  3.908e-011   -10.408   -10.408     0.000
 K               1.000e-003
-   K+                    1.000e-003  5.676e-004    -3.000    -3.246    -0.246
-   KOH                   4.369e-019  4.369e-019   -18.360   -18.360     0.000
+   K+                    7.137e-004  4.174e-004    -3.146    -3.379    -0.233
+   KCl                   2.861e-004  2.861e-004    -3.543    -3.543     0.000
+   K(NO3)                1.728e-007  1.728e-007    -6.762    -6.762     0.000
+   K(OH)                 6.003e-019  6.003e-019   -18.222   -18.222     0.000
 N(5)            1.000e-003
-   NO3-                  1.000e-003  9.205e-004    -3.000    -3.036    -0.036
+   NO3-                  9.998e-004  5.848e-004    -3.000    -3.233    -0.233
+   K(NO3)                1.728e-007  1.728e-007    -6.762    -6.762     0.000
 O(0)            0.000e+000
-   O2                    0.000e+000  0.000e+000   -72.570   -72.570     0.000
+   O2                    0.000e+000  0.000e+000   -71.416   -71.416     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)            -6.82   -9.97   -3.15  H2
-	H2O(g)           -1.57   -0.06    1.51  H2O
-	O2(g)           -69.68  -72.57   -2.89  O2
+	Cl2(g)          -37.31    8.67   45.98  Cl2
+	H2(g)            -7.33   -7.33    0.00  H2
+	H2O(g)           -1.55  -43.04  -41.49  H2O
+	HCl(g)           -5.62    0.67    6.29  HCl
+	K(cr)           -56.87   -7.38   49.49  K
+	K(NO3)(s)        -6.51   -6.61   -0.10  K(NO3)
+	K(OH)(s)        -28.36   -3.76   24.60  K(OH)
+	K2O(s)          -91.59   -7.48   84.11  K2O
+	O2(g)           -68.52  -71.42   -2.90  O2
+	Sylvite          -3.91   -3.04    0.87  KCl
 
 ------------------
 End of simulation.
