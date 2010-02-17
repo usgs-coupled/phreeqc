@@ -33,7 +33,7 @@ typedef struct linerec
 {
 	long num, num2;
 	tokenrec *txt;
-	Char inbuf[MAX_LENGTH];
+	Char inbuf[MAX_LINE];
 	struct linerec *next;
 } linerec;
 
