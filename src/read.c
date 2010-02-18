@@ -38,10 +38,12 @@ extern int read_run_cells(void);
 static char const svnid[] = "$Id$";
 
 #if defined(SWIG_SHARED_OBJ)
+#undef STATIC
 #define STATIC
 #else
 #define STATIC static
 #endif
+
 STATIC int add_psi_master_species(char *token);
 STATIC int read_advection(void);
 STATIC int read_analytical_expression_only(char *ptr, LDBLE * log_k);
