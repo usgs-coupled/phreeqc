@@ -725,7 +725,7 @@ Static void CLASS_QUALIFIER
 parse(Char * inbuf, tokenrec ** buf)
 {
 	long i, j, begin, len, m, lp, q;
-	Char token[toklength + 1];
+	Char token[toklength + 1] = {0};
 	tokenrec *t, *tptr;
 	varrec *v;
 	Char ch;
@@ -1247,7 +1247,7 @@ Static void CLASS_QUALIFIER
 listtokens(FILE * f, tokenrec * buf)
 {
 	boolean ltr;
-	Char STR1[256];
+	Char STR1[256] = {0};
 	char *string;
 	ltr = false;
 	while (buf != NULL)
@@ -1947,7 +1947,7 @@ errormsg(const Char * s)
 Static void CLASS_QUALIFIER
 snerr(const Char * s)
 {
-  char str[MAX_LENGTH];
+  char str[MAX_LENGTH] = {0};
   strcpy(str, "Syntax_error ");
   errormsg(strcat(str, s));
 }
@@ -1956,7 +1956,7 @@ snerr(const Char * s)
 Static void CLASS_QUALIFIER
 tmerr(const Char * s)
 {
-  char str[MAX_LENGTH];
+  char str[MAX_LENGTH] = {0};
   strcpy(str, "Type mismatch error");
   errormsg(strcat(str, s));
 }
@@ -2055,7 +2055,7 @@ intexpr(struct LOC_exec *LINK)
 Local void CLASS_QUALIFIER
 require(int k, struct LOC_exec *LINK)
 {
-  char str[MAX_LENGTH];
+  char str[MAX_LENGTH] = {0};
 	int i;
 	if (LINK->t == NULL || LINK->t->kind != k)
 	{
@@ -2187,7 +2187,7 @@ ixor(long a, long b, struct LOC_exec *LINK)
 Local valrec CLASS_QUALIFIER
 factor(struct LOC_exec * LINK)
 {
-	char string[MAX_LENGTH];
+	char string[MAX_LENGTH] = {0};
 	struct solution *soln_ptr;
 	int nn;
 	varrec *v;
@@ -2206,7 +2206,7 @@ factor(struct LOC_exec * LINK)
 	struct save_values s_v, *s_v_ptr;
 	int k;
 	LDBLE TEMP;
-	Char STR1[256], STR2[256];
+	Char STR1[256] = {0}, STR2[256] = {0};
 	char *elt_name, *surface_name, *mytemplate, *name;
 	varrec *count_varrec = NULL, *names_varrec = NULL, *types_varrec =
 		NULL, *moles_varrec = NULL;
@@ -2261,6 +2261,7 @@ factor(struct LOC_exec * LINK)
 			n.UU.sval = (char *) PHRQ_malloc(m);
 			if (n.UU.sval == NULL)
 				malloc_error();
+			n.UU.sval[0] = '\0';
 			if (*v->UU.U1.sval != NULL)
 			{
 				strcpy(n.UU.sval, *v->UU.U1.sval);
@@ -2379,7 +2380,7 @@ factor(struct LOC_exec * LINK)
 
 	case tokparm:
 		i_rate = intfactor(LINK);
-		if (i_rate > count_rate_p)
+		if (i_rate > count_rate_p || i_rate == 0)
 		{
 			errormsg("Parameter subscript out of range.");
 		}
@@ -3572,7 +3573,7 @@ cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 {
 	FILE *f;
 	tokenrec *buf;
-	Char STR1[256];
+	Char STR1[256] = {0};
 	Char *TEMP;
 
 	f = NULL;
@@ -3974,7 +3975,7 @@ cmdprint(struct LOC_exec *LINK)
 {
 	boolean semiflag;
 	valrec n;
-	Char STR1[256];
+	Char STR1[256] = {0};
 
 	semiflag = false;
 	while (!iseos(LINK))
@@ -4825,7 +4826,7 @@ exec(void)
 {
 	struct LOC_exec V;
 	Char *ioerrmsg;
-	Char STR1[256];
+	Char STR1[256] = {0};
 
 
 	TRY(try1);
