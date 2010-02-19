@@ -70,7 +70,7 @@
         <File Id="phreeqc.dat" Name="phreeqc.dat" Source="..\database\phreeqc.dat" />
         <File Id="pitzer.dat" Name="pitzer.dat" Source="..\database\pitzer.dat" />
         <File Id="sit.dat" Name="sit.dat" Source="..\database\sit.dat" />
-        <File Id="tony.dat" Name="tony.dat" Source="..\database\tony.dat" />
+        <File Id="Amm.dat" Name="Amm.dat" Source="..\database\Amm.dat" />
         <File Id="wateq4f.dat" Name="wateq4f.dat" Source="..\database\wateq4f.dat" />
         <!-- text files -->
         <File Id="NOTICE.TXT" Name="NOTICE.TXT" Source="..\doc\NOTICE.TXT" />
