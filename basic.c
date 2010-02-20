@@ -746,7 +746,7 @@ parse(Char * inbuf, tokenrec ** buf)
 		}
 		if (ch != ' ')
 		{
-			t = (tokenrec *) PHRQ_malloc(sizeof(tokenrec));
+			t = (tokenrec *) PHRQ_calloc(1, sizeof(tokenrec));
 			if (t == NULL)
 				malloc_error();
 			if (tptr == NULL)
@@ -774,7 +774,7 @@ parse(Char * inbuf, tokenrec ** buf)
 				m = 256;
 				if (j + 1 > m)
 					m = j + 1;
-				t->UU.sp = (char *) PHRQ_malloc(m);
+				t->UU.sp = (char *) PHRQ_calloc(m, sizeof(char));
 				if (t->UU.sp == NULL)
 					malloc_error();
 				strncpy(t->UU.sp, inbuf + begin - 1, j);
@@ -900,7 +900,7 @@ parse(Char * inbuf, tokenrec ** buf)
 							m = (int) strlen(inbuf) + 1;
 							if (m < 256)
 								m = 256;
-							t->UU.sp = (char *) PHRQ_malloc(m);
+							t->UU.sp = (char *) PHRQ_calloc(m, sizeof(char));
 							if (t->UU.sp == NULL)
 								malloc_error();
 							sprintf(t->UU.sp, "%.*s",
@@ -1173,7 +1173,7 @@ parse(Char * inbuf, tokenrec ** buf)
 							v = v->next;
 						if (v == NULL)
 						{
-							v = (varrec *) PHRQ_malloc(sizeof(varrec));
+							v = (varrec *) PHRQ_calloc(1, sizeof(varrec));
 							if (v == NULL)
 								malloc_error();
 							v->UU.U0.arr = NULL;
@@ -1916,7 +1916,7 @@ parseinput(tokenrec ** buf)
 	}
 	if (*buf != NULL)
 	{
-		l1 = (linerec *) PHRQ_malloc(sizeof(linerec));
+		l1 = (linerec *) PHRQ_calloc(1, sizeof(linerec));
 		if (l1 == NULL)
 			malloc_error();
 		l1->next = l;
@@ -2236,7 +2236,7 @@ factor(struct LOC_exec * LINK)
 		m = (int) strlen(facttok->UU.sp) + 1;
 		if (m < 256)
 			m = 256;
-		n.UU.sval = (char *) PHRQ_malloc(m);
+		n.UU.sval = (char *) PHRQ_calloc(m, sizeof(char));
 		if (n.UU.sval == NULL)
 			malloc_error();
 		strcpy(n.UU.sval, facttok->UU.sp);
@@ -2258,10 +2258,9 @@ factor(struct LOC_exec * LINK)
 			{
 				m = 256;
 			}
-			n.UU.sval = (char *) PHRQ_malloc(m);
+			n.UU.sval = (char *) PHRQ_calloc(m, sizeof(char));
 			if (n.UU.sval == NULL)
 				malloc_error();
-			n.UU.sval[0] = '\0';
 			if (*v->UU.U1.sval != NULL)
 			{
 				strcpy(n.UU.sval, *v->UU.U1.sval);
@@ -3063,7 +3062,7 @@ factor(struct LOC_exec * LINK)
 
 	case tokstr_:
 		n.stringval = true;
-		n.UU.sval = (char *) PHRQ_malloc(256);
+		n.UU.sval = (char *) PHRQ_calloc(256, sizeof(char));
 		if (n.UU.sval == NULL)
 			malloc_error();
 		numtostr(n.UU.sval, realfactor(LINK));
@@ -3085,7 +3084,7 @@ factor(struct LOC_exec * LINK)
 
 	case tokchr_:
 		n.stringval = true;
-		n.UU.sval = (char *) PHRQ_malloc(256);
+		n.UU.sval = (char *) PHRQ_calloc(256, sizeof(char));
 		if (n.UU.sval == NULL)
 			malloc_error();
 		strcpy(n.UU.sval, " ");
@@ -4453,7 +4452,7 @@ cmdfor(struct LOC_exec *LINK)
 		skiptoeos(LINK);
 		return;
 	}
-	l = (looprec *) PHRQ_malloc(sizeof(looprec));
+	l = (looprec *) PHRQ_calloc(1, sizeof(looprec));
 	if (l == NULL)
 		malloc_error();
 	*l = lr;
@@ -4508,7 +4507,7 @@ cmdwhile(struct LOC_exec *LINK)
 {
 	looprec *l;
 
-	l = (looprec *) PHRQ_malloc(sizeof(looprec));
+	l = (looprec *) PHRQ_calloc(1, sizeof(looprec));
 	if (l == NULL)
 		malloc_error();
 	l->next = loopbase;
@@ -4582,7 +4581,7 @@ cmdgosub(struct LOC_exec *LINK)
 {
 	looprec *l;
 
-	l = (looprec *) PHRQ_malloc(sizeof(looprec));
+	l = (looprec *) PHRQ_calloc(1, sizeof(looprec));
 	if (l == NULL)
 		malloc_error();
 	l->next = loopbase;
@@ -4719,7 +4718,7 @@ cmdon(struct LOC_exec *LINK)
 	i = intexpr(LINK);
 	if (LINK->t != NULL && LINK->t->kind == tokgosub)
 	{
-		l = (looprec *) PHRQ_malloc(sizeof(looprec));
+		l = (looprec *) PHRQ_calloc(1, sizeof(looprec));
 		if (l == NULL)
 			malloc_error();
 		l->next = loopbase;
@@ -5085,7 +5084,7 @@ exec(void)
 			break;
 
 		case -10:
-			ioerrmsg = (char *) PHRQ_malloc(256);
+			ioerrmsg = (char *) PHRQ_calloc(256, sizeof(char));
 			if (ioerrmsg == NULL)
 				malloc_error();
 			sprintf(ioerrmsg, "I/O Error %d", (int) P_ioresult);
