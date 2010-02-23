@@ -196,6 +196,8 @@ tidy_model(void)
 	   57      "isotopes_alphas"
 	   58      "copy"
 	   59      "pitzer"
+	   60      "sit"
+	   61      "equilibrium_phase"
 	 */
 
 /*

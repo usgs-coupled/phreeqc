@@ -65,7 +65,7 @@ activity_coefficient(const char *species_name)
 	LDBLE g;
 
 	s_ptr = s_search(species_name);
-	if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type == AQ)
+	if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type < EMINUS)
 	{
 		g = pow(10., s_ptr->lg);
 	}
@@ -85,7 +85,7 @@ log_activity_coefficient(const char *species_name)
 	LDBLE g;
 
 	s_ptr = s_search(species_name);
-	if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type == AQ)
+	if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type < EMINUS)
 	{
 		g = s_ptr->lg;
 	}
