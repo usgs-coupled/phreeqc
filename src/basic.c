@@ -2406,6 +2406,7 @@ factor(struct LOC_exec * LINK)
 				|| i == count_cells + 1)
 			{
 				/*		warning_msg("Note... no porosity for boundary solutions."); */ 
+				n.UU.val = 0;
 				break;
 			}
 			else

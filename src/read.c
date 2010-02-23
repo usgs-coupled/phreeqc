@@ -130,6 +130,7 @@ read_input(void)
 	int i, j, l;
 	char *ptr;
 	char token[2 * MAX_LENGTH];
+	int last_c_keyword;
 	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
@@ -256,27 +257,29 @@ read_input(void)
 	  58      "copy"
 	  59      "pitzer"
 	  60      "sit"
-	  61      "solution_raw"
-	  62      "exchange_raw"
-	  63      "surface_raw"
-	  64      "equilibrium_phases_raw"
-	  65      "kinetics_raw"
-	  66      "solid_solutions_raw"
-	  67      "gas_phase_raw"
-	  68      "reaction_raw"
-	  69      "mix_raw"
-	  70      "reaction_temperature_raw"
-	  71      "dump"
-	  72      "solution_modify"
-	  73      "equilibrium_phases_modify"
-	  74      "exchange_modify"
-	  75      "surface_modify"
-	  76      "solid_solutions_modify"
-	  77      "gas_phase_modify"
-	  78      "kinetics_modify"
-	  79      "delete",
-	  80      "run_cells"
+	  61      "equilibrium_phase"
+	  1       "solution_raw"
+	  2       "exchange_raw"
+	  3       "surface_raw"
+	  4       "equilibrium_phases_raw"
+	  5       "kinetics_raw"
+	  6       "solid_solutions_raw"
+	  7       "gas_phase_raw"
+	  8       "reaction_raw"
+	  9       "mix_raw"
+	  10       "reaction_temperature_raw"
+	  11      "dump"
+	  12      "solution_modify"
+	  13      "equilibrium_phases_modify"
+	  14      "exchange_modify"
+	  15      "surface_modify"
+	  16      "solid_solutions_modify"
+	  17      "gas_phase_modify"
+	  18      "kinetics_modify"
+	  19      "delete",
+	  20      "run_cells"
 */
+	last_c_keyword = 61;
 	for (;;)
 	{
 		if (next_keyword >= 0)
@@ -323,6 +326,7 @@ read_input(void)
 		case 27:
 		case 28:
 		case 29:
+		case 61:
 			keyword[6].keycount++;
 			keyword[26].keycount++;
 			keyword[27].keycount++;
@@ -543,83 +547,83 @@ read_input(void)
 			read_sit();
 			break;
 #ifdef PHREEQC_CPP
-		case 61:
+		case last_c_keyword + 1:
 			keyword[61].keycount++;
 			read_solution_raw();
 			break;
-		case 62:
+		case last_c_keyword + 2:
 			keyword[62].keycount++;
 			read_exchange_raw();
 			break;
-		case 63:
+		case last_c_keyword + 3:
 			keyword[63].keycount++;
 			read_surface_raw();
 			break;
-		case 64:
+		case last_c_keyword + 4:
 			keyword[64].keycount++;
 			read_equilibrium_phases_raw();
 			break;
-		case 65:
+		case last_c_keyword + 5:
 			keyword[65].keycount++;
 			read_kinetics_raw();
 			break;
-		case 66:
+		case last_c_keyword + 6:
 			keyword[66].keycount++;
 			read_solid_solutions_raw();
 			break;
-		case 67:
+		case last_c_keyword + 7:
 			keyword[67].keycount++;
 			read_gas_phase_raw();
 			break;
-		case 68:
+		case last_c_keyword + 8:
 			keyword[68].keycount++;
 			read_reaction_raw();
 			break;
-		case 69:
+		case last_c_keyword + 9:
 			keyword[69].keycount++;
 			read_mix_raw();
 			break;
-		case 70:
+		case last_c_keyword + 10:
 			keyword[70].keycount++;
 			read_temperature_raw();
 			break;
-		case 71:
+		case last_c_keyword + 11:
 			keyword[71].keycount++;
 			read_dump();
 			break;
-		case 72:
+		case last_c_keyword + 12:
 			keyword[72].keycount++;
 			read_solution_modify();
 			break;
-		case 73:
+		case last_c_keyword + 13:
 			keyword[73].keycount++;
 			read_equilibrium_phases_modify();
 			break;
-		case 74:
+		case last_c_keyword + 14:
 			keyword[74].keycount++;
 			read_exchange_modify();
 			break;
-		case 75:
+		case last_c_keyword + 15:
 			keyword[75].keycount++;
 			read_surface_modify();
 			break;
-		case 76:
+		case last_c_keyword + 16:
 			keyword[76].keycount++;
 			read_solid_solutions_modify();
 			break;
-		case 77:
+		case last_c_keyword + 17:
 			keyword[77].keycount++;
 			read_gas_phase_modify();
 			break;
-		case 78:
+		case last_c_keyword + 18:
 			keyword[78].keycount++;
 			read_kinetics_modify();
 			break;
-		case 79:
+		case last_c_keyword + 19:
 			keyword[79].keycount++;
 			read_delete();
 			break;
-		case 80:
+		case last_c_keyword + 20:
 			keyword[80].keycount++;
 			read_run_cells();
 			break;
@@ -4314,7 +4318,7 @@ read_pure_phases(void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg("Unknown input in PHASES keyword.", CONTINUE);
+			error_msg("Unknown input in EQUILIBRIUM_PHASES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* force_equality */
@@ -4533,7 +4537,7 @@ read_reaction(void)
 /*
  *   Read line
  */
-		return_value = check_line("Pure phase data", FALSE, TRUE, TRUE, TRUE);
+		return_value = check_line("Reaction data", FALSE, TRUE, TRUE, TRUE);
 		/* empty, eof, keyword, print */
 		if (return_value == EOF || return_value == KEYWORD)
 		{
@@ -4927,7 +4931,7 @@ read_selected_output(void)
 		"saturation_indices",	/* 6 */
 		"gases",				/* 7 */
 		"equilibrium_phases",	/* 8 */
-		"equilibria",			/* 9 */
+		"equilibria",       	/* 9 */
 		"equilibrium",			/* 10 */
 		"pure",					/* 11 */
 		"inverse",				/* 12 */
@@ -4965,9 +4969,10 @@ read_selected_output(void)
 		"selected_out",			/* 44 */
 		"selected_output",		/* 45 */
 		"isotopes",				/* 46 */
-		"calculate_values"		/* 47 */
+		"calculate_values",		/* 47 */
+		"equilibrium_phase"     /* 48 */
 	};
-	int count_opt_list = 48;
+	int count_opt_list = 49;
 
 	int i, l;
 	char file_name[MAX_LENGTH], token[MAX_LENGTH];
@@ -5107,8 +5112,9 @@ read_selected_output(void)
 		case 4:				/* pure_phases */
 		case 8:				/* equilibrium_phases */
 		case 9:				/* equilibria */
-		case 10:				/* equilibrium */
-		case 11:				/* pure */
+		case 10:			/* equilibrium */
+		case 11:			/* pure */
+		case 48:            /* equilibrium_phase */
 			while ((i = copy_token(token, &next_char, &l)) != EMPTY)
 			{
 				punch.count_pure_phases++;
@@ -5755,7 +5761,7 @@ read_species(void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg("Unknown input in SPECIES keyword.", CONTINUE);
+			error_msg("Unknown input in SOLUTION_SPECIES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* no_check */
@@ -7545,7 +7551,7 @@ read_surface_master_species(void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg("Unknown input in SURFACE_SPECIES keyword.", CONTINUE);
+			error_msg("Unknown input in SURFACE_MASTER_SPECIES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
 #ifdef SKIP
@@ -8551,7 +8557,7 @@ read_print(void)
 		"use",					/* 12 */
 		"selected_output",		/* 13 */
 		"equilibrium_phases",	/* 14 same as 2 */
-		"equilibria",			/* 15 same as 2 */
+		"equilibria",	        /* 15 same as 2 */
 		"equilibrium",			/* 16 same as 2 */
 		"pure",					/* 17 same as 2 */
 		"other",				/* 18 same as 12 */
@@ -8574,10 +8580,11 @@ read_print(void)
 		"isotope_ratios",		/* 35 */
 		"isotope_alphas",		/* 36 */
 		"censor_species",		/* 37 */
-		"alkalinity"			/* 38 */
+		"alkalinity",			/* 38 */
+		"equilibrium_phase"     /* 39 */
 	};
 
-	int count_opt_list = 39;
+	int count_opt_list = 40;
 	int value;
 /*
  *   Read flags:
@@ -8632,6 +8639,7 @@ read_print(void)
 		case 15:				/* equilibria */
 		case 16:				/* equilibrium */
 		case 17:				/* pure */
+		case 39:                /* equilibrium_phase */
 			pr.pp_assemblage = get_true_false(next_char, TRUE);
 			break;
 		case 3:				/* surface */
@@ -9265,7 +9273,7 @@ read_user_print(void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg("Unknown input in RATES keyword.", CONTINUE);
+			error_msg("Unknown input in USER_PRINT keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* start */
@@ -9361,7 +9369,7 @@ read_user_punch(void)
 			break;
 		case OPTION_ERROR:
 			input_error++;
-			error_msg("Unknown input in RATES keyword.", CONTINUE);
+			error_msg("Unknown input in USER_PUNCH keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* start */
