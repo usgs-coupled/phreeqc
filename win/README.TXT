@@ -62,7 +62,7 @@ B. DISTRIBUTION FILE
 The following distribution file (containing the software, test data sets,
 and information files) is currently available.
 
-  phreeqc-@VERSION@-@REVISION@.exe - Compiled using Microsoft Visual C++ 2005, includes source code
+  phreeqc-@VERSION@-@REVISION@.msi - Compiled using Microsoft Visual C++ 2005, includes source code
 
 
 C. DOCUMENTATION
@@ -97,7 +97,7 @@ Note that if the software is to be installed on a server system,
 the person installing the software generally must have administrator 
 rights.
 
-To install the software, double-click phreeqc-@VERSION@-@REVISION@.exe to execute
+To install the software, double-click phreeqc-@VERSION@-@REVISION@.msi to execute
 the installation program and follow the directions on the screen.
 The installation program optionally will modify the PATH environment
 variable so that the PHREEQC program can be executed from any directory,
@@ -110,7 +110,7 @@ directory, but you may use other directories or disk drives.
 Note that program components not installed initially can be installed
 later, and that any components damaged by, for example, being
 inadvertently overwritten, can be quickly reinstalled by double-clicking
-phreeqc-@VERSION@-@REVISION@.exe--a maintenance version of the installation program
+phreeqc-@VERSION@-@REVISION@.msi--a maintenance version of the installation program
 will be executed.
 
 
@@ -144,7 +144,7 @@ version of the software, you will need:
        (b) familiarity with the compiler and the Windows operating system.
 
 A Makefile used to compile the program under Linux is provided as an example
-in the phreeqc-@VERSION@-@REVISION@.exe distribution, 
+in the phreeqc-@VERSION@-@REVISION@.msi distribution, 
 
 
 F. RUNNING THE SOFTWARE
