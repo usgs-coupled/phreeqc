@@ -19,6 +19,7 @@ all: alkalinity.out \
 	as.ex.out \
 	asf.out \
 	ball.out \
+	basic_test.out \
 	brown.out \
 	calc_SC.out \
 	cdmusic_related.out \
