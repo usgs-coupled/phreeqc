@@ -130,7 +130,7 @@ read_input(void)
 	int i, j, l;
 	char *ptr;
 	char token[2 * MAX_LENGTH];
-	int last_c_keyword;
+#define LAST_C_KEYWORD 61
 	/*
 	if (svnid == NULL)
 		fprintf(stderr, " ");
@@ -279,7 +279,6 @@ read_input(void)
 	  19      "delete",
 	  20      "run_cells"
 */
-	last_c_keyword = 61;
 	for (;;)
 	{
 		if (next_keyword >= 0)
@@ -547,83 +546,83 @@ read_input(void)
 			read_sit();
 			break;
 #ifdef PHREEQC_CPP
-		case last_c_keyword + 1:
+		case LAST_C_KEYWORD + 1:
 			keyword[61].keycount++;
 			read_solution_raw();
 			break;
-		case last_c_keyword + 2:
+		case LAST_C_KEYWORD + 2:
 			keyword[62].keycount++;
 			read_exchange_raw();
 			break;
-		case last_c_keyword + 3:
+		case LAST_C_KEYWORD + 3:
 			keyword[63].keycount++;
 			read_surface_raw();
 			break;
-		case last_c_keyword + 4:
+		case LAST_C_KEYWORD + 4:
 			keyword[64].keycount++;
 			read_equilibrium_phases_raw();
 			break;
-		case last_c_keyword + 5:
+		case LAST_C_KEYWORD + 5:
 			keyword[65].keycount++;
 			read_kinetics_raw();
 			break;
-		case last_c_keyword + 6:
+		case LAST_C_KEYWORD + 6:
 			keyword[66].keycount++;
 			read_solid_solutions_raw();
 			break;
-		case last_c_keyword + 7:
+		case LAST_C_KEYWORD + 7:
 			keyword[67].keycount++;
 			read_gas_phase_raw();
 			break;
-		case last_c_keyword + 8:
+		case LAST_C_KEYWORD + 8:
 			keyword[68].keycount++;
 			read_reaction_raw();
 			break;
-		case last_c_keyword + 9:
+		case LAST_C_KEYWORD + 9:
 			keyword[69].keycount++;
 			read_mix_raw();
 			break;
-		case last_c_keyword + 10:
+		case LAST_C_KEYWORD + 10:
 			keyword[70].keycount++;
 			read_temperature_raw();
 			break;
-		case last_c_keyword + 11:
+		case LAST_C_KEYWORD + 11:
 			keyword[71].keycount++;
 			read_dump();
 			break;
-		case last_c_keyword + 12:
+		case LAST_C_KEYWORD + 12:
 			keyword[72].keycount++;
 			read_solution_modify();
 			break;
-		case last_c_keyword + 13:
+		case LAST_C_KEYWORD + 13:
 			keyword[73].keycount++;
 			read_equilibrium_phases_modify();
 			break;
-		case last_c_keyword + 14:
+		case LAST_C_KEYWORD + 14:
 			keyword[74].keycount++;
 			read_exchange_modify();
 			break;
-		case last_c_keyword + 15:
+		case LAST_C_KEYWORD + 15:
 			keyword[75].keycount++;
 			read_surface_modify();
 			break;
-		case last_c_keyword + 16:
+		case LAST_C_KEYWORD + 16:
 			keyword[76].keycount++;
 			read_solid_solutions_modify();
 			break;
-		case last_c_keyword + 17:
+		case LAST_C_KEYWORD + 17:
 			keyword[77].keycount++;
 			read_gas_phase_modify();
 			break;
-		case last_c_keyword + 18:
+		case LAST_C_KEYWORD + 18:
 			keyword[78].keycount++;
 			read_kinetics_modify();
 			break;
-		case last_c_keyword + 19:
+		case LAST_C_KEYWORD + 19:
 			keyword[79].keycount++;
 			read_delete();
 			break;
-		case last_c_keyword + 20:
+		case LAST_C_KEYWORD + 20:
 			keyword[80].keycount++;
 			read_run_cells();
 			break;
