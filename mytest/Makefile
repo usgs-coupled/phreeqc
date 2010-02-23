@@ -18,6 +18,7 @@ all: alkalinity.out \
 	aquia.out \
 	as.ex.out \
 	asf.out \
+	basic_test.out \
 	ball.out \
 	brown.out \
 	calc_SC.out \

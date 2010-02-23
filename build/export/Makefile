@@ -15,8 +15,8 @@ HTML_NETPATH:=$(HTML_HOME)/netpath
 PHREEQCI_DIR:=$(CHARLTON)/phreeqci
 PHREEQCI_TARGET_DIR:=$(GEOCHEM)/pc/phreeqc
 PHREEQCI_PUB_DIR:=$(FTP_CHARLTON)/phreeqci
-PHREEQCI_FILE:=$(shell cd "$(PHREEQCI_DIR)"; ls -t phreeqci*.exe | awk '{if (NR == 1) {print}}')
-PHREEQCI_VERSION:=$(shell echo $(PHREEQCI_FILE) | sed "s/phreeqci-//" | sed "s/.exe//" )
+PHREEQCI_FILE:=$(shell cd "$(PHREEQCI_DIR)"; ls -t phreeqci*.msi | awk '{if (NR == 1) {print}}')
+PHREEQCI_VERSION:=$(shell echo $(PHREEQCI_FILE) | sed "s/phreeqci-//" | sed "s/.msi//" )
 PHREEQCI_SIZE:=$(shell ls -s -h "$(PHREEQCI_DIR)/$(PHREEQCI_FILE)" | awk '{print $$1}')
 PHREEQCI_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQCI_DIR)/$(PHREEQCI_FILE)" | awk '{print $$6,$$7,$$8}')
 
@@ -40,9 +40,9 @@ PHREEQC_WIN_DIR:=$(CHARLTON)/phreeqc
 PHREEQC_WIN_TARGET_DIR:=$(GEOCHEM)/pc/phreeqc
 PHREEQC_WIN_PUB_DIR:=$(FTP_CHARLTON)/phreeqc
 #PHREEQC_WIN_PUB_DIR:=$(FTP_GEOCHEM)/pc/phreeqc
-PHREEQC_WIN_FILE:=$(shell cd "$(PHREEQC_WIN_DIR)"; ls -t phreeqc*.exe | awk '{if (NR == 1) {print}}')
-PHREEQC_WIN_VERSION:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed "s/.exe//" )
-PHREEQC_WIN_SVN:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed "s/.exe//" | sed "s/^.*-//" )
+PHREEQC_WIN_FILE:=$(shell cd "$(PHREEQC_WIN_DIR)"; ls -t phreeqc*.msi | awk '{if (NR == 1) {print}}')
+PHREEQC_WIN_VERSION:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed "s/.msi//" )
+PHREEQC_WIN_SVN:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed "s/.msi//" | sed "s/^.*-//" )
 PHREEQC_WIN_SIZE:=$(shell ls -s -h "$(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE)" | awk '{print $$1}')
 PHREEQC_WIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE)" | awk '{print $$6,$$7,$$8}')
 
