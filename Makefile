@@ -149,83 +149,83 @@ $(EXE): $(OBJECTS)
 
 advection.o: $(SRC)/advection.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-basic.o: $(SRC)/basic.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/p2c.h $(SRC)/basic.h
+basic.o: $(SRC)/basic.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/p2c.h $(SRC)/basic.h
 
-basicsubs.o: $(SRC)/basicsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+basicsubs.o: $(SRC)/basicsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 cl1.o: $(SRC)/cl1.c $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqtype.h
 
 cl1mp.o: $(SRC)/cl1mp.c $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqtype.h
 
-cvdense.o: $(SRC)/cvdense.c $(SRC)/cvdense.h $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/ $(SRC)/ $(SRC)/nvector.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
+cvdense.o: $(SRC)/cvdense.c $(SRC)/cvdense.h $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/nvector.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 
-cvode.o: $(SRC)/cvode.c $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/nvector.h $(SRC)/ $(SRC)/ $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/kinetics.h $(SRC)/phqalloc.h
+cvode.o: $(SRC)/cvode.c $(SRC)/cvode.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/nvector.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/kinetics.h $(SRC)/phqalloc.h
 
-dense.o: $(SRC)/dense.c $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/dense.h $(SRC)/ $(SRC)/ $(SRC)/smalldense.h $(SRC)/output.h $(SRC)/phqalloc.h
+dense.o: $(SRC)/dense.c $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/output.h $(SRC)/phqalloc.h
 
-dw.o: $(SRC)/dw.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phrqproto.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/pitzer.h
+dw.o: $(SRC)/dw.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phrqproto.h $(SRC)/output.h $(SRC)/pitzer.h
 
-input.o: $(SRC)/input.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/input.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/phqalloc.h
+input.o: $(SRC)/input.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/input.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/phqalloc.h
 
-integrate.o: $(SRC)/integrate.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+integrate.o: $(SRC)/integrate.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-inverse.o: $(SRC)/inverse.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+inverse.o: $(SRC)/inverse.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-isotopes.o: $(SRC)/isotopes.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+isotopes.o: $(SRC)/isotopes.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-kinetics.o: $(SRC)/kinetics.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/sundialstypes.h $(SRC)/cvode.h $(SRC)/nvector.h $(SRC)/cvdense.h $(SRC)/ $(SRC)/ $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/nvector_serial.h $(SRC)/kinetics.h
+kinetics.o: $(SRC)/kinetics.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/sundialstypes.h $(SRC)/cvode.h $(SRC)/nvector.h $(SRC)/cvdense.h $(SRC)/dense.h $(SRC)/smalldense.h $(SRC)/nvector_serial.h $(SRC)/kinetics.h
 
-main.o: $(SRC)/main.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/input.h
+main.o: $(SRC)/main.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
-mainsubs.o: $(SRC)/mainsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
+mainsubs.o: $(SRC)/mainsubs.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
-model.o: $(SRC)/model.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+model.o: $(SRC)/model.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 nvector.o: $(SRC)/nvector.c $(SRC)/nvector.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/output.h
 
 nvector_serial.o: $(SRC)/nvector_serial.c $(SRC)/nvector_serial.h $(SRC)/nvector.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 
-output.o: $(SRC)/output.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/phqalloc.h
+output.o: $(SRC)/output.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/phqalloc.h
 
 p2clib.o: $(SRC)/p2clib.c $(SRC)/p2c.h $(SRC)/output.h
 
-parse.o: $(SRC)/parse.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+parse.o: $(SRC)/parse.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 phqalloc.o: $(SRC)/phqalloc.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/output.h
 
-phreeqc_files.o: $(SRC)/phreeqc_files.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
+phreeqc_files.o: $(SRC)/phreeqc_files.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/input.h
 
-pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
+pitzer.o: $(SRC)/pitzer.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
 
-pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/ $(SRC)/ $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/ $(SRC)/ $(SRC)/pitzer.h
+pitzer_structures.o: $(SRC)/pitzer_structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
 
-prep.o: $(SRC)/prep.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+prep.o: $(SRC)/prep.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-print.o: $(SRC)/print.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
+print.o: $(SRC)/print.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer.h
 
-read.o: $(SRC)/read.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+read.o: $(SRC)/read.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-readtr.o: $(SRC)/readtr.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+readtr.o: $(SRC)/readtr.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-sit.o: $(SRC)/sit.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/ $(SRC)/ $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
+sit.o: $(SRC)/sit.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h $(SRC)/pitzer_structures.h $(SRC)/pitzer.h
 
-smalldense.o: $(SRC)/smalldense.c $(SRC)/smalldense.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/ $(SRC)/ $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
+smalldense.o: $(SRC)/smalldense.c $(SRC)/smalldense.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/sundialsmath.h $(SRC)/output.h $(SRC)/phqalloc.h
 
-spread.o: $(SRC)/spread.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+spread.o: $(SRC)/spread.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-step.o: $(SRC)/step.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+step.o: $(SRC)/step.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-structures.o: $(SRC)/structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+structures.o: $(SRC)/structures.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-sundialsmath.o: $(SRC)/sundialsmath.c $(SRC)/sundialsmath.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/ $(SRC)/ $(SRC)/output.h
+sundialsmath.o: $(SRC)/sundialsmath.c $(SRC)/sundialsmath.h $(SRC)/sundialstypes.h $(SRC)/phrqtype.h $(SRC)/output.h
 
-tally.o: $(SRC)/tally.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+tally.o: $(SRC)/tally.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-tidy.o: $(SRC)/tidy.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/ $(SRC)/ $(SRC)/output.h $(SRC)/phrqproto.h
+tidy.o: $(SRC)/tidy.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-transport.o: $(SRC)/transport.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+transport.o: $(SRC)/transport.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
-utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/ $(SRC)/ $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
+utilities.o: $(SRC)/utilities.c $(SRC)/global.h $(SRC)/phrqtype.h $(SRC)/global_structures.h $(SRC)/phqalloc.h $(SRC)/output.h $(SRC)/phrqproto.h
 
 -include $(CURDIR)/distribution.mk
 
