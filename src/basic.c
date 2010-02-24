@@ -14,7 +14,6 @@ typedef unsigned char boolean;
 #include "phrqproto.h"
 #include "p2c.h"
 #if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
 
 int n_user_punch_index;
 #ifdef PHREEQ98
