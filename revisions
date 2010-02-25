@@ -8,7 +8,7 @@ File contains:
 ************************************************************
 ************************************************************
 ------------------------------------------------------------
-Version 2.17.0: February 12, 2010
+Version 2.17.0: February 25, 2010
 ------------------------------------------------------------
 
         --------
@@ -1416,8 +1416,29 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
 ------------------------------------------------------------
-Version 2.17.0: February 12, 2010
+Version 2.17.0: February 25, 2010
 ------------------------------------------------------------
+        --------
+        svn 4115
+        --------
+        Fixed bugs with unititialized strings in Basic, which 
+        caused an error in renumbering with PhreeqcI. Tested
+        most Basic functions. Fixed bugs with LG and GAMMA 
+        functions, which did not return the correct values
+        for H+. GET_POR now returns 0 if it is not a TRANSPORT
+        calculation.
+
+
+        --------
+        svn 4066
+        --------
+        Fixed bug with SIT calculations (and Pitzer). The
+        number of solver iterations was too few (200). With
+        SIT and Pitzer, each species has an unknown, so the
+        number of unknowns is large for a system with many
+        elements. Now set the maximum iterations to be 
+        equal to the number of unknows plus the number of
+        equations/inequalities. 
 
         --------
         svn 4023
