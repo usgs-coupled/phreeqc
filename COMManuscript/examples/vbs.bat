@@ -1,1 +1,1 @@
-c:\Windows\SysWOW64\wscript.exe transport.vbs
+c:\Windows\SysWOW64\cscript.exe transport.vbs
