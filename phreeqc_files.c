@@ -181,8 +181,14 @@ close_input_files(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i = 0;
-	i |= fclose(database_file);
-	i |= fclose(input_file);
+	if (database_file)
+	{
+		i |= fclose(database_file);
+	}
+	if (input_file)
+	{
+		i |= fclose(input_file);
+	}
 	input_file = database_file = NULL;
 	return (i);
 }
