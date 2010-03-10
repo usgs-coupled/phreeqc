@@ -1,0 +1,20 @@
+    if (LoadDatabase("phreeqc.dat") .ne. 0) call ErrorMessage(Errors)
+    ! Initial conditions
+    write(Istring,"(a/)") &
+        "Solution 1-2; END", &
+        "EQUILIBRIUM_PHASES 1; CO2(g) -1.5 10", &
+        "EQUILIBRIUM_PHASES 2; Calcite 0   10", &
+        "END"
+     Errors = AccumulateLine(Istring)
+     If (Run(.FALSE.,.FALSE.,.FALSE.,.FALSE.) .ne. 0) call ErrorMessage(Errors)
+    !If (runstring(Istring, .FALSE.,.FALSE.,.FALSE.,.FALSE.) .ne. 0) call ErrorMessage(Errors)
+
+    ! Define SELECTED_OUTPUT and run cell 1
+    write(Istring,"(a/)") &
+        "SELECTED_OUTPUT; -reset false", &
+        "USER_PUNCH", &
+        "   -Heading  charge    H   O   C   Ca  pH  SR(calcite)", &
+        "10 w = TOT(""water"")", &
+        "20 PUNCH charge_balance, TOT(""H"")*w, TOT(""O"")*w, TOT(""C"")*w, TOT(""Ca"")*w", &
+        "30 PUNCH -LA(""H+""), SR(""calcite"")", &
+        "RUN_CELLS; -cells; 1; END"

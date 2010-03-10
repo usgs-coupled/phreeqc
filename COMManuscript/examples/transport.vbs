@@ -18,8 +18,6 @@ Phreeqc.AccumulateLine("END")
 Errors = Phreeqc.Run()
 If (Errors <> 0) Then Call ErrorMessage(Errors)
 
-msgbox (1/3)*1e-10
-
 ' Define SELECTED_OUTPUT and run cell 1
 Phreeqc.AccumulateLine("SELECTED_OUTPUT")
 Phreeqc.AccumulateLine("   -reset false")
