@@ -1,35 +1,38 @@
-
-#import win32com.client as w32c 
-
 from win32com.client import Dispatch
-Wateq4f = Dispatch('PhreeqcCOM.Phreeqc');
-
 from pylab import *
-#
-Istring = 'SOLUTION 1; END; REACTION; NaCl 1.0; 0 1 2 3 4 5 6 moles; EQUILIBRIUM_PHASES; gypsum; USE solution 1;'
-Istring += 'SELECTED_OUTPUT; -reset false; -rxn; -total S(6); END'
 
-print '\nWateq4f'
-Wateq4f.LoadDatabase('C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database\wateq4f.dat');
+Istring =  'SOLUTION 1; END; INCREMENTAL_REACTIONS;'
+Istring += 'REACTION; NaCl 1.0; 0 60*0.1 moles;'
+Istring += 'EQUILIBRIUM_PHASES; gypsum; USE solution 1;'
+Istring += 'SELECTED_OUTPUT; -reset false; -total Na S(6); END'
+
+dbdir='C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database'
+Wateq4f = Dispatch('PhreeqcCOM.Phreeqc');
+Wateq4f.LoadDatabase(dbdir + '\wateq4f.dat');
 Wateq4f.OutputOn = True
 Wateq4f.RunString(Istring);
-arr = Wateq4f.GetSelectedOutputArray()
-for i in range(1, Wateq4f.RowCount):
-	print arr[i][0], arr[i][1]
+arrw = Wateq4f.GetSelectedOutputArray()
 
-print '\nSit'	
-Sit = Dispatch('PhreeqcCOM.Phreeqc');
-Sit.LoadDatabase('C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database\minteq.dat');
-Sit.RunString(Istring);
-arrsit = Sit.GetSelectedOutputArray()
-for i in range(1, Sit.RowCount):
-	print arrsit[i][0], arrsit[i][1]
-
-
-print '\nPitzer'
 Pitzer = Dispatch('PhreeqcCOM.Phreeqc');
-Pitzer.LoadDatabase('C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database\pitzer.dat');
+Pitzer.LoadDatabase(dbdir + '\pitzer.dat');
+Pitzer.OutputOn = True
 Pitzer.RunString(Istring);
-arrpitz = Pitzer.GetSelectedOutputArray()
-for i in range(1, Pitzer.RowCount):
-	print arrpitz[i][0], arrpitz[i][1]
+arrp = Pitzer.GetSelectedOutputArray()
+	
+x = []
+yw = []
+yp = []
+for i in range(1, Wateq4f.RowCount):
+	x.append(arrw[i][0])
+	yw.append(arrw[i][1])
+	yp.append(arrp[i][1])
+	
+import matplotlib.pyplot as plt
+plt.plot(x, yp, 'r', x, yw,'b--')
+plt.axis([0, 6, 0, .06])
+plt.legend(('PITZER','WATEQ4F'), loc = (0.4, 0.4))
+plt.ylabel('GYPSUM SOLUBILITY, MOLES PER KILOGRAM WATER')
+plt.xlabel('NaCl, MOLES PER KILOGRAM WATER')
+plt.show()
+
+	
