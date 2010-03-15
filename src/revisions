@@ -20,11 +20,11 @@ Version 2.17.0: February 25, 2010
         and in BASIC function SC).
         Previous versions calculated SC for 25 oC, whereas the
         complexation model is done at the actual temperature.
-        To obtain SC at 25 oC, use keyword REACTION_TEMERATURE,
+        To obtain SC at 25 oC, use keyword REACTION_TEMPERATURE,
         for example:
         
            SOLUTION 1; K 1; Cl 1; -temp 99
-           REACTION_TEMERATURE; 25
+           REACTION_TEMPERATURE; 25
            END
            
         The following example prints to the selected output
@@ -101,12 +101,12 @@ Version 2.17.0: February 25, 2010
         svn 3591
         --------        
         Added T^2 term to analytical expressions for log k. A T^2 term
-        can now be used in all analytical expressions (except Pitzer 
-        and SIT parameters). The analytical expression is as follows:
+        can now be used in the analytical expressions for any log K. 
+        The analytical expression is as follows:
         
-        log10(K) = A1 + A2*T + A3/T + A4*log10(T) + A5/T^2 + A6*T^2,
+        log10(K) = A1 + A2*TK + A3/TK + A4*log10(TK) + A5/TK^2 + A6*TK^2,
         
-        where T is in Kelvin. The A6 term is the new addition. The optional 
+        where TK is in Kelvin. The A6 term is the new addition. The optional 
         A6 parameter is read following A5.
         
         --------
