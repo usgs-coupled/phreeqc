@@ -496,6 +496,9 @@ read_input(void)
 			{
 				ptr = line;
 				copy_token(token, &ptr, &l);
+#if defined(SWIG_SHARED_OBJ)
+				warning_msg("DATABASE keyword is ignored by IPhreeqc.");
+#else
 				user_database = string_duplicate(ptr);
 				if (string_trim(user_database) == EMPTY)
 				{
@@ -504,6 +507,7 @@ read_input(void)
 					user_database = (char *) free_check_null(user_database);
 				}
 				first_read_input = FALSE;
+#endif
 			}
 			j = check_line("Reading after DATABASE", FALSE, TRUE, TRUE, TRUE);
 			break;
