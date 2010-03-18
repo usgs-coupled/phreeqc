@@ -1,5 +1,12 @@
-program advect
+program Advect
   include "IPhreeqc.f90.inc"
+  INTERFACE
+    SUBROUTINE ExtractWrite(icell, vtype, dvalue, svalue)  
+      INTEGER(KIND=4),   DIMENSION(:), INTENT(INOUT) :: vtype
+      REAL(KIND=8),      DIMENSION(:), INTENT(INOUT) :: dvalue
+      CHARACTER(LEN=*),  DIMENSION(:), INTENT(INOUT) :: svalue    
+    END SUBROUTINE
+  END INTERFACE
   character(len=1024) Istring
   integer,           dimension(7) :: vtype
   character(len=30), dimension(7) :: svalue
@@ -28,7 +35,7 @@ program advect
   Ierr = AccumulateLine("USE solution 2; USE equilibrium_phases 2; END")
   if (Run(.true.,.FALSE.,.FALSE.,.FALSE.) .ne. 0) call ErrorHandler()
   call ExtractWrite(2, vtype, dvalue, svalue)
-end program advect
+end program Advect
 
 subroutine ErrorHandler()
   call OutputLastError()
@@ -36,9 +43,7 @@ subroutine ErrorHandler()
 end subroutine ErrorHandler
 
 subroutine ExtractWrite(icell, vtype, dvalue, svalue)
-  integer,      dimension(:) :: vtype
-  real(kind=8), dimension(:) :: dvalue  
-  character(*), dimension(:) :: svalue
+
   do j = 1, 7
     Iresult = GetSelectedOutputValue(1, j, vtype(j), dvalue(j), svalue(j))
     if (vtype(j) .eq. 3) write(svalue(j),"(1pE21.14)") dvalue(j)
