@@ -1407,9 +1407,14 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 	}
 	if (q != NULL				/* found        */
 		|| action == FIND		/* not found, search only       */
-		|| (q = (Element *) PHRQ_calloc(sizeof(Element), 1)) == NULL	/* not found, no room   */
 		)
+	{
 		return ((ENTRY *) q);
+	}
+	else if ((q = (Element *) PHRQ_calloc(sizeof(Element), 1)) == NULL)
+	{
+		malloc_error();
+	}
 	*p = q;						/* link into chain      */
 	/*
 	 ** Initialize new element
@@ -1480,8 +1485,14 @@ ExpandTable_multi(HashTable * Table)
 		NewSegmentDir = ((NewAddress) >> (SegmentSizeShift));
 		NewSegmentIndex = MOD(NewAddress, SegmentSize);
 		if (NewSegmentIndex == 0)
+		{
 			Table->Directory[NewSegmentDir] =
 				(Segment *) PHRQ_calloc(sizeof(Segment), SegmentSize);
+			if (Table->Directory[NewSegmentDir] == NULL)
+			{
+				malloc_error();
+			}
+		}
 		NewSegment = Table->Directory[NewSegmentDir];
 		/*
 		 ** Adjust state variables
