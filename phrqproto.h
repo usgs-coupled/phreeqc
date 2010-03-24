@@ -48,6 +48,7 @@ int match_elts_in_species(const char *name, const char *stemplate);
 int extract_bracket(char **string, char *bracket_string);
 LDBLE surf_total(const char *total_name, const char *surface_name);
 CLASS_STATIC int system_species_compare(const void *ptr1, const void *ptr2);
+LDBLE total_mole(const char *total_name);
 LDBLE system_total(const char *total_name, LDBLE * count, char ***names,
 				   char ***types, LDBLE ** moles);
 int system_total_elements(void);

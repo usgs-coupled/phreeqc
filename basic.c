@@ -170,6 +170,7 @@ static const struct const_key command[] = {
 	{"cell_no", tokcell_no},
 	{"sim_no", toksim_no},
 	{"tot", toktot},
+	{"totmole", toktotmole},
 	{"log10", toklog10},
 	{"charge_balance", tokcharge_balance},
 	{"percent_error", tokpercent_error},
@@ -1134,6 +1135,8 @@ parse(Char * inbuf, tokenrec ** buf)
 							t->kind = toksi;
 						else if (!strcmp(token, "tot"))
 							t->kind = toktot;
+						else if (!strcmp(token, "totmole"))
+							t->kind = toktotmole;
 						else if (!strcmp(token, "log10"))
 							t->kind = toklog10;
 						else if (!strcmp(token, "put"))
@@ -1640,6 +1643,10 @@ listtokens(FILE * f, tokenrec * buf)
 
 		case toktot:
 			output_msg(OUTPUT_BASIC, "TOT");
+			break;
+
+		case toktotmole:
+			output_msg(OUTPUT_BASIC, "TOTMOLE");
 			break;
 
 		case toktk:
@@ -2997,6 +3004,10 @@ factor(struct LOC_exec * LINK)
 
 	case toktot:
 		n.UU.val = total(stringfactor(STR1, LINK));
+		break;
+
+	case toktotmole:
+		n.UU.val = total_mole(stringfactor(STR1, LINK));
 		break;
 
 	case tokcell_pore_volume:
