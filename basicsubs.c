@@ -2784,4 +2784,75 @@ system_total_solids(struct exchange *exchange_ptr,
 	}
 	return (OK);
 }
-
+LDBLE CLASS_QUALIFIER
+iso_value(const char *total_name)
+{
+	int j;
+	char token[MAX_LENGTH];
+	char my_total_name[MAX_LENGTH];
+	strcpy(token, "");
+	strcpy(my_total_name, total_name);
+	while (replace(" ","_",my_total_name));
+	for (j = 0; j < count_isotope_ratio; j++)
+	{
+		if (isotope_ratio[j]->ratio == MISSING)
+			continue;
+		if (strcmp(my_total_name, isotope_ratio[j]->name) != 0)
+			continue;
+		return (isotope_ratio[j]->converted_ratio);
+	}
+	strcat(token,"R(");
+	strcat(token,total_name);
+	strcat(token,")");
+	for (j = 0; j < count_isotope_ratio; j++)
+	{
+		if (isotope_ratio[j]->ratio == MISSING)
+			continue;
+		if (strcmp(token, isotope_ratio[j]->name) != 0)
+			continue;
+		return (isotope_ratio[j]->converted_ratio);
+	}
+	return -1000.;
+}
+char * CLASS_QUALIFIER
+iso_unit(const char *total_name)
+{
+	int j;
+	char token[MAX_LENGTH], unit[MAX_LENGTH];
+	struct master_isotope *master_isotope_ptr;
+	char my_total_name[MAX_LENGTH];
+	strcpy(token, "");
+	strcpy(my_total_name, total_name);
+	while (replace(" ","_",my_total_name));
+	strcpy(unit, "unknown");
+	for (j = 0; j < count_isotope_ratio; j++)
+	{
+		if (isotope_ratio[j]->ratio == MISSING)
+			continue;
+		if (strcmp(my_total_name, isotope_ratio[j]->name) != 0)
+			continue;
+		master_isotope_ptr = master_isotope_search(isotope_ratio[j]->isotope_name);
+		if (master_isotope_ptr != NULL) 
+		{
+			strcpy(unit, master_isotope_ptr->units);
+		}
+		return string_duplicate(unit);
+	}
+	strcat(token,"R(");
+	strcat(token,total_name);
+	strcat(token,")");
+	for (j = 0; j < count_isotope_ratio; j++)
+	{
+		if (isotope_ratio[j]->ratio == MISSING)
+			continue;
+		if (strcmp(token, isotope_ratio[j]->name) != 0)
+			continue;
+		master_isotope_ptr = master_isotope_search(isotope_ratio[j]->isotope_name);
+		if (master_isotope_ptr != NULL) 
+		{
+			strcpy(unit, master_isotope_ptr->units);
+		}
+		return string_duplicate(unit);
+	}
+	return string_duplicate(unit);
+}

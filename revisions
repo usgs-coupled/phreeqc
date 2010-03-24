@@ -7,6 +7,40 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
+        --------
+        svn 4191
+        --------
+        Added new Basic functions:
+        
+        10 total_Ca_in_moles = TOTMOLES("Ca")
+        
+        TOTMOLES provides the total number of moles of an element
+	or element valence state in solution. Special values are
+	"water", which gives number of moles of water, and
+	"charge", which gives total equivalents of charge
+	imbalance in solution (same as Basic function
+	CHARGE_BALANCE). In contrast, the Basic function TOT
+	returns moles per kilogram of water, or equivalents per
+	kilogram of water for TOT("charge").
+        
+        10 permil = ISO("[18O]")
+        
+       
+        ISO gives an isotopic composition in the input units for
+	an isotope--permil, pmc, or TU in current version of
+	iso.dat. The string argument can be an isotope name, or
+	any item defined in the ISOTOPE_RATIOS data block, For
+	example, ISO("R(13C)_Calcite") will return the carbon-13
+	composition of the calcite solid solution in permil
+	because of the definitions in iso.dat.
+        
+        10 A$ = ISO_UNITS("D")
+        
+        ISO_UNITS gives the input units for the element, A$ =
+	"permil" in the example. The string argument can be an
+	isotope name or an item defined in the ISOTOPE_RATIOS data
+	block as explained for the Basic function ISO.
+        
 ------------------------------------------------------------
 Version 2.17.0: February 25, 2010
 ------------------------------------------------------------
