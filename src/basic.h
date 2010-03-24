@@ -239,6 +239,6 @@ struct LOC_exec
 #define tokcell_pore_volume 141
 #define tokcell_porosity    142
 #define tokcell_saturation  143
-
+#define toktotmole          144
 
 #endif /* _INC_BASIC_H */

@@ -1580,15 +1580,19 @@ total(const char *total_name)
 		{
 			return (mass_water_aq_x);
 		}
+		else if (strcmp_nocase(total_name, "charge") == 0)
+		{
+			return (cb_x / mass_water_aq_x);
+		}
 /*
-    sprintf (error_string, "Can not find definition for master species, %s.",
-	     total_name);
-    warning_msg (error_string);
+        sprintf (error_string, "Can not find definition for master species, %s.",
+	         total_name);
+        warning_msg (error_string);
 */
+	}
 /*
  *  Primary master species
  */
-	}
 	else if (master_ptr->primary == TRUE)
 	{
 		/*
@@ -1611,17 +1615,86 @@ total(const char *total_name)
 				t += master[i]->total / mass_water_aq_x;
 			}
 		}
+	}
 /*
  *  Secondary master species
  */
-	}
 	else
 	{
 		t = master_ptr->total / mass_water_aq_x;
 	}
 	return (t);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE CLASS_QUALIFIER
+total_mole(const char *total_name)
+/* ---------------------------------------------------------------------- */
+{
+	struct master *master_ptr;
+	LDBLE t;
+	int i;
 
+	if (strcmp(total_name, "H") == 0)
+	{
+		return (total_h_x);
+	}
+	if (strcmp(total_name, "O") == 0)
+	{
+		return (total_o_x);
+	}
+	master_ptr = master_bsearch(total_name);
+	t = 0.0;
+	if (master_ptr == NULL)
+	{
+		if (strcmp_nocase(total_name, "water") == 0)
+		{
+			return (mass_water_aq_x / gfw_water * 1000.);
+		}
+		else if (strcmp_nocase(total_name, "charge") == 0)
+		{
+			return (cb_x);
+		}
+/*
+        sprintf (error_string, "Can not find definition for master species, %s.",
+	         total_name);
+        warning_msg (error_string);
+*/
+	}
+/*
+ *  Primary master species
+ */
+	else if (master_ptr->primary == TRUE)
+	{
+		/*
+		 *  Not a redox element
+		 */
+		if (master_ptr->s->secondary == NULL)
+		{
+			t = master_ptr->total;
+			/*
+			 * Redox element, need to sum totals of all redox states
+			 */
+		}
+		else
+		{
+			t = 0;
+			for (i = master_ptr->number + 1;
+				 (i < count_master && master[i]->elt->primary == master_ptr);
+				 i++)
+			{
+				t += master[i]->total;
+			}
+		}
+	}
+/*
+ *  Secondary master species
+ */
+	else
+	{
+		t = master_ptr->total;
+	}
+	return (t);
+}
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 system_total(const char *total_name, LDBLE * count, char ***names,
