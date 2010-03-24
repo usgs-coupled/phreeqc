@@ -45,4 +45,10 @@ Calcite
 	-comp	Ca[14C]O2[18O](s)  	0
 	-comp	Ca[14C]O[18O]2(s)  	0
 	-comp	Ca[14C][18O]3(s)   	0
+USER_PRINT
+10 PRINT "D:              ", iso("D"),              "  ", iso_unit("D")
+20 PRINT "R(D):           ", iso("R(D)"),           "  ", iso_unit("R(D)")
+30 PRINT "R(13C)_Calcite: ", iso("R(13C)_Calcite"), "  ", iso_unit("R(13C)_Calcite")
+40 PRINT "R(13C) Calcite: ", iso("R(13C) Calcite"), "  ", iso_unit("R(13C) Calcite")
+50 PRINT "XXX:            ", iso("XXX"),            "  ", iso_unit("XXX")
 END

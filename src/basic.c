@@ -170,7 +170,6 @@ static const struct const_key command[] = {
 	{"cell_no", tokcell_no},
 	{"sim_no", toksim_no},
 	{"tot", toktot},
-	{"totmole", toktotmole},
 	{"log10", toklog10},
 	{"charge_balance", tokcharge_balance},
 	{"percent_error", tokpercent_error},
@@ -191,7 +190,10 @@ static const struct const_key command[] = {
 	{"cell_volume", tokcell_volume},
 	{"cell_pore_volume", tokcell_pore_volume},
 	{"cell_porosity", tokcell_porosity},
-	{"cell_saturation", tokcell_saturation}
+	{"cell_saturation", tokcell_saturation},
+	{"totmole", toktotmole},
+	{"iso", tokiso},
+	{"iso_unit", tokiso_unit}
 };
 static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
@@ -1856,6 +1858,12 @@ listtokens(FILE * f, tokenrec * buf)
 		case tokcell_saturation:
 			output_msg(OUTPUT_BASIC, "CELL_SATURATION");
 			break;
+		case tokiso:
+			output_msg(OUTPUT_BASIC, "ISO");
+			break;
+		case tokiso_unit:
+			output_msg(OUTPUT_BASIC, "ISO_UNIT");
+			break;
 		}
 		buf = buf->next;
 	}
@@ -2650,6 +2658,19 @@ factor(struct LOC_exec * LINK)
 		require(tokrp, LINK);
 		string_trim(string1);
 		n.UU.sval = string_duplicate(string1);
+		break;
+
+	case tokiso:
+		n.UU.val = iso_value(stringfactor(STR1, LINK));
+		break;
+
+	case tokiso_unit:
+		n.stringval = true;
+		require(toklp, LINK);
+		string1 = stringfactor(STR1, LINK);
+		require(tokrp, LINK);
+		string_trim(string1);
+		n.UU.sval = iso_unit(string1);
 		break;
 
 	case tokpad:

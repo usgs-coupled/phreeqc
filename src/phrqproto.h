@@ -60,6 +60,8 @@ int system_total_gas(void);
 int system_total_s_s(void);
 int system_total_elt(const char *total_name);
 int system_total_elt_secondary(const char *total_name);
+LDBLE iso_value(const char *total_name);
+char * iso_unit(const char *total_name);
 LDBLE total(const char *total_name);
 
 /* cl1.c */
