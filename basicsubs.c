@@ -2801,8 +2801,11 @@ iso_value(const char *total_name)
 			continue;
 		return (isotope_ratio[j]->converted_ratio);
 	}
+	strcpy(my_total_name, total_name);
+	while (replace("[","",my_total_name));
+	while (replace("]","",my_total_name));
 	strcat(token,"R(");
-	strcat(token,total_name);
+	strcat(token,my_total_name);
 	strcat(token,")");
 	for (j = 0; j < count_isotope_ratio; j++)
 	{
@@ -2838,8 +2841,11 @@ iso_unit(const char *total_name)
 		}
 		return string_duplicate(unit);
 	}
+	strcpy(my_total_name, total_name);
+	while (replace("[","",my_total_name));
+	while (replace("]","",my_total_name));
 	strcat(token,"R(");
-	strcat(token,total_name);
+	strcat(token,my_total_name);
 	strcat(token,")");
 	for (j = 0; j < count_isotope_ratio; j++)
 	{

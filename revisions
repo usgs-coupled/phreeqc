@@ -23,7 +23,7 @@ File contains:
 	returns moles per kilogram of water, or equivalents per
 	kilogram of water for TOT("charge").
         
-        10 permil = ISO("[18O]")
+        10 O18_permil = ISO("[18O]")
         
        
         ISO gives an isotopic composition in the input units for
@@ -34,9 +34,9 @@ File contains:
 	composition of the calcite solid solution in permil
 	because of the definitions in iso.dat.
         
-        10 A$ = ISO_UNITS("D")
+        10 D_units$ = ISO_UNITS("D")
         
-        ISO_UNITS gives the input units for the element, A$ =
+        ISO_UNITS gives the input units for the isotope, D_units$ =
 	"permil" in the example. The string argument can be an
 	isotope name or an item defined in the ISOTOPE_RATIOS data
 	block as explained for the Basic function ISO.
