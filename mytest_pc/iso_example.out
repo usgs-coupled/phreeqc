@@ -172,9 +172,11 @@ Reading input data for simulation 2.
 		component	Ca[14C][18O]3(s)   	0
 	USER_PRINT
 	10 PRINT "D:              ", iso("D"),              "  ", iso_unit("D")
+	14 PRINT "13C:            ", iso("13C"),            "  ", iso_unit("13C")
+	15 PRINT "[13C]:          ", iso("[13C]"),          "  ", iso_unit("[13C]")
 	20 PRINT "R(D):           ", iso("R(D)"),           "  ", iso_unit("R(D)")
 	30 PRINT "R(13C)_Calcite: ", iso("R(13C)_Calcite"), "  ", iso_unit("R(13C)_Calcite")
-	40 PRINT "R(13C) Calcite: ", iso("R(13C) Calcite"), "  ", iso_unit("R(13C) Calcite")
+	40 PRINT "R(18O) OH-: ", iso("R(18O) OH-"), "  ", iso_unit("R(18O) OH-")
 	50 PRINT "XXX:            ", iso("XXX"),            "  ", iso_unit("XXX")
 	END
 -----------------------------------------
@@ -190,9 +192,11 @@ Using gas phase 1.
 ----------------------------------User print-----------------------------------
 
 D:                1.6729e-003    permil 
+13C:              8.6934e-002    permil 
+[13C]:            8.6934e-002    permil 
 R(D):             1.6729e-003    permil 
 R(13C)_Calcite:   2.2082e+000    permil 
-R(13C) Calcite:   2.2082e+000    permil 
+R(18O) OH-:  -3.7072e+001    permil 
 XXX:                    -1000    unknown 
 
 -----------------------------------Gas phase-----------------------------------
