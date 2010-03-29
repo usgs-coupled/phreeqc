@@ -2,6 +2,7 @@
 #define MAINSUBS
 #define EXTERNAL extern
 #include "global.h"
+#include <ostream>
 #else
 #include "Phreeqc.h"
 #endif
@@ -34,7 +35,7 @@ extern void SAX_cleanup(void);
 
 #ifdef PHREEQC_CPP
 extern int dump_entities(void);
-extern int dump_ostream(std::ostream& os);
+extern void dump_ostream(std::ostream& os);
 extern int delete_entities(void);
 extern int run_as_cells(void);
 #endif
