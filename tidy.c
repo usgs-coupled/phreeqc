@@ -2181,13 +2181,16 @@ tidy_species(void)
 		}
 		/* store sequence number in master structure */
 		master[i]->number = i;
-		if (master[i]->primary == TRUE)
+		if (strcmp(master[i]->elt->name, "Alkalinity") != 0)
 		{
-			master[i]->s->primary = master[i];
-		}
-		else
-		{
-			master[i]->s->secondary = master[i];
+			if (master[i]->primary == TRUE)
+			{
+				master[i]->s->primary = master[i];
+			}
+			else
+			{
+				master[i]->s->secondary = master[i];
+			}
 		}
 		if (strcmp(master[i]->elt->name, "C") == 0)
 		{
