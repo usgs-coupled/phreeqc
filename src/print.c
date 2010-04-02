@@ -193,6 +193,11 @@ punch_all(void)
  */
 	fpunchf(NULL, "\n");
 
+/*
+ *   signal end of row
+ */
+	fpunchf_end_row("\n");
+
 #if defined(SWIG_SHARED_OBJ)
 	EndRow();
 #endif
@@ -3313,6 +3318,20 @@ fpunchf_user(int user_index, const char *format, ...)
 
 	return retval;
 }
+
+int CLASS_QUALIFIER
+fpunchf_end_row(const char *format, ...)
+{
+	int retval = 0;
+	va_list args;
+
+	va_start(args, format);
+	retval = output_message(OUTPUT_PUNCH_END_ROW, "", CONTINUE, format, args);
+	va_end(args);
+
+	return retval;
+}
+
 
 #ifdef SAVE
 int CLASS_QUALIFIER
