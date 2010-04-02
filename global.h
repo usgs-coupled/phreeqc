@@ -843,7 +843,6 @@ public:
 	void *kinetics_cvode_mem;
 	struct pp_assemblage *cvode_pp_assemblage_save;
 	struct s_s_assemblage *cvode_s_s_assemblage_save;
-protected:
 	LDBLE *m_original;
 	LDBLE *m_temp;
 
