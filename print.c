@@ -50,11 +50,6 @@ extern int AddSeries;
 extern int FirstCallToUSER_GRAPH;
 #endif
 
-#if defined(SWIG_SHARED_OBJ)
-extern int EndRow(void);
-extern void AddSelectedOutput(const char *name, const char *format,
-							  va_list argptr);
-#endif
 #endif /* PHREEQC_CLASS */
 
 /* ---------------------------------------------------------------------- */
@@ -197,10 +192,6 @@ punch_all(void)
  *   signal end of row
  */
 	fpunchf_end_row("\n");
-
-#if defined(SWIG_SHARED_OBJ)
-	EndRow();
-#endif
 
 	return (OK);
 }
