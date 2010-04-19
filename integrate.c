@@ -23,8 +23,10 @@ static LDBLE z, xd, alpha;
 static struct surface_charge *surface_charge_ptr;
 
 static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
+#ifdef SKIP
 static int calc_all_donnan_music(void);
 static int calc_init_donnan_music(void);
+#endif
 #endif
 
 /* ---------------------------------------------------------------------- */
@@ -1283,7 +1285,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 
 	return (p);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 calc_all_donnan_music(void)
@@ -1537,3 +1539,4 @@ calc_init_donnan_music(void)
 	}
 	return (OK);
 }
+#endif

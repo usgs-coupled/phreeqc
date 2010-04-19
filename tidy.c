@@ -4151,6 +4151,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 	LDBLE a[6], d[2];
 	LDBLE t;
 
+	d[0] = d[1] = 0;
 	xc1 = *xxc1;
 	xc2 = *xxc2;
 	x1 = 0;
