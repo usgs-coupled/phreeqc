@@ -223,6 +223,7 @@ int write_phase_sys_total(int n);
 
 /* print.c */
 int fpunchf(const char *name, const char *format, ...);
+int fpunchf_end_row(const char *format, ...);
 int fpunchf_user(int user_index, const char *format, ...);
 char *sformatf(const char *format, ...);
 int array_print(LDBLE * array_l, int row_count, int column_count,
@@ -236,6 +237,7 @@ int print_species(void);
 int print_surface(void);
 int print_user_print(void);
 int punch_all(void);
+
 
 /* read.c */
 int read_input(void);
