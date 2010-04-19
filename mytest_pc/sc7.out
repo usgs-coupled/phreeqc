@@ -34742,7 +34742,7 @@ Sfo_w
 	Sfo_wOCa+        6.985e-041       0.000  6.985e-041     -40.156
 
 Hfo           
-	-1.372e-018  Surface + diffuse layer charge, eq
+	-1.373e-018  Surface + diffuse layer charge, eq
 	 4.179e-010  Surface charge, eq
 	 7.045e-003  sigma, C/m**2
 	 7.177e-002  psi, V
@@ -35682,7 +35682,7 @@ Sfo_w
 	Sfo_wOCa+        4.489e-041       0.000  4.489e-041     -40.348
 
 Hfo           
-	-4.849e-019  Surface + diffuse layer charge, eq
+	-4.848e-019  Surface + diffuse layer charge, eq
 	 2.614e-010  Surface charge, eq
 	 6.860e-003  sigma, C/m**2
 	 7.056e-002  psi, V
