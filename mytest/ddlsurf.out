@@ -137,7 +137,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.958e-17
+                  Electrical balance (eq)  =  -7.000e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110124e+02
@@ -194,7 +194,7 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Bfa           
-	  5.895e-18  Surface + diffuse layer charge, eq
+	 -1.606e-16  Surface + diffuse layer charge, eq
 	  2.629e-01  Surface charge, eq
 	  8.455e-02  sigma, C/m**2
 	  1.022e-01  psi, V
@@ -224,7 +224,7 @@ Bfa
 	BfaOH2+           2.629e-01       0.011   2.629e-01      -0.580
 
 Hfo           
-	 -2.589e-17  Surface + diffuse layer charge, eq
+	 -1.552e-17  Surface + diffuse layer charge, eq
 	  3.756e-01  Surface charge, eq
 	  6.040e-04  sigma, C/m**2
 	  1.315e-03  psi, V
@@ -256,11 +256,11 @@ Hfo_w
 	Hfo_wO-           2.265e-02       0.023   2.265e-02      -1.645
 
 Hfw           
-	 -1.853e-15  Surface + diffuse layer charge, eq
+	 -1.742e-15  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  3.444e-14  psi, V
-	 -1.341e-12  -F*psi/RT
+	  3.423e-14  psi, V
+	 -1.332e-12  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  3.000e+01  specific area, m**2/g
 	  3.000e+07  m**2 for   1.000e+06 g
@@ -360,11 +360,11 @@ Hfo_w
 	Hfo_wO-           2.265e-02       0.023   2.265e-02      -1.645
 
 Hfw           
-	 -4.882e-14  Surface + diffuse layer charge, eq
+	 -5.004e-14  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -1.153e-11  psi, V
-	  4.487e-10  -F*psi/RT
+	 -1.241e-11  psi, V
+	  4.829e-10  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  3.000e+01  specific area, m**2/g
 	  3.000e+07  m**2 for   1.000e+06 g
@@ -420,7 +420,7 @@ X                6.000e+01 mol
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.932e-15
+                  Electrical balance (eq)  =  -1.978e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -439,13 +439,13 @@ Ca               4.800e-03
    CaOH+                  1.509e-08   1.258e-08    -7.821    -7.900    -0.079
 Cl               3.560e-02
    Cl-                    3.560e-02   2.944e-02    -1.449    -1.531    -0.083
-H(0)             3.595e-40
-   H2                     1.798e-40   1.814e-40   -39.745   -39.741     0.004
+H(0)             3.592e-40
+   H2                     1.796e-40   1.813e-40   -39.746   -39.742     0.004
 Na               2.600e-02
    Na+                    2.600e-02   2.173e-02    -1.585    -1.663    -0.078
    NaOH                   4.492e-09   4.534e-09    -8.348    -8.343     0.004
-O(0)             2.504e-13
-   O2                     1.252e-13   1.264e-13   -12.902   -12.898     0.004
+O(0)             2.507e-13
+   O2                     1.254e-13   1.265e-13   -12.902   -12.898     0.004
 
 ------------------------------Saturation indices-------------------------------
 
@@ -541,11 +541,11 @@ Hfo_w
 	Hfo_wO-           2.265e-02       0.023   2.265e-02      -1.645
 
 Hfw           
-	 -4.861e-14  Surface + diffuse layer charge, eq
+	 -5.028e-14  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -7.437e-12  psi, V
-	  2.895e-10  -F*psi/RT
+	 -8.345e-12  psi, V
+	  3.248e-10  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  3.000e+01  specific area, m**2/g
 	  3.000e+07  m**2 for   1.000e+06 g
@@ -591,7 +591,7 @@ Hfw
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.925e-15
+                  Electrical balance (eq)  =  -1.987e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -610,13 +610,13 @@ Ca               4.800e-03
    CaOH+                  1.509e-08   1.258e-08    -7.821    -7.900    -0.079
 Cl               3.560e-02
    Cl-                    3.560e-02   2.944e-02    -1.449    -1.531    -0.083
-H(0)             3.595e-40
-   H2                     1.798e-40   1.814e-40   -39.745   -39.741     0.004
+H(0)             3.593e-40
+   H2                     1.796e-40   1.813e-40   -39.746   -39.742     0.004
 Na               2.600e-02
    Na+                    2.600e-02   2.173e-02    -1.585    -1.663    -0.078
    NaOH                   4.492e-09   4.534e-09    -8.348    -8.343     0.004
-O(0)             2.504e-13
-   O2                     1.252e-13   1.264e-13   -12.902   -12.898     0.004
+O(0)             2.507e-13
+   O2                     1.253e-13   1.265e-13   -12.902   -12.898     0.004
 
 ------------------------------Saturation indices-------------------------------
 

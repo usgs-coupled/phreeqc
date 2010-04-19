@@ -62,7 +62,7 @@ Initial solution 0.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.617e-22
+                  Electrical balance (eq)  =  -6.447e-22
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  12
                                   Total H  = 1.110124e+02
@@ -117,8 +117,8 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.988e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -3.136e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  10
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -171,7 +171,7 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Su            
-	  8.882e-16  Surface + diffuse layer charge, eq
+	  0.000e+00  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e+00  sigma, C/m**2
 	 -2.622e-01  psi, V
@@ -210,7 +210,7 @@ Using surface 1.	Surface assemblage after simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  2.220e-15  Surface + diffuse layer charge, eq
+	  1.332e-15  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e+00  sigma, C/m**2
 	 -2.622e-01  psi, V
@@ -257,7 +257,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.150e-16
+                  Electrical balance (eq)  =   7.967e-17
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -318,7 +318,7 @@ Using surface 1.	Surface assemblage after simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.661e-16  Surface + diffuse layer charge, eq
+	 -2.220e-16  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e+00  sigma, C/m**2
 	 -2.622e-01  psi, V
@@ -365,8 +365,8 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.988e-18
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -3.136e-17
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -400,13 +400,19 @@ O(0)             1.954e-37
 
 Transport step   1.
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 1.	Solution after simulation 3.
 Using surface 1.	Surface assemblage after simulation 3.
 
 ------------------------------Surface composition------------------------------
 
 Su            
-	  7.194e-13  Surface + diffuse layer charge, eq
+	  5.740e-13  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e+00  sigma, C/m**2
 	 -5.238e-01  psi, V
@@ -443,7 +449,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   9.331      Charge balance
-                                       pe  =  -3.885      Adjusted to redox equilibrium
+                                       pe  =  -3.551      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7
                           Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
@@ -453,8 +459,8 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   6.661e-16
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                  Electrical balance (eq)  =  -2.220e-16
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 6.321133e+01
                                   Total O  = 3.160567e+01
@@ -469,22 +475,22 @@ Su
    H2O                    9.778e+01   1.000e+00     1.990    -0.000     0.000
 Cl               1.623e-05
    Cl-                    1.623e-05   1.611e-05    -4.790    -4.793    -0.003
-H(0)             1.814e-14
-   H2                     9.069e-15   9.069e-15   -14.042   -14.042     0.000
+H(0)             3.911e-15
+   H2                     1.955e-15   1.955e-15   -14.709   -14.709     0.000
 Na               3.782e-05
    Na+                    3.782e-05   3.755e-05    -4.422    -4.425    -0.003
    NaOH                   5.314e-10   5.314e-10    -9.275    -9.275     0.000
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -64.295   -64.295     0.000
+   O2                     0.000e+00   0.000e+00   -62.962   -62.962     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -10.89  -14.04   -3.15  H2
+	H2(g)           -11.56  -14.71   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -10.80   -9.22    1.58  NaCl
-	O2(g)           -61.40  -64.30   -2.89  O2
+	O2(g)           -60.07  -62.96   -2.89  O2
 
 ------------------
 End of simulation.

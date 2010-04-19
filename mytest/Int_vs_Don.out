@@ -105,7 +105,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.289e-15
+                  Electrical balance (eq)  =  -1.286e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  10
                                   Total H  = 1.110124e+02
@@ -280,13 +280,13 @@ Ca               9.501e-09
    CaOH+                  7.866e-16   6.147e-16   -15.104   -15.211    -0.107
 Cl               1.000e-01
    Cl-                    1.000e-01   7.645e-02    -1.000    -1.117    -0.117
-H(0)             1.828e-39
-   H2                     9.140e-40   9.353e-40   -39.039   -39.029     0.010
+H(0)             1.827e-39
+   H2                     9.134e-40   9.347e-40   -39.039   -39.029     0.010
 Na               1.000e-01
    Na+                    1.000e-01   7.829e-02    -1.000    -1.106    -0.106
    NaOH                   5.038e-10   5.155e-10    -9.298    -9.288     0.010
-O(0)             9.250e-15
-   O2                     4.625e-15   4.733e-15   -14.335   -14.325     0.010
+O(0)             9.263e-15
+   O2                     4.632e-15   4.739e-15   -14.334   -14.324     0.010
 
 ------------------------------Saturation indices-------------------------------
 
@@ -329,7 +329,7 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.728e-12  Surface + diffuse layer charge, eq
+	  1.782e-12  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.275e-02  psi, V
@@ -369,7 +369,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.001      Charge balance
-                                       pe  =  -0.868      Adjusted to redox equilibrium
+                                       pe  =  -0.867      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 10679
                           Density (g/cm3)  =   1.00108
                         Activity of water  =   0.997
@@ -404,13 +404,13 @@ Ca               1.947e-03
    CaOH+                  1.590e-10   1.236e-10    -9.799    -9.908    -0.109
 Cl               9.982e-02
    Cl-                    9.982e-02   7.578e-02    -1.001    -1.120    -0.120
-H(0)             7.488e-14
-   H2                     3.744e-14   3.838e-14   -13.427   -13.416     0.011
+H(0)             7.481e-14
+   H2                     3.740e-14   3.834e-14   -13.427   -13.416     0.011
 Na               9.022e-02
    Na+                    9.022e-02   7.025e-02    -1.045    -1.153    -0.109
    NaOH                   4.520e-10   4.633e-10    -9.345    -9.334     0.011
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -65.562   -65.551     0.011
+   O2                     0.000e+00   0.000e+00   -65.561   -65.550     0.011
 
 ------------------------------Saturation indices-------------------------------
 
@@ -503,7 +503,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   7.782e-11
+                  Electrical balance (eq)  =   7.787e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -528,13 +528,13 @@ Ca               3.907e-03
    CaOH+                  3.150e-10   2.437e-10    -9.502    -9.613    -0.111
 Cl               9.966e-02
    Cl-                    9.966e-02   7.515e-02    -1.001    -1.124    -0.123
-H(0)             8.403e-14
-   H2                     4.202e-14   4.314e-14   -13.377   -13.365     0.012
+H(0)             8.422e-14
+   H2                     4.211e-14   4.324e-14   -13.376   -13.364     0.012
 Na               8.039e-02
    Na+                    8.039e-02   6.227e-02    -1.095    -1.206    -0.111
    NaOH                   4.006e-10   4.113e-10    -9.397    -9.386     0.012
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -65.664   -65.653     0.012
+   O2                     0.000e+00   0.000e+00   -65.666   -65.655     0.012
 
 ------------------------------Saturation indices-------------------------------
 
@@ -542,7 +542,7 @@ O(0)             0.000e+00
 
 	Al(OH)3(a)        4.01   14.81   10.80  Al(OH)3
 	Gibbsite          6.70   14.81    8.11  Al(OH)3
-	H2(g)           -10.22  -13.37   -3.15  H2
+	H2(g)           -10.21  -13.36   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -3.91   -2.33    1.58  NaCl
 	O2(g)           -62.76  -65.65   -2.89  O2
@@ -577,7 +577,7 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  9.657e-13  Surface + diffuse layer charge, eq
+	  9.659e-13  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.195e-02  psi, V
@@ -627,7 +627,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.706e-10
+                  Electrical balance (eq)  =   2.707e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -653,12 +653,12 @@ Ca               5.878e-03
 Cl               9.952e-02
    Cl-                    9.952e-02   7.457e-02    -1.002    -1.127    -0.125
 H(0)             1.362e-12
-   H2                     6.810e-13   7.005e-13   -12.167   -12.155     0.012
+   H2                     6.811e-13   7.006e-13   -12.167   -12.155     0.012
 Na               7.050e-02
    Na+                    7.050e-02   5.435e-02    -1.152    -1.265    -0.113
    NaOH                   3.496e-10   3.596e-10    -9.456    -9.444     0.012
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -68.086   -68.073     0.012
+   O2                     0.000e+00   0.000e+00   -68.086   -68.074     0.012
 
 ------------------------------Saturation indices-------------------------------
 
@@ -741,7 +741,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.003      Charge balance
-                                       pe  =  -1.513      Adjusted to redox equilibrium
+                                       pe  =  -1.511      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 10309
                           Density (g/cm3)  =   1.00083
                         Activity of water  =   0.997
@@ -751,7 +751,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.716e-10
+                  Electrical balance (eq)  =   2.717e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -776,13 +776,13 @@ Ca               7.857e-03
    CaOH+                  6.187e-10   4.745e-10    -9.209    -9.324    -0.115
 Cl               9.940e-02
    Cl-                    9.940e-02   7.403e-02    -1.003    -1.131    -0.128
-H(0)             1.442e-12
-   H2                     7.209e-13   7.429e-13   -12.142   -12.129     0.013
+H(0)             1.428e-12
+   H2                     7.139e-13   7.357e-13   -12.146   -12.133     0.013
 Na               6.058e-02
    Na+                    6.058e-02   4.649e-02    -1.218    -1.333    -0.115
    NaOH                   2.990e-10   3.081e-10    -9.524    -9.511     0.013
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -68.138   -68.124     0.013
+   O2                     0.000e+00   0.000e+00   -68.129   -68.116     0.013
 
 ------------------------------Saturation indices-------------------------------
 
@@ -793,7 +793,7 @@ O(0)             0.000e+00
 	H2(g)            -8.98  -12.13   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.05   -2.46    1.58  NaCl
-	O2(g)           -65.23  -68.12   -2.89  O2
+	O2(g)           -65.22  -68.12   -2.89  O2
 
 Reaction step 6.
 
@@ -825,7 +825,7 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  2.185e-10  Surface + diffuse layer charge, eq
+	  2.188e-10  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.127e-02  psi, V
@@ -865,7 +865,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.003      Charge balance
-                                       pe  =  -1.516      Adjusted to redox equilibrium
+                                       pe  =  -1.518      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 10185
                           Density (g/cm3)  =   1.00075
                         Activity of water  =   0.997
@@ -875,7 +875,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.329e-10
+                  Electrical balance (eq)  =   9.330e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -900,13 +900,13 @@ Ca               9.843e-03
    CaOH+                  7.668e-10   5.858e-10    -9.115    -9.232    -0.117
 Cl               9.930e-02
    Cl-                    9.930e-02   7.351e-02    -1.003    -1.134    -0.131
-H(0)             1.455e-12
-   H2                     7.274e-13   7.509e-13   -12.138   -12.124     0.014
+H(0)             1.469e-12
+   H2                     7.345e-13   7.582e-13   -12.134   -12.120     0.014
 Na               5.062e-02
    Na+                    5.062e-02   3.868e-02    -1.296    -1.413    -0.117
    NaOH                   2.487e-10   2.568e-10    -9.604    -9.590     0.014
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -68.147   -68.134     0.014
+   O2                     0.000e+00   0.000e+00   -68.156   -68.142     0.014
 
 ------------------------------Saturation indices-------------------------------
 
@@ -917,7 +917,7 @@ O(0)             0.000e+00
 	H2(g)            -8.97  -12.12   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.13   -2.55    1.58  NaCl
-	O2(g)           -65.24  -68.13   -2.89  O2
+	O2(g)           -65.25  -68.14   -2.89  O2
 
 Reaction step 7.
 
@@ -949,7 +949,7 @@ Reaction 1.	Irreversible reaction defined in simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.260e-10  Surface + diffuse layer charge, eq
+	  1.258e-10  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.097e-02  psi, V
@@ -999,7 +999,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.151e-09
+                  Electrical balance (eq)  =   1.152e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -1025,12 +1025,12 @@ Ca               1.184e-02
 Cl               9.920e-02
    Cl-                    9.920e-02   7.303e-02    -1.003    -1.137    -0.133
 H(0)             1.462e-12
-   H2                     7.310e-13   7.560e-13   -12.136   -12.121     0.015
+   H2                     7.311e-13   7.561e-13   -12.136   -12.121     0.015
 Na               4.064e-02
    Na+                    4.064e-02   3.092e-02    -1.391    -1.510    -0.119
    NaOH                   1.988e-10   2.056e-10    -9.701    -9.687     0.015
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -68.154   -68.139     0.015
+   O2                     0.000e+00   0.000e+00   -68.154   -68.140     0.015
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1123,7 +1123,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.277e-09
+                  Electrical balance (eq)  =   1.278e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -1149,7 +1149,7 @@ Ca               1.383e-02
 Cl               9.912e-02
    Cl-                    9.912e-02   7.257e-02    -1.004    -1.139    -0.135
 H(0)             1.467e-12
-   H2                     7.333e-13   7.598e-13   -12.135   -12.119     0.015
+   H2                     7.334e-13   7.599e-13   -12.135   -12.119     0.015
 Na               3.063e-02
    Na+                    3.063e-02   2.322e-02    -1.514    -1.634    -0.120
    NaOH                   1.493e-10   1.547e-10    -9.826    -9.811     0.015
@@ -1273,7 +1273,7 @@ Ca               1.584e-02
 Cl               9.904e-02
    Cl-                    9.904e-02   7.214e-02    -1.004    -1.142    -0.138
 H(0)             1.472e-12
-   H2                     7.360e-13   7.639e-13   -12.133   -12.117     0.016
+   H2                     7.361e-13   7.640e-13   -12.133   -12.117     0.016
 Na               2.060e-02
    Na+                    2.060e-02   1.556e-02    -1.686    -1.808    -0.122
    NaOH                   1.000e-10   1.038e-10   -10.000    -9.984     0.016
@@ -1485,7 +1485,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.007      Charge balance
-                                       pe  =  -1.723      Adjusted to redox equilibrium
+                                       pe  =  -1.722      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 9563
                           Density (g/cm3)  =   1.00035
                         Activity of water  =   0.998
@@ -1520,13 +1520,13 @@ Ca               1.985e-02
    CaOH+                  1.476e-09   1.110e-09    -8.831    -8.955    -0.124
 Cl               9.891e-02
    Cl-                    9.891e-02   7.134e-02    -1.005    -1.147    -0.142
-H(0)             3.687e-12
-   H2                     1.843e-12   1.920e-12   -11.734   -11.717     0.018
+H(0)             3.673e-12
+   H2                     1.836e-12   1.913e-12   -11.736   -11.718     0.018
 Na               5.004e-04
    Na+                    5.004e-04   3.754e-04    -3.301    -3.426    -0.125
    NaOH                   2.412e-12   2.512e-12   -11.618   -11.600     0.018
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -68.967   -68.949     0.018
+   O2                     0.000e+00   0.000e+00   -68.963   -68.945     0.018
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1537,7 +1537,7 @@ O(0)             0.000e+00
 	H2(g)            -8.57  -11.72   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -6.15   -4.57    1.58  NaCl
-	O2(g)           -66.06  -68.95   -2.89  O2
+	O2(g)           -66.05  -68.95   -2.89  O2
 
 ------------------
 End of simulation.
@@ -1561,7 +1561,7 @@ Beginning of initial surface-composition calculations.
 Surface 2.	
 
 Su            
-	  0.000e+00  Surface + diffuse layer charge, eq
+	 -1.388e-17  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.321e-02  psi, V
@@ -1671,7 +1671,7 @@ Su
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.324e-15
+                  Electrical balance (eq)  =  -1.361e-15
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 1.110124e+02
@@ -1696,13 +1696,13 @@ Ca               9.386e-09
    CaOH+                  7.771e-16   6.073e-16   -15.110   -15.217    -0.107
 Cl               1.000e-01
    Cl-                    1.000e-01   7.645e-02    -1.000    -1.117    -0.117
-H(0)             1.840e-39
-   H2                     9.200e-40   9.414e-40   -39.036   -39.026     0.010
+H(0)             1.839e-39
+   H2                     9.196e-40   9.410e-40   -39.036   -39.026     0.010
 Na               1.000e-01
    Na+                    1.000e-01   7.829e-02    -1.000    -1.106    -0.106
    NaOH                   5.038e-10   5.155e-10    -9.298    -9.288     0.010
-O(0)             9.131e-15
-   O2                     4.565e-15   4.672e-15   -14.341   -14.331     0.010
+O(0)             9.139e-15
+   O2                     4.570e-15   4.676e-15   -14.340   -14.330     0.010
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1745,7 +1745,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  3.123e-17  Surface + diffuse layer charge, eq
+	 -1.041e-17  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.240e-02  psi, V
@@ -1785,7 +1785,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.000      Charge balance
-                                       pe  =  11.925      Adjusted to redox equilibrium
+                                       pe  =  11.926      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 10677
                           Density (g/cm3)  =   1.00108
                         Activity of water  =   0.997
@@ -1820,13 +1820,13 @@ Ca               1.930e-03
    CaOH+                  1.575e-10   1.225e-10    -9.803    -9.912    -0.109
 Cl               9.978e-02
    Cl-                    9.978e-02   7.576e-02    -1.001    -1.121    -0.120
-H(0)             1.946e-39
-   H2                     9.732e-40   9.976e-40   -39.012   -39.001     0.011
+H(0)             1.945e-39
+   H2                     9.726e-40   9.969e-40   -39.012   -39.001     0.011
 Na               9.036e-02
    Na+                    9.036e-02   7.036e-02    -1.044    -1.153    -0.109
    NaOH                   4.521e-10   4.634e-10    -9.345    -9.334     0.011
-O(0)             8.120e-15
-   O2                     4.060e-15   4.161e-15   -14.391   -14.381     0.011
+O(0)             8.131e-15
+   O2                     4.065e-15   4.167e-15   -14.391   -14.380     0.011
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1869,7 +1869,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -1.735e-18  Surface + diffuse layer charge, eq
+	  1.041e-17  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.175e-02  psi, V
@@ -1993,7 +1993,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -2.255e-17  Surface + diffuse layer charge, eq
+	  3.469e-18  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.121e-02  psi, V
@@ -2117,7 +2117,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -3.469e-18  Surface + diffuse layer charge, eq
+	  2.255e-17  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.075e-02  psi, V
@@ -2192,13 +2192,13 @@ Ca               7.831e-03
    CaOH+                  6.153e-10   4.720e-10    -9.211    -9.326    -0.115
 Cl               9.935e-02
    Cl-                    9.935e-02   7.401e-02    -1.003    -1.131    -0.128
-H(0)             1.651e-11
-   H2                     8.253e-12   8.504e-12   -11.083   -11.070     0.013
+H(0)             1.652e-11
+   H2                     8.260e-12   8.511e-12   -11.083   -11.070     0.013
 Na               6.085e-02
    Na+                    6.085e-02   4.670e-02    -1.216    -1.331    -0.115
    NaOH                   2.995e-10   3.086e-10    -9.524    -9.511     0.013
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -70.255   -70.242     0.013
+   O2                     0.000e+00   0.000e+00   -70.256   -70.243     0.013
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2489,7 +2489,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -8.530e-14  Surface + diffuse layer charge, eq
+	 -8.534e-14  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -9.697e-03  psi, V
@@ -2613,7 +2613,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -4.725e-14  Surface + diffuse layer charge, eq
+	 -4.728e-14  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -9.418e-03  psi, V
@@ -2737,7 +2737,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -2.670e-14  Surface + diffuse layer charge, eq
+	 -2.666e-14  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -9.164e-03  psi, V
@@ -2861,7 +2861,7 @@ Reaction 2.	Irreversible reaction defined in simulation 2.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -1.526e-14  Surface + diffuse layer charge, eq
+	 -1.527e-14  Surface + diffuse layer charge, eq
 	 -1.000e-02  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.933e-03  psi, V
