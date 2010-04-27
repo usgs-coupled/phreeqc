@@ -1,13 +1,9 @@
-##AM_CPPFLAGS=-I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_srcdir)/src/phreeqcpp -I$(top_srcdir)/src/phreeqcpp/phreeqc
 AM_CPPFLAGS=-I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_srcdir)/src/phreeqcpp
 
 noinst_LTLIBRARIES=libphreeqc.la
 
-##{{
-##libphreeqc_la_CPPFLAGS=-I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_srcdir)/src/phreeqcpp
-##libphreeqc_la_CPPFLAGS=-I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_srcdir)/src/phreeqcpp -I$(top_srcdir)/src/phreeqcpp/phreeqc
-##}}
-
+# dummy C++ source to cause C++ linking
+nodist_EXTRA_libphreeqc_la_SOURCES = dummy.cxx
 
 # library sources
 libphreeqc_la_SOURCES=\
@@ -23,7 +19,6 @@ libphreeqc_la_SOURCES=\
 	dense.c\
 	dense.h\
 	dw.c\
-	empty.cxx\
 	global.h\
 	global_structures.h\
 	input.c\
