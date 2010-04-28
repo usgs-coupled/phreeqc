@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def selected_array(db_path, input_string):
     """Load database via COM and run input string.
     """
-    dbase = Dispatch('PhreeqcCOM.Phreeqc')
+    dbase = Dispatch('IPhreeqcCOM.Object')
     dbase.LoadDatabase(db_path)
     dbase.RunString(input_string)
     return dbase.GetSelectedOutputArray()
@@ -22,11 +22,11 @@ def show_results(dbdir, input_string):
     join = os.path.join
     wateq4f_result = selected_array(join(dbdir, 'wateq4f.dat'), input_string)
     pitzer_result  = selected_array(join(dbdir, 'pitzer.dat'), input_string)
-    # Use list comprehensions to get data from the arrays.
+    # Get data from the arrays.
     nacl_conc      = [entry[0] for entry in wateq4f_result][1:]
     wateq4f_values = [entry[1] for entry in wateq4f_result][1:]
     pitzer_values  = [entry[1] for entry in pitzer_result][1:]
-
+    # Plot
     plt.plot(nacl_conc, pitzer_values, 'r', nacl_conc, wateq4f_values,'b--')
     plt.axis([0, 6, 0, .06])
     plt.legend(('PITZER','WATEQ4F'), loc = (0.4, 0.4))
@@ -35,7 +35,6 @@ def show_results(dbdir, input_string):
     #plt.backend      : PS
     plt.show()
     
-
 if __name__ == '__main__':
     # This will only run when called as script from the command line
     # and not when imported from another script.
