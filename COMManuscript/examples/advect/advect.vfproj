@@ -4,8 +4,8 @@
 		<Platform Name="Win32"/></Platforms>
 	<Configurations>
 		<Configuration Name="Debug|Win32">
-				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" AdditionalIncludeDirectories="c:\3rdparty\IPhreeqc" Interfaces="true" FixedFormLineLength="fixedLength132" WarnInterfaces="true" StringLengthArgPassing="strLenArgsMixed" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
-				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="c:\3rdparty\IPhreeqc" GenerateDebugInformation="true" SubSystem="subSystemConsole" AdditionalDependencies="IPhreeqcd.4187.lib"/>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" AdditionalIncludeDirectories="C:\3RDPARTY\IPhreeqc\IPhreeqc-2.17.4281-win32\include" Interfaces="true" FixedFormLineLength="fixedLength132" WarnInterfaces="true" StringLengthArgPassing="strLenArgsMixed" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" AdditionalLibraryDirectories="C:\3RDPARTY\IPhreeqc\IPhreeqc-2.17.4281-win32\lib" GenerateDebugInformation="true" SubSystem="subSystemConsole" AdditionalDependencies="IPhreeqcd.lib"/>
 				<Tool Name="VFResourceCompilerTool"/>
 				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
 				<Tool Name="VFCustomBuildTool"/>

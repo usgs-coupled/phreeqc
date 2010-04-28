@@ -2,7 +2,7 @@ Dim Phreeqc, Errors, Arr, Ostring
 On Error Resume Next
 
 ' Create module 
-Set Phreeqc = CreateObject("PhreeqcCOM.Phreeqc")
+Set Phreeqc = CreateObject("IPhreeqcCOM.Object")
 
 ' Initiate module
 Phreeqc.LoadDatabase("C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database\phreeqc.dat")
