@@ -1449,6 +1449,18 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+        --------
+        svn 4376
+        --------
+        Error in logic for removing unstable phases for Pitzer
+        and SIT.
+        
+        --------
+        svn 4233
+        --------
+        Removed duplicate parameter for Na+ -- Cl- in sit.dat.
+        Value of 0.03 was entered erroneously for both Na/Cl and Cl/Na.
+        
 ------------------------------------------------------------
 Version 2.17.0: February 25, 2010
 ------------------------------------------------------------
