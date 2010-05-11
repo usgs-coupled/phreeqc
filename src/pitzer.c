@@ -41,7 +41,6 @@ static int ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta,
 static int BDK(LDBLE X);
 static int pitzer_initial_guesses(void);
 static int pitzer_revise_guesses(void);
-static int pitzer_remove_unstable_phases;
 #endif
 
 /* ---------------------------------------------------------------------- */
