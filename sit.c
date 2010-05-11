@@ -1099,7 +1099,7 @@ model_sit(void)
 			stop_program = TRUE;
 			break;
 		}
-		sit_remove_unstable_phases = remove_unstable_phases;
+		/*sit_remove_unstable_phases = remove_unstable_phases;*/
 		if (sit_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
