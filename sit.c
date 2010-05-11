@@ -972,7 +972,7 @@ model_sit(void)
 	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
-	sit_remove_unstable_phases = FALSE;
+	remove_unstable_phases = FALSE;
 	if (always_full_pitzer == TRUE)
 	{
 		full_pitzer = TRUE;
@@ -987,7 +987,7 @@ model_sit(void)
 		mb_s_s();
 		kode = 1;
 		while ((r = residuals()) != CONVERGED
-			   || sit_remove_unstable_phases == TRUE)
+			   || remove_unstable_phases == TRUE)
 		{
 #if defined(PHREEQCI_GUI)
 			if (WaitForSingleObject(g_hKill /*g_eventKill */ , 0) ==
@@ -1032,7 +1032,7 @@ model_sit(void)
 			/*
 			 *   Full matrix with pure phases
 			 */
-			if (r == OK || sit_remove_unstable_phases == TRUE)
+			if (r == OK || remove_unstable_phases == TRUE)
 			{
 				return_kode = ineq(kode);
 				if (return_kode != OK)
@@ -1099,8 +1099,8 @@ model_sit(void)
 			stop_program = TRUE;
 			break;
 		}
-		/*sit_remove_unstable_phases = remove_unstable_phases;*/
-		if (sit_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
+		/* remove_unstable_phases is set in check_residuals */
+		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
 			output_msg(OUTPUT_LOG,
@@ -1123,7 +1123,7 @@ model_sit(void)
 			full_pitzer = TRUE;
 			continue;
 		}
-		if (sit_remove_unstable_phases == FALSE)
+		if (remove_unstable_phases == FALSE)
 			break;
 		if (debug_model == TRUE)
 		{
