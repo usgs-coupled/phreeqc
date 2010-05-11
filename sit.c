@@ -29,7 +29,6 @@ static int sit_ISPEC(char *name);
 /*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
 static int sit_initial_guesses(void);
 static int sit_revise_guesses(void);
-static int sit_remove_unstable_phases;
 static int PTEMP_SIT(LDBLE tk);
 #endif
 
