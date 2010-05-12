@@ -25,6 +25,10 @@ struct output_callback
 
 int add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie);
 int clean_up_output_callbacks(void);
+#if 1
+int output_message(const int type, const char *err_str, const int stop,
+				   const char *format, va_list args);
+#endif
 int output_msg(const int type, const char *format, ...);
 int warning_msg(const char *err_str, ...);
 int error_msg(const char *err_str, const int stop, ...);
