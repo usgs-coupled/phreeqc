@@ -3260,8 +3260,11 @@ extern int Merge_fpunchf(const int length, const char *format,
 						 va_list argptr);
 #endif
 
+#if 0     
+/* is this needed -- causes cygwin g++ error */
 int output_message(const int type, const char *err_str, const int stop,
 				   const char *format, va_list args);
+#endif
 
 int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
