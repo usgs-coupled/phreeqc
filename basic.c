@@ -3293,7 +3293,7 @@ sexpr(struct LOC_exec * LINK)
 				if (m < 256)
 					m = 256;
 
-				n.UU.sval = (char *) PHRQ_realloc(n.UU.sval, m);
+				n.UU.sval = (char *) PHRQ_realloc(n.UU.sval, (size_t) m * sizeof(char));
 				if (n.UU.sval == NULL)
 					malloc_error();
 				strcat(n.UU.sval, n2.UU.sval);
