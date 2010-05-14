@@ -1450,6 +1450,13 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+        svn 4399
+        --------
+        Error in PHRQ_calloc. Size of allocated block was
+        not set. Under some situations, could cause serious
+        errors and a crash.
+        
+        --------
         svn 4376
         --------
         Error in logic for removing unstable phases for Pitzer
