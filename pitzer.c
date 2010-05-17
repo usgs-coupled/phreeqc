@@ -1473,6 +1473,7 @@ set_pz(int initial)
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
 		/*s_x[i]->lg = 0.0; */
 		s_x[i]->lg_pitzer = 0.0;
+		s_x[i]->lg = 0.0;
 	}
 /*
  *   Set master species activities
