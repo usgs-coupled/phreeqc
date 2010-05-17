@@ -210,13 +210,7 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 WARNING: Sylvite, Pure phase with add formula has not converged.
-	 SI may be a local minimum.	Residual: 4.983502e-002
-
-WARNING: Sylvite, Pure phase with add formula has not converged.
-	 SI may be a local minimum.	Residual: 2.014593e-001
-
-WARNING: Sylvite, Pure phase with add formula has not converged.
-	 SI may be a local minimum.	Residual: 3.514925e-001
+	 SI may be a local minimum.	Residual: 1.391588e-001
 
 WARNING: Maximum iterations exceeded, 200
 
@@ -282,7 +276,7 @@ Sylvite             -0.10    0.80    0.90
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -5.525e-012
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  45
+                               Iterations  =  58
                          Gamma iterations  =   1
                       Osmotic coefficient  =   2.10701
                          Density of water  =   0.99706

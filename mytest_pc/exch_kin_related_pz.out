@@ -148,10 +148,10 @@ X               5.000e-002 mol	[0.1 (mol NaX)/(mol kinetic reactant Halite)]
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  = -9.470e-012
+                  Electrical balance (eq)  = -7.613e-012
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 692
-                         Gamma iterations  =   1
+                               Iterations  = 1057
+                         Gamma iterations  =   3
                       Osmotic coefficient  =   0.92008
                          Density of water  =   0.99823
                                   Total H  = 1.110124e+002

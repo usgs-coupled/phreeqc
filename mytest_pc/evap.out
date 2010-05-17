@@ -285,9 +285,9 @@ Sylvite             -1.02   -0.13    0.90   0.000e+000           0  0.000e+000
                  Total alkalinity (eq/kg)  =  4.161e-004
                        Total CO2 (mol/kg)  =  5.724e-005
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -5.525e-012
+                  Electrical balance (eq)  = -5.524e-012
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  37
+                               Iterations  =  39
                          Gamma iterations  =   1
                       Osmotic coefficient  =   3.46328
                          Density of water  =   0.99706

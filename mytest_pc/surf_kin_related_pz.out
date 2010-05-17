@@ -129,7 +129,7 @@ Initial solution 1.
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  20.000
-                  Electrical balance (eq)  = -1.049e-010
+                  Electrical balance (eq)  = -5.649e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  12
                          Gamma iterations  =   5
@@ -237,8 +237,8 @@ Hfo_w
                       Temperature (deg C)  =  20.000
                   Electrical balance (eq)  = -1.907e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.01
-                               Iterations  = 496
-                         Gamma iterations  =   1
+                               Iterations  = 990
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.50659
                          Density of water  =   0.99823
                                   Total H  = 1.130179e+002
