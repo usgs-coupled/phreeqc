@@ -479,7 +479,7 @@ sit(void)
 	   C
 	 */
 	AW = exp(-OSUM * COSMOT / 55.50837e0);
-	if (AW > 1.0) AW = 1.0;
+	/*if (AW > 1.0) AW = 1.0;*/
 	/*s_h2o->la=log10(AW); */
 	mu_x = I;
 	for (i = 0; i < 2 * count_s + sit_count_anions; i++)
