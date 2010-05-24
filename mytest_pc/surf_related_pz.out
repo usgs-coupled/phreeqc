@@ -297,8 +297,8 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.304e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.99
-                               Iterations  =  35
-                         Gamma iterations  =   6
+                               Iterations  =  38
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   0.90794
                          Density of water  =   0.99706
                                   Total H  = 1.114764e+002
@@ -357,7 +357,7 @@ Using pure phase assemblage 2.	Pure-phase assemblage after simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Gypsum               0.00   -4.58   -4.58   1.607e-001  1.607e-001 -2.656e-014
+Gypsum               0.00   -4.58   -4.58   1.607e-001  1.607e-001 -1.737e-014
 
 ------------------------------Surface composition------------------------------
 
@@ -416,8 +416,8 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -6.304e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.99
-                               Iterations  =  33
-                         Gamma iterations  =   6
+                               Iterations  =  36
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   0.90794
                          Density of water  =   0.99706
                                   Total H  = 1.114764e+002
@@ -641,7 +641,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.664e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -2.75
-                               Iterations  =  30
+                               Iterations  =  29
                          Gamma iterations  =   6
                       Osmotic coefficient  =   0.69607
                          Density of water  =   0.99706
@@ -900,11 +900,11 @@ Gypsum              -0.38   -4.96   -4.58   2.000e-002           0 -2.000e-002
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 6.220e-026  Surface charge, eq
+	 6.518e-026  Surface charge, eq
 	undefined  sigma, C/m**2
-	 5.369e-002  psi, V
-	-2.090e+000  -F*psi/RT
-	 1.237e-001  exp(-F*psi/RT)
+	 5.514e-002  psi, V
+	-2.146e+000  -F*psi/RT
+	 1.169e-001  exp(-F*psi/RT)
 	 5.000e+004  specific area, m**2/mol Gypsum
 	 0.000e+000  m**2 for  0.000e+000 moles of Gypsum
 
@@ -914,22 +914,22 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+        3.755e-026       0.000  3.751e-026     -25.426
-	Hfo_sOHCa+2      1.287e-030       0.000  1.286e-030     -29.891
-	Hfo_sOH          8.516e-032       0.000  8.505e-032     -31.070
-	Hfo_sO-          4.424e-039       0.000  4.418e-039     -38.355
+	Hfo_sOH2+        4.039e-026       0.000  4.034e-026     -25.394
+	Hfo_sOHCa+2      1.309e-030       0.000  1.307e-030     -29.884
+	Hfo_sOH          9.692e-032       0.000  9.680e-032     -31.014
+	Hfo_sO-          5.327e-039       0.000  5.320e-039     -38.274
 
 Hfo_w         
 	 0.000e+000  moles	[0.1 mol/(mol Gypsum)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+        3.142e-026       0.000  3.138e-026     -25.503
-	Hfo_wSO4-        6.770e-027       0.000  6.762e-027     -26.170
-	Hfo_wOH          7.124e-032       0.000  7.115e-032     -31.148
-	Hfo_wOHSO4-2     3.035e-032       0.000  3.032e-032     -31.518
-	Hfo_wO-          3.701e-039       0.000  3.696e-039     -38.432
-	Hfo_wOCa+        7.207e-040       0.000  7.198e-040     -39.143
+	Hfo_wOH2+        3.266e-026       0.000  3.262e-026     -25.487
+	Hfo_wSO4-        7.879e-027       0.000  7.869e-027     -26.104
+	Hfo_wOH          7.836e-032       0.000  7.826e-032     -31.106
+	Hfo_wOHSO4-2     3.738e-032       0.000  3.733e-032     -31.428
+	Hfo_wO-          4.307e-039       0.000  4.302e-039     -38.366
+	Hfo_wOCa+        7.492e-040       0.000  7.482e-040     -39.126
 
 -----------------------------Solution composition------------------------------
 
@@ -954,7 +954,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  1.877e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =  23
+                               Iterations  =  26
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.92410
                          Density of water  =   0.99706
@@ -1019,11 +1019,11 @@ Gypsum              -0.38   -4.96   -4.58   0.000e+000           0  0.000e+000
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 6.785e-026  Surface charge, eq
+	 7.152e-026  Surface charge, eq
 	undefined  sigma, C/m**2
-	 4.631e-002  psi, V
-	-1.803e+000  -F*psi/RT
-	 1.649e-001  exp(-F*psi/RT)
+	 4.779e-002  psi, V
+	-1.860e+000  -F*psi/RT
+	 1.556e-001  exp(-F*psi/RT)
 	 5.000e+004  specific area, m**2/mol Gypsum
 	 0.000e+000  m**2 for  0.000e+000 moles of Gypsum
 
@@ -1033,22 +1033,22 @@ Hfo_s
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+        3.765e-026       0.000  3.760e-026     -25.425
-	Hfo_sOHCa+2      1.720e-030       0.000  1.718e-030     -29.765
-	Hfo_sOH          6.406e-032       0.000  6.397e-032     -31.194
-	Hfo_sO-          2.497e-039       0.000  2.494e-039     -38.603
+	Hfo_sOH2+        4.039e-026       0.000  4.034e-026     -25.394
+	Hfo_sOHCa+2      1.742e-030       0.000  1.740e-030     -29.759
+	Hfo_sOH          7.278e-032       0.000  7.269e-032     -31.139
+	Hfo_sO-          3.005e-039       0.000  3.001e-039     -38.523
 
 Hfo_w         
 	 0.000e+000  moles	[0.1 mol/(mol Gypsum)]
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+        3.437e-026       0.000  3.433e-026     -25.464
-	Hfo_wSO4-        4.170e-027       0.000  4.165e-027     -26.380
-	Hfo_wOH          5.848e-032       0.000  5.841e-032     -31.234
-	Hfo_wOHSO4-2     1.403e-032       0.000  1.401e-032     -31.854
-	Hfo_wO-          2.279e-039       0.000  2.277e-039     -38.643
-	Hfo_wOCa+        7.885e-040       0.000  7.875e-040     -39.104
+	Hfo_wOH2+        3.603e-026       0.000  3.599e-026     -25.444
+	Hfo_wSO4-        4.904e-027       0.000  4.898e-027     -26.310
+	Hfo_wOH          6.493e-032       0.000  6.485e-032     -31.188
+	Hfo_wOHSO4-2     1.747e-032       0.000  1.745e-032     -31.758
+	Hfo_wO-          2.681e-039       0.000  2.677e-039     -38.572
+	Hfo_wOCa+        8.266e-040       0.000  8.255e-040     -39.083
 
 -----------------------------Solution composition------------------------------
 
@@ -1073,7 +1073,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  1.877e-004
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
-                               Iterations  =  20
+                               Iterations  =  23
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.92410
                          Density of water  =   0.99706
@@ -1182,11 +1182,11 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Hfo           
-	 5.003e-031  Surface charge, eq
+	 4.560e-031  Surface charge, eq
 	undefined  sigma, C/m**2
-	 4.631e-002  psi, V
-	-1.803e+000  -F*psi/RT
-	 1.649e-001  exp(-F*psi/RT)
+	 4.779e-002  psi, V
+	-1.860e+000  -F*psi/RT
+	 1.556e-001  exp(-F*psi/RT)
 	 5.000e+004  specific area, m**2/mol Gypsum
 	 0.000e+000  m**2 for  0.000e+000 moles of Gypsum
 
@@ -1197,8 +1197,8 @@ Hfo_s
 	Species               Moles    Fraction    Molality    Molality
 
 	Hfo_sOH          1.000e-030       0.000  1.000e-030     -30.000
-	Hfo_sOH2+        3.214e-031       0.000  3.214e-031     -30.493
-	Hfo_sO-          7.127e-032       0.000  7.127e-032     -31.147
+	Hfo_sOH2+        3.035e-031       0.000  3.035e-031     -30.518
+	Hfo_sO-          7.549e-032       0.000  7.549e-032     -31.122
 
 Hfo_w         
 	 0.000e+000  moles	[0.1 mol/(mol Gypsum)]
@@ -1206,8 +1206,8 @@ Hfo_w
 	Species               Moles    Fraction    Molality    Molality
 
 	Hfo_wOH          1.000e-030       0.000  1.000e-030     -30.000
-	Hfo_wOH2+        3.214e-031       0.000  3.214e-031     -30.493
-	Hfo_wO-          7.127e-032       0.000  7.127e-032     -31.147
+	Hfo_wOH2+        3.035e-031       0.000  3.035e-031     -30.518
+	Hfo_wO-          7.549e-032       0.000  7.549e-032     -31.122
 
 -----------------------------------------
 Beginning of batch-reaction calculations.
@@ -1552,30 +1552,30 @@ Gypsum              -0.38   -4.96   -4.58   2.000e-002           0 -2.000e-002
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 7.473e-026  Surface charge, eq
+	 8.044e-026  Surface charge, eq
 Hfo_s         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+        3.749e-026       0.000  3.744e-026     -25.427
-	Hfo_sOHCa+2      1.036e-029       0.000  1.035e-029     -28.985
-	Hfo_sOH          1.047e-032       0.000  1.046e-032     -31.980
-	Hfo_sO-          6.703e-041       0.000  6.695e-041     -40.174
+	Hfo_sOH2+        4.035e-026       0.000  4.030e-026     -25.395
+	Hfo_sOHCa+2      1.115e-029       0.000  1.114e-029     -28.953
+	Hfo_sOH          1.127e-032       0.000  1.126e-032     -31.948
+	Hfo_sO-          7.216e-041       0.000  7.207e-041     -40.142
 
 Hfo           
-	 7.473e-026  Surface charge, eq
+	 8.044e-026  Surface charge, eq
 Hfo_w         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+        3.734e-026       0.000  3.729e-026     -25.428
-	Hfo_wSO4-        1.215e-028       0.000  1.213e-028     -27.916
-	Hfo_wOH          1.043e-032       0.000  1.042e-032     -31.982
-	Hfo_wOHSO4-2     6.712e-035       0.000  6.703e-035     -34.174
-	Hfo_wOCa+        8.507e-040       0.000  8.496e-040     -39.071
-	Hfo_wO-          6.677e-041       0.000  6.668e-041     -40.176
+	Hfo_wOH2+        4.020e-026       0.000  4.015e-026     -25.396
+	Hfo_wSO4-        1.308e-028       0.000  1.306e-028     -27.884
+	Hfo_wOH          1.123e-032       0.000  1.122e-032     -31.950
+	Hfo_wOHSO4-2     7.225e-035       0.000  7.216e-035     -34.142
+	Hfo_wOCa+        9.158e-040       0.000  9.147e-040     -39.039
+	Hfo_wO-          7.188e-041       0.000  7.179e-041     -40.144
 
 -----------------------------Solution composition------------------------------
 
@@ -1600,7 +1600,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  1.584e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.27
-                               Iterations  =  23
+                               Iterations  =  26
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.92423
                          Density of water  =   0.99706
@@ -1665,30 +1665,30 @@ Gypsum              -0.38   -4.96   -4.58   0.000e+000           0  0.000e+000
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 7.472e-026  Surface charge, eq
+	 8.044e-026  Surface charge, eq
 Hfo_s         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_sOH2+        3.749e-026       0.000  3.744e-026     -25.427
-	Hfo_sOHCa+2      1.036e-029       0.000  1.035e-029     -28.985
-	Hfo_sOH          1.047e-032       0.000  1.046e-032     -31.980
-	Hfo_sO-          6.703e-041       0.000  6.695e-041     -40.174
+	Hfo_sOH2+        4.035e-026       0.000  4.030e-026     -25.395
+	Hfo_sOHCa+2      1.115e-029       0.000  1.114e-029     -28.953
+	Hfo_sOH          1.127e-032       0.000  1.126e-032     -31.948
+	Hfo_sO-          7.216e-041       0.000  7.207e-041     -40.142
 
 Hfo           
-	 7.472e-026  Surface charge, eq
+	 8.044e-026  Surface charge, eq
 Hfo_w         
 	 0.000e+000  moles
 	                                   Mole                     Log
 	Species               Moles    Fraction    Molality    Molality
 
-	Hfo_wOH2+        3.734e-026       0.000  3.729e-026     -25.428
-	Hfo_wSO4-        1.215e-028       0.000  1.213e-028     -27.916
-	Hfo_wOH          1.043e-032       0.000  1.042e-032     -31.982
-	Hfo_wOHSO4-2     6.711e-035       0.000  6.703e-035     -34.174
-	Hfo_wOCa+        8.507e-040       0.000  8.496e-040     -39.071
-	Hfo_wO-          6.676e-041       0.000  6.668e-041     -40.176
+	Hfo_wOH2+        4.020e-026       0.000  4.015e-026     -25.396
+	Hfo_wSO4-        1.308e-028       0.000  1.306e-028     -27.884
+	Hfo_wOH          1.123e-032       0.000  1.122e-032     -31.950
+	Hfo_wOHSO4-2     7.225e-035       0.000  7.216e-035     -34.142
+	Hfo_wOCa+        9.158e-040       0.000  9.147e-040     -39.039
+	Hfo_wO-          7.188e-041       0.000  7.178e-041     -40.144
 
 -----------------------------Solution composition------------------------------
 
@@ -1713,7 +1713,7 @@ Hfo_w
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  1.584e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.27
-                               Iterations  =  19
+                               Iterations  =  22
                          Gamma iterations  =   5
                       Osmotic coefficient  =   0.92423
                          Density of water  =   0.99706

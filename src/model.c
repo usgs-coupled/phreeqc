@@ -3047,6 +3047,15 @@ reset(void)
 				up = step_up;
 				down = 1.3 * up;
 			}
+			else if (x[i]->type == PITZER_GAMMA)
+			{
+				up = step_up;
+				if (up > 1) 
+				{
+					up = 0.7;
+				}
+				down = 1.3 * up;
+			}
 			else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
 					 || x[i]->type == SURFACE_CB2)
 			{

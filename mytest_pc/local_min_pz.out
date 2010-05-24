@@ -66,10 +66,10 @@ Initial solution 1.	SEAWATER FROM NORDSTROM ET AL. (1979)
                     Total carbon (mol/kg)  =  2.210e-003
                        Total CO2 (mol/kg)  =  2.210e-003
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -5.525e-012
+                  Electrical balance (eq)  = -5.242e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  16
-                         Gamma iterations  =   3
+                               Iterations  =  18
+                         Gamma iterations  =   4
                       Osmotic coefficient  =   0.90347
                          Density of water  =   0.99706
                                   Total H  = 1.110144e+002
@@ -210,7 +210,7 @@ Beginning of batch-reaction calculations.
 Reaction step 1.
 
 WARNING: Sylvite, Pure phase with add formula has not converged.
-	 SI may be a local minimum.	Residual: 1.391588e-001
+	 SI may be a local minimum.	Residual: 3.420345e-001
 
 WARNING: Maximum iterations exceeded, 200
 
@@ -240,7 +240,7 @@ Glauberite          -0.42   -5.66   -5.25   0.000e+000           0  0.000e+000
 Gypsum              -0.23   -4.81   -4.58   0.000e+000           0  0.000e+000
 Halite               0.00    1.57    1.57   0.000e+000  4.707e-001  4.707e-001
 Hexahydrite         -0.02   -1.66   -1.63   0.000e+000           0  0.000e+000
-Kainite             -0.00   -0.19   -0.19   0.000e+000           0  0.000e+000
+Kainite              0.00   -0.19   -0.19   0.000e+000           0  0.000e+000
 Kieserite           -0.42   -0.55   -0.12   0.000e+000           0  0.000e+000
 Leonhardite         -0.33   -1.21   -0.89   0.000e+000           0  0.000e+000
 Magnesite            0.00   -7.83   -7.83   0.000e+000  1.202e-003  1.202e-003
@@ -274,10 +274,10 @@ Sylvite             -0.10    0.80    0.90
                  Total alkalinity (eq/kg)  =  2.152e-004
                        Total CO2 (mol/kg)  =  7.178e-005
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -5.525e-012
+                  Electrical balance (eq)  = -5.242e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  58
-                         Gamma iterations  =   1
+                               Iterations  =  75
+                         Gamma iterations  =  75
                       Osmotic coefficient  =   2.10701
                          Density of water  =   0.99706
                                   Total H  = 1.505744e+000
@@ -338,7 +338,7 @@ S(6)            9.844e-001
 	H2O(g)           -1.73   -0.22    1.51  H2O
 	Halite            0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.02   -1.66   -1.63  MgSO4:6H2O
-	Kainite          -0.00   -0.19   -0.19  KMgClSO4:3H2O
+	Kainite           0.00   -0.19   -0.19  KMgClSO4:3H2O
 	Kalicinite       -6.05  -16.11  -10.06  KHCO3
 	Kieserite        -0.42   -0.55   -0.12  MgSO4:H2O
 	Labile_S         -1.73   -7.40   -5.67  Na4Ca(SO4)3:2H2O
