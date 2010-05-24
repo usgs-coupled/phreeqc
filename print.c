@@ -2163,8 +2163,16 @@ print_totals(void)
 	output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Iterations  = ", iterations);
 	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
+		if (always_full_pitzer == FALSE)
+		{
+			output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
 				   gamma_iterations);
+		}
+		else
+		{
+			output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
+				  iterations);
+		}
 		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Osmotic coefficient  = ",
 				   COSMOT);
 		if (print_density) output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",

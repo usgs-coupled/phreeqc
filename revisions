@@ -1450,6 +1450,15 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+        svn 4458
+        --------
+        Tweaked the convergence parameters for Pitzer log
+        gamma unknowns. Set a maximum step size for these
+        unknowns. Also changed usage of internal flags
+        for Pitzer calculations related to initial solution
+        calculations. Corrected print of Gamma iterations.
+        
+        --------
         svn 4399
         --------
         Error in PHRQ_calloc. Size of allocated block was
