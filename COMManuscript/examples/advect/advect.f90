@@ -18,7 +18,7 @@ module Subs
   
   subroutine EHandler()
     include "IPhreeqc.f90.inc"
-    call OutputLastError(Id)
+    call OutputErrorString(Id)
     stop
   end subroutine EHandler    
 end module Subs
