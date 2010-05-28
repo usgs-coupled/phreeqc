@@ -14,14 +14,11 @@ def selected_array(db_path, input_string):
     dbase.RunString(input_string)
     return dbase.GetSelectedOutputArray()
 
-def show_results(dbdir, input_string):
+def show_results(input_string):
     """Get results for different databases
     """
-    # Use os.path.join to build platform-independent path names.
-    # Make a short function name for convenience.
-    join = os.path.join
-    wateq4f_result = selected_array(join(dbdir, 'wateq4f.dat'), input_string)
-    pitzer_result  = selected_array(join(dbdir, 'pitzer.dat'), input_string)
+    wateq4f_result = selected_array('wateq4f.dat', input_string)
+    pitzer_result  = selected_array('pitzer.dat', input_string)
     # Get data from the arrays.
     nacl_conc      = [entry[0] for entry in wateq4f_result][1:]
     wateq4f_values = [entry[1] for entry in wateq4f_result][1:]
@@ -38,7 +35,6 @@ def show_results(dbdir, input_string):
 if __name__ == '__main__':
     # This will only run when called as script from the command line
     # and not when imported from another script.
-    DBDIR = r'C:\Program Files (x86)\USGS\Phreeqc Interactive 2.17.4137\database'
     INPUT_STRING = """
     SOLUTION 1
     END
@@ -53,4 +49,4 @@ if __name__ == '__main__':
     	-reset false
     	-total Na S(6)
     END"""
-    show_results(DBDIR, INPUT_STRING)
+    show_results(INPUT_STRING)
