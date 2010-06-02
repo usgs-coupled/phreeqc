@@ -4229,7 +4229,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	LDBLE sum, sum1, sum_iso, d;
 	LDBLE *array_save, *delta_save;
 	int count_unknowns_save, max_row_count_save, max_column_count_save, temp,
-		count_current_solutions;
+		count_current_solutions, temp_punch;
 	int solnmap[10][2];
 	struct isotope *isotope_ptr;
 	FILE *model_file;
@@ -4333,8 +4333,11 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		set_initial_solution(-6, -7);
 		temp = pr.all;
 		pr.all = FALSE;
+		temp_punch = pr.punch;
+		pr.punch = FALSE;
 		initial_solutions(FALSE);
 		pr.all = temp;
+		pr.punch = temp_punch;
 		solution_ptr = solution_bsearch(-7, &j, TRUE);
 
 		/* Header */
