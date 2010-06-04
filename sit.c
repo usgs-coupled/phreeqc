@@ -201,6 +201,7 @@ read_sit(void)
   return_value = UNKNOWN;
   n = -1;
   pzp_type = TYPE_Other;
+  pitzer_pe = TRUE;
   for (;;)
   {
     opt = get_option(opt_list, count_opt_list, &next_char);
