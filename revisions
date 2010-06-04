@@ -1450,6 +1450,13 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+        svn 4490
+        --------
+	Redox had never been enabled for the SIT formulation.
+	Added the switch to include the hydrogen balance 
+        equation for SIT.
+
+        --------
         svn 4458
         --------
         Tweaked the convergence parameters for Pitzer log
