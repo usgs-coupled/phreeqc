@@ -1040,7 +1040,7 @@ ineq(int in_kode)
 		for (i = 0; i < count_unknowns; i++)
 		{
 			if ((x[i]->type == AH2O && full_pitzer == FALSE) ||
-				(x[i]->type == MH && pitzer_pe == FALSE) ||
+				(x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE) ||
 				x[i]->type == MU ||
 				(x[i]->type == PITZER_GAMMA && full_pitzer == FALSE))
 			{
