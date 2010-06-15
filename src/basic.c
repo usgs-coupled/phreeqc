@@ -17,9 +17,12 @@ typedef unsigned char boolean;
 static char const svnid[] = "$Id$";
 
 int n_user_punch_index;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 void GridChar(char *s, char *a);
 extern int colnr, rownr;
+#endif
+#ifdef CHART
+void PlotXY(char *x, char *y);
 #endif
 
 static int sget_logical_line(char **ptr, int *l, char *return_line);
@@ -88,10 +91,13 @@ static const struct const_key command[] = {
 	{"let", toklet},
 	{"print", tokprint},
 	{"punch", tokpunch},
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 	{"graph_x", tokgraph_x},
 	{"graph_y", tokgraph_y},
 	{"graph_sy", tokgraph_sy},
+#endif
+#ifdef CHART
+	{"plot_xy", tokplot_xy},
 #endif
 	{"input", tokinput},
 	{"goto", tokgoto},
@@ -960,7 +966,7 @@ parse(Char * inbuf, tokenrec ** buf)
 							t->kind = tokprint;
 						else if (!strcmp(token, "punch"))
 							t->kind = tokpunch;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 						else if (!strcmp(token, "graph_x"))
 							t->kind = tokgraph_x;
 						else if (!strcmp(token, "graph_y"))
@@ -1799,7 +1805,7 @@ listtokens(FILE * f, tokenrec * buf)
 			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
 			break;
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 		case tokgraph_x:
 			output_msg(OUTPUT_BASIC, "GRAPH_X");
 			break;
@@ -1810,6 +1816,12 @@ listtokens(FILE * f, tokenrec * buf)
 
 		case tokgraph_sy:
 			output_msg(OUTPUT_BASIC, "GRAPH_SY");
+			break;
+#endif
+
+#if defined CHART
+		case tokplot_xy:
+			output_msg(OUTPUT_BASIC, "PLOT_XY");
 			break;
 #endif
 
@@ -4070,7 +4082,7 @@ cmdpunch(struct LOC_exec *LINK)
 	}
 }
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 Local void CLASS_QUALIFIER
 cmdgraph_x(struct LOC_exec *LINK)
 {
@@ -4123,6 +4135,8 @@ cmdgraph_y(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
+		if (colnr == 0)
+			rownr++;
 		if (n.stringval)
 		{
 /*      fputs(n.UU.sval, stdout); */
@@ -4154,6 +4168,8 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
+		if (colnr == 0)
+			rownr++;
 		if (n.stringval)
 		{
 /*      fputs(n.UU.sval, stdout); */
@@ -4165,6 +4181,49 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		colnr++;
 	}
 }
+#endif
+
+#ifdef CHART
+Local void CLASS_QUALIFIER
+cmdplot_xy(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n[2];
+	Char STR[2][256];
+	int i = 0;
+	semiflag = false;
+
+	while (!iseos(LINK) && i < 2)
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			i++;
+			continue;
+		}
+		n[i] = expr(LINK);
+		if (n[i].stringval)
+		{
+			strcpy(STR[i], n[i].UU.sval);
+			Free(n[i].UU.sval);
+		}
+		else
+			numtostr(STR[i], n[i].UU.val);
+	}
+
+	if (colnr == 0)
+		rownr++;
+
+	PlotXY(STR[0], STR[1]);
+	/*output_msg(OUTPUT_MESSAGE, "row %d.\tcol %d. x %s. y %s.\n",
+				   rownr, colnr, STR[0], STR[1]); */
+	colnr++;
+}
+
 #endif
 
 #ifdef SKIP
@@ -4914,7 +4973,7 @@ exec(void)
 					cmdchange_surf(&V);
 					break;
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 				case tokgraph_x:
 					cmdgraph_x(&V);
 					break;
@@ -4925,6 +4984,11 @@ exec(void)
 
 				case tokgraph_sy:
 					cmdgraph_sy(&V);
+					break;
+#endif
+#ifdef CHART
+				case tokplot_xy:
+					cmdplot_xy(&V);
 					break;
 #endif
 

@@ -12,6 +12,9 @@ extern void SAX_cleanup(void);
 
 static char const svnid[] = "$Id$";
 
+#ifdef CHART
+extern bool u_g;
+#endif
 #ifdef DOS
 static int write_banner(void);
 #endif
@@ -105,13 +108,13 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 /*
  *   Read input data for simulation
  */
+
 	errors = run_simulations(getc_callback, input_cookie);
 	if (errors != 0)
 	{
 		clean_up();
 		return errors;
 	}
-
 
 /*
  *   Display successful status
@@ -134,7 +137,10 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
 	}
 #endif
-
+#ifdef CHART
+	if (u_g)
+		System::Threading::Thread::Sleep(1000); /* give the chart a second to finish... */
+#endif
 	clean_up();
 	close_input_files();
 	close_output_files();
@@ -157,7 +163,7 @@ write_banner(void)
 			   "              º                                            º\n");
 
 	/* version */
-	len = sprintf(buffer, "* PHREEQC-%s *", "@VERSION@");
+	len = sprintf(buffer, "* PHREEQC-%s *", "2.17.0");
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer,
 			   44 - indent - len, ' ');
@@ -177,7 +183,7 @@ write_banner(void)
 
 
 	/* date */
-	len = sprintf(buffer, "%s", "@VER_DATE@");
+	len = sprintf(buffer, "%s", "February 12, 2010");
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer,
 			   44 - indent - len, ' ');

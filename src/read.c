@@ -95,29 +95,43 @@ STATIC int read_use(void);
 STATIC int read_title(void);
 STATIC int read_user_print(void);
 STATIC int read_user_punch(void);
-#ifdef PHREEQ98
+
+extern int reading_database(void);
+extern int check_line(const char *string, int allow_empty, int allow_eof,
+					  int allow_keyword, int print);
+static LDBLE dummy;
+static char *prev_next_char;
+
+#if defined PHREEQ98 || defined CHART
 STATIC int read_user_graph(void);
 extern int connect_simulations, graph_initial_solutions;
 /*extern*/ int shifts_as_points;
 extern int chart_type;
 extern int ShowChart;
-extern int RowOffset, ColumnOffset;
-#endif
-
-extern int reading_database(void);
-extern int check_line(const char *string, int allow_empty, int allow_eof,
-					  int allow_keyword, int print);
-
-#ifdef PHREEQ98
 extern int copy_title(char *token_ptr, char **ptr, int *length);
 extern int OpenCSVFile(char file_name[MAX_LENGTH]);
 void GridHeadings(char *s, int i);
 void SetAxisTitles(char *s, int i);
 void SetAxisScale(char *a, int c, char *v, int l);
 void SetChartTitle(char *s);
+extern int RowOffset, ColumnOffset;
 #endif
 
-static LDBLE dummy;
+#ifdef CHART
+extern char *axis_titles[3];
+extern char *chart_title;
+extern float axis_scale_x[5];
+extern float axis_scale_y[5];
+extern float axis_scale_y2[5];
+extern int FirstCallToUSER_GRAPH;
+extern void MallocCurves(int nc, int ncxy);
+extern void DeleteCurves(void);
+extern void	ExtractCurveInfo(char *line, int curvenr);
+extern int ncurves_changed[3];
+extern int nCSV_headers;
+extern bool new_ug, u_g;
+#endif
+
 #endif
 
 /* ---------------------------------------------------------------------- */
@@ -455,7 +469,7 @@ read_input(void)
 			break;
 		case 46:
 			keyword[46].keycount++;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 			read_user_graph();
 # else
 			for (;;)
@@ -1409,15 +1423,16 @@ read_exchange(void)
 			 *   Species formula is stored in token
 			 */
 			if (i != UPPER && token[0] != '[')
-			{
-				error_msg
-					("Expected exchanger name to begin with a capital letter.",
-					 CONTINUE);
-				error_msg(line_save, CONTINUE);
+			{ /* maybe a bit more clear? */
+				sprintf(error_string,
+					"Expected exchanger name to begin with a capital letter, but found:\n %s",
+					line_save);
+				error_msg(error_string, CONTINUE);
 				input_error++;
 				break;
 			}
 			exchange[n].comps[count_comps].formula = string_hsave(token);
+			prev_next_char = ptr;
 			i = copy_token(token1, &ptr, &l);
 			if (i == DIGIT)
 			{
@@ -1428,12 +1443,14 @@ read_exchange(void)
 				/* exchanger conc. is read directly .. */
 				if (sscanf(token1, SCANFORMAT, &conc) < 1)
 				{
-					error_msg("Expected concentration of exchanger.",
-							  CONTINUE);
-					error_msg(line_save, CONTINUE);
+				sprintf(error_string,
+					"Expected concentration of exchanger, but found:\n %s",
+					line_save);
+					error_msg(error_string, CONTINUE);
 					input_error++;
 					break;
 				}
+				prev_next_char = ptr;
 				j = copy_token(token1, &ptr, &l);
 				if (j == UPPER || j == LOWER)
 				{
@@ -1441,9 +1458,10 @@ read_exchange(void)
 						string_hsave(token1);
 					if (copy_token(token1, &ptr, &l) != DIGIT)
 					{
-						error_msg
-							("Expected a coefficient to relate exchange to kinetic reaction.\n",
-							 CONTINUE);
+						sprintf(error_string,
+							"Expected a coefficient to relate exchange to kinetic reaction, but found:\n %s",
+							prev_next_char);
+						error_msg(error_string, CONTINUE);
 						input_error++;
 						break;
 					}
@@ -1461,6 +1479,7 @@ read_exchange(void)
 				/* exchanger conc. is related to mineral or kinetics */
 				exchange[n].comps[count_comps].phase_name =
 					string_hsave(token1);
+				prev_next_char = ptr;
 				j = copy_token(token1, &ptr, &l);
 				if (j == DIGIT)
 				{
@@ -1481,21 +1500,24 @@ read_exchange(void)
 					}
 					else
 					{
-						error_msg
-							("Character string expected to be 'equilibrium_phase' or 'kinetics' to relate exchange to mineral or kinetic reaction.\n",
-							 CONTINUE);
+						sprintf(error_string,
+							"Character string expected to be 'equilibrium_phase' or 'kinetics'\n to relate exchange to mineral or kinetic reaction, but found:\n %s",
+							prev_next_char);
+						error_msg(error_string, CONTINUE);
 						input_error++;
 						break;
 					}
+					prev_next_char = ptr;
 					j = copy_token(token1, &ptr, &l);
 				}
 
 
 				if (j != DIGIT)
 				{
-					error_msg
-						("Expected a coefficient to relate exchanger to mineral or kinetic reaction.\n",
-						 CONTINUE);
+					sprintf(error_string,
+						"Expected a coefficient to relate exchanger to mineral or kinetic reaction, but found:\n %s",
+						prev_next_char);
+					error_msg(error_string, CONTINUE);
 					input_error++;
 					break;
 				}
@@ -2363,11 +2385,13 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 			sscanf(token, SCANFORMAT, &(isotopes[count_isotopes].ratio));
 
 			/* read and store isotope ratio uncertainty */
+			prev_next_char = ptr;
 			if (copy_token(token, &ptr, &l) != DIGIT)
 			{
 				input_error++;
 				sprintf(error_string,
-						"Expected numeric value for uncertainty in isotope ratio.");
+					"Expected numeric value for uncertainty in isotope ratio, but found:\n %s",
+					prev_next_char);
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
@@ -2559,6 +2583,7 @@ read_kinetics(void)
 			}
 			else
 			{
+				prev_next_char = next_char;
 				if (copy_token(token, &next_char, &l) == DIGIT)
 				{
 					kinetics_comp_ptr->tol = strtod(token, &ptr);
@@ -2566,7 +2591,8 @@ read_kinetics(void)
 				else
 				{
 					sprintf(error_string,
-							"Expecting numerical value for tolerance.");
+						"Expecting numerical value for tolerance, but found:\n %s",
+						prev_next_char);
 					error_msg(error_string, CONTINUE);
 					input_error++;
 				}
@@ -2581,6 +2607,7 @@ read_kinetics(void)
 			}
 			else
 			{
+				prev_next_char = next_char;
 				if (copy_token(token, &next_char, &l) == DIGIT)
 				{
 					kinetics_comp_ptr->m = strtod(token, &ptr);
@@ -2588,7 +2615,8 @@ read_kinetics(void)
 				else
 				{
 					sprintf(error_string,
-							"Expecting numerical value for moles of reactant.");
+						"Expecting numerical value for moles of reactant (m), but found:\n %s",
+						prev_next_char);
 					error_msg(error_string, CONTINUE);
 					input_error++;
 				}
@@ -2603,6 +2631,7 @@ read_kinetics(void)
 			}
 			else
 			{
+				prev_next_char = next_char;
 				if (copy_token(token, &next_char, &l) == DIGIT)
 				{
 					kinetics_comp_ptr->m0 = strtod(token, &ptr);
@@ -2610,8 +2639,9 @@ read_kinetics(void)
 				else
 				{
 					sprintf(error_string,
-							"Expecting numerical value for initial moles of reactant.");
-					error_msg(error_string, CONTINUE);
+					"Expecting numerical value for initial moles of reactant (m0), but found:\n %s",
+					prev_next_char);
+				error_msg(error_string, CONTINUE);
 					input_error++;
 				}
 			}
@@ -9417,7 +9447,7 @@ read_user_punch(void)
 	return (return_value);
 }
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_user_graph(void)
@@ -9436,7 +9466,7 @@ read_user_graph(void)
  *	 ERROR   if error occurred reading data
  *
  */
-	int l, length, line_length;
+	int l, length, line_length, CurveInfonr = 0;
 	int return_value, opt, opt_save;
 	char file_name[MAX_LENGTH];
 	char token[MAX_LENGTH];
@@ -9463,15 +9493,30 @@ read_user_graph(void)
 /*
  *   Read lines
  */
+#ifdef PHREEQ98
 	user_graph_count_headings = 0;
+#endif
+#ifdef CHART
+	if (FirstCallToUSER_GRAPH)
+	{
+		u_g = true; /* used in mainsubs.c for clean_up */
+		user_graph_count_headings = 0;
+		MallocCurves(5, 30);
+	}
+	else
+	{
+		connect_simulations = false;
+		ncurves_changed[0] = 1;
+		ColumnOffset = ncurves_changed[2];
+		new_ug = true;
+	}
+#endif
 	return_value = UNKNOWN;
 	for (;;)
 	{
 		opt = get_option(opt_list, count_opt_list, &next_char);
-		if (opt == OPTION_DEFAULT)
-		{
-			opt = opt_save;
-		}
+		if (opt == OPTION_DEFAULT) opt = opt_save;
+
 		switch (opt)
 		{
 		case OPTION_EOF:		/* end of file */
@@ -9496,7 +9541,7 @@ read_user_graph(void)
 			while (copy_token(token, &next_char, &l) != EMPTY)
 			{
 				user_graph_headings =
-					PHRQ_realloc(user_graph_headings,
+					(char **) PHRQ_realloc(user_graph_headings,
 								 (size_t) (user_graph_count_headings +
 										   1) * sizeof(char *));
 				if (user_graph_headings == NULL)
@@ -9511,78 +9556,74 @@ read_user_graph(void)
 			copy_title(token, &next_char, &l);
 			SetChartTitle(token);
 			break;
-		case 5:
-			{					/* axis titles */
-				i = 0;
-				while (copy_title(token, &next_char, &l) != EMPTY)
-				{
-					SetAxisTitles(token, i);
-					i++;
-				}
+		case 5:	/* axis titles */
+			i = 0;
+			while (copy_title(token, &next_char, &l) != EMPTY)
+			{
+				SetAxisTitles(token, i);
+				i++;
 			}
 			break;
-		case 6:
-			{					/* axis scales */
-				char *axis = "";
-				int j = 0;
-				copy_token(token, &next_char, &l);
-				str_tolower(token);
-				if (strstr(token, "x") == token)
-				{
-					axis = "x";
-				}
-				else if (strstr(token, "y") == token)
-				{
-					axis = "y";
-				}
-				else if (strstr(token, "s") == token)
-				{
-					axis = "s";
-				}
-				else
-				{
-					input_error++;
-					error_msg("Expected axis type.", CONTINUE);
-				}
-				while ((j < 4)
-					   && (i = copy_token(token, &next_char, &l)) != EMPTY)
-				{
-					str_tolower(token);
-					if ((i == DIGIT) || (strstr(token, "auto") == token))
-					{
-						SetAxisScale(axis, j, token, FALSE);
-					}
-					else
-					{
-						input_error++;
-						error_msg("Expected numerical value or 'auto'.",
-								  CONTINUE);
-					}
-					j++;		/* counter for categories */
-				}
-				if (j == 4)
-					SetAxisScale(axis, j, 0,
-								 get_true_false(next_char, FALSE));
-			}
-			break;
-		case 7:
-			graph_initial_solutions = get_true_false(next_char, TRUE);
-			break;
-		case 8:
+		case 6:	/* axis scales */
+			char *axis; axis = "";
+			int j; j = 0;
+			prev_next_char = next_char;
 			copy_token(token, &next_char, &l);
 			str_tolower(token);
 			if (strstr(token, "x") == token)
-			{
-				chart_type = 0;
-			}
-			else if (strstr(token, "t") == token)
-			{
-				chart_type = 1;
-			}
+				axis = "x";
+			else if ((strstr(token, "y") == token) && (strstr(token, "y2") != token))
+				axis = "y";
+			else if ((strstr(token, "s") == token) || (strstr(token, "y2") == token))
+				axis = "s";
 			else
 			{
 				input_error++;
-				error_msg("Expected simulation type.", CONTINUE);
+				copy_token(token, &prev_next_char, &l);
+				sprintf(error_string,
+					"Found '%s', but expect axis type \'x\', \'y\', or \'sy\'.", token);
+				error_msg(error_string, CONTINUE);
+			}
+			while ((j < 4)
+				   && (i = copy_token(token, &next_char, &l)) != EMPTY)
+			{
+				str_tolower(token);
+				if ((i == DIGIT) || (strstr(token, "a") == token))
+					SetAxisScale(axis, j, token, FALSE);
+				else
+				{
+					input_error++;
+					copy_token(token, &prev_next_char, &l);
+					sprintf(error_string,
+						"Found '%s', but expect number or 'a(uto)'.", token);
+					error_msg(error_string, CONTINUE);
+				}
+				j++;		/* counter for categories */
+				prev_next_char = next_char;
+			}
+			if (j == 4)
+				SetAxisScale(axis, j, 0,
+							 get_true_false(next_char, FALSE)); /* anything else than false turns on log scale */
+			break;
+		case 7:
+			graph_initial_solutions = get_true_false(next_char, FALSE);
+			break;
+		case 8:
+			prev_next_char = next_char;
+			copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (strstr(token, "x") == token || strstr(token, "d") == token)
+				chart_type = 0;
+			else if (strstr(token, "t") == token)
+				chart_type = 1;
+			else
+			{
+				input_error++;
+				copy_token(token, &prev_next_char, &l);
+				sprintf(error_string,
+						"Found '%s', but expect plot type: (\'x\' or \'dist\') for distance, (\'t\') for time.",
+						token);
+					error_msg(error_string, CONTINUE);
 			}
 			break;
 		case 9:
@@ -9593,16 +9634,16 @@ read_user_graph(void)
 				chart_type = 1;
 			break;
 		case 10:
-			{
-				i = copy_token(token, &next_char, &l);
-				str_tolower(token);
-				if (i == DIGIT)
-					sscanf(token, "%d", &RowOffset);
-				i = copy_token(token, &next_char, &l);
-				str_tolower(token);
-				if (i == DIGIT)
-					sscanf(token, "%d", &ColumnOffset);
-			}
+#ifdef PHREEQ98
+			i = copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (i == DIGIT)
+				sscanf(token, "%d", &RowOffset);
+			i = copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (i == DIGIT)
+				sscanf(token, "%d", &ColumnOffset);
+#endif
 			break;
 		case 11:
 			connect_simulations = get_true_false(next_char, TRUE);
@@ -9612,7 +9653,7 @@ read_user_graph(void)
 			strcpy(file_name, next_char);
 			if (!OpenCSVFile(file_name))
 			{
-				sprintf(error_string, "Can't open file, %s.", file_name);
+				sprintf(error_string, "Can't open file, %s. Give the full path + name, or copy the file to the working dir", file_name);
 				input_error++;
 				error_msg(error_string, CONTINUE);
 			}
@@ -9621,7 +9662,7 @@ read_user_graph(void)
 		case OPTION_DEFAULT:	/* read first command */
 			rate_free(user_graph);
 			user_graph->new_def = TRUE;
-			user_graph->commands = PHRQ_malloc(sizeof(char));
+			user_graph->commands = (char *) PHRQ_malloc(sizeof(char));
 			if (user_graph->commands == NULL)
 				malloc_error();
 			user_graph->commands[0] = '\0';
@@ -9632,9 +9673,16 @@ read_user_graph(void)
 				string_hsave("user defined Basic punch routine");
 		case OPT_1:			/* read command */
 			length = strlen(user_graph->commands);
+#ifdef CHART
+			if (strstr(line, "plot_xy"))
+			{
+				ExtractCurveInfo(line, CurveInfonr);
+				CurveInfonr++;
+			}
+#endif
 			line_length = strlen(line);
 			user_graph->commands =
-				PHRQ_realloc(user_graph->commands,
+				(char *) PHRQ_realloc(user_graph->commands,
 							 (size_t) (length + line_length +
 									   2) * sizeof(char));
 			if (user_graph->commands == NULL)
@@ -9645,14 +9693,20 @@ read_user_graph(void)
 			opt_save = OPT_1;
 			break;
 		}
+		
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
+#ifdef PHREEQ98
 	for (i = 0; i < user_graph_count_headings; i++)
+	{
 		GridHeadings(user_graph_headings[i], i);
+	}
+#endif
 	return (return_value);
 }
 #endif
+
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_solid_solutions(void)

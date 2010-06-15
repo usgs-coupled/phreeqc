@@ -39,7 +39,7 @@ static int punch_saturation_indices(void);
 static int punch_totals(void);
 static int punch_user_punch(void);
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 static int punch_user_graph(void);
 extern int colnr, rownr;
 extern int graph_initial_solutions;
@@ -48,6 +48,10 @@ extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
 extern int chart_type;
 extern int AddSeries;
 extern int FirstCallToUSER_GRAPH;
+#endif
+
+#ifdef CHART // remove this one when finalizing...
+extern void start_chart(bool end);
 #endif
 
 #if defined(SWIG_SHARED_OBJ)
@@ -147,12 +151,21 @@ punch_all(void)
 {
 	int i;
 
-#ifndef PHREEQ98				/* if not PHREEQ98 use the standard declaration */
-	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE))
-		return (OK);
-/*
- *   Punch results
- */
+//#ifndef PHREEQ98		/* if not PHREEQ98 use the standard declaration */
+//	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE) && user_graph->commands == NULL)
+//		return (OK);
+///*
+// *   Punch results
+// */
+//	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
+//	{
+//		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+//	}
+//	else if (use.kinetics_in != FALSE)
+//	{
+//		use.kinetics_ptr = kinetics_bsearch(-2, &i);
+//	}
+//#else /* if PHREEQ98 execute punch_user_graph first, that is, before punch.in and pr.punch is checked */
 	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 	{
 		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
@@ -161,21 +174,13 @@ punch_all(void)
 	{
 		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
-#else /* if PHREEQ98 execute punch_user_graph first, that is, before punch.in and pr.punch is checked */
-	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
-	{
-		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
-	}
-	else if (use.kinetics_in != FALSE)
-	{
-		use.kinetics_ptr = kinetics_bsearch(-2, &i);
-	}
+#if defined PHREEQ98 || defined CHART
 	if (pr.user_graph == TRUE)
 		punch_user_graph();
-
+#endif
 	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE))
 		return (OK);
-#endif
+//#endif
 	punch_identifiers();
 	punch_totals();
 	punch_molalities();
@@ -2699,6 +2704,7 @@ punch_identifiers(void)
 	const char *gformat;
 	int i, l;
 	char token[MAX_LENGTH];
+
 	if (punch.in == FALSE)
 		return (OK);
 	if (punch.high_precision == FALSE)
@@ -3152,6 +3158,7 @@ punch_user_punch(void)
 #if !defined(PHREEQC_CLASS)
 	extern int n_user_punch_index;
 #endif
+
 	n_user_punch_index = 0;
 	if (punch.user_punch == FALSE)
 		return (OK);
@@ -3176,7 +3183,7 @@ punch_user_punch(void)
 	return (OK);
 }
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 punch_user_graph(void)
@@ -3247,6 +3254,11 @@ punch_user_graph(void)
 	if (state == TRANSPORT)
 		prev_transport_step = transport_step;
 	/*if (state == REACTION) prev_reaction_step = reaction_step; */
+
+	if (FirstCallToUSER_GRAPH)
+	{
+		start_chart(0);
+	}
 
 	FirstCallToUSER_GRAPH = FALSE;
 

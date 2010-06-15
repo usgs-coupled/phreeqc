@@ -7,29 +7,19 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
-------------------------------------------------------------
-Version 2.17.0: February 12, 2010
-------------------------------------------------------------
-
-        --------
-        svn 4006
-        --------
-
-        Changed the calculation of Specific Conductance (SC, uS/cm)
-        to be for the actual temperature of the SOLUTION (in output
-        and in BASIC function SC).
-        Previous versions calculated SC for 25 oC, whereas the
-        complexation model is done at the actual temperature.
-        To obtain SC at 25 oC, use keyword REACTION_TEMERATURE,
-        for example:
-        
-           SOLUTION 1; K 1; Cl 1; -temp 99
-           REACTION_TEMERATURE; 25
-           END
-           
-        The following example prints to the selected output
-        file the equivalent conductance in (mmho/cm / eq/L) at
-        20 degrees C for a 1:1 chloride salt solution:
+	Changed the calculation of Specific Conductance (SC, uS/cm)
+	to be for the actual temperature of the SOLUTION (in output
+	and in BASIC function SC).
+	Previous versions calculated SC for 25 oC, whereas the
+	complexation model is done at the actual temperature.
+	To obtain SC at 25 oC, use keyword REACTION_TEMERATURE,
+	for example:
+	   SOLUTION 1; K 1; Cl 1; -temp 99
+	   REACTION_TEMERATURE; 25
+	   END
+	The following example prints to the selected output
+	file the equivalent conductance in (mmho/cm / eq/L) at
+	20 degrees C for a 1:1 chloride salt solution:
 
         USER_PUNCH
                 -head conc eq_EC_20
@@ -37,141 +27,144 @@ Version 2.17.0: February 12, 2010
         10 punch tot("Cl"), SC / tot("Cl") * 1e-3
                 -end
 
-        where 1e-3 converts from microSiemens/cm to mmho/cm.
-        (The example given with svn 2448 multiplies SC's incorrectly
-        with the ratio of the temperatures.)
-        --------
-        svn 3986
-        --------
-        Added an option for time-substepping in multicomponent
-        diffusion (-multi_D true), keyword TRANSPORT:
-        
-        -time_step 3600 3.0  # 3 time-substeps of 1200 seconds
-         
-        This option is useful to avoid a warning about negative 
-        concentrations that may occur in MCD simulations.
-        
-        --------
-        svn 3902
-        --------
-        Added four basic functions for use only with PHAST. The
-        functions are related to the volume, porosity, and 
-        water saturation of a PHAST finite-difference cell:
-         
-        CELL_VOLUME--The total volume of the cell in liters.
-        CELL_PORE_VOLUME--The void volume of the cell in liters.
-        CELL_SATURATION--The fraction of the void volume filled
-                with water, unitless.
-        CELL_POROSITY--The porosity of the cell, equal to 
-                CELL_PORE_VOLUME / CELL_VOLUME, unitless.
-                
-                
-        For example, in a USER_PUNCH program for a PHAST run,
-        the number of moles of dissolved chloride in a cell is
-        TOT("Cl")*CELL_PORE_VOLUME for confined flow simulations.
-        More generally, the number of moles of dissolved chloride
-        is TOT("Cl")*CELL_SATURATION*CELL_PORE_VOLUME, for confined
-        or unconfined flow.
-         
-        For solids, the number of moles of calcite in the 
-        saturated part of a cell is 
-        EQUI("Calcite")*CELL_SATURATION*CELL_PORE_VOLUME. For 
-        unconfined flow, the solid reactants are distributed 
-        between the saturated and unsaturated part of a water- 
-        table cell. It is a limitation of PHAST that it is not 
-        possible to determine the amounts of solid reactants 
-        in the unsaturated part of a cell. Note that for 
-        steady-state, unconfined flow, the saturation of cells is 
-        constant and the unsaturated part of a water-table cell 
-        is never part of the active domain.
-        
-        --------
-        svn 3600
-        --------
-        A new 1/T^2 term (A5 coefficient) was added for all Pitzer-parameter 
-        temperature expressions.
-        
-        P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+    where 1e-3 converts from microSiemens/cm to mmho/cm.
+	(The example given with svn 2448 multiplies SC's incorrectly
+	with the ratio of the temperatures.)
+ 	--------
+ 	svn 3986
+ 	--------
+ 	Added an option for time-substepping in multicomponent
+	diffusion (-multi_D true), keyword TRANSPORT:
+	
+	-time_step 3600 3.0  # 3 time-substeps of 1200 seconds
+	 
+	This option is useful to avoid a warning about negative 
+	concentrations that may occur in MCD simulations.
+	
+ 	--------
+ 	svn 3902
+ 	--------
+ 	Added four basic functions for use only with PHAST. The
+ 	functions are related to the volume, porosity, and 
+ 	water saturation of a PHAST finite-difference cell:
+ 	
+ 	CELL_VOLUME--The total volume of the cell in liters.
+ 	CELL_PORE_VOLUME--The void volume of the cell in liters.
+ 	CELL_SATURATION--The fraction of the void volume filled
+ 		with water, unitless.
+ 	CELL_POROSITY--The porosity of the cell, equal to 
+ 		CELL_PORE_VOLUME / CELL_VOLUME, unitless.
+ 		
+ 		
+ 	For example, in a USER_PUNCH program for a PHAST run,
+ 	the number of moles of dissolved chloride in a cell is
+ 	TOT("Cl")*CELL_PORE_VOLUME for confined flow simulations.
+ 	More generally, the number of moles of dissolved chloride
+ 	is TOT("Cl")*CELL_SATURATION*CELL_PORE_VOLUME, for confined
+ 	or unconfined flow.
+ 	
+ 	For solids, the number of moles of calcite in the 
+ 	saturated part of a cell is 
+ 	EQUI("Calcite")*CELL_SATURATION*CELL_PORE_VOLUME. For 
+ 	unconfined flow, the solid reactants are distributed 
+ 	between the saturated and unsaturated part of a water- 
+ 	table cell. It is a limitation of PHAST that it is not 
+ 	possible to determine the amounts of solid reactants 
+ 	in the unsaturated part of a cell. Note that for 
+ 	steady-state, unconfined flow, the saturation of cells is 
+ 	constant and the unsaturated part of a water-table cell 
+ 	is never part of the active domain.
+	
+	--------
+	svn 3600
+	--------
+	A new 1/T^2 term (A5 coefficient) was added for all Pitzer-parameter 
+	temperature expressions.
+	
+	P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR) + A5*(1/(TK*TK) - 1/(TR*TR))
         
         where TK is temperature in Kelvin. The optional A5 parameter
         is read following A4.
-
-        --------
-        svn 3591
-        --------        
-        Added T^2 term to analytical expressions for log k. A T^2 term
-        can now be used in all analytical expressions (except Pitzer 
-        and SIT parameters). The analytical expression is as follows:
         
-        log10(K) = A1 + A2*T + A3/T + A4*log10(T) + A5/T^2 + A6*T^2,
-        
-        where T is in Kelvin. The A6 term is the new addition. The optional 
-        A6 parameter is read following A5.
-        
-        --------
-        svn 3485
-        --------        
-        Added the active fraction model for calculating exchanger
-        compositions described by Appelo (1994), Water Resour. Res. 30,
-        2793-2805. The active fraction model is useful for calculating
-        the decrease of selectivity when concentrations increase (more
-        specific sites being filled first). In the active fraction model,
-        log(K) of an exchange-half reaction depends on the equivalent
-        fraction on the exchanger:
+	
+	--------
+	svn 3591
+	--------	
+	Added T^2 term to analytical expressions for log k. A T^2 term
+	can now be used in all analytical expressions (except Pitzer 
+	and SIT parameters). The analytical expression is as follows:
+	
+	log10(K) = A1 + A2*T + A3/T + A4*log10(T) + A5/T^2 + A6*T^2,
+	
+	where T is in Kelvin. The A6 term is the new addition. The optional 
+	A6 parameter is read following A5.
+	
+	
+	
+	--------
+	svn 3485
+	--------	
+	Added the active fraction model for calculating exchanger
+	compositions described by Appelo (1994), Water Resour. Res. 30,
+	2793-2805. The active fraction model is useful for calculating
+	the decrease of selectivity when concentrations increase (more
+	specific sites being filled first). In the active fraction model,
+	log(K) of an exchange-half reaction depends on the equivalent
+	fraction on the exchanger:
 
-                log(K) = log_k + a_f * (1 - ß_i)
+ 		log(K) = log_k + a_f * (1 - ß_i)
 
-        where log_k is the log of the equilibrium constant when all the 
-                        sites are occupied by ion i,
-                a_f is an empirical coefficient, and
-                ß_i is the equivalent fraction of i.
+	where log_k is the log of the equilibrium constant when all the 
+			sites are occupied by ion i,
+		a_f is an empirical coefficient, and
+		ß_i is the equivalent fraction of i.
 
-        a_f can be defined in EXCHANGE_SPECIES with -gamma after the WATEQ
-        Debye-Hueckel parameters.
-        Example:
+	a_f can be defined in EXCHANGE_SPECIES with -gamma after the WATEQ
+	Debye-Hueckel parameters.
+	Example:
 
-                EXCHANGE_SPECIES
-                 Na+ + X- = NaX; log_k -0.5
-                 -gamma 4.0 0.075 0.50
+		EXCHANGE_SPECIES
+		 Na+ + X- = NaX; log_k -0.5
+		 -gamma 4.0 0.075 0.50
 
-        The association constant for NaX becomes:
-                  log(K) = -0.5 + 0.50 * (1 - ß_Na)
-                  
-        --------
-        svn 3453
-        --------
-        Added Specific Interaction Theory (SIT) activity coefficient
-        model as described in Grenthe, Ingmar, Plyasunov, A.V., and
-        Spahiu, Kastriot, 1997, Estimations of medium effects on
-        thermodynamic data, in Modelling in Aquatic Chemistry,
-        Grenthe, Ingmar, and Puigdomenech, Inasi, eds, OECD
-        Publications, ISBN 92-64-15569-4, 724 p. 
+	The association constant for NaX becomes:
+		  log(K) = -0.5 + 0.50 * (1 - ß_Na)
+		  
+	--------
+	svn 3453
+	--------
+	Added Specific Interaction Theory (SIT) activity coefficient
+	model as described in Grenthe, Ingmar, Plyasunov, A.V., and
+	Spahiu, Kastriot, 1997, Estimations of medium effects on
+	thermodynamic data, in Modelling in Aquatic Chemistry,
+	Grenthe, Ingmar, and Puigdomenech, Inasi, eds, OECD
+	Publications, ISBN 92-64-15569-4, 724 p. 
 
-        Implementation is similar to the PITZER implementation, a
-        database with the SIT keyword invokes the SIT activity
-        coefficient model. Currently, No database is provided.
+	Implementation is similar to the PITZER implementation, a
+	database with the SIT keyword invokes the SIT activity
+	coefficient model. Currently, No database is provided.
 
-        The SIT keyword has two identifiers,
-        -epsilon and -epsilon1, where -epsilon gives the pairwise
-        interaction parameters and -epsilon1 gives the linear ionic
-        strength dependency of epsilon, if available. Both parameters
-        allow for temperature dependence with the same expression used
-        in PITZER. The five-term expression for temperature dependence is 
+	The SIT keyword has two identifiers,
+	-epsilon and -epsilon1, where -epsilon gives the pairwise
+	interaction parameters and -epsilon1 gives the linear ionic
+	strength dependency of epsilon, if available. Both parameters
+	allow for temperature dependence with the same expression used
+	in PITZER. The five-term expression for temperature dependence is 
         as follows:
 
-        P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
 
         where TK is Kelvin and TR is 298.15.
 
-        Example:
-        SIT
-                -epsilon
-                Na+             Br-             0.05    #   0.01
-                Na+             Cl-             0.03    #   0.01
+	Example:
+SIT
+-epsilon
+        Na+             Br-             0.05    #   0.01
+        Na+             Cl-             0.03    #   0.01
 
-                -epsilon1 # not currently used
+-epsilon1 # not currently used
 
 
         --------
@@ -192,9 +185,9 @@ Version 2.17.0: February 12, 2010
                         "charge" - surface charge, equivalents. 
                                    For CD_MUSIC "charge" refers to plane 0.
                         "charge1"- surface charge on plane 1, equivalents
-                                   (CD_MUSIC only).
+                        	   (CD_MUSIC only).
                         "charge2"- surface charge on plane 2, equivalents
-                                   (CD_MUSIC only).                                    
+                        	   (CD_MUSIC only).                        	    
                         "sigma"  - surface charge density, C/m**2.
                                    For CD_MUSIC "sigma" refers to plane 0.                       
                         "sigma1" - surface charge density on plane 1, 
@@ -207,7 +200,7 @@ Version 2.17.0: February 12, 2010
                                    equivalents (CD_MUSIC only). 
                         "psi2"   - surface charge density on plane 2, 
                                    equivalents (CD_MUSIC only).
-                        "water"  - mass of water in the diffuse layer, kg.        
+                        "water"  - mass of water in the diffuse layer, kg.	
         --------
         svn 3189
         --------
@@ -241,23 +234,23 @@ Version 2.17.0: February 12, 2010
         
         SOLUTION_SPECIES
         Na+ = Na+
-        log k 0.0
-        -gamma 4.0 0.075
-        -dw 1.33e-9
-        -millero -3.46 0.1092 -0.000768 2.698 -0.106 0.001651
-        
-        Apparent molar volume parameters have been included in the database
-        phreeqd.dat. Calculations made with this database will include
-        the calculated density in the "Description of solution".
-        
-        A new basic function, RHO, can be used to obtain the density in 
-        USER_PRINT, USER_PUNCH, and RATES data blocks.
-        
-        Example:
-        
-        USER_PUNCH
-        -heading density
-        10 PUNCH RHO
+	log k 0.0
+	-gamma 4.0 0.075
+	-dw 1.33e-9
+	-millero -3.46 0.1092 -0.000768 2.698 -0.106 0.001651
+	
+	Apparent molar volume parameters have been included in the database
+	phreeqd.dat. Calculations made with this database will include
+	the calculated density in the "Description of solution".
+	
+	A new basic function, RHO, can be used to obtain the density in 
+	USER_PRINT, USER_PUNCH, and RATES data blocks.
+	
+	Example:
+	
+	USER_PUNCH
+	-heading density
+	10 PUNCH RHO
         
         --------
         svn 3183
@@ -274,57 +267,57 @@ Version 2.17.0: February 12, 2010
         
         --------
         svn 3160
-        --------        
+        --------	
 
-        Surface charge must be higher than -3000 equivalents,
-        when the diffuse double layer composition is
-        calculated with option -donnan.
+	Surface charge must be higher than -3000 equivalents,
+	when the diffuse double layer composition is
+	calculated with option -donnan.
 
         --------
         svn 3149
         --------
         
-        Diffusion through DDL water is multiplied with c_DDL,i / c_i
-        with option -only_counter false. c_DDL,i is the concentration in
-        DDL water, c_i is the concentration in free porewater. (Previous
-        versions used a multiplier of 1).
+	Diffusion through DDL water is multiplied with c_DDL,i / c_i
+	with option -only_counter false. c_DDL,i is the concentration in
+	DDL water, c_i is the concentration in free porewater. (Previous
+	versions used a multiplier of 1).
 
-        Added -erm_ddl as parameter for aqueous species, to be defined
-        with keyword SOLUTION_SPECIES. erm_ddl (> 0) is an
-        enrichment factor in DDL water calculated with option -donnan:
-                c_DDL,i = c_i * Boltzmann_factor * erm_ddl
-        Example:
-        SOLUTION_SPECIES; Cs+ = Cs+; log_k 0; -erm_ddl 2.1
-        Default: erm_ddl = 1.0.
+	Added -erm_ddl as parameter for aqueous species, to be defined
+	with keyword SOLUTION_SPECIES. erm_ddl (> 0) is an
+	enrichment factor in DDL water calculated with option -donnan:
+		c_DDL,i = c_i * Boltzmann_factor * erm_ddl
+	Example:
+	SOLUTION_SPECIES; Cs+ = Cs+; log_k 0; -erm_ddl 2.1
+	Default: erm_ddl = 1.0.
 
-        Added optional multicomponent diffusion of cations in interlayer
-        space of montmorillonite to keyword TRANSPORT.
-        In the example,
-                interlayer diffusion is true (default = false), 
-                interlayer porosity is 0.09 (default = 0.1),
-                the porosity where interlayer diffusion stops is 0.01
-                 (default is 0),
-                the tortuosity factor is 150 (default = 100).
+	Added optional multicomponent diffusion of cations in interlayer
+	space of montmorillonite to keyword TRANSPORT.
+	In the example,
+		interlayer diffusion is true (default = false), 
+		interlayer porosity is 0.09 (default = 0.1),
+		the porosity where interlayer diffusion stops is 0.01
+		 (default is 0),
+		the tortuosity factor is 150 (default = 100).
 
-                TRANSPORT
-                -interlayer_D true 0.09 0.01 150
+	        TRANSPORT
+		-interlayer_D true 0.09 0.01 150
 
-        With interlayer_D true, also -multi_D true (and other
-        parameters) must be set, for example:
+	With interlayer_D true, also -multi_D true (and other
+	parameters) must be set, for example:
                  -multi_d true 1e-9 0.3 0.05 1.0
-        Interlayer diffusion is calculated for the cations associated with X-,
-        defined with keyword EXCHANGE.
-                Mass_transfer = -A * (Dw' / t_f) * c_CEC * grad(beta)
-        A is surface area, A_porewater * (interlayer porosity / free
-                porewater porosity),
-        Dw' is the temperature corrected diffusion coefficient of the
-                aqueous species (defined in SOLUTION_SPECIES),
-                corrected to zero charge transfer,
-        t_f is the interlayer tortuosity factor (-),
-        c_CEC is concentration of total X-, mol(X-) / (L interlayer
-                water). L interlayer water = (L porewater + L DDL-
-                water) * (interlayer porosity / free porewater porosity),
-        grad(beta) is the gradient of the equivalent fraction.
+	Interlayer diffusion is calculated for the cations associated with X-,
+	defined with keyword EXCHANGE.
+		Mass_transfer = -A * (Dw' / t_f) * c_CEC * grad(beta)
+	A is surface area, A_porewater * (interlayer porosity / free
+		porewater porosity),
+	Dw' is the temperature corrected diffusion coefficient of the
+		aqueous species (defined in SOLUTION_SPECIES),
+		corrected to zero charge transfer,
+	t_f is the interlayer tortuosity factor (-),
+	c_CEC is concentration of total X-, mol(X-) / (L interlayer
+		water). L interlayer water = (L porewater + L DDL-
+		water) * (interlayer porosity / free porewater porosity),
+	grad(beta) is the gradient of the equivalent fraction.
 
         --------
         svn 2969
@@ -476,10 +469,8 @@ Version 2.14.3: November 17, 2007
 
         As with all other Pitzer parameters, a five-term expression 
         for temperature dependence is available:
-        
-        P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
+            P = A0 + A1*(1/TK - 1/TR) + A2log(TK/TR) + A3*(TK-TR) +
                 A4*(TK*TK - TR*TR),
-                
         where TK is Kelvin and TR is 298.15. A0 through A4 are
         defined in order. Any undefined values are assumed to 
         be zero.
@@ -997,7 +988,7 @@ Version 2.9:
                 end of string a$ and stores result in b$.
 
 
-*       Added new Basic function SYS that calculates the
+*       Added new Basic function SYS that calculates the to
         total amount of an element in all phases (solution,
         equilibrium_phases, surfaces, exchangers, solid solutions, 
         and gas phase). KINETIC reactions are not included.
@@ -1415,138 +1406,117 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
-------------------------------------------------------------
-Version 2.17.0: February 12, 2010
-------------------------------------------------------------
+	--------
+	svn 3901
+	--------
+	Error with equations that included (s) or (g). The
+	equation and log K were correct only for the simulation
+	when initially read. Now equations an log Ks are correct
+	for all simulations. Calculates saturation index from
+	the equation after (s) and (g) are eliminated. 
+	
+	
+	--------
+	svn 3695
+	--------
+	For transport calculations, fixed step_fraction when 
+	nmix == 1 and ishift == 0.
+	
+	--------
+	svn 3684
+	--------
+	Added more precision in writing dump file fields.
+	
+	Multiple REACTIONS were not sorted correctly. Added sort
+	routine to tidy.c.
+
+	--------
+	svn 3640
+	--------
+	Print correct temperature for gas phase dump.
+	
+	Correct total moles of exchanger for function sys("X").
+	
+        --------
+	svn 3568
+        --------
+	minteq.dat: Changing log K of gypsum to minteq version 
+	4 value (-4.61). Old value (-4.848) is too stable.
 
         --------
-        svn 4023
+	svn 3483
         --------
-        Trapped error when -mole_balance option was used in
-        SOLUTION_SPECIES and one of the stated elements was 
-        not defined. 
-        
-        --------
-        svn 4022
-        --------   
-        Redefined CN- and SCN- to be new elements Cyanide and
-        thiocyanate in llnl.dat. Former definitions were not 
-        useful because cyanide and thiocyanate were never
-        stable and defining a master species as CN- caused
-        problems with mole balances, appearing in solutions
-        without any carbon. 
-        
-        --------
-        svn 3901
-        --------
-        Error with equations that included (s) or (g). The
-        equation and log K were correct only for the simulation
-        when initially read. Now equations an log Ks are correct
-        for all simulations. Calculates saturation index from
-        the equation after (s) and (g) are eliminated. 
-        
-        
-        --------
-        svn 3695
-        --------
-        For transport calculations, fixed step_fraction when 
-        nmix == 1 and ishift == 0.
-        
-        --------
-        svn 3684
-        --------
-        Added more precision in writing dump file fields.
-        
-        Multiple REACTIONS were not sorted correctly. Added sort
-        routine to tidy.c.
+	Alkalinity is now printed to the selected output file 
+	when the Alkalinity is used with -totals.
+	
+	SELECTED_OUTPUT; -totals Alkalinity 
+	
+	Modified numerical method to attempt to produce a numerical 
+	solution when complexes are extremely strong. llnl.dat As and F
+	complexes caused PHREEQC to fail on an initial solution 
+	calculation. The terms of the As and F mass balance equations
+	were identical to machine precision. One unknown log activity
+	was adjusted but the other was not. Now attempts an adjustment 
+	for the unadjusted log activity.
+	
 
         --------
-        svn 3640
+	svn 3463
         --------
-        Print correct temperature for gas phase dump.
-        
-        Correct total moles of exchanger for function sys("X").
-        
-        --------
-        svn 3568
-        --------
-        minteq.dat: Changing log K of gypsum to minteq version 
-        4 value (-4.61). Old value (-4.848) is too stable.
+	Modified handling of not-a-number in places that 
+	affected the adjustment of log activities (reset and 
+	revise guesses). Uses isfinite function that is available 
+	on Linux and is ifdef'd in global.h for Visual Studio. 
+	The NaN problem occurred rarely and was related to 
+	bad results from the solver and when poor estimates were
+	available in revise_guesses. Also insured that log activity
+	for new master species was well defined in switch_bases.
 
         --------
-        svn 3483
+	svn 3446
         --------
-        Alkalinity is now printed to the selected output file 
-        when the Alkalinity is used with -totals.
-        
-        SELECTED_OUTPUT; -totals Alkalinity 
-        
-        Modified numerical method to attempt to produce a numerical 
-        solution when complexes are extremely strong. llnl.dat As and F
-        complexes caused PHREEQC to fail on an initial solution 
-        calculation. The terms of the As and F mass balance equations
-        were identical to machine precision. One unknown log activity
-        was adjusted but the other was not. Now attempts an adjustment 
-        for the unadjusted log activity.
-        
+	Fixed errors in casting for long double version.
 
         --------
-        svn 3463
+	svn 3440
         --------
-        Modified handling of not-a-number in places that 
-        affected the adjustment of log activities (reset and 
-        revise guesses). Uses isfinite function that is available 
-        on Linux and is ifdef'd in global.h for Visual Studio. 
-        The NaN problem occurred rarely and was related to 
-        bad results from the solver and when poor estimates were
-        available in revise_guesses. Also insured that log activity
-        for new master species was well defined in switch_bases.
+	Adjusted numerical calculation to avoid extremely large
+	calculated specific conductances in high ionic strength
+	waters.
 
         --------
-        svn 3446
+	svn 3433
         --------
-        Fixed errors in casting for long double version.
+	-dw and -millero added to phreeqc.dat, which allows
+	calculation of specific conductance and density.
+	phreeqd.dat is now redundant and removed from distribution.
 
         --------
-        svn 3440
+	svn 3425
         --------
-        Adjusted numerical calculation to avoid extremely large
-        calculated specific conductances in high ionic strength
-        waters.
+	Added error message to require -multi_d for transport of
+	surfaces.
 
         --------
-        svn 3433
+	svn 3424
         --------
-        -dw and -millero added to phreeqc.dat, which allows
-        calculation of specific conductance and density.
-        phreeqd.dat is now redundant and removed from distribution.
+	Checked for misspellings in EXCHANGE definitions, which
+	previously caused crash.
 
         --------
-        svn 3425
+	svn 3423
         --------
-        Added error message to require -multi_d for transport of
-        surfaces.
+	-dw and -millero added to pitzer.dat, which allows
+	calculation of specific conductance and density.
 
         --------
-        svn 3424
+	svn 3292
         --------
-        Checked for misspellings in EXCHANGE definitions, which
-        previously caused crash.
+	Removed redundant warnings related to transport of exchanger
+	and surface.
 
         --------
-        svn 3423
-        --------
-        -dw and -millero added to pitzer.dat, which allows
-        calculation of specific conductance and density.
-
-        --------
-        svn 3292
-        --------
-        Removed redundant warnings related to transport of exchanger
-        and surface.
-
-        --------
-        svn 3287
+	svn 3287
         --------
         Fixed error in CD_MUSIC surface complexation model. 
         If reaction equation for a surface species was not
@@ -1555,29 +1525,28 @@ Version 2.17.0: February 12, 2010
         charges on the planes was erroneously not included when
         rewriting the equations to the master species. 
 
+	svn 3247
         --------
-        svn 3247
+	Revised donnan layer calculation with CD_MUSIC. Fixed
+	a bug related to moles versus concentration and stream
+	lined calculation. Minor differences in relevant test
+	cases.
+	
+	--------
+	svn 3207
         --------
-        Revised donnan layer calculation with CD_MUSIC. Fixed
-        a bug related to moles versus concentration and stream
-        lined calculation. Minor differences in relevant test
-        cases.
-        
-        --------
-        svn 3207
-        --------
-        Modifications to convergence criteria for surfaces
-        related to minerals, when moles of mineral is near
-        zero (<= 1e-14).
+	Modifications to convergence criteria for surfaces
+	related to minerals, when moles of mineral is near
+	zero (<= 1e-14).
 
         --------
-        svn 3100
+	svn 3100
         --------
-        Error when multiple surfaces were used. Sometimes the
-        surface area from one surface was used for another.
-        Results were probably incorrect if the surfaces were
-        not in alphabetical order in their definition in 
-        SURFACE.
+	Error when multiple surfaces were used. Sometimes the
+	surface area from one surface was used for another.
+	Results were probably incorrect if the surfaces were
+	not in alphabetical order in their definition in 
+	SURFACE.
 
         --------
         svn 2711

@@ -75,6 +75,10 @@ extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
 extern int *iu, *is, *back_eq;
 extern int x_arg_max, res_arg_max, scratch_max;
 #endif
+#ifdef CHART
+bool u_g = false;
+extern void	DeleteCurves(void);
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 clean_up(void)
@@ -330,10 +334,14 @@ clean_up(void)
 	copier_free(&copy_irrev);
 	copier_free(&copy_temperature);
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 	rate_free(user_graph);
-	user_graph = free_check_null(user_graph);
-	user_graph_headings = free_check_null(user_graph_headings);
+	user_graph = (rate *) free_check_null(user_graph);
+	user_graph_headings = (char **) free_check_null(user_graph_headings);
+#ifndef PHREEQ98
+	if (u_g)
+		DeleteCurves();
+#endif
 #endif
 	/* master_isotope */
 	for (i = 0; i < count_master_isotope; i++)
