@@ -1450,6 +1450,12 @@ End of Features not documented in WRIR 99-4259.
 ************************************************************
 ************************************************************
         --------
+        svn 4539
+        --------
+        Fixed bug with long file names in inverse modeling files
+        netpath.fil or model.fil. 
+        
+        --------
         svn 4490
         --------
 	Redox had never been enabled for the SIT formulation.

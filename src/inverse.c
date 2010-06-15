@@ -5197,7 +5197,6 @@ set_initial_solution(int n_user_old, int n_user_new)
 	}
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 add_to_file(const char *filename, char *string)
@@ -5206,7 +5205,7 @@ add_to_file(const char *filename, char *string)
 	FILE *model_file;
 	char c;
 	int i;
-	char string_line[MAX_LENGTH];
+	char string_line[MAX_LINE];
 
 	model_file = fopen(filename, "r");
 	if (model_file == NULL)
@@ -5219,16 +5218,28 @@ add_to_file(const char *filename, char *string)
 		}
 	}
 	i = 0;
+	/*
+	*  Read each line of file, check if equal to string; if not, append string to file
+	*/
 	for (;;)
 	{
 		c = getc(model_file);
-		if (c != EOF && c != '\n')
+		if (c != EOF && c != '\n' && i != MAX_LINE)
 		{
 			string_line[i] = c;
 			i++;
 			continue;
 		}
-		string_line[i] = '\0';
+		if (i >= MAX_LINE)
+		{
+			string_line[MAX_LINE - 1] = '\0';
+			sprintf(error_string, "File name in %s is greater than %d characters: %s\n", filename, MAX_LINE, string_line);
+			warning_msg(error_string, CONTINUE);
+		}
+		else
+		{
+			string_line[i] = '\0';
+		}
 		/* new line or eof */
 		string_trim(string_line);
 		if (strcmp(string_line, string) == 0)
@@ -5249,3 +5260,4 @@ add_to_file(const char *filename, char *string)
 		i = 0;
 	}
 }
+
