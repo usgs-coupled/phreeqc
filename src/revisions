@@ -8,6 +8,12 @@ File contains:
 ************************************************************
 ************************************************************
         --------
+        svn 4559
+        --------
+        Merged code from Tony Appelo to allow charting with
+        the USER_GRAPH datablock from Phreeqc for Windows.
+        
+        --------
         svn 4191
         --------
         Added new Basic functions:
