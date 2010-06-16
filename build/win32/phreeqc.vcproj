@@ -78,7 +78,6 @@
 				AdditionalLibraryDirectories="$(DEV_GMP_LIB_MT)"
 				IgnoreDefaultLibraryNames="LIBCD"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/phreeqc.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -174,7 +173,6 @@
 				AdditionalLibraryDirectories="$(DEV_GMP_LIB_MT)"
 				IgnoreDefaultLibraryNames="LIBC"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Release/phreeqc.pdb"
 				SubSystem="1"
 				SetChecksum="true"
 				TargetMachine="1"
@@ -270,7 +268,6 @@
 				AdditionalLibraryDirectories="$(DEV_GMP_LIB_MT)"
 				IgnoreDefaultLibraryNames="LIBCD"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Test/phreeqc.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -451,7 +448,6 @@
 				AdditionalLibraryDirectories="$(DEV_GMP_LIB_MT)"
 				IgnoreDefaultLibraryNames="LIBC"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Release/phreeqc.pdb"
 				SubSystem="1"
 				SetChecksum="true"
 				TargetMachine="1"
