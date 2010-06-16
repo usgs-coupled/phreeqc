@@ -31,7 +31,6 @@ extern char *LogFileNameC;
 extern void show_progress(const int type, char *s);
 char progress_str[512];
 #endif
-
 static int fileop_handler(const int type, int (*PFN) (FILE *));
 static int open_handler(const int type, const char *file_name);
 static int output_handler(const int type, const char *err_str,

@@ -14,194 +14,199 @@ typedef unsigned char boolean;
 #include "phrqproto.h"
 #include "p2c.h"
 #if !defined(PHREEQC_CLASS)
+	int n_user_punch_index;
+	#if defined PHREEQ98 || defined CHART
+	void GridChar(char *s, char *a);
+	extern int colnr, rownr;
+	#endif
+	#ifdef CHART
+	void PlotXY(char *x, char *y);
+	#endif
 
-int n_user_punch_index;
-#ifdef PHREEQ98
-void GridChar(char *s, char *a);
-extern int colnr, rownr;
-#endif
+	static int sget_logical_line(char **ptr, int *l, char *return_line);
 
-static int sget_logical_line(char **ptr, int *l, char *return_line);
+	#include "basic.h"
 
-#include "basic.h"
+	Static Char *inbuf;
+	Static linerec *linebase;
+	Static varrec *varbase;
+	Static looprec *loopbase;
+	Static long curline;
+	Static linerec *stmtline, *dataline;
+	Static tokenrec *stmttok, *datatok, *buf;
+	Static boolean exitflag;
 
-Static Char *inbuf;
-Static linerec *linebase;
-Static varrec *varbase;
-Static looprec *loopbase;
-Static long curline;
-Static linerec *stmtline, *dataline;
-Static tokenrec *stmttok, *datatok, *buf;
-Static boolean exitflag;
+	Static int free_dim_stringvar(struct varrec *varbase);
+	extern long EXCP_LINE;
+	Static void parseinput(tokenrec ** buf);
+	Static void exec(void);
+	Static void disposetokens(tokenrec ** tok);
 
-Static int free_dim_stringvar(struct varrec *varbase);
-extern long EXCP_LINE;
-Static void parseinput(tokenrec ** buf);
-Static void exec(void);
-Static void disposetokens(tokenrec ** tok);
-
-/*$if not checking$
-   $range off$
-$end$*/
-static HashTable *command_hash_table;
+	/*$if not checking$
+	   $range off$
+	$end$*/
+	static HashTable *command_hash_table;
 
 
-static const struct const_key command[] = {
-	{"+", tokplus},
-	{"-", tokminus},
-	{"*", toktimes},
-	{"/", tokdiv},
-	{"^", tokup},
-	{"( or [", toklp},
-	{") or ]", tokrp},
-	{",", tokcomma},
-	{";", toksemi},
-	{":", tokcolon},
-	{"=", tokeq},
-	{"<", toklt},
-	{"<=", tokle},
-	{">", tokgt},
-	{">=", tokge},
-	{"and", tokand},
-	{"or", tokor},
-	{"xor", tokxor},
-	{"not", toknot},
-	{"mod", tokmod},
-	{"sqr", toksqr},
-	{"sqrt", toksqrt},
-	{"sin", toksin},
-	{"cos", tokcos},
-	{"tan", toktan},
-	{"arctan", tokarctan},
-	{"log", toklog},
-	{"exp", tokexp},
-	{"abs", tokabs},
-	{"sgn", toksgn},
-	{"str$", tokstr_},
-	{"val", tokval},
-	{"chr$", tokchr_},
-	{"asc", tokasc},
-	{"len", toklen},
-	{"mid$", tokmid_},
-	{"peek", tokpeek},
-	{"let", toklet},
-	{"print", tokprint},
-	{"punch", tokpunch},
-#ifdef PHREEQ98
-	{"graph_x", tokgraph_x},
-	{"graph_y", tokgraph_y},
-	{"graph_sy", tokgraph_sy},
-#endif
-	{"input", tokinput},
-	{"goto", tokgoto},
-	{"go to", tokgoto},
-	{"if", tokif},
-	{"end", tokend},
-	{"stop", tokstop},
-	{"for", tokfor},
-	{"next", toknext},
-	{"while", tokwhile},
-	{"wend", tokwend},
-	{"gosub", tokgosub},
-	{"return", tokreturn},
-	{"read", tokread},
-	{"data", tokdata},
-	{"restore", tokrestore},
-	{"gotoxy", tokgotoxy},
-	{"on", tokon},
-	{"dim", tokdim},
-	{"poke", tokpoke},
-	{"list", toklist},
-	{"run", tokrun},
-	{"new", toknew},
-	{"load", tokload},
-	{"merge", tokmerge},
-	{"save", toksave},
-	{"bye", tokbye},
-	{"quit", tokbye},
-	{"del", tokdel},
-	{"renum", tokrenum},
-	{"then", tokthen},
-	{"else", tokelse},
-	{"to", tokto},
-	{"step", tokstep},
-	{"tc", toktc},
-	{"tk", toktk},
-	{"time", toktime},
-	{"sim_time", toksim_time},
-	{"total_time", toktotal_time},
-	{"m0", tokm0},
-	{"m", tokm},
-	{"parm", tokparm},
-	{"act", tokact},
-	{"edl", tokedl},
-	{"surf", toksurf},
-	{"equi", tokequi},
-	{"kin", tokkin},
-	{"gas", tokgas},
-	{"s_s", toks_s},
-	{"misc1", tokmisc1},
-	{"misc2", tokmisc2},
-	{"mu", tokmu},
-	{"osmotic", tokosmotic},
-	{"alk", tokalk},
-	{"lk_species", toklk_species},
-	{"lk_named", toklk_named},
-	{"lk_phase", toklk_phase},
-	{"sum_species", toksum_species},
-	{"sum_gas", toksum_gas},
-	{"sum_s_s", toksum_s_s},
-	{"calc_value", tokcalc_value},
-	{"description", tokdescription},
-	{"sys", toksys},
-	{"instr", tokinstr},
-	{"ltrim", tokltrim},
-	{"rtrim", tokrtrim},
-	{"trim", toktrim},
-	{"pad", tokpad},
-	{"rxn", tokrxn},
-	{"dist", tokdist},
-	{"mol", tokmol},
-	{"la", tokla},
-	{"lm", toklm},
-	{"sr", toksr},
-	{"si", toksi},
-	{"step_no", tokstep_no},
-	{"cell_no", tokcell_no},
-	{"sim_no", toksim_no},
-	{"tot", toktot},
-	{"log10", toklog10},
-	{"charge_balance", tokcharge_balance},
-	{"percent_error", tokpercent_error},
-	{"put", tokput},
-	{"get", tokget},
-	{"exists", tokexists},
-	{"rem", tokrem},
-	{"change_por", tokchange_por},
-	{"get_por", tokget_por},
-	{"change_surf", tokchange_surf},
-	{"porevolume", tokporevolume},
-	{"sc", toksc},
-	{"gamma", tokgamma},
-/* VP: Density Start */
-	{"lg", toklg},
-	{"rho", tokrho},
-/* VP: Density End */
-	{"cell_volume", tokcell_volume},
-	{"cell_pore_volume", tokcell_pore_volume},
-	{"cell_porosity", tokcell_porosity},
-	{"cell_saturation", tokcell_saturation},
-	{"totmole", toktotmole},
-	{"iso", tokiso},
-	{"iso_unit", tokiso_unit}
-};
-static int NCMDS = (sizeof(command) / sizeof(struct const_key));
+	static const struct const_key command[] = {
+		{"+", tokplus},
+		{"-", tokminus},
+		{"*", toktimes},
+		{"/", tokdiv},
+		{"^", tokup},
+		{"( or [", toklp},
+		{") or ]", tokrp},
+		{",", tokcomma},
+		{";", toksemi},
+		{":", tokcolon},
+		{"=", tokeq},
+		{"<", toklt},
+		{"<=", tokle},
+		{">", tokgt},
+		{">=", tokge},
+		{"and", tokand},
+		{"or", tokor},
+		{"xor", tokxor},
+		{"not", toknot},
+		{"mod", tokmod},
+		{"sqr", toksqr},
+		{"sqrt", toksqrt},
+		{"sin", toksin},
+		{"cos", tokcos},
+		{"tan", toktan},
+		{"arctan", tokarctan},
+		{"log", toklog},
+		{"exp", tokexp},
+		{"abs", tokabs},
+		{"sgn", toksgn},
+		{"str$", tokstr_},
+		{"val", tokval},
+		{"chr$", tokchr_},
+		{"asc", tokasc},
+		{"len", toklen},
+		{"mid$", tokmid_},
+		{"peek", tokpeek},
+		{"let", toklet},
+		{"print", tokprint},
+		{"punch", tokpunch},
+	#if defined PHREEQ98 || defined CHART
+		{"graph_x", tokgraph_x},
+		{"graph_y", tokgraph_y},
+		{"graph_sy", tokgraph_sy},
+	#endif
+	#ifdef CHART
+		{"plot_xy", tokplot_xy},
+	#endif
+		{"input", tokinput},
+		{"goto", tokgoto},
+		{"go to", tokgoto},
+		{"if", tokif},
+		{"end", tokend},
+		{"stop", tokstop},
+		{"for", tokfor},
+		{"next", toknext},
+		{"while", tokwhile},
+		{"wend", tokwend},
+		{"gosub", tokgosub},
+		{"return", tokreturn},
+		{"read", tokread},
+		{"data", tokdata},
+		{"restore", tokrestore},
+		{"gotoxy", tokgotoxy},
+		{"on", tokon},
+		{"dim", tokdim},
+		{"poke", tokpoke},
+		{"list", toklist},
+		{"run", tokrun},
+		{"new", toknew},
+		{"load", tokload},
+		{"merge", tokmerge},
+		{"save", toksave},
+		{"bye", tokbye},
+		{"quit", tokbye},
+		{"del", tokdel},
+		{"renum", tokrenum},
+		{"then", tokthen},
+		{"else", tokelse},
+		{"to", tokto},
+		{"step", tokstep},
+		{"tc", toktc},
+		{"tk", toktk},
+		{"time", toktime},
+		{"sim_time", toksim_time},
+		{"total_time", toktotal_time},
+		{"m0", tokm0},
+		{"m", tokm},
+		{"parm", tokparm},
+		{"act", tokact},
+		{"edl", tokedl},
+		{"surf", toksurf},
+		{"equi", tokequi},
+		{"kin", tokkin},
+		{"gas", tokgas},
+		{"s_s", toks_s},
+		{"misc1", tokmisc1},
+		{"misc2", tokmisc2},
+		{"mu", tokmu},
+		{"osmotic", tokosmotic},
+		{"alk", tokalk},
+		{"lk_species", toklk_species},
+		{"lk_named", toklk_named},
+		{"lk_phase", toklk_phase},
+		{"sum_species", toksum_species},
+		{"sum_gas", toksum_gas},
+		{"sum_s_s", toksum_s_s},
+		{"calc_value", tokcalc_value},
+		{"description", tokdescription},
+		{"sys", toksys},
+		{"instr", tokinstr},
+		{"ltrim", tokltrim},
+		{"rtrim", tokrtrim},
+		{"trim", toktrim},
+		{"pad", tokpad},
+		{"rxn", tokrxn},
+		{"dist", tokdist},
+		{"mol", tokmol},
+		{"la", tokla},
+		{"lm", toklm},
+		{"sr", toksr},
+		{"si", toksi},
+		{"step_no", tokstep_no},
+		{"cell_no", tokcell_no},
+		{"sim_no", toksim_no},
+		{"tot", toktot},
+		{"log10", toklog10},
+		{"charge_balance", tokcharge_balance},
+		{"percent_error", tokpercent_error},
+		{"put", tokput},
+		{"get", tokget},
+		{"exists", tokexists},
+		{"rem", tokrem},
+		{"change_por", tokchange_por},
+		{"get_por", tokget_por},
+		{"change_surf", tokchange_surf},
+		{"porevolume", tokporevolume},
+		{"sc", toksc},
+		{"gamma", tokgamma},
+	/* VP: Density Start */
+		{"lg", toklg},
+		{"rho", tokrho},
+	/* VP: Density End */
+		{"cell_volume", tokcell_volume},
+		{"cell_pore_volume", tokcell_pore_volume},
+		{"cell_porosity", tokcell_porosity},
+		{"cell_saturation", tokcell_saturation},
+		{"totmole", toktotmole},
+		{"iso", tokiso},
+		{"iso_unit", tokiso_unit}
+	};
+	static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
-Local valrec factor(struct LOC_exec *LINK);
-Local valrec expr(struct LOC_exec *LINK);
-Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
+	Local valrec factor(struct LOC_exec *LINK);
+	Local valrec expr(struct LOC_exec *LINK);
+	Local Char *stringfactor(Char * Result, struct LOC_exec *LINK);
 
-#endif
+#endif // !PHREEQC_CLASS
 
 
 
@@ -528,12 +533,6 @@ basic_main(char *commands)
 	return 1;
 /*  exit(EXIT_SUCCESS); */
 }
-
-
-
-
-
-
 
 /* End. */
 /* ---------------------------------------------------------------------- */
@@ -962,7 +961,7 @@ parse(Char * inbuf, tokenrec ** buf)
 							t->kind = tokprint;
 						else if (!strcmp(token, "punch"))
 							t->kind = tokpunch;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 						else if (!strcmp(token, "graph_x"))
 							t->kind = tokgraph_x;
 						else if (!strcmp(token, "graph_y"))
@@ -1807,7 +1806,7 @@ listtokens(FILE * f, tokenrec * buf)
 			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
 			break;
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 		case tokgraph_x:
 			output_msg(OUTPUT_BASIC, "GRAPH_X");
 			break;
@@ -1818,6 +1817,12 @@ listtokens(FILE * f, tokenrec * buf)
 
 		case tokgraph_sy:
 			output_msg(OUTPUT_BASIC, "GRAPH_SY");
+			break;
+#endif
+
+#if defined CHART
+		case tokplot_xy:
+			output_msg(OUTPUT_BASIC, "PLOT_XY");
 			break;
 #endif
 
@@ -2419,7 +2424,7 @@ factor(struct LOC_exec * LINK)
 			if (i <= 0 || i > count_cells * (1 + stag_data->count_stag) + 1
 				|| i == count_cells + 1)
 			{
-				/*		warning_msg("Note... no porosity for boundary solutions."); */ 
+				/*		warning_msg("Note... no porosity for boundary solutions."); */
 				n.UU.val = 0;
 				break;
 			}
@@ -4103,7 +4108,7 @@ cmdpunch(struct LOC_exec *LINK)
 	}
 }
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 Local void CLASS_QUALIFIER
 cmdgraph_x(struct LOC_exec *LINK)
 {
@@ -4156,6 +4161,8 @@ cmdgraph_y(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
+		if (colnr == 0)
+			rownr++;
 		if (n.stringval)
 		{
 /*      fputs(n.UU.sval, stdout); */
@@ -4187,6 +4194,8 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
+		if (colnr == 0)
+			rownr++;
 		if (n.stringval)
 		{
 /*      fputs(n.UU.sval, stdout); */
@@ -4198,6 +4207,49 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		colnr++;
 	}
 }
+#endif
+
+#ifdef CHART
+Local void CLASS_QUALIFIER
+cmdplot_xy(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n[2];
+	Char STR[2][256];
+	int i = 0;
+	semiflag = false;
+
+	while (!iseos(LINK) && i < 2)
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			i++;
+			continue;
+		}
+		n[i] = expr(LINK);
+		if (n[i].stringval)
+		{
+			strcpy(STR[i], n[i].UU.sval);
+			Free(n[i].UU.sval);
+		}
+		else
+			numtostr(STR[i], n[i].UU.val);
+	}
+
+	if (colnr == 0)
+		rownr++;
+
+	PlotXY(STR[0], STR[1]);
+	/*output_msg(OUTPUT_MESSAGE, "row %d.\tcol %d. x %s. y %s.\n",
+				   rownr, colnr, STR[0], STR[1]); */
+	colnr++;
+}
+
 #endif
 
 #ifdef SKIP
@@ -4947,7 +4999,7 @@ exec(void)
 					cmdchange_surf(&V);
 					break;
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 				case tokgraph_x:
 					cmdgraph_x(&V);
 					break;
@@ -4958,6 +5010,11 @@ exec(void)
 
 				case tokgraph_sy:
 					cmdgraph_sy(&V);
+					break;
+#endif
+#ifdef CHART
+				case tokplot_xy:
+					cmdplot_xy(&V);
 					break;
 #endif
 

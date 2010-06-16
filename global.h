@@ -23,6 +23,7 @@ static char const svnidglobal[] =
 #include "global_structures.h"
 /* #define NO_DOS */
 /* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
+/*#define CHART*/ /* for reading user_graph and plotting with J. Champion's zedgraph */
 #if defined (PHREEQ98) || defined (_MSC_VER) 
 #define isnan _isnan
 #define isfinite _finite
@@ -38,7 +39,7 @@ static char const svnidglobal[] =
  * uncomment following line, to use default DOS file name for
  * output file
  */
-/* #define DOS */
+/*#define DOS*/
 
 /* ----------------------------------------------------------------------
  *   INCLUDE FILES
@@ -575,7 +576,7 @@ EXTERNAL struct rate *user_print;
 EXTERNAL struct rate *user_punch;
 EXTERNAL char **user_punch_headings;
 EXTERNAL int user_punch_count_headings;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 EXTERNAL struct rate *user_graph;
 EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;

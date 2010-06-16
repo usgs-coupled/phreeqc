@@ -12,16 +12,16 @@
 #include "input.h"
 
 #if !defined(PHREEQC_CLASS)
-int copy_use(int i);
-int set_use(void);
-static char const svnid[] =
-	"$Id$";
-#define CLASS_QUALIFIER
+	int copy_use(int i);
+	int set_use(void);
+	static char const svnid[] =
+		"$Id$";
+	#define CLASS_QUALIFIER
 #else
-#define CLASS_QUALIFIER Phreeqc::
-#endif
+	#define CLASS_QUALIFIER Phreeqc::
+#endif  // !PHREEQC_CLASS
 
-extern void test_classes(void);
+//extern void test_classes(void);
 /*#define PHREEQC_XML*/
 #ifdef PHREEQC_XML
 #include "SAXPhreeqc.h"
@@ -31,16 +31,21 @@ extern void SAX_cleanup(void);
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif
-
-#ifdef PHREEQC_CPP
-extern int dump_entities(void);
-extern int delete_entities(void);
-extern int run_as_cells(void);
-#endif
-#ifdef PHREEQ98
-extern int phreeq98_debug;
-extern int AddSeries, connect_simulations;
-#endif
+#if !defined(PHREEQC_CLASS)
+	#ifdef PHREEQC_CPP
+	extern int dump_entities(void);
+	extern int delete_entities(void);
+	extern int run_as_cells(void);
+	#endif
+	#ifdef PHREEQ98
+	extern int phreeq98_debug;
+	extern int AddSeries, connect_simulations;
+	#endif
+	#ifdef CHART
+	extern int AddSeries, connect_simulations, rownr;
+	extern bool end_timer;
+	#endif
+#endif // !PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
 initialize(void)
@@ -462,11 +467,11 @@ initialize(void)
 	if (user_punch_headings == NULL)
 		malloc_error();
 	user_punch_count_headings = 0;
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 /*
  *   user_graph
  */
-	user_graph = PHRQ_malloc((size_t) sizeof(struct rate));
+	user_graph = (rate *) PHRQ_malloc((size_t) sizeof(struct rate));
 	if (user_graph == NULL)
 		malloc_error();
 	user_graph->commands = NULL;
@@ -3149,8 +3154,11 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 	for (simulation = 1;; simulation++)
 	{
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 		AddSeries = !connect_simulations;
+#ifdef CHART
+		rownr = -1;
+#endif
 #endif
 		sprintf(token, "Reading input data for simulation %d.", simulation);
 
@@ -3319,5 +3327,8 @@ do_status(void)
 	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
 	output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 
+#ifdef CHART
+	end_timer = true;
+#endif
 	return 0;
 }
