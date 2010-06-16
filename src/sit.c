@@ -29,7 +29,6 @@ static int sit_ISPEC(char *name);
 /*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
 static int sit_initial_guesses(void);
 static int sit_revise_guesses(void);
-static int sit_remove_unstable_phases;
 static int PTEMP_SIT(LDBLE tk);
 #endif
 
@@ -202,6 +201,7 @@ read_sit(void)
   return_value = UNKNOWN;
   n = -1;
   pzp_type = TYPE_Other;
+  pitzer_pe = TRUE;
   for (;;)
   {
     opt = get_option(opt_list, count_opt_list, &next_char);
@@ -480,7 +480,7 @@ sit(void)
 	   C
 	 */
 	AW = exp(-OSUM * COSMOT / 55.50837e0);
-	if (AW > 1.0) AW = 1.0;
+	/*if (AW > 1.0) AW = 1.0;*/
 	/*s_h2o->la=log10(AW); */
 	mu_x = I;
 	for (i = 0; i < 2 * count_s + sit_count_anions; i++)
@@ -539,6 +539,7 @@ set_sit(int initial)
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
 		/*s_x[i]->lg = 0.0; */
 		s_x[i]->lg_pitzer = 0.0;
+		s_x[i]->lg = 0.0;
 	}
 /*
  *   Set master species activities
@@ -972,7 +973,7 @@ model_sit(void)
 	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
-	sit_remove_unstable_phases = FALSE;
+	remove_unstable_phases = FALSE;
 	if (always_full_pitzer == TRUE)
 	{
 		full_pitzer = TRUE;
@@ -987,7 +988,7 @@ model_sit(void)
 		mb_s_s();
 		kode = 1;
 		while ((r = residuals()) != CONVERGED
-			   || sit_remove_unstable_phases == TRUE)
+			   || remove_unstable_phases == TRUE)
 		{
 #if defined(PHREEQCI_GUI)
 			if (WaitForSingleObject(g_hKill /*g_eventKill */ , 0) ==
@@ -1032,7 +1033,7 @@ model_sit(void)
 			/*
 			 *   Full matrix with pure phases
 			 */
-			if (r == OK || sit_remove_unstable_phases == TRUE)
+			if (r == OK || remove_unstable_phases == TRUE)
 			{
 				return_kode = ineq(kode);
 				if (return_kode != OK)
@@ -1099,8 +1100,8 @@ model_sit(void)
 			stop_program = TRUE;
 			break;
 		}
-		sit_remove_unstable_phases = remove_unstable_phases;
-		if (sit_remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
+		/* remove_unstable_phases is set in check_residuals */
+		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
 			output_msg(OUTPUT_LOG,
@@ -1123,7 +1124,7 @@ model_sit(void)
 			full_pitzer = TRUE;
 			continue;
 		}
-		if (sit_remove_unstable_phases == FALSE)
+		if (remove_unstable_phases == FALSE)
 			break;
 		if (debug_model == TRUE)
 		{

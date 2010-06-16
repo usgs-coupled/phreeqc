@@ -163,7 +163,7 @@ write_banner(void)
 			   "              º                                            º\n");
 
 	/* version */
-	len = sprintf(buffer, "* PHREEQC-%s *", "2.17.0");
+	len = sprintf(buffer, "* PHREEQC-%s *", "@VERSION@");
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer,
 			   44 - indent - len, ' ');
@@ -183,7 +183,7 @@ write_banner(void)
 
 
 	/* date */
-	len = sprintf(buffer, "%s", "February 12, 2010");
+	len = sprintf(buffer, "%s", "@VER_DATE@");
 	indent = (44 - len) / 2;
 	output_msg(OUTPUT_SCREEN, "%14cº%*c%s%*cº\n", ' ', indent, ' ', buffer,
 			   44 - indent - len, ' ');

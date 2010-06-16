@@ -412,7 +412,8 @@ struct const_key keyword[] = {
 	{"isotope_alphas", 0},
 	{"copy", 0},
 	{"pitzer", 0},
-	{"sit", 0}
+	{"sit", 0},
+	{"equilibrium_phase"}
 #ifdef PHREEQC_CPP
 	,
 	{"solution_raw", 0},
@@ -843,7 +844,6 @@ public:
 	void *kinetics_cvode_mem;
 	struct pp_assemblage *cvode_pp_assemblage_save;
 	struct s_s_assemblage *cvode_s_s_assemblage_save;
-protected:
 	LDBLE *m_original;
 	LDBLE *m_temp;
 

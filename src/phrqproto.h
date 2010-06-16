@@ -48,6 +48,7 @@ int match_elts_in_species(const char *name, const char *stemplate);
 int extract_bracket(char **string, char *bracket_string);
 LDBLE surf_total(const char *total_name, const char *surface_name);
 CLASS_STATIC int system_species_compare(const void *ptr1, const void *ptr2);
+LDBLE total_mole(const char *total_name);
 LDBLE system_total(const char *total_name, LDBLE * count, char ***names,
 				   char ***types, LDBLE ** moles);
 int system_total_elements(void);
@@ -59,6 +60,8 @@ int system_total_gas(void);
 int system_total_s_s(void);
 int system_total_elt(const char *total_name);
 int system_total_elt_secondary(const char *total_name);
+LDBLE iso_value(const char *total_name);
+char * iso_unit(const char *total_name);
 LDBLE total(const char *total_name);
 
 /* cl1.c */
@@ -220,6 +223,7 @@ int write_phase_sys_total(int n);
 
 /* print.c */
 int fpunchf(const char *name, const char *format, ...);
+int fpunchf_end_row(const char *format, ...);
 int fpunchf_user(int user_index, const char *format, ...);
 char *sformatf(const char *format, ...);
 int array_print(LDBLE * array_l, int row_count, int column_count,
@@ -233,6 +237,7 @@ int print_species(void);
 int print_surface(void);
 int print_user_print(void);
 int punch_all(void);
+
 
 /* read.c */
 int read_input(void);

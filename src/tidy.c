@@ -196,6 +196,8 @@ tidy_model(void)
 	   57      "isotopes_alphas"
 	   58      "copy"
 	   59      "pitzer"
+	   60      "sit"
+	   61      "equilibrium_phase"
 	 */
 
 /*
@@ -2179,13 +2181,16 @@ tidy_species(void)
 		}
 		/* store sequence number in master structure */
 		master[i]->number = i;
-		if (master[i]->primary == TRUE)
+		if (strcmp(master[i]->elt->name, "Alkalinity") != 0)
 		{
-			master[i]->s->primary = master[i];
-		}
-		else
-		{
-			master[i]->s->secondary = master[i];
+			if (master[i]->primary == TRUE)
+			{
+				master[i]->s->primary = master[i];
+			}
+			else
+			{
+				master[i]->s->secondary = master[i];
+			}
 		}
 		if (strcmp(master[i]->elt->name, "C") == 0)
 		{
@@ -4146,6 +4151,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 	LDBLE a[6], d[2];
 	LDBLE t;
 
+	d[0] = d[1] = 0;
 	xc1 = *xxc1;
 	xc2 = *xxc2;
 	x1 = 0;

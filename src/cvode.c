@@ -40,13 +40,8 @@
 #define malloc MACHENV_MALLOC PHRQ_malloc
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
-#if !defined(NDEBUG)
 #define MACHENV_MALLOC MACHENV
 #define CVMEM_MALLOC CVMEM 
-#else
-#define MACHENV_MALLOC
-#define CVMEM_MALLOC
-#endif
 #define OUTPUT_CVODE Phreeqc::OUTPUT_CVODE
 #endif
 

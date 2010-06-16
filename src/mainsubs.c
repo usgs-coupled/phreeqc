@@ -939,10 +939,12 @@ initial_solutions(int print)
 			prep();
 			k_temp(solution[n]->tc);
 			set(TRUE);
+			always_full_pitzer = FALSE;
 			converge = model();
 			if (converge == ERROR && diagonal_scale == FALSE)
 			{
 				diagonal_scale = TRUE;
+				always_full_pitzer = TRUE;
 				set(TRUE);
 				converge = model();
 				diagonal_scale = FALSE;

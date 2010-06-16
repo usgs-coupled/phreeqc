@@ -25,6 +25,8 @@ struct output_callback
 
 int add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie);
 int clean_up_output_callbacks(void);
+int output_message(const int type, const char *err_str, const int stop,
+				   const char *format, va_list args);
 int output_msg(const int type, const char *format, ...);
 int warning_msg(const char *err_str, ...);
 int error_msg(const char *err_str, const int stop, ...);
@@ -55,7 +57,9 @@ typedef enum
 	OUTPUT_CVODE,
 	OUTPUT_DUMP,
 	OUTPUT_STDERR,
-	OUTPUT_SEND_MESSAGE
+	OUTPUT_SEND_MESSAGE,
+	OUTPUT_ECHO,
+	OUTPUT_PUNCH_END_ROW
 } output_type;
 
 typedef enum

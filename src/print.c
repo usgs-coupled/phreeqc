@@ -40,24 +40,17 @@
 	static int punch_user_punch(void);
 
 	#if defined PHREEQ98 || defined CHART
-	static int punch_user_graph(void);
-	extern int colnr, rownr;
-	extern int graph_initial_solutions;
-	extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
-	/* extern int shifts_as_points; */
-	extern int chart_type;
-	extern int AddSeries;
-	extern int FirstCallToUSER_GRAPH;
+		static int punch_user_graph(void);
+		extern int colnr, rownr;
+		extern int graph_initial_solutions;
+		extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
+		/* extern int shifts_as_points; */
+		extern int chart_type;
+		extern int AddSeries;
+		extern int FirstCallToUSER_GRAPH;
 	#endif
-
 	#ifdef CHART // remove this one when finalizing...
-	extern void start_chart(bool end);
-	#endif
-
-	#if defined(SWIG_SHARED_OBJ)
-	extern int EndRow(void);
-	extern void AddSelectedOutput(const char *name, const char *format,
-								  va_list argptr);
+		extern void start_chart(bool end);
 	#endif
 #endif /* !PHREEQC_CLASS */
 
@@ -198,9 +191,10 @@ punch_all(void)
  */
 	fpunchf(NULL, "\n");
 
-#if defined(SWIG_SHARED_OBJ)
-	EndRow();
-#endif
+/*
+ *   signal end of row
+ */
+	fpunchf_end_row("\n");
 
 	return (OK);
 }
@@ -2172,8 +2166,16 @@ print_totals(void)
 	output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Iterations  = ", iterations);
 	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
+		if (always_full_pitzer == FALSE)
+		{
+			output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
 				   gamma_iterations);
+		}
+		else
+		{
+			output_msg(OUTPUT_MESSAGE, "%45s%3d\n", "Gamma iterations  = ",
+				  iterations);
+		}
 		output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Osmotic coefficient  = ",
 				   COSMOT);
 		if (print_density) output_msg(OUTPUT_MESSAGE, "%45s%9.5f\n", "Density of water  = ",
@@ -2539,7 +2541,7 @@ punch_totals(void)
 			if (strncmp(punch.totals[j].name, "Alkalinity", 20) == 0)
 			{
 				molality = total_alkalinity / mass_water_aq_x;
-			} else 
+			} else
 			{
 				molality = punch.totals[j].master->total_primary / mass_water_aq_x;
 			}
@@ -3276,9 +3278,6 @@ extern int Merge_fpunchf(const int length, const char *format,
 						 va_list argptr);
 #endif
 
-int output_message(const int type, const char *err_str, const int stop,
-				   const char *format, va_list args);
-
 int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
 {
@@ -3325,6 +3324,20 @@ fpunchf_user(int user_index, const char *format, ...)
 
 	return retval;
 }
+
+int CLASS_QUALIFIER
+fpunchf_end_row(const char *format, ...)
+{
+	int retval = 0;
+	va_list args;
+
+	va_start(args, format);
+	retval = output_message(OUTPUT_PUNCH_END_ROW, "", CONTINUE, format, args);
+	va_end(args);
+
+	return retval;
+}
+
 
 #ifdef SAVE
 int CLASS_QUALIFIER

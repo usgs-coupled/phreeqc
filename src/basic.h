@@ -33,7 +33,7 @@ typedef struct linerec
 {
 	long num, num2;
 	tokenrec *txt;
-	Char inbuf[MAX_LENGTH];
+	Char inbuf[MAX_LINE];
 	struct linerec *next;
 } linerec;
 
@@ -242,6 +242,7 @@ struct LOC_exec
 #if defined CHART
 #define tokplot_xy          144
 #endif
-
-
+#define toktotmole          145
+#define tokiso              146
+#define tokiso_unit          147
 #endif /* _INC_BASIC_H */

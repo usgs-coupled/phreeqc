@@ -1040,7 +1040,7 @@ ineq(int in_kode)
 		for (i = 0; i < count_unknowns; i++)
 		{
 			if ((x[i]->type == AH2O && full_pitzer == FALSE) ||
-				(x[i]->type == MH && pitzer_pe == FALSE) ||
+				(x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE) ||
 				x[i]->type == MU ||
 				(x[i]->type == PITZER_GAMMA && full_pitzer == FALSE))
 			{
@@ -1696,7 +1696,7 @@ ineq(int in_kode)
 	{
 		kode = 1;
 	}
-	iter = 200;
+	iter = count_unknowns + count_rows;
 /*
  *   Allocate space for arrays
  */
@@ -1733,7 +1733,6 @@ ineq(int in_kode)
 	cl1(k, l, m, n,
 		nklmd, n2d, ineq_array,
 		&kode, ineq_tol, &iter, delta1, res, &error, cu, iu, is, FALSE);
-
 /*   Set return_kode */
 	if (kode == 1)
 	{
@@ -1742,6 +1741,11 @@ ineq(int in_kode)
 	else if (kode == 2)
 	{
 		return_code = 2;
+	}
+	else if (kode == 3)
+	{
+		return_code = ERROR;
+		error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
 	}
 	else
 	{
@@ -3041,6 +3045,15 @@ reset(void)
 			else if (x[i]->type == SURFACE)
 			{
 				up = step_up;
+				down = 1.3 * up;
+			}
+			else if (x[i]->type == PITZER_GAMMA)
+			{
+				up = step_up;
+				if (up > 1) 
+				{
+					up = 0.7;
+				}
 				down = 1.3 * up;
 			}
 			else if (x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
