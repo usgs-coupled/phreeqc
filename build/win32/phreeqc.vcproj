@@ -427,6 +427,7 @@
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DisableSpecificWarnings="4793"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -490,7 +491,7 @@
 			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\bin\ZedGraph.dll"
+			RelativePath="..\..\src\ZedGraph.dll"
 			AssemblyName="ZedGraph, Version=5.1.5.28844, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL"
 		/>
 		<AssemblyReference
