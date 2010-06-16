@@ -12,16 +12,16 @@
 #include "input.h"
 
 #if !defined(PHREEQC_CLASS)
-int copy_use(int i);
-int set_use(void);
-static char const svnid[] =
-	"$Id$";
-#define CLASS_QUALIFIER
+	int copy_use(int i);
+	int set_use(void);
+	static char const svnid[] =
+		"$Id$";
+	#define CLASS_QUALIFIER
 #else
-#define CLASS_QUALIFIER Phreeqc::
-#endif
+	#define CLASS_QUALIFIER Phreeqc::
+#endif  // !PHREEQC_CLASS
 
-extern void test_classes(void);
+//extern void test_classes(void);
 /*#define PHREEQC_XML*/
 #ifdef PHREEQC_XML
 #include "SAXPhreeqc.h"
@@ -31,20 +31,21 @@ extern void SAX_cleanup(void);
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif
-
-#ifdef PHREEQC_CPP
-extern int dump_entities(void);
-extern int delete_entities(void);
-extern int run_as_cells(void);
-#endif
-#ifdef PHREEQ98
-extern int phreeq98_debug;
-extern int AddSeries, connect_simulations;
-#endif
-#ifdef CHART
-extern int AddSeries, connect_simulations, rownr;
-extern bool end_timer;
-#endif
+#if !defined(PHREEQC_CLASS)
+	#ifdef PHREEQC_CPP
+	extern int dump_entities(void);
+	extern int delete_entities(void);
+	extern int run_as_cells(void);
+	#endif
+	#ifdef PHREEQ98
+	extern int phreeq98_debug;
+	extern int AddSeries, connect_simulations;
+	#endif
+	#ifdef CHART
+	extern int AddSeries, connect_simulations, rownr;
+	extern bool end_timer;
+	#endif
+#endif // !PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
 initialize(void)

@@ -10,56 +10,56 @@
 #include <assert.h>
 
 #if !defined(PHREEQC_CLASS)
-#define PITZER_EXTERNAL extern
-#include "pitzer.h"
+	#define PITZER_EXTERNAL extern
+	#include "pitzer.h"
 
-static char const svnid[] = "$Id$";
+	static char const svnid[] = "$Id$";
 
-static int print_alkalinity(void);
-static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
-static int print_eh(void);
-static int print_irrev(void);
-static int print_kinetics(void);
-static int print_mix(void);
-static int print_pp_assemblage(void);
-static int print_s_s_assemblage(void);
-static int print_saturation_indices(void);
-static int print_surface_cd_music(void);
-static int print_totals(void);
-static int print_using(void);
-/*static int print_user_print(void);*/
-static int punch_gas_phase(void);
-static int punch_identifiers(void);
-static int punch_kinetics(void);
-static int punch_molalities(void);
-static int punch_activities(void);
-static int punch_pp_assemblage(void);
-static int punch_s_s_assemblage(void);
-static int punch_saturation_indices(void);
-static int punch_totals(void);
-static int punch_user_punch(void);
+	static int print_alkalinity(void);
+	static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
+	static int print_eh(void);
+	static int print_irrev(void);
+	static int print_kinetics(void);
+	static int print_mix(void);
+	static int print_pp_assemblage(void);
+	static int print_s_s_assemblage(void);
+	static int print_saturation_indices(void);
+	static int print_surface_cd_music(void);
+	static int print_totals(void);
+	static int print_using(void);
+	/*static int print_user_print(void);*/
+	static int punch_gas_phase(void);
+	static int punch_identifiers(void);
+	static int punch_kinetics(void);
+	static int punch_molalities(void);
+	static int punch_activities(void);
+	static int punch_pp_assemblage(void);
+	static int punch_s_s_assemblage(void);
+	static int punch_saturation_indices(void);
+	static int punch_totals(void);
+	static int punch_user_punch(void);
 
-#if defined PHREEQ98 || defined CHART
-static int punch_user_graph(void);
-extern int colnr, rownr;
-extern int graph_initial_solutions;
-extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
-/* extern int shifts_as_points; */
-extern int chart_type;
-extern int AddSeries;
-extern int FirstCallToUSER_GRAPH;
-#endif
+	#if defined PHREEQ98 || defined CHART
+	static int punch_user_graph(void);
+	extern int colnr, rownr;
+	extern int graph_initial_solutions;
+	extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
+	/* extern int shifts_as_points; */
+	extern int chart_type;
+	extern int AddSeries;
+	extern int FirstCallToUSER_GRAPH;
+	#endif
 
-#ifdef CHART // remove this one when finalizing...
-extern void start_chart(bool end);
-#endif
+	#ifdef CHART // remove this one when finalizing...
+	extern void start_chart(bool end);
+	#endif
 
-#if defined(SWIG_SHARED_OBJ)
-extern int EndRow(void);
-extern void AddSelectedOutput(const char *name, const char *format,
-							  va_list argptr);
-#endif
-#endif /* PHREEQC_CLASS */
+	#if defined(SWIG_SHARED_OBJ)
+	extern int EndRow(void);
+	extern void AddSelectedOutput(const char *name, const char *format,
+								  va_list argptr);
+	#endif
+#endif /* !PHREEQC_CLASS */
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

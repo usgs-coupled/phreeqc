@@ -22,60 +22,60 @@
 #include "input.h"
 
 #ifdef CHART
-
 #define NA (float) -9.9999				/* NA = not available */
 /* #define CHECK_NA (float) 1e-3; */
+#if !defined(PHREEQC_CLASS)
+	int update_time_chart = 150;			/* milliseconds, maybe read */
+	int PanelHeight = 510;//510;
+	int PanelWidth = 640;//640;
 
-int update_time_chart = 150;			/* milliseconds, maybe read */
-int PanelHeight = 510;//510;
-int PanelWidth = 640;//640;
+	char *axis_titles[3] =  {"X-axis", "Y-axis", "Y2-axis"};
+	float axis_scale_x[5] = {NA, NA, NA, NA, NA}; /* min, max, major tic, minor tic, log */
+	float axis_scale_y[5] = {NA, NA, NA, NA, NA};
+	float axis_scale_y2[5] = {NA, NA, NA, NA, NA};
+	void SetAxisScale(char *a, int j, char *token, int true_); /* fills axis_scale_x, .._y and .._y2 */
+	char *chart_title = "";
 
-char *axis_titles[3] =  {"X-axis", "Y-axis", "Y2-axis"};
-float axis_scale_x[5] = {NA, NA, NA, NA, NA}; /* min, max, major tic, minor tic, log */
-float axis_scale_y[5] = {NA, NA, NA, NA, NA};
-float axis_scale_y2[5] = {NA, NA, NA, NA, NA};
-void SetAxisScale(char *a, int j, char *token, int true_); /* fills axis_scale_x, .._y and .._y2 */
-char *chart_title = "";
+	int chart_type = 0;						/* default: plot vs distance. If chart_type = 1, plot vs time */
+	int graph_initial_solutions = 0;		/* false */
+	int connect_simulations = 1;			/* same curve properties in new simulations */
+	int rownr = -1;
+	int colnr = 0;							/* row and col no defined in basic.c for GridChar and Plot_XY */
+	int RowOffset = 0;						/* = 1 if new simulations should add points to the same curve */
+	int ColumnOffset = 0;					/* sets column offset, from CSV plot, and from new USER_GRAPH */
+	int prev_advection_step = 0;
+	int prev_transport_step = 0;			/* not used in chart, for compatibility with PfW */
+	int AddSeries = 1;						/* new curve properties in new simulation (does the same, but opposite of connect_simulation) */
 
-int chart_type = 0;						/* default: plot vs distance. If chart_type = 1, plot vs time */
-int graph_initial_solutions = 0;		/* false */
-int connect_simulations = 1;			/* same curve properties in new simulations */
-int rownr = -1;
-int colnr = 0;							/* row and col no defined in basic.c for GridChar and Plot_XY */
-int RowOffset = 0;						/* = 1 if new simulations should add points to the same curve */
-int ColumnOffset = 0;					/* sets column offset, from CSV plot, and from new USER_GRAPH */
-int prev_advection_step = 0;
-int prev_transport_step = 0;			/* not used in chart, for compatibility with PfW */
-int AddSeries = 1;						/* new curve properties in new simulation (does the same, but opposite of connect_simulation) */
+	int prev_sim_no;						/* set in new simulation, used for changing curve properties */
+	bool x_filled, col_dwn, y_filled[20]; 	/* in case 20 graph_x is defined after 10 graph_y, perhaps fails when curvenr > 20... */
+	float x_value;							/* from graph_x */
+	void GridChar(char *s, char *a);		/* compatible with PfW's graph_x etc.: translates values to Curves(x, y) */
+	void PlotXY(char *x, char *y);			/* translates from plot_xy x, y, Color = Red... */
+	bool all_points;						/* true if points in curves remain the same. Works with end_timer */
+	bool end_timer = false;					/* in mainsubs.c, stops the update timer in form1.h */
 
-int prev_sim_no;						/* set in new simulation, used for changing curve properties */
-bool x_filled, col_dwn, y_filled[20]; 	/* in case 20 graph_x is defined after 10 graph_y, perhaps fails when curvenr > 20... */
-float x_value;							/* from graph_x */
-void GridChar(char *s, char *a);		/* compatible with PfW's graph_x etc.: translates values to Curves(x, y) */
-void PlotXY(char *x, char *y);			/* translates from plot_xy x, y, Color = Red... */
-bool all_points;						/* true if points in curves remain the same. Works with end_timer */
-bool end_timer = false;					/* in mainsubs.c, stops the update timer in form1.h */
+	struct Curves_c;						/* defines the Curves */
+	int ncurves;							/* number of malloced curves */
+	int ncurves_changed[3] = {0, 0, 0};		/* for updating the chart:
+											0 or 1 (if curves have changed), previous no, new no of curves with points*/
+	void MallocCurves(int nc, int ncxy);	/* mallocs nc Curves, with ncxy Curves.x, Curves.y */
+	void DeleteCurves(void);				/* deletes the curves */
+	void ReallocCurves(int new_nc);			/* reallocs Curves to new_nc, doubles ncurves when new_nc = 0 */
+	void ReallocCurveXY(int i);				/* reallocs x,y of Curves[i] */
+	void ExtractCurveInfo(char *line, int curvenr); /* gets line & symbol properties from plot_xy x, y, color = ... */
+	char *SymbolList[11] =  {"Square", "Diamond", "Triangle", "Circle", "XCross", "Plus", "Star",
+			"TriangleDown", "HDash", "VDash", "None"};
+	/*ColorList = {"Red", "Green", "Blue", "Orange", "Magenta", "Yellow", "Black" }; // defined in Form1.h as cli */
+	/* or any color from System::Drawing::Color */
 
-struct Curves_c;						/* defines the Curves */
-int ncurves;							/* number of malloced curves */
-int ncurves_changed[3] = {0, 0, 0};		/* for updating the chart:
-										0 or 1 (if curves have changed), previous no, new no of curves with points*/
-void MallocCurves(int nc, int ncxy);	/* mallocs nc Curves, with ncxy Curves.x, Curves.y */
-void DeleteCurves(void);				/* deletes the curves */
-void ReallocCurves(int new_nc);			/* reallocs Curves to new_nc, doubles ncurves when new_nc = 0 */
-void ReallocCurveXY(int i);				/* reallocs x,y of Curves[i] */
-void ExtractCurveInfo(char *line, int curvenr); /* gets line & symbol properties from plot_xy x, y, color = ... */
-char *SymbolList[11] =  {"Square", "Diamond", "Triangle", "Circle", "XCross", "Plus", "Star",
-		"TriangleDown", "HDash", "VDash", "None"};
-/*ColorList = {"Red", "Green", "Blue", "Orange", "Magenta", "Yellow", "Black" }; // defined in Form1.h as cli */
-/* or any color from System::Drawing::Color */
+	int OpenCSVFile(char file_name[MAX_LENGTH]); /* reads CSV file, may contain line + symbol properties */
+	int nCSV_headers = 0;					/* no of CSV curves, also defines ColumnOffset if connect_simulations = 1 */
+	void start_chart(bool end);				/* end = 0 starts the chart */
 
-int OpenCSVFile(char file_name[MAX_LENGTH]); /* reads CSV file, may contain line + symbol properties */
-int nCSV_headers = 0;					/* no of CSV curves, also defines ColumnOffset if connect_simulations = 1 */
-void start_chart(bool end);				/* end = 0 starts the chart */
-
-int FirstCallToUSER_GRAPH = 1;
-bool new_ug = false;					/* in case USER_GRAPH is redefined */
+	int FirstCallToUSER_GRAPH = 1;
+	bool new_ug = false;					/* in case USER_GRAPH is redefined */
+#endif  // !PHREEQC_CLASS
 
 void SetChartTitle(char *s)
 {

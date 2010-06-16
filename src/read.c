@@ -9,130 +9,127 @@
 #include "output.h"
 #include "phrqproto.h"
 #if !defined (PHREEQC_CLASS)
-#ifdef PHREEQC_CPP
-extern int read_solution_raw(void);
-extern int read_exchange_raw(void);
-extern int read_surface_raw(void);
-extern int read_equilibrium_phases_raw(void);
-extern int read_kinetics_raw(void);
-extern int read_solid_solutions_raw(void);
-extern int read_gas_phase_raw(void);
-extern int read_reaction_raw(void);
-extern int read_mix_raw(void);
-extern int read_temperature_raw(void);
-extern int read_dump(void);
-extern int read_solution_modify(void);
-extern int read_equilibrium_phases_modify(void);
-extern int read_exchange_modify(void);
-extern int read_surface_modify(void);
-extern int read_solid_solutions_modify(void);
-extern int read_gas_phase_modify(void);
-extern int read_kinetics_modify(void);
-extern int read_delete(void);
-extern int read_run_cells(void);
-#endif
-#endif /* !PHREEQC_CLASS */
+	#ifdef PHREEQC_CPP
+	extern int read_solution_raw(void);
+	extern int read_exchange_raw(void);
+	extern int read_surface_raw(void);
+	extern int read_equilibrium_phases_raw(void);
+	extern int read_kinetics_raw(void);
+	extern int read_solid_solutions_raw(void);
+	extern int read_gas_phase_raw(void);
+	extern int read_reaction_raw(void);
+	extern int read_mix_raw(void);
+	extern int read_temperature_raw(void);
+	extern int read_dump(void);
+	extern int read_solution_modify(void);
+	extern int read_equilibrium_phases_modify(void);
+	extern int read_exchange_modify(void);
+	extern int read_surface_modify(void);
+	extern int read_solid_solutions_modify(void);
+	extern int read_gas_phase_modify(void);
+	extern int read_kinetics_modify(void);
+	extern int read_delete(void);
+	extern int read_run_cells(void);
+	#endif
 
-#if !defined(PHREEQC_CLASS)
+	static char const svnid[] = "$Id$";
 
-static char const svnid[] = "$Id$";
+	#if defined(SWIG_SHARED_OBJ)
+	#define STATIC
+	#else
+	#define STATIC static
+	#endif
+	STATIC int add_psi_master_species(char *token);
+	STATIC int read_advection(void);
+	STATIC int read_analytical_expression_only(char *ptr, LDBLE * log_k);
+	/* VP: Density Start */
+	STATIC int read_millero_abcdef (char *ptr, LDBLE * abcdef);
+	/* VP: Density End */
+	STATIC int read_copy(void);
+	STATIC int read_debug(void);
+	STATIC int read_delta_h_only(char *ptr, LDBLE * delta_h,
+								 DELTA_H_UNIT * units);
+	STATIC int read_llnl_aqueous_model_parameters(void);
+	STATIC int read_exchange(void);
+	STATIC int read_exchange_master_species(void);
+	STATIC int read_exchange_species(void);
+	STATIC int read_gas_phase(void);
+	STATIC int read_incremental_reactions(void);
+	STATIC int read_inverse(void);
+	STATIC int read_inv_balances(struct inverse *inverse_ptr, char *next_char);
+	STATIC int read_inv_isotopes(struct inverse *inverse_ptr, char *ptr);
+	STATIC int read_inv_phases(struct inverse *inverse_ptr, char *next_char);
+	STATIC int read_kinetics(void);
+	STATIC int read_line_doubles(char *next_char, LDBLE ** d, int *count_d,
+								 int *count_alloc);
+	STATIC int read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
+								  int *count_alloc, const char **opt_list,
+								  int count_opt_list, int *opt);
+	STATIC LDBLE *read_list_doubles(char **ptr, int *count_doubles);
+	STATIC int *read_list_ints(char **ptr, int *count_ints, int positive);
+	STATIC int *read_list_t_f(char **ptr, int *count_ints);
+	STATIC int read_master_species(void);
+	STATIC int read_mix(void);
+	STATIC int read_named_logk(void);
+	STATIC int read_phases(void);
+	STATIC int read_print(void);
+	STATIC int read_pure_phases(void);
+	STATIC int read_rates(void);
+	STATIC int read_reaction(void);
+	STATIC int read_reaction_reactants(struct irrev *irrev_ptr);
+	STATIC int read_reaction_steps(struct irrev *irrev_ptr);
+	STATIC int read_solid_solutions(void);
+	STATIC int read_temperature(void);
+	STATIC int read_reaction_temps(struct temperature *temperature_ptr);
+	STATIC int read_save(void);
+	STATIC int read_selected_output(void);
+	STATIC int read_solution(void);
+	STATIC int read_species(void);
+	STATIC int read_surf(void);
+	STATIC int read_surface_master_species(void);
+	STATIC int read_surface_species(void);
+	STATIC int read_use(void);
+	STATIC int read_title(void);
+	STATIC int read_user_print(void);
+	STATIC int read_user_punch(void);
 
-#if defined(SWIG_SHARED_OBJ)
-#define STATIC
-#else
-#define STATIC static
-#endif
-STATIC int add_psi_master_species(char *token);
-STATIC int read_advection(void);
-STATIC int read_analytical_expression_only(char *ptr, LDBLE * log_k);
-/* VP: Density Start */
-STATIC int read_millero_abcdef (char *ptr, LDBLE * abcdef);
-/* VP: Density End */
-STATIC int read_copy(void);
-STATIC int read_debug(void);
-STATIC int read_delta_h_only(char *ptr, LDBLE * delta_h,
-							 DELTA_H_UNIT * units);
-STATIC int read_llnl_aqueous_model_parameters(void);
-STATIC int read_exchange(void);
-STATIC int read_exchange_master_species(void);
-STATIC int read_exchange_species(void);
-STATIC int read_gas_phase(void);
-STATIC int read_incremental_reactions(void);
-STATIC int read_inverse(void);
-STATIC int read_inv_balances(struct inverse *inverse_ptr, char *next_char);
-STATIC int read_inv_isotopes(struct inverse *inverse_ptr, char *ptr);
-STATIC int read_inv_phases(struct inverse *inverse_ptr, char *next_char);
-STATIC int read_kinetics(void);
-STATIC int read_line_doubles(char *next_char, LDBLE ** d, int *count_d,
-							 int *count_alloc);
-STATIC int read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
-							  int *count_alloc, const char **opt_list,
-							  int count_opt_list, int *opt);
-STATIC LDBLE *read_list_doubles(char **ptr, int *count_doubles);
-STATIC int *read_list_ints(char **ptr, int *count_ints, int positive);
-STATIC int *read_list_t_f(char **ptr, int *count_ints);
-STATIC int read_master_species(void);
-STATIC int read_mix(void);
-STATIC int read_named_logk(void);
-STATIC int read_phases(void);
-STATIC int read_print(void);
-STATIC int read_pure_phases(void);
-STATIC int read_rates(void);
-STATIC int read_reaction(void);
-STATIC int read_reaction_reactants(struct irrev *irrev_ptr);
-STATIC int read_reaction_steps(struct irrev *irrev_ptr);
-STATIC int read_solid_solutions(void);
-STATIC int read_temperature(void);
-STATIC int read_reaction_temps(struct temperature *temperature_ptr);
-STATIC int read_save(void);
-STATIC int read_selected_output(void);
-STATIC int read_solution(void);
-STATIC int read_species(void);
-STATIC int read_surf(void);
-STATIC int read_surface_master_species(void);
-STATIC int read_surface_species(void);
-STATIC int read_use(void);
-STATIC int read_title(void);
-STATIC int read_user_print(void);
-STATIC int read_user_punch(void);
+	extern int reading_database(void);
+	extern int check_line(const char *string, int allow_empty, int allow_eof,
+						  int allow_keyword, int print);
+	static LDBLE dummy;
+	static char *prev_next_char;
 
-extern int reading_database(void);
-extern int check_line(const char *string, int allow_empty, int allow_eof,
-					  int allow_keyword, int print);
-static LDBLE dummy;
-static char *prev_next_char;
+	#if defined PHREEQ98 || defined CHART
+	STATIC int read_user_graph(void);
+	extern int connect_simulations, graph_initial_solutions;
+	/*extern*/ int shifts_as_points;
+	extern int chart_type;
+	extern int ShowChart;
+	extern int copy_title(char *token_ptr, char **ptr, int *length);
+	extern int OpenCSVFile(char file_name[MAX_LENGTH]);
+	void GridHeadings(char *s, int i);
+	void SetAxisTitles(char *s, int i);
+	void SetAxisScale(char *a, int c, char *v, int l);
+	void SetChartTitle(char *s);
+	extern int RowOffset, ColumnOffset;
+	#endif
 
-#if defined PHREEQ98 || defined CHART
-STATIC int read_user_graph(void);
-extern int connect_simulations, graph_initial_solutions;
-/*extern*/ int shifts_as_points;
-extern int chart_type;
-extern int ShowChart;
-extern int copy_title(char *token_ptr, char **ptr, int *length);
-extern int OpenCSVFile(char file_name[MAX_LENGTH]);
-void GridHeadings(char *s, int i);
-void SetAxisTitles(char *s, int i);
-void SetAxisScale(char *a, int c, char *v, int l);
-void SetChartTitle(char *s);
-extern int RowOffset, ColumnOffset;
-#endif
+	#ifdef CHART
+	extern char *axis_titles[3];
+	extern char *chart_title;
+	extern float axis_scale_x[5];
+	extern float axis_scale_y[5];
+	extern float axis_scale_y2[5];
+	extern int FirstCallToUSER_GRAPH;
+	extern void MallocCurves(int nc, int ncxy);
+	extern void DeleteCurves(void);
+	extern void	ExtractCurveInfo(char *line, int curvenr);
+	extern int ncurves_changed[3];
+	extern int nCSV_headers;
+	extern bool new_ug, u_g;
+	#endif
 
-#ifdef CHART
-extern char *axis_titles[3];
-extern char *chart_title;
-extern float axis_scale_x[5];
-extern float axis_scale_y[5];
-extern float axis_scale_y2[5];
-extern int FirstCallToUSER_GRAPH;
-extern void MallocCurves(int nc, int ncxy);
-extern void DeleteCurves(void);
-extern void	ExtractCurveInfo(char *line, int curvenr);
-extern int ncurves_changed[3];
-extern int nCSV_headers;
-extern bool new_ug, u_g;
-#endif
-
-#endif
+#endif // !PHREEQC_CLASS
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
