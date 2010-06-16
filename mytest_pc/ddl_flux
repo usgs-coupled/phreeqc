@@ -92,9 +92,10 @@ USER_GRAPH; -head days J_hto J_sr J_na #A_hto A_Sr
   60 graph_y J_hto, J_sr, J_na
 #  62 graph_sy A_hto / 1.0000e+00
 #  70 punch tot("Na_tr"), tot("Sr_tr")
-  80 put(A_hto, 1)
-  90 put(A_sr, 2)
-  92 put(A_na, 3)
+#Save only in USER_PUNCH
+#  80 put(A_hto, 1)
+#  90 put(A_sr, 2)
+#  92 put(A_na, 3)
  -end
 TRANSPORT
  -shifts 11

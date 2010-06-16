@@ -7,6 +7,9 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "msi", "..\..\msi\msi.wixpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		clr|Mixed Platforms = clr|Mixed Platforms
+		clr|Win32 = clr|Win32
+		clr|x86 = clr|x86
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|Win32 = Debug|Win32
 		Debug|x86 = Debug|x86
@@ -21,6 +24,11 @@ Global
 		Test|x86 = Test|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.clr|Mixed Platforms.ActiveCfg = clr|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.clr|Mixed Platforms.Build.0 = clr|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.clr|Win32.ActiveCfg = clr|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.clr|Win32.Build.0 = clr|Win32
+		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.clr|x86.ActiveCfg = clr|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -41,6 +49,11 @@ Global
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Test|Win32.ActiveCfg = Test|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Test|Win32.Build.0 = Test|Win32
 		{B5B3E1E5-B0FB-441A-AB35-1EAADDD9829C}.Test|x86.ActiveCfg = Test|Win32
+		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.clr|Mixed Platforms.ActiveCfg = Release|x86
+		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.clr|Mixed Platforms.Build.0 = Release|x86
+		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.clr|Win32.ActiveCfg = Release|x86
+		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.clr|x86.ActiveCfg = Release|x86
+		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.clr|x86.Build.0 = Release|x86
 		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{F3A92667-6F38-4588-BA85-D5B00C4ACCA2}.Debug|Win32.ActiveCfg = Debug|x86

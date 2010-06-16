@@ -1,4 +1,6 @@
 DATABASE ../database/wateq4f.dat
+knobs
+	-conv  1e-10
 RATES
 
 CaX2       # species 2

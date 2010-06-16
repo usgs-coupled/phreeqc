@@ -201,7 +201,7 @@ copy_token(char *token_ptr, char **ptr, int *length)
 	return (return_value);
 }
 
-#ifdef PHREEQ98
+#if defined PHREEQ98 || defined CHART
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 copy_title(char *token_ptr, char **ptr, int *length)
