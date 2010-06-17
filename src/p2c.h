@@ -201,7 +201,7 @@ typedef struct __p2c_jmp_buf
 # else
 #  define Signed
 # endif
-# define Void       void		/* Void f() = procedure */
+//# define Void       void		/* Void f() = procedure */
 # ifndef Const
 #  define Const     const
 # endif
@@ -219,7 +219,7 @@ typedef void *Anyptr;
 # endif
 #else
 # define Signed
-# define Void       void
+//# define Void       void
 # ifndef Const
 #  define Const
 # endif
@@ -234,7 +234,7 @@ typedef char *Anyptr;
 
 
 #define Signed
-#define Void       void
+//#define Void       void
 #ifndef Const
 #  define Const
 #endif
@@ -288,7 +288,7 @@ typedef struct
 
 
 /*extern Void    PASCAL_MAIN  P2PP( (int, Char **) );*/
-extern Void PASCAL_MAIN(int, Char **);
+extern void PASCAL_MAIN(int, Char **);
 /*
 extern Char    **P_argv;
 extern int     P_argc;
@@ -328,7 +328,7 @@ extern long strtol P2PP((Const Char *, Char **, int));
 #define HAS_STDLIB
 #ifndef HAS_STDLIB
 extern Anyptr malloc P2PP((size_t));
-extern Void free P2PP((Anyptr));
+extern void free P2PP((Anyptr));
 #endif
 
 extern int _OutMem PV();
@@ -349,8 +349,8 @@ extern long memavail PV();
 extern int P_peek P2PP((FILE *));
 extern int P_eof P2PP((FILE *));
 extern int P_eoln P2PP((FILE *));
-extern Void P_readpaoc P2PP((FILE *, Char *, int));
-extern Void P_readlnpaoc P2PP((FILE *, Char *, int));
+extern void P_readpaoc P2PP((FILE *, Char *, int));
+extern void P_readlnpaoc P2PP((FILE *, Char *, int));
 extern long P_maxpos P2PP((FILE *));
 extern Char *P_trimname P2PP((Char *, int));
 extern long *P_setunion P2PP((long *, long *, long *));
@@ -367,8 +367,8 @@ extern long *P_setcpy P2PP((long *, long *));
 extern long *P_expset P2PP((long *, long));
 extern long P_packset P2PP((long *));
 extern int P_getcmdline P2PP((int, int, Char *));
-extern Void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
-extern Void P_sun_argv P2PP((char *, int, int));
+extern void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
+extern void P_sun_argv P2PP((char *, int, int));
 
 
 /* I/O error handling */
@@ -737,7 +737,7 @@ typedef struct __p2c_jmp_buf
 # else
 #  define Signed
 # endif
-# define Void       void		/* Void f() = procedure */
+//# define Void       void		/* Void f() = procedure */
 # ifndef Const
 #  define Const     const
 # endif
@@ -755,7 +755,7 @@ typedef void *Anyptr;
 # endif
 #else
 # define Signed
-# define Void       void
+//# define Void       void
 # ifndef Const
 #  define Const
 # endif
@@ -770,7 +770,7 @@ typedef char *Anyptr;
 
 
 #define Signed
-#define Void       void
+//#define Void       void
 #ifndef Const
 #  define Const
 #endif
@@ -826,8 +826,8 @@ typedef struct
 
 /*extern Void    PASCAL_MAIN  P2PP( (int, Char **) );*/
 /*
-extern Void PASCAL_MAIN(int, Char **);
-Void PASCAL_MAIN(int, Char **);
+extern void PASCAL_MAIN(int, Char **);
+void PASCAL_MAIN(int, Char **);
 
 Char    **P_argv;
 int     P_argc;
@@ -867,7 +867,7 @@ extern long strtol P2PP((Const Char *, Char **, int));
 #define HAS_STDLIB
 #ifndef HAS_STDLIB
 extern Anyptr malloc P2PP((size_t));
-extern Void free P2PP((Anyptr));
+extern void free P2PP((Anyptr));
 #endif
 #ifdef SKIP
 
@@ -889,8 +889,8 @@ extern long memavail PV();
 extern int P_peek P2PP((FILE *));
 extern int P_eof P2PP((FILE *));
 extern int P_eoln P2PP((FILE *));
-extern Void P_readpaoc P2PP((FILE *, Char *, int));
-extern Void P_readlnpaoc P2PP((FILE *, Char *, int));
+extern void P_readpaoc P2PP((FILE *, Char *, int));
+extern void P_readlnpaoc P2PP((FILE *, Char *, int));
 extern long P_maxpos P2PP((FILE *));
 extern Char *P_trimname P2PP((Char *, int));
 extern long *P_setunion P2PP((long *, long *, long *));
@@ -907,8 +907,8 @@ extern long *P_setcpy P2PP((long *, long *));
 extern long *P_expset P2PP((long *, long));
 extern long P_packset P2PP((long *));
 extern int P_getcmdline P2PP((int, int, Char *));
-extern Void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
-extern Void P_sun_argv P2PP((char *, int, int));
+extern void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
+extern void P_sun_argv P2PP((char *, int, int));
 #endif
 
 /* I/O error handling */

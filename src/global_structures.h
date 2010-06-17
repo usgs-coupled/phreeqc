@@ -19,6 +19,7 @@ enum entity_type
 #   define NAN -99999999
 #endif
 #define MISSING -9999.999
+#define NA (float) -9.9999	            /* NA = not available */
 /* search.h -- declarations for POSIX/SVID-compatible search functions */
 
 
@@ -1320,7 +1321,22 @@ struct system_species
 	char *type;
 	LDBLE moles;
 };
+
 #if defined(PHREEQC_CLASS)
+/* chart.cpp */
+#ifdef CHART
+struct Curves_c {
+	int i;
+	float *x, *y;
+	//struct pts xy;
+	int nxy, npoints, npoints_plot, prev_npoints;
+	
+	char *id, *color, *symbol;
+	int y_axis; 
+	float line_w, symbol_size;
+};
+#endif
+
 /* tally.c ------------------------------- */
 struct tally_buffer
 {

@@ -776,6 +776,50 @@ HashTable *command_hash_table;
 struct const_key *command;
 int NCMDS;
 
+// chart.cpp -------------------------------
+#ifdef CHART
+	int update_time_chart;			/* milliseconds, maybe read */
+	int PanelHeight;
+	int PanelWidth;
+
+	char *axis_titles[3];
+	float axis_scale_x[5]; /* min, max, major tic, minor tic, log */
+	float axis_scale_y[5];
+	float axis_scale_y2[5];
+	char *chart_title;
+
+	int chart_type;						/* default: plot vs distance. If chart_type = 1, plot vs time */
+	int graph_initial_solutions;		/* false */
+	int connect_simulations;			/* same curve properties in new simulations */
+	int rownr;
+	int colnr;							/* row and col no defined in basic.c for GridChar and Plot_XY */
+	int RowOffset;						/* = 1 if new simulations should add points to the same curve */
+	int ColumnOffset;					/* sets column offset, from CSV plot, and from new USER_GRAPH */
+	int prev_advection_step;
+	int prev_transport_step;			/* not used in chart, for compatibility with PfW */
+	int AddSeries;						/* new curve properties in new simulation (does the same, but opposite of connect_simulation) */
+
+	int prev_sim_no;						/* set in new simulation, used for changing curve properties */
+	bool x_filled, col_dwn, y_filled[20]; 	/* in case 20 graph_x is defined after 10 graph_y, perhaps fails when curvenr > 20... */
+	float x_value;							/* from graph_x */
+	bool all_points;						/* true if points in curves remain the same. Works with end_timer */
+	bool end_timer;					        /* in mainsubs.c, stops the update timer in form1.h */
+
+	struct Curves_c *Curves;
+	int ncurves;							/* number of malloced curves */
+	int ncurves_changed[3];		            /* for updating the chart:
+											0 or 1 (if curves have changed), previous no, new no of curves with points*/
+	char *SymbolList[11];
+	/*ColorList = {"Red", "Green", "Blue", "Orange", "Magenta", "Yellow", "Black" }; // defined in Form1.h as cli */
+	/* or any color from System::Drawing::Color */
+
+	int nCSV_headers;					    /* no of CSV curves, also defines ColumnOffset if connect_simulations = 1 */
+
+	int FirstCallToUSER_GRAPH;
+	bool new_ug;					/* in case USER_GRAPH is redefined */
+	bool u_g;
+
+#endif // CHART
 /* cl1.c ------------------------------- */
 
 LDBLE *x_arg, *res_arg, *scratch;
@@ -914,6 +958,11 @@ int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
 int chart_type;
 int AddSeries;
 int FirstCallToUSER_GRAPH;
+#endif
+/* read.c */
+char *prev_next_char;
+#if defined PHREEQ98 || defined CHART
+int shifts_as_points;
 #endif
 
 /* read_class.cxx */
