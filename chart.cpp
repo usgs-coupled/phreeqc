@@ -22,9 +22,10 @@
 #include "input.h"
 
 #ifdef CHART
-#define NA (float) -9.9999				/* NA = not available */
+			
 /* #define CHECK_NA (float) 1e-3; */
 #if !defined(PHREEQC_CLASS)
+	#define NA (float) -9.9999	            /* NA = not available */
 	int update_time_chart = 150;			/* milliseconds, maybe read */
 	int PanelHeight = 510;//510;
 	int PanelWidth = 640;//640;
@@ -75,19 +76,33 @@
 
 	int FirstCallToUSER_GRAPH = 1;
 	bool new_ug = false;					/* in case USER_GRAPH is redefined */
+
+struct Curves_c {
+	int i;
+	float *x, *y;
+	//struct pts xy;
+	int nxy, npoints, npoints_plot, prev_npoints;
+	
+	char *id, *color, *symbol;
+	int y_axis; 
+	float line_w, symbol_size;
+} *Curves;
 #endif  // !PHREEQC_CLASS
 
-void SetChartTitle(char *s)
+void CLASS_QUALIFIER
+SetChartTitle(char *s)
 {
 	chart_title = string_duplicate(s);
 }
 
-void SetAxisTitles(char *s, int i)
+void CLASS_QUALIFIER
+SetAxisTitles(char *s, int i)
 {
 	axis_titles[i] = string_duplicate(s);
 }
 
-void SetAxisScale(char *a, int j, char *token, int true_)
+void CLASS_QUALIFIER
+SetAxisScale(char *a, int j, char *token, int true_)
 {
 	if (j < 4)
 	{
@@ -142,18 +157,7 @@ void SetAxisScale(char *a, int j, char *token, int true_)
 	}
 }
 
-struct Curves_c {
-	int i;
-	float *x, *y;
-	//struct pts xy;
-	int nxy, npoints, npoints_plot, prev_npoints;
-	
-	char *id, *color, *symbol;
-	int y_axis; 
-	float line_w, symbol_size;
-} *Curves;
-
-void /*CLASS_QUALIFIER*/
+void CLASS_QUALIFIER
 MallocCurves(int nc, int ncxy)
 {
 	ncurves = nc;
@@ -296,7 +300,8 @@ ReallocCurveXY(int i)
 }
 
 
-void ExtractCurveInfo(char *line, int curvenr)
+void CLASS_QUALIFIER
+ExtractCurveInfo(char *line, int curvenr)
 {
 	int i, l, sel;
 	char *ptr, *prev_ptr, *ptr2, *ptr3 = NULL;
@@ -382,7 +387,8 @@ void ExtractCurveInfo(char *line, int curvenr)
 	}
 }
 
-int OpenCSVFile(char file_name[MAX_LENGTH])
+int CLASS_QUALIFIER
+OpenCSVFile(char file_name[MAX_LENGTH])
 {
 	int i, l, sel, linenr = 0;
 	float x_value;
@@ -712,7 +718,8 @@ GridChar(char *s, char *a)
 	return;
 }
 
-void PlotXY(char *x, char *y)
+void CLASS_QUALIFIER
+PlotXY(char *x, char *y)
 {
 	/* Attribute values from *x and *y to Curves(*x, *y) */
 	   

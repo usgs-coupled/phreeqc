@@ -47,7 +47,7 @@ __p2c_jmp_buf *__top_jb;
 #define CLASS_QUALIFIER Phreeqc::
 #endif /* PHREEQC_CLASS */
 
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 PASCAL_MAIN(int argc, Char **argv)
 {
 	/*
@@ -466,7 +466,7 @@ P_eoln(FILE * f)
 
 
 /* Read a packed array of characters from a file. */
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 P_readpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -487,7 +487,7 @@ P_readpaoc(FILE * f, char *s, int len)
 		ungetc(ch, f);
 }
 
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 P_readlnpaoc(FILE * f, char *s, int len)
 {
 	int ch;
@@ -813,7 +813,7 @@ P_getcmdline(int l, int h, Char * line)
 }
 #endif
 #ifndef NO_TIME
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 TimeStamp(Day, Month, Year, Hour, Min, Sec)
 	 int *Day, *Month, *Year, *Hour, *Min, *Sec;
 {
@@ -832,7 +832,7 @@ TimeStamp(Day, Month, Year, Hour, Min, Sec)
 	*Sec = tm->tm_sec;
 }
 
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 VAXdate(s)
 	 char *s;
 {
@@ -849,7 +849,7 @@ VAXdate(s)
 	s[6] = '-';
 }
 
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 VAXtime(s)
 	 char *s;
 {
@@ -871,7 +871,7 @@ VAXtime(s)
 
 #ifdef SKIP
 /* SUN Berkeley Pascal extensions */
-Void CLASS_QUALIFIER
+void CLASS_QUALIFIER
 P_sun_argv(register char *s, register int len, register int n)
 {
 	register char *cp;
