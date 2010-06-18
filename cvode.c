@@ -1715,6 +1715,9 @@ CVHin(CVodeMem cv_mem, realtype tout)
 	count = 0;
 	loop
 	{
+		count++;
+		if (count >= MAX_ITERS)
+			break;
 		hgs = hg * sign;
 		yddnrm = CVYddNorm(cv_mem, hgs);
 		if (CVMEM cvode_error == TRUE)
@@ -1729,9 +1732,7 @@ CVHin(CVodeMem cv_mem, realtype tout)
 		hnew =
 			(yddnrm * hub * hub >
 			 TWO) ? RSqrt(TWO / yddnrm) : RSqrt(hg * hub);
-		count++;
-		if (count >= MAX_ITERS)
-			break;
+
 		hrat = hnew / hg;
 		if ((hrat > HALF) && (hrat < TWO))
 			break;
