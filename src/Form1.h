@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>	
 #ifdef PHREEQC_CLASS
 //#define P_INSTANCE p_instance
 //#define P_INSTANCE_COMMA p_instance,
@@ -48,8 +49,10 @@ namespace zdg_ui2 {
 	static void ThreadForm(Object^ data)
 	{
 		Phreeqc *ptr = ((PhreeqcObj^)(data))->phreeqc_ptr;
+		ptr->u_g_active = true;
 		Form1 ^myForm = gcnew Form1(ptr);
 		myForm->ShowDialog();
+		ptr->u_g_active = false;
 	}
 #else
 	static void ThreadForm()
@@ -61,6 +64,7 @@ namespace zdg_ui2 {
 	void ThreadThis(Object^ data)
 	{
 		this->ShowDialog();
+		assert(false);
 	}
 	private: void SetSize()
 	{
