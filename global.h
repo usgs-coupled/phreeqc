@@ -818,7 +818,7 @@ int NCMDS;
 	int FirstCallToUSER_GRAPH;
 	bool new_ug;					/* in case USER_GRAPH is redefined */
 	bool u_g;
-
+	//System::Threading::Thread^ user_graph_thread;
 #endif // CHART
 /* cl1.c ------------------------------- */
 

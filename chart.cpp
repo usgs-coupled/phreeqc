@@ -808,12 +808,21 @@ start_chart(bool end)
 	//ncurves_changed[0] = 0;
 	//ncurves_changed[1] = 0;
 	//ncurves_changed[2] = ncurves;
-
+#if PHREEQC_CLASS
+	Thread ^t = gcnew Thread(
+                gcnew ParameterizedThreadStart(Form1::ThreadForm));
+#else
 	Thread ^t = gcnew Thread( gcnew ThreadStart( &Form1::ThreadForm));
+#endif
 	t->SetApartmentState(ApartmentState::STA);
 	t->IsBackground = false;
 	t->Priority = ThreadPriority::Normal;
+#if PHREEQC_CLASS
+	PhreeqcObj ^p = gcnew PhreeqcObj(this);
+	t->Start(p);
+#else
 	t->Start();
+#endif
 	Thread::Sleep( 1 ); /* this when debugging... */
 	return;
 

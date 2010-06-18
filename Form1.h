@@ -1,5 +1,13 @@
 #pragma once
-
+#ifdef PHREEQC_CLASS
+//#define P_INSTANCE p_instance
+//#define P_INSTANCE_COMMA p_instance,
+#define P_INSTANCE_POINTER phreeqc_ptr->
+//#define PHREEQC_PTR_ARG Phreeqc *p_instance
+//#define PHREEQC_PTR_ARG_COMMA Phreeqc *p_instance,
+#else
+#define P_INSTANCE_POINTER
+#endif
 namespace zdg_ui2 {
 	using namespace System;
 	using namespace System::Windows::Forms;
@@ -7,20 +15,53 @@ namespace zdg_ui2 {
 	using namespace System::Threading;
 	using namespace ZedGraph;
 
+#ifdef PHREEQC_CLASS
+	public ref class PhreeqcObj : public System::Object
+	{
+	public: Phreeqc* phreeqc_ptr;
+	public:	PhreeqcObj(Phreeqc* ptr)
+	{
+		this->phreeqc_ptr = ptr;
+	}
+	};
+#endif
+
 	public ref class Form1  : public System::Windows::Forms::Form
 	{
 	public:	long int tickStart;
 	public: Form1 ^myForm;
 	public:	Form1()
 	{
+#ifdef PHREEQC_CLASS
+		this->phreeqc_ptr = NULL;
+#endif
 		InitializeComponent();
 	}
+#ifdef PHREEQC_CLASS
+	public:	Form1(Phreeqc *ptr)
+	{
+		this->phreeqc_ptr = ptr;
+		InitializeComponent();
+	}
+#endif
+#ifdef PHREEQC_CLASS
+	static void ThreadForm(Object^ data)
+	{
+		Phreeqc *ptr = ((PhreeqcObj^)(data))->phreeqc_ptr;
+		Form1 ^myForm = gcnew Form1(ptr);
+		myForm->ShowDialog();
+	}
+#else
 	static void ThreadForm()
 	{
 		Form1 ^myForm = gcnew Form1();
 		myForm->ShowDialog();
 	}
-
+#endif
+	void ThreadThis(Object^ data)
+	{
+		this->ShowDialog();
+	}
 	private: void SetSize()
 	{
 		zg1->Location = Point( 0, 0 );
@@ -41,27 +82,27 @@ namespace zdg_ui2 {
 	}
 
 	static bool LogX, LogY, LogY2;
-	private: bool check_neg_log(int i, int i2)
+	private: bool check_neg_log( int i, int i2)
 		{
-			if (LogX && axis_scale_x[4] == 10.0 && Curves[i].x[i2] <= 0)
+			if (LogX && P_INSTANCE_POINTER axis_scale_x[4] == 10.0 && P_INSTANCE_POINTER Curves[i].x[i2] <= 0)
 			{
-				warning_msg("Obtained x_value <= 0, removing point...");
+				P_INSTANCE_POINTER warning_msg("Obtained x_value <= 0, removing point...");
 				//axis_scale_x[4] = NA; /* if reverting to linear... */
 				//LogX = false;
 				return true;
 			}
-			if (Curves[i].y[i2] <= 0 && (axis_scale_y[4] == 10.0 || axis_scale_y2[4] == 10.0))
+			if (P_INSTANCE_POINTER Curves[i].y[i2] <= 0 && (P_INSTANCE_POINTER axis_scale_y[4] == 10.0 || P_INSTANCE_POINTER axis_scale_y2[4] == 10.0))
 			{
-				if (Curves[i].y_axis == 2 && LogY2)
+				if (P_INSTANCE_POINTER Curves[i].y_axis == 2 && LogY2)
 				{
-					warning_msg("Obtained sy_value <= 0, removing point......");
+					P_INSTANCE_POINTER warning_msg("Obtained sy_value <= 0, removing point......");
 					//axis_scale_y2[4] = NA;
 					//LogY2 = false;
 				return true;
 				}
 				else if (LogY)
 				{
-					warning_msg("Obtained y_value <= 0, removing point......");
+					P_INSTANCE_POINTER warning_msg("Obtained y_value <= 0, removing point......");
 					//axis_scale_y[4] = NA;
 					//LogY = false;
 				return true;
@@ -77,14 +118,14 @@ namespace zdg_ui2 {
 
 		void DefineCurves(GraphPane ^myPane, int init)
 		{
-			if (ncurves_changed[0])
-				ncurves_changed[0] = 0;
+			if (P_INSTANCE_POINTER ncurves_changed[0])
+				P_INSTANCE_POINTER ncurves_changed[0] = 0;
 
 			// Set the titles and axis labels
-			myPane->Title->Text = gcnew String(chart_title);
-			myPane->XAxis->Title->Text = gcnew String(axis_titles[0]);
-			myPane->YAxis->Title->Text = gcnew String(axis_titles[1]);
-			myPane->Y2Axis->Title->Text = gcnew String(axis_titles[2]);
+			myPane->Title->Text = gcnew String(P_INSTANCE_POINTER chart_title);
+			myPane->XAxis->Title->Text = gcnew String(P_INSTANCE_POINTER axis_titles[0]);
+			myPane->YAxis->Title->Text = gcnew String(P_INSTANCE_POINTER axis_titles[1]);
+			myPane->Y2Axis->Title->Text = gcnew String(P_INSTANCE_POINTER axis_titles[2]);
 
 			myPane->Legend->Position = ZedGraph::LegendPos::TopCenter;
 			
@@ -97,44 +138,44 @@ namespace zdg_ui2 {
 			int s_symb;
 			String ^s_t;
 			Y2 = false;
-			if (axis_scale_x[4] == 10.0) LogX = true;
+			if (P_INSTANCE_POINTER axis_scale_x[4] == 10.0) LogX = true;
 			else LogX = false;
-			if (axis_scale_y[4] == 10.0) LogY = true;
+			if (P_INSTANCE_POINTER axis_scale_y[4] == 10.0) LogY = true;
 			else LogY = false;
-			if (axis_scale_y2[4] == 10.0) LogY2 = true;
+			if (P_INSTANCE_POINTER axis_scale_y2[4] == 10.0) LogY2 = true;
 			else LogY2 = false;
 
-			for (int i = init; i < ncurves_changed[2]; i++)
+			for (int i = init; i < P_INSTANCE_POINTER ncurves_changed[2]; i++)
 			{
-				if (Curves[i].npoints == 0) continue;
+				if (P_INSTANCE_POINTER Curves[i].npoints == 0) continue;
 				list = gcnew PointPairList();
-				for (int i2 = 0; i2 < Curves[i].npoints; i2++)
+				for (int i2 = 0; i2 < P_INSTANCE_POINTER Curves[i].npoints; i2++)
 				{
-					if ((LogX || LogY || LogY2) && (Curves[i].x[i2] <=0
-						|| Curves[i].y[i2] <=0))
+					if ((LogX || LogY || LogY2) && (P_INSTANCE_POINTER Curves[i].x[i2] <=0
+						|| P_INSTANCE_POINTER Curves[i].y[i2] <=0))
 						continue;
 					else
-						list->Add( Curves[i].x[i2], Curves[i].y[i2] );
+						list->Add( P_INSTANCE_POINTER Curves[i].x[i2], P_INSTANCE_POINTER Curves[i].y[i2] );
 				}
-				if (strlen(Curves[i].color) > 0) {
-					col = Color::FromName(gcnew String(Curves[i].color));
+				if (strlen(P_INSTANCE_POINTER Curves[i].color) > 0) {
+					col = Color::FromName(gcnew String(P_INSTANCE_POINTER Curves[i].color));
 				}
 				else col = Color::FromName(ColorList[col_use]);
 				if (++col_use > 6) col_use = 0;
 				
-				if (strlen(Curves[i].symbol) > 0)
+				if (strlen(P_INSTANCE_POINTER Curves[i].symbol) > 0)
 				{
 					int i2;
 					for (i2 = 0; i2 < 11; i2++)
 					{
-						if (strncmp(Curves[i].symbol, SymbolList[i2], 2) == 0) break;
+						if (strncmp(P_INSTANCE_POINTER Curves[i].symbol, P_INSTANCE_POINTER SymbolList[i2], 2) == 0) break;
 					}
 					s_symb = i2;
 				}
 				else s_symb = symbol_use;
 				if (++symbol_use > 10) symbol_use = 0;
 
-				s_t = gcnew String(Curves[i].id);
+				s_t = gcnew String(P_INSTANCE_POINTER Curves[i].id);
 
 				switch (s_symb)
 				{
@@ -175,51 +216,51 @@ namespace zdg_ui2 {
 						myCurve = myPane->AddCurve( s_t, list, col, SymbolType::Default );
 						break;
 				}
-				if (Curves[i].line_w > 0.0)
-					myCurve->Line->Width = (float) Curves[i].line_w;
+				if (P_INSTANCE_POINTER Curves[i].line_w > 0.0)
+					myCurve->Line->Width = (float) P_INSTANCE_POINTER Curves[i].line_w;
 				else
 					myCurve->Line->IsVisible = false;
 				/* hmm... dash/dot don't display well */
 				//myCurve->Line->Style = System::Drawing::Drawing2D::DashStyle::Dot;
 				myCurve->Symbol->Fill = gcnew Fill( Color::FromName("White") );
-				if (Curves[i].symbol_size > 0.0)
-					myCurve->Symbol->Size = (float) Curves[i].symbol_size;
+				if (P_INSTANCE_POINTER Curves[i].symbol_size > 0.0)
+					myCurve->Symbol->Size = (float) P_INSTANCE_POINTER Curves[i].symbol_size;
 				else
 					myCurve->Symbol->IsVisible = false;
-				myCurve->Symbol->Border->Width = (float) Curves[i].line_w;
-				if (Curves[i].y_axis == 2)
+				myCurve->Symbol->Border->Width = (float) P_INSTANCE_POINTER Curves[i].line_w;
+				if (P_INSTANCE_POINTER Curves[i].y_axis == 2)
 				{
 					myCurve->IsY2Axis = true;
 					Y2 = true;
 				}
-				Curves[i].npoints_plot = Curves[i].npoints;
+				P_INSTANCE_POINTER Curves[i].npoints_plot = P_INSTANCE_POINTER Curves[i].npoints;
 						
 				delete list;
 			}
 			// Show the x axis grid
 			myPane->XAxis->MajorGrid->IsVisible = true;
-			if (fabs(axis_scale_x[0] - NA) > 1e-3)
-				myPane->XAxis->Scale->Min = axis_scale_x[0];
+			if (fabs(P_INSTANCE_POINTER axis_scale_x[0] - NA) > 1e-3)
+				myPane->XAxis->Scale->Min = P_INSTANCE_POINTER axis_scale_x[0];
 			else
 				myPane->XAxis->Scale->MinAuto = true;
-			if (fabs(axis_scale_x[1] - NA) > 1e-3)
-				myPane->XAxis->Scale->Max = axis_scale_x[1];
+			if (fabs(P_INSTANCE_POINTER axis_scale_x[1] - NA) > 1e-3)
+				myPane->XAxis->Scale->Max = P_INSTANCE_POINTER axis_scale_x[1];
 			else
 				myPane->XAxis->Scale->MaxAuto = true;
-			if (fabs(axis_scale_x[2] - NA) > 1e-3)
-				myPane->XAxis->Scale->MajorStep = axis_scale_x[2];
+			if (fabs(P_INSTANCE_POINTER axis_scale_x[2] - NA) > 1e-3)
+				myPane->XAxis->Scale->MajorStep = P_INSTANCE_POINTER axis_scale_x[2];
 			else
 				myPane->XAxis->Scale->MajorStepAuto = true;
-			if (fabs(axis_scale_x[3] - NA) > 1e-3)
+			if (fabs(P_INSTANCE_POINTER axis_scale_x[3] - NA) > 1e-3)
 			{
-				myPane->XAxis->Scale->MinorStep = axis_scale_x[3];
-				if (axis_scale_x[3] == 0.0)
+				myPane->XAxis->Scale->MinorStep = P_INSTANCE_POINTER axis_scale_x[3];
+				if (P_INSTANCE_POINTER axis_scale_x[3] == 0.0)
 				// remove minor tics
 					myPane->XAxis->MinorTic->Size = 0;
 			}
 			else
 				myPane->XAxis->Scale->MinorStepAuto = true;
-			if (axis_scale_x[4] == 10.0)
+			if (P_INSTANCE_POINTER axis_scale_x[4] == 10.0)
 				myPane->XAxis->Type = AxisType::Log;
 
 			// Make the Y axis scale red
@@ -236,28 +277,28 @@ namespace zdg_ui2 {
 			// Align the Y axis labels so they are flush to the axis
 			myPane->YAxis->Scale->Align = AlignP::Inside;
 			myPane->YAxis->MajorGrid->IsVisible = true;
-			if (fabs(axis_scale_y[0] - NA) > 1e-3)
-				myPane->YAxis->Scale->Min = axis_scale_y[0];
+			if (fabs(P_INSTANCE_POINTER axis_scale_y[0] - NA) > 1e-3)
+				myPane->YAxis->Scale->Min = P_INSTANCE_POINTER axis_scale_y[0];
 			else
 				myPane->YAxis->Scale->MinAuto = true;
-			if (fabs(axis_scale_y[1] - NA) > 1e-3)
-				myPane->YAxis->Scale->Max = axis_scale_y[1];
+			if (fabs(P_INSTANCE_POINTER axis_scale_y[1] - NA) > 1e-3)
+				myPane->YAxis->Scale->Max = P_INSTANCE_POINTER axis_scale_y[1];
 			else
 				myPane->YAxis->Scale->MaxAuto = true;
-			if (fabs(axis_scale_y[2] - NA) > 1e-3)
-				myPane->YAxis->Scale->MajorStep = axis_scale_y[2];
+			if (fabs(P_INSTANCE_POINTER axis_scale_y[2] - NA) > 1e-3)
+				myPane->YAxis->Scale->MajorStep = P_INSTANCE_POINTER axis_scale_y[2];
 			else
 				myPane->YAxis->Scale->MajorStepAuto = true;
-			if (fabs(axis_scale_y[3] - NA) > 1e-3)
+			if (fabs(P_INSTANCE_POINTER axis_scale_y[3] - NA) > 1e-3)
 			{
-				myPane->YAxis->Scale->MinorStep = axis_scale_y[3];
-				if (axis_scale_y[3] == 0.0)
+				myPane->YAxis->Scale->MinorStep = P_INSTANCE_POINTER axis_scale_y[3];
+				if (P_INSTANCE_POINTER axis_scale_y[3] == 0.0)
 				// remove minor tics
 					myPane->YAxis->MinorTic->Size = 0;
 			}
 			else
 				myPane->YAxis->Scale->MinorStepAuto = true;
-			if (axis_scale_y[4] == 10.0)
+			if (P_INSTANCE_POINTER axis_scale_y[4] == 10.0)
 				myPane->YAxis->Type = AxisType::Log;
 
 			// Enable the Y2 axis display
@@ -275,35 +316,35 @@ namespace zdg_ui2 {
 			// Align the Y2 axis labels so they are flush to the axis
 				myPane->Y2Axis->Scale->Align = AlignP::Inside;
 
-				if (fabs(axis_scale_y2[0] - NA) > 1e-3)
-					myPane->Y2Axis->Scale->Min = axis_scale_y2[0];
+				if (fabs(P_INSTANCE_POINTER axis_scale_y2[0] - NA) > 1e-3)
+					myPane->Y2Axis->Scale->Min = P_INSTANCE_POINTER axis_scale_y2[0];
 				else
 					myPane->Y2Axis->Scale->MinAuto = true;
-				if (fabs(axis_scale_y2[1] - NA) > 1e-3)
-					myPane->Y2Axis->Scale->Max = axis_scale_y2[1];
+				if (fabs(P_INSTANCE_POINTER axis_scale_y2[1] - NA) > 1e-3)
+					myPane->Y2Axis->Scale->Max = P_INSTANCE_POINTER axis_scale_y2[1];
 				else
 					myPane->Y2Axis->Scale->MaxAuto = true;
-				if (fabs(axis_scale_y2[2] - NA) > 1e-3)
-					myPane->Y2Axis->Scale->MajorStep = axis_scale_y2[2];
+				if (fabs(P_INSTANCE_POINTER axis_scale_y2[2] - NA) > 1e-3)
+					myPane->Y2Axis->Scale->MajorStep = P_INSTANCE_POINTER axis_scale_y2[2];
 				else
 					myPane->Y2Axis->Scale->MajorStepAuto = true;
-				if (fabs(axis_scale_y2[3] - NA) > 1e-3)
+				if (fabs(P_INSTANCE_POINTER axis_scale_y2[3] - NA) > 1e-3)
 				{
-					myPane->Y2Axis->Scale->MinorStep = axis_scale_y2[3];
-					if (axis_scale_y2[3] == 0.0)
+					myPane->Y2Axis->Scale->MinorStep = P_INSTANCE_POINTER axis_scale_y2[3];
+					if (P_INSTANCE_POINTER axis_scale_y2[3] == 0.0)
 					// remove minor tics
 						myPane->Y2Axis->MinorTic->Size = 0;
 				}
 				else
 					myPane->Y2Axis->Scale->MinorStepAuto = true;
-				if (axis_scale_y2[4] == 10.0)
+				if (P_INSTANCE_POINTER axis_scale_y2[4] == 10.0)
 					myPane->Y2Axis->Type = AxisType::Log;
 			}
 
 			// Fill the axis background with a gradient
 			myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f );
 
-			timer1->Interval = update_time_chart;
+			timer1->Interval = P_INSTANCE_POINTER update_time_chart;
 			timer1->Enabled = true;
 			timer1->Start();
 
@@ -356,7 +397,7 @@ namespace zdg_ui2 {
 			z1->AxisChange();
 			// Make sure the Graph gets redrawn
 			z1->Invalidate();
-			timer1->Interval = update_time_chart;
+			timer1->Interval = P_INSTANCE_POINTER update_time_chart;
 			timer1->Enabled = true;
 			timer1->Start();
 
@@ -391,15 +432,15 @@ namespace zdg_ui2 {
 		}
 
 		// update the chart with new data...
-		private: void timer1_Tick( System::Object ^sender, System::EventArgs ^e )
+		private: void timer1_Tick(System::Object ^sender, System::EventArgs ^e )
 		{
 			LineItem  ^curve;
-			if ( (Environment::TickCount - tickStart ) > update_time_chart) {
-				all_points = true;
-				if (ncurves_changed[0])
+			if ( (Environment::TickCount - tickStart ) > P_INSTANCE_POINTER update_time_chart) {
+				P_INSTANCE_POINTER all_points = true;
+				if (P_INSTANCE_POINTER ncurves_changed[0])
 				{
 					DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
-					all_points = false;
+					P_INSTANCE_POINTER all_points = false;
 				}
 				else
 			// Get the graph curves...
@@ -407,55 +448,55 @@ namespace zdg_ui2 {
 					curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
 					 // Get the PointPairList
 					IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
-					if (Curves[i].npoints_plot != Curves[i].npoints)
-						all_points = false;
+					if (P_INSTANCE_POINTER Curves[i].npoints_plot != P_INSTANCE_POINTER Curves[i].npoints)
+						P_INSTANCE_POINTER all_points = false;
 					else
-						all_points = true;
+						P_INSTANCE_POINTER all_points = true;
 
-					for ( int i2 = Curves[i].npoints_plot; i2 < Curves[i].npoints; i2++ )
+					for ( int i2 = P_INSTANCE_POINTER Curves[i].npoints_plot; i2 < P_INSTANCE_POINTER Curves[i].npoints; i2++ )
 					{
-						if ((LogX || LogY || LogY2) && (Curves[i].x[i2] <=0
-							|| Curves[i].y[i2] <=0))
+						if ((LogX || LogY || LogY2) && (P_INSTANCE_POINTER Curves[i].x[i2] <=0
+							|| P_INSTANCE_POINTER Curves[i].y[i2] <=0))
 							continue;
 						else
-							ip->Add( Curves[i].x[i2], Curves[i].y[i2] );
+							ip->Add(P_INSTANCE_POINTER Curves[i].x[i2], P_INSTANCE_POINTER Curves[i].y[i2] );
 					}
-					Curves[i].npoints_plot = Curves[i].npoints;
+					P_INSTANCE_POINTER Curves[i].npoints_plot = P_INSTANCE_POINTER Curves[i].npoints;
 				}
 				/* explicitly reset the max in case of log scale, zedgraphs doesn't do this... */
-				if ((fabs(axis_scale_x[1] - NA) < 1e-3) && zg1->GraphPane->XAxis->Type == AxisType::Log)
+				if ((fabs(P_INSTANCE_POINTER axis_scale_x[1] - NA) < 1e-3) && zg1->GraphPane->XAxis->Type == AxisType::Log)
 				{
 					double max = -1e99;
 					for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
 					{
-						if (Curves[i].x[Curves[i].npoints - 1] > max)
-							max = Curves[i].x[Curves[i].npoints - 1];
+						if (P_INSTANCE_POINTER Curves[i].x[P_INSTANCE_POINTER Curves[i].npoints - 1] > max)
+							max = P_INSTANCE_POINTER Curves[i].x[P_INSTANCE_POINTER Curves[i].npoints - 1];
 					}
 					max += pow(10.0, log10(max / 3));
 					zg1->GraphPane->XAxis->Scale->Max = max;
 				}
-				if ((fabs(axis_scale_y[1] - NA) < 1e-3) && zg1->GraphPane->YAxis->Type == AxisType::Log)
+				if ((fabs(P_INSTANCE_POINTER axis_scale_y[1] - NA) < 1e-3) && zg1->GraphPane->YAxis->Type == AxisType::Log)
 				{
 					double max = -1e99;
 					for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
 					{
 						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
 						if (curve->IsY2Axis) continue;
-						if (Curves[i].y[Curves[i].npoints - 1] > max)
-							max = Curves[i].y[Curves[i].npoints - 1];
+						if (P_INSTANCE_POINTER Curves[i].y[P_INSTANCE_POINTER Curves[i].npoints - 1] > max)
+							max = P_INSTANCE_POINTER Curves[i].y[P_INSTANCE_POINTER Curves[i].npoints - 1];
 					}
 					max += pow(10.0, log10(max / 3));
 					zg1->GraphPane->YAxis->Scale->Max = max;
 				}
-				if ((fabs(axis_scale_y2[1] - NA) < 1e-3) && zg1->GraphPane->Y2Axis->Type == AxisType::Log)
+				if ((fabs(P_INSTANCE_POINTER axis_scale_y2[1] - NA) < 1e-3) && zg1->GraphPane->Y2Axis->Type == AxisType::Log)
 				{
 					double max = -1e99;
 					for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
 					{
 						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
 						if (!curve->IsY2Axis) continue;
-						if (Curves[i].y[Curves[i].npoints - 1] > max)
-							max = Curves[i].y[Curves[i].npoints - 1];
+						if (P_INSTANCE_POINTER Curves[i].y[P_INSTANCE_POINTER Curves[i].npoints - 1] > max)
+							max = P_INSTANCE_POINTER Curves[i].y[P_INSTANCE_POINTER Curves[i].npoints - 1];
 					}
 					max += pow(10.0, log10(max / 3));
 					zg1->GraphPane->Y2Axis->Scale->Max = max;
@@ -466,7 +507,7 @@ namespace zdg_ui2 {
 				tickStart = Environment::TickCount;
 			}
 
-			if (end_timer && all_points) timer1->Stop();
+			if (P_INSTANCE_POINTER end_timer && P_INSTANCE_POINTER all_points) timer1->Stop();
 			return;
 		}
 
@@ -480,6 +521,9 @@ namespace zdg_ui2 {
 		public: ZedGraph::ZedGraphControl ^zg1;
 		private: System::Windows::Forms::Timer ^timer1;
 		private: System::ComponentModel::IContainer ^components;
+#ifdef PHREEQC_CLASS
+		private: Phreeqc * phreeqc_ptr;
+#endif
 
 public:
 #pragma region Windows Form Designer generated code
@@ -505,7 +549,7 @@ public:
 			this->zg1->ScrollMinX = 0;
 			this->zg1->ScrollMinY = 0;
 			this->zg1->ScrollMinY2 = 0;
-			this->zg1->Size = System::Drawing::Size(PanelWidth - 2 * 12, PanelHeight - 2 * 12);
+			this->zg1->Size = System::Drawing::Size(P_INSTANCE_POINTER PanelWidth - 2 * 12, P_INSTANCE_POINTER PanelHeight - 2 * 12);
 			this->zg1->TabIndex = 0;
 			this->timer1->Tick += gcnew System::EventHandler( this, &Form1::timer1_Tick );
 			// 
@@ -514,7 +558,7 @@ public:
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::EnablePreventFocusChange;
-			this->ClientSize = System::Drawing::Size(PanelWidth, PanelHeight);
+			this->ClientSize = System::Drawing::Size(P_INSTANCE_POINTER PanelWidth, P_INSTANCE_POINTER PanelHeight);
 			this->Controls->Add(this->zg1);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
