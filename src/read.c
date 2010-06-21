@@ -186,6 +186,7 @@ read_input(void)
 	save.solution = FALSE;
 	save.mix = FALSE;
 	save.irrev = FALSE;
+	save.kinetics = FALSE;
 	save.pp_assemblage = FALSE;
 	save.exchange = FALSE;
 	save.surface = FALSE;
@@ -4823,6 +4824,7 @@ read_save(void)
  */
 	copy_token(token, &ptr, &l);
 	check_key(token);
+#ifdef SKIP
 	switch (next_keyword)
 	{
 	case -1:					/* Have not read line with keyword */
@@ -4841,6 +4843,7 @@ read_save(void)
 	case 15:
 	case 17:
 	case 18:
+	case 20:
 	case 21:
 	case 22:
 	case 23:
@@ -4865,6 +4868,7 @@ read_save(void)
 		/* empty, eof, keyword, print */
 		return (ERROR);
 	}
+#endif
 /*
  *   Read number
  */
@@ -4908,6 +4912,7 @@ read_save(void)
 	case 27:
 	case 28:
 	case 29:
+	case 61:
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = n_user;
 		save.n_pp_assemblage_user_end = n_user_end;
@@ -4933,6 +4938,15 @@ read_save(void)
 		save.n_s_s_assemblage_user = n_user;
 		save.n_s_s_assemblage_user_end = n_user_end;
 		break;
+	default:
+		input_error++;
+		error_msg
+			("Expecting keyword solution, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.",
+			 CONTINUE);
+		error_msg(line_save, CONTINUE);
+		check_line("End of save", FALSE, TRUE, TRUE, TRUE);
+		/* empty, eof, keyword, print */
+		return (ERROR);
 	}
 	check_line("End of save", FALSE, TRUE, TRUE, TRUE);
 	/* empty, eof, keyword, print */
