@@ -1523,12 +1523,23 @@ saver(void)
 		}
 	}
 	if (save.kinetics == TRUE && use.kinetics_in == TRUE
-		&& use.kinetics_ptr != NULL)
+	    /*&& use.kinetics_ptr != NULL */)
 	{
-		n = use.kinetics_ptr->n_user;
-		for (i = save.n_kinetics_user; i <= save.n_kinetics_user_end; i++)
+		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_duplicate(n, i);
+			use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+		}
+		else if (use.kinetics_in != FALSE)
+		{
+			use.kinetics_ptr = kinetics_bsearch(-2, &i);
+		}
+		if (use.kinetics_ptr != NULL)
+		{
+			n = use.kinetics_ptr->n_user;
+			for (i = save.n_kinetics_user; i <= save.n_kinetics_user_end; i++)
+			{
+				kinetics_duplicate(n, i);
+			}
 		}
 	}
 	return (OK);
