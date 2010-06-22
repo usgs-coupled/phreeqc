@@ -18,12 +18,6 @@
 #include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
 							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
 #include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
-#else
-#if !defined(NDEBUG)
-#define CLASS_MALLOC pThis->PHRQ_malloc
-#else
-#define CLASS_MALLOC malloc
-#endif
 #endif
 
 /* These macros are defined in order to write code which exactly matches
@@ -3261,7 +3255,7 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	pThis->rate_sim_time = pThis->cvode_rate_sim_time;
 
 	initial_rates =
-		(LDBLE *) CLASS_MALLOC ((size_t) n_reactions * sizeof(LDBLE));
+		(LDBLE *) pThis->PHRQ_malloc ((size_t) n_reactions * sizeof(LDBLE));
 	if (initial_rates == NULL)
 		pThis->malloc_error();
 
