@@ -307,7 +307,6 @@ int CLASS_QUALIFIER
 fpunchf_user(int user_index, const char *format, ...)
 {
 	static int s_warning = 0;
-	int retval = 0;
 	size_t i;
 	static char buffer[80];
 	char *name;
