@@ -148,6 +148,19 @@ output_msg(const int type, const char *format, ...)
 										output_callbacks[i].cookie, format,
 										args);
 		va_end(args);
+
+		if (phast == TRUE)
+		{
+			if (type == OUTPUT_CHECKLINE && pr.echo_input == TRUE && phreeqc_mpi_myself == 0)
+			{
+				va_list args;
+				va_start(args, format);
+				(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ECHO, NULL, CONTINUE,
+												output_callbacks[i].cookie, format,
+												args);
+				va_end(args);
+			}
+		}
 	}
 	return OK;
 }
