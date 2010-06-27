@@ -372,7 +372,6 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/phreeqc.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"

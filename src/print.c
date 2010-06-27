@@ -3268,6 +3268,7 @@ punch_user_graph(void)
 }
 #endif
 
+#ifdef SKIP_MOVED_TO_OUTPUT_C
 #if defined(HDF5_CREATE)
 extern void HDFWriteHyperSlabV(const char *name, const char *format,
 							   va_list argptr);
@@ -3337,6 +3338,7 @@ fpunchf_end_row(const char *format, ...)
 
 	return retval;
 }
+#endif /* SKIP_MOVED_TO_OUTPUT_C */
 
 
 #ifdef SAVE

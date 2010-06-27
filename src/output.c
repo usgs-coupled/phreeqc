@@ -41,6 +41,7 @@ add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie)
 	return OK;
 }
 
+#ifdef SKIP_OUTPUT_MESSAGE
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_message(const int type, const char *err_str, const int stop,
@@ -74,6 +75,7 @@ output_message(const int type, const char *err_str, const int stop,
 	}
 	return OK;
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -89,15 +91,28 @@ int CLASS_QUALIFIER
 error_msg(const char *err_str, const int stop, ...)
 /* ---------------------------------------------------------------------- */
 {
-	va_list args;
-	int return_value;
+#if !defined(PHREEQC_CLASS)
+	extern jmp_buf mark;
+#endif
+	size_t i;
 
 	if (input_error <= 0)
 		input_error = 1;
-	va_start(args, stop);
-	return_value = output_message(OUTPUT_ERROR, err_str, stop, "", args);
-	va_end(args);
-	return (return_value);
+
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, stop);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ERROR, err_str, stop,
+										output_callbacks[i].cookie, "",
+										args);
+		va_end(args);
+	}
+	if (stop == STOP)
+	{
+		longjmp(mark, input_error);
+	}
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -105,15 +120,18 @@ int CLASS_QUALIFIER
 warning_msg(const char *err_str, ...)
 /* ---------------------------------------------------------------------- */
 {
-	va_list args;
-	int return_value;
-
-	va_start(args, err_str);
-	return_value =
-		output_message(OUTPUT_WARNING, err_str, CONTINUE, "", args);
+	size_t i;
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, err_str);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_WARNING, err_str, CONTINUE,
+										output_callbacks[i].cookie, "",
+										args);
+		va_end(args);
+	}
 	count_warnings++;
-	va_end(args);
-	return (return_value);
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -121,14 +139,17 @@ int CLASS_QUALIFIER
 output_msg(const int type, const char *format, ...)
 /* ---------------------------------------------------------------------- */
 {
-	int return_value;
-	va_list args;
-
-	va_start(args, format);
-	return_value = output_message(type, NULL, CONTINUE, format, args);
-	va_end(args);
-
-	return (return_value);
+	size_t i;
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, format);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, type, NULL, CONTINUE,
+										output_callbacks[i].cookie, format,
+										args);
+		va_end(args);
+	}
+	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -154,21 +175,21 @@ output_fflush(const int type, ...)
 {
 	size_t i;
 	int check;
-	va_list args;
 
 	check = OK;
-	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i)
 	{
+		va_list args;
+		va_start(args, type);
 		check =
 			(output_callbacks[i].callback) (ACTION_FLUSH, type, NULL,
 											CONTINUE,
 											output_callbacks[i].cookie, NULL,
 											args);
+		va_end(args);
 		if (check != OK)
 			break;
 	}
-	va_end(args);
 	if (check != OK)
 		return (ERROR);
 	return (OK);
@@ -181,21 +202,21 @@ output_rewind(const int type, ...)
 {
 	size_t i;
 	int check;
-	va_list args;
 
 	check = OK;
-	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i)
 	{
+		va_list args;
+		va_start(args, type);
 		check =
 			(output_callbacks[i].callback) (ACTION_REWIND, type, NULL,
 											CONTINUE,
 											output_callbacks[i].cookie, NULL,
 											args);
+		va_end(args);
 		if (check != OK)
 			break;
 	}
-	va_end(args);
 	if (check != OK)
 		return (ERROR);
 	return (OK);
@@ -208,21 +229,21 @@ output_close(const int type, ...)
 {
 	size_t i;
 	int check;
-	va_list args;
 
 	check = OK;
-	va_start(args, type);
 	for (i = 0; i < count_output_callback; ++i)
 	{
+		va_list args;
+		va_start(args, type);
 		check =
 			(output_callbacks[i].callback) (ACTION_CLOSE, type, NULL,
 											CONTINUE,
 											output_callbacks[i].cookie, NULL,
 											args);
+		va_end(args);
 		if (check != OK)
 			break;
 	}
-	va_end(args);
 	if (check != OK)
 		return (ERROR);
 	return (OK);
@@ -235,23 +256,104 @@ output_open(const int type, const char *file_name, ...)
 {
 	size_t i;
 	int check;
-	va_list args;
 	assert(file_name && strlen(file_name));
 
 	check = OK;
-	va_start(args, file_name);
 	for (i = 0; i < count_output_callback; ++i)
 	{
+		va_list args;
+		va_start(args, file_name);
 		check =
 			(output_callbacks[i].callback) (ACTION_OPEN, type, file_name,
 											CONTINUE,
 											output_callbacks[i].cookie, NULL,
 											args);
+		va_end(args);
 		if (check != OK)
 			break;
 	}
-	va_end(args);
 	if (check != OK)
 		return (ERROR);
 	return (OK);
+}
+
+#if defined(HDF5_CREATE)
+extern void HDFWriteHyperSlabV(const char *name, const char *format,
+							   va_list argptr);
+#endif
+
+#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
+extern int Merge_fpunchf(const int length, const char *format,
+						 va_list argptr);
+#endif
+
+int CLASS_QUALIFIER
+fpunchf(const char *name, const char *format, ...)
+{
+	size_t i;
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, format);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_PUNCH, name, CONTINUE,
+										output_callbacks[i].cookie, format,
+										args);
+		va_end(args);
+	}
+	return OK;
+}
+
+int CLASS_QUALIFIER
+fpunchf_user(int user_index, const char *format, ...)
+{
+	static int s_warning = 0;
+	int retval = 0;
+	size_t i;
+	static char buffer[80];
+	char *name;
+
+	if (user_index < user_punch_count_headings)
+	{
+		name = user_punch_headings[user_index];
+	}
+	else
+	{
+		if (s_warning == 0)
+		{
+			sprintf(error_string,
+					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
+			warning_msg(error_string);
+			s_warning = 1;
+		}
+		sprintf(buffer, "no_heading_%d",
+				(user_index - user_punch_count_headings) + 1);
+		name = buffer;
+	}
+
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, format);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_PUNCH, name, CONTINUE,
+										output_callbacks[i].cookie, format,
+										args);
+		va_end(args);
+	}
+	return OK;
+}
+
+int CLASS_QUALIFIER
+fpunchf_end_row(const char *format, ...)
+{
+	size_t i;
+	for (i = 0; i < count_output_callback; ++i)
+	{
+		va_list args;
+		va_start(args, format);
+		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_PUNCH_END_ROW, "", CONTINUE,
+										output_callbacks[i].cookie, format,
+										args);
+		va_end(args);
+	}
+	return OK;
 }

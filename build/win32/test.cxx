@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cassert>
 extern "C" {
 #define EXTERNAL
 #define PHREEQC_IDENT

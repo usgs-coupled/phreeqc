@@ -4,7 +4,7 @@ CFG1 :=`uname`
 CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
 PHREEQC=../bin/phreeqc
 ifeq ($(CFG), CYGWIN)
-  PHREEQC=/cygdrive/c/Programs/phreeqc-trunk/build/win32/Release/phreeqc
+  PHREEQC=../build/win32/Release/phreeqc
 endif
 
 %.out : %  ../database/phreeqc.dat ../database/wateq4f.dat ../database/llnl.dat ../database/minteq.dat ../database/minteq.v4.dat ../database/iso.dat mahoney.dat ../database/pitzer.dat 
