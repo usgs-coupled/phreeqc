@@ -5166,6 +5166,10 @@ print_total_pat(FILE * netpath_file, const char *elt, const char *string)
 {
 	LDBLE d;
 	d = 1000.0 * total(elt);
+	if (strcmp(elt,"O(0)") == 0)
+	{
+		d = d/2.0;
+	}
 	if (d == 0)
 	{
 		fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
