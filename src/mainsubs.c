@@ -3147,7 +3147,12 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 {
 	int errors;
 	char token[MAX_LENGTH];
-
+#ifdef SKIP
+#if defined(WIN32)
+	unsigned int old_exponent_format;
+	old_exponent_format = _set_output_format(_TWO_DIGIT_EXPONENT);
+#endif
+#endif
 /*
  *   Prepare error handling
  */
