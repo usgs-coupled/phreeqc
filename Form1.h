@@ -131,8 +131,6 @@ namespace zdg_ui2 {
 			myPane->YAxis->Title->Text = gcnew String(P_INSTANCE_POINTER axis_titles[1]);
 			myPane->Y2Axis->Title->Text = gcnew String(P_INSTANCE_POINTER axis_titles[2]);
 
-			myPane->Legend->Position = ZedGraph::LegendPos::TopCenter;
-			
 			LineItem ^myCurve;
 
 			Color col;
@@ -241,6 +239,12 @@ namespace zdg_ui2 {
 						
 				delete list;
 			}
+
+			if (Y2)
+				myPane->Legend->Position = ZedGraph::LegendPos::TopCenter;
+			else
+				myPane->Legend->Position = ZedGraph::LegendPos::Right;
+
 			// Show the x axis grid
 			myPane->XAxis->MajorGrid->IsVisible = true;
 			if (fabs(P_INSTANCE_POINTER axis_scale_x[0] - NA) > 1e-3)
@@ -347,13 +351,6 @@ namespace zdg_ui2 {
 
 			// Fill the axis background with a gradient
 			myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f );
-
-			timer1->Interval = P_INSTANCE_POINTER update_time_chart;
-			timer1->Enabled = true;
-			timer1->Start();
-
-			tickStart = Environment::TickCount;
-
 		}
 
 		public: void CreateGraph( ZedGraphControl ^z1 )	{
@@ -362,11 +359,18 @@ namespace zdg_ui2 {
 
 			DefineCurves(myPane, 0);
 
-			// Add a text box with instructions
-			TextObj ^text = gcnew TextObj(
-//				L"Zoom: left mouse & drag\nPan: middle mouse & drag\nContext Menu: right mouse",
+			// Add text boxes with instructions...
+			TextObj ^text;
+			text = gcnew TextObj(
 				L" Click right mouse for options...",
 				0.01f, 0.99f, CoordType::PaneFraction, AlignH::Left, AlignV::Bottom );
+			text->FontSpec->StringAlignment = StringAlignment::Near;
+			text->FontSpec->Size = 10;
+			text->FontSpec->FontColor = Color::Red;
+			myPane->GraphObjList->Add( text );
+			text = gcnew TextObj(
+				L" Press Alt + F4 to quit",
+				0.81f, 0.99f, CoordType::PaneFraction, AlignH::Left, AlignV::Bottom );
 			text->FontSpec->StringAlignment = StringAlignment::Near;
 			text->FontSpec->Size = 10;
 			text->FontSpec->FontColor = Color::Red;
@@ -425,8 +429,17 @@ namespace zdg_ui2 {
 					ZedGraphControl::ContextMenuObjectState objState ) {
 			ToolStripMenuItem ^item = gcnew ToolStripMenuItem();
 			item->Text = L"Zoom: left mouse + drag\nPan: middle mouse + drag";
-
 			menuStrip->Items->Insert(5, item );
+
+			menuStrip->Items->RemoveAt(0);
+			item->Text = L"Save Curves to Curves.u_g";
+			item->Click += gcnew System::EventHandler(this, &zdg_ui2::Form1::SaveCurves );
+			menuStrip->Items->Insert(0, item );
+
+		}
+		void SaveCurves( System::Object ^sender, System::EventArgs ^e )
+		{
+			SaveCurvesToFile("Curves.u_g");
 		}
 
 		// Respond to a Zoom Event
@@ -511,7 +524,11 @@ namespace zdg_ui2 {
 				tickStart = Environment::TickCount;
 			}
 
-			if (P_INSTANCE_POINTER end_timer && P_INSTANCE_POINTER all_points) timer1->Stop();
+			if (P_INSTANCE_POINTER end_timer && P_INSTANCE_POINTER all_points)
+			{
+				timer1->Stop();
+				//SaveCurvesToFile("c:\\temp\\cv.ug1");
+			}
 			return;
 		}
 
@@ -521,6 +538,7 @@ namespace zdg_ui2 {
 			if (components) {
 				delete components;
 			}
+			DeleteCurves(); /* perhaps not even needed... */
 		}
 		public: ZedGraph::ZedGraphControl ^zg1;
 		private: System::Windows::Forms::Timer ^timer1;

@@ -78,9 +78,7 @@
 	bool new_ug = false;					/* in case USER_GRAPH is redefined */
 
 struct Curves_c {
-	int i;
 	float *x, *y;
-	//struct pts xy;
 	int nxy, npoints, npoints_plot, prev_npoints;
 	
 	char *id, *color, *symbol;
@@ -176,7 +174,8 @@ MallocCurves(int nc, int ncxy)
 		}
 		Curves[i].nxy = ncxy;
 		Curves[i].npoints_plot = Curves[i].npoints = Curves[i].prev_npoints = 0;
-		Curves[i].id = Curves[i].color = Curves[i].symbol = string_hsave("");
+		Curves[i].id = string_duplicate("");
+		Curves[i].color = Curves[i].symbol = string_hsave("");
 		Curves[i].y_axis = 1;
 		Curves[i].line_w = (float) 1.0;
 		Curves[i].symbol_size = (float) 6.0;
@@ -190,6 +189,7 @@ DeleteCurves(void)
 	{
 		delete[] Curves[i].x;
 		delete[] Curves[i].y;
+		free(Curves[i].id);
 	}
 	delete[] Curves;
 }
@@ -228,7 +228,7 @@ ReallocCurves(int new_nc)
 		Curves_t[i].npoints = Curves[i].npoints;
 		Curves_t[i].prev_npoints = Curves[i].prev_npoints;
 
-		Curves_t[i].id = string_hsave(Curves[i].id);
+		Curves_t[i].id = string_duplicate(Curves[i].id);
 		Curves_t[i].color = string_hsave(Curves[i].color);
 		Curves_t[i].symbol = string_hsave(Curves[i].symbol);
 		Curves_t[i].y_axis = Curves[i].y_axis;
@@ -250,7 +250,8 @@ ReallocCurves(int new_nc)
 			Curves_t[i].x[i2] = (float) NA;
 			Curves_t[i].y[i2] = (float) NA;
 		}
-		Curves_t[i].id = Curves_t[i].color = Curves_t[i].symbol = string_hsave("");
+		Curves_t[i].id = string_duplicate("");
+		Curves_t[i].color = Curves_t[i].symbol = string_hsave("");
 		Curves_t[i].y_axis = 1;
 		Curves_t[i].line_w = (float) 1.0;
 		Curves_t[i].symbol_size = (float) 6.0;
@@ -309,8 +310,11 @@ ExtractCurveInfo(char *line, int curvenr)
 	if (curvenr + ColumnOffset >= ncurves)
 		ReallocCurves(0);
 	if (user_graph_count_headings > curvenr + ColumnOffset)
+	{
+		free(Curves[curvenr + ColumnOffset].id);
 		Curves[curvenr + ColumnOffset].id =
-			string_hsave(user_graph_headings[curvenr + ColumnOffset]);
+			string_duplicate(user_graph_headings[curvenr + ColumnOffset]);
+	}
 	ptr = line;
 	/* plot_xy x, tot("Cl"), color = Red, symbol = Circle, symbol_size = 0.0, line_w = 1.0, y_axis = 2 */
 	/* skip the first tokens */
@@ -432,7 +436,8 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 			for (int i = 0; i < nCSV_headers; i++)
 			{
 				copy_token(token, &ptr, &l);
-				Curves[i].id = user_graph_headings[i] = string_hsave(token);
+				free(Curves[i].id);
+				Curves[i].id = user_graph_headings[i] = string_duplicate(token);
 				Curves[i].line_w = 0.0;
 			}
 
@@ -440,7 +445,8 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 			continue;
 		}
 
-		if (linenr < 6 && copy_token(token, &ptr, &l) != DIGIT)
+		sel = copy_token(token, &ptr, &l);
+		if (linenr < 6 && sel != DIGIT)
 		{ /* see if token contains curve definer... */
 			str_tolower(token);
 			sel = -1;
@@ -456,7 +462,7 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 				sel = 4;
 
 			if (sel >= 0)
-			{ /* read curve definer values... */
+			{ /* read curve properties... */
 				i = 0;
 				while (strlen(ptr) > 0 && i < nCSV_headers)
 				{
@@ -491,11 +497,11 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 				continue;
 			}
 		}
-		//else
+		else
 		{ /* read point values... */
 			if (linenr < 6)
 				linenr = 6;
-			if (copy_token(token, &ptr, &l) == DIGIT)
+			if (sel == DIGIT)
 			{
 				x_value = (float) atof(token);
 			}
@@ -530,6 +536,52 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 	return OK;
 }
 
+void CLASS_QUALIFIER
+SaveCurvesToFile(char file_name[MAX_LENGTH])
+{
+	int i, i2;
+	FILE *f_out;
+  f_out = fopen(file_name, "w");
+	if (f_out == NULL)
+		return;
+	int max_points = 0;
+	for (i = 0; i < ncurves; i++)
+	{
+		if (!Curves[i].npoints)
+			continue;
+		if (strlen(Curves[i].id))
+			fprintf(f_out, " x \t%s\t", Curves[i].id);
+		else
+			fprintf(f_out, " x \t y \t");
+		if (Curves[i].npoints > max_points)
+			max_points = Curves[i].npoints;
+	}
+	fprintf(f_out, "\n");
+	i2 = 0;
+	while (i2 < max_points)
+	{
+		for (i = 0; i < ncurves; i++)
+		{
+			if (!Curves[i].npoints)
+				continue;
+			if (i2 < Curves[i].npoints)
+			{
+				fprintf(f_out, "%12.4e\t", Curves[i].x[i2]);
+				fprintf(f_out, "%12.4e\t", Curves[i].y[i2]);
+			}
+			else if (i2 < max_points)
+			{
+				fprintf(f_out, "\t\t");
+			}
+		}
+		fprintf(f_out, "\n");
+		i2++;
+	}
+
+	fclose(f_out);
+	return;
+}
+
 #include "Form1.h"
 
 using namespace zdg_ui2;
@@ -558,7 +610,6 @@ GridChar(char *s, char *a)
 		x = false;
 
 	int curvenr = colnr + ColumnOffset;
-	int rownr_here = rownr;
 
 	/* After the column with x, the curvenr's must be reduced by 1.
 			It's a bit complicated when intermixing with plot_xy... */
@@ -572,12 +623,17 @@ GridChar(char *s, char *a)
 		ncurves_changed[1] = ncurves_changed[2];
 		ncurves_changed[2] = curvenr + 1;
 	}
+
 	/* If a new simulation, create new set of curves,
 	   define identifiers, y axis... */
 	if (rownr == 0)
 	{
 		if (FirstCallToUSER_GRAPH || new_ug)
 		{
+			if (colnr == 0)
+			{
+				prev_sim_no = simulation;
+			}
 			if (x)
 			{ /* remove x_header... */
 				for (i = curvenr; i < user_graph_count_headings - 1; i++)
@@ -590,17 +646,11 @@ GridChar(char *s, char *a)
 					malloc_error();
 				new_ug = false;
 			}
-			if (colnr == 0)
-			{
-				prev_sim_no = simulation;
-			}
-			else
-			{
-				if (simulation != prev_sim_no)
-					new_sim = true;
-			}
-			prev_sim_no = simulation;
 		}
+
+		if (simulation != prev_sim_no)
+			new_sim = true;
+		prev_sim_no = simulation;
 
 		if (new_sim && AddSeries && !connect_simulations)
 		{ /* step to new curveset... */
@@ -631,21 +681,21 @@ GridChar(char *s, char *a)
 		}
 
 		/* define curve identifier... */
-		if (!x && user_graph_count_headings - nCSV_headers > colnr)
+		i = colnr + nCSV_headers;
+		if (connect_simulations)
+			i = colnr + ColumnOffset;
+		if (x_filled && !col_dwn)
+			i--;
+		if (!x && user_graph_count_headings > i)
 		{
-			i = colnr;
-			if (x_filled && !col_dwn)
-				i--;
-			Curves[curvenr].id = string_hsave(user_graph_headings[i + ColumnOffset]);
-			//for (i = 0; i < user_graph_count_headings; i++)
-			//	output_msg(OUTPUT_MESSAGE, "i = %i.\tug_head = %s\n",
-			//	i, user_graph_headings[i]);
+			free(Curves[curvenr].id);
+			Curves[curvenr].id = string_duplicate(user_graph_headings[i]);
 		}
 		/* the y axis... */
 		if (strcmp(a, "s") == 0)
 			Curves[curvenr].y_axis = 2;
 		/* Diamonds are small... */
-		if (curvenr - ColumnOffset == 1)
+		if (curvenr == 1)
 			Curves[curvenr].symbol_size = Curves[curvenr - 1].symbol_size + (float) 1.0;
 
 		if (nCSV_headers)
@@ -655,6 +705,8 @@ GridChar(char *s, char *a)
 			for (i = 0; i < nCSV_headers; i++)
 			{
 				cn = i + ColumnOffset;
+				if (cn >= ncurves)
+						ReallocCurves(0);
 				Curves[cn].symbol = string_hsave("None");
 				Curves[cn].color = string_hsave(color[i]);
 			}
@@ -671,10 +723,6 @@ GridChar(char *s, char *a)
 		}
 		return;
 	}
-
-	/* simulations are connected, add points to existing set... */
-	if (RowOffset)
-		rownr_here += Curves[curvenr].prev_npoints;
 
 	/* define the x value for Curves(x, y)... */
 	if (x)
@@ -723,8 +771,9 @@ PlotXY(char *x, char *y)
 {
 	/* Attribute values from *x and *y to Curves(*x, *y) */
 	   
+	int i, i2, i3;
 	bool new_sim = false;
-	if (FirstCallToUSER_GRAPH)
+	if (FirstCallToUSER_GRAPH && colnr == 0)
 		prev_sim_no = simulation;
 	else
 		if (!rownr && simulation != prev_sim_no)
@@ -742,46 +791,49 @@ PlotXY(char *x, char *y)
 		ncurves_changed[2] = curvenr + 1;
 	}
 	/* If a new simulation, create new set of curves,
-	   define identifiers, y axis... */
-	if (rownr == 0)
+	   define identifiers, y axis from values set in ExtractCurveInfo... */
+	if (rownr == 0 && colnr == 0)
 	{
 		if (new_sim && AddSeries && !connect_simulations)
 		{ /* step to new curveset... */
 			if (Curves[ncurves - 1].npoints)
 				ReallocCurves(ncurves * 2);
-			for (int i = curvenr; i < ncurves; i++)
+			for (i = curvenr; i < ncurves; i++)
 			{
-				if (Curves[i].npoints) continue;
+				if (Curves[i].npoints)
+					continue;
 				else
-				{ /* curve i is free... */
-					int i2 = nCSV_headers;
+				{
+				/* curve i is free... */
+					i2 = i3 = ColumnOffset;
 					ColumnOffset = curvenr = i;
-					if (new_ug)
-						i2 = ColumnOffset;
-					if (curvenr >= ncurves)
-						ReallocCurves(0);
-					/* define the new curve... */
-					if (colnr + i2 < user_graph_count_headings)
-						Curves[curvenr].id = string_hsave(user_graph_headings[colnr + i2]);
-					Curves[curvenr].color = Curves[colnr + i2].color;
-					Curves[curvenr].line_w = Curves[colnr + i2].line_w;
-					Curves[curvenr].symbol = Curves[colnr + i2].symbol;
-					Curves[curvenr].symbol_size = Curves[colnr + i2].symbol_size;
-					Curves[curvenr].y_axis = Curves[colnr + i2].y_axis;
-
-					/* indicate the change for timer1 in form.h... */
-					ncurves_changed[0] = 1;
-					ncurves_changed[1] = ncurves_changed[2];
-					ncurves_changed[2] = curvenr + 1;
 					break;
 				}
+			}
+			/* fill in curve properties... */
+			for (i = ColumnOffset; i < ColumnOffset + (ColumnOffset - i2); i++)
+			{
+				if (i >= ncurves)
+					ReallocCurves(0);
+				/* define the new curve... */
+				if (i3 < user_graph_count_headings)
+				{
+					free(Curves[i].id);
+					Curves[i].id = string_duplicate(user_graph_headings[i3]);
+				}
+				//Curves[i].color = Curves[i3].color;
+				//Curves[i].line_w = Curves[i3].line_w;
+				//Curves[i].symbol = Curves[i3].symbol;
+				//Curves[i].symbol_size = Curves[i3].symbol_size;
+				Curves[i].y_axis = Curves[i3].y_axis;
+				i3++;
 			}
 		}
 		/* Or, add all to existing set... */
 		else if (new_sim)
 		{
 			RowOffset = 1;
-			for (int i = 0; i < ncurves; i++) Curves[i].prev_npoints = Curves[i].npoints;
+			for (i = 0; i < ncurves; i++) Curves[i].prev_npoints = Curves[i].npoints;
 		}
 	}
 
@@ -805,9 +857,7 @@ start_chart(bool end)
 		goto end_chart;
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(true); 
-	//ncurves_changed[0] = 0;
-	//ncurves_changed[1] = 0;
-	//ncurves_changed[2] = ncurves;
+
 #if PHREEQC_CLASS
 	Thread ^t = gcnew Thread(
                 gcnew ParameterizedThreadStart(Form1::ThreadForm));

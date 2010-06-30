@@ -9522,13 +9522,13 @@ read_user_graph(void)
 #ifdef CHART
 	if (FirstCallToUSER_GRAPH)
 	{
-		u_g = true; /* used in mainsubs.c for clean_up */
+		u_g = true;
 		user_graph_count_headings = 0;
 		MallocCurves(5, 30);
 	}
 	else
 	{
-		connect_simulations = false;
+		//connect_simulations = false;
 		ncurves_changed[0] = 1;
 		ColumnOffset = ncurves_changed[2];
 		new_ug = true;
@@ -9676,7 +9676,7 @@ read_user_graph(void)
 			strcpy(file_name, next_char);
 			if (!OpenCSVFile(file_name))
 			{
-				sprintf(error_string, "Can't open file, %s. Give the full path + name, or copy the file to the working dir", file_name);
+				sprintf(error_string, "Can't open file, %s. Give the full path + name, or copy the file to the working directory.", file_name);
 				input_error++;
 				error_msg(error_string, CONTINUE);
 			}
