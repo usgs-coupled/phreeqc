@@ -1,0 +1,44 @@
+DATABASE ../database/phreeqc.dat
+# shows new options in user_graph, see also val_zg.csv: plots Cl on y2
+SOLUTION 1-8  Well S23                              # define aquifer...
+ Na 86.5; Mg 18.2; Ca 11.2
+ Cl 160.0
+EXCHANGE_SPECIES
+ Mg+2 + 2X- = MgX2; -log_k 0.54; -gamma 5.5 0.2
+ Ca+2 + 2X- = CaX2; -log_k 0.78; -gamma 5.0 0.165
+EXCHANGE 1-8
+ X 0.7500; -equilibrate 1
+PRINT; -reset  false                                # ... note to reduce printout
+END
+
+SOLUTION 0                                          # define injected solution and xpt...
+ Na 9.4; Mg 0.5; Ca 2.13
+ Cl 14.66
+END
+
+TRANSPORT
+ -cells    8
+ -shifts  800
+ -lengths 6.532  2.706  2.076  1.75  1.542  1.394  1.282  1.193
+ -dispersivity 1.0
+ -punch     6
+USER_GRAPH
+ # -headings Injected Cl Ca Mg Na
+ -headings Na Mg Ca Cl
+ -axis_scale x_axis 100 100000 auto auto true       # use logarithmic axes
+ -axis_scale y_axis 0.1 160 auto auto true
+ -plot_concentration_vs time
+ -axis_titles "m^3 injected" "mmol/L" "Cl / (mmol/L)"
+ -plot_csv val_zg.csv
+ -start
+ 10 V0 = 295                                        # m3 from injection well to S23
+ 20 x = V0 * (step_no + 0.5)/cell_no
+ # 30 graph_x x
+ # 40 graph_sy 1e3 * tot("Cl")
+ # 50 graph_y 1e3 * tot("Ca"), 1e3 * tot("Mg"), 1e3 * tot("Na")
+ 30 plot_xy x, 1e3 * tot("Na"), color = Magenta, symbol_size = 0.0
+ 32 plot_xy x, 1e3 * tot("Mg"), color = Green, symbol_size = 0.0
+ 34 plot_xy x, 1e3 * tot("Ca"), color = Blue, symbol = None
+ 40 plot_xy x, tot("Cl") * 1e3, color= Red, symbol_size =0.0, y_axis = 2
+ -end
+END

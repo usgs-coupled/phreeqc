@@ -8,6 +8,11 @@ File contains:
 ************************************************************
 ************************************************************
         --------
+        svn 4594
+        --------
+        Modified charting to write plotted values to file.
+
+        --------
         svn 4559
         --------
         Merged code from Tony Appelo to allow charting with
@@ -1455,6 +1460,14 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+        --------
+        svn 4594
+        --------
+        Modified charting to write plotted values to file.
+        Fixed bug in NetpathXL interface. Now writes
+        moles of O2(aq) instead of moles of O(0) to the .pat 
+        file.
+        
         --------
         svn 4539
         --------

@@ -339,8 +339,8 @@ clean_up(void)
 	user_graph = (rate *) free_check_null(user_graph);
 	user_graph_headings = (char **) free_check_null(user_graph_headings);
 #ifndef PHREEQ98
-	if (u_g)
-		DeleteCurves();
+	//if (u_g)
+	//	DeleteCurves();
 #endif
 #endif
 	/* master_isotope */

@@ -129,6 +129,8 @@ all: alkalinity.out \
 	transport.dl.out \
 	user_print.out \
 	using.out \
+	val_ug.out \
+	val_zg.out \
 	zn.test.out \
 	ex1.out \
 	ex2.out \
