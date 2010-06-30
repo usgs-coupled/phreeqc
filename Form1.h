@@ -439,7 +439,7 @@ namespace zdg_ui2 {
 		}
 		void SaveCurves( System::Object ^sender, System::EventArgs ^e )
 		{
-			SaveCurvesToFile("Curves.u_g");
+			P_INSTANCE_POINTER SaveCurvesToFile("Curves.u_g");
 		}
 
 		// Respond to a Zoom Event
@@ -538,7 +538,7 @@ namespace zdg_ui2 {
 			if (components) {
 				delete components;
 			}
-			DeleteCurves(); /* perhaps not even needed... */
+			P_INSTANCE_POINTER DeleteCurves(); /* perhaps not even needed... */
 		}
 		public: ZedGraph::ZedGraphControl ^zg1;
 		private: System::Windows::Forms::Timer ^timer1;
