@@ -432,14 +432,15 @@ namespace zdg_ui2 {
 			menuStrip->Items->Insert(5, item );
 
 			menuStrip->Items->RemoveAt(0);
-			item->Text = L"Save Curves to Curves.u_g";
-			item->Click += gcnew System::EventHandler(this, &zdg_ui2::Form1::SaveCurves );
-			menuStrip->Items->Insert(0, item );
+			ToolStripMenuItem ^item2 = gcnew ToolStripMenuItem();
+			item2->Text = L"Save Data to File \'curves.u_g\'";
+			item2->Click += gcnew System::EventHandler(this, &zdg_ui2::Form1::SaveCurves );
+			menuStrip->Items->Insert(0, item2 );
 
 		}
 		void SaveCurves( System::Object ^sender, System::EventArgs ^e )
 		{
-			P_INSTANCE_POINTER SaveCurvesToFile("Curves.u_g");
+			P_INSTANCE_POINTER SaveCurvesToFile("curves.u_g");
 		}
 
 		// Respond to a Zoom Event
