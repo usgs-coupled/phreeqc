@@ -23,6 +23,7 @@ all: alkalinity.out \
 	brown.out \
 	calc_SC.out \
 	cdmusic_related.out \
+	cdmus3.out \
 	cd_ddl.out \
 	co2.out \
 	colloid_U.out \
