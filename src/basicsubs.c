@@ -273,7 +273,7 @@ calc_dens (void)
 /* DP: End Replace Pickard iteration with interval halving */
 
   /*if (isnan(rho_new) || rho_new > 1.99999) rho_new = 1.99999;*/
-  if (!isfinite(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
+  if (!PHR_ISFINITE(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
 
   return rho_new; /*(rho_new - rho_0) * 1e3; */
 }
@@ -2151,7 +2151,7 @@ system_total_elt(const char *total_name)
 				{
 					sys[count_sys].type = string_duplicate("ex");
 					/* subtract again the dummy moles of primary exchange species... */
-					if (s_x[i]->primary != NULL) 
+					if (s_x[i]->primary != NULL)
 					{
 						sys_tot -= elt_list[j].coef;
 					}
@@ -2835,7 +2835,7 @@ iso_unit(const char *total_name)
 		if (strcmp(my_total_name, isotope_ratio[j]->name) != 0)
 			continue;
 		master_isotope_ptr = master_isotope_search(isotope_ratio[j]->isotope_name);
-		if (master_isotope_ptr != NULL) 
+		if (master_isotope_ptr != NULL)
 		{
 			strcpy(unit, master_isotope_ptr->units);
 		}
@@ -2854,7 +2854,7 @@ iso_unit(const char *total_name)
 		if (strcmp(token, isotope_ratio[j]->name) != 0)
 			continue;
 		master_isotope_ptr = master_isotope_search(isotope_ratio[j]->isotope_name);
-		if (master_isotope_ptr != NULL) 
+		if (master_isotope_ptr != NULL)
 		{
 			strcpy(unit, master_isotope_ptr->units);
 		}
