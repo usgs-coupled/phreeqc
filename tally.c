@@ -166,7 +166,7 @@ get_all_components(void)
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
-store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
+store_tally_table(LDBLE * arrayarg, int row_dim, int col_dim, LDBLE fill_factor)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
@@ -198,14 +198,14 @@ store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 	 */
 	for (j = 0; j < count_tally_table_rows; j++)
 	{
-		array[j] = tally_table[0].total[1][j].moles;
+		arrayarg[j] = tally_table[0].total[1][j].moles;
 	}
 	/*
 	 * store reaction solution
 	 */
 	for (j = 0; j < count_tally_table_rows; j++)
 	{
-		array[row_dim + j] = tally_table[1].total[1][j].moles;
+		arrayarg[row_dim + j] = tally_table[1].total[1][j].moles;
 	}
 	/*
 	 *   Calculate deltas
@@ -220,7 +220,7 @@ store_tally_table(LDBLE * array, int row_dim, int col_dim, LDBLE fill_factor)
 	{
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
-			array[i * row_dim + j] =
+			arrayarg[i * row_dim + j] =
 				tally_table[i].total[2][j].moles / fill_factor;
 		}
 	}
