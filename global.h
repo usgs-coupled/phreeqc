@@ -1,5 +1,5 @@
 #if !defined(_INC_PHREEQC_H)
-#define CLASS_QUALIFIER 
+#define CLASS_QUALIFIER
 #define STATIC static
 #define CLASS_STATIC
 #endif
@@ -24,16 +24,6 @@ static char const svnidglobal[] =
 /* #define NO_DOS */
 /* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
 /*#define CHART*/ /* for reading user_graph and plotting with J. Champion's zedgraph */
-#if defined (PHREEQ98) || defined (_MSC_VER) 
-#define isnan _isnan
-#define isfinite _finite
-#else 
-#if defined (DJGPP)
-/* #define isnan(x) (x != x) */
-/* #define isfinite(x) (!(x != x)) */
-#define isfinite(x) finite(x)
-#endif
-#endif
 
 /*
  * uncomment following line, to use default DOS file name for
@@ -437,7 +427,7 @@ struct const_key keyword[] = {
 	{"delete", 0},
 	{"run_cells", 0}
 #endif /* PHREEQC_CPP */
-	
+
 };
 int NKEYS = (sizeof(keyword) / sizeof(struct const_key));	/* Number of valid keywords */
 #else   /* MAINSUBS */
@@ -898,7 +888,7 @@ LDBLE min_value;
 LDBLE model_min_value;
 LDBLE *normal, *ineq_array, *inv_res, *cu, *zero, *delta1;
 int *inv_iu, *inv_is, *back_eq;
-int normal_max, ineq_array_max, res_max, cu_max, zero_max, 
+int normal_max, ineq_array_max, res_max, cu_max, zero_max,
 	delta1_max, iu_max, is_max, back_eq_max;
 
 /* output.c ------------------------------- */
@@ -1030,3 +1020,21 @@ char err_str98[80];
 #endif /* PHREEQC_CLASS) */
 #endif /* _INC_GLOBAL_H  */
 
+#if defined (PHREEQ98) || defined (_MSC_VER)
+#define HAVE_FINITE
+#define finite _finite
+#else  /*defined (PHREEQ98) || defined (_MSC_VER)*/
+#if defined(DJGPP)
+#define HAVE_FINITE
+#endif
+#endif /*defined (PHREEQ98) || defined (_MSC_VER)*/
+
+#if defined(HAVE_ISFINITE)
+#define PHR_ISFINITE(x) isfinite(x)
+#elif defined(HAVE_FINITE)
+#define PHR_ISFINITE(x) finite(x)
+#elif defined(HAVE_ISNAN)
+#define PHR_ISFINITE(x) (!isnan(x))
+#else
+#define PHR_ISFINITE(x) ( ((x) == (x)) && ((x) != (2.0 * (x))) )
+#endif

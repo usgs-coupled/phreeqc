@@ -111,14 +111,14 @@ model(void)
 	}
 	if (pitzer_model == TRUE)
 	{
-		
+
 		kode = model_pz();
 		unset_inert_moles();
 		return kode;
 	}
 	if (sit_model == TRUE)
 	{
-		
+
 		kode = model_sit();
 		unset_inert_moles();
 		return kode;
@@ -2916,7 +2916,7 @@ reset(void)
 	{
 
 		/*if (isnan(delta[i]))*/
-		if (!isfinite((double) delta[i]))
+		if (!PHR_ISFINITE((double) delta[i]))
 		{
 			warning ++;
 			delta[i] = 0;
@@ -3050,7 +3050,7 @@ reset(void)
 			else if (x[i]->type == PITZER_GAMMA)
 			{
 				up = step_up;
-				if (up > 1) 
+				if (up > 1)
 				{
 					up = 0.7;
 				}
@@ -3117,7 +3117,7 @@ reset(void)
 	{
 
 		/*if (isnan(delta[i]))*/
-		if (!isfinite((double) delta[i]))
+		if (!PHR_ISFINITE((double) delta[i]))
 		{
 			warning ++;
 			delta[i] = 0;
@@ -4410,7 +4410,7 @@ revise_guesses(void)
 
 				f = fabs(x[i]->sum);
 				/*if (isnan(f) || !_finite(f))*/
-				if (!isfinite((double) f))
+				if (!PHR_ISFINITE((double) f))
 				{
 					f = 0;
 				}
@@ -4443,10 +4443,10 @@ revise_guesses(void)
 						repeat = TRUE;
 						d = weight * log10(fabs(x[i]->moles / x[i]->sum));
 						/*if (!isnan(d) && _finite(d))*/
-						if (isfinite((double) d))
+						if (PHR_ISFINITE((double) d))
 						{
 							x[i]->master[0]->s->la += d;
-						} 
+						}
 						else
 						{
 							warning_msg("Adjustment to la in revise_guesses was NaN\n");
