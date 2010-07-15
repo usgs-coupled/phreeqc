@@ -19,12 +19,6 @@ LDBLE *x_arg = NULL, *res_arg = NULL, *scratch = NULL;
 int x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
 #define CLASS_QUALIFIER
 #endif
-int cl1(int k, int l, int m, int n,
-		int nklmd, int n2d,
-		LDBLE * q,
-		int *kode, LDBLE toler,
-		int *iter, LDBLE * x, LDBLE * res, LDBLE * error,
-		LDBLE * cu, int *iu, int *s, int check);
 static char const svnid[] = "$Id$";
 
 extern void *free_check_null(void *ptr);
