@@ -1020,21 +1020,26 @@ char err_str98[80];
 #endif /* PHREEQC_CLASS) */
 #endif /* _INC_GLOBAL_H  */
 
+/*********************************
+    isfinite handling
+    (Note: Should NOT be guarded)
+**********************************/
+
 #if defined (PHREEQ98) || defined (_MSC_VER)
-#define HAVE_FINITE
-#define finite _finite
+#  define HAVE_FINITE
+#  define finite _finite
 #else  /*defined (PHREEQ98) || defined (_MSC_VER)*/
-#if defined(DJGPP)
-#define HAVE_FINITE
-#endif
+#  if defined(DJGPP)
+#    define HAVE_FINITE
+#  endif
 #endif /*defined (PHREEQ98) || defined (_MSC_VER)*/
 
 #if defined(HAVE_ISFINITE)
-#define PHR_ISFINITE(x) isfinite(x)
+#  define PHR_ISFINITE(x) isfinite(x)
 #elif defined(HAVE_FINITE)
-#define PHR_ISFINITE(x) finite(x)
+#  define PHR_ISFINITE(x) finite(x)
 #elif defined(HAVE_ISNAN)
-#define PHR_ISFINITE(x) (!isnan(x))
+#  define PHR_ISFINITE(x) ( ((x) == 0.0) || ((!isnan(x)) && ((x) != (2.0 * (x)))) )
 #else
-#define PHR_ISFINITE(x) ( ((x) == (x)) && ((x) != (2.0 * (x))) )
+#  define PHR_ISFINITE(x) ( ((x) == 0.0) || (((x) == (x)) && ((x) != (2.0 * (x)))) )
 #endif
