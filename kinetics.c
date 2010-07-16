@@ -98,7 +98,7 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 /*	char token[MAX_LENGTH];
 	char *ptr;
 	struct phase *phase_ptr;
- */ char command[] = "run";
+ */ char m_command[] = "run";
 	struct rate *rate_ptr;
 /*	LDBLE t1, t2; */
 	/*
@@ -150,7 +150,7 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 				rate_ptr->new_def = FALSE;
 			}
 			if (basic_run
-				(command, rates[j].linebase, rates[j].varbase,
+				(m_command, rates[j].linebase, rates[j].varbase,
 				 rates[j].loopbase) != 0)
 			{
 				sprintf(error_string, "Fatal Basic error in rate %s.",
@@ -335,11 +335,11 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
  *	calc_final_kinetic reaction(..) translates moles to PHREEQC reaction.
  */
 	int j, k, m, save_old;
-	int bad, step_bad, step_ok;
+	int m_bad, step_bad, step_ok;
 	int n_reactions;
 	LDBLE h, h_old, h_sum;
 	LDBLE *rk_moles;
-	LDBLE error, error_max, safety, moles_max, moles_reduction;
+	LDBLE m_error, error_max, safety, moles_max, moles_reduction;
 	struct kinetics *kinetics_ptr;
 	int equal_rate, zero_rate;
 
@@ -423,7 +423,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	kinetics_ptr = kinetics_bsearch(i, &m);
 
 	step_bad = step_ok = 0;
-	bad = FALSE;
+	m_bad = FALSE;
 	h_sum = 0.;
 	h = h_old = kin_time;
 	moles_max = 0.1;
@@ -471,12 +471,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			h = safety * h / (1.0 + moles_reduction);
 			moles_reduction = 1.0;
 			equal_rate = FALSE;
-			bad = TRUE;
+			m_bad = TRUE;
 		}
 /*
  *   find k1
  */
-		if (bad == TRUE)
+		if (m_bad == TRUE)
 		{
 			for (j = 0; j < n_reactions; j++)
 			{
@@ -484,7 +484,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 				kinetics_ptr->comps[j].moles = rk_moles[j] * 0.2;
 				kinetics_ptr->comps[j].m = m_temp[j];
 			}
-			bad = FALSE;
+			m_bad = FALSE;
 		}
 		else
 		{
@@ -1012,16 +1012,16 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		error_max = 0.;
 		for (j = 0; j < n_reactions; j++)
 		{
-			error = fabs(dc1 * rk_moles[j]
+			m_error = fabs(dc1 * rk_moles[j]
 						 + dc3 * rk_moles[2 * n_reactions + j]
 						 + dc4 * rk_moles[3 * n_reactions + j]
 						 + dc5 * rk_moles[4 * n_reactions + j]
 						 + dc6 * rk_moles[5 * n_reactions + j]);
 
 			/* tol is in moles/l */
-			error /= kinetics_ptr->comps[j].tol;
-			if (error > error_max)
-				error_max = error;
+			m_error /= kinetics_ptr->comps[j].tol;
+			if (m_error > error_max)
+				error_max = m_error;
 		}
 
 /*
@@ -1035,7 +1035,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 				h = h * safety / error_max;
 			else
 				h = h * safety * pow(error_max, -0.25);
-			bad = TRUE;
+			m_bad = TRUE;
 			step_bad++;
 		}
 		else
@@ -2131,7 +2131,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
  * Total number of moles in reaction is stored in kinetics[i].totals
  */
 
-	int j, n, converge, iter;
+	int j, n, converge, m_iter;
 	int pr_all_save;
 	int nsaver;
 	struct kinetics *kinetics_ptr;
@@ -2375,7 +2375,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			   printf("At t = %0.4e   y =%14.6e  %14.6e  %14.6e\n",
 			   t, Ith(y,1), Ith(y,2), Ith(y,3));
 			 */
-			iter = 0;
+			m_iter = 0;
 			sum_t = 0;
 		  RESTART:
 			while (flag != SUCCESS)
@@ -2383,18 +2383,18 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				sum_t += cvode_last_good_time;
 				sprintf(error_string,
 						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
-						(int) iopt[NST], cell_no, (double) sum_t, iter + 1);
+						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
 				output_msg(OUTPUT_STDERR, "%s\n", error_string);
 				if (state == PHAST)
 					output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
 
 #ifdef DEBUG_KINETICS
-				if (iter > 5)
+				if (m_iter > 5)
 					dump_kinetics_stderr(cell_no);
 #endif
 
 				cvode_last_good_time = 0;
-				if (++iter >= kinetics_ptr->bad_step_max)
+				if (++m_iter >= kinetics_ptr->bad_step_max)
 				{
 					m_temp = (LDBLE *) free_check_null(m_temp);
 					m_original = (LDBLE *) free_check_null(m_original);

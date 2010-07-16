@@ -669,7 +669,7 @@ initial_surface_water(void)
  *   Ionic strength is fixed, so diffuse-layer water will not change
  */
 	int i;
-	LDBLE debye_length, b, r, rd, ddl_limit, rd_limit, fraction, sum_surfs, s;
+	LDBLE debye_length, b, r, rd, ddl_limit, rd_limit, fraction, sum_surfs, m_s;
 	LDBLE damp_aq;
 
 /*
@@ -732,10 +732,10 @@ initial_surface_water(void)
 			{
 				if (x[i]->type != SURFACE_CB)
 					continue;
-				s = x[i]->surface_charge->specific_area *
+				m_s = x[i]->surface_charge->specific_area *
 					x[i]->surface_charge->grams;
 				x[i]->surface_charge->mass_water =
-					mass_water_surfaces_x * s / sum_surfs;
+					mass_water_surfaces_x * m_s / sum_surfs;
 			}
 		}
 		else
@@ -760,10 +760,10 @@ initial_surface_water(void)
 			{
 				if (x[i]->type != SURFACE_CB)
 					continue;
-				s = x[i]->surface_charge->specific_area *
+				m_s = x[i]->surface_charge->specific_area *
 					x[i]->surface_charge->grams;
 				x[i]->surface_charge->mass_water =
-					mass_water_surfaces_x * s / sum_surfs;
+					mass_water_surfaces_x * m_s / sum_surfs;
 			}
 		}
 	}
@@ -1224,7 +1224,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 /*
  * calculate the average (F * Psi / RT) that lets the DL charge counter the surface charge
  */
-	int i, iter, count_g;
+	int i, m_iter, count_g;
 	LDBLE fd, fd1, p, temp, ratio_aq;
 /*	LDBLE dif;
  */
@@ -1243,7 +1243,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
  * Elsewhere in PHREEQC, g is the excess, after subtraction of conc's for p = 0:
  *		      g(p) = (exp(-p *z_i) - 1) * ratio_aq
  */
-	iter = 0;
+	m_iter = 0;
 	do
 	{
 		fd = surf_chrg_eq;
@@ -1268,8 +1268,8 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 		p += (fd > 1) ? 1 : ((fd < -1) ? -1 : fd);
 		if (fabs(p) < G_TOL)
 			p = 0.0;
-		iter++;
-		if (iter > 50)
+		m_iter++;
+		if (m_iter > 50)
 		{
 			sprintf(error_string,
 					"\nToo many iterations in subroutine calc_psi_avg; surface charge = %12.4e; surface water = %12.4e.\n",
@@ -1281,7 +1281,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 	if (debug_diffuse_layer == TRUE)
 		output_msg(OUTPUT_MESSAGE,
 				   "iter in calc_psi_avg = %d. g(+1) = %8f. surface charge = %12.4e.\n",
-				   iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);
+				   m_iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);
 
 	return (p);
 }

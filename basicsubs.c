@@ -102,7 +102,7 @@ calc_SC(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	LDBLE lm, a, z, Dw, SC, ff;
+	LDBLE lm, a, z1, Dw, SC, ff;
 
 	SC = 0;
 	for (i = 0; i < count_species_list; i++)
@@ -119,28 +119,28 @@ calc_SC(void)
 			continue;
 		if ((Dw = species_list[i].s->dw) == 0)
 			continue;
-		if ((z = fabs(species_list[i].s->z)) == 0)
+		if ((z1 = fabs(species_list[i].s->z)) == 0)
 			continue;
 
 		lm = species_list[i].s->lm;
 		if (lm > -9)
 		{
 /*
-      if (z < 1.5) {
+      if (z1 < 1.5) {
 	ff = (mu_x < 0.36 ? 0.6 :
 	sqrt(mu_x));
       }
       else {
-	ff = (mu_x < pow(0.4*z, 2.0) ? 0.4 :
-	sqrt(mu_x) / z);
+	ff = (mu_x < pow(0.4*z1, 2.0) ? 0.4 :
+	sqrt(mu_x) / z1);
       }
 */
-			ff = (mu_x < .36 * z ? 0.6 / sqrt(z) : sqrt(mu_x) / z);
+			ff = (mu_x < .36 * z1 ? 0.6 / sqrt(z1) : sqrt(mu_x) / z1);
 
 			ff *= species_list[i].s->lg;
 			if (ff > 0) ff = 0;
 			a = under(lm + ff);
-			SC += a * z * z * Dw;
+			SC += a * z1 * z1 * Dw;
 		}
 	}
 	SC *= 1e7 * F_C_MOL * F_C_MOL / (R_KJ_DEG_MOL * 298160.0);
@@ -182,7 +182,7 @@ calc_dens (void)
 */
   LDBLE k;
   LDBLE gfw;
-  int z;
+  int z1;
   struct species *s_ptr;
 
   /* Density of V-SMOW (UNESCO, 1983) */
@@ -222,7 +222,7 @@ calc_dens (void)
        }
     }
 
-    z = abs((int) s_ptr->z);
+    z1 = abs((int) s_ptr->z);
     a = s_ptr->millero[0];
     b = s_ptr->millero[1];
     c = s_ptr->millero[2];
@@ -234,12 +234,12 @@ calc_dens (void)
 
     PHI_v += (species_list[i].s->moles * phi_0_i);
     B_v += (species_list[i].s->moles * b_v_i);
-    S_v += (species_list[i].s->moles * z * (s_v_i * z / 2));
+    S_v += (species_list[i].s->moles * z1 * (s_v_i * z1 / 2));
 
-    if (z == 0) e_T += (species_list[i].s->moles * 2); /* For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on) */
-       else e_T += (species_list[i].s->moles * z);
+    if (z1 == 0) e_T += (species_list[i].s->moles * 2); /* For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on) */
+       else e_T += (species_list[i].s->moles * z1);
     M_T += (species_list[i].s->moles * gfw);
-    I_m += (species_list[i].s->moles * (z * z));
+    I_m += (species_list[i].s->moles * (z1 * z1));
   }
 
   /* If pure water then return rho_0 */
@@ -322,12 +322,12 @@ calc_logk_n(const char *name)
 	int i;
 	LDBLE lk;
 	struct logk *logk_ptr;
-	LDBLE logk[8];
+	LDBLE logk1[8];
 	struct name_coef add_logk;
 
 	for (i = 0; i < 8; i++)
 	{
-		logk[i] = 0.0;
+		logk1[i] = 0.0;
 	}
 	strcpy(token, name);
 	logk_ptr = logk_search(token);
@@ -335,8 +335,8 @@ calc_logk_n(const char *name)
 	{
 		add_logk.name = token;
 		add_logk.coef = 1.0;
-		add_other_logk(logk, 1, &add_logk);
-		lk = k_calc(logk, tk_x);
+		add_other_logk(logk1, 1, &add_logk);
+		lk = k_calc(logk1, tk_x);
 		return (lk);
 	}
 	return (-999.99);
@@ -351,7 +351,7 @@ calc_logk_p(const char *name)
 	char token[MAX_LENGTH];
 	struct phase *phase_ptr;
 	LDBLE lk;
-	LDBLE logk[8];
+	LDBLE logk1[8];
 
 	strcpy(token, name);
 	phase_ptr = phase_bsearch(token, &j, FALSE);
@@ -359,11 +359,11 @@ calc_logk_p(const char *name)
 	{
 		for (i = 0; i < 8; i++)
 		{
-			logk[i] = 0.0;
+			logk1[i] = 0.0;
 		}
-		select_log_k_expression(phase_ptr->logk, logk);
-		add_other_logk(logk, phase_ptr->count_add_logk, phase_ptr->add_logk);
-		lk = k_calc(logk, tk_x);
+		select_log_k_expression(phase_ptr->logk, logk1);
+		add_other_logk(logk1, phase_ptr->count_add_logk, phase_ptr->add_logk);
+		lk = k_calc(logk1, tk_x);
 		return (lk);
 	}
 	return (-999.99);
@@ -377,7 +377,7 @@ calc_logk_s(const char *name)
 	int i;
 	char token[MAX_LENGTH];
 	struct species *s_ptr;
-	LDBLE lk, logk[8];
+	LDBLE lk, logk1[8];
 
 	strcpy(token, name);
 	s_ptr = s_search(token);
@@ -385,11 +385,11 @@ calc_logk_s(const char *name)
 	{
 		for (i = 0; i < 8; i++)
 		{
-			logk[i] = 0.0;
+			logk1[i] = 0.0;
 		}
-		select_log_k_expression(s_ptr->logk, logk);
-		add_other_logk(logk, s_ptr->count_add_logk, s_ptr->add_logk);
-		lk = k_calc(logk, tk_x);
+		select_log_k_expression(s_ptr->logk, logk1);
+		add_other_logk(logk1, s_ptr->count_add_logk, s_ptr->add_logk);
+		lk = k_calc(logk1, tk_x);
 		return (lk);
 	}
 	return (-999.99);

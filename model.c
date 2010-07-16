@@ -85,7 +85,7 @@ model(void)
  *	  An additional pass through may be needed if unstable phases still exist
  *		 in the phase assemblage.
  */
-	int kode, return_kode;
+	int m_kode, return_kode;
 	int r;
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
@@ -112,16 +112,16 @@ model(void)
 	if (pitzer_model == TRUE)
 	{
 
-		kode = model_pz();
+		m_kode = model_pz();
 		unset_inert_moles();
-		return kode;
+		return m_kode;
 	}
 	if (sit_model == TRUE)
 	{
 
-		kode = model_sit();
+		m_kode = model_sit();
 		unset_inert_moles();
-		return kode;
+		return m_kode;
 	}
 	mass_water_switch_save = mass_water_switch;
 	if (mass_water_switch_save == FALSE && delay_mass_water == TRUE)
@@ -140,7 +140,7 @@ model(void)
 	{
 		mb_gases();
 		mb_s_s();
-		kode = 1;
+		m_kode = 1;
 		while ((r = residuals()) != CONVERGED
 			   || remove_unstable_phases == TRUE)
 		{
@@ -195,7 +195,7 @@ model(void)
  */
 			if (r == OK || remove_unstable_phases == TRUE)
 			{
-				return_kode = ineq(kode);
+				return_kode = ineq(m_kode);
 				if (return_kode != OK)
 				{
 					if (debug_model == TRUE)
@@ -973,17 +973,17 @@ ineq(int in_kode)
  */
 	int i, j;
 	int return_code;
-	int count_rows;
-	int count_optimize, count_equal;
+	int m_count_rows;
+	int m_count_optimize, count_equal;
 #if !defined(PHREEQC_CLASS)
 	extern int max_row_count, max_column_count;
 #endif
 	int k, l, m, n;
-	int klmd, nklmd, n2d;
-	int iter;
-	LDBLE error;
+	int m_klmd, m_nklmd, m_n2d;
+	int m_iter;
+	LDBLE m_error;
 	LDBLE max;
-	int kode;
+	int m_kode;
 #ifdef SKIP
 	LDBLE *save_row;
 #endif
@@ -1183,7 +1183,7 @@ ineq(int in_kode)
 /*
  *   Copy equations to optimize into ineq_array
  */
-	count_rows = 0;
+	m_count_rows = 0;
 	for (i = 0; i < count_unknowns; i++)
 	{
 		if (iterations < aqueous_only)
@@ -1212,14 +1212,14 @@ ineq(int in_kode)
 			else
 			{
 				/*   Copy in saturation index equation (has mass or supersaturated) */
-				memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+				memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 					   (void *) &(array[i * (count_unknowns + 1)]),
 					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-				back_eq[count_rows] = i;
+				back_eq[m_count_rows] = i;
 				if (x[i]->pure_phase->add_formula == NULL
 					&& x[i]->dissolve_only == FALSE)
 				{
-					res[count_rows] = 1.0;
+					res[m_count_rows] = 1.0;
 				}
 /*
  *   If infeasible solution on first attempt, remove constraints on IAP
@@ -1230,16 +1230,16 @@ ineq(int in_kode)
 				{
 					for (j = 0; j < count_unknowns + 1; j++)
 					{
-						ineq_array[count_rows * max_column_count + j] *=
+						ineq_array[m_count_rows * max_column_count + j] *=
 							pp_scale;
 					}
 				}
 
 				if (in_kode != 1)
 				{
-					res[count_rows] = 0.0;
+					res[m_count_rows] = 0.0;
 				}
-				count_rows++;
+				m_count_rows++;
 			}
 		}
 		else if (x[i]->type == ALK || x[i]->type == SOLUTION_PHASE_BOUNDARY)
@@ -1247,47 +1247,47 @@ ineq(int in_kode)
 /*
  *   Alkalinity and solution phase boundary
  */
-			memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+			memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[count_rows] = i;
-			count_rows++;
+			back_eq[m_count_rows] = i;
+			m_count_rows++;
 /*
  *   Gas phase
  */
 		}
 		else if (x[i]->type == GAS_MOLES && gas_in == TRUE)
 		{
-			memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+			memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[count_rows] = i;
+			back_eq[m_count_rows] = i;
 
-			res[count_rows] = 1.0;
+			res[m_count_rows] = 1.0;
 			if (in_kode != 1)
 			{
-				res[count_rows] = 0.0;
+				res[m_count_rows] = 0.0;
 			}
-			count_rows++;
+			m_count_rows++;
 /*
  *   Solid solution
  */
 		}
 		else if (x[i]->type == S_S_MOLES && x[i]->s_s_in == TRUE)
 		{
-			memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+			memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[count_rows] = i;
-			res[count_rows] = 1.0;
+			back_eq[m_count_rows] = i;
+			res[m_count_rows] = 1.0;
 			if (in_kode != 1)
 			{
-				res[count_rows] = 0.0;
+				res[m_count_rows] = 0.0;
 			}
-			count_rows++;
+			m_count_rows++;
 		}
 	}
-	count_optimize = count_rows;
+	m_count_optimize = m_count_rows;
 /*
  *   Copy equality equations into ineq_array
  */
@@ -1333,30 +1333,30 @@ ineq(int in_kode)
 				x[i]->surface_charge->grams <= MIN_RELATED_SURFACE &&
 				x[i - 1]->phase_unknown->pure_phase->add_formula == NULL)
 				continue;
-			memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+			memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[count_rows] = i;
+			back_eq[m_count_rows] = i;
 			if (mass_water_switch == TRUE && x[i] == mass_hydrogen_unknown)
 			{
 				k = mass_oxygen_unknown->number;
 				for (j = 0; j < count_unknowns; j++)
 				{
-					ineq_array[count_rows * max_column_count + j] -=
+					ineq_array[m_count_rows * max_column_count + j] -=
 						2 * array[k * (count_unknowns + 1) + j];
 				}
 			}
-			count_rows++;
+			m_count_rows++;
 		}
 		else if (x[i]->type == PITZER_GAMMA)
 		{
-			memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+			memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[count_rows] = i;
+			back_eq[m_count_rows] = i;
 		}
 	}
-	count_equal = count_rows - count_optimize;
+	count_equal = m_count_rows - m_count_optimize;
 /*
  *   Copy inequality constraints into ineq
  */
@@ -1391,28 +1391,28 @@ ineq(int in_kode)
 
 					/*   Pure phase is present, force Mass transfer to be <= amount of mineral remaining */
 					memcpy((void *)
-						   &(ineq_array[count_rows * max_column_count]),
+						   &(ineq_array[m_count_rows * max_column_count]),
 						   (void *) &(zero[0]),
 						   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-					ineq_array[count_rows * max_column_count + i] = 1.0;
-					ineq_array[count_rows * max_column_count +
+					ineq_array[m_count_rows * max_column_count + i] = 1.0;
+					ineq_array[m_count_rows * max_column_count +
 							   count_unknowns] = x[i]->moles;
-					back_eq[count_rows] = i;
-					count_rows++;
+					back_eq[m_count_rows] = i;
+					m_count_rows++;
 				}
 				/*   Pure phase is present and dissolve_only, force ppt to be <= amount of dissolved so far */
 				if (x[i]->dissolve_only == TRUE)
 				{
 					memcpy((void *)
-						   &(ineq_array[count_rows * max_column_count]),
+						   &(ineq_array[m_count_rows * max_column_count]),
 						   (void *) &(zero[0]),
 						   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-					ineq_array[count_rows * max_column_count + i] = -1.0;
-					ineq_array[count_rows * max_column_count +
+					ineq_array[m_count_rows * max_column_count + i] = -1.0;
+					ineq_array[m_count_rows * max_column_count +
 							   count_unknowns] =
 						x[i]->pure_phase->initial_moles - x[i]->moles;
-					back_eq[count_rows] = i;
-					count_rows++;
+					back_eq[m_count_rows] = i;
+					m_count_rows++;
 				}
 			}
 		}
@@ -1428,24 +1428,24 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == MH2O)
 			{
-				memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+				memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 					   (void *) &(array[i * (count_unknowns + 1)]),
 					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-				back_eq[count_rows] = i;
+				back_eq[m_count_rows] = i;
 				for (j = 0; j < count_unknowns; j++)
 				{
 					if (x[j]->type < PP)
 					{
-						ineq_array[count_rows * max_column_count + j] = 0.0;
+						ineq_array[m_count_rows * max_column_count + j] = 0.0;
 					}
 					else
 					{
-						/*ineq_array[count_rows*max_column_count + j] = -ineq_array[count_rows*max_column_count + j]; */
+						/*ineq_array[m_count_rows*max_column_count + j] = -ineq_array[m_count_rows*max_column_count + j]; */
 					}
 				}
-				ineq_array[count_rows * max_column_count + count_unknowns] =
+				ineq_array[m_count_rows * max_column_count + count_unknowns] =
 					0.5 * x[i]->moles;
-				count_rows++;
+				m_count_rows++;
 			}
 		}
 	}
@@ -1467,7 +1467,7 @@ ineq(int in_kode)
 					 x[i]->pure_phase->add_formula == NULL)
 					|| x[i]->pure_phase->phase->in == FALSE)
 				{
-					for (j = 0; j < count_rows; j++)
+					for (j = 0; j < m_count_rows; j++)
 					{
 						ineq_array[j * max_column_count + i] = 0.0;
 					}
@@ -1478,7 +1478,7 @@ ineq(int in_kode)
 						&& (x[i]->moles - x[i]->pure_phase->initial_moles >=
 							0))
 					{
-						for (j = 0; j < count_rows; j++)
+						for (j = 0; j < m_count_rows; j++)
 						{
 							ineq_array[j * max_column_count + i] = 0.0;
 						}
@@ -1498,7 +1498,7 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == EXCH && x[i]->moles <= 0)
 			{
-				for (j = 0; j < count_rows; j++)
+				for (j = 0; j < m_count_rows; j++)
 				{
 					ineq_array[j * max_column_count + i] = 0.0;
 				}
@@ -1525,7 +1525,7 @@ ineq(int in_kode)
 				 x[i]->surface_charge->grams <= MIN_RELATED_SURFACE &&
 				 x[i - 1]->phase_unknown->pure_phase->add_formula == NULL))
 			{
-				for (j = 0; j < count_rows; j++)
+				for (j = 0; j < m_count_rows; j++)
 				{
 					ineq_array[j * max_column_count + i] = 0.0;
 				}
@@ -1548,7 +1548,7 @@ ineq(int in_kode)
 				 && x[i - 1]->phase_unknown == NULL
 				 && x[i]->surface_charge->grams <= MIN_RELATED_SURFACE))
 			{
-				for (j = 0; j < count_rows; j++)
+				for (j = 0; j < m_count_rows; j++)
 				{
 					ineq_array[j * max_column_count + i] = 0.0;
 				}
@@ -1561,14 +1561,14 @@ ineq(int in_kode)
 	if (gas_in == TRUE)
 	{
 		i = gas_unknown->number;
-		memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+		memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 			   (void *) &(zero[0]),
 			   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-		ineq_array[count_rows * max_column_count + i] = -1.0;
-		ineq_array[count_rows * max_column_count + count_unknowns] =
+		ineq_array[m_count_rows * max_column_count + i] = -1.0;
+		ineq_array[m_count_rows * max_column_count + count_unknowns] =
 			x[i]->moles;
-		back_eq[count_rows] = i;
-		count_rows++;
+		back_eq[m_count_rows] = i;
+		m_count_rows++;
 	}
 	else if (use.gas_phase_ptr != NULL && gas_in == FALSE)
 	{
@@ -1576,7 +1576,7 @@ ineq(int in_kode)
  *   Moles of gas small and sum p < ptotal
  */
 		i = gas_unknown->number;
-		for (j = 0; j < count_rows; j++)
+		for (j = 0; j < m_count_rows; j++)
 		{
 			ineq_array[j * max_column_count + i] = 0.0;
 		}
@@ -1593,18 +1593,18 @@ ineq(int in_kode)
 				break;
 			if (x[i]->phase->in == TRUE && x[i]->s_s_in == TRUE)
 			{
-				memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+				memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 					   (void *) &(zero[0]),
 					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-				ineq_array[count_rows * max_column_count + i] = 1.0;
-				ineq_array[count_rows * max_column_count + count_unknowns] =
+				ineq_array[m_count_rows * max_column_count + i] = 1.0;
+				ineq_array[m_count_rows * max_column_count + count_unknowns] =
 					0.99 * x[i]->moles - MIN_TOTAL_SS;
-				back_eq[count_rows] = i;
-				count_rows++;
+				back_eq[m_count_rows] = i;
+				m_count_rows++;
 			}
 			else
 			{
-				for (j = 0; j < count_rows; j++)
+				for (j = 0; j < m_count_rows; j++)
 				{
 					ineq_array[j * max_column_count + i] = 0.0;
 				}
@@ -1620,18 +1620,18 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == MB && x[i]->moles < 0.0)
 			{
-				memcpy((void *) &(ineq_array[count_rows * max_column_count]),
+				memcpy((void *) &(ineq_array[m_count_rows * max_column_count]),
 					   (void *) &(array[i * (count_unknowns + 1)]),
 					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-				back_eq[count_rows] = i;
+				back_eq[m_count_rows] = i;
 				for (j = 0; j < count_unknowns; j++)
 				{
 					if (x[j]->type < PP)
 					{
-						ineq_array[count_rows * max_column_count + j] = 0.0;
+						ineq_array[m_count_rows * max_column_count + j] = 0.0;
 					}
 				}
-				count_rows++;
+				m_count_rows++;
 			}
 		}
 	}
@@ -1641,7 +1641,7 @@ ineq(int in_kode)
 	if (mass_oxygen_unknown != NULL && mass_water_switch == TRUE)
 	{
 		k = mass_oxygen_unknown->number;
-		for (j = 0; j < count_rows + 1; j++)
+		for (j = 0; j < m_count_rows + 1; j++)
 		{
 			ineq_array[j * max_column_count + k] = 0;
 		}
@@ -1654,7 +1654,7 @@ ineq(int in_kode)
 		if ((x[i]->type == PP || x[i]->type == S_S_MOLES)
 			&& pp_column_scale != 1.0)
 		{
-			for (j = 0; j < count_rows; j++)
+			for (j = 0; j < m_count_rows; j++)
 			{
 				ineq_array[j * max_column_count + i] *= pp_column_scale;
 			}
@@ -1665,15 +1665,15 @@ ineq(int in_kode)
 	if (debug_model == TRUE)
 	{
 		output_msg(OUTPUT_MESSAGE, "\nA and B arrays:\n\n");
-		array_print(ineq_array, count_rows, count_unknowns + 1,
+		array_print(ineq_array, m_count_rows, count_unknowns + 1,
 					max_column_count);
 	}
 /*
  *   Calculate dimensions
  */
-	k = count_optimize;			/* rows in A */
+	k = m_count_optimize;			/* rows in A */
 	l = count_equal;			/* rows in C */
-	m = count_rows - l - k;		/* rows in E */
+	m = m_count_rows - l - k;		/* rows in E */
 	if (m < 0)
 		m = 0;
 
@@ -1683,28 +1683,28 @@ ineq(int in_kode)
 	}
 
 	n = count_unknowns;			/* columns in A, C, E */
-	klmd = max_row_count - 2;
-	nklmd = n + klmd;
-	n2d = n + 2;
+	m_klmd = max_row_count - 2;
+	m_nklmd = n + m_klmd;
+	m_n2d = n + 2;
 /*
  *   Retain constraints on mineral mass transfers, even if infeasible on
  *   first attempt.
  */
-	kode = 1;
+	m_kode = 1;
 
 	if (in_kode == 2)
 	{
-		kode = 1;
+		m_kode = 1;
 	}
-	iter = count_unknowns + count_rows;
+	m_iter = count_unknowns + m_count_rows;
 /*
  *   Allocate space for arrays
  */
-	space((void **) ((void *) &cu), 2 * nklmd, &cu_max, sizeof(LDBLE));
+	space((void **) ((void *) &cu), 2 * m_nklmd, &cu_max, sizeof(LDBLE));
 
-	space((void **) ((void *) &iu), 2 * nklmd, &iu_max, sizeof(int));
+	space((void **) ((void *) &iu), 2 * m_nklmd, &iu_max, sizeof(int));
 
-	space((void **) ((void *) &is), klmd, &is_max, sizeof(int));
+	space((void **) ((void *) &is), m_klmd, &is_max, sizeof(int));
 
 #ifdef SLNQ
 	slnq_array =
@@ -1731,18 +1731,18 @@ ineq(int in_kode)
  *   Call CL1
  */
 	cl1(k, l, m, n,
-		nklmd, n2d, ineq_array,
-		&kode, ineq_tol, &iter, delta1, res, &error, cu, iu, is, FALSE);
+		m_nklmd, m_n2d, ineq_array,
+		&m_kode, ineq_tol, &m_iter, delta1, res, &m_error, cu, iu, is, FALSE);
 /*   Set return_kode */
-	if (kode == 1)
+	if (m_kode == 1)
 	{
 		return_code = ERROR;
 	}
-	else if (kode == 2)
+	else if (m_kode == 2)
 	{
 		return_code = 2;
 	}
-	else if (kode == 3)
+	else if (m_kode == 3)
 	{
 		return_code = ERROR;
 		error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
@@ -1752,8 +1752,8 @@ ineq(int in_kode)
 		return_code = OK;
 	}
 #ifdef SLNQ
-/*	if (kode > 0 && ((k + l) == count_unknowns)) { */
-	if (kode > 0 && ((k + l) <= count_unknowns))
+/*	if (m_kode > 0 && ((k + l) == count_unknowns)) { */
+	if (m_kode > 0 && ((k + l) <= count_unknowns))
 	{
 		if (add_trivial_eqns(k + l, count_unknowns, slnq_array) == TRUE)
 		{
@@ -1788,7 +1788,7 @@ ineq(int in_kode)
 					   k + l, count_unknowns, iterations);
 		}
 	}
-	else if (kode > 0)
+	else if (m_kode > 0)
 	{
 		output_msg(OUTPUT_LOG, "Could not call SLNQ, row %d, unknowns %d\n",
 				   k + l, count_unknowns);
@@ -1815,9 +1815,9 @@ ineq(int in_kode)
 	}
 
 	/* adjust unkowns where cl1 failed */
-	if (kode != 0)
+	if (m_kode != 0)
 	{
-		for (i = 0; i < count_rows; i++)
+		for (i = 0; i < m_count_rows; i++)
 		{
 			/*
 			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
@@ -1837,8 +1837,8 @@ ineq(int in_kode)
 
 	if (debug_model == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n", kode,
-				   iter, (double) error);
+		output_msg(OUTPUT_MESSAGE, "kode: %d\titer: %d\terror: %e\n", m_kode,
+				   m_iter, (double) m_error);
 		output_msg(OUTPUT_MESSAGE, "\nsolution vector:\n");
 		for (i = 0; i < count_unknowns; i++)
 		{
@@ -1857,7 +1857,7 @@ ineq(int in_kode)
 		}
 
 		output_msg(OUTPUT_MESSAGE, "\nresidual vector:\n");
-		for (i = 0; i < count_rows; i++)
+		for (i = 0; i < m_count_rows; i++)
 		{
 			output_msg(OUTPUT_MESSAGE, "%6d  %-12.12s %10.2e\n", i,
 					   x[back_eq[i]]->description, (double) res[i]);
@@ -2064,7 +2064,7 @@ mb_s_s(void)
 {
 	int i, j;
 	LDBLE lp, log10_iap, total_moles;
-	LDBLE iapc, iapb, kc, kb, lc, lb, xcaq, xbaq, xb, xc;
+	LDBLE iapc, iapb, m_kc, m_kb, lc, lb, xcaq, xbaq, xb, xc;
 	LDBLE sigmapi_aq, sigmapi_solid;
 	LDBLE total_p;
 	struct s_s *s_s_ptr;
@@ -2132,12 +2132,12 @@ mb_s_s(void)
 			/*
 			 *  Get Kc and Kb
 			 */
-			kc = exp(s_s_ptr->comps[0].phase->lk * LOG_10);
-			kb = exp(s_s_ptr->comps[1].phase->lk * LOG_10);
+			m_kc = exp(s_s_ptr->comps[0].phase->lk * LOG_10);
+			m_kb = exp(s_s_ptr->comps[1].phase->lk * LOG_10);
 			/*
 			 *  Solve for xb
 			 */
-			xb = s_s_root(s_s_ptr->a0, s_s_ptr->a1, kc, kb, xcaq, xbaq);
+			xb = s_s_root(s_s_ptr->a0, s_s_ptr->a1, m_kc, m_kb, xcaq, xbaq);
 			/*
 			 *  Calculate lambdac and lambdab
 			 */
@@ -2147,7 +2147,7 @@ mb_s_s(void)
 			/*
 			 *  Calculate sigma pi, solid
 			 */
-			sigmapi_solid = xb * lb * kb + xc * lc * kc;
+			sigmapi_solid = xb * lb * m_kb + xc * lc * m_kc;
 			/*
 			 * If Sigma pi, solid < sigma pi, aq, then use eqns
 			 */
@@ -2579,7 +2579,7 @@ int CLASS_QUALIFIER
 s_s_binary(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
-	LDBLE nb, nc, n_tot, xb, xc, dnb, dnc, a0, a1;
+	LDBLE nb, nc, n_tot, xb, xc, dnb, dnc, m_a0, m_a1;
 	LDBLE xb2, xb3, xb4, xc2, xc3;
 	LDBLE xb1, xc1;
 /*
@@ -2600,8 +2600,8 @@ s_s_binary(struct s_s *s_s_ptr)
 /*
  *   In miscibility gap
  */
-	a0 = s_s_ptr->a0;
-	a1 = s_s_ptr->a1;
+	m_a0 = s_s_ptr->a0;
+	m_a1 = s_s_ptr->a1;
 	if (s_s_ptr->miscibility == TRUE && xb > s_s_ptr->xb1
 		&& xb < s_s_ptr->xb2)
 	{
@@ -2618,12 +2618,12 @@ s_s_binary(struct s_s *s_s_ptr)
 			s_s_ptr->comps[1].log10_fraction_x;
 
 		s_s_ptr->comps[0].log10_lambda =
-			xb1 * xb1 * (a0 - a1 * (3 - 4 * xb1)) / LOG_10;
+			xb1 * xb1 * (m_a0 - m_a1 * (3 - 4 * xb1)) / LOG_10;
 		s_s_ptr->comps[0].phase->log10_lambda =
 			s_s_ptr->comps[0].log10_lambda;
 
 		s_s_ptr->comps[1].log10_lambda =
-			xc1 * xc1 * (a0 + a1 * (4 * xb1 - 1)) / LOG_10;
+			xc1 * xc1 * (m_a0 + m_a1 * (4 * xb1 - 1)) / LOG_10;
 		s_s_ptr->comps[1].phase->log10_lambda =
 			s_s_ptr->comps[1].log10_lambda;
 
@@ -2652,12 +2652,12 @@ s_s_binary(struct s_s *s_s_ptr)
 			s_s_ptr->comps[1].log10_fraction_x;
 
 		s_s_ptr->comps[0].log10_lambda =
-			xb * xb * (a0 - a1 * (3 - 4 * xb)) / LOG_10;
+			xb * xb * (m_a0 - m_a1 * (3 - 4 * xb)) / LOG_10;
 		s_s_ptr->comps[0].phase->log10_lambda =
 			s_s_ptr->comps[0].log10_lambda;
 
 		s_s_ptr->comps[1].log10_lambda =
-			xc * xc * (a0 + a1 * (4 * xb - 1)) / LOG_10;
+			xc * xc * (m_a0 + m_a1 * (4 * xb - 1)) / LOG_10;
 		s_s_ptr->comps[1].phase->log10_lambda =
 			s_s_ptr->comps[1].log10_lambda;
 
@@ -2669,46 +2669,46 @@ s_s_binary(struct s_s *s_s_ptr)
 #ifdef SKIP
 		/* first component */
 		dnb =
-			-2 * a0 * xb * xc2 - 8 * a1 * xb2 * xc2 + 6 * a1 * xb * xc2 -
-			4 * a1 * xc * xb4 - 8 * a1 * xb3 * xc2 - 4 * a1 * xb2 * xc3 -
-			2 * a0 * xc * xb2 - 8 * a1 * xc * xb3 + 6 * a1 * xc * xb2 + 1;
+			-2 * m_a0 * xb * xc2 - 8 * m_a1 * xb2 * xc2 + 6 * m_a1 * xb * xc2 -
+			4 * m_a1 * xc * xb4 - 8 * m_a1 * xb3 * xc2 - 4 * m_a1 * xb2 * xc3 -
+			2 * m_a0 * xc * xb2 - 8 * m_a1 * xc * xb3 + 6 * m_a1 * xc * xb2 + 1;
 		s_s_ptr->comps[0].phase->dnb = dnb / n_tot;
 		dnc =
-			2 * a0 * xb3 + 2 * a0 * xc * xb2 + 8 * a1 * xb4 +
-			8 * a1 * xc * xb3 - 2 * a1 * xb3 - 6 * a1 * xc * xb2;
+			2 * m_a0 * xb3 + 2 * m_a0 * xc * xb2 + 8 * m_a1 * xb4 +
+			8 * m_a1 * xc * xb3 - 2 * m_a1 * xb3 - 6 * m_a1 * xc * xb2;
 		s_s_ptr->comps[0].phase->dnc = -xb / nc + dnc / n_tot;
 
 		/* second component */
 		dnb =
-			2 * a0 * xb * xc2 + 2 * a0 * xc3 + 8 * a1 * xb2 * xc2 +
-			8 * a1 * xb * xc3 - 2 * a1 * xb * xc2 - 6 * a1 * xc3;
+			2 * m_a0 * xb * xc2 + 2 * m_a0 * xc3 + 8 * m_a1 * xb2 * xc2 +
+			8 * m_a1 * xb * xc3 - 2 * m_a1 * xb * xc2 - 6 * m_a1 * xc3;
 		s_s_ptr->comps[1].phase->dnb = -xc / nb + dnb / n_tot;
 		dnc =
-			-2 * a0 * xc * xb2 - 8 * a1 * xc * xb3 + 2 * a1 * xc * xb2 -
-			2 * a0 * xb * xc2 - 8 * a1 * xb2 * xc2 + 6 * a1 * xb * xc2 + 1;
+			-2 * m_a0 * xc * xb2 - 8 * m_a1 * xc * xb3 + 2 * m_a1 * xc * xb2 -
+			2 * m_a0 * xb * xc2 - 8 * m_a1 * xb2 * xc2 + 6 * m_a1 * xb * xc2 + 1;
 		s_s_ptr->comps[1].phase->dnc = dnc / n_tot;
 #endif
 		/* used derivation that did not substitute x2 = 1-x1 */
 
 		/* first component, df1/dn1 */
-		dnc = 2 * a0 * xb2 + 12 * a1 * xc * xb2 + 6 * a1 * xb2;
+		dnc = 2 * m_a0 * xb2 + 12 * m_a1 * xc * xb2 + 6 * m_a1 * xb2;
 		s_s_ptr->comps[0].phase->dnc = -xb / nc + dnc / n_tot;
 
 
 		/* first component, df1/dn2 */
 		dnb =
-			1 - 2 * a0 * xb + 2 * a0 * xb2 + 8 * a1 * xc * xb -
-			12 * a1 * xc * xb2 - 2 * a1 * xb + 2 * a1 * xb2;
+			1 - 2 * m_a0 * xb + 2 * m_a0 * xb2 + 8 * m_a1 * xc * xb -
+			12 * m_a1 * xc * xb2 - 2 * m_a1 * xb + 2 * m_a1 * xb2;
 		s_s_ptr->comps[0].phase->dnb = dnb / n_tot;
 
 		/* second component, df2/dn1 */
 		dnc =
-			1 - 2 * a0 * xc + 2 * a0 * xc2 - 8 * a1 * xb * xc +
-			12 * a1 * xb * xc2 + 2 * a1 * xc - 2 * a1 * xc2;
+			1 - 2 * m_a0 * xc + 2 * m_a0 * xc2 - 8 * m_a1 * xb * xc +
+			12 * m_a1 * xb * xc2 + 2 * m_a1 * xc - 2 * m_a1 * xc2;
 		s_s_ptr->comps[1].phase->dnc = dnc / n_tot;
 
 		/* second component, df2/dn2 */
-		dnb = 2 * a0 * xc2 + 12 * a1 * xb * xc2 - 6 * a1 * xc2;
+		dnb = 2 * m_a0 * xc2 + 12 * m_a1 * xb * xc2 - 6 * m_a1 * xc2;
 		s_s_ptr->comps[1].phase->dnb = -xc / nb + dnb / n_tot;
 
 	}
@@ -3549,7 +3549,7 @@ residuals(void)
 	int i, j;
 	int converge;
 
-	LDBLE toler;
+	LDBLE m_toler;
 	LDBLE sum_residual;
 	LDBLE sinh_constant;
 	LDBLE sum, sum1;
@@ -3567,18 +3567,18 @@ residuals(void)
 	converge = TRUE;
 #ifdef SKIP
 	if (punch.high_precision == FALSE)
-		toler = 1e-8;
+		m_toler = 1e-8;
 	else
-		toler = 1.e-12;
+		m_toler = 1.e-12;
 #endif
-	toler = convergence_tolerance;
+	m_toler = convergence_tolerance;
 
 	for (i = 0; i < count_unknowns; i++)
 	{
 		if (x[i]->type == MB)
 		{
 			residual[i] = x[i]->moles - x[i]->f;
-			if (fabs(residual[i]) > toler * x[i]->moles
+			if (fabs(residual[i]) > m_toler * x[i]->moles
 				&& x[i]->moles > MIN_TOTAL)
 			{
 				if (print_fail)
@@ -3591,7 +3591,7 @@ residuals(void)
 		else if (x[i]->type == ALK)
 		{
 			residual[i] = x[i]->moles - x[i]->f;
-			if (fabs(residual[i]) > toler * x[i]->moles)
+			if (fabs(residual[i]) > m_toler * x[i]->moles)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3603,7 +3603,7 @@ residuals(void)
 		else if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
 		{
 			residual[i] = x[i]->f * LOG_10;
-			if (fabs(residual[i]) > toler)
+			if (fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3619,7 +3619,7 @@ residuals(void)
 			{
 				residual[i] += x[i]->moles;
 			}
-			if (fabs(residual[i]) >= toler * mu_x * mass_water_aq_x)
+			if (fabs(residual[i]) >= m_toler * mu_x * mass_water_aq_x)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3631,7 +3631,7 @@ residuals(void)
 		else if (x[i]->type == MU && pitzer_model == FALSE && sit_model == FALSE)
 		{
 			residual[i] = mass_water_aq_x * mu_x - 0.5 * x[i]->f;
-			if (fabs(residual[i]) > toler * mu_x * mass_water_aq_x)
+			if (fabs(residual[i]) > m_toler * mu_x * mass_water_aq_x)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3654,7 +3654,7 @@ residuals(void)
 					residual[i] = 0.0;
 				}
 			}
-			if (fabs(residual[i]) > toler)
+			if (fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3680,7 +3680,7 @@ residuals(void)
 #ifdef COMBINE
 #ifndef COMBINE_CHARGE
 			if (fabs(residual[i]) >
-				toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles))
+				m_toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles))
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3690,7 +3690,7 @@ residuals(void)
 			}
 #else
 			if (fabs(residual[i]) >
-				toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles +
+				m_toler * (x[i]->moles + 2 * mass_oxygen_unknown->moles +
 						 charge_balance_unknown->moles))
 			{
 				if (print_fail)
@@ -3701,7 +3701,7 @@ residuals(void)
 			}
 #endif
 #else
-			if (fabs(residual[i]) > toler * x[i]->moles)
+			if (fabs(residual[i]) > m_toler * x[i]->moles)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3721,7 +3721,7 @@ residuals(void)
 			residual[i] = (x[i]->moles - s_h2o->moles) - x[i]->f;
 			x[i]->f += s_h2o->moles;
 #endif
-			if (fabs(residual[i]) > 0.01 * toler * x[i]->moles)
+			if (fabs(residual[i]) > 0.01 * m_toler * x[i]->moles)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3737,8 +3737,8 @@ residuals(void)
 			{
 				if (x[i]->dissolve_only == TRUE)
 				{
-					if ((residual[i] > toler && x[i]->moles > 0.0)
-						|| (residual[i] < -toler
+					if ((residual[i] > m_toler && x[i]->moles > 0.0)
+						|| (residual[i] < -m_toler
 							&& (x[i]->pure_phase->initial_moles -
 								x[i]->moles) > 0))
 					{
@@ -3752,7 +3752,7 @@ residuals(void)
 				}
 				else
 				{
-					if (residual[i] < -toler || iterations < 1)
+					if (residual[i] < -m_toler || iterations < 1)
 					{
 						if (print_fail)
 							output_msg(OUTPUT_MESSAGE,
@@ -3765,8 +3765,8 @@ residuals(void)
 			}
 			else
 			{
-				/* if (x[i]->moles > 0.0 && fabs(residual[i]) > toler) converge = FALSE; */
-				if (residual[i] < -toler || iterations < 1)
+				/* if (x[i]->moles > 0.0 && fabs(residual[i]) > m_toler) converge = FALSE; */
+				if (residual[i] < -m_toler || iterations < 1)
 				{
 					if (print_fail)
 						output_msg(OUTPUT_MESSAGE,
@@ -3780,7 +3780,7 @@ residuals(void)
 		else if (x[i]->type == GAS_MOLES)
 		{
 			residual[i] = x[i]->gas_phase->total_p - x[i]->f;
-			if (fabs(residual[i]) > toler && gas_in == TRUE)
+			if (fabs(residual[i]) > m_toler && gas_in == TRUE)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3794,7 +3794,7 @@ residuals(void)
 			residual[i] = x[i]->f * LOG_10;
 			if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
 				continue;
-			if (fabs(residual[i]) > toler && x[i]->s_s_in == TRUE)
+			if (fabs(residual[i]) > m_toler && x[i]->s_s_in == TRUE)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3808,7 +3808,7 @@ residuals(void)
 			residual[i] = x[i]->moles - x[i]->f;
 			if (x[i]->moles <= MIN_RELATED_SURFACE)
 			{
-				if (fabs(residual[i]) > toler)
+				if (fabs(residual[i]) > m_toler)
 				{
 					if (print_fail)
 						output_msg(OUTPUT_MESSAGE,
@@ -3818,7 +3818,7 @@ residuals(void)
 					converge = FALSE;
 				}
 			}
-			else if (fabs(residual[i]) > toler * x[i]->moles)
+			else if (fabs(residual[i]) > m_toler * x[i]->moles)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3832,7 +3832,7 @@ residuals(void)
 			residual[i] = x[i]->moles - x[i]->f;
 			if (x[i]->moles <= MIN_RELATED_SURFACE)
 			{
-				if (fabs(residual[i]) > toler)
+				if (fabs(residual[i]) > m_toler)
 				{
 					if (print_fail)
 						output_msg(OUTPUT_MESSAGE,
@@ -3845,7 +3845,7 @@ residuals(void)
 			else if (fabs(residual[i]) < ineq_tol && fabs(residual[i]) < 1e-2*x[i]->moles)
 			{
 			}
-			else if (fabs(residual[i]) > toler * x[i]->moles)
+			else if (fabs(residual[i]) > m_toler * x[i]->moles)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3859,7 +3859,7 @@ residuals(void)
 			if (full_pitzer == FALSE)
 				continue;
 			residual[i] = x[i]->s->lg - x[i]->s->lg_pitzer;
-			if (fabs(residual[i]) > toler)
+			if (fabs(residual[i]) > m_toler)
 			{
 				/*
 				   fprintf(stderr,"Residuals %d: %s %d %e\n", iterations, x[i]->description, i, residual[i]);
@@ -3932,7 +3932,7 @@ residuals(void)
 						   sqrt(mu_x));
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
-				&& fabs(residual[i]) > toler)
+				&& fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3989,7 +3989,7 @@ residuals(void)
 					(x[i]->surface_charge->psi - x[i]->surface_charge->psi1);
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
-				&& fabs(residual[i]) > toler)
+				&& fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -4018,7 +4018,7 @@ residuals(void)
 					(x[i]->surface_charge->psi1 - x[i]->surface_charge->psi2);
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
-				&& fabs(residual[i]) > toler)
+				&& fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -4102,7 +4102,7 @@ residuals(void)
 							output_msg(OUTPUT_MESSAGE,
 									   "Failed Residual C %d: %s %d %e %e\n",
 									   iterations, x[i]->description, i, sum,
-									   toler);
+									   m_toler);
 						converge = FALSE;
 					}
 					/*output_msg(OUTPUT_MESSAGE, "Negative sum, iteration %d\n", iterations); */
@@ -4180,7 +4180,7 @@ residuals(void)
 
 			}
 			if (x[i]->surface_charge->grams > MIN_RELATED_SURFACE
-				&& fabs(residual[i]) > toler)
+				&& fabs(residual[i]) > m_toler)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -4335,31 +4335,31 @@ revise_guesses(void)
  *   Revise la's of master species
  */
 	int i;
-	int iter, max_iter, repeat, fail;
+	int m_iter, max_iter, repeat, fail;
 	LDBLE weight, f;
 	LDBLE d;
 
 	max_iter = 10;
 	gammas(mu_x);
-	iter = 0;
+	m_iter = 0;
 	repeat = TRUE;
 	fail = FALSE;;
 	while (repeat == TRUE)
 	{
-		iter++;
+		m_iter++;
 		if (debug_set == TRUE)
 		{
 			output_msg(OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
-					   iter);
+					   m_iter);
 		}
-		if (iter == max_iter + 1)
+		if (m_iter == max_iter + 1)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge in set, iteration %d.\n",
 					   iterations);
 			fail = TRUE;
 		}
-		if (iter > 2 * max_iter)
+		if (m_iter > 2 * max_iter)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge with relaxed criteria in set.\n");
@@ -4401,7 +4401,7 @@ revise_guesses(void)
 				{
 					output_msg(OUTPUT_MESSAGE,
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
-							   x[i]->description, iter, (double) x[i]->sum,
+							   x[i]->description, m_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
 							   (double) x[i]->master[0]->s->la);
 				}
@@ -4458,7 +4458,7 @@ revise_guesses(void)
 					{
 						output_msg(OUTPUT_MESSAGE,
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
-								   x[i]->description, iter,
+								   x[i]->description, m_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
 								   (double) x[i]->master[0]->s->la);
 					}
@@ -4490,7 +4490,7 @@ revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in revise_guesses: %d\n", iter);
+	output_msg(OUTPUT_LOG, "Iterations in revise_guesses: %d\n", m_iter);
 	mu_x = mu_unknown->f * 0.5 / mass_water_aq_x;
 	if (mu_x <= 1e-8)
 	{
@@ -4846,7 +4846,7 @@ add_trivial_eqns(int rows, int cols, LDBLE * matrix)
 #define ZERO_TOL 1.0e-30
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
+s_s_root(LDBLE m_a0, LDBLE m_a1, LDBLE m_kc, LDBLE m_kb, LDBLE xcaq, LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
@@ -4857,12 +4857,12 @@ s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
  */
 	x0 = 0.0;
 	x1 = 0.0;
-	y0 = s_s_f(x0, a0, a1, kc, kb, xcaq, xbaq);
+	y0 = s_s_f(x0, m_a0, m_a1, m_kc, m_kb, xcaq, xbaq);
 	miny = fabs(y0);
 	for (i = 1; i <= 10; i++)
 	{
 		x1 = (LDBLE) i / 10;
-		y1 = s_s_f(x1, a0, a1, kc, kb, xcaq, xbaq);
+		y1 = s_s_f(x1, m_a0, m_a1, m_kc, m_kb, xcaq, xbaq);
 		if (fabs(y1) < miny)
 		{
 			miny = fabs(y1);
@@ -4886,21 +4886,21 @@ s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq, LDBLE xbaq)
 	}
 	else
 	{
-		xb = s_s_halve(a0, a1, x0, x1, kc, kb, xcaq, xbaq);
+		xb = s_s_halve(m_a0, m_a1, x0, x1, m_kc, m_kb, xcaq, xbaq);
 	}
 	return (xb);
 }
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
+s_s_halve(LDBLE m_a0, LDBLE m_a1, LDBLE x0, LDBLE x1, LDBLE m_kc, LDBLE m_kb,
 		  LDBLE xcaq, LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	LDBLE x, y0, dx, y;
+	LDBLE m_x, y0, dx, y;
 
-	y0 = s_s_f(x0, a0, a1, kc, kb, xcaq, xbaq);
+	y0 = s_s_f(x0, m_a0, m_a1, m_kc, m_kb, xcaq, xbaq);
 	dx = (x1 - x0);
 /*
  *  Loop for interval halving
@@ -4908,15 +4908,15 @@ s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 	for (i = 0; i < 100; i++)
 	{
 		dx *= 0.5;
-		x = x0 + dx;
-		y = s_s_f(x, a0, a1, kc, kb, xcaq, xbaq);
+		m_x = x0 + dx;
+		y = s_s_f(m_x, m_a0, m_a1, m_kc, m_kb, xcaq, xbaq);
 		if (dx < 1e-8 || y == 0)
 		{
 			break;
 		}
 		if (y0 * y >= 0)
 		{
-			x0 = x;
+			x0 = m_x;
 			y0 = y;
 		}
 	}
@@ -4925,7 +4925,7 @@ s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc, LDBLE kb,
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
+s_s_f(LDBLE xb, LDBLE m_a0, LDBLE m_a1, LDBLE m_kc, LDBLE m_kb, LDBLE xcaq,
 	  LDBLE xbaq)
 /* ---------------------------------------------------------------------- */
 {
@@ -4938,9 +4938,9 @@ s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
 		xb = 1e-20;
 	if (xc == 0)
 		xc = 1e-20;
-	lc = exp((a0 - a1 * (-4 * xb + 3)) * xb * xb);
-	lb = exp((a0 + a1 * (4 * xb - 1)) * xc * xc);
-	r = lc * kc / (lb * kb);
+	lc = exp((m_a0 - m_a1 * (-4 * xb + 3)) * xb * xb);
+	lb = exp((m_a0 + m_a1 * (4 * xb - 1)) * xc * xc);
+	r = lc * m_kc / (lb * m_kb);
 	f = xcaq * (xb / r + xc) + xbaq * (xb + r * xc) - 1;
 	return (f);
 }
@@ -5137,7 +5137,7 @@ numerical_jacobian(void)
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-ineq_init(int max_row_count, int max_column_count)
+ineq_init(int m_max_row_count, int m_max_column_count)
 /* ---------------------------------------------------------------------- */
 {
 	if (normal == NULL)
@@ -5151,62 +5151,62 @@ ineq_init(int max_row_count, int max_column_count)
 	if (ineq_array == NULL)
 	{
 		ineq_array =
-			(LDBLE *) PHRQ_malloc((size_t) max_row_count * max_column_count *
+			(LDBLE *) PHRQ_malloc((size_t) m_max_row_count * m_max_column_count *
 								  sizeof(LDBLE));
 		if (ineq_array == NULL)
 			malloc_error();
-		ineq_array_max = max_row_count * max_column_count;
+		ineq_array_max = m_max_row_count * m_max_column_count;
 	}
 	if (back_eq == NULL)
 	{
-		back_eq = (int *) PHRQ_malloc((size_t) max_row_count * sizeof(int));
+		back_eq = (int *) PHRQ_malloc((size_t) m_max_row_count * sizeof(int));
 		if (back_eq == NULL)
 			malloc_error();
-		back_eq_max = max_row_count;
+		back_eq_max = m_max_row_count;
 	}
 	if (zero == NULL)
 	{
-		zero = (LDBLE *) PHRQ_malloc((size_t) max_row_count * sizeof(LDBLE));
+		zero = (LDBLE *) PHRQ_malloc((size_t) m_max_row_count * sizeof(LDBLE));
 		if (zero == NULL)
 			malloc_error();
-		zero_max = max_row_count;
+		zero_max = m_max_row_count;
 	}
 	if (res == NULL)
 	{
-		res = (LDBLE *) PHRQ_malloc((size_t) max_row_count * sizeof(LDBLE));
+		res = (LDBLE *) PHRQ_malloc((size_t) m_max_row_count * sizeof(LDBLE));
 		if (res == NULL)
 			malloc_error();
-		res_max = max_row_count;
+		res_max = m_max_row_count;
 	}
 	if (delta1 == NULL)
 	{
 		delta1 =
-			(LDBLE *) PHRQ_malloc((size_t) max_column_count * sizeof(LDBLE));
+			(LDBLE *) PHRQ_malloc((size_t) m_max_column_count * sizeof(LDBLE));
 		if (delta1 == NULL)
 			malloc_error();
-		delta1_max = max_column_count;
+		delta1_max = m_max_column_count;
 	}
 	if (cu == NULL)
 	{
-		cu = (LDBLE *) PHRQ_malloc((size_t) 3 * max_row_count *
+		cu = (LDBLE *) PHRQ_malloc((size_t) 3 * m_max_row_count *
 								   sizeof(LDBLE));
 		if (cu == NULL)
 			malloc_error();
-		cu_max = 3 * max_row_count;
+		cu_max = 3 * m_max_row_count;
 	}
 	if (iu == NULL)
 	{
-		iu = (int *) PHRQ_malloc((size_t) 3 * max_row_count * sizeof(int));
+		iu = (int *) PHRQ_malloc((size_t) 3 * m_max_row_count * sizeof(int));
 		if (iu == NULL)
 			malloc_error();
-		iu_max = 3 * max_row_count;
+		iu_max = 3 * m_max_row_count;
 	}
 	if (is == NULL)
 	{
-		is = (int *) PHRQ_malloc((size_t) 3 * max_row_count * sizeof(int));
+		is = (int *) PHRQ_malloc((size_t) 3 * m_max_row_count * sizeof(int));
 		if (is == NULL)
 			malloc_error();
-		is_max = 3 * max_row_count;
+		is_max = 3 * m_max_row_count;
 	}
 }
 /* ---------------------------------------------------------------------- */
