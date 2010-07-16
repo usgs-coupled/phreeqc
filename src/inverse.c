@@ -4119,7 +4119,7 @@ get_isotope(struct solution *solution_ptr, const char *elt)
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-print_total(FILE * netpath_file, struct solution *solution_ptr,
+print_total(FILE * m_netpath_file, struct solution *solution_ptr,
 			const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -4127,13 +4127,13 @@ print_total(FILE * netpath_file, struct solution *solution_ptr,
 	tot_ptr = get_inv_total(solution_ptr, elt);
 	if (tot_ptr == NULL)
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"                                                           # %s\n",
 				string);
 	}
 	else
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"%15g                                            # %s\n",
 				(double) (1000 * tot_ptr->moles / solution_ptr->mass_water),
 				string);
@@ -4142,7 +4142,7 @@ print_total(FILE * netpath_file, struct solution *solution_ptr,
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-print_isotope(FILE * netpath_file, struct solution *solution_ptr,
+print_isotope(FILE * m_netpath_file, struct solution *solution_ptr,
 			  const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -4150,13 +4150,13 @@ print_isotope(FILE * netpath_file, struct solution *solution_ptr,
 	iso_ptr = get_isotope(solution_ptr, elt);
 	if (iso_ptr == NULL)
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"                                                           # %s\n",
 				string);
 	}
 	else
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"%15g                                            # %s\n",
 				(double) iso_ptr->ratio, string);
 	}
@@ -4164,7 +4164,7 @@ print_isotope(FILE * netpath_file, struct solution *solution_ptr,
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
+print_total_multi(FILE * m_netpath_file, struct solution *solution_ptr,
 				  const char *string, const char *elt0, const char *elt1,
 				  const char *elt2, const char *elt3, const char *elt4)
 /* ---------------------------------------------------------------------- */
@@ -4198,13 +4198,13 @@ print_total_multi(FILE * netpath_file, struct solution *solution_ptr,
 	}
 	if (found != TRUE)
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"                                                           # %s\n",
 				string);
 	}
 	else
 	{
-		fprintf(netpath_file,
+		fprintf(m_netpath_file,
 				"%15g                                            # %s\n",
 				(double) (1000 * sum / solution_ptr->mass_water), string);
 	}
@@ -4227,7 +4227,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	char *ptr, *str_ptr;
 	int l;
 	LDBLE sum, sum1, sum_iso, d;
-	LDBLE *array_save, *delta_save;
+	LDBLE *array_save, *m_delta_save;
 	int count_unknowns_save, max_row_count_save, max_column_count_save, temp,
 		count_current_solutions, temp_punch;
 	int solnmap[10][2];
@@ -4244,7 +4244,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		return (OK);
 
 	array_save = array;
-	delta_save = delta;
+	m_delta_save = delta;
 	count_unknowns_save = count_unknowns;
 	max_row_count_save = max_row_count;
 	max_column_count_save = max_column_count;
@@ -4673,7 +4673,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	}
 	free_model_allocs();
 	array = array_save;
-	delta = delta_save;
+	delta = m_delta_save;
 	count_unknowns = count_unknowns_save;
 	max_row_count = max_row_count_save;
 	max_column_count = max_column_count_save;
@@ -5161,7 +5161,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-print_total_pat(FILE * netpath_file, const char *elt, const char *string)
+print_total_pat(FILE * m_netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	LDBLE d;
@@ -5172,11 +5172,11 @@ print_total_pat(FILE * netpath_file, const char *elt, const char *string)
 	}
 	if (d == 0)
 	{
-		fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
+		fprintf(m_netpath_file, "%14g%1s    # %s\n", (double) d, "*", string);
 	}
 	else
 	{
-		fprintf(netpath_file, "%14g%1s    # %s\n", (double) d, " ", string);
+		fprintf(m_netpath_file, "%14g%1s    # %s\n", (double) d, " ", string);
 	}
 }
 

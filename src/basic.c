@@ -660,56 +660,56 @@ Static Char * CLASS_QUALIFIER
 numtostr(Char * Result, LDBLE n)
 {
 	/*string255 s; */
-	char *s;
+	char *s1;
 	long i;
 
-	s = (char *) PHRQ_calloc(max_line, sizeof(char));
-	if (s == NULL)
+	s1 = (char *) PHRQ_calloc(max_line, sizeof(char));
+	if (s1 == NULL)
 		malloc_error();
-	s[max_line - 1] = '\0';
+	s1[max_line - 1] = '\0';
 /*  if ((n != 0 && fabs(n) < 1e-2) || fabs(n) >= 1e12) { */
 	if (ceil(n) == floor(n))
 	{
 		if (punch.high_precision == FALSE)
 		{
-			sprintf(s, "%12g", (double) n);
+			sprintf(s1, "%12g", (double) n);
 		}
 		else
 		{
-			sprintf(s, "%19g", (double) n);
+			sprintf(s1, "%19g", (double) n);
 		}
 	}
 	else
 	{
 		if (punch.high_precision == FALSE)
 		{
-			sprintf(s, "%12.4e", (double) n);
+			sprintf(s1, "%12.4e", (double) n);
 		}
 		else
 		{
-			sprintf(s, "%20.12e", (double) n);
+			sprintf(s1, "%20.12e", (double) n);
 		}
 	}
-	i = (int) strlen(s) + 1;
-	s[i - 1] = '\0';
+	i = (int) strlen(s1) + 1;
+	s1[i - 1] = '\0';
 /* p2c: basic.p, line 237:
  * Note: Modification of string length may translate incorrectly [146] */
-	strcpy(Result, s);
-	free_check_null(s);
+	strcpy(Result, s1);
+	free_check_null(s1);
 	return (Result);
 /*  } else {
-    if (punch.high_precision == FALSE) sprintf(s, "%30.10f", n);
-      else sprintf(s, "%30.12f", n);
-    i = strlen(s) + 1;
+    if (punch.high_precision == FALSE) sprintf(s1, "%30.10f", n);
+      else sprintf(s1, "%30.12f", n);
+    i = strlen(s1) + 1;
     do {
       i--;
-    } while (s[i - 1] == '0');
-    if (s[i - 1] == '.')
+    } while (s1[i - 1] == '0');
+    if (s1[i - 1] == '.')
       i--;
-    s[i] = '\0';
+    s1[i] = '\0';
  * p2c: basic.p, line 248:
  * Note: Modification of string length may translate incorrectly [146] *
-     return strcpy(Result, strltrim(s));
+     return strcpy(Result, strltrim(s1));
   } */
 }
 
@@ -723,7 +723,7 @@ typedef long chset[9];
 
 
 Static void CLASS_QUALIFIER
-parse(Char * inbuf, tokenrec ** buf)
+parse(Char * inbuf1, tokenrec ** buf1)
 {
 	long i, j, begin, len, m, lp, q;
 	Char token[toklength + 1] = {0};
@@ -734,15 +734,15 @@ parse(Char * inbuf, tokenrec ** buf)
 	char *ptr;
 
 	tptr = NULL;
-	*buf = NULL;
+	*buf1 = NULL;
 	i = 1;
 	lp = q = 0;
 	do
 	{
 		ch = ' ';
-		while (i <= (int) strlen(inbuf) && (ch == ' ' || ch == '\t'))
+		while (i <= (int) strlen(inbuf1) && (ch == ' ' || ch == '\t'))
 		{
-			ch = inbuf[i - 1];
+			ch = inbuf1[i - 1];
 			i++;
 		}
 		if (ch != ' ')
@@ -751,7 +751,7 @@ parse(Char * inbuf, tokenrec ** buf)
 			if (t == NULL)
 				malloc_error();
 			if (tptr == NULL)
-				*buf = t;
+				*buf1 = t;
 			else
 				tptr->next = t;
 			tptr = t;
@@ -764,21 +764,21 @@ parse(Char * inbuf, tokenrec ** buf)
 				q += 1;
 				t->kind = tokstr;
 				j = 0;
-				len = (int) strlen(inbuf);
+				len = (int) strlen(inbuf1);
 				begin = i;
-				while (i <= len && inbuf[i - 1] != ch)
+				while (i <= len && inbuf1[i - 1] != ch)
 				{
 					++j;
 					++i;
 				}
-				if (inbuf[i - 1] == ch) q -= 1;
+				if (inbuf1[i - 1] == ch) q -= 1;
 				m = 256;
 				if (j + 1 > m)
 					m = j + 1;
 				t->UU.sp = (char *) PHRQ_calloc(m, sizeof(char));
 				if (t->UU.sp == NULL)
 					malloc_error();
-				strncpy(t->UU.sp, inbuf + begin - 1, j);
+				strncpy(t->UU.sp, inbuf1 + begin - 1, j);
 				t->UU.sp[j] = '\0';
 /* p2c: basic.p, line 415:
  * Note: Modification of string length may translate incorrectly [146] */
@@ -838,12 +838,12 @@ parse(Char * inbuf, tokenrec ** buf)
 				break;
 
 			case '<':
-				if (i <= (int) strlen(inbuf) && inbuf[i - 1] == '=')
+				if (i <= (int) strlen(inbuf1) && inbuf1[i - 1] == '=')
 				{
 					t->kind = tokle;
 					i++;
 				}
-				else if (i <= (int) strlen(inbuf) && inbuf[i - 1] == '>')
+				else if (i <= (int) strlen(inbuf1) && inbuf1[i - 1] == '>')
 				{
 					t->kind = tokne;
 					i++;
@@ -853,7 +853,7 @@ parse(Char * inbuf, tokenrec ** buf)
 				break;
 
 			case '>':
-				if (i <= (int) strlen(inbuf) && inbuf[i - 1] == '=')
+				if (i <= (int) strlen(inbuf1) && inbuf1[i - 1] == '=')
 				{
 					t->kind = tokge;
 					i++;
@@ -868,14 +868,14 @@ parse(Char * inbuf, tokenrec ** buf)
 					i--;
 					j = 0;
 					token[toklength] = '\0';
-					while (i <= (int) strlen(inbuf) &&
-						   (inbuf[i - 1] == '$' || inbuf[i - 1] == '_' ||
-							isalnum((int) inbuf[i - 1])))
+					while (i <= (int) strlen(inbuf1) &&
+						   (inbuf1[i - 1] == '$' || inbuf1[i - 1] == '_' ||
+							isalnum((int) inbuf1[i - 1])))
 					{
 						if (j < toklength)
 						{
 							j++;
-							token[j - 1] = inbuf[i - 1];
+							token[j - 1] = inbuf1[i - 1];
 						}
 						i++;
 					}
@@ -898,16 +898,16 @@ parse(Char * inbuf, tokenrec ** buf)
 							((struct key *) (found_item->data))->keycount;
 						if (t->kind == tokrem)
 						{
-							m = (int) strlen(inbuf) + 1;
+							m = (int) strlen(inbuf1) + 1;
 							if (m < 256)
 								m = 256;
 							t->UU.sp = (char *) PHRQ_calloc(m, sizeof(char));
 							if (t->UU.sp == NULL)
 								malloc_error();
 							sprintf(t->UU.sp, "%.*s",
-									(int) (strlen(inbuf) - i + 1),
-									inbuf + i - 1);
-							i = (int) strlen(inbuf) + 1;
+									(int) (strlen(inbuf1) - i + 1),
+									inbuf1 + i - 1);
+							i = (int) strlen(inbuf1) + 1;
 						}
 #endif
 #ifdef LONG
@@ -1155,16 +1155,16 @@ parse(Char * inbuf, tokenrec ** buf)
 						else if (!strcmp(token, "rem"))
 						{
 							t->kind = tokrem;
-							m = strlen(inbuf) + 1;
+							m = strlen(inbuf1) + 1;
 							if (m < 256)
 								m = 256;
 							t->UU.sp = (char *) PHRQ_malloc(m);
 							if (t->UU.sp == NULL)
 								malloc_error();
 							sprintf(t->UU.sp, "%.*s",
-									(int) (strlen(inbuf) - i + 1),
-									inbuf + i - 1);
-							i = strlen(inbuf) + 1;
+									(int) (strlen(inbuf1) - i + 1),
+									inbuf1 + i - 1);
+							i = strlen(inbuf1) + 1;
 						}
 #endif
 					}
@@ -1204,8 +1204,8 @@ parse(Char * inbuf, tokenrec ** buf)
 				{
 					t->kind = toknum;
 					i--;
-					t->UU.num = strtod(&inbuf[i - 1], &ptr);
-					if (&inbuf[i - 1] == ptr)
+					t->UU.num = strtod(&inbuf1[i - 1], &ptr);
+					if (&inbuf1[i - 1] == ptr)
 					{
 						/*
 						   Note: the following causes an infinite loop:
@@ -1216,7 +1216,7 @@ parse(Char * inbuf, tokenrec ** buf)
 						i++;
 						break;
 					}
-					i += (int) (ptr - &inbuf[i - 1]);
+					i += (int) (ptr - &inbuf1[i - 1]);
 				}
 				else
 				{
@@ -1227,17 +1227,17 @@ parse(Char * inbuf, tokenrec ** buf)
 			}
 		}
 	}
-	while (i <= (int) strlen(inbuf));
+	while (i <= (int) strlen(inbuf1));
 	if (q) {
-		sprintf(error_string, " missing \" or \' in BASIC line\n %ld %s", curline, inbuf);
+		sprintf(error_string, " missing \" or \' in BASIC line\n %ld %s", curline, inbuf1);
 		error_msg(error_string, STOP);
 	}
 	if (lp > 0) {
-		sprintf(error_string, " missing ) or ] in BASIC line\n %ld %s", curline, inbuf);
+		sprintf(error_string, " missing ) or ] in BASIC line\n %ld %s", curline, inbuf1);
 		error_msg(error_string, STOP);
 	}
 	else if (lp < 0) {
-		sprintf(error_string, " missing ( or [ in BASIC line\n %ld %s", curline, inbuf);
+		sprintf(error_string, " missing ( or [ in BASIC line\n %ld %s", curline, inbuf1);
 		error_msg(error_string, STOP);
 	}
 }
@@ -1247,46 +1247,46 @@ parse(Char * inbuf, tokenrec ** buf)
 
 
 Static void CLASS_QUALIFIER
-listtokens(FILE * f, tokenrec * buf)
+listtokens(FILE * f, tokenrec * buf1)
 {
 	boolean ltr;
 	Char STR1[256] = {0};
 	char *string;
 	ltr = false;
-	while (buf != NULL)
+	while (buf1 != NULL)
 	{
-		if ((buf->kind >= (long) toknot && buf->kind <= (long) tokrenum) ||
-			buf->kind == (long) toknum || buf->kind == (long) tokvar ||
-			buf->kind >= (long) toktc)
+		if ((buf1->kind >= (long) toknot && buf1->kind <= (long) tokrenum) ||
+			buf1->kind == (long) toknum || buf1->kind == (long) tokvar ||
+			buf1->kind >= (long) toktc)
 		{
 			if (ltr)
 				/*putc(' ', f); */
 				output_msg(OUTPUT_BASIC, " ");
-			ltr = (boolean) (buf->kind != toknot);
+			ltr = (boolean) (buf1->kind != toknot);
 		}
 		else
 			ltr = false;
-		switch (buf->kind)
+		switch (buf1->kind)
 		{
 
 		case tokvar:
-			/*fputs(buf->UU.vp->name, f); */
-			output_msg(OUTPUT_BASIC, "%s", buf->UU.vp->name);
+			/*fputs(buf1->UU.vp->name, f); */
+			output_msg(OUTPUT_BASIC, "%s", buf1->UU.vp->name);
 			break;
 
 		case toknum:
-			/*fputs(numtostr(STR1, buf->UU.num), f); */
-			string = numtostr(STR1, buf->UU.num);
+			/*fputs(numtostr(STR1, buf1->UU.num), f); */
+			string = numtostr(STR1, buf1->UU.num);
 			string_trim(string);
 			output_msg(OUTPUT_BASIC, "%s", string);
 			break;
 
 		case tokstr:
-			output_msg(OUTPUT_BASIC, "\"%s\"", buf->UU.sp);
+			output_msg(OUTPUT_BASIC, "\"%s\"", buf1->UU.sp);
 			break;
 
 		case toksnerr:
-			output_msg(OUTPUT_BASIC, "{%c}", buf->UU.snch);
+			output_msg(OUTPUT_BASIC, "{%c}", buf1->UU.snch);
 			break;
 
 		case tokplus:
@@ -1451,7 +1451,7 @@ listtokens(FILE * f, tokenrec * buf)
 			break;
 
 		case tokrem:
-			output_msg(OUTPUT_BASIC, "REM%s", buf->UU.sp);
+			output_msg(OUTPUT_BASIC, "REM%s", buf1->UU.sp);
 			break;
 
 		case toklet:
@@ -1870,7 +1870,7 @@ listtokens(FILE * f, tokenrec * buf)
 			output_msg(OUTPUT_BASIC, "ISO_UNIT");
 			break;
 		}
-		buf = buf->next;
+		buf1 = buf1->next;
 	}
 }
 
@@ -1896,7 +1896,7 @@ disposetokens(tokenrec ** tok)
 
 
 Static void CLASS_QUALIFIER
-parseinput(tokenrec ** buf)
+parseinput(tokenrec ** buf1)
 {
 	linerec *l, *l0, *l1;
 
@@ -1912,7 +1912,7 @@ parseinput(tokenrec ** buf)
 #endif
 		memmove(inbuf, inbuf + 1, strlen(inbuf));
 	}
-	parse(inbuf, buf);
+	parse(inbuf, buf1);
 	if (curline == 0)
 		return;
 	l = linebase;
@@ -1933,7 +1933,7 @@ parseinput(tokenrec ** buf)
 		disposetokens(&l1->txt);
 		free(l1);
 	}
-	if (*buf != NULL)
+	if (*buf1 != NULL)
 	{
 		l1 = (linerec *) PHRQ_calloc(1, sizeof(linerec));
 		if (l1 == NULL)
@@ -1944,7 +1944,7 @@ parseinput(tokenrec ** buf)
 		else
 			l0->next = l1;
 		l1->num = curline;
-		l1->txt = *buf;
+		l1->txt = *buf1;
 		strncpy(l1->inbuf, inbuf, MAX_LINE);
 		l1->inbuf[MAX_LINE-1] = '\0';
 	}
@@ -1953,31 +1953,31 @@ parseinput(tokenrec ** buf)
 }
 
 Static void CLASS_QUALIFIER
-errormsg(const Char * s)
+errormsg(const Char * s1)
 {
 #ifdef SKIP
-	printf("\007%s", s);
+	printf("\007%s", s1);
 #endif
-	error_msg(s, CONTINUE);
+	error_msg(s1, CONTINUE);
 	_Escape(42);
 }
 
 
 Static void CLASS_QUALIFIER
-snerr(const Char * s)
+snerr(const Char * s1)
 {
   char str[MAX_LENGTH] = {0};
   strcpy(str, "Syntax_error ");
-  errormsg(strcat(str, s));
+  errormsg(strcat(str, s1));
 }
 
 
 Static void CLASS_QUALIFIER
-tmerr(const Char * s)
+tmerr(const Char * s1)
 {
   char str[MAX_LENGTH] = {0};
   strcpy(str, "Type mismatch error");
-  errormsg(strcat(str, s));
+  errormsg(strcat(str, s1));
 }
 
 
@@ -2214,8 +2214,8 @@ factor(struct LOC_exec * LINK)
 	valrec n;
 	long i, j, m;
 	tokenrec *tok, *tok1;
-	Char *s;
-	LDBLE dummy;
+	Char *s1;
+	LDBLE dummy1;
 	int i_rate;
 	union
 	{
@@ -3025,7 +3025,7 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case toksi:
-		saturation_index(stringfactor(STR1, LINK), &dummy, &n.UU.val);
+		saturation_index(stringfactor(STR1, LINK), &dummy1, &n.UU.val);
 		break;
 
 	case toktot:
@@ -3106,9 +3106,9 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokval:
-		s = strfactor(LINK);
+		s1 = strfactor(LINK);
 		tok1 = LINK->t;
-		parse(s, &LINK->t);
+		parse(s1, &LINK->t);
 		tok = LINK->t;
 		if (tok == NULL)
 			n.UU.val = 0.0;
@@ -3116,7 +3116,7 @@ factor(struct LOC_exec * LINK)
 			n = expr(LINK);
 		disposetokens(&tok);
 		LINK->t = tok1;
-		free(s);
+		free(s1);
 		break;
 
 	case tokchr_:
@@ -3129,12 +3129,12 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case tokasc:
-		s = strfactor(LINK);
-		if (*s == '\0')
+		s1 = strfactor(LINK);
+		if (*s1 == '\0')
 			n.UU.val = 0.0;
 		else
-			n.UU.val = s[0];
-		free(s);
+			n.UU.val = s1[0];
+		free(s1);
 		break;
 
 	case tokmid_:
@@ -3174,9 +3174,9 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case toklen:
-		s = strfactor(LINK);
-		n.UU.val = (double) strlen(s);
-		free(s);
+		s1 = strfactor(LINK);
+		n.UU.val = (double) strlen(s1);
+		free(s1);
 		break;
 
 	case tokpeek:
@@ -3608,7 +3608,7 @@ Local void CLASS_QUALIFIER
 cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 {
 	FILE *f;
-	tokenrec *buf;
+	tokenrec *buf1;
 	Char STR1[256] = {0};
 	Char *TEMP;
 
@@ -3632,11 +3632,11 @@ cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 		TEMP = strchr(inbuf, '\n');
 		if (TEMP != NULL)
 			*TEMP = 0;
-		parseinput(&buf);
+		parseinput(&buf1);
 		if (curline == 0)
 		{
 			printf("Bad line in file\n");
-			disposetokens(&buf);
+			disposetokens(&buf1);
 		}
 	}
 	if (f != NULL)
@@ -3653,10 +3653,10 @@ cmdrun(struct LOC_exec *LINK)
 	linerec *l;
 	long i;
 	/*string255 s; */
-	char *s;
+	char *s1;
 
-	s = (char *) PHRQ_calloc(max_line, sizeof(char));
-	if (s == NULL)
+	s1 = (char *) PHRQ_calloc(max_line, sizeof(char));
+	if (s1 == NULL)
 		malloc_error();
 
 	l = linebase;
@@ -3667,7 +3667,7 @@ cmdrun(struct LOC_exec *LINK)
 			l = mustfindline(intexpr(LINK));
 		else
 		{
-			stringexpr(s, LINK);
+			stringexpr(s1, LINK);
 			i = 0;
 			if (!iseos(LINK))
 			{
@@ -3675,7 +3675,7 @@ cmdrun(struct LOC_exec *LINK)
 				i = intexpr(LINK);
 			}
 			checkextra(LINK);
-			cmdload(false, s, LINK);
+			cmdload(false, s1, LINK);
 			if (i == 0)
 				l = linebase;
 			else
@@ -3690,7 +3690,7 @@ cmdrun(struct LOC_exec *LINK)
 	clearvars();
 	clearloops();
 	restoredata();
-	free_check_null(s);
+	free_check_null(s1);
 	return;
 }
 
@@ -5209,21 +5209,21 @@ exec(void)
 	ENDTRY(try1);
 }								/*exec */
 int CLASS_QUALIFIER
-free_dim_stringvar(varrec *varbase)
+free_dim_stringvar(varrec *varbase1)
 {
 	int i, k;
-	if (varbase->numdims > 0)
+	if (varbase1->numdims > 0)
 	{
 		k = 1;
-		for (i = 0; i < varbase->numdims; i++)
+		for (i = 0; i < varbase1->numdims; i++)
 		{
-			k = k * (varbase->dims[i]);
+			k = k * (varbase1->dims[i]);
 		}
 		for (i = 0; i < k; i++)
 		{
-			free_check_null(varbase->UU.U1.sarr[i]);
+			free_check_null(varbase1->UU.U1.sarr[i]);
 		}
-		varbase->UU.U1.sarr = (char **) free_check_null(varbase->UU.U1.sarr);
+		varbase1->UU.U1.sarr = (char **) free_check_null(varbase1->UU.U1.sarr);
 	}
 	return (OK);
 }
