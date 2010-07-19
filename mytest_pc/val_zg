@@ -29,7 +29,7 @@ USER_GRAPH
  -axis_scale y_axis 0.1 160 auto auto true
  -plot_concentration_vs time
  -axis_titles "m^3 injected" "mmol/L" "Cl / (mmol/L)"
- -plot_csv val_zg.csv
+ -plot_csv val_zg.csv.in
  -start
  10 V0 = 295                                        # m3 from injection well to S23
  20 x = V0 * (step_no + 0.5)/cell_no
