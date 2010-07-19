@@ -1580,7 +1580,7 @@ read_exchange_master_species(void)
  */
 	int j, l;
 	char *ptr, *ptr1;
-	LDBLE z;
+	LDBLE m_z;
 	struct element *elts_ptr;
 	struct species *s_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
@@ -1653,8 +1653,8 @@ read_exchange_master_species(void)
 		else
 		{
 			ptr1 = token;
-			get_token(&ptr1, token1, &z, &l);
-			master[count_master]->s = s_store(token1, z, FALSE);
+			get_token(&ptr1, token1, &m_z, &l);
+			master[count_master]->s = s_store(token1, m_z, FALSE);
 		}
 /*
  *   MAKE LISTS OF PRIMARY AND SECONDARY MASTER SPECIES
@@ -3447,7 +3447,7 @@ read_master_species(void)
  */
 	int j, i, l;
 	char *ptr, *ptr1;
-	LDBLE z;
+	LDBLE m_z;
 	struct element *elts_ptr;
 	struct species *s_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
@@ -3523,8 +3523,8 @@ read_master_species(void)
 		else
 		{
 			ptr1 = token;
-			get_token(&ptr1, token1, &z, &l);
-			master[count_master]->s = s_store(token1, z, FALSE);
+			get_token(&ptr1, token1, &m_z, &l);
+			master[count_master]->s = s_store(token1, m_z, FALSE);
 		}
 
 /*
@@ -7563,7 +7563,7 @@ read_surface_master_species(void)
 	 */
 	int l, return_value;
 	char *ptr, *ptr1;
-	LDBLE z;
+	LDBLE m_z;
 	struct master *m_ptr;
 	struct species *s_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
@@ -7671,8 +7671,8 @@ read_surface_master_species(void)
 			else
 			{
 				ptr1 = token;
-				get_token(&ptr1, token1, &z, &l);
-				master[count_master]->s = s_store(token1, z, FALSE);
+				get_token(&ptr1, token1, &m_z, &l);
+				master[count_master]->s = s_store(token1, m_z, FALSE);
 			}
 			master[count_master]->primary = TRUE;
 			strcpy(token, master[count_master]->elt->name);

@@ -310,8 +310,7 @@ sit(void)
 /* ---------------------------------------------------------------------- */
 {
   int i, i0, i1;
-  LDBLE param, alpha, z0, z1;
-  LDBLE dummy;
+  LDBLE param, z0, z1;
   LDBLE A, AGAMMA, T;
 	/*
 	   LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
@@ -409,7 +408,6 @@ sit(void)
 	 *  Sums for sit_LGAMMA, and OSMOT
 	 *  epsilons are tabulated for log10 gamma (not ln gamma)
 	 */
-	dummy = sit_LGAMMA[1];
 	for (i = 0; i < count_sit_param; i++)
 	{
 		i0 = sit_params[i]->ispec[0];
@@ -418,7 +416,6 @@ sit(void)
 		z0 = spec[i0]->z;
 		z1 = spec[i1]->z;
 		param = sit_params[i]->p;
-		alpha = sit_params[i]->alpha;
 		switch (sit_params[i]->type)
 		{
 		case TYPE_SIT_EPSILON:
@@ -643,30 +640,30 @@ sit_revise_guesses(void)
  *   Revise molalities species
  */
 	int i;
-	int iter, max_iter, repeat, fail;
+	int m_iter, max_iter, repeat, fail;
 	LDBLE weight, f;
 
 	max_iter = 10;
 	/* gammas(mu_x); */
-	iter = 0;
+	m_iter = 0;
 	repeat = TRUE;
 	fail = FALSE;;
 	while (repeat == TRUE)
 	{
-		iter++;
+		m_iter++;
 		if (debug_set == TRUE)
 		{
 			output_msg(OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
-					   iter);
+					   m_iter);
 		}
-		if (iter == max_iter + 1)
+		if (m_iter == max_iter + 1)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge in set, iteration %d.\n",
 					   iterations);
 			fail = TRUE;
 		}
-		if (iter > 2 * max_iter)
+		if (m_iter > 2 * max_iter)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge with relaxed criteria in set.\n");
@@ -711,7 +708,7 @@ sit_revise_guesses(void)
 				{
 					output_msg(OUTPUT_MESSAGE,
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
-							   x[i]->description, iter, (double) x[i]->sum,
+							   x[i]->description, m_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
 							   (double) x[i]->master[0]->s->la);
 				}
@@ -752,7 +749,7 @@ sit_revise_guesses(void)
 					{
 						output_msg(OUTPUT_MESSAGE,
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
-								   x[i]->description, iter,
+								   x[i]->description, m_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
 								   (double) x[i]->master[0]->s->la);
 					}
@@ -784,7 +781,7 @@ sit_revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in sit_revise_guesses: %d\n", iter);
+	output_msg(OUTPUT_LOG, "Iterations in sit_revise_guesses: %d\n", m_iter);
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -950,7 +947,7 @@ model_sit(void)
  *      An additional pass through may be needed if unstable phases still exist
  *         in the phase assemblage. 
  */
-	int kode, return_kode;
+	int m_kode, return_kode;
 	int r;
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
@@ -986,7 +983,7 @@ model_sit(void)
 	{
 		mb_gases();
 		mb_s_s();
-		kode = 1;
+		m_kode = 1;
 		while ((r = residuals()) != CONVERGED
 			   || remove_unstable_phases == TRUE)
 		{
@@ -1035,7 +1032,7 @@ model_sit(void)
 			 */
 			if (r == OK || remove_unstable_phases == TRUE)
 			{
-				return_kode = ineq(kode);
+				return_kode = ineq(m_kode);
 				if (return_kode != OK)
 				{
 					if (debug_model == TRUE)
