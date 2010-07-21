@@ -37,7 +37,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
  */
 {
 	int i;
-	LDBLE coef, m_z;
+	LDBLE coef, l_z;
 	char c;
 	char *ptr, *char_ptr;
 	char token[MAX_LENGTH];
@@ -105,13 +105,13 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 		/*   Swap species into first structure position */
 		char_ptr = trxn.token[0].name;
 		coef = trxn.token[0].coef;
-		m_z = trxn.token[0].z;
+		l_z = trxn.token[0].z;
 		trxn.token[0].name = trxn.token[count_trxn].name;
 		trxn.token[0].coef = trxn.token[count_trxn].coef;
 		trxn.token[0].z = trxn.token[count_trxn].z;
 		trxn.token[count_trxn].name = char_ptr;
 		trxn.token[count_trxn].coef = coef;
-		trxn.token[count_trxn].z = m_z;
+		trxn.token[count_trxn].z = l_z;
 		count_trxn++;
 	}
 /*
@@ -277,7 +277,7 @@ check_eqn(int association)
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
-get_charge(char *charge, LDBLE * m_z)
+get_charge(char *charge, LDBLE * l_z)
 /* ---------------------------------------------------------------------- */
 /*
  *   Function takes character string and calculates the charge on
@@ -304,7 +304,7 @@ get_charge(char *charge, LDBLE * m_z)
  */
 	if ((c = charge[0]) == '\0')
 	{
-		*m_z = 0.0;
+		*l_z = 0.0;
 		return (OK);
 	}
 /*
@@ -356,7 +356,7 @@ get_charge(char *charge, LDBLE * m_z)
 				{
 					if (*ptr != '0')
 					{
-						*m_z = strtod(charge, &ptr);
+						*l_z = strtod(charge, &ptr);
 						return (OK);
 #ifdef SKIP
 						sprintf(error_string,
@@ -408,7 +408,7 @@ get_charge(char *charge, LDBLE * m_z)
 			return (ERROR);
 		}
 	}
-	*m_z = i;
+	*l_z = i;
 	return (OK);
 }
 

@@ -4718,7 +4718,7 @@ s_search(const char *name)
 
 /* ---------------------------------------------------------------------- */
 struct species * CLASS_QUALIFIER
-s_store(char *name, LDBLE z1, int replace_if_found)
+s_store(char *name, LDBLE l_z, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -4737,7 +4737,7 @@ s_store(char *name, LDBLE z1, int replace_if_found)
  *
  *   Arguments:
  *      name    input, character string to be found in "species".
- *      z1      input, charge on "name"
+ *      l_z      input, charge on "name"
  *      replace_if_found input, TRUE means reinitialize species if found
  *		     FALSE means just return pointer if found.
  *
@@ -4780,7 +4780,7 @@ s_store(char *name, LDBLE z1, int replace_if_found)
 	}
 	/* set name and z in pointer in species structure */
 	s_ptr->name = string_hsave(name);
-	s_ptr->z = z1;
+	s_ptr->z = l_z;
 /*
  *   Update hash table
  */
@@ -8105,4 +8105,3 @@ copier_init(struct copier *copier_ptr)
 		(int *) PHRQ_malloc((size_t) (copier_ptr->max * sizeof(int)));
 	return (OK);
 }
-

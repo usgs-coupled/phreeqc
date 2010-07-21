@@ -365,7 +365,7 @@ free_check_null(void *ptr)
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
-get_token(char **eqnaddr, char *string, LDBLE * z1, int *l)
+get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 /* ---------------------------------------------------------------------- */
 /*
  *   Function finds next species in equation, coefficient has already
@@ -376,7 +376,7 @@ get_token(char **eqnaddr, char *string, LDBLE * z1, int *l)
  *                 output, pointer to a pointer to next position in eqn to start
  *                         parsing.
  *      *string    input pointer to place to store token
- *      *z1        charge on token
+ *      *l_z        charge on token
  *      *l         length of token
  *
  *   Returns:
@@ -453,7 +453,7 @@ get_token(char **eqnaddr, char *string, LDBLE * z1, int *l)
 	{
 		*eqnaddr = ptr;
 		lcharge = 0;
-		*z1 = 0.0;
+		*l_z = 0.0;
 	}
 	else
 	{
@@ -496,7 +496,7 @@ get_token(char **eqnaddr, char *string, LDBLE * z1, int *l)
 /*
  *   Charge has been written, now need to check if charge has legal format
  */
-		if (get_charge(charge, z1) == OK)
+		if (get_charge(charge, l_z) == OK)
 		{
 			strcat(string, charge);
 		}

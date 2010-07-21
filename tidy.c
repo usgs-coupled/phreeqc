@@ -1648,7 +1648,7 @@ tidy_s_s_assemblage(void)
 	int i, j, k, k1, n_user, last;
 	struct phase *phase_ptr;
 	struct s_s *s_s_ptr;
-	LDBLE nb, nc, n_tot, xb, xc, dnb, dnc, a01, a11;
+	LDBLE nb, nc, n_tot, xb, xc, dnb, dnc, l_a0, l_a1;
 	LDBLE xb2, xb3, xb4, xc2, xc3;
 	LDBLE moles;
 /*
@@ -1727,13 +1727,13 @@ tidy_s_s_assemblage(void)
 					s_s_assemblage[i].s_s[j].comps[k].log10_fraction_x =
 						log10(moles / n_tot);
 				}
-				a01 = s_s_assemblage[i].s_s[j].a0;
-				a11 = s_s_assemblage[i].s_s[j].a1;
+				l_a0 = s_s_assemblage[i].s_s[j].a0;
+				l_a1 = s_s_assemblage[i].s_s[j].a1;
 
 /*
  *   Binary solid solution
  */
-				if (a01 != 0.0 || a11 != 0)
+				if (l_a0 != 0.0 || l_a1 != 0)
 				{
 					s_s_assemblage[i].s_s[j].dn = 1.0 / n_tot;
 					nc = s_s_assemblage[i].s_s[j].comps[0].moles;
@@ -1747,9 +1747,9 @@ tidy_s_s_assemblage(void)
 
 					/* lambdas */
 					s_s_assemblage[i].s_s[j].comps[0].log10_lambda =
-						xb * xb * (a01 - a11 * (3 - 4 * xb)) / LOG_10;
+						xb * xb * (l_a0 - l_a1 * (3 - 4 * xb)) / LOG_10;
 					s_s_assemblage[i].s_s[j].comps[1].log10_lambda =
-						xc * xc * (a01 + a11 * (4 * xb - 1)) / LOG_10;
+						xc * xc * (l_a0 + l_a1 * (4 * xb - 1)) / LOG_10;
 
 					/* derivatives wrt nc and nb */
 					xc2 = xc * xc;
@@ -1760,30 +1760,30 @@ tidy_s_s_assemblage(void)
 
 					/* component 1 */
 					dnb =
-						-2 * a01 * xb * xc2 - 8 * a11 * xb2 * xc2 +
-						6 * a11 * xb * xc2 - 4 * a11 * xc * xb4 -
-						8 * a11 * xb3 * xc2 - 4 * a11 * xb2 * xc3 -
-						2 * a01 * xc * xb2 - 8 * a11 * xc * xb3 +
-						6 * a11 * xc * xb2 + 1;
+						-2 * l_a0 * xb * xc2 - 8 * l_a1 * xb2 * xc2 +
+						6 * l_a1 * xb * xc2 - 4 * l_a1 * xc * xb4 -
+						8 * l_a1 * xb3 * xc2 - 4 * l_a1 * xb2 * xc3 -
+						2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 +
+						6 * l_a1 * xc * xb2 + 1;
 					s_s_assemblage[i].s_s[j].comps[0].dnb = dnb / n_tot;
 					dnc =
-						2 * a01 * xb3 + 2 * a01 * xc * xb2 + 8 * a11 * xb4 +
-						8 * a11 * xc * xb3 - 2 * a11 * xb3 - 6 * a11 * xc * xb2;
+						2 * l_a0 * xb3 + 2 * l_a0 * xc * xb2 + 8 * l_a1 * xb4 +
+						8 * l_a1 * xc * xb3 - 2 * l_a1 * xb3 - 6 * l_a1 * xc * xb2;
 					s_s_assemblage[i].s_s[j].comps[0].dnc =
 						-xb / nc + dnc / n_tot;
 					s_s_assemblage[i].s_s[j].comps[0].dn = 1.0 / n_tot;
 
 					/* component 2 */
 					dnb =
-						2 * a01 * xb * xc2 + 2 * a01 * xc3 +
-						8 * a11 * xb2 * xc2 + 8 * a11 * xb * xc3 -
-						2 * a11 * xb * xc2 - 6 * a11 * xc3;
+						2 * l_a0 * xb * xc2 + 2 * l_a0 * xc3 +
+						8 * l_a1 * xb2 * xc2 + 8 * l_a1 * xb * xc3 -
+						2 * l_a1 * xb * xc2 - 6 * l_a1 * xc3;
 					s_s_assemblage[i].s_s[j].comps[1].dnb =
 						-xc / nb + dnb / n_tot;
 					dnc =
-						-2 * a01 * xc * xb2 - 8 * a11 * xc * xb3 +
-						2 * a11 * xc * xb2 - 2 * a01 * xb * xc2 -
-						8 * a11 * xb2 * xc2 + 6 * a11 * xb * xc2 + 1;
+						-2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 +
+						2 * l_a1 * xc * xb2 - 2 * l_a0 * xb * xc2 -
+						8 * l_a1 * xb2 * xc2 + 6 * l_a1 * xb * xc2 + 1;
 					s_s_assemblage[i].s_s[j].comps[1].dnc = dnc / n_tot;
 					s_s_prep(s_s_assemblage[i].s_s[j].tk,
 							 &(s_s_assemblage[i].s_s[j]), TRUE);
@@ -2668,13 +2668,13 @@ phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 	int i, l;
 	char *ptr;
 	char token[MAX_LENGTH];
-	LDBLE z1;
+	LDBLE l_z;
 
 	trxn.token[0].name = phase_ptr->formula;
 	/* charge */
 	ptr = phase_ptr->formula;
-	get_token(&ptr, token, &z1, &l);
-	trxn.token[0].z = z1;
+	get_token(&ptr, token, &l_z, &l);
+	trxn.token[0].z = l_z;
 	trxn.token[0].s = NULL;
 	trxn.token[0].unknown = NULL;
 	/*trxn.token[0].coef = -1.0; */
@@ -3572,7 +3572,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	int i, j, k, converged, divisions;
 	LDBLE r, rt, ag0, ag1, crit_pt;
 	LDBLE xc, tc;
-	LDBLE xnew, x0, x1, xsm1, xsm2, xb1, xb2;
+	LDBLE l_x, x0, x1, xsm1, xsm2, xb1, xb2;
 	LDBLE xc1, xc2;
 	LDBLE facb1, faca1, spim1, xblm1, acrae, acrael, xliapt, xliapm;
 	LDBLE xaly, xaly1, xaly2;
@@ -3789,13 +3789,13 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
  *   Alyotropic point calculation
  */
 	xaly = -1.0;
-	xnew = a0 * a0 + 3 * a1 * a1 + 6 * a1 * log(kb / kc);
-	if (xnew > 0)
+	l_x = a0 * a0 + 3 * a1 * a1 + 6 * a1 * log(kb / kc);
+	if (l_x > 0)
 	{
-		if (fabs(xnew - a0 * a0) >= tol)
+		if (fabs(l_x - a0 * a0) >= tol)
 		{
-			xaly1 = (-(a0 - 3 * a1) + pow(xnew, 0.5)) / (6 * a1);
-			xaly2 = (-(a0 - 3 * a1) - pow(xnew, 0.5)) / (6 * a1);
+			xaly1 = (-(a0 - 3 * a1) + pow(l_x, 0.5)) / (6 * a1);
+			xaly2 = (-(a0 - 3 * a1) - pow(l_x, 0.5)) / (6 * a1);
 			if (xaly1 >= 0 && xaly1 <= 1)
 			{
 				xaly = xaly1;
@@ -3889,7 +3889,7 @@ halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	LDBLE xnew, y, y0, dx;
+	LDBLE l_x, y, y0, dx;
 
 	y0 = f(x0, this);
 	dx = (x1 - x0);
@@ -3899,15 +3899,15 @@ halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
 	for (i = 0; i < 100; i++)
 	{
 		dx *= 0.5;
-		xnew = x0 + dx;
-		y = f(xnew, this);
+		l_x = x0 + dx;
+		y = f(l_x, this);
 		if (dx < tol || y == 0)
 		{
 			break;
 		}
 		if (y0 * y >= 0)
 		{
-			x0 = xnew;
+			x0 = l_x;
 			y0 = y;
 		}
 	}
@@ -4012,7 +4012,7 @@ f_spinodal(LDBLE x, void * cookie)
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
-slnq(int n, LDBLE * a, LDBLE * deltaarg, int ncols, int print)
+slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, m;
@@ -4045,7 +4045,7 @@ slnq(int n, LDBLE * a, LDBLE * deltaarg, int ncols, int print)
 	{
 		if (fabs(a[0]) < ZERO_TOL)
 			goto slnq_error;
-		deltaarg[0] = a[1] / a[0];
+		l_delta[0] = a[1] / a[0];
 		return (OK);
 	}
 
@@ -4099,25 +4099,25 @@ slnq(int n, LDBLE * a, LDBLE * deltaarg, int ncols, int print)
 		}
 	}
 
-/*   Calculation of deltaarg[n] */
+/*   Calculation of l_delta[n] */
 	if (fabs(a[(n - 1) * ncols + n - 1]) > ZERO_TOL)
 	{
-		deltaarg[n - 1] = a[(n - 1) * ncols + n] / a[(n - 1) * ncols + n - 1];
+		l_delta[n - 1] = a[(n - 1) * ncols + n] / a[(n - 1) * ncols + n - 1];
 	}
 	else
 	{
 		output_msg(OUTPUT_MESSAGE, "Error: Divide by zero in slnq.\n");
-		deltaarg[n] = 0.0;
+		l_delta[n] = 0.0;
 		goto slnq_error;
 	}
 
 /*   Back substitution for other delta values */
 	for (i = n - 2; i >= 0; i--)
 	{
-		deltaarg[i] = a[i * ncols + n];
+		l_delta[i] = a[i * ncols + n];
 		for (j = i + 1; j < n; j++)
 		{
-			deltaarg[i] -= a[i * ncols + j] * deltaarg[j];
+			l_delta[i] -= a[i * ncols + j] * l_delta[j];
 		}
 	}
 	if (print == TRUE)
@@ -4125,7 +4125,7 @@ slnq(int n, LDBLE * a, LDBLE * deltaarg, int ncols, int print)
 		output_msg(OUTPUT_MESSAGE, "\nResults from slnq: \n\n");
 		for (i = 0; i < n; i++)
 		{
-			output_msg(OUTPUT_MESSAGE, "%10.2e", (double) deltaarg[i]);
+			output_msg(OUTPUT_MESSAGE, "%10.2e", (double) l_delta[i]);
 		}
 		output_msg(OUTPUT_MESSAGE, "\n");
 	}
@@ -4259,9 +4259,9 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 	LDBLE xc, tc;
 	LDBLE spialy, azero, phi1, phi2, test;
 	LDBLE dq1, dq2, denom, ratio, dr1, dr2, x21, x22, x61, x62;
-	LDBLE a01, a11, ag0, ag1;
+	LDBLE l_a0, l_a1, ag0, ag1;
 	LDBLE wg2, wg1, alpha2, alpha3;
-	LDBLE kc1, kb1;
+	LDBLE l_kc, l_kb;
 	LDBLE xaly, xcaly, alpha0, alpha1, fx, fx1;
 	LDBLE tol;
 
@@ -4276,15 +4276,15 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
-	kc1 = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk) *
+	l_kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk) *
 			 LOG_10);
-	kb1 = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk) *
+	l_kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk) *
 			 LOG_10);
 
 	p = s_s_ptr->p;
 
-	a01 = 0;
-	a11 = 0;
+	l_a0 = 0;
+	l_a1 = 0;
 	ag0 = 0;
 	ag1 = 0;
 	dq2 = 0;
@@ -4294,10 +4294,10 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		 *  dimensionless a0 and a1
 		 */
 	case 0:
-		a01 = p[0];
-		a11 = p[1];
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		l_a0 = p[0];
+		l_a1 = p[1];
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 		/*
 		 *  two activity coefficients
@@ -4314,8 +4314,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			dq1 = log(q1) / ((1 - xbq1) * (1 - xbq1));
 			if (xbq2 <= 0 || xbq2 > 1)
 			{
-				a01 = dq1;
-				a11 = 0;
+				l_a0 = dq1;
+				l_a1 = 0;
 				done = TRUE;
 			}
 		}
@@ -4336,8 +4336,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			dq2 = log(q2) / (xbq2 * xbq2);
 			if (xbq1 < 0. || xbq2 > 1.)
 			{
-				a01 = dq2;
-				a11 = 0;
+				l_a0 = dq2;
+				l_a1 = 0;
 				done = TRUE;
 			}
 		}
@@ -4349,9 +4349,9 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 				if (fabs(1 - xbq1) > 0 && q1 > 0)
 				{
 					dq1 = log(q1) / ((1 - xbq1) * (1 - xbq1));
-					a01 = (dq1 * (3 - 4 * xbq2) +
+					l_a0 = (dq1 * (3 - 4 * xbq2) +
 						  dq2 * (4 * xbq1 - 1)) / denom;
-					a11 = (dq1 - dq2) / denom;
+					l_a1 = (dq1 - dq2) / denom;
 					done = TRUE;
 				}
 			}
@@ -4365,8 +4365,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			error_msg(error_string, CONTINUE);
 		}
 		/* io = 1 */
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 		/*
 		 *  two distribution coefficients
@@ -4377,13 +4377,13 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		q2 = p[1];
 		xbq1 = p[2];
 		xbq2 = p[3];
-		ratio = kc1 / kb1;
+		ratio = l_kc / l_kb;
 		dr1 = log(q1 / ratio);
 		x21 = 2 * xbq1 - 1;
 		if (fabs(xbq1 - xbq2) < tol || xbq2 < 0)
 		{
-			a01 = dr1 / x21;
-			a11 = 0;
+			l_a0 = dr1 / x21;
+			l_a1 = 0;
 		}
 		else
 		{
@@ -4391,8 +4391,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			x22 = 2 * xbq2 - 1;
 			if (xbq1 < 0.)
 			{
-				a01 = dr2 / x22;
-				a11 = 0;
+				l_a0 = dr2 / x22;
+				l_a1 = 0;
 			}
 			else
 			{
@@ -4406,14 +4406,14 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 							s_s_ptr->name);
 					error_msg(error_string, CONTINUE);
 				}
-				a01 = (x61 * dr2 - x62 * dr1) / (x22 * x61 - x21 * x62);
-				a11 = (x21 * dr2 - x22 * dr1) / (x21 * x62 - x22 * x61);
+				l_a0 = (x61 * dr2 - x62 * dr1) / (x22 * x61 - x21 * x62);
+				l_a1 = (x21 * dr2 - x22 * dr1) / (x21 * x62 - x22 * x61);
 			}
 		}
 
 		/* io = 1 */
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 		/*
 		 *  from miscibility gap fractions
@@ -4436,12 +4436,12 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		pb2 =
 			-(3 * (xb2 * xb2 - xb1 * xb1) -
 			  4 * (xb2 * xb2 * xb2 - xb1 * xb1 * xb1));
-		a01 = (r1 - pb1 / pb2 * r2) / (pa1 - pa2 * pb1 / pb2);
-		a11 = (r1 - pa1 / pa2 * r2) / (pb1 - pb2 * pa1 / pa2);
+		l_a0 = (r1 - pb1 / pb2 * r2) / (pa1 - pa2 * pb1 / pb2);
+		l_a1 = (r1 - pa1 / pa2 * r2) / (pb1 - pb2 * pa1 / pa2);
 
 		/* io = 1 */
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 		/*
 		 *  from spinodal gap fractions
@@ -4460,12 +4460,12 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		pl10 = 6 * c6 - 12 * c6 * c6;
 		pj9 = 2 * c5;
 		pj10 = 2 * c6;
-		a01 = (pn9 - pl9 / pl10 * pn10) / (pj9 - pl9 / pl10 * pj10);
-		a11 = (pn9 - pj9 / pj10 * pn10) / (pl9 - pj9 / pj10 * pl10);
+		l_a0 = (pn9 - pl9 / pl10 * pn10) / (pj9 - pl9 / pl10 * pj10);
+		l_a1 = (pn9 - pj9 / pj10 * pn10) / (pl9 - pj9 / pj10 * pl10);
 
 		/* io = 1 */
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 		/*
 		 *  from critical point
@@ -4479,8 +4479,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		ag0 = (r * tc / (xc * (1 - xc)) - (12 * xc - 6) * ag1) / 2;
 
 		/* io = 0 */
-		a01 = ag0 / rt;
-		a11 = ag1 / rt;
+		l_a0 = ag0 / rt;
+		l_a1 = ag1 / rt;
 		break;
 		/*
 		 *  from alyotropic point
@@ -4490,12 +4490,12 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		q1 = p[0];
 		q2 = p[1];
 		xaly = q1;
-		r = log(kb1 / kc1);
+		r = log(l_kb / l_kc);
 		alpha0 = 2 * xaly - 1;
 		alpha1 = 6 * xaly * (xaly - 1) + 1;
 		spialy = pow(10., q2);
-		a01 = -999.;
-		a11 = -999.;
+		l_a0 = -999.;
+		l_a1 = -999.;
 		if (fabs(alpha0) < tol)
 		{
 			input_error++;
@@ -4523,8 +4523,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 					xaly * xaly * (azero +
 								   (3 - 4 * xaly) * (azero * alpha0 -
 													 r) / alpha1);
-				phi1 = xaly * kb1 * exp(phi1);
-				phi2 = xcaly * kc1 * exp(phi2);
+				phi1 = xaly * l_kb * exp(phi1);
+				phi2 = xcaly * l_kc * exp(phi2);
 				fx = phi1 + phi2 - spialy;
 				fx1 =
 					xcaly * xcaly * (1 -
@@ -4541,9 +4541,9 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 					error_msg(error_string, CONTINUE);
 					break;
 				}
-				a01 = azero - fx / fx1;
-				test = fabs(a01 - azero) + fabs(fx);
-				azero = a01;
+				l_a0 = azero - fx / fx1;
+				test = fabs(l_a0 - azero) + fabs(fx);
+				azero = l_a0;
 				if (test < tol)
 					break;
 			}
@@ -4557,11 +4557,11 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			}
 			else
 			{
-				a11 = (r - a01 * alpha0) / alpha1;
+				l_a1 = (r - l_a0 * alpha0) / alpha1;
 
 				/* io = 0 */
-				ag0 = a01 * rt;
-				ag1 = a11 * rt;
+				ag0 = l_a0 * rt;
+				ag1 = l_a1 * rt;
 			}
 
 		}
@@ -4573,8 +4573,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 	case 7:
 		ag0 = p[0];
 		ag1 = p[1];
-		a01 = ag0 / rt;
-		a11 = ag1 / rt;
+		l_a0 = ag0 / rt;
+		l_a1 = ag1 / rt;
 		break;
 		/*
 		 *  Waldbaum-Thompson
@@ -4585,8 +4585,8 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		wg1 = p[1];
 		ag0 = (wg2 + wg1) / 2;
 		ag1 = (wg2 - wg1) / 2;
-		a01 = ag0 / rt;
-		a11 = ag1 / rt;
+		l_a0 = ag0 / rt;
+		l_a1 = ag1 / rt;
 		break;
 		/*
 		 *  Margules
@@ -4595,17 +4595,17 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 	case 9:
 		alpha2 = p[0];
 		alpha3 = p[1];
-		a01 = alpha2 + 3 * alpha3 / 4;
-		a11 = alpha3 / 4;
-		ag0 = a01 * rt;
-		ag1 = a11 * rt;
+		l_a0 = alpha2 + 3 * alpha3 / 4;
+		l_a1 = alpha3 / 4;
+		ag0 = l_a0 * rt;
+		ag1 = l_a1 * rt;
 		break;
 	}
 
 	s_s_ptr->ag0 = ag0;
 	s_s_ptr->ag1 = ag1;
-	s_s_ptr->a0 = a01;
-	s_s_ptr->a1 = a11;
+	s_s_ptr->a0 = l_a0;
+	s_s_ptr->a1 = l_a1;
 	return (OK);
 }
 

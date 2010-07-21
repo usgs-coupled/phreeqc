@@ -543,7 +543,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 	char *description;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 	char string[2 * MAX_LENGTH];
-	LDBLE m_dummy;
+	LDBLE l_dummy;
 
 	int return_value, opt;
 	char *next_char;
@@ -877,8 +877,8 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 			}
 			else
 			{
-				sscanf(token, SCANFORMAT, &m_dummy);
-				solution[n]->mass_water = (LDBLE) m_dummy;
+				sscanf(token, SCANFORMAT, &l_dummy);
+				solution[n]->mass_water = (LDBLE) l_dummy;
 			}
 			break;
 		case 11:				/* description */

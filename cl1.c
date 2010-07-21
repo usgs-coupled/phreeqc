@@ -31,11 +31,11 @@ extern void malloc_error(void);
 
 int CLASS_QUALIFIER
 cl1(int k, int l, int m, int n,
-	int m_nklmd, int m_n2d,
+	int l_nklmd, int l_n2d,
 	LDBLE * q,
-	int *m_kode, LDBLE m_toler,
-	int *m_iter, LDBLE * m_x, LDBLE * m_res, LDBLE * m_error,
-	LDBLE * m_cu, int *m_iu, int *m_s, int check)
+	int *l_kode, LDBLE l_toler,
+	int *l_iter, LDBLE * l_x, LDBLE * l_res, LDBLE * l_error,
+	LDBLE * l_cu, int *l_iu, int *l_s, int check)
 {
 	/* System generated locals */
 	union double_or_int
@@ -48,7 +48,7 @@ cl1(int k, int l, int m, int n,
 	static int nklm;
 	static LDBLE xmin, xmax;
 	static int iout, i, j;
-	static LDBLE m_z;
+	static LDBLE l_z;
 	static int maxit, n1, n2;
 	static LDBLE pivot;
 	static int ia, ii, kk, in, nk, js;
@@ -158,16 +158,16 @@ cl1(int k, int l, int m, int n,
 
 
 	zv = 0;
-	kode_arg = *m_kode;
-	cl1_space(check, m_n2d, k + l + m, m_nklmd);
+	kode_arg = *l_kode;
+	cl1_space(check, l_n2d, k + l + m, l_nklmd);
 
 /* Parameter adjustments */
-	q_dim = m_n2d;
+	q_dim = l_n2d;
 	q2 = (union double_or_int *) q;
-	cu_dim = m_nklmd;
+	cu_dim = l_nklmd;
 
 /* Function Body */
-	maxit = *m_iter;
+	maxit = *l_iter;
 	n1 = n + 1;
 	n2 = n + 2;
 	nk = n + k;
@@ -176,7 +176,7 @@ cl1(int k, int l, int m, int n,
 	klm1 = klm + 1;
 	nklm = n + klm;
 	kforce = 1;
-	*m_iter = 0;
+	*l_iter = 0;
 	js = 0;
 	ia = -1;
 
@@ -206,11 +206,11 @@ cl1(int k, int l, int m, int n,
 	output_msg(OUTPUT_MESSAGE, "Set up phase 1 costs\n");
 #endif
 /* Zero first row of cu and iu */
-	memcpy((void *) &(m_cu[0]), (void *) &(scratch[0]),
+	memcpy((void *) &(l_cu[0]), (void *) &(scratch[0]),
 		   (size_t) nklm * sizeof(LDBLE));
 	for (j = 0; j < nklm; ++j)
 	{
-		m_iu[j] = 0;
+		l_iu[j] = 0;
 	}
 /* L40: */
 #ifdef DEBUG_CL1
@@ -220,17 +220,17 @@ cl1(int k, int l, int m, int n,
 	{
 		for (j = nk; j < nkl; ++j)
 		{
-			m_cu[j] = 1.;
-			m_iu[j] = 1;
+			l_cu[j] = 1.;
+			l_iu[j] = 1;
 		}
 /* L50: */
 		iphase = 1;
 	}
 
 /* Copy first row of cu and iu to second row */
-	memcpy((void *) &(m_cu[cu_dim]), (void *) &(m_cu[0]),
+	memcpy((void *) &(l_cu[cu_dim]), (void *) &(l_cu[0]),
 		   (size_t) nklm * sizeof(LDBLE));
-	memcpy((void *) &(m_iu[cu_dim]), (void *) &(m_iu[0]),
+	memcpy((void *) &(l_iu[cu_dim]), (void *) &(l_iu[0]),
 		   (size_t) nklm * sizeof(int));
 
 /* L60: */
@@ -241,8 +241,8 @@ cl1(int k, int l, int m, int n,
 	{
 		for (j = nkl; j < nklm; ++j)
 		{
-			m_cu[cu_dim + j] = 1.;
-			m_iu[cu_dim + j] = 1;
+			l_cu[cu_dim + j] = 1.;
+			l_iu[cu_dim + j] = 1;
 			jmn = j - n;
 			if (q2[jmn * q_dim + n1].ival < 0)
 			{
@@ -255,20 +255,20 @@ cl1(int k, int l, int m, int n,
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L80\n");
 #endif
-	if (*m_kode != 0)
+	if (*l_kode != 0)
 	{
 		for (j = 0; j < n; ++j)
 		{
-			if (m_x[j] < 0.)
+			if (l_x[j] < 0.)
 			{
 /* L90: */
-				m_cu[j] = 1.;
-				m_iu[j] = 1;
+				l_cu[j] = 1.;
+				l_iu[j] = 1;
 			}
-			else if (m_x[j] > 0.)
+			else if (l_x[j] > 0.)
 			{
-				m_cu[cu_dim + j] = 1.;
-				m_iu[cu_dim + j] = 1;
+				l_cu[cu_dim + j] = 1.;
+				l_iu[cu_dim + j] = 1;
 			}
 		}
 /* L110: */
@@ -278,21 +278,21 @@ cl1(int k, int l, int m, int n,
 		for (j = 0; j < k; ++j)
 		{
 			jpn = j + n;
-			if (m_res[j] < 0.)
+			if (l_res[j] < 0.)
 			{
 /* L120: */
-				m_cu[jpn] = 1.;
-				m_iu[jpn] = 1;
+				l_cu[jpn] = 1.;
+				l_iu[jpn] = 1;
 				if (q2[j * q_dim + n1].ival > 0)
 				{
 					iphase = 1;
 				}
 			}
-			else if (m_res[j] > 0.)
+			else if (l_res[j] > 0.)
 			{
 /* L130: */
-				m_cu[cu_dim + jpn] = 1.;
-				m_iu[cu_dim + jpn] = 1;
+				l_cu[cu_dim + jpn] = 1.;
+				l_iu[cu_dim + jpn] = 1;
 				if (q2[j * q_dim + n1].ival < 0)
 				{
 					iphase = 1;
@@ -322,13 +322,13 @@ cl1(int k, int l, int m, int n,
 			ii = q2[i * q_dim + n1].ival;
 			if (ii < 0)
 			{
-				m_z = m_cu[cu_dim - ii - 1];
+				l_z = l_cu[cu_dim - ii - 1];
 			}
 			else
 			{
-				m_z = m_cu[ii - 1];
+				l_z = l_cu[ii - 1];
 			}
-			sum += q2[i * q_dim + j].dval * m_z;
+			sum += q2[i * q_dim + j].dval * l_z;
 		}
 		q2[klm * q_dim + j].dval = sum;
 	}
@@ -337,13 +337,13 @@ cl1(int k, int l, int m, int n,
 		ii = q2[klm1 * q_dim + j].ival;
 		if (ii < 0)
 		{
-			m_z = m_cu[cu_dim - ii - 1];
+			l_z = l_cu[cu_dim - ii - 1];
 		}
 		else
 		{
-			m_z = m_cu[ii - 1];
+			l_z = l_cu[ii - 1];
 		}
-		q2[klm * q_dim + j].dval -= m_z;
+		q2[klm * q_dim + j].dval -= l_z;
 	}
 /* DETERMINE THE VECTOR TO ENTER THE BASIS. */
   L240:
@@ -361,26 +361,26 @@ cl1(int k, int l, int m, int n,
 		ii = q2[klm1 * q_dim + j].ival;
 		if (ii > 0)
 		{
-			zv = -zu - m_cu[ii - 1] - m_cu[cu_dim + ii - 1];
+			zv = -zu - l_cu[ii - 1] - l_cu[cu_dim + ii - 1];
 		}
 		else
 		{
 			ii = -ii;
 			zv = zu;
-			zu = -zu - m_cu[ii - 1] - m_cu[cu_dim + ii - 1];
+			zu = -zu - l_cu[ii - 1] - l_cu[cu_dim + ii - 1];
 		}
 /* L260 */
 		if (kforce == 1 && ii > n)
 		{
 			continue;
 		}
-		if (m_iu[ii - 1] != 1 && zu > xmax)
+		if (l_iu[ii - 1] != 1 && zu > xmax)
 		{
 			xmax = zu;
 			in = j;
 		}
 /* L270 */
-		if (m_iu[cu_dim + ii - 1] != 1 && zv > xmax)
+		if (l_iu[cu_dim + ii - 1] != 1 && zv > xmax)
 		{
 			xmax = zv;
 			in = j;
@@ -388,9 +388,9 @@ cl1(int k, int l, int m, int n,
 	}
 /* L280 */
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", xmax, m_toler);
+	output_msg(OUTPUT_MESSAGE, "L280 xmax %e, toler %e\n", xmax, l_toler);
 #endif
-	if (xmax <= m_toler)
+	if (xmax <= l_toler)
 	{
 #ifdef DEBUG_CL1
 		output_msg(OUTPUT_MESSAGE, "xmax before optimality test %e\n", xmax);
@@ -414,10 +414,10 @@ cl1(int k, int l, int m, int n,
 /* find maximum absolute value in column "in" */
 		for (i = 0; i <= ia; ++i)
 		{
-			m_z = fabs(q2[i * q_dim + in].dval);
-			if (m_z > xmax)
+			l_z = fabs(q2[i * q_dim + in].dval);
+			if (l_z > xmax)
 			{
-				xmax = m_z;
+				xmax = l_z;
 				iout = i;
 			}
 		}
@@ -426,7 +426,7 @@ cl1(int k, int l, int m, int n,
 		output_msg(OUTPUT_MESSAGE, "L310, xmax %e\n", xmax);
 #endif
 /* switch row ia with row iout, use memcpy */
-		if (xmax > m_toler)
+		if (xmax > l_toler)
 		{
 			memcpy((void *) &(scratch[0]), (void *) &(q2[ia * q_dim]),
 				   (size_t) n2 * sizeof(LDBLE));
@@ -450,12 +450,12 @@ cl1(int k, int l, int m, int n,
 /* divide column n1 by positive value in column "in" greater than toler */
 	for (i = 0; i < klm; ++i)
 	{
-		m_z = q2[i * q_dim + in].dval;
-		if (m_z > m_toler)
+		l_z = q2[i * q_dim + in].dval;
+		if (l_z > l_toler)
 		{
 			++kk;
-			m_res[kk] = q2[i * q_dim + n].dval / m_z;
-			m_s[kk] = i;
+			l_res[kk] = q2[i * q_dim + n].dval / l_z;
+			l_s[kk] = i;
 		}
 	}
 /* L340: */
@@ -472,7 +472,7 @@ cl1(int k, int l, int m, int n,
 	if (kk < 0)
 	{
 /* no positive value found in L340 or bypass intermediate verticies */
-		*m_kode = 2;
+		*l_kode = 2;
 		goto L590;
 	}
 /* L360: */
@@ -480,24 +480,24 @@ cl1(int k, int l, int m, int n,
 	output_msg(OUTPUT_MESSAGE, "L360, xmax %e\n", xmax);
 #endif
 /* find minimum residual */
-	xmin = m_res[0];
-	iout = m_s[0];
+	xmin = l_res[0];
+	iout = l_s[0];
 	j = 0;
 	if (kk != 0)
 	{
 		for (i = 1; i <= kk; ++i)
 		{
-			if (m_res[i] < xmin)
+			if (l_res[i] < xmin)
 			{
 				j = i;
-				xmin = m_res[i];
-				iout = m_s[i];
+				xmin = l_res[i];
+				iout = l_s[i];
 			}
 		}
 /* L370: */
 /* put kk in position j */
-		m_res[j] = m_res[kk];
-		m_s[j] = m_s[kk];
+		l_res[j] = l_res[kk];
+		l_s[j] = l_s[kk];
 	}
 /* L380: */
 #ifdef DEBUG_CL1
@@ -512,14 +512,14 @@ cl1(int k, int l, int m, int n,
 		if (ii < 0)
 		{
 /* L390: */
-			if (m_iu[-ii - 1] == 1)
+			if (l_iu[-ii - 1] == 1)
 			{
 				goto L420;
 			}
 		}
 		else
 		{
-			if (m_iu[cu_dim + ii - 1] == 1)
+			if (l_iu[cu_dim + ii - 1] == 1)
 			{
 				goto L420;
 			}
@@ -530,16 +530,16 @@ cl1(int k, int l, int m, int n,
 	output_msg(OUTPUT_MESSAGE, "L400\n");
 #endif
 	ii = abs(ii);
-	cuv = m_cu[ii - 1] + m_cu[cu_dim + ii - 1];
-	if (q2[klm * q_dim + in].dval - pivot * cuv > m_toler)
+	cuv = l_cu[ii - 1] + l_cu[cu_dim + ii - 1];
+	if (q2[klm * q_dim + in].dval - pivot * cuv > l_toler)
 	{
 
 /* BYPASS INTERMEDIATE VERTICES. */
 		for (j = js; j < n1; ++j)
 		{
-			m_z = q2[iout * q_dim + j].dval;
-			q2[klm * q_dim + j].dval -= m_z * cuv;
-			q2[iout * q_dim + j].dval = -m_z;
+			l_z = q2[iout * q_dim + j].dval;
+			q2[klm * q_dim + j].dval -= l_z * cuv;
+			q2[iout * q_dim + j].dval = -l_z;
 		}
 /* L410: */
 		q2[iout * q_dim + n1].ival = -q2[iout * q_dim + n1].ival;
@@ -548,18 +548,18 @@ cl1(int k, int l, int m, int n,
 /* GAUSS-JORDAN ELIMINATION. */
   L420:
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "Gauss Jordon %d\n", *m_iter);
+	output_msg(OUTPUT_MESSAGE, "Gauss Jordon %d\n", *l_iter);
 #endif
-	if (*m_iter >= maxit)
+	if (*l_iter >= maxit)
 	{
-		*m_kode = 3;
+		*l_kode = 3;
 		goto L590;
 	}
 /* L430: */
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L430\n");
 #endif
-	++(*m_iter);
+	++(*l_iter);
 	for (j = js; j < n1; ++j)
 	{
 		if (j != in)
@@ -572,12 +572,12 @@ cl1(int k, int l, int m, int n,
 	{
 		if (j != in)
 		{
-			m_z = -q2[iout * q_dim + j].dval;
+			l_z = -q2[iout * q_dim + j].dval;
 			for (i = 0; i < klm1; ++i)
 			{
 				if (i != iout)
 				{
-					q2[i * q_dim + j].dval += m_z * q2[i * q_dim + in].dval;
+					q2[i * q_dim + j].dval += l_z * q2[i * q_dim + in].dval;
 				}
 			}
 /* L450: */
@@ -601,16 +601,16 @@ cl1(int k, int l, int m, int n,
 	q2[iout * q_dim + n1].ival = q2[klm1 * q_dim + in].ival;
 	q2[klm1 * q_dim + in].ival = ii;
 	ii = abs(ii);
-	if (m_iu[ii - 1] == 0 || m_iu[cu_dim + ii - 1] == 0)
+	if (l_iu[ii - 1] == 0 || l_iu[cu_dim + ii - 1] == 0)
 	{
 		goto L240;
 	}
 /* switch column */
 	for (i = 0; i < klm1; ++i)
 	{
-		m_z = q2[i * q_dim + in].dval;
+		l_z = q2[i * q_dim + in].dval;
 		q2[i * q_dim + in].dval = q2[i * q_dim + js].dval;
-		q2[i * q_dim + js].dval = m_z;
+		q2[i * q_dim + js].dval = l_z;
 	}
 	i = q2[klm1 * q_dim + in].ival;
 	q2[klm1 * q_dim + in].ival = q2[klm1 * q_dim + js].ival;
@@ -627,7 +627,7 @@ cl1(int k, int l, int m, int n,
 	{
 		if (iphase == 1)
 		{
-			if (q2[klm * q_dim + n].dval <= m_toler)
+			if (q2[klm * q_dim + n].dval <= l_toler)
 			{
 				goto L500;
 			}
@@ -635,13 +635,13 @@ cl1(int k, int l, int m, int n,
 			output_msg(OUTPUT_MESSAGE, "q2[klm1-1, n1-1] > *toler. %e\n",
 					   q2[(klm1 - 1) * q_dim + n1 - 1].dval);
 #endif
-			*m_kode = 1;
+			*l_kode = 1;
 			goto L590;
 		}
-		*m_kode = 0;
+		*l_kode = 0;
 		goto L590;
 	}
-	if (iphase != 1 || q2[klm * q_dim + n].dval > m_toler)
+	if (iphase != 1 || q2[klm * q_dim + n].dval > l_toler)
 	{
 		kforce = 0;
 		goto L240;
@@ -649,19 +649,19 @@ cl1(int k, int l, int m, int n,
 /* SET UP PHASE 2 COSTS. */
   L500:
 #ifdef DEBUG_CL1
-	output_msg(OUTPUT_MESSAGE, "Set up phase 2 costs %d\n", *m_iter);
+	output_msg(OUTPUT_MESSAGE, "Set up phase 2 costs %d\n", *l_iter);
 #endif
 	iphase = 2;
 	for (j = 0; j < nklm; ++j)
 	{
-		m_cu[j] = 0.;
+		l_cu[j] = 0.;
 	}
 /* L510: */
 	for (j = n; j < nk; ++j)
 	{
-		m_cu[j] = 1.;
+		l_cu[j] = 1.;
 	}
-	memcpy((void *) &(m_cu[cu_dim]), (void *) &(m_cu[0]),
+	memcpy((void *) &(l_cu[cu_dim]), (void *) &(l_cu[0]),
 		   (size_t) nklm * sizeof(LDBLE));
 /* L520: */
 	for (i = 0; i < klm; ++i)
@@ -669,20 +669,20 @@ cl1(int k, int l, int m, int n,
 		ii = q2[i * q_dim + n1].ival;
 		if (ii <= 0)
 		{
-			if (m_iu[cu_dim - ii - 1] == 0)
+			if (l_iu[cu_dim - ii - 1] == 0)
 			{
 				continue;
 			}
-			m_cu[cu_dim - ii - 1] = 0.;
+			l_cu[cu_dim - ii - 1] = 0.;
 		}
 		else
 		{
 /* L530: */
-			if (m_iu[ii - 1] == 0)
+			if (l_iu[ii - 1] == 0)
 			{
 				continue;
 			}
-			m_cu[ii - 1] = 0.;
+			l_cu[ii - 1] = 0.;
 		}
 /* L540: */
 		++ia;
@@ -707,12 +707,12 @@ cl1(int k, int l, int m, int n,
 	sum = 0.;
 	for (j = 0; j < n; ++j)
 	{
-		m_x[j] = 0.;
+		l_x[j] = 0.;
 	}
 /* L600: */
 	for (i = 0; i < klm; ++i)
 	{
-		m_res[i] = 0.;
+		l_res[i] = 0.;
 	}
 /* L610: */
 	for (i = 0; i < klm; ++i)
@@ -727,12 +727,12 @@ cl1(int k, int l, int m, int n,
 		if (ii <= n)
 		{
 /* L620: */
-			m_x[ii - 1] = sn * q2[i * q_dim + n].dval;
+			l_x[ii - 1] = sn * q2[i * q_dim + n].dval;
 		}
 		else
 		{
 /* L630: */
-			m_res[ii - n - 1] = sn * q2[i * q_dim + n].dval;
+			l_res[ii - n - 1] = sn * q2[i * q_dim + n].dval;
 			if (ii >= n1 && ii <= nk)
 			{
 /*     *    DBLE(Q(I,N1)) */
@@ -744,13 +744,13 @@ cl1(int k, int l, int m, int n,
 #ifdef DEBUG_CL1
 	output_msg(OUTPUT_MESSAGE, "L640\n");
 #endif
-	*m_error = sum;
+	*l_error = sum;
 	/*
 	 *  Check calculation
 	 */
-	if ((check == 1) && (*m_kode == 0))
+	if ((check == 1) && (*l_kode == 0))
 	{
-		check_toler = 10. * m_toler;
+		check_toler = 10. * l_toler;
 		/*
 		 *  Check optimization constraints
 		 */
@@ -760,26 +760,26 @@ cl1(int k, int l, int m, int n,
 			{
 				if (res_arg[i] < 0.0)
 				{
-					if (m_res[i] > check_toler)
+					if (l_res[i] > check_toler)
 					{
 #ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE,
 								   "\tCL1: optimization constraint not satisfied row %d, res %s, constraint %f.\n",
-								   row_name[row_back[i]], m_res[i], res_arg[i]);
+								   row_name[row_back[i]], l_res[i], res_arg[i]);
 #endif
-						*m_kode = 1;
+						*l_kode = 1;
 					}
 				}
 				else if (res_arg[i] > 0.0)
 				{
-					if (m_res[i] < -check_toler)
+					if (l_res[i] < -check_toler)
 					{
 #ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE,
 								   "\tCL1: optimization constraint not satisfied row %s, res %e, constraint %f.\n",
-								   row_name[row_back[i]], m_res[i], res_arg[i]);
+								   row_name[row_back[i]], l_res[i], res_arg[i]);
 #endif
-						*m_kode = 1;
+						*l_kode = 1;
 					}
 				}
 			}
@@ -789,14 +789,14 @@ cl1(int k, int l, int m, int n,
 		 */
 		for (i = k; i < k + l; i++)
 		{
-			if (fabs(m_res[i]) > check_toler)
+			if (fabs(l_res[i]) > check_toler)
 			{
 #ifdef CHECK_ERRORS
 				output_msg(OUTPUT_MESSAGE,
 						   "\tCL1: equality constraint not satisfied row %s, res %e, tolerance %e.\n",
-						   row_name[row_back[i]], m_res[i], check_toler);
+						   row_name[row_back[i]], l_res[i], check_toler);
 #endif
-				*m_kode = 1;
+				*l_kode = 1;
 			}
 		}
 		/*
@@ -804,14 +804,14 @@ cl1(int k, int l, int m, int n,
 		 */
 		for (i = k + l; i < k + l + m; i++)
 		{
-			if (m_res[i] < -check_toler)
+			if (l_res[i] < -check_toler)
 			{
 #ifdef CHECK_ERRORS
 				output_msg(OUTPUT_MESSAGE,
 						   "\tCL1: inequality constraint not satisfied row %s, res %e, tolerance %e.\n",
-						   row_name[row_back[i]], m_res[i], check_toler);
+						   row_name[row_back[i]], l_res[i], check_toler);
 #endif
-				*m_kode = 1;
+				*l_kode = 1;
 			}
 		}
 		/*
@@ -823,31 +823,31 @@ cl1(int k, int l, int m, int n,
 			{
 				if (x_arg[i] < 0.0)
 				{
-					if (m_x[i] > check_toler)
+					if (l_x[i] > check_toler)
 					{
 #ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE,
 								   "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
-								   col_name[col_back[i]], m_x[i], x_arg[i]);
+								   col_name[col_back[i]], l_x[i], x_arg[i]);
 #endif
-						*m_kode = 1;
+						*l_kode = 1;
 					}
 				}
 				else if (x_arg[i] > 0.0)
 				{
-					if (m_x[i] < -check_toler)
+					if (l_x[i] < -check_toler)
 					{
 #ifdef CHECK_ERRORS
 						output_msg(OUTPUT_MESSAGE,
 								   "\tCL1: dis/pre constraint not satisfied column %s, x %e, constraint %f.\n",
-								   col_name[col_back[i]], m_x[i], x_arg[i]);
+								   col_name[col_back[i]], l_x[i], x_arg[i]);
 #endif
-						*m_kode = 1;
+						*l_kode = 1;
 					}
 				}
 			}
 		}
-		if (*m_kode == 1)
+		if (*l_kode == 1)
 		{
 			output_msg(OUTPUT_MESSAGE,
 					   "\n\tCL1: Roundoff errors in optimization.\n\t     Try using -multiple_precision in INVERSE_MODELING\n");
@@ -857,23 +857,23 @@ cl1(int k, int l, int m, int n,
 }
 
 void CLASS_QUALIFIER
-cl1_space(int check, int m_n2d, int klm, int m_nklmd)
+cl1_space(int check, int l_n2d, int klm, int l_nklmd)
 {
 	if (check == 1)
 	{
 		if (x_arg == NULL)
 		{
-			x_arg = (LDBLE *) PHRQ_malloc((size_t) (m_n2d * sizeof(LDBLE)));
+			x_arg = (LDBLE *) PHRQ_malloc((size_t) (l_n2d * sizeof(LDBLE)));
 		}
-		else if (m_n2d > x_arg_max)
+		else if (l_n2d > x_arg_max)
 		{
 			x_arg =
-				(LDBLE *) PHRQ_realloc(x_arg, (size_t) (m_n2d * sizeof(LDBLE)));
-			x_arg_max = m_n2d;
+				(LDBLE *) PHRQ_realloc(x_arg, (size_t) (l_n2d * sizeof(LDBLE)));
+			x_arg_max = l_n2d;
 		}
 		if (x_arg == NULL)
 			malloc_error();
-		zero_double(x_arg, m_n2d);
+		zero_double(x_arg, l_n2d);
 
 		if (res_arg == NULL)
 		{
@@ -894,15 +894,15 @@ cl1_space(int check, int m_n2d, int klm, int m_nklmd)
 /* Make scratch space */
 	if (scratch == NULL)
 	{
-		scratch = (LDBLE *) PHRQ_malloc((size_t) m_nklmd * sizeof(LDBLE));
+		scratch = (LDBLE *) PHRQ_malloc((size_t) l_nklmd * sizeof(LDBLE));
 	}
-	else if (m_nklmd > scratch_max)
+	else if (l_nklmd > scratch_max)
 	{
 		scratch =
-			(LDBLE *) PHRQ_realloc(scratch, (size_t) m_nklmd * sizeof(LDBLE));
-		scratch_max = m_nklmd;
+			(LDBLE *) PHRQ_realloc(scratch, (size_t) l_nklmd * sizeof(LDBLE));
+		scratch_max = l_nklmd;
 	}
 	if (scratch == NULL)
 		malloc_error();
-	zero_double(scratch, m_nklmd);
+	zero_double(scratch, l_nklmd);
 }

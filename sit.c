@@ -640,30 +640,30 @@ sit_revise_guesses(void)
  *   Revise molalities species
  */
 	int i;
-	int m_iter, max_iter, repeat, fail;
+	int l_iter, max_iter, repeat, fail;
 	LDBLE weight, f;
 
 	max_iter = 10;
 	/* gammas(mu_x); */
-	m_iter = 0;
+	l_iter = 0;
 	repeat = TRUE;
 	fail = FALSE;;
 	while (repeat == TRUE)
 	{
-		m_iter++;
+		l_iter++;
 		if (debug_set == TRUE)
 		{
 			output_msg(OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
-					   m_iter);
+					   l_iter);
 		}
-		if (m_iter == max_iter + 1)
+		if (l_iter == max_iter + 1)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge in set, iteration %d.\n",
 					   iterations);
 			fail = TRUE;
 		}
-		if (m_iter > 2 * max_iter)
+		if (l_iter > 2 * max_iter)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge with relaxed criteria in set.\n");
@@ -708,7 +708,7 @@ sit_revise_guesses(void)
 				{
 					output_msg(OUTPUT_MESSAGE,
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
-							   x[i]->description, m_iter, (double) x[i]->sum,
+							   x[i]->description, l_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
 							   (double) x[i]->master[0]->s->la);
 				}
@@ -749,7 +749,7 @@ sit_revise_guesses(void)
 					{
 						output_msg(OUTPUT_MESSAGE,
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
-								   x[i]->description, m_iter,
+								   x[i]->description, l_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
 								   (double) x[i]->master[0]->s->la);
 					}
@@ -781,7 +781,7 @@ sit_revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in sit_revise_guesses: %d\n", m_iter);
+	output_msg(OUTPUT_LOG, "Iterations in sit_revise_guesses: %d\n", l_iter);
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -947,7 +947,7 @@ model_sit(void)
  *      An additional pass through may be needed if unstable phases still exist
  *         in the phase assemblage. 
  */
-	int m_kode, return_kode;
+	int l_kode, return_kode;
 	int r;
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
@@ -983,7 +983,7 @@ model_sit(void)
 	{
 		mb_gases();
 		mb_s_s();
-		m_kode = 1;
+		l_kode = 1;
 		while ((r = residuals()) != CONVERGED
 			   || remove_unstable_phases == TRUE)
 		{
@@ -1032,7 +1032,7 @@ model_sit(void)
 			 */
 			if (r == OK || remove_unstable_phases == TRUE)
 			{
-				return_kode = ineq(m_kode);
+				return_kode = ineq(l_kode);
 				if (return_kode != OK)
 				{
 					if (debug_model == TRUE)
