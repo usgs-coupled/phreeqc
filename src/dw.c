@@ -129,7 +129,7 @@ C
 		33.239495e0, -105.38479e0, 174.35319e0, -148.39348e0,
 		48.631602e0
 	};
-	LDBLE PL, V, W, B, M_Z, Q;
+	LDBLE PL, V, W, B, L_Z, Q;
 	int I;
 	if (T <= 314.e0)
 	{
@@ -141,8 +141,8 @@ C
 	B = 0.e0;
 	for (I = 1; I <= 8; I++)
 	{
-		M_Z = I;
-		B = B + A[I] * pow(W, ((M_Z + 1.e0) / 2.e0));
+		L_Z = I;
+		B = B + A[I] * pow(W, ((L_Z + 1.e0) / 2.e0));
 	}
 	Q = B / V;
 	return (22.093e0 * exp(Q));

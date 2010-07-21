@@ -71,18 +71,18 @@ PASCAL_MAIN(int argc, Char **argv)
 /* In case your system lacks these... */
 
 long CLASS_QUALIFIER
-my_labs(long m_x)
+my_labs(long l_x)
 {
-	return ((m_x > 0) ? m_x : -m_x);
+	return ((l_x > 0) ? l_x : -l_x);
 }
 
 
 /* #define __STDC__  */ /* PHREEQ98 */
 
 Anyptr  CLASS_QUALIFIER
-my_memmove(Anyptr d, Const Anyptr m_s, size_t n)
+my_memmove(Anyptr d, Const Anyptr l_s, size_t n)
 {
-	register char *dd = (char *) d, *ss = (char *) m_s;
+	register char *dd = (char *) d, *ss = (char *) l_s;
 	if (dd < ss || (unsigned int) (dd - ss) >= n)
 	{
 		memcpy(dd, ss, n);
@@ -99,9 +99,9 @@ my_memmove(Anyptr d, Const Anyptr m_s, size_t n)
 
 
 Anyptr  CLASS_QUALIFIER
-my_memcpy(Anyptr d, Const Anyptr m_s, size_t n)
+my_memcpy(Anyptr d, Const Anyptr l_s, size_t n)
 {
-	register char *ss = (char *) m_s, *dd = (char *) d;
+	register char *ss = (char *) l_s, *dd = (char *) d;
 	while (n-- > 0)
 		*dd++ = *ss++;
 	return d;
@@ -180,7 +180,7 @@ ipow(long a, long b)
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
 char * CLASS_QUALIFIER
-strsub(register char *ret, register char *m_s, register int pos,
+strsub(register char *ret, register char *l_s, register int pos,
 	   register int len)
 {
 	register char *s2;
@@ -192,7 +192,7 @@ strsub(register char *ret, register char *m_s, register int pos,
 	}
 	while (pos > 0)
 	{
-		if (!*m_s++)
+		if (!*l_s++)
 		{
 			*ret = 0;
 			return ret;
@@ -202,7 +202,7 @@ strsub(register char *ret, register char *m_s, register int pos,
 	s2 = ret;
 	while (--len >= 0)
 	{
-		if (!(*s2++ = *m_s++))
+		if (!(*s2++ = *l_s++))
 			return ret;
 	}
 	*s2 = 0;
@@ -214,15 +214,15 @@ strsub(register char *ret, register char *m_s, register int pos,
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
 int CLASS_QUALIFIER
-strpos2(char *m_s, register char *pat, register int pos)
+strpos2(char *l_s, register char *pat, register int pos)
 {
 	register char *cp, ch;
 	register int slen;
 
 	if (--pos < 0)
 		return 0;
-	slen = (int) strlen(m_s) - pos;
-	cp = m_s + pos;
+	slen = (int) strlen(l_s) - pos;
+	cp = l_s + pos;
 	if (!(ch = *pat++))
 		return 0;
 	pos = (int) strlen(pat);
@@ -230,7 +230,7 @@ strpos2(char *m_s, register char *pat, register int pos)
 	while (--slen >= 0)
 	{
 		if (*cp++ == ch && !strncmp(cp, pat, pos))
-			return (int) (cp - m_s);
+			return (int) (cp - l_s);
 	}
 	return 0;
 }
@@ -266,25 +266,25 @@ strcicmp(register char *s1, register char *s2)
 
 /* Trim blanks at left end of string. */
 char *  CLASS_QUALIFIER
-strltrim(register char *m_s)
+strltrim(register char *l_s)
 {
-	while (Isspace((int) *m_s++));
-	return m_s - 1;
+	while (Isspace((int) *l_s++));
+	return l_s - 1;
 }
 
 
 /* Trim blanks at right end of string. */
 char * CLASS_QUALIFIER
-strrtrim(register char *m_s)
+strrtrim(register char *l_s)
 {
-	register char *s2 = m_s;
+	register char *s2 = l_s;
 
-	if (!*m_s)
-		return m_s;
+	if (!*l_s)
+		return l_s;
 	while (*++s2);
-	while (s2 > m_s && Isspace((int) *--s2))
+	while (s2 > l_s && Isspace((int) *--s2))
 		*s2 = 0;
-	return m_s;
+	return l_s;
 }
 
 
@@ -340,17 +340,17 @@ strpad(ret, s, padchar, num)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
 void CLASS_QUALIFIER
-strmove(register int len, register char *m_s, register int spos,
+strmove(register int len, register char *l_s, register int spos,
 		register char *d, register int dpos)
 {
-	m_s += spos - 1;
+	l_s += spos - 1;
 	d += dpos - 1;
 	while (*d && --len >= 0)
-		*d++ = *m_s++;
+		*d++ = *l_s++;
 	if (len > 0)
 	{
 		while (--len >= 0)
-			*d++ = *m_s++;
+			*d++ = *l_s++;
 		*d = 0;
 	}
 }
@@ -467,7 +467,7 @@ P_eoln(FILE * f)
 
 /* Read a packed array of characters from a file. */
 void CLASS_QUALIFIER
-P_readpaoc(FILE * f, char *m_s, int len)
+P_readpaoc(FILE * f, char *l_s, int len)
 {
 	int ch;
 
@@ -478,17 +478,17 @@ P_readpaoc(FILE * f, char *m_s, int len)
 		ch = getc(f);
 		if (ch == EOF || ch == '\n')
 			break;
-		*m_s++ = (char) ch;
+		*l_s++ = (char) ch;
 		--len;
 	}
 	while (--len >= 0)
-		*m_s++ = ' ';
+		*l_s++ = ' ';
 	if (ch != EOF)
 		ungetc(ch, f);
 }
 
 void CLASS_QUALIFIER
-P_readlnpaoc(FILE * f, char *m_s, int len)
+P_readlnpaoc(FILE * f, char *l_s, int len)
 {
 	int ch;
 
@@ -499,12 +499,12 @@ P_readlnpaoc(FILE * f, char *m_s, int len)
 			break;
 		if (len > 0)
 		{
-			*m_s++ = (char) ch;
+			*l_s++ = (char) ch;
 			--len;
 		}
 	}
 	while (--len >= 0)
-		*m_s++ = ' ';
+		*l_s++ = ' ';
 }
 
 
@@ -645,30 +645,30 @@ P_inset(register unsigned val, register long *s)	/* val IN s */
 }
 #endif
 long * CLASS_QUALIFIER
-P_addset(register long *m_s, register unsigned val)	/* s := s + [val] */
+P_addset(register long *l_s, register unsigned val)	/* s := s + [val] */
 {
-	register long *sbase = m_s;
+	register long *sbase = l_s;
 	register int bit, size;
 	bit = val % SETBITS;
 	val /= SETBITS;
-	size = *m_s;
+	size = *l_s;
 	if ((long) ++val > size)
 	{
-		m_s += size;
+		l_s += size;
 		while ((long) val > size)
-			*++m_s = 0, size++;
+			*++l_s = 0, size++;
 		*sbase = size;
 	}
 	else
-		m_s += val;
-	*m_s |= 1L << bit;
+		l_s += val;
+	*l_s |= 1L << bit;
 	return sbase;
 }
 
 long * CLASS_QUALIFIER
-P_addsetr(register long *m_s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
+P_addsetr(register long *l_s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
 {
-	register long *sbase = m_s;
+	register long *sbase = l_s;
 	register int b1, b2, size;
 	if ((int) v1 > (int) v2)
 		return sbase;
@@ -676,43 +676,43 @@ P_addsetr(register long *m_s, register unsigned v1, register unsigned v2)	/* s :
 	v1 /= SETBITS;
 	b2 = v2 % SETBITS;
 	v2 /= SETBITS;
-	size = *m_s;
+	size = *l_s;
 	v1++;
 	if ((int) ++v2 > size)
 	{
 		while ((int) v2 > size)
-			m_s[++size] = 0;
-		m_s[v2] = 0;
-		*m_s = v2;
+			l_s[++size] = 0;
+		l_s[v2] = 0;
+		*l_s = v2;
 	}
-	m_s += v1;
+	l_s += v1;
 	if (v1 == v2)
 	{
-		*m_s |= (~((-2L) << (b2 - b1))) << b1;
+		*l_s |= (~((-2L) << (b2 - b1))) << b1;
 	}
 	else
 	{
-		*m_s++ |= (-1L) << b1;
+		*l_s++ |= (-1L) << b1;
 		while (++v1 < v2)
-			*m_s++ = -1;
-		*m_s |= ~((-2L) << b2);
+			*l_s++ = -1;
+		*l_s |= ~((-2L) << b2);
 	}
 	return sbase;
 }
 
 long *  CLASS_QUALIFIER
-P_remset(register long *m_s, register unsigned val)	/* s := s - [val] */
+P_remset(register long *l_s, register unsigned val)	/* s := s - [val] */
 {
 	register int bit;
 	bit = val % SETBITS;
 	val /= SETBITS;
-	if ((long) ++val <= *m_s)
+	if ((long) ++val <= *l_s)
 	{
-		if (!(m_s[val] &= ~(1L << bit)))
-			while (*m_s && !m_s[*m_s])
-				(*m_s)--;
+		if (!(l_s[val] &= ~(1L << bit)))
+			while (*l_s && !l_s[*l_s])
+				(*l_s)--;
 	}
-	return m_s;
+	return l_s;
 }
 
 int CLASS_QUALIFIER
@@ -744,16 +744,16 @@ P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 }
 
 long * CLASS_QUALIFIER
-P_setcpy(register long *d, register long *m_s)	/* d := s */
+P_setcpy(register long *d, register long *l_s)	/* d := s */
 {
 	register long *save_d = d;
 
 #ifdef SETCPY_MEMCPY
-	memcpy(d, m_s, (*m_s + 1) * sizeof(long));
+	memcpy(d, l_s, (*l_s + 1) * sizeof(long));
 #else
-	register int i = *m_s + 1;
+	register int i = *l_s + 1;
 	while (--i >= 0)
-		*d++ = *m_s++;
+		*d++ = *l_s++;
 #endif
 	return save_d;
 }
@@ -762,11 +762,11 @@ P_setcpy(register long *d, register long *m_s)	/* d := s */
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
 long * CLASS_QUALIFIER
-P_expset(register long *d, register long m_s)	/* d := s */
+P_expset(register long *d, register long l_s)	/* d := s */
 {
-	if (m_s)
+	if (l_s)
 	{
-		d[1] = m_s;
+		d[1] = l_s;
 		*d = 1;
 	}
 	else
@@ -775,10 +775,10 @@ P_expset(register long *d, register long m_s)	/* d := s */
 }
 
 long CLASS_QUALIFIER
-P_packset(register long *m_s)		/* convert s to a small-set */
+P_packset(register long *l_s)		/* convert s to a small-set */
 {
-	if (*m_s++)
-		return *m_s;
+	if (*l_s++)
+		return *l_s;
 	else
 		return 0;
 }
@@ -1015,7 +1015,7 @@ _ShowEscape(char *buf, int code, int ior, char *prefix)
 int CLASS_QUALIFIER
 _Escape(int code)
 {
-	char m_buf[100];
+	char l_buf[100];
 	char token[200], empty[2] = { "\0" };
 
 	P_escapecode = code;
@@ -1032,14 +1032,14 @@ _Escape(int code)
 	{
 		error_msg("Fatal error in Basic interpreter.", CONTINUE);
 		sprintf(token, "%s",
-				_ShowEscape(m_buf, P_escapecode, P_ioresult, empty));
+				_ShowEscape(l_buf, P_escapecode, P_ioresult, empty));
 		error_msg(token, STOP);
 		exit(EXIT_FAILURE);
 	}
-	/* fprintf(stderr, "%s\n", _ShowEscape(m_buf, P_escapecode, P_ioresult, "")); */
+	/* fprintf(stderr, "%s\n", _ShowEscape(l_buf, P_escapecode, P_ioresult, "")); */
 	/* exit(EXIT_FAILURE); */
 	error_msg("Fatal error in Basic interpreter.", CONTINUE);
-	sprintf(token, "%s", _ShowEscape(m_buf, P_escapecode, P_ioresult, empty));
+	sprintf(token, "%s", _ShowEscape(l_buf, P_escapecode, P_ioresult, empty));
 	error_msg(token, STOP);
 	return (1);
 }

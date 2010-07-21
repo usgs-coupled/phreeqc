@@ -2215,7 +2215,7 @@ inout(void)
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
-is_special(struct species *m_spec)
+is_special(struct species *l_spec)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2227,7 +2227,7 @@ is_special(struct species *m_spec)
 	struct rxn_token *token_ptr;
 
 	special = TRUE;
-	for (token_ptr = m_spec->rxn_s->token + 1; token_ptr->s != NULL;
+	for (token_ptr = l_spec->rxn_s->token + 1; token_ptr->s != NULL;
 		 token_ptr++)
 	{
 		if (token_ptr->s != s_hplus &&
@@ -5005,7 +5005,7 @@ k_temp(LDBLE tempc)
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-k_calc(LDBLE * m_logk, LDBLE tempk)
+k_calc(LDBLE * l_logk, LDBLE tempk)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -5017,12 +5017,12 @@ k_calc(LDBLE * m_logk, LDBLE tempk)
  *
  *   Returns calculated log k.
  */
-	return (m_logk[0]
-			- m_logk[1] * (298.15 -
+	return (l_logk[0]
+			- l_logk[1] * (298.15 -
 						 tempk) / (298.15 * tempk * LOG_10 * R_KJ_DEG_MOL) +
-			m_logk[2] + m_logk[3] * tempk + m_logk[4] / tempk +
-			m_logk[5] * log10(tempk) + m_logk[6] / (tempk * tempk)) +
-			m_logk[7] * tempk * tempk;
+			l_logk[2] + l_logk[3] * tempk + l_logk[4] / tempk +
+			l_logk[5] * log10(tempk) + l_logk[6] / (tempk * tempk)) +
+			l_logk[7] * tempk * tempk;
 }
 
 /* ---------------------------------------------------------------------- */

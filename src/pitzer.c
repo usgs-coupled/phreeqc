@@ -888,7 +888,7 @@ pitzer(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, i0, i1, i2;
-	LDBLE param, m_alpha, z0, z1, z2;
+	LDBLE param, l_alpha, z0, z1, z2;
 	LDBLE etheta, ethetap;
 	/*
 	   LDBLE CONV, XI, XX, OSUM, BIGZ, DI, F, XXX, GAMCLM, 
@@ -1022,7 +1022,7 @@ pitzer(void)
 		z0 = spec[i0]->z;
 		z1 = spec[i1]->z;
 		param = pitz_params[i]->p;
-		m_alpha = pitz_params[i]->alpha;
+		l_alpha = pitz_params[i]->alpha;
 		switch (pitz_params[i]->type)
 		{
 		case TYPE_B0:
@@ -1031,16 +1031,16 @@ pitzer(void)
 			OSMOT += M[i0] * M[i1] * param;
 			break;
 		case TYPE_B1:
-			F += M[i0] * M[i1] * param * GP(m_alpha * DI) / I;
-			LGAMMA[i0] += M[i1] * 2.0 * param * G(m_alpha * DI);
-			LGAMMA[i1] += M[i0] * 2.0 * param * G(m_alpha * DI);
-			OSMOT += M[i0] * M[i1] * param * exp(-m_alpha * DI);
+			F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
+			LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
+			LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
+			OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
 			break;
 		case TYPE_B2:
-			F += M[i0] * M[i1] * param * GP(m_alpha * DI) / I;
-			LGAMMA[i0] += M[i1] * 2.0 * param * G(m_alpha * DI);
-			LGAMMA[i1] += M[i0] * 2.0 * param * G(m_alpha * DI);
-			OSMOT += M[i0] * M[i1] * param * exp(-m_alpha * DI);
+			F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
+			LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
+			LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
+			OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
 			break;
 		case TYPE_C0:
 			CSUM +=
@@ -1221,20 +1221,20 @@ C
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-JPRIME(LDBLE M_Y)
+JPRIME(LDBLE L_Y)
 /* ---------------------------------------------------------------------- */
 {
-	LDBLE M_DZ;
-	BDK(M_Y);
-	if (M_Y > 1.0e0)
+	LDBLE L_DZ;
+	BDK(L_Y);
+	if (L_Y > 1.0e0)
 	{
-		M_DZ = -4.0e0 * pow(M_Y, -1.1e0) / 9.0e0;
+		L_DZ = -4.0e0 * pow(L_Y, -1.1e0) / 9.0e0;
 	}
 	else
 	{
-		M_DZ = 0.8e0 * pow(M_Y, -0.8e0);
+		L_DZ = 0.8e0 * pow(L_Y, -0.8e0);
 	}
-	return (M_Y * (.25e0 + M_DZ * (DK[0] - DK[2]) / 2.0e0));
+	return (L_Y * (.25e0 + L_DZ * (DK[0] - DK[2]) / 2.0e0));
 }
 
 
@@ -1277,45 +1277,45 @@ C
       COMMON / MX8 / AK(0:20,2),BK(0:22),DK(0:22)
 */
 	LDBLE *AK;
-	LDBLE M_Z;
+	LDBLE L_Z;
 	int II;
 	int i;
 
 	if (X <= 1.0e0)
 	{
 		II = 1;
-		M_Z = 4.0e0 * pow(X, 0.2e0) - 2.0e0;
+		L_Z = 4.0e0 * pow(X, 0.2e0) - 2.0e0;
 		AK = &AKX[0];
 	}
 	else
 	{
 		II = 2;
-		M_Z = 40.0e0 * pow(X, -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
+		L_Z = 40.0e0 * pow(X, -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
 		AK = &AKX[21];
 	}
 	for (i = 20; i >= 0; i--)
 	{
-		BK[i] = M_Z * BK[i + 1] - BK[i + 2] + AK[i];
-		DK[i] = BK[i + 1] + M_Z * DK[i + 1] - DK[i + 2];
+		BK[i] = L_Z * BK[i + 1] - BK[i + 2] + AK[i];
+		DK[i] = BK[i + 1] + L_Z * DK[i + 1] - DK[i + 2];
 	}
 	return OK;
 }
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-G(LDBLE M_Y)
+G(LDBLE L_Y)
 /* ---------------------------------------------------------------------- */
 {
-	return (2.0e0 * (1.0e0 - (1.0e0 + M_Y) * exp(-M_Y)) / (M_Y * M_Y));
+	return (2.0e0 * (1.0e0 - (1.0e0 + L_Y) * exp(-L_Y)) / (L_Y * L_Y));
 }
 
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
-GP(LDBLE M_Y)
+GP(LDBLE L_Y)
 /* ---------------------------------------------------------------------- */
 {
-	return (-2.0e0 * (1.0e0 - (1.0e0 + M_Y + M_Y * M_Y / 2.0e0) * exp(-M_Y)) /
-			(M_Y * M_Y));
+	return (-2.0e0 * (1.0e0 - (1.0e0 + L_Y + L_Y * L_Y / 2.0e0) * exp(-L_Y)) /
+			(L_Y * L_Y));
 }
 
 #ifdef SKIP
@@ -1579,30 +1579,30 @@ pitzer_revise_guesses(void)
  *   Revise molalities species
  */
 	int i;
-	int m_iter, max_iter, repeat, fail;
+	int l_iter, max_iter, repeat, fail;
 	LDBLE weight, f;
 
 	max_iter = 10;
 	/* gammas(mu_x); */
-	m_iter = 0;
+	l_iter = 0;
 	repeat = TRUE;
 	fail = FALSE;;
 	while (repeat == TRUE)
 	{
-		m_iter++;
+		l_iter++;
 		if (debug_set == TRUE)
 		{
 			output_msg(OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
-					   m_iter);
+					   l_iter);
 		}
-		if (m_iter == max_iter + 1)
+		if (l_iter == max_iter + 1)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge in set, iteration %d.\n",
 					   iterations);
 			fail = TRUE;
 		}
-		if (m_iter > 2 * max_iter)
+		if (l_iter > 2 * max_iter)
 		{
 			output_msg(OUTPUT_LOG,
 					   "Did not converge with relaxed criteria in set.\n");
@@ -1647,7 +1647,7 @@ pitzer_revise_guesses(void)
 				{
 					output_msg(OUTPUT_MESSAGE,
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
-							   x[i]->description, m_iter, (double) x[i]->sum,
+							   x[i]->description, l_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
 							   (double) x[i]->master[0]->s->la);
 				}
@@ -1688,7 +1688,7 @@ pitzer_revise_guesses(void)
 					{
 						output_msg(OUTPUT_MESSAGE,
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
-								   x[i]->description, m_iter,
+								   x[i]->description, l_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
 								   (double) x[i]->master[0]->s->la);
 					}
@@ -1720,7 +1720,7 @@ pitzer_revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in pitzer_revise_guesses: %d\n", m_iter);
+	output_msg(OUTPUT_LOG, "Iterations in pitzer_revise_guesses: %d\n", l_iter);
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -1881,7 +1881,7 @@ model_pz(void)
  *      An additional pass through may be needed if unstable phases still exist
  *         in the phase assemblage. 
  */
-	int m_kode, return_kode;
+	int l_kode, return_kode;
 	int r;
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
@@ -1921,7 +1921,7 @@ model_pz(void)
 	{
 		mb_gases();
 		mb_s_s();
-		m_kode = 1;
+		l_kode = 1;
 		while ((r = residuals()) != CONVERGED
 			   || remove_unstable_phases == TRUE)
 		{
@@ -1970,7 +1970,7 @@ model_pz(void)
 			 */
 			if (r == OK || remove_unstable_phases == TRUE)
 			{
-				return_kode = ineq(m_kode);
+				return_kode = ineq(l_kode);
 				if (return_kode != OK)
 				{
 					if (debug_model == TRUE)

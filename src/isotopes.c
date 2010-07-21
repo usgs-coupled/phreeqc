@@ -551,7 +551,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 						struct solution *solution_ptr, LDBLE total_moles)
 /* ---------------------------------------------------------------------- */
 {
-	int i, j, m_iter;
+	int i, j, l_iter;
 	int count_isotopes, total_is_major;
 	char *ptr;
 	struct master_isotope *master_isotope_ptr, *master_isotope_ptr1;
@@ -621,7 +621,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 	/*
 	 *   Loop to calculate isotope molalities
 	 */
-	for (m_iter = 0; m_iter < itmax; m_iter++)
+	for (l_iter = 0; l_iter < itmax; l_iter++)
 	{
 		tot = 0;
 		for (i = 0; i < count_isotopes; i++)
@@ -678,7 +678,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 			m_major = m_major * total_moles / tot;
 		}
 	}
-	if (m_iter >= itmax)
+	if (l_iter >= itmax)
 	{
 		error_msg("Failed to converge in CALCULATE_ISOTOPE_MOLES.", STOP);
 	}
@@ -1118,7 +1118,7 @@ calculate_values(void)
 	struct isotope_ratio *isotope_ratio_ptr;
 	struct isotope_alpha *isotope_alpha_ptr;
 	struct master_isotope *master_isotope_ptr;
-	char m_command[] = "run";
+	char l_command[] = "run";
 
 
 	/*
@@ -1149,7 +1149,7 @@ calculate_values(void)
 			calculate_value_ptr->new_def = FALSE;
 		}
 		if (basic_run
-			(m_command, calculate_value[j]->linebase,
+			(l_command, calculate_value[j]->linebase,
 			 calculate_value[j]->varbase, calculate_value[j]->loopbase) != 0)
 		{
 			sprintf(error_string, "Fatal Basic error in calculate_value %s.",

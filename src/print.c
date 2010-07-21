@@ -57,7 +57,7 @@
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 array_print(LDBLE * array_l, int row_count, int column_count,
-			int m_max_column_count)
+			int l_max_column_count)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
@@ -79,7 +79,7 @@ array_print(LDBLE * array_l, int row_count, int column_count,
 				k = 0;
 			}
 			output_msg(OUTPUT_MESSAGE, "%11.2e",
-					   (double) array_l[i * m_max_column_count + j]);
+					   (double) array_l[i * l_max_column_count + j]);
 			k++;
 		}
 		if (k != 0)
@@ -2199,7 +2199,7 @@ print_user_print(void)
 	int i;
 	struct kinetics *kinetics_ptr;
 
-	char m_command[] = "run";
+	char l_command[] = "run";
 
 	if (pr.user_print == FALSE || pr.all == FALSE)
 		return (OK);
@@ -2231,7 +2231,7 @@ print_user_print(void)
 		user_print->new_def = FALSE;
 	}
 	if (basic_run
-		(m_command, user_print->linebase, user_print->varbase,
+		(l_command, user_print->linebase, user_print->varbase,
 		 user_print->loopbase) != 0)
 	{
 		error_msg("Fatal Basic error in USER_PRINT.", STOP);
@@ -3156,7 +3156,7 @@ punch_user_punch(void)
 /*
  *   Punch with user defined BASIC print routine
  */
-	char m_command[] = "run";
+	char l_command[] = "run";
 #if !defined(PHREEQC_CLASS)
 	extern int n_user_punch_index;
 #endif
@@ -3177,7 +3177,7 @@ punch_user_punch(void)
 		user_punch->new_def = FALSE;
 	}
 	if (basic_run
-		(m_command, user_punch->linebase, user_punch->varbase,
+		(l_command, user_punch->linebase, user_punch->varbase,
 		 user_punch->loopbase) != 0)
 	{
 		error_msg("Fatal Basic error in USER_PUNCH.", STOP);
@@ -3438,16 +3438,16 @@ char * CLASS_QUALIFIER
 sformatf(const char *format, ...)
 {
 #if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
-	static char m_scratch[240];
+	static char l_scratch[240];
 	va_list args;
 
 	va_start(args, format);
-	if (vsprintf(m_scratch, format, args) > 239)
+	if (vsprintf(l_scratch, format, args) > 239)
 	{
 		error_msg("buffer overwrite in sformatf", STOP);
 	}
 	va_end(args);
-	return m_scratch;
+	return l_scratch;
 #else
 	return NULL;
 #endif
