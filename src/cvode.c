@@ -41,8 +41,11 @@
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
-#define CVMEM_MALLOC CVMEM 
+#define CVMEM_MALLOC CVMEM  
 #define OUTPUT_CVODE Phreeqc::OUTPUT_CVODE
+#if defined(NDEBUG)
+#define free PHRQ_free
+#endif
 #endif
 
 #include "phqalloc.h"
