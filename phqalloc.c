@@ -20,7 +20,7 @@ static char const svnid[] =
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #endif
-
+#if defined (USE_PHRQ_ALLOC)
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
 void * CLASS_QUALIFIER
@@ -250,3 +250,44 @@ PHRQ_realloc(void *ptr, size_t size
 	p++;
 	return ((void *) (p));
 }
+#else /* USE_PHRQ_ALLOC */
+/* ---------------------------------------------------------------------- */
+void *CLASS_QUALIFIER
+PHRQ_malloc(size_t size)
+/* ---------------------------------------------------------------------- */
+{
+	return malloc(size);
+}
+
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+PHRQ_free(void *ptr)
+/* ---------------------------------------------------------------------- */
+{
+	free(ptr);
+}
+
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+PHRQ_free_all(void)
+/* ---------------------------------------------------------------------- */
+{
+	
+}
+
+/* ---------------------------------------------------------------------- */
+void * CLASS_QUALIFIER
+PHRQ_calloc(size_t num, size_t size)
+/* ---------------------------------------------------------------------- */
+{
+	return calloc(num, size);
+}
+
+/* ---------------------------------------------------------------------- */
+void * CLASS_QUALIFIER
+PHRQ_realloc(void *ptr, size_t size)
+/* ---------------------------------------------------------------------- */
+{
+	return realloc(ptr, size);
+}
+#endif /* USE_PHRQ_ALLOC */

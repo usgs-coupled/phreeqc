@@ -10,11 +10,6 @@ static char const svnidphqalloc[] =
 #endif
 
 #if !defined(NDEBUG)
-/*
-extern void *PHRQ_malloc(size_t, const char *, int);
-extern void *PHRQ_calloc(size_t, size_t, const char *, int);
-extern void *PHRQ_realloc(void *, size_t, const char *, int);
-*/
 void *PHRQ_malloc(size_t, const char *, int);
 void *PHRQ_calloc(size_t, size_t, const char *, int);
 void *PHRQ_realloc(void *, size_t, const char *, int);
@@ -36,13 +31,19 @@ extern void PHRQ_free_all(void);
 #define   free(p)                PHRQ_free(p)
 
 #else /* defined (USE_PHRQ_ALLOC) */
-
+/*
 #define PHRQ_malloc malloc
 #define PHRQ_realloc realloc
 #define PHRQ_calloc calloc
 #define PHRQ_free free
 
-#define PHRQ_free_all() do{}while(0)	/* NO-OP */
+#define PHRQ_free_all() do{}while(0) */	/* NO-OP */
+
+extern void *PHRQ_malloc(size_t);
+extern void *PHRQ_calloc(size_t, size_t);
+extern void *PHRQ_realloc(void *, size_t);
+extern void PHRQ_free(void *);
+extern void PHRQ_free_all(void);
 
 #endif /* defined (USE_PHRQ_ALLOC) */
 
