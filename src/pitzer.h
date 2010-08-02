@@ -13,6 +13,7 @@ PITZER_EXTERNAL int count_sit_param, max_sit_param;
 /* routines define in pitzer_structures.c */
 PITZER_EXTERNAL struct pitz_param *pitz_param_read(char *string, int n);
 PITZER_EXTERNAL int pitz_param_search(struct pitz_param *pzp_ptr);
+PITZER_EXTERNAL int sit_param_search(struct pitz_param *pzp_ptr);
 PITZER_EXTERNAL struct theta_param *theta_param_search(LDBLE zj, LDBLE zk);
 PITZER_EXTERNAL struct theta_param *theta_param_alloc(void);
 PITZER_EXTERNAL int theta_param_init(struct theta_param *theta_param_ptr);
