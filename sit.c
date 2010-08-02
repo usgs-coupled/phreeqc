@@ -219,27 +219,27 @@ read_sit(void)
       break;
     case OPTION_DEFAULT:
       pzp_ptr = pitz_param_read(line, n);
-      if (pzp_ptr != NULL)
-      {
-	pzp_ptr->type = pzp_type;
-	j = pitz_param_search(pzp_ptr);
-	if (j < 0)
-	{
-	  if (count_sit_param >= max_sit_param)
+	  if (pzp_ptr != NULL)
 	  {
-	    space((void **) ((void *) &sit_params),
-		  count_sit_param, &max_sit_param,
-		  sizeof(struct pitz_param *));
-	  }
+		  pzp_ptr->type = pzp_type;
+		  j = sit_param_search(pzp_ptr);
+		  if (j < 0)
+		  {
+			  if (count_sit_param >= max_sit_param)
+			  {
+				  space((void **) ((void *) &sit_params),
+					  count_sit_param, &max_sit_param,
+					  sizeof(struct pitz_param *));
+			  }
 
-	  sit_params[count_sit_param] = pzp_ptr;
-	  count_sit_param++;
-	}
-	else
-	{
-	  sit_params[j] = (struct pitz_param *) free_check_null(sit_params[j]);
-	  sit_params[j] = pzp_ptr;
-	}
+			  sit_params[count_sit_param] = pzp_ptr;
+			  count_sit_param++;
+		  }
+		  else
+		  {
+			  sit_params[j] = (struct pitz_param *) free_check_null(sit_params[j]);
+			  sit_params[j] = pzp_ptr;
+		  }
       }
       break;
     case OPTION_ERROR:

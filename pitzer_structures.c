@@ -183,7 +183,36 @@ pitz_param_search(struct pitz_param *pzp_ptr)
 	}
 	return i;
 }
-
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+sit_param_search(struct pitz_param *pzp_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Does linear search of pitz_params for same type and species
+ *  Returns -1 if not found, index number in pitz_params if found
+ */
+	int i;
+	if (pzp_ptr == NULL)
+		return -1;
+	if (pzp_ptr->type == TYPE_Other)
+		return -1;
+	for (i = 0; i < count_sit_param; i++)
+	{
+		if (sit_params[i]->type == pzp_ptr->type &&
+			sit_params[i]->species[0] == pzp_ptr->species[0] &&
+			sit_params[i]->species[1] == pzp_ptr->species[1] &&
+			sit_params[i]->species[2] == pzp_ptr->species[2])
+		{
+			break;
+		}
+	}
+	if (i >= count_sit_param)
+	{
+		return -1;
+	}
+	return i;
+}
 /* **********************************************************************
  *
  *   Routines related to structure "theta_parm"
