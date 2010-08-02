@@ -279,6 +279,7 @@ initialize(void)
 	sum_jacob2 = NULL;
 	sum_delta = NULL;
 /* SRC ADDED */
+// COMMENT: {8/2/2010 3:54:22 PM}	count_isotopes_x = 0;
 	isotopes_x =
 		(struct isotope *) PHRQ_malloc((size_t) sizeof(struct isotope));
 	if (isotopes_x == NULL)
