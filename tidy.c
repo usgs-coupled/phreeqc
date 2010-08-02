@@ -92,8 +92,10 @@ tidy_model(void)
 		keyword[55].keycount > 0 ||	/*"calculate_values" */
 		keyword[56].keycount > 0 ||	/*"isotopes_ratios", */
 		keyword[57].keycount > 0 ||	/*"isotopes_alphas" */
-		keyword[59].keycount > 0)
-	{							/*"pitzer" */
+		keyword[59].keycount > 0 || /*"pitzer" */
+		keyword[60].keycount > 0  /*"pitzer" */
+		)
+	{							
 		new_model = TRUE;
 	}
 	if (keyword[6].keycount > 0)
