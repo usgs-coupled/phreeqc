@@ -33,11 +33,9 @@
 #define MACHENV
 #define MACHENV_MALLOC
 #define malloc PHRQ_malloc
-// COMMENT: {8/2/2010 8:44:39 PM}#define free PHRQ_free
 #else
 #include "Phreeqc.h"
 #define malloc PHRQ_malloc
-// COMMENT: {8/2/2010 8:15:46 PM}#define free PHRQ_free
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
