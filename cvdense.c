@@ -26,7 +26,6 @@
 #include "nvector.h"
 #include "sundialsmath.h"
 
-/* WARNING don't include any headers below here */
 #if !defined(PHREEQC_CLASS)
 #include "output.h"
 #define CVMEM
@@ -34,21 +33,21 @@
 #define MACHENV
 #define MACHENV_MALLOC
 #define malloc PHRQ_malloc
+#define free PHRQ_free
 #else
-
 #include "Phreeqc.h"
 #define malloc PHRQ_malloc
+#define free PHRQ_free
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
 #define CVMEM_MALLOC CVMEM 
 #define OUTPUT_CVODE Phreeqc::OUTPUT_CVODE
-#if defined(NDEBUG)
-#define free PHRQ_free
-#endif
 #endif
 
 #include "phqalloc.h"
+/* WARNING don't include any headers below here */
+
 static char const svnid[] =
 	"$Id$";
 
