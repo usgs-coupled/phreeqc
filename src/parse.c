@@ -68,6 +68,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
  *   Find coefficients, name, and charge for each species for lhs
  */
 	count_trxn = 0;
+	trxn.dz[0] = trxn.dz[1] = trxn.dz[2] = 0.0;
 	ptr = eqn;
 	c = ptr[0];
 	for (;;)

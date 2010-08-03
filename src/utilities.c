@@ -358,7 +358,7 @@ free_check_null(void *ptr)
 {
 	if (ptr != NULL)
 	{
-		free(ptr);
+		PHRQ_free(ptr);
 	}
 	return (NULL);
 }
@@ -1352,14 +1352,14 @@ hdestroy_multi(HashTable * Table)
 					while (p != NULL)
 					{
 						q = p->Next;
-						free((void *) p);
+						PHRQ_free((void *) p);
 						p = q;
 					}
 				}
-				free(Table->Directory[i]);
+				PHRQ_free(Table->Directory[i]);
 			}
 		}
-		free(Table);
+		PHRQ_free(Table);
 		/*      Table = NULL; */
 #if defined(HASH_STATISTICS) && defined(DEBUG)
 		output_msg(OUTPUT_STDERR,
