@@ -253,7 +253,11 @@ PHRQ_realloc(void *ptr, size_t size
 #else /* USE_PHRQ_ALLOC */
 /* ---------------------------------------------------------------------- */
 void *CLASS_QUALIFIER
+#if !defined(NDEBUG)
+PHRQ_malloc(size_t size, const char *szFileName, int nLine)
+#else
 PHRQ_malloc(size_t size)
+#endif
 /* ---------------------------------------------------------------------- */
 {
 	return malloc(size);
@@ -277,7 +281,11 @@ PHRQ_free_all(void)
 
 /* ---------------------------------------------------------------------- */
 void * CLASS_QUALIFIER
+#if !defined(NDEBUG)
+PHRQ_calloc(size_t num, size_t size, const char *szFileName, int nLine)
+#else
 PHRQ_calloc(size_t num, size_t size)
+#endif
 /* ---------------------------------------------------------------------- */
 {
 	return calloc(num, size);
@@ -285,7 +293,11 @@ PHRQ_calloc(size_t num, size_t size)
 
 /* ---------------------------------------------------------------------- */
 void * CLASS_QUALIFIER
+#if !defined(NDEBUG)
+PHRQ_realloc(void *ptr, size_t size, const char *szFileName, int nLine)
+#else
 PHRQ_realloc(void *ptr, size_t size)
+#endif
 /* ---------------------------------------------------------------------- */
 {
 	return realloc(ptr, size);
