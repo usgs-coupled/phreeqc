@@ -446,8 +446,9 @@ typedef struct
 extern Anyptr __MallocTemp__;
 # define Malloc(n)  ((__MallocTemp__ = PHRQ_malloc(n)) ? __MallocTemp__ : (Anyptr)_OutMem())
 #endif
+
 #define FreeR(p)    (free((Anyptr)(p)))	/* used if arg is an rvalue */
-#define Free(p)     (free((Anyptr)(p)), (p)=NULL)
+/*#define Free(p)     (free((Anyptr)(p)), (p)=NULL)*/
 
 /* sign extension */
 #define SEXT(x,n)   ((x) | -(((x) & (1L<<((n)-1))) << 1))
@@ -989,7 +990,7 @@ extern Anyptr __MallocTemp__;
 # define Malloc(n)  ((__MallocTemp__ = PHRQ_malloc(n)) ? __MallocTemp__ : (Anyptr)_OutMem())
 #endif
 #define FreeR(p)    (free((Anyptr)(p)))	/* used if arg is an rvalue */
-#define Free(p)     (free((Anyptr)(p)), (p)=NULL)
+/*#define Free(p)     (free((Anyptr)(p)), (p)=NULL)*/
 
 /* sign extension */
 #define SEXT(x,n)   ((x) | -(((x) & (1L<<((n)-1))) << 1))

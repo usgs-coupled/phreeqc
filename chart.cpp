@@ -189,7 +189,7 @@ DeleteCurves(void)
 	{
 		delete[] Curves[i].x;
 		delete[] Curves[i].y;
-		free(Curves[i].id);
+		PHRQ_free(Curves[i].id);
 	}
 	delete[] Curves;
 }
@@ -311,7 +311,7 @@ ExtractCurveInfo(char *line, int curvenr)
 		ReallocCurves(0);
 	if (user_graph_count_headings > curvenr + ColumnOffset)
 	{
-		free(Curves[curvenr + ColumnOffset].id);
+		PHRQ_free(Curves[curvenr + ColumnOffset].id);
 		Curves[curvenr + ColumnOffset].id =
 			string_duplicate(user_graph_headings[curvenr + ColumnOffset]);
 	}
@@ -436,7 +436,7 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 			for (int i = 0; i < nCSV_headers; i++)
 			{
 				copy_token(token, &ptr, &l);
-				free(Curves[i].id);
+				PHRQ_free(Curves[i].id);
 				Curves[i].id = user_graph_headings[i] = string_duplicate(token);
 				Curves[i].line_w = 0.0;
 			}
@@ -688,7 +688,7 @@ GridChar(char *s, char *a)
 			i--;
 		if (!x && user_graph_count_headings > i)
 		{
-			free(Curves[curvenr].id);
+			PHRQ_free(Curves[curvenr].id);
 			Curves[curvenr].id = string_duplicate(user_graph_headings[i]);
 		}
 		/* the y axis... */
@@ -818,7 +818,7 @@ PlotXY(char *x, char *y)
 				/* define the new curve... */
 				if (i3 < user_graph_count_headings)
 				{
-					free(Curves[i].id);
+					PHRQ_free(Curves[i].id);
 					Curves[i].id = string_duplicate(user_graph_headings[i3]);
 				}
 				//Curves[i].color = Curves[i3].color;
