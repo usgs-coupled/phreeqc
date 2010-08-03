@@ -20,7 +20,7 @@ static char const svnid[] =
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #endif
-#if defined (USE_PHRQ_ALLOC)
+#if defined(USE_PHRQ_ALLOC)
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
 void * CLASS_QUALIFIER
@@ -276,7 +276,6 @@ void CLASS_QUALIFIER
 PHRQ_free_all(void)
 /* ---------------------------------------------------------------------- */
 {
-	
 }
 
 /* ---------------------------------------------------------------------- */
