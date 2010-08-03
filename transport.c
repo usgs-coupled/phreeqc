@@ -2402,6 +2402,11 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	for (i = 0; i < k; i++)
 	{
 		J_ij[i].tot1 = 0.0;
+		V_M[i].grad = 0.0;
+		V_M[i].D = 0.0;
+		V_M[i].Dz = 0.0;
+		V_M[i].Dzc = 0.0;
+		V_M[i].Dzc_dl = 0.0;
 		V_M[i].g_dl = 1.0;
 		V_M[i].o_c = 1;
 	}
