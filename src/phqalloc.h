@@ -28,6 +28,10 @@ extern void PHRQ_free_all(void);
 #define   PHRQ_realloc(p, s)     PHRQ_realloc(p, s, __FILE__, __LINE__)
 #endif
 
+#if !defined(WIN32_MEMORY_DEBUG)
+#define   free(p)                PHRQ_free(p)
+#endif
+
 #else /* defined (USE_PHRQ_ALLOC) */
 
 #if !defined(NDEBUG)
@@ -46,6 +50,10 @@ void PHRQ_free_all(void);
 #define   PHRQ_malloc(s)         PHRQ_malloc(s, __FILE__, __LINE__)
 #define   PHRQ_calloc(c, s)      PHRQ_calloc(c, s, __FILE__, __LINE__)
 #define   PHRQ_realloc(p, s)     PHRQ_realloc(p, s, __FILE__, __LINE__)
+#endif
+
+#if !defined(WIN32_MEMORY_DEBUG)
+#define   free(p)                PHRQ_free(p)
 #endif
 
 #endif /* defined (USE_PHRQ_ALLOC) */
