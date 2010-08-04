@@ -311,10 +311,7 @@ initialize(void)
 /*
  *  Initialize use pointers
  */
-	use.solution_in = FALSE;
-	use.pp_assemblage_in = FALSE;
-	use.mix_in = FALSE;
-	use.irrev_in = FALSE;
+	use_init();
 /*
  *   Initialize punch
  */
@@ -399,14 +396,27 @@ initialize(void)
 /*
  *   last model
  */
+	last_model.force_prep = TRUE;
+	last_model.temperature = -100;
+	last_model.count_exchange = -1;
 	last_model.exchange = NULL;
-	last_model.gas_phase = NULL;
-	last_model.s_s_assemblage = NULL;
+	last_model.count_kinetics = -1;
 	last_model.kinetics = NULL;
+	last_model.count_gas_phase = -1;
+	last_model.gas_phase = NULL;
+	last_model.count_s_s_assemblage = -1;
+	last_model.s_s_assemblage = NULL;
+	last_model.count_pp_assemblage = -1;
 	last_model.pp_assemblage = NULL;
 	last_model.add_formula = NULL;
 	last_model.si = NULL;
+	last_model.dl_type = NO_DL;
+	last_model.surface_type = UNKNOWN_DL;
+	last_model.only_counter_ions = FALSE;
+	last_model.thickness = 1e-8;
+	last_model.count_surface_comp = -1;
 	last_model.surface_comp = NULL;
+	last_model.count_surface_charge = -1;
 	last_model.surface_charge = NULL;
 /*
  *   Update hash table
@@ -673,6 +683,298 @@ initialize(void)
 
 	charge_group = NULL;
 	print_density = 0;
+
+
+	same_model = FALSE;
+	same_temperature = FALSE;
+	g_iterations = -1;
+	G_TOL = 1e-8;
+    save_init(-1);
+	count_species_list = 0;
+	max_species_list = 0;
+	count_sum_jacob0 = 0;
+	max_sum_jacob0 = 0;
+	count_sum_mb1 = 0;
+	max_sum_mb1 = 0;
+	count_sum_jacob1 = 0;
+	max_sum_jacob1 = 0;
+	count_sum_mb2 = 0;
+	max_sum_mb2 = 0;
+	count_sum_jacob2 = 0;
+	max_sum_jacob2 = 0;
+	count_sum_delta = 0;
+	max_sum_delta = 0;
+	new_x = FALSE;
+	tc_x = 0;
+	tk_x = 0;
+	ph_x = 0;
+	solution_pe_x = 0;
+	mu_x = 0;
+	ah2o_x = 0;
+	density_x = 0;
+	total_h_x = 0;
+	total_o_x = 0;
+	cb_x = 0;
+	total_ions_x = 0;
+	mass_water_aq_x = 0;
+	mass_water_surfaces_x = 0;
+	mass_water_bulk_x = 0;
+	default_pe_x = 0;
+	dl_type_x = NO_DL;
+	total_carbon = 0;
+	total_co2 = 0;
+	total_alkalinity = 0;
+	gfw_water = 0;
+	step_x = 0;
+	kin_time_x = 0;
+	correct_disp = FALSE;
+	cell = 0;
+	multi_Dflag = FALSE;
+	interlayer_Dflag = FALSE;
+	default_Dw = 0;
+	multi_Dpor = 0;
+	interlayer_Dpor = 0.1;
+	multi_Dpor_lim = 0;
+	interlayer_Dpor_lim = 0;
+	multi_Dn = 0;
+	interlayer_tortf = 100;
+	cell_no = 0;
+	new_model = TRUE;
+	new_exchange = FALSE;
+	new_pp_assemblage = FALSE;
+	new_surface = FALSE;
+	new_reaction = FALSE;
+	new_temperature = FALSE;
+	new_mix = FALSE;
+	new_solution = FALSE;
+	new_gas_phase = FALSE;
+	new_inverse = FALSE;
+	new_punch = FALSE;
+	new_s_s_assemblage = FALSE;
+	new_kinetics = FALSE;
+	new_copy = FALSE;
+	new_pitzer = FALSE;
+	element_h_one = NULL;
+	count_elts = 0;
+	count_s_x = 0;
+	max_s_x = 0;
+	count_unknowns = 0;
+	ah2o_unknown = NULL;
+	alkalinity_unknown = NULL;
+	carbon_unknown = NULL;
+	charge_balance_unknown = NULL;
+	exchange_unknown = NULL;
+	mass_hydrogen_unknown = NULL;
+	mass_oxygen_unknown = NULL;
+	mb_unknown = NULL;
+	mu_unknown = NULL;
+	pe_unknown = NULL;
+	ph_unknown = NULL;
+	pure_phase_unknown = NULL;
+	solution_phase_boundary_unknown = NULL;
+	surface_unknown = NULL;
+	gas_unknown = NULL;
+	s_s_unknown = NULL;
+	for (i = 0; i < 8; i++)
+	{
+		trxn.logk[i] = 0;
+	}
+	for (i = 0; i < 3; i++)
+	{
+		trxn.dz[i] = 0;
+	}
+	count_trxn = 0;
+	count_mb_unknowns = 0;
+	status_on = TRUE;
+	count_rate_p = 0;
+	strcpy(error_string,"");
+	reaction_step = 0;
+	transport_step = 0;
+	transport_start = 0;
+	advection_step = 0;
+	stop_program = FALSE;
+	count_strings = 0;
+	input_error = 0;
+	parse_error = 0;
+	paren_count = 0;
+	iterations = 0;
+	gamma_iterations = 0;
+	run_reactions_iterations = 0;
+	step_size_now = step_size;
+	pe_step_size_now = pe_step_size;
+	count_total_steps = 0;
+	remove_unstable_phases = FALSE;
+	for (i = 0; i < 50; i++)
+	{
+		match_tokens[i].name = NULL;
+		match_tokens[i].coef = 0;
+	}
+	count_match_tokens = 0;
+	initial_solution_isotopes = FALSE;
+	full_pitzer = FALSE;
+	always_full_pitzer = FALSE;
+	IC = -1;
+	COSMOT = 0;
+	AW = 0;
+	sys = NULL;
+	count_sys = 0;
+	max_sys = 0;
+	sys_tot = 0;
+	AA_basic = 0;
+	BB_basic = 0;
+	CC = 0;
+	I_m = 0;
+	rho_0 = 0;
+	solution_mass = 0;
+	solution_volume = 0;
+	inbuf = NULL;
+	linebase = NULL;
+	varbase = NULL;
+	loopbase = NULL;
+	curline = 0;
+	stmtline = NULL;
+	dataline = NULL;
+	stmttok = NULL;
+	datatok = NULL;
+	buf = NULL;
+	exitflag = FALSE;
+	EXCP_LINE = 0;
+	Q0 = 0;
+	Q5 = 0;
+	Z = 0;
+	DZ = 0;
+	Y = 0;
+	B1 = 0;
+	B2 = 0;
+	B1T = 0;
+	B2T = 0;
+	B1TT = 0;
+	B2TT = 0;
+	z = 0;
+	xd = 0;
+	alpha = 0;
+	surface_charge_ptr = NULL;
+	max_row_count = 50;
+	max_column_count = 50;
+	carbon = FALSE;
+	col_name = NULL;
+	row_name = NULL;
+	count_rows = 0;
+	count_optimize = 0;
+	col_phases = 0;
+	col_redox = 0;
+	col_epsilon = 0;
+	col_ph = 0;
+	col_water = 0;
+	col_isotopes = 0;
+	col_phase_isotopes = 0;
+	row_mb = 0;
+	row_fract = 0;
+	row_charge = 0;
+	row_carbon = 0;
+	row_isotopes = 0;
+	row_epsilon = 0;
+	row_isotope_epsilon = 0;
+	row_water = 0;
+	inv_zero = NULL;
+	array1 = 0;
+	inv_delta1 = NULL;
+	delta2 = NULL;
+	delta3 = NULL;
+	inv_cu = NULL;
+	delta_save = NULL;
+	min_delta = NULL;
+	max_delta = NULL;
+	klmd = 0;
+	nklmd = 0;
+	n2d = 0;
+	kode = 0;
+	iter = 0;
+	toler = 0;
+	error = 0;
+	max_pct = 0;
+	scaled_error = 0;
+	master_alk = NULL;
+	row_back = NULL;
+	col_back = NULL;
+	good = NULL;
+	bad = NULL;
+	minimal = NULL;
+	max_good = 0;
+	max_bad = 0;
+	max_minimal = 0;
+	count_good = 0;
+	count_bad = 0;
+	count_minimal = 0;
+	count_calls = 0;
+	soln_bits = 0;
+	phase_bits = 0;
+	current_bits = 0;
+	temp_bits = 0;
+	netpath_file = NULL;
+	count_inverse_models = 0;
+	count_pat_solutions = 0;
+	m_original = NULL;
+	m_temp = NULL;
+	model_min_value = 0;
+	inv_res = NULL;
+	inv_iu = NULL;
+	inv_is = NULL;
+	P_argc = 0;
+	P_argv = NULL;
+	P_escapecode = 0;
+	P_ioresult = 0;
+	A0 = 0;
+	count_cations = 0;
+	count_anions = 0;
+	count_neutrals = 0;
+	MAXCATIONS = 0;
+	FIRSTANION = 0;
+	MAXNEUTRAL = 0;
+	mcb0 = NULL;
+	mcb1 = NULL;
+	mcc0 = NULL;
+	dummy = 0;
+	prev_next_char = NULL;
+	sit_A0 = 0;
+	sit_count_cations = 0;
+	sit_count_anions = 0;
+	sit_count_neutrals = 0;
+	sit_MAXCATIONS = 0;
+	sit_FIRSTANION = 0;
+	sit_MAXNEUTRAL = 0;
+	a0 = 0;
+	a1 = 0;
+	kc = 0;
+	kb = 0;
+	t_buffer = NULL;
+	tally_count_component = 0;
+	count_tally_table_columns = 0;
+	count_tally_table_rows = 0;
+	sol_D = NULL;
+	J_ij_count_spec = 0;
+	count_m_s = 0;
+	tot1_h = 0;
+	tot1_o = 0;
+	tot2_h = 0;
+	tot2_o = 0;
+	diffc_max = 0;
+	diffc_tr = 0;
+	J_ij_sum = 0;
+	transp_surf = FALSE;
+	heat_mix_array = NULL;
+	temp1 = NULL;
+	temp2 = NULL;
+	nmix = 0;
+	heat_nmix = 0;
+	heat_mix_f_imm = 0;
+	heat_mix_f_m = 0;
+	warn_MCD_X = 0;
+	warn_fixed_Surf = 0;
+	gas_in = FALSE;
+#if defined (PHREEQC_CLASS)
+	n_user_punch_index = 0;
+#endif /* PHREEQC_CLASS */
 
 	return;
 }
@@ -3348,4 +3650,97 @@ do_status(void)
 	end_timer = true;
 #endif
 	return 0;
+}
+void CLASS_QUALIFIER
+save_init(int i)
+{
+	save.solution = i;
+	save.n_solution_user = i;
+	save.n_solution_user_end = i;
+	save.mix = i;
+	save.n_mix_user = i;
+	save.n_mix_user_end = i;
+	save.irrev = i;
+	save.n_irrev_user = i;
+	save.n_irrev_user_end = i;
+	save.pp_assemblage = i;
+	save.n_pp_assemblage_user = i;
+	save.n_pp_assemblage_user_end = i;
+	save.exchange = i;
+	save.n_exchange_user = i;
+	save.n_exchange_user_end = i;
+	save.kinetics = i;
+	save.n_kinetics_user = i;
+	save.n_kinetics_user_end = i;
+	save.surface = i;
+	save.n_surface_user = i;
+	save.n_surface_user_end = i;
+	save.gas_phase = i;
+	save.n_gas_phase_user = i;
+	save.n_gas_phase_user_end = i;
+	save.s_s_assemblage = i;
+	save.n_s_s_assemblage_user = i;
+	save.n_s_s_assemblage_user_end = i;
+}
+void CLASS_QUALIFIER
+use_init(void)
+{
+	use.solution_in = FALSE;
+	use.n_solution_user= -1;
+	use.n_solution= -1;
+	use.solution_ptr = NULL;
+
+	use.pp_assemblage_in = FALSE;
+	use.n_pp_assemblage_user= -1;
+	use.n_pp_assemblage= -1;
+	use.pp_assemblage_ptr = NULL;
+
+	use.mix_in = FALSE;
+	use.n_mix_user= -1;
+	use.n_mix= -1;
+	use.mix_ptr = NULL;
+	use.n_mix_user_orig= -1;
+
+	use.irrev_in = FALSE;
+	use.n_irrev_user= -1;
+	use.n_irrev= -1;
+	use.irrev_ptr = NULL;
+
+	use.exchange_in = FALSE;
+	use.n_exchange_user= -1;
+	use.n_exchange= -1;
+	use.exchange_ptr = NULL;
+
+	use.kinetics_in = FALSE;
+	use.n_kinetics_user= -1;
+	use.n_kinetics= -1;
+	use.kinetics_ptr = NULL;
+
+	use.surface_in = FALSE;
+	use.n_surface_user= -1;
+	use.n_surface= -1;
+	use.surface_ptr = NULL;
+
+	use.temperature_in = FALSE;
+	use.n_temperature_user= -1;
+	use.n_temperature= -1;
+	use.temperature_ptr = NULL;
+
+	use.inverse_in = FALSE;
+	use.n_inverse_user= -1;
+	use.n_inverse= -1;
+	use.inverse_ptr = NULL;
+
+	use.gas_phase_in = FALSE;
+	use.n_gas_phase_user= -1;
+	use.n_gas_phase= -1;
+	use.gas_phase_ptr = NULL;
+
+	use.s_s_assemblage_in = FALSE;
+	use.n_s_s_assemblage_user= -1;
+	use.n_s_s_assemblage= -1;
+	use.s_s_assemblage_ptr = NULL;
+
+	use.trans_in = FALSE;
+	use.advect_in = FALSE;
 }
