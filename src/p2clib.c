@@ -28,14 +28,14 @@
 #include "output.h"
 static char const svnid[] =
 	"$Id$";
-static int P_argc;
-static char **P_argv;
+static int P_argc = 0;
+static char **P_argv = NULL;
 static char *_ShowEscape(char *buf, int code, int ior, char *prefix);
 
-int P_escapecode;
-int P_ioresult;
+int P_escapecode = 0;
+int P_ioresult = 0;
 
-long EXCP_LINE;					/* Used by Pascal workstation system */
+long EXCP_LINE = 0;					/* Used by Pascal workstation system */
 
 Anyptr __MallocTemp__;
 

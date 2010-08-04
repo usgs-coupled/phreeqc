@@ -97,8 +97,8 @@
 	extern int reading_database(void);
 	extern int check_line(const char *string, int allow_empty, int allow_eof,
 						  int allow_keyword, int print);
-	static LDBLE dummy;
-	static char *prev_next_char;
+	static LDBLE dummy = 0;
+	static char *prev_next_char = NULL;
 
 	#if defined PHREEQ98 || defined CHART
 		STATIC int read_user_graph(void);

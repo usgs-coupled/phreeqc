@@ -26,27 +26,27 @@ extern int cl1mp(int k, int l, int m, int n,
 				 LDBLE * cu_arg, int *inv_iu, int *s, int check,
 				 LDBLE censor_arg);
 #endif
-int max_row_count, max_column_count;
-static int carbon;
-char **col_name, **row_name;
-static int count_rows, count_optimize;
-static int col_phases, col_redox, col_epsilon, col_ph, col_water,
-	col_isotopes, col_phase_isotopes;
-static int row_mb, row_fract, row_charge, row_carbon, row_isotopes,
-	row_epsilon, row_isotope_epsilon, row_water;
-static LDBLE *inv_zero, *array1, *inv_res, *inv_delta1, *delta2, *delta3, *inv_cu,
-	*delta_save;
-static LDBLE *min_delta, *max_delta;
-static int *inv_iu, *inv_is;
-static int klmd, nklmd, n2d, kode, iter;
-static LDBLE toler, error, max_pct, scaled_error;
-static struct master *master_alk;
-int *row_back, *col_back;
+int max_row_count = 0, max_column_count = 0;
+static int carbon = 0;
+char **col_name = NULL, **row_name = NULL;
+static int count_rows = 0, count_optimize = 0;
+static int col_phases = 0, col_redox = 0, col_epsilon = 0, col_ph = 0, col_water = 0,
+	col_isotopes = 0, col_phase_isotopes = 0;
+static int row_mb = 0, row_fract = 0, row_charge = 0, row_carbon = 0, row_isotopes = 0,
+	row_epsilon = 0, row_isotope_epsilon = 0, row_water = 0;
+static LDBLE *inv_zero = NULL, *array1 = NULL, *inv_res = NULL, *inv_delta1 = NULL, 
+	*delta2 = NULL, *delta3 = NULL, *inv_cu = NULL,	*delta_save = NULL;
+static LDBLE *min_delta = NULL, *max_delta = NULL;
+static int *inv_iu = NULL, *inv_is = NULL;
+static int klmd = 0, nklmd = 0, n2d = 0, kode = 0, iter = 0;
+static LDBLE toler = 0, error = 0, max_pct = 0, scaled_error = 0;
+static struct master *master_alk = NULL;
+int *row_back = NULL, *col_back = NULL;
 
-static unsigned long *good, *bad, *minimal;
-static int max_good, max_bad, max_minimal;
-static int count_good, count_bad, count_minimal, count_calls;
-static unsigned long soln_bits, phase_bits, current_bits, temp_bits;
+static unsigned long *good = NULL, *bad = NULL, *minimal = NULL;
+static int max_good = 0, max_bad = 0, max_minimal = 0;
+static int count_good = 0, count_bad = 0, count_minimal = 0, count_calls = 0;
+static unsigned long soln_bits = 0, phase_bits = 0, current_bits = 0, temp_bits = 0;
 
 /* subroutines */
 
@@ -104,8 +104,8 @@ static int subset_bad(unsigned long bits);
 static int subset_minimal(unsigned long bits);
 static int superset_minimal(unsigned long bits);
 static int write_optimize_names(struct inverse *inv_ptr);
-static FILE *netpath_file;
-static int count_inverse_models, count_pat_solutions;
+static FILE *netpath_file = NULL;
+static int count_inverse_models = 0, count_pat_solutions = 0;
 #endif
 
 #ifdef SKIP

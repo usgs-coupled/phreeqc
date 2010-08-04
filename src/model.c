@@ -40,7 +40,7 @@ static int s_s_binary(struct s_s *s_s_ptr);
 static int s_s_ideal(struct s_s *s_s_ptr);
 
 /*static int remove_unstable_phases;*/
-static int gas_in;
+static int gas_in = 0;
 static void ineq_init(int max_row_count, int max_column_count);
 
 LDBLE min_value = 1e-10;

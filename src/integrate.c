@@ -19,8 +19,8 @@ static LDBLE midpnt(LDBLE x1, LDBLE x2, int n);
 static void polint(LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv,
 				   LDBLE * dy);
 static LDBLE qromb_midpnt(LDBLE x1, LDBLE x2);
-static LDBLE z, xd, alpha;
-static struct surface_charge *surface_charge_ptr;
+static LDBLE z = 0, xd = 0, alpha = 0;
+static struct surface_charge *surface_charge_ptr = NULL;
 
 static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
 #ifdef SKIP

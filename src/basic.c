@@ -27,14 +27,14 @@ typedef unsigned char boolean;
 
 	#include "basic.h"
 
-	Static Char *inbuf;
-	Static linerec *linebase;
-	Static varrec *varbase;
-	Static looprec *loopbase;
-	Static long curline;
-	Static linerec *stmtline, *dataline;
-	Static tokenrec *stmttok, *datatok, *buf;
-	Static boolean exitflag;
+	Static Char *inbuf = NULL;
+	Static linerec *linebase = NULL;
+	Static varrec *varbase = NULL;
+	Static looprec *loopbase = NULL;
+	Static long curline = 0;
+	Static linerec *stmtline = NULL, *dataline = NULL;
+	Static tokenrec *stmttok = NULL, *datatok = NULL, *buf = NULL;
+	Static boolean exitflag = 0;
 
 	Static int free_dim_stringvar(struct varrec *varbase);
 	extern long EXCP_LINE;

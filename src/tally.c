@@ -19,8 +19,8 @@ struct tally_buffer
 	LDBLE moles;
 	LDBLE gfw;
 };
-struct tally_buffer *t_buffer;
-int tally_count_component;
+struct tally_buffer *t_buffer = NULL;
+int tally_count_component = 0;
 struct tally
 {
 	char *name;
@@ -35,9 +35,9 @@ struct tally
 	 */
 	struct tally_buffer *total[3];
 };
-struct tally *tally_table;
-int count_tally_table_columns;
-int count_tally_table_rows;
+struct tally *tally_table = NULL;
+int count_tally_table_columns = 0;
+int count_tally_table_rows = 0;
 
 static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
 #endif

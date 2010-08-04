@@ -16,13 +16,13 @@
 
 static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
 /* variables */
-static LDBLE A0;
-struct species **spec, **cations, **anions, **neutrals;
-static int count_cations, count_anions, count_neutrals;
-static int MAXCATIONS, FIRSTANION, MAXNEUTRAL;
-struct pitz_param *mcb0, *mcb1, *mcc0;
-static int *IPRSNT;
-static LDBLE *M, *LGAMMA;
+static LDBLE A0 = 0;
+struct species **spec = NULL, **cations = NULL, **anions = NULL, **neutrals = NULL;
+static int count_cations = 0, count_anions = 0, count_neutrals = 0;
+static int MAXCATIONS = 0, FIRSTANION = 0, MAXNEUTRAL = 0;
+struct pitz_param *mcb0 = NULL, *mcb1 = NULL, *mcc0 = NULL;
+static int *IPRSNT = NULL;
+static LDBLE *M = NULL, *LGAMMA = NULL;
 static LDBLE BK[23], DK[23];
 
 /* routines */
