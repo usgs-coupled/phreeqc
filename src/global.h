@@ -745,7 +745,7 @@ EXTERNAL PHRQMemHeader *s_pTail;
 #ifdef PHREEQ98
 int colnr, rownr;
 #endif
-int n_user_punch_index;
+int n_user_punch_index = 0;
 #define checking	true
 #define varnamelen  20
 #define maxdims	    4

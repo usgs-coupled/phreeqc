@@ -72,6 +72,8 @@ pitzer_init(void)
 		DK[i] = 0.0;
 	}
 	pitzer_pe = FALSE;
+	VP = 0;
+	DW0 = 0;
 	return OK;
 }
 
