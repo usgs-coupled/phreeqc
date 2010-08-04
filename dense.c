@@ -27,6 +27,7 @@
 #if !defined(PHREEQC_CLASS)
 #include "phqalloc.h"
 #define malloc PHRQ_malloc
+#define free PHRQ_free
 #endif
 static char const svnid[] = "$Id$";
 

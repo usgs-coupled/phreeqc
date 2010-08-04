@@ -645,7 +645,7 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 	if (!allocOK)
 	{
 		MACHENV output_msg(OUTPUT_CVODE, MSG_MEM_FAIL);
-		MACHENV_MALLOC free(cv_mem);
+		MACHENV_MALLOC PHRQ_free(cv_mem);
 		return (NULL);
 	}
 
@@ -659,7 +659,7 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 	{
 		MACHENV  output_msg(OUTPUT_CVODE, MSG_BAD_EWT);
 		CVFreeVectors(cv_mem, maxord);
-		MACHENV_MALLOC free(cv_mem);
+		MACHENV_MALLOC PHRQ_free(cv_mem);
 		return (NULL);
 	}
 
@@ -1481,7 +1481,7 @@ CVodeFree(void *cvode_mem)
 	CVFreeVectors(cv_mem, qmax);
 	if (iter == NEWTON)
 		lfree(cv_mem);
-	CVMEM_MALLOC free(cv_mem);
+	CVMEM_MALLOC PHRQ_free(cv_mem);
 }
 
 
