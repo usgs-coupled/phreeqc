@@ -885,7 +885,7 @@ public:
 /* model.c ------------------------------- */
 
 LDBLE min_value;
-LDBLE model_min_value;
+/* LDBLE model_min_value; */
 LDBLE *normal, *ineq_array, *inv_res, *cu, *zero, *delta1;
 int *inv_iu, *inv_is, *back_eq;
 int normal_max, ineq_array_max, res_max, cu_max, zero_max,

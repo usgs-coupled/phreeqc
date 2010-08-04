@@ -19,13 +19,13 @@ static int QQ(LDBLE T, LDBLE D);
 static LDBLE BASE(LDBLE D);
 
 /* COMMON /QQQQ/ */
-static LDBLE Q0, Q5;
+static LDBLE Q0 = 0, Q5 = 0;
 /* COMMON /ACONST/ */
 static LDBLE GASCON = 0.461522e0, TZ = 647.073e0, AA = 1.e0;
-static LDBLE Z, DZ, Y;
+static LDBLE Z = 0, DZ = 0, Y = 0;
 /* COMMON /ELLCON/ */
 static LDBLE G1 = 11.e0, G2 = 44.333333333333e0, GF = 3.5e0;
-static LDBLE B1, B2, B1T, B2T, B1TT, B2TT;
+static LDBLE B1 = 0, B2 = 0, B1T = 0, B2T = 0, B1TT = 0, B2TT = 0;
 #endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

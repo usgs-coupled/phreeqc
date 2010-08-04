@@ -37,7 +37,7 @@ static int tidy_s_s_assemblage(void);
 static int tidy_species(void);
 static int tidy_surface(void);
 
-static LDBLE a0, a1, kc, kb;
+static LDBLE a0 = 0, a1 = 0, kc = 0, kb = 0;
 static int scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1);
 LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
 static LDBLE f_spinodal(LDBLE x);

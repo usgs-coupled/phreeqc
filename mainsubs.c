@@ -827,6 +827,14 @@ initialize(void)
 	rho_0 = 0;
 	solution_mass = 0;
 	solution_volume = 0;
+
+
+	/* model_min_value = 0; */
+
+
+#if defined (PHREEQC_CLASS)
+	/* basic.c */
+	n_user_punch_index = 0;
 	inbuf = NULL;
 	linebase = NULL;
 	varbase = NULL;
@@ -839,6 +847,7 @@ initialize(void)
 	buf = NULL;
 	exitflag = FALSE;
 	EXCP_LINE = 0;
+	/* dw.c */
 	Q0 = 0;
 	Q5 = 0;
 	Z = 0;
@@ -850,10 +859,12 @@ initialize(void)
 	B2T = 0;
 	B1TT = 0;
 	B2TT = 0;
+	/* integrate.c */
 	z = 0;
 	xd = 0;
 	alpha = 0;
 	surface_charge_ptr = NULL;
+	/* inverse.c */
 	max_row_count = 50;
 	max_column_count = 50;
 	carbon = FALSE;
@@ -914,16 +925,18 @@ initialize(void)
 	netpath_file = NULL;
 	count_inverse_models = 0;
 	count_pat_solutions = 0;
-	m_original = NULL;
-	m_temp = NULL;
-	model_min_value = 0;
 	inv_res = NULL;
 	inv_iu = NULL;
 	inv_is = NULL;
+	/* kinetics.c */
+	m_original = NULL;
+	m_temp = NULL;
+	/* p2clib.c */
 	P_argc = 0;
 	P_argv = NULL;
 	P_escapecode = 0;
 	P_ioresult = 0;
+	/* pitzer.c */
 	A0 = 0;
 	count_cations = 0;
 	count_anions = 0;
@@ -934,8 +947,10 @@ initialize(void)
 	mcb0 = NULL;
 	mcb1 = NULL;
 	mcc0 = NULL;
+	/* read.c */
 	dummy = 0;
 	prev_next_char = NULL;
+	/* sit.c */
 	sit_A0 = 0;
 	sit_count_cations = 0;
 	sit_count_anions = 0;
@@ -943,15 +958,19 @@ initialize(void)
 	sit_MAXCATIONS = 0;
 	sit_FIRSTANION = 0;
 	sit_MAXNEUTRAL = 0;
+	/* tidy.c */
 	a0 = 0;
 	a1 = 0;
 	kc = 0;
 	kb = 0;
+	/* tally.c */
 	t_buffer = NULL;
 	tally_count_component = 0;
 	count_tally_table_columns = 0;
 	count_tally_table_rows = 0;
+	/* transport.c */
 	sol_D = NULL;
+	sol_D_dbg = NULL;
 	J_ij_count_spec = 0;
 	count_m_s = 0;
 	tot1_h = 0;
@@ -971,9 +990,9 @@ initialize(void)
 	heat_mix_f_m = 0;
 	warn_MCD_X = 0;
 	warn_fixed_Surf = 0;
+	/* model.c */
 	gas_in = FALSE;
-#if defined (PHREEQC_CLASS)
-	n_user_punch_index = 0;
+
 #endif /* PHREEQC_CLASS */
 
 	return;

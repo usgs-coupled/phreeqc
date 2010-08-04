@@ -31,22 +31,25 @@ struct sol_D
 	int count_exch_spec;		/* number of exchange species */
 	LDBLE exch_total;			/* total moles of X- */
 	struct spec *spec;
-} *sol_D;
-struct sol_D *sol_D_dbg;
+};
+struct sol_D *sol_D = NULL;
+struct sol_D *sol_D_dbg = NULL;
 struct J_ij
 {
 	char *name;
 	LDBLE tot1, tot2;
-} *J_ij, *J_ij_il;
-int J_ij_count_spec;
+} ;
+struct J_ij *J_ij = NULL, *J_ij_il = NULL;
+int J_ij_count_spec = 0;
 
 struct M_S
 {
 	char *name;
 	LDBLE tot1, tot2;
-} *m_s;
-int count_m_s;
-LDBLE tot1_h, tot1_o, tot2_h, tot2_o;
+}; 
+struct M_S *m_s = NULL;
+int count_m_s = 0;
+LDBLE tot1_h = 0, tot1_o = 0, tot2_h = 0, tot2_o = 0;
 
 static int multi_D(LDBLE DDt, int mobile_cell, int stagnant);
 static int find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant);
@@ -71,11 +74,11 @@ static int init_heat_mix(int nmix);
 static int heat_mix(int heat_nmix);
 static int mix_stag(int i, LDBLE stagkin_time, int punch,
 					LDBLE step_fraction_kin);
-LDBLE *heat_mix_array;
-LDBLE *temp1, *temp2;
-int nmix, heat_nmix;
-LDBLE heat_mix_f_imm, heat_mix_f_m;
-int warn_MCD_X, warn_fixed_Surf;
+LDBLE *heat_mix_array = NULL;
+LDBLE *temp1= NULL, *temp2= NULL;
+int nmix = 0, heat_nmix = 0;
+LDBLE heat_mix_f_imm = 0, heat_mix_f_m = 0;
+int warn_MCD_X = 0, warn_fixed_Surf = 0;
 #endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

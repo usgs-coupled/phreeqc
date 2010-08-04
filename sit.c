@@ -14,13 +14,13 @@
 #include "pitzer.h"
 
 /* variables */
-static LDBLE sit_A0;
+static LDBLE sit_A0 = 0;
 extern struct species **spec, **cations, **anions, **neutrals;
-static int sit_count_cations, sit_count_anions, sit_count_neutrals;
-static int sit_MAXCATIONS, sit_FIRSTANION, sit_MAXNEUTRAL;
+static int sit_count_cations = 0, sit_count_anions = 0, sit_count_neutrals = 0;
+static int sit_MAXCATIONS = 0, sit_FIRSTANION = 0, sit_MAXNEUTRAL = 0;
 extern struct pitz_param *mcb0, *mcb1, *mcc0;
-static int *sit_IPRSNT;
-static LDBLE *sit_M, *sit_LGAMMA;
+static int *sit_IPRSNT = NULL;
+static LDBLE *sit_M = NULL, *sit_LGAMMA = NULL;
 
 /* routines */
 static int calc_sit_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR);

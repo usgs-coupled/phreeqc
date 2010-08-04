@@ -64,8 +64,8 @@ static int store_get_equi_reactants(int k, int kin_end);
 
 
 
-LDBLE *m_original;
-LDBLE *m_temp;
+LDBLE *m_original = NULL;
+LDBLE *m_temp = NULL;
 
 extern LDBLE min_value;
 extern int count_total_steps;
