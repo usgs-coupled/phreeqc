@@ -517,5 +517,5 @@ CVDenseFree(CVodeMem cv_mem)
 	DenseFreeMat(M);
 	DenseFreeMat(savedJ);
 	DenseFreePiv(pivots);
-	CVMEM_MALLOC free(cvdense_mem);
+	CVMEM_MALLOC PHRQ_free(cvdense_mem);
 }

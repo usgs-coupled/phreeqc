@@ -225,8 +225,8 @@ extern "C"
         v->menv = machenv
 
 #define NV_DISPOSE_S(v) \
-        free((N_VectorSerialContent)(v->content)); \
-        free(v)
+        PHRQ_free((N_VectorSerialContent)(v->content)); \
+        PHRQ_free(v)
 
 #define NVS_MAKE_S(vs, vs_data, s_len, machenv) \
         vs = (N_Vector_S) malloc(s_len*sizeof(N_Vector *)); \

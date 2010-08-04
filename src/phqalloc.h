@@ -29,7 +29,7 @@ extern void PHRQ_free_all(void);
 #endif
 
 #if !defined(WIN32_MEMORY_DEBUG)
-#define   free(p)                PHRQ_free(p)
+//#define   free(p)                PHRQ_free(p)
 #endif
 
 #else /* defined (USE_PHRQ_ALLOC) */
@@ -53,7 +53,7 @@ void PHRQ_free_all(void);
 #endif
 
 #if !defined(WIN32_MEMORY_DEBUG)
-#define   free(p)                PHRQ_free(p)
+//#define   free(p)                PHRQ_free(p)
 #endif
 
 #endif /* defined (USE_PHRQ_ALLOC) */
