@@ -65,7 +65,7 @@ pitzer_init(void)
 		  sizeof(struct theta_param *));
 
 	ICON = TRUE;
-	OTEMP = 0.0;
+	OTEMP = -100.;
 	for (i = 0; i < 23; i++)
 	{
 		BK[i] = 0.0;
@@ -92,6 +92,10 @@ pitzer_tidy(void)
 	LDBLE z0, z1;
 	struct pitz_param *pzp_ptr;
 	struct theta_param *theta_param_ptr;
+	/*
+	* Ensure new parameters are calculated
+	*/
+	OTEMP = -100.;
 	/*
 	 *  allocate pointers to species structures
 	 */
@@ -788,7 +792,7 @@ C
 	int i;
 	LDBLE TR = 298.15;
 
-	if (fabs(TK - OTEMP) < 0.01e0)
+	if (fabs(TK - OTEMP) < 0.001e0)
 		return OK;
 	OTEMP = TK;
 /*
@@ -800,7 +804,7 @@ C     Set DW0
 		calc_pitz_param(pitz_params[i], TK, TR);
 	}
 	DC0 = DC(TK);
-	if (fabs(TK - TR) < 0.01e0)
+	if (fabs(TK - TR) < 0.001e0)
 	{
 		A0 = 0.392e0;
 	}
