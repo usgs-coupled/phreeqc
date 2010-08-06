@@ -9590,6 +9590,7 @@ read_user_graph(void)
 		case 6:	/* axis scales */
 			char *axis; axis = "";
 			int j; j = 0;
+			float f_min, f_max; f_min = (float) -9.999;
 			prev_next_char = next_char;
 			copy_token(token, &next_char, &l);
 			str_tolower(token);
@@ -9620,6 +9621,24 @@ read_user_graph(void)
 					sprintf(error_string,
 						"Found '%s', but expect number or 'a(uto)'.", token);
 					error_msg(error_string, CONTINUE);
+				}
+				if (i == DIGIT)
+				{
+					if (j == 0)
+						f_min = (float) atof(token);
+					else if (j == 1 && fabs(f_min + 9.999) > 1e-3)
+					{
+						f_max = (float) atof(token);
+						if (f_min > f_max)
+						{
+							sprintf(error_string,
+								"Maximum must be larger than minimum of axis_scale, interchanging both for %s axis", axis);
+							warning_msg(error_string);
+							SetAxisScale(axis, 0, token, FALSE);
+							sprintf(token, "%e", f_min);
+							SetAxisScale(axis, 1, token, FALSE);
+						}
+					}
 				}
 				j++;		/* counter for categories */
 				prev_next_char = next_char;
