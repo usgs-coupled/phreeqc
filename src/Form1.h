@@ -350,7 +350,8 @@ namespace zdg_ui2 {
 			}
 
 			// Fill the axis background with a gradient
-			myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f );
+			//myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f ); /* FromArgb(255, 255, 224) */
+			myPane->Chart->Fill = gcnew Fill( Color::White, Color::FromArgb(255, 255, 230), 45.0f );
 		}
 
 		public: void CreateGraph( ZedGraphControl ^z1 )	{
