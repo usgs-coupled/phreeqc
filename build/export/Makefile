@@ -1,8 +1,8 @@
 # Locations to save compressed tar file for distribution
-
-CHARLTON:=/var/anonymous/ftp/charlton
+ANONYMOUS:=/var/anonymous/ftp/pub
+CHARLTON:=$(ANONYMOUS)/charlton
 FTP_CHARLTON:=ftp://brrftp.cr.usgs.gov/pub/charlton
-GEOCHEM:=/var/anonymous/ftp/dlpark/geochem
+GEOCHEM:=$(ANONYMOUS)/dlpark/geochem
 FTP_GEOCHEM:=ftp://brrftp.cr.usgs.gov/geochem
 HTML_HOME:=/z/linarcolkr/home/www/projects/GWC_coupled
 HTML_PHREEQC:=$(HTML_HOME)/phreeqc
