@@ -149,7 +149,7 @@ Initial solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =  -6.956e-21
+                 Total alkalinity (eq/kg)  =  -7.167e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -204,7 +204,7 @@ Initial solution 4.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   5.000e-01
-                 Total alkalinity (eq/kg)  =  -6.956e-21
+                 Total alkalinity (eq/kg)  =  -7.167e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -259,7 +259,7 @@ Initial solution 8.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   2.500e-01
-                 Total alkalinity (eq/kg)  =  -6.956e-21
+                 Total alkalinity (eq/kg)  =  -7.167e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
@@ -399,7 +399,7 @@ Using surface 1.	Surface assemblage after simulation 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  1.413e-09  Surface + diffuse layer charge, eq
+	  7.538e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -9.649e-01  sigma, C/m**2
 	 -2.622e-01  psi, V
@@ -473,13 +473,13 @@ Ap               9.901e-05
    Ap+                    9.901e-05   9.901e-05    -4.004    -4.004    -0.000
 Cl               1.000e-20
    Cl-                    1.000e-20   9.006e-21   -20.000   -20.045    -0.046
-H(0)             2.949e-39
-   H2                     1.475e-39   1.478e-39   -38.831   -38.830     0.001
+H(0)             2.955e-39
+   H2                     1.478e-39   1.481e-39   -38.830   -38.829     0.001
 Na               9.900e-03
    Na+                    9.900e-03   8.941e-03    -2.004    -2.049    -0.044
    NaOH                   6.286e-11   6.300e-11   -10.202   -10.201     0.001
-O(0)             3.805e-15
-   O2                     1.902e-15   1.907e-15   -14.721   -14.720     0.001
+O(0)             3.789e-15
+   O2                     1.895e-15   1.899e-15   -14.722   -14.721     0.001
 
 ------------------------------Saturation indices-------------------------------
 
@@ -534,7 +534,7 @@ Mixture 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.000e-03
                        Mass of water (kg)  =   1.500e-02
-                 Total alkalinity (eq/kg)  =  -6.956e-21
+                 Total alkalinity (eq/kg)  =  -7.162e-21
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000

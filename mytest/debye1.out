@@ -909,7 +909,7 @@ Mixture 1.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.132      Charge balance
-                                       pe  =  11.212      Adjusted to redox equilibrium
+                                       pe  =  11.214      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7021
                           Density (g/cm3)  =   0.99967
                         Activity of water  =   0.998
@@ -918,7 +918,7 @@ Mixture 1.
                  Total alkalinity (eq/kg)  =   1.049e-04
                        Total CO2 (mol/kg)  =   1.183e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.095e-14
+                  Electrical balance (eq)  =  -1.956e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   3
                                   Total H  = 1.110125e+02
@@ -933,7 +933,7 @@ Mixture 1.
    H+                     8.751e-08   7.387e-08    -7.058    -7.132    -0.074
    H2O                    5.551e+01   9.978e-01     1.744    -0.001     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -127.224  -127.217     0.006
+   CH4                    0.000e+00   0.000e+00  -127.239  -127.233     0.006
 C(4)             1.183e-04
    HCO3-                  1.020e-04   8.316e-05    -3.991    -4.080    -0.089
    CO2                    1.364e-05   1.384e-05    -4.865    -4.859     0.006
@@ -949,15 +949,15 @@ Ca               7.250e-05
    CaOH+                  8.925e-11   7.207e-11   -10.049   -10.142    -0.093
 Cl               6.345e-02
    Cl-                    6.345e-02   5.055e-02    -1.198    -1.296    -0.099
-H(0)             2.864e-40
-   H2                     1.432e-40   1.453e-40   -39.844   -39.838     0.006
+H(0)             2.839e-40
+   H2                     1.420e-40   1.440e-40   -39.848   -39.842     0.006
 Na               6.341e-02
    Na+                    6.340e-02   5.133e-02    -1.198    -1.290    -0.092
    NaHCO3                 2.366e-06   2.401e-06    -5.626    -5.620     0.006
    NaCO3-                 6.250e-08   5.047e-08    -7.204    -7.297    -0.093
    NaOH                   4.515e-09   4.581e-09    -8.345    -8.339     0.006
-O(0)             3.874e-13
-   O2                     1.937e-13   1.966e-13   -12.713   -12.706     0.006
+O(0)             3.943e-13
+   O2                     1.971e-13   2.000e-13   -12.705   -12.699     0.006
 
 ------------------------------Saturation indices-------------------------------
 
@@ -965,12 +965,12 @@ O(0)             3.874e-13
 
 	Aragonite        -3.43  -11.77   -8.34  CaCO3
 	Calcite          -3.29  -11.77   -8.48  CaCO3
-	CH4(g)         -124.36 -127.22   -2.86  CH4
+	CH4(g)         -124.37 -127.23   -2.86  CH4
 	CO2(g)           -3.39   -4.86   -1.47  CO2
 	H2(g)           -36.69  -39.84   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.17   -2.59    1.58  NaCl
-	O2(g)            -9.81  -12.71   -2.89  O2
+	O2(g)            -9.81  -12.70   -2.89  O2
 
 Using mix 2.	 
 
@@ -992,7 +992,7 @@ Mixture 2.
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.015      Charge balance
-                                       pe  =  11.473      Adjusted to redox equilibrium
+                                       pe  =  11.474      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 2264
                           Density (g/cm3)  =   0.99786
                         Activity of water  =   0.999
@@ -1016,7 +1016,7 @@ Mixture 2.
    H+                     1.084e-07   9.653e-08    -6.965    -7.015    -0.050
    H2O                    5.551e+01   9.993e-01     1.744    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -128.001  -127.999     0.002
+   CH4                    0.000e+00   0.000e+00  -128.005  -128.003     0.002
 C(4)             2.079e-04
    HCO3-                  1.733e-04   1.519e-04    -3.761    -3.818    -0.057
    CO2                    3.285e-05   3.299e-05    -4.484    -4.482     0.002
@@ -1033,14 +1033,14 @@ Ca               9.086e-05
 Cl               1.937e-02
    Cl-                    1.937e-02   1.682e-02    -1.713    -1.774    -0.061
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -40.129   -40.127     0.002
+   H2                     0.000e+00   0.000e+00   -40.130   -40.128     0.002
 Na               1.936e-02
    Na+                    1.936e-02   1.691e-02    -1.713    -1.772    -0.059
    NaHCO3                 1.438e-06   1.445e-06    -5.842    -5.840     0.002
    NaCO3-                 2.666e-08   2.324e-08    -7.574    -7.634    -0.060
    NaOH                   1.151e-09   1.157e-09    -8.939    -8.937     0.002
-O(0)             1.488e-12
-   O2                     7.438e-13   7.472e-13   -12.129   -12.127     0.002
+O(0)             1.495e-12
+   O2                     7.474e-13   7.508e-13   -12.126   -12.124     0.002
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1053,7 +1053,7 @@ O(0)             1.488e-12
 	H2(g)           -36.98  -40.13   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -5.13   -3.55    1.58  NaCl
-	O2(g)            -9.23  -12.13   -2.89  O2
+	O2(g)            -9.23  -12.12   -2.89  O2
 
 Using mix 3.	 
 
@@ -1099,7 +1099,7 @@ Mixture 3.
    OH-                    1.023e-07   9.508e-08    -6.990    -7.022    -0.032
    H2O                    5.551e+01   9.998e-01     1.744    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -128.628  -128.628     0.000
+   CH4                    0.000e+00   0.000e+00  -128.629  -128.628     0.000
 C(4)             2.281e-04
    HCO3-                  1.863e-04   1.736e-04    -3.730    -3.760    -0.031
    CO2                    4.106e-05   4.110e-05    -4.387    -4.386     0.000
@@ -1116,14 +1116,14 @@ Ca               9.958e-05
 Cl               4.277e-03
    Cl-                    4.277e-03   3.974e-03    -2.369    -2.401    -0.032
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -40.308   -40.308     0.000
+   H2                     0.000e+00   0.000e+00   -40.309   -40.308     0.000
 Na               4.265e-03
    Na+                    4.265e-03   3.968e-03    -2.370    -2.401    -0.031
    NaHCO3                 3.870e-07   3.874e-07    -6.412    -6.412     0.000
    NaCO3-                 6.145e-09   5.715e-09    -8.211    -8.243    -0.032
    NaOH                   2.487e-10   2.490e-10    -9.604    -9.604     0.000
-O(0)             3.439e-12
-   O2                     1.720e-12   1.721e-12   -11.765   -11.764     0.000
+O(0)             3.441e-12
+   O2                     1.720e-12   1.722e-12   -11.764   -11.764     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1167,7 +1167,7 @@ Mixture 4.
                  Total alkalinity (eq/kg)  =   1.876e-04
                        Total CO2 (mol/kg)  =   2.310e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.382e-13
+                  Electrical balance (eq)  =   2.372e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 1.110126e+02
@@ -1199,14 +1199,14 @@ Ca               1.055e-04
 Cl               7.321e-04
    Cl-                    7.321e-04   7.061e-04    -3.135    -3.151    -0.016
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -40.434   -40.434     0.000
+   H2                     0.000e+00   0.000e+00   -40.435   -40.434     0.000
 Na               7.088e-04
    Na+                    7.087e-04   6.837e-04    -3.150    -3.165    -0.016
    NaHCO3                 6.943e-08   6.945e-08    -7.158    -7.158     0.000
    NaCO3-                 1.045e-09   1.008e-09    -8.981    -8.997    -0.016
    NaOH                   4.221e-11   4.222e-11   -10.375   -10.374     0.000
-O(0)             6.159e-12
-   O2                     3.080e-12   3.080e-12   -11.511   -11.511     0.000
+O(0)             6.162e-12
+   O2                     3.081e-12   3.082e-12   -11.511   -11.511     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1288,8 +1288,8 @@ Na               8.724e-05
    NaHCO3                 8.947e-09   8.947e-09    -8.048    -8.048     0.000
    NaCO3-                 1.358e-10   1.327e-10    -9.867    -9.877    -0.010
    NaOH                   5.378e-12   5.379e-12   -11.269   -11.269     0.000
-O(0)             7.982e-12
-   O2                     3.991e-12   3.991e-12   -11.399   -11.399     0.000
+O(0)             7.983e-12
+   O2                     3.991e-12   3.992e-12   -11.399   -11.399     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1371,8 +1371,8 @@ Na               7.780e-06
    NaHCO3                 8.266e-10   8.266e-10    -9.083    -9.083     0.000
    NaCO3-                 1.291e-11   1.265e-11   -10.889   -10.898    -0.009
    NaOH                   4.963e-13   4.963e-13   -12.304   -12.304     0.000
-O(0)             8.118e-12
-   O2                     4.059e-12   4.059e-12   -11.392   -11.392     0.000
+O(0)             8.119e-12
+   O2                     4.059e-12   4.060e-12   -11.392   -11.392     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1869,7 +1869,7 @@ Beginning of initial surface-composition calculations.
 Surface 1.	
 
 Su            
-	 -9.137e-14  Surface + diffuse layer charge, eq
+	 -9.182e-14  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -1949,7 +1949,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   5.895      Charge balance
-                                       pe  =  -0.017      Adjusted to redox equilibrium
+                                       pe  =  -0.008      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 7368
                           Density (g/cm3)  =   0.99999
                         Activity of water  =   0.998
@@ -1958,7 +1958,7 @@ Su
                  Total alkalinity (eq/kg)  =   5.974e-06
                        Total CO2 (mol/kg)  =   2.296e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -9.268e-14
+                  Electrical balance (eq)  =  -9.311e-14
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.626258e+02
@@ -1972,8 +1972,8 @@ Su
    H+                     1.528e-06   1.274e-06    -5.816    -5.895    -0.079
    OH-                    1.011e-08   7.844e-09    -7.995    -8.105    -0.110
    H2O                    5.683e+01   9.979e-01     1.755    -0.001     0.000
-C(-4)            3.610e-28
-   CH4                    3.610e-28   3.679e-28   -27.442   -27.434     0.008
+C(-4)            3.048e-28
+   CH4                    3.048e-28   3.107e-28   -27.516   -27.508     0.008
 C(4)             2.296e-05
    CO2                    1.547e-05   1.576e-05    -4.811    -4.802     0.008
    HCO3-                  6.868e-06   5.494e-06    -5.163    -5.260    -0.097
@@ -1989,15 +1989,15 @@ Ca               1.445e-02
    CaOH+                  9.786e-10   7.754e-10    -9.009    -9.110    -0.101
 Cl               6.821e-02
    Cl-                    6.821e-02   5.309e-02    -1.166    -1.275    -0.109
-H(0)             2.437e-15
-   H2                     1.218e-15   1.242e-15   -14.914   -14.906     0.008
+H(0)             2.336e-15
+   H2                     1.168e-15   1.190e-15   -14.933   -14.924     0.008
 Na               3.932e-02
    Na+                    3.932e-02   3.123e-02    -1.405    -1.505    -0.100
    NaHCO3                 9.466e-08   9.648e-08    -7.024    -7.016     0.008
    NaOH                   1.586e-10   1.617e-10    -9.800    -9.791     0.008
    NaCO3-                 1.485e-10   1.176e-10    -9.828    -9.929    -0.101
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -62.578   -62.570     0.008
+   O2                     0.000e+00   0.000e+00   -62.541   -62.533     0.008
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2005,12 +2005,12 @@ O(0)             0.000e+00
 
 	Aragonite        -3.58  -11.92   -8.34  CaCO3
 	Calcite          -3.44  -11.92   -8.48  CaCO3
-	CH4(g)          -24.57  -27.43   -2.86  CH4
+	CH4(g)          -24.65  -27.51   -2.86  CH4
 	CO2(g)           -3.33   -4.80   -1.47  CO2
-	H2(g)           -11.76  -14.91   -3.15  H2
+	H2(g)           -11.77  -14.92   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -4.36   -2.78    1.58  NaCl
-	O2(g)           -59.68  -62.57   -2.89  O2
+	O2(g)           -59.64  -62.53   -2.89  O2
 
 ------------------
 End of simulation.
@@ -2043,7 +2043,7 @@ Using surface 1.	Surface assemblage after simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -8.885e-09  Surface + diffuse layer charge, eq
+	 -8.886e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2080,7 +2080,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.465      Adjusted to redox equilibrium
+                                       pe  =  10.401      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2089,7 +2089,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 5.550632e+01
@@ -2104,7 +2104,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -119.686  -119.686     0.000
+   CH4                    0.000e+00   0.000e+00  -119.174  -119.174     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2116,10 +2116,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             1.664e-38
-   H2                     8.321e-39   8.321e-39   -38.080   -38.080     0.000
-O(0)             1.204e-16
-   O2                     6.020e-17   6.020e-17   -16.220   -16.220     0.000
+H(0)             2.235e-38
+   H2                     1.117e-38   1.117e-38   -37.952   -37.952     0.000
+O(0)             6.677e-17
+   O2                     3.339e-17   3.339e-17   -16.476   -16.476     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2127,11 +2127,11 @@ O(0)             1.204e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -116.83 -119.69   -2.86  CH4
+	CH4(g)         -116.31 -119.17   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
-	H2(g)           -34.93  -38.08   -3.15  H2
+	H2(g)           -34.80  -37.95   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -13.33  -16.22   -2.89  O2
+	O2(g)           -13.58  -16.48   -2.89  O2
 
 Using solution 2.	
 Using surface 2.	Surface defined in simulation 3.
@@ -2140,6 +2140,102 @@ Using surface 2.	Surface defined in simulation 3.
 
 Su            
 	  8.730e-09  Surface + diffuse layer charge, eq
+	 -1.000e+00  Surface charge, eq
+	 -2.894e+00  sigma, C/m**2
+	 -4.087e-01  psi, V
+	  1.591e+01  -F*psi/RT
+	  8.112e+06  exp(-F*psi/RT)
+	  3.334e+04  specific area, m**2/g
+	  3.334e+04  m**2 for   1.000e+00 g
+
+	Water in diffuse layer: 5.000e-01 kg, 100.0% of total DDL-water.
+	Radius of total pore:   5.999e-08 m; of free pore: 4.242e-08 m.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	C             	  3.4745e-05
+	Ca            	  5.0000e-01
+	H             	  1.7858e-05
+	O             	  8.2251e-05
+
+Su            
+	  1.000e+00  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Su-               1.000e+00       1.000   2.000e+00       0.301
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	C                 2.439e-04   1.219e-04
+	Ca                1.000e-04   5.000e-05
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000      Charge balance
+                                       pe  =  10.568      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 20
+                          Density (g/cm3)  =   0.99706
+                        Activity of water  =   1.000
+                           Ionic strength  =   2.997e-04
+                       Mass of water (kg)  =   5.000e-01
+                 Total alkalinity (eq/kg)  =   2.000e-04
+                       Total CO2 (mol/kg)  =   2.439e-04
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  -7.428e-13
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                               Iterations  =   2
+                                  Total H  = 5.550632e+01
+                                  Total O  = 2.775345e+01
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                    1.021e-07   1.001e-07    -6.991    -7.000    -0.009
+   H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
+   H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
+C(-4)            0.000e+00
+   CH4                    0.000e+00   0.000e+00  -120.513  -120.513     0.000
+C(4)             2.439e-04
+   HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
+   CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
+   CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
+   CO3-2                  9.927e-08   9.175e-08    -7.003    -7.037    -0.034
+   CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
+Ca               1.000e-04
+   Ca+2                   9.975e-05   9.219e-05    -4.001    -4.035    -0.034
+   CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
+   CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
+   CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
+H(0)             1.033e-38
+   H2                     5.167e-39   5.167e-39   -38.287   -38.287     0.000
+O(0)             3.122e-16
+   O2                     1.561e-16   1.561e-16   -15.807   -15.807     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	Aragonite        -2.74  -11.07   -8.34  CaCO3
+	Calcite          -2.59  -11.07   -8.48  CaCO3
+	CH4(g)         -117.65 -120.51   -2.86  CH4
+	CO2(g)           -2.89   -4.36   -1.47  CO2
+	H2(g)           -35.14  -38.29   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	O2(g)           -12.91  -15.81   -2.89  O2
+
+Using solution 3.	
+Using surface 3.	Surface defined in simulation 3.
+
+------------------------------Surface composition------------------------------
+
+Su            
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2185,103 +2281,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   2
-                                  Total H  = 5.550632e+01
-                                  Total O  = 2.775345e+01
-
-----------------------------Distribution of species----------------------------
-
-                                                   Log       Log         Log 
-   Species                 Molality    Activity  Molality  Activity     Gamma
-
-   OH-                    1.021e-07   1.001e-07    -6.991    -7.000    -0.009
-   H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
-   H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
-C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.565  -120.565     0.000
-C(4)             2.439e-04
-   HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
-   CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
-   CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
-   CO3-2                  9.927e-08   9.175e-08    -7.003    -7.037    -0.034
-   CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
-Ca               1.000e-04
-   Ca+2                   9.975e-05   9.219e-05    -4.001    -4.035    -0.034
-   CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
-   CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
-   CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             1.003e-38
-   H2                     5.016e-39   5.016e-39   -38.300   -38.300     0.000
-O(0)             3.313e-16
-   O2                     1.657e-16   1.657e-16   -15.781   -15.781     0.000
-
-------------------------------Saturation indices-------------------------------
-
-	Phase               SI log IAP  log KT
-
-	Aragonite        -2.74  -11.07   -8.34  CaCO3
-	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.70 -120.56   -2.86  CH4
-	CO2(g)           -2.89   -4.36   -1.47  CO2
-	H2(g)           -35.15  -38.30   -3.15  H2
-	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.89  -15.78   -2.89  O2
-
-Using solution 3.	
-Using surface 3.	Surface defined in simulation 3.
-
-------------------------------Surface composition------------------------------
-
-Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
-	 -1.000e+00  Surface charge, eq
-	 -2.894e+00  sigma, C/m**2
-	 -4.087e-01  psi, V
-	  1.591e+01  -F*psi/RT
-	  8.112e+06  exp(-F*psi/RT)
-	  3.334e+04  specific area, m**2/g
-	  3.334e+04  m**2 for   1.000e+00 g
-
-	Water in diffuse layer: 5.000e-01 kg, 100.0% of total DDL-water.
-	Radius of total pore:   5.999e-08 m; of free pore: 4.242e-08 m.
-
-	Total moles in diffuse layer (excluding water), Donnan calculation 
-
-	Element       	     Moles
-	C             	  3.4745e-05
-	Ca            	  5.0000e-01
-	H             	  1.7858e-05
-	O             	  8.2251e-05
-
-Su            
-	  1.000e+00  moles
-	                                   Mole                     Log
-	Species               Moles    Fraction    Molality    Molality
-
-	Su-               1.000e+00       1.000   2.000e+00       0.301
-
------------------------------Solution composition------------------------------
-
-	Elements           Molality       Moles
-
-	C                 2.439e-04   1.219e-04
-	Ca                1.000e-04   5.000e-05
-
-----------------------------Description of solution----------------------------
-
-                                       pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 20
-                          Density (g/cm3)  =   0.99706
-                        Activity of water  =   1.000
-                           Ionic strength  =   2.997e-04
-                       Mass of water (kg)  =   5.000e-01
-                 Total alkalinity (eq/kg)  =   2.000e-04
-                       Total CO2 (mol/kg)  =   2.439e-04
-                      Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2296,7 +2296,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2308,10 +2308,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2319,11 +2319,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 4.	
 Using surface 4.	Surface defined in simulation 3.
@@ -2331,7 +2331,7 @@ Using surface 4.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2368,7 +2368,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2377,7 +2377,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2392,7 +2392,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2404,10 +2404,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2415,11 +2415,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 5.	
 Using surface 5.	Surface defined in simulation 3.
@@ -2427,7 +2427,7 @@ Using surface 5.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2464,7 +2464,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2473,7 +2473,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2488,7 +2488,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2500,10 +2500,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2511,11 +2511,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 6.	
 Using surface 6.	Surface defined in simulation 3.
@@ -2523,7 +2523,7 @@ Using surface 6.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2560,7 +2560,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2569,7 +2569,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2584,7 +2584,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2596,10 +2596,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2607,11 +2607,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 7.	
 Using surface 7.	Surface defined in simulation 3.
@@ -2619,7 +2619,7 @@ Using surface 7.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2656,7 +2656,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2665,7 +2665,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2680,7 +2680,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2692,10 +2692,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2703,11 +2703,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 8.	
 Using surface 8.	Surface defined in simulation 3.
@@ -2715,7 +2715,7 @@ Using surface 8.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2752,7 +2752,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2761,7 +2761,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2776,7 +2776,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2788,10 +2788,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2799,11 +2799,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 9.	
 Using surface 9.	Surface defined in simulation 3.
@@ -2811,7 +2811,7 @@ Using surface 9.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2848,7 +2848,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2857,7 +2857,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2872,7 +2872,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2884,10 +2884,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2895,11 +2895,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Using solution 10.	
 Using surface 10.	Surface defined in simulation 3.
@@ -2907,7 +2907,7 @@ Using surface 10.	Surface defined in simulation 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  6.452e-10  Surface + diffuse layer charge, eq
+	  6.501e-10  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -2944,7 +2944,7 @@ Su
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.577      Adjusted to redox equilibrium
+                                       pe  =  10.575      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 20
                           Density (g/cm3)  =   0.99706
                         Activity of water  =   1.000
@@ -2953,7 +2953,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.000e-04
                        Total CO2 (mol/kg)  =   2.439e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.423e-13
+                  Electrical balance (eq)  =  -7.428e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 5.550632e+01
@@ -2968,7 +2968,7 @@ Su
    H+                     1.020e-07   1.000e-07    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
 C(-4)            0.000e+00
-   CH4                    0.000e+00   0.000e+00  -120.580  -120.580     0.000
+   CH4                    0.000e+00   0.000e+00  -120.569  -120.569     0.000
 C(4)             2.439e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.399e-05   4.399e-05    -4.357    -4.357     0.000
@@ -2980,10 +2980,10 @@ Ca               1.000e-04
    CaHCO3+                2.347e-07   2.301e-07    -6.630    -6.638    -0.009
    CaCO3                  1.421e-08   1.421e-08    -7.847    -7.847     0.000
    CaOH+                  1.561e-10   1.530e-10    -9.807    -9.815    -0.009
-H(0)             9.942e-39
-   H2                     4.971e-39   4.971e-39   -38.304   -38.304     0.000
-O(0)             3.373e-16
-   O2                     1.687e-16   1.687e-16   -15.773   -15.773     0.000
+H(0)             1.001e-38
+   H2                     5.003e-39   5.004e-39   -38.301   -38.301     0.000
+O(0)             3.330e-16
+   O2                     1.665e-16   1.665e-16   -15.779   -15.779     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -2991,11 +2991,11 @@ O(0)             3.373e-16
 
 	Aragonite        -2.74  -11.07   -8.34  CaCO3
 	Calcite          -2.59  -11.07   -8.48  CaCO3
-	CH4(g)         -117.72 -120.58   -2.86  CH4
+	CH4(g)         -117.71 -120.57   -2.86  CH4
 	CO2(g)           -2.89   -4.36   -1.47  CO2
 	H2(g)           -35.15  -38.30   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
-	O2(g)           -12.88  -15.77   -2.89  O2
+	O2(g)           -12.89  -15.78   -2.89  O2
 
 Transport step   1. Multicomponent diffusion run   1.
 
@@ -3103,7 +3103,7 @@ Su
                  Total alkalinity (eq/kg)  =  -2.604e-04
                        Total CO2 (mol/kg)  =   4.810e-05
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.283e-09
+                  Electrical balance (eq)  =  -3.284e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 1.068131e+02
@@ -3219,7 +3219,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.668e-03
                        Total CO2 (mol/kg)  =   4.040e-23
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   2.725e-08
+                  Electrical balance (eq)  =   2.726e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
                                   Total H  = 1.047089e+02
@@ -3285,7 +3285,7 @@ Mixture 3.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  3.464e-14  Surface + diffuse layer charge, eq
+	  4.641e-14  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.090e-01  psi, V
@@ -3335,7 +3335,7 @@ Su
                  Total alkalinity (eq/kg)  =   5.240e-03
                        Total CO2 (mol/kg)  =   1.282e-23
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.736e-09
+                  Electrical balance (eq)  =  -6.737e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   3
                                   Total H  = 1.018679e+02
@@ -3401,7 +3401,7 @@ Mixture 4.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  2.685e-13  Surface + diffuse layer charge, eq
+	  1.203e-13  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.383e-01  psi, V
@@ -3517,7 +3517,7 @@ Mixture 5.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  8.879e-09  Surface + diffuse layer charge, eq
+	  8.878e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -3.713e-01  psi, V
@@ -3567,7 +3567,7 @@ Su
                  Total alkalinity (eq/kg)  =   8.054e-04
                        Total CO2 (mol/kg)  =   3.891e-21
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.337e-08
+                  Electrical balance (eq)  =  -5.336e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   0
                                   Total H  = 8.184418e+01
@@ -3683,7 +3683,7 @@ Su
                  Total alkalinity (eq/kg)  =   3.161e-04
                        Total CO2 (mol/kg)  =   1.812e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.273e-10
+                  Electrical balance (eq)  =  -4.036e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   1
                                   Total H  = 6.622952e+01
@@ -3749,7 +3749,7 @@ Mixture 7.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  5.205e-09  Surface + diffuse layer charge, eq
+	  5.204e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.075e-01  psi, V
@@ -3799,7 +3799,7 @@ Su
                  Total alkalinity (eq/kg)  =   2.097e-04
                        Total CO2 (mol/kg)  =   2.363e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.970e-08
+                  Electrical balance (eq)  =  -6.968e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.03
                                Iterations  =   0
                                   Total H  = 5.661392e+01
@@ -3915,10 +3915,10 @@ Su
                  Total alkalinity (eq/kg)  =   2.012e-04
                        Total CO2 (mol/kg)  =   2.428e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   3.170e-09
+                  Electrical balance (eq)  =   3.182e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   1
-                                  Total H  = 5.564435e+01
+                                  Total H  = 5.564436e+01
                                   Total O  = 2.782247e+01
 
 ----------------------------Distribution of species----------------------------
@@ -3981,7 +3981,7 @@ Mixture 9.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  5.005e-09  Surface + diffuse layer charge, eq
+	  5.001e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -4035,7 +4035,7 @@ Su
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.03
                                Iterations  =   0
                                   Total H  = 5.552574e+01
-                                  Total O  = 2.776316e+01
+                                  Total O  = 2.776317e+01
 
 ----------------------------Distribution of species----------------------------
 
@@ -4097,7 +4097,7 @@ Mixture 10.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  8.219e-09  Surface + diffuse layer charge, eq
+	  8.223e-09  Surface + diffuse layer charge, eq
 	 -1.000e+00  Surface charge, eq
 	 -2.894e+00  sigma, C/m**2
 	 -4.087e-01  psi, V
@@ -4161,8 +4161,8 @@ Su
    OH-                    1.022e-07   1.002e-07    -6.991    -6.999    -0.009
    H+                     1.019e-07   9.994e-08    -6.992    -7.000    -0.008
    H2O                    1.110e+02   1.000e+00     2.045    -0.000     0.000
-C(-4)            1.675e-09
-   CH4                    1.675e-09   1.675e-09    -8.776    -8.776     0.000
+C(-4)            1.677e-09
+   CH4                    1.677e-09   1.677e-09    -8.775    -8.775     0.000
 C(4)             2.438e-04
    HCO3-                  1.995e-04   1.956e-04    -3.700    -3.709    -0.009
    CO2                    4.396e-05   4.396e-05    -4.357    -4.357     0.000
@@ -4178,15 +4178,15 @@ Ca               1.000e-04
    CaOH+                  1.562e-10   1.532e-10    -9.806    -9.815    -0.009
 Cl               1.562e-10
    Cl-                    1.562e-10   1.531e-10    -9.806    -9.815    -0.009
-H(0)             8.886e-11
-   H2                     4.443e-11   4.443e-11   -10.352   -10.352     0.000
+H(0)             8.888e-11
+   H2                     4.444e-11   4.444e-11   -10.352   -10.352     0.000
 Na               3.111e-12
    Na+                    3.110e-12   3.049e-12   -11.507   -11.516    -0.009
    NaHCO3                 3.355e-16   3.355e-16   -15.474   -15.474     0.000
    NaCO3-                 5.318e-18   5.213e-18   -17.274   -17.283    -0.009
    NaOH                   2.016e-19   2.016e-19   -18.696   -18.696     0.000
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -71.675   -71.675     0.000
+   O2                     0.000e+00   0.000e+00   -71.676   -71.676     0.000
 
 ------------------------------Saturation indices-------------------------------
 

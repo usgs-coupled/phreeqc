@@ -215,7 +215,7 @@ Beginning of initial surface-composition calculations.
 Surface 0.	
 
 Hfo           
-	  8.554e-18  Surface + diffuse layer charge, eq
+	  8.567e-18  Surface + diffuse layer charge, eq
 	  3.338e-06  Surface charge, eq
 	  6.101e-03  sigma, C/m**2
 	  6.530e-02  psi, V
@@ -259,8 +259,8 @@ Sua
 	  1.639e-24  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -5.202e-22  psi, V
-	  2.025e-20  -F*psi/RT
+	 -5.199e-22  psi, V
+	  2.024e-20  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.000e+04  m**2 for   1.000e+00 g
@@ -287,8 +287,8 @@ Sub
 	  1.639e-24  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -5.202e-22  psi, V
-	  2.025e-20  -F*psi/RT
+	 -5.199e-22  psi, V
+	  2.024e-20  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.000e+04  m**2 for   1.000e+00 g
@@ -649,11 +649,11 @@ Hfo_w
 	Hfo_wOCa+         7.373e-20       0.000   7.373e-20     -19.132
 
 Sua           
-	 -1.282e-30  Surface + diffuse layer charge, eq
+	  5.916e-31  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  2.572e-23  psi, V
-	 -1.001e-21  -F*psi/RT
+	 -7.459e-24  psi, V
+	  2.903e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  3.000e+00  m**2 for   3.000e-04 g
@@ -677,11 +677,11 @@ Sua
 	Sua               3.000e-07       1.000   3.000e-07      -6.523
 
 Sub           
-	 -1.204e-33  Surface + diffuse layer charge, eq
+	  0.000e+00  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  2.738e-23  psi, V
-	 -1.066e-21  -F*psi/RT
+	 -2.770e-24  psi, V
+	  1.078e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  3.000e-03  m**2 for   3.000e-07 g

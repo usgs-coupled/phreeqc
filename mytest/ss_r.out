@@ -149,7 +149,7 @@ Initial solution 1.
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.927e-16
+                  Electrical balance (eq)  =  -8.918e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   6
                                   Total H  = 1.110134e+02
@@ -197,7 +197,7 @@ Zn               1.500e-12
 	Phase               SI log IAP  log KT
 
 	Aragonite        -0.14   -8.48   -8.34  CaCO3
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CO2(g)           -3.50   -4.97   -1.47  CO2
 	H2(g)           -41.09  -44.24   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
@@ -334,7 +334,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -453,7 +453,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -572,7 +572,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -691,7 +691,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -810,7 +810,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -929,7 +929,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1048,7 +1048,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1167,7 +1167,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1286,7 +1286,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1405,7 +1405,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.912e-16
+                  Electrical balance (eq)  =  -8.915e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   8
                                   Total H  = 1.110134e+02
@@ -1538,7 +1538,7 @@ CaZnCO3                                     9.22e-05
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  42
+                               Iterations  =  40
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551543e+01
 
@@ -1665,7 +1665,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.925e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1794,7 +1794,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -1923,7 +1923,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2052,7 +2052,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2181,7 +2181,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2310,7 +2310,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2439,7 +2439,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2568,7 +2568,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2697,7 +2697,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.920e-16
+                  Electrical balance (eq)  =  -8.913e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   5
                                   Total H  = 1.110134e+02
@@ -2930,7 +2930,7 @@ Kinetics 2.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   8.750e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   8.754e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -2965,7 +2965,7 @@ CaZnCO3                                     1.70e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 192
+                               Iterations  = 303
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551394e+01
 
@@ -3092,7 +3092,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.924e-16
+                  Electrical balance (eq)  =  -8.939e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3221,7 +3221,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3350,7 +3350,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3479,7 +3479,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3608,7 +3608,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3737,7 +3737,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3866,7 +3866,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -3995,7 +3995,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.938e-16
+                  Electrical balance (eq)  =  -8.933e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4332,6 +4332,12 @@ Zn               1.367e-06
 	Smithsonite      -1.68  -11.68  -10.00  ZnCO3
 	Zn(OH)2(e)       -2.59    8.91   11.50  Zn(OH)2
 
+WARNING: Maximum iterations exceeded, 100
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying smaller step size, pe step size 10, 5 ... 
+
 Using solution 3.	Solution after simulation 3.
 Using pure phase assemblage 3.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 3.	Solid solution assemblage after simulation 3.
@@ -4386,7 +4392,7 @@ CaZnCO3                                     1.53e-04
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -5.592e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 177
+                               Iterations  = 199
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551309e+01
 
@@ -4513,7 +4519,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.942e-16
+                  Electrical balance (eq)  =  -8.935e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4642,7 +4648,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4771,7 +4777,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -4900,7 +4906,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5029,7 +5035,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5158,7 +5164,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5287,7 +5293,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.923e-16
+                  Electrical balance (eq)  =  -8.921e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -5805,9 +5811,9 @@ CaZnCO3                                     1.31e-04
                  Total alkalinity (eq/kg)  =   1.731e-03
                        Total CO2 (mol/kg)  =   1.773e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.592e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  59
+                               Iterations  =  99
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551238e+01
 
@@ -5934,7 +5940,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6063,7 +6069,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6192,7 +6198,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6321,7 +6327,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6450,7 +6456,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -6579,7 +6585,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.955e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7193,7 +7199,7 @@ Kinetics 5.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   6.928e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   6.933e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -7226,9 +7232,9 @@ CaZnCO3                                     1.07e-04
                  Total alkalinity (eq/kg)  =   1.516e-03
                        Total CO2 (mol/kg)  =   1.540e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.592e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 173
+                               Iterations  = 138
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551180e+01
 
@@ -7355,7 +7361,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7484,7 +7490,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7613,7 +7619,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7742,7 +7748,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -7871,7 +7877,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8614,7 +8620,7 @@ Kinetics 6.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   5.711e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   5.713e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -8647,9 +8653,9 @@ CaZnCO3                                     8.26e-05
                  Total alkalinity (eq/kg)  =   1.351e-03
                        Total CO2 (mol/kg)  =   1.364e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.580e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 109
+                               Iterations  = 100
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551137e+01
 
@@ -8776,7 +8782,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -8905,7 +8911,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.971e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -9034,7 +9040,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.971e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -9163,7 +9169,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.971e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -9294,7 +9300,7 @@ CaZnCO3                                     1.18e-03
                  Total alkalinity (eq/kg)  =   2.819e-03
                        Total CO2 (mol/kg)  =   3.029e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.467e-12
+                  Electrical balance (eq)  =  -4.468e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  25
                                   Total H  = 1.110154e+02
@@ -10016,18 +10022,6 @@ Zn               1.170e-06
 	Smithsonite      -1.63  -11.63  -10.00  ZnCO3
 	Zn(OH)2(e)       -1.88    9.62   11.50  Zn(OH)2
 
-WARNING: Maximum iterations exceeded, 100
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying smaller step size, pe step size 10, 5 ... 
-
-WARNING: Maximum iterations exceeded, 200
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying reduced tolerance 1e-15 ...
-
 Using solution 7.	Solution after simulation 3.
 Using pure phase assemblage 7.	Pure-phase assemblage after simulation 3.
 Using solid solution assemblage 7.	Solid solution assemblage after simulation 3.
@@ -10047,7 +10041,7 @@ Kinetics 7.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   4.421e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   4.418e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -10080,9 +10074,9 @@ CaZnCO3                                     6.04e-05
                  Total alkalinity (eq/kg)  =   1.230e-03
                        Total CO2 (mol/kg)  =   1.235e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.145e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 130
+                               Iterations  = 114
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551105e+01
 
@@ -10209,7 +10203,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10338,7 +10332,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.952e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -10467,7 +10461,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.952e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11501,9 +11495,9 @@ CaZnCO3                                     4.22e-05
                  Total alkalinity (eq/kg)  =   1.146e-03
                        Total CO2 (mol/kg)  =   1.146e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.145e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  69
+                               Iterations  = 146
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551083e+01
 
@@ -11630,7 +11624,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -11759,7 +11753,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.913e-16
+                  Electrical balance (eq)  =  -8.969e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -12895,7 +12889,7 @@ Kinetics 9.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   2.240e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   2.236e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -12928,9 +12922,9 @@ CaZnCO3                                     2.84e-05
                  Total alkalinity (eq/kg)  =   1.089e-03
                        Total CO2 (mol/kg)  =   1.087e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.145e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 166
+                               Iterations  = 133
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551068e+01
 
@@ -13057,7 +13051,7 @@ CaZnCO3                                     0.00e+00
                  Total alkalinity (eq/kg)  =   9.867e-04
                        Total CO2 (mol/kg)  =   9.803e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -8.959e-16
+                  Electrical balance (eq)  =  -8.972e-16
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   2
                                   Total H  = 1.110134e+02
@@ -13833,7 +13827,7 @@ CaZnCO3                                     4.13e-04
                  Total alkalinity (eq/kg)  =   1.351e-03
                        Total CO2 (mol/kg)  =   1.364e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   5.259e-13
+                  Electrical balance (eq)  =   5.258e-13
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  21
                                   Total H  = 1.110154e+02
@@ -14316,7 +14310,7 @@ Kinetics 10.	Kinetics defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   1.496e-12
+Halite             -19.00  -17.42    1.58    1.000e+01   1.000e+01   1.497e-12
 
 --------------------------------Solid solutions--------------------------------
 
@@ -14349,9 +14343,9 @@ CaZnCO3                                     1.86e-05
                  Total alkalinity (eq/kg)  =   1.052e-03
                        Total CO2 (mol/kg)  =   1.048e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.145e-12
+                  Electrical balance (eq)  =  -5.394e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  91
+                               Iterations  = 147
                                   Total H  = 1.110154e+02
                                   Total O  = 5.551059e+01
 

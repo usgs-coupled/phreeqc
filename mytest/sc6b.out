@@ -215,7 +215,7 @@ Beginning of initial surface-composition calculations.
 Surface 0.	
 
 Hfo           
-	  8.554e-18  Surface + diffuse layer charge, eq
+	  8.567e-18  Surface + diffuse layer charge, eq
 	  3.338e-06  Surface charge, eq
 	  6.101e-03  sigma, C/m**2
 	  6.530e-02  psi, V
@@ -259,8 +259,8 @@ Sua
 	  1.639e-24  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -5.202e-22  psi, V
-	  2.025e-20  -F*psi/RT
+	 -5.199e-22  psi, V
+	  2.024e-20  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.000e+04  m**2 for   1.000e+00 g
@@ -287,8 +287,8 @@ Sub
 	  1.639e-24  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -5.202e-22  psi, V
-	  2.025e-20  -F*psi/RT
+	 -5.199e-22  psi, V
+	  2.024e-20  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.000e+04  m**2 for   1.000e+00 g
@@ -617,7 +617,7 @@ Adapting surface in            5
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  3.762e-22  Surface + diffuse layer charge, eq
+	  7.931e-22  Surface + diffuse layer charge, eq
 	  1.181e-09  Surface charge, eq
 	  4.315e-03  sigma, C/m**2
 	  6.531e-02  psi, V
@@ -658,11 +658,11 @@ Hfo_w
 	Hfo_wOCa+         2.082e-13       0.000   2.082e-13     -12.681
 
 Sua           
-	 -2.807e-24  Surface + diffuse layer charge, eq
+	  1.620e-24  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -5.572e-23  psi, V
-	  2.169e-21  -F*psi/RT
+	  2.315e-22  psi, V
+	 -9.009e-21  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  4.998e+03  m**2 for   4.998e-01 g
@@ -686,11 +686,11 @@ Sua
 	Sua               4.998e-04       1.000   4.998e-04      -3.301
 
 Sub           
-	 -2.764e-27  Surface + diffuse layer charge, eq
+	  1.951e-27  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -8.114e-23  psi, V
-	  3.158e-21  -F*psi/RT
+	  4.994e-23  psi, V
+	 -1.944e-21  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  5.000e+00  m**2 for   5.000e-04 g
@@ -864,11 +864,11 @@ Hfo_w
 	Hfo_wOCa+         1.843e-23       0.000   1.843e-23     -22.734
 
 Sua           
-	  0.000e+00  Surface + diffuse layer charge, eq
+	  3.451e-31  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  2.231e-24  psi, V
-	 -8.686e-23  -F*psi/RT
+	  1.313e-23  psi, V
+	 -5.109e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e+00  m**2 for   1.500e-04 g
@@ -892,11 +892,11 @@ Sua
 	Sua               1.500e-07       1.000   1.500e-07      -6.824
 
 Sub           
-	  1.175e-37  Surface + diffuse layer charge, eq
+	  3.291e-37  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -3.000e-24  psi, V
-	  1.168e-22  -F*psi/RT
+	  9.464e-24  psi, V
+	 -3.684e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e-06  m**2 for   1.500e-10 g
@@ -1078,7 +1078,7 @@ Adapting surface in            5
 ------------------------------Surface composition------------------------------
 
 Sorbedhfo     
-	 -7.073e-17  Surface + diffuse layer charge, eq
+	 -7.075e-17  Surface + diffuse layer charge, eq
 	  6.985e-10  Surface charge, eq
 	  5.106e-03  sigma, C/m**2
 	  6.381e-02  psi, V
@@ -1122,8 +1122,8 @@ Sua
 	  2.061e-18  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -6.331e-16  psi, V
-	  2.464e-14  -F*psi/RT
+	 -6.332e-16  psi, V
+	  2.465e-14  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  4.999e+03  m**2 for   4.999e-01 g
@@ -1150,8 +1150,8 @@ Sub
 	  2.063e-18  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -6.331e-16  psi, V
-	  2.464e-14  -F*psi/RT
+	 -6.332e-16  psi, V
+	  2.465e-14  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  5.003e+03  m**2 for   5.003e-01 g
@@ -1175,7 +1175,7 @@ Sub
 	Sub               5.003e-04       1.000   5.003e-04      -3.301
 
 Hfo           
-	 -2.121e-16  Surface + diffuse layer charge, eq
+	 -2.122e-16  Surface + diffuse layer charge, eq
 	  2.095e-09  Surface charge, eq
 	  5.106e-03  sigma, C/m**2
 	  6.381e-02  psi, V
@@ -1319,7 +1319,7 @@ Hfo_w
 	Hfo_wOCa+         3.450e-11       0.000   3.450e-11     -10.462
 
 Sorbedhfo     
-	 -2.860e-22  Surface + diffuse layer charge, eq
+	 -2.861e-22  Surface + diffuse layer charge, eq
 	  3.451e-13  Surface charge, eq
 	  4.207e-03  sigma, C/m**2
 	  7.990e-02  psi, V
@@ -1613,11 +1613,11 @@ Adapting surface in            7
 ------------------------------Surface composition------------------------------
 
 Sua           
-	 -3.490e-39  Surface + diffuse layer charge, eq
+	 -3.122e-39  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  2.080e-23  psi, V
-	 -8.098e-22  -F*psi/RT
+	  1.801e-23  psi, V
+	 -7.011e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e-08  m**2 for   1.500e-12 g
@@ -2004,7 +2004,7 @@ Adapting surface in            2
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 -4.019e-13  Surface + diffuse layer charge, eq
+	 -4.290e-13  Surface + diffuse layer charge, eq
 	  2.488e-06  Surface charge, eq
 	  9.104e-03  sigma, C/m**2
 	  1.005e-01  psi, V
@@ -2045,11 +2045,11 @@ Hfo_w
 	Hfo_wOCa+         1.354e-11       0.000   1.354e-11     -10.868
 
 Sua           
-	  1.406e-19  Surface + diffuse layer charge, eq
+	  1.788e-19  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -1.770e-13  psi, V
-	  6.891e-12  -F*psi/RT
+	 -2.250e-13  psi, V
+	  8.760e-12  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e+00  m**2 for   1.500e-04 g
@@ -2063,7 +2063,7 @@ Sua
 	Cl            	  7.4987e-13
 	H             	  6.5058e-16
 	Na            	  7.4777e-13
-	O             	  4.0275e-17
+	O             	  4.0277e-17
 
 Sua           
 	  1.500e-07  moles
@@ -2073,11 +2073,11 @@ Sua
 	Sua               1.500e-07       1.000   1.500e-07      -6.824
 
 Sub           
-	  1.406e-15  Surface + diffuse layer charge, eq
+	  1.788e-15  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -1.770e-13  psi, V
-	  6.891e-12  -F*psi/RT
+	 -2.250e-13  psi, V
+	  8.760e-12  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e+04  m**2 for   1.500e+00 g
@@ -2089,9 +2089,9 @@ Sub
 	Element       	     Moles
 	Ca            	  7.6074e-12
 	Cl            	  7.4979e-09
-	H             	  6.5051e-12
+	H             	  6.5052e-12
 	Na            	  7.4770e-09
-	O             	  4.0271e-13
+	O             	  4.0273e-13
 
 Sub           
 	  1.500e-03  moles
@@ -2101,7 +2101,7 @@ Sub
 	Sub               1.500e-03       1.000   1.500e-03      -2.824
 
 Sorbedhfo     
-	 -2.010e-13  Surface + diffuse layer charge, eq
+	 -2.145e-13  Surface + diffuse layer charge, eq
 	  1.244e-06  Surface charge, eq
 	  9.104e-03  sigma, C/m**2
 	  1.005e-01  psi, V
@@ -2148,7 +2148,7 @@ Adapting surface in            6
 ------------------------------Surface composition------------------------------
 
 Sorbedhfo     
-	  4.789e-18  Surface + diffuse layer charge, eq
+	  4.788e-18  Surface + diffuse layer charge, eq
 	 -6.096e-12  Surface charge, eq
 	 -8.917e-05  sigma, C/m**2
 	 -1.742e-03  psi, V
@@ -2166,7 +2166,7 @@ Sorbedhfo
 	Cl            	  4.4498e-18
 	H             	  3.6094e-17
 	Na            	  2.4444e-12
-	O             	  7.9751e-20
+	O             	  7.9742e-20
 
 Sorbedhfo_s   
 	  3.124e-09  moles
@@ -2260,10 +2260,10 @@ Hfo
 
 	Element       	     Moles
 	Ca            	  5.4760e-12
-	Cl            	  1.3345e-17
+	Cl            	  1.3344e-17
 	H             	  1.0824e-16
 	Na            	  7.3305e-12
-	O             	  2.3916e-19
+	O             	  2.3914e-19
 
 Hfo_s         
 	  9.368e-09  moles
@@ -2639,7 +2639,7 @@ Sua
 	Cl            	  4.6904e-09
 	H             	  1.0453e-12
 	Na            	  4.6810e-09
-	O             	  4.9690e-13
+	O             	  4.9689e-13
 
 Sua           
 	  4.999e-04  moles
@@ -2665,9 +2665,9 @@ Sub
 	Element       	     Moles
 	Ca            	  9.3589e-12
 	Cl            	  9.3832e-09
-	H             	  2.0912e-12
+	H             	  2.0911e-12
 	Na            	  9.3644e-09
-	O             	  9.9405e-13
+	O             	  9.9403e-13
 
 Sub           
 	  1.000e-03  moles
@@ -2925,7 +2925,7 @@ Sua
 	Element       	     Moles
 	Ca            	  7.7429e-16
 	Cl            	  1.0340e-12
-	H             	  8.8533e-16
+	H             	  8.8532e-16
 	Na            	  1.0333e-12
 	O             	  8.5609e-16
 
@@ -2953,7 +2953,7 @@ Sub
 	Element       	     Moles
 	Ca            	  7.7417e-12
 	Cl            	  1.0339e-08
-	H             	  8.8520e-12
+	H             	  8.8519e-12
 	Na            	  1.0331e-08
 	O             	  8.5596e-12
 
@@ -3026,7 +3026,7 @@ Sorbedhfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	  6.4448e-29
+	Ca            	  6.4447e-29
 	Cl            	  4.8279e-09
 	H             	  2.5788e-14
 	Na            	  2.6638e-20
@@ -3071,7 +3071,7 @@ Sua
 	Cl            	  1.0341e-12
 	H             	  4.3311e-15
 	Na            	  1.0279e-12
-	O             	  6.8782e-18
+	O             	  6.8778e-18
 
 Sua           
 	  1.500e-07  moles
@@ -3099,7 +3099,7 @@ Sub
 	Cl            	  2.5859e-12
 	H             	  1.0830e-14
 	Na            	  2.5703e-12
-	O             	  1.7199e-17
+	O             	  1.7198e-17
 
 Sub           
 	  3.751e-07  moles
@@ -3123,7 +3123,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	  9.0204e-29
+	Ca            	  9.0202e-29
 	Cl            	  6.7574e-09
 	H             	  3.6095e-14
 	Na            	  3.7284e-20
@@ -3156,7 +3156,7 @@ Adapting surface in            3
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	  1.910e-12  Surface + diffuse layer charge, eq
+	  1.913e-12  Surface + diffuse layer charge, eq
 	  1.358e-06  Surface charge, eq
 	  9.941e-03  sigma, C/m**2
 	  1.166e-01  psi, V
@@ -3197,11 +3197,11 @@ Hfo_w
 	Hfo_wOCa+         1.208e-12       0.000   1.208e-12     -11.918
 
 Sua           
-	  1.753e-26  Surface + diffuse layer charge, eq
+	  1.756e-26  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -2.792e-12  psi, V
-	  1.087e-10  -F*psi/RT
+	 -2.795e-12  psi, V
+	  1.088e-10  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e-08  m**2 for   1.500e-12 g
@@ -3215,7 +3215,7 @@ Sua
 	Cl            	  4.6895e-21
 	H             	  1.1574e-23
 	Na            	  4.6689e-21
-	O             	  2.1963e-25
+	O             	  2.1962e-25
 
 Sua           
 	  1.500e-15  moles
@@ -3225,11 +3225,11 @@ Sua
 	Sua               1.500e-15       1.000   1.500e-15     -14.824
 
 Sub           
-	  1.754e-14  Surface + diffuse layer charge, eq
+	  1.756e-14  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -2.792e-12  psi, V
-	  1.087e-10  -F*psi/RT
+	 -2.795e-12  psi, V
+	  1.088e-10  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e+04  m**2 for   1.500e+00 g
@@ -3243,7 +3243,7 @@ Sub
 	Cl            	  4.6908e-09
 	H             	  1.1577e-11
 	Na            	  4.6701e-09
-	O             	  2.1969e-13
+	O             	  2.1968e-13
 
 Sub           
 	  1.500e-03  moles
@@ -3253,7 +3253,7 @@ Sub
 	Sub               1.500e-03       1.000   1.500e-03      -2.824
 
 Sorbedhfo     
-	  9.557e-13  Surface + diffuse layer charge, eq
+	  9.568e-13  Surface + diffuse layer charge, eq
 	  6.792e-07  Surface charge, eq
 	  9.941e-03  sigma, C/m**2
 	  1.166e-01  psi, V
@@ -3300,11 +3300,11 @@ Adapting surface in            7
 ------------------------------Surface composition------------------------------
 
 Sua           
-	 -2.324e-25  Surface + diffuse layer charge, eq
+	 -2.641e-25  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  3.742e-11  psi, V
-	 -1.457e-09  -F*psi/RT
+	  4.261e-11  psi, V
+	 -1.659e-09  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  1.500e-08  m**2 for   1.500e-12 g
@@ -3318,7 +3318,7 @@ Sua
 	Cl            	  4.6830e-21
 	H             	  9.0111e-24
 	Na            	  4.6817e-21
-	O             	  8.7287e-24
+	O             	  8.7288e-24
 
 Sua           
 	  1.500e-15  moles
@@ -3328,11 +3328,11 @@ Sua
 	Sua               1.500e-15       1.000   1.500e-15     -14.824
 
 Sub           
-	 -3.487e-25  Surface + diffuse layer charge, eq
+	 -3.964e-25  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	  3.742e-11  psi, V
-	 -1.457e-09  -F*psi/RT
+	  4.261e-11  psi, V
+	 -1.659e-09  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  2.250e-08  m**2 for   2.250e-12 g
@@ -3342,7 +3342,7 @@ Sub
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	  7.1611e-24
+	Ca            	  7.1610e-24
 	Cl            	  7.0272e-21
 	H             	  1.3522e-23
 	Na            	  7.0252e-21
@@ -3356,7 +3356,7 @@ Sub
 	Sub               2.250e-15       1.000   2.250e-15     -14.648
 
 Sorbedhfo     
-	 -1.431e-15  Surface + diffuse layer charge, eq
+	 -1.626e-15  Surface + diffuse layer charge, eq
 	  2.980e-11  Surface charge, eq
 	  8.720e-04  sigma, C/m**2
 	  2.098e-02  psi, V
@@ -3397,7 +3397,7 @@ Sorbedhfo_w
 	Sorbedhfo_wOCa+   5.282e-13       0.000   5.282e-13     -12.277
 
 Hfo           
-	 -4.292e-15  Surface + diffuse layer charge, eq
+	 -4.876e-15  Surface + diffuse layer charge, eq
 	  8.936e-11  Surface charge, eq
 	  8.720e-04  sigma, C/m**2
 	  2.098e-02  psi, V

@@ -189,7 +189,7 @@ Halloysite           0.00    8.35    8.35    0.000e+00   1.242e-06   1.242e-06
 Jarosite-K          -3.06  -18.37  -15.31    0.000e+00           0   0.000e+00
 Jarosite-Na         -4.84  -16.63  -11.79    0.000e+00           0   0.000e+00
 Malachite           -2.19   -7.63   -5.43    0.000e+00           0   0.000e+00
-Manganite            0.00   -0.24   -0.24    0.000e+00   1.168e-06   1.168e-06
+Manganite           -0.00   -0.24   -0.24    0.000e+00   1.168e-06   1.168e-06
 
 ------------------------------Surface composition------------------------------
 
@@ -273,7 +273,7 @@ Hfo_w
                       Temperature (deg C)  =  31.785
                   Electrical balance (eq)  =   7.584e-05
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.21
-                               Iterations  =  29
+                               Iterations  =  28
                                   Total H  = 1.110155e+02
                                   Total O  = 5.552894e+01
 
@@ -417,7 +417,7 @@ WARNING: Trying reduced tolerance 1e-16 ...
 
 ----------------------------------User print-----------------------------------
 
-   O(0)                5.2365e-14      5.2365e-14 
+   O(0)                5.2482e-14      5.2482e-14 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -645,7 +645,7 @@ Hfo_w
 
 ----------------------------------User print-----------------------------------
 
-   O(0)                3.9437e-14      3.9437e-14 
+   O(0)                3.9247e-14      3.9247e-14 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -653,7 +653,7 @@ Hfo_w
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Alunite             -7.80   -9.13   -1.33    0.000e+00           0   0.000e+00
-Calcite             -0.00   -8.49   -8.49    0.000e+00   9.793e-09   9.793e-09
+Calcite              0.00   -8.49   -8.49    0.000e+00   9.793e-09   9.793e-09
 Ferrihydrite        -0.00    4.89    4.89    0.000e+00           0   0.000e+00
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
@@ -732,7 +732,7 @@ Hfo_w
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.986      Charge balance
-                                       pe  =   9.946      Adjusted to redox equilibrium
+                                       pe  =   9.945      Adjusted to redox equilibrium
                         Activity of water  =   0.999
                            Ionic strength  =   2.236e-02
                        Mass of water (kg)  =   1.000e+00
@@ -873,7 +873,7 @@ Hfo_w
 
 ----------------------------------User print-----------------------------------
 
-   O(0)                2.3056e-15      2.3056e-15 
+   O(0)                2.3145e-15      2.3145e-15 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -882,7 +882,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Alunite             -7.79   -9.11   -1.33    0.000e+00           0   0.000e+00
 Calcite             -0.00   -8.49   -8.49    0.000e+00           0   0.000e+00
-Ferrihydrite        -0.00    4.89    4.89    0.000e+00   3.789e-13   3.789e-13
+Ferrihydrite         0.00    4.89    4.89    0.000e+00   3.789e-13   3.789e-13
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
 Halloysite           0.00    8.80    8.80    0.000e+00   3.483e-11   3.483e-11
@@ -1101,7 +1101,7 @@ Hfo_w
 
 ----------------------------------User print-----------------------------------
 
-   O(0)                2.0027e-13      2.0027e-13 
+   O(0)                2.0189e-13      2.0189e-13 
 
 -------------------------------Phase assemblage--------------------------------
 
@@ -1109,8 +1109,8 @@ Hfo_w
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Alunite             -7.77   -9.10   -1.33    0.000e+00           0   0.000e+00
-Calcite             -0.00   -8.49   -8.49    0.000e+00   7.197e-08   7.197e-08
-Ferrihydrite         0.00    4.89    4.89    0.000e+00   8.265e-14   8.265e-14
+Calcite              0.00   -8.49   -8.49    0.000e+00   7.197e-08   7.197e-08
+Ferrihydrite        -0.00    4.89    4.89    0.000e+00   8.265e-14   8.265e-14
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
 Gypsum              -1.57   -6.18   -4.61    0.000e+00           0   0.000e+00
 Halloysite           0.00    8.80    8.80    0.000e+00   5.897e-12   5.897e-12
@@ -1188,7 +1188,7 @@ Hfo_w
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.976      Charge balance
-                                       pe  =  10.133      Adjusted to redox equilibrium
+                                       pe  =  10.134      Adjusted to redox equilibrium
                         Activity of water  =   0.999
                            Ionic strength  =   2.239e-02
                        Mass of water (kg)  =   1.000e+00

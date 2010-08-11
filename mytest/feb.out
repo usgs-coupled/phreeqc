@@ -1661,20 +1661,20 @@ Solution 1: EKATI LLCF
                          Input          Delta    Input+Delta
              pH      6.500e+00  +   0.000e+00  =   6.500e+00
              Al      0.000e+00  +   0.000e+00  =   0.000e+00
-     Alkalinity      3.844e-04  +  -2.966e-11  =   3.844e-04
+     Alkalinity      3.844e-04  +  -3.961e-12  =   3.844e-04
           C(-2)      0.000e+00  +   0.000e+00  =   0.000e+00
           C(-3)      0.000e+00  +   0.000e+00  =   0.000e+00
           C(-4)      0.000e+00  +   0.000e+00  =   0.000e+00
            C(2)      0.000e+00  +   0.000e+00  =   0.000e+00
-           C(4)      7.290e-04  +   5.790e-11  =   7.290e-04
-             Ca      3.643e-04  +  -1.717e-09  =   3.643e-04
+           C(4)      7.290e-04  +   1.223e-10  =   7.290e-04
+             Ca      3.643e-04  +  -4.066e-09  =   3.643e-04
          Cl(-1)      6.771e-04  +  -2.409e-10  =   6.771e-04
           Cl(1)      0.000e+00  +   0.000e+00  =   0.000e+00
           Cl(3)      0.000e+00  +   0.000e+00  =   0.000e+00
           Cl(5)      0.000e+00  +   0.000e+00  =   0.000e+00
           Cl(7)      0.000e+00  +   0.000e+00  =   0.000e+00
           Fe(2)      1.254e-13  +   0.000e+00  =   1.254e-13
-          Fe(3)      2.328e-07  +   5.666e-12  =   2.328e-07
+          Fe(3)      2.328e-07  +   1.020e-11  =   2.328e-07
            H(0)      0.000e+00  +   0.000e+00  =   0.000e+00
               K      3.863e-04  +   1.515e-04  =   5.378e-04
              Mg      7.325e-04  +  -2.133e-04  =   5.192e-04
@@ -3706,8 +3706,8 @@ Summary of inverse modeling:
 
 	Number of models found: 9
 	Number of minimal models found: 9
-	Number of infeasible sets of phases saved: 70
-	Number of calls to cl1: 152
+	Number of infeasible sets of phases saved: 72
+	Number of calls to cl1: 154
 ------------------
 End of simulation.
 ------------------

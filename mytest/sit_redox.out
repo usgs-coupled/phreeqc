@@ -68,7 +68,7 @@ Initial solution 2.	High_SO4_high_sal
                  Total alkalinity (eq/kg)  =   9.365e-04
                        Total CO2 (mol/kg)  =   9.720e-04
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   9.798e-12
+                  Electrical balance (eq)  =   1.048e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  26
                          Gamma iterations  =   8
@@ -236,7 +236,7 @@ Sr               5.848e-04
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.27   12.43   32.70  CaO
 	Carnallite      -10.86   -6.53    4.33  KMgCl3:6H2O
-	Celestite        -0.00   -6.62   -6.62  Sr(SO4)
+	Celestite         0.00   -6.62   -6.62  Sr(SO4)
 	CH4(g)          -69.85 -110.90  -41.05  CH4
 	Chrysotile       -3.85   29.32   33.17  Mg3Si2O5(OH)4
 	Cl2(g)          -38.87    7.11   45.98  Cl2
@@ -252,7 +252,7 @@ Sr               5.848e-04
 	Gaylussite       -6.60  -16.03   -9.43  CaNa2(CO3)2:5H2O
 	Glaserite       -21.18  -28.79   -7.61  Na2K6(SO4)4
 	Glauberite      -10.19   -8.22    1.97  Na2Ca(SO4)2
-	Gypsum            0.00   -4.61   -4.61  CaSO4:2H2O
+	Gypsum           -0.00   -4.61   -4.61  CaSO4:2H2O
 	Gyrolite         -8.72   13.62   22.34  Ca2Si3O7.5(OH):2H2O
 	H2(g)           -22.50  -22.50    0.00  H2
 	H2O(g)           -1.51  -43.00  -41.49  H2O
@@ -382,13 +382,13 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Calcite             -0.00   -8.48   -8.48    1.000e+00   9.989e-01  -1.125e-03
-Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   8.647e-06
-Dolomite            -0.00  -17.12  -17.12    1.000e+00   1.001e+00   7.050e-04
+Calcite              0.00   -8.48   -8.48    1.000e+00   9.989e-01  -1.125e-03
+Celestite            0.00   -6.62   -6.62    1.000e+00   1.000e+00   8.647e-06
+Dolomite             0.00  -17.12  -17.12    1.000e+00   1.001e+00   7.050e-04
 Gypsum              -0.00   -4.61   -4.61    0.000e+00   1.586e-03   1.586e-03
 Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00  -1.151e-10
-Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   1.048e-05
-Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.890e-04
+Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   1.048e-05
+Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.890e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -415,7 +415,7 @@ Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.890e-04
                  Total alkalinity (eq/kg)  =   9.982e-04
                        Total CO2 (mol/kg)  =   1.032e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.123e-11
+                  Electrical balance (eq)  =   1.191e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  34
                          Gamma iterations  =   7
@@ -639,11 +639,11 @@ Sr               6.091e-04
 	CaCl2:H2O(s)    -10.75   -2.90    7.85  CaCl2:H2O
 	CaCO3:H2O(s)     -0.89   -8.49   -7.60  CaCO3:H2O
 	CaFe2O4(s)       -6.26   14.98   21.24  CaFe2O4
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.31   12.39   32.70  CaO
 	Carnallite      -10.76   -6.43    4.33  KMgCl3:6H2O
-	Celestite        -0.00   -6.62   -6.62  Sr(SO4)
+	Celestite         0.00   -6.62   -6.62  Sr(SO4)
 	CH4(g)          -13.71  -54.76  -41.05  CH4
 	Chrysotile       -3.98   29.19   33.17  Mg3Si2O5(OH)4
 	Cl2(g)          -52.80   -6.82   45.98  Cl2
@@ -653,7 +653,7 @@ Sr               6.091e-04
 	CSH0.8           -4.89    6.16   11.05  Ca0.8SiO2.8:1.54H2O
 	CSH1.2           -8.19   11.11   19.30  Ca1.2SiO3.2:2.06H2O
 	CSH1.6          -11.94   16.06   28.00  Ca1.6SiO3.6:2.58H2O
-	Dolomite         -0.00  -17.12  -17.12  CaMg(CO3)2
+	Dolomite          0.00  -17.12  -17.12  CaMg(CO3)2
 	Epsonite         -2.93   -4.81   -1.88  Mg(SO4):7H2O
 	Ettringite-Fe   -28.82   25.71   54.53  Ca6Fe2(SO4)3(OH)12:26H2O
 	Fayalite         -3.11   16.40   19.51  Fe2(SiO4)
@@ -731,10 +731,10 @@ Sr               6.091e-04
 	Portlandite     -10.43   12.38   22.81  Ca(OH)2
 	Pyrite            0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.71   -7.30   -5.59  Fe0.87S
-	Quartz           -0.00   -3.74   -3.74  SiO2
+	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.55  -42.39  -35.84  S
 	Si(cr)          -83.87  -20.68   63.19  Si
-	Siderite         -0.00  -10.80  -10.80  Fe(CO3)
+	Siderite          0.00  -10.80  -10.80  Fe(CO3)
 	SiO2(am)         -1.03   -3.74   -2.71  SiO2
 	SO2(g)          -20.13  -25.45   -5.32  SO2
 	Sr(cr)          -96.89    1.90   98.79  Sr
@@ -820,9 +820,9 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.855e-04
                  Total alkalinity (eq/kg)  =   1.048e-03
                        Total CO2 (mol/kg)  =   1.089e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.167e-11
+                  Electrical balance (eq)  =   1.236e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  33
+                               Iterations  =  34
                          Gamma iterations  =   7
                       Osmotic coefficient  =   0.91678
                                   Total H  = 9.900831e+01
@@ -1192,11 +1192,11 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Calcite             -0.00   -8.48   -8.48    1.000e+00   9.964e-01  -3.623e-03
+Calcite              0.00   -8.48   -8.48    1.000e+00   9.964e-01  -3.623e-03
 Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   2.298e-05
-Dolomite            -0.00  -17.12  -17.12    1.000e+00   1.002e+00   1.955e-03
+Dolomite             0.00  -17.12  -17.12    1.000e+00   1.002e+00   1.955e-03
 Gypsum              -0.00   -4.61   -4.61    0.000e+00   5.008e-03   5.008e-03
-Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00  -2.246e-12
+Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00  -2.247e-12
 Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   3.145e-05
 Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.822e-04
 
@@ -1225,7 +1225,7 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.822e-04
                  Total alkalinity (eq/kg)  =   1.104e-03
                        Total CO2 (mol/kg)  =   1.153e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.220e-11
+                  Electrical balance (eq)  =   1.288e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  34
                          Gamma iterations  =   7
@@ -1449,7 +1449,7 @@ Sr               6.706e-04
 	CaCl2:H2O(s)    -10.64   -2.79    7.85  CaCl2:H2O
 	CaCO3:H2O(s)     -0.89   -8.49   -7.60  CaCO3:H2O
 	CaFe2O4(s)       -6.53   14.71   21.24  CaFe2O4
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.41   12.29   32.70  CaO
 	Carnallite      -10.56   -6.23    4.33  KMgCl3:6H2O
@@ -1463,7 +1463,7 @@ Sr               6.706e-04
 	CSH0.8           -4.97    6.08   11.05  Ca0.8SiO2.8:1.54H2O
 	CSH1.2           -8.31   10.99   19.30  Ca1.2SiO3.2:2.06H2O
 	CSH1.6          -12.09   15.91   28.00  Ca1.6SiO3.6:2.58H2O
-	Dolomite         -0.00  -17.12  -17.12  CaMg(CO3)2
+	Dolomite          0.00  -17.12  -17.12  CaMg(CO3)2
 	Epsonite         -2.94   -4.82   -1.88  Mg(SO4):7H2O
 	Ettringite-Fe   -29.31   25.22   54.53  Ca6Fe2(SO4)3(OH)12:26H2O
 	Fayalite         -3.30   16.21   19.51  Fe2(SiO4)
@@ -1600,10 +1600,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 Calcite             -0.00   -8.48   -8.48    1.000e+00   9.951e-01  -4.874e-03
 Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   2.990e-05
 Dolomite            -0.00  -17.12  -17.12    1.000e+00   1.003e+00   2.582e-03
-Gypsum               0.00   -4.61   -4.61    0.000e+00   6.750e-03   6.750e-03
+Gypsum              -0.00   -4.61   -4.61    0.000e+00   6.750e-03   6.750e-03
 Pyrite              -0.00  -15.79  -15.79    1.000e+00   1.000e+00   4.053e-12
-Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   4.191e-05
-Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.791e-04
+Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   4.191e-05
+Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.791e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -1630,9 +1630,9 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.791e-04
                  Total alkalinity (eq/kg)  =   1.166e-03
                        Total CO2 (mol/kg)  =   1.226e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.280e-11
+                  Electrical balance (eq)  =   5.124e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  33
+                               Iterations  =  35
                          Gamma iterations  =   7
                       Osmotic coefficient  =   0.92082
                                   Total H  = 8.699446e+01
@@ -1884,7 +1884,7 @@ Sr               7.081e-04
 	Glaserite       -20.62  -28.23   -7.61  Na2K6(SO4)4
 	Glauberite      -10.04   -8.07    1.97  Na2Ca(SO4)2
 	Goethite          0.76    1.15    0.39  FeOOH
-	Gypsum            0.00   -4.61   -4.61  CaSO4:2H2O
+	Gypsum           -0.00   -4.61   -4.61  CaSO4:2H2O
 	Gyrolite         -9.10   13.24   22.34  Ca2Si3O7.5(OH):2H2O
 	H2(g)            -8.50   -8.50    0.00  H2
 	H2O(g)           -1.51  -43.00  -41.49  H2O
@@ -1946,10 +1946,10 @@ Sr               7.081e-04
 	Portlandite     -10.58   12.23   22.81  Ca(OH)2
 	Pyrite           -0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.77   -7.36   -5.59  Fe0.87S
-	Quartz           -0.00   -3.74   -3.74  SiO2
+	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.46  -42.30  -35.84  S
 	Si(cr)          -83.91  -20.72   63.19  Si
-	Siderite          0.00  -10.80  -10.80  Fe(CO3)
+	Siderite         -0.00  -10.80  -10.80  Fe(CO3)
 	SiO2(am)         -1.03   -3.74   -2.71  SiO2
 	SO2(g)          -20.00  -25.32   -5.32  SO2
 	Sr(cr)          -97.07    1.72   98.79  Sr
@@ -2003,11 +2003,11 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.48   -8.48    1.000e+00   9.939e-01  -6.124e-03
-Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   3.660e-05
-Dolomite            -0.00  -17.12  -17.12    1.000e+00   1.003e+00   3.209e-03
-Gypsum              -0.00   -4.61   -4.61    0.000e+00   8.517e-03   8.517e-03
+Celestite            0.00   -6.62   -6.62    1.000e+00   1.000e+00   3.660e-05
+Dolomite             0.00  -17.12  -17.12    1.000e+00   1.003e+00   3.209e-03
+Gypsum               0.00   -4.61   -4.61    0.000e+00   8.517e-03   8.517e-03
 Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00   1.027e-11
-Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   5.236e-05
+Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   5.236e-05
 Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.761e-04
 
 -----------------------------Solution composition------------------------------
@@ -2035,7 +2035,7 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.761e-04
                  Total alkalinity (eq/kg)  =   1.237e-03
                        Total CO2 (mol/kg)  =   1.309e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.345e-11
+                  Electrical balance (eq)  =   1.414e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  34
                          Gamma iterations  =   7
@@ -2263,7 +2263,7 @@ Sr               7.514e-04
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.51   12.19   32.70  CaO
 	Carnallite      -10.32   -5.99    4.33  KMgCl3:6H2O
-	Celestite        -0.00   -6.62   -6.62  Sr(SO4)
+	Celestite         0.00   -6.62   -6.62  Sr(SO4)
 	CH4(g)          -13.63  -54.68  -41.05  CH4
 	Chrysotile       -4.59   28.58   33.17  Mg3Si2O5(OH)4
 	Cl2(g)          -52.31   -6.33   45.98  Cl2
@@ -2273,7 +2273,7 @@ Sr               7.514e-04
 	CSH0.8           -5.06    5.99   11.05  Ca0.8SiO2.8:1.54H2O
 	CSH1.2           -8.44   10.86   19.30  Ca1.2SiO3.2:2.06H2O
 	CSH1.6          -12.27   15.73   28.00  Ca1.6SiO3.6:2.58H2O
-	Dolomite         -0.00  -17.12  -17.12  CaMg(CO3)2
+	Dolomite          0.00  -17.12  -17.12  CaMg(CO3)2
 	Epsonite         -2.94   -4.82   -1.88  Mg(SO4):7H2O
 	Ettringite-Fe   -29.86   24.67   54.53  Ca6Fe2(SO4)3(OH)12:26H2O
 	Fayalite         -3.51   16.00   19.51  Fe2(SiO4)
@@ -2289,7 +2289,7 @@ Sr               7.514e-04
 	Glaserite       -20.46  -28.07   -7.61  Na2K6(SO4)4
 	Glauberite      -10.00   -8.03    1.97  Na2Ca(SO4)2
 	Goethite          0.71    1.10    0.39  FeOOH
-	Gypsum           -0.00   -4.61   -4.61  CaSO4:2H2O
+	Gypsum            0.00   -4.61   -4.61  CaSO4:2H2O
 	Gyrolite         -9.21   13.13   22.34  Ca2Si3O7.5(OH):2H2O
 	H2(g)            -8.51   -8.51    0.00  H2
 	H2O(g)           -1.51  -43.00  -41.49  H2O
@@ -2351,7 +2351,7 @@ Sr               7.514e-04
 	Portlandite     -10.63   12.18   22.81  Ca(OH)2
 	Pyrite            0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.80   -7.39   -5.59  Fe0.87S
-	Quartz            0.00   -3.74   -3.74  SiO2
+	Quartz           -0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.43  -42.27  -35.84  S
 	Si(cr)          -83.93  -20.74   63.19  Si
 	Siderite          0.00  -10.80  -10.80  Fe(CO3)
@@ -2407,13 +2407,13 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
                                                       Moles in assemblage
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
-Calcite             -0.00   -8.48   -8.48    1.000e+00   9.926e-01  -7.370e-03
-Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   4.305e-05
+Calcite              0.00   -8.48   -8.48    1.000e+00   9.926e-01  -7.370e-03
+Celestite            0.00   -6.62   -6.62    1.000e+00   1.000e+00   4.305e-05
 Dolomite             0.00  -17.12  -17.12    1.000e+00   1.004e+00   3.833e-03
-Gypsum               0.00   -4.61   -4.61    0.000e+00   1.031e-02   1.031e-02
+Gypsum              -0.00   -4.61   -4.61    0.000e+00   1.031e-02   1.031e-02
 Pyrite              -0.00  -15.79  -15.79    1.000e+00   1.000e+00   1.640e-11
-Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   6.279e-05
-Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.733e-04
+Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   6.279e-05
+Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.733e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2440,7 +2440,7 @@ Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.733e-04
                  Total alkalinity (eq/kg)  =   1.317e-03
                        Total CO2 (mol/kg)  =   1.404e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.413e-11
+                  Electrical balance (eq)  =   1.482e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  34
                          Gamma iterations  =   7
@@ -2664,11 +2664,11 @@ Sr               8.021e-04
 	CaCl2:H2O(s)    -10.42   -2.57    7.85  CaCl2:H2O
 	CaCO3:H2O(s)     -0.89   -8.49   -7.60  CaCO3:H2O
 	CaFe2O4(s)       -7.01   14.23   21.24  CaFe2O4
-	Calcite          -0.00   -8.48   -8.48  CaCO3
+	Calcite           0.00   -8.48   -8.48  CaCO3
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.57   12.13   32.70  CaO
 	Carnallite      -10.19   -5.86    4.33  KMgCl3:6H2O
-	Celestite        -0.00   -6.62   -6.62  Sr(SO4)
+	Celestite         0.00   -6.62   -6.62  Sr(SO4)
 	CH4(g)          -13.61  -54.66  -41.05  CH4
 	Chrysotile       -4.77   28.40   33.17  Mg3Si2O5(OH)4
 	Cl2(g)          -52.16   -6.18   45.98  Cl2
@@ -2694,7 +2694,7 @@ Sr               8.021e-04
 	Glaserite       -20.29  -27.90   -7.61  Na2K6(SO4)4
 	Glauberite       -9.95   -7.98    1.97  Na2Ca(SO4)2
 	Goethite          0.66    1.05    0.39  FeOOH
-	Gypsum            0.00   -4.61   -4.61  CaSO4:2H2O
+	Gypsum           -0.00   -4.61   -4.61  CaSO4:2H2O
 	Gyrolite         -9.33   13.01   22.34  Ca2Si3O7.5(OH):2H2O
 	H2(g)            -8.52   -8.52    0.00  H2
 	H2O(g)           -1.51  -43.00  -41.49  H2O
@@ -2756,10 +2756,10 @@ Sr               8.021e-04
 	Portlandite     -10.69   12.12   22.81  Ca(OH)2
 	Pyrite           -0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.82   -7.41   -5.59  Fe0.87S
-	Quartz           -0.00   -3.74   -3.74  SiO2
+	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.40  -42.24  -35.84  S
 	Si(cr)          -83.94  -20.75   63.19  Si
-	Siderite         -0.00  -10.80  -10.80  Fe(CO3)
+	Siderite          0.00  -10.80  -10.80  Fe(CO3)
 	SiO2(am)         -1.03   -3.74   -2.71  SiO2
 	SO2(g)          -19.90  -25.22   -5.32  SO2
 	Sr(cr)          -97.20    1.59   98.79  Sr
@@ -2817,8 +2817,8 @@ Celestite            0.00   -6.62   -6.62    1.000e+00   1.000e+00   4.919e-05
 Dolomite             0.00  -17.12  -17.12    1.000e+00   1.004e+00   4.454e-03
 Gypsum              -0.00   -4.61   -4.61    0.000e+00   1.213e-02   1.213e-02
 Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00   2.244e-11
-Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   7.320e-05
-Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.708e-04
+Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   7.320e-05
+Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.708e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -2845,9 +2845,9 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.708e-04
                  Total alkalinity (eq/kg)  =   1.409e-03
                        Total CO2 (mol/kg)  =   1.515e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.482e-11
+                  Electrical balance (eq)  =   1.548e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  35
+                               Iterations  =  34
                          Gamma iterations  =   7
                       Osmotic coefficient  =   0.92908
                                   Total H  = 6.897295e+01
@@ -3161,10 +3161,10 @@ Sr               8.621e-04
 	Portlandite     -10.76   12.05   22.81  Ca(OH)2
 	Pyrite            0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.85   -7.44   -5.59  Fe0.87S
-	Quartz           -0.00   -3.74   -3.74  SiO2
+	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.36  -42.20  -35.84  S
 	Si(cr)          -83.96  -20.77   63.19  Si
-	Siderite          0.00  -10.80  -10.80  Fe(CO3)
+	Siderite         -0.00  -10.80  -10.80  Fe(CO3)
 	SiO2(am)         -1.03   -3.74   -2.71  SiO2
 	SO2(g)          -19.85  -25.17   -5.32  SO2
 	Sr(cr)          -97.28    1.51   98.79  Sr
@@ -3223,7 +3223,7 @@ Dolomite            -0.00  -17.12  -17.12    1.000e+00   1.005e+00   5.067e-03
 Gypsum              -0.00   -4.61   -4.61    0.000e+00   1.398e-02   1.398e-02
 Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00   2.840e-11
 Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   8.360e-05
-Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.686e-04
+Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.686e-04
 
 -----------------------------Solution composition------------------------------
 
@@ -3250,9 +3250,9 @@ Siderite            -0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.686e-04
                  Total alkalinity (eq/kg)  =   1.517e-03
                        Total CO2 (mol/kg)  =   1.647e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.541e-11
+                  Electrical balance (eq)  =   1.609e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  33
+                               Iterations  =  35
                          Gamma iterations  =   7
                       Osmotic coefficient  =   0.93270
                                   Total H  = 6.296556e+01
@@ -3569,7 +3569,7 @@ Sr               9.342e-04
 	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.32  -42.16  -35.84  S
 	Si(cr)          -83.98  -20.79   63.19  Si
-	Siderite         -0.00  -10.80  -10.80  Fe(CO3)
+	Siderite          0.00  -10.80  -10.80  Fe(CO3)
 	SiO2(am)         -1.03   -3.74   -2.71  SiO2
 	SO2(g)          -19.79  -25.11   -5.32  SO2
 	Sr(cr)          -97.36    1.43   98.79  Sr
@@ -3623,11 +3623,11 @@ Reaction 1.	Irreversible reaction defined in simulation 2.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Calcite              0.00   -8.48   -8.48    1.000e+00   9.890e-01  -1.102e-02
-Celestite           -0.00   -6.62   -6.62    1.000e+00   1.000e+00   6.027e-05
+Celestite            0.00   -6.62   -6.62    1.000e+00   1.000e+00   6.027e-05
 Dolomite             0.00  -17.12  -17.12    1.000e+00   1.006e+00   5.667e-03
-Gypsum              -0.00   -4.61   -4.61    0.000e+00   1.586e-02   1.586e-02
+Gypsum               0.00   -4.61   -4.61    0.000e+00   1.586e-02   1.586e-02
 Pyrite               0.00  -15.79  -15.79    1.000e+00   1.000e+00   3.427e-11
-Quartz              -0.00   -3.74   -3.74    1.000e+00   1.000e+00   9.397e-05
+Quartz               0.00   -3.74   -3.74    1.000e+00   1.000e+00   9.397e-05
 Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.669e-04
 
 -----------------------------Solution composition------------------------------
@@ -3655,10 +3655,10 @@ Siderite             0.00  -10.80  -10.80    1.000e+00   9.997e-01  -2.669e-04
                  Total alkalinity (eq/kg)  =   1.644e-03
                        Total CO2 (mol/kg)  =   1.804e-03
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   7.953e-11
+                  Electrical balance (eq)  =   1.656e-11
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  31
-                         Gamma iterations  =   8
+                               Iterations  =  35
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   0.93693
                                   Total H  = 5.695804e+01
                                   Total O  = 2.856877e+01
@@ -3883,7 +3883,7 @@ Sr               1.022e-03
 	CaMg3(CO3)4(s)   -3.59  -34.40  -30.81  CaMg3(CO3)4
 	CaO(cr)         -20.78   11.92   32.70  CaO
 	Carnallite       -9.72   -5.39    4.33  KMgCl3:6H2O
-	Celestite        -0.00   -6.62   -6.62  Sr(SO4)
+	Celestite         0.00   -6.62   -6.62  Sr(SO4)
 	CH4(g)          -13.53  -54.58  -41.05  CH4
 	Chrysotile       -5.39   27.78   33.17  Mg3Si2O5(OH)4
 	Cl2(g)          -51.64   -5.66   45.98  Cl2
@@ -3909,7 +3909,7 @@ Sr               1.022e-03
 	Glaserite       -19.71  -27.32   -7.61  Na2K6(SO4)4
 	Glauberite       -9.79   -7.82    1.97  Na2Ca(SO4)2
 	Goethite          0.46    0.85    0.39  FeOOH
-	Gypsum           -0.00   -4.61   -4.61  CaSO4:2H2O
+	Gypsum            0.00   -4.61   -4.61  CaSO4:2H2O
 	Gyrolite         -9.75   12.59   22.34  Ca2Si3O7.5(OH):2H2O
 	H2(g)            -8.55   -8.55    0.00  H2
 	H2O(g)           -1.51  -43.00  -41.49  H2O
@@ -3971,7 +3971,7 @@ Sr               1.022e-03
 	Portlandite     -10.90   11.91   22.81  Ca(OH)2
 	Pyrite            0.00  -15.79  -15.79  FeS2
 	Pyrrhotite       -1.91   -7.50   -5.59  Fe0.87S
-	Quartz           -0.00   -3.74   -3.74  SiO2
+	Quartz            0.00   -3.74   -3.74  SiO2
 	S(cr)            -6.28  -42.12  -35.84  S
 	Si(cr)          -84.01  -20.82   63.19  Si
 	Siderite          0.00  -10.80  -10.80  Fe(CO3)

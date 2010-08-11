@@ -62,7 +62,7 @@ Initial solution 0.
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.165e-21
+                  Electrical balance (eq)  =  -9.529e-22
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   9
                                   Total H  = 1.110124e+02
@@ -112,12 +112,12 @@ Initial solution 1.
                         Activity of water  =   1.000
                            Ionic strength  =   1.001e-07
                        Mass of water (kg)  =   1.000e+00
-                 Total alkalinity (eq/kg)  =   2.118e-22
+                 Total alkalinity (eq/kg)  =   0.000e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -2.118e-22
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   0.000e+00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
@@ -127,8 +127,8 @@ Initial solution 1.
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H+                     1.001e-07   1.001e-07    -7.000    -7.000    -0.000
+   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 H(0)             1.417e-25
    H2                     7.087e-26   7.087e-26   -25.150   -25.150     0.000
@@ -160,12 +160,12 @@ Initial solution 4.
                         Activity of water  =   1.000
                            Ionic strength  =   1.001e-07
                        Mass of water (kg)  =   5.000e-01
-                 Total alkalinity (eq/kg)  =   2.118e-22
+                 Total alkalinity (eq/kg)  =   0.000e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.059e-22
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   0.000e+00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 5.550622e+01
                                   Total O  = 2.775311e+01
@@ -175,8 +175,8 @@ Initial solution 4.
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H+                     1.001e-07   1.001e-07    -7.000    -7.000    -0.000
+   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 H(0)             1.417e-25
    H2                     7.087e-26   7.087e-26   -25.150   -25.150     0.000
@@ -208,12 +208,12 @@ Initial solution 8.
                         Activity of water  =   1.000
                            Ionic strength  =   1.001e-07
                        Mass of water (kg)  =   2.500e-01
-                 Total alkalinity (eq/kg)  =   2.118e-22
+                 Total alkalinity (eq/kg)  =   0.000e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.294e-23
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
+                  Electrical balance (eq)  =   0.000e+00
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   3
                                   Total H  = 2.775311e+01
                                   Total O  = 1.387655e+01
@@ -223,8 +223,8 @@ Initial solution 8.
                                                    Log       Log         Log 
    Species                 Molality    Activity  Molality  Activity     Gamma
 
-   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H+                     1.001e-07   1.001e-07    -7.000    -7.000    -0.000
+   OH-                    1.001e-07   1.001e-07    -7.000    -7.000    -0.000
    H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 H(0)             1.417e-25
    H2                     7.087e-26   7.087e-26   -25.150   -25.150     0.000
@@ -269,7 +269,7 @@ X                2.000e+00 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  10.679      Adjusted to redox equilibrium
+                                       pe  =  10.676      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 0
                           Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
@@ -279,7 +279,7 @@ X                2.000e+00 mol
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =   1.750e-21
+                  Electrical balance (eq)  =   1.584e-22
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =  24
                                   Total H  = 1.110124e+02
@@ -298,22 +298,22 @@ Ca               4.996e-07
    CaOH+                  8.254e-13   8.242e-13   -12.083   -12.084    -0.001
 Cl               9.999e-07
    Cl-                    9.999e-07   9.984e-07    -6.000    -6.001    -0.001
-H(0)             6.215e-39
-   H2                     3.107e-39   3.107e-39   -38.508   -38.508     0.000
+H(0)             6.310e-39
+   H2                     3.155e-39   3.155e-39   -38.501   -38.501     0.000
 Na               8.869e-10
    Na+                    8.869e-10   8.856e-10    -9.052    -9.053    -0.001
    NaOH                   5.851e-17   5.851e-17   -16.233   -16.233     0.000
-O(0)             8.635e-16
-   O2                     4.318e-16   4.318e-16   -15.365   -15.365     0.000
+O(0)             8.377e-16
+   O2                     4.188e-16   4.188e-16   -15.378   -15.378     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -35.36  -38.51   -3.15  H2
+	H2(g)           -35.35  -38.50   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -16.64  -15.05    1.58  NaCl
-	O2(g)           -12.47  -15.36   -2.89  O2
+	O2(g)           -12.49  -15.38   -2.89  O2
 
 ------------------
 End of simulation.
