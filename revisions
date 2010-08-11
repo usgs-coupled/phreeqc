@@ -7,17 +7,11 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
-        --------
-        svn 4594
-        --------
-        Modified charting to write plotted values to file.
 
-        --------
-        svn 4559
-        --------
-        Merged code from Tony Appelo to allow charting with
-        the USER_GRAPH datablock from Phreeqc for Windows.
-        
+------------------------------------------------------------
+Version 2.17.3: August 12, 2010
+------------------------------------------------------------
+
         --------
         svn 4191
         --------
@@ -1460,13 +1454,50 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+
+------------------------------------------------------------
+Version 2.17.3: August 12, 2010
+------------------------------------------------------------
+
         --------
-        svn 4594
+        svn 4727
         --------
-        Modified charting to write plotted values to file.
-        Fixed bug in NetpathXL interface. Now writes
-        moles of O2(aq) instead of moles of O(0) to the .pat 
-        file.
+        Increased maximum iterations in cl1 solver. One test
+        case failed after new compiler was installed.
+        
+        --------
+        svn 4700
+        --------
+        Initialized (nearly) all variables in class.
+        
+        --------
+        svn 4697
+        --------
+        Fixed bug with second PITZER data block, parameters
+        were not updated if temperature was not changed.        
+        
+        --------
+        svn 4698
+        --------
+        Modified PHRQ_malloc and PHRQ_free logic. These routines
+        are used in almost all cases.
+   
+        --------
+        svn 4694
+        -------- 
+        Initialized variables for V_M structure, rxn->dz (for CD_MUSIC),
+        Fixed problem where definitions in second SIT data block were
+        not added to model.
+        
+        --------
+        svn 4677
+        --------
+        Renamed all variables that "shadowed" class variables.
+	
+        --------
+        svn 4643
+        --------
+        Made isfinite a macro.
         
         --------
         svn 4539
