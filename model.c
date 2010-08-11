@@ -1696,7 +1696,7 @@ ineq(int in_kode)
 	{
 		l_kode = 1;
 	}
-	l_iter = count_unknowns + l_count_rows;
+	l_iter = 2*(count_unknowns + l_count_rows);
 /*
  *   Allocate space for arrays
  */
