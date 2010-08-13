@@ -85,24 +85,36 @@ PHREEQC_MAC_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_MAC_DIR)/$(
 PHAST_WIN_DIR:=$(CHARLTON)/phast
 PHAST_WIN_TARGET_DIR:=$(GEOCHEM)/pc/phast
 PHAST_WIN_PUB_DIR:=$(FTP_CHARLTON)/phast
-PHAST_WIN_FILE:=$(shell cd "$(PHAST_WIN_DIR)"; ls -t phast*.exe | awk '{if (NR == 1) {print}}')
+PHAST_WIN_X64_FILE:=$(shell cd "$(PHAST_WIN_DIR)"; ls -t phast*-x64.msi | awk '{if (NR == 1) {print}}')
+PHAST_WIN_FILE:=$(shell echo $(PHAST_WIN_X64_FILE) | sed "s/-x64//" )
 PHAST_WIN_VERSION:=$(shell echo $(PHAST_WIN_FILE) | sed "s/phast-//" | sed "s/.exe//" )
 PHAST_WIN_SVN:=$(shell echo $(PHAST_WIN_FILE) | sed "s/phast-//" | sed "s/.exe//" | sed "s/^.*-//" )
 PHAST_WIN_SIZE:=$(shell ls -s -h "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$1}')
+PHAST_WIN_X64_SIZE:=$(shell ls -s -h "$(PHAST_WIN_DIR)/$(PHAST_WIN_X64_FILE)" | awk '{print $$1}')
 PHAST_WIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$6,$$7,$$8}')
 PHAST_WIN_MD5:=$(shell md5sum "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$1}')
+PHAST_WIN_X64_MD5:=$(shell md5sum "$(PHAST_WIN_DIR)/$(PHAST_WIN_X64_FILE)" | awk '{print $$1}')
 
 #Batch Linux
 
 PHAST_LINUX_DIR:=$(CHARLTON)/phast
 PHAST_LINUX_TARGET_DIR:=$(GEOCHEM)/unix/phast
 PHAST_LINUX_PUB_DIR:=$(FTP_CHARLTON)/phast
-PHAST_LINUX_FILE:=$(shell cd "$(PHAST_LINUX_DIR)"; ls -t phast-*Linux.tar.gz | awk '{if (NR == 1) {print}}')
-PHAST_LINUX_VERSION:=$(shell echo $(PHAST_LINUX_FILE) | sed "s/phast-//" | sed "s/.Linux.tar.gz//" )
-PHAST_LINUX_SVN:=$(shell echo $(PHAST_LINUX_FILE) | sed "s/phast-//" | sed "s/.Linux.tar.gz//" | sed "s/^.*-//")
+PHAST_LINUX_FILE:=$(shell cd "$(PHAST_LINUX_DIR)"; ls -t phast-*i586.tar.gz | awk '{if (NR == 1) {print}}')
+PHAST_LINUX_VERSION:=$(shell echo $(PHAST_LINUX_FILE) | sed "s/phast-//" | sed "s/.i586.tar.gz//" )
+PHAST_LINUX_SVN:=$(shell echo $(PHAST_LINUX_FILE) | sed "s/phast-//" | sed "s/.i586.tar.gz//" | sed "s/^.*-//")
 PHAST_LINUX_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$1}')
 PHAST_LINUX_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$6,$$7,$$8}')
 PHAST_LINUX_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_FILE)" | awk '{print $$1}')
+
+PHAST_LINUX_X64_FILE:=$(shell cd "$(PHAST_LINUX_DIR)"; ls -t phast-*x86_64.tar.gz | awk '{if (NR == 1) {print}}')
+PHAST_LINUX_X64_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_X64_FILE)" | awk '{print $$1}')
+PHAST_LINUX_X64_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_X64_FILE)" | awk '{print $$1}')
+
+PHAST_CONFIGURE_FILE:=$(shell echo $(PHAST_LINUX_X64_FILE) | sed "s/x86_64\.//")
+PHAST_CONFIGURE_SIZE$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_CONFIGURE_FILE)" | awk '{print $$1}')
+PHAST_CONFIGURE_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_CONFIGURE_FILE)" | awk '{print $$1}')
+
 
 #RPM Linux
 
@@ -115,6 +127,14 @@ PHAST_LINUX_RPM_SVN:=$(shell echo $(PHAST_LINUX_RPM_FILE) | sed "s/phast-//" | s
 PHAST_LINUX_RPM_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$1}')
 PHAST_LINUX_RPM_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$6,$$7,$$8}')
 PHAST_LINUX_RPM_MD5:=$(shell md5sum "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_RPM_FILE)" | awk '{print $$1}')
+
+PHAST_LINUX_X64_RPM_FILE:=$(shell cd "$(PHAST_LINUX_RPM_DIR)"; ls -t phast-*x86_64.rpm | awk '{if (NR == 1) {print}}')
+PHAST_LINUX_X64_RPM_VERSION:=$(shell echo $(PHAST_LINUX_X64_RPM_FILE) | sed "s/phast-//" | sed "s/.x86_64.rpm//" )
+PHAST_LINUX_X64_RPM_SVN:=$(shell echo $(PHAST_LINUX_X64_RPM_FILE) | sed "s/phast-//" | sed "s/.x86_64.rpm//" | sed "s/^.*-//" )
+PHAST_LINUX_X64_RPM_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_X64_RPM_FILE)" | awk '{print $$1}')
+PHAST_LINUX_X64_RPM_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_X64_RPM_FILE)" | awk '{print $$6,$$7,$$8}')
+PHAST_LINUX_X64_RPM_MD5:=$(shell md5sum "$(PHAST_LINUX_RPM_DIR)/$(PHAST_LINUX_X64_RPM_FILE)" | awk '{print $$1}')
+
 
 #WPHAST version
 
@@ -188,19 +208,25 @@ SED_ARGS= \
 	-e "s^@PHAST_WIN_DIR@^$(PHAST_WIN_DIR)^g" \
 	-e "s^@PHAST_WIN_PUB_DIR@^$(PHAST_WIN_PUB_DIR)^g" \
 	-e "s^@PHAST_WIN_FILE@^$(PHAST_WIN_FILE)^g" \
+	-e "s^@PHAST_WIN_X64_FILE@^$(PHAST_WIN_X64_FILE)^g" \
 	-e "s^@PHAST_WIN_VERSION@^$(PHAST_WIN_VERSION)^g" \
 	-e "s^@PHAST_WIN_SVN@^$(PHAST_WIN_SVN)^g" \
 	-e "s^@PHAST_WIN_DATE@^$(PHAST_WIN_DATE)^g" \
 	-e "s^@PHAST_WIN_SIZE@^$(PHAST_WIN_SIZE)^g" \
+	-e "s^@PHAST_WIN_X64_SIZE@^$(PHAST_WIN_X64_SIZE)^g" \
 	-e "s^@PHAST_WIN_MD5@^$(PHAST_WIN_MD5)^g" \
+	-e "s^@PHAST_WIN_X64_MD5@^$(PHAST_WIN_X64_MD5)^g" \
 	-e "s^@PHAST_LINUX_DIR@^$(PHAST_LINUX_DIR)^g" \
 	-e "s^@PHAST_LINUX_PUB_DIR@^$(PHAST_LINUX_PUB_DIR)^g" \
 	-e "s^@PHAST_LINUX_FILE@^$(PHAST_LINUX_FILE)^g" \
+	-e "s^@PHAST_LINUX_X64_FILE@^$(PHAST_LINUX_X64_FILE)^g" \
 	-e "s^@PHAST_LINUX_VERSION@^$(PHAST_LINUX_VERSION)^g" \
 	-e "s^@PHAST_LINUX_SVN@^$(PHAST_LINUX_SVN)^g" \
 	-e "s^@PHAST_LINUX_DATE@^$(PHAST_LINUX_DATE)^g" \
 	-e "s^@PHAST_LINUX_SIZE@^$(PHAST_LINUX_SIZE)^g" \
 	-e "s^@PHAST_LINUX_MD5@^$(PHAST_LINUX_MD5)^g" \
+	-e "s^@PHAST_LINUX_X64_SIZE@^$(PHAST_LINUX_X64_SIZE)^g" \
+	-e "s^@PHAST_LINUX_X64_MD5@^$(PHAST_LINUX_X64_MD5)^g" \
 	-e "s^@PHAST_LINUX_RPM_DIR@^$(PHAST_LINUX_RPM_DIR)^g" \
 	-e "s^@PHAST_LINUX_PUB_RPM_DIR@^$(PHAST_LINUX_PUB_RPM_DIR)^g" \
 	-e "s^@PHAST_LINUX_RPM_FILE@^$(PHAST_LINUX_RPM_FILE)^g" \
@@ -209,6 +235,12 @@ SED_ARGS= \
 	-e "s^@PHAST_LINUX_RPM_DATE@^$(PHAST_LINUX_RPM_DATE)^g" \
 	-e "s^@PHAST_LINUX_RPM_SIZE@^$(PHAST_LINUX_RPM_SIZE)^g" \
 	-e "s^@PHAST_LINUX_RPM_MD5@^$(PHAST_LINUX_RPM_MD5)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_FILE@^$(PHAST_LINUX_X64_RPM_FILE)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_VERSION@^$(PHAST_LINUX_X64_RPM_VERSION)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_SVN@^$(PHAST_LINUX_X64_RPM_SVN)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_DATE@^$(PHAST_LINUX_X64_RPM_DATE)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_SIZE@^$(PHAST_LINUX_X64_RPM_SIZE)^g" \
+	-e "s^@PHAST_LINUX_X64_RPM_MD5@^$(PHAST_LINUX_X64_RPM_MD5)^g" \
 	-e "s^@WPHAST_PUB_DIR@^$(WPHAST_PUB_DIR)^"  \
 	-e "s^@WPHAST_FILE@^$(WPHAST_FILE)^" \
 	-e "s^@WPHAST_VERSION@^$(WPHAST_VERSION)^" \
@@ -227,7 +259,7 @@ SED_ARGS= \
 	-e "s^@NETPATHWIN_SIZE@^$(NETPATHWIN_SIZE)^" 
 
 
-trial:
+trial: Makefile template_phreeqc_index.html template_phreeqci_index.html template_phast_index.html template_netpath_index.html
 	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
@@ -272,3 +304,5 @@ web:
 #	cd temp; tar -xzf $(PHREEQC_LINUX_FILE); cp -f ./*/doc/RELEASE.TXT $(HTML_PHREEQC); cd ..; rm -rf temp
 
 
+clean:
+	rm -f web_netpath_index.html web_phast_index.html web_phreeqci_index.html web_phreeqc_index.html

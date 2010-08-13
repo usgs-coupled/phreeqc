@@ -1,7 +1,7 @@
 <!-- David Parkhurst, Fri Jan 23 1998 -->
 <HTML>
 	<HEAD>
-		<TITLE>PHAST Welcome Page</TITLE> 
+		<TITLE>PHAST Welcome Page</TITLE>
 	<meta name="Microsoft Theme" content="sumipntg 011, default">
 <meta name="Microsoft Border" content="b, default">
 </HEAD>
@@ -43,7 +43,7 @@
 	<DT><dd>
 	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="../phreeqc/references.html">
 	Reports using PHREEQC and PHAST</A>
-	
+
 	</DL>
 	<DL><H2><!--mstheme--><font color="#003366">Batch Version Download:<!--mstheme--></font></H2>
 <p>
@@ -55,42 +55,62 @@ PHAST Version 2.0 has enhanced spatial data handling.
 The Free Software Foundation's <a href="ftp://ftp.gnu.org/pub/gnu/gzip/gzip-1.2.4.tar">gunzip</a>
 may be necessary to uncompress the UNIX tar files for Sun.
 However, some World Wide Web browsers automatically uncompress
-retrieved files. 
+retrieved files.
 </p>
 
 <TABLE BORDER=1 CELLPADDING=5>
-<TR>
-<TH COLSPAN=4>PHAST @PHAST_LINUX_VERSION@ (Latest version)</TH>
-</TR>
-
-<TR>
-<TH>Platform</TH>
-<TH>File names</TH>
-<TH>Size</TH>
-<TH>MD5 sum (GNU md5sum 5.2.1)</TH>
-</TR>
-
-<TR>
-<TD ROWSPAN=2>Linux</TD>
-<TD><A HREF="@PHAST_LINUX_PUB_RPM_DIR@/@PHAST_LINUX_RPM_FILE@">@PHAST_LINUX_RPM_FILE@</A></TD>
-<TD ALIGN=RIGHT>@PHAST_LINUX_RPM_SIZE@</TD>
-<TD>@PHAST_LINUX_RPM_MD5@</TD>
-</TR>
-
-<TR>
-<TD><A HREF="@PHAST_LINUX_PUB_DIR@/@PHAST_LINUX_FILE@">@PHAST_LINUX_FILE@</A></TD>
-<TD ALIGN=RIGHT>@PHAST_LINUX_SIZE@</TD>
-<TD>@PHAST_LINUX_MD5@</TD>
-</TR>
-
-<TR>
-<TD ROWSPAN=1>Windows</TD>
-<TD><A HREF="@PHAST_WIN_PUB_DIR@/@PHAST_WIN_FILE@">@PHAST_WIN_FILE@</A></TD>
-<TD ALIGN=RIGHT>@PHAST_WIN_SIZE@</TD>
-<TD>@PHAST_WIN_MD5@</TD>
-</TR>
-
-
+ <TR>
+  <TH colspan=5>PHAST @PHAST_LINUX_VERSION@ (Latest version)</TH>
+ </TR>
+ <TR>
+  <TH>Platform</TH>
+  <TH>Processor</TH>
+  <TH>File names</TH>
+  <TH>Size</TH>
+  <TH>MD5 sum (GNU md5sum 8.5)</TH>
+ </TR>
+ <TR>
+  <TD ROWSPAN=5>Linux</TD>
+  <TD ROWSPAN=2>32-bit</TD>
+  <TD><A HREF="@PHAST_LINUX_PUB_RPM_DIR@/@PHAST_LINUX_RPM_FILE@">@PHAST_LINUX_RPM_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_LINUX_RPM_SIZE@</TD>
+  <TD>@PHAST_LINUX_RPM_MD5@</TD>
+ </TR>
+ <TR>
+  <TD><A HREF="@PHAST_LINUX_PUB_DIR@/@PHAST_LINUX_FILE@">@PHAST_LINUX_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_LINUX_SIZE@</TD>
+  <TD>@PHAST_LINUX_MD5@</TD>
+ </TR>
+ <TR>
+  <TD rowspan=2>64-bit</TD>
+  <TD><A HREF="@PHAST_LINUX_PUB_RPM_DIR@/@PHAST_LINUX_X64_RPM_FILE@">@PHAST_LINUX_X64_RPM_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_LINUX_X64_RPM_SIZE@</TD>
+  <TD>@PHAST_LINUX_X64_RPM_MD5@</TD>
+ </TR>
+ <TR>
+  <TD><A HREF="@PHAST_LINUX_PUB_DIR@/@PHAST_LINUX_X64_FILE@">@PHAST_LINUX_X64_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_LINUX_X64_SIZE@</TD>
+  <TD>@PHAST_LINUX_X64_MD5@</TD>
+ </TR>
+ <TR>
+  <TD>Any</TD>
+  <TD><A HREF="@PHAST_LINUX_PUB_DIR@/@PHAST_CONFIGURE_FILE@">@PHAST_CONFIGURE_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_CONFIGURE_SIZE@</TD>
+  <TD>@PHAST_CONFIGURE_MD5@</TD>
+ </TR>
+ <TR>
+  <TD rowspan=2>Windows</TD>
+  <TD>32-bit</TD>
+  <TD><A HREF="@PHAST_WIN_PUB_DIR@/@PHAST_WIN_FILE@">@PHAST_WIN_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_WIN_SIZE@</TD>
+  <TD>@PHAST_WIN_MD5@</TD>
+ </TR>
+ <TR>
+  <TD>64-bit</TD>
+  <TD><A HREF="@PHAST_WIN_PUB_DIR@/@PHAST_WIN_FILE@">@PHAST_WIN_X64_FILE@</A></TD>
+  <TD ALIGN=RIGHT>@PHAST_WIN_X64_SIZE@</TD>
+  <TD>@PHAST_WIN_X64_MD5@</TD>
+ </TR>
 </TABLE>
 
 	</DL>
@@ -103,7 +123,7 @@ retrieved files.
 	(@WPHAST_SIZE@)--Contact dlpark@usgs.gov for beta test version. GUI generates trans.dat file, runs
 	PHAST. Batch version is needed for ModelViewer and PhastHDF utilities.</A> -->
 <!--
- 	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@WPHAST_PUB_DIR@/@WPHAST_FILE@"> 
+ 	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@WPHAST_PUB_DIR@/@WPHAST_FILE@">
 	WPHAST (Windows only)--Contact dlpark@usgs.gov for beta test version. GUI generates trans.dat file, runs
 	PHAST. Batch version is needed for ModelViewer and PhastHDF utilities.</A>
 -->
@@ -115,7 +135,7 @@ retrieved files.
 	<DT><dd>
 	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="http://water.usgs.gov/nrp/gwsoftware/GoPhast/GoPhast.html">
 	GoPhast (Version 1 capabilities only). (Replaced by ModelMuse on Windows; Linux GoPhast is NO LONGER MAINTAINED.)--GUI generates trans.dat file.  Batch version is needed to run PHAST and for ModelViewer and PhastHDF utilities.</A>
-  
+
   	</DL>
 
 	<DL><H2><!--mstheme--><font color="#003366">Status:<!--mstheme--></font></H2>
@@ -123,11 +143,11 @@ retrieved files.
 	<DT><dd>
 	<IMG alt="Bullet" SRC="../gifs/g_yellow_on.gif" ALT="[   ]" width="12" height="12"><A HREF="../phreeqc/status.html">
        Status of PHREEQC Programs</A>
-  
+
 	<DT><dd>
 	<IMG alt="Bullet" SRC="../gifs/g_yellow_on.gif" ALT="[   ]" width="12" height="12"><A HREF="mailto:dlpark@usgs.gov">
 	Add Me to the PHREEQC Mailing List (Include the word "subscribe" in body of letter)</A>
-  
+
 	<DT><dd>
 	<IMG alt="Bullet" SRC="../gifs/g_yellow_on.gif" ALT="[   ]" width="12" height="12"><A HREF="mailto:dlpark@usgs.gov">
 	Your Comments/Bug Reports</A>
@@ -136,7 +156,7 @@ retrieved files.
 	<DT><dd>
 	<IMG alt="Bullet" SRC="../gifs/g_yellow_on.gif" ALT="[   ]" width="12" height="12"><A HREF="mailto:dhcampbe@usgs.gov">
 	Endorsements</A>
- -->  
+ -->
 
   	</DL>
 <!--msthemeseparator--><p align="center"><img alt="line divider" src="../_themes/sumipntg/sumhorsa.gif" width="600" height="10"></p>
