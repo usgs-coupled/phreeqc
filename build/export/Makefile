@@ -64,7 +64,7 @@ PHREEQC_SOURCE_TARGET_DIR:=$(GEOCHEM)/unix/phreeqc
 PHREEQC_SOURCE_PUB_DIR:=$(FTP_CHARLTON)/phreeqc
 PHREEQC_SOURCE_FILE:=$(shell cd "$(PHREEQC_SOURCE_DIR)"; ls -t phreeqc-*.source.tar.gz | awk '{if (NR == 1) {print}}')
 PHREEQC_SOURCE_VERSION:=$(shell echo $(PHREEQC_SOURCE_FILE) | sed "s/phreeqc-//" | sed "s/.source.tar.gz//" )
-PHREEQC_SOURCE_SVN:=$(shell echo $(PHREEQC_SOURCE_FILE) | sed "s/phreeqc-//" | sed "s/.source.tar.gz//" | sed "s/^.*-//" ))
+PHREEQC_SOURCE_SVN:=$(shell echo $(PHREEQC_SOURCE_FILE) | sed "s/phreeqc-//" | sed "s/.source.tar.gz//" | sed "s/^.*-//")
 PHREEQC_SOURCE_SIZE:=$(shell ls -s -h "$(PHREEQC_SOURCE_DIR)/$(PHREEQC_SOURCE_FILE)" | awk '{print $$1}')
 PHREEQC_SOURCE_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_SOURCE_DIR)/$(PHREEQC_SOURCE_FILE)" | awk '{print $$6,$$7,$$8}')
 
@@ -112,7 +112,7 @@ PHAST_LINUX_X64_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_X64_FIL
 PHAST_LINUX_X64_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_LINUX_X64_FILE)" | awk '{print $$1}')
 
 PHAST_CONFIGURE_FILE:=$(shell echo $(PHAST_LINUX_X64_FILE) | sed "s/x86_64\.//")
-PHAST_CONFIGURE_SIZE$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_CONFIGURE_FILE)" | awk '{print $$1}')
+PHAST_CONFIGURE_SIZE:=$(shell ls -s -h "$(PHAST_LINUX_DIR)/$(PHAST_CONFIGURE_FILE)" | awk '{print $$1}')
 PHAST_CONFIGURE_MD5:=$(shell md5sum "$(PHAST_LINUX_DIR)/$(PHAST_CONFIGURE_FILE)" | awk '{print $$1}')
 
 
@@ -241,6 +241,9 @@ SED_ARGS= \
 	-e "s^@PHAST_LINUX_X64_RPM_DATE@^$(PHAST_LINUX_X64_RPM_DATE)^g" \
 	-e "s^@PHAST_LINUX_X64_RPM_SIZE@^$(PHAST_LINUX_X64_RPM_SIZE)^g" \
 	-e "s^@PHAST_LINUX_X64_RPM_MD5@^$(PHAST_LINUX_X64_RPM_MD5)^g" \
+	-e "s^@PHAST_CONFIGURE_FILE@^$(PHAST_CONFIGURE_FILE)^g" \
+	-e "s^@PHAST_CONFIGURE_SIZE@^$(PHAST_CONFIGURE_SIZE)^g" \
+	-e "s^@PHAST_CONFIGURE_MD5@^$(PHAST_CONFIGURE_MD5)^g" \
 	-e "s^@WPHAST_PUB_DIR@^$(WPHAST_PUB_DIR)^"  \
 	-e "s^@WPHAST_FILE@^$(WPHAST_FILE)^" \
 	-e "s^@WPHAST_VERSION@^$(WPHAST_VERSION)^" \
@@ -264,6 +267,107 @@ trial: Makefile template_phreeqc_index.html template_phreeqci_index.html templat
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
+	
+test:
+	@echo "***PhreeqcI version ***"
+	@echo "PHREEQCI_DIR                = $(PHREEQCI_DIR)"
+	@echo "PHREEQCI_TARGET_DIR         = $(PHREEQCI_TARGET_DIR)"
+	@echo "PHREEQCI_PUB_DIR            = $(PHREEQCI_PUB_DIR)"
+	@echo "PHREEQCI_FILE               = $(PHREEQCI_FILE)"
+	@echo "PHREEQCI_VERSION            = $(PHREEQCI_VERSION)"
+	@echo "PHREEQCI_SIZE               = $(PHREEQCI_SIZE)"
+	@echo "PHREEQCI_DATE               = $(PHREEQCI_DATE)"
+	@echo "*** Phreeqc For Windows version ***"
+	@echo "PFW_DIR                     = $(PFW_DIR)"
+	@echo "PFW_PUB_DIR                 = $(PFW_PUB_DIR)"
+	@echo "PFW_FILE                    = $(PFW_FILE)"
+	@echo "PFW_VERSION                 = $(PFW_VERSION)"
+	@echo "PFW_SIZE                    = $(PFW_SIZE)"
+	@echo "PFW_DATE                    = $(PFW_DATE)"
+	@echo "*** Batch phreeqc Windows ***"
+	@echo "PHREEQC_WIN_DIR             = $(PHREEQC_WIN_DIR)"
+	@echo "PHREEQC_WIN_TARGET_DIR      = $(PHREEQC_WIN_TARGET_DIR)"
+	@echo "PHREEQC_WIN_PUB_DIR         = $(PHREEQC_WIN_PUB_DIR)"
+	@echo "PHREEQC_WIN_FILE            = $(PHREEQC_WIN_FILE)"
+	@echo "PHREEQC_WIN_VERSION         = $(PHREEQC_WIN_VERSION)"
+	@echo "PHREEQC_WIN_SVN             = $(PHREEQC_WIN_SVN)"
+	@echo "PHREEQC_WIN_SIZE            = $(PHREEQC_WIN_SIZE)"
+	@echo "PHREEQC_WIN_DATE            = $(PHREEQC_WIN_DATE)"
+	@echo "*** Batch phreeqc Linux ***"
+	@echo "PHREEQC_LINUX_DIR           = $(PHREEQC_LINUX_DIR)"
+	@echo "PHREEQC_LINUX_TARGET_DIR    = $(PHREEQC_LINUX_TARGET_DIR)"
+	@echo "PHREEQC_LINUX_PUB_DIR       = $(PHREEQC_LINUX_PUB_DIR)"
+	@echo "PHREEQC_LINUX_FILE          = $(PHREEQC_LINUX_FILE)"
+	@echo "PHREEQC_LINUX_VERSION       = $(PHREEQC_LINUX_VERSION)"
+	@echo "PHREEQC_LINUX_SVN           = $(PHREEQC_LINUX_SVN)"
+	@echo "PHREEQC_LINUX_SIZE          = $(PHREEQC_LINUX_SIZE)"
+	@echo "PHREEQC_LINUX_DATE          = $(PHREEQC_LINUX_DATE)"
+	@echo "*** Batch phreeqc source ***"
+	@echo "PHREEQC_SOURCE_DIR          = $(PHREEQC_SOURCE_DIR)"
+	@echo "PHREEQC_SOURCE_TARGET_DIR   = $(PHREEQC_SOURCE_TARGET_DIR)"
+	@echo "PHREEQC_SOURCE_PUB_DIR      = $(PHREEQC_SOURCE_PUB_DIR)"
+	@echo "PHREEQC_SOURCE_FILE         = $(PHREEQC_SOURCE_FILE)"
+	@echo "PHREEQC_SOURCE_VERSION      = $(PHREEQC_SOURCE_VERSION)"
+	@echo "PHREEQC_SOURCE_SVN          = $(PHREEQC_SOURCE_SVN)"
+	@echo "PHREEQC_SOURCE_SIZE         = $(PHREEQC_SOURCE_SIZE)"
+	@echo "PHREEQC_SOURCE_DATE         = $(PHREEQC_SOURCE_DATE)"
+	@echo "*** Batch Mac ***"
+	@echo "PHREEQC_MAC_DIR             = $(PHREEQC_MAC_DIR)"
+	@echo "PHREEQC_MAC_PUB_DIR         = $(PHREEQC_MAC_PUB_DIR)"
+	@echo "PHREEQC_MAC_FILE            = $(PHREEQC_MAC_FILE)"
+	@echo "PHREEQC_MAC_VERSION         = $(PHREEQC_MAC_VERSION)"
+	@echo "PHREEQC_MAC_SVN             = $(PHREEQC_MAC_SVN)"
+	@echo "PHREEQC_MAC_SIZE            = $(PHREEQC_MAC_SIZE)"
+	@echo "PHREEQC_MAC_DATE            = $(PHREEQC_MAC_DATE)"
+	@echo "*** Batch PHAST Windows ***"
+	@echo "PHAST_WIN_DIR               = $(PHAST_WIN_DIR)"
+	@echo "PHAST_WIN_TARGET_DIR        = $(PHAST_WIN_TARGET_DIR)"
+	@echo "PHAST_WIN_PUB_DIR           = $(PHAST_WIN_PUB_DIR)"
+	@echo "PHAST_WIN_X64_FILE          = $(PHAST_WIN_X64_FILE)"
+	@echo "PHAST_WIN_FILE              = $(PHAST_WIN_FILE)"
+	@echo "PHAST_WIN_VERSION           = $(PHAST_WIN_VERSION)"
+	@echo "PHAST_WIN_SVN               = $(PHAST_WIN_SVN)"
+	@echo "PHAST_WIN_SIZE              = $(PHAST_WIN_SIZE)"
+	@echo "PHAST_WIN_X64_SIZE          = $(PHAST_WIN_X64_SIZE)"
+	@echo "PHAST_WIN_DATE              = $(PHAST_WIN_DATE)"
+	@echo "PHAST_WIN_MD5               = $(PHAST_WIN_MD5)"
+	@echo "PHAST_WIN_X64_MD5           = $(PHAST_WIN_X64_MD5)"
+	@echo "*** Batch Linux ***"
+	@echo "PHAST_LINUX_DIR             = $(PHAST_LINUX_DIR)"
+	@echo "PHAST_LINUX_TARGET_DIR      = $(PHAST_LINUX_TARGET_DIR)"
+	@echo "PHAST_LINUX_PUB_DIR         = $(PHAST_LINUX_PUB_DIR)"
+	@echo "PHAST_LINUX_FILE            = $(PHAST_LINUX_FILE)"
+	@echo "PHAST_LINUX_VERSION         = $(PHAST_LINUX_VERSION)"
+	@echo "PHAST_LINUX_SVN             = $(PHAST_LINUX_SVN)"
+	@echo "PHAST_LINUX_SIZE            = $(PHAST_LINUX_SIZE)"
+	@echo "PHAST_LINUX_DATE            = $(PHAST_LINUX_DATE)"
+	@echo "PHAST_LINUX_MD5             = $(PHAST_LINUX_MD5)"
+	@echo "PHAST_LINUX_X64_FILE        = $(PHAST_LINUX_X64_FILE)"
+	@echo "PHAST_LINUX_X64_SIZE        = $(PHAST_LINUX_X64_SIZE)"
+	@echo "PHAST_LINUX_X64_MD5         = $(PHAST_LINUX_X64_MD5)"
+	@echo "PHAST_CONFIGURE_FILE        = $(PHAST_CONFIGURE_FILE)"
+	@echo "PHAST_CONFIGURE_SIZE        = $(PHAST_CONFIGURE_SIZE)"
+	@echo "PHAST_CONFIGURE_MD5         = $(PHAST_CONFIGURE_MD5)"
+	@echo "*** RPM Linux ***"
+	@echo "PHAST_LINUX_RPM_DIR         = $(PHAST_LINUX_RPM_DIR)"
+	@echo "PHAST_LINUX_TARGET_RPM_DIR  = $(PHAST_LINUX_TARGET_RPM_DIR)"
+	@echo "PHAST_LINUX_PUB_RPM_DIR     = $(PHAST_LINUX_PUB_RPM_DIR)"
+	@echo "PHAST_LINUX_RPM_FILE        = $(PHAST_LINUX_RPM_FILE)"
+	@echo "PHAST_LINUX_RPM_VERSION     = $(PHAST_LINUX_RPM_VERSION)"
+	@echo "PHAST_LINUX_RPM_SVN         = $(PHAST_LINUX_RPM_SVN)"
+	@echo "PHAST_LINUX_RPM_SIZE        = $(PHAST_LINUX_RPM_SIZE)"
+	@echo "PHAST_LINUX_RPM_DATE        = $(PHAST_LINUX_RPM_DATE)"
+	@echo "PHAST_LINUX_RPM_MD5         = $(PHAST_LINUX_RPM_MD5)"
+	@echo "*** RPM Linux x64 ***"
+	@echo "PHAST_LINUX_X64_RPM_FILE    = $(PHAST_LINUX_X64_RPM_FILE)"
+	@echo "PHAST_LINUX_X64_RPM_VERSION = $(PHAST_LINUX_X64_RPM_VERSION)"
+	@echo "PHAST_LINUX_X64_RPM_SVN     = $(PHAST_LINUX_X64_RPM_SVN)"
+	@echo "PHAST_LINUX_X64_RPM_SIZE    = $(PHAST_LINUX_X64_RPM_SIZE)"
+	@echo "PHAST_LINUX_X64_RPM_DATE    = $(PHAST_LINUX_X64_RPM_DATE)"
+	@echo "PHAST_LINUX_X64_RPM_MD5     = $(PHAST_LINUX_X64_RPM_MD5)"
+
+
+
 
 web: 
 # PHREEQC
