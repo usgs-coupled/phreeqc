@@ -267,7 +267,7 @@ trial: Makefile template_phreeqc_index.html template_phreeqci_index.html templat
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
-	
+
 test:
 	@echo "***PhreeqcI version ***"
 	@echo "PHREEQCI_DIR                = $(PHREEQCI_DIR)"
@@ -372,36 +372,36 @@ test:
 web: 
 # PHREEQC
 	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
-	cp -f web_phreeqc_index.html $(HTML_PHREEQC)/index.html 
-	cd $(HTML_PHREEQC); rcs -l index.html; ci -l -m"Latest" index.html
+	install -T --mode=664 web_phreeqc_index.html $(HTML_PHREEQC)/index.html 	
+#	cd $(HTML_PHREEQC); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE) $(PHREEQC_WIN_TARGET_DIR)/$(PHREEQC_WIN_FILE)
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) $(PHREEQC_LINUX_TARGET_DIR)/$(PHREEQC_LINUX_FILE)
 #	cp -f $(PHREEQC_SOURCE_DIR)/$(PHREEQC_SOURCE_FILE) $(PHREEQC_SOURCE_TARGET_DIR)/$(PHREEQC_SOURCE_FILE)
 #	cp -f $(PHREEQC_WIN_PUB_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
 # uncomment next line
 # ERROR with this copy because .exe not available
-	cp -f $(PHREEQC_WIN_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
-	cp -f $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
-	cp -f $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
-	cp -f $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 $(PHREEQC_WIN_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install -T --mode=664 $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
+	install --mode=664 $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
 
 # PHREEQCI
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
-	cp -f web_phreeqci_index.html $(HTML_PHREEQCI)/index.html 
-	cd $(HTML_PHREEQCI); rcs -l index.html; ci -l -m"Latest" index.html
+	install -T --mode=664 web_phreeqci_index.html $(HTML_PHREEQCI)/index.html 
+#	cd $(HTML_PHREEQCI); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQCI_DIR)/$(PHREEQCI_FILE) $(PHREEQCI_TARGET_DIR)/$(PHREEQCI_FILE)
 
 # PHAST
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
-	cp -f web_phast_index.html $(HTML_PHAST)/index.html 
-	cd $(HTML_PHAST); rcs -l index.html; ci -l -m"Latest" index.html
-	cp -f $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
-	cp -f $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+	install -T --mode=664 web_phast_index.html $(HTML_PHAST)/index.html 
+#	cd $(HTML_PHAST); rcs -l index.html; ci -l -m"Latest" index.html
+	install --mode=664 $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+	install --mode=664 $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
 
 # NETPATH
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
-	cp -f web_netpath_index.html $(HTML_NETPATH)/index.html 
-	cp -f $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
+	install -T --mode=664 web_netpath_index.html $(HTML_NETPATH)/index.html 
+	install --mode=664 $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
 
 #	mkdir -p temp
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) temp
