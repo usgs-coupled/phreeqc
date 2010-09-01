@@ -7,7 +7,11 @@ File contains:
 *        Features not documented in WRIR 99-4259.          *
 ************************************************************
 ************************************************************
-
+        --------
+        svn 4771
+        --------
+        Added synonyms to TOTMOLE: TOTMOL, TOTMOLES
+        
 ------------------------------------------------------------
 Version 2.17.3: August 12, 2010
 ------------------------------------------------------------
@@ -17,9 +21,9 @@ Version 2.17.3: August 12, 2010
         --------
         Added new Basic functions:
         
-        10 total_Ca_in_moles = TOTMOLES("Ca")
+        10 total_Ca_in_moles = TOTMOLE("Ca")
         
-        TOTMOLES provides the total number of moles of an element
+        TOTMOLE provides the total number of moles of an element
 	or element valence state in solution. Special values are
 	"water", which gives number of moles of water, and
 	"charge", which gives total equivalents of charge
@@ -1454,6 +1458,12 @@ End of Features not documented in WRIR 99-4259.
 *               Revisions and Bug Fixes                    *
 ************************************************************
 ************************************************************
+        --------
+        svn 4771
+        --------
+        Added synonyms to TOTMOLE: TOTMOL, TOTMOLES
+        Fixed bug with negative exponential in basic, 
+        for example  -0.006^0.9
 
 ------------------------------------------------------------
 Version 2.17.3: August 12, 2010
