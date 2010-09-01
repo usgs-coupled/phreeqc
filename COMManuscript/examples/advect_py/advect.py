@@ -76,7 +76,6 @@ def initialize(CELLS, PROCESSES, task_queue, done_queue):
 	initial_conditions = set_initial_conditions(Phreeqc)
 	Phreeqc.RunString(initial_conditions)
 	components = Phreeqc.GetComponentList()
-	print components
 	#
 	# Send components to processes
 	# No data returned in done queue
@@ -205,6 +204,7 @@ if __name__ == '__main__':
 
 	PROCESSES = 8
 	CELLS = 40
+	SHIFTS = 120
 	
 	start = time.clock()
 	#
@@ -231,9 +231,8 @@ if __name__ == '__main__':
 	#
 	# Loop for advection + reaction
 	#
-	outflow = zeros([3*CELLS, len(conc[0])], double)
-	for t in xrange(3*CELLS):
-	#for t in xrange(3):
+	outflow = zeros([SHIFTS, len(conc[0])], double)
+	for t in xrange(SHIFTS):
 	 	#
  		# Advect
  		#
@@ -258,7 +257,7 @@ if __name__ == '__main__':
 			for j in xrange(ranges[i][0] - 1, ranges[i][1]):
 				conc[j] = segment[k]
 				k += 1
-		print "Finished step %d." % t
+		#print "Finished step %d." % t
 		outflow[t] = conc[CELLS - 1]
 
 	#
@@ -271,6 +270,7 @@ if __name__ == '__main__':
 	#
 	# Plot results
 	#
+	
 	Ca = outflow[:,3]
 	Cl = outflow[:,4]
 	K  = outflow[:,5]
