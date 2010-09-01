@@ -244,5 +244,7 @@ struct LOC_exec
 #endif
 #define toktotmole          145
 #define tokiso              146
-#define tokiso_unit          147
+#define tokiso_unit         147
+#define toktotmol           148
+#define toktotmoles         149
 #endif /* _INC_BASIC_H */
