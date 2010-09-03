@@ -130,7 +130,9 @@ SED_ARGS= \
 	-e "s/VERSION_DATE/$(VERSION)/" \
 	-e "s^@GCC_VER@^$(GCC_VER)^" \
 	-e "s^@KERNEL_VER@^$(KERNEL_VER)^" \
-	-e "s/@REVISION@/$(REVISION)/"
+	-e "s/@REVISION@/$(REVISION)/" \
+	-e "s/@PHREEQC_VER@/$(VERSION)/" \
+	-e "s/@PHREEQC_DATE@/$(VER_LONG_DATE)/"
 
 SED_ARGS2=\
 	-e "s/^\# Remove the following definition if you do not have /\# Add the following definition if you have/" \
