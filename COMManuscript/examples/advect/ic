@@ -13,6 +13,6 @@ SELECTED_OUTPUT
 USER_PUNCH
    -Heading  charge    H   O   C   Ca  pH  SR(calcite)
    10 PUNCH charge_balance
-   20 PUNCH TOTMOLES("H"), TOTMOLES("O"), TOTMOLES("C"), TOTMOLES("Ca")
+   20 PUNCH TOTMOLE("H"), TOTMOLE("O"), TOTMOLE("C"), TOTMOLE("Ca")
    30 PUNCH -LA("H+"), SR("calcite")
 END
