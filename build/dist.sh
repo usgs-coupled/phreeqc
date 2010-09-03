@@ -181,6 +181,8 @@ do
    -e "s/@VER_UC@/$VER_UC/g" \
    -e "s/@REVISION@/$REL/g" \
    -e "s/@REL@/$REL/g" \
+   -e "s/@PHREEQC_VER@/$VER/g" \
+   -e "s/@PHREEQC_DATE@/$RELEASE_DATE/g" \
     < "$vsn_file" > "$vsn_file.tmp"
   unix2dos "$vsn_file.tmp" 2> /dev/null
   mv -f "$vsn_file.tmp" "$vsn_file"
