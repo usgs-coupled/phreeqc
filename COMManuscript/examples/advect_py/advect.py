@@ -202,9 +202,9 @@ def IP_run(task_queue, done):
 	
 if __name__ == '__main__':
 
-	PROCESSES = 8
-	CELLS = 40
-	SHIFTS = 120
+	PROCESSES = 2
+	CELLS = 400
+	SHIFTS = 1200
 	
 	start = time.clock()
 	#
