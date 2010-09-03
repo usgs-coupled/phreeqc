@@ -170,6 +170,7 @@ NETPATHWIN_SIZE:=$(shell ls -s -h "$(NETPATHWIN_DIR)/$(NETPATHWIN_FILE)" | awk '
 NETPATHWIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(NETPATHWIN_DIR)/$(NETPATHWIN_FILE)" | awk '{print $$6,$$7,$$8}')
 
 SED_ARGS= \
+	-e "s^@FTP_GEOCHEM@^$(FTP_GEOCHEM)^"  \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
 	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^" \
 	-e "s^@PHREEQCI_VERSION@^$(PHREEQCI_VERSION)^" \
