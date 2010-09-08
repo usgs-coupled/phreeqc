@@ -1056,6 +1056,10 @@ set_use(void)
 	{
 		use.s_s_assemblage_ptr = NULL;
 	}
+	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
+	{
+		warning_msg("Should not use REACTION in same simulation with KINETICS.");
+	}
 	return (OK);
 }
 
