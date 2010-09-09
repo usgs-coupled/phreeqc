@@ -4,11 +4,6 @@ from  multiprocessing import *
 from numpy import *
 import matplotlib.pyplot as plt
 
-myphreeq = Dispatch('IPhreeqcCOM.Object')
-class myinteger:
-	i = int(0)
-myi = myinteger()
-
 def set_initial_conditions(CELLS):
 	#
 	# Specify initial conditions data blocks
@@ -202,7 +197,7 @@ def IP_run(task_queue, done):
 	
 if __name__ == '__main__':
 
-	PROCESSES = 2
+	PROCESSES = 8
 	CELLS = 400
 	SHIFTS = 1200
 	
@@ -257,7 +252,8 @@ if __name__ == '__main__':
 			for j in xrange(ranges[i][0] - 1, ranges[i][1]):
 				conc[j] = segment[k]
 				k += 1
-		#print "Finished step %d." % t
+		if (t % 10 == 0):
+			print "Finished step %d." % t
 		outflow[t] = conc[CELLS - 1]
 
 	#
