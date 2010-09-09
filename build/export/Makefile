@@ -373,6 +373,9 @@ test:
 web: 
 # PHREEQC
 	sed $(SED_ARGS) < template_phreeqc_index.html > web_phreeqc_index.html
+	svn commit -m"checkin from make" web_phreeqc_index.html
+	rm -f web_phreeqc_index.html
+	svn up web_phreeqc_index.html
 	install -T --mode=664 web_phreeqc_index.html $(HTML_PHREEQC)/index.html 	
 #	cd $(HTML_PHREEQC); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE) $(PHREEQC_WIN_TARGET_DIR)/$(PHREEQC_WIN_FILE)
@@ -388,12 +391,18 @@ web:
 
 # PHREEQCI
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
+	svn commit -m"checkin from make" web_phreeqci_index.html
+	rm -f web_phreeqci_index.html
+	svn up web_phreeqci_index.html
 	install -T --mode=664 web_phreeqci_index.html $(HTML_PHREEQCI)/index.html 
 #	cd $(HTML_PHREEQCI); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQCI_DIR)/$(PHREEQCI_FILE) $(PHREEQCI_TARGET_DIR)/$(PHREEQCI_FILE)
 
 # PHAST
 	sed $(SED_ARGS) < template_phast_index.html > web_phast_index.html
+	svn commit -m"checkin from make" web_phast_index.html
+	rm -f web_phast_index.html
+	svn up web_phast_index.html
 	install -T --mode=664 web_phast_index.html $(HTML_PHAST)/index.html 
 #	cd $(HTML_PHAST); rcs -l index.html; ci -l -m"Latest" index.html
 	install --mode=664 $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
@@ -401,6 +410,9 @@ web:
 
 # NETPATH
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
+	svn commit -m"checkin from make" web_netpath_index.html
+	rm -f web_netpath_index.html
+	svn up web_netpath_index.html
 	install -T --mode=664 web_netpath_index.html $(HTML_NETPATH)/index.html 
 	install --mode=664 $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
 
