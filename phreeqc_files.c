@@ -790,7 +790,7 @@ rewind_wrapper(FILE * file_ptr)
 #if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
 bool CLASS_QUALIFIER
-recursive_include(FILE * input_file, std::ofstream & accumulated_file)
+recursive_include(FILE * input_file, FILE * accumulated_file)
 /* ---------------------------------------------------------------------- */
 {
 	std::string myline;
@@ -803,7 +803,7 @@ recursive_include(FILE * input_file, std::ofstream & accumulated_file)
 	{
 		if (i == EOF)
 			return true;
-		accumulated_file << myline << std::endl;
+		fprintf(accumulated_file, "%s\n", myline.c_str());
 
 		std::string copy_line = myline;
 		// remove leading spaces
@@ -826,7 +826,7 @@ recursive_include(FILE * input_file, std::ofstream & accumulated_file)
 			if (next_file != NULL)
 			{
 				recursive_include(next_file, accumulated_file);
-				accumulated_file << "#Done include " << token << std::endl;
+				fprintf(accumulated_file, "#Done include %s\n", token.c_str());
 			}
 			else
 			{
