@@ -9,7 +9,8 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
-
+#include <algorithm>
+#include <cctype>
 
 /* following line defines path for default data base file */
 #if !defined(PHREEQC_CLASS)
@@ -786,3 +787,80 @@ rewind_wrapper(FILE * file_ptr)
 	rewind(file_ptr);
 	return (OK);
 }
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+recursive_include(FILE * input_file, std::ofstream & accumulated_file)
+/* ---------------------------------------------------------------------- */
+{
+	std::string myline;
+	int i;
+
+	// input_file should be opened before calling recursive_include
+	assert(input_file != NULL);
+
+	while (i = simple_get_line(input_file, myline))
+	{
+		if (i == EOF)
+			return true;
+		accumulated_file << myline << std::endl;
+
+		std::string copy_line = myline;
+		// remove leading spaces
+		copy_line.erase(0, copy_line.find_first_not_of(" \t") );
+		// get first 8 characters
+		std::string token = copy_line.substr(0,8);
+		// convert to lower case
+		std::transform(token.begin(), token.end(), token.begin(),
+               (int(*)(int)) std::tolower);
+		// check for #include file_name
+		if (token == "#include")
+		{
+			// get file name without trailing spaces
+			token = copy_line.substr(9, copy_line.length());
+			token.erase(0, token.find_first_not_of(" \t"));
+			// remove leading, trailing spaces
+			token = token.substr(0, token.find_last_not_of(" \t\n\0") + 1);
+			// open stream
+			FILE * next_file = fopen(token.c_str(), "r");
+			if (next_file != NULL)
+			{
+				recursive_include(next_file, accumulated_file);
+				accumulated_file << "#Done include " << token << std::endl;
+			}
+			else
+			{
+				// error opening file
+				sprintf(error_string, "Could not open include file %s", token.c_str());
+				error_msg(error_string, STOP);
+			}
+		}
+		else
+		{
+			// write line to accumulated file
+			
+		}
+	}
+	return true;
+}
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+simple_get_line(FILE * input_file, std::string & l_line)
+{
+	int i;
+	char str[2];
+	str[1] = '\0';
+	l_line.clear();
+	while ((i = getc(input_file)) != EOF && i != '\n')
+	{
+		str[0] = (char) i;
+		l_line.append(str);
+	}
+	if (l_line.size() > 0)
+	{
+		return 1;
+	}
+	return i;
+}
+/* ---------------------------------------------------------------------- */
+#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */

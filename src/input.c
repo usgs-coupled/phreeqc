@@ -27,8 +27,27 @@ set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 {
 	if (svnid == NULL)
 		fprintf(stderr, " ");
-	s_read_callback.callback = pfn;
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+/*
+ * Merge include files
+ */
+	std::string fn("xxx_phreeqc_temporary_input_file_xxx");
+	std::ofstream scratch_stream(fn.c_str(), std::ofstream::out);
+	if (recursive_include((FILE *) cookie, scratch_stream) == false)
+	{
+		error_msg("Error processing include files.", STOP);
+	}
+	scratch_stream.close();
+	void *new_cookie = (void *) fopen(fn.c_str(), "r");
+	if (new_cookie == NULL)
+	{
+		error_msg("Error processing include files.", STOP);
+	}
+	s_read_callback.cookie = new_cookie;
+#else /* MERGE_INCLUEDE_FILES */
 	s_read_callback.cookie = cookie;
+#endif
+	s_read_callback.callback = pfn;
 	s_read_callback.database = database;
 	return OK;
 }
