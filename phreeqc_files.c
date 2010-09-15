@@ -202,7 +202,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	int l;
 	char token[2 * MAX_LENGTH], default_name[2 * MAX_LENGTH];
 	char query[2 * MAX_LENGTH];
-	char in_file[2 * MAX_LENGTH], out_file[2 * MAX_LENGTH];
+	char in_file[2 * MAX_LENGTH], out_file[2 * MAX_LENGTH], db_file[2 * MAX_LENGTH];
 	char *env_ptr;
 	char *ptr;
 	int errors;
@@ -403,13 +403,11 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	output_msg(OUTPUT_SCREEN, "Database file: %s\n\n", token);
 	output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
-
+	strcpy(db_file, token);
 
 	output_msg(OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
 	output_msg(OUTPUT_MESSAGE, "  Output file: %s\n", out_file);
 	output_msg(OUTPUT_MESSAGE, "Database file: %s\n\n", token);
-
-
 /*
  *   local cleanup
  */
@@ -428,6 +426,44 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	*db_cookie = database_file;
 	*input_cookie = input_file;
 
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+/*
+ * Merge include files for database file
+ */
+	std::ifstream database_fstream(db_file, std::ifstream::in);
+	if (!recursive_include(database_fstream, merged_database_stream))
+	{
+		error_msg("Error processing include files.", STOP);
+	}
+	merged_database_stream.seekg(std::ios_base::beg);
+	database_fstream.close();
+/*
+ * Merge include files for input file
+ */
+	std::ifstream input_fstream(in_file, std::ifstream::in);
+	if (!recursive_include(input_fstream, merged_input_stream))
+	{
+		error_msg("Error processing include files.", STOP);
+	}
+	input_fstream.close();
+	merged_input_stream.seekg(std::ios_base::beg);
+
+//#define DEBUG_MERGE_INCLUDE
+#ifdef DEBUG_MERGE_INCLUDE
+	std::string myline;
+	while (std::getline(scratch_stream, myline))
+	{
+		std::cerr << myline << std::endl;
+	}
+#endif
+
+	*db_cookie = merged_database_stream;
+	*input_cookie = merged_input_stream;
+
+#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
+
+
+
 	return 0;
 }
 
@@ -442,7 +478,23 @@ getc_callback(void *cookie)
 
 	return i;
 }
-
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+int CLASS_QUALIFIER
+istream_getc(void *cookie)
+{
+	if (cookie)
+	{
+		std::istream* is = (std::istream*)cookie;
+		int n = is->get();
+		if (n == 13 && is->peek() == 10)
+		{
+			n = is->get();
+		}
+		return n;
+	}
+	return EOF;
+}
+#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
 /* ---------------------------------------------------------------------- */
 STATIC int CLASS_QUALIFIER
 output_handler(const int type, const char *err_str, const int stop,
@@ -790,20 +842,17 @@ rewind_wrapper(FILE * file_ptr)
 #if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
 bool CLASS_QUALIFIER
-recursive_include(FILE * input_file, FILE * accumulated_file)
+recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stream)
 /* ---------------------------------------------------------------------- */
 {
 	std::string myline;
-	int i;
 
 	// input_file should be opened before calling recursive_include
-	assert(input_file != NULL);
+	assert(input_stream.is_open());
 
-	while (i = simple_get_line(input_file, myline))
+	while (std::getline(input_stream, myline))
 	{
-		if (i == EOF)
-			return true;
-		fprintf(accumulated_file, "%s\n", myline.c_str());
+		accumulated_stream << myline << std::endl;
 
 		std::string copy_line = myline;
 		// remove leading spaces
@@ -822,11 +871,11 @@ recursive_include(FILE * input_file, FILE * accumulated_file)
 			// remove leading, trailing spaces
 			token = token.substr(0, token.find_last_not_of(" \t\n\0") + 1);
 			// open stream
-			FILE * next_file = fopen(token.c_str(), "r");
-			if (next_file != NULL)
+			std::ifstream next_stream(token.c_str(), std::ifstream::in);
+			if (next_stream.is_open())
 			{
-				recursive_include(next_file, accumulated_file);
-				fprintf(accumulated_file, "#Done include %s\n", token.c_str());
+				recursive_include(next_stream, accumulated_stream);
+				accumulated_stream << "#Done include " << token << std::endl;
 			}
 			else
 			{
@@ -835,32 +884,7 @@ recursive_include(FILE * input_file, FILE * accumulated_file)
 				error_msg(error_string, STOP);
 			}
 		}
-		else
-		{
-			// write line to accumulated file
-			
-		}
 	}
 	return true;
 }
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-simple_get_line(FILE * input_file, std::string & l_line)
-{
-	int i;
-	char str[2];
-	str[1] = '\0';
-	l_line.clear();
-	while ((i = getc(input_file)) != EOF && i != '\n')
-	{
-		str[0] = (char) i;
-		l_line.append(str);
-	}
-	if (l_line.size() > 0)
-	{
-		return 1;
-	}
-	return i;
-}
-/* ---------------------------------------------------------------------- */
 #endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
