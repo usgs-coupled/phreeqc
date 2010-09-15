@@ -903,6 +903,10 @@ int forward_output_to_log;
 char *default_data_base;
 FILE *input_file;
 FILE *database_file;
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+	std::stringstream merged_database_stream;
+	std::stringstream merged_input_stream;
+#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
 FILE *output;		/* OUTPUT_MESSAGE */
 FILE *log_file;	    /* OUTPUT_LOG */
 FILE *punch_file;	/* OUTPUT_PUNCH */
