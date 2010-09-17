@@ -10873,7 +10873,7 @@ read_copy(void)
  */
 	int i, l, n, n_user, n_user_start, n_user_end, return_value;
 	char *ptr;
-	char token[MAX_LENGTH], token1[MAX_LENGTH];;
+	char token[MAX_LENGTH], token1[MAX_LENGTH], nonkeyword[MAX_LENGTH];
 /*
  *   Read "copy"
  */
@@ -10887,34 +10887,29 @@ read_copy(void)
 	switch (next_keyword)
 	{
 	case -1:					/* Have not read line with keyword */
-	case 0:					/* End encountered */
-	case 1:					/* EOF encountered */
-	case 2:					/* Read aqueous model */
-	case 3:					/* Read master species */
-	case 5:
-	case 9:
-	case 10:
-	case 11:
-	case 12:
-	case 14:
-	case 15:
-	case 18:
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-	case 30:
-	case 31:
-	case 32:
-	case 34:
-	case 35:
-	case 38:
-	case 39:
+		strcpy(nonkeyword, token);
+		break;
+	case 4:					/* Solution */
+	case 6:					/* Pure phases */
+	case 26:
+	case 27:
+	case 28:
+	case 29:
+	case 61:
+	case 7:					/* Reaction */
+	case 8:					/* Mix */
+	case 13:				/* Ex */
+	case 16:				/* Surface */
+	case 17:				/* Temperature */
+	case 19:				/* Gas */
+	case 33:				/* Kinetics */
+	case 40:				/* solid_solutions */
+	case 41:				/* solid_solution */
+		break;
+	default:
 		input_error++;
 		error_msg
-			("Expecting keyword solution, mix, kinetics, reaction, reaction_temperature, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.",
+			("Expecting keyword solution, mix, kinetics, reaction, reaction_temperature, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions, or cell.",
 			 CONTINUE);
 		error_msg(line_save, CONTINUE);
 		check_line("End of use", FALSE, TRUE, TRUE, TRUE);
@@ -10987,6 +10982,26 @@ read_copy(void)
 
 	switch (next_keyword)
 	{
+	case -1:
+		str_tolower(nonkeyword);
+		if (strstr(nonkeyword, "cell") != nonkeyword)
+		{
+			error_msg("Unknown input in COPY data block.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			input_error++;
+			return (ERROR);
+		}
+		copier_add(&copy_solution, n_user, n_user_start, n_user_end);
+		copier_add(&copy_pp_assemblage, n_user, n_user_start, n_user_end);
+		copier_add(&copy_irrev, n_user, n_user_start, n_user_end);
+		copier_add(&copy_mix, n_user, n_user_start, n_user_end);
+		copier_add(&copy_exchange, n_user, n_user_start, n_user_end);
+		copier_add(&copy_surface, n_user, n_user_start, n_user_end);
+		copier_add(&copy_temperature, n_user, n_user_start, n_user_end);
+		copier_add(&copy_gas_phase, n_user, n_user_start, n_user_end);
+		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
+		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
+		break;
 	case 4:					/* Solution */
 		copier_add(&copy_solution, n_user, n_user_start, n_user_end);
 		break;
@@ -10995,6 +11010,7 @@ read_copy(void)
 	case 27:
 	case 28:
 	case 29:
+	case 61:
 		copier_add(&copy_pp_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	case 7:					/* Reaction */

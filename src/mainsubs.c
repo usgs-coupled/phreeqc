@@ -3052,6 +3052,9 @@ copy_entities(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, n, return_value;
+	int verbose;
+
+	verbose = FALSE;
 	return_value = OK;
 	if (copy_solution.count > 0)
 	{
@@ -3060,7 +3063,7 @@ copy_entities(void)
 			if (solution_bsearch(copy_solution.n_user[j], &n, FALSE) != NULL)
 			{
 				for (i = copy_solution.start[j]; i <= copy_solution.end[j];
-					 i++)
+					i++)
 				{
 					if (i == copy_solution.n_user[j])
 						continue;
@@ -3069,8 +3072,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("SOLUTION to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("SOLUTION to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3082,7 +3088,7 @@ copy_entities(void)
 				NULL)
 			{
 				for (i = copy_pp_assemblage.start[j];
-					 i <= copy_pp_assemblage.end[j]; i++)
+					i <= copy_pp_assemblage.end[j]; i++)
 				{
 					if (i == copy_pp_assemblage.n_user[j])
 						continue;
@@ -3091,8 +3097,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("EQUILIBRIUM_PHASES to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("EQUILIBRIUM_PHASES to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3111,8 +3120,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("REACTION to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("REACTION to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3131,8 +3143,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("MIX to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("MIX to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3143,7 +3158,7 @@ copy_entities(void)
 			if (exchange_bsearch(copy_exchange.n_user[j], &n) != NULL)
 			{
 				for (i = copy_exchange.start[j]; i <= copy_exchange.end[j];
-					 i++)
+					i++)
 				{
 					if (i == copy_exchange.n_user[j])
 						continue;
@@ -3152,8 +3167,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("EXCHANGE to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("EXCHANGE to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3172,8 +3190,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("SURFACE to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("SURFACE to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3184,7 +3205,7 @@ copy_entities(void)
 			if (temperature_bsearch(copy_temperature.n_user[j], &n) != NULL)
 			{
 				for (i = copy_temperature.start[j];
-					 i <= copy_temperature.end[j]; i++)
+					i <= copy_temperature.end[j]; i++)
 				{
 					if (i == copy_temperature.n_user[j])
 						continue;
@@ -3193,8 +3214,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("TEMPERATURE to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("TEMPERATURE to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3205,7 +3229,7 @@ copy_entities(void)
 			if (gas_phase_bsearch(copy_gas_phase.n_user[j], &n) != NULL)
 			{
 				for (i = copy_gas_phase.start[j]; i <= copy_gas_phase.end[j];
-					 i++)
+					i++)
 				{
 					if (i == copy_gas_phase.n_user[j])
 						continue;
@@ -3214,8 +3238,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("GAS_PHASE to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("GAS_PHASE to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3226,7 +3253,7 @@ copy_entities(void)
 			if (kinetics_bsearch(copy_kinetics.n_user[j], &n) != NULL)
 			{
 				for (i = copy_kinetics.start[j]; i <= copy_kinetics.end[j];
-					 i++)
+					i++)
 				{
 					if (i == copy_kinetics.n_user[j])
 						continue;
@@ -3235,8 +3262,11 @@ copy_entities(void)
 			}
 			else
 			{
-				warning_msg("KINETICS to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("KINETICS to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
@@ -3248,18 +3278,21 @@ copy_entities(void)
 				NULL)
 			{
 				for (i = copy_s_s_assemblage.start[j];
-					 i <= copy_s_s_assemblage.end[j]; i++)
+					i <= copy_s_s_assemblage.end[j]; i++)
 				{
 					if (i == copy_s_s_assemblage.n_user[j])
 						continue;
 					s_s_assemblage_duplicate(copy_s_s_assemblage.n_user[j],
-											 i);
+						i);
 				}
 			}
 			else
 			{
-				warning_msg("SOLID_SOLUTIONS to copy not found.");
-				return_value = ERROR;
+				if (verbose == TRUE)
+				{
+					warning_msg("SOLID_SOLUTIONS to copy not found.");
+					return_value = ERROR;
+				}
 			}
 		}
 	}
