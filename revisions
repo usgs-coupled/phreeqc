@@ -2419,7 +2419,7 @@ Version 2.9 Date: Wed September 15, 2004
                         count is number of surface species in system.
                         Arrays are filled with each surface species;
                                 values are moles.
-        "surf"          returns sum of moles of all solid solution components.
+        "s_s"          returns sum of moles of all solid solution components.
                         count is number of solid solution components in system.
                         Arrays are filled with each solid solution component;
                                 values are moles.

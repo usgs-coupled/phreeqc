@@ -9,9 +9,10 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
+#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
 #include <algorithm>
 #include <cctype>
-
+#endif /* if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
 /* following line defines path for default data base file */
 #if !defined(PHREEQC_CLASS)
 const char *default_data_base = "phreeqc.dat";
@@ -42,6 +43,7 @@ static int rewind_wrapper(FILE * file_ptr);
 static char const svnid[] =
 	"$Id$";
 #endif
+
 #if !defined(PHREEQC_CLASS)
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
