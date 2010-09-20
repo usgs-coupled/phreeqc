@@ -9587,65 +9587,66 @@ read_user_graph(void)
 				i++;
 			}
 			break;
-		case 6:	/* axis scales */
-			char *axis; axis = "";
-			int j; j = 0;
-			float f_min, f_max; f_min = (float) -9.999;
-			prev_next_char = next_char;
-			copy_token(token, &next_char, &l);
-			str_tolower(token);
-			if (strstr(token, "x") == token)
-				axis = "x";
-			else if ((strstr(token, "y") == token) && (strstr(token, "y2") != token))
-				axis = "y";
-			else if ((strstr(token, "s") == token) || (strstr(token, "y2") == token))
-				axis = "s";
-			else
-			{
-				input_error++;
-				copy_token(token, &prev_next_char, &l);
-				sprintf(error_string,
-					"Found '%s', but expect axis type \'x\', \'y\', or \'sy\'.", token);
-				error_msg(error_string, CONTINUE);
-			}
-			while ((j < 4)
-				   && (i = copy_token(token, &next_char, &l)) != EMPTY)
-			{
+		case 6:	{ /* axis scales */
+				char *axis = "";
+				int j = 0;
+				float f_min, f_max; f_min = (float) -9.999;
+				prev_next_char = next_char;
+				copy_token(token, &next_char, &l);
 				str_tolower(token);
-				if ((i == DIGIT) || (strstr(token, "a") == token))
-					SetAxisScale(axis, j, token, FALSE);
+				if (strstr(token, "x") == token)
+					axis = "x";
+				else if ((strstr(token, "y") == token) && (strstr(token, "y2") != token))
+					axis = "y";
+				else if ((strstr(token, "s") == token) || (strstr(token, "y2") == token))
+					axis = "s";
 				else
 				{
 					input_error++;
 					copy_token(token, &prev_next_char, &l);
 					sprintf(error_string,
-						"Found '%s', but expect number or 'a(uto)'.", token);
+						"Found '%s', but expect axis type \'x\', \'y\', or \'sy\'.", token);
 					error_msg(error_string, CONTINUE);
 				}
-				if (i == DIGIT)
+				while ((j < 4)
+				   && (i = copy_token(token, &next_char, &l)) != EMPTY)
 				{
-					if (j == 0)
-						f_min = (float) atof(token);
-					else if (j == 1 && fabs(f_min + 9.999) > 1e-3)
+					str_tolower(token);
+					if ((i == DIGIT) || (strstr(token, "a") == token))
+						SetAxisScale(axis, j, token, FALSE);
+					else
 					{
-						f_max = (float) atof(token);
-						if (f_min > f_max)
+						input_error++;
+						copy_token(token, &prev_next_char, &l);
+						sprintf(error_string,
+						"Found '%s', but expect number or 'a(uto)'.", token);
+						error_msg(error_string, CONTINUE);
+					}
+					if (i == DIGIT)
+					{
+						if (j == 0)
+							f_min = (float) atof(token);
+						else if (j == 1 && fabs(f_min + 9.999) > 1e-3)
 						{
-							sprintf(error_string,
+							f_max = (float) atof(token);
+							if (f_min > f_max)
+							{
+								sprintf(error_string,
 								"Maximum must be larger than minimum of axis_scale, interchanging both for %s axis", axis);
-							warning_msg(error_string);
-							SetAxisScale(axis, 0, token, FALSE);
-							sprintf(token, "%e", f_min);
-							SetAxisScale(axis, 1, token, FALSE);
+								warning_msg(error_string);
+								SetAxisScale(axis, 0, token, FALSE);
+								sprintf(token, "%e", f_min);
+								SetAxisScale(axis, 1, token, FALSE);
+							}
 						}
 					}
+					j++;		/* counter for categories */
+					prev_next_char = next_char;
 				}
-				j++;		/* counter for categories */
-				prev_next_char = next_char;
-			}
-			if (j == 4)
-				SetAxisScale(axis, j, 0,
+				if (j == 4)
+					SetAxisScale(axis, j, 0,
 							 get_true_false(next_char, FALSE)); /* anything else than false turns on log scale */
+			}
 			break;
 		case 7:
 			graph_initial_solutions = get_true_false(next_char, FALSE);

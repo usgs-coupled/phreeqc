@@ -336,7 +336,7 @@ clean_up(void)
 
 #if defined PHREEQ98 || defined CHART
 	rate_free(user_graph);
-	user_graph = (rate *) free_check_null(user_graph);
+	user_graph = (struct rate *) free_check_null(user_graph);
 	user_graph_headings = (char **) free_check_null(user_graph_headings);
 #ifndef PHREEQ98
 	//if (u_g)
