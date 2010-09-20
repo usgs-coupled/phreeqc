@@ -482,7 +482,7 @@ initialize(void)
 /*
  *   user_graph
  */
-	user_graph = (rate *) PHRQ_malloc((size_t) sizeof(struct rate));
+	user_graph = (struct rate *) PHRQ_malloc((size_t) sizeof(struct rate));
 	if (user_graph == NULL)
 		malloc_error();
 	user_graph->commands = NULL;

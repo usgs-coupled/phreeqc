@@ -3257,11 +3257,12 @@ punch_user_graph(void)
 		prev_transport_step = transport_step;
 	/*if (state == REACTION) prev_reaction_step = reaction_step; */
 
+#ifdef CHART // remove this one when finalizing...
 	if (FirstCallToUSER_GRAPH)
 	{
 		start_chart(0);
 	}
-
+#endif
 	FirstCallToUSER_GRAPH = FALSE;
 
 	return (OK);
