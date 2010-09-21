@@ -866,7 +866,7 @@ exchange_alloc(void)
 	exchange_ptr->comps = NULL;
 	exchange_ptr->related_phases = 0;
 	exchange_ptr->related_rate = 0;
-	exchange_ptr->pitzer_exchange_gammas = 0;
+	exchange_ptr->pitzer_exchange_gammas = 1;
 
 	return (exchange_ptr);
 }

@@ -93,7 +93,7 @@ tidy_model(void)
 		keyword[56].keycount > 0 ||	/*"isotopes_ratios", */
 		keyword[57].keycount > 0 ||	/*"isotopes_alphas" */
 		keyword[59].keycount > 0 || /*"pitzer" */
-		keyword[60].keycount > 0  /*"pitzer" */
+		keyword[60].keycount > 0    /*"sit" */
 		)
 	{							
 		new_model = TRUE;
@@ -137,6 +137,23 @@ tidy_model(void)
 		keyword[52].keycount > 0 || keyword[53].keycount > 0)
 		new_named_logk = TRUE;	/*"named_log_k" */
 
+#ifdef PHREEQC_CPP
+	int last_c_keyword = 61;
+	if (keyword[last_c_keyword + 12].keycount > 0)
+		new_solution = TRUE;		/*solution_modify*/
+	if (keyword[last_c_keyword + 13].keycount > 0)
+		new_pp_assemblage = TRUE;	/*equilibrium_phases_modify*/
+	if (keyword[last_c_keyword + 14].keycount > 0)
+		new_exchange = TRUE;		/*exchange_modify*/
+	if (keyword[last_c_keyword + 15].keycount > 0)
+		new_surface = TRUE;			/*surface_modify*/
+	if (keyword[last_c_keyword + 16].keycount > 0)
+		new_s_s_assemblage = TRUE;	/*solid_solutions_modify*/
+	if (keyword[last_c_keyword + 17].keycount > 0)
+		new_gas_phase = TRUE;		/*gas_phase_modify*/
+	if (keyword[last_c_keyword + 18].keycount > 0)
+		new_kinetics = TRUE;		/*kinetics_modify*/
+#endif
 	/*
 	   0      "eof"
 	   1      "end"
@@ -199,7 +216,27 @@ tidy_model(void)
 	   58      "copy"
 	   59      "pitzer"
 	   60      "sit"
-	   61      "equilibrium_phase"
+	  61      "equilibrium_phase"
+	  1       "solution_raw"
+	  2       "exchange_raw"
+	  3       "surface_raw"
+	  4       "equilibrium_phases_raw"
+	  5       "kinetics_raw"
+	  6       "solid_solutions_raw"
+	  7       "gas_phase_raw"
+	  8       "reaction_raw"
+	  9       "mix_raw"
+	  10       "reaction_temperature_raw"
+	  11      "dump"
+	  12      "solution_modify"
+	  13      "equilibrium_phases_modify"
+	  14      "exchange_modify"
+	  15      "surface_modify"
+	  16      "solid_solutions_modify"
+	  17      "gas_phase_modify"
+	  18      "kinetics_modify"
+	  19      "delete",
+	  20      "run_cells"
 	 */
 
 /*
