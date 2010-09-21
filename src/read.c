@@ -342,6 +342,7 @@ read_input(void)
 			keyword[27].keycount++;
 			keyword[28].keycount++;
 			keyword[29].keycount++;
+			keyword[61].keycount++;
 			read_pure_phases();
 			break;
 		case 7:
@@ -561,84 +562,84 @@ read_input(void)
 			read_sit();
 			break;
 #ifdef PHREEQC_CPP
-		case LAST_C_KEYWORD + 1:
-			keyword[61].keycount++;
+		case LAST_C_KEYWORD + 1:		//solution_raw
+			keyword[LAST_C_KEYWORD + 1].keycount++;
 			read_solution_raw();
 			break;
-		case LAST_C_KEYWORD + 2:
-			keyword[62].keycount++;
+		case LAST_C_KEYWORD + 2:		//exchange_raw
+			keyword[LAST_C_KEYWORD + 2].keycount++;
 			read_exchange_raw();
 			break;
-		case LAST_C_KEYWORD + 3:
-			keyword[63].keycount++;
+		case LAST_C_KEYWORD + 3:		//surface_raw
+			keyword[LAST_C_KEYWORD + 3].keycount++;
 			read_surface_raw();
 			break;
-		case LAST_C_KEYWORD + 4:
-			keyword[64].keycount++;
+		case LAST_C_KEYWORD + 4:		// equilibrium_phases_raw
+			keyword[LAST_C_KEYWORD + 4].keycount++;
 			read_equilibrium_phases_raw();
 			break;
-		case LAST_C_KEYWORD + 5:
-			keyword[65].keycount++;
+		case LAST_C_KEYWORD + 5:		//kinetics_raw
+			keyword[LAST_C_KEYWORD + 5].keycount++;
 			read_kinetics_raw();
 			break;
-		case LAST_C_KEYWORD + 6:
-			keyword[66].keycount++;
+		case LAST_C_KEYWORD + 6:		//solid_solutions_raw
+			keyword[LAST_C_KEYWORD + 6].keycount++;
 			read_solid_solutions_raw();
 			break;
-		case LAST_C_KEYWORD + 7:
-			keyword[67].keycount++;
+		case LAST_C_KEYWORD + 7:		//gas_phase_raw
+			keyword[LAST_C_KEYWORD + 7].keycount++;
 			read_gas_phase_raw();
 			break;
-		case LAST_C_KEYWORD + 8:
-			keyword[68].keycount++;
+		case LAST_C_KEYWORD + 8:		//reaction_raw
+			keyword[LAST_C_KEYWORD + 8].keycount++;
 			read_reaction_raw();
 			break;
-		case LAST_C_KEYWORD + 9:
-			keyword[69].keycount++;
+		case LAST_C_KEYWORD + 9:		//mix_raw
+			keyword[LAST_C_KEYWORD + 9].keycount++;
 			read_mix_raw();
 			break;
-		case LAST_C_KEYWORD + 10:
-			keyword[70].keycount++;
+		case LAST_C_KEYWORD + 10:		//reaction_temperature_raw
+			keyword[LAST_C_KEYWORD + 10].keycount++;
 			read_temperature_raw();
 			break;
-		case LAST_C_KEYWORD + 11:
-			keyword[71].keycount++;
+		case LAST_C_KEYWORD + 11:		//dump
+			keyword[LAST_C_KEYWORD + 11].keycount++;
 			read_dump();
 			break;
-		case LAST_C_KEYWORD + 12:
-			keyword[72].keycount++;
+		case LAST_C_KEYWORD + 12:		//solution_modify
+			keyword[LAST_C_KEYWORD + 12].keycount++;
 			read_solution_modify();
 			break;
-		case LAST_C_KEYWORD + 13:
-			keyword[73].keycount++;
+		case LAST_C_KEYWORD + 13:		//equilibrium_phases_modify
+			keyword[LAST_C_KEYWORD + 13].keycount++;
 			read_equilibrium_phases_modify();
 			break;
-		case LAST_C_KEYWORD + 14:
-			keyword[74].keycount++;
+		case LAST_C_KEYWORD + 14:		//exchange_modify
+			keyword[LAST_C_KEYWORD + 14].keycount++;
 			read_exchange_modify();
 			break;
-		case LAST_C_KEYWORD + 15:
-			keyword[75].keycount++;
+		case LAST_C_KEYWORD + 15:		//surface_modify
+			keyword[LAST_C_KEYWORD + 15].keycount++;
 			read_surface_modify();
 			break;
-		case LAST_C_KEYWORD + 16:
-			keyword[76].keycount++;
+		case LAST_C_KEYWORD + 16:		//solid_solutions_modify
+			keyword[LAST_C_KEYWORD + 16].keycount++;
 			read_solid_solutions_modify();
 			break;
-		case LAST_C_KEYWORD + 17:
-			keyword[77].keycount++;
+		case LAST_C_KEYWORD + 17:		//gas_phase_modify	
+			keyword[LAST_C_KEYWORD + 17].keycount++;
 			read_gas_phase_modify();
 			break;
-		case LAST_C_KEYWORD + 18:
-			keyword[78].keycount++;
+		case LAST_C_KEYWORD + 18:		//kinetics_modify
+			keyword[LAST_C_KEYWORD + 18].keycount++;
 			read_kinetics_modify();
 			break;
-		case LAST_C_KEYWORD + 19:
-			keyword[79].keycount++;
+		case LAST_C_KEYWORD + 19:		//delete
+			keyword[LAST_C_KEYWORD + 19].keycount++;
 			read_delete();
 			break;
-		case LAST_C_KEYWORD + 20:
-			keyword[80].keycount++;
+		case LAST_C_KEYWORD + 20:		//run_cells
+			keyword[LAST_C_KEYWORD + 20].keycount++;
 			read_run_cells();
 			break;
 #endif
