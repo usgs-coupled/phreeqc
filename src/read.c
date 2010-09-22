@@ -998,7 +998,7 @@ read_exchange_species(void)
 			read_analytical_expression_only(next_char, &(s_ptr->logk[2]));
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 12:				/* gamma data */
+		case 12:				/* gamma */
 			if (s_ptr == NULL)
 			{
 				sprintf(error_string,
@@ -1025,7 +1025,7 @@ read_exchange_species(void)
 			}
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 13:				/* davies eqn */
+		case 13:				/* davies */
 			if (s_ptr == NULL)
 			{
 				sprintf(error_string,
