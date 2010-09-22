@@ -139,20 +139,20 @@ tidy_model(void)
 
 #ifdef PHREEQC_CPP
 	int last_c_keyword = 61;
-	if (keyword[last_c_keyword + 12].keycount > 0)
-		new_solution = TRUE;		/*solution_modify*/
+	//if (keyword[last_c_keyword + 12].keycount > 0)
+	//	new_solution = TRUE;		/*solution_modify*/
 	if (keyword[last_c_keyword + 13].keycount > 0)
 		new_pp_assemblage = TRUE;	/*equilibrium_phases_modify*/
-	if (keyword[last_c_keyword + 14].keycount > 0)
-		new_exchange = TRUE;		/*exchange_modify*/
-	if (keyword[last_c_keyword + 15].keycount > 0)
-		new_surface = TRUE;			/*surface_modify*/
-	if (keyword[last_c_keyword + 16].keycount > 0)
-		new_s_s_assemblage = TRUE;	/*solid_solutions_modify*/
-	if (keyword[last_c_keyword + 17].keycount > 0)
-		new_gas_phase = TRUE;		/*gas_phase_modify*/
-	if (keyword[last_c_keyword + 18].keycount > 0)
-		new_kinetics = TRUE;		/*kinetics_modify*/
+	//if (keyword[last_c_keyword + 14].keycount > 0)
+	//	new_exchange = TRUE;		/*exchange_modify*/
+	//if (keyword[last_c_keyword + 15].keycount > 0)
+	//	new_surface = TRUE;			/*surface_modify*/
+	//if (keyword[last_c_keyword + 16].keycount > 0)
+	//	new_s_s_assemblage = TRUE;	/*solid_solutions_modify*/
+	//if (keyword[last_c_keyword + 17].keycount > 0)
+	//	new_gas_phase = TRUE;		/*gas_phase_modify*/
+	//if (keyword[last_c_keyword + 18].keycount > 0)
+	//	new_kinetics = TRUE;		/*kinetics_modify*/
 #endif
 	/*
 	   0      "eof"
