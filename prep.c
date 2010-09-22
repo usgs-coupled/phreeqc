@@ -5442,10 +5442,6 @@ build_min_exch(void)
 		for (jj = 0; jj < count_elts; jj++)
 		{
 			master_ptr = elt_list[jj].elt->primary;
-			if (master_ptr->in == FALSE)
-			{
-				master_ptr = master_ptr->s->secondary;
-			}
 			if (master_ptr == NULL)
 			{
 				input_error++;
@@ -5453,6 +5449,10 @@ build_min_exch(void)
 						"Did not find unknown for exchange related to mineral %s",
 						exchange[n].comps[i].phase_name);
 				error_msg(error_string, STOP);
+			}
+			if (master_ptr->in == FALSE)
+			{
+				master_ptr = master_ptr->s->secondary;
 			}
 			if (master_ptr->s->type == EX)
 			{
