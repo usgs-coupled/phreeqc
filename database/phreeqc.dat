@@ -322,15 +322,18 @@ Mg+2 + CO3-2 = MgCO3
 	log_k	   2.98
 	delta_h 2.713   kcal
 	-analytic       0.9910	0.00667
+	-dw 4.21e-10	
 
 Mg+2 + H+ + CO3-2 = MgHCO3+
 	log_k	   11.399
 	delta_h -2.771	  kcal
 	-analytic       48.6721       0.03252849   -2614.335     -18.00263      563713.9
-
+	-dw 4.78e-10
+	
 Mg+2 + SO4-2 = MgSO4
 	log_k	   2.370
 	delta_h 4.550   kcal
+	-dw 4.45e-10	
 
 Mg+2 + PO4-3 = MgPO4-
 	log_k	   6.589
