@@ -460,8 +460,8 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 #endif
 
-	*db_cookie = merged_database_stream;
-	*input_cookie = merged_input_stream;
+	*db_cookie = &merged_database_stream;
+	*input_cookie = &merged_input_stream;
 
 #endif /* defined(MERGE_INCLUDE_FILES) */
 
