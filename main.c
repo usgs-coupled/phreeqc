@@ -98,7 +98,11 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 /*
  *   Load database into memory
  */
+#if defined(MERGE_INCLUDE_FILES) 
+	errors = read_database(istream_getc, db_cookie);
+#else
 	errors = read_database(getc_callback, db_cookie);
+#endif
 	if (errors != 0)
 	{
 		clean_up();
@@ -109,7 +113,11 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
  *   Read input data for simulation
  */
 
+#if defined(MERGE_INCLUDE_FILES) 
+	errors = run_simulations(istream_getc, input_cookie);
+#else
 	errors = run_simulations(getc_callback, input_cookie);
+#endif
 	if (errors != 0)
 	{
 		clean_up();
