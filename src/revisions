@@ -10,6 +10,11 @@ File contains:
 ------------------------------------------------------------
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
+        --------
+        svn 4840
+        --------
+        Added missing -dw parameters to MgCO3, MgHCO3, and
+        MgSO4 aqueous species. 
 
 ------------------------------------------------------------
 Version 2.17.5: September  7, 2010

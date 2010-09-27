@@ -9,10 +9,11 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
-#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+#if defined(MERGE_INCLUDE_FILES) 
 #include <algorithm>
 #include <cctype>
-#endif /* if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
+#include <fstream>
+#endif /* if defined(MERGE_INCLUDE_FILES) */
 /* following line defines path for default data base file */
 #if !defined(PHREEQC_CLASS)
 const char *default_data_base = "phreeqc.dat";
@@ -428,7 +429,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	*db_cookie = database_file;
 	*input_cookie = input_file;
 
-#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+#if defined(MERGE_INCLUDE_FILES) 
 /*
  * Merge include files for database file
  */
@@ -462,7 +463,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	*db_cookie = merged_database_stream;
 	*input_cookie = merged_input_stream;
 
-#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
+#endif /* defined(MERGE_INCLUDE_FILES) */
 
 
 
@@ -480,7 +481,7 @@ getc_callback(void *cookie)
 
 	return i;
 }
-#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+#if defined(MERGE_INCLUDE_FILES) 
 int CLASS_QUALIFIER
 istream_getc(void *cookie)
 {
@@ -496,7 +497,7 @@ istream_getc(void *cookie)
 	}
 	return EOF;
 }
-#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
+#endif /* defined(MERGE_INCLUDE_FILES) */
 /* ---------------------------------------------------------------------- */
 STATIC int CLASS_QUALIFIER
 output_handler(const int type, const char *err_str, const int stop,
@@ -841,7 +842,7 @@ rewind_wrapper(FILE * file_ptr)
 	rewind(file_ptr);
 	return (OK);
 }
-#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
+#if defined(MERGE_INCLUDE_FILES)
 /* ---------------------------------------------------------------------- */
 bool CLASS_QUALIFIER
 recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stream)
@@ -860,15 +861,15 @@ recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stre
 		// remove leading spaces
 		copy_line.erase(0, copy_line.find_first_not_of(" \t") );
 		// get first 8 characters
-		std::string token = copy_line.substr(0,8);
+		std::string token = copy_line.substr(0,9);
 		// convert to lower case
 		std::transform(token.begin(), token.end(), token.begin(),
                (int(*)(int)) std::tolower);
 		// check for #include file_name
-		if (token == "#include")
+		if (token == "#$include")
 		{
 			// get file name without trailing spaces
-			token = copy_line.substr(9, copy_line.length());
+			token = copy_line.substr(10, copy_line.length());
 			token.erase(0, token.find_first_not_of(" \t"));
 			// remove leading, trailing spaces
 			token = token.substr(0, token.find_last_not_of(" \t\n\0") + 1);
@@ -889,4 +890,4 @@ recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stre
 	}
 	return true;
 }
-#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
+#endif /* defined(MERGE_INCLUDE_FILES) */

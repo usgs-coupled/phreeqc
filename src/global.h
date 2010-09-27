@@ -737,7 +737,11 @@ EXTERNAL LDBLE f_rho(LDBLE rho_old);
 /* phqalloc.c ------------------------------- */
 
 EXTERNAL PHRQMemHeader *s_pTail;
-
+#if defined(MERGE_INCLUDE_FILES)
+#include <sstream>
+EXTERNAL	std::stringstream merged_database_stream;
+EXTERNAL	std::stringstream merged_input_stream;
+#endif /* defined(MERGE_INCLUDE_FILES) */
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)
 /* basic.c ------------------------------- */
@@ -903,10 +907,6 @@ int forward_output_to_log;
 char *default_data_base;
 FILE *input_file;
 FILE *database_file;
-#if defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS)
-	std::stringstream merged_database_stream;
-	std::stringstream merged_input_stream;
-#endif /* defined(MERGE_INCLUDE_FILES) && defined(PHREEQC_CLASS) */
 FILE *output;		/* OUTPUT_MESSAGE */
 FILE *log_file;	    /* OUTPUT_LOG */
 FILE *punch_file;	/* OUTPUT_PUNCH */

@@ -78,6 +78,10 @@ int close_output_files(void);
 CLASS_STATIC int getc_callback(void *cookie);
 int process_file_names(int argc, char *argv[], void **db_cookie,
 					   void **input_cookie, int log);
+#if defined(MERGE_INCLUDE_FILES)
+CLASS_STATIC int istream_getc(void *cookie);
+bool recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stream);
+#endif /* defined(MERGE_INCLUDE_FILES) */
 
 /* integrate.c */
 int calc_all_g(void);
