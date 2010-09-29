@@ -643,9 +643,10 @@ read_pitzer(void)
 		"mu",					/* 14 */
 		"eta",					/* 15 */
 		"etheta",				/* 16 */
-		"use_etheta"			/* 17 */
+		"use_etheta",			/* 17 */
+		"lambda"                /* 18 */
 	};
-	int count_opt_list = 18;
+	int count_opt_list = 19;
 	/*
 	 *   Read lines
 	 */
@@ -724,7 +725,8 @@ read_pitzer(void)
 			n = 2;
 			opt_save = OPTION_DEFAULT;
 			break;
-		case 5:				/* lambda */
+		case 5:				/* lamda */
+		case 18:            /* lambda */
 			pzp_type = TYPE_LAMDA;
 			n = 2;
 			opt_save = OPTION_DEFAULT;
