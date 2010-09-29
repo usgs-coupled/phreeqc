@@ -24,13 +24,13 @@ def show_results(input_string):
     wateq4f_values = [entry[1] for entry in wateq4f_result][1:]
     pitzer_values  = [entry[1] for entry in pitzer_result][1:]
     # Plot
-    plt.plot(nacl_conc, pitzer_values, 'r', nacl_conc, wateq4f_values,'b--')
+    plt.plot(nacl_conc, pitzer_values, 'k', nacl_conc, wateq4f_values,'k--')
     plt.axis([0, 6, 0, .06])
     plt.legend(('PITZER','WATEQ4F'), loc = (0.4, 0.4))
     plt.ylabel('GYPSUM SOLUBILITY, MOLES PER KILOGRAM WATER')
     plt.xlabel('NaCl, MOLES PER KILOGRAM WATER')
-    #plt.backend      : PS
-    plt.show()
+    plt.savefig("Figure2.png")
+    #plt.show()
     
 if __name__ == '__main__':
     # This will only run when called as script from the command line
