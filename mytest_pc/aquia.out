@@ -375,7 +375,7 @@ Initial solution 4.
 
                                        pH  =   6.800    
                                        pe  =   8.000    
-       Specific Conductance (uS/cm, 15 oC) = 9319
+       Specific Conductance (uS/cm, 15 oC) = 9333
                           Density (g/cm3)  =   1.00439
                         Activity of water  =   0.996
                            Ionic strength  =  1.301e-001
@@ -492,7 +492,7 @@ Calcite              0.00   -8.43   -8.43   1.000e+001  1.000e+001  9.093e-005
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.991      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 15 oC) = 9310
+       Specific Conductance (uS/cm, 15 oC) = 9324
                           Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =  1.299e-001
@@ -680,7 +680,7 @@ Mixture 13.
 
                                        pH  =   6.786      Charge balance
                                        pe  =  11.991      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 15 oC) = 9310
+       Specific Conductance (uS/cm, 15 oC) = 9324
                           Density (g/cm3)  =   1.00438
                         Activity of water  =   0.996
                            Ionic strength  =  1.299e-001

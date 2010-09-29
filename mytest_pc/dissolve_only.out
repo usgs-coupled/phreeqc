@@ -781,7 +781,7 @@ Dolomite             0.00  -17.09  -17.09   1.000e-001  7.066e-002 -2.934e-002
 
                                        pH  =   5.762      Charge balance
                                        pe  =  -0.111      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 10858
+       Specific Conductance (uS/cm, 25 oC) = 10909
                           Density (g/cm3)  =   1.00236
                         Activity of water  =   0.996
                            Ionic strength  =  1.699e-001
@@ -883,7 +883,7 @@ Dolomite             0.00  -17.09  -17.09   1.000e-001  4.401e-002 -5.599e-002
 
                                        pH  =   5.484      Charge balance
                                        pe  =  -0.014      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 19866
+       Specific Conductance (uS/cm, 25 oC) = 19965
                           Density (g/cm3)  =   1.00690
                         Activity of water  =   0.993
                            Ionic strength  =  3.227e-001
@@ -985,7 +985,7 @@ Dolomite             0.00  -17.09  -17.09   1.000e-001  1.768e-002 -8.232e-002
 
                                        pH  =   5.315      Charge balance
                                        pe  =   0.252      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 27845
+       Specific Conductance (uS/cm, 25 oC) = 27989
                           Density (g/cm3)  =   1.01131
                         Activity of water  =   0.989
                            Ionic strength  =  4.734e-001
@@ -1087,7 +1087,7 @@ Dolomite            -6.43  -23.52  -17.09   1.000e-001           0 -1.000e-001
 
                                        pH  =   3.568      Charge balance
                                        pe  =   1.852      Adjusted to redox equilibrium
-       Specific Conductance (uS/cm, 25 oC) = 34289
+       Specific Conductance (uS/cm, 25 oC) = 34294
                           Density (g/cm3)  =   1.01370
                         Activity of water  =   0.986
                            Ionic strength  =  5.983e-001

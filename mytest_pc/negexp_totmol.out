@@ -28,7 +28,7 @@ Reading input data for simulation 1.
 	120 print (-0.2)^3.0
 	130 print (-0.2)^-2
 	140 print (-0.2)^-3
-	160 print -0.2^2.2
+	150 print -0.2^2.2
 	END
 -------------------------------------------
 Beginning of initial solution calculations.
@@ -46,7 +46,6 @@ Initial solution 1.
 -1.2500e+002 
 ERROR: Type mismatch error: negative number cannot be raised to a fractional power.
 ERROR:  in BASIC line
- 160  print -0.2^2.2
+ 150  print -0.2^2.2
 ERROR: Fatal Basic error in USER_PRINT.
 Stopping.
-No memory leaks
