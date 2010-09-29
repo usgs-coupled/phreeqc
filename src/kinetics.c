@@ -1273,11 +1273,11 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		diagonal_scale = TRUE;
 		always_full_pitzer = FALSE;
-		max_try = 6;
+		max_try = 13;
 	}
 	else
 	{
-		max_try = 11;
+		max_try = 13;
 	}
 	/*max_try = 1; */
 	for (j = 0; j < max_try; j++)
@@ -1344,6 +1344,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		else if (j == 6)
 		{
+			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			itmax *= 2;
 			pp_column_scale = 1e-10;
 			sprintf(error_string,
@@ -1353,6 +1354,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		else if (j == 7)
 		{
+			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			itmax *= 2;
 			pp_column_scale = 1e-10;
 			if (diagonal_scale == TRUE)
@@ -1370,6 +1372,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		else if (j == 8)
 		{
+			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			itmax *= 2;
 			min_value *= 10;
 			sprintf(error_string, "Trying increased scaling %g ...\n",
@@ -1378,6 +1381,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		else if (j == 9)
 		{
+			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			aqueous_only = 5;
 			sprintf(error_string,
 					"Skipping optimize equations for first %d iterations ...\n",
@@ -1386,9 +1390,26 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		else if (j == 10)
 		{
+			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			negative_concentrations = TRUE;
 			sprintf(error_string,
 					"Adding inequality to make concentrations greater than zero.\n");
+			warning_msg(error_string);
+		}
+		else if (j == 11)
+		{
+			itmax *= 2;
+			ineq_tol /= 100.;
+			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+					(double) ineq_tol);
+			warning_msg(error_string);
+		}
+		else if (j == 12)
+		{
+			itmax *= 2;
+			ineq_tol /= 1000.;
+			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+					(double) ineq_tol);
 			warning_msg(error_string);
 		}
 		if (j > 0)
