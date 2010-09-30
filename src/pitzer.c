@@ -689,8 +689,18 @@ read_pitzer(void)
 				}
 				else
 				{
-					pitz_params[j] =
-						(struct pitz_param *) free_check_null(pitz_params[j]);
+					if (pitz_params[j]->species[2] != NULL)
+					{
+						sprintf(error_string, "Redefinition of parameter, %s %s %s\n", 
+						pitz_params[j]->species[0], pitz_params[j]->species[1], pitz_params[j]->species[2]);
+					}
+					else
+					{
+						sprintf(error_string, "Redefinition of parameter, %s %s\n", 
+						pitz_params[j]->species[0], pitz_params[j]->species[1]);
+					}
+				    warning_msg(error_string);
+					pitz_params[j] = (struct pitz_param *) free_check_null(pitz_params[j]);
 					pitz_params[j] = pzp_ptr;
 				}
 			}
