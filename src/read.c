@@ -30,6 +30,7 @@
 	extern int read_kinetics_modify(void);
 	extern int read_delete(void);
 	extern int read_run_cells(void);
+	extern int read_reaction_modify(void);
 	#endif
 
 	static char const svnid[] = "$Id$";
@@ -289,6 +290,8 @@ read_input(void)
 	  18      "kinetics_modify"
 	  19      "delete",
 	  20      "run_cells"
+	  21      "reaction_modify"
+	  22      "reaction_temperature_modify"
 */
 	for (;;)
 	{
@@ -642,6 +645,14 @@ read_input(void)
 			keyword[LAST_C_KEYWORD + 20].keycount++;
 			read_run_cells();
 			break;
+		case LAST_C_KEYWORD + 21:		//reaction_modify
+			keyword[LAST_C_KEYWORD + 21].keycount++;
+			read_reaction_modify();
+			break;
+		//case LAST_C_KEYWORD + 22:		//reaction_temperature_modify
+		//	keyword[LAST_C_KEYWORD + 22].keycount++;
+		//	read_reaction_temperature_modify();
+		//	break;
 #endif
 		}
 	}
