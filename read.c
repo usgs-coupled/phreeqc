@@ -9885,8 +9885,7 @@ read_solid_solutions(void)
 												 sizeof(struct s_s_comp));
 			if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
 				malloc_error();
-			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].
-				initial_moles = 0;
+			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].initial_moles = 0;
 			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].delta = 0;
 			/*
 			 *   Read phase name of component
@@ -10268,14 +10267,25 @@ read_solid_solutions(void)
 			if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
 				malloc_error();
 			count_comps = 0;
+			s_s_assemblage[n].s_s[number_s_s].count_comps = 0;
+			s_s_assemblage[n].s_s[number_s_s].total_moles = 0;
+			s_s_assemblage[n].s_s[number_s_s].dn = 0;
 			s_s_assemblage[n].s_s[number_s_s].a0 = 0.0;
 			s_s_assemblage[n].s_s[number_s_s].a1 = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].count_comps = 0;
-			s_s_assemblage[n].s_s[number_s_s].input_case = 0;
+			s_s_assemblage[n].s_s[number_s_s].ag0 = 0.0;
+			s_s_assemblage[n].s_s[number_s_s].ag1 = 0.0;
+			s_s_assemblage[n].s_s[number_s_s].s_s_in = FALSE;
 			s_s_assemblage[n].s_s[number_s_s].miscibility = FALSE;
+			s_s_assemblage[n].s_s[number_s_s].spinodal = FALSE;
+			s_s_assemblage[n].s_s[number_s_s].tk = 298.15;
+			s_s_assemblage[n].s_s[number_s_s].xb1 = 0;
+			s_s_assemblage[n].s_s[number_s_s].xb2 = 0;
+			s_s_assemblage[n].s_s[number_s_s].input_case = 0;
 			s_s_assemblage[n].s_s[number_s_s].p[0] = 0.0;
 			s_s_assemblage[n].s_s[number_s_s].p[1] = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].tk = 298.15;
+			s_s_assemblage[n].s_s[number_s_s].p[2] = 0.0;
+			s_s_assemblage[n].s_s[number_s_s].p[3] = 0.0;
+
 			s_s_assemblage[n].s_s[number_s_s].comps->name = NULL;
 			s_s_assemblage[n].s_s[number_s_s].comps->phase = NULL;
 			/*
