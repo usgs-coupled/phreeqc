@@ -241,6 +241,7 @@ pitz_param_search(struct pitz_param *pzp_ptr)
 	return i;
 }
 #endif
+#if !defined(PHREEQC_CPP)
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 sit_param_search(struct pitz_param *pzp_ptr)
@@ -271,6 +272,64 @@ sit_param_search(struct pitz_param *pzp_ptr)
 	}
 	return i;
 }
+#else
+#include <list>
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+sit_param_search(struct pitz_param *pzp_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Does linear search of pitz_params for same type and species
+ *  Returns -1 if not found, index number in pitz_params if found
+ */
+	int i;
+	if (pzp_ptr == NULL)
+		return -1;
+	if (pzp_ptr->type == TYPE_Other)
+		return -1;
+
+	std::list<std::string> new_parm;
+
+	for (i = 0; i < 3; i++)
+	{
+		if (pzp_ptr->species[i] != NULL) new_parm.push_back(pzp_ptr->species[i]);
+	}
+	new_parm.sort();
+
+	for (i = 0; i < count_sit_param; i++)
+	{
+		if (sit_params[i]->type != pzp_ptr->type) continue;
+		std::list<std::string> old_parm;
+		int j;
+		for (j = 0; j < 3; j++)
+		{
+			if (sit_params[i]->species[j] != NULL) old_parm.push_back(sit_params[i]->species[j]);
+		}
+		old_parm.sort();
+		if (old_parm.size() != new_parm.size()) continue;
+		bool found = true;
+		std::list<std::string>::iterator nit = new_parm.begin();
+		std::list<std::string>::iterator oit = old_parm.begin();
+		while (nit != new_parm.end())
+		{
+			if (*nit != *oit) 
+			{
+				found = false;
+				break;
+			}
+			nit++;
+			oit++;
+		}
+		if (found) break;
+	}
+	if (i >= count_sit_param)
+	{
+		return -1;
+	}
+	return i;
+}
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "theta_parm"

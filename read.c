@@ -1327,9 +1327,10 @@ read_exchange(void)
 		"equil",				/* 1 */
 		"pitzer_exchange_gammas",	/* 2 */
 		"exchange_gammas",		/* 3 */
-		"gammas"				/* 4 */
+		"gammas",				/* 4 */
+		"equilibrium"           /* 5 */
 	};
-	int count_opt_list = 5;
+	int count_opt_list = 6;
 /*
  * kin_exch is for exchangers, related to kinetically reacting minerals
  *    they are defined if "sites" is followed by mineral name:
@@ -1387,7 +1388,8 @@ read_exchange(void)
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* equilibrate */
-		case 1:
+		case 1:             /* equil */
+		case 5:             /* equilibrium */
 			/*
 			 *   Read solution to equilibrate with
 			 */
@@ -6923,9 +6925,10 @@ read_surf(void)
 		"sites",                /* 10 */
 		"sites_units",			/* 11 */
 		"constant_capacitance", /* 12 */
-		"ccm"                   /* 13 */
+		"ccm",                  /* 13 */
+        "equilibrium"           /* 14 */
 	};
-	int count_opt_list = 14;
+	int count_opt_list = 15;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -6987,7 +6990,8 @@ read_surf(void)
 			error_msg(line_save, CONTINUE);
 			break;
 		case 0:				/* equilibrate */
-		case 1:
+		case 1:             /* equil */
+		case 14:			/* equilibrium */
 			for (;;)
 			{
 				i = copy_token(token, &next_char, &l);
