@@ -6926,9 +6926,10 @@ read_surf(void)
 		"sites_units",			/* 11 */
 		"constant_capacitance", /* 12 */
 		"ccm",                  /* 13 */
-        "equilibrium"           /* 14 */
+        "equilibrium",          /* 14 */
+		"site_units"            /* 15 */
 	};
-	int count_opt_list = 15;
+	int count_opt_list = 16;
 	/*
 	 * kin_surf is for Surfaces, related to kinetically reacting minerals
 	 *    they are defined if "sites" is followed by mineral name:
@@ -7152,6 +7153,7 @@ read_surf(void)
 			break;
 		case 10:				/* sites */
 		case 11:				/* sites_units */
+		case 15:				/* site_units */
 			j = copy_token(token1, &next_char, &l);
 			if (token1[0] == 'A' || token1[0] == 'a')
 			{
