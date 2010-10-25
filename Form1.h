@@ -11,6 +11,7 @@
 #endif
 namespace zdg_ui2 {
 	using namespace System;
+	using namespace System::Resources;
 	using namespace System::Windows::Forms;
 	using namespace System::Drawing;
 	using namespace System::Threading;
@@ -61,11 +62,11 @@ namespace zdg_ui2 {
 		myForm->ShowDialog();
 	}
 #endif
-	void ThreadThis(Object^ data)
-	{
-		this->ShowDialog();
-		assert(false);
-	}
+	//void ThreadThis(Object^ data)
+	//{
+	//	this->ShowDialog();
+	//	assert(false);
+	//}
 	private: void SetSize()
 	{
 		zg1->Location = Point( 0, 0 );
@@ -384,7 +385,7 @@ namespace zdg_ui2 {
 			z1->IsScrollY2 = true;*/
 
 			// OPTIONAL: Show tooltips when the mouse hovers over a point
-			z1->IsShowPointValues = true;
+			z1->IsShowPointValues = false;
 			z1->PointValueEvent += gcnew ZedGraphControl::PointValueHandler( this,
 					&Form1::MyPointValueHandler );
 
@@ -588,6 +589,7 @@ public:
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
 			this->Text = L"PHREEQC chart";
 			this->TopMost = true;
+			// this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(System::Resources->GetObject(L"$phre.Ico")));
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			this->ResumeLayout(false);
