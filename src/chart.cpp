@@ -20,6 +20,7 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
+//#include <process.h> /* _beginthread(proc, stack, (void *) arglist) */
 
 #ifdef CHART
 			
@@ -72,6 +73,7 @@
 
 	int OpenCSVFile(char file_name[MAX_LENGTH]); /* reads CSV file, may contain line + symbol properties */
 	int nCSV_headers = 0;					/* no of CSV curves, also defines ColumnOffset if connect_simulations = 1 */
+	void SaveCurvesToFile(char file_name[MAX_LENGTH]); /* saves all chart data to curves.u_g */
 	void start_chart(bool end);				/* end = 0 starts the chart */
 
 	int FirstCallToUSER_GRAPH = 1;
@@ -387,7 +389,6 @@ ExtractCurveInfo(char *line, int curvenr)
 	{ /* shorten line to contain BASIC statements only... */
 		while (*(--ptr3) != ',') {}
 		*ptr3 = '\0';
-		//*(++ptr3) = '\0';
 	}
 }
 
@@ -873,7 +874,8 @@ start_chart(bool end)
 #else
 	t->Start();
 #endif
-	Thread::Sleep( 1 ); /* this when debugging... */
+	//Thread::Sleep( 1 ); /* this when debugging... */
+	//_beginthread(void (Form1::ThreadForm), 0, NULL);
 	return;
 
 end_chart: /* wonder where this could be called... */

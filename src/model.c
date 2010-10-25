@@ -131,7 +131,7 @@ model(void)
 	debug_model_save = debug_model;
 	pe_step_size_now = pe_step_size;
 	step_size_now = step_size;
-	status(0, NULL);
+	if (!use.kinetics_in) status(0, NULL);
 	iterations = 0;
 	count_basis_change = count_infeasible = 0;
 	stop_program = FALSE;
@@ -701,12 +701,17 @@ gammas(LDBLE mu)
 		log_g_co2 =
 			(llnl_co2_coefs[0] + llnl_co2_coefs[1] * tk_x +
 			 llnl_co2_coefs[2] / tk_x) * mu - (llnl_co2_coefs[3] +
-			 llnl_co2_coefs[4] * tk_x) * (mu / (mu + 1));
+											   llnl_co2_coefs[4] * tk_x) *
+			(mu / (mu + 1));
 		log_g_co2 /= LOG_10;
 		dln_g_co2 =
 			(llnl_co2_coefs[0] + llnl_co2_coefs[1] * tk_x +
 			 llnl_co2_coefs[2] / tk_x) - (llnl_co2_coefs[3] +
-			 llnl_co2_coefs[4] * tk_x) * (1 / ((mu + 1) * (mu + 1)));
+										  llnl_co2_coefs[4] * tk_x) * (1 /
+																	   ((mu +
+																		 1) *
+																		(mu +
+																		 1)));
 	}
 
 /*
