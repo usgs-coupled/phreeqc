@@ -185,6 +185,7 @@ pitz_param_search(struct pitz_param *pzp_ptr)
 }
 #else
 #include <list>
+#include <string>
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 pitz_param_search(struct pitz_param *pzp_ptr)
