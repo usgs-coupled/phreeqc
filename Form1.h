@@ -11,6 +11,7 @@
 #endif
 namespace zdg_ui2 {
 	using namespace System;
+	//using namespace System::ComponentModel;
 	using namespace System::Resources;
 	using namespace System::Windows::Forms;
 	using namespace System::Drawing;
@@ -545,7 +546,7 @@ namespace zdg_ui2 {
 		}
 		public: ZedGraph::ZedGraphControl ^zg1;
 		private: System::Windows::Forms::Timer ^timer1;
-		private: System::ComponentModel::IContainer ^components;
+		private: System::ComponentModel::Container ^components;
 #ifdef PHREEQC_CLASS
 		private: Phreeqc * phreeqc_ptr;
 #endif
@@ -589,7 +590,15 @@ public:
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
 			this->Text = L"PHREEQC chart";
 			this->TopMost = true;
-			// this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(System::Resources->GetObject(L"$phre.Ico")));
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
+			try
+			{
+				this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(resources->GetObject(L"$this.Icon")));
+			}
+			catch (...)
+			{
+			}
+
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			this->ResumeLayout(false);

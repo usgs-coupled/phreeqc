@@ -639,7 +639,7 @@ GridChar(char *s, char *a)
 			{ /* remove x_header... */
 				for (i = curvenr; i < user_graph_count_headings - 1; i++)
 					user_graph_headings[i] = user_graph_headings[i + 1];
-				user_graph_count_headings--;
+				if (user_graph_count_headings > 0) user_graph_count_headings--;
 				user_graph_headings =
 					(char **) PHRQ_realloc(user_graph_headings,
 								 (size_t) (user_graph_count_headings) * sizeof(char *));
@@ -649,8 +649,13 @@ GridChar(char *s, char *a)
 			}
 		}
 
-		if (simulation != prev_sim_no)
+		if (!colnr &&(simulation != prev_sim_no || transport_step != prev_transport_step
+			|| advection_step != prev_advection_step))
+		{
 			new_sim = true;
+			if (!connect_simulations)
+				AddSeries = TRUE;
+		}
 		prev_sim_no = simulation;
 
 		if (new_sim && AddSeries && !connect_simulations)
@@ -773,12 +778,19 @@ PlotXY(char *x, char *y)
 	/* Attribute values from *x and *y to Curves(*x, *y) */
 	   
 	int i, i2, i3;
-	bool new_sim = false;
+	bool new_sim = false, new_trans = false;
+	if ((state == TRANSPORT && transport_step != prev_transport_step) ||
+		(state == ADVECTION && advection_step != prev_advection_step))
+		new_trans = true;
 	if (FirstCallToUSER_GRAPH && colnr == 0)
 		prev_sim_no = simulation;
 	else
-		if (!rownr && simulation != prev_sim_no)
+		if (!rownr && (simulation != prev_sim_no || new_trans))
+		{
 			new_sim = true;
+			if (!connect_simulations)
+				AddSeries = TRUE;
+		}
 	prev_sim_no = simulation;
 
 	int curvenr = colnr + ColumnOffset;
@@ -811,6 +823,7 @@ PlotXY(char *x, char *y)
 					break;
 				}
 			}
+			if (new_trans) i3 = 0;
 			/* fill in curve properties... */
 			for (i = ColumnOffset; i < ColumnOffset + (ColumnOffset - i2); i++)
 			{
