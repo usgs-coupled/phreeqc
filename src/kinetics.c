@@ -1869,10 +1869,12 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		use.kinetics_in = FALSE;
 		save.kinetics = FALSE;
 	}
+	/*
 	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
+	*/
 	return (OK);
 }
 
@@ -2016,10 +2018,12 @@ set_reaction(int i, int use_mix, int use_kinetics)
 	{
 		use.kinetics_ptr = NULL;
 	}
+	/*
 	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
+	*/
 	return (OK);
 }
 
@@ -2777,10 +2781,12 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 		use.kinetics_in = FALSE;
 		save.kinetics = FALSE;
 	}
+	/*
 	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
+	*/
 	return (OK);
 }
 

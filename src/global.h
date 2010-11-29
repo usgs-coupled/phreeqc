@@ -549,7 +549,8 @@ EXTERNAL int max_mb_unknowns;
  * ---------------------------------------------------------------------- */
 
 EXTERNAL struct prints pr;
-EXTERNAL int status_on;
+EXTERNAL int status_on, status_interval;
+EXTERNAL float status_timer;
 EXTERNAL int count_warnings;
 
 /* ----------------------------------------------------------------------

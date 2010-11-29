@@ -8,6 +8,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "time.h"
 #if !defined (PHREEQC_CLASS)
 	#ifdef PHREEQC_CPP
 	extern int read_solution_raw(void);
@@ -5300,16 +5301,17 @@ read_selected_output(void)
 			break;
 		case 17:				/* reset */
 			value = get_true_false(next_char, TRUE);
+			/* matches print order */
 			punch.sim = value;
 			punch.state = value;
 			punch.soln = value;
 			punch.dist = value;
 			punch.time = value;
 			punch.step = value;
-			punch.rxn = value;
-			punch.temp = value;
 			punch.ph = value;
 			punch.pe = value;
+			punch.rxn = value;
+			punch.temp = value;
 			punch.alk = value;
 			punch.mu = value;
 			punch.water = value;
@@ -8602,6 +8604,7 @@ read_print(void)
 	int return_value, opt, l;
 	char *next_char;
 	char token[MAX_LENGTH];
+	LDBLE num;
 	const char *opt_list[] = {
 		"reset",				/* 0 */
 		"gas_phase",			/* 1 */
@@ -8737,6 +8740,13 @@ read_print(void)
 			break;
 		case 19:				/* status */
 			pr.status = get_true_false(next_char, TRUE);
+			status_timer = (float) clock();
+			while (isspace((int) *next_char))
+				(next_char)++;
+			if ((isdigit((int) *next_char) || (*next_char == '.')) && get_num(&next_char, &num))
+				status_interval = (int) floor(num);
+			if (status_interval < 0)
+				status_interval = 0;
 			break;
 		case 20:				/* inverse */
 		case 27:				/* inverse_modeling */

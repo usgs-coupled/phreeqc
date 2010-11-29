@@ -786,6 +786,7 @@ initialize(void)
 	count_trxn = 0;
 	count_mb_unknowns = 0;
 	status_on = TRUE;
+	status_interval = 0;
 	count_rate_p = 0;
 	strcpy(error_string,"");
 	reaction_step = 0;
@@ -1056,10 +1057,12 @@ set_use(void)
 	{
 		use.s_s_assemblage_ptr = NULL;
 	}
+	/*
 	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
+	*/
 	return (OK);
 }
 
