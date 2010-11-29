@@ -145,8 +145,10 @@ Am(+3)        Am+3           0            Am             243
 Am(+4)        Am+4           0            Am             243 
 Am(+5)        AmO2+          0            Am             243 
 Am(+6)        AmO2+2         0            Am             243 
-As            AsO4-3         0            As             74.9216 
-B             B(OH)4-        0            B              10.811 
+As            AsO4-3         2            As             74.9216
+As(+5)        AsO4-3         2            As             74.9216
+As(+3)        H(AsO3)-2      2            As             74.9216
+B             B(OH)4-        1            B              10.811 
 Ba            Ba+2           0            Ba             137.327 
 Br            Br-            0            Br             79.904 
 C             CO3-2          2            CO3            12.011 
@@ -161,8 +163,8 @@ Cn            Cn-            0            Cn             26.018
 Co            Co+2           0            Co             58.9332 
 Cr            CrO4-2         0            CrO4           51.9961 
 Cr(+2)        Cr+2           0            Cr             51.9961 
-Cr(+3)        Cr+3           0            Cr             51.9961 
-Cr(+6)        CrO4-2         0            CrO4           51.9961 
+Cr(+3)        Cr+3          -1            Cr             51.9961 
+Cr(+6)        CrO4-2         1            CrO4           51.9961 
 Cs            Cs+            0            Cs             132.9054 
 Cu            Cu+2           0            Cu             63.546 
 Cu(+1)        Cu+            0            Cu             63.546 
@@ -180,7 +182,7 @@ Glu           HGlu-          0            Glu            195.1459
 H             H+            -1            H              1.0079 
 H(+1)         H+            -1            H              1.0079 
 H(0)          H2             0            H              1.0079 
-Hf            Hf+4           0            Hf             178.49 
+Hf            Hf+4          -4            Hf             178.49 
 Hg            Hg+2           0            Hg             200.59 
 Hg(+2)        Hg+2           0            Hg             200.59 
 Hg(+1)        Hg2+2          0            Hg2            401.18 
@@ -215,7 +217,7 @@ Pa            Pa+4           0            Pa             231.0359
 Pa(+4)        Pa+4           0            Pa             231.0359 
 Pa(+5)        PaO2+          0            Pa             231.0359 
 Pb            Pb+2           0            Pb             207.2 
-Pd            Pd+2           0            Pd             106.42 
+Pd            Pd+2          -2            Pd             106.42 
 Pu            PuO2+2         0            Pu             244 
 Pu(+3)        Pu+3           0            Pu             244 
 Pu(+4)        Pu+4           0            Pu             244 
@@ -241,21 +243,21 @@ Se(-2)        HSe-           0            Se             78.96
 Si            H4(SiO4)       0            Si             28.0855 
 Sm            Sm+3           0            Sm             150.36 
 Sn            Sn+2           0            Sn             118.71 
-Sn(+2)        Sn+2           0            Sn             118.71 
-Sn(+4)        Sn+4           0            Sn             118.71 
+Sn(+2)        Sn+2          -2            Sn             118.71 
+Sn(+4)        Sn+4          -4            Sn             118.71 
 Sr            Sr+2           0            Sr             87.62 
 Tc            TcO(OH)2       0            Tc             98 
 Tc(+4)        TcO(OH)2       0            Tc             98 
 Tc(+6)        TcO4-2         0            Tc             98 
 Tc(+7)        TcO4-          0            Tc             98 
-Th            Th+4           0            Th             232.0381 
+Th            Th+4          -3            Th             232.0381 
 U             UO2+2          0            U              238.0289 
 U(+3)         U+3            0            U              238.0289 
 U(+4)         U+4            0            U              238.0289 
 U(+5)         UO2+           0            U              238.0289 
 U(+6)         UO2+2          0            U              238.0289 
 Zn            Zn+2           0            Zn             65.39 
-Zr            Zr+4           0            Zr             91.22 
+Zr            Zr+4          -4            Zr             91.22 
 
 
 SIT
@@ -6198,17 +6200,21 @@ SOLUTION_SPECIES
      # Enthalpy of formation:             -689.279      kJ/mol        
 
 
-+4.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H2(AsO3)-
-     log_k     30.81        #
-     delta_h  -112.48       kJ/mol        #
-     # Enthalpy of formation:             -714.79       kJ/mol        01LEM/FUG
-
-
-+5.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H3(AsO3)
-     log_k     40.02        #
-     delta_h  -139.89       kJ/mol        #
-     # Enthalpy of formation:             -742.2        kJ/mol        01LEM/FUG
-
+#+4.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H2(AsO3)-
+#     log_k     30.81        #
+#     delta_h  -112.48       kJ/mol        #
+#     # Enthalpy of formation:             -714.79       kJ/mol        01LEM/FUG
++1.000H+     +1.000H(AsO3)-2         = H2(AsO3)-
+     log_k     11.01        #
+     delta_h  -25.511       kJ/mol        #
+     
+#+5.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H3(AsO3)
+#     log_k     40.02        #
+#     delta_h  -139.89       kJ/mol        #
+#     # Enthalpy of formation:             -742.2        kJ/mol        01LEM/FUG
++2.000H+     +1.000H(AsO3)-2         = H3(AsO3)
+     log_k     20.22        #
+     delta_h  -52.921       kJ/mol        #
 
 +1.000Pb+2     +1.000SeO3-2          = Pb(SeO3)
      log_k     5.73         #01SEB/POT
