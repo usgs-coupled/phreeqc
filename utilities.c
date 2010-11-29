@@ -7,6 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "time.h"
 
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] =
@@ -1066,6 +1067,7 @@ status(int count, const char *str)
 	char sim_str[20];
 	char state_str[45];
 	char spin_str[2];
+	float t2;
 /*	char all[MAX_LENGTH]; */
 #ifdef PHREEQ98
 	if (ProcessMessages)
@@ -1076,6 +1078,11 @@ status(int count, const char *str)
 
 	if (pr.status == FALSE || phast == TRUE)
 		return (OK);
+	t2 = (float) clock();
+	if ((int) (1e3 / CLK_TCK * (t2 - status_timer)) < status_interval)
+		return (OK);
+	else
+		status_timer = t2;
 	sprintf(sim_str, "Simulation %d.", simulation);
 	sprintf(state_str, " ");
 	sprintf(spin_str, " ");
