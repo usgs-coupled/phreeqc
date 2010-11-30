@@ -9551,7 +9551,6 @@ read_user_graph(void)
 	if (FirstCallToUSER_GRAPH)
 	{
 		u_g = true;
-		user_graph_count_headings = 0;
 		MallocCurves(5, 30);
 	}
 	else
@@ -9745,6 +9744,10 @@ read_user_graph(void)
 		case OPT_1:			/* read command */
 			length = strlen(user_graph->commands);
 #ifdef CHART
+			if (strstr(line, "graph_y") || strstr(line, "graph_sy"))
+			{
+				CurveInfonr++;
+			}
 			if (strstr(line, "plot_xy"))
 			{
 				ExtractCurveInfo(line, CurveInfonr);

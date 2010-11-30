@@ -46,7 +46,7 @@
 	int RowOffset = 0;						/* = 1 if new simulations should add points to the same curve */
 	int ColumnOffset = 0;					/* sets column offset, from CSV plot, and from new USER_GRAPH */
 	int prev_advection_step = 0;
-	int prev_transport_step = 0;			/* not used in chart, for compatibility with PfW */
+	int prev_transport_step = 0;			/* for different curve properties in c-x plots in a simulation */
 	int AddSeries = 1;						/* new curve properties in new simulation (does the same, but opposite of connect_simulation) */
 
 	int prev_sim_no;						/* set in new simulation, used for changing curve properties */
@@ -400,7 +400,7 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 	char *ptr;
 	char token[MAX_LENGTH];
 	FILE *f_in;
-  f_in = fopen(file_name, "r");
+	f_in = fopen(file_name, "r");
 	if (f_in == NULL)
 		return 0;
 /* Get lines */
@@ -645,7 +645,6 @@ GridChar(char *s, char *a)
 								 (size_t) (user_graph_count_headings) * sizeof(char *));
 				if (user_graph_headings == NULL && user_graph_count_headings > 0)
 					malloc_error();
-				new_ug = false;
 			}
 		}
 
@@ -662,7 +661,7 @@ GridChar(char *s, char *a)
 		{ /* step to new curveset... */
 			if (Curves[ncurves - 1].npoints)
 				ReallocCurves(ncurves * 2);
-			for (i = curvenr + 1; i < ncurves; i++)
+			for (i = curvenr; i < ncurves; i++)
 			{
 				if (Curves[i].npoints)
 					continue;
@@ -688,7 +687,7 @@ GridChar(char *s, char *a)
 
 		/* define curve identifier... */
 		i = colnr + nCSV_headers;
-		if (connect_simulations)
+		if (connect_simulations || new_ug)
 			i = colnr + ColumnOffset;
 		if (x_filled && !col_dwn)
 			i--;
@@ -718,6 +717,9 @@ GridChar(char *s, char *a)
 			}
 		}
 	}
+	else if (rownr == 1)
+		new_ug = false;
+
 
 	/* return if the point is a zero... */
 	if (!strlen(s))
@@ -803,11 +805,18 @@ PlotXY(char *x, char *y)
 		ncurves_changed[1] = ncurves_changed[2];
 		ncurves_changed[2] = curvenr + 1;
 	}
+	if (x_filled && user_graph_count_headings > curvenr + ColumnOffset)
+	{
+		PHRQ_free(Curves[curvenr + ColumnOffset].id);
+		Curves[curvenr + ColumnOffset].id =
+			string_duplicate(user_graph_headings[curvenr + ColumnOffset]);
+	}
+
 	/* If a new simulation, create new set of curves,
 	   define identifiers, y axis from values set in ExtractCurveInfo... */
 	if (rownr == 0 && colnr == 0)
 	{
-		if (new_sim && AddSeries && !connect_simulations)
+		if (new_sim && AddSeries && (!connect_simulations || new_ug))
 		{ /* step to new curveset... */
 			if (Curves[ncurves - 1].npoints)
 				ReallocCurves(ncurves * 2);
@@ -823,7 +832,8 @@ PlotXY(char *x, char *y)
 					break;
 				}
 			}
-			if (new_trans) i3 = 0;
+			if (new_trans && !new_ug) i3 = 0;
+			if (new_ug) i2 = 0;
 			/* fill in curve properties... */
 			for (i = ColumnOffset; i < ColumnOffset + (ColumnOffset - i2); i++)
 			{
@@ -849,6 +859,7 @@ PlotXY(char *x, char *y)
 			RowOffset = 1;
 			for (i = 0; i < ncurves; i++) Curves[i].prev_npoints = Curves[i].npoints;
 		}
+		new_ug = false;
 	}
 
 	/* return if x or y is a zero... */
