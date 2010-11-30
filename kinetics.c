@@ -7,6 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "time.h"
 
 #if !defined(PHREEQC_CLASS)
 #include "sundialstypes.h"		/* definitions of types realtype and                        */
@@ -1116,7 +1117,8 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		}
 #if !defined(PHREEQCI_GUI)
 #ifndef PHREEQ98
-		if (pr.status == TRUE && status_on == TRUE)
+		if (pr.status == TRUE && status_on == TRUE
+			&& (int) (1e3 / CLK_TCK * ((float) clock() - status_timer)) > status_interval)
 		{
 			char str[MAX_LENGTH];
 			backspace_screen(37);
