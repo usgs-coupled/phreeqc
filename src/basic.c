@@ -2332,7 +2332,7 @@ factor(struct LOC_exec * LINK)
 		break;
 
 	case toktk:
-		n.UU.val = tc_x + 273.16;
+		n.UU.val = tc_x + 273.15;
 		break;
 
 	case toktime:
