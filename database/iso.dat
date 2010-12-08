@@ -634,8 +634,11 @@ CO2(g)
 
 O2(g)
      O2 = O2
-     log_k           -2.960
-     delta_h         -1.844 kcal
+#	log_k	   -2.960
+#	delta_h -1.844  kcal
+	 # log K from llnl.dat  Dec 8, 2010
+	log_k	   -2.8983
+	-analytic -7.5001e+000 7.8981e-003 0.0000e+000 0.0000e+000 2.0027e+005     
 
 H2(g)
      H2 = H2
