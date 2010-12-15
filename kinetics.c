@@ -1118,7 +1118,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 #if !defined(PHREEQCI_GUI)
 #ifndef PHREEQ98
 		if (pr.status == TRUE && status_on == TRUE
-			&& (int) (1e3 / CLK_TCK * ((float) clock() - status_timer)) > status_interval)
+			&& (int) (1e3 / CLOCKS_PER_SEC * ((float) clock() - status_timer)) > status_interval)
 		{
 			char str[MAX_LENGTH];
 			backspace_screen(37);
