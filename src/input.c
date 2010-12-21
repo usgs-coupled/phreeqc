@@ -116,7 +116,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 	check_line_return = i;
 	return (i);
 }
-
+#if !defined (MERGE_INCLUDE_FILES)
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 get_line(PFN_READ_CALLBACK pfn, void *cookie)
@@ -207,8 +207,143 @@ get_line(PFN_READ_CALLBACK pfn, void *cookie)
 			}
 		}
 	}
+
 	return (return_value);
 }
+#else
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Read a line from input file put in "line".
+ *   Copy of input line is stored in "line_save".
+ *   Characters after # are discarded in line but retained in "line_save"
+ *
+ *   Arguments:
+ *      fp is file name
+ *   Returns:
+ *      EMPTY,
+ *      EOF,
+ *      KEYWORD,
+ *      OK,
+ *      OPTION
+ */
+	int i, j, return_value, empty, l;
+	char *ptr;
+	char token[MAX_LENGTH];
+	void *cookie;
+	bool continue_loop;
+
+	// loop for include files
+	for (;;)
+	{
+		cookie = this->get_cookie();
+		if (cookie == NULL)
+		{
+			break;
+		}
+		return_value = EMPTY;
+		while (return_value == EMPTY)
+		{
+			/*
+			*   Eliminate all characters after # sign as a comment
+			*/
+			i = -1;
+			empty = TRUE;
+			/*
+			*   Get line, check for eof
+			*/
+			continue_loop = false;
+			if (get_logical_line(pfn, cookie, &l) == EOF)
+			{
+					//pop next file
+					this->pop_cookie();
+					continue_loop = true;
+					break;
+			}
+			/*
+			*   Get long lines
+			*/
+			j = l;
+			ptr = strchr(line_save, '#');
+			if (ptr != NULL)
+			{
+				j = (int) (ptr - line_save);
+			}
+			strncpy(line, line_save, (unsigned) j);
+			line[j] = '\0';
+			for (i = 0; i < j; i++)
+			{
+				if (!isspace((int) line[i]))
+				{
+					empty = FALSE;
+					break;
+				}
+			}
+			/*
+			*   New line character encountered
+			*/
+
+			if (empty == TRUE)
+			{
+				return_value = EMPTY;
+			}
+			else
+			{
+				return_value = OK;
+			}
+		}
+		if (continue_loop) continue;
+		/*
+		*   Determine return_value
+		*/
+		if (return_value == OK)
+		{
+			if (check_key(line) == TRUE)
+			{
+				return_value = KEYWORD;
+			}
+			else
+			{
+				ptr = line;
+				copy_token(token, &ptr, &i);
+				if (token[0] == '-' && isalpha((int) token[1]))
+				{
+					return_value = OPTION;
+				}
+			}
+		}
+		// add new include file to stack
+		ptr = line;
+		copy_token(token, &ptr, &i);
+		str_tolower(token);
+		if (strstr(token,"include$") == token)
+		{
+			char file_name[MAX_LENGTH];
+			strcpy(file_name, ptr);
+			
+			if (string_trim(file_name) != EMPTY)
+			{
+				std::ifstream *next_stream = new std::ifstream(file_name, std::ifstream::in);
+				if (!next_stream->is_open())
+				{
+					// error opening file
+					sprintf(error_string, "Could not open include file %s", file_name);
+					error_msg(error_string, STOP);
+				}
+				this->set_cookie(next_stream);
+				continue;
+			}
+		}
+		return (return_value);
+	}
+	next_keyword = 0;
+	return EOF;
+
+}
+#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
