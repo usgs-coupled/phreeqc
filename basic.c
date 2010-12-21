@@ -85,6 +85,7 @@ typedef unsigned char boolean;
 		{"str$", tokstr_},
 		{"val", tokval},
 		{"chr$", tokchr_},
+		{"eol$", tokeol_},
 		{"asc", tokasc},
 		{"len", toklen},
 		{"mid$", tokmid_},
@@ -952,6 +953,8 @@ parse(Char * l_inbuf, tokenrec ** l_buf)
 							t->kind = tokval;
 						else if (!strcmp(token, "chr$"))
 							t->kind = tokchr_;
+						else if (!strcmp(token, "eol$"))
+							t->kind = tokeol_;
 						else if (!strcmp(token, "asc"))
 							t->kind = tokasc;
 						else if (!strcmp(token, "len"))
@@ -1441,6 +1444,10 @@ listtokens(FILE * f, tokenrec * l_buf)
 
 		case tokchr_:
 			output_msg(OUTPUT_BASIC, "CHR$");
+			break;
+
+		case tokeol_:
+			output_msg(OUTPUT_BASIC, "EOL$");
 			break;
 
 		case tokasc:
@@ -3139,6 +3146,14 @@ factor(struct LOC_exec * LINK)
 			malloc_error();
 		strcpy(n.UU.sval, " ");
 		n.UU.sval[0] = (Char) intfactor(LINK);
+		break;
+
+	case tokeol_:
+		n.stringval = true;
+		n.UU.sval = (char *) PHRQ_calloc(256, sizeof(char));
+		if (n.UU.sval == NULL)
+			malloc_error();
+		strcpy(n.UU.sval, "\n");
 		break;
 
 	case tokasc:
