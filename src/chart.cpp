@@ -12,6 +12,8 @@
 #define EXTERNAL extern
 #include "global.h"
 #include <malloc.h>
+#include <string>
+#include <fstream>
 #else
 #include "Phreeqc.h"
 
@@ -20,6 +22,7 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
+
 //#include <process.h> /* _beginthread(proc, stack, (void *) arglist) */
 
 #ifdef CHART
@@ -393,7 +396,7 @@ ExtractCurveInfo(char *line, int curvenr)
 		*ptr3 = '\0';
 	}
 }
-
+#ifdef SKIP
 int CLASS_QUALIFIER
 OpenCSVFile(char file_name[MAX_LENGTH])
 {
@@ -537,6 +540,153 @@ OpenCSVFile(char file_name[MAX_LENGTH])
 	while (OK);
 
 	return OK;
+}
+#endif
+int CLASS_QUALIFIER
+OpenCSVFile(char file_name[MAX_LENGTH])
+{
+	int i, l, sel, linenr = 0;
+	float x_value;
+	char *ptr;
+	char token[MAX_LENGTH];
+
+	std::ifstream f_csv(file_name, std::ifstream::in);
+	if (!f_csv.is_open())
+	{
+		sprintf(error_string, "Could not open csv file for USER_GRAPH, %s\n", file_name);
+		warning_msg(error_string);
+		return 0;
+	}
+	std::string stdline;
+
+
+/* Get lines */
+	while (std::getline(f_csv, stdline))
+	{
+		if (stdline.size() == 0) continue;
+		strcpy(line, stdline.c_str());
+		ptr = line;
+		if (linenr == 0)
+		{ /* get headings... */
+			while (copy_token(token, &ptr, &l) != EMPTY)
+				nCSV_headers++;
+			/* x in 1st col is not plotted... */
+			nCSV_headers--;
+			/* plot csv curves first... */
+			user_graph_headings =
+				(char **) PHRQ_realloc(user_graph_headings,
+							 (size_t) (user_graph_count_headings +
+									   nCSV_headers) * sizeof(char *));
+			if (user_graph_headings == NULL)
+				malloc_error();
+			user_graph_count_headings += nCSV_headers;
+			for (int i = user_graph_count_headings - 1; i >= nCSV_headers; i--)
+				user_graph_headings[i] = string_hsave(user_graph_headings[i - nCSV_headers]);
+			if (nCSV_headers > ncurves)
+				ReallocCurves(nCSV_headers * 2);
+			ColumnOffset = nCSV_headers;
+
+			ptr = line;
+			copy_token(token, &ptr, &l);
+			for (int i = 0; i < nCSV_headers; i++)
+			{
+				copy_token(token, &ptr, &l);
+				PHRQ_free(Curves[i].id);
+				Curves[i].id = user_graph_headings[i] = string_duplicate(token);
+				Curves[i].line_w = 0.0;
+			}
+
+			linenr++;
+			continue;
+		}
+
+		sel = copy_token(token, &ptr, &l);
+		if (linenr < 6 && sel != DIGIT)
+		{ /* see if token contains curve definer... */
+			str_tolower(token);
+			sel = -1;
+			if (!strncmp(token, "color", 1))
+				sel = 0;
+			else if (!strncmp(token, "line_w", 1))
+				sel = 1;
+			else if (!strncmp(token, "symbol", 1) && strstr(token, "si") == NULL)
+				sel = 2;
+			else if (!strncmp(token, "symbol_s", 8))
+				sel = 3;
+			else if (!strncmp(token, "y_axis", 1))
+				sel = 4;
+
+			if (sel >= 0)
+			{ /* read curve properties... */
+				i = 0;
+				while (strlen(ptr) > 0 && i < nCSV_headers)
+				{
+					if (strstr(ptr, "\t\t") == ptr)
+					{ /* 2 tabs, undefined... */
+						ptr++;
+						i++;
+					}
+					else if (copy_token(token, &ptr, &l) != EMPTY)
+					{
+						switch (sel)
+						{
+						case 0:
+							Curves[i].color = string_hsave(token);
+							break;
+						case 1:
+							Curves[i].line_w = (float) atof(token);
+							break;
+						case 2:
+							Curves[i].symbol = string_hsave(token);
+							break;
+						case 3:
+							Curves[i].symbol_size = (float) atof(token);
+							break;
+						case 4:
+							Curves[i].y_axis = (int) atoi(token);
+						}
+						i++;
+					}
+				}
+				linenr++;
+				continue;
+			}
+		}
+		else
+		{ /* read point values... */
+			if (linenr < 6)
+				linenr = 6;
+			if (sel == DIGIT)
+			{
+				x_value = (float) atof(token);
+			}
+			else
+			{
+				linenr++;
+				continue;
+			}
+			i = 0;
+			while (strlen(ptr) > 0 && i < nCSV_headers)
+			{
+				if (strstr(ptr, "\t\t") == ptr)
+				{ /* 2 tabs, undefined... */
+					ptr++;
+					i++;
+				}
+				else if (copy_token(token, &ptr, &l) == DIGIT)
+				{
+					Curves[i].x[Curves[i].npoints] = x_value;
+					Curves[i].y[Curves[i].npoints] = (float) atof(token);
+					Curves[i].npoints++;
+					if (Curves[i].npoints >= Curves[i].nxy)
+						ReallocCurveXY(i);
+					i++;
+				}
+			}
+			linenr++;
+		}
+	}
+	return EOF;
 }
 
 void CLASS_QUALIFIER
