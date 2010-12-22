@@ -141,7 +141,6 @@ namespace zdg_ui2 {
 			//	"TriangleDown", "HDash", "VDash", "None"};
 			int s_symb;
 			String ^s_t;
-			Y2 = false;
 			if (P_INSTANCE_POINTER axis_scale_x[4] == 10.0) LogX = true;
 			else LogX = false;
 			if (P_INSTANCE_POINTER axis_scale_y[4] == 10.0) LogY = true;
@@ -153,10 +152,15 @@ namespace zdg_ui2 {
 			{
 				if (P_INSTANCE_POINTER Curves[i].npoints == 0) continue;
 				list = gcnew PointPairList();
+				if (P_INSTANCE_POINTER Curves[i].y_axis == 2)
+					Y2 = true;
+				else
+					Y2 = false;
 				for (int i2 = 0; i2 < P_INSTANCE_POINTER Curves[i].npoints; i2++)
 				{
-					if ((LogX || LogY || LogY2) && (P_INSTANCE_POINTER Curves[i].x[i2] <=0
-						|| P_INSTANCE_POINTER Curves[i].y[i2] <=0))
+					if ((LogX && P_INSTANCE_POINTER Curves[i].x[i2] <=0)
+						|| (LogY && !Y2 && P_INSTANCE_POINTER Curves[i].y[i2] <=0)
+						|| (LogY2 && Y2 && P_INSTANCE_POINTER Curves[i].y[i2] <=0))
 						continue;
 					else
 						list->Add( P_INSTANCE_POINTER Curves[i].x[i2], P_INSTANCE_POINTER Curves[i].y[i2] );
@@ -232,11 +236,8 @@ namespace zdg_ui2 {
 				else
 					myCurve->Symbol->IsVisible = false;
 				myCurve->Symbol->Border->Width = (float) P_INSTANCE_POINTER Curves[i].line_w;
-				if (P_INSTANCE_POINTER Curves[i].y_axis == 2)
-				{
+				if (Y2)
 					myCurve->IsY2Axis = true;
-					Y2 = true;
-				}
 				P_INSTANCE_POINTER Curves[i].npoints_plot = P_INSTANCE_POINTER Curves[i].npoints;
 						
 				delete list;
@@ -246,6 +247,8 @@ namespace zdg_ui2 {
 				myPane->Legend->Position = ZedGraph::LegendPos::TopCenter;
 			else
 				myPane->Legend->Position = ZedGraph::LegendPos::Right;
+			myPane->Legend->FontSpec->Size = 12;
+			myPane->Legend->FontSpec->IsBold = false;
 
 			// Show the x axis grid
 			myPane->XAxis->MajorGrid->IsVisible = true;
