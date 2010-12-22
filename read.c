@@ -2492,9 +2492,10 @@ read_kinetics(void)
 		"bad_step_max",			/* 11 */
 		"cvode",				/* 12 */
 		"cvode_steps",			/* 13 */
-		"cvode_order"			/* 14 */
+		"cvode_order",			/* 14 */
+		"time_steps"			/* 15 */
 	};
-	int count_opt_list = 15;
+	int count_opt_list = 16;
 
 /*
  *   Read kinetics number
@@ -2775,6 +2776,7 @@ read_kinetics(void)
 			}
 			break;
 		case 5:				/* steps */
+		case 15:			/* time_steps */
 			/*
 			 *   Read one or more kinetics time increments
 			 */
@@ -9740,19 +9742,22 @@ read_user_graph(void)
 			user_graph->varbase = NULL;
 			user_graph->loopbase = NULL;
 			user_graph->name =
-				string_hsave("user defined Basic punch routine");
+				string_hsave("user defined Basic graph routine");
 		case OPT_1:			/* read command */
 			length = strlen(user_graph->commands);
 #ifdef CHART
-			if (strstr(line, "graph_y") || strstr(line, "graph_sy"))
+			char *ptr = string_duplicate(line);
+			str_tolower(ptr);
+			if (strstr(ptr, "graph_y") || strstr(ptr, "graph_sy"))
 			{
 				CurveInfonr++;
 			}
-			if (strstr(line, "plot_xy"))
+			if (strstr(ptr, "plot_xy"))
 			{
 				ExtractCurveInfo(line, CurveInfonr);
 				CurveInfonr++;
 			}
+			free_check_null(ptr);
 #endif
 			line_length = strlen(line);
 			user_graph->commands =

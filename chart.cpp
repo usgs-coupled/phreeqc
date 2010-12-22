@@ -58,7 +58,7 @@
 	bool end_timer = false;					/* in mainsubs.c, stops the update timer in form1.h */
 
 	struct Curves_c;						/* defines the Curves */
-	int ncurves;							/* number of malloced curves */
+	int ncurves = 0;						/* number of malloced curves */
 	int ncurves_changed[3] = {0, 0, 0};		/* for updating the chart:
 											0 or 1 (if curves have changed), previous no, new no of curves with points*/
 	void MallocCurves(int nc, int ncxy);	/* mallocs nc Curves, with ncxy Curves.x, Curves.y */
@@ -160,6 +160,8 @@ SetAxisScale(char *a, int j, char *token, int true_)
 void CLASS_QUALIFIER
 MallocCurves(int nc, int ncxy)
 {
+	if (ncurves)
+		return;
 	ncurves = nc;
 	Curves = new Curves_c [ncurves];
 	if (Curves == NULL) malloc_error();
@@ -328,15 +330,15 @@ ExtractCurveInfo(char *line, int curvenr)
 	{ /* see if token contains a curve definer... */
 		str_tolower(token);
 		sel = -1;
-		if (!strncmp(token, "color", 3))
+		if (!strncmp(token, "color", 5))
 			sel = 0;
-		else if (!strncmp(token, "symbol", 3) && strstr(token, "_si") == NULL)
+		else if (!strncmp(token, "symbol", 5) && strstr(token, "_si") == NULL)
 			sel = 1;
 		else if (!strncmp(token, "symbol_size", 8))
 			sel = 2;
-		else if (!strncmp(token, "line_w", 3))
+		else if (!strncmp(token, "line_w", 5) || !strncmp(token, "line-w", 5))
 			sel = 3;
-		else if (!strncmp(token, "y_axis", 1))
+		else if (!strncmp(token, "y_axis", 5) || !strncmp(token, "y-axis", 5))
 			sel = 4;
 		if (sel >= 0)
 		{ /* store prev_ptr for reducing BASIC line... */
