@@ -1,3 +1,4 @@
+#include <time.h>
 #if !defined(PHREEQC_CLASS)
 #define MAINSUBS
 #define EXTERNAL extern
@@ -316,6 +317,7 @@ initialize(void)
  *   Initialize punch
  */
 	punch.in = FALSE;
+	punch.new_def = FALSE;
 	punch.count_totals = 0;
 	punch.totals =
 		(struct name_master *) PHRQ_malloc(sizeof(struct name_master));
@@ -786,6 +788,7 @@ initialize(void)
 	count_trxn = 0;
 	count_mb_unknowns = 0;
 	status_on = TRUE;
+	status_timer = (float) clock();
 	status_interval = 0;
 	count_rate_p = 0;
 	strcpy(error_string,"");

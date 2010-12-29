@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <time.h>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
@@ -8,7 +9,6 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-#include "time.h"
 #if !defined (PHREEQC_CLASS)
 	#ifdef PHREEQC_CPP
 	extern int read_solution_raw(void);
