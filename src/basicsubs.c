@@ -1522,6 +1522,8 @@ surf_total(const char *total_name, const char *surface_name)
 			continue;
 		for (i = 0; s_x[j]->next_elt[i].elt != NULL; i++)
 		{
+			if (s_x[j]->next_elt[i].elt->master->type != SURF) continue;
+
 			strcpy(token, s_x[j]->next_elt[i].elt->name);
 			replace("_", " ", token);
 			ptr = token;
@@ -1532,6 +1534,7 @@ surf_total(const char *total_name, const char *surface_name)
  *   Accumulate elements in diffuse layer
  */
 				add_elt_list(s_x[j]->next_elt, s_x[j]->moles);
+				fprintf(stderr, "%15s\t%e\t%s\t%s\n", s_x[j]->name, s_x[j]->moles, name, surface_name_local );
 				break;
 			}
 		}
