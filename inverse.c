@@ -5256,8 +5256,16 @@ add_to_file(const char *filename, char *string)
 		{
 			fclose(model_file);
 			model_file = fopen(filename, "a");
-			fprintf(model_file, "%s\n", string);
-			fclose(model_file);
+			if (model_file) 
+			{
+				fprintf(model_file, "%s\n", string);
+				fclose(model_file);
+			}
+			else
+			{
+				sprintf(error_string,"Could not open netpath model file: %s\n", filename);
+				error_msg(error_string, STOP);
+			}
 			return (OK);
 		}
 		/* new line */
