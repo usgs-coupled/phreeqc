@@ -52,7 +52,7 @@ SOLUTION_MASTER_SPECIES
 
 #element species        alk     gfw_formula     element_gfw
 
-Acetate  HAcetate       0.0     Acetate        59.
+Acetate	 CH3COO-	0.0	CH3COO-		59.0252
 Ag	 Ag+		0.0	Ag		107.8682
 Ag(1)	 Ag+		0	Ag
 Ag(2)	 Ag+2   	0	Ag
@@ -129,7 +129,7 @@ E        e-             0.0     0.0             0.0
 Er	 Er+3		0.0	Er		167.26
 Er(+2)	 Er+2		0.0	Er
 Er(+3)	 Er+3		0.0	Er
-Ethylene Ethylene       0.0     Ethylene        28.0536 
+#Ethylene C2H4	        0.0     C2H4	        28.0536 
 Eu	 Eu+3		0.0	Eu		151.965
 Eu(+2)	 Eu+2		0.0	Eu
 Eu(+3)	 Eu+3		0.0	Eu
@@ -241,7 +241,7 @@ Se	 SeO3-2		0.0	Se		78.96
 Se(-2)	 HSe-		0.0	Se
 Se(+4)	 SeO3-2		0.0	Se
 Se(+6)	 SeO4-2		0.0	Se
-Si       SiO2         0.0     SiO2            28.0855
+Si       SiO2           0.0     SiO2            28.0855
 Sm	 Sm+3		0.0	Sm		150.36
 Sm(+2)	 Sm+2		0.0	Sm
 Sm(+3)	 Sm+3		0.0	Sm
@@ -288,11 +288,16 @@ Zr	 Zr(OH)2+2	0.0	Zr		91.224
 
 SOLUTION_SPECIES
 
-HAcetate =  HAcetate 
+#HAcetate =  HAcetate 
+#	-llnl_gamma	3.0000	
+#	log_k 0
+#	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	HAcetate
+#	Enthalpy of formation:	-116.1 kcal/mol
+CH3COO- = CH3COO-
 	-llnl_gamma	3.0000	
 	log_k 0
-	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	HAcetate
-#	Enthalpy of formation:	-116.1 kcal/mol
+	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	CH3COO-
+#	Enthalpy of formation:	-116.374 kcal/mol
 Ag+ =  Ag+ 
 	-llnl_gamma	2.5000	
 	log_k 0
@@ -392,10 +397,10 @@ Er+3 =  Er+3
 	log_k 0
 	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	Er+3
 #	Enthalpy of formation:	-168.5 kcal/mol
-Ethylene =  Ethylene 
-	-llnl_gamma	3.0000	
-	log_k 0
-	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	Ethylene
+#Ethylene =  Ethylene 
+#	-llnl_gamma	3.0000	
+#	log_k 0
+#	-delta_H	0	kJ/mol	# Calculated enthalpy of reaction	Ethylene
 #	Enthalpy of formation:	8.57 kcal/mol
 Eu+3 =  Eu+3 
 	-llnl_gamma	5.0000	
@@ -1615,15 +1620,23 @@ Thiocyanate- = Thiocyanate-
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	(VO)2(OH)2+2
 #	Enthalpy of formation:	-0 kcal/mol
  
-HAcetate =  Acetate- + H+ 
+CH3COO- + H+ = CH3COOH 
          -llnl_gamma         4.5         
-         log_k        -4.7572
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Acetate-
+         log_k        4.7572
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CH3COOH
 #	Enthalpy of formation:	-0 kcal/mol
-         -analytic    -0.96597E+02   -0.34535E-01    0.19753E+04    0.38593E+02    0.30850E+02
+         -analytic    0.96597E+02   0.34535E-01    -0.19753E+04    -0.38593E+02    -0.30850E+02
 #        -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ag+  =  Ag(Acetate)2- +2.0000 H+
+H+ + 2.000 HCO3- = CH3COO- + 2.0000 O2
+	-llnl_gamma         4.5
+	log_k	-146.7494
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CH3COO-
+#	Enthalpy of formation:	-0 kcal/mol
+	-analytic	-1.3108E+03	-2.3248E-01	-4.5380E+01	4.9843E+02	6.5945E-01
+#       -Range:  0-300	
+
+2.0000 CH3COOH + 1.0000 Ag+  =  Ag(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -8.8716
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Ag(Acetate)2-
@@ -1639,7 +1652,7 @@ HAcetate =  Acetate- + H+
         -analytic -1.6671e+002 -4.5571e-002 3.7190e+003 6.0341e+001 5.8080e+001
 #       -Range:  0-300
 
-1.0000 Ag+ + 1.0000 HAcetate  =  AgAcetate +1.0000 H+
+1.0000 Ag+ + 1.0000 CH3COOH  =  AgCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.0264
 	-delta_H	-3.4518	kJ/mol	# Calculated enthalpy of reaction	AgAcetate
@@ -1703,7 +1716,7 @@ HAcetate =  Acetate- + H+
         -analytic 7.3866e+001 2.6050e-002 -1.5923e+003 -3.0904e+001 -2.4868e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Al+++  =  Al(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Al+++  =  Al(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -5.595
 	-delta_H	-46.8566	kJ/mol	# Calculated enthalpy of reaction	Al(Acetate)2+
@@ -1743,7 +1756,7 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Al3(OH)4+5
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Al+++ + 1.0000 HAcetate  =  AlAcetate++ +1.0000 H+
+1.0000 Al+++ + 1.0000 CH3COOH  =  AlCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.6923
 	-delta_H	-18.1962	kJ/mol	# Calculated enthalpy of reaction	AlAcetate+2
@@ -1937,18 +1950,18 @@ HAcetate =  Acetate- + H+
         -analytic -2.4979e+001 -1.2761e-002 2.8369e+003 3.4878e+000 -6.8736e+005
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Au+  =  Au(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Au+  =  Au(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.0013
-	-delta_H	-8.91192	kJ/mol	# Calculated enthalpy of reaction	Au(Acetate)2-
+	-delta_H	-8.91192	kJ/mol	# Calculated enthalpy of reaction	Au(CH3COO)2-
 #	Enthalpy of formation:	-186.75 kcal/mol
         -analytic -2.2338e+002 -4.6312e-002 7.0942e+003 8.2606e+001 1.1076e+002
 #       -Range:  0-300
 
-1.0000 Au+ + 1.0000 HAcetate  =  AuAcetate +1.0000 H+
+1.0000 Au+ + 1.0000 CH3COOH  =  AuCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.3174
-	-delta_H	0.87864	kJ/mol	# Calculated enthalpy of reaction	AuAcetate
+	-delta_H	0.87864	kJ/mol	# Calculated enthalpy of reaction	AuCH3COO
 #	Enthalpy of formation:	-68.31 kcal/mol
         -analytic -1.1812e+000 -4.1120e-003 -1.4752e+003 4.5665e-001 1.7019e+005
 #       -Range:  0-300
@@ -1989,10 +2002,10 @@ HAcetate =  Acetate- + H+
         -analytic -1.0500e+002 -3.3447e-002 1.4706e+003 4.0724e+001 2.2978e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ba++  =  Ba(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ba++  =  Ba(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.0118
-	-delta_H	11.255	kJ/mol	# Calculated enthalpy of reaction	Ba(Acetate)2
+	-delta_H	11.255	kJ/mol	# Calculated enthalpy of reaction	Ba(CH3COO)2
 #	Enthalpy of formation:	-358.01 kcal/mol
         -analytic -1.4566e+001 3.1394e-004 -3.9564e+003 5.1906e+000 6.1407e+005
 #       -Range:  0-300
@@ -2009,10 +2022,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	BaB(OH)4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Ba++ + 1.0000 HAcetate  =  BaAcetate+ +1.0000 H+
+1.0000 Ba++ + 1.0000 CH3COOH  =  BaCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.7677
-	-delta_H	7.322	kJ/mol	# Calculated enthalpy of reaction	BaAcetate+
+	-delta_H	7.322	kJ/mol	# Calculated enthalpy of reaction	BaCH3COO+
 #	Enthalpy of formation:	-242.85 kcal/mol
         -analytic -1.5623e+001 2.9282e-003 -3.9534e+002 4.3959e+000 1.2829e+005
 #       -Range:  0-300
@@ -2053,18 +2066,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	BaOH+
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Be++  =  Be(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Be++  =  Be(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -6.8023
-	-delta_H	-52.4255	kJ/mol	# Calculated enthalpy of reaction	Be(Acetate)2
+	-delta_H	-52.4255	kJ/mol	# Calculated enthalpy of reaction	Be(CH3COO)2
 #	Enthalpy of formation:	-336.23 kcal/mol
         -analytic -3.5242e+001 5.1285e-003 -4.8914e+002 8.2862e+000 7.1774e+005
 #       -Range:  0-300
 
-1.0000 Be++ + 1.0000 HAcetate  =  BeAcetate+ +1.0000 H+
+1.0000 Be++ + 1.0000 CH3COOH  =  BeCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.1079
-	-delta_H	-22.761	kJ/mol	# Calculated enthalpy of reaction	BeAcetate+
+	-delta_H	-22.761	kJ/mol	# Calculated enthalpy of reaction	BeCH3COO+
 #	Enthalpy of formation:	-213.04 kcal/mol
         -analytic -1.9418e+001 5.2172e-004 -8.5071e+001 5.2755e+000 3.0215e+005
 #       -Range:  0-300
@@ -2099,10 +2112,10 @@ HAcetate =  Acetate- + H+
         -analytic -6.9958e+001 -3.3526e-002 -7.0846e+001 2.8224e+001 -1.0849e+000
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ca++  =  Ca(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ca++  =  Ca(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.3814
-	-delta_H	-2.7196	kJ/mol	# Calculated enthalpy of reaction	Ca(Acetate)2
+	-delta_H	-2.7196	kJ/mol	# Calculated enthalpy of reaction	Ca(CH3COO)2
 #	Enthalpy of formation:	-362.65 kcal/mol
         -analytic -1.0320e+001 4.0012e-003 -3.6281e+003 2.4421e+000 7.0175e+005
 #       -Range:  0-300
@@ -2119,10 +2132,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CaB(OH)4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Ca++ + 1.0000 HAcetate  =  CaAcetate+ +1.0000 H+
+1.0000 Ca++ + 1.0000 CH3COOH  =  CaCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.8263
-	-delta_H	1.17152	kJ/mol	# Calculated enthalpy of reaction	CaAcetate+
+	-delta_H	1.17152	kJ/mol	# Calculated enthalpy of reaction	CaCH3COO+
 #	Enthalpy of formation:	-245.62 kcal/mol
         -analytic -8.8826e+000 3.1672e-003 -1.0764e+003 2.0526e+000 2.3599e+005
 #       -Range:  0-300
@@ -2211,26 +2224,26 @@ HAcetate =  Acetate- + H+
         -analytic 2.8618e+002 8.4084e-002 -7.6880e+003 -1.1449e+002 -1.2005e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Cd++  =  Cd(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Cd++  =  Cd(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -6.3625
-	-delta_H	-17.4891	kJ/mol	# Calculated enthalpy of reaction	Cd(Acetate)2
+	-delta_H	-17.4891	kJ/mol	# Calculated enthalpy of reaction	Cd(CH3COO)2
 #	Enthalpy of formation:	-254.52 kcal/mol
         -analytic -1.9344e+001 2.5894e-003 -3.2847e+003 5.8489e+000 7.8041e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Cd++  =  Cd(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Cd++  =  Cd(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -10.8558
-	-delta_H	-40.0409	kJ/mol	# Calculated enthalpy of reaction	Cd(Acetate)3-
+	-delta_H	-40.0409	kJ/mol	# Calculated enthalpy of reaction	Cd(CH3COO)3-
 #	Enthalpy of formation:	-376.01 kcal/mol
         -analytic 4.8290e+001 -3.4317e-003 -1.5122e+004 -1.3203e+001 2.2479e+006
 #       -Range:  0-300
 
-4.0000 HAcetate + 1.0000 Cd++  =  Cd(Acetate)4-- +4.0000 H+
+4.0000 CH3COOH + 1.0000 Cd++  =  Cd(CH3COO)4-- +4.0000 H+
         -llnl_gamma           4.0    
         log_k           -16.9163
-	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(Acetate)4-2
+	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cd(CH3COO)4-2
 #	Enthalpy of formation:	-0 kcal/mol
  
  2.0000 Cyanide- + 1.0000 Cd++  =  Cd(Cyanide)2
@@ -2366,10 +2379,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdBr3-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Cd++ + 1.0000 HAcetate  =  CdAcetate+ +1.0000 H+
+1.0000 Cd++ + 1.0000 CH3COOH  =  CdCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -2.8294
-	-delta_H	-7.02912	kJ/mol	# Calculated enthalpy of reaction	CdAcetate+
+	-delta_H	-7.02912	kJ/mol	# Calculated enthalpy of reaction	CdCH3COO+
 #	Enthalpy of formation:	-135.92 kcal/mol
         -analytic -8.8425e+000 1.7178e-003 -1.1758e+003 2.4435e+000 3.0321e+005
 #       -Range:  0-300
@@ -2485,18 +2498,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CdSeO4
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Ce+++  =  Ce(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ce+++  =  Ce(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.8159
-	-delta_H	-22.9702	kJ/mol	# Calculated enthalpy of reaction	Ce(Acetate)2+
+	-delta_H	-22.9702	kJ/mol	# Calculated enthalpy of reaction	Ce(CH3COO)2+
 #	Enthalpy of formation:	-405.09 kcal/mol
         -analytic -3.4653e+001 2.0716e-004 -6.3400e+002 1.0678e+001 4.8922e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Ce+++  =  Ce(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Ce+++  =  Ce(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.151
-	-delta_H	-38.7438	kJ/mol	# Calculated enthalpy of reaction	Ce(Acetate)3
+	-delta_H	-38.7438	kJ/mol	# Calculated enthalpy of reaction	Ce(CH3COO)3
 #	Enthalpy of formation:	-524.96 kcal/mol
         -analytic -2.3361e+001 2.3896e-003 -1.8035e+003 5.0888e+000 7.1021e+005
 #       -Range:  0-300
@@ -2545,10 +2558,10 @@ HAcetate =  Acetate- + H+
         -analytic 7.5790e+001 3.6040e-002 -1.2647e+003 -3.3094e+001 -1.9757e+001
 #       -Range:  0-300
 
-1.0000 Ce+++ + 1.0000 HAcetate  =  CeAcetate++ +1.0000 H+
+1.0000 Ce+++ + 1.0000 CH3COOH  =  CeCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.0304
-	-delta_H	-12.0918	kJ/mol	# Calculated enthalpy of reaction	CeAcetate+2
+	-delta_H	-12.0918	kJ/mol	# Calculated enthalpy of reaction	CeCH3COO+2
 #	Enthalpy of formation:	-286.39 kcal/mol
         -analytic -1.6080e+001 6.6239e-004 -6.0721e+002 5.0845e+000 2.9512e+005
 #       -Range:  0-300
@@ -2723,18 +2736,18 @@ HAcetate =  Acetate- + H+
         -analytic 3.0156e+002 8.5149e-002 -1.1025e+004 -1.1866e+002 -1.7213e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Co++  =  Co(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Co++  =  Co(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.1468
-	-delta_H	-22.4262	kJ/mol	# Calculated enthalpy of reaction	Co(Acetate)2
+	-delta_H	-22.4262	kJ/mol	# Calculated enthalpy of reaction	Co(CH3COO)2
 #	Enthalpy of formation:	-251.46 kcal/mol
         -analytic -2.0661e+001 2.9014e-003 -2.2146e+003 5.1702e+000 6.4968e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Co++  =  Co(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Co++  =  Co(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -11.281
-	-delta_H	-48.2415	kJ/mol	# Calculated enthalpy of reaction	Co(Acetate)3-
+	-delta_H	-48.2415	kJ/mol	# Calculated enthalpy of reaction	Co(CH3COO)3-
 #	Enthalpy of formation:	-373.73 kcal/mol
         -analytic 6.3384e+001 -4.0669e-003 -1.4715e+004 -1.9518e+001 2.1524e+006
 #       -Range:  0-300
@@ -2777,10 +2790,10 @@ HAcetate =  Acetate- + H+
         -analytic 5.8731e+000 8.0908e-004 -1.8986e+002 -2.2295e+000 -3.2261e+000
 #       -Range:  0-200
 
-1.0000 Co++ + 1.0000 HAcetate  =  CoAcetate+ +1.0000 H+
+1.0000 Co++ + 1.0000 CH3COOH  =  CoCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.2985
-	-delta_H	-8.70272	kJ/mol	# Calculated enthalpy of reaction	CoAcetate+
+	-delta_H	-8.70272	kJ/mol	# Calculated enthalpy of reaction	CoCH3COO+
 #	Enthalpy of formation:	-132.08 kcal/mol
         -analytic -5.4858e+000 1.9147e-003 -1.1292e+003 9.0555e-001 2.8223e+005
 #       -Range:  0-300
@@ -2907,10 +2920,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CrOH+2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Cs+  =  Cs(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Cs+  =  Cs(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.771
-	-delta_H	1.2552	kJ/mol	# Calculated enthalpy of reaction	Cs(Acetate)2-
+	-delta_H	1.2552	kJ/mol	# Calculated enthalpy of reaction	Cs(CH3COO)2-
 #	Enthalpy of formation:	-293.57 kcal/mol
         -analytic -1.6956e+002 -4.0378e-002 4.5773e+003 6.3241e+001 7.1475e+001
 #       -Range:  0-300
@@ -2923,10 +2936,10 @@ HAcetate =  Acetate- + H+
         -analytic 1.2064e+002 3.2000e-002 -3.8770e+003 -4.7458e+001 -6.0533e+001
 #       -Range:  0-300
 
-1.0000 Cs+ + 1.0000 HAcetate  =  CsAcetate +1.0000 H+
+1.0000 Cs+ + 1.0000 CH3COOH  =  CsCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.7352
-	-delta_H	6.0668	kJ/mol	# Calculated enthalpy of reaction	CsAcetate
+	-delta_H	6.0668	kJ/mol	# Calculated enthalpy of reaction	CsCH3COO
 #	Enthalpy of formation:	-176.32 kcal/mol
         -analytic 2.4280e+001 -2.8642e-003 -3.1339e+003 -8.1616e+000 2.2684e+005
 #       -Range:  0-300
@@ -2947,26 +2960,26 @@ HAcetate =  Acetate- + H+
         -analytic 1.1555e+002 3.1419e-002 -3.3496e+003 -4.5828e+001 -5.2302e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Cu++  =  Cu(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Cu++  =  Cu(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -5.8824
-	-delta_H	-25.899	kJ/mol	# Calculated enthalpy of reaction	Cu(Acetate)2
+	-delta_H	-25.899	kJ/mol	# Calculated enthalpy of reaction	Cu(CH3COO)2
 #	Enthalpy of formation:	-222.69 kcal/mol
         -analytic -2.6689e+001 1.8048e-003 -1.8244e+003 7.7008e+000 6.5408e+005
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Cu+  =  Cu(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Cu+  =  Cu(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.2139
-	-delta_H	-19.5476	kJ/mol	# Calculated enthalpy of reaction	Cu(Acetate)2-
+	-delta_H	-19.5476	kJ/mol	# Calculated enthalpy of reaction	Cu(CH3COO)2-
 #	Enthalpy of formation:	-219.74 kcal/mol
         -analytic -3.2712e+002 -5.9087e-002 1.1386e+004 1.2017e+002 1.7777e+002
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Cu++  =  Cu(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Cu++  =  Cu(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.3788
-	-delta_H	-53.2205	kJ/mol	# Calculated enthalpy of reaction	Cu(Acetate)3-
+	-delta_H	-53.2205	kJ/mol	# Calculated enthalpy of reaction	Cu(CH3COO)3-
 #	Enthalpy of formation:	-345.32 kcal/mol
         -analytic 3.9475e+001 -6.2867e-003 -1.3233e+004 -1.0643e+001 2.1121e+006
 #       -Range:  0-300
@@ -2999,18 +3012,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Cu(NO2)2
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Cu+ + 1.0000 HAcetate  =  CuAcetate +1.0000 H+
+1.0000 Cu+ + 1.0000 CH3COOH  =  CuCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.4274
-	-delta_H	-4.19237	kJ/mol	# Calculated enthalpy of reaction	CuAcetate
+	-delta_H	-4.19237	kJ/mol	# Calculated enthalpy of reaction	CuCH3COO
 #	Enthalpy of formation:	-99.97 kcal/mol
         -analytic 6.3784e+000 -4.5464e-004 -1.9995e+003 -2.8359e+000 2.7224e+005
 #       -Range:  0-300
 
-1.0000 Cu++ + 1.0000 HAcetate  =  CuAcetate+ +1.0000 H+
+1.0000 Cu++ + 1.0000 CH3COOH  =  CuCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -2.5252
-	-delta_H	-11.3805	kJ/mol	# Calculated enthalpy of reaction	CuAcetate+
+	-delta_H	-11.3805	kJ/mol	# Calculated enthalpy of reaction	CuCH3COO+
 #	Enthalpy of formation:	-103.12 kcal/mol
         -analytic -1.4930e+001 5.1278e-004 -3.4874e+002 4.3605e+000 2.3504e+005
 #       -Range:  0-300
@@ -3111,18 +3124,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	CuSO4
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Dy+++  =  Dy(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Dy+++  =  Dy(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9625
-	-delta_H	-29.3298	kJ/mol	# Calculated enthalpy of reaction	Dy(Acetate)2+
+	-delta_H	-29.3298	kJ/mol	# Calculated enthalpy of reaction	Dy(CH3COO)2+
 #	Enthalpy of formation:	-405.71 kcal/mol
         -analytic -2.7249e+001 2.7507e-003 -1.7500e+003 7.9356e+000 6.8668e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Dy+++  =  Dy(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Dy+++  =  Dy(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3489
-	-delta_H	-49.4549	kJ/mol	# Calculated enthalpy of reaction	Dy(Acetate)3
+	-delta_H	-49.4549	kJ/mol	# Calculated enthalpy of reaction	Dy(CH3COO)3
 #	Enthalpy of formation:	-526.62 kcal/mol
         -analytic -2.4199e+001 6.2065e-003 -2.8937e+003 5.0176e+000 1.0069e+006
 #       -Range:  0-300
@@ -3158,10 +3171,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Dy(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Dy+++ + 1.0000 HAcetate  =  DyAcetate++ +1.0000 H+
+1.0000 Dy+++ + 1.0000 CH3COOH  =  DyCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1037
-	-delta_H	-14.8532	kJ/mol	# Calculated enthalpy of reaction	DyAcetate+2
+	-delta_H	-14.8532	kJ/mol	# Calculated enthalpy of reaction	DyCH3COO+2
 #	Enthalpy of formation:	-286.15 kcal/mol
         -analytic -1.3635e+001 1.7329e-003 -9.4636e+002 4.0900e+000 3.6282e+005
 #       -Range:  0-300
@@ -3314,18 +3327,18 @@ HAcetate =  Acetate- + H+
         -analytic 3.0672e+002 8.6459e-002 -9.0386e+003 -1.2063e+002 -1.4113e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Er+++  =  Er(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Er+++  =  Er(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9844
-	-delta_H	-32.8026	kJ/mol	# Calculated enthalpy of reaction	Er(Acetate)2+
+	-delta_H	-32.8026	kJ/mol	# Calculated enthalpy of reaction	Er(CH3COO)2+
 #	Enthalpy of formation:	-408.54 kcal/mol
         -analytic -3.1458e+001 1.4715e-003 -1.0556e+003 9.1586e+000 6.1669e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Er+++  =  Er(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Er+++  =  Er(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3783
-	-delta_H	-55.187	kJ/mol	# Calculated enthalpy of reaction	Er(Acetate)3
+	-delta_H	-55.187	kJ/mol	# Calculated enthalpy of reaction	Er(CH3COO)3
 #	Enthalpy of formation:	-529.99 kcal/mol
         -analytic -2.1575e+001 5.9740e-003 -2.0489e+003 3.3624e+000 8.8933e+005
 #       -Range:  0-300
@@ -3361,10 +3374,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Er(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Er+++ + 1.0000 HAcetate  =  ErAcetate++ +1.0000 H+
+1.0000 Er+++ + 1.0000 CH3COOH  =  ErCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1184
-	-delta_H	-16.4013	kJ/mol	# Calculated enthalpy of reaction	ErAcetate+2
+	-delta_H	-16.4013	kJ/mol	# Calculated enthalpy of reaction	ErCH3COO+2
 #	Enthalpy of formation:	-288.52 kcal/mol
         -analytic -1.2519e+001 1.5558e-003 -8.5344e+002 3.5918e+000 3.4888e+005
 #       -Range:  0-300
@@ -3517,18 +3530,18 @@ HAcetate =  Acetate- + H+
         -analytic 3.0363e+002 8.5667e-002 -8.9667e+003 -1.1942e+002 -1.4001e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Eu+++  =  Eu(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Eu+++  =  Eu(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.6912
-	-delta_H	-28.3257	kJ/mol	# Calculated enthalpy of reaction	Eu(Acetate)2+
+	-delta_H	-28.3257	kJ/mol	# Calculated enthalpy of reaction	Eu(CH3COO)2+
 #	Enthalpy of formation:	-383.67 kcal/mol
         -analytic -2.7589e+001 1.5772e-003 -1.1008e+003 7.9899e+000 5.6652e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Eu+++  =  Eu(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Eu+++  =  Eu(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.9824
-	-delta_H	-47.3629	kJ/mol	# Calculated enthalpy of reaction	Eu(Acetate)3
+	-delta_H	-47.3629	kJ/mol	# Calculated enthalpy of reaction	Eu(CH3COO)3
 #	Enthalpy of formation:	-504.32 kcal/mol
         -analytic -3.7470e+001 1.9276e-003 -1.0318e+003 9.7078e+000 7.4558e+005
 #       -Range:  0-300
@@ -3616,10 +3629,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	EuBrO3+2
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Eu+++ + 1.0000 HAcetate  =  EuAcetate++ +1.0000 H+
+1.0000 Eu+++ + 1.0000 CH3COOH  =  EuCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -1.9571
-	-delta_H	-14.5603	kJ/mol	# Calculated enthalpy of reaction	EuAcetate+2
+	-delta_H	-14.5603	kJ/mol	# Calculated enthalpy of reaction	EuCH3COO+2
 #	Enthalpy of formation:	-264.28 kcal/mol
         -analytic -1.5090e+001 1.0352e-003 -6.4435e+002 4.6225e+000 3.1649e+005
 #       -Range:  0-300
@@ -3856,10 +3869,10 @@ HAcetate =  Acetate- + H+
         -analytic 3.0587e+002 8.6208e-002 -9.0387e+003 -1.2026e+002 -1.4113e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Fe++  =  Fe(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Fe++  =  Fe(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.0295
-	-delta_H	-20.2924	kJ/mol	# Calculated enthalpy of reaction	Fe(Acetate)2
+	-delta_H	-20.2924	kJ/mol	# Calculated enthalpy of reaction	Fe(CH3COO)2
 #	Enthalpy of formation:	-259.1 kcal/mol
         -analytic -2.9862e+001 1.3901e-003 -1.6908e+003 8.6283e+000 6.0125e+005
 #       -Range:  0-300
@@ -3918,10 +3931,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Fe3(OH)4+5
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Fe++ + 1.0000 HAcetate  =  FeAcetate+ +1.0000 H+
+1.0000 Fe++ + 1.0000 CH3COOH  =  FeCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.4671
-	-delta_H	-3.80744	kJ/mol	# Calculated enthalpy of reaction	FeAcetate+
+	-delta_H	-3.80744	kJ/mol	# Calculated enthalpy of reaction	FeCH3COO+
 #	Enthalpy of formation:	-139.06 kcal/mol
         -analytic -1.3781e+001 9.6253e-004 -7.5310e+002 4.0135e+000 2.3416e+005
 #       -Range:  0-300
@@ -4080,18 +4093,18 @@ HAcetate =  Acetate- + H+
         -analytic 2.5178e+002 1.0080e-001 -6.0977e+003 -1.0483e+002 -9.5223e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Gd+++  =  Gd(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Gd+++  =  Gd(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9625
-	-delta_H	-22.3426	kJ/mol	# Calculated enthalpy of reaction	Gd(Acetate)2+
+	-delta_H	-22.3426	kJ/mol	# Calculated enthalpy of reaction	Gd(CH3COO)2+
 #	Enthalpy of formation:	-401.74 kcal/mol
         -analytic -4.3124e+001 1.2995e-004 -4.3494e+002 1.3677e+001 5.1224e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Gd+++  =  Gd(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Gd+++  =  Gd(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3489
-	-delta_H	-37.9907	kJ/mol	# Calculated enthalpy of reaction	Gd(Acetate)3
+	-delta_H	-37.9907	kJ/mol	# Calculated enthalpy of reaction	Gd(CH3COO)3
 #	Enthalpy of formation:	-521.58 kcal/mol
         -analytic -8.8296e+001 -5.0939e-003 1.2268e+003 2.8513e+001 6.0745e+005
 #       -Range:  0-300
@@ -4127,10 +4140,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Gd(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Gd+++ + 1.0000 HAcetate  =  GdAcetate++ +1.0000 H+
+1.0000 Gd+++ + 1.0000 CH3COOH  =  GdCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1037
-	-delta_H	-11.7152	kJ/mol	# Calculated enthalpy of reaction	GdAcetate+2
+	-delta_H	-11.7152	kJ/mol	# Calculated enthalpy of reaction	GdCH3COO+2
 #	Enthalpy of formation:	-283.1 kcal/mol
         -analytic -1.4118e+001 1.6660e-003 -7.5206e+002 4.2614e+000 3.1187e+005
 #       -Range:  0-300
@@ -4664,42 +4677,42 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	HfOH+3
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Hg++  =  Hg(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Hg++  =  Hg(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -2.6242
-	-delta_H	-30.334	kJ/mol	# Calculated enthalpy of reaction	Hg(Acetate)2
+	-delta_H	-30.334	kJ/mol	# Calculated enthalpy of reaction	Hg(CH3COO)2
 #	Enthalpy of formation:	-198.78 kcal/mol
         -analytic -2.1959e+001 2.7774e-003 -3.2500e+003 7.7351e+000 9.1508e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Hg++  =  Hg(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Hg++  =  Hg(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.3247
-	-delta_H	-59.7057	kJ/mol	# Calculated enthalpy of reaction	Hg(Acetate)3-
+	-delta_H	-59.7057	kJ/mol	# Calculated enthalpy of reaction	Hg(CH3COO)3-
 #	Enthalpy of formation:	-321.9 kcal/mol
         -analytic 2.1656e+001 -2.0392e-003 -1.2866e+004 -3.2932e+000 2.3073e+006
 #       -Range:  0-300
 
-1.0000 Hg++ + 1.0000 HAcetate  =  HgAcetate+ +1.0000 H+
+1.0000 Hg++ + 1.0000 CH3COOH  =  HgCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -0.4691
-	-delta_H	-16.5686	kJ/mol	# Calculated enthalpy of reaction	HgAcetate+
+	-delta_H	-16.5686	kJ/mol	# Calculated enthalpy of reaction	HgCH3COO+
 #	Enthalpy of formation:	-79.39 kcal/mol
         -analytic -1.6355e+001 1.9446e-003 -2.6676e+002 5.1978e+000 2.9805e+005
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ho+++  =  Ho(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ho+++  =  Ho(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9844
-	-delta_H	-28.1583	kJ/mol	# Calculated enthalpy of reaction	Ho(Acetate)2+
+	-delta_H	-28.1583	kJ/mol	# Calculated enthalpy of reaction	Ho(CH3COO)2+
 #	Enthalpy of formation:	-407.93 kcal/mol
         -analytic -2.7925e+001 2.5599e-003 -1.4779e+003 8.0785e+000 6.3736e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Ho+++  =  Ho(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Ho+++  =  Ho(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3783
-	-delta_H	-47.5721	kJ/mol	# Calculated enthalpy of reaction	Ho(Acetate)3
+	-delta_H	-47.5721	kJ/mol	# Calculated enthalpy of reaction	Ho(CH3COO)3
 #	Enthalpy of formation:	-528.67 kcal/mol
         -analytic -6.5547e+001 -1.1963e-004 -1.8887e+002 1.9796e+001 7.9041e+005
 #       -Range:  0-300
@@ -4728,10 +4741,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Ho(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Ho+++ + 1.0000 HAcetate  =  HoAcetate++ +1.0000 H+
+1.0000 Ho+++ + 1.0000 CH3COOH  =  HoCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1184
-	-delta_H	-14.3093	kJ/mol	# Calculated enthalpy of reaction	HoAcetate+2
+	-delta_H	-14.3093	kJ/mol	# Calculated enthalpy of reaction	HoCH3COO+2
 #	Enthalpy of formation:	-288.52 kcal/mol
         -analytic -1.8265e+001 1.0753e-003 -6.0695e+002 5.7211e+000 3.3055e+005
 #       -Range:  0-300
@@ -4884,10 +4897,10 @@ HAcetate =  Acetate- + H+
         -analytic 3.0709e+002 8.6579e-002 -9.0693e+003 -1.2078e+002 -1.4161e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 K+  =  K(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 K+  =  K(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -10.2914
-	-delta_H	-1.79912	kJ/mol	# Calculated enthalpy of reaction	K(Acetate)2-
+	-delta_H	-1.79912	kJ/mol	# Calculated enthalpy of reaction	K(CH3COO)2-
 #	Enthalpy of formation:	-292.9 kcal/mol
         -analytic -2.3036e+002 -4.6369e-002 7.0305e+003 8.4997e+001 1.0977e+002
 #       -Range:  0-300
@@ -4900,10 +4913,10 @@ HAcetate =  Acetate- + H+
         -analytic 1.1320e+002 3.4227e-002 -3.6401e+003 -4.5633e+001 -5.6833e+001
 #       -Range:  0-300
 
-1.0000 K+ + 1.0000 HAcetate  =  KAcetate +1.0000 H+
+1.0000 K+ + 1.0000 CH3COOH  =  KCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -5.0211
-	-delta_H	4.8116	kJ/mol	# Calculated enthalpy of reaction	KAcetate
+	-delta_H	4.8116	kJ/mol	# Calculated enthalpy of reaction	KCH3COO
 #	Enthalpy of formation:	-175.22 kcal/mol
         -analytic -2.6676e-001 -3.2675e-003 -1.7143e+003 -7.1907e-003 1.7726e+005
 #       -Range:  0-300
@@ -4960,18 +4973,18 @@ HAcetate =  Acetate- + H+
         -analytic 9.9073e+001 3.7817e-002 -2.1628e+003 -4.1297e+001 -3.3779e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 La+++  =  La(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 La+++  =  La(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -5.3949
-	-delta_H	-23.1375	kJ/mol	# Calculated enthalpy of reaction	La(Acetate)2+
+	-delta_H	-23.1375	kJ/mol	# Calculated enthalpy of reaction	La(CH3COO)2+
 #	Enthalpy of formation:	-407.33 kcal/mol
         -analytic -1.2805e+001 2.8482e-003 -2.2521e+003 2.9108e+000 6.1659e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 La+++  =  La(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 La+++  =  La(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.5982
-	-delta_H	-41.9237	kJ/mol	# Calculated enthalpy of reaction	La(Acetate)3
+	-delta_H	-41.9237	kJ/mol	# Calculated enthalpy of reaction	La(CH3COO)3
 #	Enthalpy of formation:	-527.92 kcal/mol
         -analytic -3.3456e+001 1.2371e-003 -1.5978e+003 8.6343e+000 7.5717e+005
 #       -Range:  0-300
@@ -5012,10 +5025,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	La5(OH)9+6
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 La+++ + 1.0000 HAcetate  =  LaAcetate++ +1.0000 H+
+1.0000 La+++ + 1.0000 CH3COOH  =  LaCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.2063
-	-delta_H	-12.5938	kJ/mol	# Calculated enthalpy of reaction	LaAcetate+2
+	-delta_H	-12.5938	kJ/mol	# Calculated enthalpy of reaction	LaCH3COO+2
 #	Enthalpy of formation:	-288.71 kcal/mol
         -analytic -1.0803e+001 8.5239e-004 -1.1143e+003 3.3273e+000 3.4305e+005
 #       -Range:  0-300
@@ -5168,18 +5181,18 @@ HAcetate =  Acetate- + H+
         -analytic 3.0657e+002 8.4093e-002 -9.1074e+003 -1.2019e+002 -1.4220e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Li+  =  Li(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Li+  =  Li(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.2674
-	-delta_H	-24.7609	kJ/mol	# Calculated enthalpy of reaction	Li(Acetate)2-
+	-delta_H	-24.7609	kJ/mol	# Calculated enthalpy of reaction	Li(CH3COO)2-
 #	Enthalpy of formation:	-304.67 kcal/mol
         -analytic -3.3702e+002 -6.0849e-002 1.1952e+004 1.2359e+002 1.8659e+002
 #       -Range:  0-300
 
-1.0000 Li+ + 1.0000 HAcetate  =  LiAcetate +1.0000 H+
+1.0000 Li+ + 1.0000 CH3COOH  =  LiCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.4589
-	-delta_H	-6.64419	kJ/mol	# Calculated enthalpy of reaction	LiAcetate
+	-delta_H	-6.64419	kJ/mol	# Calculated enthalpy of reaction	LiCH3COO
 #	Enthalpy of formation:	-184.24 kcal/mol
         -analytic -3.8391e+000 -7.3938e-004 -1.0829e+003 3.4134e-001 2.1318e+005
 #       -Range:  0-300
@@ -5204,18 +5217,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	LiSO4-
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Lu+++  =  Lu(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Lu+++  =  Lu(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9625
-	-delta_H	-38.5346	kJ/mol	# Calculated enthalpy of reaction	Lu(Acetate)2+
+	-delta_H	-38.5346	kJ/mol	# Calculated enthalpy of reaction	Lu(CH3COO)2+
 #	Enthalpy of formation:	-409.31 kcal/mol
         -analytic -2.7341e+001 2.5097e-003 -1.4157e+003 7.5026e+000 6.9682e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Lu+++  =  Lu(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Lu+++  =  Lu(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3489
-	-delta_H	-64.5173	kJ/mol	# Calculated enthalpy of reaction	Lu(Acetate)3
+	-delta_H	-64.5173	kJ/mol	# Calculated enthalpy of reaction	Lu(CH3COO)3
 #	Enthalpy of formation:	-531.62 kcal/mol
         -analytic -5.0225e+001 3.3508e-003 -6.2901e+002 1.3262e+001 9.0737e+005
 #       -Range:  0-300
@@ -5244,10 +5257,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Lu(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Lu+++ + 1.0000 HAcetate  =  LuAcetate++ +1.0000 H+
+1.0000 Lu+++ + 1.0000 CH3COOH  =  LuCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1037
-	-delta_H	-18.9703	kJ/mol	# Calculated enthalpy of reaction	LuAcetate+2
+	-delta_H	-18.9703	kJ/mol	# Calculated enthalpy of reaction	LuCH3COO+2
 #	Enthalpy of formation:	-288.534 kcal/mol
         -analytic -6.5982e+000 2.4512e-003 -1.2666e+003 1.4226e+000 4.0045e+005
 #       -Range:  0-300
@@ -5400,10 +5413,10 @@ HAcetate =  Acetate- + H+
         -analytic 3.0108e+002 8.5238e-002 -8.8411e+003 -1.1850e+002 -1.3805e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Mg++  =  Mg(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Mg++  =  Mg(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.473
-	-delta_H	-23.8195	kJ/mol	# Calculated enthalpy of reaction	Mg(Acetate)2
+	-delta_H	-23.8195	kJ/mol	# Calculated enthalpy of reaction	Mg(CH3COO)2
 #	Enthalpy of formation:	-349.26 kcal/mol
         -analytic -4.3954e+001 -3.1842e-004 -1.2033e+003 1.3556e+001 6.3058e+005
 #       -Range:  0-300
@@ -5420,7 +5433,7 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	MgB(OH)4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Mg++ + 1.0000 HAcetate  =  MgAcetate+ +1.0000 H+
+1.0000 Mg++ + 1.0000 CH3COOH  =  MgCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.4781
 	-delta_H	-8.42239	kJ/mol	# Calculated enthalpy of reaction	MgAcetate+
@@ -5494,18 +5507,18 @@ HAcetate =  Acetate- + H+
         -analytic 1.7994e+002 6.4715e-002 -4.7314e+003 -7.3123e+001 -8.0408e+001
 #       -Range:  0-200
 
-2.0000 HAcetate + 1.0000 Mn++  =  Mn(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Mn++  =  Mn(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.4547
-	-delta_H	-11.4893	kJ/mol	# Calculated enthalpy of reaction	Mn(Acetate)2
+	-delta_H	-11.4893	kJ/mol	# Calculated enthalpy of reaction	Mn(CH3COO)2
 #	Enthalpy of formation:	-287.67 kcal/mol
         -analytic -9.0558e-001 5.9656e-003 -4.3531e+003 -1.1063e+000 8.0323e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Mn++  =  Mn(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Mn++  =  Mn(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -11.8747
-	-delta_H	-30.3591	kJ/mol	# Calculated enthalpy of reaction	Mn(Acetate)3-
+	-delta_H	-30.3591	kJ/mol	# Calculated enthalpy of reaction	Mn(CH3COO)3-
 #	Enthalpy of formation:	-408.28 kcal/mol
         -analytic -3.8531e+000 -9.9140e-003 -1.2065e+004 5.1424e+000 2.0175e+006
 #       -Range:  0-300
@@ -5546,10 +5559,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Mn2OH+3
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Mn++ + 1.0000 HAcetate  =  MnAcetate+ +1.0000 H+
+1.0000 Mn++ + 1.0000 CH3COOH  =  MnCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.5404
-	-delta_H	-3.07942	kJ/mol	# Calculated enthalpy of reaction	MnAcetate+
+	-delta_H	-3.07942	kJ/mol	# Calculated enthalpy of reaction	MnCH3COO+
 #	Enthalpy of formation:	-169.56 kcal/mol
         -analytic -1.4061e+001 1.8149e-003 -8.6438e+002 4.0354e+000 2.5831e+005
 #       -Range:  0-300
@@ -5638,10 +5651,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	MnSeO4
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 NH3  =  NH4(Acetate)2- +1.0000 H+
+2.0000 CH3COOH + 1.0000 NH3  =  NH4(CH3COO)2- +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -0.1928
-	-delta_H	-56.735	kJ/mol	# Calculated enthalpy of reaction	NH4(Acetate)2-
+	-delta_H	-56.735	kJ/mol	# Calculated enthalpy of reaction	NH4(CH3COO)2-
 #	Enthalpy of formation:	-265.2 kcal/mol
         -analytic 3.7137e+001 -1.2242e-002 -8.4764e+003 -8.4308e+000 1.3883e+006
 #       -Range:  0-300
@@ -5654,10 +5667,10 @@ HAcetate =  Acetate- + H+
         -analytic -1.4527e+001 -5.0518e-003 3.0447e+003 6.0865e+000 4.7515e+001
 #       -Range:  0-300
 
-1.0000 NH3 + 1.0000 HAcetate  =  NH4Acetate
+1.0000 NH3 + 1.0000 CH3COOH  =  NH4CH3COO
         -llnl_gamma           3.0    
         log_k           +4.6964
-	-delta_H	-48.911	kJ/mol	# Calculated enthalpy of reaction	NH4Acetate
+	-delta_H	-48.911	kJ/mol	# Calculated enthalpy of reaction	NH4CH3COO
 #	Enthalpy of formation:	-147.23 kcal/mol
         -analytic 1.4104e+001 -4.3664e-003 -1.0746e+003 -3.6999e+000 4.1428e+005
 #       -Range:  0-300
@@ -5674,10 +5687,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	NH4SbO2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Na+  =  Na(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Na+  =  Na(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.9989
-	-delta_H	-11.5771	kJ/mol	# Calculated enthalpy of reaction	Na(Acetate)2-
+	-delta_H	-11.5771	kJ/mol	# Calculated enthalpy of reaction	Na(CH3COO)2-
 #	Enthalpy of formation:	-292.4 kcal/mol
         -analytic -2.9232e+002 -5.5708e-002 9.6601e+003 1.0772e+002 1.5082e+002
 #       -Range:  0-300
@@ -5716,10 +5729,10 @@ HAcetate =  Acetate- + H+
         -analytic 1.1871e+002 3.7271e-002 -3.4061e+003 -4.8386e+001 -5.3184e+001
 #       -Range:  0-300
 
-1.0000 Na+ + 1.0000 HAcetate  =  NaAcetate +1.0000 H+
+1.0000 Na+ + 1.0000 CH3COOH  =  NaCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.8606
-	-delta_H	-0.029288	kJ/mol	# Calculated enthalpy of reaction	NaAcetate
+	-delta_H	-0.029288	kJ/mol	# Calculated enthalpy of reaction	NaCH3COO
 #	Enthalpy of formation:	-173.54 kcal/mol
         -analytic 6.4833e+000 -1.8739e-003 -2.0902e+003 -2.6121e+000 2.3990e+005
 #       -Range:  0-300
@@ -5804,18 +5817,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	NaSO4-
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Nd+++  =  Nd(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Nd+++  =  Nd(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9771
-	-delta_H	-22.6354	kJ/mol	# Calculated enthalpy of reaction	Nd(Acetate)2+
+	-delta_H	-22.6354	kJ/mol	# Calculated enthalpy of reaction	Nd(CH3COO)2+
 #	Enthalpy of formation:	-404.11 kcal/mol
         -analytic -2.2128e+001 1.0975e-003 -7.1543e+002 5.8799e+000 4.1748e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Nd+++  =  Nd(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Nd+++  =  Nd(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.2976
-	-delta_H	-38.8694	kJ/mol	# Calculated enthalpy of reaction	Nd(Acetate)3
+	-delta_H	-38.8694	kJ/mol	# Calculated enthalpy of reaction	Nd(CH3COO)3
 #	Enthalpy of formation:	-524.09 kcal/mol
         -analytic -4.5726e+001 -2.6143e-003 5.9389e+002 1.2679e+001 4.3320e+005
 #       -Range:  0-300
@@ -5857,10 +5870,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Nd2(OH)2+4
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Nd+++ + 1.0000 HAcetate  =  NdAcetate++ +1.0000 H+
+1.0000 Nd+++ + 1.0000 CH3COOH  =  NdCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.0891
-	-delta_H	-12.0081	kJ/mol	# Calculated enthalpy of reaction	NdAcetate+2
+	-delta_H	-12.0081	kJ/mol	# Calculated enthalpy of reaction	NdCH3COO+2
 #	Enthalpy of formation:	-285.47 kcal/mol
         -analytic -1.6006e+001 4.1948e-004 -3.6469e+002 4.9280e+000 2.5187e+005
 #       -Range:  0-300
@@ -6012,18 +6025,18 @@ HAcetate =  Acetate- + H+
         -analytic 3.0267e+002 8.5362e-002 -8.9211e+003 -1.1902e+002 -1.3929e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ni++  =  Ni(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ni++  =  Ni(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.1908
-	-delta_H	-25.8571	kJ/mol	# Calculated enthalpy of reaction	Ni(Acetate)2
+	-delta_H	-25.8571	kJ/mol	# Calculated enthalpy of reaction	Ni(CH3COO)2
 #	Enthalpy of formation:	-251.28 kcal/mol
         -analytic -2.9660e+001 1.0643e-003 -1.0060e+003 7.9358e+000 5.2562e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Ni++  =  Ni(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Ni++  =  Ni(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -11.3543
-	-delta_H	-53.6807	kJ/mol	# Calculated enthalpy of reaction	Ni(Acetate)3-
+	-delta_H	-53.6807	kJ/mol	# Calculated enthalpy of reaction	Ni(CH3COO)3-
 #	Enthalpy of formation:	-374.03 kcal/mol
         -analytic 5.0850e+001 -8.2435e-003 -1.3049e+004 -1.5410e+001 1.9704e+006
 #       -Range:  0-300
@@ -6082,10 +6095,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	NiBr+
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Ni++ + 1.0000 HAcetate  =  NiAcetate+ +1.0000 H+
+1.0000 Ni++ + 1.0000 CH3COOH  =  NiCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.3278
-	-delta_H	-10.2508	kJ/mol	# Calculated enthalpy of reaction	NiAcetate+
+	-delta_H	-10.2508	kJ/mol	# Calculated enthalpy of reaction	NiCH3COO+
 #	Enthalpy of formation:	-131.45 kcal/mol
         -analytic -3.3110e+000 1.6895e-003 -1.0556e+003 2.7168e-002 2.6350e+005
 #       -Range:  0-300
@@ -6478,18 +6491,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pb(BrO3)2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Pb++  =  Pb(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Pb++  =  Pb(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -6.1133
-	-delta_H	10.5437	kJ/mol	# Calculated enthalpy of reaction	Pb(Acetate)2
+	-delta_H	10.5437	kJ/mol	# Calculated enthalpy of reaction	Pb(CH3COO)2
 #	Enthalpy of formation:	-229.46 kcal/mol
         -analytic -1.7315e+001 -1.0618e-003 -3.6365e+003 6.9263e+000 5.8659e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Pb++  =  Pb(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Pb++  =  Pb(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -8.972
-	-delta_H	-2.84512	kJ/mol	# Calculated enthalpy of reaction	Pb(Acetate)3-
+	-delta_H	-2.84512	kJ/mol	# Calculated enthalpy of reaction	Pb(CH3COO)3-
 #	Enthalpy of formation:	-348.76 kcal/mol
         -analytic 1.2417e+001 -3.1481e-003 -9.4152e+003 -1.6846e+000 1.3623e+006
 #       -Range:  0-300
@@ -6572,10 +6585,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	PbBrO3+
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Pb++ + 1.0000 HAcetate  =  PbAcetate+ +1.0000 H+
+1.0000 Pb++ + 1.0000 CH3COOH  =  PbCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -2.3603
-	-delta_H	-2.33147e-15	kJ/mol	# Calculated enthalpy of reaction	PbAcetate+
+	-delta_H	-2.33147e-15	kJ/mol	# Calculated enthalpy of reaction	PbCH3COO+
 #	Enthalpy of formation:	-115.88 kcal/mol
         -analytic -2.6822e+001 1.0992e-003 7.3688e+002 8.4407e+000 7.0266e+004
 #       -Range:  0-300
@@ -6840,18 +6853,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	PmSO4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Pr+++  =  Pr(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Pr+++  =  Pr(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.8525
-	-delta_H	-23.8906	kJ/mol	# Calculated enthalpy of reaction	Pr(Acetate)2+
+	-delta_H	-23.8906	kJ/mol	# Calculated enthalpy of reaction	Pr(CH3COO)2+
 #	Enthalpy of formation:	-406.71 kcal/mol
         -analytic -1.6464e+001 6.2989e-004 -4.4771e+002 3.6947e+000 3.3816e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Pr+++  =  Pr(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Pr+++  =  Pr(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.2023
-	-delta_H	-40.3756	kJ/mol	# Calculated enthalpy of reaction	Pr(Acetate)3
+	-delta_H	-40.3756	kJ/mol	# Calculated enthalpy of reaction	Pr(CH3COO)3
 #	Enthalpy of formation:	-526.75 kcal/mol
         -analytic -1.2007e+001 4.9332e-004 0.0000e+000 0.0000e+000 3.2789e+005
 #       -Range:  0-300
@@ -6880,7 +6893,7 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Pr(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Pr+++ + 1.0000 HAcetate  =  PrAcetate++ +1.0000 H+
+1.0000 Pr+++ + 1.0000 CH3COOH  =  PrCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.0451
 	-delta_H	-12.4683	kJ/mol	# Calculated enthalpy of reaction	PrAcetate+2
@@ -7250,26 +7263,26 @@ HAcetate =  Acetate- + H+
         -analytic 1.9418e+002 7.5477e-002 -4.2767e+003 -7.9425e+001 -6.6792e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Ra++  =  Ra(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Ra++  =  Ra(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.9018
-	-delta_H	21.0874	kJ/mol	# Calculated enthalpy of reaction	Ra(Acetate)2
+	-delta_H	21.0874	kJ/mol	# Calculated enthalpy of reaction	Ra(CH3COO)2
 #	Enthalpy of formation:	-353.26 kcal/mol
         -analytic 2.2767e+001 3.1254e-003 -6.4558e+003 -7.2253e+000 7.0689e+005
 #       -Range:  0-300
 
-1.0000 Ra++ + 1.0000 HAcetate  =  RaAcetate+ +1.0000 H+
+1.0000 Ra++ + 1.0000 CH3COOH  =  RaCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.709
-	-delta_H	11.7989	kJ/mol	# Calculated enthalpy of reaction	RaAcetate+
+	-delta_H	11.7989	kJ/mol	# Calculated enthalpy of reaction	RaCH3COO+
 #	Enthalpy of formation:	-239.38 kcal/mol
         -analytic -1.8268e+001 2.9956e-003 1.9313e+001 5.2767e+000 4.9771e+004
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Rb+  =  Rb(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Rb+  =  Rb(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -9.7636
-	-delta_H	-1.12968	kJ/mol	# Calculated enthalpy of reaction	Rb(Acetate)2-
+	-delta_H	-1.12968	kJ/mol	# Calculated enthalpy of reaction	Rb(CH3COO)2-
 #	Enthalpy of formation:	-292.49 kcal/mol
         -analytic -1.9198e+002 -4.2101e-002 5.5792e+003 7.1152e+001 8.7114e+001
 #       -Range:  0-300
@@ -7282,10 +7295,10 @@ HAcetate =  Acetate- + H+
         -analytic 1.2054e+002 3.3825e-002 -3.9500e+003 -4.7920e+001 -6.1671e+001
 #       -Range:  0-300
 
-1.0000 Rb+ + 1.0000 HAcetate  =  RbAcetate +1.0000 H+
+1.0000 Rb+ + 1.0000 CH3COOH  =  RbCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.7279
-	-delta_H	4.89528	kJ/mol	# Calculated enthalpy of reaction	RbAcetate
+	-delta_H	4.89528	kJ/mol	# Calculated enthalpy of reaction	RbCH3COO
 #	Enthalpy of formation:	-174.95 kcal/mol
         -analytic 1.5661e+001 -2.4230e-003 -2.5280e+003 -5.4433e+000 2.0344e+005
 #       -Range:  0-300
@@ -7499,26 +7512,26 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	SbCl4-
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Sc+++  =  Sc(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Sc+++  =  Sc(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.7237
-	-delta_H	-43.1789	kJ/mol	# Calculated enthalpy of reaction	Sc(Acetate)2+
+	-delta_H	-43.1789	kJ/mol	# Calculated enthalpy of reaction	Sc(CH3COO)2+
 #	Enthalpy of formation:	-389.32 kcal/mol
         -analytic -4.1862e+001 -3.9443e-005 2.1444e+002 1.2616e+001 5.5442e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Sc+++  =  Sc(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Sc+++  =  Sc(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -6.6777
-	-delta_H	-70.0402	kJ/mol	# Calculated enthalpy of reaction	Sc(Acetate)3
+	-delta_H	-70.0402	kJ/mol	# Calculated enthalpy of reaction	Sc(CH3COO)3
 #	Enthalpy of formation:	-511.84 kcal/mol
         -analytic -5.2525e+001 1.6181e-003 7.5022e+002 1.3988e+001 7.3540e+005
 #       -Range:  0-300
 
-1.0000 Sc+++ + 1.0000 HAcetate  =  ScAcetate++ +1.0000 H+
+1.0000 Sc+++ + 1.0000 CH3COOH  =  ScCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -1.4294
-	-delta_H	-21.7568	kJ/mol	# Calculated enthalpy of reaction	ScAcetate+2
+	-delta_H	-21.7568	kJ/mol	# Calculated enthalpy of reaction	ScCH3COO+2
 #	Enthalpy of formation:	-268.1 kcal/mol
         -analytic -2.3400e+001 1.3144e-004 1.1125e+002 7.3527e+000 3.0025e+005
 #       -Range:  0-300
@@ -7531,18 +7544,18 @@ HAcetate =  Acetate- + H+
         -analytic 2.3209e+002 1.0685e-001 5.8428e+002 -9.6798e+001 9.0486e+000
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Sm+++  =  Sm(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Sm+++  =  Sm(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.7132
-	-delta_H	-25.5224	kJ/mol	# Calculated enthalpy of reaction	Sm(Acetate)2+
+	-delta_H	-25.5224	kJ/mol	# Calculated enthalpy of reaction	Sm(CH3COO)2+
 #	Enthalpy of formation:	-403.5 kcal/mol
         -analytic -1.4192e+001 2.1732e-003 -1.0267e+003 2.9516e+000 4.4389e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Sm+++  =  Sm(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Sm+++  =  Sm(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.8798
-	-delta_H	-43.5554	kJ/mol	# Calculated enthalpy of reaction	Sm(Acetate)3
+	-delta_H	-43.5554	kJ/mol	# Calculated enthalpy of reaction	Sm(CH3COO)3
 #	Enthalpy of formation:	-523.91 kcal/mol
         -analytic -2.0765e+001 1.1047e-003 -5.1181e+002 3.4797e+000 5.0618e+005
 #       -Range:  0-300
@@ -7578,10 +7591,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Sm(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Sm+++ + 1.0000 HAcetate  =  SmAcetate++ +1.0000 H+
+1.0000 Sm+++ + 1.0000 CH3COOH  =  SmCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -1.9205
-	-delta_H	-13.598	kJ/mol	# Calculated enthalpy of reaction	SmAcetate+2
+	-delta_H	-13.598	kJ/mol	# Calculated enthalpy of reaction	SmCH3COO+2
 #	Enthalpy of formation:	-284.55 kcal/mol
         -analytic -1.1734e+001 1.0889e-003 -5.1061e+002 3.3317e+000 2.6395e+005
 #       -Range:  0-300
@@ -7856,18 +7869,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	SnSO4+2
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Sr++  =  Sr(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Sr++  =  Sr(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -7.8212
-	-delta_H	0.54392	kJ/mol	# Calculated enthalpy of reaction	Sr(Acetate)2
+	-delta_H	0.54392	kJ/mol	# Calculated enthalpy of reaction	Sr(CH3COO)2
 #	Enthalpy of formation:	-363.74 kcal/mol
         -analytic 1.2965e+001 4.7082e-003 -5.2538e+003 -5.2337e+000 7.4721e+005
 #       -Range:  0-300
 
-1.0000 Sr++ + 1.0000 HAcetate  =  SrAcetate+ +1.0000 H+
+1.0000 Sr++ + 1.0000 CH3COOH  =  SrCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.6724
-	-delta_H	2.3012	kJ/mol	# Calculated enthalpy of reaction	SrAcetate+
+	-delta_H	2.3012	kJ/mol	# Calculated enthalpy of reaction	SrCH3COO+
 #	Enthalpy of formation:	-247.22 kcal/mol
         -analytic -1.4301e+001 1.2481e-003 -7.5690e+002 4.2760e+000 1.9800e+005
 #       -Range:  0-300
@@ -7932,18 +7945,18 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	SrSO4
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Tb+++  =  Tb(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Tb+++  =  Tb(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9625
-	-delta_H	-27.9491	kJ/mol	# Calculated enthalpy of reaction	Tb(Acetate)2+
+	-delta_H	-27.9491	kJ/mol	# Calculated enthalpy of reaction	Tb(CH3COO)2+
 #	Enthalpy of formation:	-405.78 kcal/mol
         -analytic -2.3910e+001 1.3433e-003 -8.0800e+002 6.3895e+000 4.8619e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Tb+++  =  Tb(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Tb+++  =  Tb(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3489
-	-delta_H	-47.1537	kJ/mol	# Calculated enthalpy of reaction	Tb(Acetate)3
+	-delta_H	-47.1537	kJ/mol	# Calculated enthalpy of reaction	Tb(CH3COO)3
 #	Enthalpy of formation:	-526.47 kcal/mol
         -analytic -1.0762e+001 4.2361e-003 -1.5620e+003 -3.9317e-001 6.5745e+005
 #       -Range:  0-300
@@ -7972,10 +7985,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Tb(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Tb+++ + 1.0000 HAcetate  =  TbAcetate++ +1.0000 H+
+1.0000 Tb+++ + 1.0000 CH3COOH  =  TbCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1037
-	-delta_H	-14.2256	kJ/mol	# Calculated enthalpy of reaction	TbAcetate+2
+	-delta_H	-14.2256	kJ/mol	# Calculated enthalpy of reaction	TbCH3COO+2
 #	Enthalpy of formation:	-286.4 kcal/mol
         -analytic -1.6817e+001 6.4290e-004 -3.4442e+002 5.0994e+000 2.7304e+005
 #       -Range:  0-300
@@ -8316,34 +8329,34 @@ HAcetate =  Acetate- + H+
         -analytic 1.9443e+002 7.5245e-002 -4.5010e+003 -7.9379e+001 -7.0291e+001
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Tl+  =  Tl(Acetate)2- +2.0000 H+
+2.0000 CH3COOH + 1.0000 Tl+  =  Tl(CH3COO)2- +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -10.0129
-	-delta_H	1.2552	kJ/mol	# Calculated enthalpy of reaction	Tl(Acetate)2-
+	-delta_H	1.2552	kJ/mol	# Calculated enthalpy of reaction	Tl(CH3COO)2-
 #	Enthalpy of formation:	-230.62 kcal/mol
         -analytic -1.8123e+002 -4.0616e-002 5.0741e+003 6.7216e+001 7.9229e+001
 #       -Range:  0-300
 
-1.0000 Tl+ + 1.0000 HAcetate  =  TlAcetate +1.0000 H+
+1.0000 Tl+ + 1.0000 CH3COOH  =  TlCH3COO +1.0000 H+
         -llnl_gamma           3.0    
         log_k           -4.8672
-	-delta_H	6.15048	kJ/mol	# Calculated enthalpy of reaction	TlAcetate
+	-delta_H	6.15048	kJ/mol	# Calculated enthalpy of reaction	TlCH3COO
 #	Enthalpy of formation:	-113.35 kcal/mol
         -analytic 9.2977e+000 -3.4368e-003 -2.1748e+003 -3.1454e+000 1.7273e+005
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Tm+++  =  Tm(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Tm+++  =  Tm(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9844
-	-delta_H	-32.5934	kJ/mol	# Calculated enthalpy of reaction	Tm(Acetate)2+
+	-delta_H	-32.5934	kJ/mol	# Calculated enthalpy of reaction	Tm(CH3COO)2+
 #	Enthalpy of formation:	-408.49 kcal/mol
         -analytic -2.8983e+001 2.0256e-003 -1.1525e+003 8.2163e+000 6.1820e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Tm+++  =  Tm(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Tm+++  =  Tm(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3783
-	-delta_H	-54.8104	kJ/mol	# Calculated enthalpy of reaction	Tm(Acetate)3
+	-delta_H	-54.8104	kJ/mol	# Calculated enthalpy of reaction	Tm(CH3COO)3
 #	Enthalpy of formation:	-529.9 kcal/mol
         -analytic -2.8900e+001 4.9633e-003 -1.6574e+003 6.0186e+000 8.6624e+005
 #       -Range:  0-300
@@ -8372,10 +8385,10 @@ HAcetate =  Acetate- + H+
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Tm(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Tm+++ + 1.0000 HAcetate  =  TmAcetate++ +1.0000 H+
+1.0000 Tm+++ + 1.0000 CH3COOH  =  TmCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1184
-	-delta_H	-16.3176	kJ/mol	# Calculated enthalpy of reaction	TmAcetate+2
+	-delta_H	-16.3176	kJ/mol	# Calculated enthalpy of reaction	TmCH3COO+2
 #	Enthalpy of formation:	-288.5 kcal/mol
         -analytic -1.6068e+001 1.2043e-003 -6.2777e+002 4.8318e+000 3.3363e+005
 #       -Range:  0-300
@@ -9035,18 +9048,18 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	VSO4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Y+++  =  Y(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Y+++  =  Y(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -4.9844
-	-delta_H	-34.8109	kJ/mol	# Calculated enthalpy of reaction	Y(Acetate)2+
+	-delta_H	-34.8109	kJ/mol	# Calculated enthalpy of reaction	Y(CH3COO)2+
 #	Enthalpy of formation:	-411.42 kcal/mol
         -analytic -3.3011e+001 6.1979e-004 -7.7468e+002 9.6380e+000 5.8814e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Y+++  =  Y(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Y+++  =  Y(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.3783
-	-delta_H	-58.4505	kJ/mol	# Calculated enthalpy of reaction	Y(Acetate)3
+	-delta_H	-58.4505	kJ/mol	# Calculated enthalpy of reaction	Y(CH3COO)3
 #	Enthalpy of formation:	-533.17 kcal/mol
         -analytic -3.0086e+001 4.0213e-003 -1.1444e+003 6.1794e+000 8.0827e+005
 #       -Range:  0-300
@@ -9099,10 +9112,10 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Y2(OH)2+4
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Y+++ + 1.0000 HAcetate  =  YAcetate++ +1.0000 H+
+1.0000 Y+++ + 1.0000 CH3COOH  =  YCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.1184
-	-delta_H	-17.2799	kJ/mol	# Calculated enthalpy of reaction	YAcetate+2
+	-delta_H	-17.2799	kJ/mol	# Calculated enthalpy of reaction	YCH3COO+2
 #	Enthalpy of formation:	-291.13 kcal/mol
         -analytic -1.2080e+001 1.2015e-003 -8.4186e+002 3.4522e+000 3.4647e+005
 #       -Range:  0-300
@@ -9179,18 +9192,18 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	YSO4+
 #	Enthalpy of formation:	-0 kcal/mol
  
-2.0000 HAcetate + 1.0000 Yb+++  =  Yb(Acetate)2+ +2.0000 H+
+2.0000 CH3COOH + 1.0000 Yb+++  =  Yb(CH3COO)2+ +2.0000 H+
         -llnl_gamma           4.0    
         log_k           -5.131
-	-delta_H	-30.334	kJ/mol	# Calculated enthalpy of reaction	Yb(Acetate)2+
+	-delta_H	-30.334	kJ/mol	# Calculated enthalpy of reaction	Yb(CH3COO)2+
 #	Enthalpy of formation:	-399.75 kcal/mol
         -analytic -3.4286e+001 9.4069e-004 -6.5120e+002 1.0071e+001 5.4773e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Yb+++  =  Yb(Acetate)3 +3.0000 H+
+3.0000 CH3COOH + 1.0000 Yb+++  =  Yb(CH3COO)3 +3.0000 H+
         -llnl_gamma           3.0    
         log_k           -8.5688
-	-delta_H	-51.4214	kJ/mol	# Calculated enthalpy of reaction	Yb(Acetate)3
+	-delta_H	-51.4214	kJ/mol	# Calculated enthalpy of reaction	Yb(CH3COO)3
 #	Enthalpy of formation:	-520.89 kcal/mol
         -analytic -6.2211e+001 -6.1589e-004 5.9577e+002 1.7954e+001 6.6116e+005
 #       -Range:  0-300
@@ -9226,10 +9239,10 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	Yb(SO4)2-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Yb+++ + 1.0000 HAcetate  =  YbAcetate++ +1.0000 H+
+1.0000 Yb+++ + 1.0000 CH3COOH  =  YbCH3COO++ +1.0000 H+
         -llnl_gamma           4.5    
         log_k           -2.199
-	-delta_H	-15.2298	kJ/mol	# Calculated enthalpy of reaction	YbAcetate+2
+	-delta_H	-15.2298	kJ/mol	# Calculated enthalpy of reaction	YbCH3COO+2
 #	Enthalpy of formation:	-280.04 kcal/mol
         -analytic -8.5003e+000 2.2459e-003 -9.6434e+002 2.0630e+000 3.3550e+005
 #       -Range:  0-300
@@ -9382,18 +9395,18 @@ S2O3-- + UO2++ = UO2S2O3
         -analytic 3.0675e+002 8.6527e-002 -9.0298e+003 -1.2069e+002 -1.4099e+002
 #       -Range:  0-300
 
-2.0000 HAcetate + 1.0000 Zn++  =  Zn(Acetate)2 +2.0000 H+
+2.0000 CH3COOH + 1.0000 Zn++  =  Zn(CH3COO)2 +2.0000 H+
         -llnl_gamma           3.0    
         log_k           -6.062
-	-delta_H	-11.0458	kJ/mol	# Calculated enthalpy of reaction	Zn(Acetate)2
+	-delta_H	-11.0458	kJ/mol	# Calculated enthalpy of reaction	Zn(CH3COO)2
 #	Enthalpy of formation:	-271.5 kcal/mol
         -analytic -2.2038e+001 2.6133e-003 -2.7652e+003 6.8501e+000 6.7086e+005
 #       -Range:  0-300
 
-3.0000 HAcetate + 1.0000 Zn++  =  Zn(Acetate)3- +3.0000 H+
+3.0000 CH3COOH + 1.0000 Zn++  =  Zn(CH3COO)3- +3.0000 H+
         -llnl_gamma           4.0    
         log_k           -10.0715
-	-delta_H	25.355	kJ/mol	# Calculated enthalpy of reaction	Zn(Acetate)3-
+	-delta_H	25.355	kJ/mol	# Calculated enthalpy of reaction	Zn(CH3COO)3-
 #	Enthalpy of formation:	-378.9 kcal/mol
         -analytic 3.5104e+001 -6.1568e-003 -1.3379e+004 -8.7697e+000 2.0670e+006
 #       -Range:  0-300
@@ -9492,10 +9505,10 @@ S2O3-- + UO2++ = UO2S2O3
 	-delta_H	0	      	# Not possible to calculate enthalpy of reaction	ZnBr3-
 #	Enthalpy of formation:	-0 kcal/mol
  
-1.0000 Zn++ + 1.0000 HAcetate  =  ZnAcetate+ +1.0000 H+
+1.0000 Zn++ + 1.0000 CH3COOH  =  ZnCH3COO+ +1.0000 H+
         -llnl_gamma           4.0    
         log_k           -3.1519
-	-delta_H	-9.87424	kJ/mol	# Calculated enthalpy of reaction	ZnAcetate+
+	-delta_H	-9.87424	kJ/mol	# Calculated enthalpy of reaction	ZnCH3COO+
 #	Enthalpy of formation:	-155.12 kcal/mol
         -analytic -7.9367e+000 2.8564e-003 -1.4514e+003 2.5010e+000 2.3343e+005
 #       -Range:  0-300
@@ -9780,7 +9793,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 1-Heptene, C7H14
-          + 3.5000 Ethylene  =  C7H14
+          + 3.5000 C2H4  =  C7H14
         -llnl_gamma           3.0
         log_k    +30.5114
         -delta_h +22.670 kcal/mol
@@ -9812,7 +9825,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 1-Hexene, C6H12
-          + 3.0000 Ethylene  =  C6H12
+          + 3.0000 C2H4  =  C6H12
         -llnl_gamma           3.0
         log_k    +24.9076
         -delta_h +17.025 kcal/mol
@@ -9836,15 +9849,16 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 1-Octanol, C8H12OH
-        + 4.0000 C2H5OH  =  C8H12OH  + 3.0000 H2O
-        -llnl_gamma           3.0
-        log_k    +19.7862
-        -delta_h +103.060 kcal/mol
-        -analytic -1.0628e+001 -4.8545e-003 7.2441e+003 3.0590e+000 1.1304e+002
+#        + 4.0000 C2H5OH  =  C8H12OH  + 3.0000 H2O
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    +19.7862
+#        -delta_h +103.060 kcal/mol
+#        -analytic -1.0628e+001 -4.8545e-003 7.2441e+003 3.0590e+000 1.1304e+002
 #       -Range: 0-300
 
 # 1-Octene, C8H16
-          + 4.0000 Ethylene  =  C8H16
+          + 4.0000 C2H4  =  C8H16
         -llnl_gamma           3.0
         log_k    +35.9760
         -delta_h +28.120 kcal/mol
@@ -9876,7 +9890,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 1-Pentene, C5H10
-          + 2.5000 Ethylene  =  C5H10
+          + 2.5000 C2H4  =  C5H10
         -llnl_gamma           3.0
         log_k    +19.1718
         -delta_h +11.200 kcal/mol
@@ -9908,7 +9922,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 1-Propene, C3H6
-          + 1.5000 Ethylene  =  C3H6
+          + 1.5000 C2H4  =  C3H6
         -llnl_gamma           3.0
         log_k    +8.2573
         -delta_h +0.290 kcal/mol
@@ -9923,28 +9937,31 @@ S2O3-- + UO2++ = UO2S2O3
         -analytic 2.4860e-002 -1.5316e-003 4.1336e+002 -3.4011e-001 3.0624e+004
 #       -Range: 0-300
 
-# 2-Butanone, C4H8O
-        + 4.0000 CH3COCH3  =  C4H8O  + 0.5000 O2
-        -llnl_gamma           3.0
-        log_k    -1200.9839
-        -delta_h +67.880 kcal/mol
-        -analytic -2.1942e+001 9.8502e-004 -9.1936e+003 6.9213e+000 1.6006e+005
+# # 2-Butanone, C4H8O	CH3C(O)CH2CH3
+#         + 4.0000 CH3COCH3  =  C4H8O  + 0.5000 O2
+# does not balance
+#         -llnl_gamma           3.0
+#         log_k    -1200.9839
+#         -delta_h +67.880 kcal/mol
+#         -analytic -2.1942e+001 9.8502e-004 -9.1936e+003 6.9213e+000 1.6006e+005
 #       -Range: 0-300
 
-# 2-Heptanone, C7H14O
-        + 7.0000 CH3COCH3  =  C7H14O  + 2.0000 O2
-        -llnl_gamma           3.0
-        log_k    -2179.4136
-        -delta_h +84.890 kcal/mol
-        -analytic -1.8734e+002 -6.9923e-003 -3.0077e+004 6.2205e+001 -4.6928e+002
+# 2-Heptanone, C7H14O correct formula
+#        + 7.0000 CH3COCH3  =  C7H14O  + 2.0000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -2179.4136
+#        -delta_h +84.890 kcal/mol
+#        -analytic -1.8734e+002 -6.9923e-003 -3.0077e+004 6.2205e+001 -4.6928e+002
 #       -Range: 0-300
 
 # 2-Hexanone, C6H12O
-        + 6.0000 CH3COCH3  =  C6H12O  + 1.5000 O2
-        -llnl_gamma           3.0
-        log_k    -1853.3802
-        -delta_h +79.220 kcal/mol
-        -analytic 3.3773e+002 5.9197e-002 -5.0406e+004 -1.2439e+002 1.7107e+006
+#        + 6.0000 CH3COCH3  =  C6H12O  + 1.5000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -1853.3802
+#        -delta_h +79.220 kcal/mol
+#        -analytic 3.3773e+002 5.9197e-002 -5.0406e+004 -1.2439e+002 1.7107e+006
 #       -Range: 0-300
 
 # 2-Hydroxybutanoate, C4H7O3-
@@ -9964,7 +9981,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxydecanoate, C10H19O3-
-      + 5.0000 HAcetate  =  C10H19O3-  + 3.5000 O2  + 1.0000 H+
+      + 5.0000 CH3COOH  =  C10H19O3-  + 3.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -3.7383
         -delta_h +203.930 kcal/mol
@@ -9972,7 +9989,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxydecanoic, C10H20O3
-        + 5.0000 HAcetate  =  C10H20O3  + 3.5000 O2
+        + 5.0000 CH3COOH  =  C10H20O3  + 3.5000 O2
         -llnl_gamma           3.0
         log_k    -984.2221
         -delta_h +203.690 kcal/mol
@@ -9980,7 +9997,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyheptanoate, C7H13O3-
-      + 3.5000 HAcetate  =  C7H13O3-  + 2.0000 O2  + 1.0000 H+
+      + 3.5000 CH3COOH  =  C7H13O3-  + 2.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -3.7383
         -delta_h +186.900 kcal/mol
@@ -9988,7 +10005,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyheptanoic, C7H14O3
-        + 3.5000 HAcetate  =  C7H14O3  + 2.0000 O2
+        + 3.5000 CH3COOH  =  C7H14O3  + 2.0000 O2
         -llnl_gamma           3.0
         log_k    -658.2107
         -delta_h +186.680 kcal/mol
@@ -9996,7 +10013,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyhexanoate, C6H11O3-
-      + 3.0000 HAcetate  =  C6H11O3-  + 1.5000 O2  + 1.0000 H+
+      + 3.0000 CH3COOH  =  C6H11O3-  + 1.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -3.7384
         -delta_h +181.240 kcal/mol
@@ -10004,7 +10021,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyhexanoic, C6H12O3
-        + 3.0000 HAcetate  =  C6H12O3  + 1.5000 O2
+        + 3.0000 CH3COOH  =  C6H12O3  + 1.5000 O2
         -llnl_gamma           3.0
         log_k    -549.5329
         -delta_h +181.010 kcal/mol
@@ -10012,7 +10029,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxynonanoate, C9H17O3-
-      + 4.5000 HAcetate  =  C9H17O3-  + 3.0000 O2  + 1.0000 H+
+      + 4.5000 CH3COOH  =  C9H17O3-  + 3.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -3.7383
         -delta_h +198.250 kcal/mol
@@ -10020,7 +10037,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxynonanoic, C9H18O3
-        + 4.5000 HAcetate  =  C9H18O3  + 3.0000 O2
+        + 4.5000 CH3COOH  =  C9H18O3  + 3.0000 O2
         -llnl_gamma           3.0
         log_k    -875.5516
         -delta_h +198.020 kcal/mol
@@ -10028,7 +10045,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyoctanoate, C8H15O3-
-      + 4.0000 HAcetate  =  C8H15O3-  + 2.5000 O2  + 1.0000 H+
+      + 4.0000 CH3COOH  =  C8H15O3-  + 2.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -3.7383
         -delta_h +192.570 kcal/mol
@@ -10036,7 +10053,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Hydroxyoctanoic, C8H16O3
-        + 4.0000 HAcetate  =  C8H16O3  + 2.5000 O2
+        + 4.0000 CH3COOH  =  C8H16O3  + 2.5000 O2
         -llnl_gamma           3.0
         log_k    -766.8885
         -delta_h +192.350 kcal/mol
@@ -10060,23 +10077,25 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # 2-Octanone, C8H16O
-        + 8.0000 CH3COCH3  =  C8H16O  + 2.5000 O2
-        -llnl_gamma           3.0
-        log_k    -2505.4468
-        -delta_h +90.560 kcal/mol
-        -analytic 3.9776e+002 7.5718e-002 -7.4592e+004 -1.4798e+002 2.2610e+006
+#       + 8.0000 CH3COCH3  =  C8H16O  + 2.5000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -2505.4468
+#        -delta_h +90.560 kcal/mol
+#        -analytic 3.9776e+002 7.5718e-002 -7.4592e+004 -1.4798e+002 2.2610e+006
 #       -Range: 0-300
 
 # 2-Pentanone, C5H10O
-        + 5.0000 CH3COCH3  =  C5H10O  + 1.0000 O2
-        -llnl_gamma           3.0
-        log_k    -1527.6549
-        -delta_h +73.460 kcal/mol
-        -analytic 2.2603e+002 3.9343e-002 -3.3782e+004 -8.3253e+001 1.1722e+006
+#       + 5.0000 CH3COCH3  =  C5H10O  + 1.0000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -1527.6549
+#        -delta_h +73.460 kcal/mol
+#       -analytic 2.2603e+002 3.9343e-002 -3.3782e+004 -8.3253e+001 1.1722e+006
 #       -Range: 0-300
 
 # Acetaldehyde, CH3CHO
-        + 1.0000 HAcetate  =  CH3CHO  + 0.5000 O2
+        + 1.0000 CH3COOH  =  CH3CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -188.3673
         -delta_h +50.380 kcal/mol
@@ -10084,7 +10103,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Acetamide, CH3CONH2
-      + 1.0000 NH3 + 1.0000 HAcetate  =  CH3CONH2  + 1.0000 H2O
+      + 1.0000 NH3 + 1.0000 CH3COOH  =  CH3CONH2  + 1.0000 H2O
         -llnl_gamma           3.0
         log_k    +4.6947
         -delta_h +77.290 kcal/mol
@@ -10100,7 +10119,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Adipate, C6H8O4-2
-    + 3.0000 HAcetate  =  C6H8O4-2  + 2.0000 H+  + 1.0000 H2O  + 0.5000 O2
+    + 3.0000 CH3COOH  =  C6H8O4-2  + 2.0000 H+  + 1.0000 H2O  + 0.5000 O2
         -llnl_gamma           4.0
         log_k    -9.8223
         -delta_h +227.780 kcal/mol
@@ -10108,7 +10127,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Adipic_acid, C6H10O4
-      + 3.0000 HAcetate  =  C6H10O4  + 1.0000 H2O  + 0.5000 O2
+      + 3.0000 CH3COOH  =  C6H10O4  + 1.0000 H2O  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -467.5962
         -delta_h +229.750 kcal/mol
@@ -10148,7 +10167,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Azelaic_acid, C9H16O4
-      + 4.5000 HAcetate  =  C9H16O4  + 2.0000 O2  + 1.0000 H2O
+      + 4.5000 CH3COOH  =  C9H16O4  + 2.0000 O2  + 1.0000 H2O
         -llnl_gamma           3.0
         log_k    -795.8139
         -delta_h +240.700 kcal/mol
@@ -10156,7 +10175,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Azelate, C9H14O4-2
-    + 4.5000 HAcetate  =  C9H14O4-2  + 2.0000 H+  + 2.0000 O2  + 1.0000 H2O
+    + 4.5000 CH3COOH  =  C9H14O4-2  + 2.0000 H+  + 2.0000 O2  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -9.9176
         -delta_h +241.660 kcal/mol
@@ -10300,7 +10319,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Benzoate, C7H5O2-
-    + 3.5000 HAcetate  =  C7H5O2-  + 4.0000 H2O  + 1.0000 H+  + 0.5000 O2
+    + 3.5000 CH3COOH  =  C7H5O2-  + 4.0000 H2O  + 1.0000 H+  + 0.5000 O2
         -llnl_gamma           6.0
         log_k    -4.2001
         -delta_h +84.990 kcal/mol
@@ -10308,7 +10327,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Benzoic_acid, C7H6O2
-      + 3.5000 HAcetate  =  C7H6O2  + 4.0000 H2O  + 0.5000 O2
+      + 3.5000 CH3COOH  =  C7H6O2  + 4.0000 H2O  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -534.1773
         -delta_h +85.070 kcal/mol
@@ -10316,7 +10335,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Butanal, CH3(CH2)2CHO
-      + 1.0000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)2CHO  + 0.5000 O2
+      + 1.0000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)2CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -406.1993
         -delta_h +61.070 kcal/mol
@@ -10852,7 +10871,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Decanal, CH3(CH2)8CHO
-      + 4.0000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)8CHO  + 0.5000 O2
+      + 4.0000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)8CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -1058.134
         -delta_h +95.290 kcal/mol
@@ -10860,7 +10879,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Decanoate, C10H19O2-
-      + 5.0000 HAcetate  =  C10H19O2-  + 4.0000 O2  + 1.0000 H+
+      + 5.0000 CH3COOH  =  C10H19O2-  + 4.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.9185
         -delta_h +162.700 kcal/mol
@@ -10868,7 +10887,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Decanoic_acid, C10H20O2
-        + 5.0000 HAcetate  =  C10H20O2  + 4.0000 O2
+        + 5.0000 CH3COOH  =  C10H20O2  + 4.0000 O2
         -llnl_gamma           3.0
         log_k    -1010.8207
         -delta_h +162.200 kcal/mol
@@ -10892,7 +10911,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Dodecanoate, C12H23O2-
-      + 6.0000 HAcetate  =  C12H23O2-  + 5.0000 O2  + 1.0000 H+
+      + 6.0000 CH3COOH  =  C12H23O2-  + 5.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.9185
         -delta_h -174.04 kcal/mol
@@ -10900,7 +10919,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Dodecanoic_acid, C12H24O2
-        + 6.0000 HAcetate  =  C12H24O2  + 5.0000 O2
+        + 6.0000 CH3COOH  =  C12H24O2  + 5.0000 O2
         -llnl_gamma           3.0
         log_k    -1228.1689
         -delta_h +173.540 kcal/mol
@@ -10940,7 +10959,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Ethylacetate, CH3COOCH2CH3
-        + 1.0000 Ethylene + 1.0000 HAcetate  =  CH3COOCH2CH3
+        + 1.0000 C2H4 + 1.0000 CH3COOH  =  CH3COOCH2CH3
         -llnl_gamma           3.0
         log_k    +2.9247
         -delta_h +116.840 kcal/mol
@@ -10948,11 +10967,12 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Ethylbenzene, C6H5C2H5
-      + 4.0000 C6H6 + 3.0000 H2O  =  C6H5C2H5  + 1.5000 O2
-        -llnl_gamma           3.0
-        log_k    -2256.5242
-        -delta_h +2.500 kcal/mol
-        -analytic 2.7546e+002 5.0556e-002 -4.5964e+004 -1.0201e+002 8.4857e+005
+#      + 4.0000 C6H6 + 3.0000 H2O  =  C6H5C2H5  + 1.5000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -2256.5242
+#        -delta_h +2.500 kcal/mol
+#        -analytic 2.7546e+002 5.0556e-002 -4.5964e+004 -1.0201e+002 8.4857e+005
 #       -Range: 0-300
 
 # Eu(Ala)+, Eu(C3H6NO2)+
@@ -11268,7 +11288,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Formaldehyde, HCHO
-      + 1.0000 HAcetate  =  HCHO  + 0.5000 Ethylene  + 0.5000 O2
+      + 1.0000 CH3COOH  =  HCHO  + 0.5000 C2H4  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -86.5725
         -delta_h +33.890 kcal/mol
@@ -11372,7 +11392,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Glutarate, C5H6O4-2
-      + 2.5000 HAcetate  =  C5H6O4-2  + 2.0000 H+  + 1.0000 H2O
+      + 2.5000 CH3COOH  =  C5H6O4-2  + 2.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -9.7563
         -delta_h +224.140 kcal/mol
@@ -11380,7 +11400,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Glutaric_acid, C5H8O4
-        + 2.5000 HAcetate  =  C5H8O4  + 1.0000 H2O
+        + 2.5000 CH3COOH  =  C5H8O4  + 1.0000 H2O
         -llnl_gamma           3.0
         log_k    -357.4964
         -delta_h +223.440 kcal/mol
@@ -11412,7 +11432,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Adipate, C6H9O4-
-    + 3.0000 HAcetate  =  C6H9O4-  + 1.0000 H+  + 1.0000 H2O  + 0.5000 O2
+    + 3.0000 CH3COOH  =  C6H9O4-  + 1.0000 H+  + 1.0000 H2O  + 0.5000 O2
         -llnl_gamma           4.0
         log_k    -4.4127
         -delta_h +227.130 kcal/mol
@@ -11420,7 +11440,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Azelate, C9H15O4-
-    + 4.5000 HAcetate  =  C9H15O4-  + 2.0000 O2  + 1.0000 H+  + 1.0000 H2O
+    + 4.5000 CH3COOH  =  C9H15O4-  + 2.0000 O2  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.5226
         -delta_h +240.970 kcal/mol
@@ -11428,7 +11448,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Glutarate, C5H7O4-
-      + 2.5000 HAcetate  =  C5H7O4-  + 1.0000 H+  + 1.0000 H2O
+      + 2.5000 CH3COOH  =  C5H7O4-  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.3394
         -delta_h +223.570 kcal/mol
@@ -11436,7 +11456,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Malonate, C3H3O4-
-    + 1.5000 HAcetate + 1.0000 O2  =  C3H3O4-  + 1.0000 H+  + 1.0000 H2O
+    + 1.5000 CH3COOH + 1.0000 O2  =  C3H3O4-  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -2.8513
         -delta_h +207.850 kcal/mol
@@ -11444,7 +11464,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Oxalate, C2HO4-
-    + 1.5000 O2 + 1.0000 HAcetate  =  C2HO4-  + 1.0000 H+  + 1.0000 H2O
+    + 1.5000 O2 + 1.0000 CH3COOH  =  C2HO4-  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -1.2703
         -delta_h +195.600 kcal/mol
@@ -11452,7 +11472,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Pimelate, C7H11O4-
-    + 3.5000 HAcetate  =  C7H11O4-  + 1.0000 H+  + 1.0000 H2O  + 1.0000 O2
+    + 3.5000 CH3COOH  =  C7H11O4-  + 1.0000 H+  + 1.0000 H2O  + 1.0000 O2
         -llnl_gamma           4.0
         log_k    -4.486
         -delta_h +234.040 kcal/mol
@@ -11460,7 +11480,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Sebacate, C10H17O4-
-    + 5.0000 HAcetate  =  C10H17O4-  + 2.5000 O2  + 1.0000 H+  + 1.0000 H2O
+    + 5.0000 CH3COOH  =  C10H17O4-  + 2.5000 O2  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.5446
         -delta_h +246.230 kcal/mol
@@ -11468,15 +11488,15 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # H-Suberate, C8H13O4-
-    + 4.0000 HAcetate  =  C8H13O4-  + 1.5000 O2  + 1.0000 H+  + 1.0000 H2O
+    + 4.0000 CH3COOH  =  C8H13O4-  + 1.5000 O2  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.508
         -delta_h +238.130 kcal/mol
         -analytic -1.0933e+002 -2.4139e-002 -3.0563e+004 3.9365e+001 -4.7687e+002
 #       -Range: 0-300
 
-# H-Succinate, C4H504-
-    + 2.0000 HAcetate + 0.5000 O2  =  C4H504-  + 1.0000 H+  + 1.0000 H2O
+# H-Succinate, C4H5O4-
+    + 2.0000 CH3COOH + 0.5000 O2  =  C4H5O4-  + 1.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.2075
         -delta_h +217.350 kcal/mol
@@ -11492,7 +11512,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Heptanal, CH3(CH2)5CHO
-      + 2.5000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)5CHO  + 0.5000 O2
+      + 2.5000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)5CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -733.0243
         -delta_h +77.010 kcal/mol
@@ -11500,7 +11520,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Heptanoate, C6H13COO-
-      + 3.5000 HAcetate  =  C6H13COO-  + 2.5000 O2  + 1.0000 H+
+      + 3.5000 CH3COOH  =  C6H13COO-  + 2.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.8928
         -delta_h +145.620 kcal/mol
@@ -11508,7 +11528,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Heptanoic_acid, C6H13COOH
-        + 3.5000 HAcetate  =  C6H13COOH  + 2.5000 O2
+        + 3.5000 CH3COOH  =  C6H13COOH  + 2.5000 O2
         -llnl_gamma           3.0
         log_k    -684.8753
         -delta_h +145.080 kcal/mol
@@ -11516,7 +11536,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Hexanal, CH3(CH2)4CHO
-      + 2.0000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)4CHO  + 0.5000 O2
+      + 2.0000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)4CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -623.3863
         -delta_h +72.650 kcal/mol
@@ -11524,7 +11544,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Hexanoate, C5H11COO-
-      + 3.0000 HAcetate  =  C5H11COO-  + 2.0000 O2  + 1.0000 H+
+      + 3.0000 CH3COOH  =  C5H11COO-  + 2.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.8599
         -delta_h +139.870 kcal/mol
@@ -11532,7 +11552,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Hexanoic_acid, C5H11COOH
-        + 3.0000 HAcetate  =  C5H11COOH  + 2.0000 O2
+        + 3.0000 CH3COOH  =  C5H11COOH  + 2.0000 O2
         -llnl_gamma           3.0
         log_k    -576.2928
         -delta_h +139.290 kcal/mol
@@ -11740,7 +11760,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Malonate, C3H2O4-2
-    + 1.5000 HAcetate + 1.0000 O2  =  C3H2O4-2  + 2.0000 H+  + 1.0000 H2O
+    + 1.5000 CH3COOH + 1.0000 O2  =  C3H2O4-2  + 2.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -2.8513
         -delta_h +207.850 kcal/mol
@@ -12260,7 +12280,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Nonanal, CH3(CH2)7CHO
-      + 3.5000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)7CHO  + 0.5000 O2
+      + 3.5000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)7CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -949.8594
         -delta_h +89.060 kcal/mol
@@ -12268,7 +12288,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Nonanoate, C9H17O2-
-      + 4.5000 HAcetate  =  C9H17O2-  + 3.5000 O2  + 1.0000 H+
+      + 4.5000 CH3COOH  =  C9H17O2-  + 3.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.728
         -delta_h +156.990 kcal/mol
@@ -12276,7 +12296,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Nonanoic_acid, C9H18O2
-        + 4.5000 HAcetate  =  C9H18O2  + 3.5000 O2
+        + 4.5000 CH3COOH  =  C9H18O2  + 3.5000 O2
         -llnl_gamma           3.0
         log_k    -902.1429
         -delta_h +156.530 kcal/mol
@@ -12284,7 +12304,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Octanal, CH3(CH2)6CHO
-      + 3.0000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)6CHO  + 0.5000 O2
+      + 3.0000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)6CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -841.0644
         -delta_h +83.550 kcal/mol
@@ -12292,7 +12312,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Octanoate, C7H15COO-
-      + 4.0000 HAcetate  =  C7H15COO-  + 3.0000 O2  + 1.0000 H+
+      + 4.0000 CH3COOH  =  C7H15COO-  + 3.0000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.8965
         -delta_h +151.580 kcal/mol
@@ -12300,7 +12320,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Octanoic_acid, C7H15COOH
-        + 4.0000 HAcetate  =  C7H15COOH  + 3.0000 O2
+        + 4.0000 CH3COOH  =  C7H15COOH  + 3.0000 O2
         -llnl_gamma           3.0
         log_k    -793.3332
         -delta_h +151.050 kcal/mol
@@ -12308,7 +12328,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Oxalate, C2O4-2
-    + 1.5000 O2 + 1.0000 HAcetate  =  C2O4-2  + 2.0000 H+  + 1.0000 H2O
+    + 1.5000 O2 + 1.0000 CH3COOH  =  C2O4-2  + 2.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -1.2703
         -delta_h +195.600 kcal/mol
@@ -12452,7 +12472,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Pentanal, CH3(CH2)3CHO
-      + 1.5000 Ethylene + 1.0000 HAcetate  =  CH3(CH2)3CHO  + 0.5000 O2
+      + 1.5000 C2H4 + 1.0000 CH3COOH  =  CH3(CH2)3CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -514.6206
         -delta_h +67.100 kcal/mol
@@ -12492,7 +12512,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Pimelate, C7H10O4-2
-    + 3.5000 HAcetate  =  C7H10O4-2  + 2.0000 H+  + 1.0000 H2O  + 1.0000 O2
+    + 3.5000 CH3COOH  =  C7H10O4-2  + 2.0000 H+  + 1.0000 H2O  + 1.0000 O2
         -llnl_gamma           4.0
         log_k    -4.486
         -delta_h +234.040 kcal/mol
@@ -12500,7 +12520,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Pimelic_acid, C7H12O4
-      + 3.5000 HAcetate  =  C7H12O4  + 1.0000 H2O  + 1.0000 O2
+      + 3.5000 CH3COOH  =  C7H12O4  + 1.0000 H2O  + 1.0000 O2
         -llnl_gamma           3.0
         log_k    -575.0718
         -delta_h +253.720 kcal/mol
@@ -12508,7 +12528,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Propanal, CH3CH2CHO
-      + 1.0000 HAcetate + 0.5000 Ethylene  =  CH3CH2CHO  + 0.5000 O2
+      + 1.0000 CH3COOH + 0.5000 C2H4  =  CH3CH2CHO  + 0.5000 O2
         -llnl_gamma           3.0
         log_k    -296.0849
         -delta_h +57.360 kcal/mol
@@ -12547,7 +12567,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Sebacate, C10H16O4-2
-    + 5.0000 HAcetate  =  C10H16O4-2  + 2.5000 O2  + 2.0000 H+  + 1.0000 H2O
+    + 5.0000 CH3COOH  =  C10H16O4-2  + 2.5000 O2  + 2.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.5446
         -delta_h +246.230 kcal/mol
@@ -12555,7 +12575,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Sebacic_acid, C10H18O4
-      + 5.0000 HAcetate  =  C10H18O4  + 2.5000 O2  + 1.0000 H2O
+      + 5.0000 CH3COOH  =  C10H18O4  + 2.5000 O2  + 1.0000 H2O
         -llnl_gamma           3.0
         log_k    -904.7629
         -delta_h +246.000 kcal/mol
@@ -12699,7 +12719,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Suberate, C8H12O4-2
-    + 4.0000 HAcetate  =  C8H12O4-2  + 2.0000 H+  + 1.5000 O2  + 1.0000 H2O
+    + 4.0000 CH3COOH  =  C8H12O4-2  + 2.0000 H+  + 1.5000 O2  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.508
         -delta_h +238.130 kcal/mol
@@ -12707,7 +12727,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Suberic_acid, C8H14O4
-      + 4.0000 HAcetate  =  C8H14O4  + 1.5000 O2  + 1.0000 H2O
+      + 4.0000 CH3COOH  =  C8H14O4  + 1.5000 O2  + 1.0000 H2O
         -llnl_gamma           3.0
         log_k    -685.0983
         -delta_h +237.760 kcal/mol
@@ -12715,7 +12735,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Succinate, C4H4O4-2
-    + 2.0000 HAcetate + 0.5000 O2  =  C4H4O4-2  + 2.0000 H+  + 1.0000 H2O
+    + 2.0000 CH3COOH + 0.5000 O2  =  C4H4O4-2  + 2.0000 H+  + 1.0000 H2O
         -llnl_gamma           4.0
         log_k    -4.2075
         -delta_h +217.350 kcal/mol
@@ -12763,7 +12783,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Undecanoate, C11H21O2-
-      + 5.5000 HAcetate  =  C11H21O2-  + 4.5000 O2  + 1.0000 H+
+      + 5.5000 CH3COOH  =  C11H21O2-  + 4.5000 O2  + 1.0000 H+
         -llnl_gamma           4.0
         log_k    -4.9258
         -delta_h +168.370 kcal/mol
@@ -12771,7 +12791,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # Undecanoic_acid, C11H22O2
-        + 5.5000 HAcetate  =  C11H22O2  + 4.5000 O2
+        + 5.5000 CH3COOH  =  C11H22O2  + 4.5000 O2
         -llnl_gamma           3.0
         log_k    -1119.4911
         -delta_h +167.870 kcal/mol
@@ -12995,7 +13015,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # m-Toluate, C8H7O2-
-    + 4.0000 HAcetate  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
+    + 4.0000 CH3COOH  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
         -llnl_gamma           4.0
         log_k    -1.9205
         -delta_h +95.350 kcal/mol
@@ -13003,7 +13023,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # m-Toluic_acid, C8H8O2
-      + 4.0000 HAcetate  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
+      + 4.0000 CH3COOH  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
         -llnl_gamma           3.0
         log_k    +2.3383
         -delta_h +95.450 kcal/mol
@@ -13019,11 +13039,12 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # n-Butylbenzene, C6H5C4H9
-      + 6.0000 H2O + 5.0000 C6H6  =  C6H5C4H9  + 3.0000 O2
-        -llnl_gamma           3.0
-        log_k    -2907.6453
-        -delta_h +14.430 kcal/mol
-        -analytic 6.8560e+002 1.2459e-001 -1.0249e+005 -2.5284e+002 2.3594e+006
+#      + 6.0000 H2O + 5.0000 C6H6  =  C6H5C4H9  + 3.0000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -2907.6453
+#        -delta_h +14.430 kcal/mol
+#        -analytic 6.8560e+002 1.2459e-001 -1.0249e+005 -2.5284e+002 2.3594e+006
 #       -Range: 0-300
 
 # n-Heptane, C7H16
@@ -13035,11 +13056,12 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # n-Heptylbenzene, C6H5C7H15
-      + 10.5000 H2O + 6.5000 C6H6  =  C6H5C7H15  + 5.2500 O2
-        -llnl_gamma           3.0
-        log_k    -3886.5811
-        -delta_h +31.090 kcal/mol
-        -analytic -5.4784e+001 4.5194e-002 -1.1072e+005 8.0680e+000 -1.7277e+003
+#      + 10.5000 H2O + 6.5000 C6H6  =  C6H5C7H15  + 5.2500 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -3886.5811
+#        -delta_h +31.090 kcal/mol
+#        -analytic -5.4784e+001 4.5194e-002 -1.1072e+005 8.0680e+000 -1.7277e+003
 #       -Range: 0-300
 
 # n-Hexane, C6H14
@@ -13067,11 +13089,12 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # n-Octylbenzene, C6H5C8H17
-      + 12.0000 H2O + 7.0000 C6H6  =  C6H5C8H17  + 6.0000 O2
-        -llnl_gamma           3.0
-        log_k    -4212.6143
-        -delta_h +36.760 kcal/mol
-        -analytic 1.2934e+003 2.4001e-001 -2.0402e+005 -4.7773e+002 4.5749e+006
+#      + 12.0000 H2O + 7.0000 C6H6  =  C6H5C8H17  + 6.0000 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -4212.6143
+#        -delta_h +36.760 kcal/mol
+#        -analytic 1.2934e+003 2.4001e-001 -2.0402e+005 -4.7773e+002 4.5749e+006
 #       -Range: 0-300
 
 # n-Pentane, C5H12
@@ -13083,11 +13106,12 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # n-Pentylbenzene, C6H5C5H11
-      + 7.5000 H2O + 5.5000 C6H6  =  C6H5C5H11  + 3.7500 O2
-        -llnl_gamma           3.0
-        log_k    -3233.7886
-        -delta_h +19.750 kcal/mol
-        -analytic 2.9887e+002 7.2990e-002 -9.9228e+004 -1.1348e+002 1.3767e+006
+#      + 7.5000 H2O + 5.5000 C6H6  =  C6H5C5H11  + 3.7500 O2
+#	does not balance
+#        -llnl_gamma           3.0
+#        log_k    -3233.7886
+#        -delta_h +19.750 kcal/mol
+#        -analytic 2.9887e+002 7.2990e-002 -9.9228e+004 -1.1348e+002 1.3767e+006
 #       -Range: 0-300
 
 # n-Propylbenzene, C6H5C3H7
@@ -13099,7 +13123,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # o-Toluate, C8H7O2-
-    + 4.0000 HAcetate  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
+    + 4.0000 CH3COOH  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
         -llnl_gamma           4.0
         log_k    -3.9069
         -delta_h +94.070 kcal/mol
@@ -13107,7 +13131,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # o-Toluic_acid, C8H8O2
-      + 4.0000 HAcetate  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
+      + 4.0000 CH3COOH  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
         -llnl_gamma           3.0
         log_k    -642.3493
         -delta_h +92.640 kcal/mol
@@ -13115,7 +13139,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # p-Toluate, C8H7O2-
-    + 4.0000 HAcetate  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
+    + 4.0000 CH3COOH  =  C8H7O2-  + 4.0000 H2O  + 1.0000 H+  + 1.0000 O2
         -llnl_gamma           4.0
         log_k    -1.6786
         -delta_h +96.160 kcal/mol
@@ -13123,7 +13147,7 @@ S2O3-- + UO2++ = UO2S2O3
 #       -Range: 0-300
 
 # p-Toluic_acid, C8H8O2
-      + 4.0000 HAcetate  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
+      + 4.0000 CH3COOH  =  C8H8O2  + 4.0000 H2O  + 1.0000 O2
         -llnl_gamma           3.0
         log_k    +2.6901
         -delta_h +96.190 kcal/mol
@@ -21711,8 +21735,8 @@ C(g)
         -analytic 1.0485e+002 1.7907e-003 5.2768e+004 -4.0661e+001 8.9605e+002
 #       -Range:  0-200
 
-Ethylene(g)
-        Ethylene  =  + 1.0000 Ethylene 
+C2H4(g)
+        C2H4  =  + 1.0000  C2H4
         log_k           -2.3236
 	-delta_H	-16.4431	kJ/mol	# Calculated enthalpy of reaction	Ethylene(g)
 #	Enthalpy of formation:	12.5 kcal/mol
