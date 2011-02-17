@@ -10,6 +10,46 @@ File contains:
 ------------------------------------------------------------
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
+        --------
+        svn 4988
+        --------
+        Added EOL$ Basic Function. EOL$ is the end of line
+        character for whatever operating system you are
+        running. 
+        
+        USER_PRINT
+        10 PRINT "line 1"+EOL$+"line 2"+EOL$
+        
+        The result of this USER_PRINT is
+        
+        line 1
+	line 2
+       
+        --------
+        svn 4942
+        --------
+        Added additional parameter in PRINT for status. Writing
+        the status line to the screen can slow calculations
+        substantially under some conditions.
+        
+        PRINT
+        -status (t|f|n)
+        
+        t--Always print status line.
+        f--Do not print status line.
+        n--Print status line every n milliseconds.
+        
+        -status 1000 would print the status line every 
+        second.
+        
+        --------
+        svn 4830
+        --------
+        Changed default for exchange species activty 
+        coefficients to be equal to the Pitzer
+        aqueous activity coefficients when using Pitzer
+        aqueous model. Default is
+        -pitzer_exchange_gammas true.
 
 
 ------------------------------------------------------------
@@ -1476,6 +1516,29 @@ End of Features not documented in WRIR 99-4259.
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
         --------
+        svn 4996
+        --------
+        Had conversion conversion to Kelvin as 273.16 in Basic
+        function TK, should be 273.15. 
+        
+        --------
+        svn 4955
+        --------
+        Changed O2(g) constant in Amm.dat and iso.dat to
+        definition from llnl.dat.
+        
+        --------
+        svn 4954
+        --------
+        Added two more parameter sets in series of attempts
+        to converge: tolerance/100 and tolerance/1000.
+        
+        --------
+        svn 4943
+        --------
+        Added separate As(3) in sit.dat.
+        
+        --------
         svn 4854
         --------
         Added two additional convergence parameter sets:
@@ -1485,7 +1548,7 @@ Version @PHREEQC_VER@: @PHREEQC_DATE@
         svn 4840
         --------
         Added missing -dw parameters to MgCO3, MgHCO3, and
-        MgSO4 aqueous species. 
+        MgSO4 aqueous species in phreeqc.dat.
         
 ------------------------------------------------------------
 Version 2.17.5: September  7, 2010
