@@ -43,19 +43,19 @@ Initial solution 0.	CaCl2
 ----------------------------Description of solution----------------------------
 
                                        pH  =   6.997      Charge balance
-                                       pe  =  13.613      Equilibrium with O2(g)
+                                       pe  =  13.630      Equilibrium with O2(g)
                         Activity of water  =   1.000
                            Ionic strength  =  1.800e-003
                        Mass of water (kg)  =  1.000e+000
-                 Total alkalinity (eq/kg)  = -6.112e-020
+                 Total alkalinity (eq/kg)  =  1.143e-019
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  3.984e-018
+                  Electrical balance (eq)  =  4.101e-018
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
                                Iterations  =   4
                                   Total H  = 1.110124e+002
-                                  Total O  = 5.550667e+001
+                                  Total O  = 5.550675e+001
 
 ----------------------------Distribution of species----------------------------
 
@@ -71,16 +71,16 @@ Ca              6.000e-004
 Cl              1.200e-003
    Cl-                   1.200e-003  1.144e-003    -2.921    -2.941    -0.021
 H(0)            0.000e+000
-   H2                    0.000e+000  0.000e+000   -44.370   -44.370     0.000
-O(0)            4.580e-004
-   O2                    2.290e-004  2.291e-004    -3.640    -3.640     0.000
+   H2                    0.000e+000  0.000e+000   -44.404   -44.404     0.000
+O(0)            5.352e-004
+   O2                    2.676e-004  2.677e-004    -3.573    -3.572     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -41.22  -44.37   -3.15  H2
-	O2(g)            -0.68   -3.64   -2.96  O2
+	H2(g)           -41.25  -44.40   -3.15  H2
+	O2(g)            -0.68   -3.57   -2.89  O2
 
 ------------------
 End of simulation.

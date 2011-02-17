@@ -120,7 +120,7 @@ Using temperature 1.
 
 ----------------------------------User print-----------------------------------
 
-Temperatures (C) :               99  /            25 
+Temperatures (C) :      9.8990e+001  /            25 
 Viscosities (mPa.s):    2.8477e-001  /   8.8862e-001 
 Ratio of calc.d SC.s:   2.8602e+000 
 Ratio of Dw.s :         3.1205e+000 
@@ -277,7 +277,7 @@ Using temperature 1.
 
 ----------------------------------User print-----------------------------------
 
-Temperatures (C) :               99  /            25 
+Temperatures (C) :      9.8990e+001  /            25 
 Viscosities (mPa.s):    2.8477e-001  /   8.8862e-001 
 Ratio of calc.d SC.s:   3.1001e+000 
 Ratio of Dw.s :         3.1205e+000 
