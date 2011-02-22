@@ -319,7 +319,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 		ptr = line;
 		copy_token(token, &ptr, &i);
 		str_tolower(token);
-		if (strstr(token,"include$") == token)
+		if ((strstr(token,"include$") == token) || (strstr(token,"include_file") == token))
 		{
 			char file_name[MAX_LENGTH];
 			strcpy(file_name, ptr);
