@@ -248,4 +248,6 @@ struct LOC_exec
 #define toktotmol           148
 #define toktotmoles         149
 #define tokeol_             150
+#define tokceil             151
+#define tokfloor            152
 #endif /* _INC_BASIC_H */

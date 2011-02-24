@@ -11,9 +11,25 @@ File contains:
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
         --------
+        svn 5170
+        --------
+        Added ceil and floor Basic functions. Ceil(x) is the 
+        smallest integer greater than or equal to x. Floor(x)
+        is the largest integer less than or equal to x. Note
+        that all numbers in Basic are of type double in C. 
+        
+        USER_PRINT
+        10 print ceil(2.8), floor(2.8), ceil(-2.8), floor(-2.8)  
+        
+        This USER_PRINT Basic program has the following output:
+        
+        3            2           -2           -3 
+
+
+        --------
         svn 4988
         --------
-        Added EOL$ Basic Function. EOL$ is the end of line
+        Added EOL$ Basic function. EOL$ is the end of line
         character for whatever operating system you are
         running. 
         
