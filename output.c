@@ -142,23 +142,23 @@ output_msg(const int type, const char *format, ...)
 	size_t i;
 	for (i = 0; i < count_output_callback; ++i)
 	{
-		va_list args;
-		va_start(args, format);
+		va_list args1;
+		va_start(args1, format);
 		(output_callbacks[i].callback) (ACTION_OUTPUT, type, NULL, CONTINUE,
 										output_callbacks[i].cookie, format,
-										args);
-		va_end(args);
+										args1);
+		va_end(args1);
 
 		if (phast == TRUE)
 		{
 			if (type == OUTPUT_CHECKLINE && pr.echo_input == TRUE && phreeqc_mpi_myself == 0)
 			{
-				va_list args;
-				va_start(args, format);
+				va_list args2;
+				va_start(args2, format);
 				(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ECHO, NULL, CONTINUE,
 												output_callbacks[i].cookie, format,
-												args);
-				va_end(args);
+												args2);
+				va_end(args2);
 			}
 		}
 	}
