@@ -1354,6 +1354,7 @@ ineq(int in_kode)
 				   (void *) &(array[i * (count_unknowns + 1)]),
 				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
 			back_eq[l_count_rows] = i;
+			l_count_rows++;
 		}
 	}
 	count_equal = l_count_rows - l_count_optimize;
@@ -1814,7 +1815,7 @@ ineq(int in_kode)
 		}
 	}
 
-	/* adjust unkowns where cl1 failed */
+	/* adjust unknowns where cl1 failed */
 	if (l_kode != 0)
 	{
 		for (i = 0; i < l_count_rows; i++)
@@ -1824,9 +1825,9 @@ ineq(int in_kode)
 					   x[back_eq[i]]->description, (double) res[i]);
 			*/
 			j = back_eq[i];
-			if (x[j]->type == MB && delta[i] == 0.0 && fabs(res[i]) > ineq_tol)
+			if (x[j]->type == MB && delta[j] == 0.0 && fabs(res[i]) > ineq_tol)
 			{
-				delta[i] = res[i]/fabs(res[i]) * 1;
+				delta[j] = res[i]/fabs(res[i]) * 1;
 			}
 		}
 	}

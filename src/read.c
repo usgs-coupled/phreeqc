@@ -782,7 +782,7 @@ read_conc(int n, int count_mass_balance, char *str)
  *   Check for "gfw" followed by gram formula weight
  */
 	}
-	else if (strcmp(token1, "gfw") == 0)
+	else if (strcmp(token1, "gfw") == 0 || strcmp(token1, "gfm") == 0)
 	{
 		if (copy_token(token, &ptr, &l) != DIGIT)
 		{
@@ -5489,6 +5489,7 @@ read_solution(void)
 	solution[n]->ah2o = 1.0;
 	solution[n]->mu = 1e-7;
 	solution[n]->cb = 0.0;
+	solution[n]->count_master_activity = 0;
 	default_pe = 0;
 	solution[n]->units = string_hsave("mMol/kgw");
 	solution[n]->totals[0].description = NULL;
