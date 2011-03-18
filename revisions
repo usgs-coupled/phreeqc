@@ -11,6 +11,18 @@ File contains:
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
         --------
+        svn 5212
+        --------
+        Added gfm (gram formula mass) as a synonym to gfw in 
+        reading concentration data for SOLUTION.
+        
+        S(6)  1 gfm 96
+        
+        is equivalent to
+        
+        S(6)  1 gfw 96.
+
+        --------
         svn 5170
         --------
         Added ceil and floor Basic functions. Ceil(x) is the 
@@ -1531,6 +1543,12 @@ End of Features not documented in WRIR 99-4259.
 ------------------------------------------------------------
 Version @PHREEQC_VER@: @PHREEQC_DATE@
 ------------------------------------------------------------
+        --------
+        svn 5212
+        --------
+        Subscript error in solver (ineq) when reseting deltas 
+        after optimization failed.
+        
         --------
         svn 4996
         --------

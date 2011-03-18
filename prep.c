@@ -2078,6 +2078,9 @@ convert_units(struct solution *solution_ptr)
 	{
 		solution_ptr->totals[i].moles *= mass_water_aq_x;
 	}
+
+	solution_ptr->units = moles_per_kilogram_string;
+
 	return (OK);
 }
 

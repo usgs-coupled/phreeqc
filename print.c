@@ -2827,25 +2827,62 @@ punch_identifiers(void)
 			fpunchf(PHAST_NULL("dist_x"), dformat, -99);
 		}
 	}
+	//if (punch.time == TRUE)
+	//{
+	//	if (state == REACTION && incremental_reactions == TRUE
+	//		&& use.kinetics_ptr != NULL)
+	//	{
+	//		if (use.kinetics_ptr->count_steps > 0)
+	//		{
+	//			kin_time_x = 0.;
+	//			for (i = 0; i < reaction_step; i++)
+	//			{
+	//				if (i < use.kinetics_ptr->count_steps)
+	//				{
+	//					kin_time_x += use.kinetics_ptr->steps[i];
+	//				}
+	//				else
+	//				{
+	//					kin_time_x +=
+	//						use.kinetics_ptr->steps[use.kinetics_ptr->
+	//												count_steps - 1];
+	//				}
+	//			}
+	//		}
+	//		else if (use.kinetics_ptr->count_steps < 0)
+	//		{
+	//			if (reaction_step > -use.kinetics_ptr->count_steps)
+	//			{
+	//				kin_time_x = use.kinetics_ptr->steps[0];
+	//			}
+	//			else
+	//			{
+	//				kin_time_x =
+	//					reaction_step * use.kinetics_ptr->steps[0] /
+	//					((LDBLE) (-use.kinetics_ptr->count_steps));
+	//			}
+	//		}
+	//	}
+
 	if (punch.time == TRUE)
 	{
+		double reaction_time = kin_time_x;
 		if (state == REACTION && incremental_reactions == TRUE
 			&& use.kinetics_ptr != NULL)
 		{
 			if (use.kinetics_ptr->count_steps > 0)
 			{
-				kin_time_x = 0.;
+				reaction_time = 0.0;
 				for (i = 0; i < reaction_step; i++)
 				{
 					if (i < use.kinetics_ptr->count_steps)
 					{
-						kin_time_x += use.kinetics_ptr->steps[i];
+						reaction_time += use.kinetics_ptr->steps[i];
 					}
 					else
 					{
-						kin_time_x +=
-							use.kinetics_ptr->steps[use.kinetics_ptr->
-													count_steps - 1];
+						reaction_time +=
+							use.kinetics_ptr->steps[use.kinetics_ptr->count_steps - 1];
 					}
 				}
 			}
@@ -2853,11 +2890,11 @@ punch_identifiers(void)
 			{
 				if (reaction_step > -use.kinetics_ptr->count_steps)
 				{
-					kin_time_x = use.kinetics_ptr->steps[0];
+					reaction_time = use.kinetics_ptr->steps[0];
 				}
 				else
 				{
-					kin_time_x =
+					reaction_time =
 						reaction_step * use.kinetics_ptr->steps[0] /
 						((LDBLE) (-use.kinetics_ptr->count_steps));
 				}
@@ -2865,7 +2902,7 @@ punch_identifiers(void)
 		}
 		if (state == REACTION)
 		{
-			fpunchf(PHAST_NULL("time"), gformat, (double) kin_time_x);
+			fpunchf(PHAST_NULL("time"), gformat, (double) reaction_time);
 		}
 		else if (state == TRANSPORT || state == PHAST)
 		{
