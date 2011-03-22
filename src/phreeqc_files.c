@@ -20,7 +20,7 @@ const char *default_data_base = "phreeqc.dat";
 
 static FILE *input_file = NULL;
 static FILE *database_file = NULL;
-static FILE *output = NULL;		/* OUTPUT_MESSAGE */
+static FILE *output_file = NULL;		/* OUTPUT_MESSAGE */
 static FILE *log_file = NULL;	/* OUTPUT_LOG */
 static FILE *punch_file = NULL;	/* OUTPUT_PUNCH */
 static FILE *error_file = NULL;	/* OUTPUT_ERROR */
@@ -82,7 +82,7 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 			break;
 
 		case OUTPUT_MESSAGE:
-			output = NULL;
+			output_file = NULL;
 			break;
 
 		case OUTPUT_PUNCH:
@@ -149,7 +149,7 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 			break;
 
 		case OUTPUT_MESSAGE:
-			pThis->output = NULL;
+			pThis->output_file = NULL;
 			break;
 
 		case OUTPUT_PUNCH:
@@ -308,16 +308,16 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	strcat(token, ".out");
 	if (argc <= 1)
 	{
-		output = file_open(query, token, "w", FALSE);
+		output_file = file_open(query, token, "w", FALSE);
 	}
 	else if (argc == 2)
 	{
-		output = file_open(query, token, "w", TRUE);
+		output_file = file_open(query, token, "w", TRUE);
 	}
 	else if (argc >= 3)
 	{
 		strcpy(token, argv[2]);
-		output = file_open(query, token, "w", TRUE);
+		output_file = file_open(query, token, "w", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Output file: %s\n\n", token);
 	output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
@@ -542,16 +542,16 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	strcat(token, ".out");
 	if (argc <= 1)
 	{
-		output = file_open(query, token, "w", FALSE);
+		output_file = file_open(query, token, "w", FALSE);
 	}
 	else if (argc == 2)
 	{
-		output = file_open(query, token, "w", TRUE);
+		output_file = file_open(query, token, "w", TRUE);
 	}
 	else if (argc >= 3)
 	{
 		strcpy(token, argv[2]);
-		output = file_open(query, token, "w", TRUE);
+		output_file = file_open(query, token, "w", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Output file: %s\n\n", token);
 	output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
@@ -716,8 +716,8 @@ output_handler(const int type, const char *err_str, const int stop,
 
 	if (get_forward_output_to_log())
 	{
-		save_output = output;
-		output = log_file;
+		save_output = output_file;
+		output_file = log_file;
 	}
 
 	switch (type)
@@ -744,14 +744,14 @@ output_handler(const int type, const char *err_str, const int stop,
 		sprintf(progress_str, "ERROR: %s\n", err_str);
 		show_progress(type, progress_str);
 #endif /* PHREEQ98 */
-		if (output != NULL)
+		if (output_file != NULL)
 		{
-			fprintf(output, "ERROR: %s\n", err_str);
+			fprintf(output_file, "ERROR: %s\n", err_str);
 #ifdef PHREEQ98
 			outputlinenr++;
 #endif
 			if (flush)
-				fflush(output);
+				fflush(output_file);
 		}
 		if (stop == STOP)
 		{
@@ -764,13 +764,13 @@ output_handler(const int type, const char *err_str, const int stop,
 			sprintf(progress_str, "Stopping.\n");
 			show_progress(type, progress_str);
 #endif /* PHREEQ98 */
-			if (output != NULL)
+			if (output_file != NULL)
 			{
-				fprintf(output, "Stopping.\n");
+				fprintf(output_file, "Stopping.\n");
 #ifdef PHREEQ98
 				outputlinenr++;
 #endif
-				fflush(output);
+				fflush(output_file);
 			}
 		}
 		break;
@@ -811,40 +811,40 @@ output_handler(const int type, const char *err_str, const int stop,
 		sprintf(progress_str, "WARNING: %s\n", err_str);
 		show_progress(type, progress_str);
 #endif /* PHREEQ98 */
-		if (output != NULL)
+		if (output_file != NULL)
 		{
-			fprintf(output, "WARNING: %s\n", err_str);
+			fprintf(output_file, "WARNING: %s\n", err_str);
 #ifdef PHREEQ98
 			outputlinenr++;
 #endif
 			if (flush)
-				fflush(output);
+				fflush(output_file);
 		}
 		break;
 	case OUTPUT_CHECKLINE:
 		if (pr.echo_input == TRUE)
 		{
-			if (output != NULL)
+			if (output_file != NULL)
 			{
-				vfprintf(output, format, args);
+				vfprintf(output_file, format, args);
 #ifdef PHREEQ98
 				check_line_breaks(format);
 #endif
 				if (flush)
-					fflush(output);
+					fflush(output_file);
 			}
 		}
 		break;
 	case OUTPUT_MESSAGE:
 	case OUTPUT_BASIC:
-		if (output != NULL)
+		if (output_file != NULL)
 		{
-			vfprintf(output, format, args);
+			vfprintf(output_file, format, args);
 #ifdef PHREEQ98
 			check_line_breaks(format);
 #endif
 			if (flush)
-				fflush(output);
+				fflush(output_file);
 		}
 		break;
 	case OUTPUT_PUNCH:
@@ -898,7 +898,7 @@ output_handler(const int type, const char *err_str, const int stop,
 
 	if (get_forward_output_to_log())
 	{
-		output = save_output;
+		output_file = save_output;
 	}
 	return (OK);
 }
@@ -910,8 +910,8 @@ close_output_files(void)
 {
 	int ret = 0;
 
-	if (output != NULL)
-		ret |= fclose(output);
+	if (output_file != NULL)
+		ret |= fclose(output_file);
 	if (log_file != NULL)
 		ret |= fclose(log_file);
 	if (punch_file != NULL)
@@ -921,7 +921,7 @@ close_output_files(void)
 	if (error_file != NULL)
 		ret |= fclose(error_file);
 	error_file = NULL;
-	output = log_file = punch_file = dump_file = NULL;
+	output_file = log_file = punch_file = dump_file = NULL;
 	return ret;
 }
 
@@ -980,8 +980,8 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 	int forward = get_forward_output_to_log();
 	if (forward)
 	{
-		save_output = output;
-		output = log_file;
+		save_output = output_file;
+		output_file = log_file;
 	}
 
 	switch (type)
@@ -994,15 +994,15 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 	case OUTPUT_WARNING:
 		if (error_file)
 			PFN(error_file);
-		if (output)
-			PFN(output);
+		if (output_file)
+			PFN(output_file);
 		break;
 
 	case OUTPUT_MESSAGE:
 	case OUTPUT_CHECKLINE:
 	case OUTPUT_BASIC:
-		if (output)
-			PFN(output);
+		if (output_file)
+			PFN(output_file);
 		break;
 
 	case OUTPUT_PUNCH:
@@ -1034,7 +1034,7 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 
 	if (forward)
 	{
-		output = save_output;
+		output_file = save_output;
 	}
 	return (OK);
 }
