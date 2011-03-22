@@ -910,7 +910,7 @@ int forward_output_to_log;
 char *default_data_base;
 FILE *input_file;
 FILE *database_file;
-FILE *output_file;		/* OUTPUT_MESSAGE */
+FILE *output_file;	/* OUTPUT_MESSAGE */
 FILE *log_file;	    /* OUTPUT_LOG */
 FILE *punch_file;	/* OUTPUT_PUNCH */
 FILE *error_file;	/* OUTPUT_ERROR */
