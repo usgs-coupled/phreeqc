@@ -7,6 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include <assert.h>
 
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
@@ -247,6 +248,10 @@ quick_setup(void)
 		if (x[i]->type == PP)
 		{
 			x[i]->moles = use.pp_assemblage_ptr->pure_phases[j].moles;
+			/* A. Crapsi */
+			x[i]->si    = use.pp_assemblage_ptr->pure_phases[j].si;
+			x[i]->delta = use.pp_assemblage_ptr->pure_phases[j].delta;
+			/* End A. Crapsi */
 			x[i]->dissolve_only =
 				use.pp_assemblage_ptr->pure_phases[j].dissolve_only;
 			use.pp_assemblage_ptr->pure_phases[j].delta = 0.0;
@@ -5314,10 +5319,12 @@ check_same_model(void)
 			{
 				return (FALSE);
 			}
+			/* A. Crapsi
 			if (last_model.si[i] != use.pp_assemblage_ptr->pure_phases[i].si)
 			{
 				return (FALSE);
 			}
+			*/
 		}
 	}
 	else

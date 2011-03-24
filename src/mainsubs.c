@@ -2278,7 +2278,7 @@ xsolution_save(int n_user)
 		solution_ptr->totals[count_mass_balance].phase = NULL;
 		solution_ptr->totals[count_mass_balance].phase_si = 0.0;
 		solution_ptr->totals[count_mass_balance].as = NULL;
-		solution_ptr->totals[count_mass_balance].gfw = master[i]->elt->gfw;
+		solution_ptr->totals[count_mass_balance].gfw = master[i]->elt->primary->elt->gfw;
 		count_mass_balance++;
 /*
  *   Make space
