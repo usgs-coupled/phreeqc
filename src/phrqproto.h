@@ -391,6 +391,7 @@ CLASS_STATIC int master_compare(const void *ptr1, const void *ptr2);
 int master_delete(char *ptr);
 struct master *master_bsearch(const char *ptr);
 struct master *master_bsearch_primary(char *ptr);
+struct master *master_bsearch_secondary(char *ptr);
 struct master *master_search(char *ptr, int *n);
 
 struct mix *mix_bsearch(int k, int *n);
