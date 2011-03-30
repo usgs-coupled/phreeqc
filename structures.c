@@ -3008,7 +3008,73 @@ master_bsearch_primary(char *ptr)
 	}
 	return (master_ptr_primary);
 }
+/* ---------------------------------------------------------------------- */
+struct master * CLASS_QUALIFIER
+master_bsearch_secondary(char *ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Find secondary master species that corresponds to the primary master species.
+ *   i.e. S(6) for S.
+ */
+	int l;
+	char *ptr1;
+	char elt[MAX_LENGTH];
+	struct master *master_ptr_primary, *master_ptr, *master_ptr_secondary=NULL;
+/*
+ *   Find element name
+ */
+	ptr1 = ptr;
+	get_elt(&ptr1, elt, &l);
+/*
+ *   Search master species list
+ */
+	master_ptr_primary = master_bsearch(elt);
+	if (master_ptr_primary == NULL)
+	{
+		input_error++;
+		sprintf(error_string,
+				"Could not find primary master species for %s.", ptr);
+		error_msg(error_string, CONTINUE);
+	}
+/*
+ *  If last in list or not redox
+*/
+	if ((master_ptr_primary->number >= count_master - 1) || 
+		(master[master_ptr_primary->number + 1]->elt->primary != master_ptr_primary))
+	{
+		return(master_ptr_primary);
+	}
+/*
+ *  Find secondary master with same species as primary
+ */
+	master_ptr = NULL;
+	int j;
+	for (j = master_ptr_primary->number + 1; j < count_master; j++)
+	{
+		if (master[j]->s == master_ptr_primary->s)
+		{
+			master_ptr = master[j];
+		}
+	}
+/*
+ *
+ */
+	if (master_ptr->elt->primary != master_ptr_primary)
+	{
+		input_error++;
+		sprintf(error_string,
+				"Could not find secondary master species for %s.", ptr);
+		error_msg(error_string, STOP);
+	}
+	else
+	{
+		master_ptr_secondary = master_ptr;
+	}
 
+
+	return (master_ptr_secondary);
+}
 /* ---------------------------------------------------------------------- */
 struct master * CLASS_QUALIFIER
 master_search(char *ptr, int *n)
