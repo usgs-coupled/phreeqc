@@ -9,7 +9,21 @@
 #include "phrqproto.h"
 //#include "time.h"
 #include <time.h>
-
+#ifdef PHREEQC_CPP
+#include "../StorageBin.h"
+#include "../Reaction.h"
+#include "../cxxKinetics.h"
+#include "../Solution.h"
+#include "../cxxMix.h"
+#include "../PPassemblage.h"
+#include "../Surface.h"
+#include "../Exchange.h"
+#include "../GasPhase.h"
+#include "../SSassemblage.h"
+#include "../Temperature.h"
+#include <map>
+#include <fstream>
+#endif
 #if !defined(PHREEQC_CLASS)
 #include "sundialstypes.h"		/* definitions of types realtype and                        */
 							 /* integertype, and the constant FALSE            */
@@ -1475,6 +1489,12 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 /*
  *   write to error.inp what failed to converge.
  */
+#ifdef PHREEQC_CPP
+		std::ofstream error_input("error.inp");
+		cxxStorageBin error_bin(PHREEQC_THIS_COMMA &use);
+		error_bin.dump_raw(error_input, 0);
+		error_input.close();
+#else
 		if (output_open(OUTPUT_DUMP, "error.inp") != OK)
 		{
 			sprintf(error_string, "Can't open file, %s.", "error.inp");
@@ -1485,7 +1505,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			if (use.irrev_in == TRUE)
 			{
-				dump_reaction(use.n_mix_user);
+				dump_reaction(use.n_irrev_user);
 			}
 			if (use.kinetics_ptr != NULL)
 			{
@@ -1522,6 +1542,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			}
 			output_msg(OUTPUT_DUMP, "END\n");
 		}
+#endif
 		/* if (state == TRANSPORT && dump_modulus == 0) dump(); */
 		check_residuals();
 		pr.all = TRUE;
