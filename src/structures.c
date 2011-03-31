@@ -3021,6 +3021,7 @@ master_bsearch_secondary(char *ptr)
 	char *ptr1;
 	char elt[MAX_LENGTH];
 	struct master *master_ptr_primary, *master_ptr, *master_ptr_secondary=NULL;
+	int j;
 /*
  *   Find element name
  */
@@ -3049,7 +3050,6 @@ master_bsearch_secondary(char *ptr)
  *  Find secondary master with same species as primary
  */
 	master_ptr = NULL;
-	int j;
 	for (j = master_ptr_primary->number + 1; j < count_master; j++)
 	{
 		if (master[j]->s == master_ptr_primary->s)
