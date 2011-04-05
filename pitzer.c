@@ -837,10 +837,6 @@ calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR)
 	LDBLE param;
 	/*
 	 */
-	if (pz_ptr->a[5] != 0)
-	{
-		fprintf(stderr,"%e\n", pz_ptr->a[5]);
-	}
 	if (fabs(TK - TR) < 0.001)
 	{
 		param = pz_ptr->a[0];
@@ -1049,16 +1045,22 @@ pitzer(void)
 			OSMOT += M[i0] * M[i1] * param;
 			break;
 		case TYPE_B1:
-			F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
-			LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
-			LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
-			OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
+			if (param != 0.0)
+			{
+				F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
+				LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
+				LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
+				OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
+			}
 			break;
 		case TYPE_B2:
-			F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
-			LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
-			LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
-			OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
+			if (param != 0.0)
+			{
+				F += M[i0] * M[i1] * param * GP(l_alpha * DI) / I;
+				LGAMMA[i0] += M[i1] * 2.0 * param * G(l_alpha * DI);
+				LGAMMA[i1] += M[i0] * 2.0 * param * G(l_alpha * DI);
+				OSMOT += M[i0] * M[i1] * param * exp(-l_alpha * DI);
+			}
 			break;
 		case TYPE_C0:
 			CSUM +=
@@ -1324,7 +1326,13 @@ LDBLE CLASS_QUALIFIER
 G(LDBLE L_Y)
 /* ---------------------------------------------------------------------- */
 {
-	return (2.0e0 * (1.0e0 - (1.0e0 + L_Y) * exp(-L_Y)) / (L_Y * L_Y));
+	LDBLE d=0.0;
+	if (L_Y != 0.0)
+	{
+		d = 2.0e0 * (1.0e0 - (1.0e0 + L_Y) * exp(-L_Y)) / (L_Y * L_Y);
+	}
+
+	return (d);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1332,8 +1340,13 @@ LDBLE CLASS_QUALIFIER
 GP(LDBLE L_Y)
 /* ---------------------------------------------------------------------- */
 {
-	return (-2.0e0 * (1.0e0 - (1.0e0 + L_Y + L_Y * L_Y / 2.0e0) * exp(-L_Y)) /
-			(L_Y * L_Y));
+	LDBLE d=0.0;
+	if (L_Y != 0.0)
+	{
+		d = -2.0e0 * (1.0e0 - (1.0e0 + L_Y + L_Y * L_Y / 2.0e0) * exp(-L_Y)) /
+			(L_Y * L_Y);
+	}
+	return d;
 }
 
 #ifdef SKIP
