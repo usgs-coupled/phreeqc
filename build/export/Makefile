@@ -25,10 +25,10 @@ IPHREEQC_WIN32_ZIP_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*win32.zip 
 IPHREEQC_WIN32_ZIP_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN32_ZIP_FILE)" | awk '{print $$1}')
 
 #64-bit Windows library module
-IPHREEQC_X64_ZIP_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*x64.zip | awk '{if (NR == 1) {print}}')
-IPHREEQC_X64_ZIP_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_ZIP_FILE)" | awk '{print $$1}')
 IPHREEQC_X64_7Z_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*x64.7z | awk '{if (NR == 1) {print}}')
 IPHREEQC_X64_7Z_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_7Z_FILE)" | awk '{print $$1}')
+IPHREEQC_X64_ZIP_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*x64.zip | awk '{if (NR == 1) {print}}')
+IPHREEQC_X64_ZIP_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_ZIP_FILE)" | awk '{print $$1}')
 
 
 #Source Windows library module
@@ -440,6 +440,7 @@ web:
 	install --mode=664 $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
 	install -T --mode=664 $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
 	install --mode=664 $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 ./status.htm $(HTML_PHREEQC)
 
 # PHREEQCI
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
