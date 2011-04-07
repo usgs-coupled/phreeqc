@@ -10,6 +10,41 @@ HTML_PHREEQCI:=$(HTML_HOME)/phreeqci
 HTML_PHAST:=$(HTML_HOME)/phast
 HTML_NETPATH:=$(HTML_HOME)/netpath
 
+#IPhreeqc versions
+IPHREEQC_DIR:=$(CHARLTON)/iphreeqc
+IPHREEQC_PUB_DIR:=$(FTP_CHARLTON)/iphreeqc
+
+#Linux module
+IPHREEQC_LINUX_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t iphreeqc*.gz | awk '{if (NR == 1) {print}}')
+IPHREEQC_LINUX_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_LINUX_FILE)" | awk '{print $$1}')
+
+#32-bit Windows library module
+IPHREEQC_WIN32_7Z_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*win32.7z | awk '{if (NR == 1) {print}}')
+IPHREEQC_WIN32_7Z_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN32_7Z_FILE)" | awk '{print $$1}')
+IPHREEQC_WIN32_ZIP_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*win32.zip | awk '{if (NR == 1) {print}}')
+IPHREEQC_WIN32_ZIP_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN32_ZIP_FILE)" | awk '{print $$1}')
+
+#64-bit Windows library module
+IPHREEQC_X64_ZIP_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*x64.zip | awk '{if (NR == 1) {print}}')
+IPHREEQC_X64_ZIP_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_ZIP_FILE)" | awk '{print $$1}')
+IPHREEQC_X64_7Z_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqc*x64.7z | awk '{if (NR == 1) {print}}')
+IPHREEQC_X64_7Z_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_7Z_FILE)" | awk '{print $$1}')
+
+
+#Source Windows library module
+#IPHREEQC_WIN_SOURCE_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t iphreeqc*.zip | awk '{if (NR == 1) {print}}')
+#IPHREEQC_WIN_SOURCE_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN_SOURCE_FILE)" | awk '{print $$1}')
+
+#32-bit Windows COM
+IPHREEQC_WIN32_COM_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqcCOM*win32.msi | awk '{if (NR == 1) {print}}')
+IPHREEQC_WIN32_COM_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN32_COM_FILE)" | awk '{print $$1}')
+
+#64-bit Windows COM
+IPHREEQC_X64_COM_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqcCOM*x64.msi | awk '{if (NR == 1) {print}}')
+IPHREEQC_X64_COM_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_COM_FILE)" | awk '{print $$1}')
+
+
+
 #PhreeqcI version
 
 PHREEQCI_DIR:=$(CHARLTON)/phreeqci
@@ -171,8 +206,25 @@ NETPATHWIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(NETPATHWIN_DIR)/$(NE
 
 SED_ARGS= \
 	-e "s^@FTP_GEOCHEM@^$(FTP_GEOCHEM)^"  \
+	-e "s^@IPHREEQC_PUB_DIR@^$(IPHREEQC_PUB_DIR)^g" \
+	-e "s^@IPHREEQC_LINUX_FILE@^$(IPHREEQC_LINUX_FILE)^g" \
+	-e "s^@IPHREEQC_LINUX_SIZE@^$(IPHREEQC_LINUX_SIZE)^g" \
+	-e "s^@IPHREEQC_WIN32_ZIP_FILE@^$(IPHREEQC_WIN32_ZIP_FILE)^g" \
+	-e "s^@IPHREEQC_WIN32_ZIP_SIZE@^$(IPHREEQC_WIN32_ZIP_SIZE)^g" \
+	-e "s^@IPHREEQC_WIN32_7Z_FILE@^$(IPHREEQC_WIN32_7Z_FILE)^g" \
+	-e "s^@IPHREEQC_WIN32_7Z_SIZE@^$(IPHREEQC_WIN32_7Z_SIZE)^g" \
+	-e "s^@IPHREEQC_X64_ZIP_FILE@^$(IPHREEQC_X64_ZIP_FILE)^g" \
+	-e "s^@IPHREEQC_X64_ZIP_SIZE@^$(IPHREEQC_X64_ZIP_SIZE)^g" \
+	-e "s^@IPHREEQC_X64_7Z_FILE@^$(IPHREEQC_X64_7Z_FILE)^g" \
+	-e "s^@IPHREEQC_X64_7Z_SIZE@^$(IPHREEQC_X64_7Z_SIZE)^g" \
+	-e "s^@IPHREEQC_WIN_SOURCE_FILE@^$(IPHREEQC_WIN_SOURCE_FILE)^g" \
+	-e "s^@IPHREEQC_WIN_SOURCE_SIZE@^$(IPHREEQC_WIN_SOURCE_SIZE)^g" \
+	-e "s^@IPHREEQC_WIN32_COM_FILE@^$(IPHREEQC_WIN32_COM_FILE)^g" \
+	-e "s^@IPHREEQC_WIN32_COM_SIZE@^$(IPHREEQC_WIN32_COM_SIZE)^g" \
+	-e "s^@IPHREEQC_X64_COM_FILE@^$(IPHREEQC_X64_COM_FILE)^g" \
+	-e "s^@IPHREEQC_X64_COM_SIZE@^$(IPHREEQC_X64_COM_SIZE)^g" \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
-	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^" \
+	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^g" \
 	-e "s^@PHREEQCI_VERSION@^$(PHREEQCI_VERSION)^" \
 	-e "s^@PHREEQCI_SVN@^$(PHREEQCI_SVN)^" \
 	-e "s^@PHREEQCI_DATE@^$(PHREEQCI_DATE)^" \
@@ -183,25 +235,25 @@ SED_ARGS= \
 	-e "s^@PFW_PUB_DIR@^$(PFW_PUB_DIR)^" \
 	-e "s^@PFW_FILE@^$(PFW_FILE)^" \
 	-e "s^@PHREEQC_WIN_PUB_DIR@^$(PHREEQC_WIN_PUB_DIR)^" \
-	-e "s^@PHREEQC_WIN_FILE@^$(PHREEQC_WIN_FILE)^" \
+	-e "s^@PHREEQC_WIN_FILE@^$(PHREEQC_WIN_FILE)^g" \
 	-e "s^@PHREEQC_WIN_VERSION@^$(PHREEQC_WIN_VERSION)^" \
 	-e "s^@PHREEQC_WIN_SVN@^$(PHREEQC_WIN_SVN)^" \
 	-e "s^@PHREEQC_WIN_DATE@^$(PHREEQC_WIN_DATE)^" \
 	-e "s^@PHREEQC_WIN_SIZE@^$(PHREEQC_WIN_SIZE)^" \
 	-e "s^@PHREEQC_LINUX_PUB_DIR@^$(PHREEQC_LINUX_PUB_DIR)^" \
-	-e "s^@PHREEQC_LINUX_FILE@^$(PHREEQC_LINUX_FILE)^" \
+	-e "s^@PHREEQC_LINUX_FILE@^$(PHREEQC_LINUX_FILE)^g" \
 	-e "s^@PHREEQC_LINUX_VERSION@^$(PHREEQC_LINUX_VERSION)^" \
 	-e "s^@PHREEQC_LINUX_SVN@^$(PHREEQC_LINUX_SVN)^" \
 	-e "s^@PHREEQC_LINUX_DATE@^$(PHREEQC_LINUX_DATE)^" \
 	-e "s^@PHREEQC_LINUX_SIZE@^$(PHREEQC_LINUX_SIZE)^" \
 	-e "s^@PHREEQC_SOURCE_PUB_DIR@^$(PHREEQC_SOURCE_PUB_DIR)^" \
-	-e "s^@PHREEQC_SOURCE_FILE@^$(PHREEQC_SOURCE_FILE)^" \
+	-e "s^@PHREEQC_SOURCE_FILE@^$(PHREEQC_SOURCE_FILE)^g" \
 	-e "s^@PHREEQC_SOURCE_VERSION@^$(PHREEQC_SOURCE_VERSION)^" \
 	-e "s^@PHREEQC_SOURCE_SVN@^$(PHREEQC_SOURCE_SVN)^" \
 	-e "s^@PHREEQC_SOURCE_DATE@^$(PHREEQC_SOURCE_DATE)^" \
 	-e "s^@PHREEQC_SOURCE_SIZE@^$(PHREEQC_SOURCE_SIZE)^" \
 	-e "s^@PHREEQC_MAC_PUB_DIR@^$(PHREEQC_MAC_PUB_DIR)^" \
-	-e "s^@PHREEQC_MAC_FILE@^$(PHREEQC_MAC_FILE)^" \
+	-e "s^@PHREEQC_MAC_FILE@^$(PHREEQC_MAC_FILE)^g" \
 	-e "s^@PHREEQC_MAC_VERSION@^$(PHREEQC_MAC_VERSION)^" \
 	-e "s^@PHREEQC_MAC_SVN@^$(PHREEQC_MAC_SVN)^" \
 	-e "s^@PHREEQC_MAC_DATE@^$(PHREEQC_MAC_DATE)^" \

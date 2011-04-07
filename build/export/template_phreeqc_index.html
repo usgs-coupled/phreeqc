@@ -79,6 +79,7 @@ Version 2.13:
 CD-MUSIC surface complexation (PHREEQC and PHAST).
 1D transport with multicomponent diffusion (PHREEQC only).
 </p>
+<!--
 <p>
 Version 2.14: Maintenance. Update to gcc 4.1.2, HDF 1.6.5 (PHAST,
 Model Viewer),
@@ -88,12 +89,20 @@ MPICH2 (PHAST Windows). Optimizations.
 Version 2.15: Hash compatibility with Linux C libraries,
 CVODE options, interface to NetpathXL.
 </p>
+-->
 <p>
 Version 2.17: SIT (Specific Interaction Theory) aqueous model;
 additional term for log K and parameter temperature expressions;
 active-fraction exchange model; precipitate only option for
 EQUILIBRIUM_PHASES. PhreeqcI updated for all PITZER, SIT, and
 TRANSPORT capabilities; bug fixes.
+
+<p>
+Version 2.18: IPhreeqc modules: Windows COM for use with Excel, Matlab,
+Python; and Library/DLL for Fortran, C, C++ on Windows or Linux.
+</p>
+
+
 </p>
 
 	</DL>
@@ -108,43 +117,158 @@ retrieved files. Thus, running gunzip as stated in the installation
 instructions may be unnecessary.
 </p>
 
-	<DT><dd>
-	Graphical User Interfaces
+<!-- Start of new Download -->
 
-	<DT><dd>
-	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@PHREEQCI_PUB_DIR@/@PHREEQCI_FILE@"> 
-    PhreeqcI Version @PHREEQCI_VERSION@, @PHREEQCI_DATE@, (@PHREEQCI_SIZE@)</A>
+        <TABLE BORDER=1 CELLPADDING=5 style="font-size:90%">
+		 <TR>
+		  <TH colspan=5 bgcolor=#d3d3d3>Graphical User Interfaces</TH>
+		 </TR>
+		 <TR>
+		  <TH>Platform</TH>
+		  <TH>Processor</TH>
+		  <TH>File names</TH>
+		  <TH>Size</TH>
+		  <TH>Notes</TH>
+		 </TR>
+		 <TR>
+		  <TD ROWSPAN=2>Windows</TD>
+		  <TD ROWSPAN=2>32-bit</TD>
+		  <TD><A HREF="@PHREEQCI_PUB_DIR@/@PHREEQCI_FILE@">@PHREEQCI_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@PHREEQCI_SIZE@</TD>
+		  <TD>Executable, source, database files, examples, PDF documentation</TD>
+		 </TR>
+		 <TR>
+		  <TD><A HREF="http://pfw.antipodes.nl">PHREEQC for Windows</A></TD>
+		  <TD ALIGN=RIGHT>--</TD>
+		  <TD>PHREEQC for Windows Home Page</TD>
+		 </TR>
+		<!--
+		</TABLE>
+		-->
 
-	<DT><dd>
-    <!--<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="http://www.geo.vu.nl/users/posv/phreeqc/index.html"> 
-      PHREEQC for Windows Home Page</A>-->
-    <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="http://pfw.antipodes.nl"> 
-      PHREEQC for Windows Home Page</A>
-    <!--PHREEQC for Windows version @PFW_VERSION@, @PFW_DATE@ (@PFW_SIZE@)</A> (Local copy for download to <A HREF="@PFW_PUB_DIR@/@PFW_FILE@"> US</A>)-->
-	<H4></H4>
-        <DT><dd>
-	Batch Versions
-	<DT><dd>
-	<img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@PHREEQC_WIN_PUB_DIR@/@PHREEQC_WIN_FILE@">
-	Windows version @PHREEQC_WIN_VERSION@, @PHREEQC_WIN_DATE@, (@PHREEQC_WIN_SIZE@)--Batch version: Executable, source, database files, examples, PDF documentation</A>
+		<!--
+        <H4>Batch Versions</H4>
+        <BR>
+        <BR>
+        -->
 
-	<DT><dd>
-    <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@PHREEQC_LINUX_PUB_DIR@/@PHREEQC_LINUX_FILE@"> 
-    Linux version @PHREEQC_LINUX_VERSION@, @PHREEQC_LINUX_DATE@, (@PHREEQC_LINUX_SIZE@)--Executable, source, database files, examples, PDF documentation</A>
+		<!--
+        <TABLE BORDER=1 CELLPADDING=5>
+        -->
+		 <TR>
+		  <TH colspan=5 bgcolor=#d3d3d3>Batch Versions</TH>
+		 </TR>
+		 <TR>
+		  <TH>Platform</TH>
+		  <TH>Processor</TH>
+		  <TH>File names</TH>
+		  <TH>Size</TH>
+		  <TH>Notes</TH>
+		 </TR>
+		 <TR>
+		  <TD ROWSPAN=2>Linux</TD>
+		  <TD>32-bit</TD>
+		  <TD nowrap="true"><A HREF="@PHREEQC_LINUX_PUB_DIR@/@PHREEQC_LINUX_FILE@">@PHREEQC_LINUX_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@PHREEQC_LINUX_SIZE@</TD>
+		  <TD>Executable, source, database files, examples, PDF documentation</TD>
+		 </TR>
+		 <TR>
+		  <TD>Source</TD>
+		  <TD nowrap="true"><A HREF="@PHREEQC_SOURCE_PUB_DIR@/@PHREEQC_SOURCE_FILE@">@PHREEQC_SOURCE_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@PHREEQC_SOURCE_SIZE@</TD>
+		  <TD>Source, database files, examples, PDF documentation</TD>
+		 </TR>
+		 <TR>
+		  <TD>Mac OS</TD>
+		  <TD>32-bit</TD>
+		  <TD nowrap="true"><A HREF="@PHREEQC_MAC_PUB_DIR@/@PHREEQC_MAC_FILE@">@PHREEQC_MAC_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@PHREEQC_MAC_SIZE@</TD>
+		  <TD>Executable (Universal Binary), database files, examples, and PDF documentation</TD>
+		 </TR>
+		 <TR>
+		  <TD>Windows</TD>
+		  <TD>32-bit</TD>
+		  <TD nowrap="true"><A HREF="@PHREEQC_WIN_PUB_DIR@/@PHREEQC_WIN_FILE@">@PHREEQC_WIN_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>3.3M</TD>
+		  <TD>Executable, source, database files, examples, PDF documentation</TD>
+		 </TR>
+		<!--
+		</TABLE>
+		-->
 
-	<DT><dd>
-    <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@PHREEQC_SOURCE_PUB_DIR@/@PHREEQC_SOURCE_FILE@">
-    Generic Unix version @PHREEQC_SOURCE_VERSION@, @PHREEQC_SOURCE_DATE@, (@PHREEQC_SOURCE_SIZE@)--Source, database files, examples, PDF documentation</A>
+		<!--
+		<H4>Modules</H4>
+        <BR>
+        <BR>
+		-->
 
-	<DT><dd>
-    <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@PHREEQC_MAC_PUB_DIR@/@PHREEQC_MAC_FILE@"> 
-    Mac version for OS X (10.4 or later), @PHREEQC_MAC_VERSION@, @PHREEQC_MAC_DATE@,
-    (@PHREEQC_MAC_SIZE@)--Executable (Universal Binary), data base files, examples, and PDF documentation</A>
+		<!--
+        <TABLE BORDER=1 CELLPADDING=5>
+        -->
+		 <TR>
+		  <TH colspan=5 bgcolor=#d3d3d3>Modules</TH>
+		 </TR>
+		 <TR>
+		  <TH>Platform</TH>
+		  <TH>Processor</TH>
+		  <TH>File names</TH>
+		  <TH>Size</TH>
+		  <TH>Notes</TH>
+		 </TR>
+		 <TR>
+		  <TD>Any</TD>
+		  <TD>Any</TD>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_LINUX_FILE@">@IPHREEQC_LINUX_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_LINUX_SIZE@</TD>
+		  <TD>Source with configure and VS2005 project file</TD>
+		 </TR>
+		 <TR>
+		  <TD ROWSPAN=4>Windows</TD>
+		  <TD ROWSPAN=2>32-bit</TD>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_WIN32_7Z_FILE@">@IPHREEQC_WIN32_7Z_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_WIN32_7Z_SIZE@</TD>
+		  <TD>Static and Dynamic (DLL) Libraries (VS2005)</TD>
+		 </TR>
+		 <TR>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_WIN32_ZIP_FILE@">@IPHREEQC_WIN32_ZIP_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_WIN32_ZIP_SIZE@</TD>
+		  <TD>Static and Dynamic (DLL) Libraries (VS2005)</TD>
+		 </TR>
+		 <TR>
+		  <TD ROWSPAN=2>64-bit</TD>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_X64_7Z_FILE@">@IPHREEQC_X64_7Z_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_X64_7Z_SIZE@</TD>
+		  <TD>Static and Dynamic (DLL) Libraries (VS2005)</TD>
+		 </TR>
+		 <TR>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_X64_ZIP_FILE@">@IPHREEQC_X64_ZIP_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_X64_ZIP_SIZE@</TD>
+		  <TD>Static and Dynamic (DLL) Libraries (VS2005)</TD>
+		 </TR>
+
+		 <TR>
+		  <TD ROWSPAN=2>Windows COM</TD>
+		  <TD>32-bit</TD>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_WIN32_COM_FILE@">@IPHREEQC_WIN32_COM_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_WIN32_COM_SIZE@</TD>
+		  <TD>COM Server, CHM documentation</TD>
+		 </TR>
+		 <TR>
+		  <TD>64-bit*</TD>
+		  <TD nowrap="true"><A HREF="@IPHREEQC_PUB_DIR@/@IPHREEQC_X64_COM_FILE@">@IPHREEQC_X64_COM_FILE@</A></TD>
+		  <TD ALIGN=RIGHT>@IPHREEQC_X64_COM_SIZE@</TD>
+		  <TD>COM Server, CHM documentation</TD>
+		 </TR>
+		</TABLE>
+		* -- Both 32-bit and 64-bit COM versions should be installed on 64-bit versions of Windows
+
+<!-- End of new Download -->
 
 	<H4></H4>
 	<DT><dd>
 	Documentation
 
+<!-- NOT USED ANYMORE
 	<DT><dd>
     <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@FTP_GEOCHEM@/unix/phreeqc/manual.ps.gz"> 
     PHREEQC Postscript Documentation, compressed tar file (1.1M)</A>
@@ -152,6 +276,7 @@ instructions may be unnecessary.
 	<DT><dd>
     <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@FTP_GEOCHEM@/pc/phreeqc/manps.exe"> 
     PHREEQC Postscript Documentation, self-extracting executable file (1.1M)</A>
+-->
 
 	<DT><dd>
     <img alt="Bullet" border="0" src="../images/g_yellow_on.gif" width="12" height="12"><A HREF="@FTP_GEOCHEM@/unix/phreeqc/manual.pdf"> 
