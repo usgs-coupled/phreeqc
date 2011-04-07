@@ -150,9 +150,9 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 Bischofite           Element not present.    0.000e+00           0   0.000e+00
 Carnallite           Element not present.    0.000e+00           0   0.000e+00
 Epsomite             Element not present.    0.000e+00           0   0.000e+00
-Halite              -0.00    1.57    1.57    1.000e+01   4.925e+00  -5.075e+00
+Halite               0.00    1.57    1.57    1.000e+01   4.925e+00  -5.075e+00
 Kieserite            Element not present.    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   7.866e+00  -2.134e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   7.866e+00  -2.134e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -205,8 +205,8 @@ Na               5.075e+00
 	Phase               SI log IAP  log KT
 
 	H2O(g)           -1.65   -0.14    1.51  H2O
-	Halite           -0.00    1.57    1.57  NaCl
-	Sylvite          -0.00    0.90    0.90  KCl
+	Halite            0.00    1.57    1.57  NaCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -318,7 +318,7 @@ Carnallite          -2.20    2.13    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.73   -2.61   -1.88    0.000e+00           0   0.000e+00
 Halite              -0.00    1.57    1.57    1.000e+01   5.707e+00  -4.293e+00
 Kieserite           -1.55   -1.68   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   7.841e+00  -2.159e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   7.841e+00  -2.159e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -343,10 +343,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   7.841e+00  -2.159e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.346e-10
+                  Electrical balance (eq)  =  -4.523e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  31
-                         Gamma iterations  =   7
+                               Iterations  =  42
+                         Gamma iterations  =   9
                       Osmotic coefficient  =   1.33598
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -396,7 +396,7 @@ S(6)             1.000e+00
 	Misenite        -36.34  -47.15  -10.81  K8H6(SO4)7
 	Pentahydrite     -1.02   -2.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.02   -4.35   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -506,9 +506,9 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 Bischofite          -2.85    1.61    4.46    0.000e+00           0   0.000e+00
 Carnallite          -1.82    2.51    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.24   -2.12   -1.88    0.000e+00           0   0.000e+00
-Halite               0.00    1.57    1.57    1.000e+01   6.513e+00  -3.487e+00
+Halite              -0.00    1.57    1.57    1.000e+01   6.513e+00  -3.487e+00
 Kieserite           -0.97   -1.09   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   7.843e+00  -2.157e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   7.843e+00  -2.157e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -533,10 +533,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   7.843e+00  -2.157e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.806e-10
+                  Electrical balance (eq)  =  -4.683e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  40
-                         Gamma iterations  =  10
+                               Iterations  =  35
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   1.43299
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -576,7 +576,7 @@ S(6)             2.000e+00
 	Epsomite         -0.24   -2.12   -1.88  MgSO4:7H2O
 	Glaserite         0.95   -2.85   -3.80  NaK3(SO4)2
 	H2O(g)           -1.68   -0.17    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.32   -1.95   -1.63  MgSO4:6H2O
 	Kainite          -0.34   -0.54   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.97   -1.09   -0.12  MgSO4:H2O
@@ -586,7 +586,7 @@ S(6)             2.000e+00
 	Misenite        -34.44  -45.24  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.50   -1.78   -1.28  MgSO4:5H2O
 	Schoenite         0.61   -3.71   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -698,7 +698,7 @@ Carnallite          -1.58    2.75    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   2.698e-01   2.698e-01
 Halite              -0.00    1.57    1.57    1.000e+01   7.259e+00  -2.741e+00
 Kieserite           -0.64   -0.76   -0.12    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   7.929e+00  -2.071e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   7.929e+00  -2.071e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -776,7 +776,7 @@ S(6)             2.826e+00
 	Misenite        -33.62  -44.42  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.22   -1.51   -1.28  MgSO4:5H2O
 	Schoenite         0.89   -3.44   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite          -0.00    0.90    0.90  KCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -885,10 +885,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -2.60    1.85    4.46    0.000e+00           0   0.000e+00
 Carnallite          -1.58    2.75    4.33    0.000e+00           0   0.000e+00
-Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.824e+00   1.824e+00
-Halite              -0.00    1.57    1.57    1.000e+01   7.815e+00  -2.185e+00
+Epsomite             0.00   -1.88   -1.88    0.000e+00   1.824e+00   1.824e+00
+Halite               0.00    1.57    1.57    1.000e+01   7.815e+00  -2.185e+00
 Kieserite           -0.64   -0.76   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   8.349e+00  -1.651e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   8.349e+00  -1.651e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -913,9 +913,9 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.349e+00  -1.651e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.761e-10
+                  Electrical balance (eq)  =  -4.726e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  47
+                               Iterations  =  49
                          Gamma iterations  =  10
                       Osmotic coefficient  =   1.52610
                          Density of water  =   0.99706
@@ -953,10 +953,10 @@ S(6)             2.826e+00
 	Bloedite          0.62   -1.73   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -5.59  -16.47  -10.88  Mg(OH)2
 	Carnallite       -1.58    2.75    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite         0.98   -2.83   -3.80  NaK3(SO4)2
 	H2O(g)           -1.70   -0.19    1.51  H2O
-	Halite           -0.00    1.57    1.57  NaCl
+	Halite            0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.06   -1.69   -1.63  MgSO4:6H2O
 	Kainite          -0.04   -0.24   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.64   -0.76   -0.12  MgSO4:H2O
@@ -966,7 +966,7 @@ S(6)             2.826e+00
 	Misenite        -33.62  -44.42  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.22   -1.51   -1.28  MgSO4:5H2O
 	Schoenite         0.89   -3.44   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -1075,10 +1075,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -2.60    1.85    4.46    0.000e+00           0   0.000e+00
 Carnallite          -1.58    2.75    4.33    0.000e+00           0   0.000e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   3.378e+00   3.378e+00
-Halite               0.00    1.57    1.57    1.000e+01   8.371e+00  -1.629e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   3.378e+00   3.378e+00
+Halite              -0.00    1.57    1.57    1.000e+01   8.371e+00  -1.629e+00
 Kieserite           -0.64   -0.76   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   8.769e+00  -1.231e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   8.769e+00  -1.231e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -1103,10 +1103,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.769e+00  -1.231e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.698e-10
+                  Electrical balance (eq)  =  -4.696e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  98
-                         Gamma iterations  =  21
+                               Iterations  = 101
+                         Gamma iterations  =  20
                       Osmotic coefficient  =   1.52610
                          Density of water  =   0.99706
                                   Total H  = 6.372730e+01
@@ -1143,10 +1143,10 @@ S(6)             2.826e+00
 	Bloedite          0.62   -1.73   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -5.59  -16.47  -10.88  Mg(OH)2
 	Carnallite       -1.58    2.75    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite         0.98   -2.83   -3.80  NaK3(SO4)2
 	H2O(g)           -1.70   -0.19    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.06   -1.69   -1.63  MgSO4:6H2O
 	Kainite          -0.04   -0.24   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.64   -0.76   -0.12  MgSO4:H2O
@@ -1156,7 +1156,7 @@ S(6)             2.826e+00
 	Misenite        -33.62  -44.42  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.22   -1.51   -1.28  MgSO4:5H2O
 	Schoenite         0.89   -3.44   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -1298,10 +1298,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   8.223e+00  -1.777e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.977e-09
+                  Electrical balance (eq)  =  -2.570e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  20
-                         Gamma iterations  =   6
+                               Iterations  =  24
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   1.42063
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -1472,10 +1472,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   8.274e+00  -1.726e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.676e-10
+                  Electrical balance (eq)  =  -4.426e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  36
-                         Gamma iterations  =   9
+                               Iterations  =  34
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   1.54709
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -1662,9 +1662,9 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.380e+00  -1.620e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.682e-10
+                  Electrical balance (eq)  =  -2.667e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  39
+                               Iterations  =  35
                          Gamma iterations  =   9
                       Osmotic coefficient  =   1.68282
                          Density of water  =   0.99706
@@ -1825,7 +1825,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 Bischofite          -2.24    2.22    4.46    0.000e+00           0   0.000e+00
 Carnallite          -1.21    3.12    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.632e+00   1.632e+00
-Halite              -0.00    1.57    1.57    1.000e+01   8.418e+00  -1.582e+00
+Halite               0.00    1.57    1.57    1.000e+01   8.418e+00  -1.582e+00
 Kieserite           -0.60   -0.72   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   8.781e+00  -1.219e+00
 
@@ -1852,10 +1852,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.781e+00  -1.219e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.695e-10
+                  Electrical balance (eq)  =  -1.303e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  34
-                         Gamma iterations  =   9
+                               Iterations  = 102
+                         Gamma iterations  =  18
                       Osmotic coefficient  =   1.73055
                          Density of water  =   0.99706
                                   Total H  = 8.816518e+01
@@ -1895,7 +1895,7 @@ S(6)             1.723e+00
 	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite         0.27   -3.54   -3.80  NaK3(SO4)2
 	H2O(g)           -1.70   -0.19    1.51  H2O
-	Halite           -0.00    1.57    1.57  NaCl
+	Halite            0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.05   -1.69   -1.63  MgSO4:6H2O
 	Kainite          -0.01   -0.21   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.60   -0.72   -0.12  MgSO4:H2O
@@ -2017,7 +2017,7 @@ Carnallite          -1.07    3.26    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   3.107e+00   3.107e+00
 Halite              -0.00    1.57    1.57    1.000e+01   8.960e+00  -1.040e+00
 Kieserite           -0.56   -0.69   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   9.170e+00  -8.297e-01
+Sylvite             -0.00    0.90    0.90    1.000e+01   9.170e+00  -8.297e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2042,10 +2042,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.170e+00  -8.297e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.600e-10
+                  Electrical balance (eq)  =  -4.594e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  66
-                         Gamma iterations  =  13
+                               Iterations  =  52
+                         Gamma iterations  =   9
                       Osmotic coefficient  =   1.81701
                          Density of water  =   0.99706
                                   Total H  = 6.751898e+01
@@ -2095,7 +2095,7 @@ S(6)             1.469e+00
 	Misenite        -34.06  -44.87  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.20   -1.48   -1.28  MgSO4:5H2O
 	Schoenite         0.40   -3.93   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -2204,10 +2204,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.79    2.67    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.76    3.57    4.33    0.000e+00           0   0.000e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   4.518e+00   4.518e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   4.518e+00   4.518e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.474e+00  -5.258e-01
 Kieserite           -0.46   -0.58   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   9.538e+00  -4.625e-01
+Sylvite             -0.00    0.90    0.90    1.000e+01   9.538e+00  -4.625e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -2272,7 +2272,7 @@ S(6)             1.121e+00
 	Bloedite         -0.07   -2.42   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.23  -17.11  -10.88  Mg(OH)2
 	Carnallite       -0.76    3.57    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -0.59   -4.39   -3.80  NaK3(SO4)2
 	H2O(g)           -1.73   -0.22    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -2285,7 +2285,7 @@ S(6)             1.121e+00
 	Misenite        -34.38  -45.19  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.16   -1.45   -1.28  MgSO4:5H2O
 	Schoenite         0.13   -4.20   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -2576,7 +2576,7 @@ Carnallite          -1.00    3.33    4.33    0.000e+00           0   0.000e+00
 Epsomite            -0.12   -2.00   -1.88    0.000e+00           0   0.000e+00
 Halite              -0.00    1.57    1.57    1.000e+01   8.395e+00  -1.605e+00
 Kieserite           -0.68   -0.80   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   8.755e+00  -1.245e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   8.755e+00  -1.245e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -2601,10 +2601,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.755e+00  -1.245e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.536e-09
+                  Electrical balance (eq)  =  -1.389e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  34
-                         Gamma iterations  =   8
+                               Iterations  =  36
+                         Gamma iterations  =   9
                       Osmotic coefficient  =   1.85606
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -2654,7 +2654,7 @@ S(6)             1.000e+00
 	Misenite        -34.74  -45.54  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.32   -1.60   -1.28  MgSO4:5H2O
 	Schoenite         0.10   -4.23   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -2764,7 +2764,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 Bischofite          -1.80    2.65    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.78    3.55    4.33    0.000e+00           0   0.000e+00
 Epsomite             0.00   -1.88   -1.88    0.000e+00   1.010e+00   1.010e+00
-Halite              -0.00    1.57    1.57    1.000e+01   8.914e+00  -1.086e+00
+Halite               0.00    1.57    1.57    1.000e+01   8.914e+00  -1.086e+00
 Kieserite           -0.46   -0.59   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   9.050e+00  -9.496e-01
 
@@ -2834,7 +2834,7 @@ S(6)             1.134e+00
 	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -0.56   -4.36   -3.80  NaK3(SO4)2
 	H2O(g)           -1.73   -0.22    1.51  H2O
-	Halite           -0.00    1.57    1.57  NaCl
+	Halite            0.00    1.57    1.57  NaCl
 	Hexahydrite      -0.03   -1.67   -1.63  MgSO4:6H2O
 	Kainite           0.08   -0.12   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.46   -0.59   -0.12  MgSO4:H2O
@@ -2953,7 +2953,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.52    2.94    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.49    3.84    4.33    0.000e+00           0   0.000e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   2.341e+00   2.341e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   2.341e+00   2.341e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.374e+00  -6.257e-01
 Kieserite           -0.33   -0.45   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   9.386e+00  -6.143e-01
@@ -2981,10 +2981,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.386e+00  -6.143e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.907e-10
+                  Electrical balance (eq)  =  -4.567e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  64
-                         Gamma iterations  =  15
+                               Iterations  =  34
+                         Gamma iterations  =   9
                       Osmotic coefficient  =   2.18825
                          Density of water  =   0.99706
                                   Total H  = 7.823862e+01
@@ -3021,7 +3021,7 @@ S(6)             9.351e-01
 	Bloedite         -0.26   -2.61   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.37  -17.25  -10.88  Mg(OH)2
 	Carnallite       -0.49    3.84    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.08   -4.89   -3.80  NaK3(SO4)2
 	H2O(g)           -1.75   -0.24    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -3152,7 +3152,7 @@ Carnallite          -0.01    4.32    4.33    0.000e+00           0   0.000e+00
 Epsomite             0.00   -1.88   -1.88    0.000e+00   3.584e+00   3.584e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.742e+00  -2.582e-01
 Kieserite           -0.02   -0.14   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   9.675e+00  -3.245e-01
+Sylvite             -0.00    0.90    0.90    1.000e+01   9.675e+00  -3.245e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -3177,10 +3177,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.675e+00  -3.245e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.617e-10
+                  Electrical balance (eq)  =  -4.579e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  24
-                         Gamma iterations  =  24
+                               Iterations  =  21
+                         Gamma iterations  =  21
                       Osmotic coefficient  =   2.54015
                          Density of water  =   0.99706
                                   Total H  = 6.083030e+01
@@ -3230,7 +3230,7 @@ S(6)             7.584e-01
 	Misenite        -34.88  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.02   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.47   -4.80   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -3338,8 +3338,8 @@ Reaction 1.	Irreversible reaction defined in simulation 18.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite          -0.00    4.33    4.33    0.000e+00   8.916e-01   8.916e-01
-Epsomite             0.00   -1.88   -1.88    0.000e+00   4.772e+00   4.772e+00
+Carnallite           0.00    4.33    4.33    0.000e+00   8.916e-01   8.916e-01
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   4.772e+00   4.772e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.861e+00  -1.394e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
 Sylvite             -0.00    0.90    0.90    1.000e+01   8.932e+00  -1.068e+00
@@ -3367,9 +3367,9 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   8.932e+00  -1.068e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.663e-10
+                  Electrical balance (eq)  =  -6.830e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  56
+                               Iterations  =  53
                          Gamma iterations  =  12
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
@@ -3406,8 +3406,8 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -3562,10 +3562,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.068e+00  -9.321e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.434e-10
+                  Electrical balance (eq)  =  -4.457e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  30
-                         Gamma iterations  =   8
+                               Iterations  =  25
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   2.03324
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -3708,10 +3708,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.40    3.06    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.37    3.96    4.33    0.000e+00           0   0.000e+00
-Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.409e-01   1.409e-01
+Epsomite             0.00   -1.88   -1.88    0.000e+00   1.409e-01   1.409e-01
 Halite              -0.00    1.57    1.57    1.000e+01   9.252e+00  -7.482e-01
 Kieserite           -0.26   -0.38   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   9.223e+00  -7.773e-01
+Sylvite             -0.00    0.90    0.90    1.000e+01   9.223e+00  -7.773e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -3736,10 +3736,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.223e+00  -7.773e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -6.912e-09
+                  Electrical balance (eq)  =  -6.163e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  51
-                         Gamma iterations  =  11
+                         Gamma iterations  =  12
                       Osmotic coefficient  =   2.27409
                          Density of water  =   0.99706
                                   Total H  = 1.090399e+02
@@ -3776,7 +3776,7 @@ S(6)             8.746e-01
 	Bloedite         -0.33   -2.68   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.43  -17.31  -10.88  Mg(OH)2
 	Carnallite       -0.37    3.96    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.31   -5.11   -3.80  NaK3(SO4)2
 	H2O(g)           -1.76   -0.25    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -3789,7 +3789,7 @@ S(6)             8.746e-01
 	Misenite        -34.71  -45.52  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.10   -1.38   -1.28  MgSO4:5H2O
 	Schoenite        -0.19   -4.52   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -3898,7 +3898,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.05    3.40    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.03    4.30    4.33    0.000e+00           0   0.000e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   1.370e+00   1.370e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.370e+00   1.370e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.602e+00  -3.979e-01
 Kieserite           -0.03   -0.15   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   9.504e+00  -4.958e-01
@@ -3926,10 +3926,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.504e+00  -4.958e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -3.417e-09
+                  Electrical balance (eq)  =  -3.790e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  39
-                         Gamma iterations  =  10
+                               Iterations  =  44
+                         Gamma iterations  =  12
                       Osmotic coefficient  =   2.52891
                          Density of water  =   0.99706
                                   Total H  = 9.183257e+01
@@ -3966,7 +3966,7 @@ S(6)             7.616e-01
 	Bloedite         -0.52   -2.87   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.59  -17.47  -10.88  Mg(OH)2
 	Carnallite       -0.03    4.30    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.92   -5.72   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -4087,9 +4087,9 @@ Reaction 1.	Irreversible reaction defined in simulation 22.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite           0.00    4.33    4.33    0.000e+00   8.491e-01   8.491e-01
+Carnallite          -0.00    4.33    4.33    0.000e+00   8.491e-01   8.491e-01
 Epsomite             0.00   -1.88   -1.88    0.000e+00   2.558e+00   2.558e+00
-Halite               0.00    1.57    1.57    1.000e+01   9.729e+00  -2.705e-01
+Halite              -0.00    1.57    1.57    1.000e+01   9.729e+00  -2.705e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   8.808e+00  -1.192e+00
 
@@ -4116,10 +4116,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.808e+00  -1.192e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.242e-10
+                  Electrical balance (eq)  =  -4.832e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  37
-                         Gamma iterations  =  10
+                               Iterations  =  42
+                         Gamma iterations  =  11
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 6.501670e+01
@@ -4155,11 +4155,11 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
-	Halite            0.00    1.57    1.57  NaCl
+	Halite           -0.00    1.57    1.57  NaCl
 	Hexahydrite       0.05   -1.59   -1.63  MgSO4:6H2O
 	Kainite           0.38    0.19   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.01   -0.13   -0.12  MgSO4:H2O
@@ -4277,9 +4277,9 @@ Reaction 1.	Irreversible reaction defined in simulation 23.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite          -0.00    4.33    4.33    0.000e+00   1.761e+00   1.761e+00
+Carnallite           0.00    4.33    4.33    0.000e+00   1.761e+00   1.761e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   3.745e+00   3.745e+00
-Halite              -0.00    1.57    1.57    1.000e+01   9.844e+00  -1.558e-01
+Halite               0.00    1.57    1.57    1.000e+01   9.844e+00  -1.558e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
 Sylvite              0.00    0.90    0.90    1.000e+01   8.041e+00  -1.959e+00
 
@@ -4306,10 +4306,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.041e+00  -1.959e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.873e-10
+                  Electrical balance (eq)  =  -4.729e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  63
-                         Gamma iterations  =  14
+                               Iterations  =  46
+                         Gamma iterations  =  11
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 3.744425e+01
@@ -4345,11 +4345,11 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
-	Halite           -0.00    1.57    1.57  NaCl
+	Halite            0.00    1.57    1.57  NaCl
 	Hexahydrite       0.05   -1.59   -1.63  MgSO4:6H2O
 	Kainite           0.38    0.19   -0.19  KMgClSO4:3H2O
 	Kieserite        -0.01   -0.13   -0.12  MgSO4:H2O
@@ -4473,11 +4473,11 @@ Reaction 1.	Irreversible reaction defined in simulation 24.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite           0.00    4.33    4.33    0.000e+00   2.673e+00   2.673e+00
-Epsomite            -0.00   -1.88   -1.88    0.000e+00   4.933e+00   4.933e+00
+Carnallite          -0.00    4.33    4.33    0.000e+00   2.673e+00   2.673e+00
+Epsomite             0.00   -1.88   -1.88    0.000e+00   4.933e+00   4.933e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.959e+00  -4.108e-02
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   7.275e+00  -2.725e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   7.275e+00  -2.725e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4504,8 +4504,8 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   7.275e+00  -2.725e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  68
-                         Gamma iterations  =  68
+                               Iterations  =  40
+                         Gamma iterations  =  40
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 9.871793e+00
@@ -4541,8 +4541,8 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -4555,7 +4555,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite          -0.00    0.90    0.90  KCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -4673,7 +4673,7 @@ Carnallite          -0.04    4.29    4.33    0.000e+00           0   0.000e+00
 Epsomite             Element not present.    0.000e+00           0   0.000e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.482e+00  -5.184e-01
 Kieserite            Element not present.    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   9.426e+00  -5.741e-01
+Sylvite             -0.00    0.90    0.90    1.000e+01   9.426e+00  -5.741e-01
 
 -----------------------------Solution composition------------------------------
 
@@ -4697,10 +4697,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   9.426e+00  -5.741e-01
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.564e-10
+                  Electrical balance (eq)  =  -1.316e-08
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  35
-                         Gamma iterations  =   9
+                               Iterations  =  32
+                         Gamma iterations  =   7
                       Osmotic coefficient  =   2.49276
                          Density of water  =   0.99706
                                   Total H  = 1.110124e+02
@@ -4734,7 +4734,7 @@ Na               5.184e-01
 	Carnallite       -0.04    4.29    4.33  KMgCl3:6H2O
 	H2O(g)           -1.79   -0.28    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -4849,10 +4849,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.00    4.33    4.33    0.000e+00   8.066e-01   8.066e-01
-Epsomite             0.00   -1.88   -1.88    0.000e+00   3.432e-01   3.432e-01
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   3.432e-01   3.432e-01
 Halite              -0.00    1.57    1.57    1.000e+01   9.598e+00  -4.017e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   8.684e+00  -1.316e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   8.684e+00  -1.316e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -4879,8 +4879,8 @@ Sylvite              0.00    0.90    0.90    1.000e+01   8.684e+00  -1.316e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  22
-                         Gamma iterations  =  22
+                               Iterations  =  32
+                         Gamma iterations  =  32
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 9.652808e+01
@@ -4917,7 +4917,7 @@ S(6)             7.554e-01
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
 	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -4930,7 +4930,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -5038,8 +5038,8 @@ Reaction 1.	Irreversible reaction defined in simulation 27.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite           0.00    4.33    4.33    0.000e+00   1.719e+00   1.719e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   1.531e+00   1.531e+00
+Carnallite          -0.00    4.33    4.33    0.000e+00   1.719e+00   1.719e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.531e+00   1.531e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.713e+00  -2.869e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
 Sylvite             -0.00    0.90    0.90    1.000e+01   7.918e+00  -2.082e+00
@@ -5067,7 +5067,7 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   7.918e+00  -2.082e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.857e-10
+                  Electrical balance (eq)  =  -5.020e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  87
                          Gamma iterations  =  10
@@ -5106,8 +5106,8 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -5228,11 +5228,11 @@ Reaction 1.	Irreversible reaction defined in simulation 28.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite          -0.00    4.33    4.33    0.000e+00   2.631e+00   2.631e+00
+Carnallite           0.00    4.33    4.33    0.000e+00   2.631e+00   2.631e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   2.718e+00   2.718e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.828e+00  -1.722e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   7.151e+00  -2.849e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   7.151e+00  -2.849e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5257,10 +5257,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   7.151e+00  -2.849e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.691e-10
+                  Electrical balance (eq)  =  -5.997e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  38
-                         Gamma iterations  =   9
+                               Iterations  =  57
+                         Gamma iterations  =  12
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 4.138317e+01
@@ -5296,7 +5296,7 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
@@ -5310,7 +5310,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite          -0.00    0.90    0.90  KCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -5418,11 +5418,11 @@ Reaction 1.	Irreversible reaction defined in simulation 29.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite           0.00    4.33    4.33    0.000e+00   3.543e+00   3.543e+00
+Carnallite          -0.00    4.33    4.33    0.000e+00   3.543e+00   3.543e+00
 Epsomite             0.00   -1.88   -1.88    0.000e+00   3.906e+00   3.906e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.943e+00  -5.747e-02
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite              0.00    0.90    0.90    1.000e+01   6.384e+00  -3.616e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   6.384e+00  -3.616e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5447,10 +5447,10 @@ Sylvite              0.00    0.90    0.90    1.000e+01   6.384e+00  -3.616e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -1.631e-09
+                  Electrical balance (eq)  =  -4.648e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  52
-                         Gamma iterations  =  10
+                               Iterations  = 153
+                         Gamma iterations  =  26
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 1.381072e+01
@@ -5486,7 +5486,7 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
@@ -5500,7 +5500,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -5614,11 +5614,11 @@ Reaction 1.	Irreversible reaction defined in simulation 30.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite           0.00    4.33    4.33    0.000e+00   4.000e+00   4.000e+00
+Carnallite          -0.00    4.33    4.33    0.000e+00   4.000e+00   4.000e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   4.418e+00   4.418e+00
 Halite              -0.00    1.57    1.57    1.000e+01   1.000e+01  -2.814e-09
 Kieserite            0.00   -0.12   -0.12    0.000e+00   5.823e-01   5.823e-01
-Sylvite              0.00    0.90    0.90    1.000e+01   6.000e+00  -4.000e+00
+Sylvite             -0.00    0.90    0.90    1.000e+01   6.000e+00  -4.000e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -5645,12 +5645,12 @@ Sylvite              0.00    0.90    0.90    1.000e+01   6.000e+00  -4.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  = 133
-                         Gamma iterations  = 133
+                               Iterations  = 132
+                         Gamma iterations  = 132
                       Osmotic coefficient  =   2.53913
                          Density of water  =   0.99706
-                                  Total H  = 6.923870e-07
-                                  Total O  = 3.652766e-07
+                                  Total H  = 6.923804e-07
+                                  Total O  = 3.652732e-07
 
 ----------------------------Distribution of species----------------------------
 
@@ -5682,7 +5682,7 @@ S(6)             7.562e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.53   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite           1.56   -9.32  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.96   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
@@ -5696,7 +5696,7 @@ S(6)             7.562e-01
 	Misenite        -59.34  -70.15  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.29   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite           0.00    0.90    0.90  KCl
+	Sylvite          -0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -5848,7 +5848,7 @@ Sylvite              0.00    0.90    0.90    1.000e+01   7.861e+00  -2.139e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.584e-10
+                  Electrical balance (eq)  =  -4.583e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =  19
                          Gamma iterations  =  19
@@ -5993,11 +5993,11 @@ Reaction 1.	Irreversible reaction defined in simulation 32.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite          -0.00    4.33    4.33    0.000e+00   2.588e+00   2.588e+00
-Epsomite             0.00   -1.88   -1.88    0.000e+00   5.040e-01   5.040e-01
+Carnallite           0.00    4.33    4.33    0.000e+00   2.588e+00   2.588e+00
+Epsomite            -0.00   -1.88   -1.88    0.000e+00   5.040e-01   5.040e-01
 Halite              -0.00    1.57    1.57    1.000e+01   9.697e+00  -3.033e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   7.027e+00  -2.973e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   7.027e+00  -2.973e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6022,10 +6022,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   7.027e+00  -2.973e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -5.109e-10
+                  Electrical balance (eq)  =  -1.016e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  61
-                         Gamma iterations  =  11
+                               Iterations  =  76
+                         Gamma iterations  =  14
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 7.289455e+01
@@ -6061,8 +6061,8 @@ S(6)             7.554e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
+	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -6075,7 +6075,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite          -0.00    0.90    0.90  KCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -6184,10 +6184,10 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.00    4.33    4.33    0.000e+00   3.501e+00   3.501e+00
-Epsomite            -0.00   -1.88   -1.88    0.000e+00   1.692e+00   1.692e+00
+Epsomite             0.00   -1.88   -1.88    0.000e+00   1.692e+00   1.692e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.811e+00  -1.886e-01
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
-Sylvite             -0.00    0.90    0.90    1.000e+01   6.260e+00  -3.740e+00
+Sylvite              0.00    0.90    0.90    1.000e+01   6.260e+00  -3.740e+00
 
 -----------------------------Solution composition------------------------------
 
@@ -6212,10 +6212,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   6.260e+00  -3.740e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -7.863e-10
+                  Electrical balance (eq)  =  -5.046e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  75
-                         Gamma iterations  =  14
+                               Iterations  =  48
+                         Gamma iterations  =  10
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 4.532209e+01
@@ -6252,7 +6252,7 @@ S(6)             7.554e-01
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
 	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -6265,7 +6265,7 @@ S(6)             7.554e-01
 	Misenite        -34.89  -45.69  -10.81  K8H6(SO4)7
 	Pentahydrite     -0.01   -1.30   -1.28  MgSO4:5H2O
 	Schoenite        -0.48   -4.81   -4.33  K2Mg(SO4)2:6H2O
-	Sylvite          -0.00    0.90    0.90  KCl
+	Sylvite           0.00    0.90    0.90  KCl
 
 ------------------
 End of simulation.
@@ -6374,7 +6374,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
 Carnallite          -0.00    4.33    4.33    0.000e+00   4.413e+00   4.413e+00
-Epsomite            -0.00   -1.88   -1.88    0.000e+00   2.879e+00   2.879e+00
+Epsomite             0.00   -1.88   -1.88    0.000e+00   2.879e+00   2.879e+00
 Halite              -0.00    1.57    1.57    1.000e+01   9.926e+00  -7.386e-02
 Kieserite           -0.01   -0.13   -0.12    0.000e+00           0   0.000e+00
 Sylvite             -0.00    0.90    0.90    1.000e+01   5.494e+00  -4.506e+00
@@ -6402,10 +6402,10 @@ Sylvite             -0.00    0.90    0.90    1.000e+01   5.494e+00  -4.506e+00
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.654e-10
+                  Electrical balance (eq)  =  -1.147e-09
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  48
-                         Gamma iterations  =   9
+                               Iterations  = 131
+                         Gamma iterations  =  18
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 1.774964e+01
@@ -6442,7 +6442,7 @@ S(6)             7.554e-01
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
 	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
 	Halite           -0.00    1.57    1.57  NaCl
@@ -6600,12 +6600,12 @@ Sylvite              0.00    0.90    0.90    1.000e+01   5.000e+00  -5.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  = 135
-                         Gamma iterations  = 135
+                               Iterations  = 129
+                         Gamma iterations  = 129
                       Osmotic coefficient  =   2.53913
                          Density of water  =   0.99706
-                                  Total H  = 6.923832e-07
-                                  Total O  = 3.652746e-07
+                                  Total H  = 6.923911e-07
+                                  Total O  = 3.652788e-07
 
 ----------------------------Distribution of species----------------------------
 
@@ -6765,7 +6765,7 @@ Reaction 1.	Irreversible reaction defined in simulation 36.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46    0.000e+00           0   0.000e+00
-Carnallite          -0.00    4.33    4.33    0.000e+00   5.000e+00   5.000e+00
+Carnallite           0.00    4.33    4.33    0.000e+00   5.000e+00   5.000e+00
 Epsomite            -0.00   -1.88   -1.88    0.000e+00   3.418e+00   3.418e+00
 Halite              -0.00    1.57    1.57    1.000e+01   1.000e+01  -2.814e-09
 Kieserite            0.00   -0.12   -0.12    0.000e+00   1.582e+00   1.582e+00
@@ -6796,12 +6796,12 @@ Sylvite              0.00    0.90    0.90    1.000e+01   5.000e+00  -5.000e+00
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =  -4.618e-10
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  = 131
-                         Gamma iterations  = 131
+                               Iterations  = 140
+                         Gamma iterations  = 140
                       Osmotic coefficient  =   2.53913
                          Density of water  =   0.99706
-                                  Total H  = 6.923845e-07
-                                  Total O  = 3.652753e-07
+                                  Total H  = 6.924031e-07
+                                  Total O  = 3.652852e-07
 
 ----------------------------Distribution of species----------------------------
 
@@ -6833,7 +6833,7 @@ S(6)             7.562e-01
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.53   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite           1.56   -9.32  -10.88  Mg(OH)2
-	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.96   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
