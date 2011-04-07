@@ -20,6 +20,7 @@ PWD=pwd
 CC=gcc
 
 # Change to C compiler options on your system
+#CCFLAGS=-O3 -fno-signed-zeros -Wall -ansi -pedantic -std=c99 -DHAVE_ISFINITE -DNDEBUG # -frounding-math  # -pg
 CCFLAGS=-O3 -Wall -ansi -pedantic -std=c99 -DHAVE_ISFINITE -DNDEBUG # -frounding-math  # -pg
 
 # Remove the following definition if you do not have 
