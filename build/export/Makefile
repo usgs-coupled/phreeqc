@@ -5,6 +5,7 @@ FTP_CHARLTON:=ftp://brrftp.cr.usgs.gov/pub/charlton
 GEOCHEM:=$(ANONYMOUS)/dlpark/geochem
 FTP_GEOCHEM:=ftp://brrftp.cr.usgs.gov/pub/dlpark/geochem
 HTML_HOME:=/z/linarcolkr/home/www/projects/GWC_coupled
+HTML_IPHREEQC:=$(HTML_HOME)/iphreeqc
 HTML_PHREEQC:=$(HTML_HOME)/phreeqc
 HTML_PHREEQCI:=$(HTML_HOME)/phreeqci
 HTML_PHAST:=$(HTML_HOME)/phast
@@ -472,6 +473,41 @@ web:
 #	mkdir -p temp
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) temp
 #	cd temp; tar -xzf $(PHREEQC_LINUX_FILE); cp -f ./*/doc/RELEASE.TXT $(HTML_PHREEQC); cd ..; rm -rf temp
+
+# IPHREEQC
+	install -d $(HTML_IPHREEQC)
+	install --mode=664 $(IPHREEQC_DIR)/html/annotated.html            $(HTML_IPHREEQC)/annotated.html
+	install --mode=664 $(IPHREEQC_DIR)/html/bc_s.png                  $(HTML_IPHREEQC)/bc_s.png
+	install --mode=664 $(IPHREEQC_DIR)/html/classes.html              $(HTML_IPHREEQC)/classes.html
+	install --mode=664 $(IPHREEQC_DIR)/html/classIPhreeqc.html        $(HTML_IPHREEQC)/classIPhreeqc.html
+	install --mode=664 $(IPHREEQC_DIR)/html/classIPhreeqcStop.html    $(HTML_IPHREEQC)/classIPhreeqcStop.html
+	install --mode=664 $(IPHREEQC_DIR)/html/closed.png                $(HTML_IPHREEQC)/closed.png
+	install --mode=664 $(IPHREEQC_DIR)/html/doxygen.css               $(HTML_IPHREEQC)/doxygen.css
+	install --mode=664 $(IPHREEQC_DIR)/html/doxygen.png               $(HTML_IPHREEQC)/doxygen.png
+	install --mode=664 $(IPHREEQC_DIR)/html/files.html                $(HTML_IPHREEQC)/files.html
+	install --mode=664 $(IPHREEQC_DIR)/html/functions_func.html       $(HTML_IPHREEQC)/functions_func.html
+	install --mode=664 $(IPHREEQC_DIR)/html/functions.html            $(HTML_IPHREEQC)/functions.html
+	install --mode=664 $(IPHREEQC_DIR)/html/functions_vars.html       $(HTML_IPHREEQC)/functions_vars.html
+	install --mode=664 $(IPHREEQC_DIR)/html/globals_enum.html         $(HTML_IPHREEQC)/globals_enum.html
+	install --mode=664 $(IPHREEQC_DIR)/html/globals_eval.html         $(HTML_IPHREEQC)/globals_eval.html
+	install --mode=664 $(IPHREEQC_DIR)/html/globals_func.html         $(HTML_IPHREEQC)/globals_func.html
+	install --mode=664 $(IPHREEQC_DIR)/html/globals.html              $(HTML_IPHREEQC)/globals.html
+	install --mode=664 $(IPHREEQC_DIR)/html/index.html                $(HTML_IPHREEQC)/index.html
+	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8h.html          $(HTML_IPHREEQC)/IPhreeqc_8h.html
+	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8hpp.html        $(HTML_IPHREEQC)/IPhreeqc_8hpp.html
+	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8hpp_source.html $(HTML_IPHREEQC)/IPhreeqc_8hpp_source.html
+	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8h_source.html   $(HTML_IPHREEQC)/IPhreeqc_8h_source.html
+	install --mode=664 $(IPHREEQC_DIR)/html/nav_f.png                 $(HTML_IPHREEQC)/nav_f.png
+	install --mode=664 $(IPHREEQC_DIR)/html/nav_h.png                 $(HTML_IPHREEQC)/nav_h.png
+	install --mode=664 $(IPHREEQC_DIR)/html/open.png                  $(HTML_IPHREEQC)/open.png
+	install --mode=664 $(IPHREEQC_DIR)/html/structVAR.html            $(HTML_IPHREEQC)/structVAR.html
+	install --mode=664 $(IPHREEQC_DIR)/html/tab_a.png                 $(HTML_IPHREEQC)/tab_a.png
+	install --mode=664 $(IPHREEQC_DIR)/html/tab_b.png                 $(HTML_IPHREEQC)/tab_b.png
+	install --mode=664 $(IPHREEQC_DIR)/html/tab_h.png                 $(HTML_IPHREEQC)/tab_h.png
+	install --mode=664 $(IPHREEQC_DIR)/html/tabs.css                  $(HTML_IPHREEQC)/tabs.css
+	install --mode=664 $(IPHREEQC_DIR)/html/tab_s.png                 $(HTML_IPHREEQC)/tab_s.png
+	install --mode=664 $(IPHREEQC_DIR)/html/Var_8h.html               $(HTML_IPHREEQC)/Var_8h.html
+	install --mode=664 $(IPHREEQC_DIR)/html/Var_8h_source.html        $(HTML_IPHREEQC)/Var_8h_source.html
 
 
 clean:
