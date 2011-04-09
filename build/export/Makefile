@@ -429,7 +429,7 @@ web:
 	svn commit -m"checkin from make" web_phreeqc_index.html
 	rm -f web_phreeqc_index.html
 	svn up web_phreeqc_index.html
-	install -T --mode=664 web_phreeqc_index.html $(HTML_PHREEQC)/index.html 	
+	install -T --mode=664 --group=coupled web_phreeqc_index.html $(HTML_PHREEQC)/index.html 	
 #	cd $(HTML_PHREEQC); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE) $(PHREEQC_WIN_TARGET_DIR)/$(PHREEQC_WIN_FILE)
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) $(PHREEQC_LINUX_TARGET_DIR)/$(PHREEQC_LINUX_FILE)
@@ -437,18 +437,18 @@ web:
 #	cp -f $(PHREEQC_WIN_PUB_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
 # uncomment next line
 # ERROR with this copy because .exe not available
-	install --mode=664 $(PHREEQC_WIN_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
-	install --mode=664 $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
-	install -T --mode=664 $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
-	install --mode=664 $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
-	install --mode=664 ./status.htm $(HTML_PHREEQC)
+	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 --group=coupled $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install -T --mode=664 --group=coupled $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
+	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 --group=coupled ./status.htm $(HTML_PHREEQC)
 
 # PHREEQCI
 	sed $(SED_ARGS) < template_phreeqci_index.html > web_phreeqci_index.html
 	svn commit -m"checkin from make" web_phreeqci_index.html
 	rm -f web_phreeqci_index.html
 	svn up web_phreeqci_index.html
-	install -T --mode=664 web_phreeqci_index.html $(HTML_PHREEQCI)/index.html 
+	install -T --mode=664 --group=coupled web_phreeqci_index.html $(HTML_PHREEQCI)/index.html 
 #	cd $(HTML_PHREEQCI); rcs -l index.html; ci -l -m"Latest" index.html
 #	cp -f $(PHREEQCI_DIR)/$(PHREEQCI_FILE) $(PHREEQCI_TARGET_DIR)/$(PHREEQCI_FILE)
 
@@ -457,18 +457,18 @@ web:
 	svn commit -m"checkin from make" web_phast_index.html
 	rm -f web_phast_index.html
 	svn up web_phast_index.html
-	install -T --mode=664 web_phast_index.html $(HTML_PHAST)/index.html 
+	install -T --mode=664 --group=coupled web_phast_index.html $(HTML_PHAST)/index.html 
 #	cd $(HTML_PHAST); rcs -l index.html; ci -l -m"Latest" index.html
-	install --mode=664 $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
-	install --mode=664 $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
 
 # NETPATH
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
 	svn commit -m"checkin from make" web_netpath_index.html
 	rm -f web_netpath_index.html
 	svn up web_netpath_index.html
-	install -T --mode=664 web_netpath_index.html $(HTML_NETPATH)/index.html 
-	install --mode=664 $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
+	install -T --mode=664 --group=coupled web_netpath_index.html $(HTML_NETPATH)/index.html 
+	install --mode=664 --group=coupled $(NETPATHXL_DIR)/README.$(NETPATHXL_SVN).TXT $(HTML_NETPATH)
 
 #	mkdir -p temp
 #	cp -f $(PHREEQC_LINUX_DIR)/$(PHREEQC_LINUX_FILE) temp
@@ -476,38 +476,38 @@ web:
 
 # IPHREEQC
 	install -d $(HTML_IPHREEQC)
-	install --mode=664 $(IPHREEQC_DIR)/html/annotated.html            $(HTML_IPHREEQC)/annotated.html
-	install --mode=664 $(IPHREEQC_DIR)/html/bc_s.png                  $(HTML_IPHREEQC)/bc_s.png
-	install --mode=664 $(IPHREEQC_DIR)/html/classes.html              $(HTML_IPHREEQC)/classes.html
-	install --mode=664 $(IPHREEQC_DIR)/html/classIPhreeqc.html        $(HTML_IPHREEQC)/classIPhreeqc.html
-	install --mode=664 $(IPHREEQC_DIR)/html/classIPhreeqcStop.html    $(HTML_IPHREEQC)/classIPhreeqcStop.html
-	install --mode=664 $(IPHREEQC_DIR)/html/closed.png                $(HTML_IPHREEQC)/closed.png
-	install --mode=664 $(IPHREEQC_DIR)/html/doxygen.css               $(HTML_IPHREEQC)/doxygen.css
-	install --mode=664 $(IPHREEQC_DIR)/html/doxygen.png               $(HTML_IPHREEQC)/doxygen.png
-	install --mode=664 $(IPHREEQC_DIR)/html/files.html                $(HTML_IPHREEQC)/files.html
-	install --mode=664 $(IPHREEQC_DIR)/html/functions_func.html       $(HTML_IPHREEQC)/functions_func.html
-	install --mode=664 $(IPHREEQC_DIR)/html/functions.html            $(HTML_IPHREEQC)/functions.html
-	install --mode=664 $(IPHREEQC_DIR)/html/functions_vars.html       $(HTML_IPHREEQC)/functions_vars.html
-	install --mode=664 $(IPHREEQC_DIR)/html/globals_enum.html         $(HTML_IPHREEQC)/globals_enum.html
-	install --mode=664 $(IPHREEQC_DIR)/html/globals_eval.html         $(HTML_IPHREEQC)/globals_eval.html
-	install --mode=664 $(IPHREEQC_DIR)/html/globals_func.html         $(HTML_IPHREEQC)/globals_func.html
-	install --mode=664 $(IPHREEQC_DIR)/html/globals.html              $(HTML_IPHREEQC)/globals.html
-	install --mode=664 $(IPHREEQC_DIR)/html/index.html                $(HTML_IPHREEQC)/index.html
-	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8h.html          $(HTML_IPHREEQC)/IPhreeqc_8h.html
-	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8hpp.html        $(HTML_IPHREEQC)/IPhreeqc_8hpp.html
-	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8hpp_source.html $(HTML_IPHREEQC)/IPhreeqc_8hpp_source.html
-	install --mode=664 $(IPHREEQC_DIR)/html/IPhreeqc_8h_source.html   $(HTML_IPHREEQC)/IPhreeqc_8h_source.html
-	install --mode=664 $(IPHREEQC_DIR)/html/nav_f.png                 $(HTML_IPHREEQC)/nav_f.png
-	install --mode=664 $(IPHREEQC_DIR)/html/nav_h.png                 $(HTML_IPHREEQC)/nav_h.png
-	install --mode=664 $(IPHREEQC_DIR)/html/open.png                  $(HTML_IPHREEQC)/open.png
-	install --mode=664 $(IPHREEQC_DIR)/html/structVAR.html            $(HTML_IPHREEQC)/structVAR.html
-	install --mode=664 $(IPHREEQC_DIR)/html/tab_a.png                 $(HTML_IPHREEQC)/tab_a.png
-	install --mode=664 $(IPHREEQC_DIR)/html/tab_b.png                 $(HTML_IPHREEQC)/tab_b.png
-	install --mode=664 $(IPHREEQC_DIR)/html/tab_h.png                 $(HTML_IPHREEQC)/tab_h.png
-	install --mode=664 $(IPHREEQC_DIR)/html/tabs.css                  $(HTML_IPHREEQC)/tabs.css
-	install --mode=664 $(IPHREEQC_DIR)/html/tab_s.png                 $(HTML_IPHREEQC)/tab_s.png
-	install --mode=664 $(IPHREEQC_DIR)/html/Var_8h.html               $(HTML_IPHREEQC)/Var_8h.html
-	install --mode=664 $(IPHREEQC_DIR)/html/Var_8h_source.html        $(HTML_IPHREEQC)/Var_8h_source.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/annotated.html            $(HTML_IPHREEQC)/annotated.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/bc_s.png                  $(HTML_IPHREEQC)/bc_s.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/classes.html              $(HTML_IPHREEQC)/classes.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/classIPhreeqc.html        $(HTML_IPHREEQC)/classIPhreeqc.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/classIPhreeqcStop.html    $(HTML_IPHREEQC)/classIPhreeqcStop.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/closed.png                $(HTML_IPHREEQC)/closed.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/doxygen.css               $(HTML_IPHREEQC)/doxygen.css
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/doxygen.png               $(HTML_IPHREEQC)/doxygen.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/files.html                $(HTML_IPHREEQC)/files.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/functions_func.html       $(HTML_IPHREEQC)/functions_func.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/functions.html            $(HTML_IPHREEQC)/functions.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/functions_vars.html       $(HTML_IPHREEQC)/functions_vars.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/globals_enum.html         $(HTML_IPHREEQC)/globals_enum.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/globals_eval.html         $(HTML_IPHREEQC)/globals_eval.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/globals_func.html         $(HTML_IPHREEQC)/globals_func.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/globals.html              $(HTML_IPHREEQC)/globals.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/index.html                $(HTML_IPHREEQC)/index.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/IPhreeqc_8h.html          $(HTML_IPHREEQC)/IPhreeqc_8h.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/IPhreeqc_8hpp.html        $(HTML_IPHREEQC)/IPhreeqc_8hpp.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/IPhreeqc_8hpp_source.html $(HTML_IPHREEQC)/IPhreeqc_8hpp_source.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/IPhreeqc_8h_source.html   $(HTML_IPHREEQC)/IPhreeqc_8h_source.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/nav_f.png                 $(HTML_IPHREEQC)/nav_f.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/nav_h.png                 $(HTML_IPHREEQC)/nav_h.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/open.png                  $(HTML_IPHREEQC)/open.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/structVAR.html            $(HTML_IPHREEQC)/structVAR.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/tab_a.png                 $(HTML_IPHREEQC)/tab_a.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/tab_b.png                 $(HTML_IPHREEQC)/tab_b.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/tab_h.png                 $(HTML_IPHREEQC)/tab_h.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/tabs.css                  $(HTML_IPHREEQC)/tabs.css
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/tab_s.png                 $(HTML_IPHREEQC)/tab_s.png
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/Var_8h.html               $(HTML_IPHREEQC)/Var_8h.html
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/Var_8h_source.html        $(HTML_IPHREEQC)/Var_8h_source.html
 
 
 clean:
