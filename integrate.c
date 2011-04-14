@@ -343,7 +343,7 @@ g_function(LDBLE x_value)
 				sum1 += s_x[i]->moles * s_x[i]->z;
 				output_msg(OUTPUT_MESSAGE, "%s\t%e\t%e\t%e\t%e\n",
 						   s_x[i]->name, (double) s_x[i]->moles,
-						   (double) (pow(x_value, (double) s_x[i]->z) -
+						   (double) (pow((LDBLE) x_value, (LDBLE) s_x[i]->z) -
 									 1.0), (double) sum, (double) sum1);
 			}
 		}

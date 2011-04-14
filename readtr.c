@@ -1843,12 +1843,12 @@ dump_gas_phase(int k)
 		if (punch.high_precision == FALSE)
 		{
 			output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
-				   gas_phase[n].comps[i].name, (double) pow(10., lp));
+				   gas_phase[n].comps[i].name, (double) pow((LDBLE) 10., lp));
 		}
 		else
 		{
 			output_msg(OUTPUT_DUMP, "\t%-15s%20.12e\n",
-				   gas_phase[n].comps[i].name, (double) pow(10., lp));
+				   gas_phase[n].comps[i].name, (double) pow((LDBLE) 10., lp));
 		}
 	}
 	return (OK);

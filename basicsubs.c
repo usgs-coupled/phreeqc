@@ -39,11 +39,11 @@ activity(const char *species_name)
 	s_ptr = s_search(species_name);
 	if (s_ptr == s_h2o)
 	{
-		a = pow(10., s_h2o->la);
+		a = pow((LDBLE) 10., s_h2o->la);
 	}
 	else if (s_ptr == s_eminus)
 	{
-		a = pow(10., s_eminus->la);
+		a = pow((LDBLE) 10., s_eminus->la);
 	}
 	else if (s_ptr == NULL || s_ptr->in == FALSE)
 	{
@@ -51,7 +51,7 @@ activity(const char *species_name)
 	}
 	else
 	{
-		a = pow(10., s_ptr->lm + s_ptr->lg);
+		a = pow((LDBLE) 10., s_ptr->lm + s_ptr->lg);
 	}
 	return (a);
 }
@@ -67,7 +67,7 @@ activity_coefficient(const char *species_name)
 	s_ptr = s_search(species_name);
 	if (s_ptr != NULL && s_ptr->in != FALSE && s_ptr->type < EMINUS)
 	{
-		g = pow(10., s_ptr->lg);
+		g = pow((LDBLE) 10., s_ptr->lg);
 	}
 	else
 	{
@@ -1049,7 +1049,7 @@ saturation_ratio(const char *phase_name)
 			iap += rxn_ptr->s->la * rxn_ptr->coef;
 		}
 		si = iap - phase_ptr->lk;
-		return (pow(10.0, si));
+		return (pow((LDBLE) 10.0, si));
 	}
 	return (0.0);
 

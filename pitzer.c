@@ -823,7 +823,7 @@ C     Set DW0
 	else
 	{
 		DC0 = DC(TK);
-		A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), 3.0e0)));
+		A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), (LDBLE) 3.0e0)));
 		/*A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
 	}
 	return OK;
@@ -1012,7 +1012,7 @@ pitzer(void)
 	if (mcc0 != NULL)
 		GAMCLM += 1.5e0 * mcc0->p * I * I;
 	CSUM = 0.0e0;
-	OSMOT = -(A0) * pow(I, 1.5e0) / (1.0e0 + B * DI);
+	OSMOT = -(A0) * pow(I, (LDBLE) 1.5e0) / (1.0e0 + B * DI);
 	/*
 	 *  Calculate ethetas
 	 */
@@ -1248,11 +1248,11 @@ JPRIME(LDBLE L_Y)
 	BDK(L_Y);
 	if (L_Y > 1.0e0)
 	{
-		L_DZ = -4.0e0 * pow(L_Y, -1.1e0) / 9.0e0;
+		L_DZ = -4.0e0 * pow(L_Y, (LDBLE) -1.1e0) / 9.0e0;
 	}
 	else
 	{
-		L_DZ = 0.8e0 * pow(L_Y, -0.8e0);
+		L_DZ = 0.8e0 * pow(L_Y, (LDBLE) -0.8e0);
 	}
 	return (L_Y * (.25e0 + L_DZ * (DK[0] - DK[2]) / 2.0e0));
 }
@@ -1304,13 +1304,13 @@ C
 	if (X <= 1.0e0)
 	{
 		II = 1;
-		L_Z = 4.0e0 * pow(X, 0.2e0) - 2.0e0;
+		L_Z = 4.0e0 * pow(X, (LDBLE) 0.2e0) - 2.0e0;
 		AK = &AKX[0];
 	}
 	else
 	{
 		II = 2;
-		L_Z = 40.0e0 * pow(X, -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
+		L_Z = 40.0e0 * pow(X, (LDBLE) -1.0e-1) / 9.0e0 - 22.0e0 / 9.0e0;
 		AK = &AKX[21];
 	}
 	for (i = 20; i >= 0; i--)
@@ -1519,7 +1519,7 @@ set_pz(int initial)
 	mu_x = solution_ptr->mu;
 	s_h2o->moles = mass_water_aq_x / gfw_water;
 	s_h2o->la = log10(solution_ptr->ah2o);
-	AW = pow(10.0, s_h2o->la);
+	AW = pow((LDBLE) 10.0, s_h2o->la);
 	s_hplus->la = -solution_ptr->ph;
 	s_hplus->lm = s_hplus->la;
 	s_hplus->moles = exp(s_hplus->lm * LOG_10) * mass_water_aq_x;
@@ -2141,7 +2141,7 @@ check_gammas_pz(void)
 	}
 	if (fabs(old_mu - mu_x) > tol)
 		converge = FALSE;
-	if ((pow(10.0, s_h2o->la) - AW) > tol)
+	if ((pow((LDBLE) 10.0, s_h2o->la) - AW) > tol)
 		converge = FALSE;
 	return converge;
 }

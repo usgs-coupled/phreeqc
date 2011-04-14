@@ -1050,7 +1050,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			if (step_ok == 0)
 				h = h * safety / error_max;
 			else
-				h = h * safety * pow(error_max, -0.25);
+				h = h * safety * pow(error_max, (LDBLE) -0.25);
 			l_bad = TRUE;
 			step_bad++;
 		}
@@ -1120,7 +1120,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			{
 				if (error_max > 0.000577)
 				{
-					h = h * safety * pow(error_max, -0.2);
+					h = h * safety * pow(error_max, (LDBLE) -0.2e0);
 				}
 				else
 				{
