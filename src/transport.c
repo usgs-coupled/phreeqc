@@ -4818,7 +4818,7 @@ viscosity(void)
   LDBLE viscos;
 /* from Atkins, 1994. Physical Chemistry, 5th ed. */
 	viscos =
-		pow(10.,
+		pow((LDBLE) 10.,
 			-(1.37023 * (tc_x - 20) +
 			  0.000836 * (tc_x - 20) * (tc_x - 20)) / (109 + tc_x));
   return viscos;

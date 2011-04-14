@@ -1038,7 +1038,7 @@ under(LDBLE xval)
 		return (1.0e3);
 /*		return ( pow (10.0, MAX_LM));*/
 	}
-	return (pow (10.0, xval));
+	return (pow ((LDBLE) 10.0, xval));
 /*	return (exp(xval * LOG_10)) */;
 }
 

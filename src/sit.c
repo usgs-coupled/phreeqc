@@ -556,7 +556,7 @@ set_sit(int initial)
 	mu_x = solution_ptr->mu;
 	s_h2o->moles = mass_water_aq_x / gfw_water;
 	s_h2o->la = log10(solution_ptr->ah2o);
-	AW = pow(10.0, s_h2o->la);
+	AW = pow((LDBLE) 10.0E0, s_h2o->la);
 	s_hplus->la = -solution_ptr->ph;
 	s_hplus->lm = s_hplus->la;
 	s_hplus->moles = exp(s_hplus->lm * LOG_10) * mass_water_aq_x;
@@ -1179,8 +1179,8 @@ check_gammas_sit(void)
 	{
 		converge = FALSE;
 	}
-	t = pow(10.0, s_h2o->la);
-	if ((pow(10.0, s_h2o->la) - AW) > tol)
+	t = pow((LDBLE) 10.0, s_h2o->la);
+	if ((pow((LDBLE) 10.0, s_h2o->la) - AW) > tol)
 	{
 		converge = FALSE;
 	}
@@ -1364,7 +1364,7 @@ C     Set DW0
 	else
 	{
 		DC0 = DC(TK);
-		sit_A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), 3.0e0)));
+		sit_A0 = 1.400684e6 * sqrt(DW0 / (pow((DC0 * TK), (LDBLE) 3.0e0)));
 		/*sit_A0=1.400684D6*(DW0/(DC0*TK)**3.0D0)**0.5D0 */
 	}
 	return OK;

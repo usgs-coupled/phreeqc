@@ -3656,7 +3656,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		else
 		{
-			xc = 0.5 + (pow((ag0 * ag0 + 27 * ag1 * ag1), 0.5) -
+			xc = 0.5 + (pow((ag0 * ag0 + 27 * ag1 * ag1), (LDBLE) 0.5) -
 						ag0) / (18 * ag1);
 			tc = (12 * ag1 * xc - 6 * ag1 + 2 * ag0) * (xc - xc * xc) / r;
 		}
@@ -3833,8 +3833,8 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	{
 		if (fabs(l_x - a0 * a0) >= tol)
 		{
-			xaly1 = (-(a0 - 3 * a1) + pow(l_x, 0.5)) / (6 * a1);
-			xaly2 = (-(a0 - 3 * a1) - pow(l_x, 0.5)) / (6 * a1);
+			xaly1 = (-(a0 - 3 * a1) + pow(l_x, (LDBLE) 0.5)) / (6 * a1);
+			xaly2 = (-(a0 - 3 * a1) - pow(l_x, (LDBLE) 0.5)) / (6 * a1);
 			if (xaly1 >= 0 && xaly1 <= 1)
 			{
 				xaly = xaly1;
@@ -4532,7 +4532,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		r = log(l_kb / l_kc);
 		alpha0 = 2 * xaly - 1;
 		alpha1 = 6 * xaly * (xaly - 1) + 1;
-		spialy = pow(10., q2);
+		spialy = pow((LDBLE) 10., q2);
 		l_a0 = -999.;
 		l_a1 = -999.;
 		if (fabs(alpha0) < tol)
