@@ -207,11 +207,11 @@ Pyrite                                      1.05e-02
                                                          ----------------------
      Isotope Ratio                   Solution alpha      Solution        25.0 C
 
-Alpha 34S HSO4-/SO4-2                             1    2.2204e-13             0
-Alpha 34S S-2/HS-                                 1    2.2204e-13             0
+Alpha 34S HSO4-/SO4-2                             1   -4.4409e-13             0
+Alpha 34S S-2/HS-                                 1             0             0
 Alpha 34S HS-/SO4-2                         0.96754           -33           -33
-Alpha 34S H2S(aq)/HS-                             1             0             0
-Alpha 34S Pyrite/HS-                              1     3.153e-11             0
+Alpha 34S H2S(aq)/HS-                             1    1.6209e-11             0
+Alpha 34S Pyrite/HS-                              1    1.7764e-11             0
 
 -----------------------------Solution composition------------------------------
 
@@ -235,7 +235,7 @@ Alpha 34S Pyrite/HS-                              1     3.153e-11             0
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  =   7.531e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
-                               Iterations  =  21
+                               Iterations  =  23
                                   Total H  = 1.111029e+02
                                   Total O  = 5.565075e+01
 
