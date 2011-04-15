@@ -1089,7 +1089,7 @@ Using pure phase assemblage 1.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Fix_pe               3.00    3.00    0.00
-	 O2                 is reactant     1.000e+001  1.000e+001  2.454e-011
+	 O2                 is reactant     1.000e+001  1.000e+001  2.453e-011
 
 -----------------------------Solution composition------------------------------
 

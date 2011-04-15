@@ -3750,7 +3750,7 @@ Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.40    3.06    4.46   0.000e+000           0  0.000e+000
 Carnallite          -0.37    3.96    4.33   0.000e+000           0  0.000e+000
-Epsomite            -0.00   -1.88   -1.88   0.000e+000  1.409e-001  1.409e-001
+Epsomite             0.00   -1.88   -1.88   0.000e+000  1.409e-001  1.409e-001
 Halite               0.00    1.57    1.57   1.000e+001  9.252e+000 -7.482e-001
 Kieserite           -0.26   -0.38   -0.12   0.000e+000           0  0.000e+000
 Sylvite              0.00    0.90    0.90   1.000e+001  9.223e+000 -7.773e-001
@@ -3778,10 +3778,10 @@ Sylvite              0.00    0.90    0.90   1.000e+001  9.223e+000 -7.773e-001
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -4.636e-010
+                  Electrical balance (eq)  = -4.618e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  45
-                         Gamma iterations  =  45
+                               Iterations  =  40
+                         Gamma iterations  =  40
                       Osmotic coefficient  =   2.27409
                          Density of water  =   0.99706
                                   Total H  = 1.090399e+002
@@ -3818,7 +3818,7 @@ S(6)            8.746e-001
 	Bloedite         -0.33   -2.68   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.43  -17.31  -10.88  Mg(OH)2
 	Carnallite       -0.37    3.96    4.33  KMgCl3:6H2O
-	Epsomite         -0.00   -1.88   -1.88  MgSO4:7H2O
+	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.31   -5.11   -3.80  NaK3(SO4)2
 	H2O(g)           -1.76   -0.25    1.51  H2O
 	Halite            0.00    1.57    1.57  NaCl
@@ -4331,7 +4331,7 @@ Reaction 1.	Irreversible reaction defined in simulation 23.
 Phase                  SI log IAP  log KT      Initial       Final       Delta
 
 Bischofite          -1.02    3.43    4.46   0.000e+000           0  0.000e+000
-Carnallite           0.00    4.33    4.33   0.000e+000  1.761e+000  1.761e+000
+Carnallite          -0.00    4.33    4.33   0.000e+000  1.761e+000  1.761e+000
 Epsomite             0.00   -1.88   -1.88   0.000e+000  3.745e+000  3.745e+000
 Halite               0.00    1.57    1.57   1.000e+001  9.844e+000 -1.558e-001
 Kieserite           -0.01   -0.13   -0.12   0.000e+000           0  0.000e+000
@@ -4360,10 +4360,10 @@ Sylvite              0.00    0.90    0.90   1.000e+001  8.041e+000 -1.959e+000
                     Total carbon (mol/kg)  =  0.000e+000
                        Total CO2 (mol/kg)  =  0.000e+000
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -4.618e-010
+                  Electrical balance (eq)  = -4.649e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  48
-                         Gamma iterations  =  48
+                               Iterations  =  64
+                         Gamma iterations  =  64
                       Osmotic coefficient  =   2.55111
                          Density of water  =   0.99706
                                   Total H  = 3.744425e+001
@@ -4399,7 +4399,7 @@ S(6)            7.554e-001
 	Bischofite       -1.02    3.43    4.46  MgCl2:6H2O
 	Bloedite         -0.54   -2.88   -2.35  Na2Mg(SO4)2:4H2O
 	Brucite          -6.60  -17.48  -10.88  Mg(OH)2
-	Carnallite        0.00    4.33    4.33  KMgCl3:6H2O
+	Carnallite       -0.00    4.33    4.33  KMgCl3:6H2O
 	Epsomite          0.00   -1.88   -1.88  MgSO4:7H2O
 	Glaserite        -1.97   -5.77   -3.80  NaK3(SO4)2
 	H2O(g)           -1.80   -0.29    1.51  H2O
@@ -5645,18 +5645,6 @@ WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying smaller step size, pe step size 10, 5 ... 
 
-WARNING: Maximum iterations exceeded, 400
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying reduced tolerance 1e-016 ...
-
-WARNING: Maximum iterations exceeded, 400
-
-WARNING: Numerical method failed with this set of convergence parameters.
-
-WARNING: Trying increased tolerance 1e-014 ...
-
 Using solution 1.	
 Using pure phase assemblage 1.	
 Using reaction 1.	
@@ -5694,7 +5682,7 @@ Sylvite              0.00    0.90    0.90   1.000e+001  6.000e+000 -4.000e+000
 
 	Elements           Molality       Moles
 
-	Cl               8.470e+000  5.279e-008
+	Cl               8.470e+000  5.280e-008
 	K                5.927e-001  3.694e-009
 	Mg               4.461e+000  2.781e-008
 	Na               4.675e-001  2.914e-009
@@ -5715,12 +5703,12 @@ Sylvite              0.00    0.90    0.90   1.000e+001  6.000e+000 -4.000e+000
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -4.618e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.37
-                               Iterations  = 126
-                         Gamma iterations  = 126
+                               Iterations  = 226
+                         Gamma iterations  = 226
                       Osmotic coefficient  =   2.53913
                          Density of water  =   0.99706
-                                  Total H  = 6.923861e-007
-                                  Total O  = 3.652762e-007
+                                  Total H  = 6.924251e-007
+                                  Total O  = 3.652968e-007
 
 ----------------------------Distribution of species----------------------------
 

@@ -2823,6 +2823,12 @@ WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying reduced tolerance 1e-016 ...
 
+WARNING: Maximum iterations exceeded, 400
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying increased tolerance 1e-014 ...
+
 Using solution 1.	Pure water
 Using pure phase assemblage 3.	
 
@@ -2836,8 +2842,8 @@ Dolomite            -2.18  -19.27  -17.09   9.000e+000           0 -9.000e+000
 FeS(ppt)           -12.58  -16.49   -3.92   9.000e+000           0 -9.000e+000
 Goethite            -1.08   -2.08   -1.00   9.000e+000           0 -9.000e+000
 Greigite           -42.10  -87.14  -45.03   9.000e+000           0 -9.000e+000
-Gypsum              -0.00   -4.58   -4.58   9.000e+000  2.700e+001  1.800e+001
-Hematite            -0.00   -4.01   -4.01   9.000e+000  5.850e+001  4.950e+001
+Gypsum               0.00   -4.58   -4.58   9.000e+000  2.700e+001  1.800e+001
+Hematite             0.00   -4.01   -4.01   9.000e+000  5.850e+001  4.950e+001
 Mackinawite        -11.84  -16.49   -4.65   9.000e+000           0 -9.000e+000
 Magnetite           -2.03    1.71    3.74   9.000e+000           0 -9.000e+000
 Pyrite              -9.63  -28.11  -18.48   9.000e+000           0 -9.000e+000
@@ -2853,8 +2859,8 @@ Zn(OH)2-e           -1.05   10.45   11.50   9.000e+000           0 -9.000e+000
 Zn(OH)2-g           -1.26   10.45   11.71   9.000e+000           0 -9.000e+000
 Zn2(OH)2SO4         -0.00    7.50    7.50   9.000e+000  1.231e+001  3.312e+000
 Zn3O(SO4)2         -14.33    4.69   19.02   9.000e+000           0 -9.000e+000
-Zn4(OH)6SO4         -0.00   28.40   28.40   9.000e+000  7.896e+000 -1.104e+000
-ZnCO3:H2O           -0.00  -10.26  -10.26   9.000e+000  5.400e+001  4.500e+001
+Zn4(OH)6SO4          0.00   28.40   28.40   9.000e+000  7.896e+000 -1.104e+000
+ZnCO3:H2O            0.00  -10.26  -10.26   9.000e+000  5.400e+001  4.500e+001
 ZnMetal            -25.75    0.00   25.76   9.000e+000           0 -9.000e+000
 ZnO(a)              -0.72   10.59   11.31   9.000e+000           0 -9.000e+000
 ZnS(a)              -2.57  -11.62   -9.05   9.000e+000           0 -9.000e+000
@@ -2881,9 +2887,9 @@ ZnSO4:H2O           -2.52   -3.09   -0.57   9.000e+000           0 -9.000e+000
                  Total alkalinity (eq/kg)  =  7.040e-004
                        Total CO2 (mol/kg)  =  7.120e-004
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -1.066e-010
- Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 264
+                  Electrical balance (eq)  =  2.650e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  = 252
                                   Total H  = 6.602070e+001
                                   Total O  = 6.918589e+001
 
@@ -3010,11 +3016,11 @@ Zn              7.040e-002
 	Goethite         -1.08   -2.08   -1.00  FeOOH
 	Goslarite        -2.00   -3.96   -1.96  ZnSO4:7H2O
 	Greigite        -42.10  -87.14  -45.03  Fe3S4
-	Gypsum           -0.00   -4.58   -4.58  CaSO4:2H2O
+	Gypsum            0.00   -4.58   -4.58  CaSO4:2H2O
 	H2(g)           -10.74  -13.89   -3.15  H2
 	H2O(g)           -1.65   -0.14    1.51  H2O
 	H2S(g)          -14.42  -15.42   -1.00  H2S
-	Hematite         -0.00   -4.01   -4.01  Fe2O3
+	Hematite          0.00   -4.01   -4.01  Fe2O3
 	Huntite          -4.94  -34.91  -29.97  CaMg3(CO3)4
 	Hydromagnesite  -10.34  -19.10   -8.76  Mg5(CO3)4(OH)2:4H2O
 	JarositeH       -28.36  -33.75   -5.39  (H3O)Fe3(SO4)2(OH)6
@@ -3042,8 +3048,8 @@ Zn              7.040e-002
 	Zn(OH)2-g        -1.26   10.45   11.71  Zn(OH)2
 	Zn2(OH)2SO4      -0.00    7.50    7.50  Zn2(OH)2SO4
 	Zn3O(SO4)2      -14.33    4.69   19.02  ZnO:2ZnSO4
-	Zn4(OH)6SO4      -0.00   28.40   28.40  Zn4(OH)6SO4
-	ZnCO3:H2O        -0.00  -10.26  -10.26  ZnCO3:H2O
+	Zn4(OH)6SO4       0.00   28.40   28.40  Zn4(OH)6SO4
+	ZnCO3:H2O         0.00  -10.26  -10.26  ZnCO3:H2O
 	ZnMetal         -25.75    0.00   25.76  Zn
 	ZnO(a)           -0.72   10.59   11.31  ZnO
 	ZnS(a)           -2.57  -11.62   -9.05  ZnS
@@ -3170,6 +3176,18 @@ WARNING: Numerical method failed with this set of convergence parameters.
 
 WARNING: Trying reduced tolerance 1e-016 ...
 
+WARNING: Maximum iterations exceeded, 400
+
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying increased tolerance 1e-014 ...
+
+WARNING: Mass of water is less than 1e-10 kilogram.
+The aqueous phase may not be stable relative to given masses of minerals.
+WARNING: Numerical method failed with this set of convergence parameters.
+
+WARNING: Trying diagonal scaling ...
+
 Using solution 1.	Pure water
 Using pure phase assemblage 3.	
 
@@ -3190,7 +3208,7 @@ Magnetite           -2.03    1.71    3.74   1.000e+001           0 -1.000e+001
 Pyrite              -9.70  -28.18  -18.48   1.000e+001           0 -1.000e+001
 Siderite            -4.10  -14.99  -10.89   1.000e+001           0 -1.000e+001
 Smithsonite         -0.08  -10.08  -10.00   1.000e+001           0 -1.000e+001
-Sphalerite          -0.00  -11.62  -11.62   1.000e+001  1.075e+002  9.750e+001
+Sphalerite           0.00  -11.62  -11.62   1.000e+001  1.075e+002  9.750e+001
 Zincite(c)          -0.51   10.63   11.14   1.000e+001           0 -1.000e+001
 Zincosite           -5.96   -2.95    3.01   1.000e+001           0 -1.000e+001
 Zn(OH)2-a           -2.00   10.45   12.45   1.000e+001           0 -1.000e+001
@@ -3228,9 +3246,9 @@ ZnSO4:H2O           -2.56   -3.13   -0.57   1.000e+001           0 -1.000e+001
                  Total alkalinity (eq/kg)  =  7.823e-004
                        Total CO2 (mol/kg)  =  7.868e-004
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  = -1.086e-010
+                  Electrical balance (eq)  = -1.064e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  = 278
+                               Iterations  =  29
                                   Total H  = 6.102034e+001
                                   Total O  = 7.065504e+001
 
@@ -3377,7 +3395,7 @@ Zn              6.239e-002
 	Siderite         -4.10  -14.99  -10.89  FeCO3
 	Siderite(d)(3)   -4.54  -14.99  -10.45  FeCO3
 	Smithsonite      -0.08  -10.08  -10.00  ZnCO3
-	Sphalerite       -0.00  -11.62  -11.62  ZnS
+	Sphalerite        0.00  -11.62  -11.62  ZnS
 	Sulfur           -9.55  -24.57  -15.03  S
 	Wurtzite         -1.94  -11.62   -9.68  ZnS
 	Zincite(c)       -0.51   10.63   11.14  ZnO

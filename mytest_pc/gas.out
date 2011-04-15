@@ -183,7 +183,7 @@ Dolomite             0.00  -17.09  -17.09   1.000e+001  9.998e+000 -2.273e-003
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -2.896e-003
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  = -12.02
-                               Iterations  =  26
+                               Iterations  =  25
                                   Total H  = 1.110125e+002
                                   Total O  = 5.554658e+001
 

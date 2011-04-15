@@ -8201,7 +8201,7 @@ Calcite              0.00   -8.48   -8.48   1.000e+001  1.000e+001 -2.813e-004
                       Temperature (deg C)  =  25.000
                   Electrical balance (eq)  = -1.075e-010
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =  12
+                               Iterations  =  20
                                   Total H  = 1.110154e+002
                                   Total O  = 5.552320e+001
 

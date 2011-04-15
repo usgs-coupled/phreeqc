@@ -1,9 +1,42 @@
+REACTION 2
+	Calcite          9.828253e-001
+	Ca[13C]O3(s)     1.101137e-002
+	CaCO2[18O](s)    6.082499e-003
+	Ca[13C]O2[18O](s)  6.814706e-005
+	CaCO[18O]2(s)    1.254777e-005
+	Ca[13C]O[18O]2(s)  1.405826e-007
+	CaC[18O]3(s)     8.628387e-009
+	Ca[13C][18O]3(s)  9.667067e-011
+  5.000000e-004
 END
-SOLUTION 11
+SOLUTION 2
 	units  mol/kgw
 	temp   25.0
-	pH      6.99977
-	pe      4.00000
-	water   1.00000
-	H(0)    1.41742e-025
+	pH      6.98852
+	pe     13.63490
+	water   0.99678
+	[13C](4)  6.52132e-005
+	[14C](4)  7.56020e-016
+	[18O](-2)  1.10910e-001
+	[18O](0)  1.02048e-006
+	C(4)    5.84096e-003
+	Ca      2.45134e-003
+	D(1)    1.66508e-002
+	O(0)    5.12492e-004
+EQUILIBRIUM_PHASES 2
+	O2(g)           -7.000000e-001  1.000000e+001
+SOLID_SOLUTIONS  2
+	Calcite        
+		-comp	Calcite          0.000000e+000
+		-comp	CaCO2[18O](s)    0.000000e+000
+		-comp	CaCO[18O]2(s)    0.000000e+000
+		-comp	CaC[18O]3(s)     0.000000e+000
+		-comp	Ca[13C]O3(s)     0.000000e+000
+		-comp	Ca[13C]O2[18O](s)  0.000000e+000
+		-comp	Ca[13C]O[18O]2(s)  0.000000e+000
+		-comp	Ca[13C][18O]3(s)  0.000000e+000
+		-comp	Ca[14C]O3(s)     0.000000e+000
+		-comp	Ca[14C]O2[18O](s)  0.000000e+000
+		-comp	Ca[14C]O[18O]2(s)  0.000000e+000
+		-comp	Ca[14C][18O]3(s)  0.000000e+000
 END
