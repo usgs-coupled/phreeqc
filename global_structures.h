@@ -146,7 +146,11 @@ enum entity_type
 #define TOL 1e-9				/* tolerance for comparisons of double numbers */
 #define LOG_ZERO_MOLALITY -30	/* molalities <= LOG_ZERO_MOLALITY are considered equal to zero */
 #define MIN_TOTAL 1e-25
+#ifdef PHREEQC_CPP
+#define MIN_TOTAL_SS MIN_TOTAL/100
+#else
 #define MIN_TOTAL_SS MIN_TOTAL
+#endif
 #define MIN_RELATED_SURFACE MIN_TOTAL*100
 #define MIN_RELATED_LOG_ACTIVITY -30
 
@@ -1067,6 +1071,7 @@ struct phase
 	int count_add_logk;
 	struct name_coef *add_logk;
 	LDBLE moles_x;
+	LDBLE delta_max;
 	LDBLE p_soln_x;
 	LDBLE fraction_x;
 	LDBLE log10_lambda, log10_fraction_x;

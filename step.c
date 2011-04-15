@@ -8,6 +8,15 @@
 #include "output.h"
 #include "phrqproto.h"
 
+#ifdef PHREEQC_CPP
+#include "../StorageBin.h"
+#include "../Solution.h"
+#include "../PPassemblage.h"
+#include "../SSassemblage.h"
+#include "../SSassemblageSS.h"
+#include "../NameDouble.h"
+#endif
+
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
 
@@ -219,6 +228,89 @@ step(LDBLE step_fraction)
 		s_s_assemblage_save =
 			(struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 	}
+
+#ifdef PHREEQC_CPP
+	//
+	// Solution -1 has sum of solution/mix, exchange, surface, gas_phase
+	// reaction, kinetics
+	// 
+	// Determine system totals, calculate maximum mineral precipitation
+	if (use.pp_assemblage_in || use.s_s_assemblage_in)
+	{
+		cxxStorageBin sys_bin;
+		cxxSolution soln(PHREEQC_THIS_COMMA -1);
+		sys_bin.setSolution(-1, soln);
+		if (use.pp_assemblage_in)
+		{
+			cxxPPassemblage pp(use.pp_assemblage_ptr);
+			sys_bin.setPPassemblage(-1, pp);
+		}
+		if (use.s_s_assemblage_in)
+		{
+			cxxSSassemblage ss(use.s_s_assemblage_ptr);
+			sys_bin.setSSassemblage(-1, ss);
+		}
+		sys_bin.setSystem(-1);
+		sys_bin.getSystem().totalize(PHREEQC_THIS);
+		cxxNameDouble sys_tots = sys_bin.getSystem().getTotals();
+		if (use.pp_assemblage_in)
+		{
+			cxxPPassemblage *pp = sys_bin.getPPassemblage(-1);
+			std::map <std::string, cxxPPassemblageComp>::iterator it; 
+			for (it = pp->get_ppAssemblageComps().begin(); it != pp->get_ppAssemblageComps().end(); it++)
+			{
+				int n;
+				struct phase *p_ptr = phase_bsearch((it->first).c_str(), &n, FALSE);
+				struct elt_list *e_ptr;
+				double min = 1e10;
+				for (e_ptr = p_ptr->next_elt; e_ptr->elt != NULL; e_ptr++)
+				{
+					std::string e(e_ptr->elt->primary->elt->name);
+					cxxNameDouble::iterator st = sys_tots.find(e.c_str());
+					if (st != sys_tots.end())
+					{
+						double m1 = st->second / e_ptr->coef;
+						if (m1 < min) min = m1;
+					}
+				}
+				p_ptr->delta_max = min;
+			}
+		}
+		if (use.s_s_assemblage_in)
+		{
+			cxxSSassemblage *ss = sys_bin.getSSassemblage(-1);
+			std::map <std::string, cxxSSassemblageSS>::iterator it; 
+			for (it = ss->get_ssAssemblageSSs().begin(); it != ss->get_ssAssemblageSSs().end(); it++)
+			{
+				cxxNameDouble::const_iterator comp_it;
+				for (comp_it = (it->second).get_comps().begin(); comp_it != (it->second).get_comps().end(); comp_it++)
+				{
+					int n;
+					struct phase *p_ptr = phase_bsearch((comp_it->first).c_str(), &n, FALSE);
+					struct elt_list *e_ptr;
+					double min = 1e10;
+					for (e_ptr = p_ptr->next_elt; e_ptr->elt != NULL; e_ptr++)
+					{
+						std::string e(e_ptr->elt->primary->elt->name);
+						cxxNameDouble::iterator st = sys_tots.find(e.c_str());
+						if (st != sys_tots.end())
+						{
+							double m1 = st->second / e_ptr->coef;
+							if (m1 < min) 
+							{
+								min = m1;
+							}
+						}
+					}
+					p_ptr->delta_max = min;
+				}
+			}
+		}
+	}
+#endif
+
+
+
 	return (OK);
 }
 

@@ -635,7 +635,7 @@ gammas(LDBLE mu)
  *   compute temperature dependence of a and b for debye-huckel
  */
 	s1 = 374.11 - tc_x;
-	s2 = pow(s1, 1.0 / 3.0);
+	s2 = pow(s1, (LDBLE) 1.0 / (LDBLE) 3.0);
 	s3 = 1.0 + 0.1342489 * s2 - 3.946263e-03 * s1;
 	s3 = s3 / (3.1975 - 0.3151548 * s2 - 1.203374e-03 * s1 +
 			   7.48908e-13 * (s1 * s1 * s1 * s1));
@@ -1746,7 +1746,9 @@ ineq(int in_kode)
 	else if (l_kode == 3)
 	{
 		return_code = ERROR;
-		error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
+		return_code = 2;
+		//error_msg("Too many iterations in Cl1. Should not have done this.", STOP);
+		warning_msg("Too many iterations in Cl1. Should not have done this.");
 	}
 	else
 	{
@@ -1865,8 +1867,8 @@ ineq(int in_kode)
 		}
 	}
 #ifdef SLNQ
-	slnq_array = free_check_null(slnq_array);
-	slnq_delta1 = free_check_null(slnq_delta1);
+	slnq_array = (LDBL *) free_check_null(slnq_array);
+	slnq_delta1 = (LDBL *) free_check_null(slnq_delta1);
 #endif
 	return (return_code);
 }
@@ -2892,6 +2894,25 @@ reset(void)
 					}
 					delta[i] = 0.0;
 				}
+#ifdef PHREEQC_CPP
+				else if (x[i]->s_s_comp != NULL && delta[i] < -x[i]->s_s_comp->phase->delta_max)
+				// Uses delta_max computed in step
+				// delta_max is the maximum amount of the mineral that could form based
+				// on the limiting element in the system
+				{
+					f0 = -delta[i] / x[i]->s_s_comp->phase->delta_max;
+					if (f0 > factor)
+					{
+						if (debug_model == TRUE)
+						{
+							output_msg(OUTPUT_MESSAGE,
+									   "%-10.10s, Precipitating too much mineral.\t%f\n",
+									   x[i]->description, (double) f0);
+						}
+						factor = f0;
+					}
+				}
+#else
 				else if (delta[i] < -100.0)
 				{
 					f0 = -delta[i] / 100.0;
@@ -2906,6 +2927,7 @@ reset(void)
 						factor = f0;
 					}
 				}
+#endif
 			}
 		}
 	}
@@ -3579,8 +3601,8 @@ residuals(void)
 		if (x[i]->type == MB)
 		{
 			residual[i] = x[i]->moles - x[i]->f;
-			if (fabs(residual[i]) > l_toler * x[i]->moles
-				&& x[i]->moles > MIN_TOTAL)
+			if ((fabs(residual[i]) > l_toler * x[i]->moles
+				&& x[i]->moles > MIN_TOTAL) || x[i]->moles < 0)
 			{
 				if (print_fail)
 					output_msg(OUTPUT_MESSAGE,
@@ -3649,7 +3671,7 @@ residuals(void)
 				0.017 * x[i]->f;
 			if (pitzer_model || sit_model)
 			{
-				residual[i] = pow(10.0, s_h2o->la) - AW;
+				residual[i] = pow((LDBLE) 10.0, s_h2o->la) - AW;
 				if (full_pitzer == FALSE)
 				{
 					residual[i] = 0.0;
@@ -3793,8 +3815,8 @@ residuals(void)
 		else if (x[i]->type == S_S_MOLES)
 		{
 			residual[i] = x[i]->f * LOG_10;
-			if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
-				continue;
+			//if (x[i]->moles <= MIN_TOTAL_SS && iterations > 2)
+			//	continue;
 			if (fabs(residual[i]) > l_toler && x[i]->s_s_in == TRUE)
 			{
 				if (print_fail)
@@ -4151,15 +4173,15 @@ residuals(void)
 				output_msg(OUTPUT_MESSAGE, "\tResidual 2	 %14e\n",
 						   (double) residual[master_ptr2->unknown->number]);
 				output_msg(OUTPUT_MESSAGE, "\texp(-FPsi0/RT)     %14e",
-						   (double) pow(10., master_ptr->s->la));
+						   (double) pow((LDBLE) 10., master_ptr->s->la));
 				output_msg(OUTPUT_MESSAGE, "\tPsi0	       %14e\n",
 						   (double) x[i]->surface_charge->psi);
 				output_msg(OUTPUT_MESSAGE, "\texp(-FPsi1/RT)     %14e",
-						   (double) pow(10., master_ptr1->s->la));
+						   (double) pow((LDBLE) 10., master_ptr1->s->la));
 				output_msg(OUTPUT_MESSAGE, "\tPsi1	       %14e\n",
 						   (double) x[i]->surface_charge->psi1);
 				output_msg(OUTPUT_MESSAGE, "\texp(-FPsi2/RT)     %14e",
-						   (double) pow(10., master_ptr2->s->la));
+						   (double) pow((LDBLE) 10., master_ptr2->s->la));
 				output_msg(OUTPUT_MESSAGE, "\tPsi2	       %14e\n",
 						   (double) x[i]->surface_charge->psi2);
 				output_msg(OUTPUT_MESSAGE, "\tf 0		%14e",
