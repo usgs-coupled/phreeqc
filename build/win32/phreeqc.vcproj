@@ -409,7 +409,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(DEV_GMP_INC_MT)"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;NDEBUG;WIN32;_CONSOLE;DOS;CHART"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;INVERSE_CL1MP;NDEBUG;WIN32;_CONSOLE;DOS;MULTICHART"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -683,6 +683,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\ChartObject.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cl1.c"
 				>
 				<FileConfiguration
@@ -781,6 +785,10 @@
 						CompileAs="2"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\CurveObject.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\src\cvdense.c"
@@ -2559,6 +2567,14 @@
 			>
 			<File
 				RelativePath="..\..\src\basic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\ChartObject.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\CurveObject.h"
 				>
 			</File>
 			<File

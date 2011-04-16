@@ -574,6 +574,11 @@ EXTERNAL struct rate *user_graph;
 EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;
 #endif
+#if defined(MULTICHART)
+#include <map>
+#include "ChartObject.h"
+EXTERNAL std::map<int, ChartObject> chart_map;
+#endif
 
 /* ----------------------------------------------------------------------
  *   GLOBAL DECLARATIONS

@@ -9,6 +9,12 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#if defined(MULTICHART)
+#include <iostream>
+#include <map>
+#include "ChartObject.h"
+#include "CurveObject.h"
+#endif
 #if !defined (PHREEQC_CLASS)
 	#ifdef PHREEQC_CPP
 	extern int read_solution_raw(void);
@@ -115,6 +121,9 @@
 		void SetAxisScale(char *a, int c, char *v, int l);
 		void SetChartTitle(char *s);
 		extern int RowOffset, ColumnOffset;
+	#endif
+	#if defined MULTICHART
+		extern int copy_title(char *token_ptr, char **ptr, int *length);
 	#endif
 
 	#ifdef CHART
@@ -9785,6 +9794,340 @@ read_user_graph(void)
 #endif
 	return (return_value);
 }
+#else if defined(MULTICHART)
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+read_user_graph(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads basic code with which to calculate rates
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+	int n_user, n_user_end;
+	char *ptr;
+	char *description;
+	int l, length, line_length, CurveInfonr = 0;
+	int return_value, opt, opt_save;
+	char file_name[MAX_LENGTH];
+	char token[MAX_LENGTH];
+	char *next_char;
+	const char *opt_list[] = {
+		"start",				/* 0 */
+		"end",					/* 1 */
+		"heading",				/* 2 */
+		"headings",				/* 3 */
+		"chart_title",			/* 4 */
+		"axis_titles",			/* 5 */
+		"axis_scale",			/* 6 */
+		"initial_solutions",	/* 7 */
+		"plot_concentration_vs",	/* 8 */
+		"shifts_as_points",		/* 9 */
+		"grid_offset",			/* 10 */
+		"connect_simulations",	/* 11 */
+		"plot_csv_file"			/* 12 */
+	};
+	int count_opt_list = 13;
+	int i;
+
+	opt_save = OPTION_DEFAULT;
+
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+/*
+ *   Find old s_s_assemblage or alloc space for new s_s_assemblage
+ */
+	ChartObject *chart_obj;
+	std::map<int, ChartObject>::iterator it = chart_map.find(n_user);
+	if (it == chart_map.end())
+	{
+		chart_obj = &(it->second);
+	}
+	else
+	{
+		ChartObject *obj = new ChartObject();
+		chart_map[n_user] = *obj;
+		chart_obj = &(chart_map.find(n_user)->second);
+	}
+
+/*
+ *   Read lines
+ */
+	// not sure about u_g, ncurves_changed, ColumnOffset, and new_ug.
+#ifdef CHART
+	if (FirstCallToUSER_GRAPH)
+	{
+		u_g = true;
+		MallocCurves(5, 30);
+	}
+	else
+	{
+		//connect_simulations = false;
+		ncurves_changed[0] = 1;
+		ColumnOffset = ncurves_changed[2];
+		new_ug = true;
+	}
+#endif
+	return_value = UNKNOWN;
+	for (;;)
+	{
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT) opt = opt_save;
+
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in USER_GRAPH keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+		case 0:				/* start */
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 1:				/* end */
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 2:				/* headings */
+		case 3:				/* heading */
+			while (copy_token(token, &next_char, &l) != EMPTY)
+			{
+				//user_graph_headings =
+				//	(char **) PHRQ_realloc(user_graph_headings,
+				//				 (size_t) (user_graph_count_headings +
+				//						   1) * sizeof(char *));
+				//if (user_graph_headings == NULL)
+				//	malloc_error();
+				//user_graph_headings[user_graph_count_headings] =
+				//	string_hsave(token);
+				//user_graph_count_headings++;
+				chart_obj->Get_user_graph_headings().push_back(token);
+			}
+			break;
+/*Modifications of read_user_punch to change the chart's appearance */
+		case 4:				/* chart title */
+			copy_title(token, &next_char, &l);
+			chart_obj->Get_chart_title() = token;
+			//SetChartTitle(token);
+			break;
+		case 5:	/* axis titles */
+			//i = 0;
+			//while (copy_title(token, &next_char, &l) != EMPTY)
+			//{
+			//	SetAxisTitles(token, i);
+			//	i++;
+			//}
+			chart_obj->Get_axis_titles().clear();
+			while (copy_title(token, &next_char, &l) != EMPTY)
+			{
+				chart_obj->Get_axis_titles().push_back(token);
+			}
+			break;
+		case 6:	
+			{ /* axis scales */
+				//char *axis = "";
+				//int j = 0;
+				//float f_min, f_max; f_min = (float) -9.999;
+				//prev_next_char = next_char;
+				//copy_token(token, &next_char, &l);
+				//str_tolower(token);
+				//if (strstr(token, "x") == token)
+				//	axis = "x";
+				//else if ((strstr(token, "y") == token) && (strstr(token, "y2") != token))
+				//	axis = "y";
+				//else if ((strstr(token, "s") == token) || (strstr(token, "y2") == token))
+				//	axis = "s";
+				//else
+				//{
+				//	input_error++;
+				//	copy_token(token, &prev_next_char, &l);
+				//	sprintf(error_string,
+				//		"Found '%s', but expect axis type \'x\', \'y\', or \'sy\'.", token);
+				//	error_msg(error_string, CONTINUE);
+				//}
+				//while ((j < 4)
+				//   && (i = copy_token(token, &next_char, &l)) != EMPTY)
+				//{
+				//	str_tolower(token);
+				//	if ((i == DIGIT) || (strstr(token, "a") == token))
+				//		SetAxisScale(axis, j, token, FALSE);
+				//	else
+				//	{
+				//		input_error++;
+				//		copy_token(token, &prev_next_char, &l);
+				//		sprintf(error_string,
+				//		"Found '%s', but expect number or 'a(uto)'.", token);
+				//		error_msg(error_string, CONTINUE);
+				//	}
+				//	if (i == DIGIT)
+				//	{
+				//		if (j == 0)
+				//			f_min = (float) atof(token);
+				//		else if (j == 1 && fabs(f_min + 9.999) > 1e-3)
+				//		{
+				//			f_max = (float) atof(token);
+				//			if (f_min > f_max)
+				//			{
+				//				sprintf(error_string,
+				//				"Maximum must be larger than minimum of axis_scale, interchanging both for %s axis", axis);
+				//				warning_msg(error_string);
+				//				SetAxisScale(axis, 0, token, FALSE);
+				//				sprintf(token, "%e", f_min);
+				//				SetAxisScale(axis, 1, token, FALSE);
+				//			}
+				//		}
+				//	}
+				//	j++;		/* counter for categories */
+				//	prev_next_char = next_char;
+				//}
+				//if (j == 4)
+				//	SetAxisScale(axis, j, 0,
+				//			 get_true_false(next_char, FALSE)); /* anything else than false turns on log scale */
+				std::vector<std::string> string_vector;
+				std::vector<int> type_vector;
+				int j = 0; 
+				while ((j < 5) && (i = copy_token(token, &next_char, &l)) != EMPTY)
+				{
+					string_vector.push_back(token);
+					type_vector.push_back(i);
+					j++;
+				}
+				std::ostringstream estream;
+
+				// check errors
+				if (!chart_obj->Set_axis_scale(string_vector, type_vector, estream))
+				{
+					input_error++;
+					error_msg(estream.str().c_str(), CONTINUE);
+				}
+				else
+				{
+					if (estream.str().size() > 0)
+					{
+						warning_msg(estream.str().c_str());
+					}
+				}
+			}
+			break;
+		case 7:
+			graph_initial_solutions = get_true_false(next_char, FALSE);
+			break;
+		case 8:
+			prev_next_char = next_char;
+			copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (strstr(token, "x") == token || strstr(token, "d") == token)
+				chart_type = 0;
+			else if (strstr(token, "t") == token)
+				chart_type = 1;
+			else
+			{
+				input_error++;
+				copy_token(token, &prev_next_char, &l);
+				sprintf(error_string,
+						"Found '%s', but expect plot type: (\'x\' or \'dist\') for distance, (\'t\') for time.",
+						token);
+					error_msg(error_string, CONTINUE);
+			}
+			break;
+		case 9:
+			shifts_as_points = get_true_false(next_char, TRUE);
+			if (shifts_as_points == TRUE)
+				chart_type = 0;
+			else
+				chart_type = 1;
+			break;
+		case 10:
+#ifdef PHREEQ98
+			i = copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (i == DIGIT)
+				sscanf(token, "%d", &RowOffset);
+			i = copy_token(token, &next_char, &l);
+			str_tolower(token);
+			if (i == DIGIT)
+				sscanf(token, "%d", &ColumnOffset);
+#endif
+			break;
+		case 11:
+			connect_simulations = get_true_false(next_char, TRUE);
+			break;
+		case 12:
+			string_trim(next_char);
+			strcpy(file_name, next_char);
+			if (!OpenCSVFile(file_name))
+			{
+				sprintf(error_string, "Can't open file, %s. Give the full path + name, or copy the file to the working directory.", file_name);
+				input_error++;
+				error_msg(error_string, CONTINUE);
+			}
+			break;
+			/* End of modifications */
+		case OPTION_DEFAULT:	/* read first command */
+			rate_free(user_graph);
+			user_graph->new_def = TRUE;
+			user_graph->commands = (char *) PHRQ_malloc(sizeof(char));
+			if (user_graph->commands == NULL)
+				malloc_error();
+			user_graph->commands[0] = '\0';
+			user_graph->linebase = NULL;
+			user_graph->varbase = NULL;
+			user_graph->loopbase = NULL;
+			user_graph->name =
+				string_hsave("user defined Basic graph routine");
+		case OPT_1:			/* read command */
+			length = strlen(user_graph->commands);
+#ifdef CHART
+			char *ptr = string_duplicate(line);
+			str_tolower(ptr);
+			if (strstr(ptr, "graph_y") || strstr(ptr, "graph_sy"))
+			{
+				CurveInfonr++;
+			}
+			if (strstr(ptr, "plot_xy"))
+			{
+				ExtractCurveInfo(line, CurveInfonr);
+				CurveInfonr++;
+			}
+			free_check_null(ptr);
+#endif
+			line_length = strlen(line);
+			user_graph->commands =
+				(char *) PHRQ_realloc(user_graph->commands,
+							 (size_t) (length + line_length +
+									   2) * sizeof(char));
+			if (user_graph->commands == NULL)
+				malloc_error();
+			user_graph->commands[length] = ';';
+			user_graph->commands[length + 1] = '\0';
+			strcat((user_graph->commands), line);
+			opt_save = OPT_1;
+			break;
+		}
+
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+#ifdef PHREEQ98
+	for (i = 0; i < user_graph_count_headings; i++)
+	{
+		GridHeadings(user_graph_headings[i], i);
+	}
+#endif
+	return (return_value);
 #endif
 
 /* ---------------------------------------------------------------------- */
