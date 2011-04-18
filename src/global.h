@@ -574,6 +574,10 @@ EXTERNAL struct rate *user_graph;
 EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;
 #endif
+#if defined MULTICHART
+#include "../ChartHandler.h"
+EXTERNAL ChartHandler chart_handler;
+#endif
 
 /* ----------------------------------------------------------------------
  *   GLOBAL DECLARATIONS
