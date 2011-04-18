@@ -116,6 +116,9 @@
 		void SetChartTitle(char *s);
 		extern int RowOffset, ColumnOffset;
 	#endif
+#if defined MULTICHART
+	int read_user_graph_handler(void);
+#endif
 
 	#ifdef CHART
 		extern char *axis_titles[3];
@@ -479,6 +482,9 @@ read_input(void)
 #if defined PHREEQ98 || defined CHART
 			read_user_graph();
 # else
+#if defined MULTICHART
+			read_user_graph_handler();
+#endif
 			for (;;)
 			{
 				j = check_line("Reading user_graph", FALSE, TRUE, TRUE, TRUE);
