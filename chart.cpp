@@ -8,6 +8,7 @@
  not used: t->Join. the user must press Alt-F4.
  todo: include the dll's;
 */
+#if !defined(MULTICHART)
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
@@ -1060,3 +1061,4 @@ end_chart: /* wonder where this could be called... */
 }
 
 #endif //zedgraph
+#endif //!MULTICHART

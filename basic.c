@@ -1,6 +1,6 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
-
+#include <iostream>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
@@ -22,7 +22,7 @@ typedef unsigned char boolean;
 	extern int AddSeries;
 	extern int colnr, rownr;
 	#endif
-	#ifdef CHART
+	#if defined(CHART) || defined(MULTICHART) 
 	void PlotXY(char *x, char *y);
 	#endif
 
@@ -44,7 +44,7 @@ typedef unsigned char boolean;
 	Static void parseinput(tokenrec ** buf);
 	Static void exec(void);
 	Static void disposetokens(tokenrec ** tok);
-
+	Local void cmdplot_xy(struct LOC_exec *LINK);
 	/*$if not checking$
 	   $range off$
 	$end$*/
@@ -100,7 +100,7 @@ typedef unsigned char boolean;
 		{"graph_y", tokgraph_y},
 		{"graph_sy", tokgraph_sy},
 	#endif
-	#ifdef CHART
+	#if defined(CHART) || defined(MULTICHART)
 		{"plot_xy", tokplot_xy},
 	#endif
 		{"input", tokinput},
@@ -5133,7 +5133,7 @@ exec(void)
 					cmdgraph_sy(&V);
 					break;
 #endif
-#ifdef CHART
+#if defined CHART || defined MULTICHART
 				case tokplot_xy:
 					cmdplot_xy(&V);
 					break;
@@ -5348,3 +5348,169 @@ free_dim_stringvar(varrec *l_varbase)
 	}
 	return (OK);
 }
+#if defined MULTICHART
+Local void CLASS_QUALIFIER
+cmdplot_xy(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n[2];
+	Char STR[2][256];
+	int i = 0;
+	semiflag = false;
+
+	ChartObject *chart = chart_handler.Get_current_chart();
+
+	while (!iseos(LINK) && i < 2)
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			i++;
+			continue;
+		}
+		n[i] = expr(LINK);
+		if (n[i].stringval)
+		{
+			strcpy(STR[i], n[i].UU.sval);
+			PHRQ_free(n[i].UU.sval);
+		}
+		else
+			numtostr(STR[i], n[i].UU.val);
+	}
+
+	if (chart->Get_colnr() == 0)
+		{
+			if (chart->Get_AddSeries())
+			{
+				if (state == TRANSPORT)
+				{
+					if (transport_step > punch_modulus && transport_step != 
+						chart->Get_prev_transport_step())
+						chart->Set_rownr(-1);
+				}
+				else if (state == ADVECTION)
+				{
+					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+						chart->Set_rownr(-1);
+				}
+			}
+			chart->Set_rownr(chart->Get_rownr() + 1);
+		}
+
+
+	std::string x_str(STR[0]), y_str(STR[1]);
+
+// Code formerly in PlotXY, included here
+	{
+		//chart->PlotXY(STR[0], STR[1]);
+		/* Attribute values from *x and *y to Curves(*x, *y) */
+
+		int i, i2, i3;
+		bool new_sim = false, new_trans = false;
+		if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
+			(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
+			new_trans = true;
+		if (chart->Get_FirstCallToUSER_GRAPH() && chart->Get_colnr() == 0)
+			chart->Set_prev_sim_no(simulation);
+		else
+			if (!chart->Get_rownr() && (simulation != chart->Get_prev_sim_no() || new_trans))
+			{
+				new_sim = true;
+				if (!chart->Get_connect_simulations())
+					chart->Set_AddSeries(true);
+			}
+			chart->Set_prev_sim_no(simulation);
+
+			int curvenr = chart->Get_colnr() + chart->Get_ColumnOffset();
+			//if (curvenr >= ncurves)
+			//	ReallocCurves(0);
+
+			if (curvenr + 1 > chart->Get_ncurves_changed()[2]) /* timer must recall DefineCurves in Form */
+			{
+				//chart->Get_ncurves_changed()[0] = 1;
+				chart->Get_ncurves_changed()[1] = chart->Get_ncurves_changed()[2];
+				chart->Get_ncurves_changed()[2] = curvenr + 1;
+				//fprintf(stderr, "plotxy: %d %d\n", chart->Get_ncurves_changed()[2], simulation);
+			}
+
+			//if (x_filled && user_graph_count_headings > curvenr + ColumnOffset)
+			//{
+			//	PHRQ_free(Curves[curvenr + ColumnOffset].id);
+			//	Curves[curvenr + ColumnOffset].id =
+			//		string_duplicate(user_graph_headings[curvenr + ColumnOffset]);
+			//}
+
+			/* If a new simulation, create new set of curves,
+			define identifiers, y axis from values set in ExtractCurveInfo... */
+#ifdef SKIP
+			if (chart->Get_rownr() == 0 && chart->Get_colnr() == 0)
+			{
+				if (new_sim && chart->Get_AddSeries() && (!chart->Get_connect_simulations() || chart->Get_new_ug()))
+				{ /* step to new curveset... */
+					//if (Curves[ncurves - 1].npoints)
+					//	ReallocCurves(ncurves * 2);
+					for (i = curvenr; i < (int) chart->Get_Curves().size(); i++)
+					{
+						if (chart->Get_Curves()[i].Get_x().size() > 0)
+							continue;
+						else
+						{
+							/* curve i is free... */
+							i2 = i3 = ColumnOffset;
+							ColumnOffset = curvenr = i;
+							break;
+						}
+					}
+					if (new_trans && !chart->Get_new_ug()) i3 = 0;
+					if (chart->Get_new_ug()) i2 = 0;
+					/* fill in curve properties... */
+					for (i = chart->Get_ColumnOffset(); i < chart->Get_ColumnOffset() + (chart->Get_ColumnOffset() - i2); i++)
+					{
+						//if (i >= ncurves)
+						//	ReallocCurves(0);
+						/* define the new curve... */
+						if (i3 < user_graph_count_headings)
+						{
+							PHRQ_free(Curves[i].id);
+							Curves[i].id = string_duplicate(user_graph_headings[i3]);
+						}
+						//Curves[i].color = Curves[i3].color;
+						//Curves[i].line_w = Curves[i3].line_w;
+						//Curves[i].symbol = Curves[i3].symbol;
+						//Curves[i].symbol_size = Curves[i3].symbol_size;
+						Curves[i].y_axis = Curves[i3].y_axis;
+						i3++;
+					}
+				}
+				/* Or, add all to existing set... */
+				else if (new_sim)
+				{
+					RowOffset = 1;
+					for (i = 0; i < ncurves; i++) Curves[i].prev_npoints = Curves[i].npoints;
+				}
+				new_ug = false;
+			}
+
+			/* return if x or y is a zero... */
+			if (!strlen(x) || !strlen(y)) return;
+
+			/* fill in Curves(x, y)... */
+			//if (Curves[curvenr].npoints >= Curves[curvenr].nxy)
+			//	ReallocCurveXY(curvenr);
+			//Curves[curvenr].x[Curves[curvenr].npoints] = (float) atof(x);
+			//Curves[curvenr].y[Curves[curvenr].npoints] = (float) atof(y);
+			//Curves[curvenr].npoints++;
+
+			//return;
+#endif
+			chart->Get_Curves()[curvenr].Get_x().push_back(atof(x_str.c_str()));
+			chart->Get_Curves()[curvenr].Get_y().push_back(atof(y_str.c_str()));
+	}
+	//chart->Get_ncurves_changed()[0] = 1;
+	chart->Set_colnr(chart->Get_colnr() + 1);
+}
+#endif // MULTICHART
