@@ -239,7 +239,7 @@ struct LOC_exec
 #define tokcell_pore_volume 141
 #define tokcell_porosity    142
 #define tokcell_saturation  143
-#if defined CHART
+#if defined CHART || defined MULTICHART
 #define tokplot_xy          144
 #endif
 #define toktotmole          145

@@ -92,6 +92,13 @@ clean_up(void)
 	if (svnid == NULL)
 		fprintf(stderr, " ");
 	*/
+#if defined MULTICHART
+	chart_handler.End_timer();
+	while (chart_handler.Get_timer())
+	{
+		::Sleep(200);
+	}
+#endif
 
 	description_x = (char *) free_check_null(description_x);
 	isotopes_x = (struct isotope *) free_check_null(isotopes_x);
@@ -4348,15 +4355,19 @@ rate_free(struct rate *rate_ptr)
  *   Input: i, number of rate
  *   Return: OK
  */
-	char cmd[] = "new; quit";
+	
 
 	if (rate_ptr == NULL)
 		return (ERROR);
-	rate_ptr->commands = (char *) free_check_null(rate_ptr->commands);
-	basic_run(cmd, rate_ptr->linebase, rate_ptr->varbase, rate_ptr->loopbase);
-	rate_ptr->linebase = NULL;
-	rate_ptr->varbase = NULL;
-	rate_ptr->loopbase = NULL;
+	if (rate_ptr->linebase != NULL)
+	{
+		char cmd[] = "new; quit";
+		rate_ptr->commands = (char *) free_check_null(rate_ptr->commands);
+		basic_run(cmd, rate_ptr->linebase, rate_ptr->varbase, rate_ptr->loopbase);
+		rate_ptr->linebase = NULL;
+		rate_ptr->varbase = NULL;
+		rate_ptr->loopbase = NULL;
+	}
 	return (OK);
 }
 

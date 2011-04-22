@@ -481,10 +481,9 @@ read_input(void)
 			keyword[46].keycount++;
 #if defined PHREEQ98 || defined CHART
 			read_user_graph();
-# else
-#if defined MULTICHART
+#elif defined MULTICHART
 			read_user_graph_handler();
-#endif
+# else
 			for (;;)
 			{
 				j = check_line("Reading user_graph", FALSE, TRUE, TRUE, TRUE);

@@ -48,7 +48,9 @@
 		extern int chart_type;
 		extern int AddSeries;
 		extern int FirstCallToUSER_GRAPH;
-	#endif
+#elif defined MULTICHART
+	static int punch_user_graph(void);
+#endif
 	#ifdef CHART // remove this one when finalizing...
 		extern void start_chart(bool end);
 	#endif
@@ -167,7 +169,7 @@ punch_all(void)
 	{
 		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 || defined CHART || defined MULTICHART
 	if (pr.user_graph == TRUE)
 		punch_user_graph();
 #endif
@@ -3222,7 +3224,7 @@ punch_user_punch(void)
 	return (OK);
 }
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 || defined CHART 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 punch_user_graph(void)
@@ -3306,7 +3308,93 @@ punch_user_graph(void)
 	return (OK);
 }
 #endif
+#if defined(MULTICHART)
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+punch_user_graph(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Graph with user defined BASIC print routine
+ */
+	char command[] = "run";
 
+	ChartObject *chart = chart_handler.Get_current_chart();
+	if (chart == NULL) return OK;
+
+	chart->Set_colnr(0);
+/*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
+/*    if (punch.user_punch == FALSE) return(OK); */
+/*	  if (punch.in == FALSE) return(OK); */
+	if (chart->Get_rate_command_list().size() == 0)
+		return (OK);
+	if (((state == INITIAL_SOLUTION) || (state == INITIAL_EXCHANGE)
+		 || (state == INITIAL_SURFACE) || (state == INITIAL_GAS_PHASE))
+		&& (chart->Get_graph_initial_solutions() == false))
+		return (OK);
+	if (chart->Get_FirstCallToUSER_GRAPH())
+		chart->Set_AddSeries(true);
+	if (state == REACTION)
+	{
+		/*if (reaction_step == 1) AddSeries = TRUE;
+		   else AddSeries = FALSE; */
+		if (reaction_step == 1 && !chart->Get_connect_simulations())
+			chart->Set_AddSeries(true);
+		if (reaction_step > 1)
+			chart->Set_AddSeries(false);
+	}
+	if (state == ADVECTION)
+	{
+		if (advection_step == 0 && chart->Get_graph_initial_solutions() == false)
+			return (OK);
+		if (((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
+			((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step())))
+			chart->Set_AddSeries(true);
+		else
+			chart->Set_AddSeries(false);
+	}
+	if (state == TRANSPORT)
+	{
+		if (transport_step == 0 && chart->Get_graph_initial_solutions() == FALSE)
+			return (OK);
+		if (((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
+			((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step())))
+			chart->Set_AddSeries(true);
+		else
+			chart->Set_AddSeries(false);
+	}
+	if (chart->Get_rate_new_def())
+	{
+		if (basic_compile
+			(chart->Get_user_graph()->commands, &chart->Get_user_graph()->linebase,
+			 &chart->Get_user_graph()->varbase, &chart->Get_user_graph()->loopbase) != 0)
+		{
+			error_msg("Fatal Basic error in USER_GRAPH.", STOP);
+		}
+		chart->Set_rate_new_def(false);
+	}
+	if (basic_run
+		(command, chart->Get_user_graph()->linebase,
+			 chart->Get_user_graph()->varbase, chart->Get_user_graph()->loopbase) != 0)
+	{
+		error_msg("Fatal Basic error in USER_GRAPH.", STOP);
+	}
+	if (state == ADVECTION)
+		chart->Set_prev_advection_step(advection_step);
+	if (state == TRANSPORT)
+		chart->Set_prev_transport_step(transport_step);
+	/*if (state == REACTION) prev_reaction_step = reaction_step; */
+
+	if (chart->Get_FirstCallToUSER_GRAPH())
+	{
+		chart->start_chart();
+	}
+
+	chart->Set_FirstCallToUSER_GRAPH(false);
+
+	return (OK);
+}
+#endif // MULTICHART
 #ifdef SKIP_MOVED_TO_OUTPUT_C
 #if defined(HDF5_CREATE)
 extern void HDFWriteHyperSlabV(const char *name, const char *format,
