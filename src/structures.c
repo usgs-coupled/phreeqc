@@ -94,10 +94,6 @@ clean_up(void)
 	*/
 #if defined MULTICHART
 	chart_handler.End_timer();
-	while (chart_handler.Get_timer())
-	{
-		::Sleep(200);
-	}
 #endif
 
 	description_x = (char *) free_check_null(description_x);

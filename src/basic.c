@@ -45,6 +45,9 @@ typedef unsigned char boolean;
 	Static void exec(void);
 	Static void disposetokens(tokenrec ** tok);
 	Local void cmdplot_xy(struct LOC_exec *LINK);
+	Local void cmdgraph_x(struct LOC_exec *LINK);
+	Local void cmdgraph_y(struct LOC_exec *LINK);
+	Local void cmdgraph_sy(struct LOC_exec *LINK);
 	/*$if not checking$
 	   $range off$
 	$end$*/
@@ -95,7 +98,7 @@ typedef unsigned char boolean;
 		{"let", toklet},
 		{"print", tokprint},
 		{"punch", tokpunch},
-	#if defined PHREEQ98 || defined CHART
+	#if defined PHREEQ98 || defined CHART || defined(MULTICHART)
 		{"graph_x", tokgraph_x},
 		{"graph_y", tokgraph_y},
 		{"graph_sy", tokgraph_sy},
@@ -1838,7 +1841,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
 			break;
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 || defined CHART || defined MULTICHART
 		case tokgraph_x:
 			output_msg(OUTPUT_BASIC, "GRAPH_X");
 			break;
@@ -5120,7 +5123,7 @@ exec(void)
 					cmdchange_surf(&V);
 					break;
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 || defined CHART || defined MULTICHART
 				case tokgraph_x:
 					cmdgraph_x(&V);
 					break;
@@ -5358,8 +5361,6 @@ cmdplot_xy(struct LOC_exec *LINK)
 	int i = 0;
 	semiflag = false;
 
-	ChartObject *chart = chart_handler.Get_current_chart();
-
 	while (!iseos(LINK) && i < 2)
 	{
 		semiflag = false;
@@ -5382,25 +5383,27 @@ cmdplot_xy(struct LOC_exec *LINK)
 			numtostr(STR[i], n[i].UU.val);
 	}
 
-	if (chart->Get_colnr() == 0)
-		{
-			if (chart->Get_AddSeries())
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != 
-						chart->Get_prev_transport_step())
-						chart->Set_rownr(-1);
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-						chart->Set_rownr(-1);
-				}
-			}
-			chart->Set_rownr(chart->Get_rownr() + 1);
-		}
+	ChartObject *chart = chart_handler.Get_current_chart();
+	if (chart == NULL) return;
 
+	if (chart->Get_colnr() == 0)
+	{
+		if (chart->Get_AddSeries())
+		{
+			if (state == TRANSPORT)
+			{
+				if (transport_step > punch_modulus && transport_step != 
+					chart->Get_prev_transport_step())
+					chart->Set_rownr(-1);
+			}
+			else if (state == ADVECTION)
+			{
+				if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+					chart->Set_rownr(-1);
+			}
+		}
+		chart->Set_rownr(chart->Get_rownr() + 1);
+	}
 
 	std::string x_str(STR[0]), y_str(STR[1]);
 
@@ -5411,18 +5414,18 @@ cmdplot_xy(struct LOC_exec *LINK)
 
 		int i, i2, i3;
 		bool new_sim = false, new_trans = false;
-		if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
-			(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
-			new_trans = true;
+		//if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
+		//	(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
+		//	new_trans = true;
 		if (chart->Get_FirstCallToUSER_GRAPH() && chart->Get_colnr() == 0)
 			chart->Set_prev_sim_no(simulation);
 		else
-			if (!chart->Get_rownr() && (simulation != chart->Get_prev_sim_no() || new_trans))
-			{
-				new_sim = true;
-				if (!chart->Get_connect_simulations())
-					chart->Set_AddSeries(true);
-			}
+			//if (!chart->Get_rownr() && (simulation != chart->Get_prev_sim_no() || new_trans))
+			//{
+			//	new_sim = true;
+			//	if (!chart->Get_connect_simulations())
+			//		chart->Set_AddSeries(true);
+			//}
 			chart->Set_prev_sim_no(simulation);
 
 			int curvenr = chart->Get_colnr() + chart->Get_ColumnOffset();
@@ -5431,7 +5434,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 
 			if (curvenr + 1 > chart->Get_ncurves_changed()[2]) /* timer must recall DefineCurves in Form */
 			{
-				//chart->Get_ncurves_changed()[0] = 1;
+				chart->Get_ncurves_changed()[0] = 1;
 				chart->Get_ncurves_changed()[1] = chart->Get_ncurves_changed()[2];
 				chart->Get_ncurves_changed()[2] = curvenr + 1;
 				//fprintf(stderr, "plotxy: %d %d\n", chart->Get_ncurves_changed()[2], simulation);
@@ -5509,8 +5512,185 @@ cmdplot_xy(struct LOC_exec *LINK)
 #endif
 			chart->Get_Curves()[curvenr].Get_x().push_back(atof(x_str.c_str()));
 			chart->Get_Curves()[curvenr].Get_y().push_back(atof(y_str.c_str()));
+			chart->Get_ncurves_changed()[0] = 1;
 	}
 	//chart->Get_ncurves_changed()[0] = 1;
 	chart->Set_colnr(chart->Get_colnr() + 1);
 }
+Local void CLASS_QUALIFIER
+cmdgraph_x(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n;
+	semiflag = false;
+
+	ChartObject *chart = chart_handler.Get_current_chart();
+	if (chart == NULL) return;
+
+	while (!iseos(LINK))
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			continue;
+		}
+		n = expr(LINK);
+		if (chart->Get_colnr() == 0)
+		{
+			if (chart->Get_AddSeries())
+			{
+				if (state == TRANSPORT)
+				{
+					if (transport_step > punch_modulus && transport_step != 
+						chart->Get_prev_transport_step())
+						chart->Set_rownr(-1);
+				}
+				else if (state == ADVECTION)
+				{
+					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+						chart->Set_rownr(-1);
+				}
+			}
+			chart->Set_rownr(chart->Get_rownr() + 1);
+		}
+		if ( (size_t) chart->Get_colnr() <= chart->Get_user_graph_headings().size())
+		{
+			if (n.stringval)
+			{
+				chart->Set_graph_x(atof(n.UU.sval));
+				PHRQ_free(n.UU.sval);
+			}
+			else
+				chart->Set_graph_x(n.UU.val);
+			chart->Get_ncurves_changed()[0] = 1;
+		}
+
+	}
+	if (chart->Get_colnr() == chart->Get_user_graph_headings().size() && chart->Get_graph_x() != NA)
+	{
+		chart->Finalize_graph_pts();
+	}
+}
+
+Local void CLASS_QUALIFIER
+cmdgraph_y(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n;
+	semiflag = false;
+
+	ChartObject *chart = chart_handler.Get_current_chart();
+	if (chart == NULL) return;
+
+	while (!iseos(LINK))
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			continue;
+		}
+		n = expr(LINK);
+		if (chart->Get_colnr() == 0)
+		{
+			if (chart->Get_AddSeries())
+			{
+				if (state == TRANSPORT)
+				{
+					if (transport_step > punch_modulus && transport_step != 
+						chart->Get_prev_transport_step())
+						chart->Set_rownr(-1);
+				}
+				else if (state == ADVECTION)
+				{
+					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+						chart->Set_rownr(-1);
+				}
+			}
+			chart->Set_rownr(chart->Get_rownr() + 1);
+		}
+		if ( (size_t) chart->Get_colnr() < chart->Get_user_graph_headings().size())
+		{
+			if (n.stringval)
+			{
+				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+				PHRQ_free(n.UU.sval);
+			}
+			else
+				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
+			chart->Get_ncurves_changed()[0] = 1;
+		}
+
+		chart->Set_colnr(chart->Get_colnr() + 1);
+	}
+	if (chart->Get_colnr() == chart->Get_user_graph_headings().size() && chart->Get_graph_x() != NA)
+	{
+		chart->Finalize_graph_pts();
+	}
+}
+
+Local void CLASS_QUALIFIER
+cmdgraph_sy(struct LOC_exec *LINK)
+{
+	boolean semiflag;
+	valrec n;
+	semiflag = false;
+
+	ChartObject *chart = chart_handler.Get_current_chart();
+	if (chart == NULL) return;
+
+	while (!iseos(LINK))
+	{
+		semiflag = false;
+		if ((unsigned long) LINK->t->kind < 32 &&
+			((1L << ((long) LINK->t->kind)) &
+			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
+		{
+			semiflag = true;
+			LINK->t = LINK->t->next;
+			continue;
+		}
+		n = expr(LINK);
+		if (chart->Get_colnr() == 0)
+		{
+			if (chart->Get_AddSeries())
+			{
+				if (state == TRANSPORT)
+				{
+					if (transport_step > punch_modulus && transport_step != 
+						chart->Get_prev_transport_step())
+						chart->Set_rownr(-1);
+				}
+				else if (state == ADVECTION)
+				{
+					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+						chart->Set_rownr(-1);
+				}
+			}
+			chart->Set_rownr(chart->Get_rownr() + 1);
+		}
+
+		chart->Get_secondary_y()[chart->Get_colnr()] = true;
+		if ( (size_t) chart->Get_colnr() < chart->Get_user_graph_headings().size())
+		{
+			if (n.stringval)
+			{
+				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+				PHRQ_free(n.UU.sval);
+			}
+			else
+				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
+			chart->Get_ncurves_changed()[0] = 1;
+		}
+		chart->Set_colnr(chart->Get_colnr() + 1);
+	}
+}
+
 #endif // MULTICHART
