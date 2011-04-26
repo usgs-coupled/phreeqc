@@ -5514,7 +5514,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 #endif
 			chart->Get_Curves()[curvenr].Get_x().push_back(atof(x_str.c_str()));
 			chart->Get_Curves()[curvenr].Get_y().push_back(atof(y_str.c_str()));
-			chart->Get_ncurves_changed()[0] = 1;
+			//chart->Get_ncurves_changed()[0] = 1;
 	}
 	//chart->Get_ncurves_changed()[0] = 1;
 	chart->Set_colnr(chart->Get_colnr() + 1);
@@ -5568,7 +5568,7 @@ cmdgraph_x(struct LOC_exec *LINK)
 			}
 			else
 				chart->Set_graph_x(n.UU.val);
-			chart->Get_ncurves_changed()[0] = 1;
+			//chart->Get_ncurves_changed()[0] = 1;
 		}
 
 	}
@@ -5627,7 +5627,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 			}
 			else
 				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
-			chart->Get_ncurves_changed()[0] = 1;
+			//chart->Get_ncurves_changed()[0] = 1;
 		}
 
 		chart->Set_colnr(chart->Get_colnr() + 1);
@@ -5689,7 +5689,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			}
 			else
 				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
-			chart->Get_ncurves_changed()[0] = 1;
+			//chart->Get_ncurves_changed()[0] = 1;
 		}
 		chart->Set_colnr(chart->Get_colnr() + 1);
 	}
