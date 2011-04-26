@@ -169,7 +169,12 @@ punch_all(void)
 	{
 		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
-#if defined PHREEQ98 || defined CHART || defined MULTICHART
+#if defined PHREEQ98 || defined CHART 
+	if (pr.user_graph == TRUE)
+	{
+		punch_user_graph();
+	}
+#elif  defined MULTICHART
 	if (pr.user_graph == TRUE)
 	{
 		ChartObject *chart = chart_handler.Get_current_chart();
