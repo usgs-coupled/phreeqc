@@ -81,6 +81,7 @@ namespace zdg_ui2 {
 		ChartObject *ptr = ((ChartObj^)(data))->chartobject_ptr;
 		Form1 ^myForm = gcnew Form1(ptr);
 		myForm->ShowDialog();
+		myForm->~Form1();
 
 	}
 #else
@@ -119,6 +120,7 @@ namespace zdg_ui2 {
 	private: bool check_neg_log( int i, int i2)
 		{
 			ChartObject *chart = this->chartobject_ptr;
+			if (chart == NULL) return false;
 			std::vector<CurveObject> &Curves = chart->Get_Curves();
 			if (LogX && chart->Get_axis_scale_x()[4] == 10.0 && 
 				Curves[i].Get_x()[i2] <= 0)
@@ -157,26 +159,35 @@ namespace zdg_ui2 {
 
 		void DefineCurves(GraphPane ^myPane, int init)
 		{
-			//if (P_INSTANCE_POINTER ncurves_changed[0])
-			//	P_INSTANCE_POINTER ncurves_changed[0] = 0;
 
 			ChartObject *chart = this->chartobject_ptr;
-			std::vector<CurveObject> &Curves = chart->Get_Curves();
+			if (chart == NULL) return;
 
-			chart->Set_ncurves_changed_0(0);
+			std::vector<CurveObject> Curves = chart->Get_CurvesCSV();
+			size_t i;
+			for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
+			{
+				Curves.push_back(chart->Get_CurvesPrevious()[i]);
+			}
+			for (i = 0; i < chart->Get_Curves().size(); i++)
+			{
+				Curves.push_back(chart->Get_Curves()[i]);
+			}
+
+			chart->Get_ncurves_changed()[0] = 0;
 
 			// Set the titles and axis labels
 			myPane->Title->Text = gcnew String(chart->Get_chart_title().c_str());
-			myPane->XAxis->Title->Text = gcnew String(chart->Get_axis_titles()[0].c_str());
-			myPane->YAxis->Title->Text = gcnew String(chart->Get_axis_titles()[1].c_str());
-			myPane->Y2Axis->Title->Text = gcnew String(chart->Get_axis_titles()[2].c_str());
+			if (chart->Get_axis_titles().size() > 0)
+				myPane->XAxis->Title->Text = gcnew String(chart->Get_axis_titles()[0].c_str());
+			if (chart->Get_axis_titles().size() > 1)
+				myPane->YAxis->Title->Text = gcnew String(chart->Get_axis_titles()[1].c_str());
+			if (chart->Get_axis_titles().size() > 2)
+				myPane->Y2Axis->Title->Text = gcnew String(chart->Get_axis_titles()[2].c_str());
 
 			LineItem ^myCurve;
 
 			Color col;
-
-			//char *SymbolList[11] =  {"Square", "Diamond", "Triangle", "Circle", "XCross", "Plus", "Star",
-			//	"TriangleDown", "HDash", "VDash", "None"};
 
 			String ^s_t;
 			if (chart->Get_axis_scale_x()[4] == 10.0) LogX = true;
@@ -186,7 +197,9 @@ namespace zdg_ui2 {
 			if (chart->Get_axis_scale_y2()[4] == 10.0) LogY2 = true;
 			else LogY2 = false;
 
-			for (int i = init; i < chart->Get_ncurves_changed()[2]; i++)
+			//Rewrite all curves
+			zg1->GraphPane->CurveList->Clear();
+			for (size_t i = 0; i < Curves.size(); i++)
 			{
 				if (Curves[i].Get_x().size() == 0) continue;
 				list = gcnew PointPairList();
@@ -204,31 +217,36 @@ namespace zdg_ui2 {
 						list->Add( Curves[i].Get_x()[i2], 
 						Curves[i].Get_y()[i2] );
 				}
+
+				// Get legal color
 				if (strlen(Curves[i].Get_color().c_str()) > 0) {
 					col = Color::FromName(gcnew String(Curves[i].Get_color().c_str()));
+					if (!col.IsKnownColor)
+					{
+						col = Color::FromName(ColorList[col_use]);
+						std::string newcol;
+						ToString(col.ToString(), newcol);
+						Curves[i].Set_color(newcol);
+					}
 				}
-				else col = Color::FromName(ColorList[col_use]);
+				else 
+				{
+					col = Color::FromName(ColorList[col_use]);
+					std::string newcol;
+					ToString(col.ToString(), newcol);
+					Curves[i].Set_color(newcol);
+				}
 				if (++col_use > 6) col_use = 0;
-				
-				//if (strlen(chart->Get_Curves()[i].Get_symbol().c_str()) > 0)
-				//{
-				//	int i2;
-				//	for (i2 = 0; i2 < 11; i2++)
-				//	{
-				//		if (strncmp(chart->Get_Curves()[i].Get_symbol().c_str(),
-				//			P_INSTANCE_POINTER SymbolList[i2], 2) == 0) break;
-				//	}
-				//	s_symb = i2;
-				//}
-				//else s_symb = symbol_use;
-				//if (++symbol_use > 10) symbol_use = 0;
+
+
 				SymbolType symb = chart->Return_SymbolType
 					(Curves[i].Get_symbol());
 
 				s_t = gcnew String(Curves[i].Get_id().c_str());
 
+				// Add curve to chart
 				myCurve = myPane->AddCurve( s_t, list, col, symb );
-	
+
 				if (Curves[i].Get_line_w() > 0.0)
 					myCurve->Line->Width = (float) Curves[i].Get_line_w();
 				else
@@ -244,7 +262,7 @@ namespace zdg_ui2 {
 				if (Y2)
 					myCurve->IsY2Axis = true;
 				Curves[i].Set_npoints_plot((int) Curves[i].Get_x().size());
-						
+
 				delete list;
 			}
 
@@ -273,7 +291,7 @@ namespace zdg_ui2 {
 			{
 				myPane->XAxis->Scale->MinorStep = chart->Get_axis_scale_x()[3];
 				if (chart->Get_axis_scale_x()[3] == 0.0)
-				// remove minor tics
+					// remove minor tics
 					myPane->XAxis->MinorTic->Size = 0;
 			}
 			else
@@ -311,7 +329,7 @@ namespace zdg_ui2 {
 			{
 				myPane->YAxis->Scale->MinorStep = chart->Get_axis_scale_y()[3];
 				if (chart->Get_axis_scale_y()[3] == 0.0)
-				// remove minor tics
+					// remove minor tics
 					myPane->YAxis->MinorTic->Size = 0;
 			}
 			else
@@ -323,15 +341,15 @@ namespace zdg_ui2 {
 			if (Y2)
 			{
 				myPane->Y2Axis->IsVisible = true;
-			// Make the Y2 axis scale blue
-			// myPane->Y2Axis->Scale->FontSpec->FontColor = Color::Blue;
-			// myPane->Y2Axis->Title->FontSpec->FontColor = Color::Blue;
-			// turn off the opposite tics so the Y2 tics don't show up on the Y axis
+				// Make the Y2 axis scale blue
+				// myPane->Y2Axis->Scale->FontSpec->FontColor = Color::Blue;
+				// myPane->Y2Axis->Title->FontSpec->FontColor = Color::Blue;
+				// turn off the opposite tics so the Y2 tics don't show up on the Y axis
 				myPane->Y2Axis->MajorTic->IsOpposite = false;
 				myPane->Y2Axis->MinorTic->IsOpposite = false;
-			// Don't display the Y2 axis grid lines
+				// Don't display the Y2 axis grid lines
 				myPane->Y2Axis->MajorGrid->IsVisible = false;
-			// Align the Y2 axis labels so they are flush to the axis
+				// Align the Y2 axis labels so they are flush to the axis
 				myPane->Y2Axis->Scale->Align = AlignP::Inside;
 
 				if (fabs(chart->Get_axis_scale_y2()[0] - NA) > 1e-3)
@@ -350,7 +368,7 @@ namespace zdg_ui2 {
 				{
 					myPane->Y2Axis->Scale->MinorStep = chart->Get_axis_scale_y2()[3];
 					if (chart->Get_axis_scale_y2()[3] == 0.0)
-					// remove minor tics
+						// remove minor tics
 						myPane->Y2Axis->MinorTic->Size = 0;
 				}
 				else
@@ -362,11 +380,16 @@ namespace zdg_ui2 {
 			// Fill the axis background with a gradient
 			//myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f ); /* FromArgb(255, 255, 224) */
 			myPane->Chart->Fill = gcnew Fill( Color::White, Color::FromArgb(255, 255, 230), 45.0f );
+			//break;
+
 		}
 
 		public: void CreateGraph( ZedGraphControl ^z1 )	{
 			// Get a reference to the GraphPane instance in the ZedGraphControl
 			GraphPane ^myPane = z1->GraphPane;
+
+			// lock thread
+			while( 0 != System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 1) );
 
 			DefineCurves(myPane, 0);
 
@@ -421,6 +444,9 @@ namespace zdg_ui2 {
 			timer1->Start();
 
 			tickStart = Environment::TickCount;
+
+			//unlock thread
+			System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
 		}
 
 		/// <summary>
@@ -466,7 +492,46 @@ namespace zdg_ui2 {
 		{
 			LineItem  ^curve;
 			ChartObject *chart = this->chartobject_ptr;
-			std::vector<CurveObject> & Curves = chart->Get_Curves();
+			if (chart == NULL) return;
+
+			std::vector<CurveObject> Curves = chart->Get_CurvesCSV();
+			size_t i;
+			for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
+			{
+				Curves.push_back(chart->Get_CurvesPrevious()[i]);
+			}
+			for (i = 0; i < chart->Get_Curves().size(); i++)
+			{
+				Curves.push_back(chart->Get_Curves()[i]);
+			}
+
+			//lock for thread
+			while( 0 != System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 1) );
+
+			std::cout << std::endl << "Timer1_Tick" << std::endl;
+			std::cout << "Offset:          " << chart->Get_ColumnOffset() << std::endl;
+
+			{
+				size_t i; 
+				std::cout << "CSV curves:      " << chart->Get_CurvesCSV().size() << std::endl;
+				for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
+				{
+					std::cout << "\t" << i << "\t" << chart->Get_CurvesCSV()[i].Get_x().size() << "\t" << chart->Get_CurvesCSV()[i].Get_id() << std::endl;
+				}
+				std::cout << "Previous curves: " << chart->Get_CurvesPrevious().size() << std::endl;
+				for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
+				{
+					std::cout << "\t" << i << "\t" << chart->Get_CurvesPrevious()[i].Get_x().size() << "\t" << chart->Get_CurvesPrevious()[i].Get_id() << std::endl;
+				}
+				std::cout << "Curves:          " << chart->Get_Curves().size() << std::endl;
+				for (i = 0; i < chart->Get_Curves().size(); i++)
+				{
+					std::cout << "\t" << i << "\t" << chart->Get_Curves()[i].Get_x().size() << "\t" << chart->Get_Curves()[i].Get_id() << std::endl;
+				}
+			}
+			std::cout << "Zedgraph curves:      " << zg1->GraphPane->CurveList->Count << std::endl;
+			//this->chartobject_ptr->Get_ncurves_changed()[0] = 1;
+			//std::vector<CurveObject> & Curves = chart->Get_Curves();
 
 			if ( (Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart()) {
 				this->chartobject_ptr->Set_all_points(true);
@@ -476,26 +541,38 @@ namespace zdg_ui2 {
 					this->chartobject_ptr->Set_all_points(false);
 				}
 				else
-			// Get the graph curves...
-				for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) {
-					curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
-					 // Get the PointPairList
-					IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
-					if (Curves[i].Get_npoints_plot() != Curves[i].Get_x().size())
-						chart->Set_all_points(false);
-					else
-						chart->Set_all_points(true);
+					// Get the graph curves...
 
-					for ( int i2 = Curves[i].Get_npoints_plot(); i2 < (int) Curves[i].Get_x().size(); i2++ )
-					{
-						if ((LogX || LogY || LogY2) && (Curves[i].Get_x()[i2] <=0
-							|| Curves[i].Get_y()[i2] <=0))
-							continue;
-						else
-							ip->Add(Curves[i].Get_x()[i2], Curves[i].Get_y()[i2] );
+					for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) {
+						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+						// Get the PointPairList
+						IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
+						if ((size_t) ip->Count < Curves[i].Get_x().size())
+						{
+							for ( size_t i2 = ip->Count; i2 < Curves[i].Get_x().size(); i2++ )
+							{
+								if ((LogX || LogY || LogY2) && (Curves[i].Get_x()[i2] <=0 
+									|| Curves[i].Get_y()[i2] <=0))
+									continue;
+								else
+									ip->Add(Curves[i].Get_x()[i2], Curves[i].Get_y()[i2] );
+							}
+						}
+						//if (Curves[i].Get_npoints_plot() != Curves[i].Get_x().size())
+						//	chart->Set_all_points(false);
+						//else
+						//	chart->Set_all_points(true);
+
+						//for ( int i2 = Curves[i].Get_npoints_plot(); i2 < (int) Curves[i].Get_x().size(); i2++ )
+						//{
+						//	if ((LogX || LogY || LogY2) && (Curves[i].Get_x()[i2] <=0
+						//		|| Curves[i].Get_y()[i2] <=0))
+						//		continue;
+						//	else
+						//		ip->Add(Curves[i].Get_x()[i2], Curves[i].Get_y()[i2] );
+						//}
+						//Curves[i].Set_npoints_plot(Curves[i].Get_x().size());
 					}
-					Curves[i].Set_npoints_plot(Curves[i].Get_x().size());
-				}
 				/* explicitly reset the max in case of log scale, zedgraphs doesn't do this... */
 				if ((fabs(chart->Get_axis_scale_x()[1] - NA) < 1e-3) && zg1->GraphPane->XAxis->Type == AxisType::Log)
 				{
@@ -539,15 +616,23 @@ namespace zdg_ui2 {
 				zg1->Refresh();
 				tickStart = Environment::TickCount;
 			}
-
 			if (chart->Get_end_timer() && chart->Get_all_points())
 			{
 				timer1->Stop();
 				//SaveCurvesToFile("c:\\temp\\cv.ug1");
 			}
+
+			//unlock thread
+			System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
 			return;
 		}
-
+		void ToString(System::String^ src, std::string& dest)
+		{
+		   using namespace System::Runtime::InteropServices;
+		   const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(src)).ToPointer();
+		   dest = chars;
+		   Marshal::FreeHGlobal(IntPtr((void*)chars));
+		}
 		~Form1() {
 			if (this->zg1) delete zg1;
 			//if (this->timer1) delete timer1);
