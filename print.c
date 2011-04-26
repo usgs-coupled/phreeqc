@@ -171,7 +171,17 @@ punch_all(void)
 	}
 #if defined PHREEQ98 || defined CHART || defined MULTICHART
 	if (pr.user_graph == TRUE)
-		punch_user_graph();
+	{
+		ChartObject *chart = chart_handler.Get_current_chart();
+		if (chart != NULL) 
+		{
+			while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1));
+			{
+				punch_user_graph();
+			}
+			System::Threading::Interlocked::Exchange(chart->usingResource, 0);
+		}
+	}
 #endif
 	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE))
 		return (OK);
@@ -3323,6 +3333,9 @@ punch_user_graph(void)
 	if (chart == NULL) return OK;
 
 	chart->Set_colnr(0);
+	chart->Initialize_graph_pts();
+	chart->Set_AddSeries(false);
+
 /*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
 /*    if (punch.user_punch == FALSE) return(OK); */
 /*	  if (punch.in == FALSE) return(OK); */
@@ -3362,6 +3375,11 @@ punch_user_graph(void)
 			chart->Set_AddSeries(true);
 		else
 			chart->Set_AddSeries(false);
+	}
+	//chart->Set_prev_sim_no(simulation);
+	if (chart->Get_AddSeries())
+	{
+		chart->Add_new_series();
 	}
 	if (chart->Get_rate_new_def())
 	{
