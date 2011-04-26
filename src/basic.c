@@ -44,10 +44,12 @@ typedef unsigned char boolean;
 	Static void parseinput(tokenrec ** buf);
 	Static void exec(void);
 	Static void disposetokens(tokenrec ** tok);
+#if defined MULTICHART
 	Local void cmdplot_xy(struct LOC_exec *LINK);
 	Local void cmdgraph_x(struct LOC_exec *LINK);
 	Local void cmdgraph_y(struct LOC_exec *LINK);
 	Local void cmdgraph_sy(struct LOC_exec *LINK);
+#endif
 	/*$if not checking$
 	   $range off$
 	$end$*/
@@ -1855,7 +1857,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 			break;
 #endif
 
-#if defined CHART
+#if defined CHART || defined MULTICHART
 		case tokplot_xy:
 			output_msg(OUTPUT_BASIC, "PLOT_XY");
 			break;

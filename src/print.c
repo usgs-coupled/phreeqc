@@ -3345,8 +3345,8 @@ punch_user_graph(void)
 		 || (state == INITIAL_SURFACE) || (state == INITIAL_GAS_PHASE))
 		&& (chart->Get_graph_initial_solutions() == false))
 		return (OK);
-	if (chart->Get_FirstCallToUSER_GRAPH())
-		chart->Set_AddSeries(true);
+	//if (chart->Get_FirstCallToUSER_GRAPH())
+	//	chart->Set_AddSeries(true);
 	if (state == REACTION)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
