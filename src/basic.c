@@ -5430,7 +5430,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 			//}
 			chart->Set_prev_sim_no(simulation);
 
-			int curvenr = chart->Get_colnr() + chart->Get_ColumnOffset();
+			int curvenr = chart->Get_colnr(); // + chart->Get_ColumnOffset();
 			//if (curvenr >= ncurves)
 			//	ReallocCurves(0);
 
@@ -5512,6 +5512,32 @@ cmdplot_xy(struct LOC_exec *LINK)
 
 			//return;
 #endif
+		// Add a curve if necessary
+		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
+		{
+			std::string head("");
+			if (chart->Get_new_headings().size() > 0)
+			{
+				head = chart->Get_new_headings()[0];
+				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+			}
+			if (chart->Get_new_plotxy_curves().size() > 0)
+			{
+				// find plotxy curve definitions
+				chart->Add_curve(head,
+					chart->Get_new_plotxy_curves()[0].Get_line_w(),
+					chart->Get_new_plotxy_curves()[0].Get_symbol(),
+					chart->Get_new_plotxy_curves()[0].Get_symbol_size(),
+					chart->Get_new_plotxy_curves()[0].Get_y_axis(),
+					chart->Get_new_plotxy_curves()[0].Get_color()					
+					);
+				chart->Get_new_plotxy_curves().erase(chart->Get_new_plotxy_curves().begin());
+			}
+			else
+			{
+				chart->Add_curve(head);
+			}
+		}
 			chart->Get_Curves()[curvenr].Get_x().push_back(atof(x_str.c_str()));
 			chart->Get_Curves()[curvenr].Get_y().push_back(atof(y_str.c_str()));
 			//chart->Get_ncurves_changed()[0] = 1;
@@ -5570,11 +5596,6 @@ cmdgraph_x(struct LOC_exec *LINK)
 				chart->Set_graph_x(n.UU.val);
 			//chart->Get_ncurves_changed()[0] = 1;
 		}
-
-	}
-	if (chart->Get_colnr() == chart->Get_user_graph_headings().size() && chart->Get_graph_x() != NA)
-	{
-		chart->Finalize_graph_pts();
 	}
 }
 
@@ -5618,23 +5639,37 @@ cmdgraph_y(struct LOC_exec *LINK)
 			}
 			chart->Set_rownr(chart->Get_rownr() + 1);
 		}
-		if ( (size_t) chart->Get_colnr() < chart->Get_user_graph_headings().size())
+
+		// wait until x value is known before storing in curve
+		if (n.stringval)
 		{
-			if (n.stringval)
-			{
-				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
-				PHRQ_free(n.UU.sval);
-			}
-			else
-				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
-			//chart->Get_ncurves_changed()[0] = 1;
+			chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			PHRQ_free(n.UU.sval);
+		}
+		else
+		{
+			chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
 		}
 
+		// Add a new curve if necessary
+		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
+		{
+			if (chart->Get_new_headings().size() > 0)
+			{
+				// remove x heading
+				if (chart->Get_colnr() == 0)
+				{
+					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+				}
+				chart->Add_curve(chart->Get_new_headings()[0]);
+				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+			}
+			else
+			{
+				chart->Add_curve();
+			}
+		}
 		chart->Set_colnr(chart->Get_colnr() + 1);
-	}
-	if (chart->Get_colnr() == chart->Get_user_graph_headings().size() && chart->Get_graph_x() != NA)
-	{
-		chart->Finalize_graph_pts();
 	}
 }
 
@@ -5680,16 +5715,33 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		}
 
 		chart->Get_secondary_y()[chart->Get_colnr()] = true;
-		if ( (size_t) chart->Get_colnr() < chart->Get_user_graph_headings().size())
+
+		// wait until x value is known before storing in curve
+		if (n.stringval)
 		{
-			if (n.stringval)
+			chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			PHRQ_free(n.UU.sval);
+		}
+		else
+			chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
+
+		// Add a new curve if necessary
+		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
+		{
+			if (chart->Get_new_headings().size() > 0)
 			{
-				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
-				PHRQ_free(n.UU.sval);
+				// remove x heading
+				if (chart->Get_colnr() == 0)
+				{
+					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+				}
+				chart->Add_curve(chart->Get_new_headings()[0]);
+				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 			}
 			else
-				chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
-			//chart->Get_ncurves_changed()[0] = 1;
+			{
+				chart->Add_curve();
+			}
 		}
 		chart->Set_colnr(chart->Get_colnr() + 1);
 	}
