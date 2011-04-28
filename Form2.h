@@ -173,10 +173,6 @@ namespace zdg_ui2 {
 				 {
 					 Curves.push_back(&(chart->Get_CurvesCSV()[i]));
 				 }
-				 for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
-				 {
-					 Curves.push_back(&(chart->Get_CurvesPrevious()[i]));
-				 }
 				 for (i = 0; i < chart->Get_Curves().size(); i++)
 				 {
 					 Curves.push_back(&(chart->Get_Curves()[i]));
@@ -256,11 +252,11 @@ namespace zdg_ui2 {
 					 {
 						 col = Color::FromName(ColorList[col_use]);
 						 std::string newcol;
-						 std::cout << "Old Color std::string: " << Curves[i]->Get_color() << std::endl;
+						 //std::cout << "Old Color std::string: " << Curves[i]->Get_color() << std::endl;
 						 ToString(col.ToString(), newcol);
 						 Utilities::replace("Color [","",newcol);
 						 Utilities::replace("]","",newcol);
-						 std::cout << "New Color std::string: " << newcol << std::endl;
+						 //std::cout << "New Color std::string: " << newcol << std::endl;
 						 Curves[i]->Set_color(newcol);
 
 					 }
@@ -288,7 +284,7 @@ namespace zdg_ui2 {
 					 myCurve->Symbol->Border->Width = (float) Curves[i]->Get_line_w();
 					 if (Y2)
 						 myCurve->IsY2Axis = true;
-					 Curves[i]->Set_npoints_plot((int) Curves[i]->Get_x().size());
+					 //Curves[i]->Set_npoints_plot((int) Curves[i]->Get_x().size());
 
 					 delete list;
 				 }
@@ -530,37 +526,37 @@ namespace zdg_ui2 {
 				 {
 					 Curves.push_back(&(chart->Get_CurvesCSV()[i]));
 				 }
-				 for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
-				 {
-					 Curves.push_back(&(chart->Get_CurvesPrevious()[i]));
-				 }
+				 //for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
+				 //{
+					// Curves.push_back(&(chart->Get_CurvesPrevious()[i]));
+				 //}
 				 for (i = 0; i < chart->Get_Curves().size(); i++)
 				 {
 					 Curves.push_back(&(chart->Get_Curves()[i]));
 				 }
 
-				 std::cout << std::endl << "Timer1_Tick" << std::endl;
-				 std::cout << "Offset:          " << chart->Get_ColumnOffset() << std::endl;
+				 //std::cout << std::endl << "Timer1_Tick" << std::endl;
+				 //std::cout << "Offset:          " << chart->Get_ColumnOffset() << std::endl;
 
 				 {
-					 size_t i; 
-					 std::cout << "CSV curves:      " << chart->Get_CurvesCSV().size() << std::endl;
-					 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
-					 {
-						 std::cout << "\t" << i << "\t" << chart->Get_CurvesCSV()[i].Get_x().size() << "\t" << chart->Get_CurvesCSV()[i].Get_id() << std::endl;
-					 }
-					 std::cout << "Previous curves: " << chart->Get_CurvesPrevious().size() << std::endl;
-					 for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
-					 {
-						 std::cout << "\t" << i << "\t" << chart->Get_CurvesPrevious()[i].Get_x().size() << "\t" << chart->Get_CurvesPrevious()[i].Get_id() << std::endl;
-					 }
-					 std::cout << "Curves:          " << chart->Get_Curves().size() << std::endl;
-					 for (i = 0; i < chart->Get_Curves().size(); i++)
-					 {
-						 std::cout << "\t" << i << "\t" << chart->Get_Curves()[i].Get_x().size() << "\t" << chart->Get_Curves()[i].Get_id() << std::endl;
-					 }
+					 //size_t i; 
+					 //std::cout << "CSV curves:      " << chart->Get_CurvesCSV().size() << std::endl;
+					 //for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
+					 //{
+						// std::cout << "\t" << i << "\t" << chart->Get_CurvesCSV()[i].Get_x().size() << "\t" << chart->Get_CurvesCSV()[i].Get_id() << std::endl;
+					 //}
+					 //std::cout << "Previous curves: " << chart->Get_CurvesPrevious().size() << std::endl;
+					 //for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
+					 //{
+						// std::cout << "\t" << i << "\t" << chart->Get_CurvesPrevious()[i].Get_x().size() << "\t" << chart->Get_CurvesPrevious()[i].Get_id() << std::endl;
+					 //}
+					 //std::cout << "Curves:          " << chart->Get_Curves().size() << std::endl;
+					 //for (i = 0; i < chart->Get_Curves().size(); i++)
+					 //{
+						// std::cout << "\t" << i << "\t" << chart->Get_Curves()[i].Get_x().size() << "\t" << chart->Get_Curves()[i].Get_id() << std::endl;
+					 //}
 				 }
-				 std::cout << "Zedgraph curves:      " << zg1->GraphPane->CurveList->Count << std::endl;
+				 //std::cout << "Zedgraph curves:      " << zg1->GraphPane->CurveList->Count << std::endl;
 				 //this->chartobject_ptr->Get_ncurves_changed()[0] = 1;
 				 //std::vector<CurveObject> & Curves = chart->Get_Curves();
 
@@ -568,13 +564,13 @@ namespace zdg_ui2 {
 					 this->chartobject_ptr->Set_all_points(true);
 					 if (this->chartobject_ptr->Get_ncurves_changed()[0])
 					 {
-						 std::cout << "New curves defined: " <<std::endl;
+						 //std::cout << "New curves defined: " <<std::endl;
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
 						 this->chartobject_ptr->Set_all_points(false);
 					 }
 					 else
 					 {
-						 std::cout << "Adding pts to curves: " <<std::endl;
+						 //std::cout << "Adding pts to curves: " <<std::endl;
 						 // Get the graph curves...
 						 for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
 						 {
@@ -583,7 +579,7 @@ namespace zdg_ui2 {
 							 IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
 							 if ((size_t) ip->Count < Curves[i]->Get_x().size())
 							 {
-								 std::cout << "\tAdding pts for " << i << std::endl;
+								 //std::cout << "\tAdding pts for " << i << std::endl;
 								 for ( size_t i2 = ip->Count; i2 < Curves[i]->Get_x().size(); i2++ )
 								 {
 									 if ((LogX || LogY || LogY2) && (Curves[i]->Get_x()[i2] <=0 

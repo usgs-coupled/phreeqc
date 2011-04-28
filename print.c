@@ -3337,8 +3337,6 @@ punch_user_graph(void)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
-	chart->Set_colnr(0);
-	chart->Initialize_graph_pts();
 	chart->Set_AddSeries(false);
 
 /*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
@@ -3350,8 +3348,8 @@ punch_user_graph(void)
 		 || (state == INITIAL_SURFACE) || (state == INITIAL_GAS_PHASE))
 		&& (chart->Get_graph_initial_solutions() == false))
 		return (OK);
-	//if (chart->Get_FirstCallToUSER_GRAPH())
-	//	chart->Set_AddSeries(true);
+	if (chart->Get_FirstCallToUSER_GRAPH())
+		chart->Set_AddSeries(true);
 	if (state == REACTION)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
@@ -3382,10 +3380,10 @@ punch_user_graph(void)
 			chart->Set_AddSeries(false);
 	}
 	//chart->Set_prev_sim_no(simulation);
-	if (chart->Get_AddSeries())
-	{
-		chart->Add_new_series();
-	}
+	//if (chart->Get_AddSeries())
+	//{
+	//	chart->Add_new_series();
+	//}
 	if (chart->Get_rate_new_def())
 	{
 		if (basic_compile
@@ -3396,12 +3394,19 @@ punch_user_graph(void)
 		}
 		chart->Set_rate_new_def(false);
 	}
+
+	// basic_run calculates points for all graph and plotxy curves
+	// colnr identifies the curve and is incremented as each Y/Y2 curve point is added
+	chart->Set_colnr(chart->Get_ColumnOffset());
+	chart->Initialize_graph_pts();
 	if (basic_run
 		(command, chart->Get_user_graph()->linebase,
 			 chart->Get_user_graph()->varbase, chart->Get_user_graph()->loopbase) != 0)
 	{
 		error_msg("Fatal Basic error in USER_GRAPH.", STOP);
 	}
+	chart->Finalize_graph_pts();
+
 	if (state == ADVECTION)
 		chart->Set_prev_advection_step(advection_step);
 	if (state == TRANSPORT)
