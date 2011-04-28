@@ -17,7 +17,7 @@ namespace zdg_ui2 {
 	using namespace System::Drawing;
 	using namespace System::Threading;
 	using namespace ZedGraph;
-
+#if !defined MULTICHART
 #ifdef PHREEQC_CLASS
 	public ref class PhreeqcObj : public System::Object
 	{
@@ -28,7 +28,19 @@ namespace zdg_ui2 {
 			}
 	};
 #endif
-#ifdef MULTICHART
+#else // MULTICHART
+#ifdef PHREEQC_CLASS
+	public ref class PhreeqcObj : public System::Object
+	{
+	public: Phreeqc* phreeqc_ptr;
+	public: ChartObject* chartobject_ptr;
+	public:	PhreeqcObj(Phreeqc* ptr)
+			{
+				this->phreeqc_ptr = ptr;
+				this->chartobject_ptr = ptr->chart_handler->Get_current_chart();
+			}
+	};
+#else
 	public ref class ChartObj : public System::Object
 	{
 	public: ChartObject* chartobject_ptr;
@@ -37,6 +49,7 @@ namespace zdg_ui2 {
 				this->chartobject_ptr = ptr;
 			}
 	};
+#endif
 #endif
 
 	public ref class Form1  : public System::Windows::Forms::Form
