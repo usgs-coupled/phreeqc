@@ -3,11 +3,11 @@
 #ifdef PHREEQC_CLASS
 //#define P_INSTANCE p_instance
 //#define P_INSTANCE_COMMA p_instance,
-#define P_INSTANCE_POINTER phreeqc_ptr->
+#define P_INSTANCE_POINTER1 phreeqc_ptr->
 //#define PHREEQC_PTR_ARG Phreeqc *p_instance
 //#define PHREEQC_PTR_ARG_COMMA Phreeqc *p_instance,
 #else
-#define P_INSTANCE_POINTER
+#define P_INSTANCE_POINTER1
 #endif
 namespace zdg_ui2 {
 	using namespace System;
@@ -17,18 +17,8 @@ namespace zdg_ui2 {
 	using namespace System::Drawing;
 	using namespace System::Threading;
 	using namespace ZedGraph;
-#if !defined MULTICHART
-#ifdef PHREEQC_CLASS
-	public ref class PhreeqcObj : public System::Object
-	{
-	public: Phreeqc* phreeqc_ptr;
-	public:	PhreeqcObj(Phreeqc* ptr)
-			{
-				this->phreeqc_ptr = ptr;
-			}
-	};
-#endif
-#else // MULTICHART
+
+// Form2 is only used with MULTICHART
 #ifdef PHREEQC_CLASS
 	public ref class PhreeqcObj : public System::Object
 	{
@@ -37,7 +27,7 @@ namespace zdg_ui2 {
 	public:	PhreeqcObj(Phreeqc* ptr)
 			{
 				this->phreeqc_ptr = ptr;
-				this->chartobject_ptr = ptr->chart_handler->Get_current_chart();
+				this->chartobject_ptr = ptr->chart_handler.Get_current_chart();
 			}
 	};
 #else
@@ -50,7 +40,6 @@ namespace zdg_ui2 {
 			}
 	};
 #endif
-#endif
 
 	public ref class Form1  : public System::Windows::Forms::Form
 	{
@@ -58,40 +47,40 @@ namespace zdg_ui2 {
 	public: Form1 ^myForm;
 	public:	Form1()
 			{
-#ifdef PHREEQC_CLASS
-				this->phreeqc_ptr = NULL;
-#endif
-#ifdef MULTICHART
-				this->chartobject_ptr = NULL;
-#endif
 				InitializeComponent();
 				col_use = 0;
 				symbol_use = 0;
 				Y2 = false;
+				phreeqc_done = false;
 
 			}
 #ifdef PHREEQC_CLASS
 	public:	Form1(Phreeqc *ptr)
 			{
 				this->phreeqc_ptr = ptr;
+				this->chartobject_ptr = this->phreeqc_ptr->chart_handler.Get_current_chart();
 				InitializeComponent();
+				col_use = 0;
+				symbol_use = 0;
+				Y2 = false;
+				phreeqc_done = false;
+				
 			}
-#endif
+#else
 	public:	Form1(ChartObject *ptr)
 			{
 				this->chartobject_ptr = ptr;
 				InitializeComponent();
 			}
-#ifdef PHREEQC_CLASS
+#endif
+#if defined PHREEQC_CLASS
 			static void ThreadForm(Object^ data)
 			{
 				Phreeqc *ptr = ((PhreeqcObj^)(data))->phreeqc_ptr;
-				ptr->u_g_active = true;
 				Form1 ^myForm = gcnew Form1(ptr);
 				myForm->ShowDialog();
-				ptr->u_g_active = false;
 			}
-#elif defined(MULTICHART)
+#else
 			static void ThreadForm(Object^ data)
 			{
 
@@ -101,19 +90,9 @@ namespace zdg_ui2 {
 				myForm->~Form1();
 
 			}
-#else
-			static void ThreadForm()
-			{
-				Form1 ^myForm = gcnew Form1();
-				myForm->ShowDialog();
-
-			}
 #endif
-			//void ThreadThis(Object^ data)
-			//{
-			//	this->ShowDialog();
-			//	assert(false);
-			//}
+	private: bool phreeqc_done;
+			 
 	private: void SetSize()
 			 {
 				 zg1->Location = Point( 0, 0 );
@@ -121,6 +100,20 @@ namespace zdg_ui2 {
 				 zg1->Size = System::Drawing::Size( ClientRectangle.Width - 0,
 					 ClientRectangle.Height - 0 );
 			 }
+
+			System::Void MyFormClosingEventHandler(
+					System::Object^ sender, 
+				System::Windows::Forms::FormClosingEventArgs ^e)
+			{
+				ChartObject *chart = this->chartobject_ptr;
+				if (chart != NULL) 
+				{
+					chart->Set_done(true);
+					System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+				}
+				this->phreeqc_ptr = NULL;
+				this->chartobject_ptr = NULL;
+			}
 
 			 System::Void Form1_Load(System::Object ^sender, System::EventArgs ^e)
 			 {
@@ -142,7 +135,7 @@ namespace zdg_ui2 {
 				 if (LogX && chart->Get_axis_scale_x()[4] == 10.0 && 
 					 Curves[i].Get_x()[i2] <= 0)
 				 {
-					 P_INSTANCE_POINTER warning_msg("Obtained x_value <= 0, removing point...");
+					 P_INSTANCE_POINTER1 warning_msg("Obtained x_value <= 0, removing point...");
 					 //axis_scale_x[4] = NA; /* if reverting to linear... */
 					 //LogX = false;
 					 return true;
@@ -153,14 +146,14 @@ namespace zdg_ui2 {
 				 {
 					 if (Curves[i].Get_y_axis() == 2 && LogY2)
 					 {
-						 P_INSTANCE_POINTER warning_msg("Obtained sy_value <= 0, removing point......");
+						 P_INSTANCE_POINTER1 warning_msg("Obtained sy_value <= 0, removing point......");
 						 //axis_scale_y2[4] = NA;
 						 //LogY2 = false;
 						 return true;
 					 }
 					 else if (LogY)
 					 {
-						 P_INSTANCE_POINTER warning_msg("Obtained y_value <= 0, removing point......");
+						 P_INSTANCE_POINTER1 warning_msg("Obtained y_value <= 0, removing point......");
 						 //axis_scale_y[4] = NA;
 						 //LogY = false;
 						 return true;
@@ -235,41 +228,14 @@ namespace zdg_ui2 {
 							 Curves[i]->Get_y()[i2] );
 					 }
 
-					 // Get legal color
-					 //if (strlen(Curves[i]->Get_color().c_str()) > 0) {
-						// col = Color::FromName(gcnew String(Curves[i]->Get_color().c_str()));
-						// if (!col.IsKnownColor)
-						// {
-						//	 col = Color::FromName(ColorList[col_use]);
-						//	 std::string newcol;
-						//	 std::cout << "Old Color std::string: " << Curves[i]->Get_color() << std::endl;
-						//	 ToString(col.ToString(), newcol);
-						//	 Utilities::replace("Color [","",newcol);
-						//	 Utilities::replace("]","",newcol);
-						//	 std::cout << "New Color std::string: " << newcol << std::endl;
-						//	 Curves[i]->Set_color(newcol);
-
-						// }
-					 //}
-					 //else 
-					 //{
-						// col = Color::FromName(ColorList[col_use]);
-						// std::string newcol;
-						// ToString(col.ToString(), newcol);
-						// Curves[i]->Set_color(newcol);
-					 //}
-					 //if (++col_use > 6) col_use = 0;
-
 					 col = Color::FromName(gcnew String(Curves[i]->Get_color().c_str()));
 					 if (!col.IsKnownColor)
 					 {
 						 col = Color::FromName(ColorList[col_use]);
 						 std::string newcol;
-						 //std::cout << "Old Color std::string: " << Curves[i]->Get_color() << std::endl;
 						 ToString(col.ToString(), newcol);
 						 Utilities::replace("Color [","",newcol);
 						 Utilities::replace("]","",newcol);
-						 //std::cout << "New Color std::string: " << newcol << std::endl;
 						 Curves[i]->Set_color(newcol);
 
 					 }
@@ -297,7 +263,6 @@ namespace zdg_ui2 {
 					 myCurve->Symbol->Border->Width = (float) Curves[i]->Get_line_w();
 					 if (Y2)
 						 myCurve->IsY2Axis = true;
-					 //Curves[i]->Set_npoints_plot((int) Curves[i]->Get_x().size());
 
 					 delete list;
 				 }
@@ -511,11 +476,107 @@ namespace zdg_ui2 {
 					menuStrip->Items->Insert(0, item2 );
 
 			}
-			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
+
+			void SaveCurves1( System::Object ^sender, System::EventArgs ^e )
 			{
 				std::string str = "curves.u_g";
 				this->chartobject_ptr->SaveCurvesToFile(str);
 			}
+
+			void form_error_msg( std::string estring )
+			{
+				if (this->phreeqc_ptr != NULL)
+				{
+					P_INSTANCE_POINTER1 error_msg(estring.c_str(), CONTINUE);
+				}
+				else
+				{
+					std::cerr << "ERROR: " << estring << std::endl;
+				}
+			}
+
+			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
+			{
+				std::string file_name = "curves.u_g";
+						 // Get the graph curves...
+				std::ofstream f_out(file_name.c_str(), std::ifstream::out);
+
+				if (!f_out.is_open())
+				{
+					std::ostringstream estream;
+					estream << "Could not open csv file for USER_GRAPH " << file_name;
+					form_error_msg(estream.str());
+					return;
+				}
+
+				// write headings
+				size_t max_points = 0; 
+				f_out.precision(4);
+				for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
+				{
+					LineItem  ^curve;
+					curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+					// Get the PointPairList
+					IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
+
+					// Calculate max_points
+					if ((size_t) ip->Count > max_points)
+						max_points = ip->Count;
+
+					// write headers
+					std::string s_std;
+					ToString(curve->Label->Text, s_std);
+					f_out.width(12);
+					f_out << "x" << "\t";
+					f_out.width(12);
+					if (s_std.size() > 0) 
+					{
+						f_out << s_std << "\t";
+					}
+					else
+					{
+						f_out << "y" << "\t";
+					}
+				}
+
+				f_out << std::endl;
+
+				// write data
+				size_t i2 = 0;
+				f_out << std::scientific;
+				f_out.precision(4);
+
+				while (i2 < max_points)
+				{
+					for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
+					{
+						LineItem  ^curve;
+						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+						// Get the PointPairList
+						IPointListEdit  ^ip = (IPointListEdit^) curve->Points;					
+						if (i2 < (size_t) ip->Count)
+						{
+							//double x = ip[i]->X;
+							f_out.width(12);
+							f_out << ip[i2]->X << "\t";
+							f_out.width(12);
+							f_out << ip[i2]->Y << "\t";
+						}
+						else if (i2 < max_points)
+						{
+							f_out.width(13);
+							f_out << "\t";
+							f_out.width(13);
+							f_out << "\t";
+						}
+					}
+					f_out << std::endl;
+					i2++;
+				}
+				f_out.close();
+				return;	
+			}
+
 
 			// Respond to a Zoom Event
 			void MyZoomEvent( ZedGraphControl ^control, ZoomState ^oldState, ZoomState ^newState )
@@ -523,7 +584,6 @@ namespace zdg_ui2 {
 				// Here we get notification everytime the user zooms
 			}
 
-			// update the chart with new data...
 	private: void timer1_Tick(System::Object ^sender, System::EventArgs ^e )
 			 {
 				 LineItem  ^curve;
@@ -539,51 +599,21 @@ namespace zdg_ui2 {
 				 {
 					 Curves.push_back(&(chart->Get_CurvesCSV()[i]));
 				 }
-				 //for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
-				 //{
-					// Curves.push_back(&(chart->Get_CurvesPrevious()[i]));
-				 //}
 				 for (i = 0; i < chart->Get_Curves().size(); i++)
 				 {
 					 Curves.push_back(&(chart->Get_Curves()[i]));
 				 }
 
-				 //std::cout << std::endl << "Timer1_Tick" << std::endl;
-				 //std::cout << "Offset:          " << chart->Get_ColumnOffset() << std::endl;
-
-				 {
-					 //size_t i; 
-					 //std::cout << "CSV curves:      " << chart->Get_CurvesCSV().size() << std::endl;
-					 //for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
-					 //{
-						// std::cout << "\t" << i << "\t" << chart->Get_CurvesCSV()[i].Get_x().size() << "\t" << chart->Get_CurvesCSV()[i].Get_id() << std::endl;
-					 //}
-					 //std::cout << "Previous curves: " << chart->Get_CurvesPrevious().size() << std::endl;
-					 //for (i = 0; i < chart->Get_CurvesPrevious().size(); i++)
-					 //{
-						// std::cout << "\t" << i << "\t" << chart->Get_CurvesPrevious()[i].Get_x().size() << "\t" << chart->Get_CurvesPrevious()[i].Get_id() << std::endl;
-					 //}
-					 //std::cout << "Curves:          " << chart->Get_Curves().size() << std::endl;
-					 //for (i = 0; i < chart->Get_Curves().size(); i++)
-					 //{
-						// std::cout << "\t" << i << "\t" << chart->Get_Curves()[i].Get_x().size() << "\t" << chart->Get_Curves()[i].Get_id() << std::endl;
-					 //}
-				 }
-				 //std::cout << "Zedgraph curves:      " << zg1->GraphPane->CurveList->Count << std::endl;
-				 //this->chartobject_ptr->Get_ncurves_changed()[0] = 1;
-				 //std::vector<CurveObject> & Curves = chart->Get_Curves();
-
-				 if ( (Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart()) {
+				 if ( ((Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart())
+					 || chart->Get_end_timer() ) {
 					 this->chartobject_ptr->Set_all_points(true);
 					 if (this->chartobject_ptr->Get_ncurves_changed()[0])
 					 {
-						 //std::cout << "New curves defined: " <<std::endl;
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
 						 this->chartobject_ptr->Set_all_points(false);
 					 }
 					 else
 					 {
-						 //std::cout << "Adding pts to curves: " <<std::endl;
 						 // Get the graph curves...
 						 for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
 						 {
@@ -592,7 +622,6 @@ namespace zdg_ui2 {
 							 IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
 							 if ((size_t) ip->Count < Curves[i]->Get_x().size())
 							 {
-								 //std::cout << "\tAdding pts for " << i << std::endl;
 								 for ( size_t i2 = ip->Count; i2 < Curves[i]->Get_x().size(); i2++ )
 								 {
 									 if ((LogX || LogY || LogY2) && (Curves[i]->Get_x()[i2] <=0 
@@ -649,9 +678,12 @@ namespace zdg_ui2 {
 						 tickStart = Environment::TickCount;
 					 }
 				 }
-				 if (chart->Get_end_timer() && chart->Get_all_points())
+				 if (chart->Get_end_timer() /*&& chart->Get_all_points()*/)
 				 {
+					 zg1->Refresh();
 					 timer1->Stop();
+					 chart->Set_done(true);
+					 phreeqc_done = true;
 					 //SaveCurvesToFile("c:\\temp\\cv.ug1");
 				 }
 
@@ -672,7 +704,7 @@ namespace zdg_ui2 {
 				 if (components) {
 					 delete components;
 				 }
-				 //P_INSTANCE_POINTER DeleteCurves(); /* perhaps not even needed... */
+				 //P_INSTANCE_POINTER1 DeleteCurves(); /* perhaps not even needed... */
 			 }
 	public: ZedGraph::ZedGraphControl ^zg1;
 	private: System::Windows::Forms::Timer ^timer1;
@@ -720,7 +752,7 @@ namespace zdg_ui2 {
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
 			this->Text = L"PHREEQC chart";
-			this->TopMost = true;
+			this->TopMost = false;
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			try
 			{
@@ -730,6 +762,7 @@ namespace zdg_ui2 {
 			{
 			}
 
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Form1::MyFormClosingEventHandler);
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			this->ResumeLayout(false);

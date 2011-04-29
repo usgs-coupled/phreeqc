@@ -5414,7 +5414,6 @@ cmdplot_xy(struct LOC_exec *LINK)
 		//chart->PlotXY(STR[0], STR[1]);
 		/* Attribute values from *x and *y to Curves(*x, *y) */
 
-		int i, i2, i3;
 		bool new_sim = false, new_trans = false;
 		//if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
 		//	(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
