@@ -111,7 +111,9 @@ namespace zdg_ui2 {
 					chart->Set_done(true);
 					System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
 				}
+#if defined PHREEQC_CLASS
 				this->phreeqc_ptr = NULL;
+#endif
 				this->chartobject_ptr = NULL;
 			}
 
@@ -217,15 +219,14 @@ namespace zdg_ui2 {
 						 Y2 = true;
 					 else
 						 Y2 = false;
-					 for (int i2 = 0; i2 < (int) Curves[i]->Get_x().size(); i2++)
+					 for (int i2 = 0; (i2 < (int) Curves[i]->Get_x().size()); i2++)
 					 {
 						 if ((LogX && Curves[i]->Get_x()[i2] <=0)
 							 || (LogY && !Y2 && Curves[i]->Get_y()[i2] <=0)
 							 || (LogY2 && Y2 && Curves[i]->Get_y()[i2] <=0))
 							 continue;
 						 else
-							 list->Add( Curves[i]->Get_x()[i2], 
-							 Curves[i]->Get_y()[i2] );
+							 list->Add( Curves[i]->Get_x()[i2], Curves[i]->Get_y()[i2] );
 					 }
 
 					 col = Color::FromName(gcnew String(Curves[i]->Get_color().c_str()));
@@ -485,7 +486,7 @@ namespace zdg_ui2 {
 
 			void form_error_msg( std::string estring )
 			{
-				if (this->phreeqc_ptr != NULL)
+				if (this->chartobject_ptr != NULL)
 				{
 					P_INSTANCE_POINTER1 error_msg(estring.c_str(), CONTINUE);
 				}
