@@ -5388,24 +5388,24 @@ cmdplot_xy(struct LOC_exec *LINK)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return;
 
-	if (chart->Get_colnr() == 0)
-	{
-		if (chart->Get_AddSeries())
-		{
-			if (state == TRANSPORT)
-			{
-				if (transport_step > punch_modulus && transport_step != 
-					chart->Get_prev_transport_step())
-					chart->Set_rownr(-1);
-			}
-			else if (state == ADVECTION)
-			{
-				if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-					chart->Set_rownr(-1);
-			}
-		}
-		chart->Set_rownr(chart->Get_rownr() + 1);
-	}
+	//if (chart->Get_colnr() == 0)
+	//{
+	//	if (chart->Get_AddSeries())
+	//	{
+	//		if (state == TRANSPORT)
+	//		{
+	//			if (transport_step > punch_modulus && transport_step != 
+	//				chart->Get_prev_transport_step())
+	//				chart->Set_rownr(-1);
+	//		}
+	//		else if (state == ADVECTION)
+	//		{
+	//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+	//				chart->Set_rownr(-1);
+	//		}
+	//	}
+	//	chart->Set_rownr(chart->Get_rownr() + 1);
+	//}
 
 	std::string x_str(STR[0]), y_str(STR[1]);
 
@@ -5566,24 +5566,24 @@ cmdgraph_x(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		if (chart->Get_colnr() == 0)
-		{
-			if (chart->Get_AddSeries())
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != 
-						chart->Get_prev_transport_step())
-						chart->Set_rownr(-1);
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-						chart->Set_rownr(-1);
-				}
-			}
-			chart->Set_rownr(chart->Get_rownr() + 1);
-		}
+		//if (chart->Get_colnr() == 0)
+		//{
+		//	if (chart->Get_AddSeries())
+		//	{
+		//		if (state == TRANSPORT)
+		//		{
+		//			if (transport_step > punch_modulus && transport_step != 
+		//				chart->Get_prev_transport_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//		else if (state == ADVECTION)
+		//		{
+		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//	}
+		//	chart->Set_rownr(chart->Get_rownr() + 1);
+		//}
 		if ( (size_t) chart->Get_colnr() <= chart->Get_user_graph_headings().size())
 		{
 			if (n.stringval)
@@ -5620,24 +5620,24 @@ cmdgraph_y(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		if (chart->Get_colnr() == 0)
-		{
-			if (chart->Get_AddSeries())
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != 
-						chart->Get_prev_transport_step())
-						chart->Set_rownr(-1);
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-						chart->Set_rownr(-1);
-				}
-			}
-			chart->Set_rownr(chart->Get_rownr() + 1);
-		}
+		//if (chart->Get_colnr() == 0)
+		//{
+		//	if (chart->Get_AddSeries())
+		//	{
+		//		if (state == TRANSPORT)
+		//		{
+		//			if (transport_step > punch_modulus && transport_step != 
+		//				chart->Get_prev_transport_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//		else if (state == ADVECTION)
+		//		{
+		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//	}
+		//	chart->Set_rownr(chart->Get_rownr() + 1);
+		//}
 
 		// wait until x value is known before storing in curve
 		if (n.stringval)
@@ -5694,24 +5694,24 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		if (chart->Get_colnr() == 0)
-		{
-			if (chart->Get_AddSeries())
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != 
-						chart->Get_prev_transport_step())
-						chart->Set_rownr(-1);
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-						chart->Set_rownr(-1);
-				}
-			}
-			chart->Set_rownr(chart->Get_rownr() + 1);
-		}
+		//if (chart->Get_colnr() == 0)
+		//{
+		//	if (chart->Get_AddSeries())
+		//	{
+		//		if (state == TRANSPORT)
+		//		{
+		//			if (transport_step > punch_modulus && transport_step != 
+		//				chart->Get_prev_transport_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//		else if (state == ADVECTION)
+		//		{
+		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+		//				chart->Set_rownr(-1);
+		//		}
+		//	}
+		//	chart->Set_rownr(chart->Get_rownr() + 1);
+		//}
 
 		chart->Get_secondary_y()[chart->Get_colnr()] = true;
 

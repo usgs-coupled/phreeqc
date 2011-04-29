@@ -607,11 +607,11 @@ namespace zdg_ui2 {
 
 				 if ( ((Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart())
 					 || chart->Get_end_timer() ) {
-					 this->chartobject_ptr->Set_all_points(true);
+					 //this->chartobject_ptr->Set_all_points(true);
 					 if (this->chartobject_ptr->Get_ncurves_changed()[0])
 					 {
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
-						 this->chartobject_ptr->Set_all_points(false);
+						 //this->chartobject_ptr->Set_all_points(false);
 					 }
 					 else
 					 {
@@ -685,11 +685,17 @@ namespace zdg_ui2 {
 					 timer1->Stop();
 					 chart->Set_done(true);
 					 phreeqc_done = true;
-					 //SaveCurvesToFile("c:\\temp\\cv.ug1");
+					 System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+#if defined PHREEQC_CLASS
+					this->phreeqc_ptr = NULL;
+#endif
+					this->chartobject_ptr = NULL;
 				 }
-
-				 //unlock thread
-				 System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+				 else
+				 {
+					 //unlock thread
+					 System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+				 }
 				 return;
 			 }
 			 void ToString(System::String^ src, std::string& dest)

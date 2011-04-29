@@ -3337,7 +3337,7 @@ punch_user_graph(void)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
-	chart->Set_AddSeries(false);
+	//chart->Set_AddSeries(false);
 
 /*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
 /*    if (punch.user_punch == FALSE) return(OK); */
@@ -3348,36 +3348,36 @@ punch_user_graph(void)
 		 || (state == INITIAL_SURFACE) || (state == INITIAL_GAS_PHASE))
 		&& (chart->Get_graph_initial_solutions() == false))
 		return (OK);
-	if (chart->Get_FirstCallToUSER_GRAPH())
-		chart->Set_AddSeries(true);
+	//if (chart->Get_FirstCallToUSER_GRAPH())
+	//	chart->Set_AddSeries(true);
 	if (state == REACTION)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
 		   else AddSeries = FALSE; */
-		if (reaction_step == 1 && !chart->Get_connect_simulations())
-			chart->Set_AddSeries(true);
-		if (reaction_step > 1)
-			chart->Set_AddSeries(false);
+		//if (reaction_step == 1 && !chart->Get_connect_simulations())
+		//	chart->Set_AddSeries(true);
+		//if (reaction_step > 1)
+		//	chart->Set_AddSeries(false);
 	}
 	if (state == ADVECTION)
 	{
 		if (advection_step == 0 && chart->Get_graph_initial_solutions() == false)
 			return (OK);
-		if (((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
-			((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step())))
-			chart->Set_AddSeries(true);
-		else
-			chart->Set_AddSeries(false);
+		//if (((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
+		//	((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step())))
+		//	chart->Set_AddSeries(true);
+		//else
+		//	chart->Set_AddSeries(false);
 	}
 	if (state == TRANSPORT)
 	{
 		if (transport_step == 0 && chart->Get_graph_initial_solutions() == FALSE)
 			return (OK);
-		if (((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
-			((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step())))
-			chart->Set_AddSeries(true);
-		else
-			chart->Set_AddSeries(false);
+		//if (((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
+		//	((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step())))
+		//	chart->Set_AddSeries(true);
+		//else
+		//	chart->Set_AddSeries(false);
 	}
 	//chart->Set_prev_sim_no(simulation);
 	//if (chart->Get_AddSeries())
