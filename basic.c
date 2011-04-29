@@ -5584,17 +5584,13 @@ cmdgraph_x(struct LOC_exec *LINK)
 		//	}
 		//	chart->Set_rownr(chart->Get_rownr() + 1);
 		//}
-		if ( (size_t) chart->Get_colnr() <= chart->Get_user_graph_headings().size())
+		if (n.stringval)
 		{
-			if (n.stringval)
-			{
-				chart->Set_graph_x(atof(n.UU.sval));
-				PHRQ_free(n.UU.sval);
-			}
-			else
-				chart->Set_graph_x(n.UU.val);
-			//chart->Get_ncurves_changed()[0] = 1;
+			chart->Set_graph_x(atof(n.UU.sval));
+			PHRQ_free(n.UU.sval);
 		}
+		else
+			chart->Set_graph_x(n.UU.val);
 	}
 }
 
