@@ -575,6 +575,9 @@ EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;
 #endif
 #if defined MULTICHART
+#if !defined PHREEQC_CLASS
+#include "../ChartHandler.h"
+#endif
 EXTERNAL ChartHandler chart_handler;
 #endif
 
