@@ -180,7 +180,8 @@ punch_all(void)
 		ChartObject *chart = chart_handler.Get_current_chart();
 		if (chart != NULL) 
 		{
-			while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1));
+			while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1)) 
+				System::Threading::Thread::Sleep(1);
 			{
 				punch_user_graph();
 			}

@@ -133,20 +133,20 @@ namespace zdg_ui2 {
 			 {
 				 ChartObject *chart = this->chartobject_ptr;
 				 if (chart == NULL) return false;
-				 std::vector<CurveObject> &Curves = chart->Get_Curves();
+				 std::vector<CurveObject *> &Curves = chart->Get_Curves();
 				 if (LogX && chart->Get_axis_scale_x()[4] == 10.0 && 
-					 Curves[i].Get_x()[i2] <= 0)
+					 Curves[i]->Get_x()[i2] <= 0)
 				 {
 					 P_INSTANCE_POINTER1 warning_msg("Obtained x_value <= 0, removing point...");
 					 //axis_scale_x[4] = NA; /* if reverting to linear... */
 					 //LogX = false;
 					 return true;
 				 }
-				 if (Curves[i].Get_y()[i2] <= 0 && 
+				 if (Curves[i]->Get_y()[i2] <= 0 && 
 					 (chart->Get_axis_scale_y()[4] == 10.0 || 
 					 chart->Get_axis_scale_y2()[4] == 10.0))
 				 {
-					 if (Curves[i].Get_y_axis() == 2 && LogY2)
+					 if (Curves[i]->Get_y_axis() == 2 && LogY2)
 					 {
 						 P_INSTANCE_POINTER1 warning_msg("Obtained sy_value <= 0, removing point......");
 						 //axis_scale_y2[4] = NA;
@@ -179,11 +179,11 @@ namespace zdg_ui2 {
 				 size_t i;
 				 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
 				 {
-					 Curves.push_back(&(chart->Get_CurvesCSV()[i]));
+					 Curves.push_back(chart->Get_CurvesCSV()[i]);
 				 }
 				 for (i = 0; i < chart->Get_Curves().size(); i++)
 				 {
-					 Curves.push_back(&(chart->Get_Curves()[i]));
+					 Curves.push_back(chart->Get_Curves()[i]);
 				 }
 
 				 chart->Get_ncurves_changed()[0] = 0;
@@ -391,7 +391,8 @@ namespace zdg_ui2 {
 				GraphPane ^myPane = z1->GraphPane;
 
 				// lock thread
-				while( 0 != System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 1) );
+				while (0 != System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 1)) 
+					System::Threading::Thread::Sleep(1);
 
 				DefineCurves(myPane, 0);
 
@@ -592,17 +593,17 @@ namespace zdg_ui2 {
 				 if (chart == NULL) return;
 
 				 //lock for thread
-				 while( 0 != System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 1) );
-
+				 while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1)) 
+					 System::Threading::Thread::Sleep(1);
 				 std::vector<CurveObject *> Curves; 
 				 size_t i;
 				 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
 				 {
-					 Curves.push_back(&(chart->Get_CurvesCSV()[i]));
+					 Curves.push_back(chart->Get_CurvesCSV()[i]);
 				 }
 				 for (i = 0; i < chart->Get_Curves().size(); i++)
 				 {
-					 Curves.push_back(&(chart->Get_Curves()[i]));
+					 Curves.push_back(chart->Get_Curves()[i]);
 				 }
 
 				 if ( ((Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart())
