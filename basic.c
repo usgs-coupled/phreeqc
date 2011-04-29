@@ -5537,8 +5537,8 @@ cmdplot_xy(struct LOC_exec *LINK)
 				chart->Add_curve(head);
 			}
 		}
-			chart->Get_Curves()[curvenr].Get_x().push_back(atof(x_str.c_str()));
-			chart->Get_Curves()[curvenr].Get_y().push_back(atof(y_str.c_str()));
+			chart->Get_Curves()[curvenr]->Get_x().push_back(atof(x_str.c_str()));
+			chart->Get_Curves()[curvenr]->Get_y().push_back(atof(y_str.c_str()));
 			//chart->Get_ncurves_changed()[0] = 1;
 	}
 	//chart->Get_ncurves_changed()[0] = 1;
