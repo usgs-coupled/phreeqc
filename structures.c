@@ -93,7 +93,7 @@ clean_up(void)
 		fprintf(stderr, " ");
 	*/
 #if defined MULTICHART
-	chart_handler.End_timer();
+	chart_handler.End_timer(PHREEQC_THIS);
 #endif
 
 	description_x = (char *) free_check_null(description_x);
