@@ -49,7 +49,7 @@
 		extern int AddSeries;
 		extern int FirstCallToUSER_GRAPH;
 #elif defined MULTICHART
-	static int punch_user_graph(void);
+	int punch_user_graph(void);
 #endif
 	#ifdef CHART // remove this one when finalizing...
 		extern void start_chart(bool end);
