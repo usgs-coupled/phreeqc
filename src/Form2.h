@@ -1,11 +1,7 @@
 #pragma once
 #include <cassert>	
 #ifdef PHREEQC_CLASS
-//#define P_INSTANCE p_instance
-//#define P_INSTANCE_COMMA p_instance,
 #define P_INSTANCE_POINTER1 phreeqc_ptr->
-//#define PHREEQC_PTR_ARG Phreeqc *p_instance
-//#define PHREEQC_PTR_ARG_COMMA Phreeqc *p_instance,
 #else
 #define P_INSTANCE_POINTER1
 #endif
@@ -19,27 +15,20 @@ namespace zdg_ui2 {
 	using namespace ZedGraph;
 
 // Form2 is only used with MULTICHART
-#ifdef PHREEQC_CLASS
-	public ref class PhreeqcObj : public System::Object
-	{
-	public: Phreeqc* phreeqc_ptr;
-	public: ChartObject* chartobject_ptr;
-	public:	PhreeqcObj(Phreeqc* ptr)
-			{
-				this->phreeqc_ptr = ptr;
-				this->chartobject_ptr = ptr->chart_handler.Get_current_chart();
-			}
-	};
-#else
 	public ref class ChartObj : public System::Object
 	{
+#ifdef PHREEQC_CLASS
+	public: Phreeqc* phreeqc_ptr;
+#endif
 	public: ChartObject* chartobject_ptr;
 	public:	ChartObj(ChartObject* ptr)
 			{
 				this->chartobject_ptr = ptr;
+#ifdef PHREEQC_CLASS
+				this->phreeqc_ptr = this->chartobject_ptr->Get_phreeqc();
+#endif
 			}
 	};
-#endif
 
 	public ref class Form1  : public System::Windows::Forms::Form
 	{
@@ -55,10 +44,10 @@ namespace zdg_ui2 {
 
 			}
 #ifdef PHREEQC_CLASS
-	public:	Form1(Phreeqc *ptr)
+	public:	Form1(ChartObject *ptr)
 			{
-				this->phreeqc_ptr = ptr;
-				this->chartobject_ptr = this->phreeqc_ptr->chart_handler.Get_current_chart();
+				this->chartobject_ptr = ptr;
+				this->phreeqc_ptr = chartobject_ptr->Get_phreeqc();
 				InitializeComponent();
 				col_use = 0;
 				symbol_use = 0;
@@ -71,26 +60,19 @@ namespace zdg_ui2 {
 			{
 				this->chartobject_ptr = ptr;
 				InitializeComponent();
+				col_use = 0;
+				symbol_use = 0;
+				Y2 = false;
+				phreeqc_done = false;
 			}
 #endif
-#if defined PHREEQC_CLASS
 			static void ThreadForm(Object^ data)
 			{
-				Phreeqc *ptr = ((PhreeqcObj^)(data))->phreeqc_ptr;
-				Form1 ^myForm = gcnew Form1(ptr);
-				myForm->ShowDialog();
-			}
-#else
-			static void ThreadForm(Object^ data)
-			{
-
 				ChartObject *ptr = ((ChartObj^)(data))->chartobject_ptr;
 				Form1 ^myForm = gcnew Form1(ptr);
 				myForm->ShowDialog();
 				myForm->~Form1();
-
 			}
-#endif
 	private: bool phreeqc_done;
 			 
 	private: void SetSize()
@@ -172,9 +154,12 @@ namespace zdg_ui2 {
 			 void DefineCurves(GraphPane ^myPane, int init)
 			 {
 
+				 //std::cerr << "Define curves." << std::endl;
 				 ChartObject *chart = this->chartobject_ptr;
-				 if (chart == NULL) return;
-
+				 if (chart == NULL) 
+				 {
+					 return;
+				 }
 				 std::vector<CurveObject *> Curves; 
 				 size_t i;
 				 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
@@ -186,7 +171,7 @@ namespace zdg_ui2 {
 					 Curves.push_back(chart->Get_Curves()[i]);
 				 }
 
-				 chart->Get_ncurves_changed()[0] = 0;
+				 chart->Set_curve_added(false);
 
 				 // Set the titles and axis labels
 				 myPane->Title->Text = gcnew String(chart->Get_chart_title().c_str());
@@ -459,7 +444,7 @@ namespace zdg_ui2 {
 				CurveItem ^curve, int iPt ) {
 					// Get the PointPair that is under the mouse
 					PointPair pt = curve[iPt];
-					return curve->Label->Text + " is " + pt.Y.ToString( "f3" ) + " units at X = " + pt.X.ToString( "f3" );
+					return curve->Label->Text + " is " + pt.Y.ToString( "e3" ) + " units at X = " + pt.X.ToString( "e3" );
 			}
 
 			// Add some explanation to the menu..
@@ -477,12 +462,6 @@ namespace zdg_ui2 {
 					item2->Click += gcnew System::EventHandler(this, &zdg_ui2::Form1::SaveCurves );
 					menuStrip->Items->Insert(0, item2 );
 
-			}
-
-			void SaveCurves1( System::Object ^sender, System::EventArgs ^e )
-			{
-				std::string str = "curves.u_g";
-				this->chartobject_ptr->SaveCurvesToFile(str);
 			}
 
 			void form_error_msg( std::string estring )
@@ -591,10 +570,11 @@ namespace zdg_ui2 {
 				 LineItem  ^curve;
 				 ChartObject *chart = this->chartobject_ptr;
 				 if (chart == NULL) return;
-
+				 //std::cerr << "timer1_Tick." << std::endl;
 				 //lock for thread
 				 while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1)) 
 					 System::Threading::Thread::Sleep(1);
+				 
 				 std::vector<CurveObject *> Curves; 
 				 size_t i;
 				 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
@@ -608,15 +588,16 @@ namespace zdg_ui2 {
 
 				 if ( ((Environment::TickCount - tickStart ) > this->chartobject_ptr->Get_update_time_chart())
 					 || chart->Get_end_timer() ) {
-					 //this->chartobject_ptr->Set_all_points(true);
-					 if (this->chartobject_ptr->Get_ncurves_changed()[0])
+					if (this->chartobject_ptr->Get_curve_added())
 					 {
+						 //std::cerr << "Define curves." << std::endl;
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
-						 //this->chartobject_ptr->Set_all_points(false);
+
 					 }
 					 else
 					 {
-						 // Get the graph curves...
+						 //std::cerr << "Add points." << std::endl;
+						 // Add points to curves ...
 						 for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
 						 {
 							 curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
@@ -624,16 +605,21 @@ namespace zdg_ui2 {
 							 IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
 							 if ((size_t) ip->Count < Curves[i]->Get_x().size())
 							 {
+
+								 if (Curves[i]->Get_y_axis() == 2)
+									 Y2 = true;
+								 else
+									 Y2 = false;
 								 for ( size_t i2 = ip->Count; i2 < Curves[i]->Get_x().size(); i2++ )
 								 {
-									 if ((LogX || LogY || LogY2) && (Curves[i]->Get_x()[i2] <=0 
-										 || Curves[i]->Get_y()[i2] <=0))
+									 if ((LogX && Curves[i]->Get_x()[i2] <=0)
+										 || (LogY && !Y2 && Curves[i]->Get_y()[i2] <=0)
+										 || (LogY2 && Y2 && Curves[i]->Get_y()[i2] <=0))
 										 continue;
 									 else
 										 ip->Add(Curves[i]->Get_x()[i2], Curves[i]->Get_y()[i2] );
 								 }
 							 }
-
 						 }
 
 						 /* explicitly reset the max in case of log scale, zedgraphs doesn't do this... */
@@ -680,17 +666,20 @@ namespace zdg_ui2 {
 						 tickStart = Environment::TickCount;
 					 }
 				 }
-				 if (chart->Get_end_timer() /*&& chart->Get_all_points()*/)
+				 if (chart->Get_end_timer())
 				 {
+					 //std::cerr << "Form got end_timer message." << std::endl;
 					 zg1->Refresh();
 					 timer1->Stop();
 					 chart->Set_done(true);
 					 phreeqc_done = true;
+					 //unlock thread
 					 System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
 #if defined PHREEQC_CLASS
 					this->phreeqc_ptr = NULL;
 #endif
 					this->chartobject_ptr = NULL;
+					//std::cerr << "Form released thread, pointers null." << std::endl;
 				 }
 				 else
 				 {
@@ -712,7 +701,6 @@ namespace zdg_ui2 {
 				 if (components) {
 					 delete components;
 				 }
-				 //P_INSTANCE_POINTER1 DeleteCurves(); /* perhaps not even needed... */
 			 }
 	public: ZedGraph::ZedGraphControl ^zg1;
 	private: System::Windows::Forms::Timer ^timer1;

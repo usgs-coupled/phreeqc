@@ -5411,106 +5411,14 @@ cmdplot_xy(struct LOC_exec *LINK)
 
 // Code formerly in PlotXY, included here
 	{
-		//chart->PlotXY(STR[0], STR[1]);
-		/* Attribute values from *x and *y to Curves(*x, *y) */
 
 		bool new_sim = false, new_trans = false;
-		//if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
-		//	(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
-		//	new_trans = true;
+
 		if (chart->Get_FirstCallToUSER_GRAPH() && chart->Get_colnr() == 0)
 			chart->Set_prev_sim_no(simulation);
 		else
-			//if (!chart->Get_rownr() && (simulation != chart->Get_prev_sim_no() || new_trans))
-			//{
-			//	new_sim = true;
-			//	if (!chart->Get_connect_simulations())
-			//		chart->Set_AddSeries(true);
-			//}
 			chart->Set_prev_sim_no(simulation);
 
-			int curvenr = chart->Get_colnr(); // + chart->Get_ColumnOffset();
-			//if (curvenr >= ncurves)
-			//	ReallocCurves(0);
-
-			if (curvenr + 1 > chart->Get_ncurves_changed()[2]) /* timer must recall DefineCurves in Form */
-			{
-				chart->Get_ncurves_changed()[0] = 1;
-				chart->Get_ncurves_changed()[1] = chart->Get_ncurves_changed()[2];
-				chart->Get_ncurves_changed()[2] = curvenr + 1;
-				//fprintf(stderr, "plotxy: %d %d\n", chart->Get_ncurves_changed()[2], simulation);
-			}
-
-			//if (x_filled && user_graph_count_headings > curvenr + ColumnOffset)
-			//{
-			//	PHRQ_free(Curves[curvenr + ColumnOffset].id);
-			//	Curves[curvenr + ColumnOffset].id =
-			//		string_duplicate(user_graph_headings[curvenr + ColumnOffset]);
-			//}
-
-			/* If a new simulation, create new set of curves,
-			define identifiers, y axis from values set in ExtractCurveInfo... */
-#ifdef SKIP
-			if (chart->Get_rownr() == 0 && chart->Get_colnr() == 0)
-			{
-				if (new_sim && chart->Get_AddSeries() && (!chart->Get_connect_simulations() || chart->Get_new_ug()))
-				{ /* step to new curveset... */
-					//if (Curves[ncurves - 1].npoints)
-					//	ReallocCurves(ncurves * 2);
-					for (i = curvenr; i < (int) chart->Get_Curves().size(); i++)
-					{
-						if (chart->Get_Curves()[i].Get_x().size() > 0)
-							continue;
-						else
-						{
-							/* curve i is free... */
-							i2 = i3 = ColumnOffset;
-							ColumnOffset = curvenr = i;
-							break;
-						}
-					}
-					if (new_trans && !chart->Get_new_ug()) i3 = 0;
-					if (chart->Get_new_ug()) i2 = 0;
-					/* fill in curve properties... */
-					for (i = chart->Get_ColumnOffset(); i < chart->Get_ColumnOffset() + (chart->Get_ColumnOffset() - i2); i++)
-					{
-						//if (i >= ncurves)
-						//	ReallocCurves(0);
-						/* define the new curve... */
-						if (i3 < user_graph_count_headings)
-						{
-							PHRQ_free(Curves[i].id);
-							Curves[i].id = string_duplicate(user_graph_headings[i3]);
-						}
-						//Curves[i].color = Curves[i3].color;
-						//Curves[i].line_w = Curves[i3].line_w;
-						//Curves[i].symbol = Curves[i3].symbol;
-						//Curves[i].symbol_size = Curves[i3].symbol_size;
-						Curves[i].y_axis = Curves[i3].y_axis;
-						i3++;
-					}
-				}
-				/* Or, add all to existing set... */
-				else if (new_sim)
-				{
-					RowOffset = 1;
-					for (i = 0; i < ncurves; i++) Curves[i].prev_npoints = Curves[i].npoints;
-				}
-				new_ug = false;
-			}
-
-			/* return if x or y is a zero... */
-			if (!strlen(x) || !strlen(y)) return;
-
-			/* fill in Curves(x, y)... */
-			//if (Curves[curvenr].npoints >= Curves[curvenr].nxy)
-			//	ReallocCurveXY(curvenr);
-			//Curves[curvenr].x[Curves[curvenr].npoints] = (float) atof(x);
-			//Curves[curvenr].y[Curves[curvenr].npoints] = (float) atof(y);
-			//Curves[curvenr].npoints++;
-
-			//return;
-#endif
 		// Add a curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
 		{
@@ -5530,18 +5438,18 @@ cmdplot_xy(struct LOC_exec *LINK)
 					chart->Get_new_plotxy_curves()[0].Get_y_axis(),
 					chart->Get_new_plotxy_curves()[0].Get_color()					
 					);
+				// pop plotxy curve definition
 				chart->Get_new_plotxy_curves().erase(chart->Get_new_plotxy_curves().begin());
 			}
 			else
 			{
 				chart->Add_curve(head);
 			}
+			chart->Set_curve_added(true);
 		}
-			chart->Get_Curves()[curvenr]->Get_x().push_back(atof(x_str.c_str()));
-			chart->Get_Curves()[curvenr]->Get_y().push_back(atof(y_str.c_str()));
-			//chart->Get_ncurves_changed()[0] = 1;
+		chart->Get_Curves()[chart->Get_colnr()]->Get_x().push_back(atof(x_str.c_str()));
+		chart->Get_Curves()[chart->Get_colnr()]->Get_y().push_back(atof(y_str.c_str()));
 	}
-	//chart->Get_ncurves_changed()[0] = 1;
 	chart->Set_colnr(chart->Get_colnr() + 1);
 }
 Local void CLASS_QUALIFIER
@@ -5663,6 +5571,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 			{
 				chart->Add_curve();
 			}
+			chart->Set_curve_added(true);
 		}
 		chart->Set_colnr(chart->Get_colnr() + 1);
 	}
@@ -5737,6 +5646,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			{
 				chart->Add_curve();
 			}
+			chart->Set_curve_added(true);
 		}
 		chart->Set_colnr(chart->Get_colnr() + 1);
 	}

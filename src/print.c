@@ -177,16 +177,7 @@ punch_all(void)
 #elif  defined MULTICHART
 	if (pr.user_graph == TRUE)
 	{
-		ChartObject *chart = chart_handler.Get_current_chart();
-		if (chart != NULL) 
-		{
-			while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1)) 
-				System::Threading::Thread::Sleep(1);
-			{
-				punch_user_graph();
-			}
-			System::Threading::Interlocked::Exchange(chart->usingResource, 0);
-		}
+			chart_handler.Punch_user_graph(PHREEQC_THIS);
 	}
 #endif
 	if (pr.hdf == FALSE && (punch.in == FALSE || pr.punch == FALSE))
