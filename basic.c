@@ -5449,6 +5449,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 		}
 		chart->Get_Curves()[chart->Get_colnr()]->Get_x().push_back(atof(x_str.c_str()));
 		chart->Get_Curves()[chart->Get_colnr()]->Get_y().push_back(atof(y_str.c_str()));
+		chart->Set_point_added(true);
 	}
 	chart->Set_colnr(chart->Get_colnr() + 1);
 }
@@ -5553,6 +5554,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 		{
 			chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
 		}
+		chart->Set_point_added(true);
 
 		// Add a new curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
@@ -5628,6 +5630,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		}
 		else
 			chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
+		chart->Set_point_added(true);
 
 		// Add a new curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())

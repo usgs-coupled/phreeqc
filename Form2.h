@@ -594,7 +594,7 @@ namespace zdg_ui2 {
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
 
 					 }
-					 else
+					 else if (this->chartobject_ptr->Get_point_added())
 					 {
 						 //std::cerr << "Add points." << std::endl;
 						 // Add points to curves ...
