@@ -772,6 +772,9 @@ output_handler(const int type, const char *err_str, const int stop,
 #endif
 				fflush(output_file);
 			}
+#if defined MULTICHART
+			chart_handler.End_timer(PHREEQC_THIS);
+#endif
 		}
 		break;
 
