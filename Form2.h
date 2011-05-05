@@ -564,8 +564,144 @@ namespace zdg_ui2 {
 			{
 				// Here we get notification everytime the user zooms
 			}
+   private: void timer1_Tick(System::Object ^sender, System::EventArgs ^e )
+			{
+				LineItem  ^curve;
+				ChartObject *chart = this->chartobject_ptr;
+				if (chart == NULL) return;
 
-	private: void timer1_Tick(System::Object ^sender, System::EventArgs ^e )
+				//lock for thread
+				while (0 != System::Threading::Interlocked::Exchange(chart->usingResource, 1)) 
+					System::Threading::Thread::Sleep(1);
+
+				if (this->chartobject_ptr->Get_curve_added())
+				{
+					DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
+				}
+				else if (this->chartobject_ptr->Get_point_added())
+				{
+
+					// Make list of curves
+					std::vector<CurveObject *> Curves; 
+					size_t i;
+					for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
+					{
+						Curves.push_back(chart->Get_CurvesCSV()[i]);
+					}
+					for (i = 0; i < chart->Get_Curves().size(); i++)
+					{
+						Curves.push_back(chart->Get_Curves()[i]);
+					}
+					// Add points to curves ...
+					for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
+					{
+						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+						// Get the PointPairList
+						IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
+						if ((size_t) ip->Count < Curves[i]->Get_x().size())
+						{
+							if (Curves[i]->Get_y_axis() == 2)
+								Y2 = true;
+							else
+								Y2 = false;
+							for ( size_t i2 = ip->Count; i2 < Curves[i]->Get_x().size(); i2++ )
+							{
+								if ((LogX && Curves[i]->Get_x()[i2] <=0)
+									|| (LogY && !Y2 && Curves[i]->Get_y()[i2] <=0)
+									|| (LogY2 && Y2 && Curves[i]->Get_y()[i2] <=0))
+									continue;
+								else
+									ip->Add(Curves[i]->Get_x()[i2], Curves[i]->Get_y()[i2] );
+							}
+						}
+					}
+
+					/* explicitly reset the max in case of log scale, zedgraphs doesn't do this... */
+					if ((fabs(chart->Get_axis_scale_x()[1] - NA) < 1e-3) && zg1->GraphPane->XAxis->Type == AxisType::Log)
+					{
+						double max = -1e99;
+						for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
+						{
+							if (Curves[i]->Get_x()[Curves[i]->Get_x().size() - 1] > max)
+								max = Curves[i]->Get_x()[Curves[i]->Get_x().size() - 1];
+						}
+						max += pow(10.0, log10(max / 3));
+						zg1->GraphPane->XAxis->Scale->Max = max;
+					}
+					if ((fabs(chart->Get_axis_scale_y()[1] - NA) < 1e-3) && zg1->GraphPane->YAxis->Type == AxisType::Log)
+					{
+						double max = -1e99;
+						for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
+						{
+							curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+							if (curve->IsY2Axis) continue;
+							if (Curves[i]->Get_y()[Curves[i]->Get_y().size() - 1] > max)
+								max = Curves[i]->Get_y()[Curves[i]->Get_y().size() - 1];
+						}
+						max += pow(10.0, log10(max / 3));
+						zg1->GraphPane->YAxis->Scale->Max = max;
+					}
+					if ((fabs(chart->Get_axis_scale_y2()[1] - NA) < 1e-3) && zg1->GraphPane->Y2Axis->Type == AxisType::Log)
+					{
+						double max = -1e99;
+						for  (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
+						{
+							curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+							if (!curve->IsY2Axis) continue;
+							if (Curves[i]->Get_y()[Curves[i]->Get_y().size() - 1] > max)
+								max = Curves[i]->Get_y()[Curves[i]->Get_y().size() - 1];
+						}
+						max += pow(10.0, log10(max / 3));
+						zg1->GraphPane->Y2Axis->Scale->Max = max;
+					}
+					zg1->AxisChange();
+					zg1->Refresh();
+				}
+
+				chart->Set_point_added(false);
+				if (chart->Get_end_timer())
+				{
+					timer1->Stop();
+					chart->Set_done(true);
+					phreeqc_done = true;
+
+					{
+						//// Debugging check
+						//std::vector<CurveObject *> Curves = chart->Get_CurvesCSV(); 
+						//size_t i;
+						//for (i = 0; i < chart->Get_Curves().size(); i++)
+						//{
+						//	Curves.push_back(chart->Get_Curves()[i]);
+						//}
+						//for (i = 0; i < (size_t) zg1->GraphPane->CurveList->Count; i++) 
+						//{
+						//	if (zg1->GraphPane->CurveList[i]->Points->Count !=
+						//		Curves[i]->Get_x().size())
+						//	{
+						//		std::cerr << "Form: " << i << "\t" << zg1->GraphPane->CurveList[i]->Points->Count << std::endl;
+						//		std::cerr << "Curves: " << i << "\t" << Curves[i]->Get_x().size() << std::endl;
+						//		//form_error_msg("Did not plot all points. Why?");
+						//	}
+						//	assert (zg1->GraphPane->CurveList[i]->Points->Count ==
+						//		Curves[i]->Get_x().size());
+						//}
+					}
+					//unlock thread before setting chartobject_ptr to NULL
+					System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+#if defined PHREEQC_CLASS
+					this->phreeqc_ptr = NULL;
+#endif
+					this->chartobject_ptr = NULL;
+					return;
+				}
+
+				//unlock thread
+				System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
+				tickStart = Environment::TickCount;
+				return;
+			}
+
+	private: void timer1_Tick_old(System::Object ^sender, System::EventArgs ^e )
 			 {
 				 LineItem  ^curve;
 				 ChartObject *chart = this->chartobject_ptr;
