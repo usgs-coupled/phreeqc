@@ -2831,7 +2831,9 @@ factor(struct LOC_exec * LINK)
 		}
 		break;
 	case tokrxn:
-		if (state == REACTION)
+		if (state == REACTION || 
+			state == ADVECTION ||
+			state == TRANSPORT)
 		{
 			n.UU.val = step_x;
 		}
