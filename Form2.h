@@ -666,6 +666,7 @@ namespace zdg_ui2 {
 						 tickStart = Environment::TickCount;
 					 }
 				 }
+				 chart->Set_point_added(false);
 				 if (chart->Get_end_timer())
 				 {
 					 //std::cerr << "Form got end_timer message." << std::endl;
