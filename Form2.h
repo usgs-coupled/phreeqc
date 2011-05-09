@@ -160,7 +160,7 @@ namespace zdg_ui2 {
 				 {
 					 return;
 				 }
-				 std::vector<CurveObject *> Curves; 
+ 				 std::vector<CurveObject *> Curves; 
 				 size_t i;
 				 for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
 				 {
@@ -697,7 +697,7 @@ namespace zdg_ui2 {
 
 				//unlock thread
 				System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
-				tickStart = Environment::TickCount;
+				//tickStart = Environment::TickCount;
 				return;
 			}
 
