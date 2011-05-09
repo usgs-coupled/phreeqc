@@ -5433,7 +5433,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 			if (chart->Get_new_plotxy_curves().size() > 0)
 			{
 				// find plotxy curve definitions
-				chart->Add_curve(head,
+				chart->Add_curve(true, head,
 					chart->Get_new_plotxy_curves()[0].Get_line_w(),
 					chart->Get_new_plotxy_curves()[0].Get_symbol(),
 					chart->Get_new_plotxy_curves()[0].Get_symbol_size(),
@@ -5445,7 +5445,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 			}
 			else
 			{
-				chart->Add_curve(head);
+				chart->Add_curve(true, head);
 			}
 			chart->Set_curve_added(true);
 		}
@@ -5568,12 +5568,12 @@ cmdgraph_y(struct LOC_exec *LINK)
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
-				chart->Add_curve(chart->Get_new_headings()[0]);
+				chart->Add_curve(false, chart->Get_new_headings()[0]);
 				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 			}
 			else
 			{
-				chart->Add_curve();
+				chart->Add_curve(false);
 			}
 			chart->Set_curve_added(true);
 		}
@@ -5644,12 +5644,12 @@ cmdgraph_sy(struct LOC_exec *LINK)
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
-				chart->Add_curve(chart->Get_new_headings()[0]);
+				chart->Add_curve(false, chart->Get_new_headings()[0]);
 				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 			}
 			else
 			{
-				chart->Add_curve();
+				chart->Add_curve(false);
 			}
 			chart->Set_curve_added(true);
 		}
