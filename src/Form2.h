@@ -153,8 +153,6 @@ namespace zdg_ui2 {
 
 			 void DefineCurves(GraphPane ^myPane, int init)
 			 {
-
-				 //std::cerr << "Define curves." << std::endl;
 				 ChartObject *chart = this->chartobject_ptr;
 				 if (chart == NULL) 
 				 {
@@ -198,7 +196,8 @@ namespace zdg_ui2 {
 				 zg1->GraphPane->CurveList->Clear();
 				 for (size_t i = 0; i < Curves.size(); i++)
 				 {
-					 if (Curves[i]->Get_x().size() == 0) continue;
+					 // even curves with no data
+					 //if (Curves[i]->Get_x().size() == 0) continue;
 					 list = gcnew PointPairList();
 					 if (Curves[i]->Get_y_axis() == 2)
 						 Y2 = true;
@@ -230,10 +229,23 @@ namespace zdg_ui2 {
 					 SymbolType symb = chart->Return_SymbolType
 						 (Curves[i]->Get_symbol());
 
+					 // id
 					 s_t = gcnew String(Curves[i]->Get_id().c_str());
+
+					 // Curve with no points is invisible
+					 if (Curves[i]->Get_x().size() == 0) 
+					 {
+						 s_t = "";
+					 }
 
 					 // Add curve to chart
 					 myCurve = myPane->AddCurve( s_t, list, col, symb );
+
+					 // Curve with no points is invisible
+					 if (Curves[i]->Get_x().size() == 0) 
+					 {
+						 myCurve->IsVisible = false;
+					 }
 
 					 if (Curves[i]->Get_line_w() > 0.0)
 						 myCurve->Line->Width = (float) Curves[i]->Get_line_w();
@@ -249,7 +261,6 @@ namespace zdg_ui2 {
 					 myCurve->Symbol->Border->Width = (float) Curves[i]->Get_line_w();
 					 if (Y2)
 						 myCurve->IsY2Axis = true;
-
 					 delete list;
 				 }
 
@@ -367,7 +378,10 @@ namespace zdg_ui2 {
 				 // Fill the axis background with a gradient
 				 //myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f ); /* FromArgb(255, 255, 224) */
 				 myPane->Chart->Fill = gcnew Fill( Color::White, Color::FromArgb(255, 255, 230), 45.0f );
-				 //break;
+
+				 // Make sure auto scale, Refresh
+				 zg1->AxisChange();
+				 zg1->Refresh();
 
 			 }
 
@@ -583,14 +597,14 @@ namespace zdg_ui2 {
 
 					// Make list of curves
 					std::vector<CurveObject *> Curves; 
-					size_t i;
-					for (i = 0; i < chart->Get_CurvesCSV().size(); i++)
+					size_t j;
+					for (j = 0; j < chart->Get_CurvesCSV().size(); j++)
 					{
-						Curves.push_back(chart->Get_CurvesCSV()[i]);
+						Curves.push_back(chart->Get_CurvesCSV()[j]);
 					}
-					for (i = 0; i < chart->Get_Curves().size(); i++)
+					for (j = 0; j < chart->Get_Curves().size(); j++)
 					{
-						Curves.push_back(chart->Get_Curves()[i]);
+						Curves.push_back(chart->Get_Curves()[j]);
 					}
 					// Add points to curves ...
 					for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
@@ -615,7 +629,33 @@ namespace zdg_ui2 {
 							}
 						}
 					}
+					// Add points to curves ...
 
+					//size_t i, k;
+					//k = 0;
+					//for (i = 0; i < Curves.size(); i++) 
+					//{
+					//	if (Curves[i]->Get_x().size() == 0) continue;
+					//	curve =  (LineItem ^) zg1->GraphPane->CurveList[k++];
+					//	// Get the PointPairList
+					//	IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
+					//	if ((size_t) ip->Count < Curves[i]->Get_x().size())
+					//	{
+					//		if (Curves[i]->Get_y_axis() == 2)
+					//			Y2 = true;
+					//		else
+					//			Y2 = false;
+					//		for ( size_t i2 = ip->Count; i2 < Curves[i]->Get_x().size(); i2++ )
+					//		{
+					//			if ((LogX && Curves[i]->Get_x()[i2] <=0)
+					//				|| (LogY && !Y2 && Curves[i]->Get_y()[i2] <=0)
+					//				|| (LogY2 && Y2 && Curves[i]->Get_y()[i2] <=0))
+					//				continue;
+					//			else
+					//				ip->Add(Curves[i]->Get_x()[i2], Curves[i]->Get_y()[i2] );
+					//		}
+					//	}
+					//}
 					/* explicitly reset the max in case of log scale, zedgraphs doesn't do this... */
 					if ((fabs(chart->Get_axis_scale_x()[1] - NA) < 1e-3) && zg1->GraphPane->XAxis->Type == AxisType::Log)
 					{
@@ -726,13 +766,11 @@ namespace zdg_ui2 {
 					 || chart->Get_end_timer() ) {
 					if (this->chartobject_ptr->Get_curve_added())
 					 {
-						 //std::cerr << "Define curves." << std::endl;
 						 DefineCurves(zg1->GraphPane, zg1->GraphPane->CurveList->Count);
 
 					 }
 					 else if (this->chartobject_ptr->Get_point_added())
 					 {
-						 //std::cerr << "Add points." << std::endl;
 						 // Add points to curves ...
 						 for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
 						 {

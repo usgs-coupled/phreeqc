@@ -3325,31 +3325,32 @@ punch_user_graph(void)
  *   Graph with user defined BASIC print routine
  */
 	char command[] = "run";
-
+	bool new_sim = false;
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
-	//chart->Set_AddSeries(false);
+	chart->Set_AddSeries(false);
 
-/*    if (pr.user_graph == FALSE || pr.all == FALSE) return(OK); */
-/*    if (punch.user_punch == FALSE) return(OK); */
-/*	  if (punch.in == FALSE) return(OK); */
 	if (chart->Get_rate_command_list().size() == 0)
 		return (OK);
+
+	// Skip initial calculations if initial_solutions == false
 	if (((state == INITIAL_SOLUTION) || (state == INITIAL_EXCHANGE)
 		 || (state == INITIAL_SURFACE) || (state == INITIAL_GAS_PHASE))
 		&& (chart->Get_graph_initial_solutions() == false))
 		return (OK);
+
 	//if (chart->Get_FirstCallToUSER_GRAPH())
 	//	chart->Set_AddSeries(true);
+
 	if (state == REACTION)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
 		   else AddSeries = FALSE; */
-		//if (reaction_step == 1 && !chart->Get_connect_simulations())
-		//	chart->Set_AddSeries(true);
-		//if (reaction_step > 1)
-		//	chart->Set_AddSeries(false);
+		if (reaction_step == 1 && !chart->Get_connect_simulations())
+			chart->Set_AddSeries(true);
+		if (reaction_step > 1)
+			chart->Set_AddSeries(false);
 	}
 	if (state == ADVECTION)
 	{
@@ -3367,15 +3368,28 @@ punch_user_graph(void)
 			return (OK);
 		//if (((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
 		//	((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step())))
+		//
 		//	chart->Set_AddSeries(true);
 		//else
 		//	chart->Set_AddSeries(false);
 	}
-	//chart->Set_prev_sim_no(simulation);
-	//if (chart->Get_AddSeries())
-	//{
-	//	chart->Add_new_series();
-	//}
+	if ((simulation != chart->Get_prev_sim_no() || 
+		transport_step != chart->Get_prev_transport_step() || 
+		advection_step != chart->Get_prev_advection_step()))
+	{
+		new_sim = true;
+		if (!chart->Get_connect_simulations() && !chart->Get_new_ug())
+			chart->Set_AddSeries(true);
+	}
+	bool b = chart->Get_AddSeries();
+	chart->Set_prev_sim_no(simulation);
+	if (chart->Get_AddSeries())
+	{
+		chart->Add_new_series();
+	}
+		
+	chart->Set_colnr(chart->Get_ColumnOffset());
+	chart->Initialize_graph_pts();
 	if (chart->Get_rate_new_def())
 	{
 		if (basic_compile
@@ -3389,8 +3403,6 @@ punch_user_graph(void)
 
 	// basic_run calculates points for all graph and plotxy curves
 	// colnr identifies the curve and is incremented as each Y/Y2 curve point is added
-	chart->Set_colnr(chart->Get_ColumnOffset());
-	chart->Initialize_graph_pts();
 	if (basic_run
 		(command, chart->Get_user_graph()->linebase,
 			 chart->Get_user_graph()->varbase, chart->Get_user_graph()->loopbase) != 0)
@@ -3403,12 +3415,12 @@ punch_user_graph(void)
 		chart->Set_prev_advection_step(advection_step);
 	if (state == TRANSPORT)
 		chart->Set_prev_transport_step(transport_step);
-	/*if (state == REACTION) prev_reaction_step = reaction_step; */
 
 	if (chart->Get_FirstCallToUSER_GRAPH())
 	{
 		chart->start_chart();
 	}
+	chart->Set_new_ug(false);
 
 	chart->Set_FirstCallToUSER_GRAPH(false);
 
