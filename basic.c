@@ -5449,9 +5449,18 @@ cmdplot_xy(struct LOC_exec *LINK)
 			}
 			chart->Set_curve_added(true);
 		}
-		chart->Get_Curves()[chart->Get_colnr()]->Get_x().push_back(atof(x_str.c_str()));
-		chart->Get_Curves()[chart->Get_colnr()]->Get_y().push_back(atof(y_str.c_str()));
-		chart->Set_point_added(true);
+
+		if (x_str.size() > 0 && y_str.size() > 0)
+		{
+			//std::cerr << chart->Get_colnr() << " x " << atof(x_str.c_str()) << " y " << atof(y_str.c_str()) << std::endl;
+			chart->Get_Curves()[chart->Get_colnr()]->Get_x().push_back(atof(x_str.c_str()));
+			chart->Get_Curves()[chart->Get_colnr()]->Get_y().push_back(atof(y_str.c_str()));
+			chart->Set_point_added(true);
+
+			// Mark added curve for first point, might have been invisible in DefineCurves
+			if (chart->Get_Curves()[chart->Get_colnr()]->Get_x().size() == 1)
+				chart->Set_curve_added(true);
+		}
 	}
 	chart->Set_colnr(chart->Get_colnr() + 1);
 }
@@ -5495,9 +5504,13 @@ cmdgraph_x(struct LOC_exec *LINK)
 		//	}
 		//	chart->Set_rownr(chart->Get_rownr() + 1);
 		//}
+
 		if (n.stringval)
 		{
-			chart->Set_graph_x(atof(n.UU.sval));
+			if (strlen(n.UU.sval) > 0)
+			{
+				chart->Set_graph_x(atof(n.UU.sval));
+			}
 			PHRQ_free(n.UU.sval);
 		}
 		else
@@ -5549,7 +5562,10 @@ cmdgraph_y(struct LOC_exec *LINK)
 		// wait until x value is known before storing in curve
 		if (n.stringval)
 		{
-			chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			if (strlen(n.UU.sval) > 0)
+			{
+				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			}	
 			PHRQ_free(n.UU.sval);
 		}
 		else
@@ -5627,7 +5643,10 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		// wait until x value is known before storing in curve
 		if (n.stringval)
 		{
-			chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			if (strlen(n.UU.sval) > 0)
+			{
+				chart->Get_graph_y()[chart->Get_colnr()] = atof(n.UU.sval);
+			}
 			PHRQ_free(n.UU.sval);
 		}
 		else
