@@ -5580,7 +5580,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 			if (chart->Get_new_headings().size() > 0)
 			{
 				// remove x heading
-				if (chart->Get_colnr() == 0)
+				if (chart->Get_colnr() == chart->Get_ColumnOffset())
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
@@ -5659,7 +5659,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			if (chart->Get_new_headings().size() > 0)
 			{
 				// remove x heading
-				if (chart->Get_colnr() == 0)
+				if (chart->Get_colnr() == chart->Get_ColumnOffset())
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
