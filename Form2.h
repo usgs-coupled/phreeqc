@@ -53,7 +53,7 @@ namespace zdg_ui2 {
 				symbol_use = 0;
 				Y2 = false;
 				phreeqc_done = false;
-				
+				Y2show = false;	
 			}
 #else
 	public:	Form1(ChartObject *ptr)
@@ -64,6 +64,7 @@ namespace zdg_ui2 {
 				symbol_use = 0;
 				Y2 = false;
 				phreeqc_done = false;
+				Y2show = false;
 			}
 #endif
 			static void ThreadForm(Object^ data)
@@ -148,7 +149,7 @@ namespace zdg_ui2 {
 
 	private: PointPairList ^list;
 			 int col_use, symbol_use;
-			 bool Y2;
+			 bool Y2, Y2show;
 			 static cli::array<String^> ^ColorList = {"Red", "Green", "Blue", "Orange", "Magenta", "Yellow", "Black" };
 
 			 void DefineCurves(GraphPane ^myPane, int init)
@@ -200,7 +201,10 @@ namespace zdg_ui2 {
 					 //if (Curves[i]->Get_x().size() == 0) continue;
 					 list = gcnew PointPairList();
 					 if (Curves[i]->Get_y_axis() == 2)
+					 {
 						 Y2 = true;
+						 Y2show = true;
+					 }
 					 else
 						 Y2 = false;
 					 for (int i2 = 0; (i2 < (int) Curves[i]->Get_x().size()); i2++)
@@ -264,7 +268,7 @@ namespace zdg_ui2 {
 					 delete list;
 				 }
 
-				 if (Y2)
+				 if (Y2show)
 					 myPane->Legend->Position = ZedGraph::LegendPos::TopCenter;
 				 else
 					 myPane->Legend->Position = ZedGraph::LegendPos::Right;
@@ -301,7 +305,7 @@ namespace zdg_ui2 {
 				 // myPane->YAxis->Scale->FontSpec->FontColor = Color::Red;
 				 // myPane->YAxis->Title->FontSpec->FontColor = Color::Red;
 				 // turn off the opposite tics so the Y tics don't show up on the Y2 axis
-				 if (Y2)
+				 if (Y2show)
 				 {
 					 myPane->YAxis->MajorTic->IsOpposite = false;
 					 myPane->YAxis->MinorTic->IsOpposite = false;
@@ -336,7 +340,7 @@ namespace zdg_ui2 {
 					 myPane->YAxis->Type = AxisType::Log;
 
 				 // Enable the Y2 axis display
-				 if (Y2)
+				 if (Y2show)
 				 {
 					 myPane->Y2Axis->IsVisible = true;
 					 // Make the Y2 axis scale blue

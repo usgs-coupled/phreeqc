@@ -2518,7 +2518,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 					Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
 				}
 				Dz2c += V_M[k].Dzc * V_M[k].z;
-				V_M[k].grad = -sol_D[icell].spec[i].a;
+				V_M[k].grad = -sol_D[icell].spec[i].c; /* assume d log(gamma) / d log(c) = 0 */
 				k++;
 			}
 			if (i < i_max)
@@ -2602,7 +2602,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 					Dz2c_dl += V_M[k].Dzc_dl * V_M[k].z;
 				}
 				Dz2c += V_M[k].Dzc * V_M[k].z;
-				V_M[k].grad = sol_D[jcell].spec[j].a;
+				V_M[k].grad = sol_D[jcell].spec[j].c;  /* assume d log(gamma) / d log(c) = 0 */
 				k++;
 			}
 			if (j < j_max)
