@@ -236,19 +236,16 @@ namespace zdg_ui2 {
 					 // id
 					 s_t = gcnew String(Curves[i]->Get_id().c_str());
 
-					 // Curve with no points is invisible
-					 if (Curves[i]->Get_x().size() == 0) 
-					 {
-						 s_t = "";
-					 }
 
 					 // Add curve to chart
 					 myCurve = myPane->AddCurve( s_t, list, col, symb );
+
 
 					 // Curve with no points is invisible
 					 if (Curves[i]->Get_x().size() == 0) 
 					 {
 						 myCurve->IsVisible = false;
+						 myCurve->Label->IsVisible = false;
 					 }
 
 					 if (Curves[i]->Get_line_w() > 0.0)
@@ -926,7 +923,9 @@ namespace zdg_ui2 {
 			this->Controls->Add(this->zg1);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
-			this->Text = L"PHREEQC chart";
+			//this->Text = L"PHREEQC chart";
+			System::String ^desc = gcnew String(this->chartobject_ptr->get_description().c_str());
+			this->Text = L"PHREEQC USER_GRAPH " + this->chartobject_ptr->get_n_user() + " " + desc;
 			this->TopMost = false;
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			try
