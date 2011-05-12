@@ -402,7 +402,7 @@ X                1.000e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  -1.482      Adjusted to redox equilibrium
+                                       pe  =  -0.699      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 0
                           Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
@@ -412,9 +412,9 @@ X                1.000e-03 mol
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.592e-12
+                  Electrical balance (eq)  =  -3.920e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
-                               Iterations  =   4
+                               Iterations  =  14
                                   Total H  = 1.110124e+02
                                   Total O  = 5.550622e+01
 
@@ -428,8 +428,8 @@ X                1.000e-03 mol
    H2O                    5.551e+01   1.000e+00     1.744    -0.000     0.000
 Cl               1.000e-03
    Cl-                    1.000e-03   1.000e-03    -3.000    -3.000    -0.000
-H(0)             1.301e-14
-   H2                     6.507e-15   6.509e-15   -14.187   -14.187     0.000
+H(0)             3.547e-16
+   H2                     1.773e-16   1.774e-16   -15.751   -15.751     0.000
 K                7.633e-05
    K+                     7.633e-05   7.633e-05    -4.117    -4.117    -0.000
    KOH                    2.646e-12   2.646e-12   -11.577   -11.577     0.000
@@ -437,16 +437,16 @@ Na               9.237e-04
    Na+                    9.237e-04   9.237e-04    -3.034    -3.034    -0.000
    NaOH                   6.101e-11   6.102e-11   -10.215   -10.215     0.000
 O(0)             0.000e+00
-   O2                     0.000e+00   0.000e+00   -64.007   -64.007     0.000
+   O2                     0.000e+00   0.000e+00   -60.878   -60.878     0.000
 
 ------------------------------Saturation indices-------------------------------
 
 	Phase               SI log IAP  log KT
 
-	H2(g)           -11.04  -14.19   -3.15  H2
+	H2(g)           -12.60  -15.75   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.62   -6.03    1.58  NaCl
-	O2(g)           -61.11  -64.01   -2.89  O2
+	O2(g)           -57.99  -60.88   -2.89  O2
 
 ------------------
 End of simulation.
@@ -1162,7 +1162,7 @@ X                2.000e-10 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  11.497      Adjusted to redox equilibrium
+                                       pe  =  11.493      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 0
                           Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
@@ -1189,15 +1189,15 @@ X                2.000e-10 mol
 Cl               1.000e-03
    Cl-                    1.000e-03   1.000e-03    -3.000    -3.000    -0.000
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -40.145   -40.144     0.000
+   H2                     0.000e+00   0.000e+00   -40.137   -40.137     0.000
 K                1.000e-03
    K+                     1.000e-03   1.000e-03    -3.000    -3.000    -0.000
    KOH                    3.467e-11   3.468e-11   -10.460   -10.460     0.000
 Na               1.000e-12
    Na+                    1.000e-12   1.000e-12   -12.000   -12.000    -0.000
    NaOH                   6.607e-20   6.608e-20   -19.180   -19.180     0.000
-O(0)             1.621e-12
-   O2                     8.105e-13   8.106e-13   -12.091   -12.091     0.000
+O(0)             1.568e-12
+   O2                     7.840e-13   7.842e-13   -12.106   -12.106     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1208,7 +1208,7 @@ O(0)             1.621e-12
 	H2(g)           -36.99  -40.14   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite          -16.58  -15.00    1.58  NaCl
-	O2(g)            -9.20  -12.09   -2.89  O2
+	O2(g)            -9.21  -12.11   -2.89  O2
 
 Using solution 4.	Solution after simulation 6.
 Using exchange 4.	Exchange assemblage after simulation 6.
@@ -1238,7 +1238,7 @@ X                1.000e-03 mol
 ----------------------------Description of solution----------------------------
 
                                        pH  =   7.000      Charge balance
-                                       pe  =  11.497      Adjusted to redox equilibrium
+                                       pe  =  11.493      Adjusted to redox equilibrium
        Specific Conductance (uS/cm, 25 oC) = 0
                           Density (g/cm3)  =   0.99705
                         Activity of water  =   1.000
@@ -1248,7 +1248,7 @@ X                1.000e-03 mol
                     Total carbon (mol/kg)  =   0.000e+00
                        Total CO2 (mol/kg)  =   0.000e+00
                       Temperature (deg C)  =  25.000
-                  Electrical balance (eq)  =  -4.592e-12
+                  Electrical balance (eq)  =  -4.591e-12
  Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.00
                                Iterations  =   4
                                   Total H  = 1.110124e+02
@@ -1265,15 +1265,15 @@ X                1.000e-03 mol
 Cl               1.000e-03
    Cl-                    1.000e-03   1.000e-03    -3.000    -3.000    -0.000
 H(0)             0.000e+00
-   H2                     0.000e+00   0.000e+00   -40.145   -40.144     0.000
+   H2                     0.000e+00   0.000e+00   -40.136   -40.136     0.000
 K                5.071e-04
    K+                     5.071e-04   5.071e-04    -3.295    -3.295    -0.000
    KOH                    1.757e-11   1.758e-11   -10.755   -10.755     0.000
 Na               4.929e-04
    Na+                    4.929e-04   4.929e-04    -3.307    -3.307    -0.000
    NaOH                   3.255e-11   3.256e-11   -10.487   -10.487     0.000
-O(0)             1.621e-12
-   O2                     8.106e-13   8.108e-13   -12.091   -12.091     0.000
+O(0)             1.561e-12
+   O2                     7.803e-13   7.804e-13   -12.108   -12.108     0.000
 
 ------------------------------Saturation indices-------------------------------
 
@@ -1284,7 +1284,7 @@ O(0)             1.621e-12
 	H2(g)           -36.99  -40.14   -3.15  H2
 	H2O(g)           -1.51   -0.00    1.51  H2O
 	Halite           -7.89   -6.31    1.58  NaCl
-	O2(g)            -9.20  -12.09   -2.89  O2
+	O2(g)            -9.22  -12.11   -2.89  O2
 
 ------------------
 End of simulation.

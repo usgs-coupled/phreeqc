@@ -649,11 +649,11 @@ Hfo_w
 	Hfo_wOCa+         7.373e-20       0.000   7.373e-20     -19.132
 
 Sua           
-	  5.916e-31  Surface + diffuse layer charge, eq
+	  8.875e-31  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -7.459e-24  psi, V
-	  2.903e-22  -F*psi/RT
+	 -1.728e-23  psi, V
+	  6.728e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  3.000e+00  m**2 for   3.000e-04 g
@@ -677,11 +677,11 @@ Sua
 	Sua               3.000e-07       1.000   3.000e-07      -6.523
 
 Sub           
-	  0.000e+00  Surface + diffuse layer charge, eq
+	  5.778e-34  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
-	 -2.770e-24  psi, V
-	  1.078e-22  -F*psi/RT
+	 -1.222e-23  psi, V
+	  4.756e-22  -F*psi/RT
 	  1.000e+00  exp(-F*psi/RT)
 	  1.000e+04  specific area, m**2/g
 	  3.000e-03  m**2 for   3.000e-07 g
@@ -1073,7 +1073,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	  8.1832e-36
+	Ca            	  8.1834e-36
 	Cl            	  2.2888e-14
 	H             	  3.8199e-15
 	Na            	  4.5712e-27
@@ -1394,7 +1394,7 @@ Adapting surface in            3
 ------------------------------Surface composition------------------------------
 
 Sua           
-	 -8.845e-19  Surface + diffuse layer charge, eq
+	 -8.846e-19  Surface + diffuse layer charge, eq
 	  0.000e+00  Surface charge, eq
 	  0.000e+00  sigma, C/m**2
 	  2.774e-16  psi, V
@@ -1410,9 +1410,9 @@ Sua
 	Element       	     Moles
 	Ca            	  9.9682e-12
 	Cl            	  9.9980e-09
-	H             	  2.0897e-12
+	H             	  2.0896e-12
 	Na            	  9.9781e-09
-	O             	  1.0473e-12
+	O             	  1.0472e-12
 
 Sua           
 	  9.994e-04  moles

@@ -1,6 +1,5 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
-#include <iostream>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
