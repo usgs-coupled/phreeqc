@@ -108,9 +108,9 @@ PHREEQC_SOURCE_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_SOURCE_D
 
 PHREEQC_MAC_DIR:=$(GEOCHEM)/mac/phreeqc
 PHREEQC_MAC_PUB_DIR:=$(FTP_GEOCHEM)/mac/phreeqc
-PHREEQC_MAC_FILE:=$(shell cd "$(PHREEQC_MAC_DIR)"; ls -t phreeqc-*.dmg.gz | awk '{if (NR == 1) {print}}')
-PHREEQC_MAC_VERSION:=$(shell echo $(PHREEQC_MAC_FILE) | sed "s/phreeqc-//" | sed "s/.dmg.gz//" )
-PHREEQC_MAC_SVN:=$(shell echo $(PHREEQC_MAC_FILE) | sed "s/phreeqc-//" | sed "s/.dmg.gz//" | sed "s/^.*-//" )
+PHREEQC_MAC_FILE:=$(shell cd "$(PHREEQC_MAC_DIR)"; ls -t phreeqc-*.dmg | awk '{if (NR == 1) {print}}')
+PHREEQC_MAC_VERSION:=$(shell echo $(PHREEQC_MAC_FILE) | sed "s/phreeqc-//" | sed "s/.dmg//" )
+PHREEQC_MAC_SVN:=$(shell echo $(PHREEQC_MAC_FILE) | sed "s/phreeqc-//" | sed "s/.dmg//" | sed "s/^.*-//" )
 PHREEQC_MAC_SIZE:=$(shell ls -s -h "$(PHREEQC_MAC_DIR)/$(PHREEQC_MAC_FILE)" | awk '{print $$1}')
 PHREEQC_MAC_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_MAC_DIR)/$(PHREEQC_MAC_FILE)" | awk '{print $$6,$$7,$$8}')
 
