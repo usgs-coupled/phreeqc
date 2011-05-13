@@ -3329,6 +3329,9 @@ punch_user_graph(void)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
+	if (simulation != chart->Get_prev_sim_no())
+		chart->Set_rownr(-1);
+
 	chart->Set_AddSeries(false);
 
 	if (chart->Get_rate_command_list().size() == 0)
@@ -3354,33 +3357,88 @@ punch_user_graph(void)
 	}
 	if (state == ADVECTION)
 	{
+
 		if (advection_step == 0 && chart->Get_graph_initial_solutions() == false)
 			return (OK);
+		if ((
+			((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
+			((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step()))
+			)
+			&& !chart->Get_connect_simulations())
 		//if (((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
 		//	((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step())))
 		//	chart->Set_AddSeries(true);
 		//else
-		//	chart->Set_AddSeries(false);
+			chart->Set_AddSeries(false);
 	}
 	if (state == TRANSPORT)
 	{
 		if (transport_step == 0 && chart->Get_graph_initial_solutions() == FALSE)
 			return (OK);
-		//if (((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
-		//	((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step())))
-		//
-		//	chart->Set_AddSeries(true);
-		//else
-		//	chart->Set_AddSeries(false);
-	}
-	if ((simulation != chart->Get_prev_sim_no() || 
-		transport_step != chart->Get_prev_transport_step() || 
-		advection_step != chart->Get_prev_advection_step()))
-	{
-		new_sim = true;
-		if (!chart->Get_connect_simulations() && !chart->Get_new_ug())
+		if ((
+				((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
+				((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step()))
+			)
+			&& !chart->Get_connect_simulations())
 			chart->Set_AddSeries(true);
+		else
+			chart->Set_AddSeries(false);
 	}
+	//if ((simulation != chart->Get_prev_sim_no() || 
+	//	transport_step != chart->Get_prev_transport_step() || 
+	//	advection_step != chart->Get_prev_advection_step()))
+	//{
+	//	new_sim = true;
+	//	if (!chart->Get_connect_simulations() && !chart->Get_new_ug())
+	//		chart->Set_AddSeries(true);
+	//}
+
+	// From cmdplot_xy
+	if (chart->Get_AddSeries())
+	{
+		if (state == TRANSPORT)
+		{
+			if (transport_step > punch_modulus && transport_step != chart->Get_prev_transport_step())
+				chart->Set_rownr(-1);
+		}
+		else if (state == ADVECTION)
+		{
+			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+				chart->Set_rownr(-1);
+		}
+	}
+	chart->Set_rownr(chart->Get_rownr() + 1);
+	fprintf(stderr, "\nAddSeries      %d\n", chart->Get_AddSeries());
+	//chart->Set_AddSeries(false);
+	// From plotXY
+	bool new_trans = false;
+	if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
+		(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
+		new_trans = true;
+	if (chart->Get_FirstCallToUSER_GRAPH() /*&& colnr == 0*/)
+		chart->Set_prev_sim_no(simulation);
+	else
+	{
+		if (!chart->Get_rownr() && (simulation != chart->Get_prev_sim_no() || new_trans))
+		{
+			new_sim = true;
+			if (!chart->Get_connect_simulations())
+				chart->Set_AddSeries(true);
+		}
+	}
+	fprintf(stderr, "\n"
+					"simulation     %d\n"
+		            "rownr          %d\n"
+					"colnr          %d\n"
+					"transport_step %d\n"
+					"prev_trans     %d\n"
+					"prev_sim       %d\n"
+					"AddSeries      %d\n"
+					"\n", simulation, chart->Get_rownr(), chart->Get_colnr(), transport_step, 
+					chart->Get_prev_transport_step(), 
+					chart->Get_prev_sim_no(), 
+					chart->Get_AddSeries());
+
 	bool b = chart->Get_AddSeries();
 	chart->Set_prev_sim_no(simulation);
 	if (chart->Get_AddSeries())
