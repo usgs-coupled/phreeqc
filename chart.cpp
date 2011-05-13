@@ -30,7 +30,7 @@
 			
 /* #define CHECK_NA (float) 1e-3; */
 #if !defined(PHREEQC_CLASS)
-	#define NA (float) -9.9999	            /* NA = not available */
+//	#define NA (float) -9.9999	            /* NA = not available */
 	int update_time_chart = 150;			/* milliseconds, maybe read */
 	int PanelHeight = 510;//510;
 	int PanelWidth = 640;//640;
