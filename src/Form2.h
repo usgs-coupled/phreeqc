@@ -706,6 +706,18 @@ namespace zdg_ui2 {
 					chart->Set_done(true);
 					phreeqc_done = true;
 
+					//std::string str;
+					//
+
+					//System::Runtime::Serialization::SerializationInfo ^info;
+					////System::Runtime::Serialization::SerializationInfo ^info = gcnew System::Runtime::Serialization::SerializationInfo();
+					////System::Runtime::Serialization::StreamingContext context;
+					//System::IO::Stream ^strm = System::IO::File::Create("serialize");
+					//zg1->GraphPane->GetObjectData(info, strm);
+					//
+					//this->ToString(info->ToString(), str);
+					//std::cerr << str;
+
 					{
 						//// Debugging check
 						//std::vector<CurveObject *> Curves = chart->Get_CurvesCSV(); 
