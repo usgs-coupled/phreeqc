@@ -3328,9 +3328,6 @@ punch_user_graph(void)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
-	//if (simulation != chart->Get_prev_sim_no())
-	//	chart->Set_rownr(-1);
-
 	chart->Set_AddSeries(false);
 
 	if (chart->Get_rate_command_list().size() == 0)
@@ -3342,78 +3339,58 @@ punch_user_graph(void)
 		&& (chart->Get_graph_initial_solutions() == false))
 		return (OK);
 
-	//if (chart->Get_FirstCallToUSER_GRAPH())
-	//	chart->Set_AddSeries(true);
-
 	if (state == REACTION)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
 		   else AddSeries = FALSE; */
-		if (reaction_step == 1 /*&& !chart->Get_connect_simulations()*/)
+		if (reaction_step == 1)
 			chart->Set_AddSeries(true);
 		if (reaction_step > 1)
 			chart->Set_AddSeries(false);
 	}
 
-	//bool new_trans = false;
 	if (state == ADVECTION)
 	{
 
 		if (advection_step == 0 && chart->Get_graph_initial_solutions() == false)
 			return (OK);
-		if ((
-			((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
-			((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step()))
+		if (
+				((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
+				((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step()))
 			)
-			/*&& !chart->Get_connect_simulations()*/)
 		{
 			chart->Set_AddSeries(true);
-			// doesn't do anything
-			/* if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-				chart->Set_rownr(-1); */
 		}
 		else
 			chart->Set_AddSeries(false);
-		//if (advection_step != chart->Get_prev_advection_step())
-		//	new_trans = true;
 	}
 	if (state == TRANSPORT)
 	{
 		if (transport_step == 0 && chart->Get_graph_initial_solutions() == FALSE)
 			return (OK);
-		if ((
+		if (
 				((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
 				((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step()))
 			)
-			/*&& !chart->Get_connect_simulations()*/)
 		{
 			chart->Set_AddSeries(true);
-			// doesn't do anything
-			/* if (transport_step > punch_modulus && transport_step != chart->Get_prev_transport_step())
-				chart->Set_rownr(-1); */
 		}
 		else
 		{
 			chart->Set_AddSeries(false);
 		}
-		//if (transport_step != chart->Get_prev_transport_step()) 
-		//	new_trans = true;
 	}
 
 	// From cmdplot_xy merged into transport and advection above
-
-	//chart->Set_rownr(chart->Get_rownr() + 1);
 
 	// From plotXY
 	if (chart->Get_FirstCallToUSER_GRAPH())
 		chart->Set_prev_sim_no(simulation);
 	else
 	{
-		/*if (chart->Get_rownr() == 0 && (simulation != chart->Get_prev_sim_no() || new_trans))*/
-		if ((simulation != chart->Get_prev_sim_no()) /* || new_trans */)
+		if (simulation != chart->Get_prev_sim_no())
 		{
-			//if (!chart->Get_connect_simulations())
-				chart->Set_AddSeries(true);
+			chart->Set_AddSeries(true);
 		}
 	}
 	chart->Set_prev_sim_no(simulation);
@@ -3461,171 +3438,6 @@ punch_user_graph(void)
 	return (OK);
 }
 #endif // MULTICHART
-#ifdef SKIP_MOVED_TO_OUTPUT_C
-#if defined(HDF5_CREATE)
-extern void HDFWriteHyperSlabV(const char *name, const char *format,
-							   va_list argptr);
-#endif
-
-#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-extern int Merge_fpunchf(const int length, const char *format,
-						 va_list argptr);
-#endif
-
-int CLASS_QUALIFIER
-fpunchf(const char *name, const char *format, ...)
-{
-	int retval = 0;
-	va_list args;
-
-	va_start(args, format);
-	retval = output_message(OUTPUT_PUNCH, name, CONTINUE, format, args);
-	va_end(args);
-
-	return retval;
-}
-
-int CLASS_QUALIFIER
-fpunchf_user(int user_index, const char *format, ...)
-{
-	static int s_warning = 0;
-	int retval = 0;
-	va_list args;
-	static char buffer[80];
-	char *name;
-
-	if (user_index < user_punch_count_headings)
-	{
-		name = user_punch_headings[user_index];
-	}
-	else
-	{
-		if (s_warning == 0)
-		{
-			sprintf(error_string,
-					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
-			warning_msg(error_string);
-			s_warning = 1;
-		}
-		sprintf(buffer, "no_heading_%d",
-				(user_index - user_punch_count_headings) + 1);
-		name = buffer;
-	}
-
-	va_start(args, format);
-	retval = output_message(OUTPUT_PUNCH, name, CONTINUE, format, args);
-	va_end(args);
-
-	return retval;
-}
-
-int CLASS_QUALIFIER
-fpunchf_end_row(const char *format, ...)
-{
-	int retval = 0;
-	va_list args;
-
-	va_start(args, format);
-	retval = output_message(OUTPUT_PUNCH_END_ROW, "", CONTINUE, format, args);
-	va_end(args);
-
-	return retval;
-}
-#endif /* SKIP_MOVED_TO_OUTPUT_C */
-
-
-#ifdef SAVE
-int CLASS_QUALIFIER
-fpunchf(const char *name, const char *format, ...)
-{
-	int retval = 0;
-	va_list args;
-	static char big_buffer[200];
-
-#if defined(HDF5_CREATE)
-	if (pr.hdf == TRUE)
-	{
-		va_start(args, format);
-		HDFWriteHyperSlabV(name, format, args);
-		va_end(args);
-	}
-#endif
-	if (pr.punch == TRUE && punch.in == TRUE)
-	{
-		va_start(args, format);
-		retval = output_message(OUTPUT_PUNCH, NULL, CONTINUE, format, args);
-		va_end(args);
-#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-		va_start(args, format);
-		retval = vsprintf(big_buffer, format, args);
-		Merge_fpunchf(retval, format, args);
-		va_end(args);
-#endif
-#if defined(SWIG_SHARED_OBJ)
-		va_start(args, format);
-		AddSelectedOutput(name, format, args);
-		va_end(args);
-#endif
-	}
-	return retval;
-}
-
-int CLASS_QUALIFIER
-fpunchf_user(int user_index, const char *format, ...)
-{
-	extern int warning_msg(const char *err_str);
-	static int s_warning = 0;
-	int retval = 0;
-	va_list args;
-	static char buffer[80];
-	char *name;
-
-	if (user_index < user_punch_count_headings)
-	{
-		name = user_punch_headings[user_index];
-	}
-	else
-	{
-		if (s_warning == 0)
-		{
-			sprintf(error_string,
-					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
-			warning_msg(error_string);
-			s_warning = 1;
-		}
-		sprintf(buffer, "no_heading_%d",
-				(user_index - user_punch_count_headings) + 1);
-		name = buffer;
-	}
-
-#if defined(HDF5_CREATE)
-	if (pr.hdf == TRUE)
-	{
-		va_start(args, format);
-		HDFWriteHyperSlabV(name, format, args);
-		va_end(args);
-	}
-#endif
-
-	if (punch.in == TRUE && pr.punch == TRUE)
-	{
-		va_start(args, format);
-		retval = output_message(OUTPUT_PUNCH, NULL, CONTINUE, format, args);
-		va_end(args);
-#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-		va_start(args, format);
-		Merge_fpunchf(retval, format, args);
-		va_end(args);
-#endif
-#if defined(SWIG_SHARED_OBJ)
-		va_start(args, format);
-		AddSelectedOutput(name, format, args);
-		va_end(args);
-#endif
-	}
-	return retval;
-}
-#endif
 
 char * CLASS_QUALIFIER
 sformatf(const char *format, ...)

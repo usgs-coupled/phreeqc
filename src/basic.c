@@ -5389,25 +5389,6 @@ cmdplot_xy(struct LOC_exec *LINK)
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return;
 
-	//if (chart->Get_colnr() == 0)
-	//{
-	//	if (chart->Get_AddSeries())
-	//	{
-	//		if (state == TRANSPORT)
-	//		{
-	//			if (transport_step > punch_modulus && transport_step != 
-	//				chart->Get_prev_transport_step())
-	//				chart->Set_rownr(-1);
-	//		}
-	//		else if (state == ADVECTION)
-	//		{
-	//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-	//				chart->Set_rownr(-1);
-	//		}
-	//	}
-	//	chart->Set_rownr(chart->Get_rownr() + 1);
-	//}
-
 	std::string x_str(STR[0]), y_str(STR[1]);
 
 // Code formerly in PlotXY, included here
@@ -5451,7 +5432,6 @@ cmdplot_xy(struct LOC_exec *LINK)
 
 		if (x_str.size() > 0 && y_str.size() > 0)
 		{
-			//std::cerr << chart->Get_colnr() << " x " << atof(x_str.c_str()) << " y " << atof(y_str.c_str()) << std::endl;
 			chart->Get_Curves()[chart->Get_colnr()]->Get_x().push_back(atof(x_str.c_str()));
 			chart->Get_Curves()[chart->Get_colnr()]->Get_y().push_back(atof(y_str.c_str()));
 			chart->Set_point_added(true);
@@ -5485,24 +5465,6 @@ cmdgraph_x(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		//if (chart->Get_colnr() == 0)
-		//{
-		//	if (chart->Get_AddSeries())
-		//	{
-		//		if (state == TRANSPORT)
-		//		{
-		//			if (transport_step > punch_modulus && transport_step != 
-		//				chart->Get_prev_transport_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//		else if (state == ADVECTION)
-		//		{
-		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//	}
-		//	chart->Set_rownr(chart->Get_rownr() + 1);
-		//}
 
 		if (n.stringval)
 		{
@@ -5539,24 +5501,6 @@ cmdgraph_y(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		//if (chart->Get_colnr() == 0)
-		//{
-		//	if (chart->Get_AddSeries())
-		//	{
-		//		if (state == TRANSPORT)
-		//		{
-		//			if (transport_step > punch_modulus && transport_step != 
-		//				chart->Get_prev_transport_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//		else if (state == ADVECTION)
-		//		{
-		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//	}
-		//	chart->Set_rownr(chart->Get_rownr() + 1);
-		//}
 
 		// wait until x value is known before storing in curve
 		if (n.stringval)
@@ -5621,24 +5565,6 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			continue;
 		}
 		n = expr(LINK);
-		//if (chart->Get_colnr() == 0)
-		//{
-		//	if (chart->Get_AddSeries())
-		//	{
-		//		if (state == TRANSPORT)
-		//		{
-		//			if (transport_step > punch_modulus && transport_step != 
-		//				chart->Get_prev_transport_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//		else if (state == ADVECTION)
-		//		{
-		//			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-		//				chart->Set_rownr(-1);
-		//		}
-		//	}
-		//	chart->Set_rownr(chart->Get_rownr() + 1);
-		//}
 
 		chart->Get_secondary_y()[chart->Get_colnr()] = true;
 
@@ -5679,5 +5605,4 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		chart->Set_colnr(chart->Get_colnr() + 1);
 	}
 }
-
 #endif // MULTICHART
