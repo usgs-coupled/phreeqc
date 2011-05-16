@@ -5583,6 +5583,9 @@ cmdgraph_y(struct LOC_exec *LINK)
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
+			}
+			if (chart->Get_new_headings().size() > 0)
+			{
 				chart->Add_curve(false, chart->Get_new_headings()[0]);
 				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 			}
@@ -5651,7 +5654,6 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		else
 			chart->Get_graph_y()[chart->Get_colnr()] = n.UU.val;
 		chart->Set_point_added(true);
-
 		// Add a new curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
 		{
@@ -5662,6 +5664,9 @@ cmdgraph_sy(struct LOC_exec *LINK)
 				{
 					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 				}
+			}
+			if (chart->Get_new_headings().size() > 0)
+			{
 				chart->Add_curve(false, chart->Get_new_headings()[0]);
 				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
 			}

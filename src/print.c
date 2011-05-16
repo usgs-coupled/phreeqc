@@ -3325,12 +3325,11 @@ punch_user_graph(void)
  *   Graph with user defined BASIC print routine
  */
 	char command[] = "run";
-	bool new_sim = false;
 	ChartObject *chart = chart_handler.Get_current_chart();
 	if (chart == NULL) return OK;
 
-	if (simulation != chart->Get_prev_sim_no())
-		chart->Set_rownr(-1);
+	//if (simulation != chart->Get_prev_sim_no())
+	//	chart->Set_rownr(-1);
 
 	chart->Set_AddSeries(false);
 
@@ -3350,13 +3349,13 @@ punch_user_graph(void)
 	{
 		/*if (reaction_step == 1) AddSeries = TRUE;
 		   else AddSeries = FALSE; */
-		if (reaction_step == 1 && !chart->Get_connect_simulations())
+		if (reaction_step == 1 /*&& !chart->Get_connect_simulations()*/)
 			chart->Set_AddSeries(true);
 		if (reaction_step > 1)
 			chart->Set_AddSeries(false);
 	}
 
-	bool new_trans = false;
+	//bool new_trans = false;
 	if (state == ADVECTION)
 	{
 
@@ -3366,16 +3365,17 @@ punch_user_graph(void)
 			((chart->Get_chart_type() == 1) && (advection_step == punch_ad_modulus)) ||
 			((chart->Get_chart_type() == 0) && (advection_step != chart->Get_prev_advection_step()))
 			)
-			&& !chart->Get_connect_simulations())
+			/*&& !chart->Get_connect_simulations()*/)
 		{
 			chart->Set_AddSeries(true);
-			if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-				chart->Set_rownr(-1);
+			// doesn't do anything
+			/* if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
+				chart->Set_rownr(-1); */
 		}
 		else
 			chart->Set_AddSeries(false);
-		if (advection_step != chart->Get_prev_advection_step())
-			new_trans = true;
+		//if (advection_step != chart->Get_prev_advection_step())
+		//	new_trans = true;
 	}
 	if (state == TRANSPORT)
 	{
@@ -3385,71 +3385,39 @@ punch_user_graph(void)
 				((chart->Get_chart_type() == 1) && (transport_step == punch_modulus)) ||
 				((chart->Get_chart_type() == 0) && (transport_step != chart->Get_prev_transport_step()))
 			)
-			&& !chart->Get_connect_simulations())
+			/*&& !chart->Get_connect_simulations()*/)
 		{
 			chart->Set_AddSeries(true);
-			if (transport_step > punch_modulus && transport_step != chart->Get_prev_transport_step())
-				chart->Set_rownr(-1);
+			// doesn't do anything
+			/* if (transport_step > punch_modulus && transport_step != chart->Get_prev_transport_step())
+				chart->Set_rownr(-1); */
 		}
 		else
 		{
 			chart->Set_AddSeries(false);
 		}
-		if (transport_step != chart->Get_prev_transport_step()) 
-			new_trans = true;
+		//if (transport_step != chart->Get_prev_transport_step()) 
+		//	new_trans = true;
 	}
 
-	// From cmdplot_xy
-	//if (chart->Get_AddSeries())
-	//{
-	//	if (state == TRANSPORT)
-	//	{
-	//		//if (transport_step > punch_modulus && transport_step != chart->Get_prev_transport_step())
-	//		//	chart->Set_rownr(-1);
-	//	}
-	//	else if (state == ADVECTION)
-	//	{
-	//		//if (advection_step > punch_modulus && advection_step != chart->Get_prev_advection_step())
-	//		//	chart->Set_rownr(-1);
-	//	}
-	//}
+	// From cmdplot_xy merged into transport and advection above
 
-	chart->Set_rownr(chart->Get_rownr() + 1);
-
-	//fprintf(stderr, "\nAddSeries      %d\n", chart->Get_AddSeries());
+	//chart->Set_rownr(chart->Get_rownr() + 1);
 
 	// From plotXY
-	//bool new_trans = false;
-	//if ((state == TRANSPORT && transport_step != chart->Get_prev_transport_step()) ||
-	//	(state == ADVECTION && advection_step != chart->Get_prev_advection_step()))
-	//	new_trans = true;
 	if (chart->Get_FirstCallToUSER_GRAPH())
 		chart->Set_prev_sim_no(simulation);
 	else
 	{
-		if (chart->Get_rownr() == 0 && (simulation != chart->Get_prev_sim_no() || new_trans))
+		/*if (chart->Get_rownr() == 0 && (simulation != chart->Get_prev_sim_no() || new_trans))*/
+		if ((simulation != chart->Get_prev_sim_no()) /* || new_trans */)
 		{
-			new_sim = true;
-			if (!chart->Get_connect_simulations())
+			//if (!chart->Get_connect_simulations())
 				chart->Set_AddSeries(true);
 		}
 	}
-	//fprintf(stderr, "\n"
-	//				"simulation     %d\n"
-	//	            "rownr          %d\n"
-	//				"colnr          %d\n"
-	//				"transport_step %d\n"
-	//				"prev_trans     %d\n"
-	//				"prev_sim       %d\n"
-	//				"AddSeries      %d\n"
-	//				"\n", simulation, chart->Get_rownr(), chart->Get_colnr(), transport_step, 
-	//				chart->Get_prev_transport_step(), 
-	//				chart->Get_prev_sim_no(), 
-	//				chart->Get_AddSeries());
-
-	bool b = chart->Get_AddSeries();
 	chart->Set_prev_sim_no(simulation);
-	if (chart->Get_AddSeries())
+	if (chart->Get_AddSeries() && !chart->Get_connect_simulations())
 	{
 		chart->Add_new_series();
 	}
