@@ -5477,6 +5477,17 @@ cmdgraph_x(struct LOC_exec *LINK)
 		else
 			chart->Set_graph_x(n.UU.val);
 	}
+	if ((int) chart->Get_Curves().size() == chart->Get_colnr())
+	{
+		if (chart->Get_new_headings().size() > 0)
+		{
+			// remove x heading
+			//if (chart->Get_colnr() == chart->Get_ColumnOffset())
+			{
+				chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+			}
+		}
+	}
 }
 
 Local void CLASS_QUALIFIER
@@ -5520,14 +5531,14 @@ cmdgraph_y(struct LOC_exec *LINK)
 		// Add a new curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
 		{
-			if (chart->Get_new_headings().size() > 0)
-			{
-				// remove x heading
-				if (chart->Get_colnr() == chart->Get_ColumnOffset())
-				{
-					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
-				}
-			}
+			//if (chart->Get_new_headings().size() > 0)
+			//{
+			//	// remove x heading
+			//	if (chart->Get_colnr() == chart->Get_ColumnOffset())
+			//	{
+			//		chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+			//	}
+			//}
 			if (chart->Get_new_headings().size() > 0)
 			{
 				chart->Add_curve(false, chart->Get_new_headings()[0]);
@@ -5583,14 +5594,14 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		// Add a new curve if necessary
 		if ((int) chart->Get_Curves().size() == chart->Get_colnr())
 		{
-			if (chart->Get_new_headings().size() > 0)
-			{
-				// remove x heading
-				if (chart->Get_colnr() == chart->Get_ColumnOffset())
-				{
-					chart->Get_new_headings().erase(chart->Get_new_headings().begin());
-				}
-			}
+			//if (chart->Get_new_headings().size() > 0)
+			//{
+			//	// remove x heading
+			//	if (chart->Get_colnr() == chart->Get_ColumnOffset())
+			//	{
+			//		chart->Get_new_headings().erase(chart->Get_new_headings().begin());
+			//	}
+			//}
 			if (chart->Get_new_headings().size() > 0)
 			{
 				chart->Add_curve(false, chart->Get_new_headings()[0]);

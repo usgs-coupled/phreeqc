@@ -1483,6 +1483,9 @@ dump_cpp(void)
 	sprintf(token, "\t-dump_restart    %d\n", transport_step + 1);
 	fs << token;
 
+	// user graphs
+	chart_handler.dump(fs, 0);
+
 	sprintf(token, "END\n");
 	fs << token;
 	return (OK);

@@ -867,34 +867,41 @@ print_kinetics(void)
 		kin_time_x = advection_kin_time;
 	}
 	sim_time = 0.;
-	if (incremental_reactions == TRUE)
+	if (run_info.Get_run_cells())
 	{
-		if (kinetics_ptr->count_steps > 0)
+		sim_time = rate_sim_time;
+	}
+	else
+	{
+		if (incremental_reactions == TRUE)
 		{
-			for (i = 0; i < reaction_step; i++)
+			if (kinetics_ptr->count_steps > 0)
 			{
-				if (i < kinetics_ptr->count_steps)
+				for (i = 0; i < reaction_step; i++)
 				{
-					sim_time += kinetics_ptr->steps[i];
+					if (i < kinetics_ptr->count_steps)
+					{
+						sim_time += kinetics_ptr->steps[i];
+					}
+					else
+					{
+						sim_time +=
+							kinetics_ptr->steps[kinetics_ptr->count_steps - 1];
+					}
+				}
+			}
+			else if (kinetics_ptr->count_steps < 0)
+			{
+				if (reaction_step > -kinetics_ptr->count_steps)
+				{
+					sim_time = kinetics_ptr->steps[0];
 				}
 				else
 				{
-					sim_time +=
-						kinetics_ptr->steps[kinetics_ptr->count_steps - 1];
+					sim_time =
+						reaction_step * kinetics_ptr->steps[0] /
+						((LDBLE) (-kinetics_ptr->count_steps));
 				}
-			}
-		}
-		else if (kinetics_ptr->count_steps < 0)
-		{
-			if (reaction_step > -kinetics_ptr->count_steps)
-			{
-				sim_time = kinetics_ptr->steps[0];
-			}
-			else
-			{
-				sim_time =
-					reaction_step * kinetics_ptr->steps[0] /
-					((LDBLE) (-kinetics_ptr->count_steps));
 			}
 		}
 	}

@@ -19,7 +19,8 @@ enum entity_type
 #   define NAN -99999999
 #endif
 #define MISSING -9999.999
-#define NA (float) -98.765	            /* NA = not available */
+//#define NA -98.765	            /* NA = not available */
+#include "NA.h"
 /* search.h -- declarations for POSIX/SVID-compatible search functions */
 
 
