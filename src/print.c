@@ -867,11 +867,13 @@ print_kinetics(void)
 		kin_time_x = advection_kin_time;
 	}
 	sim_time = 0.;
+#if defined(PHREEQC_CLASS)
 	if (run_info.Get_run_cells())
 	{
 		sim_time = rate_sim_time;
 	}
 	else
+#endif
 	{
 		if (incremental_reactions == TRUE)
 		{
