@@ -376,6 +376,13 @@ namespace zdg_ui2 {
 						 myPane->Y2Axis->Type = AxisType::Log;
 				 }
 
+				 myPane->XAxis->MinorTic->IsOutside = false;
+				 myPane->XAxis->MajorTic->IsOutside = false;
+				 myPane->YAxis->MinorTic->IsOutside = false;
+				 myPane->YAxis->MajorTic->IsOutside = false;
+				 myPane->Y2Axis->MinorTic->IsOutside = false;
+				 myPane->Y2Axis->MajorTic->IsOutside = false;
+
 				 // Fill the axis background with a gradient
 				 //myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f ); /* FromArgb(255, 255, 224) */
 				 myPane->Chart->Fill = gcnew Fill( Color::White, Color::FromArgb(255, 255, 230), 45.0f );
