@@ -427,7 +427,8 @@ struct const_key keyword[] = {
 	{"delete", 0},
 	{"run_cells", 0},
 	{"reaction_modify"},
-	{"reaction_temperature_modify"}
+	{"reaction_temperature_modify"},
+	{"solid_solution_modify", 0}
 #endif /* PHREEQC_CPP */
 
 };
