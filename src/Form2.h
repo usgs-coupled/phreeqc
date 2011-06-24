@@ -583,6 +583,7 @@ namespace zdg_ui2 {
 			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
 			{
 				SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog;
+				saveFileDialog1->FileName = "curves.u_g";
 				saveFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
 				saveFileDialog1->FilterIndex = 2;
 				saveFileDialog1->RestoreDirectory = true;
