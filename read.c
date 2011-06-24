@@ -659,6 +659,10 @@ read_input(void)
 		//	keyword[LAST_C_KEYWORD + 22].keycount++;
 		//	read_reaction_temperature_modify();
 		//	break;
+		case LAST_C_KEYWORD + 23:		//solid_solution_modify, synonym
+			keyword[LAST_C_KEYWORD + 16].keycount++;
+			read_solid_solutions_modify();
+			break;
 #endif
 		}
 	}

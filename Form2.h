@@ -480,7 +480,7 @@ namespace zdg_ui2 {
 
 					menuStrip->Items->RemoveAt(0);
 					ToolStripMenuItem ^item2 = gcnew ToolStripMenuItem();
-					item2->Text = L"Save Data to File \'curves.u_g\'";
+					item2->Text = L"Save Data to File...";
 					item2->Click += gcnew System::EventHandler(this, &zdg_ui2::Form1::SaveCurves );
 					menuStrip->Items->Insert(0, item2 );
 
@@ -497,7 +497,7 @@ namespace zdg_ui2 {
 					std::cerr << "ERROR: " << estring << std::endl;
 				}
 			}
-
+#ifdef SKIP
 			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
 			{
 				std::string file_name = "curves.u_g";
@@ -579,7 +579,106 @@ namespace zdg_ui2 {
 				f_out.close();
 				return;	
 			}
+#endif
+			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
+			{
+				SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog;
+				saveFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				saveFileDialog1->FilterIndex = 2;
+				saveFileDialog1->RestoreDirectory = true;
+#undef OK 
+				if ( saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
+				{
+					std::string file_name;
+					ToString(saveFileDialog1->FileName, file_name);
+					std::ofstream f_out(file_name.c_str(), std::ifstream::out);
 
+					if (!f_out.is_open())
+					{
+						std::ostringstream estream;
+						estream << "Could not open file to save curves for USER_GRAPH " << file_name;
+						form_error_msg(estream.str());
+						return;
+					}
+
+					// write headings
+					size_t max_points = 0; 
+					f_out.precision(4);
+					for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++) 
+					{
+						LineItem  ^curve;
+						curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+						// Get the PointPairList
+						IPointListEdit  ^ip = (IPointListEdit^) curve->Points;
+
+						// Calculate max_points
+						if ((size_t) ip->Count > max_points)
+							max_points = ip->Count;
+
+						// write headers
+						std::string s_std;
+						ToString(curve->Label->Text, s_std);
+						f_out.width(12);
+						f_out << "x" << "\t";
+						f_out.width(12);
+						if (s_std.size() > 0) 
+						{
+							f_out << s_std << "\t";
+						}
+						else
+						{
+							f_out << "y" << "\t";
+						}
+					}
+
+					f_out << std::endl;
+
+					// write data
+					size_t i2 = 0;
+					f_out << std::scientific;
+					f_out.precision(4);
+
+					while (i2 < max_points)
+					{
+						for (int i = 0; i < zg1->GraphPane->CurveList->Count; i++)
+						{
+							LineItem  ^curve;
+							curve =  (LineItem ^) zg1->GraphPane->CurveList[i];
+							// Get the PointPairList
+							IPointListEdit  ^ip = (IPointListEdit^) curve->Points;					
+							if (i2 < (size_t) ip->Count)
+							{
+								//double x = ip[i]->X;
+								f_out.width(12);
+								f_out << ip[i2]->X << "\t";
+								f_out.width(12);
+								f_out << ip[i2]->Y << "\t";
+							}
+							else if (i2 < max_points)
+							{
+								f_out.width(13);
+								f_out << "\t";
+								f_out.width(13);
+								f_out << "\t";
+							}
+						}
+						f_out << std::endl;
+						i2++;
+					}
+					f_out.close();
+
+
+				}
+				else
+				{
+					// no dialog
+					std::ostringstream estream;
+					estream << "Could not open dialog to save curves. ";
+					form_error_msg(estream.str());
+					return;
+				}
+				return;
+			}
 
 			// Respond to a Zoom Event
 			void MyZoomEvent( ZedGraphControl ^control, ZoomState ^oldState, ZoomState ^newState )
