@@ -12,6 +12,7 @@ typedef unsigned char boolean;
 #include "output.h"
 #include "phrqproto.h"
 #include "p2c.h"
+#include "../NameDouble.h"
 #if !defined(PHREEQC_CLASS)
 	int n_user_punch_index;
 	#if defined PHREEQ98 || defined CHART
@@ -210,7 +211,8 @@ typedef unsigned char boolean;
 		{"totmol", toktotmol},
 		{"totmoles", toktotmoles},
 		{"iso", tokiso},
-		{"iso_unit", tokiso_unit}
+		{"iso_unit", tokiso_unit},
+		{"phase_formula", tokphase_formula}
 	};
 	static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
@@ -1905,6 +1907,9 @@ listtokens(FILE * f, tokenrec * l_buf)
 		case tokiso_unit:
 			output_msg(OUTPUT_BASIC, "ISO_UNIT");
 			break;
+		case tokphase_formula:
+			output_msg(OUTPUT_BASIC, "TOKPHASE_FORMULA");
+			break;			
 		}
 		l_buf = l_buf->next;
 	}
@@ -2829,6 +2834,123 @@ factor(struct LOC_exec * LINK)
 			free_check_null(moles_arg);
 		}
 		break;
+
+	case tokphase_formula:
+		{
+			require(toklp, LINK);
+			std::string phase_name(stringfactor(STR1, LINK));
+			varrec *elts_varrec = NULL, *coef_varrec = NULL;
+			cxxNameDouble stoichiometry;
+			/*
+			*  Parse arguments
+			*/
+			if (LINK->t != NULL && LINK->t->kind == tokcomma)
+			{
+				/* phase_formula("calcite", count, elt, coef) */
+				/* return formula */
+				/*int c; */
+				/*  struct varrec *count_varrec, *names_varrec, *types_varrec, *moles_varrec; */
+				/*  struct varrec *count_varrec, *elt_varrec, *coef_varrec; */
+				/* return number of species */
+				LINK->t = LINK->t->next;
+				count_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || count_varrec->stringvar != 0)
+					snerr(": Cannot find count variable");
+
+				/* return number of names of species */
+				LINK->t = LINK->t->next;
+				require(tokcomma, LINK);
+				elts_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || elts_varrec->stringvar != 1)
+					snerr(": Cannot find element string variable");
+
+				/* return coefficients of species */
+				LINK->t = LINK->t->next;
+				require(tokcomma, LINK);
+				coef_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || coef_varrec->stringvar != 0)
+					snerr(": Cannot find coefficient variable");
+				LINK->t = LINK->t->next;
+				arg_num = 4;
+			}
+			else
+			{
+				arg_num = 1;
+			}
+			require(tokrp, LINK);
+
+			if (arg_num > 1)
+			{
+				free_dim_stringvar(elts_varrec);
+				free_check_null(coef_varrec->UU.U0.arr);
+				coef_varrec->UU.U0.arr = NULL;
+			}
+			/*
+			*  Call subroutine
+			*/
+			std::string form = phase_formula(phase_name, stoichiometry);
+
+			// put formula as return value
+			n.stringval = true;
+			n.UU.sval = string_duplicate(form.c_str());
+
+			/*
+			*  fill in varrec structure
+			*/
+
+			if (arg_num > 1)
+			{
+				size_t count = stoichiometry.size();
+				*count_varrec->UU.U0.val = (LDBLE) count;
+				/*
+				* malloc space
+				*/
+				elts_varrec->UU.U1.sarr = (char **) PHRQ_malloc((count + 1) * sizeof(char *));
+				if (elts_varrec->UU.U1.sarr == NULL)
+					malloc_error();
+				coef_varrec->UU.U0.arr = (LDBLE *) PHRQ_malloc((count + 1) * sizeof(LDBLE));
+				if (coef_varrec->UU.U0.arr == NULL)
+					malloc_error();
+
+				// first position not used
+				elts_varrec->UU.U1.sarr[0] = NULL;
+				coef_varrec->UU.U0.arr[0] = 0;
+
+				// set dims for Basic array
+				for (i = 0; i < maxdims; i++)
+				{
+					elts_varrec->dims[i] = 0;
+					coef_varrec->dims[i] = 0;
+				}
+				// set dims for first dimension and number of dims
+				elts_varrec->dims[0] = (long) (count + 1);
+				coef_varrec->dims[0] = (long) (count + 1);
+				elts_varrec->numdims = 1;
+				coef_varrec->numdims = 1;
+
+				// fill in arrays
+				i = 1;
+				for (cxxNameDouble::iterator it = stoichiometry.begin(); it != stoichiometry.end(); it++)
+				{
+					elts_varrec->UU.U1.sarr[i] = string_duplicate((it->first).c_str());
+					coef_varrec->UU.U0.arr[i] = it->second;
+					i++;
+				}
+
+			}
+			else
+			{
+				// should not need to clean up template classes
+				//for (i = 0; i < count_elts + 1; i++)
+				//{
+					//free_check_null(elts_arg[i]);
+				//}
+				//free_check_null(elts_arg);
+				//free_check_null(coef_arg);
+			}
+			break;
+		}
+
 	case tokrxn:
 		if (state == REACTION || 
 			state == ADVECTION ||

@@ -7,6 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#include "../NameDouble.h"
 
 static char const svnid[] =
 	"$Id$";
@@ -1803,6 +1804,29 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 	return (sys_tot);
 }
 
+/* ---------------------------------------------------------------------- */
+std::string CLASS_QUALIFIER
+phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Returns formula of mineral
+ *   Also returns arrays of elements and stoichiometry in elts_arg and coef_arg
+ */
+	stoichiometry.clear();
+	std::string formula;
+
+	int j;
+	struct phase *phase_ptr = phase_bsearch(phase_name.c_str(), &j, FALSE);
+	if (phase_ptr != NULL)
+	{
+		formula.append(phase_ptr->formula);
+		cxxNameDouble nd(phase_ptr->next_elt);
+		stoichiometry = nd;
+	}
+
+	return (formula);
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 system_total_elements(void)
