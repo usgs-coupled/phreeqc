@@ -584,8 +584,8 @@ namespace zdg_ui2 {
 			{
 				SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog;
 				saveFileDialog1->FileName = "curves.u_g";
-				saveFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-				saveFileDialog1->FilterIndex = 2;
+				saveFileDialog1->Filter = "User graph files (*.u_g)|*.u_g|txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				saveFileDialog1->FilterIndex = 1;
 				saveFileDialog1->RestoreDirectory = true;
 #undef OK 
 				if ( saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
