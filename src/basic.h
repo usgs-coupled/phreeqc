@@ -251,4 +251,5 @@ struct LOC_exec
 #define tokceil             151
 #define tokfloor            152
 #define tokphase_formula    153
+#define toklist_s_s         154
 #endif /* _INC_BASIC_H */

@@ -1216,7 +1216,32 @@ sum_match_s_s(const char *mytemplate, const char *name)
 	}
 	return (tot);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE CLASS_QUALIFIER
+list_s_s(std::string s_s_name, cxxNameDouble &composition)
+/* ---------------------------------------------------------------------- */
+{
+	int i, j;
 
+	LDBLE tot = 0;
+	composition.clear();
+	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+		return (0);
+
+	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	{
+		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, s_s_name.c_str()) == 0)
+		{
+			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+			{
+				composition.add(use.s_s_assemblage_ptr->s_s[j].comps[i].name, use.s_s_assemblage_ptr->s_s[j].comps[i].moles);
+				tot += use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
+			}
+			break;
+		}
+	}
+	return (tot);
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 match_elts_in_species(const char *name, const char *mytemplate)
