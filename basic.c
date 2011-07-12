@@ -212,7 +212,8 @@ typedef unsigned char boolean;
 		{"totmoles", toktotmoles},
 		{"iso", tokiso},
 		{"iso_unit", tokiso_unit},
-		{"phase_formula", tokphase_formula}
+		{"phase_formula", tokphase_formula},
+		{"list_s_s", toklist_s_s}
 	};
 	static int NCMDS = (sizeof(command) / sizeof(struct const_key));
 
@@ -1908,8 +1909,11 @@ listtokens(FILE * f, tokenrec * l_buf)
 			output_msg(OUTPUT_BASIC, "ISO_UNIT");
 			break;
 		case tokphase_formula:
-			output_msg(OUTPUT_BASIC, "TOKPHASE_FORMULA");
+			output_msg(OUTPUT_BASIC, "PHASE_FORMULA");
 			break;			
+		case toklist_s_s:
+			output_msg(OUTPUT_BASIC, "LIST_S_S");
+			break;
 		}
 		l_buf = l_buf->next;
 	}
@@ -2835,6 +2839,105 @@ factor(struct LOC_exec * LINK)
 		}
 		break;
 
+	case toklist_s_s:
+		{
+			/* list_s_s("calcite", count, name$, moles) */
+			/* return total moles */
+			require(toklp, LINK);
+			std::string s_s_name(stringfactor(STR1, LINK));
+			cxxNameDouble composition;
+			/*
+			*  Parse arguments
+			*/
+			if (LINK->t != NULL && LINK->t->kind == tokcomma)
+			{
+				LINK->t = LINK->t->next;
+				count_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || count_varrec->stringvar != 0)
+					snerr(": Cannot find count variable");
+
+				/* return number of names of components */
+				LINK->t = LINK->t->next;
+				require(tokcomma, LINK);
+				names_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || names_varrec->stringvar != 1)
+					snerr(": Cannot find component string variable");
+
+				/* return number of moles  of components */
+				LINK->t = LINK->t->next;
+				require(tokcomma, LINK);
+				moles_varrec = LINK->t->UU.vp;
+				if (LINK->t->kind != tokvar || moles_varrec->stringvar != 0)
+					snerr(": Cannot find moles of component variable");
+				LINK->t = LINK->t->next;
+				arg_num = 4;
+			}
+			else
+			{
+				snerr(": Expected 4 arguments for list_s_s");
+			}
+			require(tokrp, LINK);
+
+			if (arg_num > 1)
+			{
+				free_dim_stringvar(names_varrec);
+				free_check_null(moles_varrec->UU.U0.arr);
+				moles_varrec->UU.U0.arr = NULL;
+			}
+			/*
+			*  Call subroutine
+			*/
+			// return total moles
+			n.UU.val = list_s_s(s_s_name, composition);
+
+			/*
+			*  fill in varrec structure
+			*/
+
+			if (arg_num > 1)
+			{
+				size_t count = composition.size();
+				*count_varrec->UU.U0.val = (LDBLE) count;
+				/*
+				* malloc space
+				*/
+				names_varrec->UU.U1.sarr = (char **) PHRQ_malloc((count + 1) * sizeof(char *));
+				if (names_varrec->UU.U1.sarr == NULL)
+					malloc_error();
+				moles_varrec->UU.U0.arr = (LDBLE *) PHRQ_malloc((count + 1) * sizeof(LDBLE));
+				if (moles_varrec->UU.U0.arr == NULL)
+					malloc_error();
+
+				// first position not used
+				names_varrec->UU.U1.sarr[0] = NULL;
+				moles_varrec->UU.U0.arr[0] = 0;
+
+				// set dims for Basic array
+				for (i = 0; i < maxdims; i++)
+				{
+					names_varrec->dims[i] = 0;
+					moles_varrec->dims[i] = 0;
+				}
+				// set dims for first dimension and number of dims
+				names_varrec->dims[0] = (long) (count + 1);
+				moles_varrec->dims[0] = (long) (count + 1);
+				names_varrec->numdims = 1;
+				moles_varrec->numdims = 1;
+
+				// fill in arrays
+				i = 1;
+
+				for (cxxNameDouble::iterator it = composition.begin(); it != composition.end(); it++)
+				{
+					names_varrec->UU.U1.sarr[i] = string_duplicate((it->first).c_str());
+					moles_varrec->UU.U0.arr[i] = it->second;
+					i++;
+				}
+
+			}
+			break;
+		}
+
 	case tokphase_formula:
 		{
 			require(toklp, LINK);
@@ -2937,16 +3040,6 @@ factor(struct LOC_exec * LINK)
 					i++;
 				}
 
-			}
-			else
-			{
-				// should not need to clean up template classes
-				//for (i = 0; i < count_elts + 1; i++)
-				//{
-					//free_check_null(elts_arg[i]);
-				//}
-				//free_check_null(elts_arg);
-				//free_check_null(coef_arg);
 			}
 			break;
 		}
