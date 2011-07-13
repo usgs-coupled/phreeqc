@@ -12,7 +12,9 @@ typedef unsigned char boolean;
 #include "output.h"
 #include "phrqproto.h"
 #include "p2c.h"
+#if defined PHREEQC_CPP
 #include "../NameDouble.h"
+#endif
 #if !defined(PHREEQC_CLASS)
 	int n_user_punch_index;
 	#if defined PHREEQ98 || defined CHART
@@ -2838,7 +2840,7 @@ factor(struct LOC_exec * LINK)
 			free_check_null(moles_arg);
 		}
 		break;
-
+#if defined PHREEQC_CPP
 	case toklist_s_s:
 		{
 			/* list_s_s("calcite", count, name$, moles) */
@@ -3043,7 +3045,7 @@ factor(struct LOC_exec * LINK)
 			}
 			break;
 		}
-
+#endif
 	case tokrxn:
 		if (state == REACTION || 
 			state == ADVECTION ||

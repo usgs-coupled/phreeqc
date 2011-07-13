@@ -907,7 +907,7 @@ struct list2
 };
 struct iso
 {
-	char *name;
+	const char *name;
 	LDBLE value;
 	LDBLE uncertainty;
 };
