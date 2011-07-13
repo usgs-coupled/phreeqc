@@ -17,7 +17,7 @@ SRC=.
 PWD=pwd
 
 # Change to C compiler on your system
-CC=gcc
+CC=g++
 
 # Change to C compiler options on your system
 #CCFLAGS=-O3 -fno-signed-zeros -Wall -ansi -pedantic -std=c99 -DHAVE_ISFINITE -DNDEBUG # -frounding-math  # -pg

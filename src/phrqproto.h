@@ -54,8 +54,10 @@ CLASS_STATIC int system_species_compare(const void *ptr1, const void *ptr2);
 LDBLE total_mole(const char *total_name);
 LDBLE system_total(const char *total_name, LDBLE * count, char ***names,
 				   char ***types, LDBLE ** moles);
+#if defined (PHREEQC_CPP)
 std::string phase_formula(std::string phase_name, cxxNameDouble &stoichiometry);
 LDBLE list_s_s(std::string s_s_name, cxxNameDouble &composition);
+#endif
 int system_total_elements(void);
 int system_total_si(void);
 int system_total_aq(void);

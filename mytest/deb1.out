@@ -1269,7 +1269,7 @@ Mixture 1.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -7.177e-17  Surface + diffuse layer charge, eq
+	 -7.134e-17  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -1.192e-01  psi, V
@@ -1545,7 +1545,7 @@ Mixture 4.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  7.308e-17  Surface + diffuse layer charge, eq
+	  7.242e-17  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.739e-02  psi, V
@@ -1637,7 +1637,7 @@ Mixture 5.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -6.596e-16  Surface + diffuse layer charge, eq
+	 -6.594e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.671e-02  psi, V
@@ -1729,7 +1729,7 @@ Mixture 6.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -1.654e-16  Surface + diffuse layer charge, eq
+	 -1.663e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.654e-02  psi, V
@@ -1821,7 +1821,7 @@ Mixture 7.
 ------------------------------Surface composition------------------------------
 
 Su            
-	  3.233e-16  Surface + diffuse layer charge, eq
+	  3.237e-16  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.650e-02  psi, V
@@ -1931,7 +1931,7 @@ Su
 	Cl            	  8.0821e-06
 	H             	  1.6105e-07
 	Na            	  1.0079e-03
-	O             	  7.1157e-10
+	O             	  7.1156e-10
 
 Su            
 	  1.000e-03  moles
@@ -2023,7 +2023,7 @@ Su
 	Cl            	  8.0823e-06
 	H             	  1.3208e-07
 	Na            	  1.0080e-03
-	O             	  6.9708e-10
+	O             	  6.9707e-10
 
 Su            
 	  1.000e-03  moles
@@ -2073,7 +2073,7 @@ H(0)             0.000e+00
 Na               1.000e-03
    Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
    NaOH                   5.059e-11   5.060e-11   -10.296   -10.296     0.000
-O(0)             3.003e-10
+O(0)             3.002e-10
    O2                     1.501e-10   1.502e-10    -9.824    -9.823     0.000
 
 ------------------------------Saturation indices-------------------------------
@@ -2097,7 +2097,7 @@ Mixture 10.
 ------------------------------Surface composition------------------------------
 
 Su            
-	 -4.841e-15  Surface + diffuse layer charge, eq
+	 -4.855e-15  Surface + diffuse layer charge, eq
 	 -1.000e-03  Surface charge, eq
 	 -9.649e-03  sigma, C/m**2
 	 -8.649e-02  psi, V
@@ -2115,7 +2115,7 @@ Su
 	Cl            	  8.0823e-06
 	H             	  1.2083e-07
 	Na            	  1.0080e-03
-	O             	  7.3660e-10
+	O             	  7.3659e-10
 
 Su            
 	  1.000e-03  moles
@@ -2165,8 +2165,8 @@ H(0)             0.000e+00
 Na               1.000e-03
    Na+                    1.000e-03   9.652e-04    -3.000    -3.015    -0.015
    NaOH                   5.535e-11   5.536e-11   -10.257   -10.257     0.000
-O(0)             3.929e-11
-   O2                     1.965e-11   1.965e-11   -10.707   -10.707     0.000
+O(0)             3.926e-11
+   O2                     1.963e-11   1.964e-11   -10.707   -10.707     0.000
 
 ------------------------------Saturation indices-------------------------------
 

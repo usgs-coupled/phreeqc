@@ -7,8 +7,9 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
+#if defined PHREEQC_CPP
 #include "../NameDouble.h"
-
+#endif
 static char const svnid[] =
 	"$Id$";
 /*
@@ -1216,6 +1217,7 @@ sum_match_s_s(const char *mytemplate, const char *name)
 	}
 	return (tot);
 }
+#if defined PHREEQC_CPP
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 list_s_s(std::string s_s_name, cxxNameDouble &composition)
@@ -1242,6 +1244,7 @@ list_s_s(std::string s_s_name, cxxNameDouble &composition)
 	}
 	return (tot);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 match_elts_in_species(const char *name, const char *mytemplate)
@@ -1828,7 +1831,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 	PHRQ_free(sys);
 	return (sys_tot);
 }
-
+#if defined PHREEQC_CPP
 /* ---------------------------------------------------------------------- */
 std::string CLASS_QUALIFIER
 phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
@@ -1852,6 +1855,7 @@ phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
 
 	return (formula);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 system_total_elements(void)
