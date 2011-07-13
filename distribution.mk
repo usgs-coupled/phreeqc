@@ -16,7 +16,7 @@ ROOTNAME=$(PROGRAM)-$(VERSION)-$(REVISION)
 TEXTCP=textcp DOS
 SUN_DIR=$(TOPDIR)/src/Sun
 UNIX2DOS=unix2dos
-CCFLAGS_DBG=-Wall -ansi -g -std=c99 -DUSE_PHRQ_ALLOC
+CCFLAGS_DBG=-Wall -ansi -g -DUSE_PHRQ_ALLOC # -std=c99 
 
 CFG1 :=`uname`
 CFG :=$(shell echo $(CFG1) | sed "s/CYGWIN.*/CYGWIN/")
