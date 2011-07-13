@@ -8583,19 +8583,21 @@ read_debug(void)
 			delay_mass_water = get_true_false(next_char, TRUE);
 			break;
 		case 14:				/* convergence_tolerance */
-			LDBLE ct;
-			sscanf(next_char, SCANFORMAT, &ct);
-			if (punch.high_precision == TRUE)
 			{
-				if (ct < 1e-12)
+				LDBLE ct;
+				sscanf(next_char, SCANFORMAT, &ct);
+				if (punch.high_precision == TRUE)
 				{
-					convergence_tolerance = ct;
+					if (ct < 1e-12)
+					{
+						convergence_tolerance = ct;
+					}
 				}
-			}
-			else
-			{
+				else
 				{
-					convergence_tolerance = ct;
+					{
+						convergence_tolerance = ct;
+					}
 				}
 			}
 			break;
