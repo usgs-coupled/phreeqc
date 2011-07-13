@@ -2,7 +2,7 @@
 #define _INC_PHRQPROTO_H
 #if !defined(PHREEQC_CLASS)
 #define CLASS_STATIC
-#include <string>
+//#include <string>
 #if defined(PHREEQC_CPP)
 #include "../NameDouble.h"
 #endif
