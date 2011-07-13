@@ -649,11 +649,11 @@ Hfo_w
 	Hfo_wOCa+        7.373e-020       0.000  7.373e-020     -19.132
 
 Sua           
-	 2.958e-031  Surface + diffuse layer charge, eq
+	-1.233e-030  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
-	-7.414e-024  psi, V
-	 2.886e-022  -F*psi/RT
+	 3.739e-023  psi, V
+	-1.455e-021  -F*psi/RT
 	 1.000e+000  exp(-F*psi/RT)
 	 1.000e+004  specific area, m**2/g
 	 3.000e+000  m**2 for  3.000e-004 g
@@ -677,11 +677,11 @@ Sua
 	Sua              3.000e-007       1.000  3.000e-007      -6.523
 
 Sub           
-	 1.444e-034  Surface + diffuse layer charge, eq
+	-1.252e-033  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
-	-5.052e-025  psi, V
-	 1.967e-023  -F*psi/RT
+	 3.472e-023  psi, V
+	-1.351e-021  -F*psi/RT
 	 1.000e+000  exp(-F*psi/RT)
 	 1.000e+004  specific area, m**2/g
 	 3.000e-003  m**2 for  3.000e-007 g
@@ -887,7 +887,7 @@ Sua
 	Sua              9.994e-004       1.000  9.994e-004      -3.000
 
 Sub           
-	-3.205e-018  Surface + diffuse layer charge, eq
+	-3.204e-018  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
 	 4.277e-016  psi, V
@@ -1394,7 +1394,7 @@ Adapting surface in            3
 ------------------------------Surface composition------------------------------
 
 Sua           
-	-8.846e-019  Surface + diffuse layer charge, eq
+	-8.845e-019  Surface + diffuse layer charge, eq
 	 0.000e+000  Surface charge, eq
 	 0.000e+000  sigma, C/m**2
 	 2.774e-016  psi, V

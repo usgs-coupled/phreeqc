@@ -547,7 +547,7 @@ Adapting surface in            2
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 2.984e-011  Surface + diffuse layer charge, eq
+	 4.738e-011  Surface + diffuse layer charge, eq
 	 6.415e-006  Surface charge, eq
 	 3.518e-002  sigma, C/m**2
 	 1.021e-001  psi, V
@@ -561,7 +561,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 4.7717e-015
+	Ca            	 4.7718e-015
 	Cl            	 6.4151e-006
 	H             	 3.6696e-010
 	Na            	 1.1586e-011
@@ -597,7 +597,7 @@ Adapting surface in            3
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 1.344e-013  Surface + diffuse layer charge, eq
+	-1.134e-012  Surface + diffuse layer charge, eq
 	 1.778e-006  Surface charge, eq
 	 2.984e-002  sigma, C/m**2
 	 1.024e-001  psi, V
@@ -1007,7 +1007,7 @@ Adapting surface in            5
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 8.445e-014  Surface + diffuse layer charge, eq
+	 8.847e-014  Surface + diffuse layer charge, eq
 	 7.006e-007  Surface charge, eq
 	 2.635e-002  sigma, C/m**2
 	 9.852e-002  psi, V
@@ -1057,7 +1057,7 @@ Adapting surface in            6
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 6.455e-016  Surface + diffuse layer charge, eq
+	 8.938e-016  Surface + diffuse layer charge, eq
 	 1.082e-007  Surface charge, eq
 	 2.084e-002  sigma, C/m**2
 	 8.956e-002  psi, V
@@ -1737,7 +1737,7 @@ Adapting surface in            8
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	 4.414e-016  Surface + diffuse layer charge, eq
+	 4.464e-016  Surface + diffuse layer charge, eq
 	 6.549e-008  Surface charge, eq
 	 2.016e-002  sigma, C/m**2
 	 8.810e-002  psi, V
@@ -1787,7 +1787,7 @@ Adapting surface in            9
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	-4.032e-016  Surface + diffuse layer charge, eq
+	-4.066e-016  Surface + diffuse layer charge, eq
 	 7.660e-009  Surface charge, eq
 	 1.694e-002  sigma, C/m**2
 	 8.022e-002  psi, V
@@ -4398,7 +4398,7 @@ Sfo
 	H             	 2.6188e-011
 	Na            	 7.0702e-013
 	O             	 1.2048e-010
-	U             	 7.2471e-012
+	U             	 7.2472e-012
 
 Sfo_s         
 	 5.614e-007  moles
@@ -4527,7 +4527,7 @@ Hfo
 	 7.687e-007  Surface charge, eq
 	 2.934e-002  sigma, C/m**2
 	 1.006e-001  psi, V
-	-3.914e+000  -F*psi/RT
+	-3.915e+000  -F*psi/RT
 	 1.995e-002  exp(-F*psi/RT)
 	 6.000e+002  specific area, m**2/g
 	 2.528e+000  m**2 for  4.214e-003 g
@@ -9318,7 +9318,7 @@ Adapting surface in            1
 ------------------------------Surface composition------------------------------
 
 Sfo           
-	-7.297e-014  Surface + diffuse layer charge, eq
+	-7.296e-014  Surface + diffuse layer charge, eq
 	 2.920e-005  Surface charge, eq
 	 3.334e-002  sigma, C/m**2
 	 1.021e-001  psi, V
@@ -14879,7 +14879,7 @@ Hfo
 
 	Element       	     Moles
 	Ca            	 3.0775e-015
-	Cl            	 2.7885e-006
+	Cl            	 2.7884e-006
 	H             	 1.4608e-010
 	Na            	 1.2659e-011
 	O             	 6.6562e-010
@@ -18718,7 +18718,7 @@ Adapting surface in            1
 ------------------------------Surface composition------------------------------
 
 Sfo           
-	-3.828e-026  Surface + diffuse layer charge, eq
+	-3.817e-026  Surface + diffuse layer charge, eq
 	-1.325e-026  Surface charge, eq
 	undefined  sigma, C/m**2
 	 1.232e-001  psi, V
@@ -18734,7 +18734,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 1.5984e-018
 	Cl            	 1.0186e-015
-	H             	 3.2950e-018
+	H             	 3.2951e-018
 	Na            	 1.0142e-015
 	O             	 6.8054e-016
 	U             	 1.8866e-018
@@ -19658,7 +19658,7 @@ Adapting surface in            1
 ------------------------------Surface composition------------------------------
 
 Sfo           
-	 3.132e-025  Surface + diffuse layer charge, eq
+	 3.130e-025  Surface + diffuse layer charge, eq
 	-1.735e-026  Surface charge, eq
 	undefined  sigma, C/m**2
 	 1.232e-001  psi, V
@@ -19719,7 +19719,7 @@ Hfo
 	Ca            	 2.2512e-019
 	Cl            	 1.5539e-006
 	H             	 2.2280e-010
-	Na            	 4.3647e-013
+	Na            	 4.3646e-013
 	O             	 8.8816e-010
 	U             	 5.7988e-011
 
@@ -20614,7 +20614,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 6.0318e-019
 	Cl            	 1.0072e-015
-	H             	 1.9385e-018
+	H             	 1.9386e-018
 	Na            	 1.0054e-015
 	O             	 6.7767e-016
 	U             	 1.0561e-018
@@ -20656,8 +20656,8 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 9.8506e-020
-	Cl            	 7.1704e-007
+	Ca            	 9.8505e-020
+	Cl            	 7.1705e-007
 	H             	 1.3231e-010
 	Na            	 2.6799e-013
 	O             	 4.9410e-010
@@ -21741,7 +21741,7 @@ Hfo
 
 	Element       	     Moles
 	Ca            	 1.2554e-018
-	Cl            	 6.3289e-006
+	Cl            	 6.3290e-006
 	H             	 5.9363e-010
 	Na            	 1.1838e-012
 	O             	 2.7021e-009
@@ -23462,7 +23462,7 @@ Sfo_w
 	Sfo_wOCa+        1.172e-038       0.000  1.172e-038     -37.931
 
 Hfo           
-	 6.023e-015  Surface + diffuse layer charge, eq
+	 6.024e-015  Surface + diffuse layer charge, eq
 	 1.677e-007  Surface charge, eq
 	 1.196e-002  sigma, C/m**2
 	 9.688e-002  psi, V
@@ -23479,7 +23479,7 @@ Hfo
 	Ca            	 1.2824e-020
 	Cl            	 1.6764e-007
 	H             	 4.5717e-011
-	Na            	 1.0945e-013
+	Na            	 1.0944e-013
 	O             	 1.5945e-010
 	U             	 1.1297e-011
 
@@ -23526,7 +23526,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 5.9693e-020
+	Ca            	 5.9692e-020
 	Cl            	 5.6215e-007
 	H             	 1.1178e-010
 	Na            	 2.3688e-013
@@ -24417,9 +24417,9 @@ Hfo
 
 	Element       	     Moles
 	Ca            	 5.8580e-021
-	Cl            	 9.7158e-008
+	Cl            	 9.7159e-008
 	H             	 2.8208e-011
-	Na            	 7.3902e-014
+	Na            	 7.3901e-014
 	O             	 9.8859e-011
 	U             	 6.8031e-012
 
@@ -25455,7 +25455,7 @@ Sfo
 	H             	 1.0906e-018
 	Na            	 1.0014e-015
 	O             	 6.7585e-016
-	U             	 5.2318e-019
+	U             	 5.2319e-019
 
 Sfo_s         
 	 1.000e-025  moles
@@ -26282,7 +26282,7 @@ Sfo_w
 	Sfo_wOCa+        3.732e-039       0.000  3.732e-039     -38.428
 
 Hfo           
-	-1.447e-015  Surface + diffuse layer charge, eq
+	-1.446e-015  Surface + diffuse layer charge, eq
 	 3.400e-008  Surface charge, eq
 	 9.921e-003  sigma, C/m**2
 	 8.781e-002  psi, V
@@ -26323,7 +26323,7 @@ Hfo_w
 	Hfo_wO-          1.235e-006       0.202  1.235e-006      -5.908
 	Hfo_wOUO2+       8.554e-007       0.140  8.554e-007      -6.068
 	Hfo_wOH2+        2.614e-007       0.043  2.614e-007      -6.583
-	Hfo_wOCa+        5.737e-014       0.000  5.737e-014     -13.241
+	Hfo_wOCa+        5.736e-014       0.000  5.736e-014     -13.241
 
 ----------------------------------User print-----------------------------------
 
@@ -26467,7 +26467,7 @@ Hfo_w
 	Hfo_wO-          9.801e-006       0.217  9.801e-006      -5.009
 	Hfo_wOUO2+       7.395e-006       0.164  7.395e-006      -5.131
 	Hfo_wOH2+        1.621e-006       0.036  1.621e-006      -5.790
-	Hfo_wOCa+        1.000e-012       0.000  1.000e-012     -12.000
+	Hfo_wOCa+        9.999e-013       0.000  9.999e-013     -12.000
 
 Sfo           
 	-3.828e-024  Surface + diffuse layer charge, eq
@@ -27222,7 +27222,7 @@ Sfo_w
 	Sfo_wOCa+        2.429e-039       0.000  2.429e-039     -38.615
 
 Hfo           
-	-6.388e-016  Surface + diffuse layer charge, eq
+	-6.387e-016  Surface + diffuse layer charge, eq
 	 2.063e-008  Surface charge, eq
 	 9.518e-003  sigma, C/m**2
 	 8.583e-002  psi, V
@@ -27236,10 +27236,10 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 4.8965e-022
+	Ca            	 4.8964e-022
 	Cl            	 2.0623e-008
 	H             	 5.5061e-012
-	Na            	 2.1212e-014
+	Na            	 2.1211e-014
 	O             	 2.1938e-011
 	U             	 1.1709e-012
 
@@ -28178,7 +28178,7 @@ Hfo
 	Element       	     Moles
 	Ca            	 2.1267e-022
 	Cl            	 1.2616e-008
-	H             	 3.1042e-012
+	H             	 3.1043e-012
 	Na            	 1.4001e-014
 	O             	 1.3297e-011
 	U             	 6.1902e-013
@@ -29120,8 +29120,8 @@ Hfo
 	Cl            	 7.7236e-009
 	H             	 1.7278e-012
 	Na            	 9.2404e-015
-	O             	 8.0557e-012
-	U             	 3.1783e-013
+	O             	 8.0558e-012
+	U             	 3.1784e-013
 
 Hfo_s         
 	 4.000e-008  moles
@@ -29306,7 +29306,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 6.8149e-020
 	Cl            	 1.0009e-015
-	H             	 8.0350e-019
+	H             	 8.0351e-019
 	Na            	 1.0006e-015
 	O             	 6.7522e-016
 	U             	 3.3960e-019
@@ -30106,7 +30106,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 2.6358e-022
+	Ca            	 2.6357e-022
 	Cl            	 1.4336e-008
 	H             	 3.6040e-012
 	Na            	 1.5604e-014
@@ -30482,7 +30482,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 8.5932e-020
+	Ca            	 8.5931e-020
 	Cl            	 7.9241e-007
 	H             	 1.3714e-010
 	Na            	 2.8936e-013
@@ -31001,7 +31001,7 @@ Hfo
 	H             	 5.2340e-013
 	Na            	 4.0422e-015
 	O             	 2.9786e-012
-	U             	 7.6413e-014
+	U             	 7.6414e-014
 
 Hfo_s         
 	 1.618e-008  moles
@@ -31140,7 +31140,7 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 7.2620e-022
+	Ca            	 7.2619e-022
 	Cl            	 2.6241e-008
 	H             	 7.2133e-012
 	Na            	 2.5962e-014
@@ -31972,7 +31972,7 @@ Adapting surface in            2
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	-5.733e-016  Surface + diffuse layer charge, eq
+	-5.732e-016  Surface + diffuse layer charge, eq
 	 5.451e-009  Surface charge, eq
 	 8.586e-003  sigma, C/m**2
 	 8.094e-002  psi, V
@@ -32017,7 +32017,7 @@ Hfo_w
 
 Sfo           
 	-4.357e-024  Surface + diffuse layer charge, eq
-	-8.220e-026  Surface charge, eq
+	-8.221e-026  Surface charge, eq
 	undefined  sigma, C/m**2
 	 1.246e-001  psi, V
 	-4.850e+000  -F*psi/RT
@@ -32066,7 +32066,7 @@ Adapting surface in            3
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	-5.277e-016  Surface + diffuse layer charge, eq
+	-5.276e-016  Surface + diffuse layer charge, eq
 	 1.626e-008  Surface charge, eq
 	 9.342e-003  sigma, C/m**2
 	 8.494e-002  psi, V
@@ -32314,7 +32314,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 9.9871e-020
 	Cl            	 1.0013e-015
-	H             	 9.2265e-019
+	H             	 9.2266e-019
 	Na            	 1.0009e-015
 	O             	 6.7548e-016
 	U             	 4.1585e-019
@@ -32674,7 +32674,7 @@ Hfo_w
 	Hfo_wOCa+        4.687e-012       0.000  4.687e-012     -11.329
 
 Sfo           
-	-1.829e-023  Surface + diffuse layer charge, eq
+	-1.828e-023  Surface + diffuse layer charge, eq
 	-5.956e-026  Surface charge, eq
 	undefined  sigma, C/m**2
 	 1.304e-001  psi, V
@@ -32729,7 +32729,7 @@ Hfo
 	 2.071e-002  sigma, C/m**2
 	 1.239e-001  psi, V
 	-4.823e+000  -F*psi/RT
-	 8.045e-003  exp(-F*psi/RT)
+	 8.044e-003  exp(-F*psi/RT)
 	 6.000e+002  specific area, m**2/g
 	 1.422e+001  m**2 for  2.369e-002 g
 
@@ -32784,7 +32784,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 1.3601e-018
 	Cl            	 1.0160e-015
-	H             	 3.1027e-018
+	H             	 3.1028e-018
 	Na            	 1.0120e-015
 	O             	 6.8010e-016
 	U             	 1.7663e-018
@@ -32834,7 +32834,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 1.5120e-021
 	Cl            	 1.0000e-015
-	H             	 2.7096e-019
+	H             	 2.7097e-019
 	Na            	 1.0000e-015
 	O             	 6.7409e-016
 	U             	 3.1767e-020
@@ -32890,7 +32890,7 @@ Hfo_s
 
 	Hfo_sOUO2+       6.192e-009       0.938  6.192e-009      -8.208
 	Hfo_sOH          3.077e-010       0.047  3.077e-010      -9.512
-	Hfo_sO-          6.602e-011       0.010  6.602e-011     -10.180
+	Hfo_sO-          6.601e-011       0.010  6.601e-011     -10.180
 	Hfo_sOH2+        3.287e-011       0.005  3.287e-011     -10.483
 	Hfo_sOHCa+2      1.279e-016       0.000  1.279e-016     -15.893
 
@@ -33254,7 +33254,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 6.4833e-020
 	Cl            	 1.0008e-015
-	H             	 7.9273e-019
+	H             	 7.9274e-019
 	Na            	 1.0006e-015
 	O             	 6.7520e-016
 	U             	 3.3315e-019
@@ -33821,7 +33821,7 @@ Hfo
 	H             	 9.1215e-014
 	Na            	 1.1846e-015
 	O             	 7.0726e-013
-	U             	 7.3077e-015
+	U             	 7.3078e-015
 
 Hfo_s         
 	 4.226e-009  moles
@@ -33842,7 +33842,7 @@ Hfo_w
 	Hfo_wOH          1.197e-007       0.726  1.197e-007      -6.922
 	Hfo_wO-          2.415e-008       0.147  2.415e-008      -7.617
 	Hfo_wOH2+        1.360e-008       0.082  1.360e-008      -7.867
-	Hfo_wOUO2+       7.351e-009       0.045  7.351e-009      -8.134
+	Hfo_wOUO2+       7.352e-009       0.045  7.352e-009      -8.134
 	Hfo_wOCa+        9.410e-017       0.000  9.410e-017     -16.026
 
 ----------------------------------User print-----------------------------------
@@ -34149,7 +34149,7 @@ Hfo
 
 	Element       	     Moles
 	Ca            	 1.5422e-021
-	Cl            	 4.2085e-008
+	Cl            	 4.2086e-008
 	H             	 1.2063e-011
 	Na            	 3.8342e-014
 	O             	 4.4609e-011
@@ -34246,8 +34246,8 @@ Hfo
 	Cl            	 9.9859e-008
 	H             	 2.8481e-011
 	Na            	 7.5172e-014
-	O             	 1.0051e-010
-	U             	 6.8529e-012
+	O             	 1.0052e-010
+	U             	 6.8530e-012
 
 Hfo_s         
 	 4.098e-007  moles
@@ -34291,7 +34291,7 @@ Sfo
 	H             	 8.8985e-019
 	Na            	 1.0008e-015
 	O             	 6.7541e-016
-	U             	 3.9495e-019
+	U             	 3.9496e-019
 
 Sfo_s         
 	 1.245e-025  moles
@@ -34728,7 +34728,7 @@ Sfo_s
 	Sfo_sOH          4.100e-026       0.000  4.100e-026     -25.387
 	Sfo_sOH2+        6.628e-028       0.000  6.628e-028     -27.179
 	Sfo_sOHCa+2      1.618e-034       0.000  1.618e-034     -33.791
-	Sfo_sOHUO2+2     5.249e-035       0.000  5.249e-035     -34.280
+	Sfo_sOHUO2+2     5.250e-035       0.000  5.250e-035     -34.280
 
 Sfo_w         
 	 1.000e-025  moles
@@ -34738,11 +34738,11 @@ Sfo_w
 	Sfo_wO-          1.374e-030       0.000  1.374e-030     -29.862
 	Sfo_wOH          9.697e-031       0.000  9.697e-031     -30.013
 	Sfo_wOH2+        1.568e-032       0.000  1.568e-032     -31.805
-	Sfo_wOUO2+       5.961e-033       0.000  5.961e-033     -32.225
+	Sfo_wOUO2+       5.962e-033       0.000  5.962e-033     -32.225
 	Sfo_wOCa+        6.985e-041       0.000  6.985e-041     -40.156
 
 Hfo           
-	-1.373e-018  Surface + diffuse layer charge, eq
+	-1.372e-018  Surface + diffuse layer charge, eq
 	 4.179e-010  Surface charge, eq
 	 7.045e-003  sigma, C/m**2
 	 7.177e-002  psi, V
@@ -34792,7 +34792,7 @@ Adapting surface in            2
 ------------------------------Surface composition------------------------------
 
 Hfo           
-	-8.994e-017  Surface + diffuse layer charge, eq
+	-8.993e-017  Surface + diffuse layer charge, eq
 	 1.285e-009  Surface charge, eq
 	 7.636e-003  sigma, C/m**2
 	 7.546e-002  psi, V
@@ -35682,10 +35682,10 @@ Sfo_w
 	Sfo_wOCa+        4.489e-041       0.000  4.489e-041     -40.348
 
 Hfo           
-	-4.850e-019  Surface + diffuse layer charge, eq
+	-4.849e-019  Surface + diffuse layer charge, eq
 	 2.614e-010  Surface charge, eq
 	 6.860e-003  sigma, C/m**2
-	 7.056e-002  psi, V
+	 7.057e-002  psi, V
 	-2.747e+000  -F*psi/RT
 	 6.414e-002  exp(-F*psi/RT)
 	 6.000e+002  specific area, m**2/g
@@ -35696,9 +35696,9 @@ Hfo
 	Total moles in diffuse layer (excluding water), Donnan calculation 
 
 	Element       	     Moles
-	Ca            	 2.9005e-025
+	Ca            	 2.9004e-025
 	Cl            	 2.6134e-010
-	H             	 3.1168e-014
+	H             	 3.1169e-014
 	Na            	 5.1718e-016
 	O             	 2.8167e-013
 	U             	 1.3800e-015
@@ -35710,7 +35710,7 @@ Hfo_s
 
 	Hfo_sOUO2+       1.503e-009       0.863  1.503e-009      -8.823
 	Hfo_sOH          1.820e-010       0.105  1.820e-010      -9.740
-	Hfo_sO-          3.324e-011       0.019  3.324e-011     -10.478
+	Hfo_sO-          3.323e-011       0.019  3.323e-011     -10.478
 	Hfo_sOH2+        2.283e-011       0.013  2.283e-011     -10.642
 	Hfo_sOHCa+2      2.782e-017       0.000  2.782e-017     -16.556
 
@@ -35750,8 +35750,8 @@ Hfo
 	Cl            	 7.9746e-010
 	H             	 1.1135e-013
 	Na            	 1.3709e-015
-	O             	 8.3542e-013
-	U             	 9.7497e-015
+	O             	 8.3543e-013
+	U             	 9.7498e-015
 
 Hfo_s         
 	 4.951e-009  moles
@@ -36453,7 +36453,7 @@ Sfo
 	H             	 1.2331e-018
 	Na            	 1.0018e-015
 	O             	 6.7616e-016
-	U             	 6.1613e-019
+	U             	 6.1614e-019
 
 Sfo_s         
 	 1.000e-025  moles
@@ -36597,7 +36597,7 @@ Sfo
 	H             	 2.2303e-019
 	Na            	 1.0000e-015
 	O             	 6.7400e-016
-	U             	 7.2674e-021
+	U             	 7.2675e-021
 
 Sfo_s         
 	 1.000e-025  moles
@@ -36622,7 +36622,7 @@ Sfo_w
 	Sfo_wOCa+        2.887e-041       0.000  2.887e-041     -40.540
 
 Hfo           
-	-1.730e-019  Surface + diffuse layer charge, eq
+	-1.731e-019  Surface + diffuse layer charge, eq
 	 1.644e-010  Surface charge, eq
 	 6.712e-003  sigma, C/m**2
 	 6.958e-002  psi, V
@@ -36641,7 +36641,7 @@ Hfo
 	H             	 1.8792e-014
 	Na            	 3.3988e-016
 	O             	 1.7927e-013
-	U             	 5.8982e-016
+	U             	 5.8983e-016
 
 Hfo_s         
 	 1.119e-009  moles
@@ -37108,7 +37108,7 @@ Sfo
 	Element       	     Moles
 	Ca            	 2.4646e-020
 	Cl            	 1.0003e-015
-	H             	 5.7315e-019
+	H             	 5.7316e-019
 	Na            	 1.0002e-015
 	O             	 6.7472e-016
 	U             	 1.9948e-019
