@@ -43,8 +43,7 @@ IPHREEQC_WIN32_COM_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_WIN32_COM_
 #64-bit Windows COM
 IPHREEQC_X64_COM_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t IPhreeqcCOM*x64.msi | awk '{if (NR == 1) {print}}')
 IPHREEQC_X64_COM_SIZE:=$(shell ls -s -h "$(IPHREEQC_DIR)/$(IPHREEQC_X64_COM_FILE)" | awk '{print $$1}')
-
-
+IPHREEQC_RELEASE_FILE:=$(shell cd "$(IPHREEQC_DIR)"; ls -t RELEASE-MODULE*TXT | awk '{if (NR == 1) {print}}')
 
 #PhreeqcI version
 
@@ -224,6 +223,7 @@ SED_ARGS= \
 	-e "s^@IPHREEQC_WIN32_COM_SIZE@^$(IPHREEQC_WIN32_COM_SIZE)^g" \
 	-e "s^@IPHREEQC_X64_COM_FILE@^$(IPHREEQC_X64_COM_FILE)^g" \
 	-e "s^@IPHREEQC_X64_COM_SIZE@^$(IPHREEQC_X64_COM_SIZE)^g" \
+	-e "s^@IPHREEQC_RELEASE_FILE@^$(IPHREEQC_RELEASE_FILE)^g" \
 	-e "s^@PHREEQCI_PUB_DIR@^$(PHREEQCI_PUB_DIR)^"  \
 	-e "s^@PHREEQCI_FILE@^$(PHREEQCI_FILE)^g" \
 	-e "s^@PHREEQCI_VERSION@^$(PHREEQCI_VERSION)^" \
@@ -476,6 +476,7 @@ web:
 
 # IPHREEQC
 	install -d $(HTML_IPHREEQC)
+	install --mode=664 --group=coupled $(IPHREEQC_DIR)/$(IPHREEQC_RELEASE_FILE)       $(HTML_PHREEQC)/$(IPHREEQC_RELEASE_FILE)
 	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/annotated.html            $(HTML_IPHREEQC)/annotated.html
 	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/bc_s.png                  $(HTML_IPHREEQC)/bc_s.png
 	install --mode=664 --group=coupled $(IPHREEQC_DIR)/html/classes.html              $(HTML_IPHREEQC)/classes.html
