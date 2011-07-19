@@ -2929,10 +2929,19 @@ factor(struct LOC_exec * LINK)
 				// fill in arrays
 				i = 1;
 
-				for (cxxNameDouble::iterator it = composition.begin(); it != composition.end(); it++)
+				//for (cxxNameDouble::iterator it = composition.begin(); it != composition.end(); it++)
+				//{
+				//	names_varrec->UU.U1.sarr[i] = string_duplicate((it->first).c_str());
+				//	moles_varrec->UU.U0.arr[i] = it->second;
+				//	i++;
+				//}
+
+				std::vector<std::pair<std::string, LDBLE>> sort_comp = composition.sort_second();
+				size_t j;
+				for (j = 0; j != sort_comp.size(); j++)
 				{
-					names_varrec->UU.U1.sarr[i] = string_duplicate((it->first).c_str());
-					moles_varrec->UU.U0.arr[i] = it->second;
+					names_varrec->UU.U1.sarr[i] = string_duplicate(sort_comp[j].first.c_str());
+					moles_varrec->UU.U0.arr[i] = sort_comp[j].second;
 					i++;
 				}
 
