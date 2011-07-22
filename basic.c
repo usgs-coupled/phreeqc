@@ -2936,7 +2936,7 @@ factor(struct LOC_exec * LINK)
 				//	i++;
 				//}
 
-				std::vector<std::pair<std::string, LDBLE>> sort_comp = composition.sort_second();
+				std::vector< std::pair<std::string, LDBLE> > sort_comp = composition.sort_second();
 				size_t j;
 				for (j = 0; j != sort_comp.size(); j++)
 				{
