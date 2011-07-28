@@ -387,6 +387,11 @@ namespace zdg_ui2 {
 				 //myPane->Chart->Fill = gcnew Fill( Color::White, Color::LightYellow, 45.0f ); /* FromArgb(255, 255, 224) */
 				 myPane->Chart->Fill = gcnew Fill( Color::White, Color::FromArgb(255, 255, 230), 45.0f );
 
+				 // normalize pane size...
+				 myPane->BaseDimension = 8.0F;
+				 // increase bottom margin to accommodate text options...
+				 myPane->Margin->Bottom = 15.0F;
+
 				 // Make sure auto scale, Refresh
 				 zg1->AxisChange();
 				 zg1->Refresh();
@@ -411,6 +416,7 @@ namespace zdg_ui2 {
 				text->FontSpec->StringAlignment = StringAlignment::Near;
 				text->FontSpec->Size = 10;
 				text->FontSpec->FontColor = Color::Red;
+				text->ZOrder = ZOrder::H_BehindAll;
 				myPane->GraphObjList->Add( text );
 				text = gcnew TextObj(
 					L" Press Alt + F4 to quit",
@@ -418,6 +424,7 @@ namespace zdg_ui2 {
 				text->FontSpec->StringAlignment = StringAlignment::Near;
 				text->FontSpec->Size = 10;
 				text->FontSpec->FontColor = Color::Red;
+				text->ZOrder = ZOrder::H_BehindAll;
 				myPane->GraphObjList->Add( text );
 
 				// Enable scrollbars if needed...
@@ -583,6 +590,10 @@ namespace zdg_ui2 {
 			void SaveCurves( System::Object ^sender, System::EventArgs ^e )
 			{
 				SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog;
+				//TCHAR dir[MAX_PATH];
+				//::GetCurrentDirectory(MAX_PATH, dir);
+				//String ^d = gcnew String(dir);
+				//saveFileDialog1->InitialDirectory = d;
 				saveFileDialog1->FileName = "curves.u_g";
 				saveFileDialog1->Filter = "User graph files (*.u_g)|*.u_g|txt files (*.txt)|*.txt|All files (*.*)|*.*";
 				saveFileDialog1->FilterIndex = 1;
