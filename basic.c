@@ -17,14 +17,14 @@ typedef unsigned char boolean;
 #endif
 #if !defined(PHREEQC_CLASS)
 	int n_user_punch_index;
-	#if defined PHREEQ98 || defined CHART
+	#if defined PHREEQ98 
 	void GridChar(char *s, char *a);
 	extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
 		/* extern int shifts_as_points; */
 	extern int AddSeries;
 	extern int colnr, rownr;
 	#endif
-	#if defined(CHART) || defined(MULTICHART) 
+	#if defined(MULTICHART) 
 	void PlotXY(char *x, char *y);
 	#endif
 
@@ -102,12 +102,12 @@ typedef unsigned char boolean;
 		{"let", toklet},
 		{"print", tokprint},
 		{"punch", tokpunch},
-	#if defined PHREEQ98 || defined CHART || defined(MULTICHART)
+	#if defined PHREEQ98 || defined(MULTICHART)
 		{"graph_x", tokgraph_x},
 		{"graph_y", tokgraph_y},
 		{"graph_sy", tokgraph_sy},
 	#endif
-	#if defined(CHART) || defined(MULTICHART)
+	#if defined(MULTICHART)
 		{"plot_xy", tokplot_xy},
 	#endif
 		{"input", tokinput},
@@ -984,7 +984,7 @@ parse(Char * l_inbuf, tokenrec ** l_buf)
 							t->kind = tokprint;
 						else if (!strcmp(token, "punch"))
 							t->kind = tokpunch;
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 						else if (!strcmp(token, "graph_x"))
 							t->kind = tokgraph_x;
 						else if (!strcmp(token, "graph_y"))
@@ -1847,7 +1847,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
 			break;
 
-#if defined PHREEQ98 || defined CHART || defined MULTICHART
+#if defined PHREEQ98 || defined MULTICHART
 		case tokgraph_x:
 			output_msg(OUTPUT_BASIC, "GRAPH_X");
 			break;
@@ -1861,7 +1861,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 			break;
 #endif
 
-#if defined CHART || defined MULTICHART
+#if defined MULTICHART
 		case tokplot_xy:
 			output_msg(OUTPUT_BASIC, "PLOT_XY");
 			break;
@@ -4395,7 +4395,7 @@ cmdpunch(struct LOC_exec *LINK)
 	}
 }
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 Local void CLASS_QUALIFIER
 cmdgraph_x(struct LOC_exec *LINK)
 {
@@ -4417,21 +4417,6 @@ cmdgraph_x(struct LOC_exec *LINK)
 		n = expr(LINK);
 		if (colnr == 0)
 		{
-#ifdef CHART
-			if (AddSeries)
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != prev_transport_step)
-						rownr = -1;
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != prev_advection_step)
-						rownr = -1;
-				}
-			}
-#endif
 			rownr++;
 		}
 		if (n.stringval)
@@ -4467,21 +4452,6 @@ cmdgraph_y(struct LOC_exec *LINK)
 		n = expr(LINK);
 		if (colnr == 0)
 		{
-#ifdef CHART
-			if (AddSeries)
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != prev_transport_step)
-						rownr = -1;
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != prev_advection_step)
-						rownr = -1;
-				}
-			}
-#endif
 			rownr++;
 		}
 		if (n.stringval)
@@ -4517,21 +4487,6 @@ cmdgraph_sy(struct LOC_exec *LINK)
 		n = expr(LINK);
 		if (colnr == 0)
 		{
-#ifdef CHART
-			if (AddSeries)
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != prev_transport_step)
-						rownr = -1;
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != prev_advection_step)
-						rownr = -1;
-				}
-			}
-#endif
 			rownr++;
 		}
 		if (n.stringval)
@@ -4544,158 +4499,6 @@ cmdgraph_sy(struct LOC_exec *LINK)
 			GridChar(numtostr(STR1, n.UU.val), "s");
 		colnr++;
 	}
-}
-#endif
-
-#ifdef CHART
-Local void CLASS_QUALIFIER
-cmdplot_xy(struct LOC_exec *LINK)
-{
-	boolean semiflag;
-	valrec n[2];
-	Char STR[2][256];
-	int i = 0;
-	semiflag = false;
-
-	while (!iseos(LINK) && i < 2)
-	{
-		semiflag = false;
-		if ((unsigned long) LINK->t->kind < 32 &&
-			((1L << ((long) LINK->t->kind)) &
-			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
-		{
-			semiflag = true;
-			LINK->t = LINK->t->next;
-			i++;
-			continue;
-		}
-		n[i] = expr(LINK);
-		if (n[i].stringval)
-		{
-			strcpy(STR[i], n[i].UU.sval);
-			PHRQ_free(n[i].UU.sval);
-		}
-		else
-			numtostr(STR[i], n[i].UU.val);
-	}
-
-		if (colnr == 0)
-		{
-			if (AddSeries)
-			{
-				if (state == TRANSPORT)
-				{
-					if (transport_step > punch_modulus && transport_step != prev_transport_step)
-						rownr = -1;
-				}
-				else if (state == ADVECTION)
-				{
-					if (advection_step > punch_modulus && advection_step != prev_advection_step)
-						rownr = -1;
-				}
-			}
-			rownr++;
-		}
-
-	PlotXY(STR[0], STR[1]);
-	/*output_msg(OUTPUT_MESSAGE, "row %d.\tcol %d. x %s. y %s.\n",
-				   rownr, colnr, STR[0], STR[1]); */
-	colnr++;
-}
-
-#endif
-
-#ifdef SKIP
-Local void CLASS_QUALIFIER
-cmdinput(struct LOC_exec *LINK)
-{
-	varrec *v;
-	/* string255 s; */
-	char *s;
-	tokenrec *tok, *tok0, *tok1;
-	boolean strflag;
-
-	/*
-	   s = (char *) PHRQ_calloc(max_line, sizeof(char));
-	   if (s == NULL) malloc_error();
-	 */
-	/* need to free s if this subroutine is used */
-
-	if (LINK->t != NULL && LINK->t->kind == tokstr)
-	{
-		fputs(LINK->t->UU.sp, stdout);
-		LINK->t = LINK->t->next;
-		require(toksemi, LINK);
-	}
-	else
-		printf("? ");
-	tok = LINK->t;
-	if (LINK->t == NULL || LINK->t->kind != tokvar)
-		snerr();
-	strflag = LINK->t->UU.vp->stringvar;
-	do
-	{
-		if (LINK->t != NULL && LINK->t->kind == tokvar)
-		{
-			if (LINK->t->UU.vp->stringvar != strflag)
-				snerr();
-		}
-		LINK->t = LINK->t->next;
-	}
-	while (!iseos(LINK));
-	LINK->t = tok;
-	if (strflag)
-	{
-		do
-		{
-			gets(s);
-			v = findvar(LINK);
-			if (*v->UU.U1.sval != NULL)
-				*v->UU.U1.sval = free_check_null(*v->UU.U1.sval);
-			*v->UU.U1.sval = (char *) PHRQ_malloc(256);
-			if (*v->UU.U1.sval == NULL)
-				malloc_error();
-			strcpy(*v->UU.U1.sval, s);
-			if (!iseos(LINK))
-			{
-				require(tokcomma, LINK);
-				printf("?? ");
-			}
-		}
-		while (!iseos(LINK));
-		return;
-	}
-	gets(s);
-	parse(s, &tok);
-	tok0 = tok;
-	do
-	{
-		v = findvar(LINK);
-		while (tok == NULL)
-		{
-			printf("?? ");
-			gets(s);
-			disposetokens(&tok0);
-			parse(s, &tok);
-			tok0 = tok;
-		}
-		tok1 = LINK->t;
-		LINK->t = tok;
-		*v->UU.U0.val = realexpr(LINK);
-		if (LINK->t != NULL)
-		{
-			if (LINK->t->kind == tokcomma)
-				LINK->t = LINK->t->next;
-			else
-				snerr();
-		}
-		tok = LINK->t;
-		LINK->t = tok1;
-		if (!iseos(LINK))
-			require(tokcomma, LINK);
-	}
-	while (!iseos(LINK));
-	disposetokens(&tok0);
 }
 #endif
 
@@ -5352,7 +5155,7 @@ exec(void)
 					cmdchange_surf(&V);
 					break;
 
-#if defined PHREEQ98 || defined CHART || defined MULTICHART
+#if defined PHREEQ98 || defined MULTICHART
 				case tokgraph_x:
 					cmdgraph_x(&V);
 					break;
@@ -5365,7 +5168,7 @@ exec(void)
 					cmdgraph_sy(&V);
 					break;
 #endif
-#if defined CHART || defined MULTICHART
+#if defined MULTICHART
 				case tokplot_xy:
 					cmdplot_xy(&V);
 					break;

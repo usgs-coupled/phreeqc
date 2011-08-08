@@ -102,7 +102,7 @@
 	static LDBLE dummy = 0;
 	static char *prev_next_char = NULL;
 
-	#if defined PHREEQ98 || defined CHART
+	#if defined PHREEQ98 
 		STATIC int read_user_graph(void);
 		extern int connect_simulations, graph_initial_solutions;
 		/*extern*/ int shifts_as_points;
@@ -119,21 +119,6 @@
 #if defined MULTICHART
 	int read_user_graph_handler(void);
 #endif
-
-	#ifdef CHART
-		extern char *axis_titles[3];
-		extern char *chart_title;
-		extern float axis_scale_x[5];
-		extern float axis_scale_y[5];
-		extern float axis_scale_y2[5];
-		extern int FirstCallToUSER_GRAPH;
-		extern void MallocCurves(int nc, int ncxy);
-		extern void DeleteCurves(void);
-		extern void	ExtractCurveInfo(char *line, int curvenr);
-		extern int ncurves_changed[3];
-		extern int nCSV_headers;
-		extern bool new_ug, u_g;
-	#endif
 
 #endif // !PHREEQC_CLASS
 
@@ -479,7 +464,7 @@ read_input(void)
 			break;
 		case 46:
 			keyword[46].keycount++;
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 			read_user_graph();
 #elif defined MULTICHART
 			read_user_graph_handler();
@@ -9527,7 +9512,7 @@ read_user_punch(void)
 	return (return_value);
 }
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_user_graph(void)
@@ -9575,20 +9560,6 @@ read_user_graph(void)
  */
 #ifdef PHREEQ98
 	user_graph_count_headings = 0;
-#endif
-#ifdef CHART
-	if (FirstCallToUSER_GRAPH)
-	{
-		u_g = true;
-		MallocCurves(5, 30);
-	}
-	else
-	{
-		//connect_simulations = false;
-		ncurves_changed[0] = 1;
-		ColumnOffset = ncurves_changed[2];
-		new_ug = true;
-	}
 #endif
 	return_value = UNKNOWN;
 	for (;;)
@@ -9772,20 +9743,6 @@ read_user_graph(void)
 				string_hsave("user defined Basic graph routine");
 		case OPT_1:			/* read command */
 			length = strlen(user_graph->commands);
-#ifdef CHART
-			char *ptr = string_duplicate(line);
-			str_tolower(ptr);
-			if (strstr(ptr, "graph_y") || strstr(ptr, "graph_sy"))
-			{
-				CurveInfonr++;
-			}
-			if (strstr(ptr, "plot_xy"))
-			{
-				ExtractCurveInfo(line, CurveInfonr);
-				CurveInfonr++;
-			}
-			free_check_null(ptr);
-#endif
 			line_length = strlen(line);
 			user_graph->commands =
 				(char *) PHRQ_realloc(user_graph->commands,

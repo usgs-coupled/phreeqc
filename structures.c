@@ -74,10 +74,6 @@
 	extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
 	extern int *iu, *is, *back_eq;
 	extern int x_arg_max, res_arg_max, scratch_max;
-	#ifdef CHART
-	bool u_g = false;
-	extern void	DeleteCurves(void);
-	#endif
 #endif // !PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -337,7 +333,7 @@ clean_up(void)
 	copier_free(&copy_irrev);
 	copier_free(&copy_temperature);
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 	rate_free(user_graph);
 	user_graph = (struct rate *) free_check_null(user_graph);
 	user_graph_headings = (char **) free_check_null(user_graph_headings);

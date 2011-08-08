@@ -42,10 +42,6 @@ extern void SAX_cleanup(void);
 	extern int phreeq98_debug;
 	extern int AddSeries, connect_simulations;
 	#endif
-	#ifdef CHART
-	extern int AddSeries, connect_simulations, rownr;
-	extern bool end_timer;
-	#endif
 #endif // !PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
@@ -478,7 +474,7 @@ initialize(void)
 	if (user_punch_headings == NULL)
 		malloc_error();
 	user_punch_count_headings = 0;
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 /*
  *   user_graph
  */
@@ -3369,11 +3365,8 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 	for (simulation = 1;; simulation++)
 	{
 
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 		AddSeries = !connect_simulations;
-#ifdef CHART
-		rownr = -1;
-#endif
 #endif
 		sprintf(token, "Reading input data for simulation %d.", simulation);
 
@@ -3542,9 +3535,6 @@ do_status(void)
 	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
 	output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 
-#ifdef CHART
-	end_timer = true;
-#endif
 	return 0;
 }
 void CLASS_QUALIFIER

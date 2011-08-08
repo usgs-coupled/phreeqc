@@ -12,9 +12,6 @@ extern void SAX_cleanup(void);
 
 static char const svnid[] = "$Id$";
 
-#ifdef CHART
-extern bool u_g;
-#endif
 #ifdef DOS
 static int write_banner(void);
 #endif
@@ -144,10 +141,6 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 		SAX_EndSystem();
 		SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
 	}
-#endif
-#ifdef CHART
-	if (u_g)
-		System::Threading::Thread::Sleep(1000); /* give the chart a second to finish... */
 #endif
 	clean_up();
 	close_input_files();

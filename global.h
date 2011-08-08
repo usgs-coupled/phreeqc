@@ -23,8 +23,6 @@ static char const svnidglobal[] =
 #include "global_structures.h"
 /* #define NO_DOS */
 /* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
-/*#define CHART*/ /* for reading user_graph and plotting with J. Champion's zedgraph */
-
 /*
  * uncomment following line, to use default DOS file name for
  * output file
@@ -570,7 +568,7 @@ EXTERNAL struct rate *user_print;
 EXTERNAL struct rate *user_punch;
 EXTERNAL char **user_punch_headings;
 EXTERNAL int user_punch_count_headings;
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 EXTERNAL struct rate *user_graph;
 EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;
@@ -780,51 +778,6 @@ HashTable *command_hash_table;
 struct const_key *command;
 int NCMDS;
 
-// chart.cpp -------------------------------
-#ifdef CHART
-	int update_time_chart;			/* milliseconds, maybe read */
-	int PanelHeight;
-	int PanelWidth;
-
-	char *axis_titles[3];
-	float axis_scale_x[5]; /* min, max, major tic, minor tic, log */
-	float axis_scale_y[5];
-	float axis_scale_y2[5];
-	char *chart_title;
-
-	int chart_type;						/* default: plot vs distance. If chart_type = 1, plot vs time */
-	int graph_initial_solutions;		/* false */
-	int connect_simulations;			/* same curve properties in new simulations */
-	int rownr;
-	int colnr;							/* row and col no defined in basic.c for GridChar and Plot_XY */
-	int RowOffset;						/* = 1 if new simulations should add points to the same curve */
-	int ColumnOffset;					/* sets column offset, from CSV plot, and from new USER_GRAPH */
-	int prev_advection_step;
-	int prev_transport_step;			/* for different curve properties in c-x plots in a simulation */
-	int AddSeries;						/* new curve properties in new simulation (does the same, but opposite of connect_simulation) */
-
-	int prev_sim_no;					/* set in new simulation, used for changing curve properties */
-	bool x_filled, col_dwn, y_filled[20]; 	/* in case 20 graph_x is defined after 10 graph_y, perhaps fails when curvenr > 20... */
-	float x_value;						/* from graph_x */
-	bool all_points;					/* true if points in curves remain the same. Works with end_timer */
-	bool end_timer;					    /* in mainsubs.c, stops the update timer in form1.h */
-
-	struct Curves_c *Curves;
-	int ncurves;						/* number of malloced curves */
-	int ncurves_changed[3];		        /* for updating the chart:
-											0 or 1 (if curves have changed), previous no, new no of curves with points*/
-	char *SymbolList[11];
-	/*ColorList = {"Red", "Green", "Blue", "Orange", "Magenta", "Yellow", "Black" }; // defined in Form1.h as cli */
-	/* or any color from System::Drawing::Color */
-
-	int nCSV_headers;					    /* no of CSV curves, also defines ColumnOffset if connect_simulations = 1 */
-
-	int FirstCallToUSER_GRAPH;
-	bool new_ug;					/* in case USER_GRAPH is redefined */
-	bool u_g;
-	bool u_g_active;
-	//System::Threading::Thread^ user_graph_thread;
-#endif // CHART
 /* cl1.c ------------------------------- */
 
 LDBLE *x_arg, *res_arg, *scratch;
@@ -966,7 +919,7 @@ int FirstCallToUSER_GRAPH;
 #endif
 /* read.c */
 char *prev_next_char;
-#if defined PHREEQ98 || defined CHART
+#if defined PHREEQ98 
 int shifts_as_points;
 #endif
 
