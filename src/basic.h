@@ -202,7 +202,7 @@ struct LOC_exec
 #define tokget             107
 #define tokcharge_balance  109
 #define tokpercent_error   110
-#if defined PHREEQ98 || defined CHART || MULTICHART
+#if defined PHREEQ98 || MULTICHART
 #define tokgraph_x         111
 #define tokgraph_y         112
 #define tokgraph_sy        113
@@ -239,7 +239,7 @@ struct LOC_exec
 #define tokcell_pore_volume 141
 #define tokcell_porosity    142
 #define tokcell_saturation  143
-#if defined CHART || defined MULTICHART
+#if defined MULTICHART
 #define tokplot_xy          144
 #endif
 #define toktotmole          145

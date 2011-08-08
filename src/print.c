@@ -39,7 +39,7 @@
 	static int punch_totals(void);
 	static int punch_user_punch(void);
 
-	#if defined PHREEQ98 || defined CHART
+	#if defined PHREEQ98 
 		static int punch_user_graph(void);
 		extern int colnr, rownr;
 		extern int connect_simulations, graph_initial_solutions;
@@ -51,9 +51,6 @@
 #elif defined MULTICHART
 	int punch_user_graph(void);
 #endif
-	#ifdef CHART // remove this one when finalizing...
-		extern void start_chart(bool end);
-	#endif
 #endif /* !PHREEQC_CLASS */
 
 /* ---------------------------------------------------------------------- */
@@ -169,7 +166,7 @@ punch_all(void)
 	{
 		use.kinetics_ptr = kinetics_bsearch(-2, &i);
 	}
-#if defined PHREEQ98 || defined CHART 
+#if defined PHREEQ98 
 	if (pr.user_graph == TRUE)
 	{
 		punch_user_graph();
@@ -3240,7 +3237,7 @@ punch_user_punch(void)
 	return (OK);
 }
 
-#if defined PHREEQ98 || defined CHART 
+#if defined PHREEQ98  
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 punch_user_graph(void)

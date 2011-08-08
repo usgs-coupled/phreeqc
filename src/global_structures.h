@@ -1329,19 +1329,6 @@ struct system_species
 };
 
 #if defined(PHREEQC_CLASS)
-/* chart.cpp */
-#ifdef CHART
-struct Curves_c {
-	int i;
-	float *x, *y;
-	//struct pts xy;
-	int nxy, npoints, npoints_plot, prev_npoints;
-	
-	char *id, *color, *symbol;
-	int y_axis; 
-	float line_w, symbol_size;
-};
-#endif
 
 /* tally.c ------------------------------- */
 struct tally_buffer
