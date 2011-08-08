@@ -5362,7 +5362,7 @@ read_selected_output(void)
 			break;
 		case 38:				/* high_precision */
 			punch.high_precision = get_true_false(next_char, TRUE);
-			//if (punch.high_precision == TRUE && convergence_tolerance > 1e-12)
+			if (punch.high_precision == TRUE /*&& convergence_tolerance > 1e-12*/)
 			{
 				convergence_tolerance = 1e-12;
 			}
