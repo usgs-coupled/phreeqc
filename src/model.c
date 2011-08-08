@@ -3186,6 +3186,18 @@ reset(void)
 						x[i]->master[0]->s->la = log10(x[i]->moles) - 5.;
 					}
 				}
+				else if (x[i]->surface_comp->phase_name != NULL)
+				{
+					/* probably initial surface calculation */
+					if (x[i]->moles <= MIN_RELATED_SURFACE)
+					{
+						x[i]->moles = 0.0;
+						if (fabs(x[i]->f) > MIN_RELATED_SURFACE)
+						{
+							x[i]->master[0]->s->la -= 5.;
+						}
+					}
+				}
 			}
 			/* exch */
 			if (x[i]->type == EXCH && x[i]->moles <= MIN_RELATED_SURFACE)
