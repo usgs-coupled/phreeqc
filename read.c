@@ -5377,7 +5377,7 @@ read_selected_output(void)
 			break;
 		case 38:				/* high_precision */
 			punch.high_precision = get_true_false(next_char, TRUE);
-			if (punch.high_precision == TRUE && convergence_tolerance > 1e-12)
+			//if (punch.high_precision == TRUE && convergence_tolerance > 1e-12)
 			{
 				convergence_tolerance = 1e-12;
 			}
@@ -8586,19 +8586,20 @@ read_debug(void)
 			{
 				LDBLE ct;
 				sscanf(next_char, SCANFORMAT, &ct);
-				if (punch.high_precision == TRUE)
-				{
-					if (ct < 1e-12)
-					{
-						convergence_tolerance = ct;
-					}
-				}
-				else
-				{
-					{
-						convergence_tolerance = ct;
-					}
-				}
+				convergence_tolerance = ct;
+				//if (punch.high_precision == TRUE)
+				//{
+				//	if (ct < 1e-12)
+				//	{
+				//		convergence_tolerance = ct;
+				//	}
+				//}
+				//else
+				//{
+				//	{
+				//		convergence_tolerance = ct;
+				//	}
+				//}
 			}
 			break;
 		case 15:				/* numerical_derivatives */
