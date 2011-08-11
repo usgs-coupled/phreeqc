@@ -2944,6 +2944,16 @@ master_bsearch(const char *ptr)
 					   sizeof(struct master *), master_compare_string);
 	if (void_ptr == NULL)
 	{
+		char * dup = string_duplicate(ptr);
+		replace("(+","(", dup);
+		void_ptr = bsearch((const char *) dup,
+			(char *) master,
+			(unsigned) count_master,
+			sizeof(struct master *), master_compare_string);
+		dup = (char *) free_check_null(dup);
+	}
+	if (void_ptr == NULL)
+	{
 		return (NULL);
 	}
 	else
