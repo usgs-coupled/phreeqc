@@ -4,7 +4,8 @@
 #define CLASS_STATIC
 //#include <string>
 #if defined(PHREEQC_CPP)
-#include "../NameDouble.h"
+class cxxNameDouble;
+#include <string>				// std::string
 #endif
 #endif
 
