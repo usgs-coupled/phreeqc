@@ -868,6 +868,7 @@ int forward_output_to_log;
 /* phreeqc_files.c ------------------------------- */
 
 char *default_data_base;
+#ifdef USE_OLD_IO
 FILE *input_file;
 FILE *database_file;
 FILE *output_file;	/* OUTPUT_MESSAGE */
@@ -875,6 +876,7 @@ FILE *log_file;	    /* OUTPUT_LOG */
 FILE *punch_file;	/* OUTPUT_PUNCH */
 FILE *error_file;	/* OUTPUT_ERROR */
 FILE *dump_file;	/* OUTPUT_DUMP */
+#endif
 #ifdef PHREEQ98
 int outputlinenr;
 char *LogFileNameC;

@@ -463,8 +463,9 @@ clean_up(void)
 #if !defined(PHREEQC_CLASS)
 	PHRQ_free_all();
 #endif
-
+#ifdef USE_OLD_IO
 	clean_up_output_callbacks();
+#endif
 
 	count_solution = 0;
 	count_pp_assemblage = 0;

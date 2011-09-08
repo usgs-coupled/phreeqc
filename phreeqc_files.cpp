@@ -1,3 +1,4 @@
+#ifdef USE_OLD_IO
 #include <assert.h>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
@@ -1099,3 +1100,4 @@ recursive_include(std::ifstream & input_stream, std::iostream & accumulated_stre
 	return true;
 }
 #endif /* defined(MERGE_INCLUDE_FILES) */
+#endif /* USE_OLD_IO */

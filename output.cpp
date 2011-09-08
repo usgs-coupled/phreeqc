@@ -1,3 +1,4 @@
+#ifdef USE_OLD_IO
 #include <assert.h>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
@@ -369,3 +370,4 @@ fpunchf_end_row(const char *format, ...)
 	}
 	return OK;
 }
+#endif /* USE_OLD_IO */
