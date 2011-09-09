@@ -1935,6 +1935,9 @@ tidy_punch(void)
 	{
 		punch_save = pr.punch;
 		pr.punch = TRUE;
+#ifndef USE_OLD_IO
+		phrq_io.Set_punch_file_on(true);
+#endif
 
 		/* constant stuff, sim, pH, etc. */
 
@@ -2160,6 +2163,11 @@ tidy_punch(void)
 		output_msg(OUTPUT_PUNCH, "\n");
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
+#ifndef USE_OLD_IO
+		phrq_io.Set_punch_file_on(false);
+		if (pr.punch == TRUE)
+			phrq_io.Set_punch_file_on(true);
+#endif
 	}
 	return (OK);
 }

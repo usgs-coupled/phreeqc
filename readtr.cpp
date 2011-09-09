@@ -1223,7 +1223,7 @@ dump_cpp(void)
 	if (dump_in == FALSE || pr.dump == FALSE)
 		return (OK);
 
-	cxxStorageBin phreeqcBin;
+	cxxStorageBin phreeqcBin(&this->phrq_io);
 #if !defined(PHREEQC_CLASS)
 	phreeqcBin.import_phreeqc();
 #else
