@@ -37,6 +37,13 @@ error_msg(const char *err_str, const int stop, ...)
 	va_list args;
 	va_start(args, err_str);
 	bool bstop = (stop == STOP);
+	if (status_on == TRUE)
+	{
+		this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+#ifndef DOS
+		status_on = FALSE;
+#endif
+	}
 	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
 	//this->phrq_io.output_handler(PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
 	va_end(args);
@@ -55,13 +62,20 @@ warning_msg(const char *err_str, ...)
 {
 	va_list args;
 	va_start(args, err_str);
+	if (status_on == TRUE)
+	{
+		this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+#ifndef DOS
+		status_on = FALSE;
+#endif
+	}
     this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
 	//this->phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
 	va_end(args);
 	count_warnings++;
 	return OK;
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_msg(const int type, const char *format, ...)
@@ -90,7 +104,96 @@ output_msg(const int type, const char *format, ...)
 	va_end(args1);
 	return OK;
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+output_msg(const int type, const char *format, ...)
+/* ---------------------------------------------------------------------- */
+{
+		//if (phast == TRUE)
+		//{
+		//	if (type == OUTPUT_CHECKLINE && pr.echo_input == TRUE && phreeqc_mpi_myself == 0)
+		//	{
+		//		va_list args2;
+		//		va_start(args2, format);
+		//		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ECHO, NULL, CONTINUE,
+		//										output_callbacks[i].cookie, format,
+		//										args2);
+		//		va_end(args2);
+		//	}
+		//}
 
+	va_list args1;
+	va_start(args1, format);
+	
+	//if (get_forward_output_to_log())
+	//{
+	//	save_output = output_file;
+	//	output_file = log_file;
+	//}
+
+	switch (type)
+	{
+
+	case OUTPUT_ERROR:
+		if (status_on == TRUE)
+		{
+			this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+#ifndef DOS
+			status_on = FALSE;
+#endif
+		}
+		this->phrq_io.output_handler(type, NULL, false, format, args1);
+#if defined MULTICHART
+		chart_handler.End_timer(PHREEQC_THIS);
+#endif
+		break;
+
+	case OUTPUT_WARNING:
+		if (state == TRANSPORT && transport_warnings == FALSE)
+			return (OK);
+		if (state == ADVECTION && advection_warnings == FALSE)
+			return (OK);
+		if (pr.warnings >= 0)
+		{
+			if (count_warnings > pr.warnings)
+				return (OK);
+		}
+		if (status_on == TRUE)
+		{
+			this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+#ifndef DOS
+			status_on = FALSE;
+#endif
+		}
+		this->phrq_io.output_handler(type, NULL, false, format, args1);
+		break;
+	case OUTPUT_CHECKLINE:
+		if (pr.echo_input == TRUE)
+		{
+			this->phrq_io.output_handler(type, NULL, false, format, args1);
+		}
+		break;
+	case OUTPUT_MESSAGE:
+	case OUTPUT_BASIC:
+	case OUTPUT_PUNCH:
+	case OUTPUT_LOG:
+	case OUTPUT_SCREEN:
+	case OUTPUT_STDERR:
+	case OUTPUT_CVODE:
+	case OUTPUT_DUMP:
+		this->phrq_io.output_handler(type, NULL, false, format, args1);
+		break;
+	}
+
+	//if (get_forward_output_to_log())
+	//{
+	//	output_file = save_output;
+	//}
+	//return (OK);
+	va_end(args1);
+	return OK;
+}
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
 set_forward_output_to_log(int value)
