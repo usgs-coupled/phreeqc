@@ -242,7 +242,7 @@ step(LDBLE step_fraction)
 		sys_bin.setSolution(-1, soln);
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage pp(use.pp_assemblage_ptr);
+			cxxPPassemblage pp(use.pp_assemblage_ptr, &this->phrq_io);
 			sys_bin.setPPassemblage(-1, pp);
 		}
 		if (use.s_s_assemblage_in)

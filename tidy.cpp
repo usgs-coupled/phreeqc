@@ -2164,9 +2164,7 @@ tidy_punch(void)
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
 #ifndef USE_OLD_IO
-		phrq_io.Set_punch_file_on(false);
-		if (pr.punch == TRUE)
-			phrq_io.Set_punch_file_on(true);
+		phrq_io.Set_punch_file_on(pr.punch == TRUE);
 #endif
 	}
 	return (OK);

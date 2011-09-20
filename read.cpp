@@ -8561,9 +8561,7 @@ read_debug(void)
 				warning_msg("PHREEQC log file is disabled in PHAST");
 			}
 #ifndef USE_OLD_IO
-			phrq_io.Set_log_file_on(false);
-			if (pr.logfile == TRUE)
-				phrq_io.Set_log_file_on(true);
+			phrq_io.Set_log_file_on(pr.logfile == TRUE);
 #endif
 			break;
 		case 12:				/* debug_diffuse_layer */
@@ -8777,9 +8775,7 @@ read_print(void)
 		case 22:				/* dump */
 			pr.dump = get_true_false(next_char, TRUE);
 #ifndef USE_OLD_IO
-			phrq_io.Set_dump_file_on(false);
-			if (pr.dump == TRUE)
-				phrq_io.Set_dump_file_on(true);
+			phrq_io.Set_dump_file_on(pr.dump == TRUE);
 #endif
 			break;
 		case 23:				/* user_print */

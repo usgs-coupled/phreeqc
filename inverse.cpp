@@ -4342,9 +4342,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		pr.all = temp;
 		pr.punch = temp_punch;
 #ifndef USE_OLD_IO
-		phrq_io.Set_punch_file_on(false);
-		if (pr.punch == TRUE)
-			phrq_io.Set_punch_file_on(true);
+		phrq_io.Set_punch_file_on(pr.punch == TRUE);
 #endif
 		solution_ptr = solution_bsearch(-7, &j, TRUE);
 
