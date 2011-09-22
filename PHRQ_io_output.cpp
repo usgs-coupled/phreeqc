@@ -9,22 +9,14 @@
 #include "Phreeqc.h"
 #endif
 #include <setjmp.h>
-////#include "output.h"
 #ifndef PHREEQC_CLASS
 #include "phrqproto.h"
 #endif
 #include "phqalloc.h"
-////static char const svnid[] =
-////	"$Id: output.cpp 5605 2011-08-24 16:23:37Z dlpark $";
-////#if !defined(PHREEQC_CLASS)
-////#define MAX_CALLBACKS 10
-////static struct output_callback output_callbacks[MAX_CALLBACKS];
-////static size_t count_output_callback = 0;
-////static int forward_output_to_log = 0;
-////#endif
 #if !defined(PHREEQC_CLASS)
 static int forward_output_to_log = 0;
 #include "input.h"
+#include "output.h"
 #endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -85,36 +77,6 @@ warning_msg(const char *err_str, ...)
 	count_warnings++;
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_msg(const int type, const char *format, ...)
-/* ---------------------------------------------------------------------- */
-{
-		//if (phast == TRUE)
-		//{
-		//	if (type == OUTPUT_CHECKLINE && pr.echo_input == TRUE && phreeqc_mpi_myself == 0)
-		//	{
-		//		va_list args2;
-		//		va_start(args2, format);
-		//		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ECHO, NULL, CONTINUE,
-		//										output_callbacks[i].cookie, format,
-		//										args2);
-		//		va_end(args2);
-		//	}
-		//}
-	if (type == OUTPUT_LOG && pr.logfile != TRUE)
-		return OK;
-
-	va_list args1;
-	va_start(args1, format);
-	
-	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, type, NULL, false, format, args1);
-	//phrq_io.output_handler(type, NULL, false, format, args1);
-	va_end(args1);
-	return OK;
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_msg(const int type, const char *format, ...)
@@ -135,14 +97,14 @@ output_msg(const int type, const char *format, ...)
 
 	va_list args1;
 	va_start(args1, format);
+	int type_local = type;
 	
-	//if (get_forward_output_to_log())
-	//{
-	//	save_output = output_file;
-	//	output_file = log_file;
-	//}
+	if (get_forward_output_to_log() && type == PHRQ_io::OUTPUT_MESSAGE)
+	{
+		type_local = PHRQ_io::OUTPUT_LOG;
+	}
 
-	switch (type)
+	switch (type_local)
 	{
 
 	case PHRQ_io::OUTPUT_ERROR:
@@ -153,7 +115,7 @@ output_msg(const int type, const char *format, ...)
 			status_on = FALSE;
 #endif
 		}
-		phrq_io.output_handler(type, NULL, false, format, args1);
+		phrq_io.output_handler(type_local, NULL, false, format, args1);
 #if defined MULTICHART
 		chart_handler.End_timer(PHREEQC_THIS);
 #endif
@@ -176,12 +138,12 @@ output_msg(const int type, const char *format, ...)
 			status_on = FALSE;
 #endif
 		}
-		phrq_io.output_handler(type, NULL, false, format, args1);
+		phrq_io.output_handler(type_local, NULL, false, format, args1);
 		break;
 	case PHRQ_io::OUTPUT_CHECKLINE:
 		if (pr.echo_input == TRUE)
 		{
-			phrq_io.output_handler(type, NULL, false, format, args1);
+			phrq_io.output_handler(type_local, NULL, false, format, args1);
 		}
 		break;
 	case PHRQ_io::OUTPUT_MESSAGE:
@@ -192,15 +154,10 @@ output_msg(const int type, const char *format, ...)
 	case PHRQ_io::OUTPUT_STDERR:
 	case PHRQ_io::OUTPUT_CVODE:
 	case PHRQ_io::OUTPUT_DUMP:
-		phrq_io.output_handler(type, NULL, false, format, args1);
+		phrq_io.output_handler(type_local, NULL, false, format, args1);
 		break;
 	}
 
-	//if (get_forward_output_to_log())
-	//{
-	//	output_file = save_output;
-	//}
-	//return (OK);
 	va_end(args1);
 	return OK;
 }

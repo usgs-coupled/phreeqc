@@ -8754,6 +8754,9 @@ read_print(void)
 			break;
 		case 13:				/* selected_output */
 			pr.punch = get_true_false(next_char, TRUE);
+#ifndef USE_OLD_IO
+			phrq_io.Set_punch_file_on(pr.punch == TRUE);
+#endif
 			break;
 		case 19:				/* status */
 			pr.status = get_true_false(next_char, TRUE);

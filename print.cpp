@@ -38,7 +38,10 @@
 	static int punch_saturation_indices(void);
 	static int punch_totals(void);
 	static int punch_user_punch(void);
-
+#if defined (PHREEQC_CPP)
+#include "../runner.h"
+	extern runner run_info;
+#endif
 	#if defined PHREEQ98 
 		static int punch_user_graph(void);
 		extern int colnr, rownr;
@@ -864,7 +867,7 @@ print_kinetics(void)
 		kin_time_x = advection_kin_time;
 	}
 	sim_time = 0.;
-#if defined(PHREEQC_CLASS)
+#if defined(PHREEQC_CPP)
 	if (run_info.Get_run_cells())
 	{
 		sim_time = rate_sim_time;
