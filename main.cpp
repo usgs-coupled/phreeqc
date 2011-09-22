@@ -3,7 +3,8 @@
 #include "output.h"
 #include "phrqproto.h"
 #include "input.h"
-
+#include <istream>
+#include <fstream>
 /*#define PHREEQC_XML*/
 #ifdef PHREEQC_XML
 #include "SAXPhreeqc.h"
@@ -61,6 +62,7 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 /*
  *   Add callbacks for error_msg and warning_msg
  */
+#ifdef USE_OLD_IO
 	if (add_output_callback(phreeqc_handler, NULL) != OK)
 	{
 		fprintf(stderr, "ERROR: %s\n",
@@ -68,6 +70,7 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 		fprintf(stderr, "ERROR: %s\n", "Program terminating.");
 		return -1;
 	}
+#endif
 
 /*
  *   Open input/output files
@@ -96,7 +99,10 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
  *   Load database into memory
  */
 #if defined(MERGE_INCLUDE_FILES) 
-	errors = read_database(istream_getc, db_cookie);
+	//errors = read_database(phrq_io.istream_getc, db_cookie);
+	set_cookie((std::ifstream *) db_cookie);
+	errors = read_database(PHRQ_io::istream_getc, db_cookie);
+	clear_cookie();
 #else
 	errors = read_database(getc_callback, db_cookie);
 #endif
@@ -111,7 +117,10 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
  */
 
 #if defined(MERGE_INCLUDE_FILES) 
-	errors = run_simulations(istream_getc, input_cookie);
+	//errors = run_simulations(phrq_io.istream_getc, input_cookie);
+	set_cookie((std::ifstream *)input_cookie);
+	errors = run_simulations(PHRQ_io::istream_getc, input_cookie);
+	clear_cookie();
 #else
 	errors = run_simulations(getc_callback, input_cookie);
 #endif
@@ -143,8 +152,13 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
 	}
 #endif
 	clean_up();
+#ifdef PHREEQC_CPP
+	phrq_io.close_input_files();
+	phrq_io.close_output_files();
+#else
 	close_input_files();
 	close_output_files();
+#endif
 #ifdef PHREEQC_XML
 	SAX_cleanup();
 #endif

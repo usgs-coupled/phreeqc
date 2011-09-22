@@ -3,12 +3,16 @@
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"
+#include <istream>
+#include <fstream>
 #else
 #include "Phreeqc.h"
 #endif
 #include <setjmp.h>
 ////#include "output.h"
-////#include "phrqproto.h"
+#ifndef PHREEQC_CLASS
+#include "phrqproto.h"
+#endif
 #include "phqalloc.h"
 ////static char const svnid[] =
 ////	"$Id: output.cpp 5605 2011-08-24 16:23:37Z dlpark $";
@@ -18,7 +22,10 @@
 ////static size_t count_output_callback = 0;
 ////static int forward_output_to_log = 0;
 ////#endif
-
+#if !defined(PHREEQC_CLASS)
+static int forward_output_to_log = 0;
+#include "input.h"
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 error_msg(const char *err_str, const int stop, ...)
@@ -39,13 +46,13 @@ error_msg(const char *err_str, const int stop, ...)
 	bool bstop = (stop == STOP);
 	if (status_on == TRUE)
 	{
-		this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+		phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
 #ifndef DOS
 		status_on = FALSE;
 #endif
 	}
-	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
-	//this->phrq_io.output_handler(PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
+	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
+	//phrq_io.output_handler(PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
 	va_end(args);
 
 	if (stop == STOP)
@@ -64,13 +71,13 @@ warning_msg(const char *err_str, ...)
 	va_start(args, err_str);
 	if (status_on == TRUE)
 	{
-		this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+		phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
 #ifndef DOS
 		status_on = FALSE;
 #endif
 	}
-    this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
-	//this->phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
+    phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
+	//phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
 	va_end(args);
 	count_warnings++;
 	return OK;
@@ -99,8 +106,8 @@ output_msg(const int type, const char *format, ...)
 	va_list args1;
 	va_start(args1, format);
 	
-	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, type, NULL, false, format, args1);
-	//this->phrq_io.output_handler(type, NULL, false, format, args1);
+	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, type, NULL, false, format, args1);
+	//phrq_io.output_handler(type, NULL, false, format, args1);
 	va_end(args1);
 	return OK;
 }
@@ -135,21 +142,21 @@ output_msg(const int type, const char *format, ...)
 	switch (type)
 	{
 
-	case OUTPUT_ERROR:
+	case PHRQ_io::OUTPUT_ERROR:
 		if (status_on == TRUE)
 		{
-			this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
 #ifndef DOS
 			status_on = FALSE;
 #endif
 		}
-		this->phrq_io.output_handler(type, NULL, false, format, args1);
+		phrq_io.output_handler(type, NULL, false, format, args1);
 #if defined MULTICHART
 		chart_handler.End_timer(PHREEQC_THIS);
 #endif
 		break;
 
-	case OUTPUT_WARNING:
+	case PHRQ_io::OUTPUT_WARNING:
 		if (state == TRANSPORT && transport_warnings == FALSE)
 			return (OK);
 		if (state == ADVECTION && advection_warnings == FALSE)
@@ -161,28 +168,28 @@ output_msg(const int type, const char *format, ...)
 		}
 		if (status_on == TRUE)
 		{
-			this->phrq_io.output_string(OUTPUT_ERROR, "\n");
+			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
 #ifndef DOS
 			status_on = FALSE;
 #endif
 		}
-		this->phrq_io.output_handler(type, NULL, false, format, args1);
+		phrq_io.output_handler(type, NULL, false, format, args1);
 		break;
-	case OUTPUT_CHECKLINE:
+	case PHRQ_io::OUTPUT_CHECKLINE:
 		if (pr.echo_input == TRUE)
 		{
-			this->phrq_io.output_handler(type, NULL, false, format, args1);
+			phrq_io.output_handler(type, NULL, false, format, args1);
 		}
 		break;
-	case OUTPUT_MESSAGE:
-	case OUTPUT_BASIC:
-	case OUTPUT_PUNCH:
-	case OUTPUT_LOG:
-	case OUTPUT_SCREEN:
-	case OUTPUT_STDERR:
-	case OUTPUT_CVODE:
-	case OUTPUT_DUMP:
-		this->phrq_io.output_handler(type, NULL, false, format, args1);
+	case PHRQ_io::OUTPUT_MESSAGE:
+	case PHRQ_io::OUTPUT_BASIC:
+	case PHRQ_io::OUTPUT_PUNCH:
+	case PHRQ_io::OUTPUT_LOG:
+	case PHRQ_io::OUTPUT_SCREEN:
+	case PHRQ_io::OUTPUT_STDERR:
+	case PHRQ_io::OUTPUT_CVODE:
+	case PHRQ_io::OUTPUT_DUMP:
+		phrq_io.output_handler(type, NULL, false, format, args1);
 		break;
 	}
 
@@ -219,8 +226,8 @@ output_fflush(const int type, ...)
 
 	va_list args;
 	va_start(args, type);
-	check = this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_FLUSH, type, NULL, false, NULL, args);	
-	//check = this->phrq_io.fileop_handler(type, fflush);
+	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_FLUSH, type, NULL, false, NULL, args);	
+	//check = phrq_io.fileop_handler(type, fflush);
 	va_end(args);
 
 	if (check != OK)
@@ -240,8 +247,8 @@ output_rewind(const int type, ...)
 
 	va_list args;
 	va_start(args, type);
-	check = this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_REWIND, type, NULL, false, NULL, args);	
-	//check = this->phrq_io.fileop_handler(type, &PHRQ_io::rewind_wrapper);
+	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_REWIND, type, NULL, false, NULL, args);	
+	//check = phrq_io.fileop_handler(type, &PHRQ_io::rewind_wrapper);
 	va_end(args);
 
 	if (check != OK)
@@ -258,7 +265,7 @@ output_close(const int type, ...)
 
 	va_list args;
 	va_start(args, type);
-	check = this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_CLOSE, type, NULL, false, NULL, args);
+	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_CLOSE, type, NULL, false, NULL, args);
 	va_end(args);
 
 	if (check != OK)
@@ -277,7 +284,7 @@ output_open(const int type, const char *file_name, ...)
 
 	va_list args;
 	va_start(args, file_name);
-	check = this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OPEN, type, file_name, false, NULL, args);
+	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_OPEN, type, file_name, false, NULL, args);
 	va_end(args);
 
 	if (check != OK)
@@ -302,7 +309,7 @@ fpunchf(const char *name, const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
+	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
 	va_end(args);
 
 	return OK;
@@ -336,7 +343,7 @@ fpunchf_user(int user_index, const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
+	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
 	va_end(args);
 
 	return OK;
@@ -348,7 +355,7 @@ fpunchf_end_row(const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	this->phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, "", false, format, args);
+	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH_END_ROW, "", false, format, args);
 	va_end(args);
 
 	return OK;
@@ -414,7 +421,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (argc > 4)
 	{
-		if (!this->phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, argv[4]))
+		if (!phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, argv[4]))
 		{
 			sprintf(error_string, "Error opening file, %s.", argv[4]);
 			warning_msg(error_string);
@@ -422,7 +429,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	else
 	{
-		this->phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, NULL);
+		phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, NULL);
 	}
 
 /*
@@ -441,8 +448,8 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		local_input_file = file_open(query, default_name, "r", TRUE);
 	}
 	phrq_io.Set_input_file(local_input_file);
-	output_msg(OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
-	output_msg(OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
+	output_msg(PHRQ_io::OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
+	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
 /*
  *   Open file for output
@@ -467,16 +474,16 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		local_output_file = file_open(query, token, "w", TRUE);
 	}
 	phrq_io.Set_output_file(local_output_file);
-	output_msg(OUTPUT_SCREEN, "Output file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
+	output_msg(PHRQ_io::OUTPUT_SCREEN, "Output file: %s\n\n", token);
+	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
 /*
  *   Open file for errors
  */
 	if (log == TRUE)
 	{
-		//if ((this->phrq_io.log_file = fopen("phreeqc.log", "w")) == NULL)
-		if (!this->phrq_io.open_handler(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
+		//if ((phrq_io.log_file = fopen("phreeqc.log", "w")) == NULL)
+		if (!phrq_io.open_handler(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
 		{
 			error_msg("Can't open log file, phreeqc.log.", STOP);
 		}
@@ -485,7 +492,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	 *  Read input file for DATABASE keyword
 	 */
 	std::ifstream * temp_input = new std::ifstream(in_file, std::ifstream::in);
-	this->set_cookie(temp_input);
+	set_cookie(temp_input);
 	if (get_line(PHRQ_io::istream_getc, temp_input) == KEYWORD)
 	{
 		ptr = line;
@@ -506,7 +513,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	phrq_io.close_input();
 
-	this->pop_cookie();
+	pop_cookie();
 
 	if ((local_input_file = fopen(in_file, "r")) == NULL)
 	{;
@@ -562,13 +569,13 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	{
 		phrq_io.Set_database_file(local_database_file);
 	}
-	output_msg(OUTPUT_SCREEN, "Database file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
+	output_msg(PHRQ_io::OUTPUT_SCREEN, "Database file: %s\n\n", token);
+	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 	strcpy(db_file, token);
 
-	output_msg(OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
-	output_msg(OUTPUT_MESSAGE, "  Output file: %s\n", out_file);
-	output_msg(OUTPUT_MESSAGE, "Database file: %s\n\n", token);
+	output_msg(PHRQ_io::OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
+	output_msg(PHRQ_io::OUTPUT_MESSAGE, "  Output file: %s\n", out_file);
+	output_msg(PHRQ_io::OUTPUT_MESSAGE, "Database file: %s\n\n", token);
 /*
  *   local cleanup
  */
@@ -584,8 +591,8 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	hdestroy_multi(strings_hash_table);
 	strings_hash_table = NULL;
 
-	this->db_stream = new std::ifstream(db_file, std::ifstream::in);
-	this->in_stream = new std::ifstream(in_file, std::ifstream::in);
+	db_stream = new std::ifstream(db_file, std::ifstream::in);
+	in_stream = new std::ifstream(in_file, std::ifstream::in);
 	*db_cookie = db_stream;
 	*input_cookie = in_stream;
 

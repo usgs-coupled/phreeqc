@@ -1769,3 +1769,39 @@ zero_double(LDBLE * target, int n)
 	memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
 	return;
 }
+#if !defined(USE_OLD_IO)
+void * CLASS_QUALIFIER
+get_cookie()
+{
+	if (cookie_list.size() > 0)
+	{
+		return cookie_list.front();
+	}
+	else
+	{
+		return NULL;
+	}
+}
+void CLASS_QUALIFIER
+set_cookie(std::istream * cookie)
+{
+	cookie_list.push_front(cookie);
+}
+void CLASS_QUALIFIER
+clear_cookie(void)
+{
+	while (cookie_list.size() > 0)
+	{
+		pop_cookie();
+	}
+}
+void CLASS_QUALIFIER
+pop_cookie()
+{
+	if (cookie_list.size() > 0)
+	{
+		delete cookie_list.front();
+		cookie_list.pop_front();
+	}
+}
+#endif

@@ -19,6 +19,10 @@ static char const svnidglobal[] =
 #include <float.h>
 #include <setjmp.h>
 #include "phrqtype.h"
+#if !defined(USE_OLD_IO)
+#include <list>
+#include "../PHRQ_io.h"
+#endif
 
 #include "global_structures.h"
 /* #define NO_DOS */
@@ -44,7 +48,9 @@ static char const svnidglobal[] =
 #endif
 #include <setjmp.h>
 */
-
+#if !defined(USE_OLD_IO)
+EXTERNAL PHRQ_io phrq_io;
+#endif
 /* ----------------------------------------------------------------------
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
@@ -250,7 +256,22 @@ extern int count_iso_defaults;
 struct iso *iso_defaults;
 int count_iso_defaults;
 #endif  /* PHREEQC_CLASS */
-
+#if !defined(PHREEQC_CLASS)
+#if !defined(USE_OLD_IO)
+EXTERNAL std::list <std::istream *> cookie_list;
+EXTERNAL std::ifstream * in_stream;
+EXTERNAL std::ifstream * db_stream;
+#ifdef MAINSUBS
+const char *default_data_base = "phreeqc.dat";
+#else
+extern const char *default_data_base;
+#endif
+EXTERNAL void *get_cookie();
+EXTERNAL void pop_cookie();
+EXTERNAL void set_cookie(std::istream * cookie);
+EXTERNAL void clear_cookie(void);
+#endif
+#endif
 /*----------------------------------------------------------------------
  *   Global solution
  *---------------------------------------------------------------------- */
@@ -868,15 +889,15 @@ int forward_output_to_log;
 /* phreeqc_files.c ------------------------------- */
 
 char *default_data_base;
-#ifdef USE_OLD_IO
-FILE *input_file;
-FILE *database_file;
-FILE *output_file;	/* OUTPUT_MESSAGE */
-FILE *log_file;	    /* OUTPUT_LOG */
-FILE *punch_file;	/* OUTPUT_PUNCH */
-FILE *error_file;	/* OUTPUT_ERROR */
-FILE *dump_file;	/* OUTPUT_DUMP */
-#endif
+//#ifdef USE_OLD_IO
+//FILE *input_file;
+//FILE *database_file;
+//FILE *output_file;	/* OUTPUT_MESSAGE */
+//FILE *log_file;	    /* OUTPUT_LOG */
+//FILE *punch_file;	/* OUTPUT_PUNCH */
+//FILE *error_file;	/* OUTPUT_ERROR */
+//FILE *dump_file;	/* OUTPUT_DUMP */
+//#endif
 #ifdef PHREEQ98
 int outputlinenr;
 char *LogFileNameC;

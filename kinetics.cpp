@@ -1490,7 +1490,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
  */
 #ifdef PHREEQC_CPP
 		std::ofstream error_input("error.inp");
-		cxxStorageBin error_bin(PHREEQC_THIS_COMMA &use, &this->phrq_io);
+		cxxStorageBin error_bin(PHREEQC_THIS_COMMA &use, &phrq_io);
 		error_bin.dump_raw(error_input, 0);
 		error_input.close();
 #else

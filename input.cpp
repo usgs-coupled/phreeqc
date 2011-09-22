@@ -9,6 +9,8 @@
 #include "input.h"
 #include "output.h"
 #include "phrqproto.h"
+#include <istream>
+#include <fstream>
 #include "phqalloc.h"
 
 static char const svnid[] = "$Id$";
@@ -239,7 +241,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 	// loop for include files
 	for (;;)
 	{
-		cookie = this->get_cookie();
+		cookie = get_cookie();
 		if (cookie == NULL)
 		{
 			break;
@@ -259,7 +261,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 			if (get_logical_line(pfn, cookie, &l) == EOF)
 			{
 					//pop next file
-					this->pop_cookie();
+					pop_cookie();
 					continue_loop = true;
 					break;
 			}
@@ -333,7 +335,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 					sprintf(error_string, "Could not open include file %s", file_name);
 					error_msg(error_string, STOP);
 				}
-				this->set_cookie(next_stream);
+				set_cookie(next_stream);
 				continue;
 			}
 		}

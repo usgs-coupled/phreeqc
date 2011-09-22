@@ -237,12 +237,12 @@ step(LDBLE step_fraction)
 	// Determine system totals, calculate maximum mineral precipitation
 	if (use.pp_assemblage_in || use.s_s_assemblage_in)
 	{
-		cxxStorageBin sys_bin(&this->phrq_io);
-		cxxSolution soln(PHREEQC_THIS_COMMA -1, &this->phrq_io);
+		cxxStorageBin sys_bin(&phrq_io);
+		cxxSolution soln(PHREEQC_THIS_COMMA -1, &phrq_io);
 		sys_bin.setSolution(-1, soln);
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage pp(use.pp_assemblage_ptr, &this->phrq_io);
+			cxxPPassemblage pp(use.pp_assemblage_ptr, &phrq_io);
 			sys_bin.setPPassemblage(-1, pp);
 		}
 		if (use.s_s_assemblage_in)
