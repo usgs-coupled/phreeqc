@@ -15,18 +15,6 @@
  * This is the interface file for the main CVODE integrator.       *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidcvode[] =
-	"$Id$";
-#endif
-
-/*
-#ifdef __cplusplus			
-extern "C"
-{
-#endif
-*/
-
 #ifndef _cvode_h
 #define _cvode_h
 

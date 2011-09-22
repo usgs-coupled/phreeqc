@@ -19,16 +19,6 @@
  * value of the linear system size N.                              *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidcvdense[] =
-	"$Id$";
-#endif
-/*
-#ifdef __cplusplus				
-extern "C"
-{
-#endif
-*/
 
 #ifndef _cvdense_h
 #define _cvdense_h

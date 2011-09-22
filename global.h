@@ -3,10 +3,6 @@
 #define STATIC static
 #define CLASS_STATIC
 #endif
-#ifdef PHREEQC_IDENT
-static char const svnidglobal[] =
-	"$Id$";
-#endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 

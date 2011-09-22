@@ -1,10 +1,6 @@
 #ifndef _INC_INPUT_H
 #define _INC_INPUT_H
 
-#ifdef PHREEQC_IDENT
-static char const svnidinput[] =
-	"$Id$";
-#endif
 typedef int (*PFN_READ_CALLBACK) (void *cookie);
 
 struct read_callback

@@ -39,10 +39,6 @@
  * into the 'ops' field).                                          *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidnvector[] =
-	"$Id$";
-#endif
 #if defined(PHREEQC_CLASS)
 class Phreeqc;
 #endif

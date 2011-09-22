@@ -4,11 +4,6 @@
 /*#if !defined (USE_PHRQ_ALLOC)*/
 #if defined (USE_PHRQ_ALLOC)
 
-#ifdef PHREEQC_IDENT
-static char const svnidphqalloc[] =
-	"$Id$";
-#endif
-
 #if !defined(NDEBUG)
 void *PHRQ_malloc(size_t, const char *, int);
 void *PHRQ_calloc(size_t, size_t, const char *, int);

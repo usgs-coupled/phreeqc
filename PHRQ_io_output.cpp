@@ -69,15 +69,18 @@ warning_msg(const char *err_str, ...)
 {
 	va_list args;
 	va_start(args, err_str);
-	if (status_on == TRUE)
+	if (count_warnings <= pr.warnings)
 	{
-		phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
+		if (status_on == TRUE)
+		{
+			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
 #ifndef DOS
-		status_on = FALSE;
+			status_on = FALSE;
 #endif
+		}
+		phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
+		//phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
 	}
-    phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
-	//phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
 	va_end(args);
 	count_warnings++;
 	return OK;

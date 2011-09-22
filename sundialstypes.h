@@ -67,15 +67,6 @@
  * There is never a need to explicitly cast 1.0 to (realtype).     *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidsundialstypes[] =
-	"$Id$";
-#endif
-/*
-#ifdef __cplusplus			
-extern "c"  {
-#endif
-*/
 #ifndef _sundialstypes_h
 #define _sundialstypes_h
 

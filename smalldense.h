@@ -19,16 +19,6 @@
  * documentation for denalloc.                                     *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidsmalldense[] =
-	"$Id$";
-#endif
-/*
-#ifdef __cplusplus				
-extern "C"
-{
-#endif
-*/
 #ifndef _smalldense_h
 #define _smalldense_h
 

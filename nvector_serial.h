@@ -54,16 +54,6 @@
  * ith component of the N_Vector x, where 0 <= i <= N-1.           *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidnvector_serial[] =
-	"$Id$";
-#endif
-/*
-#ifdef __cplusplus				
-extern "C"
-{
-#endif
-*/
 #ifndef included_nvector_serial_h
 #define included_nvector_serial_h
 

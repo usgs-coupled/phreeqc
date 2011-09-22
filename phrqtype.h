@@ -6,10 +6,6 @@
  *   Check float.h include file for number of digits (LDBL_DIG)
  *   Need to define here and in cl1.c
  */
-#ifdef PHREEQC_IDENT
-static char const svnidphrqtype[] =
-	"$Id$";
-#endif
 
 /*#define USE_LONG_DOUBLE*/
 #ifdef USE_LONG_DOUBLE

@@ -22,16 +22,6 @@
  * available on his/her machine.                                   *
  *                                                                 *
  *******************************************************************/
-#ifdef PHREEQC_IDENT
-static char const svnidsundialsmath[] =
-	"$Id$";
-#endif
-/*
-#ifdef __cplusplus				
-extern "C"
-{
-#endif
-*/
 #ifndef _sundialsmath_h
 #define _sundialsmath_h
 
