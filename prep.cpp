@@ -130,7 +130,7 @@ prep(void)
 		setup_s_s_assemblage();
 		setup_related_surface();
 		tidy_redox();
-		if (input_error > 0)
+		if (get_input_errors() > 0)
 		{
 			error_msg("Program terminating due to input errors.", STOP);
 		}
@@ -169,7 +169,7 @@ prep(void)
  */
 		quick_setup();
 	}
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 	{
 		error_msg("Program stopping due to input errors.", STOP);
 	}
@@ -1727,7 +1727,7 @@ build_solution_phase_boundaries(void)
 			store_mb(&(rxn_ptr->s->la), &(x[i]->f), -rxn_ptr->coef);
 		}
 	}
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 		return (ERROR);
 /*
  *   Put coefficients into array
@@ -2676,7 +2676,7 @@ reprep(void)
  *   Set unknown pointers, unknown types, validity checks
  */
 	tidy_redox();
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 	{
 		error_msg("Program terminating due to input errors.", STOP);
 	}

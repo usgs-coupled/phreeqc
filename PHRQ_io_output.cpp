@@ -27,7 +27,7 @@ error_msg(const char *err_str, const int stop, ...)
 	extern jmp_buf mark;
 #endif
 
-	if (input_error <= 0)
+	if (get_input_errors() <= 0)
 		input_error = 1;
 #if defined MULTICHART
 	if (stop)

@@ -447,7 +447,7 @@ tidy_model(void)
 /*
  *   Tidy punch information
  */
-	if (input_error == 0 && (new_punch || new_model))
+	if (get_input_errors() == 0 && (new_punch || new_model))
 		tidy_punch();
 /*
  *   Tidy solution information
@@ -543,7 +543,7 @@ tidy_model(void)
 /*
  *   Error check, program termination
  */
-	if (input_error > 0 || parse_error > 0)
+	if (get_input_errors() > 0 || parse_error > 0)
 	{
 		error_msg("Calculations terminating due to input errors.", STOP);
 	}
@@ -1311,7 +1311,7 @@ tidy_inverse(void)
 			add_elt_list(inverse[i].phases[j].phase->next_elt, 1.0);
 
 		}
-		if (input_error > 0)
+		if (get_input_errors() > 0)
 			return (ERROR);
 /*
  *   Sort elements in reaction and combine
@@ -2554,7 +2554,7 @@ tidy_surface(void)
 /*
  *   Sort components
  */
-		if (input_error == 0)
+		if (get_input_errors() == 0)
 		{
 			qsort(surface[k].comps,
 				  (size_t) surface_ptr->count_comps,
@@ -2816,7 +2816,7 @@ tidy_isotopes(void)
 				count_primary++;
 			}
 		}
-		if (input_error > 0)
+		if (get_input_errors() > 0)
 			return (ERROR);
 /*
  *   Go through all redox states of the list of primary species and isotope number

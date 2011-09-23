@@ -97,7 +97,7 @@ error_msg(const char *err_str, const int stop, ...)
 #endif
 	size_t i;
 
-	if (input_error <= 0)
+	if (get_input_errors() <= 0)
 		input_error = 1;
 
 	for (i = 0; i < count_output_callback; ++i)

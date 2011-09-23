@@ -60,7 +60,7 @@ advection(void)
 /*
  *   Quit on error
  */
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 	{
 		error_msg("Program terminating due to input errors.", STOP);
 	}

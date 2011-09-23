@@ -1769,6 +1769,15 @@ zero_double(LDBLE * target, int n)
 	memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
 	return;
 }
+int CLASS_QUALIFIER
+get_input_errors()
+{
+	int total_errors = input_error;
+#if defined(PHREEQC_CPP)
+	total_errors += phrq_io.Get_io_error_count();
+#endif
+	return total_errors;
+}
 #if !defined(USE_OLD_IO)
 void * CLASS_QUALIFIER
 get_cookie()

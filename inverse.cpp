@@ -282,12 +282,12 @@ setup_inverse(struct inverse *inv_ptr)
 	{
 		inv_ptr->count_isotope_unknowns =
 			count_isotope_unknowns(inv_ptr, &inv_ptr->isotope_unknowns);
-		if (input_error > 0)
+		if (get_input_errors() > 0)
 		{
 			error_msg("Stopping because of input errors.", STOP);
 		}
 		check_isotopes(inv_ptr);
-		if (input_error > 0)
+		if (get_input_errors() > 0)
 		{
 			error_msg("Stopping because of input errors.", STOP);
 		}
@@ -825,7 +825,7 @@ setup_inverse(struct inverse *inv_ptr)
 /*
  *   Isotope mass balances
  */
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 	{
 		error_msg("Stopping because of input errors.", STOP);
 	}
@@ -1064,7 +1064,7 @@ setup_inverse(struct inverse *inv_ptr)
  */
 	/*      row_isotope_phase_epsilon = count_rows; */
 	phase_isotope_inequalities(inv_ptr);
-	if (input_error > 0)
+	if (get_input_errors() > 0)
 	{
 		error_msg("Stopping because of input errors.", STOP);
 	}

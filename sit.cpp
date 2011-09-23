@@ -140,7 +140,7 @@ sit_tidy(void)
 			}
 		}
 	}
-	if (input_error > 0) return (ERROR);
+	if (get_input_errors() > 0) return (ERROR);
 	return OK;
 }
 
