@@ -582,6 +582,11 @@ int set_reaction_temperature(int n_user, LDBLE tc);
 int set_kinetics_time(int n_user, LDBLE step);
 #endif
 
+#if defined (PHREEQC_CPP)
+// convert class to struct
+class cxxMix;
+struct mix * cxxMix2mix(cxxMix &mx);
+#endif
 
 /* tidy.c */
 int add_other_logk(LDBLE * source_k, int count_add_logk,

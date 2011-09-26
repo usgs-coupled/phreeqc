@@ -31,7 +31,7 @@ error_msg(const char *err_str, const int stop, ...)
 		input_error = 1;
 #if defined MULTICHART
 	if (stop)
-		chart_handler.End_timer(PHREEQC_THIS);
+		chart_handler.End_timer();
 #endif
 	va_list args;
 	va_start(args, err_str);
@@ -117,7 +117,7 @@ output_msg(const int type, const char *format, ...)
 		}
 		phrq_io.output_handler(type_local, NULL, false, format, args1);
 #if defined MULTICHART
-		chart_handler.End_timer(PHREEQC_THIS);
+		chart_handler.End_timer();
 #endif
 		break;
 

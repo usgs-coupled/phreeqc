@@ -89,7 +89,7 @@ clean_up(void)
 		fprintf(stderr, " ");
 	*/
 #if defined MULTICHART
-	chart_handler.End_timer(PHREEQC_THIS);
+	chart_handler.End_timer();
 #endif
 
 	description_x = (char *) free_check_null(description_x);
@@ -8185,3 +8185,44 @@ copier_init(struct copier *copier_ptr)
 		(int *) PHRQ_malloc((size_t) (copier_ptr->max * sizeof(int)));
 	return (OK);
 }
+
+#ifdef PHREEQC_CPP
+#include "../cxxMix.h"
+struct mix * CLASS_QUALIFIER
+cxxMix2mix(cxxMix & mx)
+		//
+		// Builds a mix structure from instance of cxxMix 
+		//
+{
+	struct mix *mix_ptr;
+	mix_ptr = (struct mix *) PHRQ_malloc(sizeof(struct mix));
+	if (mix_ptr == NULL)
+		malloc_error();
+
+	mix_ptr->description = string_duplicate (mx.get_description().c_str());
+	mix_ptr->n_user = mx.get_n_user();
+	mix_ptr->n_user_end = mx.get_n_user_end();
+
+	// comps
+	mix_ptr->comps = NULL;
+	if (mx.Get_mixComps().size() > 0)
+	{
+		int i = 0;
+		mix_ptr->comps =
+			(struct mix_comp *)
+			PHRQ_malloc((size_t)
+						(mx.Get_mixComps().size() * sizeof(struct mix_comp)));
+		if (mix_ptr->comps == NULL)
+			malloc_error();
+		for (std::map < int, double >::iterator it = mx.Get_mixComps().begin();
+			 it != mx.Get_mixComps().end(); it++)
+		{
+			mix_ptr->comps[i].n_solution = it->first;
+			mix_ptr->comps[i].fraction = it->second;
+			i++;
+		}
+	}
+	mix_ptr->count_comps = (int) mx.Get_mixComps().size();
+	return (mix_ptr);
+}
+#endif
