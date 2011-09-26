@@ -585,7 +585,13 @@ int set_kinetics_time(int n_user, LDBLE step);
 #if defined (PHREEQC_CPP)
 // convert class to struct
 class cxxMix;
-struct mix * cxxMix2mix(cxxMix &mx);
+struct mix * cxxMix2mix(cxxMix * mx);
+class cxxKinetics;
+struct kinetics *cxxKinetics2kinetics(cxxKinetics * kin);
+struct elt_list * cxxNameDouble2elt_list(cxxNameDouble * nd);
+class cxxKineticsComp;
+struct kinetics_comp * cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp >  * el);
+struct name_coef * cxxNameDouble2name_coef(cxxNameDouble * nd);
 #endif
 
 /* tidy.c */

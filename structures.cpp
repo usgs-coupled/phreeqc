@@ -8189,40 +8189,199 @@ copier_init(struct copier *copier_ptr)
 #ifdef PHREEQC_CPP
 #include "../cxxMix.h"
 struct mix * CLASS_QUALIFIER
-cxxMix2mix(cxxMix & mx)
+cxxMix2mix(cxxMix * mx)
 		//
 		// Builds a mix structure from instance of cxxMix 
 		//
 {
 	struct mix *mix_ptr;
+	if (mx == NULL) return NULL;
 	mix_ptr = (struct mix *) PHRQ_malloc(sizeof(struct mix));
 	if (mix_ptr == NULL)
 		malloc_error();
 
-	mix_ptr->description = string_duplicate (mx.get_description().c_str());
-	mix_ptr->n_user = mx.get_n_user();
-	mix_ptr->n_user_end = mx.get_n_user_end();
+	mix_ptr->description = string_duplicate (mx->get_description().c_str());
+	mix_ptr->n_user = mx->get_n_user();
+	mix_ptr->n_user_end = mx->get_n_user_end();
 
 	// comps
 	mix_ptr->comps = NULL;
-	if (mx.Get_mixComps().size() > 0)
+	if (mx->Get_mixComps().size() > 0)
 	{
 		int i = 0;
 		mix_ptr->comps =
 			(struct mix_comp *)
 			PHRQ_malloc((size_t)
-						(mx.Get_mixComps().size() * sizeof(struct mix_comp)));
+						(mx->Get_mixComps().size() * sizeof(struct mix_comp)));
 		if (mix_ptr->comps == NULL)
 			malloc_error();
-		for (std::map < int, double >::iterator it = mx.Get_mixComps().begin();
-			 it != mx.Get_mixComps().end(); it++)
+		for (std::map < int, double >::iterator it = mx->Get_mixComps().begin();
+			 it != mx->Get_mixComps().end(); it++)
 		{
 			mix_ptr->comps[i].n_solution = it->first;
 			mix_ptr->comps[i].fraction = it->second;
 			i++;
 		}
 	}
-	mix_ptr->count_comps = (int) mx.Get_mixComps().size();
+	mix_ptr->count_comps = (int) mx->Get_mixComps().size();
 	return (mix_ptr);
+}
+
+#include "../cxxKinetics.h"
+struct kinetics * CLASS_QUALIFIER
+cxxKinetics2kinetics(cxxKinetics * kin)
+		//
+		// Builds a kinetics structure from instance of cxxKinetics 
+		//
+{
+	if (kin == NULL) return NULL;
+	struct kinetics *kinetics_ptr = kinetics_alloc();
+
+	kinetics_ptr->description = string_duplicate (kin->get_description().c_str());
+	kinetics_ptr->n_user = kin->get_n_user();
+	kinetics_ptr->n_user_end = kin->get_n_user_end();
+	kinetics_ptr->step_divide = kin->Get_step_divide();
+	kinetics_ptr->rk = kin->Get_rk();
+	kinetics_ptr->bad_step_max = kin->Get_bad_step_max();
+	kinetics_ptr->use_cvode = (int) kin->Get_use_cvode();
+	kinetics_ptr->cvode_steps = kin->Get_cvode_steps();
+	kinetics_ptr->cvode_order = kin->Get_cvode_order();
+
+	// totals
+	//kinetics_ptr->totals = kin->Get_totals().elt_list(P_INSTANCE);
+	kinetics_ptr->totals = cxxNameDouble2elt_list(&(kin->Get_totals()));
+
+	// comps
+	kinetics_ptr->count_comps = (int) kin->Get_kineticsComps().size();
+	kinetics_ptr->comps =
+		(struct kinetics_comp *) free_check_null(kinetics_ptr->comps);
+	//kinetics_ptr->comps =
+	//	cxxKineticsComp::cxxKineticsComp2kinetics_comp(P_INSTANCE_COMMA this->kineticsComps);
+	kinetics_ptr->comps = cxxKineticsComp2kinetics_comp(&(kin->Get_kineticsComps()));
+
+	// steps
+	if (kin->Get_equal_steps() == 0) 
+	{
+		kinetics_ptr->count_steps = (int) kin->Get_steps().size();
+	}
+	else
+	{
+		kinetics_ptr->count_steps = -kin->Get_equal_steps();
+	}
+	kinetics_ptr->steps = (LDBLE *) free_check_null(kinetics_ptr->steps);
+	if (kin->Get_steps().size() > 0)
+	{
+		kinetics_ptr->steps = (LDBLE *) PHRQ_malloc((size_t) (kin->Get_steps().size() * sizeof(double)));
+		if (kinetics_ptr->steps == NULL)
+			malloc_error();
+		std::copy(kin->Get_steps().begin(), kin->Get_steps().end(),
+				  kinetics_ptr->steps);
+		/*
+		   int i = 0;
+		   for (std::vector<double>::iterator it = this->steps.begin(); it != this->steps.end(); it++) {
+		   kinetics_ptr->steps[i] = *it;
+		   }
+		 */
+	}
+	return (kinetics_ptr);
+}
+
+struct kinetics_comp * CLASS_QUALIFIER
+cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp > *el)
+		//
+		// Builds kinetics_comp structure from of cxxKineticsComp 
+		//
+{
+	if (el == NULL) return NULL;
+	struct kinetics_comp *kinetics_comp_ptr =
+		(struct kinetics_comp *)
+		PHRQ_malloc((size_t) (el->size() * sizeof(struct kinetics_comp)));
+	if (kinetics_comp_ptr == NULL)
+		malloc_error();
+
+	int i = 0;
+	for (std::list < cxxKineticsComp >::iterator it = el->begin();
+		 it != el->end(); ++it)
+	{
+		if ((*it).Get_rate_name().size() == 0)
+			kinetics_comp_ptr[i].rate_name = NULL;
+		else
+			kinetics_comp_ptr[i].rate_name = string_hsave((*it).Get_rate_name().c_str());
+		//kinetics_comp_ptr[i].list = (*it).namecoef.name_coef(P_INSTANCE);
+		kinetics_comp_ptr[i].list = cxxNameDouble2name_coef(&((*it).Get_namecoef()));
+		kinetics_comp_ptr[i].count_list = (int) (*it).Get_namecoef().size();
+		kinetics_comp_ptr[i].tol = (*it).Get_tol();
+		kinetics_comp_ptr[i].m = (*it).Get_m();
+		kinetics_comp_ptr[i].initial_moles = 0.;
+		kinetics_comp_ptr[i].m0 = (*it).Get_m0();
+		kinetics_comp_ptr[i].moles = (*it).Get_moles();
+		kinetics_comp_ptr[i].count_c_params = 0;
+		kinetics_comp_ptr[i].c_params = NULL;
+/*
+                kinetics_comp_ptr[i].count_d_params         =  0;
+                kinetics_comp_ptr[i].d_params               =  NULL;
+*/
+
+		kinetics_comp_ptr[i].count_d_params = (int) (*it).Get_d_params().size();
+		kinetics_comp_ptr[i].d_params = NULL;
+		if ((*it).Get_d_params().size() > 0)
+		{
+			kinetics_comp_ptr[i].d_params =	(LDBLE *)
+				PHRQ_malloc((size_t) ((*it).Get_d_params().size() * sizeof(double)));
+			if (kinetics_comp_ptr[i].d_params == NULL)
+				malloc_error();
+			std::copy((*it).Get_d_params().begin(), (*it).Get_d_params().end(),
+					  kinetics_comp_ptr[i].d_params);
+		}
+		i++;
+	}
+	return (kinetics_comp_ptr);
+}
+
+struct name_coef * CLASS_QUALIFIER
+cxxNameDouble2name_coef(cxxNameDouble * nd)
+		//
+		// Builds a name_coef structure from instance of cxxNameDouble 
+		//
+{
+	if (nd == NULL) return NULL;
+	assert(nd->type == cxxNameDouble::ND_NAME_COEF);
+	struct name_coef *name_coef_ptr =
+		(struct name_coef *) PHRQ_malloc((size_t) ((nd->size()) * sizeof(struct name_coef)));
+	if (name_coef_ptr == NULL)
+		malloc_error();
+	int i = 0;
+	for (cxxNameDouble::const_iterator it = nd->begin(); it != nd->end(); ++it)
+	{
+		name_coef_ptr[i].name = string_hsave(it->first.c_str());
+		name_coef_ptr[i].coef = it->second;
+		i++;
+	}
+	return (name_coef_ptr);
+}
+
+struct elt_list * CLASS_QUALIFIER
+cxxNameDouble2elt_list(cxxNameDouble * nd)
+		//
+		// Builds a exch_comp structure from instance of cxxNameDouble 
+		//
+{
+	if (nd == NULL) return NULL;
+	assert(nd->type == cxxNameDouble::ND_ELT_MOLES);
+	struct elt_list *elt_list_ptr =
+		(struct elt_list *)
+		PHRQ_malloc((size_t) ((nd->size() + 1) * sizeof(struct elt_list)));
+	if (elt_list_ptr == NULL)
+		malloc_error();
+	int i = 0;
+	for (cxxNameDouble::iterator it = nd->begin(); it != nd->end(); ++it)
+	{
+		elt_list_ptr[i].elt = element_store(it->first.c_str());
+		elt_list_ptr[i].coef = it->second;
+		i++;
+	}
+	elt_list_ptr[i].elt = NULL;
+	elt_list_ptr[i].coef = 0;
+	return (elt_list_ptr);
 }
 #endif
