@@ -4,6 +4,8 @@
 #else
 #include "Phreeqc.h"
 #endif
+#include <iostream>
+
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
@@ -8227,6 +8229,145 @@ cxxMix2mix(cxxMix * mx)
 	return (mix_ptr);
 }
 
+#include "../Exchange.h"
+struct exchange * CLASS_QUALIFIER
+cxxExchange2exchange(cxxExchange * ex)
+		//
+		// Builds a exchange structure from instance of cxxExchange
+		//
+{
+	struct exchange *exchange_ptr = exchange_alloc();
+
+	exchange_ptr->description = string_duplicate (ex->get_description().c_str());
+	exchange_ptr->n_user = ex->get_n_user();
+	exchange_ptr->n_user_end = ex->get_n_user_end();
+	exchange_ptr->new_def = FALSE;
+	exchange_ptr->solution_equilibria = FALSE;
+	exchange_ptr->n_solution = -2;
+	exchange_ptr->related_phases = (int) ex->get_related_phases();
+	exchange_ptr->related_rate = (int) ex->get_related_rate();
+	exchange_ptr->pitzer_exchange_gammas = (int) ex->get_pitzer_exchange_gammas();
+	exchange_ptr->count_comps = (int) ex->get_exchComps().size();
+	exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
+	//exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(P_INSTANCE_COMMA this->exchComps);
+	exchange_ptr->comps = cxxExchComp2exch_comp(&(ex->get_exchComps()));
+	return (exchange_ptr);
+}
+
+#include "../Exchange.h"
+struct exch_comp * CLASS_QUALIFIER
+cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
+		//
+		// Builds exch_comp structure from of cxxExchComp 
+		//
+{
+	struct exch_comp *exch_comp_ptr =
+		(struct exch_comp *) PHRQ_malloc((size_t) (el->size() * sizeof(struct exch_comp)));
+	if (exch_comp_ptr == NULL)
+		malloc_error();
+
+	int i = 0;
+	for (std::map < std::string, cxxExchComp >::const_iterator it = el->begin(); it != el->end();
+		 ++it)
+	{
+		if ((*it).second.Get_formula().size() == 0)
+			exch_comp_ptr[i].formula = NULL;
+		else
+			exch_comp_ptr[i].formula = string_hsave((*it).second.Get_formula().c_str());
+		exch_comp_ptr[i].formula_z = (*it).second.Get_formula_z();
+		//exch_comp_ptr[i].totals = (*it).second.totals.elt_list(P_INSTANCE);
+		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_totals()));
+		exch_comp_ptr[i].moles = (*it).second.Get_moles();
+		//exch_comp_ptr[i].formula_totals = (*it).second.formula_totals.elt_list(P_INSTANCE);
+		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_formula_totals()));
+		exch_comp_ptr[i].la = (*it).second.Get_la();
+		exch_comp_ptr[i].charge_balance = (*it).second.Get_charge_balance();
+		if ((*it).second.Get_phase_name().size() == 0)
+			exch_comp_ptr[i].phase_name = NULL;
+		else
+			exch_comp_ptr[i].phase_name = string_hsave((*it).second.Get_phase_name().c_str());
+		exch_comp_ptr[i].phase_proportion = (*it).second.Get_phase_proportion();
+		if ((*it).second.Get_rate_name().size() == 0)
+			exch_comp_ptr[i].rate_name = NULL;
+		else
+			exch_comp_ptr[i].rate_name = string_hsave((*it).second.Get_rate_name().c_str());
+		//exch_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE);
+		exch_comp_ptr[i].master = Get_exch_master(&(*it).second);
+		i++;
+	}
+	return (exch_comp_ptr);
+}
+
+struct master * CLASS_QUALIFIER
+Get_exch_master(const cxxExchComp * ec)
+{
+	struct master *master_ptr = NULL;
+	const cxxNameDouble &totals = ec->Get_totals();
+	for (std::map < std::string, double >::const_iterator it =
+		 totals.begin(); it != totals.end(); it++)
+	{
+
+		/* Find master species */
+		char *eltName = string_hsave(it->first.c_str());
+		assert(it->first.size() != 0);
+		struct element *elt_ptr = element_store(eltName);
+		if (elt_ptr->master == NULL)
+		{
+			std::ostringstream error_oss;
+			error_oss << "Master species not in data base for " << elt_ptr->
+				name << std::endl;
+			//Utilities::error_msg(error_oss.str(), STOP);
+			error_msg(error_oss.str().c_str(), CONTINUE);
+			return (NULL);
+		}
+		if (elt_ptr->master->type != EX)
+			continue;
+		master_ptr = elt_ptr->master;
+		break;
+	}
+	if (master_ptr == NULL)
+	{
+		const cxxNameDouble &formula_totals = ec->Get_formula_totals();
+		for (std::map < std::string, double >::const_iterator it =
+			 formula_totals.begin(); it != formula_totals.end(); it++)
+		{
+
+			/* Find master species */
+			char *eltName = string_hsave(it->first.c_str());
+			assert(it->first.size() != 0);
+			struct element *elt_ptr = element_store(eltName);
+			if (elt_ptr->master == NULL)
+			{
+				std::ostringstream error_oss;
+				error_oss << "Master species not in data base for " <<
+					elt_ptr->name << std::endl;
+				//Utilities::error_msg(error_oss.str(), STOP);
+				error_msg(error_oss.str().c_str(), CONTINUE);
+				return (NULL);
+			}
+			if (elt_ptr->master->type != EX)
+				continue;
+			master_ptr = elt_ptr->master;
+			break;
+		}
+	}
+	if (master_ptr == NULL)
+	{
+		std::ostringstream error_oss;
+		error_oss <<
+			"Exchange formula does not contain an exchange master species, "
+			<< ec->Get_formula() << std::endl;
+		//Utilities::error_msg(error_oss.str(), CONTINUE);
+		error_msg(error_oss.str().c_str(), CONTINUE);
+
+		std::ostringstream oss;
+		ec->dump_raw(oss, 0);
+		std::cerr << oss.str();
+
+	}
+	return (master_ptr);
+}
+
 #include "../cxxKinetics.h"
 struct kinetics * CLASS_QUALIFIER
 cxxKinetics2kinetics(cxxKinetics * kin)
@@ -8339,7 +8480,7 @@ cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp > *el)
 }
 
 struct name_coef * CLASS_QUALIFIER
-cxxNameDouble2name_coef(cxxNameDouble * nd)
+cxxNameDouble2name_coef(const cxxNameDouble * nd)
 		//
 		// Builds a name_coef structure from instance of cxxNameDouble 
 		//
@@ -8361,7 +8502,7 @@ cxxNameDouble2name_coef(cxxNameDouble * nd)
 }
 
 struct elt_list * CLASS_QUALIFIER
-cxxNameDouble2elt_list(cxxNameDouble * nd)
+cxxNameDouble2elt_list(const cxxNameDouble * nd)
 		//
 		// Builds a exch_comp structure from instance of cxxNameDouble 
 		//
@@ -8374,7 +8515,7 @@ cxxNameDouble2elt_list(cxxNameDouble * nd)
 	if (elt_list_ptr == NULL)
 		malloc_error();
 	int i = 0;
-	for (cxxNameDouble::iterator it = nd->begin(); it != nd->end(); ++it)
+	for (cxxNameDouble::const_iterator it = nd->begin(); it != nd->end(); ++it)
 	{
 		elt_list_ptr[i].elt = element_store(it->first.c_str());
 		elt_list_ptr[i].coef = it->second;
