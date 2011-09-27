@@ -598,6 +598,12 @@ struct exchange * cxxExchange2exchange(cxxExchange * ex);
 class cxxExchComp;
 struct exch_comp * cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el);
 struct master * Get_exch_master(const cxxExchComp * ec);
+class cxxGasPhase;
+struct gas_phase * cxxGasPhase2gas_phase(const cxxGasPhase * gp);
+struct gas_comp * cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp);
+class cxxTemperature;
+struct temperature * cxxTemperature2temperature(const cxxTemperature *temp);
+
 #endif
 
 /* tidy.c */

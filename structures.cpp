@@ -8368,6 +8368,70 @@ Get_exch_master(const cxxExchComp * ec)
 	return (master_ptr);
 }
 
+#include "../GasPhase.h"
+struct gas_phase * CLASS_QUALIFIER
+cxxGasPhase2gas_phase(const cxxGasPhase * gp)
+		//
+		// Builds a gas_phase structure from instance of cxxGasPhase 
+		//
+{
+	struct gas_phase *gas_phase_ptr = gas_phase_alloc();
+
+	gas_phase_ptr->description = string_duplicate (gp->get_description().c_str());
+	gas_phase_ptr->n_user = gp->get_n_user();
+	gas_phase_ptr->n_user_end = gp->get_n_user_end();
+	gas_phase_ptr->new_def = FALSE;
+	gas_phase_ptr->solution_equilibria = FALSE;
+	gas_phase_ptr->n_solution = -2;
+	if (gp->Get_type() == cxxGasPhase::GP_PRESSURE)
+	{
+		gas_phase_ptr->type = PRESSURE;
+	}
+	else
+	{
+		gas_phase_ptr->type = VOLUME;
+	}
+	gas_phase_ptr->total_p = gp->Get_total_p();
+	gas_phase_ptr->volume = gp->Get_volume();
+	gas_phase_ptr->temperature = 273.15;
+
+	// comps
+	gas_phase_ptr->count_comps = (int) gp->Get_gasPhaseComps().size();
+	gas_phase_ptr->comps =
+		(struct gas_comp *) free_check_null(gas_phase_ptr->comps);
+	//gas_phase_ptr->comps = this->cxxGasPhaseComp2gas_comp(P_INSTANCE);
+	gas_phase_ptr->comps = cxxGasPhaseComp2gas_comp(gp);
+
+	return (gas_phase_ptr);
+}
+
+struct gas_comp * CLASS_QUALIFIER
+cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
+{
+	struct gas_comp *gas_comp_ptr = NULL;
+	if (gp->Get_gasPhaseComps().size() > 0)
+	{
+		int i = 0;
+		int n;
+		gas_comp_ptr = (struct gas_comp *)
+			PHRQ_malloc((size_t) (gp->Get_gasPhaseComps().size() * sizeof(struct gas_comp)));
+		if (gas_comp_ptr == NULL)
+			malloc_error();
+		for (cxxNameDouble::const_iterator it = gp->Get_gasPhaseComps().begin();
+			 it != gp->Get_gasPhaseComps().end(); it++)
+		{
+			gas_comp_ptr[i].name = string_hsave(it->first.c_str());
+			assert(it->first.size() != 0);
+			gas_comp_ptr[i].phase = phase_bsearch(it->first.c_str(), &n, TRUE);
+			gas_comp_ptr[i].p_read = 0;
+			gas_comp_ptr[i].moles = it->second;
+			gas_comp_ptr[i].initial_moles = 0;
+			i++;
+		}
+	}
+	return (gas_comp_ptr);
+}
+
 #include "../cxxKinetics.h"
 struct kinetics * CLASS_QUALIFIER
 cxxKinetics2kinetics(cxxKinetics * kin)
@@ -8524,5 +8588,41 @@ cxxNameDouble2elt_list(const cxxNameDouble * nd)
 	elt_list_ptr[i].elt = NULL;
 	elt_list_ptr[i].coef = 0;
 	return (elt_list_ptr);
+}
+
+#include "../Temperature.h"
+struct temperature * CLASS_QUALIFIER
+cxxTemperature2temperature(const cxxTemperature *temp)
+		//
+		// Builds a temperature structure from instance of cxxTemperature 
+		//
+{
+	struct temperature *temperature_ptr;
+	temperature_ptr = (struct temperature *) PHRQ_malloc(sizeof(struct temperature));
+	if (temperature_ptr == NULL)
+		malloc_error();
+
+	temperature_ptr->description = string_duplicate (temp->get_description().c_str());
+	temperature_ptr->n_user = temp->get_n_user();
+	temperature_ptr->n_user_end = temp->get_n_user_end();
+
+	// temps
+	temperature_ptr->t = NULL;
+	if (temp->Get_temps().size() > 0)
+	{
+		temperature_ptr->t = (LDBLE *) PHRQ_malloc((size_t) (temp->Get_temps().size() * sizeof(double)));
+		if (temperature_ptr->t == NULL)
+			malloc_error();
+		std::copy(temp->Get_temps().begin(), temp->Get_temps().end(), temperature_ptr->t);
+	}
+	if (temp->Get_equalIncrements())
+	{
+		temperature_ptr->count_t = -(int) temp->Get_countTemps();
+	}
+	else
+	{
+		temperature_ptr->count_t = (int) temp->Get_temps().size();
+	}
+	return (temperature_ptr);
 }
 #endif
