@@ -8674,16 +8674,16 @@ cxxSolution2solution(const cxxSolution * sol)
 	solution_ptr->n_user = sol->get_n_user();
 	solution_ptr->n_user_end = sol->get_n_user_end();
 	solution_ptr->new_def = FALSE;
-	solution_ptr->tc = sol->get_tc();
-	solution_ptr->ph = sol->get_ph();
-	solution_ptr->solution_pe = sol->get_pe();
-	solution_ptr->mu = sol->get_mu();
-	solution_ptr->ah2o = sol->get_ah2o();
-	solution_ptr->total_h = sol->get_total_h();
-	solution_ptr->total_o = sol->get_total_o();
-	solution_ptr->cb = sol->get_cb();
-	solution_ptr->mass_water = sol->get_mass_water();
-	solution_ptr->total_alkalinity = sol->get_total_alkalinity();
+	solution_ptr->tc = sol->Get_tc();
+	solution_ptr->ph = sol->Get_ph();
+	solution_ptr->solution_pe = sol->Get_pe();
+	solution_ptr->mu = sol->Get_mu();
+	solution_ptr->ah2o = sol->Get_ah2o();
+	solution_ptr->total_h = sol->Get_total_h();
+	solution_ptr->total_o = sol->Get_total_o();
+	solution_ptr->cb = sol->Get_cb();
+	solution_ptr->mass_water = sol->Get_mass_water();
+	solution_ptr->total_alkalinity = sol->Get_total_alkalinity();
 	solution_ptr->density = 1.0;
 	solution_ptr->units = moles_per_kilogram_string;
 	solution_ptr->default_pe = 0;
@@ -8693,21 +8693,21 @@ cxxSolution2solution(const cxxSolution * sol)
 	solution_ptr->totals =
 		(struct conc *) free_check_null(solution_ptr->totals);
 	//solution_ptr->totals = this->totals.conc(P_INSTANCE);
-	solution_ptr->totals = cxxNameDouble2conc(&sol->get_totals());
+	solution_ptr->totals = cxxNameDouble2conc(&sol->Get_totals());
 
 
 	// master_activity
 	solution_ptr->master_activity =
 		(struct master_activity *) free_check_null(solution_ptr->master_activity);
 	//solution_ptr->master_activity = this->master_activity.master_activity(P_INSTANCE);
-	solution_ptr->master_activity = cxxNameDouble2master_activity(&sol->get_master_activity());
+	solution_ptr->master_activity = cxxNameDouble2master_activity(&sol->Get_master_activity());
 	solution_ptr->count_master_activity =
-		(int) sol->get_master_activity().size() + 1;
+		(int) sol->Get_master_activity().size() + 1;
 
 	// species_gamma
 	//solution_ptr->species_gamma = this->species_gamma.master_activity(P_INSTANCE);
-	solution_ptr->species_gamma = cxxNameDouble2master_activity(&sol->get_species_gamma());
-	solution_ptr->count_species_gamma = (int) sol->get_species_gamma().size();
+	solution_ptr->species_gamma = cxxNameDouble2master_activity(&sol->Get_species_gamma());
+	solution_ptr->count_species_gamma = (int) sol->Get_species_gamma().size();
 
 	// isotopes
 	solution_ptr->isotopes =
@@ -8738,20 +8738,125 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 		for (cxxSolutionIsotopeList::const_iterator it = il->begin();
 			 it != il->end(); ++it)
 		{
-			iso[i].isotope_number = it->get_isotope_number();
-			iso[i].elt_name = string_hsave(it->get_elt_name().c_str());
-			iso[i].total = it->get_total();
-			iso[i].ratio = it->get_ratio();
-			iso[i].ratio_uncertainty = it->get_ratio_uncertainty();
+			iso[i].isotope_number = it->Get_isotope_number();
+			iso[i].elt_name = string_hsave(it->Get_elt_name().c_str());
+			iso[i].total = it->Get_total();
+			iso[i].ratio = it->Get_ratio();
+			iso[i].ratio_uncertainty = it->Get_ratio_uncertainty();
 			//iso[i].master = it->master(P_INSTANCE);
-			iso[i].master = master_bsearch(it->get_elt_name().c_str());
+			iso[i].master = master_bsearch(it->Get_elt_name().c_str());
 			//iso[i].primary = it->primary(P_INSTANCE);
-			char * str = string_hsave(it->get_elt_name().c_str());
+			char * str = string_hsave(it->Get_elt_name().c_str());
 			iso[i].primary = master_bsearch_primary(str);
 			i++;
 		}
 	}
 	return (iso);
+}
+
+#include "../SSassemblage.h"
+#include "../SSassemblageSS.h"
+struct s_s_assemblage * CLASS_QUALIFIER
+cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
+		//
+		// Builds a s_s_assemblage structure from instance of cxxSSassemblage 
+		//
+{
+	struct s_s_assemblage *s_s_assemblage_ptr = s_s_assemblage_alloc();
+
+	s_s_assemblage_ptr->description = string_duplicate (ss->get_description().c_str());
+	s_s_assemblage_ptr->n_user = ss->get_n_user();
+	s_s_assemblage_ptr->n_user_end = ss->get_n_user_end();
+	s_s_assemblage_ptr->new_def = FALSE;
+	s_s_assemblage_ptr->count_s_s = (int) ss->get_ssAssemblageSSs().size();
+	//s_s_assemblage_ptr->s_s =
+	//	cxxSSassemblageSS::cxxSSassemblageSS2s_s(P_INSTANCE_COMMA this->ssAssemblageSSs);
+	s_s_assemblage_ptr->s_s = cxxSSassemblageSS2s_s(&(ss->get_ssAssemblageSSs()));
+	return (s_s_assemblage_ptr);
+}
+
+struct s_s * CLASS_QUALIFIER
+cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp)
+		//
+		// Builds s_s structure from of cxxSSassemblageSS 
+		//
+{
+
+	// 
+	//  generate s_s structures
+	//
+	struct s_s *s_s_ptr =
+		(struct s_s *) PHRQ_malloc((size_t) (sscomp->size() * sizeof(struct s_s)));
+	if (s_s_ptr == NULL)
+		malloc_error();
+	int j = 0;
+	for (std::map < std::string, cxxSSassemblageSS >::const_iterator it = sscomp->begin();
+		 it != sscomp->end(); ++it)
+	{
+		s_s_ptr[j].name = string_hsave((*it).second.Get_name().c_str());
+		if ((*it).second.Get_name().size() <= 0)
+		{
+			error_msg("Name of a solid solution not defined in solid-solution assemblage. Error in _MODIFY definition?\n", STOP);
+		}
+		assert((*it).second.Get_name().size() > 0);
+		//s_s_ptr[j].total_moles                                 = it->total_moles;
+		s_s_ptr[j].total_moles = 0;
+		s_s_ptr[j].dn = 0;
+		s_s_ptr[j].a0 = (*it).second.Get_a0();
+		s_s_ptr[j].a1 = (*it).second.Get_a1();
+		s_s_ptr[j].ag0 = (*it).second.Get_ag0();
+		s_s_ptr[j].ag1 = (*it).second.Get_ag1();
+		//s_s_ptr[j].ag0                                         = 0;
+		//s_s_ptr[j].ag1                                         = 0;
+		s_s_ptr[j].s_s_in = TRUE;
+		s_s_ptr[j].miscibility = (*it).second.Get_miscibility();
+		//s_s_ptr[j].spinodal                                    = it->spinodal;
+		s_s_ptr[j].spinodal = FALSE;
+		//s_s_ptr[j].tk                                          = it->tk;
+		s_s_ptr[j].tk = 273.15;
+		s_s_ptr[j].xb1 = (*it).second.Get_xb1();
+		s_s_ptr[j].xb2 = (*it).second.Get_xb2();
+		s_s_ptr[j].input_case = 0;
+		s_s_ptr[j].p[0] = 0;
+		s_s_ptr[j].p[1] = 0;
+		s_s_ptr[j].p[2] = 0;
+		s_s_ptr[j].p[3] = 0;
+		// 
+		//  generate s_s_comp structures
+		//
+		s_s_ptr[j].count_comps = (int) (*it).second.Get_comps().size();
+		s_s_ptr[j].comps = NULL;
+		if ((*it).second.Get_comps().size() > 0)
+		{
+			int i = 0;
+			int n;
+			struct s_s_comp *s_s_comp_ptr =
+				(struct s_s_comp *)	PHRQ_malloc((size_t) ((*it).second.Get_comps().size() * sizeof(struct s_s_comp)));
+			if (s_s_comp_ptr == NULL)
+				malloc_error();
+			for (cxxNameDouble::const_iterator itc = (*it).second.Get_comps().begin();
+				 itc != (*it).second.Get_comps().end(); ++itc)
+			{
+				s_s_comp_ptr[i].name = string_hsave(itc->first.c_str());
+				assert(itc->first.size() > 0);
+				s_s_comp_ptr[i].phase = phase_bsearch(itc->first.c_str(), &n, TRUE);
+				s_s_comp_ptr[i].initial_moles = 0;
+				s_s_comp_ptr[i].moles = itc->second;
+				s_s_comp_ptr[i].init_moles = 0;
+				s_s_comp_ptr[i].delta = 0;
+				s_s_comp_ptr[i].fraction_x = 0;
+				s_s_comp_ptr[i].log10_lambda = 0;
+				s_s_comp_ptr[i].log10_fraction_x = 0;
+				s_s_comp_ptr[i].dn = 0;
+				s_s_comp_ptr[i].dnc = 0;
+				s_s_comp_ptr[i].dnb = 0;
+				i++;
+			}
+			s_s_ptr[j].comps = s_s_comp_ptr;
+		}
+		j++;
+	}
+	return (s_s_ptr);
 }
 
 struct conc * CLASS_QUALIFIER

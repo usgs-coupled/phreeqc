@@ -282,11 +282,11 @@ step(LDBLE step_fraction)
 		if (use.s_s_assemblage_in)
 		{
 			cxxSSassemblage *ss = sys_bin.getSSassemblage(-1);
-			std::map <std::string, cxxSSassemblageSS>::iterator it; 
+			std::map <std::string, cxxSSassemblageSS>::const_iterator it; 
 			for (it = ss->get_ssAssemblageSSs().begin(); it != ss->get_ssAssemblageSSs().end(); it++)
 			{
 				cxxNameDouble::const_iterator comp_it;
-				for (comp_it = (it->second).get_comps().begin(); comp_it != (it->second).get_comps().end(); comp_it++)
+				for (comp_it = (it->second).Get_comps().begin(); comp_it != (it->second).Get_comps().end(); comp_it++)
 				{
 					int n;
 					struct phase *p_ptr = phase_bsearch((comp_it->first).c_str(), &n, FALSE);
