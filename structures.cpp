@@ -8660,6 +8660,132 @@ cxxReaction2irrev(const cxxReaction * rxn)
 	return (irrev_ptr);
 }
 
+#include "../Solution.h"
+struct solution * CLASS_QUALIFIER
+cxxSolution2solution(const cxxSolution * sol)
+		//
+		// Builds a solution structure from instance of cxxSolution 
+		//
+{
+
+	struct solution *solution_ptr = solution_alloc();
+
+	solution_ptr->description = string_duplicate (sol->get_description().c_str());
+	solution_ptr->n_user = sol->get_n_user();
+	solution_ptr->n_user_end = sol->get_n_user_end();
+	solution_ptr->new_def = FALSE;
+	solution_ptr->tc = sol->get_tc();
+	solution_ptr->ph = sol->get_ph();
+	solution_ptr->solution_pe = sol->get_pe();
+	solution_ptr->mu = sol->get_mu();
+	solution_ptr->ah2o = sol->get_ah2o();
+	solution_ptr->total_h = sol->get_total_h();
+	solution_ptr->total_o = sol->get_total_o();
+	solution_ptr->cb = sol->get_cb();
+	solution_ptr->mass_water = sol->get_mass_water();
+	solution_ptr->total_alkalinity = sol->get_total_alkalinity();
+	solution_ptr->density = 1.0;
+	solution_ptr->units = moles_per_kilogram_string;
+	solution_ptr->default_pe = 0;
+	// pe_data
+
+	// totals
+	solution_ptr->totals =
+		(struct conc *) free_check_null(solution_ptr->totals);
+	//solution_ptr->totals = this->totals.conc(P_INSTANCE);
+	solution_ptr->totals = cxxNameDouble2conc(&sol->get_totals());
+
+
+	// master_activity
+	solution_ptr->master_activity =
+		(struct master_activity *) free_check_null(solution_ptr->master_activity);
+	//solution_ptr->master_activity = this->master_activity.master_activity(P_INSTANCE);
+	solution_ptr->master_activity = cxxNameDouble2master_activity(&sol->get_master_activity());
+	solution_ptr->count_master_activity =
+		(int) sol->get_master_activity().size() + 1;
+
+	// species_gamma
+	//solution_ptr->species_gamma = this->species_gamma.master_activity(P_INSTANCE);
+	solution_ptr->species_gamma = cxxNameDouble2master_activity(&sol->get_species_gamma());
+	solution_ptr->count_species_gamma = (int) sol->get_species_gamma().size();
+
+	// isotopes
+	solution_ptr->isotopes =
+		(struct isotope *) free_check_null(solution_ptr->isotopes);
+	//solution_ptr->isotopes = cxxSolutionIsotope::list2isotope(this->isotopes);
+	solution_ptr->isotopes = cxxSolutionIsotopeList2isotope(&sol->Get_isotopes());
+	solution_ptr->count_isotopes = (int) sol->Get_isotopes().size();
+
+	return (solution_ptr);
+}
+
+#include "../SolutionIsotopeList.h"
+struct isotope * CLASS_QUALIFIER
+cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
+{
+	struct isotope *iso;
+	if (il->size() <= 0)
+	{
+		return NULL;
+	}
+	else
+	{
+		iso =
+			(struct isotope *) PHRQ_malloc((size_t) ((il->size()) * sizeof(struct isotope)));
+		if (iso == NULL)
+			malloc_error();
+		int i = 0;
+		for (cxxSolutionIsotopeList::const_iterator it = il->begin();
+			 it != il->end(); ++it)
+		{
+			iso[i].isotope_number = it->get_isotope_number();
+			iso[i].elt_name = string_hsave(it->get_elt_name().c_str());
+			iso[i].total = it->get_total();
+			iso[i].ratio = it->get_ratio();
+			iso[i].ratio_uncertainty = it->get_ratio_uncertainty();
+			//iso[i].master = it->master(P_INSTANCE);
+			iso[i].master = master_bsearch(it->get_elt_name().c_str());
+			//iso[i].primary = it->primary(P_INSTANCE);
+			char * str = string_hsave(it->get_elt_name().c_str());
+			iso[i].primary = master_bsearch_primary(str);
+			i++;
+		}
+	}
+	return (iso);
+}
+
+struct conc * CLASS_QUALIFIER
+cxxNameDouble2conc(const cxxNameDouble * nd) 
+		// for Solutions, not ISolutions
+		// takes a map of (elt name, moles)
+		// returns list of conc structures
+{
+	struct conc *c;
+	assert(nd->type == cxxNameDouble::ND_ELT_MOLES);
+	c = (struct conc *)
+		PHRQ_malloc((size_t) ((nd->size() + 1) * sizeof(struct conc)));
+	if (c == NULL)
+		malloc_error();
+	int i = 0;
+	for (cxxNameDouble::const_iterator it = nd->begin(); it != nd->end(); ++it)
+	{
+		c[i].description = string_hsave(it->first.c_str());
+		c[i].moles = it->second;
+		c[i].input_conc = it->second;
+		c[i].units = NULL;
+		c[i].equation_name = NULL;
+		c[i].phase_si = 0.0;
+		c[i].n_pe = 0;
+		c[i].as = NULL;
+		c[i].gfw = 0.0;
+		//c[i].skip                = 0;
+		c[i].phase = NULL;
+		i++;
+	}
+	c[i].description = NULL;
+	return (c);
+}
+
 struct name_coef * CLASS_QUALIFIER
 cxxNameDouble2name_coef(const cxxNameDouble * nd)
 		//
@@ -8705,6 +8831,59 @@ cxxNameDouble2elt_list(const cxxNameDouble * nd)
 	elt_list_ptr[i].elt = NULL;
 	elt_list_ptr[i].coef = 0;
 	return (elt_list_ptr);
+}
+
+struct master_activity * CLASS_QUALIFIER
+cxxNameDouble2master_activity(const cxxNameDouble * nd) 
+		//
+		// Builds a list of master_activity structures from instance of cxxNameDouble 
+		//
+{
+	int i = 0;
+	assert(nd->type == cxxNameDouble::ND_SPECIES_LA
+		   || nd->type == cxxNameDouble::ND_SPECIES_GAMMA);
+	struct master_activity *master_activity_ptr = NULL;
+	switch (nd->type)
+	{
+	case cxxNameDouble::ND_SPECIES_LA:
+		{
+			master_activity_ptr =
+				(struct master_activity *) PHRQ_malloc((size_t) ((nd->size() + 1) * sizeof(struct master_activity)));
+			if (master_activity_ptr == NULL)
+				malloc_error();
+			for (cxxNameDouble::const_iterator it = nd->begin(); it != nd->end();
+				 it++)
+			{
+				master_activity_ptr[i].description = string_hsave(it->first.c_str());
+				master_activity_ptr[i].la = it->second;
+				i++;
+			}
+		}
+		master_activity_ptr[i].description = NULL;
+		break;
+	case cxxNameDouble::ND_SPECIES_GAMMA:
+		{
+			if (nd->size() > 0)
+			{
+				master_activity_ptr =
+					(struct master_activity *) PHRQ_malloc((size_t) ((nd->size()) * sizeof(struct master_activity)));
+				if (master_activity_ptr == NULL)
+					malloc_error();
+				for (cxxNameDouble::const_iterator it = nd->begin(); it != nd->end();
+					 it++)
+				{
+					master_activity_ptr[i].description = string_hsave(it->first.c_str());
+					master_activity_ptr[i].la = it->second;
+					i++;
+				}
+			}
+		}
+		break;
+	case cxxNameDouble::ND_ELT_MOLES:
+	case cxxNameDouble::ND_NAME_COEF:
+		break;
+	}
+	return (master_activity_ptr);
 }
 
 #include "../Temperature.h"

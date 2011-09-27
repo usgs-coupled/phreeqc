@@ -238,7 +238,10 @@ step(LDBLE step_fraction)
 	if (use.pp_assemblage_in || use.s_s_assemblage_in)
 	{
 		cxxStorageBin sys_bin(&phrq_io);
-		cxxSolution soln(PHREEQC_THIS_COMMA -1, &phrq_io);
+		//cxxSolution soln(PHREEQC_THIS_COMMA -1, &phrq_io);
+		int n;
+		struct solution *sol = solution_bsearch(-1, &n, false);
+		cxxSolution soln(sol, &phrq_io);
 		sys_bin.setSolution(-1, soln);
 		if (use.pp_assemblage_in)
 		{

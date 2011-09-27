@@ -589,10 +589,8 @@ class cxxMix;
 struct mix * cxxMix2mix(cxxMix * mx);
 class cxxKinetics;
 struct kinetics *cxxKinetics2kinetics(cxxKinetics * kin);
-struct elt_list * cxxNameDouble2elt_list(const cxxNameDouble * nd);
 class cxxKineticsComp;
 struct kinetics_comp * cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp >  * el);
-struct name_coef * cxxNameDouble2name_coef(const cxxNameDouble * nd);
 class cxxExchange;
 struct exchange * cxxExchange2exchange(cxxExchange * ex);
 class cxxExchComp;
@@ -601,15 +599,22 @@ struct master * Get_exch_master(const cxxExchComp * ec);
 class cxxGasPhase;
 struct gas_phase * cxxGasPhase2gas_phase(const cxxGasPhase * gp);
 struct gas_comp * cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp);
-class cxxTemperature;
-struct temperature * cxxTemperature2temperature(const cxxTemperature *temp);
 class cxxPPassemblage;
 struct pp_assemblage * cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp);
 class cxxPPassemblageComp;
 struct pure_phase * cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp > * ppc);
 class cxxReaction;
 struct irrev * cxxReaction2irrev(const cxxReaction * rxn);
-
+class cxxSolution;
+struct solution * cxxSolution2solution(const cxxSolution * sol);
+class cxxSolutionIsotopeList;
+struct isotope * cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il);
+class cxxTemperature;
+struct temperature * cxxTemperature2temperature(const cxxTemperature *temp);
+struct conc * cxxNameDouble2conc(const cxxNameDouble *nd); 
+struct elt_list * cxxNameDouble2elt_list(const cxxNameDouble * nd);
+struct name_coef * cxxNameDouble2name_coef(const cxxNameDouble * nd);
+struct master_activity * cxxNameDouble2master_activity(const cxxNameDouble * nd);
 #endif
 
 /* tidy.c */
