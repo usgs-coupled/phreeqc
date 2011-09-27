@@ -8279,7 +8279,7 @@ cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
 		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_totals()));
 		exch_comp_ptr[i].moles = (*it).second.Get_moles();
 		//exch_comp_ptr[i].formula_totals = (*it).second.formula_totals.elt_list(P_INSTANCE);
-		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_formula_totals()));
+		exch_comp_ptr[i].formula_totals = cxxNameDouble2elt_list(&((*it).second.Get_formula_totals()));
 		exch_comp_ptr[i].la = (*it).second.Get_la();
 		exch_comp_ptr[i].charge_balance = (*it).second.Get_charge_balance();
 		if ((*it).second.Get_phase_name().size() == 0)
@@ -8541,6 +8541,123 @@ cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp > *el)
 		i++;
 	}
 	return (kinetics_comp_ptr);
+}
+
+#include "../PPassemblage.h"
+struct pp_assemblage * CLASS_QUALIFIER
+cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
+		//
+		// Builds a pp_assemblage structure from instance of cxxPPassemblage 
+		//
+{
+	struct pp_assemblage *pp_assemblage_ptr = pp_assemblage_alloc();
+
+	pp_assemblage_ptr->description = string_duplicate (pp->get_description().c_str());
+	pp_assemblage_ptr->n_user = pp->get_n_user();
+	pp_assemblage_ptr->n_user_end = pp->get_n_user_end();
+	pp_assemblage_ptr->new_def = FALSE;
+	pp_assemblage_ptr->count_comps = (int) pp->Get_ppAssemblageComps().size();
+	pp_assemblage_ptr->pure_phases =
+		(struct pure_phase *) free_check_null(pp_assemblage_ptr->pure_phases);
+	//pp_assemblage_ptr->pure_phases =
+	//	cxxPPassemblageComp::cxxPPassemblageComp2pure_phase(P_INSTANCE_COMMA this->ppAssemblageComps);
+	pp_assemblage_ptr->pure_phases =
+		cxxPPassemblageComp2pure_phase(&pp->Get_ppAssemblageComps());	
+	//pp_assemblage_ptr->next_elt = this->eltList.elt_list(P_INSTANCE);
+	pp_assemblage_ptr->next_elt = cxxNameDouble2elt_list(&pp->Get_eltList());
+	return (pp_assemblage_ptr);
+}
+
+#include "../PPassemblageComp.h"
+struct pure_phase * CLASS_QUALIFIER
+cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp > * ppc)
+		//
+		// Builds pure_phase structure from of cxxPPassemblageComp 
+		//
+{
+	struct pure_phase *pure_phase_ptr =	(struct pure_phase *) PHRQ_malloc((size_t) (ppc->size() * sizeof(struct pure_phase)));
+	if (pure_phase_ptr == NULL)
+		malloc_error();
+
+	int i = 0;
+	for (std::map < std::string, cxxPPassemblageComp >::const_iterator it = ppc->begin();
+		 it != ppc->end(); ++it)
+	{
+		int n;
+		//pure_phase_ptr[i].phase = (*it).second.get_phase(P_INSTANCE);
+		pure_phase_ptr[i].phase = phase_bsearch((*it).second.Get_name().c_str(), &n, FALSE);
+		if ((*it).second.Get_name().size() == 0)
+			pure_phase_ptr[i].name = NULL;
+		else
+			pure_phase_ptr[i].name = string_hsave((*it).second.Get_name().c_str());
+		if ((*it).second.Get_add_formula().size() == 0)
+			pure_phase_ptr[i].add_formula = NULL;
+		else
+			pure_phase_ptr[i].add_formula = string_hsave((*it).second.Get_add_formula().c_str());
+		pure_phase_ptr[i].si = (*it).second.Get_si();
+		pure_phase_ptr[i].moles = (*it).second.Get_moles();
+		pure_phase_ptr[i].delta = (*it).second.Get_delta();
+		pure_phase_ptr[i].initial_moles = (*it).second.Get_initial_moles();
+		pure_phase_ptr[i].force_equality = (int) (*it).second.Get_force_equality();
+		pure_phase_ptr[i].dissolve_only = (int) (*it).second.Get_dissolve_only();
+		pure_phase_ptr[i].precipitate_only = (int) (*it).second.Get_precipitate_only();
+		i++;
+	}
+	return (pure_phase_ptr);
+}
+
+#include "../Reaction.h"
+struct irrev * CLASS_QUALIFIER
+cxxReaction2irrev(const cxxReaction * rxn)
+		//
+		// Builds a irrev structure from instance of cxxReaction 
+		//
+{
+	struct irrev *irrev_ptr;
+	irrev_ptr = (struct irrev *) PHRQ_malloc(sizeof(struct irrev));
+	if (irrev_ptr == NULL)
+		malloc_error();
+
+	irrev_ptr->description = string_duplicate (rxn->get_description().c_str());
+	irrev_ptr->n_user = rxn->get_n_user();
+	irrev_ptr->n_user_end = rxn->get_n_user_end();
+
+	//irrev_ptr->list = this->reactantList.name_coef(P_INSTANCE);
+	irrev_ptr->list = cxxNameDouble2name_coef(&rxn->Get_reactantList());
+	irrev_ptr->count_list = (int) rxn->Get_reactantList().size();
+	if (rxn->Get_elementList().size() > 0)
+	{
+		//irrev_ptr->elts = this->elementList.elt_list(P_INSTANCE);
+		irrev_ptr->elts = cxxNameDouble2elt_list(&rxn->Get_elementList());
+	}
+	else
+	{
+		// NULL value causes reaction stoichiometry to be calculated
+		irrev_ptr->elts = NULL;
+	}
+	// steps
+	irrev_ptr->steps = NULL;
+	if (rxn->Get_steps().size() > 0)
+	{
+		irrev_ptr->steps =
+			(LDBLE *) PHRQ_malloc((size_t) (rxn->Get_steps().size() * sizeof(double)));
+		if (irrev_ptr->steps == NULL)
+			malloc_error();
+		std::copy(rxn->Get_steps().begin(), rxn->Get_steps().end(), irrev_ptr->steps);
+	}
+	if (rxn->Get_equalIncrements())
+	{
+		irrev_ptr->count_steps = -rxn->Get_countSteps();
+	}
+	else
+	{
+		irrev_ptr->count_steps = (int) rxn->Get_steps().size();
+	}
+	if (rxn->Get_units().size() == 0)
+		irrev_ptr->units = NULL;
+	else
+		irrev_ptr->units = string_hsave(rxn->Get_units().c_str());
+	return (irrev_ptr);
 }
 
 struct name_coef * CLASS_QUALIFIER

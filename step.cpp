@@ -256,8 +256,8 @@ step(LDBLE step_fraction)
 		if (use.pp_assemblage_in)
 		{
 			cxxPPassemblage *pp = sys_bin.getPPassemblage(-1);
-			std::map <std::string, cxxPPassemblageComp>::iterator it; 
-			for (it = pp->get_ppAssemblageComps().begin(); it != pp->get_ppAssemblageComps().end(); it++)
+			std::map <std::string, cxxPPassemblageComp>::const_iterator it; 
+			for (it = pp->Get_ppAssemblageComps().begin(); it != pp->Get_ppAssemblageComps().end(); it++)
 			{
 				int n;
 				struct phase *p_ptr = phase_bsearch((it->first).c_str(), &n, FALSE);

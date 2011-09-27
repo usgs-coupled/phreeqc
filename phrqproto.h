@@ -603,6 +603,12 @@ struct gas_phase * cxxGasPhase2gas_phase(const cxxGasPhase * gp);
 struct gas_comp * cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp);
 class cxxTemperature;
 struct temperature * cxxTemperature2temperature(const cxxTemperature *temp);
+class cxxPPassemblage;
+struct pp_assemblage * cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp);
+class cxxPPassemblageComp;
+struct pure_phase * cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp > * ppc);
+class cxxReaction;
+struct irrev * cxxReaction2irrev(const cxxReaction * rxn);
 
 #endif
 
