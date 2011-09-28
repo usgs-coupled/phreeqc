@@ -278,11 +278,6 @@ tidy_model(void)
 /* surfaces */
 	if (new_surface)
 		surface_sort();
-#ifdef SKIP
-/* mixtures */
-	qsort(mix, (size_t) count_mix, (size_t) sizeof(struct mix), mix_compare);
-#endif
-
 /* mixtures */
 /* !!!!!
  * In transport mode, with stagnant cells, cell number is 'n_mix_user' for
@@ -1486,16 +1481,6 @@ tidy_inverse(void)
 		inverse[i].count_elts = count_in;
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
-#ifdef SKIP
-/*  make another pointer alkalinity uncertainties */
-			if (inverse[i].elts[j].master == master_alk_ptr)
-			{
-				inverse[i].alk_uncertainties =
-					free_check_null(inverse[i].alk_uncertainties);
-				inverse[i].alk_uncertainties =
-					inverse[i].elts[j].uncertainties;
-			}
-#endif
 /* debug
 			output_msg(OUTPUT_MESSAGE, "\t%d\t%s", j, inverse[i].elts[j].master->elt->name);
 			for (k = 0; k < inverse[i].count_solns; k++) {
@@ -2427,16 +2412,6 @@ tidy_species(void)
 			}
 		}
 	}
-#ifdef SKIP
-	for (i = 0; i < count_s; i++)
-	{
-		if (match_elts_in_species(s[i]->name, "*{C,[13C]}{O,[18O]}3*") ==
-			TRUE)
-		{
-			output_msg(OUTPUT_MESSAGE, "Match: %s\n", s[i]->name);
-		}
-	}
-#endif
 	return (OK);
 }
 

@@ -783,28 +783,6 @@ elt_list_print(struct elt_list *elt_list_ptr)
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-elt_list_print0(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *  Duplicates the elt_list structure pointed to by elt_list_ptr_old.
- */
-	int i;
-/*
- *   Debug print for element list
- */
-	output_msg(OUTPUT_STDERR, "Elt_list\n");
-	for (i = 0; i < count_elts; i++)
-	{
-		output_msg(OUTPUT_STDERR, "\t%s\t%e\n", elt_list[i].elt->name,
-				   (double) elt_list[i].coef);
-	}
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 struct elt_list * CLASS_QUALIFIER
 elt_list_save(void)
@@ -1521,9 +1499,6 @@ gas_phase_duplicate(int n_user_old, int n_user_new)
 	if (gas_phase_ptr_new != NULL)
 	{
 		gas_phase_free(&gas_phase[n_new]);
-#ifdef SKIP
-		gas_phase[n_new].comps = free_check_null(gas_phase[n_new].comps);
-#endif
 	}
 	else
 	{
@@ -1626,9 +1601,6 @@ gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 	if (gas_phase_ptr_new != NULL)
 	{
 		gas_phase_free(&gas_phase[n_new]);
-#ifdef SKIP
-		gas_phase[n_new].comps = free_check_null(gas_phase[n_new].comps);
-#endif
 	}
 	else
 	{
@@ -1758,12 +1730,6 @@ inverse_alloc(void)
 	if (inverse_ptr->ph_uncertainties == NULL)
 		malloc_error();
 
-#ifdef SKIP
-	inverse_ptr->alk_uncertainties = PHRQ_malloc((size_t) sizeof(LDBLE));
-	if (inverse_ptr->alk_uncertainties == NULL)
-		malloc_error();
-#endif
-
 	inverse_ptr->force_solns = (int *) PHRQ_malloc((size_t) sizeof(int));
 	if (inverse_ptr->force_solns == NULL)
 		malloc_error();
@@ -1869,10 +1835,6 @@ inverse_free(struct inverse *inverse_ptr)
 		(LDBLE *) free_check_null(inverse_ptr->uncertainties);
 	inverse_ptr->ph_uncertainties =
 		(LDBLE *) free_check_null(inverse_ptr->ph_uncertainties);
-#ifdef SKIP
-	inverse_ptr->alk_uncertainties =
-		(LDBLE *) free_check_null(inverse_ptr->alk_uncertainties);
-#endif
 
 /*   Free force_solns */
 	inverse_ptr->force_solns =
@@ -3782,87 +3744,6 @@ phase_store(char *name)
 	return (phases[n]);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-struct phase * CLASS_QUALIFIER
-phase_search(char *ptr, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Linear search of phases to find phase with name in ptr.
- *   Returns pointer if found. n contains position in array master.
- *   Returns NULL if not found.
- */
-	int i;
-	struct phase *phase_ptr;
-/*
- *   Search phases list
- */
-	*n = -999;
-	for (i = 0; i < count_phases; i++)
-	{
-		if (strcmp_nocase(ptr, phases[i]->name) == 0)
-		{
-			*n = i;
-			phase_ptr = phases[i];
-			return (phase_ptr);
-		}
-	}
-	return (NULL);
-}
-
-/* ---------------------------------------------------------------------- */
-struct phase * CLASS_QUALIFIER
-phase_store(char *name)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Function locates the string "name" in the hash table for phases.
- *
- *   If found, pointer to the appropriate phase structure is returned.
- *
- *   If the string is not found, a new entry is made at the end of
- *   the phases array (position count_phases) and count_phases is
- *   incremented. A new entry is made in the hash table. Pointer to
- *   the new structure is returned.
- *
- *   Arguments:
- *      name    input, character string to be located or stored.
- *
- *   Returns:
- *      The address of a phase structure that contains the phase data.
- *      If phase existed, it is reinitialized. The structure returned
- *      contains only the name of the phase.
- */
-	int n;
-	struct phase *phase_ptr;
-/*
- *   Search list
- */
-	phase_ptr = phase_search(name, &n);
-	if (phase_ptr != NULL)
-	{
-		phase_free(phase_ptr);
-		phase_init(phase_ptr);
-		phase_ptr->name = string_hsave(name);
-		return (phase_ptr);
-	}
-/*
- *   Make new phase structure and return pointer to it
- */
-	/* make sure there is space in phases */
-	n = count_phases++;
-	if (count_phases >= max_phases)
-	{
-		space((void **) &phases, count_phases, &max_phases,
-			  sizeof(struct phase *));
-	}
-	phases[n] = phase_alloc();
-	/* set name in phase structure */
-	phases[n]->name = string_hsave(name);
-	return (phases[n]);
-}
-#endif
 /* **********************************************************************
  *
  *   Routines related to structure "pp_assemblage"
@@ -7268,48 +7149,6 @@ trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 	return (OK);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-trxn_combine(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Combines coefficients of tokens that are equal in temporary
- *   reaction structure, trxn.
- */
-	int j, k;
-/*
- *   Sort trxn species
- */
-	trxn_sort();
-/*
- *   Combine trxn tokens
- */
-	j = 1;
-	for (k = 2; k < count_trxn; k++)
-	{
-		if ((j > 0) && (trxn.token[k].s == trxn.token[j].s))
-		{
-			trxn.token[j].coef += trxn.token[k].coef;
-			if (equal(trxn.token[j].coef, 0.0, 1e-5))
-				j--;
-		}
-		else
-		{
-			j++;
-			if (k != j)
-			{
-				trxn.token[j].name = trxn.token[k].name;
-				trxn.token[j].s = trxn.token[k].s;
-				trxn.token[j].coef = trxn.token[k].coef;
-			}
-		}
-	}
-	count_trxn = j + 1;			/* number excluding final NULL */
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 trxn_combine(void)

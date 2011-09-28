@@ -42,42 +42,6 @@ add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie)
 	return OK;
 }
 
-#ifdef SKIP_OUTPUT_MESSAGE
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_message(const int type, const char *err_str, const int stop,
-			   const char *format, va_list args)
-/* ---------------------------------------------------------------------- */
-{
-#if !defined(PHREEQC_CLASS)
-	extern jmp_buf mark;
-#endif
-	size_t i;
-
-	for (i = 0; i < count_output_callback; ++i)
-	{
-#ifdef VACOPY
-		va_list args_copy;
-		va_copy(args_copy, args);
-		(output_callbacks[i].callback) (ACTION_OUTPUT, type, err_str, stop,
-										output_callbacks[i].cookie, format,
-										args_copy);
-		va_end(args_copy);
-#else
-		(output_callbacks[i].callback) (ACTION_OUTPUT, type, err_str, stop,
-										output_callbacks[i].cookie, format,
-										args);
-#endif
-	}
-
-	if (stop == STOP)
-	{
-		longjmp(mark, input_error);
-	}
-	return OK;
-}
-#endif
-
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 clean_up_output_callbacks(void)

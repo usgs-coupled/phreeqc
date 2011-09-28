@@ -217,19 +217,6 @@ read_transport(void)
 			print_temp =
 				read_list_ints_range(&next_char, &count_print, TRUE,
 									 print_temp);
-#ifdef SKIP
-			while (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &l);
-				print_temp =
-					PHRQ_realloc(print_temp,
-								 (size_t) (count_print + 1) * sizeof(LDBLE));
-				if (print_temp == NULL)
-					malloc_error();
-				print_temp[count_print] = l;
-				count_print++;
-			}
-#endif
 			opt_save = 2;
 			break;
 		case 3:				/* selected_output */
@@ -377,19 +364,6 @@ read_transport(void)
 			punch_temp =
 				read_list_ints_range(&next_char, &count_punch, TRUE,
 									 punch_temp);
-#ifdef SKIP
-			while (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &l);
-				punch_temp =
-					PHRQ_realloc(punch_temp,
-								 (size_t) (count_punch + 1) * sizeof(LDBLE));
-				if (punch_temp == NULL)
-					malloc_error();
-				punch_temp[count_punch] = l;
-				count_punch++;
-			}
-#endif
 			opt_save = 10;
 			break;
 		case 11:				/* stagnant */
@@ -471,17 +445,6 @@ read_transport(void)
 				string_trim(next_char_save);
 				strcpy(file_name, next_char_save);
 			}
-#ifdef SKIP
-			/* Can not define dump_modulus an transport_start here */
-			if (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &dump_modulus);
-			}
-			if (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &transport_start);
-			}
-#endif
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 27:				/* output */
@@ -885,17 +848,6 @@ read_transport(void)
 		if (bcon_last == 2)
 			bcon_last = 3;
 	}
-/*
- *  Warn for multicomponent diffusion (the effect is small)...
- */
-#ifdef SKIP
-	if (multi_Dflag == TRUE && count_disp > 0)
-	{
-		sprintf(error_string,
-				"A model with multicomponent diffusion and dispersivity > 0\n\t may show ill-defined, too high dispersion...");
-		warning_msg(error_string);
-	}
-#endif
 /*
  *  Retain data from previous run
  */
@@ -1509,31 +1461,6 @@ dump_exchange(int k)
 		return (OK);
 
 	output_msg(OUTPUT_DUMP, "EXCHANGE %d\n", k);
-#ifdef SKIP
-	for (i = 0; i < exchange[n].count_comps; i++)
-	{
-		output_msg(OUTPUT_DUMP, "\t%-15s", exchange[n].comps[i].formula);
-		if (exchange[n].comps[i].phase_name != NULL)
-		{
-			output_msg(OUTPUT_DUMP, "\t%-15s%15.6e\n",
-					   exchange[n].comps[i].phase_name,
-					   exchange[n].comps[i].phase_proportion);
-		}
-		else
-		{
-			for (j = 0; exchange[n].comps[i].totals[j].elt != NULL; j++)
-			{
-				if (strcmp
-					(exchange_ptr->comps[i].totals[j].elt->name,
-					 exchange[n].comps[i].formula) == NULL)
-				{
-					output_msg(OUTPUT_DUMP, "%15.6e\n",
-							   exchange[n].comps[i].totals[j].coef);
-				}
-			}
-		}
-	}
-#endif
 	for (i = 0; i < exchange[n].count_comps; i++)
 	{
 		if (exchange[n].comps[i].phase_name != NULL)
@@ -1567,18 +1494,6 @@ dump_exchange(int k)
 							   (double) exchange[n].comps[i].
 							   phase_proportion);
 				}
-#ifdef SKIP
-				for (l = 0; l < count_kin_exch; l++)
-				{
-					if (strcmp_nocase
-						(kin_exch[l].exch_name,
-						 exchange[n].comps[i].totals[j].elt->name) != 0)
-						continue;
-					output_msg(OUTPUT_DUMP, "\t%-15s%15.6e",
-							   kin_exch[l].phase_name,
-							   kin_exch[l].phase_proportion);
-				}
-#endif
 				output_msg(OUTPUT_DUMP, "\n");
 			}
 		}
@@ -1722,18 +1637,6 @@ dump_surface(int k)
 					output_msg(OUTPUT_DUMP, "\t%20.12e",
 						   (double) surface[n].comps[i].totals[j].coef);
 				}
-#ifdef SKIP
-				for (l = 0; l < count_kin_surf; l++)
-				{
-					if (strcmp_nocase
-						(kin_surf[l].surf_name,
-						 surface[n].comps[i].totals[j].elt->name) != 0)
-						continue;
-					output_msg(OUTPUT_DUMP, "\t%-13s %13.5e",
-							   kin_surf[l].phase_name,
-							   kin_surf[l].phase_proportion);
-				}
-#endif
 			}
 			/*if (surface[n].edl == TRUE) { */
 			if (surface[n].type == DDL)

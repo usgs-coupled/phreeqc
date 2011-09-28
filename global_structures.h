@@ -463,9 +463,6 @@ struct kinetics
 struct kinetics_comp
 {
 	char *rate_name;
-#ifdef SKIP
-	char *formula;
-#endif
 	struct name_coef *list;
 	int count_list;
 	/*    struct phase *phase; */
@@ -615,9 +612,6 @@ struct inverse
 	LDBLE *uncertainties;
 	int count_ph_uncertainties;
 	LDBLE *ph_uncertainties;
-#ifdef SKIP
-	LDBLE *alk_uncertainties;
-#endif
 	LDBLE water_uncertainty;
 	int mineral_water;
 	int carbon;

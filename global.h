@@ -97,24 +97,6 @@ EXTERNAL int max_kinetics;
 EXTERNAL int count_save_values;
 EXTERNAL struct save_values *save_values;
 
-#ifdef SKIP
-struct kin_exch
-{
-	char *exch_name;
-	char *phase_name;
-	LDBLE phase_proportion;
-};
-EXTERNAL struct kin_exch *kin_exch;
-EXTERNAL int count_kin_exch;
-struct kin_surf
-{
-	char *surf_name;
-	char *phase_name;
-	LDBLE phase_proportion;
-};
-EXTERNAL struct kin_surf *kin_surf;
-EXTERNAL int count_kin_surf;
-#endif
 /*----------------------------------------------------------------------
  *   Save
  *---------------------------------------------------------------------- */

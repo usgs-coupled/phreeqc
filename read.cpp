@@ -444,9 +444,6 @@ read_input(void)
 			keyword[42].keycount++;
 			keyword[43].keycount++;
 			read_solution_spread();
-#ifdef SKIP
-			solution_sort();
-#endif
 			break;
 		case 38:
 			keyword[38].keycount++;
@@ -2557,10 +2554,6 @@ read_kinetics(void)
 			ptr = line;
 			copy_token(token, &ptr, &l);
 			kinetics_ptr->comps[count_comps].rate_name = string_hsave(token);
-#ifdef SKIP
-			kinetics_ptr->comps[count_comps].formula =
-				kinetics_ptr->comps[count_comps].rate_name;
-#endif
 			kinetics_ptr->comps[count_comps].tol = 1e-8;
 			kinetics_ptr->comps[count_comps].m0 = -1.0;
 			kinetics_ptr->comps[count_comps].m = -1.0;
@@ -4112,169 +4105,6 @@ read_phases(void)
 	return (return_value);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-read_pure_phases(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *      Reads pure phase data
- *
- *      Arguments:
- *	 none
- *
- *      Returns:
- *	 KEYWORD if keyword encountered, input_error may be incremented if
- *		    a keyword is encountered in an unexpected position
- *	 EOF     if eof encountered while reading mass balance concentrations
- *	 ERROR   if error occurred reading data
- *
- */
-	int j, n, l, return_value;
-	int count_pure_phases;
-	int n_user, n_user_end;
-	char *ptr;
-	char *description;
-	char token[MAX_LENGTH];
-
-	ptr = line;
-/*
- *   Read pp_assemblage number
- */
-	read_number_description(ptr, &n_user, &n_user_end, &description);
-/*
- *   Find pp_assemblage or realloc space for pp_assemblage
- */
-
-	if (pp_assemblage_search(n_user, &n) != NULL)
-	{
-		pp_assemblage_free(&pp_assemblage[n]);
-	}
-	else
-	{
-		n = count_pp_assemblage++;
-		space((void **) ((void *) &pp_assemblage), count_pp_assemblage,
-			  &max_pp_assemblage, sizeof(struct pp_assemblage));
-	}
-/*
- *   Set use data to first read
- */
-	if (use.pp_assemblage_in == FALSE)
-	{
-		use.pp_assemblage_in = TRUE;
-		use.n_pp_assemblage_user = n_user;
-	}
-
-	pp_assemblage_init(&(pp_assemblage[n]), n_user, n_user_end, description);
-	free_check_null(description);
-/*
- *   Read phases
- */
-	count_pure_phases = 0;
-	for (;;)
-	{
-		return_value = check_line("Pure phase data", FALSE, TRUE, TRUE, TRUE);
-		/* empty, eof, keyword, print */
-		if (return_value == EOF || return_value == KEYWORD)
-		{
-			break;
-		}
-/*
- *   Make space, set default
- */
-		count_pure_phases++;
-		pp_assemblage[n].pure_phases =
-			(struct pure_phase *) PHRQ_realloc(pp_assemblage[n].pure_phases,
-											   (size_t) (count_pure_phases) *
-											   sizeof(struct pure_phase));
-		if (pp_assemblage[n].pure_phases == NULL)
-			malloc_error();
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].si = 0.0;
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].add_formula =
-			NULL;
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].moles = 10.0;
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].delta = 0.0;
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].initial_moles =
-			0.0;
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].dissolve_only =
-			FALSE;
-/*
- *   Read name
- */
-		ptr = line;
-		copy_token(token, &ptr, &l);
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].name =
-			string_hsave(token);
-		if ((j = copy_token(token, &ptr, &l)) == EMPTY)
-			continue;
-/*
- *   Read saturation index
- */
-		j = sscanf(token, SCANFORMAT, &dummy);
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].si =
-			(LDBLE) dummy;
-		if (j != 1)
-		{
-			error_msg("Expected saturation index.", CONTINUE);
-			error_msg(line_save, CONTINUE);
-			input_error++;
-			continue;
-		}
-/*
- *   Adding a reaction to the phase boundary
- */
-		if ((j = copy_token(token, &ptr, &l)) == EMPTY)
-			continue;
-		if (j == UPPER || j == LOWER)
-		{
-			pp_assemblage[n].pure_phases[count_pure_phases - 1].add_formula =
-				string_hsave(token);
-			j = copy_token(token, &ptr, &l);
-		}
-/*
- *   Read amount
- */
-		if (j == EMPTY)
-			continue;
-		j = sscanf(token, SCANFORMAT, &dummy);
-		pp_assemblage[n].pure_phases[count_pure_phases - 1].moles =
-			(LDBLE) dummy;
-		if (j != 1)
-		{
-			error_msg("Expected amount of mineral.", CONTINUE);
-			error_msg(line_save, CONTINUE);
-			input_error++;
-			continue;
-		}
-		if ((j = copy_token(token, &ptr, &l)) == EMPTY)
-			continue;
-		str_tolower(token);
-		if (strstr(token, "d") == token)
-		{
-			pp_assemblage[n].pure_phases[count_pure_phases -
-										 1].dissolve_only = TRUE;
-		}
-		else
-		{
-			error_msg
-				("Unexpected data at end of equilibrium-phase definition.",
-				 CONTINUE);
-			input_error++;
-			continue;
-		}
-	}
-	pp_assemblage[n].count_comps = count_pure_phases;
-/*
- *   Sort phases by name (lowercase)
- */
-	qsort(pp_assemblage[n].pure_phases,
-		  (size_t) count_pure_phases,
-		  (size_t) sizeof(struct pure_phase), pure_phase_compare);
-
-	return (return_value);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_pure_phases(void)
@@ -4835,51 +4665,6 @@ read_save(void)
  */
 	copy_token(token, &ptr, &l);
 	check_key(token);
-#ifdef SKIP
-	switch (next_keyword)
-	{
-	case -1:					/* Have not read line with keyword */
-	case 0:					/* End encountered */
-	case 1:					/* EOF encountered */
-	case 2:					/* Read aqueous model */
-	case 3:					/* Read master species */
-	case 5:					/* Phases */
-	case 7:					/* Reaction */
-	case 8:					/* Mix */
-	case 9:					/* Use */
-	case 10:					/* Save */
-	case 11:
-	case 12:
-	case 14:
-	case 15:
-	case 17:
-	case 18:
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-	case 30:
-	case 31:
-	case 32:
-	case 33:
-	case 34:
-	case 35:
-	case 36:
-	case 37:
-	case 38:
-	case 39:
-		input_error++;
-		error_msg
-			("Expecting keyword solution, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.",
-			 CONTINUE);
-		error_msg(line_save, CONTINUE);
-		check_line("End of save", FALSE, TRUE, TRUE, TRUE);
-		/* empty, eof, keyword, print */
-		return (ERROR);
-	}
-#endif
 /*
  *   Read number
  */
@@ -5688,14 +5473,6 @@ read_solution(void)
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
-#ifdef SKIP
-/*
- *   Sort totals by description
- */
-	qsort(solution[n]->totals,
-		  (size_t) count_mass_balance,
-		  (size_t) sizeof(struct conc), conc_compare);
-#endif
 /*
  *   fix up default units and default pe
  */
@@ -5734,18 +5511,6 @@ read_solution(void)
  */
 	solution[n]->totals[count_mass_balance].description = NULL;
 	solution[n]->count_isotopes = count_isotopes;
-#ifdef SKIP
-	if (count_isotopes > 0)
-	{
-		qsort(solution[n]->isotopes,
-			  (size_t) count_isotopes,
-			  (size_t) sizeof(struct isotope), isotope_compare);
-	}
-	else
-	{
-		solution[n]->isotopes = free_check_null(solution[n]->isotopes);
-	}
-#endif
 	return (return_value);
 }
 
@@ -7614,30 +7379,6 @@ read_surface_master_species(void)
 			error_msg("Unknown input in SURFACE_MASTER_SPECIES keyword.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			break;
-#ifdef SKIP
-		case 0:				/* capacitance */
-		case 1:				/* cd_music_capacitance */
-			if (m_ptr == NULL)
-			{
-				sprintf(error_string,
-						"No master_species defined before option, %s.",
-						opt_list[opt]);
-				error_msg(error_string, CONTINUE);
-				input_error++;
-				break;
-			}
-			for (j = 0; j < 2; j++)
-			{
-				if (copy_token(token, &next_char, &l) == EMPTY)
-					break;
-				if (sscanf(token, SCANFORMAT, &m_ptr->capacitance[j]) != 1)
-					break;
-			}
-			m_ptr->capacitance_defined = TRUE;
-			opt_save = OPTION_DEFAULT;
-
-			break;
-#endif
 		case OPTION_DEFAULT:
 			/*
 			 *   Get "element" name with valence, allocate space, store
@@ -7703,46 +7444,6 @@ read_surface_master_species(void)
 			copy_token(token, &ptr1, &l);
 			strcat(token, "_psi");
 			add_psi_master_species(token);
-#ifdef SKIP
-			if (master_ptr == NULL)
-			{
-				master[count_master] = master_alloc();
-				master[count_master]->type = SURF_PSI;
-				master[count_master]->elt = element_store(token);
-				s_ptr = s_search(token);
-				if (s_ptr != NULL)
-				{
-					master[count_master]->s = s_ptr;
-				}
-				else
-				{
-					master[count_master]->s = s_store(token, 0.0, FALSE);
-				}
-				count_elts = 0;
-				paren_count = 0;
-				ptr = token;
-				get_elts_in_species(&ptr, 1.0);
-				master[count_master]->s->next_elt = elt_list_save();
-				master[count_master]->s->type = SURF_PSI;
-				master[count_master]->primary = TRUE;
-				master[count_master]->s->rxn = rxn_alloc(3);
-				/*
-				 *   Define reaction for psi
-				 */
-				for (i = 0; i < 8; i++)
-				{
-					master[count_master]->s->rxn->logk[i] = 0.0;
-				}
-				master[count_master]->s->rxn->token[0].s =
-					master[count_master]->s;
-				master[count_master]->s->rxn->token[0].coef = -1.0;
-				master[count_master]->s->rxn->token[1].s =
-					master[count_master]->s;
-				master[count_master]->s->rxn->token[1].coef = 1.0;
-				master[count_master]->s->rxn->token[2].s = NULL;
-				count_master++;
-			}
-#endif
 			opt_save = OPTION_DEFAULT;
 			break;
 		}
@@ -7821,142 +7522,6 @@ add_psi_master_species(char *token)
 	return (OK);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-read_surface_master_species(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Reads master species data from data file or input file
- */
-	int i, l, n, return_value;
-	char *ptr, *ptr1;
-	LDBLE z;
-	struct master *master_ptr;
-	struct species *s_ptr;
-	char token[MAX_LENGTH], token1[MAX_LENGTH];
-
-	for (;;)
-	{
-		return_value =
-			check_line("Surface species equation", FALSE, TRUE, TRUE, TRUE);
-		if (return_value == EOF || return_value == KEYWORD)
-			break;
-/*
- *   Get "element" name with valence, allocate space, store
- */
-		ptr = line;
-/*
- *   Get element name and save pointer to character string
- */
-		if (copy_token(token, &ptr, &l) != UPPER && token[0] != '[')
-		{
-			parse_error++;
-			error_msg("Reading element for master species.", CONTINUE);
-			error_msg(line_save, CONTINUE);
-			continue;
-		}
-		/*
-		   if (token[0] == '[') {
-		   ptr1 = token;
-		   get_elt(&ptr, element, &l);
-		   strcpy(token, element);
-		   }
-		 */
-		replace("(+", "(", token);
-/*
- *   Delete master if it exists
- */
-		master_delete(token);
-/*
- *   Increase pointer array, if necessary,  and malloc space
- */
-		if (count_master + 2 >= max_master)
-		{
-			space((void **) ((void *) &master), count_master + 2,
-				  &max_master, sizeof(struct master *));
-		}
-/*
- *   Save values in master and species structure for surface sites
- */
-		master[count_master] = master_alloc();
-		master[count_master]->type = SURF;
-		master[count_master]->elt = element_store(token);
-
-		if (copy_token(token, &ptr, &l) != UPPER && token[0] != '[')
-		{
-			parse_error++;
-			error_msg("Reading surface master species name.", CONTINUE);
-			error_msg(line_save, CONTINUE);
-			continue;
-		}
-		s_ptr = s_search(token);
-		if (s_ptr != NULL)
-		{
-			master[count_master]->s = s_ptr;
-		}
-		else
-		{
-			ptr1 = token;
-			get_token(&ptr1, token1, &z, &l);
-			master[count_master]->s = s_store(token1, z, FALSE);
-		}
-		master[count_master]->primary = TRUE;
-		strcpy(token, master[count_master]->elt->name);
-		count_master++;
-/*
- *   Save values in master and species structure for surface psi
- */
-		strcpy(token1, token);
-		replace("_", " ", token1);
-		ptr1 = token1;
-		copy_token(token, &ptr1, &l);
-		strcat(token, "_psi");
-		master_ptr = master_search(token, &n);
-		if (master_ptr == NULL)
-		{
-			master[count_master] = master_alloc();
-			master[count_master]->type = SURF_PSI;
-			master[count_master]->elt = element_store(token);
-			s_ptr = s_search(token);
-			if (s_ptr != NULL)
-			{
-				master[count_master]->s = s_ptr;
-			}
-			else
-			{
-				master[count_master]->s = s_store(token, 0.0, FALSE);
-			}
-			count_elts = 0;
-			paren_count = 0;
-			ptr = token;
-			get_elts_in_species(&ptr, 1.0);
-			master[count_master]->s->next_elt = elt_list_save();
-
-			master[count_master]->s->type = SURF_PSI;
-			master[count_master]->primary = TRUE;
-			master[count_master]->s->rxn = rxn_alloc(3);
-/*
- *   Define reaction for psi
- */
-			for (i = 0; i < 8; i++)
-			{
-				master[count_master]->s->rxn->logk[i] = 0.0;
-			}
-			master[count_master]->s->rxn->token[0].s =
-				master[count_master]->s;
-			master[count_master]->s->rxn->token[0].coef = -1.0;
-			master[count_master]->s->rxn->token[1].s =
-				master[count_master]->s;
-			master[count_master]->s->rxn->token[1].coef = 1.0;
-			master[count_master]->s->rxn->token[2].s = NULL;
-			count_master++;
-		}
-	}
-	return (return_value);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_temperature(void)
@@ -8308,19 +7873,6 @@ read_advection(void)
 			print_temp =
 				read_list_ints_range(&next_char, &count_print, TRUE,
 									 print_temp);
-#ifdef SKIP
-			while (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &l);
-				print_temp =
-					PHRQ_realloc(print_temp,
-								 (size_t) (count_print + 1) * sizeof(int));
-				if (print_temp == NULL)
-					malloc_error();
-				print_temp[count_print] = l;
-				count_print++;
-			}
-#endif
 			opt_save = 2;
 			break;
 		case 3:				/* selected_output */
@@ -8342,19 +7894,6 @@ read_advection(void)
 			punch_temp =
 				read_list_ints_range(&next_char, &count_punch, TRUE,
 									 punch_temp);
-#ifdef SKIP
-			while (copy_token(token, &next_char, &l) == DIGIT)
-			{
-				sscanf(token, "%d", &l);
-				punch_temp =
-					PHRQ_realloc(punch_temp,
-								 (size_t) (count_punch + 1) * sizeof(int));
-				if (punch_temp == NULL)
-					malloc_error();
-				punch_temp[count_punch] = l;
-				count_punch++;
-			}
-#endif
 			opt_save = 4;
 			break;
 		case 7:				/* time_step */

@@ -557,10 +557,6 @@ calculate_isotope_moles(struct element *elt_ptr,
 	struct master_isotope *master_isotope_ptr, *master_isotope_ptr1;
 	struct master_isotope list[MAX_ELTS];
 	LDBLE m_major, tot;
-#ifdef SKIP
-	struct elt_list *iso_elt_list;
-	struct master *master_ptr;
-#endif
 	/*
 	 *  Get total concentration of elt_ptr
 	 */
@@ -721,29 +717,6 @@ calculate_isotope_moles(struct element *elt_ptr,
 		solution_ptr->totals[i].input_conc = master_isotope_ptr->moles;
 	}
 
-#ifdef SKIP
-	/*
-	 *  make elt list
-	 */
-	iso_elt_list =
-		PHRQ_malloc((size_t) (count_isotopes + 1) * sizeof(struct elt_list));
-	if (iso_elt_list == NULL)
-		malloc_error();
-	for (i = 0; i < count_isotopes; i++)
-	{
-		master_ptr = master_bsearch(list[i].name);
-		if (master_ptr == NULL)
-		{
-			sprintf(error_string,
-					"Did not find element in CALCULATE_ISOTOPES, %s.",
-					list[i].name);
-			error_msg(error_string, STOP);
-		}
-		iso_elt_list[i].elt = master_ptr->elt;
-		iso_elt_list[i].coef = list[i].moles;
-	}
-	iso_elt_list[i].elt = NULL;
-#endif
 	return (OK);
 }
 

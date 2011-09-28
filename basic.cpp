@@ -272,15 +272,6 @@ cmd_free(void)
 	return;
 }
 
-#ifdef SKIP
-int CLASS_QUALIFIER
-main(int argc, Char * argv[])
-{								/*main */
-	char commands[] = "10a=1\n20a=a*2;30print a;40quit;run";
-	basic_main(commands);
-	return 0;
-}
-#endif
 int CLASS_QUALIFIER
 basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
@@ -324,9 +315,6 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 		RECOVER(try2);
 		if (P_escapecode != -20)
 		{
-#ifdef SKIP
-			printf("Error %d/%d!\n", (int) P_escapecode, (int) P_ioresult);
-#endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
 			warning_msg(error_string, CONTINUE);
@@ -401,9 +389,6 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 		RECOVER(try2);
 		if (P_escapecode != -20)
 		{
-#ifdef SKIP
-			printf("Error %d/%d!\n", (int) P_escapecode, (int) P_ioresult);
-#endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
 			warning_msg(error_string, CONTINUE);
@@ -464,9 +449,6 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 		RECOVER(try2);
 		if (P_escapecode != -20)
 		{
-#ifdef SKIP
-			printf("Error %d/%d!\n", (int) P_escapecode, (int) P_ioresult);
-#endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
 			warning_msg(error_string, CONTINUE);
@@ -489,9 +471,6 @@ basic_main(char *commands)
 {								/*main */
 	int l;
 	char *ptr;
-#ifdef SKIP
-	PASCAL_MAIN(argc, argv);
-#endif
 	PASCAL_MAIN(0, NULL);
 	inbuf = (char *) PHRQ_calloc(max_line, sizeof(char));
 	if (inbuf == NULL)
@@ -516,9 +495,6 @@ basic_main(char *commands)
 			{
 				strcpy(inbuf, "bye");
 			}
-#ifdef SKIP
-			gets(inbuf);
-#endif
 			parseinput(&buf);
 			if (curline == 0)
 			{
@@ -533,9 +509,6 @@ basic_main(char *commands)
 		RECOVER(try2);
 		if (P_escapecode != -20)
 		{
-#ifdef SKIP
-			printf("Error %d/%d!\n", (int) P_escapecode, (int) P_ioresult);
-#endif
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
 			warning_msg(error_string, CONTINUE);
@@ -609,23 +582,6 @@ clearloops(void)
 }
 
 
-
-#ifdef SKIP
-Static long CLASS_QUALIFIER
-arraysize(varrec * v)
-{
-	long i, j, FORLIM;
-
-	if (v->stringvar)
-		j = 4;
-	else
-		j = 8;
-	FORLIM = v->numdims;
-	for (i = 0; i < FORLIM; i++)
-		j *= v->dims[i];
-	return j;
-}
-#endif
 
 Static void CLASS_QUALIFIER
 clearvar(varrec * v)
@@ -1954,9 +1910,6 @@ parseinput(tokenrec ** l_buf)
 	while (*inbuf != '\0' && isdigit((int) inbuf[0]))
 	{
 		curline = curline * 10 + inbuf[0] - 48;
-#ifdef SKIP
-		strcpy(inbuf, inbuf + 1);
-#endif
 		memmove(inbuf, inbuf + 1, strlen(inbuf));
 	}
 	parse(inbuf, l_buf);
@@ -2002,9 +1955,6 @@ parseinput(tokenrec ** l_buf)
 Static void CLASS_QUALIFIER
 errormsg(const Char * l_s)
 {
-#ifdef SKIP
-	printf("\007%s", l_s);
-#endif
 	error_msg(l_s, CONTINUE);
 	_Escape(42);
 }
@@ -2235,20 +2185,6 @@ findvar(struct LOC_exec *LINK)
 	return v;
 }
 
-
-#ifdef SKIP
-Local long
-inot(long i, struct LOC_exec *LINK)
-{
-	return (-i - 1);
-}
-
-Local long
-ixor(long a, long b, struct LOC_exec *LINK)
-{
-	return ((a & (~b)) | ((~a) & b));
-}
-#endif
 
 Local valrec CLASS_QUALIFIER
 factor(struct LOC_exec * LINK)
@@ -3744,11 +3680,6 @@ skiptoeos(struct LOC_exec *LINK)
 }
 
 
-#ifdef SKIP
-/* LINK not used */
-Local linerec * CLASS_QUALIFIER
-findline(long n, struct LOC_exec *LINK)
-#endif
 Local linerec * CLASS_QUALIFIER
 findline(long n)
 {
@@ -3760,19 +3691,11 @@ findline(long n)
 	return l;
 }
 
-
-#ifdef SKIP
-Local linerec * CLASS_QUALIFIER
-mustfindline(long n, struct LOC_exec * LINK)
-#endif
 Local linerec * CLASS_QUALIFIER
 mustfindline(long n)
 {
 	linerec *l;
 
-#ifdef SKIP
-	l = findline(n, LINK);
-#endif
 	l = findline(n);
 	if (l == NULL) {
 		sprintf(error_string, "Undefined line %ld", n);
@@ -3966,9 +3889,6 @@ cmdrun(struct LOC_exec *LINK)
 			if (i == 0)
 				l = linebase;
 			else
-#ifdef SKIP
-				l = mustfindline(i, LINK);
-#endif
 			l = mustfindline(i);
 		}
 	}
@@ -3981,63 +3901,17 @@ cmdrun(struct LOC_exec *LINK)
 	return;
 }
 
-#ifdef SKIP
-Local void CLASS_QUALIFIER
-cmdsave(struct LOC_exec *LINK)
-{
-	FILE *f;
-	linerec *l;
-	Char STR1[256], STR2[256];
-
-	f = NULL;
-	if (f != NULL)
-	{
-		sprintf(STR2, "%s.TEXT", stringexpr(STR1, LINK));
-		f = freopen(STR2, "w", f);
-	}
-	else
-	{
-		sprintf(STR2, "%s.TEXT", stringexpr(STR1, LINK));
-		f = fopen(STR2, "w");
-	}
-	if (f == NULL)
-		_EscIO(FileNotFound);
-	l = linebase;
-	while (l != NULL)
-	{
-		/* fprintf(f, "%ld ", l->num); */
-		listtokens(f, l->txt);
-		putc('\n', f);
-		l = l->next;
-	}
-	if (f != NULL)
-		fclose(f);
-	f = NULL;
-	if (f != NULL)
-		fclose(f);
-}
-#endif
-
 /* replace basic save command with transport of rate back to calc_kinetic_rate */
 Local void CLASS_QUALIFIER
 cmdsave(struct LOC_exec *LINK)
 {
-#ifdef SKIP
-	boolean semiflag;
-#endif
 	valrec n;
 	while (!iseos(LINK))
 	{
-#ifdef SKIP
-		semiflag = false;
-#endif
 		if ((unsigned long) LINK->t->kind < 32 &&
 			((1L << ((long) LINK->t->kind)) &
 			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
 		{
-#ifdef SKIP
-			semiflag = true;
-#endif
 			LINK->t = LINK->t->next;
 			continue;
 		}
@@ -4151,11 +4025,6 @@ cmdchange_surf(struct LOC_exec *LINK)
 		change_surf[count - 1].cell_no = -99;
 }
 
-#ifdef SKIP
-/* LINK not used */
-Local void CLASS_QUALIFIER
-cmdbye(struct LOC_exec *LINK)
-#endif
 Local void CLASS_QUALIFIER
 cmdbye(void)
 {
@@ -4331,27 +4200,15 @@ cmdprint(struct LOC_exec *LINK)
 Local void CLASS_QUALIFIER
 cmdpunch(struct LOC_exec *LINK)
 {
-#ifdef SKIP
-	boolean semiflag;
-#endif
 	valrec n;
 	/*  Char STR1[256]; */
 
-#ifdef SKIP
-	semiflag = false;
-#endif
 	while (!iseos(LINK))
 	{
-#ifdef SKIP
-		semiflag = false;
-#endif
 		if ((unsigned long) LINK->t->kind < 32 &&
 			((1L << ((long) LINK->t->kind)) &
 			 ((1L << ((long) toksemi)) | (1L << ((long) tokcomma)))) != 0)
 		{
-#ifdef SKIP
-			semiflag = true;
-#endif
 			LINK->t = LINK->t->next;
 			continue;
 		}
@@ -4545,9 +4402,6 @@ cmdlet(boolean implied, struct LOC_exec *LINK)
 Local void CLASS_QUALIFIER
 cmdgoto(struct LOC_exec *LINK)
 {
-#ifdef SKIP
-	stmtline = mustfindline(intexpr(LINK), LINK);
-#endif
 	stmtline = mustfindline(intexpr(LINK));
 	LINK->t = NULL;
 	LINK->gotoflag = true;
@@ -4927,9 +4781,6 @@ cmdrestore(struct LOC_exec *LINK)
 		restoredata();
 	else
 	{
-#ifdef SKIP
-		dataline = mustfindline(intexpr(LINK), LINK);
-#endif
 		dataline = mustfindline(intexpr(LINK));
 		datatok = dataline->txt;
 	}
@@ -4939,11 +4790,6 @@ cmdrestore(struct LOC_exec *LINK)
 Local void CLASS_QUALIFIER
 cmdgotoxy(struct LOC_exec *LINK)
 {
-#ifdef SKIP
-	long i;
-
-	i = intexpr(LINK);
-#endif
 	intexpr(LINK);
 	require(tokcomma, LINK);
 }
@@ -5113,9 +4959,6 @@ exec(void)
 					break;
 
 				case tokbye:
-#ifdef SKIP
-					cmdbye(&V);
-#endif
 					cmdbye();
 					break;
 
@@ -5178,9 +5021,6 @@ exec(void)
 					error_msg
 						("Basic command INPUT is not a legal command in PHREEQC.",
 						 STOP);
-#ifdef SKIP
-					cmdinput(&V);
-#endif
 					break;
 
 				case tokgoto:
@@ -5284,33 +5124,21 @@ exec(void)
 		{
 
 		case -4:
-#ifdef SKIP
-			printf("\007Integer overflow");
-#endif
 			sprintf(error_string, "Integer overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -5:
-#ifdef SKIP
-			printf("\007Divide by zero");
-#endif
 			sprintf(error_string, "Divide by zero in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -6:
-#ifdef SKIP
-			printf("\007Real math overflow");
-#endif
 			sprintf(error_string, "Real math overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 			warning_msg(error_string, CONTINUE);
 			break;
 
 		case -7:
-#ifdef SKIP
-			printf("\007Real math underflow");
-#endif
 			sprintf(error_string, "Real math underflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 			warning_msg(error_string, CONTINUE);
 			break;
@@ -5321,9 +5149,6 @@ exec(void)
 		case -17:
 		case -16:
 		case -15:
-#ifdef SKIP
-			printf("\007Value range error");
-#endif
 			sprintf(error_string, "Value range error in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 			warning_msg(error_string, CONTINUE);
 			break;
@@ -5333,9 +5158,6 @@ exec(void)
 			if (ioerrmsg == NULL)
 				malloc_error();
 			sprintf(ioerrmsg, "I/O Error %d", (int) P_ioresult);
-#ifdef SKIP
-			printf("\007%s", ioerrmsg);
-#endif
 			warning_msg(ioerrmsg, CONTINUE);
 			PHRQ_free(ioerrmsg);
 			break;
@@ -5346,9 +5168,6 @@ exec(void)
 				sprintf(error_string, "%12ld\n", EXCP_LINE);
 				warning_msg(error_string, CONTINUE);
 			}
-#ifdef SKIP
-			printf("%12ld\n", EXCP_LINE);
-#endif
 			_Escape(P_escapecode);
 			break;
 		}
@@ -5358,10 +5177,6 @@ exec(void)
 		sprintf(error_string, " in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
 		error_msg(error_string, CONTINUE);
 	}
-#ifdef SKIP
-	printf(" in %ld", stmtline->num);
-	putchar('\n');
-#endif
 	ENDTRY(try1);
 }								/*exec */
 int CLASS_QUALIFIER

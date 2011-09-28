@@ -32,10 +32,6 @@ static int ISPEC(char *name);
 /*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
 static LDBLE G(LDBLE Y);
 static LDBLE GP(LDBLE Y);
-#ifdef SKIP
-static LDBLE ETHETAP(LDBLE ZJ, LDBLE ZK, LDBLE I);
-static LDBLE ETHETA(LDBLE ZJ, LDBLE ZK, LDBLE I);
-#endif
 static int ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta,
 				   LDBLE * ethetap);
 static int BDK(LDBLE X);
@@ -953,13 +949,6 @@ pitzer(void)
 	{
 		IPRSNT[IC] = TRUE;
 	}
-#ifdef SKIP
-	for (i = count_s; i < count_s + count_neutrals; i++)
-	{
-		if (M[i] > MIN_TOTAL)
-			LNEUT = TRUE;
-	}
-#endif
 	/*
 	   ICON = 0;
 	   M[1] = 1.40070736;
@@ -1349,70 +1338,6 @@ GP(LDBLE L_Y)
 	return d;
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
-ETHETA(LDBLE ZJ, LDBLE ZK, LDBLE I)
-/* ---------------------------------------------------------------------- */
-{
-	LDBLE XCON, ZZ;
-	LDBLE XJK, XJJ, XKK;
-
-	if (ZJ == ZK)
-		return (0.0);
-	XCON = 6.0e0 * A0 * sqrt(I);
-	ZZ = ZJ * ZK;
-/*
-C
-C     NEXT 3 ARE EQUATION (A1)
-C
-*/
-	XJK = XCON * ZZ;
-	XJJ = XCON * ZJ * ZJ;
-	XKK = XCON * ZK * ZK;
-/*
-C
-C     EQUATION (A2)
-C
-*/
-
-	return (ZZ * (JAY(XJK) - JAY(XJJ) / 2.0e0 - JAY(XKK) / 2.0e0) /
-			(4.0e0 * I));
-}
-
-/* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
-ETHETAP(LDBLE ZJ, LDBLE ZK, LDBLE I)
-/* ---------------------------------------------------------------------- */
-{
-	LDBLE XCON, ZZ, ETHETA, ETHETAP;
-	LDBLE XJK, XJJ, XKK;
-
-	if (ZJ == ZK)
-		return (0.0);
-	XCON = 6.0e0 * A0 * sqrt(I);
-	ZZ = ZJ * ZK;
-/*
-C
-C     NEXT 3 ARE EQUATION (A1)
-C
-*/
-	XJK = XCON * ZZ;
-	XJJ = XCON * ZJ * ZJ;
-	XKK = XCON * ZK * ZK;
-/*
-C
-C     EQUATION (A3)
-C
-*/
-	ETHETA =
-		ZZ * (JAY(XJK) - JAY(XJJ) / 2.0e0 - JAY(XKK) / 2.0e0) / (4.0e0 * I);
-	ETHETAP =
-		ZZ * (JPRIME(XJK) - JPRIME(XJJ) / 2.0e0 -
-			  JPRIME(XKK) / 2.0e0) / (8.0e0 * I * I) - ETHETA / I;
-	return (ETHETAP);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta, LDBLE * ethetap)

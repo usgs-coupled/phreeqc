@@ -109,9 +109,6 @@ typedef unsigned char boolean;
 #else
 
 #define LACK_LABS				/* Undefine these if your library has these */
-#ifdef SKIP
-#define LACK_MEMMOVE
-#endif
 
 #endif
 #endif
@@ -133,10 +130,6 @@ typedef struct __p2c_jmp_buf
 			     __try_jb.next = __top_jb;  \
 			     if (!setjmp((__top_jb = &__try_jb)->jbuf)) {
 # define RECOVER(x)	__top_jb = __try_jb.next; } else {
-#ifdef SKIP
-# define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
-			     if (0) { L: __top_jb = __try_jb.next; }
-#endif
 # define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
 			     { L: __top_jb = __try_jb.next; }
 # define ENDTRY(x)      } } while (0)
@@ -187,47 +180,7 @@ typedef struct __p2c_jmp_buf
 # endif
 #endif
 
-
 #define SETBITS  32
-
-#ifdef SKIP
-#if defined(__STDC__) || defined(__TURBOC__)
-# if !defined(vms) && !defined(M_LINT)
-#  define Signed    signed
-# else
-#  define Signed
-# endif
-//# define Void       void		/* Void f() = procedure */
-# ifndef Const
-#  define Const     const
-# endif
-# ifndef Volatile
-# define Volatile   volatile
-# endif
-# ifdef M_LINT
-#  define P2PP(x)     ()
-#  define PV()	    ()
-typedef char *Anyptr;
-# else
-#  define P2PP(x)     x			/* function prototype */
-#  define PV()      (void)		/* null function prototype */
-typedef void *Anyptr;
-# endif
-#else
-# define Signed
-//# define Void       void
-# ifndef Const
-#  define Const
-# endif
-# ifndef Volatile
-#  define Volatile
-# endif
-# define P2PP(x)      ()
-# define PV()       ()
-typedef char *Anyptr;
-#endif
-#endif
-
 
 #define Signed
 //#define Void       void
@@ -426,15 +379,6 @@ extern void P_sun_argv P2PP((char *, int, int));
 #define BUFEOF(f)	   (__CAT__(f,_BFLAGS) != 2 && P_eof(f))
 #define BUFFPOS(f)	   (ftell(f) - (__CAT__(f,_BFLAGS) == 2))
 
-#ifdef SKIP
-typedef struct
-{
-	FILE *f;
-	  FILEBUFNC(f, Char);
-	Char name[_FNSIZE];
-} _TEXT;
-#endif
-
 /* Memory allocation */
 #ifdef __GCC__
 # define Malloc(n)  (PHRQ_malloc(n) ?: (Anyptr)_OutMem())
@@ -581,33 +525,6 @@ extern Anyptr my_memset P2PP((Anyptr, int, size_t));
 # endif
 #endif
 
-#ifdef SKIP_SOME
-#if (defined(__STDC__) && !defined(M_XENIX)) || defined(__TURBOC__)
-# include <stddef.h>
-# include <stdlib.h>
-# define HAS_STDLIB
-# if defined(vms) || defined(__TURBOC__)
-#  define __ID__(a)a
-# endif
-#else
-# ifndef BSD
-#  ifndef __TURBOC__
-#   include <memory.h>
-#  endif
-# endif
-# ifdef hpux
-#  ifdef _INCLUDE__STDC__
-#   include <stddef.h>
-#   include <stdlib.h>
-#  endif
-# endif
-# include <sys/types.h>
-# if !defined(MSDOS) || defined(__TURBOC__)
-#  define __ID__(a)a
-# endif
-#endif
-#endif /* SKIP_SOME */
-
 #ifdef __ID__
 # define __CAT__(a,b)__ID__(a)b
 #else
@@ -629,25 +546,6 @@ extern Anyptr my_memset P2PP((Anyptr, int, size_t));
 #include <math.h>
 #include <setjmp.h>
 
-#ifdef SKIP_SOME
-#ifndef NO_LACK
-#ifdef vms
-
-#define LACK_LABS
-#define LACK_MEMMOVE
-#define LACK_MEMCPY
-
-#else
-
-#define LACK_LABS				/* Undefine these if your library has these */
-#ifdef SKIP
-#define LACK_MEMMOVE
-#endif
-
-#endif
-#endif
-#endif /* SKIP_SOME */
-
 typedef struct __p2c_jmp_buf
 {
 	struct __p2c_jmp_buf *next;
@@ -664,10 +562,6 @@ typedef struct __p2c_jmp_buf
 			     __try_jb.next = __top_jb;  \
 			     if (!setjmp((__top_jb = &__try_jb)->jbuf)) {
 # define RECOVER(x)	__top_jb = __try_jb.next; } else {
-#ifdef SKIP
-# define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
-			     if (0) { L: __top_jb = __try_jb.next; }
-#endif
 # define RECOVER2(x,L)  __top_jb = __try_jb.next; } else {  \
 			     { L: __top_jb = __try_jb.next; }
 # define ENDTRY(x)      } } while (0)
@@ -720,45 +614,6 @@ typedef struct __p2c_jmp_buf
 
 
 #define SETBITS  32
-
-#ifdef SKIP
-#if defined(__STDC__) || defined(__TURBOC__)
-# if !defined(vms) && !defined(M_LINT)
-#  define Signed    signed
-# else
-#  define Signed
-# endif
-//# define Void       void		/* Void f() = procedure */
-# ifndef Const
-#  define Const     const
-# endif
-# ifndef Volatile
-# define Volatile   volatile
-# endif
-# ifdef M_LINT
-#  define P2PP(x)     ()
-#  define PV()	    ()
-typedef char *Anyptr;
-# else
-#  define P2PP(x)     x			/* function prototype */
-#  define PV()      (void)		/* null function prototype */
-typedef void *Anyptr;
-# endif
-#else
-# define Signed
-//# define Void       void
-# ifndef Const
-#  define Const
-# endif
-# ifndef Volatile
-#  define Volatile
-# endif
-# define P2PP(x)      ()
-# define PV()       ()
-typedef char *Anyptr;
-#endif
-#endif
-
 
 #define Signed
 //#define Void       void
@@ -860,47 +715,6 @@ extern long strtol P2PP((Const Char *, Char **, int));
 extern Anyptr malloc P2PP((size_t));
 extern void free P2PP((Anyptr));
 #endif
-#ifdef SKIP
-
-extern int _OutMem PV();
-extern int _CaseCheck PV();
-extern int _NilCheck PV();
-extern int	_Escape     P2PP( (int) );
-extern int _Escape(int);
-extern int	_EscIO      P2PP( (int) );
-extern int _EscIO(int);
-extern long ipow P2PP((long, long));
-extern Char *strsub P2PP((Char *, Char *, int, int));
-extern Char *strltrim P2PP((Char *));
-extern Char *strrtrim P2PP((Char *));
-extern Char *strrpt P2PP((Char *, Char *, int));
-extern Char *strpad P2PP((Char *, Char *, int, int));
-extern int strpos2 P2PP((Char *, Char *, int));
-extern long memavail PV();
-extern int P_peek P2PP((FILE *));
-extern int P_eof P2PP((FILE *));
-extern int P_eoln P2PP((FILE *));
-extern void P_readpaoc P2PP((FILE *, Char *, int));
-extern void P_readlnpaoc P2PP((FILE *, Char *, int));
-extern long P_maxpos P2PP((FILE *));
-extern Char *P_trimname P2PP((Char *, int));
-extern long *P_setunion P2PP((long *, long *, long *));
-extern long *P_setint P2PP((long *, long *, long *));
-extern long *P_setdiff P2PP((long *, long *, long *));
-extern long *P_setxor P2PP((long *, long *, long *));
-extern int P_inset P2PP((unsigned, long *));
-extern int P_setequal P2PP((long *, long *));
-extern int P_subset P2PP((long *, long *));
-extern long *P_addset P2PP((long *, unsigned));
-extern long *P_addsetr P2PP((long *, unsigned, unsigned));
-extern long *P_remset P2PP((long *, unsigned));
-extern long *P_setcpy P2PP((long *, long *));
-extern long *P_expset P2PP((long *, long));
-extern long P_packset P2PP((long *));
-extern int P_getcmdline P2PP((int, int, Char *));
-extern void TimeStamp P2PP((int *, int *, int *, int *, int *, int *));
-extern void P_sun_argv P2PP((char *, int, int));
-#endif
 
 /* I/O error handling */
 #define _CHKIO(cond,ior,val,def)  ((cond) ? P_ioresult=0,(val)  \
@@ -960,15 +774,6 @@ extern void P_sun_argv P2PP((char *, int, int));
 
 #define BUFEOF(f)	   (__CAT__(f,_BFLAGS) != 2 && P_eof(f))
 #define BUFFPOS(f)	   (ftell(f) - (__CAT__(f,_BFLAGS) == 2))
-
-#ifdef SKIP
-typedef struct
-{
-	FILE *f;
-	  FILEBUFNC(f, Char);
-	Char name[_FNSIZE];
-} _TEXT;
-#endif
 
 /* Memory allocation */
 #ifdef __GCC__

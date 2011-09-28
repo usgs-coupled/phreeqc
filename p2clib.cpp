@@ -288,53 +288,7 @@ strrtrim(register char *l_s)
 }
 
 
-/* Store in "ret" "num" copies of string "s".  Return "ret". */
-#ifdef SKIP
-char * CLASS_QUALIFIER
-strrpt(ret, s, num)
-	 char *ret;
-	 register char *s;
-	 register int num;
-{
-	register char *s2 = ret;
-	register char *s1;
-
-	while (--num >= 0)
-	{
-		s1 = s;
-		while ((*s2++ = *s1++));
-		s2--;
-	}
-	return ret;
-}
-#endif
-
 /* Store in "ret" string "s" with enough pad chars added to reach "size". */
-
-#ifdef SKIP
-char * CLASS_QUALIFIER
-strpad(ret, s, padchar, num)
-	 char *ret;
-	 register char *s;
-	 register int padchar, num;
-{
-	register char *d = ret;
-
-	if (s == d)
-	{
-		while (*d++);
-	}
-	else
-	{
-		while ((*d++ = *s++));
-	}
-	num -= (--d - ret);
-	while (--num >= 0)
-		*d++ = (char) padchar;
-	*d = 0;
-	return ret;
-}
-#endif
 
 /* Copy the substring of length "len" from index "spos" of "s" (1-based)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
@@ -354,33 +308,6 @@ strmove(register int len, register char *l_s, register int spos,
 		*d = 0;
 	}
 }
-
-
-/* Delete the substring of length "len" at index "pos" from "s".
-   Delete less if out-of-range. */
-#ifdef SKIP
-void CLASS_QUALIFIER
-strdelete(s, pos, len)
-	 register char *s;
-	 register int pos, len;
-{
-	register int slen;
-
-	if (--pos < 0)
-		return;
-	slen = strlen(s) - pos;
-	if (slen <= 0)
-		return;
-	s += pos;
-	if (slen <= len)
-	{
-		*s = 0;
-		return;
-	}
-	while ((*s = s[len]))
-		s++;
-}
-#endif
 
 /* Insert string "src" at index "pos" of "dst". */
 void CLASS_QUALIFIER
@@ -436,17 +363,6 @@ P_peek(FILE * f)
 int CLASS_QUALIFIER
 P_eof(void)
 {
-#ifdef SKIP
-	register int ch;
-	if (feof(f))
-		return 1;
-	if (f == stdin)
-		return 0;				/* not safe to look-ahead on the keyboard! */
-	ch = getc(f);
-	if (ch == EOF)
-		return 1;
-	ungetc(ch, f);
-#endif
 	return 0;
 }
 
@@ -632,18 +548,6 @@ P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2
 	return dbase;
 }
 
-#ifdef SKIP
-int CLASS_QUALIFIER
-P_inset(register unsigned val, register long *s)	/* val IN s */
-{
-	register int bit;
-	bit = val % SETBITS;
-	val /= SETBITS;
-	if ((long) val < (*s++ && ((1L << bit) & s[val])))
-		return 1;
-	return 0;
-}
-#endif
 long * CLASS_QUALIFIER
 P_addset(register long *l_s, register unsigned val)	/* s := s + [val] */
 {
@@ -783,112 +687,6 @@ P_packset(register long *l_s)		/* convert s to a small-set */
 		return 0;
 }
 
-
-
-#ifdef SKIP
-
-/* Oregon Software Pascal extensions, courtesy of William Bader */
-int CLASS_QUALIFIER
-P_getcmdline(int l, int h, Char * line)
-{
-	int i, len;
-	char *s;
-
-	h = h - l + 1;
-	len = 0;
-	for (i = 1; i < P_argc; i++)
-	{
-		s = P_argv[i];
-		while (*s)
-		{
-			if (len >= h)
-				return len;
-			line[len++] = *s++;
-		}
-		if (len >= h)
-			return len;
-		line[len++] = ' ';
-	}
-	return len;
-}
-#endif
-#ifndef NO_TIME
-void CLASS_QUALIFIER
-TimeStamp(Day, Month, Year, Hour, Min, Sec)
-	 int *Day, *Month, *Year, *Hour, *Min, *Sec;
-{
-	struct tm *tm;
-	long clock;
-
-	time(&clock);
-	tm = localtime(&clock);
-	*Day = tm->tm_mday;
-	*Month = tm->tm_mon + 1;	/* Jan = 0 */
-	*Year = tm->tm_year;
-	if (*Year < 1900)
-		*Year += 1900;			/* year since 1900 */
-	*Hour = tm->tm_hour;
-	*Min = tm->tm_min;
-	*Sec = tm->tm_sec;
-}
-
-void CLASS_QUALIFIER
-VAXdate(s)
-	 char *s;
-{
-	long clock;
-	char *c;
-	int i;
-	static int where[] = { 8, 9, 0, 4, 5, 6, 0, 20, 21, 22, 23 };
-
-	time(&clock);
-	c = ctime(&clock);
-	for (i = 0; i < 11; i++)
-		s[i] = my_toupper(c[where[i]]);
-	s[2] = '-';
-	s[6] = '-';
-}
-
-void CLASS_QUALIFIER
-VAXtime(s)
-	 char *s;
-{
-	long clock;
-	char *c;
-	int i;
-
-	time(&clock);
-	c = ctime(&clock);
-	for (i = 0; i < 8; i++)
-		s[i] = c[i + 11];
-	s[8] = '.';
-	s[9] = '0';
-	s[10] = '0';
-}
-#endif
-
-
-
-#ifdef SKIP
-/* SUN Berkeley Pascal extensions */
-void CLASS_QUALIFIER
-P_sun_argv(register char *s, register int len, register int n)
-{
-	register char *cp;
-
-	if (n < P_argc)
-		cp = P_argv[n];
-	else
-		cp = "";
-	while (*cp && --len >= 0)
-		*s++ = *cp++;
-	while (--len >= 0)
-		*s++ = ' ';
-}
-#endif
-
-
-
 int CLASS_QUALIFIER
 _OutMem(void)
 {
@@ -914,12 +712,6 @@ _NilCheck(void)
 /* The following is suitable for the HP Pascal operating system.
    It might want to be revised when emulating another system. */
 
-#ifdef SKIP
-static char * CLASS_QUALIFIER
-_ShowEscape(buf, code, ior, prefix)
-	 char *buf, *prefix;
-	 int code, ior;
-#endif
 char * CLASS_QUALIFIER
 _ShowEscape(char *buf, int code, int ior, char *prefix)
 {

@@ -337,15 +337,6 @@ get_charge(char *charge, LDBLE * l_z)
  */
 		errno = 0;
 		i = strtol(charge, &ptr, 0);
-#ifdef SKIP
-		if (errno == ERANGE)
-		{
-			sprintf(error_string,
-					"Error in character string for charge, %s.", charge);
-			error_msg(error_string, CONTINUE);
-			return (ERROR);
-		}
-#endif
 /*
  *   Truncate fractional part of charge if all zeros
  */
@@ -359,12 +350,6 @@ get_charge(char *charge, LDBLE * l_z)
 					{
 						*l_z = strtod(charge, &ptr);
 						return (OK);
-#ifdef SKIP
-						sprintf(error_string,
-								"Charge must be an integer, %s.", charge);
-						error_msg(error_string, CONTINUE);
-						return (ERROR);
-#endif
 					}
 				}
 /*

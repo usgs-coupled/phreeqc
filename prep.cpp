@@ -338,25 +338,6 @@ quick_setup(void)
 						}
 					}
 				}
-
-#ifdef SKIP
-				if (count_kin_exch > 0)
-				{
-					for (l = 0; x[i]->exch_comp->totals[l].elt != NULL; l++)
-					{
-						if (x[i]->exch_comp->totals[l].elt->master->type !=
-							EX)
-							continue;
-						if (strcmp_nocase
-							(x[i]->description,
-							 x[i]->exch_comp->totals[l].elt->name) == 0)
-						{
-							x[i]->moles = x[i]->exch_comp->totals[l].coef;
-/* printf("%s  moles %e\n", x[i]->description, x[i]->moles); */
-						}
-					}
-				}
-#endif
 			}
 		}
 	}
@@ -435,27 +416,6 @@ quick_setup(void)
 						}
 					}
 				}
-/* !!!! */
-#ifdef SKIP
-				if (count_kin_surf > 0)
-				{
-					for (l = 0; x[i]->surface_comp->totals[l].elt != NULL;
-						 l++)
-					{
-						if (x[i]->surface_comp->totals[l].elt->master->type !=
-							SURF)
-							continue;
-
-						if (strcmp_nocase
-							(x[i]->description,
-							 x[i]->surface_comp->totals[l].elt->name) == 0)
-						{
-							x[i]->moles = x[i]->surface_comp->totals[l].coef;
-/* printf("%s  moles %e\n", x[i]->description, x[i]->moles); */
-						}
-					}
-				}
-#endif
 			}
 			else
 			{
@@ -589,10 +549,6 @@ build_gas_phase(void)
 			}
 			if (unknown_ptr == NULL)
 			{
-#ifdef SKIP
-				error_msg("NULL pointer in subroutine build_gas_phase.",
-						  STOP);
-#endif
 				continue;
 			}
 			if (debug_prep == TRUE)
@@ -631,9 +587,6 @@ build_gas_phase(void)
 				}
 				if (master_ptr->unknown == NULL)
 				{
-#ifdef SKIP
-					input_error++;
-#endif
 					continue;
 				}
 				if (master_ptr->in == FALSE)
@@ -699,9 +652,6 @@ build_gas_phase(void)
 			}
 			if (master_ptr->unknown == NULL)
 			{
-#ifdef SKIP
-				input_error++;
-#endif
 				continue;
 			}
 			if (master_ptr->in == FALSE)
@@ -3725,36 +3675,6 @@ find_surface_charge_unknown(char *str_ptr, int plane)
 	return (NULL);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-struct unknown * CLASS_QUALIFIER
-find_surface_charge_unknown(char *str_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *    Makes name for the potential unknown and returns in str_ptr
- *    Returns NULL if this unknown not in unknown list else
- *    returns a pointer to the potential unknown
- */
-	int i;
-	char *ptr;
-	char token[MAX_LENGTH];
-
-	replace("_", " ", str_ptr);
-	ptr = str_ptr;
-	copy_token(token, &ptr, &i);
-	strcat(token, "_CB");
-	strcpy(str_ptr, token);
-	for (i = 0; i < count_unknowns; i++)
-	{
-		if (strcmp(token, x[i]->description) == 0)
-		{
-			return (x[i]);
-		}
-	}
-	return (NULL);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
@@ -4386,18 +4306,6 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 		{
 			store_jacob(gamma_source, &array[row + mu_unknown->number],
 						-1.0 * coef_in);
-#ifdef SKIP
-			if (use_tot_g == 0)
-			{
-				store_jacob(&(s[k]->dg_total_g),
-							&array[row + mu_unknown->number], -1.0 * coef_in);
-			}
-			else if (use_tot_g == 1)
-			{
-				store_jacob(&(s[k]->dg), &array[row + mu_unknown->number],
-							-1.0 * coef_in);
-			}
-#endif
 		}
 	}
 /*

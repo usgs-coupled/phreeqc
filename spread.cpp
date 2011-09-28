@@ -135,19 +135,6 @@ read_solution_spread(void)
 				if (j == DIGIT)
 					numbers++;
 			}
-#ifdef SKIP
-			for (i = 0; i < row_ptr->count; i++)
-			{
-				if (row_ptr->type_vector[i] == STRING)
-				{
-					strings++;
-				}
-				else if (row_ptr->type_vector[i] == NUMBER)
-				{
-					numbers++;
-				}
-			}
-#endif
 			/*
 			 * Is 2nd token all number
 			 */
@@ -283,34 +270,7 @@ read_solution_spread(void)
 					{
 						numbers++;
 					}
-#ifdef SKIP
-					if (row_ptr->type_vector[i] == STRING &&
-						(strcmp_nocase(heading->char_vector[i], "units") !=
-						 0)
-						&& (strcmp_nocase(heading->char_vector[i], "unit") !=
-							0)
-						&&
-						(strcmp_nocase
-						 (heading->char_vector[i], "description") != 0)
-						&& (strcmp_nocase(heading->char_vector[i], "desc") !=
-							0)
-						&&
-						(strcmp_nocase(heading->char_vector[i], "descriptor")
-						 != 0)
-						&& (strcmp_nocase(heading->char_vector[i], "redox")
-							!= 0))
-					{
-						break;
-					}
-#endif
 				}
-#ifdef SKIP
-				if (i < heading->count)
-				{
-					units = row_ptr;
-					break;
-				}
-#endif
 				if (numbers == 0)
 				{
 					units = row_ptr;
@@ -582,15 +542,6 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		|| data->count <= i)
 	{
 		n_user = -1;
-#ifdef SKIP
-		for (i = 0; i < count_solution; i++)
-		{
-			if (n_user <= solution[i]->n_user)
-			{
-				n_user = solution[i]->n_user + 1;
-			}
-		}
-#endif
 	}
 	else if (data->type_vector[i] == STRING)
 	{
@@ -1189,14 +1140,6 @@ copy_token_tab(char *token_ptr, char **ptr, int *length)
  *   Begin copying to token
  */
 	i = 0;
-#ifdef SKIP
-	while ((c = **ptr) != '\t' && c != '\0')
-	{
-		token_ptr[i] = c;
-		(*ptr)++;
-		i++;
-	}
-#endif
 	for (;;)
 	{
 		c = **ptr;

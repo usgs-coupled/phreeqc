@@ -213,23 +213,6 @@ transport(void)
 		}
 		if (multi_Dflag == TRUE)
 		{
-#ifdef SKIP
-			/* check for charge balance of solutions... */
-			if (fabs(cb_x) > (cb_tol * mu_x))
-			{
-				/* make it an error... */
-				input_error++;
-				sprintf(error_string,
-						"Solution %d must be charge-balanced for multicomponent diffusion.",
-						i);
-				error_msg(error_string, CONTINUE);
-				/* or just a warning ... */
-				sprintf(token,
-						"Solution %d has %.2e charge imbalance in multicomponent diffusion.",
-						i, cb_x);
-				warning_msg(token);
-			}
-#endif
 			fill_spec(cell_no);
 		}
 		if (cell_no > 0 && cell_no <= count_cells)
@@ -4640,14 +4623,6 @@ reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 				replace(comp_name, new_comp_name, string);
 				temp_surface.charge[cn].name = string_hsave(string);
 				/*  renaming charge psi_master seems unnecessary... */
-#ifdef SKIP
-				strcpy(string,
-					   temp_surface.charge[cn].psi_master[0].elt->name);
-				replace(comp_name, new_comp_name, string);
-				temp_surface.charge[cn].psi_master[0].elt->name =
-					string_hsave(string);
-#endif
-
 				charge_in = TRUE;
 			}
 			temp_surface.comps[i].Dw = new_Dw;

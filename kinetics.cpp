@@ -85,10 +85,6 @@ LDBLE *m_temp = NULL;
 extern LDBLE min_value;
 extern int count_total_steps;
 #endif
-#ifdef SKIP
-/* appt */
-static int change_surf_flag;
-#endif
 /*
 struct phreeqc_M_Env
 {
@@ -252,29 +248,6 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 									kinetics_ptr->comps[i].list[j].coef);
 			}
 		}
-#ifdef SKIP
-		phase_ptr = NULL;
-		if (kinetics_ptr->comps[i].count_list == 1)
-		{
-			strcpy(token, kinetics_ptr->comps[i].list[0].name);
-			phase_ptr = phase_bsearch(token, &j, FALSE);
-		}
-		if (phase_ptr != NULL)
-		{
-			add_elt_list(phase_ptr->next_elt,
-						 coef * kinetics_ptr->comps[i].list[0].coef);
-		}
-		else
-		{
-			for (j = 0; j < kinetics_ptr->comps[i].count_list; j++)
-			{
-				ptr = kinetics_ptr->comps[i].list[j].name;
-				get_elts_in_species(&ptr,
-									coef *
-									kinetics_ptr->comps[i].list[j].coef);
-			}
-		}
-#endif
 		if (use.exchange_ptr != NULL
 			&& use.exchange_ptr->related_rate == TRUE)
 		{
@@ -361,13 +334,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	struct pp_assemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
 
-#ifdef SKIP
-	struct gas_phase *gas_phase_save = NULL;
-	struct solution *solution_save = NULL;
-	struct exchange *exchange_save = NULL;
-	struct surface *surface_save = NULL;
-#endif
-
 	static LDBLE b31 = 3. / 40., b32 = 9. / 40.,
 		b51 = -11. / 54., b53 = -70. / 27., b54 = 35. / 27.,
 		b61 = 1631. / 55296., b62 = 175. / 512., b63 = 575. / 13824., b64 =
@@ -376,10 +342,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		-277. / 14336.;
 	LDBLE dc1 = c1 - 2825. / 27648., dc3 = c3 - 18575. / 48384., dc4 =
 		c4 - 13525. / 55296., dc6 = c6 - 0.25;
-#ifdef SKIP
-/* appt */
-	change_surf_flag = FALSE;
-#endif
 /*
  *  Save kinetics i and solution i, if necessary
  */
@@ -1151,11 +1113,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
  */
 	if (state >= REACTION || nsaver != i)
 	{
-#ifdef SKIP
-/* appt */
-		saver();
-		change_surf_flag = TRUE;
-#endif
 		set_and_run_wrapper(i, NOMIX, FALSE, nsaver, 0.);
 		run_reactions_iterations += iterations;
 	}
@@ -1184,16 +1141,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	}
 	rk_moles = (LDBLE *) free_check_null(rk_moles);
 
-#ifdef SKIP
-	if (state != TRANSPORT)
-	{
-#ifdef DOS
-		output_msg(OUTPUT_SCREEN, "\n");
-#else
-		output_msg(OUTPUT_SCREEN, "\n%-80s", " ");
-#endif
-	}
-#endif
 	rate_sim_time = rate_sim_time_start + kin_time;
 	use.kinetics_in = TRUE;
 
@@ -1641,12 +1588,6 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 	}
 	/* end new */
-#ifdef SKIP
-/* a quick one ...*/
-	if (state == TRANSPORT /*&& ishift == 0 */  &&
-		(cell == 1 || cell == count_cells))
-		last_model.force_prep = TRUE;
-#endif
 	if (use.surface_ptr != NULL)
 	{
 		dl_type_x = use.surface_ptr->dl_type;
@@ -1658,9 +1599,6 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 	else
 	{
 		prep();
-#ifdef SKIP
-		k_temp(solution[n]->tc);
-#endif
 		k_temp(use.solution_ptr->tc);
 		set(FALSE);
 		converge = model();
@@ -1686,12 +1624,6 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 
 	cell = i;
 	reaction_step = 1;
-#ifdef SKIP
-	if (pr.use == TRUE && pr.all == TRUE)
-	{
-		output_msg(OUTPUT_MESSAGE, "\nCell %d\n", i);
-	}
-#endif
 /*
  *   Find mixture or solution
  */
@@ -1802,23 +1734,6 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		save.surface = TRUE;
 		save.n_surface_user = i;
 		save.n_surface_user_end = i;
-#ifdef SKIP
-/* appt */
-		if (change_surf_flag)
-		{
-			for (n = 0; n < change_surf_count; n++)
-			{
-				if (change_surf[n].cell_no != i)
-					break;
-				reformat_surf(change_surf[n].comp_name,
-							  change_surf[n].fraction,
-							  change_surf[n].new_comp_name,
-							  change_surf[n].new_Dw, change_surf[n].cell_no);
-			}
-			change_surf_count = 0;
-			change_surf_flag = FALSE;
-		}
-#endif
 	}
 	else
 	{
@@ -2928,13 +2843,6 @@ store_get_equi_reactants(int l, int kin_end)
 	return (OK);
 }
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-static void CLASS_QUALIFIER
-derivs(LDBLE x, LDBLE y[], LDBLE dydx[], int n_reactions, int n_user,
-	   struct kinetics *kinetics_ptr, LDBLE step_fraction)
-/* ---------------------------------------------------------------------- */
-#endif
 #if !defined(PHREEQC_CLASS)
 static void 
 f(integertype N, realtype t, N_Vector y, N_Vector ydot,
@@ -3111,13 +3019,6 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 				realtype uround, void *jac_data, long int *nfePtr,
 				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 */
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
-jacobn(LDBLE x, LDBLE y[], LDBLE dfdx[], LDBLE ** dfdy, int n_reactions,
-	   int n_user, struct kinetics *kinetics_ptr, LDBLE step_fraction)
-/* ---------------------------------------------------------------------- */
-#endif
 #if !defined(PHREEQC_CLASS)
 static void  
 Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
@@ -3244,19 +3145,6 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 				pp_assemblage_copy(cvode_pp_assemblage_save,
 								   use.pp_assemblage_ptr, n_user);
 			}
-#ifdef SKIP
-			if (set_and_run_wrapper
-				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)
-			{
-				run_reactions_iterations += iterations;
-				/*
-				   error_msg("Mass balance error in jacobian 2", CONTINUE);
-				 */
-				cvode_error = TRUE;
-				initial_rates = (LDBLE *) free_check_null(initial_rates);
-				return;
-			}
-#endif
 			if (set_and_run_wrapper
 				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)
 			{
@@ -3421,19 +3309,6 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 				pThis->pp_assemblage_copy(pThis->cvode_pp_assemblage_save,
 								   pThis->use.pp_assemblage_ptr, n_user);
 			}
-#ifdef SKIP
-			if (set_and_run_wrapper
-				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)
-			{
-				run_reactions_iterations += iterations;
-				/*
-				   error_msg("Mass balance error in jacobian 2", CONTINUE);
-				 */
-				cvode_error = TRUE;
-				initial_rates = (LDBLE *) free_check_null(initial_rates);
-				return;
-			}
-#endif
 			if (pThis->set_and_run_wrapper
 				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)
 			{

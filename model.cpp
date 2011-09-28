@@ -340,12 +340,6 @@ check_residuals(void)
  */
 	int i, return_value;
 	LDBLE epsilon;
-#ifdef SKIP
-	if (punch.high_precision == FALSE)
-		epsilon = 1e-8;
-	else
-		epsilon = 1.e-12;
-#endif
 	epsilon = convergence_tolerance;
 
 	return_value = OK;
@@ -984,9 +978,6 @@ ineq(int in_kode)
 	LDBLE l_error;
 	LDBLE max;
 	int l_kode;
-#ifdef SKIP
-	LDBLE *save_row;
-#endif
 	LDBLE min;
 #ifdef SLNQ
 	LDBLE *slnq_array;
@@ -1224,8 +1215,6 @@ ineq(int in_kode)
 /*
  *   If infeasible solution on first attempt, remove constraints on IAP
  */
-#ifdef SKIP
-#endif
 				if (pp_scale != 1)
 				{
 					for (j = 0; j < count_unknowns + 1; j++)
@@ -1421,8 +1410,6 @@ ineq(int in_kode)
 /*
  *   Add inequality for mass of oxygen greater than zero
  */
-#ifdef SKIP
-#endif
 	if (pitzer_model || sit_model)
 	{
 		for (i = 0; i < count_unknowns; i++)
@@ -2303,45 +2290,6 @@ molalities(int allow_overflow)
 			for (j = 0; j < use.surface_ptr->count_charge; j++)
 			{
 				count_g = s_x[i]->diff_layer[j].count_g;
-#ifdef SKIP
-/*
- *   original formulation incorrectly mixes concentrations of surface relative
- *   to moles_water_aq_x and concentrations of diffuse layer in terms
- *   of moles_water_bulk_x. Moles_water_bulk_x is wrong anyway because
- *   an individual surface sees only moles_water_aq_x + moles_water_surface
- *   (not sum of all surfaces)
- */
-				s_x[i]->diff_layer[j].g_moles = s_x[i]->moles *
-					(s_x[i]->diff_layer[j].charge->g[count_g].g *
-					 mass_water_bulk_x / mass_water_aq_x +
-					 s_x[i]->diff_layer[j].charge->mass_water /
-					 mass_water_aq_x);
-
-				/* g.dg is dg/dx(-2y**2) or dg/d(ln y) */
-				s_x[i]->diff_layer[j].dx_moles = s_x[i]->moles *
-					s_x[i]->diff_layer[j].charge->g[count_g].dg *
-					mass_water_bulk_x / mass_water_aq_x;
-
-				total_g += s_x[i]->diff_layer[j].charge->g[count_g].g *
-					mass_water_bulk_x / mass_water_aq_x +
-					s_x[i]->diff_layer[j].charge->mass_water /
-					mass_water_aq_x;
-
-				s_x[i]->diff_layer[j].dh2o_moles = -s_x[i]->moles *
-					(s_x[i]->diff_layer[j].charge->g[count_g].g + 1) *
-					s_x[i]->diff_layer[j].charge->mass_water /
-					mass_water_aq_x;
-
-				s_x[i]->tot_dh2o_moles += s_x[i]->diff_layer[j].dh2o_moles;
-
-				/* surface related to phase */
-
-				s_x[i]->diff_layer[j].drelated_moles =
-					s_x[i]->moles *
-					(s_x[i]->diff_layer[j].charge->g[count_g].g +
-					 1) * use.surface_ptr->charge[j].specific_area *
-					use.surface_ptr->thickness / mass_water_aq_x;
-#endif
 /*
  *   partially corrected formulation assumes mass of water in diffuse layer
  *   is insignificant. Excess is calculated on the basis of moles_water_aq_x
@@ -2405,8 +2353,6 @@ molalities(int allow_overflow)
 			{
 				s_x[i]->dg_total_g = 0.0;
 			}
-#ifdef SKIP
-#endif
 			if (debug_diffuse_layer == TRUE)
 			{
 				output_msg(OUTPUT_MESSAGE, "%s\t%e\t%e\n", s_x[i]->name,
@@ -2669,28 +2615,7 @@ s_s_binary(struct s_s *s_s_ptr)
 		xb2 = xb * xb;
 		xb3 = xb2 * xb;
 		xb4 = xb3 * xb;
-#ifdef SKIP
-		/* first component */
-		dnb =
-			-2 * l_a0 * xb * xc2 - 8 * l_a1 * xb2 * xc2 + 6 * l_a1 * xb * xc2 -
-			4 * l_a1 * xc * xb4 - 8 * l_a1 * xb3 * xc2 - 4 * l_a1 * xb2 * xc3 -
-			2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 + 6 * l_a1 * xc * xb2 + 1;
-		s_s_ptr->comps[0].phase->dnb = dnb / n_tot;
-		dnc =
-			2 * l_a0 * xb3 + 2 * l_a0 * xc * xb2 + 8 * l_a1 * xb4 +
-			8 * l_a1 * xc * xb3 - 2 * l_a1 * xb3 - 6 * l_a1 * xc * xb2;
-		s_s_ptr->comps[0].phase->dnc = -xb / nc + dnc / n_tot;
 
-		/* second component */
-		dnb =
-			2 * l_a0 * xb * xc2 + 2 * l_a0 * xc3 + 8 * l_a1 * xb2 * xc2 +
-			8 * l_a1 * xb * xc3 - 2 * l_a1 * xb * xc2 - 6 * l_a1 * xc3;
-		s_s_ptr->comps[1].phase->dnb = -xc / nb + dnb / n_tot;
-		dnc =
-			-2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 + 2 * l_a1 * xc * xb2 -
-			2 * l_a0 * xb * xc2 - 8 * l_a1 * xb2 * xc2 + 6 * l_a1 * xb * xc2 + 1;
-		s_s_ptr->comps[1].phase->dnc = dnc / n_tot;
-#endif
 		/* used derivation that did not substitute x2 = 1-x1 */
 
 		/* first component, df1/dn1 */
@@ -2781,21 +2706,12 @@ reset(void)
 	LDBLE factor, f0;
 	LDBLE sum_deltas;
 	LDBLE step_up;
-#ifdef SKIP
-	LDBLE epsilon;
-#endif
 	LDBLE mu_calc;
 	LDBLE old_moles;
 	int warning;
 /*
  *   Calculate interphase mass transfers
  */
-#ifdef SKIP
-	if (punch.high_precision == FALSE)
-		epsilon = 1e-9;
-	else
-		epsilon = 1.e-12;
-#endif
 	step_up = log(step_size_now);
 	factor = 1.;
 
@@ -2819,16 +2735,6 @@ reset(void)
 				}
 				if (x[i]->dissolve_only == TRUE)
 				{
-#ifdef SKIP
-					if (x[i]->moles > x[i]->pure_phase->initial_moles)
-					{
-						output_msg(OUTPUT_MESSAGE,
-								   "%-10.10s, Precipitated dissolve_only mineral!*\tDiff %e\n",
-								   x[i]->description,
-								   x[i]->moles -
-								   x[i]->pure_phase->initial_moles);
-					}
-#endif
 					if ((delta[i] < 0.0)
 						&& (-delta[i] >
 							(x[i]->pure_phase->initial_moles - x[i]->moles)))
@@ -3009,18 +2915,6 @@ reset(void)
 			else if (x[i]->type == MU)
 			{
 				up = 100 * mu_x;
-#ifdef SKIP
-				if (up > 0.1)
-				{
-					up = 2 * mu_x;
-					up = 0.1;
-				}
-#endif
-#ifdef SKIP
-				down = 0.7 * mu_x;
-				if (down < 0.1)
-					down = 0.1;
-#endif
 				down = mu_x;
 			}
 			else if (x[i]->type == AH2O)
@@ -3244,12 +3138,6 @@ reset(void)
 			{
 				x[i]->surface_charge->grams = 0.0;
 			}
-#ifdef SKIP
-			else if (fabs(delta[i]) > epsilon)
-			{
-				converge = FALSE;
-			}
-#endif
 			x[i]->related_moles = x[i]->surface_charge->grams;
 			if (debug_model == TRUE)
 			{
@@ -3600,12 +3488,6 @@ residuals(void)
  *   Calculate residuals
  */
 	converge = TRUE;
-#ifdef SKIP
-	if (punch.high_precision == FALSE)
-		l_toler = 1e-8;
-	else
-		l_toler = 1.e-12;
-#endif
 	l_toler = convergence_tolerance;
 
 	for (i = 0; i < count_unknowns; i++)

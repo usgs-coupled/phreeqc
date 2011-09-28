@@ -116,9 +116,3 @@
 
 
 #endif
-
-#ifdef SKIP
-#ifdef __cplusplus
-}
-#endif
-#endif

@@ -1392,35 +1392,11 @@ initial_surfaces(int print)
 					("Solution not found for initial surface calculation",
 					 STOP);
 			}
-#ifdef SKIP
-			if (diffuse_layer_x == TRUE)
-			{
-				converge = surface_model();
-			}
-			else
-			{
-				prep();
-				k_temp(use.solution_ptr->tc);
-				set(TRUE);
-				converge = model();
-			}
-			converge1 = check_residuals();
-			sum_species();
-#endif
 			set_and_run_wrapper(-1, FALSE, FALSE, -1, 0.0);
 			species_list_sort();
 			print_surface();
 			/*print_all(); */
 			punch_all();
-#ifdef SKIP
-			if (converge == ERROR || converge1 == ERROR)
-			{
-				/* free_model_allocs(); */
-				error_msg
-					("Model failed to converge for initial surface calculation.",
-					 STOP);
-			}
-#endif
 			xsurface_save(n_user);
 			/* free_model_allocs(); */
 		}
@@ -1949,11 +1925,6 @@ xs_s_assemblage_save(int n_user)
 			simulation);
 	temp_s_s_assemblage.description = string_duplicate(token);
 	temp_s_s_assemblage.new_def = FALSE;
-#ifdef SKIP
-	temp_s_s_assemblage.type = use.s_s_assemblage_ptr->type;
-	temp_s_s_assemblage.solution_equilibria = FALSE;
-	temp_s_s_assemblage.n_solution = -99;
-#endif
 	count_s_s = use.s_s_assemblage_ptr->count_s_s;
 	temp_s_s_assemblage.count_s_s = count_s_s;
 /*
@@ -3469,20 +3440,6 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #ifdef PHREEQ98
 		}						/* if (!phreeq98_debug) */
 #endif
-#ifdef SKIP
-
-		{
-			int n;
-			SAX_StartSystem();
-			for (n = 0; n < count_solution; ++n)
-			{
-				SAX_AddSolution(solution[n]);
-			}
-			SAX_EndSystem();
-			SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
-		}
-#endif
-
 	}
 
 

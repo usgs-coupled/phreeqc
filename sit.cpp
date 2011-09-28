@@ -365,13 +365,6 @@ sit(void)
 				sit_IPRSNT[i] = TRUE;
 		}
 	}
-#ifdef SKIP
-	if (ICON == TRUE)
-	{
-		sit_IPRSNT[IC] = TRUE;
-	}
-#endif
-
 	/*
 	   C
 	   C     COMPUTE SIT COEFFICIENTS' TEMPERATURE DEPENDENCE
