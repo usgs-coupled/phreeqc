@@ -1,7 +1,6 @@
 #if !defined (INCLUDE_PHRQALLOC_H)
 #define INCLUDE_PHRQALLOC_H
 
-/*#if !defined (USE_PHRQ_ALLOC)*/
 #if defined (USE_PHRQ_ALLOC)
 
 #if !defined(NDEBUG)

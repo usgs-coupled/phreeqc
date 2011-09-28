@@ -52,10 +52,6 @@ int normal_max = 0, ineq_array_max = 0, res_max = 0, cu_max = 0, zero_max =
 	0, delta1_max = 0, iu_max = 0, is_max = 0, back_eq_max = 0;
 #endif
 
-#ifdef ORCHESTRA
-extern void ORCH_model(void);
-#endif
-
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 model(void)
@@ -95,11 +91,6 @@ model(void)
 		fprintf(stderr, " ");
 	*/
 	set_inert_moles();
-#ifdef ORCHESTRA
-	ORCH_model();
-	unset_inert_moles();
-	return (OK);
-#endif
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */
 /*	debug_set = TRUE; */
