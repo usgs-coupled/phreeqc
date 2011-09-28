@@ -8859,6 +8859,215 @@ cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp
 	return (s_s_ptr);
 }
 
+#include "../Surface.h"
+struct surface * CLASS_QUALIFIER
+cxxSurface2surface(cxxSurface * surf)
+		//
+		// Builds a surface structure from instance of cxxSurface 
+		//
+{
+	struct surface *surface_ptr = surface_alloc();
+
+	surface_ptr->description = string_duplicate (surf->get_description().c_str());
+	surface_ptr->n_user = surf->get_n_user();
+	surface_ptr->n_user_end = surf->get_n_user_end();
+	surface_ptr->new_def = FALSE;
+	surface_ptr->type = surf->Get_type();
+	surface_ptr->dl_type = surf->Get_dl_type();
+	surface_ptr->sites_units = surf->Get_sites_units();
+	surface_ptr->only_counter_ions = surf->Get_only_counter_ions();
+	surface_ptr->thickness = surf->Get_thickness();
+	surface_ptr->debye_lengths = 1.0;
+	surface_ptr->solution_equilibria = FALSE;
+	surface_ptr->n_solution = -2;
+	surface_ptr->related_phases = (int) surf->Get_related_phases();
+	surface_ptr->related_rate = (int) surf->Get_related_rate();
+	surface_ptr->transport = surf->Get_transport();
+	surface_ptr->debye_lengths = surf->Get_debye_lengths();
+	surface_ptr->DDL_viscosity = surf->Get_DDL_viscosity();
+	surface_ptr->DDL_limit = surf->Get_DDL_limit();
+
+	// Surface comps
+	surface_ptr->count_comps = (int) surf->Get_surfaceComps().size();
+	surface_ptr->comps =
+		(struct surface_comp *) free_check_null(surface_ptr->comps);
+	//surface_ptr->comps =
+	//	cxxSurfaceComp::cxxSurfaceComp2surface_comp(P_INSTANCE_COMMA this->surfaceComps);
+	surface_ptr->comps =
+		cxxSurfaceComp2surface_comp(&surf->Get_surfaceComps());
+
+	// Surface charge
+	surface_ptr->charge =
+		(struct surface_charge *) free_check_null(surface_ptr->charge);
+
+	//if (surface_ptr->edl == TRUE) {
+	if (surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC)
+	{
+		surface_ptr->count_charge = (int) surf->Get_surfaceCharges().size();
+		//surface_ptr->charge =
+		//	cxxSurfaceCharge::cxxSurfaceCharge2surface_charge(P_INSTANCE_COMMA this->surfaceCharges);
+		surface_ptr->charge =
+			cxxSurfaceCharge2surface_charge(&surf->Get_surfaceCharges());
+	}
+	else
+	{
+		surface_ptr->count_charge = 0;
+	}
+	// Need to fill in charge (number) in comps list
+	if (surface_ptr->type != NO_EDL)
+	{
+		int i, j;
+		for (i = 0; i < surface_ptr->count_comps; i++)
+		{
+			//char *charge_name = P_INSTANCE_POINTER string_hsave(
+			//	cxxSurfaceComp::get_charge_name(P_INSTANCE_COMMA surface_ptr->comps[i].formula).c_str());
+			char token[MAX_LENGTH], name[MAX_LENGTH];
+			int l;
+			strcpy(token, surface_ptr->comps[i].formula);
+			char *ptr1 = token;
+			get_elt(&ptr1, name, &l);
+			ptr1 = strchr(name, '_');
+			if (ptr1 != NULL)
+			{
+				ptr1[0] = '\0';
+			}
+			char *charge_name = string_hsave(name);	
+
+			for (j = 0; j < surface_ptr->count_charge; j++)
+			{
+				if (charge_name == surface_ptr->charge[j].name)
+				{
+					surface_ptr->comps[i].charge = j;
+					break;
+				}
+			}
+			assert(j < surface_ptr->count_charge);
+		}
+	}
+
+	return (surface_ptr);
+}
+
+#include "../SurfaceComp.h"
+struct surface_comp * CLASS_QUALIFIER
+cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc)
+	//
+	// Builds surface_comp structure from of cxxSurfaceComp 
+	//
+{
+	struct surface_comp *surf_comp_ptr =
+		(struct surface_comp *) PHRQ_malloc((size_t) (sc->size() * sizeof(struct surface_comp)));
+	if (surf_comp_ptr == NULL)
+		malloc_error();
+
+	int i = 0;
+	for (std::map < std::string, cxxSurfaceComp >::const_iterator it = sc->begin();
+		it != sc->end(); ++it)
+	{
+		surf_comp_ptr[i].formula = string_hsave((*it).second.Get_formula().c_str());
+		assert((*it).second.Get_formula().size() > 0);
+		//surf_comp_ptr[i].formula_totals = (*it).second.Get_formula_totals().elt_list(P_INSTANCE);
+		surf_comp_ptr[i].formula_totals = cxxNameDouble2elt_list(&(*it).second.Get_formula_totals());
+		surf_comp_ptr[i].formula_z = (*it).second.Get_formula_z();
+		surf_comp_ptr[i].moles = (*it).second.Get_moles();
+		//surf_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE);
+		surf_comp_ptr[i].master = cxxNameDouble2surface_master(&(*it).second.Get_totals());
+		//surf_comp_ptr[i].totals = (*it).second.totals.elt_list(P_INSTANCE);
+		surf_comp_ptr[i].totals = cxxNameDouble2elt_list(&(*it).second.Get_totals());
+		surf_comp_ptr[i].la = (*it).second.Get_la();
+		//surf_comp_ptr[i].charge                 =  it->charge_number;
+		surf_comp_ptr[i].cb = (*it).second.Get_charge_balance();
+		if ((*it).second.Get_phase_name().size() == 0)
+			surf_comp_ptr[i].phase_name = NULL;
+		else
+			surf_comp_ptr[i].phase_name = string_hsave((*it).second.Get_phase_name().c_str());
+		surf_comp_ptr[i].phase_proportion = (*it).second.Get_phase_proportion();
+		if ((*it).second.Get_rate_name().size() == 0)
+			surf_comp_ptr[i].rate_name = NULL;
+		else
+			surf_comp_ptr[i].rate_name = string_hsave((*it).second.Get_rate_name().c_str());
+		surf_comp_ptr[i].Dw = (*it).second.Get_Dw();
+		//surf_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE); // duplicate
+		i++;
+	}
+	return (surf_comp_ptr);
+}
+
+#include "../SurfaceCharge.h"
+struct surface_charge * CLASS_QUALIFIER
+cxxSurfaceCharge2surface_charge(const std::map < std::string, cxxSurfaceCharge > * s_ch)
+	//
+	// Builds surface_charge structure from of cxxSurfaceCharge 
+	//
+{
+	struct surface_charge *surf_charge_ptr =
+		(struct surface_charge *) PHRQ_malloc((size_t) (s_ch->size() * sizeof(struct surface_charge)));
+	if (surf_charge_ptr == NULL)
+		malloc_error();
+
+	int i = 0;
+	for (std::map < std::string, cxxSurfaceCharge >::const_iterator it = s_ch->begin();
+		it != s_ch->end(); ++it)
+	{
+		surf_charge_ptr[i].name = string_hsave((*it).second.Get_name().c_str());
+		assert((*it).second.Get_name().size() > 0);
+		surf_charge_ptr[i].specific_area = (*it).second.Get_specific_area();
+		surf_charge_ptr[i].grams = (*it).second.Get_grams();
+		surf_charge_ptr[i].charge_balance = (*it).second.Get_charge_balance();
+		surf_charge_ptr[i].mass_water = (*it).second.Get_mass_water();
+		surf_charge_ptr[i].la_psi = (*it).second.Get_la_psi();
+		surf_charge_ptr[i].la_psi1 = (*it).second.Get_la_psi1();
+		surf_charge_ptr[i].la_psi2 = (*it).second.Get_la_psi2();
+		surf_charge_ptr[i].capacitance[0] = (*it).second.Get_capacitance0();
+		surf_charge_ptr[i].capacitance[1] = (*it).second.Get_capacitance1();
+		surf_charge_ptr[i].sigma0 = 0;
+		surf_charge_ptr[i].sigma1 = 0;
+		surf_charge_ptr[i].sigma2 = 0;
+		surf_charge_ptr[i].sigmaddl = 0;
+		//surf_charge_ptr[i].diffuse_layer_totals = (*it).second.diffuse_layer_totals.elt_list(P_INSTANCE);
+		surf_charge_ptr[i].diffuse_layer_totals = cxxNameDouble2elt_list(&(*it).second.Get_diffuse_layer_totals());
+		//surf_charge_ptr[i].psi_master           = it->get_psi_master();
+		surf_charge_ptr[i].count_g = 0;
+		surf_charge_ptr[i].g = NULL;
+		i++;
+	}
+	return (surf_charge_ptr);
+}
+
+struct master * CLASS_QUALIFIER
+cxxNameDouble2surface_master(const cxxNameDouble * totals)
+{
+	struct master *master_ptr = NULL;
+	for (cxxNameDouble::const_iterator it = totals->begin();
+		it != totals->end(); it++)
+	{
+		/* Find master species */
+		char *eltName = string_hsave(it->first.c_str());
+		assert(it->first.size() > 0);
+		struct element *elt_ptr = element_store(eltName);
+		if (elt_ptr->master == NULL)
+		{
+			std::ostringstream error_oss;
+			error_oss << "Master species not in data base for " << elt_ptr->
+				name << std::endl;
+			error_msg(error_oss.str().c_str(), CONTINUE);
+			return (NULL);
+		}
+		if (elt_ptr->master->type != SURF)
+			continue;
+		master_ptr = elt_ptr->master;
+		break;
+	}
+	if (master_ptr == NULL)
+	{
+		std::ostringstream error_oss;
+		error_oss <<
+			"Surface formula does not contain a surface master species, " << std::endl;
+			//this->formula << std::endl;
+		error_msg(error_oss.str().c_str(), CONTINUE);
+	}
+	return (master_ptr);
+}
 struct conc * CLASS_QUALIFIER
 cxxNameDouble2conc(const cxxNameDouble * nd) 
 		// for Solutions, not ISolutions

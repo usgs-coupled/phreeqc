@@ -613,12 +613,20 @@ class cxxSSassemblage;
 struct s_s_assemblage * cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss);
 class cxxSSassemblageSS;
 struct s_s * cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp);
+class cxxSurface;
+struct surface * cxxSurface2surface(cxxSurface * surf);
+class cxxSurfaceComp;
+struct surface_comp * cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc);
+class cxxSurfaceCharge;
+struct surface_charge * cxxSurfaceCharge2surface_charge(const std::map < std::string, cxxSurfaceCharge > * s_ch);
 class cxxTemperature;
 struct temperature * cxxTemperature2temperature(const cxxTemperature *temp);
+
 struct conc * cxxNameDouble2conc(const cxxNameDouble *nd); 
 struct elt_list * cxxNameDouble2elt_list(const cxxNameDouble * nd);
 struct name_coef * cxxNameDouble2name_coef(const cxxNameDouble * nd);
 struct master_activity * cxxNameDouble2master_activity(const cxxNameDouble * nd);
+struct master * cxxNameDouble2surface_master(const cxxNameDouble * totals);
 #endif
 
 /* tidy.c */
