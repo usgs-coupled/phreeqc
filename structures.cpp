@@ -8041,9 +8041,9 @@ cxxMix2mix(cxxMix * mx)
 	if (mix_ptr == NULL)
 		malloc_error();
 
-	mix_ptr->description = string_duplicate (mx->get_description().c_str());
-	mix_ptr->n_user = mx->get_n_user();
-	mix_ptr->n_user_end = mx->get_n_user_end();
+	mix_ptr->description = string_duplicate (mx->Get_description().c_str());
+	mix_ptr->n_user = mx->Get_n_user();
+	mix_ptr->n_user_end = mx->Get_n_user_end();
 
 	// comps
 	mix_ptr->comps = NULL;
@@ -8077,19 +8077,19 @@ cxxExchange2exchange(const cxxExchange * ex)
 {
 	struct exchange *exchange_ptr = exchange_alloc();
 
-	exchange_ptr->description = string_duplicate (ex->get_description().c_str());
-	exchange_ptr->n_user = ex->get_n_user();
-	exchange_ptr->n_user_end = ex->get_n_user_end();
+	exchange_ptr->description = string_duplicate (ex->Get_description().c_str());
+	exchange_ptr->n_user = ex->Get_n_user();
+	exchange_ptr->n_user_end = ex->Get_n_user_end();
 	exchange_ptr->new_def = FALSE;
 	exchange_ptr->solution_equilibria = FALSE;
 	exchange_ptr->n_solution = -2;
 	exchange_ptr->related_phases = (int) ex->Get_related_phases();
 	exchange_ptr->related_rate = (int) ex->Get_related_rate();
 	exchange_ptr->pitzer_exchange_gammas = (int) ex->Get_pitzer_exchange_gammas();
-	exchange_ptr->count_comps = (int) ex->get_exchComps().size();
+	exchange_ptr->count_comps = (int) ex->Get_exchComps().size();
 	exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
 	//exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(P_INSTANCE_COMMA this->exchComps);
-	exchange_ptr->comps = cxxExchComp2exch_comp(&(ex->get_exchComps()));
+	exchange_ptr->comps = cxxExchComp2exch_comp(&(ex->Get_exchComps()));
 	return (exchange_ptr);
 }
 
@@ -8216,9 +8216,9 @@ cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 {
 	struct gas_phase *gas_phase_ptr = gas_phase_alloc();
 
-	gas_phase_ptr->description = string_duplicate (gp->get_description().c_str());
-	gas_phase_ptr->n_user = gp->get_n_user();
-	gas_phase_ptr->n_user_end = gp->get_n_user_end();
+	gas_phase_ptr->description = string_duplicate (gp->Get_description().c_str());
+	gas_phase_ptr->n_user = gp->Get_n_user();
+	gas_phase_ptr->n_user_end = gp->Get_n_user_end();
 	gas_phase_ptr->new_def = FALSE;
 	gas_phase_ptr->solution_equilibria = FALSE;
 	gas_phase_ptr->n_solution = -2;
@@ -8281,9 +8281,9 @@ cxxKinetics2kinetics(const cxxKinetics * kin)
 	if (kin == NULL) return NULL;
 	struct kinetics *kinetics_ptr = kinetics_alloc();
 
-	kinetics_ptr->description = string_duplicate (kin->get_description().c_str());
-	kinetics_ptr->n_user = kin->get_n_user();
-	kinetics_ptr->n_user_end = kin->get_n_user_end();
+	kinetics_ptr->description = string_duplicate (kin->Get_description().c_str());
+	kinetics_ptr->n_user = kin->Get_n_user();
+	kinetics_ptr->n_user_end = kin->Get_n_user_end();
 	kinetics_ptr->step_divide = kin->Get_step_divide();
 	kinetics_ptr->rk = kin->Get_rk();
 	kinetics_ptr->bad_step_max = kin->Get_bad_step_max();
@@ -8391,9 +8391,9 @@ cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
 {
 	struct pp_assemblage *pp_assemblage_ptr = pp_assemblage_alloc();
 
-	pp_assemblage_ptr->description = string_duplicate (pp->get_description().c_str());
-	pp_assemblage_ptr->n_user = pp->get_n_user();
-	pp_assemblage_ptr->n_user_end = pp->get_n_user_end();
+	pp_assemblage_ptr->description = string_duplicate (pp->Get_description().c_str());
+	pp_assemblage_ptr->n_user = pp->Get_n_user();
+	pp_assemblage_ptr->n_user_end = pp->Get_n_user_end();
 	pp_assemblage_ptr->new_def = FALSE;
 	pp_assemblage_ptr->count_comps = (int) pp->Get_ppAssemblageComps().size();
 	pp_assemblage_ptr->pure_phases =
@@ -8457,9 +8457,9 @@ cxxReaction2irrev(const cxxReaction * rxn)
 	if (irrev_ptr == NULL)
 		malloc_error();
 
-	irrev_ptr->description = string_duplicate (rxn->get_description().c_str());
-	irrev_ptr->n_user = rxn->get_n_user();
-	irrev_ptr->n_user_end = rxn->get_n_user_end();
+	irrev_ptr->description = string_duplicate (rxn->Get_description().c_str());
+	irrev_ptr->n_user = rxn->Get_n_user();
+	irrev_ptr->n_user_end = rxn->Get_n_user_end();
 
 	//irrev_ptr->list = this->reactantList.name_coef(P_INSTANCE);
 	irrev_ptr->list = cxxNameDouble2name_coef(&rxn->Get_reactantList());
@@ -8509,9 +8509,9 @@ cxxSolution2solution(const cxxSolution * sol)
 
 	struct solution *solution_ptr = solution_alloc();
 
-	solution_ptr->description = string_duplicate (sol->get_description().c_str());
-	solution_ptr->n_user = sol->get_n_user();
-	solution_ptr->n_user_end = sol->get_n_user_end();
+	solution_ptr->description = string_duplicate (sol->Get_description().c_str());
+	solution_ptr->n_user = sol->Get_n_user();
+	solution_ptr->n_user_end = sol->Get_n_user_end();
 	solution_ptr->new_def = FALSE;
 	solution_ptr->tc = sol->Get_tc();
 	solution_ptr->ph = sol->Get_ph();
@@ -8603,14 +8603,14 @@ cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 {
 	struct s_s_assemblage *s_s_assemblage_ptr = s_s_assemblage_alloc();
 
-	s_s_assemblage_ptr->description = string_duplicate (ss->get_description().c_str());
-	s_s_assemblage_ptr->n_user = ss->get_n_user();
-	s_s_assemblage_ptr->n_user_end = ss->get_n_user_end();
+	s_s_assemblage_ptr->description = string_duplicate (ss->Get_description().c_str());
+	s_s_assemblage_ptr->n_user = ss->Get_n_user();
+	s_s_assemblage_ptr->n_user_end = ss->Get_n_user_end();
 	s_s_assemblage_ptr->new_def = FALSE;
-	s_s_assemblage_ptr->count_s_s = (int) ss->get_ssAssemblageSSs().size();
+	s_s_assemblage_ptr->count_s_s = (int) ss->Get_ssAssemblageSSs().size();
 	//s_s_assemblage_ptr->s_s =
 	//	cxxSSassemblageSS::cxxSSassemblageSS2s_s(P_INSTANCE_COMMA this->ssAssemblageSSs);
-	s_s_assemblage_ptr->s_s = cxxSSassemblageSS2s_s(&(ss->get_ssAssemblageSSs()));
+	s_s_assemblage_ptr->s_s = cxxSSassemblageSS2s_s(&(ss->Get_ssAssemblageSSs()));
 	return (s_s_assemblage_ptr);
 }
 
@@ -8707,9 +8707,9 @@ cxxSurface2surface(const cxxSurface * surf)
 {
 	struct surface *surface_ptr = surface_alloc();
 
-	surface_ptr->description = string_duplicate (surf->get_description().c_str());
-	surface_ptr->n_user = surf->get_n_user();
-	surface_ptr->n_user_end = surf->get_n_user_end();
+	surface_ptr->description = string_duplicate (surf->Get_description().c_str());
+	surface_ptr->n_user = surf->Get_n_user();
+	surface_ptr->n_user_end = surf->Get_n_user_end();
 	surface_ptr->new_def = FALSE;
 	surface_ptr->type = surf->Get_type();
 	surface_ptr->dl_type = surf->Get_dl_type();
@@ -9051,9 +9051,9 @@ cxxTemperature2temperature(const cxxTemperature *temp)
 	if (temperature_ptr == NULL)
 		malloc_error();
 
-	temperature_ptr->description = string_duplicate (temp->get_description().c_str());
-	temperature_ptr->n_user = temp->get_n_user();
-	temperature_ptr->n_user_end = temp->get_n_user_end();
+	temperature_ptr->description = string_duplicate (temp->Get_description().c_str());
+	temperature_ptr->n_user = temp->Get_n_user();
+	temperature_ptr->n_user_end = temp->Get_n_user_end();
 
 	// temps
 	temperature_ptr->t = NULL;
@@ -9092,9 +9092,9 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxMix entity(struct_entity, sb.Get_io());
-			sb.setMix(use_ptr->n_mix_user, &entity);
+			sb.Set_Mix(use_ptr->n_mix_user, &entity);
 
-			std::map<int, double> c = (sb.getMix(use_ptr->n_mix_user)->Get_mixComps());
+			std::map<int, double> c = (sb.Get_Mix(use_ptr->n_mix_user)->Get_mixComps());
 			std::map<int, double>::iterator it;
 			for (it = c.begin(); it != c.end(); it++)
 			{
@@ -9102,7 +9102,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 				if (struct_entity1 != NULL)
 				{
 					cxxSolution entity1(struct_entity1, sb.Get_io());
-					sb.setSolution(it->first, &entity1);
+					sb.Set_Solution(it->first, &entity1);
 				}
 			}
 		}
@@ -9113,7 +9113,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxSolution entity(struct_entity, sb.Get_io());
-			sb.setSolution(use_ptr->n_solution_user, &entity);
+			sb.Set_Solution(use_ptr->n_solution_user, &entity);
 		}
 	}
 	if (use_ptr->pp_assemblage_in == TRUE)
@@ -9122,7 +9122,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxPPassemblage entity(struct_entity, sb.Get_io());
-			sb.setPPassemblage(use_ptr->n_pp_assemblage_user, &entity);
+			sb.Set_PPassemblage(use_ptr->n_pp_assemblage_user, &entity);
 		}
 	}
 	if (use_ptr->exchange_in == TRUE)
@@ -9131,7 +9131,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxExchange entity(struct_entity, sb.Get_io());
-			sb.setExchange(use_ptr->n_exchange_user, &entity);
+			sb.Set_Exchange(use_ptr->n_exchange_user, &entity);
 		}
 	}
 	if (use_ptr->surface_in == TRUE)
@@ -9140,7 +9140,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxSurface entity(struct_entity, sb.Get_io());
-			sb.setSurface(use_ptr->n_surface_user, &entity);
+			sb.Set_Surface(use_ptr->n_surface_user, &entity);
 		}
 	}
 	if (use_ptr->gas_phase_in == TRUE)
@@ -9149,7 +9149,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxGasPhase entity(struct_entity, sb.Get_io());
-			sb.setGasPhase(use_ptr->n_gas_phase_user, &entity);
+			sb.Set_GasPhase(use_ptr->n_gas_phase_user, &entity);
 		}
 	}
 	if (use_ptr->s_s_assemblage_in == TRUE)
@@ -9158,7 +9158,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxSSassemblage entity(struct_entity, sb.Get_io());
-			sb.setSSassemblage(use_ptr->n_s_s_assemblage_user, &entity);
+			sb.Set_SSassemblage(use_ptr->n_s_s_assemblage_user, &entity);
 		}
 	}
 	if (use_ptr->kinetics_in == TRUE)
@@ -9167,7 +9167,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxKinetics entity(struct_entity, sb.Get_io());
-			sb.setKinetics(use_ptr->n_kinetics_user, &entity);
+			sb.Set_Kinetics(use_ptr->n_kinetics_user, &entity);
 		}
 	}
 	if (use_ptr->irrev_in == TRUE)
@@ -9176,7 +9176,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxReaction entity(struct_entity, sb.Get_io());
-			sb.setReaction(use_ptr->n_irrev_user, &entity);
+			sb.Set_Reaction(use_ptr->n_irrev_user, &entity);
 		}
 	}
 	if (use_ptr->temperature_in == TRUE)
@@ -9185,7 +9185,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		if (struct_entity != NULL)
 		{
 			cxxTemperature entity(struct_entity, sb.Get_io());
-			sb.setTemperature(use_ptr->n_temperature_user, &entity);
+			sb.Set_Temperature(use_ptr->n_temperature_user, &entity);
 		}
 	}
 }
@@ -9203,7 +9203,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	for (i = 0; i < count_solution; i++)
 	{
 		//sb.getSolutions()[solution[i]->n_user] = cxxSolution(solution[i], sb.Get_io());
-		sb.setSolution(solution[i]->n_user, cxxSolution(solution[i], sb.Get_io()));
+		sb.Set_Solution(solution[i]->n_user, cxxSolution(solution[i], sb.Get_io()));
 	}
 
 	// Exchangers
@@ -9211,7 +9211,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Exchangers[P_INSTANCE_POINTER exchange[i].n_user] = cxxExchange(&P_INSTANCE_POINTER exchange[i], this->Get_io());
 		cxxExchange entity(&exchange[i], sb.Get_io());
-		sb.setExchange(exchange[i].n_user, &entity );
+		sb.Set_Exchange(exchange[i].n_user, &entity );
 	}
 
 	// GasPhases
@@ -9219,7 +9219,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//GasPhases[P_INSTANCE_POINTER gas_phase[i].n_user] = cxxGasPhase(&P_INSTANCE_POINTER gas_phase[i], this->Get_io());
 		cxxGasPhase entity(&gas_phase[i], sb.Get_io());
-		sb.setGasPhase(gas_phase[i].n_user, &entity );
+		sb.Set_GasPhase(gas_phase[i].n_user, &entity );
 	}
 
 	// Kinetics
@@ -9227,7 +9227,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Kinetics[P_INSTANCE_POINTER kinetics[i].n_user] = cxxKinetics(&P_INSTANCE_POINTER kinetics[i], this->Get_io());
 		cxxKinetics entity(&kinetics[i], sb.Get_io());
-		sb.setKinetics(kinetics[i].n_user, &entity );
+		sb.Set_Kinetics(kinetics[i].n_user, &entity );
 	}
 
 	// PPassemblages
@@ -9236,7 +9236,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 		//PPassemblages[P_INSTANCE_POINTER pp_assemblage[i].n_user] =
 		//	cxxPPassemblage(&P_INSTANCE_POINTER pp_assemblage[i], this->Get_io());
 		cxxPPassemblage entity(&pp_assemblage[i], sb.Get_io());
-		sb.setPPassemblage(pp_assemblage[i].n_user, &entity );
+		sb.Set_PPassemblage(pp_assemblage[i].n_user, &entity );
 	}
 
 	// SSassemblages
@@ -9245,7 +9245,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 		//SSassemblages[P_INSTANCE_POINTER s_s_assemblage[i].n_user] =
 		//	cxxSSassemblage(&P_INSTANCE_POINTER s_s_assemblage[i]);
 		cxxSSassemblage entity(&s_s_assemblage[i], sb.Get_io());
-		sb.setSSassemblage(s_s_assemblage[i].n_user, &entity );
+		sb.Set_SSassemblage(s_s_assemblage[i].n_user, &entity );
 	}
 
 	// Surfaces
@@ -9253,7 +9253,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Surfaces[P_INSTANCE_POINTER surface[i].n_user] = cxxSurface(&P_INSTANCE_POINTER surface[i], this->Get_io());
 		cxxSurface entity(&surface[i], sb.Get_io());
-		sb.setSurface(surface[i].n_user, &entity );
+		sb.Set_Surface(surface[i].n_user, &entity );
 	}
 
 	// Mixes
@@ -9261,7 +9261,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Mixes[P_INSTANCE_POINTER mix[i].n_user] = cxxMix(&P_INSTANCE_POINTER mix[i], this->Get_io());
 		cxxMix entity(&mix[i], sb.Get_io());
-		sb.setMix(mix[i].n_user, &entity );	
+		sb.Set_Mix(mix[i].n_user, &entity );	
 	}
 
 	// Reactions
@@ -9269,7 +9269,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Reactions[P_INSTANCE_POINTER irrev[i].n_user] = cxxReaction(&P_INSTANCE_POINTER irrev[i]);
 		cxxReaction entity(&irrev[i], sb.Get_io());
-		sb.setReaction(irrev[i].n_user, &entity );		
+		sb.Set_Reaction(irrev[i].n_user, &entity );		
 	}
 
 	// Temperatures
@@ -9277,7 +9277,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	{
 		//Temperatures[P_INSTANCE_POINTER temperature[i].n_user] = cxxTemperature(&P_INSTANCE_POINTER temperature[i], this->Get_io());
 		cxxTemperature entity(&temperature[i], sb.Get_io());
-		sb.setTemperature(temperature[i].n_user, &entity );	
+		sb.Set_Temperature(temperature[i].n_user, &entity );	
 	}
 }
 
@@ -9293,7 +9293,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 	{
 		solution_bsearch(n, &pos, TRUE);
 		//sb.getSolutions()[n] = cxxSolution(solution[pos], sb.Get_io());
-		sb.setSolution(n, cxxSolution(solution[pos], sb.Get_io()));
+		sb.Set_Solution(n, cxxSolution(solution[pos], sb.Get_io()));
 	}
 
 	// Exchangers
@@ -9303,7 +9303,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			//this->Exchangers[n] = cxxExchange(&(exchange[pos]), sb.Get_io());
 			//cxxExchange entity = cxxExchange(&(exchange[pos]), sb.Get_io());
 			//sb.setExchange(n, &entity );
-			sb.setExchange(n, &(cxxExchange(&(exchange[pos]), sb.Get_io())) );
+			sb.Set_Exchange(n, &(cxxExchange(&(exchange[pos]), sb.Get_io())) );
 		}
 	}
 
@@ -9312,7 +9312,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (gas_phase_bsearch(n, &pos) != NULL)
 		{
 			//this->GasPhases[n] = cxxGasPhase(&(gas_phase[pos]), sb.Get_io());
-			sb.setGasPhase(n, &(cxxGasPhase(&(gas_phase[pos]), sb.Get_io())) );
+			sb.Set_GasPhase(n, &(cxxGasPhase(&(gas_phase[pos]), sb.Get_io())) );
 		}
 	}
 
@@ -9321,7 +9321,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (kinetics_bsearch(n, &pos) != NULL)
 		{
 			//this->Kinetics[n] = cxxKinetics(&(kinetics[pos]), sb.Get_io());
-			sb.setKinetics(n, &(cxxKinetics(&(kinetics[pos]), sb.Get_io())) );
+			sb.Set_Kinetics(n, &(cxxKinetics(&(kinetics[pos]), sb.Get_io())) );
 		}
 	}
 
@@ -9330,7 +9330,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (pp_assemblage_bsearch(n, &pos) != NULL)
 		{
 			//this->PPassemblages[n] = cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io());
-			sb.setPPassemblage(n, &(cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io())) );
+			sb.Set_PPassemblage(n, &(cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io())) );
 		}
 	}
 
@@ -9339,7 +9339,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (s_s_assemblage_bsearch(n, &pos) != NULL)
 		{
 			//this->SSassemblages[n] = cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io());
-			sb.setSSassemblage(n, &(cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io())) );
+			sb.Set_SSassemblage(n, &(cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io())) );
 		}
 	}
 
@@ -9348,7 +9348,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (surface_bsearch(n, &pos) != NULL)
 		{
 			//this->Surfaces[n] = cxxSurface(&(surface[pos]), sb.Get_io());
-			sb.setSurface(n, &(cxxSurface(&(surface[pos]), sb.Get_io())) );
+			sb.Set_Surface(n, &(cxxSurface(&(surface[pos]), sb.Get_io())) );
 		}
 	}
 }
@@ -9362,8 +9362,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 	// Solutions
 	{
 
-		std::map < int, cxxSolution >::const_iterator it = sb.getSolutions().find(n);
-		if (it != sb.getSolutions().end())
+		std::map < int, cxxSolution >::const_iterator it = sb.Get_Solutions().find(n);
+		if (it != sb.Get_Solutions().end())
 		{
 			////P_INSTANCE_POINTER solution[0] = (it->second).cxxSolution2solution(P_INSTANCE);
 			//P_INSTANCE_POINTER solution[0] = P_INSTANCE_POINTER cxxSolution2solution(&(it->second));
@@ -9384,8 +9384,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 
 	// Exchangers
 	{
-		std::map < int, cxxExchange >::const_iterator it = sb.getExchangers().find(n);
-		if (it != sb.getExchangers().end())
+		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
+		if (it != sb.Get_Exchangers().end())
 		{
 			////struct exchange *exchange_ptr =
 			////	(it->second).cxxExchange2exchange(P_INSTANCE);
@@ -9406,8 +9406,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 
 	// GasPhases
 	{
-		std::map < int, cxxGasPhase >::const_iterator it = sb.getGasPhases().find(n);
-		if (it != sb.getGasPhases().end())
+		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
+		if (it != sb.Get_GasPhases().end())
 		{
 			//struct gas_phase *gas_phase_ptr =
 			//	(it->second).cxxGasPhase2gas_phase(P_INSTANCE);
@@ -9428,8 +9428,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 
 	// Kinetics
 	{
-		std::map < int, cxxKinetics >::const_iterator it = sb.getKinetics().find(n);
-		if (it != sb.getKinetics().end())
+		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().find(n);
+		if (it != sb.Get_Kinetics().end())
 		{
 			//struct kinetics *kinetics_ptr =
 			//	(it->second).cxxKinetics2kinetics(P_INSTANCE);
@@ -9450,8 +9450,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 	// PPassemblages
 	{
 		std::map < int, cxxPPassemblage >::const_iterator it =
-			sb.getPPassemblages().find(n);
-		if (it != sb.getPPassemblages().end())
+			sb.Get_PPassemblages().find(n);
+		if (it != sb.Get_PPassemblages().end())
 		{
 			//struct pp_assemblage *pp_assemblage_ptr =
 			//	(it->second).cxxPPassemblage2pp_assemblage(P_INSTANCE);
@@ -9473,8 +9473,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 	// SSassemblages
 	{
 		std::map < int, cxxSSassemblage >::const_iterator it =
-			sb.getSSassemblages().find(n);
-		if (it != sb.getSSassemblages().end())
+			sb.Get_SSassemblages().find(n);
+		if (it != sb.Get_SSassemblages().end())
 		{
 			//struct s_s_assemblage *s_s_assemblage_ptr =
 			//	(it->second).cxxSSassemblage2s_s_assemblage(P_INSTANCE);
@@ -9497,8 +9497,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 
 	// Surfaces
 	{
-		std::map < int, cxxSurface >::const_iterator it = sb.getSurfaces().find(n);
-		if (it != sb.getSurfaces().end())
+		std::map < int, cxxSurface >::const_iterator it = sb.Get_Surfaces().find(n);
+		if (it != sb.Get_Surfaces().end())
 		{
 			//struct surface *surface_ptr = (it->second).cxxSurface2surface(P_INSTANCE);
 			//struct surface *surface_ptr = P_INSTANCE_POINTER cxxSurface2surface(&(it->second));

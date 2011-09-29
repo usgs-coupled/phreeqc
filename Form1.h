@@ -1054,8 +1054,8 @@ namespace zdg_ui2 {
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::WindowsDefaultLocation;//:CenterScreen;
 			//this->Text = L"PHREEQC chart";
-			System::String ^desc = gcnew String(this->chartobject_ptr->get_description().c_str());
-			this->Text = L"Phreeqc USER_GRAPH " + this->chartobject_ptr->get_n_user() + " " + desc;
+			System::String ^desc = gcnew String(this->chartobject_ptr->Get_description().c_str());
+			this->Text = L"Phreeqc USER_GRAPH " + this->chartobject_ptr->Get_n_user() + " " + desc;
 			this->TopMost = false;
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			try

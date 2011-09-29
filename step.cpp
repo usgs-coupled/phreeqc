@@ -242,23 +242,23 @@ step(LDBLE step_fraction)
 		int n;
 		struct solution *sol = solution_bsearch(-1, &n, false);
 		cxxSolution soln(sol, &phrq_io);
-		sys_bin.setSolution(-1, soln);
+		sys_bin.Set_Solution(-1, soln);
 		if (use.pp_assemblage_in)
 		{
 			cxxPPassemblage pp(use.pp_assemblage_ptr, &phrq_io);
-			sys_bin.setPPassemblage(-1, pp);
+			sys_bin.Set_PPassemblage(-1, pp);
 		}
 		if (use.s_s_assemblage_in)
 		{
 			cxxSSassemblage ss(use.s_s_assemblage_ptr);
-			sys_bin.setSSassemblage(-1, ss);
+			sys_bin.Set_SSassemblage(-1, ss);
 		}
-		sys_bin.setSystem(-1);
-		sys_bin.getSystem().totalize(PHREEQC_THIS);
-		cxxNameDouble sys_tots = sys_bin.getSystem().getTotals();
+		sys_bin.Set_System(-1);
+		sys_bin.Get_System().totalize(PHREEQC_THIS);
+		cxxNameDouble sys_tots = sys_bin.Get_System().Get_Totals();
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage *pp = sys_bin.getPPassemblage(-1);
+			cxxPPassemblage *pp = sys_bin.Get_PPassemblage(-1);
 			std::map <std::string, cxxPPassemblageComp>::const_iterator it; 
 			for (it = pp->Get_ppAssemblageComps().begin(); it != pp->Get_ppAssemblageComps().end(); it++)
 			{
@@ -281,9 +281,9 @@ step(LDBLE step_fraction)
 		}
 		if (use.s_s_assemblage_in)
 		{
-			cxxSSassemblage *ss = sys_bin.getSSassemblage(-1);
+			cxxSSassemblage *ss = sys_bin.Get_SSassemblage(-1);
 			std::map <std::string, cxxSSassemblageSS>::const_iterator it; 
-			for (it = ss->get_ssAssemblageSSs().begin(); it != ss->get_ssAssemblageSSs().end(); it++)
+			for (it = ss->Get_ssAssemblageSSs().begin(); it != ss->Get_ssAssemblageSSs().end(); it++)
 			{
 				cxxNameDouble::const_iterator comp_it;
 				for (comp_it = (it->second).Get_comps().begin(); comp_it != (it->second).Get_comps().end(); comp_it++)
