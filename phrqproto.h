@@ -631,6 +631,9 @@ struct master * cxxNameDouble2surface_master(const cxxNameDouble * totals);
 class cxxStorageBin;
 void Use2cxxStorageBin(cxxStorageBin & sb);
 void phreeqc2cxxStorageBin(cxxStorageBin & sb);
+void phreeqc2cxxStorageBin(cxxStorageBin & sb, int n);
+void cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n);
+
 #endif
 
 /* tidy.c */

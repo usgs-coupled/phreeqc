@@ -9192,9 +9192,10 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 
 void CLASS_QUALIFIER
 phreeqc2cxxStorageBin(cxxStorageBin & sb)
-		//
-	// pull data out of c storage
-		//
+	//
+	// Fills StorageBin sb with all reactants from phreeqc instance.
+	// equivalent to old import_phreeqc.
+	//
 {
 	int i;
 
@@ -9281,9 +9282,80 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 }
 
 void CLASS_QUALIFIER
-cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
+phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		//
-		// copy data from storage bin to solution vector position 0
+		// copy phreeqc reactants numbered n to StorageBin sb
+		//
+{
+	int pos;
+
+	// Solutions
+	{
+		solution_bsearch(n, &pos, TRUE);
+		//sb.getSolutions()[n] = cxxSolution(solution[pos], sb.Get_io());
+		sb.setSolution(n, cxxSolution(solution[pos], sb.Get_io()));
+	}
+
+	// Exchangers
+	{
+		if (exchange_bsearch(n, &pos) != NULL)
+		{
+			//this->Exchangers[n] = cxxExchange(&(exchange[pos]), sb.Get_io());
+			//cxxExchange entity = cxxExchange(&(exchange[pos]), sb.Get_io());
+			//sb.setExchange(n, &entity );
+			sb.setExchange(n, &(cxxExchange(&(exchange[pos]), sb.Get_io())) );
+		}
+	}
+
+	// GasPhases
+	{
+		if (gas_phase_bsearch(n, &pos) != NULL)
+		{
+			//this->GasPhases[n] = cxxGasPhase(&(gas_phase[pos]), sb.Get_io());
+			sb.setGasPhase(n, &(cxxGasPhase(&(gas_phase[pos]), sb.Get_io())) );
+		}
+	}
+
+	// Kinetics
+	{
+		if (kinetics_bsearch(n, &pos) != NULL)
+		{
+			//this->Kinetics[n] = cxxKinetics(&(kinetics[pos]), sb.Get_io());
+			sb.setKinetics(n, &(cxxKinetics(&(kinetics[pos]), sb.Get_io())) );
+		}
+	}
+
+	// PPassemblages
+	{
+		if (pp_assemblage_bsearch(n, &pos) != NULL)
+		{
+			//this->PPassemblages[n] = cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io());
+			sb.setPPassemblage(n, &(cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io())) );
+		}
+	}
+
+	// SSassemblages
+	{
+		if (s_s_assemblage_bsearch(n, &pos) != NULL)
+		{
+			//this->SSassemblages[n] = cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io());
+			sb.setSSassemblage(n, &(cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io())) );
+		}
+	}
+
+	// Surfaces
+	{
+		if (surface_bsearch(n, &pos) != NULL)
+		{
+			//this->Surfaces[n] = cxxSurface(&(surface[pos]), sb.Get_io());
+			sb.setSurface(n, &(cxxSurface(&(surface[pos]), sb.Get_io())) );
+		}
+	}
+}
+void CLASS_QUALIFIER
+cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
+		//
+		// copy data from storage bin number n to solution vector position 0
 		// Assumes all reactant data are deleted after each use of PHREEQC
 		//
 {
@@ -9445,4 +9517,5 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 	//std::cerr << oss.str();
 
 }
+
 #endif
