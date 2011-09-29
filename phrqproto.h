@@ -588,11 +588,11 @@ int set_kinetics_time(int n_user, LDBLE step);
 class cxxMix;
 struct mix * cxxMix2mix(cxxMix * mx);
 class cxxKinetics;
-struct kinetics *cxxKinetics2kinetics(cxxKinetics * kin);
+struct kinetics *cxxKinetics2kinetics(const cxxKinetics * kin);
 class cxxKineticsComp;
-struct kinetics_comp * cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp >  * el);
+struct kinetics_comp * cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp >  * el);
 class cxxExchange;
-struct exchange * cxxExchange2exchange(cxxExchange * ex);
+struct exchange * cxxExchange2exchange(const cxxExchange * ex);
 class cxxExchComp;
 struct exch_comp * cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el);
 struct master * Get_exch_master(const cxxExchComp * ec);
@@ -614,7 +614,7 @@ struct s_s_assemblage * cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * s
 class cxxSSassemblageSS;
 struct s_s * cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp);
 class cxxSurface;
-struct surface * cxxSurface2surface(cxxSurface * surf);
+struct surface * cxxSurface2surface(const cxxSurface * surf);
 class cxxSurfaceComp;
 struct surface_comp * cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc);
 class cxxSurfaceCharge;
@@ -627,6 +627,10 @@ struct elt_list * cxxNameDouble2elt_list(const cxxNameDouble * nd);
 struct name_coef * cxxNameDouble2name_coef(const cxxNameDouble * nd);
 struct master_activity * cxxNameDouble2master_activity(const cxxNameDouble * nd);
 struct master * cxxNameDouble2surface_master(const cxxNameDouble * totals);
+
+class cxxStorageBin;
+void Use2cxxStorageBin(cxxStorageBin & sb);
+void phreeqc2cxxStorageBin(cxxStorageBin & sb);
 #endif
 
 /* tidy.c */

@@ -8070,7 +8070,7 @@ cxxMix2mix(cxxMix * mx)
 
 #include "../Exchange.h"
 struct exchange * CLASS_QUALIFIER
-cxxExchange2exchange(cxxExchange * ex)
+cxxExchange2exchange(const cxxExchange * ex)
 		//
 		// Builds a exchange structure from instance of cxxExchange
 		//
@@ -8083,9 +8083,9 @@ cxxExchange2exchange(cxxExchange * ex)
 	exchange_ptr->new_def = FALSE;
 	exchange_ptr->solution_equilibria = FALSE;
 	exchange_ptr->n_solution = -2;
-	exchange_ptr->related_phases = (int) ex->get_related_phases();
-	exchange_ptr->related_rate = (int) ex->get_related_rate();
-	exchange_ptr->pitzer_exchange_gammas = (int) ex->get_pitzer_exchange_gammas();
+	exchange_ptr->related_phases = (int) ex->Get_related_phases();
+	exchange_ptr->related_rate = (int) ex->Get_related_rate();
+	exchange_ptr->pitzer_exchange_gammas = (int) ex->Get_pitzer_exchange_gammas();
 	exchange_ptr->count_comps = (int) ex->get_exchComps().size();
 	exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
 	//exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(P_INSTANCE_COMMA this->exchComps);
@@ -8273,7 +8273,7 @@ cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
 
 #include "../cxxKinetics.h"
 struct kinetics * CLASS_QUALIFIER
-cxxKinetics2kinetics(cxxKinetics * kin)
+cxxKinetics2kinetics(const cxxKinetics * kin)
 		//
 		// Builds a kinetics structure from instance of cxxKinetics 
 		//
@@ -8331,7 +8331,7 @@ cxxKinetics2kinetics(cxxKinetics * kin)
 }
 
 struct kinetics_comp * CLASS_QUALIFIER
-cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp > *el)
+cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 		//
 		// Builds kinetics_comp structure from of cxxKineticsComp 
 		//
@@ -8344,7 +8344,7 @@ cxxKineticsComp2kinetics_comp(std::list < cxxKineticsComp > *el)
 		malloc_error();
 
 	int i = 0;
-	for (std::list < cxxKineticsComp >::iterator it = el->begin();
+	for (std::list < cxxKineticsComp >::const_iterator it = el->begin();
 		 it != el->end(); ++it)
 	{
 		if ((*it).Get_rate_name().size() == 0)
@@ -8700,7 +8700,7 @@ cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp
 
 #include "../Surface.h"
 struct surface * CLASS_QUALIFIER
-cxxSurface2surface(cxxSurface * surf)
+cxxSurface2surface(const cxxSurface * surf)
 		//
 		// Builds a surface structure from instance of cxxSurface 
 		//
@@ -9073,5 +9073,376 @@ cxxTemperature2temperature(const cxxTemperature *temp)
 		temperature_ptr->count_t = (int) temp->Get_temps().size();
 	}
 	return (temperature_ptr);
+}
+
+#include "../StorageBin.h"
+
+void CLASS_QUALIFIER
+Use2cxxStorageBin(cxxStorageBin & sb)
+{
+	//Add everything from use structure to storagebin sb
+
+	int n;
+	sb.Get_system().Set_io(sb.Get_io());
+
+	struct Use *use_ptr = &use;
+	if (use.mix_in == TRUE)
+	{
+		struct mix *struct_entity = mix_bsearch(use_ptr->n_mix_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxMix entity(struct_entity, sb.Get_io());
+			sb.setMix(use_ptr->n_mix_user, &entity);
+
+			std::map<int, double> c = (sb.getMix(use_ptr->n_mix_user)->Get_mixComps());
+			std::map<int, double>::iterator it;
+			for (it = c.begin(); it != c.end(); it++)
+			{
+				struct solution *struct_entity1 = solution_bsearch(it->first, &n, FALSE);
+				if (struct_entity1 != NULL)
+				{
+					cxxSolution entity1(struct_entity1, sb.Get_io());
+					sb.setSolution(it->first, &entity1);
+				}
+			}
+		}
+	}
+	else if (use_ptr->solution_in == TRUE)
+	{
+		struct solution *struct_entity = solution_bsearch(use_ptr->n_solution_user, &n, FALSE);
+		if (struct_entity != NULL)
+		{
+			cxxSolution entity(struct_entity, sb.Get_io());
+			sb.setSolution(use_ptr->n_solution_user, &entity);
+		}
+	}
+	if (use_ptr->pp_assemblage_in == TRUE)
+	{
+		struct pp_assemblage *struct_entity = pp_assemblage_bsearch(use_ptr->n_pp_assemblage_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxPPassemblage entity(struct_entity, sb.Get_io());
+			sb.setPPassemblage(use_ptr->n_pp_assemblage_user, &entity);
+		}
+	}
+	if (use_ptr->exchange_in == TRUE)
+	{
+		struct exchange *struct_entity = exchange_bsearch(use_ptr->n_exchange_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxExchange entity(struct_entity, sb.Get_io());
+			sb.setExchange(use_ptr->n_exchange_user, &entity);
+		}
+	}
+	if (use_ptr->surface_in == TRUE)
+	{
+		struct surface *struct_entity = surface_bsearch(use_ptr->n_surface_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxSurface entity(struct_entity, sb.Get_io());
+			sb.setSurface(use_ptr->n_surface_user, &entity);
+		}
+	}
+	if (use_ptr->gas_phase_in == TRUE)
+	{
+		struct gas_phase *struct_entity = gas_phase_bsearch(use_ptr->n_gas_phase_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxGasPhase entity(struct_entity, sb.Get_io());
+			sb.setGasPhase(use_ptr->n_gas_phase_user, &entity);
+		}
+	}
+	if (use_ptr->s_s_assemblage_in == TRUE)
+	{
+		struct s_s_assemblage *struct_entity = s_s_assemblage_bsearch(use_ptr->n_s_s_assemblage_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxSSassemblage entity(struct_entity, sb.Get_io());
+			sb.setSSassemblage(use_ptr->n_s_s_assemblage_user, &entity);
+		}
+	}
+	if (use_ptr->kinetics_in == TRUE)
+	{
+		struct kinetics *struct_entity = kinetics_bsearch(use_ptr->n_kinetics_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxKinetics entity(struct_entity, sb.Get_io());
+			sb.setKinetics(use_ptr->n_kinetics_user, &entity);
+		}
+	}
+	if (use_ptr->irrev_in == TRUE)
+	{
+		struct irrev *struct_entity = irrev_bsearch(use_ptr->n_irrev_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxReaction entity(struct_entity, sb.Get_io());
+			sb.setReaction(use_ptr->n_irrev_user, &entity);
+		}
+	}
+	if (use_ptr->temperature_in == TRUE)
+	{
+		struct temperature *struct_entity = temperature_bsearch(use_ptr->n_temperature_user, &n);
+		if (struct_entity != NULL)
+		{
+			cxxTemperature entity(struct_entity, sb.Get_io());
+			sb.setTemperature(use_ptr->n_temperature_user, &entity);
+		}
+	}
+}
+
+void CLASS_QUALIFIER
+phreeqc2cxxStorageBin(cxxStorageBin & sb)
+		//
+	// pull data out of c storage
+		//
+{
+	int i;
+
+	// Solutions
+	for (i = 0; i < count_solution; i++)
+	{
+		//sb.getSolutions()[solution[i]->n_user] = cxxSolution(solution[i], sb.Get_io());
+		sb.setSolution(solution[i]->n_user, cxxSolution(solution[i], sb.Get_io()));
+	}
+
+	// Exchangers
+	for (i = 0; i < count_exchange; i++)
+	{
+		//Exchangers[P_INSTANCE_POINTER exchange[i].n_user] = cxxExchange(&P_INSTANCE_POINTER exchange[i], this->Get_io());
+		cxxExchange entity(&exchange[i], sb.Get_io());
+		sb.setExchange(exchange[i].n_user, &entity );
+	}
+
+	// GasPhases
+	for (i = 0; i < count_gas_phase; i++)
+	{
+		//GasPhases[P_INSTANCE_POINTER gas_phase[i].n_user] = cxxGasPhase(&P_INSTANCE_POINTER gas_phase[i], this->Get_io());
+		cxxGasPhase entity(&gas_phase[i], sb.Get_io());
+		sb.setGasPhase(gas_phase[i].n_user, &entity );
+	}
+
+	// Kinetics
+	for (i = 0; i < count_kinetics; i++)
+	{
+		//Kinetics[P_INSTANCE_POINTER kinetics[i].n_user] = cxxKinetics(&P_INSTANCE_POINTER kinetics[i], this->Get_io());
+		cxxKinetics entity(&kinetics[i], sb.Get_io());
+		sb.setKinetics(kinetics[i].n_user, &entity );
+	}
+
+	// PPassemblages
+	for (i = 0; i < count_pp_assemblage; i++)
+	{
+		//PPassemblages[P_INSTANCE_POINTER pp_assemblage[i].n_user] =
+		//	cxxPPassemblage(&P_INSTANCE_POINTER pp_assemblage[i], this->Get_io());
+		cxxPPassemblage entity(&pp_assemblage[i], sb.Get_io());
+		sb.setPPassemblage(pp_assemblage[i].n_user, &entity );
+	}
+
+	// SSassemblages
+	for (i = 0; i < count_s_s_assemblage; i++)
+	{
+		//SSassemblages[P_INSTANCE_POINTER s_s_assemblage[i].n_user] =
+		//	cxxSSassemblage(&P_INSTANCE_POINTER s_s_assemblage[i]);
+		cxxSSassemblage entity(&s_s_assemblage[i], sb.Get_io());
+		sb.setSSassemblage(s_s_assemblage[i].n_user, &entity );
+	}
+
+	// Surfaces
+	for (i = 0; i < count_surface; i++)
+	{
+		//Surfaces[P_INSTANCE_POINTER surface[i].n_user] = cxxSurface(&P_INSTANCE_POINTER surface[i], this->Get_io());
+		cxxSurface entity(&surface[i], sb.Get_io());
+		sb.setSurface(surface[i].n_user, &entity );
+	}
+
+	// Mixes
+	for (i = 0; i < count_mix; i++)
+	{
+		//Mixes[P_INSTANCE_POINTER mix[i].n_user] = cxxMix(&P_INSTANCE_POINTER mix[i], this->Get_io());
+		cxxMix entity(&mix[i], sb.Get_io());
+		sb.setMix(mix[i].n_user, &entity );	
+	}
+
+	// Reactions
+	for (i = 0; i < count_irrev; i++)
+	{
+		//Reactions[P_INSTANCE_POINTER irrev[i].n_user] = cxxReaction(&P_INSTANCE_POINTER irrev[i]);
+		cxxReaction entity(&irrev[i], sb.Get_io());
+		sb.setReaction(irrev[i].n_user, &entity );		
+	}
+
+	// Temperatures
+	for (i = 0; i < count_temperature; i++)
+	{
+		//Temperatures[P_INSTANCE_POINTER temperature[i].n_user] = cxxTemperature(&P_INSTANCE_POINTER temperature[i], this->Get_io());
+		cxxTemperature entity(&temperature[i], sb.Get_io());
+		sb.setTemperature(temperature[i].n_user, &entity );	
+	}
+}
+
+void CLASS_QUALIFIER
+cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
+		//
+		// copy data from storage bin to solution vector position 0
+		// Assumes all reactant data are deleted after each use of PHREEQC
+		//
+{
+	// Solutions
+	{
+
+		std::map < int, cxxSolution >::const_iterator it = sb.getSolutions().find(n);
+		if (it != sb.getSolutions().end())
+		{
+			////P_INSTANCE_POINTER solution[0] = (it->second).cxxSolution2solution(P_INSTANCE);
+			//P_INSTANCE_POINTER solution[0] = P_INSTANCE_POINTER cxxSolution2solution(&(it->second));
+			//P_INSTANCE_POINTER solution[0]->n_user = n;
+			//P_INSTANCE_POINTER solution[0]->n_user_end = n;
+			//P_INSTANCE_POINTER count_solution++;
+			assert (count_solution == 0);
+			solution[0] = cxxSolution2solution(&(it->second));
+			solution[0]->n_user = n;
+			solution[0]->n_user_end = n;
+			count_solution++;
+		}
+		else
+		{
+			error_msg("cxxSolution not found in cxxStorageBin2phreeqc", STOP);
+		}
+	}
+
+	// Exchangers
+	{
+		std::map < int, cxxExchange >::const_iterator it = sb.getExchangers().find(n);
+		if (it != sb.getExchangers().end())
+		{
+			////struct exchange *exchange_ptr =
+			////	(it->second).cxxExchange2exchange(P_INSTANCE);
+			//struct exchange *exchange_ptr = P_INSTANCE_POINTER cxxExchange2exchange(&it->second);
+
+			//P_INSTANCE_POINTER exchange_copy(exchange_ptr, &P_INSTANCE_POINTER exchange[0], n);
+			//P_INSTANCE_POINTER count_exchange++;
+			//P_INSTANCE_POINTER exchange_free(exchange_ptr);
+			//exchange_ptr = (struct exchange *) P_INSTANCE_POINTER free_check_null(exchange_ptr);
+			assert (count_exchange == 0);
+			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
+			exchange_copy(exchange_ptr, & exchange[0], n);
+			count_exchange++;
+			exchange_free(exchange_ptr);
+			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
+		}
+	}
+
+	// GasPhases
+	{
+		std::map < int, cxxGasPhase >::const_iterator it = sb.getGasPhases().find(n);
+		if (it != sb.getGasPhases().end())
+		{
+			//struct gas_phase *gas_phase_ptr =
+			//	(it->second).cxxGasPhase2gas_phase(P_INSTANCE);
+			//struct gas_phase *gas_phase_ptr = P_INSTANCE_POINTER cxxGasPhase2gas_phase(&(it->second));
+			//P_INSTANCE_POINTER gas_phase_copy(gas_phase_ptr, &P_INSTANCE_POINTER gas_phase[0], n);
+			//P_INSTANCE_POINTER count_gas_phase++;
+			//P_INSTANCE_POINTER gas_phase_free(gas_phase_ptr);
+			//gas_phase_ptr =
+			//	(struct gas_phase *) P_INSTANCE_POINTER free_check_null(gas_phase_ptr);
+			assert (count_gas_phase == 0);
+			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
+			gas_phase_copy(gas_phase_ptr, & gas_phase[0], n);
+			count_gas_phase++;
+			gas_phase_free(gas_phase_ptr);
+			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
+		}
+	}
+
+	// Kinetics
+	{
+		std::map < int, cxxKinetics >::const_iterator it = sb.getKinetics().find(n);
+		if (it != sb.getKinetics().end())
+		{
+			//struct kinetics *kinetics_ptr =
+			//	(it->second).cxxKinetics2kinetics(P_INSTANCE);
+			//struct kinetics *kinetics_ptr =  P_INSTANCE_POINTER cxxKinetics2kinetics(&(it->second));
+			//P_INSTANCE_POINTER kinetics_copy(kinetics_ptr, &P_INSTANCE_POINTER kinetics[0], n);
+			//P_INSTANCE_POINTER count_kinetics++;
+			//P_INSTANCE_POINTER kinetics_free(kinetics_ptr);
+			//kinetics_ptr = (struct kinetics *) P_INSTANCE_POINTER free_check_null(kinetics_ptr);
+			assert (count_kinetics == 0);
+			struct kinetics *kinetics_ptr =  cxxKinetics2kinetics(&(it->second));
+			kinetics_copy(kinetics_ptr, & kinetics[0], n);
+			count_kinetics++;
+			kinetics_free(kinetics_ptr);
+			kinetics_ptr = (struct kinetics *) free_check_null(kinetics_ptr);
+		}
+	}
+
+	// PPassemblages
+	{
+		std::map < int, cxxPPassemblage >::const_iterator it =
+			sb.getPPassemblages().find(n);
+		if (it != sb.getPPassemblages().end())
+		{
+			//struct pp_assemblage *pp_assemblage_ptr =
+			//	(it->second).cxxPPassemblage2pp_assemblage(P_INSTANCE);
+			//struct pp_assemblage *pp_assemblage_ptr = P_INSTANCE_POINTER cxxPPassemblage2pp_assemblage(&(it->second));
+			//P_INSTANCE_POINTER pp_assemblage_copy(pp_assemblage_ptr, &P_INSTANCE_POINTER pp_assemblage[0], n);
+			//P_INSTANCE_POINTER count_pp_assemblage++;
+			//P_INSTANCE_POINTER pp_assemblage_free(pp_assemblage_ptr);
+			//pp_assemblage_ptr =
+			//	(struct pp_assemblage *) P_INSTANCE_POINTER free_check_null(pp_assemblage_ptr);
+			assert (count_pp_assemblage == 0);
+			struct pp_assemblage *pp_assemblage_ptr = cxxPPassemblage2pp_assemblage(&(it->second));
+			pp_assemblage_copy(pp_assemblage_ptr, & pp_assemblage[0], n);
+			count_pp_assemblage++;
+			pp_assemblage_free(pp_assemblage_ptr);
+			pp_assemblage_ptr =	(struct pp_assemblage *) free_check_null(pp_assemblage_ptr);
+		}
+	}
+
+	// SSassemblages
+	{
+		std::map < int, cxxSSassemblage >::const_iterator it =
+			sb.getSSassemblages().find(n);
+		if (it != sb.getSSassemblages().end())
+		{
+			//struct s_s_assemblage *s_s_assemblage_ptr =
+			//	(it->second).cxxSSassemblage2s_s_assemblage(P_INSTANCE);
+			//struct s_s_assemblage *s_s_assemblage_ptr =
+			//	P_INSTANCE_POINTER cxxSSassemblage2s_s_assemblage(&(it->second));
+
+			//P_INSTANCE_POINTER s_s_assemblage_copy(s_s_assemblage_ptr, &P_INSTANCE_POINTER s_s_assemblage[0], n);
+			//P_INSTANCE_POINTER count_s_s_assemblage++;
+			//P_INSTANCE_POINTER s_s_assemblage_free(s_s_assemblage_ptr);
+			//s_s_assemblage_ptr =
+			//	(struct s_s_assemblage *) P_INSTANCE_POINTER free_check_null(s_s_assemblage_ptr);
+			assert (count_s_s_assemblage == 0);
+			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
+			s_s_assemblage_copy(s_s_assemblage_ptr, & s_s_assemblage[0], n);
+			count_s_s_assemblage++;
+			s_s_assemblage_free(s_s_assemblage_ptr);
+			s_s_assemblage_ptr = (struct s_s_assemblage *) free_check_null(s_s_assemblage_ptr);
+		}
+	}
+
+	// Surfaces
+	{
+		std::map < int, cxxSurface >::const_iterator it = sb.getSurfaces().find(n);
+		if (it != sb.getSurfaces().end())
+		{
+			//struct surface *surface_ptr = (it->second).cxxSurface2surface(P_INSTANCE);
+			//struct surface *surface_ptr = P_INSTANCE_POINTER cxxSurface2surface(&(it->second));
+			//P_INSTANCE_POINTER surface_copy(surface_ptr, &P_INSTANCE_POINTER surface[0], n);
+			//P_INSTANCE_POINTER count_surface++;
+			//P_INSTANCE_POINTER surface_free(surface_ptr);
+			//surface_ptr = (struct surface *) P_INSTANCE_POINTER free_check_null(surface_ptr);
+			assert (count_surface == 0);
+			struct surface *surface_ptr = cxxSurface2surface(&(it->second));
+			surface_copy(surface_ptr, & surface[0], n);
+			count_surface++;
+			surface_free(surface_ptr);
+			surface_ptr = (struct surface *) free_check_null(surface_ptr);
+		}
+	}
+	//std::cerr << oss.str();
+
 }
 #endif

@@ -1176,11 +1176,7 @@ dump_cpp(void)
 		return (OK);
 
 	cxxStorageBin phreeqcBin(&phrq_io);
-#if !defined(PHREEQC_CLASS)
-	phreeqcBin.import_phreeqc();
-#else
-	phreeqcBin.import_phreeqc(this);
-#endif
+	phreeqc2cxxStorageBin(phreeqcBin);
 
 	std::ofstream fs(dump_file_name_cpp.c_str());
 	fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;
