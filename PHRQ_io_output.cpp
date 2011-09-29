@@ -34,7 +34,7 @@ error_msg(const char *err_str, const int stop, ...)
 		chart_handler.End_timer();
 #endif
 	va_list args;
-	va_start(args, err_str);
+	va_start(args, stop);
 	bool bstop = (stop == STOP);
 	if (status_on == TRUE)
 	{
@@ -49,7 +49,11 @@ error_msg(const char *err_str, const int stop, ...)
 
 	if (stop == STOP)
 	{
+#ifdef PHREEQC_CLASS
+		throw PhreeqcStop();
+#else
 		longjmp(mark, input_error);
+#endif
 	}
 	return OK;
 }
@@ -332,17 +336,20 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	char in_file[2 * MAX_LENGTH], out_file[2 * MAX_LENGTH], db_file[2 * MAX_LENGTH];
 	char *env_ptr;
 	char *ptr;
-	int errors;
 	ENTRY item, *found_item;
 
 /*
  *   Prepare error handling
  */
-	errors = setjmp(mark);
+#ifdef PHREEQC_CLASS
+	try {
+#else
+	int errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
+#endif
 
 /*
  *   Prep for get_line
@@ -555,7 +562,13 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	in_stream = new std::ifstream(in_file, std::ifstream::in);
 	*db_cookie = db_stream;
 	*input_cookie = in_stream;
-
+#ifdef PHREEQC_CLASS
+	}
+	catch (PhreeqcStop e)
+	{
+		return get_input_errors();
+	}
+#endif
 	return 0;
 }
 #endif /* USE_OLD_IO */

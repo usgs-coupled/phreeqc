@@ -3292,23 +3292,34 @@ int CLASS_QUALIFIER
 read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
-	int errors;
 	simulation = 0;
 
 /*
  *   Prepare error handling
  */
-	errors = setjmp(mark);
+#ifdef PHREEQC_CLASS
+	try {
+#else
+	int errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
+#endif
 
 	set_read_callback(pfn, cookie, TRUE);
 	dup_print("Reading data base.", TRUE);
 	read_input();
 	tidy_model();
 	status(0, NULL);
+#ifdef PHREEQC_CLASS
+	}
+	catch (PhreeqcStop e)
+	{
+		return get_input_errors();
+	}
+#endif
+
 	return 0;
 }
 
@@ -3317,7 +3328,6 @@ int CLASS_QUALIFIER
 run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
-	int errors;
 	char token[MAX_LENGTH];
 #ifdef SKIP
 #if defined(WIN32)
@@ -3328,11 +3338,15 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-	errors = setjmp(mark);
+#ifdef PHREEQC_CLASS
+	try {
+#else
+	int errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
+#endif
 
 	set_read_callback(pfn, cookie, FALSE);
 
@@ -3442,7 +3456,13 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #endif
 	}
 
-
+#ifdef PHREEQC_CLASS
+	}
+	catch (PhreeqcStop e)
+	{
+		return get_input_errors();
+	}
+#endif
 	return 0;
 }
 
@@ -3451,20 +3471,29 @@ int CLASS_QUALIFIER
 do_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
-	int errors;
 /*
  *   Prepare error handling
  */
-	errors = setjmp(mark);
+#ifdef PHREEQC_CLASS
+	try {
+#else
+	int errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
+#endif
 
 	state = INITIALIZE;
 
 	initialize();
-
+#ifdef PHREEQC_CLASS
+	}
+	catch (PhreeqcStop e)
+	{
+		return get_input_errors();
+	}
+#endif
 	return 0;
 }
 
@@ -3473,15 +3502,18 @@ int CLASS_QUALIFIER
 do_status(void)
 /* ---------------------------------------------------------------------- */
 {
-	int errors;
 /*
  *   Prepare error handling
  */
-	errors = setjmp(mark);
+#ifdef PHREEQC_CLASS
+	try {
+#else
+	int errors = setjmp(mark);
 	if (errors != 0)
 	{
 		return errors;
 	}
+#endif
 
 	if (pr.status == TRUE)
 	{
@@ -3497,7 +3529,13 @@ do_status(void)
 	dup_print("End of run.", TRUE);
 	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
 	output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
-
+#ifdef PHREEQC_CLASS
+	}
+	catch (PhreeqcStop e)
+	{
+		return get_input_errors();
+	}
+#endif
 	return 0;
 }
 void CLASS_QUALIFIER
