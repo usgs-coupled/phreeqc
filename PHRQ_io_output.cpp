@@ -19,48 +19,6 @@ static int forward_output_to_log = 0;
 #include "output.h"
 #endif
 
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-error_msg(const char *err_str, const int stop, ...)
-/* ---------------------------------------------------------------------- */
-{
-#if !defined(PHREEQC_CLASS)
-	extern jmp_buf mark;
-#endif
-
-	if (get_input_errors() <= 0)
-		input_error = 1;
-#if defined MULTICHART
-	if (stop)
-		chart_handler.End_timer();
-#endif
-	va_list args;
-	va_start(args, stop);
-	bool bstop = (stop == STOP);
-	if (status_on == TRUE)
-	{
-		phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
-#ifndef DOS
-		status_on = FALSE;
-#endif
-	}
-	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
-	//phrq_io.output_handler(PHRQ_io::OUTPUT_ERROR, err_str, bstop, "", args);
-	va_end(args);
-
-	if (stop == STOP)
-	{
-#ifdef PHREEQC_CLASS
-		throw PhreeqcStop();
-#else
-		longjmp(mark, input_error);
-#endif
-	}
-	return OK;
-}
-#endif
-
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 error_msg(const char *err_str, int stop)
@@ -90,31 +48,7 @@ error_msg(const char *err_str, int stop)
 	}
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-warning_msg(const char *err_str, ...)
-/* ---------------------------------------------------------------------- */
-{
-	va_list args;
-	va_start(args, err_str);
-	if (count_warnings <= pr.warnings)
-	{
-		if (status_on == TRUE)
-		{
-			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
-#ifndef DOS
-			status_on = FALSE;
-#endif
-		}
-		phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
-		//phrq_io.output_handler(PHRQ_io::OUTPUT_WARNING, err_str, false, "", args);
-	}
-	va_end(args);
-	count_warnings++;
-	return OK;
-}
-#endif
+
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 warning_msg(const char *err_str)
@@ -134,92 +68,7 @@ warning_msg(const char *err_str)
 	
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_msg(const int type, const char *format, ...)
-/* ---------------------------------------------------------------------- */
-{
-		//if (phast == TRUE)
-		//{
-		//	if (type == OUTPUT_CHECKLINE && pr.echo_input == TRUE && phreeqc_mpi_myself == 0)
-		//	{
-		//		va_list args2;
-		//		va_start(args2, format);
-		//		(output_callbacks[i].callback) (ACTION_OUTPUT, OUTPUT_ECHO, NULL, CONTINUE,
-		//										output_callbacks[i].cookie, format,
-		//										args2);
-		//		va_end(args2);
-		//	}
-		//}
 
-	va_list args1;
-	va_start(args1, format);
-	int type_local = type;
-	
-	if (get_forward_output_to_log() && type == PHRQ_io::OUTPUT_MESSAGE)
-	{
-		type_local = PHRQ_io::OUTPUT_LOG;
-	}
-
-	switch (type_local)
-	{
-
-	case PHRQ_io::OUTPUT_ERROR:
-		if (status_on == TRUE)
-		{
-			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
-#ifndef DOS
-			status_on = FALSE;
-#endif
-		}
-		phrq_io.output_handler(type_local, NULL, false, format, args1);
-#if defined MULTICHART
-		chart_handler.End_timer();
-#endif
-		break;
-
-	case PHRQ_io::OUTPUT_WARNING:
-		if (state == TRANSPORT && transport_warnings == FALSE)
-			return (OK);
-		if (state == ADVECTION && advection_warnings == FALSE)
-			return (OK);
-		if (pr.warnings >= 0)
-		{
-			if (count_warnings > pr.warnings)
-				return (OK);
-		}
-		if (status_on == TRUE)
-		{
-			phrq_io.output_string(PHRQ_io::OUTPUT_ERROR, "\n");
-#ifndef DOS
-			status_on = FALSE;
-#endif
-		}
-		phrq_io.output_handler(type_local, NULL, false, format, args1);
-		break;
-	case PHRQ_io::OUTPUT_CHECKLINE:
-		if (pr.echo_input == TRUE)
-		{
-			phrq_io.output_handler(type_local, NULL, false, format, args1);
-		}
-		break;
-	case PHRQ_io::OUTPUT_MESSAGE:
-	case PHRQ_io::OUTPUT_BASIC:
-	case PHRQ_io::OUTPUT_PUNCH:
-	case PHRQ_io::OUTPUT_LOG:
-	case PHRQ_io::OUTPUT_SCREEN:
-	case PHRQ_io::OUTPUT_STDERR:
-	case PHRQ_io::OUTPUT_CVODE:
-	case PHRQ_io::OUTPUT_DUMP:
-		phrq_io.output_handler(type_local, NULL, false, format, args1);
-		break;
-	}
-
-	va_end(args1);
-	return OK;
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_msg(const int type, const char *format, ...)
@@ -284,26 +133,7 @@ get_forward_output_to_log(void)
 {
 	return forward_output_to_log;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_fflush(const int type)
-/* ---------------------------------------------------------------------- */
-{
-	int check = OK;
 
-	va_list args;
-	va_start(args, type);
-	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_FLUSH, type, NULL, false, NULL, args);	
-	//check = phrq_io.fileop_handler(type, fflush);
-	va_end(args);
-
-	if (check != OK)
-		return (ERROR);
-
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_fflush(const int type)
@@ -313,27 +143,7 @@ output_fflush(const int type)
 	phrq_io.output_fflush(type);
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_rewind(const int type, ...)
-/* ---------------------------------------------------------------------- */
-{
-	int check;
 
-	check = OK;
-
-	va_list args;
-	va_start(args, type);
-	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_REWIND, type, NULL, false, NULL, args);	
-	//check = phrq_io.fileop_handler(type, &PHRQ_io::rewind_wrapper);
-	va_end(args);
-
-	if (check != OK)
-		return (ERROR);
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 output_rewind(const int type)
@@ -342,25 +152,7 @@ output_rewind(const int type)
 	phrq_io.output_rewind(type);
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_close(const int type)
-/* ---------------------------------------------------------------------- */
-{
-	int check = OK;
 
-	va_list args;
-	va_start(args, type);
-	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_CLOSE, type, NULL, false, NULL, args);
-	va_end(args);
-
-	if (check != OK)
-		return (ERROR);
-
-	return (OK);
-}
-#endif
 int CLASS_QUALIFIER
 output_close(const int type)
 /* ---------------------------------------------------------------------- */
@@ -368,26 +160,6 @@ output_close(const int type)
 	phrq_io.output_close(type);
 	return OK;
 }
-#ifdef SKIP_092911
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-output_open(const int type, const char *file_name, ...)
-/* ---------------------------------------------------------------------- */
-{
-	int check = OK;
-	assert(file_name && strlen(file_name));
-
-	va_list args;
-	va_start(args, file_name);
-	check = phrq_io.phreeqc_handler(PHRQ_io::ACTION_OPEN, type, file_name, false, NULL, args);
-	va_end(args);
-
-	if (check != OK)
-		return (ERROR);
-
-	return (OK);
-}
-#endif 
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -408,20 +180,6 @@ extern int Merge_fpunchf(const int length, const char *format,
 						 va_list argptr);
 #endif
 
-#ifdef SKIP
-int CLASS_QUALIFIER
-fpunchf(const char *name, const char *format, ...)
-{
-
-	va_list args;
-	va_start(args, format);
-	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
-	va_end(args);
-
-	return OK;
-}
-#endif
-
 int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
 {
@@ -433,41 +191,7 @@ fpunchf(const char *name, const char *format, ...)
 
 	return OK;
 }
-#ifdef SKIP
-int CLASS_QUALIFIER
-fpunchf_user(int user_index, const char *format, ...)
-{
-	static int s_warning = 0;
-	static char buffer[80];
-	char *name;
 
-	// check headings
-	if (user_index < user_punch_count_headings)
-	{
-		name = user_punch_headings[user_index];
-	}
-	else
-	{
-		if (s_warning == 0)
-		{
-			sprintf(error_string,
-					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
-			warning_msg(error_string);
-			s_warning = 1;
-		}
-		sprintf(buffer, "no_heading_%d",
-				(user_index - user_punch_count_headings) + 1);
-		name = buffer;
-	}
-
-	va_list args;
-	va_start(args, format);
-	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH, name, false, format, args);
-	va_end(args);
-
-	return OK;
-}
-#endif
 int CLASS_QUALIFIER
 fpunchf_user(int user_index, const char *format, ...)
 {
@@ -501,23 +225,11 @@ fpunchf_user(int user_index, const char *format, ...)
 
 	return OK;
 }
-#ifdef SKIP
+
 int CLASS_QUALIFIER
 fpunchf_end_row(const char *format, ...)
 {
-
-	va_list args;
-	va_start(args, format);
-	phrq_io.phreeqc_handler(PHRQ_io::ACTION_OUTPUT, PHRQ_io::OUTPUT_PUNCH_END_ROW, "", false, format, args);
-	va_end(args);
-
-	return OK;
-}
-#endif
-int CLASS_QUALIFIER
-fpunchf_end_row(const char *format, ...)
-{
-	//NOP for Phreeqc
+	//NOOP for Phreeqc
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -584,7 +296,6 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (argc > 4)
 	{
-		//if (!phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, argv[4]))
 		if (!phrq_io.output_open(PHRQ_io::OUTPUT_ERROR, argv[4]))
 		{
 			sprintf(error_string, "Error opening file, %s.", argv[4]);
@@ -593,7 +304,6 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	else
 	{
-		//phrq_io.open_handler(PHRQ_io::OUTPUT_ERROR, NULL);
 		phrq_io.output_open(PHRQ_io::OUTPUT_ERROR, NULL);
 	}
 
@@ -647,8 +357,6 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (log == TRUE)
 	{
-		//if ((phrq_io.log_file = fopen("phreeqc.log", "w")) == NULL)
-		//if (!phrq_io.open_handler(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
 		if (!phrq_io.output_open(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
 		{
 			error_msg("Can't open log file, phreeqc.log.", STOP);
