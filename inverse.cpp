@@ -5084,7 +5084,7 @@ add_to_file(const char *filename, char *string)
 		{
 			string_line[MAX_LINE - 1] = '\0';
 			sprintf(error_string, "File name in %s is greater than %d characters: %s\n", filename, MAX_LINE, string_line);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 		}
 		else
 		{

@@ -9,6 +9,7 @@
 #endif
 #include <stdarg.h>
 
+#ifdef USE_OLD_IO
 typedef int (*PFN_OUTPUT_CALLBACK) (const int action, const int type,
 									const char *err_str, const int stop,
 									void *cookie, const char *, va_list args);
@@ -18,19 +19,13 @@ struct output_callback
 	PFN_OUTPUT_CALLBACK callback;
 	void *cookie;
 };
-
 int add_output_callback(PFN_OUTPUT_CALLBACK pfn, void *cookie);
 int clean_up_output_callbacks(void);
-int output_message(const int type, const char *err_str, const int stop,
-				   const char *format, va_list args);
-int output_msg(const int type, const char *format, ...);
+int output_msg(int type, const char *format, ...);
 int warning_msg(const char *err_str, ...);
-int error_msg(const char *err_str, const int stop, ...);
-CLASS_STATIC int phreeqc_handler(const int action, const int type, const char *err_str,
-					const int stop, void *cookie, const char *, va_list args);
-void set_forward_output_to_log(int value);
-int get_forward_output_to_log(void);
-
+int error_msg(const char *err_str, int stop, ...);
+CLASS_STATIC int phreeqc_handler(int action, int type, const char *err_str,
+					int stop, void *cookie, const char *, va_list args);
 /*
  *  Functions for output callbacks
  */
@@ -38,7 +33,23 @@ int output_open(const int type, const char *file_name, ...);
 int output_fflush(const int type, ...);
 int output_rewind(const int type, ...);
 int output_close(const int type, ...);
-
+#else
+int output_msg(int type, const char *format, ...);
+int warning_msg(const char *err_str);
+int error_msg(const char *err_str, int stop);
+/*
+ *  Functions for output callbacks
+ */
+int output_open(int type, const char *file_name);
+int output_fflush(int type);
+int output_rewind(int type);
+int output_close(int type);
+#endif
+int fpunchf(const char *name, const char *format, ...);
+int fpunchf_user(int user_index, const char *format, ...);
+int fpunchf_end_row(const char *format, ...);
+void set_forward_output_to_log(int value);
+int get_forward_output_to_log(void);
 typedef enum
 {
 	OUTPUT_ERROR,

@@ -858,10 +858,11 @@ int normal_max, ineq_array_max, res_max, cu_max, zero_max,
 	delta1_max, iu_max, is_max, back_eq_max;
 
 /* output.c ------------------------------- */
-
+#ifdef USE_OLD_IO
 #define MAX_CALLBACKS 10
 struct output_callback *output_callbacks;
 size_t count_output_callback;
+#endif
 int forward_output_to_log;
 
 /* phreeqc_files.c ------------------------------- */

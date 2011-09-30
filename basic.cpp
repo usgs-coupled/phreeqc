@@ -317,7 +317,7 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 		{
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 		}
 		else
 		{
@@ -391,7 +391,7 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 		{
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 		}
 		else
 		{
@@ -451,7 +451,7 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 		{
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 		}
 		else
 		{
@@ -511,7 +511,7 @@ basic_main(char *commands)
 		{
 			sprintf(error_string, "%d/%d", (int) P_escapecode,
 					(int) P_ioresult);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 		}
 		else
 		{
@@ -3378,7 +3378,7 @@ factor(struct LOC_exec * LINK)
 		{
 			if (j + 1 > 256)
 			{
-				warning_msg("String too long in factor\n", CONTINUE);
+				warning_msg("String too long in factor\n");
 /*
       STR1 = (char *) PHRQ_realloc (STR1, j + 1);
       if (STR1 == NULL)
@@ -3490,7 +3490,7 @@ term(struct LOC_exec * LINK)
 		else
 		{
 			sprintf(error_string, "Zero divide in BASIC line\n %ld %s.\nValue set to zero.", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			n.UU.val = 0;
 		}
 	}
@@ -5116,7 +5116,7 @@ exec(void)
 	while (stmtline != NULL);
 	RECOVER2(try1, _Ltry1);
 	if (P_escapecode == -20)
-		warning_msg("Break", CONTINUE);
+		warning_msg("Break");
 	/* printf("Break"); */
 	else if (P_escapecode != 42)
 	{
@@ -5125,22 +5125,22 @@ exec(void)
 
 		case -4:
 			sprintf(error_string, "Integer overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			break;
 
 		case -5:
 			sprintf(error_string, "Divide by zero in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			break;
 
 		case -6:
 			sprintf(error_string, "Real math overflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			break;
 
 		case -7:
 			sprintf(error_string, "Real math underflow in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			break;
 
 		case -8:
@@ -5150,7 +5150,7 @@ exec(void)
 		case -16:
 		case -15:
 			sprintf(error_string, "Value range error in BASIC line\n %ld %s", stmtline->num, stmtline->inbuf);
-			warning_msg(error_string, CONTINUE);
+			warning_msg(error_string);
 			break;
 
 		case -10:
@@ -5158,7 +5158,7 @@ exec(void)
 			if (ioerrmsg == NULL)
 				malloc_error();
 			sprintf(ioerrmsg, "I/O Error %d", (int) P_ioresult);
-			warning_msg(ioerrmsg, CONTINUE);
+			warning_msg(ioerrmsg);
 			PHRQ_free(ioerrmsg);
 			break;
 
@@ -5166,7 +5166,7 @@ exec(void)
 			if (EXCP_LINE != -1)
 			{
 				sprintf(error_string, "%12ld\n", EXCP_LINE);
-				warning_msg(error_string, CONTINUE);
+				warning_msg(error_string);
 			}
 			_Escape(P_escapecode);
 			break;
