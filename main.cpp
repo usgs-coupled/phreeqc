@@ -60,6 +60,8 @@ main(int argc, char *argv[])
 		fprintf(stderr, "ERROR: %s\n", "Program terminating.");
 		return -1;
 	}
+#else
+	phrq_io = new PHRQ_io;
 #endif
 
 /*
@@ -143,8 +145,8 @@ main(int argc, char *argv[])
 #endif
 	clean_up();
 #ifdef PHREEQC_CPP
-	phrq_io.close_input_files();
-	phrq_io.close_output_files();
+	phrq_io->close_input_files();
+	phrq_io->close_output_files();
 #else
 	close_input_files();
 	close_output_files();

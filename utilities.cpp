@@ -1742,7 +1742,7 @@ get_input_errors()
 {
 	int total_errors = input_error;
 #if defined(PHREEQC_CPP)
-	total_errors += phrq_io.Get_io_error_count();
+	total_errors += phrq_io->Get_io_error_count();
 #endif
 	return total_errors;
 }

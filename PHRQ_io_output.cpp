@@ -36,7 +36,7 @@ error_msg(const char *err_str, int stop)
 		chart_handler.End_timer();
 #endif
 
-	phrq_io.error_msg(err_str, stop!=0);
+	phrq_io->error_msg(err_str, stop!=0);
 
 	if (stop == STOP)
 	{
@@ -64,7 +64,7 @@ warning_msg(const char *err_str)
 		if (count_warnings > pr.warnings)
 			return (OK);
 	}
-	phrq_io.warning_msg(err_str);
+	phrq_io->warning_msg(err_str);
 	
 	return OK;
 }
@@ -113,7 +113,7 @@ output_msg(const int type, const char *format, ...)
 		break;
 	}
 
-	phrq_io.output_msg(type_local, format, args);
+	phrq_io->output_msg(type_local, format, args);
 	va_end(args);
 
 	return OK;
@@ -140,7 +140,7 @@ output_fflush(const int type)
 /* ---------------------------------------------------------------------- */
 {
 
-	phrq_io.output_fflush(type);
+	phrq_io->output_fflush(type);
 	return OK;
 }
 
@@ -149,7 +149,7 @@ int CLASS_QUALIFIER
 output_rewind(const int type)
 /* ---------------------------------------------------------------------- */
 {
-	phrq_io.output_rewind(type);
+	phrq_io->output_rewind(type);
 	return OK;
 }
 
@@ -157,7 +157,7 @@ int CLASS_QUALIFIER
 output_close(const int type)
 /* ---------------------------------------------------------------------- */
 {
-	phrq_io.output_close(type);
+	phrq_io->output_close(type);
 	return OK;
 }
 
@@ -167,7 +167,7 @@ output_open(const int type, const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	assert(file_name && strlen(file_name));
-	return phrq_io.output_open(type, file_name);
+	return phrq_io->output_open(type, file_name);
 }
 
 #if defined(HDF5_CREATE)
@@ -186,7 +186,7 @@ fpunchf(const char *name, const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	phrq_io.fpunchf(name, format, args);
+	phrq_io->fpunchf(name, format, args);
 	va_end(args);
 
 	return OK;
@@ -220,7 +220,7 @@ fpunchf_user(int user_index, const char *format, ...)
 
 	va_list args;
 	va_start(args, format);
-	phrq_io.fpunchf(name, format, args);
+	phrq_io->fpunchf(name, format, args);
 	va_end(args);
 
 	return OK;
@@ -296,7 +296,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (argc > 4)
 	{
-		if (!phrq_io.output_open(PHRQ_io::OUTPUT_ERROR, argv[4]))
+		if (!phrq_io->output_open(PHRQ_io::OUTPUT_ERROR, argv[4]))
 		{
 			sprintf(error_string, "Error opening file, %s.", argv[4]);
 			warning_msg(error_string);
@@ -304,7 +304,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	else
 	{
-		phrq_io.output_open(PHRQ_io::OUTPUT_ERROR, NULL);
+		phrq_io->output_open(PHRQ_io::OUTPUT_ERROR, NULL);
 	}
 
 /*
@@ -322,7 +322,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		strcpy(default_name, argv[1]);
 		local_input_file = file_open(query, default_name, "r", TRUE);
 	}
-	phrq_io.Set_input_file(local_input_file);
+	phrq_io->Set_input_file(local_input_file);
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
 	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
@@ -348,7 +348,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		strcpy(token, argv[2]);
 		local_output_file = file_open(query, token, "w", TRUE);
 	}
-	phrq_io.Set_output_file(local_output_file);
+	phrq_io->Set_output_file(local_output_file);
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Output file: %s\n\n", token);
 	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
@@ -357,7 +357,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (log == TRUE)
 	{
-		if (!phrq_io.output_open(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
+		if (!phrq_io->output_open(PHRQ_io::OUTPUT_LOG, "phreeqc.log"))
 		{
 			error_msg("Can't open log file, phreeqc.log.", STOP);
 		}
@@ -385,7 +385,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 			}
 		}
 	}
-	phrq_io.close_input();
+	phrq_io->close_input();
 
 	pop_cookie();
 
@@ -395,7 +395,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	else
 	{
-		phrq_io.Set_input_file(local_input_file);
+		phrq_io->Set_input_file(local_input_file);
 	}
 /*
  *   Open data base
@@ -441,7 +441,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	if (local_database_file != NULL)
 	{
-		phrq_io.Set_database_file(local_database_file);
+		phrq_io->Set_database_file(local_database_file);
 	}
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Database file: %s\n\n", token);
 	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);

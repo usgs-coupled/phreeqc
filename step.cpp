@@ -237,15 +237,15 @@ step(LDBLE step_fraction)
 	// Determine system totals, calculate maximum mineral precipitation
 	if (use.pp_assemblage_in || use.s_s_assemblage_in)
 	{
-		cxxStorageBin sys_bin(&phrq_io);
-		//cxxSolution soln(PHREEQC_THIS_COMMA -1, &phrq_io);
+		cxxStorageBin sys_bin(phrq_io);
+		//cxxSolution soln(PHREEQC_THIS_COMMA -1, phrq_io);
 		int n;
 		struct solution *sol = solution_bsearch(-1, &n, false);
-		cxxSolution soln(sol, &phrq_io);
+		cxxSolution soln(sol, phrq_io);
 		sys_bin.Set_Solution(-1, soln);
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage pp(use.pp_assemblage_ptr, &phrq_io);
+			cxxPPassemblage pp(use.pp_assemblage_ptr, phrq_io);
 			sys_bin.Set_PPassemblage(-1, pp);
 		}
 		if (use.s_s_assemblage_in)

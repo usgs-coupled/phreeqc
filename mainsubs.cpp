@@ -576,11 +576,11 @@ initialize(void)
 	pr.hdf = FALSE;
 	pr.alkalinity = FALSE;
 #ifndef USE_OLD_IO
-	phrq_io.Set_dump_file_on(true);
-	phrq_io.Set_log_file_on(false);
-	phrq_io.Set_punch_file_on(true);
-	phrq_io.Set_error_file_on (true);
-	phrq_io.Set_output_file_on(true);
+	phrq_io->Set_dump_file_on(true);
+	phrq_io->Set_log_file_on(false);
+	phrq_io->Set_punch_file_on(true);
+	phrq_io->Set_error_file_on (true);
+	phrq_io->Set_output_file_on(true);
 #endif
 	species_list = NULL;
 

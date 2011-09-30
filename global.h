@@ -45,7 +45,7 @@
 #include <setjmp.h>
 */
 #if !defined(USE_OLD_IO)
-EXTERNAL PHRQ_io phrq_io;
+EXTERNAL PHRQ_io *phrq_io;
 #endif
 /* ----------------------------------------------------------------------
  *   STRUCTURES

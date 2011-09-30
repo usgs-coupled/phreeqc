@@ -1175,7 +1175,7 @@ dump_cpp(void)
 	if (dump_in == FALSE || pr.dump == FALSE)
 		return (OK);
 
-	cxxStorageBin phreeqcBin(&phrq_io);
+	cxxStorageBin phreeqcBin(phrq_io);
 	phreeqc2cxxStorageBin(phreeqcBin);
 
 	std::ofstream fs(dump_file_name_cpp.c_str());
