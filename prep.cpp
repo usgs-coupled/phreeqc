@@ -576,8 +576,9 @@ build_gas_phase(void)
 					sprintf(error_string,
 							"Element needed for gas component, %s, is not in model.",
 							phase_ptr->name);
-					error_msg(error_string, CONTINUE);
-					input_error++;
+					warning_msg(error_string);
+					//error_msg(error_string, CONTINUE);
+					//input_error++;
 					continue;
 				}
 				if (debug_prep == TRUE)
@@ -634,43 +635,67 @@ build_gas_phase(void)
 		}
 		unknown_ptr = gas_unknown;
 		row = unknown_ptr->number * (count_unknowns + 1);
-		for (rxn_ptr = phase_ptr->rxn_x->token + 1; rxn_ptr->s != NULL;
-			 rxn_ptr++)
+		for (rxn_ptr = phase_ptr->rxn_x->token + 1; rxn_ptr->s != NULL; rxn_ptr++)
 		{
-			if (rxn_ptr->s->secondary != NULL
-				&& rxn_ptr->s->secondary->in == TRUE)
+			if (rxn_ptr->s != s_eminus && rxn_ptr->s->in == FALSE)
 			{
-				master_ptr = rxn_ptr->s->secondary;
+				sprintf(error_string,
+					"Element in species, %s, in phase, %s, is not in model.",
+					rxn_ptr->s->name, phase_ptr->name);
+				warning_msg(error_string);
+				//error_msg(error_string, CONTINUE);
+				//input_error++;
 			}
 			else
 			{
-				master_ptr = rxn_ptr->s->primary;
-			}
-			if (debug_prep == TRUE)
-			{
-				output_msg(OUTPUT_MESSAGE, "\t\t%s\n", master_ptr->s->name);
-			}
-			if (master_ptr->unknown == NULL)
-			{
-				continue;
-			}
-			if (master_ptr->in == FALSE)
-			{
-				sprintf(error_string,
-						"Element, %s, in phase, %s, is not in model.",
-						master_ptr->elt->name, phase_ptr->name);
-				error_msg(error_string, CONTINUE);
-				input_error++;
-			}
-			col = master_ptr->unknown->number;
-			coef = rxn_ptr->coef;
-			store_jacob(&(gas_comp_ptr->phase->p_soln_x),
-						&(array[row + col]), coef);
-			if (debug_prep == TRUE)
-			{
-				output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
-						   master_ptr->s->name, (double) coef,
-						   row / (count_unknowns + 1), col);
+				if (rxn_ptr->s->secondary != NULL
+					&& rxn_ptr->s->secondary->in == TRUE)
+				{
+					master_ptr = rxn_ptr->s->secondary;
+				}
+				else 
+				{
+					master_ptr = rxn_ptr->s->primary;
+				}
+
+				if (master_ptr == NULL)
+				{
+					sprintf(error_string,
+						"Master species for %s, in phase, %s, is not in model.",
+						rxn_ptr->s->name, phase_ptr->name);
+					error_msg(error_string, CONTINUE);
+					input_error++;
+				}
+				else
+				{
+					if (debug_prep == TRUE)
+					{
+						output_msg(OUTPUT_MESSAGE, "\t\t%s\n", master_ptr->s->name);
+					}
+					if (master_ptr->unknown == NULL)
+					{
+						assert(false);
+						continue;
+					}
+					if (master_ptr->in == FALSE)
+					{
+						sprintf(error_string,
+							"Element, %s, in phase, %s, is not in model.",
+							master_ptr->elt->name, phase_ptr->name);
+						warning_msg(error_string);
+						//error_msg(error_string, CONTINUE);
+						//input_error++;
+					}
+					col = master_ptr->unknown->number;
+					coef = rxn_ptr->coef;
+					store_jacob(&(gas_comp_ptr->phase->p_soln_x), &(array[row + col]), coef);
+					if (debug_prep == TRUE)
+					{
+						output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+							master_ptr->s->name, (double) coef,
+							row / (count_unknowns + 1), col);
+					}
+				}
 			}
 		}
 	}
