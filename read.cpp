@@ -3764,7 +3764,7 @@ read_mix(void)
 	mix[n].count_comps = count_comps;
 	return (return_value);
 }
-
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_number_description(char *ptr, int *n_user,
@@ -3814,6 +3814,83 @@ read_number_description(char *ptr, int *n_user,
 		sscanf(token, "%d", n_user);
 		*n_user_end = *n_user;
 		ptr1 = ptr;
+	}
+/*
+ *   Read description
+ */
+	for (; isspace((int) ptr1[0]); ptr1++);
+	*description = string_duplicate(ptr1);
+	return (OK);
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+read_number_description(char *ptr, int *n_user,
+						int *n_user_end, char **description, int allow_negative)
+/* ---------------------------------------------------------------------- */
+{
+	int l, n;
+	char token[MAX_LENGTH];
+	char *ptr1;
+/*
+ *   Read user number, allow negative numbers Oct 3, 2011
+ */
+	copy_token(token, &ptr, &l);  // keyword
+	ptr1 = ptr;
+	copy_token(token, &ptr, &l);
+
+	if (!isdigit(token[0]) && token[0] != '-')
+	{
+		*n_user = 1;
+		*n_user_end = 1;
+	}
+	else
+	{
+		if (replace("-", " ", &token[1]))
+		{
+			n = sscanf(token, "%d%d", n_user, n_user_end);
+			if (n != 2)
+			{
+				if (next_keyword >= 0)
+				{
+					sprintf(error_string, "Reading number range for %s.",
+						keyword[next_keyword].name);
+				}
+				else
+				{
+					sprintf(error_string, "Reading number range for keyword.");
+				}
+				error_msg(error_string, CONTINUE);
+				input_error++;
+			}
+			ptr1 = ptr;
+		}
+		else
+		{
+			n = sscanf(token, "%d", n_user);
+			if (n != 1)
+			{
+				if (next_keyword >= 0)
+				{
+					sprintf(error_string, "Reading number range for %s.",
+						keyword[next_keyword].name);
+				}
+				else
+				{
+					sprintf(error_string, "Reading number range for keyword.");
+				}
+				error_msg(error_string, CONTINUE);
+				input_error++;
+			}
+			*n_user_end = *n_user;
+			ptr1 = ptr;
+		};
+	}
+	if (*n_user < 0 && allow_negative == FALSE)
+	{
+		sprintf(error_string, "Negative number in number range not allowed for keyword.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
 	}
 /*
  *   Read description
@@ -10535,7 +10612,7 @@ read_copy(void)
 	i = copy_token(token, &ptr, &l);
 	if (i == DIGIT)
 	{
-		replace("-", " ", token);
+		replace("-", " ", &token[1]);
 		n = sscanf(token, "%d%d", &n_user_start, &n_user_end);
 		if (n == 1)
 		{
@@ -10543,11 +10620,11 @@ read_copy(void)
 		}
 		if (n_user_start < 0)
 		{
-			error_msg("Target index number must be a positive integer.",
-					  CONTINUE);
-			error_msg(line_save, CONTINUE);
-			input_error++;
-			return (ERROR);
+			//error_msg("Target index number must be a positive integer.",
+			//		  CONTINUE);
+			//error_msg(line_save, CONTINUE);
+			//input_error++;
+			//return (ERROR);
 		}
 	}
 	else
