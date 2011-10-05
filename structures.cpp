@@ -8088,7 +8088,6 @@ cxxExchange2exchange(const cxxExchange * ex)
 	exchange_ptr->pitzer_exchange_gammas = (int) ex->Get_pitzer_exchange_gammas();
 	exchange_ptr->count_comps = (int) ex->Get_exchComps().size();
 	exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
-	//exchange_ptr->comps = cxxExchComp::cxxExchComp2exch_comp(P_INSTANCE_COMMA this->exchComps);
 	exchange_ptr->comps = cxxExchComp2exch_comp(&(ex->Get_exchComps()));
 	return (exchange_ptr);
 }
@@ -8114,10 +8113,8 @@ cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
 		else
 			exch_comp_ptr[i].formula = string_hsave((*it).second.Get_formula().c_str());
 		exch_comp_ptr[i].formula_z = (*it).second.Get_formula_z();
-		//exch_comp_ptr[i].totals = (*it).second.totals.elt_list(P_INSTANCE);
 		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_totals()));
 		exch_comp_ptr[i].moles = (*it).second.Get_moles();
-		//exch_comp_ptr[i].formula_totals = (*it).second.formula_totals.elt_list(P_INSTANCE);
 		exch_comp_ptr[i].formula_totals = cxxNameDouble2elt_list(&((*it).second.Get_formula_totals()));
 		exch_comp_ptr[i].la = (*it).second.Get_la();
 		exch_comp_ptr[i].charge_balance = (*it).second.Get_charge_balance();
@@ -8130,7 +8127,6 @@ cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
 			exch_comp_ptr[i].rate_name = NULL;
 		else
 			exch_comp_ptr[i].rate_name = string_hsave((*it).second.Get_rate_name().c_str());
-		//exch_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE);
 		exch_comp_ptr[i].master = Get_exch_master(&(*it).second);
 		i++;
 	}
@@ -8238,7 +8234,6 @@ cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 	gas_phase_ptr->count_comps = (int) gp->Get_gasPhaseComps().size();
 	gas_phase_ptr->comps =
 		(struct gas_comp *) free_check_null(gas_phase_ptr->comps);
-	//gas_phase_ptr->comps = this->cxxGasPhaseComp2gas_comp(P_INSTANCE);
 	gas_phase_ptr->comps = cxxGasPhaseComp2gas_comp(gp);
 
 	return (gas_phase_ptr);
@@ -8292,15 +8287,12 @@ cxxKinetics2kinetics(const cxxKinetics * kin)
 	kinetics_ptr->cvode_order = kin->Get_cvode_order();
 
 	// totals
-	//kinetics_ptr->totals = kin->Get_totals().elt_list(P_INSTANCE);
 	kinetics_ptr->totals = cxxNameDouble2elt_list(&(kin->Get_totals()));
 
 	// comps
 	kinetics_ptr->count_comps = (int) kin->Get_kineticsComps().size();
 	kinetics_ptr->comps =
 		(struct kinetics_comp *) free_check_null(kinetics_ptr->comps);
-	//kinetics_ptr->comps =
-	//	cxxKineticsComp::cxxKineticsComp2kinetics_comp(P_INSTANCE_COMMA this->kineticsComps);
 	kinetics_ptr->comps = cxxKineticsComp2kinetics_comp(&(kin->Get_kineticsComps()));
 
 	// steps
@@ -8351,7 +8343,6 @@ cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 			kinetics_comp_ptr[i].rate_name = NULL;
 		else
 			kinetics_comp_ptr[i].rate_name = string_hsave((*it).Get_rate_name().c_str());
-		//kinetics_comp_ptr[i].list = (*it).namecoef.name_coef(P_INSTANCE);
 		kinetics_comp_ptr[i].list = cxxNameDouble2name_coef(&((*it).Get_namecoef()));
 		kinetics_comp_ptr[i].count_list = (int) (*it).Get_namecoef().size();
 		kinetics_comp_ptr[i].tol = (*it).Get_tol();
@@ -8398,11 +8389,8 @@ cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
 	pp_assemblage_ptr->count_comps = (int) pp->Get_ppAssemblageComps().size();
 	pp_assemblage_ptr->pure_phases =
 		(struct pure_phase *) free_check_null(pp_assemblage_ptr->pure_phases);
-	//pp_assemblage_ptr->pure_phases =
-	//	cxxPPassemblageComp::cxxPPassemblageComp2pure_phase(P_INSTANCE_COMMA this->ppAssemblageComps);
 	pp_assemblage_ptr->pure_phases =
 		cxxPPassemblageComp2pure_phase(&pp->Get_ppAssemblageComps());	
-	//pp_assemblage_ptr->next_elt = this->eltList.elt_list(P_INSTANCE);
 	pp_assemblage_ptr->next_elt = cxxNameDouble2elt_list(&pp->Get_eltList());
 	return (pp_assemblage_ptr);
 }
@@ -8423,7 +8411,6 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 		 it != ppc->end(); ++it)
 	{
 		int n;
-		//pure_phase_ptr[i].phase = (*it).second.get_phase(P_INSTANCE);
 		pure_phase_ptr[i].phase = phase_bsearch((*it).second.Get_name().c_str(), &n, FALSE);
 		if ((*it).second.Get_name().size() == 0)
 			pure_phase_ptr[i].name = NULL;
@@ -8461,12 +8448,10 @@ cxxReaction2irrev(const cxxReaction * rxn)
 	irrev_ptr->n_user = rxn->Get_n_user();
 	irrev_ptr->n_user_end = rxn->Get_n_user_end();
 
-	//irrev_ptr->list = this->reactantList.name_coef(P_INSTANCE);
 	irrev_ptr->list = cxxNameDouble2name_coef(&rxn->Get_reactantList());
 	irrev_ptr->count_list = (int) rxn->Get_reactantList().size();
 	if (rxn->Get_elementList().size() > 0)
 	{
-		//irrev_ptr->elts = this->elementList.elt_list(P_INSTANCE);
 		irrev_ptr->elts = cxxNameDouble2elt_list(&rxn->Get_elementList());
 	}
 	else
@@ -8531,20 +8516,17 @@ cxxSolution2solution(const cxxSolution * sol)
 	// totals
 	solution_ptr->totals =
 		(struct conc *) free_check_null(solution_ptr->totals);
-	//solution_ptr->totals = this->totals.conc(P_INSTANCE);
 	solution_ptr->totals = cxxNameDouble2conc(&sol->Get_totals());
 
 
 	// master_activity
 	solution_ptr->master_activity =
 		(struct master_activity *) free_check_null(solution_ptr->master_activity);
-	//solution_ptr->master_activity = this->master_activity.master_activity(P_INSTANCE);
 	solution_ptr->master_activity = cxxNameDouble2master_activity(&sol->Get_master_activity());
 	solution_ptr->count_master_activity =
 		(int) sol->Get_master_activity().size() + 1;
 
 	// species_gamma
-	//solution_ptr->species_gamma = this->species_gamma.master_activity(P_INSTANCE);
 	solution_ptr->species_gamma = cxxNameDouble2master_activity(&sol->Get_species_gamma());
 	solution_ptr->count_species_gamma = (int) sol->Get_species_gamma().size();
 
@@ -8582,9 +8564,7 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 			iso[i].total = it->Get_total();
 			iso[i].ratio = it->Get_ratio();
 			iso[i].ratio_uncertainty = it->Get_ratio_uncertainty();
-			//iso[i].master = it->master(P_INSTANCE);
 			iso[i].master = master_bsearch(it->Get_elt_name().c_str());
-			//iso[i].primary = it->primary(P_INSTANCE);
 			char * str = string_hsave(it->Get_elt_name().c_str());
 			iso[i].primary = master_bsearch_primary(str);
 			i++;
@@ -8608,8 +8588,6 @@ cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 	s_s_assemblage_ptr->n_user_end = ss->Get_n_user_end();
 	s_s_assemblage_ptr->new_def = FALSE;
 	s_s_assemblage_ptr->count_s_s = (int) ss->Get_ssAssemblageSSs().size();
-	//s_s_assemblage_ptr->s_s =
-	//	cxxSSassemblageSS::cxxSSassemblageSS2s_s(P_INSTANCE_COMMA this->ssAssemblageSSs);
 	s_s_assemblage_ptr->s_s = cxxSSassemblageSS2s_s(&(ss->Get_ssAssemblageSSs()));
 	return (s_s_assemblage_ptr);
 }
@@ -8730,8 +8708,6 @@ cxxSurface2surface(const cxxSurface * surf)
 	surface_ptr->count_comps = (int) surf->Get_surfaceComps().size();
 	surface_ptr->comps =
 		(struct surface_comp *) free_check_null(surface_ptr->comps);
-	//surface_ptr->comps =
-	//	cxxSurfaceComp::cxxSurfaceComp2surface_comp(P_INSTANCE_COMMA this->surfaceComps);
 	surface_ptr->comps =
 		cxxSurfaceComp2surface_comp(&surf->Get_surfaceComps());
 
@@ -8743,8 +8719,6 @@ cxxSurface2surface(const cxxSurface * surf)
 	if (surface_ptr->type == DDL || surface_ptr->type == CD_MUSIC)
 	{
 		surface_ptr->count_charge = (int) surf->Get_surfaceCharges().size();
-		//surface_ptr->charge =
-		//	cxxSurfaceCharge::cxxSurfaceCharge2surface_charge(P_INSTANCE_COMMA this->surfaceCharges);
 		surface_ptr->charge =
 			cxxSurfaceCharge2surface_charge(&surf->Get_surfaceCharges());
 	}
@@ -8758,8 +8732,6 @@ cxxSurface2surface(const cxxSurface * surf)
 		int i, j;
 		for (i = 0; i < surface_ptr->count_comps; i++)
 		{
-			//char *charge_name = P_INSTANCE_POINTER string_hsave(
-			//	cxxSurfaceComp::get_charge_name(P_INSTANCE_COMMA surface_ptr->comps[i].formula).c_str());
 			char token[MAX_LENGTH], name[MAX_LENGTH];
 			int l;
 			strcpy(token, surface_ptr->comps[i].formula);
@@ -8805,13 +8777,10 @@ cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc)
 	{
 		surf_comp_ptr[i].formula = string_hsave((*it).second.Get_formula().c_str());
 		assert((*it).second.Get_formula().size() > 0);
-		//surf_comp_ptr[i].formula_totals = (*it).second.Get_formula_totals().elt_list(P_INSTANCE);
 		surf_comp_ptr[i].formula_totals = cxxNameDouble2elt_list(&(*it).second.Get_formula_totals());
 		surf_comp_ptr[i].formula_z = (*it).second.Get_formula_z();
 		surf_comp_ptr[i].moles = (*it).second.Get_moles();
-		//surf_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE);
 		surf_comp_ptr[i].master = cxxNameDouble2surface_master(&(*it).second.Get_totals());
-		//surf_comp_ptr[i].totals = (*it).second.totals.elt_list(P_INSTANCE);
 		surf_comp_ptr[i].totals = cxxNameDouble2elt_list(&(*it).second.Get_totals());
 		surf_comp_ptr[i].la = (*it).second.Get_la();
 		//surf_comp_ptr[i].charge                 =  it->charge_number;
@@ -8826,7 +8795,6 @@ cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc)
 		else
 			surf_comp_ptr[i].rate_name = string_hsave((*it).second.Get_rate_name().c_str());
 		surf_comp_ptr[i].Dw = (*it).second.Get_Dw();
-		//surf_comp_ptr[i].master = (*it).second.get_master(P_INSTANCE); // duplicate
 		i++;
 	}
 	return (surf_comp_ptr);
@@ -8863,9 +8831,7 @@ cxxSurfaceCharge2surface_charge(const std::map < std::string, cxxSurfaceCharge >
 		surf_charge_ptr[i].sigma1 = 0;
 		surf_charge_ptr[i].sigma2 = 0;
 		surf_charge_ptr[i].sigmaddl = 0;
-		//surf_charge_ptr[i].diffuse_layer_totals = (*it).second.diffuse_layer_totals.elt_list(P_INSTANCE);
 		surf_charge_ptr[i].diffuse_layer_totals = cxxNameDouble2elt_list(&(*it).second.Get_diffuse_layer_totals());
-		//surf_charge_ptr[i].psi_master           = it->get_psi_master();
 		surf_charge_ptr[i].count_g = 0;
 		surf_charge_ptr[i].g = NULL;
 		i++;
@@ -9209,7 +9175,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Exchangers
 	for (i = 0; i < count_exchange; i++)
 	{
-		//Exchangers[P_INSTANCE_POINTER exchange[i].n_user] = cxxExchange(&P_INSTANCE_POINTER exchange[i], this->Get_io());
 		cxxExchange entity(&exchange[i], sb.Get_io());
 		sb.Set_Exchange(exchange[i].n_user, &entity );
 	}
@@ -9217,7 +9182,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// GasPhases
 	for (i = 0; i < count_gas_phase; i++)
 	{
-		//GasPhases[P_INSTANCE_POINTER gas_phase[i].n_user] = cxxGasPhase(&P_INSTANCE_POINTER gas_phase[i], this->Get_io());
 		cxxGasPhase entity(&gas_phase[i], sb.Get_io());
 		sb.Set_GasPhase(gas_phase[i].n_user, &entity );
 	}
@@ -9225,7 +9189,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Kinetics
 	for (i = 0; i < count_kinetics; i++)
 	{
-		//Kinetics[P_INSTANCE_POINTER kinetics[i].n_user] = cxxKinetics(&P_INSTANCE_POINTER kinetics[i], this->Get_io());
 		cxxKinetics entity(&kinetics[i], sb.Get_io());
 		sb.Set_Kinetics(kinetics[i].n_user, &entity );
 	}
@@ -9233,8 +9196,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// PPassemblages
 	for (i = 0; i < count_pp_assemblage; i++)
 	{
-		//PPassemblages[P_INSTANCE_POINTER pp_assemblage[i].n_user] =
-		//	cxxPPassemblage(&P_INSTANCE_POINTER pp_assemblage[i], this->Get_io());
 		cxxPPassemblage entity(&pp_assemblage[i], sb.Get_io());
 		sb.Set_PPassemblage(pp_assemblage[i].n_user, &entity );
 	}
@@ -9242,8 +9203,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// SSassemblages
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
-		//SSassemblages[P_INSTANCE_POINTER s_s_assemblage[i].n_user] =
-		//	cxxSSassemblage(&P_INSTANCE_POINTER s_s_assemblage[i]);
 		cxxSSassemblage entity(&s_s_assemblage[i], sb.Get_io());
 		sb.Set_SSassemblage(s_s_assemblage[i].n_user, &entity );
 	}
@@ -9251,7 +9210,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Surfaces
 	for (i = 0; i < count_surface; i++)
 	{
-		//Surfaces[P_INSTANCE_POINTER surface[i].n_user] = cxxSurface(&P_INSTANCE_POINTER surface[i], this->Get_io());
 		cxxSurface entity(&surface[i], sb.Get_io());
 		sb.Set_Surface(surface[i].n_user, &entity );
 	}
@@ -9259,7 +9217,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Mixes
 	for (i = 0; i < count_mix; i++)
 	{
-		//Mixes[P_INSTANCE_POINTER mix[i].n_user] = cxxMix(&P_INSTANCE_POINTER mix[i], this->Get_io());
 		cxxMix entity(&mix[i], sb.Get_io());
 		sb.Set_Mix(mix[i].n_user, &entity );	
 	}
@@ -9267,7 +9224,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Reactions
 	for (i = 0; i < count_irrev; i++)
 	{
-		//Reactions[P_INSTANCE_POINTER irrev[i].n_user] = cxxReaction(&P_INSTANCE_POINTER irrev[i]);
 		cxxReaction entity(&irrev[i], sb.Get_io());
 		sb.Set_Reaction(irrev[i].n_user, &entity );		
 	}
@@ -9275,7 +9231,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Temperatures
 	for (i = 0; i < count_temperature; i++)
 	{
-		//Temperatures[P_INSTANCE_POINTER temperature[i].n_user] = cxxTemperature(&P_INSTANCE_POINTER temperature[i], this->Get_io());
 		cxxTemperature entity(&temperature[i], sb.Get_io());
 		sb.Set_Temperature(temperature[i].n_user, &entity );	
 	}
@@ -9365,11 +9320,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxSolution >::const_iterator it = sb.Get_Solutions().find(n);
 		if (it != sb.Get_Solutions().end())
 		{
-			////P_INSTANCE_POINTER solution[0] = (it->second).cxxSolution2solution(P_INSTANCE);
-			//P_INSTANCE_POINTER solution[0] = P_INSTANCE_POINTER cxxSolution2solution(&(it->second));
-			//P_INSTANCE_POINTER solution[0]->n_user = n;
-			//P_INSTANCE_POINTER solution[0]->n_user_end = n;
-			//P_INSTANCE_POINTER count_solution++;
 			assert (count_solution == 0);
 			solution[0] = cxxSolution2solution(&(it->second));
 			solution[0]->n_user = n;
@@ -9387,14 +9337,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
 		if (it != sb.Get_Exchangers().end())
 		{
-			////struct exchange *exchange_ptr =
-			////	(it->second).cxxExchange2exchange(P_INSTANCE);
-			//struct exchange *exchange_ptr = P_INSTANCE_POINTER cxxExchange2exchange(&it->second);
-
-			//P_INSTANCE_POINTER exchange_copy(exchange_ptr, &P_INSTANCE_POINTER exchange[0], n);
-			//P_INSTANCE_POINTER count_exchange++;
-			//P_INSTANCE_POINTER exchange_free(exchange_ptr);
-			//exchange_ptr = (struct exchange *) P_INSTANCE_POINTER free_check_null(exchange_ptr);
 			assert (count_exchange == 0);
 			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
 			exchange_copy(exchange_ptr, & exchange[0], n);
@@ -9409,14 +9351,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
 		if (it != sb.Get_GasPhases().end())
 		{
-			//struct gas_phase *gas_phase_ptr =
-			//	(it->second).cxxGasPhase2gas_phase(P_INSTANCE);
-			//struct gas_phase *gas_phase_ptr = P_INSTANCE_POINTER cxxGasPhase2gas_phase(&(it->second));
-			//P_INSTANCE_POINTER gas_phase_copy(gas_phase_ptr, &P_INSTANCE_POINTER gas_phase[0], n);
-			//P_INSTANCE_POINTER count_gas_phase++;
-			//P_INSTANCE_POINTER gas_phase_free(gas_phase_ptr);
-			//gas_phase_ptr =
-			//	(struct gas_phase *) P_INSTANCE_POINTER free_check_null(gas_phase_ptr);
 			assert (count_gas_phase == 0);
 			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
 			gas_phase_copy(gas_phase_ptr, & gas_phase[0], n);
@@ -9431,13 +9365,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().find(n);
 		if (it != sb.Get_Kinetics().end())
 		{
-			//struct kinetics *kinetics_ptr =
-			//	(it->second).cxxKinetics2kinetics(P_INSTANCE);
-			//struct kinetics *kinetics_ptr =  P_INSTANCE_POINTER cxxKinetics2kinetics(&(it->second));
-			//P_INSTANCE_POINTER kinetics_copy(kinetics_ptr, &P_INSTANCE_POINTER kinetics[0], n);
-			//P_INSTANCE_POINTER count_kinetics++;
-			//P_INSTANCE_POINTER kinetics_free(kinetics_ptr);
-			//kinetics_ptr = (struct kinetics *) P_INSTANCE_POINTER free_check_null(kinetics_ptr);
 			assert (count_kinetics == 0);
 			struct kinetics *kinetics_ptr =  cxxKinetics2kinetics(&(it->second));
 			kinetics_copy(kinetics_ptr, & kinetics[0], n);
@@ -9453,14 +9380,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 			sb.Get_PPassemblages().find(n);
 		if (it != sb.Get_PPassemblages().end())
 		{
-			//struct pp_assemblage *pp_assemblage_ptr =
-			//	(it->second).cxxPPassemblage2pp_assemblage(P_INSTANCE);
-			//struct pp_assemblage *pp_assemblage_ptr = P_INSTANCE_POINTER cxxPPassemblage2pp_assemblage(&(it->second));
-			//P_INSTANCE_POINTER pp_assemblage_copy(pp_assemblage_ptr, &P_INSTANCE_POINTER pp_assemblage[0], n);
-			//P_INSTANCE_POINTER count_pp_assemblage++;
-			//P_INSTANCE_POINTER pp_assemblage_free(pp_assemblage_ptr);
-			//pp_assemblage_ptr =
-			//	(struct pp_assemblage *) P_INSTANCE_POINTER free_check_null(pp_assemblage_ptr);
 			assert (count_pp_assemblage == 0);
 			struct pp_assemblage *pp_assemblage_ptr = cxxPPassemblage2pp_assemblage(&(it->second));
 			pp_assemblage_copy(pp_assemblage_ptr, & pp_assemblage[0], n);
@@ -9476,16 +9395,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 			sb.Get_SSassemblages().find(n);
 		if (it != sb.Get_SSassemblages().end())
 		{
-			//struct s_s_assemblage *s_s_assemblage_ptr =
-			//	(it->second).cxxSSassemblage2s_s_assemblage(P_INSTANCE);
-			//struct s_s_assemblage *s_s_assemblage_ptr =
-			//	P_INSTANCE_POINTER cxxSSassemblage2s_s_assemblage(&(it->second));
-
-			//P_INSTANCE_POINTER s_s_assemblage_copy(s_s_assemblage_ptr, &P_INSTANCE_POINTER s_s_assemblage[0], n);
-			//P_INSTANCE_POINTER count_s_s_assemblage++;
-			//P_INSTANCE_POINTER s_s_assemblage_free(s_s_assemblage_ptr);
-			//s_s_assemblage_ptr =
-			//	(struct s_s_assemblage *) P_INSTANCE_POINTER free_check_null(s_s_assemblage_ptr);
 			assert (count_s_s_assemblage == 0);
 			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
 			s_s_assemblage_copy(s_s_assemblage_ptr, & s_s_assemblage[0], n);
@@ -9500,12 +9409,6 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxSurface >::const_iterator it = sb.Get_Surfaces().find(n);
 		if (it != sb.Get_Surfaces().end())
 		{
-			//struct surface *surface_ptr = (it->second).cxxSurface2surface(P_INSTANCE);
-			//struct surface *surface_ptr = P_INSTANCE_POINTER cxxSurface2surface(&(it->second));
-			//P_INSTANCE_POINTER surface_copy(surface_ptr, &P_INSTANCE_POINTER surface[0], n);
-			//P_INSTANCE_POINTER count_surface++;
-			//P_INSTANCE_POINTER surface_free(surface_ptr);
-			//surface_ptr = (struct surface *) P_INSTANCE_POINTER free_check_null(surface_ptr);
 			assert (count_surface == 0);
 			struct surface *surface_ptr = cxxSurface2surface(&(it->second));
 			surface_copy(surface_ptr, & surface[0], n);
