@@ -14,7 +14,7 @@ namespace zdg_ui2 {
 	using namespace System::Threading;
 	using namespace ZedGraph;
 
-// Form2 is only used with MULTICHART
+// Form1 is only used with MULTICHART
 	public ref class ChartObj : public System::Object
 	{
 #ifdef PHREEQC_CLASS
