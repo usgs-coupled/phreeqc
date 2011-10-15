@@ -583,7 +583,7 @@ int set_kinetics_time(int n_user, LDBLE step);
 #if defined (PHREEQC_CPP)
 // convert class to struct
 class cxxMix;
-struct mix * cxxMix2mix(cxxMix * mx);
+struct mix * cxxMix2mix(const cxxMix *mx);
 class cxxKinetics;
 struct kinetics *cxxKinetics2kinetics(const cxxKinetics * kin);
 class cxxKineticsComp;
@@ -630,6 +630,8 @@ void Use2cxxStorageBin(cxxStorageBin & sb);
 void phreeqc2cxxStorageBin(cxxStorageBin & sb);
 void phreeqc2cxxStorageBin(cxxStorageBin & sb, int n);
 void cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n);
+void cxxStorageBin2phreeqc(cxxStorageBin & sb);
+void cxxStorageBin2preeqc(cxxStorageBin & sb);
 
 #endif
 

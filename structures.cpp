@@ -8030,7 +8030,7 @@ copier_init(struct copier *copier_ptr)
 #ifdef PHREEQC_CPP
 #include "../cxxMix.h"
 struct mix * CLASS_QUALIFIER
-cxxMix2mix(cxxMix * mx)
+cxxMix2mix(const cxxMix * mx)
 		//
 		// Builds a mix structure from instance of cxxMix 
 		//
@@ -8056,7 +8056,7 @@ cxxMix2mix(cxxMix * mx)
 						(mx->Get_mixComps().size() * sizeof(struct mix_comp)));
 		if (mix_ptr->comps == NULL)
 			malloc_error();
-		for (std::map < int, double >::iterator it = mx->Get_mixComps().begin();
+		for (std::map < int, double >::const_iterator it = mx->Get_mixComps().begin();
 			 it != mx->Get_mixComps().end(); it++)
 		{
 			mix_ptr->comps[i].n_solution = it->first;
@@ -9417,8 +9417,171 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 			surface_ptr = (struct surface *) free_check_null(surface_ptr);
 		}
 	}
-	//std::cerr << oss.str();
+
+	// Mixes
+	{
+		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().find(n);
+		if (it != sb.Get_Mixes().end())
+		{
+			assert (count_mix == 0);
+			struct mix *mix_ptr = cxxMix2mix(&(it->second));
+			mix_copy(mix_ptr, & mix[0], n);
+			count_mix++;
+			mix_free(mix_ptr);
+			mix_ptr = (struct mix *) free_check_null(mix_ptr);
+		}
+	}
+	// Reactions
+	{
+		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
+		if (it != sb.Get_Reactions().end())
+		{
+			assert (count_irrev == 0);
+			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
+			irrev_copy(irrev_ptr, & irrev[0], n);
+			count_irrev++;
+			irrev_free(irrev_ptr);
+			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
+		}
+	}
+	// Temperatures
+	{
+		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().find(n);
+		if (it != sb.Get_Temperatures().end())
+		{
+			assert (count_temperature == 0);
+			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
+			temperature_copy(temperature_ptr, & temperature[0], n);
+			count_temperature++;
+			temperature_free(temperature_ptr);
+			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
+		}
+	}
 
 }
+void CLASS_QUALIFIER
+cxxStorageBin2phreeqc(cxxStorageBin & sb)
+		//
+		// copy data from storage bin to phreeqc
+		// replaces any existing reactants in phreeqc
+		//
+{
+	// Solutions
+	{
 
+		std::map < int, cxxSolution >::const_iterator it = sb.Get_Solutions().begin();
+		for ( ; it != sb.Get_Solutions().end(); it ++)
+		{
+			struct solution *solution_old_ptr = cxxSolution2solution(&(it->second));
+			solution_ptr_to_user(solution_old_ptr, it->first);
+			solution_free(solution_old_ptr);
+		}
+	}
+
+	// Exchangers
+	{
+		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().begin();
+		for ( ; it != sb.Get_Exchangers().end(); it++)
+		{
+			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
+			exchange_ptr_to_user(exchange_ptr, it->first);
+			exchange_free(exchange_ptr);
+			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
+		}
+	}
+
+	// GasPhases
+	{
+		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().begin();
+		for ( ; it != sb.Get_GasPhases().end(); it++)
+		{
+			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
+			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
+			gas_phase_free(gas_phase_ptr);
+			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
+		}
+	}
+
+	// Kinetics
+	{
+		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().begin();
+		for ( ; it != sb.Get_Kinetics().end(); it++)
+		{
+			struct kinetics *kinetics_ptr =  cxxKinetics2kinetics(&(it->second));
+			kinetics_ptr_to_user(kinetics_ptr, it->first);
+			kinetics_free(kinetics_ptr);
+			kinetics_ptr = (struct kinetics *) free_check_null(kinetics_ptr);
+		}
+	}
+
+	// PPassemblages
+	{
+		std::map < int, cxxPPassemblage >::const_iterator it = sb.Get_PPassemblages().begin();
+		for ( ; it != sb.Get_PPassemblages().end(); it++)
+		{
+			struct pp_assemblage *pp_assemblage_ptr = cxxPPassemblage2pp_assemblage(&(it->second));
+			pp_assemblage_ptr_to_user(pp_assemblage_ptr, it->first);
+			pp_assemblage_free(pp_assemblage_ptr);
+			pp_assemblage_ptr =	(struct pp_assemblage *) free_check_null(pp_assemblage_ptr);
+		}
+	}
+
+	// SSassemblages
+	{
+		std::map < int, cxxSSassemblage >::const_iterator it = sb.Get_SSassemblages().begin();
+		for ( ; it != sb.Get_SSassemblages().end(); it++)
+		{
+			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
+			s_s_assemblage_ptr_to_user(s_s_assemblage_ptr, it->first);
+			s_s_assemblage_free(s_s_assemblage_ptr);
+			s_s_assemblage_ptr = (struct s_s_assemblage *) free_check_null(s_s_assemblage_ptr);
+		}
+	}
+
+	// Surfaces
+	{
+		std::map < int, cxxSurface >::const_iterator it = sb.Get_Surfaces().begin();
+		for ( ; it != sb.Get_Surfaces().end(); it++)
+		{
+			struct surface *surface_ptr = cxxSurface2surface(&(it->second));
+			surface_ptr_to_user(surface_ptr, it->first);
+			surface_free(surface_ptr);
+			surface_ptr = (struct surface *) free_check_null(surface_ptr);
+		}
+	}
+	// Mixes
+	{
+		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().begin();
+		for ( ; it != sb.Get_Mixes().end(); it++)
+		{
+			struct mix *mix_ptr = cxxMix2mix(&(it->second));
+			mix_ptr_to_user(mix_ptr, it->first);
+			mix_free(mix_ptr);
+			mix_ptr = (struct mix *) free_check_null(mix_ptr);
+		}
+	}
+	// Reactions
+	{
+		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().begin();
+		for ( ; it != sb.Get_Reactions().end(); it++)
+		{
+			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
+			irrev_ptr_to_user(irrev_ptr, it->first);
+			irrev_free(irrev_ptr);
+			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
+		}
+	}
+	// Temperatures
+	{
+		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().begin();
+		for ( ; it != sb.Get_Temperatures().end(); it++)
+		{
+			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
+			irrev_ptr_to_user(temperature_ptr, it->first);
+			temperature_free(temperature_ptr);
+			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
+		}
+	}
+
+}
 #endif
