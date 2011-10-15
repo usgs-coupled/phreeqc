@@ -2255,7 +2255,55 @@ irrev_search(int n_user, int *n)
 	*n = i;
 	return (&irrev[i]);
 }
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+irrev_ptr_to_user(struct irrev *irrev_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies data to irrev structure with user number n_user_new.
+ *   If n_user_new already exists, it is overwritten.
+ *   Sort order is maintained.
+ */
+	int n_new, sort;
+	struct irrev  *irrev_ptr_new;
+/*
+ *   Check pointer
+ */
+	if (irrev_ptr_old == NULL)
+	{
+		sprintf(error_string, "Irreversible reaction pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return (ERROR);
+	}
+/*
+ *   Find n_user_old in structure array irrev or make new space
+ */
+	sort = FALSE;
+	irrev_ptr_new = irrev_bsearch(n_user_new, &n_new);
+	if (irrev_ptr_new != NULL)
+	{
+		irrev_free(irrev_ptr_new);
+	}
+	else
+	{
+		irrev =	(struct irrev *) PHRQ_realloc(irrev, (size_t) (count_irrev + 1) * sizeof(struct irrev));
+		if (irrev == NULL)
+			malloc_error();
+		if (n_user_new < irrev[count_irrev - 1].n_user)
+			sort = TRUE;
+		n_new = count_irrev++;
+	}
+/*
+ *   Copy data
+ */
 
+	irrev_copy(irrev_ptr_old, &irrev[n_new], n_user_new);
+	if (sort == TRUE)
+		irrev_sort();
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 irrev_sort(void)
@@ -3337,6 +3385,56 @@ mix_search(int n_user, int *n, int print)
 	}
 	*n = i;
 	return (&mix[i]);
+}
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does
+ *   Copies mix_ptr_old to n_user_new space if
+ *   found or to mix[count_mix] if not found.
+ *   Mix array sort order is maintained.
+ */
+	int n_new, sort;
+	struct mix *mix_ptr_new;
+/*
+ *   Check pointer
+ */
+	if (mix_ptr_old == NULL)
+	{
+		sprintf(error_string, "Mix pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return (ERROR);
+	}
+/*
+ *   Find n_user_new in structure array mix or make new space
+ */
+	sort = FALSE;
+	mix_ptr_new = mix_bsearch(n_user_new, &n_new);
+	if (mix_ptr_new != NULL)
+	{
+		mix_free(&(mix[n_new]));
+	}
+	else
+	{
+		mix = (struct mix *) PHRQ_realloc(mix, (size_t) (count_mix + 1) * sizeof(struct mix));
+		if (mix == NULL)
+			malloc_error();
+		if (n_user_new < mix[count_mix - 1].n_user)
+			sort = TRUE;
+		n_new = count_mix++;
+	}
+/*
+ *   Store data for structure mix
+ */
+	mix_copy(mix_ptr_old, &mix[n_new], n_user_new);
+
+	if (sort == TRUE)
+		mix_sort();
+	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -6984,7 +7082,56 @@ temperature_search(int n_user, int *n)
 	*n = i;
 	return (&temperature[i]);
 }
-
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+temperature_ptr_to_user(struct temperature * temperature_ptr_old, int n_user_new)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Checks if n_user_new exists, and frees space if it does.
+ *   Copies temperature_ptr_old to existing space if
+ *   found or to temperature[count_temperature] if not found.
+ *   Temperature array sort order is maintained.
+ */
+	int n_new, sort;
+	struct temperature *temperature_ptr_new;
+/*
+ *   Check pointer
+ */
+	if (temperature_ptr_old == NULL)
+	{
+		sprintf(error_string, "Temperature pointer is NULL.");
+		error_msg(error_string, CONTINUE);
+		input_error++;
+		return (ERROR);
+	}
+/*
+ *   Find n_user_old in structure array temperature or make new space
+ */
+	sort = FALSE;
+	temperature_ptr_new = temperature_bsearch(n_user_new, &n_new);
+	if (temperature_ptr_new != NULL)
+	{
+		temperature_free(&temperature[n_new]);
+	}
+	else
+	{
+		temperature = (struct temperature *) PHRQ_realloc(temperature,
+					(size_t) (count_temperature + 1) * sizeof(struct temperature));
+		if (temperature == NULL)
+			malloc_error();
+		if (n_user_new < temperature[count_temperature - 1].n_user)
+			sort = TRUE;
+		n_new = count_temperature++;
+	}
+/*
+ *   Copy data
+ */
+	temperature_copy(temperature_ptr_old, &temperature[n_new], n_user_new);
+	if (sort == TRUE)
+		temperature_sort();
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 temperature_sort(void)
@@ -9308,27 +9455,21 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 	}
 }
 void CLASS_QUALIFIER
-cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
-		//
-		// copy data from storage bin number n to solution vector position 0
-		// Assumes all reactant data are deleted after each use of PHREEQC
-		//
+cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
+//
+// copy all reactants from storage bin number n to phreeqc
+// replaces any existing reactants in phreeqc
+//
 {
 	// Solutions
 	{
-
 		std::map < int, cxxSolution >::const_iterator it = sb.Get_Solutions().find(n);
 		if (it != sb.Get_Solutions().end())
 		{
-			assert (count_solution == 0);
-			solution[0] = cxxSolution2solution(&(it->second));
-			solution[0]->n_user = n;
-			solution[0]->n_user_end = n;
-			count_solution++;
-		}
-		else
-		{
-			error_msg("cxxSolution not found in cxxStorageBin2phreeqc", STOP);
+			struct solution *solution_old_ptr = cxxSolution2solution(&(it->second));
+			solution_ptr_to_user(solution_old_ptr, it->first);
+			solution_free(solution_old_ptr);
+			solution_old_ptr = (struct solution *) free_check_null(solution_old_ptr);
 		}
 	}
 
@@ -9337,10 +9478,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
 		if (it != sb.Get_Exchangers().end())
 		{
-			assert (count_exchange == 0);
 			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
-			exchange_copy(exchange_ptr, & exchange[0], n);
-			count_exchange++;
+			exchange_ptr_to_user(exchange_ptr, it->first);
 			exchange_free(exchange_ptr);
 			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
 		}
@@ -9351,10 +9490,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
 		if (it != sb.Get_GasPhases().end())
 		{
-			assert (count_gas_phase == 0);
 			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
-			gas_phase_copy(gas_phase_ptr, & gas_phase[0], n);
-			count_gas_phase++;
+			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
 			gas_phase_free(gas_phase_ptr);
 			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
 		}
@@ -9365,10 +9502,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().find(n);
 		if (it != sb.Get_Kinetics().end())
 		{
-			assert (count_kinetics == 0);
 			struct kinetics *kinetics_ptr =  cxxKinetics2kinetics(&(it->second));
-			kinetics_copy(kinetics_ptr, & kinetics[0], n);
-			count_kinetics++;
+			kinetics_ptr_to_user(kinetics_ptr, it->first);
 			kinetics_free(kinetics_ptr);
 			kinetics_ptr = (struct kinetics *) free_check_null(kinetics_ptr);
 		}
@@ -9380,10 +9515,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 			sb.Get_PPassemblages().find(n);
 		if (it != sb.Get_PPassemblages().end())
 		{
-			assert (count_pp_assemblage == 0);
 			struct pp_assemblage *pp_assemblage_ptr = cxxPPassemblage2pp_assemblage(&(it->second));
-			pp_assemblage_copy(pp_assemblage_ptr, & pp_assemblage[0], n);
-			count_pp_assemblage++;
+			pp_assemblage_ptr_to_user(pp_assemblage_ptr, it->first);
 			pp_assemblage_free(pp_assemblage_ptr);
 			pp_assemblage_ptr =	(struct pp_assemblage *) free_check_null(pp_assemblage_ptr);
 		}
@@ -9395,10 +9528,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 			sb.Get_SSassemblages().find(n);
 		if (it != sb.Get_SSassemblages().end())
 		{
-			assert (count_s_s_assemblage == 0);
 			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
-			s_s_assemblage_copy(s_s_assemblage_ptr, & s_s_assemblage[0], n);
-			count_s_s_assemblage++;
+			s_s_assemblage_ptr_to_user(s_s_assemblage_ptr, it->first);
 			s_s_assemblage_free(s_s_assemblage_ptr);
 			s_s_assemblage_ptr = (struct s_s_assemblage *) free_check_null(s_s_assemblage_ptr);
 		}
@@ -9409,10 +9540,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxSurface >::const_iterator it = sb.Get_Surfaces().find(n);
 		if (it != sb.Get_Surfaces().end())
 		{
-			assert (count_surface == 0);
 			struct surface *surface_ptr = cxxSurface2surface(&(it->second));
-			surface_copy(surface_ptr, & surface[0], n);
-			count_surface++;
+			surface_ptr_to_user(surface_ptr, it->first);
 			surface_free(surface_ptr);
 			surface_ptr = (struct surface *) free_check_null(surface_ptr);
 		}
@@ -9423,10 +9552,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().find(n);
 		if (it != sb.Get_Mixes().end())
 		{
-			assert (count_mix == 0);
 			struct mix *mix_ptr = cxxMix2mix(&(it->second));
-			mix_copy(mix_ptr, & mix[0], n);
-			count_mix++;
+			mix_ptr_to_user(mix_ptr, it->first);
 			mix_free(mix_ptr);
 			mix_ptr = (struct mix *) free_check_null(mix_ptr);
 		}
@@ -9436,10 +9563,8 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
 		if (it != sb.Get_Reactions().end())
 		{
-			assert (count_irrev == 0);
 			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
-			irrev_copy(irrev_ptr, & irrev[0], n);
-			count_irrev++;
+			irrev_ptr_to_user(irrev_ptr, it->first);
 			irrev_free(irrev_ptr);
 			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
 		}
@@ -9449,22 +9574,19 @@ cxxStorageBin2phreeqc0(cxxStorageBin & sb, int n)
 		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().find(n);
 		if (it != sb.Get_Temperatures().end())
 		{
-			assert (count_temperature == 0);
 			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
-			temperature_copy(temperature_ptr, & temperature[0], n);
-			count_temperature++;
+			temperature_ptr_to_user(temperature_ptr, it->first);
 			temperature_free(temperature_ptr);
 			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
 		}
 	}
-
 }
 void CLASS_QUALIFIER
 cxxStorageBin2phreeqc(cxxStorageBin & sb)
-		//
-		// copy data from storage bin to phreeqc
-		// replaces any existing reactants in phreeqc
-		//
+//
+// copy data from storage bin to phreeqc
+// replaces any existing reactants in phreeqc
+//
 {
 	// Solutions
 	{
@@ -9475,6 +9597,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 			struct solution *solution_old_ptr = cxxSolution2solution(&(it->second));
 			solution_ptr_to_user(solution_old_ptr, it->first);
 			solution_free(solution_old_ptr);
+			solution_old_ptr = (struct solution *) free_check_null(solution_old_ptr);
 		}
 	}
 
@@ -9577,11 +9700,10 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		for ( ; it != sb.Get_Temperatures().end(); it++)
 		{
 			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
-			irrev_ptr_to_user(temperature_ptr, it->first);
+			temperature_ptr_to_user(temperature_ptr, it->first);
 			temperature_free(temperature_ptr);
 			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
 		}
 	}
-
 }
 #endif
