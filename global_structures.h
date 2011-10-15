@@ -1305,16 +1305,16 @@ struct isotope_alpha
 /* ----------------------------------------------------------------------
  *   System
  * ---------------------------------------------------------------------- */
-struct system
-{
-	struct solution *solution;
-	struct exchange *exchange;
-	struct pp_assemblage *pp_assemblage;
-	struct gas_phase *gas_phase;
-	struct s_s_assemblage *s_s_assemblage;
-	struct kinetics *kinetics;
-	struct surface *surface;
-};
+//struct system
+//{
+//	struct solution *solution;
+//	struct exchange *exchange;
+//	struct pp_assemblage *pp_assemblage;
+//	struct gas_phase *gas_phase;
+//	struct s_s_assemblage *s_s_assemblage;
+//	struct kinetics *kinetics;
+//	struct surface *surface;
+//};
 struct system_species
 {
 	char *name;
