@@ -2357,9 +2357,9 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				sprintf(error_string,
 						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
 						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
-				output_msg(OUTPUT_STDERR, "%s\n", error_string);
-				if (state == PHAST)
-					output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
+				output_msg(OUTPUT_WARNING, "%s\n", error_string);
+				//if (state == PHAST)
+				//	output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
 
 #ifdef DEBUG_KINETICS
 				if (m_iter > 5)

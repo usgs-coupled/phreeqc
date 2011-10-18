@@ -1244,7 +1244,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 		{
 			if (ltr)
 				/*putc(' ', f); */
-				output_msg(OUTPUT_BASIC, " ");
+				output_msg(OUTPUT_MESSAGE, " ");
 			ltr = (boolean) (l_buf->kind != toknot);
 		}
 		else
@@ -1254,623 +1254,623 @@ listtokens(FILE * f, tokenrec * l_buf)
 
 		case tokvar:
 			/*fputs(l_buf->UU.vp->name, f); */
-			output_msg(OUTPUT_BASIC, "%s", l_buf->UU.vp->name);
+			output_msg(OUTPUT_MESSAGE, "%s", l_buf->UU.vp->name);
 			break;
 
 		case toknum:
 			/*fputs(numtostr(STR1, l_buf->UU.num), f); */
 			string = numtostr(STR1, l_buf->UU.num);
 			string_trim(string);
-			output_msg(OUTPUT_BASIC, "%s", string);
+			output_msg(OUTPUT_MESSAGE, "%s", string);
 			break;
 
 		case tokstr:
-			output_msg(OUTPUT_BASIC, "\"%s\"", l_buf->UU.sp);
+			output_msg(OUTPUT_MESSAGE, "\"%s\"", l_buf->UU.sp);
 			break;
 
 		case toksnerr:
-			output_msg(OUTPUT_BASIC, "{%c}", l_buf->UU.snch);
+			output_msg(OUTPUT_MESSAGE, "{%c}", l_buf->UU.snch);
 			break;
 
 		case tokplus:
 			/*putc('+', f); */
-			output_msg(OUTPUT_BASIC, "+");
+			output_msg(OUTPUT_MESSAGE, "+");
 			break;
 
 		case tokminus:
 			/*putc('-', f); */
-			output_msg(OUTPUT_BASIC, "-");
+			output_msg(OUTPUT_MESSAGE, "-");
 			break;
 
 		case toktimes:
 			/*putc('*', f); */
-			output_msg(OUTPUT_BASIC, "*");
+			output_msg(OUTPUT_MESSAGE, "*");
 			break;
 
 		case tokdiv:
 			/*putc('/', f); */
-			output_msg(OUTPUT_BASIC, "/");
+			output_msg(OUTPUT_MESSAGE, "/");
 			break;
 
 		case tokup:
 			/*putc('^', f); */
-			output_msg(OUTPUT_BASIC, "^");
+			output_msg(OUTPUT_MESSAGE, "^");
 			break;
 
 		case toklp:
 			/*putc('(', f); */
-			output_msg(OUTPUT_BASIC, "(");
+			output_msg(OUTPUT_MESSAGE, "(");
 			break;
 
 		case tokrp:
 			/*putc(')', f); */
-			output_msg(OUTPUT_BASIC, ")");
+			output_msg(OUTPUT_MESSAGE, ")");
 			break;
 
 		case tokcomma:
 			/*putc(',', f); */
-			output_msg(OUTPUT_BASIC, ",");
+			output_msg(OUTPUT_MESSAGE, ",");
 			break;
 
 		case toksemi:
 			/*putc(';', f); */
-			output_msg(OUTPUT_BASIC, ";");
+			output_msg(OUTPUT_MESSAGE, ";");
 			break;
 
 		case tokcolon:
-			output_msg(OUTPUT_BASIC, " : ");
+			output_msg(OUTPUT_MESSAGE, " : ");
 			break;
 
 		case tokeq:
-			output_msg(OUTPUT_BASIC, " = ");
+			output_msg(OUTPUT_MESSAGE, " = ");
 			break;
 
 		case toklt:
-			output_msg(OUTPUT_BASIC, " < ");
+			output_msg(OUTPUT_MESSAGE, " < ");
 			break;
 
 		case tokgt:
-			output_msg(OUTPUT_BASIC, " > ");
+			output_msg(OUTPUT_MESSAGE, " > ");
 			break;
 
 		case tokle:
-			output_msg(OUTPUT_BASIC, " <= ");
+			output_msg(OUTPUT_MESSAGE, " <= ");
 			break;
 
 		case tokge:
-			output_msg(OUTPUT_BASIC, " >= ");
+			output_msg(OUTPUT_MESSAGE, " >= ");
 			break;
 
 		case tokne:
-			output_msg(OUTPUT_BASIC, " <> ");
+			output_msg(OUTPUT_MESSAGE, " <> ");
 			break;
 
 		case tokand:
-			output_msg(OUTPUT_BASIC, " AND ");
+			output_msg(OUTPUT_MESSAGE, " AND ");
 			break;
 
 		case tokor:
-			output_msg(OUTPUT_BASIC, " OR ");
+			output_msg(OUTPUT_MESSAGE, " OR ");
 			break;
 
 		case tokxor:
-			output_msg(OUTPUT_BASIC, " XOR ");
+			output_msg(OUTPUT_MESSAGE, " XOR ");
 			break;
 
 		case tokmod:
-			output_msg(OUTPUT_BASIC, " MOD ");
+			output_msg(OUTPUT_MESSAGE, " MOD ");
 			break;
 
 		case toknot:
-			output_msg(OUTPUT_BASIC, "NOT ");
+			output_msg(OUTPUT_MESSAGE, "NOT ");
 			break;
 
 		case toksqr:
-			output_msg(OUTPUT_BASIC, "SQR");
+			output_msg(OUTPUT_MESSAGE, "SQR");
 			break;
 
 		case toksqrt:
-			output_msg(OUTPUT_BASIC, "SQRT");
+			output_msg(OUTPUT_MESSAGE, "SQRT");
 			break;
 
 		case tokceil:
-			output_msg(OUTPUT_BASIC, "CEIL");
+			output_msg(OUTPUT_MESSAGE, "CEIL");
 			break;
 
 		case tokfloor:
-			output_msg(OUTPUT_BASIC, "FLOOR");
+			output_msg(OUTPUT_MESSAGE, "FLOOR");
 			break;
 
 		case toksin:
-			output_msg(OUTPUT_BASIC, "SIN");
+			output_msg(OUTPUT_MESSAGE, "SIN");
 			break;
 
 		case tokcos:
-			output_msg(OUTPUT_BASIC, "COS");
+			output_msg(OUTPUT_MESSAGE, "COS");
 			break;
 
 		case toktan:
-			output_msg(OUTPUT_BASIC, "TAN");
+			output_msg(OUTPUT_MESSAGE, "TAN");
 			break;
 
 		case tokarctan:
-			output_msg(OUTPUT_BASIC, "ARCTAN");
+			output_msg(OUTPUT_MESSAGE, "ARCTAN");
 			break;
 
 		case toklog:
-			output_msg(OUTPUT_BASIC, "LOG");
+			output_msg(OUTPUT_MESSAGE, "LOG");
 			break;
 
 		case tokexp:
-			output_msg(OUTPUT_BASIC, "EXP");
+			output_msg(OUTPUT_MESSAGE, "EXP");
 			break;
 
 		case tokabs:
-			output_msg(OUTPUT_BASIC, "ABS");
+			output_msg(OUTPUT_MESSAGE, "ABS");
 			break;
 
 		case toksgn:
-			output_msg(OUTPUT_BASIC, "SGN");
+			output_msg(OUTPUT_MESSAGE, "SGN");
 			break;
 
 		case tokstr_:
-			output_msg(OUTPUT_BASIC, "STR$");
+			output_msg(OUTPUT_MESSAGE, "STR$");
 			break;
 
 		case tokval:
-			output_msg(OUTPUT_BASIC, "VAL");
+			output_msg(OUTPUT_MESSAGE, "VAL");
 			break;
 
 		case tokchr_:
-			output_msg(OUTPUT_BASIC, "CHR$");
+			output_msg(OUTPUT_MESSAGE, "CHR$");
 			break;
 
 		case tokeol_:
-			output_msg(OUTPUT_BASIC, "EOL$");
+			output_msg(OUTPUT_MESSAGE, "EOL$");
 			break;
 
 		case tokasc:
-			output_msg(OUTPUT_BASIC, "ASC");
+			output_msg(OUTPUT_MESSAGE, "ASC");
 			break;
 
 		case toklen:
-			output_msg(OUTPUT_BASIC, "LEN");
+			output_msg(OUTPUT_MESSAGE, "LEN");
 			break;
 
 		case tokmid_:
-			output_msg(OUTPUT_BASIC, "MID$");
+			output_msg(OUTPUT_MESSAGE, "MID$");
 			break;
 
 		case tokpeek:
-			output_msg(OUTPUT_BASIC, "PEEK");
+			output_msg(OUTPUT_MESSAGE, "PEEK");
 			break;
 
 		case tokrem:
-			output_msg(OUTPUT_BASIC, "REM%s", l_buf->UU.sp);
+			output_msg(OUTPUT_MESSAGE, "REM%s", l_buf->UU.sp);
 			break;
 
 		case toklet:
-			output_msg(OUTPUT_BASIC, "LET");
+			output_msg(OUTPUT_MESSAGE, "LET");
 			break;
 
 		case tokprint:
-			output_msg(OUTPUT_BASIC, "PRINT");
+			output_msg(OUTPUT_MESSAGE, "PRINT");
 			break;
 
 		case tokinput:
-			output_msg(OUTPUT_BASIC, "INPUT");
+			output_msg(OUTPUT_MESSAGE, "INPUT");
 			break;
 
 		case tokgoto:
-			output_msg(OUTPUT_BASIC, "GOTO");
+			output_msg(OUTPUT_MESSAGE, "GOTO");
 			break;
 
 		case tokif:
-			output_msg(OUTPUT_BASIC, "IF");
+			output_msg(OUTPUT_MESSAGE, "IF");
 			break;
 
 		case tokend:
-			output_msg(OUTPUT_BASIC, "END");
+			output_msg(OUTPUT_MESSAGE, "END");
 			break;
 
 		case tokstop:
-			output_msg(OUTPUT_BASIC, "STOP");
+			output_msg(OUTPUT_MESSAGE, "STOP");
 			break;
 
 		case tokfor:
-			output_msg(OUTPUT_BASIC, "FOR");
+			output_msg(OUTPUT_MESSAGE, "FOR");
 			break;
 
 		case toknext:
-			output_msg(OUTPUT_BASIC, "NEXT");
+			output_msg(OUTPUT_MESSAGE, "NEXT");
 			break;
 
 		case tokwhile:
-			output_msg(OUTPUT_BASIC, "WHILE");
+			output_msg(OUTPUT_MESSAGE, "WHILE");
 			break;
 
 		case tokwend:
-			output_msg(OUTPUT_BASIC, "WEND");
+			output_msg(OUTPUT_MESSAGE, "WEND");
 			break;
 
 		case tokgosub:
-			output_msg(OUTPUT_BASIC, "GOSUB");
+			output_msg(OUTPUT_MESSAGE, "GOSUB");
 			break;
 
 		case tokreturn:
-			output_msg(OUTPUT_BASIC, "RETURN");
+			output_msg(OUTPUT_MESSAGE, "RETURN");
 			break;
 
 		case tokread:
-			output_msg(OUTPUT_BASIC, "READ");
+			output_msg(OUTPUT_MESSAGE, "READ");
 			break;
 
 		case tokdata:
-			output_msg(OUTPUT_BASIC, "DATA");
+			output_msg(OUTPUT_MESSAGE, "DATA");
 			break;
 
 		case tokrestore:
-			output_msg(OUTPUT_BASIC, "RESTORE");
+			output_msg(OUTPUT_MESSAGE, "RESTORE");
 			break;
 
 		case tokgotoxy:
-			output_msg(OUTPUT_BASIC, "GOTOXY");
+			output_msg(OUTPUT_MESSAGE, "GOTOXY");
 			break;
 
 		case tokon:
-			output_msg(OUTPUT_BASIC, "ON");
+			output_msg(OUTPUT_MESSAGE, "ON");
 			break;
 
 		case tokdim:
-			output_msg(OUTPUT_BASIC, "DIM");
+			output_msg(OUTPUT_MESSAGE, "DIM");
 			break;
 
 		case tokpoke:
-			output_msg(OUTPUT_BASIC, "POKE");
+			output_msg(OUTPUT_MESSAGE, "POKE");
 			break;
 
 		case toklist:
-			output_msg(OUTPUT_BASIC, "LIST");
+			output_msg(OUTPUT_MESSAGE, "LIST");
 			break;
 
 		case tokrun:
-			output_msg(OUTPUT_BASIC, "RUN");
+			output_msg(OUTPUT_MESSAGE, "RUN");
 			break;
 
 		case toknew:
-			output_msg(OUTPUT_BASIC, "NEW");
+			output_msg(OUTPUT_MESSAGE, "NEW");
 			break;
 
 		case tokload:
-			output_msg(OUTPUT_BASIC, "LOAD");
+			output_msg(OUTPUT_MESSAGE, "LOAD");
 			break;
 
 		case tokmerge:
-			output_msg(OUTPUT_BASIC, "MERGE");
+			output_msg(OUTPUT_MESSAGE, "MERGE");
 			break;
 
 		case toksave:
-			output_msg(OUTPUT_BASIC, "SAVE");
+			output_msg(OUTPUT_MESSAGE, "SAVE");
 			break;
 
 		case tokbye:
-			output_msg(OUTPUT_BASIC, "BYE");
+			output_msg(OUTPUT_MESSAGE, "BYE");
 			break;
 
 		case tokdel:
-			output_msg(OUTPUT_BASIC, "DEL");
+			output_msg(OUTPUT_MESSAGE, "DEL");
 			break;
 
 		case tokrenum:
-			output_msg(OUTPUT_BASIC, "RENUM");
+			output_msg(OUTPUT_MESSAGE, "RENUM");
 			break;
 
 		case tokthen:
-			output_msg(OUTPUT_BASIC, " THEN ");
+			output_msg(OUTPUT_MESSAGE, " THEN ");
 			break;
 
 		case tokelse:
-			output_msg(OUTPUT_BASIC, " ELSE ");
+			output_msg(OUTPUT_MESSAGE, " ELSE ");
 			break;
 
 		case tokto:
-			output_msg(OUTPUT_BASIC, " TO ");
+			output_msg(OUTPUT_MESSAGE, " TO ");
 			break;
 
 		case tokstep:
-			output_msg(OUTPUT_BASIC, " STEP ");
+			output_msg(OUTPUT_MESSAGE, " STEP ");
 			break;
 
 		case toktc:
-			output_msg(OUTPUT_BASIC, "TC");
+			output_msg(OUTPUT_MESSAGE, "TC");
 			break;
 
 		case tokm0:
-			output_msg(OUTPUT_BASIC, "M0");
+			output_msg(OUTPUT_MESSAGE, "M0");
 			break;
 
 		case tokm:
-			output_msg(OUTPUT_BASIC, "M");
+			output_msg(OUTPUT_MESSAGE, "M");
 			break;
 
 		case tokparm:
-			output_msg(OUTPUT_BASIC, "PARM");
+			output_msg(OUTPUT_MESSAGE, "PARM");
 			break;
 
 		case tokact:
-			output_msg(OUTPUT_BASIC, "ACT");
+			output_msg(OUTPUT_MESSAGE, "ACT");
 			break;
 
 		case tokchange_por:
-			output_msg(OUTPUT_BASIC, "CHANGE_POR");
+			output_msg(OUTPUT_MESSAGE, "CHANGE_POR");
 			break;
 
 		case tokget_por:
-			output_msg(OUTPUT_BASIC, "GET_POR");
+			output_msg(OUTPUT_MESSAGE, "GET_POR");
 			break;
 
 		case tokchange_surf:
-			output_msg(OUTPUT_BASIC, "CHANGE_SURF");
+			output_msg(OUTPUT_MESSAGE, "CHANGE_SURF");
 			break;
 
 		case tokporevolume:
-			output_msg(OUTPUT_BASIC, "POREVOLUME");
+			output_msg(OUTPUT_MESSAGE, "POREVOLUME");
 			break;
 
 		case tokmol:
-			output_msg(OUTPUT_BASIC, "MOL");
+			output_msg(OUTPUT_MESSAGE, "MOL");
 			break;
 
 		case tokla:
-			output_msg(OUTPUT_BASIC, "LA");
+			output_msg(OUTPUT_MESSAGE, "LA");
 			break;
 
 		case toklm:
-			output_msg(OUTPUT_BASIC, "LM");
+			output_msg(OUTPUT_MESSAGE, "LM");
 			break;
 
 		case toksr:
-			output_msg(OUTPUT_BASIC, "SR");
+			output_msg(OUTPUT_MESSAGE, "SR");
 			break;
 
 		case toksi:
-			output_msg(OUTPUT_BASIC, "SI");
+			output_msg(OUTPUT_MESSAGE, "SI");
 			break;
 
 		case toktot:
-			output_msg(OUTPUT_BASIC, "TOT");
+			output_msg(OUTPUT_MESSAGE, "TOT");
 			break;
 
 		case toktotmole:
 		case toktotmol:
 		case toktotmoles:
-			output_msg(OUTPUT_BASIC, "TOTMOLE");
+			output_msg(OUTPUT_MESSAGE, "TOTMOLE");
 			break;
 
 		case toktk:
-			output_msg(OUTPUT_BASIC, "TK");
+			output_msg(OUTPUT_MESSAGE, "TK");
 			break;
 
 		case toktime:
-			output_msg(OUTPUT_BASIC, "TIME");
+			output_msg(OUTPUT_MESSAGE, "TIME");
 			break;
 
 		case toklog10:
-			output_msg(OUTPUT_BASIC, "LOG10");
+			output_msg(OUTPUT_MESSAGE, "LOG10");
 			break;
 
 		case toksim_time:
-			output_msg(OUTPUT_BASIC, "SIM_TIME");
+			output_msg(OUTPUT_MESSAGE, "SIM_TIME");
 			break;
 
 		case tokequi:
-			output_msg(OUTPUT_BASIC, "EQUI");
+			output_msg(OUTPUT_MESSAGE, "EQUI");
 			break;
 
 		case tokgas:
-			output_msg(OUTPUT_BASIC, "GAS");
+			output_msg(OUTPUT_MESSAGE, "GAS");
 			break;
 
 		case tokpunch:
-			output_msg(OUTPUT_BASIC, "PUNCH");
+			output_msg(OUTPUT_MESSAGE, "PUNCH");
 			break;
 
 		case tokkin:
-			output_msg(OUTPUT_BASIC, "KIN");
+			output_msg(OUTPUT_MESSAGE, "KIN");
 			break;
 
 		case toks_s:
-			output_msg(OUTPUT_BASIC, "S_S");
+			output_msg(OUTPUT_MESSAGE, "S_S");
 			break;
 
 		case tokmu:
-			output_msg(OUTPUT_BASIC, "MU");
+			output_msg(OUTPUT_MESSAGE, "MU");
 			break;
 
 		case tokosmotic:
-			output_msg(OUTPUT_BASIC, "OSMOTIC");
+			output_msg(OUTPUT_MESSAGE, "OSMOTIC");
 			break;
 
 		case tokalk:
-			output_msg(OUTPUT_BASIC, "ALK");
+			output_msg(OUTPUT_MESSAGE, "ALK");
 			break;
 
 		case toklk_species:
-			output_msg(OUTPUT_BASIC, "LK_SPECIES");
+			output_msg(OUTPUT_MESSAGE, "LK_SPECIES");
 			break;
 
 		case toklk_named:
-			output_msg(OUTPUT_BASIC, "LK_NAMED");
+			output_msg(OUTPUT_MESSAGE, "LK_NAMED");
 			break;
 
 		case toklk_phase:
-			output_msg(OUTPUT_BASIC, "LK_PHASE");
+			output_msg(OUTPUT_MESSAGE, "LK_PHASE");
 			break;
 
 		case toksum_species:
-			output_msg(OUTPUT_BASIC, "SUM_SPECIES");
+			output_msg(OUTPUT_MESSAGE, "SUM_SPECIES");
 			break;
 
 		case toksum_gas:
-			output_msg(OUTPUT_BASIC, "SUM_GAS");
+			output_msg(OUTPUT_MESSAGE, "SUM_GAS");
 			break;
 
 		case toksum_s_s:
-			output_msg(OUTPUT_BASIC, "SUM_s_s");
+			output_msg(OUTPUT_MESSAGE, "SUM_s_s");
 			break;
 
 		case tokcalc_value:
-			output_msg(OUTPUT_BASIC, "CALC_VALUE");
+			output_msg(OUTPUT_MESSAGE, "CALC_VALUE");
 			break;
 
 		case tokdescription:
-			output_msg(OUTPUT_BASIC, "DESCRIPTION");
+			output_msg(OUTPUT_MESSAGE, "DESCRIPTION");
 			break;
 
 		case toksys:
-			output_msg(OUTPUT_BASIC, "SYS");
+			output_msg(OUTPUT_MESSAGE, "SYS");
 			break;
 
 		case tokinstr:
-			output_msg(OUTPUT_BASIC, "INSTR");
+			output_msg(OUTPUT_MESSAGE, "INSTR");
 			break;
 
 		case tokltrim:
-			output_msg(OUTPUT_BASIC, "LTRIM");
+			output_msg(OUTPUT_MESSAGE, "LTRIM");
 			break;
 
 		case tokrtrim:
-			output_msg(OUTPUT_BASIC, "RTRIM");
+			output_msg(OUTPUT_MESSAGE, "RTRIM");
 			break;
 
 		case toktrim:
-			output_msg(OUTPUT_BASIC, "TRIM");
+			output_msg(OUTPUT_MESSAGE, "TRIM");
 			break;
 
 		case tokpad:
-			output_msg(OUTPUT_BASIC, "PAD");
+			output_msg(OUTPUT_MESSAGE, "PAD");
 			break;
 
 		case tokrxn:
-			output_msg(OUTPUT_BASIC, "RXN");
+			output_msg(OUTPUT_MESSAGE, "RXN");
 			break;
 
 		case tokdist:
-			output_msg(OUTPUT_BASIC, "DIST");
+			output_msg(OUTPUT_MESSAGE, "DIST");
 			break;
 
 		case tokmisc1:
-			output_msg(OUTPUT_BASIC, "MISC1");
+			output_msg(OUTPUT_MESSAGE, "MISC1");
 			break;
 
 		case tokmisc2:
-			output_msg(OUTPUT_BASIC, "MISC2");
+			output_msg(OUTPUT_MESSAGE, "MISC2");
 			break;
 
 		case tokedl:
-			output_msg(OUTPUT_BASIC, "EDL");
+			output_msg(OUTPUT_MESSAGE, "EDL");
 			break;
 
 		case toksurf:
-			output_msg(OUTPUT_BASIC, "SURF");
+			output_msg(OUTPUT_MESSAGE, "SURF");
 			break;
 
 		case tokstep_no:
-			output_msg(OUTPUT_BASIC, "STEP_NO");
+			output_msg(OUTPUT_MESSAGE, "STEP_NO");
 			break;
 
 		case toksim_no:
-			output_msg(OUTPUT_BASIC, "SIM_NO");
+			output_msg(OUTPUT_MESSAGE, "SIM_NO");
 			break;
 
 		case toktotal_time:
-			output_msg(OUTPUT_BASIC, "TOTAL_TIME");
+			output_msg(OUTPUT_MESSAGE, "TOTAL_TIME");
 			break;
 
 		case tokput:
-			output_msg(OUTPUT_BASIC, "PUT");
+			output_msg(OUTPUT_MESSAGE, "PUT");
 			break;
 
 		case tokget:
-			output_msg(OUTPUT_BASIC, "GET");
+			output_msg(OUTPUT_MESSAGE, "GET");
 			break;
 
 		case tokcharge_balance:
-			output_msg(OUTPUT_BASIC, "CHARGE_BALANCE");
+			output_msg(OUTPUT_MESSAGE, "CHARGE_BALANCE");
 			break;
 
 		case tokpercent_error:
-			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
+			output_msg(OUTPUT_MESSAGE, "PERCENT_ERROR");
 			break;
 
 #if defined PHREEQ98 || defined MULTICHART
 		case tokgraph_x:
-			output_msg(OUTPUT_BASIC, "GRAPH_X");
+			output_msg(OUTPUT_MESSAGE, "GRAPH_X");
 			break;
 
 		case tokgraph_y:
-			output_msg(OUTPUT_BASIC, "GRAPH_Y");
+			output_msg(OUTPUT_MESSAGE, "GRAPH_Y");
 			break;
 
 		case tokgraph_sy:
-			output_msg(OUTPUT_BASIC, "GRAPH_SY");
+			output_msg(OUTPUT_MESSAGE, "GRAPH_SY");
 			break;
 #endif
 
 #if defined MULTICHART
 		case tokplot_xy:
-			output_msg(OUTPUT_BASIC, "PLOT_XY");
+			output_msg(OUTPUT_MESSAGE, "PLOT_XY");
 			break;
 #endif
 
 		case tokcell_no:
-			output_msg(OUTPUT_BASIC, "CELL_NO");
+			output_msg(OUTPUT_MESSAGE, "CELL_NO");
 			break;
 
 		case tokexists:
-			output_msg(OUTPUT_BASIC, "EXISTS");
+			output_msg(OUTPUT_MESSAGE, "EXISTS");
 			break;
 
 		case toksc:
-			output_msg(OUTPUT_BASIC, "SC");
+			output_msg(OUTPUT_MESSAGE, "SC");
 			break;
 
 		case tokgamma:
-			output_msg(OUTPUT_BASIC, "GAMMA");
+			output_msg(OUTPUT_MESSAGE, "GAMMA");
 			break;
 
 		case toklg:
-			output_msg(OUTPUT_BASIC, "LG");
+			output_msg(OUTPUT_MESSAGE, "LG");
 			break;
 
 /* VP: Density Start */
 		case tokrho:
-			output_msg(OUTPUT_BASIC, "RHO");
+			output_msg(OUTPUT_MESSAGE, "RHO");
 			break;
 /* VP: Density End */
 		case tokcell_volume:
-			output_msg(OUTPUT_BASIC, "CELL_VOLUME");
+			output_msg(OUTPUT_MESSAGE, "CELL_VOLUME");
 			break;
 		case tokcell_pore_volume:
-			output_msg(OUTPUT_BASIC, "CELL_PORE_VOLUME");
+			output_msg(OUTPUT_MESSAGE, "CELL_PORE_VOLUME");
 			break;
 		case tokcell_porosity:
-			output_msg(OUTPUT_BASIC, "CELL_POROSITY");
+			output_msg(OUTPUT_MESSAGE, "CELL_POROSITY");
 			break;
 		case tokcell_saturation:
-			output_msg(OUTPUT_BASIC, "CELL_SATURATION");
+			output_msg(OUTPUT_MESSAGE, "CELL_SATURATION");
 			break;
 		case tokiso:
-			output_msg(OUTPUT_BASIC, "ISO");
+			output_msg(OUTPUT_MESSAGE, "ISO");
 			break;
 		case tokiso_unit:
-			output_msg(OUTPUT_BASIC, "ISO_UNIT");
+			output_msg(OUTPUT_MESSAGE, "ISO_UNIT");
 			break;
 		case tokphase_formula:
-			output_msg(OUTPUT_BASIC, "PHASE_FORMULA");
+			output_msg(OUTPUT_MESSAGE, "PHASE_FORMULA");
 			break;			
 		case toklist_s_s:
-			output_msg(OUTPUT_BASIC, "LIST_S_S");
+			output_msg(OUTPUT_MESSAGE, "LIST_S_S");
 			break;
 		}
 		l_buf = l_buf->next;

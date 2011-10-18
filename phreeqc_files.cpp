@@ -97,9 +97,6 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 			log_file = NULL;
 			break;
 
-		case OUTPUT_STDERR:
-			break;
-
 		case OUTPUT_DUMP:
 			dump_file = NULL;
 			break;
@@ -162,9 +159,6 @@ phreeqc_handler(const int action, const int type, const char *err_str,
 
 		case OUTPUT_LOG:
 			pThis->log_file = NULL;
-			break;
-
-		case OUTPUT_STDERR:
 			break;
 
 		case OUTPUT_DUMP:
@@ -295,7 +289,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		input_file = file_open(query, default_name, "r", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
-	output_msg(OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
 /*
  *   Open file for output
@@ -321,7 +315,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		output_file = file_open(query, token, "w", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Output file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
 /*
  *   Open file for errors
@@ -406,7 +400,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		database_file = file_open(query, token, "r", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Database file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 	strcpy(db_file, token);
 
 	output_msg(OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
@@ -531,7 +525,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		input_file = file_open(query, default_name, "r", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
-	output_msg(OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
 /*
  *   Open file for output
@@ -555,7 +549,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		output_file = file_open(query, token, "w", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Output file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
 /*
  *   Open file for errors
@@ -644,7 +638,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		database_file = file_open(query, token, "r", TRUE);
 	}
 	output_msg(OUTPUT_SCREEN, "Database file: %s\n\n", token);
-	output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
+	//output_msg(OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 	strcpy(db_file, token);
 
 	output_msg(OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
@@ -840,7 +834,6 @@ output_handler(const int type, const char *err_str, const int stop,
 		}
 		break;
 	case OUTPUT_MESSAGE:
-	case OUTPUT_BASIC:
 		if (output_file != NULL)
 		{
 			vfprintf(output_file, format, args);
@@ -882,8 +875,7 @@ output_handler(const int type, const char *err_str, const int stop,
 		show_progress(type, progress_str);
 #endif /* PHREEQ98 */
 		break;
-	case OUTPUT_STDERR:
-	case OUTPUT_CVODE:
+	case OUTPUT_WARNING:
 		if (stderr != NULL)
 		{
 			vfprintf(stderr, format, args);
@@ -1004,7 +996,6 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 
 	case OUTPUT_MESSAGE:
 	case OUTPUT_CHECKLINE:
-	case OUTPUT_BASIC:
 		if (output_file)
 			PFN(output_file);
 		break;
@@ -1022,12 +1013,6 @@ fileop_handler(const int type, int (*PFN) (FILE *))
 	case OUTPUT_LOG:
 		if (log_file)
 			PFN(log_file);
-		break;
-
-	case OUTPUT_CVODE:
-	case OUTPUT_STDERR:
-		if (stderr)
-			PFN(stderr);
 		break;
 
 	case OUTPUT_DUMP:

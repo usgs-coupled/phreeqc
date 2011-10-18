@@ -324,7 +324,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	phrq_io->Set_input_file(local_input_file);
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Input file: %s\n\n", default_name);
-	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
+	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
 /*
  *   Open file for output
@@ -350,7 +350,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	phrq_io->Set_output_file(local_output_file);
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Output file: %s\n\n", token);
-	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
+	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
 /*
  *   Open file for errors
@@ -385,6 +385,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 			}
 		}
 	}
+
 	phrq_io->close_input();
 
 	pop_cookie();
@@ -444,7 +445,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		phrq_io->Set_database_file(local_database_file);
 	}
 	output_msg(PHRQ_io::OUTPUT_SCREEN, "Database file: %s\n\n", token);
-	output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
+	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 	strcpy(db_file, token);
 
 	output_msg(PHRQ_io::OUTPUT_MESSAGE, "   Input file: %s\n", in_file);

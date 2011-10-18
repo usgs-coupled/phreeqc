@@ -1297,11 +1297,6 @@ hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 	Table->maxp = (short) ((Count) << (SegmentSizeShift));
 	Table->MinLoadFactor = 1;
 	Table->MaxLoadFactor = DefaultMaxLoadFactor;
-#ifdef DEBUG
-	output_msg(OUTPUT_STDERR,
-			   "[hcreate] Table %x Count %d maxp %d SegmentCount %d\n",
-			   Table, Count, Table->maxp, Table->SegmentCount);
-#endif
 #ifdef HASH_STATISTICS
 	HashAccesses = HashCollisions = 0;
 #endif
@@ -1337,11 +1332,6 @@ hdestroy_multi(HashTable * Table)
 		}
 		PHRQ_free(Table);
 		/*      Table = NULL; */
-#if defined(HASH_STATISTICS) && defined(DEBUG)
-		output_msg(OUTPUT_STDERR,
-				   "[hdestroy] Accesses %ld Collisions %ld\n",
-				   HashAccesses, HashCollisions);
-#endif
 	}
 }
 
@@ -1542,11 +1532,6 @@ free_hash_strings(HashTable * Table)
 				}
 			}
 		}
-#if defined(HASH_STATISTICS) && defined(DEBUG)
-		output_msg(OUTPUT_STDERR,
-				   "[hdestroy] Accesses %ld Collisions %ld\n",
-				   HashAccesses, HashCollisions);
-#endif
 	}
 }
 

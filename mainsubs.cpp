@@ -3524,11 +3524,11 @@ do_status(void)
 		status(0, "\nDone.");
 #endif
 		output_msg(OUTPUT_SCREEN, "\n");
-		output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
+		//output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
 	}
 	dup_print("End of run.", TRUE);
 	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
-	output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
+	//output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 #ifdef PHREEQC_CLASS
 	}
 	catch (PhreeqcStop e)

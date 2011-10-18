@@ -132,12 +132,12 @@ PHRQ_free_all(void)
 #if !defined(NDEBUG)
 	output_msg(OUTPUT_MESSAGE, "%s(%d) %p: freed in PHRQ_free_all\n",
 			   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1));
-	if (phast == TRUE)
-	{
-		output_msg(OUTPUT_STDERR, "%s(%d) %p: freed in PHRQ_free_all, %d\n",
-				   s_pTail->szFileName, s_pTail->nLine,
-				   (void *) (s_pTail + 1), phreeqc_mpi_myself);
-	}
+	//if (phast == TRUE)
+	//{
+	//	output_msg(OUTPUT_ERROR, "%s(%d) %p: freed in PHRQ_free_all, %d\n",
+	//			   s_pTail->szFileName, s_pTail->nLine,
+	//			   (void *) (s_pTail + 1), phreeqc_mpi_myself);
+	//}
 	free(s_pTail->szFileName);
 #endif
 	free(s_pTail);
