@@ -969,197 +969,6 @@ read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 	}
 	return (OK);
 }
-
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-dump(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- * dumps solution compositions to file
- */
-
-	int i, j, k, l;
-
-	if (dump_in == FALSE || pr.dump == FALSE)
-		return (OK);
-#ifdef PHREEQC_CPP
-	{
-		dump_cpp();
-		return OK;
-	}
-#endif
-	output_rewind(OUTPUT_DUMP);
-	output_msg(OUTPUT_DUMP,
-			   "# Dumpfile\n# Transport simulation %d.  Shift %d.\n#\n",
-			   simul_tr, transport_step);
-
-	for (k = 0; k <= 1 + (1 + stag_data->count_stag) * count_cells; k++)
-	{
-		dump_reaction(k);
-		dump_kinetics(k);
-		output_msg(OUTPUT_DUMP, "END\n");
-		dump_solution(k);
-		dump_pp_assemblage(k);
-		dump_exchange(k);
-		dump_surface(k);
-		dump_gas_phase(k);
-		dump_s_s_assemblage(k);
-		output_msg(OUTPUT_DUMP, "END\n");
-	}
-
-	output_msg(OUTPUT_DUMP, "KNOBS\n");
-	output_msg(OUTPUT_DUMP, "\t-iter%15d\n", itmax);
-	output_msg(OUTPUT_DUMP, "\t-tol %15.3e\n", (double) ineq_tol);
-	output_msg(OUTPUT_DUMP, "\t-step%15.3e\n", (double) step_size);
-	output_msg(OUTPUT_DUMP, "\t-pe_s%15.3e\n", (double) pe_step_size);
-	output_msg(OUTPUT_DUMP, "\t-diag      ");
-	if (diagonal_scale == TRUE)
-		output_msg(OUTPUT_DUMP, "true\n");
-	else
-		output_msg(OUTPUT_DUMP, "false\n");
-
-	output_msg(OUTPUT_DUMP, "SELECTED_OUTPUT\n");
-	output_msg(OUTPUT_DUMP, "\t-file  %-15s\n", "sel_o$$$.prn");
-	if (punch.count_totals != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-tot ");
-		for (i = 0; i < punch.count_totals; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.totals[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_molalities != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-mol ");
-		for (i = 0; i < punch.count_molalities; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.molalities[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_activities != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-act ");
-		for (i = 0; i < punch.count_activities; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.activities[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_pure_phases != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-equ ");
-		for (i = 0; i < punch.count_pure_phases; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.pure_phases[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_si != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-si ");
-		for (i = 0; i < punch.count_si; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.si[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_gases != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-gas ");
-		for (i = 0; i < punch.count_gases; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.gases[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_s_s != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-solid_solutions ");
-		for (i = 0; i < punch.count_s_s; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.s_s[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	if (punch.count_kinetics != 0)
-	{
-		output_msg(OUTPUT_DUMP, "\t-kin ");
-		for (i = 0; i < punch.count_kinetics; i++)
-			output_msg(OUTPUT_DUMP, "  %s", punch.kinetics[i].name);
-		output_msg(OUTPUT_DUMP, "\n");
-	}
-	output_msg(OUTPUT_DUMP, "TRANSPORT\n");
-	output_msg(OUTPUT_DUMP, "\t-cells %6d\n", count_cells);
-	output_msg(OUTPUT_DUMP, "\t-shifts%6d%6d\n", count_shifts, ishift);
-	output_msg(OUTPUT_DUMP, "\t-output_frequency %6d\n", print_modulus);
-	output_msg(OUTPUT_DUMP, "\t-selected_output_frequency %6d\n",
-			   punch_modulus);
-	output_msg(OUTPUT_DUMP, "\t-bcon  %6d%6d\n", bcon_first, bcon_last);
-	output_msg(OUTPUT_DUMP, "\t-timest %13.5e\n", (double) timest);
-	if (punch.high_precision == FALSE)
-	{
-		output_msg(OUTPUT_DUMP, "\t-diffc  %13.5e\n", (double) diffc);
-	}
-	else
-	{
-		output_msg(OUTPUT_DUMP, "\t-diffc  %20.12e\n", (double) diffc);
-	}
-	output_msg(OUTPUT_DUMP, "\t-tempr  %13.5e\n", (double) tempr);
-	if (correct_disp == TRUE)
-		output_msg(OUTPUT_DUMP, "\t-correct_disp %s\n", "True");
-	else
-		output_msg(OUTPUT_DUMP, "\t-correct_disp %s\n", "False");
-	output_msg(OUTPUT_DUMP, "\t-length\n");
-	for (i = 0; i < count_cells; i++)
-	{
-		output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].length);
-		if (i > 0 && (i % 8) == 0)
-			output_msg(OUTPUT_DUMP, "\n");
-	}
-	output_msg(OUTPUT_DUMP, "\n");
-	output_msg(OUTPUT_DUMP, "\t-disp\n");
-	for (i = 0; i < count_cells; i++)
-	{
-		if (punch.high_precision == FALSE)
-		{
-			output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].disp);
-		}
-		else
-		{
-			output_msg(OUTPUT_DUMP, "%20.12e", (double) cell_data[i].disp);
-		}
-		if (i > 0 && (i % 8) == 0)
-			output_msg(OUTPUT_DUMP, "\n");
-	}
-	output_msg(OUTPUT_DUMP, "\n");
-	output_msg(OUTPUT_DUMP, "\t-punch_cells");
-	if (stag_data->count_stag > 0)
-		j = 1 + (1 + stag_data->count_stag) * count_cells;
-	else
-		j = count_cells;
-	l = 0;
-	for (i = 0; i < j; i++)
-	{
-		if (cell_data[i].punch != TRUE)
-			continue;
-		output_msg(OUTPUT_DUMP, "  %d", i + 1);
-		l++;
-		if ((l % 20) == 0)
-			output_msg(OUTPUT_DUMP, "\n");
-	}
-	output_msg(OUTPUT_DUMP, "\n");
-	output_msg(OUTPUT_DUMP, "\t-print_cells");
-	if (stag_data->count_stag > 0)
-		j = 1 + (1 + stag_data->count_stag) * count_cells;
-	else
-		j = count_cells;
-	l = 0;
-	for (i = 0; i < j; i++)
-	{
-		if (cell_data[i].print != TRUE)
-			continue;
-		output_msg(OUTPUT_DUMP, "  %d", i + 1);
-		l++;
-		if ((l % 20) == 0)
-			output_msg(OUTPUT_DUMP, "\n");
-	}
-	output_msg(OUTPUT_DUMP, "\n");
-	output_msg(OUTPUT_DUMP, "\t-dump            $$$.dmp\n");
-	output_msg(OUTPUT_DUMP, "\t-dump_frequency  %d\n", dump_modulus);
-	output_msg(OUTPUT_DUMP, "\t-dump_restart    %d\n", transport_step + 1);
-
-	output_msg(OUTPUT_DUMP, "END\n");
-	return (OK);
-}
 #ifdef PHREEQC_CPP
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -1440,7 +1249,214 @@ dump_cpp(void)
 	fs << token;
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+dump(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ * dumps solution compositions to file
+ */
+	if (dump_in == FALSE || pr.dump == FALSE)
+		return (OK);
+
+	dump_cpp();
+	return OK;
+
+}
 #endif
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+dump(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ * dumps solution compositions to file
+ */
+
+	int i, j, k, l;
+
+	if (dump_in == FALSE || pr.dump == FALSE)
+		return (OK);
+#ifdef PHREEQC_CPP
+	{
+		dump_cpp();
+		return OK;
+	}
+#endif
+	output_rewind(OUTPUT_DUMP);
+	output_msg(OUTPUT_DUMP,
+			   "# Dumpfile\n# Transport simulation %d.  Shift %d.\n#\n",
+			   simul_tr, transport_step);
+
+	for (k = 0; k <= 1 + (1 + stag_data->count_stag) * count_cells; k++)
+	{
+		dump_reaction(k);
+		dump_kinetics(k);
+		output_msg(OUTPUT_DUMP, "END\n");
+		dump_solution(k);
+		dump_pp_assemblage(k);
+		dump_exchange(k);
+		dump_surface(k);
+		dump_gas_phase(k);
+		dump_s_s_assemblage(k);
+		output_msg(OUTPUT_DUMP, "END\n");
+	}
+
+	output_msg(OUTPUT_DUMP, "KNOBS\n");
+	output_msg(OUTPUT_DUMP, "\t-iter%15d\n", itmax);
+	output_msg(OUTPUT_DUMP, "\t-tol %15.3e\n", (double) ineq_tol);
+	output_msg(OUTPUT_DUMP, "\t-step%15.3e\n", (double) step_size);
+	output_msg(OUTPUT_DUMP, "\t-pe_s%15.3e\n", (double) pe_step_size);
+	output_msg(OUTPUT_DUMP, "\t-diag      ");
+	if (diagonal_scale == TRUE)
+		output_msg(OUTPUT_DUMP, "true\n");
+	else
+		output_msg(OUTPUT_DUMP, "false\n");
+
+	output_msg(OUTPUT_DUMP, "SELECTED_OUTPUT\n");
+	output_msg(OUTPUT_DUMP, "\t-file  %-15s\n", "sel_o$$$.prn");
+	if (punch.count_totals != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-tot ");
+		for (i = 0; i < punch.count_totals; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.totals[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_molalities != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-mol ");
+		for (i = 0; i < punch.count_molalities; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.molalities[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_activities != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-act ");
+		for (i = 0; i < punch.count_activities; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.activities[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_pure_phases != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-equ ");
+		for (i = 0; i < punch.count_pure_phases; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.pure_phases[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_si != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-si ");
+		for (i = 0; i < punch.count_si; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.si[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_gases != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-gas ");
+		for (i = 0; i < punch.count_gases; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.gases[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_s_s != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-solid_solutions ");
+		for (i = 0; i < punch.count_s_s; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.s_s[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	if (punch.count_kinetics != 0)
+	{
+		output_msg(OUTPUT_DUMP, "\t-kin ");
+		for (i = 0; i < punch.count_kinetics; i++)
+			output_msg(OUTPUT_DUMP, "  %s", punch.kinetics[i].name);
+		output_msg(OUTPUT_DUMP, "\n");
+	}
+	output_msg(OUTPUT_DUMP, "TRANSPORT\n");
+	output_msg(OUTPUT_DUMP, "\t-cells %6d\n", count_cells);
+	output_msg(OUTPUT_DUMP, "\t-shifts%6d%6d\n", count_shifts, ishift);
+	output_msg(OUTPUT_DUMP, "\t-output_frequency %6d\n", print_modulus);
+	output_msg(OUTPUT_DUMP, "\t-selected_output_frequency %6d\n",
+			   punch_modulus);
+	output_msg(OUTPUT_DUMP, "\t-bcon  %6d%6d\n", bcon_first, bcon_last);
+	output_msg(OUTPUT_DUMP, "\t-timest %13.5e\n", (double) timest);
+	if (punch.high_precision == FALSE)
+	{
+		output_msg(OUTPUT_DUMP, "\t-diffc  %13.5e\n", (double) diffc);
+	}
+	else
+	{
+		output_msg(OUTPUT_DUMP, "\t-diffc  %20.12e\n", (double) diffc);
+	}
+	output_msg(OUTPUT_DUMP, "\t-tempr  %13.5e\n", (double) tempr);
+	if (correct_disp == TRUE)
+		output_msg(OUTPUT_DUMP, "\t-correct_disp %s\n", "True");
+	else
+		output_msg(OUTPUT_DUMP, "\t-correct_disp %s\n", "False");
+	output_msg(OUTPUT_DUMP, "\t-length\n");
+	for (i = 0; i < count_cells; i++)
+	{
+		output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].length);
+		if (i > 0 && (i % 8) == 0)
+			output_msg(OUTPUT_DUMP, "\n");
+	}
+	output_msg(OUTPUT_DUMP, "\n");
+	output_msg(OUTPUT_DUMP, "\t-disp\n");
+	for (i = 0; i < count_cells; i++)
+	{
+		if (punch.high_precision == FALSE)
+		{
+			output_msg(OUTPUT_DUMP, "%12.3e", (double) cell_data[i].disp);
+		}
+		else
+		{
+			output_msg(OUTPUT_DUMP, "%20.12e", (double) cell_data[i].disp);
+		}
+		if (i > 0 && (i % 8) == 0)
+			output_msg(OUTPUT_DUMP, "\n");
+	}
+	output_msg(OUTPUT_DUMP, "\n");
+	output_msg(OUTPUT_DUMP, "\t-punch_cells");
+	if (stag_data->count_stag > 0)
+		j = 1 + (1 + stag_data->count_stag) * count_cells;
+	else
+		j = count_cells;
+	l = 0;
+	for (i = 0; i < j; i++)
+	{
+		if (cell_data[i].punch != TRUE)
+			continue;
+		output_msg(OUTPUT_DUMP, "  %d", i + 1);
+		l++;
+		if ((l % 20) == 0)
+			output_msg(OUTPUT_DUMP, "\n");
+	}
+	output_msg(OUTPUT_DUMP, "\n");
+	output_msg(OUTPUT_DUMP, "\t-print_cells");
+	if (stag_data->count_stag > 0)
+		j = 1 + (1 + stag_data->count_stag) * count_cells;
+	else
+		j = count_cells;
+	l = 0;
+	for (i = 0; i < j; i++)
+	{
+		if (cell_data[i].print != TRUE)
+			continue;
+		output_msg(OUTPUT_DUMP, "  %d", i + 1);
+		l++;
+		if ((l % 20) == 0)
+			output_msg(OUTPUT_DUMP, "\n");
+	}
+	output_msg(OUTPUT_DUMP, "\n");
+	output_msg(OUTPUT_DUMP, "\t-dump            $$$.dmp\n");
+	output_msg(OUTPUT_DUMP, "\t-dump_frequency  %d\n", dump_modulus);
+	output_msg(OUTPUT_DUMP, "\t-dump_restart    %d\n", transport_step + 1);
+
+	output_msg(OUTPUT_DUMP, "END\n");
+	return (OK);
+}
+
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 dump_exchange(int k)
@@ -1954,3 +1970,4 @@ dump_mix(int k)
 	}
 	return (OK);
 }
+#endif

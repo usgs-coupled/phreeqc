@@ -880,12 +880,12 @@ punch_isotopes(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("I_%s", punch.isotopes[i].name), "%12.4e\t",
+			fpunchf(sformatf("I_%s", punch.isotopes[i].name).c_str(), "%12.4e\t",
 				(double) iso);
 		}
 		else
 		{
-			fpunchf(sformatf("I_%s", punch.isotopes[i].name), "%20.12e\t",
+			fpunchf(sformatf("I_%s", punch.isotopes[i].name).c_str(), "%20.12e\t",
 				(double) iso);
 		}
 
@@ -920,12 +920,12 @@ punch_calculate_values(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("V_%s", punch.calculate_values[i].name),
+			fpunchf(sformatf("V_%s", punch.calculate_values[i].name).c_str(),
 				"%12.4e\t", (double) result);
 		}
 		else
 		{
-			fpunchf(sformatf("V_%s", punch.calculate_values[i].name),
+			fpunchf(sformatf("V_%s", punch.calculate_values[i].name).c_str(),
 				"%20.12e\t", (double) result);
 		}
 	}

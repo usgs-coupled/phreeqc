@@ -2351,11 +2351,11 @@ punch_gas_phase(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("g_%s", punch.gases[i].name), "%12.4e\t", (double) moles);
+			fpunchf(sformatf("g_%s", punch.gases[i].name).c_str(), "%12.4e\t", (double) moles);
 		}
 		else
 		{
-			fpunchf(sformatf("g_%s", punch.gases[i].name), "%20.12e\t",
+			fpunchf(sformatf("g_%s", punch.gases[i].name).c_str(), "%20.12e\t",
 					(double) moles);
 		}
 	}
@@ -2402,12 +2402,12 @@ punch_s_s_assemblage(void)
 						}
 						if (punch.high_precision == FALSE)
 						{
-							fpunchf(sformatf("s_%s", punch.s_s[k].name),
+							fpunchf(sformatf("s_%s", punch.s_s[k].name).c_str(),
 									"%12.4e\t", (double) moles);
 						}
 						else
 						{
-							fpunchf(sformatf("s_%s", punch.s_s[k].name),
+							fpunchf(sformatf("s_%s", punch.s_s[k].name).c_str(),
 									"%20.12e\t", (double) moles);
 						}
 						found = TRUE;
@@ -2422,11 +2422,11 @@ punch_s_s_assemblage(void)
 		{
 			if (punch.high_precision == FALSE)
 			{
-				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%12.4e\t", (double) 0.0);
+				fpunchf(sformatf("s_%s", punch.s_s[k].name).c_str(), "%12.4e\t", (double) 0.0);
 			}
 			else
 			{
-				fpunchf(sformatf("s_%s", punch.s_s[k].name), "%20.12e\t",
+				fpunchf(sformatf("s_%s", punch.s_s[k].name).c_str(), "%20.12e\t",
 						(double) 0.0);
 			}
 		}
@@ -2467,12 +2467,12 @@ punch_totals(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
+			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name).c_str(),
 					"%12.4e\t", (double) molality);
 		}
 		else
 		{
-			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name),
+			fpunchf(sformatf("%s(mol/kgw)", punch.totals[j].name).c_str(),
 					"%20.12e\t", (double) molality);
 		}
 	}
@@ -2500,12 +2500,12 @@ punch_molalities(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
+			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name).c_str(),
 					"%12.4e\t", (double) molality);
 		}
 		else
 		{
-			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name),
+			fpunchf(sformatf("m_%s(mol/kgw)", punch.molalities[j].name).c_str(),
 					"%20.12e\t", (double) molality);
 		}
 	}
@@ -2534,12 +2534,12 @@ punch_activities(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("la_%s", punch.activities[j].name), "%12.4e\t",
+			fpunchf(sformatf("la_%s", punch.activities[j].name).c_str(), "%12.4e\t",
 					(double) la);
 		}
 		else
 		{
-			fpunchf(sformatf("la_%s", punch.activities[j].name),
+			fpunchf(sformatf("la_%s", punch.activities[j].name).c_str(),
 					"%20.12e\t", (double) la);
 		}
 	}
@@ -2591,13 +2591,13 @@ punch_pp_assemblage(void)
 		if (punch.high_precision == FALSE)
 		{
 			fpunchf(punch.pure_phases[i].name, "%12.4e\t", (double) moles);
-			fpunchf(sformatf("d_%s", punch.pure_phases[i].name), "%12.4e\t",
+			fpunchf(sformatf("d_%s", punch.pure_phases[i].name).c_str(), "%12.4e\t",
 					(double) delta_moles);
 		}
 		else
 		{
 			fpunchf(punch.pure_phases[i].name, "%20.12e\t", (double) moles);
-			fpunchf(sformatf("d_%s", punch.pure_phases[i].name),
+			fpunchf(sformatf("d_%s", punch.pure_phases[i].name).c_str(),
 					"%20.12e\t", (double) delta_moles);
 		}
 	}
@@ -3019,11 +3019,11 @@ punch_saturation_indices(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("si_%s", punch.si[i].name), "%12.4f\t", (double) si);
+			fpunchf(sformatf("si_%s", punch.si[i].name).c_str(), "%12.4f\t", (double) si);
 		}
 		else
 		{
-			fpunchf(sformatf("si_%s", punch.si[i].name), "%20.12e\t", (double) si);
+			fpunchf(sformatf("si_%s", punch.si[i].name).c_str(), "%20.12e\t", (double) si);
 		}
 	}
 	return (OK);
@@ -3084,16 +3084,16 @@ punch_kinetics(void)
 		}
 		if (punch.high_precision == FALSE)
 		{
-			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%12.4e\t",
+			fpunchf(sformatf("k_%s", punch.kinetics[i].name).c_str(), "%12.4e\t",
 					(double) moles);
-			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%12.4e\t",
+			fpunchf(sformatf("dk_%s", punch.kinetics[i].name).c_str(), "%12.4e\t",
 					(double) -delta_moles);
 		}
 		else
 		{
-			fpunchf(sformatf("k_%s", punch.kinetics[i].name), "%20.12e\t",
+			fpunchf(sformatf("k_%s", punch.kinetics[i].name).c_str(), "%20.12e\t",
 					(double) moles);
-			fpunchf(sformatf("dk_%s", punch.kinetics[i].name), "%20.12e\t",
+			fpunchf(sformatf("dk_%s", punch.kinetics[i].name).c_str(), "%20.12e\t",
 					(double) -delta_moles);
 		}
 	}
@@ -3345,25 +3345,51 @@ punch_user_graph(void)
 }
 #endif // MULTICHART
 
-char * CLASS_QUALIFIER
+//char * CLASS_QUALIFIER
+//sformatf(const char *format, ...)
+//{
+//#if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
+//	static char l_scratch[240];
+//	va_list args;
+//
+//	va_start(args, format);
+//	if (vsprintf(l_scratch, format, args) > 239)
+//	{
+//		error_msg("buffer overwrite in sformatf", STOP);
+//	}
+//	va_end(args);
+//	return l_scratch;
+//#else
+//	return NULL;
+//#endif
+//}
+
+std::string CLASS_QUALIFIER
 sformatf(const char *format, ...)
 {
-#if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
-	static char l_scratch[240];
-	va_list args;
+	
+	//va_list args;
+	//va_start(args, format);
 
+	//std::string l_scratch;
+
+
+
+	char l_scratch[240];
+	
+	va_list args;
 	va_start(args, format);
-	if (vsprintf(l_scratch, format, args) > 239)
+
+	if (vsnprintf(l_scratch, 240, format, args) > 239)
 	{
 		error_msg("buffer overwrite in sformatf", STOP);
 	}
 	va_end(args);
-	return l_scratch;
-#else
-	return NULL;
-#endif
-}
 
+	std::string str(l_scratch, 240);
+	return str;
+
+}
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 print_alkalinity(void)
