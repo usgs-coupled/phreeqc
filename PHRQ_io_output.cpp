@@ -19,35 +19,6 @@ static int forward_output_to_log = 0;
 #include "output.h"
 #endif
 
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-error_msg(const char *err_str, int stop)
-/* ---------------------------------------------------------------------- */
-{
-#if !defined(PHREEQC_CLASS)
-	extern jmp_buf mark;
-#endif
-
-	if (get_input_errors() <= 0)
-		input_error = 1;
-
-#if defined MULTICHART
-	if (stop)
-		chart_handler.End_timer();
-#endif
-
-	phrq_io->error_msg(err_str, stop!=0);
-
-	if (stop == STOP)
-	{
-#ifdef PHREEQC_CLASS
-		throw PhreeqcStop();
-#else
-		longjmp(mark, input_error);
-#endif
-	}
-	return OK;
-}
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -86,10 +57,10 @@ output_msg(const int type, const char *format, ...)
 
 	switch (type_local)
 	{
-	case PHRQ_io::OUTPUT_ERROR:
-#if defined MULTICHART
-		chart_handler.End_timer();
-#endif
+//	case PHRQ_io::OUTPUT_ERROR:
+//#if defined MULTICHART
+//		chart_handler.End_timer();
+//#endif
 		break;
 
 	case PHRQ_io::OUTPUT_WARNING:
@@ -296,7 +267,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  */
 	if (argc > 4)
 	{
-		if (!phrq_io->output_open(PHRQ_io::OUTPUT_ERROR, argv[4]))
+		if (!phrq_io->error_open(argv[4]))
 		{
 			sprintf(error_string, "Error opening file, %s.", argv[4]);
 			warning_msg(error_string);
@@ -304,7 +275,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	}
 	else
 	{
-		phrq_io->output_open(PHRQ_io::OUTPUT_ERROR, NULL);
+		phrq_io->error_open(NULL);
 	}
 
 /*
@@ -525,5 +496,66 @@ dump_msg(const char * str)
 {
 	return this->phrq_io->dump_msg(str);
 }
+// ---------------------------------------------------------------------- */
+// error file methods
+// ---------------------------------------------------------------------- */
 
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+error_open(const char *file_name)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->error_open(file_name);
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+error_fflush(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->error_fflush();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+error_close(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->error_close();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+error_rewind(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->error_rewind();
+}
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+error_isopen(void)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->error_isopen();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+error_msg(const char *err_str, bool stop)
+/* ---------------------------------------------------------------------- */
+{
+	if (get_input_errors() <= 0)
+		input_error = 1;
+
+#if defined MULTICHART
+	if (stop)
+		chart_handler.End_timer();
+#endif
+
+	phrq_io->error_msg(err_str, stop!=0);
+
+	if (stop)
+	{
+#if defined MULTICHART
+		chart_handler.End_timer();
+#endif
+		throw PhreeqcStop();
+	}
+}
 #endif /* USE_OLD_IO */

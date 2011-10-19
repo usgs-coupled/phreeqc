@@ -36,7 +36,7 @@ int output_close(const int type, ...);
 #else
 int output_msg(int type, const char *format, ...);
 int warning_msg(const char *err_str);
-int error_msg(const char *err_str, int stop);
+//int error_msg(const char *err_str, int stop);
 /*
  *  Functions for output callbacks
  */
@@ -52,7 +52,7 @@ void set_forward_output_to_log(int value);
 int get_forward_output_to_log(void);
 typedef enum
 {
-	OUTPUT_ERROR,
+	//OUTPUT_ERROR,
 	OUTPUT_WARNING,
 	OUTPUT_MESSAGE,
 	OUTPUT_PUNCH,
