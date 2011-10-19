@@ -839,9 +839,9 @@ transport(void)
 			dump();
 	}
 #ifdef DOS
-	output_msg(OUTPUT_SCREEN, "\n");
+	screen_msg("\n");
 #else
-	output_msg(OUTPUT_SCREEN, "%s%-80s", "\n", " ");
+	screen_msg(sformatf("%s%-80s", "\n", " ").c_str());;
 #endif
 	/* free_model_allocs(); */
 /*

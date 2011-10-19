@@ -2676,10 +2676,10 @@ file_open(char *query, char *default_name, const char *status, int batch)
 		strcpy(name, default_name);
 		if (batch == FALSE)
 		{
-			output_msg(OUTPUT_SCREEN, "%s\n", query);
+			screen_msg(sformatf("%s\n", query).c_str());;
 			if (default_name[0] != '\0')
 			{
-				output_msg(OUTPUT_SCREEN, "Default: %s\n", default_name);
+				screen_msg(sformatf("Default: %s\n", default_name).c_str());
 			}
 			fgets(name, MAX_LENGTH, stdin);
 			l = (int) strlen(name);
@@ -2697,8 +2697,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "r")) == NULL)
 			{
 				sprintf(error_string, "Can't open file, %s.", name);
-				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush(OUTPUT_SCREEN);
+				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
 				batch = FALSE;
 				continue;
 			}
@@ -2712,8 +2711,8 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "w")) == NULL)
 			{
 				sprintf(error_string, "Error opening file, %s.", name);
-				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush(OUTPUT_SCREEN);
+				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
+				fflush(stderr);
 				batch = FALSE;
 				continue;
 			}
@@ -2729,10 +2728,10 @@ file_open(char *query, char *default_name, const char *status, int batch)
 				if ((new_file = fopen(name, "r")) != NULL)
 				{
 					fclose(new_file);
-					output_msg(OUTPUT_SCREEN,
+					screen_msg(sformatf(
 							   "Warning: File already exists, %s.\n"
 							   "Enter new file name or <Enter> to overwrite:",
-							   name);
+							   name).c_str());
 					fgets(answer, MAX_LENGTH, stdin);
 /*	  l = (int) strlen (answer);*/
 					replace("\n", "\0", answer);
@@ -2748,8 +2747,8 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "w")) == NULL)
 			{
 				sprintf(error_string, "Error opening file, %s.", name);
-				output_msg(OUTPUT_SCREEN, "\nERROR: %s\n", error_string);
-				output_fflush(OUTPUT_SCREEN);
+				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
+				fflush(stderr);
 				batch = FALSE;
 				continue;
 			}
@@ -3361,7 +3360,7 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #endif
 		sprintf(token, "Reading input data for simulation %d.", simulation);
 
-		output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
+		//output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
 
 		dup_print(token, TRUE);
 		if (read_input() == EOF)
@@ -3523,11 +3522,11 @@ do_status(void)
 #else
 		status(0, "\nDone.");
 #endif
-		output_msg(OUTPUT_SCREEN, "\n");
+		screen_msg("\n");
 		//output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
 	}
 	dup_print("End of run.", TRUE);
-	output_msg(OUTPUT_SCREEN, "\nEnd of Run.\n");
+	screen_msg("\nEnd of Run.\n");
 	//output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 #ifdef PHREEQC_CLASS
 	}

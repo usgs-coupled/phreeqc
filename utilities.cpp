@@ -328,12 +328,12 @@ dup_print(const char *ptr, int emphasis)
 			dash[i] = '-';
 		dash[i] = '\0';
 		output_msg(OUTPUT_MESSAGE, "%s\n%s\n%s\n\n", dash, ptr, dash);
-		output_msg(OUTPUT_LOG, "%s\n%s\n%s\n\n", dash, ptr, dash);
+		log_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash).c_str());
 	}
 	else
 	{
 		output_msg(OUTPUT_MESSAGE, "%s\n\n", ptr);
-		output_msg(OUTPUT_LOG, "%s\n\n", ptr);
+		log_msg(sformatf("%s\n\n", ptr).c_str());
 	}
 	dash = (char *) free_check_null(dash);
 
@@ -1026,7 +1026,7 @@ backspace_screen(int spaces)
 		token[i] = '\b';
 	}
 	token[i] = '\0';
-	output_msg(OUTPUT_SCREEN, "%s", token);
+	screen_msg(sformatf("%s", token).c_str());
 	return (OK);
 }
 
@@ -1062,7 +1062,7 @@ status(int count, const char *str)
 
 	if (state == INITIALIZE)
 	{
-		output_msg(OUTPUT_SCREEN, "\n%-80s", "Initializing...");
+		screen_msg(sformatf("\n%-80s", "Initializing...").c_str());
 
 		status_on = TRUE;
 		return (OK);
@@ -1083,9 +1083,9 @@ status(int count, const char *str)
 #ifdef DOS
 		backspace_screen(80);
 		/* if (state == TRANSPORT ) backspace_screen(80); */
-		output_msg(OUTPUT_SCREEN, "%-79s", str);
+		screen_msg(sformatf("%-79s", str).c_str());
 #else
-		output_msg(OUTPUT_SCREEN, "%-80s", str);
+		screen_msg(sformatf("%-80s", str).c_str());
 #endif
 	}
 	else if (state != TRANSPORT && state != PHAST)
@@ -1158,11 +1158,11 @@ status(int count, const char *str)
 		{
 #ifdef DOS
 			backspace_screen(80);
-			output_msg(OUTPUT_SCREEN, "%-15s%-27s%37s", sim_str, state_str,
-					   " ");
+			screen_msg(sformatf("%-15s%-27s%37s", sim_str, state_str,
+					   " ").c_str());
 #else
-			output_msg(OUTPUT_SCREEN, "%-15s%-27s%38s", sim_str, state_str,
-					   " ");
+			screen_msg(sformatf("%-15s%-27s%38s", sim_str, state_str,
+					   " ").c_str());
 #endif
 
 		}
@@ -1170,11 +1170,11 @@ status(int count, const char *str)
 		{
 #ifdef DOS
 			backspace_screen(80);
-			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%36s", sim_str,
-					   state_str, spin_str, " ");
+			screen_msg(sformatf("%-15s%-27s%1s%36s", sim_str,
+					   state_str, spin_str, " ").c_str());
 #else
-			output_msg(OUTPUT_SCREEN, "%-15s%-27s%1s%37s", sim_str,
-					   state_str, spin_str, " ");
+			screen_msg(sformatf("%-15s%-27s%1s%37s", sim_str,
+					   state_str, spin_str, " ").c_str());
 #endif
 		}
 	}

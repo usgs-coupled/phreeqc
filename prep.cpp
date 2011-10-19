@@ -1465,16 +1465,16 @@ build_model(void)
  *  Print size information to logfile
  */
 /*
-	output_msg(OUTPUT_LOG, "\nMemory used:\n");
-	output_msg(OUTPUT_LOG, "count_s: %d\tmax_s: %d\t\tbytes: %d\n", count_s, max_s, (int) (max_s * sizeof(struct species)));
-	output_msg(OUTPUT_LOG, "count_s_x: %d\tmax_s_x: %d\t\tbytes: %d\n", count_s_x, max_s_x, (int) (max_s_x * sizeof(struct species *)));
-	output_msg(OUTPUT_LOG, "count_sum_mb1: %d\tmax_sum_mb1: %d\t\tbytes: %d\n", count_sum_mb1, max_sum_mb1, (int) (max_sum_mb1 * sizeof(struct list1)));
-	output_msg(OUTPUT_LOG, "count_sum_mb2: %d\tmax_sum_mb2: %d\t\tbytes: %d\n", count_sum_mb2, max_sum_mb2, (int) (max_sum_mb2 * sizeof(struct list2)));
-	output_msg(OUTPUT_LOG, "count_sum_jacob0: %d\tmax_sum_jacob0: %d\t\tbytes: %d\n", count_sum_jacob0, max_sum_jacob0, (int) (max_sum_jacob0 * sizeof(struct list0)));
-	output_msg(OUTPUT_LOG, "count_sum_jacob1: %d\tmax_sum_jacob1: %d\t\tbytes: %d\n", count_sum_jacob1, max_sum_jacob1, (int) (max_sum_jacob1 * sizeof(struct list1)));
+	log_msg(sformatf( "\nMemory used:\n");
+	log_msg(sformatf( "count_s: %d\tmax_s: %d\t\tbytes: %d\n", count_s, max_s, (int) (max_s * sizeof(struct species)));
+	log_msg(sformatf( "count_s_x: %d\tmax_s_x: %d\t\tbytes: %d\n", count_s_x, max_s_x, (int) (max_s_x * sizeof(struct species *)));
+	log_msg(sformatf( "count_sum_mb1: %d\tmax_sum_mb1: %d\t\tbytes: %d\n", count_sum_mb1, max_sum_mb1, (int) (max_sum_mb1 * sizeof(struct list1)));
+	log_msg(sformatf( "count_sum_mb2: %d\tmax_sum_mb2: %d\t\tbytes: %d\n", count_sum_mb2, max_sum_mb2, (int) (max_sum_mb2 * sizeof(struct list2)));
+	log_msg(sformatf( "count_sum_jacob0: %d\tmax_sum_jacob0: %d\t\tbytes: %d\n", count_sum_jacob0, max_sum_jacob0, (int) (max_sum_jacob0 * sizeof(struct list0)));
+	log_msg(sformatf( "count_sum_jacob1: %d\tmax_sum_jacob1: %d\t\tbytes: %d\n", count_sum_jacob1, max_sum_jacob1, (int) (max_sum_jacob1 * sizeof(struct list1)));
 	output_msg(OUTPUT_LOG_LOG, "count_sum_jacob2: %d\tmax_sum_jacob2: %d\t\tbytes: %d\n", count_sum_jacob2, max_sum_jacob2, (int) (max_sum_jacob2 * sizeof(struct list2)));
 	output_msg(OUTPUT_LOG_LOG, "count_sum_delta: %d\tmax_sum_delta: %d\t\tbytes: %d\n", count_sum_delta, max_sum_delta, (int) (max_sum_delta * sizeof(struct list2)));
-	output_msg(OUTPUT_LOG, "count_unknowns: %d\n", count_unknowns);
+	log_msg(sformatf( "count_unknowns: %d\n", count_unknowns);
 	output_msg(OUTPUT_LOG_LOG, "\n");
  */
 /*
@@ -4551,8 +4551,8 @@ switch_bases(void)
  */
 			x[i]->master[0]->s->la = la;
 
-			output_msg(OUTPUT_LOG, "Switching bases to %s.\tIteration %d\n",
-					   x[i]->master[0]->s->name, iterations);
+			log_msg(sformatf( "Switching bases to %s.\tIteration %d\n",
+					   x[i]->master[0]->s->name, iterations).c_str());
 			return_value = TRUE;
 		}
 	}

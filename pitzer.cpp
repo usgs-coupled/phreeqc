@@ -1553,15 +1553,15 @@ pitzer_revise_guesses(void)
 		}
 		if (l_iter == max_iter + 1)
 		{
-			output_msg(OUTPUT_LOG,
+			log_msg(sformatf(
 					   "Did not converge in set, iteration %d.\n",
-					   iterations);
+					   iterations).c_str());
 			fail = TRUE;
 		}
 		if (l_iter > 2 * max_iter)
 		{
-			output_msg(OUTPUT_LOG,
-					   "Did not converge with relaxed criteria in set.\n");
+			log_msg(sformatf(
+					   "Did not converge with relaxed criteria in set.\n").c_str());
 			return (OK);
 		}
 		molalities(TRUE);
@@ -1676,7 +1676,7 @@ pitzer_revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in pitzer_revise_guesses: %d\n", l_iter);
+	log_msg(sformatf( "Iterations in pitzer_revise_guesses: %d\n", l_iter).c_str());
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -1936,9 +1936,9 @@ model_pz(void)
 								   "kode %d, iteration %d\n", return_kode,
 								   iterations);
 					}
-					output_msg(OUTPUT_LOG, "Ineq had infeasible solution, "
+					log_msg(sformatf( "Ineq had infeasible solution, "
 							   "kode %d, iteration %d\n", return_kode,
-							   iterations);
+							   iterations).c_str());
 					count_infeasible++;
 				}
 				if (return_kode == 2)
@@ -1995,9 +1995,9 @@ model_pz(void)
 		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
-			output_msg(OUTPUT_LOG,
+			log_msg(sformatf(
 					   "\nChanging water switch to FALSE. Iteration %d.\n",
-					   iterations);
+					   iterations).c_str());
 			mass_water_switch = FALSE;
 			continue;
 		}
@@ -2023,14 +2023,14 @@ model_pz(void)
 					   "\nRemoving unstable phases. Iteration %d.\n",
 					   iterations);
 		}
-		output_msg(OUTPUT_LOG, "\nRemoving unstable phases. Iteration %d.\n",
-				   iterations);
+		log_msg(sformatf( "\nRemoving unstable phases. Iteration %d.\n",
+				   iterations).c_str());
 	}
-	output_msg(OUTPUT_LOG, "\nNumber of infeasible solutions: %d\n",
-			   count_infeasible);
-	output_msg(OUTPUT_LOG, "Number of basis changes: %d\n\n",
-			   count_basis_change);
-	output_msg(OUTPUT_LOG, "Number of iterations: %d\n\n", iterations);
+	log_msg(sformatf( "\nNumber of infeasible solutions: %d\n",
+			   count_infeasible).c_str());
+	log_msg(sformatf( "Number of basis changes: %d\n\n",
+			   count_basis_change).c_str());
+	log_msg(sformatf( "Number of iterations: %d\n\n", iterations).c_str());
 	debug_model = debug_model_save;
 	set_forward_output_to_log(FALSE);
 	if (stop_program == TRUE)

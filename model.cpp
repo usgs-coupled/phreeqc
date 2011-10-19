@@ -196,9 +196,9 @@ model(void)
 								   "kode %d, iteration %d\n", return_kode,
 								   iterations);
 					}
-					output_msg(OUTPUT_LOG, "Ineq had infeasible solution, "
+					log_msg(sformatf("Ineq had infeasible solution, "
 							   "kode %d, iteration %d\n", return_kode,
-							   iterations);
+							   iterations).c_str());
 					count_infeasible++;
 				}
 				if (return_kode == 2)
@@ -267,9 +267,9 @@ model(void)
 		if (remove_unstable_phases == FALSE && mass_water_switch_save == FALSE
 			&& mass_water_switch == TRUE)
 		{
-			output_msg(OUTPUT_LOG,
+			log_msg(sformatf(
 					   "\nChanging water switch to FALSE. Iteration %d.\n",
-					   iterations);
+					   iterations).c_str());
 			mass_water_switch = FALSE;
 			continue;
 		}
@@ -281,14 +281,14 @@ model(void)
 					   "\nRemoving unstable phases. Iteration %d.\n",
 					   iterations);
 		}
-		output_msg(OUTPUT_LOG, "\nRemoving unstable phases. Iteration %d.\n",
-				   iterations);
+		log_msg(sformatf( "\nRemoving unstable phases. Iteration %d.\n",
+				   iterations).c_str());
 	}
-	output_msg(OUTPUT_LOG, "\nNumber of infeasible solutions: %d\n",
-			   count_infeasible);
-	output_msg(OUTPUT_LOG, "Number of basis changes: %d\n\n",
-			   count_basis_change);
-	output_msg(OUTPUT_LOG, "Number of iterations: %d\n\n", iterations);
+	log_msg(sformatf( "\nNumber of infeasible solutions: %d\n",
+			   count_infeasible).c_str());
+	log_msg(sformatf( "Number of basis changes: %d\n\n",
+			   count_basis_change).c_str());
+	log_msg(sformatf( "Number of iterations: %d\n\n", iterations).c_str());
 	debug_model = debug_model_save;
 	set_forward_output_to_log(FALSE);
 	unset_inert_moles();
@@ -314,8 +314,8 @@ adjust_step_size(void)
 		pe_step_size_now = 1.5;
 	if (step_size_now < 1.5)
 		step_size_now = 1.5;
-	output_msg(OUTPUT_LOG, "\tNew step sizes: %f\t%f\t%d\n",
-			   step_size_now, pe_step_size_now, iterations);
+	log_msg(sformatf( "\tNew step sizes: %f\t%f\t%d\n",
+			   step_size_now, pe_step_size_now, iterations).c_str());
 	return (OK);
 }
 #endif
@@ -461,9 +461,9 @@ check_residuals(void)
 						  && (x[i]->pure_phase->initial_moles - x[i]->moles) >
 						  0)))
 					{
-						output_msg(OUTPUT_LOG,
+						log_msg(sformatf(
 								   "%20s Dissolve_only pure phase has not converged. \tResidual: %e\n",
-								   x[i]->description, (double) residual[i]);
+								   x[i]->description, (double) residual[i]).c_str());
 					}
 				}
 				else
@@ -472,9 +472,9 @@ check_residuals(void)
 						 && x[i]->moles > 0.0) /* || stop_program == TRUE */ )
 					{
 						remove_unstable_phases = TRUE;
-						output_msg(OUTPUT_LOG,
+						log_msg(sformatf(
 								   "%20s Pure phase has not converged. \tResidual: %e\n",
-								   x[i]->description, (double) residual[i]);
+								   x[i]->description, (double) residual[i]).c_str());
 					}
 					else if (residual[i] <= -epsilon)
 					{
@@ -491,9 +491,9 @@ check_residuals(void)
 				if ((fabs(residual[i]) >= epsilon
 					 && x[i]->moles > 0.0) /* || stop_program == TRUE */ )
 				{
-					output_msg(OUTPUT_LOG,
+					log_msg(sformatf(
 							   "%s, Pure phase has not converged. \tResidual: %e\n",
-							   x[i]->description, (double) residual[i]);
+							   x[i]->description, (double) residual[i]).c_str());
 					sprintf(error_string,
 							"%s, Pure phase with add formula has not converged.\n\t SI may be a local minimum."
 							"\tResidual: %e\n", x[i]->description,
@@ -589,8 +589,8 @@ check_residuals(void)
 	}
 	if (remove_unstable_phases == TRUE)
 	{
-		output_msg(OUTPUT_LOG, "%20sRemoving unstable phases, iteration %d.",
-				   " ", iterations);
+		log_msg(sformatf( "%20sRemoving unstable phases, iteration %d.",
+				   " ", iterations).c_str());
 	}
 	return (return_value);
 }
@@ -1741,8 +1741,8 @@ ineq(int in_kode)
 			if (debug_model == TRUE)
 				output_msg(OUTPUT_MESSAGE, "Calling SLNQ, iteration %d\n",
 						   iterations);
-			output_msg(OUTPUT_LOG, "Calling SLNQ, iteration %d\n",
-					   iterations);
+			log_msg(sformatf( "Calling SLNQ, iteration %d\n",
+					   iterations).c_str());
 			if (slnq
 				(count_unknowns, slnq_array, slnq_delta1, count_unknowns + 1,
 				 debug_model) == OK)
@@ -1751,7 +1751,7 @@ ineq(int in_kode)
 					   (size_t) count_unknowns * sizeof(LDBLE));
 				if (debug_model == TRUE)
 					output_msg(OUTPUT_MESSAGE, "Using SLNQ results.\n");
-				output_msg(OUTPUT_LOG, "Using SLNQ results.\n");
+				log_msg(sformatf( "Using SLNQ results.\n").c_str());
 				return_code = OK;
 			}
 			else
@@ -1759,20 +1759,20 @@ ineq(int in_kode)
 				if (debug_model == TRUE)
 					output_msg(OUTPUT_MESSAGE,
 							   "Could not use SLNQ results.\n");
-				output_msg(OUTPUT_LOG, "Could not use SLNQ results.\n");
+				log_msg(sformatf( "Could not use SLNQ results.\n").c_str());
 			}
 		}
 		else
 		{
-			output_msg(OUTPUT_LOG,
+			log_msg(sformatf(
 					   "Could not call SLNQ, row %d, unknowns %d, iteration %d\n",
-					   k + l, count_unknowns, iterations);
+					   k + l, count_unknowns, iterations).c_str());
 		}
 	}
 	else if (l_kode > 0)
 	{
-		output_msg(OUTPUT_LOG, "Could not call SLNQ, row %d, unknowns %d\n",
-				   k + l, count_unknowns);
+		log_msg(sformatf( "Could not call SLNQ, row %d, unknowns %d\n",
+				   k + l, count_unknowns).c_str());
 	}
 #endif
 /*   Copy delta1 into delta and scale */
@@ -2249,10 +2249,10 @@ molalities(int allow_overflow)
 			*/
 			if (s_x[i]->moles / mass_water_aq_x > 30)
 			{
-				output_msg(OUTPUT_LOG, "Overflow: %s\t%e\t%e\t%d\n",
+				log_msg(sformatf( "Overflow: %s\t%e\t%e\t%d\n",
 						   s_x[i]->name,
 						   (double) (s_x[i]->moles / mass_water_aq_x),
-						   (double) s_x[i]->lm, iterations);
+						   (double) s_x[i]->lm, iterations).c_str());
 
 				if (iterations >= 0 && allow_overflow == FALSE)
 				{
@@ -4262,15 +4262,15 @@ revise_guesses(void)
 		}
 		if (l_iter == max_iter + 1)
 		{
-			output_msg(OUTPUT_LOG,
+			log_msg(sformatf(
 					   "Did not converge in set, iteration %d.\n",
-					   iterations);
+					   iterations).c_str());
 			fail = TRUE;
 		}
 		if (l_iter > 2 * max_iter)
 		{
-			output_msg(OUTPUT_LOG,
-					   "Did not converge with relaxed criteria in set.\n");
+			log_msg(sformatf(
+					   "Did not converge with relaxed criteria in set.\n").c_str());
 			return (OK);
 		}
 		molalities(TRUE);
@@ -4398,7 +4398,7 @@ revise_guesses(void)
 			}
 		}
 	}
-	output_msg(OUTPUT_LOG, "Iterations in revise_guesses: %d\n", l_iter);
+	log_msg(sformatf( "Iterations in revise_guesses: %d\n", l_iter).c_str());
 	mu_x = mu_unknown->f * 0.5 / mass_water_aq_x;
 	if (mu_x <= 1e-8)
 	{
