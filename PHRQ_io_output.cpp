@@ -46,6 +46,16 @@ screen_msg(const char *err_str)
 {
 	fprintf(stderr, "%s", err_str);
 }
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+echo_msg(const char *err_str)
+/* ---------------------------------------------------------------------- */
+{
+	if (pr.echo_input == TRUE)
+	{
+		phrq_io->output_string(OUTPUT_MESSAGE, err_str);
+	}
+}
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -68,29 +78,6 @@ output_msg(const int type, const char *format, ...)
 
 	switch (type_local)
 	{
-//	case PHRQ_io::OUTPUT_ERROR:
-//#if defined MULTICHART
-//		chart_handler.End_timer();
-//#endif
-		break;
-
-	//case PHRQ_io::OUTPUT_WARNING:
-	//	if (state == TRANSPORT && transport_warnings == FALSE)
-	//		return (OK);
-	//	if (state == ADVECTION && advection_warnings == FALSE)
-	//		return (OK);
-	//	if (pr.warnings >= 0)
-	//	{
-	//		if (count_warnings > pr.warnings)
-	//			return (OK);
-	//	}
-	//	break;
-	case PHRQ_io::OUTPUT_CHECKLINE:
-		if (pr.echo_input != TRUE)
-		{
-			return OK;
-		}
-		break;
 	default:
 		break;
 	}
