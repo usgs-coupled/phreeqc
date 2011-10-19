@@ -40,7 +40,6 @@
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
 #define CVMEM_MALLOC CVMEM 
-#define OUTPUT_WARNING Phreeqc::OUTPUT_WARNING
 #endif
 
 #include "phqalloc.h"
@@ -262,7 +261,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_WRONG_NVEC);
+		CVMEM warning_msg( MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 
@@ -279,7 +278,7 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	lmem = cvdense_mem = (CVDenseMem) CVMEM_MALLOC malloc(sizeof(CVDenseMemRec));
 	if (cvdense_mem == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_MEM_FAIL);
+		CVMEM warning_msg( MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
 
@@ -300,20 +299,20 @@ CVDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	M = DenseAllocMat(N);
 	if (M == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_MEM_FAIL);
+		CVMEM warning_msg( MSG_MEM_FAIL);
 		return (LMEM_FAIL);
 	}
 	savedJ = DenseAllocMat(N);
 	if (savedJ == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_MEM_FAIL);
+		CVMEM warning_msg( MSG_MEM_FAIL);
 		DenseFreeMat(M);
 		return (LMEM_FAIL);
 	}
 	pivots = DenseAllocPiv(N);
 	if (pivots == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_MEM_FAIL);
+		CVMEM warning_msg( MSG_MEM_FAIL);
 		DenseFreeMat(M);
 		DenseFreeMat(savedJ);
 		return (LMEM_FAIL);
@@ -342,7 +341,7 @@ CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 	cv_mem = (CVodeMem) cvode_mem;
 	if (cv_mem == NULL)
 	{							/* CVode reports this error */
-		CVMEM output_msg(OUTPUT_WARNING, MSG_CVMEM_NULL);
+		CVMEM warning_msg( MSG_CVMEM_NULL);
 		return (LMEM_FAIL);
 	}
 
@@ -352,7 +351,7 @@ CVReInitDense(void *cvode_mem, CVDenseJacFn djac, void *jac_data)
 		machenv->ops->nvdispose == NULL ||
 		machenv->ops->nvgetdata == NULL || machenv->ops->nvsetdata == NULL)
 	{
-		CVMEM output_msg(OUTPUT_WARNING, MSG_WRONG_NVEC);
+		CVMEM warning_msg( MSG_WRONG_NVEC);
 		return (LMEM_FAIL);
 	}
 

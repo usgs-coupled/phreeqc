@@ -53,7 +53,7 @@ int get_forward_output_to_log(void);
 typedef enum
 {
 	//OUTPUT_ERROR,
-	OUTPUT_WARNING,
+	//OUTPUT_WARNING,
 	OUTPUT_MESSAGE,
 	OUTPUT_PUNCH,
 	OUTPUT_SCREEN,

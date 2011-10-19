@@ -63,17 +63,17 @@ output_msg(const int type, const char *format, ...)
 //#endif
 		break;
 
-	case PHRQ_io::OUTPUT_WARNING:
-		if (state == TRANSPORT && transport_warnings == FALSE)
-			return (OK);
-		if (state == ADVECTION && advection_warnings == FALSE)
-			return (OK);
-		if (pr.warnings >= 0)
-		{
-			if (count_warnings > pr.warnings)
-				return (OK);
-		}
-		break;
+	//case PHRQ_io::OUTPUT_WARNING:
+	//	if (state == TRANSPORT && transport_warnings == FALSE)
+	//		return (OK);
+	//	if (state == ADVECTION && advection_warnings == FALSE)
+	//		return (OK);
+	//	if (pr.warnings >= 0)
+	//	{
+	//		if (count_warnings > pr.warnings)
+	//			return (OK);
+	//	}
+	//	break;
 	case PHRQ_io::OUTPUT_CHECKLINE:
 		if (pr.echo_input != TRUE)
 		{
@@ -552,6 +552,7 @@ error_msg(const char *err_str, bool stop)
 
 	if (stop)
 	{
+		// TODO, End_time should be moved to catch
 #if defined MULTICHART
 		chart_handler.End_timer();
 #endif
