@@ -73,7 +73,7 @@ calc_all_g(void)
 		if (x[j]->type != SURFACE_CB)
 			continue;
 		if (debug_diffuse_layer == TRUE)
-			output_msg(OUTPUT_MESSAGE, "Calc_all_g, X[%d]\n", j);
+			output_temp_msg(sformatf( "Calc_all_g, X[%d]\n", j));
 		surface_charge_ptr = x[j]->surface_charge;
 		count_g = 1;
 		x[j]->surface_charge->g[0].charge = 0.0;
@@ -222,14 +222,14 @@ calc_all_g(void)
 				converge = FALSE;
 				if (debug_diffuse_layer == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE,
+					output_temp_msg(sformatf(
 							   "\t%12f\t%12.4e\t%12.4e\t%12.4e\n",
 							   (double) x[j]->surface_charge->g[count_g].
 							   charge,
 							   (double) x[j]->surface_charge->g[count_g].g,
 							   (double) new_g,
 							   (double) (new_g -
-										 x[j]->surface_charge->g[count_g].g));
+										 x[j]->surface_charge->g[count_g].g)));
 				}
 			}
 			x[j]->surface_charge->g[count_g].g = new_g;
@@ -273,17 +273,17 @@ calc_all_g(void)
 		}
 		if (debug_diffuse_layer == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\nSurface component %d: charge,\tg,\tdg/dlny,\txd\n",
-					   count_charge);
+					   count_charge));
 			for (i = 0; i < count_g; i++)
 			{
-				output_msg(OUTPUT_MESSAGE,
+				output_temp_msg(sformatf(
 						   "\t%12f\t%12.4e\t%12.4e\t%12.4e\n",
 						   (double) x[j]->surface_charge->g[i].charge,
 						   (double) x[j]->surface_charge->g[i].g,
 						   (double) x[j]->surface_charge->g[i].dg,
-						   (double) xd);
+						   (double) xd));
 			}
 		}
 		count_charge++;
@@ -329,18 +329,18 @@ g_function(LDBLE x_value)
 	{
 		sum = 0.0;
 		sum1 = 0.0;
-		output_msg(OUTPUT_MESSAGE,
-				   "Species\tmoles\tX**z-1\tsum\tsum charge\n");
+		output_temp_msg(sformatf(
+				   "Species\tmoles\tX**z-1\tsum\tsum charge\n"));
 		for (i = 0; i < count_s_x; i++)
 		{
 			if (s_x[i]->type < H2O && s_x[i]->z != 0.0)
 			{
 				sum += s_x[i]->moles * (pow(x_value, s_x[i]->z) - 1.0);
 				sum1 += s_x[i]->moles * s_x[i]->z;
-				output_msg(OUTPUT_MESSAGE, "%s\t%e\t%e\t%e\t%e\n",
+				output_temp_msg(sformatf( "%s\t%e\t%e\t%e\t%e\n",
 						   s_x[i]->name, (double) s_x[i]->moles,
 						   (double) (pow((LDBLE) x_value, (LDBLE) s_x[i]->z) -
-									 1.0), (double) sum, (double) sum1);
+									 1.0), (double) sum, (double) sum1));
 			}
 		}
 		sprintf(error_string, "Negative sum in g_function, %e\t%e.",
@@ -492,8 +492,8 @@ qromb_midpnt(LDBLE x1, LDBLE x2)
 				sv[j] *= -1.0;
 			if (debug_diffuse_layer == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE,
-						   "Iterations in qromb_midpnt: %d\n", j);
+				output_temp_msg(sformatf(
+						   "Iterations in qromb_midpnt: %d\n", j));
 			}
 			return (sv[j]);
 		}
@@ -508,8 +508,8 @@ qromb_midpnt(LDBLE x1, LDBLE x2)
 					ss *= -1.0;
 				if (debug_diffuse_layer == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE,
-							   "Iterations in qromb_midpnt: %d\n", j);
+					output_temp_msg(sformatf(
+							   "Iterations in qromb_midpnt: %d\n", j));
 				}
 				return (ss);
 			}
@@ -636,15 +636,15 @@ calc_init_g(void)
 		}
 		if (debug_diffuse_layer == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\nSurface component %d: charge,\tg,\tdg\n",
-					   count_charge);
+					   count_charge));
 			for (i = 0; i < count_g; i++)
 			{
-				output_msg(OUTPUT_MESSAGE, "\t%12f\t%12.4e\t%12.4e\n",
+				output_temp_msg(sformatf( "\t%12f\t%12.4e\t%12.4e\n",
 						   (double) x[j]->surface_charge->g[i].charge,
 						   (double) x[j]->surface_charge->g[i].g,
-						   (double) x[j]->surface_charge->g[i].dg);
+						   (double) x[j]->surface_charge->g[i].dg));
 			}
 		}
 		count_charge++;
@@ -895,7 +895,7 @@ calc_all_donnan(void)
 		surface_charge_ptr = x[j]->surface_charge;
 
 		if (debug_diffuse_layer == TRUE)
-			output_msg(OUTPUT_MESSAGE, "Calc_all_g, X[%d]\n", j);
+			output_temp_msg(sformatf( "Calc_all_g, X[%d]\n", j));
 /*
  *  sum eq of each charge number in solution...
  */
@@ -957,7 +957,7 @@ calc_all_donnan(void)
 		psi_avg = calc_psi_avg(surf_chrg_eq);
 		psi_avg2 = calc_psi_avg(surf_chrg_eq2);
 
-		/*output_msg(OUTPUT_MESSAGE, "psi's  %e %e %e\n", f_psi, psi_avg, surf_chrg_eq); */
+		/*output_temp_msg(sformatf( "psi's  %e %e %e\n", f_psi, psi_avg, surf_chrg_eq)); */
 
 		/* fill in g's */
 		ratio_aq = surface_charge_ptr->mass_water / mass_water_aq_x;
@@ -1033,17 +1033,17 @@ calc_all_donnan(void)
 			replace("_psi", "", name);
 /*			surf_chrg_eq = calc_surface_charge(name);
  */
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\nDonnan all on %s (%d): charge, \tg, \tdg, Psi_surface = %8f V. \n",
 					   name, count_charge,
 					   x[j]->master[0]->s->la * 2 * LOG_10 * R_KJ_DEG_MOL *
-					   tk_x / F_KJ_V_EQ);
+					   tk_x / F_KJ_V_EQ));
 			for (i = 0; i < count_g; i++)
 			{
-				output_msg(OUTPUT_MESSAGE, "\t%12f\t%12.4e\t%12.4e\n",
+				output_temp_msg(sformatf( "\t%12f\t%12.4e\t%12.4e\n",
 						   (double) x[j]->surface_charge->g[i].charge,
 						   (double) x[j]->surface_charge->g[i].g,
-						   (double) x[j]->surface_charge->g[i].dg);
+						   (double) x[j]->surface_charge->g[i].dg));
 			}
 		}
 		count_charge++;
@@ -1194,17 +1194,17 @@ calc_init_donnan(void)
 			replace("_psi", "", name);
 /*			surf_chrg_eq = calc_surface_charge(name);
  */
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\nDonnan init on %s : charge, \tg, \tdg, Psi_surface = %8f V. \n",
 					   name,
 					   x[j]->master[0]->s->la * 2 * LOG_10 * R_KJ_DEG_MOL *
-					   tk_x / F_KJ_V_EQ);
+					   tk_x / F_KJ_V_EQ));
 			for (i = 0; i < count_g; i++)
 			{
-				output_msg(OUTPUT_MESSAGE, "\t%12f\t%12.4e\t%12.4e\n",
+				output_temp_msg(sformatf( "\t%12f\t%12.4e\t%12.4e\n",
 						   (double) x[j]->surface_charge->g[i].charge,
 						   (double) x[j]->surface_charge->g[i].g,
-						   (double) x[j]->surface_charge->g[i].dg);
+						   (double) x[j]->surface_charge->g[i].dg));
 			}
 		}
 		count_charge++;
@@ -1275,9 +1275,9 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 	}
 	while (fabs(fd) > 1e-12 && p != 0.0);
 	if (debug_diffuse_layer == TRUE)
-		output_msg(OUTPUT_MESSAGE,
+		output_temp_msg(sformatf(
 				   "iter in calc_psi_avg = %d. g(+1) = %8f. surface charge = %12.4e.\n",
-				   l_iter, (double) (exp(-p) - 1), (double) surf_chrg_eq);
+				   l_iter, (double) (exp(-p) - 1), (double) surf_chrg_eq));
 
 	return (p);
 }

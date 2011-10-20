@@ -48,12 +48,12 @@ screen_msg(const char *err_str)
 }
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
-echo_msg(const char *err_str)
+echo_msg(const char *str)
 /* ---------------------------------------------------------------------- */
 {
 	if (pr.echo_input == TRUE)
 	{
-		phrq_io->output_string(OUTPUT_MESSAGE, err_str);
+		phrq_io->output_temp_msg(str);
 	}
 }
 
@@ -67,14 +67,14 @@ output_msg(const int type, const char *format, ...)
 	va_start(args, format);
 	int type_local = type;
 	
-	if (get_forward_output_to_log() && type == PHRQ_io::OUTPUT_MESSAGE)
-	{
-		//type_local = PHRQ_io::OUTPUT_LOG;
-		char temp_buff[1000];
-		vsnprintf(temp_buff, 999, format, args);
-		phrq_io->log_msg(temp_buff);
-		return 1;
-	}
+	//if (get_forward_output_to_log() && type == PHRQ_io::OUTPUT_MESSAGE)
+	//{
+	//	//type_local = PHRQ_io::OUTPUT_LOG;
+	//	char temp_buff[1000];
+	//	vsnprintf(temp_buff, 999, format, args);
+	//	phrq_io->log_msg(temp_buff);
+	//	return 1;
+	//}
 
 	switch (type_local)
 	{
@@ -292,7 +292,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		local_input_file = file_open(query, default_name, "r", TRUE);
 	}
 	phrq_io->Set_input_file(local_input_file);
-	screen_msg(sformatf("Input file: %s\n\n", default_name).c_str());
+	screen_msg(sformatf("Input file: %s\n\n", default_name));
 	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 	strcpy(in_file, default_name);
 /*
@@ -318,7 +318,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		local_output_file = file_open(query, token, "w", TRUE);
 	}
 	phrq_io->Set_output_file(local_output_file);
-	screen_msg(sformatf("Output file: %s\n\n", token).c_str());
+	screen_msg(sformatf("Output file: %s\n\n", token));
 	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 	strcpy(out_file, token);
 /*
@@ -413,13 +413,13 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	{
 		phrq_io->Set_database_file(local_database_file);
 	}
-	screen_msg(sformatf("Database file: %s\n\n", token).c_str());
+	screen_msg(sformatf("Database file: %s\n\n", token));
 	//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 	strcpy(db_file, token);
 
-	output_msg(PHRQ_io::OUTPUT_MESSAGE, "   Input file: %s\n", in_file);
-	output_msg(PHRQ_io::OUTPUT_MESSAGE, "  Output file: %s\n", out_file);
-	output_msg(PHRQ_io::OUTPUT_MESSAGE, "Database file: %s\n\n", token);
+	output_temp_msg(sformatf("   Input file: %s\n", in_file));
+	output_temp_msg(sformatf("  Output file: %s\n", out_file));
+	output_temp_msg(sformatf("Database file: %s\n\n", token));
 /*
  *   local cleanup
  */
@@ -602,5 +602,58 @@ log_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->log_msg(str);
+}
+// ---------------------------------------------------------------------- */
+// output_temp file methods
+// ---------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+output_temp_open(const char *file_name)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->output_temp_open(file_name);
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+output_temp_fflush(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->output_temp_fflush();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+output_temp_close(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->output_temp_close();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+output_temp_rewind(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->output_temp_rewind();
+}
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+output_temp_isopen(void)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->output_temp_isopen();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+output_temp_msg(const char * str)
+/* ---------------------------------------------------------------------- */
+{
+	if (get_forward_output_to_log())
+	{
+		phrq_io->log_msg(str);
+	}
+	else
+	{
+		phrq_io->output_temp_msg(str);
+	}
 }
 #endif /* USE_OLD_IO */

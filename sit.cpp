@@ -483,7 +483,7 @@ sit(void)
 		if (sit_IPRSNT[i] == FALSE)	continue;
 		spec[i]->lg_pitzer = sit_LGAMMA[i];
 /*
-		   output_msg(OUTPUT_MESSAGE, "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, sit_M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg);
+		   output_temp_msg(sformatf( "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, sit_M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg));
 */
 	}
 	return (OK);
@@ -651,20 +651,20 @@ sit_revise_guesses(void)
 		l_iter++;
 		if (debug_set == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\nBeginning set iteration %d.\n",
-					   l_iter);
+			output_temp_msg(sformatf( "\nBeginning set iteration %d.\n",
+					   l_iter));
 		}
 		if (l_iter == max_iter + 1)
 		{
 			log_msg(sformatf(
 					   "Did not converge in set, iteration %d.\n",
-					   iterations).c_str());
+					   iterations));
 			fail = TRUE;
 		}
 		if (l_iter > 2 * max_iter)
 		{
 			log_msg(sformatf(
-					   "Did not converge with relaxed criteria in set.\n").c_str());
+					   "Did not converge with relaxed criteria in set.\n"));
 			return (OK);
 		}
 		molalities(TRUE);
@@ -704,11 +704,11 @@ sit_revise_guesses(void)
 
 				if (debug_set == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE,
+					output_temp_msg(sformatf(
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
 							   x[i]->description, l_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
-							   (double) x[i]->master[0]->s->la);
+							   (double) x[i]->master[0]->s->la));
 				}
 				if (fabs(x[i]->moles) < 1e-30)
 					x[i]->moles = 0;
@@ -745,11 +745,11 @@ sit_revise_guesses(void)
 					}
 					if (debug_set == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE,
+						output_temp_msg(sformatf(
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
 								   x[i]->description, l_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
-								   (double) x[i]->master[0]->s->la);
+								   (double) x[i]->master[0]->s->la));
 					}
 				}
 			}
@@ -769,17 +769,17 @@ sit_revise_guesses(void)
 						log10(fabs(x[i]->moles / x[i]->sum));
 					if (debug_set == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE,
+						output_temp_msg(sformatf(
 								   "%s not converged in set. %e\t%e\t%e\n",
 								   x[i]->description, (double) x[i]->sum,
 								   (double) x[i]->moles,
-								   (double) x[i]->master[0]->s->la);
+								   (double) x[i]->master[0]->s->la));
 					}
 				}
 			}
 		}
 	}
-	log_msg(sformatf( "Iterations in sit_revise_guesses: %d\n", l_iter).c_str());
+	log_msg(sformatf( "Iterations in sit_revise_guesses: %d\n", l_iter));
 	/*mu_x = mu_unknown->f * 0.5 / mass_water_aq_x; */
 	if (mu_x <= 1e-8)
 	{
@@ -1002,11 +1002,11 @@ model_sit(void)
 			}
 			if (debug_model == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE,
+				output_temp_msg(sformatf(
 						   "\nIteration %d\tStep_size = %f\n", iterations,
-						   (double) step_size_now);
-				output_msg(OUTPUT_MESSAGE, "\t\tPe_step_size = %f\n\n",
-						   (double) pe_step_size_now);
+						   (double) step_size_now));
+				output_temp_msg(sformatf( "\t\tPe_step_size = %f\n\n",
+						   (double) pe_step_size_now));
 			}
 			/*
 			 *   Iterations exceeded
@@ -1035,14 +1035,14 @@ model_sit(void)
 				{
 					if (debug_model == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE,
+						output_temp_msg(sformatf(
 								   "Ineq had infeasible solution, "
 								   "kode %d, iteration %d\n", return_kode,
-								   iterations);
+								   iterations));
 					}
 					log_msg(sformatf( "Ineq had infeasible solution, "
 							   "kode %d, iteration %d\n", return_kode,
-							   iterations).c_str());
+							   iterations));
 					count_infeasible++;
 				}
 				if (return_kode == 2)
@@ -1101,7 +1101,7 @@ model_sit(void)
 		{
 			log_msg(sformatf(
 					   "\nChanging water switch to FALSE. Iteration %d.\n",
-					   iterations).c_str());
+					   iterations));
 			mass_water_switch = FALSE;
 			continue;
 		}
@@ -1123,18 +1123,18 @@ model_sit(void)
 			break;
 		if (debug_model == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\nRemoving unstable phases. Iteration %d.\n",
-					   iterations);
+					   iterations));
 		}
 		log_msg(sformatf( "\nRemoving unstable phases. Iteration %d.\n",
-				   iterations).c_str());
+				   iterations));
 	}
 	log_msg(sformatf( "\nNumber of infeasible solutions: %d\n",
-			   count_infeasible).c_str());
+			   count_infeasible));
 	log_msg(sformatf( "Number of basis changes: %d\n\n",
-			   count_basis_change).c_str());
-	log_msg(sformatf( "Number of iterations: %d\n\n", iterations).c_str());
+			   count_basis_change));
+	log_msg(sformatf( "Number of iterations: %d\n\n", iterations));
 	debug_model = debug_model_save;
 	set_forward_output_to_log(FALSE);
 	if (stop_program == TRUE)

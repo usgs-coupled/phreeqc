@@ -841,7 +841,7 @@ transport(void)
 #ifdef DOS
 	screen_msg("\n");
 #else
-	screen_msg(sformatf("%s%-80s", "\n", " ").c_str());;
+	screen_msg(sformatf("%s%-80s", "\n", " "));;
 #endif
 	/* free_model_allocs(); */
 /*

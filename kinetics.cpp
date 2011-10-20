@@ -1100,7 +1100,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			backspace_screen(37);
 			sprintf(str, "RK-steps: Bad%4d. OK%5d. Time %3d%%", step_bad,
 					step_ok, (int) (100 * h_sum / kin_time));
-			screen_msg(sformatf("%-37s", str).c_str());
+			screen_msg(sformatf("%-37s", str));
 		}
 #endif
 #endif
@@ -2231,7 +2231,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				sprintf(error_string,
 						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
 						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
-				warning_msg(sformatf("%s\n", error_string).c_str());
+				warning_msg(sformatf("%s\n", error_string));
 				//if (state == PHAST)
 				//	output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
 

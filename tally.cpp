@@ -145,10 +145,10 @@ get_all_components(void)
 		}
 	}
 #ifdef SKIP
-	output_msg(OUTPUT_MESSAGE, "List of Components:\n");
+	output_temp_msg( "List of Components:\n" );
 	for (i = 0; i < tally_count_component; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t%d\t%s\n", i + 1, buffer[i].name);
+		output_temp_msg(sformatf( "\t%d\t%s\n", i + 1, buffer[i].name));
 		/*
 		   for (j=0; buffer[i].name[j] != '\0'; j++) {
 		   names[i * length + j] = buffer[i].name[j];
@@ -355,7 +355,7 @@ diff_tally_table(void)
 {
 	int i, j;
 	/*
-	   output_msg(OUTPUT_MESSAGE,"Difference\n\n");
+	   output_temp_msg("Difference\n\n");
 	 */
 	for (i = 0; i < count_tally_table_columns; i++)
 	{
@@ -367,9 +367,9 @@ diff_tally_table(void)
 		}
 
 		/*
-		   output_msg(OUTPUT_MESSAGE, "Column %d\t%s\tType: %d\n", i, tally_table[i].name, tally_table[i].type);
+		   output_temp_msg(sformatf( "Column %d\t%s\tType: %d\n", i, tally_table[i].name, tally_table[i].type));
 		   for (j = 0; j < count_tally_table_rows; j++) {
-		   output_msg(OUTPUT_MESSAGE, "\t%d\t%s\t%e\n", j, tally_table[i].total[2][j].name, (double) tally_table[i].total[2][j].moles);
+		   output_temp_msg(sformatf( "\t%d\t%s\t%e\n", j, tally_table[i].total[2][j].name, (double) tally_table[i].total[2][j].moles));
 		   }
 		 */
 	}
@@ -382,22 +382,22 @@ print_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j;
-	output_msg(OUTPUT_MESSAGE, "Tally_table\n\n");
+	output_temp_msg(sformatf( "Tally_table\n\n"));
 	for (i = 0; i < count_tally_table_columns; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "%s\tType: %d\n", tally_table[i].name,
-				   tally_table[i].type);
-		output_msg(OUTPUT_MESSAGE, "\n");
-		output_msg(OUTPUT_MESSAGE, "\t%15s\t%15s\t%15s\n", "Initial",
-				   "Final", "Difference");
+		output_temp_msg(sformatf( "%s\tType: %d\n", tally_table[i].name,
+				   tally_table[i].type));
+		output_temp_msg(sformatf( "\n"));
+		output_temp_msg(sformatf( "\t%15s\t%15s\t%15s\n", "Initial",
+				   "Final", "Difference"));
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
-			output_msg(OUTPUT_MESSAGE, "%5s\t%15g\t%15g\t%15g\n",
+			output_temp_msg(sformatf( "%5s\t%15g\t%15g\t%15g\n",
 					   t_buffer[j].name, tally_table[i].total[0][j].moles,
 					   tally_table[i].total[1][j].moles,
-					   tally_table[i].total[2][j].moles);
+					   tally_table[i].total[2][j].moles));
 		}
-		output_msg(OUTPUT_MESSAGE, "\n");
+		output_temp_msg(sformatf( "\n"));
 	}
 	return (OK);
 }
@@ -653,13 +653,13 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			break;
 		}
 #ifdef SKIP
-		output_msg(OUTPUT_MESSAGE, "Column %d\t%s\tType: %d\n", i,
-				   tally_table[i].name, tally_table[i].type);
+		output_temp_msg(sformatf( "Column %d\t%s\tType: %d\n", i,
+				   tally_table[i].name, tally_table[i].type));
 		for (j = 0; j < count_tally_table_rows; j++)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t%d\t%s\t%e\n", j,
+			output_temp_msg(sformatf( "\t%d\t%s\t%e\n", j,
 					   tally_table[i].total[n_buffer][j].name,
-					   (double) tally_table[i].total[n_buffer][j].moles);
+					   (double) tally_table[i].total[n_buffer][j].moles));
 		}
 #endif
 	}
@@ -1001,23 +1001,23 @@ build_tally_table(void)
 	/*
 	 *  Debug print for table definition
 	 */
-	output_msg(OUTPUT_MESSAGE, "List of rows for tally table\n");
+	output_temp_msg(sformatf( "List of rows for tally table\n"));
 	for (i = 0; i < count_tally_table_rows; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t%-s\n", buffer[i].name);
+		output_temp_msg(sformatf( "\t%-s\n", buffer[i].name));
 	}
-	output_msg(OUTPUT_MESSAGE, "\nList of columns for tally table\n");
+	output_temp_msg(sformatf( "\nList of columns for tally table\n"));
 	for (i = 0; i < count_tally_table_columns; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t%-20s\tType: %d\n",
-				   tally_table[i].name, tally_table[i].type);
+		output_temp_msg(sformatf( "\t%-20s\tType: %d\n",
+				   tally_table[i].name, tally_table[i].type));
 		if (tally_table[i].formula != NULL)
 		{
 			for (j = 0; tally_table[i].formula[j].elt != NULL; j++)
 			{
-				output_msg(OUTPUT_MESSAGE, "\t\t%-10s\t%f\n",
+				output_temp_msg(sformatf( "\t\t%-10s\t%f\n",
 						   tally_table[i].formula[j].elt->name,
-						   (double) tally_table[i].formula[j].coef);
+						   (double) tally_table[i].formula[j].coef));
 			}
 		}
 	}

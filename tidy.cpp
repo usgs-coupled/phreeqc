@@ -748,7 +748,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 		next_logk_ptr = (struct logk *) found_item->data;
 		if (next_logk_ptr->done == FALSE)
 		{
-			/*output_msg(OUTPUT_MESSAGE, "Done == FALSE\n", token); */
+			/*output_temp_msg(sformatf( "Done == FALSE\n", token)); */
 			if (add_logks(next_logk_ptr, repeats + 1) == ERROR)
 			{
 				return (ERROR);
@@ -915,7 +915,7 @@ replace_solids_gases(void)
 				coef = token_ptr->coef;
 				/* add reaction for solid/gas */
 				/* debug
-				   output_msg(OUTPUT_MESSAGE, "Reaction to add.\n");
+				   output_temp_msg(sformatf( "Reaction to add.\n"));
 				   rxn_print(phase_ptr->rxn);
 				 */
 				trxn_add_phase(phase_ptr->rxn, coef, FALSE);
@@ -927,13 +927,13 @@ replace_solids_gases(void)
 				repeat = TRUE;
 				replaced = TRUE;
 				/* debug
-				   output_msg(OUTPUT_MESSAGE, "Before combined.\n");
+				   output_temp_msg(sformatf( "Before combined.\n"));
 				   trxn_print();
 				 */
 				/* combine */
 				trxn_combine();
 				/* debug
-				   output_msg(OUTPUT_MESSAGE, "Combined.\n");
+				   output_temp_msg(sformatf( "Combined.\n"));
 				   trxn_print();
 				 */
 				break;
@@ -1482,11 +1482,11 @@ tidy_inverse(void)
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
 /* debug
-			output_msg(OUTPUT_MESSAGE, "\t%d\t%s", j, inverse[i].elts[j].master->elt->name);
+			output_temp_msg(sformatf( "\t%d\t%s", j, inverse[i].elts[j].master->elt->name));
 			for (k = 0; k < inverse[i].count_solns; k++) {
-				output_msg(OUTPUT_MESSAGE, "\t%f", inverse[i].elts[j].uncertainties[k]);
+				output_temp_msg(sformatf( "\t%f", inverse[i].elts[j].uncertainties[k]));
 			}
-			output_msg(OUTPUT_MESSAGE,"\n");
+			output_temp_msg(sformatf("\n"));
  */
 		}
 	}
@@ -1523,7 +1523,7 @@ tidy_phases(void)
 		trxn_add_phase(phases[i]->rxn, 1.0, FALSE);
 		trxn.token[0].name = phases[i]->name;
 		/* debug 
-		   output_msg(OUTPUT_MESSAGE, "%s PHASE.\n", phases[i]->name);
+		   output_temp_msg(sformatf( "%s PHASE.\n", phases[i]->name));
 		   trxn_print();
 		 */
 		replaced = replace_solids_gases();
@@ -3649,41 +3649,41 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		if (print == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\t                              Temperature: %g kelvin\n",
-					   (double) t);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) t));
+			output_temp_msg(sformatf(
 					   "\t                       A0 (dimensionless): %g\n",
-					   (double) a0);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) a0));
+			output_temp_msg(sformatf(
 					   "\t                       A1 (dimensionless): %g\n",
-					   (double) a1);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) a1));
+			output_temp_msg(sformatf(
 					   "\t                              A0 (kJ/mol): %g\n",
-					   (double) ag0);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) ag0));
+			output_temp_msg(sformatf(
 					   "\t                              A1 (kJ/mol): %g\n\n",
-					   (double) ag1);
+					   (double) ag1));
 		}
 		if (xc < 0 || xc > 1)
 		{
 			if (print == TRUE)
-				output_msg(OUTPUT_MESSAGE,
-						   "No miscibility gap above 0 degrees kelvin.\n");
+				output_temp_msg(sformatf(
+						   "No miscibility gap above 0 degrees kelvin.\n"));
 		}
 		else
 		{
 			if (print == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE,
+				output_temp_msg(sformatf(
 						   "\t    Critical mole-fraction of component 2: %g\n",
-						   (double) xc);
-				output_msg(OUTPUT_MESSAGE,
+						   (double) xc));
+				output_temp_msg(sformatf(
 						   "\t                     Critical temperature: %g kelvin\n",
-						   (double) tc);
-				output_msg(OUTPUT_MESSAGE,
+						   (double) tc));
+				output_temp_msg(sformatf(
 						   "\n(The critical temperature calculation assumes that the Guggenheim model\ndefined at %g kelvin is valid at the critical temperature.)\n\n\n",
-						   (double) t);
+						   (double) t));
 			}
 		}
 /*
@@ -3723,9 +3723,9 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	if (s_s_ptr->spinodal == TRUE)
 	{
 		if (print == TRUE)
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\t Spinodal-gap mole fractions, component 2: %g\t%g\n",
-					   (double) xsm1, (double) xsm2);
+					   (double) xsm1, (double) xsm2));
 		converged = FALSE;
 		if (converged == FALSE)
 		{
@@ -3777,29 +3777,29 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 
 		if (print == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "\t   Miscibility-gap fractions, component 2: %g\t%g\n",
-					   (double) xb1, (double) xb2);
-			output_msg(OUTPUT_MESSAGE,
-					   "\n\t\t\tEutectic Point Calculations\n\n");
-			output_msg(OUTPUT_MESSAGE,
+					   (double) xb1, (double) xb2));
+			output_temp_msg(sformatf(
+					   "\n\t\t\tEutectic Point Calculations\n\n"));
+			output_temp_msg(sformatf(
 					   "\t     Aqueous activity ratio (comp2/comp1): %g\n",
-					   (double) acrae);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) acrae));
+			output_temp_msg(sformatf(
 					   "\t Log aqueous activity ratio (comp2/comp1): %g\n",
-					   (double) acrael);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) acrael));
+			output_temp_msg(sformatf(
 					   "\t Aqueous activity fraction of component 2: %g\n",
-					   (double) xblm1);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) xblm1));
+			output_temp_msg(sformatf(
 					   "\t                    Log IAP (component 2): %g\n",
-					   (double) xliapt);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) xliapt));
+			output_temp_msg(sformatf(
 					   "\t                    Log IAP (component 1): %g\n",
-					   (double) xliapm);
-			output_msg(OUTPUT_MESSAGE,
+					   (double) xliapm));
+			output_temp_msg(sformatf(
 					   "\t                               Log Sum Pi: %g\n",
-					   (double) spim1);
+					   (double) spim1));
 		}
 		s_s_ptr->tk = t;
 		s_s_ptr->xb1 = xb1;
@@ -3843,29 +3843,29 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 			if (xaly > xb1 && xaly < xb2)
 			{
 				if (print == TRUE)
-					output_msg(OUTPUT_MESSAGE,
-							   "\nLocal minimum in the solidus curve coresponding to a maximum\nin the minimum stoichiometric saturation curve.\n\n");
+					output_temp_msg(sformatf(
+							   "\nLocal minimum in the solidus curve coresponding to a maximum\nin the minimum stoichiometric saturation curve.\n\n"));
 			}
 			else
 			{
 				if (print == TRUE)
-					output_msg(OUTPUT_MESSAGE,
-							   "\n\t\t\tAlyotropic Point\n\n");
+					output_temp_msg(sformatf(
+							   "\n\t\t\tAlyotropic Point\n\n"));
 			}
 			if (print == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE,
+				output_temp_msg(sformatf(
 						   "\t       Solid mole fraction of component 2: %g\n",
-						   (double) xaly);
-				output_msg(OUTPUT_MESSAGE,
+						   (double) xaly));
+				output_temp_msg(sformatf(
 						   "\t                    Log IAP (component 2): %g\n",
-						   (double) facbl);
-				output_msg(OUTPUT_MESSAGE,
+						   (double) facbl));
+				output_temp_msg(sformatf(
 						   "\t                    Log IAP (component 1): %g\n",
-						   (double) facal);
-				output_msg(OUTPUT_MESSAGE,
+						   (double) facal));
+				output_temp_msg(sformatf(
 						   "\t                               Log Sum Pi: %g\n",
-						   (double) spialy);
+						   (double) spialy));
 			}
 		}
 	}
@@ -4045,17 +4045,17 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 */
 	if (print == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "\nArray in slnq: \n\n");
+		output_temp_msg(sformatf( "\nArray in slnq: \n\n"));
 		for (i = 0; i < ncols - 1; i++)
 		{
 			row = i * (n + 1);
 			for (j = 0; j < ncols; j++)
 			{
-				output_msg(OUTPUT_MESSAGE, "%10.2e", (double) a[row + j]);
+				output_temp_msg(sformatf( "%10.2e", (double) a[row + j]));
 			}
-			output_msg(OUTPUT_MESSAGE, "\n");
+			output_temp_msg(sformatf( "\n"));
 		}
-		output_msg(OUTPUT_MESSAGE, "\n");
+		output_temp_msg(sformatf( "\n"));
 	}
 
 	if (n == 0)
@@ -4126,7 +4126,7 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 	}
 	else
 	{
-		output_msg(OUTPUT_MESSAGE, "Error: Divide by zero in slnq.\n");
+		output_temp_msg(sformatf( "Error: Divide by zero in slnq.\n"));
 		l_delta[n] = 0.0;
 		goto slnq_error;
 	}
@@ -4142,12 +4142,12 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 	}
 	if (print == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "\nResults from slnq: \n\n");
+		output_temp_msg(sformatf( "\nResults from slnq: \n\n"));
 		for (i = 0; i < n; i++)
 		{
-			output_msg(OUTPUT_MESSAGE, "%10.2e", (double) l_delta[i]);
+			output_temp_msg(sformatf( "%10.2e", (double) l_delta[i]));
 		}
-		output_msg(OUTPUT_MESSAGE, "\n");
+		output_temp_msg(sformatf( "\n"));
 	}
 	return (OK);
 
@@ -4181,7 +4181,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 	for (i = 0; i < max_iter; i++)
 	{
 		/*
-		   output_msg(OUTPUT_MESSAGE, "%d  xc1: %g\txc2 %g\n", i, xc1, xc2);
+		   output_temp_msg(sformatf( "%d  xc1: %g\txc2 %g\n", i, xc1, xc2));
 		 */
 		xb1 = 1 - xc1;
 		xb2 = 1 - xc2;

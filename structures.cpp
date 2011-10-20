@@ -690,8 +690,7 @@ elt_list_combine(void)
 
 	if (count_elts < 1)
 	{
-		output_msg(OUTPUT_MESSAGE,
-				   "elt_list_combine: How did this happen?\n");
+		output_temp_msg("elt_list_combine: How did this happen?\n");
 		return (ERROR);
 	}
 	if (count_elts == 1)
@@ -775,11 +774,11 @@ elt_list_print(struct elt_list *elt_list_ptr)
  */
 	if (elt_list_ptr == NULL)
 		return (ERROR);
-	output_msg(OUTPUT_MESSAGE, "Elt_list\n");
+	output_temp_msg(sformatf( "Elt_list\n"));
 	for (i = 0; elt_list_ptr[i].elt != NULL; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t%s\t%e\n", elt_list_ptr[i].elt->name,
-				   (double) elt_list_ptr[i].coef);
+		output_temp_msg(sformatf( "\t%s\t%e\n", elt_list_ptr[i].elt->name,
+				   (double) elt_list_ptr[i].coef));
 	}
 	return (OK);
 }
@@ -4557,31 +4556,31 @@ rxn_print(struct reaction *rxn_ptr)
 	if (rxn_ptr == NULL)
 		return (ERROR);
 	next_token = rxn_ptr->token;
-	output_msg(OUTPUT_MESSAGE, "log k data:\n");
+	output_temp_msg(sformatf( "log k data:\n"));
 	for (i = 0; i < 8; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t%f\n", (double) rxn_ptr->logk[i]);
+		output_temp_msg(sformatf( "\t%f\n", (double) rxn_ptr->logk[i]));
 	}
-	output_msg(OUTPUT_MESSAGE, "Reaction definition\n");
+	output_temp_msg(sformatf( "Reaction definition\n"));
 	while (next_token->s != NULL || next_token->name != NULL)
 	{
-		output_msg(OUTPUT_MESSAGE, "\tcoef %f ", next_token->coef);
+		output_temp_msg(sformatf( "\tcoef %f ", next_token->coef));
 		if (next_token->s != NULL)
 		{
-			output_msg(OUTPUT_MESSAGE, "\tspecies token: %s ",
-					   next_token->s->name);
+			output_temp_msg(sformatf( "\tspecies token: %s ",
+					   next_token->s->name));
 		}
 		if (next_token->name != NULL)
 		{
-			output_msg(OUTPUT_MESSAGE, "\tname token: %s", next_token->name);
+			output_temp_msg(sformatf( "\tname token: %s", next_token->name));
 		}
-		output_msg(OUTPUT_MESSAGE, "\n");
+		output_temp_msg(sformatf( "\n"));
 		next_token++;
 	}
-	output_msg(OUTPUT_MESSAGE, "dz data\n");
+	output_temp_msg(sformatf( "dz data\n"));
 	for (i = 0; i < 3; i++)
 	  {
-	    output_msg(OUTPUT_MESSAGE, "\t%d %e\n", i, (double) rxn_ptr->dz[i]);
+	    output_temp_msg(sformatf( "\t%d %e\n", i, (double) rxn_ptr->dz[i]));
 	    
 	  }
 	return (OK);
@@ -7476,30 +7475,30 @@ trxn_print(void)
  *   Print log k for reaction
  */
 
-	output_msg(OUTPUT_MESSAGE, "\tlog k data:\n");
+	output_temp_msg(sformatf( "\tlog k data:\n"));
 	for (i = 0; i < 8; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t\t%f\n", (double) trxn.logk[i]);
+		output_temp_msg(sformatf( "\t\t%f\n", (double) trxn.logk[i]));
 	}
 
 /*
  *   Print dz for reaction
  */
-	output_msg(OUTPUT_MESSAGE, "\tdz data:\n");
+	output_temp_msg(sformatf( "\tdz data:\n"));
 	for (i = 0; i < 3; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t\t%f\n", (double) trxn.dz[i]);
+		output_temp_msg(sformatf( "\t\t%f\n", (double) trxn.dz[i]));
 	}
 /*
  *   Print stoichiometry
  */
-	output_msg(OUTPUT_MESSAGE, "\tReaction stoichiometry\n");
+	output_temp_msg(sformatf( "\tReaction stoichiometry\n"));
 	for (i = 0; i < count_trxn; i++)
 	{
-		output_msg(OUTPUT_MESSAGE, "\t\t%-20s\t%10.2f\n", trxn.token[i].name,
-				   (double) trxn.token[i].coef);
+		output_temp_msg(sformatf( "\t\t%-20s\t%10.2f\n", trxn.token[i].name,
+				   (double) trxn.token[i].coef));
 	}
-	output_msg(OUTPUT_MESSAGE, "\n");
+	output_temp_msg(sformatf( "\n"));
 	return (OK);
 }
 
@@ -7572,10 +7571,10 @@ trxn_swap(const char *token)
 		error_msg(error_string, CONTINUE);
 		for (i = 0; i < count_trxn; i++)
 		{
-			output_msg(OUTPUT_MESSAGE, "%f\t%s\t",
-					   (double) trxn.token[i].coef, trxn.token[i].name);
+			output_temp_msg(sformatf( "%f\t%s\t",
+					   (double) trxn.token[i].coef, trxn.token[i].name));
 		}
-		output_msg(OUTPUT_MESSAGE, "\n");
+		output_temp_msg(sformatf( "\n"));
 		return (ERROR);
 	}
 /*

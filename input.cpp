@@ -94,7 +94,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 		i = get_line(pfn, cookie);
 		if ((print == TRUE && i != EOF) || i == KEYWORD)
 		{
-			echo_msg(sformatf( "\t%s\n", line_save).c_str());
+			echo_msg(sformatf( "\t%s\n", line_save));
 		}
 	}
 	while (i == EMPTY && allow_empty == FALSE);

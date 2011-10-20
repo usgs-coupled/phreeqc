@@ -929,6 +929,8 @@ int shifts_as_points;
 dumper dump_info;
 StorageBinList delete_info;
 runner run_info;
+char * sformatf_buffer;
+size_t sformatf_buffer_size;
 
 /* readtr.c */
 

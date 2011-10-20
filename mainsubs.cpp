@@ -1775,7 +1775,7 @@ xexchange_save(int n_user)
 			temp_exchange.comps[count_comps].charge_balance = charge;
 			temp_exchange.comps[count_comps].totals = elt_list_save();
 /* debug
-                        output_msg(OUTPUT_MESSAGE, "Exchange charge_balance: %e\n", charge);
+                        output_temp_msg(sformatf( "Exchange charge_balance: %e\n", charge));
  */
 			/* update unknown pointer */
 			x[i]->exch_comp = &(temp_exchange.comps[count_comps]);
@@ -2676,10 +2676,10 @@ file_open(char *query, char *default_name, const char *status, int batch)
 		strcpy(name, default_name);
 		if (batch == FALSE)
 		{
-			screen_msg(sformatf("%s\n", query).c_str());;
+			screen_msg(sformatf("%s\n", query));;
 			if (default_name[0] != '\0')
 			{
-				screen_msg(sformatf("Default: %s\n", default_name).c_str());
+				screen_msg(sformatf("Default: %s\n", default_name));
 			}
 			fgets(name, MAX_LENGTH, stdin);
 			l = (int) strlen(name);
@@ -2697,7 +2697,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "r")) == NULL)
 			{
 				sprintf(error_string, "Can't open file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
+				screen_msg(sformatf("\nERROR: %s\n", error_string));
 				batch = FALSE;
 				continue;
 			}
@@ -2711,7 +2711,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "w")) == NULL)
 			{
 				sprintf(error_string, "Error opening file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
+				screen_msg(sformatf("\nERROR: %s\n", error_string));
 				fflush(stderr);
 				batch = FALSE;
 				continue;
@@ -2731,7 +2731,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 					screen_msg(sformatf(
 							   "Warning: File already exists, %s.\n"
 							   "Enter new file name or <Enter> to overwrite:",
-							   name).c_str());
+							   name));
 					fgets(answer, MAX_LENGTH, stdin);
 /*	  l = (int) strlen (answer);*/
 					replace("\n", "\0", answer);
@@ -2747,7 +2747,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 			if ((new_file = fopen(name, "w")) == NULL)
 			{
 				sprintf(error_string, "Error opening file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string).c_str());
+				screen_msg(sformatf("\nERROR: %s\n", error_string));
 				fflush(stderr);
 				batch = FALSE;
 				continue;
@@ -3371,7 +3371,7 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 			sprintf(token, "TITLE");
 			dup_print(token, TRUE);
 			if (pr.headings == TRUE)
-				output_msg(OUTPUT_MESSAGE, "%s\n\n", title_x);
+				output_temp_msg(sformatf( "%s\n\n", title_x));
 		}
 		tidy_model();
 #ifdef PHREEQC_CPP

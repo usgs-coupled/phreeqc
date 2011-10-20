@@ -76,14 +76,14 @@ advection(void)
 				   "\nBeginning of advection time step %d, cumulative pore volumes %f.\n",
 				   advection_step,
 				   (double) (((LDBLE) advection_step) /
-							 ((LDBLE) count_ad_cells))).c_str());
+							 ((LDBLE) count_ad_cells))));
 		if (pr.use == TRUE && pr.all == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "Beginning of advection time step %d, cumulative pore volumes %f.\n",
 					   advection_step,
 					   (double) (((LDBLE) advection_step) /
-								 ((LDBLE) count_ad_cells)));
+								 ((LDBLE) count_ad_cells))));
 		}
 /*
  *  Advect
@@ -105,12 +105,12 @@ advection(void)
 			{
 				rate_sim_time = rate_sim_time_start + kin_time;
 			}
-			log_msg(sformatf( "\nCell %d.\n\n", i).c_str());
+			log_msg(sformatf( "\nCell %d.\n\n", i));
 			if (pr.use == TRUE && pr.all == TRUE &&
 				advection_step % print_ad_modulus == 0 &&
 				advection_print[i - 1] == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\nCell %d.\n\n", i);
+				output_temp_msg(sformatf( "\nCell %d.\n\n", i));
 			}
 			if (advection_step % punch_ad_modulus == 0 &&
 				advection_punch[i - 1] == TRUE)

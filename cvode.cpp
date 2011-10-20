@@ -547,28 +547,28 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 	if (N <= 0)
 	{
 		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_N, N);
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_N, N).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_N, N));
 		return (NULL);
 	}
 
 	if ((lmm != ADAMS) && (lmm != BDF))
 	{
 		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_LMM, lmm, ADAMS, BDF);
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_LMM, lmm, ADAMS, BDF).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_LMM, lmm, ADAMS, BDF));
 		return (NULL);
 	}
 
 	if ((iter != FUNCTIONAL) && (iter != NEWTON))
 	{
 		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON));
 		return (NULL);
 	}
 
 	if ((itol != SS) && (itol != SV))
 	{
 		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_ITOL, itol, SS, SV);
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITOL, itol, SS, SV).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITOL, itol, SS, SV));
 		return (NULL);
 	}
 
@@ -586,7 +586,7 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 
 	if (*reltol < ZERO)
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_RELTOL, (double) *reltol).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_RELTOL, (double) *reltol));
 		return (NULL);
 	}
 
@@ -612,7 +612,7 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 
 	if ((optIn != FALSE) && (optIn != TRUE))
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_OPTIN, optIn, FALSE, TRUE).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_OPTIN, optIn, FALSE, TRUE));
 		return (NULL);
 	}
 
@@ -829,19 +829,19 @@ CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
 
 	if ((lmm != ADAMS) && (lmm != BDF))
 	{
-		MACHENV warning_msg(MACHENV sformatf(MSG_BAD_LMM, lmm, ADAMS, BDF).c_str());
+		MACHENV warning_msg(MACHENV sformatf(MSG_BAD_LMM, lmm, ADAMS, BDF));
 		return (CVREI_ILL_INPUT);
 	}
 
 	if ((iter != FUNCTIONAL) && (iter != NEWTON))
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON));
 		return (CVREI_ILL_INPUT);
 	}
 
 	if ((itol != SS) && (itol != SV))
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITOL, itol, SS, SV).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITOL, itol, SS, SV));
 		return (CVREI_ILL_INPUT);
 	}
 
@@ -859,7 +859,7 @@ CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
 
 	if (*reltol < ZERO)
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_RELTOL, (double) *reltol).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_RELTOL, (double) *reltol));
 		return (CVREI_ILL_INPUT);
 	}
 
@@ -885,7 +885,7 @@ CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
 
 	if ((optIn != FALSE) && (optIn != TRUE))
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_OPTIN, optIn, FALSE, TRUE).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_OPTIN, optIn, FALSE, TRUE));
 		return (CVREI_ILL_INPUT);
 	}
 
@@ -908,7 +908,7 @@ CVReInit(void *cvode_mem, RhsFn f, realtype t0, N_Vector y0,
 	}
 	if (maxord > qmax)
 	{
-		MACHENV  warning_msg(MACHENV sformatf(MSG_REI_MAXORD, qmax, maxord).c_str());
+		MACHENV  warning_msg(MACHENV sformatf(MSG_REI_MAXORD, qmax, maxord));
 		return (CVREI_ILL_INPUT);
 	}
 
@@ -1104,7 +1104,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 
 	if ((itask != NORMAL) && (itask != ONE_STEP))
 	{
-		CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_ITASK, itask, NORMAL, ONE_STEP).c_str());
+		CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_ITASK, itask, NORMAL, ONE_STEP));
 		return (ILL_INPUT);
 	}
 
@@ -1117,7 +1117,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 		if (hmin * hmax_inv > ONE)
 		{
 			CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_HMIN_HMAX, (double) hmin,
-					   (double) ropt[HMAX]).c_str());
+					   (double) ropt[HMAX]));
 			return (ILL_INPUT);
 		}
 	}
@@ -1169,7 +1169,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 		if ((h != ZERO) && ((tout - tn) * h < ZERO))
 		{
 			CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_H0, (double) h,
-					   (double) (tout - tn)).c_str());
+					   (double) (tout - tn)));
 			return (ILL_INPUT);
 		}
 		if (h == ZERO)
@@ -1178,7 +1178,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 			if (!hOK)
 			{
 				CVMEM  warning_msg(CVMEM sformatf(MSG_TOO_CLOSE, (double) tout,
-						   (double) tn).c_str());
+						   (double) tn));
 				return (ILL_INPUT);
 			}
 		}
@@ -1200,7 +1200,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 		ier = CVodeDky(cv_mem, tout, 0, yout);
 		if (ier != OKAY)
 		{						/* ier must be == BAD_T */
-			CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_TOUT, (double) tout).c_str());
+			CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_TOUT, (double) tout));
 			return (ILL_INPUT);
 		}
 		return (SUCCESS);
@@ -1222,7 +1222,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 			ewtsetOK = CVEwtSet(cv_mem, zn[0]);
 			if (!ewtsetOK)
 			{
-				CVMEM  warning_msg(CVMEM sformatf(MSG_EWT_NOW_BAD, (double) tn).c_str());
+				CVMEM  warning_msg(CVMEM sformatf(MSG_EWT_NOW_BAD, (double) tn));
 				istate = ILL_INPUT;
 				*t = tn;
 				N_VScale(ONE, zn[0], yout);
@@ -1245,7 +1245,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 
 		if ((tolsf = uround * N_VWrmsNorm(zn[0], ewt)) > ONE)
 		{
-			CVMEM  warning_msg(CVMEM sformatf(MSG_TOO_MUCH_ACC, (double) tn).c_str());
+			CVMEM  warning_msg(CVMEM sformatf(MSG_TOO_MUCH_ACC, (double) tn));
 			istate = TOO_MUCH_ACC;
 			*t = tn;
 			N_VScale(ONE, zn[0], yout);
@@ -1259,9 +1259,9 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 		{
 			nhnil++;
 			if (nhnil <= mxhnil)
-				CVMEM  warning_msg(CVMEM sformatf(MSG_HNIL, (double) tn, (double) h).c_str());
+				CVMEM  warning_msg(CVMEM sformatf(MSG_HNIL, (double) tn, (double) h));
 			if (nhnil == mxhnil)
-				CVMEM  warning_msg(CVMEM sformatf(MSG_HNIL_DONE, mxhnil).c_str());
+				CVMEM  warning_msg(CVMEM sformatf(MSG_HNIL_DONE, mxhnil));
 		}
 
 		/* Call CVStep to take a step */
@@ -1317,7 +1317,7 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 		CVMEM cvode_rate_sim_time = CVMEM cvode_rate_sim_time_start + tn;
 		CVMEM cvode_step_fraction = (tn - t0) / (tout - t0);
 		/*
-		   CVMEM  warning_msg(CVMEM sformatf("ODE: tn %e, t0 %e, tout %e, step_frac %e\n", (double) tn, (double) t0, (double) tout, (double) cvode_step_fraction).c_str());
+		   CVMEM  warning_msg(CVMEM sformatf("ODE: tn %e, t0 %e, tout %e, step_frac %e\n", (double) tn, (double) t0, (double) tout, (double) cvode_step_fraction));
 		 */
 		/* Check if tout reached, and if so interpolate and exit loop */
 
@@ -1422,7 +1422,7 @@ CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky)
 
 	if ((k < 0) || (k > q))
 	{
-		CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_K, k).c_str());
+		CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_K, k));
 		return (BAD_K);
 	}
 
@@ -1434,7 +1434,7 @@ CVodeDky(void *cvode_mem, realtype t, int k, N_Vector dky)
 	if ((t - tp) * (t - tn1) > ZERO)
 	{
 		CVMEM  warning_msg(CVMEM sformatf(MSG_BAD_T, (double) t, (double) (tn - hu),
-				   (double) tn).c_str());
+				   (double) tn));
 		return (BAD_T);
 	}
 
@@ -1992,12 +1992,12 @@ CVStep(CVodeMem cv_mem)
 		if (cvode_error == TRUE)
 		{
 			CVMEM  warning_msg(CVMEM sformatf("After error test, y Fail, passed %d\n",
-					   passed).c_str());
+					   passed));
 		}
 		else
 		{
 			CVMEM  warning_msg(CVMEM sformatf("After error test, y OK, passed %d\n",
-					   passed).c_str());
+					   passed));
 		}
 		cvode_test = TRUE;
 		f(N, tn, zn[0], ftemp, f_data);
@@ -2739,7 +2739,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 		{
 #ifdef DEBUG_CVODE
 			CVMEM  warning_msg(CVMEM sformatf("CVnlsNewton, start of loop, time %e\n",
-					   tn).c_str());
+					   tn));
 #endif
 			return (CONV_FAIL);
 		}
@@ -2747,7 +2747,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 		{
 #ifdef DEBUG_CVODE
 			CVMEM  warning_msg(CVMEM sformatf(
-					   "CVnlsNewton, OK, start of loop, time %e\n", tn).c_str());
+					   "CVnlsNewton, OK, start of loop, time %e\n", tn));
 #endif
 		}
 
@@ -2781,7 +2781,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 		{
 #ifdef DEBUG_CVODE
 			CVMEM  warning_msg(CVMEM sformatf(
-					   "After CVNewtonIteration, Fail, ier %d\n", ier).c_str());
+					   "After CVNewtonIteration, Fail, ier %d\n", ier));
 #endif
 			return (CONV_FAIL);
 		}
@@ -2789,7 +2789,7 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 		{
 #ifdef DEBUG_CVODE
 			CVMEM  warning_msg(CVMEM sformatf("After CVNewtonIteration, OK, ier %d\n",
-					   ier).c_str());
+					   ier));
 #endif
 		}
 		/* If there is a convergence failure and the Jacobian-related 
@@ -3390,7 +3390,7 @@ CVBDFStab(CVodeMem cv_mem)
 				iopt[NOR] = iopt[NOR] + 1;
 				/* CVMEM  warning_msg(CVMEM sformatf(
 				   " Order reduced to %d by CVBDFStab at nst = %d,\n    h = %e hnew = %e\n",
-				   qprime,nst,h,h*eta).c_str()); */
+				   qprime,nst,h,h*eta)); */
 			}
 		}
 	}

@@ -327,13 +327,13 @@ dup_print(const char *ptr, int emphasis)
 		for (i = 0; i < l; i++)
 			dash[i] = '-';
 		dash[i] = '\0';
-		output_msg(OUTPUT_MESSAGE, "%s\n%s\n%s\n\n", dash, ptr, dash);
-		log_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash).c_str());
+		output_temp_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
+		log_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
 	}
 	else
 	{
-		output_msg(OUTPUT_MESSAGE, "%s\n\n", ptr);
-		log_msg(sformatf("%s\n\n", ptr).c_str());
+		output_temp_msg(sformatf("%s\n\n", ptr));
+		log_msg(sformatf("%s\n\n", ptr));
 	}
 	dash = (char *) free_check_null(dash);
 
@@ -417,9 +417,9 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 				string[i++] = c;
 				if (i >= MAX_LENGTH)
 				{
-					output_msg(OUTPUT_MESSAGE,
+					output_temp_msg(sformatf(
 							   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
-							   MAX_LENGTH, string);
+							   MAX_LENGTH, string));
 					return (ERROR);
 				}
 				ptr++;
@@ -430,9 +430,9 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 		/* check for overflow of space */
 		if (i >= MAX_LENGTH)
 		{
-			output_msg(OUTPUT_MESSAGE,
+			output_temp_msg(sformatf(
 					   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
-					   MAX_LENGTH, string);
+					   MAX_LENGTH, string));
 			return (ERROR);
 		}
 		ptr++;
@@ -722,7 +722,7 @@ print_centered(const char *string)
 	for (i = 0; i < l2; i++)
 		token[i + l1 + l] = '-';
 	token[79] = '\0';
-	output_msg(OUTPUT_MESSAGE, "%s\n\n", token);
+	output_temp_msg(sformatf("%s\n\n", token));
 	return (OK);
 }
 
@@ -1026,7 +1026,7 @@ backspace_screen(int spaces)
 		token[i] = '\b';
 	}
 	token[i] = '\0';
-	screen_msg(sformatf("%s", token).c_str());
+	screen_msg(sformatf("%s", token));
 	return (OK);
 }
 
@@ -1062,7 +1062,7 @@ status(int count, const char *str)
 
 	if (state == INITIALIZE)
 	{
-		screen_msg(sformatf("\n%-80s", "Initializing...").c_str());
+		screen_msg(sformatf("\n%-80s", "Initializing..."));
 
 		status_on = TRUE;
 		return (OK);
@@ -1083,9 +1083,9 @@ status(int count, const char *str)
 #ifdef DOS
 		backspace_screen(80);
 		/* if (state == TRANSPORT ) backspace_screen(80); */
-		screen_msg(sformatf("%-79s", str).c_str());
+		screen_msg(sformatf("%-79s", str));
 #else
-		screen_msg(sformatf("%-80s", str).c_str());
+		screen_msg(sformatf("%-80s", str));
 #endif
 	}
 	else if (state != TRANSPORT && state != PHAST)
@@ -1159,10 +1159,10 @@ status(int count, const char *str)
 #ifdef DOS
 			backspace_screen(80);
 			screen_msg(sformatf("%-15s%-27s%37s", sim_str, state_str,
-					   " ").c_str());
+					   " "));
 #else
 			screen_msg(sformatf("%-15s%-27s%38s", sim_str, state_str,
-					   " ").c_str());
+					   " "));
 #endif
 
 		}
@@ -1171,10 +1171,10 @@ status(int count, const char *str)
 #ifdef DOS
 			backspace_screen(80);
 			screen_msg(sformatf("%-15s%-27s%1s%36s", sim_str,
-					   state_str, spin_str, " ").c_str());
+					   state_str, spin_str, " "));
 #else
 			screen_msg(sformatf("%-15s%-27s%1s%37s", sim_str,
-					   state_str, spin_str, " ").c_str());
+					   state_str, spin_str, " "));
 #endif
 		}
 	}

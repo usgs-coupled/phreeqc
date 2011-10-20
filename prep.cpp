@@ -470,8 +470,8 @@ build_gas_phase(void)
  */
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\n\tMass balance summations %s.\n\n",
-					   gas_comp_ptr->phase->name);
+			output_temp_msg(sformatf( "\n\tMass balance summations %s.\n\n",
+					   gas_comp_ptr->phase->name));
 		}
 
 		/* All elements in gas */
@@ -505,8 +505,8 @@ build_gas_phase(void)
 						 coef);
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
-							   unknown_ptr->description, (double) coef);
+					output_temp_msg(sformatf( "\t\t%-24s%10.3f\n",
+							   unknown_ptr->description, (double) coef));
 				}
 			}
 		}
@@ -521,8 +521,8 @@ build_gas_phase(void)
  */
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\n\tJacobian summations %s.\n\n",
-					   phase_ptr->name);
+			output_temp_msg(sformatf( "\n\tJacobian summations %s.\n\n",
+					   phase_ptr->name));
 		}
 		for (j = 0; j < count_elts; j++)
 		{
@@ -553,8 +553,8 @@ build_gas_phase(void)
 			}
 			if (debug_prep == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\n\t%s.\n",
-						   unknown_ptr->description);
+				output_temp_msg(sformatf( "\n\t%s.\n",
+						   unknown_ptr->description));
 			}
 			row = unknown_ptr->number * (count_unknowns + 1);
 			coef_elt = elt_list[j].coef;
@@ -583,8 +583,8 @@ build_gas_phase(void)
 				}
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%s\n",
-							   master_ptr->s->name);
+					output_temp_msg(sformatf( "\t\t%s\n",
+							   master_ptr->s->name));
 				}
 				if (master_ptr->unknown == NULL)
 				{
@@ -604,9 +604,9 @@ build_gas_phase(void)
 							&(array[row + col]), coef);
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+					output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 							   master_ptr->s->name, (double) coef,
-							   row / (count_unknowns + 1), col);
+							   row / (count_unknowns + 1), col));
 				}
 			}
 			if (use.gas_phase_ptr->type == PRESSURE)
@@ -616,10 +616,10 @@ build_gas_phase(void)
 							&(array[row + gas_unknown->number]), coef_elt);
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+					output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 							   "gas moles", (double) elt_list[j].coef,
 							   row / (count_unknowns + 1),
-							   gas_unknown->number);
+							   gas_unknown->number));
 				}
 			}
 		}
@@ -630,8 +630,8 @@ build_gas_phase(void)
 			continue;
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\n\tPartial pressure eqn %s.\n\n",
-					   phase_ptr->name);
+			output_temp_msg(sformatf( "\n\tPartial pressure eqn %s.\n\n",
+					   phase_ptr->name));
 		}
 		unknown_ptr = gas_unknown;
 		row = unknown_ptr->number * (count_unknowns + 1);
@@ -670,7 +670,7 @@ build_gas_phase(void)
 				{
 					if (debug_prep == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE, "\t\t%s\n", master_ptr->s->name);
+						output_temp_msg(sformatf( "\t\t%s\n", master_ptr->s->name));
 					}
 					if (master_ptr->unknown == NULL)
 					{
@@ -691,9 +691,9 @@ build_gas_phase(void)
 					store_jacob(&(gas_comp_ptr->phase->p_soln_x), &(array[row + col]), coef);
 					if (debug_prep == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+						output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 							master_ptr->s->name, (double) coef,
-							row / (count_unknowns + 1), col);
+							row / (count_unknowns + 1), col));
 					}
 				}
 			}
@@ -931,7 +931,7 @@ build_jacobian_sums(int k)
 	LDBLE *source, *target;
 
 	if (debug_prep == TRUE)
-		output_msg(OUTPUT_MESSAGE, "\n\tJacobian summations.\n");
+		output_temp_msg(sformatf( "\n\tJacobian summations.\n"));
 /*
  *   Calculate jacobian coefficients for each mass balance equation
  */
@@ -947,8 +947,8 @@ build_jacobian_sums(int k)
 		}
 		coef = mb_unknowns[i].coef;
 		if (debug_prep == TRUE)
-			output_msg(OUTPUT_MESSAGE, "\n\tMass balance eq:  %s\t%f\n",
-					   mb_unknowns[i].unknown->description, (double) coef);
+			output_temp_msg(sformatf( "\n\tMass balance eq:  %s\t%f\n",
+					   mb_unknowns[i].unknown->description, (double) coef));
 		store_dn(k, mb_unknowns[i].source, mb_unknowns[i].unknown->number,
 				 coef, mb_unknowns[i].gamma_source);
 /*
@@ -973,10 +973,10 @@ build_jacobian_sums(int k)
 				store_jacob(source, target, coef);
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+					output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 							   "sum[dn(i,s)/dlnwater]", (double) coef,
 							   mb_unknowns[i].unknown->number,
-							   mass_oxygen_unknown->number);
+							   mass_oxygen_unknown->number));
 				}
 			}
 
@@ -993,9 +993,9 @@ build_jacobian_sums(int k)
 				store_jacob(source, target, coef);
 				if (debug_prep == TRUE)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+					output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 							   "dg/dlny", (double) coef,
-							   mb_unknowns[i].unknown->number, x[j]->number);
+							   mb_unknowns[i].unknown->number, x[j]->number));
 				}
 				count_g++;
 				if (count_g >= use.surface_ptr->count_charge)
@@ -1032,11 +1032,11 @@ build_jacobian_sums(int k)
 					store_jacob(source, target, coef);
 					if (debug_prep == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE,
+						output_temp_msg(sformatf(
 								   "\t\t%-24s%10.3f\t%d\t%d\n", "dphase",
 								   (double) coef,
 								   mb_unknowns[i].unknown->number,
-								   x[kk]->number);
+								   x[kk]->number));
 					}
 				}
 				count_g++;
@@ -1060,11 +1060,11 @@ build_jacobian_sums(int k)
 					store_jacob(source, target, coef);
 					if (debug_prep == TRUE)
 					{
-						output_msg(OUTPUT_MESSAGE,
+						output_temp_msg(sformatf(
 								   "\t\t%-24s%10.3f\t%d\t%d\n", "dg/dlny",
 								   (double) coef,
 								   mb_unknowns[i].unknown->number,
-								   x[j]->number);
+								   x[j]->number));
 					}
 
 					/* term for related phase */
@@ -1092,11 +1092,11 @@ build_jacobian_sums(int k)
 							store_jacob(source, target, coef);
 							if (debug_prep == TRUE)
 							{
-								output_msg(OUTPUT_MESSAGE,
+								output_temp_msg(sformatf(
 										   "\t\t%-24s%10.3f\t%d\t%d\n",
 										   "dphase", (double) coef,
 										   mb_unknowns[i].unknown->number,
-										   x[kk]->number);
+										   x[kk]->number));
 							}
 						}
 					}
@@ -1111,11 +1111,11 @@ build_jacobian_sums(int k)
 						store_jacob(source, target, coef);
 						if (debug_prep == TRUE)
 						{
-							output_msg(OUTPUT_MESSAGE,
+							output_temp_msg(sformatf(
 									   "\t\t%-24s%10.3f\t%d\t%d\n",
 									   "dn(i,s)/dlnwater", (double) coef,
 									   mb_unknowns[i].unknown->number,
-									   mass_oxygen_unknown->number);
+									   mass_oxygen_unknown->number));
 						}
 					}
 					break;
@@ -1159,7 +1159,7 @@ build_mb_sums(void)
 
 	if (debug_prep == TRUE)
 	{
-		output_msg(OUTPUT_MESSAGE, "\n\tMass balance summations.\n\n");
+		output_temp_msg(sformatf( "\n\tMass balance summations.\n\n"));
 	}
 	for (i = 0; i < count_mb_unknowns; i++)
 	{
@@ -1167,9 +1167,9 @@ build_mb_sums(void)
 		store_mb(mb_unknowns[i].source, target, mb_unknowns[i].coef);
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\n",
+			output_temp_msg(sformatf( "\t\t%-24s%10.3f\n",
 					   mb_unknowns[i].unknown->description,
-					   (double) mb_unknowns[i].coef);
+					   (double) mb_unknowns[i].coef));
 		}
 	}
 	return (OK);
@@ -1287,8 +1287,8 @@ build_model(void)
 			}
 			if (debug_prep == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\n%s\n\tMass-action equation\n",
-						   s[i]->name);
+				output_temp_msg(sformatf( "\n%s\n\tMass-action equation\n",
+						   s[i]->name));
 				trxn_print();
 			}
 /*
@@ -1314,19 +1314,19 @@ build_model(void)
 			}
 			if (debug_prep == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\tElement composition\n",
-						   trxn.token[0].s->name);
+				output_temp_msg(sformatf( "\tElement composition\n",
+						   trxn.token[0].s->name));
 				for (j = 0; j < count_elts; j++)
 				{
-					output_msg(OUTPUT_MESSAGE, "\t\t%-20s\t%10.2f\n",
+					output_temp_msg(sformatf( "\t\t%-20s\t%10.2f\n",
 							   elt_list[j].elt->name,
-							   (double) elt_list[j].coef);
+							   (double) elt_list[j].coef));
 				}
 			}
 			if (debug_prep == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\n\tMass balance equation\n",
-						   s[i]->name);
+				output_temp_msg(sformatf( "\n\tMass balance equation\n",
+						   s[i]->name));
 				trxn_print();
 			}
 			if (s[i]->type < EMINUS)
@@ -1442,7 +1442,7 @@ build_model(void)
 			rxn_free(phases[i]->rxn_x);
 			if (debug_prep == TRUE)
 			{
-				output_msg(OUTPUT_MESSAGE, "\nPhase: %s\n", phases[i]->name);
+				output_temp_msg(sformatf( "\nPhase: %s\n", phases[i]->name));
 				trxn_print();
 			}
 			phases[i]->rxn_x = rxn_alloc(count_trxn + 1);
@@ -2869,8 +2869,8 @@ add_potential_factor(void)
 	}
 	else
 	{
-		output_msg(OUTPUT_MESSAGE,
-				   "How did this happen in add potential factor?\n");
+		output_temp_msg(sformatf(
+				   "How did this happen in add potential factor?\n"));
 	}
 
 	return (OK);
@@ -4026,8 +4026,8 @@ setup_solution(void)
  */
 			if (ph_unknown == NULL)
 			{
-				output_msg(OUTPUT_MESSAGE,
-						   "\npH will be adjusted to obtain desired alkalinity.\n\n");
+				output_temp_msg(sformatf(
+						   "\npH will be adjusted to obtain desired alkalinity.\n\n"));
 				ph_unknown = alkalinity_unknown;
 				master_ptr = master_bsearch("H(1)");
 				alkalinity_unknown->master[0] = master_ptr;
@@ -4322,9 +4322,9 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 	{
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+			output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 					   "Activity coefficient", (double) (-1.0 * coef_in),
-					   row / (count_unknowns + 1), mu_unknown->number);
+					   row / (count_unknowns + 1), mu_unknown->number));
 		}
 		/* mu term */
 		if (gamma_source != NULL)
@@ -4340,10 +4340,10 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 	{
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+			output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 					   mass_oxygen_unknown->master[0]->s->name,
 					   (double) coef_in, row / (count_unknowns + 1),
-					   mass_oxygen_unknown->number);
+					   mass_oxygen_unknown->number));
 		}
 		store_jacob(source, &(array[row + mass_oxygen_unknown->number]),
 					coef_in);
@@ -4363,7 +4363,7 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 		}
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\t%s\n", master_ptr->s->name);
+			output_temp_msg(sformatf( "\t\t%s\n", master_ptr->s->name));
 		}
 		if (master_ptr->unknown == NULL)
 			continue;
@@ -4372,9 +4372,9 @@ store_dn(int k, LDBLE * source, int row, LDBLE coef_in, LDBLE * gamma_source)
 		store_jacob(source, &(array[row + col]), coef);
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\t%-24s%10.3f\t%d\t%d\n",
+			output_temp_msg(sformatf( "\t\t%-24s%10.3f\t%d\t%d\n",
 					   master_ptr->s->name, (double) coef,
-					   row / (count_unknowns + 1), col);
+					   row / (count_unknowns + 1), col));
 		}
 	}
 	return (OK);
@@ -4394,7 +4394,7 @@ store_jacob(LDBLE * source, LDBLE * target, LDBLE coef)
 	{
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\tjacob1 %d\n", count_sum_jacob1);
+			output_temp_msg(sformatf( "\t\tjacob1 %d\n", count_sum_jacob1));
 		}
 		sum_jacob1[count_sum_jacob1].source = source;
 		sum_jacob1[count_sum_jacob1++].target = target;
@@ -4409,7 +4409,7 @@ store_jacob(LDBLE * source, LDBLE * target, LDBLE coef)
 	{
 		if (debug_prep == TRUE)
 		{
-			output_msg(OUTPUT_MESSAGE, "\t\tjacob2 %d\n", count_sum_jacob2);
+			output_temp_msg(sformatf( "\t\tjacob2 %d\n", count_sum_jacob2));
 		}
 		sum_jacob2[count_sum_jacob2].source = source;
 		sum_jacob2[count_sum_jacob2].target = target;
@@ -4552,7 +4552,7 @@ switch_bases(void)
 			x[i]->master[0]->s->la = la;
 
 			log_msg(sformatf( "Switching bases to %s.\tIteration %d\n",
-					   x[i]->master[0]->s->name, iterations).c_str());
+					   x[i]->master[0]->s->name, iterations));
 			return_value = TRUE;
 		}
 	}
@@ -5166,7 +5166,7 @@ check_same_model(void)
 	for (i = 0; i < count_master; i++)
 	{
 /*
-		output_msg(OUTPUT_MESSAGE,"%s\t%e\t%d\n", master[i]->elt->name,
+		output_temp_msg(sformatf("%s\t%e\t%d\n", master[i]->elt->name,
 			master[i]->total, master[i]->last_model);
  */
 		if (master[i]->s == s_hplus || master[i]->s == s_h2o)
