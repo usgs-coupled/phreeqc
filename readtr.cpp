@@ -92,10 +92,6 @@ read_transport(void)
 		"interlayer_d"			/* 41 */
 	};
 	int count_opt_list = 42;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	strcpy(file_name, "phreeqc.dmp");
 /*

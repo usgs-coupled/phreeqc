@@ -36,10 +36,7 @@ model(void)
 	int count_infeasible, count_basis_change;
 	int debug_model_save;
 	int mass_water_switch_save;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
+
 	set_inert_moles();
 /*	debug_model = TRUE; */
 /*	debug_prep = TRUE; */

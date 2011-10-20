@@ -58,10 +58,6 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l;
 	char *ptr;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	PASCAL_MAIN(0, NULL);
 	inbuf = (char *) PHRQ_calloc(max_line, sizeof(char));

@@ -15,38 +15,12 @@
 #include <float.h>
 #include <setjmp.h>
 #include "phrqtype.h"
-#if !defined(USE_OLD_IO)
 #include <list>
-#include "../PHRQ_io.h"
-#endif
-
+#include "PHRQ_io.h"
 #include "global_structures.h"
-/* #define NO_DOS */
-/* #define PHREEQ98 */ /* PHREEQ98: code for graphical user interface */
-/*
- * uncomment following line, to use default DOS file name for
- * output file
- */
-/*#define DOS*/
 
-/* ----------------------------------------------------------------------
- *   INCLUDE FILES
- * ---------------------------------------------------------------------- */
-/*
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include <errno.h>
-#include <float.h>
-#if !defined(_INC_PHREEQC_H)
-#endif
-#include <setjmp.h>
-*/
-#if !defined(USE_OLD_IO)
 EXTERNAL PHRQ_io *phrq_io;
-#endif
+
 /* ----------------------------------------------------------------------
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
@@ -54,8 +28,6 @@ EXTERNAL PHRQ_io *phrq_io;
 EXTERNAL struct model last_model;
 EXTERNAL int same_model;
 EXTERNAL int same_temperature;
-
-
 EXTERNAL struct punch punch;
 /* ----------------------------------------------------------------------
  *   Temperatures
@@ -712,15 +684,6 @@ int forward_output_to_log;
 /* phreeqc_files.c ------------------------------- */
 
 char *default_data_base;
-//#ifdef USE_OLD_IO
-//FILE *input_file;
-//FILE *database_file;
-//FILE *output_file;	/* OUTPUT_MESSAGE */
-//FILE *log_file;	    /* OUTPUT_LOG */
-//FILE *punch_file;	/* OUTPUT_PUNCH */
-//FILE *error_file;	/* OUTPUT_ERROR */
-//FILE *dump_file;	/* OUTPUT_DUMP */
-//#endif
 #ifdef PHREEQ98
 int outputlinenr;
 char *LogFileNameC;

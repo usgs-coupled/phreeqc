@@ -19,9 +19,6 @@
 #include "sundialsmath.h"
 #include "sundialstypes.h"
 
-static char const svnid[] =
-	"$Id$";
-
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
 #define TWO  RCONST(2.0)

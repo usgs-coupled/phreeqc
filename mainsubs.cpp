@@ -22,10 +22,6 @@ initialize(void)
 	int i;
 	struct logk *logk_ptr;
 	char token[MAX_LENGTH];
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	moles_per_kilogram_string = string_duplicate("Mol/kgw");
 	pe_string = string_duplicate("pe");
@@ -542,13 +538,11 @@ initialize(void)
 	pr.isotope_alphas = TRUE;
 	pr.hdf = FALSE;
 	pr.alkalinity = FALSE;
-#ifndef USE_OLD_IO
 	phrq_io->Set_dump_file_on(true);
 	phrq_io->Set_log_file_on(false);
 	phrq_io->Set_punch_file_on(true);
 	phrq_io->Set_error_file_on (true);
 	phrq_io->Set_output_file_on(true);
-#endif
 	species_list = NULL;
 
 	user_database = NULL;

@@ -37,9 +37,6 @@
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
 
-static char const svnid[] =
-	"$Id$";
-
 /* Error Messages */
 
 #define CVDENSE  "CVDense/CVReInitDense-- "
@@ -133,8 +130,6 @@ CVDenseDQJac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	M_Env machEnv;
 	integertype j;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 	machEnv = y->menv;			/* Get machine environment */
 
 	ftemp = vtemp1;				/* Rename work vector for use as f vector value */

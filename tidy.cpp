@@ -13,10 +13,6 @@ tidy_model(void)
 	int n_user, last;
 	int new_named_logk;
 	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
-	/*
 	 * Determine if any new elements, species, phases have been read
 	 */
 	new_model = FALSE;
@@ -1864,9 +1860,7 @@ tidy_punch(void)
 	{
 		punch_save = pr.punch;
 		pr.punch = TRUE;
-#ifndef USE_OLD_IO
 		phrq_io->Set_punch_file_on(true);
-#endif
 
 		/* constant stuff, sim, pH, etc. */
 
@@ -2124,9 +2118,7 @@ tidy_punch(void)
 
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
-#ifndef USE_OLD_IO
 		phrq_io->Set_punch_file_on(pr.punch == TRUE);
-#endif
 	}
 	return (OK);
 }

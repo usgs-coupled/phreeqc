@@ -20,10 +20,6 @@ transport(void)
 	int punch_boolean;
 	LDBLE step_fraction;
 	LDBLE cb_tol;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	state = TRANSPORT;
 	diffc_tr = diffc;

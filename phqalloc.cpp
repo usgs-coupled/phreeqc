@@ -20,10 +20,6 @@ PHRQ_malloc(size_t size)
 /* ---------------------------------------------------------------------- */
 {
 	PHRQMemHeader *p;
-	/*
-	if (svnid == NULL)
-	fprintf(stderr, " ");
-	*/
 
 	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 

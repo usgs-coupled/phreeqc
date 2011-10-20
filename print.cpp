@@ -10,11 +10,6 @@ array_print(LDBLE * array_l, int row_count, int column_count,
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
-
 
 	for (i = 0; i < row_count; i++)
 	{

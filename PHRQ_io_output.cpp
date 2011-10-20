@@ -1,4 +1,3 @@
-#ifndef USE_OLD_IO
 #include <assert.h>
 #include "Phreeqc.h"
 #include <setjmp.h>
@@ -719,4 +718,3 @@ punch_msg(const char * str)
 {
 	return this->phrq_io->punch_msg(str);
 }
-#endif /* USE_OLD_IO */

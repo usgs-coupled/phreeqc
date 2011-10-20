@@ -15,10 +15,7 @@ calc_all_g(void)
 	int count_g, count_charge;
 	LDBLE new_g, xd1;
 	LDBLE epsilon;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
+
 	if (use.surface_ptr == NULL)
 		return (OK);
 /*

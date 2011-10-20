@@ -16,8 +16,6 @@
  *******************************************************************/
 
 #include "nvector.h"			/* generic M_Env and N_Vector */
-static char const svnid[] =
-	"$Id$";
 
 N_Vector
 N_VNew(integertype n, M_Env machEnv)

@@ -150,10 +150,6 @@ cl1mp(int k, int l, int m, int n,
 
 /* INITIALIZATION. */
 	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
-	/*
 	 *  mp variables
 	 */
 	censor = 1;

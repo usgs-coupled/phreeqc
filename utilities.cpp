@@ -9,10 +9,6 @@ add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
 	struct elt_list *elt_list_ptr1;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	if (elt_list_ptr == NULL)
 		return (OK);
@@ -1676,7 +1672,6 @@ get_input_errors()
 	total_errors += phrq_io->Get_io_error_count();
 	return total_errors;
 }
-#if !defined(USE_OLD_IO)
 void * CLASS_QUALIFIER
 get_cookie()
 {
@@ -1711,4 +1706,3 @@ pop_cookie()
 		cookie_list.pop_front();
 	}
 }
-#endif

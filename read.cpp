@@ -13,10 +13,6 @@ read_input(void)
 	char *ptr;
 	char token[2 * MAX_LENGTH];
 #define LAST_C_KEYWORD 61
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	parse_error = 0;
 	input_error = 0;
@@ -8056,9 +8052,7 @@ read_debug(void)
 				pr.logfile = FALSE;
 				warning_msg("PHREEQC log file is disabled in PHAST");
 			}
-#ifndef USE_OLD_IO
 			phrq_io->Set_log_file_on(pr.logfile == TRUE);
-#endif
 			break;
 		case 12:				/* debug_diffuse_layer */
 			debug_diffuse_layer = get_true_false(next_char, TRUE);
@@ -8250,9 +8244,7 @@ read_print(void)
 			break;
 		case 13:				/* selected_output */
 			pr.punch = get_true_false(next_char, TRUE);
-#ifndef USE_OLD_IO
 			phrq_io->Set_punch_file_on(pr.punch == TRUE);
-#endif
 			break;
 		case 19:				/* status */
 			pr.status = get_true_false(next_char, TRUE);
@@ -8273,9 +8265,7 @@ read_print(void)
 			break;
 		case 22:				/* dump */
 			pr.dump = get_true_false(next_char, TRUE);
-#ifndef USE_OLD_IO
 			phrq_io->Set_dump_file_on(pr.dump == TRUE);
-#endif
 			break;
 		case 23:				/* user_print */
 		case 24:				/* user_pr */

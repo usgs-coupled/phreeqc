@@ -698,10 +698,6 @@ build_tally_table(void)
 
 	char token[MAX_LENGTH];
 	char *ptr;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 /*
  *  make list of all elements in all entitites
  *  defines the number of rows in the table

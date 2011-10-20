@@ -57,10 +57,6 @@ read_solution_spread(void)
 		"uncertainties"			/* 13 */
 	};
 	int count_opt_list = 14;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 /*
  * Initialize defaults
  */

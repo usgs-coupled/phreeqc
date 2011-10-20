@@ -33,10 +33,6 @@ read_isotopes(void)
 		"total_is_major"		/* 1 */
 	};
 	int count_opt_list = 2;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 
 	master_isotope_ptr = NULL;
 	elt_ptr = NULL;

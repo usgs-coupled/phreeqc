@@ -26,12 +26,6 @@ step(LDBLE step_fraction)
 	int step_number;
 	struct pp_assemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
-
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
-
 /*
  *   Zero out global solution data
  */

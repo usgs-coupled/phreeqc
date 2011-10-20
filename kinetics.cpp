@@ -50,16 +50,8 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
  */
 	int i, j, return_value;
 	LDBLE coef;
-/*	char token[MAX_LENGTH];
-	char *ptr;
-	struct phase *phase_ptr;
- */ char l_command[] = "run";
+	char l_command[] = "run";
 	struct rate *rate_ptr;
-/*	LDBLE t1, t2; */
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 /*
  *   Go through list and generate list of elements and
  *   coefficient of elements in reaction
@@ -67,7 +59,6 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 	return_value = OK;
 	count_elts = 0;
 	paren_count = 0;
-
 	rate_time = time_step;
 
 /*	t1 = clock(); */

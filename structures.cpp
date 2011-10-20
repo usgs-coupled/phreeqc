@@ -13,10 +13,6 @@ clean_up(void)
  *   Free all allocated memory, except strings
  */
 	int i, j;
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 #if defined MULTICHART
 	chart_handler.End_timer();
 #endif

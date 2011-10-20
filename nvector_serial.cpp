@@ -26,8 +26,6 @@
 #include "sundialsmath.h"
 
 /* WARNING don't include any headers below here */
-static char const svnid[] =
-	"$Id$";
 
 #define ZERO RCONST(0.0)
 #define HALF RCONST(0.5)
@@ -67,8 +65,6 @@ M_EnvInit_Serial(integertype vec_length)
 {
 	M_Env me;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 	/* Create machine environment structure */
 	me = (M_Env) malloc(sizeof *me);
 	if (me == NULL)
