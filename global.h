@@ -1,7 +1,3 @@
-#if !defined(_INC_PHREEQC_H)
-#define  static
-#define static
-#endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 
@@ -574,11 +570,9 @@ int NKEYS;
 /* phqalloc.c ------------------------------- */
 
  PHRQMemHeader *s_pTail;
-#if defined(MERGE_INCLUDE_FILES)
 #include <sstream>
 	std::stringstream merged_database_stream;
 	std::stringstream merged_input_stream;
-#endif /* defined(MERGE_INCLUDE_FILES) */
 /* Collect all statics for PHREEQC_CLASS */
 
 /* basic.c ------------------------------- */
@@ -615,8 +609,13 @@ LDBLE Z, DZ, Y;
 LDBLE G1, G2, GF;
 LDBLE B1, B2, B1T, B2T, B1TT, B2TT;
 
-/* integrate.c ------------------------------- */
+/* input.cpp ------------------------------- */
 
+int check_line_return;  
+
+/* integrate.cpp ------------------------------- */
+
+LDBLE midpoint_sv;
 LDBLE z, xd, alpha;
 struct surface_charge *surface_charge_ptr;
 int max_row_count, max_column_count;
@@ -644,6 +643,7 @@ unsigned long soln_bits, phase_bits, current_bits, temp_bits;
 
 FILE *netpath_file;
 int count_inverse_models, count_pat_solutions;
+int min_position[32], max_position[32], now[32];
 
 /* kinetics.c ------------------------------- */
 

@@ -2268,7 +2268,6 @@ next_set_phases(struct inverse *inv_ptr,
 {
 	int i, j, k;
 	unsigned long temp_bits_l;
-	static int min_position[32], max_position[32], now[32];
 
 /*
  *   min_ and max_position are arrays, logically with length

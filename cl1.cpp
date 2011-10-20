@@ -8,9 +8,6 @@
 #include "phqalloc.h"
 #include "phrqtype.h"
 
-extern void *free_check_null(void *ptr);
-extern void malloc_error(void);
-
 /* debug
 #define DEBUG_CL1
 #define CHECK_ERRORS
@@ -32,26 +29,26 @@ cl1(int k, int l, int m, int n,
 	} *q2;
 
 	/* Local variables */
-	static int nklm;
-	static LDBLE xmin, xmax;
-	static int iout, i, j;
-	static LDBLE l_z;
-	static int maxit, n1, n2;
-	static LDBLE pivot;
-	static int ia, ii, kk, in, nk, js;
-	static LDBLE sn;
-	static int iphase, kforce;
-	static LDBLE zu, zv;
-	static LDBLE tpivot;
-	static int klm, jmn, nkl, jpn;
-	static LDBLE cuv, sum;
-	static int klm1;
+	int nklm;
+	LDBLE xmin, xmax;
+	int iout, i, j;
+	LDBLE l_z;
+	int maxit, n1, n2;
+	LDBLE pivot;
+	int ia, ii, kk, in, nk, js;
+	LDBLE sn;
+	int iphase, kforce;
+	LDBLE zu, zv;
+	LDBLE tpivot;
+	int klm, jmn, nkl, jpn;
+	LDBLE cuv, sum;
+	int klm1;
 	int q_dim, cu_dim;
 	int kode_arg;
 	LDBLE check_toler;
 #ifdef CHECK_ERRORS
-	extern char **col_name, **row_name;
-	extern int *row_back, *col_back;
+	char **col_name, **row_name;
+	int *row_back, *col_back;
 #endif
 /* THIS SUBROUTINE USES A MODIFICATION OF THE SIMPLEX */
 /* METHOD OF LINEAR PROGRAMMING TO CALCULATE AN L1 SOLUTION */

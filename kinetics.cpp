@@ -269,7 +269,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	struct pp_assemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
 
-	static LDBLE b31 = 3. / 40., b32 = 9. / 40.,
+	LDBLE b31 = 3. / 40., b32 = 9. / 40.,
 		b51 = -11. / 54., b53 = -70. / 27., b54 = 35. / 27.,
 		b61 = 1631. / 55296., b62 = 175. / 512., b63 = 575. / 13824., b64 =
 		44275. / 110592., b65 = 253. / 4096., c1 = 37. / 378., c3 =
@@ -2472,8 +2472,6 @@ store_get_equi_reactants(int l, int kin_end)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k;
-	static int count_pp, count_pg, count_s_s;
-	static LDBLE *x0_moles;
 
 	if (use.pp_assemblage_in == TRUE)
 	{

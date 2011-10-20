@@ -191,20 +191,6 @@ typedef struct
 # define _FNSIZE  120
 #endif
 
-
-/*extern Void    PASCAL_MAIN  P2PP( (int, Char **) );*/
-/*
-extern void PASCAL_MAIN(int, Char **);
-void PASCAL_MAIN(int, Char **);
-
-Char    **P_argv;
-int     P_argc;
-
-int P_escapecode;
-int P_ioresult;
-__p2c_jmp_buf *__top_jb;
-*/
-
 #ifdef P2C_H_PROTO				/* if you have Ansi C but non-prototyped header files */
 extern Char *strcat P2PP((Char *, Const Char *));
 extern Char *strchr P2PP((Const Char *, int));

@@ -9,16 +9,6 @@
 #include "phqalloc.h"
 #include "phrqtype.h"
 
-int 
-cl1mp(int k, int l, int m, int n,
-		  int nklmd, int n2d,
-		  LDBLE * q_arg,
-		  int *kode, LDBLE toler,
-		  int *iter, LDBLE * x_arg, LDBLE * res_arg, LDBLE * error,
-		  LDBLE * cu_arg, int *iu, int *s, int check, LDBLE censor_arg);
-extern void *free_check_null(void *ptr);
-extern void malloc_error(void);
-
 /* debug
 #define DEBUG_CL1
 #define CHECK_ERRORS
@@ -41,14 +31,14 @@ cl1mp(int k, int l, int m, int n,
 	} *q2;
 
 	/* Local variables */
-	static int nklm;
-	static int iout, i, j;
-	static int maxit, n1, n2;
-	static int ia, ii, kk, in, nk, js;
-	static int iphase, kforce;
-	static int klm, jmn, nkl, jpn;
-	static int klm1;
-	static int *kode;
+	int nklm;
+	int iout, i, j;
+	int maxit, n1, n2;
+	int ia, ii, kk, in, nk, js;
+	int iphase, kforce;
+	int klm, jmn, nkl, jpn;
+	int klm1;
+	int *kode;
 	int q_dim, cu_dim;
 	int iswitch;
 	mpf_t *q;

@@ -2,7 +2,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "phrqproto.h"
-#include "input.h"
+//#include "input.h"
 
 //#define Phreeqc:: Phreeqc::
 

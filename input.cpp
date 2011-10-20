@@ -2,13 +2,11 @@
 
 #include "Phreeqc.h"
 #include <setjmp.h>
-#include "input.h"
+//#include "input.h"
 #include "phrqproto.h"
 #include <istream>
 #include <fstream>
 #include "phqalloc.h"
-
-int check_line_return;  // TODO should not be here
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -103,101 +101,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 	check_line_return = i;
 	return (i);
 }
-#if !defined (MERGE_INCLUDE_FILES)
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-get_line(PFN_READ_CALLBACK pfn, void *cookie)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Read a line from input file put in "line".
- *   Copy of input line is stored in "line_save".
- *   Characters after # are discarded in line but retained in "line_save"
- *
- *   Arguments:
- *      fp is file name
- *   Returns:
- *      EMPTY,
- *      EOF,
- *      KEYWORD,
- *      OK,
- *      OPTION
- */
-	int i, j, return_value, empty, l;
-	char *ptr;
-	char token[MAX_LENGTH];
 
-	return_value = EMPTY;
-	while (return_value == EMPTY)
-	{
-/*
- *   Eliminate all characters after # sign as a comment
- */
-		i = -1;
-		empty = TRUE;
-/*
- *   Get line, check for eof
- */
-		if (get_logical_line(pfn, cookie, &l) == EOF)
-		{
-			next_keyword = 0;
-			return (EOF);
-		}
-/*
- *   Get long lines
- */
-		j = l;
-		ptr = strchr(line_save, '#');
-		if (ptr != NULL)
-		{
-			j = (int) (ptr - line_save);
-		}
-		strncpy(line, line_save, (unsigned) j);
-		line[j] = '\0';
-		for (i = 0; i < j; i++)
-		{
-			if (!isspace((int) line[i]))
-			{
-				empty = FALSE;
-				break;
-			}
-		}
-/*
- *   New line character encountered
- */
-
-		if (empty == TRUE)
-		{
-			return_value = EMPTY;
-		}
-		else
-		{
-			return_value = OK;
-		}
-	}
-/*
- *   Determine return_value
- */
-	if (return_value == OK)
-	{
-		if (check_key(line) == TRUE)
-		{
-			return_value = KEYWORD;
-		}
-		else
-		{
-			ptr = line;
-			copy_token(token, &ptr, &i);
-			if (token[0] == '-' && isalpha((int) token[1]))
-			{
-				return_value = OPTION;
-			}
-		}
-	}
-
-	return (return_value);
-}
-#else
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
@@ -330,7 +234,6 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 	return EOF;
 
 }
-#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::

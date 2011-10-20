@@ -409,13 +409,12 @@ midpnt(LDBLE x1, LDBLE x2, int n)
 /* ---------------------------------------------------------------------- */
 {
 	LDBLE xv, tnm, sum, del, ddel;
-	static LDBLE sv;
 	int it, j;
 
 	if (n == 1)
 	{
-		sv = (x2 - x1) * g_function(0.5 * (x1 + x2));
-		return (sv);
+		midpoint_sv = (x2 - x1) * g_function(0.5 * (x1 + x2));
+		return (midpoint_sv);
 	}
 	else
 	{
@@ -441,8 +440,8 @@ midpnt(LDBLE x1, LDBLE x2, int n)
 			sum += g_function(xv);
 			xv += del;
 		}
-		sv = (sv + (x2 - x1) * sum / tnm) / 3.0;
-		return sv;
+		midpoint_sv = (midpoint_sv + (x2 - x1) * sum / tnm) / 3.0;
+		return midpoint_sv;
 	}
 }
 

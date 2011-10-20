@@ -9842,10 +9842,8 @@ read_llnl_aqueous_model_parameters(void)
  *	 ERROR   if error occurred reading data
  *
  */
-	extern int check_line_return;	/* input.c */
 	int i, count_alloc;
 	char token[MAX_LENGTH];
-
 
 	int return_value, opt;
 	char *next_char;

@@ -88,7 +88,8 @@ namespace zdg_ui2 {
 				 SetSize();
 			 }
 
-			 static bool LogX, LogY, LogY2;
+			 //static bool LogX, LogY, LogY2;
+			 bool LogX, LogY, LogY2;
 	private: bool check_neg_log( int i, int i2)
 			 {
 				 ChartObject *chart = this->chartobject_ptr;
