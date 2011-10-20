@@ -7,7 +7,7 @@
 typedef unsigned char boolean;
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 #define OPTION_EOF -1
 #define OPTION_KEYWORD -2

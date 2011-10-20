@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 #define MAX_MODELS 20
 #define MIN_TOTAL_INVERSE 1e-14

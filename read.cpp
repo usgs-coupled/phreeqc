@@ -2,7 +2,7 @@
 #include <time.h>
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::

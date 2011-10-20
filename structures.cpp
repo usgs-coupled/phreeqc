@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::

@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 /* **********************************************************************
  *

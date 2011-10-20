@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 #define ZERO_TOL 1.0e-30
 

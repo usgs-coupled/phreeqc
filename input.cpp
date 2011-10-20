@@ -3,7 +3,7 @@
 #include "Phreeqc.h"
 #include <setjmp.h>
 //#include "input.h"
-#include "phrqproto.h"
+
 #include <istream>
 #include <fstream>
 #include "phqalloc.h"

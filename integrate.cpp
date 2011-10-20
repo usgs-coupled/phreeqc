@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 
 #define MAX_QUAD 20
 #define K_POLY 5

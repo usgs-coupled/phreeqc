@@ -1,7 +1,7 @@
 typedef unsigned char boolean;
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 #define STRING 11
 #define NUMBER 12
 #define MIXED 13

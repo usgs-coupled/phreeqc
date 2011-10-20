@@ -4,7 +4,7 @@
 typedef unsigned char boolean;
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqproto.h"
+
 #include "p2c.h"
 #include "NameDouble.h"
 
