@@ -151,38 +151,7 @@ pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr)
 	memcpy(new_ptr, old_ptr, sizeof(struct pitz_param));
 	return (OK);
 }
-#if !defined(PHREEQC_CPP)
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-pitz_param_search(struct pitz_param *pzp_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *  Does linear search of pitz_params for same type and species
- *  Returns -1 if not found, index number in pitz_params if found
- */
-	int i;
-	if (pzp_ptr == NULL)
-		return -1;
-	if (pzp_ptr->type == TYPE_Other)
-		return -1;
-	for (i = 0; i < count_pitz_param; i++)
-	{
-		if (pitz_params[i]->type == pzp_ptr->type &&
-			pitz_params[i]->species[0] == pzp_ptr->species[0] &&
-			pitz_params[i]->species[1] == pzp_ptr->species[1] &&
-			pitz_params[i]->species[2] == pzp_ptr->species[2])
-		{
-			break;
-		}
-	}
-	if (i >= count_pitz_param)
-	{
-		return -1;
-	}
-	return i;
-}
-#else
+
 #include <list>
 #include <string>
 /* ---------------------------------------------------------------------- */
@@ -240,39 +209,8 @@ pitz_param_search(struct pitz_param *pzp_ptr)
 	}
 	return i;
 }
-#endif
-#if !defined(PHREEQC_CPP)
-/* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
-sit_param_search(struct pitz_param *pzp_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *  Does linear search of pitz_params for same type and species
- *  Returns -1 if not found, index number in pitz_params if found
- */
-	int i;
-	if (pzp_ptr == NULL)
-		return -1;
-	if (pzp_ptr->type == TYPE_Other)
-		return -1;
-	for (i = 0; i < count_sit_param; i++)
-	{
-		if (sit_params[i]->type == pzp_ptr->type &&
-			sit_params[i]->species[0] == pzp_ptr->species[0] &&
-			sit_params[i]->species[1] == pzp_ptr->species[1] &&
-			sit_params[i]->species[2] == pzp_ptr->species[2])
-		{
-			break;
-		}
-	}
-	if (i >= count_sit_param)
-	{
-		return -1;
-	}
-	return i;
-}
-#else
+
+
 #include <list>
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -329,7 +267,7 @@ sit_param_search(struct pitz_param *pzp_ptr)
 	}
 	return i;
 }
-#endif
+
 /* **********************************************************************
  *
  *   Routines related to structure "theta_parm"

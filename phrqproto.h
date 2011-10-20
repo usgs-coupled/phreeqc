@@ -1,14 +1,5 @@
 #ifndef _INC_PHRQPROTO_H
 #define _INC_PHRQPROTO_H
-#if !defined(PHREEQC_CLASS)
-#define CLASS_STATIC
-//#include <string>
-#if defined(PHREEQC_CPP)
-class cxxNameDouble;
-#include <string>				// std::string
-#include <map>
-#endif
-#endif
 
 /* advection.c */
 int advection(void);
@@ -56,10 +47,8 @@ CLASS_STATIC int system_species_compare(const void *ptr1, const void *ptr2);
 LDBLE total_mole(const char *total_name);
 LDBLE system_total(const char *total_name, LDBLE * count, char ***names,
 				   char ***types, LDBLE ** moles);
-#if defined (PHREEQC_CPP)
 std::string phase_formula(std::string phase_name, cxxNameDouble &stoichiometry);
 LDBLE list_s_s(std::string s_s_name, cxxNameDouble &composition);
-#endif
 int system_total_elements(void);
 int system_total_si(void);
 int system_total_aq(void);
@@ -583,7 +572,6 @@ int set_reaction_temperature(int n_user, LDBLE tc);
 int set_kinetics_time(int n_user, LDBLE step);
 #endif
 
-#if defined (PHREEQC_CPP)
 // convert class to struct
 class cxxMix;
 struct mix * cxxMix2mix(const cxxMix *mx);
@@ -635,8 +623,6 @@ void phreeqc2cxxStorageBin(cxxStorageBin & sb, int n);
 void cxxStorageBin2phreeqc(cxxStorageBin & sb, int n);
 void cxxStorageBin2phreeqc(cxxStorageBin & sb);
 void cxxStorageBin2preeqc(cxxStorageBin & sb);
-
-#endif
 
 /* tidy.c */
 int add_other_logk(LDBLE * source_k, int count_add_logk,

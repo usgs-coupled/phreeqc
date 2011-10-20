@@ -43,7 +43,6 @@ __p2c_jmp_buf *__top_jb;
 #define CLASS_QUALIFIER
 #else
 #include "Phreeqc.h"
-#include "output.h"
 #define CLASS_QUALIFIER Phreeqc::
 #endif /* PHREEQC_CLASS */
 

@@ -2790,7 +2790,6 @@ reset(void)
 					}
 					delta[i] = 0.0;
 				}
-#ifdef PHREEQC_CPP
 				else if (x[i]->s_s_comp != NULL && delta[i] < -x[i]->s_s_comp->phase->delta_max)
 				// Uses delta_max computed in step
 				// delta_max is the maximum amount of the mineral that could form based
@@ -2808,22 +2807,6 @@ reset(void)
 						factor = f0;
 					}
 				}
-#else
-				else if (delta[i] < -100.0)
-				{
-					f0 = -delta[i] / 100.0;
-					if (f0 > factor)
-					{
-						if (debug_model == TRUE)
-						{
-							output_temp_msg(sformatf(
-									   "%-10.10s, Precipitating too much mineral.\t%f\n",
-									   x[i]->description, (double) f0));
-						}
-						factor = f0;
-					}
-				}
-#endif
 			}
 		}
 	}

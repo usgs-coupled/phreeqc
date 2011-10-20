@@ -1,59 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include <assert.h>
-
-#if !defined(PHREEQC_CLASS)
-	#define PITZER_EXTERNAL extern
-	#include "pitzer.h"
-
-	static char const svnid[] = "$Id$";
-
-	static int print_alkalinity(void);
-	static int print_diffuse_layer(struct surface_charge *surface_charge_ptr);
-	static int print_eh(void);
-	static int print_irrev(void);
-	static int print_kinetics(void);
-	static int print_mix(void);
-	static int print_pp_assemblage(void);
-	static int print_s_s_assemblage(void);
-	static int print_saturation_indices(void);
-	static int print_surface_cd_music(void);
-	static int print_totals(void);
-	static int print_using(void);
-	/*static int print_user_print(void);*/
-	static int punch_gas_phase(void);
-	static int punch_identifiers(void);
-	static int punch_kinetics(void);
-	static int punch_molalities(void);
-	static int punch_activities(void);
-	static int punch_pp_assemblage(void);
-	static int punch_s_s_assemblage(void);
-	static int punch_saturation_indices(void);
-	static int punch_totals(void);
-	static int punch_user_punch(void);
-#if defined (PHREEQC_CPP)
-#include "../runner.h"
-	extern runner run_info;
-#endif
-	#if defined PHREEQ98 
-		static int punch_user_graph(void);
-		extern int colnr, rownr;
-		extern int connect_simulations, graph_initial_solutions;
-		extern int prev_advection_step, prev_transport_step;	/*, prev_reaction_step */
-		/* extern int shifts_as_points; */
-		extern int chart_type;
-		extern int AddSeries;
-		extern int FirstCallToUSER_GRAPH;
-#elif defined MULTICHART
-	int punch_user_graph(void);
-#endif
-#endif /* !PHREEQC_CLASS */
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -861,13 +809,11 @@ print_kinetics(void)
 		kin_time_x = advection_kin_time;
 	}
 	sim_time = 0.;
-#if defined(PHREEQC_CPP)
 	if (run_info.Get_run_cells())
 	{
 		sim_time = rate_sim_time;
 	}
 	else
-#endif
 	{
 		if (incremental_reactions == TRUE)
 		{

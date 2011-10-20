@@ -8172,7 +8172,6 @@ copier_init(struct copier *copier_ptr)
 	return (OK);
 }
 
-#ifdef PHREEQC_CPP
 #include "../cxxMix.h"
 struct mix * CLASS_QUALIFIER
 cxxMix2mix(const cxxMix * mx)
@@ -9704,4 +9703,4 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		}
 	}
 }
-#endif
+

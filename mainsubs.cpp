@@ -31,17 +31,7 @@ extern void SAX_cleanup(void);
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif
-#if !defined(PHREEQC_CLASS)
-	#ifdef PHREEQC_CPP
-	extern int dump_entities(void);
-	extern int delete_entities(void);
-	extern int run_as_cells(void);
-	#endif
-	#ifdef PHREEQ98
-	extern int phreeq98_debug;
-	extern int AddSeries, connect_simulations;
-	#endif
-#endif // !PHREEQC_CLASS
+
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER
 initialize(void)
@@ -3373,9 +3363,6 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 				output_temp_msg(sformatf( "%s\n\n", title_x));
 		}
 		tidy_model();
-#ifdef PHREEQC_CPP
-		/*test_classes(); */
-#endif
 #ifdef PHREEQ98
 		if (!phreeq98_debug)
 		{
@@ -3425,17 +3412,14 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 				dup_print("Beginning of transport calculations.", TRUE);
 				transport();
 			}
-#ifdef PHREEQC_CPP
 /*
  *   run
  */
 			run_as_cells();
-#endif
 /*
  *   Copy
  */
 			if (new_copy) copy_entities();
-#ifdef PHREEQC_CPP
 /*
  *   dump
  */
@@ -3444,7 +3428,6 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
  *   delete
  */
 			delete_entities();
-#endif
 /*
  *   End of simulation
  */

@@ -7,14 +7,12 @@
 #include "phqalloc.h"
 #include "phrqproto.h"
 
-#ifdef PHREEQC_CPP
-#include "../StorageBin.h"
-#include "../Solution.h"
-#include "../PPassemblage.h"
-#include "../SSassemblage.h"
-#include "../SSassemblageSS.h"
-#include "../NameDouble.h"
-#endif
+#include "StorageBin.h"
+#include "Solution.h"
+#include "PPassemblage.h"
+#include "SSassemblage.h"
+#include "SSassemblageSS.h"
+#include "NameDouble.h"
 
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";
@@ -228,7 +226,6 @@ step(LDBLE step_fraction)
 			(struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 
-#ifdef PHREEQC_CPP
 	//
 	// Solution -1 has sum of solution/mix, exchange, surface, gas_phase
 	// reaction, kinetics
@@ -309,9 +306,6 @@ step(LDBLE step_fraction)
 			}
 		}
 	}
-#endif
-
-
 
 	return (OK);
 }

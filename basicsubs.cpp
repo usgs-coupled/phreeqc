@@ -1,33 +1,8 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
-#if defined PHREEQC_CPP
 #include "../NameDouble.h"
-#endif
-static char const svnid[] =
-	"$Id$";
-/*
-struct system_species
-{
-	char *name;
-	char *type;
-	LDBLE moles;
-};
-struct system_species *sys;
-int count_sys, max_sys;
 
-LDBLE sys_tot;
-LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
-LDBLE solution_mass, solution_volume;
-LDBLE f_rho(LDBLE rho_old);
-extern LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
-*/
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 activity(const char *species_name)
@@ -35,8 +10,6 @@ activity(const char *species_name)
 {
 	struct species *s_ptr;
 	LDBLE a;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 
 	s_ptr = s_search(species_name);
 	if (s_ptr == s_h2o)
@@ -1217,7 +1190,7 @@ sum_match_s_s(const char *mytemplate, const char *name)
 	}
 	return (tot);
 }
-#if defined PHREEQC_CPP
+
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 list_s_s(std::string s_s_name, cxxNameDouble &composition)
@@ -1244,7 +1217,7 @@ list_s_s(std::string s_s_name, cxxNameDouble &composition)
 	}
 	return (tot);
 }
-#endif
+
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 match_elts_in_species(const char *name, const char *mytemplate)
@@ -1831,7 +1804,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 	PHRQ_free(sys);
 	return (sys_tot);
 }
-#if defined PHREEQC_CPP
+
 /* ---------------------------------------------------------------------- */
 std::string CLASS_QUALIFIER
 phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
@@ -1855,7 +1828,7 @@ phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
 
 	return (formula);
 }
-#endif
+
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 system_total_elements(void)
