@@ -4,14 +4,14 @@
 #include "phrqproto.h"
 #include "input.h"
 
-#define CLASS_QUALIFIER Phreeqc::
+//#define Phreeqc:: Phreeqc::
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -800,7 +800,7 @@ initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_use(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1031,7 +1031,7 @@ set_use(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 initial_solutions(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1120,7 +1120,7 @@ initial_solutions(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 initial_exchangers(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1206,7 +1206,7 @@ initial_exchangers(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 initial_gas_phases(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1305,7 +1305,7 @@ initial_gas_phases(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 initial_surfaces(int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1370,7 +1370,7 @@ initial_surfaces(int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1552,7 +1552,7 @@ reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 saver(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1651,7 +1651,7 @@ saver(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xexchange_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1773,7 +1773,7 @@ xexchange_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xgas_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1862,7 +1862,7 @@ xgas_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xs_s_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1952,7 +1952,7 @@ xs_s_assemblage_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xpp_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2037,7 +2037,7 @@ xpp_assemblage_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xsolution_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2340,7 +2340,7 @@ xsolution_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xsurface_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2602,7 +2602,7 @@ xsurface_save(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-FILE * CLASS_QUALIFIER
+FILE * Phreeqc::
 file_open(char *query, char *default_name, const char *status, int batch)
 /* ---------------------------------------------------------------------- */
 {
@@ -2721,7 +2721,7 @@ file_open(char *query, char *default_name, const char *status, int batch)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copy_use(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -2855,7 +2855,7 @@ copy_use(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 step_save_exch(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2912,7 +2912,7 @@ step_save_exch(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 step_save_surf(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2984,7 +2984,7 @@ step_save_surf(int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copy_entities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3248,7 +3248,7 @@ copy_entities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -3274,7 +3274,7 @@ read_database(PFN_READ_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -3400,7 +3400,7 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 do_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3421,7 +3421,7 @@ do_initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 do_status(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3451,7 +3451,7 @@ do_status(void)
 	}
 	return 0;
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 save_init(int i)
 {
 	save.solution = i;
@@ -3482,7 +3482,7 @@ save_init(int i)
 	save.n_s_s_assemblage_user = i;
 	save.n_s_s_assemblage_user_end = i;
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 use_init(void)
 {
 	use.solution_in = FALSE;

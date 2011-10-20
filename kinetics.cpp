@@ -38,7 +38,7 @@
 #define KINETICS_TOL 1e-8;
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 /* ---------------------------------------------------------------------- */
 {
@@ -129,7 +129,7 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -245,7 +245,7 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
@@ -1095,7 +1095,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 					LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
@@ -1423,7 +1423,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 			LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
@@ -1496,7 +1496,7 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /* ---------------------------------------------------------------------- */
 {
@@ -1705,7 +1705,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_reaction(int i, int use_mix, int use_kinetics)
 /* ---------------------------------------------------------------------- */
 {
@@ -1854,7 +1854,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -2238,7 +2238,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 free_cvode(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2278,7 +2278,7 @@ free_cvode(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /* ---------------------------------------------------------------------- */
 {
@@ -2467,7 +2467,7 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 store_get_equi_reactants(int l, int kin_end)
 /* ---------------------------------------------------------------------- */
 {
@@ -2582,7 +2582,7 @@ store_get_equi_reactants(int l, int kin_end)
 }
 
 
-void CLASS_QUALIFIER
+void Phreeqc::
 f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 			  void *f_data)
 {
@@ -2674,7 +2674,7 @@ static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 */
 
-void  CLASS_QUALIFIER
+void  Phreeqc::
 Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
 					 realtype h, realtype uround, void *jac_data,
@@ -2838,7 +2838,7 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	return;
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 cvode_init(void)
 {
 	cvode_kinetics_ptr = NULL;

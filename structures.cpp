@@ -5,7 +5,7 @@
 #include "phrqproto.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 clean_up(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -421,7 +421,7 @@ clean_up(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 reinitialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -503,7 +503,7 @@ reinitialize(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 element_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -516,7 +516,7 @@ element_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct element * CLASS_QUALIFIER
+struct element * Phreeqc::
 element_store(const char *element)
 /* ---------------------------------------------------------------------- */
 {
@@ -593,7 +593,7 @@ element_store(const char *element)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 elt_list_combine(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -635,7 +635,7 @@ elt_list_combine(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 elt_list_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -647,7 +647,7 @@ elt_list_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct elt_list * CLASS_QUALIFIER
+struct elt_list * Phreeqc::
 elt_list_dup(struct elt_list *elt_list_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -677,7 +677,7 @@ elt_list_dup(struct elt_list *elt_list_ptr_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 elt_list_print(struct elt_list *elt_list_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -699,7 +699,7 @@ elt_list_print(struct elt_list *elt_list_ptr)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-struct elt_list * CLASS_QUALIFIER
+struct elt_list * Phreeqc::
 elt_list_save(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -742,7 +742,7 @@ elt_list_save(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct exchange * CLASS_QUALIFIER
+struct exchange * Phreeqc::
 exchange_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -767,7 +767,7 @@ exchange_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct exchange * CLASS_QUALIFIER
+struct exchange * Phreeqc::
 exchange_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -796,7 +796,7 @@ exchange_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_comp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -809,7 +809,7 @@ exchange_comp_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 exchange_comp_init(struct exch_comp *exch_comp_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -826,7 +826,7 @@ exchange_comp_init(struct exch_comp *exch_comp_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -842,7 +842,7 @@ exchange_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 exchange_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -862,7 +862,7 @@ exchange_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_copy(struct exchange *exchange_old_ptr,
 			  struct exchange *exchange_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -911,7 +911,7 @@ exchange_copy(struct exchange *exchange_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -927,7 +927,7 @@ exchange_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -960,7 +960,7 @@ exchange_delete(int n_user_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1013,7 +1013,7 @@ exchange_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_free(struct exchange *exchange_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1043,7 +1043,7 @@ exchange_free(struct exchange *exchange_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_init(struct exchange *exchange_ptr, int n_user, int n_user_end,
 			  const char *description)
 /* ---------------------------------------------------------------------- */
@@ -1073,7 +1073,7 @@ exchange_init(struct exchange *exchange_ptr, int n_user, int n_user_end,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1125,7 +1125,7 @@ exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct exchange * CLASS_QUALIFIER
+struct exchange * Phreeqc::
 exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1136,7 +1136,7 @@ exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct exchange * CLASS_QUALIFIER
+struct exchange * Phreeqc::
 exchange_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -1169,7 +1169,7 @@ exchange_search(int n_user, int *n, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 exchange_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1190,7 +1190,7 @@ exchange_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_comp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1202,7 +1202,7 @@ gas_comp_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct gas_phase * CLASS_QUALIFIER
+struct gas_phase * Phreeqc::
 gas_phase_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1228,7 +1228,7 @@ gas_phase_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct gas_phase * CLASS_QUALIFIER
+struct gas_phase * Phreeqc::
 gas_phase_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1257,7 +1257,7 @@ gas_phase_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1273,7 +1273,7 @@ gas_phase_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 gas_phase_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1293,7 +1293,7 @@ gas_phase_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
 			   struct gas_phase *gas_phase_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -1333,7 +1333,7 @@ gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -1348,7 +1348,7 @@ gas_phase_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1381,7 +1381,7 @@ gas_phase_delete(int n_user_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1433,7 +1433,7 @@ gas_phase_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_free(struct gas_phase *gas_phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1453,7 +1453,7 @@ gas_phase_free(struct gas_phase *gas_phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_init(struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 			   char *description)
 /* ---------------------------------------------------------------------- */
@@ -1484,7 +1484,7 @@ gas_phase_init(struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1535,7 +1535,7 @@ gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct gas_phase * CLASS_QUALIFIER
+struct gas_phase * Phreeqc::
 gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -1546,7 +1546,7 @@ gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct gas_phase * CLASS_QUALIFIER
+struct gas_phase * Phreeqc::
 gas_phase_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1577,7 +1577,7 @@ gas_phase_search(int n_user, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1598,7 +1598,7 @@ gas_phase_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct inverse * CLASS_QUALIFIER
+struct inverse * Phreeqc::
 inverse_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1688,7 +1688,7 @@ inverse_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1708,7 +1708,7 @@ inverse_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_delete(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -1731,7 +1731,7 @@ inverse_delete(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_free(struct inverse *inverse_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1799,7 +1799,7 @@ inverse_free(struct inverse *inverse_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_isotope_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1823,7 +1823,7 @@ inverse_isotope_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct inverse * CLASS_QUALIFIER
+struct inverse * Phreeqc::
 inverse_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1854,7 +1854,7 @@ inverse_search(int n_user, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1875,7 +1875,7 @@ inverse_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct irrev * CLASS_QUALIFIER
+struct irrev * Phreeqc::
 irrev_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1904,7 +1904,7 @@ irrev_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1920,7 +1920,7 @@ irrev_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 irrev_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1940,7 +1940,7 @@ irrev_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_copy(struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
 		   int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -1992,7 +1992,7 @@ irrev_copy(struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -2025,7 +2025,7 @@ irrev_delete(int n_user_old)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2124,7 +2124,7 @@ irrev_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_free(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2144,7 +2144,7 @@ irrev_free(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct irrev * CLASS_QUALIFIER
+struct irrev * Phreeqc::
 irrev_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2171,7 +2171,7 @@ irrev_search(int n_user, int *n)
 	return (&irrev[i]);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_ptr_to_user(struct irrev *irrev_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2220,7 +2220,7 @@ irrev_ptr_to_user(struct irrev *irrev_ptr_old, int n_user_new)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 irrev_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2241,7 +2241,7 @@ irrev_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct kinetics * CLASS_QUALIFIER
+struct kinetics * Phreeqc::
 kinetics_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2265,7 +2265,7 @@ kinetics_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct kinetics * CLASS_QUALIFIER
+struct kinetics * Phreeqc::
 kinetics_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -2294,7 +2294,7 @@ kinetics_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2310,7 +2310,7 @@ kinetics_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 kinetics_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2330,7 +2330,7 @@ kinetics_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_copy(struct kinetics *kinetics_old_ptr,
 			  struct kinetics *kinetics_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -2405,7 +2405,7 @@ kinetics_copy(struct kinetics *kinetics_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr,
 						struct kinetics_comp *kinetics_comp_old_ptr)
 /* ---------------------------------------------------------------------- */
@@ -2480,7 +2480,7 @@ kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -2496,7 +2496,7 @@ kinetics_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -2529,7 +2529,7 @@ kinetics_delete(int n_user_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2581,7 +2581,7 @@ kinetics_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_free(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2614,7 +2614,7 @@ kinetics_free(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_init(struct kinetics *kinetics_ptr, int n_user, int n_user_end,
 			  char *description)
 /* ---------------------------------------------------------------------- */
@@ -2647,7 +2647,7 @@ kinetics_init(struct kinetics *kinetics_ptr, int n_user, int n_user_end,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2698,7 +2698,7 @@ kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct kinetics * CLASS_QUALIFIER
+struct kinetics * Phreeqc::
 kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -2709,7 +2709,7 @@ kinetics_replicate(struct kinetics *kinetics_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct kinetics * CLASS_QUALIFIER
+struct kinetics * Phreeqc::
 kinetics_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -2742,7 +2742,7 @@ kinetics_search(int n_user, int *n, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 kinetics_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2763,7 +2763,7 @@ kinetics_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 master_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -2804,7 +2804,7 @@ master_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 master_delete(char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2832,7 +2832,7 @@ master_delete(char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 master_free(struct master *master_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2849,7 +2849,7 @@ master_free(struct master *master_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 master_bsearch(const char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2891,7 +2891,7 @@ master_bsearch(const char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 master_compare_string(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2904,7 +2904,7 @@ master_compare_string(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 master_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2915,7 +2915,7 @@ master_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 master_bsearch_primary(char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2946,7 +2946,7 @@ master_bsearch_primary(char *ptr)
 	return (master_ptr_primary);
 }
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 master_bsearch_secondary(char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3013,7 +3013,7 @@ master_bsearch_secondary(char *ptr)
 	return (master_ptr_secondary);
 }
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 master_search(char *ptr, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3046,7 +3046,7 @@ master_search(char *ptr, int *n)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct mix * CLASS_QUALIFIER
+struct mix * Phreeqc::
 mix_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3075,7 +3075,7 @@ mix_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3091,7 +3091,7 @@ mix_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 mix_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3111,7 +3111,7 @@ mix_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_copy(struct mix *mix_old_ptr, struct mix *mix_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -3146,7 +3146,7 @@ mix_copy(struct mix *mix_old_ptr, struct mix *mix_new_ptr, int n_user_new)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3179,7 +3179,7 @@ mix_delete(int n_user_old)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -3255,7 +3255,7 @@ mix_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_free(struct mix *mix_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3271,7 +3271,7 @@ mix_free(struct mix *mix_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct mix * CLASS_QUALIFIER
+struct mix * Phreeqc::
 mix_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -3302,7 +3302,7 @@ mix_search(int n_user, int *n, int print)
 	return (&mix[i]);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -3353,7 +3353,7 @@ mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3374,7 +3374,7 @@ mix_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct pe_data * CLASS_QUALIFIER
+struct pe_data * Phreeqc::
 pe_data_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3416,7 +3416,7 @@ pe_data_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct pe_data * CLASS_QUALIFIER
+struct pe_data * Phreeqc::
 pe_data_dup(struct pe_data *pe_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -3449,7 +3449,7 @@ pe_data_dup(struct pe_data *pe_ptr_old)
 }
 
 /* ---------------------------------------------------------------------- */
-struct pe_data * CLASS_QUALIFIER
+struct pe_data * Phreeqc::
 pe_data_free(struct pe_data *pe_data_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3469,7 +3469,7 @@ pe_data_free(struct pe_data *pe_data_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pe_data_store(struct pe_data **pe, const char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -3513,7 +3513,7 @@ pe_data_store(struct pe_data **pe, const char *token)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct phase * CLASS_QUALIFIER
+struct phase * Phreeqc::
 phase_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3537,7 +3537,7 @@ phase_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 phase_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3551,7 +3551,7 @@ phase_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 phase_compare_string(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3563,7 +3563,7 @@ phase_compare_string(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 phase_delete(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -3586,7 +3586,7 @@ phase_delete(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 phase_free(struct phase *phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3610,7 +3610,7 @@ phase_free(struct phase *phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct phase * CLASS_QUALIFIER
+struct phase * Phreeqc::
 phase_bsearch(const char *ptr, int *j, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -3654,7 +3654,7 @@ phase_bsearch(const char *ptr, int *j, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 phase_init(struct phase *phase_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3683,7 +3683,7 @@ phase_init(struct phase *phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct phase * CLASS_QUALIFIER
+struct phase * Phreeqc::
 phase_store(char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -3763,7 +3763,7 @@ phase_store(char *name)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * Phreeqc::
 pp_assemblage_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3783,7 +3783,7 @@ pp_assemblage_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * Phreeqc::
 pp_assemblage_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -3820,7 +3820,7 @@ pp_assemblage_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3836,7 +3836,7 @@ pp_assemblage_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 pp_assemblage_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3856,7 +3856,7 @@ pp_assemblage_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr,
 				   struct pp_assemblage *pp_assemblage_new_ptr,
 				   int n_user_new)
@@ -3900,7 +3900,7 @@ pp_assemblage_copy(struct pp_assemblage *pp_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -3917,7 +3917,7 @@ pp_assemblage_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -3970,7 +3970,7 @@ pp_assemblage_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4003,7 +4003,7 @@ pp_assemblage_delete(int n_user_old)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_free(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4023,7 +4023,7 @@ pp_assemblage_free(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_init(struct pp_assemblage *pp_assemblage_ptr, int n_user,
 				   int n_user_end, char *description)
 /* ---------------------------------------------------------------------- */
@@ -4051,7 +4051,7 @@ pp_assemblage_init(struct pp_assemblage *pp_assemblage_ptr, int n_user,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old,
 						  int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -4104,7 +4104,7 @@ pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old,
 }
 
 /* ---------------------------------------------------------------------- */
-struct pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * Phreeqc::
 pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr,
 						int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -4116,7 +4116,7 @@ pp_assemblage_replicate(struct pp_assemblage *pp_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * Phreeqc::
 pp_assemblage_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4146,7 +4146,7 @@ pp_assemblage_search(int n_user, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4162,7 +4162,7 @@ pp_assemblage_sort(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pure_phase_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4179,7 +4179,7 @@ pure_phase_compare(const void *ptr1, const void *ptr2)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct rate * CLASS_QUALIFIER
+struct rate * Phreeqc::
 rate_bsearch(char *ptr, int *j)
 /* ---------------------------------------------------------------------- */
 {
@@ -4219,7 +4219,7 @@ rate_bsearch(char *ptr, int *j)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rate_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4233,7 +4233,7 @@ rate_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rate_compare_string(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4245,7 +4245,7 @@ rate_compare_string(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rate_free(struct rate *rate_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4271,7 +4271,7 @@ rate_free(struct rate *rate_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct rate * CLASS_QUALIFIER
+struct rate * Phreeqc::
 rate_search(char *name, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4302,7 +4302,7 @@ rate_search(char *name, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rate_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4323,7 +4323,7 @@ rate_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct reaction * CLASS_QUALIFIER
+struct reaction * Phreeqc::
 rxn_alloc(int ntokens)
 /* ---------------------------------------------------------------------- */
 {
@@ -4373,7 +4373,7 @@ rxn_alloc(int ntokens)
 }
 
 /* ---------------------------------------------------------------------- */
-struct reaction * CLASS_QUALIFIER
+struct reaction * Phreeqc::
 rxn_dup(struct reaction *rxn_ptr_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -4409,7 +4409,7 @@ rxn_dup(struct reaction *rxn_ptr_old)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 rxn_find_coef(struct reaction * r_ptr, const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -4439,7 +4439,7 @@ rxn_find_coef(struct reaction * r_ptr, const char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rxn_free(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4457,7 +4457,7 @@ rxn_free(struct reaction *rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rxn_print(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4508,7 +4508,7 @@ rxn_print(struct reaction *rxn_ptr)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct species * CLASS_QUALIFIER
+struct species * Phreeqc::
 s_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4530,7 +4530,7 @@ s_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4542,7 +4542,7 @@ s_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_delete(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -4562,7 +4562,7 @@ s_delete(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_free(struct species *s_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4586,7 +4586,7 @@ s_free(struct species *s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 s_init(struct species *s_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4661,7 +4661,7 @@ s_init(struct species *s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct species * CLASS_QUALIFIER
+struct species * Phreeqc::
 s_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -4693,7 +4693,7 @@ s_search(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-struct species * CLASS_QUALIFIER
+struct species * Phreeqc::
 s_store(char *name, LDBLE l_z, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -4778,7 +4778,7 @@ s_store(char *name, LDBLE l_z, int replace_if_found)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * Phreeqc::
 s_s_assemblage_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4797,7 +4797,7 @@ s_s_assemblage_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * Phreeqc::
 s_s_assemblage_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -4834,7 +4834,7 @@ s_s_assemblage_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4850,7 +4850,7 @@ s_s_assemblage_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4870,7 +4870,7 @@ s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
 					struct s_s_assemblage *s_s_assemblage_new_ptr,
 					int n_user_new)
@@ -4924,7 +4924,7 @@ s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -4941,7 +4941,7 @@ s_s_assemblage_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -4994,7 +4994,7 @@ s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -5028,7 +5028,7 @@ s_s_assemblage_delete(int n_user_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_free(struct s_s_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -5053,7 +5053,7 @@ s_s_assemblage_free(struct s_s_assemblage *s_s_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_init(struct s_s_assemblage *s_s_assemblage_ptr, int n_user,
 					int n_user_end, char *description)
 /* ---------------------------------------------------------------------- */
@@ -5072,7 +5072,7 @@ s_s_assemblage_init(struct s_s_assemblage *s_s_assemblage_ptr, int n_user,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
 						   int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -5125,7 +5125,7 @@ s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * Phreeqc::
 s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
 						 int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -5138,7 +5138,7 @@ s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * Phreeqc::
 s_s_assemblage_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5168,7 +5168,7 @@ s_s_assemblage_search(int n_user, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5184,7 +5184,7 @@ s_s_assemblage_sort(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5201,7 +5201,7 @@ s_s_compare(const void *ptr1, const void *ptr2)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct save_values * CLASS_QUALIFIER
+struct save_values * Phreeqc::
 save_values_bsearch(struct save_values *k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5231,7 +5231,7 @@ save_values_bsearch(struct save_values *k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_values_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5269,7 +5269,7 @@ save_values_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_values_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5285,7 +5285,7 @@ save_values_sort(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_values_store(struct save_values *s_v)
 /* ---------------------------------------------------------------------- */
 {
@@ -5340,7 +5340,7 @@ save_values_store(struct save_values *s_v)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 conc_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5352,7 +5352,7 @@ conc_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 conc_init(struct conc *conc_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -5369,7 +5369,7 @@ conc_init(struct conc *conc_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 isotope_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5393,7 +5393,7 @@ isotope_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct solution * CLASS_QUALIFIER
+struct solution * Phreeqc::
 solution_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -5463,7 +5463,7 @@ solution_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct solution * CLASS_QUALIFIER
+struct solution * Phreeqc::
 solution_bsearch(int k, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -5503,7 +5503,7 @@ solution_bsearch(int k, int *n, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5523,7 +5523,7 @@ solution_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5543,7 +5543,7 @@ solution_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-struct solution * CLASS_QUALIFIER
+struct solution * Phreeqc::
 solution_copy(struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5668,7 +5668,7 @@ solution_copy(struct solution *solution_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_copy_to_last(int n, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5689,7 +5689,7 @@ solution_copy_to_last(int n, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5754,7 +5754,7 @@ solution_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_delete(int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -5776,7 +5776,7 @@ solution_delete(int n_user)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_delete_n(int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -5796,7 +5796,7 @@ solution_delete_n(int n)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_free(struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -5829,7 +5829,7 @@ solution_free(struct solution *solution_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5893,7 +5893,7 @@ solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct solution * CLASS_QUALIFIER
+struct solution * Phreeqc::
 solution_replicate(struct solution *solution_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -5901,7 +5901,7 @@ solution_replicate(struct solution *solution_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5923,7 +5923,7 @@ solution_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 species_list_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5999,7 +5999,7 @@ species_list_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 species_list_compare_alk(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6028,7 +6028,7 @@ species_list_compare_alk(const void *ptr1, const void *ptr2)
 	}
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 species_list_compare_master(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6082,7 +6082,7 @@ species_list_compare_master(const void *ptr1, const void *ptr2)
 
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 species_list_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6103,7 +6103,7 @@ species_list_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct Change_Surf * CLASS_QUALIFIER
+struct Change_Surf * Phreeqc::
 change_surf_alloc(int count)
 /* ---------------------------------------------------------------------- */
 {
@@ -6123,7 +6123,7 @@ change_surf_alloc(int count)
 }
 
 /* ---------------------------------------------------------------------- */
-struct surface * CLASS_QUALIFIER
+struct surface * Phreeqc::
 surface_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6156,7 +6156,7 @@ surface_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct surface * CLASS_QUALIFIER
+struct surface * Phreeqc::
 surface_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -6190,7 +6190,7 @@ surface_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 surface_get_psi_master(const char *name, int plane)
 /* ---------------------------------------------------------------------- */
 {
@@ -6219,7 +6219,7 @@ surface_get_psi_master(const char *name, int plane)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_comp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6232,7 +6232,7 @@ surface_comp_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_charge_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6245,7 +6245,7 @@ surface_charge_compare(const void *ptr1, const void *ptr2)
 
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6261,7 +6261,7 @@ surface_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 surface_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6281,7 +6281,7 @@ surface_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_copy(struct surface *surface_old_ptr,
 			 struct surface *surface_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -6353,7 +6353,7 @@ surface_copy(struct surface *surface_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct surface_charge * CLASS_QUALIFIER
+struct surface_charge * Phreeqc::
 surface_charge_duplicate(struct surface_charge *charge_old_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -6378,7 +6378,7 @@ surface_charge_duplicate(struct surface_charge *charge_old_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_charge_free(struct surface_charge *charge)
 /* ---------------------------------------------------------------------- */
 {
@@ -6394,7 +6394,7 @@ surface_charge_free(struct surface_charge *charge)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -6409,7 +6409,7 @@ surface_copy_to_last(int n, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6461,7 +6461,7 @@ surface_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -6494,7 +6494,7 @@ surface_delete(int n_user_old)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_free(struct surface *surface_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -6542,7 +6542,7 @@ surface_free(struct surface *surface_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_init(struct surface *surface_ptr, int n_user, int n_user_end,
 			 char *description)
 /* ---------------------------------------------------------------------- */
@@ -6602,7 +6602,7 @@ surface_init(struct surface *surface_ptr, int n_user, int n_user_end,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6653,7 +6653,7 @@ surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct surface * CLASS_QUALIFIER
+struct surface * Phreeqc::
 surface_replicate(struct surface *surface_old_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6664,7 +6664,7 @@ surface_replicate(struct surface *surface_old_ptr, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-struct surface * CLASS_QUALIFIER
+struct surface * Phreeqc::
 surface_search(int n_user, int *n, int print)
 /* ---------------------------------------------------------------------- */
 {
@@ -6701,7 +6701,7 @@ surface_search(int n_user, int *n, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 surface_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6722,7 +6722,7 @@ surface_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct temperature * CLASS_QUALIFIER
+struct temperature * Phreeqc::
 temperature_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -6756,7 +6756,7 @@ temperature_bsearch(int k, int *n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6772,7 +6772,7 @@ temperature_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 temperature_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6792,7 +6792,7 @@ temperature_compare_int(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_copy(struct temperature *temperature_old_ptr,
 				 struct temperature *temperature_new_ptr, int n_user_new)
 /* ---------------------------------------------------------------------- */
@@ -6837,7 +6837,7 @@ temperature_copy(struct temperature *temperature_old_ptr,
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
@@ -6870,7 +6870,7 @@ temperature_delete(int n_user_old)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_duplicate(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -6950,7 +6950,7 @@ temperature_duplicate(int n_user_old, int n_user_new)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_free(struct temperature *temperature_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -6967,7 +6967,7 @@ temperature_free(struct temperature *temperature_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct temperature * CLASS_QUALIFIER
+struct temperature * Phreeqc::
 temperature_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
@@ -6998,7 +6998,7 @@ temperature_search(int n_user, int *n)
 	return (&temperature[i]);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_ptr_to_user(struct temperature * temperature_ptr_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -7048,7 +7048,7 @@ temperature_ptr_to_user(struct temperature * temperature_ptr_old, int n_user_new
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 temperature_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7069,7 +7069,7 @@ temperature_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 rxn_token_temp_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -7080,7 +7080,7 @@ rxn_token_temp_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 /* ---------------------------------------------------------------------- */
 {
@@ -7146,7 +7146,7 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 /* ---------------------------------------------------------------------- */
 {
@@ -7212,7 +7212,7 @@ trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_combine(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7276,7 +7276,7 @@ trxn_combine(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_copy(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -7316,7 +7316,7 @@ trxn_copy(struct reaction *rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 trxn_find_coef(const char *str, int start)
 /* ---------------------------------------------------------------------- */
 {
@@ -7343,7 +7343,7 @@ trxn_find_coef(const char *str, int start)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_multiply(LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -7379,7 +7379,7 @@ trxn_multiply(LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7419,7 +7419,7 @@ trxn_print(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_reverse_k(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7442,7 +7442,7 @@ trxn_reverse_k(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_sort(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7459,7 +7459,7 @@ trxn_sort(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 trxn_swap(const char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -7521,7 +7521,7 @@ trxn_swap(const char *token)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct unknown * CLASS_QUALIFIER
+struct unknown * Phreeqc::
 unknown_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7577,7 +7577,7 @@ unknown_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 unknown_delete(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -7595,7 +7595,7 @@ unknown_delete(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 unknown_free(struct unknown *unknown_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -7620,7 +7620,7 @@ unknown_free(struct unknown *unknown_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_duplicate(int i, int save_old)
 /* ---------------------------------------------------------------------- */
 {
@@ -7644,7 +7644,7 @@ system_duplicate(int i, int save_old)
 }
 
 /* ---------------------------------------------------------------------- */
-struct logk * CLASS_QUALIFIER
+struct logk * Phreeqc::
 logk_store(char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -7720,7 +7720,7 @@ logk_store(char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct logk * CLASS_QUALIFIER
+struct logk * Phreeqc::
 logk_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -7742,7 +7742,7 @@ logk_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 logk_init(struct logk *logk_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -7769,7 +7769,7 @@ logk_init(struct logk *logk_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 logk_copy2orig(struct logk *logk_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -7785,7 +7785,7 @@ logk_copy2orig(struct logk *logk_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct logk * CLASS_QUALIFIER
+struct logk * Phreeqc::
 logk_search(char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -7818,7 +7818,7 @@ logk_search(char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 entity_exists(char *name, int n_user)
 /* ---------------------------------------------------------------------- */
 {
@@ -7918,7 +7918,7 @@ entity_exists(char *name, int n_user)
 }
 
 /* ---------------------------------------------------------------------- */
-enum entity_type CLASS_QUALIFIER
+enum entity_type Phreeqc::
 get_entity_enum(char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -8020,7 +8020,7 @@ get_entity_enum(char *name)
  * copier routines
  */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copier_add(struct copier *copier_ptr, int n_user, int start, int end)
 /* ---------------------------------------------------------------------- */
 /*
@@ -8055,7 +8055,7 @@ copier_add(struct copier *copier_ptr, int n_user, int start, int end)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copier_free(struct copier *copier_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -8070,7 +8070,7 @@ copier_free(struct copier *copier_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copier_init(struct copier *copier_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -8090,7 +8090,7 @@ copier_init(struct copier *copier_ptr)
 }
 
 #include "../cxxMix.h"
-struct mix * CLASS_QUALIFIER
+struct mix * Phreeqc::
 cxxMix2mix(const cxxMix * mx)
 		//
 		// Builds a mix structure from instance of cxxMix 
@@ -8130,7 +8130,7 @@ cxxMix2mix(const cxxMix * mx)
 }
 
 #include "../Exchange.h"
-struct exchange * CLASS_QUALIFIER
+struct exchange * Phreeqc::
 cxxExchange2exchange(const cxxExchange * ex)
 		//
 		// Builds a exchange structure from instance of cxxExchange
@@ -8154,7 +8154,7 @@ cxxExchange2exchange(const cxxExchange * ex)
 }
 
 #include "../Exchange.h"
-struct exch_comp * CLASS_QUALIFIER
+struct exch_comp * Phreeqc::
 cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
 		//
 		// Builds exch_comp structure from of cxxExchComp 
@@ -8194,7 +8194,7 @@ cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
 	return (exch_comp_ptr);
 }
 
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 Get_exch_master(const cxxExchComp * ec)
 {
 	struct master *master_ptr = NULL;
@@ -8265,7 +8265,7 @@ Get_exch_master(const cxxExchComp * ec)
 }
 
 #include "../GasPhase.h"
-struct gas_phase * CLASS_QUALIFIER
+struct gas_phase * Phreeqc::
 cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 		//
 		// Builds a gas_phase structure from instance of cxxGasPhase 
@@ -8300,7 +8300,7 @@ cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 	return (gas_phase_ptr);
 }
 
-struct gas_comp * CLASS_QUALIFIER
+struct gas_comp * Phreeqc::
 cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
 {
 	struct gas_comp *gas_comp_ptr = NULL;
@@ -8328,7 +8328,7 @@ cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
 }
 
 #include "../cxxKinetics.h"
-struct kinetics * CLASS_QUALIFIER
+struct kinetics * Phreeqc::
 cxxKinetics2kinetics(const cxxKinetics * kin)
 		//
 		// Builds a kinetics structure from instance of cxxKinetics 
@@ -8383,7 +8383,7 @@ cxxKinetics2kinetics(const cxxKinetics * kin)
 	return (kinetics_ptr);
 }
 
-struct kinetics_comp * CLASS_QUALIFIER
+struct kinetics_comp * Phreeqc::
 cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 		//
 		// Builds kinetics_comp structure from of cxxKineticsComp 
@@ -8435,7 +8435,7 @@ cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 }
 
 #include "../PPassemblage.h"
-struct pp_assemblage * CLASS_QUALIFIER
+struct pp_assemblage * Phreeqc::
 cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
 		//
 		// Builds a pp_assemblage structure from instance of cxxPPassemblage 
@@ -8457,7 +8457,7 @@ cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
 }
 
 #include "../PPassemblageComp.h"
-struct pure_phase * CLASS_QUALIFIER
+struct pure_phase * Phreeqc::
 cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp > * ppc)
 		//
 		// Builds pure_phase structure from of cxxPPassemblageComp 
@@ -8494,7 +8494,7 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 }
 
 #include "../Reaction.h"
-struct irrev * CLASS_QUALIFIER
+struct irrev * Phreeqc::
 cxxReaction2irrev(const cxxReaction * rxn)
 		//
 		// Builds a irrev structure from instance of cxxReaction 
@@ -8546,7 +8546,7 @@ cxxReaction2irrev(const cxxReaction * rxn)
 }
 
 #include "../Solution.h"
-struct solution * CLASS_QUALIFIER
+struct solution * Phreeqc::
 cxxSolution2solution(const cxxSolution * sol)
 		//
 		// Builds a solution structure from instance of cxxSolution 
@@ -8602,7 +8602,7 @@ cxxSolution2solution(const cxxSolution * sol)
 }
 
 #include "../SolutionIsotopeList.h"
-struct isotope * CLASS_QUALIFIER
+struct isotope * Phreeqc::
 cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 {
 	struct isotope *iso;
@@ -8636,7 +8636,7 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 
 #include "../SSassemblage.h"
 #include "../SSassemblageSS.h"
-struct s_s_assemblage * CLASS_QUALIFIER
+struct s_s_assemblage * Phreeqc::
 cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 		//
 		// Builds a s_s_assemblage structure from instance of cxxSSassemblage 
@@ -8653,7 +8653,7 @@ cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 	return (s_s_assemblage_ptr);
 }
 
-struct s_s * CLASS_QUALIFIER
+struct s_s * Phreeqc::
 cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp)
 		//
 		// Builds s_s structure from of cxxSSassemblageSS 
@@ -8738,7 +8738,7 @@ cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp
 }
 
 #include "../Surface.h"
-struct surface * CLASS_QUALIFIER
+struct surface * Phreeqc::
 cxxSurface2surface(const cxxSurface * surf)
 		//
 		// Builds a surface structure from instance of cxxSurface 
@@ -8821,7 +8821,7 @@ cxxSurface2surface(const cxxSurface * surf)
 }
 
 #include "../SurfaceComp.h"
-struct surface_comp * CLASS_QUALIFIER
+struct surface_comp * Phreeqc::
 cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc)
 	//
 	// Builds surface_comp structure from of cxxSurfaceComp 
@@ -8862,7 +8862,7 @@ cxxSurfaceComp2surface_comp(const std::map < std::string, cxxSurfaceComp > * sc)
 }
 
 #include "../SurfaceCharge.h"
-struct surface_charge * CLASS_QUALIFIER
+struct surface_charge * Phreeqc::
 cxxSurfaceCharge2surface_charge(const std::map < std::string, cxxSurfaceCharge > * s_ch)
 	//
 	// Builds surface_charge structure from of cxxSurfaceCharge 
@@ -8900,7 +8900,7 @@ cxxSurfaceCharge2surface_charge(const std::map < std::string, cxxSurfaceCharge >
 	return (surf_charge_ptr);
 }
 
-struct master * CLASS_QUALIFIER
+struct master * Phreeqc::
 cxxNameDouble2surface_master(const cxxNameDouble * totals)
 {
 	struct master *master_ptr = NULL;
@@ -8934,7 +8934,7 @@ cxxNameDouble2surface_master(const cxxNameDouble * totals)
 	}
 	return (master_ptr);
 }
-struct conc * CLASS_QUALIFIER
+struct conc * Phreeqc::
 cxxNameDouble2conc(const cxxNameDouble * nd) 
 		// for Solutions, not ISolutions
 		// takes a map of (elt name, moles)
@@ -8966,7 +8966,7 @@ cxxNameDouble2conc(const cxxNameDouble * nd)
 	return (c);
 }
 
-struct name_coef * CLASS_QUALIFIER
+struct name_coef * Phreeqc::
 cxxNameDouble2name_coef(const cxxNameDouble * nd)
 		//
 		// Builds a name_coef structure from instance of cxxNameDouble 
@@ -8988,7 +8988,7 @@ cxxNameDouble2name_coef(const cxxNameDouble * nd)
 	return (name_coef_ptr);
 }
 
-struct elt_list * CLASS_QUALIFIER
+struct elt_list * Phreeqc::
 cxxNameDouble2elt_list(const cxxNameDouble * nd)
 		//
 		// Builds a exch_comp structure from instance of cxxNameDouble 
@@ -9013,7 +9013,7 @@ cxxNameDouble2elt_list(const cxxNameDouble * nd)
 	return (elt_list_ptr);
 }
 
-struct master_activity * CLASS_QUALIFIER
+struct master_activity * Phreeqc::
 cxxNameDouble2master_activity(const cxxNameDouble * nd) 
 		//
 		// Builds a list of master_activity structures from instance of cxxNameDouble 
@@ -9067,7 +9067,7 @@ cxxNameDouble2master_activity(const cxxNameDouble * nd)
 }
 
 #include "../Temperature.h"
-struct temperature * CLASS_QUALIFIER
+struct temperature * Phreeqc::
 cxxTemperature2temperature(const cxxTemperature *temp)
 		//
 		// Builds a temperature structure from instance of cxxTemperature 
@@ -9104,7 +9104,7 @@ cxxTemperature2temperature(const cxxTemperature *temp)
 
 #include "../StorageBin.h"
 
-void CLASS_QUALIFIER
+void Phreeqc::
 Use2cxxStorageBin(cxxStorageBin & sb)
 {
 	//Add everything from use structure to storagebin sb
@@ -9217,7 +9217,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	//
 	// Fills StorageBin sb with all reactants from phreeqc instance.
@@ -9297,7 +9297,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		//
 		// copy phreeqc reactants numbered n to StorageBin sb
@@ -9368,7 +9368,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		}
 	}
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 //
 // copy all reactants from storage bin number n to phreeqc
@@ -9495,7 +9495,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		}
 	}
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 cxxStorageBin2phreeqc(cxxStorageBin & sb)
 //
 // copy data from storage bin to phreeqc

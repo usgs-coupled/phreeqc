@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-#define CLASS_QUALIFIER Phreeqc::
+//#define Phreeqc:: Phreeqc::
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "phrqtype.h"
@@ -25,7 +25,7 @@ extern void malloc_error(void);
  */
 
 
-int CLASS_QUALIFIER
+int Phreeqc::
 cl1mp(int k, int l, int m, int n,
 	  int nklmd, int n2d,
 	  LDBLE * q_arg,

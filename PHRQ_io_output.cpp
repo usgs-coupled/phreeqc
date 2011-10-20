@@ -4,7 +4,7 @@
 #include "phqalloc.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 warning_msg(const char *err_str)
 /* ---------------------------------------------------------------------- */
 {
@@ -23,14 +23,14 @@ warning_msg(const char *err_str)
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 screen_msg(const char *err_str)
 /* ---------------------------------------------------------------------- */
 {
 	fprintf(stderr, "%s", err_str);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 echo_msg(const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -40,38 +40,8 @@ echo_msg(const char *str)
 	}
 }
 
-///* ---------------------------------------------------------------------- */
-//int CLASS_QUALIFIER
-//output_msg(const int type, const char *format, ...)
-///* ---------------------------------------------------------------------- */
-//{
-//
-//	va_list args;
-//	va_start(args, format);
-//	int type_local = type;
-//	
-//	//if (get_forward_output_to_log() && type == PHRQ_io::OUTPUT_MESSAGE)
-//	//{
-//	//	//type_local = PHRQ_io::OUTPUT_LOG;
-//	//	char temp_buff[1000];
-//	//	vsnprintf(temp_buff, 999, format, args);
-//	//	phrq_io->log_msg(temp_buff);
-//	//	return 1;
-//	//}
-//
-//	//switch (type_local)
-//	//{
-//	//default:
-//	//	break;
-//	//}
-//
-//	phrq_io->output_msg(type_local, format, args);
-//	va_end(args);
-//
-//	return OK;
-//}
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 set_forward_output_to_log(int value)
 /* ---------------------------------------------------------------------- */
 {
@@ -79,48 +49,12 @@ set_forward_output_to_log(int value)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_forward_output_to_log(void)
 /* ---------------------------------------------------------------------- */
 {
 	return forward_output_to_log;
 }
-
-///* ---------------------------------------------------------------------- */
-//int CLASS_QUALIFIER
-//output_fflush(const int type)
-///* ---------------------------------------------------------------------- */
-//{
-//
-//	phrq_io->output_fflush(type);
-//	return OK;
-//}
-//
-///* ---------------------------------------------------------------------- */
-//int CLASS_QUALIFIER
-//output_rewind(const int type)
-///* ---------------------------------------------------------------------- */
-//{
-//	phrq_io->output_rewind(type);
-//	return OK;
-//}
-//
-//int CLASS_QUALIFIER
-//output_close(const int type)
-///* ---------------------------------------------------------------------- */
-//{
-//	phrq_io->output_close(type);
-//	return OK;
-//}
-//
-///* ---------------------------------------------------------------------- */
-//int CLASS_QUALIFIER
-//output_open(const int type, const char *file_name)
-///* ---------------------------------------------------------------------- */
-//{
-//	assert(file_name && strlen(file_name));
-//	return phrq_io->output_open(type, file_name);
-//}
 
 #if defined(HDF5_CREATE)
 extern void HDFWriteHyperSlabV(const char *name, const char *format,
@@ -131,7 +65,7 @@ extern void HDFWriteHyperSlabV(const char *name, const char *format,
 extern int Merge_fpunchf(const int length, const char *format,
 						 va_list argptr);
 #endif
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf_heading(const char *name)
 {
 	if (pr.punch == TRUE && punch.in == TRUE)
@@ -139,34 +73,23 @@ fpunchf_heading(const char *name)
 		punch_msg(name);
 	}
 }
-//int CLASS_QUALIFIER
-//fpunchf(const char *name, const char *format, ...)
-//{
-//
-//	va_list args;
-//	va_start(args, format);
-//	phrq_io->fpunchf(name, format, args);
-//	va_end(args);
-//
-//	return OK;
-//}
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf(const char *name, const char *format, double d)
 {
 	phrq_io->fpunchf(name, format, d);
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf(const char *name, const char *format, char * s)
 {
 	phrq_io->fpunchf(name, format, s);
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf(const char *name, const char *format, int d)
 {
 	phrq_io->fpunchf(name, format, d);
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf_user(int user_index, const char *format, double d)
 {
 	static int s_warning = 0;
@@ -194,7 +117,7 @@ fpunchf_user(int user_index, const char *format, double d)
 	phrq_io->fpunchf(name, format, d);
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 fpunchf_user(int user_index, const char *format, char * d)
 {
 	static int s_warning = 0;
@@ -222,14 +145,14 @@ fpunchf_user(int user_index, const char *format, char * d)
 	phrq_io->fpunchf(name, format, d);
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 fpunchf_end_row(const char *format)
 {
 	//NOOP for Phreeqc
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 process_file_names(int argc, char *argv[], void **db_cookie,
 				   void **input_cookie, int log)
 /* ---------------------------------------------------------------------- */
@@ -469,42 +392,42 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 // ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 dump_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->dump_open(file_name);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 dump_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->dump_fflush();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 dump_close(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->dump_close();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 dump_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->dump_rewind();
 }
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 dump_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->dump_isopen();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 dump_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
@@ -515,42 +438,42 @@ dump_msg(const char * str)
 // ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 error_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->error_open(file_name);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 error_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->error_fflush();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 error_close(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->error_close();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 error_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->error_rewind();
 }
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 error_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->error_isopen();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 error_msg(const char *err_str, bool stop)
 /* ---------------------------------------------------------------------- */
 {
@@ -578,42 +501,42 @@ error_msg(const char *err_str, bool stop)
 // ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 log_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->log_open(file_name);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 log_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->log_fflush();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 log_close(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->log_close();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 log_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->log_rewind();
 }
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 log_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->log_isopen();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 log_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
@@ -624,42 +547,42 @@ log_msg(const char * str)
 // ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 output_temp_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->output_temp_open(file_name);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 output_temp_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->output_temp_fflush();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 output_temp_close(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->output_temp_close();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 output_temp_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->output_temp_rewind();
 }
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 output_temp_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->output_temp_isopen();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 output_temp_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
@@ -677,42 +600,42 @@ output_temp_msg(const char * str)
 // ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 punch_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->punch_open(file_name);
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 punch_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->punch_fflush();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 punch_close(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->punch_close();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 punch_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
 	this->phrq_io->punch_rewind();
 }
 /* ---------------------------------------------------------------------- */
-bool CLASS_QUALIFIER
+bool Phreeqc::
 punch_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
 	return this->phrq_io->punch_isopen();
 }
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 punch_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {

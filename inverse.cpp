@@ -10,7 +10,7 @@
 #define SCALE_WATER   1.
 #define SCALE_ALL     1.
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 inverse_models(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -144,7 +144,7 @@ inverse_models(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 setup_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1054,7 +1054,7 @@ setup_inverse(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solve_inverse(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1348,7 +1348,7 @@ solve_inverse(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long CLASS_QUALIFIER
+unsigned long Phreeqc::
 minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1406,7 +1406,7 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1560,7 +1560,7 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long CLASS_QUALIFIER
+unsigned long Phreeqc::
 get_bits(unsigned long bits, int position, int number)
 /* ---------------------------------------------------------------------- */
 {
@@ -1572,7 +1572,7 @@ get_bits(unsigned long bits, int position, int number)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1595,7 +1595,7 @@ save_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_good(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1618,7 +1618,7 @@ save_good(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 save_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1641,7 +1641,7 @@ save_bad(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 superset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1662,7 +1662,7 @@ superset_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 subset_bad(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1683,7 +1683,7 @@ subset_bad(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 subset_minimal(unsigned long bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -1704,7 +1704,7 @@ subset_minimal(unsigned long bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 bit_print(unsigned long bits, int l)
 /* ---------------------------------------------------------------------- */
 {
@@ -1722,7 +1722,7 @@ bit_print(unsigned long bits, int l)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2047,7 +2047,7 @@ print_model(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_model_heading(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2130,7 +2130,7 @@ punch_model_heading(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_model(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2238,7 +2238,7 @@ punch_model(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-unsigned long CLASS_QUALIFIER
+unsigned long Phreeqc::
 set_bit(unsigned long bits, int position, int value)
 /* ---------------------------------------------------------------------- */
 {
@@ -2261,7 +2261,7 @@ set_bit(unsigned long bits, int position, int value)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 next_set_phases(struct inverse *inv_ptr,
 				int first_of_model_size, int model_size)
 /* ---------------------------------------------------------------------- */
@@ -2329,7 +2329,7 @@ next_set_phases(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 range(struct inverse *inv_ptr, unsigned long cur_bits)
 /* ---------------------------------------------------------------------- */
 {
@@ -2526,7 +2526,7 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 	   int *k, int *l, int *m, int *n,
 	   unsigned long cur_bits,
@@ -2772,7 +2772,7 @@ shrink(struct inverse *inv_ptr, LDBLE * array_in, LDBLE * array_out,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_solns(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2947,7 +2947,7 @@ check_solns(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 post_mortem(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3022,7 +3022,7 @@ post_mortem(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 carbon_derivs(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3134,7 +3134,7 @@ carbon_derivs(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_ph_c(struct inverse *inv_ptr,
 		 int i,
 		 struct solution *solution_ptr_orig,
@@ -3166,7 +3166,7 @@ set_ph_c(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3318,7 +3318,7 @@ isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 count_isotope_unknowns(struct inverse *inv_ptr,
 					   struct isotope **isotope_unknowns)
 /* ---------------------------------------------------------------------- */
@@ -3424,7 +3424,7 @@ count_isotope_unknowns(struct inverse *inv_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_isotopes(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3626,7 +3626,7 @@ check_isotopes(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 phase_isotope_inequalities(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3734,7 +3734,7 @@ phase_isotope_inequalities(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 write_optimize_names(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -3806,7 +3806,7 @@ write_optimize_names(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 dump_netpath(struct inverse *inverse_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4034,7 +4034,7 @@ dump_netpath(struct inverse *inverse_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct conc * CLASS_QUALIFIER
+struct conc * Phreeqc::
 get_inv_total(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
@@ -4050,7 +4050,7 @@ get_inv_total(struct solution *solution_ptr, const char *elt)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope * CLASS_QUALIFIER
+struct isotope * Phreeqc::
 get_isotope(struct solution *solution_ptr, const char *elt)
 /* ---------------------------------------------------------------------- */
 {
@@ -4065,7 +4065,7 @@ get_isotope(struct solution *solution_ptr, const char *elt)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 print_total(FILE * l_netpath_file, struct solution *solution_ptr,
 			const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
@@ -4088,7 +4088,7 @@ print_total(FILE * l_netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 print_isotope(FILE * l_netpath_file, struct solution *solution_ptr,
 			  const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
@@ -4110,7 +4110,7 @@ print_isotope(FILE * l_netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 print_total_multi(FILE * l_netpath_file, struct solution *solution_ptr,
 				  const char *string, const char *elt0, const char *elt1,
 				  const char *elt2, const char *elt3, const char *elt4)
@@ -4159,7 +4159,7 @@ print_total_multi(FILE * l_netpath_file, struct solution *solution_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 dump_netpath_pat(struct inverse *inv_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4954,7 +4954,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 print_total_pat(FILE * l_netpath_file, const char *elt, const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -4975,7 +4975,7 @@ print_total_pat(FILE * l_netpath_file, const char *elt, const char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_initial_solution(int n_user_old, int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
@@ -4996,7 +4996,7 @@ set_initial_solution(int n_user_old, int n_user_new)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_to_file(const char *filename, char *string)
 /* ---------------------------------------------------------------------- */
 {

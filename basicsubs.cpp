@@ -4,7 +4,7 @@
 #include "../NameDouble.h"
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 activity(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -32,7 +32,7 @@ activity(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 activity_coefficient(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -52,7 +52,7 @@ activity_coefficient(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 log_activity_coefficient(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -72,7 +72,7 @@ log_activity_coefficient(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_SC(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -131,7 +131,7 @@ calc_SC(void)
 
 /* VP: Density Start */
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_dens (void)
 /* ---------------------------------------------------------------------- */
 {
@@ -255,7 +255,7 @@ calc_dens (void)
 /* VP: Density End */
 /* DP: Function for interval halving */
 
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 f_rho(LDBLE rho_old, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -275,7 +275,7 @@ f_rho(LDBLE rho_old, void *cookie)
 /* DP: End function for interval halving */
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_logk_n(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -304,7 +304,7 @@ calc_logk_n(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_logk_p(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -331,7 +331,7 @@ calc_logk_p(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_logk_s(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -357,7 +357,7 @@ calc_logk_s(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_surface_charge(const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -401,7 +401,7 @@ calc_surface_charge(const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 diff_layer_total(const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -679,7 +679,7 @@ diff_layer_total(const char *total_name, const char *surface_name)
 	if (count_elts > 0)
 	{
 		qsort(elt_list, (size_t) count_elts,
-			  (size_t) sizeof(struct elt_list), CLASS_QUALIFIER elt_list_compare);
+			  (size_t) sizeof(struct elt_list), Phreeqc:: elt_list_compare);
 		elt_list_combine();
 	}
 /*
@@ -696,7 +696,7 @@ diff_layer_total(const char *total_name, const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 equi_phase(const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -739,7 +739,7 @@ equi_phase(const char *phase_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 find_gas_comp(const char *gas_comp_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -759,7 +759,7 @@ find_gas_comp(const char *gas_comp_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 find_misc1(const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -785,7 +785,7 @@ find_misc1(const char *s_s_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 find_misc2(const char *s_s_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -811,7 +811,7 @@ find_misc2(const char *s_s_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 find_s_s_comp(const char *s_s_comp_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -842,7 +842,7 @@ find_s_s_comp(const char *s_s_comp_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 get_calculate_value(const char *name)
 /* ---------------------------------------------------------------------- */
 /*
@@ -882,7 +882,7 @@ get_calculate_value(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 kinetics_moles(const char *kinetics_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -906,7 +906,7 @@ kinetics_moles(const char *kinetics_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 log_activity(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -935,7 +935,7 @@ log_activity(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 log_molality(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -964,7 +964,7 @@ log_molality(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 molality(const char *species_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -985,7 +985,7 @@ molality(const char *species_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 saturation_ratio(const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1017,7 +1017,7 @@ saturation_ratio(const char *phase_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 saturation_index(const char *phase_name, LDBLE * iap, LDBLE * si)
 /* ---------------------------------------------------------------------- */
 {
@@ -1051,7 +1051,7 @@ saturation_index(const char *phase_name, LDBLE * iap, LDBLE * si)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 sum_match_gases(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1091,7 +1091,7 @@ sum_match_gases(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 sum_match_species(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1128,7 +1128,7 @@ sum_match_species(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 sum_match_s_s(const char *mytemplate, const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1178,7 +1178,7 @@ sum_match_s_s(const char *mytemplate, const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 list_s_s(std::string s_s_name, cxxNameDouble &composition)
 /* ---------------------------------------------------------------------- */
 {
@@ -1205,7 +1205,7 @@ list_s_s(std::string s_s_name, cxxNameDouble &composition)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 match_elts_in_species(const char *name, const char *mytemplate)
 /* ---------------------------------------------------------------------- */
 {
@@ -1435,7 +1435,7 @@ match_elts_in_species(const char *name, const char *mytemplate)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 extract_bracket(char **string, char *bracket_string)
 /* ---------------------------------------------------------------------- */
 {
@@ -1460,7 +1460,7 @@ extract_bracket(char **string, char *bracket_string)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 surf_total(const char *total_name, const char *surface_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1547,7 +1547,7 @@ surf_total(const char *total_name, const char *surface_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 total(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1617,7 +1617,7 @@ total(const char *total_name)
 	return (t);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 total_mole(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1687,7 +1687,7 @@ total_mole(const char *total_name)
 	return (t);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 system_total(const char *total_name, LDBLE * count, char ***names,
 			 char ***types, LDBLE ** moles)
 /* ---------------------------------------------------------------------- */
@@ -1792,7 +1792,7 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 }
 
 /* ---------------------------------------------------------------------- */
-std::string CLASS_QUALIFIER
+std::string Phreeqc::
 phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
 /* ---------------------------------------------------------------------- */
 {
@@ -1816,7 +1816,7 @@ phase_formula(std::string phase_name, cxxNameDouble &stoichiometry)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_elements(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1938,7 +1938,7 @@ system_total_elements(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_si(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1976,7 +1976,7 @@ system_total_si(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_aq(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2003,7 +2003,7 @@ system_total_aq(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_ex(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2032,7 +2032,7 @@ system_total_ex(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_surf(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2059,7 +2059,7 @@ system_total_surf(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_gas(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2088,7 +2088,7 @@ system_total_gas(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_s_s(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2122,7 +2122,7 @@ system_total_s_s(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_elt(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2386,7 +2386,7 @@ system_total_elt(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_elt_secondary(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2665,7 +2665,7 @@ system_total_elt_secondary(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 solution_sum_secondary(const char *total_name)
 /* ---------------------------------------------------------------------- */
 {
@@ -2714,7 +2714,7 @@ solution_sum_secondary(const char *total_name)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_species_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2730,7 +2730,7 @@ system_species_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 system_total_solids(struct exchange *exchange_ptr,
 					struct pp_assemblage *pp_assemblage_ptr,
 					struct gas_phase *gas_phase_ptr,
@@ -2799,7 +2799,7 @@ system_total_solids(struct exchange *exchange_ptr,
 	}
 	return (OK);
 }
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 iso_value(const char *total_name)
 {
 	int j;
@@ -2832,7 +2832,7 @@ iso_value(const char *total_name)
 	}
 	return -1000.;
 }
-char * CLASS_QUALIFIER
+char * Phreeqc::
 iso_unit(const char *total_name)
 {
 	int j;

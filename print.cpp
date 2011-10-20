@@ -4,7 +4,7 @@
 #include <assert.h>
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 array_print(LDBLE * array_l, int row_count, int column_count,
 			int l_max_column_count)
 /* ---------------------------------------------------------------------- */
@@ -37,7 +37,7 @@ array_print(LDBLE * array_l, int row_count, int column_count,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -82,7 +82,7 @@ print_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -151,7 +151,7 @@ punch_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /* ---------------------------------------------------------------------- */
 {
@@ -287,7 +287,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_eh(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -368,7 +368,7 @@ print_eh(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -490,7 +490,7 @@ print_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -584,7 +584,7 @@ print_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -708,7 +708,7 @@ print_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 print_irrev(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -763,7 +763,7 @@ print_irrev(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 print_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -934,7 +934,7 @@ print_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_master_reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -980,7 +980,7 @@ print_master_reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 print_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1043,7 +1043,7 @@ print_mix(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_reaction(struct reaction *rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1073,7 +1073,7 @@ print_reaction(struct reaction *rxn_ptr)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1148,7 +1148,7 @@ print_saturation_indices(void)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1260,7 +1260,7 @@ print_pp_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1375,7 +1375,7 @@ print_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_surface(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1619,7 +1619,7 @@ print_surface(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_surface_cd_music(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1858,7 +1858,7 @@ print_surface_cd_music(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_totals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2044,7 +2044,7 @@ print_totals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_user_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2100,7 +2100,7 @@ print_user_print(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_using(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2231,7 +2231,7 @@ print_using(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2303,7 +2303,7 @@ punch_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2375,7 +2375,7 @@ punch_s_s_assemblage(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_totals(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2420,7 +2420,7 @@ punch_totals(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_molalities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2453,7 +2453,7 @@ punch_molalities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_activities(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2487,7 +2487,7 @@ punch_activities(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_pp_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2546,7 +2546,7 @@ punch_pp_assemblage(void)
 
 #define PHAST_NULL(x)	  (phast ? NULL : x)
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_identifiers(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2927,7 +2927,7 @@ punch_identifiers(void)
 
 #undef PHAST_NULL
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_saturation_indices(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2970,7 +2970,7 @@ punch_saturation_indices(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3041,7 +3041,7 @@ punch_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_user_punch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3076,7 +3076,7 @@ punch_user_punch(void)
 
 #if defined PHREEQ98  
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3160,7 +3160,7 @@ punch_user_graph(void)
 #endif
 #if defined(MULTICHART)
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3282,7 +3282,7 @@ punch_user_graph(void)
 }
 #endif // MULTICHART
 
-//char * CLASS_QUALIFIER
+//char * Phreeqc::
 //sformatf(const char *format, ...)
 //{
 //#if defined(HDF5_CREATE) || defined SWIG_SHARED_OBJ
@@ -3301,7 +3301,7 @@ punch_user_graph(void)
 //#endif
 //}
 
-//std::string CLASS_QUALIFIER
+//std::string Phreeqc::
 //sformatf(const char *format, ...)
 //{
 //
@@ -3325,7 +3325,7 @@ punch_user_graph(void)
 //	return str;
 //
 //}
-char * CLASS_QUALIFIER
+char * Phreeqc::
 sformatf(const char *format, ...)
 {
 
@@ -3350,7 +3350,7 @@ sformatf(const char *format, ...)
 
 }
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_alkalinity(void)
 /* ---------------------------------------------------------------------- */
 {

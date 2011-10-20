@@ -58,7 +58,7 @@ int free_tally_table(void);       Frees space
 */
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_all_components(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -126,7 +126,7 @@ get_all_components(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 store_tally_table(LDBLE * l_array, int row_dim, int col_dim, LDBLE fill_factor)
 /* ---------------------------------------------------------------------- */
 {
@@ -189,7 +189,7 @@ store_tally_table(LDBLE * l_array, int row_dim, int col_dim, LDBLE fill_factor)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_tally_table_rows_columns(int *rows, int *columns)
 /* ---------------------------------------------------------------------- */
 {
@@ -208,7 +208,7 @@ get_tally_table_rows_columns(int *rows, int *columns)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_tally_table_row_heading(int row, char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -236,7 +236,7 @@ get_tally_table_row_heading(int row, char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_tally_table_column_heading(int column, int *type, char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -266,7 +266,7 @@ get_tally_table_column_heading(int column, int *type, char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 free_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -291,7 +291,7 @@ free_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 zero_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -310,7 +310,7 @@ zero_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 diff_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -338,7 +338,7 @@ diff_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -364,7 +364,7 @@ print_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 /* ---------------------------------------------------------------------- */
 {
@@ -629,7 +629,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 elt_list_to_tally_table(struct tally_buffer *buffer_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -671,7 +671,7 @@ elt_list_to_tally_table(struct tally_buffer *buffer_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 build_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -984,7 +984,7 @@ build_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 add_all_components_tally(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1073,7 +1073,7 @@ add_all_components_tally(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1124,7 +1124,7 @@ calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 extend_tally_table(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1165,7 +1165,7 @@ extend_tally_table(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_reaction_moles(int n_user, LDBLE moles)
 /* ---------------------------------------------------------------------- */
 {
@@ -1181,7 +1181,7 @@ set_reaction_moles(int n_user, LDBLE moles)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_reaction_temperature(int n_user, LDBLE tc)
 /* ---------------------------------------------------------------------- */
 {
@@ -1197,7 +1197,7 @@ set_reaction_temperature(int n_user, LDBLE tc)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_kinetics_time(int n_user, LDBLE step)
 /* ---------------------------------------------------------------------- */
 {

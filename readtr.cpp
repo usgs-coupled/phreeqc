@@ -16,7 +16,7 @@ typedef unsigned char boolean;
 #define OPTION_DEFAULT2 -5
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_transport(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -891,7 +891,7 @@ read_transport(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 /* ---------------------------------------------------------------------- */
 {
@@ -938,7 +938,7 @@ read_line_LDBLEs(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 dump_cpp(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1218,7 +1218,7 @@ dump_cpp(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 dump(void)
 /* ---------------------------------------------------------------------- */
 {

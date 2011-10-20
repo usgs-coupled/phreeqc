@@ -9,7 +9,7 @@ typedef unsigned char boolean;
 #include "NameDouble.h"
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 cmd_initialize(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -40,7 +40,7 @@ cmd_initialize(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 cmd_free(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -53,7 +53,7 @@ cmd_free(void)
 	return;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l;
@@ -111,7 +111,7 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 {								/*main */
 	int l, i;
@@ -186,7 +186,7 @@ basic_renumber(char *commands, void **lnbase, void **vbase, void **lpbase)
 	return (P_escapecode);
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 {								/*main */
 	int l;
@@ -243,7 +243,7 @@ basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 	return (P_escapecode);
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 basic_main(char *commands)
 {								/*main */
 	int l;
@@ -303,7 +303,7 @@ basic_main(char *commands)
 
 /* End. */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 sget_logical_line(char **ptr, int *l, char *return_line)
 /* ---------------------------------------------------------------------- */
 {
@@ -336,7 +336,7 @@ sget_logical_line(char **ptr, int *l, char *return_line)
 	*l = i;
 	return (1);
 }
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 restoredata(void)
 {
 	dataline = NULL;
@@ -345,7 +345,7 @@ restoredata(void)
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 clearloops(void)
 {
 	looprec *l;
@@ -360,7 +360,7 @@ clearloops(void)
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 clearvar(varrec * v)
 {
 	if (v->numdims != 0)
@@ -393,7 +393,7 @@ clearvar(varrec * v)
 }
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 clearvars(void)
 {
 	varrec *v;
@@ -406,7 +406,7 @@ clearvars(void)
 	}
 }
 
-Static Char * CLASS_QUALIFIER
+Static Char * Phreeqc::
 numtostr(Char * Result, LDBLE n)
 {
 	/*string255 s; */
@@ -472,7 +472,7 @@ typedef long chset[9];
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 parse(Char * l_inbuf, tokenrec ** l_buf)
 {
 	long i, j, begin, len, m, lp, q;
@@ -1006,7 +1006,7 @@ parse(Char * l_inbuf, tokenrec ** l_buf)
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 listtokens(FILE * f, tokenrec * l_buf)
 {
 	boolean ltr;
@@ -1656,7 +1656,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 disposetokens(tokenrec ** tok)
 {
 	tokenrec *tok1;
@@ -1675,7 +1675,7 @@ disposetokens(tokenrec ** tok)
 
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 parseinput(tokenrec ** l_buf)
 {
 	linerec *l, *l0, *l1;
@@ -1729,7 +1729,7 @@ parseinput(tokenrec ** l_buf)
 	restoredata();
 }
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 errormsg(const Char * l_s)
 {
 	error_msg(l_s, CONTINUE);
@@ -1737,7 +1737,7 @@ errormsg(const Char * l_s)
 }
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 snerr(const Char * l_s)
 {
   char str[MAX_LENGTH] = {0};
@@ -1746,7 +1746,7 @@ snerr(const Char * l_s)
 }
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 tmerr(const Char * l_s)
 {
   char str[MAX_LENGTH] = {0};
@@ -1755,14 +1755,14 @@ tmerr(const Char * l_s)
 }
 
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 badsubscr(void)
 {
 	errormsg("Bad subscript");
 }
 
 
-Local LDBLE CLASS_QUALIFIER
+Local LDBLE Phreeqc::
 realfactor(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -1773,7 +1773,7 @@ realfactor(struct LOC_exec *LINK)
 	return (n.UU.val);
 }
 
-Local Char * CLASS_QUALIFIER
+Local Char * Phreeqc::
 strfactor(struct LOC_exec * LINK)
 {
 	valrec n;
@@ -1784,7 +1784,7 @@ strfactor(struct LOC_exec * LINK)
 	return (n.UU.sval);
 }
 
-Local Char * CLASS_QUALIFIER
+Local Char * Phreeqc::
 stringfactor(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
@@ -1797,13 +1797,13 @@ stringfactor(Char * Result, struct LOC_exec * LINK)
 	return Result;
 }
 
-Local long CLASS_QUALIFIER
+Local long Phreeqc::
 intfactor(struct LOC_exec *LINK)
 {
 	return ((long) floor(realfactor(LINK) + 0.5));
 }
 
-Local LDBLE CLASS_QUALIFIER
+Local LDBLE Phreeqc::
 realexpr(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -1814,7 +1814,7 @@ realexpr(struct LOC_exec *LINK)
 	return (n.UU.val);
 }
 
-Local Char * CLASS_QUALIFIER
+Local Char * Phreeqc::
 strexpr(struct LOC_exec * LINK)
 {
 	valrec n;
@@ -1825,7 +1825,7 @@ strexpr(struct LOC_exec * LINK)
 	return (n.UU.sval);
 }
 
-Local Char * CLASS_QUALIFIER
+Local Char * Phreeqc::
 stringexpr(Char * Result, struct LOC_exec * LINK)
 {
 	valrec n;
@@ -1838,14 +1838,14 @@ stringexpr(Char * Result, struct LOC_exec * LINK)
 	return Result;
 }
 
-Local long CLASS_QUALIFIER
+Local long Phreeqc::
 intexpr(struct LOC_exec *LINK)
 {
 	return ((long) floor(realexpr(LINK) + 0.5));
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 require(int k, struct LOC_exec *LINK)
 {
   char str[MAX_LENGTH] = {0};
@@ -1868,7 +1868,7 @@ require(int k, struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 skipparen(struct LOC_exec *LINK)
 {
 	do
@@ -1889,7 +1889,7 @@ skipparen(struct LOC_exec *LINK)
 }
 
 
-Local varrec * CLASS_QUALIFIER
+Local varrec * Phreeqc::
 findvar(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -1963,7 +1963,7 @@ findvar(struct LOC_exec *LINK)
 }
 
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 factor(struct LOC_exec * LINK)
 {
 	char string[MAX_LENGTH] = {0};
@@ -3189,7 +3189,7 @@ factor(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 upexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3225,7 +3225,7 @@ upexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 term(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3274,7 +3274,7 @@ term(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 sexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3318,7 +3318,7 @@ sexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 relexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3391,7 +3391,7 @@ relexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 andexpr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3408,7 +3408,7 @@ andexpr(struct LOC_exec * LINK)
 	return n;
 }
 
-Local valrec CLASS_QUALIFIER
+Local valrec Phreeqc::
 expr(struct LOC_exec * LINK)
 {
 	valrec n, n2;
@@ -3433,7 +3433,7 @@ expr(struct LOC_exec * LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 checkextra(struct LOC_exec *LINK)
 {
 	if (LINK->t != NULL)
@@ -3441,7 +3441,7 @@ checkextra(struct LOC_exec *LINK)
 }
 
 
-Local boolean CLASS_QUALIFIER
+Local boolean Phreeqc::
 iseos(struct LOC_exec *LINK)
 {
 	return ((boolean) (LINK->t == NULL || LINK->t->kind == (long) tokelse ||
@@ -3449,7 +3449,7 @@ iseos(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 skiptoeos(struct LOC_exec *LINK)
 {
 	while (!iseos(LINK))
@@ -3457,7 +3457,7 @@ skiptoeos(struct LOC_exec *LINK)
 }
 
 
-Local linerec * CLASS_QUALIFIER
+Local linerec * Phreeqc::
 findline(long n)
 {
 	linerec *l;
@@ -3468,7 +3468,7 @@ findline(long n)
 	return l;
 }
 
-Local linerec * CLASS_QUALIFIER
+Local linerec * Phreeqc::
 mustfindline(long n)
 {
 	linerec *l;
@@ -3482,7 +3482,7 @@ mustfindline(long n)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdend(struct LOC_exec *LINK)
 {
 	stmtline = NULL;
@@ -3490,7 +3490,7 @@ cmdend(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdnew(struct LOC_exec *LINK)
 {
 	void *p;
@@ -3542,7 +3542,7 @@ cmdnew(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdlist(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3591,7 +3591,7 @@ cmdlist(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 {
 	FILE *f;
@@ -3634,7 +3634,7 @@ cmdload(boolean merging, Char * name, struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdrun(struct LOC_exec *LINK)
 {
 	linerec *l;
@@ -3679,7 +3679,7 @@ cmdrun(struct LOC_exec *LINK)
 }
 
 /* replace basic save command with transport of rate back to calc_kinetic_rate */
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdsave(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -3703,7 +3703,7 @@ cmdsave(struct LOC_exec *LINK)
 		}
 	}
 }
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdput(struct LOC_exec *LINK)
 {
 	int j;
@@ -3745,7 +3745,7 @@ cmdput(struct LOC_exec *LINK)
 	s_v.subscripts = (int *) free_check_null(s_v.subscripts);
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdchange_por(struct LOC_exec *LINK)
 {
 	int j;
@@ -3762,7 +3762,7 @@ cmdchange_por(struct LOC_exec *LINK)
 		cell_data[j - 1].por = TEMP;
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdchange_surf(struct LOC_exec *LINK)
 {
 /*
@@ -3802,13 +3802,13 @@ cmdchange_surf(struct LOC_exec *LINK)
 		change_surf[count - 1].cell_no = -99;
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdbye(void)
 {
 	exitflag = true;
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmddel(struct LOC_exec *LINK)
 {
 	linerec *l, *l0, *l1;
@@ -3869,7 +3869,7 @@ cmddel(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdrenum(struct LOC_exec *LINK)
 {
 	linerec *l, *l1;
@@ -3939,7 +3939,7 @@ cmdrenum(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdprint(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -3974,7 +3974,7 @@ cmdprint(struct LOC_exec *LINK)
 		output_temp_msg("\n");
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdpunch(struct LOC_exec *LINK)
 {
 	valrec n;
@@ -4030,7 +4030,7 @@ cmdpunch(struct LOC_exec *LINK)
 }
 
 #if defined PHREEQ98 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_x(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4065,7 +4065,7 @@ cmdgraph_x(struct LOC_exec *LINK)
 	}
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_y(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4100,7 +4100,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 	}
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_sy(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -4136,7 +4136,7 @@ cmdgraph_sy(struct LOC_exec *LINK)
 }
 #endif
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdlet(boolean implied, struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4176,7 +4176,7 @@ cmdlet(boolean implied, struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgoto(struct LOC_exec *LINK)
 {
 	stmtline = mustfindline(intexpr(LINK));
@@ -4185,7 +4185,7 @@ cmdgoto(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdif(struct LOC_exec *LINK)
 {
 	LDBLE n;
@@ -4216,14 +4216,14 @@ cmdif(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdelse(struct LOC_exec *LINK)
 {
 	LINK->t = NULL;
 }
 
 
-Local boolean CLASS_QUALIFIER
+Local boolean Phreeqc::
 skiploop(int up, int dn, struct LOC_exec *LINK)
 {
 	boolean Result;
@@ -4258,7 +4258,7 @@ skiploop(int up, int dn, struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdfor(struct LOC_exec *LINK)
 {
 	looprec *l, lr;
@@ -4331,7 +4331,7 @@ cmdfor(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdnext(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4373,7 +4373,7 @@ cmdnext(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdwhile(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4399,7 +4399,7 @@ cmdwhile(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdwend(struct LOC_exec *LINK)
 {
 	tokenrec *tok;
@@ -4447,7 +4447,7 @@ cmdwend(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgosub(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4464,7 +4464,7 @@ cmdgosub(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdreturn(struct LOC_exec *LINK)
 {
 	looprec *l;
@@ -4492,7 +4492,7 @@ cmdreturn(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdread(struct LOC_exec *LINK)
 {
 	varrec *v;
@@ -4544,14 +4544,14 @@ cmdread(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmddata(struct LOC_exec *LINK)
 {
 	skiptoeos(LINK);
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdrestore(struct LOC_exec *LINK)
 {
 	if (iseos(LINK))
@@ -4564,7 +4564,7 @@ cmdrestore(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgotoxy(struct LOC_exec *LINK)
 {
 	intexpr(LINK);
@@ -4572,7 +4572,7 @@ cmdgotoxy(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdon(struct LOC_exec *LINK)
 {
 	long i;
@@ -4610,7 +4610,7 @@ cmdon(struct LOC_exec *LINK)
 }
 
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmddim(struct LOC_exec *LINK)
 {
 	long i, j, k;
@@ -4667,7 +4667,7 @@ cmddim(struct LOC_exec *LINK)
 	while (!iseos(LINK));
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdpoke(struct LOC_exec *LINK)
 {
 	union
@@ -4683,7 +4683,7 @@ cmdpoke(struct LOC_exec *LINK)
 /* p2c: basic.p, line 2077: Note: Range checking is ON [216] */
 }
 
-Static void CLASS_QUALIFIER
+Static void Phreeqc::
 exec(void)
 {
 	struct LOC_exec V;
@@ -4956,7 +4956,7 @@ exec(void)
 	}
 	ENDTRY(try1);
 }								/*exec */
-int CLASS_QUALIFIER
+int Phreeqc::
 free_dim_stringvar(varrec *l_varbase)
 {
 	int i, k;
@@ -4976,7 +4976,7 @@ free_dim_stringvar(varrec *l_varbase)
 	return (OK);
 }
 #if defined MULTICHART
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdplot_xy(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -5064,7 +5064,7 @@ cmdplot_xy(struct LOC_exec *LINK)
 	}
 	chart->Set_colnr(chart->Get_colnr() + 1);
 }
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_x(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -5111,7 +5111,7 @@ cmdgraph_x(struct LOC_exec *LINK)
 	}
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_y(struct LOC_exec *LINK)
 {
 	boolean semiflag;
@@ -5175,7 +5175,7 @@ cmdgraph_y(struct LOC_exec *LINK)
 	}
 }
 
-Local void CLASS_QUALIFIER
+Local void Phreeqc::
 cmdgraph_sy(struct LOC_exec *LINK)
 {
 	boolean semiflag;

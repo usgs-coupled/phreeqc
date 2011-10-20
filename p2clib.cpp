@@ -24,9 +24,9 @@
 #define Isspace(c)  isspace(c)	/* or "((c) == ' ')" if preferred */
 
 #include "Phreeqc.h"
-#define CLASS_QUALIFIER Phreeqc::
+//#define Phreeqc:: Phreeqc::
 
-void CLASS_QUALIFIER
+void Phreeqc::
 PASCAL_MAIN(int argc, Char **argv)
 {
 	P_argc = argc;
@@ -45,7 +45,7 @@ PASCAL_MAIN(int argc, Char **argv)
 
 /* In case your system lacks these... */
 
-long CLASS_QUALIFIER
+long Phreeqc::
 my_labs(long l_x)
 {
 	return ((l_x > 0) ? l_x : -l_x);
@@ -54,7 +54,7 @@ my_labs(long l_x)
 
 /* #define __STDC__  */ /* PHREEQ98 */
 
-Anyptr  CLASS_QUALIFIER
+Anyptr  Phreeqc::
 my_memmove(Anyptr d, Const Anyptr l_s, size_t n)
 {
 	register char *dd = (char *) d, *ss = (char *) l_s;
@@ -73,7 +73,7 @@ my_memmove(Anyptr d, Const Anyptr l_s, size_t n)
 }
 
 
-Anyptr  CLASS_QUALIFIER
+Anyptr  Phreeqc::
 my_memcpy(Anyptr d, Const Anyptr l_s, size_t n)
 {
 	register char *ss = (char *) l_s, *dd = (char *) d;
@@ -82,7 +82,7 @@ my_memcpy(Anyptr d, Const Anyptr l_s, size_t n)
 	return d;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 {
 	register char *a = (char *) s1, *b = (char *) s2;
@@ -93,7 +93,7 @@ my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
 	return 0;
 }
 
-Anyptr CLASS_QUALIFIER
+Anyptr Phreeqc::
 my_memset(Anyptr d, int c, size_t n)
 {
 	register char *dd = (char *) d;
@@ -102,7 +102,7 @@ my_memset(Anyptr d, int c, size_t n)
 	return d;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 my_toupper(int c)
 {
 	if (islower(c))
@@ -112,7 +112,7 @@ my_toupper(int c)
 }
 
 
-int CLASS_QUALIFIER
+int Phreeqc::
 my_tolower(int c)
 {
 	if (isupper(c))
@@ -124,7 +124,7 @@ my_tolower(int c)
 
 
 
-long CLASS_QUALIFIER
+long Phreeqc::
 ipow(long a, long b)
 {
 	long v;
@@ -154,7 +154,7 @@ ipow(long a, long b)
 
 /* Store in "ret" the substring of length "len" starting from "pos" (1-based).
    Store a shorter or null string if out-of-range.  Return "ret". */
-char * CLASS_QUALIFIER
+char * Phreeqc::
 strsub(register char *ret, register char *l_s, register int pos,
 	   register int len)
 {
@@ -188,7 +188,7 @@ strsub(register char *ret, register char *l_s, register int pos,
 /* Return the index of the first occurrence of "pat" as a substring of "s",
    starting at index "pos" (1-based).  Result is 1-based, 0 if not found. */
 
-int CLASS_QUALIFIER
+int Phreeqc::
 strpos2(char *l_s, register char *pat, register int pos)
 {
 	register char *cp, ch;
@@ -212,7 +212,7 @@ strpos2(char *l_s, register char *pat, register int pos)
 
 
 /* Case-insensitive version of strcmp. */
-int CLASS_QUALIFIER
+int Phreeqc::
 strcicmp(register char *s1, register char *s2)
 {
 	register unsigned char c1, c2;
@@ -240,7 +240,7 @@ strcicmp(register char *s1, register char *s2)
 /* HP and Turbo Pascal string functions: */
 
 /* Trim blanks at left end of string. */
-char *  CLASS_QUALIFIER
+char *  Phreeqc::
 strltrim(register char *l_s)
 {
 	while (Isspace((int) *l_s++));
@@ -249,7 +249,7 @@ strltrim(register char *l_s)
 
 
 /* Trim blanks at right end of string. */
-char * CLASS_QUALIFIER
+char * Phreeqc::
 strrtrim(register char *l_s)
 {
 	register char *s2 = l_s;
@@ -268,7 +268,7 @@ strrtrim(register char *l_s)
 /* Copy the substring of length "len" from index "spos" of "s" (1-based)
    to index "dpos" of "d", lengthening "d" if necessary.  Length and
    indices must be in-range. */
-void CLASS_QUALIFIER
+void Phreeqc::
 strmove(register int len, register char *l_s, register int spos,
 		register char *d, register int dpos)
 {
@@ -285,7 +285,7 @@ strmove(register int len, register char *l_s, register int spos,
 }
 
 /* Insert string "src" at index "pos" of "dst". */
-void CLASS_QUALIFIER
+void Phreeqc::
 strinsert(register char *src, register char *dst, register int pos)
 {
 	register int slen, dlen;
@@ -318,7 +318,7 @@ strinsert(register char *src, register char *dst, register int pos)
 /* File functions */
 
 /* Peek at next character of input stream; return EOF at end-of-file. */
-int CLASS_QUALIFIER
+int Phreeqc::
 P_peek(FILE * f)
 {
 	int ch;
@@ -335,7 +335,7 @@ P_peek(FILE * f)
    stdin is broken; remove the special case for it to be broken in a
    different way. */
 /*int P_eof(FILE *f)*/
-int CLASS_QUALIFIER
+int Phreeqc::
 P_eof(void)
 {
 	return 0;
@@ -343,7 +343,7 @@ P_eof(void)
 
 
 /* Check if at end of line (or end of entire file). */
-int CLASS_QUALIFIER
+int Phreeqc::
 P_eoln(FILE * f)
 {
 	register int ch;
@@ -357,7 +357,7 @@ P_eoln(FILE * f)
 
 
 /* Read a packed array of characters from a file. */
-void CLASS_QUALIFIER
+void Phreeqc::
 P_readpaoc(FILE * f, char *l_s, int len)
 {
 	int ch;
@@ -378,7 +378,7 @@ P_readpaoc(FILE * f, char *l_s, int len)
 		ungetc(ch, f);
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 P_readlnpaoc(FILE * f, char *l_s, int len)
 {
 	int ch;
@@ -400,7 +400,7 @@ P_readlnpaoc(FILE * f, char *l_s, int len)
 
 
 /* Compute maximum legal "seek" index in file (0-based). */
-long CLASS_QUALIFIER
+long Phreeqc::
 P_maxpos(FILE * f)
 {
 	long savepos = ftell(f);
@@ -416,7 +416,7 @@ P_maxpos(FILE * f)
 
 
 /* Use packed array of char for a file name. */
-Char * CLASS_QUALIFIER
+Char * Phreeqc::
 P_trimname(register Char * fn, register int len)
 {
 	static Char fnbuf[256];
@@ -434,13 +434,13 @@ P_trimname(register Char * fn, register int len)
 /* Pascal's "memavail" doesn't make much sense in Unix with virtual memory.
    We fix memory size as 10Meg as a reasonable compromise. */
 
-long CLASS_QUALIFIER
+long Phreeqc::
 memavail(void)
 {
 	return 10000000;			/* worry about this later! */
 }
 
-long  CLASS_QUALIFIER
+long  Phreeqc::
 maxavail(void)
 {
 	return memavail();
@@ -457,7 +457,7 @@ maxavail(void)
    the lowest five bits of the first long are unused and always zero.) */
 
 /* (Sets with 32 or fewer elements are normally stored as plain longs.) */
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + s2 */
 {
 	long *dbase = d++;
@@ -475,7 +475,7 @@ P_setunion(register long *d, register long *s1, register long *s2)	/* d := s1 + 
 	return dbase;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2 */
 {
 	long *dbase = d++;
@@ -487,7 +487,7 @@ P_setint(register long *d, register long *s1, register long *s2)	/* d := s1 * s2
 	return dbase;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s2 */
 {
 	long *dbase = d++;
@@ -504,7 +504,7 @@ P_setdiff(register long *d, register long *s1, register long *s2)	/* d := s1 - s
 	return dbase;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2 */
 {
 	long *dbase = d++;
@@ -523,7 +523,7 @@ P_setxor(register long *d, register long *s1, register long *s2)	/* d := s1 / s2
 	return dbase;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_addset(register long *l_s, register unsigned val)	/* s := s + [val] */
 {
 	register long *sbase = l_s;
@@ -544,7 +544,7 @@ P_addset(register long *l_s, register unsigned val)	/* s := s + [val] */
 	return sbase;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_addsetr(register long *l_s, register unsigned v1, register unsigned v2)	/* s := s + [v1..v2] */
 {
 	register long *sbase = l_s;
@@ -579,7 +579,7 @@ P_addsetr(register long *l_s, register unsigned v1, register unsigned v2)	/* s :
 	return sbase;
 }
 
-long *  CLASS_QUALIFIER
+long *  Phreeqc::
 P_remset(register long *l_s, register unsigned val)	/* s := s - [val] */
 {
 	register int bit;
@@ -594,7 +594,7 @@ P_remset(register long *l_s, register unsigned val)	/* s := s - [val] */
 	return l_s;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 {
 	register int size = *s1++;
@@ -608,7 +608,7 @@ P_setequal(register long *s1, register long *s2)	/* s1 = s2 */
 	return 1;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 {
 	register int sz1 = *s1++, sz2 = *s2++;
@@ -622,7 +622,7 @@ P_subset(register long *s1, register long *s2)	/* s1 <= s2 */
 	return 1;
 }
 
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_setcpy(register long *d, register long *l_s)	/* d := s */
 {
 	register long *save_d = d;
@@ -640,7 +640,7 @@ P_setcpy(register long *d, register long *l_s)	/* d := s */
 
 /* s is a "smallset", i.e., a 32-bit or less set stored
    directly in a long. */
-long * CLASS_QUALIFIER
+long * Phreeqc::
 P_expset(register long *d, register long l_s)	/* d := s */
 {
 	if (l_s)
@@ -653,7 +653,7 @@ P_expset(register long *d, register long l_s)	/* d := s */
 	return d;
 }
 
-long CLASS_QUALIFIER
+long Phreeqc::
 P_packset(register long *l_s)		/* convert s to a small-set */
 {
 	if (*l_s++)
@@ -662,19 +662,19 @@ P_packset(register long *l_s)		/* convert s to a small-set */
 		return 0;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 _OutMem(void)
 {
 	return _Escape(-2);
 }
 
-int  CLASS_QUALIFIER
+int  Phreeqc::
 _CaseCheck(void)
 {
 	return _Escape(-9);
 }
 
-int  CLASS_QUALIFIER
+int  Phreeqc::
 _NilCheck(void)
 {
 	return _Escape(-3);
@@ -687,7 +687,7 @@ _NilCheck(void)
 /* The following is suitable for the HP Pascal operating system.
    It might want to be revised when emulating another system. */
 
-char * CLASS_QUALIFIER
+char * Phreeqc::
 _ShowEscape(char *buf, int code, int ior, char *prefix)
 {
 	char *bufp;
@@ -779,7 +779,7 @@ _ShowEscape(char *buf, int code, int ior, char *prefix)
 	return buf;
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 _Escape(int code)
 {
 	char l_buf[100];
@@ -811,7 +811,7 @@ _Escape(int code)
 	return (1);
 }
 
-int CLASS_QUALIFIER
+int Phreeqc::
 _EscIO(int code)
 {
 	P_ioresult = code;

@@ -10,7 +10,7 @@
 #include "NameDouble.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 step(LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -290,7 +290,7 @@ step(LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 xsolution_zero(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -339,7 +339,7 @@ xsolution_zero(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 /* ---------------------------------------------------------------------- */
 {
@@ -412,7 +412,7 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_exchange(struct exchange *exchange_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -468,7 +468,7 @@ add_exchange(struct exchange *exchange_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_surface(struct surface *surface_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -580,7 +580,7 @@ add_surface(struct surface *surface_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_mix(struct mix *mix_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -639,7 +639,7 @@ add_mix(struct mix *mix_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -744,7 +744,7 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -768,7 +768,7 @@ check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -896,7 +896,7 @@ add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 reaction_calc(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -957,7 +957,7 @@ reaction_calc(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_temperature(struct temperature *temperature_ptr, int step_number)
 /* ---------------------------------------------------------------------- */
 {
@@ -1014,7 +1014,7 @@ add_temperature(struct temperature *temperature_ptr, int step_number)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_gas_phase(struct gas_phase *gas_phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1070,7 +1070,7 @@ add_gas_phase(struct gas_phase *gas_phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1165,7 +1165,7 @@ add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_kinetics(struct kinetics *kinetics_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1207,7 +1207,7 @@ add_kinetics(struct kinetics *kinetics_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 gas_phase_check(struct gas_phase *gas_phase_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1266,7 +1266,7 @@ gas_phase_check(struct gas_phase *gas_phase_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1349,7 +1349,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1422,7 +1422,7 @@ s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 solution_check(void)
 /* ---------------------------------------------------------------------- */
 {

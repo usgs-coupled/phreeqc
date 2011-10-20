@@ -3,7 +3,7 @@
 #include "phrqproto.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 transport(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -811,7 +811,7 @@ transport(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 init_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1004,7 +1004,7 @@ init_mix(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
 /* ---------------------------------------------------------------------- */
 {
@@ -1138,7 +1138,7 @@ mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 init_heat_mix(int l_nmix)
 /* ---------------------------------------------------------------------- */
 {
@@ -1268,7 +1268,7 @@ init_heat_mix(int l_nmix)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 heat_mix(int l_heat_nmix)
 /* ---------------------------------------------------------------------- */
 {
@@ -1302,7 +1302,7 @@ heat_mix(int l_heat_nmix)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_initial_moles(int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -1405,7 +1405,7 @@ set_initial_moles(int i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 fill_spec(int l_cell_no)
 /* ---------------------------------------------------------------------- */
 {
@@ -1589,7 +1589,7 @@ fill_spec(int l_cell_no)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 sort_species_name(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1602,7 +1602,7 @@ sort_species_name(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
@@ -1920,7 +1920,7 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 fill_m_s(struct J_ij *l_J_ij, int l_J_ij_count_spec)
 /* ---------------------------------------------------------------------- */
 {
@@ -1974,7 +1974,7 @@ fill_m_s(struct J_ij *l_J_ij, int l_J_ij_count_spec)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 /* ---------------------------------------------------------------------- */
 {
@@ -2984,7 +2984,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 disp_surf(LDBLE DDt)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3414,7 +3414,7 @@ disp_surf(LDBLE DDt)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 				 int k, LDBLE f2, struct surface *target, LDBLE new_Dw)
 /* ---------------------------------------------------------------------- */
@@ -3714,7 +3714,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3778,7 +3778,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 mobile_surface_copy(struct surface *surface_old_ptr,
 					struct surface *surf_ptr1, int n_user_new, int move_old)
 /* ---------------------------------------------------------------------- */
@@ -4062,7 +4062,7 @@ mobile_surface_copy(struct surface *surface_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 diff_stag_surf(int mobile_cell)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4429,7 +4429,7 @@ diff_stag_surf(int mobile_cell)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 			  LDBLE new_Dw, int l_cell)
 /* ---------------------------------------------------------------------- */
@@ -4704,7 +4704,7 @@ reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 viscosity(void)
 /* ---------------------------------------------------------------------- */
 {

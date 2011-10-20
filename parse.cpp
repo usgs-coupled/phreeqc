@@ -3,7 +3,7 @@
 #include "phrqproto.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 /* ---------------------------------------------------------------------- */
 /*
@@ -167,7 +167,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_eqn(int association)
 /* ---------------------------------------------------------------------- */
 /*
@@ -261,7 +261,7 @@ check_eqn(int association)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_charge(char *charge, LDBLE * l_z)
 /* ---------------------------------------------------------------------- */
 /*
@@ -383,7 +383,7 @@ get_charge(char *charge, LDBLE * l_z)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_coef(LDBLE * coef, char **eqnaddr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -483,7 +483,7 @@ get_coef(LDBLE * coef, char **eqnaddr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_elt(char **t_ptr, char *element, int *i)
 /* ---------------------------------------------------------------------- */
 /*
@@ -555,7 +555,7 @@ get_elt(char **t_ptr, char *element, int *i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_elts_in_species(char **t_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -692,7 +692,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 get_secondary(char **t_ptr, char *element, int *i)
 /* ---------------------------------------------------------------------- */
 /*
@@ -812,7 +812,7 @@ get_secondary(char **t_ptr, char *element, int *i)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_secondary_in_species(char **t_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -943,7 +943,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_num(char **t_ptr, LDBLE * num)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1006,7 +1006,7 @@ get_num(char **t_ptr, LDBLE * num)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_species(char **ptr)
 /* ---------------------------------------------------------------------- */
 {

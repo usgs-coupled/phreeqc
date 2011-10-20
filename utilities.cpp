@@ -4,7 +4,7 @@
 #include <time.h>
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 /* ---------------------------------------------------------------------- */
 {
@@ -29,7 +29,7 @@ add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 calc_alk(struct reaction * rxn_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -60,7 +60,7 @@ calc_alk(struct reaction * rxn_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 compute_gfw(const char *string, LDBLE * gfw)
 /* ---------------------------------------------------------------------- */
 {
@@ -93,7 +93,7 @@ compute_gfw(const char *string, LDBLE * gfw)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copy_token(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -174,7 +174,7 @@ copy_token(char *token_ptr, char **ptr, int *length)
 
 #if defined PHREEQ98 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copy_title(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -261,7 +261,7 @@ copy_title(char *token_ptr, char **ptr, int *length)
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 dup_print(const char *ptr, int emphasis)
 /* ---------------------------------------------------------------------- */
 {
@@ -310,7 +310,7 @@ dup_print(const char *ptr, int emphasis)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 equal(LDBLE a, LDBLE b, LDBLE eps)
 /* ---------------------------------------------------------------------- */
 {
@@ -323,7 +323,7 @@ equal(LDBLE a, LDBLE b, LDBLE eps)
 }
 
 /* ---------------------------------------------------------------------- */
-void * CLASS_QUALIFIER
+void * Phreeqc::
 free_check_null(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -335,7 +335,7 @@ free_check_null(void *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -481,7 +481,7 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 isamong(char c, const char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -509,7 +509,7 @@ isamong(char c, const char *s_l)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 islegit(const char c)
 /* ---------------------------------------------------------------------- */
 /*
@@ -531,7 +531,7 @@ islegit(const char c)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 malloc_error(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -541,7 +541,7 @@ malloc_error(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 parse_couple(char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -670,7 +670,7 @@ parse_couple(char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_centered(const char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -696,7 +696,7 @@ print_centered(const char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 replace(const char *str1, const char *str2, char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -740,7 +740,7 @@ replace(const char *str1, const char *str2, char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 space(void **ptr, int i, int *max, int struct_size)
 /* ---------------------------------------------------------------------- */
 {
@@ -814,7 +814,7 @@ space(void **ptr, int i, int *max, int struct_size)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 squeeze_white(char *s_l)
 /* ---------------------------------------------------------------------- */
 /*
@@ -838,7 +838,7 @@ squeeze_white(char *s_l)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 str_tolower(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -855,7 +855,7 @@ str_tolower(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 str_toupper(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -872,7 +872,7 @@ str_toupper(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 strcmp_nocase(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
@@ -891,7 +891,7 @@ strcmp_nocase(const char *str1, const char *str2)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 strcmp_nocase_arg1(const char *str1, const char *str2)
 /* ---------------------------------------------------------------------- */
 {
@@ -910,7 +910,7 @@ strcmp_nocase_arg1(const char *str1, const char *str2)
 }
 
 /* ---------------------------------------------------------------------- */
-char * CLASS_QUALIFIER
+char * Phreeqc::
 string_duplicate(const char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -928,7 +928,7 @@ string_duplicate(const char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-char * CLASS_QUALIFIER
+char * Phreeqc::
 string_hsave(const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -959,7 +959,7 @@ string_hsave(const char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 under(LDBLE xval)
 /* ---------------------------------------------------------------------- */
 {
@@ -984,7 +984,7 @@ under(LDBLE xval)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 backspace_screen(int spaces)
 /* ---------------------------------------------------------------------- */
 {
@@ -1001,7 +1001,7 @@ backspace_screen(int spaces)
 
 #ifndef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 status(int count, const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1197,7 +1197,7 @@ STATIC long HashAccesses, HashCollisions;
 ** Code
 */
 
-int CLASS_QUALIFIER
+int Phreeqc::
 hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 {
 	int i;
@@ -1246,7 +1246,7 @@ hcreate_multi(unsigned Count, HashTable ** HashTable_ptr)
 	return (1);
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 hdestroy_multi(HashTable * Table)
 {
 	int i, j;
@@ -1278,7 +1278,7 @@ hdestroy_multi(HashTable * Table)
 	}
 }
 
-ENTRY * CLASS_QUALIFIER
+ENTRY * Phreeqc::
 hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 /* ACTION       FIND/ENTER	*/
 {
@@ -1348,7 +1348,7 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 ** Internal routines
 */
 
-STATIC Address CLASS_QUALIFIER
+STATIC Address Phreeqc::
 Hash_multi(HashTable * Table, char *Key)
 {
 	Address h, address;
@@ -1367,7 +1367,7 @@ Hash_multi(HashTable * Table, char *Key)
 	return (address);
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 ExpandTable_multi(HashTable * Table)
 {
 	Address NewAddress;
@@ -1449,7 +1449,7 @@ ExpandTable_multi(HashTable * Table)
 }
 
 
-void CLASS_QUALIFIER
+void Phreeqc::
 free_hash_strings(HashTable * Table)
 {
 	int i, j;
@@ -1479,7 +1479,7 @@ free_hash_strings(HashTable * Table)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 string_trim(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1531,7 +1531,7 @@ string_trim(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 string_trim_right(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1566,7 +1566,7 @@ string_trim_right(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 string_trim_left(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1609,7 +1609,7 @@ string_trim_left(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-char * CLASS_QUALIFIER
+char * Phreeqc::
 string_pad(char *str, int i)
 /* ---------------------------------------------------------------------- */
 {
@@ -1645,7 +1645,7 @@ string_pad(char *str, int i)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 zero_double(LDBLE * target, int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -1665,14 +1665,14 @@ zero_double(LDBLE * target, int n)
 	memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
 	return;
 }
-int CLASS_QUALIFIER
+int Phreeqc::
 get_input_errors()
 {
 	int total_errors = input_error;
 	total_errors += phrq_io->Get_io_error_count();
 	return total_errors;
 }
-void * CLASS_QUALIFIER
+void * Phreeqc::
 get_cookie()
 {
 	if (cookie_list.size() > 0)
@@ -1684,12 +1684,12 @@ get_cookie()
 		return NULL;
 	}
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 set_cookie(std::istream * cookie)
 {
 	cookie_list.push_front(cookie);
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 clear_cookie(void)
 {
 	while (cookie_list.size() > 0)
@@ -1697,7 +1697,7 @@ clear_cookie(void)
 		pop_cookie();
 	}
 }
-void CLASS_QUALIFIER
+void Phreeqc::
 pop_cookie()
 {
 	if (cookie_list.size() > 0)

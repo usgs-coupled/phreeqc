@@ -5,7 +5,7 @@
 #include "phrqproto.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_input(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -529,7 +529,7 @@ read_input(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_conc(int n, int count_mass_balance, char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -709,7 +709,7 @@ read_conc(int n, int count_mass_balance, char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_exchange_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1163,7 +1163,7 @@ read_exchange_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_exchange(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1453,7 +1453,7 @@ read_exchange(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_exchange_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1559,7 +1559,7 @@ read_exchange_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1753,7 +1753,7 @@ read_gas_phase(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_inverse(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2021,7 +2021,7 @@ read_inverse(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_inv_balances(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2073,7 +2073,7 @@ read_inv_balances(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_inv_isotopes(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2178,7 +2178,7 @@ read_inv_isotopes(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2312,7 +2312,7 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_kinetics(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -2856,7 +2856,7 @@ read_kinetics(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE * CLASS_QUALIFIER
+LDBLE * Phreeqc::
 read_list_doubles(char **ptr, int *count_doubles)
 /* ---------------------------------------------------------------------- */
 {
@@ -2910,7 +2910,7 @@ read_list_doubles(char **ptr, int *count_doubles)
 }
 
 /* ---------------------------------------------------------------------- */
-int * CLASS_QUALIFIER
+int * Phreeqc::
 read_list_ints(char **ptr, int *count_ints, int positive)
 /* ---------------------------------------------------------------------- */
 {
@@ -2970,7 +2970,7 @@ read_list_ints(char **ptr, int *count_ints, int positive)
 }
 
 /* ---------------------------------------------------------------------- */
-int * CLASS_QUALIFIER
+int * Phreeqc::
 read_list_ints_range(char **ptr, int *count_ints, int positive, int *int_list)
 /* ---------------------------------------------------------------------- */
 {
@@ -3070,7 +3070,7 @@ read_list_ints_range(char **ptr, int *count_ints, int positive, int *int_list)
 }
 
 /* ---------------------------------------------------------------------- */
-int * CLASS_QUALIFIER
+int * Phreeqc::
 read_list_t_f(char **ptr, int *count_ints)
 /* ---------------------------------------------------------------------- */
 {
@@ -3129,7 +3129,7 @@ read_list_t_f(char **ptr, int *count_ints)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_log_k_only(char *ptr, LDBLE * log_k)
 /* ---------------------------------------------------------------------- */
 {
@@ -3148,7 +3148,7 @@ read_log_k_only(char *ptr, LDBLE * log_k)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 /* ---------------------------------------------------------------------- */
 {
@@ -3219,7 +3219,7 @@ read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_analytical_expression_only(char *ptr, LDBLE * log_k)
 /* ---------------------------------------------------------------------- */
 {
@@ -3246,7 +3246,7 @@ read_analytical_expression_only(char *ptr, LDBLE * log_k)
 
 /* VP: Density Start */
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_millero_abcdef (char *ptr, LDBLE * abcdef)
 /* ---------------------------------------------------------------------- */
 {
@@ -3273,7 +3273,7 @@ read_millero_abcdef (char *ptr, LDBLE * abcdef)
 /* VP: Density End */
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_incremental_reactions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3318,7 +3318,7 @@ read_incremental_reactions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3509,7 +3509,7 @@ read_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_mix(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -3642,7 +3642,7 @@ read_mix(void)
 }
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_number_description(char *ptr, int *n_user,
 						int *n_user_end, char **description)
 /* ---------------------------------------------------------------------- */
@@ -3700,7 +3700,7 @@ read_number_description(char *ptr, int *n_user,
 }
 #endif
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_number_description(char *ptr, int *n_user,
 						int *n_user_end, char **description, int allow_negative)
 /* ---------------------------------------------------------------------- */
@@ -3777,7 +3777,7 @@ read_number_description(char *ptr, int *n_user,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4059,7 +4059,7 @@ read_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4277,7 +4277,7 @@ read_pure_phases(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_reaction(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4396,7 +4396,7 @@ read_reaction(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_reaction_reactants(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4457,7 +4457,7 @@ read_reaction_reactants(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_reaction_steps(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -4597,7 +4597,7 @@ read_reaction_steps(struct irrev *irrev_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_save(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4703,7 +4703,7 @@ read_save(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_selected_output(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5136,7 +5136,7 @@ read_selected_output(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_solution(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5468,7 +5468,7 @@ read_solution(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -5971,7 +5971,7 @@ read_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_use(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6198,7 +6198,7 @@ read_use(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_surface_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -6598,7 +6598,7 @@ read_surface_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_surf(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7289,7 +7289,7 @@ read_surf(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_surface_master_species(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7407,7 +7407,7 @@ read_surface_master_species(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_psi_master_species(char *token)
 /* ---------------------------------------------------------------------- */
 {
@@ -7476,7 +7476,7 @@ add_psi_master_species(char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_temperature(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7559,7 +7559,7 @@ read_temperature(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_reaction_temps(struct temperature *temperature_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -7643,7 +7643,7 @@ read_reaction_temps(struct temperature *temperature_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_title(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7714,7 +7714,7 @@ read_title(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_advection(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -7950,7 +7950,7 @@ read_advection(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_debug(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8091,7 +8091,7 @@ read_debug(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8325,7 +8325,7 @@ read_print(void)
 /* ---------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_key(char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -8360,7 +8360,7 @@ check_key(char *str)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_units(char *tot_units, int alkalinity, int check_compatibility,
 			const char *default_units, int print)
 /* ---------------------------------------------------------------------- */
@@ -8519,7 +8519,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 find_option(char *item, int *n, const char **list, int count_list, int exact)
 /* ---------------------------------------------------------------------- */
 {
@@ -8568,7 +8568,7 @@ find_option(char *item, int *n, const char **list, int count_list, int exact)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_true_false(char *string, int default_value)
 /* ---------------------------------------------------------------------- */
 {
@@ -8596,7 +8596,7 @@ get_true_false(char *string, int default_value)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_option(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {
@@ -8674,7 +8674,7 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_rates(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8805,7 +8805,7 @@ read_rates(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_user_print(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -8897,7 +8897,7 @@ read_user_print(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_user_punch(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9009,7 +9009,7 @@ read_user_punch(void)
 
 #if defined PHREEQ98 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_user_graph(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9266,7 +9266,7 @@ read_user_graph(void)
 #endif
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_solid_solutions(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -9825,7 +9825,7 @@ read_solid_solutions(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_llnl_aqueous_model_parameters(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10006,7 +10006,7 @@ read_llnl_aqueous_model_parameters(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
 				   int *count_alloc, const char **opt_list,
 				   int count_opt_list, int *opt)
@@ -10062,7 +10062,7 @@ read_lines_doubles(char *next_char, LDBLE ** d, int *count_d,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_line_doubles(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 /* ---------------------------------------------------------------------- */
 {
@@ -10119,7 +10119,7 @@ read_line_doubles(char *next_char, LDBLE ** d, int *count_d, int *count_alloc)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 next_keyword_or_option(const char **opt_list, int count_opt_list)
 /* ---------------------------------------------------------------------- */
 {
@@ -10160,7 +10160,7 @@ next_keyword_or_option(const char **opt_list, int count_opt_list)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_named_logk(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10380,7 +10380,7 @@ read_named_logk(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_copy(void)
 /* ---------------------------------------------------------------------- */
 {

@@ -3,7 +3,7 @@
 #include "phrqproto.h"
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -156,7 +156,7 @@ read_isotopes(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -274,7 +274,7 @@ read_calculate_values(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -374,7 +374,7 @@ read_isotope_ratios(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -468,7 +468,7 @@ read_isotope_alphas(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_isotopes(struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -526,7 +526,7 @@ add_isotopes(struct solution *solution_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calculate_isotope_moles(struct element *elt_ptr,
 						struct solution *solution_ptr, LDBLE total_moles)
 /* ---------------------------------------------------------------------- */
@@ -701,7 +701,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 from_permil(struct master_isotope *master_isotope_ptr, LDBLE major_total)
 /* ---------------------------------------------------------------------- */
 {
@@ -714,7 +714,7 @@ from_permil(struct master_isotope *master_isotope_ptr, LDBLE major_total)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 from_pct(struct master_isotope *master_isotope_ptr, LDBLE total_moles)
 /* ---------------------------------------------------------------------- */
 {
@@ -725,7 +725,7 @@ from_pct(struct master_isotope *master_isotope_ptr, LDBLE total_moles)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 from_tu(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -736,7 +736,7 @@ from_tu(struct master_isotope *master_isotope_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 from_pcil(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -747,7 +747,7 @@ from_pcil(struct master_isotope *master_isotope_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_initial_solution_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -817,7 +817,7 @@ print_initial_solution_isotopes(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_isotopes(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -874,7 +874,7 @@ punch_isotopes(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 punch_calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -913,7 +913,7 @@ punch_calculate_values(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_isotope_ratios(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -978,7 +978,7 @@ print_isotope_ratios(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 print_isotope_alphas(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1062,7 +1062,7 @@ print_isotope_alphas(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calculate_values(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1163,7 +1163,7 @@ calculate_values(void)
 }
 
 /* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
+LDBLE Phreeqc::
 convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
 /* ---------------------------------------------------------------------- */
 {
@@ -1201,7 +1201,7 @@ convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
  */
 
 /* ---------------------------------------------------------------------- */
-struct master_isotope * CLASS_QUALIFIER
+struct master_isotope * Phreeqc::
 master_isotope_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1279,7 +1279,7 @@ master_isotope_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master_isotope * CLASS_QUALIFIER
+struct master_isotope * Phreeqc::
 master_isotope_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1302,7 +1302,7 @@ master_isotope_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 master_isotope_init(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1319,7 +1319,7 @@ master_isotope_init(struct master_isotope *master_isotope_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct master_isotope * CLASS_QUALIFIER
+struct master_isotope * Phreeqc::
 master_isotope_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1358,7 +1358,7 @@ master_isotope_search(const char *name)
  */
 
 /* ---------------------------------------------------------------------- */
-struct calculate_value * CLASS_QUALIFIER
+struct calculate_value * Phreeqc::
 calculate_value_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1438,7 +1438,7 @@ calculate_value_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct calculate_value * CLASS_QUALIFIER
+struct calculate_value * Phreeqc::
 calculate_value_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1462,7 +1462,7 @@ calculate_value_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 calculate_value_init(struct calculate_value *calculate_value_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1482,7 +1482,7 @@ calculate_value_init(struct calculate_value *calculate_value_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct calculate_value * CLASS_QUALIFIER
+struct calculate_value * Phreeqc::
 calculate_value_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1517,7 +1517,7 @@ calculate_value_search(const char *name)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 calculate_value_free(struct calculate_value *calculate_value_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1545,7 +1545,7 @@ calculate_value_free(struct calculate_value *calculate_value_ptr)
  */
 
 /* ---------------------------------------------------------------------- */
-struct isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * Phreeqc::
 isotope_ratio_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1623,7 +1623,7 @@ isotope_ratio_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * Phreeqc::
 isotope_ratio_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1646,7 +1646,7 @@ isotope_ratio_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1665,7 +1665,7 @@ isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope_ratio * CLASS_QUALIFIER
+struct isotope_ratio * Phreeqc::
 isotope_ratio_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {
@@ -1704,7 +1704,7 @@ isotope_ratio_search(const char *name)
  */
 
 /* ---------------------------------------------------------------------- */
-struct isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * Phreeqc::
 isotope_alpha_store(const char *name, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
@@ -1782,7 +1782,7 @@ isotope_alpha_store(const char *name, int replace_if_found)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * Phreeqc::
 isotope_alpha_alloc(void)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1805,7 +1805,7 @@ isotope_alpha_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1823,7 +1823,7 @@ isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct isotope_alpha * CLASS_QUALIFIER
+struct isotope_alpha * Phreeqc::
 isotope_alpha_search(const char *name)
 /* ---------------------------------------------------------------------- */
 {

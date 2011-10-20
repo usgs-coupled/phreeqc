@@ -11,10 +11,10 @@
 #if defined(USE_PHRQ_ALLOC)
 /* ---------------------------------------------------------------------- */
 #if !defined(NDEBUG)
-void * CLASS_QUALIFIER
+void * Phreeqc::
 PHRQ_malloc(size_t size, const char *szFileName, int nLine)
 #else
-void *CLASS_QUALIFIER
+void *Phreeqc::
 PHRQ_malloc(size_t size)
 #endif
 /* ---------------------------------------------------------------------- */
@@ -50,7 +50,7 @@ PHRQ_malloc(size_t size)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 PHRQ_free(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -88,7 +88,7 @@ PHRQ_free(void *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 PHRQ_free_all(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -129,7 +129,7 @@ PHRQ_free_all(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void * CLASS_QUALIFIER
+void * Phreeqc::
 PHRQ_calloc(size_t num, size_t size
 #if !defined(NDEBUG)
 			, const char *szFileName, int nLine
@@ -168,7 +168,7 @@ PHRQ_calloc(size_t num, size_t size
 }
 
 /* ---------------------------------------------------------------------- */
-void * CLASS_QUALIFIER
+void * Phreeqc::
 PHRQ_realloc(void *ptr, size_t size
 #if !defined(NDEBUG)
 			 , const char *szFileName, int nLine
@@ -236,7 +236,7 @@ PHRQ_realloc(void *ptr, size_t size
 }
 #else /* USE_PHRQ_ALLOC */
 /* ---------------------------------------------------------------------- */
-void *CLASS_QUALIFIER
+void *Phreeqc::
 #if !defined(NDEBUG)
 PHRQ_malloc(size_t size, const char *szFileName, int nLine)
 #else
@@ -248,7 +248,7 @@ PHRQ_malloc(size_t size)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 PHRQ_free(void *ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -256,14 +256,14 @@ PHRQ_free(void *ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 PHRQ_free_all(void)
 /* ---------------------------------------------------------------------- */
 {
 }
 
 /* ---------------------------------------------------------------------- */
-void * CLASS_QUALIFIER
+void * Phreeqc::
 #if !defined(NDEBUG)
 PHRQ_calloc(size_t num, size_t size, const char *szFileName, int nLine)
 #else
@@ -275,7 +275,7 @@ PHRQ_calloc(size_t num, size_t size)
 }
 
 /* ---------------------------------------------------------------------- */
-void * CLASS_QUALIFIER
+void * Phreeqc::
 #if !defined(NDEBUG)
 PHRQ_realloc(void *ptr, size_t size, const char *szFileName, int nLine)
 #else

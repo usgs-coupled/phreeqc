@@ -8,7 +8,7 @@
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct pitz_param * CLASS_QUALIFIER
+struct pitz_param * Phreeqc::
 pitz_param_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -21,7 +21,7 @@ pitz_param_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pitz_param_init(struct pitz_param *pitz_param_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -51,7 +51,7 @@ pitz_param_init(struct pitz_param *pitz_param_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct pitz_param * CLASS_QUALIFIER
+struct pitz_param * Phreeqc::
 pitz_param_read(char *string, int n)
 /* ---------------------------------------------------------------------- */
 {
@@ -98,7 +98,7 @@ pitz_param_read(char *string, int n)
 }
 
 /* ---------------------------------------------------------------------- */
-struct pitz_param * CLASS_QUALIFIER
+struct pitz_param * Phreeqc::
 pitz_param_duplicate(struct pitz_param *old_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -117,7 +117,7 @@ pitz_param_duplicate(struct pitz_param *old_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -135,7 +135,7 @@ pitz_param_copy(struct pitz_param *old_ptr, struct pitz_param *new_ptr)
 #include <list>
 #include <string>
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 pitz_param_search(struct pitz_param *pzp_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -193,7 +193,7 @@ pitz_param_search(struct pitz_param *pzp_ptr)
 
 #include <list>
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 sit_param_search(struct pitz_param *pzp_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -254,7 +254,7 @@ sit_param_search(struct pitz_param *pzp_ptr)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct theta_param * CLASS_QUALIFIER
+struct theta_param * Phreeqc::
 theta_param_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -267,7 +267,7 @@ theta_param_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 theta_param_init(struct theta_param *theta_param_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -285,7 +285,7 @@ theta_param_init(struct theta_param *theta_param_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct theta_param * CLASS_QUALIFIER
+struct theta_param * Phreeqc::
 theta_param_search(LDBLE zj, LDBLE zk)
 /* ---------------------------------------------------------------------- */
 {

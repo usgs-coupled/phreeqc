@@ -1,5 +1,5 @@
 #if !defined(_INC_PHREEQC_H)
-#define CLASS_QUALIFIER
+//#define Phreeqc::
 #define STATIC static
 #define CLASS_STATIC
 #endif

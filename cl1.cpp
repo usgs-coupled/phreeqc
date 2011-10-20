@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define CLASS_QUALIFIER Phreeqc::
+//#define Phreeqc:: Phreeqc::
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "phrqtype.h"
@@ -16,7 +16,7 @@ extern void malloc_error(void);
 #define CHECK_ERRORS
  */
 
-int CLASS_QUALIFIER
+int Phreeqc::
 cl1(int k, int l, int m, int n,
 	int l_nklmd, int l_n2d,
 	LDBLE * q,
@@ -840,7 +840,7 @@ cl1(int k, int l, int m, int n,
 	return 0;
 }
 
-void CLASS_QUALIFIER
+void Phreeqc::
 cl1_space(int check, int l_n2d, int klm, int l_nklmd)
 {
 	if (check == 1)

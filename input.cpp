@@ -11,7 +11,7 @@
 int check_line_return;  // TODO should not be here
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 /* ---------------------------------------------------------------------- */
 {
@@ -22,7 +22,7 @@ set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 reading_database(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -30,7 +30,7 @@ reading_database(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_line(const char *string, int allow_empty, int allow_eof,
 		   int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
@@ -46,7 +46,7 @@ check_line(const char *string, int allow_empty, int allow_eof,
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 				int allow_empty, int allow_eof, int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
@@ -105,7 +105,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 }
 #if !defined (MERGE_INCLUDE_FILES)
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_line(PFN_READ_CALLBACK pfn, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -199,7 +199,7 @@ get_line(PFN_READ_CALLBACK pfn, void *cookie)
 }
 #else
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -333,7 +333,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 #endif
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 /* ---------------------------------------------------------------------- */
 {
@@ -421,7 +421,7 @@ get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 add_char_to_line(int *i, char c)
 /* ---------------------------------------------------------------------- */
 {

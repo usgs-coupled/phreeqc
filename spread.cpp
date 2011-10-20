@@ -14,7 +14,7 @@ typedef unsigned char boolean;
 #define OPT_1 -5
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 read_solution_spread(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -458,7 +458,7 @@ read_solution_spread(void)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 					   struct spread_row *data, struct defaults defaults)
 /* ---------------------------------------------------------------------- */
@@ -894,7 +894,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 }
 
 /* ---------------------------------------------------------------------- */
-struct spread_row * CLASS_QUALIFIER
+struct spread_row * Phreeqc::
 string_to_spread_row(char *string)
 /* ---------------------------------------------------------------------- */
 {
@@ -1022,7 +1022,7 @@ string_to_spread_row(char *string)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 spread_row_free(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1047,7 +1047,7 @@ spread_row_free(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-int CLASS_QUALIFIER
+int Phreeqc::
 copy_token_tab(char *token_ptr, char **ptr, int *length)
 /* ---------------------------------------------------------------------- */
 {
@@ -1147,7 +1147,7 @@ copy_token_tab(char *token_ptr, char **ptr, int *length)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
+STATIC int Phreeqc::
 get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {
@@ -1197,7 +1197,7 @@ get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 
 #ifdef PHREEQCI_GUI
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 free_spread(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -1225,7 +1225,7 @@ free_spread(void)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 add_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1245,7 +1245,7 @@ add_row(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-struct spread_row * CLASS_QUALIFIER
+struct spread_row * Phreeqc::
 copy_row(struct spread_row *spread_row_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1288,7 +1288,7 @@ copy_row(struct spread_row *spread_row_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-void CLASS_QUALIFIER
+void Phreeqc::
 copy_defaults(struct defaults *dest_ptr, struct defaults *src_ptr)
 /* ---------------------------------------------------------------------- */
 {
