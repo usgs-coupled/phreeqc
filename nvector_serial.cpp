@@ -24,7 +24,6 @@
 #include "nvector_serial.h"
 #include "sundialstypes.h"
 #include "sundialsmath.h"
-#include "output.h"
 
 #if !defined(PHREEQC_CLASS)
 #include "phqalloc.h"

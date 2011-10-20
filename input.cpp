@@ -7,7 +7,6 @@
 #endif
 #include <setjmp.h>
 #include "input.h"
-#include "output.h"
 #include "phrqproto.h"
 #include <istream>
 #include <fstream>

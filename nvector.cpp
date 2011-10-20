@@ -16,7 +16,6 @@
  *******************************************************************/
 
 #include "nvector.h"			/* generic M_Env and N_Vector */
-#include "output.h"
 static char const svnid[] =
 	"$Id$";
 

@@ -8,7 +8,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqtype.h"
 #if !defined(PHREEQC_CLASS)
 extern int max_row_count, max_column_count;

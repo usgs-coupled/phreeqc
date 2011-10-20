@@ -9,7 +9,6 @@
 #endif
 
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqtype.h"
 
 #if !defined(PHREEQC_CLASS)

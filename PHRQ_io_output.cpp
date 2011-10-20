@@ -16,7 +16,6 @@
 #if !defined(PHREEQC_CLASS)
 static int forward_output_to_log = 0;
 #include "input.h"
-#include "output.h"
 #endif
 
 

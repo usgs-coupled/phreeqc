@@ -6,8 +6,6 @@
 #include "Phreeqc.h"
 #endif
 
-#include "output.h"
-/*#include <malloc.h>*/
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>

@@ -18,7 +18,6 @@
 #include <math.h>
 #include "sundialsmath.h"
 #include "sundialstypes.h"
-#include "output.h"
 
 static char const svnid[] =
 	"$Id$";

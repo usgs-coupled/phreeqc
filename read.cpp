@@ -7,7 +7,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 #if !defined (PHREEQC_CLASS)
 	#ifdef PHREEQC_CPP

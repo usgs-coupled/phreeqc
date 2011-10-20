@@ -19,7 +19,6 @@
 #include "smalldense.h"
 #include "sundialstypes.h"
 #include "sundialsmath.h"
-#include "output.h"
 /* WARNING don't include any headers below here */
 #if !defined(PHREEQC_CLASS)
 #include "phqalloc.h"

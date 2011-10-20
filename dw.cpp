@@ -5,7 +5,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phrqproto.h"
-#include "output.h"
 #if !defined(PHREEQC_CLASS)
 #define PITZER_EXTERNAL extern
 #include "pitzer.h"

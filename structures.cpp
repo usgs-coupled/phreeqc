@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 
 #if !defined(PHREEQC_CLASS)

@@ -5,7 +5,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] = "$Id$";

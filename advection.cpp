@@ -6,7 +6,6 @@
 #endif
 
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 static char const svnid[] =
 	"$Id$";

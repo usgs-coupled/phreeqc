@@ -1,5 +1,6 @@
 #ifndef _INC_MESSAGE_H
 #define _INC_MESSAGE_H
+#ifdef SKIP
 #if !defined(PHREEQC_CLASS)
 #define CLASS_STATIC
 #else
@@ -48,8 +49,8 @@ int output_close(int type);
 //int fpunchf(const char *name, const char *format, ...);
 //int fpunchf_user(int user_index, const char *format, ...);
 //int fpunchf_end_row(const char *format, ...);
-void set_forward_output_to_log(int value);
-int get_forward_output_to_log(void);
+//void set_forward_output_to_log(int value);
+//int get_forward_output_to_log(void);
 typedef enum
 {
 	//OUTPUT_ERROR,
@@ -74,5 +75,5 @@ typedef enum
 //	ACTION_REWIND,
 //	ACTION_FLUSH
 //} action_type;
-
+#endif
 #endif /* _INC_MESSAGE_H */

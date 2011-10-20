@@ -7,7 +7,6 @@
 #include "Phreeqc.h"
 #endif
 #include <setjmp.h>
-#include "output.h"
 #include "phrqproto.h"
 #include "phqalloc.h"
 static char const svnid[] =

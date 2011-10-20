@@ -5,7 +5,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 #define PITZER
 

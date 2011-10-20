@@ -21,7 +21,6 @@
 #include "sundialsmath.h"
 #include "dense.h"
 #include "smalldense.h"
-#include "output.h"
 
 /* WARNING don't include any headers below here */
 #if !defined(PHREEQC_CLASS)

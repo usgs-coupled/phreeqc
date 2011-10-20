@@ -6,7 +6,6 @@ typedef unsigned char boolean;
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 #define STRING 11
 #define NUMBER 12

@@ -7,7 +7,6 @@
 #include "Phreeqc.h"
 #endif
 #include "phqalloc.h"
-#include "output.h"
 #include "phrqproto.h"
 #include "input.h"
 #if defined(MERGE_INCLUDE_FILES) 
