@@ -1,5 +1,4 @@
 #if !defined(_INC_PHREEQC_H)
-//#define Phreeqc::
 #define STATIC static
 #define CLASS_STATIC
 #endif
@@ -19,169 +18,169 @@
 #include "PHRQ_io.h"
 #include "global_structures.h"
 
-EXTERNAL PHRQ_io *phrq_io;
+ PHRQ_io *phrq_io;
 
 /* ----------------------------------------------------------------------
  *   STRUCTURES
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct model last_model;
-EXTERNAL int same_model;
-EXTERNAL int same_temperature;
-EXTERNAL struct punch punch;
+ struct model last_model;
+ int same_model;
+ int same_temperature;
+ struct punch punch;
 /* ----------------------------------------------------------------------
  *   Temperatures
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct temperature *temperature;
-EXTERNAL int count_temperature;
+ struct temperature *temperature;
+ int count_temperature;
 /* ----------------------------------------------------------------------
  *   Surface
  * --------------------------------------------------------------------- */
 
-EXTERNAL int g_iterations;
-EXTERNAL LDBLE G_TOL;
-EXTERNAL struct surface *surface;
-EXTERNAL struct surface *dbg_surface;
-EXTERNAL int count_surface;
-EXTERNAL int max_surface;
-EXTERNAL struct Charge_Group *charge_group;
-EXTERNAL int change_surf_count;
-EXTERNAL struct Change_Surf *change_surf;
+ int g_iterations;
+ LDBLE G_TOL;
+ struct surface *surface;
+ struct surface *dbg_surface;
+ int count_surface;
+ int max_surface;
+ struct Charge_Group *charge_group;
+ int change_surf_count;
+ struct Change_Surf *change_surf;
 
 /* ----------------------------------------------------------------------
  *   Exchange
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct exchange *exchange;
-EXTERNAL struct exchange *dbg_exchange;
-EXTERNAL int count_exchange;
-EXTERNAL int max_exchange;
+ struct exchange *exchange;
+ struct exchange *dbg_exchange;
+ int count_exchange;
+ int max_exchange;
 /* ----------------------------------------------------------------------
  *   Kinetics
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct kinetics *kinetics;
-EXTERNAL struct kinetics *dbg_kinetics;
-EXTERNAL int count_kinetics;
-EXTERNAL int max_kinetics;
+ struct kinetics *kinetics;
+ struct kinetics *dbg_kinetics;
+ int count_kinetics;
+ int max_kinetics;
 
-EXTERNAL int count_save_values;
-EXTERNAL struct save_values *save_values;
+ int count_save_values;
+ struct save_values *save_values;
 
 /*----------------------------------------------------------------------
  *   Save
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct save save;
+ struct save save;
 /*----------------------------------------------------------------------
  *   Use
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct Use use;
-EXTERNAL struct Use *dbg_use;
+ struct Use use;
+ struct Use *dbg_use;
 /*----------------------------------------------------------------------
  *   Copy
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct copier copy_solution;
-EXTERNAL struct copier copy_pp_assemblage;
-EXTERNAL struct copier copy_exchange;
-EXTERNAL struct copier copy_surface;
-EXTERNAL struct copier copy_s_s_assemblage;
-EXTERNAL struct copier copy_gas_phase;
-EXTERNAL struct copier copy_kinetics;
-EXTERNAL struct copier copy_mix;
-EXTERNAL struct copier copy_irrev;
-EXTERNAL struct copier copy_temperature;
+ struct copier copy_solution;
+ struct copier copy_pp_assemblage;
+ struct copier copy_exchange;
+ struct copier copy_surface;
+ struct copier copy_s_s_assemblage;
+ struct copier copy_gas_phase;
+ struct copier copy_kinetics;
+ struct copier copy_mix;
+ struct copier copy_irrev;
+ struct copier copy_temperature;
 
 
 /*----------------------------------------------------------------------
  *   Inverse
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct inverse *inverse;
-EXTERNAL int count_inverse;
+ struct inverse *inverse;
+ int count_inverse;
 
 /*----------------------------------------------------------------------
  *   Mix
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct mix *mix;
-EXTERNAL struct mix *dbg_mix;
-EXTERNAL int count_mix;
+ struct mix *mix;
+ struct mix *dbg_mix;
+ int count_mix;
 /*----------------------------------------------------------------------
  *   Irreversible reaction
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct irrev *irrev;
-EXTERNAL struct irrev *dbg_irrev;
-EXTERNAL int count_irrev;
+ struct irrev *irrev;
+ struct irrev *dbg_irrev;
+ int count_irrev;
 /*----------------------------------------------------------------------
  *   Gas phase
  *---------------------------------------------------------------------- */
 
-EXTERNAL int count_gas_phase;
-EXTERNAL int max_gas_phase;
-EXTERNAL struct gas_phase *gas_phase;
+ int count_gas_phase;
+ int max_gas_phase;
+ struct gas_phase *gas_phase;
 /*----------------------------------------------------------------------
  *   Solid solution
  *---------------------------------------------------------------------- */
 
-EXTERNAL int count_s_s_assemblage;
-EXTERNAL int max_s_s_assemblage;
-EXTERNAL struct s_s_assemblage *s_s_assemblage;
+ int count_s_s_assemblage;
+ int max_s_s_assemblage;
+ struct s_s_assemblage *s_s_assemblage;
 /*----------------------------------------------------------------------
  *   Pure-phase assemblage
  *---------------------------------------------------------------------- */
 
-EXTERNAL int count_pp_assemblage;
-EXTERNAL int max_pp_assemblage;
-EXTERNAL struct pp_assemblage *pp_assemblage;
-EXTERNAL struct pp_assemblage *dbg_pp_assemblage;
+ int count_pp_assemblage;
+ int max_pp_assemblage;
+ struct pp_assemblage *pp_assemblage;
+ struct pp_assemblage *dbg_pp_assemblage;
 /*----------------------------------------------------------------------
  *   Species_list
  *---------------------------------------------------------------------- */
 
-EXTERNAL int count_species_list;
-EXTERNAL int max_species_list;
-EXTERNAL struct species_list *species_list;
+ int count_species_list;
+ int max_species_list;
+ struct species_list *species_list;
 /*----------------------------------------------------------------------
  *   Jacobian and Mass balance lists
  *---------------------------------------------------------------------- */
 
-EXTERNAL int count_sum_jacob0;	/* number of elements in sum_jacob0 */
-EXTERNAL int max_sum_jacob0;	/* calculated maximum number of elements in sum_jacob0 */
-EXTERNAL struct list0 *sum_jacob0;	/* array of pointers to targets and coefficients for array */
+ int count_sum_jacob0;	/* number of elements in sum_jacob0 */
+ int max_sum_jacob0;	/* calculated maximum number of elements in sum_jacob0 */
+ struct list0 *sum_jacob0;	/* array of pointers to targets and coefficients for array */
 
-EXTERNAL int count_sum_mb1;		/* number of elements in sum_mb1 */
-EXTERNAL int max_sum_mb1;		/* calculated maximum number of elements in sum_mb1 */
-EXTERNAL struct list1 *sum_mb1;	/* array of pointers to sources and targets for mass
+ int count_sum_mb1;		/* number of elements in sum_mb1 */
+ int max_sum_mb1;		/* calculated maximum number of elements in sum_mb1 */
+ struct list1 *sum_mb1;	/* array of pointers to sources and targets for mass
 								   balance summations with coef = 1.0 */
-EXTERNAL int count_sum_jacob1;	/* number of elements in sum_jacob1 */
-EXTERNAL int max_sum_jacob1;	/* calculated maximum number of elements in sum_jacob1 */
-EXTERNAL struct list1 *sum_jacob1;	/* array of pointers to sources and targets for array
+ int count_sum_jacob1;	/* number of elements in sum_jacob1 */
+ int max_sum_jacob1;	/* calculated maximum number of elements in sum_jacob1 */
+ struct list1 *sum_jacob1;	/* array of pointers to sources and targets for array
 									   equations with coef = 1.0 */
-EXTERNAL int count_sum_mb2;		/* number of elements in sum_mb2 */
-EXTERNAL int max_sum_mb2;		/* calculated maximum number of elements in sum_mb2 */
-EXTERNAL struct list2 *sum_mb2;	/* array of coefficients and pointers to sources and
+ int count_sum_mb2;		/* number of elements in sum_mb2 */
+ int max_sum_mb2;		/* calculated maximum number of elements in sum_mb2 */
+ struct list2 *sum_mb2;	/* array of coefficients and pointers to sources and
 								   targets for mass balance summations with coef != 1.0 */
-EXTERNAL int count_sum_jacob2;	/* number of elements in sum_jacob2 */
-EXTERNAL int max_sum_jacob2;	/* calculated maximum number of elements in sum_jacob2 */
-EXTERNAL struct list2 *sum_jacob2;	/* array of coefficients and pointers to sources and
+ int count_sum_jacob2;	/* number of elements in sum_jacob2 */
+ int max_sum_jacob2;	/* calculated maximum number of elements in sum_jacob2 */
+ struct list2 *sum_jacob2;	/* array of coefficients and pointers to sources and
 									   targets, coef != 1.0 */
-EXTERNAL int count_sum_delta;	/* number of elements in sum_delta */
-EXTERNAL int max_sum_delta;		/* calculated maximum number of elements in sum_delta */
-EXTERNAL struct list2 *sum_delta;	/* array of pointers to sources, targets and coefficients for
+ int count_sum_delta;	/* number of elements in sum_delta */
+ int max_sum_delta;		/* calculated maximum number of elements in sum_delta */
+ struct list2 *sum_delta;	/* array of pointers to sources, targets and coefficients for
 									   summing deltas for mass balance equations */
 /*----------------------------------------------------------------------
  *   Solution
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct solution **solution;
-EXTERNAL struct solution **dbg_solution;
-EXTERNAL int count_solution;
-EXTERNAL int max_solution;
+ struct solution **solution;
+ struct solution **dbg_solution;
+ int count_solution;
+ int max_solution;
 
 struct iso *iso_defaults;
 int count_iso_defaults;
@@ -189,83 +188,83 @@ int count_iso_defaults;
 /*----------------------------------------------------------------------
  *   Global solution
  *---------------------------------------------------------------------- */
-EXTERNAL char *title_x;
-EXTERNAL int new_x;
-EXTERNAL char *description_x;
-EXTERNAL LDBLE tc_x;
-EXTERNAL LDBLE tk_x;
-EXTERNAL LDBLE ph_x;
-EXTERNAL LDBLE solution_pe_x;
-EXTERNAL LDBLE mu_x;
-EXTERNAL LDBLE ah2o_x;
-EXTERNAL LDBLE density_x;
-EXTERNAL LDBLE total_h_x;
-EXTERNAL LDBLE total_o_x;
-EXTERNAL LDBLE cb_x;
-EXTERNAL LDBLE total_ions_x;
-EXTERNAL LDBLE mass_water_aq_x;
-EXTERNAL LDBLE mass_water_surfaces_x;
-EXTERNAL LDBLE mass_water_bulk_x;
-EXTERNAL char *units_x;
-EXTERNAL struct pe_data *pe_x;
-EXTERNAL int count_isotopes_x;
-EXTERNAL struct isotope *isotopes_x;
-EXTERNAL int default_pe_x;
-/*EXTERNAL int diffuse_layer_x;*/
-EXTERNAL enum DIFFUSE_LAYER_TYPE dl_type_x;
-EXTERNAL LDBLE total_carbon;
-EXTERNAL LDBLE total_co2;
-EXTERNAL LDBLE total_alkalinity;
-EXTERNAL LDBLE gfw_water;
-EXTERNAL LDBLE step_x;
-EXTERNAL LDBLE kin_time_x;
+ char *title_x;
+ int new_x;
+ char *description_x;
+ LDBLE tc_x;
+ LDBLE tk_x;
+ LDBLE ph_x;
+ LDBLE solution_pe_x;
+ LDBLE mu_x;
+ LDBLE ah2o_x;
+ LDBLE density_x;
+ LDBLE total_h_x;
+ LDBLE total_o_x;
+ LDBLE cb_x;
+ LDBLE total_ions_x;
+ LDBLE mass_water_aq_x;
+ LDBLE mass_water_surfaces_x;
+ LDBLE mass_water_bulk_x;
+ char *units_x;
+ struct pe_data *pe_x;
+ int count_isotopes_x;
+ struct isotope *isotopes_x;
+ int default_pe_x;
+/* int diffuse_layer_x;*/
+ enum DIFFUSE_LAYER_TYPE dl_type_x;
+ LDBLE total_carbon;
+ LDBLE total_co2;
+ LDBLE total_alkalinity;
+ LDBLE gfw_water;
+ LDBLE step_x;
+ LDBLE kin_time_x;
 /*----------------------------------------------------------------------
  *   Transport data
  *---------------------------------------------------------------------- */
-EXTERNAL int count_cells;
-EXTERNAL int count_shifts;
-EXTERNAL int ishift;
-EXTERNAL int bcon_first;
-EXTERNAL int bcon_last;
-EXTERNAL int correct_disp;
-EXTERNAL LDBLE tempr;
-EXTERNAL LDBLE timest;
-EXTERNAL int simul_tr;
-EXTERNAL LDBLE diffc;
-EXTERNAL LDBLE heat_diffc;
-EXTERNAL int cell;
-EXTERNAL LDBLE mcd_substeps;
-EXTERNAL struct stag_data *stag_data;
-EXTERNAL int print_modulus;
-EXTERNAL int punch_modulus;
-EXTERNAL int dump_in;
-EXTERNAL int dump_modulus;
-EXTERNAL int transport_warnings;
-EXTERNAL struct cell_data *cell_data;
-EXTERNAL int multi_Dflag;		/* signals calc'n of multicomponent diffusion */
-EXTERNAL int interlayer_Dflag;	/* multicomponent diffusion and diffusion through interlayer porosity */
-EXTERNAL LDBLE default_Dw;		/* default species diffusion coefficient in water at 25oC, m2/s */
-EXTERNAL LDBLE multi_Dpor;		/* uniform porosity of free porewater in solid medium */
-EXTERNAL LDBLE interlayer_Dpor;	/* uniform porosity of interlayer space of montmorillonite in solid medium */
-EXTERNAL LDBLE multi_Dpor_lim;	/* limiting free porewater porosity where transport stops */
-EXTERNAL LDBLE interlayer_Dpor_lim;	/* limiting interlayer porosity where transport stops */
-EXTERNAL LDBLE multi_Dn;		/* exponent to calculate pore water diffusion coefficient,
+ int count_cells;
+ int count_shifts;
+ int ishift;
+ int bcon_first;
+ int bcon_last;
+ int correct_disp;
+ LDBLE tempr;
+ LDBLE timest;
+ int simul_tr;
+ LDBLE diffc;
+ LDBLE heat_diffc;
+ int cell;
+ LDBLE mcd_substeps;
+ struct stag_data *stag_data;
+ int print_modulus;
+ int punch_modulus;
+ int dump_in;
+ int dump_modulus;
+ int transport_warnings;
+ struct cell_data *cell_data;
+ int multi_Dflag;		/* signals calc'n of multicomponent diffusion */
+ int interlayer_Dflag;	/* multicomponent diffusion and diffusion through interlayer porosity */
+ LDBLE default_Dw;		/* default species diffusion coefficient in water at 25oC, m2/s */
+ LDBLE multi_Dpor;		/* uniform porosity of free porewater in solid medium */
+ LDBLE interlayer_Dpor;	/* uniform porosity of interlayer space of montmorillonite in solid medium */
+ LDBLE multi_Dpor_lim;	/* limiting free porewater porosity where transport stops */
+ LDBLE interlayer_Dpor_lim;	/* limiting interlayer porosity where transport stops */
+ LDBLE multi_Dn;		/* exponent to calculate pore water diffusion coefficient,
 								   Dp = Dw * (multi_Dpor)^multi_Dn */
-EXTERNAL LDBLE interlayer_tortf;	/* tortuosity_factor in interlayer porosity,
+ LDBLE interlayer_tortf;	/* tortuosity_factor in interlayer porosity,
 									   Dpil = Dw / interlayer_tortf */
 
-EXTERNAL int cell_no;
+ int cell_no;
 /*----------------------------------------------------------------------
  *   Advection data
  *---------------------------------------------------------------------- */
-EXTERNAL int count_ad_cells;
-EXTERNAL int count_ad_shifts;
-EXTERNAL int print_ad_modulus;
-EXTERNAL int punch_ad_modulus;
-EXTERNAL int *advection_punch, *advection_print;
-EXTERNAL LDBLE advection_kin_time;
-EXTERNAL LDBLE advection_kin_time_defined;
-EXTERNAL int advection_warnings;
+ int count_ad_cells;
+ int count_ad_shifts;
+ int print_ad_modulus;
+ int punch_ad_modulus;
+ int *advection_punch, *advection_print;
+ LDBLE advection_kin_time;
+ LDBLE advection_kin_time_defined;
+ int advection_warnings;
 
 /*----------------------------------------------------------------------
  *   Keywords
@@ -273,8 +272,8 @@ EXTERNAL int advection_warnings;
 struct const_key *keyword;
 int NKEYS;
 
-EXTERNAL struct key *keyword_hash;
-EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface,
+ struct key *keyword_hash;
+ int new_model, new_exchange, new_pp_assemblage, new_surface,
 	new_reaction, new_temperature, new_mix, new_solution, new_gas_phase,
 	new_inverse, new_punch, new_s_s_assemblage, new_kinetics, new_copy,
 	new_pitzer;
@@ -282,19 +281,19 @@ EXTERNAL int new_model, new_exchange, new_pp_assemblage, new_surface,
  *   Elements
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct element **elements;
-EXTERNAL int count_elements;
-EXTERNAL int max_elements;
-EXTERNAL struct element *element_h_one;
+ struct element **elements;
+ int count_elements;
+ int max_elements;
+ struct element *element_h_one;
 
 /*----------------------------------------------------------------------
  *   Element List
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct elt_list *elt_list;	/* structure array of working space while reading equations
+ struct elt_list *elt_list;	/* structure array of working space while reading equations
 									   names are in "strings", initially in input order */
-EXTERNAL int count_elts;		/* number of elements in elt_list = position of next */
-EXTERNAL int max_elts;
+ int count_elts;		/* number of elements in elt_list = position of next */
+ int max_elts;
 /*----------------------------------------------------------------------
  *   Reaction
  *---------------------------------------------------------------------- */
@@ -303,185 +302,185 @@ EXTERNAL int max_elts;
  *   Species
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct logk **logk;
-EXTERNAL int count_logk;
-EXTERNAL int max_logk;
+ struct logk **logk;
+ int count_logk;
+ int max_logk;
 
-EXTERNAL char *moles_per_kilogram_string;
-EXTERNAL char *pe_string;
+ char *moles_per_kilogram_string;
+ char *pe_string;
 
-EXTERNAL struct species **s;
-EXTERNAL int count_s;
-EXTERNAL int max_s;
+ struct species **s;
+ int count_s;
+ int max_s;
 
-EXTERNAL struct species **s_x;
-EXTERNAL int count_s_x;
-EXTERNAL int max_s_x;
+ struct species **s_x;
+ int count_s_x;
+ int max_s_x;
 
-EXTERNAL struct species *s_h2o;
-EXTERNAL struct species *s_hplus;
-EXTERNAL struct species *s_h3oplus;
-EXTERNAL struct species *s_eminus;
-EXTERNAL struct species *s_co3;
-EXTERNAL struct species *s_h2;
-EXTERNAL struct species *s_o2;
+ struct species *s_h2o;
+ struct species *s_hplus;
+ struct species *s_h3oplus;
+ struct species *s_eminus;
+ struct species *s_co3;
+ struct species *s_h2;
+ struct species *s_o2;
 /*----------------------------------------------------------------------
  *   Phases
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct phase **phases;
-EXTERNAL int count_phases;
-EXTERNAL int max_phases;
+ struct phase **phases;
+ int count_phases;
+ int max_phases;
 /*----------------------------------------------------------------------
  *   Master species
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct master **master;	/* structure array of master species */
-EXTERNAL struct master **dbg_master;
-EXTERNAL int count_master;
-EXTERNAL int max_master;
+ struct master **master;	/* structure array of master species */
+ struct master **dbg_master;
+ int count_master;
+ int max_master;
 /*----------------------------------------------------------------------
  *   Unknowns
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct unknown **x;
-EXTERNAL int count_unknowns;
-EXTERNAL int max_unknowns;
+ struct unknown **x;
+ int count_unknowns;
+ int max_unknowns;
 
-EXTERNAL struct unknown *ah2o_unknown;
-EXTERNAL struct unknown *alkalinity_unknown;
-EXTERNAL struct unknown *carbon_unknown;
-EXTERNAL struct unknown *charge_balance_unknown;
-EXTERNAL struct unknown *exchange_unknown;
-EXTERNAL struct unknown *mass_hydrogen_unknown;
-EXTERNAL struct unknown *mass_oxygen_unknown;
-EXTERNAL struct unknown *mb_unknown;
-EXTERNAL struct unknown *mu_unknown;
-EXTERNAL struct unknown *pe_unknown;
-EXTERNAL struct unknown *ph_unknown;
-EXTERNAL struct unknown *pure_phase_unknown;
-EXTERNAL struct unknown *solution_phase_boundary_unknown;
-EXTERNAL struct unknown *surface_unknown;
-EXTERNAL struct unknown *gas_unknown;
-EXTERNAL struct unknown *s_s_unknown;
+ struct unknown *ah2o_unknown;
+ struct unknown *alkalinity_unknown;
+ struct unknown *carbon_unknown;
+ struct unknown *charge_balance_unknown;
+ struct unknown *exchange_unknown;
+ struct unknown *mass_hydrogen_unknown;
+ struct unknown *mass_oxygen_unknown;
+ struct unknown *mb_unknown;
+ struct unknown *mu_unknown;
+ struct unknown *pe_unknown;
+ struct unknown *ph_unknown;
+ struct unknown *pure_phase_unknown;
+ struct unknown *solution_phase_boundary_unknown;
+ struct unknown *surface_unknown;
+ struct unknown *gas_unknown;
+ struct unknown *s_s_unknown;
 /*----------------------------------------------------------------------
  *   Reaction work space
  *---------------------------------------------------------------------- */
 
-EXTERNAL struct reaction_temp trxn;	/* structure array of working space while reading equations
+ struct reaction_temp trxn;	/* structure array of working space while reading equations
 									   species names are in "temp_strings" */
-EXTERNAL int count_trxn;		/* number of reactants in trxn = position of next */
-EXTERNAL int max_trxn;
+ int count_trxn;		/* number of reactants in trxn = position of next */
+ int max_trxn;
 
-EXTERNAL struct unknown_list *mb_unknowns;
-EXTERNAL int count_mb_unknowns;
-EXTERNAL int max_mb_unknowns;
+ struct unknown_list *mb_unknowns;
+ int count_mb_unknowns;
+ int max_mb_unknowns;
 /* ----------------------------------------------------------------------
  *   Print
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct prints pr;
-EXTERNAL int status_on, status_interval;
-EXTERNAL float status_timer;
-EXTERNAL int count_warnings;
+ struct prints pr;
+ int status_on, status_interval;
+ float status_timer;
+ int count_warnings;
 
 /* ----------------------------------------------------------------------
  *   RATES
  * ---------------------------------------------------------------------- */
 
-EXTERNAL struct rate *rates;
-EXTERNAL int count_rates;
-EXTERNAL LDBLE rate_m, rate_m0, *rate_p, rate_time, rate_sim_time_start,
+ struct rate *rates;
+ int count_rates;
+ LDBLE rate_m, rate_m0, *rate_p, rate_time, rate_sim_time_start,
 	rate_sim_time_end, rate_sim_time, rate_moles, initial_total_time;
-EXTERNAL int count_rate_p;
+ int count_rate_p;
 /* ----------------------------------------------------------------------
  *   USER PRINT COMMANDS
  * ---------------------------------------------------------------------- */
-EXTERNAL struct rate *user_print;
-EXTERNAL struct rate *user_punch;
-EXTERNAL char **user_punch_headings;
-EXTERNAL int user_punch_count_headings;
+ struct rate *user_print;
+ struct rate *user_punch;
+ char **user_punch_headings;
+ int user_punch_count_headings;
 #if defined PHREEQ98 
-EXTERNAL struct rate *user_graph;
-EXTERNAL char **user_graph_headings;
-EXTERNAL int user_graph_count_headings;
+ struct rate *user_graph;
+ char **user_graph_headings;
+ int user_graph_count_headings;
 #endif
 #if defined MULTICHART
-EXTERNAL ChartHandler chart_handler;
+ ChartHandler chart_handler;
 #endif
 
 /* ----------------------------------------------------------------------
  *   GLOBAL DECLARATIONS
  * ---------------------------------------------------------------------- */
-EXTERNAL char error_string[10 * MAX_LENGTH];
-EXTERNAL int simulation;
-EXTERNAL int state;
-EXTERNAL int reaction_step;
-EXTERNAL int transport_step;
-EXTERNAL int transport_start;
-EXTERNAL int advection_step;
-EXTERNAL int stop_program;
-EXTERNAL int incremental_reactions;
+ char error_string[10 * MAX_LENGTH];
+ int simulation;
+ int state;
+ int reaction_step;
+ int transport_step;
+ int transport_start;
+ int advection_step;
+ int stop_program;
+ int incremental_reactions;
 
-EXTERNAL int count_strings;
-EXTERNAL int max_strings;
+ int count_strings;
+ int max_strings;
 
-EXTERNAL LDBLE *array;
-EXTERNAL LDBLE *delta;
-EXTERNAL LDBLE *residual;
+ LDBLE *array;
+ LDBLE *delta;
+ LDBLE *residual;
 
-EXTERNAL int input_error;
+ int input_error;
 
-EXTERNAL int next_keyword;
-EXTERNAL int parse_error;
-EXTERNAL int paren_count;
-EXTERNAL int iterations;
-EXTERNAL int gamma_iterations;
-EXTERNAL int run_reactions_iterations;
+ int next_keyword;
+ int parse_error;
+ int paren_count;
+ int iterations;
+ int gamma_iterations;
+ int run_reactions_iterations;
 
-EXTERNAL int max_line;
-EXTERNAL char *line;
-EXTERNAL char *line_save;
+ int max_line;
+ char *line;
+ char *line_save;
 
-EXTERNAL LDBLE LOG_10;
+ LDBLE LOG_10;
 
-EXTERNAL int debug_model;
-EXTERNAL int debug_prep;
-EXTERNAL int debug_set;
-EXTERNAL int debug_diffuse_layer;
-EXTERNAL int debug_inverse;
+ int debug_model;
+ int debug_prep;
+ int debug_set;
+ int debug_diffuse_layer;
+ int debug_inverse;
 
-EXTERNAL LDBLE inv_tol_default;
-EXTERNAL int itmax;
-EXTERNAL LDBLE ineq_tol;
-EXTERNAL LDBLE convergence_tolerance;
-EXTERNAL LDBLE step_size;
-EXTERNAL LDBLE pe_step_size;
-EXTERNAL LDBLE step_size_now;
-EXTERNAL LDBLE pe_step_size_now;
-EXTERNAL LDBLE pp_scale;
-EXTERNAL LDBLE pp_column_scale;
-EXTERNAL int diagonal_scale;	/* 0 not used, 1 used */
-EXTERNAL int mass_water_switch;
-EXTERNAL int delay_mass_water;
-EXTERNAL LDBLE censor;
-EXTERNAL int aqueous_only;
-EXTERNAL int negative_concentrations;
-EXTERNAL int calculating_deriv;
-EXTERNAL int numerical_deriv;
+ LDBLE inv_tol_default;
+ int itmax;
+ LDBLE ineq_tol;
+ LDBLE convergence_tolerance;
+ LDBLE step_size;
+ LDBLE pe_step_size;
+ LDBLE step_size_now;
+ LDBLE pe_step_size_now;
+ LDBLE pp_scale;
+ LDBLE pp_column_scale;
+ int diagonal_scale;	/* 0 not used, 1 used */
+ int mass_water_switch;
+ int delay_mass_water;
+ LDBLE censor;
+ int aqueous_only;
+ int negative_concentrations;
+ int calculating_deriv;
+ int numerical_deriv;
 
-EXTERNAL int count_total_steps;
-EXTERNAL int phast;
-EXTERNAL LDBLE *llnl_temp, *llnl_adh, *llnl_bdh, *llnl_bdot, *llnl_co2_coefs;
-EXTERNAL int llnl_count_temp, llnl_count_adh, llnl_count_bdh, llnl_count_bdot,
+ int count_total_steps;
+ int phast;
+ LDBLE *llnl_temp, *llnl_adh, *llnl_bdh, *llnl_bdot, *llnl_co2_coefs;
+ int llnl_count_temp, llnl_count_adh, llnl_count_bdh, llnl_count_bdot,
 	llnl_count_co2_coefs;
 
-EXTERNAL char *selected_output_file_name;
-EXTERNAL char *dump_file_name;
-EXTERNAL int remove_unstable_phases;
+ char *selected_output_file_name;
+ char *dump_file_name;
+ int remove_unstable_phases;
 
 #ifdef PHREEQCI_GUI
-EXTERNAL struct spread_sheet g_spread_sheet;
+ struct spread_sheet g_spread_sheet;
 #endif
 
 /* ---------------------------------------------------------------------- */
@@ -489,13 +488,13 @@ EXTERNAL struct spread_sheet g_spread_sheet;
  *   Hash definitions
  */
 
-EXTERNAL HashTable *strings_hash_table;
-EXTERNAL HashTable *elements_hash_table;
-EXTERNAL HashTable *species_hash_table;
-EXTERNAL HashTable *phases_hash_table;
-EXTERNAL HashTable *keyword_hash_table;
-EXTERNAL HashTable *logk_hash_table;
-EXTERNAL HashTable *master_isotope_hash_table;
+ HashTable *strings_hash_table;
+ HashTable *elements_hash_table;
+ HashTable *species_hash_table;
+ HashTable *phases_hash_table;
+ HashTable *keyword_hash_table;
+ HashTable *logk_hash_table;
+ HashTable *master_isotope_hash_table;
 
 #if defined(PHREEQCI_GUI)
 #include "../../phreeqci_gui.h"
@@ -503,13 +502,13 @@ EXTERNAL HashTable *master_isotope_hash_table;
 /* ----------------------------------------------------------------------
  *   ISOTOPES
  * ---------------------------------------------------------------------- */
-EXTERNAL struct name_coef match_tokens[50];
-EXTERNAL int count_match_tokens;
+ struct name_coef match_tokens[50];
+ int count_match_tokens;
 
-EXTERNAL int count_master_isotope;
-EXTERNAL struct master_isotope **master_isotope;
-EXTERNAL int max_master_isotope;
-EXTERNAL int initial_solution_isotopes;
+ int count_master_isotope;
+ struct master_isotope **master_isotope;
+ int max_master_isotope;
+ int initial_solution_isotopes;
 
 #define OPTION_EOF -1
 #define OPTION_KEYWORD -2
@@ -518,38 +517,38 @@ EXTERNAL int initial_solution_isotopes;
 #define OPT_1 -5
 
 
-EXTERNAL int count_calculate_value;
-EXTERNAL struct calculate_value **calculate_value;
-EXTERNAL int max_calculate_value;
-EXTERNAL HashTable *calculate_value_hash_table;
+ int count_calculate_value;
+ struct calculate_value **calculate_value;
+ int max_calculate_value;
+ HashTable *calculate_value_hash_table;
 
 
-EXTERNAL int count_isotope_ratio;
-EXTERNAL struct isotope_ratio **isotope_ratio;
-EXTERNAL int max_isotope_ratio;
-EXTERNAL HashTable *isotope_ratio_hash_table;
+ int count_isotope_ratio;
+ struct isotope_ratio **isotope_ratio;
+ int max_isotope_ratio;
+ HashTable *isotope_ratio_hash_table;
 
-EXTERNAL int count_isotope_alpha;
-EXTERNAL struct isotope_alpha **isotope_alpha;
-EXTERNAL int max_isotope_alpha;
-EXTERNAL HashTable *isotope_alpha_hash_table;
+ int count_isotope_alpha;
+ struct isotope_alpha **isotope_alpha;
+ int max_isotope_alpha;
+ HashTable *isotope_alpha_hash_table;
 
-EXTERNAL int phreeqc_mpi_myself;
+ int phreeqc_mpi_myself;
 
-EXTERNAL int first_read_input;
-EXTERNAL char *user_database;
-EXTERNAL int pitzer_model, sit_model, pitzer_pe;
-EXTERNAL int full_pitzer, always_full_pitzer, ICON, IC;
-EXTERNAL LDBLE COSMOT;
-EXTERNAL LDBLE AW;
-EXTERNAL int have_punch_name;
+ int first_read_input;
+ char *user_database;
+ int pitzer_model, sit_model, pitzer_pe;
+ int full_pitzer, always_full_pitzer, ICON, IC;
+ LDBLE COSMOT;
+ LDBLE AW;
+ int have_punch_name;
 /* VP: Density Start */
-EXTERNAL int print_density;
+ int print_density;
 /* VP: Density End */
 
-EXTERNAL jmp_buf mark;
-EXTERNAL LDBLE *zeros;
-EXTERNAL int zeros_max;
+ jmp_buf mark;
+ LDBLE *zeros;
+ int zeros_max;
 #if defined(WIN32)
 #include <windows.h>
 #endif
@@ -559,26 +558,26 @@ EXTERNAL int zeros_max;
 #include <crtdbg.h>
 #endif
 
-EXTERNAL LDBLE cell_pore_volume;
-EXTERNAL LDBLE cell_porosity;
-EXTERNAL LDBLE cell_volume;
-EXTERNAL LDBLE cell_saturation;
+ LDBLE cell_pore_volume;
+ LDBLE cell_porosity;
+ LDBLE cell_volume;
+ LDBLE cell_saturation;
 
-EXTERNAL struct system_species *sys;
-EXTERNAL int count_sys, max_sys;
+ struct system_species *sys;
+ int count_sys, max_sys;
 
-EXTERNAL LDBLE sys_tot;
-EXTERNAL LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
-EXTERNAL LDBLE solution_mass, solution_volume;
-EXTERNAL LDBLE f_rho(LDBLE rho_old);
+ LDBLE sys_tot;
+ LDBLE AA_basic, BB_basic, CC, I_m, rho_0;
+ LDBLE solution_mass, solution_volume;
+ LDBLE f_rho(LDBLE rho_old);
 
 /* phqalloc.c ------------------------------- */
 
-EXTERNAL PHRQMemHeader *s_pTail;
+ PHRQMemHeader *s_pTail;
 #if defined(MERGE_INCLUDE_FILES)
 #include <sstream>
-EXTERNAL	std::stringstream merged_database_stream;
-EXTERNAL	std::stringstream merged_input_stream;
+	std::stringstream merged_database_stream;
+	std::stringstream merged_input_stream;
 #endif /* defined(MERGE_INCLUDE_FILES) */
 /* Collect all statics for PHREEQC_CLASS */
 
