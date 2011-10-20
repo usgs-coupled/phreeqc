@@ -842,7 +842,7 @@ exchange_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 exchange_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1273,7 +1273,7 @@ gas_phase_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 gas_phase_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -1920,7 +1920,7 @@ irrev_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 irrev_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -2310,7 +2310,7 @@ kinetics_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 kinetics_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3091,7 +3091,7 @@ mix_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 mix_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -3654,7 +3654,7 @@ phase_bsearch(const char *ptr, int *j, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 phase_init(struct phase *phase_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -3836,7 +3836,7 @@ pp_assemblage_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 pp_assemblage_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -4586,7 +4586,7 @@ s_free(struct species *s_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 s_init(struct species *s_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -4850,7 +4850,7 @@ s_s_assemblage_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -5923,7 +5923,7 @@ solution_sort(void)
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 species_list_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6261,7 +6261,7 @@ surface_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 surface_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -6772,7 +6772,7 @@ temperature_compare(const void *ptr1, const void *ptr2)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 temperature_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
@@ -7742,7 +7742,7 @@ logk_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 logk_init(struct logk *logk_ptr)
 /* ---------------------------------------------------------------------- */
 /*

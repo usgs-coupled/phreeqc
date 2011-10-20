@@ -744,7 +744,7 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -896,7 +896,7 @@ add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 reaction_calc(struct irrev *irrev_ptr)
 /* ---------------------------------------------------------------------- */
 {

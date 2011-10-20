@@ -1,6 +1,6 @@
 #if !defined(_INC_PHREEQC_H)
-#define STATIC static
-#define CLASS_STATIC
+#define  static
+#define static
 #endif
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H

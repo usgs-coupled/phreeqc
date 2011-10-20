@@ -1302,7 +1302,7 @@ master_isotope_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 master_isotope_init(struct master_isotope *master_isotope_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1462,7 +1462,7 @@ calculate_value_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 calculate_value_init(struct calculate_value *calculate_value_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1646,7 +1646,7 @@ isotope_ratio_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr)
 /* ---------------------------------------------------------------------- */
 /*
@@ -1805,7 +1805,7 @@ isotope_alpha_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr)
 /* ---------------------------------------------------------------------- */
 /*

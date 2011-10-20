@@ -1147,7 +1147,7 @@ copy_token_tab(char *token_ptr, char **ptr, int *length)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 get_option_string(const char **opt_list, int count_opt_list, char **next_char)
 /* ---------------------------------------------------------------------- */
 {

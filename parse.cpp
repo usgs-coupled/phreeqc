@@ -692,7 +692,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 get_secondary(char **t_ptr, char *element, int *i)
 /* ---------------------------------------------------------------------- */
 /*

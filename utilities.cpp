@@ -1190,7 +1190,7 @@ status(int count, const char *str)
 */
 
 #ifdef HASH_STATISTICS
-STATIC long HashAccesses, HashCollisions;
+ long HashAccesses, HashCollisions;
 #endif
 
 /*
@@ -1348,7 +1348,7 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 ** Internal routines
 */
 
-STATIC Address Phreeqc::
+ Address Phreeqc::
 Hash_multi(HashTable * Table, char *Key)
 {
 	Address h, address;

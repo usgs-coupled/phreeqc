@@ -3872,7 +3872,7 @@ halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1)
 /* ---------------------------------------------------------------------- */
 {
@@ -3906,7 +3906,7 @@ scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1)
 
 
 /* ---------------------------------------------------------------------- */
-STATIC LDBLE Phreeqc::
+ LDBLE Phreeqc::
 f_spinodal(LDBLE x, void * cookie)
 /* ---------------------------------------------------------------------- */
 {
@@ -4049,7 +4049,7 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 /* ---------------------------------------------------------------------- */
 {
@@ -4156,7 +4156,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 }
 
 /* ---------------------------------------------------------------------- */
-STATIC int Phreeqc::
+ int Phreeqc::
 s_s_calc_a0_a1(struct s_s *s_s_ptr)
 /* ---------------------------------------------------------------------- */
 {
