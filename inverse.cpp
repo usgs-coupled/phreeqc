@@ -2332,7 +2332,7 @@ punch_model(struct inverse *inv_ptr)
 		}
 	}
 	//output_msg(OUTPUT_PUNCH, "\n");
-	fpunchf(NULL, "\n");
+	punch_msg("\n");
 
 /*
  *   Flush buffer after each model

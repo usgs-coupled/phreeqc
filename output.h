@@ -34,8 +34,8 @@ int output_fflush(const int type, ...);
 int output_rewind(const int type, ...);
 int output_close(const int type, ...);
 #else
-int output_msg(int type, const char *format, ...);
-int warning_msg(const char *err_str);
+//int output_msg(int type, const char *format, ...);
+//int warning_msg(const char *err_str);
 //int error_msg(const char *err_str, int stop);
 /*
  *  Functions for output callbacks
@@ -45,9 +45,9 @@ int output_fflush(int type);
 int output_rewind(int type);
 int output_close(int type);
 #endif
-int fpunchf(const char *name, const char *format, ...);
-int fpunchf_user(int user_index, const char *format, ...);
-int fpunchf_end_row(const char *format, ...);
+//int fpunchf(const char *name, const char *format, ...);
+//int fpunchf_user(int user_index, const char *format, ...);
+//int fpunchf_end_row(const char *format, ...);
 void set_forward_output_to_log(int value);
 int get_forward_output_to_log(void);
 typedef enum

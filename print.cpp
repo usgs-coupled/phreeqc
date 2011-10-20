@@ -198,7 +198,7 @@ punch_all(void)
 /*
  *   new line for punch_file
  */
-	fpunchf(NULL, "\n");
+	punch_msg("\n");
 
 /*
  *   signal end of row
