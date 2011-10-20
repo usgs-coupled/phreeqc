@@ -148,7 +148,14 @@ extern void HDFWriteHyperSlabV(const char *name, const char *format,
 extern int Merge_fpunchf(const int length, const char *format,
 						 va_list argptr);
 #endif
-
+void CLASS_QUALIFIER
+fpunchf_heading(const char *name)
+{
+	if (pr.punch == TRUE && punch.in == TRUE)
+	{
+		punch_msg(name);
+	}
+}
 int CLASS_QUALIFIER
 fpunchf(const char *name, const char *format, ...)
 {
@@ -655,5 +662,51 @@ output_temp_msg(const char * str)
 	{
 		phrq_io->output_temp_msg(str);
 	}
+}
+// ---------------------------------------------------------------------- */
+// punch file methods
+// ---------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+punch_open(const char *file_name)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->punch_open(file_name);
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+punch_fflush(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->punch_fflush();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+punch_close(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->punch_close();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+punch_rewind(void)
+/* ---------------------------------------------------------------------- */
+{
+	this->phrq_io->punch_rewind();
+}
+/* ---------------------------------------------------------------------- */
+bool CLASS_QUALIFIER
+punch_isopen(void)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->punch_isopen();
+}
+/* ---------------------------------------------------------------------- */
+void CLASS_QUALIFIER
+punch_msg(const char * str)
+/* ---------------------------------------------------------------------- */
+{
+	return this->phrq_io->punch_msg(str);
 }
 #endif /* USE_OLD_IO */

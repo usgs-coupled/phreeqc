@@ -1928,69 +1928,85 @@ tidy_punch(void)
 
 		if (punch.sim == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "sim");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "sim");
+			fpunchf_heading(sformatf("%*s\t", l, "sim"));
 		}
 		if (punch.state == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "state");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "state");
+			fpunchf_heading(sformatf("%*s\t", l, "state"));
 		}
 		if (punch.soln == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "soln");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "soln");
+			fpunchf_heading(sformatf("%*s\t", l, "soln"));
 		}
 		if (punch.dist == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "dist_x");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "dist_x");
+			fpunchf_heading(sformatf("%*s\t", l, "dist_x"));
 		}
 		if (punch.time == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "time");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "time");
+			fpunchf_heading(sformatf("%*s\t", l, "time"));
 		}
 		if (punch.step == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "step");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "step");
+			fpunchf_heading(sformatf("%*s\t", l, "step"));
 		}
 		if (punch.ph == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pH");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pH");
+			fpunchf_heading(sformatf("%*s\t", l, "pH"));
 		}
 		if (punch.pe == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pe");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pe");
+			fpunchf_heading(sformatf("%*s\t", l, "pe"));
 		}
 		if (punch.rxn == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "reaction");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "reaction");
+			fpunchf_heading(sformatf("%*s\t", l, "reaction"));
 		}
 		if (punch.temp == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "temp");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "temp");
+			fpunchf_heading(sformatf("%*s\t", l, "temp"));
 		}
 		if (punch.alk == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "Alk");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "Alk");
+			fpunchf_heading(sformatf("%*s\t", l, "Alk"));
 		}
 		if (punch.mu == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "mu");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "mu");
+			fpunchf_heading(sformatf("%*s\t", l, "mu"));
 		}
 		if (punch.water == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "mass_H2O");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "mass_H2O");
+			fpunchf_heading(sformatf("%*s\t", l, "mass_H2O"));
 		}
 		if (punch.charge_balance == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "charge");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "charge");
+			fpunchf_heading(sformatf("%*s\t", l, "charge"));
 		}
 		if (punch.percent_error == TRUE)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, "pct_err");
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pct_err");
+			fpunchf_heading(sformatf("%*s\t", l, "pct_err"));
 		}
 		/* totals */
 
 		for (i = 0; i < punch.count_totals; i++)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, punch.totals[i].name);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, punch.totals[i].name);
+			fpunchf_heading(sformatf("%*s\t", l, punch.totals[i].name));
 			if (punch.totals[i].master == NULL)
 			{
 				sprintf(error_string, "Did not find master species,"
@@ -2005,7 +2021,8 @@ tidy_punch(void)
 		{
 			strcpy(token, "m_");
 			strcat(token, punch.molalities[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.molalities[i].s == NULL)
 			{
 				sprintf(error_string, "Did not find species,"
@@ -2020,7 +2037,8 @@ tidy_punch(void)
 		{
 			strcpy(token, "la_");
 			strcat(token, punch.activities[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.activities[i].s == NULL)
 			{
 				sprintf(error_string, "Did not find species, "
@@ -2035,8 +2053,10 @@ tidy_punch(void)
 		{
 			strcpy(token, "d_");
 			strcat(token, punch.pure_phases[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t%*s\t", l,
-					   punch.pure_phases[i].name, l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t%*s\t", l,
+			//		   punch.pure_phases[i].name, l, token);
+			fpunchf_heading(sformatf("%*s\t", l, punch.pure_phases[i].name));
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.pure_phases[i].phase == NULL)
 			{
 				sprintf(error_string, "Did not find phase, "
@@ -2051,7 +2071,8 @@ tidy_punch(void)
 		{
 			strcpy(token, "si_");
 			strcat(token, punch.si[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.si[i].phase == NULL)
 			{
 				sprintf(error_string, "Did not find phase, "
@@ -2064,14 +2085,18 @@ tidy_punch(void)
 
 		if (punch.count_gases > 0)
 		{
-			output_msg(OUTPUT_PUNCH, "%*s\t%*s\t%*s\t", l, "pressure", l,
-					   "total mol", l, "volume");
+			//output_msg(OUTPUT_PUNCH, "%*s\t%*s\t%*s\t", l, "pressure", l,
+			//		   "total mol", l, "volume");
+			fpunchf_heading(sformatf("%*s\t", l, "pressure"));
+			fpunchf_heading(sformatf("%*s\t", l, "total mol"));
+			fpunchf_heading(sformatf("%*s\t", l, "volume"));
 		}
 		for (i = 0; i < punch.count_gases; i++)
 		{
 			strcpy(token, "g_");
 			strcat(token, punch.gases[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.gases[i].phase == NULL)
 			{
 				sprintf(error_string, "Did not find phase, "
@@ -2086,10 +2111,12 @@ tidy_punch(void)
 		{
 			strcpy(token, "k_");
 			strcat(token, punch.kinetics[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 			strcpy(token, "dk_");
 			strcat(token, punch.kinetics[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
 		/* solid solutions */
@@ -2098,7 +2125,8 @@ tidy_punch(void)
 		{
 			strcpy(token, "s_");
 			strcat(token, punch.s_s[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
 		/* isotopes */
@@ -2115,15 +2143,15 @@ tidy_punch(void)
 			}
 			strcpy(token, "I_");
 			strcat(token, punch.isotopes[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
 		/* calculate_values */
 
 		for (i = 0; i < punch.count_calculate_values; i++)
 		{
-			if (calculate_value_search(punch.calculate_values[i].name) ==
-				NULL)
+			if (calculate_value_search(punch.calculate_values[i].name) == NULL)
 			{
 				sprintf(error_string,
 						"Did not find calculate_values definition for "
@@ -2134,7 +2162,8 @@ tidy_punch(void)
 			}
 			strcpy(token, "V_");
 			strcat(token, punch.calculate_values[i].name);
-			output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
+			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
 		/* user_punch */
@@ -2142,10 +2171,13 @@ tidy_punch(void)
 		{
 			for (i = 0; i < user_punch_count_headings; i++)
 			{
-				output_msg(OUTPUT_PUNCH, "%*s\t", l, user_punch_headings[i]);
+				//output_msg(OUTPUT_PUNCH, "%*s\t", l, user_punch_headings[i]);
+				fpunchf_heading(sformatf("%*s\t", l, user_punch_headings[i]));
 			}
 		}
-		output_msg(OUTPUT_PUNCH, "\n");
+		//output_msg(OUTPUT_PUNCH, "\n");
+		fpunchf_heading("\n");
+
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
 #ifndef USE_OLD_IO
