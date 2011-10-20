@@ -1,32 +1,10 @@
 #include <time.h>
-#if !defined(PHREEQC_CLASS)
-#define MAINSUBS
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
-
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include "input.h"
 
-#if !defined(PHREEQC_CLASS)
-	int copy_use(int i);
-	int set_use(void);
-	static char const svnid[] =
-		"$Id$";
-	#define CLASS_QUALIFIER
-#else
-	#define CLASS_QUALIFIER Phreeqc::
-#endif  // !PHREEQC_CLASS
-
-//extern void test_classes(void);
-/*#define PHREEQC_XML*/
-#ifdef PHREEQC_XML
-#include "SAXPhreeqc.h"
-extern void SAX_cleanup(void);
-#endif
+#define CLASS_QUALIFIER Phreeqc::
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -3285,28 +3263,18 @@ read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-#ifdef PHREEQC_CLASS
 	try {
-#else
-	int errors = setjmp(mark);
-	if (errors != 0)
-	{
-		return errors;
-	}
-#endif
 
-	set_read_callback(pfn, cookie, TRUE);
-	dup_print("Reading data base.", TRUE);
-	read_input();
-	tidy_model();
-	status(0, NULL);
-#ifdef PHREEQC_CLASS
+		set_read_callback(pfn, cookie, TRUE);
+		dup_print("Reading data base.", TRUE);
+		read_input();
+		tidy_model();
+		status(0, NULL);
 	}
 	catch (PhreeqcStop e)
 	{
 		return get_input_errors();
 	}
-#endif
 
 	return 0;
 }
@@ -3326,46 +3294,38 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-#ifdef PHREEQC_CLASS
 	try {
-#else
-	int errors = setjmp(mark);
-	if (errors != 0)
-	{
-		return errors;
-	}
-#endif
 
-	set_read_callback(pfn, cookie, FALSE);
+		set_read_callback(pfn, cookie, FALSE);
 
 /*
  *   Read input data for simulation
  */
-	for (simulation = 1;; simulation++)
-	{
+		for (simulation = 1;; simulation++)
+		{
 
 #if defined PHREEQ98 
-		AddSeries = !connect_simulations;
+			AddSeries = !connect_simulations;
 #endif
-		sprintf(token, "Reading input data for simulation %d.", simulation);
+			sprintf(token, "Reading input data for simulation %d.", simulation);
 
-		//output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
+			//output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
 
-		dup_print(token, TRUE);
-		if (read_input() == EOF)
-			break;
-
-		if (title_x != NULL)
-		{
-			sprintf(token, "TITLE");
 			dup_print(token, TRUE);
-			if (pr.headings == TRUE)
-				output_temp_msg(sformatf( "%s\n\n", title_x));
-		}
-		tidy_model();
+			if (read_input() == EOF)
+				break;
+
+			if (title_x != NULL)
+			{
+				sprintf(token, "TITLE");
+				dup_print(token, TRUE);
+				if (pr.headings == TRUE)
+					output_temp_msg(sformatf( "%s\n\n", title_x));
+			}
+			tidy_model();
 #ifdef PHREEQ98
-		if (!phreeq98_debug)
-		{
+			if (!phreeq98_debug)
+			{
 #endif
 
 /*
@@ -3435,15 +3395,13 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #ifdef PHREEQ98
 		}						/* if (!phreeq98_debug) */
 #endif
-	}
+		}
 
-#ifdef PHREEQC_CLASS
 	}
 	catch (PhreeqcStop e)
 	{
 		return get_input_errors();
 	}
-#endif
 	return 0;
 }
 
@@ -3455,26 +3413,16 @@ do_initialize(void)
 /*
  *   Prepare error handling
  */
-#ifdef PHREEQC_CLASS
 	try {
-#else
-	int errors = setjmp(mark);
-	if (errors != 0)
-	{
-		return errors;
-	}
-#endif
 
-	state = INITIALIZE;
+		state = INITIALIZE;
 
-	initialize();
-#ifdef PHREEQC_CLASS
+		initialize();
 	}
 	catch (PhreeqcStop e)
 	{
 		return get_input_errors();
 	}
-#endif
 	return 0;
 }
 
@@ -3486,37 +3434,27 @@ do_status(void)
 /*
  *   Prepare error handling
  */
-#ifdef PHREEQC_CLASS
 	try {
-#else
-	int errors = setjmp(mark);
-	if (errors != 0)
-	{
-		return errors;
-	}
-#endif
 
-	if (pr.status == TRUE)
-	{
+		if (pr.status == TRUE)
+		{
 #if defined(PHREEQCI_GUI)
 		state = -1;
 		status(0, "\r\nDone.");
 #else
-		status(0, "\nDone.");
+			status(0, "\nDone.");
 #endif
-		screen_msg("\n");
-		//output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
-	}
-	dup_print("End of run.", TRUE);
-	screen_msg("\nEnd of Run.\n");
-	//output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
-#ifdef PHREEQC_CLASS
+			screen_msg("\n");
+			//output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
+		}
+		dup_print("End of run.", TRUE);
+		screen_msg("\nEnd of Run.\n");
+		//output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 	}
 	catch (PhreeqcStop e)
 	{
 		return get_input_errors();
 	}
-#endif
 	return 0;
 }
 void CLASS_QUALIFIER

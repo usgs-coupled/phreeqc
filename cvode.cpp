@@ -26,30 +26,17 @@
 #include "sundialstypes.h"
 #include "nvector.h"
 #include "sundialsmath.h"
-#if !defined(PHREEQC_CLASS)
-#include "output.h"
-#define CVMEM
-#define MACHENV
-#define MACHENV_MALLOC
-#define CVMEM_MALLOC
-#define KINETICS_EXTERNAL
-#include "kinetics.h"
-#define malloc PHRQ_malloc
-#else
+
 #include "Phreeqc.h"
 #define malloc MACHENV_MALLOC PHRQ_malloc
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
 #define CVMEM_MALLOC CVMEM  
-#endif
-
-
 
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */
 
-static char const svnid[] = "$Id$";
 
 /************************************************************/
 /******************** END Imports ***************************/
@@ -532,8 +519,6 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 	FILE *fp;
 	int i, k;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 	/* Check for legal input parameters */
 
 	fp = (errfp == NULL) ? stdout : errfp;

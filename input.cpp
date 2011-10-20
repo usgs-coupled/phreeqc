@@ -1,10 +1,6 @@
 #include <assert.h>
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
+
 #include "Phreeqc.h"
-#endif
 #include <setjmp.h>
 #include "input.h"
 #include "phrqproto.h"
@@ -12,23 +8,13 @@
 #include <fstream>
 #include "phqalloc.h"
 
-static char const svnid[] = "$Id$";
-
-int check_line_return;
-
-#if !defined(PHREEQC_CLASS)
-static struct read_callback s_read_callback;
-#endif
-
+int check_line_return;  // TODO should not be here
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
 /* ---------------------------------------------------------------------- */
 {
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-
 	s_read_callback.cookie = cookie;
 	s_read_callback.callback = pfn;
 	s_read_callback.database = database;

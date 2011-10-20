@@ -1,18 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
-
-static int get_coef(LDBLE * coef, char **eqnaddr);
-static int get_secondary(char **t_ptr, char *element, int *i);
-static int get_species(char **ptr);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

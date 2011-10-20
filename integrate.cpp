@@ -1,28 +1,9 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-/*
-static char const svnid[] =
-	"$Id$";
-*/
+
 #define MAX_QUAD 20
 #define K_POLY 5
-#if !defined(PHREEQC_CLASS)
-static LDBLE g_function(LDBLE x_value);
-static LDBLE midpnt(LDBLE x1, LDBLE x2, int n);
-static void polint(LDBLE * xa, LDBLE * ya, int n, LDBLE xv, LDBLE * yv,
-				   LDBLE * dy);
-static LDBLE qromb_midpnt(LDBLE x1, LDBLE x2);
-static LDBLE z = 0, xd = 0, alpha = 0;
-static struct surface_charge *surface_charge_ptr = NULL;
-static LDBLE calc_psi_avg(LDBLE surf_chrg_eq);
-
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

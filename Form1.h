@@ -1,10 +1,6 @@
 #pragma once
 #include <cassert>	
-#ifdef PHREEQC_CLASS
 #define P_INSTANCE_POINTER1 phreeqc_ptr->
-#else
-#define P_INSTANCE_POINTER1
-#endif
 namespace zdg_ui2 {
 	using namespace System;
 	//using namespace System::ComponentModel;
@@ -17,16 +13,12 @@ namespace zdg_ui2 {
 // Form1 is only used with MULTICHART
 	public ref class ChartObj : public System::Object
 	{
-#ifdef PHREEQC_CLASS
 	public: Phreeqc* phreeqc_ptr;
-#endif
 	public: ChartObject* chartobject_ptr;
 	public:	ChartObj(ChartObject* ptr)
 			{
 				this->chartobject_ptr = ptr;
-#ifdef PHREEQC_CLASS
 				this->phreeqc_ptr = this->chartobject_ptr->Get_phreeqc();
-#endif
 			}
 	};
 
@@ -43,7 +35,6 @@ namespace zdg_ui2 {
 				phreeqc_done = false;
 
 			}
-#ifdef PHREEQC_CLASS
 	public:	Form1(ChartObject *ptr)
 			{
 				this->chartobject_ptr = ptr;
@@ -55,18 +46,6 @@ namespace zdg_ui2 {
 				phreeqc_done = false;
 				Y2show = false;	
 			}
-#else
-	public:	Form1(ChartObject *ptr)
-			{
-				this->chartobject_ptr = ptr;
-				InitializeComponent();
-				col_use = 0;
-				symbol_use = 0;
-				Y2 = false;
-				phreeqc_done = false;
-				Y2show = false;
-			}
-#endif
 			static void ThreadForm(Object^ data)
 			{
 				ChartObject *ptr = ((ChartObj^)(data))->chartobject_ptr;
@@ -94,9 +73,7 @@ namespace zdg_ui2 {
 					chart->Set_done(true);
 					System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
 				}
-#if defined PHREEQC_CLASS
 				this->phreeqc_ptr = NULL;
-#endif
 				this->chartobject_ptr = NULL;
 			}
 
@@ -859,9 +836,7 @@ namespace zdg_ui2 {
 					}
 					//unlock thread before setting chartobject_ptr to NULL
 					System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
-#if defined PHREEQC_CLASS
 					this->phreeqc_ptr = NULL;
-#endif
 					this->chartobject_ptr = NULL;
 					return;
 				}
@@ -981,9 +956,7 @@ namespace zdg_ui2 {
 					 phreeqc_done = true;
 					 //unlock thread
 					 System::Threading::Interlocked::Exchange(this->chartobject_ptr->usingResource, 0);
-#if defined PHREEQC_CLASS
 					this->phreeqc_ptr = NULL;
-#endif
 					this->chartobject_ptr = NULL;
 					//std::cerr << "Form released thread, pointers null." << std::endl;
 				 }
@@ -1011,9 +984,7 @@ namespace zdg_ui2 {
 	public: ZedGraph::ZedGraphControl ^zg1;
 	private: System::Windows::Forms::Timer ^timer1;
 	private: System::ComponentModel::Container ^components;
-#ifdef PHREEQC_CLASS
 	private: Phreeqc * phreeqc_ptr;
-#endif
 			 ChartObject * chartobject_ptr;
 
 	public:

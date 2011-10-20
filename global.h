@@ -211,45 +211,9 @@ EXTERNAL struct solution **dbg_solution;
 EXTERNAL int count_solution;
 EXTERNAL int max_solution;
 
-#if !defined(PHREEQC_CLASS)
-#ifdef MAINSUBS
-struct iso iso_defaults[] = {
-	{"13C", -10, 1},
-	{"13C(4)", -10, 1},
-	{"13C(-4)", -50, 5},
-	{"34S", 10, 1},
-	{"34S(6)", 10, 1},
-	{"34S(-2)", -30, 5},
-	{"2H", -28, 1},
-	{"18O", -5, .1},
-	{"87Sr", .71, .01},
-	{"11B", 20, 5}
-};
-int count_iso_defaults = (sizeof(iso_defaults) / sizeof(struct iso));
-#else   /* MAINSUBS */
-extern struct iso iso_defaults[];
-extern int count_iso_defaults;
-#endif  /* MAINSUBS */
-#else   /* PHREEQC_CLASS */
 struct iso *iso_defaults;
 int count_iso_defaults;
-#endif  /* PHREEQC_CLASS */
-#if !defined(PHREEQC_CLASS)
-#if !defined(USE_OLD_IO)
-EXTERNAL std::list <std::istream *> cookie_list;
-EXTERNAL std::ifstream * in_stream;
-EXTERNAL std::ifstream * db_stream;
-#ifdef MAINSUBS
-const char *default_data_base = "phreeqc.dat";
-#else
-extern const char *default_data_base;
-#endif
-EXTERNAL void *get_cookie();
-EXTERNAL void pop_cookie();
-EXTERNAL void set_cookie(std::istream * cookie);
-EXTERNAL void clear_cookie(void);
-#endif
-#endif
+
 /*----------------------------------------------------------------------
  *   Global solution
  *---------------------------------------------------------------------- */
@@ -471,9 +435,6 @@ EXTERNAL char **user_graph_headings;
 EXTERNAL int user_graph_count_headings;
 #endif
 #if defined MULTICHART
-#if !defined PHREEQC_CLASS
-#include "../ChartHandler.h"
-#endif
 EXTERNAL ChartHandler chart_handler;
 #endif
 
@@ -648,19 +609,13 @@ EXTERNAL	std::stringstream merged_database_stream;
 EXTERNAL	std::stringstream merged_input_stream;
 #endif /* defined(MERGE_INCLUDE_FILES) */
 /* Collect all statics for PHREEQC_CLASS */
-#if defined(PHREEQC_CLASS)
+
 /* basic.c ------------------------------- */
-/*
+
 #ifdef PHREEQ98
 int colnr, rownr;
 #endif
-int n_user_punch_index = 0;
-#define checking	true
-#define varnamelen  20
-#define maxdims	    4
 
-#include "basic.h"
-*/
 int n_user_punch_index;
 Char *inbuf;
 linerec *linebase;
@@ -684,12 +639,8 @@ int x_arg_max, res_arg_max, scratch_max;
 
 /* COMMON /QQQQ/ */
 LDBLE Q0, Q5;
-/* COMMON /ACONST/ */
-/*LDBLE GASCON = 0.461522e0, TZ = 647.073e0, AA = 1.e0;*/
 LDBLE GASCON, TZ, AA;
 LDBLE Z, DZ, Y;
-/* COMMON /ELLCON/ */
-/*LDBLE G1 = 11.e0, G2 = 44.333333333333e0, GF = 3.5e0;*/
 LDBLE G1, G2, GF;
 LDBLE B1, B2, B1T, B2T, B1TT, B2TT;
 
@@ -755,12 +706,7 @@ int *inv_iu, *inv_is, *back_eq;
 int normal_max, ineq_array_max, res_max, cu_max, zero_max,
 	delta1_max, iu_max, is_max, back_eq_max;
 
-/* output.c ------------------------------- */
-#ifdef USE_OLD_IO
-#define MAX_CALLBACKS 10
-struct output_callback *output_callbacks;
-size_t count_output_callback;
-#endif
+/* phrq_io_output.c ------------------------------- */
 int forward_output_to_log;
 
 /* phreeqc_files.c ------------------------------- */
@@ -886,7 +832,6 @@ char err_str98[80];
 #endif
 
 
-#endif /* PHREEQC_CLASS) */
 #endif /* _INC_GLOBAL_H  */
 
 /*********************************

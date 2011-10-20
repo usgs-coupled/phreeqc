@@ -1,48 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
 
-static int check_species_input(void);
-static LDBLE coef_in_master(struct master *master_ptr);
-static int phase_rxn_to_trxn(struct phase *phase_ptr,
-							 struct reaction *rxn_ptr);
-static int reset_last_model(void);
-static int rewrite_eqn_to_primary(void);
-static int rewrite_eqn_to_secondary(void);
-static int species_rxn_to_trxn(struct species *s_ptr);
-static int tidy_logk(void);
-int tidy_exchange(void);
-static int tidy_min_exchange(void);
-static int tidy_kin_exchange(void);
-static int tidy_gas_phase(void);
-static int tidy_inverse(void);
-static int tidy_isotopes(void);
-static int tidy_isotope_ratios(void);
-static int tidy_isotope_alphas(void);
-static int tidy_kin_surface(void);
-static int tidy_master_isotope(void);
-static int tidy_min_surface(void);
-static int tidy_phases(void);
-static int tidy_pp_assemblage(void);
-static int tidy_solutions(void);
-static int tidy_s_s_assemblage(void);
-static int tidy_species(void);
-static int tidy_surface(void);
-
-static LDBLE a0 = 0, a1 = 0, kc = 0, kb = 0;
-static int scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1);
-LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
-static LDBLE f_spinodal(LDBLE x);
-static int solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol);
-static int s_s_calc_a0_a1(struct s_s *s_s_ptr);
-#endif
 #define ZERO_TOL 1.0e-30
 
 /* ---------------------------------------------------------------------- */
@@ -3888,38 +3847,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	}
 	return (OK);
 }
-#if !defined(PHREEQC_CLASS)
-/* ---------------------------------------------------------------------- */
-LDBLE CLASS_QUALIFIER
-halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol)
-/* ---------------------------------------------------------------------- */
-{
-	int i;
-	LDBLE x, y, y0, dx;
 
-	y0 = f(x0);
-	dx = (x1 - x0);
-/*
- *  Loop for interval halving
- */
-	for (i = 0; i < 100; i++)
-	{
-		dx *= 0.5;
-		x = x0 + dx;
-		y = f(x);
-		if (dx < tol || y == 0)
-		{
-			break;
-		}
-		if (y0 * y >= 0)
-		{
-			x0 = x;
-			y0 = y;
-		}
-	}
-	return (x0 + dx);
-}
-#else
 /* ---------------------------------------------------------------------- */
 LDBLE CLASS_QUALIFIER
 halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
@@ -3950,41 +3878,7 @@ halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol)
 	}
 	return (x0 + dx);
 }
-#endif
-#if !defined(PHREEQC_CLASS)
-/* ---------------------------------------------------------------------- */
-STATIC int CLASS_QUALIFIER
-scan(LDBLE f(LDBLE x), LDBLE * xx0, LDBLE * xx1)
-/* ---------------------------------------------------------------------- */
-{
-	int i, j;
-	LDBLE fx0, fx1, divisions;
-	LDBLE x0, x1, diff;
 
-	x0 = *xx0;
-	x1 = *xx1;
-	diff = x1 - x0;
-	for (j = 0; j < 3; j++)
-	{
-		fx0 = f(x0);
-		divisions = (int) pow((LDBLE) 10, (LDBLE) j);
-		for (i = 1; i < divisions; i++)
-		{
-			x1 = *xx0 + diff * (LDBLE) i / divisions;
-			fx1 = f(x1);
-			if (fx0 * fx1 <= 0)
-			{
-				*xx0 = x0;
-				*xx1 = x1;
-				return (TRUE);
-			}
-			x0 = x1;
-			fx0 = fx1;
-		}
-	}
-	return (FALSE);
-}
-#else
 /* ---------------------------------------------------------------------- */
 STATIC int CLASS_QUALIFIER
 scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1)
@@ -4017,20 +3911,8 @@ scan(LDBLE f(LDBLE x, void *), LDBLE * xx0, LDBLE * xx1)
 	}
 	return (FALSE);
 }
-#endif
-#if !defined(PHREEQC_CLASS)
-/* ---------------------------------------------------------------------- */
-STATIC LDBLE CLASS_QUALIFIER
-f_spinodal(LDBLE x)
-/* ---------------------------------------------------------------------- */
-{
-	LDBLE fx;
-	fx = -12 * a1 * x * x * x + (18 * a1 - 2 * a0) * x * x + (2 * a0 -
-															  6 * a1) * x -
-		1.0;
-	return (fx);
-}
-#else
+
+
 /* ---------------------------------------------------------------------- */
 STATIC LDBLE CLASS_QUALIFIER
 f_spinodal(LDBLE x, void * cookie)
@@ -4044,8 +3926,6 @@ f_spinodal(LDBLE x, void * cookie)
 		6 * pThis->a1) * x - 1.0;
 	return (fx);
 }
-#endif
-
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

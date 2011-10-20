@@ -1,68 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include <assert.h>
-
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
-
-static int add_potential_factor(void);
-static int add_cd_music_factors(int n);
-static int add_surface_charge_balance(void);
-static int add_cd_music_charge_balances(int i);
-static int build_gas_phase(void);
-static int build_jacobian_sums(int k);
-static int build_mb_sums(void);
-static int build_min_exch(void);
-static int build_model(void);
-static int build_pure_phases(void);
-static int build_s_s_assemblage(void);
-static int build_solution_phase_boundaries(void);
-static int build_species_list(int n);
-static int build_min_surface(void);
-static int change_hydrogen_in_elt_list(LDBLE charge);
-static int clear(void);
-static int convert_units(struct solution *solution_ptr);
-static struct unknown *find_surface_charge_unknown(char *str_ptr, int plane);
-static struct master **get_list_master_ptrs(char *ptr,
-											struct master *master_ptr);
-static int inout(void);
-static int is_special(struct species *spec);
-static int mb_for_species_aq(int n);
-static int mb_for_species_ex(int n);
-static int mb_for_species_surf(int n);
-static int quick_setup(void);
-static int resetup_master(void);
-static int save_model(void);
-static int setup_exchange(void);
-static int setup_gas_phase(void);
-static int setup_master_rxn(struct master **master_ptr_list,
-							struct reaction **pe_rxn);
-static int setup_pure_phases(void);
-static int setup_related_surface(void);
-static int setup_s_s_assemblage(void);
-static int setup_solution(void);
-static int setup_surface(void);
-static int setup_unknowns(void);
-static int store_dn(int k, LDBLE * source, int row, LDBLE coef_in,
-					LDBLE * gamma_source);
-static int store_jacob(LDBLE * source, LDBLE * target, LDBLE coef);
-static int store_jacob0(int row, int column, LDBLE coef);
-int store_mb(LDBLE * source, LDBLE * target, LDBLE coef);
-static int store_mb_unknowns(struct unknown *unknown_ptr, LDBLE * LDBLE_ptr,
-							 LDBLE coef, LDBLE * gamma_ptr);
-static int store_sum_deltas(LDBLE * source, LDBLE * target, LDBLE coef);
-static int tidy_redox(void);
-static struct master **unknown_alloc_master(void);
-static int write_mb_eqn_x(void);
-static int write_mb_for_species_list(int n);
-static int write_mass_action_eqn_x(int stop);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

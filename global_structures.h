@@ -1298,27 +1298,12 @@ struct isotope_alpha
 	char *named_logk;
 	LDBLE value;
 };
-/* ----------------------------------------------------------------------
- *   System
- * ---------------------------------------------------------------------- */
-//struct system
-//{
-//	struct solution *solution;
-//	struct exchange *exchange;
-//	struct pp_assemblage *pp_assemblage;
-//	struct gas_phase *gas_phase;
-//	struct s_s_assemblage *s_s_assemblage;
-//	struct kinetics *kinetics;
-//	struct surface *surface;
-//};
 struct system_species
 {
 	char *name;
 	char *type;
 	LDBLE moles;
 };
-
-#if defined(PHREEQC_CLASS)
 
 /* tally.c ------------------------------- */
 struct tally_buffer
@@ -1386,7 +1371,5 @@ int colnr, rownr;
 
 #include "basic.h"
 
-
-#endif /* PHREEQC_CLASS) */
 #endif /* _INC_GLOBAL_STRUCTURES_H  */
 

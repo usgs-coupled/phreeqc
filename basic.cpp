@@ -1,17 +1,12 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
+
 typedef unsigned char boolean;
 #include "Phreeqc.h"
-#endif
-
 #include "phqalloc.h"
 #include "phrqproto.h"
 #include "p2c.h"
-#include "../NameDouble.h"
+#include "NameDouble.h"
 
 /* ---------------------------------------------------------------------- */
 void CLASS_QUALIFIER

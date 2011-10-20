@@ -23,36 +23,12 @@
 
 #define Isspace(c)  isspace(c)	/* or "((c) == ' ')" if preferred */
 
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "output.h"
-static char const svnid[] =
-	"$Id$";
-static int P_argc = 0;
-static char **P_argv = NULL;
-static char *_ShowEscape(char *buf, int code, int ior, char *prefix);
-
-int P_escapecode = 0;
-int P_ioresult = 0;
-
-long EXCP_LINE = 0;					/* Used by Pascal workstation system */
-
-Anyptr __MallocTemp__;
-
-__p2c_jmp_buf *__top_jb;
-#define CLASS_QUALIFIER
-#else
 #include "Phreeqc.h"
 #define CLASS_QUALIFIER Phreeqc::
-#endif /* PHREEQC_CLASS */
 
 void CLASS_QUALIFIER
 PASCAL_MAIN(int argc, Char **argv)
 {
-	/*
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-	*/
 	P_argc = argc;
 	P_argv = argv;
 	__top_jb = NULL;

@@ -1,35 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-/*#define PITZER*/
-#if !defined(PHREEQC_CLASS)
-#define PITZER_EXTERNAL extern
-#include "pitzer_structures.h"
-#include "pitzer.h"
-
-/* variables */
-static LDBLE sit_A0 = 0;
-extern struct species **spec, **cations, **anions, **neutrals;
-static int sit_count_cations = 0, sit_count_anions = 0, sit_count_neutrals = 0;
-static int sit_MAXCATIONS = 0, sit_FIRSTANION = 0, sit_MAXNEUTRAL = 0;
-extern struct pitz_param *mcb0, *mcb1, *mcc0;
-static int *sit_IPRSNT = NULL;
-static LDBLE *sit_M = NULL, *sit_LGAMMA = NULL;
-
-/* routines */
-static int calc_sit_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR);
-static int check_gammas_sit(void);
-static int sit_ISPEC(char *name);
-/*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
-static int sit_initial_guesses(void);
-static int sit_revise_guesses(void);
-static int PTEMP_SIT(LDBLE tk);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

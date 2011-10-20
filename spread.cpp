@@ -1,10 +1,5 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 typedef unsigned char boolean;
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
 #define STRING 11
@@ -17,28 +12,7 @@ typedef unsigned char boolean;
 #define OPTION_ERROR -3
 #define OPTION_DEFAULT -4
 #define OPT_1 -5
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] =
-	"$Id$";
 
-#define STATIC static
-static int copy_token_tab(char *token_ptr, char **ptr, int *length);
-static int get_option_string(const char **opt_list, int count_opt_list,
-							 char **next_char);
-static int spread_row_free(struct spread_row *spread_row_ptr);
-static int spread_row_to_solution(struct spread_row *heading,
-								  struct spread_row *units,
-								  struct spread_row *data,
-								  struct defaults defaults);
-static struct spread_row *string_to_spread_row(char *string);
-#ifdef PHREEQCI_GUI
-static void add_row(struct spread_row *spread_row_ptr);
-static void copy_defaults(struct defaults *dest_ptr,
-						  struct defaults *src_ptr);
-void free_spread(void);
-static struct spread_row *copy_row(struct spread_row *spread_row_ptr);
-#endif
-#endif /* PHREEQC_CLASS */
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 read_solution_spread(void)

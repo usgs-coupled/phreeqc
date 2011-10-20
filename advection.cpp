@@ -1,14 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
-
 #include "phqalloc.h"
 #include "phrqproto.h"
-static char const svnid[] =
-	"$Id$";
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -17,8 +9,6 @@ advection(void)
 {
 	int i, n;
 	LDBLE kin_time;
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 /*
  *   Calculate advection
  */

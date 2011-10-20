@@ -1,81 +1,9 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include <iostream>
 
 #include "phqalloc.h"
 #include "phrqproto.h"
 
-#if !defined(PHREEQC_CLASS)
-	static char const svnid[] =
-		"$Id$";
-
-	static int exchange_compare_int(const void *ptr1, const void *ptr2);
-	static int gas_phase_compare_int(const void *ptr1, const void *ptr2);
-
-	static int inverse_compare(const void *ptr1, const void *ptr2);
-	static int inverse_free(struct inverse *inverse_ptr);
-
-	static int irrev_compare(const void *ptr1, const void *ptr2);
-	static int irrev_compare_int(const void *ptr1, const void *ptr2);
-
-	static int kinetics_compare_int(const void *ptr1, const void *ptr2);
-
-	static int logk_init(struct logk *logk_ptr);
-
-	static int master_compare_string(const void *ptr1, const void *ptr2);
-	static int master_free(struct master *master_ptr);
-
-	#if defined(PHREEQCI_GUI)
-	int mix_compare(const void *ptr1, const void *ptr2);
-	#else
-	static int mix_compare(const void *ptr1, const void *ptr2);
-	#endif
-	static int mix_compare_int(const void *ptr1, const void *ptr2);
-
-	static struct phase *phase_alloc(void);
-	static int phase_compare_string(const void *ptr1, const void *ptr2);
-	static int phase_free(struct phase *phase_ptr);
-	static int phase_init(struct phase *phase_ptr);
-
-	static int pp_assemblage_compare_int(const void *ptr1, const void *ptr2);
-
-	static int rate_compare(const void *ptr1, const void *ptr2);
-	static int rate_compare_string(const void *ptr1, const void *ptr2);
-
-	static struct species *s_alloc(void);
-	static int s_free(struct species *s_ptr);
-	static int s_init(struct species *s_ptr);
-
-	static int s_s_assemblage_compare_int(const void *ptr1, const void *ptr2);
-
-	static int solution_compare(const void *ptr1, const void *ptr2);
-	static int solution_compare_int(const void *ptr1, const void *ptr2);
-
-	static int species_list_compare(const void *ptr1, const void *ptr2);
-
-	static int surface_compare_int(const void *ptr1, const void *ptr2);
-
-	static int temperature_compare(const void *ptr1, const void *ptr2);
-	static int temperature_compare_int(const void *ptr1, const void *ptr2);
-
-	static int rxn_token_temp_compare(const void *ptr1, const void *ptr2);
-	static int trxn_multiply(LDBLE coef);
-
-	#ifdef PHREEQCI_GUI
-	extern void free_spread(void);
-	#endif
-	#if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
-	extern void MergeFinalize(void);
-	#endif
-	extern LDBLE *scratch, *x_arg, *res_arg;
-	extern LDBLE *normal, *ineq_array, *zero, *res, *delta1, *cu;
-	extern int *iu, *is, *back_eq;
-	extern int x_arg_max, res_arg_max, scratch_max;
-#endif // !PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 clean_up(void)
@@ -459,13 +387,6 @@ clean_up(void)
 
 #if defined(USE_MPI) && defined(HDF5_CREATE) && defined(MERGE_FILES)
 	MergeFinalize();
-#endif
-
-#if !defined(PHREEQC_CLASS)
-	PHRQ_free_all();
-#endif
-#ifdef USE_OLD_IO
-	clean_up_output_callbacks();
 #endif
 
 	count_solution = 0;

@@ -562,15 +562,12 @@ int store_tally_table(LDBLE * array, int row_dim, int col_dim,
 					  LDBLE fill_factor);
 int zero_tally_table(void);
 
-
-#if defined(PHREEQC_CLASS)
 int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
 int get_all_components(void);
 int print_tally_table(void);
 int set_reaction_moles(int n_user, LDBLE moles);
 int set_reaction_temperature(int n_user, LDBLE tc);
 int set_kinetics_time(int n_user, LDBLE step);
-#endif
 
 // convert class to struct
 class cxxMix;
@@ -628,11 +625,7 @@ void cxxStorageBin2preeqc(cxxStorageBin & sb);
 int add_other_logk(LDBLE * source_k, int count_add_logk,
 				   struct name_coef *add_logk);
 int add_logks(struct logk *logk_ptr, int repeats);
-#if !defined(PHREEQC_CLASS)
-LDBLE halve(LDBLE f(LDBLE x), LDBLE x0, LDBLE x1, LDBLE tol);
-#else
 LDBLE halve(LDBLE f(LDBLE x, void *), LDBLE x0, LDBLE x1, LDBLE tol);
-#endif
 int replace_solids_gases(void);
 int s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print);
 int select_log_k_expression(LDBLE * source_k, LDBLE * target_k);

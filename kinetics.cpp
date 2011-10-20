@@ -1,12 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-//#include "time.h"
 #include <time.h>
 
 #include "StorageBin.h"
@@ -22,16 +16,6 @@
 #include "Temperature.h"
 #include <map>
 #include <fstream>
-
-#if !defined(PHREEQC_CLASS)
-#include "sundialstypes.h"		/* definitions of types realtype and                        */
-							 /* integertype, and the constant FALSE            */
-#include "cvode.h"				/* prototypes for CVodeMalloc, CVode, and            */
-							 /* CVodeFree, constants OPT_SIZE, BDF, NEWTON,   */
-							 /* SV, SUCCESS, NST,NFE,NSETUPS, NNI, NCFN, NETF */
-#include "cvdense.h"			/* prototype for CVDense, constant DENSE_NJE    */
-#include "dense.h"				/* definitions of type DenseMat, macro DENSE_ELEM */
-#endif
 #include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
 							 /* NV_Ith_S, prototypes for N_VNew, N_VFree      */
 /* These macros are defined in order to write code which exactly matches
@@ -52,45 +36,6 @@
 
 #define MAX_DIVIDE 2
 #define KINETICS_TOL 1e-8;
-
-#if !defined(PHREEQC_CLASS)
-#define KINETICS_EXTERNAL extern
-#include "kinetics.h"
-
-static void f(integertype N, realtype t, N_Vector y, N_Vector ydot,
-			  void *f_data);
-
-static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
-				N_Vector y, N_Vector fy, N_Vector ewt, realtype h,
-				realtype uround, void *jac_data, long int *nfePtr,
-				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
-
-static char const svnid[] =
-	"$Id$";
-static int calc_final_kinetic_reaction(struct kinetics *kinetics_ptr);
-static int calc_kinetic_reaction(struct kinetics *kinetics_ptr,
-								 LDBLE time_step);
-static int rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
-					   LDBLE step_fraction);
-static int set_reaction(int i, int use_mix, int use_kinetics);
-static int set_transport(int i, int use_mix, int use_kinetics, int nsaver);
-static int store_get_equi_reactants(int k, int kin_end);
-
-
-
-LDBLE *m_original = NULL;
-LDBLE *m_temp = NULL;
-
-extern LDBLE min_value;
-extern int count_total_steps;
-#endif
-/*
-struct phreeqc_M_Env
-{
-	struct _generic_M_Env;
-	Phreeqc * phreeqc_ptr;
-};
-*/
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -2082,9 +2027,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 
 			/* allocate space for CVODE */
 			kinetics_machEnv = M_EnvInit_Serial(n_reactions);
-#if defined(PHREEQC_CLASS)
 			kinetics_machEnv->phreeqc_ptr = this;
-#endif
 			kinetics_y = N_VNew(n_reactions, kinetics_machEnv);	/* Allocate y, abstol vectors */
 			if (kinetics_y == NULL)
 				malloc_error();
@@ -2136,27 +2079,16 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			 */
 			iopt[MXSTEP] = kinetics_ptr->cvode_steps;
 			iopt[MAXORD] = kinetics_ptr->cvode_order;
-#if !defined(PHREEQC_CLASS)
-			kinetics_cvode_mem =
-				CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
-							&reltol, kinetics_abstol, NULL, NULL, TRUE, iopt,
-							ropt, kinetics_machEnv);
-#else
 			kinetics_cvode_mem =
 				CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
 							&reltol, kinetics_abstol, this, NULL, TRUE, iopt,
 							ropt, kinetics_machEnv);
-#endif
 			if (kinetics_cvode_mem == NULL)
 				malloc_error();
 
 			/* Call CVDense to specify the CVODE dense linear solver with the
 			   user-supplied Jacobian routine Jac. */
-#if !defined(PHREEQC_CLASS)
-			flag = CVDense(kinetics_cvode_mem, Jac, NULL);
-#else
 			flag = CVDense(kinetics_cvode_mem, Jac, this);
-#endif
 			if (flag != SUCCESS)
 			{
 				error_msg("CVDense failed.", STOP);
@@ -2208,27 +2140,16 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				CVodeFree(kinetics_cvode_mem);	/* Free the CVODE problem memory */
 				iopt[MXSTEP] = kinetics_ptr->cvode_steps;
 				iopt[MAXORD] = kinetics_ptr->cvode_order;
-#if !defined(PHREEQC_CLASS)
-				kinetics_cvode_mem =
-					CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON,
-								SV, &reltol, kinetics_abstol, NULL, NULL,
-								TRUE, iopt, ropt, kinetics_machEnv);
-#else
 				kinetics_cvode_mem =
 					CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON,
 								SV, &reltol, kinetics_abstol, this, NULL,
 								TRUE, iopt, ropt, kinetics_machEnv);
-#endif
 				if (kinetics_cvode_mem == NULL)
 					malloc_error();
 
 				/* Call CVDense to specify the CVODE dense linear solver with the
 				   user-supplied Jacobian routine Jac. */
-#if !defined(PHREEQC_CLASS)
-				flag = CVDense(kinetics_cvode_mem, Jac, NULL);
-#else
 				flag = CVDense(kinetics_cvode_mem, Jac, this);
-#endif
 				if (flag != SUCCESS)
 				{
 					error_msg("CVDense failed.", STOP);
@@ -2669,91 +2590,7 @@ store_get_equi_reactants(int l, int kin_end)
 	return (OK);
 }
 
-#if !defined(PHREEQC_CLASS)
-static void 
-f(integertype N, realtype t, N_Vector y, N_Vector ydot,
-			  void *f_data)
-{
-	int i, n_reactions, n_user;
-	LDBLE step_fraction;
-	struct kinetics *kinetics_ptr;
 
-	cvode_error = FALSE;
-	n_reactions = cvode_n_reactions;
-	n_user = cvode_n_user;
-	kinetics_ptr = (struct kinetics *) cvode_kinetics_ptr;
-	step_fraction = cvode_step_fraction;
-	rate_sim_time = cvode_rate_sim_time;
-
-	for (i = 0; i < n_reactions; i++)
-	{
-		/*
-		   kinetics_ptr->comps[i].moles = y[i + 1];
-		   kinetics_ptr->comps[i].m = m_original[i] - y[i + 1];
-		 */
-		kinetics_ptr->comps[i].moles = Ith(y, i + 1);
-		kinetics_ptr->comps[i].m = m_original[i] - Ith(y, i + 1);
-		if (kinetics_ptr->comps[i].m < 0)
-		{
-			/*
-			   NOTE: y is not correct if it is greater than m_original
-			   However, it seems to work to let y wander off, but use
-			   .moles as the correct integral.
-			   It does not work to reset Y to m_original, presumably
-			   because the rational extrapolation gets screwed up.
-			 */
-
-			/*
-			   Ith(y,i + 1) = m_original[i];
-			 */
-			kinetics_ptr->comps[i].moles = m_original[i];
-			kinetics_ptr->comps[i].m = 0.0;
-		}
-	}
-	calc_final_kinetic_reaction(kinetics_ptr);
-	/*      if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
-	if (use.pp_assemblage_ptr != NULL)
-	{
-		pp_assemblage_free(use.pp_assemblage_ptr);
-		pp_assemblage_copy(cvode_pp_assemblage_save, use.pp_assemblage_ptr,
-						   n_user);
-	}
-	if (use.s_s_assemblage_ptr != NULL)
-	{
-		s_s_assemblage_free(use.s_s_assemblage_ptr);
-		s_s_assemblage_copy(cvode_s_s_assemblage_save,
-							use.s_s_assemblage_ptr, n_user);
-	}
-
-	if (set_and_run_wrapper(n_user, FALSE, TRUE, n_user, 0.0) == MASS_BALANCE)
-	{
-		run_reactions_iterations += iterations;
-		cvode_error = TRUE;
-		/*
-		   error_msg("Mass balance error in f", CONTINUE);
-		 */
-		return;
-	}
-	if (cvode_test == TRUE)
-	{
-		return;
-	}
-	run_reactions_iterations += iterations;
-	for (i = 0; i < n_reactions; i++)
-	{
-		kinetics_ptr->comps[i].moles = 0.0;
-	}
-	calc_kinetic_reaction(kinetics_ptr, 1.0);
-	for (i = 0; i < n_reactions; i++)
-	{
-		/*
-		   dydx[i + 1] = kinetics_ptr->comps[i].moles;
-		 */
-		Ith(ydot, i + 1) = kinetics_ptr->comps[i].moles;
-	}
-	return;
-}
-#else
 void CLASS_QUALIFIER
 f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 			  void *f_data)
@@ -2838,176 +2675,14 @@ f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 	}
 	return;
 }
-#endif  /* PHREEQC_CLASS */
+
 /*
 static void Jac(integertype N, DenseMat J, RhsFn f, void *f_data, realtype t,
 				N_Vector y, N_Vector fy, N_Vector ewt, realtype h,
 				realtype uround, void *jac_data, long int *nfePtr,
 				N_Vector vtemp1, N_Vector vtemp2, N_Vector vtemp3);
 */
-#if !defined(PHREEQC_CLASS)
-static void  
-Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
-	realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
-					 realtype h, realtype uround, void *jac_data,
-					 long int *nfePtr, N_Vector vtemp1, N_Vector vtemp2,
-					 N_Vector vtemp3)
-{
-	int count_cvode_errors;
-	int i, j, n_reactions, n_user;
-	LDBLE *initial_rates, del;
-	struct kinetics *kinetics_ptr;
-	LDBLE step_fraction;
 
-	cvode_error = FALSE;
-	n_reactions = cvode_n_reactions;
-	n_user = cvode_n_user;
-	kinetics_ptr = (struct kinetics *) cvode_kinetics_ptr;
-	step_fraction = cvode_step_fraction;
-	rate_sim_time = cvode_rate_sim_time;
-
-	initial_rates =
-		(LDBLE *) PHRQ_malloc((size_t) n_reactions * sizeof(LDBLE));
-	if (initial_rates == NULL)
-		malloc_error();
-
-	for (i = 0; i < n_reactions; i++)
-	{
-		/*
-		   kinetics_ptr->comps[i].moles = y[i + 1];
-		   kinetics_ptr->comps[i].m = m_original[i] - y[i + 1];
-		 */
-		kinetics_ptr->comps[i].moles = Ith(y, i + 1);
-		kinetics_ptr->comps[i].m = m_original[i] - Ith(y, i + 1);
-		if (kinetics_ptr->comps[i].m < 0)
-		{
-			/*
-			   NOTE: y is not correct if it is greater than m_original
-			   However, it seems to work to let y wander off, but use
-			   .moles as the correct integral.
-			   It does not work to reset Y to m_original, presumably
-			   because the rational extrapolation gets screwed up.
-			 */
-
-			/*
-			   Ith(y,i + 1) = m_original[i];
-			 */
-			kinetics_ptr->comps[i].moles = m_original[i];
-			kinetics_ptr->comps[i].m = 0.0;
-		}
-	}
-	calc_final_kinetic_reaction(kinetics_ptr);
-	/* if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
-	if (use.pp_assemblage_ptr != NULL)
-	{
-		pp_assemblage_free(use.pp_assemblage_ptr);
-		pp_assemblage_copy(cvode_pp_assemblage_save, use.pp_assemblage_ptr,
-						   n_user);
-	}
-	if (set_and_run_wrapper(n_user, FALSE, TRUE, n_user, 0.0) == MASS_BALANCE)
-	{
-		run_reactions_iterations += iterations;
-		cvode_error = TRUE;
-		/*
-		   error_msg("Mass balance error in jacobian", CONTINUE);
-		 */
-		initial_rates = (LDBLE *) free_check_null(initial_rates);
-		return;
-	}
-	run_reactions_iterations += iterations;
-	for (i = 0; i < n_reactions; i++)
-		kinetics_ptr->comps[i].moles = 0.0;
-	calc_kinetic_reaction(kinetics_ptr, 1.0);
-	for (i = 0; i < n_reactions; i++)
-	{
-		initial_rates[i] = kinetics_ptr->comps[i].moles;
-	}
-	for (i = 0; i < n_reactions; i++)
-	{
-		/* calculate reaction up to current time */
-		del = 1e-12;
-		cvode_error = TRUE;
-		count_cvode_errors = 0;
-		while (cvode_error == TRUE)
-		{
-			del /= 10.;
-			for (j = 0; j < n_reactions; j++)
-			{
-				/*
-				   kinetics_ptr->comps[j].moles = y[j + 1];
-				   kinetics_ptr->comps[j].m = m_original[j] - y[j + 1];
-				 */
-				kinetics_ptr->comps[j].moles = Ith(y, j + 1);
-				kinetics_ptr->comps[j].m = m_original[j] - Ith(y, j + 1);
-				if (kinetics_ptr->comps[i].m < 0)
-				{
-					/*
-					   NOTE: y is not correct if it is greater than m_original
-					   However, it seems to work to let y wander off, but use
-					   .moles as the correct integral.
-					   It does not work to reset Y to m_original, presumably
-					   because the rational extrapolation gets screwed up.
-					 */
-
-					/*
-					   Ith(y,i + 1) = m_original[i];
-					 */
-					kinetics_ptr->comps[i].moles = m_original[i];
-					kinetics_ptr->comps[i].m = 0.0;
-				}
-			}
-
-			/* Add small amount of ith reaction */
-			kinetics_ptr->comps[i].m -= del;
-			if (kinetics_ptr->comps[i].m < 0)
-			{
-				kinetics_ptr->comps[i].m = 0;
-			}
-			kinetics_ptr->comps[i].moles += del;
-			calc_final_kinetic_reaction(kinetics_ptr);
-			if (use.pp_assemblage_ptr != NULL)
-			{
-				pp_assemblage_free(use.pp_assemblage_ptr);
-				pp_assemblage_copy(cvode_pp_assemblage_save,
-								   use.pp_assemblage_ptr, n_user);
-			}
-			if (set_and_run_wrapper
-				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)
-			{
-				count_cvode_errors++;
-				cvode_error = TRUE;
-				if (count_cvode_errors > 30)
-				{
-					initial_rates = (LDBLE *) free_check_null(initial_rates);
-					return;
-				}
-				run_reactions_iterations += iterations;
-				continue;
-			}
-			cvode_error = FALSE;
-			run_reactions_iterations += iterations;
-			/*kinetics_ptr->comps[i].moles -= del; */
-			for (j = 0; j < n_reactions; j++)
-				kinetics_ptr->comps[j].moles = 0.0;
-			calc_kinetic_reaction(kinetics_ptr, 1.0);
-
-			/* calculate new rates for df/dy[i] */
-			/* dfdx[i + 1] = 0.0; */
-			for (j = 0; j < n_reactions; j++)
-			{
-				IJth(J, j + 1, i + 1) =
-					(kinetics_ptr->comps[j].moles - initial_rates[j]) / del;
-			}
-		}
-	}
-	for (i = 0; i < n_reactions; i++)
-	{
-		kinetics_ptr->comps[i].moles = 0;
-	}
-	initial_rates = (LDBLE *) free_check_null(initial_rates);
-	return;
-}
-#else
 void  CLASS_QUALIFIER
 Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	realtype t, N_Vector y, N_Vector fy, N_Vector ewt,
@@ -3171,7 +2846,7 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	initial_rates = (LDBLE *) pThis->free_check_null(initial_rates);
 	return;
 }
-#endif  /* PHREEQC_CLASS */
+
 void CLASS_QUALIFIER
 cvode_init(void)
 {

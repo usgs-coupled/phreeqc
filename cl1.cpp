@@ -3,22 +3,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-#if defined(PHREEQC_CLASS)
 #define CLASS_QUALIFIER Phreeqc::
 #include "Phreeqc.h"
-#endif
-
 #include "phqalloc.h"
 #include "phrqtype.h"
-
-#if !defined(PHREEQC_CLASS)
-void cl1_space(int check, int n2d, int klm, int nklmd);
-extern void zero_double(LDBLE * target, int n);
-LDBLE *x_arg = NULL, *res_arg = NULL, *scratch = NULL;
-int x_arg_max = 0, res_arg_max = 0, scratch_max = 0;
-#define CLASS_QUALIFIER
-#endif
-static char const svnid[] = "$Id$";
 
 extern void *free_check_null(void *ptr);
 extern void malloc_error(void);
@@ -152,9 +140,6 @@ cl1(int k, int l, int m, int n,
 /*      REAL */
 
 /* INITIALIZATION. */
-	if (svnid == NULL)
-		fprintf(stderr, " ");
-
 
 	zv = 0;
 	kode_arg = *l_kode;

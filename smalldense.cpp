@@ -20,20 +20,11 @@
 #include "sundialstypes.h"
 #include "sundialsmath.h"
 /* WARNING don't include any headers below here */
-#if !defined(PHREEQC_CLASS)
-#include "phqalloc.h"
-#define malloc PHRQ_malloc
-#define free PHRQ_free
-#endif
-static char const svnid[] =
-	"$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
 
-
 /* Implementation */
-
 
 realtype **
 denalloc(integertype n)

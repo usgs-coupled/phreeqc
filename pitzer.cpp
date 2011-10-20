@@ -1,42 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
 #define PITZER
-
-#if !defined(PHREEQC_CLASS)
-#define PITZER_EXTERNAL
-#include "pitzer_structures.h"
-#include "pitzer.h"
-
-static char const svnid[] = "$Id: pitzer.c 248 2005-04-14 17:10:53Z dlpark $";
-/* variables */
-static LDBLE A0 = 0;
-struct species **spec = NULL, **cations = NULL, **anions = NULL, **neutrals = NULL;
-static int count_cations = 0, count_anions = 0, count_neutrals = 0;
-static int MAXCATIONS = 0, FIRSTANION = 0, MAXNEUTRAL = 0;
-struct pitz_param *mcb0 = NULL, *mcb1 = NULL, *mcc0 = NULL;
-static int *IPRSNT = NULL;
-static LDBLE *M = NULL, *LGAMMA = NULL;
-static LDBLE BK[23], DK[23];
-
-/* routines */
-static int calc_pitz_param(struct pitz_param *pz_ptr, LDBLE TK, LDBLE TR);
-static int check_gammas_pz(void);
-static int ISPEC(char *name);
-/*static int DH_AB (LDBLE TK, LDBLE *A, LDBLE *B);*/
-static LDBLE G(LDBLE Y);
-static LDBLE GP(LDBLE Y);
-static int ETHETAS(LDBLE ZJ, LDBLE ZK, LDBLE I, LDBLE * etheta,
-				   LDBLE * ethetap);
-static int BDK(LDBLE X);
-static int pitzer_initial_guesses(void);
-static int pitzer_revise_guesses(void);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

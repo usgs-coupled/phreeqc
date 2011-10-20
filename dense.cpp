@@ -23,12 +23,6 @@
 #include "smalldense.h"
 
 /* WARNING don't include any headers below here */
-#if !defined(PHREEQC_CLASS)
-#include "phqalloc.h"
-#define malloc PHRQ_malloc
-#define free PHRQ_free
-#endif
-static char const svnid[] = "$Id$";
 
 #define ZERO RCONST(0.0)
 #define ONE  RCONST(1.0)
@@ -42,8 +36,6 @@ DenseAllocMat(integertype N)
 {
 	DenseMat A;
 
-	if (svnid == NULL)
-		fprintf(stderr, " ");
 	if (N <= 0)
 		return (NULL);
 

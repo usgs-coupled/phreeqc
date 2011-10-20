@@ -1,45 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
-/*
- *  storage
- */
-struct tally_buffer
-{
-	char *name;
-	struct master *master;
-	LDBLE moles;
-	LDBLE gfw;
-};
-struct tally_buffer *t_buffer = NULL;
-int tally_count_component = 0;
-struct tally
-{
-	char *name;
-	enum entity_type type;
-	char *add_formula;
-	LDBLE moles;
-	struct elt_list *formula;
-	/*
-	 * first total is initial
-	 * second total is final
-	 * third total is difference (final - initial)
-	 */
-	struct tally_buffer *total[3];
-};
-struct tally *tally_table = NULL;
-int count_tally_table_columns = 0;
-int count_tally_table_rows = 0;
 
-static int elt_list_to_tally_table(struct tally_buffer *buffer_ptr);
-#endif
 /*   
      Calling sequence 
 

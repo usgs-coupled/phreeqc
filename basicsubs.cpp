@@ -254,21 +254,7 @@ calc_dens (void)
 }
 /* VP: Density End */
 /* DP: Function for interval halving */
-#if !defined(PHREEQC_CLASS)
-LDBLE CLASS_QUALIFIER
-f_rho(LDBLE rho_old)
-/* ---------------------------------------------------------------------- */
-{
-  LDBLE rho, I_v;
 
-  solution_volume = solution_mass / rho_old / 1000;
-  I_v = 1.0;
-  if (solution_volume != 0) I_v = I_m / solution_volume;
-  rho = AA_basic * I_v + BB_basic * exp(1.5 * log(I_v)) + CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
-  rho = rho / 1000 + rho_0;
-  return (rho - rho_old);
-}
-#else
 LDBLE CLASS_QUALIFIER
 f_rho(LDBLE rho_old, void *cookie)
 /* ---------------------------------------------------------------------- */
@@ -285,7 +271,7 @@ f_rho(LDBLE rho_old, void *cookie)
   rho = rho / 1000 + pThis->rho_0;
   return (rho - rho_old);
 }
-#endif /* PHREEQC_CLASS */
+
 /* DP: End function for interval halving */
 
 /* ---------------------------------------------------------------------- */

@@ -1,55 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
-
-static LDBLE s_s_root(LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb, LDBLE xcaq,
-					  LDBLE xbaq);
-static LDBLE s_s_halve(LDBLE a0, LDBLE a1, LDBLE x0, LDBLE x1, LDBLE kc,
-					   LDBLE kb, LDBLE xcaq, LDBLE xbaq);
-static LDBLE s_s_f(LDBLE xb, LDBLE a0, LDBLE a1, LDBLE kc, LDBLE kb,
-				   LDBLE xcaq, LDBLE xbaq);
-static int numerical_jacobian(void);
-static void set_inert_moles(void);
-static void unset_inert_moles(void);
-#ifdef SKIP
-static int adjust_step_size(void);
-#endif
-
-/*#define SLNQ*/
-
-#ifdef SLNQ
-static int add_trivial_eqns(int rows, int cols, LDBLE * matrix);
-extern int slnq(int n, LDBLE * a, LDBLE * delta, int ncols, int print);
-#endif
-
-static int calc_gas_pressures(void);
-static int calc_s_s_fractions(void);
-static int gammas(LDBLE mu);
-static int initial_guesses(void);
-static int revise_guesses(void);
-static int s_s_binary(struct s_s *s_s_ptr);
-static int s_s_ideal(struct s_s *s_s_ptr);
-
-/*static int remove_unstable_phases;*/
-static int gas_in = 0;
-static void ineq_init(int max_row_count, int max_column_count);
-
-LDBLE min_value = 1e-10;
-
-LDBLE *normal = NULL, *ineq_array = NULL, *res = NULL, *cu = NULL, *zero =
-	NULL, *delta1 = NULL;
-int *iu = NULL, *is = NULL, *back_eq = NULL;
-int normal_max = 0, ineq_array_max = 0, res_max = 0, cu_max = 0, zero_max =
-	0, delta1_max = 0, iu_max = 0, is_max = 0, back_eq_max = 0;
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -959,9 +910,6 @@ ineq(int in_kode)
 	int return_code;
 	int l_count_rows;
 	int l_count_optimize, count_equal;
-#if !defined(PHREEQC_CLASS)
-	extern int max_row_count, max_column_count;
-#endif
 	int k, l, m, n;
 	int l_klmd, l_nklmd, l_n2d;
 	int l_iter;

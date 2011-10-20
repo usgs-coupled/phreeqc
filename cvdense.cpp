@@ -26,21 +26,13 @@
 #include "nvector.h"
 #include "sundialsmath.h"
 
-#if !defined(PHREEQC_CLASS)
-#include "output.h"
-#define CVMEM
-#define CVMEM_MALLOC
-#define MACHENV
-#define MACHENV_MALLOC
-#define malloc PHRQ_malloc
-#else
+
 #include "Phreeqc.h"
 #define malloc PHRQ_malloc
 #define MACHENV machEnv->phreeqc_ptr->
 #define CVMEM cv_mem->cv_machenv->phreeqc_ptr->
 #define MACHENV_MALLOC MACHENV
 #define CVMEM_MALLOC CVMEM 
-#endif
 
 #include "phqalloc.h"
 /* WARNING don't include any headers below here */

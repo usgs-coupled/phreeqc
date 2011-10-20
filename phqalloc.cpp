@@ -1,18 +1,8 @@
 #define INCLUDE_PHRQALLOC_H
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
-
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] =
-	"$Id$";
-#endif
 
 #if defined(PHREEQCI_GUI)
 #define _CRTDBG_MAP_ALLOC

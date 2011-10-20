@@ -1,33 +1,7 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-//#include "time.h"
 #include <time.h>
-
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] =
-	"$Id$";
-
-#ifdef PHREEQ98
-extern int AutoLoadOutputFile, CreateToC;
-extern int ProcessMessages, ShowProgress, ShowProgressWindow, ShowChart;
-extern int outputlinenr;
-extern int stop_calculations;
-void AddToCEntry(char *a, int l, int i);
-void ApplicationProcessMessages(void);
-/* void check_line_breaks(char *s); */
-char err_str98[80];
-int copy_title(char *token_ptr, char **ptr, int *length);
-extern int clean_up_null(void);
-#endif
-
-static int isamong(char c, const char *s_l);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
@@ -1214,32 +1188,6 @@ status(int count, const char *str)
 
 /* rewrote to remove MUL and DIV */
 # define MOD(x,y)		((x) & ((y)-1))
-
-/*
-** local data templates
-*/
-
-
-/*
-** external routines
-*/
-
-/*
-extern char	*calloc();
-extern int	free();
- */
-/*
-** Entry points
-*/
-
-
-/*
-** Internal routines
-*/
-#if !defined(PHREEQC_CLASS)
-STATIC Address Hash_multi(HashTable * Table, char *Key);
-STATIC void ExpandTable_multi(HashTable * Table);
-#endif
 
 /*
 ** Local data

@@ -1,9 +1,4 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
 
@@ -14,16 +9,6 @@
 #include "SSassemblageSS.h"
 #include "NameDouble.h"
 
-#if !defined(PHREEQC_CLASS)
-static char const svnid[] = "$Id$";
-
-static int check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr);
-static int gas_phase_check(struct gas_phase *gas_phase_ptr);
-static int pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr);
-static int reaction_calc(struct irrev *irrev_ptr);
-static int solution_check(void);
-static int s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr);
-#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 step(LDBLE step_fraction)

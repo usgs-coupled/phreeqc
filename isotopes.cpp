@@ -1,21 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-/*
-static char const svnid[] =
-	"$Id$";
-*/
-#if !defined(PHREEQC_CLASS)
-static int calculate_value_init(struct calculate_value *calculate_value_ptr);
-static int isotope_alpha_init(struct isotope_alpha *isotope_alpha_ptr);
-static int isotope_ratio_init(struct isotope_ratio *isotope_ratio_ptr);
-static int master_isotope_init(struct master_isotope *master_isotope_ptr);
-#endif
 
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER

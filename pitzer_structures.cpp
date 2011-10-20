@@ -1,26 +1,6 @@
-#if !defined(PHREEQC_CLASS)
-#define EXTERNAL extern
-#include "global.h"
-#else
 #include "Phreeqc.h"
-#endif
 #include "phqalloc.h"
 #include "phrqproto.h"
-#if !defined(PHREEQC_CLASS)
-#define PITZER_EXTERNAL extern
-#include "pitzer_structures.h"
-#include "pitzer.h"
-
-static char const svnid[] =
-	"$Id: structures.c 269 2005-04-27 19:54:25Z dlpark $";
-
-static struct pitz_param *pitz_param_alloc(void);
-static int pitz_param_init(struct pitz_param *pitz_param_ptr);
-static struct pitz_param *pitz_param_duplicate(struct pitz_param *old_ptr);
-static int pitz_param_copy(struct pitz_param *old_ptr,
-						   struct pitz_param *new_ptr);
-#endif
-
 
 /* **********************************************************************
  *

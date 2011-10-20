@@ -39,16 +39,8 @@
  * into the 'ops' field).                                          *
  *                                                                 *
  *******************************************************************/
-#if defined(PHREEQC_CLASS)
-class Phreeqc;
-#endif
 
-/*
-#ifdef __cplusplus				
-extern "C"
-{
-#endif
-*/
+class Phreeqc;
 #ifndef included_nvector_h
 #define included_nvector_h
 
@@ -114,9 +106,7 @@ extern "C"
 		void *content;
 		struct _generic_N_Vector_Ops *ops;
 		char tag[8];
-#if defined(PHREEQC_CLASS)
 		Phreeqc * phreeqc_ptr;
-#endif
 	};
 
 /* A vector is a structure with an implementation dependent content
