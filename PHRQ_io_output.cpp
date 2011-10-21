@@ -1,6 +1,5 @@
 #include <assert.h>
 #include "Phreeqc.h"
-#include <setjmp.h>
 #include "phqalloc.h"
 
 /* ---------------------------------------------------------------------- */

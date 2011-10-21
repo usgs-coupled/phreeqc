@@ -2,10 +2,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 
-//#include "input.h"
-
-//#define Phreeqc:: Phreeqc::
-
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
 #endif

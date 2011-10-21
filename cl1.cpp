@@ -3,10 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-//#define Phreeqc:: Phreeqc::
 #include "Phreeqc.h"
 #include "phqalloc.h"
-#include "phrqtype.h"
 
 /* debug
 #define DEBUG_CL1
