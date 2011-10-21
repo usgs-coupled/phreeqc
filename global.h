@@ -1,19 +1,6 @@
 #ifndef _INC_GLOBAL_H
 #define _INC_GLOBAL_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include <errno.h>
-#include <float.h>
-//#include <setjmp.h>
-#include "phrqtype.h"
-#include <list>
-#include "PHRQ_io.h"
-#include "global_structures.h"
-
  PHRQ_io *phrq_io;
 
 /* ----------------------------------------------------------------------
