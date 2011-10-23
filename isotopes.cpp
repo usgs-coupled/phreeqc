@@ -269,7 +269,7 @@ read_calculate_values(void)
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
-/*	output_temp_msg(sformatf( "%s", calculate_value[0].commands));
+/*	output_msg(sformatf( "%s", calculate_value[0].commands));
  */ return (return_value);
 }
 
@@ -767,7 +767,7 @@ print_initial_solution_isotopes(void)
  *   Print heading
  */
 	print_centered("Isotopes");
-	output_temp_msg(sformatf( "%10s\t%12s\t%12s\t%12s\t%12s\n\n", "Isotope",
+	output_msg(sformatf( "%10s\t%12s\t%12s\t%12s\t%12s\n\n", "Isotope",
 			   "Molality", "Moles", "Ratio", "Units"));
 	for (i = 0; i < count_master_isotope; i++)
 	{
@@ -789,7 +789,7 @@ print_initial_solution_isotopes(void)
 			/*
 			 *  Print isotope values
 			 */
-			output_temp_msg(sformatf( "%10s\t%12.5e\t%12.5e\n",
+			output_msg(sformatf( "%10s\t%12.5e\t%12.5e\n",
 					   master_isotope[i]->name,
 					   (double) (master_isotope[i]->moles / mass_water_aq_x),
 					   (double) master_isotope[i]->moles));
@@ -800,7 +800,7 @@ print_initial_solution_isotopes(void)
 				if ((master_isotope[j]->elt == master_isotope[i]->elt) &&
 					(master_isotope[j]->minor_isotope == TRUE))
 				{
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "%10s\t%12.5e\t%12.5e\t%12.5e\t%12s\n",
 							   master_isotope[j]->name,
 							   (double) (master_isotope[j]->moles /
@@ -810,7 +810,7 @@ print_initial_solution_isotopes(void)
 							   master_isotope[j]->units));
 				}
 			}
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
 	}
 	return (OK);
@@ -953,7 +953,7 @@ print_isotope_ratios(void)
 		return (OK);
 
 	print_centered("Isotope Ratios");
-	output_temp_msg(sformatf( "%25s\t%12s\t%15s\n\n", "Isotope Ratio",
+	output_msg(sformatf( "%25s\t%12s\t%15s\n\n", "Isotope Ratio",
 			   "Ratio", "Input Units"));
 
 	for (j = 0; j < count_isotope_ratio; j++)
@@ -968,12 +968,12 @@ print_isotope_ratios(void)
 		 */
 		strcpy(token, isotope_ratio[j]->name);
 		while (replace("_", " ", token) == TRUE);
-		output_temp_msg(sformatf( "     %-20s\t%12.5e\t%15.5g  %-10s\n",
+		output_msg(sformatf( "     %-20s\t%12.5e\t%15.5g  %-10s\n",
 				   token, (double) isotope_ratio[j]->ratio,
 				   (double) isotope_ratio[j]->converted_ratio,
 				   master_isotope_ptr->units));
 	}
-	output_temp_msg(sformatf( "\n"));
+	output_msg(sformatf( "\n"));
 	return (OK);
 }
 
@@ -1017,9 +1017,9 @@ print_isotope_alphas(void)
 		return (OK);
 
 	print_centered("Isotope Alphas");
-	output_temp_msg(sformatf( "%75s\n", "1000ln(Alpha)"));
-	output_temp_msg(sformatf( "%79s\n", "----------------------"));
-	output_temp_msg(sformatf( "%-37s%14s%14s%12.1f C\n\n",
+	output_msg(sformatf( "%75s\n", "1000ln(Alpha)"));
+	output_msg(sformatf( "%79s\n", "----------------------"));
+	output_msg(sformatf( "%-37s%14s%14s%12.1f C\n\n",
 			   "     Isotope Ratio", "Solution alpha", "Solution",
 			   (double) tc_x));
 
@@ -1043,7 +1043,7 @@ print_isotope_alphas(void)
 			{
 				log_alpha = 1000 * log(isotope_alpha[j]->value);
 			}
-			output_temp_msg(sformatf( "%-37s%14.5g%14.5g%14.5g\n", token,
+			output_msg(sformatf( "%-37s%14.5g%14.5g%14.5g\n", token,
 					   (double) isotope_alpha[j]->value, (double) log_alpha,
 					   (double) (1000 *
 								 calc_logk_n(isotope_alpha[j]->named_logk) *
@@ -1051,13 +1051,13 @@ print_isotope_alphas(void)
 		}
 		else
 		{
-			output_temp_msg(sformatf( "%-37s%14.5g%14.5g\n", token,
+			output_msg(sformatf( "%-37s%14.5g%14.5g\n", token,
 					   (double) isotope_alpha[j]->value,
 					   (double) (1000 * log(isotope_alpha[j]->value))));
 		}
 
 	}
-	output_temp_msg(sformatf( "\n"));
+	output_msg(sformatf( "\n"));
 	return (OK);
 }
 

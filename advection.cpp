@@ -68,7 +68,7 @@ advection(void)
 							 ((LDBLE) count_ad_cells))));
 		if (pr.use == TRUE && pr.all == TRUE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "Beginning of advection time step %d, cumulative pore volumes %f.\n",
 					   advection_step,
 					   (double) (((LDBLE) advection_step) /
@@ -99,7 +99,7 @@ advection(void)
 				advection_step % print_ad_modulus == 0 &&
 				advection_print[i - 1] == TRUE)
 			{
-				output_temp_msg(sformatf( "\nCell %d.\n\n", i));
+				output_msg(sformatf( "\nCell %d.\n\n", i));
 			}
 			if (advection_step % punch_ad_modulus == 0 &&
 				advection_punch[i - 1] == TRUE)

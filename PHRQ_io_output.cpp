@@ -17,7 +17,7 @@ warning_msg(const char *err_str)
 		if (count_warnings > pr.warnings)
 			return (OK);
 	}
-	phrq_io->warning_msg(err_str);
+	if (phrq_io) phrq_io->warning_msg(err_str);
 	
 	return OK;
 }
@@ -35,7 +35,7 @@ echo_msg(const char *str)
 {
 	if (pr.echo_input == TRUE)
 	{
-		phrq_io->output_temp_msg(str);
+		if (phrq_io) phrq_io->output_msg(str);
 	}
 }
 
@@ -75,17 +75,17 @@ fpunchf_heading(const char *name)
 void Phreeqc::
 fpunchf(const char *name, const char *format, double d)
 {
-	phrq_io->fpunchf(name, format, d);
+	if (phrq_io) phrq_io->fpunchf(name, format, d);
 }
 void Phreeqc::
 fpunchf(const char *name, const char *format, char * s)
 {
-	phrq_io->fpunchf(name, format, s);
+	if (phrq_io) phrq_io->fpunchf(name, format, s);
 }
 void Phreeqc::
 fpunchf(const char *name, const char *format, int d)
 {
-	phrq_io->fpunchf(name, format, d);
+	if (phrq_io) phrq_io->fpunchf(name, format, d);
 }
 
 void Phreeqc::
@@ -113,7 +113,7 @@ fpunchf_user(int user_index, const char *format, double d)
 				(user_index - user_punch_count_headings) + 1);
 		name = buffer;
 	}
-	phrq_io->fpunchf(name, format, d);
+	if (phrq_io) phrq_io->fpunchf(name, format, d);
 }
 
 void Phreeqc::
@@ -141,7 +141,7 @@ fpunchf_user(int user_index, const char *format, char * d)
 				(user_index - user_punch_count_headings) + 1);
 		name = buffer;
 	}
-	phrq_io->fpunchf(name, format, d);
+	if (phrq_io) phrq_io->fpunchf(name, format, d);
 }
 
 int Phreeqc::
@@ -168,6 +168,10 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  *   Prepare error handling
  */
 	try {
+		if (phrq_io) 
+		{
+			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
+		}
 /*
  *   Prep for get_line
  */
@@ -203,24 +207,31 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 /*
  *   Open file for error output
  */
-		if (argc > 4)
+		if (phrq_io)
 		{
-			if (!phrq_io->error_open(argv[4]))
+			if (argc > 4)
 			{
-				sprintf(error_string, "Error opening file, %s.", argv[4]);
-				warning_msg(error_string);
+				if (!phrq_io->error_open(argv[4]))
+				{
+					sprintf(error_string, "Error opening file, %s.", argv[4]);
+					warning_msg(error_string);
+				}
+			}
+			else
+			{
+				phrq_io->error_open(NULL);
 			}
 		}
-		else
+		else 
 		{
-			phrq_io->error_open(NULL);
+			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
 		}
 
 		/*
 		*   Open user-input file
 		*/
 		strcpy(query, "Name of input file?");
-		FILE * local_input_file;
+		FILE * local_input_file = NULL;
 		if (argc <= 1)
 		{
 			default_name[0] = '\0';
@@ -231,9 +242,8 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 			strcpy(default_name, argv[1]);
 			local_input_file = file_open(query, default_name, "r", TRUE);
 		}
-		phrq_io->Set_input_file(local_input_file);
+		if (phrq_io) phrq_io->Set_input_file(local_input_file);
 		screen_msg(sformatf("Input file: %s\n\n", default_name));
-		//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Input file: %s\r\n\r\n", default_name);
 		strcpy(in_file, default_name);
 		/*
 		*   Open file for output
@@ -257,18 +267,20 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 			strcpy(token, argv[2]);
 			local_output_file = file_open(query, token, "w", TRUE);
 		}
-		phrq_io->Set_output_file(local_output_file);
+		if (phrq_io) phrq_io->Set_output_file(local_output_file);
 		screen_msg(sformatf("Output file: %s\n\n", token));
-		//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Output file: %s\r\n\r\n", token);
 		strcpy(out_file, token);
 /*
  *   Open file for errors
  */
 		if (log == TRUE)
 		{
-			if (!phrq_io->log_open("phreeqc.log"))
+			if (phrq_io)
 			{
-				error_msg("Can't open log file, phreeqc.log.", STOP);
+				if (!phrq_io->log_open("phreeqc.log"))
+				{
+					error_msg("Can't open log file, phreeqc.log.", STOP);
+				}
 			}
 		}
 	/*
@@ -294,8 +306,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 				}
 			}
 		}
-
-		phrq_io->close_input();
+		if (phrq_io) phrq_io->close_input();
 
 		pop_cookie();
 
@@ -305,7 +316,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		}
 		else
 		{
-			phrq_io->Set_input_file(local_input_file);
+			if (phrq_io) phrq_io->Set_input_file(local_input_file);
 		}
 		/*
 		*   Open data base
@@ -351,15 +362,14 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		}
 		if (local_database_file != NULL)
 		{
-			phrq_io->Set_database_file(local_database_file);
+			if (phrq_io) phrq_io->Set_database_file(local_database_file);
 		}
 		screen_msg(sformatf("Database file: %s\n\n", token));
-		//output_msg(PHRQ_io::OUTPUT_SEND_MESSAGE, "Database file: %s\r\n\r\n", token);
 		strcpy(db_file, token);
 
-		output_temp_msg(sformatf("   Input file: %s\n", in_file));
-		output_temp_msg(sformatf("  Output file: %s\n", out_file));
-		output_temp_msg(sformatf("Database file: %s\n\n", token));
+		output_msg(sformatf("   Input file: %s\n", in_file));
+		output_msg(sformatf("  Output file: %s\n", out_file));
+		output_msg(sformatf("Database file: %s\n\n", token));
 		/*
 		*   local cleanup
 		*/
@@ -395,42 +405,46 @@ bool Phreeqc::
 dump_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->dump_open(file_name);
+	if (phrq_io)
+		return this->phrq_io->dump_open(file_name);
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 dump_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->dump_fflush();
+	if (phrq_io) this->phrq_io->dump_fflush();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 dump_close(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->dump_close();
+	if (phrq_io) this->phrq_io->dump_close();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 dump_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->dump_rewind();
+	if (phrq_io) this->phrq_io->dump_rewind();
 }
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
 dump_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->dump_isopen();
+	if (phrq_io)
+		return this->phrq_io->dump_isopen();
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 dump_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->dump_msg(str);
+	if (phrq_io) this->phrq_io->dump_msg(str);
 }
 // ---------------------------------------------------------------------- */
 // error file methods
@@ -441,35 +455,39 @@ bool Phreeqc::
 error_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->error_open(file_name);
+	if (phrq_io)
+		return this->phrq_io->error_open(file_name);
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 error_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->error_fflush();
+	if (phrq_io) this->phrq_io->error_fflush();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 error_close(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->error_close();
+	if (phrq_io) this->phrq_io->error_close();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 error_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->error_rewind();
+	if (phrq_io) this->phrq_io->error_rewind();
 }
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
 error_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->error_isopen();
+	if (phrq_io)
+		return this->phrq_io->error_isopen();
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
@@ -478,20 +496,17 @@ error_msg(const char *err_str, bool stop)
 {
 	if (get_input_errors() <= 0)
 		input_error = 1;
-
-#if defined MULTICHART
-	if (stop)
-		chart_handler.End_timer();
-#endif
-
-	phrq_io->error_msg(err_str, stop!=0);
+	std::ostringstream msg;
+	msg << "\nERROR: " << err_str << std::endl;
+	if (phrq_io)
+	{
+		phrq_io->output_msg(msg.str().c_str());
+		phrq_io->log_msg(msg.str().c_str());
+		phrq_io->error_msg(msg.str().c_str(), stop!=0);
+	}
 
 	if (stop)
 	{
-		// TODO, End_time should be moved to catch
-#if defined MULTICHART
-		chart_handler.End_timer();
-#endif
 		throw PhreeqcStop();
 	}
 }
@@ -504,42 +519,46 @@ bool Phreeqc::
 log_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->log_open(file_name);
+	if (phrq_io)
+		return this->phrq_io->log_open(file_name);
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 log_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->log_fflush();
+	if (phrq_io) this->phrq_io->log_fflush();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 log_close(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->log_close();
+	if (phrq_io) this->phrq_io->log_close();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 log_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->log_rewind();
+	if (phrq_io) this->phrq_io->log_rewind();
 }
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
 log_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->log_isopen();
+	if (phrq_io) 
+		return this->phrq_io->log_isopen();
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 log_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->log_msg(str);
+	if (phrq_io) this->phrq_io->log_msg(str);
 }
 // ---------------------------------------------------------------------- */
 // output_temp file methods
@@ -547,51 +566,58 @@ log_msg(const char * str)
 
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
-output_temp_open(const char *file_name)
+output_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->output_temp_open(file_name);
+	if (phrq_io) 
+		return this->phrq_io->output_open(file_name);
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
-output_temp_fflush(void)
+output_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->output_temp_fflush();
+	if (phrq_io) this->phrq_io->output_fflush();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
-output_temp_close(void)
+output_close(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->output_temp_close();
+	if (phrq_io) this->phrq_io->output_close();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
-output_temp_rewind(void)
+output_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->output_temp_rewind();
+	if (phrq_io) this->phrq_io->output_rewind();
 }
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
-output_temp_isopen(void)
+output_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->output_temp_isopen();
+	if (phrq_io)
+		return this->phrq_io->output_isopen();
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
-output_temp_msg(const char * str)
+output_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
-	if (get_forward_output_to_log())
+	if (phrq_io)
 	{
-		phrq_io->log_msg(str);
-	}
-	else
-	{
-		phrq_io->output_temp_msg(str);
+		if (get_forward_output_to_log())
+		{
+			phrq_io->log_msg(str);
+		}
+		else
+		{
+			phrq_io->output_msg(str);
+		}
 	}
 }
 // ---------------------------------------------------------------------- */
@@ -603,40 +629,44 @@ bool Phreeqc::
 punch_open(const char *file_name)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->punch_open(file_name);
+	if (phrq_io)
+		return this->phrq_io->punch_open(file_name);
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 punch_fflush(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->punch_fflush();
+	if (phrq_io) this->phrq_io->punch_fflush();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 punch_close(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->punch_close();
+	if (phrq_io) this->phrq_io->punch_close();
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 punch_rewind(void)
 /* ---------------------------------------------------------------------- */
 {
-	this->phrq_io->punch_rewind();
+	if (phrq_io) this->phrq_io->punch_rewind();
 }
 /* ---------------------------------------------------------------------- */
 bool Phreeqc::
 punch_isopen(void)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->punch_isopen();
+	if (phrq_io)
+		return this->phrq_io->punch_isopen();
+	return false;
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
 punch_msg(const char * str)
 /* ---------------------------------------------------------------------- */
 {
-	return this->phrq_io->punch_msg(str);
+	if (phrq_io) this->phrq_io->punch_msg(str);
 }

@@ -1732,7 +1732,7 @@ xexchange_save(int n_user)
 			temp_exchange.comps[count_comps].charge_balance = charge;
 			temp_exchange.comps[count_comps].totals = elt_list_save();
 /* debug
-                        output_temp_msg(sformatf( "Exchange charge_balance: %e\n", charge));
+                        output_msg(sformatf( "Exchange charge_balance: %e\n", charge));
  */
 			/* update unknown pointer */
 			x[i]->exch_comp = &(temp_exchange.comps[count_comps]);
@@ -3299,8 +3299,6 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 #endif
 			sprintf(token, "Reading input data for simulation %d.", simulation);
 
-			//output_msg(OUTPUT_GUI_ERROR, "\nSimulation %d\n", simulation);
-
 			dup_print(token, TRUE);
 			if (read_input() == EOF)
 				break;
@@ -3310,7 +3308,7 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 				sprintf(token, "TITLE");
 				dup_print(token, TRUE);
 				if (pr.headings == TRUE)
-					output_temp_msg(sformatf( "%s\n\n", title_x));
+					output_msg(sformatf( "%s\n\n", title_x));
 			}
 			tidy_model();
 #ifdef PHREEQ98
@@ -3435,11 +3433,9 @@ do_status(void)
 			status(0, "\nDone.");
 #endif
 			screen_msg("\n");
-			//output_msg(OUTPUT_SEND_MESSAGE, "\r\n");
 		}
 		dup_print("End of run.", TRUE);
 		screen_msg("\nEnd of Run.\n");
-		//output_msg(OUTPUT_SEND_MESSAGE, "\r\nEnd of Run.\r\n");
 	}
 	catch (PhreeqcStop e)
 	{

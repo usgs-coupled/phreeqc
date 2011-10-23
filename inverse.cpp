@@ -98,13 +98,13 @@ inverse_models(void)
 
 			if (inverse[n].mp == TRUE)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "Using Cl1MP multiprecision optimization routine.\n"));
 
 			}
 			else
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "Using Cl1 standard precision optimization routine.\n"));
 			}
 			status(0, NULL);
@@ -1010,45 +1010,45 @@ setup_inverse(struct inverse *inv_ptr)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
-			output_temp_msg(sformatf( "%d\t%s\n", i, col_name[i]));
+			output_msg(sformatf( "%d\t%s\n", i, col_name[i]));
 		}
 		for (i = 0; i < count_rows; i++)
 		{
 			k = 0;
-			output_temp_msg(sformatf( "%d\t%s\n", i, row_name[i]));
+			output_msg(sformatf( "%d\t%s\n", i, row_name[i]));
 			for (j = 0; j < count_unknowns + 1; j++)
 			{
 				if (k > 7)
 				{
-					output_temp_msg(sformatf( "\n"));
+					output_msg(sformatf( "\n"));
 					k = 0;
 				}
-				output_temp_msg(sformatf( "%11.2e",
+				output_msg(sformatf( "%11.2e",
 						   (double) array[i * max_column_count + j]));
 				k++;
 			}
 			if (k != 0)
 			{
-				output_temp_msg(sformatf( "\n"));
+				output_msg(sformatf( "\n"));
 			}
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
-		output_temp_msg(sformatf( "row_mb %d\n", row_mb));
-		output_temp_msg(sformatf( "row_fract %d\n", row_fract));
-		output_temp_msg(sformatf( "row_charge %d\n", row_charge));
-		output_temp_msg(sformatf( "row_carbon %d\n", row_carbon));
-		output_temp_msg(sformatf( "row_isotopes %d\n", row_isotopes));
-		output_temp_msg(sformatf( "row_epsilon %d\n", row_epsilon));
+		output_msg(sformatf( "row_mb %d\n", row_mb));
+		output_msg(sformatf( "row_fract %d\n", row_fract));
+		output_msg(sformatf( "row_charge %d\n", row_charge));
+		output_msg(sformatf( "row_carbon %d\n", row_carbon));
+		output_msg(sformatf( "row_isotopes %d\n", row_isotopes));
+		output_msg(sformatf( "row_epsilon %d\n", row_epsilon));
 
-		output_temp_msg(sformatf( "col_phases %d\n", col_phases));
-		output_temp_msg(sformatf( "col_redox %d\n", col_redox));
-		output_temp_msg(sformatf( "col_epsilon %d\n", col_epsilon));
-		output_temp_msg(sformatf( "col_ph %d\n", col_ph));
-		output_temp_msg(sformatf( "col_water %d\n", col_water));
-		output_temp_msg(sformatf( "col_isotopes %d\n", col_isotopes));
-		output_temp_msg(sformatf( "col_phase_isotopes %d\n",
+		output_msg(sformatf( "col_phases %d\n", col_phases));
+		output_msg(sformatf( "col_redox %d\n", col_redox));
+		output_msg(sformatf( "col_epsilon %d\n", col_epsilon));
+		output_msg(sformatf( "col_ph %d\n", col_ph));
+		output_msg(sformatf( "col_water %d\n", col_water));
+		output_msg(sformatf( "col_isotopes %d\n", col_isotopes));
+		output_msg(sformatf( "col_phase_isotopes %d\n",
 				   col_phase_isotopes));
-		output_temp_msg(sformatf( "count_unknowns %d\n", count_unknowns));
+		output_msg(sformatf( "count_unknowns %d\n", count_unknowns));
 	}
 	return (OK);
 }
@@ -1254,7 +1254,7 @@ solve_inverse(struct inverse *inv_ptr)
 					{
 						if (pr.inverse == TRUE && pr.all == TRUE)
 						{
-							output_temp_msg(sformatf( "%s\n\n", token));
+							output_msg(sformatf( "%s\n\n", token));
 						}
 					}
 					continue;
@@ -1267,7 +1267,7 @@ solve_inverse(struct inverse *inv_ptr)
 				{
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\nModel contains minimum number of phases.\n"));
 					}
 				}
@@ -1275,7 +1275,7 @@ solve_inverse(struct inverse *inv_ptr)
 				{
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_temp_msg(sformatf( "%s\n\n", token));
+						output_msg(sformatf( "%s\n\n", token));
 					}
 				}
 				for (j = 0; j < count_good; j++)
@@ -1293,9 +1293,9 @@ solve_inverse(struct inverse *inv_ptr)
 					print_model(inv_ptr);
 					if (pr.inverse == TRUE && pr.all == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\nModel contains minimum number of phases.\n"));
-						output_temp_msg(sformatf( "%s\n\n", token));
+						output_msg(sformatf( "%s\n\n", token));
 					}
 					punch_model(inv_ptr);
 					dump_netpath_pat(inv_ptr);
@@ -1311,15 +1311,15 @@ solve_inverse(struct inverse *inv_ptr)
  */
 	if (pr.inverse == TRUE && pr.all == TRUE)
 	{
-		output_temp_msg(sformatf( "\nSummary of inverse modeling:\n\n"));
-		output_temp_msg(sformatf( "\tNumber of models found: %d\n",
+		output_msg(sformatf( "\nSummary of inverse modeling:\n\n"));
+		output_msg(sformatf( "\tNumber of models found: %d\n",
 				   count_good));
-		output_temp_msg(sformatf( "\tNumber of minimal models found: %d\n",
+		output_msg(sformatf( "\tNumber of minimal models found: %d\n",
 				   count_minimal));
-		output_temp_msg(sformatf(
+		output_msg(sformatf(
 				   "\tNumber of infeasible sets of phases saved: %d\n",
 				   count_bad));
-		output_temp_msg(sformatf( "\tNumber of calls to cl1: %d\n",
+		output_msg(sformatf( "\tNumber of calls to cl1: %d\n",
 				   count_calls));
 	}
 	array = (LDBLE *) free_check_null(array);
@@ -1360,7 +1360,7 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 	unsigned long temp_bits_l;
 	if (debug_inverse == TRUE)
 	{
-		output_temp_msg(sformatf( "Beginning minimal solve: \n"));
+		output_msg(sformatf( "Beginning minimal solve: \n"));
 		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
 	for (i = 0; i < inv_ptr->count_phases + inv_ptr->count_solns - 1; i++)
@@ -1372,7 +1372,7 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 		minimal_bits = minimal_bits & temp_bits_l;
 		if (debug_inverse == TRUE)
 		{
-			output_temp_msg(sformatf( "Solving for minimal\n"));
+			output_msg(sformatf( "Solving for minimal\n"));
 			bit_print(minimal_bits,
 					  inv_ptr->count_phases + inv_ptr->count_solns);
 		}
@@ -1398,7 +1398,7 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 	}
 	if (debug_inverse == TRUE)
 	{
-		output_temp_msg(sformatf( "\n\nMINIMAL MODEL\n\n"));
+		output_msg(sformatf( "\n\nMINIMAL MODEL\n\n"));
 		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
 	solve_with_mask(inv_ptr, minimal_bits);
@@ -1445,39 +1445,39 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_temp_msg(sformatf( "\nColumns\n"));
+		output_msg(sformatf( "\nColumns\n"));
 		for (i = 0; i < n; i++)
 		{
-			output_temp_msg(sformatf( "\t%d\t%s\n", i,
+			output_msg(sformatf( "\t%d\t%s\n", i,
 					   col_name[col_back[i]]));
 		}
 
-		output_temp_msg(sformatf( "\nRows\n"));
+		output_msg(sformatf( "\nRows\n"));
 		for (i = 0; i < k + l + m; i++)
 		{
-			output_temp_msg(sformatf( "\t%d\t%s\n", i,
+			output_msg(sformatf( "\t%d\t%s\n", i,
 					   row_name[row_back[i]]));
 		}
 
-		output_temp_msg(sformatf( "\nA and B arrays:\n\n"));
+		output_msg(sformatf( "\nA and B arrays:\n\n"));
 		array_print(array1, k + l + m, n + 1, max_column_count);
 
-		output_temp_msg(sformatf( "\nInput delta vector:\n"));
+		output_msg(sformatf( "\nInput delta vector:\n"));
 		for (i = 0; i < n; i++)
 		{
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", i,
+			output_msg(sformatf( "%6d  %-12.12s %10.2e", i,
 					   col_name[col_back[i]], (double) delta2[i]));
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
 
 		for (i = 0; i < k + l + m; i++)
 		{
 			if (inv_res[i] == 0)
 				continue;
-			output_temp_msg(sformatf( "\nInput inv_res is non zero:\n"));
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", i,
+			output_msg(sformatf( "\nInput inv_res is non zero:\n"));
+			output_msg(sformatf( "%6d  %-12.12s %10.2e", i,
 					   row_name[row_back[i]], (double) inv_res[i]));
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
 	}
 /*
@@ -1486,7 +1486,7 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_temp_msg(sformatf(
+		output_msg(sformatf(
 				   "k, l, m, n, max_col, max_row\t%d\t%d\t%d\t%d\t%d\t%d\n",
 				   k, l, m, n, max_column_count, max_row_count));
 	}
@@ -1534,20 +1534,20 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 
 	if (debug_inverse == TRUE)
 	{
-		output_temp_msg(sformatf( "kode: %d\titer: %d\terror: %e\n", kode,
+		output_msg(sformatf( "kode: %d\titer: %d\terror: %e\n", kode,
 				   iter, (double) error));
-		output_temp_msg(sformatf( "\nsolution vector:\n"));
+		output_msg(sformatf( "\nsolution vector:\n"));
 		for (i = 0; i < n; i++)
 		{
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", i,
+			output_msg(sformatf( "%6d  %-12.12s %10.2e", i,
 					   col_name[col_back[i]], (double) delta2[i]));
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
 
-		output_temp_msg(sformatf( "\nresidual vector:\n"));
+		output_msg(sformatf( "\nresidual vector:\n"));
 		for (i = 0; i < (k + l + m); i++)
 		{
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e\n", i,
+			output_msg(sformatf( "%6d  %-12.12s %10.2e\n", i,
 					   row_name[row_back[i]], (double) inv_res[i]));
 		}
 	}
@@ -1715,9 +1715,9 @@ bit_print(unsigned long bits, int l)
 
 	for (i = l - 1; i >= 0; i--)
 	{
-		output_temp_msg(sformatf( "%lu  ", get_bits(bits, i, 1)));
+		output_msg(sformatf( "%lu  ", get_bits(bits, i, 1)));
 	}
-	output_temp_msg(sformatf( "\n"));
+	output_msg(sformatf( "\n"));
 	return (OK);
 }
 
@@ -1760,9 +1760,9 @@ print_model(struct inverse *inv_ptr)
 			master_ptr->total = solution_ptr->totals[j].moles;
 		}
 
-		output_temp_msg(sformatf( "\nSolution %d: %s\n", inv_ptr->solns[i],
+		output_msg(sformatf( "\nSolution %d: %s\n", inv_ptr->solns[i],
 				   solution_ptr->description));
-		output_temp_msg(sformatf(
+		output_msg(sformatf(
 				   "\n%15.15s   %12.12s   %12.12s   %12.12s\n", "  ",
 				   "Input", "Delta", "Input+Delta"));
 		master_alk->total = solution_ptr->total_alkalinity;
@@ -1777,14 +1777,14 @@ print_model(struct inverse *inv_ptr)
 				d2 = 0.0;
 			if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d3 = 0.0;
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "%15.15s   %12.3e  +%12.3e  =%12.3e\n", "pH",
 					   (double) d1, (double) d2, (double) d3));
 			if (inv_ptr->ph_uncertainties[i] > 0)
 			{
 				scaled_error += fabs(d2) / inv_ptr->ph_uncertainties[i];
 /* debug 
-				output_temp_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / inv_ptr->ph_uncertainties[i], fabs(d2), inv_ptr->ph_uncertainties[i]));
+				output_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / inv_ptr->ph_uncertainties[i], fabs(d2), inv_ptr->ph_uncertainties[i]));
  */
 			}
 			else if (d2 != 0.0)
@@ -1808,7 +1808,7 @@ print_model(struct inverse *inv_ptr)
 			if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 				d3 = 0.0;
 
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "%15.15s   %12.3e  +%12.3e  =%12.3e\n",
 					   inv_ptr->elts[j].master->elt->name, (double) d1,
 					   (double) d2, (double) d3));
@@ -1831,7 +1831,7 @@ print_model(struct inverse *inv_ptr)
 			{
 				scaled_error += fabs(d2) / d4;
 /* debug 
-				output_temp_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / d4, fabs(d2), d4));
+				output_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / d4, fabs(d2), d4));
  */
 			}
 			else if (d2 != 0.0)
@@ -1867,7 +1867,7 @@ print_model(struct inverse *inv_ptr)
 							(int) inv_ptr->isotope_unknowns[j].
 							isotope_number,
 							inv_ptr->isotope_unknowns[j].elt_name);
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "%15.15s   %12g  +%12g  =%12g\n", token,
 							   (double) d1, (double) d2, (double) d3));
 /*
@@ -1882,7 +1882,7 @@ print_model(struct inverse *inv_ptr)
 							fabs(d2) /
 							solution_ptr->isotopes[k].x_ratio_uncertainty;
 /* debug
-						output_temp_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / solution_ptr->isotopes[k].x_ratio_uncertainty , fabs(d2), solution_ptr->isotopes[k].x_ratio_uncertainty));
+						output_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / solution_ptr->isotopes[k].x_ratio_uncertainty , fabs(d2), solution_ptr->isotopes[k].x_ratio_uncertainty));
  */
 					}
 					else if (d2 != 0.0)
@@ -1902,7 +1902,7 @@ print_model(struct inverse *inv_ptr)
 	print_msg = FALSE;
 	if (inv_ptr->count_isotopes > 0)
 	{
-		output_temp_msg(sformatf( "\nIsotopic composition of phases:\n"));
+		output_msg(sformatf( "\nIsotopic composition of phases:\n"));
 		for (i = 0; i < inv_ptr->count_phases; i++)
 		{
 			if (inv_ptr->phases[i].count_isotopes == 0)
@@ -1944,21 +1944,21 @@ print_model(struct inverse *inv_ptr)
 							(int) inv_ptr->isotopes[j].isotope_number,
 							inv_ptr->isotopes[j].elt_name,
 							inv_ptr->phases[i].phase->name);
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "%15.15s   %12g  +%12g  =%12g", token,
 							   (double) d1, (double) d2, (double) d3));
 					if (fabs(d2) > (isotope_ptr[k].ratio_uncertainty + toler))
 					{
-						output_temp_msg(sformatf( " **"));
+						output_msg(sformatf( " **"));
 						print_msg = TRUE;
 					}
-					output_temp_msg(sformatf( "\n"));
+					output_msg(sformatf( "\n"));
 					if (isotope_ptr[k].ratio_uncertainty > 0)
 					{
 						scaled_error +=
 							fabs(d2) / isotope_ptr[k].ratio_uncertainty;
 /* debug
-						output_temp_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / isotope_ptr[k].ratio_uncertainty, fabs(d2), isotope_ptr[k].ratio_uncertainty));
+						output_msg(sformatf( "%e\t%e\t%e\n", fabs(d2) / isotope_ptr[k].ratio_uncertainty, fabs(d2), isotope_ptr[k].ratio_uncertainty));
  */
 					}
 					else if (d2 != 0.0)
@@ -1973,14 +1973,14 @@ print_model(struct inverse *inv_ptr)
 	}
 	if (print_msg == TRUE)
 	{
-		output_temp_msg(sformatf(
+		output_msg(sformatf(
 				   "\n**\tWARNING: The adjustment to at least one isotopic"
 				   "\n\tcomposition of a phase exceeded the specified uncertainty"
 				   "\n\tfor the phase.  If the phase is not constrained to dissolve"
 				   "\n\tor precipitate, then the isotopic composition of the phase"
 				   "\n\tis also unconstrained.\n"));
 	}
-	output_temp_msg(sformatf( "\n%-20.20s   %7s   %12.12s   %12.12s\n",
+	output_msg(sformatf( "\n%-20.20s   %7s   %12.12s   %12.12s\n",
 			   "Solution fractions:", " ", "Minimum", "Maximum"));
 	for (i = 0; i < inv_ptr->count_solns; i++)
 	{
@@ -1993,12 +1993,12 @@ print_model(struct inverse *inv_ptr)
 			d2 = 0.0;
 		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_temp_msg(sformatf( "%11s%4d   %12.3e   %12.3e   %12.3e\n",
+		output_msg(sformatf( "%11s%4d   %12.3e   %12.3e   %12.3e\n",
 				   "Solution", inv_ptr->solns[i], (double) d1, (double) d2,
 				   (double) d3));
 	}
 
-	output_temp_msg(sformatf( "\n%-25.25s   %2s   %12.12s   %12.12s\n",
+	output_msg(sformatf( "\n%-25.25s   %2s   %12.12s   %12.12s\n",
 			   "Phase mole transfers:", " ", "Minimum", "Maximum"));
 	for (i = col_phases; i < col_redox; i++)
 	{
@@ -2015,34 +2015,34 @@ print_model(struct inverse *inv_ptr)
 			d2 = 0.0;
 		if (equal(d3, 0.0, MIN_TOTAL_INVERSE) == TRUE)
 			d3 = 0.0;
-		output_temp_msg(sformatf(
+		output_msg(sformatf(
 				   "%15.15s   %12.3e   %12.3e   %12.3e   %s\n", col_name[i],
 				   (double) d1, (double) d2, (double) d3,
 				   inv_ptr->phases[i - col_phases].phase->formula));
 	}
 
-	output_temp_msg(sformatf( "\n%-25.25s\n", "Redox mole transfers:"));
+	output_msg(sformatf( "\n%-25.25s\n", "Redox mole transfers:"));
 	for (i = col_redox; i < col_epsilon; i++)
 	{
 		if (equal(inv_delta1[i], 0.0, toler) == TRUE)
 			continue;
-		output_temp_msg(sformatf( "%15.15s   %12.3e\n", col_name[i],
+		output_msg(sformatf( "%15.15s   %12.3e\n", col_name[i],
 				   (double) inv_delta1[i]));
 	}
 
-	output_temp_msg(sformatf(
+	output_msg(sformatf(
 			   "\nSum of residuals (epsilons in documentation):      %12.3e\n",
 		   ((double) (error / SCALE_EPSILON))));
-	output_temp_msg(sformatf(
+	output_msg(sformatf(
 			   "Sum of delta/uncertainty limit:                    %12.3e\n",
 			   (double) scaled_error));
-	output_temp_msg(sformatf(
+	output_msg(sformatf(
 			   "Maximum fractional error in element concentration: %12.3e\n",
 			   (double) max_pct));
 /*
  *   Flush buffer after each model
  */
-	output_temp_fflush();
+	output_fflush();
 	return (OK);
 }
 
@@ -2064,13 +2064,10 @@ punch_model_heading(struct inverse *inv_ptr)
 /*
  *  Print sum of residuals and maximum fractional error
  */
-	//output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", "Sum_resid",
-	//		   "Sum_Delta/U", );
-
 	heading_names.push_back(sformatf("%*s\t", l, "Sum_resid"));
 	heading_names.push_back(sformatf("%*s\t", l, "Sum_Delta/U"));
 	heading_names.push_back(sformatf("%*s\t", l, "MaxFracErr"));
-		
+
 /*
  *   Print solution numbers
  */
@@ -2082,8 +2079,6 @@ punch_model_heading(struct inverse *inv_ptr)
 		std::string tok2(token);
 		tok2.append("_max");
 
-		//output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", token, "min",
-		//		   "max");
 		heading_names.push_back(sformatf("%*s\t", l, token));
 		heading_names.push_back(sformatf("%*s\t", l, tok1.c_str()));
 		heading_names.push_back(sformatf("%*s\t", l, tok2.c_str()));
@@ -2094,8 +2089,6 @@ punch_model_heading(struct inverse *inv_ptr)
 	for (i = col_phases; i < col_redox; i++)
 	{
 
-		//output_msg(OUTPUT_PUNCH, "%12s\t%12s\t%12s\t", col_name[i],
-		//		   "     min", "     max");
 		std::string tok1(col_name[i]);
 		tok1.append("_max");
 		std::string tok2(col_name[i]);
@@ -2120,7 +2113,6 @@ punch_model_heading(struct inverse *inv_ptr)
 		fpunchf_heading(heading_names[j].c_str());
 		user_punch_headings[j] = string_hsave(heading_names[j].c_str());
 	}
-	//output_msg(OUTPUT_PUNCH, "\n");
 	fpunchf_heading("\n");
 /*
  *   Flush buffer after each model
@@ -2147,20 +2139,12 @@ punch_model(struct inverse *inv_ptr)
  */
 	if (punch.high_precision == FALSE)
 	{
-		//output_msg(OUTPUT_PUNCH, "%12.4e\t",
-		//	   ((double) (error / SCALE_EPSILON)));
-		//output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) scaled_error);
-		//output_msg(OUTPUT_PUNCH, "%12.4e\t", (double) max_pct);
 		fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) (error / SCALE_EPSILON));
 		fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) scaled_error);
 		fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) max_pct);
 	}
 	else
 	{
-		//output_msg(OUTPUT_PUNCH, "%20.12e\t",
-		//	   ((double) (error / SCALE_EPSILON)));
-		//output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) scaled_error);
-		//output_msg(OUTPUT_PUNCH, "%20.12e\t", (double) max_pct);
 		fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) (error / SCALE_EPSILON));
 		fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) scaled_error);
 		fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) max_pct);
@@ -2181,16 +2165,12 @@ punch_model(struct inverse *inv_ptr)
 			d3 = 0.0;
 		if (punch.high_precision == FALSE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
-			//		   (double) d2, (double) d3);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d1);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d2);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d3);
 		}
 		else
 		{
-			//output_msg(OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
-			//		   (double) d1, (double) d2, (double) d3);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d1);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d2);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d3);
@@ -2212,22 +2192,17 @@ punch_model(struct inverse *inv_ptr)
 			d3 = 0.0;
 		if (punch.high_precision == FALSE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%12.4e\t%12.4e\t%12.4e\t", (double) d1,
-			//		   (double) d2, (double) d3);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d1);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d2);
 			fpunchf_user(n_user_punch_index++, "%15.4e\t", (double) d3);
 		}
 		else
 		{
-			//output_msg(OUTPUT_PUNCH, "%20.12e\t%20.12e\t%20.12e\t",
-			//		   (double) d1, (double) d2, (double) d3);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d1);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d2);
 			fpunchf_user(n_user_punch_index++, "%20.12e\t", (double) d3);
 		}
 	}
-	//output_msg(OUTPUT_PUNCH, "\n");
 	punch_msg("\n");
 
 /*
@@ -2441,13 +2416,13 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 			}
 			if (debug_inverse == TRUE)
 			{
-				output_temp_msg(sformatf( "\nInput delta:\n\n"));
+				output_msg(sformatf( "\nInput delta:\n\n"));
 				for (j = 0; j < n; j++)
 				{
-					output_temp_msg(sformatf( "\t%d %s\t%g\n", j,
+					output_msg(sformatf( "\t%d %s\t%g\n", j,
 							   col_name[col_back[j]], (double) delta2[j]));
 				}
-				output_temp_msg(sformatf( "\nA and B arrays:\n\n"));
+				output_msg(sformatf( "\nA and B arrays:\n\n"));
 				array_print(array1, k + l + m, n + 1, max_column_count);
 			}
 			kode = 1;
@@ -2476,29 +2451,29 @@ range(struct inverse *inv_ptr, unsigned long cur_bits)
 #endif
 			if (kode != 0)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "Error in subroutine range. Kode = %d\n", kode));
 			}
 
 			if (debug_inverse == TRUE)
 			{
-				output_temp_msg(sformatf( "kode: %d\titer: %d\terror: %e\n",
+				output_msg(sformatf( "kode: %d\titer: %d\terror: %e\n",
 						   kode, iter, (double) error2));
-				output_temp_msg(sformatf( "k, l, m, n: %d\t%d\t%d\t%d\n", k,
+				output_msg(sformatf( "k, l, m, n: %d\t%d\t%d\t%d\n", k,
 						   l, m, n));
-				output_temp_msg(sformatf( "\nsolution vector %s\n",
+				output_msg(sformatf( "\nsolution vector %s\n",
 						   col_name[i]));
 				for (j = 0; j < n; j++)
 				{
-					output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", j,
+					output_msg(sformatf( "%6d  %-12.12s %10.2e", j,
 							   col_name[col_back[j]], (double) delta2[j]));
-					output_temp_msg(sformatf( "\n"));
+					output_msg(sformatf( "\n"));
 				}
 
-				output_temp_msg(sformatf( "\nresidual vector:\n"));
+				output_msg(sformatf( "\nresidual vector:\n"));
 				for (j = 0; j < (k + l + m); j++)
 				{
-					output_temp_msg(sformatf( "%6d  %-12.12s %10.2e\n", j,
+					output_msg(sformatf( "%6d  %-12.12s %10.2e\n", j,
 							   row_name[row_back[j]], (double) inv_res[j]));
 				}
 			}
@@ -2807,17 +2782,17 @@ check_solns(struct inverse *inv_ptr)
 		m = count_rows - row_epsilon;	/* rows in E */
 		n = count_unknowns;		/* number of variables */
 /* debug
-	output_temp_msg(sformatf( "\nColumns\n"));
+	output_msg(sformatf( "\nColumns\n"));
 	for (j = 0; j < n; j++) {
-		output_temp_msg(sformatf( "\t%d\t%s\n", j, col_name[j]));
+		output_msg(sformatf( "\t%d\t%s\n", j, col_name[j]));
 	}
 
-	output_temp_msg(sformatf( "\nRows\n"));
+	output_msg(sformatf( "\nRows\n"));
 	for (j = 0; j < k + l + m; j++) {
-		output_temp_msg(sformatf( "\t%d\t%s\n", j, row_name[j]));
+		output_msg(sformatf( "\t%d\t%s\n", j, row_name[j]));
 	}
 
- 	output_temp_msg(sformatf( "\nA and B arrays:\n\n"));
+ 	output_msg(sformatf( "\nA and B arrays:\n\n"));
  	array_print(array, k + l + m,
  		    n + 1, max_column_count);
  */
@@ -2889,24 +2864,24 @@ check_solns(struct inverse *inv_ptr)
 			   &k, &l, &m, &n, bits, delta2, col_back, row_back);
 /* Debug
 
-		output_temp_msg(sformatf( "\nColumns\n"));
+		output_msg(sformatf( "\nColumns\n"));
 		for (j = 0; j < n; j++) {
-			output_temp_msg(sformatf( "\t%d\t%s\n", j, col_name[col_back[j]]));
+			output_msg(sformatf( "\t%d\t%s\n", j, col_name[col_back[j]]));
 		}
 		
-		output_temp_msg(sformatf( "\nRows\n"));
+		output_msg(sformatf( "\nRows\n"));
 		for (j = 0; j < k + l + m; j++) {
-			output_temp_msg(sformatf( "\t%d\t%s\n", j, row_name[row_back[j]]));
+			output_msg(sformatf( "\t%d\t%s\n", j, row_name[row_back[j]]));
 		}
 		
-		output_temp_msg(sformatf( "\nA and B arrays:\n\n"));
+		output_msg(sformatf( "\nA and B arrays:\n\n"));
 		array_print(array1, k + l + m,
 			    n + 1, max_column_count);
 
-		output_temp_msg(sformatf( "\nInput delta vector:\n"));
+		output_msg(sformatf( "\nInput delta vector:\n"));
 		for (j=0; j < n; j++) {
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", j, col_name[col_back[j]], delta2[j]));
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "%6d  %-12.12s %10.2e", j, col_name[col_back[j]], delta2[j]));
+			output_msg(sformatf( "\n"));
 		}
  */
 
@@ -2927,18 +2902,18 @@ check_solns(struct inverse *inv_ptr)
 		}
 
 /* Debug
-		output_temp_msg(sformatf( "kode: %d\titer: %d\terror: %e\n", kode, iter, error));
-		output_temp_msg(sformatf( "k, l, m, n: %d\t%d\t%d\t%d\n", k, l, m, n));
+		output_msg(sformatf( "kode: %d\titer: %d\terror: %e\n", kode, iter, error));
+		output_msg(sformatf( "k, l, m, n: %d\t%d\t%d\t%d\n", k, l, m, n));
 
-		output_temp_msg(sformatf( "\nsolution vector %s\n", col_name[i]));
+		output_msg(sformatf( "\nsolution vector %s\n", col_name[i]));
 		for (j = 0; j < n; j++) {
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e", j, col_name[col_back[j]], delta2[j]));
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "%6d  %-12.12s %10.2e", j, col_name[col_back[j]], delta2[j]));
+			output_msg(sformatf( "\n"));
 		}
 
-		output_temp_msg(sformatf( "\nresidual vector:\n"));
+		output_msg(sformatf( "\nresidual vector:\n"));
 		for (j = 0; j < (k + l + m); j++) {
-			output_temp_msg(sformatf( "%6d  %-12.12s %10.2e\n", j, row_name[row_back[j]], inv_res[j]));
+			output_msg(sformatf( "%6d  %-12.12s %10.2e\n", j, row_name[row_back[j]], inv_res[j]));
 		}
  */
 	}
@@ -2960,7 +2935,7 @@ post_mortem(void)
 /*
  *   Check equalities
  */
-	output_temp_msg(sformatf(
+	output_msg(sformatf(
 			   "\nPost_mortem examination of inverse modeling:\n\n"));
 	for (i = row_mb; i < row_epsilon; i++)
 	{
@@ -2973,7 +2948,7 @@ post_mortem(void)
 		if (equal(sum, array[(i * max_column_count) + count_unknowns], toler)
 			== FALSE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\tERROR: equality not satisfied for %s, %e.\n",
 					   row_name[i],
 				   (double) (sum - array[(i * max_column_count) + count_unknowns])));
@@ -2992,7 +2967,7 @@ post_mortem(void)
 
 		if (sum > array[(i * max_column_count) + count_unknowns] + toler)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\tERROR: inequality not satisfied for %s, %e\n",
 					   row_name[i],
 				   (double) (sum - array[(i * max_column_count) + count_unknowns])));
@@ -3005,13 +2980,13 @@ post_mortem(void)
 	{
 		if (delta_save[i] > 0.5 && inv_delta1[i] < -toler)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
 				   i, col_name[i], (double) inv_delta1[i]));
 		}
 		else if (delta_save[i] < -0.5 && inv_delta1[i] > toler)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
 				   i, col_name[i], (double) inv_delta1[i]));
 		}
@@ -3124,7 +3099,7 @@ carbon_derivs(struct inverse *inv_ptr)
 		}
 		if (debug_inverse == TRUE)
 		{
-			output_temp_msg(sformatf( "dAlk/dph = %e\tdAlk/dC = %e\n",
+			output_msg(sformatf( "dAlk/dph = %e\tdAlk/dC = %e\n",
 					   (double) inv_ptr->dalk_dph[i],
 					   (double) inv_ptr->dalk_dc[i]));
 		}

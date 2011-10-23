@@ -827,7 +827,7 @@ read_exchange_species(void)
 			s_ptr->next_secondary = elt_list_save();
 /* debug
 			for (i = 0; i < count_elts; i++) {
-				output_temp_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
+				output_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
 					elt_list[i].coef));
 			}
  */
@@ -5606,7 +5606,7 @@ read_species(void)
 			s_ptr->next_secondary = elt_list_save();
 /* debug
 			for (i = 0; i < count_elts; i++) {
-				output_temp_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
+				output_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
 					elt_list[i].coef));
 			}
  */
@@ -6313,7 +6313,7 @@ read_surface_species(void)
 			s_ptr->next_secondary = elt_list_save();
 			/* debug
 			   for (i = 0; i < count_elts; i++) {
-			   output_temp_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
+			   output_msg(sformatf("%s\t%f\n", elt_list[i].elt->name,
 			   elt_list[i].coef));
 			   }
 			 */
@@ -8635,13 +8635,13 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 			if (pr.echo_input == TRUE)
 			{
 				if (!reading_database())
-					output_temp_msg(sformatf( "\t%s\n", line_save));
+					output_msg(sformatf( "\t%s\n", line_save));
 			}
 		}
 		else
 		{
 			if (!reading_database())
-				output_temp_msg(sformatf( "\t%s\n", line_save));
+				output_msg(sformatf( "\t%s\n", line_save));
 			error_msg("Unknown option.", CONTINUE);
 			error_msg(line_save, CONTINUE);
 			input_error++;
@@ -8667,7 +8667,7 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 		if (pr.echo_input == TRUE)
 		{
 			if (!reading_database())
-				output_temp_msg(sformatf( "\t%s\n", line_save));
+				output_msg(sformatf( "\t%s\n", line_save));
 		}
 	}
 	return (j);
@@ -8800,7 +8800,7 @@ read_rates(void)
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
-/*	output_temp_msg(sformatf( "%s", rates[0].commands));
+/*	output_msg(sformatf( "%s", rates[0].commands));
  */ return (return_value);
 }
 
@@ -8892,7 +8892,7 @@ read_user_print(void)
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
-/*	output_temp_msg(sformatf( "%s", rates[0].commands));
+/*	output_msg(sformatf( "%s", rates[0].commands));
  */ return (return_value);
 }
 

@@ -531,28 +531,24 @@ CVodeMalloc(integertype N, RhsFn f, realtype t0, N_Vector y0,
 
 	if (N <= 0)
 	{
-		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_N, N);
 		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_N, N));
 		return (NULL);
 	}
 
 	if ((lmm != ADAMS) && (lmm != BDF))
 	{
-		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_LMM, lmm, ADAMS, BDF);
 		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_LMM, lmm, ADAMS, BDF));
 		return (NULL);
 	}
 
 	if ((iter != FUNCTIONAL) && (iter != NEWTON))
 	{
-		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON);
 		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITER, iter, FUNCTIONAL, NEWTON));
 		return (NULL);
 	}
 
 	if ((itol != SS) && (itol != SV))
 	{
-		//MACHENV  output_msg(OUTPUT_WARNING, MSG_BAD_ITOL, itol, SS, SV);
 		MACHENV  warning_msg(MACHENV sformatf(MSG_BAD_ITOL, itol, SS, SV));
 		return (NULL);
 	}
@@ -1219,7 +1215,6 @@ CVode(void *cvode_mem, realtype tout, N_Vector yout, realtype * t, int itask)
 
 		if (nstloc >= mxstep)
 		{
-			/* CVMEM output_msg(OUTPUT_WARNING, MSG_MAX_STEPS, tn, mxstep, tout); */
 			istate = TOO_MUCH_WORK;
 			*t = tn;
 			N_VScale(ONE, zn[0], yout);

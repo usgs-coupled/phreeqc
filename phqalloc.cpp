@@ -97,7 +97,7 @@ PHRQ_free_all(void)
 	if (s_pTail == NULL)
 	{
 #if !defined(NDEBUG)
-		output_temp_msg("No memory leaks\n");
+		output_msg("No memory leaks\n");
 #endif
 		return;
 	}
@@ -105,7 +105,7 @@ PHRQ_free_all(void)
 	{
 		s_pTail = s_pTail->pPrev;
 #if !defined(NDEBUG)
-		output_temp_msg(sformatf("%s(%d) %p: freed in PHRQ_free_all\n",
+		output_msg(sformatf("%s(%d) %p: freed in PHRQ_free_all\n",
 				   s_pTail->pNext->szFileName, s_pTail->pNext->nLine,
 				   (void *) (s_pTail->pNext + 1)));
 		free(s_pTail->pNext->szFileName);
@@ -114,14 +114,8 @@ PHRQ_free_all(void)
 	}
 
 #if !defined(NDEBUG)
-	output_temp_msg(sformatf( "%s(%d) %p: freed in PHRQ_free_all\n",
+	output_msg(sformatf( "%s(%d) %p: freed in PHRQ_free_all\n",
 			   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1)));
-	//if (phast == TRUE)
-	//{
-	//	output_msg(OUTPUT_ERROR, "%s(%d) %p: freed in PHRQ_free_all, %d\n",
-	//			   s_pTail->szFileName, s_pTail->nLine,
-	//			   (void *) (s_pTail + 1), phreeqc_mpi_myself);
-	//}
 	free(s_pTail->szFileName);
 #endif
 	free(s_pTail);

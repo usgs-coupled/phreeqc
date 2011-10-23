@@ -1157,15 +1157,15 @@ pitzer(void)
 		/*spec[i]->lg=LGAMMA[i]*CONV; */
 		spec[i]->lg_pitzer = LGAMMA[i] * CONV;
 		/*
-		   output_temp_msg(sformatf( "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg));
+		   output_msg(sformatf( "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg));
 		 */
 	}
 	/*
-	   output_temp_msg(sformatf( "OSUM: %e\n", OSUM));
-	   output_temp_msg(sformatf( "OSMOT: %e\n", OSMOT));
-	   output_temp_msg(sformatf( "COSMOT: %e\n", COSMOT));
-	   output_temp_msg(sformatf( "F: %e\n", F));
-	   output_temp_msg(sformatf( "AW: %e\n", AW));
+	   output_msg(sformatf( "OSUM: %e\n", OSUM));
+	   output_msg(sformatf( "OSMOT: %e\n", OSMOT));
+	   output_msg(sformatf( "COSMOT: %e\n", COSMOT));
+	   output_msg(sformatf( "F: %e\n", F));
+	   output_msg(sformatf( "AW: %e\n", AW));
 	 */
 	/*
 	 *I_X = I;
@@ -1508,7 +1508,7 @@ pitzer_revise_guesses(void)
 		l_iter++;
 		if (debug_set == TRUE)
 		{
-			output_temp_msg(sformatf( "\nBeginning set iteration %d.\n",
+			output_msg(sformatf( "\nBeginning set iteration %d.\n",
 					   l_iter));
 		}
 		if (l_iter == max_iter + 1)
@@ -1561,7 +1561,7 @@ pitzer_revise_guesses(void)
 
 				if (debug_set == TRUE)
 				{
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
 							   x[i]->description, l_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
@@ -1602,7 +1602,7 @@ pitzer_revise_guesses(void)
 					}
 					if (debug_set == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
 								   x[i]->description, l_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
@@ -1626,7 +1626,7 @@ pitzer_revise_guesses(void)
 						log10(fabs(x[i]->moles / x[i]->sum));
 					if (debug_set == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "%s not converged in set. %e\t%e\t%e\n",
 								   x[i]->description, (double) x[i]->sum,
 								   (double) x[i]->moles,
@@ -1854,10 +1854,10 @@ model_pz(void)
 			}
 			if (debug_model == TRUE)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\nIteration %d\tStep_size = %f\n", iterations,
 						   (double) step_size_now));
-				output_temp_msg(sformatf( "\t\tPe_step_size = %f\n\n",
+				output_msg(sformatf( "\t\tPe_step_size = %f\n\n",
 						   (double) pe_step_size_now));
 			}
 			/*
@@ -1887,7 +1887,7 @@ model_pz(void)
 				{
 					if (debug_model == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "Ineq had infeasible solution, "
 								   "kode %d, iteration %d\n", return_kode,
 								   iterations));
@@ -1975,7 +1975,7 @@ model_pz(void)
 			break;
 		if (debug_model == TRUE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\nRemoving unstable phases. Iteration %d.\n",
 					   iterations));
 		}

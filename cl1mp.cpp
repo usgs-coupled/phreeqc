@@ -266,7 +266,7 @@ cl1mp(int k, int l, int m, int n,
 /* SET UP PHASE 1 COSTS. */
 	iphase = 2;
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "Set up phase 1 costs\n"));
+	output_msg(sformatf( "Set up phase 1 costs\n"));
 #endif
 /* Zero first row of cu and iu */
 	/*memcpy( (void *) &(cu[0]), (void *) &(scratch[0]), (size_t) nklm * sizeof(mpf_t) ); */
@@ -277,7 +277,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L40: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L40\n"));
+	output_msg(sformatf( "L40\n"));
 #endif
 	if (l != 0)
 	{
@@ -301,7 +301,7 @@ cl1mp(int k, int l, int m, int n,
 		   (size_t) nklm * sizeof(int));
 /* L60: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L60\n"));
+	output_msg(sformatf( "L60\n"));
 #endif
 	if (m != 0)
 	{
@@ -320,7 +320,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L80: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L80\n"));
+	output_msg(sformatf( "L80\n"));
 #endif
 	if (*kode != 0)
 	{
@@ -344,7 +344,7 @@ cl1mp(int k, int l, int m, int n,
 		}
 /* L110: */
 #ifdef DEBUG_CL1
-		output_temp_msg(sformatf( "L110\n"));
+		output_msg(sformatf( "L110\n"));
 #endif
 		for (j = 0; j < k; ++j)
 		{
@@ -378,7 +378,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L150: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L150\n"));
+	output_msg(sformatf( "L150\n"));
 #endif
 	if (iphase == 2)
 	{
@@ -387,7 +387,7 @@ cl1mp(int k, int l, int m, int n,
 /* COMPUTE THE MARGINAL COSTS. */
   L160:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L160\n"));
+	output_msg(sformatf( "L160\n"));
 #endif
 	for (j = js; j < n1; ++j)
 	{
@@ -431,7 +431,7 @@ cl1mp(int k, int l, int m, int n,
 /* DETERMINE THE VECTOR TO ENTER THE BASIS. */
   L240:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L240, xmax %e\n", mpf_get_d(xmax)));
+	output_msg(sformatf( "L240, xmax %e\n", mpf_get_d(xmax)));
 #endif
 	/*xmax = 0.; */
 	mpf_set_si(xmax, 0);
@@ -484,14 +484,14 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L280 */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L280 xmax %e, toler %e\n", mpf_get_d(xmax),
+	output_msg(sformatf( "L280 xmax %e, toler %e\n", mpf_get_d(xmax),
 			   mpf_get_d(toler)));
 #endif
 	/*if (xmax <= toler) { */
 	if (mpf_cmp(xmax, toler) <= 0)
 	{
 #ifdef DEBUG_CL1
-		output_temp_msg(sformatf( "xmax before optimality test %e\n",
+		output_msg(sformatf( "xmax before optimality test %e\n",
 				   mpf_get_d(xmax)));
 #endif
 		goto L490;				/* test for optimality */
@@ -529,7 +529,7 @@ cl1mp(int k, int l, int m, int n,
 		}
 /* L310: */
 #ifdef DEBUG_CL1
-		output_temp_msg(sformatf( "L310, xmax %e\n", mpf_get_d(xmax)));
+		output_msg(sformatf( "L310, xmax %e\n", mpf_get_d(xmax)));
 #endif
 /* switch row ia with row iout, use memcpy */
 		/*if (xmax > toler) { */
@@ -564,7 +564,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L330: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L330, xmax %e\n", mpf_get_d(xmax)));
+	output_msg(sformatf( "L330, xmax %e\n", mpf_get_d(xmax)));
 #endif
 	kk = -1;
 /* divide column n1 by positive value in column "in" greater than toler */
@@ -584,11 +584,11 @@ cl1mp(int k, int l, int m, int n,
 /* L340: */
 	if (kk < 0)
 	{
-		output_temp_msg(sformatf( "kode = 2 in loop 340.\n"));
+		output_msg(sformatf( "kode = 2 in loop 340.\n"));
 	}
   L350:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L350, xmax %e\n", mpf_get_d(xmax)));
+	output_msg(sformatf( "L350, xmax %e\n", mpf_get_d(xmax)));
 #endif
 	if (kk < 0)
 	{
@@ -598,7 +598,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L360: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L360, xmax %e\n", mpf_get_d(xmax)));
+	output_msg(sformatf( "L360, xmax %e\n", mpf_get_d(xmax)));
 #endif
 /* find minimum residual */
 	/*xmin = res[ 0 ]; */
@@ -626,7 +626,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L380: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L380 iout %d, xmin %e, xmax %e\n", iout,
+	output_msg(sformatf( "L380 iout %d, xmin %e, xmax %e\n", iout,
 			   mpf_get_d(xmin), mpf_get_d(xmax)));
 #endif
 	--kk;
@@ -653,7 +653,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L400: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L400\n"));
+	output_msg(sformatf( "L400\n"));
 #endif
 	ii = abs(ii);
 	/*cuv = cu[ ii - 1 ] + cu[ cu_dim + ii - 1]; */
@@ -695,7 +695,7 @@ cl1mp(int k, int l, int m, int n,
 /* GAUSS-JORDAN ELIMINATION. */
   L420:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "Gauss Jordon %d\n", *iter));
+	output_msg(sformatf( "Gauss Jordon %d\n", *iter));
 #endif
 	if (*iter >= maxit)
 	{
@@ -704,7 +704,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L430: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L430\n"));
+	output_msg(sformatf( "L430\n"));
 #endif
 	++(*iter);
 	for (j = js; j < n1; ++j)
@@ -750,7 +750,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L460: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L460\n"));
+	output_msg(sformatf( "L460\n"));
 #endif
 	/*tpivot = -pivot; */
 	mpf_neg(tpivot, pivot);
@@ -793,7 +793,7 @@ cl1mp(int k, int l, int m, int n,
 /* TEST FOR OPTIMALITY. */
   L490:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L490\n"));
+	output_msg(sformatf( "L490\n"));
 #endif
 	if (kforce == 0)
 	{
@@ -805,7 +805,7 @@ cl1mp(int k, int l, int m, int n,
 				goto L500;
 			}
 #ifdef DEBUG_CL1
-			output_temp_msg(sformatf( "q2[klm1-1, n1-1] > *toler. %e\n",
+			output_msg(sformatf( "q2[klm1-1, n1-1] > *toler. %e\n",
 					   mpf_get_d(q2[(klm1 - 1) * q_dim + n1 - 1].dval)));
 #endif
 			*kode = 1;
@@ -823,7 +823,7 @@ cl1mp(int k, int l, int m, int n,
 /* SET UP PHASE 2 COSTS. */
   L500:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "Set up phase 2 costs %d\n", *iter));
+	output_msg(sformatf( "Set up phase 2 costs %d\n", *iter));
 #endif
 	iphase = 2;
 	for (j = 0; j < nklm; ++j)
@@ -898,7 +898,7 @@ cl1mp(int k, int l, int m, int n,
 /* PREPARE OUTPUT. */
   L590:
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L590\n"));
+	output_msg(sformatf( "L590\n"));
 #endif
 	/*sum = 0.; */
 	mpf_set_si(sum, 0);
@@ -946,7 +946,7 @@ cl1mp(int k, int l, int m, int n,
 	}
 /* L640: */
 #ifdef DEBUG_CL1
-	output_temp_msg(sformatf( "L640\n"));
+	output_msg(sformatf( "L640\n"));
 #endif
 	/*
 	 *  Check calculation
@@ -969,7 +969,7 @@ cl1mp(int k, int l, int m, int n,
 					if (mpf_cmp(dummy, dummy1) > 0)
 					{
 #ifdef CHECK_ERRORS
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\tCL1MP: optimization constraint not satisfied row %d, res %e, constraint %f.\n",
 								   i, mpf_get_d(res[i]), res_arg[i]));
 #endif
@@ -983,7 +983,7 @@ cl1mp(int k, int l, int m, int n,
 					if (mpf_cmp(dummy, dummy1) < 0)
 					{
 #ifdef CHECK_ERRORS
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\tCL1MP: optimization constraint not satisfied row %d, res %e, constraint %f.\n",
 								   i, mpf_get_d(res[i]), res_arg[i]));
 #endif
@@ -1001,7 +1001,7 @@ cl1mp(int k, int l, int m, int n,
 			if (mpf_cmp(dummy, check_toler) > 0)
 			{
 #ifdef CHECK_ERRORS
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\tCL1MP: equality constraint not satisfied row %d, res %e, tolerance %e.\n",
 						   i, mpf_get_d(res[i]), mpf_get_d(check_toler)));
 #endif
@@ -1018,7 +1018,7 @@ cl1mp(int k, int l, int m, int n,
 			if (mpf_cmp(res[i], dummy) < 0)
 			{
 #ifdef CHECK_ERRORS
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\tCL1MP: inequality constraint not satisfied row %d, res %e, tolerance %e.\n",
 						   i, mpf_get_d(res[i]), mpf_get_d(check_toler)));
 #endif
@@ -1039,7 +1039,7 @@ cl1mp(int k, int l, int m, int n,
 					if (mpf_cmp(dummy, dummy1) > 0)
 					{
 #ifdef CHECK_ERRORS
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\tCL1MP: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n",
 								   i, mpf_get_d(x[i]), x_arg[i]));
 #endif
@@ -1053,7 +1053,7 @@ cl1mp(int k, int l, int m, int n,
 					if (mpf_cmp(dummy, dummy1) < 0)
 					{
 #ifdef CHECK_ERRORS
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\tCL1MP: dis/pre constraint not satisfied column %d, x %e, constraint %f.\n",
 								   i, mpf_get_d(x[i]), x_arg[i]));
 #endif
@@ -1064,7 +1064,7 @@ cl1mp(int k, int l, int m, int n,
 		}
 		if (*kode == 1)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\n\tCL1MP: Roundoff errors in optimization.\n\t       Deleting model.\n"));
 		}
 	}

@@ -237,10 +237,6 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 		}
 	}
 	kinetics_ptr->totals = elt_list_save();
-	/*
-	   output_msg(OUTPUT_MESSAGE, "Calc_final_kinetic_reaction                                                 \n");
-	   elt_list_print(kinetics_ptr->totals);
-	 */
 	return (OK);
 }
 
@@ -1361,7 +1357,6 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		sprintf(error_string,
 				"Numerical method failed on all parameter combinations, retrying integration");
-		/*output_msg(OUTPUT_MESSAGE, "Numerical method failed on all parameter combinations, retrying integration\n"); */
 		warning_msg(error_string);
 		converge = MASS_BALANCE;
 	}
@@ -2105,9 +2100,6 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
 						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
 				warning_msg(sformatf("%s\n", error_string));
-				//if (state == PHAST)
-				//	output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
-
 #ifdef DEBUG_KINETICS
 				if (m_iter > 5)
 					dump_kinetics_stderr(cell_no);
@@ -2165,7 +2157,6 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 					kinetics_ptr->comps[j].moles = m_original[j];
 					kinetics_ptr->comps[j].m = 0.0;
 				}
-				/* output_msg(OUTPUT_MESSAGE,"%d y[%d] %g\n", i, j, ystart[j]); */
 			}
 			if (use.pp_assemblage_ptr != NULL)
 			{

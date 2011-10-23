@@ -66,12 +66,6 @@ step(LDBLE step_fraction)
 	if (use.kinetics_ptr != NULL)
 	{
 		add_kinetics(use.kinetics_ptr);
-		/*
-		   master_ptr =master_bsearch("S(6)");
-		   output_msg(OUTPUT_MESSAGE,"Added kinetics, S(6) %e\n", master_ptr->total);
-		   master_ptr =master_bsearch("S");
-		   output_msg(OUTPUT_MESSAGE,"Added kinetics, S %e\n", master_ptr->total);
-		 */
 	}
 /*
  *   Exchange

@@ -296,12 +296,12 @@ dup_print(const char *ptr, int emphasis)
 		for (i = 0; i < l; i++)
 			dash[i] = '-';
 		dash[i] = '\0';
-		output_temp_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
+		output_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
 		log_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
 	}
 	else
 	{
-		output_temp_msg(sformatf("%s\n\n", ptr));
+		output_msg(sformatf("%s\n\n", ptr));
 		log_msg(sformatf("%s\n\n", ptr));
 	}
 	dash = (char *) free_check_null(dash);
@@ -386,7 +386,7 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 				string[i++] = c;
 				if (i >= MAX_LENGTH)
 				{
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
 							   MAX_LENGTH, string));
 					return (ERROR);
@@ -399,7 +399,7 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 		/* check for overflow of space */
 		if (i >= MAX_LENGTH)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "Species name greater than MAX_LENGTH (%d) characters.\n%s\n",
 					   MAX_LENGTH, string));
 			return (ERROR);
@@ -691,7 +691,7 @@ print_centered(const char *string)
 	for (i = 0; i < l2; i++)
 		token[i + l1 + l] = '-';
 	token[79] = '\0';
-	output_temp_msg(sformatf("%s\n\n", token));
+	output_msg(sformatf("%s\n\n", token));
 	return (OK);
 }
 

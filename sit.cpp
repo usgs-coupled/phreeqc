@@ -453,7 +453,7 @@ sit(void)
 		if (sit_IPRSNT[i] == FALSE)	continue;
 		spec[i]->lg_pitzer = sit_LGAMMA[i];
 /*
-		   output_temp_msg(sformatf( "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, sit_M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg));
+		   output_msg(sformatf( "%d %s:\t%e\t%e\t%e\t%e \n", i, spec[i]->name, sit_M[i], spec[i]->la, spec[i]->lg_pitzer, spec[i]->lg));
 */
 	}
 	return (OK);
@@ -621,7 +621,7 @@ sit_revise_guesses(void)
 		l_iter++;
 		if (debug_set == TRUE)
 		{
-			output_temp_msg(sformatf( "\nBeginning set iteration %d.\n",
+			output_msg(sformatf( "\nBeginning set iteration %d.\n",
 					   l_iter));
 		}
 		if (l_iter == max_iter + 1)
@@ -674,7 +674,7 @@ sit_revise_guesses(void)
 
 				if (debug_set == TRUE)
 				{
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "\n\t%5s  at beginning of set %d: %e\t%e\t%e\n",
 							   x[i]->description, l_iter, (double) x[i]->sum,
 							   (double) x[i]->moles,
@@ -715,7 +715,7 @@ sit_revise_guesses(void)
 					}
 					if (debug_set == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "\t%5s not converged in set %d: %e\t%e\t%e\n",
 								   x[i]->description, l_iter,
 								   (double) x[i]->sum, (double) x[i]->moles,
@@ -739,7 +739,7 @@ sit_revise_guesses(void)
 						log10(fabs(x[i]->moles / x[i]->sum));
 					if (debug_set == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "%s not converged in set. %e\t%e\t%e\n",
 								   x[i]->description, (double) x[i]->sum,
 								   (double) x[i]->moles,
@@ -972,10 +972,10 @@ model_sit(void)
 			}
 			if (debug_model == TRUE)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\nIteration %d\tStep_size = %f\n", iterations,
 						   (double) step_size_now));
-				output_temp_msg(sformatf( "\t\tPe_step_size = %f\n\n",
+				output_msg(sformatf( "\t\tPe_step_size = %f\n\n",
 						   (double) pe_step_size_now));
 			}
 			/*
@@ -1005,7 +1005,7 @@ model_sit(void)
 				{
 					if (debug_model == TRUE)
 					{
-						output_temp_msg(sformatf(
+						output_msg(sformatf(
 								   "Ineq had infeasible solution, "
 								   "kode %d, iteration %d\n", return_kode,
 								   iterations));
@@ -1093,7 +1093,7 @@ model_sit(void)
 			break;
 		if (debug_model == TRUE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\nRemoving unstable phases. Iteration %d.\n",
 					   iterations));
 		}

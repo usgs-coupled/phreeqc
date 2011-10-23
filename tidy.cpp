@@ -688,7 +688,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 		next_logk_ptr = (struct logk *) found_item->data;
 		if (next_logk_ptr->done == FALSE)
 		{
-			/*output_temp_msg(sformatf( "Done == FALSE\n", token)); */
+			/*output_msg(sformatf( "Done == FALSE\n", token)); */
 			if (add_logks(next_logk_ptr, repeats + 1) == ERROR)
 			{
 				return (ERROR);
@@ -855,7 +855,7 @@ replace_solids_gases(void)
 				coef = token_ptr->coef;
 				/* add reaction for solid/gas */
 				/* debug
-				   output_temp_msg(sformatf( "Reaction to add.\n"));
+				   output_msg(sformatf( "Reaction to add.\n"));
 				   rxn_print(phase_ptr->rxn);
 				 */
 				trxn_add_phase(phase_ptr->rxn, coef, FALSE);
@@ -867,13 +867,13 @@ replace_solids_gases(void)
 				repeat = TRUE;
 				replaced = TRUE;
 				/* debug
-				   output_temp_msg(sformatf( "Before combined.\n"));
+				   output_msg(sformatf( "Before combined.\n"));
 				   trxn_print();
 				 */
 				/* combine */
 				trxn_combine();
 				/* debug
-				   output_temp_msg(sformatf( "Combined.\n"));
+				   output_msg(sformatf( "Combined.\n"));
 				   trxn_print();
 				 */
 				break;
@@ -1422,11 +1422,11 @@ tidy_inverse(void)
 		for (j = 0; j < inverse[i].count_elts; j++)
 		{
 /* debug
-			output_temp_msg(sformatf( "\t%d\t%s", j, inverse[i].elts[j].master->elt->name));
+			output_msg(sformatf( "\t%d\t%s", j, inverse[i].elts[j].master->elt->name));
 			for (k = 0; k < inverse[i].count_solns; k++) {
-				output_temp_msg(sformatf( "\t%f", inverse[i].elts[j].uncertainties[k]));
+				output_msg(sformatf( "\t%f", inverse[i].elts[j].uncertainties[k]));
 			}
-			output_temp_msg(sformatf("\n"));
+			output_msg(sformatf("\n"));
  */
 		}
 	}
@@ -1463,7 +1463,7 @@ tidy_phases(void)
 		trxn_add_phase(phases[i]->rxn, 1.0, FALSE);
 		trxn.token[0].name = phases[i]->name;
 		/* debug 
-		   output_temp_msg(sformatf( "%s PHASE.\n", phases[i]->name));
+		   output_msg(sformatf( "%s PHASE.\n", phases[i]->name));
 		   trxn_print();
 		 */
 		replaced = replace_solids_gases();
@@ -1866,84 +1866,68 @@ tidy_punch(void)
 
 		if (punch.sim == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "sim");
 			fpunchf_heading(sformatf("%*s\t", l, "sim"));
 		}
 		if (punch.state == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "state");
 			fpunchf_heading(sformatf("%*s\t", l, "state"));
 		}
 		if (punch.soln == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "soln");
 			fpunchf_heading(sformatf("%*s\t", l, "soln"));
 		}
 		if (punch.dist == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "dist_x");
 			fpunchf_heading(sformatf("%*s\t", l, "dist_x"));
 		}
 		if (punch.time == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "time");
 			fpunchf_heading(sformatf("%*s\t", l, "time"));
 		}
 		if (punch.step == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "step");
 			fpunchf_heading(sformatf("%*s\t", l, "step"));
 		}
 		if (punch.ph == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pH");
 			fpunchf_heading(sformatf("%*s\t", l, "pH"));
 		}
 		if (punch.pe == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pe");
 			fpunchf_heading(sformatf("%*s\t", l, "pe"));
 		}
 		if (punch.rxn == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "reaction");
 			fpunchf_heading(sformatf("%*s\t", l, "reaction"));
 		}
 		if (punch.temp == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "temp");
 			fpunchf_heading(sformatf("%*s\t", l, "temp"));
 		}
 		if (punch.alk == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "Alk");
 			fpunchf_heading(sformatf("%*s\t", l, "Alk"));
 		}
 		if (punch.mu == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "mu");
 			fpunchf_heading(sformatf("%*s\t", l, "mu"));
 		}
 		if (punch.water == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "mass_H2O");
 			fpunchf_heading(sformatf("%*s\t", l, "mass_H2O"));
 		}
 		if (punch.charge_balance == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "charge");
 			fpunchf_heading(sformatf("%*s\t", l, "charge"));
 		}
 		if (punch.percent_error == TRUE)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, "pct_err");
 			fpunchf_heading(sformatf("%*s\t", l, "pct_err"));
 		}
 		/* totals */
 
 		for (i = 0; i < punch.count_totals; i++)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, punch.totals[i].name);
 			fpunchf_heading(sformatf("%*s\t", l, punch.totals[i].name));
 			if (punch.totals[i].master == NULL)
 			{
@@ -1959,7 +1943,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "m_");
 			strcat(token, punch.molalities[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.molalities[i].s == NULL)
 			{
@@ -1975,7 +1958,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "la_");
 			strcat(token, punch.activities[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.activities[i].s == NULL)
 			{
@@ -1991,8 +1973,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "d_");
 			strcat(token, punch.pure_phases[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t%*s\t", l,
-			//		   punch.pure_phases[i].name, l, token);
 			fpunchf_heading(sformatf("%*s\t", l, punch.pure_phases[i].name));
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.pure_phases[i].phase == NULL)
@@ -2009,7 +1989,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "si_");
 			strcat(token, punch.si[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.si[i].phase == NULL)
 			{
@@ -2023,8 +2002,6 @@ tidy_punch(void)
 
 		if (punch.count_gases > 0)
 		{
-			//output_msg(OUTPUT_PUNCH, "%*s\t%*s\t%*s\t", l, "pressure", l,
-			//		   "total mol", l, "volume");
 			fpunchf_heading(sformatf("%*s\t", l, "pressure"));
 			fpunchf_heading(sformatf("%*s\t", l, "total mol"));
 			fpunchf_heading(sformatf("%*s\t", l, "volume"));
@@ -2033,7 +2010,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "g_");
 			strcat(token, punch.gases[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.gases[i].phase == NULL)
 			{
@@ -2049,11 +2025,9 @@ tidy_punch(void)
 		{
 			strcpy(token, "k_");
 			strcat(token, punch.kinetics[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			strcpy(token, "dk_");
 			strcat(token, punch.kinetics[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
@@ -2063,7 +2037,6 @@ tidy_punch(void)
 		{
 			strcpy(token, "s_");
 			strcat(token, punch.s_s[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
@@ -2081,7 +2054,6 @@ tidy_punch(void)
 			}
 			strcpy(token, "I_");
 			strcat(token, punch.isotopes[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
@@ -2100,7 +2072,6 @@ tidy_punch(void)
 			}
 			strcpy(token, "V_");
 			strcat(token, punch.calculate_values[i].name);
-			//output_msg(OUTPUT_PUNCH, "%*s\t", l, token);
 			fpunchf_heading(sformatf("%*s\t", l, token));
 		}
 
@@ -2109,11 +2080,9 @@ tidy_punch(void)
 		{
 			for (i = 0; i < user_punch_count_headings; i++)
 			{
-				//output_msg(OUTPUT_PUNCH, "%*s\t", l, user_punch_headings[i]);
 				fpunchf_heading(sformatf("%*s\t", l, user_punch_headings[i]));
 			}
 		}
-		//output_msg(OUTPUT_PUNCH, "\n");
 		fpunchf_heading("\n");
 
 		punch.new_def = FALSE;
@@ -3617,39 +3586,39 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		if (print == TRUE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                              Temperature: %g kelvin\n",
 					   (double) t));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                       A0 (dimensionless): %g\n",
 					   (double) a0));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                       A1 (dimensionless): %g\n",
 					   (double) a1));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                              A0 (kJ/mol): %g\n",
 					   (double) ag0));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                              A1 (kJ/mol): %g\n\n",
 					   (double) ag1));
 		}
 		if (xc < 0 || xc > 1)
 		{
 			if (print == TRUE)
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "No miscibility gap above 0 degrees kelvin.\n"));
 		}
 		else
 		{
 			if (print == TRUE)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t    Critical mole-fraction of component 2: %g\n",
 						   (double) xc));
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t                     Critical temperature: %g kelvin\n",
 						   (double) tc));
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\n(The critical temperature calculation assumes that the Guggenheim model\ndefined at %g kelvin is valid at the critical temperature.)\n\n\n",
 						   (double) t));
 			}
@@ -3691,7 +3660,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	if (s_s_ptr->spinodal == TRUE)
 	{
 		if (print == TRUE)
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t Spinodal-gap mole fractions, component 2: %g\t%g\n",
 					   (double) xsm1, (double) xsm2));
 		converged = FALSE;
@@ -3745,27 +3714,27 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 
 		if (print == TRUE)
 		{
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t   Miscibility-gap fractions, component 2: %g\t%g\n",
 					   (double) xb1, (double) xb2));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\n\t\t\tEutectic Point Calculations\n\n"));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t     Aqueous activity ratio (comp2/comp1): %g\n",
 					   (double) acrae));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t Log aqueous activity ratio (comp2/comp1): %g\n",
 					   (double) acrael));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t Aqueous activity fraction of component 2: %g\n",
 					   (double) xblm1));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                    Log IAP (component 2): %g\n",
 					   (double) xliapt));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                    Log IAP (component 1): %g\n",
 					   (double) xliapm));
-			output_temp_msg(sformatf(
+			output_msg(sformatf(
 					   "\t                               Log Sum Pi: %g\n",
 					   (double) spim1));
 		}
@@ -3811,27 +3780,27 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 			if (xaly > xb1 && xaly < xb2)
 			{
 				if (print == TRUE)
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "\nLocal minimum in the solidus curve coresponding to a maximum\nin the minimum stoichiometric saturation curve.\n\n"));
 			}
 			else
 			{
 				if (print == TRUE)
-					output_temp_msg(sformatf(
+					output_msg(sformatf(
 							   "\n\t\t\tAlyotropic Point\n\n"));
 			}
 			if (print == TRUE)
 			{
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t       Solid mole fraction of component 2: %g\n",
 						   (double) xaly));
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t                    Log IAP (component 2): %g\n",
 						   (double) facbl));
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t                    Log IAP (component 1): %g\n",
 						   (double) facal));
-				output_temp_msg(sformatf(
+				output_msg(sformatf(
 						   "\t                               Log Sum Pi: %g\n",
 						   (double) spialy));
 			}
@@ -3934,17 +3903,17 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 */
 	if (print == TRUE)
 	{
-		output_temp_msg(sformatf( "\nArray in slnq: \n\n"));
+		output_msg(sformatf( "\nArray in slnq: \n\n"));
 		for (i = 0; i < ncols - 1; i++)
 		{
 			row = i * (n + 1);
 			for (j = 0; j < ncols; j++)
 			{
-				output_temp_msg(sformatf( "%10.2e", (double) a[row + j]));
+				output_msg(sformatf( "%10.2e", (double) a[row + j]));
 			}
-			output_temp_msg(sformatf( "\n"));
+			output_msg(sformatf( "\n"));
 		}
-		output_temp_msg(sformatf( "\n"));
+		output_msg(sformatf( "\n"));
 	}
 
 	if (n == 0)
@@ -4015,7 +3984,7 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 	}
 	else
 	{
-		output_temp_msg(sformatf( "Error: Divide by zero in slnq.\n"));
+		output_msg(sformatf( "Error: Divide by zero in slnq.\n"));
 		l_delta[n] = 0.0;
 		goto slnq_error;
 	}
@@ -4031,12 +4000,12 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 	}
 	if (print == TRUE)
 	{
-		output_temp_msg(sformatf( "\nResults from slnq: \n\n"));
+		output_msg(sformatf( "\nResults from slnq: \n\n"));
 		for (i = 0; i < n; i++)
 		{
-			output_temp_msg(sformatf( "%10.2e", (double) l_delta[i]));
+			output_msg(sformatf( "%10.2e", (double) l_delta[i]));
 		}
-		output_temp_msg(sformatf( "\n"));
+		output_msg(sformatf( "\n"));
 	}
 	return (OK);
 
@@ -4070,7 +4039,7 @@ solve_misc(LDBLE * xxc1, LDBLE * xxc2, LDBLE tol)
 	for (i = 0; i < max_iter; i++)
 	{
 		/*
-		   output_temp_msg(sformatf( "%d  xc1: %g\txc2 %g\n", i, xc1, xc2));
+		   output_msg(sformatf( "%d  xc1: %g\txc2 %g\n", i, xc1, xc2));
 		 */
 		xb1 = 1 - xc1;
 		xb2 = 1 - xc2;

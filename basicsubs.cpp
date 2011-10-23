@@ -1767,7 +1767,6 @@ system_total(const char *total_name, LDBLE * count, char ***names,
 	(*moles)[0] = 0;
 	for (i = 0; i < count_sys; i++)
 	{
-		/*	output_msg(OUTPUT_MESSAGE, "%20s\t%10s\t%e\n", sys[i].name, sys[i].type, sys[i].moles); */
 		(*names)[i + 1] = sys[i].name;
 		(*types)[i + 1] = sys[i].type;
 		(*moles)[i + 1] = sys[i].moles;
@@ -1961,7 +1960,6 @@ system_total_si(void)
 			iap += rxn_ptr->s->la * rxn_ptr->coef;
 		}
 		si = -phases[i]->lk + iap;
-		/* output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f  %s\n",phases[i]->name, si, iap, (LDBLE) phases[i]->lk, phases[i]->formula); */
 		strcpy(name, phases[i]->name);
 		sys[count_sys].name = string_duplicate(name);
 		sys[count_sys].moles = si;
@@ -2418,12 +2416,6 @@ system_total_elt_secondary(const char *total_name)
 				  (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
 		}
-		/* debug
-		   output_msg(OUTPUT_MESSAGE, "%s\n", s_x[i]->name);
-		   for ( j=0; j < count_elts; j++ ) {
-		   output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
-		   }
-		 */
 		/*
 		 *   Look for element
 		 */
@@ -2550,12 +2542,6 @@ system_total_elt_secondary(const char *total_name)
 					  (size_t) sizeof(struct elt_list), elt_list_compare);
 				elt_list_combine();
 			}
-			/* debug
-			   output_msg(OUTPUT_MESSAGE, "%s\n", x[i]->pure_phase->phase->name);
-			   for ( j=0; j < count_elts; j++ ) {
-			   output_msg(OUTPUT_MESSAGE, "\t%10s\t%g\n", elt_list[j].elt->name, elt_list[j].coef);
-			   }
-			 */
 			for (j = 0; j < count_elts; j++)
 			{
 				if (strcmp(elt_list[j].elt->name, total_name) == 0)
