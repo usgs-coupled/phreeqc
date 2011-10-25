@@ -497,11 +497,13 @@ error_msg(const char *err_str, bool stop)
 	if (get_input_errors() <= 0)
 		input_error = 1;
 	std::ostringstream msg;
-	msg << "\nERROR: " << err_str << std::endl;
+	msg << "ERROR: " << err_str << std::endl;
 	if (phrq_io)
 	{
 		phrq_io->output_msg(msg.str().c_str());
 		phrq_io->log_msg(msg.str().c_str());
+
+		phrq_io->error_msg("\n");
 		phrq_io->error_msg(msg.str().c_str(), stop!=0);
 	}
 
