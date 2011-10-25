@@ -1,33 +1,15 @@
 #ifndef _INC_GLOBAL_STRUCTURES_H
 #define _INC_GLOBAL_STRUCTURES_H
-
-#include "phrqtype.h"
-typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
-enum SURFACE_TYPE
-{ UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC, CCM };
-enum DIFFUSE_LAYER_TYPE
-{ NO_DL, BORKOVEK_DL, DONNAN_DL };
-enum SITES_UNITS
-{ SITES_ABSOLUTE, SITES_DENSITY };
-enum entity_type
-{ Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase, Ss_phase,
-	Kinetics, Mix, Temperature, UnKnown
-};
-/* must be defined here and in cl.c */
-/* #include <nan.h> */
+/* ----------------------------------------------------------------------
+ *   #define DEFINITIONS
+ * ---------------------------------------------------------------------- */
 #ifndef NAN
 #   define NAN -99999999
 #endif
 #define MISSING -9999.999
 //#define NA -98.765	            /* NA = not available */
 #include "NA.h"
-/* search.h -- declarations for POSIX/SVID-compatible search functions */
 
-
-
-/* ----------------------------------------------------------------------
- *   DEFINITIONS
- * ---------------------------------------------------------------------- */
 #define F_C_MOL 96493.5			/* C/mol or joule/volt-eq */
 #define F_KJ_V_EQ  96.4935		/* kJ/volt-eq */
 #define F_KCAL_V_EQ 23.0623		/* kcal/volt-eq */
@@ -39,13 +21,18 @@ enum entity_type
 #define JOULES_PER_CALORIE 4.1840
 #define AVOGADRO 6.02252e23		/* atoms / mole */
 
-
 #define TRUE 1
 #define FALSE 0
 #define OK 1
 #define ERROR 0
 #define STOP 1
 #define CONTINUE 0
+
+#define OPTION_EOF -1
+#define OPTION_KEYWORD -2
+#define OPTION_ERROR -3
+#define OPTION_DEFAULT -4
+#define OPT_1 -5
 
 #define DISP 2
 #define STAG 3
@@ -150,15 +137,9 @@ enum entity_type
 #define MIN_TOTAL_SS MIN_TOTAL/100
 #define MIN_RELATED_SURFACE MIN_TOTAL*100
 #define MIN_RELATED_LOG_ACTIVITY -30
-
-
 /*
  *   Hash definitions
  */
-/*
-** Constants
-*/
-
 # define SegmentSize		    256
 # define SegmentSizeShift	  8	/* log2(SegmentSize) */
 # define DirectorySize	    256
@@ -166,6 +147,28 @@ enum entity_type
 # define Prime1			  37
 # define Prime2			  1048583
 # define DefaultMaxLoadFactor   5
+//
+// Typedefs and structure definitions
+//
+typedef int (*PFN_READ_CALLBACK) (void *cookie);
+
+struct read_callback
+{
+	PFN_READ_CALLBACK callback;
+	void *cookie;
+	int database;
+};
+typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
+enum SURFACE_TYPE
+{ UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC, CCM };
+enum DIFFUSE_LAYER_TYPE
+{ NO_DL, BORKOVEK_DL, DONNAN_DL };
+enum SITES_UNITS
+{ SITES_ABSOLUTE, SITES_DENSITY };
+enum entity_type
+{ Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase, Ss_phase,
+	Kinetics, Mix, Temperature, UnKnown
+};
 
 /* HSEARCH(3C) */
 typedef struct entry
@@ -1359,17 +1362,49 @@ struct M_S
 	char *name;
 	LDBLE tot1, tot2;
 };
-/* basic.c ------------------------------- */
-#ifdef PHREEQ98
-int colnr, rownr;
-#endif
+// Pitzer definitions
+typedef enum
+{ TYPE_B0, TYPE_B1, TYPE_B2, TYPE_C0, TYPE_THETA, TYPE_LAMDA, TYPE_ZETA,
+  TYPE_PSI, TYPE_ETHETA, TYPE_ALPHAS, TYPE_MU, TYPE_ETA, TYPE_Other,
+  TYPE_SIT_EPSILON, TYPE_SIT_EPSILON_MU
+} pitz_param_type;
 
-#define checking	true
-#define varnamelen  20
-#define maxdims	    4
+struct pitz_param
+{
+	char *species[3];
+	int ispec[3];
+	pitz_param_type type;
+	LDBLE p;
+	union
+	{
+		LDBLE b0;
+		LDBLE b1;
+		LDBLE b2;
+		LDBLE c0;
+		LDBLE theta;
+		LDBLE lamda;
+		LDBLE zeta;
+		LDBLE psi;
+		LDBLE alphas;
+		LDBLE mu;
+		LDBLE eta;
+	  LDBLE eps;
+	  LDBLE eps1;
+	} U;
+	LDBLE a[6];
+	LDBLE alpha;
+	LDBLE os_coef;
+	LDBLE ln_coef[3];
+	struct theta_param *thetas;
+};
 
-
-#include "basic.h"
+struct theta_param
+{
+	LDBLE zj;
+	LDBLE zk;
+	LDBLE etheta;
+	LDBLE ethetap;
+};
 
 #endif /* _INC_GLOBAL_STRUCTURES_H  */
 
