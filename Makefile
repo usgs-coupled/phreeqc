@@ -59,7 +59,6 @@ OBJECTS= \
 		model.o \
 		nvector.o \
 		nvector_serial.o \
-		output.o \
 		p2clib.o \
 		parse.o \
 		phqalloc.o \

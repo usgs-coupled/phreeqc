@@ -29,11 +29,13 @@ cl1(int k, int l, int m, int n,
 	/* Local variables */
 	int nklm;
 	LDBLE xmin, xmax;
-	int iout, i, j;
+	int iout = 0;
+	int i, j;
 	LDBLE l_z;
 	int maxit, n1, n2;
 	LDBLE pivot;
-	int ia, ii, kk, in, nk, js;
+	int ia, ii, kk, nk, js;
+	int in = 0;
 	LDBLE sn;
 	int iphase, kforce;
 	LDBLE zu, zv;

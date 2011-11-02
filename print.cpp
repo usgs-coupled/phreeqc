@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-
+#include <stdarg.h>
 #include <assert.h>
 
 /* ---------------------------------------------------------------------- */

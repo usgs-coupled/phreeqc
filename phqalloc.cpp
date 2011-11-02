@@ -94,6 +94,8 @@ PHRQ_free_all(void)
 {
 	assert((s_pTail == NULL) || (s_pTail->pNext == NULL));
 
+	std::ostringstream ostrm;
+
 	if (s_pTail == NULL)
 	{
 #if !defined(NDEBUG)
@@ -105,17 +107,23 @@ PHRQ_free_all(void)
 	{
 		s_pTail = s_pTail->pPrev;
 #if !defined(NDEBUG)
-		output_msg(sformatf("%s(%d) %p: freed in PHRQ_free_all\n",
-				   s_pTail->pNext->szFileName, s_pTail->pNext->nLine,
-				   (void *) (s_pTail->pNext + 1)));
+		ostrm.clear();
+		ostrm << s_pTail->pNext->szFileName << "(" << s_pTail->pNext->nLine;
+		ostrm << ") " << (void *) (s_pTail->pNext + 1) << ": freed in PHRQ_free_all\n",
+		  //output_msg(sformatf("%s(%d) %p: freed in PHRQ_free_all\n",
+		  //		   s_pTail->pNext->szFileName, s_pTail->pNext->nLine,
+		  //		   (void *) (s_pTail->pNext + 1)));
 		free(s_pTail->pNext->szFileName);
 #endif
 		free(s_pTail->pNext);
 	}
 
 #if !defined(NDEBUG)
-	output_msg(sformatf( "%s(%d) %p: freed in PHRQ_free_all\n",
-			   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1)));
+	ostrm.clear();
+	ostrm << s_pTail->pNext->szFileName << "(" << s_pTail->pNext->nLine;
+	ostrm << ") " << (void *) (s_pTail->pNext + 1) << ": freed in PHRQ_free_all\n",
+	  //output_msg(sformatf( "%s(%d) %p: freed in PHRQ_free_all\n",
+	  //		   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1)));
 	free(s_pTail->szFileName);
 #endif
 	free(s_pTail);

@@ -168,7 +168,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
  *   Prepare error handling
  */
 	try {
-		if (phrq_io) 
+		if (phrq_io == NULL) 
 		{
 			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
 		}

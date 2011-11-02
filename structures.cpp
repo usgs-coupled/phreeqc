@@ -9230,7 +9230,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	for (i = 0; i < count_solution; i++)
 	{
 		//sb.getSolutions()[solution[i]->n_user] = cxxSolution(solution[i], sb.Get_io());
-		sb.Set_Solution(solution[i]->n_user, cxxSolution(solution[i], sb.Get_io()));
+	  cxxSolution ent(solution[i], sb.Get_io());
+	  sb.Set_Solution(solution[i]->n_user, ent);
 	}
 
 	// Exchangers
@@ -9309,7 +9310,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 	{
 		solution_bsearch(n, &pos, TRUE);
 		//sb.getSolutions()[n] = cxxSolution(solution[pos], sb.Get_io());
-		sb.Set_Solution(n, cxxSolution(solution[pos], sb.Get_io()));
+		cxxSolution ent(solution[pos], sb.Get_io());
+		sb.Set_Solution(n, ent);
 	}
 
 	// Exchangers
@@ -9319,7 +9321,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			//this->Exchangers[n] = cxxExchange(&(exchange[pos]), sb.Get_io());
 			//cxxExchange entity = cxxExchange(&(exchange[pos]), sb.Get_io());
 			//sb.setExchange(n, &entity );
-			sb.Set_Exchange(n, &(cxxExchange(&(exchange[pos]), sb.Get_io())) );
+			cxxExchange ent(&(exchange[pos]), sb.Get_io());
+			sb.Set_Exchange(n, &ent);
 		}
 	}
 
@@ -9328,7 +9331,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (gas_phase_bsearch(n, &pos) != NULL)
 		{
 			//this->GasPhases[n] = cxxGasPhase(&(gas_phase[pos]), sb.Get_io());
-			sb.Set_GasPhase(n, &(cxxGasPhase(&(gas_phase[pos]), sb.Get_io())) );
+			cxxGasPhase ent(&(gas_phase[pos]), sb.Get_io());
+			sb.Set_GasPhase(n, &ent);
 		}
 	}
 
@@ -9337,7 +9341,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (kinetics_bsearch(n, &pos) != NULL)
 		{
 			//this->Kinetics[n] = cxxKinetics(&(kinetics[pos]), sb.Get_io());
-			sb.Set_Kinetics(n, &(cxxKinetics(&(kinetics[pos]), sb.Get_io())) );
+			cxxKinetics ent(&(kinetics[pos]), sb.Get_io());
+			sb.Set_Kinetics(n, &ent );
 		}
 	}
 
@@ -9346,7 +9351,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (pp_assemblage_bsearch(n, &pos) != NULL)
 		{
 			//this->PPassemblages[n] = cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io());
-			sb.Set_PPassemblage(n, &(cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io())) );
+			cxxPPassemblage ent(&(pp_assemblage[pos]), sb.Get_io());
+			sb.Set_PPassemblage(n, &ent);
 		}
 	}
 
@@ -9355,7 +9361,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (s_s_assemblage_bsearch(n, &pos) != NULL)
 		{
 			//this->SSassemblages[n] = cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io());
-			sb.Set_SSassemblage(n, &(cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io())) );
+			 cxxSSassemblage ent(&(s_s_assemblage[pos]), sb.Get_io());
+			sb.Set_SSassemblage(n, &ent);
 		}
 	}
 
@@ -9364,7 +9371,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 		if (surface_bsearch(n, &pos) != NULL)
 		{
 			//this->Surfaces[n] = cxxSurface(&(surface[pos]), sb.Get_io());
-			sb.Set_Surface(n, &(cxxSurface(&(surface[pos]), sb.Get_io())) );
+			cxxSurface ent(&(surface[pos]), sb.Get_io());
+			sb.Set_Surface(n, &ent);
 		}
 	}
 }

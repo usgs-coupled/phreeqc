@@ -32,9 +32,11 @@ cl1mp(int k, int l, int m, int n,
 
 	/* Local variables */
 	int nklm;
-	int iout, i, j;
+	int iout = 0;
+	int i, j;
 	int maxit, n1, n2;
-	int ia, ii, kk, in, nk, js;
+	int ia, ii, kk, nk, js;
+	int in = 0;
 	int iphase, kforce;
 	int klm, jmn, nkl, jpn;
 	int klm1;
