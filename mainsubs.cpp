@@ -1218,6 +1218,7 @@ initial_gas_phases(int print)
 	struct phase *phase_ptr;
 	struct rxn_token *rxn_ptr;
 	LDBLE lp;
+	bool PR = false;
 
 	state = INITIAL_GAS_PHASE;
 	set_use();
@@ -1281,6 +1282,8 @@ initial_gas_phases(int print)
 						use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
 					gas_comp_ptr->moles = gas_comp_ptr->phase->moles_x;
 					use.gas_phase_ptr->total_moles += gas_comp_ptr->moles;
+					if (phase_ptr->p_c || phase_ptr->t_c)
+						PR = true;
 				}
 				else
 				{
@@ -1288,6 +1291,10 @@ initial_gas_phases(int print)
 				}
 			}
 			print_gas_phase();
+ 			if (PR /*&& use.gas_phase_ptr->total_p > 1.0*/)
+ 				warning_msg("While initializing gas phase composition by equilibrating:\n"
+				"         Found definitions of gas' critical temperature and pressure.\n"
+				"         Going to use Peng-Robinson in subsequent calculations.\n");
 			xgas_save(n_user);
 			punch_all();
 			/* free_model_allocs(); */

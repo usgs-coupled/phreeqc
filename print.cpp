@@ -488,7 +488,6 @@ print_exchange(void)
 	output_msg(sformatf("\n"));
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 print_gas_phase(void)
@@ -500,36 +499,67 @@ print_gas_phase(void)
 	int j;
 	LDBLE lp, moles, initial_moles, delta_moles;
 	struct rxn_token *rxn_ptr;
+	char info[MAX_LENGTH];
+	bool PR = false;
 
 	if (pr.gas_phase == FALSE || pr.all == FALSE)
 		return (OK);
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
+	if (use.gas_phase_ptr->v_m >= 0.035)
+		PR = true;
 	if (use.gas_phase_ptr->type == PRESSURE)
 	{
 		if (gas_unknown == NULL)
 			return (OK);
 		if (gas_unknown->moles < 1e-12)
+		{
+			sprintf(info, "Fixed-pressure gas phase %d dissolved completely",
+				   use.n_gas_phase_user);
+			print_centered(info);
 			return (OK);
+		}
 		use.gas_phase_ptr->total_moles = gas_unknown->moles;
 		use.gas_phase_ptr->volume =
 			use.gas_phase_ptr->total_moles * R_LITER_ATM * tk_x /
 			use.gas_phase_ptr->total_p;
+		if (PR)
+			use.gas_phase_ptr->volume = use.gas_phase_ptr->v_m * gas_unknown->moles;
 	}
 /*
  *   Print heading
  */
 	print_centered("Gas phase");
-	output_msg(sformatf("\n"));
-	output_msg(sformatf("Total pressure: %8.4f   atmospheres\n",
+	//output_msg(OUTPUT_MESSAGE, "\n");
+	output_msg(sformatf("Total pressure: %7.4f    atmospheres",
 			   (double) use.gas_phase_ptr->total_p));
+	if (PR)
+		output_msg("          (Peng-Robinson calculation)\n");
+	else
+		output_msg(" \n");
 	output_msg(sformatf("    Gas volume: %10.2e liters\n",
 			   (double) use.gas_phase_ptr->volume));
+	if(use.gas_phase_ptr->total_moles > 0)
+		output_msg(sformatf("  Molar volume: %10.2e liters/mole",
+			   (double) use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles));
+	if (use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles <= 0.035 || (PR && use.gas_phase_ptr->v_m <= 0.035))
+		output_msg(" WARNING: Program's limit for Peng-Robinson.\n");
+	else
+		output_msg("\n");
+	if (PR)
+	output_msg(sformatf( "   P * Vm / RT: %8.5f  (Compressibility Factor Z) \n",
+				   (double) use.gas_phase_ptr->total_p * use.gas_phase_ptr->v_m / (R_LITER_ATM * tk_x)));
+
 
 	output_msg(sformatf("\n%68s\n%78s\n", "Moles in gas",
 			   "----------------------------------"));
-	output_msg(sformatf("%-18s%12s%12s%12s%12s%12s\n\n", "Component",
+	if (use.gas_phase_ptr->v_m >= 0.035)
+		output_msg(sformatf( "%-11s%12s%12s%7s%12s%12s%12s\n\n", "Component",
+			   "log P", "P", "phi", "Initial", "Final", "Delta"));
+	else
+		output_msg(sformatf("%-18s%12s%12s%12s%12s%12s\n\n", "Component",
 			   "log P", "P", "Initial", "Final", "Delta"));
+
 
 	for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
 	{
@@ -545,6 +575,7 @@ print_gas_phase(void)
 			{
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
 			}
+			lp -= use.gas_phase_ptr->comps[j].phase->pr_si_f;
 			moles = use.gas_phase_ptr->comps[j].phase->moles_x;
 		}
 		else
@@ -572,14 +603,24 @@ print_gas_phase(void)
 			moles = 0.0;
 		if (fabs(delta_moles) <= MIN_TOTAL)
 			delta_moles = 0.0;
-		output_msg(sformatf("%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n",
+		if (PR)
+			output_msg(sformatf("%-11s%12.2f%12.3e%7.3f%12.3e%12.3e%12.3e\n",
+				   use.gas_phase_ptr->comps[j].phase->name,
+				   (double) lp,
+				   (double) use.gas_phase_ptr->comps[j].phase->p_soln_x,
+				   (double) use.gas_phase_ptr->comps[j].phase->pr_phi,
+				   (double) initial_moles, (double) moles,
+				   (double) delta_moles));
+		else
+			output_msg(sformatf("%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n",
 				   use.gas_phase_ptr->comps[j].phase->name,
 				   (double) lp,
 				   (double) use.gas_phase_ptr->comps[j].phase->p_soln_x,
 				   (double) initial_moles, (double) moles,
 				   (double) delta_moles));
+
 	}
-	output_msg(sformatf("\n"));
+	output_msg("\n");
 	return (OK);
 }
 
@@ -1086,7 +1127,9 @@ print_saturation_indices(void)
 	LDBLE la_eminus;
 	struct rxn_token *rxn_ptr;
 	struct reaction *reaction_ptr;
-
+	char *pr_in;
+	bool PR = false, gas = true;
+ 
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
 		return (OK);
 	if (state == INITIAL_SOLUTION)
@@ -1106,11 +1149,21 @@ print_saturation_indices(void)
 	{
 		la_eminus = s_eminus->la;
 	}
+/* If a fixed pressure gas-phase disappeared, no PR for the SI's of gases... */
+	if (use.gas_phase_ptr != NULL)
+	{
+		if (use.gas_phase_ptr->type == PRESSURE)
+		{
+			if (gas_unknown == NULL || gas_unknown->moles < 1e-12)
+				gas = false;
+		}
+	}
+
 /*
  *   Print heading
  */
 	print_centered("Saturation indices");
-	output_msg(sformatf("\t%-15s%7s%8s%8s\n\n", "Phase", "SI",
+	output_msg(sformatf("\t%-15s%9s%8s%8s\n\n", "Phase", "SI  ",
 			   "log IAP", "log KT"));
 
 	for (i = 0; i < count_phases; i++)
@@ -1140,11 +1193,30 @@ print_saturation_indices(void)
 			}
 		}
 		si = -lk + iap;
-		output_msg(sformatf("\t%-15s%7.2f%8.2f%8.2f  %s\n",
-				   phases[i]->name, (double) si, (double) iap, (double) lk,
+		if (gas && phases[i]->pr_in && phases[i]->pr_p)
+		{
+			pr_in = "**";
+			PR = true;
+		}
+		else
+			pr_in = "  ";
+
+		output_msg(sformatf("\t%-15s%7.2f%2s%8.2f%8.2f  %s",
+				   phases[i]->name, (double) si, pr_in, (double) iap, (double) lk,
 				   phases[i]->formula));
+		if (gas && phases[i]->pr_in && phases[i]->pr_p)
+			output_msg(sformatf("\t%s%5.1f%s%5.3f%s\n",
+				   " Pressure ", phases[i]->pr_p, " atm, phi ", phases[i]->pr_phi, "."));
+		else
+			output_msg("\n");
+
 	}
-	output_msg(sformatf("\n"));
+	if (PR)
+		output_msg(sformatf("\t%24s %s\n\n",
+				   "**", "SI from Peng-Robinson fugacity - Delta(V) * (P - 1) / 2.3RT."));
+	else
+		output_msg("\n\n");
+
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -1160,6 +1232,8 @@ print_pp_assemblage(void)
 	char token[MAX_LENGTH];
 	struct rxn_token *rxn_ptr;
 	struct phase *phase_ptr;
+	bool PR = false;
+	char *pr_in;
 
 	if (pr.pp_assemblage == FALSE || pr.all == FALSE)
 		return (OK);
@@ -1170,11 +1244,11 @@ print_pp_assemblage(void)
  */
 	print_centered("Phase assemblage");
 	output_msg(sformatf("%73s\n", "Moles in assemblage"));
-	output_msg(sformatf("%-18s%7s%8s%8s", "Phase", "SI", "log IAP",
+	output_msg(sformatf("%-16s%7s%2s%8s%8s", "Phase", "SI", "  ", "log IAP",
 			   "log KT"));
 	output_msg(sformatf(" %12s%12s%12s", " Initial", " Final",
 			   " Delta"));
-	output_msg(sformatf("\n\n"));
+	output_msg("\n\n");
 
 	for (j = 0; j < count_unknowns; j++)
 	{
@@ -1212,10 +1286,17 @@ print_pp_assemblage(void)
 			   iap += rxn_ptr->s->la * rxn_ptr->coef;
 			   }
 			   si = -x[j]->phase->lk + iap;
-			   output_msg(sformatf("\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
+			   output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
 			 */
-			output_msg(sformatf("%-18s%7.2f%8.2f%8.2f",
-					   x[j]->phase->name, (double) si, (double) iap,
+			if (phase_ptr->pr_in && phase_ptr->pr_p)
+			{
+				pr_in = "**";
+				PR = true;
+			}
+			else
+				pr_in = "  ";
+			output_msg(sformatf("%-16s%7.2f%2s%8.2f%8.2f",
+					   x[j]->phase->name, (double) si, pr_in, (double) iap,
 					   (double) lk));
 		}
 /*
@@ -1255,7 +1336,10 @@ print_pp_assemblage(void)
 					   x[j]->pure_phase->add_formula, " is reactant", token));
 		}
 	}
-	output_msg(sformatf("\n"));
+	if (PR)
+		output_msg(sformatf("%25s %s\n",
+				   "**", "SI from Peng-Robinson fugacity - Delta(V) * (P - 1) / 2.3RT."));
+	output_msg("\n");
 	return (OK);
 }
 
@@ -2260,6 +2344,8 @@ punch_gas_phase(void)
 		total_moles = use.gas_phase_ptr->total_moles;
 		volume =
 			total_moles * R_LITER_ATM * tk_x / use.gas_phase_ptr->total_p;
+ 		if (use.gas_phase_ptr->v_m >= 0.035)
+ 			volume = use.gas_phase_ptr->v_m >= 0.035 * use.gas_phase_ptr->total_moles;
 	}
 	if (punch.high_precision == FALSE)
 	{

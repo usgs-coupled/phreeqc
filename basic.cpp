@@ -1649,6 +1649,19 @@ listtokens(FILE * f, tokenrec * l_buf)
 		case toklist_s_s:
 			output_msg("LIST_S_S");
 			break;
+		case tokpr_p:
+			output_msg("PR_P");
+			break;
+		case tokpr_phi:
+			output_msg("PR_PHI");
+			break;
+ 		case tokgas_p:
+ 			output_msg("GAS_P");
+ 			break;
+ 		case tokgas_vm:
+ 			output_msg("GAS_VM");
+ 			break;
+
 		}
 		l_buf = l_buf->next;
 	}
@@ -3045,7 +3058,18 @@ factor(struct LOC_exec * LINK)
 	case toksc:
 		n.UU.val = calc_SC();
 		break;
-
+	case tokpr_p:
+		n.UU.val = pr_pressure(stringfactor(STR1, LINK));
+		break;
+	case tokpr_phi:
+		n.UU.val = pr_phi(stringfactor(STR1, LINK));
+		break;
+ 	case tokgas_p:
+ 		n.UU.val = find_gas_p();
+ 		break;
+  	case tokgas_vm:
+ 		n.UU.val = find_gas_vm();
+ 		break;
 	case toklog10:
 		n.UU.val = log10(realfactor(LINK));
 		break;

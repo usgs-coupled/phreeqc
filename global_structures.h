@@ -715,6 +715,7 @@ struct gas_phase
 	LDBLE total_p;
 	LDBLE total_moles;
 	LDBLE volume;
+	LDBLE v_m; /* molar volume in Peng Robinson */
 	LDBLE temperature;
 	int count_comps;
 	struct gas_comp *comps;
@@ -792,6 +793,7 @@ struct s_s_comp
  	char *name;
  	char *add_formula;
  	LDBLE si;
+	LDBLE si_org;
  	LDBLE moles;
  	LDBLE delta;
  	LDBLE initial_moles;
@@ -997,7 +999,7 @@ struct species
 	LDBLE o;					/* stoichiometric coefficient of O in species */
 	LDBLE dha, dhb, a_f;		/* WATEQ Debye Huckel a and b-dot; active_fraction coef for exchange species */
 	LDBLE lk;					/* log10 k at working temperature */
-	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analalytical expression */
+	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analytical expression */
 /* VP: Density Start */
 	LDBLE millero[6];		    /* regression coefficients to calculate temperature dependent phi_0 and b_v of Millero density model */
 /* VP: Density End */
@@ -1072,6 +1074,14 @@ struct phase
 	LDBLE dn, dnb, dnc;
 	LDBLE gn, gntot;
 	LDBLE gn_n, gntot_n;
+	LDBLE t_c, p_c, omega; /* gas: critical TK, critical P(atm), Pitzer acentric coeff */
+	LDBLE pr_a, pr_b, pr_alpha;		/* Peng-Robinson parm's */
+	LDBLE pr_tk, pr_p;			/* Temperature (K), Pressure (atm) */
+	LDBLE pr_phi;				/* fugacity coefficient (-) */
+	LDBLE pr_aa_sum2;			/* for calculating multicomponent phi */
+	LDBLE delta_v[9];			/* delta_v[0] = [1] + [2]*T + [3]/T + [4]*log10(T) + [5]/T^2 + [6]*T^2 + [7]*P */
+	LDBLE pr_si_f;				/* si adapter: log10(phi) - delta_v[0] * (P - 1) /RT */
+	bool pr_in;					/* Peng-Robinson in the calc's, or not */
 
 	int type;					/* flag indicating presence in model and types of equations */
 	struct elt_list *next_elt;	/* pointer to list of elements in phase */

@@ -1,3 +1,4 @@
+#include <complex>
 #include <assert.h>
 #include <time.h>
 #include "Phreeqc.h"
@@ -3146,7 +3147,76 @@ read_log_k_only(char *ptr, LDBLE * log_k)
 	}
 	return (OK);
 }
-
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_t_c_only(char *ptr, LDBLE *t_c)
+/* ---------------------------------------------------------------------- */
+{
+	*t_c = 0.0;
+	replace("=", " ", ptr);
+	if (sscanf(ptr, SCANFORMAT, t_c) < 1)
+	{
+		input_error++;
+		error_msg("Expecting numeric value for critical temperature T_c (K)", CONTINUE);
+		return (ERROR);
+	}
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_p_c_only(char *ptr, LDBLE * p_c)
+/* ---------------------------------------------------------------------- */
+{
+	*p_c = 0.0;
+	replace("=", " ", ptr);
+	if (sscanf(ptr, SCANFORMAT, p_c) < 1)
+	{
+		input_error++;
+		error_msg("Expecting numeric value for critical pressure P_c (atm)", CONTINUE);
+		return (ERROR);
+	}
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_omega_only(char *ptr, LDBLE *omega)
+/* ---------------------------------------------------------------------- */
+{
+	*omega = 0.0;
+	replace("=", " ", ptr);
+	if (sscanf(ptr, SCANFORMAT, omega) < 1)
+	{
+		input_error++;
+		error_msg("Expecting numeric value for acentric factor Omega", CONTINUE);
+		return (ERROR);
+	}
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_delta_v_only(char *ptr, LDBLE * delta_v)
+/* ---------------------------------------------------------------------- */
+{
+	int j;
+/*
+ *   Read analytical expression
+ */
+	for (j = 0; j < 8; j++)
+	{
+		delta_v[j] = 0.0;
+	}
+ 	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
+ 			   &(delta_v[0]), &(delta_v[1]), &(delta_v[2]), &(delta_v[3]),
+ 			   &(delta_v[4]), &(delta_v[5]), &(delta_v[6]), &(delta_v[7]));
+	if (j < 1)
+	{
+		input_error++;
+		error_msg("Expecting numeric values for delta_v.",
+				  CONTINUE);
+		return (ERROR);
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
@@ -3807,9 +3877,13 @@ read_phases(void)
 		"ae",					/* 8 */
 		"add_logk",				/* 9 */
 		"add_log_k",			/* 10 */
-		"add_constant"			/* 11 */
+		"add_constant",			/* 11 */
+		"t_c",					/* 12 */
+		"p_c",					/* 13 */
+		"omega",				/* 14 */
+		"delta_v"				/* 15 */
 	};
-	int count_opt_list = 12;
+	int count_opt_list = 16;
 
 	association = FALSE;
 /*
@@ -3958,6 +4032,30 @@ read_phases(void)
 				string_hsave("XconstantX");
 			/* read coef */
 			phase_ptr->count_add_logk++;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 12:				/* T_c */
+			if (phase_ptr == NULL)
+				break;
+			read_t_c_only(next_char, &phase_ptr->t_c);
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 13:				/* P_c */
+			if (phase_ptr == NULL)
+				break;
+			read_p_c_only(next_char, &phase_ptr->p_c);
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 14:				/* Omega */
+			if (phase_ptr == NULL)
+				break;
+			read_omega_only(next_char, &phase_ptr->omega);
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 15:				/* delta_v */
+			if (phase_ptr == NULL)
+				break;
+			read_delta_v_only(next_char, &phase_ptr->delta_v[1]);
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:
@@ -4175,6 +4273,7 @@ read_pure_phases(void)
 			if (pp_assemblage[n].pure_phases == NULL)
 				malloc_error();
 			pp_assemblage[n].pure_phases[count_pure_phases - 1].si = 0.0;
+			pp_assemblage[n].pure_phases[count_pure_phases - 1].si_org = 0.0;
 			pp_assemblage[n].pure_phases[count_pure_phases - 1].add_formula =
 				NULL;
 			pp_assemblage[n].pure_phases[count_pure_phases - 1].moles = 10.0;
@@ -4201,6 +4300,8 @@ read_pure_phases(void)
 			 */
 			j = sscanf(token, SCANFORMAT, &dummy);
 			pp_assemblage[n].pure_phases[count_pure_phases - 1].si =
+				(LDBLE) dummy;
+			pp_assemblage[n].pure_phases[count_pure_phases - 1].si_org = 
 				(LDBLE) dummy;
 			if (j != 1)
 			{

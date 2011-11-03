@@ -943,8 +943,10 @@ int Phreeqc::
 tidy_gas_phase(void)
 /* ---------------------------------------------------------------------- */
 {
-	int i, j, k, n_user, last;
-	struct phase *phase_ptr;
+	int i, j, k, n_user, last, n_g;
+	struct phase *phase_ptr, **phase_ptrs;
+	LDBLE P, V_m;
+	bool PR;
 /*
  *   Find all gases for each gas_phase in phase list
  */
@@ -953,6 +955,9 @@ tidy_gas_phase(void)
 		if (gas_phase[i].new_def != TRUE)
 			continue;
 		gas_phase[i].new_def = FALSE;
+		PR = false;
+		P = 0.0;
+		n_g = 0;
 		for (j = 0; j < gas_phase[i].count_comps; j++)
 		{
 			phase_ptr = phase_bsearch(gas_phase[i].comps[j].name, &k, FALSE);
@@ -968,6 +973,8 @@ tidy_gas_phase(void)
 			else
 			{
 				gas_phase[i].comps[j].phase = phase_ptr;
+				if (phase_ptr->t_c > 0 && phase_ptr->p_c > 0)
+					PR = true;
 			}
 /*
  *   Fixed pressure
@@ -985,9 +992,12 @@ tidy_gas_phase(void)
 				/* calculate moles */
 				if (gas_phase[i].comps[j].p_read != NAN)
 				{
-					gas_phase[i].comps[j].moles =
-						gas_phase[i].comps[j].p_read * gas_phase[i].volume /
-						R_LITER_ATM / gas_phase[i].temperature;
+					if (gas_phase[i].comps[j].p_read > 0.0 && PR)
+						P += gas_phase[i].comps[j].p_read;
+					else
+						gas_phase[i].comps[j].moles =
+							gas_phase[i].comps[j].p_read * gas_phase[i].volume /
+							R_LITER_ATM / gas_phase[i].temperature;
 				}
 				else
 				{
@@ -1007,10 +1017,13 @@ tidy_gas_phase(void)
 				{
 					if (gas_phase[i].comps[j].p_read != NAN)
 					{
-						gas_phase[i].comps[j].moles =
-							gas_phase[i].comps[j].p_read *
-							gas_phase[i].volume / R_LITER_ATM /
-							gas_phase[i].temperature;
+						if (gas_phase[i].comps[j].p_read > 0.0 && PR)
+							P += gas_phase[i].comps[j].p_read;
+						else
+							gas_phase[i].comps[j].moles =
+								gas_phase[i].comps[j].p_read *
+								gas_phase[i].volume / R_LITER_ATM /
+								gas_phase[i].temperature;
 					}
 					else
 					{
@@ -1023,10 +1036,35 @@ tidy_gas_phase(void)
 					}
 				}
 			}
+		}
+		if (PR && P > 0)
+		{
+			phase_ptrs = new phase *[gas_phase[i].count_comps];
+			for (j = 0; j < gas_phase[i].count_comps; j++)
+			{
+				if (gas_phase[i].comps[j].p_read == 0)
+					continue;
+				gas_phase[i].comps[j].phase->moles_x = gas_phase[i].comps[j].p_read / P;
+				phase_ptrs[n_g] = gas_phase[i].comps[j].phase;
+				n_g++;
+			}
+			V_m = calc_PR(phase_ptrs, n_g, P, gas_phase[i].temperature, 0);
+			for (j = 0; j < gas_phase[i].count_comps; j++)
+			{
+				if (gas_phase[i].comps[j].p_read == 0)
+				{
+					gas_phase[i].comps[j].moles = 0.0;
+				} else
+				{
+					gas_phase[i].comps[j].moles = gas_phase[i].comps[j].phase->moles_x *
+						gas_phase[i].volume / V_m;
+				}
+			}
+			delete phase_ptrs;
+		}
 /* 
  *   Duplicate gas phase, only if not solution equilibria
  */
-		}
 		if (gas_phase[i].solution_equilibria == FALSE)
 		{
 			n_user = gas_phase[i].n_user;

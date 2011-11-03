@@ -757,7 +757,40 @@ find_gas_comp(const char *gas_comp_name)
 	}
 	return (0);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+find_gas_p(void)
+/* ---------------------------------------------------------------------- */
+{
+	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
+		return (0);
+	if (use.gas_phase_ptr->type == PRESSURE)
+	{
+		if (gas_unknown == NULL)
+			return (0);
+		if (gas_unknown->moles < 1e-12)
+			return (0);
+	}
+	return (use.gas_phase_ptr->total_p);
+}
 
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+find_gas_vm(void)
+/* ---------------------------------------------------------------------- */
+{
+	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
+		return (0);
+	if (use.gas_phase_ptr->type == PRESSURE)
+	{
+		if (gas_unknown == NULL)
+			return (0);
+		if (gas_unknown->moles < 1e-12)
+			return (0);
+	}
+	// also for non-PR gas phases...
+	return (use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles);
+}
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 find_misc1(const char *s_s_name)
@@ -983,7 +1016,49 @@ molality(const char *species_name)
 	}
 	return (m);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+pr_pressure(const char *phase_name)
+/* ---------------------------------------------------------------------- */
+{
+	struct phase *phase_ptr;
+	int l;
 
+	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
+	if (phase_ptr == NULL)
+	{
+		sprintf(error_string, "Gas %s, not found.", phase_name);
+		warning_msg(error_string);
+		return (1e-99);
+	}
+	else if (phase_ptr->in != FALSE && phase_ptr->pr_in)
+	{
+		return phase_ptr->pr_p;
+	}
+	return (0.0);
+}
+
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+pr_phi(const char *phase_name)
+/* ---------------------------------------------------------------------- */
+{
+	struct phase *phase_ptr;
+	int l;
+
+	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
+	if (phase_ptr == NULL)
+	{
+		sprintf(error_string, "Gas %s, not found.", phase_name);
+		warning_msg(error_string);
+		return (1e-99);
+	}
+	else if (phase_ptr->in != FALSE && phase_ptr->pr_in)
+	{
+		return phase_ptr->pr_phi;
+	}
+	return (0.0);
+}
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 saturation_ratio(const char *phase_name)

@@ -231,7 +231,7 @@ namespace zdg_ui2 {
 					 else
 						 myCurve->Line->IsVisible = false;
 					 /* hmm... dash/dot don't display well */
-					 //myCurve->Line->Style = System::Drawing::Drawing2D::DashStyle::Dot;
+					 // myCurve->Line->Style = System::Drawing::Drawing2D::DashStyle::Dot;
 					 myCurve->Symbol->Fill = gcnew Fill( Color::FromName("White") );
 					 if (Curves[i]->Get_symbol_size() > 0.0)
 						 myCurve->Symbol->Size = (float) Curves[i]->Get_symbol_size();
@@ -389,7 +389,7 @@ namespace zdg_ui2 {
 				// Add text boxes with instructions...
 				TextObj ^text;
 				text = gcnew TextObj(
-					L" Click right mouse for options...",
+					L" Click right mouse for options... \0",
 					0.01f, 0.99f, CoordType::PaneFraction, AlignH::Left, AlignV::Bottom );
 				text->FontSpec->StringAlignment = StringAlignment::Near;
 				text->FontSpec->Size = 10;

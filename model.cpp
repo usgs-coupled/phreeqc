@@ -2345,11 +2345,13 @@ int Phreeqc::
 calc_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
-	int i;
-	LDBLE lp;
+	int i, n_g = 0;
+	LDBLE lp, V_m;
 	struct rxn_token *rxn_ptr;
 	struct gas_comp *gas_comp_ptr;
 	struct phase *phase_ptr;
+	struct phase **phase_ptrs;
+	bool PR = false, pr_done = false;
 /*
  *   moles and partial pressures for gases
  */
@@ -2357,9 +2359,62 @@ calc_gas_pressures(void)
 		return (OK);
 	if (use.gas_phase_ptr->type == VOLUME)
 	{
-		use.gas_phase_ptr->total_p = 0;
 		use.gas_phase_ptr->total_moles = 0;
 	}
+
+	phase_ptrs = new phase *[use.gas_phase_ptr->count_comps];
+	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+	{
+		phase_ptr = use.gas_phase_ptr->comps[i].phase;
+		if (phase_ptr->in == TRUE)
+		{
+			phase_ptrs[i] = phase_ptr;
+			if (!PR && phase_ptr->t_c > 0 && phase_ptr->p_c > 0)
+				PR = true;
+			n_g++;
+		}
+		gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+		use.gas_phase_ptr->total_moles +=
+				gas_comp_ptr->phase->moles_x;
+	}
+	if (use.gas_phase_ptr->type == PRESSURE)
+	{
+		if (PR /*&& gas_unknown->gas_phase->total_p > 1 */ && iterations > 9)
+		{
+			calc_PR(phase_ptrs, n_g, gas_unknown->gas_phase->total_p, tk_x, 0);
+		}
+	} else
+	{
+		if (PR && use.gas_phase_ptr->total_moles > 0 && iterations > 9)
+		{
+			V_m = use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles;
+			if (V_m < 0.035)
+			{
+				V_m = 0.035;
+			} else if (V_m > 1e4)
+			{
+				V_m = 1e4;
+			}
+			/* need to warn about minimal V_m and maximal P... */
+			if (use.gas_phase_ptr->v_m > 0.035)
+				if (V_m < 0.07)
+					V_m = (3. * use.gas_phase_ptr->v_m + V_m) / 4;
+				else
+					V_m = (1. * use.gas_phase_ptr->v_m + V_m) / 2;
+			//if (iterations > 100)
+			//{
+			//	V_m *= 1.0; /* debug */
+			//}
+			calc_PR(phase_ptrs, n_g, 0, tk_x, V_m);
+			pr_done = true;
+			use.gas_phase_ptr->total_moles = 0;
+		} else
+		{
+			use.gas_phase_ptr->total_p = 0;
+			use.gas_phase_ptr->total_moles = 0;
+		}
+	}
+
 	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	{
 		gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
@@ -2372,7 +2427,8 @@ calc_gas_pressures(void)
 			{
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
 			}
-			gas_comp_ptr->phase->p_soln_x = exp(lp * LOG_10);
+			gas_comp_ptr->phase->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
+
 			if (use.gas_phase_ptr->type == PRESSURE)
 			{
 				gas_comp_ptr->phase->moles_x = gas_comp_ptr->phase->p_soln_x *
@@ -2382,9 +2438,21 @@ calc_gas_pressures(void)
 			}
 			else
 			{
-				gas_comp_ptr->phase->moles_x = gas_comp_ptr->phase->p_soln_x *
-					use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
-				use.gas_phase_ptr->total_p += gas_comp_ptr->phase->p_soln_x;
+				if (pr_done)
+				{
+					lp = gas_comp_ptr->phase->p_soln_x / use.gas_phase_ptr->total_p *
+						use.gas_phase_ptr->volume / V_m;
+					gas_comp_ptr->phase->moles_x = lp;
+					//if (iterations > 200)
+					//{
+					//	lp *= 1.0; /* for debugging */
+					//}
+				} else
+				{
+					gas_comp_ptr->phase->moles_x = gas_comp_ptr->phase->p_soln_x *
+						use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
+					use.gas_phase_ptr->total_p += gas_comp_ptr->phase->p_soln_x;
+				}
 				use.gas_phase_ptr->total_moles +=
 					gas_comp_ptr->phase->moles_x;
 			}
@@ -2395,6 +2463,8 @@ calc_gas_pressures(void)
 			gas_comp_ptr->phase->fraction_x = 0;
 		}
 	}
+
+	delete phase_ptrs;
 	return (OK);
 }
 
@@ -3621,6 +3691,10 @@ residuals(void)
 					output_msg(sformatf(
 							   "Failed Residual %d: %s %d %e\n", iterations,
 							   x[i]->description, i, residual[i]));
+				converge = FALSE;
+			}
+			if (iterations < 10) // for Peng-Robinson...
+			{
 				converge = FALSE;
 			}
 		}

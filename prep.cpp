@@ -3691,13 +3691,199 @@ setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
+/* ---------------------------------------------------------------------- */
+/*  Calculate fugacity and fugacity coefficient for gas pressures if critical T and P
+    are defined.
+  1) Solve molar volume V_m or total pressure P from Peng-Robinson's EOS:
+  P = R * T / (V_m - b) - a * aa / (V_m^2 + 2 * b * V_m - b^2)
+     a = 0.457235 * (R * T_c)^2 / P_c
+     b = 0.077796 * R * T_c / P_c
+     aa = (1 + kk * (1 - T_r^0.5))^2
+     kk = 0.37464 + 1.54226 * omega - 0.26992 * omega^2
+     T_r = T / T_c
+  multicomponent gas phase:
+     use: b_sum = Sum(x_i * b), x_i is mole-fraction
+          a_aa_sum = Sum_i( Sum_j(x_i * x_j * (a_i * aa_i * a_j * aa_j)^0.5) )
+  2) Find the fugacity coefficient phi for gas i:
+  log(phi_i) = B_ratio * (z - 1) - log(z - B) + A / (2.8284 * B) * (B_ratio - 2 / a_aa_sum * a_aa_sum2) *\
+           log((z + 2.4142 * B) / (z - 0.4142 * B))
+     B_ratio = b_i / b_sum
+     A = a_aa_sum * P / R_TK^2
+     B = b_sum * P / R_TK
+     a_aa_sum2 = Sum_j(x_j * (a_aa_i * a_aa_j)^0.5
+  3) correct the solubility of gas i with:
+  pr_si_f = log10(phi_i) -  Delta_V_i * (P - 1) / (2.303 * R * TK);
+*/
+{
+	int i, i1;
+	LDBLE T_c, P_c;
+	LDBLE A, B, B_r, b2, kk, oo, a_aa, T_r;
+	LDBLE m_sum, b_sum, a_aa_sum, a_aa_sum2;
+	LDBLE phi;
+	LDBLE R_TK, R = R_LITER_ATM; /* L atm / (K mol) */
+	LDBLE r3[4], r3_12, rp, rp3, rq, rz, ri, ri1, one_3 = 0.33333333333333333;
+	struct phase *phase_ptr, *phase_ptr1;
 
+	R_TK = R * TK;
+	m_sum = b_sum = a_aa_sum = 0.0;
+	for (i = 0; i < n_g; i++)
+	{
+		phase_ptr = phase_ptrs[i];
+		if (n_g > 1)
+		{
+			if (phase_ptr->moles_x == 0)
+				continue;
+			m_sum += phase_ptr->moles_x;
+		}
+		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
+			continue;
+		if (!phase_ptr->pr_a)
+		{
+			T_c = phase_ptr->t_c;
+			P_c = phase_ptr->p_c;
+			phase_ptr->pr_a = 0.457235 * R * R * T_c * T_c / P_c;
+			phase_ptr->pr_b = 0.077796 * R * T_c / P_c;
+			T_r = TK / T_c;
+			oo = phase_ptr->omega;
+			kk = 0.37464 + oo * (1.54226 - 0.26992 * oo);
+			phase_ptr->pr_alpha = pow(1 + kk * (1 - sqrt(T_r)), 2);
+			phase_ptr->pr_tk = TK;
+			phase_ptr->pr_in = true;
+		}
+		if (phase_ptr->pr_tk != TK)
+		{
+			T_r = TK / phase_ptr->t_c;
+			oo = phase_ptr->omega;
+			kk = 0.37464 + oo * (1.54226 - 0.26992 * oo);
+			phase_ptr->pr_alpha = pow(1 + kk * (1 - sqrt(T_r)), 2);
+			phase_ptr->pr_tk = TK;
+			phase_ptr->pr_in = true;
+		}
+	}
+	for (i = 0; i < n_g; i++)
+	{
+		phase_ptr = phase_ptrs[i];
+		if (n_g == 1)
+		{
+			phase_ptr->fraction_x = 1.0;
+			break;
+		}
+		if (m_sum == 0)
+			return (OK);
+		phase_ptr->fraction_x = phase_ptr->moles_x / m_sum;
+	}
+	 
+	for (i = 0; i < n_g; i++)
+	{
+		a_aa_sum2 = 0.0;
+		phase_ptr = phase_ptrs[i];
+		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
+			continue;
+		b_sum += phase_ptr->fraction_x * phase_ptr->pr_b;
+		for (i1 = 0; i1 < n_g; i1++)
+		{
+			phase_ptr1 = phase_ptrs[i1];
+			if (phase_ptr1->t_c == 0.0 || phase_ptr1->p_c == 0.0)
+				continue;
+			if (phase_ptr1->fraction_x == 0)
+				continue;
+			a_aa = sqrt(phase_ptr->pr_a * phase_ptr->pr_alpha *
+				        phase_ptr1->pr_a * phase_ptr1->pr_alpha);
+			a_aa_sum += phase_ptr->fraction_x * phase_ptr1->fraction_x * a_aa;
+			a_aa_sum2 += phase_ptr1->fraction_x * a_aa;
+		}
+		phase_ptr->pr_aa_sum2 = a_aa_sum2;
+	}
+	b2 = b_sum * b_sum;
+
+	if (V_m)
+	{
+		P = R_TK / (V_m - b_sum) - a_aa_sum / (V_m * (V_m + 2 * b_sum) - b2);
+	} else
+	{
+		r3[0] = P;
+		r3[1] = b_sum - R_TK / P;
+		r3_12 = r3[1] * r3[1];
+		r3[2] = -3.0 * b2 + (a_aa_sum - R_TK * 2.0 * b_sum) / P;
+		r3[3] = b2 * b_sum + (R_TK * b2 - b_sum * a_aa_sum) / P;
+		// solve t^3 + rp*t + rq = 0.
+		// molar volume V_m = t - r3[1] / 3... 
+		rp = r3[2] - r3_12 / 3;
+		rp3 = rp * rp * rp;
+		rq = (2.0 * r3_12 * r3[1] - 9.0 * r3[1] * r3[2]) / 27 + r3[3];
+		rz = rq * rq / 4 + rp3 / 27;
+		if (rz >= 0) // Cardono's method...
+		{
+			ri = sqrt(rz);
+			if (ri + rq / 2 <= 0)
+			{
+				V_m = pow(ri - rq / 2, one_3) + pow(- ri - rq / 2, one_3) - r3[1] / 3;
+			} else
+			{
+				ri = - pow(ri + rq / 2, one_3);
+				V_m = ri - rp / (3.0 * ri) - r3[1] / 3;
+			}
+		} else // use complex plane...
+		{
+			ri = sqrt(- rp3 / 27); // rp < 0
+			ri1 = acos(- rq / 2 / ri);
+			V_m = 2.0 * pow(ri, one_3) * cos(ri1 / 3) - r3[1] / 3;
+		}
+	}
+ // calculate the fugacity coefficients...
+	for (i = 0; i < n_g; i++)
+	{
+		phase_ptr = phase_ptrs[i];
+		if (phase_ptr->fraction_x == 0.0)
+		{
+			phase_ptr->pr_p = 0;
+			phase_ptr->pr_phi = 1;
+			phase_ptr->pr_si_f = 0.0;
+			continue;
+		}
+		phase_ptr->pr_p = phase_ptr->fraction_x * P;
+		phase_ptr->delta_v[0] = phase_ptr->delta_v[1]
+			+ phase_ptr->delta_v[2] * TK + phase_ptr->delta_v[3] / TK +
+			phase_ptr->delta_v[4] * log10(TK) + phase_ptr->delta_v[5] / (TK * TK) + phase_ptr->delta_v[6] * TK * TK
+			+ phase_ptr->delta_v[7] * P;
+		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
+		{
+			phase_ptr->pr_phi = 1;
+			phase_ptr->pr_si_f = - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
+			continue;
+		}
+		rz = P * V_m / R_TK;
+		A = a_aa_sum * P / (R_TK * R_TK);
+		B = b_sum * P / R_TK;
+		B_r = phase_ptr->pr_b / b_sum;
+		if (rz > B)
+			phi = B_r * (rz - 1) - log(rz - B) + A / (2.828427 * B) * (B_r - 2.0 * phase_ptr->pr_aa_sum2 / a_aa_sum) *
+				  log((rz + 2.41421356 * B) / (rz - 0.41421356 * B));
+		else
+			phi = -3.0; // fugacity coefficient > 0.05
+		phase_ptr->pr_phi = exp(phi);
+		phase_ptr->pr_si_f = phi / LOG_10 - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
+		phase_ptr->pr_in = true;
+	}
+	if (use.gas_phase_ptr && iterations > 9)
+	{
+		use.gas_phase_ptr->total_p = P;
+		use.gas_phase_ptr->v_m = V_m;
+		return (OK);
+	}
+	return (V_m);
+}
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
+	struct phase *phase_ptr;
+	LDBLE si_org, p, t;
 /*
  *   Fills in data for pure_phase assemglage in unknown structure
  */
@@ -3714,9 +3900,20 @@ setup_pure_phases(void)
 			use.pp_assemblage_ptr->pure_phases[i].name;
 		x[count_unknowns]->moles =
 			use.pp_assemblage_ptr->pure_phases[i].moles;
-		x[count_unknowns]->phase =
+		x[count_unknowns]->phase = phase_ptr =
 			use.pp_assemblage_ptr->pure_phases[i].phase;
 		x[count_unknowns]->si = use.pp_assemblage_ptr->pure_phases[i].si;
+		si_org = use.pp_assemblage_ptr->pure_phases[i].si_org;
+		if (/*si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+		{
+			p = exp(si_org * LOG_10);
+			t = use.solution_ptr->tc + 273.15;
+			if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+			{
+				calc_PR(&phase_ptr, 1, p, t, 0);
+			}
+			x[count_unknowns]->si = si_org + phase_ptr->pr_si_f;
+		}
 		x[count_unknowns]->delta =
 			use.pp_assemblage_ptr->pure_phases[i].delta;
 		x[count_unknowns]->pure_phase =
@@ -3744,6 +3941,8 @@ setup_solution(void)
 	char *ptr;
 	char token[MAX_LENGTH];
 	struct master_isotope *master_isotope_ptr;
+	struct phase *phase_ptr;
+	LDBLE p, t;
 
 	solution_ptr = use.solution_ptr;
 	count_unknowns = 0;
@@ -3916,8 +4115,19 @@ setup_solution(void)
 					input_error++;
 				}
 				x[count_unknowns]->type = SOLUTION_PHASE_BOUNDARY;
-				x[count_unknowns]->phase = solution_ptr->totals[i].phase;
+				phase_ptr = solution_ptr->totals[i].phase;
+				x[count_unknowns]->phase = phase_ptr;
 				x[count_unknowns]->si = solution_ptr->totals[i].phase_si;
+				if (/*x[count_unknowns]->si > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+				{
+					p = exp(x[count_unknowns]->si * LOG_10);
+					t = solution_ptr->tc + 273.15;
+					if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+					{
+						calc_PR(&phase_ptr, 1, p, t, 0);
+					}
+					x[count_unknowns]->si += phase_ptr->pr_si_f;
+				}
 				if (solution_phase_boundary_unknown == NULL)
 				{
 					solution_phase_boundary_unknown = x[count_unknowns];
@@ -3943,8 +4153,7 @@ setup_solution(void)
  */
 			if (ph_unknown == NULL)
 			{
-				output_msg(sformatf(
-						   "\npH will be adjusted to obtain desired alkalinity.\n\n"));
+				output_msg(sformatf("\npH will be adjusted to obtain desired alkalinity.\n\n"));
 				ph_unknown = alkalinity_unknown;
 				master_ptr = master_bsearch("H(1)");
 				alkalinity_unknown->master[0] = master_ptr;

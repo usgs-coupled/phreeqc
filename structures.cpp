@@ -1221,6 +1221,7 @@ gas_phase_alloc(void)
 	gas_phase_ptr->total_p = 0;
 	gas_phase_ptr->total_moles = 0;
 	gas_phase_ptr->volume = 0;
+	gas_phase_ptr->v_m = 0.0;
 	gas_phase_ptr->temperature = 0;
 	gas_phase_ptr->count_comps = 0;
 	gas_phase_ptr->comps = NULL;
@@ -1473,6 +1474,7 @@ gas_phase_init(struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 	gas_phase_ptr->total_p = 1.0;
 	gas_phase_ptr->total_moles = 0.0;
 	gas_phase_ptr->volume = 1.0;
+	gas_phase_ptr->v_m = 0.0;
 	gas_phase_ptr->temperature = 298.15;
 	gas_phase_ptr->count_comps = 0;
 	gas_phase_ptr->comps =
@@ -3670,15 +3672,42 @@ phase_init(struct phase *phase_ptr)
 	for (i = 0; i < 8; i++)
 		phase_ptr->logk[i] = 0.0;
 	phase_ptr->original_units = kjoules;
+	phase_ptr->count_add_logk = 0;
+	phase_ptr->add_logk = NULL;
+	phase_ptr->moles_x = 0;
+	phase_ptr->delta_max = 0;
+	phase_ptr->p_soln_x = 0;
+	phase_ptr->fraction_x = 0;
+	phase_ptr->log10_lambda = 0;
+	phase_ptr->log10_fraction_x = 0;
+	phase_ptr->dn = 0;
+	phase_ptr->dnb = 0;
+	phase_ptr->dnc = 0;
+	phase_ptr->gn = 0;
+	phase_ptr->gntot = 0;
+	phase_ptr->t_c = 0.0;
+	phase_ptr->p_c = 0.0;
+	phase_ptr->omega = 0.0;
+	phase_ptr->pr_a = 0.0;
+	phase_ptr->pr_b = 0.0;
+	phase_ptr->pr_alpha = 0.0;
+	phase_ptr->pr_tk = 0;
+	phase_ptr->pr_p = 0;
+	phase_ptr->pr_phi = 1.0;
+	phase_ptr->pr_aa_sum2 = 0;
+	for (i = 0; i < 9; i++)
+		phase_ptr->delta_v[i] = 0.0;
+	phase_ptr->pr_si_f = 0;
+	phase_ptr->pr_in = false;
 	phase_ptr->type = SOLID;
-	phase_ptr->check_equation = TRUE;
 	phase_ptr->next_elt = NULL;
 	phase_ptr->next_sys_total = NULL;
+	phase_ptr->check_equation = TRUE;
 	phase_ptr->rxn = NULL;
 	phase_ptr->rxn_s = NULL;
 	phase_ptr->rxn_x = NULL;
-	phase_ptr->add_logk = NULL;
-	phase_ptr->count_add_logk = 0;
+	phase_ptr->replaced = 0;
+	phase_ptr->in_system = 1;
 	return (OK);
 }
 
@@ -8482,6 +8511,7 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 		else
 			pure_phase_ptr[i].add_formula = string_hsave((*it).second.Get_add_formula().c_str());
 		pure_phase_ptr[i].si = (*it).second.Get_si();
+		pure_phase_ptr[i].si_org = (*it).second.Get_si_org();
 		pure_phase_ptr[i].moles = (*it).second.Get_moles();
 		pure_phase_ptr[i].delta = (*it).second.Get_delta();
 		pure_phase_ptr[i].initial_moles = (*it).second.Get_initial_moles();
