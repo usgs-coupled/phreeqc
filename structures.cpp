@@ -4628,23 +4628,15 @@ s_init(struct species *s_ptr)
  */
 	s_ptr->name = NULL;
 	s_ptr->mole_balance = NULL;
+	s_ptr->in = FALSE;
+	s_ptr->number = 0;
 	s_ptr->primary = NULL;
 	s_ptr->secondary = NULL;
-	s_ptr->next_elt = NULL;
-	s_ptr->next_secondary = NULL;
-	s_ptr->next_sys_total = NULL;
-	s_ptr->rxn = NULL;
-	s_ptr->rxn_s = NULL;
-	s_ptr->rxn_x = NULL;
-	s_ptr->diff_layer = NULL;
-/*
- *   set varibles = 0
- */
-	s_ptr->in = FALSE;
 	s_ptr->gfw = 0.0;
 	s_ptr->z = 0.0;
 	s_ptr->dw = 0.0;
 	s_ptr->erm_ddl = 1.0;
+	s_ptr->equiv = 0;
 	s_ptr->alk = 0.0;
 	s_ptr->carbon = 0.0;
 	s_ptr->co2 = 0.0;
@@ -4668,14 +4660,25 @@ s_init(struct species *s_ptr)
 	s_ptr->count_add_logk = 0;
 	s_ptr->add_logk = NULL;
 	s_ptr->lg = 0.0;
+	s_ptr->lg_pitzer = 0.0;
 	s_ptr->lm = 0.0;
 	s_ptr->la = 0.0;
 	s_ptr->dg = 0.0;
+	s_ptr->dg_total_g = 0;
 	s_ptr->moles = 0.0;
 	s_ptr->type = 0;
 	s_ptr->gflag = 0;
+	s_ptr->exch_gflag = 0;
+	s_ptr->next_elt = NULL;
+	s_ptr->next_secondary = NULL;
+	s_ptr->next_sys_total = NULL;
 	s_ptr->check_equation = TRUE;
-
+	s_ptr->rxn = NULL;
+	s_ptr->rxn_s = NULL;
+	s_ptr->rxn_x = NULL;
+	s_ptr->tot_g_moles = 0;
+	s_ptr->tot_dh2o_moles = 0;
+	s_ptr->diff_layer = NULL;
 	for (i = 0; i < 5; i++)
 	{
 		s_ptr->cd_music[i] = 0.0;
@@ -4684,8 +4687,6 @@ s_init(struct species *s_ptr)
 	{
 		s_ptr->dz[i] = 0.0;
 	}
-
-
 	return (OK);
 }
 

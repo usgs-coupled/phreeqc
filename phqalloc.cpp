@@ -121,8 +121,8 @@ PHRQ_free_all(void)
 
 #if !defined(NDEBUG)
 	ostrm.clear();
-	ostrm << s_pTail->pNext->szFileName << "(" << s_pTail->pNext->nLine;
-	ostrm << ") " << (void *) (s_pTail->pNext + 1) << ": freed in PHRQ_free_all\n";
+	ostrm <<  s_pTail->szFileName << "(" << s_pTail->nLine;
+	ostrm << ") " << (void *) (s_pTail + 1) << ": freed in PHRQ_free_all\n";
 	output_msg(ostrm.str().c_str());
 	//output_msg(sformatf( "%s(%d) %p: freed in PHRQ_free_all\n",
 	//		   s_pTail->szFileName, s_pTail->nLine, (void *) (s_pTail + 1)));
