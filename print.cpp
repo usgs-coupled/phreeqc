@@ -1127,7 +1127,7 @@ print_saturation_indices(void)
 	LDBLE la_eminus;
 	struct rxn_token *rxn_ptr;
 	struct reaction *reaction_ptr;
-	char *pr_in;
+	const char *pr_in;
 	bool PR = false, gas = true;
  
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
@@ -1233,7 +1233,7 @@ print_pp_assemblage(void)
 	struct rxn_token *rxn_ptr;
 	struct phase *phase_ptr;
 	bool PR = false;
-	char *pr_in;
+	const char *pr_in;
 
 	if (pr.pp_assemblage == FALSE || pr.all == FALSE)
 		return (OK);

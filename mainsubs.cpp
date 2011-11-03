@@ -1819,6 +1819,7 @@ xgas_save(int n_user)
 	temp_gas_phase.total_p = use.gas_phase_ptr->total_p;
 	temp_gas_phase.total_moles = use.gas_phase_ptr->total_moles;
 	temp_gas_phase.volume = use.gas_phase_ptr->volume;
+	temp_gas_phase.v_m = use.gas_phase_ptr->v_m;
 	temp_gas_phase.temperature = use.gas_phase_ptr->temperature;
 	temp_gas_phase.count_comps = count_comps;
 /*

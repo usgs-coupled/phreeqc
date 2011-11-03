@@ -2346,7 +2346,7 @@ calc_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, n_g = 0;
-	LDBLE lp, V_m;
+	LDBLE lp, V_m = 0;
 	struct rxn_token *rxn_ptr;
 	struct gas_comp *gas_comp_ptr;
 	struct phase *phase_ptr;
@@ -2397,10 +2397,12 @@ calc_gas_pressures(void)
 			}
 			/* need to warn about minimal V_m and maximal P... */
 			if (use.gas_phase_ptr->v_m > 0.035)
+			{
 				if (V_m < 0.07)
 					V_m = (3. * use.gas_phase_ptr->v_m + V_m) / 4;
 				else
 					V_m = (1. * use.gas_phase_ptr->v_m + V_m) / 2;
+			}
 			//if (iterations > 100)
 			//{
 			//	V_m *= 1.0; /* debug */
