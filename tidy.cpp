@@ -234,6 +234,13 @@ tidy_model(void)
 /* gas_phase */
 	if (new_gas_phase)
 		gas_phase_sort();
+/* reset Peng-Robinson parms... */
+	for (i = 0; i < count_phases; i++)
+	{
+		phases[i]->pr_in = false;
+		phases[i]->pr_p = 0.0;
+		phases[i]->pr_phi = 1.0;
+	}
 
 /* kinetics */
 	if (new_kinetics)
@@ -276,6 +283,13 @@ tidy_model(void)
  */
 	if (new_gas_phase)
 		tidy_gas_phase();
+/* reset Peng-Robinson parms... */
+	for (i = 0; i < count_phases; i++)
+	{
+		phases[i]->pr_in = false;
+		phases[i]->pr_p = 0.0;
+		phases[i]->pr_phi = 1.0;
+	}
 /*
  *   tidy pp_assemblage data
  */

@@ -1,6 +1,6 @@
 #ifndef _INC_BASIC_H
 #define _INC_BASIC_H
-
+#if !defined(PBASIC)
 #define forloop         0
 #define whileloop       1
 #define gosubloop       2
@@ -256,4 +256,5 @@ struct LOC_exec
 #define tokpr_phi           156
 #define tokgas_p            157
 #define tokgas_vm           158
+#endif /* ! PBASIC */
 #endif /* _INC_BASIC_H */

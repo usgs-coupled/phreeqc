@@ -1,6 +1,9 @@
 #include <time.h>
 #include "Phreeqc.h"
 #include "phqalloc.h"
+#if defined(PBASIC)
+#include "PBasic.h"
+#endif
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -475,7 +478,11 @@ initialize(void)
 /*
  *
  */
+#if !defined(PBASIC)
 	cmd_initialize();
+#else
+	basic_instance = new PBasic(this, phrq_io);
+#endif
 
 	change_surf =
 		(struct Change_Surf *)

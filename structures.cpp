@@ -8319,6 +8319,7 @@ cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 	}
 	gas_phase_ptr->total_p = gp->Get_total_p();
 	gas_phase_ptr->volume = gp->Get_volume();
+	gas_phase_ptr->v_m = gp->Get_v_m();
 	gas_phase_ptr->temperature = 273.15;
 
 	// comps

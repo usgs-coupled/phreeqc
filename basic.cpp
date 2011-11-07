@@ -1,6 +1,6 @@
 /* Output from p2c, the Pascal-to-C translator */
 /* From input file "basic.p" */
-
+#if !defined(PBASIC)
 typedef unsigned char boolean;
 #include "Phreeqc.h"
 #include "phqalloc.h"
@@ -5262,3 +5262,4 @@ cmdgraph_sy(struct LOC_exec *LINK)
 	}
 }
 #endif // MULTICHART
+#endif /* ! PBASIC */

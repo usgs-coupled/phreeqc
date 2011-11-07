@@ -2,7 +2,9 @@
 #include "phqalloc.h"
 
 #include "../NameDouble.h"
-
+#if defined(PBASIC)
+#include "PBasic.h"
+#endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 activity(const char *species_name)
@@ -2938,3 +2940,20 @@ iso_unit(const char *total_name)
 	}
 	return string_duplicate(unit);
 }
+#if defined PBASIC
+int Phreeqc::
+basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
+{
+	return this->basic_instance->basic_compile(commands, lnbase, vbase, lpbase);
+}
+int Phreeqc::
+basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
+{
+	return this->basic_instance->basic_run(commands, lnbase, vbase, lpbase);
+}
+void Phreeqc::
+cmd_free(void)
+{
+	delete this->basic_instance;
+}
+#endif
