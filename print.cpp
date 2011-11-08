@@ -146,6 +146,7 @@ punch_all(void)
  *   signal end of row
  */
 	fpunchf_end_row("\n");
+	punch_fflush();
 
 	return (OK);
 }
