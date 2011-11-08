@@ -30,7 +30,7 @@ cl1(int k, int l, int m, int n,
 	int nklm;
 	LDBLE xmin, xmax;
 	int iout = 0;
-	int i, j;
+	static int i, j;
 	LDBLE l_z;
 	int maxit, n1, n2;
 	LDBLE pivot;
@@ -737,7 +737,7 @@ cl1(int k, int l, int m, int n,
 		 */
 		if (kode_arg == 1)
 		{
-			for (i = 0; i < k; i++)
+			for (i = 0; i < k; ++i)
 			{
 				if (res_arg[i] < 0.0)
 				{
@@ -768,7 +768,7 @@ cl1(int k, int l, int m, int n,
 		/*
 		 *  Check equalities
 		 */
-		for (i = k; i < k + l; i++)
+		for (i = k; i < k + l; ++i)
 		{
 			if (fabs(l_res[i]) > check_toler)
 			{
@@ -783,7 +783,7 @@ cl1(int k, int l, int m, int n,
 		/*
 		 *  Check inequalities
 		 */
-		for (i = k + l; i < k + l + m; i++)
+		for (i = k + l; i < k + l + m; ++i)
 		{
 			if (l_res[i] < -check_toler)
 			{
@@ -800,7 +800,7 @@ cl1(int k, int l, int m, int n,
 		 */
 		if (kode_arg == 1)
 		{
-			for (i = 0; i < n; i++)
+			for (i = 0; i < n; ++i)
 			{
 				if (x_arg[i] < 0.0)
 				{

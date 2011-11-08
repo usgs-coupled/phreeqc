@@ -33,7 +33,7 @@ cl1mp(int k, int l, int m, int n,
 	/* Local variables */
 	int nklm;
 	int iout = 0;
-	int i, j;
+	static int i, j;
 	int maxit, n1, n2;
 	int ia, ii, kk, nk, js;
 	int in = 0;
@@ -157,7 +157,7 @@ cl1mp(int k, int l, int m, int n,
 					(max_row_count * max_column_count * sizeof(mpf_t)));
 	if (q == NULL)
 		malloc_error();
-	for (i = 0; i < max_row_count * max_column_count; i++)
+	for (i = 0; i < max_row_count * max_column_count; ++i)
 	{
 		mpf_init_set_d(q[i], q_arg[i]);
 		if (censor == 1)
@@ -175,21 +175,21 @@ cl1mp(int k, int l, int m, int n,
 	x = (mpf_t *) PHRQ_malloc((size_t) (n2d * sizeof(mpf_t)));
 	if (x == NULL)
 		malloc_error();
-	for (i = 0; i < n2d; i++)
+	for (i = 0; i < n2d; ++i)
 	{
 		mpf_init_set_d(x[i], x_arg[i]);
 	}
 	res = (mpf_t *) PHRQ_malloc((size_t) ((k + l + m) * sizeof(mpf_t)));
 	if (res == NULL)
 		malloc_error();
-	for (i = 0; i < k + l + m; i++)
+	for (i = 0; i < k + l + m; ++i)
 	{
 		mpf_init_set_d(res[i], res_arg[i]);
 	}
 	cu = (mpf_t *) PHRQ_malloc((size_t) (2 * nklmd * sizeof(mpf_t)));
 	if (cu == NULL)
 		malloc_error();
-	for (i = 0; i < 2 * nklmd; i++)
+	for (i = 0; i < 2 * nklmd; ++i)
 	{
 		mpf_init_set_d(cu[i], cu_arg[i]);
 	}
@@ -295,7 +295,7 @@ cl1mp(int k, int l, int m, int n,
 
 /* Copy first row of cu and iu to second row */
 	/*memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]), (size_t) nklm * sizeof(mpf_t) ); */
-	for (i = 0; i < nklm; i++)
+	for (i = 0; i < nklm; ++i)
 	{
 		mpf_set(cu[cu_dim + i], cu[i]);
 	}
@@ -545,7 +545,7 @@ cl1mp(int k, int l, int m, int n,
 			   memcpy( (void *) &(q2[ iout * q_dim ]), (void *) &(scratch[ 0 ]),
 			   (size_t) n2 * sizeof(mpf_t) );
 			 */
-			for (i = 0; i < n1; i++)
+			for (i = 0; i < n1; ++i)
 			{
 				mpf_set(dummy, q2[ia * q_dim + i].dval);
 				mpf_set(q2[ia * q_dim + i].dval, q2[iout * q_dim + i].dval);
@@ -842,7 +842,7 @@ cl1mp(int k, int l, int m, int n,
 	/*
 	   memcpy( (void *) &(cu[cu_dim]), (void *) &(cu[0]), (size_t) nklm * sizeof(LDBLE) );
 	 */
-	for (i = 0; i < nklm; i++)
+	for (i = 0; i < nklm; ++i)
 	{
 		mpf_set(cu[cu_dim + i], cu[i]);
 	}
@@ -881,7 +881,7 @@ cl1mp(int k, int l, int m, int n,
 		   memcpy( (void *) &(q2[ i * q_dim ]), (void *) &(scratch[ 0 ]),
 		   (size_t) n2 * sizeof(LDBLE) );
 		 */
-		for (iswitch = 0; iswitch < n1; iswitch++)
+		for (iswitch = 0; iswitch < n1; ++iswitch)
 		{
 			mpf_set(dummy, q2[ia * q_dim + iswitch].dval);
 			mpf_set(q2[ia * q_dim + iswitch].dval,
@@ -962,7 +962,7 @@ cl1mp(int k, int l, int m, int n,
 		 */
 		if (*kode_arg == 1)
 		{
-			for (i = 0; i < k; i++)
+			for (i = 0; i < k; ++i)
 			{
 				if (res_arg[i] < 0.0)
 				{
@@ -997,7 +997,7 @@ cl1mp(int k, int l, int m, int n,
 		/*
 		 *  Check equalities
 		 */
-		for (i = k; i < k + l; i++)
+		for (i = k; i < k + l; ++i)
 		{
 			mpf_abs(dummy, res[i]);
 			if (mpf_cmp(dummy, check_toler) > 0)
@@ -1014,7 +1014,7 @@ cl1mp(int k, int l, int m, int n,
 		/*
 		 *  Check inequalities
 		 */
-		for (i = k + l; i < k + l + m; i++)
+		for (i = k + l; i < k + l + m; ++i)
 		{
 			mpf_neg(dummy, check_toler);
 			if (mpf_cmp(res[i], dummy) < 0)
@@ -1032,7 +1032,7 @@ cl1mp(int k, int l, int m, int n,
 		 */
 		if (*kode_arg == 1)
 		{
-			for (i = 0; i < n; i++)
+			for (i = 0; i < n; ++i)
 			{
 				if (x_arg[i] < 0.0)
 				{
@@ -1077,33 +1077,33 @@ cl1mp(int k, int l, int m, int n,
 	mpf_set(error, sum);
 	*error_arg = mpf_get_d(error);
 	*kode_arg = *kode;
-	for (i = 0; i < n2d; i++)
+	for (i = 0; i < n2d; ++i)
 	{
 		x_arg[i] = mpf_get_d(x[i]);
 	}
-	for (i = 0; i < k + l + m; i++)
+	for (i = 0; i < k + l + m; ++i)
 	{
 		res_arg[i] = mpf_get_d(res[i]);
 	}
 
 	/*scratch = free_check_null (scratch); */
 
-	for (i = 0; i < max_row_count * max_column_count; i++)
+	for (i = 0; i < max_row_count * max_column_count; ++i)
 	{
 		mpf_clear(q[i]);
 	}
 	q = (mpf_t *) free_check_null(q);
-	for (i = 0; i < n2d; i++)
+	for (i = 0; i < n2d; ++i)
 	{
 		mpf_clear(x[i]);
 	}
 	x = (mpf_t *) free_check_null(x);
-	for (i = 0; i < k + l + m; i++)
+	for (i = 0; i < k + l + m; ++i)
 	{
 		mpf_clear(res[i]);
 	}
 	res = (mpf_t *) free_check_null(res);
-	for (i = 0; i < 2 * nklmd; i++)
+	for (i = 0; i < 2 * nklmd; ++i)
 	{
 		mpf_clear(cu[i]);
 	}
