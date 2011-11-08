@@ -3,7 +3,7 @@
 
 #include "../NameDouble.h"
 #if defined(PBASIC)
-#include "PBasic.h"
+#include "../PBasic.h"
 #endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
