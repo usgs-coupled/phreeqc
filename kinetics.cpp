@@ -1328,6 +1328,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 							  kinetics_save->n_user);
 			}
 		}
+		set_and_run_attempt = j;
 
 		converge =
 			set_and_run(i, use_mix, use_kinetics, nsaver, step_fraction);

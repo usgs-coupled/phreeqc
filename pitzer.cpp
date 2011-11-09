@@ -1387,9 +1387,14 @@ set_pz(int initial)
 	for (i = 0; i < count_s_x; i++)
 	{
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
-		/*s_x[i]->lg = 0.0; */
 		s_x[i]->lg_pitzer = 0.0;
-		s_x[i]->lg = 0.0;
+	}
+	if (initial == TRUE || set_and_run_attempt > 0)
+	{
+		for (i = 0; i < count_s_x; i++)
+		{
+			s_x[i]->lg = 0.0;
+		}
 	}
 /*
  *   Set master species activities
