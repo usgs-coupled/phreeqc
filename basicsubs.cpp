@@ -2861,6 +2861,7 @@ system_total_solids(struct exchange *exchange_ptr,
 	}
 	return (OK);
 }
+
 LDBLE Phreeqc::
 iso_value(const char *total_name)
 {
@@ -2894,6 +2895,7 @@ iso_value(const char *total_name)
 	}
 	return -1000.;
 }
+
 char * Phreeqc::
 iso_unit(const char *total_name)
 {
@@ -2945,13 +2947,15 @@ basic_compile(char *commands, void **lnbase, void **vbase, void **lpbase)
 {
 	return this->basic_interpreter->basic_compile(commands, lnbase, vbase, lpbase);
 }
+
 int Phreeqc::
 basic_run(char *commands, void *lnbase, void *vbase, void *lpbase)
 {
 	return this->basic_interpreter->basic_run(commands, lnbase, vbase, lpbase);
 }
+
 void Phreeqc::
-cmd_free(void)
+basic_free(void)
 {
 	delete this->basic_interpreter;
 }

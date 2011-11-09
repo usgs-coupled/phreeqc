@@ -340,8 +340,8 @@ clean_up(void)
 	hdestroy_multi(strings_hash_table);
 	strings_hash_table = NULL;
 
-/* basic commands hash table */
-	cmd_free();
+/* delete basic interpreter */
+	basic_free();
 	change_surf = (struct Change_Surf *) free_check_null(change_surf);
 
 /* miscellaneous work space */
