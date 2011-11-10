@@ -1058,7 +1058,7 @@ pr_phi(const char *phase_name)
 	{
 		return phase_ptr->pr_phi;
 	}
-	return (0.0);
+	return (1.0);
 }
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
