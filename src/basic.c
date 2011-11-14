@@ -1847,7 +1847,7 @@ listtokens(FILE * f, tokenrec * l_buf)
 			output_msg(OUTPUT_BASIC, "PERCENT_ERROR");
 			break;
 
-#if defined PHREEQ98 || defined MULTICHART
+#if defined (PHREEQ98) || defined (MULTICHART)
 		case tokgraph_x:
 			output_msg(OUTPUT_BASIC, "GRAPH_X");
 			break;
@@ -5155,7 +5155,7 @@ exec(void)
 					cmdchange_surf(&V);
 					break;
 
-#if defined PHREEQ98 || defined MULTICHART
+#if defined (PHREEQ98) || defined (MULTICHART)
 				case tokgraph_x:
 					cmdgraph_x(&V);
 					break;

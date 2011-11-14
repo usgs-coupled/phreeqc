@@ -202,7 +202,7 @@ struct LOC_exec
 #define tokget             107
 #define tokcharge_balance  109
 #define tokpercent_error   110
-#if defined PHREEQ98 || MULTICHART
+#if defined (PHREEQ98) || defined (MULTICHART)
 #define tokgraph_x         111
 #define tokgraph_y         112
 #define tokgraph_sy        113

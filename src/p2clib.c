@@ -1019,6 +1019,10 @@ _Escape(int code)
 	char token[200], empty[2] = { "\0" };
 
 	P_escapecode = code;
+	if (__top_jb == NULL)
+	{
+		error_msg("__top_jb is NULL in _Escape\n", STOP);
+	}
 	if (__top_jb)
 	{
 		__p2c_jmp_buf *jb = __top_jb;
