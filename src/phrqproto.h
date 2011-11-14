@@ -151,7 +151,8 @@ int set_advection(int i, int use_mix, int use_kinetics, int nsaver);
 int free_cvode(void);
 
 /* main.c */
-int main(int argc, char *argv[]);
+/*int main(int argc, char *argv[]);*/
+int phreeqc_start ( int argc, char *argv[] );
 
 /* mainsubs.c */
 FILE *file_open(char *query, char *default_name, const char *status,
@@ -226,8 +227,8 @@ int set_sit(int initial);
 
 /* prep.c */
 int check_same_model(void);
-int k_temp(LDBLE tc);
-LDBLE k_calc(LDBLE * logk, LDBLE tempk);
+int k_temp(LDBLE tc, LDBLE pa);
+LDBLE k_calc(LDBLE * logk, LDBLE tempk, LDBLE presPa);
 int prep(void);
 int reprep(void);
 int rewrite_master_to_secondary(struct master *master_ptr1,

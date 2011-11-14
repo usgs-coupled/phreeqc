@@ -7,7 +7,7 @@
 #include "phqalloc.h"
 #include "output.h"
 #include "phrqproto.h"
-//#include "time.h"
+/* #include "time.h" */
 #include <time.h>
 #ifdef PHREEQC_CPP
 #include "../StorageBin.h"
@@ -1639,6 +1639,26 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			use.surface_ptr = surface_bsearch(-1, &n2);
 		}
+
+/*
+ *  Adjust the total pressure to the gas pressure
+ */
+      if (use.gas_phase_ptr != NULL)
+      {
+         if (use.gas_phase_ptr->type == PRESSURE) 
+         {
+            /*
+             * Fixed-pressure Gas phase and solution will react 
+             * Change total pressure of current simulation to pressure 
+             * of gas phase
+             */
+            patm_x = use.gas_phase_ptr->total_p;
+         }
+         /*  fixed volume gas phase is handled in calc_gas_pressures */
+
+      }
+ 
+
 	}
 	/* end new */
 #ifdef SKIP
@@ -1659,9 +1679,9 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		prep();
 #ifdef SKIP
-		k_temp(solution[n]->tc);
+      k_temp(solution[n]->tc, solution[n]->patm);
 #endif
-		k_temp(use.solution_ptr->tc);
+      k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 		set(FALSE);
 		converge = model();
 	}

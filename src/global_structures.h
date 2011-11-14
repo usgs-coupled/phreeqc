@@ -3,6 +3,7 @@
 
 #include "phrqtype.h"
 typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
+typedef enum { cm3_per_mol } DELTA_V_UNIT;
 enum SURFACE_TYPE
 { UNKNOWN_DL, NO_EDL, DDL, CD_MUSIC, CCM };
 enum DIFFUSE_LAYER_TYPE
@@ -23,7 +24,18 @@ enum entity_type
 #include "NA.h"
 /* search.h -- declarations for POSIX/SVID-compatible search functions */
 
-
+typedef enum {
+  logK_T0,
+  delta_h,
+  T_A1,
+  T_A2,
+  T_A3,
+  T_A4,
+  T_A5,
+  T_A6,
+  delta_v,     /* molar volume */
+  MAX_LOG_K_INDICES   /* Keep this definition at the end of the enum */
+} LOG_K_INDICES;
 
 /* ----------------------------------------------------------------------
  *   DEFINITIONS
@@ -37,8 +49,8 @@ enum entity_type
 #define EPSILON 78.5			/* dialectric constant, dimensionless */
 #define EPSILON_ZERO 8.854e-12	/* permittivity of free space, C/V-m = C**2/m-J */
 #define JOULES_PER_CALORIE 4.1840
+#define PASCAL_PER_ATM 1.01325E5 /* conversion from atm to Pa */
 #define AVOGADRO 6.02252e23		/* atoms / mole */
-
 
 #define TRUE 1
 #define FALSE 0
@@ -154,7 +166,7 @@ enum entity_type
 #endif
 #define MIN_RELATED_SURFACE MIN_TOTAL*100
 #define MIN_RELATED_LOG_ACTIVITY -30
-
+#define REF_PRES_PASCAL 1.01325E5   /* Reference pressure: 1 atm */
 
 /*
  *   Hash definitions
@@ -253,6 +265,8 @@ struct model
 	char **surface_comp;
 	int count_surface_charge;
 	char **surface_charge;
+
+   LDBLE pressure;
 };
 
 struct name_master
@@ -867,6 +881,7 @@ struct list2
  	struct isotope *isotopes;
  	struct master_activity *species_gamma;
  	int count_species_gamma;
+    LDBLE patm;
  };
  struct master_activity
  {
@@ -971,7 +986,7 @@ struct elt_list
  *---------------------------------------------------------------------- */
 struct reaction
 {
-	LDBLE logk[8];
+   LDBLE logk[MAX_LOG_K_INDICES];
 	LDBLE dz[3];
 	struct rxn_token *token;
 };
@@ -1004,7 +1019,7 @@ struct species
 	LDBLE o;					/* stoichiometric coefficient of O in species */
 	LDBLE dha, dhb, a_f;		/* WATEQ Debye Huckel a and b-dot; active_fraction coef for exchange species */
 	LDBLE lk;					/* log10 k at working temperature */
-	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analalytical expression */
+   LDBLE logk[MAX_LOG_K_INDICES];            /* log kt0, delh, 6 coefficients analalytical expression */
 /* VP: Density Start */
 	LDBLE millero[6];		    /* regression coefficients to calculate temperature dependent phi_0 and b_v of Millero density model */
 /* VP: Density End */
@@ -1035,17 +1050,20 @@ struct species
 											   surface */
 	LDBLE cd_music[5];
 	LDBLE dz[3];
+
+   DELTA_V_UNIT original_deltav_units;
 };
 struct logk
 {								/* Named log K's */
 	char *name;					/* name of species */
 	LDBLE lk;					/* log10 k at working temperature */
-	LDBLE log_k[8];				/* log kt0, delh, 6 coefficients analalytical expression */
+   LDBLE log_k[MAX_LOG_K_INDICES];            /* log kt0, delh, 6 coefficients analalytical expression, delta_v */
 	DELTA_H_UNIT original_units;	/* enum with original delta H units */
 	int count_add_logk;
 	int done;
 	struct name_coef *add_logk;
-	LDBLE log_k_original[8];	/* log kt0, delh, 5 coefficients analalytical expression */
+   LDBLE log_k_original[MAX_LOG_K_INDICES];   /* log kt0, delh, 6 coefficients analalytical expression, delta_v */
+   DELTA_V_UNIT original_deltav_units;
 };
 struct species_diff_layer
 {
@@ -1067,8 +1085,9 @@ struct phase
 	char *formula;				/* chemical formula */
 	int in;						/* species used in model if TRUE */
 	LDBLE lk;					/* log10 k at working temperature */
-	LDBLE logk[8];				/* log kt0, delh, 6 coefficients analalytical expression */
+   LDBLE logk[MAX_LOG_K_INDICES];            /* log kt0, delh, 6 coefficients analalytical expression */
 	DELTA_H_UNIT original_units;	/* enum with original delta H units */
+   DELTA_V_UNIT original_deltav_units;
 	int count_add_logk;
 	struct name_coef *add_logk;
 	LDBLE moles_x;
@@ -1166,7 +1185,7 @@ struct unknown
  *---------------------------------------------------------------------- */
 struct reaction_temp
 {
-	LDBLE logk[8];
+   LDBLE logk[MAX_LOG_K_INDICES];
 	LDBLE dz[3];
 	struct rxn_token_temp *token;
 };
@@ -1260,6 +1279,7 @@ struct defaults
 	LDBLE water;
 	int count_iso;
 	struct iso *iso;
+   LDBLE pressure;	/* pressure in atm */
 };
 struct spread_sheet
 {

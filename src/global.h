@@ -52,7 +52,7 @@ static char const svnidglobal[] =
 EXTERNAL struct model last_model;
 EXTERNAL int same_model;
 EXTERNAL int same_temperature;
-
+EXTERNAL int same_pressure;
 
 EXTERNAL struct punch punch;
 /* ----------------------------------------------------------------------
@@ -259,6 +259,7 @@ EXTERNAL int new_x;
 EXTERNAL char *description_x;
 EXTERNAL LDBLE tc_x;
 EXTERNAL LDBLE tk_x;
+EXTERNAL LDBLE patm_x;
 EXTERNAL LDBLE ph_x;
 EXTERNAL LDBLE solution_pe_x;
 EXTERNAL LDBLE mu_x;

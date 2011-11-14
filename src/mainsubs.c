@@ -396,6 +396,7 @@ initialize(void)
  */
 	last_model.force_prep = TRUE;
 	last_model.temperature = -100;
+   last_model.pressure = 0;
 	last_model.count_exchange = -1;
 	last_model.exchange = NULL;
 	last_model.count_kinetics = -1;
@@ -683,6 +684,7 @@ initialize(void)
 
 	same_model = FALSE;
 	same_temperature = FALSE;
+   same_pressure = FALSE;
 	g_iterations = -1;
 	G_TOL = 1e-8;
     save_init(-1);
@@ -771,7 +773,7 @@ initialize(void)
 	surface_unknown = NULL;
 	gas_unknown = NULL;
 	s_s_unknown = NULL;
-	for (i = 0; i < 8; i++)
+   for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		trxn.logk[i] = 0;
 	}
@@ -826,6 +828,7 @@ initialize(void)
 	solution_mass = 0;
 	solution_volume = 0;
 
+   patm_x = 1;   /* Initialize pressure of component x to 1 atm */
 
 	/* model_min_value = 0; */
 
@@ -1099,7 +1102,7 @@ initial_solutions(int print)
 			}
 			use.solution_ptr = solution[n];
 			prep();
-			k_temp(solution[n]->tc);
+         k_temp(solution[n]->tc, solution[n]->patm);
 			set(TRUE);
 			always_full_pitzer = FALSE;
 			converge = model();
@@ -1213,7 +1216,7 @@ initial_exchangers(int print)
 			}
 #endif
 			prep();
-			k_temp(use.solution_ptr->tc);
+         k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 			set(TRUE);
 			converge = model();
 			converge1 = check_residuals();
@@ -1281,10 +1284,33 @@ initial_gas_phases(int print)
 						gas_phase[n].n_user, gas_phase[n].description);
 				dup_print(token, FALSE);
 			}
+
+         /* Try to obtain a solution pointer */ 
 			use.solution_ptr =
 				solution_bsearch(gas_phase[n].n_solution, &i, TRUE);
+         
+         if (use.solution_ptr != NULL)
+         {
+            /*
+             * Gas phase should be equilibrated with solution; change pressure 
+             * of initial gas phase to pressure of the solution
+             */
+            gas_phase[n].total_p = use.solution_ptr->patm;
+
+            if (print == TRUE)
+            {
+               sprintf(token, 
+                  "Gas phase %d defined to be in equilibrium with solution %d, %s (%.2f atm)",
+                  gas_phase[n].n_user,
+                  use.solution_ptr->n_user,
+                  "reinitializing gas phase with pressure of solution",
+                  (double)gas_phase[n].total_p);
+               dup_print(token, FALSE);
+            }
+         }
+
 			prep();
-			k_temp(use.solution_ptr->tc);
+         k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 			set(TRUE);
 			converge = model();
 			converge1 = check_residuals();
@@ -1394,7 +1420,7 @@ initial_surfaces(int print)
 			else
 			{
 				prep();
-				k_temp(use.solution_ptr->tc);
+            k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 				set(TRUE);
 				converge = model();
 			}
@@ -2127,6 +2153,7 @@ xsolution_save(int n_user)
 	solution_ptr->new_def = FALSE;
 	solution_ptr->description = string_duplicate(description_x);
 	solution_ptr->tc = tc_x;
+   solution_ptr->patm = patm_x;
 	solution_ptr->ph = ph_x;
 	solution_ptr->solution_pe = solution_pe_x;
 	solution_ptr->mu = mu_x;

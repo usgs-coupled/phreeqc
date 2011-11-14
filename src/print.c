@@ -396,7 +396,7 @@ print_eh(void)
 /*
  *   Calculate pe, eh
  */
-			pe = -k_calc(trxn.logk, tk_x);
+         pe = -k_calc(trxn.logk, tk_x, patm_x * PASCAL_PER_ATM);
 			for (j = 1; j < count_trxn; j++)
 			{
 				pe -= trxn.token[j].s->la * trxn.token[j].coef;
@@ -1121,7 +1121,7 @@ print_reaction(struct reaction *rxn_ptr)
 
 	output_msg(OUTPUT_MESSAGE, "%s\t\n", rxn_ptr->token[0].s->name);
 	output_msg(OUTPUT_MESSAGE, "\n\tlog k:\n");
-	for (j = 0; j < 8; j++)
+   for (j = 0; j < MAX_LOG_K_INDICES; j++)
 	{
 		output_msg(OUTPUT_MESSAGE, "\t%f", (double) rxn_ptr->logk[j]);
 	}
@@ -1258,7 +1258,7 @@ print_saturation_indices(void)
 			iap += rxn_ptr->coef * rxn_ptr->s->la;
 			/* fprintf(output,"\t%s\t%f\t%f\n", rxn_ptr->s->name, rxn_ptr->coef, rxn_ptr->s->la ); */
 		}
-		lk = k_calc(pe_x[default_pe_x].rxn->logk, tk_x);
+      lk = k_calc(pe_x[default_pe_x].rxn->logk, tk_x, patm_x * PASCAL_PER_ATM);
 		la_eminus = lk + iap;
 		/* fprintf(output,"\t%s\t%f\n", "pe", si ); */
 	}
@@ -1285,7 +1285,7 @@ print_saturation_indices(void)
 /*
  *   Print saturation index
  */
-		lk = k_calc(reaction_ptr->logk, tk_x);
+      lk = k_calc(reaction_ptr->logk, tk_x, patm_x * PASCAL_PER_ATM);
 		iap = 0.0;
 		for (rxn_ptr = reaction_ptr->token + 1; rxn_ptr->s != NULL;
 			 rxn_ptr++)
@@ -1353,7 +1353,7 @@ print_pp_assemblage(void)
 		else
 		{
 			phase_ptr = x[j]->phase;
-			lk = k_calc(phase_ptr->rxn->logk, tk_x);
+         lk = k_calc(phase_ptr->rxn->logk, tk_x, patm_x * PASCAL_PER_ATM);
 			for (rxn_ptr = phase_ptr->rxn->token + 1; rxn_ptr->s != NULL;
 				 rxn_ptr++)
 			{
@@ -2173,6 +2173,14 @@ print_totals(void)
 			   (double) (total_co2 / mass_water_aq_x));
 	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Temperature (deg C)  = ",
 			   (double) tc_x);
+   
+   if (patm_x != 1.0)
+   {
+      /* only print if different than default */
+      output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Pressure (atm)  = ",
+               (double) patm_x);
+   }
+
 	output_msg(OUTPUT_MESSAGE, "%45s%11.3e\n", "Electrical balance (eq)  = ",
 			   (double) cb_x);
 	output_msg(OUTPUT_MESSAGE, "%45s%6.2f\n",
@@ -2842,6 +2850,7 @@ punch_identifiers(void)
 			fpunchf(PHAST_NULL("dist_x"), dformat, -99);
 		}
 	}
+   /*
 	//if (punch.time == TRUE)
 	//{
 	//	if (state == REACTION && incremental_reactions == TRUE
@@ -2878,7 +2887,7 @@ punch_identifiers(void)
 	//			}
 	//		}
 	//	}
-
+   */
 	if (punch.time == TRUE)
 	{
 		double reaction_time = kin_time_x;

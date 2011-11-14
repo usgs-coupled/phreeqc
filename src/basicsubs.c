@@ -324,10 +324,10 @@ calc_logk_n(const char *name)
 	int i;
 	LDBLE lk;
 	struct logk *logk_ptr;
-	LDBLE l_logk[8];
+   LDBLE l_logk[MAX_LOG_K_INDICES];
 	struct name_coef add_logk;
 
-	for (i = 0; i < 8; i++)
+   for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		l_logk[i] = 0.0;
 	}
@@ -338,7 +338,7 @@ calc_logk_n(const char *name)
 		add_logk.name = token;
 		add_logk.coef = 1.0;
 		add_other_logk(l_logk, 1, &add_logk);
-		lk = k_calc(l_logk, tk_x);
+      lk = k_calc(l_logk, tk_x, patm_x * PASCAL_PER_ATM);
 		return (lk);
 	}
 	return (-999.99);
@@ -353,19 +353,19 @@ calc_logk_p(const char *name)
 	char token[MAX_LENGTH];
 	struct phase *phase_ptr;
 	LDBLE lk;
-	LDBLE l_logk[8];
+   LDBLE l_logk[MAX_LOG_K_INDICES];
 
 	strcpy(token, name);
 	phase_ptr = phase_bsearch(token, &j, FALSE);
 	if (phase_ptr != NULL)
 	{
-		for (i = 0; i < 8; i++)
+      for (i = 0; i < MAX_LOG_K_INDICES; i++)
 		{
 			l_logk[i] = 0.0;
 		}
 		select_log_k_expression(phase_ptr->logk, l_logk);
 		add_other_logk(l_logk, phase_ptr->count_add_logk, phase_ptr->add_logk);
-		lk = k_calc(l_logk, tk_x);
+      lk = k_calc(l_logk, tk_x, patm_x * PASCAL_PER_ATM);
 		return (lk);
 	}
 	return (-999.99);
@@ -379,19 +379,19 @@ calc_logk_s(const char *name)
 	int i;
 	char token[MAX_LENGTH];
 	struct species *s_ptr;
-	LDBLE lk, l_logk[8];
+   LDBLE lk, l_logk[MAX_LOG_K_INDICES];
 
 	strcpy(token, name);
 	s_ptr = s_search(token);
 	if (s_ptr != NULL)
 	{
-		for (i = 0; i < 8; i++)
+      for (i = 0; i < MAX_LOG_K_INDICES; i++)
 		{
 			l_logk[i] = 0.0;
 		}
 		select_log_k_expression(s_ptr->logk, l_logk);
 		add_other_logk(l_logk, s_ptr->count_add_logk, s_ptr->add_logk);
-		lk = k_calc(l_logk, tk_x);
+      lk = k_calc(l_logk, tk_x, patm_x * PASCAL_PER_ATM);
 		return (lk);
 	}
 	return (-999.99);
