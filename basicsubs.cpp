@@ -903,14 +903,52 @@ get_calculate_value(const char *name)
 		error_msg(error_string, CONTINUE);
 		return (MISSING);
 	}
-	if (calculate_value_ptr->calculated == FALSE)
+	//if (calculate_value_ptr->calculated == FALSE)
+	//{
+	//	sprintf(error_string,
+	//			"Calculated value used before it has been calculated, %s.\nCalculated values are evalutated in the order in which they were defined.",
+	//			name);
+	//	input_error++;
+	//	error_msg(error_string, CONTINUE);
+	//	return (MISSING);
+	//}
+	char l_command[] = "run";
+	PBasic interp(this, this->phrq_io);
+	if (calculate_value_ptr->new_def == TRUE)
 	{
-		sprintf(error_string,
-				"Calculated value used before it has been calculated, %s.\nCalculated values are evalutated in the order in which they were defined.",
-				name);
-		input_error++;
-		error_msg(error_string, CONTINUE);
-		return (MISSING);
+		if (interp.basic_compile
+			(calculate_value_ptr->commands, 
+			&calculate_value_ptr->linebase,
+			&calculate_value_ptr->varbase,
+			&calculate_value_ptr->loopbase) != 0)
+		{
+			sprintf(error_string,
+					"Fatal Basic error in CALCULATE_VALUES %s.",
+					calculate_value_ptr->name);
+			error_msg(error_string, STOP);
+		}
+		calculate_value_ptr->new_def = FALSE;
+	}
+
+	if (interp.basic_run(l_command, 
+		calculate_value_ptr->linebase,
+		calculate_value_ptr->varbase, 
+		calculate_value_ptr->loopbase) != 0)
+	{
+		sprintf(error_string, "Fatal Basic error in calculate_value %s.",
+				calculate_value_ptr->name);
+		error_msg(error_string, STOP);
+	}
+	if (rate_moles == NAN)
+	{
+		sprintf(error_string, "Calculated value not SAVE'd for %s.",
+				calculate_value_ptr->name);
+		error_msg(error_string, STOP);
+	}
+	else
+	{
+		calculate_value_ptr->calculated = TRUE;
+		calculate_value_ptr->value = rate_moles;
 	}
 	return (calculate_value_ptr->value);
 }
