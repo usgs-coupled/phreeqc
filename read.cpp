@@ -3210,12 +3210,14 @@ read_omega_only(char *ptr, LDBLE *omega)
 	}
 	return OK;
 }
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-read_delta_v_only(char *ptr, LDBLE * delta_v)
+read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
 /* ---------------------------------------------------------------------- */
 {
-	int j;
+	int j, l;
+	char token[MAX_LENGTH];
 /*
  *   Read analytical expression
  */
@@ -3233,8 +3235,112 @@ read_delta_v_only(char *ptr, LDBLE * delta_v)
 				  CONTINUE);
 		return (ERROR);
 	}
+/*
+ *   Read delta V units
+ */
+   *units = cm3_per_mol;
+
+   j = copy_token(token, &ptr, &l);
+
+   if (j == EMPTY)
+   {
+      return (OK);
+   }
+
+   LDBLE factor = 1.0;
+   if (j == UPPER || j == LOWER)
+   {
+      str_tolower(token);
+      if (strstr(token, "cm3") != NULL)
+      {
+         /* cm3/mol */
+         ;
+      }
+      else if (strstr(token, "dm3") != NULL)
+      {
+         /* Convert dm3/mol to cm3/mol */
+         //*delta_v *= 1E3;
+		  factor = 1e3;
+      }
+      else if (strstr(token, "m3") != NULL)
+      {
+         /* Convert m3/mol to cm3/mol */
+         //*delta_v *= 1E6;
+		 factor = 1e6;
+      }
+
+	  for (int i = 0; i < 8; i++)
+	  {
+		  delta_v[i] *= factor;
+	  }
+   }
 	return (OK);
 }
+
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
+/* ---------------------------------------------------------------------- */
+{
+	int j, l;
+	char token[MAX_LENGTH];
+/*
+ *   Read delta V
+ */
+	*delta_v = 0.0;
+	replace("=", " ", ptr);
+	j = copy_token(token, &ptr, &l);
+	if (j == EMPTY)
+	{
+		input_error++;
+		error_msg("Expecting numeric value for delta V.", CONTINUE);
+		return (ERROR);
+	}
+   if (sscanf(token, SCANFORMAT, delta_v) < 1)
+   {
+      input_error++;
+      error_msg("Expecting numeric value for delta V.", CONTINUE);
+      return (ERROR);
+   }
+/*
+ *   Set delta V units (only cm3_per_mole supported for now)
+ */
+
+/*
+ *   Read delta V units
+ */
+   *units = cm3_per_mol;
+
+   j = copy_token(token, &ptr, &l);
+
+   if (j == EMPTY)
+   {
+      return (OK);
+   }
+   if (j == UPPER || j == LOWER)
+   {
+      str_tolower(token);
+      if (strstr(token, "cm3") != NULL)
+      {
+         /* cm3/mol */
+         ;
+      }
+      else if (strstr(token, "dm3") != NULL)
+      {
+         /* Convert dm3/mol to cm3/mol */
+         *delta_v *= 1E3;
+      }
+      else if (strstr(token, "m3") != NULL)
+      {
+         /* Convert m3/mol to cm3/mol */
+         *delta_v *= 1E6;
+      }
+   }
+
+   return (OK);
+}
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
@@ -3305,70 +3411,6 @@ read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 	}
 	return (OK);
 }
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
-/* ---------------------------------------------------------------------- */
-{
-	int j, l;
-	char token[MAX_LENGTH];
-/*
- *   Read delta V
- */
-	*delta_v = 0.0;
-	replace("=", " ", ptr);
-	j = copy_token(token, &ptr, &l);
-	if (j == EMPTY)
-	{
-		input_error++;
-		error_msg("Expecting numeric value for delta V.", CONTINUE);
-		return (ERROR);
-	}
-   if (sscanf(token, SCANFORMAT, delta_v) < 1)
-   {
-      input_error++;
-      error_msg("Expecting numeric value for delta V.", CONTINUE);
-      return (ERROR);
-   }
-/*
- *   Set delta V units (only cm3_per_mole supported for now)
- */
-
-/*
- *   Read delta V units
- */
-   *units = cm3_per_mol;
-
-   j = copy_token(token, &ptr, &l);
-
-   if (j == EMPTY)
-   {
-      return (OK);
-   }
-   if (j == UPPER || j == LOWER)
-   {
-      str_tolower(token);
-      if (strstr(token, "cm3") != NULL)
-      {
-         /* cm3/mol */
-         ;
-      }
-      else if (strstr(token, "dm3") != NULL)
-      {
-         /* Convert dm3/mol to cm3/mol */
-         *delta_v *= 1E3;
-      }
-      else if (strstr(token, "m3") != NULL)
-      {
-         /* Convert m3/mol to cm3/mol */
-         *delta_v *= 1E6;
-      }
-   }
-
-   return (OK);
-}
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_analytical_expression_only(char *ptr, LDBLE * log_k)
@@ -4139,7 +4181,8 @@ read_phases(void)
 		case 16:				/* delta_v */
 			if (phase_ptr == NULL)
 				break;
-			read_delta_v_only(next_char, &phase_ptr->delta_v[1]);
+			read_delta_v_only(next_char, &phase_ptr->delta_v[1],
+				&phase_ptr->original_deltav_units);
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:
