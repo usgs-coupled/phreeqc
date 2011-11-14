@@ -550,7 +550,7 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 	int j, analytic;
 
 	analytic = FALSE;
-	for (j = 2; j < 8; j++)
+	for (j = T_A1; j <= T_A6; j++)
 	{
 		if (source_k[j] != 0.0)
 		{
@@ -560,22 +560,23 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 	}
 	if (analytic == TRUE)
 	{
-		target_k[0] = 0.0;
-		target_k[1] = 0.0;
-		for (j = 2; j < 8; j++)
+		target_k[logK_T0] = 0.0;
+		target_k[delta_h] = 0.0;
+		for (j = T_A1; j <= T_A6; j++)
 		{
 			target_k[j] = source_k[j];
 		}
 	}
 	else
 	{
-		target_k[0] = source_k[0];
-		target_k[1] = source_k[1];
-		for (j = 2; j < 8; j++)
+		target_k[logK_T0] = source_k[logK_T0];
+		target_k[delta_h] = source_k[delta_h];
+		for (j = T_A1; j <= T_A6; j++)
 		{
 			target_k[j] = 0.0;
 		}
 	}
+	target_k[delta_v] = source_k[delta_v];
 	return (OK);
 }
 
@@ -636,7 +637,7 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 		}
 		logk_ptr = (struct logk *) found_item->data;
 		analytic = FALSE;
-		for (j = 2; j < 8; j++)
+		for (j = T_A1; j <= T_A6; j++)
 		{
 			if (logk_ptr->log_k[j] != 0.0)
 			{
@@ -646,16 +647,17 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 		}
 		if (analytic == TRUE)
 		{
-			for (j = 2; j < 8; j++)
+			for (j = T_A1; j <= T_A6; j++)
 			{
 				source_k[j] += logk_ptr->log_k[j] * coef;
 			}
 		}
 		else
 		{
-			source_k[0] += logk_ptr->log_k[0] * coef;
-			source_k[1] += logk_ptr->log_k[1] * coef;
+			source_k[logK_T0] += logk_ptr->log_k[logK_T0] * coef;
+			source_k[delta_h] += logk_ptr->log_k[delta_h] * coef;
 		}
+		source_k[delta_v] += logk_ptr->log_k[delta_v] * coef;
 	}
 	return (OK);
 }
@@ -708,7 +710,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 				return (ERROR);
 			}
 		}
-		for (j = 0; j < 8; j++)
+		for (j = 0; j < MAX_LOG_K_INDICES; j++)
 		{
 			logk_ptr->log_k[j] += next_logk_ptr->log_k[j] * coef;
 		}
@@ -1801,6 +1803,7 @@ tidy_s_s_assemblage(void)
 						2 * l_a1 * xc * xb2 - 2 * l_a0 * xb * xc2 -
 						8 * l_a1 * xb2 * xc2 + 6 * l_a1 * xb * xc2 + 1;
 					s_s_assemblage[i].s_s[j].comps[1].dnc = dnc / n_tot;
+
 					s_s_prep(s_s_assemblage[i].s_s[j].tk,
 							 &(s_s_assemblage[i].s_s[j]), TRUE);
 					s_s_assemblage[i].s_s[j].comps[1].dn = 1.0 / n_tot;
@@ -3599,8 +3602,8 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	s_s_ptr->a1 = a1;
 	ag0 = a0 * rt;
 	ag1 = a1 * rt;
-	kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, t) * LOG_10);
-	kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, t) * LOG_10);
+	kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, t, REF_PRES_PASCAL) * LOG_10);
+	kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, t, REF_PRES_PASCAL) * LOG_10);
 	crit_pt = fabs(a0) + fabs(a1);
 /*
  *   Default, no miscibility or spinodal gaps
@@ -4206,9 +4209,9 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
-	l_kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk) *
+	l_kc = exp(k_calc(s_s_ptr->comps[0].phase->rxn->logk, s_s_ptr->tk, REF_PRES_PASCAL) *
 			 LOG_10);
-	l_kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk) *
+	l_kb = exp(k_calc(s_s_ptr->comps[1].phase->rxn->logk, s_s_ptr->tk, REF_PRES_PASCAL) *
 			 LOG_10);
 
 	p = s_s_ptr->p;

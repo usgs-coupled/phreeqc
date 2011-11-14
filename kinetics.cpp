@@ -1470,6 +1470,26 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			use.surface_ptr = surface_bsearch(-1, &n2);
 		}
+
+/*
+ *  Adjust the total pressure to the gas pressure
+ */
+		if (use.gas_phase_ptr != NULL)
+		{
+			if (use.gas_phase_ptr->type == PRESSURE) 
+			{
+			/*
+			 * Fixed-pressure Gas phase and solution will react 
+			 * Change total pressure of current simulation to pressure 
+			 * of gas phase
+			 */
+				patm_x = use.gas_phase_ptr->total_p;
+			}
+			/*  fixed volume gas phase is handled in calc_gas_pressures */
+
+		}
+ 
+
 	}
 	/* end new */
 	if (use.surface_ptr != NULL)
@@ -1483,7 +1503,7 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 	else
 	{
 		prep();
-		k_temp(use.solution_ptr->tc);
+		k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 		set(FALSE);
 		converge = model();
 	}

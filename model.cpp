@@ -2332,9 +2332,8 @@ molalities(int allow_overflow)
 			}
 		}
 	}
-	if (use.gas_phase_ptr != NULL)
+
 		calc_gas_pressures();
-	if (use.s_s_assemblage_ptr != NULL)
 		calc_s_s_fractions();
 
 	return (OK);
@@ -2465,6 +2464,18 @@ calc_gas_pressures(void)
 			gas_comp_ptr->phase->fraction_x = 0;
 		}
 	}
+
+	if (use.gas_phase_ptr->type == VOLUME)
+	{
+		/*
+		 * Fixed-volume gas phase reacting with a solution
+		 * Change pressure used in logK to pressure of gas phase
+		 */
+		patm_x = use.gas_phase_ptr->total_p;
+
+		/* Note: fixed pressure gas phase is handled in set_use */
+	}
+
 
 	delete phase_ptrs;
 	return (OK);
@@ -2881,6 +2892,7 @@ reset(void)
 	factor = 1.0;
 	sum_deltas = 0.0;
 	for (i = 0; i < count_unknowns; i++)
+
 	{
 		/* fixes underflow problem on Windows */
 		if (delta[i] > 0)
@@ -4149,6 +4161,9 @@ set(int initial)
 
 	tc_x = solution_ptr->tc;
 	tk_x = tc_x + 273.15;
+
+	patm_x = solution_ptr->patm;
+
 /*
  *   H+, e-, H2O
  */
@@ -4597,7 +4612,7 @@ surface_model(void)
 		}
 	}
 	prep();
-	k_temp(tc_x);
+	k_temp(tc_x, patm_x);
 	if (use.surface_ptr->dl_type == DONNAN_DL)
 	{
 		initial_surface_water();
@@ -4629,7 +4644,7 @@ surface_model(void)
 		{
 			g_iterations++;
 			prev_aq_x = mass_water_aq_x;
-			k_temp(tc_x);
+			k_temp(tc_x, patm_x);
 			gammas(mu_x);
 			molalities(TRUE);
 			mb_sums();
@@ -4659,7 +4674,7 @@ surface_model(void)
 				debug_model = TRUE;
 				debug_diffuse_layer = TRUE;
 			}
-			k_temp(tc_x);
+			k_temp(tc_x, patm_x);
 			gammas(mu_x);
 			molalities(TRUE);
 			mb_sums();

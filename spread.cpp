@@ -54,9 +54,10 @@ read_solution_spread(void)
 		"water",				/* 10 */
 		"isotope_uncertainty",	/* 11 */
 		"uncertainty",			/* 12 */
-		"uncertainties"			/* 13 */
+		"uncertainties",		/* 13 */
+		"pressure"				/* 14 */
 	};
-	int count_opt_list = 14;
+	int count_opt_list = 15;
 /*
  * Initialize defaults
  */
@@ -67,6 +68,7 @@ read_solution_spread(void)
 	soln_defaults.ph = 7.0;
 	soln_defaults.pe = 4.0;
 	soln_defaults.water = 1.0;
+	soln_defaults.pressure = 1.0;
 
 	/* fill in soln_defaults.iso */
 	soln_defaults.count_iso = count_iso_defaults;
@@ -197,6 +199,9 @@ read_solution_spread(void)
 					{
 						opt = opt;
 					}
+					break;
+				case 14: /* pressure */
+					sscanf(next_char, SCANFORMAT, &(soln_defaults.pressure));
 					break;
 				}
 			}
@@ -430,6 +435,9 @@ read_solution_spread(void)
 				}
 			}
 			break;
+		case 14: /* pressure */
+			sscanf(next_char, SCANFORMAT, &(soln_defaults.pressure));
+			break;
 		case 100:				/* read headings */
 			heading = string_to_spread_row(line);
 			for (i = 0; i < heading->count; i++)
@@ -563,6 +571,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
  */
 	solution[n]->description = description;
 	solution[n]->tc = defaults.temp;
+	solution[n]->patm = defaults.pressure;
 	solution[n]->ph = defaults.ph;
 	solution[n]->density = defaults.density;
 	solution[n]->solution_pe = defaults.pe;

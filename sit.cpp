@@ -514,9 +514,9 @@ set_sit(int initial)
 /*
  *   Set master species activities
  */
-
 	tc_x = solution_ptr->tc;
 	tk_x = tc_x + 273.15;
+	patm_x = solution_ptr->patm;
 /*
  *   H+, e-, H2O
  */

@@ -750,9 +750,11 @@ read_exchange_species(void)
 		"llnl_gamma",			/* 15 */
 		"add_logk",				/* 16 */
 		"add_log_k",			/* 17 */
-		"add_constant"			/* 18 */
+		"add_constant",			/* 18 */
+		"delta_v",				/* 19 */   
+		"deltav"				/* 20 */
 	};
-	int count_opt_list = 19;
+	int count_opt_list = 21;
 
 	association = TRUE;
 	s_ptr = NULL;
@@ -875,7 +877,7 @@ read_exchange_species(void)
 				input_error++;
 				break;
 			}
-			read_analytical_expression_only(next_char, &(s_ptr->logk[2]));
+			read_analytical_expression_only(next_char, &(s_ptr->logk[T_A1]));
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 12:				/* gamma */
@@ -1059,6 +1061,22 @@ read_exchange_species(void)
 			s_ptr->count_add_logk++;
 			opt_save = OPTION_DEFAULT;
 			break;
+		case 19:            /* delta_v */
+		case 20:            /* deltav */
+			if (s_ptr == NULL)
+			{
+				sprintf(error_string,
+					"No reaction defined before option, %s.",
+				opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+				&s_ptr->original_deltav_units);
+			opt_save = OPTION_DEFAULT;
+			break;
+
 		case OPTION_DEFAULT:
 /*
  *   Get exchange species information and parse equation
@@ -3290,14 +3308,78 @@ read_delta_h_only(char *ptr, LDBLE * delta_h, DELTA_H_UNIT * units)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
+read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
+/* ---------------------------------------------------------------------- */
+{
+	int j, l;
+	char token[MAX_LENGTH];
+/*
+ *   Read delta V
+ */
+	*delta_v = 0.0;
+	replace("=", " ", ptr);
+	j = copy_token(token, &ptr, &l);
+	if (j == EMPTY)
+	{
+		input_error++;
+		error_msg("Expecting numeric value for delta V.", CONTINUE);
+		return (ERROR);
+	}
+   if (sscanf(token, SCANFORMAT, delta_v) < 1)
+   {
+      input_error++;
+      error_msg("Expecting numeric value for delta V.", CONTINUE);
+      return (ERROR);
+   }
+/*
+ *   Set delta V units (only cm3_per_mole supported for now)
+ */
+
+/*
+ *   Read delta V units
+ */
+   *units = cm3_per_mol;
+
+   j = copy_token(token, &ptr, &l);
+
+   if (j == EMPTY)
+   {
+      return (OK);
+   }
+   if (j == UPPER || j == LOWER)
+   {
+      str_tolower(token);
+      if (strstr(token, "cm3") != NULL)
+      {
+         /* cm3/mol */
+         ;
+      }
+      else if (strstr(token, "dm3") != NULL)
+      {
+         /* Convert dm3/mol to cm3/mol */
+         *delta_v *= 1E3;
+      }
+      else if (strstr(token, "m3") != NULL)
+      {
+         /* Convert m3/mol to cm3/mol */
+         *delta_v *= 1E6;
+      }
+   }
+
+   return (OK);
+}
+
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
 read_analytical_expression_only(char *ptr, LDBLE * log_k)
 /* ---------------------------------------------------------------------- */
 {
 	int j;
+	int num_terms = T_A6 - T_A1 + 1;
 /*
  *   Read analytical expression
  */
-	for (j = 0; j < 6; j++)
+	for (j = 0; j < num_terms; j++)
 	{
 		log_k[j] = 0.0;
 	}
@@ -3881,9 +3963,10 @@ read_phases(void)
 		"t_c",					/* 12 */
 		"p_c",					/* 13 */
 		"omega",				/* 14 */
-		"delta_v"				/* 15 */
+		"delta_v",				/* 15 */
+		"deltav"				/* 16 */
 	};
-	int count_opt_list = 16;
+	int count_opt_list = 17;
 
 	association = FALSE;
 /*
@@ -3942,7 +4025,7 @@ read_phases(void)
 		case 8:				/* ae */
 			if (phase_ptr == NULL)
 				break;
-			read_analytical_expression_only(next_char, &(phase_ptr->logk[2]));
+			read_analytical_expression_only(next_char, &(phase_ptr->logk[T_A1]));
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 9:				/* add_logk */
@@ -4053,6 +4136,7 @@ read_phases(void)
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 15:				/* delta_v */
+		case 16:				/* delta_v */
 			if (phase_ptr == NULL)
 				break;
 			read_delta_v_only(next_char, &phase_ptr->delta_v[1]);
@@ -5276,9 +5360,11 @@ read_solution(void)
 		"pe",					/* 7 */
 		"unit",					/* 8 */
 		"isotope",				/* 9 */
-		"water"					/* 10 */
+		"water",				/* 10 */
+		"press",				/* 11 */
+		"pressure"				/* 12 */
 	};
-	int count_opt_list = 11;
+	int count_opt_list = 13;
 /*
  *   Read solution number and description
  */
@@ -5315,6 +5401,7 @@ read_solution(void)
  */
 	solution[n]->description = description;
 	solution[n]->tc = 25.0;
+	solution[n]->patm = 1;
 	solution[n]->ph = 7.0;
 	solution[n]->density = 1.0;
 	solution[n]->solution_pe = 4.0;
@@ -5506,6 +5593,13 @@ read_solution(void)
 				solution[n]->mass_water = (LDBLE) dummy;
 			}
 			break;
+		case 11: /* pressure */
+		case 12:
+			if (sscanf(next_char, SCANFORMAT, &(solution[n]->patm)) != 1)
+			{
+				solution[n]->patm = 1;
+			}
+			break;
 		case OPTION_DEFAULT:
 /*
  *   Read concentration
@@ -5607,9 +5701,11 @@ read_species(void)
 		"dw",					/* 19 */
 /* VP: Density Start */
 		"erm_ddl",				/* 20 */
-		"millero"				/* 21 */
+		"millero",				/* 21 */
+		"delta_v",				/* 22 */
+		"deltav"				/* 23 */
 	};
-	int count_opt_list = 22;
+	int count_opt_list = 24;
 /* VP: Density End */
 
 	association = TRUE;
@@ -5754,7 +5850,7 @@ read_species(void)
 				input_error++;
 				break;
 			}
-			read_analytical_expression_only(next_char, &(s_ptr->logk[2]));
+			read_analytical_expression_only(next_char, &(s_ptr->logk[T_A1]));
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 13:				/* llnl_gamma */
@@ -5954,6 +6050,21 @@ read_species(void)
 			break;
 /* VP: Density End */
 
+		case 22:            /* delta_v */
+		case 23:            /* deltav */
+			if (s_ptr == NULL)
+			{
+				sprintf(error_string,
+					"No reaction defined before option, %s.",
+				opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+				&s_ptr->original_deltav_units);
+			opt_save = OPTION_DEFAULT;
+			break;
 		case OPTION_DEFAULT:
 /*
  *   Get space for species information and parse equation
@@ -6336,9 +6447,11 @@ read_surface_species(void)
 		"add_log_k",			/* 14 */
 		"add_constant",			/* 15 */
 		"cd_music",				/* 16 */
-		"music"					/* 17 */
+		"music",				/* 17 */
+		"delta_v",				/* 18 */
+		"deltav"				/* 19 */
 	};
-	int count_opt_list = 18;
+	int count_opt_list = 20;
 
 	association = TRUE;
 	/*
@@ -6461,7 +6574,7 @@ read_surface_species(void)
 				input_error++;
 				break;
 			}
-			read_analytical_expression_only(next_char, &(s_ptr->logk[2]));
+			read_analytical_expression_only(next_char, &(s_ptr->logk[T_A1]));
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 12:				/* offset */
@@ -6608,6 +6721,21 @@ read_surface_species(void)
 			{
 				s_ptr->rxn->dz[j] = s_ptr->dz[j];
 			}
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 18:            /* delta_v */
+		case 19:            /* deltav */
+		if (s_ptr == NULL)
+			{
+				sprintf(error_string,
+					"No reaction defined before option, %s.",
+				opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+				&s_ptr->original_deltav_units);
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:
@@ -7559,7 +7687,7 @@ add_psi_master_species(char *token)
 			/*
 			 *   Define reaction for psi
 			 */
-			for (i = 0; i < 8; i++)
+			for (i = 0; i < MAX_LOG_K_INDICES; i++)
 			{
 				master[count_master]->s->rxn->logk[i] = 0.0;
 			}
@@ -10294,9 +10422,11 @@ read_named_logk(void)
 		"ae",					/* 6 */
 		"ln_alpha1000",			/* 7 */
 		"add_logk",				/* 8 */
-		"add_log_k"				/* 9 */
+		"add_log_k",			/* 9 */
+		"delta_v",				/* 10 */
+		"deltav"				/* 11 */
 	};
-	int count_opt_list = 10;
+	int count_opt_list = 12;
 	logk_ptr = NULL;
 /*
  *   Read name followed by options
@@ -10366,7 +10496,7 @@ read_named_logk(void)
 				input_error++;
 				break;
 			}
-			read_analytical_expression_only(next_char, &(logk_ptr->log_k[2]));
+			read_analytical_expression_only(next_char, &(logk_ptr->log_k[T_A1]));
 			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
@@ -10381,7 +10511,7 @@ read_named_logk(void)
 				break;
 			}
 			empty = TRUE;
-			for (i = 2; i < 8; i++)
+			for (i = T_A1; i <= T_A6; i++)
 			{
 				if (logk_ptr->log_k[i] != 0.0)
 				{
@@ -10396,8 +10526,8 @@ read_named_logk(void)
 						logk_ptr->name);
 				warning_msg(error_string);
 			}
-			read_analytical_expression_only(next_char, &(logk_ptr->log_k[2]));
-			for (i = 2; i < 8; i++)
+			read_analytical_expression_only(next_char, &(logk_ptr->log_k[T_A1]));
+			for (i = T_A1; i < T_A6; i++)
 			{
 				logk_ptr->log_k[i] /= 1000. * LOG_10;
 			}
@@ -10456,6 +10586,22 @@ read_named_logk(void)
 				logk_ptr->add_logk[logk_ptr->count_add_logk].coef = 1;
 			}
 			logk_ptr->count_add_logk++;
+			opt_save = OPTION_DEFAULT;
+			break;
+		case 10:            /* delta_v */
+		case 11:            /* deltav */
+			if (logk_ptr == NULL)
+			{
+				sprintf(error_string,
+					"No reaction defined before option, %s.",
+				opt_list[opt]);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			read_delta_v_only(next_char, &logk_ptr->log_k[delta_v],
+				&logk_ptr->original_deltav_units);
+			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:

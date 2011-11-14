@@ -3669,7 +3669,7 @@ phase_init(struct phase *phase_ptr)
 	phase_ptr->formula = NULL;
 	phase_ptr->in = FALSE;
 	phase_ptr->lk = 0.0;
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 		phase_ptr->logk[i] = 0.0;
 	phase_ptr->original_units = kjoules;
 	phase_ptr->count_add_logk = 0;
@@ -3708,6 +3708,7 @@ phase_init(struct phase *phase_ptr)
 	phase_ptr->rxn_x = NULL;
 	phase_ptr->replaced = 0;
 	phase_ptr->in_system = 1;
+	phase_ptr->original_deltav_units = cm3_per_mol;
 	return (OK);
 }
 
@@ -4372,7 +4373,7 @@ rxn_alloc(int ntokens)
 /*
  *   zero log k data
  */
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		rxn_ptr->logk[i] = 0.0;
 	}
@@ -4423,7 +4424,7 @@ rxn_dup(struct reaction *rxn_ptr_old)
 /*
  *   Copy logk data
  */
-	memcpy(rxn_ptr_new->logk, rxn_ptr_old->logk, (size_t) 8 * sizeof(LDBLE));
+	memcpy(rxn_ptr_new->logk, rxn_ptr_old->logk, (size_t) MAX_LOG_K_INDICES * sizeof(LDBLE));
 /*
  *   Copy dz data
  */
@@ -4502,7 +4503,7 @@ rxn_print(struct reaction *rxn_ptr)
 		return (ERROR);
 	next_token = rxn_ptr->token;
 	output_msg(sformatf( "log k data:\n"));
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		output_msg(sformatf( "\t%f\n", (double) rxn_ptr->logk[i]));
 	}
@@ -4646,7 +4647,7 @@ s_init(struct species *s_ptr)
 	s_ptr->dhb = 0.0;
 	s_ptr->a_f = 0.0;
 	s_ptr->lk = 0.0;
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		s_ptr->logk[i] = 0.0;
 	}
@@ -4673,6 +4674,8 @@ s_init(struct species *s_ptr)
 	s_ptr->next_secondary = NULL;
 	s_ptr->next_sys_total = NULL;
 	s_ptr->check_equation = TRUE;
+	s_ptr->original_deltav_units = cm3_per_mol;
+
 	s_ptr->rxn = NULL;
 	s_ptr->rxn_s = NULL;
 	s_ptr->rxn_x = NULL;
@@ -5446,6 +5449,7 @@ solution_alloc(void)
 	solution_ptr->n_user_end = -1;
 	solution_ptr->description = NULL;
 	solution_ptr->tc = 0;
+	solution_ptr->patm = 0;
 	solution_ptr->ph = 0;
 	solution_ptr->solution_pe = 0;
 	solution_ptr->mu = 0;
@@ -7136,7 +7140,7 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 	if (count_trxn == 0)
 	{
 		memcpy((void *) trxn.logk, (void *) r_ptr->logk,
-			   (size_t) 8 * sizeof(LDBLE));
+			(size_t) MAX_LOG_K_INDICES * sizeof(LDBLE));
 		for (i = 0; i < 3; i++)
 		{
 			trxn.dz[i] = r_ptr->dz[i];
@@ -7144,7 +7148,7 @@ trxn_add(struct reaction *r_ptr, LDBLE coef, int combine)
 	}
 	else
 	{
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < MAX_LOG_K_INDICES; i++)
 		{
 			trxn.logk[i] += coef * (r_ptr->logk[i]);
 		}
@@ -7202,11 +7206,11 @@ trxn_add_phase(struct reaction *r_ptr, LDBLE coef, int combine)
 	if (count_trxn == 0)
 	{
 		memcpy((void *) trxn.logk, (void *) r_ptr->logk,
-			   (size_t) 8 * sizeof(LDBLE));
+			(size_t) MAX_LOG_K_INDICES * sizeof(LDBLE));
 	}
 	else
 	{
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < MAX_LOG_K_INDICES; i++)
 		{
 			trxn.logk[i] += coef * (r_ptr->logk[i]);
 		}
@@ -7320,7 +7324,7 @@ trxn_copy(struct reaction *rxn_ptr)
 /*
  *   Copy logk data
  */
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		rxn_ptr->logk[i] = trxn.logk[i];
 	}
@@ -7387,7 +7391,7 @@ trxn_multiply(LDBLE coef)
 /*
  *   Multiply log k for reaction
  */
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		trxn.logk[i] *= coef;
 	}
@@ -7422,7 +7426,7 @@ trxn_print(void)
  */
 
 	output_msg(sformatf( "\tlog k data:\n"));
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		output_msg(sformatf( "\t\t%f\n", (double) trxn.logk[i]));
 	}
@@ -7460,7 +7464,7 @@ trxn_reverse_k(void)
 /*
  *   Accumulate log k for reaction
  */
-	for (i = 0; i < 8; i++)
+   for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		trxn.logk[i] = -trxn.logk[i];
 	}
@@ -7788,7 +7792,7 @@ logk_init(struct logk *logk_ptr)
  *   set varibles = 0
  */
 	logk_ptr->lk = 0.0;
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		logk_ptr->log_k[i] = 0.0;
 		logk_ptr->log_k_original[i] = 0.0;
@@ -7807,7 +7811,7 @@ logk_copy2orig(struct logk *logk_ptr)
  */
 {
 	int i;
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < MAX_LOG_K_INDICES; i++)
 	{
 		logk_ptr->log_k_original[i] = logk_ptr->log_k[i];
 	}

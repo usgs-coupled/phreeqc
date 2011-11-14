@@ -298,6 +298,7 @@ xsolution_zero(void)
 	new_x = FALSE;
 
 	tc_x = 0.0;
+	patm_x = 0;
 	ph_x = 0.0;
 	solution_pe_x = 0.0;
 	mu_x = 0.0;
@@ -351,6 +352,7 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
  */
 	tc_x += solution_ptr->tc * intensive;
 	ph_x += solution_ptr->ph * intensive;
+	patm_x += solution_ptr->patm * intensive;
 	solution_pe_x += solution_ptr->solution_pe * intensive;
 	mu_x += solution_ptr->mu * intensive;
 	ah2o_x += solution_ptr->ah2o * intensive;

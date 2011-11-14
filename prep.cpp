@@ -2587,7 +2587,7 @@ reprep(void)
  */
 	build_model();
 	same_model = FALSE;
-	k_temp(tc_x);
+	k_temp(tc_x, patm_x);
 
 	return (OK);
 }
@@ -5024,7 +5024,7 @@ write_phase_sys_total(int n)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-k_temp(LDBLE tempc)
+k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -5033,7 +5033,7 @@ k_temp(LDBLE tempc)
 	int i;
 	LDBLE tempk;
 
-	if (same_model == TRUE && same_temperature == TRUE)
+	if (same_model == TRUE && same_temperature == TRUE && same_pressure == TRUE)
 		return (OK);
 
 	tempk = tempc + 273.15;
@@ -5042,7 +5042,7 @@ k_temp(LDBLE tempc)
  */
 	for (i = 0; i < count_s_x; i++)
 	{
-		s_x[i]->lk = k_calc(s_x[i]->rxn_x->logk, tempk);
+		s_x[i]->lk = k_calc(s_x[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 	}
 /*
  *    Calculate log k for all pure phases
@@ -5051,7 +5051,7 @@ k_temp(LDBLE tempc)
 	{
 		if (phases[i]->in == TRUE)
 		{
-			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk);
+			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 		}
 	}
 /*
@@ -5072,24 +5072,35 @@ k_temp(LDBLE tempc)
 
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
-k_calc(LDBLE * l_logk, LDBLE tempk)
+k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 /* ---------------------------------------------------------------------- */
 {
-/*
- *   Calculates log k at specified temperature
- *
- *   Input:
- *       *logk is pointer to logkt0, deltah, and analytical expression data
- *       tempk is temperature in degrees K.
- *
- *   Returns calculated log k.
- */
-	return (l_logk[0]
-			- l_logk[1] * (298.15 -
-						 tempk) / (298.15 * tempk * LOG_10 * R_KJ_DEG_MOL) +
-			l_logk[2] + l_logk[3] * tempk + l_logk[4] / tempk +
-			l_logk[5] * log10(tempk) + l_logk[6] / (tempk * tempk)) +
-			l_logk[7] * tempk * tempk;
+	/*
+	 *   Calculates log k at specified temperature and pressure
+	 *   Returns calculated log k.
+	 *
+	 *   Note: The molar volume is stored in cm3 so the delta_v term is multiplied 
+	 *   by 1E-6 to convert it in SI. Another 1E3 factor is needed to convert the 
+	 *   universal gas constant in SI (from kJ/(mol*K) to J/(mol*K).
+	 *   These two conversion factors are lumped in the 1E-9 factor used below.
+	 */
+
+	/* Molar energy */
+	LDBLE me = tempk * R_KJ_DEG_MOL;
+
+	/* Pressure difference */
+	LDBLE delta_p = presPa - REF_PRES_PASCAL;
+
+	/* Calculate new log k value for this temperature and pressure */
+	return	l_logk[logK_T0] 
+			- l_logk[delta_h] * (298.15 - tempk) / (LOG_10 * me * 298.15)
+			+ l_logk[T_A1]
+			+ l_logk[T_A2] * tempk
+			+ l_logk[T_A3] / tempk
+			+ l_logk[T_A4] * log10(tempk)
+			+ l_logk[T_A5] / (tempk * tempk)
+			+ l_logk[T_A6] * tempk * tempk
+			- l_logk[delta_v] * 1E-9 * delta_p / (LOG_10 * me);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -5102,6 +5113,10 @@ save_model(void)
  *   save temperature
  */
 	last_model.temperature = tc_x;
+/*
+ *   save pressure
+ */
+	last_model.pressure = patm_x;
 /*
  *   mark master species 
  */
@@ -5273,6 +5288,7 @@ check_same_model(void)
 	{
 		last_model.force_prep = FALSE;
 		same_temperature = FALSE;
+		same_pressure = FALSE;
 		return (FALSE);
 	}
 /*
@@ -5285,6 +5301,17 @@ check_same_model(void)
 	else
 	{
 		same_temperature = FALSE;
+	}
+/*
+ *   Check pressure
+ */
+	if (fabs(patm_x - last_model.pressure) < 0.01)
+	{
+		same_pressure = TRUE;
+	}
+	else
+	{
+		same_pressure = FALSE;
 	}
 /*
  *   Check master species
