@@ -8233,7 +8233,7 @@ Get_exch_master(const cxxExchComp * ec)
 {
 	struct master *master_ptr = NULL;
 	const cxxNameDouble &totals = ec->Get_totals();
-	for (std::map < std::string, double >::const_iterator it =
+	for (std::map < std::string, LDBLE >::const_iterator it =
 		 totals.begin(); it != totals.end(); it++)
 	{
 
@@ -8258,7 +8258,7 @@ Get_exch_master(const cxxExchComp * ec)
 	if (master_ptr == NULL)
 	{
 		const cxxNameDouble &formula_totals = ec->Get_formula_totals();
-		for (std::map < std::string, double >::const_iterator it =
+		for (std::map < std::string, LDBLE >::const_iterator it =
 			 formula_totals.begin(); it != formula_totals.end(); it++)
 		{
 
