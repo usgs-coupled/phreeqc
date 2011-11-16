@@ -33,7 +33,8 @@ cl1mp(int k, int l, int m, int n,
 	/* Local variables */
 	int nklm;
 	int iout = 0;
-	static int i, j;
+	// static i runs faster
+	int i, j;
 	int maxit, n1, n2;
 	int ia, ii, kk, nk, js;
 	int in = 0;

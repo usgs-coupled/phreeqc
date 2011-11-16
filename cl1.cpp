@@ -30,7 +30,8 @@ cl1(int k, int l, int m, int n,
 	int nklm;
 	LDBLE xmin, xmax;
 	int iout = 0;
-	static int i, j;
+	// static i runs faster on windows
+	int i, j;
 	LDBLE l_z;
 	int maxit, n1, n2;
 	LDBLE pivot;
