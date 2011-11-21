@@ -2035,6 +2035,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	struct exchange *ex_ptr1, *ex_ptr2;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 
+	V_M = V_M_il = NULL;
 	/* check for immediate return and interlayer diffusion calcs... */
 	if (interlayer_Dflag)
 	{
@@ -2433,9 +2434,17 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 		V_M_il = (struct V_M *) PHRQ_malloc((size_t) k * sizeof(struct V_M));
 		if (V_M_il == NULL)
 			malloc_error();
-
 		for (i = 0; i < k; i++)
+		{
 			J_ij_il[i].tot1 = 0.0;
+			V_M_il[i].grad = 0.0;
+			V_M_il[i].D = 0.0;
+			V_M_il[i].Dz = 0.0;
+			V_M_il[i].Dzc = 0.0;
+			V_M_il[i].Dzc_dl = 0.0;
+			V_M_il[i].g_dl = 1.0;
+			V_M_il[i].o_c = 1;
+		}
 	}
 	/*
 	 * coefficients in Eqn (1)...
