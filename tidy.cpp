@@ -1008,12 +1008,10 @@ tidy_gas_phase(void)
 				/* calculate moles */
 				if (gas_phase[i].comps[j].p_read != NAN)
 				{
-					if (gas_phase[i].comps[j].p_read > 0.0 && PR)
-						P += gas_phase[i].comps[j].p_read;
-					else
-						gas_phase[i].comps[j].moles =
-							gas_phase[i].comps[j].p_read * gas_phase[i].volume /
-							R_LITER_ATM / gas_phase[i].temperature;
+					P += gas_phase[i].comps[j].p_read;
+					gas_phase[i].comps[j].moles =
+						gas_phase[i].comps[j].p_read * gas_phase[i].volume /
+						R_LITER_ATM / gas_phase[i].temperature;
 				}
 				else
 				{
@@ -1033,13 +1031,11 @@ tidy_gas_phase(void)
 				{
 					if (gas_phase[i].comps[j].p_read != NAN)
 					{
-						if (gas_phase[i].comps[j].p_read > 0.0 && PR)
-							P += gas_phase[i].comps[j].p_read;
-						else
-							gas_phase[i].comps[j].moles =
-								gas_phase[i].comps[j].p_read *
-								gas_phase[i].volume / R_LITER_ATM /
-								gas_phase[i].temperature;
+						P += gas_phase[i].comps[j].p_read;
+						gas_phase[i].comps[j].moles =
+							gas_phase[i].comps[j].p_read *
+							gas_phase[i].volume / R_LITER_ATM /
+							gas_phase[i].temperature;
 					}
 					else
 					{

@@ -1382,7 +1382,7 @@ struct sol_D
 {
 	int count_spec;				/* number of aqueous + exchange species */
 	int count_exch_spec;		/* number of exchange species */
-	LDBLE exch_total;			/* total moles of X- */
+	LDBLE exch_total, x_max;	/* total moles of X-, max X- in transport step in sol_D[1] */
 	struct spec *spec;
 };
 struct J_ij

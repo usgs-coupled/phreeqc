@@ -3845,14 +3845,15 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 			continue;
 		}
 		phase_ptr->pr_p = phase_ptr->fraction_x * P;
-		phase_ptr->delta_v[0] = phase_ptr->delta_v[1]
-			+ phase_ptr->delta_v[2] * TK + phase_ptr->delta_v[3] / TK +
-			phase_ptr->delta_v[4] * log10(TK) + phase_ptr->delta_v[5] / (TK * TK) + phase_ptr->delta_v[6] * TK * TK
-			+ phase_ptr->delta_v[7] * P;
+		//phase_ptr->delta_v[0] = phase_ptr->delta_v[1]
+		//	+ phase_ptr->delta_v[2] * TK + phase_ptr->delta_v[3] / TK +
+		//	phase_ptr->delta_v[4] * log10(TK) + phase_ptr->delta_v[5] / (TK * TK) + phase_ptr->delta_v[6] * TK * TK
+		//	+ phase_ptr->delta_v[7] * P;
+		//phase_ptr->delta_v[0] *= 1e-3; // if delta_v in cm3/mol
 		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
 		{
 			phase_ptr->pr_phi = 1;
-			phase_ptr->pr_si_f = - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
+			//phase_ptr->pr_si_f = - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
 			continue;
 		}
 		rz = P * V_m / R_TK;
@@ -3865,7 +3866,11 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 		else
 			phi = -3.0; // fugacity coefficient > 0.05
 		phase_ptr->pr_phi = exp(phi);
-		phase_ptr->pr_si_f = phi / LOG_10 - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
+		phase_ptr->pr_si_f = phi / LOG_10/* - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK)*/;
+		if (phase_ptr->rxn_x)
+			phase_ptr->lk = k_calc(phase_ptr->rxn_x->logk, TK, P * PASCAL_PER_ATM);
+		else
+			phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
 		phase_ptr->pr_in = true;
 	}
 	if (use.gas_phase_ptr && iterations > 9)
@@ -5049,7 +5054,7 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
  */
 	for (i = 0; i < count_phases; i++)
 	{
-		if (phases[i]->in == TRUE)
+		if (phases[i]->in == TRUE && !phases[i]->pr_in)
 		{
 			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 		}
@@ -5089,7 +5094,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 	LDBLE me = tempk * R_KJ_DEG_MOL;
 
 	/* Pressure difference */
-	LDBLE delta_p = presPa - REF_PRES_PASCAL;
+	LDBLE delta_p = (presPa - REF_PRES_PASCAL) / PASCAL_PER_ATM;
 
 	/* Calculate new log k value for this temperature and pressure */
 	return	l_logk[logK_T0] 
@@ -5100,7 +5105,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 			+ l_logk[T_A4] * log10(tempk)
 			+ l_logk[T_A5] / (tempk * tempk)
 			+ l_logk[T_A6] * tempk * tempk
-			- l_logk[delta_v] * 1E-9 * delta_p / (LOG_10 * me);
+			- l_logk[delta_v] * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
 }
 
 /* ---------------------------------------------------------------------- */

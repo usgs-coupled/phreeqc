@@ -3213,8 +3213,8 @@ read_omega_only(char *ptr, LDBLE *omega)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-	read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
-	/* ---------------------------------------------------------------------- */
+read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
+/* ---------------------------------------------------------------------- */
 {
 	int j, l;
 	char token[MAX_LENGTH];
@@ -3225,9 +3225,9 @@ int Phreeqc::
 	{
 		delta_v[j] = 0.0;
 	}
-	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT,
-		&(delta_v[0]), &(delta_v[1]), &(delta_v[2]), &(delta_v[3]),
-		&(delta_v[4]), &(delta_v[5]), &(delta_v[6]), &(delta_v[7]));
+	j = sscanf(ptr, SCANFORMAT/* SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT*/,
+		&(delta_v[0])/*, &(delta_v[1]), &(delta_v[2]), &(delta_v[3]),
+		&(delta_v[4]), &(delta_v[5]), &(delta_v[6]), &(delta_v[7])*/);
 	if (j < 1)
 	{
 		input_error++;
@@ -3239,7 +3239,7 @@ int Phreeqc::
 	*   Read delta V units
 	*/
 	*units = cm3_per_mol;
-
+	j = copy_token(token, &ptr, &l);
 	j = copy_token(token, &ptr, &l);
 
 	if (j == EMPTY)
@@ -4181,8 +4181,10 @@ read_phases(void)
 		case 16:				/* delta_v */
 			if (phase_ptr == NULL)
 				break;
-			read_delta_v_only(next_char, &phase_ptr->delta_v[1],
+			//read_delta_v_only(next_char, &phase_ptr->delta_v[1],
+			read_delta_v_only(next_char, &(phase_ptr->logk[delta_v]),
 				&phase_ptr->original_deltav_units);
+			phase_ptr->delta_v[1] = phase_ptr->logk[delta_v];
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:

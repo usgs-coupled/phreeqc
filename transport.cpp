@@ -1418,6 +1418,7 @@ fill_spec(int l_cell_no)
 	LDBLE dum, dum2;
 	LDBLE lm;
 	LDBLE por, por_il, temp_factor, temp_il_factor, viscos;
+	bool x_max_done = false;
 
 	s_ptr2 = NULL;
 
@@ -1527,6 +1528,13 @@ fill_spec(int l_cell_no)
 															   [count_spec].
 															   lg);
 				sol_D[l_cell_no].exch_total = master_ptr->total;
+				if (transport_step == 0 && !x_max_done)
+				{
+					x_max_done = true;
+					dum = master_ptr->total / solution_bsearch(l_cell_no, &i2, TRUE)->mass_water;
+					if (dum > sol_D[1].x_max)
+						sol_D[1].x_max = dum;
+				}
 
 				/* find the aqueous species in the exchange reaction... */
 				for (i2 = 0; (s_ptr->rxn->token[i2].s != NULL); i2++)
@@ -1980,25 +1988,41 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 {
 	/* mole transfer of the individual master_species:
 	 * Eqn 1:
-	 * J_ij = DDt * (A_ij / lav) * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
+	 * J_ij = DDt * (A_ij / lav) * (-D_i*grad(c) + D_i*z_i*c_i * SUM(D_i*z_i*grad(c)) / SUM(D_i*(z_i)^2*c_i))
 	 * regular column, stagnant FALSE:
 	 *    D_i = temperature-corrected Dw
 	 *    A_ij = A_icell * A_jcell
 	 *    A_icell = (L porewater in i_cell / length_icell) / tort_f_icell /
 	 *       (length_icell / 2)
 	 *    lav = A_icell + A_jcell
-	 *    grad(a) is activity difference in icell and jcell
+	 *    grad(c) is concentration difference in icell and jcell, 
+		   for activity corrections see Appelo & Wersin, 2007.
 	 *  stagnant TRUE:
-	 * J_ij = mixf_ij * (-D_i*grad(a) + D_i*z_i*c_i * SUM(D_i*z_i*grad(a)) / SUM(D_i*(z_i)^2*c_i))
+	 * J_ij = mixf_ij * (-D_i*grad(c) + D_i*z_i*c_i * SUM(D_i*z_i*grad(c)) / SUM(D_i*(z_i)^2*c_i))
 	 *    mixf_ij = mixf / (Dw / init_tort_f) / new_tort_f * new_por / init_por
 	 *    mixf is defined in MIX; Dw is default multicomponent diffusion coefficient;
-	 *    init_tort_f equals multi_Dpor^(-multi_Dn); new_pf = new tortuosity factor
+	 *    init_tort_f equals multi_Dpor^(-multi_Dn); new_pf = new tortuosity factor.
+	 * Interlayer diffusion (IL) takes the gradient in the equivalent concentrations on X-.
+		surface area A for IL:
+		stagnant: mixf_il is mixf * por_il / por.
+					por_il = interlayer porosity, from -interlayer_D true 'por_il'.
+		            por = total porosity, from -multi_D true 'multi_Dpor'.
+		            **nov. 12, 2011**: 
+							mixf is corrected, * (1 - por_il / por).
+							new_pf = (por - por_il)^(-multi_Dn).
+		in regular column, A is calc'd from (free + DL porewater) and cell-length.
+		for IL: A * por_il / (por - por_il).
+
+		por_il is entered as a single value. It is limited to 0.999 * por.
+		por_il in a cell is reduced by conc of X- / (max conc of X- of all cells)
+
+		IL-water = (free + DL porewater) * por_il / (por - por_il).
 	 */
 	int i, i_max, j, j_max, k, k_il, l, only_counter, il_calcs;
 	int i1;
 	LDBLE lav, A1, A2, A_ij, A_ij_il, ddlm, aq1, aq2, mixf_il;
-	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, temp, l_temp2, tort1, tort2;
-
+	LDBLE dl_s, dl_aq1, dl_aq2, c_dl, visc1, visc2, dum, dum2, tort1, tort2;
+	LDBLE por_il1, por_il2, por_il12;
 	LDBLE c, Dz2c, Dz2c_dl, Dz2c_il, aq_il1, aq_il2;
 	LDBLE cec1, cec2, cec12, rc1, rc2;
 	struct V_M
@@ -2011,16 +2035,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	struct exchange *ex_ptr1, *ex_ptr2;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
 
-/* initialize variables */
-	cec1 = cec2 = cec12 = rc1 = rc2 = NAN;
-	tort1 = tort2 = mixf_il = NAN;
-
-
-	lav = A_ij = A_ij_il = 1.0;
-
-	aq1 = solution_bsearch(icell, &i, TRUE)->mass_water;
-	aq2 = solution_bsearch(jcell, &i, TRUE)->mass_water;
-
+	/* check for immediate return and interlayer diffusion calcs... */
 	if (interlayer_Dflag)
 	{
 		il_calcs = 1;
@@ -2037,77 +2052,41 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	else
 		il_calcs = 0;
 
-	J_ij_count_spec = 0;
-	J_ij_sum = 0.0;
 	if (stagnant)
 	{
 		if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
 						  || cell_data[jcell - 1].por < multi_Dpor_lim))
 			return (OK);
-
-		mixf /= (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
-		temp = (cell_data[icell - 1].por_il <= cell_data[jcell - 1].por_il ?
-				cell_data[icell - 1].por_il : cell_data[jcell - 1].por_il);
-		mixf_il = mixf * temp / interlayer_tortf;
-		temp = (cell_data[icell - 1].por <= cell_data[jcell - 1].por ?
-				cell_data[icell - 1].por : cell_data[jcell - 1].por);
-		mixf *= temp * pow(temp, multi_Dn);
 	}
 	else
 	{							/* regular column... */
 		if (icell == 0)
 		{
-			if (cell_data[0].por < multi_Dpor_lim && !il_calcs)
+			if (!il_calcs && cell_data[0].por < multi_Dpor_lim)
 				return (OK);
-
-			tort1 = tort2 = pow(cell_data[0].por, -multi_Dn);
-			lav = cell_data[0].length;
-			A_ij = aq2 / (lav * 0.5 * lav);
-			A_ij_il =
-				A_ij * cell_data[0].por_il / (cell_data[0].por *
-											  interlayer_tortf);
-			A_ij /= tort1;
 		}
 		else if (icell == count_cells)
 		{
-			if (cell_data[count_cells - 1].por < multi_Dpor_lim && !il_calcs)
+			if (!il_calcs && cell_data[count_cells - 1].por < multi_Dpor_lim)
 				return (OK);
-
-			tort1 = tort2 = pow(cell_data[count_cells - 1].por, -multi_Dn);
-			lav = cell_data[count_cells - 1].length;
-			A_ij = aq1 / (lav * 0.5 * lav);
-			A_ij_il = A_ij * cell_data[count_cells - 1].por_il /
-				(cell_data[count_cells - 1].por * interlayer_tortf);
-			A_ij /= tort2;
 		}
 		else
 		{
 			if (!il_calcs && (cell_data[icell - 1].por < multi_Dpor_lim
 							  || cell_data[jcell - 1].por < multi_Dpor_lim))
 				return (OK);
-
-			tort1 = pow(cell_data[icell - 1].por, -multi_Dn);
-			tort2 = pow(cell_data[jcell - 1].por, -multi_Dn);
-			A1 = aq1 / (cell_data[icell - 1].length *
-						0.5 * cell_data[icell - 1].length);
-			A2 = aq2 / (cell_data[jcell - 1].length *
-						0.5 * cell_data[jcell - 1].length);
-			temp = A1 * cell_data[icell - 1].por_il /
-				(cell_data[icell - 1].por * interlayer_tortf);
-			l_temp2 = A2 * cell_data[jcell - 1].por_il /
-				(cell_data[jcell - 1].por * interlayer_tortf);
-			A_ij_il = temp * l_temp2 / (temp + l_temp2);
-			A1 /= tort1;
-			A2 /= tort2;
-			A_ij = A1 * A2 / (A1 + A2);
 		}
 	}
+
+	/* do the calcs */
+	aq1 = solution_bsearch(icell, &i, TRUE)->mass_water;
+	aq2 = solution_bsearch(jcell, &i, TRUE)->mass_water;
 	/*
-	 * check if DL calculations must be made...
+	 * check if DL calculations must be made, find amounts of water...
 	 */
 	s_charge_ptr1 = s_charge_ptr2 = NULL;
 	s_ptr1 = s_ptr2 = NULL;
-	dl_s = dl_aq1 = dl_aq2 = temp = 0.0;
+	dl_s = dl_aq1 = dl_aq2 = 0.0;
 	visc1 = visc2 = 1.0;
 	only_counter = FALSE;
 
@@ -2205,90 +2184,215 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	if (dl_aq1 > 0)
 		dl_s = dl_aq1 / (dl_aq1 + aq1);
 	if (dl_aq2 > 0)
-		temp = dl_aq2 / (dl_aq2 + aq2);
-	if (dl_aq1 > 0 && dl_aq2 > 0)
-		/* average the 2... */
-		dl_s = (dl_s + temp) / 2;
-	else if (dl_aq2 > 0)
-		/* there is one DL surface... */
-		dl_s = temp;
-	/* total surface becomes... */
-	if (dl_s > 0 && !stagnant)
 	{
-		if (icell == 0 || icell == count_cells)
-		{
-			if (dl_aq1 > 0 && dl_aq2 > 0)
-				temp = 0.5 * (dl_aq1 + dl_aq2);
-			else if (dl_aq2 > 0)
-				temp = dl_aq2;
-			else
-				temp = dl_aq1;
-			l_temp2 = temp / (lav * 0.5 * lav);
-			if (icell == 0)
-				A_ij_il += l_temp2 * cell_data[0].por_il /
-					(cell_data[0].por * interlayer_tortf);
-			else
-				A_ij_il += l_temp2 * cell_data[count_cells - 1].por_il /
-					(cell_data[count_cells - 1].por * interlayer_tortf);
-
-			A_ij += l_temp2 / tort1;
-		}
+		dum = dl_aq2 / (dl_aq2 + aq2);
+		if (dl_aq1 > 0)
+		/* average the 2... */
+			dl_s = (dl_s + dum) / 2;
 		else
-		{
-			A1 = dl_aq1 / (cell_data[icell - 1].length *
-						   0.5 * cell_data[icell - 1].length);
-			A2 = dl_aq2 / (cell_data[jcell - 1].length *
-						   0.5 * cell_data[jcell - 1].length);
-			temp = A1 * cell_data[icell - 1].por_il /
-				(cell_data[icell - 1].por * interlayer_tortf);
-			l_temp2 = A2 * cell_data[jcell - 1].por_il /
-				(cell_data[jcell - 1].por * interlayer_tortf);
-			A_ij_il += temp * l_temp2 / (temp + l_temp2);
-			A1 /= tort1;
-			A2 /= tort2;
-			A_ij += (A1 * A2 / (A1 + A2));
-		}
+		/* there is one DL surface... */
+			dl_s = dum;
 	}
-	/*
-	 * define interlayer water and cec (mol X-/L)
-	 */
+
+	por_il1 = por_il2 = por_il12 = 0.0;
+	cec1 = cec2 = cec12 = rc1 = rc2 = 0.0;
 	if (il_calcs)
 	{
+		/* find interlayer porosity por_il, 
+		   make it relative to exchange capacity (mol X/L), highest X in sol_D[1].x_max (mol X / L).
+		   Find amounts of IL water and cec.
+		   Must do this separately, since por and por_il are in cell_data structure. */
 		if (icell == 0)
 		{
-			aq_il2 = (aq2 + dl_aq2) * cell_data[0].por_il / cell_data[0].por;
+			por_il1 = sol_D[0].exch_total / aq1 / sol_D[1].x_max *
+				cell_data[0].por_il;
+			por_il2 = sol_D[1].exch_total / aq2 / sol_D[1].x_max *
+				cell_data[0].por_il;
+			if (sol_D[0].exch_total > 3e-10 && sol_D[1].exch_total > 3e-10)
+				/* take the average... */
+				por_il12 = (por_il1 + por_il2) / 2;
+			else
+				/* at column ends, take the clay... */
+				por_il12 = (por_il1 >= por_il2 ? por_il1 : por_il2);
+			if (por_il12 > 0.999 * cell_data[0].por)
+				por_il12 = 0.999 * cell_data[0].por;
+
+			if (por_il2 > 0.999 * cell_data[0].por)
+				por_il2 = 0.999 * cell_data[0].por;
+			aq_il2 = (aq2 + dl_aq2) * por_il2 /
+                (cell_data[0].por - por_il2);
 			/* Assume interlayer water is proportional with CEC... */
 			aq_il1 = aq_il2 * sol_D[0].exch_total / sol_D[1].exch_total;
-			temp = sol_D[0].exch_total;
-			l_temp2 = sol_D[1].exch_total;
 		}
 		else if (icell == count_cells)
 		{
-			aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
-				cell_data[icell - 1].por;
-			aq_il2 = aq_il1 * sol_D[jcell].exch_total /
-				sol_D[icell].exch_total;
-			temp = sol_D[icell].exch_total;
-			l_temp2 = sol_D[jcell].exch_total;
+			por_il1 = sol_D[count_cells].exch_total / aq1 / sol_D[1].x_max *
+				cell_data[count_cells - 1].por_il;
+			por_il2 = sol_D[count_cells + 1].exch_total / aq2 / sol_D[1].x_max *
+				cell_data[count_cells - 1].por_il;
+			if (sol_D[count_cells].exch_total > 3e-10 && sol_D[count_cells + 1].exch_total > 3e-10)
+				por_il12 = (por_il1 + por_il2) / 2;
+			else
+				por_il12 = (por_il1 >= por_il2 ? por_il1 : por_il2);
+			if (por_il12 > 0.999 * cell_data[count_cells - 1].por)
+				por_il12 = 0.999 * cell_data[count_cells - 1].por;
+
+			if (por_il1 > 0.999 * cell_data[count_cells - 1].por)
+				por_il1 = 0.999 * cell_data[count_cells - 1].por;
+			aq_il1 = (aq1 + dl_aq1) * por_il1 /
+                (cell_data[count_cells - 1].por - por_il1);
+			aq_il2 = aq_il1 * sol_D[count_cells + 1].exch_total /
+				sol_D[count_cells].exch_total;
 		}
 		else
 		{
-			aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
-				cell_data[icell - 1].por;
-			aq_il2 = (aq2 + dl_aq2) * cell_data[jcell - 1].por_il /
-				cell_data[jcell - 1].por;
-			temp = sol_D[icell].exch_total;
-			l_temp2 = sol_D[jcell].exch_total;
+			por_il1 = sol_D[icell].exch_total / aq1 / sol_D[1].x_max *
+				cell_data[icell - 1].por_il;
+			por_il2 = sol_D[jcell].exch_total / aq2 / sol_D[1].x_max *
+				cell_data[jcell - 1].por_il;
+		
+			if (sol_D[icell].exch_total > 3e-10 && sol_D[jcell].exch_total > 3e-10)
+				por_il12 = (por_il1 + por_il2) / 2;
+			else
+				por_il12 = (por_il1 >= por_il2 ? por_il1 : por_il2);
+			if (por_il12 > 0.999 * cell_data[icell - 1].por || por_il12 > 0.999 * cell_data[jcell - 1].por)
+				por_il12 = (cell_data[icell - 1].por >= cell_data[jcell - 1].por ? 
+					0.999 * cell_data[jcell - 1].por : 
+					0.999 * cell_data[icell - 1].por);
+			aq_il1 = (aq1 + dl_aq1) * por_il1 /
+                (cell_data[icell - 1].por - por_il1);
+			aq_il2 = (aq2 + dl_aq2) * por_il2 / 
+                (cell_data[jcell - 1].por - por_il2);
+/* former code... */
+			//aq_il1 = (aq1 + dl_aq1) * cell_data[icell - 1].por_il /
+			//	cell_data[icell - 1].por;
+			//aq_il2 = (aq2 + dl_aq2) * cell_data[jcell - 1].por_il /
+			//	cell_data[jcell - 1].por;
+/* end */
 		}
-		/* interlayer cations diffuse over both interlayer and water porosities,
-		   take fractions for distributing the mass transfer... */
-		rc1 = (l_temp2 > temp ? temp / l_temp2 : 1);
-		rc2 = (temp > l_temp2 ? l_temp2 / temp : 1);
-		cec1 = temp / aq_il1;
-		cec2 = l_temp2 / aq_il2;
-		/* and the largest for calculating the mass transfer... */
-		cec12 = (cec1 > cec2 ? cec1 : cec2);
+		if (por_il12 == 0)
+			il_calcs = 0;
+		else
+		{
+			dum = sol_D[icell].exch_total;
+			dum2 = sol_D[jcell].exch_total;
+			rc1 = (dum2 > dum ? dum / dum2 : 1);
+			rc2 = (dum > dum2 ? dum2 / dum : 1);
+			if (sol_D[icell].exch_total > 3e-10)
+				cec1 = dum / aq_il1;
+			else
+				cec1 = 2e-10;
+			if (sol_D[jcell].exch_total > 3e-10)
+				cec2 = dum2 / aq_il2;
+			else
+				cec2 = 2e-10;
+			/* and the largest for calculating the mass transfer... */
+			cec12 = (cec1 > cec2 ? cec1 : cec2);
+		}
 	}
+
+	/* In stagnant calc's, find mixf_il for IL diffusion, correct mixf.
+	   In regular column, find surface areas A and A_il */
+	tort1 = tort2 = lav = 1.0;
+	A_ij = A_ij_il = mixf_il = 0.0;
+	if (stagnant)
+	{
+		mixf /= (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
+		dum = (cell_data[icell - 1].por <= cell_data[jcell - 1].por ?
+				cell_data[icell - 1].por : cell_data[jcell - 1].por);
+		if (il_calcs)
+		{
+			mixf_il = mixf * por_il12 / interlayer_tortf;
+			dum -= por_il12;
+		}
+		mixf *= (dum * pow(dum, multi_Dn));
+/* former code... */
+		//mixf /= (default_Dw * pow(multi_Dpor, multi_Dn) * multi_Dpor);
+		//dum = (cell_data[icell - 1].por_il <= cell_data[jcell - 1].por_il ?
+		//		cell_data[icell - 1].por_il : cell_data[jcell - 1].por_il);
+		//mixf_il = mixf * dum / interlayer_tortf;
+		//dum = (cell_data[icell - 1].por <= cell_data[jcell - 1].por ?
+		//		cell_data[icell - 1].por : cell_data[jcell - 1].por);
+		//mixf *= dum * pow(dum, multi_Dn);
+/* end */
+	}
+	else
+	{							/* regular column... */
+		if (icell == 0)
+		{
+			tort1 = tort2 = pow(cell_data[0].por, -multi_Dn);
+			lav = cell_data[0].length;
+			A_ij = (aq2 + dl_aq2) / (lav * 0.5 * lav);
+			if (il_calcs)
+				A_ij_il =
+					A_ij * por_il12 / ((cell_data[0].por - por_il12) *
+											  interlayer_tortf);
+			A_ij /= tort1;
+		}
+		else if (icell == count_cells)
+		{
+			tort1 = tort2 = pow(cell_data[count_cells - 1].por, -multi_Dn);
+			lav = cell_data[count_cells - 1].length;
+			A_ij = (aq1 + dl_aq1) / (lav * 0.5 * lav);
+			if (il_calcs)
+				A_ij_il = A_ij * por_il12 /
+					((cell_data[count_cells - 1].por - por_il12) * interlayer_tortf);
+			A_ij /= tort2;
+		}
+		else
+		{
+			tort1 = pow(cell_data[icell - 1].por, -multi_Dn);
+			tort2 = pow(cell_data[jcell - 1].por, -multi_Dn);
+			A1 = (aq1 + dl_aq1) / (cell_data[icell - 1].length *
+						0.5 * cell_data[icell - 1].length);
+			A2 = (aq2 + dl_aq2) / (cell_data[jcell - 1].length *
+						0.5 * cell_data[jcell - 1].length);
+			if (il_calcs)
+			{
+				dum = A1 * por_il12 /
+					((cell_data[icell - 1].por - por_il12) * interlayer_tortf);
+				dum2 = A2 * por_il12 /
+					((cell_data[jcell - 1].por - por_il12) * interlayer_tortf);
+				A_ij_il = dum * dum2 / (dum + dum2);
+			}
+			A1 /= tort1;
+			A2 /= tort2;
+			A_ij = A1 * A2 / (A1 + A2);
+/* former code... */
+			//A1 = aq1 / (cell_data[icell - 1].length *
+			//			0.5 * cell_data[icell - 1].length);
+			//A2 = aq2 / (cell_data[jcell - 1].length *
+			//			0.5 * cell_data[jcell - 1].length);
+			//dum = A1 * cell_data[icell - 1].por_il /
+			//	(cell_data[icell - 1].por * interlayer_tortf);
+			//dum2 = A2 * cell_data[jcell - 1].por_il /
+			//	(cell_data[jcell - 1].por * interlayer_tortf);
+			//A_ij_il = dum * dum2 / (dum + dum2);
+			//A1 /= tort1;
+			//A2 /= tort2;
+			//A_ij = A1 * A2 / (A1 + A2);
+
+			//A1 = dl_aq1 / (cell_data[icell - 1].length *
+			//			   0.5 * cell_data[icell - 1].length);
+			//A2 = dl_aq2 / (cell_data[jcell - 1].length *
+			//			   0.5 * cell_data[jcell - 1].length);
+			//dum = A1 * cell_data[icell - 1].por_il /
+			//	(cell_data[icell - 1].por * interlayer_tortf);
+			//dum2 = A2 * cell_data[jcell - 1].por_il /
+			//	(cell_data[jcell - 1].por * interlayer_tortf);
+			//if (dum + dum2 > 0)
+			//{
+			//	A_ij_il += dum * dum2 / (dum + dum2);
+			//	A1 /= tort1;
+			//	A2 /= tort2;
+			//	A_ij += (A1 * A2 / (A1 + A2));
+			//}
+/* end */
+		}
+	}
+	/* diffuse... */
+	J_ij_count_spec = 0;
+	J_ij_sum = 0.0;
 	/*
 	 * malloc sufficient space...
 	 */
@@ -2314,24 +2418,25 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 		V_M[i].g_dl = 1.0;
 		V_M[i].o_c = 1;
 	}
-	Dz2c = Dz2c_dl = 0.0;
+	Dz2c = Dz2c_dl = Dz2c_il = 0.0;
 
-	/* also for interlayer cations */
-	k = sol_D[icell].count_exch_spec + sol_D[jcell].count_exch_spec;
+	if (il_calcs)
+	{
+		/* also for interlayer cations */
+		k = sol_D[icell].count_exch_spec + sol_D[jcell].count_exch_spec;
 
-	J_ij_il = (struct J_ij *) free_check_null(J_ij_il);
-	J_ij_il = (struct J_ij *) PHRQ_malloc((size_t) k * sizeof(struct J_ij));
-	if (J_ij_il == NULL)
-		malloc_error();
+		J_ij_il = (struct J_ij *) free_check_null(J_ij_il);
+		J_ij_il = (struct J_ij *) PHRQ_malloc((size_t) k * sizeof(struct J_ij));
+		if (J_ij_il == NULL)
+			malloc_error();
 
-	V_M_il = (struct V_M *) PHRQ_malloc((size_t) k * sizeof(struct V_M));
-	if (V_M_il == NULL)
-		malloc_error();
+		V_M_il = (struct V_M *) PHRQ_malloc((size_t) k * sizeof(struct V_M));
+		if (V_M_il == NULL)
+			malloc_error();
 
-	for (i = 0; i < k; i++)
-		J_ij_il[i].tot1 = 0.0;
-	Dz2c_il = 0.0;
-
+		for (i = 0; i < k; i++)
+			J_ij_il[i].tot1 = 0.0;
+	}
 	/*
 	 * coefficients in Eqn (1)...
 	 */
@@ -2347,7 +2452,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 						  sol_D[jcell].spec[j].name) < 0))
 		{
 			/* species 'name' is only in icell */
-			if (sol_D[icell].spec[i].type == EX)
+			if (il_calcs && sol_D[icell].spec[i].type == EX)
 			{
 				J_ij_il[k_il].name = string_hsave(sol_D[icell].spec[i].name);
 				V_M_il[k_il].D = sol_D[icell].spec[i].Dwt;
@@ -2431,7 +2536,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 							   sol_D[jcell].spec[j].name) > 0))
 		{
 			/* species 'name' is only in jcell */
-			if (sol_D[jcell].spec[j].type == EX)
+			if (il_calcs && sol_D[jcell].spec[j].type == EX)
 			{
 				J_ij_il[k_il].name = string_hsave(sol_D[jcell].spec[j].name);
 				V_M_il[k_il].D = sol_D[jcell].spec[j].Dwt;
@@ -2513,7 +2618,7 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 				 == 0)
 		{
 			/* species 'name' is in both cells */
-			if (sol_D[icell].spec[i].type == EX)
+			if (il_calcs && sol_D[icell].spec[i].type == EX)
 			{
 				J_ij_il[k_il].name = string_hsave(sol_D[icell].spec[i].name);
 				if (sol_D[icell].spec[i].Dwt == 0
@@ -2619,22 +2724,22 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 									}
 									else	/* assume for counter ions in the DDL the free pore space conc's... */
 									{
-										temp = 1.0;
+										dum = 1.0;
 										c_dl +=
-											sol_D[jcell].spec[j].c / 2 * temp;
+											sol_D[jcell].spec[j].c / 2 * dum;
 										V_M[k].g_dl =
-											(V_M[k].g_dl + temp) / 2;
+											(V_M[k].g_dl + dum) / 2;
 									}
 								}
 								else
 								{
-									temp =
+									dum =
 										(1 +
 										 s_charge_ptr2->g[l].g * aq2 /
 										 dl_aq2) *
 										sol_D[jcell].spec[j].erm_ddl;
-									c_dl += sol_D[jcell].spec[j].c / 2 * temp;
-									V_M[k].g_dl = (V_M[k].g_dl + temp) / 2;
+									c_dl += sol_D[jcell].spec[j].c / 2 * dum;
+									V_M[k].g_dl = (V_M[k].g_dl + dum) / 2;
 								}
 								break;
 							}
@@ -2682,13 +2787,13 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 		J_ij[i].tot1 *= (1 - dl_s);
 		if (Dz2c_dl > 0)
 		{
-			temp =
+			dum =
 				(-V_M[i].D * V_M[i].g_dl * V_M[i].grad +
 				 c_dl * V_M[i].Dzc_dl / Dz2c_dl) * (2 / (visc1 + visc2));
-			if ((J_ij[i].tot1 <= 0 && temp <= 0)
-				|| (J_ij[i].tot1 > 0 && temp > 0))
+			if ((J_ij[i].tot1 <= 0 && dum <= 0)
+				|| (J_ij[i].tot1 > 0 && dum > 0))
 			{
-				J_ij[i].tot1 += V_M[i].o_c * temp * dl_s;
+				J_ij[i].tot1 += V_M[i].o_c * dum * dl_s;
 			}
 		}
 		/*
@@ -2979,7 +3084,8 @@ find_J(int icell, int jcell, LDBLE mixf, LDBLE DDt, int stagnant)
 	/* appt 3 July 07, improved convergence without transporting charge imbalance */
 	J_ij_sum = 0;
 	V_M = (struct V_M *) free_check_null(V_M);
-	V_M_il = (struct V_M *) free_check_null(V_M_il);
+	if (il_calcs)
+		V_M_il = (struct V_M *) free_check_null(V_M_il);
 	return (il_calcs);
 }
 

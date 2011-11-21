@@ -532,7 +532,7 @@ print_gas_phase(void)
  */
 	print_centered("Gas phase");
 	//output_msg(OUTPUT_MESSAGE, "\n");
-	output_msg(sformatf("Total pressure: %7.4f    atmospheres",
+	output_msg(sformatf("Total pressure: %5.2f      atmospheres",
 			   (double) use.gas_phase_ptr->total_p));
 	if (PR)
 		output_msg("          (Peng-Robinson calculation)\n");
@@ -1129,7 +1129,7 @@ print_saturation_indices(void)
 	struct rxn_token *rxn_ptr;
 	struct reaction *reaction_ptr;
 	const char *pr_in;
-	bool PR = false, gas = true;
+	bool PR = false, PR_inprint, gas = true;
  
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
 		return (OK);
@@ -1164,8 +1164,8 @@ print_saturation_indices(void)
  *   Print heading
  */
 	print_centered("Saturation indices");
-	output_msg(sformatf("\t%-15s%9s%8s%8s\n\n", "Phase", "SI  ",
-			   "log IAP", "log KT"));
+	output_msg(sformatf("\t%-15s%9s%8s%9s%3d%4s%3d%4s\n\n", "Phase", "SI  ",
+			   "log IAP", "log K(", int(tk_x), " K, ", int(floor(patm_x + 0.5)), " atm)"));
 
 	for (i = 0; i < count_phases; i++)
 	{
@@ -1179,7 +1179,15 @@ print_saturation_indices(void)
 /*
  *   Print saturation index
  */
-      lk = k_calc(reaction_ptr->logk, tk_x, patm_x * PASCAL_PER_ATM);
+		PR_inprint = false;
+		if (phases[i]->pr_in)
+		{
+			PR_inprint = true;
+			phases[i]->pr_in = false;
+		}
+		lk = k_calc(reaction_ptr->logk, tk_x, patm_x * PASCAL_PER_ATM);
+		if (PR_inprint)
+			phases[i]->pr_in = true;
 		iap = 0.0;
 		for (rxn_ptr = reaction_ptr->token + 1; rxn_ptr->s != NULL;
 			 rxn_ptr++)
@@ -1233,7 +1241,7 @@ print_pp_assemblage(void)
 	char token[MAX_LENGTH];
 	struct rxn_token *rxn_ptr;
 	struct phase *phase_ptr;
-	bool PR = false;
+	bool PR = false, PR_inprint;
 	const char *pr_in;
 
 	if (pr.pp_assemblage == FALSE || pr.all == FALSE)
@@ -1245,9 +1253,9 @@ print_pp_assemblage(void)
  */
 	print_centered("Phase assemblage");
 	output_msg(sformatf("%73s\n", "Moles in assemblage"));
-	output_msg(sformatf("%-16s%7s%2s%8s%8s", "Phase", "SI", "  ", "log IAP",
-			   "log KT"));
-	output_msg(sformatf(" %12s%12s%12s", " Initial", " Final",
+	output_msg(sformatf("%-14s%8s%2s%7s  %11s", "Phase", "SI", "  ", "log IAP",
+			   "log K(T, P)"));
+	output_msg(sformatf("  %8s%12s%12s", " Initial", " Final",
 			   " Delta"));
 	output_msg("\n\n");
 
@@ -1268,7 +1276,15 @@ print_pp_assemblage(void)
 		else
 		{
 			phase_ptr = x[j]->phase;
+			PR_inprint = false;
+			if (phase_ptr->pr_in)
+			{
+				PR_inprint = true;
+				phase_ptr->pr_in = false;
+			}
 			lk = k_calc(phase_ptr->rxn->logk, tk_x, patm_x * PASCAL_PER_ATM);
+			if (PR_inprint)
+				phase_ptr->pr_in = true;
 			for (rxn_ptr = phase_ptr->rxn->token + 1; rxn_ptr->s != NULL;
 				 rxn_ptr++)
 			{
@@ -1296,7 +1312,7 @@ print_pp_assemblage(void)
 			}
 			else
 				pr_in = "  ";
-			output_msg(sformatf("%-16s%7.2f%2s%8.2f%8.2f",
+			output_msg(sformatf("%-14s%8.2f%2s%7.2f  %8.2f",
 					   x[j]->phase->name, (double) si, pr_in, (double) iap,
 					   (double) lk));
 		}
@@ -1307,7 +1323,7 @@ print_pp_assemblage(void)
 			x[j]->moles = 0.0;
 		if (state != TRANSPORT && state != PHAST)
 		{
-			sprintf(token, " %11.3e %11.3e %11.3e",
+			sprintf(token, "  %11.3e %11.3e %11.3e",
 					(double) (x[j]->pure_phase->moles +
 							  x[j]->pure_phase->delta), (double) x[j]->moles,
 					(double) (x[j]->moles - x[j]->pure_phase->moles -
@@ -2096,13 +2112,13 @@ print_totals(void)
 	}
 	output_msg(sformatf("%45s%11.3e\n", "Total CO2 (mol/kg)  = ",
 			   (double) (total_co2 / mass_water_aq_x)));
-	output_msg(sformatf("%45s%7.3f\n", "Temperature (deg C)  = ",
+	output_msg(sformatf("%45s%5.2f\n", "Temperature (deg C)  = ",
 			   (double) tc_x));
 	
 	if (patm_x != 1.0)
 	{
 		/* only print if different than default */
-		output_msg(sformatf("%45s%7.3f\n", "Pressure (atm)  = ",
+		output_msg(sformatf("%45s%5.2f\n", "Pressure (atm)  = ",
 			(double) patm_x));
 	}
 

@@ -1253,27 +1253,6 @@ initial_gas_phases(int print)
 			/* Try to obtain a solution pointer */ 
 			use.solution_ptr =
 				solution_bsearch(gas_phase[n].n_solution, &i, TRUE);
-
-			if (use.solution_ptr != NULL)
-			{
-				/*
-				 * Gas phase should be equilibrated with solution; change pressure 
-				 * of initial gas phase to pressure of the solution
-				 */
-				gas_phase[n].total_p = use.solution_ptr->patm;
-
-				if (print == TRUE)
-				{
-					sprintf(token, 
-						"Gas phase %d defined to be in equilibrium with solution %d, %s (%.2f atm)",
-						gas_phase[n].n_user,
-						use.solution_ptr->n_user,
-						"reinitializing gas phase with pressure of solution",
-						(double)gas_phase[n].total_p);
-					dup_print(token, FALSE);
-				}
-			}
-
 			prep();
 			k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
 			set(TRUE);
@@ -1317,6 +1296,18 @@ initial_gas_phases(int print)
 					gas_comp_ptr->phase->moles_x = 0;
 				}
 			}
+			if (fabs(use.gas_phase_ptr->total_p - use.solution_ptr->patm) > 5)
+			{
+				sprintf(token, 
+					"WARNING: While initializing gas phase composition by equilibrating:\n%s (%.2f atm) %s (%.2f atm).\n%s.",
+					"         Gas phase pressure",
+					(double) use.gas_phase_ptr->total_p,
+					"is not equal to solution-pressure",
+					(double) use.solution_ptr->patm,
+					"         Pressure effects on solubility may be incorrect");
+					dup_print(token, FALSE);
+			}
+
 			print_gas_phase();
  			if (PR /*&& use.gas_phase_ptr->total_p > 1.0*/)
  				warning_msg("While initializing gas phase composition by equilibrating:\n"

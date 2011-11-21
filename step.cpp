@@ -353,6 +353,7 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 	tc_x += solution_ptr->tc * intensive;
 	ph_x += solution_ptr->ph * intensive;
 	patm_x += solution_ptr->patm * intensive;
+	k_temp(tc_x, patm_x);
 	solution_pe_x += solution_ptr->solution_pe * intensive;
 	mu_x += solution_ptr->mu * intensive;
 	ah2o_x += solution_ptr->ah2o * intensive;
@@ -1079,6 +1080,11 @@ add_gas_phase(struct gas_phase *gas_phase_ptr)
 		{
 			master_ptr->total += elt_list[i].coef;
 		}
+	}
+	if (use.gas_phase_ptr->type == PRESSURE && fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
+	{
+		patm_x = use.gas_phase_ptr->total_p;
+		k_temp(tc_x, patm_x);
 	}
 	return (OK);
 }

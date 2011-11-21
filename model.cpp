@@ -1973,6 +1973,8 @@ mb_gases(void)
 			gas_unknown->moles > MIN_TOTAL)
 		{
 			gas_in = TRUE;
+			patm_x = use.gas_phase_ptr->total_p;
+
 		}
 	}
 	else
@@ -2409,6 +2411,11 @@ calc_gas_pressures(void)
 			calc_PR(phase_ptrs, n_g, 0, tk_x, V_m);
 			pr_done = true;
 			use.gas_phase_ptr->total_moles = 0;
+			if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
+			{
+				patm_x = use.gas_phase_ptr->total_p;
+				k_temp(tc_x, patm_x);
+			}
 		} else
 		{
 			use.gas_phase_ptr->total_p = 0;
@@ -2465,15 +2472,17 @@ calc_gas_pressures(void)
 		}
 	}
 
-	if (use.gas_phase_ptr->type == VOLUME)
+	if (use.gas_phase_ptr->type == VOLUME && !PR)
 	{
 		/*
 		 * Fixed-volume gas phase reacting with a solution
 		 * Change pressure used in logK to pressure of gas phase
 		 */
-		patm_x = use.gas_phase_ptr->total_p;
-
-		/* Note: fixed pressure gas phase is handled in set_use */
+		if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
+		{
+			patm_x = use.gas_phase_ptr->total_p;
+			k_temp(tc_x, patm_x);
+		}
 	}
 
 
