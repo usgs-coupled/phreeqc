@@ -1340,7 +1340,7 @@ print_pp_assemblage(void)
 		{
 			for (k = 0; k < 11; k++)
 			{
-				token[12 + k] = ' ';
+				token[13 + k] = ' ';
 			}
 		}
 		if (x[j]->pure_phase->add_formula == NULL)
