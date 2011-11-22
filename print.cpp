@@ -2112,7 +2112,7 @@ print_totals(void)
 	}
 	output_msg(sformatf("%45s%11.3e\n", "Total CO2 (mol/kg)  = ",
 			   (double) (total_co2 / mass_water_aq_x)));
-	output_msg(sformatf("%45s%5.2f\n", "Temperature (deg C)  = ",
+	output_msg(sformatf("%45s%6.2f\n", "Temperature (deg C)  = ",
 			   (double) tc_x));
 	
 	if (patm_x != 1.0)
