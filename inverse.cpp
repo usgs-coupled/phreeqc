@@ -4923,7 +4923,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	}
 	fprintf(model_file, "\n");
 	fclose(model_file);
-
+	state = INVERSE;
 	return (OK);
 }
 
