@@ -1060,7 +1060,8 @@ tidy_gas_phase(void)
 				phase_ptrs[n_g] = gas_phase[i].comps[j].phase;
 				n_g++;
 			}
-			V_m = calc_PR(phase_ptrs, n_g, P, gas_phase[i].temperature, 0);
+			//V_m = calc_PR(phase_ptrs, n_g, P, gas_phase[i].temperature, 0);
+			V_m = 1.0;
 			for (j = 0; j < gas_phase[i].count_comps; j++)
 			{
 				if (gas_phase[i].comps[j].p_read == 0)

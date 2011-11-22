@@ -353,7 +353,8 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 	tc_x += solution_ptr->tc * intensive;
 	ph_x += solution_ptr->ph * intensive;
 	patm_x += solution_ptr->patm * intensive;
-	k_temp(tc_x, patm_x);
+	//
+	//k_temp(tc_x, patm_x);
 	solution_pe_x += solution_ptr->solution_pe * intensive;
 	mu_x += solution_ptr->mu * intensive;
 	ah2o_x += solution_ptr->ah2o * intensive;
@@ -650,24 +651,26 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 	char *ptr;
 	struct pure_phase *pure_phase_ptr;
 	struct master *master_ptr;
-	struct phase *phase_ptr;
-	LDBLE p, t;
+	//struct phase *phase_ptr;
+	//LDBLE p, t;
 
 	pure_phase_ptr = pp_assemblage_ptr->pure_phases;
-	for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
-	{
-		phase_ptr = pure_phase_ptr[j].phase;
-		if (/*pure_phase_ptr[j].si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
-		{
-			p = exp(pure_phase_ptr[j].si_org * LOG_10);
-			t = tc_x + 273.15;
-			if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
-			{
-				calc_PR(&phase_ptr, 1, p, t, 0);
-			}
-			pure_phase_ptr[j].si = pure_phase_ptr[j].si_org + phase_ptr->pr_si_f;
-		}
-	}
+
+	// Should be be done when it gets to prep (modified quick_setup in case same_model).
+	//for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
+	//{
+	//	phase_ptr = pure_phase_ptr[j].phase;
+	//	if (/*pure_phase_ptr[j].si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+	//	{
+	//		p = exp(pure_phase_ptr[j].si_org * LOG_10);
+	//		t = tc_x + 273.15;
+	//		if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+	//		{
+	//			calc_PR(&phase_ptr, 1, p, t, 0);
+	//		}
+	//		pure_phase_ptr[j].si = pure_phase_ptr[j].si_org + phase_ptr->pr_si_f;
+	//	}
+	//}
 
 	if (check_pp_assemblage(pp_assemblage_ptr) == OK)
 		return (OK);

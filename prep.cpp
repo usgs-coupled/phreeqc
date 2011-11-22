@@ -95,6 +95,8 @@ prep(void)
  *   Build lists to fill Jacobian array and species list
  */
 		build_model();
+		adjust_setup_pure_phases();
+		adjust_setup_solution();
 	}
 	else
 	{
@@ -193,6 +195,9 @@ quick_setup(void)
 			j++;
 		}
 	}
+	// Need to update SIs for gases
+	adjust_setup_pure_phases();
+
 /*
  *   gas phase
  */
@@ -3867,10 +3872,16 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 			phi = -3.0; // fugacity coefficient > 0.05
 		phase_ptr->pr_phi = exp(phi);
 		phase_ptr->pr_si_f = phi / LOG_10/* - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK)*/;
-		if (phase_ptr->rxn_x)
+		if (phase_ptr->rxn_x != NULL)
+		{
 			phase_ptr->lk = k_calc(phase_ptr->rxn_x->logk, TK, P * PASCAL_PER_ATM);
+		}
 		else
-			phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
+		{
+			error_msg(sformatf("rxn_x not defined for gas %s.\n", phase_ptr->name), 1);
+		}
+		//else
+		//	phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
 		phase_ptr->pr_in = true;
 	}
 	if (use.gas_phase_ptr && iterations > 9)
@@ -3888,7 +3899,7 @@ setup_pure_phases(void)
 {
 	int i;
 	struct phase *phase_ptr;
-	LDBLE si_org, p, t;
+	LDBLE si_org;
 /*
  *   Fills in data for pure_phase assemglage in unknown structure
  */
@@ -3909,16 +3920,18 @@ setup_pure_phases(void)
 			use.pp_assemblage_ptr->pure_phases[i].phase;
 		x[count_unknowns]->si = use.pp_assemblage_ptr->pure_phases[i].si;
 		si_org = use.pp_assemblage_ptr->pure_phases[i].si_org;
-		if (/*si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
-		{
-			p = exp(si_org * LOG_10);
-			t = use.solution_ptr->tc + 273.15;
-			if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
-			{
-				calc_PR(&phase_ptr, 1, p, t, 0);
-			}
-			x[count_unknowns]->si = si_org + phase_ptr->pr_si_f;
-		}
+		// This is done later in adjust_pure_phases,
+		//   when rxn_x has been defined for the each phase in the model
+		//if (/*si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+		//{
+		//	p = exp(si_org * LOG_10);
+		//	t = use.solution_ptr->tc + 273.15;
+		//	if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+		//	{
+		//		calc_PR(&phase_ptr, 1, p, t, 0);
+		//	}
+		//	x[count_unknowns]->si = si_org + phase_ptr->pr_si_f;
+		//}
 		x[count_unknowns]->delta =
 			use.pp_assemblage_ptr->pure_phases[i].delta;
 		x[count_unknowns]->pure_phase =
@@ -3931,7 +3944,43 @@ setup_pure_phases(void)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+adjust_setup_pure_phases(void)
+/* ---------------------------------------------------------------------- */
+{
+	int i;
+	struct phase *phase_ptr;
+	LDBLE si_org, p, t;
+/*
+ *   Fills in data for pure_phase assemglage in unknown structure
+ */
 
+	if (use.pp_assemblage_ptr == NULL)
+		return (OK);
+/*
+ *   Adjust si for gases
+ */
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (x[i]->type == PP)
+		{
+			phase_ptr = x[i]->phase;
+			si_org = x[i]->pure_phase->si_org;
+			if (phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+			{
+				p = exp(si_org * LOG_10);
+				t = use.solution_ptr->tc + 273.15;
+				if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+				{
+					calc_PR(&phase_ptr, 1, p, t, 0);
+				}
+				x[i]->si = si_org + phase_ptr->pr_si_f;
+			}
+		}
+	}
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_solution(void)
@@ -3947,7 +3996,6 @@ setup_solution(void)
 	char token[MAX_LENGTH];
 	struct master_isotope *master_isotope_ptr;
 	struct phase *phase_ptr;
-	LDBLE p, t;
 
 	solution_ptr = use.solution_ptr;
 	count_unknowns = 0;
@@ -4123,16 +4171,18 @@ setup_solution(void)
 				phase_ptr = solution_ptr->totals[i].phase;
 				x[count_unknowns]->phase = phase_ptr;
 				x[count_unknowns]->si = solution_ptr->totals[i].phase_si;
-				if (/*x[count_unknowns]->si > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
-				{
-					p = exp(x[count_unknowns]->si * LOG_10);
-					t = solution_ptr->tc + 273.15;
-					if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
-					{
-						calc_PR(&phase_ptr, 1, p, t, 0);
-					}
-					x[count_unknowns]->si += phase_ptr->pr_si_f;
-				}
+				// This calculation is done later in adjust_setup_solution,
+				//    when rxn_x has been defined for each phase in the model
+				//if (/*x[count_unknowns]->si > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+				//{
+				//	p = exp(x[count_unknowns]->si * LOG_10);
+				//	t = solution_ptr->tc + 273.15;
+				//	if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+				//	{
+				//		calc_PR(&phase_ptr, 1, p, t, 0);
+				//	}
+				//	x[count_unknowns]->si += phase_ptr->pr_si_f;
+				//}
 				if (solution_phase_boundary_unknown == NULL)
 				{
 					solution_phase_boundary_unknown = x[count_unknowns];
@@ -4289,7 +4339,54 @@ setup_solution(void)
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+adjust_setup_solution(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Fills in data in unknown structure for the solution
+ */
+	int i;
+	struct phase *phase_ptr;
+	LDBLE p, t;
 
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (x[i]->type == SOLUTION_PHASE_BOUNDARY)
+		{
+			//solution_ptr->totals[i].phase =
+			//	phase_bsearch(solution_ptr->totals[i].equation_name, &l,
+			//				  FALSE);
+			//if (solution_ptr->totals[i].phase == NULL)
+			//{
+			//	sprintf(error_string, "Expected a mineral name, %s.",
+			//			solution_ptr->totals[i].equation_name);
+			//	error_msg(error_string, CONTINUE);
+			//	input_error++;
+			//}
+			x[count_unknowns]->type = SOLUTION_PHASE_BOUNDARY;
+			//phase_ptr = solution_ptr->totals[i].phase;
+			//x[count_unknowns]->phase = phase_ptr;
+			//x[count_unknowns]->si = solution_ptr->totals[i].phase_si;
+
+			phase_ptr = x[i]->phase;
+
+			if (phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+			{
+				p = exp(x[i]->si * LOG_10);
+				t = use.solution_ptr->tc + 273.15;
+				if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+				{
+					calc_PR(&phase_ptr, 1, p, t, 0);
+				}
+				x[i]->si += phase_ptr->pr_si_f;
+			}
+		}
+	}
+	return (OK);
+
+}
 /* ---------------------------------------------------------------------- */
 struct master ** Phreeqc::
 unknown_alloc_master(void)
@@ -5054,7 +5151,7 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
  */
 	for (i = 0; i < count_phases; i++)
 	{
-		if (phases[i]->in == TRUE && !phases[i]->pr_in)
+		if (phases[i]->in == TRUE && !phases[i]->pr_in) // don't see need for pr_in
 		{
 			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 		}
