@@ -3730,6 +3730,8 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 	LDBLE phi;
 	LDBLE R_TK, R = R_LITER_ATM; /* L atm / (K mol) */
 	LDBLE r3[4], r3_12, rp, rp3, rq, rz, ri, ri1, one_3 = 0.33333333333333333;
+	LDBLE disct, vinit, v1, ddp, dp_dv, dp_dv2;
+	int it;
 	struct phase *phase_ptr, *phase_ptr1;
 
 	R_TK = R * TK;
@@ -3807,9 +3809,60 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 	if (V_m)
 	{
 		P = R_TK / (V_m - b_sum) - a_aa_sum / (V_m * (V_m + 2 * b_sum) - b2);
+		if (P < 150)
+		{
+			// check for 3-roots...
+			r3[1] = b_sum - R_TK / P;
+			r3[2] = -3.0 * b2 + (a_aa_sum - R_TK * 2.0 * b_sum) / P;
+			r3[3] = b2 * b_sum + (R_TK * b2 - b_sum * a_aa_sum) / P;
+			// the discriminant of the cubic eqn...
+			disct = 18. * r3[1] * r3[2] * r3[3] -
+				4. * pow(r3[1], 3) * r3[3] + 
+				r3[1] * r3[1] * r3[2] * r3[2] -
+				4. * pow(r3[2], 3) - 
+				27. * r3[3] * r3[3];
+			if (disct > 0)
+			{
+				// 3-roots, find the largest P...
+				it = 0;
+				ddp = 1e-9;
+				v1 = vinit = 0.4;
+				dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
+					a_aa_sum * (2 * v1 + 2 * b_sum) /
+					pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+				while (fabs(dp_dv) > 1e-11 && it < 40)
+				{
+					it +=1;
+					v1 -= ddp;
+					dp_dv2 = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
+						a_aa_sum * (2 * v1 + 2 * b_sum) /
+						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+					v1 -= (dp_dv * ddp / (dp_dv - dp_dv2) - ddp);
+					if (v1 > vinit || v1 < 0.03)
+					{
+						//if (vinit < 0.1)
+						//	vinit -= 0.01;
+						//else 
+							vinit -= 0.05;
+						if (vinit < 0.06) // 0.01
+							it = 40;
+						v1 = vinit;
+					}
+					dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
+						a_aa_sum * (2 * v1 + 2 * b_sum) /
+						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+				}
+				if (it == 40)
+				{
+// accept a (possible) whobble in the curve...
+//					error_msg("No convergence when calculating P in Peng-Robinson.", STOP);
+				}
+				else if (V_m < v1)
+					P = R_TK / (v1 - b_sum) - a_aa_sum / (v1 * (v1 + 2 * b_sum) - b2);
+			}
+		}
 	} else
 	{
-		r3[0] = P;
 		r3[1] = b_sum - R_TK / P;
 		r3_12 = r3[1] * r3[1];
 		r3[2] = -3.0 * b2 + (a_aa_sum - R_TK * 2.0 * b_sum) / P;
@@ -3921,7 +3974,7 @@ setup_pure_phases(void)
 		x[count_unknowns]->si = use.pp_assemblage_ptr->pure_phases[i].si;
 		si_org = use.pp_assemblage_ptr->pure_phases[i].si_org;
 		// This is done later in adjust_pure_phases,
-		//   when rxn_x has been defined for the each phase in the model
+		//   when rxn_x has been defined for each phase in the model
 		//if (/*si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
 		//{
 		//	p = exp(si_org * LOG_10);
