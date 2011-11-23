@@ -152,8 +152,8 @@ fpunchf_end_row(const char *format)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-process_file_names(int argc, char *argv[], void **db_cookie,
-				   void **input_cookie, int log)
+process_file_names(int argc, char *argv[], std::istream **db_cookie,
+				   std::istream **input_cookie, int log)
 /* ---------------------------------------------------------------------- */
 {
 	int l;
@@ -287,8 +287,8 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 	 *  Read input file for DATABASE keyword
 	 */
 		std::ifstream * temp_input = new std::ifstream(in_file, std::ifstream::in);
-		set_cookie(temp_input);
-		if (get_line(PHRQ_io::istream_getc, temp_input) == KEYWORD)
+		push_istream(temp_input);
+		if (get_line() == KEYWORD)
 		{
 			ptr = line;
 			copy_token(token, &ptr, &l);
@@ -308,7 +308,7 @@ process_file_names(int argc, char *argv[], void **db_cookie,
 		}
 		if (phrq_io) phrq_io->close_input();
 
-		pop_cookie();
+		pop_istream();
 
 		if ((local_input_file = fopen(in_file, "r")) == NULL)
 		{;

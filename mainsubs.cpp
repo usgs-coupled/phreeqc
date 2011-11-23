@@ -3272,7 +3272,7 @@ copy_entities(void)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-read_database(PFN_READ_CALLBACK pfn, void *cookie)
+read_database(void)
 /* ---------------------------------------------------------------------- */
 {
 	simulation = 0;
@@ -3280,9 +3280,9 @@ read_database(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-	try {
-
-		set_read_callback(pfn, cookie, TRUE);
+	try
+	{
+		set_reading_database(TRUE);
 		dup_print("Reading data base.", TRUE);
 		read_input();
 		tidy_model();
@@ -3292,13 +3292,13 @@ read_database(PFN_READ_CALLBACK pfn, void *cookie)
 	{
 		return get_input_errors();
 	}
-
+	set_reading_database(FALSE);
 	return 0;
 }
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
+run_simulations(void)
 /* ---------------------------------------------------------------------- */
 {
 	char token[MAX_LENGTH];
@@ -3311,10 +3311,8 @@ run_simulations(PFN_READ_CALLBACK pfn, void *cookie)
 /*
  *   Prepare error handling
  */
-	try {
-
-		set_read_callback(pfn, cookie, FALSE);
-
+	try
+	{
 /*
  *   Read input data for simulation
  */

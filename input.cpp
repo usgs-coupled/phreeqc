@@ -6,14 +6,11 @@
 #include "phqalloc.h"
 
 /* ---------------------------------------------------------------------- */
-int Phreeqc::
-set_read_callback(PFN_READ_CALLBACK pfn, void *cookie, int database)
+void Phreeqc::
+set_reading_database(int reading_database)
 /* ---------------------------------------------------------------------- */
 {
-	s_read_callback.cookie = cookie;
-	s_read_callback.callback = pfn;
-	s_read_callback.database = database;
-	return OK;
+	reading_db = reading_database;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -21,7 +18,7 @@ int Phreeqc::
 reading_database(void)
 /* ---------------------------------------------------------------------- */
 {
-	return s_read_callback.database;
+	return reading_db;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -30,20 +27,19 @@ check_line(const char *string, int allow_empty, int allow_eof,
 		   int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
 {
-	assert(s_read_callback.callback != NULL);
-	if (s_read_callback.callback == NULL)
+	assert(get_istream() != NULL);
+	if (get_istream() == NULL)
 		return EOF;
 	if (reading_database())
 		print = FALSE;
-	return check_line_impl(s_read_callback.callback, s_read_callback.cookie,
-						   string, allow_empty, allow_eof, allow_keyword,
+	return check_line_impl(string, allow_empty, allow_eof, allow_keyword,
 						   print);
 }
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
-				int allow_empty, int allow_eof, int allow_keyword, int print)
+check_line_impl(const char *string, int allow_empty, int allow_eof,
+				int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -71,7 +67,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 /* Get line */
 	do
 	{
-		i = get_line(pfn, cookie);
+		i = get_line();
 		if ((print == TRUE && i != EOF) || i == KEYWORD)
 		{
 			echo_msg(sformatf( "\t%s\n", line_save));
@@ -101,7 +97,7 @@ check_line_impl(PFN_READ_CALLBACK pfn, void *cookie, const char *string,
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
+get_line(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -127,7 +123,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 	// loop for include files
 	for (;;)
 	{
-		cookie = get_cookie();
+		cookie = get_istream();
 		if (cookie == NULL)
 		{
 			break;
@@ -144,10 +140,10 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 			*   Get line, check for eof
 			*/
 			continue_loop = false;
-			if (get_logical_line(pfn, cookie, &l) == EOF)
+			if (get_logical_line(cookie, &l) == EOF)
 			{
 					//pop next file
-					pop_cookie();
+					pop_istream();
 					continue_loop = true;
 					break;
 			}
@@ -221,7 +217,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 					sprintf(error_string, "Could not open include file %s", file_name);
 					error_msg(error_string, STOP);
 				}
-				set_cookie(next_stream);
+				push_istream(next_stream);
 				continue;
 			}
 		}
@@ -234,7 +230,7 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
+get_logical_line(void *cookie, int *l)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -251,9 +247,9 @@ get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 	int pos;
 	char c;
 	i = 0;
-	if (!pfn)
+	if (!cookie)
 		return EOF;
-	while ((j = pfn(cookie)) != EOF)
+	while ((j = PHRQ_io::istream_getc(cookie)) != EOF)
 	{
 		c = (char) j;
 		if (c == '#')
@@ -268,7 +264,7 @@ get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 				}
 				add_char_to_line(&i, c);
 			}
-			while ((j = pfn(cookie)) != EOF);
+			while ((j = PHRQ_io::istream_getc(cookie)) != EOF);
 		}
 		if (c == ';')
 			break;
@@ -280,7 +276,7 @@ get_logical_line(PFN_READ_CALLBACK pfn, void *cookie, int *l)
 		{
 			pos = i;
 			add_char_to_line(&i, c);
-			while ((j = pfn(cookie)) != EOF)
+			while ((j = PHRQ_io::istream_getc(cookie)) != EOF)
 			{
 				c = (char) j;
 				if (c == '\\')

@@ -152,14 +152,6 @@
 //
 // Typedefs and structure definitions
 //
-typedef int (*PFN_READ_CALLBACK) (void *cookie);
-
-struct read_callback
-{
-	PFN_READ_CALLBACK callback;
-	void *cookie;
-	int database;
-};
 typedef enum { kcal, cal, kjoules, joules } DELTA_H_UNIT;
 typedef enum { cm3_per_mol } DELTA_V_UNIT;
 enum SURFACE_TYPE

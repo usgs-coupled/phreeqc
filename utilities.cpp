@@ -1672,12 +1672,12 @@ get_input_errors()
 	total_errors += phrq_io->Get_io_error_count();
 	return total_errors;
 }
-void * Phreeqc::
-get_cookie()
+std::istream * Phreeqc::
+get_istream()
 {
-	if (cookie_list.size() > 0)
+	if (istream_list.size() > 0)
 	{
-		return cookie_list.front();
+		return istream_list.front();
 	}
 	else
 	{
@@ -1685,24 +1685,24 @@ get_cookie()
 	}
 }
 void Phreeqc::
-set_cookie(std::istream * cookie)
+push_istream(std::istream * cookie)
 {
-	cookie_list.push_front(cookie);
+	istream_list.push_front(cookie);
 }
 void Phreeqc::
-clear_cookie(void)
+clear_istream(void)
 {
-	while (cookie_list.size() > 0)
+	while (istream_list.size() > 0)
 	{
-		pop_cookie();
+		pop_istream();
 	}
 }
 void Phreeqc::
-pop_cookie()
+pop_istream()
 {
-	if (cookie_list.size() > 0)
+	if (istream_list.size() > 0)
 	{
-		delete cookie_list.front();
-		cookie_list.pop_front();
+		delete istream_list.front();
+		istream_list.pop_front();
 	}
 }
