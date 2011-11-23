@@ -5151,7 +5151,7 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
  */
 	for (i = 0; i < count_phases; i++)
 	{
-		if (phases[i]->in == TRUE && !phases[i]->pr_in) // don't see need for pr_in
+		if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
 		{
 			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 		}
