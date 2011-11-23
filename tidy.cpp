@@ -15,6 +15,7 @@ tidy_model(void)
 	/*
 	 * Determine if any new elements, species, phases have been read
 	 */
+	state = INITIALIZE;
 	new_model = FALSE;
 	new_pp_assemblage = FALSE;
 	new_surface = FALSE;

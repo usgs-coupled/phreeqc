@@ -3929,12 +3929,15 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 		{
 			phase_ptr->lk = k_calc(phase_ptr->rxn_x->logk, TK, P * PASCAL_PER_ATM);
 		}
+		else if (phase_ptr->rxn_s != NULL && state == INITIALIZE)
+					{
+			phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
+		}
 		else
 		{
 			error_msg(sformatf("rxn_x not defined for gas %s.\n", phase_ptr->name), 1);
 		}
-		//else
-		//	phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
+
 		phase_ptr->pr_in = true;
 	}
 	if (use.gas_phase_ptr && iterations > 9)
