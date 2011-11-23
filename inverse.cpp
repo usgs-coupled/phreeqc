@@ -2994,7 +2994,99 @@ post_mortem(void)
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+bool Phreeqc::
+test_cl1_solution(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   checks that equality and inequalities are satisfied
+ *
+ */
+	int i, j;
+	LDBLE sum;
+	int local_debug_inverse = debug_inverse;
+	local_debug_inverse = TRUE;
+/*
+ *   Check equalities
+ */
+	bool rv = true;
+	if (debug_inverse)
+	{
+		output_msg(sformatf(
+			"\nTesting cl1 inverse modeling:\n\n"));
+	}
+	for (i = row_mb; i < row_epsilon; i++)
+	{
+		sum = 0;
+		for (j = 0; j < count_unknowns; j++)
+		{
+			sum += inv_delta1[j] * array[i * max_column_count + j];
+		}
 
+		if (equal(sum, array[(i * max_column_count) + count_unknowns], toler) == FALSE)
+		{
+			if (debug_inverse)
+			{
+				output_msg(sformatf("\tERROR: equality not satisfied for %s, %e.\n", row_name[i],
+				   (double) (sum - array[(i * max_column_count) + count_unknowns])));
+			}
+			rv = false;
+		}
+	}
+/*
+ *   Check inequalities
+ */
+	for (i = row_epsilon; i < count_rows; i++)
+	{
+		sum = 0;
+		for (j = 0; j < count_unknowns; j++)
+		{
+			sum += inv_delta1[j] * array[i * max_column_count + j];
+		}
+
+		if (sum > array[(i * max_column_count) + count_unknowns] + toler)
+		{
+			if (debug_inverse)
+			{
+				output_msg(sformatf(
+					"\tERROR: inequality not satisfied for %s, %e\n",
+					row_name[i],
+					(double) (sum - array[(i * max_column_count) + count_unknowns])));
+			}
+			rv = false;
+		}
+	}
+/*
+ *   Check dissolution/precipitation constraints
+ */
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (delta_save[i] > 0.5 && inv_delta1[i] < -toler)
+		{
+			if (debug_inverse)
+			{
+				output_msg(sformatf(
+					"\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
+					i, col_name[i], (double) inv_delta1[i]));
+			}
+			rv = false;
+
+		}
+		else if (delta_save[i] < -0.5 && inv_delta1[i] > toler)
+		{
+			if (debug_inverse)
+			{
+				output_msg(sformatf(
+					"\tERROR: Dissolution/precipitation constraint not satisfied for column %d, %s, %e.\n",
+					i, col_name[i], (double) inv_delta1[i]));
+			}
+			rv = false;
+		}
+	}
+
+	return (OK);
+}
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 carbon_derivs(struct inverse *inv_ptr)
