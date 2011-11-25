@@ -1401,8 +1401,28 @@ minimal_solve(struct inverse *inv_ptr, unsigned long minimal_bits)
 		output_msg(sformatf( "\n\nMINIMAL MODEL\n\n"));
 		bit_print(minimal_bits, inv_ptr->count_phases + inv_ptr->count_solns);
 	}
+
 	solve_with_mask(inv_ptr, minimal_bits);
-	return (minimal_bits);
+	unsigned long actual_bits = 0;
+	for (i = 0; i < inv_ptr->count_solns; i++)
+	{
+		if (equal(inv_delta1[i], 0.0, TOL) == FALSE)
+		{
+			actual_bits = set_bit(actual_bits, i + inv_ptr->count_phases, 1);
+		}
+	}
+	for (i = 0; i < inv_ptr->count_phases; i++)
+	{
+		if (equal(inv_delta1[i + inv_ptr->count_solns], 0.0, TOL) == FALSE)
+		{
+			actual_bits = set_bit(actual_bits, i, 1);
+		}
+	}
+	if (actual_bits != minimal_bits)
+	{
+		warning_msg("Roundoff errors in minimal calculation");
+	}
+	return (actual_bits);
 }
 
 /* ---------------------------------------------------------------------- */
