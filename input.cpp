@@ -27,7 +27,7 @@ check_line(const char *string, int allow_empty, int allow_eof,
 		   int allow_keyword, int print)
 /* ---------------------------------------------------------------------- */
 {
-	assert(get_istream() != NULL);
+	//assert(get_istream() != NULL);
 	if (get_istream() == NULL)
 		return EOF;
 	if (reading_database())
