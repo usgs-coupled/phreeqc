@@ -15,7 +15,6 @@ initialize(void)
 /*
  *   Initialize global variables
  */
-	ENTRY item, *found_item;
 	int i;
 	struct logk *logk_ptr;
 	char token[MAX_LENGTH];
@@ -264,7 +263,6 @@ initialize(void)
 	hcreate_multi((unsigned) max_elements, &elements_hash_table);
 	hcreate_multi((unsigned) max_s, &species_hash_table);
 	hcreate_multi((unsigned) max_phases, &phases_hash_table);
-	hcreate_multi((unsigned) 2 * NKEYS, &keyword_hash_table);
 /*
  *  Initialize use pointers
  */
@@ -377,27 +375,6 @@ initialize(void)
 	last_model.surface_comp = NULL;
 	last_model.count_surface_charge = -1;
 	last_model.surface_charge = NULL;
-/*
- *   Update hash table
- */
-	keyword_hash =
-		(struct key *) PHRQ_malloc((size_t) NKEYS * sizeof(struct key));
-	if (keyword_hash == NULL)
-		malloc_error();
-	for (i = 0; i < NKEYS; i++)
-	{
-		keyword_hash[i].name = string_hsave(keyword[i].name);
-		keyword_hash[i].keycount = i;
-		item.key = keyword_hash[i].name;
-		item.data = (void *) &keyword_hash[i];
-		found_item = hsearch_multi(keyword_hash_table, item, ENTER);
-		if (found_item == NULL)
-		{
-			sprintf(error_string,
-					"Hash table error in keyword initialization.");
-			error_msg(error_string, STOP);
-		}
-	}
 /*
  *   rates
  */
@@ -3302,12 +3279,12 @@ run_simulations(void)
 /* ---------------------------------------------------------------------- */
 {
 	char token[MAX_LENGTH];
-#ifdef SKIP
+//#ifdef SKIP
 #if defined(WIN32)
 	unsigned int old_exponent_format;
 	old_exponent_format = _set_output_format(_TWO_DIGIT_EXPONENT);
 #endif
-#endif
+//#endif
 /*
  *   Prepare error handling
  */

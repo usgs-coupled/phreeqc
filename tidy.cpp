@@ -32,153 +32,110 @@ tidy_model(void)
 	new_kinetics = FALSE;
 	new_pitzer = FALSE;
 	new_named_logk = FALSE;
-	if (keyword[2].keycount > 0 ||	/*"species" */
-		keyword[3].keycount > 0 ||	/*"master" */
-		keyword[5].keycount > 0 ||	/*"phases" */
-		keyword[11].keycount > 0 ||	/*"exchange_species" */
-		keyword[12].keycount > 0 ||	/*"master_exchange_species" */
-		keyword[14].keycount > 0 ||	/*"surface_species" */
-		keyword[15].keycount > 0 ||	/*"master_surface_species" */
-		keyword[36].keycount > 0 ||	/*"rates" */
-		keyword[47].keycount > 0 ||	/*"llnl_aqueous_model_parameters" */
-		(keyword[49].keycount > 0 && simulation == 0) ||	/*"database" */
-		keyword[51].keycount > 0 ||	/*"named_analytical_expressions" */
-		keyword[54].keycount > 0 ||	/*"isotopes" */
-		keyword[55].keycount > 0 ||	/*"calculate_values" */
-		keyword[56].keycount > 0 ||	/*"isotopes_ratios", */
-		keyword[57].keycount > 0 ||	/*"isotopes_alphas" */
-		keyword[59].keycount > 0 || /*"pitzer" */
-		keyword[60].keycount > 0    /*"sit" */
+
+	if (keycount[KEY_SOLUTION_SPECIES] > 0				||	/*"species" */
+		keycount[KEY_SOLUTION_MASTER_SPECIES] > 0		||	/*"master" */
+		keycount[KEY_PHASES] > 0						||	/*"phases" */
+		keycount[KEY_EXCHANGE_SPECIES] > 0				||	/*"exchange_species" */
+		keycount[KEY_EXCHANGE_MASTER_SPECIES] > 0		||	/*"master_exchange_species" */
+		keycount[KEY_SURFACE_SPECIES] > 0				||	/*"surface_species" */
+		keycount[KEY_SURFACE_MASTER_SPECIES] > 0		||	/*"master_surface_species" */
+		keycount[KEY_RATES] > 0							||	/*"rates" */
+		keycount[KEY_LLNL_AQUEOUS_MODEL_PARAMETERS] > 0 ||	/*"llnl_aqueous_model_parameters" */
+		(keycount[KEY_DATABASE] > 0 && simulation == 0) ||	/*"database" */
+		keycount[KEY_NAMED_EXPRESSIONS] > 0				||	/*"named_analytical_expressions" */
+		keycount[KEY_ISOTOPES] > 0						||	/*"isotopes" */
+		keycount[KEY_CALCULATE_VALUES] > 0				||	/*"calculate_values" */
+		keycount[KEY_ISOTOPE_RATIOS] > 0				||	/*"isotopes_ratios", */
+		keycount[KEY_ISOTOPE_ALPHAS] > 0				||	/*"isotopes_alphas" */
+		keycount[KEY_PITZER] > 0						||	/*"pitzer" */
+		keycount[KEY_SIT] > 0								/*"sit" */
 		)
 	{							
 		new_model = TRUE;
 	}
-	if (keyword[6].keycount > 0)
-		new_pp_assemblage = TRUE;	/*"pure_phases" */
-	if (keyword[16].keycount > 0)
-		new_surface = TRUE;		/*"surface" */
-	if (keyword[13].keycount > 0)
-		new_exchange = TRUE;	/*"exchange" */
-	if (keyword[7].keycount > 0)
-		new_reaction = TRUE;	/*"reaction" */
-	if (keyword[17].keycount > 0)
-		new_temperature = TRUE;	/*"reacton_temperature" */
-	if (keyword[8].keycount > 0)
-		new_mix = TRUE;			/*"mix" */
-	if (keyword[4].keycount > 0 ||	/*"solution" */
-		keyword[43].keycount > 0)
-	{							/*"spread_solution" */
+	if (keycount[KEY_EQUILIBRIUM_PHASES] > 0		|| 
+		keycount[KEY_EQUILIBRIUM_PHASES_RAW] > 0	||
+		keycount[KEY_EQUILIBRIUM_PHASES_MODIFY])
+	{
+		new_pp_assemblage = TRUE;					/*"pure_phases" */
+	}
+	if (keycount[KEY_SURFACE] > 0					||
+		keycount[KEY_SURFACE_RAW] > 0				||
+		keycount[KEY_SURFACE_MODIFY])
+	{
+		new_surface = TRUE;							/*"surface" */
+	}
+	if (keycount[KEY_EXCHANGE] > 0					||
+		keycount[KEY_SURFACE_RAW] > 0				||
+		keycount[KEY_SURFACE_MODIFY])
+	{
+		new_exchange = TRUE;						/*"exchange" */
+	}
+	if (keycount[KEY_REACTION] > 0					||
+		keycount[KEY_REACTION_RAW] > 0				||
+		keycount[KEY_REACTION_MODIFY])
+	{
+		new_reaction = TRUE;						/*"reaction" */
+	}
+	if (keycount[KEY_REACTION_TEMPERATURE] > 0		||
+		keycount[KEY_REACTION_TEMPERATURE_RAW] > 0	||
+		keycount[KEY_REACTION_TEMPERATURE_MODIFY])
+	{
+		new_temperature = TRUE;						/*"reacton_temperature" */
+	}
+	if (keycount[KEY_MIX] > 0						||
+		keycount[KEY_MIX_RAW] > 0)	
+	{
+		new_mix = TRUE;								/*"mix" */
+	}
+	if (keycount[KEY_SOLUTION] > 0 ||			
+		keycount[KEY_SOLUTION_SPREAD] > 0			||
+		keycount[KEY_SOLUTION_RAW] > 0				||
+		keycount[KEY_SOLUTION_MODIFY])
+	{												/*"solution" */
 		new_solution = TRUE;
 	}
-	if (keyword[19].keycount > 0)
-		new_gas_phase = TRUE;	/*"gas_phase" */
-	if (keyword[18].keycount > 0)
-		new_inverse = TRUE;		/*"inverse_modeling" */
-	if (keyword[22].keycount > 0 ||	/*"selected_output" */
-		keyword[39].keycount > 0)
-	{							/*"user_punch" */
+	if (keycount[KEY_GAS_PHASE]  > 0				||
+		keycount[KEY_GAS_PHASE_RAW] > 0				||
+		keycount[KEY_GAS_PHASE_MODIFY])
+	{
+		new_gas_phase = TRUE;						/*"gas_phase" */
+	}
+	if (keycount[KEY_SOLID_SOLUTIONS] > 0			||
+		keycount[KEY_SOLID_SOLUTIONS_RAW] > 0		||
+		keycount[KEY_SOLID_SOLUTIONS_MODIFY])
+	{
+		new_s_s_assemblage = TRUE;					/*"solid_solutions" */
+	}
+	if (keycount[KEY_KINETICS] > 0					||
+		keycount[KEY_KINETICS_RAW] > 0				||
+		keycount[KEY_KINETICS_MODIFY])
+	{
+		new_kinetics = TRUE;						/*"kinetics" */
+	}
+	if (keycount[KEY_INVERSE_MODELING] > 0)
+	{
+		new_inverse = TRUE;							/*"inverse_modeling" */
+	}
+	if (keycount[KEY_SELECTED_OUTPUT] > 0 ||		/*"selected_output" */
+		keycount[KEY_USER_PUNCH] > 0)				/*"user_punch" */
+	{
 		new_punch = TRUE;
 	}
-	if (keyword[40].keycount > 0)
-		new_s_s_assemblage = TRUE;	/*"solid_solutions" */
-	if (keyword[33].keycount > 0)
-		new_kinetics = TRUE;	/*"kinetics" */
-	if (keyword[58].keycount > 0)
-		new_copy = TRUE;		/*"copy" */
-	if (keyword[59].keycount > 0)
-		new_pitzer = TRUE;		/*"pitzer" */
-	if (keyword[50].keycount > 0 ||
-		keyword[51].keycount > 0 ||
-		keyword[52].keycount > 0 || keyword[53].keycount > 0)
-		new_named_logk = TRUE;	/*"named_log_k" */
 
-	int last_c_keyword = 61;
-	if (keyword[last_c_keyword + 13].keycount > 0)
-		new_pp_assemblage = TRUE;	/*equilibrium_phases_modify*/
-	/*
-	   0      "eof"
-	   1      "end"
-	   2      "species"
-	   3      "master"
-	   4      "solution"
-	   5       "phases"
-	   6       "pure_phases"
-	   7       "reaction"
-	   8       "mix"
-	   9       "use"
-	   10      "save"
-	   11      "exchange_species"
-	   12      "master_exchange_species"
-	   13      "exchange"
-	   14      "surface_species"
-	   15      "master_surface_species"
-	   16      "surface"
-	   17      "reacton_temperature"
-	   18      "inverse_modeling"
-	   19      "gas_phase"
-	   20      "transport"
-	   21      "debug"
-	   22      "selected_output"
-	   23      "select_output"
-	   24      "knobs"
-	   25      "print"
-	   26      "equilibrium_phases"  
-	   27      "equilibria"
-	   28      "equilibrium"         
-	   29      "pure"                
-	   30      "title"
-	   31      "comment"
-	   32      "advection"
-	   33      "kinetics"
-	   34      "incremental_reactions"
-	   35      "incremental"
-	   36      "rates"
-	   37      "solution_s"
-	   38      "user_print"
-	   39      "user_punch"
-	   40      "solid_solutions"
-	   41      "solid_solution"
-	   42      "solution_spread"
-	   43      "spread_solution"
-	   44      "selected_out"
-	   45      "select_out"
-	   46      "user_graph"
-	   47      "llnl_aqueous_model_parameters"
-	   48      "llnl_aqueous_model"
-	   49      "database"
-	   50      "named_analytical_expression"
-	   51      "named_analytical_expressions"
-	   52      "named_expressions"
-	   53      "named_log_k"
-	   54      "isotopes"
-	   55      "calculate_values"
-	   56      "isotopes_ratios",
-	   57      "isotopes_alphas"
-	   58      "copy"
-	   59      "pitzer"
-	   60      "sit"
-	  61      "equilibrium_phase"
-	  1       "solution_raw"
-	  2       "exchange_raw"
-	  3       "surface_raw"
-	  4       "equilibrium_phases_raw"
-	  5       "kinetics_raw"
-	  6       "solid_solutions_raw"
-	  7       "gas_phase_raw"
-	  8       "reaction_raw"
-	  9       "mix_raw"
-	  10       "reaction_temperature_raw"
-	  11      "dump"
-	  12      "solution_modify"
-	  13      "equilibrium_phases_modify"
-	  14      "exchange_modify"
-	  15      "surface_modify"
-	  16      "solid_solutions_modify"
-	  17      "gas_phase_modify"
-	  18      "kinetics_modify"
-	  19      "delete",
-	  20      "run_cells"
-	 */
+	if (keycount[KEY_COPY] > 0)
+	{
+		new_copy = TRUE;							/*"copy" */
+	}
+	if (keycount[KEY_PITZER] > 0)
+	{
+		new_pitzer = TRUE;							/*"pitzer" */
+	}
+	if (keycount[KEY_NAMED_EXPRESSIONS] > 0)
+	{
+		new_named_logk = TRUE;						/*"named_log_k" */
+	}
 
 /*
  *   Sort arrays
@@ -187,38 +144,39 @@ tidy_model(void)
 /* species */
 	if (new_model == TRUE)
 	{
-		qsort(s,
-			  (size_t) count_s, (size_t) sizeof(struct species *), s_compare);
+		qsort(s, (size_t) count_s, (size_t) sizeof(struct species *), s_compare);
 
 /* master species */
-		qsort(master,
-			  (unsigned) count_master, sizeof(struct master *),
-			  master_compare);
+		qsort(master, (unsigned) count_master, sizeof(struct master *), master_compare);
 
 /* elements */
-		qsort(elements,
-			  (size_t) count_elements,
-			  (size_t) sizeof(struct element *), element_compare);
+		qsort(elements, (size_t) count_elements, (size_t) sizeof(struct element *), element_compare);
 /* phases */
-		qsort(phases,
-			  (size_t) count_phases,
-			  (size_t) sizeof(struct phase *), phase_compare);
+		qsort(phases, (size_t) count_phases, (size_t) sizeof(struct phase *), phase_compare);
 
 	}
 /* pure_phases */
 	if (new_pp_assemblage)
+	{
 		pp_assemblage_sort();
+	}
 
 /* solid solutions */
 	if (new_s_s_assemblage)
+	{
 		s_s_assemblage_sort();
+	}
 
 /* exchangers */
 	if (new_exchange)
+	{
 		exchange_sort();
+	}
 /* surfaces */
 	if (new_surface)
+	{
 		surface_sort();
+	}
 /* mixtures */
 /* !!!!!
  * In transport mode, with stagnant cells, cell number is 'n_mix_user' for
@@ -226,15 +184,16 @@ tidy_model(void)
  *  qsort(mix) then fails. Hence ...
  */
 
-	if ((state != TRANSPORT) || (simul_tr < 2)
-		|| (stag_data->count_stag == 0))
+	if ((state != TRANSPORT) || (simul_tr < 2) || (stag_data->count_stag == 0))
 	{
 		mix_sort();
 	}
 
 /* gas_phase */
 	if (new_gas_phase)
+	{
 		gas_phase_sort();
+	}
 /* reset Peng-Robinson parms... */
 	for (i = 0; i < count_phases; i++)
 	{
@@ -245,14 +204,20 @@ tidy_model(void)
 
 /* kinetics */
 	if (new_kinetics)
+	{
 		kinetics_sort();
+	}
 
 	if (new_reaction)
+	{
 		irrev_sort();
+	}
 
 	/* named_log_k */
 	if (new_named_logk)
+	{
 		tidy_logk();
+	}
 /*
  *   Check pointers, write reactions for species
  */
@@ -273,17 +238,23 @@ tidy_model(void)
  *   tidy surface data
  */
 	if (new_model || new_surface)
+	{
 		tidy_surface();
+	}
 /*
  *   tidy inverse data
  */
 	if (new_inverse)
+	{
 		tidy_inverse();
+	}
 /*
  *   tidy gas phase data
  */
 	if (new_gas_phase)
+	{
 		tidy_gas_phase();
+	}
 /* reset Peng-Robinson parms... */
 	for (i = 0; i < count_phases; i++)
 	{
@@ -295,37 +266,57 @@ tidy_model(void)
  *   tidy pp_assemblage data
  */
 	if (new_model || new_pp_assemblage)
+	{
 		tidy_pp_assemblage();
+	}
 /*
  *   tidy s_s_assemblage data
  */
 	if (new_model || new_s_s_assemblage)
+	{
 		tidy_s_s_assemblage();
+	}
 /*
  *   tidy exchange data, after pp_assemblages
  */
 	if (new_exchange)
+	{
 		tidy_exchange();
+	}
 	if (new_exchange)
+	{
 		tidy_min_exchange();
+	}
 	if (new_exchange)
+	{
 		tidy_kin_exchange();
+	}
 /*
  *   tidy surface data
  */
 	if (new_surface)
+	{
 		tidy_min_surface();
+	}
 	if (new_surface)
+	{
 		tidy_kin_surface();
+	}
 /*
  *   tidy solution isotope data
  */
 	if (new_solution)
+	{
 		tidy_isotopes();
+	}
 	if (new_model)
+	{
 		tidy_isotope_ratios();
+	}
 	if (new_model)
+	{
 		tidy_isotope_alphas();
+	}
 /*
  *   Duplicate reaction
  */
@@ -388,26 +379,36 @@ tidy_model(void)
  *   Tidy pitzer information
  */
 	if (pitzer_model && new_model)
+	{
 		pitzer_tidy();
+	}
 /*
  *   Tidy SIT information
  */
 	if (sit_model && new_model)
+	{
 		sit_tidy();
+	}
 /*
  *   Tidy punch information
  */
 	if (get_input_errors() == 0 && (new_punch || new_model))
+	{
 		tidy_punch();
+	}
 /*
  *   Tidy solution information
  */
 	if (new_solution)
+	{
 		tidy_solutions();
+	}
 
 	/*      if (new_model || new_exchange || new_pp_assemblage || new_surface || new_gas_phase || new_kinetics) reset_last_model(); */
 	if (new_model)
+	{
 		reset_last_model();
+	}
 /*
  *   make sure essential species are defined
  */

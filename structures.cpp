@@ -326,14 +326,11 @@ clean_up(void)
 	hdestroy_multi(species_hash_table);
 	hdestroy_multi(logk_hash_table);
 	hdestroy_multi(phases_hash_table);
-	hdestroy_multi(keyword_hash_table);
-	keyword_hash = (struct key *) free_check_null(keyword_hash);
 
 	elements_hash_table = NULL;
 	species_hash_table = NULL;
 	logk_hash_table = NULL;
 	phases_hash_table = NULL;
-	keyword_hash_table = NULL;
 
 /* strings */
 	free_hash_strings(strings_hash_table);
@@ -7979,72 +7976,42 @@ get_entity_enum(char *name)
 	ptr = name;
 	copy_token(token, &ptr, &i);
 	check_key(token);
+
 	switch (next_keyword)
 	{
-	case -1:					/* Have not read line with keyword */
-	case 0:					/* End encountered */
-	case 1:					/* EOF encountered */
-	case 2:					/* Read aqueous model */
-	case 3:					/* Read master species */
-	case 5:
-	case 9:
-	case 10:
-	case 11:
-	case 12:
-	case 14:
-	case 15:
-	case 18:
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-	case 30:
-	case 31:
-	case 32:
-	case 34:
-	case 35:
-	case 38:
-	case 39:
-		warning_msg
-			("EXISTS expecting keyword solution, mix, kinetics, reaction, reaction_temperature, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.");
-		return (UnKnown);
-		break;
-	case 4:					/* Solution */
+	case KEY_SOLUTION:					/* Solution */
 		return (Solution);
 		break;
-	case 6:					/* Pure phases */
-	case 26:
-	case 27:
-	case 28:
-	case 29:
+	case KEY_EQUILIBRIUM_PHASES:		/* Pure phases */
 		return (Pure_phase);
 		break;
-	case 7:					/* Reaction */
+	case KEY_REACTION:					/* Reaction */
 		return (Reaction);
 		break;
-	case 8:					/* Mix */
+	case KEY_MIX:						/* Mix */
 		return (Mix);
 		break;
-	case 13:					/* Ex */
+	case KEY_EXCHANGE:					/* Ex */
 		return (Exchange);
 		break;
-	case 16:					/* Surface */
+	case KEY_SURFACE:					/* Surface */
 		return (Surface);
 		break;
-	case 17:					/* Temperature */
+	case KEY_REACTION_TEMPERATURE:		/* Temperature */
 		return (Temperature);
 		break;
-	case 19:					/* Gas */
+	case KEY_GAS_PHASE:					/* Gas */
 		return (Gas_phase);
 		break;
-	case 33:					/* Kinetics */
+	case KEY_KINETICS:					/* Kinetics */
 		return (Kinetics);
 		break;
-	case 40:					/* solid_solutions */
-	case 41:					/* solid_solution */
+	case KEY_SOLID_SOLUTIONS:			/* solid_solutions */
 		return (Ss_phase);
+		break;
+	default:
+		warning_msg
+			("EXISTS expecting keyword solution, mix, kinetics, reaction, reaction_temperature, equilibrium_phases, exchange, surface, gas_phase, or solid_solutions.");
 		break;
 	}
 	return (UnKnown);

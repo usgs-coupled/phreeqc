@@ -162,8 +162,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 	char in_file[2 * MAX_LENGTH], out_file[2 * MAX_LENGTH], db_file[2 * MAX_LENGTH];
 	char *env_ptr;
 	char *ptr;
-	ENTRY item, *found_item;
-
 /*
  *   Prepare error handling
  */
@@ -179,31 +177,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 		space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
 		hcreate_multi(5, &strings_hash_table);
-		hcreate_multi(2, &keyword_hash_table);
-
-		/*
-		*   Initialize hash table
-		*/
-		keyword_hash = (struct key *) PHRQ_malloc(sizeof(struct key));
-		if (keyword_hash == NULL)
-		{
-			malloc_error();
-		}
-		else
-		{
-			keyword_hash->name = string_hsave("database");
-			keyword_hash->keycount = 0;
-			item.key = keyword_hash->name;
-			item.data = keyword_hash;
-			found_item = hsearch_multi(keyword_hash_table, item, ENTER);
-			if (found_item == NULL)
-			{
-				sprintf(error_string,
-					"Hash table error in keyword initialization.");
-				error_msg(error_string, STOP);
-			}
-		}
-
 /*
  *   Open file for error output
  */
@@ -376,10 +349,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		user_database = (char *) free_check_null(user_database);
 		line = (char *) free_check_null(line);
 		line_save = (char *) free_check_null(line_save);
-
-		hdestroy_multi(keyword_hash_table);
-		keyword_hash = (struct key *) free_check_null(keyword_hash);
-		keyword_hash_table = NULL;
 
 		free_hash_strings(strings_hash_table);
 		hdestroy_multi(strings_hash_table);

@@ -471,7 +471,8 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 					   struct spread_row *data, struct defaults defaults)
 /* ---------------------------------------------------------------------- */
 {
-	int i, j, n, l, next_keyword_save;
+	int i, j, n, l;
+	KEYWORDS next_keyword_save;
 	int n_user, n_user_end;
 	int default_pe, alk;
 	int count_isotopes;
@@ -535,7 +536,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		ptr = string;
 		description = (char *) free_check_null(description);
 		next_keyword_save = next_keyword;
-		next_keyword = 42;
+		next_keyword = KEY_SOLUTION_SPREAD;
 		read_number_description(ptr, &n_user, &n_user_end, &description);
 		next_keyword = next_keyword_save;
 	}
