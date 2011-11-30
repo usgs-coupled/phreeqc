@@ -4,6 +4,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "Pressure.h"
+#include "Parser.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -10817,7 +10818,7 @@ read_reaction_pressure(void)
 
 	assert(!reading_database());
 
-	bool success = chart_handler.Read(PHREEQC_THIS_COMMA parser);
+	//bool success = chart_handler.Read(PHREEQC_THIS_COMMA parser);
 
 	// Need to output the next keyword
 	if (return_value == OPTION_KEYWORD) echo_msg(sformatf( "\t%s\n", line));
