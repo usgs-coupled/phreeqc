@@ -348,6 +348,9 @@ read_input(void)
 		//	read_reaction_pressure_modify();
 		//	break;
 #endif
+		default:
+			error_msg("Error in keyword switch", STOP);
+			break;		  
 		}
 	}
   END_OF_SIMULATION_INPUT:
@@ -6243,6 +6246,11 @@ read_use(void)
 			use.s_s_assemblage_in = FALSE;
 		}
 		break;
+	default:
+		input_error++;
+		error_msg(line_save, CONTINUE);
+		error_msg("Error in switch for USE.", STOP);
+		break;
 	}
 	return_value = check_line("End of use", FALSE, TRUE, TRUE, TRUE);
 	/* empty, eof, keyword, print */
@@ -10635,6 +10643,9 @@ read_copy(void)
 		break;
 	case KEY_SOLID_SOLUTIONS:						/* solid_solutions */
 		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
+		break;
+	default:
+		error_msg("Error in switch for READ_COPY.", STOP);
 		break;
 	}
 	return_value = check_line("End of COPY", FALSE, TRUE, TRUE, TRUE);
