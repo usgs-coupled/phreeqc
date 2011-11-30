@@ -567,6 +567,11 @@ struct Use
 	int n_surface;
 	struct surface *surface_ptr;
 
+	int pressure_in;
+	int n_pressure_user;
+	int n_pressure;
+	void *pressure_ptr;
+
 	int temperature_in;
 	int n_temperature_user;
 	int n_temperature;

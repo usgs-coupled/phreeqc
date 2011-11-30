@@ -3,6 +3,7 @@
 #include <time.h>
 #include "Phreeqc.h"
 #include "phqalloc.h"
+#include "Pressure.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -10640,4 +10641,174 @@ read_copy(void)
 	/* empty, eof, keyword, print */
 	return (return_value);
 }
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction_pressure(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads pressure data for reaction steps
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+	char *ptr;
+	char *description;
+	int return_value;
+	int n_user, n_user_end;
+	cxxPressure *atm = new cxxPressure(phrq_io);
 
+	int i, j, l;
+	char token[MAX_LENGTH];
+	LDBLE step;
+	bool errors = false;
+
+	ptr = line;
+/*
+ *   Read reaction number
+ */
+	ptr = line;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	atm->Set_description(description);
+	atm->Set_n_user(n_user);
+	atm->Set_n_user_end(n_user_end);
+/*
+ *   Set use data to first read
+ */
+	if (use.pressure_in == FALSE)
+	{
+		use.pressure_in = TRUE;
+		use.n_pressure_user = n_user;
+	}
+
+/*
+ *   Read pressure data
+ */
+	for (;;)  // continue reading lines
+	{
+		return_value = check_line("reaction_temperature", FALSE, TRUE, TRUE, TRUE);
+		if (return_value == EOF || return_value == KEYWORD)
+		{
+			break;
+		}
+/*
+ *   Read Pressure one of two forms:
+ *
+ *   (1) 25.0  30. 40. 50. 60.
+ *
+ *   (2) 25.0 100.0 in 4 steps # (25 50 75 100)
+ *
+ */
+		for (;;) // reading tokens
+		{
+			if (copy_token(token, &ptr, &l) == EMPTY)
+			{
+				break;
+			}
+			j = sscanf(token, SCANFORMAT, &step);
+			if (j == 1)
+			{
+				atm->Get_pressures().push_back(step);
+				continue;
+			}
+			else
+			{
+				// failed to read a double, must be "in"
+				if (atm->Get_pressures().size() != 2)
+				{
+					error_msg("To define equal increments, exactly two pressures should be defined.", CONTINUE);
+					error_msg(line_save, CONTINUE);
+					input_error++;
+					errors = true;
+				}
+				else
+				{
+					i = copy_token(token, &ptr, &l);
+					if (i == EMPTY)
+					{
+						error_msg("To define equal increments, define 'in n steps'.", CONTINUE);
+						error_msg(line_save, CONTINUE);
+						input_error++;
+						errors = true;
+					}
+					else
+					{
+						j = sscanf(token, "%d", &i);
+						if (j == 1 && i > 0)
+						{
+							atm->Set_equalIncrements(true);
+							atm->Set_count(i);
+						}
+						else
+						{
+							error_msg("Unknown input for pressure steps.", CONTINUE);
+							error_msg(line_save, CONTINUE);
+							input_error++;
+							errors = true;
+						}
+					}
+				}
+				break;
+			}
+		} // end of tokens
+	} // end of lines
+	if (!errors)
+	{
+		Reaction_pressure_map[n_user] = atm;
+	}
+	return (return_value);
+}
+#endif
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction_pressure(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads USER_GRAPH_DATA_BLOCK data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+
+	/*
+	 *  Make parser
+	 */
+	std::istream & ref = *get_istream();
+	CParser parser(ref, this->phrq_io);
+	cxxPressure atm;
+	atm.read(parser);
+
+	if (pr.echo_input == FALSE)
+	{
+		parser.set_echo_file(CParser::EO_NONE);
+	}
+	else
+	{
+		parser.set_echo_file(CParser::EO_ALL);
+	}
+
+	assert(!reading_database());
+
+	bool success = chart_handler.Read(PHREEQC_THIS_COMMA parser);
+
+	// Need to output the next keyword
+	if (return_value == OPTION_KEYWORD) echo_msg(sformatf( "\t%s\n", line));
+	return (return_value);
+}
