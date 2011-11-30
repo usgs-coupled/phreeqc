@@ -33,106 +33,106 @@ tidy_model(void)
 	new_pitzer = FALSE;
 	new_named_logk = FALSE;
 
-	if (keycount[KEY_SOLUTION_SPECIES] > 0				||	/*"species" */
-		keycount[KEY_SOLUTION_MASTER_SPECIES] > 0		||	/*"master" */
-		keycount[KEY_PHASES] > 0						||	/*"phases" */
-		keycount[KEY_EXCHANGE_SPECIES] > 0				||	/*"exchange_species" */
-		keycount[KEY_EXCHANGE_MASTER_SPECIES] > 0		||	/*"master_exchange_species" */
-		keycount[KEY_SURFACE_SPECIES] > 0				||	/*"surface_species" */
-		keycount[KEY_SURFACE_MASTER_SPECIES] > 0		||	/*"master_surface_species" */
-		keycount[KEY_RATES] > 0							||	/*"rates" */
-		keycount[KEY_LLNL_AQUEOUS_MODEL_PARAMETERS] > 0 ||	/*"llnl_aqueous_model_parameters" */
-		(keycount[KEY_DATABASE] > 0 && simulation == 0) ||	/*"database" */
-		keycount[KEY_NAMED_EXPRESSIONS] > 0				||	/*"named_analytical_expressions" */
-		keycount[KEY_ISOTOPES] > 0						||	/*"isotopes" */
-		keycount[KEY_CALCULATE_VALUES] > 0				||	/*"calculate_values" */
-		keycount[KEY_ISOTOPE_RATIOS] > 0				||	/*"isotopes_ratios", */
-		keycount[KEY_ISOTOPE_ALPHAS] > 0				||	/*"isotopes_alphas" */
-		keycount[KEY_PITZER] > 0						||	/*"pitzer" */
-		keycount[KEY_SIT] > 0								/*"sit" */
+	if (keycount[Keywords::KEY_SOLUTION_SPECIES] > 0				||	/*"species" */
+		keycount[Keywords::KEY_SOLUTION_MASTER_SPECIES] > 0			||	/*"master" */
+		keycount[Keywords::KEY_PHASES] > 0							||	/*"phases" */
+		keycount[Keywords::KEY_EXCHANGE_SPECIES] > 0				||	/*"exchange_species" */
+		keycount[Keywords::KEY_EXCHANGE_MASTER_SPECIES] > 0			||	/*"master_exchange_species" */
+		keycount[Keywords::KEY_SURFACE_SPECIES] > 0					||	/*"surface_species" */
+		keycount[Keywords::KEY_SURFACE_MASTER_SPECIES] > 0			||	/*"master_surface_species" */
+		keycount[Keywords::KEY_RATES] > 0							||	/*"rates" */
+		keycount[Keywords::KEY_LLNL_AQUEOUS_MODEL_PARAMETERS] > 0	||	/*"llnl_aqueous_model_parameters" */
+		(keycount[Keywords::KEY_DATABASE] > 0 && simulation == 0)	||	/*"database" */
+		keycount[Keywords::KEY_NAMED_EXPRESSIONS] > 0				||	/*"named_analytical_expressions" */
+		keycount[Keywords::KEY_ISOTOPES] > 0						||	/*"isotopes" */
+		keycount[Keywords::KEY_CALCULATE_VALUES] > 0				||	/*"calculate_values" */
+		keycount[Keywords::KEY_ISOTOPE_RATIOS] > 0					||	/*"isotopes_ratios", */
+		keycount[Keywords::KEY_ISOTOPE_ALPHAS] > 0					||	/*"isotopes_alphas" */
+		keycount[Keywords::KEY_PITZER] > 0							||	/*"pitzer" */
+		keycount[Keywords::KEY_SIT] > 0								/*"sit" */
 		)
 	{							
 		new_model = TRUE;
 	}
-	if (keycount[KEY_EQUILIBRIUM_PHASES] > 0		|| 
-		keycount[KEY_EQUILIBRIUM_PHASES_RAW] > 0	||
-		keycount[KEY_EQUILIBRIUM_PHASES_MODIFY])
+	if (keycount[Keywords::KEY_EQUILIBRIUM_PHASES] > 0		|| 
+		keycount[Keywords::KEY_EQUILIBRIUM_PHASES_RAW] > 0	||
+		keycount[Keywords::KEY_EQUILIBRIUM_PHASES_MODIFY])
 	{
 		new_pp_assemblage = TRUE;					/*"pure_phases" */
 	}
-	if (keycount[KEY_SURFACE] > 0					||
-		keycount[KEY_SURFACE_RAW] > 0				||
-		keycount[KEY_SURFACE_MODIFY])
+	if (keycount[Keywords::KEY_SURFACE] > 0					||
+		keycount[Keywords::KEY_SURFACE_RAW] > 0				||
+		keycount[Keywords::KEY_SURFACE_MODIFY])
 	{
 		new_surface = TRUE;							/*"surface" */
 	}
-	if (keycount[KEY_EXCHANGE] > 0					||
-		keycount[KEY_SURFACE_RAW] > 0				||
-		keycount[KEY_SURFACE_MODIFY])
+	if (keycount[Keywords::KEY_EXCHANGE] > 0				||
+		keycount[Keywords::KEY_SURFACE_RAW] > 0				||
+		keycount[Keywords::KEY_SURFACE_MODIFY])
 	{
 		new_exchange = TRUE;						/*"exchange" */
 	}
-	if (keycount[KEY_REACTION] > 0					||
-		keycount[KEY_REACTION_RAW] > 0				||
-		keycount[KEY_REACTION_MODIFY])
+	if (keycount[Keywords::KEY_REACTION] > 0				||
+		keycount[Keywords::KEY_REACTION_RAW] > 0			||
+		keycount[Keywords::KEY_REACTION_MODIFY])
 	{
 		new_reaction = TRUE;						/*"reaction" */
 	}
-	if (keycount[KEY_REACTION_TEMPERATURE] > 0		||
-		keycount[KEY_REACTION_TEMPERATURE_RAW] > 0	||
-		keycount[KEY_REACTION_TEMPERATURE_MODIFY])
+	if (keycount[Keywords::KEY_REACTION_TEMPERATURE] > 0		||
+		keycount[Keywords::KEY_REACTION_TEMPERATURE_RAW] > 0	||
+		keycount[Keywords::KEY_REACTION_TEMPERATURE_MODIFY])
 	{
 		new_temperature = TRUE;						/*"reacton_temperature" */
 	}
-	if (keycount[KEY_MIX] > 0						||
-		keycount[KEY_MIX_RAW] > 0)	
+	if (keycount[Keywords::KEY_MIX] > 0						||
+		keycount[Keywords::KEY_MIX_RAW] > 0)	
 	{
 		new_mix = TRUE;								/*"mix" */
 	}
-	if (keycount[KEY_SOLUTION] > 0 ||			
-		keycount[KEY_SOLUTION_SPREAD] > 0			||
-		keycount[KEY_SOLUTION_RAW] > 0				||
-		keycount[KEY_SOLUTION_MODIFY])
+	if (keycount[Keywords::KEY_SOLUTION] > 0 ||			
+		keycount[Keywords::KEY_SOLUTION_SPREAD] > 0			||
+		keycount[Keywords::KEY_SOLUTION_RAW] > 0			||
+		keycount[Keywords::KEY_SOLUTION_MODIFY])
 	{												/*"solution" */
 		new_solution = TRUE;
 	}
-	if (keycount[KEY_GAS_PHASE]  > 0				||
-		keycount[KEY_GAS_PHASE_RAW] > 0				||
-		keycount[KEY_GAS_PHASE_MODIFY])
+	if (keycount[Keywords::KEY_GAS_PHASE]  > 0				||
+		keycount[Keywords::KEY_GAS_PHASE_RAW] > 0			||
+		keycount[Keywords::KEY_GAS_PHASE_MODIFY])
 	{
 		new_gas_phase = TRUE;						/*"gas_phase" */
 	}
-	if (keycount[KEY_SOLID_SOLUTIONS] > 0			||
-		keycount[KEY_SOLID_SOLUTIONS_RAW] > 0		||
-		keycount[KEY_SOLID_SOLUTIONS_MODIFY])
+	if (keycount[Keywords::KEY_SOLID_SOLUTIONS] > 0			||
+		keycount[Keywords::KEY_SOLID_SOLUTIONS_RAW] > 0		||
+		keycount[Keywords::KEY_SOLID_SOLUTIONS_MODIFY])
 	{
 		new_s_s_assemblage = TRUE;					/*"solid_solutions" */
 	}
-	if (keycount[KEY_KINETICS] > 0					||
-		keycount[KEY_KINETICS_RAW] > 0				||
-		keycount[KEY_KINETICS_MODIFY])
+	if (keycount[Keywords::KEY_KINETICS] > 0				||
+		keycount[Keywords::KEY_KINETICS_RAW] > 0			||
+		keycount[Keywords::KEY_KINETICS_MODIFY])
 	{
 		new_kinetics = TRUE;						/*"kinetics" */
 	}
-	if (keycount[KEY_INVERSE_MODELING] > 0)
+	if (keycount[Keywords::KEY_INVERSE_MODELING] > 0)
 	{
 		new_inverse = TRUE;							/*"inverse_modeling" */
 	}
-	if (keycount[KEY_SELECTED_OUTPUT] > 0 ||		/*"selected_output" */
-		keycount[KEY_USER_PUNCH] > 0)				/*"user_punch" */
+	if (keycount[Keywords::KEY_SELECTED_OUTPUT] > 0			||		/*"selected_output" */
+		keycount[Keywords::KEY_USER_PUNCH] > 0)						/*"user_punch" */
 	{
 		new_punch = TRUE;
 	}
 
-	if (keycount[KEY_COPY] > 0)
+	if (keycount[Keywords::KEY_COPY] > 0)
 	{
 		new_copy = TRUE;							/*"copy" */
 	}
-	if (keycount[KEY_PITZER] > 0)
+	if (keycount[Keywords::KEY_PITZER] > 0)
 	{
 		new_pitzer = TRUE;							/*"pitzer" */
 	}
-	if (keycount[KEY_NAMED_EXPRESSIONS] > 0)
+	if (keycount[Keywords::KEY_NAMED_EXPRESSIONS] > 0)
 	{
 		new_named_logk = TRUE;						/*"named_log_k" */
 	}

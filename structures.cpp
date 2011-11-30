@@ -7979,34 +7979,34 @@ get_entity_enum(char *name)
 
 	switch (next_keyword)
 	{
-	case KEY_SOLUTION:					/* Solution */
+	case Keywords::KEY_SOLUTION:					/* Solution */
 		return (Solution);
 		break;
-	case KEY_EQUILIBRIUM_PHASES:		/* Pure phases */
+	case Keywords::KEY_EQUILIBRIUM_PHASES:		/* Pure phases */
 		return (Pure_phase);
 		break;
-	case KEY_REACTION:					/* Reaction */
+	case Keywords::KEY_REACTION:					/* Reaction */
 		return (Reaction);
 		break;
-	case KEY_MIX:						/* Mix */
+	case Keywords::KEY_MIX:						/* Mix */
 		return (Mix);
 		break;
-	case KEY_EXCHANGE:					/* Ex */
+	case Keywords::KEY_EXCHANGE:					/* Ex */
 		return (Exchange);
 		break;
-	case KEY_SURFACE:					/* Surface */
+	case Keywords::KEY_SURFACE:					/* Surface */
 		return (Surface);
 		break;
-	case KEY_REACTION_TEMPERATURE:		/* Temperature */
+	case Keywords::KEY_REACTION_TEMPERATURE:		/* Temperature */
 		return (Temperature);
 		break;
-	case KEY_GAS_PHASE:					/* Gas */
+	case Keywords::KEY_GAS_PHASE:					/* Gas */
 		return (Gas_phase);
 		break;
-	case KEY_KINETICS:					/* Kinetics */
+	case Keywords::KEY_KINETICS:					/* Kinetics */
 		return (Kinetics);
 		break;
-	case KEY_SOLID_SOLUTIONS:			/* solid_solutions */
+	case Keywords::KEY_SOLID_SOLUTIONS:			/* solid_solutions */
 		return (Ss_phase);
 		break;
 	default:
